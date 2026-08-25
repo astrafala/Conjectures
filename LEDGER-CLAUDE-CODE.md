@@ -67,8 +67,8 @@ result is worth more than three forced ones.
 
 # Conjecture-hunt ledger
 
-Last updated 25 Aug 2026. Roster: **28 papers**, files `1-PROOF.pdf` … `28-PROOF.pdf`.
-New results continue from **29-**.
+Last updated 25 Aug 2026. Roster: **30 papers**, files `1-PROOF.pdf` … `30-PROOF.pdf`.
+New results continue from **31-**.
 
 ---
 
@@ -173,6 +173,8 @@ the label. This is now cheap to detect in a sweep: compare the two fields in the
 | 26 | PROOF | A005329 | 2-factorials = inverse binomial transform of A075272 | Layman 2002 |
 | 27 | PROOF | A129364 | `a(n)` divides A092287(n) | Bala 2007 |
 | 28 | PROOF | A062368 | third inverse Möbius transform of `4^omega(n)` | Mathar 2012 |
+| 29 | PROOF | A358272 | `a(n) = Σ_{k≤n} gcd(k,n)·λ(gcd(k,n))` | Schulte 2022 |
+| 30 | PROOF | A358319 | `a(n) = Σ_{k≤n} gcd(k,n)·A076479(gcd(k,n))` | Schulte 2022 |
 
 ### Caveats to disclose when handing these over
 
@@ -191,6 +193,13 @@ the label. This is now cheap to detect in a sweep: compare the two fields in the
   the live list: A129365 is the only one of the 28 that appears.
 - **Paper 4:** a 2014 comment already asserted it true with a verification recipe; the
   paper adds the proof and the reason for the two residues. Thinner novelty.
+- **29 and 30 are one piece of mathematics applied twice.** Both are the gcd-sum lemma
+  `Σ_{k≤n} f(gcd(k,n)) = (f∗φ)(n)` plus a local-factor computation; only the local
+  computation differs. Both papers say so. Not independent results.
+- **29 and 30 are elementary, and both entries already carry the answer unlabelled.**
+  A358272 has Oudra's formula `a(n) = Σ_{d|n} λ(d)·d·φ(n/d)` (May 2025); A358319 has
+  "Equals Dirichlet convolution of A000010 and n·A076479". Each is one application of
+  the lemma from the conjecture. Disclose this — the novelty is thin.
 
 ## 4. DEAD — do not revisit
 
@@ -200,7 +209,9 @@ Resolved: A050295, A067274, A072592, A067793, A067745, A008364 (Dec 20 comment),
 A000040 (Dec 2011 and the *first* Sep 2010 criterion), A000010/A006519/A000215 (Fried
 2025), A063170 (Amdeberhan–Callan–Moll 2012), A092287 square case (Greathouse 2013),
 A092143, A129365 B and C (Adamczewski 2026), A005251 (Fried 2025), A039004 (Hendel 2015
-+ Israel disproof), A034496 (Noe 2010), **A070226 (Eldar, 6 Aug 2026)**, A098016.
++ Israel disproof), A034496 (Noe 2010), **A070226 (Eldar, 6 Aug 2026)**, A098016,
+**A384531 (Radcliffe, June 2025 — proof linked from the entry itself, label not removed;
+same gcd-sum family as 29/30, do not mistake it for open)**.
 
 No conjecture on the entry: A051190, A224479, A036286, A059971, A364812, A224497,
 A027871, A062367, A136380 (and the whole A136378–A136386 block), A063318, A063369,
