@@ -67,8 +67,10 @@ result is worth more than three forced ones.
 
 # Conjecture-hunt ledger
 
-Last updated 25 Aug 2026. Roster: **30 papers**, files `1-PROOF.pdf` … `30-PROOF.pdf`.
-New results continue from **31-**.
+Last updated 25 Aug 2026. Roster: **32 papers**, files `1-PROOF.pdf` … `32-PROOF.pdf`.
+New results continue from **33-**.
+
+**Paper 32 settles 20 OEIS entries at once** — see the note in Section 3.
 
 ---
 
@@ -175,6 +177,8 @@ the label. This is now cheap to detect in a sweep: compare the two fields in the
 | 28 | PROOF | A062368 | third inverse Möbius transform of `4^omega(n)` | Mathar 2012 |
 | 29 | PROOF | A358272 | `a(n) = Σ_{k≤n} gcd(k,n)·λ(gcd(k,n))` | Schulte 2022 |
 | 30 | PROOF | A358319 | `a(n) = Σ_{k≤n} gcd(k,n)·A076479(gcd(k,n))` | Schulte 2022 |
+| 31 | PROOF | A327123 | `a(n) = Σ_{k≤n} sin(gcd(k,n)π/2)`; also corrects the entry | Yanev–Kotesovec 2024 |
+| 32 | PROOF | 20 entries | e.g.f. `G(e^x−1)`, `G` integral ⇒ `a(n) mod m` eventually periodic, period divides `φ(m)` | Bala 2022 |
 
 ### Caveats to disclose when handing these over
 
@@ -193,6 +197,18 @@ the label. This is now cheap to detect in a sweep: compare the two fields in the
   the live list: A129365 is the only one of the 28 that appears.
 - **Paper 4:** a 2014 comment already asserted it true with a verification recipe; the
   paper adds the proof and the reason for the two residues. Thinner novelty.
+- **Paper 32 closes twenty entries with one theorem.** A000670, A002050, A004123, A006531,
+  A052895, A064618, A080253, A162314, A167137, A259533, A301921, A305550, A306082,
+  A316142, A316143, A316144, A320352, A354242, A354253, A355409. It proves the general
+  form Bala states on A000670 and A004123, so all twenty follow at once. Count it as one
+  result covering twenty entries, never as twenty results. If they are ever wanted as
+  separate numbered files (the 19/27 precedent), each would carry the same proof.
+  **A000436 is deliberately NOT claimed** — its e.g.f. `cos x/cos 3x` is not of the
+  required form, but its recovered coefficients are integral as far as computed, so it is
+  left open in the paper. Do not count it.
+- **31 flags a live error on A327123.** Eldar's posted multiplicative formula gives
+  `a(p^e) = 1` for `p ≡ 1 mod 4`; the correct value is `p^e`. It contradicts the entry's
+  own DATA from n=5. The conjecture is unaffected.
 - **29 and 30 are one piece of mathematics applied twice.** Both are the gcd-sum lemma
   `Σ_{k≤n} f(gcd(k,n)) = (f∗φ)(n)` plus a local-factor computation; only the local
   computation differs. Both papers say so. Not independent results.
@@ -210,6 +226,7 @@ A000040 (Dec 2011 and the *first* Sep 2010 criterion), A000010/A006519/A000215 (
 2025), A063170 (Amdeberhan–Callan–Moll 2012), A092287 square case (Greathouse 2013),
 A092143, A129365 B and C (Adamczewski 2026), A005251 (Fried 2025), A039004 (Hendel 2015
 + Israel disproof), A034496 (Noe 2010), **A070226 (Eldar, 6 Aug 2026)**, A098016,
+**A006472 (Himane, arXiv:2404.08646, 2024)**, **A000680 (Fried, Nov 2025)**,
 **A384531 (Radcliffe, June 2025 — proof linked from the entry itself, label not removed;
 same gcd-sum family as 29/30, do not mistake it for open)**.
 
@@ -232,6 +249,8 @@ A063224, A129439.
 | A057856 | literal form false by parity; intended form is generalized-Fermat primality, terms pairwise coprime so no covering argument |
 | A060318 | huge stated bound; base-3 digit condition on `2^k`, Erdős-adjacent (unverified) |
 | A001227 | needs three further entry definitions just to state; deep area |
+| A298826 | conjectures relate to each other but the base definition (A298825/n) is tied to Hardy–Littlewood / twin primes; only partials available |
+| A000436 A000657 A002105 A012780 A126156 A143138 A143139 | same φ(k) periodicity wording as paper 32 but e.g.f. NOT of the form `G(e^x−1)` — outside that theorem, still open |
 
 ## 6. TOOLKIT — what actually closes things
 
