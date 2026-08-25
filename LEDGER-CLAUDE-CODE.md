@@ -281,7 +281,20 @@ Our edge is elsewhere: valuation counting, finite fields, bit columns, transform
 pushed is gone. So:
 
 - This ledger lives in the GitHub repo and gets committed every time it changes.
-- Finished PDFs get delivered in chat **and** committed to the repo.
-- Google Drive holds the master archive of all numbered PDFs. New results get added
-  there as they are produced.
+- Finished PDFs get delivered in chat **and** committed to the repo, under `papers/`.
+  The repo is the complete archive — papers 1–28 are already there.
+- Google Drive folder **"OEIS Conjecture Results"**, id `1aI4ENDG73Yubbes7X1EmzOWcQFJP1zXa`.
+  Every new numbered result gets uploaded there as soon as it is finished. Only finished
+  proofs and disproofs go in — nothing partial, nothing exploratory.
 - Nothing important stays only in the container.
+
+**Drive size limit — matters when generating PDFs.** The Drive connector takes file
+content only as base64 text typed inline in the tool call, so every upload passes through
+one response. Practical ceiling is roughly 100KB of base64, i.e. a PDF under about 70KB.
+
+- Papers 1–28 were built in Claude chat with fonts fully embedded: 150–238KB each, which
+  is over the line. Recompression does not help — the bulk is the fonts. They live in the
+  repo instead.
+- **Build new papers with `reportlab` using the standard PDF fonts** (Helvetica, Times,
+  Courier — do not embed). A five-page paper comes out around 7KB, base64 under 10KB, so
+  the upload is never a problem. Check the byte size before uploading.
