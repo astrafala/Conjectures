@@ -67,8 +67,8 @@ result is worth more than three forced ones.
 
 # Conjecture-hunt ledger
 
-Last updated 25 Aug 2026. Roster: **245 papers**, files `1-PROOF.pdf` … `245-PROOF.pdf`.
-New results continue from **246-**.
+Last updated 25 Aug 2026. Roster: **294 papers**, files `1-PROOF.pdf` … `294-PROOF.pdf`.
+New results continue from **295-**.
 
 ---
 
@@ -398,6 +398,55 @@ the label. This is now cheap to detect in a sweep: compare the two fields in the
 | 243 | PROOF | A270724 | conjectured P-recursive recurrence | Mathar |
 | 244 | PROOF | A278472 | conjectured P-recursive recurrence | Mathar |
 | 245 | PROOF | A279014 | conjectured P-recursive recurrence | Mathar |
+| 246 | PROOF | A025175 | conjectured P-recursive recurrence | Mathar |
+| 247 | PROOF | A025249 | conjectured P-recursive recurrence | Mathar |
+| 248 | PROOF | A025256 | conjectured P-recursive recurrence | Mathar |
+| 249 | PROOF | A025269 | conjectured P-recursive recurrence | Mathar |
+| 250 | PROOF | A025270 | conjectured P-recursive recurrence | Mathar |
+| 251 | PROOF | A025275 | conjectured P-recursive recurrence | Mathar |
+| 252 | PROOF | A025754 | conjectured P-recursive recurrence | Mathar |
+| 253 | PROOF | A025755 | conjectured P-recursive recurrence | Mathar |
+| 254 | PROOF | A026027 | conjectured P-recursive recurrence | Mathar |
+| 255 | PROOF | A063395 | conjectured P-recursive recurrence | Mathar |
+| 256 | PROOF | A067299 | conjectured P-recursive recurrence | Mathar |
+| 257 | PROOF | A072100 | conjectured P-recursive recurrence | Mathar |
+| 258 | PROOF | A097180 | conjectured P-recursive recurrence | Mathar |
+| 259 | PROOF | A097189 | conjectured P-recursive recurrence | Mathar |
+| 260 | PROOF | A098519 | conjectured P-recursive recurrence | Mathar |
+| 261 | PROOF | A098664 | conjectured P-recursive recurrence | Mathar |
+| 262 | PROOF | A101601 | conjectured P-recursive recurrence | Mathar |
+| 263 | PROOF | A103821 | conjectured P-recursive recurrence | Mathar |
+| 264 | PROOF | A105849 | conjectured P-recursive recurrence | Mathar |
+| 265 | PROOF | A106271 | conjectured P-recursive recurrence | Mathar |
+| 266 | PROOF | A106272 | conjectured P-recursive recurrence | Mathar |
+| 267 | PROOF | A110198 | conjectured P-recursive recurrence | Mathar |
+| 268 | PROOF | A112703 | conjectured P-recursive recurrence | Mathar |
+| 269 | PROOF | A116383 | conjectured P-recursive recurrence | Mathar |
+| 270 | PROOF | A118093 | conjectured P-recursive recurrence | Mathar |
+| 271 | PROOF | A119012 | conjectured P-recursive recurrence | Mathar |
+| 272 | PROOF | A127363 | conjectured P-recursive recurrence | Mathar |
+| 273 | PROOF | A133305 | conjectured P-recursive recurrence | Mathar |
+| 274 | PROOF | A133307 | conjectured P-recursive recurrence | Mathar |
+| 275 | PROOF | A133308 | conjectured P-recursive recurrence | Mathar |
+| 276 | PROOF | A141222 | conjectured P-recursive recurrence | Mathar |
+| 277 | PROOF | A164586 | conjectured P-recursive recurrence | Mathar |
+| 278 | PROOF | A166078 | conjectured P-recursive recurrence | Mathar |
+| 279 | PROOF | A166588 | conjectured P-recursive recurrence | Mathar |
+| 280 | PROOF | A167481 | conjectured P-recursive recurrence | Mathar |
+| 281 | PROOF | A174195 | conjectured P-recursive recurrence | Mathar |
+| 282 | PROOF | A181933 | conjectured P-recursive recurrence | Mathar |
+| 283 | PROOF | A185087 | conjectured P-recursive recurrence | Mathar |
+| 284 | PROOF | A188460 | conjectured P-recursive recurrence | Mathar |
+| 285 | PROOF | A192480 | conjectured P-recursive recurrence | Mathar |
+| 286 | PROOF | A194724 | conjectured P-recursive recurrence | Mathar |
+| 287 | PROOF | A210064 | conjectured P-recursive recurrence | Mathar |
+| 288 | PROOF | A211278 | conjectured P-recursive recurrence | Mathar |
+| 289 | PROOF | A215973 | conjectured P-recursive recurrence | Mathar |
+| 290 | PROOF | A218185 | conjectured P-recursive recurrence | Mathar |
+| 291 | PROOF | A227081 | conjectured P-recursive recurrence | Mathar |
+| 292 | PROOF | A262768 | conjectured P-recursive recurrence | Mathar |
+| 293 | PROOF | A273351 | conjectured P-recursive recurrence | Mathar |
+| 294 | PROOF | A274295 | conjectured P-recursive recurrence | Mathar |
 
 ### Caveats to disclose when handing these over
 
@@ -416,7 +465,7 @@ the label. This is now cheap to detect in a sweep: compare the two fields in the
   the live list: A129365 is the only one of the 28 that appears.
 - **Paper 4:** a 2014 comment already asserted it true with a verification recipe; the
   paper adds the proof and the reason for the two residues. Thinner novelty.
-- **Papers 52–245 share one method** (194 entries). Mathar's conjectured holonomic
+- **Papers 52–294 share one method** (243 entries). Mathar's conjectured holonomic
   recurrences. Each is settled by the same three steps: the entry's algebraic g.f. lies in
   `Q(x)[√D]`; the recurrence is equivalent to the residual `B(x) = Σ_i x^i (p_i(θ+i)A)(x)`
   being a polynomial; `B` is computed exactly in that field. Only the entry's `G.f.` and
@@ -509,13 +558,22 @@ A063224, A129439.
   diagonal in the basis of square-root products, so the same test works unchanged.
   **This is the highest-yield tool in the file: 194 entries.**
 
-  **Known ceiling.** OEIS caps a search at ~200 results without a login, so the pool has
-  to be reached through many distinct queries. 132 queries yielded 732 recurrence
-  conjectures and 206 proofs; per-query yield is now 0–2, i.e. the seam is close to
-  worked out at roughly 250–300 proofs total. `seq:<a>,<b>,<c>` slices the space almost
-  disjointly and is the only partitioning trick that worked, but triples harvested from
-  the existing collection just return what is already held. Reaching four figures would
-  need a different vein, not more of this one. Watch for two traps: parse `^(1/2)` as an exact rational or the
+  **Forget the search API. Clone the database.** `git clone --depth 1
+  https://github.com/oeis/oeisdata` gives every entry as a text file (~3 GB, 398,648
+  sequences, all fields). No login, no 200-result cap, no query guessing — grep it.
+  `local_extract.py` does the extraction. This should be the FIRST move of any session.
+
+  **Measured landscape of the whole database (25 Aug 2026):**
+  - **15,585** labelled `Conjecture` lines across **13,760** entries. That is the universe.
+  - **1,192** are P-recursive recurrences. Of those, **555** carry a `G.f.` line, **78**
+    only an `E.g.f.`, **14** a loosely-worded one, and **623** have no generating
+    function at all — those are out of reach of this method.
+  - So the attackable set for the residual method is about **647**, and it converts at
+    roughly 50%. Ceiling: **~330 papers**, not thousands.
+  - The other big classes are **1,804** conjectured closed forms and **462** conjectured
+    generating functions. Untouched, different methods needed, yield unknown.
+  - Everything else (primality, permutation, finiteness, asymptotics) is not mechanically
+    attackable. Watch for two traps: parse `^(1/2)` as an exact rational or the
   arithmetic silently goes floating-point, and always confirm the posted `G.f.` really
   reproduces the entry's DATA before trusting it — that check is what catches a mangled
   parse. Most of the work is reading OEIS's `G.f.` lines: strip trailing prose and
