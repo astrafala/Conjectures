@@ -288,13 +288,47 @@ pushed is gone. So:
   proofs and disproofs go in — nothing partial, nothing exploratory.
 - Nothing important stays only in the container.
 
-**Drive size limit — matters when generating PDFs.** The Drive connector takes file
-content only as base64 text typed inline in the tool call, so every upload passes through
-one response. Practical ceiling is roughly 100KB of base64, i.e. a PDF under about 70KB.
+**Drive cannot take the papers. Measured, 25 Aug 2026 — do not retry.** The connector
+accepts file content only as base64 text typed inline in the tool call, so every upload
+has to pass through a single response. Tested directly: a 92,000-character upload
+overruns the per-response output cap. A LaTeX paper is 150–240KB, i.e. 200,000–320,000
+base64 characters. It does not fit, and at that length a single mistyped character
+would corrupt the PDF anyway.
 
-- Papers 1–28 were built in Claude chat with fonts fully embedded: 150–238KB each, which
-  is over the line. Recompression does not help — the bulk is the fonts. They live in the
-  repo instead.
-- **Build new papers with `reportlab` using the standard PDF fonts** (Helvetica, Times,
-  Courier — do not embed). A five-page paper comes out around 7KB, base64 under 10KB, so
-  the upload is never a problem. Check the byte size before uploading.
+- Small uploads do work — verified end to end with a 388-byte PDF. The folder is live.
+- Recompression does not rescue it: of a 155KB paper, 74KB is embedded Computer Modern
+  subsets, and that overhead is roughly fixed no matter the page count. `pikepdf`
+  recompression saved 0.3%. Dropping T1 encoding or hyperref made it *bigger*.
+- The only way under the line would be abandoning Computer Modern for base-14 fonts
+  (Times/Helvetica), which changes the look. **Not acceptable — format matches the
+  existing 28.**
+- **So: the GitHub repo is the archive.** `git add` has no size limit and all 28 are
+  already in `papers/`. Commit every new paper there. The user drags files to Drive
+  themselves when they want them there.
+
+## 9. HOW TO BUILD A PAPER
+
+`pdflatex` is not in the image. Install it first:
+`apt-get update -qq && apt-get install -y -qq --no-install-recommends texlive-latex-base
+texlive-latex-recommended texlive-science texlive-fonts-recommended`
+
+House format, taken from the existing 28 — match it:
+
+- `article`, 11pt, a4paper, 1in margins, `amsmath/amssymb/amsthm`, `hyperref` with
+  `colorlinks`. Computer Modern. Produced by pdfTeX.
+- Title states the result and names the A-number. Author: Adrian Perez Fontelles,
+  Independent researcher, then the date.
+- Optional MSC line (papers 2 and 11 carry one).
+- Abstract: the object, who conjectured it and when, and one sentence on the method.
+- §1 "The conjecture" or "The sequence(s) and the conjecture" — give the definition, the
+  first terms, then **quote the conjecture verbatim in a `quote` block with the
+  contributor's name and date**, and state that it is still open as of the entry's
+  "Last modified" line.
+- Middle sections carry the mathematics, one idea per section.
+- A "Verification" or "Computational verification" section near the end, reporting the
+  ranges actually checked.
+- "Concluding remarks" where there is something to say, then `thebibliography`, always
+  citing the OEIS entry and the relevant comment by author and date.
+- 3–5 pages. Explain every step — these are written to be read, not compressed.
+
+Then: deliver the PDF in chat, and commit it to `papers/`.
