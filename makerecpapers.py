@@ -3,15 +3,20 @@
 
 Each paper stands alone and refers to no other.
 """
-import json, os, re, subprocess
+import json, os, re, signal, subprocess
 import sympy as sp
-from prove_rec import parse_gf, parse_conj
+from prove_rec import parse_gf, parse_conj, residual_poly
 import quadfield as qf
+import multiquad as mq
 
 n = sp.Symbol('n')
 x = sp.Symbol('x')
 
-OPEN = json.load(open("rec-open.json"))
+import sys
+_all = json.load(open("rec-open.json"))
+_sel = [l.strip() for l in open("new-entries.txt")][:100] if os.path.exists("new-entries.txt") else sorted(_all)
+OPEN = {a: _all[a] for a in _sel if a in _all}
+START = int(os.environ.get("START", "101"))
 
 
 def tex_escape(s):
@@ -169,7 +174,7 @@ are decided by exact cancellation of rational functions.
 
 \section{The computation for %(ANUM)s}
 
-The generating function \eqref{eq:gf} lies in $K=\mathbb{Q}(x)[\sqrt{D}]$ with
+The generating function \eqref{eq:gf} lies in $K=%(FIELD)s$ with
 \[
 D \;=\; %(DLATEX)s .
 \]
@@ -233,23 +238,50 @@ University Press, 1999, Chapter 6 (algebraic and D-finite generating functions).
 """
 
 
+RES = json.load(open("rec-results.json"))
+
+
+class _TO(Exception):
+    pass
+
+
+def _alarm(sig, frm):
+    raise _TO()
+
+
+signal.signal(signal.SIGALRM, _alarm)
+
+
 def build():
     os.makedirs("build_rec", exist_ok=True)
     os.makedirs("papers", exist_ok=True)
-    num = 52
+    num = START
     made = []
-    for a in sorted(OPEN):
+    for a in _sel:
+        if a not in OPEN:
+            continue
+        if os.path.exists(f"papers/{num}-PROOF.pdf"):
+            num += 1
+            continue
         v = OPEN[a]
         from holonomic import taylor
+        info = RES.get(a, {})
+        sh = info.get("shift", 0) or 0
+        src = info.get("gf_src")
         A = None
-        for g in v["gfs"]:
+        for g in ([src] if src else []) + v["gfs"]:
+            if g is None:
+                continue
             try:
-                cand = parse_gf(g, 'x')
-                N0 = min(len(v["data"]) - 1, 12)
-                tt = taylor(cand, N0 + max(v["offset"], 0) + 2)
-                vals = tt[v["offset"]:v["offset"] + N0 + 1]
-                if all(sp.simplify(vals[k] - v["data"][k]) == 0 for k in range(N0 + 1)):
-                    A = cand
+                G = parse_gf(g, 'x', raw=g)
+                N0 = min(len(v["data"]) - 1, 11)
+                base = taylor(G, v["offset"] + N0 + 6)
+                idx = [v["offset"] + k - sh for k in range(N0 + 1)]
+                if any(i < 0 or i >= len(base) for i in idx):
+                    continue
+                if all(sp.simplify(base[i] - v["data"][k]) == 0
+                       for k, i in enumerate(idx)):
+                    A = sp.together(x ** sh * G)
                     break
             except Exception:
                 continue
@@ -257,13 +289,23 @@ def build():
             print(f"     skip {a}: no g.f. reproduces the terms")
             continue
         ps = parse_conj(v["conj"])
-        q = qf.to_quad(A)
-        r = qf.residual(q, ps, n)
-        ok, B = qf.is_polynomial(r)
-        if not ok:
-            print(f'     skip {a}: residual not polynomial on recheck')
+        try:
+            deg, B = residual_poly(A, ps)
+        except Exception as e:
+            print(f"     skip {a}: {e}")
             continue
-        deg = sp.Poly(B, x).total_degree() if B != 0 else 0
+        if deg is None:
+            print(f"     skip {a}: residual not polynomial on recheck")
+            continue
+        q = qf.to_quad(A)
+        if q is not None:
+            Dtex = sp.latex(sp.factor(q[2]))
+            fieldtex = r"\mathbb{Q}(x)[\sqrt{D}]"
+        else:
+            mm = mq.to_multi(A)
+            Ds = mm[1] if mm else []
+            Dtex = ",\quad ".join(sp.latex(sp.factor(D)) for D in Ds)
+            fieldtex = (r"\mathbb{Q}(x)\bigl[\sqrt{D_{1}},\dots,\sqrt{D_{%d}}\bigr]" % len(Ds)) if Ds else r"\mathbb{Q}(x)"
         off = v["offset"]
         subs = {
             "ANUM": a,
@@ -272,7 +314,8 @@ def build():
             "FIRSTTERMS": (f"a({off}),\\dots,a({off+7})\\;=\\;"
                            + ", ".join(str(t) for t in v["data"][:8]) + ",\\ \\dots"),
             "GFLATEX": sp.latex(sp.simplify(A)),
-            "DLATEX": sp.latex(sp.factor(q[2])),
+            "DLATEX": Dtex,
+            "FIELD": fieldtex,
             "BLATEX": sp.latex(B),
             "DEG": deg,
             "ORDER": len(ps) - 1,

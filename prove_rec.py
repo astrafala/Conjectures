@@ -17,12 +17,27 @@ import json, re, sys
 import sympy as sp
 from holonomic import x, n, theta, apply_poly_in_theta, taylor
 import quadfield as qf
+import multiquad as mq
 
 A_ = sp.Function('a')
 
 
 def catalan(t):
     return (1 - sp.sqrt(1 - 4 * t)) / (2 * t)
+
+
+def motzkin(t):
+    return (1 - t - sp.sqrt(1 - 2 * t - 3 * t ** 2)) / (2 * t ** 2)
+
+
+def inline_defs(raw):
+    """Pick up 'where C = <expr>' / 'C=(...)' definitions stated next to the g.f."""
+    out = {}
+    for m in re.finditer(r'\bwhere\s+([A-Za-z])\s*(?:\([a-z]\))?\s*=\s*([^,.;]+)', raw):
+        out[m.group(1)] = m.group(2).strip()
+    for m in re.finditer(r'\b([A-Z])\s*=\s*(\([^,;]*?\)/\([^,;]*?\))', raw):
+        out.setdefault(m.group(1), m.group(2).strip())
+    return out
 
 
 def split_top_comma(s):
@@ -40,7 +55,8 @@ def split_top_comma(s):
 def normalise(s):
     s = s.strip().rstrip('.').strip()
     for cut in (' where ', ', where', ' - _', ';', ' for ', ' with ', ' and ', ' is ',
-                ' satisfies', ' see ', ' Cf.'):
+                ' satisfies', ' see ', ' Cf.', '(conjectured', ' conjectured',
+                ' (empirical', ' empirical'):
         s = s.split(cut)[0]
     s = split_top_comma(s)
     # drop a leading "A(x) =" / "G(x) =" style label, keep the last right-hand side
@@ -50,6 +66,7 @@ def normalise(s):
         s = cand[-1] if cand else parts[-1]
     s = s.strip()
     s = s.replace('^', '**').replace('[', '(').replace(']', ')')
+    s = s.replace('{', '(').replace('}', ')')
     s = s.replace(' ', '')
     # implicit multiplication, in safe patterns only
     s = re.sub(r'(\d)([a-zA-Z(])', r'\1*\2', s)      # 2x -> 2*x ,  2( -> 2*(
@@ -58,14 +75,33 @@ def normalise(s):
     s = re.sub(r'([xt])([a-zA-Z_])', lambda m: m.group(0)
                if m.group(0) in ('sq',) else m.group(1) + '*' + m.group(2), s)
     s = s.replace('s*qrt', 'sqrt').replace('sq*rt', 'sqrt')
+    s = s.strip().rstrip('.').strip()
+    while s.count('(') > s.count(')'):
+        s += ')'
+    while s.count(')') > s.count('(') and s.endswith(')'):
+        s = s[:-1]
     return s
 
 
-def parse_gf(s, var):
+def parse_gf(s, var, raw=None):
+    raw = raw if raw is not None else s
+    defs = inline_defs(raw)
     s = normalise(s)
+    # strip a leading parenthetical aside such as "(with offset 0 instead of 1):"
+    s = re.sub(r'^\(([^()]*[A-Za-z][^()]*)\)\s*:\s*', '', s)
     if re.search(r'sum|prod|integral|series_reversion|d/dx|\.\.\.', s, re.I):
         raise ValueError('non-closed-form g.f.')
-    loc = {'sqrt': sp.sqrt, 'c': catalan, var: x, 'x': x, 't': x}
+    loc = {'sqrt': sp.sqrt, 'c': catalan, 'C': catalan, var: x, 'x': x, 't': x, 'z': x}
+    if re.search(r'Motzkin', raw, re.I):
+        loc['M'] = motzkin
+        loc['m'] = motzkin
+    for name, body in defs.items():
+        try:
+            val = sp.sympify(normalise(body), locals=dict(loc), rational=True)
+            if not (val.free_symbols - {x}):
+                loc[name] = val
+        except Exception:
+            pass
     e = sp.sympify(s, locals=loc, rational=True)
     e = sp.nsimplify(e, rational=True) if e.atoms(sp.Float) else e
     if e.free_symbols - {x}:
@@ -104,10 +140,16 @@ def parse_conj(s):
 def residual_poly(A, ps, maxdeg=8):
     """Exact: returns (degree, B) if the residual is a polynomial, else (None, None)."""
     q = qf.to_quad(A)
-    if q is None:
-        raise ValueError("g.f. not in a single quadratic extension of Q(x)")
-    r = qf.residual(q, ps, n)
-    ok, poly = qf.is_polynomial(r)
+    if q is not None:
+        r = qf.residual(q, ps, n)
+        ok, poly = qf.is_polynomial(r)
+    else:
+        m = mq.to_multi(A)
+        if m is None:
+            raise ValueError("g.f. not in a multiquadratic extension of Q(x)")
+        coeffs, Ds = m
+        r = mq.residual(coeffs, Ds, ps, n)
+        ok, poly = mq.is_polynomial(r)
     if not ok:
         return None, None
     poly = sp.expand(poly)
@@ -139,41 +181,37 @@ def run(entries, verbose=True, per_entry=40):
         signal.alarm(per_entry)
         try:
             A = None
+            off0 = v["offset"]
+            N0 = min(len(v["data"]) - 1, 11)
             for gf_src in v["gfs"]:
                 var = 't' if re.search(r'\bt\b', gf_src) and 'x' not in gf_src else 'x'
                 try:
-                    cand = parse_gf(gf_src, var)
+                    G = parse_gf(gf_src, var, raw=gf_src)
                 except Exception:
                     continue
-                off0 = v["offset"]
-                N0 = min(len(v["data"]) - 1, 12)
                 try:
-                    tt = taylor(cand, N0 + max(off0, 0) + 2)
-                    vals = tt[off0:off0 + N0 + 1]
-                    if all(sp.simplify(vals[k] - v["data"][k]) == 0 for k in range(N0 + 1)):
-                        A = cand
-                        break
+                    base = taylor(G, off0 + N0 + 6)      # expanded ONCE
                 except Exception:
                     continue
+                for sh in (0, 1, 2, -1, -2, 3, -3):
+                    idx = [off0 + k - sh for k in range(N0 + 1)]
+                    if any(i < 0 or i >= len(base) for i in idx):
+                        continue
+                    if all(sp.simplify(base[i] - v["data"][k]) == 0
+                           for k, i in enumerate(idx)):
+                        A = sp.together(x ** sh * G)
+                        rec["shift"] = sh
+                        rec["gf_src"] = gf_src
+                        break
+                if A is not None:
+                    break
             if A is None:
                 rec["status"] = "no posted g.f. parses and matches the terms"
                 results[a] = rec
                 if verbose:
                     print(f"{a}  SKIP  {rec['status']}")
                 continue
-            ok, bad, got = None, None, None
-            off = v["offset"]
-            N = min(len(v["data"]) - 1, 14)
-            t = taylor(A, N + max(off, 0) + 2)
-            series_vals = [sp.simplify(u) for u in t[off:off + N + 1]] if off >= 0 else None
-            ok = series_vals is not None and all(
-                sp.simplify(series_vals[k] - v["data"][k]) == 0 for k in range(N + 1))
-            if not ok:
-                rec["status"] = "gf does not match published terms"
-                results[a] = rec
-                if verbose:
-                    print(f"{a}  SKIP  {rec['status']}")
-                continue
+            N = N0
             ps = parse_conj(v["conj"])
             deg, B = residual_poly(A, ps)
             if deg is None:
