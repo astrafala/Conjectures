@@ -67,8 +67,8 @@ result is worth more than three forced ones.
 
 # Conjecture-hunt ledger
 
-Last updated 25 Aug 2026. Roster: **313 papers**, files `1-PROOF.pdf` … `313-PROOF.pdf`.
-New results continue from **314-**.
+Last updated 25 Aug 2026. Roster: **319 papers**, files `1-PROOF.pdf` … `319-PROOF.pdf`.
+New results continue from **320-**.
 
 ---
 
@@ -595,6 +595,27 @@ A063224, A129439.
   - **Conjectured generating functions: 121 entries, and only 3** also post an
     independent recurrence to check them against. Effectively a dead class for a
     mechanical method — there is nothing to prove the g.f. *from*.
+
+  **THE MECHANICAL SEAMS ARE EXHAUSTED. Read this before spending a session re-mining.**
+  Every route below was taken to the end against the full local clone:
+  - recurrence + posted `G.f.` — 525 candidates, mined
+  - recurrence + `E.g.f.` only — 65 candidates, 8 close; the rest are transcendental
+    (`exp`, `log`, `cosh`) and no algebraic method reaches them
+  - recurrence + g.f. stated in the NAME (`Expansion of ...`) — 73 found, +6
+  - recurrence + an explicit `a(n)=` formula to derive the g.f. from — 175 entries,
+    **0 usable**: none of those formulas is an elementary combination of `n^k r^n`
+  - recurrence with no formula at all — 323 entries, out of reach
+  - gcd-sum conjectures — **5 exist in the whole database**, 3 proved (29–31), 1 already
+    settled by Radcliffe, 1 (A373561) is a quadruple sum needing a counting argument
+  - `phi(k)` periodicity — **39 exist**, all examined
+  - closed forms — 34 usable, 8 close
+  What remains of the 15,585 is inequalities (~2,800), "for all n" claims (~1,500),
+  limits and asymptotics (~400), sum identities (~270), congruences, primality,
+  permutation and finiteness statements. **None of these yields to exact algebra over
+  Q(x); they need actual mathematical ideas, one at a time.** The next real gain would
+  come from a different engine — creative telescoping for the sum identities, or a
+  holonomic ODE solver for the transcendental generating functions — not from more
+  sweeping.
   - Everything else (primality, permutation, finiteness, asymptotics) is not mechanically
     attackable.
 
