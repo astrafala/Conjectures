@@ -67,8 +67,8 @@ result is worth more than three forced ones.
 
 # Conjecture-hunt ledger
 
-Last updated 25 Aug 2026. Roster: **328 papers**, files `1-PROOF.pdf` … `328-PROOF.pdf`.
-New results continue from **329-**.
+Last updated 25 Aug 2026. Roster: **330 papers**, files `1-PROOF.pdf` … `330-PROOF.pdf`.
+New results continue from **331-**.
 
 ---
 
@@ -477,6 +477,22 @@ the label. This is now cheap to detect in a sweep: compare the two fields in the
 - **Paper 4:** a 2014 comment already asserted it true with a verification recipe; the
   paper adds the proof and the reason for the two residues. Thinner novelty.
 - **Papers 52–305 share one method** (254 entries; 298–305 use the e.g.f. variant).
+- **Papers 329, 330 are NOT mechanical, and point at the one seam still worth mining.**
+  Both are conjectures asserting that a sequence equals a *convergent infinite series*
+  `Sum_k k^n * <hypergeometric in k> * r^k`. The trick: form the e.g.f. of the right-hand
+  side and exchange the order of summation. The `k^n` is exactly what an e.g.f. produces,
+  so the inner sum collapses to a known generating function evaluated at `e^x * r`, and
+  the awkward constants in the conjecture (the `3^(k+1/2)`, the `2^(-3k-1/2)`) turn out to
+  be precisely the normalisation that makes it match. Tonelli justifies the swap on the
+  disc where the e.g.f. is analytic, and comparing Taylor coefficients settles all `n` at
+  once.
+  **This also explains the caveats.** A352117's conjecture says `n > 0` because the sum
+  omits `k = 0`, which removes a constant `1/sqrt(2)` from the e.g.f., and a constant can
+  only disturb the coefficient of `x^0`. The method predicts the exact size of the failure
+  at `n = 0`, and it checks out numerically.
+  **Look for more of these**: `Conjecture: a(n) = Sum_{k>=0} k^n * ...` on an entry with a
+  known e.g.f. It is a small class but each one is a real result, and no sweep finds them
+  because the summand is an infinite series rather than an identity between finite objects.
 - **Papers 306–313 are the closed-form variant** (8 entries). Same idea in a new place:
   the conjectured `f(n)` is a combination of `n^k r^n`, so its g.f. is `p(theta)` applied
   to `1/(1-r x)`; subtract the entry's posted g.f. and test the difference for being a
