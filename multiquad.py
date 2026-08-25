@@ -15,6 +15,17 @@ import sympy as sp
 
 x = sp.Symbol('x')
 
+def _has_nested_radical(expr):
+    """A radical inside another radical: the reductions here assume independent
+    radicands, so such an expression must be refused rather than mis-reduced."""
+    for a in expr.atoms(sp.Pow):
+        if a.exp in (sp.Rational(1, 2), -sp.Rational(1, 2)):
+            for b in a.base.atoms(sp.Pow):
+                if b.exp in (sp.Rational(1, 2), -sp.Rational(1, 2)):
+                    return True
+    return False
+
+
 
 def _radicands(expr):
     rs = []
@@ -27,6 +38,8 @@ def _radicands(expr):
 
 
 def to_multi(expr, maxk=3):
+    if _has_nested_radical(expr):
+        return None
     """Return (coeffs, Ds) with expr = sum_S coeffs[S] * prod_{i in S} sqrt(Ds[i])."""
     Ds = _radicands(expr)
     if len(Ds) > maxk:
@@ -143,6 +156,17 @@ def is_polynomial(r):
             return False, None
     c = sp.cancel(sp.together(r.get(frozenset(), sp.Integer(0))))
     num, den = sp.fraction(c)
-    if sp.Poly(den, x).total_degree() != 0:
+    if not den.is_polynomial(x) or sp.Poly(den, x).total_degree() != 0:
         return False, None
-    return True, sp.expand(sp.cancel(c))
+    out = sp.expand(sp.cancel(c))
+    if not out.is_polynomial(x) or (out.free_symbols - {x}):
+        return False, None
+    return True, out
+
+
+def deriv(coeffs, Ds):
+    out = {}
+    for S, c in coeffs.items():
+        extra = sum(sp.diff(Ds[i], x) / (2 * Ds[i]) for i in S)
+        out[S] = sp.cancel(sp.diff(c, x) + c * extra)
+    return out

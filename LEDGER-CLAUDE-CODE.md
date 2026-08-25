@@ -67,8 +67,8 @@ result is worth more than three forced ones.
 
 # Conjecture-hunt ledger
 
-Last updated 25 Aug 2026. Roster: **294 papers**, files `1-PROOF.pdf` … `294-PROOF.pdf`.
-New results continue from **295-**.
+Last updated 25 Aug 2026. Roster: **305 papers**, files `1-PROOF.pdf` … `305-PROOF.pdf`.
+New results continue from **306-**.
 
 ---
 
@@ -447,6 +447,17 @@ the label. This is now cheap to detect in a sweep: compare the two fields in the
 | 292 | PROOF | A262768 | conjectured P-recursive recurrence | Mathar |
 | 293 | PROOF | A273351 | conjectured P-recursive recurrence | Mathar |
 | 294 | PROOF | A274295 | conjectured P-recursive recurrence | Mathar |
+| 295 | PROOF | A115967 | conjectured P-recursive recurrence | Mathar |
+| 296 | PROOF | A182892 | conjectured P-recursive recurrence | Mathar |
+| 297 | PROOF | A182894 | conjectured P-recursive recurrence | Mathar |
+| 298 | PROOF | A000483 | conjectured P-recursive recurrence (e.g.f.) | Mathar |
+| 299 | PROOF | A001712 | conjectured P-recursive recurrence (e.g.f.) | Mathar |
+| 300 | PROOF | A002867 | conjectured P-recursive recurrence (e.g.f.) | Mathar |
+| 301 | PROOF | A034863 | conjectured P-recursive recurrence (e.g.f.) | Mathar |
+| 302 | PROOF | A051524 | conjectured P-recursive recurrence (e.g.f.) | Mathar |
+| 303 | PROOF | A081046 | conjectured P-recursive recurrence (e.g.f.) | Mathar |
+| 304 | PROOF | A081052 | conjectured P-recursive recurrence (e.g.f.) | Mathar |
+| 305 | PROOF | A111779 | conjectured P-recursive recurrence (e.g.f.) | Mathar |
 
 ### Caveats to disclose when handing these over
 
@@ -465,7 +476,7 @@ the label. This is now cheap to detect in a sweep: compare the two fields in the
   the live list: A129365 is the only one of the 28 that appears.
 - **Paper 4:** a 2014 comment already asserted it true with a verification recipe; the
   paper adds the proof and the reason for the two residues. Thinner novelty.
-- **Papers 52–294 share one method** (243 entries). Mathar's conjectured holonomic
+- **Papers 52–305 share one method** (254 entries; 298–305 use the e.g.f. variant). Mathar's conjectured holonomic
   recurrences. Each is settled by the same three steps: the entry's algebraic g.f. lies in
   `Q(x)[√D]`; the recurrence is equivalent to the residual `B(x) = Σ_i x^i (p_i(θ+i)A)(x)`
   being a polynomial; `B` is computed exactly in that field. Only the entry's `G.f.` and
@@ -573,7 +584,26 @@ A063224, A129439.
   - The other big classes are **1,804** conjectured closed forms and **462** conjectured
     generating functions. Untouched, different methods needed, yield unknown.
   - Everything else (primality, permutation, finiteness, asymptotics) is not mechanically
-    attackable. Watch for two traps: parse `^(1/2)` as an exact rational or the
+    attackable.
+
+  **Two soundness traps, both found the hard way — keep the guards.**
+  1. *Polynomiality must actually be tested.* The residual test asks whether `B` is a
+     polynomial. Checking only that its denominator is constant lets a transcendental
+     residual through (`log(1-x)` has denominator 1). `is_polynomial` now calls
+     `.is_polynomial(x)` on the result. Re-running all 255 proofs under the fixed test
+     cost 2 of them.
+  2. *Nested radicals must be refused.* `sqrt((2 - 2*sqrt(1-4*x) - 3*x)/x)` is degree 4
+     but NOT multiquadratic — the reductions assume independent radicands and silently
+     mis-reduce it. `_has_nested_radical` now rejects such expressions in both fields.
+     This is what invalidated the original paper 170 (A166135); its conjecture still
+     holds on every published term, but the proof was wrong, so it was withdrawn and the
+     slot rebuilt from A107231. **A166135 remains open — do not count it.**
+
+  **E.g.f. variant.** For entries giving an e.g.f., re-index the recurrence forward
+  (`n = m+r`, `j = r-i`) so shifts become derivatives rather than integrals; then
+  `B = Sum_j q_j(theta)[A^(j)]` and the same polynomiality test applies. Only 8 of 65
+  such entries close: most e.g.f.s in this class are transcendental (`exp`, `log`,
+  `cosh`) and fall outside an algebraic method entirely. Watch for two traps: parse `^(1/2)` as an exact rational or the
   arithmetic silently goes floating-point, and always confirm the posted `G.f.` really
   reproduces the entry's DATA before trusting it — that check is what catches a mangled
   parse. Most of the work is reading OEIS's `G.f.` lines: strip trailing prose and

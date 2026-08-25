@@ -17,10 +17,23 @@ truncation, no numerics -- the verdict is a proof.
 import sympy as sp
 
 x = sp.Symbol('x')
+
+def _has_nested_radical(expr):
+    """A radical inside another radical: the reductions here assume independent
+    radicands, so such an expression must be refused rather than mis-reduced."""
+    for a in expr.atoms(sp.Pow):
+        if a.exp in (sp.Rational(1, 2), -sp.Rational(1, 2)):
+            for b in a.base.atoms(sp.Pow):
+                if b.exp in (sp.Rational(1, 2), -sp.Rational(1, 2)):
+                    return True
+    return False
+
 s = sp.Symbol('s')
 
 
 def to_quad(expr):
+    if _has_nested_radical(expr):
+        return None
     """Write expr as (u, v, D) with expr = u + v*sqrt(D), u,v,D in Q(x). None if not possible."""
     rads = {a.args[0] for a in expr.atoms(sp.Pow)
             if a.exp == sp.Rational(1, 2) or a.exp == -sp.Rational(1, 2)}
@@ -102,6 +115,17 @@ def is_polynomial(r):
         return False, None
     u = sp.cancel(sp.together(u))
     num, den = sp.fraction(u)
-    if sp.Poly(den, x).total_degree() != 0:
+    if not den.is_polynomial(x) or sp.Poly(den, x).total_degree() != 0:
         return False, None
-    return True, sp.expand(sp.cancel(u))
+    out = sp.expand(sp.cancel(u))
+    if not out.is_polynomial(x) or (out.free_symbols - {x}):
+        return False, None
+    return True, out
+
+
+def deriv(uvD):
+    """Plain d/dx on u + v*sqrt(D); the field is closed under it too."""
+    u, v, D = uvD
+    du = sp.cancel(sp.diff(u, x))
+    dv = sp.cancel(sp.diff(v, x) + v * sp.diff(D, x) / (2 * D))
+    return (du, dv, D)
