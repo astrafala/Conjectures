@@ -85,7 +85,7 @@ def main():
     queries = sys.argv[1:] or ["conjecture+valuation"]
     total = []
     for q in queries:
-        hits = sweep(q, pages=8, cache=cache)
+        hits = sweep(q, pages=int(os.environ.get("PAGES","8")), cache=cache)
         print(f"[{q}] {len(hits)} newly labelled")
         total += hits
     with open(CACHE, "w") as fh:
