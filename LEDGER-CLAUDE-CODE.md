@@ -67,8 +67,8 @@ result is worth more than three forced ones.
 
 # Conjecture-hunt ledger
 
-Last updated 25 Aug 2026. Roster: **319 papers**, files `1-PROOF.pdf` … `319-PROOF.pdf`.
-New results continue from **320-**.
+Last updated 25 Aug 2026. Roster: **328 papers**, files `1-PROOF.pdf` … `328-PROOF.pdf`.
+New results continue from **329-**.
 
 ---
 
@@ -595,6 +595,28 @@ A063224, A129439.
   - **Conjectured generating functions: 121 entries, and only 3** also post an
     independent recurrence to check them against. Effectively a dead class for a
     mechanical method — there is nothing to prove the g.f. *from*.
+
+  **A NEW ENGINE REOPENED PART OF THIS — see `logexp.py`.** The claim below that
+  transcendental generating functions are unreachable was WRONG, and wrong for two
+  reasons worth remembering.
+
+  1. **`exp` and `log` generate a differential module, not just a field.** Monomials
+     `log(u)^a * exp(g)^k` span a finitely generated `Q(x)`-module closed under `d/dx`:
+     the exponential part never mixes monomials, and the log part only ever moves
+     *downwards*, so every computation terminates. The residual test transfers verbatim —
+     `B` is a polynomial iff every coefficient outside the constant monomial vanishes.
+     This is the same idea as `quadfield`/`multiquad` with different atoms, and it is the
+     right way to think about the whole family: **pick atoms closed under `D`, then test.**
+     Coefficients may themselves carry a `sqrt` and it stays sound, because the final
+     polynomiality test is strict — it can lose a proof, never invent one.
+  2. **A parser bug had been hiding the class the whole time.** The implicit-multiplication
+     rule "an `x` or `t` followed by a letter" was shredding every function name
+     containing one: `exp` -> `ex*p`. So *no `exp` anywhere in OEIS had ever parsed*, in
+     any class. Function names are now masked before that rule runs. **When a whole class
+     looks empty, suspect the parser before concluding the mathematics is out of reach.**
+
+  Result: papers 320–328, nine recurrences with transcendental e.g.f.s. Running the same
+  engine over the 859 o.g.f. entries found nothing further — those are algebraic.
 
   **THE MECHANICAL SEAMS ARE EXHAUSTED. Read this before spending a session re-mining.**
   Every route below was taken to the end against the full local clone:

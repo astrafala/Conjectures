@@ -72,9 +72,22 @@ def normalise(s):
     s = re.sub(r'(\d)([a-zA-Z(])', r'\1*\2', s)      # 2x -> 2*x ,  2( -> 2*(
     s = re.sub(r'\)([a-zA-Z0-9(])', r')*\1', s)       # )x  )2  )(  )sqrt
     s = re.sub(r'\*\*\*', '**', s)
-    s = re.sub(r'([xt])([a-zA-Z_])', lambda m: m.group(0)
-               if m.group(0) in ('sq',) else m.group(1) + '*' + m.group(2), s)
-    s = s.replace('s*qrt', 'sqrt').replace('sq*rt', 'sqrt')
+    # protect function names before inserting implicit multiplication, or a rule
+    # like "x followed by a letter" will shred exp -> ex*p, next -> ne*x*t, etc.
+    FUNCS = ['arcsinh', 'arccosh', 'arctanh', 'arcsin', 'arccos', 'arctan',
+             'binomial', 'hypergeom', 'LambertW', 'serreverse', 'Product',
+             'ceiling', 'sqrt', 'sinh', 'cosh', 'tanh', 'asin', 'acos', 'atan',
+             'floor', 'gamma', 'zeta', 'Sum', 'exp', 'log', 'sin', 'cos', 'tan',
+             'abs', 'Pi']
+    holes = {}
+    for i, fname in enumerate(FUNCS):
+        tok = f'@{i}@'
+        if fname in s:
+            s = s.replace(fname, tok)
+            holes[tok] = fname
+    s = re.sub(r'([xt])([a-zA-Z_])', r'\1*\2', s)
+    for tok, fname in holes.items():
+        s = s.replace(tok, fname)
     s = s.strip().rstrip('.').strip()
     while s.count('(') > s.count(')'):
         s += ')'
@@ -91,7 +104,10 @@ def parse_gf(s, var, raw=None):
     s = re.sub(r'^\(([^()]*[A-Za-z][^()]*)\)\s*:\s*', '', s)
     if re.search(r'sum|prod|integral|series_reversion|d/dx|\.\.\.', s, re.I):
         raise ValueError('non-closed-form g.f.')
-    loc = {'sqrt': sp.sqrt, 'c': catalan, 'C': catalan, var: x, 'x': x, 't': x, 'z': x}
+    loc = {'sqrt': sp.sqrt, 'c': catalan, 'C': catalan, var: x, 'x': x, 't': x, 'z': x,
+           'exp': sp.exp, 'log': sp.log, 'sin': sp.sin, 'cos': sp.cos, 'tan': sp.tan,
+           'sinh': sp.sinh, 'cosh': sp.cosh, 'tanh': sp.tanh, 'Pi': sp.pi,
+           'binomial': sp.binomial, 'floor': sp.floor, 'gamma': sp.gamma}
     if re.search(r'Motzkin', raw, re.I):
         loc['M'] = motzkin
         loc['m'] = motzkin
