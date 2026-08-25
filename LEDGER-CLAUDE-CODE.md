@@ -67,8 +67,8 @@ result is worth more than three forced ones.
 
 # Conjecture-hunt ledger
 
-Last updated 25 Aug 2026. Roster: **305 papers**, files `1-PROOF.pdf` … `305-PROOF.pdf`.
-New results continue from **306-**.
+Last updated 25 Aug 2026. Roster: **313 papers**, files `1-PROOF.pdf` … `313-PROOF.pdf`.
+New results continue from **314-**.
 
 ---
 
@@ -476,7 +476,13 @@ the label. This is now cheap to detect in a sweep: compare the two fields in the
   the live list: A129365 is the only one of the 28 that appears.
 - **Paper 4:** a 2014 comment already asserted it true with a verification recipe; the
   paper adds the proof and the reason for the two residues. Thinner novelty.
-- **Papers 52–305 share one method** (254 entries; 298–305 use the e.g.f. variant). Mathar's conjectured holonomic
+- **Papers 52–305 share one method** (254 entries; 298–305 use the e.g.f. variant).
+- **Papers 306–313 are the closed-form variant** (8 entries). Same idea in a new place:
+  the conjectured `f(n)` is a combination of `n^k r^n`, so its g.f. is `p(theta)` applied
+  to `1/(1-r x)`; subtract the entry's posted g.f. and test the difference for being a
+  polynomial. **Do not test for the difference being zero** — these claims almost always
+  hold only past a small boundary, and requiring `F = A` scores every one of them as a
+  mismatch. That mistake cost a full pass before it was spotted. Mathar's conjectured holonomic
   recurrences. Each is settled by the same three steps: the entry's algebraic g.f. lies in
   `Q(x)[√D]`; the recurrence is equivalent to the residual `B(x) = Σ_i x^i (p_i(θ+i)A)(x)`
   being a polynomial; `B` is computed exactly in that field. Only the entry's `G.f.` and
@@ -581,8 +587,14 @@ A063224, A129439.
     function at all — those are out of reach of this method.
   - So the attackable set for the residual method is about **647**, and it converts at
     roughly 50%. Ceiling: **~330 papers**, not thousands.
-  - The other big classes are **1,804** conjectured closed forms and **462** conjectured
-    generating functions. Untouched, different methods needed, yield unknown.
+  - **Closed forms: attacked, and the class is far thinner than its headline number.**
+    Of the ~1,100 lines matching `Conjecture: a(n) = ...`, only **34** are an elementary
+    formula in `n` on an entry that also posts a `G.f.` The rest are sums, references to
+    other A-numbers, integrals, `floor`/`mod`, or congruences dressed as formulas. Of
+    those 34, **8** close. Papers 306–313.
+  - **Conjectured generating functions: 121 entries, and only 3** also post an
+    independent recurrence to check them against. Effectively a dead class for a
+    mechanical method — there is nothing to prove the g.f. *from*.
   - Everything else (primality, permutation, finiteness, asymptotics) is not mechanically
     attackable.
 
