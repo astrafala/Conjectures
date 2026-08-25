@@ -17,6 +17,8 @@ def fetch(query, start):
         d = json.loads(out)
     except json.JSONDecodeError:
         return []
+    if d is None:
+        return []
     return d if isinstance(d, list) else (d.get("results") or [])
 
 
@@ -62,7 +64,10 @@ def main():
             s = page * 10
             if s < done:
                 continue
-            for e in fetch(q, s):
+            batch = fetch(q, s)
+            if not batch:
+                break
+            for e in batch:
                 a = "A%06d" % e["number"]
                 if a in cache["seen"]:
                     continue
@@ -77,7 +82,9 @@ def main():
                     "time": e["time"][:10], "revision": e["revision"],
                 }
                 new += 1
-            time.sleep(0.35)
+            time.sleep(0.3)
+            if len(batch) < 10:
+                break
         cache["q"][q] = max(done, pages * 10)
         print(f"[{q}] +{new}")
     json.dump(cache, open(CACHE, "w"), indent=1, sort_keys=True)

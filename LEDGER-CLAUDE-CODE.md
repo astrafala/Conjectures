@@ -67,8 +67,8 @@ result is worth more than three forced ones.
 
 # Conjecture-hunt ledger
 
-Last updated 25 Aug 2026. Roster: **200 papers**, files `1-PROOF.pdf` … `200-PROOF.pdf`.
-New results continue from **201-**.
+Last updated 25 Aug 2026. Roster: **245 papers**, files `1-PROOF.pdf` … `245-PROOF.pdf`.
+New results continue from **246-**.
 
 ---
 
@@ -353,6 +353,51 @@ the label. This is now cheap to detect in a sweep: compare the two fields in the
 | 198 | PROOF | A026029 | conjectured P-recursive recurrence | Mathar |
 | 199 | PROOF | A026031 | conjectured P-recursive recurrence | Mathar |
 | 200 | PROOF | A101596 | conjectured P-recursive recurrence | Mathar |
+| 201 | PROOF | A025257 | conjectured P-recursive recurrence | Mathar |
+| 202 | PROOF | A126180 | conjectured P-recursive recurrence | Mathar |
+| 203 | PROOF | A126322 | conjectured P-recursive recurrence | Mathar |
+| 204 | PROOF | A126323 | conjectured P-recursive recurrence | Mathar |
+| 205 | PROOF | A135335 | conjectured P-recursive recurrence | Mathar |
+| 206 | PROOF | A136304 | conjectured P-recursive recurrence | Mathar |
+| 207 | PROOF | A189053 | conjectured P-recursive recurrence | Mathar |
+| 208 | PROOF | A189176 | conjectured P-recursive recurrence | Mathar |
+| 209 | PROOF | A190166 | conjectured P-recursive recurrence | Mathar |
+| 210 | PROOF | A190724 | conjectured P-recursive recurrence | Mathar |
+| 211 | PROOF | A190725 | conjectured P-recursive recurrence | Mathar |
+| 212 | PROOF | A190736 | conjectured P-recursive recurrence | Mathar |
+| 213 | PROOF | A191307 | conjectured P-recursive recurrence | Mathar |
+| 214 | PROOF | A191309 | conjectured P-recursive recurrence | Mathar |
+| 215 | PROOF | A191313 | conjectured P-recursive recurrence | Mathar |
+| 216 | PROOF | A191319 | conjectured P-recursive recurrence | Mathar |
+| 217 | PROOF | A191398 | conjectured P-recursive recurrence | Mathar |
+| 218 | PROOF | A191526 | conjectured P-recursive recurrence | Mathar |
+| 219 | PROOF | A191531 | conjectured P-recursive recurrence | Mathar |
+| 220 | PROOF | A191585 | conjectured P-recursive recurrence | Mathar |
+| 221 | PROOF | A191786 | conjectured P-recursive recurrence | Mathar |
+| 222 | PROOF | A191790 | conjectured P-recursive recurrence | Mathar |
+| 223 | PROOF | A191796 | conjectured P-recursive recurrence | Mathar |
+| 224 | PROOF | A191993 | conjectured P-recursive recurrence | Mathar |
+| 225 | PROOF | A208355 | conjectured P-recursive recurrence | Mathar |
+| 226 | PROOF | A210496 | conjectured P-recursive recurrence | Mathar |
+| 227 | PROOF | A217333 | conjectured P-recursive recurrence | Mathar |
+| 228 | PROOF | A217711 | conjectured P-recursive recurrence | Mathar |
+| 229 | PROOF | A220902 | conjectured P-recursive recurrence | Mathar |
+| 230 | PROOF | A225887 | conjectured P-recursive recurrence | Mathar |
+| 231 | PROOF | A226434 | conjectured P-recursive recurrence | Mathar |
+| 232 | PROOF | A228770 | conjectured P-recursive recurrence | Mathar |
+| 233 | PROOF | A228771 | conjectured P-recursive recurrence | Mathar |
+| 234 | PROOF | A254314 | conjectured P-recursive recurrence | Mathar |
+| 235 | PROOF | A257072 | conjectured P-recursive recurrence | Mathar |
+| 236 | PROOF | A257178 | conjectured P-recursive recurrence | Mathar |
+| 237 | PROOF | A257290 | conjectured P-recursive recurrence | Mathar |
+| 238 | PROOF | A257300 | conjectured P-recursive recurrence | Mathar |
+| 239 | PROOF | A257388 | conjectured P-recursive recurrence | Mathar |
+| 240 | PROOF | A257515 | conjectured P-recursive recurrence | Mathar |
+| 241 | PROOF | A257838 | conjectured P-recursive recurrence | Mathar |
+| 242 | PROOF | A270661 | conjectured P-recursive recurrence | Mathar |
+| 243 | PROOF | A270724 | conjectured P-recursive recurrence | Mathar |
+| 244 | PROOF | A278472 | conjectured P-recursive recurrence | Mathar |
+| 245 | PROOF | A279014 | conjectured P-recursive recurrence | Mathar |
 
 ### Caveats to disclose when handing these over
 
@@ -371,7 +416,7 @@ the label. This is now cheap to detect in a sweep: compare the two fields in the
   the live list: A129365 is the only one of the 28 that appears.
 - **Paper 4:** a 2014 comment already asserted it true with a verification recipe; the
   paper adds the proof and the reason for the two residues. Thinner novelty.
-- **Papers 52–200 share one method** (149 entries). Mathar's conjectured holonomic
+- **Papers 52–245 share one method** (194 entries). Mathar's conjectured holonomic
   recurrences. Each is settled by the same three steps: the entry's algebraic g.f. lies in
   `Q(x)[√D]`; the recurrence is equivalent to the residual `B(x) = Σ_i x^i (p_i(θ+i)A)(x)`
   being a polynomial; `B` is computed exactly in that field. Only the entry's `G.f.` and
@@ -462,8 +507,15 @@ A063224, A129439.
   so the test is exact rational-function cancellation — no series truncation, no numerics.
   Extend the field when needed: several entries need `Q(x)[√D1,√D2]`, where `θ` is still
   diagonal in the basis of square-root products, so the same test works unchanged.
-  **This is the highest-yield tool in the file: 149 entries.** Mathar has
-  posted hundreds more. Watch for two traps: parse `^(1/2)` as an exact rational or the
+  **This is the highest-yield tool in the file: 194 entries.**
+
+  **Known ceiling.** OEIS caps a search at ~200 results without a login, so the pool has
+  to be reached through many distinct queries. 132 queries yielded 732 recurrence
+  conjectures and 206 proofs; per-query yield is now 0–2, i.e. the seam is close to
+  worked out at roughly 250–300 proofs total. `seq:<a>,<b>,<c>` slices the space almost
+  disjointly and is the only partitioning trick that worked, but triples harvested from
+  the existing collection just return what is already held. Reaching four figures would
+  need a different vein, not more of this one. Watch for two traps: parse `^(1/2)` as an exact rational or the
   arithmetic silently goes floating-point, and always confirm the posted `G.f.` really
   reproduces the entry's DATA before trusting it — that check is what catches a mangled
   parse. Most of the work is reading OEIS's `G.f.` lines: strip trailing prose and

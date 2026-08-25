@@ -6,7 +6,8 @@ Numbers are assigned only to entries that actually build, so the run is contiguo
 import json, os, subprocess, sys
 
 SEL = [l.strip() for l in open("new-entries.txt") if l.strip()]
-TARGET_LO, TARGET_HI = 101, 200
+TARGET_LO = int(os.environ.get("LO", "101"))
+TARGET_HI = int(os.environ.get("HI", "200"))
 
 CHILD = '''
 import os, json, sys

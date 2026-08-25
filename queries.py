@@ -38,8 +38,24 @@ Motzkin Riordan Fine Catalan Bessel Whittaker Kummer Pochhammer Gamma
 """.split()
 
 
+KEYWORDS = ["nonn", "sign", "easy", "tabl", "tabf", "frac", "base", "more",
+            "hard", "nice", "mult", "core", "eigen", "cons", "look", "changed"]
+
+
 def queries():
     out = []
+    # 1. content slices: seq: partitions the space almost disjointly
+    for o in ("a(n-3)", "a(n-4)", "a(n-5)"):
+        for a in range(1, 13):
+            for b in range(1, 25):
+                if a == b == 1:
+                    continue
+                out.append(f"Conjecture+{o}+seq:{a},{b}")
+    # 2. keyword slices
+    for o in ORDERS:
+        for k in KEYWORDS:
+            out.append(f"Conjecture+{o}+keyword:{k}")
+    # 3. vocabulary slices
     for w in WORDS:
         out.append(f"Conjecture+a(n-3)+{w}")
         out.append(f"Conjecture+a(n-4)+{w}")

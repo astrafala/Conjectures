@@ -9,14 +9,14 @@ while true; do
 import json
 c = json.load(open('rec-cache.json'))
 done = set(c['q'])
-qs = [q.strip() for q in open('qlist.txt') if q.strip()]
+qs = [q.strip() for q in open('qall.txt') if q.strip()]
 todo = [q for q in qs if q not in done]
 open('qtodo.txt', 'w').write('\n'.join(todo))
 print('queries left:', len(todo))
 PY
   N=$(wc -l < qtodo.txt)
   if [ "$N" -gt 0 ]; then
-    PAGES=20 timeout 900 python3 collect_rec.py $(head -12 qtodo.txt | tr '\n' ' ') >> collect.log 2>&1
+    PAGES=6 timeout 900 python3 collect_rec.py $(head -40 qtodo.txt | tr '\n' ' ') >> collect.log 2>&1
   fi
 
   # 2. prove: everything not yet attempted

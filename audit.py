@@ -13,7 +13,7 @@ Two checks that share no code with the symbolic prover:
 
 A result is kept only if it passes both.
 """
-import json, re
+import json, re, subprocess
 import sympy as sp
 from prove_rec import parse_conj
 
@@ -32,7 +32,35 @@ def audit():
         if B.atoms(sp.Float):
             rejected[a] = "residual contains floats - not exact"
             continue
-        v = cache[a]
+        v = cache.get(a)
+        if v is None:
+            try:
+                out = subprocess.run(
+                    ["curl", "-sS", "-A", "Mozilla/5.0",
+                     f"https://oeis.org/search?q=id:{a}&fmt=json"],
+                    capture_output=True, text=True, timeout=90).stdout
+                e = json.loads(out)[0]
+                conj = None
+                for k in ("formula", "comment"):
+                    for l in e.get(k) or []:
+                        if re.match(r"\s*Conjecture", l, re.I) and "a(n-" in l:
+                            conj = l
+                            break
+                    if conj:
+                        break
+                gf = [l.split(":", 1)[1].strip() for l in (e.get("formula") or [])
+                      if re.match(r"G\.f\.", l.strip(), re.I)]
+                v = {"name": e["name"], "offset": int(e["offset"].split(",")[0]),
+                     "data": [int(t) for t in e["data"].split(",")],
+                     "conj": conj, "gfs": gf, "proof": None,
+                     "time": e["time"][:10], "revision": e["revision"]}
+                cache[a] = v
+            except Exception as ex:
+                rejected[a] = f"not in cache and refetch failed: {ex}"
+                continue
+        if not v.get("conj"):
+            rejected[a] = "no conjecture text available"
+            continue
         try:
             ps = parse_conj(v["conj"])
         except Exception as e:
