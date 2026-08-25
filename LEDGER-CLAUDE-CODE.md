@@ -67,8 +67,8 @@ result is worth more than three forced ones.
 
 # Conjecture-hunt ledger
 
-Last updated 25 Aug 2026. Roster: **51 papers**, files `1-PROOF.pdf` … `51-PROOF.pdf`.
-New results continue from **52-**.
+Last updated 25 Aug 2026. Roster: **100 papers**, files `1-PROOF.pdf` … `100-PROOF.pdf`.
+New results continue from **101-**.
 
 ---
 
@@ -86,6 +86,14 @@ New results continue from **52-**.
    now, on a timescale of weeks.
 4. **Never pad the count.** Report the true number. Say plainly when something is
    elementary, already known, or only a partial.
+4b. **Counting: one settled conjecture = one result, even when many share one argument.**
+   Decided 25 Aug 2026. A single theorem that closes twenty entries counts as twenty.
+   Two consequences, both binding:
+   - **Papers are written standalone.** No paper mentions the others, so each reads as a
+     single submission. Attribution of a general statement and genuine prior-work notes
+     stay in; a list of sibling entries does not.
+   - **The overlap is still recorded here.** Say which blocks share an argument, so the
+     roster is never handed over as more independent work than it is.
 5. **Reports: shortest possible, no mathematics explained.** Verdict, one line on what
    it is, flags worth acting on, stop.
 
@@ -196,6 +204,55 @@ the label. This is now cheap to detect in a sweep: compare the two fields in the
 | 49 | PROOF | A354242 | mod-`m` period divides `φ(m)`; e.g.f. `G(e^x−1)`, `G` integral | Bala |
 | 50 | PROOF | A354253 | mod-`m` period divides `φ(m)`; e.g.f. `G(e^x−1)`, `G` integral | Bala |
 | 51 | PROOF | A355409 | mod-`m` period divides `φ(m)`; e.g.f. `G(e^x−1)`, `G` integral | Bala |
+| 52 | PROOF | A025268 | conjectured P-recursive recurrence | Mathar |
+| 53 | PROOF | A025272 | conjectured P-recursive recurrence | Mathar |
+| 54 | PROOF | A025756 | conjectured P-recursive recurrence | Mathar |
+| 55 | PROOF | A025757 | conjectured P-recursive recurrence | Mathar |
+| 56 | PROOF | A051292 | conjectured P-recursive recurrence | Mathar |
+| 57 | PROOF | A054341 | conjectured P-recursive recurrence | Mathar |
+| 58 | PROOF | A064088 | conjectured P-recursive recurrence | Mathar |
+| 59 | PROOF | A064089 | conjectured P-recursive recurrence | Mathar |
+| 60 | PROOF | A064090 | conjectured P-recursive recurrence | Mathar |
+| 61 | PROOF | A064091 | conjectured P-recursive recurrence | Mathar |
+| 62 | PROOF | A064092 | conjectured P-recursive recurrence | Mathar |
+| 63 | PROOF | A080243 | conjectured P-recursive recurrence | Mathar |
+| 64 | PROOF | A090413 | conjectured P-recursive recurrence | Mathar |
+| 65 | PROOF | A097188 | conjectured P-recursive recurrence | Mathar |
+| 66 | PROOF | A097331 | conjectured P-recursive recurrence | Mathar |
+| 67 | PROOF | A098520 | conjectured P-recursive recurrence | Mathar |
+| 68 | PROOF | A098521 | conjectured P-recursive recurrence | Mathar |
+| 69 | PROOF | A098662 | conjectured P-recursive recurrence | Mathar |
+| 70 | PROOF | A099363 | conjectured P-recursive recurrence | Mathar |
+| 71 | PROOF | A100095 | conjectured P-recursive recurrence | Mathar |
+| 72 | PROOF | A100096 | conjectured P-recursive recurrence | Mathar |
+| 73 | PROOF | A100097 | conjectured P-recursive recurrence | Mathar |
+| 74 | PROOF | A100098 | conjectured P-recursive recurrence | Mathar |
+| 75 | PROOF | A100099 | conjectured P-recursive recurrence | Mathar |
+| 76 | PROOF | A100193 | conjectured P-recursive recurrence | Mathar |
+| 77 | PROOF | A102879 | conjectured P-recursive recurrence | Mathar |
+| 78 | PROOF | A102880 | conjectured P-recursive recurrence | Mathar |
+| 79 | PROOF | A104722 | conjectured P-recursive recurrence | Mathar |
+| 80 | PROOF | A105695 | conjectured P-recursive recurrence | Mathar |
+| 81 | PROOF | A105864 | conjectured P-recursive recurrence | Mathar |
+| 82 | PROOF | A109263 | conjectured P-recursive recurrence | Mathar |
+| 83 | PROOF | A110199 | conjectured P-recursive recurrence | Mathar |
+| 84 | PROOF | A114121 | conjectured P-recursive recurrence | Mathar |
+| 85 | PROOF | A114190 | conjectured P-recursive recurrence | Mathar |
+| 86 | PROOF | A114464 | conjectured P-recursive recurrence | Mathar |
+| 87 | PROOF | A141353 | conjectured P-recursive recurrence | Mathar |
+| 88 | PROOF | A154623 | conjectured P-recursive recurrence | Mathar |
+| 89 | PROOF | A157003 | conjectured P-recursive recurrence | Mathar |
+| 90 | PROOF | A157021 | conjectured P-recursive recurrence | Mathar |
+| 91 | PROOF | A157100 | conjectured P-recursive recurrence | Mathar |
+| 92 | PROOF | A162548 | conjectured P-recursive recurrence | Mathar |
+| 93 | PROOF | A166696 | conjectured P-recursive recurrence | Mathar |
+| 94 | PROOF | A171416 | conjectured P-recursive recurrence | Mathar |
+| 95 | PROOF | A174808 | conjectured P-recursive recurrence | Mathar |
+| 96 | PROOF | A184018 | conjectured P-recursive recurrence | Mathar |
+| 97 | PROOF | A185089 | conjectured P-recursive recurrence | Mathar |
+| 98 | PROOF | A186341 | conjectured P-recursive recurrence | Mathar |
+| 99 | PROOF | A188312 | conjectured P-recursive recurrence | Mathar |
+| 100 | PROOF | A188314 | conjectured P-recursive recurrence | Mathar |
 
 ### Caveats to disclose when handing these over
 
@@ -214,6 +271,12 @@ the label. This is now cheap to detect in a sweep: compare the two fields in the
   the live list: A129365 is the only one of the 28 that appears.
 - **Paper 4:** a 2014 comment already asserted it true with a verification recipe; the
   paper adds the proof and the reason for the two residues. Thinner novelty.
+- **Papers 52–100 share one method** (49 entries). Mathar's conjectured holonomic
+  recurrences. Each is settled by the same three steps: the entry's algebraic g.f. lies in
+  `Q(x)[√D]`; the recurrence is equivalent to the residual `B(x) = Σ_i x^i (p_i(θ+i)A)(x)`
+  being a polynomial; `B` is computed exactly in that field. Only the entry's `G.f.` and
+  the coefficient polynomials differ. Every one was additionally checked by evaluating the
+  recurrence on the entry's own published terms in integer arithmetic.
 - **Papers 32–51 share one theorem.** Twenty entries, one proof: e.g.f. `G(e^x−1)` with
   `G` integral ⇒ eventually periodic mod `m` with period dividing `φ(m)`. Only the
   identification of `G` differs. **You decided these count as twenty results**, and the
@@ -242,6 +305,7 @@ A000040 (Dec 2011 and the *first* Sep 2010 criterion), A000010/A006519/A000215 (
 2025), A063170 (Amdeberhan–Callan–Moll 2012), A092287 square case (Greathouse 2013),
 A092143, A129365 B and C (Adamczewski 2026), A005251 (Fried 2025), A039004 (Hendel 2015
 + Israel disproof), A034496 (Noe 2010), **A070226 (Eldar, 6 Aug 2026)**, A098016,
+**A067336 (Nguyen Tuan Anh, Mar 2025)**, **A155867 (recurrence derived on the entry)**,
 **A006472 (Himane, arXiv:2404.08646, 2024)**, **A000680 (Fried, Nov 2025)**,
 **A384531 (Radcliffe, June 2025 — proof linked from the entry itself, label not removed;
 same gcd-sum family as 29/30, do not mistake it for open)**.
@@ -265,6 +329,7 @@ A063224, A129439.
 | A057856 | literal form false by parity; intended form is generalized-Fermat primality, terms pairwise coprime so no covering argument |
 | A060318 | huge stated bound; base-3 digit condition on `2^k`, Erdős-adjacent (unverified) |
 | A001227 | needs three further entry definitions just to state; deep area |
+| A281180 A281183 A281184 A281440 | Bala's `φ(k)²` periodicity; e.g.f.s are series reversions of trig integrals, not `G(e^x−1)` — different mechanism, untouched |
 | A298826 | conjectures relate to each other but the base definition (A298825/n) is tied to Hardy–Littlewood / twin primes; only partials available |
 | A000436 A000657 A002105 A012780 A126156 A143138 A143139 | same φ(k) periodicity wording as paper 32 but e.g.f. NOT of the form `G(e^x−1)` — outside that theorem, still open |
 
@@ -289,6 +354,15 @@ A063224, A129439.
 - **Wilson/Wolstenholme in disguise:** criteria built from `n!`, `H_n`, Stirling numbers
   or double factorials collapse to `(n−1)! mod n` (papers 7, 8).
 - **For a disproof, compute first.** Scan the free parameter widely before theorising.
+- **Conjectured recurrences → a residual polynomial.** For `Σ_i p_i(n) a(n−i) = 0` with
+  g.f. `A`, set `θ = x·d/dx`; then `Σ_n (Σ_i p_i(n)a(n−i)) x^n = Σ_i x^i (p_i(θ+i)A)(x)`.
+  The conjecture holds for all `n > d` iff that residual is a polynomial of degree `d`.
+  When `A` is algebraic of degree 2, write `A = u + v√D`: the field is closed under `θ`,
+  so the test is exact rational-function cancellation — no series truncation, no numerics.
+  **This is the highest-yield tool in the file: 49 entries in one pass.** Mathar has
+  posted hundreds more. Watch for two traps: parse `^(1/2)` as an exact rational or the
+  arithmetic silently goes floating-point, and always confirm the posted `G.f.` really
+  reproduces the entry's DATA before trusting it.
 
 ### Signals worth opening
 Garbled or self-contradictory wording; an idle hypothesis (check whether the caveat is
