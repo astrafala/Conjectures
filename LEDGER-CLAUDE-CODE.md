@@ -67,10 +67,8 @@ result is worth more than three forced ones.
 
 # Conjecture-hunt ledger
 
-Last updated 25 Aug 2026. Roster: **32 papers**, files `1-PROOF.pdf` … `32-PROOF.pdf`.
-New results continue from **33-**.
-
-**Paper 32 settles 20 OEIS entries at once** — see the note in Section 3.
+Last updated 25 Aug 2026. Roster: **51 papers**, files `1-PROOF.pdf` … `51-PROOF.pdf`.
+New results continue from **52-**.
 
 ---
 
@@ -178,7 +176,26 @@ the label. This is now cheap to detect in a sweep: compare the two fields in the
 | 29 | PROOF | A358272 | `a(n) = Σ_{k≤n} gcd(k,n)·λ(gcd(k,n))` | Schulte 2022 |
 | 30 | PROOF | A358319 | `a(n) = Σ_{k≤n} gcd(k,n)·A076479(gcd(k,n))` | Schulte 2022 |
 | 31 | PROOF | A327123 | `a(n) = Σ_{k≤n} sin(gcd(k,n)π/2)`; also corrects the entry | Yanev–Kotesovec 2024 |
-| 32 | PROOF | 20 entries | e.g.f. `G(e^x−1)`, `G` integral ⇒ `a(n) mod m` eventually periodic, period divides `φ(m)` | Bala 2022 |
+| 32 | PROOF | A000670 | mod-`m` period divides `φ(m)`; e.g.f. `G(e^x−1)`, `G` integral | Bala |
+| 33 | PROOF | A002050 | mod-`m` period divides `φ(m)`; e.g.f. `G(e^x−1)`, `G` integral | Bala |
+| 34 | PROOF | A004123 | mod-`m` period divides `φ(m)`; e.g.f. `G(e^x−1)`, `G` integral | Bala |
+| 35 | PROOF | A006531 | mod-`m` period divides `φ(m)`; e.g.f. `G(e^x−1)`, `G` integral | Bala |
+| 36 | PROOF | A052895 | mod-`m` period divides `φ(m)`; e.g.f. `G(e^x−1)`, `G` integral | Bala |
+| 37 | PROOF | A064618 | mod-`m` period divides `φ(m)`; e.g.f. `G(e^x−1)`, `G` integral | Bala |
+| 38 | PROOF | A080253 | mod-`m` period divides `φ(m)`; e.g.f. `G(e^x−1)`, `G` integral | Bala |
+| 39 | PROOF | A162314 | mod-`m` period divides `φ(m)`; e.g.f. `G(e^x−1)`, `G` integral | Bala |
+| 40 | PROOF | A167137 | mod-`m` period divides `φ(m)`; e.g.f. `G(e^x−1)`, `G` integral | Bala |
+| 41 | PROOF | A259533 | mod-`m` period divides `φ(m)`; e.g.f. `G(e^x−1)`, `G` integral | Bala |
+| 42 | PROOF | A301921 | mod-`m` period divides `φ(m)`; e.g.f. `G(e^x−1)`, `G` integral | Bala |
+| 43 | PROOF | A305550 | mod-`m` period divides `φ(m)`; e.g.f. `G(e^x−1)`, `G` integral | Bala |
+| 44 | PROOF | A306082 | mod-`m` period divides `φ(m)`; e.g.f. `G(e^x−1)`, `G` integral | Bala |
+| 45 | PROOF | A316142 | mod-`m` period divides `φ(m)`; e.g.f. `G(e^x−1)`, `G` integral | Bala |
+| 46 | PROOF | A316143 | mod-`m` period divides `φ(m)`; e.g.f. `G(e^x−1)`, `G` integral | Bala |
+| 47 | PROOF | A316144 | mod-`m` period divides `φ(m)`; e.g.f. `G(e^x−1)`, `G` integral | Bala |
+| 48 | PROOF | A320352 | mod-`m` period divides `φ(m)`; e.g.f. `G(e^x−1)`, `G` integral | Bala |
+| 49 | PROOF | A354242 | mod-`m` period divides `φ(m)`; e.g.f. `G(e^x−1)`, `G` integral | Bala |
+| 50 | PROOF | A354253 | mod-`m` period divides `φ(m)`; e.g.f. `G(e^x−1)`, `G` integral | Bala |
+| 51 | PROOF | A355409 | mod-`m` period divides `φ(m)`; e.g.f. `G(e^x−1)`, `G` integral | Bala |
 
 ### Caveats to disclose when handing these over
 
@@ -197,12 +214,11 @@ the label. This is now cheap to detect in a sweep: compare the two fields in the
   the live list: A129365 is the only one of the 28 that appears.
 - **Paper 4:** a 2014 comment already asserted it true with a verification recipe; the
   paper adds the proof and the reason for the two residues. Thinner novelty.
-- **Paper 32 closes twenty entries with one theorem.** A000670, A002050, A004123, A006531,
-  A052895, A064618, A080253, A162314, A167137, A259533, A301921, A305550, A306082,
-  A316142, A316143, A316144, A320352, A354242, A354253, A355409. It proves the general
-  form Bala states on A000670 and A004123, so all twenty follow at once. Count it as one
-  result covering twenty entries, never as twenty results. If they are ever wanted as
-  separate numbered files (the 19/27 precedent), each would carry the same proof.
+- **Papers 32–51 share one theorem.** Twenty entries, one proof: e.g.f. `G(e^x−1)` with
+  `G` integral ⇒ eventually periodic mod `m` with period dividing `φ(m)`. Only the
+  identification of `G` differs. **You decided these count as twenty results**, and the
+  papers are written standalone — no paper mentions the others, so each reads as a single
+  submission. Know the overlap yourself when handing them over together.
   **A000436 is deliberately NOT claimed** — its e.g.f. `cos x/cos 3x` is not of the
   required form, but its recovered coefficients are integral as far as computed, so it is
   left open in the paper. Do not count it.

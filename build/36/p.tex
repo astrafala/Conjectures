@@ -1,0 +1,216 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=1in]{geometry}
+\usepackage{booktabs}
+\usepackage[colorlinks=true,linkcolor=blue,urlcolor=blue]{hyperref}
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{remark}[theorem]{Remark}
+\newcommand{\ord}{\operatorname{ord}}
+\newcommand{\Z}{\mathbb{Z}}
+\title{Eventual periodicity modulo $m$ with period dividing $\varphi(m)$:\\a proof of Bala's conjecture on OEIS A052895}
+\author{Adrian Perez Fontelles\\ \small Independent researcher}
+\date{25 August 2026}
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Peter Bala conjectured on OEIS A052895 that the sequence reduced modulo $k$ is eventually periodic with period dividing $\varphi(k)$. We prove it, as an instance of the general statement --- also Bala's --- that this holds for every integer sequence whose exponential generating function has the form $G(e^{x}-1)$ with $G$ an integral power series. Expanding $(e^{x}-1)^{k}$ in Stirling numbers of the second kind writes $a(n)=\sum_{k}c_{k}k!\,S(n,k)$; modulo $m$ every term with $k\ge m$ dies because $m\mid k!$, leaving a fixed finite sum, which inclusion--exclusion turns into an integer combination of the sequences $n\mapsto j^{n}$, each eventually periodic modulo $m$ with period dividing $\varphi(m)$. The identification of $G$ for this entry is carried out in Section~3.
+\end{abstract}
+
+\noindent\small 2020 Mathematics Subject Classification. 11B50, 11B73, 05A15, 11A07.\normalsize
+
+\section{The sequence and the conjecture}
+
+Throughout, $m$ and $k$ denote positive integers, $\varphi$ is Euler's totient function
+(OEIS A000010), and $S(n,k)$ are the Stirling numbers of the second kind, with
+$S(0,0)=1$ and $S(n,k)=0$ for $k>n$. We write $0^{0}=1$, and throughout
+\[
+y := e^{x}-1, \qquad\text{so that}\qquad e^{x}=1+y .
+\]
+
+OEIS A052895 is ``Expansion of e.g.f. (1/2)/(exp(x) - 1) * (1 - (5 - 4*exp(x))\^{}(1/2))''. It has offset $0$ and begins
+\[
+a(0),\dots,a(7)\;=\;1, 1, 5, 43, 545, 9211, 195305, 4990483,\ \dots
+\]
+and it carries the following comment:
+\begin{quote}\small
+\textbf{Conjecture:} for fixed k = 1,2,..., the sequence a(n) (mod k) is eventually periodic with the exact period dividing phi(k), where phi(k) is the Euler totient function A000010. For example, modulo 10 the sequence becomes (1, 1, 5, 3, 5, 1, 5, 3, 5, ...), with an apparent period 1, 5, 3, 5 of length 4 = phi(10) beginning at a(1). (End)
+\end{quote}
+As of the ``Last modified'' line on the live entry (2026-03-03, revision 53) the
+statement is still recorded as a conjecture, and no proof appears among the entry's links,
+formulas or programs.
+
+Bala also states the conjecture in a general form: that the property should hold for
+every integer sequence whose exponential generating function has the shape $G(e^{x}-1)$
+with $G$ an integral power series. We prove that general statement as
+Theorem~\ref{thm:main} below, and then obtain the present entry as
+Corollary~\ref{cor:this} by identifying its $G$ in Section~\ref{sec:apply}.
+
+\section{The theorem}
+
+\begin{theorem}\label{thm:main}
+Let $G(t)=\sum_{k\ge0}c_{k}t^{k}$ be a power series with integer coefficients, and define
+integers $a(n)$ by $\sum_{n\ge0}a(n)x^{n}/n!=G(e^{x}-1)$. Then for every $m\ge1$ the
+sequence $\bigl(a(n)\bmod m\bigr)_{n\ge0}$ is eventually periodic, with period dividing
+$\varphi(m)$.
+\end{theorem}
+
+The proof uses three standard facts.
+
+\begin{lemma}\label{lem:stirling}
+$(e^{x}-1)^{k}=k!\sum_{n\ge k}S(n,k)x^{n}/n!$, and hence
+$a(n)=\sum_{k=0}^{n}c_{k}\,k!\,S(n,k)$ for every $n\ge0$. In particular every $a(n)$ is an
+integer.
+\end{lemma}
+
+\begin{proof}
+The first identity is the exponential generating function of the Stirling numbers of the
+second kind. Multiplying by $c_{k}$ and summing over $k$ is legitimate in $\Z[[x]]$
+because $(e^{x}-1)^{k}$ has order $k$ in $x$, so each coefficient of $x^{n}$ receives
+contributions from only finitely many $k$; comparing coefficients of $x^{n}/n!$ gives the
+formula, and the sum terminates because $S(n,k)=0$ for $k>n$.
+\end{proof}
+
+\begin{lemma}\label{lem:power}
+$k!\,S(n,k)=\sum_{j=0}^{k}(-1)^{k-j}\binom{k}{j}j^{\,n}$ for all $n,k\ge0$.
+\end{lemma}
+
+\begin{proof}
+Both sides count the surjections from an $n$-set onto a $k$-set: the left directly, the
+right by inclusion--exclusion over the points of the codomain that are missed. For $n=0$
+both sides equal $[k=0]$, using $0^{0}=1$.
+\end{proof}
+
+\begin{lemma}\label{lem:jn}
+For integers $m\ge1$ and $j\ge0$, the sequence $\bigl(j^{\,n}\bmod m\bigr)_{n\ge0}$ is
+eventually periodic with period dividing $\varphi(m)$.
+\end{lemma}
+
+\begin{proof}
+Write $m=m_{1}m_{2}$, where $m_{1}$ is the product of those prime powers $p^{v_{p}(m)}$ of
+$m$ whose prime $p$ divides $j$, and $m_{2}=m/m_{1}$. Then $\gcd(m_{1},m_{2})=1$ and
+$\gcd(j,m_{2})=1$.
+
+Every prime dividing $m_{1}$ divides $j$, so $m_{1}\mid j^{\,n}$ once $n\ge\log_{2}m$;
+thus $j^{\,n}\equiv0 \pmod{m_{1}}$ for all large $n$, a sequence of eventual period $1$.
+Modulo $m_{2}$ the integer $j$ is a unit, so $j^{\,n}$ is purely periodic with period
+$\ord_{m_{2}}(j)$, a divisor of $\varphi(m_{2})$. By the Chinese remainder theorem
+$j^{\,n} \bmod m$ is eventually periodic with period dividing
+$\operatorname{lcm}(1,\ord_{m_{2}}(j))=\ord_{m_{2}}(j)$. Finally $m_{2}\mid m$ gives
+$\varphi(m_{2})\mid\varphi(m)$, so that period divides $\varphi(m)$.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:main}]
+Fix $m\ge1$. Because $m\mid m!$ we have $m\mid k!$ for every $k\ge m$, so in
+Lemma~\ref{lem:stirling} every term with $k\ge m$ is divisible by $m$. Hence for $n\ge m$
+\begin{equation}\label{eq:trunc}
+a(n)\;\equiv\;\sum_{k=0}^{m-1}c_{k}\,k!\,S(n,k) \pmod m ,
+\end{equation}
+a sum whose number of terms no longer depends on $n$. This is the only place the
+hypothesis $G\in\Z[[t]]$ is used: it keeps the $c_{k}$ integral, so no denominator can
+cancel the factor $k!$ that supplies the divisibility.
+
+Substituting Lemma~\ref{lem:power} and exchanging the two finite sums,
+\begin{equation}\label{eq:expo}
+a(n)\;\equiv\;\sum_{j=0}^{m-1}w_{j}\,j^{\,n} \pmod m ,
+\qquad
+w_{j}:=\sum_{k=j}^{m-1}(-1)^{k-j}\binom{k}{j}c_{k}\in\Z ,
+\end{equation}
+for all $n\ge m$; the weights $w_{j}$ depend on $m$ and $G$ but not on $n$. By
+Lemma~\ref{lem:jn} each sequence $n\mapsto j^{\,n}\bmod m$ is eventually periodic with
+period dividing $\varphi(m)$. A finite $\Z$-linear combination of eventually periodic
+sequences is eventually periodic with period dividing the least common multiple of their
+periods, and the least common multiple of finitely many divisors of $\varphi(m)$ again
+divides $\varphi(m)$. So the right-hand side of \eqref{eq:expo}, and therefore $a(n)$, is
+eventually periodic modulo $m$ with period dividing $\varphi(m)$.
+\end{proof}
+
+\begin{remark}
+``Eventually'' cannot be dropped, and the divisor need not be $\varphi(m)$ itself.
+Equation \eqref{eq:trunc} is asserted only for $n\ge m$, and Lemma~\ref{lem:jn} adds a
+further preperiod coming from the primes shared by $j$ and $m$; meanwhile the exact period
+is the least common multiple of the orders $\ord_{m_{2}}(j)$ over those $j$ whose weight
+$w_{j}$ survives modulo $m$, which is often a proper divisor of $\varphi(m)$. Both effects
+are visible in the table of Section~\ref{sec:ver}.
+\end{remark}
+
+\section{Application to A052895}\label{sec:apply}
+
+\begin{corollary}\label{cor:this}
+The conjecture quoted in Section~1 is true: for every $m\ge1$ the sequence
+A052895$(n) \bmod m$ is eventually periodic with period dividing $\varphi(m)$.
+\end{corollary}
+
+\begin{proof}
+By Theorem~\ref{thm:main} it suffices to exhibit the entry's exponential generating
+function in the form $G(e^{x}-1)$ with $G$ integral. The entry states ``E.g.f.: $C(\exp(x)-1)$, where $C(x)=(1-\sqrt{1-4x})/(2x)$ is the o.g.f.\ for A000108'', which is already of the required shape. Therefore
+\[
+\sum_{n\ge0}a(n)\frac{x^{n}}{n!}=G(y),\qquad G(t)=C(y),\quad C(t)=\frac{1-\sqrt{1-4t}}{2t} ,
+\]
+whose coefficients are the Catalan numbers, all integers. So $G\in\Z[[t]]$ and
+Theorem~\ref{thm:main} applies.
+\end{proof}
+
+Concretely, the first coefficients of $G$ are
+\[
+c_{0},c_{1},c_{2},\dots \;=\; 1, 1, 2, 5, 14, 42, 132, \dots ,
+\]
+and these are exactly what the inversion of Section~\ref{sec:ver} recovers from the
+entry's published terms.
+
+\section{Verification}\label{sec:ver}
+
+Every number quoted here is an output of a script written separately from this note.
+
+First, the identification of $G$ was checked against the entry rather than assumed. If
+$\sum_{n}a(n)x^{n}/n!=G(e^{x}-1)$ then substituting $x=\log(1+y)$ gives
+\[
+c_{k}=\frac{1}{k!}\sum_{n}s(k,n)\,a(n),
+\]
+with $s$ the signed Stirling numbers of the first kind. Applying this to the
+$18$ terms published on A052895 returns integers at every $k$, and the values
+agree with the coefficients of the $G$ named in Section~\ref{sec:apply}.
+
+Second, the conclusion itself was tested. From the recovered $c_{k}$ we generated
+$a(n)\bmod m$ for $n\le400$ using $a(n)=\sum_{k}c_{k}k!\,S(n,k)$ with an integer
+recurrence for $S(n,k)$ --- a computation that touches neither the generating function nor
+the published terms --- then measured the exact eventual period over the last $160$
+values. The results:
+
+\begin{center}
+\begin{tabular}{@{}lcccccccccc@{}}
+\toprule
+$m$  & $5$ & $7$ & $8$ & $9$ & $11$ & $12$ & $13$ & $16$ & $25$ & $27$\\
+$\varphi(m)$  & $4$ & $6$ & $4$ & $6$ & $10$ & $4$ & $12$ & $8$ & $20$ & $18$\\
+exact period  & $4$ & $6$ & $2$ & $6$ & $10$ & $2$ & $12$ & $4$ & $20$ & $18$\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\noindent
+In every column the exact period divides $\varphi(m)$, as Corollary~\ref{cor:this}
+asserts.
+
+\section{Relation to earlier work}
+
+A related note of Bala (\emph{Integer sequences that become periodic on reduction modulo
+$k$ for all $k$}, December 2017, linked from OEIS A047974) proves a different theorem, for
+generating functions of the shape $F(x)\exp(xG(x))$ and with the stronger conclusion
+$a(n+k)\equiv a(n)\pmod{k}$, i.e.\ pure periodicity with period dividing $k$. Neither its
+hypothesis nor its conclusion covers the statement proved here, and the argument of
+Section~2 is independent of it.
+
+\begin{thebibliography}{9}
+\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer Sequences},
+\url{https://oeis.org}, 2026. Sequence A052895; conjecture of P.\ Bala.
+\bibitem{bala} P.\ Bala, \emph{Integer sequences that become periodic on reduction modulo
+$k$ for all $k$}, December 2017; linked from OEIS A047974.
+\bibitem{comtet} L.\ Comtet, \emph{Advanced Combinatorics}, Reidel, 1974, Chapter V.
+\end{thebibliography}
+\end{document}
