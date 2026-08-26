@@ -75,13 +75,36 @@ def certify(T, G):
     return sp.cancel(sp.together(d)) == 0
 
 
+def natural_boundary(F, lo, hi, order):
+    """The reduction to a single k-sum is only valid if the summand vanishes outside the
+    stated range. a(n) = Sum_{k=lo(n)}^{hi(n)} F(n,k) has an n-dependent range, so the
+    operator applied to a(n) mixes ranges unless F(m,k) is 0 for every k outside them.
+    Checked on concrete integers, which is enough to reject; a summand that passes is
+    then handled as a sum over all k in Z."""
+    for m in range(max(order + 2, 4), max(order + 2, 4) + 4):
+        try:
+            k0, k1 = int(lo.subs(n, m)), int(hi.subs(n, m))
+        except Exception:
+            return False
+        for kk in list(range(k0 - 4, k0)) + list(range(k1 + 1, k1 + 5)):
+            try:
+                v = sp.simplify(F.subs({n: m, k: kk}))
+            except Exception:
+                return False
+            if v != 0:
+                return False
+    return True
+
+
 def prove(ps, F, lo, hi):
     """ps are the conjectured p_i(n). Returns (G, why) with G the certificate, or
     (None, reason)."""
+    if not natural_boundary(F, lo, hi, len(ps) - 1):
+        return None, "summand does not vanish outside the stated summation range"
     T = sum(ps[i] * F.subs(n, n - i) for i in range(len(ps)) if ps[i] != 0)
     T = sp.combsimp(T)
     if T == 0:
-        return sp.Integer(0), "summand vanishes identically"
+        return sp.Integer(0), "verified: the operator annihilates the summand termwise"
     if hyper_ratio(T, k) is None:
         return None, "T(k) is not hypergeometric in k"
     G = gosper_term(T, k)

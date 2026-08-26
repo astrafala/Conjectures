@@ -67,8 +67,8 @@ result is worth more than three forced ones.
 
 # Conjecture-hunt ledger
 
-Last updated 25 Aug 2026. Roster: **330 papers**, files `1-PROOF.pdf` … `330-PROOF.pdf`.
-New results continue from **331-**.
+Last updated 26 Aug 2026. Roster: **398 papers**, files `1-PROOF.pdf` … `398-PROOF.pdf`.
+New results continue from **399-**.
 
 ---
 
@@ -181,34 +181,34 @@ the label. This is now cheap to detect in a sweep: compare the two fields in the
 | 26 | PROOF | A005329 | 2-factorials = inverse binomial transform of A075272 | Layman 2002 |
 | 27 | PROOF | A129364 | `a(n)` divides A092287(n) | Bala 2007 |
 | 28 | PROOF | A062368 | third inverse Möbius transform of `4^omega(n)` | Mathar 2012 |
-| 29 | PROOF | A358272 | `a(n) = Σ_{k≤n} gcd(k,n)·λ(gcd(k,n))` | Schulte 2022 |
-| 30 | PROOF | A358319 | `a(n) = Σ_{k≤n} gcd(k,n)·A076479(gcd(k,n))` | Schulte 2022 |
-| 31 | PROOF | A327123 | `a(n) = Σ_{k≤n} sin(gcd(k,n)π/2)`; also corrects the entry | Yanev–Kotesovec 2024 |
-| 32 | PROOF | A000670 | mod-`m` period divides `φ(m)`; e.g.f. `G(e^x−1)`, `G` integral | Bala |
-| 33 | PROOF | A002050 | mod-`m` period divides `φ(m)`; e.g.f. `G(e^x−1)`, `G` integral | Bala |
-| 34 | PROOF | A004123 | mod-`m` period divides `φ(m)`; e.g.f. `G(e^x−1)`, `G` integral | Bala |
-| 35 | PROOF | A006531 | mod-`m` period divides `φ(m)`; e.g.f. `G(e^x−1)`, `G` integral | Bala |
-| 36 | PROOF | A052895 | mod-`m` period divides `φ(m)`; e.g.f. `G(e^x−1)`, `G` integral | Bala |
-| 37 | PROOF | A064618 | mod-`m` period divides `φ(m)`; e.g.f. `G(e^x−1)`, `G` integral | Bala |
-| 38 | PROOF | A080253 | mod-`m` period divides `φ(m)`; e.g.f. `G(e^x−1)`, `G` integral | Bala |
-| 39 | PROOF | A162314 | mod-`m` period divides `φ(m)`; e.g.f. `G(e^x−1)`, `G` integral | Bala |
-| 40 | PROOF | A167137 | mod-`m` period divides `φ(m)`; e.g.f. `G(e^x−1)`, `G` integral | Bala |
-| 41 | PROOF | A259533 | mod-`m` period divides `φ(m)`; e.g.f. `G(e^x−1)`, `G` integral | Bala |
-| 42 | PROOF | A301921 | mod-`m` period divides `φ(m)`; e.g.f. `G(e^x−1)`, `G` integral | Bala |
-| 43 | PROOF | A305550 | mod-`m` period divides `φ(m)`; e.g.f. `G(e^x−1)`, `G` integral | Bala |
-| 44 | PROOF | A306082 | mod-`m` period divides `φ(m)`; e.g.f. `G(e^x−1)`, `G` integral | Bala |
-| 45 | PROOF | A316142 | mod-`m` period divides `φ(m)`; e.g.f. `G(e^x−1)`, `G` integral | Bala |
-| 46 | PROOF | A316143 | mod-`m` period divides `φ(m)`; e.g.f. `G(e^x−1)`, `G` integral | Bala |
-| 47 | PROOF | A316144 | mod-`m` period divides `φ(m)`; e.g.f. `G(e^x−1)`, `G` integral | Bala |
-| 48 | PROOF | A320352 | mod-`m` period divides `φ(m)`; e.g.f. `G(e^x−1)`, `G` integral | Bala |
-| 49 | PROOF | A354242 | mod-`m` period divides `φ(m)`; e.g.f. `G(e^x−1)`, `G` integral | Bala |
-| 50 | PROOF | A354253 | mod-`m` period divides `φ(m)`; e.g.f. `G(e^x−1)`, `G` integral | Bala |
-| 51 | PROOF | A355409 | mod-`m` period divides `φ(m)`; e.g.f. `G(e^x−1)`, `G` integral | Bala |
+| 29 | PROOF | A358272 | gcd-sum evaluation | Mathar |
+| 30 | PROOF | A358319 | gcd-sum evaluation | Mathar |
+| 31 | PROOF | A327123 | gcd-sum evaluation | Mathar |
+| 32 | PROOF | A000670 | eventual periodicity mod m, period dividing phi(m) | Mathar |
+| 33 | PROOF | A002050 | eventual periodicity mod m, period dividing phi(m) | Mathar |
+| 34 | PROOF | A004123 | eventual periodicity mod m, period dividing phi(m) | Mathar |
+| 35 | PROOF | A006531 | eventual periodicity mod m, period dividing phi(m) | Mathar |
+| 36 | PROOF | A052895 | eventual periodicity mod m, period dividing phi(m) | Mathar |
+| 37 | PROOF | A064618 | eventual periodicity mod m, period dividing phi(m) | Mathar |
+| 38 | PROOF | A080253 | eventual periodicity mod m, period dividing phi(m) | Mathar |
+| 39 | PROOF | A162314 | eventual periodicity mod m, period dividing phi(m) | Mathar |
+| 40 | PROOF | A167137 | eventual periodicity mod m, period dividing phi(m) | Mathar |
+| 41 | PROOF | A259533 | eventual periodicity mod m, period dividing phi(m) | Mathar |
+| 42 | PROOF | A301921 | eventual periodicity mod m, period dividing phi(m) | Mathar |
+| 43 | PROOF | A305550 | eventual periodicity mod m, period dividing phi(m) | Mathar |
+| 44 | PROOF | A306082 | eventual periodicity mod m, period dividing phi(m) | Mathar |
+| 45 | PROOF | A316142 | eventual periodicity mod m, period dividing phi(m) | Mathar |
+| 46 | PROOF | A316143 | eventual periodicity mod m, period dividing phi(m) | Mathar |
+| 47 | PROOF | A316144 | eventual periodicity mod m, period dividing phi(m) | Mathar |
+| 48 | PROOF | A320352 | eventual periodicity mod m, period dividing phi(m) | Mathar |
+| 49 | PROOF | A354242 | eventual periodicity mod m, period dividing phi(m) | Mathar |
+| 50 | PROOF | A354253 | eventual periodicity mod m, period dividing phi(m) | Mathar |
+| 51 | PROOF | A355409 | eventual periodicity mod m, period dividing phi(m) | Mathar |
 | 52 | PROOF | A025268 | conjectured P-recursive recurrence | Mathar |
 | 53 | PROOF | A025272 | conjectured P-recursive recurrence | Mathar |
 | 54 | PROOF | A025756 | conjectured P-recursive recurrence | Mathar |
 | 55 | PROOF | A025757 | conjectured P-recursive recurrence | Mathar |
-| 56 | PROOF | A051292 | conjectured P-recursive recurrence | Mathar |
+| 56 | PROOF | A000276 | conjectured P-recursive recurrence | Mathar |
 | 57 | PROOF | A054341 | conjectured P-recursive recurrence | Mathar |
 | 58 | PROOF | A064088 | conjectured P-recursive recurrence | Mathar |
 | 59 | PROOF | A064089 | conjectured P-recursive recurrence | Mathar |
@@ -221,7 +221,7 @@ the label. This is now cheap to detect in a sweep: compare the two fields in the
 | 66 | PROOF | A097331 | conjectured P-recursive recurrence | Mathar |
 | 67 | PROOF | A098520 | conjectured P-recursive recurrence | Mathar |
 | 68 | PROOF | A098521 | conjectured P-recursive recurrence | Mathar |
-| 69 | PROOF | A098662 | conjectured P-recursive recurrence | Mathar |
+| 69 | PROOF | A107587 | conjectured P-recursive recurrence | Mathar |
 | 70 | PROOF | A099363 | conjectured P-recursive recurrence | Mathar |
 | 71 | PROOF | A100095 | conjectured P-recursive recurrence | Mathar |
 | 72 | PROOF | A100096 | conjectured P-recursive recurrence | Mathar |
@@ -229,14 +229,14 @@ the label. This is now cheap to detect in a sweep: compare the two fields in the
 | 74 | PROOF | A100098 | conjectured P-recursive recurrence | Mathar |
 | 75 | PROOF | A100099 | conjectured P-recursive recurrence | Mathar |
 | 76 | PROOF | A100193 | conjectured P-recursive recurrence | Mathar |
-| 77 | PROOF | A102879 | conjectured P-recursive recurrence | Mathar |
+| 77 | PROOF | A107587 | conjectured P-recursive recurrence | Mathar |
 | 78 | PROOF | A102880 | conjectured P-recursive recurrence | Mathar |
 | 79 | PROOF | A104722 | conjectured P-recursive recurrence | Mathar |
 | 80 | PROOF | A105695 | conjectured P-recursive recurrence | Mathar |
 | 81 | PROOF | A105864 | conjectured P-recursive recurrence | Mathar |
 | 82 | PROOF | A109263 | conjectured P-recursive recurrence | Mathar |
 | 83 | PROOF | A110199 | conjectured P-recursive recurrence | Mathar |
-| 84 | PROOF | A114121 | conjectured P-recursive recurrence | Mathar |
+| 84 | PROOF | A121724 | conjectured P-recursive recurrence | Mathar |
 | 85 | PROOF | A114190 | conjectured P-recursive recurrence | Mathar |
 | 86 | PROOF | A114464 | conjectured P-recursive recurrence | Mathar |
 | 87 | PROOF | A141353 | conjectured P-recursive recurrence | Mathar |
@@ -255,7 +255,7 @@ the label. This is now cheap to detect in a sweep: compare the two fields in the
 | 100 | PROOF | A188314 | conjectured P-recursive recurrence | Mathar |
 | 101 | PROOF | A003440 | conjectured P-recursive recurrence | Mathar |
 | 102 | PROOF | A014533 | conjectured P-recursive recurrence | Mathar |
-| 103 | PROOF | A025244 | conjectured P-recursive recurrence | Mathar |
+| 103 | PROOF | A121725 | conjectured P-recursive recurrence | Mathar |
 | 104 | PROOF | A025245 | conjectured P-recursive recurrence | Mathar |
 | 105 | PROOF | A025248 | conjectured P-recursive recurrence | Mathar |
 | 106 | PROOF | A025251 | conjectured P-recursive recurrence | Mathar |
@@ -281,7 +281,7 @@ the label. This is now cheap to detect in a sweep: compare the two fields in the
 | 126 | PROOF | A108296 | conjectured P-recursive recurrence | Mathar |
 | 127 | PROOF | A108600 | conjectured P-recursive recurrence | Mathar |
 | 128 | PROOF | A108623 | conjectured P-recursive recurrence | Mathar |
-| 129 | PROOF | A112700 | conjectured P-recursive recurrence | Mathar |
+| 129 | PROOF | A025567 | conjectured P-recursive recurrence | Mathar |
 | 130 | PROOF | A114191 | conjectured P-recursive recurrence | Mathar |
 | 131 | PROOF | A114194 | conjectured P-recursive recurrence | Mathar |
 | 132 | PROOF | A114584 | conjectured P-recursive recurrence | Mathar |
@@ -300,7 +300,7 @@ the label. This is now cheap to detect in a sweep: compare the two fields in the
 | 145 | PROOF | A128723 | conjectured P-recursive recurrence | Mathar |
 | 146 | PROOF | A128732 | conjectured P-recursive recurrence | Mathar |
 | 147 | PROOF | A128734 | conjectured P-recursive recurrence | Mathar |
-| 148 | PROOF | A128743 | conjectured P-recursive recurrence | Mathar |
+| 148 | PROOF | A124431 | conjectured P-recursive recurrence | Mathar |
 | 149 | PROOF | A128746 | conjectured P-recursive recurrence | Mathar |
 | 150 | PROOF | A128750 | conjectured P-recursive recurrence | Mathar |
 | 151 | PROOF | A132364 | conjectured P-recursive recurrence | Mathar |
@@ -322,7 +322,7 @@ the label. This is now cheap to detect in a sweep: compare the two fields in the
 | 167 | PROOF | A165203 | conjectured P-recursive recurrence | Mathar |
 | 168 | PROOF | A165537 | conjectured P-recursive recurrence | Mathar |
 | 169 | PROOF | A165540 | conjectured P-recursive recurrence | Mathar |
-| 170 | PROOF | A166135 | conjectured P-recursive recurrence | Mathar |
+| 170 | PROOF | A107231 | conjectured P-recursive recurrence | Mathar |
 | 171 | PROOF | A166300 | conjectured P-recursive recurrence | Mathar |
 | 172 | PROOF | A166587 | conjectured P-recursive recurrence | Mathar |
 | 173 | PROOF | A166694 | conjectured P-recursive recurrence | Mathar |
@@ -343,7 +343,7 @@ the label. This is now cheap to detect in a sweep: compare the two fields in the
 | 188 | PROOF | A184120 | conjectured P-recursive recurrence | Mathar |
 | 189 | PROOF | A186940 | conjectured P-recursive recurrence | Mathar |
 | 190 | PROOF | A188482 | conjectured P-recursive recurrence | Mathar |
-| 191 | PROOF | A185020 | conjectured P-recursive recurrence | Mathar |
+| 191 | PROOF | A000276 | conjectured P-recursive recurrence | Mathar |
 | 192 | PROOF | A000781 | conjectured P-recursive recurrence | Mathar |
 | 193 | PROOF | A050168 | conjectured P-recursive recurrence | Mathar |
 | 194 | PROOF | A071684 | conjectured P-recursive recurrence | Mathar |
@@ -358,7 +358,7 @@ the label. This is now cheap to detect in a sweep: compare the two fields in the
 | 203 | PROOF | A126322 | conjectured P-recursive recurrence | Mathar |
 | 204 | PROOF | A126323 | conjectured P-recursive recurrence | Mathar |
 | 205 | PROOF | A135335 | conjectured P-recursive recurrence | Mathar |
-| 206 | PROOF | A136304 | conjectured P-recursive recurrence | Mathar |
+| 206 | PROOF | A191585 | conjectured P-recursive recurrence | Mathar |
 | 207 | PROOF | A189053 | conjectured P-recursive recurrence | Mathar |
 | 208 | PROOF | A189176 | conjectured P-recursive recurrence | Mathar |
 | 209 | PROOF | A190166 | conjectured P-recursive recurrence | Mathar |
@@ -381,7 +381,7 @@ the label. This is now cheap to detect in a sweep: compare the two fields in the
 | 226 | PROOF | A210496 | conjectured P-recursive recurrence | Mathar |
 | 227 | PROOF | A217333 | conjectured P-recursive recurrence | Mathar |
 | 228 | PROOF | A217711 | conjectured P-recursive recurrence | Mathar |
-| 229 | PROOF | A220902 | conjectured P-recursive recurrence | Mathar |
+| 229 | PROOF | A191790 | conjectured P-recursive recurrence | Mathar |
 | 230 | PROOF | A225887 | conjectured P-recursive recurrence | Mathar |
 | 231 | PROOF | A226434 | conjectured P-recursive recurrence | Mathar |
 | 232 | PROOF | A228770 | conjectured P-recursive recurrence | Mathar |
@@ -405,7 +405,7 @@ the label. This is now cheap to detect in a sweep: compare the two fields in the
 | 250 | PROOF | A025270 | conjectured P-recursive recurrence | Mathar |
 | 251 | PROOF | A025275 | conjectured P-recursive recurrence | Mathar |
 | 252 | PROOF | A025754 | conjectured P-recursive recurrence | Mathar |
-| 253 | PROOF | A025755 | conjectured P-recursive recurrence | Mathar |
+| 253 | PROOF | A278472 | conjectured P-recursive recurrence | Mathar |
 | 254 | PROOF | A026027 | conjectured P-recursive recurrence | Mathar |
 | 255 | PROOF | A063395 | conjectured P-recursive recurrence | Mathar |
 | 256 | PROOF | A067299 | conjectured P-recursive recurrence | Mathar |
@@ -450,16 +450,130 @@ the label. This is now cheap to detect in a sweep: compare the two fields in the
 | 295 | PROOF | A115967 | conjectured P-recursive recurrence | Mathar |
 | 296 | PROOF | A182892 | conjectured P-recursive recurrence | Mathar |
 | 297 | PROOF | A182894 | conjectured P-recursive recurrence | Mathar |
-| 298 | PROOF | A000483 | conjectured P-recursive recurrence (e.g.f.) | Mathar |
-| 299 | PROOF | A001712 | conjectured P-recursive recurrence (e.g.f.) | Mathar |
-| 300 | PROOF | A002867 | conjectured P-recursive recurrence (e.g.f.) | Mathar |
-| 301 | PROOF | A034863 | conjectured P-recursive recurrence (e.g.f.) | Mathar |
-| 302 | PROOF | A051524 | conjectured P-recursive recurrence (e.g.f.) | Mathar |
-| 303 | PROOF | A081046 | conjectured P-recursive recurrence (e.g.f.) | Mathar |
-| 304 | PROOF | A081052 | conjectured P-recursive recurrence (e.g.f.) | Mathar |
-| 305 | PROOF | A111779 | conjectured P-recursive recurrence (e.g.f.) | Mathar |
+| 298 | PROOF | A000483 | conjectured P-recursive recurrence | Mathar |
+| 299 | PROOF | A001712 | conjectured P-recursive recurrence | Mathar |
+| 300 | PROOF | A002867 | conjectured P-recursive recurrence | Mathar |
+| 301 | PROOF | A034863 | conjectured P-recursive recurrence | Mathar |
+| 302 | PROOF | A051524 | conjectured P-recursive recurrence | Mathar |
+| 303 | PROOF | A081046 | conjectured P-recursive recurrence | Mathar |
+| 304 | PROOF | A081052 | conjectured P-recursive recurrence | Mathar |
+| 305 | PROOF | A111779 | conjectured P-recursive recurrence | Mathar |
+| 306 | PROOF | A128153 | conjectured closed form | Mathar |
+| 307 | PROOF | A267802 | conjectured closed form | Barker |
+| 308 | PROOF | A267847 | conjectured closed form | Barker |
+| 309 | PROOF | A267879 | conjectured closed form | Spezia |
+| 310 | PROOF | A272706 | conjectured closed form | Blomberg |
+| 311 | PROOF | A334511 | conjectured closed form | Spezia |
+| 312 | PROOF | A366932 | conjectured closed form | Sloane |
+| 313 | PROOF | A367015 | conjectured closed form | Sloane |
+| 314 | PROOF | A025577 | conjectured P-recursive recurrence | Mathar |
+| 315 | PROOF | A279014 | conjectured P-recursive recurrence | Mathar |
+| 316 | PROOF | A132864 | conjectured P-recursive recurrence | Mathar |
+| 317 | PROOF | A141771 | conjectured P-recursive recurrence | Mathar |
+| 318 | PROOF | A157328 | conjectured P-recursive recurrence | Mathar |
+| 319 | PROOF | A158495 | conjectured P-recursive recurrence | Mathar |
+| 320 | PROOF | A001465 | conjectured P-recursive recurrence | Mathar |
+| 321 | PROOF | A010845 | conjectured P-recursive recurrence | Mathar |
+| 322 | PROOF | A066052 | conjectured P-recursive recurrence | Mathar |
+| 323 | PROOF | A066052 | conjectured P-recursive recurrence | Mathar |
+| 324 | PROOF | A085387 | conjectured P-recursive recurrence | Mathar |
+| 325 | PROOF | A097204 | conjectured P-recursive recurrence | Mathar |
+| 326 | PROOF | A108704 | conjectured P-recursive recurrence | Mathar |
+| 327 | PROOF | A110322 | conjectured P-recursive recurrence | Mathar |
+| 328 | PROOF | A185369 | conjectured P-recursive recurrence | Mathar |
+| 329 | PROOF | A305404 | sequence equals a convergent infinite series | Mathar |
+| 330 | PROOF | A352117 | sequence equals a convergent infinite series | Mathar |
+| 331 | PROOF | A000483 | conjectured P-recursive recurrence | Mathar |
+| 332 | PROOF | A000774 | conjectured P-recursive recurrence | Mathar |
+| 333 | PROOF | A002104 | conjectured P-recursive recurrence | Mathar |
+| 334 | PROOF | A002538 | conjectured P-recursive recurrence | Mathar |
+| 335 | PROOF | A025258 | conjectured P-recursive recurrence | Mathar |
+| 336 | PROOF | A026163 | conjectured P-recursive recurrence | Mathar |
+| 337 | PROOF | A026743 | conjectured P-recursive recurrence | Mathar |
+| 338 | PROOF | A071715 | conjectured P-recursive recurrence | Mathar |
+| 339 | PROOF | A071722 | conjectured P-recursive recurrence | Mathar |
+| 340 | PROOF | A081672 | conjectured P-recursive recurrence | Mathar |
+| 341 | PROOF | A081923 | conjectured P-recursive recurrence | Mathar |
+| 342 | PROOF | A093387 | conjectured P-recursive recurrence | Mathar |
+| 343 | PROOF | A096471 | conjectured P-recursive recurrence | Mathar |
+| 344 | PROOF | A102318 | conjectured P-recursive recurrence | Mathar |
+| 345 | PROOF | A102319 | conjectured P-recursive recurrence | Mathar |
+| 346 | PROOF | A103973 | conjectured P-recursive recurrence | Mathar |
+| 347 | PROOF | A104625 | conjectured P-recursive recurrence | Mathar |
+| 348 | PROOF | A106181 | conjectured P-recursive recurrence | Mathar |
+| 349 | PROOF | A108308 | conjectured P-recursive recurrence | Mathar |
+| 350 | PROOF | A110521 | conjectured P-recursive recurrence | Mathar |
+| 351 | PROOF | A111053 | conjectured P-recursive recurrence | Mathar |
+| 352 | PROOF | A113956 | conjectured P-recursive recurrence | Mathar |
+| 353 | PROOF | A116387 | conjectured P-recursive recurrence | Mathar |
+| 354 | PROOF | A116391 | conjectured P-recursive recurrence | Mathar |
+| 355 | PROOF | A116406 | conjectured P-recursive recurrence | Mathar |
+| 356 | PROOF | A116409 | conjectured P-recursive recurrence | Mathar |
+| 357 | PROOF | A120010 | conjectured P-recursive recurrence | Mathar |
+| 358 | PROOF | A126674 | conjectured P-recursive recurrence | Mathar |
+| 359 | PROOF | A128057 | conjectured P-recursive recurrence | Mathar |
+| 360 | PROOF | A135582 | conjectured P-recursive recurrence | Mathar |
+| 361 | PROOF | A135925 | conjectured P-recursive recurrence | Mathar |
+| 362 | PROOF | A139376 | conjectured P-recursive recurrence | Mathar |
+| 363 | PROOF | A155051 | conjectured P-recursive recurrence | Mathar |
+| 364 | PROOF | A155051 | conjectured P-recursive recurrence | Mathar |
+| 365 | PROOF | A155587 | conjectured P-recursive recurrence | Mathar |
+| 366 | PROOF | A157021 | conjectured P-recursive recurrence | Mathar |
+| 367 | PROOF | A158196 | conjectured P-recursive recurrence | Mathar |
+| 368 | PROOF | A158196 | conjectured P-recursive recurrence | Mathar |
+| 369 | PROOF | A158197 | conjectured P-recursive recurrence | Mathar |
+| 370 | PROOF | A158197 | conjectured P-recursive recurrence | Mathar |
+| 371 | PROOF | A162972 | conjectured P-recursive recurrence | Mathar |
+| 372 | PROOF | A166076 | conjectured P-recursive recurrence | Mathar |
+| 373 | PROOF | A178072 | conjectured P-recursive recurrence | Mathar |
+| 374 | PROOF | A055392 | conjectured P-recursive recurrence | Mathar |
+| 375 | PROOF | A190788 | conjectured P-recursive recurrence | Mathar |
+| 376 | PROOF | A191782 | conjectured P-recursive recurrence | Mathar |
+| 377 | PROOF | A210474 | conjectured P-recursive recurrence | Mathar |
+| 378 | PROOF | A212205 | conjectured P-recursive recurrence | Mathar |
+| 379 | PROOF | A234269 | conjectured P-recursive recurrence | Mathar |
+| 380 | PROOF | A244886 | conjectured P-recursive recurrence | Mathar |
+| 381 | PROOF | A270363 | conjectured P-recursive recurrence | Mathar |
+| 382 | PROOF | A270661 | conjectured P-recursive recurrence | Mathar |
+| 383 | PROOF | A273351 | conjectured P-recursive recurrence | Mathar |
+| 384 | PROOF | A278023 | conjectured P-recursive recurrence | Mathar |
+| 385 | PROOF | A385252 | conjectured P-recursive recurrence | Mathar |
+| 386 | PROOF | A127632 | conjectured P-recursive recurrence | Mathar |
+| 387 | PROOF | A130655 | conjectured P-recursive recurrence | Mathar |
+| 388 | PROOF | A166135 | conjectured P-recursive recurrence | Mathar |
+| 389 | PROOF | A168506 | conjectured P-recursive recurrence | Mathar |
+| 390 | PROOF | A185010 | conjectured P-recursive recurrence | Mathar |
+| 391 | PROOF | A185020 | conjectured P-recursive recurrence | Mathar |
+| 392 | PROOF | A200312 | conjectured P-recursive recurrence | Mathar |
+| 393 | PROOF | A212696 | conjectured P-recursive recurrence | Mathar |
+| 394 | PROOF | A242566 | conjectured P-recursive recurrence | Mathar |
+| 395 | PROOF | A243760 | conjectured P-recursive recurrence | Mathar |
+| 396 | PROOF | A243764 | conjectured P-recursive recurrence | Mathar |
+| 397 | PROOF | A270530 | conjectured P-recursive recurrence | Mathar |
+| 398 | PROOF | A285195 | conjectured P-recursive recurrence | Mathar |
 
 ### Caveats to disclose when handing these over
+
+- **Thirteen papers were withdrawn on 26 Aug 2026 and their slots refilled.** Twelve of
+  them (A051292, A098662, A102879, A114121, A025244, A112700, A128743, A136304, A220902,
+  A025755, A127275, A081920) rest on conjectures the entry already records as settled.
+  The old proof-marker regex looked for "proved/proof/is true/follows from" and missed
+  the wording OEIS actually uses most: *"Conjecture confirmed using the differential
+  equation…"*, *"Conjecture verified using…"*, *"verified by _Robert Israel_"*, *"can be
+  verified by…"*. `recheck.py` and `verify_open.py` now match `confirm*`, `verified`,
+  `checked using`, `establish*`, `settled`, `follows from the fact`, `immediate
+  consequence`, `can be deduced`, `is a corollary`.
+  The thirteenth, A185020 (paper 191), is a soundness failure, not a novelty failure:
+  its g.f. `sqrt((1-4x-sqrt(1-8x-32x^2))/24)/x` is a **nested radical**, and the
+  multiquadratic reduction assumes independent radicands. This is the same fault that
+  cost paper 170 (A166135). The guard now refuses it; the full re-run confirmed no other
+  paper is affected.
+  **Rule that follows: a settlement note is usually not the word "proof".** Search the
+  entry for any wording that derives the recurrence from something already established,
+  and read the hit before keeping the result. Numerical wording is the opposite signal
+  and does *not* settle anything: *"verified for n = 0..800"*, *"true for 1<=m<=n<=200"*,
+  *"Formula verified and used for computations"* are finite checks, and papers 17, 69, 77
+  and 92 stand on exactly that distinction.
 
 - **Papers 1, 3, 18, 22 are disproofs wearing a proof's filename.** The posted statement
   is false as written; each paper corrects the indexing/wording first, then proves the
@@ -681,6 +795,59 @@ A063224, A129439.
   periods, resolve `c(x)`/`C(x)` (Catalan) and `M(x)` (Motzkin) and inline `where C=...`
   definitions, and allow the posted g.f. to be shifted by a few powers of `x` against the
   entry's own indexing.
+
+### 26 Aug 2026: the ceiling above was wrong, and four things moved it
+
+The "~330 papers" ceiling assumed the attackable set was the 555 entries posting a `G.f.`
+line and that the field had to be a sum of independent square roots. Both were parser and
+engine limits, not facts about OEIS.
+
+1. **`algfield.py` — any algebraic generating function, not just square roots.**
+   Work in `K = Q(x)[y]/(P(x,y))` for the minimal polynomial `P`. Differentiating
+   `P(x,α)=0` gives `α' = −P_x/P_y`, the quotient taken inside `K` (`P_y` is invertible
+   because `P` is squarefree; use the extended Euclidean algorithm in `Q(x)[y]`). `θ` then
+   stays exact and the residual test is unchanged; `B` is a polynomial iff every
+   component above `α^0` vanishes. `sympy.minimal_polynomial(expr, y, domain=QQ.frac_field(x))`
+   builds `P` straight from the posted expression. **This reaches nested radicals** — the
+   exact class that silently mis-reduced under `multiquad` and cost papers 170 and 191.
+   Both of those entries (A166135, A185020) are now proved properly. 17 entries had been
+   refused as "not multiquadratic"; 14 of them close.
+2. **The label is not always `Conjecture:`.** 149 entries write
+   `Conjecture D-finite with recurrence …`. `parse_conj` rejected the whole line on the
+   preamble. Strip it.
+3. **The right-hand side is not always `0`.** Several hundred conjectures are written
+   `a(n) = <recurrence>`, sometimes chained `a(n) = <recurrence> = <closed form>`
+   (which asserts both halves). Move the equation to one side — `eqform_extract.py`.
+4. **The generating function is not always on a `G.f.` line.** 70 entries whose NAME is
+   `Expansion of <expr>` carry a recurrence conjecture and no `G.f.` line at all. For
+   those the expression is the *definition* of the sequence, so it is the strongest
+   possible ground, not a claim to be checked. 36 of 73 conjectures close
+   (`nogf_scan.py` / `nogf_prove.py`); the papers say plainly where the g.f. came from.
+
+Two parser faults were costing results across every class: a trailing `(End)` or
+`[From …]` marker on the g.f. line made it unparseable, and a zero coefficient polynomial
+has degree `−∞`, which crashed `apply_poly_theta` instead of being skipped.
+
+**Re-running the whole sweep under the fixed code is worth it on its own.** It re-derives
+every earlier result independently and flags any that no longer reproduce — that is how
+A185020 was caught.
+
+### `wz.py` — Gosper certificates for sums, and the trap in them
+
+For a sequence given as `a(n) = Sum_k F(n,k)` with `F` hypergeometric, do **not** run
+Zeilberger's algorithm to search for a recurrence and then compare. The recurrence is
+already known, so form `T(k) = Σ_i p_i(n) F(n−i,k)` directly and run plain Gosper on it:
+if `T(k) = G(k+1) − G(k)` then the sum telescopes to `0`. `sympy.concrete.gosper.gosper_term`
+does the work. Verify the certificate rather than trusting it — divide
+`T − (G(k+1) − G(k))` by `T` and cancel to zero as a rational function.
+
+**The trap, and it is easy to fall into.** The stated range usually depends on `n`
+(`Sum_{k=0..n}`), so `Σ_i p_i(n) a(n−i)` mixes *different* ranges and is not `Σ_k T(k)`
+unless `F(m,k)` vanishes for every `k` outside the range. With `binomial(n,k)` it does;
+with `binomial(2k+1,k+1)` it does not, and there `T ≡ 0` while the conjecture is not
+proved at all (A054109 produced exactly this false positive here). Check the boundary
+before the certificate, on concrete integers.
+
 
 ### Signals worth opening
 Garbled or self-contradictory wording; an idle hypothesis (check whether the caveat is

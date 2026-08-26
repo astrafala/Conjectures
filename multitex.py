@@ -100,3 +100,60 @@ def name_gf(template):
     if NAMEGF_OLD not in template:
         raise ValueError("g.f. lead-in not found")
     return template.replace(NAMEGF_OLD, NAMEGF_NEW, 1)
+
+
+ALG_ABSTRACT_NEW = r"""Since $A$ is algebraic over $\mathbb{Q}(x)$, and every simple
+algebraic extension of $\mathbb{Q}(x)$ is closed under $\theta$, the residual $B$ can be
+computed in closed form."""
+
+ALG_LEMMA_NEW = r"""\begin{lemma}\label{lem:field}
+Let $P(x,y)\in\mathbb{Q}(x)[y]$ be squarefree of degree $m\ge1$ in $y$, let
+$K=\mathbb{Q}(x)[y]/(P)$, and write $\alpha$ for the class of $y$ in $K$. Then $K$ is
+closed under $\theta$. Explicitly,
+\[
+\alpha'=-\frac{P_{x}(x,\alpha)}{P_{y}(x,\alpha)},
+\]
+the quotient taken inside $K$, and for $u=\sum_{i<m}c_{i}(x)\,\alpha^{i}$ with
+$c_{i}\in\mathbb{Q}(x)$,
+\[
+\theta(u)=x\Bigl(\sum_{i<m}c_{i}'(x)\,\alpha^{i}
+ +\alpha'\sum_{i<m}i\,c_{i}(x)\,\alpha^{i-1}\Bigr),
+\]
+reduced modulo $P$.
+\end{lemma}
+
+\begin{proof}
+$P(x,\alpha)=0$ holds identically in $x$, so differentiating gives
+$P_{x}(x,\alpha)+P_{y}(x,\alpha)\,\alpha'=0$. Because $P$ is squarefree,
+$\gcd(P,P_{y})=1$ in $\mathbb{Q}(x)[y]$, so $P_{y}(x,\alpha)$ is a unit of $K$ and the
+displayed quotient is defined there; its inverse is produced by the extended Euclidean
+algorithm. The formula for $\theta(u)$ is the chain rule, and reduction modulo $P$ returns
+the value to the basis $1,\alpha,\dots,\alpha^{m-1}$. Every operation stays inside $K$.
+\end{proof}
+
+Consequently, if $A\in K$ then every $p_{i}(\theta+i)A$ is in $K$, and so is $B$. Writing
+$B=\sum_{i<m}b_{i}(x)\,\alpha^{i}$ with $b_{i}\in\mathbb{Q}(x)$, the test of
+Corollary~\ref{cor:criterion} becomes: $B$ is a polynomial precisely when $b_{i}=0$ for
+every $i\ge1$ and $b_{0}$ has constant denominator. Both are decided by exact
+cancellation of rational functions."""
+
+ALG_FIELD_NEW = r"""The generating function \eqref{eq:gf} is algebraic over $\mathbb{Q}(x)$;
+its minimal polynomial is
+\[
+%(DLIST)s ,
+\]
+so \eqref{eq:gf} lies in $K=%(FIELD)s$ and is the root of that polynomial with the right
+expansion at the origin. Applying Lemma~\ref{lem:transfer} to the coefficient polynomials
+of Section~1 and reducing in $K$ by Lemma~\ref{lem:field}, every component $b_{i}$ of $B$
+with $i\ge1$ cancels identically and the remaining rational part collapses to"""
+
+
+def algebraic(template):
+    """Variant for a generating function algebraic of any degree over Q(x)."""
+    out = template
+    for old, new in ((ABSTRACT_OLD, ALG_ABSTRACT_NEW), (LEMMA_OLD, ALG_LEMMA_NEW),
+                     (FIELD_OLD, ALG_FIELD_NEW)):
+        if old not in out:
+            raise ValueError("template block not found")
+        out = out.replace(old, new, 1)
+    return out

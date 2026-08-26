@@ -13,6 +13,7 @@ from holonomic import taylor
 import quadfield as qf
 import multiquad as mq
 import logexp as le
+import algfield as af
 from makerecpapers import TEMPLATE as OGF_TEMPLATE, tex_escape, render_conj, rec_latex
 from makelogexppapers import TEMPLATE as EGF_TEMPLATE
 import multitex
@@ -71,10 +72,20 @@ def build(slots):
             print(f"{num:4d}  {a}  SKIP no g.f. reproduces the terms")
             continue
         ps = coeffs_of(v["conj"])
+        alg = ualg = None
+        if not egf and qf.to_quad(A) is None and mq.to_multi(A) is None:
+            try:
+                alg, ualg = af.from_expr(A)
+            except Exception as e:
+                print(f"{num:4d}  {a}  SKIP minimal polynomial: {e}")
+                continue
         if egf:
             m = le.to_module(A)
             ok, B = le.is_polynomial(le.residual_egf(m[0], m[1], m[2], ps, n))
             deg = (int(sp.Poly(B, x).total_degree()) if B != 0 else 0) if ok else None
+        elif alg is not None:
+            ok, B = alg.is_polynomial(alg.residual(ualg, ps, n))
+            deg = (int(sp.Poly(B, x).total_degree()) if B != 0 else -1) if ok else None
         else:
             try:
                 deg, B = residual_poly(A, ps)
@@ -90,7 +101,10 @@ def build(slots):
             continue
         q = None if egf else qf.to_quad(A)
         Ds, multi = [], False
-        if q is not None:
+        if alg is not None:
+            Dtex = sp.latex(sp.factor(alg.P.as_expr()))
+            fieldtex = r"\mathbb{Q}(x)[y]/\bigl(P(x,y)\bigr)"
+        elif q is not None:
             Dtex, fieldtex = sp.latex(sp.factor(q[2])), r"\mathbb{Q}(x)[\sqrt{D}]"
         else:
             mm = mq.to_multi(A)
@@ -118,14 +132,16 @@ def build(slots):
             "PSLIST": ",\\qquad ".join(
                 f"p_{{{i}}}(n)={sp.latex(sp.factor(p))}" for i, p in enumerate(ps)),
             "RECLATEX": rec_latex(ps),
-            "DLIST": ",\\quad ".join(
-                f"D_{{{i+1}}} \\;=\\; {sp.latex(sp.factor(D))}"
-                for i, D in enumerate(Ds)),
+            "DLIST": (f"P(x,y) \\;=\\; {Dtex}" if alg is not None else
+                      ",\\quad ".join(
+                          f"D_{{{i+1}}} \\;=\\; {sp.latex(sp.factor(D))}"
+                          for i, D in enumerate(Ds))),
             "NCHECK": min(len(v["data"]), 13),
             "NVER": nver,
             "FIRSTN": firstn,
         }
         base = EGF_TEMPLATE if egf else (
+            multitex.algebraic(OGF_TEMPLATE) if alg is not None else
             multitex.adapt(OGF_TEMPLATE) if multi else OGF_TEMPLATE)
         if v.get("gf_from_name"):
             base = multitex.name_gf(base)
