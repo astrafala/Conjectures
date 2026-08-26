@@ -35,6 +35,8 @@ def parse_formula(s):
         raise ValueError('this is a recurrence, not a closed form')
     if re.search(r'A\d{6}', s):
         raise ValueError('refers to another entry')
+    if re.search(r'\[\s*x\s*\^', s) or 'Sum_' in s or 'Product_' in s:
+        raise ValueError('coefficient extraction or an unevaluated sum, not a closed form')
     # a chained "f(n) = g(n)" asserts both halves; take the first
     parts = re.split(r'(?<![<>=!])=(?!=)', s)
     if len(parts) > 1:
