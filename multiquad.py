@@ -127,6 +127,8 @@ def scale(a, k):
 
 
 def apply_poly_theta(poly_in_n, coeffs, Ds, shift, nsym):
+    if sp.expand(poly_in_n) == 0:
+        return {}
     p = sp.Poly(sp.expand(poly_in_n), nsym)
     deg = max(m[0] for m in p.monoms()) if p.monoms() else 0
     powers = [coeffs]

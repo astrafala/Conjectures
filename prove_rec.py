@@ -53,6 +53,10 @@ def split_top_comma(s):
 
 
 def normalise(s):
+    s = s.strip()
+    # trailing editorial markers that are not part of the expression
+    s = re.sub(r'\.?\s*\(\s*End[^()]*\)\s*$', '', s, flags=re.I)
+    s = re.sub(r'\s*\[\s*(From|Added|Corrected)[^\]]*\]\s*$', '', s, flags=re.I)
     s = s.strip().rstrip('.').strip()
     for cut in (' where ', ', where', ' - _', ';', ' for ', ' with ', ' and ', ' is ',
                 ' satisfies', ' see ', ' Cf.', '(conjectured', ' conjectured',
@@ -126,7 +130,12 @@ def parse_gf(s, var, raw=None):
 
 
 def parse_conj(s):
-    body = re.sub(r'^\s*Conjecture[:.]\s*', '', s, flags=re.I)
+    # OEIS states these under several labels; strip whichever preamble is present
+    body = re.sub(r'^\s*Conjecture[s]?\s*D-finite\s+with\s+recurrence[:.]?\s*', '',
+                  s, flags=re.I)
+    body = re.sub(r'^\s*(Empirical|Conjectured)?\s*D-finite\s+with\s+recurrence[:.]?\s*',
+                  '', body, flags=re.I)
+    body = re.sub(r'^\s*Conjecture[s]?[:.]\s*', '', body, flags=re.I)
     body = body.split(' - _')[0]
     m = re.search(r'(.*?)=\s*0', body, re.S)
     if not m:

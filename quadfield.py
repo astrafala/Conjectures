@@ -87,6 +87,8 @@ def scale(a, c):
 
 def apply_poly_theta(poly_in_n, uvD, shift, nsym):
     """Apply p(theta + shift)."""
+    if sp.expand(poly_in_n) == 0:
+        return (sp.Integer(0), sp.Integer(0), uvD[2])
     p = sp.Poly(sp.expand(poly_in_n), nsym)
     powers = [uvD]
     deg = p.degree() if p.total_degree() >= 0 else 0
@@ -104,6 +106,8 @@ def apply_poly_theta(poly_in_n, uvD, shift, nsym):
 def residual(uvD, ps, nsym):
     tot = (sp.Integer(0), sp.Integer(0), uvD[2])
     for i, p in enumerate(ps):
+        if sp.expand(p) == 0:
+            continue
         tot = add(tot, scale(apply_poly_theta(p, uvD, i, nsym), x ** i))
     return tot
 

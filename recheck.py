@@ -8,7 +8,9 @@ list.
 import json, re, subprocess, time
 
 PROOF = re.compile(r"\bproof\b|\bproved\b|\bproven\b|is true|Kauers|Koutschan|"
-                   r"has been shown|follows from", re.I)
+                   r"has been shown|follows from|confirm\w*|verified|checked using|"
+                   r"establish\w*|settled|no longer a conjecture|follows from the fact|"
+                   r"immediate consequence|can be deduced|is a corollary", re.I)
 
 
 def fetch(anum):
