@@ -7,7 +7,7 @@ from holonomic import taylor
 import logexp as le
 
 x, n = sp.symbols('x n')
-RES = "scan-results.json"
+RES = os.environ.get("RES", "scan-results.json")
 
 
 def norm(s):
@@ -56,6 +56,10 @@ def main():
             if (a, norm(c)) in seen and os.environ.get("REDO") != "1":
                 continue
             todo.append((key, a, j, c, v))
+    shard = int(os.environ.get("SHARD", "0"))
+    nshard = int(os.environ.get("NSHARD", "1"))
+    if nshard > 1:
+        todo = [t for i, t in enumerate(todo) if i % nshard == shard]
     print(f"{len(todo)} conjectures to attempt")
     for key, a, j, conj, v in todo:
         rec = {"anum": a, "conj": conj, "status": None}
