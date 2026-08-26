@@ -31,9 +31,44 @@ def coeffs_of(conj):
     return parse_eq(b.strip().rstrip(".").strip().rstrip(",").strip())
 
 
+def implicit_branch(v):
+    """Some entries define the generating function by a relation rather than a formula:
+    "A(x) satisfies A(x) = (1+x^2*A(x)^2)/(1-x+3*x^2)", or as a series reversion. Solve
+    for the branch whose expansion is the entry's own data."""
+    from alg_prove import implicit_poly
+    import reversion as rv
+    off, N0 = v["offset"], min(len(v["data"]) - 1, 9)
+    for g in ([v["gf_src"]] if v.get("gf_src") else []) + v["gfs"]:
+        if not g:
+            continue
+        cands = []
+        P = implicit_poly(g)
+        if P is not None:
+            cands.append(P)
+        Q = rv.parse(g)
+        if Q is not None:
+            cands.extend(rv.branch_factors(Q))
+        for P in cands:
+            try:
+                roots = sp.solve(sp.Eq(P, 0), sp.Symbol('y'))
+            except Exception:
+                continue
+            for r in roots:
+                try:
+                    base = taylor(r, off + N0 + 3)
+                except Exception:
+                    continue
+                if all(sp.simplify(base[off + k] - v["data"][k]) == 0
+                       for k in range(N0 + 1)):
+                    return sp.together(r), g
+    return None, None
+
+
 def match_gf(v, egf):
     off, N0 = v["offset"], min(len(v["data"]) - 1, 11)
     srcs = v["egfs"] if egf else v["gfs"]
+    if v.get("gf_src") and not egf:
+        srcs = [v["gf_src"]] + [g for g in srcs if g != v["gf_src"]]
     for g in srcs:
         try:
             G = parse_gf(g, 'x', raw=g)
@@ -48,7 +83,7 @@ def match_gf(v, egf):
                 continue
             if all(sp.simplify(base[i] - v["data"][k]) == 0 for k, i in enumerate(idx)):
                 return (sp.together(x ** sh * G) if not egf else G), g
-    return None, None
+    return (None, None) if egf else implicit_branch(v)
 
 
 def integer_check(ps, data, off, deg):
