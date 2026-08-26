@@ -27,6 +27,12 @@ def _has_nested_radical(expr):
 
 
 
+def _has_radical(expr):
+    """Any half-integer power left in an expression that is supposed to be rational."""
+    return any(a.is_Pow and a.exp in (sp.Rational(1, 2), -sp.Rational(1, 2))
+               for a in expr.atoms(sp.Pow))
+
+
 def _radicands(expr):
     rs = []
     for a in expr.atoms(sp.Pow):
@@ -50,12 +56,21 @@ def to_multi(expr, maxk=3):
             return None
         return {frozenset(): e}, []
     syms = [sp.Symbol(f's_{i}') for i in range(len(Ds))]
-    e = expr
-    for D, s in zip(Ds, syms):
-        e = e.subs(sp.sqrt(D), s)
-        e = e.replace(lambda t: t.is_Pow and t.base == D and t.exp == -sp.Rational(1, 2),
-                      lambda t: 1 / s)
-    if e.has(sp.sqrt) or any(e.has(sp.sqrt(D)) for D in Ds):
+
+    # Match on the RADICAND rather than the syntactic form of sqrt(D): the radicands are
+    # normalised with cancel/together, so sqrt of a factored radicand does not match
+    # sqrt(D) syntactically and a subs() would silently leave radicals behind.
+    def _sub(t):
+        if not (t.is_Pow and t.exp in (sp.Rational(1, 2), -sp.Rational(1, 2))):
+            return t
+        for D, s in zip(Ds, syms):
+            if sp.cancel(sp.together(t.base) - D) == 0:
+                return s if t.exp == sp.Rational(1, 2) else 1 / s
+        return t
+
+    e = expr.replace(lambda t: t.is_Pow and t.exp in (sp.Rational(1, 2),
+                                                      -sp.Rational(1, 2)), _sub)
+    if _has_radical(e.subs({s: 1 for s in syms})) or e.has(sp.sqrt):
         return None
     num, den = sp.fraction(sp.together(e))
     num, den = sp.expand(num), sp.expand(den)
@@ -103,6 +118,10 @@ def to_multi(expr, maxk=3):
         S = frozenset(i for i, m in enumerate(monom) if m == 1)
         coeffs[S] = sp.cancel(coeffs.get(S, 0) + c / den)
     if any((c.free_symbols - {x}) for c in coeffs.values()):
+        return None
+    # every coefficient must be a rational function; a surviving radical would make the
+    # basis decomposition meaningless, so refuse rather than return a false one
+    if any(_has_radical(c) for c in coeffs.values()):
         return None
     return coeffs, Ds
 

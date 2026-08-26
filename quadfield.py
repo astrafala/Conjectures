@@ -28,6 +28,12 @@ def _has_nested_radical(expr):
                     return True
     return False
 
+def _has_radical(expr):
+    """Any half-integer power left in an expression that is supposed to be rational."""
+    return any(a.is_Pow and a.exp in (sp.Rational(1, 2), -sp.Rational(1, 2))
+               for a in expr.atoms(sp.Pow))
+
+
 s = sp.Symbol('s')
 
 
@@ -46,9 +52,18 @@ def to_quad(expr):
     if len(rads) != 1:
         return None
     D = rads.pop()
-    e = expr.subs(sp.sqrt(D), s)
-    e = e.replace(lambda t: t.is_Pow and t.exp == -sp.Rational(1, 2), lambda t: 1 / s)
-    if e.has(sp.sqrt):
+    # Substitute on the RADICAND, not on the syntactic form of sqrt(D): the radicand is
+    # normalised with cancel/together, so sqrt of the factored form does not match
+    # sqrt(D) syntactically and a subs() would silently leave radicals behind.
+    def _sub(t):
+        if not (t.is_Pow and t.exp in (sp.Rational(1, 2), -sp.Rational(1, 2))):
+            return t
+        if sp.cancel(sp.together(t.base) - D) != 0:
+            return t
+        return s if t.exp == sp.Rational(1, 2) else 1 / s
+    e = expr.replace(lambda t: t.is_Pow and t.exp in (sp.Rational(1, 2),
+                                                      -sp.Rational(1, 2)), _sub)
+    if _has_radical(e.subs(s, 1)) or e.has(sp.sqrt):
         return None
     num, den = sp.fraction(sp.together(e))
     num, den = sp.expand(num), sp.expand(den)
@@ -66,6 +81,10 @@ def to_quad(expr):
     u = sp.cancel((n0 * d0 - n1 * d1 * D) / denom)
     v = sp.cancel((n1 * d0 - n0 * d1) / denom)
     if (u.free_symbols | v.free_symbols | D.free_symbols) - {x}:
+        return None
+    # u and v must be rational functions; a surviving radical would make every later
+    # step meaningless, so refuse rather than return a decomposition that is not one
+    if _has_radical(u) or _has_radical(v):
         return None
     return (u, v, D)
 
