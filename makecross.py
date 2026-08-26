@@ -19,7 +19,7 @@ def integer_check(refs, poly, target, cache, deg):
         nn = idx + offA
         if nn <= deg:
             continue
-        rhs = sp.Integer(sp.Poly(poly, n).eval(nn)) if poly != 0 else sp.Integer(0)
+        rhs = sp.Rational(sp.Poly(poly, n).eval(nn)) if poly != 0 else sp.Integer(0)
         ok = True
         for c, nm, k in refs:
             dB, oB = cache[nm][1], cache[nm][2]
@@ -27,10 +27,11 @@ def integer_check(refs, poly, target, cache, deg):
             if j < 0 or j >= len(dB):
                 ok = False
                 break
-            rhs += sp.Integer(sp.Poly(c, n).eval(nn) if c.free_symbols else int(c)) * dB[j]
+            cv = sp.Poly(c, n).eval(nn) if c.free_symbols else sp.nsimplify(c)
+            rhs += sp.Rational(cv) * dB[j]
         if not ok:
             continue
-        if sp.Integer(dataA[idx]) != rhs:
+        if sp.Rational(dataA[idx]) != sp.nsimplify(rhs):
             return None, None
         checked += 1
         if first is None:
