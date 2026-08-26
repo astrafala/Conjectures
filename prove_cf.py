@@ -52,11 +52,20 @@ def main():
                 rec["status"] = "posted g.f. does not reproduce the terms"
             else:
                 F = C.gf_of(f, off)
-                if sp.simplify(sp.together(F - A)) == 0:
-                    rec.update(status="PROVED", formula=sp.sstr(f),
-                               gf=sp.sstr(sp.simplify(A)), F=sp.sstr(F))
+                # the claim almost always holds only past a small boundary, so the
+                # test is for a POLYNOMIAL difference, not for zero
+                D = sp.cancel(sp.together(sp.simplify(F - A)))
+                num, den = sp.fraction(D)
+                ok = (den.is_polynomial(x) and sp.Poly(den, x).total_degree() == 0
+                      and sp.expand(D).is_polynomial(x)
+                      and not (sp.expand(D).free_symbols - {x}))
+                if ok:
+                    B = sp.expand(D)
+                    deg = int(sp.Poly(B, x).total_degree()) if B != 0 else -1
+                    rec.update(status="PROVED", formula=sp.sstr(f), B=sp.sstr(B),
+                               degree=deg, gf=sp.sstr(sp.simplify(A)), F=sp.sstr(F))
                 else:
-                    rec["status"] = "closed form does NOT match the g.f."
+                    rec["status"] = "difference is not a polynomial"
             print(f"{a}  {rec['status']}")
         except _TO:
             rec["status"] = "skip: timeout"

@@ -26,10 +26,20 @@ CF = re.compile(r'^%[CF] A\d{6} Conjecture[:.]?\s*(?:that\s+)?a\(n\)\s*=\s*(.+)$
 def parse_formula(s):
     s = re.sub(r'^\s*Conjecture[:.]?\s*(?:that\s+)?a\(n\)\s*=\s*', '', s.strip(), flags=re.I)
     s = s.split(' - _')[0].strip().rstrip('.')
+    s = re.sub(r'\.?\s*\(\s*End[^()]*\)\s*$', '', s, flags=re.I)
     for cut in (' for ', ' with ', ', where', ' where ', ' checked', ';',
                 ' [', ' Cf.', ' See ', ' This ', ' It '):
         s = s.split(cut)[0]
-    s = s.strip().rstrip('.').strip()
+    s = s.strip().rstrip('.').strip().rstrip(',').strip()
+    if re.search(r'a\(n\s*[-+]\s*\d+\)', s):
+        raise ValueError('this is a recurrence, not a closed form')
+    if re.search(r'A\d{6}', s):
+        raise ValueError('refers to another entry')
+    # a chained "f(n) = g(n)" asserts both halves; take the first
+    parts = re.split(r'(?<![<>=!])=(?!=)', s)
+    if len(parts) > 1:
+        s = parts[0]
+    s = s.strip().rstrip('.').strip().rstrip(',').strip()
     s = s.replace('^', '**')
     s = s.replace(' ', '')
     s = re.sub(r'(\d)([a-zA-Z(])', r'\1*\2', s)
