@@ -85,3 +85,18 @@ def adapt(template):
             raise ValueError("template block not found:\n" + old[:60])
         out = out.replace(old, new, 1)
     return out
+
+
+NAME_OLD = r"""and it carries the following comment:"""
+
+NAMEGF_OLD = r"""The entry gives the generating function"""
+NAMEGF_NEW = r"""The entry does not list a generating function separately: it is defined as the
+expansion of one, so the identity below is the definition of the sequence rather than a
+claim about it,"""
+
+
+def name_gf(template):
+    """Variant for entries whose NAME is "Expansion of <expr>"."""
+    if NAMEGF_OLD not in template:
+        raise ValueError("g.f. lead-in not found")
+    return template.replace(NAMEGF_OLD, NAMEGF_NEW, 1)

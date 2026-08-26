@@ -127,6 +127,8 @@ def build(slots):
         }
         base = EGF_TEMPLATE if egf else (
             multitex.adapt(OGF_TEMPLATE) if multi else OGF_TEMPLATE)
+        if v.get("gf_from_name"):
+            base = multitex.name_gf(base)
         tex = base % subs
         d = f"build/{num}"
         os.makedirs(d, exist_ok=True)

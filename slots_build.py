@@ -31,17 +31,21 @@ def build(slots):
             continue
         data = [int(v) for v in e["data"].split(",")]
         off = int(e["offset"].split(",")[0])
-        gfs = [re.split(r":", l, 1)[1].strip() for l in (e.get("formula") or [])
-               if re.match(r"G\.f\.", l.strip(), re.I)]
-        egfs = [re.split(r":", l, 1)[1].strip() for l in (e.get("formula") or [])
-                if re.match(r"E\.g\.f\.", l.strip(), re.I)]
+        def heads(pat):
+            out = []
+            for l in (e.get("formula") or []):
+                m = re.match(pat + r"\s*:?\s*(.+)", l.strip(), re.I)
+                if m:
+                    out.append(m.group(1).strip())
+            return out
+        gfs, egfs = heads(r"G\.f\."), heads(r"E\.g\.f\.")
         if s.get("gf_src"):
             gfs = [s["gf_src"]] + [g for g in gfs if g != s["gf_src"]]
         # independent integer re-check on the live terms
         rec = {"anum": a, "conj": match[0], "name": e["name"], "offset": off,
                "data": data, "time": e["time"][:10], "revision": e["revision"],
                "gfs": gfs, "egfs": egfs, "mode": s.get("mode", "ogf"),
-               "num": s["num"]}
+               "num": s["num"], "gf_from_name": s.get("gf_from_name", False)}
         out.append(rec)
     json.dump(out, open("slots.json", "w"), indent=1)
     print(f"{len(out)} slots assembled")
