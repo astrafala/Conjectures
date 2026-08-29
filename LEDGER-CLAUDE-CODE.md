@@ -67,8 +67,8 @@ result is worth more than three forced ones.
 
 # Conjecture-hunt ledger
 
-Last updated 26 Aug 2026. Roster: **421 papers**, files `1-PROOF.pdf` … `421-PROOF.pdf`.
-New results continue from **422-**.
+Last updated 26 Aug 2026. Roster: **434 papers**, files `1-PROOF.pdf` … `434-PROOF.pdf`.
+New results continue from **435-**.
 
 ---
 
@@ -574,6 +574,19 @@ the label. This is now cheap to detect in a sweep: compare the two fields in the
 | 419 | PROOF | A032096 | conjectured P-recursive recurrence | Mathar |
 | 420 | PROOF | A152120 | conjectured P-recursive recurrence | Mathar |
 | 421 | PROOF | A156849 | conjectured P-recursive recurrence | Mathar |
+| 422 | PROOF | A026017 | conjectured P-recursive recurrence | Mathar |
+| 423 | PROOF | A026327 | conjectured P-recursive recurrence | Mathar |
+| 424 | PROOF | A125306 | conjectured P-recursive recurrence | Mathar |
+| 425 | PROOF | A126932 | conjectured P-recursive recurrence | Mathar |
+| 426 | PROOF | A163824 | conjectured P-recursive recurrence | Mathar |
+| 427 | PROOF | A225034 | conjectured P-recursive recurrence | Berselli |
+| 428 | PROOF | A240558 | conjectured P-recursive recurrence | Mathar |
+| 429 | PROOF | A073591 | conjectured P-recursive recurrence | Mathar |
+| 430 | PROOF | A162477 | conjectured P-recursive recurrence | Mathar |
+| 431 | PROOF | A243022 | conjectured P-recursive recurrence | Mathar |
+| 432 | PROOF | A243814 | conjectured P-recursive recurrence | Mathar |
+| 433 | PROOF | A270530 | conjectured P-recursive recurrence | Mathar |
+| 434 | PROOF | A346074 | conjectured P-recursive recurrence | Mathar |
 
 ### Caveats to disclose when handing these over
 
@@ -879,6 +892,18 @@ engine limits, not facts about OEIS.
 6. **Series reversions are algebraic.** `f(R) = x` defines `R`; eliminate it from
    `y − E(x,R)` and `f(R) − x` by a resultant and hand the factor with the right
    expansion to `algfield` (`reversion.py`).
+
+7. **The generating function is sometimes only in the entry's NAME as a relation.**
+   `a(n) = A000522(n) + 1` fixes it completely (a constant `c` contributes `c*e^x` to an
+   exponential generating function). Only two such entries exist and one was already
+   confirmed, so this is a one-paper vein -- but the same reading applies wherever a name
+   states a plain arithmetic relation (`namerel.py`).
+
+**Final coverage of the recurrence class:** 1,025 entries carry a `Conjecture ... = 0`
+recurrence. 345 are unreachable by any of this: 232 have a purely combinatorial name and
+no formula anywhere on the entry, and 113 name a table diagonal or column of another
+entry, which gives no usable generating function. That is the real floor, not a parser
+limit.
 
 Three parser faults were costing results across every class: a trailing `(End)` or
 `[From …]` marker made a g.f. line unparseable; a zero coefficient polynomial has degree
