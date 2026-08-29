@@ -103,6 +103,34 @@ def integer_check(ps, data, off, deg):
     return len(data) - lo, lo + off
 
 
+
+def real_form(A):
+    """Rewrite sqrt of a negative-leading polynomial as i*sqrt(its negation).
+
+    Some entries state the g.f. that way -- A240558 posts
+    (i*(2x(8x+1)-1)/sqrt(16x^2-1) - 2x + 1)/(8x^2) -- which is a real power series, but
+    printing it with an imaginary unit in a paper about an integer sequence reads as an
+    error. Pulling the i out lets it cancel against the one already there.
+    """
+    subs = {}
+    for a in A.atoms(sp.Pow):
+        if a.exp not in (sp.Rational(1, 2), -sp.Rational(1, 2)):
+            continue
+        b = sp.expand(a.base)
+        # the branch that matters is the one at the origin, where the series lives, so
+        # the sign to look at is the radicand's value at x = 0 -- not its leading term
+        try:
+            at0 = sp.nsimplify(b.subs(x, 0))
+        except Exception:
+            continue
+        if at0.is_number and at0 < 0:
+            r = sp.sqrt(-b)
+            subs[a] = sp.I * r if a.exp > 0 else 1 / (sp.I * r)
+    if not subs:
+        return A
+    out = sp.simplify(sp.together(A.subs(subs)))
+    return out if not out.has(sp.I) else A
+
 def build(slots):
     made = []
     for v in slots:
@@ -161,7 +189,7 @@ def build(slots):
             "OFFSET": off,
             "FIRSTTERMS": (f"a({off}),\\dots,a({off+7})\;=\;"
                            + ", ".join(str(t) for t in v["data"][:8]) + ",\\ \\dots"),
-            "GFLATEX": sp.latex(sp.simplify(A)),
+            "GFLATEX": sp.latex(real_form(sp.simplify(A))),
             "DLATEX": Dtex,
             "FIELD": fieldtex,
             "BLATEX": sp.latex(B),
