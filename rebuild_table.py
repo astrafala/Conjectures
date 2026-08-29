@@ -13,6 +13,7 @@ KIND = [
     (r"conjectured recurrence", "conjectured P-recursive recurrence"),
     (r"periodicity modulo m", "eventual periodicity mod m, period dividing phi(m)"),
     (r"conjectured closed form", "conjectured closed form"),
+    (r"conjectured identity", "identity between OEIS entries"),
     (r"gcd-sum", "gcd-sum evaluation"),
     (r"convergent series", "sequence equals a convergent infinite series"),
 ]
@@ -34,7 +35,8 @@ def main():
                     conjs[a] = v["conj"]
         except Exception:
             pass
-    for f in ("slot-spec.json", "build-spec.json", "alg-spec-open.json", "fix-spec.json"):
+    import glob
+    for f in sorted(set(glob.glob("*spec*.json") + glob.glob("*build*.json"))):
         if os.path.exists(f):
             for s in json.load(open(f)):
                 conjs.setdefault(s["anum"], s["conj"])

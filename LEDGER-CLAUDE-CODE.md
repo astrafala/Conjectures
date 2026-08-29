@@ -67,8 +67,8 @@ result is worth more than three forced ones.
 
 # Conjecture-hunt ledger
 
-Last updated 26 Aug 2026. Roster: **398 papers**, files `1-PROOF.pdf` … `398-PROOF.pdf`.
-New results continue from **399-**.
+Last updated 26 Aug 2026. Roster: **421 papers**, files `1-PROOF.pdf` … `421-PROOF.pdf`.
+New results continue from **422-**.
 
 ---
 
@@ -464,8 +464,8 @@ the label. This is now cheap to detect in a sweep: compare the two fields in the
 | 309 | PROOF | A267879 | conjectured closed form | Spezia |
 | 310 | PROOF | A272706 | conjectured closed form | Blomberg |
 | 311 | PROOF | A334511 | conjectured closed form | Spezia |
-| 312 | PROOF | A366932 | conjectured closed form | Sloane |
-| 313 | PROOF | A367015 | conjectured closed form | Sloane |
+| 312 | PROOF | A191625 | conjectured P-recursive recurrence | Mathar |
+| 313 | PROOF | A219314 | conjectured P-recursive recurrence | Mathar |
 | 314 | PROOF | A025577 | conjectured P-recursive recurrence | Mathar |
 | 315 | PROOF | A279014 | conjectured P-recursive recurrence | Mathar |
 | 316 | PROOF | A132864 | conjectured P-recursive recurrence | Mathar |
@@ -551,8 +551,60 @@ the label. This is now cheap to detect in a sweep: compare the two fields in the
 | 396 | PROOF | A243764 | conjectured P-recursive recurrence | Mathar |
 | 397 | PROOF | A270530 | conjectured P-recursive recurrence | Mathar |
 | 398 | PROOF | A285195 | conjectured P-recursive recurrence | Mathar |
+| 399 | PROOF | A110320 | identity between OEIS entries | McGarvey |
+| 400 | PROOF | A273676 | identity between OEIS entries | Mathar |
+| 401 | PROOF | A273832 | identity between OEIS entries | Mathar |
+| 402 | PROOF | A298022 | identity between OEIS entries | Spezia |
+| 403 | PROOF | A309878 | identity between OEIS entries | Mathar |
+| 404 | PROOF | A315520 | identity between OEIS entries | Spezia |
+| 405 | PROOF | A319371 | identity between OEIS entries | Mathar |
+| 406 | PROOF | A334509 | identity between OEIS entries | Spezia |
+| 407 | PROOF | A346370 | identity between OEIS entries | Kurkov |
+| 408 | PROOF | A128096 | conjectured P-recursive recurrence | Mathar |
+| 409 | PROOF | A163493 | conjectured P-recursive recurrence | Mathar |
+| 410 | PROOF | A166287 | conjectured P-recursive recurrence | Mathar |
+| 411 | PROOF | A166287 | conjectured P-recursive recurrence | Mathar |
+| 412 | PROOF | A166290 | conjectured P-recursive recurrence | Mathar |
+| 413 | PROOF | A168505 | conjectured P-recursive recurrence | Mathar |
+| 414 | PROOF | A174169 | conjectured P-recursive recurrence | Mathar |
+| 415 | PROOF | A261196 | conjectured P-recursive recurrence | Mathar |
+| 416 | PROOF | A049486 | conjectured closed form | Mathar |
+| 417 | PROOF | A126501 | conjectured closed form | Barker |
+| 418 | PROOF | A333905 | conjectured closed form | Spezia |
+| 419 | PROOF | A032096 | conjectured P-recursive recurrence | Mathar |
+| 420 | PROOF | A152120 | conjectured P-recursive recurrence | Mathar |
+| 421 | PROOF | A156849 | conjectured P-recursive recurrence | Mathar |
 
 ### Caveats to disclose when handing these over
+
+- **Thirteen papers were withdrawn on 26 Aug 2026 and their slots refilled.** Twelve of
+  them (A051292, A098662, A102879, A114121, A025244, A112700, A128743, A136304, A220902,
+  A025755, A127275, A081920) rest on conjectures the entry already records as settled.
+  The old proof-marker regex looked for "proved/proof/is true/follows from" and missed
+  the wording OEIS actually uses most: *"Conjecture confirmed using the differential
+  equation…"*, *"Conjecture verified using…"*, *"verified by _Robert Israel_"*, *"can be
+  verified by…"*. `recheck.py` and `verify_open.py` now match `confirm*`, `verified`,
+  `checked using`, `establish*`, `settled`, `follows from the fact`, `immediate
+  consequence`, `can be deduced`, `is a corollary`, and theorem wording.
+  The thirteenth, A185020 (paper 191), was a soundness failure, not a novelty failure:
+  its g.f. `sqrt((1-4x-sqrt(1-8x-32x^2))/24)/x` is a **nested radical**, and the
+  multiquadratic reduction assumes independent radicands. The general algebraic engine
+  now proves it properly (paper 391), as it does A166135 (paper 388), the entry that
+  cost paper 170.
+- **Five more were withdrawn the same day because someone else got there.**
+  - 312 (A366932) and 313 (A367015): *"[This is now a theorem — N. J. A. Sloane,
+    Dec 31 2025]"*.
+  - 7 (A000040): *"[Conjecture is true, follows from Wilson's theorem — Rayhan Ahmed,
+    May 21 2026]"*.
+  - 4 (A008364): the entry's own comment gives the complete finite verification.
+  - 20 (A129365, Conjecture D): resolved in the **OEIS Open** benchmark, machine-checked
+    in Lean and scored CORRECT by all three models run against it.
+- **Rule that follows: a settlement note is usually not the word "proof".** Search the
+  entry for any wording that derives the claim from something already established, and
+  read the hit before keeping the result. Numerical wording is the opposite signal and
+  settles nothing: *"verified for n = 0..800"*, *"true for 1<=m<=n<=200"*, *"Formula
+  verified and used for computations"* are finite checks, and papers 17, 69, 77 and 92
+  stand on exactly that distinction.
 
 - **Thirteen papers were withdrawn on 26 Aug 2026 and their slots refilled.** Twelve of
   them (A051292, A098662, A102879, A114121, A025244, A112700, A128743, A136304, A220902,
@@ -796,7 +848,7 @@ A063224, A129439.
   definitions, and allow the posted g.f. to be shifted by a few powers of `x` against the
   entry's own indexing.
 
-### 26 Aug 2026: the ceiling above was wrong, and four things moved it
+### 26 Aug 2026: the ceiling above was wrong, and six things moved it
 
 The "~330 papers" ceiling assumed the attackable set was the 555 entries posting a `G.f.`
 line and that the field had to be a sum of independent square roots. Both were parser and
@@ -806,47 +858,69 @@ engine limits, not facts about OEIS.
    Work in `K = Q(x)[y]/(P(x,y))` for the minimal polynomial `P`. Differentiating
    `P(x,α)=0` gives `α' = −P_x/P_y`, the quotient taken inside `K` (`P_y` is invertible
    because `P` is squarefree; use the extended Euclidean algorithm in `Q(x)[y]`). `θ` then
-   stays exact and the residual test is unchanged; `B` is a polynomial iff every
-   component above `α^0` vanishes. `sympy.minimal_polynomial(expr, y, domain=QQ.frac_field(x))`
-   builds `P` straight from the posted expression. **This reaches nested radicals** — the
-   exact class that silently mis-reduced under `multiquad` and cost papers 170 and 191.
-   Both of those entries (A166135, A185020) are now proved properly. 17 entries had been
-   refused as "not multiquadratic"; 14 of them close.
+   stays exact and the residual test is unchanged. `sympy.minimal_polynomial(expr, y,
+   domain=QQ.frac_field(x))` builds `P` straight from the posted expression. **This reaches
+   nested radicals** — the exact class that silently mis-reduced under `multiquad` and cost
+   papers 170 and 191.
 2. **The label is not always `Conjecture:`.** 149 entries write
-   `Conjecture D-finite with recurrence …`. `parse_conj` rejected the whole line on the
-   preamble. Strip it.
-3. **The right-hand side is not always `0`.** Several hundred conjectures are written
-   `a(n) = <recurrence>`, sometimes chained `a(n) = <recurrence> = <closed form>`
-   (which asserts both halves). Move the equation to one side — `eqform_extract.py`.
+   `Conjecture D-finite with recurrence …`. Strip the preamble.
+3. **The right-hand side is not always `0`.** Several hundred are written
+   `a(n) = <recurrence>`, sometimes chained `a(n) = <recurrence> = <closed form>` —
+   which asserts BOTH halves. Prove both or drop it (`eqform_extract.py`).
 4. **The generating function is not always on a `G.f.` line.** 70 entries whose NAME is
-   `Expansion of <expr>` carry a recurrence conjecture and no `G.f.` line at all. For
-   those the expression is the *definition* of the sequence, so it is the strongest
-   possible ground, not a claim to be checked. 36 of 73 conjectures close
-   (`nogf_scan.py` / `nogf_prove.py`); the papers say plainly where the g.f. came from.
+   `Expansion of <expr>` carry a recurrence conjecture and no `G.f.` line; there the
+   expression is the *definition*, the strongest possible ground. 36 of 73 close
+   (`nogf_scan.py`). A further 15 entries state it mid-sentence — *"Expansion of
+   (1+x*C^3)*C^4, where C = …"*, *"Theorem: G.f. = …"* — see `midline_scan.py`.
+5. **A whole class is not recurrences at all.** `a(n) = c1*A111111(n+k1) +
+   c2*A222222(n+k2) + <polynomial in n>` is one identity between generating functions
+   when every entry involved posts one (`cross.py`). Test for a POLYNOMIAL difference,
+   not zero.
+6. **Series reversions are algebraic.** `f(R) = x` defines `R`; eliminate it from
+   `y − E(x,R)` and `f(R) − x` by a resultant and hand the factor with the right
+   expansion to `algfield` (`reversion.py`).
 
-Two parser faults were costing results across every class: a trailing `(End)` or
-`[From …]` marker on the g.f. line made it unparseable, and a zero coefficient polynomial
-has degree `−∞`, which crashed `apply_poly_theta` instead of being skipped.
+Three parser faults were costing results across every class: a trailing `(End)` or
+`[From …]` marker made a g.f. line unparseable; a zero coefficient polynomial has degree
+`−∞`, which crashed `apply_poly_theta`; and `to_quad`/`to_multi` substituted on
+`sqrt(D)` **syntactically** while `D` had been normalised with `cancel`, so a radicand
+written in factored form — `sqrt((x^2-3x+1)(x^2+x+1))` — produced a "decomposition"
+whose `v` still held a square root. That last one could only ever lose results, never
+invent them (`is_polynomial` ends with `out.is_polynomial(x)`), but it was silently
+losing them for the whole run. **Both engines now match on the radicand and refuse
+outright if any radical survives.**
 
-**Re-running the whole sweep under the fixed code is worth it on its own.** It re-derives
+**Re-running the whole sweep under fixed code is worth it on its own.** It re-derives
 every earlier result independently and flags any that no longer reproduce — that is how
-A185020 was caught.
+A185020 was caught, and how the `to_quad` bug surfaced (the algebraic engine and the
+quadratic one disagreed on A166287; a direct series computation showed the algebraic one
+was right).
 
-### `wz.py` — Gosper certificates for sums, and the trap in them
+### Two classes that are dead, and why
 
-For a sequence given as `a(n) = Sum_k F(n,k)` with `F` hypergeometric, do **not** run
-Zeilberger's algorithm to search for a recurrence and then compare. The recurrence is
-already known, so form `T(k) = Σ_i p_i(n) F(n−i,k)` directly and run plain Gosper on it:
-if `T(k) = G(k+1) − G(k)` then the sum telescopes to `0`. `sympy.concrete.gosper.gosper_term`
-does the work. Verify the certificate rather than trusting it — divide
-`T − (G(k+1) − G(k))` by `T` and cancel to zero as a rational function.
+- **`wz.py` — Gosper certificates for hypergeometric sums. 284 attempts, 0 proofs.**
+  For `a(n) = Sum_k F(n,k)`, form `T(k) = Σ_i p_i(n) F(n−i,k)` and run Gosper directly
+  rather than searching with Zeilberger; verify the certificate instead of trusting it.
+  **The trap:** the range usually depends on `n` (`Sum_{k=0..n}`), so the operator applied
+  to `a(n)` mixes ranges and is not `Σ_k T(k)` unless `F(m,k)` vanishes outside it. With
+  `binomial(n,k)` it does; with `binomial(2k+1,k+1)` it does not, and there `T ≡ 0` while
+  nothing is proved (A054109 produced exactly that false positive here). Check the
+  boundary before the certificate. 214 of the 284 were not single hypergeometric terms
+  and 39 more failed the boundary — the class is genuinely dead by this route.
+- **The formalisation benchmarks are not a source of targets.** Checked the whole roster
+  against **OEIS Open** (492 conjectures, 444 sequences, `epoch-research/LeanOpenProblems`)
+  and DeepMind's **formal-conjectures** (299 sequences). Only six papers touch either
+  list, all among the original 28, and only A129365 Conjecture D is actually resolved
+  (paper 20, withdrawn). Of the 492, **160 were resolved and 332 were not** — but the 332
+  are Sun-type existence and number-theory statements (*"every integer n>8 can be written
+  as x+y+z with …"*), with nine recurrence-shaped and none of those P-recursive. Nothing
+  there for these engines.
 
-**The trap, and it is easy to fall into.** The stated range usually depends on `n`
-(`Sum_{k=0..n}`), so `Σ_i p_i(n) a(n−i)` mixes *different* ranges and is not `Σ_k T(k)`
-unless `F(m,k)` vanishes for every `k` outside the range. With `binomial(n,k)` it does;
-with `binomial(2k+1,k+1)` it does not, and there `T ≡ 0` while the conjecture is not
-proved at all (A054109 produced exactly this false positive here). Check the boundary
-before the certificate, on concrete integers.
+### Still unexploited
+
+`a(n) = A######(m*n+k)` for `m ≥ 2` — 14 such conjectures. The `m`-section of a rational
+g.f. is rational: `G(y) = (1/m) Σ_{r<m} ζ^{−rk} F(ζ^r y^{1/m})`. Fiddly with roots of
+unity, maybe two or three results. Not attempted.
 
 
 ### Signals worth opening
