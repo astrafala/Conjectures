@@ -27,11 +27,20 @@ def covered():
                     out.add((a, norm(v["conj"])))
         except Exception:
             pass
-    for f in ("slot-spec.json", "fix-spec.json", "new-spec.json"):
-        if os.path.exists(f):
-            for s in json.load(open(f)):
-                if os.path.exists(f"papers/{s['num']}-PROOF.pdf"):
-                    out.add((s["anum"], norm(s["conj"])))
+    for f in glob.glob("*spec*.json") + glob.glob("*build*.json") + ["cross-redo.json"]:
+        if not os.path.exists(f):
+            continue
+        try:
+            rows = json.load(open(f))
+        except Exception:
+            continue
+        if not isinstance(rows, list):
+            continue
+        for s in rows:
+            if not isinstance(s, dict) or "num" not in s or "conj" not in s:
+                continue
+            if os.path.exists(f"papers/{s['num']}-PROOF.pdf"):
+                out.add((s["anum"], norm(s["conj"])))
     return out
 
 

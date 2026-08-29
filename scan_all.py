@@ -15,7 +15,9 @@ LABEL = re.compile(r"^\s*(Conjecture[sd]?\b|Conjectured\b)", re.I)
 PROOF = re.compile(r"\bproof\b|\bproved\b|\bproven\b|is true|Kauers|Koutschan|"
                    r"has been shown|follows from|confirm\w*|verified|checked using|"
                    r"establish\w*|settled|no longer a conjecture|"
-                   r"immediate consequence|can be deduced|is a corollary", re.I)
+                   r"immediate consequence|can be deduced|is a corollary|"
+                   r"is now a theorem|now a theorem|this is a theorem|"
+                   r"has been established|resolved by|closed by", re.I)
 
 
 def norm(s):
