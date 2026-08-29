@@ -996,6 +996,35 @@ was right).
   the conjecture follows from it, and the last two say so in wording the detector had to
   be widened to catch. Zero results.
 
+### The one genuinely hard target attacked, and why it did not fall
+
+**A193437.** `a(n)` counts permutations of `n` elements whose cycle lengths are all
+`== 1 (mod 3)`; e.g.f. `exp(Sum_{k>=0} x^(3k+1)/(3k+1))`, and the entry gives a
+non-conjectural recurrence `a(n) = a(n-1) + (n-1)(n-2)(n-3)a(n-3)`. Two conjectures, open
+since 2011: `7^floor(n/7) | a(n)`, and more generally `p^floor(n/p) | a(n)` for every
+prime `p == 1 (mod 3)`. This is not an oversight by the contributor — it is a real
+divisibility problem.
+
+What was established here, for whoever picks it up:
+
+- **It holds to n = 399 for p = 7, 13, 19, 31, 37**, computed from the entry's own
+  recurrence (which was checked against the published terms first).
+- **The bound is tight.** `v_p(a(n))` equals `floor(n/p)` exactly at many indices -- 149
+  of the first 300 for `p = 13`. So no crude estimate can work; a proof has to be exact.
+- **Naive induction on the recurrence is not enough.** When `p | n`, both terms on the
+  right have valuation exactly `floor(n/p) - 1` and must cancel to gain the last power,
+  so the induction needs an auxiliary congruence, not just the bound.
+- **`a(n)/p^floor(n/p)` mod p has no visible periodicity** in `n` at period `p`, `3p` or
+  `p^2`, so that auxiliary invariant is not going to be a simple periodic one.
+- **The structural fact worth starting from.** Since `p == 1 (mod 3)`, the allowed cycle
+  lengths divisible by `p` are exactly `p` times the allowed lengths, so the exponent
+  series splits as `G(x) = A(x) + G(x^p)/p` with `A` p-integral. That is an Artin-Hasse
+  shaped decomposition, and `v_p(a(n)) = v_p(n!) + v_p([x^n]exp G)` is where the two
+  contributions have to be balanced against each other.
+
+Not proved. Recorded rather than counted.
+
+
 ### Still unexploited
 
 `a(n) = A######(m*n+k)` for `m ≥ 2` — 14 such conjectures. The `m`-section of a rational
