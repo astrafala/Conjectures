@@ -136,7 +136,10 @@ def build(slots):
     for v in slots:
         num, a = v["num"], v["anum"]
         egf = v["mode"] == "egf"
-        A, src = match_gf(v, egf)
+        if v.get("derived_gf"):
+            A, src = sp.sympify(v["derived_gf"]), None
+        else:
+            A, src = match_gf(v, egf)
         if A is None:
             print(f"{num:4d}  {a}  SKIP no g.f. reproduces the terms")
             continue
@@ -214,6 +217,9 @@ def build(slots):
             multitex.adapt(OGF_TEMPLATE) if multi else OGF_TEMPLATE)
         if v.get("gf_from_name"):
             base = multitex.name_gf(base)
+        if v.get("name_relation"):
+            base = multitex.derived_gf(base)
+            subs["NAMEREL"] = tex_escape(v["name_relation"])
         tex = base % subs
         if v.get("second_half"):
             tex = tex.replace(r"\begin{thebibliography}",

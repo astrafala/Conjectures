@@ -157,3 +157,18 @@ def algebraic(template):
             raise ValueError("template block not found")
         out = out.replace(old, new, 1)
     return out
+
+
+DERIVED_OLD = r"""The entry gives the exponential generating function"""
+DERIVED_NEW = r"""The entry posts no generating function of its own. Its NAME states the
+relation \texttt{%(NAMEREL)s} to another entry, and that entry's exponential generating
+function is known, so the relation supplies one here (a constant $c$ contributes
+$c\,e^{x}$ to an exponential generating function):"""
+
+
+def derived_gf(template):
+    """Variant for an entry whose generating function comes from its name's relation."""
+    for old in (DERIVED_OLD, r"""The entry gives the generating function"""):
+        if old in template:
+            return template.replace(old, DERIVED_NEW, 1)
+    raise ValueError("g.f. lead-in not found")
