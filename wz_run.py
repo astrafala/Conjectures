@@ -14,7 +14,9 @@ PROOF = re.compile(r"\bproof\b|\bproved\b|\bproven\b|is true|Kauers|Koutschan|"
                    r"establish\w*|settled|no longer a conjecture|"
                    r"immediate consequence|can be deduced|is a corollary|"
                    r"is now a theorem|now a theorem|this is a theorem|"
-                   r"has been established|resolved by|closed by", re.I)
+                   r"has been established|resolved by|closed by|"
+                   r"is correct|are correct|follows easily|follows at once|"
+                   r"follows immediately|derives from|is a consequence", re.I)
 
 
 class _TO(Exception):

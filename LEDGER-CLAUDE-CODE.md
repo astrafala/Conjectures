@@ -67,8 +67,8 @@ result is worth more than three forced ones.
 
 # Conjecture-hunt ledger
 
-Last updated 26 Aug 2026. Roster: **434 papers**, files `1-PROOF.pdf` … `434-PROOF.pdf`.
-New results continue from **435-**.
+Last updated 26 Aug 2026. Roster: **452 papers**, files `1-PROOF.pdf` … `452-PROOF.pdf`.
+New results continue from **453-**.
 
 ---
 
@@ -232,7 +232,7 @@ the label. This is now cheap to detect in a sweep: compare the two fields in the
 | 77 | PROOF | A107587 | conjectured P-recursive recurrence | Mathar |
 | 78 | PROOF | A102880 | conjectured P-recursive recurrence | Mathar |
 | 79 | PROOF | A104722 | conjectured P-recursive recurrence | Mathar |
-| 80 | PROOF | A105695 | conjectured P-recursive recurrence | Mathar |
+| 80 | PROOF | A386834 | conjectured P-recursive recurrence | Mathar |
 | 81 | PROOF | A105864 | conjectured P-recursive recurrence | Mathar |
 | 82 | PROOF | A109263 | conjectured P-recursive recurrence | Mathar |
 | 83 | PROOF | A110199 | conjectured P-recursive recurrence | Mathar |
@@ -473,7 +473,7 @@ the label. This is now cheap to detect in a sweep: compare the two fields in the
 | 318 | PROOF | A157328 | conjectured P-recursive recurrence | Mathar |
 | 319 | PROOF | A158495 | conjectured P-recursive recurrence | Mathar |
 | 320 | PROOF | A001465 | conjectured P-recursive recurrence | Mathar |
-| 321 | PROOF | A010845 | conjectured P-recursive recurrence | Mathar |
+| 321 | PROOF | A273019 | conjectured P-recursive recurrence | Mathar |
 | 322 | PROOF | A066052 | conjectured P-recursive recurrence | Mathar |
 | 323 | PROOF | A066052 | conjectured P-recursive recurrence | Mathar |
 | 324 | PROOF | A085387 | conjectured P-recursive recurrence | Mathar |
@@ -510,7 +510,7 @@ the label. This is now cheap to detect in a sweep: compare the two fields in the
 | 355 | PROOF | A116406 | conjectured P-recursive recurrence | Mathar |
 | 356 | PROOF | A116409 | conjectured P-recursive recurrence | Mathar |
 | 357 | PROOF | A120010 | conjectured P-recursive recurrence | Mathar |
-| 358 | PROOF | A126674 | conjectured P-recursive recurrence | Mathar |
+| 358 | PROOF | A228960 | conjectured P-recursive recurrence | Mathar |
 | 359 | PROOF | A128057 | conjectured P-recursive recurrence | Mathar |
 | 360 | PROOF | A135582 | conjectured P-recursive recurrence | Mathar |
 | 361 | PROOF | A135925 | conjectured P-recursive recurrence | Mathar |
@@ -573,7 +573,7 @@ the label. This is now cheap to detect in a sweep: compare the two fields in the
 | 418 | PROOF | A333905 | conjectured closed form | Spezia |
 | 419 | PROOF | A032096 | conjectured P-recursive recurrence | Mathar |
 | 420 | PROOF | A152120 | conjectured P-recursive recurrence | Mathar |
-| 421 | PROOF | A156849 | conjectured P-recursive recurrence | Mathar |
+| 421 | PROOF | A228333 | conjectured P-recursive recurrence | Mathar |
 | 422 | PROOF | A026017 | conjectured P-recursive recurrence | Mathar |
 | 423 | PROOF | A026327 | conjectured P-recursive recurrence | Mathar |
 | 424 | PROOF | A125306 | conjectured P-recursive recurrence | Mathar |
@@ -587,8 +587,40 @@ the label. This is now cheap to detect in a sweep: compare the two fields in the
 | 432 | PROOF | A243814 | conjectured P-recursive recurrence | Mathar |
 | 433 | PROOF | A270530 | conjectured P-recursive recurrence | Mathar |
 | 434 | PROOF | A346074 | conjectured P-recursive recurrence | Mathar |
+| 435 | PROOF | A236407 | conjectured P-recursive recurrence | Mathar |
+| 436 | PROOF | A242172 | conjectured P-recursive recurrence | Mathar |
+| 437 | PROOF | A261681 | conjectured P-recursive recurrence | Mathar |
+| 438 | PROOF | A000986 | conjectured P-recursive recurrence | Mathar |
+| 439 | PROOF | A003435 | conjectured P-recursive recurrence | Mathar |
+| 440 | PROOF | A022917 | conjectured P-recursive recurrence | Mathar |
+| 441 | PROOF | A025271 | conjectured P-recursive recurrence | Mathar |
+| 442 | PROOF | A026165 | conjectured P-recursive recurrence | Mathar |
+| 443 | PROOF | A138164 | conjectured P-recursive recurrence | Mathar |
+| 444 | PROOF | A143017 | conjectured P-recursive recurrence | Mathar |
+| 445 | PROOF | A159772 | conjectured P-recursive recurrence | Mathar |
+| 446 | PROOF | A185966 | conjectured P-recursive recurrence | Mathar |
+| 447 | PROOF | A200753 | conjectured P-recursive recurrence | Mathar |
+| 448 | PROOF | A217358 | conjectured P-recursive recurrence | Mathar |
+| 449 | PROOF | A217447 | conjectured P-recursive recurrence | Mathar |
+| 450 | PROOF | A226302 | conjectured P-recursive recurrence | Mathar |
+| 451 | PROOF | A228330 | conjectured P-recursive recurrence | Mathar |
+| 452 | PROOF | A228331 | conjectured P-recursive recurrence | Mathar |
 
 ### Caveats to disclose when handing these over
+
+- **Four more withdrawn late on 26 Aug 2026, and the wording that caught them.** The
+  entries settle the conjecture without any of the words the detector knew:
+  *"Mathar's 4-term recurrence above follows easily from this"* (A105695),
+  *"Mathar's recurrence above follows easily from this"* (A010845),
+  *"R. J. Mathar's recurrence is correct"* (A126674),
+  *"The conjecture is correct"* (A156849). The detector now also matches `is correct`,
+  `are correct`, `follows easily`, `follows at once`, `follows immediately`,
+  `derives from`, `is a consequence`.
+  **Read the hit, do not trust the match.** On A092287 the same phrase *"The conjecture
+  is correct"* refers to the square-case factorisation, while paper 17 settles the
+  rectangular one, which is a different statement and still open. That paper stands.
+  The four vacated slots were refilled by moving the four highest-numbered papers down,
+  so the roster stays contiguous; `renumber.json` records the moves.
 
 - **Thirteen papers were withdrawn on 26 Aug 2026 and their slots refilled.** Twelve of
   them (A051292, A098662, A102879, A114121, A025244, A112700, A128743, A136304, A220902,
@@ -899,6 +931,24 @@ engine limits, not facts about OEIS.
    confirmed, so this is a one-paper vein -- but the same reading applies wherever a name
    states a plain arithmetic relation (`namerel.py`).
 
+8. **A conjecture can factor through a recurrence the entry already states.** Fifty
+   entries carry a conjectured recurrence beside one contributed as plain fact
+   ("Recurrence: ..."). Read both as operators in the Ore algebra `Q(n)[N]`, `N f(n) =
+   f(n+1)`, where moving `N` past a coefficient shifts it. If the conjectured operator
+   `C` factors as `C = Q P` over the stated one, then `C(a) = Q(P(a)) = Q(0) = 0` and the
+   conjecture follows -- **with no generating function anywhere in the argument**
+   (`ore.py`). Right division is ordinary polynomial division with the twisted product,
+   so a zero remainder is exact. Nineteen papers.
+   Three things to get right: expand `Q P` back and cancel it against `C` rather than
+   trusting the division; verify the *stated* recurrence on the published terms, since
+   the whole argument leans on it; and compute the integer poles of `Q`'s coefficients,
+   refusing any case where one lands inside the claimed range. Refuse `deg Q = 0` too --
+   there the two recurrences are the same one rescaled and there is nothing to prove.
+9. **A formula relating the entry to others supplies a generating function.**
+   `a(n) = A002003(n) + n` fixes it once the other entry posts one (`relgf.py`); a
+   polynomial term `p(n)` contributes `p(theta)[1/(1-x)]`, or `p(theta)[e^x]` in the
+   exponential case. Three papers, from 34 candidates.
+
 **Final coverage of the recurrence class:** 1,025 entries carry a `Conjecture ... = 0`
 recurrence. 345 are unreachable by any of this: 232 have a purely combinatorial name and
 no formula anywhere on the entry, and 113 name a table diagonal or column of another
@@ -940,6 +990,11 @@ was right).
   are Sun-type existence and number-theory statements (*"every integer n>8 can be written
   as x+y+z with …"*), with nine recurrence-shaped and none of those P-recursive. Nothing
   there for these engines.
+
+- **Differential equations for the g.f. are a dead end, because they are the settlement.**
+  Eleven entries pair a recurrence conjecture with a non-conjectural ODE. Nine already say
+  the conjecture follows from it, and the last two say so in wording the detector had to
+  be widened to catch. Zero results.
 
 ### Still unexploited
 
