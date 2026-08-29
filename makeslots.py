@@ -120,10 +120,13 @@ def real_form(A):
         # the branch that matters is the one at the origin, where the series lives, so
         # the sign to look at is the radicand's value at x = 0 -- not its leading term
         try:
-            at0 = sp.nsimplify(b.subs(x, 0))
+            at0 = sp.nsimplify(sp.limit(b, x, 0))
         except Exception:
             continue
-        if at0.is_number and at0 < 0:
+        # a radicand that is singular or non-real at the origin tells us nothing here
+        if not (at0.is_real and at0.is_finite):
+            continue
+        if at0.is_negative:
             r = sp.sqrt(-b)
             subs[a] = sp.I * r if a.exp > 0 else 1 / (sp.I * r)
     if not subs:
