@@ -17,11 +17,19 @@ PROOF = re.compile(r"\bproof\b|\bproved\b|\bproven\b|is true|Kauers|Koutschan|"
                    r"follows immediately|derives from|is a consequence", re.I)
 
 
-def fetch(a):
-    out = subprocess.run(["curl", "-sS", "-A", "Mozilla/5.0",
-                          f"https://oeis.org/search?q=id:{a}&fmt=json"],
-                         capture_output=True, text=True, timeout=90).stdout
-    return json.loads(out)[0]
+def fetch(a, tries=4):
+    """OEIS occasionally returns an empty body; retry rather than call the entry gone."""
+    last = None
+    for i in range(tries):
+        out = subprocess.run(["curl", "-sS", "-A", "Mozilla/5.0",
+                              f"https://oeis.org/search?q=id:{a}&fmt=json"],
+                             capture_output=True, text=True, timeout=90).stdout
+        try:
+            return json.loads(out)[0]
+        except Exception as e:
+            last = e
+            time.sleep(2 * (i + 1))
+    raise RuntimeError(f"could not fetch {a}: {last}")
 
 
 def norm(s):
