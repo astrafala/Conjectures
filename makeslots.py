@@ -28,7 +28,13 @@ def coeffs_of(conj):
     b = re.sub(r"^\s*Conjecture[s]?[:.]?\s*", "", body, flags=re.I)
     b = re.sub(r"\bfor\s+n\s*[><=].*$", "", b)
     b = re.sub(r",?\s*(with|where)\s.*$", "", b, flags=re.I)
-    return parse_eq(b.strip().rstrip(".").strip().rstrip(",").strip())
+    b = b.strip().rstrip(".").strip().rstrip(",").strip()
+    # a chained "a(n) = <recurrence> = <closed form>" asserts both halves; the
+    # recurrence being settled here is the first equality
+    parts = re.split(r"(?<![<>=!])=(?!=)", b)
+    if len(parts) > 2:
+        b = "=".join(parts[:2])
+    return parse_eq(b.strip())
 
 
 def implicit_branch(v):
@@ -181,6 +187,9 @@ def build(slots):
         if v.get("gf_from_name"):
             base = multitex.name_gf(base)
         tex = base % subs
+        if v.get("second_half"):
+            tex = tex.replace(r"\begin{thebibliography}",
+                              v["second_half"] + "\n\n" + r"\begin{thebibliography}", 1)
         d = f"build/{num}"
         os.makedirs(d, exist_ok=True)
         open(f"{d}/p.tex", "w").write(tex)
