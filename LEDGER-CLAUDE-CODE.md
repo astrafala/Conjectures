@@ -1103,6 +1103,56 @@ Others, assessed and out of scope for this toolkit:
 11,897 open conjectural recurrences, 10,418 of them with nothing stated as fact.
 
 
+### 30 Aug 2026 (late): openness is now decided FIRST, and three papers withdrawn
+
+**Three papers shipped today rested on conjectures their own entries already settle.**
+The settlement filter matched "follows from" as adjacent words, and all three entries say
+"follows **easily** from":
+
+- **A010845** -- "The e.g.f. y = exp(x)/(1-3x) satisfies (1-3x)y' = (4-3x)y. Mathar's
+  recurrence above follows easily from this."
+- **A066534** -- Peter Bala, Sep 23 2013: "Mathar's conjectural third-order recurrence
+  above is an easy consequence of Jovovic's first-order recurrence a(n)=n*(a(n-1)+2^(n-1))."
+- **A105695** -- "Mathar's 4-term recurrence above follows easily from this."
+
+All three withdrawn and recorded in `settled-manual.json`, together with **A105750**
+(Bala: "Mathar's third-order recurrence above follows easily from this"), which the new
+filter caught before a paper was built. Roster **534 -> 531**, then **532** with A176126.
+
+**Openness is now a front-end filter, not a post-hoc check** (`openness.py`,
+`open_index.json`, built by `openindex.py`). Proving first and checking after spends the
+expensive half of the work on conjectures that were already answered -- 5 of 14 in one
+sweep -- and is what let those three ship. The index says **11,842 of 12,167 conjectural
+recurrences are still open, 325 flagged for reading.** Every sweep filters through it
+first.
+
+Two things the filter had to learn:
+
+- **Read every tag, not %F.** A002627 and A045406 carry Tong Niu's arXiv proofs as `%H`
+  links; A126674 says "R. J. Mathar's recurrence is correct" in a `%C` comment.
+- **"follows from" needs a gap for an adverb**, plus "is an easy consequence of", "can be
+  derived/shown", "no longer a conjecture", "was settled". And `FINITE` must override:
+  A107587's "true for n = 0..800, checked by Eremin" is not a proof and the entry stays
+  open.
+
+A flag is a **reason to read, not a verdict** -- 26 of 26 flagged papers in the roster
+audit turned out to be about a different statement on the same entry.
+
+**`statedrec_run.py`: a recurrence stated as FACT is the strongest known side there is.**
+If the entry asserts L(a)=0 and conjectures C(a)=0, divide C = QL + R in the Ore algebra;
+C being a left multiple of L is sufficient but NOT necessary, since the stated L need not
+be minimal, so `oremod.vanishes` decides the residual properly. Only **15 entries** in the
+corpus state one recurrence and conjecture another (the first regex missed lines beginning
+"a(n) = ...", which is most of them -- its character class omitted the letter a). 9 proved,
+7 already covered, 2 new, and one of those two (A105750) turned out settled.
+
+**A176126 is the one new result**, and it is a clean one. The entry states
+`a(n) = 3*a(n-4) - 3*a(n-8) + a(n-12)`, giving denominator `(1-x^4)^3`; the numerator
+carries a factor `(1+x)^3` that cancels, leaving `(x-1)^3*(x^2+1)^3` -- which is exactly
+the conjectured order-9 recurrence's denominator. Verified through the generating function
+independently of the Ore argument.
+
+
 ## 4. DEAD — do not revisit
 
 Already resolved on the live entry, or carrying no conjecture at all.

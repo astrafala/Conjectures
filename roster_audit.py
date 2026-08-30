@@ -16,9 +16,17 @@ import json, os, re, sys, time
 sys.path.insert(0, ".")
 from verify_open import fetch
 
-SETTLED = re.compile(r"\bproof\b|prove[sndg]?\b|is true|confirm\w*|verif\w*|"
-                     r"follows from|establish\w*|is correct", re.I)
-OUT = "roster_audit.json"
+# "follows from" as adjacent words missed "Mathar's third-order recurrence above follows
+# EASILY from this" on A105750, which settles it. Any adverb can sit in that gap, and
+# several other phrasings say the same thing.
+SETTLED = re.compile(
+    r"\bproof\b|prove[sndg]?\b|is true|confirm\w*|verif\w*|establish\w*|is correct"
+    r"|follows\s+(?:\w+\s+){0,2}from"
+    r"|is\s+(?:an?\s+)?(?:easy|immediate|direct|simple)?\s*consequence"
+    r"|can\s+be\s+(?:easily\s+)?(?:proved|proven|derived|shown|deduced|obtained)"
+    r"|no\s+longer\s+a\s+conjecture|is\s+now\s+a\s+theorem"
+    r"|(?:was|has\s+been)\s+(?:settled|resolved|answered)", re.I)
+OUT = "roster_audit2.json"
 
 
 def main(budget=500):
