@@ -150,7 +150,7 @@ Carrying out Proposition~\ref{prop:main} with the coefficients of \eqref{eq:conj
 so every class residual vanishes identically and the conjecture follows.
 
 \begin{theorem}
-For all $n%(EXCLTEX)s,
+For all $n%(EXCLTEX)s$,
 \[
 %(RECLATEX)s
 \]

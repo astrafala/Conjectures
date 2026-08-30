@@ -141,7 +141,7 @@ does every similarity class of $T(2m+1)$. The even half splits into %(NEVEN)s cl
 and the odd half into %(NODD)s class%(OES)s.
 
 \begin{theorem}
-For all $n%(EXCLTEX)s,
+For all $n%(EXCLTEX)s$,
 \[
 %(RECLATEX)s
 \]

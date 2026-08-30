@@ -17,24 +17,42 @@ def main():
             os.remove(f)
     made, batch = [], []
 
-    def flush(batch):
-        if not batch:
-            return
-        lo = batch[0].split("-")[0]
-        hi = batch[-1].split("-")[0]
-        name = f"conjecture-papers-{lo}-{hi}.zip"
+    def zip_of(batch, name):
+        if os.path.exists(name):
+            os.remove(name)
         subprocess.run(["zip", "-q", "-j", "-9", name]
                        + [f"papers/{c}" for c in batch], check=True)
-        made.append((name, os.path.getsize(name), len(batch)))
+        return os.path.getsize(name)
 
+    def flush(batch):
+        """Write the archive, shrinking it until the ACTUAL size is within the cap.
+
+        Capping the raw total instead left every archive several MiB short, because a
+        PDF still compresses a little; the delivery limit applies to the compressed size.
+        Whatever has to come off the end is RETURNED, so it opens the next archive
+        instead of being lost -- dropping it silently left a hole in the numbering.
+        """
+        dropped = []
+        while batch:
+            lo, hi = batch[0].split("-")[0], batch[-1].split("-")[0]
+            name = f"conjecture-papers-{lo}-{hi}.zip"
+            size = zip_of(batch, name)
+            if size <= CAP or len(batch) == 1:
+                made.append((name, size, len(batch)))
+                return dropped
+            os.remove(name)
+            dropped.insert(0, batch.pop())
+        return dropped
+
+    carry = []
     for f in files:
         batch.append(f)
-        # zip after each addition is too slow; estimate with the raw size, then verify
-        if sum(os.path.getsize(f"papers/{c}") for c in batch) > CAP:
+        # the raw total is a fast upper bound; the real check happens in flush
+        if sum(os.path.getsize(f"papers/{c}") for c in batch) > CAP * 1.25:
             batch.pop()
-            flush(batch)
-            batch = [f]
-    flush(batch)
+            batch = flush(batch) + [f]
+    while batch:
+        batch = flush(batch)
 
     # a PDF barely compresses, so the estimate is close; still, verify and split if over
     for name, size, count in made:

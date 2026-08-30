@@ -203,412 +203,447 @@ the label. This is now cheap to detect in a sweep: compare the two fields in the
 | 48 | PROOF | A354242 | eventual periodicity mod m, period dividing phi(m) | Mathar |
 | 49 | PROOF | A354253 | eventual periodicity mod m, period dividing phi(m) | Mathar |
 | 50 | PROOF | A355409 | eventual periodicity mod m, period dividing phi(m) | Mathar |
-| 51 | PROOF | A127905 | eventual periodicity mod m, period dividing phi(m) | Mathar |
-| 52 | PROOF | A045742 | conjectured P-recursive recurrence | Mathar |
-| 53 | PROOF | A243585 | conjectured P-recursive recurrence | Mathar |
-| 54 | PROOF | A026005 | conjectured P-recursive recurrence | Mathar |
-| 55 | PROOF | A359643 | conjectured P-recursive recurrence | Mathar |
-| 56 | PROOF | A156894 | conjectured P-recursive recurrence | Mathar |
+| 51 | PROOF | A000180 | eventual periodicity mod m, period dividing phi(m) | Mathar |
+| 52 | PROOF | A127905 | conjectured P-recursive recurrence | Mathar |
+| 53 | PROOF | A045742 | conjectured P-recursive recurrence | Mathar |
+| 54 | PROOF | A243585 | conjectured P-recursive recurrence | Mathar |
+| 55 | PROOF | A026005 | conjectured P-recursive recurrence | Mathar |
+| 56 | PROOF | A359643 | conjectured P-recursive recurrence | Mathar |
 | 57 | PROOF | A156894 | conjectured P-recursive recurrence | Mathar |
-| 58 | PROOF | A371753 | conjectured P-recursive recurrence | Mathar |
-| 59 | PROOF | A226751 | conjectured P-recursive recurrence | Mathar |
-| 60 | PROOF | A386830 | conjectured P-recursive recurrence | Mathar |
-| 61 | PROOF | A243764 | conjectured P-recursive recurrence | Mathar |
-| 62 | PROOF | A243760 | conjectured P-recursive recurrence | Mathar |
-| 63 | PROOF | A285195 | conjectured P-recursive recurrence | Mathar |
-| 64 | PROOF | A243814 | conjectured P-recursive recurrence | Mathar |
-| 65 | PROOF | A055392 | conjectured P-recursive recurrence | Mathar |
-| 66 | PROOF | A243022 | conjectured P-recursive recurrence | Mathar |
-| 67 | PROOF | A168506 | conjectured P-recursive recurrence | Mathar |
-| 68 | PROOF | A242566 | conjectured P-recursive recurrence | Mathar |
-| 69 | PROOF | A270530 | conjectured P-recursive recurrence | Mathar |
-| 70 | PROOF | A127632 | conjectured P-recursive recurrence | Mathar |
-| 71 | PROOF | A130655 | conjectured P-recursive recurrence | Mathar |
-| 72 | PROOF | A166135 | conjectured P-recursive recurrence | Mathar |
-| 73 | PROOF | A212696 | conjectured P-recursive recurrence | Mathar |
-| 74 | PROOF | A261196 | conjectured P-recursive recurrence | Mathar |
-| 75 | PROOF | A270530 | conjectured P-recursive recurrence | Mathar |
-| 76 | PROOF | A185010 | conjectured P-recursive recurrence | Mathar |
-| 77 | PROOF | A185020 | conjectured P-recursive recurrence | Mathar |
-| 78 | PROOF | A200312 | conjectured P-recursive recurrence | Mathar |
-| 79 | PROOF | A162972 | conjectured P-recursive recurrence | Mathar |
-| 80 | PROOF | A001465 | conjectured P-recursive recurrence | Mathar |
-| 81 | PROOF | A085387 | conjectured P-recursive recurrence | Mathar |
-| 82 | PROOF | A096471 | conjectured P-recursive recurrence | Mathar |
-| 83 | PROOF | A066052 | conjectured P-recursive recurrence | Mathar |
-| 84 | PROOF | A097204 | conjectured P-recursive recurrence | Mathar |
-| 85 | PROOF | A000483 | conjectured P-recursive recurrence | Mathar |
-| 86 | PROOF | A000276 | conjectured P-recursive recurrence | Mathar |
-| 87 | PROOF | A002104 | conjectured P-recursive recurrence | Mathar |
-| 88 | PROOF | A002538 | conjectured P-recursive recurrence | Mathar |
-| 89 | PROOF | A066052 | conjectured P-recursive recurrence | Mathar |
-| 90 | PROOF | A073591 | conjectured P-recursive recurrence | Mathar |
-| 91 | PROOF | A108704 | conjectured P-recursive recurrence | Mathar |
-| 92 | PROOF | A110322 | conjectured P-recursive recurrence | Mathar |
-| 93 | PROOF | A185369 | conjectured P-recursive recurrence | Mathar |
-| 94 | PROOF | A000276 | conjectured P-recursive recurrence | Mathar |
-| 95 | PROOF | A000774 | conjectured P-recursive recurrence | Mathar |
-| 96 | PROOF | A102319 | conjectured P-recursive recurrence | Mathar |
-| 97 | PROOF | A115256 | conjectured P-recursive recurrence | Mathar |
-| 98 | PROOF | A157125 | conjectured P-recursive recurrence | Mathar |
-| 99 | PROOF | A102318 | conjectured P-recursive recurrence | Mathar |
-| 100 | PROOF | A107587 | conjectured P-recursive recurrence | Mathar |
-| 101 | PROOF | A218185 | conjectured P-recursive recurrence | Mathar |
-| 102 | PROOF | A025567 | conjectured P-recursive recurrence | Mathar |
-| 103 | PROOF | A071684 | conjectured P-recursive recurrence | Mathar |
-| 104 | PROOF | A179648 | conjectured P-recursive recurrence | Mathar |
-| 105 | PROOF | A184120 | conjectured P-recursive recurrence | Mathar |
-| 106 | PROOF | A026163 | conjectured P-recursive recurrence | Mathar |
-| 107 | PROOF | A102318 | conjectured P-recursive recurrence | Mathar |
-| 108 | PROOF | A101500 | conjectured P-recursive recurrence | Mathar |
-| 109 | PROOF | A102319 | conjectured P-recursive recurrence | Mathar |
-| 110 | PROOF | A107587 | conjectured P-recursive recurrence | Mathar |
-| 111 | PROOF | A072100 | conjectured P-recursive recurrence | Mathar |
-| 112 | PROOF | A025567 | conjectured P-recursive recurrence | Mathar |
-| 113 | PROOF | A334509 | conjectured P-recursive recurrence | Spezia |
-| 114 | PROOF | A298022 | conjectured P-recursive recurrence | Spezia |
-| 115 | PROOF | A273676 | conjectured P-recursive recurrence | Mathar |
-| 116 | PROOF | A273832 | conjectured P-recursive recurrence | Mathar |
-| 117 | PROOF | A319371 | conjectured P-recursive recurrence | Mathar |
-| 118 | PROOF | A110320 | conjectured P-recursive recurrence | McGarvey |
-| 119 | PROOF | A309878 | conjectured P-recursive recurrence | Mathar |
-| 120 | PROOF | A315520 | conjectured P-recursive recurrence | Spezia |
-| 121 | PROOF | A346370 | conjectured P-recursive recurrence | Kurkov |
-| 122 | PROOF | A191625 | conjectured P-recursive recurrence | Mathar |
-| 123 | PROOF | A186341 | conjectured P-recursive recurrence | Mathar |
-| 124 | PROOF | A026743 | conjectured P-recursive recurrence | Mathar |
-| 125 | PROOF | A191786 | conjectured P-recursive recurrence | Mathar |
-| 126 | PROOF | A210496 | conjectured P-recursive recurrence | Mathar |
-| 127 | PROOF | A182892 | conjectured P-recursive recurrence | Mathar |
-| 128 | PROOF | A270724 | conjectured P-recursive recurrence | Mathar |
-| 129 | PROOF | A190171 | conjectured P-recursive recurrence | Mathar |
-| 130 | PROOF | A257515 | conjectured P-recursive recurrence | Mathar |
-| 131 | PROOF | A190788 | conjectured P-recursive recurrence | Mathar |
-| 132 | PROOF | A212205 | conjectured P-recursive recurrence | Mathar |
-| 133 | PROOF | A270661 | conjectured P-recursive recurrence | Mathar |
-| 134 | PROOF | A157021 | conjectured P-recursive recurrence | Mathar |
-| 135 | PROOF | A165537 | conjectured P-recursive recurrence | Mathar |
-| 136 | PROOF | A166287 | conjectured P-recursive recurrence | Mathar |
-| 137 | PROOF | A174013 | conjectured P-recursive recurrence | Mathar |
-| 138 | PROOF | A178072 | conjectured P-recursive recurrence | Mathar |
-| 139 | PROOF | A182894 | conjectured P-recursive recurrence | Mathar |
-| 140 | PROOF | A114584 | conjectured P-recursive recurrence | Mathar |
-| 141 | PROOF | A164586 | conjectured P-recursive recurrence | Mathar |
-| 142 | PROOF | A189053 | conjectured P-recursive recurrence | Mathar |
-| 143 | PROOF | A182904 | conjectured P-recursive recurrence | Mathar |
-| 144 | PROOF | A274295 | conjectured P-recursive recurrence | Mathar |
-| 145 | PROOF | A226434 | conjectured P-recursive recurrence | Mathar |
-| 146 | PROOF | A108600 | conjectured P-recursive recurrence | Mathar |
-| 147 | PROOF | A114851 | conjectured P-recursive recurrence | Mathar |
-| 148 | PROOF | A125306 | conjectured P-recursive recurrence | Mathar |
-| 149 | PROOF | A166290 | conjectured P-recursive recurrence | Mathar |
-| 150 | PROOF | A228770 | conjectured P-recursive recurrence | Mathar |
-| 151 | PROOF | A257300 | conjectured P-recursive recurrence | Mathar |
-| 152 | PROOF | A089324 | conjectured P-recursive recurrence | Mathar |
-| 153 | PROOF | A104625 | conjectured P-recursive recurrence | Mathar |
-| 154 | PROOF | A113956 | conjectured P-recursive recurrence | Mathar |
-| 155 | PROOF | A116383 | conjectured P-recursive recurrence | Mathar |
-| 156 | PROOF | A162548 | conjectured P-recursive recurrence | Mathar |
-| 157 | PROOF | A173993 | conjectured P-recursive recurrence | Mathar |
-| 158 | PROOF | A244886 | conjectured P-recursive recurrence | Mathar |
-| 159 | PROOF | A157003 | conjectured P-recursive recurrence | Mathar |
-| 160 | PROOF | A163493 | conjectured P-recursive recurrence | Mathar |
-| 161 | PROOF | A191398 | conjectured P-recursive recurrence | Mathar |
-| 162 | PROOF | A135582 | conjectured P-recursive recurrence | Mathar |
-| 163 | PROOF | A139376 | conjectured P-recursive recurrence | Mathar |
-| 164 | PROOF | A346074 | conjectured P-recursive recurrence | Mathar |
-| 165 | PROOF | A190166 | conjectured P-recursive recurrence | Mathar |
-| 166 | PROOF | A025251 | conjectured P-recursive recurrence | Mathar |
-| 167 | PROOF | A228771 | conjectured P-recursive recurrence | Mathar |
-| 168 | PROOF | A025268 | conjectured P-recursive recurrence | Mathar |
-| 169 | PROOF | A025272 | conjectured P-recursive recurrence | Mathar |
-| 170 | PROOF | A385252 | conjectured P-recursive recurrence | Mathar |
-| 171 | PROOF | A025758 | conjectured P-recursive recurrence | Mathar |
-| 172 | PROOF | A114464 | conjectured P-recursive recurrence | Mathar |
-| 173 | PROOF | A127154 | conjectured P-recursive recurrence | Mathar |
-| 174 | PROOF | A135335 | conjectured P-recursive recurrence | Mathar |
-| 175 | PROOF | A165540 | conjectured P-recursive recurrence | Mathar |
-| 176 | PROOF | A171416 | conjectured P-recursive recurrence | Mathar |
-| 177 | PROOF | A188314 | conjectured P-recursive recurrence | Mathar |
-| 178 | PROOF | A254314 | conjectured P-recursive recurrence | Mathar |
-| 179 | PROOF | A270661 | conjectured P-recursive recurrence | Mathar |
-| 180 | PROOF | A003440 | conjectured P-recursive recurrence | Mathar |
-| 181 | PROOF | A110521 | conjectured P-recursive recurrence | Mathar |
-| 182 | PROOF | A114190 | conjectured P-recursive recurrence | Mathar |
-| 183 | PROOF | A116387 | conjectured P-recursive recurrence | Mathar |
-| 184 | PROOF | A128096 | conjectured P-recursive recurrence | Mathar |
-| 185 | PROOF | A157021 | conjectured P-recursive recurrence | Mathar |
-| 186 | PROOF | A160823 | conjectured P-recursive recurrence | Mathar |
-| 187 | PROOF | A166287 | conjectured P-recursive recurrence | Mathar |
-| 188 | PROOF | A174808 | conjectured P-recursive recurrence | Mathar |
-| 189 | PROOF | A185089 | conjectured P-recursive recurrence | Mathar |
-| 190 | PROOF | A186940 | conjectured P-recursive recurrence | Mathar |
-| 191 | PROOF | A190736 | conjectured P-recursive recurrence | Mathar |
-| 192 | PROOF | A219314 | conjectured P-recursive recurrence | Mathar |
-| 193 | PROOF | A100095 | conjectured P-recursive recurrence | Mathar |
-| 194 | PROOF | A100097 | conjectured P-recursive recurrence | Mathar |
-| 195 | PROOF | A191313 | conjectured P-recursive recurrence | Mathar |
-| 196 | PROOF | A191790 | conjectured P-recursive recurrence | Mathar |
-| 197 | PROOF | A273351 | conjectured P-recursive recurrence | Mathar |
-| 198 | PROOF | A278472 | conjectured P-recursive recurrence | Mathar |
-| 199 | PROOF | A108296 | conjectured P-recursive recurrence | Mathar |
-| 200 | PROOF | A116391 | conjectured P-recursive recurrence | Mathar |
-| 201 | PROOF | A110198 | conjectured P-recursive recurrence | Mathar |
-| 202 | PROOF | A182879 | conjectured P-recursive recurrence | Mathar |
-| 203 | PROOF | A182887 | conjectured P-recursive recurrence | Mathar |
-| 204 | PROOF | A135925 | conjectured P-recursive recurrence | Mathar |
-| 205 | PROOF | A025256 | conjectured P-recursive recurrence | Mathar |
-| 206 | PROOF | A025258 | conjectured P-recursive recurrence | Mathar |
-| 207 | PROOF | A000781 | conjectured P-recursive recurrence | Mathar |
-| 208 | PROOF | A025245 | conjectured P-recursive recurrence | Mathar |
-| 209 | PROOF | A025257 | conjectured P-recursive recurrence | Mathar |
-| 210 | PROOF | A025269 | conjectured P-recursive recurrence | Mathar |
-| 211 | PROOF | A025270 | conjectured P-recursive recurrence | Mathar |
-| 212 | PROOF | A025275 | conjectured P-recursive recurrence | Mathar |
-| 213 | PROOF | A032096 | conjectured P-recursive recurrence | Mathar |
-| 214 | PROOF | A102880 | conjectured P-recursive recurrence | Mathar |
-| 215 | PROOF | A111053 | conjectured P-recursive recurrence | Mathar |
-| 216 | PROOF | A152120 | conjectured P-recursive recurrence | Mathar |
-| 217 | PROOF | A159771 | conjectured P-recursive recurrence | Mathar |
-| 218 | PROOF | A166694 | conjectured P-recursive recurrence | Mathar |
-| 219 | PROOF | A166696 | conjectured P-recursive recurrence | Mathar |
-| 220 | PROOF | A191796 | conjectured P-recursive recurrence | Mathar |
-| 221 | PROOF | A217711 | conjectured P-recursive recurrence | Mathar |
-| 222 | PROOF | A278023 | conjectured P-recursive recurrence | Mathar |
-| 223 | PROOF | A279014 | conjectured P-recursive recurrence | Mathar |
-| 224 | PROOF | A000483 | conjectured P-recursive recurrence | Mathar |
-| 225 | PROOF | A025757 | conjectured P-recursive recurrence | Mathar |
-| 226 | PROOF | A026030 | conjectured P-recursive recurrence | Mathar |
-| 227 | PROOF | A026031 | conjectured P-recursive recurrence | Mathar |
-| 228 | PROOF | A048775 | conjectured P-recursive recurrence | Mathar |
-| 229 | PROOF | A116409 | conjectured P-recursive recurrence | Mathar |
-| 230 | PROOF | A126322 | conjectured P-recursive recurrence | Mathar |
-| 231 | PROOF | A128750 | conjectured P-recursive recurrence | Mathar |
-| 232 | PROOF | A143955 | conjectured P-recursive recurrence | Mathar |
-| 233 | PROOF | A165203 | conjectured P-recursive recurrence | Mathar |
-| 234 | PROOF | A168505 | conjectured P-recursive recurrence | Mathar |
-| 235 | PROOF | A176605 | conjectured P-recursive recurrence | Mathar |
-| 236 | PROOF | A181933 | conjectured P-recursive recurrence | Mathar |
-| 237 | PROOF | A191585 | conjectured P-recursive recurrence | Mathar |
-| 238 | PROOF | A215973 | conjectured P-recursive recurrence | Mathar |
-| 239 | PROOF | A234269 | conjectured P-recursive recurrence | Mathar |
-| 240 | PROOF | A236407 | conjectured P-recursive recurrence | Mathar |
-| 241 | PROOF | A270363 | conjectured P-recursive recurrence | Mathar |
-| 242 | PROOF | A098521 | conjectured P-recursive recurrence | Mathar |
-| 243 | PROOF | A100096 | conjectured P-recursive recurrence | Mathar |
-| 244 | PROOF | A100099 | conjectured P-recursive recurrence | Mathar |
-| 245 | PROOF | A105849 | conjectured P-recursive recurrence | Mathar |
-| 246 | PROOF | A105864 | conjectured P-recursive recurrence | Mathar |
-| 247 | PROOF | A105865 | conjectured P-recursive recurrence | Mathar |
-| 248 | PROOF | A108308 | conjectured P-recursive recurrence | Mathar |
-| 249 | PROOF | A114194 | conjectured P-recursive recurrence | Mathar |
-| 250 | PROOF | A115967 | conjectured P-recursive recurrence | Mathar |
-| 251 | PROOF | A120010 | conjectured P-recursive recurrence | Mathar |
-| 252 | PROOF | A124431 | conjectured P-recursive recurrence | Mathar |
-| 253 | PROOF | A124431 | conjectured P-recursive recurrence | Mathar |
-| 254 | PROOF | A126568 | conjectured P-recursive recurrence | Mathar |
-| 255 | PROOF | A132364 | conjectured P-recursive recurrence | Mathar |
-| 256 | PROOF | A141342 | conjectured P-recursive recurrence | Mathar |
-| 257 | PROOF | A155051 | conjectured P-recursive recurrence | Mathar |
-| 258 | PROOF | A157100 | conjectured P-recursive recurrence | Mathar |
-| 259 | PROOF | A166076 | conjectured P-recursive recurrence | Mathar |
-| 260 | PROOF | A166300 | conjectured P-recursive recurrence | Mathar |
-| 261 | PROOF | A168503 | conjectured P-recursive recurrence | Mathar |
-| 262 | PROOF | A174107 | conjectured P-recursive recurrence | Mathar |
-| 263 | PROOF | A174169 | conjectured P-recursive recurrence | Mathar |
-| 264 | PROOF | A176332 | conjectured P-recursive recurrence | Mathar |
-| 265 | PROOF | A184018 | conjectured P-recursive recurrence | Mathar |
-| 266 | PROOF | A188312 | conjectured P-recursive recurrence | Mathar |
-| 267 | PROOF | A188482 | conjectured P-recursive recurrence | Mathar |
-| 268 | PROOF | A191782 | conjectured P-recursive recurrence | Mathar |
-| 269 | PROOF | A217333 | conjectured P-recursive recurrence | Mathar |
-| 270 | PROOF | A257072 | conjectured P-recursive recurrence | Mathar |
-| 271 | PROOF | A261681 | conjectured P-recursive recurrence | Mathar |
-| 272 | PROOF | A073155 | conjectured P-recursive recurrence | Mathar |
-| 273 | PROOF | A114589 | conjectured P-recursive recurrence | Mathar |
-| 274 | PROOF | A114590 | conjectured P-recursive recurrence | Mathar |
-| 275 | PROOF | A162481 | conjectured P-recursive recurrence | Mathar |
-| 276 | PROOF | A188460 | conjectured P-recursive recurrence | Mathar |
-| 277 | PROOF | A188464 | conjectured P-recursive recurrence | Mathar |
-| 278 | PROOF | A190725 | conjectured P-recursive recurrence | Mathar |
-| 279 | PROOF | A191526 | conjectured P-recursive recurrence | Mathar |
-| 280 | PROOF | A191531 | conjectured P-recursive recurrence | Mathar |
-| 281 | PROOF | A211278 | conjectured P-recursive recurrence | Mathar |
-| 282 | PROOF | A026327 | conjectured P-recursive recurrence | Mathar |
-| 283 | PROOF | A081207 | conjectured P-recursive recurrence | Mathar |
-| 284 | PROOF | A102882 | conjectured P-recursive recurrence | Mathar |
-| 285 | PROOF | A182881 | conjectured P-recursive recurrence | Mathar |
-| 286 | PROOF | A191309 | conjectured P-recursive recurrence | Mathar |
-| 287 | PROOF | A191319 | conjectured P-recursive recurrence | Mathar |
-| 288 | PROOF | A191790 | conjectured P-recursive recurrence | Mathar |
-| 289 | PROOF | A273351 | conjectured P-recursive recurrence | Mathar |
-| 290 | PROOF | A025248 | conjectured P-recursive recurrence | Mathar |
-| 291 | PROOF | A025249 | conjectured P-recursive recurrence | Mathar |
-| 292 | PROOF | A026017 | conjectured P-recursive recurrence | Mathar |
-| 293 | PROOF | A071717 | conjectured P-recursive recurrence | Mathar |
-| 294 | PROOF | A081672 | conjectured P-recursive recurrence | Mathar |
-| 295 | PROOF | A104722 | conjectured P-recursive recurrence | Mathar |
-| 296 | PROOF | A109263 | conjectured P-recursive recurrence | Mathar |
-| 297 | PROOF | A118093 | conjectured P-recursive recurrence | Mathar |
-| 298 | PROOF | A118974 | conjectured P-recursive recurrence | Mathar |
-| 299 | PROOF | A126323 | conjectured P-recursive recurrence | Mathar |
-| 300 | PROOF | A128723 | conjectured P-recursive recurrence | Mathar |
-| 301 | PROOF | A135334 | conjectured P-recursive recurrence | Mathar |
-| 302 | PROOF | A141351 | conjectured P-recursive recurrence | Mathar |
-| 303 | PROOF | A141353 | conjectured P-recursive recurrence | Mathar |
-| 304 | PROOF | A163824 | conjectured P-recursive recurrence | Mathar |
-| 305 | PROOF | A165201 | conjectured P-recursive recurrence | Mathar |
-| 306 | PROOF | A279014 | conjectured closed form | Mathar |
-| 307 | PROOF | A025756 | conjectured closed form | Mathar |
-| 308 | PROOF | A026027 | conjectured closed form | Mathar |
-| 309 | PROOF | A026135 | conjectured closed form | Mathar |
-| 310 | PROOF | A050168 | conjectured closed form | Mathar |
-| 311 | PROOF | A059279 | conjectured closed form | Mathar |
-| 312 | PROOF | A063395 | conjectured P-recursive recurrence | Mathar |
-| 313 | PROOF | A071722 | conjectured P-recursive recurrence | Mathar |
-| 314 | PROOF | A082134 | conjectured P-recursive recurrence | Mathar |
-| 315 | PROOF | A097180 | conjectured P-recursive recurrence | Mathar |
-| 316 | PROOF | A097189 | conjectured P-recursive recurrence | Mathar |
-| 317 | PROOF | A097331 | conjectured P-recursive recurrence | Mathar |
-| 318 | PROOF | A100193 | conjectured P-recursive recurrence | Mathar |
-| 319 | PROOF | A103973 | conjectured P-recursive recurrence | Mathar |
-| 320 | PROOF | A106181 | conjectured P-recursive recurrence | Mathar |
-| 321 | PROOF | A108623 | conjectured P-recursive recurrence | Mathar |
-| 322 | PROOF | A126180 | conjectured P-recursive recurrence | Mathar |
-| 323 | PROOF | A128732 | conjectured P-recursive recurrence | Mathar |
-| 324 | PROOF | A134389 | conjectured P-recursive recurrence | Mathar |
-| 325 | PROOF | A143013 | conjectured P-recursive recurrence | Mathar |
-| 326 | PROOF | A143954 | conjectured P-recursive recurrence | Mathar |
-| 327 | PROOF | A157418 | conjectured P-recursive recurrence | Mathar |
-| 328 | PROOF | A158196 | conjectured P-recursive recurrence | Mathar |
-| 329 | PROOF | A158197 | sequence equals a convergent infinite series | Mathar |
-| 330 | PROOF | A191585 | sequence equals a convergent infinite series | Mathar |
-| 331 | PROOF | A257290 | conjectured P-recursive recurrence | Mathar |
-| 332 | PROOF | A054341 | conjectured P-recursive recurrence | Mathar |
-| 333 | PROOF | A071715 | conjectured P-recursive recurrence | Mathar |
-| 334 | PROOF | A090413 | conjectured P-recursive recurrence | Mathar |
-| 335 | PROOF | A091699 | conjectured P-recursive recurrence | Mathar |
-| 336 | PROOF | A098664 | conjectured P-recursive recurrence | Mathar |
-| 337 | PROOF | A099363 | conjectured P-recursive recurrence | Mathar |
-| 338 | PROOF | A100098 | conjectured P-recursive recurrence | Mathar |
-| 339 | PROOF | A105872 | conjectured P-recursive recurrence | Mathar |
-| 340 | PROOF | A121724 | conjectured P-recursive recurrence | Mathar |
-| 341 | PROOF | A121725 | conjectured P-recursive recurrence | Mathar |
-| 342 | PROOF | A126931 | conjectured P-recursive recurrence | Mathar |
-| 343 | PROOF | A126932 | conjectured P-recursive recurrence | Mathar |
-| 344 | PROOF | A127361 | conjectured P-recursive recurrence | Mathar |
-| 345 | PROOF | A127363 | conjectured P-recursive recurrence | Mathar |
-| 346 | PROOF | A155051 | conjectured P-recursive recurrence | Mathar |
-| 347 | PROOF | A166078 | conjectured P-recursive recurrence | Mathar |
-| 348 | PROOF | A166587 | conjectured P-recursive recurrence | Mathar |
-| 349 | PROOF | A166588 | conjectured P-recursive recurrence | Mathar |
-| 350 | PROOF | A185087 | conjectured P-recursive recurrence | Mathar |
-| 351 | PROOF | A190724 | conjectured P-recursive recurrence | Mathar |
-| 352 | PROOF | A225887 | conjectured P-recursive recurrence | Mathar |
-| 353 | PROOF | A227081 | conjectured P-recursive recurrence | Mathar |
-| 354 | PROOF | A257178 | conjectured P-recursive recurrence | Mathar |
-| 355 | PROOF | A257388 | conjectured P-recursive recurrence | Mathar |
-| 356 | PROOF | A257838 | conjectured P-recursive recurrence | Mathar |
-| 357 | PROOF | A001712 | conjectured P-recursive recurrence | Mathar |
-| 358 | PROOF | A025175 | conjectured P-recursive recurrence | Mathar |
-| 359 | PROOF | A025577 | conjectured P-recursive recurrence | Mathar |
-| 360 | PROOF | A055217 | conjectured P-recursive recurrence | Mathar |
-| 361 | PROOF | A081052 | conjectured P-recursive recurrence | Mathar |
-| 362 | PROOF | A103821 | conjectured P-recursive recurrence | Mathar |
-| 363 | PROOF | A107231 | conjectured P-recursive recurrence | Mathar |
-| 364 | PROOF | A110199 | conjectured P-recursive recurrence | Mathar |
-| 365 | PROOF | A116406 | conjectured P-recursive recurrence | Mathar |
-| 366 | PROOF | A128734 | conjectured P-recursive recurrence | Mathar |
-| 367 | PROOF | A191307 | conjectured P-recursive recurrence | Mathar |
-| 368 | PROOF | A278472 | conjectured P-recursive recurrence | Mathar |
-| 369 | PROOF | A034863 | conjectured P-recursive recurrence | Mathar |
-| 370 | PROOF | A174195 | conjectured P-recursive recurrence | Mathar |
-| 371 | PROOF | A192480 | conjectured P-recursive recurrence | Mathar |
-| 372 | PROOF | A158495 | conjectured P-recursive recurrence | Mathar |
-| 373 | PROOF | A189176 | conjectured P-recursive recurrence | Mathar |
-| 374 | PROOF | A194724 | conjectured P-recursive recurrence | Mathar |
-| 375 | PROOF | A210474 | conjectured P-recursive recurrence | Mathar |
-| 376 | PROOF | A262768 | conjectured P-recursive recurrence | Mathar |
-| 377 | PROOF | A026029 | conjectured P-recursive recurrence | Mathar |
-| 378 | PROOF | A064088 | conjectured P-recursive recurrence | Mathar |
-| 379 | PROOF | A064089 | conjectured P-recursive recurrence | Mathar |
-| 380 | PROOF | A064090 | conjectured P-recursive recurrence | Mathar |
-| 381 | PROOF | A064091 | conjectured P-recursive recurrence | Mathar |
-| 382 | PROOF | A064092 | conjectured P-recursive recurrence | Mathar |
-| 383 | PROOF | A067299 | conjectured P-recursive recurrence | Mathar |
-| 384 | PROOF | A068551 | conjectured P-recursive recurrence | Mathar |
-| 385 | PROOF | A080243 | conjectured P-recursive recurrence | Mathar |
-| 386 | PROOF | A114191 | conjectured P-recursive recurrence | Mathar |
-| 387 | PROOF | A116881 | conjectured P-recursive recurrence | Mathar |
-| 388 | PROOF | A122920 | conjectured P-recursive recurrence | Mathar |
-| 389 | PROOF | A132864 | conjectured P-recursive recurrence | Mathar |
-| 390 | PROOF | A133305 | conjectured P-recursive recurrence | Mathar |
-| 391 | PROOF | A133306 | conjectured P-recursive recurrence | Mathar |
-| 392 | PROOF | A133307 | conjectured P-recursive recurrence | Mathar |
-| 393 | PROOF | A133308 | conjectured P-recursive recurrence | Mathar |
-| 394 | PROOF | A141222 | conjectured P-recursive recurrence | Mathar |
-| 395 | PROOF | A154623 | conjectured P-recursive recurrence | Mathar |
-| 396 | PROOF | A157328 | conjectured P-recursive recurrence | Mathar |
-| 397 | PROOF | A158196 | conjectured P-recursive recurrence | Mathar |
-| 398 | PROOF | A158197 | conjectured P-recursive recurrence | Mathar |
-| 399 | PROOF | A191993 | identity between OEIS entries | Mathar |
-| 400 | PROOF | A225034 | identity between OEIS entries | Berselli |
-| 401 | PROOF | A242172 | identity between OEIS entries | Mathar |
-| 402 | PROOF | A002867 | identity between OEIS entries | Mathar |
-| 403 | PROOF | A014533 | identity between OEIS entries | Mathar |
-| 404 | PROOF | A051524 | identity between OEIS entries | Mathar |
-| 405 | PROOF | A081046 | identity between OEIS entries | Mathar |
-| 406 | PROOF | A098519 | identity between OEIS entries | Mathar |
-| 407 | PROOF | A098520 | identity between OEIS entries | Mathar |
-| 408 | PROOF | A101596 | conjectured P-recursive recurrence | Mathar |
-| 409 | PROOF | A101601 | conjectured P-recursive recurrence | Mathar |
-| 410 | PROOF | A101602 | conjectured P-recursive recurrence | Mathar |
-| 411 | PROOF | A111779 | conjectured P-recursive recurrence | Mathar |
-| 412 | PROOF | A112703 | conjectured P-recursive recurrence | Mathar |
-| 413 | PROOF | A119012 | conjectured P-recursive recurrence | Mathar |
-| 414 | PROOF | A128057 | conjectured P-recursive recurrence | Mathar |
-| 415 | PROOF | A128746 | conjectured P-recursive recurrence | Mathar |
-| 416 | PROOF | A132900 | conjectured closed form | Mathar |
-| 417 | PROOF | A151483 | conjectured closed form | Mathar |
-| 418 | PROOF | A167481 | conjectured closed form | Mathar |
-| 419 | PROOF | A171556 | conjectured P-recursive recurrence | Mathar |
-| 420 | PROOF | A176479 | conjectured P-recursive recurrence | Mathar |
-| 421 | PROOF | A182401 | conjectured P-recursive recurrence | Mathar |
-| 422 | PROOF | A208355 | conjectured P-recursive recurrence | Mathar |
-| 423 | PROOF | A210064 | conjectured P-recursive recurrence | Mathar |
-| 424 | PROOF | A240558 | conjectured P-recursive recurrence | Mathar |
-| 425 | PROOF | A141771 | conjectured P-recursive recurrence | Mathar |
-| 426 | PROOF | A025754 | conjectured P-recursive recurrence | Mathar |
-| 427 | PROOF | A097188 | conjectured P-recursive recurrence | Mathar |
-| 428 | PROOF | A097192 | conjectured P-recursive recurrence | Mathar |
-| 429 | PROOF | A334511 | conjectured P-recursive recurrence | Spezia |
-| 430 | PROOF | A333905 | conjectured P-recursive recurrence | Spezia |
-| 431 | PROOF | A049486 | conjectured P-recursive recurrence | Mathar |
-| 432 | PROOF | A267879 | conjectured P-recursive recurrence | Spezia |
-| 433 | PROOF | A267802 | conjectured P-recursive recurrence | Barker |
-| 434 | PROOF | A267847 | conjectured P-recursive recurrence | Barker |
-| 435 | PROOF | A126501 | conjectured P-recursive recurrence | Barker |
-| 436 | PROOF | A128153 | conjectured P-recursive recurrence | Mathar |
-| 437 | PROOF | A272706 | conjectured P-recursive recurrence | Blomberg |
-| 438 | PROOF | A025271 | conjectured P-recursive recurrence | Mathar |
-| 439 | PROOF | A138164 | conjectured P-recursive recurrence | Mathar |
-| 440 | PROOF | A143017 | conjectured P-recursive recurrence | Mathar |
-| 441 | PROOF | A159772 | conjectured P-recursive recurrence | Mathar |
-| 442 | PROOF | A000986 | conjectured P-recursive recurrence | Mathar |
-| 443 | PROOF | A022917 | conjectured P-recursive recurrence | Mathar |
-| 444 | PROOF | A217447 | conjectured P-recursive recurrence | Mathar |
-| 445 | PROOF | A226302 | conjectured P-recursive recurrence | Mathar |
-| 446 | PROOF | A026165 | conjectured P-recursive recurrence | Mathar |
-| 447 | PROOF | A185966 | conjectured P-recursive recurrence | Mathar |
-| 448 | PROOF | A200753 | conjectured P-recursive recurrence | Mathar |
-| 449 | PROOF | A217358 | conjectured P-recursive recurrence | Mathar |
-| 450 | PROOF | A228960 | conjectured P-recursive recurrence | Mathar |
-| 451 | PROOF | A003435 | conjectured P-recursive recurrence | Mathar |
-| 452 | PROOF | A228331 | conjectured P-recursive recurrence | Mathar |
-| 453 | PROOF | A273019 | conjectured P-recursive recurrence | Mathar |
-| 454 | PROOF | A386834 | conjectured P-recursive recurrence | Mathar |
-| 455 | PROOF | A228330 | conjectured P-recursive recurrence | Mathar |
-| 456 | PROOF | A228333 | conjectured P-recursive recurrence | Mathar |
+| 58 | PROOF | A156894 | conjectured P-recursive recurrence | Mathar |
+| 59 | PROOF | A371753 | conjectured P-recursive recurrence | Mathar |
+| 60 | PROOF | A226751 | conjectured P-recursive recurrence | Mathar |
+| 61 | PROOF | A386830 | conjectured P-recursive recurrence | Mathar |
+| 62 | PROOF | A243764 | conjectured P-recursive recurrence | Mathar |
+| 63 | PROOF | A243760 | conjectured P-recursive recurrence | Mathar |
+| 64 | PROOF | A285195 | conjectured P-recursive recurrence | Mathar |
+| 65 | PROOF | A243814 | conjectured P-recursive recurrence | Mathar |
+| 66 | PROOF | A055392 | conjectured P-recursive recurrence | Mathar |
+| 67 | PROOF | A243022 | conjectured P-recursive recurrence | Mathar |
+| 68 | PROOF | A168506 | conjectured P-recursive recurrence | Mathar |
+| 69 | PROOF | A242566 | conjectured P-recursive recurrence | Mathar |
+| 70 | PROOF | A270530 | conjectured P-recursive recurrence | Mathar |
+| 71 | PROOF | A127632 | conjectured P-recursive recurrence | Mathar |
+| 72 | PROOF | A130655 | conjectured P-recursive recurrence | Mathar |
+| 73 | PROOF | A166135 | conjectured P-recursive recurrence | Mathar |
+| 74 | PROOF | A212696 | conjectured P-recursive recurrence | Mathar |
+| 75 | PROOF | A261196 | conjectured P-recursive recurrence | Mathar |
+| 76 | PROOF | A270530 | conjectured P-recursive recurrence | Mathar |
+| 77 | PROOF | A185010 | conjectured P-recursive recurrence | Mathar |
+| 78 | PROOF | A185020 | conjectured P-recursive recurrence | Mathar |
+| 79 | PROOF | A200312 | conjectured P-recursive recurrence | Mathar |
+| 80 | PROOF | A162972 | conjectured P-recursive recurrence | Mathar |
+| 81 | PROOF | A001465 | conjectured P-recursive recurrence | Mathar |
+| 82 | PROOF | A085387 | conjectured P-recursive recurrence | Mathar |
+| 83 | PROOF | A096471 | conjectured P-recursive recurrence | Mathar |
+| 84 | PROOF | A066052 | conjectured P-recursive recurrence | Mathar |
+| 85 | PROOF | A097204 | conjectured P-recursive recurrence | Mathar |
+| 86 | PROOF | A000483 | conjectured P-recursive recurrence | Mathar |
+| 87 | PROOF | A000276 | conjectured P-recursive recurrence | Mathar |
+| 88 | PROOF | A002104 | conjectured P-recursive recurrence | Mathar |
+| 89 | PROOF | A002538 | conjectured P-recursive recurrence | Mathar |
+| 90 | PROOF | A066052 | conjectured P-recursive recurrence | Mathar |
+| 91 | PROOF | A073591 | conjectured P-recursive recurrence | Mathar |
+| 92 | PROOF | A108704 | conjectured P-recursive recurrence | Mathar |
+| 93 | PROOF | A110322 | conjectured P-recursive recurrence | Mathar |
+| 94 | PROOF | A185369 | conjectured P-recursive recurrence | Mathar |
+| 95 | PROOF | A000276 | conjectured P-recursive recurrence | Mathar |
+| 96 | PROOF | A000774 | conjectured P-recursive recurrence | Mathar |
+| 97 | PROOF | A005654 | conjectured P-recursive recurrence | Mathar |
+| 98 | PROOF | A116385 | conjectured P-recursive recurrence | Mathar |
+| 99 | PROOF | A005558 | conjectured P-recursive recurrence | Mathar |
+| 100 | PROOF | A065942 | conjectured P-recursive recurrence | Mathar |
+| 101 | PROOF | A081181 | conjectured P-recursive recurrence | Mathar |
+| 102 | PROOF | A081204 | conjectured P-recursive recurrence | Mathar |
+| 103 | PROOF | A005558 | conjectured P-recursive recurrence | Mathar |
+| 104 | PROOF | A005559 | conjectured P-recursive recurrence | Mathar |
+| 105 | PROOF | A005560 | conjectured P-recursive recurrence | Mathar |
+| 106 | PROOF | A005561 | conjectured P-recursive recurrence | Mathar |
+| 107 | PROOF | A005562 | conjectured P-recursive recurrence | Mathar |
+| 108 | PROOF | A081204 | conjectured P-recursive recurrence | Mathar |
+| 109 | PROOF | A081205 | conjectured P-recursive recurrence | Mathar |
+| 110 | PROOF | A213203 | conjectured P-recursive recurrence | Mathar |
+| 111 | PROOF | A242429 | conjectured P-recursive recurrence | Mathar |
+| 112 | PROOF | A026018 | conjectured P-recursive recurrence | Mathar |
+| 113 | PROOF | A092634 | conjectured P-recursive recurrence | Mathar |
+| 114 | PROOF | A026026 | conjectured P-recursive recurrence | Mathar |
+| 115 | PROOF | A052227 | conjectured P-recursive recurrence | Mathar |
+| 116 | PROOF | A228329 | conjectured P-recursive recurrence | Mathar |
+| 117 | PROOF | A259457 | conjectured P-recursive recurrence | Mathar |
+| 118 | PROOF | A268554 | conjectured P-recursive recurrence | Mathar |
+| 119 | PROOF | A102319 | conjectured P-recursive recurrence | Mathar |
+| 120 | PROOF | A115256 | conjectured P-recursive recurrence | Mathar |
+| 121 | PROOF | A157125 | conjectured P-recursive recurrence | Mathar |
+| 122 | PROOF | A102318 | conjectured P-recursive recurrence | Mathar |
+| 123 | PROOF | A107587 | conjectured P-recursive recurrence | Mathar |
+| 124 | PROOF | A218185 | conjectured P-recursive recurrence | Mathar |
+| 125 | PROOF | A025567 | conjectured P-recursive recurrence | Mathar |
+| 126 | PROOF | A071684 | conjectured P-recursive recurrence | Mathar |
+| 127 | PROOF | A179648 | conjectured P-recursive recurrence | Mathar |
+| 128 | PROOF | A184120 | conjectured P-recursive recurrence | Mathar |
+| 129 | PROOF | A026163 | conjectured P-recursive recurrence | Mathar |
+| 130 | PROOF | A102318 | conjectured P-recursive recurrence | Mathar |
+| 131 | PROOF | A101500 | conjectured P-recursive recurrence | Mathar |
+| 132 | PROOF | A102319 | conjectured P-recursive recurrence | Mathar |
+| 133 | PROOF | A107587 | conjectured P-recursive recurrence | Mathar |
+| 134 | PROOF | A072100 | conjectured P-recursive recurrence | Mathar |
+| 135 | PROOF | A025567 | conjectured P-recursive recurrence | Mathar |
+| 136 | PROOF | A334509 | conjectured P-recursive recurrence | Spezia |
+| 137 | PROOF | A298022 | conjectured P-recursive recurrence | Spezia |
+| 138 | PROOF | A273676 | conjectured P-recursive recurrence | Mathar |
+| 139 | PROOF | A273832 | conjectured P-recursive recurrence | Mathar |
+| 140 | PROOF | A319371 | conjectured P-recursive recurrence | Mathar |
+| 141 | PROOF | A110320 | conjectured P-recursive recurrence | McGarvey |
+| 142 | PROOF | A309878 | conjectured P-recursive recurrence | Mathar |
+| 143 | PROOF | A315520 | conjectured P-recursive recurrence | Spezia |
+| 144 | PROOF | A346370 | conjectured P-recursive recurrence | Kurkov |
+| 145 | PROOF | A191625 | conjectured P-recursive recurrence | Mathar |
+| 146 | PROOF | A186341 | conjectured P-recursive recurrence | Mathar |
+| 147 | PROOF | A026743 | conjectured P-recursive recurrence | Mathar |
+| 148 | PROOF | A191786 | conjectured P-recursive recurrence | Mathar |
+| 149 | PROOF | A210496 | conjectured P-recursive recurrence | Mathar |
+| 150 | PROOF | A182892 | conjectured P-recursive recurrence | Mathar |
+| 151 | PROOF | A270724 | conjectured P-recursive recurrence | Mathar |
+| 152 | PROOF | A190171 | conjectured P-recursive recurrence | Mathar |
+| 153 | PROOF | A257515 | conjectured P-recursive recurrence | Mathar |
+| 154 | PROOF | A190788 | conjectured P-recursive recurrence | Mathar |
+| 155 | PROOF | A095981 | conjectured P-recursive recurrence | Mathar |
+| 156 | PROOF | A212205 | conjectured P-recursive recurrence | Mathar |
+| 157 | PROOF | A270661 | conjectured P-recursive recurrence | Mathar |
+| 158 | PROOF | A157021 | conjectured P-recursive recurrence | Mathar |
+| 159 | PROOF | A165537 | conjectured P-recursive recurrence | Mathar |
+| 160 | PROOF | A166287 | conjectured P-recursive recurrence | Mathar |
+| 161 | PROOF | A174013 | conjectured P-recursive recurrence | Mathar |
+| 162 | PROOF | A178072 | conjectured P-recursive recurrence | Mathar |
+| 163 | PROOF | A182894 | conjectured P-recursive recurrence | Mathar |
+| 164 | PROOF | A114584 | conjectured P-recursive recurrence | Mathar |
+| 165 | PROOF | A164586 | conjectured P-recursive recurrence | Mathar |
+| 166 | PROOF | A189053 | conjectured P-recursive recurrence | Mathar |
+| 167 | PROOF | A182904 | conjectured P-recursive recurrence | Mathar |
+| 168 | PROOF | A274295 | conjectured P-recursive recurrence | Mathar |
+| 169 | PROOF | A226434 | conjectured P-recursive recurrence | Mathar |
+| 170 | PROOF | A257104 | conjectured P-recursive recurrence | Mathar |
+| 171 | PROOF | A108600 | conjectured P-recursive recurrence | Mathar |
+| 172 | PROOF | A114851 | conjectured P-recursive recurrence | Mathar |
+| 173 | PROOF | A125306 | conjectured P-recursive recurrence | Mathar |
+| 174 | PROOF | A166290 | conjectured P-recursive recurrence | Mathar |
+| 175 | PROOF | A228770 | conjectured P-recursive recurrence | Mathar |
+| 176 | PROOF | A257300 | conjectured P-recursive recurrence | Mathar |
+| 177 | PROOF | A089324 | conjectured P-recursive recurrence | Mathar |
+| 178 | PROOF | A104625 | conjectured P-recursive recurrence | Mathar |
+| 179 | PROOF | A113956 | conjectured P-recursive recurrence | Mathar |
+| 180 | PROOF | A116383 | conjectured P-recursive recurrence | Mathar |
+| 181 | PROOF | A162548 | conjectured P-recursive recurrence | Mathar |
+| 182 | PROOF | A173993 | conjectured P-recursive recurrence | Mathar |
+| 183 | PROOF | A244886 | conjectured P-recursive recurrence | Mathar |
+| 184 | PROOF | A157003 | conjectured P-recursive recurrence | Mathar |
+| 185 | PROOF | A163493 | conjectured P-recursive recurrence | Mathar |
+| 186 | PROOF | A191398 | conjectured P-recursive recurrence | Mathar |
+| 187 | PROOF | A135582 | conjectured P-recursive recurrence | Mathar |
+| 188 | PROOF | A139376 | conjectured P-recursive recurrence | Mathar |
+| 189 | PROOF | A346074 | conjectured P-recursive recurrence | Mathar |
+| 190 | PROOF | A190166 | conjectured P-recursive recurrence | Mathar |
+| 191 | PROOF | A025251 | conjectured P-recursive recurrence | Mathar |
+| 192 | PROOF | A228771 | conjectured P-recursive recurrence | Mathar |
+| 193 | PROOF | A025268 | conjectured P-recursive recurrence | Mathar |
+| 194 | PROOF | A025272 | conjectured P-recursive recurrence | Mathar |
+| 195 | PROOF | A385252 | conjectured P-recursive recurrence | Mathar |
+| 196 | PROOF | A025758 | conjectured P-recursive recurrence | Mathar |
+| 197 | PROOF | A114464 | conjectured P-recursive recurrence | Mathar |
+| 198 | PROOF | A127154 | conjectured P-recursive recurrence | Mathar |
+| 199 | PROOF | A135335 | conjectured P-recursive recurrence | Mathar |
+| 200 | PROOF | A165540 | conjectured P-recursive recurrence | Mathar |
+| 201 | PROOF | A171416 | conjectured P-recursive recurrence | Mathar |
+| 202 | PROOF | A188314 | conjectured P-recursive recurrence | Mathar |
+| 203 | PROOF | A254314 | conjectured P-recursive recurrence | Mathar |
+| 204 | PROOF | A270661 | conjectured P-recursive recurrence | Mathar |
+| 205 | PROOF | A308726 | conjectured P-recursive recurrence | Mathar |
+| 206 | PROOF | A003440 | conjectured P-recursive recurrence | Mathar |
+| 207 | PROOF | A110521 | conjectured P-recursive recurrence | Mathar |
+| 208 | PROOF | A114190 | conjectured P-recursive recurrence | Mathar |
+| 209 | PROOF | A116387 | conjectured P-recursive recurrence | Mathar |
+| 210 | PROOF | A128096 | conjectured P-recursive recurrence | Mathar |
+| 211 | PROOF | A157021 | conjectured P-recursive recurrence | Mathar |
+| 212 | PROOF | A160823 | conjectured P-recursive recurrence | Mathar |
+| 213 | PROOF | A166287 | conjectured P-recursive recurrence | Mathar |
+| 214 | PROOF | A174808 | conjectured P-recursive recurrence | Mathar |
+| 215 | PROOF | A185089 | conjectured P-recursive recurrence | Mathar |
+| 216 | PROOF | A186940 | conjectured P-recursive recurrence | Mathar |
+| 217 | PROOF | A190736 | conjectured P-recursive recurrence | Mathar |
+| 218 | PROOF | A219314 | conjectured P-recursive recurrence | Mathar |
+| 219 | PROOF | A100095 | conjectured P-recursive recurrence | Mathar |
+| 220 | PROOF | A100097 | conjectured P-recursive recurrence | Mathar |
+| 221 | PROOF | A191313 | conjectured P-recursive recurrence | Mathar |
+| 222 | PROOF | A191790 | conjectured P-recursive recurrence | Mathar |
+| 223 | PROOF | A273351 | conjectured P-recursive recurrence | Mathar |
+| 224 | PROOF | A278472 | conjectured P-recursive recurrence | Mathar |
+| 225 | PROOF | A108296 | conjectured P-recursive recurrence | Mathar |
+| 226 | PROOF | A116391 | conjectured P-recursive recurrence | Mathar |
+| 227 | PROOF | A110198 | conjectured P-recursive recurrence | Mathar |
+| 228 | PROOF | A182879 | conjectured P-recursive recurrence | Mathar |
+| 229 | PROOF | A182887 | conjectured P-recursive recurrence | Mathar |
+| 230 | PROOF | A135925 | conjectured P-recursive recurrence | Mathar |
+| 231 | PROOF | A007901 | conjectured P-recursive recurrence | Mathar |
+| 232 | PROOF | A025256 | conjectured P-recursive recurrence | Mathar |
+| 233 | PROOF | A025258 | conjectured P-recursive recurrence | Mathar |
+| 234 | PROOF | A000781 | conjectured P-recursive recurrence | Mathar |
+| 235 | PROOF | A025245 | conjectured P-recursive recurrence | Mathar |
+| 236 | PROOF | A025257 | conjectured P-recursive recurrence | Mathar |
+| 237 | PROOF | A025269 | conjectured P-recursive recurrence | Mathar |
+| 238 | PROOF | A025270 | conjectured P-recursive recurrence | Mathar |
+| 239 | PROOF | A025275 | conjectured P-recursive recurrence | Mathar |
+| 240 | PROOF | A032096 | conjectured P-recursive recurrence | Mathar |
+| 241 | PROOF | A102880 | conjectured P-recursive recurrence | Mathar |
+| 242 | PROOF | A111053 | conjectured P-recursive recurrence | Mathar |
+| 243 | PROOF | A152120 | conjectured P-recursive recurrence | Mathar |
+| 244 | PROOF | A159771 | conjectured P-recursive recurrence | Mathar |
+| 245 | PROOF | A166694 | conjectured P-recursive recurrence | Mathar |
+| 246 | PROOF | A166696 | conjectured P-recursive recurrence | Mathar |
+| 247 | PROOF | A191796 | conjectured P-recursive recurrence | Mathar |
+| 248 | PROOF | A217711 | conjectured P-recursive recurrence | Mathar |
+| 249 | PROOF | A278023 | conjectured P-recursive recurrence | Mathar |
+| 250 | PROOF | A279014 | conjectured P-recursive recurrence | Mathar |
+| 251 | PROOF | A000483 | conjectured P-recursive recurrence | Mathar |
+| 252 | PROOF | A025757 | conjectured P-recursive recurrence | Mathar |
+| 253 | PROOF | A026030 | conjectured P-recursive recurrence | Mathar |
+| 254 | PROOF | A026031 | conjectured P-recursive recurrence | Mathar |
+| 255 | PROOF | A048775 | conjectured P-recursive recurrence | Mathar |
+| 256 | PROOF | A116409 | conjectured P-recursive recurrence | Mathar |
+| 257 | PROOF | A126322 | conjectured P-recursive recurrence | Mathar |
+| 258 | PROOF | A128750 | conjectured P-recursive recurrence | Mathar |
+| 259 | PROOF | A143955 | conjectured P-recursive recurrence | Mathar |
+| 260 | PROOF | A165203 | conjectured P-recursive recurrence | Mathar |
+| 261 | PROOF | A168505 | conjectured P-recursive recurrence | Mathar |
+| 262 | PROOF | A176605 | conjectured P-recursive recurrence | Mathar |
+| 263 | PROOF | A181933 | conjectured P-recursive recurrence | Mathar |
+| 264 | PROOF | A191585 | conjectured P-recursive recurrence | Mathar |
+| 265 | PROOF | A215973 | conjectured P-recursive recurrence | Mathar |
+| 266 | PROOF | A234269 | conjectured P-recursive recurrence | Mathar |
+| 267 | PROOF | A236407 | conjectured P-recursive recurrence | Mathar |
+| 268 | PROOF | A270363 | conjectured P-recursive recurrence | Mathar |
+| 269 | PROOF | A098521 | conjectured P-recursive recurrence | Mathar |
+| 270 | PROOF | A100096 | conjectured P-recursive recurrence | Mathar |
+| 271 | PROOF | A100099 | conjectured P-recursive recurrence | Mathar |
+| 272 | PROOF | A105849 | conjectured P-recursive recurrence | Mathar |
+| 273 | PROOF | A105864 | conjectured P-recursive recurrence | Mathar |
+| 274 | PROOF | A105865 | conjectured P-recursive recurrence | Mathar |
+| 275 | PROOF | A108308 | conjectured P-recursive recurrence | Mathar |
+| 276 | PROOF | A114194 | conjectured P-recursive recurrence | Mathar |
+| 277 | PROOF | A115967 | conjectured P-recursive recurrence | Mathar |
+| 278 | PROOF | A120010 | conjectured P-recursive recurrence | Mathar |
+| 279 | PROOF | A124431 | conjectured P-recursive recurrence | Mathar |
+| 280 | PROOF | A124431 | conjectured P-recursive recurrence | Mathar |
+| 281 | PROOF | A126568 | conjectured P-recursive recurrence | Mathar |
+| 282 | PROOF | A132364 | conjectured P-recursive recurrence | Mathar |
+| 283 | PROOF | A141342 | conjectured P-recursive recurrence | Mathar |
+| 284 | PROOF | A155051 | conjectured P-recursive recurrence | Mathar |
+| 285 | PROOF | A157100 | conjectured P-recursive recurrence | Mathar |
+| 286 | PROOF | A166076 | conjectured P-recursive recurrence | Mathar |
+| 287 | PROOF | A166300 | conjectured P-recursive recurrence | Mathar |
+| 288 | PROOF | A168503 | conjectured P-recursive recurrence | Mathar |
+| 289 | PROOF | A174107 | conjectured P-recursive recurrence | Mathar |
+| 290 | PROOF | A174169 | conjectured P-recursive recurrence | Mathar |
+| 291 | PROOF | A176332 | conjectured P-recursive recurrence | Mathar |
+| 292 | PROOF | A184018 | conjectured P-recursive recurrence | Mathar |
+| 293 | PROOF | A188312 | conjectured P-recursive recurrence | Mathar |
+| 294 | PROOF | A188482 | conjectured P-recursive recurrence | Mathar |
+| 295 | PROOF | A191782 | conjectured P-recursive recurrence | Mathar |
+| 296 | PROOF | A217333 | conjectured P-recursive recurrence | Mathar |
+| 297 | PROOF | A257072 | conjectured P-recursive recurrence | Mathar |
+| 298 | PROOF | A261681 | conjectured P-recursive recurrence | Mathar |
+| 299 | PROOF | A073155 | conjectured P-recursive recurrence | Mathar |
+| 300 | PROOF | A105524 | conjectured P-recursive recurrence | Mathar |
+| 301 | PROOF | A114589 | conjectured P-recursive recurrence | Mathar |
+| 302 | PROOF | A114590 | conjectured P-recursive recurrence | Mathar |
+| 303 | PROOF | A162481 | conjectured P-recursive recurrence | Mathar |
+| 304 | PROOF | A188460 | conjectured P-recursive recurrence | Mathar |
+| 305 | PROOF | A188464 | conjectured P-recursive recurrence | Mathar |
+| 306 | PROOF | A190725 | conjectured closed form | Mathar |
+| 307 | PROOF | A191526 | conjectured closed form | Mathar |
+| 308 | PROOF | A191531 | conjectured closed form | Mathar |
+| 309 | PROOF | A211278 | conjectured closed form | Mathar |
+| 310 | PROOF | A026327 | conjectured closed form | Mathar |
+| 311 | PROOF | A081207 | conjectured closed form | Mathar |
+| 312 | PROOF | A102882 | conjectured P-recursive recurrence | Mathar |
+| 313 | PROOF | A182881 | conjectured P-recursive recurrence | Mathar |
+| 314 | PROOF | A191309 | conjectured P-recursive recurrence | Mathar |
+| 315 | PROOF | A191319 | conjectured P-recursive recurrence | Mathar |
+| 316 | PROOF | A191790 | conjectured P-recursive recurrence | Mathar |
+| 317 | PROOF | A273351 | conjectured P-recursive recurrence | Mathar |
+| 318 | PROOF | A025248 | conjectured P-recursive recurrence | Mathar |
+| 319 | PROOF | A025249 | conjectured P-recursive recurrence | Mathar |
+| 320 | PROOF | A026017 | conjectured P-recursive recurrence | Mathar |
+| 321 | PROOF | A071717 | conjectured P-recursive recurrence | Mathar |
+| 322 | PROOF | A081672 | conjectured P-recursive recurrence | Mathar |
+| 323 | PROOF | A104722 | conjectured P-recursive recurrence | Mathar |
+| 324 | PROOF | A109263 | conjectured P-recursive recurrence | Mathar |
+| 325 | PROOF | A118093 | conjectured P-recursive recurrence | Mathar |
+| 326 | PROOF | A118974 | conjectured P-recursive recurrence | Mathar |
+| 327 | PROOF | A121320 | conjectured P-recursive recurrence | Mathar |
+| 328 | PROOF | A126323 | conjectured P-recursive recurrence | Mathar |
+| 329 | PROOF | A128723 | sequence equals a convergent infinite series | Mathar |
+| 330 | PROOF | A135334 | sequence equals a convergent infinite series | Mathar |
+| 331 | PROOF | A141351 | conjectured P-recursive recurrence | Mathar |
+| 332 | PROOF | A141353 | conjectured P-recursive recurrence | Mathar |
+| 333 | PROOF | A163824 | conjectured P-recursive recurrence | Mathar |
+| 334 | PROOF | A165201 | conjectured P-recursive recurrence | Mathar |
+| 335 | PROOF | A279014 | conjectured P-recursive recurrence | Mathar |
+| 336 | PROOF | A025756 | conjectured P-recursive recurrence | Mathar |
+| 337 | PROOF | A026027 | conjectured P-recursive recurrence | Mathar |
+| 338 | PROOF | A026135 | conjectured P-recursive recurrence | Mathar |
+| 339 | PROOF | A050168 | conjectured P-recursive recurrence | Mathar |
+| 340 | PROOF | A059279 | conjectured P-recursive recurrence | Mathar |
+| 341 | PROOF | A063395 | conjectured P-recursive recurrence | Mathar |
+| 342 | PROOF | A071722 | conjectured P-recursive recurrence | Mathar |
+| 343 | PROOF | A082134 | conjectured P-recursive recurrence | Mathar |
+| 344 | PROOF | A097180 | conjectured P-recursive recurrence | Mathar |
+| 345 | PROOF | A097189 | conjectured P-recursive recurrence | Mathar |
+| 346 | PROOF | A097331 | conjectured P-recursive recurrence | Mathar |
+| 347 | PROOF | A100193 | conjectured P-recursive recurrence | Mathar |
+| 348 | PROOF | A103973 | conjectured P-recursive recurrence | Mathar |
+| 349 | PROOF | A106181 | conjectured P-recursive recurrence | Mathar |
+| 350 | PROOF | A108623 | conjectured P-recursive recurrence | Mathar |
+| 351 | PROOF | A126180 | conjectured P-recursive recurrence | Mathar |
+| 352 | PROOF | A128732 | conjectured P-recursive recurrence | Mathar |
+| 353 | PROOF | A134389 | conjectured P-recursive recurrence | Mathar |
+| 354 | PROOF | A143013 | conjectured P-recursive recurrence | Mathar |
+| 355 | PROOF | A143954 | conjectured P-recursive recurrence | Mathar |
+| 356 | PROOF | A157418 | conjectured P-recursive recurrence | Mathar |
+| 357 | PROOF | A158196 | conjectured P-recursive recurrence | Mathar |
+| 358 | PROOF | A158197 | conjectured P-recursive recurrence | Mathar |
+| 359 | PROOF | A191585 | conjectured P-recursive recurrence | Mathar |
+| 360 | PROOF | A257290 | conjectured P-recursive recurrence | Mathar |
+| 361 | PROOF | A054341 | conjectured P-recursive recurrence | Mathar |
+| 362 | PROOF | A071715 | conjectured P-recursive recurrence | Mathar |
+| 363 | PROOF | A090413 | conjectured P-recursive recurrence | Mathar |
+| 364 | PROOF | A090826 | conjectured P-recursive recurrence | Mathar |
+| 365 | PROOF | A091699 | conjectured P-recursive recurrence | Mathar |
+| 366 | PROOF | A098664 | conjectured P-recursive recurrence | Mathar |
+| 367 | PROOF | A099363 | conjectured P-recursive recurrence | Mathar |
+| 368 | PROOF | A100098 | conjectured P-recursive recurrence | Mathar |
+| 369 | PROOF | A105872 | conjectured P-recursive recurrence | Mathar |
+| 370 | PROOF | A119975 | conjectured P-recursive recurrence | Mathar |
+| 371 | PROOF | A121724 | conjectured P-recursive recurrence | Mathar |
+| 372 | PROOF | A121725 | conjectured P-recursive recurrence | Mathar |
+| 373 | PROOF | A126931 | conjectured P-recursive recurrence | Mathar |
+| 374 | PROOF | A126932 | conjectured P-recursive recurrence | Mathar |
+| 375 | PROOF | A127361 | conjectured P-recursive recurrence | Mathar |
+| 376 | PROOF | A127363 | conjectured P-recursive recurrence | Mathar |
+| 377 | PROOF | A155051 | conjectured P-recursive recurrence | Mathar |
+| 378 | PROOF | A166078 | conjectured P-recursive recurrence | Mathar |
+| 379 | PROOF | A166587 | conjectured P-recursive recurrence | Mathar |
+| 380 | PROOF | A166588 | conjectured P-recursive recurrence | Mathar |
+| 381 | PROOF | A176006 | conjectured P-recursive recurrence | Mathar |
+| 382 | PROOF | A185087 | conjectured P-recursive recurrence | Mathar |
+| 383 | PROOF | A190724 | conjectured P-recursive recurrence | Mathar |
+| 384 | PROOF | A225887 | conjectured P-recursive recurrence | Mathar |
+| 385 | PROOF | A227081 | conjectured P-recursive recurrence | Mathar |
+| 386 | PROOF | A257178 | conjectured P-recursive recurrence | Mathar |
+| 387 | PROOF | A257388 | conjectured P-recursive recurrence | Mathar |
+| 388 | PROOF | A257838 | conjectured P-recursive recurrence | Mathar |
+| 389 | PROOF | A001712 | conjectured P-recursive recurrence | Mathar |
+| 390 | PROOF | A025175 | conjectured P-recursive recurrence | Mathar |
+| 391 | PROOF | A025577 | conjectured P-recursive recurrence | Mathar |
+| 392 | PROOF | A026023 | conjectured P-recursive recurrence | Mathar |
+| 393 | PROOF | A055217 | conjectured P-recursive recurrence | Mathar |
+| 394 | PROOF | A081052 | conjectured P-recursive recurrence | Mathar |
+| 395 | PROOF | A103821 | conjectured P-recursive recurrence | Mathar |
+| 396 | PROOF | A107231 | conjectured P-recursive recurrence | Mathar |
+| 397 | PROOF | A110199 | conjectured P-recursive recurrence | Mathar |
+| 398 | PROOF | A116406 | conjectured P-recursive recurrence | Mathar |
+| 399 | PROOF | A128734 | identity between OEIS entries | Mathar |
+| 400 | PROOF | A191307 | identity between OEIS entries | Mathar |
+| 401 | PROOF | A278472 | identity between OEIS entries | Mathar |
+| 402 | PROOF | A034863 | identity between OEIS entries | Mathar |
+| 403 | PROOF | A128652 | identity between OEIS entries | Mathar |
+| 404 | PROOF | A174195 | identity between OEIS entries | Mathar |
+| 405 | PROOF | A192480 | identity between OEIS entries | Mathar |
+| 406 | PROOF | A158495 | identity between OEIS entries | Mathar |
+| 407 | PROOF | A189176 | identity between OEIS entries | Mathar |
+| 408 | PROOF | A194724 | conjectured P-recursive recurrence | Mathar |
+| 409 | PROOF | A210474 | conjectured P-recursive recurrence | Mathar |
+| 410 | PROOF | A262768 | conjectured P-recursive recurrence | Mathar |
+| 411 | PROOF | A026029 | conjectured P-recursive recurrence | Mathar |
+| 412 | PROOF | A064088 | conjectured P-recursive recurrence | Mathar |
+| 413 | PROOF | A064089 | conjectured P-recursive recurrence | Mathar |
+| 414 | PROOF | A064090 | conjectured P-recursive recurrence | Mathar |
+| 415 | PROOF | A064091 | conjectured P-recursive recurrence | Mathar |
+| 416 | PROOF | A064092 | conjectured closed form | Mathar |
+| 417 | PROOF | A067299 | conjectured closed form | Mathar |
+| 418 | PROOF | A068551 | conjectured closed form | Mathar |
+| 419 | PROOF | A080243 | conjectured P-recursive recurrence | Mathar |
+| 420 | PROOF | A114191 | conjectured P-recursive recurrence | Mathar |
+| 421 | PROOF | A116881 | conjectured P-recursive recurrence | Mathar |
+| 422 | PROOF | A122920 | conjectured P-recursive recurrence | Mathar |
+| 423 | PROOF | A132864 | conjectured P-recursive recurrence | Mathar |
+| 424 | PROOF | A133305 | conjectured P-recursive recurrence | Mathar |
+| 425 | PROOF | A133306 | conjectured P-recursive recurrence | Mathar |
+| 426 | PROOF | A133307 | conjectured P-recursive recurrence | Mathar |
+| 427 | PROOF | A133308 | conjectured P-recursive recurrence | Mathar |
+| 428 | PROOF | A141222 | conjectured P-recursive recurrence | Mathar |
+| 429 | PROOF | A154623 | conjectured P-recursive recurrence | Mathar |
+| 430 | PROOF | A157328 | conjectured P-recursive recurrence | Mathar |
+| 431 | PROOF | A158196 | conjectured P-recursive recurrence | Mathar |
+| 432 | PROOF | A158197 | conjectured P-recursive recurrence | Mathar |
+| 433 | PROOF | A191993 | conjectured P-recursive recurrence | Mathar |
+| 434 | PROOF | A225034 | conjectured P-recursive recurrence | Berselli |
+| 435 | PROOF | A242172 | conjectured P-recursive recurrence | Mathar |
+| 436 | PROOF | A002867 | conjectured P-recursive recurrence | Mathar |
+| 437 | PROOF | A014533 | conjectured P-recursive recurrence | Mathar |
+| 438 | PROOF | A051524 | conjectured P-recursive recurrence | Mathar |
+| 439 | PROOF | A081046 | conjectured P-recursive recurrence | Mathar |
+| 440 | PROOF | A094905 | conjectured P-recursive recurrence | Mathar |
+| 441 | PROOF | A098519 | conjectured P-recursive recurrence | Mathar |
+| 442 | PROOF | A098520 | conjectured P-recursive recurrence | Mathar |
+| 443 | PROOF | A101596 | conjectured P-recursive recurrence | Mathar |
+| 444 | PROOF | A101601 | conjectured P-recursive recurrence | Mathar |
+| 445 | PROOF | A101602 | conjectured P-recursive recurrence | Mathar |
+| 446 | PROOF | A111779 | conjectured P-recursive recurrence | Mathar |
+| 447 | PROOF | A112703 | conjectured P-recursive recurrence | Mathar |
+| 448 | PROOF | A119012 | conjectured P-recursive recurrence | Mathar |
+| 449 | PROOF | A128057 | conjectured P-recursive recurrence | Mathar |
+| 450 | PROOF | A128746 | conjectured P-recursive recurrence | Mathar |
+| 451 | PROOF | A132900 | conjectured P-recursive recurrence | Mathar |
+| 452 | PROOF | A151483 | conjectured P-recursive recurrence | Mathar |
+| 453 | PROOF | A167481 | conjectured P-recursive recurrence | Mathar |
+| 454 | PROOF | A171556 | conjectured P-recursive recurrence | Mathar |
+| 455 | PROOF | A176479 | conjectured P-recursive recurrence | Mathar |
+| 456 | PROOF | A182401 | conjectured P-recursive recurrence | Mathar |
+| 457 | PROOF | A208355 | conjectured P-recursive recurrence | Mathar |
+| 458 | PROOF | A210064 | conjectured P-recursive recurrence | Mathar |
+| 459 | PROOF | A240558 | conjectured P-recursive recurrence | Mathar |
+| 460 | PROOF | A141771 | conjectured P-recursive recurrence | Mathar |
+| 461 | PROOF | A025754 | conjectured P-recursive recurrence | Mathar |
+| 462 | PROOF | A097188 | conjectured P-recursive recurrence | Mathar |
+| 463 | PROOF | A097192 | conjectured P-recursive recurrence | Mathar |
+| 464 | PROOF | A334511 | conjectured P-recursive recurrence | Spezia |
+| 465 | PROOF | A333905 | conjectured P-recursive recurrence | Spezia |
+| 466 | PROOF | A049486 | conjectured P-recursive recurrence | Mathar |
+| 467 | PROOF | A267879 | conjectured P-recursive recurrence | Spezia |
+| 468 | PROOF | A267802 | conjectured P-recursive recurrence | Barker |
+| 469 | PROOF | A267847 | conjectured P-recursive recurrence | Barker |
+| 470 | PROOF | A126501 | conjectured P-recursive recurrence | Barker |
+| 471 | PROOF | A128153 | conjectured P-recursive recurrence | Mathar |
+| 472 | PROOF | A272706 | conjectured P-recursive recurrence | Blomberg |
+| 473 | PROOF | A025271 | conjectured P-recursive recurrence | Mathar |
+| 474 | PROOF | A138164 | conjectured P-recursive recurrence | Mathar |
+| 475 | PROOF | A143017 | conjectured P-recursive recurrence | Mathar |
+| 476 | PROOF | A159772 | conjectured P-recursive recurrence | Mathar |
+| 477 | PROOF | A000986 | conjectured P-recursive recurrence | Mathar |
+| 478 | PROOF | A022917 | conjectured P-recursive recurrence | Mathar |
+| 479 | PROOF | A217447 | conjectured P-recursive recurrence | Mathar |
+| 480 | PROOF | A226302 | conjectured P-recursive recurrence | Mathar |
+| 481 | PROOF | A026165 | conjectured P-recursive recurrence | Mathar |
+| 482 | PROOF | A185966 | conjectured P-recursive recurrence | Mathar |
+| 483 | PROOF | A200753 | conjectured P-recursive recurrence | Mathar |
+| 484 | PROOF | A217358 | conjectured P-recursive recurrence | Mathar |
+| 485 | PROOF | A228960 | conjectured P-recursive recurrence | Mathar |
+| 486 | PROOF | A003435 | conjectured P-recursive recurrence | Mathar |
+| 487 | PROOF | A228331 | conjectured P-recursive recurrence | Mathar |
+| 488 | PROOF | A273019 | conjectured P-recursive recurrence | Mathar |
+| 489 | PROOF | A386834 | conjectured P-recursive recurrence | Mathar |
+| 490 | PROOF | A228330 | conjectured P-recursive recurrence | Mathar |
+| 491 | PROOF | A228333 | conjectured P-recursive recurrence | Mathar |
 
 ### What the ranking means
 
@@ -618,13 +653,26 @@ Papers are numbered by how hard the result was, 1 hardest. The tiers, and where 
 |---|---|
 | 1-30 | a separate argument found for that one problem |
 | 31-50 | one theorem (Bala periodicity), proved once and applied to twenty entries |
-| 51-54 | a recurrence derived from the summand by creative telescoping, then divided |
-| 55-60 | the generating function itself derived, from a coefficient-extraction definition |
-| 61- | a decision procedure over a generating function the entry already posts |
+| 51 | telescoping over a range whose summand does not vanish at the ends |
+| 52-55 | a recurrence derived from the summand by creative telescoping, then divided |
+| 56-61 | the generating function itself derived, from a coefficient-extraction definition |
+| 62-96 | a decision procedure over a generating function the entry already posts |
+| 97-109 | a posted closed form, split on the parity of n, decided by hypergeometric-term theory |
+| 110-118 | the same without the parity split |
+| 119- | the rest of the decision procedures over a posted generating function |
 
-So **ranks 1-60 are the ones with mathematics on the page**. Everything from 61 on is a
+So **ranks 1-61 are the ones with mathematics on the page**. Everything below that is a
 real proof of a genuinely open conjecture, but the argument lives in the engine rather
 than in the paper.
+
+Ranks 97-118 are new and are the first results here that use **no generating function at
+all**. The entry posts a closed form; a closed form is a sum of hypergeometric terms;
+shift quotients of such terms are rational, similar terms group, and dissimilar ones are
+linearly independent over the rational functions. So the conjecture becomes one
+rational-function identity per similarity class, and cancellation decides each. That makes
+it a decision procedure, not a search: it returns a proof or a refutation. Where the closed
+form contains a floor, it is not a hypergeometric term at all and the argument does not
+start; splitting on the parity of `n` repairs that, and both halves must then hold.
 
 Ranks 55-60 are new. Those entries define the sequence only as `a(n) = [x^n] f(x)g(x)^n`
 and post no generating function at all, so there was nothing for the older engines to
@@ -635,8 +683,9 @@ algebraic function field. The generating function is derived, not quoted, which 
 these rank above the mechanical range.
 
 Within the mechanical range the order is: recurrence derived from the summand by
-telescoping; generating function derived from a coefficient-extraction definition;
-general algebraic function field; transcendental e.g.f.; several independent
+telescoping, the boundary-corrected form first; generating function derived from a
+coefficient-extraction definition; general algebraic function field; transcendental e.g.f.;
+closed form split on parity; closed form directly; transcendental e.g.f.; several independent
 square roots; identity between entries; the standard residual test; closed form against
 the posted g.f.; and last, one posted operator dividing another -- honestly the
 shallowest thing here, since both recurrences were already on the entry. Inside each tier
@@ -1129,11 +1178,96 @@ answer is 19. **The engine was right and the check was wrong** — the same shap
 as the A156894 yardstick below, twice on one entry.
 
 
+### 30 Aug 2026: a census first, then three engines aimed at what it found
+
+Rather than guess where the remaining work was, every entry carrying an open conjectured
+recurrence was classified by what it gives you to work with. **654 remain** after removing
+the ones already held. The piles:
+
+| count | what the entry offers |
+|---|---|
+| 290 | a g.f. is posted, and the engines failed on it |
+| 268 | nothing any engine could read |
+| 44 | a sum with binomials or factorials |
+| 28 | another recurrence posted |
+| 19 | a sum without binomials |
+| 5 | an e.g.f. |
+
+Then the 290 were diagnosed one by one for *why* they failed, which is the step that
+turned the census into work:
+
+| count | cause |
+|---|---|
+| 109 | the g.f. line does not parse |
+| 77 | no g.f. line after all |
+| 26 | transcendental or an infinite sum |
+| 24 | should have worked -- all 24 turned out to be already settled |
+| 20 | parses but does not match the published terms |
+| 10 | a continued fraction |
+| 13 | the residual test crashed |
+
+**Most of what looked like hard mathematics was notation.** Of the g.f. lines that would
+not parse, the commonest defeat was an old-style attribution with no underscores
+(`- Maksym Voznyy (voznyy(AT)mail.ru), Aug 11 2009`), an editorial note
+(`- amended by _Georg Fischer_`), or a second English sentence. The same held for the
+summation formulas: three quarters of the telescoping failures were the parser refusing an
+index called `i`, a range written `k>=0`, or a trailing `for n>0, with a(0)=1`.
+
+Both parsers were rewritten to **offer candidate readings and keep whichever reproduces
+the entry's own terms**, rather than to cut in the right place by regex. A bad cut is then
+rejected by the data instead of trusted, so a permissive parser adds candidates without
+adding risk.
+
+`parse_conj` was also reading only some of the labels OEIS uses. It missed
+`Conjectured to be D-finite with recurrence`, `Conjectural D-finite`, `Conjecture : ` with
+a space, and one entry with a stray letter typed into the label. That had been silently
+skipping conjectures in **every** sweep since the beginning. A conjecture that restates the
+offset (`Conjecture: (with offset 0 instead of 1) ...`) is now refused outright rather than
+parsed against the wrong indexing.
+
+### The alignment trap, and a near miss
+
+`A005560` posts `a(n) = C(n+3, ceiling(n/2))*C(n+2, floor(n/2)) - ...` and has offset 2.
+The formula's value at `n` is the entry's `a(n+2)`. Testing it as written rejects a
+perfectly good formula; **using it as written would prove something about a different
+sequence**. The closed-form engines now search for the alignment and fix it from the data,
+and the paper says which shift was used.
+
+The first version of the parity engine reported the conjecture false on both halves. It was
+not; the formula was simply unaligned. Same shape as the A156894 lesson below: check the
+yardstick before believing the verdict.
+
+### One refutation that was not one
+
+`A000907`: the posted closed form is exact and matches the DATA, and Mathar's conjectured
+recurrence fails on the entry's own terms at `n = 2`. It holds for the sequence shifted by
+one. That is an off-by-one in how the conjecture is indexed, not a disproof, and claiming a
+disproof from it would be wrong-headed. Recorded, not counted.
+
+### Competition is closing these targets, by name
+
+`Tong Niu` has eight papers on the OEIS from 2026, seven of them titled *"A short proof of
+Mathar's YYYY recurrence conjecture for ..."*, naming the entry in the title. Five results
+in the 30 Aug batch died on them (A001711, A002627, A032123, A045406, plus A214615 and
+A176677 caught earlier). This is the same target list, being worked at the same time. The
+practical consequence is that **the settlement scan has to be re-run against a fresh clone
+before any delivery**, not once at the start.
+
 ### Still unexploited
 
 `a(n) = A######(m*n+k)` for `m ≥ 2` — 14 such conjectures. The `m`-section of a rational
 g.f. is rational: `G(y) = (1/m) Σ_{r<m} ζ^{−rk} F(ζ^r y^{1/m})`. Fiddly with roots of
 unity, maybe two or three results. Not attempted.
+
+`xref.py` resolves a definition that names another sequence into a closed form, using only
+formulas those entries state as fact. Written and tested; not yet swept. Roughly 40 entries
+have a shape it can reach, and the triangle references `A######(n,k)` -- another 21 -- need
+the triangle's own formula first.
+
+Word-counting entries ("binary strings of length n with equally many 001 and 010") are a
+recognisable family among the 268 unreadable ones, and they are not out of reach: a
+transfer matrix in two variables gives a rational `R(x,u)`, the sequence is
+`[x^n][u^0]R`, and a diagonal of a bivariate rational function is algebraic. Not attempted.
 
 The second Lagrange form, `a(n) = [x^n] φ(x)^(n+1)/(n+1)` (A182401 and others), gives
 `A(t) = w(t)/t` with `w = t φ(w)`. `diagonal.py` handles only the first form; the
