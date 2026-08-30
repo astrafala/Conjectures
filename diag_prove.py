@@ -67,21 +67,25 @@ def candidates():
     return out
 
 
-def branch_for(P, data, off, N):
-    """The root of P whose expansion is the entry's own data, as a series in t."""
-    for e in dg.branch_factors(P):
-        try:
-            roots = sp.solve(sp.Eq(e, 0), y)
-        except Exception:
-            continue
-        for r in roots:
-            try:
-                ser = taylor(r.subs(t, X), off + N + 3)
-            except Exception:
-                continue
-            if all(sp.simplify(ser[off + i] - data[i]) == 0 for i in range(N + 1)):
-                return sp.expand(e.subs({t: X, y: sp.Symbol('yy')})), r.subs(t, X)
-    return None, None
+def branch_for(f, g, data, off, N):
+    """The minimal polynomial of A(t), and the check that it is the right branch.
+
+    No closed-form root is needed, and for good reason: the minimal polynomial can have
+    degree five or more in y, where none exists. The series is computed directly from the
+    residue formula and used to pick the irreducible factor it satisfies.
+    """
+    ser = dg.series(f, g, off + N + 4)
+    if ser is None:
+        return None, None
+    if not all(sp.simplify(ser[off + i] - data[i]) == 0 for i in range(N + 1)):
+        return None, None
+    P = dg.minimal_polynomial(f, g)
+    if P is None:
+        return None, None
+    fac = dg.pick_factor(P, ser, off + N + 4)
+    if fac is None:
+        return None, None
+    return sp.expand(fac.subs(t, X)), ser
 
 
 def main():
@@ -102,40 +106,28 @@ def main():
                 ps = parse_conj(conj)
                 N = min(len(data) - 1, 9)
                 A = used = None
+                minpoly = None
                 for src in defs:
                     fg = dg.parse_extraction(src)
                     if fg is None:
                         continue
                     f, g = fg
-                    P = dg.minimal_polynomial(f, g)
-                    if P is None:
-                        continue
-                    _, root = branch_for(P, data, off, N)
-                    if root is None:
-                        continue
-                    A, used = sp.together(root), src
-                    break
-                if A is None:
+                    minpoly, ser = branch_for(f, g, data, off, N)
+                    if minpoly is not None:
+                        used = src
+                        break
+                if minpoly is None:
                     rec["status"] = "no branch reproduces the terms"
                 else:
-                    if qf.to_quad(A) is not None or mq.to_multi(A) is not None:
-                        deg, B = residual_poly(A, ps)
-                        engine = "quadratic"
-                    else:
-                        F, u = af.from_expr(A)
-                        if F is None:
-                            deg, B, engine = None, None, "algfield"
-                        else:
-                            ok, B = F.is_polynomial(F.residual(u, ps, n))
-                            deg = (int(sp.Poly(B, X).total_degree()) if B != 0 else -1) \
-                                if ok else None
-                            engine = "algfield"
+                    F = af.Field(minpoly)
+                    ok, B = F.is_polynomial(F.residual(sp.Poly(sp.Symbol('y'), sp.Symbol('y')), ps, n))
+                    deg = (int(sp.Poly(B, X).total_degree()) if B != 0 else -1) if ok else None
                     if deg is None:
                         rec["status"] = "residual not polynomial"
                     else:
                         rec.update(status="PROVED", B=sp.sstr(B), degree=int(deg),
-                                   order=len(ps) - 1, gf=sp.sstr(A), definition=used,
-                                   engine=engine)
+                                   order=len(ps) - 1, minpoly=sp.sstr(minpoly),
+                                   definition=used, engine="algfield")
                         print(f"{key}  PROVED  B={rec['B']}  valid for n>{deg}")
             except _TO:
                 rec["status"] = "skip: timeout"

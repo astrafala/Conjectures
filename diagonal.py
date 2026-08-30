@@ -104,3 +104,40 @@ def branch_factors(P):
         if sp.Poly(e, y).degree() >= 1:
             out.append(sp.expand(e))
     return out or [sp.expand(P)]
+
+
+def series(f, g, N):
+    """The first N coefficients of A(t), by truncated arithmetic on the residue formula.
+
+    This never needs a closed form for the root, which is the point: the minimal
+    polynomial can have degree five or more in y, where no radical expression exists.
+    """
+    xs = sp.Integer(0)
+    for _ in range(N + 1):
+        e = sp.expand(t * g.subs(x, xs))
+        xs = sum(e.coeff(t, i) * t ** i for i in range(N + 1))
+    num = sp.expand(f.subs(x, xs))
+    den = sp.expand(1 - t * sp.diff(g, x).subs(x, xs))
+    nu = [num.coeff(t, i) for i in range(N)]
+    d = [den.coeff(t, i) for i in range(N)]
+    if sp.cancel(d[0]) == 0:
+        return None
+    a = [sp.Integer(0)] * N
+    for i in range(N):
+        a[i] = sp.cancel((nu[i] - sum(d[j] * a[i - j] for j in range(1, i + 1))) / d[0])
+    return a
+
+
+def pick_factor(P, ser, N):
+    """The irreducible factor of P that the series satisfies.
+
+    Substituting a truncated series into a polynomial and asking for the result to vanish
+    identifies the branch without ever solving for it.
+    """
+    best = None
+    for e in branch_factors(P):
+        v = sp.expand(e.subs(y, sum(ser[i] * t ** i for i in range(N))))
+        if all(sp.cancel(v.coeff(t, i)) == 0 for i in range(N - sp.Poly(e, y).degree())):
+            if best is None or sp.Poly(e, y).degree() < sp.Poly(best, y).degree():
+                best = e
+    return best
