@@ -1049,6 +1049,60 @@ comment, link, reference and example. 26 carried settlement wording; each was re
   enough, and the live re-check is what has been catching it.
 
 
+### 30 Aug 2026 (night): are there conjectures outside the OEIS? Yes. Are they reachable? Almost none.
+
+The OEIS is not the only database. Surveyed and measured:
+
+**The Sequence Machine** (sequencedb.net; bulk data github.com/jonmaiga/sequence-machine-data,
+4.8 GB, 1,099,250 files, cloned and scanned). 1,332,481 machine-generated sequences and
+**1,974,684 conjectured formulas** for OEIS entries, produced by executing generated stack
+machines and keeping whatever matches the published terms. Conjectural by construction --
+the README says so. Roughly **930,000** are unproven, not already in the OEIS, and match
+200+ terms. This is a real and enormous conjecture database. It yielded **nothing**, and
+the reason is structural rather than a limit of the engines:
+
+- **65% name another A-number** -- the cross-entry vein already measured here as 89%
+  refusal, for the same reason: the referenced entry has no closed form of its own.
+- **Rational generating functions: 5,160 distinct** (`smextract.py`). 4,287 sit on entries
+  that already state a g.f.; 502 on entries stating a linear recurrence, where the g.f. is
+  immediate; 357 have nothing usable; **14 genuine targets** (`sm_run.py`), of which the
+  one that "proved" -- A140787, `ogf(1/(1-x-6x^2+4x^3+8x^4))` -- turned out to be the
+  entry's own NAME, "Expansion of 1/((1+x)(2x+1)(-1+2x)^2)", multiplied out. **Net zero.**
+- **Recurrences: 2,140 distinct** (`smrec.py`), down from ~11,500 program strings once
+  reduced to coefficient vectors -- the machine emits many algebraically identical variants
+  of one conjecture. 1,519 entries already give the g.f., 51 already state a recurrence,
+  417 have nothing usable, **8 targets and all trivial** (`a(n)=a(n-1)`, `a(n)=a(n-2)`).
+  **Net zero.**
+
+The structure of the failure is worth keeping: a term-matching miner rediscovers the g.f.
+of a sequence that HAS one, and for a sequence without one it emits something unprovable
+for exactly the reason its OEIS conjecture was unprovable. **A machine miner cannot
+manufacture a known side.**
+
+**A repeat of a bug fixed hours earlier.** The first Sequence Machine filter tested %F
+lines for a stated g.f. and did not test the NAME -- the very source exploited to get 18
+results the same day. That is what let A140787 through.
+
+Others, assessed and out of scope for this toolkit:
+
+- **Ramanujan Machine** (ramanujanmachine.com) -- conjectured polynomial continued
+  fractions for pi, e, zeta(3). Genuinely open and explicitly asking for proofs. The
+  convergents satisfy a three-term recurrence with polynomial coefficients, which IS this
+  machinery, but the conjecture is a LIMIT, and there is no asymptotics engine here. Its
+  "prove our conjectures" page is a stale forum, newest entries ~3 years old.
+- **LODA** (loda-lang.org) -- the same kind of mined-program database as the Sequence
+  Machine; expect the same structural conclusion.
+- **FindStat** -- combinatorial statistics and conjectured bijections. Different domain,
+  and the site returned 503.
+- **Erdos Problems**, **Formal Conjectures** (DeepMind, Lean + mathlib), **Open Problem
+  Garden** -- curated famous open problems. Far outside a P-recursive symbolic toolkit.
+- **R. J. Mathar's arXiv output** -- Dirichlet series and prime-zeta tables, not lists of
+  conjectured recurrences. His recurrence conjectures live in the OEIS itself.
+
+**Conclusion: for this toolkit the OEIS is the source, and its measured ceiling stands** --
+11,897 open conjectural recurrences, 10,418 of them with nothing stated as fact.
+
+
 ## 4. DEAD — do not revisit
 
 Already resolved on the live entry, or carrying no conjecture at all.
