@@ -93,7 +93,10 @@ def malformed(conj):
     from collections import Counter
     body = conj.split(" - _")[0]
     shifts = [int(m) for m in re.findall(r"a\(n\s*-\s*(\d+)\)", body)]
-    shifts += [0] * len(re.findall(r"a\(n\)(?!\s*-)", body))
+    # "a(n)" needs a literal close paren right after the n, so a(n-1) cannot match it;
+    # the negative lookahead that used to be here rejected a(n) whenever a minus sign
+    # followed, which is nearly always, and flagged well-formed conjectures as suspect
+    shifts += [0] * len(re.findall(r"a\(n\)", body))
     if not shifts:
         return "no terms parsed"
     c = Counter(shifts)

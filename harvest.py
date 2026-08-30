@@ -16,10 +16,13 @@ GROUPS = {
     "regf":   ("regf-[0-9].json", "regf"),
     "zeilb":  ("zeilb-[0-9].json", "telescoping-boundary"),
     "zeil":   ("zeil2-[0-9].json", "telescoping"),
+    "decide": ("decide-[0-9].json", "decide"),
+    "holo":   ("holo-[0-9].json", "holonomic"),
 }
 
 
 EXCLUDE = ("hyper-", "parity-", "regf-", "zeilb-", "zeil2-", "zeil-", "harvest",
+           "decide-", "holo-", "disprove-", "spec-dis",
            "new-proved", "new-dup", "diagnose", "gfwhy", "census", "wording-hits")
 
 
