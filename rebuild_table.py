@@ -39,7 +39,8 @@ def main():
     for f in sorted(set(glob.glob("*spec*.json") + glob.glob("*build*.json"))):
         if os.path.exists(f):
             for s in json.load(open(f)):
-                conjs.setdefault(s["anum"], s["conj"])
+                if s.get("anum") and s.get("conj"):
+                    conjs.setdefault(s["anum"], s["conj"])
 
     txt = open(LEDGER).read()
     lines = txt.split("\n")

@@ -73,6 +73,15 @@ def parse(line):
         return None
     if not isinstance(e, sp.Expr) or e.free_symbols - {n}:
         return None
+    # an unknown function is not a closed form. sympify turns denominator(...),
+    # numerator(...), sigma(...), pi(...) and anything else it does not recognise into an
+    # undefined Function whose free symbols are just n, so the symbol check above lets
+    # them through and the engine then reports "does not satisfy the recurrence" for a
+    # conjecture it was never able to read in the first place.
+    KNOWN = (sp.binomial, sp.factorial, sp.gamma, sp.rf, sp.ff, sp.Abs)
+    for f in e.atoms(sp.Function):
+        if not isinstance(f, KNOWN):
+            return None
     if e.has(sp.Function('a')):
         return None
     return e

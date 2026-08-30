@@ -18,11 +18,15 @@ GROUPS = {
     "zeil":   ("zeil2-[0-9].json", "telescoping"),
     "decide": ("decide-[0-9].json", "decide"),
     "holo":   ("holo-[0-9].json", "holonomic"),
+    "decide2": ("decide2-[0-9].json", "decide"),
+    "ore2":   ("ore2-results.json", "ore"),
+    "equate": ("equate-[0-9].json", "equate"),
 }
 
 
 EXCLUDE = ("hyper-", "parity-", "regf-", "zeilb-", "zeil2-", "zeil-", "harvest",
-           "decide-", "holo-", "disprove-", "spec-dis",
+           "decide-", "decide2-", "holo-", "disprove-", "spec-dis",
+           "ore2-", "equate-", "field-", "recheck-",
            "new-proved", "new-dup", "diagnose", "gfwhy", "census", "wording-hits")
 
 

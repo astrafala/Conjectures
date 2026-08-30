@@ -98,3 +98,24 @@ def exceptional_set(Q):
 def trivial(Q):
     """Q of degree 0 means the two recurrences are the same one rescaled."""
     return len(Q) == 1
+
+
+def mul(a, b):
+    """Product a*b in Q(n)[N], both given as coefficient lists of N^0..N^r."""
+    out = [sp.Integer(0)] * (len(a) + len(b) - 1)
+    for i, ai in enumerate(a):
+        if ai == 0:
+            continue
+        for j, t in enumerate(shift_mul(b, i)):
+            out[j] = sp.cancel(out[j] + ai * t)
+    return _trim(out)
+
+
+def to_backward(q):
+    """Coefficients of N^0..N^r  ->  p_0..p_r for sum_i p_i(n) a(n-i) = 0.
+
+    The two conventions are related by n -> n - r: sum_j q_j(n) a(n+j) = 0 becomes
+    sum_j q_j(n-r) a(n-r+j) = 0, and setting i = r - j gives p_i = q_{r-i}(n-r).
+    """
+    r = len(q) - 1
+    return [sp.expand(sp.cancel(q[r - i].subs(n, n - r))) for i in range(r + 1)]
