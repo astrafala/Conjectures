@@ -1,0 +1,95 @@
+#!/usr/bin/env python3
+"""Read an OEIS closed-form line "a(n) = <expression in n>" into a sympy expression.
+
+Only what is needed for the hypergeometric-term test: factorials written postfix (n!,
+(n-1)!, (2*n)!), binomials in either spelling, powers, and polynomials. Anything with a
+summation, another sequence, a floor, or a back-reference to a(n-i) is refused, because
+those are somebody else's engine.
+"""
+import re
+import sympy as sp
+
+n = sp.Symbol('n')
+LOCALS = {'binomial': sp.binomial, 'C': sp.binomial, 'factorial': sp.factorial,
+          'gamma': sp.gamma, 'Gamma': sp.gamma, 'Pochhammer': sp.rf, 'n': n}
+
+REFUSE = re.compile(
+    r"Sum_|Product_|\bA\d{6}\b|floor|ceiling|\bmod\b|hypergeom|Integral|sqrt|"
+    r"\ba\(n\s*-|\ba\(n\s*\+|~|\.\.\.|Stirling|\bround\b|\bif\b|\botherwise\b|"
+    r"\blog\b|\bexp\b|Bessel|\bPi\b|\be\^|\bO\(", re.I)
+
+
+def _postfix_factorials(s):
+    """(expr)! and token! -> factorial(expr).  Applied innermost-first, repeatedly."""
+    prev = None
+    while prev != s:
+        prev = s
+        # a parenthesised group followed by !
+        m = re.search(r"\(([^()]*)\)\s*!", s)
+        if m:
+            s = s[:m.start()] + f"factorial({m.group(1)})" + s[m.end():]
+            continue
+        # a bare token followed by !  (n!, 2!, k!) but not != and not !!
+        m = re.search(r"(?<![!\w)])([A-Za-z_]\w*|\d+)\s*!(?!=)(?!!)", s)
+        if m:
+            s = s[:m.start()] + f"factorial({m.group(1)})" + s[m.end():]
+    return s
+
+
+def _ready(s):
+    s = s.replace("^", "**")
+    s = _postfix_factorials(s)
+    s = re.sub(r"(\d)\s*\(", r"\1*(", s)
+    s = re.sub(r"\)\s*\(", r")*(", s)
+    s = re.sub(r"\)\s*([A-Za-z])", r")*\1", s)
+    s = re.sub(r"(\d)\s*([A-Za-z])\b", r"\1*\2", s)
+    # a name immediately followed by ( is a call, everything else is multiplication
+    return s
+
+
+def parse(line):
+    """The right-hand side of a(n) = ..., or None."""
+    m = re.match(r"\s*a\(n\)\s*=\s*(.+)$", line.strip(), re.I)
+    if not m:
+        return None
+    b = m.group(1).split(" - _")[0]
+    b = re.sub(r"\.?\s*\(\s*End[^()]*\)\s*$", "", b, flags=re.I)
+    b = re.sub(r",?\s*\bfor\b\s+n\s*[<>=].*$", "", b, flags=re.I)
+    b = re.sub(r",?\s*\bwith\b\s+a\(.*$", "", b, flags=re.I)
+    b = re.sub(r",?\s*\bwhere\b\s.*$", "", b, flags=re.I)
+    b = re.sub(r"\s*\[.*?\]\s*$", "", b)
+    b = re.sub(r"\s*-\s+[A-Z][A-Za-z.'\- ]{2,30}(\([^)]*\))?,?\s*"
+               r"([A-Z][a-z]{2}\s+\d{1,2},?\s+\d{4})?\s*$", "", b)
+    b = b.strip().rstrip(".").strip().rstrip(",").strip()
+    if not b or REFUSE.search(b):
+        return None
+    # a chained "a(n) = X = Y" states two formulas; take the first right-hand side
+    parts = re.split(r"(?<![<>=!])=(?!=)", b)
+    if len(parts) > 1:
+        b = parts[0]
+    try:
+        e = sp.sympify(_ready(b), locals=dict(LOCALS))
+    except Exception:
+        return None
+    if not isinstance(e, sp.Expr) or e.free_symbols - {n}:
+        return None
+    if e.has(sp.Function('a')):
+        return None
+    return e
+
+
+def matches(e, data, off, npts=8):
+    """The formula must reproduce the entry's own terms before it is used."""
+    seen = 0
+    for i in range(min(len(data), npts + 4)):
+        m = off + i
+        try:
+            v = sp.nsimplify(sp.simplify(e.subs(n, m)))
+        except Exception:
+            return False
+        if not v.is_number or v.has(sp.zoo, sp.nan, sp.oo):
+            continue                     # a formula stated only for large n
+        if sp.simplify(v - data[i]) != 0:
+            return False
+        seen += 1
+    return seen >= 5

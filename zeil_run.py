@@ -13,7 +13,7 @@ Two steps, and the second is what the earlier Gosper-only attempt was missing:
 """
 import json, os, re, signal
 import sympy as sp
-import zeil, ore
+import zeil, ore, sumparse
 from zeil import n, k
 from prove_rec import parse_conj
 from eqform_prove import parse_eq
@@ -35,28 +35,8 @@ signal.signal(signal.SIGALRM, lambda s, f: (_ for _ in ()).throw(_TO()))
 
 
 def parse_sum(src):
-    m = re.match(r"a\(n\)\s*=\s*Sum_\{\s*k\s*=\s*([^.]+?)\.\.\s*([^}]+?)\s*\}\s*(.+)$",
-                 src.strip(), re.I)
-    if not m:
-        return None
-    lo, hi, body = m.group(1), m.group(2), m.group(3)
-    body = body.split(" - _")[0].strip().rstrip('.')
-    body = re.sub(r"\.?\s*\(\s*End[^()]*\)\s*$", "", body, flags=re.I)
-    if re.search(r"Sum_|Product_|Stirling|A\d{6}|floor|ceiling|\bmod\b|!!|hypergeom",
-                 body, re.I):
-        return None
-    body = body.replace("^", "**")
-    body = re.sub(r"(\d)\s*\(", r"\1*(", body)
-    body = re.sub(r"\)\s*\(", r")*(", body)
-    body = re.sub(r"(\d)\s*([nk])\b", r"\1*\2", body)
-    try:
-        expr = sp.sympify(body, locals=LOCALS)
-        LO, HI = sp.sympify(lo, locals=LOCALS), sp.sympify(hi, locals=LOCALS)
-    except Exception:
-        return None
-    if expr.free_symbols - {n, k} or (LO.free_symbols | HI.free_symbols) - {n}:
-        return None
-    return expr, LO, HI
+    """Delegated to sumparse.py, which accepts the notations OEIS actually uses."""
+    return sumparse.parse(src)
 
 
 def candidates():
@@ -140,15 +120,8 @@ def main():
                     F, lo, hi = parsed
                     ok = True
                     for i in range(min(6, len(data))):
-                        nn = off + i
-                        try:
-                            v = sum(sp.Integer(0) + F.subs({n: nn, k: kk})
-                                    for kk in range(int(lo.subs(n, nn)),
-                                                    int(hi.subs(n, nn)) + 1))
-                        except Exception:
-                            ok = False
-                            break
-                        if sp.simplify(v - data[i]) != 0:
+                        v = sumparse.evaluate(F, lo, hi, off + i)
+                        if v is None or sp.simplify(v - data[i]) != 0:
                             ok = False
                             break
                     if not ok:

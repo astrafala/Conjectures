@@ -14,7 +14,9 @@ WIDE = re.compile(
     r"deduce\w*|is a corollary|is now a theorem|now a theorem|this is a theorem|"
     r"has been established|resolved by|closed by|is correct|are correct|follows easily|"
     r"follows at once|follows immediately|derives from|is a consequence|sumrecursion|"
-    r"Zeilberger|holonomic guess|implies the|by induction", re.I)
+    r"Zeilberger|holonomic guess|implies the|by induction|can be obtained|"
+    r"may be obtained|obtained from the|follows by|is implied by|implies _?R\. ?J|"
+    r"implies the conjecture|short proof|we can obtain the recurrence", re.I)
 
 SEQ = "/home/user/oeis/oeisdata/seq"
 
