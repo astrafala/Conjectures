@@ -62,3 +62,41 @@ def candidates(line):
     add(s.split(";")[0])
     outs.sort(key=len, reverse=True)
     return outs
+
+
+def polynomial_correction(base, data, off, maxfix=6):
+    """The finitely many low-order terms by which a posted g.f. misses the entry's data.
+
+    Entries often post a generating function that is right from some index on but wrong
+    at the first term or two -- written for a(n) with n >= 1 while the offset is 0, or
+    ignoring a constant. Requiring an exact match everywhere throws those away; using the
+    g.f. as posted would prove something about a different sequence.
+
+    Adding a polynomial keeps the function algebraic and changes the residual by a
+    polynomial, so the criterion still applies. Returns (correction terms as a list of
+    (index, value), first index that already agreed), or None when the mismatch is not
+    confined to an initial segment.
+    """
+    import sympy as sp
+    x = sp.Symbol('x')
+    diffs = []
+    for k in range(len(data)):
+        i = off + k
+        if i >= len(base):
+            return None
+        d = sp.simplify(base[i] - data[k])
+        if d != 0:
+            diffs.append((i, sp.nsimplify(-d, rational=True)))
+    if not diffs:
+        return [], off
+    if len(diffs) > maxfix:
+        return None
+    # the mismatch must be an INITIAL SEGMENT. A scattered one -- agreeing at the first
+    # few indices, differing in the middle -- means the posted function is not this
+    # sequence's generating function at all, and patching it would mean proving something
+    # about a function nobody posted. Adding a polynomial is mathematically harmless
+    # either way; the restriction is about what the paper is entitled to claim as input.
+    idxs = sorted(i for i, _ in diffs)
+    if idxs != list(range(off, off + len(idxs))):
+        return None
+    return diffs, idxs[-1] + 1
