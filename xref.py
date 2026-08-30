@@ -19,6 +19,7 @@ so.
 import functools, re
 import sympy as sp
 import cfparse
+import fsplit
 from regf import entry, CONJ
 
 n = sp.Symbol('n')
@@ -38,12 +39,16 @@ def closed_form_of(anum):
     for line in F:
         if CONJ.match(line) or re.search(r"conjectur|empirical|apparent", line, re.I):
             continue
-        e = cfparse.parse(line)
-        if e is None:
-            continue
-        al, s = cfparse.align(e, data, off)
-        if al is not None:
-            return al
+        # a %F line often carries several formulas separated by full stops, and the
+        # closed form is one of them: A000027 states "G.f.: x/(1-x)^2. E.g.f.: x*exp(x).
+        # a(n)=n." on a single line, which cfparse reads whole and rejects.
+        for part in [line] + fsplit.split(line):
+            e = cfparse.parse(part)
+            if e is None:
+                continue
+            al, sh = cfparse.align(e, data, off)
+            if al is not None:
+                return al
     return None
 
 

@@ -13,7 +13,11 @@ never offered them.
 """
 import re
 
-CONJ = re.compile(r"^\s*Conjectur", re.I)
+# "Empirical" belongs here too. The docstring's "either spelling" meant the two shapes of
+# the recurrence, and the marker test was left matching only "Conjectur" -- so every
+# Empirical recurrence, which is the bulk of the corpus, was refused by this function
+# before any engine saw it.
+CONJ = re.compile(r"^\s*(Conjectur|Empirical)", re.I)
 GUESS = re.compile(r"empirical|apparent|it seems|probably", re.I)
 
 
@@ -27,7 +31,7 @@ def is_recurrence(line):
     if "=0" in nb:
         return True
     # "a(n) = <combination of a(n-1), ...>": an equation whose left side is a(n)
-    body = re.sub(r"^\s*Conjectur\w*\s*\d*\s*[:.]?\s*", "", line, flags=re.I)
+    body = re.sub(r"^\s*(Conjectur\w*|Empirical)\s*\d*\s*[:.,]?\s*", "", line, flags=re.I)
     body = re.sub(r"^(D-finite with recurrence|to be D-finite with recurrence)[:.]?\s*",
                   "", body, flags=re.I)
     return re.match(r"\s*a\(n\)\s*=", body) is not None
