@@ -1153,6 +1153,51 @@ the conjectured order-9 recurrence's denominator. Verified through the generatin
 independently of the Ore argument.
 
 
+### 30 Aug 2026 (night, later): 69 results from a mistyped prefix
+
+**`fzparse.py` / `fz_run.py`: 70 entries, 70 proved, 69 with no paper. Roster 532 -> 601.**
+
+Seventy entries with an open conjectured recurrence state their generating function as
+
+    G.f f: f(z)=(1-sqrt(1-4*z*(a(0)-z*a(0)^2+z*a(1)+(k+l)*z^2/(1-z)+k*z^2/(1-z)^2)))/(2*z) (k=0, l=1)
+
+and **every parser here refused all seventy**, for three reasons at once: the prefix is
+usually mistyped "G.f f:" with no full stop, the variable is z rather than x, and the
+expression carries free parameters k, l plus a(0) and a(1) -- whose values sit in the
+parenthetical at the end of the line and in the entry's own DATA.
+
+That is an explicit QUADRATIC generating function, one square root over Q(x), which is the
+field the residual-polynomial criterion was built for first. Once read, all seventy fall
+immediately. All 69 without a paper were re-checked live before a single paper was built
+(`fz_check.py`, 0 flagged).
+
+**Be honest about what this is:** one family, one shared argument, entries A176605-A177203,
+mostly Roger Bagula's. They are 69 distinct conjectures on 69 distinct entries and count as
+such, and no paper mentions the others -- but the mathematics is one idea applied 69 times.
+
+**How it was found:** by looking at the 95 "PLAIN" lines among the 304 that carry
+mathematics no parser reads -- the residue after everything explicable was explained. 94 of
+those 95 were "not written as a(n) = ...", and 66 of them were this one template.
+
+### 30 Aug 2026: parity-split known sides -- correct, and null
+
+`cfparse.parse(..., rounding=True)` now admits floor and ceiling, which `REFUSE` had been
+blocking before the KNOWN check ever ran, so lifting the function guard alone changed
+nothing. 116 entries state their fact side as two branches a(2n) = ..., a(2n+1) = ..., or
+with arguments that round; `parity.halves` resolves the rounding exactly at n = 2m and
+n = 2m+1 and hyperterm decides each branch. **16 proved, every one already covered by an
+existing paper. Zero new.** The parser extension is right and worth keeping; the yield is
+not there.
+
+### 30 Aug 2026: the roster audit finishes clean
+
+The three papers flagged by the widened wording that had not yet been read -- A006231,
+A080253, A208355 -- are false positives from "can be obtained" and "can be derived" in
+ordinary prose. Their papers prove Mathar recurrences and a mod-k periodicity. **All papers
+stand.** False positives cost reading; false negatives cost credibility, so the wide net
+stays.
+
+
 ## 4. DEAD — do not revisit
 
 Already resolved on the live entry, or carrying no conjecture at all.

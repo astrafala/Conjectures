@@ -47,8 +47,16 @@ def _ready(s):
     return s
 
 
-def parse(line):
-    """The right-hand side of a(n) = ..., or None."""
+def parse(line, rounding=False):
+    """The right-hand side of a(n) = ..., or None.
+
+    rounding=True additionally admits floor and ceiling. They are NOT a closed form on
+    their own -- hyperterm.py cannot take a shift quotient through them -- so the default
+    keeps refusing them. But parity.py resolves them exactly by substituting n = 2m and
+    n = 2m+1, and 116 entries state their known side as C(n+3, ceiling(n/2))*... or as a
+    two-branch a(2n) = ..., a(2n+1) = ... . Those are reachable, and were being refused
+    here before any engine saw them.
+    """
     m = re.match(r"\s*a\(n\)\s*=\s*(.+)$", line.strip(), re.I)
     if not m:
         return None
@@ -61,7 +69,13 @@ def parse(line):
     b = re.sub(r"\s*-\s+[A-Z][A-Za-z.'\- ]{2,30}(\([^)]*\))?,?\s*"
                r"([A-Z][a-z]{2}\s+\d{1,2},?\s+\d{4})?\s*$", "", b)
     b = b.strip().rstrip(".").strip().rstrip(",").strip()
-    if not b or REFUSE.search(b):
+    # REFUSE blocks floor and ceiling before the KNOWN check ever runs, so lifting the
+    # guard alone changed nothing; the words have to be exempted here too.
+    bad = REFUSE.search(b)
+    if rounding and bad and bad.group(0).lower() in ("floor", "ceiling"):
+        bad = re.search(r"Sum_|Product_|\bA\d{6}\b|\bmod\b|hypergeom|Integral|sqrt"
+                        r"|\ba\(n\s*-|\ba\(n\s*\+|~|\.\.\.|Stirling|\bround\b", b)
+    if not b or bad:
         return None
     # a chained "a(n) = X = Y" states two formulas; take the first right-hand side
     parts = re.split(r"(?<![<>=!])=(?!=)", b)
@@ -79,6 +93,8 @@ def parse(line):
     # them through and the engine then reports "does not satisfy the recurrence" for a
     # conjecture it was never able to read in the first place.
     KNOWN = (sp.binomial, sp.factorial, sp.gamma, sp.rf, sp.ff, sp.Abs)
+    if rounding:
+        KNOWN = KNOWN + (sp.floor, sp.ceiling)
     for f in e.atoms(sp.Function):
         if not isinstance(f, KNOWN):
             return None
