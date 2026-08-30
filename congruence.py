@@ -30,7 +30,7 @@ def recurrence_from_gf(A, maxorder=40):
     P, Q = sp.Poly(num, x), sp.Poly(den, x)
     if Q.degree() == 0 or Q.degree() > maxorder:
         return None
-    q = [sp.nsimplify(Q.coeff_monomial(x ** k)) for k in range(Q.degree() + 1)]
+    q = [sp.nsimplify(Q.coeff_monomial(x ** k), rational=True) for k in range(Q.degree() + 1)]
     if q[0] == 0:
         return None
     q = [sp.Rational(t, 1) * sp.Rational(1, 1) / q[0] for t in q]
@@ -44,7 +44,7 @@ def recurrence_from_gf(A, maxorder=40):
     e = sp.expand(ser)
     init = []
     for k in range(2 * r + P.degree() + 4):
-        c = sp.nsimplify(e.coeff(x, k))
+        c = sp.nsimplify(e.coeff(x, k), rational=True)
         if c.free_symbols or sp.Rational(c).q != 1:
             return None
         init.append(int(c))

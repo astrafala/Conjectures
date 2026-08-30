@@ -27,11 +27,11 @@ def integer_check(refs, poly, target, cache, deg):
             if j < 0 or j >= len(dB):
                 ok = False
                 break
-            cv = sp.Poly(c, n).eval(nn) if c.free_symbols else sp.nsimplify(c)
+            cv = sp.Poly(c, n).eval(nn) if c.free_symbols else sp.nsimplify(c, rational=True)
             rhs += sp.Rational(cv) * dB[j]
         if not ok:
             continue
-        if sp.Rational(dataA[idx]) != sp.nsimplify(rhs):
+        if sp.Rational(dataA[idx]) != sp.nsimplify(rhs, rational=True):
             return None, None
         checked += 1
         if first is None:

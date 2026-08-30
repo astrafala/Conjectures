@@ -147,7 +147,7 @@ def evaluate(F, lo, hi, nn, cap=400):
         tot, zeros, kk = sp.Integer(0), 0, k0
         while kk < k0 + cap and zeros < 12:
             try:
-                v = sp.nsimplify(sp.simplify(F.subs({n: nn, k: kk})))
+                v = sp.nsimplify(sp.simplify(F.subs({n: nn, k: kk})), rational=True)
             except Exception:
                 return None
             if not v.is_number:
@@ -169,4 +169,4 @@ def evaluate(F, lo, hi, nn, cap=400):
         except Exception:
             return None
         tot += v
-    return sp.nsimplify(sp.simplify(tot))
+    return sp.nsimplify(sp.simplify(tot), rational=True)

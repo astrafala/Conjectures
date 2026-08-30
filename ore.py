@@ -91,7 +91,7 @@ def exceptional_set(Q):
         if den.free_symbols:
             for r in sp.solve(sp.Eq(den, 0), n):
                 if r.is_real:
-                    bad.add(sp.nsimplify(r))
+                    bad.add(sp.nsimplify(r, rational=True))
     return sorted(bad, key=lambda t: sp.re(t) if t.is_number else 0)
 
 

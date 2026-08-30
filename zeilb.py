@@ -43,8 +43,8 @@ def _linear(e):
         return None
     if p.degree() > 1:
         return None
-    a = sp.nsimplify(p.coeff_monomial(n)) if p.degree() == 1 else sp.Integer(0)
-    b = sp.nsimplify(p.coeff_monomial(1))
+    a = sp.nsimplify(p.coeff_monomial(n), rational=True) if p.degree() == 1 else sp.Integer(0)
+    b = sp.nsimplify(p.coeff_monomial(1), rational=True)
     if a not in (0, 1) or not b.is_Integer:
         return None
     return int(a), int(b)
@@ -181,9 +181,9 @@ def check_numeric(F, lo, hi, sig, h, data, off, npts=5):
         if idx + r >= len(data):
             break
         try:
-            lhs = sum(sp.nsimplify(sp.simplify(sig[i].subs(n, m))) * data[idx + i]
+            lhs = sum(sp.nsimplify(sp.simplify(sig[i].subs(n, m)), rational=True) * data[idx + i]
                       for i in range(r + 1))
-            rhs = sp.nsimplify(sp.simplify(h.subs(n, m)))
+            rhs = sp.nsimplify(sp.simplify(h.subs(n, m)), rational=True)
         except Exception:
             return None
         if not (lhs.is_number and rhs.is_number):

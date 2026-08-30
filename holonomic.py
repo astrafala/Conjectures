@@ -86,7 +86,7 @@ def prove(name, A, ps, order_note="", nterms=40):
 def taylor(A, N):
     s = sp.series(A, x, 0, N + 1).removeO()
     e = sp.expand(s)
-    return [sp.nsimplify(e.coeff(x, k)) for k in range(N + 1)]
+    return [sp.nsimplify(e.coeff(x, k), rational=True) for k in range(N + 1)]
 
 
 def check_against_data(A, data, offset, N=None):

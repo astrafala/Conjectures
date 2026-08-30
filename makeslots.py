@@ -120,7 +120,7 @@ def real_form(A):
         # the branch that matters is the one at the origin, where the series lives, so
         # the sign to look at is the radicand's value at x = 0 -- not its leading term
         try:
-            at0 = sp.nsimplify(sp.limit(b, x, 0))
+            at0 = sp.nsimplify(sp.limit(b, x, 0), rational=True)
         except Exception:
             continue
         # a radicand that is singular or non-real at the origin tells us nothing here

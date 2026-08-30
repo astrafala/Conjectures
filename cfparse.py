@@ -84,7 +84,7 @@ def matches(e, data, off, npts=8):
     for i in range(min(len(data), npts + 4)):
         m = off + i
         try:
-            v = sp.nsimplify(sp.simplify(e.subs(n, m)))
+            v = sp.nsimplify(sp.simplify(e.subs(n, m)), rational=True)
         except Exception:
             return False
         if not v.is_number or v.has(sp.zoo, sp.nan, sp.oo):
@@ -123,7 +123,7 @@ def first_valid(e, data, off, npts=14):
     for i in range(min(len(data), npts) - 1, -1, -1):
         m = off + i
         try:
-            v = sp.nsimplify(sp.simplify(e.subs(n, m)))
+            v = sp.nsimplify(sp.simplify(e.subs(n, m)), rational=True)
         except Exception:
             break
         if not v.is_number or v.has(sp.zoo, sp.nan, sp.oo):

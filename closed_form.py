@@ -99,7 +99,7 @@ def gf_of(f, off):
                 total += c * _theta(base, k)
     total = sp.cancel(sp.together(total))
     # strip the terms with n < off
-    head = sum(sp.nsimplify(f.subs(n, m)) * x ** m for m in range(off))
+    head = sum(sp.nsimplify(f.subs(n, m), rational=True) * x ** m for m in range(off))
     return sp.cancel(sp.together(total - head))
 
 

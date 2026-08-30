@@ -52,15 +52,15 @@ def match(cands, data, off, egf):
     """The first candidate expression whose expansion is the entry's terms."""
     N0 = min(len(data) - 1, 9)
     for c in cands:
+        # No alarm of its own here. An inner signal.alarm(0) cancels the CALLER's
+        # timeout, so a hang on any candidate after the first ran unbounded -- the
+        # per-conjecture alarm set by the runner is the only one, and it stays armed.
         try:
-            signal.alarm(25)
             G = parse_gf(c, 'x', raw=c)
             base = taylor(G, off + N0 + 5)
             if egf:
                 base = [t * sp.factorial(i) for i, t in enumerate(base)]
-            signal.alarm(0)
         except Exception:
-            signal.alarm(0)
             continue
         for sh in ((0,) if egf else (0, 1, 2, 3, -1, -2, -3)):
             idx = [off + k - sh for k in range(N0 + 1)]
