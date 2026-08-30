@@ -10,49 +10,49 @@
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
-\title{A proof of the conjectured recurrence for OEIS A026017}
+\title{A proof of the conjectured recurrence for OEIS A025754}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{25 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A026017 carries a conjectured linear recurrence with polynomial coefficients, of
-order 3, contributed by R.~J.~Mathar. We prove it. The generating function of the
+OEIS A025754 carries a conjectured linear recurrence with polynomial coefficients, of
+order 1, contributed by R.~J.~Mathar. We prove it. The generating function of the
 entry is algebraic, and the recurrence is equivalent to the vanishing of an explicit
 differential operator applied to it: writing $\theta=x\,\frac{d}{dx}$, the sequence
 $b(n)=\sum_{i}p_{i}(n)a(n-i)$ has generating function
 $B(x)=\sum_{i}x^{i}\,(p_{i}(\theta+i)A)(x)$, so the conjecture holds for all $n>d$ exactly
-when $B$ is a polynomial of degree $d$. Since $A$ lies in a quadratic extension of
-$\mathbb{Q}(x)$, which is closed under $\theta$, the residual $B$ can be computed in
-closed form. Here it equals $- 6 x^{3} + 6 x^{2}$, a polynomial of degree $3$, which proves
-the recurrence for every $n>3$.
+when $B$ is a polynomial of degree $d$. Since $A$ is algebraic over $\mathbb{Q}(x)$, and every simple
+algebraic extension of $\mathbb{Q}(x)$ is closed under $\theta$, the residual $B$ can be
+computed in closed form. Here it equals $10 x$, a polynomial of degree $1$, which proves
+the recurrence for every $n>1$.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 11B37, 05A15, 33F10.\normalsize
 
 \section{The sequence and the conjecture}
 
-OEIS A026017 is ``a(n) = number of (s(0), s(1), ..., s(2*n-1)) such that s(i) is a nonnegative integer and |s(i) - s(i-1)| = 1 for i = 1,2,...,n, s(0) = 2, s(2*n-1) = 5. Also a(n) = T(2*n-1,n-2), where T is the array defined in A026009''. It has offset $2$ and begins
+OEIS A025754 is ``9th-order Patalan numbers (generalization of Catalan numbers)''. It has offset $0$ and begins
 \[
-a(2),\dots,a(9)\;=\;1, 5, 21, 83, 319, 1209, 4550, 17068,\ \dots
+a(0),\dots,a(7)\;=\;1, 1, 36, 1836, 107406, 6766578, 446594148, 30432201228,\ \dots
 \]
 The entry gives the generating function
 \begin{equation}\label{eq:gf}
-A(x)\;=\;\sum_{n\ge 2} a(n)\,x^{n}\;=\;\frac{\left(8 x^{2} - \left(\sqrt{1 - 4 x} - 1\right)^{3}\right) \left(\sqrt{1 - 4 x} - 1\right)^{4}}{128 x^{4}} ,
+A(x)\;=\;\sum_{n\ge 0} a(n)\,x^{n}\;=\;\frac{10}{9} - \frac{\sqrt[9]{1 - 81 x}}{9} ,
 \end{equation}
 and it carries the following comment:
 \begin{quote}\small
-\textbf{Conjecture:} (n+4)*a(n) + (-8*n-17)*a(n-1) + (19*n+1)*a(n-2) + 6*(-2*n+5)*a(n-3) = 0. - \emph{R. J. Mathar}, Jun 20 2013
+\textbf{Conjecture:} n*a(n) + 9*(-9*n+10)*a(n-1) = 0. - \emph{R. J. Mathar}, Jul 28 2014
 \end{quote}
-As of the ``Last modified'' line on the live entry (2026-01-21, revision 16) the
+As of the ``Last modified'' line on the live entry (2025-11-09, revision 44) the
 statement is still recorded as a conjecture, and no proof appears among the entry's links,
 formulas or programs.
 
-Writing the conjectured relation in the form $\sum_{i=0}^{3}p_{i}(n)\,a(n-i)=0$,
+Writing the conjectured relation in the form $\sum_{i=0}^{1}p_{i}(n)\,a(n-i)=0$,
 the coefficient polynomials are
 \[
-p_{0}(n)=n + 4,\qquad p_{1}(n)=- 8 n - 17,\qquad p_{2}(n)=19 n + 1,\qquad p_{3}(n)=- 6 \left(2 n - 5\right)
+p_{0}(n)=n,\qquad p_{1}(n)=- 9 \left(9 n - 10\right)
 \]
 
 \section{Recurrences as differential operators}
@@ -96,44 +96,58 @@ decided exactly, with no truncation: $A$ is algebraic, so $B$ lies in the same f
 $A$, and one only has to recognise it.
 
 \begin{lemma}\label{lem:field}
-Let $D\in\mathbb{Q}(x)$ and let $K=\mathbb{Q}(x)\bigl[\sqrt{D}\bigr]$. Then $K$ is closed
-under $\theta$; explicitly,
+Let $P(x,y)\in\mathbb{Q}(x)[y]$ be squarefree of degree $m\ge1$ in $y$, let
+$K=\mathbb{Q}(x)[y]/(P)$, and write $\alpha$ for the class of $y$ in $K$. Then $K$ is
+closed under $\theta$. Explicitly,
 \[
-\theta\bigl(u+v\sqrt{D}\bigr)=x\,u'+\Bigl(x\,v'+\frac{x\,v\,D'}{2D}\Bigr)\sqrt{D},
-\qquad u,v\in\mathbb{Q}(x).
+\alpha'=-\frac{P_{x}(x,\alpha)}{P_{y}(x,\alpha)},
 \]
+the quotient taken inside $K$, and for $u=\sum_{i<m}c_{i}(x)\,\alpha^{i}$ with
+$c_{i}\in\mathbb{Q}(x)$,
+\[
+\theta(u)=x\Bigl(\sum_{i<m}c_{i}'(x)\,\alpha^{i}
+ +\alpha'\sum_{i<m}i\,c_{i}(x)\,\alpha^{i-1}\Bigr),
+\]
+reduced modulo $P$.
 \end{lemma}
 
 \begin{proof}
-Differentiate: $(\sqrt{D})'=D'/(2\sqrt{D})=\bigl(D'/(2D)\bigr)\sqrt{D}$, and multiply by
-$x$. Both components remain in $\mathbb{Q}(x)$.
+$P(x,\alpha)=0$ holds identically in $x$, so differentiating gives
+$P_{x}(x,\alpha)+P_{y}(x,\alpha)\,\alpha'=0$. Because $P$ is squarefree,
+$\gcd(P,P_{y})=1$ in $\mathbb{Q}(x)[y]$, so $P_{y}(x,\alpha)$ is a unit of $K$ and the
+displayed quotient is defined there; its inverse is produced by the extended Euclidean
+algorithm. The formula for $\theta(u)$ is the chain rule, and reduction modulo $P$ returns
+the value to the basis $1,\alpha,\dots,\alpha^{m-1}$. Every operation stays inside $K$.
 \end{proof}
 
 Consequently, if $A\in K$ then every $p_{i}(\theta+i)A$ is in $K$, and so is $B$. Writing
-$B=P+Q\sqrt{D}$ with $P,Q\in\mathbb{Q}(x)$, the test of Corollary~\ref{cor:criterion}
-becomes: $B$ is a polynomial precisely when $Q=0$ and $P$ has constant denominator. Both
-are decided by exact cancellation of rational functions.
+$B=\sum_{i<m}b_{i}(x)\,\alpha^{i}$ with $b_{i}\in\mathbb{Q}(x)$, the test of
+Corollary~\ref{cor:criterion} becomes: $B$ is a polynomial precisely when $b_{i}=0$ for
+every $i\ge1$ and $b_{0}$ has constant denominator. Both are decided by exact
+cancellation of rational functions.
 
-\section{The computation for A026017}
+\section{The computation for A025754}
 
-The generating function \eqref{eq:gf} lies in $K=\mathbb{Q}(x)[\sqrt{D}]$ with
+The generating function \eqref{eq:gf} is algebraic over $\mathbb{Q}(x)$;
+its minimal polynomial is
 \[
-D \;=\; 1 - 4 x .
+P(x,y) \;=\; - x + 4782969 y^{9} - 47829690 y^{8} + 212576400 y^{7} - 551124000 y^{6} + 918540000 y^{5} - 1020600000 y^{4} + 756000000 y^{3} - 360000000 y^{2} + 100000000 y - 12345679 ,
 \]
-Applying Lemma~\ref{lem:transfer} to the coefficient polynomials of Section~1 and reducing
-in $K$ by Lemma~\ref{lem:field}, the $\sqrt{D}$ component of $B$ cancels identically and
-the rational part collapses to
+so \eqref{eq:gf} lies in $K=\mathbb{Q}(x)[y]/\bigl(P(x,y)\bigr)$ and is the root of that polynomial with the right
+expansion at the origin. Applying Lemma~\ref{lem:transfer} to the coefficient polynomials
+of Section~1 and reducing in $K$ by Lemma~\ref{lem:field}, every component $b_{i}$ of $B$
+with $i\ge1$ cancels identically and the remaining rational part collapses to
 \[
-B(x)\;=\;- 6 x^{3} + 6 x^{2} ,
+B(x)\;=\;10 x ,
 \]
-a polynomial of degree $3$.
+a polynomial of degree $1$.
 
 \begin{theorem}
 The conjectured recurrence
 \[
-(n + 4)\,a(n) + (- 8 n - 17)\,a(n-1) + (19 n + 1)\,a(n-2) -  6 \left(2 n - 5\right)\,a(n-3) \;=\;0
+n\,a(n) -  9 \left(9 n - 10\right)\,a(n-1) \;=\;0
 \]
-holds for every $n>3$.
+holds for every $n>1$.
 \end{theorem}
 
 \begin{proof}
@@ -142,7 +156,7 @@ Immediate from Corollary~\ref{cor:criterion} and the displayed value of $B$.
 
 \begin{remark}
 The polynomial $B$ is not an error term: it records the boundary of the recurrence. For
-$n\le3$ some of the shifted terms $a(n-i)$ fall outside the range of the sequence,
+$n\le1$ some of the shifted terms $a(n-i)$ fall outside the range of the sequence,
 and $B$ collects exactly those contributions. Above that range the relation is exact.
 \end{remark}
 
@@ -153,23 +167,23 @@ independent checks were run.
 
 First, the generating function was checked against the entry rather than assumed: the
 Taylor coefficients of \eqref{eq:gf} were expanded and compared term by term with the DATA
-section of A026017, agreeing on all 13 terms compared.
+section of A025754, agreeing on all 13 terms compared.
 
 Second, the recurrence itself was evaluated directly on the published terms, in exact
 integer arithmetic and without reference to the generating function: for each $n$ in range
 the sum $\sum_{i}p_{i}(n)a(n-i)$ was formed from the entry's own values and found to
-vanish, for all 22 values of $n$ from $n=6$ upward. This is what
+vanish, for all 15 values of $n$ from $n=2$ upward. This is what
 Corollary~\ref{cor:criterion} predicts from the degree of $B$, and it is a genuinely
 different computation from the symbolic one: it never forms $B$, never differentiates, and
 uses only integers.
 
 The symbolic step is exact throughout. The residual is obtained by rational-function
-cancellation in $K$, not by series truncation, so the identity $B=- 6 x^{3} + 6 x^{2}$ is an
-identity of functions and the theorem holds for all $n>3$ simultaneously.
+cancellation in $K$, not by series truncation, so the identity $B=10 x$ is an
+identity of functions and the theorem holds for all $n>1$ simultaneously.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer Sequences},
-\url{https://oeis.org}, 2026. Sequence A026017.
+\url{https://oeis.org}, 2026. Sequence A025754.
 \bibitem{kp} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011,
 Chapter 7 (holonomic closure properties and the translation between recurrences and
 differential equations).

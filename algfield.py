@@ -121,7 +121,7 @@ class Field:
         return True, out
 
 
-def from_expr(expr, maxdeg=6):
+def from_expr(expr, maxdeg=10):
     """Build the field and the element for an explicit algebraic expression."""
     P = sp.minimal_polynomial(expr, y, domain=sp.QQ.frac_field(x))
     P = sp.Poly(sp.expand(sp.together(P) * sp.denom(sp.together(P))), y)

@@ -172,3 +172,23 @@ def derived_gf(template):
         if old in template:
             return template.replace(old, DERIVED_NEW, 1)
     raise ValueError("g.f. lead-in not found")
+
+
+CORRECTED_NEW = r"""The entry posts the generating function
+\begin{quote}\small
+\texttt{%(POSTEDGF)s}
+\end{quote}
+whose expansion agrees with the entry's own DATA from some index on but not at the very
+first term or two --- it is written for one offset convention and read here under another.
+Adding the correcting polynomial $%(CORRECTION)s$ leaves the function algebraic and changes
+the residual only by a polynomial, so the criterion below applies unchanged; the correction
+is stated here so that the input can be checked rather than taken on trust. The generating
+function used is therefore"""
+
+
+def corrected_gf(template):
+    """Variant for an entry whose posted g.f. needs a polynomial correction."""
+    for old in (DERIVED_OLD, r"""The entry gives the generating function"""):
+        if old in template:
+            return template.replace(old, CORRECTED_NEW, 1)
+    raise ValueError("g.f. lead-in not found")

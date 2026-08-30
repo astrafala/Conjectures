@@ -19,7 +19,7 @@ def _has_nested_radical(expr):
     """A radical inside another radical: the reductions here assume independent
     radicands, so such an expression must be refused rather than mis-reduced."""
     for a in expr.atoms(sp.Pow):
-        if a.exp in (sp.Rational(1, 2), -sp.Rational(1, 2)):
+        if _is_half(a.exp):
             for b in a.base.atoms(sp.Pow):
                 if b.exp in (sp.Rational(1, 2), -sp.Rational(1, 2)):
                     return True
@@ -27,16 +27,27 @@ def _has_nested_radical(expr):
 
 
 
+def _is_half(e):
+    """A half-integer exponent of any size."""
+    return getattr(e, "is_Rational", False) and e.q == 2
+
+
+def _split_half(t, s):
+    p = t.exp.p
+    if p > 0:
+        return t.base ** ((p - 1) // 2) * s
+    return t.base ** ((p + 1) // 2) / s
+
+
 def _has_radical(expr):
     """Any half-integer power left in an expression that is supposed to be rational."""
-    return any(a.is_Pow and a.exp in (sp.Rational(1, 2), -sp.Rational(1, 2))
-               for a in expr.atoms(sp.Pow))
+    return any(a.is_Pow and _is_half(a.exp) for a in expr.atoms(sp.Pow))
 
 
 def _radicands(expr):
     rs = []
     for a in expr.atoms(sp.Pow):
-        if a.exp in (sp.Rational(1, 2), -sp.Rational(1, 2)):
+        if _is_half(a.exp):
             r = sp.cancel(sp.together(a.base))
             if not any(sp.cancel(r - t) == 0 for t in rs):
                 rs.append(r)
@@ -54,6 +65,11 @@ def to_multi(expr, maxk=3):
         e = sp.cancel(sp.together(expr))
         if e.free_symbols - {x}:
             return None
+        # the absence of a square root does not make something rational: a fourth root,
+        # a cube root, an exp or a log all land here, and claiming Q(x) for them asserts
+        # a field the function is not in
+        if not e.is_rational_function(x):
+            return None
         return {frozenset(): e}, []
     syms = [sp.Symbol(f's_{i}') for i in range(len(Ds))]
 
@@ -61,15 +77,14 @@ def to_multi(expr, maxk=3):
     # normalised with cancel/together, so sqrt of a factored radicand does not match
     # sqrt(D) syntactically and a subs() would silently leave radicals behind.
     def _sub(t):
-        if not (t.is_Pow and t.exp in (sp.Rational(1, 2), -sp.Rational(1, 2))):
+        if not (t.is_Pow and _is_half(t.exp)):
             return t
         for D, s in zip(Ds, syms):
             if sp.cancel(sp.together(t.base) - D) == 0:
-                return s if t.exp == sp.Rational(1, 2) else 1 / s
+                return _split_half(t, s)
         return t
 
-    e = expr.replace(lambda t: t.is_Pow and t.exp in (sp.Rational(1, 2),
-                                                      -sp.Rational(1, 2)), _sub)
+    e = expr.replace(lambda t: t.is_Pow and _is_half(t.exp), _sub)
     if _has_radical(e.subs({s: 1 for s in syms})) or e.has(sp.sqrt):
         return None
     num, den = sp.fraction(sp.together(e))

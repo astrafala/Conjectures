@@ -223,6 +223,14 @@ def build(slots):
         if v.get("name_relation"):
             base = multitex.derived_gf(base)
             subs["NAMEREL"] = tex_escape(v["name_relation"])
+        if v.get("gf_corrected"):
+            # the posted g.f. is not the one used; say so, and show both
+            base = multitex.corrected_gf(base)
+            subs["POSTEDGF"] = tex_escape(v["gf_src"])
+            subs["CORRECTION"] = " + ".join(
+                (f"{c}" if int(i) == 0 else
+                 f"{c}x" if int(i) == 1 else f"{c}x^{{{int(i)}}}")
+                for i, c in v["gf_corrected"])
         tex = base % subs
         if v.get("second_half"):
             tex = tex.replace(r"\begin{thebibliography}",

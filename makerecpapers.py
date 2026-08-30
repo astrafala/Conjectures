@@ -23,7 +23,11 @@ def tex_escape(s):
     s = s.replace("\\", r"\textbackslash{}")
     for a, b in [("&", r"\&"), ("%", r"\%"), ("#", r"\#"), ("_", r"\_"),
                  ("{", r"\{"), ("}", r"\}"), ("$", r"\$"),
-                 ("^", r"\^{}"), ("~", r"\~{}")]:
+                 # \^{} is the circumflex ACCENT: it looks like a caret on the page but
+                 # lands in the PDF text layer as a control character, so a reader who
+                 # copies a quoted recurrence out of the paper gets garbage where every
+                 # exponent should be. \textasciicircum is the literal character.
+                 ("^", r"\textasciicircum{}"), ("~", r"\textasciitilde{}")]:
         s = s.replace(a, b)
     return s
 

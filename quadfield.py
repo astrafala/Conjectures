@@ -28,10 +28,22 @@ def _has_nested_radical(expr):
                     return True
     return False
 
+def _is_half(e):
+    """A half-integer exponent, of any size: 1/2, -1/2, 3/2, -5/2, ..."""
+    return getattr(e, "is_Rational", False) and e.q == 2
+
+
+def _split_half(t, s):
+    """D^(p/2) as (rational part) * s^(+-1), with s standing for sqrt(D)."""
+    p = t.exp.p
+    if p > 0:
+        return t.base ** ((p - 1) // 2) * s
+    return t.base ** ((p + 1) // 2) / s
+
+
 def _has_radical(expr):
     """Any half-integer power left in an expression that is supposed to be rational."""
-    return any(a.is_Pow and a.exp in (sp.Rational(1, 2), -sp.Rational(1, 2))
-               for a in expr.atoms(sp.Pow))
+    return any(a.is_Pow and _is_half(a.exp) for a in expr.atoms(sp.Pow))
 
 
 s = sp.Symbol('s')
@@ -41,12 +53,21 @@ def to_quad(expr):
     if _has_nested_radical(expr):
         return None
     """Write expr as (u, v, D) with expr = u + v*sqrt(D), u,v,D in Q(x). None if not possible."""
-    rads = {a.args[0] for a in expr.atoms(sp.Pow)
-            if a.exp == sp.Rational(1, 2) or a.exp == -sp.Rational(1, 2)}
+    # any half-integer exponent, not just +-1/2: D^(3/2) is a rational function times
+    # sqrt(D) and lies in the same field, but matching only +-1/2 made such an expression
+    # look radical-free and the field was then reported as Q(x)
+    rads = {a.base for a in expr.atoms(sp.Pow) if _is_half(a.exp)}
     rads = {sp.cancel(sp.together(r)) for r in rads}
     if not rads:
         e = sp.cancel(sp.together(expr))
         if e.free_symbols - {x}:
+            return None
+        # No square root does NOT mean rational. A fourth root, a cube root, an exp or a
+        # log all reach this branch, and returning (e, 0, 1) claims membership in Q(x)
+        # for something that is not in it -- the arithmetic that follows happens to stay
+        # valid, since theta(u) = x u' for any differentiable u, but the paper would then
+        # assert a field the function does not lie in.
+        if not e.is_rational_function(x):
             return None
         return (e, sp.Integer(0), sp.Integer(1))
     if len(rads) != 1:
@@ -56,13 +77,12 @@ def to_quad(expr):
     # normalised with cancel/together, so sqrt of the factored form does not match
     # sqrt(D) syntactically and a subs() would silently leave radicals behind.
     def _sub(t):
-        if not (t.is_Pow and t.exp in (sp.Rational(1, 2), -sp.Rational(1, 2))):
+        if not (t.is_Pow and _is_half(t.exp)):
             return t
         if sp.cancel(sp.together(t.base) - D) != 0:
             return t
-        return s if t.exp == sp.Rational(1, 2) else 1 / s
-    e = expr.replace(lambda t: t.is_Pow and t.exp in (sp.Rational(1, 2),
-                                                      -sp.Rational(1, 2)), _sub)
+        return _split_half(t, s)
+    e = expr.replace(lambda t: t.is_Pow and _is_half(t.exp), _sub)
     if _has_radical(e.subs(s, 1)) or e.has(sp.sqrt):
         return None
     num, den = sp.fraction(sp.together(e))
