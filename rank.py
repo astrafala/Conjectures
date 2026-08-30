@@ -25,23 +25,9 @@ entry and the work is noticing that one divides the other.
 import json, os, shutil
 
 # hand-ranked, hardest first: these are the thirty separate arguments
-BESPOKE_ORDER = [
-    9, 25, 24,          # newform dimensions, cusp analysis
-    8,                  # shown equivalent to Wolstenholme's theorem
-    19,                 # closed form for a p-adic valuation, hence integrality
-    18, 17, 27,         # p-adic valuation of gcd products, in several dimensions
-    15, 16,             # carry periodicity in GF(2)[X]
-    22, 21,             # half-period arguments on binary columns
-    13, 14,             # nimbers: the field structure below 2^(2^k)
-    330, 329,           # exchange of summation, justified by Tonelli
-    28,                 # multiplicativity: one local factor
-    26,                 # one differential equation serving two transforms
-    10, 11,             # strong divisibility; parity via Legendre and Kummer
-    3,                  # the multiplicative group mod a primorial
-    23, 6, 1,           # matrices squaring to zero; a converse; three squares
-    29, 30, 31,         # the gcd-sum lemma
-    12, 5, 2,           # counterexamples
-]
+BESPOKE_ORDER = list(range(1, 31))   # already in hardness order from the last rank;
+                                     # see rank-map.json and the git history for how
+                                     # that order was set
 
 TIER = {"shared": 2, "telescoping": 3, "algfield": 4, "logexp": 5, "multiquad": 6,
         "cross": 7, "quadratic": 8, "closedform": 9, "ore": 10}
