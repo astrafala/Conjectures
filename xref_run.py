@@ -20,7 +20,9 @@ from prove_rec import parse_conj
 import timeoutrun
 
 ROOT = "/home/user/oeis/oeisdata/seq"
-MARK = re.compile(r"^\s*(Conjectur\w*|Empirical)", re.I)
+# the punctuation after the marker must come off too: leaving ": a(n) + ... = 0" makes
+# parse_conj refuse every line, which is why the first full sweep settled nothing.
+MARK = re.compile(r"^\s*(Conjectur\w*|Empirical)\s*\d*\s*[:.,]?\s*(D-finite with recurrence\s*)?", re.I)
 GUESS = re.compile(r"\b(guess|appears|apparently|probabl|seems|presumabl)", re.I)
 FINITE = re.compile(r"for\s+n\s*=\s*\d+\s*\.\.\s*\d+|\bchecked\b|\bverified for\b|\bup to\b\s+n", re.I)
 SETTLED = re.compile(r"\bproof\b|prove[sndg]?\b|is true|confirm\w*|verif\w*|"

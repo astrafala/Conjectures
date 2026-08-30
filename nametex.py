@@ -1,0 +1,189 @@
+#!/usr/bin/env python3
+"""Paper template for a conjecture settled from the entry's NAME.
+
+House style, and the same mathematics as hypertex.py -- the theory of hypergeometric
+terms. What differs is where the known side comes from. Here it is the entry's NAME, which
+is not a formula someone contributed and might have guessed but the DEFINITION of the
+sequence, so the result is unconditional in a way a posted formula line is not.
+"""
+
+TEMPLATE = r"""\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=1in]{geometry}
+\usepackage[colorlinks=true,linkcolor=blue,urlcolor=blue]{hyperref}
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+\title{A proof of the conjectured recurrence for OEIS %(ANUM)s}
+\author{Adrian Perez Fontelles\\ \small Independent researcher}
+\date{30 August 2026}
+\begin{document}
+\maketitle
+
+\begin{abstract}
+OEIS %(ANUM)s carries a conjectured linear recurrence with polynomial coefficients, of
+order %(ORDER)d. The entry posts no generating function, so the usual route through a
+functional equation is unavailable. None is needed: the sequence is defined by a closed
+form -- the entry's name is that formula -- and that is enough, because the closed form is a sum of finitely many hypergeometric terms, and for such a
+term every shift quotient is a rational function of $n$. The conjectured recurrence
+therefore reduces to %(NCLASS)s rational-function identit%(IES)s, one for each similarity
+class of terms, and each is decided exactly by cancellation. No expansion is truncated and
+nothing is guessed; the procedure returns a proof or a refutation. Here it returns a proof,
+valid for every $n$ outside an explicitly computed finite set.
+\end{abstract}
+
+\noindent\small 2020 Mathematics Subject Classification. 33F10, 11B37, 05A10.\normalsize
+
+\section{The sequence and the conjecture}
+
+OEIS %(ANUM)s is ``%(NAME)s''. It has offset $%(OFFSET)d$ and begins
+\[
+%(FIRSTTERMS)s
+\]
+The name is itself the definition of the sequence:
+\begin{quote}\small
+%(FORMULA)s
+\end{quote}
+that is,
+\begin{equation}\label{eq:cf}
+a(n)\;=\;%(CFLATEX)s .
+\end{equation}
+This is the only input the proof takes from the entry. It is not a formula contributed
+later, which might have been found empirically and could in principle be wrong; it is what
+$a(n)$ means. It was nevertheless checked against the entry's own DATA before use.
+
+The entry separately carries the following comment:
+\begin{quote}\small
+%(CONJ)s
+\end{quote}
+As of the ``Last modified'' line on the live entry (%(TIME)s, revision %(REV)s) the
+statement is still recorded as a conjecture, and no proof appears among the entry's links,
+formulas or programs.
+
+Written out, the conjecture is
+\begin{equation}\label{eq:conj}
+%(RECLATEX)s
+\end{equation}
+
+\section{Hypergeometric terms}
+
+\begin{definition}
+A nonzero expression $c(n)$ is a \emph{hypergeometric term} in $n$ if the quotient
+$c(n+1)/c(n)$ is a rational function of $n$. Two hypergeometric terms $c$ and $d$ are
+\emph{similar}, written $c\sim d$, if $c(n)/d(n)$ is a rational function of $n$.
+\end{definition}
+
+Similarity is an equivalence relation on hypergeometric terms. Products of factorials,
+binomial coefficients with arguments linear in $n$, exponentials $z^{n}$ and polynomials
+are hypergeometric, and so is any product of these; a sum of them need not be.
+
+\begin{lemma}\label{lem:shift}
+If $c$ is a hypergeometric term then for every integer $i\ge 0$ the shift quotient
+$c(n-i)/c(n)$ is a rational function of $n$, computable from $c(n+1)/c(n)$ by a finite
+number of substitutions and multiplications.
+\end{lemma}
+
+\begin{proof}
+Write $\rho(n)=c(n+1)/c(n)$, a rational function by hypothesis. Then
+$c(n-1)/c(n)=1/\rho(n-1)$, and inductively
+$c(n-i)/c(n)=\prod_{j=1}^{i}\rho(n-j)^{-1}$, a finite product of rational functions.
+\end{proof}
+
+The fact that makes the test complete rather than merely sufficient is the linear
+independence of dissimilar terms. It is classical; see Petkov\v{s}ek, Wilf and Zeilberger
+\cite{AB}, Chapter~5.
+
+\begin{lemma}\label{lem:indep}
+Let $c_{1},\dots,c_{m}$ be hypergeometric terms, pairwise dissimilar. If
+$\sum_{j=1}^{m}u_{j}(n)c_{j}(n)=0$ for rational functions $u_{j}$ and all large $n$, then
+every $u_{j}$ is the zero rational function.
+\end{lemma}
+
+\section{The recurrence as a finite set of rational identities}
+
+\begin{proposition}\label{prop:main}
+Let $a(n)=\sum_{j=1}^{m}c_{j}(n)$ with each $c_{j}$ hypergeometric, and let
+$p_{0},\dots,p_{r}$ be polynomials. Group the $c_{j}$ into similarity classes and write
+each class as $g_{\ell}(n)\,f_{\ell,s}(n)$ for a representative $g_{\ell}$ and rational
+functions $f_{\ell,s}$. Put
+\[
+S_{\ell}(n)\;=\;\sum_{i=0}^{r}\;\sum_{s}\;p_{i}(n)\,f_{\ell,s}(n-i)\,
+\frac{g_{\ell}(n-i)}{g_{\ell}(n)} ,
+\]
+a rational function of $n$ by Lemma~\ref{lem:shift}. Then
+\[
+\sum_{i=0}^{r}p_{i}(n)\,a(n-i)\;=\;\sum_{\ell}g_{\ell}(n)\,S_{\ell}(n),
+\]
+and the recurrence $\sum_{i}p_{i}(n)a(n-i)=0$ holds for all large $n$ if and only if
+$S_{\ell}=0$ for every $\ell$.
+\end{proposition}
+
+\begin{proof}
+The displayed identity is the definition of $S_{\ell}$ rearranged: each $a(n-i)$ is the
+sum of its terms, each term is its class representative times a rational function, and the
+representatives are pulled out. The representatives $g_{\ell}$ are pairwise dissimilar by
+construction, so Lemma~\ref{lem:indep} applies to the right-hand side: it vanishes for all
+large $n$ exactly when every $S_{\ell}$ vanishes identically. Sufficiency is immediate.
+\end{proof}
+
+Proposition~\ref{prop:main} turns the conjecture into a finite computation in
+$\mathbb{Q}(n)$, with no truncation and no search. The only $n$ it says nothing about are
+those where some $S_{\ell}$ has a pole or some $c_{j}(n-i)$ is undefined, and these are
+finite in number and listed below.
+
+\section{The computation for %(ANUM)s}
+
+The closed form \eqref{eq:cf} splits into %(NCLASS)s similarity class%(ES)s, with
+representative%(ES)s
+\[
+%(CLASSLATEX)s
+\]
+Carrying out Proposition~\ref{prop:main} with the coefficients of \eqref{eq:conj} gives
+\[
+%(SLATEX)s
+\]
+so every class residual vanishes identically and the conjecture follows.
+
+\begin{theorem}
+For all $n%(EXCLTEX)s$,
+\[
+%(RECLATEX)s
+\]
+\end{theorem}
+
+\begin{proof}
+Immediate from Proposition~\ref{prop:main} and the computation above, the excluded values
+being those at which a class residual has a pole or a term of \eqref{eq:cf} is undefined.
+\end{proof}
+
+\section{Verification}
+
+Two checks were made, and both are independent of the algebra above.
+
+First, the closed form \eqref{eq:cf} was evaluated at the first $%(NCHECK)d$ indices and
+compared term by term with the entry's DATA; the values agree exactly. A formula that did
+not reproduce the entry's own terms would not have been used.
+
+Second, the conjectured recurrence \eqref{eq:conj} was evaluated on the published terms in
+exact integer arithmetic at every index where it applies: $%(NVER)d$ instances beginning at
+$n=%(FIRSTN)d$, all of them zero. This is not part of the proof, which is symbolic, but it
+would have caught a transcription error in the coefficients.
+
+\begin{thebibliography}{9}
+\bibitem{AB} M.~Petkov\v{s}ek, H.~S.~Wilf and D.~Zeilberger, \emph{A=B}, A K Peters,
+Wellesley MA, 1996.
+\bibitem{OEIS} OEIS Foundation Inc., \emph{The On-Line Encyclopedia of Integer Sequences},
+entry \href{https://oeis.org/%(ANUM)s}{%(ANUM)s}, %(TIME)s.
+\bibitem{GKP} R.~L.~Graham, D.~E.~Knuth and O.~Patashnik, \emph{Concrete Mathematics},
+2nd ed., Addison-Wesley, 1994.
+\end{thebibliography}
+
+\end{document}
+"""

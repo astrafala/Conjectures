@@ -885,6 +885,77 @@ position, not appended.
   "Equals Dirichlet convolution of A000010 and n·A076479". Each is one application of
   the lemma from the conjecture. Disclose this — the novelty is thin.
 
+### 30 Aug 2026: the entry's own NAME was never read
+
+Every engine here has read `%F` lines for its known side, and `%N` never. The name is
+the strongest fact an entry has: it is not a formula someone contributed later and might
+have guessed, it is the DEFINITION.
+
+- **213 entries** have a name of the form `a(n) = <formula>` and a conjectured recurrence.
+  Ten are decided by `hyperterm.py` straight from the name. Six had no paper:
+  **A026019, A052183, A052204, A081670, A085781, A157713** — all six re-checked open on
+  the live OEIS. The other four were already covered (A034863, A052227, A068551, A191993).
+- Widening the pattern from "the name begins with a(n) =" to "the name contains a(n) ="
+  gained nothing: the same ten. `name_run2.py`, honest null.
+- **141 open entries are named "Expansion of &lt;g.f.&gt;"** and carry a conjectured
+  recurrence. That name DEFINES the generating function, and every g.f. engine here was
+  built for exactly that input and had never been shown it. `expname_run.py`.
+- `nametex.py` / `makename.py` build the papers; the template differs from `hypertex.py`
+  only in saying where the known side comes from.
+
+### 30 Aug 2026: four bugs, one of them in a selector again
+
+- **`conjlines.is_recurrence` matched only the word "Conjectur"**, never "Empirical", so
+  every Empirical recurrence — most of the corpus — was refused before any engine saw it.
+  The xref sweep additionally stripped the marker before calling it and reported **0**
+  candidates where there are **376**.
+- That is the **fourth** time a selector has silently reported the wrong pool
+  (`equate_cands` 1214 vs 50, `emp_cands` 1 vs 1457, now 0 vs 376). **A count has no error
+  bar.** `smoke.py` now holds a positive and a negative control for every selector; run it
+  after touching one. It found two more the same hour: `timeoutrun.call` and
+  `hyperterm.is_zero_sum` both return tuples, and a non-empty tuple is truthy, so
+  `if is_zero_sum(...)` accepts everything. Both shipped callers index `[0]` correctly, so
+  **no paper is affected** — the misuse was in the new sweep only.
+- `extr_run.py` had **no settlement filter at all** and reported A114121 as new when the
+  entry says "Conjecture verified ... - Robert Israel, Jul 27 2020". Filter added.
+- Comparing a new conjecture against a shipped paper by extracting the PDF's text is
+  **not reliable**: `^` comes back as `(cid:2)`, so three duplicates looked new. The sound
+  test is whether the A-number appears in `rank-map.json` at all.
+
+### 30 Aug 2026: three veins measured and closed
+
+- **Line wrapping is not a problem.** `coverage.py` reported 86,673 lines continuing an
+  unclosed previous line; that test counted a trailing comma as a continuation and was my
+  own false alarm. Of **39,487** conjectural lines only **109** cannot stand alone, nearly
+  all prose lists ("1) ... 2) ..."). The handful that are truncated recurrences
+  (A025183, A036766, A089941, A107026, A108449) are truncated **in the live OEIS too** —
+  nothing is recoverable. `trunc.py`.
+- **Nonlinear (Cassini-type) identities: under 10 entries**, and the visible ones are
+  already answered inside their own entries. A decision procedure exists — a degree-d
+  polynomial in the shifts of an order-r P-recursive sequence lies in a module of
+  dimension C(r+d,d) closed under shift, so an annihilator follows by linear algebra — but
+  there is nothing to point it at. `polyid.py`.
+- **Coefficient-extraction fact lines: zero new results.** 19 `a(n) = [x^n] f g^n` lines
+  sit on entries whose recurrence is conjectured, and `diagonal.py` settles 18 of them —
+  but 16 were already covered, one (A114121) is settled on the entry, and one (A190736)
+  is the same conjecture as paper 246. `extr_run.py`. The routing gap was real; the yield
+  was not.
+- **Multi-formula lines gain nothing at scale.** `fsplit.py` correctly recovers A000027's
+  closed form from the middle of "G.f.: x/(1-x)^2. E.g.f.: x*exp(x). a(n)=n.", but over
+  every entry with a conjectural recurrence the split produced **0** new parseable known
+  sides. Keep the tool — it is what makes the xref control pass — but do not claim it.
+- **xref (a fact line naming other entries): 376 candidates, 1 result.** 115 of the first
+  120 die because the referenced entry has no closed form of its own. A052183, and it was
+  found independently by the name sweep. The addressable remainder is 51 entries where a
+  reference is reachable only through a stated recurrence, which would need D-finite
+  closure (sum of D-finite is D-finite; annihilator by linear algebra over Q(n)). Not
+  built.
+- **Hypergeometric closed forms: 59 fact lines, 15 parse, 10 with a rational shift
+  quotient.** `hypconv.py` turns pFq into the sum it stands for so `zeilb.py` can take it.
+  The rest carry KummerU, additive corrections, or half-integer parameters whose gamma
+  ratios sympy will not cancel. Not yet swept.
+
+
 ## 4. DEAD — do not revisit
 
 Already resolved on the live entry, or carrying no conjecture at all.
