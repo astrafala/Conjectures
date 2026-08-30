@@ -69,3 +69,50 @@ def conjectured_lines(F):
         out.add(s.strip())
         out.add(orig.strip())          # the raw line too: the last one carries "(End)"
     return out
+
+
+EMP = re.compile(r"^\s*Empirical\s*[:.]?\s*", re.I)
+
+
+def unproved(F):
+    """(statements, raw lines) for everything on the entry that is not asserted as fact.
+
+    Covers both markers. "Empirical" is the OEIS's usual label for a fitted formula and
+    there are more lines carrying it -- 23,322 -- than lines saying "Conjecture", so a
+    reader that knows only the second word sees barely half of what is open.
+
+    Two collections again, for the reason learned the hard way: the RAW lines are what a
+    known-side detector subtracts, and the STATEMENTS are what an engine tries to prove.
+    A cleaned statement no longer matches the line it came from, and using one set for
+    both fails in whichever direction you pick.
+    """
+    stmts, raw, heading = [], set(), None
+    for l in F:
+        s = l.strip()
+        if HEAD.match(l) or (EMP.match(l) and END_START(l)):
+            heading = l
+            raw.add(s)
+            continue
+        if heading is not None:
+            raw.add(s)
+            body = END.sub("", l).strip()
+            raw.add(body)
+            if body:
+                stmts.append((body, heading, l))
+            if END.search(l):
+                heading = None
+            continue
+        if CONJ.match(l):
+            stmts.append((l, None, l))
+            raw.add(s)
+        elif EMP.match(l):
+            body = EMP.sub("", l).strip()
+            if body:
+                stmts.append((body, l, l))
+            raw.add(s)
+            raw.add(body)
+    return stmts, raw
+
+
+def END_START(l):
+    return bool(re.search(r"\(\s*Start\s*\)\s*$", l, re.I))

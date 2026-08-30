@@ -21,6 +21,10 @@ CONJ_GF = re.compile(r"^\s*Conjectur\w*\s*[:.]?\s*(o\.?g\.?f\.?|g\.?f\.?|e\.?g\.
                      r"\s*[:.]", re.I)
 CONJ_CF = re.compile(r"^\s*Conjectur\w*\s*\d*\s*[:.]?\s*a\(n\)\s*=", re.I)
 GUESS = re.compile(r"conjectur|empirical|apparent|it seems|probably", re.I)
+# a formula qualified by a finite range is a finite verification, not a fact:
+# A229504 posts "a(n) = 3/2*(n-1)*4^(n-1) for n = 1..210", which says nothing
+# about n = 211 and cannot justify anything about the sequence as a whole
+FINITE = re.compile(r"for\s+n\s*=\s*\d+\s*\.\.\s*\d+|\\bchecked\\b|\\bverified for\\b|\\bup to\\b\\s+n", re.I)
 
 
 def known_sides(F):
@@ -30,10 +34,10 @@ def known_sides(F):
     "conjecture", so filtering on that word alone would let a conjecture in as the known
     side, and a recurrence derived from one conjecture proves nothing about another.
     """
-    conj = blocks.conjectured_lines(F)
+    _st, conj = blocks.unproved(F)
     gfs, cfs = [], []
     for l in F:
-        if GUESS.search(l) or l.strip() in conj:
+        if GUESS.search(l) or FINITE.search(l) or l.strip() in conj:
             continue
         if GFL.match(l) or EGFL.match(l):
             gfs.append((("egf" if EGFL.match(l) else "ogf"), l))
@@ -49,7 +53,7 @@ def strip_conj(l):
 def work(a):
     F, data, off, name = entry(a)
     gfs, cfs = known_sides(F)
-    stmts = blocks.statements(F)
+    stmts, _raw = blocks.unproved(F)
     conj_gfs = [s_ for s_, h, _o in stmts
                 if CONJ_GF.match(s_) or re.match(r"\s*(o\.?)?g\.?f\.?\s*[:.]", s_, re.I)
                 or re.match(r"\s*e\.?g\.?f\.?\s*[:.]", s_, re.I)]
@@ -65,9 +69,10 @@ def work(a):
     # one from a generating function is only needed when the entry does not simply give
     # one, and nearly every failure in the first run was "no usable known description"
     # on an entry that had one all along.
-    conj_lines = blocks.conjectured_lines(F)
+    _st2, conj_lines = blocks.unproved(F)
     for l in F:
-        if not PROVEN.match(l) or GUESS.search(l) or l.strip() in conj_lines:
+        if (not PROVEN.match(l) or GUESS.search(l) or FINITE.search(l)
+                or l.strip() in conj_lines):
             continue
         if "a(n-" not in l.replace(" ", "") and "a(n+" not in l.replace(" ", ""):
             continue
