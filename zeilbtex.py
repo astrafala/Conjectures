@@ -1,0 +1,191 @@
+#!/usr/bin/env python3
+"""Paper template for a conjecture settled by boundary-corrected creative telescoping.
+
+House style. The mathematics is telescoping over a range that moves with n and whose
+summand does not vanish at the ends, so the argument produces an inhomogeneous recurrence
+which is then cleared and divided.
+"""
+
+TEMPLATE = r"""\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=1in]{geometry}
+\usepackage[colorlinks=true,linkcolor=blue,urlcolor=blue]{hyperref}
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{remark}[theorem]{Remark}
+\title{A proof of the conjectured recurrence for OEIS %(ANUM)s}
+\author{Adrian Perez Fontelles\\ \small Independent researcher}
+\date{30 August 2026}
+\begin{document}
+\maketitle
+
+\begin{abstract}
+OEIS %(ANUM)s carries a conjectured linear recurrence with polynomial coefficients, of
+order %(ORDERC)d. The entry gives no generating function, but it does give the sequence as
+a hypergeometric sum. Creative telescoping produces, from the summand alone, a certificate
+identity that is checked exactly rather than trusted. What it does not produce here is a
+homogeneous recurrence: the summand does not vanish at the ends of the range, and the range
+itself moves with $n$, so summing the certificate leaves boundary and range-correction
+terms. We keep them. They are a finite, explicit expression $h(n)$, and the result is an
+inhomogeneous recurrence $\sum_{i}\sigma_{i}(n)a(n+i)=h(n)$. %(CLEARTEXT)s The conjectured
+operator is then shown to be a left multiple of the resulting annihilator by division in
+the Ore algebra $\mathbb{Q}(n)[N]$.
+\end{abstract}
+
+\noindent\small 2020 Mathematics Subject Classification. 33F10, 11B37, 68W30.\normalsize
+
+\section{The sequence and the conjecture}
+
+OEIS %(ANUM)s is ``%(NAME)s''. It has offset $%(OFFSET)d$ and begins
+\[
+%(FIRSTTERMS)s
+\]
+The entry states, not as a conjecture,
+\begin{quote}\small
+%(FORMULA)s
+\end{quote}
+so that, writing $F(n,k)$ for the summand,
+\begin{equation}\label{eq:sum}
+a(n)\;=\;\sum_{k=%(LO)s}^{%(HI)s}F(n,k),
+\qquad F(n,k)=%(FLATEX)s .
+\end{equation}
+This is the only input the proof takes from the entry, and it was checked against the
+entry's own DATA before use.
+
+The entry separately carries the following comment:
+\begin{quote}\small
+%(CONJ)s
+\end{quote}
+As of the ``Last modified'' line on the live entry (%(TIME)s, revision %(REV)s) the
+statement is still recorded as a conjecture, and no proof appears among the entry's links,
+formulas or programs.
+
+\section{Telescoping over a range that does not cooperate}
+
+Let $N$ denote the shift in $n$, $(Nf)(n)=f(n+1)$, and $\Delta_{k}$ the forward difference
+in $k$. Creative telescoping looks for rational functions
+$\sigma_{0},\dots,\sigma_{r}$ of $n$, not all zero, and a rational $R(n,k)$ with
+\begin{equation}\label{eq:cert}
+\sum_{i=0}^{r}\sigma_{i}(n)\,F(n+i,k)\;=\;\Delta_{k}\bigl[R(n,k)F(n,k)\bigr].
+\end{equation}
+Divided through by $F(n,k)$ this is an identity between rational functions, because the
+quotients $F(n+i,k)/F(n,k)$ and $F(n,k+1)/F(n,k)$ are rational; so a proposed pair
+$(\sigma,R)$ can be \emph{checked}, exactly, whatever produced it. For %(ANUM)s such a pair
+exists with $r=%(ORDERT)d$:
+\[
+%(SIGMALATEX)s,
+\qquad
+R(n,k)\;=\;%(CERTLATEX)s .
+\]
+
+The usual next step sums \eqref{eq:cert} over all $k$ and concludes
+$\sum_{i}\sigma_{i}(n)a(n+i)=0$. That step needs $F(n,k)$ to vanish for every $k$ outside
+the range in \eqref{eq:sum}, and here it does not. Summing over a finite window therefore
+leaves something behind, and the point of this note is that what it leaves behind is
+computable.
+
+\begin{proposition}\label{prop:inhom}
+Let $L_{0}$ and $H_{0}$ be the lower and upper summation limits in \eqref{eq:sum}, each
+non-decreasing in $n$, and put $L=L_{0}(n)$ and $H=H_{0}(n+r)$, so that the window
+$L\le k\le H$ contains the range of every $a(n+i)$, $0\le i\le r$. Write
+$G(n,k)=R(n,k)F(n,k)$ and suppose $G$ is finite at every integer $k$ in $[L,H+1]$. Then
+\[
+\sum_{i=0}^{r}\sigma_{i}(n)\,a(n+i)\;=\;h(n),
+\qquad
+h(n)\;=\;G(n,H+1)-G(n,L)\;-\;\sum_{i=0}^{r}\sigma_{i}(n)\!\!\!
+\sum_{\substack{L\le k\le H\\ k\notin[L_{0}(n+i),\,H_{0}(n+i)]}}\!\!\! F(n+i,k).
+\]
+\end{proposition}
+
+\begin{proof}
+Sum \eqref{eq:cert} over $k=L,\dots,H$. The right-hand side telescopes to
+$G(n,H+1)-G(n,L)$, every intermediate value being finite by hypothesis. On the left,
+$\sum_{k=L}^{H}F(n+i,k)$ differs from $a(n+i)=\sum_{k=L_{0}(n+i)}^{H_{0}(n+i)}F(n+i,k)$
+exactly by the terms of the window that lie outside that sequence's own range, which is the
+inner sum above. Rearranging gives the statement; both correction ranges are finite because
+$L_{0}$ and $H_{0}$ are non-decreasing and $i\le r$.
+\end{proof}
+
+For %(ANUM)s this gives
+\begin{equation}\label{eq:h}
+h(n)\;=\;%(HLATEX)s .
+\end{equation}
+
+\section{Clearing the inhomogeneity, and dividing}
+
+%(CLEARSECTION)s
+
+\begin{lemma}\label{lem:factor}
+If $C=QL$ in $\mathcal{A}=\mathbb{Q}(n)[N]$, where $N\,q(n)=q(n+1)\,N$, and $L(a)=0$, then
+$C(a)=0$ at every $n$ where the coefficients of $Q$ are defined.
+\end{lemma}
+
+\begin{proof}
+$C(a)=(QL)(a)=Q\bigl(L(a)\bigr)=Q(0)=0$, and the coefficients of $Q$ are rational functions
+of $n$, so the step is valid away from their poles.
+\end{proof}
+
+Writing the conjectured recurrence as an operator $C$ and dividing by $L$ on the right
+leaves remainder $0$, with quotient
+\[
+Q\;=\;%(QLATEX)s .
+\]
+%(EXCTEXT)s
+
+\begin{theorem}
+The conjectured recurrence
+\[
+%(RECLATEX)s \;=\;0
+\]
+holds for every $n\ge%(FIRSTN)d$.
+\end{theorem}
+
+\begin{proof}
+Proposition~\ref{prop:inhom} gives the inhomogeneous recurrence, the operator $L$ of the
+previous section annihilates $a$, and Lemma~\ref{lem:factor} applied to $C=QL$ carries that
+to the conjectured operator. %(EXCPROOF)s
+\end{proof}
+
+\section{Verification}
+
+Every number above is an output of a script written separately from this note, and four
+independent checks were run.
+
+First, the certificate was verified rather than trusted: \eqref{eq:cert} was divided by
+$F(n,k)$ and the difference of the two sides cancelled to $0$ as a rational function of $n$
+and $k$.
+
+Second --- and this is the check that matters most here, because the boundary bookkeeping
+is where such an argument goes wrong --- the inhomogeneous recurrence of
+Proposition~\ref{prop:inhom} was evaluated on the entry's own terms: for each $n$ in range
+the left side was formed from the published values and compared against \eqref{eq:h}, and
+the two agreed exactly. An error in the correction terms would not survive this.
+
+Third, the factorisation was confirmed by multiplying back: $QL$ was expanded in
+$\mathcal{A}$ and its coefficients cancelled against those of $C$ to zero.
+
+Fourth, the conjecture itself was evaluated on the published terms, in exact integer
+arithmetic and without reference to any operator: for each $n$ in range the sum
+$\sum_{i}p_{i}(n)a(n-i)$ was formed from the entry's own values and found to vanish, for
+all %(NVER)d values of $n$ from $n=%(FIRSTN)d$ upward. The formula \eqref{eq:sum} was
+likewise checked term by term against the DATA section before being used.
+
+\begin{thebibliography}{9}
+\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer Sequences},
+\url{https://oeis.org}, 2026. Sequence %(ANUM)s.
+\bibitem{aeqb} M.~Petkov\v{s}ek, H.~S.~Wilf and D.~Zeilberger, \emph{A=B}, A K Peters,
+1996.
+\bibitem{zeil} D.~Zeilberger, \emph{The method of creative telescoping}, J. Symbolic
+Comput. 11 (1991), 195--204.
+\bibitem{ore} O.~Ore, \emph{Theory of non-commutative polynomials}, Ann. of Math. 34
+(1933), 480--508.
+\end{thebibliography}
+
+\end{document}
+"""

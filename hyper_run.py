@@ -58,7 +58,10 @@ def main(todo):
                 got = None
                 for line in forms:
                     e = cfparse.parse(line)
-                    if e is None or not cfparse.matches(e, data, off):
+                    if e is None:
+                        continue
+                    e, shift = cfparse.align(e, data, off)
+                    if e is None:
                         continue
                     ok, info = ht.verdict(ps, e)
                     if ok is None:
@@ -80,7 +83,7 @@ def main(todo):
                         if bad or checked < 3:
                             rec["status"] = f"fails on published terms at {bad[:3]}"
                         else:
-                            rec.update(status="PROVED", formula=line,
+                            rec.update(status="PROVED", formula=line, shift=shift,
                                        closed_form=sp.sstr(e),
                                        classes=[sp.sstr(c[0]) for c in info],
                                        excluded=[sp.sstr(v) for v in ht.excluded(info, ps)],

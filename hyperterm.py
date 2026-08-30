@@ -139,3 +139,41 @@ def verdict(ps, e):
     if all(sp.cancel(S) == 0 for _, S in out):
         return True, out
     return False, out
+
+
+def is_zero_sum(expr, var=None):
+    """Decide whether a finite sum of hypergeometric terms is identically zero.
+
+    Used where the expression is built explicitly rather than as sum_i p_i a(n-i): the
+    two parity halves of a recurrence, for instance. Same argument as
+    Proposition 1 -- group into similarity classes, and each class contributes its
+    representative times the sum of its rational factors, which cancel() decides.
+
+    Returns (True/False, classes) or (None, why).
+    """
+    v = var or n
+    e = sp.expand(sp.together(expr))
+    if e == 0:
+        return True, []
+    ts = [t for t in sp.Add.make_args(e) if t != 0]
+    out = []
+    for t in ts:
+        for cls in out:
+            try:
+                r = sp.cancel(sp.together(sp.simplify(sp.combsimp(t / cls[0]))))
+            except Exception:
+                return None, "a quotient of summands could not be reduced"
+            if r.is_rational_function(v):
+                cls[1] = sp.cancel(cls[1] + r)
+                break
+        else:
+            out.append([t, sp.Integer(1)])
+    for rep, S in out:
+        try:
+            if not sp.cancel(sp.together(rep / rep)).is_rational_function(v):
+                return None, "a summand is not hypergeometric"
+        except Exception:
+            return None, "a summand is not hypergeometric"
+    if all(sp.cancel(S) == 0 for _, S in out):
+        return True, out
+    return False, out

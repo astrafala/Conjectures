@@ -93,3 +93,18 @@ def matches(e, data, off, npts=8):
             return False
         seen += 1
     return seen >= 5
+
+
+def align(e, data, off, span=4, npts=8):
+    """e(n-s) for the shift s that reproduces the entry's terms, or None.
+
+    OEIS formula lines are not always written in the entry's own indexing: A005560 has
+    offset 2 and a formula whose value at n is a(n+2). Testing the formula as written
+    would reject it, and using it as written would prove something about a different
+    sequence, so the shift is searched for and then fixed.
+    """
+    for s in range(-span, span + 1):
+        cand = e.subs(n, n - s) if s else e
+        if matches(cand, data, off, npts):
+            return cand, s
+    return None, None

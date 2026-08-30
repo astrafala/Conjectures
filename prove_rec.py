@@ -130,12 +130,19 @@ def parse_gf(s, var, raw=None):
 
 
 def parse_conj(s):
-    # OEIS states these under several labels; strip whichever preamble is present
-    body = re.sub(r'^\s*Conjecture[s]?\s*D-finite\s+with\s+recurrence[:.]?\s*', '',
-                  s, flags=re.I)
-    body = re.sub(r'^\s*(Empirical|Conjectured)?\s*D-finite\s+with\s+recurrence[:.]?\s*',
-                  '', body, flags=re.I)
-    body = re.sub(r'^\s*Conjecture[s]?[:.]\s*', '', body, flags=re.I)
+    # OEIS states these under a dozen labels; strip whichever preamble is present.
+    # The order matters: the label comes first, the "D-finite with recurrence" phrase
+    # after it, and either may be absent.  A stray letter between the two ("Conjecture:b
+    # D-finite with recurrence") is a typo on the entry and is tolerated.
+    body = s
+    for pat in (r'^\s*Conjectur(?:e[sd]?|al)\b\s*\d*\s*(?:to\s+be)?\s*[:.]?\s*',
+                r'^\s*[a-z]?\s*(?:Empirical|Conjectured|Conjectural)?\s*'
+                r'D-finite\s+with\s+recurrence\s*[:.]?\s*',
+                r'^\s*Conjectur(?:e[sd]?|al)\b\s*[:.]?\s*'):
+        body = re.sub(pat, '', body, flags=re.I)
+    # a stated change of indexing is not something to silently ignore
+    if re.match(r'\s*\(\s*with\s+offset', body, re.I):
+        raise ValueError('the conjecture restates the offset; indexing not assumed')
     body = body.split(' - _')[0]
     m = re.search(r'(.*?)=\s*0', body, re.S)
     if not m:
