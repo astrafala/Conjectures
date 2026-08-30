@@ -10,11 +10,15 @@ The tiers, hardest first:
 
   1. a separate argument found for that one problem
   2. one real theorem, proved once and applied to twenty entries
-  3. a recurrence derived from the summand by telescoping over a range whose summand
+  3. a conjecture shown FALSE, with the recurrence that holds instead derived and
+     proved -- ranked here for what the result is, not for the machinery: the residual
+     test returning a negative is no harder than returning a positive, but the paper
+     carries a correction nobody had
+  4. a recurrence derived from the summand by telescoping over a range whose summand
      does NOT vanish at the ends, so the boundary and range corrections are carried
      through and the resulting inhomogeneity cleared
-  4. a recurrence DERIVED from the summand by creative telescoping, not verified
-  5. the generating function itself DERIVED from a coefficient-extraction definition,
+  5. a recurrence DERIVED from the summand by creative telescoping, not verified
+  6. the generating function itself DERIVED from a coefficient-extraction definition,
      by Lagrange inversion and elimination -- the entry posts no g.f. at all
   6. a general algebraic function field: nested radicals, implicit or reversion g.f.s
   7. a transcendental e.g.f., handled in a differential module over Q(x)
@@ -37,9 +41,10 @@ BESPOKE_ORDER = list(range(1, 31))   # already in hardness order from the last r
                                      # see rank-map.json and the git history for how
                                      # that order was set
 
-TIER = {"shared": 2, "telescoping-boundary": 3, "telescoping": 4, "diagonal": 5,
-        "algfield": 6, "logexp": 7, "parity": 8, "closedform-direct": 9,
-        "multiquad": 10, "cross": 11, "quadratic": 12, "closedform": 13, "ore": 14}
+TIER = {"shared": 2, "disproof": 3, "telescoping-boundary": 4, "telescoping": 5,
+        "diagonal": 6, "algfield": 7, "logexp": 8, "parity": 9,
+        "closedform-direct": 10, "multiquad": 11, "cross": 12, "quadratic": 13,
+        "closedform": 14, "ore": 15}
 
 
 def order_all():
@@ -57,7 +62,7 @@ def order_all():
     for num, v in sorted(eng.items()):
         if num in bespoke:
             continue
-        tier = TIER["shared"] if num in shared else TIER.get(v["engine"], 12)
+        tier = TIER["shared"] if num in shared else TIER.get(v["engine"], 13)
         rest.append((tier, -v["order"], -v["degree"], v["anum"], num))
     rest.sort()
     ranked += [t[-1] for t in rest]

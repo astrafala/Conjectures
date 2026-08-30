@@ -1,0 +1,176 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=1in]{geometry}
+\usepackage[colorlinks=true,linkcolor=blue,urlcolor=blue]{hyperref}
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{remark}[theorem]{Remark}
+\title{A disproof of the conjectured recurrence for OEIS A119967,\\ and the recurrence
+that holds instead}
+\author{Adrian Perez Fontelles\\ \small Independent researcher}
+\date{30 August 2026}
+\begin{document}
+\maketitle
+
+\begin{abstract}
+OEIS A119967 carries a conjectured linear recurrence with polynomial coefficients, of
+order 4. It is false. The entry's own generating function gives, exactly, the
+quantity the recurrence claims to annihilate, and that quantity is not eventually zero:
+the smallest failure is at $n=4$, where the left-hand side equals $54$
+rather than $0$, and the failure recurs for infinitely many $n$. We then give a recurrence
+of order 6 that does hold, derived from the same generating function and proved by
+the same criterion that refutes the conjectured one.
+\end{abstract}
+
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 33F10.\normalsize
+
+\section{The sequence and the conjecture}
+
+OEIS A119967 is ``A transform of the central binomial coefficients C(n,floor(n/2))''. It has offset $0$ and begins
+\[
+a(0),\dots,a(7)\;=\;1, 1, 2, 4, 9, 21, 49, 113,\ \dots
+\]
+The entry states, not as a conjecture,
+\begin{quote}\small
+G.f.: 2*(1-x)/(1-2*x-x\^{}2+sqrt(1-4*x+6*x\^{}2-4*x\^{}3-3*x\^{}4)).
+\end{quote}
+that is,
+\begin{equation}\label{eq:gf}
+A(x)\;=\;\sum_{n\ge 0}a(n)x^{n}\;=\;\frac{2 \left(x - 1\right)}{x^{2} + 2 x - \sqrt{- 3 x^{4} - 4 x^{3} + 6 x^{2} - 4 x + 1} - 1} .
+\end{equation}
+This is the only input taken from the entry, and it was checked against every term of the
+entry's DATA section before use --- all $31$ of them --- not against a sample.
+
+The entry separately carries the following comment:
+\begin{quote}\small
+\textbf{Conjecture:} (n+2)*(n-3)*a(n) +(2+2*n-n\^{}2)*a(n-1) +(3*n-5)*(n-2)*a(n-2) -(n-2)*(n-3)*a(n-3) -(n-2)*(n-3)*a(n-4)=0. - \emph{R. J. Mathar}, Nov 14 2011
+\end{quote}
+As of the ``Last modified'' line on the live entry (2017-03-19, revision 16) the
+statement is still recorded as a conjecture, and nothing on the entry records it as
+settled either way.
+
+Written out, the conjecture asserts
+\begin{equation}\label{eq:conj}
+\left(n - 3\right) \left(n + 2\right)\,a(n) + (- n^{2} + 2 n + 2)\,a(n-1) + \left(n - 2\right) \left(3 n - 5\right)\,a(n-2) -  \left(n - 3\right) \left(n - 2\right)\,a(n-3) -  \left(n - 3\right) \left(n - 2\right)\,a(n-4)\;=\;0 .
+\end{equation}
+
+\section{The residual, and what it decides}
+
+Write $\theta=x\,\frac{d}{dx}$, so that $\theta x^{n}=n\,x^{n}$, and set
+\begin{equation}\label{eq:B}
+B(x)\;=\;\sum_{i=0}^{4}x^{i}\,\bigl(p_{i}(\theta+i)A\bigr)(x).
+\end{equation}
+
+\begin{lemma}\label{lem:transfer}
+$[x^{n}]B(x)=\sum_{i}p_{i}(n)\,a(n-i)$ for every $n$. Consequently the recurrence
+\eqref{eq:conj} holds for all $n>d$ if and only if $B$ is a polynomial of degree at most
+$d$; and if $B$ is not a polynomial at all, \eqref{eq:conj} fails for infinitely many $n$.
+\end{lemma}
+
+\begin{proof}
+$\theta$ acts diagonally on powers, so $\bigl(p_{i}(\theta+i)A\bigr)(x)
+=\sum_{m}p_{i}(m+i)a(m)x^{m}$, and multiplying by $x^{i}$ shifts the exponent, giving
+$\sum_{m}p_{i}(m+i)a(m)x^{m+i}=\sum_{n}p_{i}(n)a(n-i)x^{n}$. Summing over $i$ gives the
+first claim. The rest is immediate: a power series is a polynomial of degree at most $d$
+exactly when all its coefficients beyond $x^{d}$ vanish, and a series with infinitely many
+nonzero coefficients is not a polynomial.
+\end{proof}
+
+Lemma~\ref{lem:transfer} is the same criterion used to \emph{prove} such conjectures. Its
+force here is that it is an equivalence, so a negative answer is a disproof rather than a
+failure to find a proof --- and the answer is computed exactly, in the field
+$\mathbb{Q}(x)[y]/\bigl(P(x,y)\bigr)$ where $A$ lives, with no series truncated.
+
+\section{The conjecture is false}
+
+Carrying out \eqref{eq:B} for A119967 and reducing in $\mathbb{Q}(x)[y]/\bigl(P(x,y)\bigr)$, the residual $B$ is
+\emph{not} a polynomial. By Lemma~\ref{lem:transfer} the conjectured recurrence therefore
+fails for infinitely many $n$.
+
+The failure is not confined to small indices, and it is not an artefact of the first few
+terms: expanding \eqref{eq:gf} and evaluating the left side of \eqref{eq:conj} directly
+gives
+
+\begin{center}
+\begin{tabular}{r@{\qquad}l}
+$n$ & $\sum_{i}p_{i}(n)a(n-i)$ \\ \hline
+$4$ & $54$ \\
+$5$ & $279$ \\
+$6$ & $1110$ \\
+$7$ & $3871$ \\
+$8$ & $12438$ \\
+$9$ & $37933$ \\
+$10$ & $111902$ \\
+$11$ & $322692$ \\
+$12$ & $914218$ \\
+$13$ & $2551049$
+\end{tabular}
+\end{center}
+
+\begin{theorem}
+The recurrence \eqref{eq:conj} conjectured on OEIS A119967 is false. Its smallest failure
+is at $n=4$, where the left-hand side equals $54$, and it fails for
+infinitely many $n$.
+\end{theorem}
+
+\begin{proof}
+The tabulated values are computed from \eqref{eq:gf}, whose coefficients agree with the
+entry's DATA at every published index, so each is a value of $\sum_{i}p_{i}(n)a(n-i)$ for
+the sequence A119967 itself; the entry at $n=4$ is nonzero. That $B$ is not a
+polynomial, established exactly above, gives infinitely many such $n$ by
+Lemma~\ref{lem:transfer}.
+\end{proof}
+
+\begin{remark}
+The failure is not a matter of how the recurrence is indexed. Shifting the argument of the coefficients and the indices of the terms together, by any amount between $-5$ and $5$, does not make it hold on the published data either.
+\end{remark}
+
+\section{A recurrence that does hold}
+
+The generating function \eqref{eq:gf} is algebraic over $\mathbb{Q}(x)$, so the sequence is $P$-recursive and
+a correct recurrence exists; it is obtained from \eqref{eq:gf} rather than guessed.
+Differentiating the algebraic equation satisfied by $A$ expresses $A'$ inside the field $\mathbb{Q}(x)[y]/(P)$, so $A,A',\dots$ span a finite-dimensional space over $\mathbb{Q}(x)$ and satisfy a linear differential equation with polynomial coefficients. Reading off the coefficient of each power of $x$ turns that equation into a recurrence.
+
+\begin{theorem}
+For all $n\ge6$,
+\[
+\left(- n^{2} - 2 n\right)\,a(n) + \left(6 n^{2} + n - 4\right)\,a(n-1) + \left(- 15 n^{2} + 29 n - 4\right)\,a(n-2) + \left(20 n^{2} - 82 n + 72\right)\,a(n-3) + \left(- 11 n^{2} + 84 n - 136\right)\,a(n-4) + \left(- 2 n^{2} - 3 n + 44\right)\,a(n-5) + \left(3 n^{2} - 27 n + 60\right)\,a(n-6)\;=\;0 .
+\]
+\end{theorem}
+
+\begin{proof}
+The residual \eqref{eq:B} formed with these coefficients reduces, in $\mathbb{Q}(x)[y]/\bigl(P(x,y)\bigr)$, to $0$ identically. By Lemma~\ref{lem:transfer} the recurrence therefore holds at every $n$ for which it is stated, that is for $n\ge6$.
+\end{proof}
+
+\section{Verification}
+
+Three checks, each independent of the algebra above.
+
+First, the generating function \eqref{eq:gf} was expanded and compared against the entry's
+DATA at every one of the $31$ published indices; the values agree exactly. A
+generating function that reproduced only some of them would not have been used.
+
+Second, the conjectured recurrence was evaluated on those published terms in exact integer
+arithmetic, with no generating function involved: it is nonzero at 10 of the 10 indices tabulated above.
+
+Third, the recurrence of the previous section was evaluated the same way, on the published
+terms, and vanishes at all $25$ indices where it applies.
+
+\begin{thebibliography}{9}
+\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer Sequences},
+\url{https://oeis.org}, 2026. Sequence A119967.
+\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+University Press, 2009.
+\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 2, Cambridge
+University Press, 1999.
+\bibitem{aeqb} M.~Petkov\v{s}ek, H.~S.~Wilf and D.~Zeilberger, \emph{A=B}, A K Peters,
+1996.
+\end{thebibliography}
+
+\end{document}

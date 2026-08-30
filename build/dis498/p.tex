@@ -1,0 +1,177 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=1in]{geometry}
+\usepackage[colorlinks=true,linkcolor=blue,urlcolor=blue]{hyperref}
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{remark}[theorem]{Remark}
+\title{A disproof of the conjectured recurrence for OEIS A098660,\\ and the recurrence
+that holds instead}
+\author{Adrian Perez Fontelles\\ \small Independent researcher}
+\date{30 August 2026}
+\begin{document}
+\maketitle
+
+\begin{abstract}
+OEIS A098660 carries a conjectured linear recurrence with polynomial coefficients, of
+order 3. It is false. The entry's own generating function gives, exactly, the
+quantity the recurrence claims to annihilate, and that quantity is not eventually zero:
+the smallest failure is at $n=3$, where the left-hand side equals $28$
+rather than $0$, and the failure recurs for infinitely many $n$. We then give a recurrence
+of order 4 that does hold, derived from the same generating function and proved by
+the same criterion that refutes the conjectured one.
+\end{abstract}
+
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 33F10.\normalsize
+
+\section{The sequence and the conjecture}
+
+OEIS A098660 is ``E.g.f. BesselI(0,2*sqrt(2)*x) + BesselI(1,2*sqrt(2)*x)/sqrt(2)''. It has offset $0$ and begins
+\[
+a(0),\dots,a(7)\;=\;1, 1, 4, 6, 24, 40, 160, 280,\ \dots
+\]
+The entry states, not as a conjecture,
+\begin{quote}\small
+G.f.: 1/sqrt(1-8*x\^{}2)+(1-sqrt(1-8*x\^{}2))/(4*x*sqrt(1-8*x\^{}2)) = (1+4*x-sqrt(1-8*x\^{}2))/(4*x*sqrt(1-8*x\^{}2)).
+\end{quote}
+that is,
+\begin{equation}\label{eq:gf}
+A(x)\;=\;\sum_{n\ge 0}a(n)x^{n}\;=\;\frac{4 x - \sqrt{1 - 8 x^{2}} + 1}{4 x \sqrt{1 - 8 x^{2}}} .
+\end{equation}
+This is the only input taken from the entry, and it was checked against every term of the
+entry's DATA section before use --- all $28$ of them --- not against a sample.
+
+The entry separately carries the following comment:
+\begin{quote}\small
+\textbf{Conjecture:} (n+1)*a(n) + (n-1)*a(n-1) - n*a(n-2) + (2-n)*a(n-3) = 0. - \emph{R. J. Mathar}, Nov 15 2011
+\end{quote}
+As of the ``Last modified'' line on the live entry (2025-12-04, revision 36) the
+statement is still recorded as a conjecture, and nothing on the entry records it as
+settled either way.
+
+Written out, the conjecture asserts
+\begin{equation}\label{eq:conj}
+(n + 1)\,a(n) + (n - 1)\,a(n-1) -  n\,a(n-2) + (2 - n)\,a(n-3)\;=\;0 .
+\end{equation}
+
+\section{The residual, and what it decides}
+
+Write $\theta=x\,\frac{d}{dx}$, so that $\theta x^{n}=n\,x^{n}$, and set
+\begin{equation}\label{eq:B}
+B(x)\;=\;\sum_{i=0}^{3}x^{i}\,\bigl(p_{i}(\theta+i)A\bigr)(x).
+\end{equation}
+
+\begin{lemma}\label{lem:transfer}
+$[x^{n}]B(x)=\sum_{i}p_{i}(n)\,a(n-i)$ for every $n$. Consequently the recurrence
+\eqref{eq:conj} holds for all $n>d$ if and only if $B$ is a polynomial of degree at most
+$d$; and if $B$ is not a polynomial at all, \eqref{eq:conj} fails for infinitely many $n$.
+\end{lemma}
+
+\begin{proof}
+$\theta$ acts diagonally on powers, so $\bigl(p_{i}(\theta+i)A\bigr)(x)
+=\sum_{m}p_{i}(m+i)a(m)x^{m}$, and multiplying by $x^{i}$ shifts the exponent, giving
+$\sum_{m}p_{i}(m+i)a(m)x^{m+i}=\sum_{n}p_{i}(n)a(n-i)x^{n}$. Summing over $i$ gives the
+first claim. The rest is immediate: a power series is a polynomial of degree at most $d$
+exactly when all its coefficients beyond $x^{d}$ vanish, and a series with infinitely many
+nonzero coefficients is not a polynomial.
+\end{proof}
+
+Lemma~\ref{lem:transfer} is the same criterion used to \emph{prove} such conjectures. Its
+force here is that it is an equivalence, so a negative answer is a disproof rather than a
+failure to find a proof --- and the answer is computed exactly, in the field
+$\mathbb{Q}(x)[y]/\bigl(P(x,y)\bigr)$ where $A$ lives, with no series truncated.
+
+\section{The conjecture is false}
+
+Carrying out \eqref{eq:B} for A098660 and reducing in $\mathbb{Q}(x)[y]/\bigl(P(x,y)\bigr)$, the residual $B$ is
+\emph{not} a polynomial. By Lemma~\ref{lem:transfer} the conjectured recurrence therefore
+fails for infinitely many $n$.
+
+The failure is not confined to small indices, and it is not an artefact of the first few
+terms: expanding \eqref{eq:gf} and evaluating the left side of \eqref{eq:conj} directly
+gives
+
+\begin{center}
+\begin{tabular}{r@{\qquad}l}
+$n$ & $\sum_{i}p_{i}(n)a(n-i)$ \\ \hline
+$3$ & $28$ \\
+$4$ & $120$ \\
+$5$ & $294$ \\
+$6$ & $1152$ \\
+$7$ & $2800$ \\
+$8$ & $10520$ \\
+$9$ & $25480$ \\
+$10$ & $93408$ \\
+$11$ & $225792$ \\
+$12$ & $814464$ \\
+$13$ & $1966272$
+\end{tabular}
+\end{center}
+
+\begin{theorem}
+The recurrence \eqref{eq:conj} conjectured on OEIS A098660 is false. Its smallest failure
+is at $n=3$, where the left-hand side equals $28$, and it fails for
+infinitely many $n$.
+\end{theorem}
+
+\begin{proof}
+The tabulated values are computed from \eqref{eq:gf}, whose coefficients agree with the
+entry's DATA at every published index, so each is a value of $\sum_{i}p_{i}(n)a(n-i)$ for
+the sequence A098660 itself; the entry at $n=3$ is nonzero. That $B$ is not a
+polynomial, established exactly above, gives infinitely many such $n$ by
+Lemma~\ref{lem:transfer}.
+\end{proof}
+
+\begin{remark}
+The failure is not a matter of how the recurrence is indexed. Shifting the argument of the coefficients and the indices of the terms together, by any amount between $-5$ and $5$, does not make it hold on the published data either.
+\end{remark}
+
+\section{A recurrence that does hold}
+
+The generating function \eqref{eq:gf} is algebraic over $\mathbb{Q}(x)$, so the sequence is $P$-recursive and
+a correct recurrence exists; it is obtained from \eqref{eq:gf} rather than guessed.
+It satisfies a linear differential equation with polynomial coefficients, and reading off the coefficient of each power of $x$ turns that equation into the recurrence below.
+
+\begin{theorem}
+For all $n\ge4$,
+\[
+\left(n^{3} - n\right)\,a(n) + \left(- 16 n^{3} + 48 n^{2} - 56 n + 24\right)\,a(n-2) + \left(64 n^{3} - 384 n^{2} + 704 n - 384\right)\,a(n-4)\;=\;0 .
+\]
+\end{theorem}
+
+\begin{proof}
+The residual \eqref{eq:B} formed with these coefficients reduces, in $\mathbb{Q}(x)[y]/\bigl(P(x,y)\bigr)$, to $0$ identically. By Lemma~\ref{lem:transfer} the recurrence therefore holds at every $n$ for which it is stated, that is for $n\ge4$.
+\end{proof}
+
+\section{Verification}
+
+Three checks, each independent of the algebra above.
+
+First, the generating function \eqref{eq:gf} was expanded and compared against the entry's
+DATA at every one of the $28$ published indices; the values agree exactly. A
+generating function that reproduced only some of them would not have been used.
+
+Second, the conjectured recurrence was evaluated on those published terms in exact integer
+arithmetic, with no generating function involved: it is nonzero at 11 of the 11 indices tabulated above.
+
+Third, the recurrence of the previous section was evaluated the same way, on the published
+terms, and vanishes at all $24$ indices where it applies.
+
+\begin{thebibliography}{9}
+\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer Sequences},
+\url{https://oeis.org}, 2026. Sequence A098660.
+\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+University Press, 2009.
+\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 2, Cambridge
+University Press, 1999.
+\bibitem{aeqb} M.~Petkov\v{s}ek, H.~S.~Wilf and D.~Zeilberger, \emph{A=B}, A K Peters,
+1996.
+\end{thebibliography}
+
+\end{document}
