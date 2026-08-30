@@ -16,7 +16,7 @@ For a disproof the standard is higher than for a proof, so:
   * the conjecture must fail under every joint re-indexing in a small window, since a
     recurrence stated against a since-changed offset is a slip, not a false statement.
 """
-import json, os, re, signal, sys
+import json, os, re, sys
 import sympy as sp
 import gfclean
 import algfield as af
@@ -29,11 +29,7 @@ x, n = sp.symbols('x n')
 RES = os.environ.get("RES", "decide-results.json")
 
 
-class TO(Exception):
-    pass
-
-
-signal.signal(signal.SIGALRM, lambda s, f: (_ for _ in ()).throw(TO()))
+import timeoutrun
 
 
 def strict_gf(cands, data, off, egf, extra=30):
@@ -82,6 +78,34 @@ def strict_gf(cands, data, off, egf, extra=30):
     return None, None, None, []
 
 
+def malformed(conj):
+    """A conjecture whose written form is suspect: a repeated or missing shift.
+
+    A202020 posts "... + 4*(11-14n)*a(n-4) + 12*(n-1)*a(n-4) = 0" -- a(n-4) twice and no
+    a(n-3). Parsing merges the duplicates and the result fails on the entry's own terms,
+    which looks exactly like a disproof and is not one: replacing the second a(n-4) with
+    a(n-3) makes it hold at every published index. It is a transcription slip on the
+    entry.
+
+    Returns a reason string when the shifts are not a contiguous run, each appearing
+    once, and None when they are.
+    """
+    from collections import Counter
+    body = conj.split(" - _")[0]
+    shifts = [int(m) for m in re.findall(r"a\(n\s*-\s*(\d+)\)", body)]
+    shifts += [0] * len(re.findall(r"a\(n\)(?!\s*-)", body))
+    if not shifts:
+        return "no terms parsed"
+    c = Counter(shifts)
+    dup = sorted(k for k, v in c.items() if v > 1)
+    gaps = [k for k in range(max(shifts) + 1) if k not in c]
+    if dup:
+        return f"the shift a(n-{dup[0]}) appears more than once"
+    if gaps and len(gaps) < len(c):
+        return f"no a(n-{gaps[0]}) term between the others"
+    return None
+
+
 def reindexable(ps, data, off, span=5):
     """True if some joint shift of coefficients and indices makes the recurrence hold.
 
@@ -109,8 +133,57 @@ def reindexable(ps, data, off, span=5):
     return None
 
 
+def decide_one(conj, data, off, egf, cands):
+    """The whole decision for one conjecture. Run in a child process so a stuck
+    computation can be killed by the operating system rather than waited on."""
+    rec = {}
+    src, A, co, fixes = strict_gf(cands, data, off, egf)
+    if A is None:
+        return {"status": "no g.f. reproduces every published term"}
+    ps = parse_conj(conj)
+    if egf:
+        m_ = le.to_module(A)
+        ok, B = le.is_polynomial(le.residual_egf(m_[0], m_[1], m_[2], ps, n))
+    else:
+        q = qf.to_quad(A)
+        mm = None if q is not None else mq.to_multi(A)
+        if q is not None:
+            ok, B = qf.is_polynomial(qf.residual(q, ps, n))
+        elif mm is not None:
+            ok, B = mq.is_polynomial(mq.residual(mm[0], mm[1], ps, n))
+        else:
+            K, u = af.from_expr(A)
+            ok, B = K.is_polynomial(K.residual(u, ps, n))
+    corrected = [[int(i), sp.sstr(v)] for i, v in fixes]
+    if ok:
+        deg = int(sp.Poly(B, x).total_degree()) if B != 0 else -1
+        return {"status": "PROVED", "gf_src": src, "degree": deg,
+                "order": len(ps) - 1, "gf_corrected": corrected}
+    r = len(ps) - 1
+    first = None
+    for m in range(off + r, off + len(data)):
+        tot = sum(sp.Rational(sp.Poly(p, n).eval(m)) * co[m - i]
+                  for i, p in enumerate(ps) if p != 0)
+        if tot != 0:
+            first = (m, sp.nsimplify(tot, rational=True))
+            break
+    rx = reindexable(ps, data, off)
+    if rx is not None:
+        return {"status": "INDEXING SLIP", "shift": list(rx), "gf_src": src}
+    bad = malformed(conj)
+    if bad:
+        return {"status": "MALFORMED ON THE ENTRY", "reason": bad, "gf_src": src}
+    if first is None:
+        return {"status": "residual not polynomial, but no counterexample "
+                          "among the published terms"}
+    return {"status": "DISPROVED", "gf_src": src, "gf_corrected": corrected,
+            "fails_at": int(first[0]), "value": sp.sstr(first[1]),
+            "order": len(ps) - 1}
+
+
 def main(todo):
     out = json.load(open(RES)) if os.path.exists(RES) else {}
+    per = int(os.environ.get("PER", "150"))
     for a in todo:
         F, data, off, name = entry(a)
         conjs = [l for l in F if CONJ.match(l) and "a(n-" in l.replace(" ", "")
@@ -127,72 +200,23 @@ def main(todo):
             if key in out:
                 continue
             rec = {"anum": a, "conj": conj, "name": name, "offset": off,
-                   "mode": "egf" if egf else "ogf", "status": None}
-            signal.alarm(int(os.environ.get("PER", "240")))
-            try:
-                src, A, co, fixes = strict_gf(cands, data, off, egf)
-                if A is None:
-                    rec["status"] = "no g.f. reproduces every published term"
-                else:
-                    ps = parse_conj(conj)
-                    # cheapest field that fits, first. Building the general algebraic
-                    # function field means a minimal-polynomial computation, by far the
-                    # slowest step here and unnecessary for a single square root.
-                    if egf:
-                        m_ = le.to_module(A)
-                        ok, B = le.is_polynomial(
-                            le.residual_egf(m_[0], m_[1], m_[2], ps, n))
-                    else:
-                        q = qf.to_quad(A)
-                        mm = None if q is not None else mq.to_multi(A)
-                        if q is not None:
-                            ok, B = qf.is_polynomial(qf.residual(q, ps, n))
-                        elif mm is not None:
-                            ok, B = mq.is_polynomial(mq.residual(mm[0], mm[1], ps, n))
-                        else:
-                            K, u = af.from_expr(A)
-                            ok, B = K.is_polynomial(K.residual(u, ps, n))
-                    if ok:
-                        deg = int(sp.Poly(B, x).total_degree()) if B != 0 else -1
-                        rec.update(status="PROVED", gf_src=src, degree=deg,
-                                   order=len(ps) - 1,
-                                   gf_corrected=[[int(i), sp.sstr(v)]
-                                                 for i, v in fixes])
-                        print(f"{key}  PROVED  deg {deg}", flush=True)
-                    else:
-                        r = len(ps) - 1
-                        first = None
-                        for m in range(off + r, off + len(data)):
-                            tot = sum(sp.Rational(sp.Poly(p, n).eval(m)) * co[m - i]
-                                      for i, p in enumerate(ps) if p != 0)
-                            if tot != 0:
-                                first = (m, sp.nsimplify(tot, rational=True))
-                                break
-                        rx = reindexable(ps, data, off)
-                        if rx is not None:
-                            rec.update(status="INDEXING SLIP", shift=list(rx),
-                                       gf_src=src)
-                        elif first is None:
-                            rec["status"] = ("residual not polynomial, but no "
-                                             "counterexample among the published terms")
-                        else:
-                            rec.update(status="DISPROVED", gf_src=src,
-                                       gf_corrected=[[int(i), sp.sstr(v)]
-                                                     for i, v in fixes],
-                                       fails_at=int(first[0]),
-                                       value=sp.sstr(first[1]), order=len(ps) - 1)
-                            print(f"{key}  DISPROVED  first failure at n={first[0]}",
-                                  flush=True)
-            except TO:
-                rec["status"] = "timeout"
-            except Exception as ex:
-                rec["status"] = f"{type(ex).__name__}: {str(ex)[:60]}"
-            finally:
-                signal.alarm(0)
-                out[key] = rec
-                json.dump(out, open(RES, "w"), indent=1, sort_keys=True)
+                   "mode": "egf" if egf else "ogf"}
+            st, val = timeoutrun.call(decide_one, (conj, data, off, egf, cands),
+                                      timeout=per)
+            if st == "ok":
+                rec.update(val)
+            elif st == "timeout":
+                rec["status"] = "timeout (worker killed)"
+            else:
+                rec["status"] = str(val)
+            if rec["status"] in ("PROVED", "DISPROVED"):
+                print(f"{key}  {rec['status']}"
+                      + (f"  first failure at n={rec['fails_at']}"
+                         if rec["status"] == "DISPROVED" else ""), flush=True)
+            out[key] = rec
+            json.dump(out, open(RES, "w"), indent=1, sort_keys=True)
     from collections import Counter
-    print(Counter(v["status"].split(",")[0][:40] for v in out.values()))
+    print(Counter(v["status"].split(",")[0][:44] for v in out.values()))
 
 
 if __name__ == "__main__":
