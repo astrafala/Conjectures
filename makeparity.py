@@ -42,6 +42,9 @@ def build(spec):
         if h is None:
             print(f"{num:4d}  {a}  SKIP the parity split left a rounding"); continue
         e0, e1 = h
+        fv = cfparse.first_valid(cf, data, off)
+        if fv is None:
+            print(f"{num:4d}  {a}  SKIP the formula is not usable at any index"); continue
         ps = parse_conj(v["conj"])
         res = {}
         for odd in (False, True):
@@ -83,7 +86,7 @@ def build(spec):
             "EVENLATEX": sp.latex(e0), "ODDLATEX": sp.latex(e1),
             "NEVEN": word(ne), "EES": "" if ne == 1 else "es",
             "NODD": word(no), "OES": "" if no == 1 else "es",
-            "EXCLTEX": r"> %d" % (order + off - 1),
+            "EXCLTEX": r"\ge %d" % max(order + off, fv + order),
             "NCHECK": min(len(data), 13), "NVER": nver, "FIRSTN": firstn,
         }
         tex = TEMPLATE % subs

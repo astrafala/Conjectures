@@ -36,6 +36,9 @@ def build(spec):
         if not cfparse.matches(cf, data, off):
             print(f"{num:4d}  {a}  SKIP the formula does not match the live terms")
             continue
+        fv = cfparse.first_valid(cf, data, off)
+        if fv is None:
+            print(f"{num:4d}  {a}  SKIP the formula is not usable at any index"); continue
         ps = parse_conj(v["conj"])
         ok, info = ht.verdict(ps, cf)
         if ok is not True:
@@ -61,8 +64,10 @@ def build(spec):
             print(f"{num:4d}  {a}  SKIP integer re-check failed at {bad[:3]}"); continue
         ncl = len(info)
         exclint = sorted(skip)
-        excltex = (r"\ge %d" % max(order + off, (max(exclint) + 1) if exclint else 0)
-                   if exclint else r"> %d" % (order + off - 1))
+        start = max(order + off, fv + order)
+        if exclint:
+            start = max(start, max(exclint) + 1)
+        excltex = r"\ge %d" % start
         subs = {
             "ANUM": a, "NAME": tex_escape(e["name"].rstrip('.')), "OFFSET": off,
             "FIRSTTERMS": (f"a({off}),\\dots,a({off+7})\;=\;"

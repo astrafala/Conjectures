@@ -108,3 +108,27 @@ def align(e, data, off, span=4, npts=8):
         if matches(cand, data, off, npts):
             return cand, s
     return None, None
+
+
+def first_valid(e, data, off, npts=14):
+    """The smallest index from which the formula is defined and correct throughout.
+
+    matches() tolerates indices where the formula is undefined, which is right -- entries
+    often post a formula valid only from n = 1 while the offset is 0. But a theorem that
+    claims the recurrence from n = offset + order onward reaches back to a(offset), so the
+    builder needs to know where the formula actually starts being usable, not merely that
+    it agrees somewhere.
+    """
+    good = None
+    for i in range(min(len(data), npts) - 1, -1, -1):
+        m = off + i
+        try:
+            v = sp.nsimplify(sp.simplify(e.subs(n, m)))
+        except Exception:
+            break
+        if not v.is_number or v.has(sp.zoo, sp.nan, sp.oo):
+            break
+        if sp.simplify(v - data[i]) != 0:
+            break
+        good = m
+    return good
