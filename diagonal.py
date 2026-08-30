@@ -106,26 +106,62 @@ def branch_factors(P):
     return out or [sp.expand(P)]
 
 
-def series(f, g, N):
-    """The first N coefficients of A(t), by truncated arithmetic on the residue formula.
+def _mul(a, b, N):
+    return [sp.cancel(sum(a[j] * b[i - j] for j in range(i + 1))) for i in range(N)]
 
-    This never needs a closed form for the root, which is the point: the minimal
-    polynomial can have degree five or more in y, where no radical expression exists.
-    """
-    xs = sp.Integer(0)
-    for _ in range(N + 1):
-        e = sp.expand(t * g.subs(x, xs))
-        xs = sum(e.coeff(t, i) * t ** i for i in range(N + 1))
-    num = sp.expand(f.subs(x, xs))
-    den = sp.expand(1 - t * sp.diff(g, x).subs(x, xs))
-    nu = [num.coeff(t, i) for i in range(N)]
-    d = [den.coeff(t, i) for i in range(N)]
-    if sp.cancel(d[0]) == 0:
+
+def _div(a, b, N):
+    if sp.cancel(b[0]) == 0:
         return None
-    a = [sp.Integer(0)] * N
+    out = [sp.Integer(0)] * N
     for i in range(N):
-        a[i] = sp.cancel((nu[i] - sum(d[j] * a[i - j] for j in range(1, i + 1))) / d[0])
-    return a
+        out[i] = sp.cancel((a[i] - sum(b[j] * out[i - j] for j in range(1, i + 1))) / b[0])
+    return out
+
+
+def _compose(e, s, N):
+    """The series of a rational function e(x) with x replaced by the series s.
+
+    Composition is done on coefficient lists rather than by substituting into the
+    expression and expanding: substituting a series into a rational function and calling
+    expand is what made this unusable on anything but polynomials.
+    """
+    num, den = sp.fraction(sp.cancel(sp.together(e)))
+    def poly_comp(p):
+        p = sp.Poly(sp.expand(p), x)
+        acc = [sp.Integer(0)] * N
+        power = [sp.Integer(1)] + [sp.Integer(0)] * (N - 1)
+        coeffs = p.all_coeffs()[::-1]          # ascending
+        for c in coeffs:
+            acc = [sp.cancel(acc[i] + c * power[i]) for i in range(N)]
+            power = _mul(power, s, N)
+        return acc
+    a, b = poly_comp(num), poly_comp(den)
+    return _div(a, b, N)
+
+
+def series(f, g, N):
+    """The first N coefficients of A(t), from the residue formula.
+
+    No closed form for the root is needed, which is the point: the minimal polynomial can
+    have degree five or more in y, where none exists.
+    """
+    xs = [sp.Integer(0)] * N                    # the branch x(t), as a series in t
+    for _ in range(N + 1):
+        gs = _compose(g, xs, N)
+        if gs is None:
+            return None
+        nxt = [sp.Integer(0)] + gs[:N - 1]      # multiply by t
+        if nxt == xs:
+            break
+        xs = nxt
+    fs = _compose(f, xs, N)
+    dg_ = _compose(sp.diff(g, x), xs, N)
+    if fs is None or dg_ is None:
+        return None
+    den = [sp.Integer(1) - (dg_[0] * 0)] + [sp.Integer(0)] * (N - 1)
+    den = [sp.Integer(1)] + [sp.cancel(-dg_[i - 1]) for i in range(1, N)]
+    return _div(fs, den, N)
 
 
 def pick_factor(P, ser, N):
