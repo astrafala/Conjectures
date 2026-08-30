@@ -181,14 +181,6 @@ the label. This is now cheap to detect in a sweep: compare the two fields in the
 | 26 | PROOF | A358319 | a separate argument for that one problem |
 | 27 | PROOF | A327123 | a separate argument for that one problem |
 | 28 | DISPROOF | A000364 | a separate argument for that one problem |
-| 28 | another recurrence posted |
-| 19 | a sum without binomials |
-| 5 | an e.g.f. |
-| 26 | transcendental or an infinite sum |
-| 24 | should have worked -- all 24 turned out to be already settled |
-| 20 | parses but does not match the published terms |
-| 10 | a continued fraction |
-| 13 | the residual test crashed |
 | 29 | DISPROOF | A000040 | gcd-sum evaluation | Mathar |
 | 30 | DISPROOF | A008365 | gcd-sum evaluation | Mathar |
 | 31 | PROOF | A000670 | gcd-sum evaluation | Mathar |
@@ -657,6 +649,568 @@ the label. This is now cheap to detect in a sweep: compare the two fields in the
 | 494 | PROOF | A228330 | conjectured P-recursive recurrence | Mathar |
 | 495 | PROOF | A228333 | conjectured P-recursive recurrence | Mathar |
 
+### What the ranking means
+
+Papers are numbered by how hard the result was, 1 hardest. The tiers, and where they fall:
+
+| ranks | what the proof required |
+|---|---|
+| 1-30 | a separate argument found for that one problem |
+| 31-50 | one theorem (Bala periodicity), proved once and applied to twenty entries |
+| 51-54 | a conjecture shown FALSE, with the correct recurrence derived and proved |
+| 55 | telescoping over a range whose summand does not vanish at the ends |
+| 52-55 | a recurrence derived from the summand by creative telescoping, then divided |
+| 56-61 | the generating function itself derived, from a coefficient-extraction definition |
+| 62-96 | a decision procedure over a generating function the entry already posts |
+| 97-109 | a posted closed form, split on the parity of n, decided by hypergeometric-term theory |
+| 110-118 | the same without the parity split |
+| 119- | the rest of the decision procedures over a posted generating function |
+
+So **ranks 1-61 are the ones with mathematics on the page**. Everything below that is a
+real proof of a genuinely open conjecture, but the argument lives in the engine rather
+than in the paper.
+
+Ranks 97-118 are new and are the first results here that use **no generating function at
+all**. The entry posts a closed form; a closed form is a sum of hypergeometric terms;
+shift quotients of such terms are rational, similar terms group, and dissimilar ones are
+linearly independent over the rational functions. So the conjecture becomes one
+rational-function identity per similarity class, and cancellation decides each. That makes
+it a decision procedure, not a search: it returns a proof or a refutation. Where the closed
+form contains a floor, it is not a hypergeometric term at all and the argument does not
+start; splitting on the parity of `n` repairs that, and both halves must then hold.
+
+Ranks 55-60 are new. Those entries define the sequence only as `a(n) = [x^n] f(x)g(x)^n`
+and post no generating function at all, so there was nothing for the older engines to
+test. Reading the extraction as a contour integral and summing the geometric series
+gives `A(t) = f(x(t))/(1 - t g'(x(t)))` where `x = t g(x)`; eliminating `x` by a
+resultant produces the minimal polynomial, and the conjecture is then decided in that
+algebraic function field. The generating function is derived, not quoted, which is why
+these rank above the mechanical range.
+
+Within the mechanical range the order is: recurrence derived from the summand by
+telescoping, the boundary-corrected form first; generating function derived from a
+coefficient-extraction definition; general algebraic function field; transcendental e.g.f.;
+closed form split on parity; closed form directly; transcendental e.g.f.; several independent
+square roots; identity between entries; the standard residual test; closed form against
+the posted g.f.; and last, one posted operator dividing another -- honestly the
+shallowest thing here, since both recurrences were already on the entry. Inside each tier
+the order is by the size of the object handled: order of the recurrence first, then degree
+of the residual.
+
+`rank-map.json` records what each paper was numbered before. A new result is ranked into
+position, not appended.
+
+
+### Caveats to disclose when handing these over
+
+- **Six withdrawn on 30 Aug 2026, and the one-letter gap that hid them.** The detector
+  matched `verified` but not `verifies`, and `proved` but not `proves`. Six entries
+  settle their conjecture in exactly those words:
+  A081923 (Bala, 2013 -- Zeilberger's algorithm on Walsh's sum gives a first-order
+  recurrence, "using this it is easy to verify that a(n) satisfies the second-order
+  recurrence ... conjectured above"), A162477 (Munarini, 2017 -- "using this form of the
+  g.f., it is straightforward to prove the above conjectured recurrence"), A093387 (a
+  full proof on the entry, worked through both parities), A106271 and A106272
+  (Hadjicostas, 2019 -- generating-function proofs ending "which proves the conjecture"),
+  A155587 (Hadjicostas, 2020 -- "implies R. J. Mathar's conjecture"). A seventh,
+  A156894, was caught before it was ever added: Bala, 2015, "the Maple command
+  sumrecursion ... verifies this recurrence". The pattern now matches `verif\w*`,
+  `prove[sndg]?`, `proving`, `shown`, `shows`, `sumrecursion`, `Zeilberger`, `deduce\w*`
+  and `by induction`, and the whole roster was re-scanned against a local clone of the
+  OEIS rather than by sampling.
+
+- **What the same re-scan looked at and kept, with the wording, so it can be re-judged.**
+  Twenty-two papers were flagged and read. Kept: A107587 (two papers) -- *"conjecture is
+  true for n = 0..800; checked by Gennady Eremin"* is a finite check and settles nothing.
+  A162548 and A185089 -- *"(Formula verified and used for computations. - Fung Lam)"*
+  claims no proof and gives no method; the recurrence was used to extend the b-file.
+  A346370 -- the entry says *"[verification needed]"*, which is the opposite. A163493 and
+  A211278 -- both link Ekhad-Zeilberger, *"See subpages for rigorous derivations of g.f.,
+  recurrence"*, but that is boilerplate about the authors' own recurrence and both
+  Mathar conjectures postdate it and remain labelled conjectures. A228960 -- Bala's
+  `sumrecursion` note proves *Kotesovec's* order-3 recurrence, not Mathar's order-4 one;
+  that paper divides the second by the first, so the proved input makes it stronger, not
+  weaker. A000071, A000139, A000040 (two papers), A087726, A129365, A000670 -- every hit
+  is a different conjecture on the same entry (Hendel on McGarvey's floor formula,
+  Zeilberger on West's enumeration, Wilson's theorem, Schmidt's squarefree half which
+  the paper itself credits, Adamczewski on Conjectures B and C where the paper does A,
+  Erlbacher on Kurkov's sum). **Read the hit, do not trust the match** -- it cuts both
+  ways.
+
+- **Four more withdrawn late on 26 Aug 2026, and the wording that caught them.** The
+  entries settle the conjecture without any of the words the detector knew:
+  *"Mathar's 4-term recurrence above follows easily from this"* (A105695),
+  *"Mathar's recurrence above follows easily from this"* (A010845),
+  *"R. J. Mathar's recurrence is correct"* (A126674),
+  *"The conjecture is correct"* (A156849). The detector now also matches `is correct`,
+  `are correct`, `follows easily`, `follows at once`, `follows immediately`,
+  `derives from`, `is a consequence`.
+  **Read the hit, do not trust the match.** On A092287 the same phrase *"The conjecture
+  is correct"* refers to the square-case factorisation, while paper 17 settles the
+  rectangular one, which is a different statement and still open. That paper stands.
+  The four vacated slots were refilled by moving the four highest-numbered papers down,
+  so the roster stays contiguous; `renumber.json` records the moves.
+
+- **Thirteen papers were withdrawn on 26 Aug 2026 and their slots refilled.** Twelve of
+  them (A051292, A098662, A102879, A114121, A025244, A112700, A128743, A136304, A220902,
+  A025755, A127275, A081920) rest on conjectures the entry already records as settled.
+  The old proof-marker regex looked for "proved/proof/is true/follows from" and missed
+  the wording OEIS actually uses most: *"Conjecture confirmed using the differential
+  equation…"*, *"Conjecture verified using…"*, *"verified by _Robert Israel_"*, *"can be
+  verified by…"*. `recheck.py` and `verify_open.py` now match `confirm*`, `verified`,
+  `checked using`, `establish*`, `settled`, `follows from the fact`, `immediate
+  consequence`, `can be deduced`, `is a corollary`, and theorem wording.
+  The thirteenth, A185020 (paper 191), was a soundness failure, not a novelty failure:
+  its g.f. `sqrt((1-4x-sqrt(1-8x-32x^2))/24)/x` is a **nested radical**, and the
+  multiquadratic reduction assumes independent radicands. The general algebraic engine
+  now proves it properly (paper 391), as it does A166135 (paper 388), the entry that
+  cost paper 170.
+- **Five more were withdrawn the same day because someone else got there.**
+  - 312 (A366932) and 313 (A367015): *"[This is now a theorem — N. J. A. Sloane,
+    Dec 31 2025]"*.
+  - 7 (A000040): *"[Conjecture is true, follows from Wilson's theorem — Rayhan Ahmed,
+    May 21 2026]"*.
+  - 4 (A008364): the entry's own comment gives the complete finite verification.
+  - 20 (A129365, Conjecture D): resolved in the **OEIS Open** benchmark, machine-checked
+    in Lean and scored CORRECT by all three models run against it.
+- **Rule that follows: a settlement note is usually not the word "proof".** Search the
+  entry for any wording that derives the claim from something already established, and
+  read the hit before keeping the result. Numerical wording is the opposite signal and
+  settles nothing: *"verified for n = 0..800"*, *"true for 1<=m<=n<=200"*, *"Formula
+  verified and used for computations"* are finite checks, and papers 17, 69, 77 and 92
+  stand on exactly that distinction.
+
+- **Thirteen papers were withdrawn on 26 Aug 2026 and their slots refilled.** Twelve of
+  them (A051292, A098662, A102879, A114121, A025244, A112700, A128743, A136304, A220902,
+  A025755, A127275, A081920) rest on conjectures the entry already records as settled.
+  The old proof-marker regex looked for "proved/proof/is true/follows from" and missed
+  the wording OEIS actually uses most: *"Conjecture confirmed using the differential
+  equation…"*, *"Conjecture verified using…"*, *"verified by _Robert Israel_"*, *"can be
+  verified by…"*. `recheck.py` and `verify_open.py` now match `confirm*`, `verified`,
+  `checked using`, `establish*`, `settled`, `follows from the fact`, `immediate
+  consequence`, `can be deduced`, `is a corollary`.
+  The thirteenth, A185020 (paper 191), is a soundness failure, not a novelty failure:
+  its g.f. `sqrt((1-4x-sqrt(1-8x-32x^2))/24)/x` is a **nested radical**, and the
+  multiquadratic reduction assumes independent radicands. This is the same fault that
+  cost paper 170 (A166135). The guard now refuses it; the full re-run confirmed no other
+  paper is affected.
+  **Rule that follows: a settlement note is usually not the word "proof".** Search the
+  entry for any wording that derives the recurrence from something already established,
+  and read the hit before keeping the result. Numerical wording is the opposite signal
+  and does *not* settle anything: *"verified for n = 0..800"*, *"true for 1<=m<=n<=200"*,
+  *"Formula verified and used for computations"* are finite checks, and papers 17, 69, 77
+  and 92 stand on exactly that distinction.
+
+- **Papers 1, 3, 18, 22 are disproofs wearing a proof's filename.** The posted statement
+  is false as written; each paper corrects the indexing/wording first, then proves the
+  intended reading. Never present them without that.
+- **19 and 27 are the same mathematics** on two entries (A129365 = A092287/A129364).
+  Both papers say so. Not independent results.
+- **13/14, 15/16 are pairs sharing one proof**; the second of each costs one extra line.
+- **9, 24, 25:** the whole A063xxx family is **off by one** — the entry name says
+  "weight n", the data is the weight-(n−1) value. First term is `−1`, an impossible
+  dimension, a sentinel for weight 1 (which has no formula). A proof aimed at the name
+  rather than the data would conclude these are false. Each paper states this first.
+- **Paper 20 is exposed.** A129365 Conjecture D is in the Lean benchmark (as are B and C,
+  already taken). Papers 13–19, 21–28 are clear of it. Re-verified 25 Aug 2026 against
+  the live list: A129365 is the only one of the 28 that appears.
+- **Paper 4:** a 2014 comment already asserted it true with a verification recipe; the
+  paper adds the proof and the reason for the two residues. Thinner novelty.
+- **Papers 52–305 share one method** (254 entries; 298–305 use the e.g.f. variant).
+- **Papers 329, 330 are NOT mechanical, and point at the one seam still worth mining.**
+  Both are conjectures asserting that a sequence equals a *convergent infinite series*
+  `Sum_k k^n * <hypergeometric in k> * r^k`. The trick: form the e.g.f. of the right-hand
+  side and exchange the order of summation. The `k^n` is exactly what an e.g.f. produces,
+  so the inner sum collapses to a known generating function evaluated at `e^x * r`, and
+  the awkward constants in the conjecture (the `3^(k+1/2)`, the `2^(-3k-1/2)`) turn out to
+  be precisely the normalisation that makes it match. Tonelli justifies the swap on the
+  disc where the e.g.f. is analytic, and comparing Taylor coefficients settles all `n` at
+  once.
+  **This also explains the caveats.** A352117's conjecture says `n > 0` because the sum
+  omits `k = 0`, which removes a constant `1/sqrt(2)` from the e.g.f., and a constant can
+  only disturb the coefficient of `x^0`. The method predicts the exact size of the failure
+  at `n = 0`, and it checks out numerically.
+  **Look for more of these**: `Conjecture: a(n) = Sum_{k>=0} k^n * ...` on an entry with a
+  known e.g.f. It is a small class but each one is a real result, and no sweep finds them
+  because the summand is an infinite series rather than an identity between finite objects.
+- **Papers 306–313 are the closed-form variant** (8 entries). Same idea in a new place:
+  the conjectured `f(n)` is a combination of `n^k r^n`, so its g.f. is `p(theta)` applied
+  to `1/(1-r x)`; subtract the entry's posted g.f. and test the difference for being a
+  polynomial. **Do not test for the difference being zero** — these claims almost always
+  hold only past a small boundary, and requiring `F = A` scores every one of them as a
+  mismatch. That mistake cost a full pass before it was spotted. Mathar's conjectured holonomic
+  recurrences. Each is settled by the same three steps: the entry's algebraic g.f. lies in
+  `Q(x)[√D]`; the recurrence is equivalent to the residual `B(x) = Σ_i x^i (p_i(θ+i)A)(x)`
+  being a polynomial; `B` is computed exactly in that field. Only the entry's `G.f.` and
+  the coefficient polynomials differ. Every one was additionally checked by evaluating the
+  recurrence on the entry's own published terms in integer arithmetic, and every entry was
+  re-fetched live before use to confirm it was still labelled and unproved.
+- **Papers 32–51 share one theorem.** Twenty entries, one proof: e.g.f. `G(e^x−1)` with
+  `G` integral ⇒ eventually periodic mod `m` with period dividing `φ(m)`. Only the
+  identification of `G` differs. **You decided these count as twenty results**, and the
+  papers are written standalone — no paper mentions the others, so each reads as a single
+  submission. Know the overlap yourself when handing them over together.
+  **A000436 is deliberately NOT claimed** — its e.g.f. `cos x/cos 3x` is not of the
+  required form, but its recovered coefficients are integral as far as computed, so it is
+  left open in the paper. Do not count it.
+- **31 flags a live error on A327123.** Eldar's posted multiplicative formula gives
+  `a(p^e) = 1` for `p ≡ 1 mod 4`; the correct value is `p^e`. It contradicts the entry's
+  own DATA from n=5. The conjecture is unaffected.
+- **29 and 30 are one piece of mathematics applied twice.** Both are the gcd-sum lemma
+  `Σ_{k≤n} f(gcd(k,n)) = (f∗φ)(n)` plus a local-factor computation; only the local
+  computation differs. Both papers say so. Not independent results.
+- **29 and 30 are elementary, and both entries already carry the answer unlabelled.**
+  A358272 has Oudra's formula `a(n) = Σ_{d|n} λ(d)·d·φ(n/d)` (May 2025); A358319 has
+  "Equals Dirichlet convolution of A000010 and n·A076479". Each is one application of
+  the lemma from the conjecture. Disclose this — the novelty is thin.
+
+## 4. DEAD — do not revisit
+
+Already resolved on the live entry, or carrying no conjecture at all.
+
+Resolved: A050295, A067274, A072592, A067793, A067745, A008364 (Dec 20 comment),
+A000040 (Dec 2011 and the *first* Sep 2010 criterion), A000010/A006519/A000215 (Fried
+2025), A063170 (Amdeberhan–Callan–Moll 2012), A092287 square case (Greathouse 2013),
+A092143, A129365 B and C (Adamczewski 2026), A005251 (Fried 2025), A039004 (Hendel 2015
++ Israel disproof), A034496 (Noe 2010), **A070226 (Eldar, 6 Aug 2026)**, A098016,
+**A067336 (Nguyen Tuan Anh, Mar 2025)**, **A155867 (recurrence derived on the entry)**,
+**A006472 (Himane, arXiv:2404.08646, 2024)**, **A000680 (Fried, Nov 2025)**,
+**A384531 (Radcliffe, June 2025 — proof linked from the entry itself, label not removed;
+same gcd-sum family as 29/30, do not mistake it for open)**.
+
+No conjecture on the entry: A051190, A224479, A036286, A059971, A364812, A224497,
+A027871, A062367, A136380 (and the whole A136378–A136386 block), A063318, A063369,
+A063224, A129439.
+
+## 5. HARD — needs a new idea
+
+| entry | obstruction |
+|---|---|
+| A051924 | converse is a Wolstenholme-composite problem, open |
+| A000984 | McIntosh's conjecture, open |
+| A000006 | equivalent to Legendre's conjecture |
+| A001146 | converse is an `n \| 2ⁿ−1` problem |
+| A049048 | scanned all composites `≤10^7` and all pairs `m<n≤200`; every gcd prime, so no composite modulus. Counterexample needs two primes `>n`; exists heuristically but enormous |
+| A054979 | contains "3 divides n" as a sub-claim — open, only a `10^664` lower bound |
+| A082613 | search statement on palindromes; terms `~5·10^12` by n=27, verified to n=50 |
+| A036840/A036845 | equivalent to boundedness of the `sigma(phi(x))` orbit |
+| A057856 | literal form false by parity; intended form is generalized-Fermat primality, terms pairwise coprime so no covering argument |
+| A060318 | huge stated bound; base-3 digit condition on `2^k`, Erdős-adjacent (unverified) |
+| A001227 | needs three further entry definitions just to state; deep area |
+| A281180 A281183 A281184 A281440 | Bala's `φ(k)²` periodicity; e.g.f.s are series reversions of trig integrals, not `G(e^x−1)` — different mechanism, untouched |
+| A298826 | conjectures relate to each other but the base definition (A298825/n) is tied to Hardy–Littlewood / twin primes; only partials available |
+| A000436 A000657 A002105 A012780 A126156 A143138 A143139 | same φ(k) periodicity wording as paper 32 but e.g.f. NOT of the form `G(e^x−1)` — outside that theorem, still open |
+
+## 6. TOOLKIT — what actually closes things
+
+- **Layer-cake counting** for gcd/lcm/min/max: `v_p(gcd(x_1..x_d)) = #{s : p^s divides
+  all}`. Sum over a box, swap order, conditions separate. This *is* Legendre in `d`
+  dimensions. Closed 17, 18, 19, 20, 27. Pair with nested floors
+  `floor(n/(kq)) = floor(floor(n/q)/k)` and `M² − Σ k·floor(M/k) = Σ (M mod k)`.
+- **Transform conjectures, two forms.** "X is the binomial transform of Y" → e.g.f.s,
+  where the transform is multiplication by `e^x`; rewrite each side's own recurrence as a
+  functional equation and check they differ by that factor (paper 26). "X is the k-th
+  Möbius transform of Y" or "Dirichlet convolution of…" → both sides multiplicative, so
+  compare local factors at one prime (paper 28). **Highest win rate of anything here.**
+- **Bit columns:** find a symmetry of the column, read off a polynomial factor. Halved
+  period gives `(x+1)^(L/2)`; a half-period flip `b(k+q) = 1−b(k)` gives `(x+1)^(3q−1)`.
+  Works because `x^(2^j)+1 = (x+1)^(2^j)` in characteristic 2. Closed 15, 16, 21, 22.
+- **Finite fields / nimbers:** numbers below `2^(2^k)` form a field; consecutive integers
+  from 0 form an `F_2`-subspace; product of all nonzero elements is 1 in characteristic 2;
+  `prod_{b in K}(z+b) = z^|K| + z`. Closed 13, 14.
+- **Legendre + Kummer** for any parity or valuation claim (paper 11).
+- **Wilson/Wolstenholme in disguise:** criteria built from `n!`, `H_n`, Stirling numbers
+  or double factorials collapse to `(n−1)! mod n` (papers 7, 8).
+- **For a disproof, compute first.** Scan the free parameter widely before theorising.
+- **Conjectured recurrences → a residual polynomial.** For `Σ_i p_i(n) a(n−i) = 0` with
+  g.f. `A`, set `θ = x·d/dx`; then `Σ_n (Σ_i p_i(n)a(n−i)) x^n = Σ_i x^i (p_i(θ+i)A)(x)`.
+  The conjecture holds for all `n > d` iff that residual is a polynomial of degree `d`.
+  When `A` is algebraic of degree 2, write `A = u + v√D`: the field is closed under `θ`,
+  so the test is exact rational-function cancellation — no series truncation, no numerics.
+  Extend the field when needed: several entries need `Q(x)[√D1,√D2]`, where `θ` is still
+  diagonal in the basis of square-root products, so the same test works unchanged.
+  **This is the highest-yield tool in the file: 194 entries.**
+
+  **Forget the search API. Clone the database.** `git clone --depth 1
+  https://github.com/oeis/oeisdata` gives every entry as a text file (~3 GB, 398,648
+  sequences, all fields). No login, no 200-result cap, no query guessing — grep it.
+  `local_extract.py` does the extraction. This should be the FIRST move of any session.
+
+  **Measured landscape of the whole database (25 Aug 2026):**
+  - **15,585** labelled `Conjecture` lines across **13,760** entries. That is the universe.
+  - **1,192** are P-recursive recurrences. Of those, **555** carry a `G.f.` line, **78**
+    only an `E.g.f.`, **14** a loosely-worded one, and **623** have no generating
+    function at all — those are out of reach of this method.
+  - So the attackable set for the residual method is about **647**, and it converts at
+    roughly 50%. Ceiling: **~330 papers**, not thousands.
+  - **Closed forms: attacked, and the class is far thinner than its headline number.**
+    Of the ~1,100 lines matching `Conjecture: a(n) = ...`, only **34** are an elementary
+    formula in `n` on an entry that also posts a `G.f.` The rest are sums, references to
+    other A-numbers, integrals, `floor`/`mod`, or congruences dressed as formulas. Of
+    those 34, **8** close. Papers 306–313.
+  - **Conjectured generating functions: 121 entries, and only 3** also post an
+    independent recurrence to check them against. Effectively a dead class for a
+    mechanical method — there is nothing to prove the g.f. *from*.
+
+  **A NEW ENGINE REOPENED PART OF THIS — see `logexp.py`.** The claim below that
+  transcendental generating functions are unreachable was WRONG, and wrong for two
+  reasons worth remembering.
+
+  1. **`exp` and `log` generate a differential module, not just a field.** Monomials
+     `log(u)^a * exp(g)^k` span a finitely generated `Q(x)`-module closed under `d/dx`:
+     the exponential part never mixes monomials, and the log part only ever moves
+     *downwards*, so every computation terminates. The residual test transfers verbatim —
+     `B` is a polynomial iff every coefficient outside the constant monomial vanishes.
+     This is the same idea as `quadfield`/`multiquad` with different atoms, and it is the
+     right way to think about the whole family: **pick atoms closed under `D`, then test.**
+     Coefficients may themselves carry a `sqrt` and it stays sound, because the final
+     polynomiality test is strict — it can lose a proof, never invent one.
+  2. **A parser bug had been hiding the class the whole time.** The implicit-multiplication
+     rule "an `x` or `t` followed by a letter" was shredding every function name
+     containing one: `exp` -> `ex*p`. So *no `exp` anywhere in OEIS had ever parsed*, in
+     any class. Function names are now masked before that rule runs. **When a whole class
+     looks empty, suspect the parser before concluding the mathematics is out of reach.**
+
+  Result: papers 320–328, nine recurrences with transcendental e.g.f.s. Running the same
+  engine over the 859 o.g.f. entries found nothing further — those are algebraic.
+
+  **THE MECHANICAL SEAMS ARE EXHAUSTED. Read this before spending a session re-mining.**
+  Every route below was taken to the end against the full local clone:
+  - recurrence + posted `G.f.` — 525 candidates, mined
+  - recurrence + `E.g.f.` only — 65 candidates, 8 close; the rest are transcendental
+    (`exp`, `log`, `cosh`) and no algebraic method reaches them
+  - recurrence + g.f. stated in the NAME (`Expansion of ...`) — 73 found, +6
+  - recurrence + an explicit `a(n)=` formula to derive the g.f. from — 175 entries,
+    **0 usable**: none of those formulas is an elementary combination of `n^k r^n`
+  - recurrence with no formula at all — 323 entries, out of reach
+  - gcd-sum conjectures — **5 exist in the whole database**, 3 proved (29–31), 1 already
+    settled by Radcliffe, 1 (A373561) is a quadruple sum needing a counting argument
+  - `phi(k)` periodicity — **39 exist**, all examined
+  - closed forms — 34 usable, 8 close
+  What remains of the 15,585 is inequalities (~2,800), "for all n" claims (~1,500),
+  limits and asymptotics (~400), sum identities (~270), congruences, primality,
+  permutation and finiteness statements. **None of these yields to exact algebra over
+  Q(x); they need actual mathematical ideas, one at a time.** The next real gain would
+  come from a different engine — creative telescoping for the sum identities, or a
+  holonomic ODE solver for the transcendental generating functions — not from more
+  sweeping.
+  - Everything else (primality, permutation, finiteness, asymptotics) is not mechanically
+    attackable.
+
+  **Two soundness traps, both found the hard way — keep the guards.**
+  1. *Polynomiality must actually be tested.* The residual test asks whether `B` is a
+     polynomial. Checking only that its denominator is constant lets a transcendental
+     residual through (`log(1-x)` has denominator 1). `is_polynomial` now calls
+     `.is_polynomial(x)` on the result. Re-running all 255 proofs under the fixed test
+     cost 2 of them.
+  2. *Nested radicals must be refused.* `sqrt((2 - 2*sqrt(1-4*x) - 3*x)/x)` is degree 4
+     but NOT multiquadratic — the reductions assume independent radicands and silently
+     mis-reduce it. `_has_nested_radical` now rejects such expressions in both fields.
+     This is what invalidated the original paper 170 (A166135); its conjecture still
+     holds on every published term, but the proof was wrong, so it was withdrawn and the
+     slot rebuilt from A107231. **A166135 remains open — do not count it.**
+
+  **E.g.f. variant.** For entries giving an e.g.f., re-index the recurrence forward
+  (`n = m+r`, `j = r-i`) so shifts become derivatives rather than integrals; then
+  `B = Sum_j q_j(theta)[A^(j)]` and the same polynomiality test applies. Only 8 of 65
+  such entries close: most e.g.f.s in this class are transcendental (`exp`, `log`,
+  `cosh`) and fall outside an algebraic method entirely. Watch for two traps: parse `^(1/2)` as an exact rational or the
+  arithmetic silently goes floating-point, and always confirm the posted `G.f.` really
+  reproduces the entry's DATA before trusting it — that check is what catches a mangled
+  parse. Most of the work is reading OEIS's `G.f.` lines: strip trailing prose and
+  periods, resolve `c(x)`/`C(x)` (Catalan) and `M(x)` (Motzkin) and inline `where C=...`
+  definitions, and allow the posted g.f. to be shifted by a few powers of `x` against the
+  entry's own indexing.
+
+### 26 Aug 2026: the ceiling above was wrong, and six things moved it
+
+The "~330 papers" ceiling assumed the attackable set was the 555 entries posting a `G.f.`
+line and that the field had to be a sum of independent square roots. Both were parser and
+engine limits, not facts about OEIS.
+
+1. **`algfield.py` — any algebraic generating function, not just square roots.**
+   Work in `K = Q(x)[y]/(P(x,y))` for the minimal polynomial `P`. Differentiating
+   `P(x,α)=0` gives `α' = −P_x/P_y`, the quotient taken inside `K` (`P_y` is invertible
+   because `P` is squarefree; use the extended Euclidean algorithm in `Q(x)[y]`). `θ` then
+   stays exact and the residual test is unchanged. `sympy.minimal_polynomial(expr, y,
+   domain=QQ.frac_field(x))` builds `P` straight from the posted expression. **This reaches
+   nested radicals** — the exact class that silently mis-reduced under `multiquad` and cost
+   papers 170 and 191.
+2. **The label is not always `Conjecture:`.** 149 entries write
+   `Conjecture D-finite with recurrence …`. Strip the preamble.
+3. **The right-hand side is not always `0`.** Several hundred are written
+   `a(n) = <recurrence>`, sometimes chained `a(n) = <recurrence> = <closed form>` —
+   which asserts BOTH halves. Prove both or drop it (`eqform_extract.py`).
+4. **The generating function is not always on a `G.f.` line.** 70 entries whose NAME is
+   `Expansion of <expr>` carry a recurrence conjecture and no `G.f.` line; there the
+   expression is the *definition*, the strongest possible ground. 36 of 73 close
+   (`nogf_scan.py`). A further 15 entries state it mid-sentence — *"Expansion of
+   (1+x*C^3)*C^4, where C = …"*, *"Theorem: G.f. = …"* — see `midline_scan.py`.
+5. **A whole class is not recurrences at all.** `a(n) = c1*A111111(n+k1) +
+   c2*A222222(n+k2) + <polynomial in n>` is one identity between generating functions
+   when every entry involved posts one (`cross.py`). Test for a POLYNOMIAL difference,
+   not zero.
+6. **Series reversions are algebraic.** `f(R) = x` defines `R`; eliminate it from
+   `y − E(x,R)` and `f(R) − x` by a resultant and hand the factor with the right
+   expansion to `algfield` (`reversion.py`).
+
+7. **The generating function is sometimes only in the entry's NAME as a relation.**
+   `a(n) = A000522(n) + 1` fixes it completely (a constant `c` contributes `c*e^x` to an
+   exponential generating function). Only two such entries exist and one was already
+   confirmed, so this is a one-paper vein -- but the same reading applies wherever a name
+   states a plain arithmetic relation (`namerel.py`).
+
+8. **A conjecture can factor through a recurrence the entry already states.** Fifty
+   entries carry a conjectured recurrence beside one contributed as plain fact
+   ("Recurrence: ..."). Read both as operators in the Ore algebra `Q(n)[N]`, `N f(n) =
+   f(n+1)`, where moving `N` past a coefficient shifts it. If the conjectured operator
+   `C` factors as `C = Q P` over the stated one, then `C(a) = Q(P(a)) = Q(0) = 0` and the
+   conjecture follows -- **with no generating function anywhere in the argument**
+   (`ore.py`). Right division is ordinary polynomial division with the twisted product,
+   so a zero remainder is exact. Nineteen papers.
+   Three things to get right: expand `Q P` back and cancel it against `C` rather than
+   trusting the division; verify the *stated* recurrence on the published terms, since
+   the whole argument leans on it; and compute the integer poles of `Q`'s coefficients,
+   refusing any case where one lands inside the claimed range. Refuse `deg Q = 0` too --
+   there the two recurrences are the same one rescaled and there is nothing to prove.
+9. **A formula relating the entry to others supplies a generating function.**
+   `a(n) = A002003(n) + n` fixes it once the other entry posts one (`relgf.py`); a
+   polynomial term `p(n)` contributes `p(theta)[1/(1-x)]`, or `p(theta)[e^x]` in the
+   exponential case. Three papers, from 34 candidates.
+
+**Final coverage of the recurrence class:** 1,025 entries carry a `Conjecture ... = 0`
+recurrence. 345 are unreachable by any of this: 232 have a purely combinatorial name and
+no formula anywhere on the entry, and 113 name a table diagonal or column of another
+entry, which gives no usable generating function. That is the real floor, not a parser
+limit.
+
+Three parser faults were costing results across every class: a trailing `(End)` or
+`[From …]` marker made a g.f. line unparseable; a zero coefficient polynomial has degree
+`−∞`, which crashed `apply_poly_theta`; and `to_quad`/`to_multi` substituted on
+`sqrt(D)` **syntactically** while `D` had been normalised with `cancel`, so a radicand
+written in factored form — `sqrt((x^2-3x+1)(x^2+x+1))` — produced a "decomposition"
+whose `v` still held a square root. That last one could only ever lose results, never
+invent them (`is_polynomial` ends with `out.is_polynomial(x)`), but it was silently
+losing them for the whole run. **Both engines now match on the radicand and refuse
+outright if any radical survives.**
+
+**Re-running the whole sweep under fixed code is worth it on its own.** It re-derives
+every earlier result independently and flags any that no longer reproduce — that is how
+A185020 was caught, and how the `to_quad` bug surfaced (the algebraic engine and the
+quadratic one disagreed on A166287; a direct series computation showed the algebraic one
+was right).
+
+### Two classes that are dead, and why
+
+- **`wz.py` — Gosper certificates for hypergeometric sums. 284 attempts, 0 proofs.**
+  For `a(n) = Sum_k F(n,k)`, form `T(k) = Σ_i p_i(n) F(n−i,k)` and run Gosper directly
+  rather than searching with Zeilberger; verify the certificate instead of trusting it.
+  **The trap:** the range usually depends on `n` (`Sum_{k=0..n}`), so the operator applied
+  to `a(n)` mixes ranges and is not `Σ_k T(k)` unless `F(m,k)` vanishes outside it. With
+  `binomial(n,k)` it does; with `binomial(2k+1,k+1)` it does not, and there `T ≡ 0` while
+  nothing is proved (A054109 produced exactly that false positive here). Check the
+  boundary before the certificate. 214 of the 284 were not single hypergeometric terms
+  and 39 more failed the boundary — the class is genuinely dead by this route.
+- **The formalisation benchmarks are not a source of targets.** Checked the whole roster
+  against **OEIS Open** (492 conjectures, 444 sequences, `epoch-research/LeanOpenProblems`)
+  and DeepMind's **formal-conjectures** (299 sequences). Only six papers touch either
+  list, all among the original 28, and only A129365 Conjecture D is actually resolved
+  (paper 20, withdrawn). Of the 492, **160 were resolved and 332 were not** — but the 332
+  are Sun-type existence and number-theory statements (*"every integer n>8 can be written
+  as x+y+z with …"*), with nine recurrence-shaped and none of those P-recursive. Nothing
+  there for these engines.
+
+- **Differential equations for the g.f. are a dead end, because they are the settlement.**
+  Eleven entries pair a recurrence conjecture with a non-conjectural ODE. Nine already say
+  the conjecture follows from it, and the last two say so in wording the detector had to
+  be widened to catch. Zero results.
+
+### The one genuinely hard target attacked, and why it did not fall
+
+**A193437.** `a(n)` counts permutations of `n` elements whose cycle lengths are all
+`== 1 (mod 3)`; e.g.f. `exp(Sum_{k>=0} x^(3k+1)/(3k+1))`, and the entry gives a
+non-conjectural recurrence `a(n) = a(n-1) + (n-1)(n-2)(n-3)a(n-3)`. Two conjectures, open
+since 2011: `7^floor(n/7) | a(n)`, and more generally `p^floor(n/p) | a(n)` for every
+prime `p == 1 (mod 3)`. This is not an oversight by the contributor — it is a real
+divisibility problem.
+
+What was established here, for whoever picks it up:
+
+- **It holds to n = 399 for p = 7, 13, 19, 31, 37**, computed from the entry's own
+  recurrence (which was checked against the published terms first).
+- **The bound is tight.** `v_p(a(n))` equals `floor(n/p)` exactly at many indices -- 149
+  of the first 300 for `p = 13`. So no crude estimate can work; a proof has to be exact.
+- **Naive induction on the recurrence is not enough.** When `p | n`, both terms on the
+  right have valuation exactly `floor(n/p) - 1` and must cancel to gain the last power,
+  so the induction needs an auxiliary congruence, not just the bound.
+- **`a(n)/p^floor(n/p)` mod p has no visible periodicity** in `n` at period `p`, `3p` or
+  `p^2`, so that auxiliary invariant is not going to be a simple periodic one.
+- **The structural fact worth starting from.** Since `p == 1 (mod 3)`, the allowed cycle
+  lengths divisible by `p` are exactly `p` times the allowed lengths, so the exponent
+  series splits as `G(x) = A(x) + G(x^p)/p` with `A` p-integral. That is an Artin-Hasse
+  shaped decomposition, and `v_p(a(n)) = v_p(n!) + v_p([x^n]exp G)` is where the two
+  contributions have to be balanced against each other.
+
+Not proved. Recorded rather than counted.
+
+
+### 30 Aug 2026: entries that post no generating function at all
+
+`diagonal.py`. A family of entries defines the sequence only by an instruction,
+`a(n) = [x^n] f(x) g(x)^n`, with no g.f. anywhere on the page. Every engine here skipped
+them for want of something to test. They are diagonals, and the generating function is
+algebraic and computable: reading the extraction as a contour integral and summing the
+geometric series leaves one pole inside the circle, the Lagrange branch `x = t g(x)`,
+whence `A(t) = f(x(t))/(1 - t g'(x(t)))`. Eliminating `x` by a resultant gives the
+minimal polynomial, which `algfield.py` then takes.
+
+Two bugs in it are worth remembering because both were silent.
+
+- Solving the resultant for a closed-form root works only up to degree four. Above that
+  `sp.solve` returns nothing and the entry was dropped with no error. Fixed by
+  identifying the branch through *which irreducible factor the series satisfies*, which
+  needs no root at all.
+- Composing a power series into a rational function by substitution and `expand` does not
+  terminate on anything but polynomials. It surfaced as "no branch reproduces the terms",
+  which reads like a mathematical verdict and was a timeout. Rewritten on truncated
+  coefficient lists; the yield went from 9 to 18.
+
+And one in the *checker*, which is the more instructive: the independent second series
+computation read `[x^i]` off a rational function with `.coeff(x, i)`, which returns the
+numerator's coefficient and keeps the denominator. It rejected six of seven papers as
+"the two series computations disagree". On A156894 it returned `1/(x-1)^4` where the
+answer is 19. **The engine was right and the check was wrong** — the same shape of error
+as the A156894 yardstick below, twice on one entry.
+
+
+### 30 Aug 2026: a census first, then three engines aimed at what it found
+
+Rather than guess where the remaining work was, every entry carrying an open conjectured
+recurrence was classified by what it gives you to work with. **654 remain** after removing
+the ones already held. The piles:
+
+| count | what the entry offers |
+|---|---|
+| 290 | a g.f. is posted, and the engines failed on it |
+| 268 | nothing any engine could read |
+| 44 | a sum with binomials or factorials |
+| 28 | another recurrence posted |
+| 19 | a sum without binomials |
+| 5 | an e.g.f. |
+
+Then the 290 were diagnosed one by one for *why* they failed, which is the step that
+turned the census into work:
+
+| count | cause |
+|---|---|
+| 109 | the g.f. line does not parse |
+| 77 | no g.f. line after all |
+| 26 | transcendental or an infinite sum |
+| 24 | should have worked -- all 24 turned out to be already settled |
+| 20 | parses but does not match the published terms |
+| 10 | a continued fraction |
+| 13 | the residual test crashed |
+
 **Most of what looked like hard mathematics was notation.** Of the g.f. lines that would
 not parse, the commonest defeat was an old-style attribution with no underscores
 (`- Maksym Voznyy (voznyy(AT)mail.ru), Aug 11 2009`), an editorial note
@@ -703,6 +1257,67 @@ in the 30 Aug batch died on them (A001711, A002627, A032123, A045406, plus A2146
 A176677 caught earlier). This is the same target list, being worked at the same time. The
 practical consequence is that **the settlement scan has to be re-run against a fresh clone
 before any delivery**, not once at the start.
+
+### 31 Aug 2026: four conjectures are false, and here is what holds instead
+
+The residual criterion is an **equivalence**, and it had been used in one direction only.
+Writing `B(x) = Sum_i x^i (p_i(theta+i)A)(x)`, its coefficient of `x^n` IS the quantity
+`Sum_i p_i(n)a(n-i)` that the conjecture claims vanishes. So `B` a polynomial of degree
+`d` means the recurrence holds for `n > d` -- and `B` not a polynomial means the
+conjecture fails for **infinitely many** `n`. A negative from the residual test is a
+disproof, not a failure to find a proof.
+
+Fifteen entries had a residual decided non-polynomial across the old runs. Reading them:
+
+- **Three were indexing slips** (A026377, A026672, A080244): shifting the coefficient
+  argument and the term indices together by the same amount makes the recurrence hold, so
+  the conjecture is right and its stated indexing is off. Not disproofs, not counted.
+- **Three had no g.f. reproducing every published term**, so nothing follows.
+- **Four are genuinely false** -- A098660, A119967, A129366, A103769 -- surviving every
+  shift between -5 and +5 in both arguments, with non-polynomiality decided exactly in the
+  algebraic function field where the g.f. lives.
+
+Each became a paper that does more than refute. The generating function is algebraic, so
+differentiating its defining equation inside `Q(x)[y]/(P)` keeps `A, A', A''...` in a
+finite-dimensional space over `Q(x)`; a linear dependence among them is an ODE, and
+reading off the coefficient of each power of `x` turns the ODE into a recurrence
+(`algode.py`). That recurrence is then **proved** by the same criterion that refuted the
+conjectured one, so the paper carries a correction rather than only a negative.
+
+A098660 is the clearest. Mathar's order-3 recurrence gives 28 rather than 0 at `n = 3`,
+and the relation that does hold is
+
+    (n^3-n)a(n) - (16n^3-48n^2+56n-24)a(n-2) + (64n^3-384n^2+704n-384)a(n-4) = 0,
+
+which couples only indices of the same parity. The g.f. involves `sqrt(1-8x^2)`, so the
+even and odd parts decouple and no three-term span across parities can work.
+
+**Why this sat unnoticed for months.** The pipeline logged "residual not polynomial" as a
+failure and moved on. It was never a failure. The lesson is narrower than "check your
+assumptions": when a test is an *iff*, both answers are results, and a codebase that
+records one of them as an error will hide every one of them.
+
+**How each disproof is guarded**, because a wrong disproof costs far more than a missed
+proof: the g.f. must reproduce *every* published term, not a sample; the failure must
+survive every joint re-indexing; non-polynomiality is an exact decision in the field, not
+a `simplify` that returned False; and A098660's counterexample was recomputed from the
+entry's *other* posted formula, `a(n) = C(n,floor(n/2))*2^floor(n/2)`, with no generating
+function involved at all.
+
+### The ledger nearly destroyed itself, and how
+
+`rebuild_table.py` found the end of the RESULTS HELD table with
+`max(i for i, l in enumerate(lines) if re.match(r"^\| \d+ \| ", l))` -- the LAST line
+anywhere in the file shaped like a table row. That was fine until the 30 Aug census
+tables were added, whose rows have exactly that shape. The next rebuild replaced
+everything between the roster table and the census with the new rows and deleted four
+hundred lines of notes in one run.
+
+It was caught only because the section headings disappeared from a `grep`. The fix is to
+stop at the first line that is not a row, and the wider lesson is that a script which
+rewrites the ledger is as dangerous as one that writes a paper: **the ledger is the state
+that survives, so anything editing it needs the same care as anything claiming a result.**
+Recovered from git; nothing was lost permanently.
 
 ### Still unexploited
 

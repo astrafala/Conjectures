@@ -44,7 +44,13 @@ def main():
     txt = open(LEDGER).read()
     lines = txt.split("\n")
     first = next(i for i, l in enumerate(lines) if l.startswith("| 1 | "))
-    last = max(i for i, l in enumerate(lines) if re.match(r"^\| \d+ \| ", l))
+    # the table ends at the first line that is not one of its rows. Taking the LAST
+    # matching line in the whole file instead was catastrophic: the census tables added
+    # later have rows of the same shape, so everything between the two got replaced by
+    # the rebuilt rows and four hundred lines of notes were deleted in one run.
+    last = first
+    while last + 1 < len(lines) and re.match(r"^\| \d+ \| ", lines[last + 1]):
+        last += 1
     keep = [l for l in lines[first:last + 1] if re.match(r"^\| (1?[0-9]|2[0-8]) \| ", l)]
 
     rows = list(keep)
