@@ -20,6 +20,7 @@ import json, os, re, signal, sys
 import sympy as sp
 import gfclean
 import algfield as af
+import quadfield as qf, multiquad as mq, logexp as le
 from regf import entry, CONJ, GFL, EGFL
 from prove_rec import parse_gf, parse_conj
 from holonomic import taylor
@@ -50,13 +51,35 @@ def strict_gf(cands, data, off, egf, extra=30):
             idx = [off + k - sh for k in range(len(data))]
             if any(i < 0 or i >= len(base) for i in idx):
                 continue
+            A = G if egf else sp.together(x ** sh * G)
             try:
-                if all(sp.simplify(base[i] - data[k]) == 0 for k, i in enumerate(idx)):
-                    A = G if egf else sp.together(x ** sh * G)
-                    return c, A, taylor(A, N) if not egf else base
+                co = taylor(A, N) if not egf else base
             except Exception:
-                pass
-    return None, None, None
+                continue
+            try:
+                if all(sp.simplify(co[off + k] - data[k]) == 0
+                       for k in range(len(data))):
+                    return c, A, co, []
+            except Exception:
+                continue
+            # a posted g.f. that is right from some index on but wrong at the first term
+            # or two is an offset convention, not a different sequence. Adding the
+            # correcting polynomial keeps A algebraic and shifts the residual by a
+            # polynomial, so the criterion still applies -- and the paper says so.
+            fix = gfclean.polynomial_correction(co, data, off)
+            if fix is None:
+                continue
+            diffs, _ = fix
+            if not diffs:
+                return c, A, co, []
+            corr = sum(v * x ** i for i, v in diffs)
+            A2 = sp.together(A + corr)
+            co2 = list(co)
+            for i, v in diffs:
+                co2[i] = sp.nsimplify(co[i] + v, rational=True)
+            if all(sp.simplify(co2[off + k] - data[k]) == 0 for k in range(len(data))):
+                return c, A2, co2, diffs
+    return None, None, None, []
 
 
 def reindexable(ps, data, off, span=5):
@@ -107,17 +130,34 @@ def main(todo):
                    "mode": "egf" if egf else "ogf", "status": None}
             signal.alarm(int(os.environ.get("PER", "240")))
             try:
-                src, A, co = strict_gf(cands, data, off, egf)
+                src, A, co, fixes = strict_gf(cands, data, off, egf)
                 if A is None:
                     rec["status"] = "no g.f. reproduces every published term"
                 else:
                     ps = parse_conj(conj)
-                    K, u = af.from_expr(A)
-                    ok, B = K.is_polynomial(K.residual(u, ps, n))
+                    # cheapest field that fits, first. Building the general algebraic
+                    # function field means a minimal-polynomial computation, by far the
+                    # slowest step here and unnecessary for a single square root.
+                    if egf:
+                        m_ = le.to_module(A)
+                        ok, B = le.is_polynomial(
+                            le.residual_egf(m_[0], m_[1], m_[2], ps, n))
+                    else:
+                        q = qf.to_quad(A)
+                        mm = None if q is not None else mq.to_multi(A)
+                        if q is not None:
+                            ok, B = qf.is_polynomial(qf.residual(q, ps, n))
+                        elif mm is not None:
+                            ok, B = mq.is_polynomial(mq.residual(mm[0], mm[1], ps, n))
+                        else:
+                            K, u = af.from_expr(A)
+                            ok, B = K.is_polynomial(K.residual(u, ps, n))
                     if ok:
                         deg = int(sp.Poly(B, x).total_degree()) if B != 0 else -1
                         rec.update(status="PROVED", gf_src=src, degree=deg,
-                                   order=len(ps) - 1)
+                                   order=len(ps) - 1,
+                                   gf_corrected=[[int(i), sp.sstr(v)]
+                                                 for i, v in fixes])
                         print(f"{key}  PROVED  deg {deg}", flush=True)
                     else:
                         r = len(ps) - 1
@@ -137,6 +177,8 @@ def main(todo):
                                              "counterexample among the published terms")
                         else:
                             rec.update(status="DISPROVED", gf_src=src,
+                                       gf_corrected=[[int(i), sp.sstr(v)]
+                                                     for i, v in fixes],
                                        fails_at=int(first[0]),
                                        value=sp.sstr(first[1]), order=len(ps) - 1)
                             print(f"{key}  DISPROVED  first failure at n={first[0]}",
