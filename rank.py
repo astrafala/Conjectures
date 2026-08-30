@@ -46,7 +46,11 @@ BESPOKE_ORDER = list(range(1, 31))   # already in hardness order from the last r
 TIER = {"shared": 2, "equate": 3, "disproof": 4, "telescoping-boundary": 5,
         "telescoping": 6, "diagonal": 7, "algfield": 8, "logexp": 9, "parity": 10,
         "closedform-direct": 11, "holonomic": 11, "multiquad": 12, "cross": 13, "quadratic": 14,
-        "closedform": 15, "ore-complete": 16, "ore": 17}
+        "closedform": 15, "ore-complete": 16, "ore": 17,
+        # the known side is the entry's NAME rather than a formula line. The mathematics is
+        # hyperterm's, so the tier is closedform's; what differs is where the input came
+        # from, not how hard the argument is.
+        "closedform-name": 15}
 
 
 def order_all():
@@ -82,7 +86,10 @@ def main():
     mapping = []
     for new, old in enumerate(ranked, start=1):
         suf = "DISPROOF" if eng[old]["disproof"] else "PROOF"
-        shutil.copy(f"papers/{old}-{suf}.pdf", f"{tmp}/{new}-{suf}.pdf")
+        # read from the was-keyed master, not from papers/, which after the first ranking
+        # holds the RANK numbering: reading it here would copy whatever paper happens to
+        # sit at that rank now.
+        shutil.copy(f"papers-old-numbering/{old}-{suf}.pdf", f"{tmp}/{new}-{suf}.pdf")
         mapping.append({"rank": new, "was": old, "anum": eng[old]["anum"],
                         "verdict": suf, "engine": eng[old]["engine"]})
     json.dump(mapping, open("rank-map.json", "w"), indent=1)

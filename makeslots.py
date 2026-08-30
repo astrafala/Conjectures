@@ -92,9 +92,17 @@ def match_gf(v, egf):
     return (None, None) if egf else implicit_branch(v)
 
 
-def integer_check(ps, data, off, deg):
+def integer_check(ps, data, off, deg, egf=False):
+    """The index from which the criterion actually guarantees the recurrence.
+
+    For an ordinary generating function [x^n]B is the recurrence's own left-hand side at n,
+    so a polynomial B of degree d gives n > d. The exponential residual is RE-INDEXED
+    forward -- Lemma "transfer" sets n = m + r and B tracks b(m) -- so there the guarantee
+    is n > d + r, not n > d. Reading the exponential degree the ordinary way understates
+    the threshold by the order of the recurrence.
+    """
     order = len(ps) - 1
-    lo = max(order, deg + 1)
+    lo = max(order, deg + 1 + (order if egf else 0))
     for idx in range(lo, len(data)):
         nn = idx + off
         if sum(int(sp.Poly(p, n).eval(nn)) * data[idx - i]
@@ -170,7 +178,7 @@ def build(slots):
         if deg is None:
             print(f"{num:4d}  {a}  SKIP residual not polynomial")
             continue
-        nver, firstn = integer_check(ps, v["data"], v["offset"], deg)
+        nver, firstn = integer_check(ps, v["data"], v["offset"], deg, egf)
         if nver is None or nver < 3:
             print(f"{num:4d}  {a}  SKIP integer re-check failed")
             continue
@@ -200,6 +208,7 @@ def build(slots):
             "FIELD": fieldtex,
             "BLATEX": sp.latex(B),
             "DEG": deg,
+            "NGT": deg + (len(ps) - 1 if egf else 0),
             "ORDER": len(ps) - 1,
             "CONJ": render_conj(v["conj"]),
             "TIME": v["time"],
@@ -245,7 +254,9 @@ def build(slots):
         errs = [l for l in log.split("\n") if l.startswith("! ")]
         good = os.path.exists(f"{d}/p.pdf") and not errs
         if good:
-            subprocess.run(["cp", f"{d}/p.pdf", f"papers/{num}-PROOF.pdf"])
+            # papers/ is rank-keyed and rebuilt by rank.py; a new paper belongs in the
+            # was-keyed master
+            subprocess.run(["cp", f"{d}/p.pdf", f"papers-old-numbering/{num}-PROOF.pdf"])
         made.append((num, a, good))
         print(f"{num:4d}  {a}  {'OK' if good else 'FAILED ' + str(errs[:1])}")
     print(f"\n{sum(1 for m in made if m[2])}/{len(made)} built")

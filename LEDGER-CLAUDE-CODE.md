@@ -956,6 +956,47 @@ have guessed, it is the DEFINITION.
   ratios sympy will not cancel. Not yet swept.
 
 
+### 30 Aug 2026 (later): "Expansion of ..." names, and a wrong threshold in 21 papers
+
+- **`expname_run.py`: 141 open entries named "Expansion of &lt;g.f.&gt;", 61 proved.**
+  The name DEFINES the generating function, and every g.f. engine here was built for that
+  input and had never been shown it. Of the 61, 49 duplicate an existing paper, 1 is a
+  second conjecture on an entry that already has one (A306948), and 11 are entries with no
+  paper at all: **A053532, A071264, A098557, A105695, A117186, A135052, A162475, A162482,
+  A174783, A239425, A247170** — all twelve re-checked open on the live OEIS.
+- Roster is now **526**. Engines recorded per paper by the field actually used
+  (quadratic / algfield / logexp), not by the sweep that found them.
+
+**The EGF threshold was wrong in every logexp paper.** `logexp.residual_egf` re-indexes
+forward — the transfer lemma sets `n = m + r` and `B` tracks `b(m)` — so a residual of
+degree `d` gives the recurrence for **n > d + r**, not `n > d`. The corollary in
+`makelogexppapers.py` said `n > d`, and 21 shipped papers stated a range wider than their
+own algebra establishes. It surfaced because A098557 passed the sweep and then failed the
+rebuild's integer check at n = 2, with a reported degree of 0.
+
+- **Nothing shipped was false.** All 21 were re-checked at every index in the gap
+  `(d, d+r]` against the published terms: the recurrence holds at all of them. The claim
+  was true but under-justified.
+- Fixed in the corollary, the theorem statement and `makeslots.integer_check`, and all 21
+  rebuilt. Paper 69 (A162972) now reads `n > 7` where it read `n > 0`.
+- The lesson is the ordinary case does not transfer: for an o.g.f. `[x^n]B` IS the
+  recurrence's left side at `n`, so `n > d` is right there. Any future residual criterion
+  must have its index convention checked against a case where the recurrence genuinely
+  fails at a small index.
+
+**Two infrastructure facts worth keeping.**
+
+- **Background jobs do not advance between turns.** A sweep started with `nohup &` had 4
+  minutes of CPU across an hour of wall clock, because the container is suspended while
+  the session is idle. Long sweeps must run in the FOREGROUND in bounded slices:
+  `runpool.py` keeps four children alive with a real per-item timeout, a wall-clock
+  budget, and progress saved after every item so the sweep is resumable. The expansion
+  sweep went from ~20 entries an hour to 91 in a single 520-second slice.
+- **`rank.py` was reading `papers/`**, which after the first ranking holds the RANK
+  numbering, so it would have copied whatever paper happened to sit at that rank. It now
+  reads `papers-old-numbering/`, the `was`-keyed master. `makeslots.py` writes there too.
+
+
 ## 4. DEAD — do not revisit
 
 Already resolved on the live entry, or carrying no conjecture at all.

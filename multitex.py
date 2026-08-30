@@ -95,8 +95,21 @@ expansion of one, so the identity below is the definition of the sequence rather
 claim about it,"""
 
 
+NAMEEGF_OLD = r"""The entry gives the exponential generating function"""
+NAMEEGF_NEW = r"""The entry does not list an exponential generating function separately: it
+is defined as the expansion of one, so the identity below is the definition of the sequence
+rather than a claim about it,"""
+
+
 def name_gf(template):
-    """Variant for entries whose NAME is "Expansion of <expr>"."""
+    """Variant for entries whose NAME is "Expansion of <expr>".
+
+    The exponential template says "the exponential generating function" where the ordinary
+    one says "the generating function", so it needs its own lead-in; substituting the
+    ordinary one first would leave the word "exponential" stranded.
+    """
+    if NAMEEGF_OLD in template:
+        return template.replace(NAMEEGF_OLD, NAMEEGF_NEW, 1)
     if NAMEGF_OLD not in template:
         raise ValueError("g.f. lead-in not found")
     return template.replace(NAMEGF_OLD, NAMEGF_NEW, 1)

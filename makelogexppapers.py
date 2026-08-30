@@ -144,7 +144,7 @@ field used below is closed under differentiation.
 
 \begin{corollary}\label{cor:criterion}
 With the notation of Lemma~\ref{lem:transfer}, the recurrence
-$\sum_{i}p_{i}(n)a(n-i)=0$ holds for every $n>d$ if and only if $B$ is a polynomial of
+$\sum_{i}p_{i}(n)a(n-i)=0$ holds for every $n>d+r$ if and only if $B$ is a polynomial of
 degree at most $d$.
 \end{corollary}
 
@@ -201,7 +201,7 @@ The conjectured recurrence
 \[
 %(RECLATEX)s \;=\;0
 \]
-holds for every $n>%(DEG)d$.
+holds for every $n>%(NGT)d$.
 \end{theorem}
 
 \begin{proof}
@@ -233,7 +233,7 @@ uses only integers.
 
 The symbolic step is exact throughout. The residual is obtained by rational-function
 cancellation in $K$, not by series truncation, so the identity $B=%(BLATEX)s$ is an
-identity of functions and the theorem holds for all $n>%(DEG)d$ simultaneously.
+identity of functions and the theorem holds for all $n>%(NGT)d$ simultaneously.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer Sequences},
