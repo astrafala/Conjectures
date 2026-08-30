@@ -17,12 +17,36 @@ from verify_open import fetch
 X, n = sp.symbols('x n')
 
 
+def xcoeffs(e, N):
+    """The first N coefficients of a rational function of x, as a power series at 0.
+
+    Long division on coefficient lists. Taking .coeff(x, i) of a rational expression does
+    not do this: it reads the numerator's coefficient and keeps the denominator, which is
+    silently wrong for every f or g that is not a polynomial.
+    """
+    num, den = sp.fraction(sp.cancel(sp.together(e)))
+    a = sp.Poly(sp.expand(num), dg.x).all_coeffs()[::-1]
+    b = sp.Poly(sp.expand(den), dg.x).all_coeffs()[::-1]
+    a += [sp.Integer(0)] * (N - len(a))
+    b += [sp.Integer(0)] * (N - len(b))
+    if b[0] == 0:
+        return None                      # a pole at the origin: no power series
+    out = [sp.Integer(0)] * N
+    for i in range(N):
+        out[i] = sp.cancel((a[i] - sum(b[j] * out[i - j] for j in range(1, i + 1))) / b[0])
+    return out
+
+
 def direct_series(f, g, N):
-    """a(n) = [x^n] f g^n, straight from the definition, for the independent check."""
+    """a(n) = [x^n] f g^n, straight from the definition, for the independent check.
+
+    This shares nothing with diagonal.series, which goes through the residue formula: here
+    the n-th power of g is formed and its n-th coefficient read off.
+    """
     out, gp = [], sp.Integer(1)
     for i in range(N):
-        out.append(sp.expand(sp.cancel(f * gp)).coeff(dg.x, i)
-                   if not sp.together(f * gp).has(sp.Symbol('oo')) else None)
+        c = xcoeffs(sp.cancel(f * gp), i + 1)
+        out.append(None if c is None else c[i])
         gp = sp.cancel(gp * g)
     return out
 

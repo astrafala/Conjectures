@@ -181,434 +181,434 @@ the label. This is now cheap to detect in a sweep: compare the two fields in the
 | 26 | PROOF | A358319 | a separate argument for that one problem |
 | 27 | PROOF | A327123 | a separate argument for that one problem |
 | 28 | DISPROOF | A000364 | a separate argument for that one problem |
-| 29 | DISPROOF | A000040 | a separate argument for that one problem |
-| 30 | DISPROOF | A008365 | a separate argument for that one problem |
-| 31 | PROOF | A000670 | one theorem, twenty entries (Bala periodicity) |
-| 32 | PROOF | A002050 | one theorem, twenty entries (Bala periodicity) |
-| 33 | PROOF | A004123 | one theorem, twenty entries (Bala periodicity) |
-| 34 | PROOF | A006531 | one theorem, twenty entries (Bala periodicity) |
-| 35 | PROOF | A052895 | one theorem, twenty entries (Bala periodicity) |
-| 36 | PROOF | A064618 | one theorem, twenty entries (Bala periodicity) |
-| 37 | PROOF | A080253 | one theorem, twenty entries (Bala periodicity) |
-| 38 | PROOF | A162314 | one theorem, twenty entries (Bala periodicity) |
-| 39 | PROOF | A167137 | one theorem, twenty entries (Bala periodicity) |
-| 40 | PROOF | A259533 | one theorem, twenty entries (Bala periodicity) |
-| 41 | PROOF | A301921 | one theorem, twenty entries (Bala periodicity) |
-| 42 | PROOF | A305550 | one theorem, twenty entries (Bala periodicity) |
-| 43 | PROOF | A306082 | one theorem, twenty entries (Bala periodicity) |
-| 44 | PROOF | A316142 | one theorem, twenty entries (Bala periodicity) |
-| 45 | PROOF | A316143 | one theorem, twenty entries (Bala periodicity) |
-| 46 | PROOF | A316144 | one theorem, twenty entries (Bala periodicity) |
-| 47 | PROOF | A320352 | one theorem, twenty entries (Bala periodicity) |
-| 48 | PROOF | A354242 | one theorem, twenty entries (Bala periodicity) |
-| 49 | PROOF | A354253 | one theorem, twenty entries (Bala periodicity) |
-| 50 | PROOF | A355409 | one theorem, twenty entries (Bala periodicity) |
-| 51 | PROOF | A127905 | recurrence derived from the summand, then divided |
-| 52 | PROOF | A045742 | recurrence derived from the summand, then divided |
-| 53 | PROOF | A243585 | recurrence derived from the summand, then divided |
-| 54 | PROOF | A026005 | recurrence derived from the summand, then divided |
-| 55 | PROOF | A243764 | general algebraic function field |
-| 56 | PROOF | A243760 | general algebraic function field |
-| 57 | PROOF | A285195 | general algebraic function field |
-| 58 | PROOF | A243814 | general algebraic function field |
-| 59 | PROOF | A055392 | general algebraic function field |
-| 60 | PROOF | A243022 | general algebraic function field |
-| 61 | PROOF | A168506 | general algebraic function field |
-| 62 | PROOF | A242566 | general algebraic function field |
-| 63 | PROOF | A270530 | general algebraic function field |
-| 64 | PROOF | A127632 | general algebraic function field |
-| 65 | PROOF | A130655 | general algebraic function field |
-| 66 | PROOF | A166135 | general algebraic function field |
-| 67 | PROOF | A212696 | general algebraic function field |
-| 68 | PROOF | A261196 | general algebraic function field |
-| 69 | PROOF | A270530 | general algebraic function field |
-| 70 | PROOF | A185010 | general algebraic function field |
-| 71 | PROOF | A185020 | general algebraic function field |
-| 72 | PROOF | A200312 | general algebraic function field |
-| 73 | PROOF | A162972 | transcendental e.g.f., differential module |
-| 74 | PROOF | A001465 | transcendental e.g.f., differential module |
-| 75 | PROOF | A085387 | transcendental e.g.f., differential module |
-| 76 | PROOF | A096471 | transcendental e.g.f., differential module |
-| 77 | PROOF | A066052 | transcendental e.g.f., differential module |
-| 78 | PROOF | A097204 | transcendental e.g.f., differential module |
-| 79 | PROOF | A000483 | transcendental e.g.f., differential module |
-| 80 | PROOF | A000276 | transcendental e.g.f., differential module |
-| 81 | PROOF | A002104 | transcendental e.g.f., differential module |
-| 82 | PROOF | A002538 | transcendental e.g.f., differential module |
-| 83 | PROOF | A066052 | transcendental e.g.f., differential module |
-| 84 | PROOF | A073591 | transcendental e.g.f., differential module |
-| 85 | PROOF | A108704 | transcendental e.g.f., differential module |
-| 86 | PROOF | A110322 | transcendental e.g.f., differential module |
-| 87 | PROOF | A185369 | transcendental e.g.f., differential module |
-| 88 | PROOF | A000276 | transcendental e.g.f., differential module |
-| 89 | PROOF | A000774 | transcendental e.g.f., differential module |
-| 90 | PROOF | A081923 | transcendental e.g.f., differential module |
-| 91 | PROOF | A102319 | several independent square roots |
-| 92 | PROOF | A115256 | several independent square roots |
-| 93 | PROOF | A157125 | several independent square roots |
-| 94 | PROOF | A102318 | several independent square roots |
-| 95 | PROOF | A107587 | several independent square roots |
-| 96 | PROOF | A218185 | several independent square roots |
-| 97 | PROOF | A025567 | several independent square roots |
-| 98 | PROOF | A071684 | several independent square roots |
-| 99 | PROOF | A179648 | several independent square roots |
-| 100 | PROOF | A184120 | several independent square roots |
-| 101 | PROOF | A026163 | several independent square roots |
-| 102 | PROOF | A102318 | several independent square roots |
-| 103 | PROOF | A101500 | several independent square roots |
-| 104 | PROOF | A102319 | several independent square roots |
-| 105 | PROOF | A107587 | several independent square roots |
-| 106 | PROOF | A072100 | several independent square roots |
-| 107 | PROOF | A025567 | several independent square roots |
-| 108 | PROOF | A334509 | identity between different entries |
-| 109 | PROOF | A298022 | identity between different entries |
-| 110 | PROOF | A273676 | identity between different entries |
-| 111 | PROOF | A273832 | identity between different entries |
-| 112 | PROOF | A319371 | identity between different entries |
-| 113 | PROOF | A110320 | identity between different entries |
-| 114 | PROOF | A309878 | identity between different entries |
-| 115 | PROOF | A315520 | identity between different entries |
-| 116 | PROOF | A346370 | identity between different entries |
-| 117 | PROOF | A191625 | residual test on the posted g.f. |
-| 118 | PROOF | A186341 | residual test on the posted g.f. |
-| 119 | PROOF | A026743 | residual test on the posted g.f. |
-| 120 | PROOF | A191786 | residual test on the posted g.f. |
-| 121 | PROOF | A210496 | residual test on the posted g.f. |
-| 122 | PROOF | A182892 | residual test on the posted g.f. |
-| 123 | PROOF | A270724 | residual test on the posted g.f. |
-| 124 | PROOF | A190171 | residual test on the posted g.f. |
-| 125 | PROOF | A257515 | residual test on the posted g.f. |
-| 126 | PROOF | A190788 | residual test on the posted g.f. |
-| 127 | PROOF | A212205 | residual test on the posted g.f. |
-| 128 | PROOF | A270661 | residual test on the posted g.f. |
-| 129 | PROOF | A157021 | residual test on the posted g.f. |
-| 130 | PROOF | A165537 | residual test on the posted g.f. |
-| 131 | PROOF | A166287 | residual test on the posted g.f. |
-| 132 | PROOF | A174013 | residual test on the posted g.f. |
-| 133 | PROOF | A178072 | residual test on the posted g.f. |
-| 134 | PROOF | A182894 | residual test on the posted g.f. |
-| 135 | PROOF | A114584 | residual test on the posted g.f. |
-| 136 | PROOF | A164586 | residual test on the posted g.f. |
-| 137 | PROOF | A189053 | residual test on the posted g.f. |
-| 138 | PROOF | A182904 | residual test on the posted g.f. |
-| 139 | PROOF | A274295 | residual test on the posted g.f. |
-| 140 | PROOF | A226434 | residual test on the posted g.f. |
-| 141 | PROOF | A108600 | residual test on the posted g.f. |
-| 142 | PROOF | A114851 | residual test on the posted g.f. |
-| 143 | PROOF | A125306 | residual test on the posted g.f. |
-| 144 | PROOF | A166290 | residual test on the posted g.f. |
-| 145 | PROOF | A228770 | residual test on the posted g.f. |
-| 146 | PROOF | A257300 | residual test on the posted g.f. |
-| 147 | PROOF | A089324 | residual test on the posted g.f. |
-| 148 | PROOF | A104625 | residual test on the posted g.f. |
-| 149 | PROOF | A113956 | residual test on the posted g.f. |
-| 150 | PROOF | A116383 | residual test on the posted g.f. |
-| 151 | PROOF | A162548 | residual test on the posted g.f. |
-| 152 | PROOF | A173993 | residual test on the posted g.f. |
-| 153 | PROOF | A244886 | residual test on the posted g.f. |
-| 154 | PROOF | A157003 | residual test on the posted g.f. |
-| 155 | PROOF | A163493 | residual test on the posted g.f. |
-| 156 | PROOF | A191398 | residual test on the posted g.f. |
-| 157 | PROOF | A135582 | residual test on the posted g.f. |
-| 158 | PROOF | A139376 | residual test on the posted g.f. |
-| 159 | PROOF | A346074 | residual test on the posted g.f. |
-| 160 | PROOF | A190166 | residual test on the posted g.f. |
-| 161 | PROOF | A025251 | residual test on the posted g.f. |
-| 162 | PROOF | A228771 | residual test on the posted g.f. |
-| 163 | PROOF | A025268 | residual test on the posted g.f. |
-| 164 | PROOF | A025272 | residual test on the posted g.f. |
-| 165 | PROOF | A385252 | residual test on the posted g.f. |
-| 166 | PROOF | A025758 | residual test on the posted g.f. |
-| 167 | PROOF | A114464 | residual test on the posted g.f. |
-| 168 | PROOF | A127154 | residual test on the posted g.f. |
-| 169 | PROOF | A135335 | residual test on the posted g.f. |
-| 170 | PROOF | A165540 | residual test on the posted g.f. |
-| 171 | PROOF | A171416 | residual test on the posted g.f. |
-| 172 | PROOF | A188314 | residual test on the posted g.f. |
-| 173 | PROOF | A254314 | residual test on the posted g.f. |
-| 174 | PROOF | A270661 | residual test on the posted g.f. |
-| 175 | PROOF | A003440 | residual test on the posted g.f. |
-| 176 | PROOF | A110521 | residual test on the posted g.f. |
-| 177 | PROOF | A114190 | residual test on the posted g.f. |
-| 178 | PROOF | A116387 | residual test on the posted g.f. |
-| 179 | PROOF | A128096 | residual test on the posted g.f. |
-| 180 | PROOF | A157021 | residual test on the posted g.f. |
-| 181 | PROOF | A160823 | residual test on the posted g.f. |
-| 182 | PROOF | A166287 | residual test on the posted g.f. |
-| 183 | PROOF | A174808 | residual test on the posted g.f. |
-| 184 | PROOF | A185089 | residual test on the posted g.f. |
-| 185 | PROOF | A186940 | residual test on the posted g.f. |
-| 186 | PROOF | A190736 | residual test on the posted g.f. |
-| 187 | PROOF | A219314 | residual test on the posted g.f. |
-| 188 | PROOF | A100095 | residual test on the posted g.f. |
-| 189 | PROOF | A100097 | residual test on the posted g.f. |
-| 190 | PROOF | A191313 | residual test on the posted g.f. |
-| 191 | PROOF | A191790 | residual test on the posted g.f. |
-| 192 | PROOF | A273351 | residual test on the posted g.f. |
-| 193 | PROOF | A278472 | residual test on the posted g.f. |
-| 194 | PROOF | A108296 | residual test on the posted g.f. |
-| 195 | PROOF | A116391 | residual test on the posted g.f. |
-| 196 | PROOF | A110198 | residual test on the posted g.f. |
-| 197 | PROOF | A182879 | residual test on the posted g.f. |
-| 198 | PROOF | A182887 | residual test on the posted g.f. |
-| 199 | PROOF | A135925 | residual test on the posted g.f. |
-| 200 | PROOF | A025256 | residual test on the posted g.f. |
-| 201 | PROOF | A025258 | residual test on the posted g.f. |
-| 202 | PROOF | A000781 | residual test on the posted g.f. |
-| 203 | PROOF | A025245 | residual test on the posted g.f. |
-| 204 | PROOF | A025257 | residual test on the posted g.f. |
-| 205 | PROOF | A025269 | residual test on the posted g.f. |
-| 206 | PROOF | A025270 | residual test on the posted g.f. |
-| 207 | PROOF | A025275 | residual test on the posted g.f. |
-| 208 | PROOF | A032096 | residual test on the posted g.f. |
-| 209 | PROOF | A102880 | residual test on the posted g.f. |
-| 210 | PROOF | A111053 | residual test on the posted g.f. |
-| 211 | PROOF | A152120 | residual test on the posted g.f. |
-| 212 | PROOF | A159771 | residual test on the posted g.f. |
-| 213 | PROOF | A166694 | residual test on the posted g.f. |
-| 214 | PROOF | A166696 | residual test on the posted g.f. |
-| 215 | PROOF | A191796 | residual test on the posted g.f. |
-| 216 | PROOF | A217711 | residual test on the posted g.f. |
-| 217 | PROOF | A278023 | residual test on the posted g.f. |
-| 218 | PROOF | A279014 | residual test on the posted g.f. |
-| 219 | PROOF | A000483 | residual test on the posted g.f. |
-| 220 | PROOF | A025757 | residual test on the posted g.f. |
-| 221 | PROOF | A026030 | residual test on the posted g.f. |
-| 222 | PROOF | A026031 | residual test on the posted g.f. |
-| 223 | PROOF | A048775 | residual test on the posted g.f. |
-| 224 | PROOF | A116409 | residual test on the posted g.f. |
-| 225 | PROOF | A126322 | residual test on the posted g.f. |
-| 226 | PROOF | A128750 | residual test on the posted g.f. |
-| 227 | PROOF | A143955 | residual test on the posted g.f. |
-| 228 | PROOF | A165203 | residual test on the posted g.f. |
-| 229 | PROOF | A168505 | residual test on the posted g.f. |
-| 230 | PROOF | A176605 | residual test on the posted g.f. |
-| 231 | PROOF | A181933 | residual test on the posted g.f. |
-| 232 | PROOF | A191585 | residual test on the posted g.f. |
-| 233 | PROOF | A215973 | residual test on the posted g.f. |
-| 234 | PROOF | A234269 | residual test on the posted g.f. |
-| 235 | PROOF | A236407 | residual test on the posted g.f. |
-| 236 | PROOF | A270363 | residual test on the posted g.f. |
-| 237 | PROOF | A098521 | residual test on the posted g.f. |
-| 238 | PROOF | A100096 | residual test on the posted g.f. |
-| 239 | PROOF | A100099 | residual test on the posted g.f. |
-| 240 | PROOF | A105849 | residual test on the posted g.f. |
-| 241 | PROOF | A105864 | residual test on the posted g.f. |
-| 242 | PROOF | A105865 | residual test on the posted g.f. |
-| 243 | PROOF | A108308 | residual test on the posted g.f. |
-| 244 | PROOF | A114194 | residual test on the posted g.f. |
-| 245 | PROOF | A115967 | residual test on the posted g.f. |
-| 246 | PROOF | A120010 | residual test on the posted g.f. |
-| 247 | PROOF | A124431 | residual test on the posted g.f. |
-| 248 | PROOF | A124431 | residual test on the posted g.f. |
-| 249 | PROOF | A126568 | residual test on the posted g.f. |
-| 250 | PROOF | A132364 | residual test on the posted g.f. |
-| 251 | PROOF | A141342 | residual test on the posted g.f. |
-| 252 | PROOF | A155051 | residual test on the posted g.f. |
-| 253 | PROOF | A157100 | residual test on the posted g.f. |
-| 254 | PROOF | A162477 | residual test on the posted g.f. |
-| 255 | PROOF | A166076 | residual test on the posted g.f. |
-| 256 | PROOF | A166300 | residual test on the posted g.f. |
-| 257 | PROOF | A168503 | residual test on the posted g.f. |
-| 258 | PROOF | A174107 | residual test on the posted g.f. |
-| 259 | PROOF | A174169 | residual test on the posted g.f. |
-| 260 | PROOF | A176332 | residual test on the posted g.f. |
-| 261 | PROOF | A184018 | residual test on the posted g.f. |
-| 262 | PROOF | A188312 | residual test on the posted g.f. |
-| 263 | PROOF | A188482 | residual test on the posted g.f. |
-| 264 | PROOF | A191782 | residual test on the posted g.f. |
-| 265 | PROOF | A217333 | residual test on the posted g.f. |
-| 266 | PROOF | A257072 | residual test on the posted g.f. |
-| 267 | PROOF | A261681 | residual test on the posted g.f. |
-| 268 | PROOF | A073155 | residual test on the posted g.f. |
-| 269 | PROOF | A114589 | residual test on the posted g.f. |
-| 270 | PROOF | A114590 | residual test on the posted g.f. |
-| 271 | PROOF | A162481 | residual test on the posted g.f. |
-| 272 | PROOF | A188460 | residual test on the posted g.f. |
-| 273 | PROOF | A188464 | residual test on the posted g.f. |
-| 274 | PROOF | A190725 | residual test on the posted g.f. |
-| 275 | PROOF | A191526 | residual test on the posted g.f. |
-| 276 | PROOF | A191531 | residual test on the posted g.f. |
-| 277 | PROOF | A211278 | residual test on the posted g.f. |
-| 278 | PROOF | A026327 | residual test on the posted g.f. |
-| 279 | PROOF | A081207 | residual test on the posted g.f. |
-| 280 | PROOF | A102882 | residual test on the posted g.f. |
-| 281 | PROOF | A182881 | residual test on the posted g.f. |
-| 282 | PROOF | A191309 | residual test on the posted g.f. |
-| 283 | PROOF | A191319 | residual test on the posted g.f. |
-| 284 | PROOF | A191790 | residual test on the posted g.f. |
-| 285 | PROOF | A273351 | residual test on the posted g.f. |
-| 286 | PROOF | A025248 | residual test on the posted g.f. |
-| 287 | PROOF | A025249 | residual test on the posted g.f. |
-| 288 | PROOF | A026017 | residual test on the posted g.f. |
-| 289 | PROOF | A071717 | residual test on the posted g.f. |
-| 290 | PROOF | A081672 | residual test on the posted g.f. |
-| 291 | PROOF | A093387 | residual test on the posted g.f. |
-| 292 | PROOF | A104722 | residual test on the posted g.f. |
-| 293 | PROOF | A109263 | residual test on the posted g.f. |
-| 294 | PROOF | A118093 | residual test on the posted g.f. |
-| 295 | PROOF | A118974 | residual test on the posted g.f. |
-| 296 | PROOF | A126323 | residual test on the posted g.f. |
-| 297 | PROOF | A128723 | residual test on the posted g.f. |
-| 298 | PROOF | A135334 | residual test on the posted g.f. |
-| 299 | PROOF | A141351 | residual test on the posted g.f. |
-| 300 | PROOF | A141353 | residual test on the posted g.f. |
-| 301 | PROOF | A163824 | residual test on the posted g.f. |
-| 302 | PROOF | A165201 | residual test on the posted g.f. |
-| 303 | PROOF | A279014 | residual test on the posted g.f. |
-| 304 | PROOF | A025756 | residual test on the posted g.f. |
-| 305 | PROOF | A026027 | residual test on the posted g.f. |
-| 306 | PROOF | A026135 | residual test on the posted g.f. |
-| 307 | PROOF | A050168 | residual test on the posted g.f. |
-| 308 | PROOF | A059279 | residual test on the posted g.f. |
-| 309 | PROOF | A063395 | residual test on the posted g.f. |
-| 310 | PROOF | A071722 | residual test on the posted g.f. |
-| 311 | PROOF | A082134 | residual test on the posted g.f. |
-| 312 | PROOF | A097180 | residual test on the posted g.f. |
-| 313 | PROOF | A097189 | residual test on the posted g.f. |
-| 314 | PROOF | A097331 | residual test on the posted g.f. |
-| 315 | PROOF | A100193 | residual test on the posted g.f. |
-| 316 | PROOF | A103973 | residual test on the posted g.f. |
-| 317 | PROOF | A106181 | residual test on the posted g.f. |
-| 318 | PROOF | A108623 | residual test on the posted g.f. |
-| 319 | PROOF | A126180 | residual test on the posted g.f. |
-| 320 | PROOF | A128732 | residual test on the posted g.f. |
-| 321 | PROOF | A134389 | residual test on the posted g.f. |
-| 322 | PROOF | A143013 | residual test on the posted g.f. |
-| 323 | PROOF | A143954 | residual test on the posted g.f. |
-| 324 | PROOF | A157418 | residual test on the posted g.f. |
-| 325 | PROOF | A158196 | residual test on the posted g.f. |
-| 326 | PROOF | A158197 | residual test on the posted g.f. |
-| 327 | PROOF | A191585 | residual test on the posted g.f. |
-| 328 | PROOF | A257290 | residual test on the posted g.f. |
-| 329 | PROOF | A054341 | residual test on the posted g.f. |
-| 330 | PROOF | A071715 | residual test on the posted g.f. |
-| 331 | PROOF | A090413 | residual test on the posted g.f. |
-| 332 | PROOF | A091699 | residual test on the posted g.f. |
-| 333 | PROOF | A098664 | residual test on the posted g.f. |
-| 334 | PROOF | A099363 | residual test on the posted g.f. |
-| 335 | PROOF | A100098 | residual test on the posted g.f. |
-| 336 | PROOF | A105872 | residual test on the posted g.f. |
-| 337 | PROOF | A106272 | residual test on the posted g.f. |
-| 338 | PROOF | A121724 | residual test on the posted g.f. |
-| 339 | PROOF | A121725 | residual test on the posted g.f. |
-| 340 | PROOF | A126931 | residual test on the posted g.f. |
-| 341 | PROOF | A126932 | residual test on the posted g.f. |
-| 342 | PROOF | A127361 | residual test on the posted g.f. |
-| 343 | PROOF | A127363 | residual test on the posted g.f. |
-| 344 | PROOF | A155051 | residual test on the posted g.f. |
-| 345 | PROOF | A166078 | residual test on the posted g.f. |
-| 346 | PROOF | A166587 | residual test on the posted g.f. |
-| 347 | PROOF | A166588 | residual test on the posted g.f. |
-| 348 | PROOF | A185087 | residual test on the posted g.f. |
-| 349 | PROOF | A190724 | residual test on the posted g.f. |
-| 350 | PROOF | A225887 | residual test on the posted g.f. |
-| 351 | PROOF | A227081 | residual test on the posted g.f. |
-| 352 | PROOF | A257178 | residual test on the posted g.f. |
-| 353 | PROOF | A257388 | residual test on the posted g.f. |
-| 354 | PROOF | A257838 | residual test on the posted g.f. |
-| 355 | PROOF | A001712 | residual test on the posted g.f. |
-| 356 | PROOF | A025175 | residual test on the posted g.f. |
-| 357 | PROOF | A025577 | residual test on the posted g.f. |
-| 358 | PROOF | A055217 | residual test on the posted g.f. |
-| 359 | PROOF | A081052 | residual test on the posted g.f. |
-| 360 | PROOF | A103821 | residual test on the posted g.f. |
-| 361 | PROOF | A107231 | residual test on the posted g.f. |
-| 362 | PROOF | A110199 | residual test on the posted g.f. |
-| 363 | PROOF | A116406 | residual test on the posted g.f. |
-| 364 | PROOF | A128734 | residual test on the posted g.f. |
-| 365 | PROOF | A191307 | residual test on the posted g.f. |
-| 366 | PROOF | A278472 | residual test on the posted g.f. |
-| 367 | PROOF | A034863 | residual test on the posted g.f. |
-| 368 | PROOF | A174195 | residual test on the posted g.f. |
-| 369 | PROOF | A192480 | residual test on the posted g.f. |
-| 370 | PROOF | A158495 | residual test on the posted g.f. |
-| 371 | PROOF | A189176 | residual test on the posted g.f. |
-| 372 | PROOF | A194724 | residual test on the posted g.f. |
-| 373 | PROOF | A210474 | residual test on the posted g.f. |
-| 374 | PROOF | A262768 | residual test on the posted g.f. |
-| 375 | PROOF | A026029 | residual test on the posted g.f. |
-| 376 | PROOF | A064088 | residual test on the posted g.f. |
-| 377 | PROOF | A064089 | residual test on the posted g.f. |
-| 378 | PROOF | A064090 | residual test on the posted g.f. |
-| 379 | PROOF | A064091 | residual test on the posted g.f. |
-| 380 | PROOF | A064092 | residual test on the posted g.f. |
-| 381 | PROOF | A067299 | residual test on the posted g.f. |
-| 382 | PROOF | A068551 | residual test on the posted g.f. |
-| 383 | PROOF | A080243 | residual test on the posted g.f. |
-| 384 | PROOF | A106271 | residual test on the posted g.f. |
-| 385 | PROOF | A114191 | residual test on the posted g.f. |
-| 386 | PROOF | A116881 | residual test on the posted g.f. |
-| 387 | PROOF | A122920 | residual test on the posted g.f. |
-| 388 | PROOF | A132864 | residual test on the posted g.f. |
-| 389 | PROOF | A133305 | residual test on the posted g.f. |
-| 390 | PROOF | A133306 | residual test on the posted g.f. |
-| 391 | PROOF | A133307 | residual test on the posted g.f. |
-| 392 | PROOF | A133308 | residual test on the posted g.f. |
-| 393 | PROOF | A141222 | residual test on the posted g.f. |
-| 394 | PROOF | A154623 | residual test on the posted g.f. |
-| 395 | PROOF | A155587 | residual test on the posted g.f. |
-| 396 | PROOF | A157328 | residual test on the posted g.f. |
-| 397 | PROOF | A158196 | residual test on the posted g.f. |
-| 398 | PROOF | A158197 | residual test on the posted g.f. |
-| 399 | PROOF | A191993 | residual test on the posted g.f. |
-| 400 | PROOF | A225034 | residual test on the posted g.f. |
-| 401 | PROOF | A242172 | residual test on the posted g.f. |
-| 402 | PROOF | A002867 | residual test on the posted g.f. |
-| 403 | PROOF | A014533 | residual test on the posted g.f. |
-| 404 | PROOF | A051524 | residual test on the posted g.f. |
-| 405 | PROOF | A081046 | residual test on the posted g.f. |
-| 406 | PROOF | A098519 | residual test on the posted g.f. |
-| 407 | PROOF | A098520 | residual test on the posted g.f. |
-| 408 | PROOF | A101596 | residual test on the posted g.f. |
-| 409 | PROOF | A101601 | residual test on the posted g.f. |
-| 410 | PROOF | A101602 | residual test on the posted g.f. |
-| 411 | PROOF | A111779 | residual test on the posted g.f. |
-| 412 | PROOF | A112703 | residual test on the posted g.f. |
-| 413 | PROOF | A119012 | residual test on the posted g.f. |
-| 414 | PROOF | A128057 | residual test on the posted g.f. |
-| 415 | PROOF | A128746 | residual test on the posted g.f. |
-| 416 | PROOF | A132900 | residual test on the posted g.f. |
-| 417 | PROOF | A151483 | residual test on the posted g.f. |
-| 418 | PROOF | A167481 | residual test on the posted g.f. |
-| 419 | PROOF | A171556 | residual test on the posted g.f. |
-| 420 | PROOF | A176479 | residual test on the posted g.f. |
-| 421 | PROOF | A182401 | residual test on the posted g.f. |
-| 422 | PROOF | A208355 | residual test on the posted g.f. |
-| 423 | PROOF | A210064 | residual test on the posted g.f. |
-| 424 | PROOF | A240558 | residual test on the posted g.f. |
-| 425 | PROOF | A141771 | residual test on the posted g.f. |
-| 426 | PROOF | A025754 | residual test on the posted g.f. |
-| 427 | PROOF | A097188 | residual test on the posted g.f. |
-| 428 | PROOF | A097192 | residual test on the posted g.f. |
-| 429 | PROOF | A334511 | closed form against the posted g.f. |
-| 430 | PROOF | A333905 | closed form against the posted g.f. |
-| 431 | PROOF | A049486 | closed form against the posted g.f. |
-| 432 | PROOF | A267879 | closed form against the posted g.f. |
-| 433 | PROOF | A267802 | closed form against the posted g.f. |
-| 434 | PROOF | A267847 | closed form against the posted g.f. |
-| 435 | PROOF | A126501 | closed form against the posted g.f. |
-| 436 | PROOF | A128153 | closed form against the posted g.f. |
-| 437 | PROOF | A272706 | closed form against the posted g.f. |
-| 438 | PROOF | A025271 | one posted operator divides another |
-| 439 | PROOF | A138164 | one posted operator divides another |
-| 440 | PROOF | A143017 | one posted operator divides another |
-| 441 | PROOF | A159772 | one posted operator divides another |
-| 442 | PROOF | A000986 | one posted operator divides another |
-| 443 | PROOF | A022917 | one posted operator divides another |
-| 444 | PROOF | A217447 | one posted operator divides another |
-| 445 | PROOF | A226302 | one posted operator divides another |
-| 446 | PROOF | A026165 | one posted operator divides another |
-| 447 | PROOF | A185966 | one posted operator divides another |
-| 448 | PROOF | A200753 | one posted operator divides another |
-| 449 | PROOF | A217358 | one posted operator divides another |
-| 450 | PROOF | A228960 | one posted operator divides another |
-| 451 | PROOF | A003435 | one posted operator divides another |
-| 452 | PROOF | A228331 | one posted operator divides another |
-| 453 | PROOF | A273019 | one posted operator divides another |
-| 454 | PROOF | A386834 | one posted operator divides another |
-| 455 | PROOF | A228330 | one posted operator divides another |
-| 456 | PROOF | A228333 | one posted operator divides another |
+| 29 | DISPROOF | A000040 | gcd-sum evaluation | Mathar |
+| 30 | DISPROOF | A008365 | gcd-sum evaluation | Mathar |
+| 31 | PROOF | A000670 | gcd-sum evaluation | Mathar |
+| 32 | PROOF | A002050 | eventual periodicity mod m, period dividing phi(m) | Mathar |
+| 33 | PROOF | A004123 | eventual periodicity mod m, period dividing phi(m) | Mathar |
+| 34 | PROOF | A006531 | eventual periodicity mod m, period dividing phi(m) | Mathar |
+| 35 | PROOF | A052895 | eventual periodicity mod m, period dividing phi(m) | Mathar |
+| 36 | PROOF | A064618 | eventual periodicity mod m, period dividing phi(m) | Mathar |
+| 37 | PROOF | A080253 | eventual periodicity mod m, period dividing phi(m) | Mathar |
+| 38 | PROOF | A162314 | eventual periodicity mod m, period dividing phi(m) | Mathar |
+| 39 | PROOF | A167137 | eventual periodicity mod m, period dividing phi(m) | Mathar |
+| 40 | PROOF | A259533 | eventual periodicity mod m, period dividing phi(m) | Mathar |
+| 41 | PROOF | A301921 | eventual periodicity mod m, period dividing phi(m) | Mathar |
+| 42 | PROOF | A305550 | eventual periodicity mod m, period dividing phi(m) | Mathar |
+| 43 | PROOF | A306082 | eventual periodicity mod m, period dividing phi(m) | Mathar |
+| 44 | PROOF | A316142 | eventual periodicity mod m, period dividing phi(m) | Mathar |
+| 45 | PROOF | A316143 | eventual periodicity mod m, period dividing phi(m) | Mathar |
+| 46 | PROOF | A316144 | eventual periodicity mod m, period dividing phi(m) | Mathar |
+| 47 | PROOF | A320352 | eventual periodicity mod m, period dividing phi(m) | Mathar |
+| 48 | PROOF | A354242 | eventual periodicity mod m, period dividing phi(m) | Mathar |
+| 49 | PROOF | A354253 | eventual periodicity mod m, period dividing phi(m) | Mathar |
+| 50 | PROOF | A355409 | eventual periodicity mod m, period dividing phi(m) | Mathar |
+| 51 | PROOF | A127905 | eventual periodicity mod m, period dividing phi(m) | Mathar |
+| 52 | PROOF | A045742 | conjectured P-recursive recurrence | Mathar |
+| 53 | PROOF | A243585 | conjectured P-recursive recurrence | Mathar |
+| 54 | PROOF | A026005 | conjectured P-recursive recurrence | Mathar |
+| 55 | PROOF | A359643 | conjectured P-recursive recurrence | Mathar |
+| 56 | PROOF | A156894 | conjectured P-recursive recurrence | Mathar |
+| 57 | PROOF | A156894 | conjectured P-recursive recurrence | Mathar |
+| 58 | PROOF | A371753 | conjectured P-recursive recurrence | Mathar |
+| 59 | PROOF | A226751 | conjectured P-recursive recurrence | Mathar |
+| 60 | PROOF | A386830 | conjectured P-recursive recurrence | Mathar |
+| 61 | PROOF | A243764 | conjectured P-recursive recurrence | Mathar |
+| 62 | PROOF | A243760 | conjectured P-recursive recurrence | Mathar |
+| 63 | PROOF | A285195 | conjectured P-recursive recurrence | Mathar |
+| 64 | PROOF | A243814 | conjectured P-recursive recurrence | Mathar |
+| 65 | PROOF | A055392 | conjectured P-recursive recurrence | Mathar |
+| 66 | PROOF | A243022 | conjectured P-recursive recurrence | Mathar |
+| 67 | PROOF | A168506 | conjectured P-recursive recurrence | Mathar |
+| 68 | PROOF | A242566 | conjectured P-recursive recurrence | Mathar |
+| 69 | PROOF | A270530 | conjectured P-recursive recurrence | Mathar |
+| 70 | PROOF | A127632 | conjectured P-recursive recurrence | Mathar |
+| 71 | PROOF | A130655 | conjectured P-recursive recurrence | Mathar |
+| 72 | PROOF | A166135 | conjectured P-recursive recurrence | Mathar |
+| 73 | PROOF | A212696 | conjectured P-recursive recurrence | Mathar |
+| 74 | PROOF | A261196 | conjectured P-recursive recurrence | Mathar |
+| 75 | PROOF | A270530 | conjectured P-recursive recurrence | Mathar |
+| 76 | PROOF | A185010 | conjectured P-recursive recurrence | Mathar |
+| 77 | PROOF | A185020 | conjectured P-recursive recurrence | Mathar |
+| 78 | PROOF | A200312 | conjectured P-recursive recurrence | Mathar |
+| 79 | PROOF | A162972 | conjectured P-recursive recurrence | Mathar |
+| 80 | PROOF | A001465 | conjectured P-recursive recurrence | Mathar |
+| 81 | PROOF | A085387 | conjectured P-recursive recurrence | Mathar |
+| 82 | PROOF | A096471 | conjectured P-recursive recurrence | Mathar |
+| 83 | PROOF | A066052 | conjectured P-recursive recurrence | Mathar |
+| 84 | PROOF | A097204 | conjectured P-recursive recurrence | Mathar |
+| 85 | PROOF | A000483 | conjectured P-recursive recurrence | Mathar |
+| 86 | PROOF | A000276 | conjectured P-recursive recurrence | Mathar |
+| 87 | PROOF | A002104 | conjectured P-recursive recurrence | Mathar |
+| 88 | PROOF | A002538 | conjectured P-recursive recurrence | Mathar |
+| 89 | PROOF | A066052 | conjectured P-recursive recurrence | Mathar |
+| 90 | PROOF | A073591 | conjectured P-recursive recurrence | Mathar |
+| 91 | PROOF | A108704 | conjectured P-recursive recurrence | Mathar |
+| 92 | PROOF | A110322 | conjectured P-recursive recurrence | Mathar |
+| 93 | PROOF | A185369 | conjectured P-recursive recurrence | Mathar |
+| 94 | PROOF | A000276 | conjectured P-recursive recurrence | Mathar |
+| 95 | PROOF | A000774 | conjectured P-recursive recurrence | Mathar |
+| 96 | PROOF | A102319 | conjectured P-recursive recurrence | Mathar |
+| 97 | PROOF | A115256 | conjectured P-recursive recurrence | Mathar |
+| 98 | PROOF | A157125 | conjectured P-recursive recurrence | Mathar |
+| 99 | PROOF | A102318 | conjectured P-recursive recurrence | Mathar |
+| 100 | PROOF | A107587 | conjectured P-recursive recurrence | Mathar |
+| 101 | PROOF | A218185 | conjectured P-recursive recurrence | Mathar |
+| 102 | PROOF | A025567 | conjectured P-recursive recurrence | Mathar |
+| 103 | PROOF | A071684 | conjectured P-recursive recurrence | Mathar |
+| 104 | PROOF | A179648 | conjectured P-recursive recurrence | Mathar |
+| 105 | PROOF | A184120 | conjectured P-recursive recurrence | Mathar |
+| 106 | PROOF | A026163 | conjectured P-recursive recurrence | Mathar |
+| 107 | PROOF | A102318 | conjectured P-recursive recurrence | Mathar |
+| 108 | PROOF | A101500 | conjectured P-recursive recurrence | Mathar |
+| 109 | PROOF | A102319 | conjectured P-recursive recurrence | Mathar |
+| 110 | PROOF | A107587 | conjectured P-recursive recurrence | Mathar |
+| 111 | PROOF | A072100 | conjectured P-recursive recurrence | Mathar |
+| 112 | PROOF | A025567 | conjectured P-recursive recurrence | Mathar |
+| 113 | PROOF | A334509 | conjectured P-recursive recurrence | Spezia |
+| 114 | PROOF | A298022 | conjectured P-recursive recurrence | Spezia |
+| 115 | PROOF | A273676 | conjectured P-recursive recurrence | Mathar |
+| 116 | PROOF | A273832 | conjectured P-recursive recurrence | Mathar |
+| 117 | PROOF | A319371 | conjectured P-recursive recurrence | Mathar |
+| 118 | PROOF | A110320 | conjectured P-recursive recurrence | McGarvey |
+| 119 | PROOF | A309878 | conjectured P-recursive recurrence | Mathar |
+| 120 | PROOF | A315520 | conjectured P-recursive recurrence | Spezia |
+| 121 | PROOF | A346370 | conjectured P-recursive recurrence | Kurkov |
+| 122 | PROOF | A191625 | conjectured P-recursive recurrence | Mathar |
+| 123 | PROOF | A186341 | conjectured P-recursive recurrence | Mathar |
+| 124 | PROOF | A026743 | conjectured P-recursive recurrence | Mathar |
+| 125 | PROOF | A191786 | conjectured P-recursive recurrence | Mathar |
+| 126 | PROOF | A210496 | conjectured P-recursive recurrence | Mathar |
+| 127 | PROOF | A182892 | conjectured P-recursive recurrence | Mathar |
+| 128 | PROOF | A270724 | conjectured P-recursive recurrence | Mathar |
+| 129 | PROOF | A190171 | conjectured P-recursive recurrence | Mathar |
+| 130 | PROOF | A257515 | conjectured P-recursive recurrence | Mathar |
+| 131 | PROOF | A190788 | conjectured P-recursive recurrence | Mathar |
+| 132 | PROOF | A212205 | conjectured P-recursive recurrence | Mathar |
+| 133 | PROOF | A270661 | conjectured P-recursive recurrence | Mathar |
+| 134 | PROOF | A157021 | conjectured P-recursive recurrence | Mathar |
+| 135 | PROOF | A165537 | conjectured P-recursive recurrence | Mathar |
+| 136 | PROOF | A166287 | conjectured P-recursive recurrence | Mathar |
+| 137 | PROOF | A174013 | conjectured P-recursive recurrence | Mathar |
+| 138 | PROOF | A178072 | conjectured P-recursive recurrence | Mathar |
+| 139 | PROOF | A182894 | conjectured P-recursive recurrence | Mathar |
+| 140 | PROOF | A114584 | conjectured P-recursive recurrence | Mathar |
+| 141 | PROOF | A164586 | conjectured P-recursive recurrence | Mathar |
+| 142 | PROOF | A189053 | conjectured P-recursive recurrence | Mathar |
+| 143 | PROOF | A182904 | conjectured P-recursive recurrence | Mathar |
+| 144 | PROOF | A274295 | conjectured P-recursive recurrence | Mathar |
+| 145 | PROOF | A226434 | conjectured P-recursive recurrence | Mathar |
+| 146 | PROOF | A108600 | conjectured P-recursive recurrence | Mathar |
+| 147 | PROOF | A114851 | conjectured P-recursive recurrence | Mathar |
+| 148 | PROOF | A125306 | conjectured P-recursive recurrence | Mathar |
+| 149 | PROOF | A166290 | conjectured P-recursive recurrence | Mathar |
+| 150 | PROOF | A228770 | conjectured P-recursive recurrence | Mathar |
+| 151 | PROOF | A257300 | conjectured P-recursive recurrence | Mathar |
+| 152 | PROOF | A089324 | conjectured P-recursive recurrence | Mathar |
+| 153 | PROOF | A104625 | conjectured P-recursive recurrence | Mathar |
+| 154 | PROOF | A113956 | conjectured P-recursive recurrence | Mathar |
+| 155 | PROOF | A116383 | conjectured P-recursive recurrence | Mathar |
+| 156 | PROOF | A162548 | conjectured P-recursive recurrence | Mathar |
+| 157 | PROOF | A173993 | conjectured P-recursive recurrence | Mathar |
+| 158 | PROOF | A244886 | conjectured P-recursive recurrence | Mathar |
+| 159 | PROOF | A157003 | conjectured P-recursive recurrence | Mathar |
+| 160 | PROOF | A163493 | conjectured P-recursive recurrence | Mathar |
+| 161 | PROOF | A191398 | conjectured P-recursive recurrence | Mathar |
+| 162 | PROOF | A135582 | conjectured P-recursive recurrence | Mathar |
+| 163 | PROOF | A139376 | conjectured P-recursive recurrence | Mathar |
+| 164 | PROOF | A346074 | conjectured P-recursive recurrence | Mathar |
+| 165 | PROOF | A190166 | conjectured P-recursive recurrence | Mathar |
+| 166 | PROOF | A025251 | conjectured P-recursive recurrence | Mathar |
+| 167 | PROOF | A228771 | conjectured P-recursive recurrence | Mathar |
+| 168 | PROOF | A025268 | conjectured P-recursive recurrence | Mathar |
+| 169 | PROOF | A025272 | conjectured P-recursive recurrence | Mathar |
+| 170 | PROOF | A385252 | conjectured P-recursive recurrence | Mathar |
+| 171 | PROOF | A025758 | conjectured P-recursive recurrence | Mathar |
+| 172 | PROOF | A114464 | conjectured P-recursive recurrence | Mathar |
+| 173 | PROOF | A127154 | conjectured P-recursive recurrence | Mathar |
+| 174 | PROOF | A135335 | conjectured P-recursive recurrence | Mathar |
+| 175 | PROOF | A165540 | conjectured P-recursive recurrence | Mathar |
+| 176 | PROOF | A171416 | conjectured P-recursive recurrence | Mathar |
+| 177 | PROOF | A188314 | conjectured P-recursive recurrence | Mathar |
+| 178 | PROOF | A254314 | conjectured P-recursive recurrence | Mathar |
+| 179 | PROOF | A270661 | conjectured P-recursive recurrence | Mathar |
+| 180 | PROOF | A003440 | conjectured P-recursive recurrence | Mathar |
+| 181 | PROOF | A110521 | conjectured P-recursive recurrence | Mathar |
+| 182 | PROOF | A114190 | conjectured P-recursive recurrence | Mathar |
+| 183 | PROOF | A116387 | conjectured P-recursive recurrence | Mathar |
+| 184 | PROOF | A128096 | conjectured P-recursive recurrence | Mathar |
+| 185 | PROOF | A157021 | conjectured P-recursive recurrence | Mathar |
+| 186 | PROOF | A160823 | conjectured P-recursive recurrence | Mathar |
+| 187 | PROOF | A166287 | conjectured P-recursive recurrence | Mathar |
+| 188 | PROOF | A174808 | conjectured P-recursive recurrence | Mathar |
+| 189 | PROOF | A185089 | conjectured P-recursive recurrence | Mathar |
+| 190 | PROOF | A186940 | conjectured P-recursive recurrence | Mathar |
+| 191 | PROOF | A190736 | conjectured P-recursive recurrence | Mathar |
+| 192 | PROOF | A219314 | conjectured P-recursive recurrence | Mathar |
+| 193 | PROOF | A100095 | conjectured P-recursive recurrence | Mathar |
+| 194 | PROOF | A100097 | conjectured P-recursive recurrence | Mathar |
+| 195 | PROOF | A191313 | conjectured P-recursive recurrence | Mathar |
+| 196 | PROOF | A191790 | conjectured P-recursive recurrence | Mathar |
+| 197 | PROOF | A273351 | conjectured P-recursive recurrence | Mathar |
+| 198 | PROOF | A278472 | conjectured P-recursive recurrence | Mathar |
+| 199 | PROOF | A108296 | conjectured P-recursive recurrence | Mathar |
+| 200 | PROOF | A116391 | conjectured P-recursive recurrence | Mathar |
+| 201 | PROOF | A110198 | conjectured P-recursive recurrence | Mathar |
+| 202 | PROOF | A182879 | conjectured P-recursive recurrence | Mathar |
+| 203 | PROOF | A182887 | conjectured P-recursive recurrence | Mathar |
+| 204 | PROOF | A135925 | conjectured P-recursive recurrence | Mathar |
+| 205 | PROOF | A025256 | conjectured P-recursive recurrence | Mathar |
+| 206 | PROOF | A025258 | conjectured P-recursive recurrence | Mathar |
+| 207 | PROOF | A000781 | conjectured P-recursive recurrence | Mathar |
+| 208 | PROOF | A025245 | conjectured P-recursive recurrence | Mathar |
+| 209 | PROOF | A025257 | conjectured P-recursive recurrence | Mathar |
+| 210 | PROOF | A025269 | conjectured P-recursive recurrence | Mathar |
+| 211 | PROOF | A025270 | conjectured P-recursive recurrence | Mathar |
+| 212 | PROOF | A025275 | conjectured P-recursive recurrence | Mathar |
+| 213 | PROOF | A032096 | conjectured P-recursive recurrence | Mathar |
+| 214 | PROOF | A102880 | conjectured P-recursive recurrence | Mathar |
+| 215 | PROOF | A111053 | conjectured P-recursive recurrence | Mathar |
+| 216 | PROOF | A152120 | conjectured P-recursive recurrence | Mathar |
+| 217 | PROOF | A159771 | conjectured P-recursive recurrence | Mathar |
+| 218 | PROOF | A166694 | conjectured P-recursive recurrence | Mathar |
+| 219 | PROOF | A166696 | conjectured P-recursive recurrence | Mathar |
+| 220 | PROOF | A191796 | conjectured P-recursive recurrence | Mathar |
+| 221 | PROOF | A217711 | conjectured P-recursive recurrence | Mathar |
+| 222 | PROOF | A278023 | conjectured P-recursive recurrence | Mathar |
+| 223 | PROOF | A279014 | conjectured P-recursive recurrence | Mathar |
+| 224 | PROOF | A000483 | conjectured P-recursive recurrence | Mathar |
+| 225 | PROOF | A025757 | conjectured P-recursive recurrence | Mathar |
+| 226 | PROOF | A026030 | conjectured P-recursive recurrence | Mathar |
+| 227 | PROOF | A026031 | conjectured P-recursive recurrence | Mathar |
+| 228 | PROOF | A048775 | conjectured P-recursive recurrence | Mathar |
+| 229 | PROOF | A116409 | conjectured P-recursive recurrence | Mathar |
+| 230 | PROOF | A126322 | conjectured P-recursive recurrence | Mathar |
+| 231 | PROOF | A128750 | conjectured P-recursive recurrence | Mathar |
+| 232 | PROOF | A143955 | conjectured P-recursive recurrence | Mathar |
+| 233 | PROOF | A165203 | conjectured P-recursive recurrence | Mathar |
+| 234 | PROOF | A168505 | conjectured P-recursive recurrence | Mathar |
+| 235 | PROOF | A176605 | conjectured P-recursive recurrence | Mathar |
+| 236 | PROOF | A181933 | conjectured P-recursive recurrence | Mathar |
+| 237 | PROOF | A191585 | conjectured P-recursive recurrence | Mathar |
+| 238 | PROOF | A215973 | conjectured P-recursive recurrence | Mathar |
+| 239 | PROOF | A234269 | conjectured P-recursive recurrence | Mathar |
+| 240 | PROOF | A236407 | conjectured P-recursive recurrence | Mathar |
+| 241 | PROOF | A270363 | conjectured P-recursive recurrence | Mathar |
+| 242 | PROOF | A098521 | conjectured P-recursive recurrence | Mathar |
+| 243 | PROOF | A100096 | conjectured P-recursive recurrence | Mathar |
+| 244 | PROOF | A100099 | conjectured P-recursive recurrence | Mathar |
+| 245 | PROOF | A105849 | conjectured P-recursive recurrence | Mathar |
+| 246 | PROOF | A105864 | conjectured P-recursive recurrence | Mathar |
+| 247 | PROOF | A105865 | conjectured P-recursive recurrence | Mathar |
+| 248 | PROOF | A108308 | conjectured P-recursive recurrence | Mathar |
+| 249 | PROOF | A114194 | conjectured P-recursive recurrence | Mathar |
+| 250 | PROOF | A115967 | conjectured P-recursive recurrence | Mathar |
+| 251 | PROOF | A120010 | conjectured P-recursive recurrence | Mathar |
+| 252 | PROOF | A124431 | conjectured P-recursive recurrence | Mathar |
+| 253 | PROOF | A124431 | conjectured P-recursive recurrence | Mathar |
+| 254 | PROOF | A126568 | conjectured P-recursive recurrence | Mathar |
+| 255 | PROOF | A132364 | conjectured P-recursive recurrence | Mathar |
+| 256 | PROOF | A141342 | conjectured P-recursive recurrence | Mathar |
+| 257 | PROOF | A155051 | conjectured P-recursive recurrence | Mathar |
+| 258 | PROOF | A157100 | conjectured P-recursive recurrence | Mathar |
+| 259 | PROOF | A166076 | conjectured P-recursive recurrence | Mathar |
+| 260 | PROOF | A166300 | conjectured P-recursive recurrence | Mathar |
+| 261 | PROOF | A168503 | conjectured P-recursive recurrence | Mathar |
+| 262 | PROOF | A174107 | conjectured P-recursive recurrence | Mathar |
+| 263 | PROOF | A174169 | conjectured P-recursive recurrence | Mathar |
+| 264 | PROOF | A176332 | conjectured P-recursive recurrence | Mathar |
+| 265 | PROOF | A184018 | conjectured P-recursive recurrence | Mathar |
+| 266 | PROOF | A188312 | conjectured P-recursive recurrence | Mathar |
+| 267 | PROOF | A188482 | conjectured P-recursive recurrence | Mathar |
+| 268 | PROOF | A191782 | conjectured P-recursive recurrence | Mathar |
+| 269 | PROOF | A217333 | conjectured P-recursive recurrence | Mathar |
+| 270 | PROOF | A257072 | conjectured P-recursive recurrence | Mathar |
+| 271 | PROOF | A261681 | conjectured P-recursive recurrence | Mathar |
+| 272 | PROOF | A073155 | conjectured P-recursive recurrence | Mathar |
+| 273 | PROOF | A114589 | conjectured P-recursive recurrence | Mathar |
+| 274 | PROOF | A114590 | conjectured P-recursive recurrence | Mathar |
+| 275 | PROOF | A162481 | conjectured P-recursive recurrence | Mathar |
+| 276 | PROOF | A188460 | conjectured P-recursive recurrence | Mathar |
+| 277 | PROOF | A188464 | conjectured P-recursive recurrence | Mathar |
+| 278 | PROOF | A190725 | conjectured P-recursive recurrence | Mathar |
+| 279 | PROOF | A191526 | conjectured P-recursive recurrence | Mathar |
+| 280 | PROOF | A191531 | conjectured P-recursive recurrence | Mathar |
+| 281 | PROOF | A211278 | conjectured P-recursive recurrence | Mathar |
+| 282 | PROOF | A026327 | conjectured P-recursive recurrence | Mathar |
+| 283 | PROOF | A081207 | conjectured P-recursive recurrence | Mathar |
+| 284 | PROOF | A102882 | conjectured P-recursive recurrence | Mathar |
+| 285 | PROOF | A182881 | conjectured P-recursive recurrence | Mathar |
+| 286 | PROOF | A191309 | conjectured P-recursive recurrence | Mathar |
+| 287 | PROOF | A191319 | conjectured P-recursive recurrence | Mathar |
+| 288 | PROOF | A191790 | conjectured P-recursive recurrence | Mathar |
+| 289 | PROOF | A273351 | conjectured P-recursive recurrence | Mathar |
+| 290 | PROOF | A025248 | conjectured P-recursive recurrence | Mathar |
+| 291 | PROOF | A025249 | conjectured P-recursive recurrence | Mathar |
+| 292 | PROOF | A026017 | conjectured P-recursive recurrence | Mathar |
+| 293 | PROOF | A071717 | conjectured P-recursive recurrence | Mathar |
+| 294 | PROOF | A081672 | conjectured P-recursive recurrence | Mathar |
+| 295 | PROOF | A104722 | conjectured P-recursive recurrence | Mathar |
+| 296 | PROOF | A109263 | conjectured P-recursive recurrence | Mathar |
+| 297 | PROOF | A118093 | conjectured P-recursive recurrence | Mathar |
+| 298 | PROOF | A118974 | conjectured P-recursive recurrence | Mathar |
+| 299 | PROOF | A126323 | conjectured P-recursive recurrence | Mathar |
+| 300 | PROOF | A128723 | conjectured P-recursive recurrence | Mathar |
+| 301 | PROOF | A135334 | conjectured P-recursive recurrence | Mathar |
+| 302 | PROOF | A141351 | conjectured P-recursive recurrence | Mathar |
+| 303 | PROOF | A141353 | conjectured P-recursive recurrence | Mathar |
+| 304 | PROOF | A163824 | conjectured P-recursive recurrence | Mathar |
+| 305 | PROOF | A165201 | conjectured P-recursive recurrence | Mathar |
+| 306 | PROOF | A279014 | conjectured closed form | Mathar |
+| 307 | PROOF | A025756 | conjectured closed form | Mathar |
+| 308 | PROOF | A026027 | conjectured closed form | Mathar |
+| 309 | PROOF | A026135 | conjectured closed form | Mathar |
+| 310 | PROOF | A050168 | conjectured closed form | Mathar |
+| 311 | PROOF | A059279 | conjectured closed form | Mathar |
+| 312 | PROOF | A063395 | conjectured P-recursive recurrence | Mathar |
+| 313 | PROOF | A071722 | conjectured P-recursive recurrence | Mathar |
+| 314 | PROOF | A082134 | conjectured P-recursive recurrence | Mathar |
+| 315 | PROOF | A097180 | conjectured P-recursive recurrence | Mathar |
+| 316 | PROOF | A097189 | conjectured P-recursive recurrence | Mathar |
+| 317 | PROOF | A097331 | conjectured P-recursive recurrence | Mathar |
+| 318 | PROOF | A100193 | conjectured P-recursive recurrence | Mathar |
+| 319 | PROOF | A103973 | conjectured P-recursive recurrence | Mathar |
+| 320 | PROOF | A106181 | conjectured P-recursive recurrence | Mathar |
+| 321 | PROOF | A108623 | conjectured P-recursive recurrence | Mathar |
+| 322 | PROOF | A126180 | conjectured P-recursive recurrence | Mathar |
+| 323 | PROOF | A128732 | conjectured P-recursive recurrence | Mathar |
+| 324 | PROOF | A134389 | conjectured P-recursive recurrence | Mathar |
+| 325 | PROOF | A143013 | conjectured P-recursive recurrence | Mathar |
+| 326 | PROOF | A143954 | conjectured P-recursive recurrence | Mathar |
+| 327 | PROOF | A157418 | conjectured P-recursive recurrence | Mathar |
+| 328 | PROOF | A158196 | conjectured P-recursive recurrence | Mathar |
+| 329 | PROOF | A158197 | sequence equals a convergent infinite series | Mathar |
+| 330 | PROOF | A191585 | sequence equals a convergent infinite series | Mathar |
+| 331 | PROOF | A257290 | conjectured P-recursive recurrence | Mathar |
+| 332 | PROOF | A054341 | conjectured P-recursive recurrence | Mathar |
+| 333 | PROOF | A071715 | conjectured P-recursive recurrence | Mathar |
+| 334 | PROOF | A090413 | conjectured P-recursive recurrence | Mathar |
+| 335 | PROOF | A091699 | conjectured P-recursive recurrence | Mathar |
+| 336 | PROOF | A098664 | conjectured P-recursive recurrence | Mathar |
+| 337 | PROOF | A099363 | conjectured P-recursive recurrence | Mathar |
+| 338 | PROOF | A100098 | conjectured P-recursive recurrence | Mathar |
+| 339 | PROOF | A105872 | conjectured P-recursive recurrence | Mathar |
+| 340 | PROOF | A121724 | conjectured P-recursive recurrence | Mathar |
+| 341 | PROOF | A121725 | conjectured P-recursive recurrence | Mathar |
+| 342 | PROOF | A126931 | conjectured P-recursive recurrence | Mathar |
+| 343 | PROOF | A126932 | conjectured P-recursive recurrence | Mathar |
+| 344 | PROOF | A127361 | conjectured P-recursive recurrence | Mathar |
+| 345 | PROOF | A127363 | conjectured P-recursive recurrence | Mathar |
+| 346 | PROOF | A155051 | conjectured P-recursive recurrence | Mathar |
+| 347 | PROOF | A166078 | conjectured P-recursive recurrence | Mathar |
+| 348 | PROOF | A166587 | conjectured P-recursive recurrence | Mathar |
+| 349 | PROOF | A166588 | conjectured P-recursive recurrence | Mathar |
+| 350 | PROOF | A185087 | conjectured P-recursive recurrence | Mathar |
+| 351 | PROOF | A190724 | conjectured P-recursive recurrence | Mathar |
+| 352 | PROOF | A225887 | conjectured P-recursive recurrence | Mathar |
+| 353 | PROOF | A227081 | conjectured P-recursive recurrence | Mathar |
+| 354 | PROOF | A257178 | conjectured P-recursive recurrence | Mathar |
+| 355 | PROOF | A257388 | conjectured P-recursive recurrence | Mathar |
+| 356 | PROOF | A257838 | conjectured P-recursive recurrence | Mathar |
+| 357 | PROOF | A001712 | conjectured P-recursive recurrence | Mathar |
+| 358 | PROOF | A025175 | conjectured P-recursive recurrence | Mathar |
+| 359 | PROOF | A025577 | conjectured P-recursive recurrence | Mathar |
+| 360 | PROOF | A055217 | conjectured P-recursive recurrence | Mathar |
+| 361 | PROOF | A081052 | conjectured P-recursive recurrence | Mathar |
+| 362 | PROOF | A103821 | conjectured P-recursive recurrence | Mathar |
+| 363 | PROOF | A107231 | conjectured P-recursive recurrence | Mathar |
+| 364 | PROOF | A110199 | conjectured P-recursive recurrence | Mathar |
+| 365 | PROOF | A116406 | conjectured P-recursive recurrence | Mathar |
+| 366 | PROOF | A128734 | conjectured P-recursive recurrence | Mathar |
+| 367 | PROOF | A191307 | conjectured P-recursive recurrence | Mathar |
+| 368 | PROOF | A278472 | conjectured P-recursive recurrence | Mathar |
+| 369 | PROOF | A034863 | conjectured P-recursive recurrence | Mathar |
+| 370 | PROOF | A174195 | conjectured P-recursive recurrence | Mathar |
+| 371 | PROOF | A192480 | conjectured P-recursive recurrence | Mathar |
+| 372 | PROOF | A158495 | conjectured P-recursive recurrence | Mathar |
+| 373 | PROOF | A189176 | conjectured P-recursive recurrence | Mathar |
+| 374 | PROOF | A194724 | conjectured P-recursive recurrence | Mathar |
+| 375 | PROOF | A210474 | conjectured P-recursive recurrence | Mathar |
+| 376 | PROOF | A262768 | conjectured P-recursive recurrence | Mathar |
+| 377 | PROOF | A026029 | conjectured P-recursive recurrence | Mathar |
+| 378 | PROOF | A064088 | conjectured P-recursive recurrence | Mathar |
+| 379 | PROOF | A064089 | conjectured P-recursive recurrence | Mathar |
+| 380 | PROOF | A064090 | conjectured P-recursive recurrence | Mathar |
+| 381 | PROOF | A064091 | conjectured P-recursive recurrence | Mathar |
+| 382 | PROOF | A064092 | conjectured P-recursive recurrence | Mathar |
+| 383 | PROOF | A067299 | conjectured P-recursive recurrence | Mathar |
+| 384 | PROOF | A068551 | conjectured P-recursive recurrence | Mathar |
+| 385 | PROOF | A080243 | conjectured P-recursive recurrence | Mathar |
+| 386 | PROOF | A114191 | conjectured P-recursive recurrence | Mathar |
+| 387 | PROOF | A116881 | conjectured P-recursive recurrence | Mathar |
+| 388 | PROOF | A122920 | conjectured P-recursive recurrence | Mathar |
+| 389 | PROOF | A132864 | conjectured P-recursive recurrence | Mathar |
+| 390 | PROOF | A133305 | conjectured P-recursive recurrence | Mathar |
+| 391 | PROOF | A133306 | conjectured P-recursive recurrence | Mathar |
+| 392 | PROOF | A133307 | conjectured P-recursive recurrence | Mathar |
+| 393 | PROOF | A133308 | conjectured P-recursive recurrence | Mathar |
+| 394 | PROOF | A141222 | conjectured P-recursive recurrence | Mathar |
+| 395 | PROOF | A154623 | conjectured P-recursive recurrence | Mathar |
+| 396 | PROOF | A157328 | conjectured P-recursive recurrence | Mathar |
+| 397 | PROOF | A158196 | conjectured P-recursive recurrence | Mathar |
+| 398 | PROOF | A158197 | conjectured P-recursive recurrence | Mathar |
+| 399 | PROOF | A191993 | identity between OEIS entries | Mathar |
+| 400 | PROOF | A225034 | identity between OEIS entries | Berselli |
+| 401 | PROOF | A242172 | identity between OEIS entries | Mathar |
+| 402 | PROOF | A002867 | identity between OEIS entries | Mathar |
+| 403 | PROOF | A014533 | identity between OEIS entries | Mathar |
+| 404 | PROOF | A051524 | identity between OEIS entries | Mathar |
+| 405 | PROOF | A081046 | identity between OEIS entries | Mathar |
+| 406 | PROOF | A098519 | identity between OEIS entries | Mathar |
+| 407 | PROOF | A098520 | identity between OEIS entries | Mathar |
+| 408 | PROOF | A101596 | conjectured P-recursive recurrence | Mathar |
+| 409 | PROOF | A101601 | conjectured P-recursive recurrence | Mathar |
+| 410 | PROOF | A101602 | conjectured P-recursive recurrence | Mathar |
+| 411 | PROOF | A111779 | conjectured P-recursive recurrence | Mathar |
+| 412 | PROOF | A112703 | conjectured P-recursive recurrence | Mathar |
+| 413 | PROOF | A119012 | conjectured P-recursive recurrence | Mathar |
+| 414 | PROOF | A128057 | conjectured P-recursive recurrence | Mathar |
+| 415 | PROOF | A128746 | conjectured P-recursive recurrence | Mathar |
+| 416 | PROOF | A132900 | conjectured closed form | Mathar |
+| 417 | PROOF | A151483 | conjectured closed form | Mathar |
+| 418 | PROOF | A167481 | conjectured closed form | Mathar |
+| 419 | PROOF | A171556 | conjectured P-recursive recurrence | Mathar |
+| 420 | PROOF | A176479 | conjectured P-recursive recurrence | Mathar |
+| 421 | PROOF | A182401 | conjectured P-recursive recurrence | Mathar |
+| 422 | PROOF | A208355 | conjectured P-recursive recurrence | Mathar |
+| 423 | PROOF | A210064 | conjectured P-recursive recurrence | Mathar |
+| 424 | PROOF | A240558 | conjectured P-recursive recurrence | Mathar |
+| 425 | PROOF | A141771 | conjectured P-recursive recurrence | Mathar |
+| 426 | PROOF | A025754 | conjectured P-recursive recurrence | Mathar |
+| 427 | PROOF | A097188 | conjectured P-recursive recurrence | Mathar |
+| 428 | PROOF | A097192 | conjectured P-recursive recurrence | Mathar |
+| 429 | PROOF | A334511 | conjectured P-recursive recurrence | Spezia |
+| 430 | PROOF | A333905 | conjectured P-recursive recurrence | Spezia |
+| 431 | PROOF | A049486 | conjectured P-recursive recurrence | Mathar |
+| 432 | PROOF | A267879 | conjectured P-recursive recurrence | Spezia |
+| 433 | PROOF | A267802 | conjectured P-recursive recurrence | Barker |
+| 434 | PROOF | A267847 | conjectured P-recursive recurrence | Barker |
+| 435 | PROOF | A126501 | conjectured P-recursive recurrence | Barker |
+| 436 | PROOF | A128153 | conjectured P-recursive recurrence | Mathar |
+| 437 | PROOF | A272706 | conjectured P-recursive recurrence | Blomberg |
+| 438 | PROOF | A025271 | conjectured P-recursive recurrence | Mathar |
+| 439 | PROOF | A138164 | conjectured P-recursive recurrence | Mathar |
+| 440 | PROOF | A143017 | conjectured P-recursive recurrence | Mathar |
+| 441 | PROOF | A159772 | conjectured P-recursive recurrence | Mathar |
+| 442 | PROOF | A000986 | conjectured P-recursive recurrence | Mathar |
+| 443 | PROOF | A022917 | conjectured P-recursive recurrence | Mathar |
+| 444 | PROOF | A217447 | conjectured P-recursive recurrence | Mathar |
+| 445 | PROOF | A226302 | conjectured P-recursive recurrence | Mathar |
+| 446 | PROOF | A026165 | conjectured P-recursive recurrence | Mathar |
+| 447 | PROOF | A185966 | conjectured P-recursive recurrence | Mathar |
+| 448 | PROOF | A200753 | conjectured P-recursive recurrence | Mathar |
+| 449 | PROOF | A217358 | conjectured P-recursive recurrence | Mathar |
+| 450 | PROOF | A228960 | conjectured P-recursive recurrence | Mathar |
+| 451 | PROOF | A003435 | conjectured P-recursive recurrence | Mathar |
+| 452 | PROOF | A228331 | conjectured P-recursive recurrence | Mathar |
+| 453 | PROOF | A273019 | conjectured P-recursive recurrence | Mathar |
+| 454 | PROOF | A386834 | conjectured P-recursive recurrence | Mathar |
+| 455 | PROOF | A228330 | conjectured P-recursive recurrence | Mathar |
+| 456 | PROOF | A228333 | conjectured P-recursive recurrence | Mathar |
 
 ### What the ranking means
 
@@ -619,14 +619,24 @@ Papers are numbered by how hard the result was, 1 hardest. The tiers, and where 
 | 1-30 | a separate argument found for that one problem |
 | 31-50 | one theorem (Bala periodicity), proved once and applied to twenty entries |
 | 51-54 | a recurrence derived from the summand by creative telescoping, then divided |
-| 55- | a decision procedure over a generating function the entry already posts |
+| 55-60 | the generating function itself derived, from a coefficient-extraction definition |
+| 61- | a decision procedure over a generating function the entry already posts |
 
-So **ranks 1-54 are the ones with mathematics on the page**. Everything from 55 on is a
+So **ranks 1-60 are the ones with mathematics on the page**. Everything from 61 on is a
 real proof of a genuinely open conjecture, but the argument lives in the engine rather
 than in the paper.
 
+Ranks 55-60 are new. Those entries define the sequence only as `a(n) = [x^n] f(x)g(x)^n`
+and post no generating function at all, so there was nothing for the older engines to
+test. Reading the extraction as a contour integral and summing the geometric series
+gives `A(t) = f(x(t))/(1 - t g'(x(t)))` where `x = t g(x)`; eliminating `x` by a
+resultant produces the minimal polynomial, and the conjecture is then decided in that
+algebraic function field. The generating function is derived, not quoted, which is why
+these rank above the mechanical range.
+
 Within the mechanical range the order is: recurrence derived from the summand by
-telescoping; general algebraic function field; transcendental e.g.f.; several independent
+telescoping; generating function derived from a coefficient-extraction definition;
+general algebraic function field; transcendental e.g.f.; several independent
 square roots; identity between entries; the standard residual test; closed form against
 the posted g.f.; and last, one posted operator dividing another -- honestly the
 shallowest thing here, since both recurrences were already on the entry. Inside each tier
@@ -638,6 +648,40 @@ position, not appended.
 
 
 ### Caveats to disclose when handing these over
+
+- **Six withdrawn on 30 Aug 2026, and the one-letter gap that hid them.** The detector
+  matched `verified` but not `verifies`, and `proved` but not `proves`. Six entries
+  settle their conjecture in exactly those words:
+  A081923 (Bala, 2013 -- Zeilberger's algorithm on Walsh's sum gives a first-order
+  recurrence, "using this it is easy to verify that a(n) satisfies the second-order
+  recurrence ... conjectured above"), A162477 (Munarini, 2017 -- "using this form of the
+  g.f., it is straightforward to prove the above conjectured recurrence"), A093387 (a
+  full proof on the entry, worked through both parities), A106271 and A106272
+  (Hadjicostas, 2019 -- generating-function proofs ending "which proves the conjecture"),
+  A155587 (Hadjicostas, 2020 -- "implies R. J. Mathar's conjecture"). A seventh,
+  A156894, was caught before it was ever added: Bala, 2015, "the Maple command
+  sumrecursion ... verifies this recurrence". The pattern now matches `verif\w*`,
+  `prove[sndg]?`, `proving`, `shown`, `shows`, `sumrecursion`, `Zeilberger`, `deduce\w*`
+  and `by induction`, and the whole roster was re-scanned against a local clone of the
+  OEIS rather than by sampling.
+
+- **What the same re-scan looked at and kept, with the wording, so it can be re-judged.**
+  Twenty-two papers were flagged and read. Kept: A107587 (two papers) -- *"conjecture is
+  true for n = 0..800; checked by Gennady Eremin"* is a finite check and settles nothing.
+  A162548 and A185089 -- *"(Formula verified and used for computations. - Fung Lam)"*
+  claims no proof and gives no method; the recurrence was used to extend the b-file.
+  A346370 -- the entry says *"[verification needed]"*, which is the opposite. A163493 and
+  A211278 -- both link Ekhad-Zeilberger, *"See subpages for rigorous derivations of g.f.,
+  recurrence"*, but that is boilerplate about the authors' own recurrence and both
+  Mathar conjectures postdate it and remain labelled conjectures. A228960 -- Bala's
+  `sumrecursion` note proves *Kotesovec's* order-3 recurrence, not Mathar's order-4 one;
+  that paper divides the second by the first, so the proved input makes it stronger, not
+  weaker. A000071, A000139, A000040 (two papers), A087726, A129365, A000670 -- every hit
+  is a different conjecture on the same entry (Hendel on McGarvey's floor formula,
+  Zeilberger on West's enumeration, Wilson's theorem, Schmidt's squarefree half which
+  the paper itself credits, Adamczewski on Conjectures B and C where the paper does A,
+  Erlbacher on Kurkov's sum). **Read the hit, do not trust the match** -- it cuts both
+  ways.
 
 - **Four more withdrawn late on 26 Aug 2026, and the wording that caught them.** The
   entries settle the conjecture without any of the words the detector knew:
@@ -1056,11 +1100,45 @@ What was established here, for whoever picks it up:
 Not proved. Recorded rather than counted.
 
 
+### 30 Aug 2026: entries that post no generating function at all
+
+`diagonal.py`. A family of entries defines the sequence only by an instruction,
+`a(n) = [x^n] f(x) g(x)^n`, with no g.f. anywhere on the page. Every engine here skipped
+them for want of something to test. They are diagonals, and the generating function is
+algebraic and computable: reading the extraction as a contour integral and summing the
+geometric series leaves one pole inside the circle, the Lagrange branch `x = t g(x)`,
+whence `A(t) = f(x(t))/(1 - t g'(x(t)))`. Eliminating `x` by a resultant gives the
+minimal polynomial, which `algfield.py` then takes.
+
+Two bugs in it are worth remembering because both were silent.
+
+- Solving the resultant for a closed-form root works only up to degree four. Above that
+  `sp.solve` returns nothing and the entry was dropped with no error. Fixed by
+  identifying the branch through *which irreducible factor the series satisfies*, which
+  needs no root at all.
+- Composing a power series into a rational function by substitution and `expand` does not
+  terminate on anything but polynomials. It surfaced as "no branch reproduces the terms",
+  which reads like a mathematical verdict and was a timeout. Rewritten on truncated
+  coefficient lists; the yield went from 9 to 18.
+
+And one in the *checker*, which is the more instructive: the independent second series
+computation read `[x^i]` off a rational function with `.coeff(x, i)`, which returns the
+numerator's coefficient and keeps the denominator. It rejected six of seven papers as
+"the two series computations disagree". On A156894 it returned `1/(x-1)^4` where the
+answer is 19. **The engine was right and the check was wrong** — the same shape of error
+as the A156894 yardstick below, twice on one entry.
+
+
 ### Still unexploited
 
 `a(n) = A######(m*n+k)` for `m ≥ 2` — 14 such conjectures. The `m`-section of a rational
 g.f. is rational: `G(y) = (1/m) Σ_{r<m} ζ^{−rk} F(ζ^r y^{1/m})`. Fiddly with roots of
 unity, maybe two or three results. Not attempted.
+
+The second Lagrange form, `a(n) = [x^n] φ(x)^(n+1)/(n+1)` (A182401 and others), gives
+`A(t) = w(t)/t` with `w = t φ(w)`. `diagonal.py` handles only the first form; the
+parser refuses this one because the exponent divides rather than multiplies. Same
+machinery, a different residue. Not attempted.
 
 
 ### Signals worth opening
