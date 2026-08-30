@@ -11,7 +11,9 @@ import cfparse, hyperterm as ht
 from hyperterm import n
 from hypertex import TEMPLATE
 from makerecpapers import tex_escape, render_conj, rec_latex
-from prove_rec import parse_conj
+# coeffs_of, not parse_conj: these conjectures are written "a(n) = <combination of
+# earlier terms>", which parse_conj refuses -- it insists on the "... = 0" spelling.
+from makeslots import coeffs_of
 from verify_open import fetch
 
 
@@ -39,7 +41,7 @@ def build(spec):
         fv = cfparse.first_valid(cf, data, off)
         if fv is None:
             print(f"{num:4d}  {a}  SKIP the formula is not usable at any index"); continue
-        ps = parse_conj(v["conj"])
+        ps = coeffs_of(v["conj"])
         ok, info = ht.verdict(ps, cf)
         if ok is not True:
             print(f"{num:4d}  {a}  SKIP did not reproduce: {ok}"); continue

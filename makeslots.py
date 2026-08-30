@@ -25,7 +25,10 @@ def coeffs_of(conj):
     body = conj.split(" - _")[0]
     if re.search(r"=\s*0\s*\.?\s*$", body.strip()):
         return parse_conj(conj)
-    b = re.sub(r"^\s*Conjecture[s]?[:.]?\s*", "", body, flags=re.I)
+    # "Empirical" belongs here too: it is the same statement with a different label, and
+    # leaving it on the line made sympify choke on every one of them.
+    b = re.sub(r"^\s*(Conjecture[sd]?|Empirical)\s*\d*\s*[:.,]?\s*", "", body, flags=re.I)
+    b = re.sub(r"^\s*(?:to be\s+)?D-finite\s+with\s+recurrence\s*[:.,]?\s*", "", b, flags=re.I)
     b = re.sub(r"\bfor\s+n\s*[><=].*$", "", b)
     b = re.sub(r",?\s*(with|where)\s.*$", "", b, flags=re.I)
     b = b.strip().rstrip(".").strip().rstrip(",").strip()

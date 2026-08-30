@@ -997,6 +997,58 @@ rebuild's integer check at n = 2, with a reported degree of 0.
   reads `papers-old-numbering/`, the `was`-keyed master. `makeslots.py` writes there too.
 
 
+### 30 Aug 2026 (evening): the honest ceiling, and a full settlement audit
+
+**The ceiling, measured.** With `conjlines` fixed the corpus holds **11,897 open
+conjectural recurrences**. Of those:
+
+| count | what the entry offers |
+|---|---|
+| 10,418 | **nothing stated as fact at all** |
+| 587 | only prose |
+| 521 | a generating function a parser accepts |
+| 304 | a mathematical line **no parser here reads** |
+| 37 | a closed form a parser accepts |
+| 30 | a sum a parser accepts |
+
+88% have no known side. That is the ceiling on everything built here, not a gap in the
+engines. By NAME, **10,408 of the 11,894 are "Number of ..."** — a combinatorial
+definition. The 304 unparsed mathematical lines are the one remaining actionable pocket.
+
+**`known_run.py`: 230 entries with a usable known side and no paper, 14 proved, 9 open.**
+Shipped: A010845, A066534, A129149, A158826, A187252, A212938, A220250, A258547.
+A213801 was refused by its own rebuild (a period-4 term in the closed form the independent
+check cannot decide) and is NOT shipped. Roster **534**.
+
+- The four closed-form ones are **elementary**: `10^n - 2*18^n + 27^n`,
+  `4^n - 2^(n-2)*(n+1)*(1-(-1)^n)`, `16*2^n - 4*n - 12`. Genuinely open Barker empiricals,
+  but the mathematics is a Binet formula. Same for **A126501** (paper on Barker's closed
+  form): the entry already states both the g.f. and the recurrence, so the conjecture is
+  the Binet formula for a recurrence it gives you. Disclose this.
+- The sweep went 8 → 10 → 14 as I fixed my own bugs in it: `parse_conj` rejects the
+  `a(n) = <combination>` spelling (41 lost), `coeffs_of` stripped "Conjecture" but not
+  "Empirical" (32 lost), and the integer check started at `order` rather than at the
+  criterion's own threshold, rejecting three true results whose only failures sit below it.
+
+**Full settlement audit of the roster — all 534 stand.** The local filter reads `%F` only,
+but an entry can record a settlement in a `%C` comment or a `%H` link: five of fourteen
+fresh results were settled that way (two by **Tong Niu**, arXiv 2605.08444 and 2605.12839).
+So every distinct A-number in the roster was re-fetched live and scanned across formula,
+comment, link, reference and example. 26 carried settlement wording; each was read.
+
+- **All 26 are about a different statement**, a finite numeric check, or another
+  conjecture on the same entry. Specifically: A107587 is "true for n = 0..800, checked by
+  Eremin" — finite, not a proof. A162548 and A185089 say "Formula verified and used for
+  computations" — numeric use, not a proof. A156894's THIRD conjecture is settled (Bala,
+  Maple `sumrecursion`, which is Zeilberger's algorithm and therefore a proof) but my two
+  papers there cover the first and second. A268554, A245088, A200753, A188464, A002538,
+  A066052, A126501, A129365 all cite proofs of other statements on the same entry.
+- Settled and NOT counted, found by this audit: **A002627, A045406** (Tong Niu),
+  **A106272, A126674, A135339** (proved on the entry).
+- **Add comments and links to the local settlement filter.** Reading `%F` alone is not
+  enough, and the live re-check is what has been catching it.
+
+
 ## 4. DEAD — do not revisit
 
 Already resolved on the live entry, or carrying no conjecture at all.
