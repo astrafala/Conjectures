@@ -4,6 +4,7 @@ states as established."""
 import json, os, re, signal
 import sympy as sp
 import ore
+import blocks
 from ore import n
 from prove_rec import parse_conj
 from eqform_prove import parse_eq
@@ -61,8 +62,10 @@ def candidates():
                         re.sub(r"^A\d{6}\s*", "", line[3:].strip()))
             conjs = [l for l in F if CONJ.match(l) and "a(n-" in l.replace(" ", "")
                      and "=0" in l.replace(" ", "")]
+            conj_lines = blocks.conjectured_lines(F)
             proven = [l for l in F if PROVEN.match(l) and not GUESS.search(l)
-                      and "a(n-" in l.replace(" ", "")]
+                      and "a(n-" in l.replace(" ", "")
+                      and l.strip() not in conj_lines]
             if not conjs or not proven:
                 continue
             data = "".join(S.get("S", []) + S.get("T", []) + S.get("U", []))

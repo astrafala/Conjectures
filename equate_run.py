@@ -13,7 +13,7 @@ from regf import entry, GFL, EGFL
 from holonomic import taylor
 from parity_run import parse_with_rounding
 from ore_prove import PROVEN, coeffs as rec_coeffs
-import ore
+import ore, blocks
 
 RES = os.environ.get("RES", "equate-results.json")
 CONJ = re.compile(r"^\s*Conjectur", re.I)
@@ -24,10 +24,16 @@ GUESS = re.compile(r"conjectur|empirical|apparent|it seems|probably", re.I)
 
 
 def known_sides(F):
-    """(generating functions, closed forms) the entry states as fact."""
+    """(generating functions, closed forms) the entry states as fact.
+
+    Lines inside a conjecture block are excluded explicitly. They do not contain the word
+    "conjecture", so filtering on that word alone would let a conjecture in as the known
+    side, and a recurrence derived from one conjecture proves nothing about another.
+    """
+    conj = blocks.conjectured_lines(F)
     gfs, cfs = [], []
     for l in F:
-        if GUESS.search(l):
+        if GUESS.search(l) or l.strip() in conj:
             continue
         if GFL.match(l) or EGFL.match(l):
             gfs.append((("egf" if EGFL.match(l) else "ogf"), l))
@@ -43,8 +49,13 @@ def strip_conj(l):
 def work(a):
     F, data, off, name = entry(a)
     gfs, cfs = known_sides(F)
-    conj_gfs = [l for l in F if CONJ_GF.match(l)]
-    conj_cfs = [l for l in F if CONJ_CF.match(l) and "a(n-" not in l.replace(" ", "")]
+    stmts = blocks.statements(F)
+    conj_gfs = [s_ for s_, h, _o in stmts
+                if CONJ_GF.match(s_) or re.match(r"\s*(o\.?)?g\.?f\.?\s*[:.]", s_, re.I)
+                or re.match(r"\s*e\.?g\.?f\.?\s*[:.]", s_, re.I)]
+    conj_cfs = [s_ for s_, h, _o in stmts
+                if (CONJ_CF.match(s_) or re.match(r"\s*a\(n\)\s*=(?!=)", s_))
+                and "a(n-" not in s_.replace(" ", "")]
     if not (conj_gfs or conj_cfs):
         return {"status": "no conjectured closed form or g.f."}
 
@@ -54,8 +65,9 @@ def work(a):
     # one from a generating function is only needed when the entry does not simply give
     # one, and nearly every failure in the first run was "no usable known description"
     # on an entry that had one all along.
+    conj_lines = blocks.conjectured_lines(F)
     for l in F:
-        if not PROVEN.match(l) or GUESS.search(l):
+        if not PROVEN.match(l) or GUESS.search(l) or l.strip() in conj_lines:
             continue
         if "a(n-" not in l.replace(" ", "") and "a(n+" not in l.replace(" ", ""):
             continue

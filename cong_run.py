@@ -9,7 +9,7 @@ period -- proved or refuted, never left open.
 """
 import json, os, re, sys
 import sympy as sp
-import congparse, equate, equate_run, modper, ore, timeoutrun
+import blocks, congparse, equate, equate_run, modper, ore, timeoutrun
 from equate import n
 from regf import entry
 from ore_prove import coeffs as rec_coeffs, PROVEN
@@ -23,8 +23,9 @@ GUESS = re.compile(r"conjectur|empirical|apparent|probably", re.I)
 
 def operator_for(a, F, data, off):
     """(coefficients of N^0.., description) for a recurrence the entry supports."""
+    conj_lines = blocks.conjectured_lines(F)
     for l in F:
-        if not PROVEN.match(l) or GUESS.search(l):
+        if not PROVEN.match(l) or GUESS.search(l) or l.strip() in conj_lines:
             continue
         if "a(n-" not in l.replace(" ", "") and "a(n+" not in l.replace(" ", ""):
             continue
