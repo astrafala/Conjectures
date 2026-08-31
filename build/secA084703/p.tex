@@ -1,0 +1,161 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=1in]{geometry}
+\usepackage[colorlinks=true,linkcolor=blue,urlcolor=blue]{hyperref}
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{remark}[theorem]{Remark}
+
+\title{A quadrisection identity between OEIS A084703 and OEIS A089928}
+\author{Adrian Perez Fontelles\\ \small Independent researcher}
+\date{31 August 2026}
+\begin{document}
+\maketitle
+
+\begin{abstract}
+OEIS A084703 carries an empirical observation of A.~Ratushnyak that its $n$-th term
+equals the $(4n-2)$-nd term of OEIS A089928. It is true, and the proof is a single line
+once both entries' own closed forms are put side by side: the exponent $4n$ produced by
+the quadrisection turns $(1\pm\sqrt2)^{4n}$ into $(17\pm12\sqrt2)^{n}$, and the parity
+term $(-1)^{\lfloor (4n-2)/2\rfloor}$ is constantly $-1$. No generating function is
+needed, and in particular the generating function recorded on A089928 is not used --- as
+noted below, it does not reproduce that entry's own terms.
+\end{abstract}
+
+\noindent\small 2020 Mathematics Subject Classification. 11B37, 11B39, 11D09.\normalsize
+
+\section{The two sequences and the conjecture}
+
+OEIS A084703 is ``Squares k such that 2*k+1 is also a square.''. It has offset $0$ and begins
+\[
+0, 4, 144, 4900, 166464, 5654884, 192099600,\ \dots
+\]
+OEIS A089928 is ``a(n) = 2*a(n-1) + 2*a(n-3) + a(n-4), with a(0)=1, a(1)=2, a(3)=4, a(4)=10.''. It has offset $0$ and begins
+\[
+1, 2, 4, 10, 25, 60, 144, 348,\ \dots
+\]
+
+The entry A084703 carries the following comment:
+\begin{quote}\small
+Empirical: a(n) = A089928(4*n-2), for n > 0. --- \emph{Alex Ratushnyak}, Apr 12 2013
+\end{quote}
+As of the ``Last modified'' line on the live entry (Jan 05 2026 20:36:39, revision 68) the
+statement is still recorded as unproved, and nothing on either entry records it as settled
+either way.
+
+Written out, the statement to be proved is
+\begin{equation}\label{eq:conj}
+a(n)\;=\;b(4n-2)\qquad\text{for all } n\ge 1,
+\end{equation}
+where $a$ is A084703 and $b$ is A089928.
+
+\section{What each entry states as fact}
+
+A084703 states, not as a conjecture,
+\begin{quote}\small
+a(n) = ((17+12*sqrt(2))\^{}n + (17-12*sqrt(2))\^{}n - 2)/8.
+\end{quote}
+that is,
+\begin{equation}\label{eq:a}
+a(n)\;=\;\frac{\bigl(17+12\sqrt2\bigr)^{n}+\bigl(17-12\sqrt2\bigr)^{n}-2}{8} .
+\end{equation}
+A089928 states, not as a conjecture,
+\begin{quote}\small
+a(n) = ( (1+sqrt(2))\^{}(n+2) + (1-sqrt(2))\^{}(n+2) + 2*(-1)\^{}floor(n/2) )/8.
+\end{quote}
+that is,
+\begin{equation}\label{eq:b}
+b(m)\;=\;\frac{\bigl(1+\sqrt2\bigr)^{m+2}+\bigl(1-\sqrt2\bigr)^{m+2}
++2(-1)^{\lfloor m/2\rfloor}}{8} .
+\end{equation}
+Each was checked against its own entry's DATA at every published index before use:
+\eqref{eq:a} against all $18$ terms of A084703 and \eqref{eq:b} against all
+$30$ terms of A089928, in exact arithmetic in $\mathbb{Z}[\sqrt2]$. These two
+lines are the only input taken from the entries.
+
+\begin{remark}\label{rem:gf}
+A089928 also carries the line ``G.f.: 1/((1+2*x)*(1-2*x-x\^{}2))''. That is not the
+generating function of A089928: the stated denominator expands to $1-5x^{2}-2x^{3}$,
+whose reciprocal begins $1,0,5,\dots$, whereas the entry begins $1,2,4,\dots$. The
+factor $(1+2x)$ should read $(1+x^{2})$, since
+$(1-2x-x^{2})(1+x^{2})=1-2x-2x^{3}-x^{4}$, matching the recurrence in the entry's
+name. Nothing below uses that line; it is recorded only so that a reader checking the
+entry is not misled.
+\end{remark}
+
+\section{The proof}
+
+\begin{lemma}\label{lem:pow}
+$\bigl(1+\sqrt2\bigr)^{4}=17+12\sqrt2$ and $\bigl(1-\sqrt2\bigr)^{4}=17-12\sqrt2$.
+\end{lemma}
+
+\begin{proof}
+$\bigl(1\pm\sqrt2\bigr)^{2}=1\pm2\sqrt2+2=3\pm2\sqrt2$, and
+$\bigl(3\pm2\sqrt2\bigr)^{2}=9\pm12\sqrt2+8=17\pm12\sqrt2$.
+\end{proof}
+
+\begin{lemma}\label{lem:sign}
+For every integer $n\ge1$, $(-1)^{\lfloor (4n-2)/2\rfloor}=-1$.
+\end{lemma}
+
+\begin{proof}
+$4n-2$ is even, so $\lfloor (4n-2)/2\rfloor=2n-1$, which is odd.
+\end{proof}
+
+\begin{theorem}
+For every integer $n\ge1$, $a(n)=b(4n-2)$, where $a$ is OEIS A084703 and $b$ is OEIS
+A089928. This is the statement of Section~1.
+\end{theorem}
+
+\begin{proof}
+Put $m=4n-2$ in \eqref{eq:b}. Then $m+2=4n$, so by Lemma~\ref{lem:sign}
+\[
+b(4n-2)=\frac{\bigl(1+\sqrt2\bigr)^{4n}+\bigl(1-\sqrt2\bigr)^{4n}-2}{8} .
+\]
+By Lemma~\ref{lem:pow}, $\bigl(1\pm\sqrt2\bigr)^{4n}
+=\Bigl(\bigl(1\pm\sqrt2\bigr)^{4}\Bigr)^{n}=\bigl(17\pm12\sqrt2\bigr)^{n}$, so
+\[
+b(4n-2)=\frac{\bigl(17+12\sqrt2\bigr)^{n}+\bigl(17-12\sqrt2\bigr)^{n}-2}{8},
+\]
+which is exactly $a(n)$ by \eqref{eq:a}.
+\end{proof}
+
+\begin{remark}
+The identity in fact holds at $n=0$ as well: both sides are $0$, since $b(-2)$ is not
+defined by the entry but \eqref{eq:b} evaluated at $m=-2$ gives $(1+1-2)/8=0=a(0)$. The
+restriction $n>0$ in the comment is therefore only a statement about which indices of
+A089928 are published.
+\end{remark}
+
+\section{Verification}
+
+Three checks, each independent of the algebra above.
+
+First, formula \eqref{eq:a} was evaluated in exact arithmetic in $\mathbb{Z}[\sqrt2]$ and
+compared against every one of the $18$ published terms of A084703; the values agree
+exactly. A formula that reproduced only some of them would not have been used.
+
+Second, formula \eqref{eq:b} was evaluated the same way and compared against every one of
+the $30$ published terms of A089928; the values agree exactly. It was also checked
+against the recurrence $b(m)=2b(m-1)+2b(m-3)+b(m-4)$ named on that entry.
+
+Third, the identity \eqref{eq:conj} was checked directly on the published terms, without
+either formula: for every $n$ with $1\le n\le 7$ --- the range for which both $a(n)$ and
+$b(4n-2)$ are published --- the two integers agree.
+
+\begin{thebibliography}{9}
+\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer Sequences},
+\url{https://oeis.org}, 2026.
+\bibitem{hw} G.~H.~Hardy and E.~M.~Wright, \emph{An Introduction to the Theory of
+Numbers}, 6th ed., Oxford University Press, 2008.
+\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
+Cambridge University Press, 2011.
+\end{thebibliography}
+
+\end{document}
