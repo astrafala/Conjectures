@@ -1816,6 +1816,33 @@ the second batch, four in the first). What is left splits into:
   are not congruences with a periodic pattern and the uniqueness route says nothing about
   them.
 
+
+**A396798's stated conjecture is off by one, on its own data.** It reads
+"a(n) = [1,1,5,5] repeating (mod 8) for n >= 1". The entry's published terms give
+`1,1,1,5,5,1,1,5,5,...` mod 8, so the pattern starts at n=2, not n=1, and the stated form
+first fails at n=3 (a(3)=9, which is 1 mod 8, not 5). Verified against the %S line itself,
+not against a reconstruction. This is an index slip of the same class as the Mathar cases:
+**not a disproof and not to be papered as one.**
+
+**The next concrete step on the mod-8 and mod-9 cases: perturbation over Z/kZ.** The
+obstruction to the funceq-mod engine on A396798 is that `x/(1-x)` solves the reduced
+equation only mod 4, not mod 8. But the true reduction mod 8 is
+`Abar = x/(1-x) + 4g` with `g = x^4(1+x)/(1-x^4)`, and since `4*4 = 0 mod 8` the correction
+term is nilpotent. Composition then linearises exactly:
+`Abar(Abar) = f(f) + 4[ g*f'(f) + g(f) ]`, a first-order Taylor expansion that is EXACT
+because the second-order term carries 4^2. Every piece stays rational (`f^j = x/(1-jx)`,
+`f' = 1/(1-x)^2`), so nine iterations remain tractable where naive symbolic composition
+would blow up to degree 5^9. Same idea should reach A381364/A381365 (mod 9, with 3^2 = 0)
+and A397346 (mod 8). Not yet carried out.
+
+**The e.g.f. iteration family is NOT reachable this way.** A396803, A396805, A396806
+(`E.g.f. A(x) = x*exp(A^j(x))`) do have a triangular recursion with coefficient 1 -- but on
+the EXPONENTIAL coefficients c(n) = a(n)/n!, which are rationals with n! in the
+denominator. Reduction mod k is not a ring homomorphism on those, so the uniqueness step
+does not transfer to a(n) = n!c(n). The conjectured residues are non-zero for large n,
+which already shows c(n) is not k-integral. Recorded so this is not attempted again
+without a different idea.
+
 ## 4. DEAD — do not revisit
 
 Already resolved on the live entry, or carrying no conjecture at all.
