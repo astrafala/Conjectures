@@ -1397,6 +1397,51 @@ result explicitly, not rely on the exit status of a pipeline.
 inherit) and, from the previous pass, conjectured g.f.s as targets.
 
 
+### 31 Aug 2026: the b-files were never opened, and the first real disproof from them
+
+**Every check in this project ran against the DATA field -- about forty terms.** The OEIS
+also publishes b-files with hundreds or thousands, and the local clone carries 242,201 of
+them. They were never opened. (They are Git LFS pointers, since the clone skipped LFS, but
+the pointer names the true size, which is enough to order a fetch queue; `bfile.py` fetches
+and caches from oeis.org.)
+
+`bsweep.py` tests every open conjectured recurrence against its full b-file. 10,632 entries
+are queued, largest b-file first.
+
+**Two false alarms before the first true result, both mine:**
+
+- The first slice reported **362 disproofs out of 2,233** -- a 16% rate, which is not
+  credible. Every one was false: the conjectures say "for n > 5", "for n > 13", and the
+  test started at n = order. A conjecture is not disproved at an index it never claimed.
+- With that fixed, **11 remained, all failing at n = 2..9**. Also false. Mathar's
+  polynomial-coefficient recurrences are asserted for LARGE n -- the residual criterion
+  says the same, "for all n > deg B" -- so a failure at a small index is the boundary, not
+  a counterexample. The test now requires the LAST failure to lie in the upper half of the
+  tested range.
+- After both fixes: **1 disproof in 2,395 checked**, which is a believable rate.
+
+**A076217 is disproved, and properly.** Colin Barker's "a(n) = -a(n-1)+a(n-2)+a(n-3) for
+n>5" fails at n = 3^k, 3^k+1, 3^k+2 for every k >= 2 -- infinitely many indices. The entry
+already remarks that it "seems to fail at n = powers of 3", so the counterexamples are
+known; **a paper exhibiting one would have been padding.** What is new is the proof that it
+fails always, and it is elementary:
+
+- `a(n) = 1` exactly when `n = 3^k - 2`, by induction straight from the entry's defining
+  recursion `a(n) = a(n-1) + n*sign(n - a(n-1))`.
+- From `a(p-2) = 1` with `p = 3^k` the next values are forced:
+  `a(p+1+2i) = 2p+1+i` and `a(p+2+2i) = p-1-i` for `0 <= i <= p-2`. Taking `i = p-2` lands
+  on `3p-2 = 3^(k+1)-2` with value 1, which closes the induction.
+- Then `-a(p-1)+a(p-2)+a(p-3) = -p+1+(p-1) = 0` while `a(p) = p`; similarly the recurrence
+  returns 1 and -1 at `p+1` and `p+2` against `2p+1` and `p-1`.
+
+Verified to n = 60000 against the definition, the DATA field and the 10000-term b-file, all
+in exact integer arithmetic. Roster **611 -> 612**; the disproof ranks 55th.
+
+**The lesson for the disproof engine:** a disproof needs a failure the conjecture actually
+claims, at an index it actually reaches. Two guards enforce that now, and both were learned
+the hard way in a single sitting.
+
+
 ## 4. DEAD — do not revisit
 
 Already resolved on the live entry, or carrying no conjecture at all.

@@ -1,0 +1,227 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=1in]{geometry}
+\usepackage[colorlinks=true,linkcolor=blue,urlcolor=blue]{hyperref}
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{remark}[theorem]{Remark}
+\title{A disproof of the conjectured recurrence for OEIS A076217}
+\author{Adrian Perez Fontelles\\ \small Independent researcher}
+\date{31 August 2026}
+\begin{document}
+\maketitle
+
+\begin{abstract}
+OEIS A076217 carries a conjectured linear recurrence of order three, contributed by Colin
+Barker. We disprove it, and not merely by exhibiting a counterexample: we prove that the
+recurrence fails at $n=3^{k}$, $n=3^{k}+1$ and $n=3^{k}+2$ for \emph{every} integer
+$k\ge 2$, so the set of indices at which it fails is infinite. The proof is elementary and
+self-contained. Everything follows from one fact about the sequence, that $a(n)=1$ exactly
+when $n=3^{k}-2$, which is established by an induction driven directly by the entry's own
+defining recursion; the values at the six indices surrounding each power of three are then
+computed in closed form, and the failure is read off. The entry records the observation
+that the recurrence ``seems to fail at $n=$ powers of $3$''; what is proved here is that it
+does, always.
+\end{abstract}
+
+\noindent\small 2020 Mathematics Subject Classification. 11B37, 11B83.\normalsize
+
+\section{The sequence and the conjecture}
+
+OEIS A076217 is defined by its name, which is the recursion itself:
+\begin{equation}\label{eq:def}
+a(1)=1,\qquad a(n)=a(n-1)+n\cdot\operatorname{sign}\bigl(n-a(n-1)\bigr)\quad(n\ge2),
+\end{equation}
+where $\operatorname{sign}(x)$ is $1$, $0$ or $-1$ according as $x$ is positive, zero or
+negative. It has offset $1$ and begins
+\[
+a(1),\dots,a(12)\;=\;1,\ 3,\ 3,\ 7,\ 2,\ 8,\ 1,\ 9,\ 9,\ 19,\ 8,\ 20,\ \dots
+\]
+Nothing else is taken from the entry: \eqref{eq:def} is the definition, so every value used
+below is computed from it.
+
+The entry carries the following comment:
+\begin{quote}\small
+Conjecture: a(n) = -a(n-1)+a(n-2)+a(n-3) for n>5. G.f.: $-x(27x^{28}+54x^{27}+27x^{26}
++9x^{10}+18x^{9}+9x^{8}+3x^{4}+6x^{3}+5x^{2}+4x+1)/((x-1)(x+1)^{2})$. --- \emph{Colin
+Barker}, Feb 25 2013
+\end{quote}
+As of the ``Last modified'' line on the live entry (2025-03-21, revision 33) the statement
+is still recorded as a conjecture. The entry also carries a later remark that the
+recurrence ``seems to fail at $n=$ powers of 3, and the 2 successive terms''. That is an
+observation about the terms in range; the theorem below proves it for all $k$, and the
+conjectured generating function falls with the recurrence, since a rational function with
+denominator $(x-1)(x+1)^{2}$ forces
+\begin{equation}\label{eq:conj}
+a(n)+a(n-1)-a(n-2)-a(n-3)=0
+\end{equation}
+for all $n$ past the degree of its numerator.
+
+\section{Where the sequence takes the value one}
+
+Write $p=3^{k}$ throughout. The whole argument rests on one proposition.
+
+\begin{proposition}\label{prop:ones}
+For every $k\ge1$, $a(3^{k}-2)=1$.
+\end{proposition}
+
+The proof is an induction, and the induction step also produces the closed forms we need.
+
+\begin{lemma}\label{lem:block}
+Let $p\ge3$ and suppose $a(p-2)=1$. Then
+\[
+a(p-1)=p,\qquad a(p)=p,
+\]
+and for every $i$ with $0\le i\le p-2$,
+\[
+a(p+1+2i)=2p+1+i,\qquad a(p+2+2i)=p-1-i .
+\]
+\end{lemma}
+
+\begin{proof}
+All four statements are applications of \eqref{eq:def}, and in each one the only thing to
+check is the sign of $n-a(n-1)$.
+
+At $n=p-1$ the previous value is $a(p-2)=1$ and $n-a(n-1)=p-2>0$, so the sign is $+1$ and
+$a(p-1)=1+(p-1)=p$.
+
+At $n=p$ the previous value is $a(p-1)=p$, so $n-a(n-1)=0$, the sign is $0$, and
+$a(p)=a(p-1)=p$.
+
+Now argue by induction on $i$. For the odd-offset index $n=p+1+2i$ the previous value is
+$a(p+2i)$, which is $a(p)=p$ when $i=0$ and $p-1-(i-1)=p-i$ when $i\ge1$; in both cases it
+equals $p-i$ for $i\ge 1$ and $p$ for $i=0$, and in both cases
+\[
+n-a(n-1)\;=\;(p+1+2i)-(p-i)\;=\;1+3i\;>\;0 \qquad(i\ge1),
+\]
+while for $i=0$ it is $(p+1)-p=1>0$. So the sign is $+1$ and
+\[
+a(p+1+2i)=(p-i)+(p+1+2i)=2p+1+i
+\]
+for $i\ge1$, and $a(p+1)=p+(p+1)=2p+1$ for $i=0$, which is the same formula.
+
+For the even-offset index $n=p+2+2i$ the previous value is $a(p+1+2i)=2p+1+i$, and
+\[
+a(n-1)-n\;=\;(2p+1+i)-(p+2+2i)\;=\;p-1-i,
+\]
+which is positive exactly when $i\le p-2$. So for those $i$ the sign is $-1$ and
+\[
+a(p+2+2i)=(2p+1+i)-(p+2+2i)=p-1-i,
+\]
+as claimed. This completes the induction on $i$ and the lemma.
+\end{proof}
+
+\begin{proof}[Proof of Proposition~\ref{prop:ones}]
+For $k=1$ we have $3^{1}-2=1$ and $a(1)=1$ by definition. Suppose $a(3^{k}-2)=1$ for some
+$k\ge1$ and put $p=3^{k}\ge3$. Lemma~\ref{lem:block} applies. Take $i=p-2$, which is within
+the permitted range $0\le i\le p-2$; then
+\[
+p+2+2i\;=\;p+2+2(p-2)\;=\;3p-2\;=\;3^{k+1}-2,
+\]
+and the lemma gives
+\[
+a\bigl(3^{k+1}-2\bigr)\;=\;p-1-i\;=\;p-1-(p-2)\;=\;1 .
+\]
+That is the statement for $k+1$.
+\end{proof}
+
+\begin{corollary}\label{cor:vals}
+For every $k\ge1$, writing $p=3^{k}$,
+\[
+a(p-3)=p-1,\quad a(p-2)=1,\quad a(p-1)=p,\quad a(p)=p,\quad a(p+1)=2p+1,\quad a(p+2)=p-1 .
+\]
+\end{corollary}
+
+\begin{proof}
+The values at $p-2$, $p-1$, $p$, $p+1$ and $p+2$ are Proposition~\ref{prop:ones} together
+with Lemma~\ref{lem:block} at $i=0$.
+
+For $a(p-3)$, apply Lemma~\ref{lem:block} at the previous power. Put $q=3^{k-1}$, so
+$p=3q$ and $p-3=3q-3$. The lemma describes the indices after $q$ in two families,
+$q+1+2i$ and $q+2+2i$. Solving $q+2+2i=3q-3$ gives $2i=2q-5$, which has no integer
+solution, so $p-3$ is not of the second kind. Solving $q+1+2i=3q-3$ gives
+\[
+i\;=\;q-2,
+\]
+which lies in the permitted range $0\le i\le q-2$, and the first family gives
+\[
+a(p-3)\;=\;2q+1+i\;=\;2q+1+(q-2)\;=\;3q-1\;=\;p-1 .
+\]
+This is legitimate for $k\ge2$, since then $q\ge3$ and Lemma~\ref{lem:block} applies at
+$q$; and $i=q-2$ is the same index at which the lemma yields $a(3q-2)=1$, so both values
+come from a single application.
+\end{proof}
+
+\section{The recurrence fails at every power of three}
+
+\begin{theorem}
+For every integer $k\ge2$ the conjectured recurrence \eqref{eq:conj} fails at $n=3^{k}$, at
+$n=3^{k}+1$ and at $n=3^{k}+2$. In particular it fails at infinitely many indices, so it
+does not hold for all $n>5$, and the conjectured generating function is likewise incorrect.
+\end{theorem}
+
+\begin{proof}
+Put $p=3^{k}$ and use Corollary~\ref{cor:vals}.
+
+At $n=p$ the right-hand side of the conjecture is
+\[
+-a(p-1)+a(p-2)+a(p-3)\;=\;-p+1+(p-1)\;=\;0,
+\]
+whereas $a(p)=p$. Since $p=3^{k}\ge9>0$, the two differ.
+
+At $n=p+1$ it is
+\[
+-a(p)+a(p-1)+a(p-2)\;=\;-p+p+1\;=\;1,
+\]
+whereas $a(p+1)=2p+1\ge19$.
+
+At $n=p+2$ it is
+\[
+-a(p+1)+a(p)+a(p-1)\;=\;-(2p+1)+p+p\;=\;-1,
+\]
+whereas $a(p+2)=p-1\ge8$.
+
+All three indices exceed $5$, so each is inside the range the conjecture claims. As $k$
+ranges over the integers $\ge2$ these give infinitely many failures.
+\end{proof}
+
+\section{Verification}
+
+Two checks were made, independent of the algebra above.
+
+First, the recursion \eqref{eq:def} was iterated in exact integer arithmetic to $n=60000$
+and the resulting values compared with the entry's DATA field and with its b-file, which
+carries $10000$ terms; they agree at every index.
+
+Second, the conjectured recurrence was evaluated on those values at every index from $6$ to
+$4000$. It fails at exactly the indices
+\[
+9,10,11,\quad 27,28,29,\quad 81,82,83,\quad 243,244,245,\quad 729,730,731,\quad
+2187,2188,2189,
+\]
+that is, at $3^{k},3^{k}+1,3^{k}+2$ for $k=2,\dots,7$ and nowhere else, matching the
+theorem exactly. The closed forms of Corollary~\ref{cor:vals} were checked at every
+$k\le 9$ and the block formulas of Lemma~\ref{lem:block} at every admissible $i$ in that
+range.
+
+\section{Concluding remarks}
+
+The conjecture is not close to true: it fails on a set of indices of the shape
+$3^{k}+\{0,1,2\}$, and between consecutive powers of three it holds only because the
+sequence is locked into the simple alternating pattern of Lemma~\ref{lem:block}, which the
+recurrence happens to reproduce. The pattern is broken precisely at the moment the downward
+branch reaches the value $1$, which by Proposition~\ref{prop:ones} happens exactly at
+$n=3^{k}-2$.
+
+\begin{thebibliography}{9}
+\bibitem{oeis} OEIS Foundation Inc., \emph{The On-Line Encyclopedia of Integer Sequences},
+entry \href{https://oeis.org/A076217}{A076217}, 2025.
+\end{thebibliography}
+
+\end{document}
