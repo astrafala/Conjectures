@@ -23,7 +23,11 @@ import os, re
 ROOT = "/home/user/oeis/oeisdata/seq"
 
 SETTLED = re.compile(
-    r"\bproof\b|prove[sndg]?\b|is true|confirm\w*|verif\w*|establish\w*|is correct"
+    # "is true" alone missed "The above conjectures ARE true" (A208658) and "Barker's
+    # conjectures are true" (A235089), both of which settle the entry outright. Any of
+    # is/are/was/were, and any of the words that follow, must match.
+    r"\bproof\b|prove[sndg]?\b|confirm\w*|verif\w*|establish\w*"
+    r"|\b(is|are|was|were)\s+(true|correct|proved|proven|verified|established|known)\b"
     r"|follows\s+(?:\w+\s+){0,2}from"
     r"|is\s+(?:an?\s+)?(?:easy|immediate|direct|simple)?\s*consequence"
     r"|can\s+be\s+(?:easily\s+)?(?:proved|proven|derived|shown|deduced|obtained)"

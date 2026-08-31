@@ -1356,6 +1356,47 @@ not new mathematics, and the parsers now read everything in the corpus that is w
 mathematics. What is left is written as prose.
 
 
+### 31 Aug 2026: conjectured CLOSED FORMS as targets, and a second settlement-wording gap
+
+**`cftarget.py`: prove a conjectured closed form from a recurrence or g.f. stated as fact.**
+The mirror of every other sweep: if L is a fact that determines the sequence and the
+conjectured closed form c(n) satisfies L and matches the initial terms, then c(n) = a(n).
+2,207 entries carry such a conjecture and have no paper -- **2,146 state nothing as fact**,
+leaving 8. Adding a g.f. route (read the recurrence off the stated generating function with
+`holo.annihilator`, converting the exponential case by multiplying through by (n+r)! and
+re-indexing to backward form) took it from 1 hit to 4.
+
+**Two of the four were already settled, and the filter missed both.**
+
+- **A208658** -- "The above conjectures are true." (Stefano Spezia, Nov 19 2023)
+- **A235089** -- "In particular, Barker's conjectures are true (see Fried link)."
+  (Sela Fried, May 08 2026)
+
+`SETTLED` matched "is true" but not "**are** true". Widened to
+`(is|are|was|were)\s+(true|correct|proved|proven|verified|established|known)`, and the
+whole roster re-audited: **A166761 -- a paper built earlier the same day -- also falls.**
+Andrew Howroyd, Dec 12 2024: "The above empirical formulas are correct." The line used as
+the known side, `a(n) = 2*A378933(n)`, sits in the SAME comment block as that settlement.
+Withdrawn.
+
+Roster **610 -> 611**: minus A166761, plus A208545 and A227161.
+
+**This is the second settlement-wording gap in two days** (the first was "follows *easily*
+from"). Both were single words. The lesson is not to widen once more and stop, but that a
+settlement can be phrased any way a person likes -- so the wide net stays, false positives
+are read rather than trusted, and every candidate is checked against the live entry before a
+paper is built.
+
+**A process failure worth recording:** `python rank.py | head -2 && rm -rf papers && mv ...`
+continued past a crash, because `head` exits 0 even when the command feeding it dies. That
+replaced papers/ with a partial ranking. Any chain that destroys a directory must test the
+result explicitly, not rely on the exit status of a pipeline.
+
+**Two more veins closed:** inheriting a known side across a stated identity between entries
+(27,136 such lines corpus-wide, but only 4 sit on an open entry with no paper, and 1 could
+inherit) and, from the previous pass, conjectured g.f.s as targets.
+
+
 ## 4. DEAD — do not revisit
 
 Already resolved on the live entry, or carrying no conjecture at all.
