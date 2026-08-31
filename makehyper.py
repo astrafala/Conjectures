@@ -10,6 +10,7 @@ import sympy as sp
 import cfparse, hyperterm as ht
 from hyperterm import n
 from hypertex import TEMPLATE
+from xreftex import TEMPLATE as XREF_TEMPLATE
 from makerecpapers import tex_escape, render_conj, rec_latex
 # coeffs_of, not parse_conj: these conjectures are written "a(n) = <combination of
 # earlier terms>", which parse_conj refuses -- it insists on the "... = 0" spelling.
@@ -32,7 +33,17 @@ def build(spec):
         time.sleep(0.4)
         data = [int(t) for t in e["data"].split(",")]
         off = int(e["offset"].split(",")[0])
-        cf = cfparse.parse(v["formula"])
+        # a spec may carry the expression a route already resolved (through another
+        # entry, or through a parity split), together with the line the entry actually
+        # states. Re-derive it here rather than trusting the stored value.
+        cf = None
+        if v.get("resolved"):
+            import xref as _xr
+            cf = _xr.resolve(v["formula"])
+            if cf is None:
+                cf = cfparse.parse(v["formula"], rounding=True)
+        if cf is None:
+            cf = cfparse.parse(v["formula"])
         if cf is None:
             print(f"{num:4d}  {a}  SKIP the formula did not reparse"); continue
         if not cfparse.matches(cf, data, off):
@@ -89,7 +100,12 @@ def build(spec):
             "EXCLTEX": excltex,
             "NCHECK": min(len(data), 13), "NVER": nver, "FIRSTN": firstn,
         }
-        tex = TEMPLATE % subs
+        if v.get("via"):
+            subs["VIA"] = ("Substituting the formula that " + v["via"]
+                           + " states for itself, and simplifying, this reads")
+            tex = XREF_TEMPLATE % subs
+        else:
+            tex = TEMPLATE % subs
         d = f"build/hyp{num}"
         os.makedirs(d, exist_ok=True)
         open(f"{d}/p.tex", "w").write(tex)

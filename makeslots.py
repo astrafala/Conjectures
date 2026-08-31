@@ -150,16 +150,25 @@ def build(slots):
     for v in slots:
         num, a = v["num"], v["anum"]
         egf = v["mode"] == "egf"
-        if v.get("derived_gf"):
+        if v.get("minpoly"):
+            # an algebraic g.f. of degree 5 or more has no radical form to substitute, but
+            # algfield.Field takes the minimal polynomial itself, which is all the residual
+            # criterion needs.
+            A, src = None, None
+        elif v.get("derived_gf"):
             A, src = sp.sympify(v["derived_gf"]), None
         else:
             A, src = match_gf(v, egf)
-        if A is None:
+        if A is None and not v.get("minpoly"):
             print(f"{num:4d}  {a}  SKIP no g.f. reproduces the terms")
             continue
         ps = coeffs_of(v["conj"])
         alg = ualg = None
-        if not egf and qf.to_quad(A) is None and mq.to_multi(A) is None:
+        if v.get("minpoly"):
+            yv = sp.Symbol('y')
+            alg = af.Field(sp.expand(sp.sympify(v["minpoly"]).subs(sp.Symbol('__y__'), yv)))
+            ualg = sp.Poly(yv, yv)
+        if not egf and alg is None and qf.to_quad(A) is None and mq.to_multi(A) is None:
             try:
                 alg, ualg = af.from_expr(A)
             except Exception as e:
@@ -185,7 +194,7 @@ def build(slots):
         if nver is None or nver < 3:
             print(f"{num:4d}  {a}  SKIP integer re-check failed")
             continue
-        q = None if egf else qf.to_quad(A)
+        q = None if (egf or A is None) else qf.to_quad(A)
         Ds, multi = [], False
         if alg is not None:
             Dtex = sp.latex(sp.factor(alg.P.as_expr()))
@@ -193,7 +202,7 @@ def build(slots):
         elif q is not None:
             Dtex, fieldtex = sp.latex(sp.factor(q[2])), r"\mathbb{Q}(x)[\sqrt{D}]"
         else:
-            mm = mq.to_multi(A)
+            mm = None if A is None else mq.to_multi(A)
             Ds = mm[1] if mm else []
             multi = len(Ds) > 1
             Dtex = ",\\quad ".join(sp.latex(sp.factor(D)) for D in Ds)
@@ -206,7 +215,9 @@ def build(slots):
             "OFFSET": off,
             "FIRSTTERMS": (f"a({off}),\\dots,a({off+7})\;=\;"
                            + ", ".join(str(t) for t in v["data"][:8]) + ",\\ \\dots"),
-            "GFLATEX": sp.latex(real_form(sp.simplify(A))),
+            "GFLATEX": (r"\text{the branch of } P(x,y)=0 \text{ with } y(0)=%s"
+                        % sp.latex(sp.Integer(v["data"][0]))) if A is None
+                       else sp.latex(real_form(sp.simplify(A))),
             "DLATEX": Dtex,
             "FIELD": fieldtex,
             "BLATEX": sp.latex(B),

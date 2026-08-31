@@ -23,7 +23,33 @@ EDIT = re.compile(r"\s+-\s+(?:corrected|amended|reformulated|edited|added|rewrit
                   r"simplified|From)\b.*$", re.I)
 
 
+# "G.f. (1-3*x-...)/(...)" and "G.f. (for offset 1): ..." carry no colon after the prefix,
+# or carry one only after a parenthetical, and the strippers below all key on the colon.
+_NOCOLON = re.compile(r"^\s*((?:o\.|e\.)?g\.f\.)\s*(\(for offset [^)]*\))?\s*:?\s*", re.I)
+
+
+def _colonise(line):
+    """Rewrite a prefix that has no colon, or one interrupted by a parenthetical.
+
+    "G.f. <expr>" has no colon at all, and "G.f. (for offset 1): <expr>" has one only
+    after an aside. Both are refused by strippers that key on the colon, and the aside is
+    otherwise carried into the candidate and breaks sympify. The g.f. is checked against
+    the entry's terms downstream, so a wrong offset is caught there.
+    """
+    m = _NOCOLON.match(line)
+    if not m:
+        return line
+    aside = m.group(2)
+    if ":" in line[:m.end()] and not aside:
+        return line
+    rest = line[m.end():].lstrip()
+    if not rest or rest[0] not in "(-0123456789x":
+        return line
+    return m.group(1) + ": " + rest
+
+
 def candidates(line):
+    line = _colonise(line)
     """Plausible expression strings from one formula line, longest first."""
     s = LEAD.sub("", line.strip())
     outs = []

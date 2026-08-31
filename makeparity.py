@@ -9,7 +9,9 @@ import cfparse, parity, hyperterm as ht
 from parity import m
 from paritytex import TEMPLATE
 from makerecpapers import tex_escape, render_conj, rec_latex
-from prove_rec import parse_conj
+# coeffs_of, not parse_conj: it accepts the "a(n) = <combination>" spelling too, which
+# parse_conj refuses outright.
+from makeslots import coeffs_of
 from parity_run import parse_with_rounding
 from verify_open import fetch
 
@@ -45,7 +47,7 @@ def build(spec):
         fv = cfparse.first_valid(cf, data, off)
         if fv is None:
             print(f"{num:4d}  {a}  SKIP the formula is not usable at any index"); continue
-        ps = parse_conj(v["conj"])
+        ps = coeffs_of(v["conj"])
         res = {}
         for odd in (False, True):
             res[odd] = ht.is_zero_sum(parity.combination(ps, e0, e1, odd), m)

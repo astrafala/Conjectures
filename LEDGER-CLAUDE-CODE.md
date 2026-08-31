@@ -1198,6 +1198,73 @@ stand.** False positives cost reading; false negatives cost credibility, so the 
 stays.
 
 
+### 31 Aug 2026: WHO poses these conjectures, and why that limits everything
+
+A fair question was put: can the results be credited as solving a conjecture *a person*
+posed and tried, rather than bulk machine output? The census settles it.
+
+Of **42,205** conjecture statements in the corpus, by poser:
+
+| count | poser | kind |
+|---|---|---|
+| 26,538 | (anonymous / inside a block) | mixed |
+| 9,144 | Colin Barker | machine-fitted "Empirical:" g.f.s and recurrences, in bulk |
+| 1,586 | R. J. Mathar | machine-found recurrences, in bulk |
+| 870 | Simon Plouffe | bulk |
+| 636 | Chai Wah Wu | considered |
+| 309 | Vaclav Kotesovec | considered |
+| 208 | Peter Bala | considered |
+| 151 | Robert Israel | considered |
+| 124 | N. J. A. Sloane | considered |
+| 72 | Zhi-Wei Sun | considered, sometimes with a prize |
+
+**502 of the roster's papers prove R. J. Mathar's conjectures.** That is not a choice --
+it is the structure of the problem, and the reason is worth stating plainly:
+
+- **2,004 conjectures come from considered human posers.** By shape: 578 linear
+  recurrences, 440 positivity/inequality, 349 prose, 210 asymptotic, 142 generating
+  function, 122 congruence, 106 closed form, 35 primality. Most of that is out of reach by
+  kind, not by effort -- there is no engine here for positivity, primality or asymptotics.
+- Of the **750 open entries with no paper carrying a human-posed FORMULA conjecture**,
+  `universal.py` found **724 have no readable known side at all.** Zero proved.
+- **Mathar's are provable because of WHERE he posts them.** He runs his recurrence search
+  on entries that already carry a generating function, so the known side is there by
+  construction. A human noticing a pattern posts it wherever the pattern is -- usually on
+  an entry that states nothing.
+
+That is the honest ceiling on "credit for a human conjecture", and it is not a parser gap.
+
+### 31 Aug 2026: universal.py -- every route, every open conjecture
+
+Rather than hunting shapes one at a time, `universal.py` offers every fact line on every
+open entry to every reader in the project: stated recurrence (Ore division), generating
+function, algebraic relation, coefficient extraction, closed form, parity split, sum,
+cross-entry reference. Of 11,354 open entries with no paper, a cheap pre-filter leaves 428
+that could possibly have a readable side; the rest state nothing.
+
+**9 proved, all open, none previously in the roster:** A034267, A159769, A166761, A172025,
+A213801, A248434, A294159, A348410, A392976. Roster **601 -> 610**.
+
+New machinery this needed:
+
+- **`universal._implicit`** reads "G.f. A(x) satisfies P(x,A) = 0" and returns the MINIMAL
+  POLYNOMIAL rather than a solved branch -- more robust, and what `algfield.Field` wants.
+  Solving a cubic for radicals defeats the series check used to pick a branch. 12 entries
+  in the corpus give their g.f. this way; 3 fell.
+- **`makeslots` now accepts `minpoly`**, so a degree-5 algebraic g.f. with no radical form
+  (A392976) is provable at all.
+- **`xreftex.py`**: a closed form the entry gives only as "a(n) = 2*A378933(n)" needs the
+  referenced entry's own formula substituted, and the paper must say so rather than
+  presenting a formula the entry does not carry.
+- `gfclean` now colonises "G.f. <expr>" and "G.f. (for offset 1): <expr>" (7 entries);
+  `cfparse` strips a trailing semicolon (A034267 was blocked by one character);
+  `makeparity` and `makehyper` use `coeffs_of` instead of `parse_conj`.
+
+**Where a comment can go:** every OEIS entry has Comments and Formula fields, so a proof
+can always be recorded on the entry itself. arXiv is not required -- entries carry inline
+proofs (A002538, A126674) and entry-hosted PDFs (A087726 at /A087726/a087726_4.pdf).
+
+
 ## 4. DEAD — do not revisit
 
 Already resolved on the live entry, or carrying no conjecture at all.

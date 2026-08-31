@@ -68,7 +68,7 @@ def parse(line, rounding=False):
     b = re.sub(r"\s*\[.*?\]\s*$", "", b)
     b = re.sub(r"\s*-\s+[A-Z][A-Za-z.'\- ]{2,30}(\([^)]*\))?,?\s*"
                r"([A-Z][a-z]{2}\s+\d{1,2},?\s+\d{4})?\s*$", "", b)
-    b = b.strip().rstrip(".").strip().rstrip(",").strip()
+    b = b.strip().rstrip(".").strip().rstrip(",").strip().rstrip(";").strip()
     # REFUSE blocks floor and ceiling before the KNOWN check ever runs, so lifting the
     # guard alone changed nothing; the words have to be exempted here too.
     bad = REFUSE.search(b)
