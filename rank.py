@@ -9,7 +9,10 @@ the degree of the residual.
 The tiers, hardest first:
 
   1. a separate argument found for that one problem
-  2. one real theorem, proved once and applied to twenty entries
+  2. one real theorem, proved once and applied to twenty entries -- and, at the same
+     level, the reduction of a Stirling-transform sequence modulo k to an integer
+     combination of the functions n -> i^n, which settles a periodicity conjecture that
+     no amount of computing terms can settle
   3. a conjectured CLOSED FORM or GENERATING FUNCTION, proved by deriving a recurrence
      from what the entry asserts and showing the conjectured description satisfies it
   4. a conjecture shown FALSE, with the recurrence that holds instead derived and
@@ -43,7 +46,7 @@ BESPOKE_ORDER = list(range(1, 31))   # already in hardness order from the last r
                                      # see rank-map.json and the git history for how
                                      # that order was set
 
-TIER = {"shared": 2, "equate": 3, "disproof": 4, "telescoping-boundary": 5,
+TIER = {"shared": 2, "stirling-phi": 2, "equate": 3, "disproof": 4, "telescoping-boundary": 5,
         "telescoping": 6, "diagonal": 7, "algfield": 8, "logexp": 9, "parity": 10,
         "closedform-direct": 11, "holonomic": 11, "multiquad": 12, "cross": 13, "quadratic": 14,
         "closedform": 15, "ore-complete": 16, "ore": 17,
