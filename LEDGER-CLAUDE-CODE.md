@@ -1442,6 +1442,43 @@ claims, at an index it actually reaches. Two guards enforce that now, and both w
 the hard way in a single sitting.
 
 
+### 31 Aug 2026: I got this IP blocked by the OEIS. Recording it so it is not repeated.
+
+To speed the b-file sweep I wrote a fetcher with four workers and pointed it at oeis.org.
+It issued roughly **8,800 requests in about seven minutes**, and the service blocked the
+address, returning this in place of every b-file:
+
+> Your IP address has been temporarily blocked due to excessive usage. If you need to crawl
+> the OEIS regularly, please consider using the Git repository at
+> https://github.com/oeis/oeisdata.
+
+That is a fair complaint and the fault was mine. Two things made it worse than it needed to
+be: the blocked response was **cached as though it were data** (8,672 files), because the
+"is this a page rather than a b-file" test looked for `<html>` and the block message is
+plain text; and the same weak test had already cached 8,802 redirect stubs earlier, because
+`curl` was called without `-L` and large b-files are served by a redirect to S3.
+
+Fixed:
+
+- `curl -sSL`, so redirects are followed.
+- `_looks_like_bfile` accepts only a file whose first character is `#`, `-` or a digit.
+  Anything else is deleted, never cached.
+- **`bfile.fetch` is now sequential and rate-limited to one request every 1.2 seconds**, and
+  the parallel fetcher is deleted. The remaining 8,672 b-files will take about three hours
+  of slices, spread over as many sessions as it takes.
+
+**The route the OEIS recommends is not open here.** The b-files in the local clone are Git
+LFS pointers; `git lfs pull` fails because the git proxy will not serve LFS objects for a
+repository outside this session's authorized set, and `add_repo` refuses `oeis/oeisdata`
+because the session already holds repositories from a different owner. So oeis.org is the
+only route, which makes the rate limit the whole of the answer.
+
+**The general rule: a scraper that is fast enough to be noticed is too fast.** Any bulk
+fetch from a public service gets one request at a time and a deliberate pause, and its
+"did I get real data" test is written to accept only what real data looks like, never to
+guess at what an error looks like.
+
+
 ## 4. DEAD — do not revisit
 
 Already resolved on the live entry, or carrying no conjecture at all.

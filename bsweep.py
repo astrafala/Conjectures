@@ -117,7 +117,7 @@ def check(anum, conjs, vals, off, cap=4000):
     return bad
 
 
-def main(budget=460, per_fetch=0.3):
+def main(budget=460, per_fetch=0.0):
     done = json.load(open(OUT)) if os.path.exists(OUT) else {}
     idx = json.load(open("open_index.json"))["open"]
     rm = {r["anum"] for r in json.load(open("rank-map.json"))}
@@ -155,7 +155,8 @@ def main(budget=460, per_fetch=0.3):
                   flush=True)
         n_new += 1
         json.dump(done, open(OUT, "w"))
-        time.sleep(per_fetch)
+        if per_fetch:
+            time.sleep(per_fetch)
     json.dump(done, open(OUT, "w"))
     dis = sum(1 for v in done.values() if v.get("status") == "DISPROVED")
     print(f"  {n_new} checked this slice; {len(done)}/{len(queue)} total, {dis} disproved",

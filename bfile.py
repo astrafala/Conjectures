@@ -37,24 +37,57 @@ def lfs_size(anum):
     return int(m.group(1)) if m else os.path.getsize(p)
 
 
+# A parallel fetcher issued about 8,800 requests to oeis.org in a few minutes and the
+# service blocked this IP, with a message asking crawlers to use the Git repository
+# instead. That was the right complaint. The Git route is unavailable here (the b-files are
+# LFS objects and the proxy will not serve them for a repository outside this session's
+# authorized set), so the only remaining route is oeis.org -- one request at a time, with a
+# deliberate pause, and spread over as many sessions as it takes.
+DELAY = 1.2
+_last = [0.0]
+
+
 def fetch(anum, timeout=25):
-    """Download the b-file into the local cache; returns the cached path or None."""
+    """Download the b-file into the local cache; returns the cached path or None.
+
+    Sequential and rate-limited by construction: never call this from several processes.
+    """
     os.makedirs(CACHE, exist_ok=True)
     out = os.path.join(CACHE, "b" + anum[1:] + ".txt")
     if os.path.exists(out):
         return out
+    wait = DELAY - (time.time() - _last[0])
+    if wait > 0:
+        time.sleep(wait)
+    _last[0] = time.time()
     url = f"https://oeis.org/{anum}/b{anum[1:]}.txt"
-    r = subprocess.run(["curl", "-sS", "-A", "Mozilla/5.0", "--max-time", str(timeout),
+    r = subprocess.run(["curl", "-sSL", "-A", "Mozilla/5.0", "--max-time", str(timeout),
                         "-o", out, url], capture_output=True)
     if r.returncode != 0 or not os.path.exists(out) or os.path.getsize(out) < 4:
         if os.path.exists(out):
             os.remove(out)
         return None
-    head = open(out, errors="ignore").read(200)
-    if "<html" in head.lower() or "not found" in head.lower():
+    if not _looks_like_bfile(out):
         os.remove(out)
         return None
     return out
+
+
+def _looks_like_bfile(path):
+    """A b-file starts with a comment or a number. Anything else is a page, not data.
+
+    Large b-files are served by a redirect to S3. Without curl -L the response is a short
+    HTML stub containing only an <a href=...> link, which passed a test that looked for
+    "<html" and cached 8,802 useless files -- exactly the biggest b-files, which is where a
+    counterexample is most likely to be.
+    """
+    try:
+        head = open(path, errors="ignore").read(400).lstrip()
+    except Exception:
+        return False
+    if not head:
+        return False
+    return head[0] == "#" or head[0] == "-" or head[0].isdigit()
 
 
 def path(anum):
