@@ -14,6 +14,7 @@ import json, os, re, sys
 sys.path.insert(0, ".")
 from collections import Counter
 import blocks, fsplit, cfparse, gfclean, sumparse, fzparse, diagonal, hypconv, xref
+import universal
 
 GUESS = re.compile(r"\b(guess|appears|apparently|probabl|seems|presumabl|empirical|conjectur)", re.I)
 FINITE = re.compile(r"for\s+n\s*=\s*\d+\s*\.\.\s*\d+|\bchecked\b|\bverified for\b|\bup to\b\s+n", re.I)
@@ -41,6 +42,10 @@ def readable(q, data, off):
             return "hypergeometric value"
         if xref.resolve(q) is not None:
             return "resolved through another entry"
+        if universal._implicit(q, data, off) is not None:
+            return "an algebraic relation for the g.f."
+        if cfparse.parse(q, rounding=True) is not None:
+            return "closed form (rounding)"
     except Exception:
         return None
     return None

@@ -1304,6 +1304,58 @@ large algebraic fields where the residual computation is the bottleneck. Listed 
 `uni_todo2.json`. They need a faster field implementation, not a new idea.
 
 
+### 31 Aug 2026: the full accounting, and four nulls in a row
+
+**The corpus, by shape.** 42,697 conjecture statements across 30,793 entries; 38,913 still
+open.
+
+| shape | total | still open | worked? |
+|---|---|---|---|
+| recurrence | 14,707 | 14,287 | yes, systematically |
+| prose / other | 7,501 | 6,586 | out of reach by kind |
+| inequality / positivity | 6,750 | 5,440 | no engine |
+| generating function | 6,669 | 6,420 | tried as targets -- see below |
+| closed form a(n)= | 4,011 | 3,691 | partly |
+| congruence / divisibility | 1,742 | 1,439 | partly |
+| primality | 695 | 529 | no engine |
+| asymptotic / limit | 419 | 365 | no engine |
+| triangle T(n,k) | 106 | 96 | no |
+| sum / product identity | 97 | 60 | partly |
+
+**The residue is now 255 entries** (from 304), after the parsers added today. What is left:
+88 name another entry, 64 an unread Sum_, 36 asymptotics, 21 binomial/factorial, 10 g.f.
+The wall everywhere else is unchanged: **10,404 entries have only a prose NAME** and 520
+have fact lines that are pure prose.
+
+**Four veins measured and closed:**
+
+- **Conjectured generating functions AS TARGETS.** 6,581 entries have one and no paper, but
+  6,292 state nothing as fact. Of the 52 that do, **43 turn out to say "holds at least up to
+  n = 1000 but is not known to hold in general"** -- correctly refused, since that is not a
+  fact. **0 proved.** (`gftarget.py`. The logic is sound and kept: if L is a fact that
+  determines the sequence, and the conjectured g.f.'s coefficients satisfy L and match the
+  initial terms, the g.f. is proved.)
+- **Inhomogeneous recurrences as the known side.** `inhom.py` reads
+  "a(n) = n*(a(n-1) - 1) + 2" and homogenises by applying (N-1)^(m+1). **Exactly 1 entry**
+  in the whole open pool, and its line carries a prose caveat. Dead.
+- **a(n) = g(n) + c(n)*Sum_k F(n,k).** `sumform.py` reads the 22 residue lines where the sum
+  is not the whole right-hand side, and `sumform_run.py` moves the telescoped operator from
+  S to a by S = (a-g)/c. 9 candidates, **0 proved** -- 4 timed out, and the rest failed at
+  the telescoper, the boundary correction, or the division. The construction is right; the
+  pool is too small and too awkward.
+- **Combinatorial-counting families.** 7,813 open conjectures sit on entries named "Number
+  of n X k arrays", "Number of strings over Z_m", "Number of walks/tilings/permutations
+  avoiding ...". These ARE transfer-matrix provable in principle, and that is the largest
+  untouched pool in the corpus -- but the automation barrier is building the transfer matrix
+  from a prose definition, which is not reliable at scale. The one fully mechanical
+  subfamily, strings over Z_m with trace and subtrace conditions (state = running sum and
+  running subtrace), has **only 10 members.**
+
+**The honest shape of what remains:** the reliable source all along has been parser gaps,
+not new mathematics, and the parsers now read everything in the corpus that is written as
+mathematics. What is left is written as prose.
+
+
 ## 4. DEAD — do not revisit
 
 Already resolved on the live entry, or carrying no conjecture at all.
