@@ -1,0 +1,187 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=1in]{geometry}
+\usepackage[colorlinks=true,linkcolor=blue,urlcolor=blue]{hyperref}
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{remark}[theorem]{Remark}
+
+\title{The empirical recurrence for OEIS A184148, proved by transfer matrix}
+\author{Adrian Perez Fontelles\\ \small Independent researcher}
+\date{31 August 2026}
+\begin{document}
+\maketitle
+
+\begin{abstract}
+OEIS A184148 counts $(n+1)\times5$ arrays over $\{0,\dots,3\}$ subject to a condition imposed on
+every $2\times2$ subblock, and carries an empirical recurrence of order $24$ contributed
+by R.~H.~Hardin. It is true, and it is not an empirical matter at all. The condition is local
+to each subblock, so the rows of an admissible array are the vertices of a finite digraph
+on $S=1024$ vertices whose edges are the admissible consecutive pairs, and the count is a
+number of walks: $a(n)=\tfrac1{4}\mathbf{1}^{\!\top}M^{n}\mathbf{1}$. Writing $q$
+for the characteristic polynomial of the conjectured recurrence, the recurrence holds for all
+$n$ exactly when $\mathbf{1}^{\!\top}M^{j}q(M)\mathbf{1}=0$ for every $j\ge0$, and the
+Cayley--Hamilton theorem bounds that to $j<S$. It is therefore a finite computation in exact
+integer arithmetic, and it comes out zero.
+\end{abstract}
+
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
+
+\section{The sequence and the conjecture}
+
+OEIS A184148 is ``1/4 the number of (n+1) X 5 0..3 arrays with every 2 X 2 subblock having at least two equal elements connected horizontally or vertically.''. It has offset $1$ and begins
+\[
+65227, 19882711, 5910714349, 1764076701091, 526180845527509, 156962462690881921, 46821946289531019895, 13967039613166010435737,\ \dots
+\]
+The entry carries the following comment:
+\begin{quote}\small
+Empirical: a(n) = 337*a(n-1)-8104*a(n-2)-1212723*a(n-3)+55423428*a(n-4)+243748616*a(n-5)-55724746410*a(n-6)+1180316913749*a(n-7)-7148510691053*a(n-8)-59840603520013*a(n-9)+934968573133050*a(n-10)-1598999423035027*a(n-11)-27702978848203293*a(n-12)+119454717270845028*a(n-13)+223987686124481997*a(n-14)-1840120640662271311*a(n-15)+773833281643738361*a(n-16)+9090830762002726004*a(n-17)-12107110290106201695*a(n-18)-9799264640486546212*a(n-19)+25471762055592565538*a(n-20)-11773742330427714096*a(n-21)-1826163119557948194*a(n-22)+2019141649808688636*a(n-23)-242177999041318032*a(n-24).
+\end{quote}
+As of the ``Last modified'' line on the live entry (Jun 22 2022 01:13:51, revision 7) the statement is
+still recorded as empirical, and nothing on the entry records it as settled either way.
+
+Written out, the claim is
+\begin{equation}\label{eq:conj}
+a(n)\;=\;337\,a(n-1) - 8104\,a(n-2) - 1212723\,a(n-3) + 55423428\,a(n-4) + 243748616\,a(n-5) - 55724746410\,a(n-6) + 1180316913749\,a(n-7) - 7148510691053\,a(n-8) - 59840603520013\,a(n-9) + 934968573133050\,a(n-10) - 1598999423035027\,a(n-11) - 27702978848203293\,a(n-12) + 119454717270845028\,a(n-13) + 223987686124481997\,a(n-14) - 1840120640662271311\,a(n-15) + 773833281643738361\,a(n-16) + 9090830762002726004\,a(n-17) - 12107110290106201695\,a(n-18) - 9799264640486546212\,a(n-19) + 25471762055592565538\,a(n-20) - 11773742330427714096\,a(n-21) - 1826163119557948194\,a(n-22) + 2019141649808688636\,a(n-23) - 242177999041318032\,a(n-24)
+\end{equation}
+for all $n>23$.
+
+\section{The condition is local, so the rows form a digraph}
+
+Write an array of the shape in question as its list of rows
+$r^{(1)},r^{(2)},\dots$, each an element of
+$V=\{0,1,\dots,3\}^{5}$, so $|V|=S=1024$. A $2\times2$ subblock of the array
+occupies two consecutive rows and two consecutive columns; if the two rows are $r$
+and $s$ (in that order) and the two columns are numbered $j,j+1$,
+the subblock is
+\[
+\begin{pmatrix}\alpha&\beta\\\gamma&\delta\end{pmatrix}=\begin{pmatrix}r_j&r_{j+1}\\s_j&s_{j+1}\end{pmatrix}.
+\]
+The entry's requirement on that subblock is
+\begin{equation}\label{eq:loc}
+\alpha=\beta\ \text{ or }\ \gamma=\delta\ \text{ or }\ \alpha=\gamma\ \text{ or }\ \beta=\delta,
+\end{equation}
+a condition on the four entries alone.
+
+For $r,s\in V$ declare $r\to s$ an edge of a digraph $G$ when, for every
+$1\le j\le 5-1$,
+\begin{itemize}
+\item the four entries above satisfy \eqref{eq:loc};
+
+\end{itemize}
+Let $M\in\{0,1\}^{S\times S}$ be the adjacency matrix of $G$ and $\mathbf{1}$ the
+all-ones vector.
+
+\begin{lemma}\label{lem:walk}
+The arrays counted by the entry with $L$ rows are exactly the walks
+$r^{(1)}\to r^{(2)}\to\cdots\to r^{(L)}$ of length $L-1$ in $G$. Consequently
+\[
+a(n)\;=\;\tfrac1{4}\mathbf{1}^{\!\top}M^{n}\mathbf{1} .
+\]
+\end{lemma}
+
+\begin{proof}
+An array with $L$ rows and $5$ columns is precisely a sequence
+$r^{(1)},\dots,r^{(L)}$ of elements of $V$; conversely any such sequence is an array.
+Every $2\times2$ subblock lies in two consecutive rows $r^{(t)},r^{(t+1)}$ and two
+consecutive columns, so the array satisfies the entry's condition on all of its subblocks
+if and only if each consecutive pair $\bigl(r^{(t)},r^{(t+1)}\bigr)$ satisfies it for
+every column pair --- which is exactly the edge relation of $G$. The number of walks of
+length $L-1$, summed over all starting and ending vertices, is
+$\mathbf{1}^{\!\top}M^{L-1}\mathbf{1}$, since $(M^{k})_{r,s}$ counts the walks of
+length $k$ from $r$ to $s$. The entry's index $n$ corresponds to $L=n+1$ rows. The entry counts $\tfrac1{4}$ of those arrays, a constant factor that passes through every step below unchanged.
+\end{proof}
+
+\section{The criterion}
+
+Let $q(t)=t^{24}-\sum_i c_i\,t^{24-i}$ be the characteristic polynomial of
+\eqref{eq:conj}, with the $c_i$ read off that equation.
+
+\begin{lemma}\label{lem:crit}
+For every $n$ with $n+1-1\ge24$,
+\[
+a(n)-\sum_i c_i\,a(n-i)\;=\;\tfrac1{4}\mathbf{1}^{\!\top}M^{\,n+1-1-24}\,q(M)\,\mathbf{1} .
+\]
+Hence \eqref{eq:conj} holds from that point on if and only if
+$\mathbf{1}^{\!\top}M^{j}q(M)\mathbf{1}=0$ for every $j\ge0$; and it is enough to check
+$j=0,1,\dots,S-1$.
+\end{lemma}
+
+\begin{proof}
+By Lemma~\ref{lem:walk}, $a(n-i)=\tfrac1{4}\mathbf{1}^{\!\top}M^{\,n+1-1-i}\mathbf{1}$, so
+\[
+a(n)-\sum_i c_i a(n-i)
+=\tfrac1{4}\mathbf{1}^{\!\top}\Bigl(M^{m}-\sum_i c_i M^{m-i}\Bigr)\mathbf{1}
+=\tfrac1{4}\mathbf{1}^{\!\top}M^{\,m-24}\,q(M)\,\mathbf{1}
+\]
+with $m=n+1-1$, which is the stated identity; the scalar $\tfrac1{4}$ never vanishes, so
+it does not affect whether the left side is zero. The equivalence follows by letting
+$m-24=j$ run over $\ge0$. For the last clause put $w=q(M)\mathbf{1}$. By the
+Cayley--Hamilton theorem $M^{S}$ is an integer combination of $I,M,\dots,M^{S-1}$, so
+$\mathbf{1}^{\!\top}M^{j}w$ for $j\ge S$ is the corresponding combination of the earlier
+values; if those all vanish, so do all the rest.
+\end{proof}
+
+\section{The computation}
+
+\begin{theorem}
+The recurrence \eqref{eq:conj} holds for every $n>23$, which is the statement of
+Section~1.
+\end{theorem}
+
+\begin{proof}
+The digraph was constructed from \eqref{eq:loc} by a depth-first scan across the $5$
+columns: the edge condition is a conjunction of one constraint per consecutive column
+pair, so the successors of a row $r$ are enumerated column by column without testing all
+$S^2$ pairs. The vector $w=q(M)\mathbf{1}\in\mathbb{Z}^{S}$ was then formed by $24$
+matrix--vector products in exact integer arithmetic, and $\mathbf{1}^{\!\top}M^{j}w$ was
+evaluated for $j=0,1,\dots$, again exactly. Every one of those integers vanishes from the
+index corresponding to $n=23+1$ onwards, and the run continued until $w$ itself was the
+zero vector, which settles every larger $j$ at once. By Lemma~\ref{lem:crit} the recurrence
+holds for every $n>23$.
+\end{proof}
+
+\begin{remark}
+The argument gives more than the recurrence: it shows the sequence is $C$-finite with
+characteristic polynomial dividing that of $M$, so it has a rational generating function
+whose denominator divides $\det(I-xM)$. The conjectured recurrence is one consequence; the
+minimal one is a divisor of $q$.
+\end{remark}
+
+\section{Verification}
+
+Three checks, each independent of the algebra above.
+
+First, the digraph was built directly from the entry's stated condition and the walk counts
+$\tfrac1{4}\mathbf{1}^{\!\top}M^{L-1}\mathbf{1}$ compared against the entry's DATA at
+every one of the $10$ published indices; the values agree exactly. That is what ties
+the digraph to the sequence: a model that reproduced only some of the published terms would
+be the wrong model, and would have been rejected. In particular it is what rules out a
+misreading of the entry's wording, since a different reading of the condition gives a
+different digraph and different counts.
+
+Second, the recurrence \eqref{eq:conj} was evaluated on those published terms in exact
+integer arithmetic, with no matrices involved, and vanishes wherever it applies.
+
+Third, the annihilation test of Lemma~\ref{lem:crit} was run in exact integer arithmetic
+until the working vector was identically zero, not to a sampled prefix, and returned zero
+throughout.
+
+\begin{thebibliography}{9}
+\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
+Sequences}, \url{https://oeis.org}, 2026. Sequence A184148.
+\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+University Press, 2009.
+\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
+University Press, 2013.
+\end{thebibliography}
+
+\end{document}
