@@ -1265,6 +1265,45 @@ can always be recorded on the entry itself. arXiv is not required -- entries car
 proofs (A002538, A126674) and entry-hosted PDFs (A087726 at /A087726/a087726_4.pdf).
 
 
+### 31 Aug 2026: the periodicity-mod-k conjectures are NOT the periodicity theorem
+
+Eighty open entries were found conjecturing something about a(n) mod k being eventually
+periodic, forty-two of them Peter Bala's -- apparently a large, human-posed pool for the
+theorem already used in papers 32-51. It is not. Two separate readings were wrong, and both
+are worth keeping.
+
+- **16 of the 80 are compound.** A377109-A377119 read "every prime divides a(n) for
+  infinitely many n, and ... the difference sequence of K(p) is eventually periodic". The
+  periodicity half follows from a finite-state argument, but only if 0 occurs in the cycle,
+  and THAT is the first half -- which is a genuine and hard claim about prime divisors of a
+  linear recurrence, not a corollary of anything here. Matching "eventually periodic" inside
+  a compound statement found the wrong clause.
+- **The 33 pure ones claim more than periodicity.** Bala writes "eventually periodic with
+  the period **dividing phi(k)**", and elsewhere "purely periodic with period p - 1". The
+  finite-state argument gives a period bounded by k^r and says nothing about phi(k). The
+  sharp form is a number-theoretic statement of Fermat-Euler type, out of reach here.
+- **Their e.g.f.s are not of the required form either.** The theorem needs
+  A(x) = G(e^x - 1) with G an INTEGER power series. A000436 has cos(x)/cos(3*x), A012780
+  arcsin(tan(x)), A122399 Sum_{n>=0} (exp(n*x) - 1)^n. A005046's exp(cosh(x) - 1) does
+  become a function of u = e^x - 1, namely exp(u^2/(2(1+u))), but its coefficients are not
+  integers, so the truncation-mod-k step fails.
+
+`cfperiod.py` was built and is correct -- for a sequence with an integer constant-coefficient
+recurrence and leading coefficient 1, the state vector mod k evolves by a companion matrix
+over a finite ring, so the orbit is eventually periodic with pre-period and period at most
+k^r, and purely periodic when the trailing coefficient is invertible mod k. Ten entries have
+such a recurrence stated as fact. **All ten are the compound prime-divisor conjecture, so
+none is settled.** The engine is kept for when a plain periodicity conjecture turns up.
+
+**Bala's conjectures are hard because he is a careful mathematician posing sharp
+statements.** That is the same lesson as the poser census: the conjectures that would carry
+the most credit are the ones least likely to fall to this machinery.
+
+**12 entries in the universal sweep exceed 8 minutes each** and are still undecided --
+large algebraic fields where the residual computation is the bottleneck. Listed in
+`uni_todo2.json`. They need a faster field implementation, not a new idea.
+
+
 ## 4. DEAD — do not revisit
 
 Already resolved on the live entry, or carrying no conjecture at all.
