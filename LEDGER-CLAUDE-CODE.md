@@ -67,7 +67,7 @@ result is worth more than three forced ones.
 
 # Conjecture-hunt ledger
 
-Last updated 31 Aug 2026. Roster: **624 papers** (619 proofs, 5 disproofs), files `1-PROOF.pdf` … `624-PROOF.pdf`, **numbered by how hard the result was**: 1 is the hardest.
+Last updated 31 Aug 2026. Roster: **628 papers** (623 proofs, 5 disproofs), files `1-PROOF.pdf` … `628-PROOF.pdf`, **numbered by how hard the result was**: 1 is the hardest.
 `rank-map.json` records the previous numbering. New results are ranked in, not appended.
 
 ---
@@ -210,573 +210,577 @@ the label. This is now cheap to detect in a sweep: compare the two fields in the
 | 55 | PROOF | A032098 | a conjectured closed form or g.f., proved against a recurrence derived from the entry |
 | 56 | PROOF | A266072 | a conjectured closed form or g.f., proved against a recurrence derived from the entry |
 | 57 | PROOF | A084703 | an entry equated to an m-section of another entry, decided from both entries' facts |
-| 58 | PROOF | A111403 | an entry equated to an m-section of another entry, decided from both entries' facts |
-| 59 | PROOF | A155543 | an entry equated to an m-section of another entry, decided from both entries' facts |
-| 60 | PROOF | A208545 | a conjectured closed form or g.f., proved against a recurrence derived from the entry |
-| 61 | PROOF | A227161 | a conjectured closed form or g.f., proved against a recurrence derived from the entry |
-| 62 | PROOF | A393856 | a defining functional equation reduced mod k, then closed by uniqueness of its recursion |
-| 63 | PROOF | A393857 | a defining functional equation reduced mod k, then closed by uniqueness of its recursion |
-| 64 | PROOF | A393858 | a defining functional equation reduced mod k, then closed by uniqueness of its recursion |
-| 65 | PROOF | A393859 | a defining functional equation reduced mod k, then closed by uniqueness of its recursion |
-| 66 | PROOF | A396099 | a defining functional equation reduced mod k, then closed by uniqueness of its recursion |
-| 67 | PROOF | A396102 | a defining functional equation reduced mod k, then closed by uniqueness of its recursion |
-| 68 | PROOF | A396797 | a defining functional equation reduced mod k, then closed by uniqueness of its recursion |
-| 69 | PROOF | A396807 | a defining functional equation reduced mod k, then closed by uniqueness of its recursion |
-| 70 | DISPROOF | A141135 | a conjecture shown FALSE, with the recurrence that holds instead |
-| 71 | DISPROOF | A076217 | a conjecture shown FALSE, with the recurrence that holds instead |
-| 72 | PROOF | A129833 | creative telescoping with the boundary and range corrections carried through |
-| 73 | PROOF | A306948 | creative telescoping with the boundary and range corrections carried through |
-| 74 | PROOF | A129833 | creative telescoping with the boundary and range corrections carried through |
-| 75 | PROOF | A000180 | creative telescoping with the boundary and range corrections carried through |
-| 76 | PROOF | A127905 | a recurrence derived from the summand by creative telescoping |
-| 77 | PROOF | A045742 | a recurrence derived from the summand by creative telescoping |
-| 78 | PROOF | A243585 | a recurrence derived from the summand by creative telescoping |
-| 79 | PROOF | A026005 | a recurrence derived from the summand by creative telescoping |
-| 80 | PROOF | A359643 | the generating function derived from a coefficient-extraction definition |
-| 81 | PROOF | A156894 | the generating function derived from a coefficient-extraction definition |
-| 82 | PROOF | A156894 | the generating function derived from a coefficient-extraction definition |
-| 83 | PROOF | A371753 | the generating function derived from a coefficient-extraction definition |
-| 84 | PROOF | A226751 | the generating function derived from a coefficient-extraction definition |
-| 85 | PROOF | A386830 | the generating function derived from a coefficient-extraction definition |
-| 86 | PROOF | A172025 | the generating function derived from a coefficient-extraction definition |
-| 87 | PROOF | A348410 | the generating function derived from a coefficient-extraction definition |
-| 88 | PROOF | A243764 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 89 | PROOF | A243760 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 90 | PROOF | A285195 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 91 | PROOF | A243814 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 92 | PROOF | A055392 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 93 | PROOF | A025758 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 94 | PROOF | A308726 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 95 | PROOF | A243022 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 96 | PROOF | A168506 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 97 | PROOF | A239425 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 98 | PROOF | A025757 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 99 | PROOF | A242566 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 100 | PROOF | A270530 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 101 | PROOF | A101478 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 102 | PROOF | A025756 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 103 | PROOF | A097180 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 104 | PROOF | A097189 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 105 | PROOF | A127632 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 106 | PROOF | A130655 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 107 | PROOF | A166135 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 108 | PROOF | A212696 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 109 | PROOF | A261196 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 110 | PROOF | A270530 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 111 | PROOF | A185010 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 112 | PROOF | A185020 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 113 | PROOF | A200312 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 114 | PROOF | A025754 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 115 | PROOF | A097188 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 116 | PROOF | A097192 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 117 | PROOF | A158826 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 118 | PROOF | A159769 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 119 | PROOF | A294159 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 120 | PROOF | A392976 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 121 | PROOF | A162972 | a transcendental e.g.f., in a differential module over Q(x) |
-| 122 | PROOF | A001465 | a transcendental e.g.f., in a differential module over Q(x) |
-| 123 | PROOF | A085387 | a transcendental e.g.f., in a differential module over Q(x) |
-| 124 | PROOF | A096471 | a transcendental e.g.f., in a differential module over Q(x) |
-| 125 | PROOF | A000704 | a transcendental e.g.f., in a differential module over Q(x) |
-| 126 | PROOF | A001724 | a transcendental e.g.f., in a differential module over Q(x) |
-| 127 | PROOF | A066052 | a transcendental e.g.f., in a differential module over Q(x) |
-| 128 | PROOF | A097204 | a transcendental e.g.f., in a differential module over Q(x) |
-| 129 | PROOF | A053532 | a transcendental e.g.f., in a differential module over Q(x) |
-| 130 | PROOF | A306948 | a transcendental e.g.f., in a differential module over Q(x) |
-| 131 | PROOF | A000483 | a transcendental e.g.f., in a differential module over Q(x) |
-| 132 | PROOF | A000276 | a transcendental e.g.f., in a differential module over Q(x) |
-| 133 | PROOF | A002104 | a transcendental e.g.f., in a differential module over Q(x) |
-| 134 | PROOF | A002538 | a transcendental e.g.f., in a differential module over Q(x) |
-| 135 | PROOF | A066052 | a transcendental e.g.f., in a differential module over Q(x) |
-| 136 | PROOF | A073591 | a transcendental e.g.f., in a differential module over Q(x) |
-| 137 | PROOF | A108704 | a transcendental e.g.f., in a differential module over Q(x) |
-| 138 | PROOF | A110322 | a transcendental e.g.f., in a differential module over Q(x) |
-| 139 | PROOF | A185369 | a transcendental e.g.f., in a differential module over Q(x) |
-| 140 | PROOF | A000276 | a transcendental e.g.f., in a differential module over Q(x) |
-| 141 | PROOF | A000774 | a transcendental e.g.f., in a differential module over Q(x) |
-| 142 | PROOF | A094905 | a transcendental e.g.f., in a differential module over Q(x) |
-| 143 | PROOF | A098557 | a transcendental e.g.f., in a differential module over Q(x) |
-| 144 | PROOF | A051560 | a transcendental e.g.f., in a differential module over Q(x) |
-| 145 | PROOF | A129149 | a transcendental e.g.f., in a differential module over Q(x) |
-| 146 | PROOF | A187252 | a transcendental e.g.f., in a differential module over Q(x) |
-| 147 | PROOF | A005654 | a posted closed form split on the parity of n, then decided by hypergeometric terms |
-| 148 | PROOF | A116385 | a posted closed form split on the parity of n, then decided by hypergeometric terms |
-| 149 | PROOF | A005558 | a posted closed form split on the parity of n, then decided by hypergeometric terms |
-| 150 | PROOF | A065942 | a posted closed form split on the parity of n, then decided by hypergeometric terms |
-| 151 | PROOF | A081181 | a posted closed form split on the parity of n, then decided by hypergeometric terms |
-| 152 | PROOF | A081204 | a posted closed form split on the parity of n, then decided by hypergeometric terms |
+| 58 | PROOF | A091713 | a defining functional equation reduced mod k, then closed by uniqueness of its recursion |
+| 59 | PROOF | A111403 | an entry equated to an m-section of another entry, decided from both entries' facts |
+| 60 | PROOF | A155543 | an entry equated to an m-section of another entry, decided from both entries' facts |
+| 61 | PROOF | A196523 | a defining functional equation reduced mod k, then closed by uniqueness of its recursion |
+| 62 | PROOF | A208545 | a conjectured closed form or g.f., proved against a recurrence derived from the entry |
+| 63 | PROOF | A227161 | a conjectured closed form or g.f., proved against a recurrence derived from the entry |
+| 64 | PROOF | A378575 | a defining functional equation reduced mod k, then closed by uniqueness of its recursion |
+| 65 | PROOF | A378576 | a defining functional equation reduced mod k, then closed by uniqueness of its recursion |
+| 66 | PROOF | A393856 | a defining functional equation reduced mod k, then closed by uniqueness of its recursion |
+| 67 | PROOF | A393857 | a defining functional equation reduced mod k, then closed by uniqueness of its recursion |
+| 68 | PROOF | A393858 | a defining functional equation reduced mod k, then closed by uniqueness of its recursion |
+| 69 | PROOF | A393859 | a defining functional equation reduced mod k, then closed by uniqueness of its recursion |
+| 70 | PROOF | A396099 | a defining functional equation reduced mod k, then closed by uniqueness of its recursion |
+| 71 | PROOF | A396102 | a defining functional equation reduced mod k, then closed by uniqueness of its recursion |
+| 72 | PROOF | A396797 | a defining functional equation reduced mod k, then closed by uniqueness of its recursion |
+| 73 | PROOF | A396807 | a defining functional equation reduced mod k, then closed by uniqueness of its recursion |
+| 74 | DISPROOF | A141135 | a conjecture shown FALSE, with the recurrence that holds instead |
+| 75 | DISPROOF | A076217 | a conjecture shown FALSE, with the recurrence that holds instead |
+| 76 | PROOF | A129833 | creative telescoping with the boundary and range corrections carried through |
+| 77 | PROOF | A306948 | creative telescoping with the boundary and range corrections carried through |
+| 78 | PROOF | A129833 | creative telescoping with the boundary and range corrections carried through |
+| 79 | PROOF | A000180 | creative telescoping with the boundary and range corrections carried through |
+| 80 | PROOF | A127905 | a recurrence derived from the summand by creative telescoping |
+| 81 | PROOF | A045742 | a recurrence derived from the summand by creative telescoping |
+| 82 | PROOF | A243585 | a recurrence derived from the summand by creative telescoping |
+| 83 | PROOF | A026005 | a recurrence derived from the summand by creative telescoping |
+| 84 | PROOF | A359643 | the generating function derived from a coefficient-extraction definition |
+| 85 | PROOF | A156894 | the generating function derived from a coefficient-extraction definition |
+| 86 | PROOF | A156894 | the generating function derived from a coefficient-extraction definition |
+| 87 | PROOF | A371753 | the generating function derived from a coefficient-extraction definition |
+| 88 | PROOF | A226751 | the generating function derived from a coefficient-extraction definition |
+| 89 | PROOF | A386830 | the generating function derived from a coefficient-extraction definition |
+| 90 | PROOF | A172025 | the generating function derived from a coefficient-extraction definition |
+| 91 | PROOF | A348410 | the generating function derived from a coefficient-extraction definition |
+| 92 | PROOF | A243764 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 93 | PROOF | A243760 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 94 | PROOF | A285195 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 95 | PROOF | A243814 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 96 | PROOF | A055392 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 97 | PROOF | A025758 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 98 | PROOF | A308726 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 99 | PROOF | A243022 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 100 | PROOF | A168506 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 101 | PROOF | A239425 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 102 | PROOF | A025757 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 103 | PROOF | A242566 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 104 | PROOF | A270530 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 105 | PROOF | A101478 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 106 | PROOF | A025756 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 107 | PROOF | A097180 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 108 | PROOF | A097189 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 109 | PROOF | A127632 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 110 | PROOF | A130655 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 111 | PROOF | A166135 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 112 | PROOF | A212696 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 113 | PROOF | A261196 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 114 | PROOF | A270530 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 115 | PROOF | A185010 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 116 | PROOF | A185020 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 117 | PROOF | A200312 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 118 | PROOF | A025754 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 119 | PROOF | A097188 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 120 | PROOF | A097192 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 121 | PROOF | A158826 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 122 | PROOF | A159769 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 123 | PROOF | A294159 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 124 | PROOF | A392976 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 125 | PROOF | A162972 | a transcendental e.g.f., in a differential module over Q(x) |
+| 126 | PROOF | A001465 | a transcendental e.g.f., in a differential module over Q(x) |
+| 127 | PROOF | A085387 | a transcendental e.g.f., in a differential module over Q(x) |
+| 128 | PROOF | A096471 | a transcendental e.g.f., in a differential module over Q(x) |
+| 129 | PROOF | A000704 | a transcendental e.g.f., in a differential module over Q(x) |
+| 130 | PROOF | A001724 | a transcendental e.g.f., in a differential module over Q(x) |
+| 131 | PROOF | A066052 | a transcendental e.g.f., in a differential module over Q(x) |
+| 132 | PROOF | A097204 | a transcendental e.g.f., in a differential module over Q(x) |
+| 133 | PROOF | A053532 | a transcendental e.g.f., in a differential module over Q(x) |
+| 134 | PROOF | A306948 | a transcendental e.g.f., in a differential module over Q(x) |
+| 135 | PROOF | A000483 | a transcendental e.g.f., in a differential module over Q(x) |
+| 136 | PROOF | A000276 | a transcendental e.g.f., in a differential module over Q(x) |
+| 137 | PROOF | A002104 | a transcendental e.g.f., in a differential module over Q(x) |
+| 138 | PROOF | A002538 | a transcendental e.g.f., in a differential module over Q(x) |
+| 139 | PROOF | A066052 | a transcendental e.g.f., in a differential module over Q(x) |
+| 140 | PROOF | A073591 | a transcendental e.g.f., in a differential module over Q(x) |
+| 141 | PROOF | A108704 | a transcendental e.g.f., in a differential module over Q(x) |
+| 142 | PROOF | A110322 | a transcendental e.g.f., in a differential module over Q(x) |
+| 143 | PROOF | A185369 | a transcendental e.g.f., in a differential module over Q(x) |
+| 144 | PROOF | A000276 | a transcendental e.g.f., in a differential module over Q(x) |
+| 145 | PROOF | A000774 | a transcendental e.g.f., in a differential module over Q(x) |
+| 146 | PROOF | A094905 | a transcendental e.g.f., in a differential module over Q(x) |
+| 147 | PROOF | A098557 | a transcendental e.g.f., in a differential module over Q(x) |
+| 148 | PROOF | A051560 | a transcendental e.g.f., in a differential module over Q(x) |
+| 149 | PROOF | A129149 | a transcendental e.g.f., in a differential module over Q(x) |
+| 150 | PROOF | A187252 | a transcendental e.g.f., in a differential module over Q(x) |
+| 151 | PROOF | A005654 | a posted closed form split on the parity of n, then decided by hypergeometric terms |
+| 152 | PROOF | A116385 | a posted closed form split on the parity of n, then decided by hypergeometric terms |
 | 153 | PROOF | A005558 | a posted closed form split on the parity of n, then decided by hypergeometric terms |
-| 154 | PROOF | A005559 | a posted closed form split on the parity of n, then decided by hypergeometric terms |
-| 155 | PROOF | A005560 | a posted closed form split on the parity of n, then decided by hypergeometric terms |
-| 156 | PROOF | A005561 | a posted closed form split on the parity of n, then decided by hypergeometric terms |
-| 157 | PROOF | A005562 | a posted closed form split on the parity of n, then decided by hypergeometric terms |
-| 158 | PROOF | A081204 | a posted closed form split on the parity of n, then decided by hypergeometric terms |
-| 159 | PROOF | A081205 | a posted closed form split on the parity of n, then decided by hypergeometric terms |
-| 160 | PROOF | A213801 | a posted closed form split on the parity of n, then decided by hypergeometric terms |
-| 161 | PROOF | A006231 | a posted closed form against a derived holonomic recurrence |
-| 162 | PROOF | A213203 | a posted closed form compared against the posted generating function |
-| 163 | PROOF | A242429 | a posted closed form compared against the posted generating function |
-| 164 | PROOF | A026018 | a posted closed form compared against the posted generating function |
-| 165 | PROOF | A092634 | a posted closed form compared against the posted generating function |
-| 166 | PROOF | A026026 | a posted closed form compared against the posted generating function |
-| 167 | PROOF | A052227 | a posted closed form compared against the posted generating function |
-| 168 | PROOF | A228329 | a posted closed form compared against the posted generating function |
-| 169 | PROOF | A259457 | a posted closed form compared against the posted generating function |
-| 170 | PROOF | A268554 | a posted closed form compared against the posted generating function |
-| 171 | PROOF | A102319 | several independent square roots |
-| 172 | PROOF | A115256 | several independent square roots |
-| 173 | PROOF | A157125 | several independent square roots |
-| 174 | PROOF | A102318 | several independent square roots |
-| 175 | PROOF | A107587 | several independent square roots |
-| 176 | PROOF | A218185 | several independent square roots |
-| 177 | PROOF | A025567 | several independent square roots |
-| 178 | PROOF | A071684 | several independent square roots |
-| 179 | PROOF | A179648 | several independent square roots |
-| 180 | PROOF | A184120 | several independent square roots |
-| 181 | PROOF | A026163 | several independent square roots |
-| 182 | PROOF | A102318 | several independent square roots |
-| 183 | PROOF | A101500 | several independent square roots |
-| 184 | PROOF | A102319 | several independent square roots |
-| 185 | PROOF | A107587 | several independent square roots |
-| 186 | PROOF | A072100 | several independent square roots |
-| 187 | PROOF | A025567 | several independent square roots |
-| 188 | PROOF | A334509 | an identity between different entries |
-| 189 | PROOF | A298022 | an identity between different entries |
-| 190 | PROOF | A273676 | an identity between different entries |
-| 191 | PROOF | A273832 | an identity between different entries |
-| 192 | PROOF | A319371 | an identity between different entries |
-| 193 | PROOF | A110320 | an identity between different entries |
-| 194 | PROOF | A309878 | an identity between different entries |
-| 195 | PROOF | A315520 | an identity between different entries |
-| 196 | PROOF | A346370 | an identity between different entries |
-| 197 | PROOF | A176126 | the residual test over one square root, or none |
-| 198 | PROOF | A191625 | the residual test over one square root, or none |
-| 199 | PROOF | A186341 | the residual test over one square root, or none |
-| 200 | PROOF | A026743 | the residual test over one square root, or none |
-| 201 | PROOF | A191786 | the residual test over one square root, or none |
-| 202 | PROOF | A210496 | the residual test over one square root, or none |
-| 203 | PROOF | A182892 | the residual test over one square root, or none |
-| 204 | PROOF | A270724 | the residual test over one square root, or none |
-| 205 | PROOF | A190171 | the residual test over one square root, or none |
-| 206 | PROOF | A257515 | the residual test over one square root, or none |
-| 207 | PROOF | A190788 | the residual test over one square root, or none |
-| 208 | PROOF | A095981 | the residual test over one square root, or none |
-| 209 | PROOF | A212205 | the residual test over one square root, or none |
-| 210 | PROOF | A270661 | the residual test over one square root, or none |
-| 211 | PROOF | A157021 | the residual test over one square root, or none |
-| 212 | PROOF | A165537 | the residual test over one square root, or none |
-| 213 | PROOF | A166287 | the residual test over one square root, or none |
-| 214 | PROOF | A174013 | the residual test over one square root, or none |
-| 215 | PROOF | A178072 | the residual test over one square root, or none |
-| 216 | PROOF | A182894 | the residual test over one square root, or none |
-| 217 | PROOF | A114584 | the residual test over one square root, or none |
-| 218 | PROOF | A164586 | the residual test over one square root, or none |
-| 219 | PROOF | A189053 | the residual test over one square root, or none |
-| 220 | PROOF | A182904 | the residual test over one square root, or none |
-| 221 | PROOF | A274295 | the residual test over one square root, or none |
-| 222 | PROOF | A226434 | the residual test over one square root, or none |
-| 223 | PROOF | A257104 | the residual test over one square root, or none |
-| 224 | PROOF | A108600 | the residual test over one square root, or none |
-| 225 | PROOF | A114851 | the residual test over one square root, or none |
-| 226 | PROOF | A125306 | the residual test over one square root, or none |
-| 227 | PROOF | A166290 | the residual test over one square root, or none |
-| 228 | PROOF | A228770 | the residual test over one square root, or none |
-| 229 | PROOF | A257300 | the residual test over one square root, or none |
-| 230 | PROOF | A089324 | the residual test over one square root, or none |
-| 231 | PROOF | A104625 | the residual test over one square root, or none |
-| 232 | PROOF | A113956 | the residual test over one square root, or none |
-| 233 | PROOF | A116383 | the residual test over one square root, or none |
-| 234 | PROOF | A162548 | the residual test over one square root, or none |
-| 235 | PROOF | A173993 | the residual test over one square root, or none |
-| 236 | PROOF | A244886 | the residual test over one square root, or none |
-| 237 | PROOF | A157003 | the residual test over one square root, or none |
-| 238 | PROOF | A162482 | the residual test over one square root, or none |
-| 239 | PROOF | A163493 | the residual test over one square root, or none |
-| 240 | PROOF | A191398 | the residual test over one square root, or none |
-| 241 | PROOF | A135582 | the residual test over one square root, or none |
-| 242 | PROOF | A139376 | the residual test over one square root, or none |
-| 243 | PROOF | A346074 | the residual test over one square root, or none |
-| 244 | PROOF | A190166 | the residual test over one square root, or none |
-| 245 | PROOF | A025251 | the residual test over one square root, or none |
-| 246 | PROOF | A228771 | the residual test over one square root, or none |
-| 247 | PROOF | A025268 | the residual test over one square root, or none |
-| 248 | PROOF | A025272 | the residual test over one square root, or none |
-| 249 | PROOF | A162475 | the residual test over one square root, or none |
-| 250 | PROOF | A385252 | the residual test over one square root, or none |
-| 251 | PROOF | A114464 | the residual test over one square root, or none |
-| 252 | PROOF | A127154 | the residual test over one square root, or none |
-| 253 | PROOF | A135335 | the residual test over one square root, or none |
-| 254 | PROOF | A165540 | the residual test over one square root, or none |
-| 255 | PROOF | A171416 | the residual test over one square root, or none |
-| 256 | PROOF | A188314 | the residual test over one square root, or none |
-| 257 | PROOF | A247170 | the residual test over one square root, or none |
-| 258 | PROOF | A254314 | the residual test over one square root, or none |
-| 259 | PROOF | A270661 | the residual test over one square root, or none |
-| 260 | PROOF | A003440 | the residual test over one square root, or none |
-| 261 | PROOF | A110521 | the residual test over one square root, or none |
-| 262 | PROOF | A114190 | the residual test over one square root, or none |
-| 263 | PROOF | A116387 | the residual test over one square root, or none |
-| 264 | PROOF | A128096 | the residual test over one square root, or none |
-| 265 | PROOF | A135052 | the residual test over one square root, or none |
-| 266 | PROOF | A157021 | the residual test over one square root, or none |
-| 267 | PROOF | A160823 | the residual test over one square root, or none |
-| 268 | PROOF | A166287 | the residual test over one square root, or none |
-| 269 | PROOF | A174808 | the residual test over one square root, or none |
-| 270 | PROOF | A185089 | the residual test over one square root, or none |
-| 271 | PROOF | A186940 | the residual test over one square root, or none |
-| 272 | PROOF | A190736 | the residual test over one square root, or none |
-| 273 | PROOF | A219314 | the residual test over one square root, or none |
-| 274 | PROOF | A100095 | the residual test over one square root, or none |
-| 275 | PROOF | A100097 | the residual test over one square root, or none |
-| 276 | PROOF | A191313 | the residual test over one square root, or none |
-| 277 | PROOF | A191790 | the residual test over one square root, or none |
-| 278 | PROOF | A273351 | the residual test over one square root, or none |
-| 279 | PROOF | A278472 | the residual test over one square root, or none |
-| 280 | PROOF | A108296 | the residual test over one square root, or none |
-| 281 | PROOF | A116391 | the residual test over one square root, or none |
-| 282 | PROOF | A110198 | the residual test over one square root, or none |
-| 283 | PROOF | A182879 | the residual test over one square root, or none |
-| 284 | PROOF | A182887 | the residual test over one square root, or none |
-| 285 | PROOF | A135925 | the residual test over one square root, or none |
-| 286 | PROOF | A007901 | the residual test over one square root, or none |
-| 287 | PROOF | A025256 | the residual test over one square root, or none |
-| 288 | PROOF | A025258 | the residual test over one square root, or none |
-| 289 | PROOF | A000781 | the residual test over one square root, or none |
-| 290 | PROOF | A025245 | the residual test over one square root, or none |
-| 291 | PROOF | A025257 | the residual test over one square root, or none |
-| 292 | PROOF | A025269 | the residual test over one square root, or none |
-| 293 | PROOF | A025270 | the residual test over one square root, or none |
-| 294 | PROOF | A025275 | the residual test over one square root, or none |
-| 295 | PROOF | A032096 | the residual test over one square root, or none |
-| 296 | PROOF | A102880 | the residual test over one square root, or none |
-| 297 | PROOF | A111053 | the residual test over one square root, or none |
-| 298 | PROOF | A152120 | the residual test over one square root, or none |
-| 299 | PROOF | A159771 | the residual test over one square root, or none |
-| 300 | PROOF | A166694 | the residual test over one square root, or none |
-| 301 | PROOF | A166696 | the residual test over one square root, or none |
-| 302 | PROOF | A191796 | the residual test over one square root, or none |
-| 303 | PROOF | A217711 | the residual test over one square root, or none |
-| 304 | PROOF | A278023 | the residual test over one square root, or none |
-| 305 | PROOF | A279014 | the residual test over one square root, or none |
-| 306 | PROOF | A000483 | the residual test over one square root, or none |
-| 307 | PROOF | A026030 | the residual test over one square root, or none |
-| 308 | PROOF | A026031 | the residual test over one square root, or none |
-| 309 | PROOF | A048775 | the residual test over one square root, or none |
-| 310 | PROOF | A116409 | the residual test over one square root, or none |
-| 311 | PROOF | A126322 | the residual test over one square root, or none |
-| 312 | PROOF | A128750 | the residual test over one square root, or none |
-| 313 | PROOF | A143955 | the residual test over one square root, or none |
-| 314 | PROOF | A165203 | the residual test over one square root, or none |
-| 315 | PROOF | A168505 | the residual test over one square root, or none |
-| 316 | PROOF | A176605 | the residual test over one square root, or none |
-| 317 | PROOF | A181933 | the residual test over one square root, or none |
-| 318 | PROOF | A191585 | the residual test over one square root, or none |
-| 319 | PROOF | A215973 | the residual test over one square root, or none |
-| 320 | PROOF | A234269 | the residual test over one square root, or none |
-| 321 | PROOF | A236407 | the residual test over one square root, or none |
-| 322 | PROOF | A270363 | the residual test over one square root, or none |
-| 323 | PROOF | A098521 | the residual test over one square root, or none |
-| 324 | PROOF | A100096 | the residual test over one square root, or none |
-| 325 | PROOF | A100099 | the residual test over one square root, or none |
-| 326 | PROOF | A105849 | the residual test over one square root, or none |
-| 327 | PROOF | A105864 | the residual test over one square root, or none |
-| 328 | PROOF | A105865 | the residual test over one square root, or none |
-| 329 | PROOF | A108308 | the residual test over one square root, or none |
-| 330 | PROOF | A114194 | the residual test over one square root, or none |
-| 331 | PROOF | A115967 | the residual test over one square root, or none |
-| 332 | PROOF | A117186 | the residual test over one square root, or none |
-| 333 | PROOF | A120010 | the residual test over one square root, or none |
-| 334 | PROOF | A124431 | the residual test over one square root, or none |
-| 335 | PROOF | A124431 | the residual test over one square root, or none |
-| 336 | PROOF | A126568 | the residual test over one square root, or none |
-| 337 | PROOF | A132364 | the residual test over one square root, or none |
-| 338 | PROOF | A141342 | the residual test over one square root, or none |
-| 339 | PROOF | A155051 | the residual test over one square root, or none |
-| 340 | PROOF | A157002 | the residual test over one square root, or none |
-| 341 | PROOF | A157100 | the residual test over one square root, or none |
-| 342 | PROOF | A166076 | the residual test over one square root, or none |
-| 343 | PROOF | A166300 | the residual test over one square root, or none |
-| 344 | PROOF | A168503 | the residual test over one square root, or none |
-| 345 | PROOF | A174107 | the residual test over one square root, or none |
-| 346 | PROOF | A174169 | the residual test over one square root, or none |
-| 347 | PROOF | A176332 | the residual test over one square root, or none |
-| 348 | PROOF | A184018 | the residual test over one square root, or none |
-| 349 | PROOF | A188312 | the residual test over one square root, or none |
-| 350 | PROOF | A188482 | the residual test over one square root, or none |
-| 351 | PROOF | A191782 | the residual test over one square root, or none |
-| 352 | PROOF | A217333 | the residual test over one square root, or none |
-| 353 | PROOF | A257072 | the residual test over one square root, or none |
-| 354 | PROOF | A261681 | the residual test over one square root, or none |
-| 355 | PROOF | A073155 | the residual test over one square root, or none |
-| 356 | PROOF | A105524 | the residual test over one square root, or none |
-| 357 | PROOF | A114589 | the residual test over one square root, or none |
-| 358 | PROOF | A114590 | the residual test over one square root, or none |
-| 359 | PROOF | A162481 | the residual test over one square root, or none |
-| 360 | PROOF | A174783 | the residual test over one square root, or none |
-| 361 | PROOF | A188460 | the residual test over one square root, or none |
-| 362 | PROOF | A188464 | the residual test over one square root, or none |
-| 363 | PROOF | A190725 | the residual test over one square root, or none |
-| 364 | PROOF | A191526 | the residual test over one square root, or none |
-| 365 | PROOF | A191531 | the residual test over one square root, or none |
-| 366 | PROOF | A211278 | the residual test over one square root, or none |
-| 367 | PROOF | A026327 | the residual test over one square root, or none |
-| 368 | PROOF | A081207 | the residual test over one square root, or none |
-| 369 | PROOF | A102882 | the residual test over one square root, or none |
-| 370 | PROOF | A182881 | the residual test over one square root, or none |
-| 371 | PROOF | A191309 | the residual test over one square root, or none |
-| 372 | PROOF | A191319 | the residual test over one square root, or none |
-| 373 | PROOF | A191790 | the residual test over one square root, or none |
-| 374 | PROOF | A273351 | the residual test over one square root, or none |
-| 375 | PROOF | A025248 | the residual test over one square root, or none |
-| 376 | PROOF | A025249 | the residual test over one square root, or none |
-| 377 | PROOF | A026017 | the residual test over one square root, or none |
-| 378 | PROOF | A071717 | the residual test over one square root, or none |
-| 379 | PROOF | A081672 | the residual test over one square root, or none |
-| 380 | PROOF | A104722 | the residual test over one square root, or none |
-| 381 | PROOF | A109263 | the residual test over one square root, or none |
-| 382 | PROOF | A118093 | the residual test over one square root, or none |
-| 383 | PROOF | A118974 | the residual test over one square root, or none |
-| 384 | PROOF | A121320 | the residual test over one square root, or none |
-| 385 | PROOF | A126323 | the residual test over one square root, or none |
-| 386 | PROOF | A128723 | the residual test over one square root, or none |
-| 387 | PROOF | A135334 | the residual test over one square root, or none |
-| 388 | PROOF | A141351 | the residual test over one square root, or none |
-| 389 | PROOF | A141353 | the residual test over one square root, or none |
-| 390 | PROOF | A163824 | the residual test over one square root, or none |
-| 391 | PROOF | A165201 | the residual test over one square root, or none |
-| 392 | PROOF | A279014 | the residual test over one square root, or none |
-| 393 | PROOF | A026027 | the residual test over one square root, or none |
-| 394 | PROOF | A026135 | the residual test over one square root, or none |
-| 395 | PROOF | A050168 | the residual test over one square root, or none |
-| 396 | PROOF | A059279 | the residual test over one square root, or none |
-| 397 | PROOF | A063395 | the residual test over one square root, or none |
-| 398 | PROOF | A071722 | the residual test over one square root, or none |
-| 399 | PROOF | A082134 | the residual test over one square root, or none |
-| 400 | PROOF | A097331 | the residual test over one square root, or none |
-| 401 | PROOF | A100193 | the residual test over one square root, or none |
-| 402 | PROOF | A103973 | the residual test over one square root, or none |
-| 403 | PROOF | A106181 | the residual test over one square root, or none |
-| 404 | PROOF | A108623 | the residual test over one square root, or none |
-| 405 | PROOF | A126180 | the residual test over one square root, or none |
-| 406 | PROOF | A128732 | the residual test over one square root, or none |
-| 407 | PROOF | A134389 | the residual test over one square root, or none |
-| 408 | PROOF | A143013 | the residual test over one square root, or none |
-| 409 | PROOF | A143954 | the residual test over one square root, or none |
-| 410 | PROOF | A157418 | the residual test over one square root, or none |
-| 411 | PROOF | A158196 | the residual test over one square root, or none |
-| 412 | PROOF | A158197 | the residual test over one square root, or none |
-| 413 | PROOF | A191585 | the residual test over one square root, or none |
-| 414 | PROOF | A257290 | the residual test over one square root, or none |
-| 415 | PROOF | A054341 | the residual test over one square root, or none |
-| 416 | PROOF | A071715 | the residual test over one square root, or none |
-| 417 | PROOF | A090413 | the residual test over one square root, or none |
-| 418 | PROOF | A090826 | the residual test over one square root, or none |
-| 419 | PROOF | A091699 | the residual test over one square root, or none |
-| 420 | PROOF | A098664 | the residual test over one square root, or none |
-| 421 | PROOF | A099363 | the residual test over one square root, or none |
-| 422 | PROOF | A100098 | the residual test over one square root, or none |
-| 423 | PROOF | A105872 | the residual test over one square root, or none |
-| 424 | PROOF | A119975 | the residual test over one square root, or none |
-| 425 | PROOF | A121724 | the residual test over one square root, or none |
-| 426 | PROOF | A121725 | the residual test over one square root, or none |
-| 427 | PROOF | A126931 | the residual test over one square root, or none |
-| 428 | PROOF | A126932 | the residual test over one square root, or none |
-| 429 | PROOF | A127361 | the residual test over one square root, or none |
-| 430 | PROOF | A127363 | the residual test over one square root, or none |
-| 431 | PROOF | A155051 | the residual test over one square root, or none |
-| 432 | PROOF | A166078 | the residual test over one square root, or none |
-| 433 | PROOF | A166587 | the residual test over one square root, or none |
-| 434 | PROOF | A166588 | the residual test over one square root, or none |
-| 435 | PROOF | A176006 | the residual test over one square root, or none |
-| 436 | PROOF | A185087 | the residual test over one square root, or none |
-| 437 | PROOF | A190724 | the residual test over one square root, or none |
-| 438 | PROOF | A225887 | the residual test over one square root, or none |
-| 439 | PROOF | A227081 | the residual test over one square root, or none |
-| 440 | PROOF | A257178 | the residual test over one square root, or none |
-| 441 | PROOF | A257388 | the residual test over one square root, or none |
-| 442 | PROOF | A257838 | the residual test over one square root, or none |
-| 443 | PROOF | A001712 | the residual test over one square root, or none |
-| 444 | PROOF | A025175 | the residual test over one square root, or none |
-| 445 | PROOF | A025577 | the residual test over one square root, or none |
-| 446 | PROOF | A026023 | the residual test over one square root, or none |
-| 447 | PROOF | A055217 | the residual test over one square root, or none |
-| 448 | PROOF | A081052 | the residual test over one square root, or none |
-| 449 | PROOF | A103821 | the residual test over one square root, or none |
-| 450 | PROOF | A107231 | the residual test over one square root, or none |
-| 451 | PROOF | A110199 | the residual test over one square root, or none |
-| 452 | PROOF | A116406 | the residual test over one square root, or none |
-| 453 | PROOF | A128734 | the residual test over one square root, or none |
-| 454 | PROOF | A191307 | the residual test over one square root, or none |
-| 455 | PROOF | A278472 | the residual test over one square root, or none |
-| 456 | PROOF | A034863 | the residual test over one square root, or none |
-| 457 | PROOF | A128652 | the residual test over one square root, or none |
-| 458 | PROOF | A174195 | the residual test over one square root, or none |
-| 459 | PROOF | A192480 | the residual test over one square root, or none |
-| 460 | PROOF | A158495 | the residual test over one square root, or none |
-| 461 | PROOF | A189176 | the residual test over one square root, or none |
-| 462 | PROOF | A194724 | the residual test over one square root, or none |
-| 463 | PROOF | A210474 | the residual test over one square root, or none |
-| 464 | PROOF | A262768 | the residual test over one square root, or none |
-| 465 | PROOF | A026029 | the residual test over one square root, or none |
-| 466 | PROOF | A064088 | the residual test over one square root, or none |
-| 467 | PROOF | A064089 | the residual test over one square root, or none |
-| 468 | PROOF | A064090 | the residual test over one square root, or none |
-| 469 | PROOF | A064091 | the residual test over one square root, or none |
-| 470 | PROOF | A064092 | the residual test over one square root, or none |
-| 471 | PROOF | A067299 | the residual test over one square root, or none |
-| 472 | PROOF | A068551 | the residual test over one square root, or none |
-| 473 | PROOF | A080243 | the residual test over one square root, or none |
-| 474 | PROOF | A114191 | the residual test over one square root, or none |
-| 475 | PROOF | A116881 | the residual test over one square root, or none |
-| 476 | PROOF | A122920 | the residual test over one square root, or none |
-| 477 | PROOF | A132864 | the residual test over one square root, or none |
-| 478 | PROOF | A133305 | the residual test over one square root, or none |
-| 479 | PROOF | A133306 | the residual test over one square root, or none |
-| 480 | PROOF | A133307 | the residual test over one square root, or none |
-| 481 | PROOF | A133308 | the residual test over one square root, or none |
-| 482 | PROOF | A141222 | the residual test over one square root, or none |
-| 483 | PROOF | A154623 | the residual test over one square root, or none |
-| 484 | PROOF | A157328 | the residual test over one square root, or none |
-| 485 | PROOF | A158196 | the residual test over one square root, or none |
-| 486 | PROOF | A158197 | the residual test over one square root, or none |
-| 487 | PROOF | A191993 | the residual test over one square root, or none |
-| 488 | PROOF | A225034 | the residual test over one square root, or none |
-| 489 | PROOF | A242172 | the residual test over one square root, or none |
-| 490 | PROOF | A002867 | the residual test over one square root, or none |
-| 491 | PROOF | A014533 | the residual test over one square root, or none |
-| 492 | PROOF | A051524 | the residual test over one square root, or none |
-| 493 | PROOF | A071264 | the residual test over one square root, or none |
-| 494 | PROOF | A081046 | the residual test over one square root, or none |
-| 495 | PROOF | A098519 | the residual test over one square root, or none |
-| 496 | PROOF | A098520 | the residual test over one square root, or none |
-| 497 | PROOF | A101596 | the residual test over one square root, or none |
-| 498 | PROOF | A101601 | the residual test over one square root, or none |
-| 499 | PROOF | A101602 | the residual test over one square root, or none |
-| 500 | PROOF | A111779 | the residual test over one square root, or none |
-| 501 | PROOF | A112703 | the residual test over one square root, or none |
-| 502 | PROOF | A119012 | the residual test over one square root, or none |
-| 503 | PROOF | A128057 | the residual test over one square root, or none |
-| 504 | PROOF | A128746 | the residual test over one square root, or none |
-| 505 | PROOF | A132900 | the residual test over one square root, or none |
-| 506 | PROOF | A151483 | the residual test over one square root, or none |
-| 507 | PROOF | A167481 | the residual test over one square root, or none |
-| 508 | PROOF | A171556 | the residual test over one square root, or none |
-| 509 | PROOF | A176479 | the residual test over one square root, or none |
-| 510 | PROOF | A182401 | the residual test over one square root, or none |
-| 511 | PROOF | A208355 | the residual test over one square root, or none |
-| 512 | PROOF | A210064 | the residual test over one square root, or none |
-| 513 | PROOF | A240558 | the residual test over one square root, or none |
-| 514 | PROOF | A141771 | the residual test over one square root, or none |
-| 515 | PROOF | A176606 | the residual test over one square root, or none |
-| 516 | PROOF | A176607 | the residual test over one square root, or none |
-| 517 | PROOF | A176609 | the residual test over one square root, or none |
-| 518 | PROOF | A176610 | the residual test over one square root, or none |
-| 519 | PROOF | A176611 | the residual test over one square root, or none |
-| 520 | PROOF | A176675 | the residual test over one square root, or none |
-| 521 | PROOF | A176749 | the residual test over one square root, or none |
-| 522 | PROOF | A176750 | the residual test over one square root, or none |
-| 523 | PROOF | A176751 | the residual test over one square root, or none |
-| 524 | PROOF | A176752 | the residual test over one square root, or none |
-| 525 | PROOF | A176753 | the residual test over one square root, or none |
-| 526 | PROOF | A176754 | the residual test over one square root, or none |
-| 527 | PROOF | A176755 | the residual test over one square root, or none |
-| 528 | PROOF | A176756 | the residual test over one square root, or none |
-| 529 | PROOF | A176757 | the residual test over one square root, or none |
-| 530 | PROOF | A176759 | the residual test over one square root, or none |
-| 531 | PROOF | A176828 | the residual test over one square root, or none |
-| 532 | PROOF | A176829 | the residual test over one square root, or none |
-| 533 | PROOF | A176830 | the residual test over one square root, or none |
-| 534 | PROOF | A176832 | the residual test over one square root, or none |
-| 535 | PROOF | A176854 | the residual test over one square root, or none |
-| 536 | PROOF | A176855 | the residual test over one square root, or none |
-| 537 | PROOF | A176856 | the residual test over one square root, or none |
-| 538 | PROOF | A176857 | the residual test over one square root, or none |
-| 539 | PROOF | A176858 | the residual test over one square root, or none |
-| 540 | PROOF | A176859 | the residual test over one square root, or none |
-| 541 | PROOF | A176952 | the residual test over one square root, or none |
-| 542 | PROOF | A176953 | the residual test over one square root, or none |
-| 543 | PROOF | A176956 | the residual test over one square root, or none |
-| 544 | PROOF | A176957 | the residual test over one square root, or none |
-| 545 | PROOF | A176958 | the residual test over one square root, or none |
-| 546 | PROOF | A176959 | the residual test over one square root, or none |
-| 547 | PROOF | A176962 | the residual test over one square root, or none |
-| 548 | PROOF | A176964 | the residual test over one square root, or none |
-| 549 | PROOF | A176966 | the residual test over one square root, or none |
-| 550 | PROOF | A176967 | the residual test over one square root, or none |
-| 551 | PROOF | A177123 | the residual test over one square root, or none |
-| 552 | PROOF | A177124 | the residual test over one square root, or none |
-| 553 | PROOF | A177125 | the residual test over one square root, or none |
-| 554 | PROOF | A177126 | the residual test over one square root, or none |
-| 555 | PROOF | A177127 | the residual test over one square root, or none |
-| 556 | PROOF | A177128 | the residual test over one square root, or none |
-| 557 | PROOF | A177129 | the residual test over one square root, or none |
-| 558 | PROOF | A177130 | the residual test over one square root, or none |
-| 559 | PROOF | A177131 | the residual test over one square root, or none |
-| 560 | PROOF | A177163 | the residual test over one square root, or none |
-| 561 | PROOF | A177165 | the residual test over one square root, or none |
-| 562 | PROOF | A177166 | the residual test over one square root, or none |
-| 563 | PROOF | A177167 | the residual test over one square root, or none |
-| 564 | PROOF | A177168 | the residual test over one square root, or none |
-| 565 | PROOF | A177169 | the residual test over one square root, or none |
-| 566 | PROOF | A177170 | the residual test over one square root, or none |
-| 567 | PROOF | A177171 | the residual test over one square root, or none |
-| 568 | PROOF | A177172 | the residual test over one square root, or none |
-| 569 | PROOF | A177175 | the residual test over one square root, or none |
-| 570 | PROOF | A177177 | the residual test over one square root, or none |
-| 571 | PROOF | A177178 | the residual test over one square root, or none |
-| 572 | PROOF | A177179 | the residual test over one square root, or none |
-| 573 | PROOF | A177180 | the residual test over one square root, or none |
-| 574 | PROOF | A177181 | the residual test over one square root, or none |
-| 575 | PROOF | A177182 | the residual test over one square root, or none |
-| 576 | PROOF | A177183 | the residual test over one square root, or none |
-| 577 | PROOF | A177184 | the residual test over one square root, or none |
-| 578 | PROOF | A177185 | the residual test over one square root, or none |
-| 579 | PROOF | A177197 | the residual test over one square root, or none |
-| 580 | PROOF | A177198 | the residual test over one square root, or none |
-| 581 | PROOF | A177199 | the residual test over one square root, or none |
-| 582 | PROOF | A177200 | the residual test over one square root, or none |
-| 583 | PROOF | A177203 | the residual test over one square root, or none |
-| 584 | PROOF | A081670 | the known side is the entry's NAME rather than a formula line |
-| 585 | PROOF | A085781 | the known side is the entry's NAME rather than a formula line |
-| 586 | PROOF | A026019 | the known side is the entry's NAME rather than a formula line |
-| 587 | PROOF | A052183 | the known side is the entry's NAME rather than a formula line |
-| 588 | PROOF | A052204 | the known side is the entry's NAME rather than a formula line |
-| 589 | PROOF | A157713 | the known side is the entry's NAME rather than a formula line |
-| 590 | PROOF | A334511 | a posted closed form decided by the theory of hypergeometric terms |
-| 591 | PROOF | A333905 | a posted closed form decided by the theory of hypergeometric terms |
-| 592 | PROOF | A049486 | a posted closed form decided by the theory of hypergeometric terms |
-| 593 | PROOF | A267879 | a posted closed form decided by the theory of hypergeometric terms |
-| 594 | PROOF | A267802 | a posted closed form decided by the theory of hypergeometric terms |
-| 595 | PROOF | A267847 | a posted closed form decided by the theory of hypergeometric terms |
-| 596 | PROOF | A034267 | a posted closed form decided by the theory of hypergeometric terms |
-| 597 | PROOF | A126501 | a posted closed form decided by the theory of hypergeometric terms |
-| 598 | PROOF | A128153 | a posted closed form decided by the theory of hypergeometric terms |
-| 599 | PROOF | A212938 | a posted closed form decided by the theory of hypergeometric terms |
-| 600 | PROOF | A220250 | a posted closed form decided by the theory of hypergeometric terms |
-| 601 | PROOF | A248434 | a posted closed form decided by the theory of hypergeometric terms |
-| 602 | PROOF | A258547 | a posted closed form decided by the theory of hypergeometric terms |
-| 603 | PROOF | A272706 | a posted closed form decided by the theory of hypergeometric terms |
-| 604 | PROOF | A126089 | complete annihilation, tested in the Ore algebra Q(n)[N] |
-| 605 | PROOF | A025271 | division of one posted operator by another |
-| 606 | PROOF | A138164 | division of one posted operator by another |
-| 607 | PROOF | A143017 | division of one posted operator by another |
-| 608 | PROOF | A159772 | division of one posted operator by another |
-| 609 | PROOF | A000986 | division of one posted operator by another |
-| 610 | PROOF | A022917 | division of one posted operator by another |
-| 611 | PROOF | A217447 | division of one posted operator by another |
-| 612 | PROOF | A226302 | division of one posted operator by another |
-| 613 | PROOF | A245088 | division of one posted operator by another |
-| 614 | PROOF | A026165 | division of one posted operator by another |
-| 615 | PROOF | A185966 | division of one posted operator by another |
-| 616 | PROOF | A200753 | division of one posted operator by another |
-| 617 | PROOF | A217358 | division of one posted operator by another |
-| 618 | PROOF | A228960 | division of one posted operator by another |
-| 619 | PROOF | A003435 | division of one posted operator by another |
-| 620 | PROOF | A228331 | division of one posted operator by another |
-| 621 | PROOF | A273019 | division of one posted operator by another |
-| 622 | PROOF | A386834 | division of one posted operator by another |
-| 623 | PROOF | A228330 | division of one posted operator by another |
-| 624 | PROOF | A228333 | division of one posted operator by another |
+| 154 | PROOF | A065942 | a posted closed form split on the parity of n, then decided by hypergeometric terms |
+| 155 | PROOF | A081181 | a posted closed form split on the parity of n, then decided by hypergeometric terms |
+| 156 | PROOF | A081204 | a posted closed form split on the parity of n, then decided by hypergeometric terms |
+| 157 | PROOF | A005558 | a posted closed form split on the parity of n, then decided by hypergeometric terms |
+| 158 | PROOF | A005559 | a posted closed form split on the parity of n, then decided by hypergeometric terms |
+| 159 | PROOF | A005560 | a posted closed form split on the parity of n, then decided by hypergeometric terms |
+| 160 | PROOF | A005561 | a posted closed form split on the parity of n, then decided by hypergeometric terms |
+| 161 | PROOF | A005562 | a posted closed form split on the parity of n, then decided by hypergeometric terms |
+| 162 | PROOF | A081204 | a posted closed form split on the parity of n, then decided by hypergeometric terms |
+| 163 | PROOF | A081205 | a posted closed form split on the parity of n, then decided by hypergeometric terms |
+| 164 | PROOF | A213801 | a posted closed form split on the parity of n, then decided by hypergeometric terms |
+| 165 | PROOF | A006231 | a posted closed form against a derived holonomic recurrence |
+| 166 | PROOF | A213203 | a posted closed form compared against the posted generating function |
+| 167 | PROOF | A242429 | a posted closed form compared against the posted generating function |
+| 168 | PROOF | A026018 | a posted closed form compared against the posted generating function |
+| 169 | PROOF | A092634 | a posted closed form compared against the posted generating function |
+| 170 | PROOF | A026026 | a posted closed form compared against the posted generating function |
+| 171 | PROOF | A052227 | a posted closed form compared against the posted generating function |
+| 172 | PROOF | A228329 | a posted closed form compared against the posted generating function |
+| 173 | PROOF | A259457 | a posted closed form compared against the posted generating function |
+| 174 | PROOF | A268554 | a posted closed form compared against the posted generating function |
+| 175 | PROOF | A102319 | several independent square roots |
+| 176 | PROOF | A115256 | several independent square roots |
+| 177 | PROOF | A157125 | several independent square roots |
+| 178 | PROOF | A102318 | several independent square roots |
+| 179 | PROOF | A107587 | several independent square roots |
+| 180 | PROOF | A218185 | several independent square roots |
+| 181 | PROOF | A025567 | several independent square roots |
+| 182 | PROOF | A071684 | several independent square roots |
+| 183 | PROOF | A179648 | several independent square roots |
+| 184 | PROOF | A184120 | several independent square roots |
+| 185 | PROOF | A026163 | several independent square roots |
+| 186 | PROOF | A102318 | several independent square roots |
+| 187 | PROOF | A101500 | several independent square roots |
+| 188 | PROOF | A102319 | several independent square roots |
+| 189 | PROOF | A107587 | several independent square roots |
+| 190 | PROOF | A072100 | several independent square roots |
+| 191 | PROOF | A025567 | several independent square roots |
+| 192 | PROOF | A334509 | an identity between different entries |
+| 193 | PROOF | A298022 | an identity between different entries |
+| 194 | PROOF | A273676 | an identity between different entries |
+| 195 | PROOF | A273832 | an identity between different entries |
+| 196 | PROOF | A319371 | an identity between different entries |
+| 197 | PROOF | A110320 | an identity between different entries |
+| 198 | PROOF | A309878 | an identity between different entries |
+| 199 | PROOF | A315520 | an identity between different entries |
+| 200 | PROOF | A346370 | an identity between different entries |
+| 201 | PROOF | A176126 | the residual test over one square root, or none |
+| 202 | PROOF | A191625 | the residual test over one square root, or none |
+| 203 | PROOF | A186341 | the residual test over one square root, or none |
+| 204 | PROOF | A026743 | the residual test over one square root, or none |
+| 205 | PROOF | A191786 | the residual test over one square root, or none |
+| 206 | PROOF | A210496 | the residual test over one square root, or none |
+| 207 | PROOF | A182892 | the residual test over one square root, or none |
+| 208 | PROOF | A270724 | the residual test over one square root, or none |
+| 209 | PROOF | A190171 | the residual test over one square root, or none |
+| 210 | PROOF | A257515 | the residual test over one square root, or none |
+| 211 | PROOF | A190788 | the residual test over one square root, or none |
+| 212 | PROOF | A095981 | the residual test over one square root, or none |
+| 213 | PROOF | A212205 | the residual test over one square root, or none |
+| 214 | PROOF | A270661 | the residual test over one square root, or none |
+| 215 | PROOF | A157021 | the residual test over one square root, or none |
+| 216 | PROOF | A165537 | the residual test over one square root, or none |
+| 217 | PROOF | A166287 | the residual test over one square root, or none |
+| 218 | PROOF | A174013 | the residual test over one square root, or none |
+| 219 | PROOF | A178072 | the residual test over one square root, or none |
+| 220 | PROOF | A182894 | the residual test over one square root, or none |
+| 221 | PROOF | A114584 | the residual test over one square root, or none |
+| 222 | PROOF | A164586 | the residual test over one square root, or none |
+| 223 | PROOF | A189053 | the residual test over one square root, or none |
+| 224 | PROOF | A182904 | the residual test over one square root, or none |
+| 225 | PROOF | A274295 | the residual test over one square root, or none |
+| 226 | PROOF | A226434 | the residual test over one square root, or none |
+| 227 | PROOF | A257104 | the residual test over one square root, or none |
+| 228 | PROOF | A108600 | the residual test over one square root, or none |
+| 229 | PROOF | A114851 | the residual test over one square root, or none |
+| 230 | PROOF | A125306 | the residual test over one square root, or none |
+| 231 | PROOF | A166290 | the residual test over one square root, or none |
+| 232 | PROOF | A228770 | the residual test over one square root, or none |
+| 233 | PROOF | A257300 | the residual test over one square root, or none |
+| 234 | PROOF | A089324 | the residual test over one square root, or none |
+| 235 | PROOF | A104625 | the residual test over one square root, or none |
+| 236 | PROOF | A113956 | the residual test over one square root, or none |
+| 237 | PROOF | A116383 | the residual test over one square root, or none |
+| 238 | PROOF | A162548 | the residual test over one square root, or none |
+| 239 | PROOF | A173993 | the residual test over one square root, or none |
+| 240 | PROOF | A244886 | the residual test over one square root, or none |
+| 241 | PROOF | A157003 | the residual test over one square root, or none |
+| 242 | PROOF | A162482 | the residual test over one square root, or none |
+| 243 | PROOF | A163493 | the residual test over one square root, or none |
+| 244 | PROOF | A191398 | the residual test over one square root, or none |
+| 245 | PROOF | A135582 | the residual test over one square root, or none |
+| 246 | PROOF | A139376 | the residual test over one square root, or none |
+| 247 | PROOF | A346074 | the residual test over one square root, or none |
+| 248 | PROOF | A190166 | the residual test over one square root, or none |
+| 249 | PROOF | A025251 | the residual test over one square root, or none |
+| 250 | PROOF | A228771 | the residual test over one square root, or none |
+| 251 | PROOF | A025268 | the residual test over one square root, or none |
+| 252 | PROOF | A025272 | the residual test over one square root, or none |
+| 253 | PROOF | A162475 | the residual test over one square root, or none |
+| 254 | PROOF | A385252 | the residual test over one square root, or none |
+| 255 | PROOF | A114464 | the residual test over one square root, or none |
+| 256 | PROOF | A127154 | the residual test over one square root, or none |
+| 257 | PROOF | A135335 | the residual test over one square root, or none |
+| 258 | PROOF | A165540 | the residual test over one square root, or none |
+| 259 | PROOF | A171416 | the residual test over one square root, or none |
+| 260 | PROOF | A188314 | the residual test over one square root, or none |
+| 261 | PROOF | A247170 | the residual test over one square root, or none |
+| 262 | PROOF | A254314 | the residual test over one square root, or none |
+| 263 | PROOF | A270661 | the residual test over one square root, or none |
+| 264 | PROOF | A003440 | the residual test over one square root, or none |
+| 265 | PROOF | A110521 | the residual test over one square root, or none |
+| 266 | PROOF | A114190 | the residual test over one square root, or none |
+| 267 | PROOF | A116387 | the residual test over one square root, or none |
+| 268 | PROOF | A128096 | the residual test over one square root, or none |
+| 269 | PROOF | A135052 | the residual test over one square root, or none |
+| 270 | PROOF | A157021 | the residual test over one square root, or none |
+| 271 | PROOF | A160823 | the residual test over one square root, or none |
+| 272 | PROOF | A166287 | the residual test over one square root, or none |
+| 273 | PROOF | A174808 | the residual test over one square root, or none |
+| 274 | PROOF | A185089 | the residual test over one square root, or none |
+| 275 | PROOF | A186940 | the residual test over one square root, or none |
+| 276 | PROOF | A190736 | the residual test over one square root, or none |
+| 277 | PROOF | A219314 | the residual test over one square root, or none |
+| 278 | PROOF | A100095 | the residual test over one square root, or none |
+| 279 | PROOF | A100097 | the residual test over one square root, or none |
+| 280 | PROOF | A191313 | the residual test over one square root, or none |
+| 281 | PROOF | A191790 | the residual test over one square root, or none |
+| 282 | PROOF | A273351 | the residual test over one square root, or none |
+| 283 | PROOF | A278472 | the residual test over one square root, or none |
+| 284 | PROOF | A108296 | the residual test over one square root, or none |
+| 285 | PROOF | A116391 | the residual test over one square root, or none |
+| 286 | PROOF | A110198 | the residual test over one square root, or none |
+| 287 | PROOF | A182879 | the residual test over one square root, or none |
+| 288 | PROOF | A182887 | the residual test over one square root, or none |
+| 289 | PROOF | A135925 | the residual test over one square root, or none |
+| 290 | PROOF | A007901 | the residual test over one square root, or none |
+| 291 | PROOF | A025256 | the residual test over one square root, or none |
+| 292 | PROOF | A025258 | the residual test over one square root, or none |
+| 293 | PROOF | A000781 | the residual test over one square root, or none |
+| 294 | PROOF | A025245 | the residual test over one square root, or none |
+| 295 | PROOF | A025257 | the residual test over one square root, or none |
+| 296 | PROOF | A025269 | the residual test over one square root, or none |
+| 297 | PROOF | A025270 | the residual test over one square root, or none |
+| 298 | PROOF | A025275 | the residual test over one square root, or none |
+| 299 | PROOF | A032096 | the residual test over one square root, or none |
+| 300 | PROOF | A102880 | the residual test over one square root, or none |
+| 301 | PROOF | A111053 | the residual test over one square root, or none |
+| 302 | PROOF | A152120 | the residual test over one square root, or none |
+| 303 | PROOF | A159771 | the residual test over one square root, or none |
+| 304 | PROOF | A166694 | the residual test over one square root, or none |
+| 305 | PROOF | A166696 | the residual test over one square root, or none |
+| 306 | PROOF | A191796 | the residual test over one square root, or none |
+| 307 | PROOF | A217711 | the residual test over one square root, or none |
+| 308 | PROOF | A278023 | the residual test over one square root, or none |
+| 309 | PROOF | A279014 | the residual test over one square root, or none |
+| 310 | PROOF | A000483 | the residual test over one square root, or none |
+| 311 | PROOF | A026030 | the residual test over one square root, or none |
+| 312 | PROOF | A026031 | the residual test over one square root, or none |
+| 313 | PROOF | A048775 | the residual test over one square root, or none |
+| 314 | PROOF | A116409 | the residual test over one square root, or none |
+| 315 | PROOF | A126322 | the residual test over one square root, or none |
+| 316 | PROOF | A128750 | the residual test over one square root, or none |
+| 317 | PROOF | A143955 | the residual test over one square root, or none |
+| 318 | PROOF | A165203 | the residual test over one square root, or none |
+| 319 | PROOF | A168505 | the residual test over one square root, or none |
+| 320 | PROOF | A176605 | the residual test over one square root, or none |
+| 321 | PROOF | A181933 | the residual test over one square root, or none |
+| 322 | PROOF | A191585 | the residual test over one square root, or none |
+| 323 | PROOF | A215973 | the residual test over one square root, or none |
+| 324 | PROOF | A234269 | the residual test over one square root, or none |
+| 325 | PROOF | A236407 | the residual test over one square root, or none |
+| 326 | PROOF | A270363 | the residual test over one square root, or none |
+| 327 | PROOF | A098521 | the residual test over one square root, or none |
+| 328 | PROOF | A100096 | the residual test over one square root, or none |
+| 329 | PROOF | A100099 | the residual test over one square root, or none |
+| 330 | PROOF | A105849 | the residual test over one square root, or none |
+| 331 | PROOF | A105864 | the residual test over one square root, or none |
+| 332 | PROOF | A105865 | the residual test over one square root, or none |
+| 333 | PROOF | A108308 | the residual test over one square root, or none |
+| 334 | PROOF | A114194 | the residual test over one square root, or none |
+| 335 | PROOF | A115967 | the residual test over one square root, or none |
+| 336 | PROOF | A117186 | the residual test over one square root, or none |
+| 337 | PROOF | A120010 | the residual test over one square root, or none |
+| 338 | PROOF | A124431 | the residual test over one square root, or none |
+| 339 | PROOF | A124431 | the residual test over one square root, or none |
+| 340 | PROOF | A126568 | the residual test over one square root, or none |
+| 341 | PROOF | A132364 | the residual test over one square root, or none |
+| 342 | PROOF | A141342 | the residual test over one square root, or none |
+| 343 | PROOF | A155051 | the residual test over one square root, or none |
+| 344 | PROOF | A157002 | the residual test over one square root, or none |
+| 345 | PROOF | A157100 | the residual test over one square root, or none |
+| 346 | PROOF | A166076 | the residual test over one square root, or none |
+| 347 | PROOF | A166300 | the residual test over one square root, or none |
+| 348 | PROOF | A168503 | the residual test over one square root, or none |
+| 349 | PROOF | A174107 | the residual test over one square root, or none |
+| 350 | PROOF | A174169 | the residual test over one square root, or none |
+| 351 | PROOF | A176332 | the residual test over one square root, or none |
+| 352 | PROOF | A184018 | the residual test over one square root, or none |
+| 353 | PROOF | A188312 | the residual test over one square root, or none |
+| 354 | PROOF | A188482 | the residual test over one square root, or none |
+| 355 | PROOF | A191782 | the residual test over one square root, or none |
+| 356 | PROOF | A217333 | the residual test over one square root, or none |
+| 357 | PROOF | A257072 | the residual test over one square root, or none |
+| 358 | PROOF | A261681 | the residual test over one square root, or none |
+| 359 | PROOF | A073155 | the residual test over one square root, or none |
+| 360 | PROOF | A105524 | the residual test over one square root, or none |
+| 361 | PROOF | A114589 | the residual test over one square root, or none |
+| 362 | PROOF | A114590 | the residual test over one square root, or none |
+| 363 | PROOF | A162481 | the residual test over one square root, or none |
+| 364 | PROOF | A174783 | the residual test over one square root, or none |
+| 365 | PROOF | A188460 | the residual test over one square root, or none |
+| 366 | PROOF | A188464 | the residual test over one square root, or none |
+| 367 | PROOF | A190725 | the residual test over one square root, or none |
+| 368 | PROOF | A191526 | the residual test over one square root, or none |
+| 369 | PROOF | A191531 | the residual test over one square root, or none |
+| 370 | PROOF | A211278 | the residual test over one square root, or none |
+| 371 | PROOF | A026327 | the residual test over one square root, or none |
+| 372 | PROOF | A081207 | the residual test over one square root, or none |
+| 373 | PROOF | A102882 | the residual test over one square root, or none |
+| 374 | PROOF | A182881 | the residual test over one square root, or none |
+| 375 | PROOF | A191309 | the residual test over one square root, or none |
+| 376 | PROOF | A191319 | the residual test over one square root, or none |
+| 377 | PROOF | A191790 | the residual test over one square root, or none |
+| 378 | PROOF | A273351 | the residual test over one square root, or none |
+| 379 | PROOF | A025248 | the residual test over one square root, or none |
+| 380 | PROOF | A025249 | the residual test over one square root, or none |
+| 381 | PROOF | A026017 | the residual test over one square root, or none |
+| 382 | PROOF | A071717 | the residual test over one square root, or none |
+| 383 | PROOF | A081672 | the residual test over one square root, or none |
+| 384 | PROOF | A104722 | the residual test over one square root, or none |
+| 385 | PROOF | A109263 | the residual test over one square root, or none |
+| 386 | PROOF | A118093 | the residual test over one square root, or none |
+| 387 | PROOF | A118974 | the residual test over one square root, or none |
+| 388 | PROOF | A121320 | the residual test over one square root, or none |
+| 389 | PROOF | A126323 | the residual test over one square root, or none |
+| 390 | PROOF | A128723 | the residual test over one square root, or none |
+| 391 | PROOF | A135334 | the residual test over one square root, or none |
+| 392 | PROOF | A141351 | the residual test over one square root, or none |
+| 393 | PROOF | A141353 | the residual test over one square root, or none |
+| 394 | PROOF | A163824 | the residual test over one square root, or none |
+| 395 | PROOF | A165201 | the residual test over one square root, or none |
+| 396 | PROOF | A279014 | the residual test over one square root, or none |
+| 397 | PROOF | A026027 | the residual test over one square root, or none |
+| 398 | PROOF | A026135 | the residual test over one square root, or none |
+| 399 | PROOF | A050168 | the residual test over one square root, or none |
+| 400 | PROOF | A059279 | the residual test over one square root, or none |
+| 401 | PROOF | A063395 | the residual test over one square root, or none |
+| 402 | PROOF | A071722 | the residual test over one square root, or none |
+| 403 | PROOF | A082134 | the residual test over one square root, or none |
+| 404 | PROOF | A097331 | the residual test over one square root, or none |
+| 405 | PROOF | A100193 | the residual test over one square root, or none |
+| 406 | PROOF | A103973 | the residual test over one square root, or none |
+| 407 | PROOF | A106181 | the residual test over one square root, or none |
+| 408 | PROOF | A108623 | the residual test over one square root, or none |
+| 409 | PROOF | A126180 | the residual test over one square root, or none |
+| 410 | PROOF | A128732 | the residual test over one square root, or none |
+| 411 | PROOF | A134389 | the residual test over one square root, or none |
+| 412 | PROOF | A143013 | the residual test over one square root, or none |
+| 413 | PROOF | A143954 | the residual test over one square root, or none |
+| 414 | PROOF | A157418 | the residual test over one square root, or none |
+| 415 | PROOF | A158196 | the residual test over one square root, or none |
+| 416 | PROOF | A158197 | the residual test over one square root, or none |
+| 417 | PROOF | A191585 | the residual test over one square root, or none |
+| 418 | PROOF | A257290 | the residual test over one square root, or none |
+| 419 | PROOF | A054341 | the residual test over one square root, or none |
+| 420 | PROOF | A071715 | the residual test over one square root, or none |
+| 421 | PROOF | A090413 | the residual test over one square root, or none |
+| 422 | PROOF | A090826 | the residual test over one square root, or none |
+| 423 | PROOF | A091699 | the residual test over one square root, or none |
+| 424 | PROOF | A098664 | the residual test over one square root, or none |
+| 425 | PROOF | A099363 | the residual test over one square root, or none |
+| 426 | PROOF | A100098 | the residual test over one square root, or none |
+| 427 | PROOF | A105872 | the residual test over one square root, or none |
+| 428 | PROOF | A119975 | the residual test over one square root, or none |
+| 429 | PROOF | A121724 | the residual test over one square root, or none |
+| 430 | PROOF | A121725 | the residual test over one square root, or none |
+| 431 | PROOF | A126931 | the residual test over one square root, or none |
+| 432 | PROOF | A126932 | the residual test over one square root, or none |
+| 433 | PROOF | A127361 | the residual test over one square root, or none |
+| 434 | PROOF | A127363 | the residual test over one square root, or none |
+| 435 | PROOF | A155051 | the residual test over one square root, or none |
+| 436 | PROOF | A166078 | the residual test over one square root, or none |
+| 437 | PROOF | A166587 | the residual test over one square root, or none |
+| 438 | PROOF | A166588 | the residual test over one square root, or none |
+| 439 | PROOF | A176006 | the residual test over one square root, or none |
+| 440 | PROOF | A185087 | the residual test over one square root, or none |
+| 441 | PROOF | A190724 | the residual test over one square root, or none |
+| 442 | PROOF | A225887 | the residual test over one square root, or none |
+| 443 | PROOF | A227081 | the residual test over one square root, or none |
+| 444 | PROOF | A257178 | the residual test over one square root, or none |
+| 445 | PROOF | A257388 | the residual test over one square root, or none |
+| 446 | PROOF | A257838 | the residual test over one square root, or none |
+| 447 | PROOF | A001712 | the residual test over one square root, or none |
+| 448 | PROOF | A025175 | the residual test over one square root, or none |
+| 449 | PROOF | A025577 | the residual test over one square root, or none |
+| 450 | PROOF | A026023 | the residual test over one square root, or none |
+| 451 | PROOF | A055217 | the residual test over one square root, or none |
+| 452 | PROOF | A081052 | the residual test over one square root, or none |
+| 453 | PROOF | A103821 | the residual test over one square root, or none |
+| 454 | PROOF | A107231 | the residual test over one square root, or none |
+| 455 | PROOF | A110199 | the residual test over one square root, or none |
+| 456 | PROOF | A116406 | the residual test over one square root, or none |
+| 457 | PROOF | A128734 | the residual test over one square root, or none |
+| 458 | PROOF | A191307 | the residual test over one square root, or none |
+| 459 | PROOF | A278472 | the residual test over one square root, or none |
+| 460 | PROOF | A034863 | the residual test over one square root, or none |
+| 461 | PROOF | A128652 | the residual test over one square root, or none |
+| 462 | PROOF | A174195 | the residual test over one square root, or none |
+| 463 | PROOF | A192480 | the residual test over one square root, or none |
+| 464 | PROOF | A158495 | the residual test over one square root, or none |
+| 465 | PROOF | A189176 | the residual test over one square root, or none |
+| 466 | PROOF | A194724 | the residual test over one square root, or none |
+| 467 | PROOF | A210474 | the residual test over one square root, or none |
+| 468 | PROOF | A262768 | the residual test over one square root, or none |
+| 469 | PROOF | A026029 | the residual test over one square root, or none |
+| 470 | PROOF | A064088 | the residual test over one square root, or none |
+| 471 | PROOF | A064089 | the residual test over one square root, or none |
+| 472 | PROOF | A064090 | the residual test over one square root, or none |
+| 473 | PROOF | A064091 | the residual test over one square root, or none |
+| 474 | PROOF | A064092 | the residual test over one square root, or none |
+| 475 | PROOF | A067299 | the residual test over one square root, or none |
+| 476 | PROOF | A068551 | the residual test over one square root, or none |
+| 477 | PROOF | A080243 | the residual test over one square root, or none |
+| 478 | PROOF | A114191 | the residual test over one square root, or none |
+| 479 | PROOF | A116881 | the residual test over one square root, or none |
+| 480 | PROOF | A122920 | the residual test over one square root, or none |
+| 481 | PROOF | A132864 | the residual test over one square root, or none |
+| 482 | PROOF | A133305 | the residual test over one square root, or none |
+| 483 | PROOF | A133306 | the residual test over one square root, or none |
+| 484 | PROOF | A133307 | the residual test over one square root, or none |
+| 485 | PROOF | A133308 | the residual test over one square root, or none |
+| 486 | PROOF | A141222 | the residual test over one square root, or none |
+| 487 | PROOF | A154623 | the residual test over one square root, or none |
+| 488 | PROOF | A157328 | the residual test over one square root, or none |
+| 489 | PROOF | A158196 | the residual test over one square root, or none |
+| 490 | PROOF | A158197 | the residual test over one square root, or none |
+| 491 | PROOF | A191993 | the residual test over one square root, or none |
+| 492 | PROOF | A225034 | the residual test over one square root, or none |
+| 493 | PROOF | A242172 | the residual test over one square root, or none |
+| 494 | PROOF | A002867 | the residual test over one square root, or none |
+| 495 | PROOF | A014533 | the residual test over one square root, or none |
+| 496 | PROOF | A051524 | the residual test over one square root, or none |
+| 497 | PROOF | A071264 | the residual test over one square root, or none |
+| 498 | PROOF | A081046 | the residual test over one square root, or none |
+| 499 | PROOF | A098519 | the residual test over one square root, or none |
+| 500 | PROOF | A098520 | the residual test over one square root, or none |
+| 501 | PROOF | A101596 | the residual test over one square root, or none |
+| 502 | PROOF | A101601 | the residual test over one square root, or none |
+| 503 | PROOF | A101602 | the residual test over one square root, or none |
+| 504 | PROOF | A111779 | the residual test over one square root, or none |
+| 505 | PROOF | A112703 | the residual test over one square root, or none |
+| 506 | PROOF | A119012 | the residual test over one square root, or none |
+| 507 | PROOF | A128057 | the residual test over one square root, or none |
+| 508 | PROOF | A128746 | the residual test over one square root, or none |
+| 509 | PROOF | A132900 | the residual test over one square root, or none |
+| 510 | PROOF | A151483 | the residual test over one square root, or none |
+| 511 | PROOF | A167481 | the residual test over one square root, or none |
+| 512 | PROOF | A171556 | the residual test over one square root, or none |
+| 513 | PROOF | A176479 | the residual test over one square root, or none |
+| 514 | PROOF | A182401 | the residual test over one square root, or none |
+| 515 | PROOF | A208355 | the residual test over one square root, or none |
+| 516 | PROOF | A210064 | the residual test over one square root, or none |
+| 517 | PROOF | A240558 | the residual test over one square root, or none |
+| 518 | PROOF | A141771 | the residual test over one square root, or none |
+| 519 | PROOF | A176606 | the residual test over one square root, or none |
+| 520 | PROOF | A176607 | the residual test over one square root, or none |
+| 521 | PROOF | A176609 | the residual test over one square root, or none |
+| 522 | PROOF | A176610 | the residual test over one square root, or none |
+| 523 | PROOF | A176611 | the residual test over one square root, or none |
+| 524 | PROOF | A176675 | the residual test over one square root, or none |
+| 525 | PROOF | A176749 | the residual test over one square root, or none |
+| 526 | PROOF | A176750 | the residual test over one square root, or none |
+| 527 | PROOF | A176751 | the residual test over one square root, or none |
+| 528 | PROOF | A176752 | the residual test over one square root, or none |
+| 529 | PROOF | A176753 | the residual test over one square root, or none |
+| 530 | PROOF | A176754 | the residual test over one square root, or none |
+| 531 | PROOF | A176755 | the residual test over one square root, or none |
+| 532 | PROOF | A176756 | the residual test over one square root, or none |
+| 533 | PROOF | A176757 | the residual test over one square root, or none |
+| 534 | PROOF | A176759 | the residual test over one square root, or none |
+| 535 | PROOF | A176828 | the residual test over one square root, or none |
+| 536 | PROOF | A176829 | the residual test over one square root, or none |
+| 537 | PROOF | A176830 | the residual test over one square root, or none |
+| 538 | PROOF | A176832 | the residual test over one square root, or none |
+| 539 | PROOF | A176854 | the residual test over one square root, or none |
+| 540 | PROOF | A176855 | the residual test over one square root, or none |
+| 541 | PROOF | A176856 | the residual test over one square root, or none |
+| 542 | PROOF | A176857 | the residual test over one square root, or none |
+| 543 | PROOF | A176858 | the residual test over one square root, or none |
+| 544 | PROOF | A176859 | the residual test over one square root, or none |
+| 545 | PROOF | A176952 | the residual test over one square root, or none |
+| 546 | PROOF | A176953 | the residual test over one square root, or none |
+| 547 | PROOF | A176956 | the residual test over one square root, or none |
+| 548 | PROOF | A176957 | the residual test over one square root, or none |
+| 549 | PROOF | A176958 | the residual test over one square root, or none |
+| 550 | PROOF | A176959 | the residual test over one square root, or none |
+| 551 | PROOF | A176962 | the residual test over one square root, or none |
+| 552 | PROOF | A176964 | the residual test over one square root, or none |
+| 553 | PROOF | A176966 | the residual test over one square root, or none |
+| 554 | PROOF | A176967 | the residual test over one square root, or none |
+| 555 | PROOF | A177123 | the residual test over one square root, or none |
+| 556 | PROOF | A177124 | the residual test over one square root, or none |
+| 557 | PROOF | A177125 | the residual test over one square root, or none |
+| 558 | PROOF | A177126 | the residual test over one square root, or none |
+| 559 | PROOF | A177127 | the residual test over one square root, or none |
+| 560 | PROOF | A177128 | the residual test over one square root, or none |
+| 561 | PROOF | A177129 | the residual test over one square root, or none |
+| 562 | PROOF | A177130 | the residual test over one square root, or none |
+| 563 | PROOF | A177131 | the residual test over one square root, or none |
+| 564 | PROOF | A177163 | the residual test over one square root, or none |
+| 565 | PROOF | A177165 | the residual test over one square root, or none |
+| 566 | PROOF | A177166 | the residual test over one square root, or none |
+| 567 | PROOF | A177167 | the residual test over one square root, or none |
+| 568 | PROOF | A177168 | the residual test over one square root, or none |
+| 569 | PROOF | A177169 | the residual test over one square root, or none |
+| 570 | PROOF | A177170 | the residual test over one square root, or none |
+| 571 | PROOF | A177171 | the residual test over one square root, or none |
+| 572 | PROOF | A177172 | the residual test over one square root, or none |
+| 573 | PROOF | A177175 | the residual test over one square root, or none |
+| 574 | PROOF | A177177 | the residual test over one square root, or none |
+| 575 | PROOF | A177178 | the residual test over one square root, or none |
+| 576 | PROOF | A177179 | the residual test over one square root, or none |
+| 577 | PROOF | A177180 | the residual test over one square root, or none |
+| 578 | PROOF | A177181 | the residual test over one square root, or none |
+| 579 | PROOF | A177182 | the residual test over one square root, or none |
+| 580 | PROOF | A177183 | the residual test over one square root, or none |
+| 581 | PROOF | A177184 | the residual test over one square root, or none |
+| 582 | PROOF | A177185 | the residual test over one square root, or none |
+| 583 | PROOF | A177197 | the residual test over one square root, or none |
+| 584 | PROOF | A177198 | the residual test over one square root, or none |
+| 585 | PROOF | A177199 | the residual test over one square root, or none |
+| 586 | PROOF | A177200 | the residual test over one square root, or none |
+| 587 | PROOF | A177203 | the residual test over one square root, or none |
+| 588 | PROOF | A081670 | the known side is the entry's NAME rather than a formula line |
+| 589 | PROOF | A085781 | the known side is the entry's NAME rather than a formula line |
+| 590 | PROOF | A026019 | the known side is the entry's NAME rather than a formula line |
+| 591 | PROOF | A052183 | the known side is the entry's NAME rather than a formula line |
+| 592 | PROOF | A052204 | the known side is the entry's NAME rather than a formula line |
+| 593 | PROOF | A157713 | the known side is the entry's NAME rather than a formula line |
+| 594 | PROOF | A334511 | a posted closed form decided by the theory of hypergeometric terms |
+| 595 | PROOF | A333905 | a posted closed form decided by the theory of hypergeometric terms |
+| 596 | PROOF | A049486 | a posted closed form decided by the theory of hypergeometric terms |
+| 597 | PROOF | A267879 | a posted closed form decided by the theory of hypergeometric terms |
+| 598 | PROOF | A267802 | a posted closed form decided by the theory of hypergeometric terms |
+| 599 | PROOF | A267847 | a posted closed form decided by the theory of hypergeometric terms |
+| 600 | PROOF | A034267 | a posted closed form decided by the theory of hypergeometric terms |
+| 601 | PROOF | A126501 | a posted closed form decided by the theory of hypergeometric terms |
+| 602 | PROOF | A128153 | a posted closed form decided by the theory of hypergeometric terms |
+| 603 | PROOF | A212938 | a posted closed form decided by the theory of hypergeometric terms |
+| 604 | PROOF | A220250 | a posted closed form decided by the theory of hypergeometric terms |
+| 605 | PROOF | A248434 | a posted closed form decided by the theory of hypergeometric terms |
+| 606 | PROOF | A258547 | a posted closed form decided by the theory of hypergeometric terms |
+| 607 | PROOF | A272706 | a posted closed form decided by the theory of hypergeometric terms |
+| 608 | PROOF | A126089 | complete annihilation, tested in the Ore algebra Q(n)[N] |
+| 609 | PROOF | A025271 | division of one posted operator by another |
+| 610 | PROOF | A138164 | division of one posted operator by another |
+| 611 | PROOF | A143017 | division of one posted operator by another |
+| 612 | PROOF | A159772 | division of one posted operator by another |
+| 613 | PROOF | A000986 | division of one posted operator by another |
+| 614 | PROOF | A022917 | division of one posted operator by another |
+| 615 | PROOF | A217447 | division of one posted operator by another |
+| 616 | PROOF | A226302 | division of one posted operator by another |
+| 617 | PROOF | A245088 | division of one posted operator by another |
+| 618 | PROOF | A026165 | division of one posted operator by another |
+| 619 | PROOF | A185966 | division of one posted operator by another |
+| 620 | PROOF | A200753 | division of one posted operator by another |
+| 621 | PROOF | A217358 | division of one posted operator by another |
+| 622 | PROOF | A228960 | division of one posted operator by another |
+| 623 | PROOF | A003435 | division of one posted operator by another |
+| 624 | PROOF | A228331 | division of one posted operator by another |
+| 625 | PROOF | A273019 | division of one posted operator by another |
+| 626 | PROOF | A386834 | division of one posted operator by another |
+| 627 | PROOF | A228330 | division of one posted operator by another |
+| 628 | PROOF | A228333 | division of one posted operator by another |
 
 ### What the ranking means
 
@@ -1785,6 +1789,32 @@ collapses. Written out, `m*a(N) = -(stuff)`, and the conjecture is the statement
 `m^2 | stuff`, which is a real theorem, not a corollary of uniqueness. **Always compute the
 coefficient of a(N) and check it is a unit modulo k before claiming anything.** These three
 were built and dropped for exactly this reason.
+
+
+**funceq-mod, third batch: the self-composition shift family (A091713, A196523, A378575,
+A378576).** `A(x) = x + x*A^j(x)`, conjectured `a(n) = 1 (mod j-1)`. Modulo `j-1` we have
+`j = 1`, so `f^j = x/(1-jx)` becomes `x/(1-x) = f`, and then
+`x + x*f^j = x + x^2/(1-x) = x/(1-x) = f`. The coefficient of `a(N)` is 1 because the right
+side contributes only `[x^(N-1)] A^j`. Four entries, j = 3,4,5,6 giving moduli 2,3,4,5;
+A091713's conjecture is worded "all terms are odd", which is the j=3 case.
+
+**The full funceq census.** 5,491 OEIS entries are defined by a functional equation for
+their generating function. Of those, **52** are open, carry a congruence conjecture, and
+have no paper. `funceq_cands.json` holds the list. Twelve are now done (four here, four in
+the second batch, four in the first). What is left splits into:
+- *Reachable by the same three steps, once a rational candidate mod k is found.* The
+  conjectures state PERIODIC residue patterns rather than a constant, so the candidate is
+  not `x/(1-x)` but some other rational series over `Z/kZ`. Examples: A396803/A396805/
+  A396806 (`A(x) = x*exp(A^j(x))`, patterns mod 3, 5, 6), A396798 (mod 8), A397346
+  (`[4,2,0,2]` mod 8), A386648 (`[2,3,4,3,2,5]` mod 6). The method is: compute residues,
+  fit a rational series, verify it satisfies the reduced equation by clearing denominators
+  (a finite polynomial identity over Z/kZ), then invoke uniqueness. **Check the coefficient
+  of a(N) is a unit mod k first.**
+- *Out of reach here.* Conjectures whose residue depends on an arithmetic property of n
+  (n a square, a power of 2, a sum of two distinct powers of 3, ...): A378580, A378581,
+  A379204, A380060, A393170-A393173, A396808, A397242, A397245, A325286, and others. Those
+  are not congruences with a periodic pattern and the uniqueness route says nothing about
+  them.
 
 ## 4. DEAD — do not revisit
 
