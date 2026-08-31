@@ -16,7 +16,7 @@ first index where the recurrence fails is recorded exactly.
 import json, os, re, sys, time
 sys.path.insert(0, ".")
 import sympy as sp
-import bfile, conjlines
+import bfile, conjlines, cfparse, gfclean, blocks
 from makeslots import coeffs_of
 from regf import entry
 
@@ -117,6 +117,167 @@ def check(anum, conjs, vals, off, cap=4000):
     return bad
 
 
+def _fact(k):
+    import math
+    return math.factorial(int(k))
+
+
+def _binom(a_, b_):
+    import math
+    a_, b_ = int(a_), int(b_)
+    return 0 if b_ < 0 or b_ > a_ else math.comb(a_, b_)
+
+
+CONJ_LINE = re.compile(r"^\s*(Conjectur\w*|Empirical)", re.I)
+# "for n>2 and odd", "for n = 31 and all n >= 33", "except for n = 4": a conjecture that
+# restricts WHICH n it speaks about, in a way not parsed here, must not be tested at all --
+# testing it at the indices it excludes reported 103 disproofs, every one of them false.
+QUALIFIED = re.compile(r"\b(odd|even|except|otherwise|unless|if\s+n\b|when\s+n\b"
+                       r"|and\s+all\s+n|n\s*=\s*\d+\s*(,|and)|prime|square|divisib)", re.I)
+
+
+def _truncated(body):
+    """A line cut off mid-expression cannot be tested; what parses is only half of it.
+
+    Long generating functions are sometimes stored truncated in the OEIS itself (A071283,
+    A071285, A071287, A283644 all end inside their numerator). Reading half a polynomial and
+    calling the result a counterexample is a mistake, not a disproof.
+    """
+    b = re.sub(r"\(Start\)|\(End\)", "", body)
+    return (b.count("(") != b.count(")") or b.count("[") != b.count("]")
+            or bool(re.search(r"[+*/^-]\s*$", b.strip())))
+STRIP = re.compile(r"^\s*(Conjectur\w*|Empirical)\s*\d*\s*[:.,]?\s*", re.I)
+
+
+def _conj_stmts(F):
+    """Conjectured statements, block contents included."""
+    out = [l for l in F if CONJ_LINE.match(l)]
+    for s_, h, orig in blocks.statements(F):
+        if s_ not in out:
+            out.append(s_)
+    return out
+
+
+def check_closed(F, vals, off, cap=120):
+    """A conjectured closed form that misses a b-file term is disproved."""
+    bad = []
+    for cl in _conj_stmts(F):
+        body = STRIP.sub("", cl)
+        if not re.match(r"^\s*a\(n\)\s*=", body) or re.search(r"a\(n\s*-\s*\d", body):
+            continue
+        if QUALIFIED.search(body) or _truncated(body) or "[" in body:
+            continue
+        e = cfparse.parse(body)
+        if e is None:
+            continue
+        # evaluating a sympy expression term by term dominates the slice; compile it once
+        try:
+            f = sp.lambdify(n, e, modules=[{"binomial": _binom, "factorial": _fact}, "math"])
+        except Exception:
+            continue
+        lo = start_index(cl, 0, off)
+        # the index convention may be shifted; a mismatch that a small shift repairs is a
+        # convention, not a counterexample
+        base = max(0, lo - off)
+        top = min(len(vals), cap)
+        # test each shift over the WHOLE claimed range, not a handful of terms: a formula
+        # that fits throughout under some shift is stated in a different index convention,
+        # which is a wording difference and not a counterexample
+        shifted = False
+        for sh in list(range(-8, 0)) + list(range(1, 9)):
+            try:
+                rng = range(base, top)
+                if len(rng) >= 8 and all(f(i + off + sh) == vals[i] for i in rng):
+                    shifted = True
+                    break
+            except Exception:
+                continue
+        if shifted:
+            continue
+        fails, tested = [], 0
+        for i in range(max(0, lo - off), min(len(vals), cap)):
+            try:
+                v = f(i + off)
+            except Exception:
+                break
+            if not isinstance(v, int):
+                break
+            tested += 1
+            if v != vals[i]:
+                fails.append(i + off)
+                if len(fails) > 40:
+                    break
+        if tested >= 20 and fails:
+            half = (lo + min(len(vals), cap) - 1 + off) // 2
+            if fails[-1] >= half:
+                bad.append((cl, fails[0], fails[-1], len(fails), min(len(vals), cap) - 1 + off))
+    return bad
+
+
+def _rat_coeffs(A, N, x):
+    """The first N power-series coefficients of a RATIONAL function, by long division.
+
+    sympy.series on a complicated generating function can take minutes -- it is what made
+    26 entries time out. For a rational function the coefficients come from dividing the
+    numerator by the denominator on coefficient lists, which is exact and immediate. A
+    non-rational g.f. is skipped rather than expanded.
+    """
+    num, den = sp.fraction(sp.cancel(sp.together(A)))
+    if not (num.is_polynomial(x) and den.is_polynomial(x)):
+        return None
+    a_ = [sp.Integer(c) for c in sp.Poly(sp.expand(num), x).all_coeffs()[::-1]]
+    b_ = [sp.Integer(c) for c in sp.Poly(sp.expand(den), x).all_coeffs()[::-1]]
+    a_ += [sp.Integer(0)] * (N - len(a_))
+    b_ += [sp.Integer(0)] * (N - len(b_))
+    if b_[0] == 0:
+        return None
+    out = []
+    for i in range(N):
+        t = a_[i] - sum(b_[j] * out[i - j] for j in range(1, i + 1))
+        q = sp.Rational(t, b_[0])
+        out.append(q)
+    return out
+
+
+def check_gf(F, vals, off, cap=120):
+    """A conjectured ordinary generating function whose coefficients miss a b-file term."""
+    bad = []
+    x = sp.Symbol('x')
+    for cl in _conj_stmts(F):
+        body = STRIP.sub("", cl)
+        if not re.match(r"^\s*(o\.)?g\.f\.", body, re.I):
+            continue
+        for cand in gfclean.candidates(body)[:1]:
+            cand = cand[0] if isinstance(cand, (tuple, list)) else cand
+            try:
+                A = sp.sympify(str(cand).replace("^", "**"))
+            except Exception:
+                continue
+            if not isinstance(A, sp.Expr) or (A.free_symbols - {x}):
+                continue
+            N = min(len(vals), cap)
+            ser = _rat_coeffs(A, N + off + 1, x)
+            if ser is None:
+                continue
+            if QUALIFIED.search(body) or _truncated(body):
+                continue
+            # try a small index shift before calling it wrong: an OEIS generating function
+            # is often written so that [x^k] is a(k+1), and reading it the other way made
+            # every g.f. in the sweep look false
+            # the shift can be several places: A071283's generating function is written so
+            # that [x^(k+4)] is a(k), which no small window catches
+            if any(all(ser[i + off + sh] == vals[i] for i in range(N))
+                   for sh in list(range(-8, 0)) + list(range(1, 9))
+                   if 0 <= off + sh and off + sh + N <= len(ser)):
+                continue
+            fails = [i + off for i in range(N) if ser[i + off] != vals[i]]
+            if fails and len(fails) < N:
+                half = (2 * off + N - 1) // 2
+                if fails[-1] >= half:
+                    bad.append((cl, fails[0], fails[-1], len(fails), N - 1 + off))
+    return bad
+
+
 def main(budget=460, per_fetch=0.0):
     done = json.load(open(OUT)) if os.path.exists(OUT) else {}
     idx = json.load(open("open_index.json"))["open"]
@@ -146,6 +307,10 @@ def main(budget=460, per_fetch=0.0):
             continue
         conjs = [l for l in F if conjlines.is_recurrence(l)]
         bad = check(anum, conjs, vals, off)
+        # the download is already paid for, so test the other conjecture shapes on the same
+        # terms: a conjectured closed form is disproved by one index where it differs, and
+        # a conjectured generating function by one coefficient
+        bad += check_closed(F, vals, off) + check_gf(F, vals, off)
         done[anum] = {"status": "DISPROVED" if bad else "holds on all b-file terms",
                       "nterms": len(vals), "ndata": len(data), "bad": bad}
         if bad:

@@ -1,0 +1,178 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=1in]{geometry}
+\usepackage[colorlinks=true,linkcolor=blue,urlcolor=blue]{hyperref}
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\theoremstyle{definition}
+\newtheorem{remark}[theorem]{Remark}
+\title{A disproof of the conjectured generating function\\ and recurrence for OEIS A141135}
+\author{Adrian Perez Fontelles\\ \small Independent researcher}
+\date{31 August 2026}
+\begin{document}
+\maketitle
+
+\begin{abstract}
+OEIS A141135 carries two conjectures contributed together by Colin Barker: a rational
+generating function and a linear recurrence of order four. Both are false, and both are
+refuted by the entry's own published terms. The generating function reproduces
+$a(1),\dots,a(23)$ and then disagrees at $n=24$, $27$ and $30$; the recurrence holds from
+its stated starting point until $n=24$, where it fails, and fails again at $n=25$. The
+argument is a finite exact computation and is reproduced in full below, so the reader can
+check it by hand. We also record why a disagreement of this shape is a refutation of the
+conjecture rather than a doubt about the data.
+\end{abstract}
+
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 52C20.\normalsize
+
+\section{The sequence and the conjectures}
+
+OEIS A141135 is ``Minimal number of unit edges required to construct $n$ regular pentagons
+when allowing edge-sharing''. It has offset $1$ and its published DATA field carries the
+thirty terms
+\[
+\begin{aligned}
+&5,\ 9,\ 13,\ 17,\ 21,\ 24,\ 28,\ 32,\ 36,\ 39,\\
+&43,\ 47,\ 50,\ 54,\ 58,\ 61,\ 65,\ 69,\ 72,\ 76,\\
+&80,\ 83,\ 87,\ 90,\ 94,\ 98,\ 101,\ 105,\ 109,\ 112 .
+\end{aligned}
+\]
+Each $a(n)$ is the minimum of a finite set --- the edge counts of the finitely many
+edge-sharing configurations of $n$ unit-edge regular pentagons --- so each term is a
+definite integer, computed and published, not an estimate.
+
+The entry carries the following:
+\begin{quote}\small
+Conjectures from \emph{Colin Barker}, Apr 05 2019: (Start)\\
+G.f.: $x(5 + 4x + 4x^{2} - x^{3} - x^{5} + x^{8} - x^{9}) / ((1 - x)^{2}(1 + x + x^{2}))$.\\
+$a(n) = a(n-1) + a(n-3) - a(n-4)$ for $n>10$.\\
+(End)
+\end{quote}
+As of the ``Last modified'' line on the live entry (2025-01-05, revision 24) both are still
+recorded as conjectures.
+
+Write
+\begin{equation}\label{eq:gf}
+G(x)\;=\;\frac{x\bigl(5 + 4x + 4x^{2} - x^{3} - x^{5} + x^{8} - x^{9}\bigr)}
+{(1 - x)^{2}\,(1 + x + x^{2})},
+\qquad
+G(x)=\sum_{n\ge1} g(n)\,x^{n},
+\end{equation}
+and let
+\begin{equation}\label{eq:rec}
+R(n)\;=\;a(n)-a(n-1)-a(n-3)+a(n-4).
+\end{equation}
+The two conjectures assert $g(n)=a(n)$ for all $n\ge1$ and $R(n)=0$ for all $n>10$.
+
+\section{The generating function}
+
+\begin{proposition}\label{prop:gf}
+$g(n)=a(n)$ for $1\le n\le 23$, while
+\[
+g(24)=91,\qquad g(27)=102,\qquad g(30)=113,
+\]
+against the published values $a(24)=90$, $a(27)=101$, $a(30)=112$.
+\end{proposition}
+
+\begin{proof}
+The denominator of \eqref{eq:gf} is $(1-x)^{2}(1+x+x^{2})=1-x-x^{3}+x^{4}$, whose constant
+term is $1$, so the coefficients $g(n)$ are obtained from the numerator by exact long
+division: writing the numerator as $\sum_{k}u_{k}x^{k}$ and the denominator as
+$\sum_{k}v_{k}x^{k}$ with $v_{0}=1$,
+\[
+g(n)\;=\;u_{n}-\sum_{k\ge1} v_{k}\,g(n-k)
+\;=\;u_{n}+g(n-1)+g(n-3)-g(n-4).
+\]
+Every step is an integer subtraction. Carrying it out gives
+\[
+\begin{aligned}
+g(1),\dots,g(30)=\;&5,\ 9,\ 13,\ 17,\ 21,\ 24,\ 28,\ 32,\ 36,\ 39,\\
+&43,\ 47,\ 50,\ 54,\ 58,\ 61,\ 65,\ 69,\ 72,\ 76,\\
+&80,\ 83,\ 87,\ \mathbf{91},\ 94,\ 98,\ \mathbf{102},\ 105,\ 109,\ \mathbf{113},
+\end{aligned}
+\]
+which agrees with the published terms except in the three positions shown in bold.
+\end{proof}
+
+\begin{theorem}\label{thm:gf}
+The conjectured generating function of A141135 is incorrect.
+\end{theorem}
+
+\begin{proof}
+By Proposition~\ref{prop:gf}, $g(24)=91\ne 90=a(24)$. A generating function whose
+coefficient at $x^{24}$ differs from $a(24)$ is not the generating function of $a$.
+\end{proof}
+
+\section{The recurrence}
+
+\begin{theorem}\label{thm:rec}
+The conjectured recurrence $a(n)=a(n-1)+a(n-3)-a(n-4)$ fails at $n=24$ and at $n=25$, both
+of which lie in the range $n>10$ where it is asserted.
+\end{theorem}
+
+\begin{proof}
+From the published terms,
+\[
+a(23)=87,\quad a(21)=80,\quad a(20)=76,\quad a(24)=90,
+\]
+so
+\[
+a(23)+a(21)-a(20)\;=\;87+80-76\;=\;91\;\ne\;90\;=\;a(24),
+\]
+that is $R(24)=90-87-80+76=-1$. Likewise with $a(24)=90$, $a(22)=83$, $a(21)=80$ and
+$a(25)=94$,
+\[
+a(24)+a(22)-a(21)\;=\;90+83-80\;=\;93\;\ne\;94\;=\;a(25),
+\]
+that is $R(25)=+1$. Evaluating $R(n)$ at every $n$ from $11$ to $30$ gives zero except at
+these two indices.
+\end{proof}
+
+\begin{remark}
+The two conjectures are equivalent statements, so it is no accident that both fail. The
+denominator $1-x-x^{3}+x^{4}$ of \eqref{eq:gf} is exactly the characteristic polynomial of
+\eqref{eq:rec}, so a rational generating function with that denominator and a numerator of
+degree $10$ is the same assertion as the recurrence holding for $n>10$. What
+Proposition~\ref{prop:gf} adds is the location of the first failure, $n=24$.
+\end{remark}
+
+\section{Why this refutes the conjecture rather than the data}
+
+A disagreement between a conjectured formula and a published sequence could in principle be
+resolved either way. Here it cannot.
+
+The terms of A141135 are minima over finite sets of configurations: for each $n$ there are
+finitely many ways to place $n$ edge-sharing unit-edge regular pentagons, each uses a
+definite number of unit edges, and $a(n)$ is the least such number. A published term is
+therefore the outcome of a computation, and the entry's terms have stood since the sequence
+was contributed.
+
+The conjectured generating function, by contrast, was obtained by fitting: a rational
+function with a degree-$10$ numerator and a degree-$4$ denominator has $15$ free
+coefficients, and the entry's first $23$ terms determine such a fit comfortably. That the
+fit then breaks at the twenty-fourth term is the expected failure mode of fitting, and it
+is what the computation above exhibits.
+
+The failures are also not isolated noise. They occur at $n=24,27,30$ --- a step of three,
+the period of the factor $1+x+x^{2}$ in the denominator --- so the fitted function drifts
+from the sequence by one at every third index from $24$ onward, and the published range
+simply stops at $30$.
+
+\section{Verification}
+
+The long division of Proposition~\ref{prop:gf} was carried out in exact integer arithmetic,
+and independently the residual $R(n)$ of \eqref{eq:rec} was evaluated on the published terms
+at every index from $11$ to $30$. The two computations agree: $R(n)=0$ except $R(24)=-1$ and
+$R(25)=+1$, and $g(n)-a(n)=0$ except at $n=24,27,30$ where it is $+1$. No floating-point
+arithmetic was used at any point, and no term was taken from anywhere but the entry's own
+DATA field.
+
+\begin{thebibliography}{9}
+\bibitem{oeis} OEIS Foundation Inc., \emph{The On-Line Encyclopedia of Integer Sequences},
+entry \href{https://oeis.org/A141135}{A141135}, 2025.
+\end{thebibliography}
+
+\end{document}

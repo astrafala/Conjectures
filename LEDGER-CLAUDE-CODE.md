@@ -1479,6 +1479,56 @@ fetch from a public service gets one request at a time and a deliberate pause, a
 guess at what an error looks like.
 
 
+### 31 Aug 2026: conjectured closed forms and g.f.s were never tested for being WRONG
+
+Every disproof check here looked at conjectured RECURRENCES. A conjectured closed form or
+generating function was only ever an input to be proved from, never something to refute --
+and the DATA field alone refutes one, no downloads needed. `datacheck.py` sweeps the **7,557
+open entries** carrying such a conjecture.
+
+**The first run reported 103 disproofs. All 103 were false, and so were the next 96.** Five
+separate faults, each found by reading the candidates rather than trusting the count:
+
+1. **Qualifiers.** "a(n) = 2^(n+1) - 1 for n>2 **and odd**", "a(n) = -1 for n = 31 and all
+   n >= 33". A conjecture that restricts WHICH n it speaks about must not be tested at the
+   indices it excludes. `QUALIFIED` now refuses odd/even/except/prime/if-n/when-n and the
+   rest.
+2. **Index conventions.** A generating function is often written so that $[x^k]$ is
+   $a(k+1)$ -- A071283's is $a(k-4)$. Every g.f. in the sweep looked false until the check
+   searched shifts, and the shift search must run over the WHOLE claimed range, not a
+   six-term window, and reach at least +-8.
+3. **The shift search started at the first term** rather than at the index the claim starts
+   from, so a formula asserted "for n >= 10" was judged on terms 0..5.
+4. **Truncated lines.** A071283/5/7 and A283644 store a generating function cut off inside
+   its numerator. Half a polynomial is not a counterexample.
+5. **Floor written as `[...]`**, which the parser reads as something else (A051756).
+
+After all five: **8 candidates, of which 1 is a real disproof.**
+
+**A141135 is disproved.** Colin Barker's generating function
+`x(5+4x+4x^2-x^3-x^5+x^8-x^9)/((1-x)^2(1+x+x^2))` reproduces a(1..23) and then gives
+91, 102, 113 where the entry publishes 90, 101, 112 -- failing at n = 24, 27, 30, a step of
+three, the period of the factor `1+x+x^2`. His companion recurrence
+`a(n) = a(n-1)+a(n-3)-a(n-4) for n>10` fails at n = 24 and 25. The two are the same
+assertion, since that denominator is the recurrence's characteristic polynomial. Roster
+**612 -> 613**.
+
+The paper argues explicitly why this refutes the conjecture and not the data: the terms are
+minima over finite sets of pentagon configurations, computed and published, while the g.f.
+has 15 free coefficients and 23 terms to fit -- breaking at the 24th is what fitting does.
+
+**Not counted, and why:**
+
+- **A283644** -- Barker's g.f. AND his recurrence both fail from the very first terms. That
+  is an entry inconsistency (the data was very likely corrected after he posted in 2017),
+  not a mathematical result. Worth sending to OEIS as a correction; not a paper.
+- **A286772** -- the block holds "a(n) = 1 for n>2" and "a(n) = 2^(n+1) - 2 for n>2", which
+  contradict each other and are plainly Barker's usual odd/even pair with the qualifier lost
+  in transcription. Not a disproof.
+- **A297741, A071283/5/7, A051756** -- all index conventions or truncation, per the list
+  above.
+
+
 ## 4. DEAD — do not revisit
 
 Already resolved on the live entry, or carrying no conjecture at all.

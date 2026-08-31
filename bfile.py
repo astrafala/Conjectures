@@ -43,7 +43,7 @@ def lfs_size(anum):
 # LFS objects and the proxy will not serve them for a repository outside this session's
 # authorized set), so the only remaining route is oeis.org -- one request at a time, with a
 # deliberate pause, and spread over as many sessions as it takes.
-DELAY = 1.2
+DELAY = 2.5
 _last = [0.0]
 
 
@@ -68,8 +68,9 @@ def fetch(anum, timeout=25):
             os.remove(out)
         return None
     if not _looks_like_bfile(out):
+        blocked = "temporarily blocked" in open(out, errors="ignore").read(400).lower()
         os.remove(out)
-        return None
+        return "BLOCKED" if blocked else None
     return out
 
 
