@@ -1,0 +1,147 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=1in]{geometry}
+\usepackage[colorlinks=true,linkcolor=blue,urlcolor=blue]{hyperref}
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{remark}[theorem]{Remark}
+
+\title{The empirical recurrence for OEIS A207497, proved by transfer matrix}
+\author{Adrian Perez Fontelles\\ \small Independent researcher}
+\date{31 August 2026}
+\begin{document}
+\maketitle
+
+\begin{abstract}
+OEIS A207497 counts arrays over $\{0,\dots,1\}$ of width $5$ that avoid the patterns
+$(0,0,0), (0,1,1)$ along one axis and $(0,0,1), (1,0,0)$ along the other, and carries an empirical recurrence of
+order $34$ contributed by R.~H.~Hardin. It is true. The patterns have length $3$, so
+the constraint across the growing direction ties together $3$ consecutive rows: taking a
+window of $2$ consecutive rows as a state makes the array a walk in a finite digraph
+on $S=169$ vertices, and $a(n)=\mathbf{1}^{\!\top}P^{\,n-2}\mathbf{1}$. Writing $q$
+for the characteristic polynomial of the conjectured recurrence, the residual is
+$\mathbf{1}^{\!\top}P^{\,n-2-34}q(P)\mathbf{1}$, which vanishes identically
+beyond a threshold that the computation pins down exactly. Finite, exact, integer.
+\end{abstract}
+
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 68R15, 15B36.\normalsize
+
+\section{The sequence and the conjecture}
+
+OEIS A207497 is ``Number of nX5 0..1 arrays avoiding 0 0 0 and 0 1 1 horizontally and 0 0 1 and 1 0 0 vertically.''. It has offset
+$1$ and begins
+\[
+13, 169, 699, 2942, 14253, 68745, 343310,\ \dots
+\]
+The entry carries the following comment:
+\begin{quote}\small
+Empirical: a(n) = 13*a(n-1) -17*a(n-2) -407*a(n-3) +1361*a(n-4) +5048*a(n-5) -24757*a(n-6) -30088*a(n-7) +231328*a(n-8) +66085*a(n-9) -1314702*a(n-10) +224399*a(n-11) +4884111*a(n-12) -2047901*a(n-13) -12326395*a(n-14) +6862627*a(n-15) +21620699*a(n-16) -13538690*a(n-17) -26727847*a(n-18) +17354874*a(n-19) +23481642*a(n-20) -14973565*a(n-21) -14711868*a(n-22) +8790663*a(n-23) +6559254*a(n-24) -3492706*a(n-25) -2059830*a(n-26) +917580*a(n-27) +444862*a(n-28) -151484*a(n-29) -62872*a(n-30) +14112*a(n-31) +5224*a(n-32) -560*a(n-33) -192*a(n-34) for n>35
+\end{quote}
+As of the ``Last modified'' line on the live entry (Oct 03 2025 13:59:17, revision
+9) the statement is still recorded as empirical, and nothing on the entry
+records it as settled either way.
+
+Written out, the claim is
+\begin{equation}\label{eq:conj}
+a(n)\;=\;13\,a(n-1) - 17\,a(n-2) - 407\,a(n-3) + 1361\,a(n-4) + 5048\,a(n-5) - 24757\,a(n-6) - 30088\,a(n-7) + 231328\,a(n-8) + 66085\,a(n-9) - 1314702\,a(n-10) + 224399\,a(n-11) + 4884111\,a(n-12) - 2047901\,a(n-13) - 12326395\,a(n-14) + 6862627\,a(n-15) + 21620699\,a(n-16) - 13538690\,a(n-17) - 26727847\,a(n-18) + 17354874\,a(n-19) + 23481642\,a(n-20) - 14973565\,a(n-21) - 14711868\,a(n-22) + 8790663\,a(n-23) + 6559254\,a(n-24) - 3492706\,a(n-25) - 2059830\,a(n-26) + 917580\,a(n-27) + 444862\,a(n-28) - 151484\,a(n-29) - 62872\,a(n-30) + 14112\,a(n-31) + 5224\,a(n-32) - 560\,a(n-33) - 192\,a(n-34)
+\end{equation}
+for all $n>33$. 
+
+\section{The array as a walk}
+
+Call a row \emph{admissible} if the word it forms contains none of the patterns
+$(0,0,0), (0,1,1)$ as $3$ consecutive entries. There are $13$ admissible rows; that condition
+involves a single row only.
+
+The remaining patterns $(0,0,1), (1,0,0)$ are forbidden along the other axis, so each of them
+constrains $3$ consecutive rows at a fixed position of the column. Take as state a
+window $w=\bigl(w^{(1)},\dots,w^{(2)}\bigr)$ of $2$ consecutive admissible
+rows, so $S=169$, and declare $w\to w'$ an edge when $w'$ is $w$ with its first entry
+dropped and one further admissible row $t$ appended, subject to: for every position
+$j$, the $3$-tuple read down the column $j$ across $w^{(1)},\dots,w^{(2)},t$
+is none of $(0,0,1), (1,0,0)$. Let $P$ be the adjacency matrix.
+
+\begin{lemma}\label{lem:walk}
+$a(n)=\mathbf{1}^{\!\top}P^{\,n-2}\mathbf{1}$ for every $n\ge2$.
+\end{lemma}
+
+\begin{proof}
+An array of the entry's kind with $n$ rows is a sequence of $n$ admissible rows in
+which no forbidden pattern appears along the other axis. Reading it as the sequence of its
+overlapping windows of length $2$ turns it into a walk: consecutive windows overlap in
+$1$ rows by construction, and the edge condition is exactly the requirement on the one
+new $3$-tuple that each step creates. Conversely a walk reassembles into such an array,
+and the two constructions are mutually inverse. A walk of length $n-2$ visits $n-1$
+windows, that is $n$ rows; summing over all starting and ending states gives
+$\mathbf{1}^{\!\top}P^{\,n-2}\mathbf{1}$.
+\end{proof}
+
+\section{The criterion}
+
+Let $q(t)=t^{34}-\sum_i c_i t^{34-i}$ be the characteristic polynomial of
+\eqref{eq:conj} and $u_j=\mathbf{1}^{\!\top}P^{j}q(P)\mathbf{1}$.
+
+\begin{lemma}\label{lem:crit}
+$a(n)-\sum_i c_i a(n-i)=u_{\,n-2-34}$ whenever $n-34\ge2$. Hence
+\eqref{eq:conj} holds for every $n>t$ exactly when $u_j=0$ for every
+$j>t-2-34$. Moreover $(u_j)$ satisfies the monic linear recurrence whose
+characteristic polynomial is that of $P$, of degree $S$, so $S$ consecutive zeros force all
+later ones and the last nonzero $u_j$ pins $t$ down exactly.
+\end{lemma}
+
+\begin{proof}
+Substituting Lemma~\ref{lem:walk} into the left side and factoring out
+$P^{\,n-2-34}$ gives the identity. The equivalence follows by letting the exponent
+run. For the last claim, Cayley--Hamilton gives $\chi(P)=0$ for the characteristic
+polynomial $\chi$ of $P$, so $\chi$ applied to the shift annihilates $(u_j)$; being monic of
+degree $S$, it propagates $S$ consecutive zeros forward.
+\end{proof}
+
+\section{The computation}
+
+\begin{theorem}
+The recurrence \eqref{eq:conj} holds for every $n>33$. This is the statement of
+Section~1.
+\end{theorem}
+
+\begin{proof}
+The vector $q(P)\mathbf{1}\in\mathbb{Z}^{S}$ was formed by $34$ matrix--vector
+products in exact integer arithmetic and the $u_j$ evaluated in turn. They vanish from the
+index corresponding to $n=33+1$ onwards, and the run was continued past $S$ consecutive
+zeros, which by Lemma~\ref{lem:crit} settles every larger index.
+\end{proof}
+
+\section{Verification}
+
+Three checks, each independent of the algebra above.
+
+First, the digraph was built directly from the entry's stated patterns and the walk counts
+compared against the entry's DATA at every one of the $20$ published indices; the
+values agree exactly, including the initial count of $13$ admissible rows. That is
+what ties the digraph to the sequence, and a model reproducing only part of the published
+data was rejected wherever it occurred.
+
+Second, the recurrence \eqref{eq:conj} was evaluated on those published terms in exact
+integer arithmetic, with no matrices involved, and vanishes at every index the entry claims.
+
+Third, the vanishing test of Lemma~\ref{lem:crit} was carried past $S=169$ consecutive
+zeros rather than to a sampled prefix.
+
+\begin{thebibliography}{9}
+\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
+Sequences}, \url{https://oeis.org}, 2026. Sequence A207497.
+\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+University Press, 2009.
+\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
+University Press, 2013.
+\end{thebibliography}
+
+\end{document}

@@ -49,7 +49,9 @@ def parse_gf(line):
 
 
 REC = re.compile(r'a\(n\)\s*=\s*(.+?)(?:\s+for\b|\s*$)', re.I)
-TERM = re.compile(r'([+-]?\s*[^+-]+?)\*?\s*a\(n\s*-\s*(\d+)\)')
+# the coefficient may be EMPTY, as in "+a(n-20)"; requiring one character here
+# silently dropped every recurrence with an implicit coefficient of 1
+TERM = re.compile(r'([+-]?\s*[^+-]*?)\*?\s*a\(n\s*-\s*(\d+)\)')
 FORN = re.compile(r'for\s+n\s*(>=|>|\\ge)\s*(\d+)', re.I)
 
 
