@@ -46,7 +46,7 @@ BESPOKE_ORDER = list(range(1, 31))   # already in hardness order from the last r
                                      # see rank-map.json and the git history for how
                                      # that order was set
 
-TIER = {"shared": 2, "stirling-phi": 2, "gauss-congruence": 2, "equate": 3, "disproof": 4, "section": 3, "funceq-mod": 3, "transfer-matrix": 6, "relabelling": 5, "global-count": 5, "budget": 4, "order-flag": 5, "order-cond": 5, "common-sum": 5, "telescoping-boundary": 5,
+TIER = {"shared": 2, "stirling-phi": 2, "gauss-congruence": 2, "equate": 3, "disproof": 4, "section": 3, "funceq-mod": 3, "transfer-matrix": 6, "relabelling": 5, "global-count": 5, "budget": 4, "order-flag": 5, "order-cond": 5, "common-sum": 5, "defective": 4, "telescoping-boundary": 5,
         "telescoping": 6, "diagonal": 7, "algfield": 8, "logexp": 9, "parity": 10,
         "closedform-direct": 11, "holonomic": 11, "multiquad": 12, "cross": 13, "quadratic": 14,
         "closedform": 15, "ore-complete": 16, "ore": 17,
