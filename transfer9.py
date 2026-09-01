@@ -43,7 +43,8 @@ def _nums(s):
 
 
 DIRS = {'horizontal': H, 'vertical': V, 'diagonal': D, 'antidiagonal': A,
-        'horizontally': H, 'vertically': V, 'diagonally': D, 'antidiagonally': A}
+        'horizontally': H, 'vertically': V, 'diagonally': D, 'antidiagonally': A,
+        'nw-se': D, 'ne-sw': A, 'nwse': D, 'nesw': A}
 
 
 def _nbset(txt):
@@ -80,13 +81,15 @@ SOMECMP = re.compile(r'every (nonzero )?element (less than or equal to|greater t
 SHIFT = re.compile(r'no entry increasing mod (\d+) by (\d+) rightwards or downwards, '
                    r'starting with upper left zero', re.I)
 OFFLIST = r'((?:\(-?\d+,-?\d+\)[\s,]*(?:or\s*)?)+)'
+NOADJ = re.compile(r'(?:top left (?:element equal to|value) (\d+) and )?no two '
+                   r'(\d+s|ones|zeros|twos|threes) adjacent ([a-z, \-]+)', re.I)
 GRAPH = re.compile(r'\d+\.\.\d+ label nodes of (?:a graph with edges ([\d,\s]+)|'
                    r'(the square grid graph)) and every array movement to a (' + DIRWORDS +
                    r') neighbou?r moves along an edge of this graph', re.I)
 PATT = re.compile(r'without the pattern ((?:\d+\s+)+\d+) (' + DIRWORDS + r')', re.I)
 MODNEXT = re.compile(r'(?:each|every) element (' + DIRWORDS + r') next to at least one '
                      r'element with value (?:\(x\(i,j\)\+(\d+)\) mod (\d+)|'
-                     r'(\d+)-x\(i,j\))(, with upper left element zero)?', re.I)
+                     r'(\d+)-x\(i,j\))((?:,? (?:with|and) upper left element zero)?)', re.I)
 CMPSELF = re.compile(r'(?:each|every) element equal to the number (?:of )?its (' + DIRWORDS +
                      r') neighbou?rs (less than or equal to|greater than or equal to|'
                      r'less than|greater than) itself', re.I)
@@ -102,6 +105,20 @@ def _offlist(txt):
 
 def _cond(rest):
     low = rest.strip().rstrip('.').lower()
+    m = NOADJ.fullmatch(low)
+    if m:
+        ulv, valw, dirs = m.groups()
+        val = {'ones': 1, 'zeros': 0, 'twos': 2, 'threes': 3}.get(valw)
+        if val is None:
+            val = int(valw.rstrip('s'))
+        offs = _nbset(dirs)
+        if offs is None:
+            return None
+        offs = [(dt, du) for dt, du in offs if dt > 0 or (dt == 0 and du > 0)]
+        return {'mode': 'noadjval', 'offs': offs, 'val': val, 'ul0': False,
+                'ulval': None if ulv is None else int(ulv),
+                'tex': (r'\text{no two cells both equal to }' + str(val) +
+                        r'\text{ are adjacent along an offset of }\mathcal N')}
     m = GRAPH.fullmatch(low)
     if m:
         edges, grid, dirs = m.groups()
@@ -346,6 +363,19 @@ def cell_ok(above, cur, below, u, W, p):
             return True
         vals = _nbvals(above, cur, below, u, W, p['offs'])
         return any(p['cmpf'](v, y) for y in vals)
+    if mode == 'noadjval':
+        if v != p['val']:
+            return True
+        for dt, du in p['offs']:
+            uu = u + du
+            if not (0 <= uu < W):
+                continue
+            L = cur if dt == 0 else (below if dt > 0 else above)
+            if L is None:
+                continue
+            if L[uu] == v:
+                return False
+        return True
     if mode == 'graph':
         for dt, du in p['offs']:
             uu = u + du
@@ -468,12 +498,14 @@ def build(p, cap=200000):
                 if ok:
                     row.append(idx[s])
             adj.append(row)
+            uv = p.get('ulval')
+            uv = 0 if (uv is None and p['ul0']) else uv
             if fwd:
-                start.append(1 if (not p['ul0'] or r[0] == 0) else 0)
+                start.append(1 if (uv is None or r[0] == uv) else 0)
                 end.append(1 if line_ok(None, r, None, W, p) else 0)
             else:
                 start.append(1 if (line_ok(None, r, None, W, p)
-                                   and (not p['ul0'] or r[0] == 0)) else 0)
+                                   and (uv is None or r[0] == uv)) else 0)
                 end.append(1)
         p['wlen'] = 1
         return adj, start, end, lines
@@ -491,7 +523,9 @@ def build(p, cap=200000):
             if line_ok(a, b, x, W, p):
                 row.append(idx[(b, x)])
         adj.append(row)
-        s = line_ok(None, a, b, W, p) and (not p['ul0'] or a[0] == 0)
+        uv = p.get('ulval')
+        uv = 0 if (uv is None and p['ul0']) else uv
+        s = line_ok(None, a, b, W, p) and (uv is None or a[0] == uv)
         start.append(1 if s else 0)
         end.append(1 if line_ok(a, b, None, W, p) else 0)
     p['wlen'] = 2
@@ -505,8 +539,10 @@ def matvec(adj, v):
 def singles(p):
     W, al = p['fixed'], p['alpha']
     n = 0
+    uv = p.get('ulval')
+    uv = 0 if (uv is None and p['ul0']) else uv
     for r in product(range(al + 1), repeat=W):
-        if line_ok(None, r, None, W, p) and (not p['ul0'] or r[0] == 0):
+        if line_ok(None, r, None, W, p) and (uv is None or r[0] == uv):
             n += 1
     return n
 
