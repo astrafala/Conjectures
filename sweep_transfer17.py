@@ -1,6 +1,21 @@
 """Sweep the 3 X 3 subblock families."""
-import json, re, os, sys, collections
+import json, re, os, sys, collections, signal
 import localentry as LE, transfer17 as T, ratrec, openness
+
+
+class Timeout(Exception):
+    pass
+
+
+def _alarm(signum, frame):
+    raise Timeout()
+
+
+signal.signal(signal.SIGALRM, _alarm)
+# a single entry near the state cap can make the annihilation loop run for hours; the loop
+# needs S+1 consecutive zeros to certify anything, so there is no partial credit -- better
+# to abandon that entry and keep sweeping than to stall the whole run on it
+BUDGET = int(os.environ.get('BUDGET', '600'))
 
 MARK = re.compile(r'onjectur|Empirical', re.I)
 CAP = int(sys.argv[1]) if len(sys.argv) > 1 else 40000
@@ -30,7 +45,13 @@ for a in sorted(names):
         res['no parsable recurrence'] += 1; done.add(a); continue
     if not openness.status(a)[0]:
         res['not open'] += 1; done.add(a); continue
-    b = T.build(p, cap=CAP)
+    try:
+        signal.alarm(BUDGET)
+        b = T.build(p, cap=CAP)
+        signal.alarm(0)
+    except Timeout:
+        signal.alarm(0)
+        res['build timed out'] += 1; done.add(a); continue
     if b is None or not b[0]:
         res['state space > cap'] += 1; done.add(a); continue
     st, adj = b
@@ -42,7 +63,13 @@ for a in sorted(names):
     off = int(e['offset'].split(',')[0])
     coeffs, dd = recs[0]
     order = max(coeffs)
-    thr = T.threshold(adj, len(st), coeffs, order)
+    try:
+        signal.alarm(BUDGET)
+        thr = T.threshold(adj, len(st), coeffs, order)
+        signal.alarm(0)
+    except Timeout:
+        signal.alarm(0)
+        res['annihilation test timed out'] += 1; done.add(a); continue
     if thr is None:
         res['UNRESOLVED'] += 1
         hits.append({'anum': a, 'FAILS': True, 'name': nm})
