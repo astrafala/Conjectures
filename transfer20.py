@@ -30,12 +30,14 @@ import re
 from fractions import Fraction
 import transfer19 as T19
 
-REL = re.compile(r',?\s*(?:and\s+)?with\s+new\s+values(?:\s+0\.\.\d+)?\s+introduced\s+'
-                 r'in\s+row\s+major\s+order\s*', re.I)
-REL2 = re.compile(r',?\s*with\s+values\s+0\.\.\d+\s+introduced\s+in\s+row\s+major\s+order\s*',
-                  re.I)
-REL3 = re.compile(r',?\s*(?:and\s+)?with\s+new\s+values\s+introduced\s+in\s+order\s+0\s+'
-                  r'sequentially\s+upwards?\s*', re.I)
+# the clause appears as ", and new values 0..2 introduced in row major order" as well as
+# ", with new values ... "; requiring the word "with" silently refused the first form
+REL = re.compile(r',?\s*(?:and\s+)?(?:with\s+)?new\s+values(?:\s+0\.\.\d+)?\s+introduced'
+                 r'\s+in\s+row\s+major\s+order\s*', re.I)
+REL2 = re.compile(r',?\s*(?:and\s+)?(?:with\s+)?values\s+0\.\.\d+\s+introduced\s+in\s+row'
+                  r'\s+major\s+order\s*', re.I)
+REL3 = re.compile(r',?\s*(?:and\s+)?(?:with\s+)?new\s+values\s+introduced\s+in\s+order\s+0'
+                  r'\s+sequentially\s+upwards?\s*', re.I)
 LEAD = re.compile(r'^\s*new\s+values(?:\s+0\.\.\d+)?\s+introduced\s+in\s+row\s+major\s+order'
                   r'\s+and\s+', re.I)
 

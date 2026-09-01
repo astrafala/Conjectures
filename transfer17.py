@@ -50,6 +50,31 @@ LINES = {'row': rows_of, 'column': cols_of,
 PERIM = [(0, 0), (0, 1), (0, 2), (1, 2), (2, 2), (2, 1), (2, 0), (1, 0)]
 
 
+DIRS = {'horizontally': rows_of, 'vertically': cols_of,
+        'diagonally': lambda g: [diag_of(g)],
+        'nw-to-se diagonally': lambda g: [diag_of(g)],
+        'antidiagonally': lambda g: [anti_of(g)],
+        'ne-to-sw antidiagonally': lambda g: [anti_of(g)]}
+_D = r'(?:nw-to-se diagonally|ne-to-sw antidiagonally|horizontally|vertically|' \
+     r'antidiagonally|diagonally)'
+DIRLIST = r'(' + _D + r'(?:[, ]+(?:and |or )?' + _D + r')*)'
+WORD = {'one': 1, 'two': 2, 'three': 3, 'four': 4, 'five': 5, 'six': 6, 'seven': 7,
+        'eight': 8, 'nine': 9}
+
+
+def _tex(phrase):
+    return re.sub(r'\s+', ' ', phrase.strip())
+
+
+def _dirs(phrase):
+    out = []
+    for w in re.findall(_D, phrase.lower()):
+        f = DIRS[w]
+        if f not in out:
+            out.append(f)
+    return out
+
+
 def _clause(t):
     """one clause of the condition: (fn(g)->bool, latex) or None."""
     t = t.strip().rstrip('.').strip()
@@ -75,6 +100,35 @@ def _clause(t):
         tex = (r'\text{the clockwise perimeter word of }g\text{ is a rotation of one of }\{' +
                ',\\ '.join(p for p in pats) + r'\}')
         return fn, tex
+
+    m = re.fullmatch(r'having three (equal|strictly increasing) elements in a row '
+                     + DIRLIST + r'(?:,? exactly (\w+) ways?)?', low)
+    if m:
+        eq = m.group(1) == 'equal'
+        fs = _dirs(m.group(2))
+        want = WORD.get(m.group(3)) if m.group(3) else None
+        if m.group(3) and want is None:
+            return None
+
+        def fn(g, fs=tuple(fs), eq=eq, want=want):
+            k = 0
+            for f in fs:
+                for ln in f(g):
+                    if (ln[0] == ln[1] == ln[2]) if eq else (ln[0] < ln[1] < ln[2]):
+                        k += 1
+            return k == want if want is not None else k >= 1
+        howmany = (r'\text{exactly }%d' % want) if want is not None else r'\text{at least one}'
+        return fn, (r'%s\text{ of the %s lines of }g\text{ %s}'
+                    % (howmany, _tex(m.group(2)),
+                       r'\text{is constant}' if eq else r'\text{is strictly increasing}'))
+
+    m = re.fullmatch(r'having (?:three )?equal diagonal elements or (?:three )?equal '
+                     r'antidiagonal elements', low)
+    if m:
+        def fn(g):
+            d, a = diag_of(g), anti_of(g)
+            return d[0] == d[1] == d[2] or a[0] == a[1] == a[2]
+        return fn, r'\text{the diagonal or the antidiagonal of }g\text{ is constant}'
 
     if low in ('singular', 'nonsingular'):
         want = (low == 'singular')
