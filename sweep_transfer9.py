@@ -21,8 +21,9 @@ for a in sorted(names):
     p = T9.parse_name(nm)
     if not p:
         res['name unparsed'] += 1; done.add(a); continue
-    S = (p['alpha'] + 1) ** (2 * p['fixed'])
-    if S > CAP:
+    # how many lines of state the offsets need is decided inside build, so only a loose
+    # bound is applied here and build's own cap makes the real decision
+    if (p['alpha'] + 1) ** p['fixed'] > CAP:
         res['state space > cap'] += 1; continue
     if a in roster:
         res['already papered'] += 1; done.add(a); continue

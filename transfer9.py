@@ -80,6 +80,16 @@ SOMECMP = re.compile(r'every (nonzero )?element (less than or equal to|greater t
 SHIFT = re.compile(r'no entry increasing mod (\d+) by (\d+) rightwards or downwards, '
                    r'starting with upper left zero', re.I)
 OFFLIST = r'((?:\(-?\d+,-?\d+\)[\s,]*(?:or\s*)?)+)'
+GRAPH = re.compile(r'\d+\.\.\d+ label nodes of (?:a graph with edges ([\d,\s]+)|'
+                   r'(the square grid graph)) and every array movement to a (' + DIRWORDS +
+                   r') neighbou?r moves along an edge of this graph', re.I)
+PATT = re.compile(r'without the pattern ((?:\d+\s+)+\d+) (' + DIRWORDS + r')', re.I)
+MODNEXT = re.compile(r'(?:each|every) element (' + DIRWORDS + r') next to at least one '
+                     r'element with value (?:\(x\(i,j\)\+(\d+)\) mod (\d+)|'
+                     r'(\d+)-x\(i,j\))(, with upper left element zero)?', re.I)
+CMPSELF = re.compile(r'(?:each|every) element equal to the number (?:of )?its (' + DIRWORDS +
+                     r') neighbou?rs (less than or equal to|greater than or equal to|'
+                     r'less than|greater than) itself', re.I)
 BOTH = re.compile(r'every element both equal and not equal to some elements at offset '
                   + OFFLIST + r', with upper left element zero', re.I)
 PLUSMOD = re.compile(r'every element plus (\d+) mod (\d+) equal to some element at offset '
@@ -92,6 +102,65 @@ def _offlist(txt):
 
 def _cond(rest):
     low = rest.strip().rstrip('.').lower()
+    m = GRAPH.fullmatch(low)
+    if m:
+        edges, grid, dirs = m.groups()
+        offs = _nbset(dirs)
+        if offs is None:
+            return None
+        offs = [(dt, du) for dt, du in offs if dt > 0 or (dt == 0 and du > 0)]
+        if edges:
+            nums = [int(t) for t in re.findall(r'\d+', edges)]
+            if len(nums) % 2:
+                return None
+            E = {frozenset((nums[i], nums[i + 1])) for i in range(0, len(nums), 2)}
+            tx = r'\{' + ','.join('\\{%d,%d\\}' % tuple(sorted(e)) for e in
+                                 sorted(map(sorted, E))) + r'\}'
+        else:
+            E, tx = 'grid', r'\text{the square grid graph}'
+        return {'mode': 'graph', 'offs': offs, 'edges': E, 'ul0': False,
+                'tex': (r'\{x_{t,u},x_{t+d_1,u+d_2}\}\in E\ \text{ for every offset in }'
+                        r'\mathcal N,\quad E=' + tx)}
+    m = PATT.fullmatch(low)
+    if m:
+        pat = [int(t) for t in m.group(1).split()]
+        offs = _nbset(m.group(2))
+        if offs is None or len(pat) not in (2, 3):
+            return None
+        dirs = []
+        for dt, du in offs:
+            if dt > 0 or (dt == 0 and du > 0):
+                dirs.append((dt, du))
+        return {'mode': 'patt', 'offs': dirs, 'pat': pat, 'ul0': False,
+                'tex': (r'\text{no }' + ','.join(map(str, pat)) +
+                        r'\text{ occurs consecutively along any direction in }\mathcal N')}
+    m = MODNEXT.fullmatch(low)
+    if m:
+        dirs, dd, mod, cst, ul0 = m.groups()
+        offs = _nbset(dirs)
+        if offs is None:
+            return None
+        if dd is not None:
+            f = lambda v, d=int(dd), md=int(mod): (v + d) % md
+            tx = r'(x_{t,u}+' + dd + r')\bmod ' + mod
+        else:
+            f = lambda v, c=int(cst): c - v
+            tx = cst + r'-x_{t,u}'
+        return {'mode': 'modnext', 'offs': offs, 'f': f, 'ul0': bool(ul0),
+                'tex': r'\exists\ \text{a neighbour with value }' + tx}
+    m = CMPSELF.fullmatch(low)
+    if m:
+        dirs, rel = m.groups()
+        offs = _nbset(dirs)
+        if offs is None:
+            return None
+        f = {'less than or equal to': lambda y, v: y <= v,
+             'greater than or equal to': lambda y, v: y >= v,
+             'less than': lambda y, v: y < v, 'greater than': lambda y, v: y > v}[rel]
+        sy = {'less than or equal to': r'\le', 'greater than or equal to': r'\ge',
+              'less than': '<', 'greater than': '>'}[rel]
+        return {'mode': 'cmpself', 'offs': offs, 'cmpf': f, 'ul0': False,
+                'tex': r'x_{t,u}=\#\{\text{neighbours }y:\ y' + sy + r'x_{t,u}\}'}
     m = BOTH.fullmatch(low)
     if m:
         offs = _offlist(m.group(1))
@@ -192,6 +261,12 @@ def _cond(rest):
 def parse_name(nm):
     norm = re.sub(r'(\bn|\d|\))\s*[xX]\s*(?=[\d(n])', r'\1 X ', nm)
     norm = re.sub(r'\s+', ' ', norm).strip().rstrip('.')
+    # several families carry a descriptive title before a colon
+    title = ''
+    mt = re.match(r'^([^:]{1,90}):\s*', norm)
+    if mt:
+        title = mt.group(1)
+        norm = norm[mt.end():]
     frac = 1
     m = T6.FRAC.match(norm)
     if m:
@@ -219,6 +294,24 @@ def parse_name(nm):
     c = _cond(rest)
     if not c:
         return None
+    if c.get('edges') == 'grid':
+        mg = re.search(r'(\d+)\s*X\s*(\d+)\s+square grid graph', title, re.I)
+        if not mg:
+            return None
+        R, C = int(mg.group(1)), int(mg.group(2))
+        if R * C != alpha + 1:
+            return None
+        E = set()
+        for i in range(R):
+            for j in range(C):
+                k = i * C + j
+                if j + 1 < C:
+                    E.add(frozenset((k, k + 1)))
+                if i + 1 < R:
+                    E.add(frozenset((k, k + C)))
+        c['edges'] = E
+        c['tex'] = c['tex'].replace(r'\text{the square grid graph}',
+                                    rf'\text{{the {R}\times{C} grid graph}}')
     if walk == 'cols':
         c = dict(c, offs=[(du, dt) for dt, du in c['offs']])
     c.update({'walk': walk, 'fixed': fixed, 'base': base, 'mult': mult, 'alpha': alpha,
@@ -253,6 +346,50 @@ def cell_ok(above, cur, below, u, W, p):
             return True
         vals = _nbvals(above, cur, below, u, W, p['offs'])
         return any(p['cmpf'](v, y) for y in vals)
+    if mode == 'graph':
+        for dt, du in p['offs']:
+            uu = u + du
+            if not (0 <= uu < W):
+                continue
+            L = cur if dt == 0 else (above if dt < 0 else below)
+            if L is None:
+                continue
+            y = L[uu]
+            if p['edges'] == 'grid':
+                if abs(y - v) != 1:
+                    return False
+            elif frozenset((v, y)) not in p['edges']:
+                return False
+        return True
+    if mode == 'patt':
+        # the pattern is read along +(d1,d2), so position 0 sits at (t-d1,u-d2) and position
+        # 2 at (t+d1,u+d2). A transposed name can leave d1 NEGATIVE, and taking `above` for
+        # the first position regardless was wrong for exactly those.
+        pat = p['pat']
+        for dt, du in p['offs']:
+            back = cur if dt == 0 else (above if dt > 0 else below)
+            fwd = cur if dt == 0 else (below if dt > 0 else above)
+            if len(pat) == 2:
+                uu = u + du
+                if not (0 <= uu < W) or fwd is None:
+                    continue
+                if v == pat[0] and fwd[uu] == pat[1]:
+                    return False
+            else:
+                ub, uf = u - du, u + du
+                if not (0 <= ub < W and 0 <= uf < W):
+                    continue
+                if back is None or fwd is None:
+                    continue
+                if v == pat[1] and back[ub] == pat[0] and fwd[uf] == pat[2]:
+                    return False
+        return True
+    if mode == 'modnext':
+        vals = _nbvals(above, cur, below, u, W, p['offs'])
+        return any(y == p['f'](v) for y in vals)
+    if mode == 'cmpself':
+        vals = _nbvals(above, cur, below, u, W, p['offs'])
+        return v == sum(1 for y in vals if p['cmpf'](y, v))
     if mode == 'both':
         vals = _nbvals(above, cur, below, u, W, p['offs'])
         return any(y == v for y in vals) and any(y != v for y in vals)
@@ -300,12 +437,49 @@ def line_ok(above, cur, below, W, p):
 
 
 def build(p, cap=200000):
+    """Digraph on lines or on pairs of lines, whichever the offsets require.
+
+    A condition whose offsets all point one way needs only ONE line of state: the cells of a
+    line are settled by that line and its successor (or its predecessor). Only a condition
+    reaching both up and down needs a pair. That is not a refinement for its own sake -- the
+    graph-colouring names run over a nine-letter alphabet, where a pair state is 9^(2W) and a
+    single line 9^W.
+    """
     W, al = p['fixed'], p['alpha']
     lines = list(product(range(al + 1), repeat=W))
+    offs = p['offs']
+    # a length-three forbidden pattern is tested at its MIDDLE cell, so it reads one step in
+    # each direction whatever the sign of the stated offset: the span, not the offset list,
+    # decides how many lines of state are needed. Using the offsets here made every such
+    # entry return the unconstrained count.
+    if p['mode'] == 'patt' and len(p['pat']) == 3:
+        offs = offs + [(-dt, -du) for dt, du in offs]
+    fwd = all(dt >= 0 for dt, _ in offs)
+    bwd = all(dt <= 0 for dt, _ in offs)
+    if fwd or bwd:
+        if len(lines) > cap:
+            return None
+        idx = {r: i for i, r in enumerate(lines)}
+        adj, start, end = [], [], []
+        for r in lines:
+            row = []
+            for s in lines:
+                ok = line_ok(None, r, s, W, p) if fwd else line_ok(r, s, None, W, p)
+                if ok:
+                    row.append(idx[s])
+            adj.append(row)
+            if fwd:
+                start.append(1 if (not p['ul0'] or r[0] == 0) else 0)
+                end.append(1 if line_ok(None, r, None, W, p) else 0)
+            else:
+                start.append(1 if (line_ok(None, r, None, W, p)
+                                   and (not p['ul0'] or r[0] == 0)) else 0)
+                end.append(1)
+        p['wlen'] = 1
+        return adj, start, end, lines
     if len(lines) ** 2 > cap:
         return None
-    idx = {}
-    st = []
+    idx, st = {}, []
     for a in lines:
         for b in lines:
             idx[(a, b)] = len(st)
@@ -320,6 +494,7 @@ def build(p, cap=200000):
         s = line_ok(None, a, b, W, p) and (not p['ul0'] or a[0] == 0)
         start.append(1 if s else 0)
         end.append(1 if line_ok(a, b, None, W, p) else 0)
+    p['wlen'] = 2
     return adj, start, end, st
 
 
@@ -337,13 +512,13 @@ def singles(p):
 
 
 def avals(adj, start, end, p, nmax):
-    mult, base = p['mult'], p['base']
+    mult, base, wl = p['mult'], p['base'], p.get('wlen', 2)
     Lmax = mult * nmax + base
     # an array with no lines: the empty array, counted once, which is what the entries with
     # offset 0 record as a(0)
     vals = {0: p['frac'], 1: singles(p)}
     g = end[:]
-    L = 2
+    L = wl
     while L <= Lmax:
         vals[L] = sum(s * x for s, x in zip(start, g) if s)
         g = matvec(adj, g)
@@ -354,12 +529,12 @@ def avals(adj, start, end, p, nmax):
 
 def threshold(adj, start, end, coeffs, order, p):
     import time as _t
-    mult, base = p['mult'], p['base']
+    mult, base, wl = p['mult'], p['base'], p.get('wlen', 2)
     S = len(adj)
     n_lo = 0
-    while mult * n_lo + base < 2:
+    while mult * n_lo + base < wl:
         n_lo += 1
-    o = mult * n_lo + base - 2
+    o = mult * n_lo + base - wl
     h = end[:]
     for _ in range(o):
         h = matvec(adj, h)

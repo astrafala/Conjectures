@@ -19,8 +19,11 @@ import transfer6 as T6
 from transfer7 import rgs, derange, falling, npatterns, ROWMAJOR
 
 DIMTOK = r'\(?\s*(\d*\s*n\s*(?:\+\s*\d+)?|\d+\s*\+\s*\d+|\d+)\s*\)?'
+# the connector is not always ``with'': the graph-colouring names say ``arrays where'', and
+# several say ``arrays x(i,j) with''
 SHAPE2 = re.compile(DIMTOK + r'\s*X\s*' + DIMTOK +
-                    r'\s+(?:(0)\.\.(\d+)|(binary))\s+arrays?\s+with\s+', re.I)
+                    r'\s+(?:(0)\.\.(\d+)|(binary))\s+(?:colorings?|arrays?)'
+                    r'(?:\s+x\(i,j\))?(?:\s+(?:with|where|in which))?\s+', re.I)
 
 
 def _dim(s):
