@@ -24,8 +24,11 @@ def rewrite(name, k):
     s = s[m.end():].strip()
     if not s:
         return None
+    # 'T(n,k) is the number of ...' as well as 'T(n,k) = Number of ...': prepending
+    # 'Number of' blindly produced 'Number of is the number of'
+    s = re.sub(r'^is\s+the\s+number\s+of\b', 'Number of', s, flags=re.I)
     s = s[0].upper() + s[1:]
-    if not re.match(r'(Number of|number of|Half|1/\d)', s):
+    if not re.match(r'(Number of|number of|Half|1/\d|One quarter)', s, re.I):
         s = 'Number of ' + s[0].lower() + s[1:]
     # substitute k everywhere it occurs as a dimension token
     def sub_dim(t):

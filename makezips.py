@@ -20,7 +20,11 @@ def main():
     def zip_of(batch, name):
         if os.path.exists(name):
             os.remove(name)
-        subprocess.run(["zip", "-q", "-j", "-9", name]
+        # PDFs are already compressed, so -9 buys almost nothing and costs a great deal:
+        # the shrink loop below re-zips the whole batch each time it drops a paper, and at
+        # -9 that turned a fifteen-minute pack into hours. The cap is still checked on the
+        # ACTUAL size, so a weaker setting cannot produce an oversized archive.
+        subprocess.run(["zip", "-q", "-j", "-1", name]
                        + [f"papers/{c}" for c in batch], check=True)
         return os.path.getsize(name)
 
@@ -47,8 +51,12 @@ def main():
     carry = []
     for f in files:
         batch.append(f)
-        # the raw total is a fast upper bound; the real check happens in flush
-        if sum(os.path.getsize(f"papers/{c}") for c in batch) > CAP * 1.25:
+        # a PDF barely compresses, so the raw total is a close estimate of the archive
+        # size: bounding it at the cap itself means the shrink loop below almost never
+        # fires. Bounding it at 1.25*CAP instead made every archive start ~7 MiB too big
+        # and re-zip the whole batch once per dropped paper, which is where the pack time
+        # went.
+        if sum(os.path.getsize(f"papers/{c}") for c in batch) > CAP:
             batch.pop()
             batch = flush(batch) + [f]
     while batch:

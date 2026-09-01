@@ -16,9 +16,14 @@ import json, re, os, sys, collections, importlib
 from math import factorial
 import localentry as LE, ratrec, openness, tablecol
 
-ENG = ['transfer9', 'transfer6', 'transfer16', 'transfer12', 'transfer10', 'transfer8',
-       'transfer14', 'transfer11', 'transfer15', 'transfer13', 'transfer7']
+# transfer3 is the constant-stress family; its name regex is the most specific of the set,
+# so trying it first cannot steal a name from another engine. Its interface differs from the
+# rest -- parse_name returns a tuple, build takes four positional arguments, and terms and
+# threshold live in transfer2 -- so it is dispatched separately below.
+ENG = ['transfer3', 'transfer9', 'transfer6', 'transfer16', 'transfer12', 'transfer10',
+       'transfer8', 'transfer14', 'transfer11', 'transfer15', 'transfer13', 'transfer7']
 M = {e: importlib.import_module(e) for e in ENG}
+import transfer2 as T2
 SCALED = ('transfer7', 'transfer8', 'transfer10', 'transfer12', 'transfer16')
 CAP = int(sys.argv[1]) if len(sys.argv) > 1 else 20000
 COL = re.compile(r'^k=(\d+):\s*(a\(n\)\s*=.*)$')
@@ -26,6 +31,9 @@ P = '/tmp/claude-0/-home-user-Conjectures/a6c6c48d-a8e1-5e03-bfd7-16e8d9d94539/s
 names = json.load(open(P + 'all_names.json'))
 roster = {r['anum'] for r in json.load(open('rank-map.json'))}
 HITS, DONE = 'table_hits.json', 'table_done.json'
+SKIP_ROSTER = os.environ.get('SKIP_ROSTER', '1') == '1'
+if os.environ.get('HITS'):
+    HITS, DONE = os.environ['HITS'], os.environ['DONE']
 hits = json.load(open(HITS)) if os.path.exists(HITS) else []
 done = set(json.load(open(DONE))) if os.path.exists(DONE) else set()
 res = collections.Counter()
@@ -72,7 +80,7 @@ def column(d, c, upward):
 
 
 for a in sorted(names):
-    if a in done or a in roster:
+    if a in done or (SKIP_ROSTER and a in roster):
         continue
     nm = names[a]
     if not nm.strip().startswith('T(n,k)'):
@@ -103,12 +111,20 @@ for a in sorted(names):
             except Exception:
                 q = None
             if q:
-                p, eng = q, en; break
+                p, eng = ({'t3': q} if en == 'transfer3' else q), en; break
         if p is None:
             skipped.append((c, 'no engine reads it')); continue
         try:
-            try: b = M[eng].build(p, cap=CAP)
-            except TypeError: b = M[eng].build(p)
+            if eng == 'transfer3':
+                t3cols, t3alpha, _, _ = p['t3']
+                if (t3alpha + 1) ** t3cols > CAP:
+                    skipped.append((c, 'state space > cap')); continue
+                b = M[eng].build(*p['t3'])
+                if not b[0]:
+                    skipped.append((c, 'empty state space')); continue
+            else:
+                try: b = M[eng].build(p, cap=CAP)
+                except TypeError: b = M[eng].build(p)
         except Exception as ex:
             skipped.append((c, 'build failed')); continue
         if b is None:
@@ -121,9 +137,11 @@ for a in sorted(names):
             if len(colv) < order + 2:
                 continue
             try:
-                if eng == 'transfer6':
+                if eng in ('transfer6', 'transfer3'):
                     st, adj = b
-                    t = [x // p['frac'] for x in M[eng].terms(adj, len(st), len(colv) + 2)]
+                    tm = M[eng].terms if eng == 'transfer6' else T2.terms
+                    fr = p['frac'] if eng == 'transfer6' else 1
+                    t = [x // fr for x in tm(adj, len(st), len(colv) + 2)]
                     sh = next((s for s in range(0, 3) if t[s:s + len(colv)] == colv), None)
                     if sh is None:
                         continue
@@ -151,8 +169,9 @@ for a in sorted(names):
             failed.append((c, 'model does not match the column')); continue
         up, got, base, colv = match
         try:
-            if eng == 'transfer6':
-                thr = M[eng].threshold(adj, len(st), coeffs, order)
+            if eng in ('transfer6', 'transfer3'):
+                th = M[eng].threshold if eng == 'transfer6' else T2.threshold
+                thr = th(adj, len(st), coeffs, order)
                 nthr = None if thr is None else thr - base
             elif eng == 'transfer10':
                 thr = M[eng].threshold(adj, start, coeffs, order, p); nthr = thr
@@ -170,7 +189,13 @@ for a in sorted(names):
         proved.append({'k': c, 'engine': eng, 'order': order, 'nthr': nthr,
                        'coeffs': {int(x): str(y) for x, y in coeffs.items()},
                        'claimed': dd, 'nterms': len(colv), 'S': len(b[0]),
-                       'upward': up, 'name_k': rn})
+                       'upward': up, 'name_k': rn,
+                       # the largest published column value the model reproduces: the
+                       # Verification section quotes it, so it must be the real figure
+                       'maxdig': len(str(max(colv))),
+                       # total decimal digits of exact agreement between model and entry:
+                       # the honest measure of how much a wrong reading would have to fake
+                       'totdig': sum(len(str(v)) for v in colv)})
     if proved:
         res['TABLE PROVED'] += 1
         res['columns proved'] += len(proved)

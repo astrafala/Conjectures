@@ -52,6 +52,8 @@ a(n)\;=\;{rec_tex(c['coeffs'])}
 holds for every $n>{c['nthr']}$.""")
     details = "\n\n".join(detail)
     first = cols[0]
+    totdig = sum(c.get('totdig', 0) for c in cols)
+    totterm = sum(c['nterms'] for c in cols)
 
     return rf"""{PRE}
 \title{{The empirical column recurrences for the table OEIS {a}}}
@@ -145,9 +147,9 @@ First, each column model was compared against the entry's own published values f
 column, taken both from the antidiagonal DATA and from the ``Table starts'' block, and agrees
 at every available term. This is what ties a model to the table: substituting $k$ into the
 entry's wording is a reading of English, and a wrong reading gives a different digraph and
-different counts. The values involved are large --- column entries here run to sixteen digits
-and beyond --- so agreement across the available terms is not something a wrong model
-achieves.
+different counts. Across the columns settled here the model reproduces ${totterm}$ published
+values, ${totdig}$ decimal digits in all, every one of them exactly; a misreading of the entry
+would have to reproduce all of them by accident.
 
 Second, each conjectured recurrence was evaluated on those published column values in exact
 integer arithmetic, with no matrices involved, and holds wherever the proved range and the
