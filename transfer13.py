@@ -17,6 +17,7 @@ is tested once, from the earlier cell; every offset then points forward and one 
 suffices.
 """
 import re
+import namecanon
 from itertools import product
 import transfer6 as T6
 from transfer8 import SHAPE2, _dim
@@ -28,6 +29,7 @@ COND = re.compile(r'no element x\(i,j\) adjacent to (itself or )?value (\d+)-x\(
 
 
 def parse_name(nm):
+    nm = namecanon.canon(nm)   # 'a(n) is the number of ...' and friends
     norm = re.sub(r'(\bn|\d|\))\s*[xX]\s*(?=[\d(n])', r'\1 X ', nm)
     norm = re.sub(r'\s+', ' ', norm).strip().rstrip('.')
     norm = re.sub(r'^[^:]{1,90}:\s*', '', norm)

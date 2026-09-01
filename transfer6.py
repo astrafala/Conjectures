@@ -14,6 +14,7 @@ C-finite. The only per-entry work is compiling <P>; the rest of the engine is fi
 Block entries are written (a, b, c, d) = (top-left, top-right, bottom-left, bottom-right).
 """
 import re
+import namecanon
 from itertools import product
 
 NUM = {'zero': 0, 'one': 1, 'two': 2, 'three': 3, 'four': 4, 'five': 5, 'six': 6}
@@ -347,6 +348,7 @@ def _dimval(s):
 
 
 def parse_name(nm):
+    nm = namecanon.canon(nm)   # 'a(n) is the number of ...' and friends
     # the product sign sits between two dimension tokens; requiring the left token to be a
     # digit, a closing bracket or a STANDALONE n keeps the rule off ordinary words -- an
     # earlier version turned ``than x10'' into ``than X 10'' because ``than'' ends in n

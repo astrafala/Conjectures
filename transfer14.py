@@ -15,6 +15,7 @@ swaps the two components, and an antidiagonal is then traversed BACKWARDS, which
 "nondecreasing" into "nonincreasing"; unimodality is unchanged by reversal.
 """
 import re
+import namecanon
 from itertools import product
 import transfer6 as T6
 from transfer8 import SHAPE2, _dim
@@ -26,6 +27,7 @@ CONDW = re.compile(r'\b(nondecreasing|nonincreasing|unimodal)\b', re.I)
 
 
 def parse_name(nm):
+    nm = namecanon.canon(nm)   # 'a(n) is the number of ...' and friends
     norm = re.sub(r'(\bn|\d|\))\s*[xX]\s*(?=[\d(n])', r'\1 X ', nm)
     norm = re.sub(r'\s+', ' ', norm).strip().rstrip('.')
     norm = re.sub(r'^[^:]{1,90}:\s*', '', norm)

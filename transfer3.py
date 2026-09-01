@@ -11,6 +11,7 @@ a row (a condition on the vertex) and r_j != s_j between rows (a condition on th
 Both are local to a consecutive pair of rows, so the row digraph applies unchanged.
 """
 import re
+import namecanon
 from itertools import product
 
 NAME = re.compile(
@@ -21,6 +22,7 @@ NAME = re.compile(
 
 
 def parse_name(nm):
+    nm = namecanon.canon(nm)   # 'a(n) is the number of ...' and friends
     norm = re.sub(r'(?<=[\d)])\s*[xX]\s*(?=[\d(])', ' X ', nm)
     norm = re.sub(r'\s+', ' ', norm).strip()
     if re.search(r'X\s*\(\s*n', norm):          # square (n+1) X (n+1): not a walk in n

@@ -13,6 +13,7 @@ clause is handled by the falling-factorial inversion, the alphabets here being s
 that the pattern lumping is not needed.
 """
 import re
+import namecanon
 from itertools import product
 from math import comb, factorial
 import transfer6 as T6
@@ -28,6 +29,7 @@ COND = re.compile(r'no element (equal|unequal) to (?:(more than|at least|exactly
 
 
 def parse_name(nm):
+    nm = namecanon.canon(nm)   # 'a(n) is the number of ...' and friends
     norm = re.sub(r'(\bn|\d|\))\s*[xX]\s*(?=[\d(n])', r'\1 X ', nm)
     norm = re.sub(r'\s+', ' ', norm).strip().rstrip('.')
     frac = 1

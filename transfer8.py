@@ -13,6 +13,7 @@ equalities, so K! a(n) = sum_i C(K,i) D_(K-i) L_i(n) and each chain lumps over t
 pattern of the PAIR.
 """
 import re
+import namecanon
 from itertools import product
 from math import comb
 import transfer6 as T6
@@ -151,6 +152,7 @@ def _cond(rest):
 
 
 def parse_name(nm):
+    nm = namecanon.canon(nm)   # 'a(n) is the number of ...' and friends
     norm = re.sub(r'(\bn|\d|\))\s*[xX]\s*(?=[\d(n])', r'\1 X ', nm)
     norm = re.sub(r'\s+', ' ', norm).strip().rstrip('.')
     m = ROWMAJOR.search(norm)

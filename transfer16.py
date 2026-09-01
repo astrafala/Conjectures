@@ -15,6 +15,7 @@ Each unordered adjacency is represented by one offset with a nonnegative line sh
 pair is counted exactly once.
 """
 import re
+import namecanon
 from itertools import product
 from math import comb, factorial
 from transfer7 import derange
@@ -36,6 +37,7 @@ def _dim(s):
 
 
 def parse_name(nm):
+    nm = namecanon.canon(nm)   # 'a(n) is the number of ...' and friends
     norm = re.sub(r'(\bn|\d|\))\s*[xX]\s*(?=[\d(n])', r'\1 X ', nm)
     norm = re.sub(r'\s+', ' ', norm).strip().rstrip('.')
     m = NAME.fullmatch(norm)

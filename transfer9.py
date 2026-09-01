@@ -17,6 +17,7 @@ pairs of consecutive lines, (p,c) -> (c,x) is an edge when every cell of c passe
 above and x below, and the first and last lines are tested with one neighbour line missing.
 """
 import re
+import namecanon
 from itertools import product
 import transfer6 as T6
 
@@ -276,6 +277,7 @@ def _cond(rest):
 
 
 def parse_name(nm):
+    nm = namecanon.canon(nm)   # 'a(n) is the number of ...' and friends
     norm = re.sub(r'(\bn|\d|\))\s*[xX]\s*(?=[\d(n])', r'\1 X ', nm)
     norm = re.sub(r'\s+', ' ', norm).strip().rstrip('.')
     # several families carry a descriptive title before a colon

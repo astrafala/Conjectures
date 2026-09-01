@@ -14,6 +14,7 @@ reduction of transfer7 applies verbatim: K! a(n) = sum_i C(K,i) D_(K-i) L_i(n), 
 chain lumps over the equality pattern of the pair.
 """
 import re
+import namecanon
 from itertools import product
 from math import comb, factorial
 import transfer6 as T6
@@ -26,6 +27,7 @@ NAME = re.compile(r'no element equal to any value at offset '
 
 
 def parse_name(nm):
+    nm = namecanon.canon(nm)   # 'a(n) is the number of ...' and friends
     norm = re.sub(r'(\bn|\d|\))\s*[xX]\s*(?=[\d(n])', r'\1 X ', nm)
     norm = re.sub(r'\s+', ' ', norm).strip().rstrip('.')
     frac = 1

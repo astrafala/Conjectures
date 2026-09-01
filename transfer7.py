@@ -27,6 +27,7 @@ walk-counting problem on the block-diagonal matrix diag(M_1,...,M_K) with the we
 in the start vector. Everything after that is the usual annihilation test.
 """
 import re
+import namecanon
 from itertools import product
 from math import comb, factorial
 import transfer6 as T6
@@ -67,6 +68,7 @@ def pattern_table(fn, alpha):
 
 
 def parse_name(nm):
+    nm = namecanon.canon(nm)   # 'a(n) is the number of ...' and friends
     norm = re.sub(r'(\bn|\d|\))\s*[xX]\s*(?=[\d(n])', r'\1 X ', nm)
     norm = re.sub(r'\s+', ' ', norm).strip().rstrip('.')
     m = ROWMAJOR.search(norm)

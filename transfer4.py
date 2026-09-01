@@ -19,6 +19,7 @@ For the transposed names ("Number of K X n ... arrays") the array has K rows and
 so the roles of the two directions swap and the same code applies to columns.
 """
 import re
+import namecanon
 from itertools import product
 
 NAME = re.compile(
@@ -41,6 +42,7 @@ REFUSE = re.compile(r'\bthe pattern\b|[a-yA-Y]\s*[+-]\s*\d|\bz\b', re.I)
 
 
 def parse_name(nm):
+    nm = namecanon.canon(nm)   # 'a(n) is the number of ...' and friends
     if REFUSE.search(nm):
         return None                      # a parametrised pattern such as "z+1 z+1 z"
     norm = re.sub(r'(?<=[\dn)])\s*[xX]\s*(?=[\dn(])', ' X ', nm)

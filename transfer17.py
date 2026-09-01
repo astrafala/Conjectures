@@ -14,6 +14,7 @@ Line entries of a block are written g[i][j] with i the line index within the blo
 column index, so g[0] is the top line of the block.
 """
 import re
+import namecanon
 from itertools import product
 
 DIM = r'\(?\s*(n\s*\+\s*\d+|n|\d+\s*\+\s*\d+|\d+)\s*\)?'
@@ -186,6 +187,7 @@ def _clause(t):
 
 
 def parse_name(nm):
+    nm = namecanon.canon(nm)   # 'a(n) is the number of ...' and friends
     norm = re.sub(r'(\bn|\d|\))\s*[xX]\s*(?=[\d(n])', r'\1 X ', nm)
     norm = re.sub(r'\s+', ' ', norm).strip()
     frac = 1

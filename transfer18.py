@@ -21,6 +21,7 @@ carries a weight rather than being a plain indicator. The optional clause "with 
 of exactly E elements" is the counter c, capped at E; states past the budget are dropped.
 """
 import re
+import namecanon
 from itertools import product
 
 OUT = None
@@ -119,6 +120,7 @@ def _pred(body):
 
 
 def parse_name(nm):
+    nm = namecanon.canon(nm)   # 'a(n) is the number of ...' and friends
     norm = re.sub(r'(\bn|\d|\))\s*[xX]\s*(?=[\d(n])', r'\1 X ', nm)
     norm = re.sub(r'\s+', ' ', norm).strip()
     frac = 1

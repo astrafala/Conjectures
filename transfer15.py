@@ -10,6 +10,7 @@ twice, and each summand is the ordinary transfer count of transfer6. The whole t
 walk count on the block-diagonal matrix over s.
 """
 import re
+import namecanon
 from itertools import product
 import transfer6 as T6
 from transfer8 import SHAPE2, _dim
@@ -18,6 +19,7 @@ NAME = re.compile(r'all 2 X 2 subblock sums the same', re.I)
 
 
 def parse_name(nm):
+    nm = namecanon.canon(nm)   # 'a(n) is the number of ...' and friends
     norm = re.sub(r'(\bn|\d|\))\s*[xX]\s*(?=[\d(n])', r'\1 X ', nm)
     norm = re.sub(r'\s+', ' ', norm).strip().rstrip('.')
     frac = 1

@@ -13,6 +13,7 @@ outside is carried explicitly rather than padded.
 """
 import os
 import re
+import namecanon
 from itertools import product
 
 OUT = None
@@ -185,6 +186,7 @@ def _pred(body):
 
 
 def parse_name(nm):
+    nm = namecanon.canon(nm)   # 'a(n) is the number of ...' and friends
     if RELABEL.search(nm):
         return None
     norm = re.sub(r'(\bn|\d|\))\s*[xX]\s*(?=[\d(n])', r'\1 X ', nm)

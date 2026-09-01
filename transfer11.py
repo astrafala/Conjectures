@@ -15,6 +15,7 @@ pair is counted exactly once: the pairs inside a line are counted when that line
 down, and the pairs between two lines when the second of them is.
 """
 import re
+import namecanon
 from itertools import product
 import transfer6 as T6
 from transfer8 import SHAPE2, _dim
@@ -51,6 +52,7 @@ def _num(s):
 
 
 def parse_name(nm):
+    nm = namecanon.canon(nm)   # 'a(n) is the number of ...' and friends
     norm = re.sub(r'(\bn|\d|\))\s*[xX]\s*(?=[\d(n])', r'\1 X ', nm)
     norm = re.sub(r'\s+', ' ', norm).strip().rstrip('.')
     frac = 1

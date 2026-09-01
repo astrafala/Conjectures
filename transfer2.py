@@ -15,6 +15,7 @@ every n >= r exactly when 1^T M^j q(M) 1 = 0 for all j >= 0 -- and Cayley-Hamilt
 the check at j < S. Exact integer arithmetic throughout.
 """
 import re
+import namecanon
 from itertools import product
 
 NAME = re.compile(
@@ -25,6 +26,7 @@ EXTRA = re.compile(r'\s*and no 2\s*X\s*2 subblock having exactly two nonzero ent
 
 
 def parse_name(nm):
+    nm = namecanon.canon(nm)   # 'a(n) is the number of ...' and friends
     # only a standalone x between a digit/paren and a digit/paren is the product sign;
     # replacing every x would rewrite the letter inside words such as "exactly"
     norm = re.sub(r'(?<=[\d)])\s*[xX]\s*(?=[\d(])', ' X ', nm)

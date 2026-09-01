@@ -18,6 +18,7 @@ where start(r,s) says row r satisfies the condition with nothing above it, the e
 satisfies it with nothing below.
 """
 import re
+import namecanon
 from itertools import product
 
 KING = [(-1, -1), (-1, 0), (-1, 1), (0, -1), (0, 1), (1, -1), (1, 0), (1, 1)]
@@ -32,6 +33,7 @@ NAME = re.compile(
 
 
 def parse_name(nm):
+    nm = namecanon.canon(nm)   # 'a(n) is the number of ...' and friends
     norm = re.sub(r'(?<=[\dn)])\s*[xX]\s*(?=[\dn(])', ' X ', nm)
     norm = re.sub(r'\s+', ' ', norm).strip()
     m = NAME.search(norm)
