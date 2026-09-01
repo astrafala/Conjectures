@@ -6565,6 +6565,54 @@ papers.
 still labelled empirical and nobody has commented on it. These are not problems anyone was
 working on. They are true, previously unproved statements, and they are not 3810 ideas.
 
+### 1 Sep 2026: the re-audit found a REAL error — 477 papers stated a false range
+
+Asked a second time whether anything was being waved through, the audit was pushed past
+"does the model match the data" to "does the PRINTED CLAIM survive a check that uses no model
+at all". It did not, for 477 papers.
+
+**The adversarial test first, because it is the one that vindicates the gate.** For 60 sampled
+papers the model was deliberately corrupted -- a neighbour dropped or added, a count set
+shifted, an equal/unequal flip, the constrained value changed, one entry of the lookup table
+altered, the alphabet widened -- and each corrupted model was asked to reproduce the entry's
+published terms. 194 mutants rejected, 11 unbuildable, 39 passed. Every one of those 39 was
+then compared against the true model over forty terms BEYOND the data, and all 39 were
+IDENTICAL sequences: the mutation was vacuous (an offset falling outside a two-column array, a
+0/1 complement mapping the condition to itself, an extra colour isolated in the graph). Real
+gate failures: **zero**. The DATA comparison does its job.
+
+**The error the model-free check found.** Take only the entry's published integers and the
+entry's published recurrence, and ask whether the range each paper PRINTS is consistent with
+them. 477 papers were contradicted:
+
+  * transfer4 (pattern avoidance): 115 wrong, off by exactly 2;
+  * transfer5 (neighbour counts): 362 wrong, off by exactly 1;
+  * every other family: 0 wrong.
+
+The cause is one dropped conversion. Both engines store the threshold as a WALK index, and
+both prepend the single-line count to the model, so the entry's index and the walk index
+differ by 2 and by 1 respectively. The builders printed the walk index as if it were n. A206989
+is the clean example: the entry itself says "for n>9", the paper claimed "for all n > 7", and
+the entry's own DATA shows the recurrence failing at n = 8 and n = 9. The theorem as printed
+was false.
+
+The underlying mathematics was never wrong -- the annihilation test is sound and the
+recurrences do hold -- but a paper that names a range in which its statement is false is a
+wrong paper, and 477 of them went out that way. They were built in an earlier session and the
+error survived every check until now because every check up to this point compared the MODEL
+against the data, and the model was right; nothing compared the printed sentence against the
+data.
+
+**Fixed.** All 1284 transfer4 and transfer5 thresholds were recomputed from the model's own
+terms as the largest index at which the recurrence actually fails (tight, not just shifted):
+1094 changed -- 861 by +1, 200 by +2, and 33 in the other direction where the old value had
+been too conservative. All 1284 papers rebuilt and replaced in place. The model-free check now
+reports 2415 confirmed against published data and **0 contradicted**.
+
+**The lesson, written down so it is not repeated: check the SENTENCE, not just the model.**
+Every engine now has a check that takes the paper's printed threshold and tests it against the
+entry's own published terms, using none of the machinery that produced it.
+
 ### 26 Aug 2026: the ceiling above was wrong, and six things moved it
 
 The "~330 papers" ceiling assumed the attackable set was the 555 entries posting a `G.f.`
