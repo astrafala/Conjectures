@@ -7,6 +7,10 @@ PREFIX, HITS = sys.argv[1], sys.argv[2]
 
 def one(a):
     dd = f"build/{PREFIX}{a}"
+    # a sweep may still be appending to the hits file while this runs, so a hit whose paper
+    # has not been written yet is skipped rather than allowed to kill the whole pool
+    if not os.path.isdir(dd):
+        return (a, None)
     p = f"{dd}/p.pdf"
     if os.path.exists(p) and os.path.getsize(p) > 50000:
         return (a, True)
@@ -26,6 +30,8 @@ if __name__ == "__main__":
         for a, good in ex.map(one, jobs):
             if good:
                 ok += 1
+            elif good is None:
+                pass
             else:
                 bad += 1
                 print('FAILED', a, flush=True)

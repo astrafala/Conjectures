@@ -38,6 +38,8 @@ def build(h):
 the state as a counter of violations so far, capped at ${E}$; a step that would push it past
 ${E}$ has no edge, and a walk is accepted only when the count reaches exactly ${E}$.""")
     excstate = ("" if not E else rf" \times \{{0,\dots,{E}\}}")
+    k = off - h["shift"]
+    expo = "n" if k == 0 else ("n-%d" % k if k > 0 else "n+%d" % (-k))
     tight = ""
     if off <= nthr - order and nthr - off < len(d):
         k = nthr - off
@@ -103,7 +105,7 @@ $L-1$ starting at $(\varnothing,u_1)$, each step settling one {line}, and the la
 settled by the terminal weight, which evaluates it with $\varnothing$ below.{exctex} Hence,
 with $M$ the adjacency matrix, $\iota$ the starting vector and $\tau$ the terminal weight,
 \[
-a(n)\;=\;{fractex}\,\iota^{{\!\top}}M^{{\,n-{off}+{h['shift']}}}\tau ,
+a(n)\;=\;{fractex}\,\iota^{{\!\top}}M^{{\,{expo}}}\tau ,
 \]
 the exponent fixed by the entry's own shape and checked against its published terms. In
 particular $a$ is $C$-finite.

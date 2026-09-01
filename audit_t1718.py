@@ -35,6 +35,18 @@ def check18():
         yield a, h, t, d
 
 
+def check19():
+    import transfer19 as T
+    for h in [x for x in json.load(open('transfer19_hits.json')) if not x.get('FAILS')]:
+        a = h['anum']
+        p = T.parse_name(h['name'])
+        adj, start, end, S = T.build(p, cap=10 ** 9)
+        d = [int(v) for v in LE.get(a)['data'].split(',') if v.strip()]
+        N = max(len(d), h['nthr'] - h['offset'] + h['shift'] + 45) + 5
+        t = [v // p['frac'] for v in T.terms(adj, start, end, N)]
+        yield a, h, t, d
+
+
 def run(gen, tag):
     for a, h, t, d in gen:
         sh, off, nthr = h['shift'], h['offset'], h['nthr']
@@ -61,6 +73,8 @@ if WHICH in ('both', '17'):
     run(check17(), 't17')
 if WHICH in ('both', '18'):
     run(check18(), 't18')
+if WHICH in ('both', '19'):
+    run(check19(), 't19')
 print('checked', dict(res), 'problems', len(prob))
 for q in prob[:20]:
     print(q)
