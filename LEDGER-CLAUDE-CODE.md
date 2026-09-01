@@ -6613,6 +6613,39 @@ reports 2415 confirmed against published data and **0 contradicted**.
 Every engine now has a check that takes the paper's printed threshold and tests it against the
 entry's own published terms, using none of the machinery that produced it.
 
+### 1 Sep 2026: the sentence check extended to the 632 non-array papers
+
+Having found that 477 array papers printed a range the data refutes, the same model-free test
+was pushed onto the older, bespoke half of the roster: take the entry's own conjectured
+formula, evaluate it on the entry's own published integers, and see whether it holds where the
+paper says it does. A sympy evaluator handles both shapes those entries use, a recurrence with
+polynomial coefficients in n and a closed form in n.
+
+  * **431** conjectures confirmed on the published data outright.
+  * **41** where the conjecture FAILS at one or more small indices -- the entry states it
+    unconditionally and it is simply false there. A104722 is typical: Mathar's
+    `(n+4)a(n) + (n+1)a(n-1) - 4(n+1)a(n-2) + 4(2-n)a(n-3) = 0` gives 4, not 0, at n = 3, and
+    holds from n = 4 on. Checking each paper's own printed range against those failures:
+    **40 of 41 exclude them correctly** (paper 4198 says "holds for every n > 3").
+  * The single remaining flag, A279014, was a fault in the CHECKER, not the paper. That entry
+    carries two different Mathar recurrences and has two papers; the checker compared paper
+    4210 against the other one's conjecture. Evaluated by hand: the order-4 recurrence fails at
+    n = 4 and paper 4123 claims n > 4; the order-3 one fails at n = 3 and paper 4210 claims
+    n > 3. Both correct.
+  * **160** carry no formula line this evaluator can read -- divisibility statements,
+    continued fractions, closed forms with radicals, congruences. Those are NOT machine-checked
+    here and are recorded as such; they were reasoned individually when written, which is a
+    weaker guarantee than the other 472 have.
+
+**Overclaims among the 632: zero.** Combined with the array half, the roster now stands as:
+3810 array papers re-verified end to end with 477 corrected, and 472 of the 632 bespoke papers
+confirmed against published data with none overclaiming.
+
+The asymmetry is worth keeping in view. The array papers are machine-checked at every step and
+their weak point was never the mathematics but the index arithmetic in the printed sentence.
+The 160 unreadable ones are the opposite: the mathematics is bespoke and was reasoned by hand,
+and no automatic check covers them.
+
 ### 26 Aug 2026: the ceiling above was wrong, and six things moved it
 
 The "~330 papers" ceiling assumed the attackable set was the 555 entries posting a `G.f.`
