@@ -70,11 +70,89 @@ SELF = re.compile(r'(?:each|every) element equal to the number (?:of )?its (' + 
 COUNT = re.compile(r'(?:each|every) element (equal|unequal) to ([\w,\s]+?) (' + DIRWORDS +
                    r') adjacent elements(, with upper left element zero)?', re.I)
 VALUE = re.compile(r'(?:each|every) (\d+) (?:(' + DIRWORDS + r') )?adjacent to ([\w,\s]+?) '
-                   r'(?:(' + DIRWORDS + r') )?neighbou?ring (\d+)s?', re.I)
+                   r'(?:(' + DIRWORDS + r') )?(?:neighbou?ring )?(\d+)s?', re.I)
+TABLE = re.compile(r'(?:each|every) element x equal to the number (?:of )?its (' + DIRWORDS +
+                   r') neighbou?rs equal to ([\d,\s]+) for x=([\d,\s]+)', re.I)
+MAJOR = re.compile(r'no element (less than|greater than|equal to) a strict majority of its ('
+                   + DIRWORDS + r') neighbou?rs', re.I)
+SOMECMP = re.compile(r'every (nonzero )?element (less than or equal to|greater than or equal '
+                     r'to|less than|greater than) some (' + DIRWORDS + r') neighbou?r', re.I)
+SHIFT = re.compile(r'no entry increasing mod (\d+) by (\d+) rightwards or downwards, '
+                   r'starting with upper left zero', re.I)
+OFFLIST = r'((?:\(-?\d+,-?\d+\)[\s,]*(?:or\s*)?)+)'
+BOTH = re.compile(r'every element both equal and not equal to some elements at offset '
+                  + OFFLIST + r', with upper left element zero', re.I)
+PLUSMOD = re.compile(r'every element plus (\d+) mod (\d+) equal to some element at offset '
+                     + OFFLIST + r', with upper left element zero', re.I)
+
+
+def _offlist(txt):
+    return [(int(x), int(y)) for x, y in re.findall(r'\((-?\d+),(-?\d+)\)', txt)]
 
 
 def _cond(rest):
     low = rest.strip().rstrip('.').lower()
+    m = BOTH.fullmatch(low)
+    if m:
+        offs = _offlist(m.group(1))
+        if not offs or any(abs(dt) > 1 for dt, _ in offs):
+            return None
+        return {'mode': 'both', 'offs': offs, 'ul0': True,
+                'tex': (r'\exists\ \text{a neighbour }y=x_{t,u}\ \text{ and }\ '
+                        r'\exists\ \text{a neighbour }y\ne x_{t,u}')}
+    m = PLUSMOD.fullmatch(low)
+    if m:
+        dd, mod = int(m.group(1)), int(m.group(2))
+        offs = _offlist(m.group(3))
+        if not offs or any(abs(dt) > 1 for dt, _ in offs):
+            return None
+        return {'mode': 'plusmod', 'offs': offs, 'd': dd, 'mod': mod, 'ul0': True,
+                'tex': (r'\exists\ \text{a neighbour }y\ \text{with}\ '
+                        r'y\equiv x_{t,u}+' + str(dd) + r'\ (\mathrm{mod}\ ' + str(mod)
+                        + r')')}
+    m = TABLE.fullmatch(low)
+    if m:
+        offs = _nbset(m.group(1))
+        tgt = [int(t) for t in re.findall(r'\d+', m.group(2))]
+        xs = [int(t) for t in re.findall(r'\d+', m.group(3))]
+        if not offs or xs != list(range(len(xs))) or len(tgt) != len(xs):
+            return None
+        return {'mode': 'table', 'offs': offs, 'tbl': tgt, 'ul0': False,
+                'tex': (r'\#\{\text{neighbours with value }f(x_{t,u})\}=x_{t,u},\quad '
+                        r'f=(' + ','.join(map(str, tgt)) + r')')}
+    m = MAJOR.fullmatch(low)
+    if m:
+        rel, dirs = m.groups()
+        offs = _nbset(dirs)
+        if not offs:
+            return None
+        f = {'less than': lambda w, v: w > v, 'greater than': lambda w, v: w < v,
+             'equal to': lambda w, v: w == v}[rel]
+        sy = {'less than': '>', 'greater than': '<', 'equal to': '='}[rel]
+        return {'mode': 'major', 'offs': offs, 'cmpf': f, 'ul0': False,
+                'tex': (r'2\,\#\{\text{neighbours }y\text{ with }y' + sy +
+                        r'x_{t,u}\}\le\#\{\text{neighbours}\}')}
+    m = SOMECMP.fullmatch(low)
+    if m:
+        nz, rel, dirs = m.groups()
+        offs = _nbset(dirs)
+        if not offs:
+            return None
+        f = {'less than or equal to': lambda v, w: v <= w,
+             'greater than or equal to': lambda v, w: v >= w,
+             'less than': lambda v, w: v < w, 'greater than': lambda v, w: v > w}[rel]
+        sy = {'less than or equal to': r'\le', 'greater than or equal to': r'\ge',
+              'less than': '<', 'greater than': '>'}[rel]
+        return {'mode': 'some', 'offs': offs, 'cmpf': f, 'nz': bool(nz), 'ul0': False,
+                'tex': ((r'x_{t,u}\ne0\ \Rightarrow\ ' if nz else '') +
+                        r'\exists\ \text{a neighbour }y:\ x_{t,u}' + sy + r'y')}
+    m = SHIFT.fullmatch(low)
+    if m:
+        mod, dd = int(m.group(1)), int(m.group(2))
+        return {'mode': 'shift', 'offs': [(0, 1), (1, 0)], 'mod': mod, 'd': dd, 'ul0': True,
+                'tex': (r'x_{t,u+1}\ne x_{t,u}+' + str(dd) + r'\ (\mathrm{mod}\ ' +
+                        str(mod) + r')\ \text{ and }\ x_{t+1,u}\ne x_{t,u}+' + str(dd) +
+                        r'\ (\mathrm{mod}\ ' + str(mod) + r')')}
     m = SELF.fullmatch(low)
     if m:
         offs = _nbset(m.group(1))
@@ -148,8 +226,42 @@ def parse_name(nm):
     return c
 
 
+def _nbvals(above, cur, below, u, W, offs):
+    out = []
+    for dt, du in offs:
+        uu = u + du
+        if not (0 <= uu < W):
+            continue
+        L = cur if dt == 0 else (above if dt < 0 else below)
+        if L is None:
+            continue
+        out.append(L[uu])
+    return out
+
+
 def cell_ok(above, cur, below, u, W, p):
     v = cur[u]
+    mode = p['mode']
+    if mode == 'table':
+        vals = _nbvals(above, cur, below, u, W, p['offs'])
+        return sum(1 for y in vals if y == p['tbl'][v]) == v
+    if mode == 'major':
+        vals = _nbvals(above, cur, below, u, W, p['offs'])
+        return 2 * sum(1 for y in vals if p['cmpf'](y, v)) <= len(vals)
+    if mode == 'some':
+        if p['nz'] and v == 0:
+            return True
+        vals = _nbvals(above, cur, below, u, W, p['offs'])
+        return any(p['cmpf'](v, y) for y in vals)
+    if mode == 'both':
+        vals = _nbvals(above, cur, below, u, W, p['offs'])
+        return any(y == v for y in vals) and any(y != v for y in vals)
+    if mode == 'plusmod':
+        vals = _nbvals(above, cur, below, u, W, p['offs'])
+        return any(y == (v + p['d']) % p['mod'] for y in vals)
+    if mode == 'shift':
+        vals = _nbvals(above, cur, below, u, W, p['offs'])
+        return all(y != (v + p['d']) % p['mod'] for y in vals)
     if p['mode'] == 'value' and v != p['val']:
         return True
     eq = 0
