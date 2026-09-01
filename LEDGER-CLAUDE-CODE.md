@@ -6510,6 +6510,61 @@ clone begin "Conjecture" and state something about a whole family in n and k. Mo
 unrelated to anything here, but they are the right SHAPE of target --- one theorem, a family
 settled --- and nothing systematic has been done with them.
 
+### 1 Sep 2026: a full independent re-audit of the roster, prompted by the obvious question
+
+The user asked how the count could jump from tens to thousands, whether anything was being
+waved through, and whether the conjectures were really unsolved. Fair question; here is the
+answer and the audit that backs it.
+
+**Why the jump. It is a change of target, not of ability.** 3810 of the 4442 papers are one
+family: sequences created by R. H. Hardin, each counting arrays with a condition local to a
+bounded window, each carrying a machine-fitted `Empirical: a(n) = ...` line. A sample of 300
+of them: 300/300 authored by Hardin, 300/300 unsigned Empirical lines. Every such sequence is
+a transfer-matrix walk count, hence C-finite, hence the question "does this recurrence hold?"
+is DECIDABLE by finite exact linear algebra with Cayley-Hamilton as the bound. There is no
+mathematical difficulty; the work is parsing English into predicates. One theorem, applied
+3810 times. The earlier low yield was bespoke conjectures by many authors, one argument each.
+
+**The audit, run fresh and deliberately not trusting the sweeps' own verdicts.**
+
+  * Every array paper rebuilt from the entry's NAME, the sequence recomputed, and compared
+    against every published DATA term: **3810 of 3810 clean.** The DATA comparison is the
+    only thing tying a model to a sequence, and it has teeth here: minimum 10 published terms,
+    median 22, and the largest published term has a median of 15 digits. A misread predicate
+    does not reproduce 22 integers of that size.
+  * The conjectured recurrence re-evaluated NUMERICALLY well past both the data and the proved
+    threshold (median last index 68, about 45 terms beyond the published data). This is
+    independent of the annihilation argument that produced the papers, so a bug in that
+    argument would show up here. **Zero failures.**
+  * Three families brute-forced by hand from the name text, with no use of any parser:
+    A183624 (subblock sums), A206780 (pattern avoidance), A295776 (king-move neighbours) --
+    all three reproduce the OEIS data exactly.
+  * Openness re-checked on all 4442. 31 flagged; every one read individually; every one a
+    false positive of the documented kind -- the settlement wording refers to a DIFFERENT
+    statement on the same entry, and in each case the paper names the prior work (paper 5
+    proves Conjecture A and says Adamczewski did B and C; paper 7 proves Kaydalov's rectangle
+    case and says Bala's square case is already known; paper 22 proves the converse and says
+    Schmidt did the forward direction).
+  * 30 duplicate A-numbers, all legitimate: two distinct conjectures on one entry (A129833 and
+    A156894 each carry two different Mathar recurrences; A059970's parts (1) and (2) are
+    separate papers that name each other). 4442 papers, 4412 distinct entries.
+
+**One real defect found, and it is conservative, not wrong.** Each engine's threshold routine
+starts its residual test at the first index its WALK LENGTH allows, n_lo + order. For a
+pair-state engine n_lo is 2, so the one or two smallest indices at which the recurrence can be
+stated are never tested, and the routine returns the weakest conclusion consistent with that.
+Checked directly against published DATA, A274750's recurrence holds at n = 5 while the paper
+claims only n > 5. Recomputing the threshold from the model's own terms over eight engines:
+**568 exact, 75 understated, 0 overstated.** Nothing claims more than is true. But 75 papers
+state a weaker theorem than they establish, and for an entry whose line carries no range that
+falls short of the entry's own unconditional assertion by one or two indices. To be fixed by
+recomputing the threshold from the terms rather than from the walk, and rebuilding those
+papers.
+
+**What "open" means here, said plainly.** For the Hardin family it means the Empirical line is
+still labelled empirical and nobody has commented on it. These are not problems anyone was
+working on. They are true, previously unproved statements, and they are not 3810 ideas.
+
 ### 26 Aug 2026: the ceiling above was wrong, and six things moved it
 
 The "~330 papers" ceiling assumed the attackable set was the 555 entries posting a `G.f.`
