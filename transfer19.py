@@ -11,6 +11,7 @@ state is a pair of consecutive lines and a step settles the middle one, exactly 
 king-move engine -- and, as there, the number of neighbours is part of the condition, so the
 outside is carried explicitly rather than padded.
 """
+import os
 import re
 from itertools import product
 
@@ -23,14 +24,22 @@ SETS = {
     'diagonal': [(-1, -1), (1, 1)],
     'antidiagonal': [(-1, 1), (1, -1)],
     'king-move': [(a, b) for a in (-1, 0, 1) for b in (-1, 0, 1) if (a, b) != (0, 0)],
+    # the "immediate ..." phrases name a DIRECTED set: only the neighbours already seen in
+    # row-major order, which is why they appear alongside the relabelling clause
+    'immediate leftward or upward or right-upward antidiagonal': [(0, -1), (-1, 0), (-1, 1)],
+    'immediate leftward or upward or left-upward diagonal': [(0, -1), (-1, 0), (-1, -1)],
+    'immediate leftward or upward': [(0, -1), (-1, 0)],
 }
+IMM = sorted((k for k in SETS if k.startswith('immediate')), key=len, reverse=True)
 DIM = r'\(?\s*(n\s*\+\s*\d+|n|\d+\s*\+\s*\d+|\d+)\s*\)?'
 FRAC = re.compile(r'^\s*(?:(Half)|One quarter|1/(\d+))\s+the number of\s+', re.I)
 HEAD = re.compile(r'^\s*Number of\s+', re.I)
 SHAPE = re.compile(rf'{DIM}\s*X\s*{DIM}\s+(?:(0)\.\.(\d+)|(binary))\s+arrays?\s+with\s+', re.I)
 EXC = re.compile(r',?\s*with the exception of exactly (\w+) elements?\s*$', re.I)
-NB = r'((?:horizontal|vertical|diagonal|antidiagonal|king-move)'  \
-     r'(?:[, ]+(?:and |or )?(?:horizontal|vertical|diagonal|antidiagonal|king-move))*)'
+_W = r'(?:immediate leftward or upward or right-upward antidiagonal|' \
+     r'immediate leftward or upward or left-upward diagonal|immediate leftward or upward|' \
+     r'horizontal|vertical|antidiagonal|diagonal|king-move)'
+NB = r'(' + _W + r'(?:[, ]+(?:and |or )?' + _W + r')*)'
 # a relabelling clause changes what is counted (equality patterns, not arrays) and is not
 # handled here; such names are refused rather than silently read as ordinary counts
 RELABEL = re.compile(r'new values|values 0\.\.\d+ introduced|introduced in row major', re.I)
@@ -42,12 +51,15 @@ def _n(t):
 
 
 def _offsets(phrase):
-    words = re.findall(r'horizontal|vertical|diagonal|antidiagonal|king-move', phrase.lower())
+    low = phrase.lower()
+    for k in IMM:
+        if k in low:
+            return list(SETS[k])
+    # "antidiagonal" contains "diagonal", so the longer word has to come first in the
+    # alternation or every antidiagonal would be read as a diagonal
+    words = re.findall(r'antidiagonal|king-move|horizontal|vertical|diagonal', low)
     if not words:
         return None
-    # "antidiagonal" contains "diagonal": findall on the alternation above already prefers
-    # the longer word only if it comes first, so order the pattern with antidiagonal first
-    words = re.findall(r'antidiagonal|king-move|horizontal|vertical|diagonal', phrase.lower())
     offs = []
     for w in words:
         for o in SETS[w]:
@@ -61,9 +73,12 @@ def _tex(phrase):
 
 
 def _pred(body):
-    """(fn(v, ns, ns2) -> bool, latex, needs_second_set) or None.
+    """(fn, latex, set phrase, second set phrase or None, invariant) or None.
 
     ns is the list of neighbour values actually present (the outside contributes nothing).
+    `invariant` records whether the condition survives a permutation of the alphabet, which
+    is what decides whether the relabelling engine may use it: a condition stated through
+    equality alone does, one that names a literal value or compares sizes does not.
     """
     low = re.sub(r'\s+', ' ', body.strip().rstrip('.').lower())
 
@@ -81,7 +96,8 @@ def _pred(body):
             f = lambda v, ns: sum(1 for u in ns if u < v)
         return ((lambda v, ns, f=f: not (2 * f(v, ns) > len(ns))),
                 r'\text{no cell is %s a strict majority of its %s neighbours}'
-                % (kind, _tex(m.group(2))), m.group(2), None)
+                % (kind, _tex(m.group(2))), m.group(2), None,
+                kind in ('equal', 'unequal'))
 
     m = re.fullmatch(r'no element having a strict majority of its ' + NB +
                      r' neighbors equal to (\w+)', low)
@@ -91,7 +107,7 @@ def _pred(body):
             return None
         return ((lambda v, ns, w=w: not (2 * sum(1 for u in ns if u == w) > len(ns))),
                 r'\text{no cell has a strict majority of its %s neighbours equal to %d}'
-                % (_tex(m.group(1)), w), m.group(1), None)
+                % (_tex(m.group(1)), w), m.group(1), None, False)
 
     m = re.fullmatch(r'no element (equal|unequal) to more than (\w+) of its ' + NB +
                      r' neighbors', low)
@@ -105,7 +121,7 @@ def _pred(body):
             f = lambda v, ns: sum(1 for u in ns if u != v)
         return ((lambda v, ns, f=f, k=k: f(v, ns) <= k),
                 r'\text{no cell is %s to more than %d of its %s neighbours}'
-                % (m.group(1), k, _tex(m.group(3))), m.group(3), None)
+                % (m.group(1), k, _tex(m.group(3))), m.group(3), None, True)
 
     m = re.fullmatch(r'every element equal to exactly ([\w, ]+?) of its ' + NB +
                      r' neighbors', low)
@@ -115,7 +131,8 @@ def _pred(body):
             return None
         return ((lambda v, ns, S=set(S): sum(1 for u in ns if u == v) in S),
                 r'\text{every cell equals exactly }\{%s\}\text{ of its %s neighbours}'
-                % (','.join(str(x) for x in sorted(S)), _tex(m.group(2))), m.group(2), None)
+                % (','.join(str(x) for x in sorted(S)), _tex(m.group(2))), m.group(2), None,
+                True)
 
     m = re.fullmatch(r'each element x equal to the number(?: of)? its ' + NB +
                      r' neighbors equal to ([\d,]+) for x=([\d,]+)', low)
@@ -128,7 +145,24 @@ def _pred(body):
         return ((lambda v, ns, table=table: v in table and
                  sum(1 for u in ns if u == table[v]) == v),
                 r'\text{a cell of value }x\text{ has exactly }x\text{ neighbours of the '
-                r'value paired with }x', m.group(1), None)
+                r'value paired with }x', m.group(1), None, False)
+
+    m = re.fullmatch(r'no element equal to all ' + NB + r' neighbors', low)
+    if m:
+        return ((lambda v, ns: not (len(ns) > 0 and all(u == v for u in ns))),
+                r'\text{no cell equals all its %s neighbours}' % _tex(m.group(1)),
+                m.group(1), None, True)
+
+    m = re.fullmatch(r'no element equal to (fewer|more) ' + NB + r' neighbors than ' + NB +
+                     r' neighbors', low)
+    if m:
+        less = m.group(1) == 'fewer'
+        return ((lambda v, ns, ns2, less=less:
+                 not ((sum(1 for u in ns if u == v) < sum(1 for u in ns2 if u == v)) if less
+                      else (sum(1 for u in ns if u == v) > sum(1 for u in ns2 if u == v)))),
+                r'\text{no cell equals %s of its %s neighbours than of its %s}'
+                % (m.group(1), _tex(m.group(2)), _tex(m.group(3))),
+                m.group(2), m.group(3), True)
 
     m = re.fullmatch(r'no element (greater than|less than|equal to) all ' + NB +
                      r' neighbors or (greater than|less than|equal to) all ' + NB +
@@ -145,7 +179,8 @@ def _pred(body):
         f1, f2 = side(k1), side(k2)
         return ((lambda v, ns, ns2, f1=f1, f2=f2: not (f1(v, ns) or f2(v, ns2))),
                 r'\text{no cell is %s all its %s neighbours or %s all its %s neighbours}'
-                % (k1, _tex(m.group(2)), k2, _tex(m.group(4))), m.group(2), m.group(4))
+                % (k1, _tex(m.group(2)), k2, _tex(m.group(4))), m.group(2), m.group(4),
+                k1 == 'equal to' and k2 == 'equal to')
     return None
 
 
@@ -196,7 +231,7 @@ def parse_name(nm):
     got = _pred(rest)
     if not got:
         return None
-    fn, tex, ph1, ph2 = got
+    fn, tex, ph1, ph2, inv = got
     o1 = _offsets(ph1)
     o2 = _offsets(ph2) if ph2 else None
     if o1 is None or (ph2 and o2 is None):
@@ -212,7 +247,7 @@ def parse_name(nm):
             o2 = [(b, a) for (a, b) in o2]
     return {'walk': walk, 'fixed': fixed, 'base': base, 'alpha': alpha, 'frac': frac,
             'exc': exc, 'pred': fn, 'tex': tex, 'body': rest,
-            'offs': o1, 'offs2': o2, 'two': o2 is not None}
+            'offs': o1, 'offs2': o2, 'two': o2 is not None, 'inv': inv}
 
 
 def _gather(p, r, s, t, j, offs):
@@ -276,7 +311,49 @@ def build(p, cap=40000):
                 for ti, v in enumerate(row):
                     if c + v <= E:
                         adj[u].append(sid(si, ti, c + v))
-    return adj, start, end, S
+    return trim(adj, start, end)
+
+
+def trim(adj, start, end):
+    """Drop every state that no start->accept walk passes through.
+
+    A state not reachable from the starting set, or from which no accepting state can be
+    reached, contributes nothing to any walk count, so removing it leaves every value
+    iota^T M^j tau unchanged. It is pure bookkeeping, but the annihilation test costs one
+    matrix-vector product per iteration and there can be thousands of iterations, so the
+    size of the graph is the whole running time.
+    """
+    S = len(adj)
+    fwd = [False] * S
+    stack = [i for i in range(S) if start[i]]
+    for i in stack:
+        fwd[i] = True
+    while stack:
+        u = stack.pop()
+        for k in adj[u]:
+            if not fwd[k]:
+                fwd[k] = True
+                stack.append(k)
+    rev = [[] for _ in range(S)]
+    for u in range(S):
+        for k in adj[u]:
+            rev[k].append(u)
+    bwd = [False] * S
+    stack = [i for i in range(S) if end[i]]
+    for i in stack:
+        bwd[i] = True
+    while stack:
+        u = stack.pop()
+        for k in rev[u]:
+            if not bwd[k]:
+                bwd[k] = True
+                stack.append(k)
+    keep = [i for i in range(S) if fwd[i] and bwd[i]]
+    if len(keep) == S:
+        return adj, start, end, S
+    idx = {v: i for i, v in enumerate(keep)}
+    adj2 = [[idx[k] for k in adj[v] if k in idx] for v in keep]
+    return adj2, [start[v] for v in keep], [end[v] for v in keep], len(keep)
 
 
 def matvec(adj, v):
@@ -292,7 +369,23 @@ def terms(adj, start, end, N):
     return out
 
 
-def threshold(adj, start, end, coeffs, order, S):
+def matvec_mod(adj, v, p):
+    return [sum(v[k] for k in row) % p for row in adj]
+
+
+P62 = (1 << 61) - 1          # a Mersenne prime: arithmetic stays in machine-word ints
+
+
+def threshold(adj, start, end, coeffs, order, S, mod=None):
+    """Smallest t with the recurrence holding for every n > t, or None.
+
+    With `mod` set the whole computation runs in Z/mod, which keeps every intermediate a
+    machine-sized integer instead of a growing big one. That is a FILTER, not a proof: a
+    residual can vanish mod p without vanishing, so a run that succeeds mod p is repeated
+    exactly. A run that fails mod p cannot succeed exactly, so the rejection is sound.
+    """
+    if mod:
+        return _threshold_mod(adj, start, end, coeffs, order, S, mod)
     v = end[:]
     powers = [v]
     for _ in range(order):
@@ -303,15 +396,59 @@ def threshold(adj, start, end, coeffs, order, S):
         pw = powers[order - i]
         for j in range(len(w)):
             w[j] -= c * pw[j]
-    us, zeros, j = [], 0, 0
+    # An entry whose recurrence does NOT hold costs the full 3S iterations before the test
+    # can say so, and that is where nearly all the time in a sweep goes. If the recurrence
+    # held from index t then the residual would be zero from t-order on, and no threshold
+    # anywhere in this roster is past 70; so once the residual is still producing nonzeros
+    # after GIVEUP iterations the entry is abandoned as UNRESOLVED. That is a statement
+    # about the search, not about the conjecture: nothing is certified on this path.
+    GIVEUP = int(os.environ.get('THRGIVEUP', '400'))
+    us, zeros, j, last_nz = [], 0, 0, -1
     while zeros < S + 1 and j <= 3 * S + order + 8:
         u = sum(start[i] * w[i] for i in range(len(w)))
         us.append(u)
+        if u != 0:
+            last_nz = j
         zeros = zeros + 1 if u == 0 else 0
         if not any(w):
             zeros = S + 1
             break
+        if j > GIVEUP and last_nz > j - 4:
+            return None
         w = matvec(adj, w)
+        j += 1
+    if zeros < S + 1:
+        return None
+    last = max((i for i, u in enumerate(us) if u != 0), default=-1)
+    return order + last
+
+
+def _threshold_mod(adj, start, end, coeffs, order, S, p):
+    v = [x % p for x in end]
+    powers = [v]
+    for _ in range(order):
+        v = matvec_mod(adj, v, p)
+        powers.append(v)
+    w = powers[order][:]
+    for i, c in coeffs.items():
+        pw = powers[order - i]
+        ci = c % p
+        for j in range(len(w)):
+            w[j] = (w[j] - ci * pw[j]) % p
+    GIVEUP = int(os.environ.get('THRGIVEUP', '400'))
+    us, zeros, j, last_nz = [], 0, 0, -1
+    while zeros < S + 1 and j <= 3 * S + order + 8:
+        u = sum(start[i] * w[i] for i in range(len(w))) % p
+        us.append(u)
+        if u != 0:
+            last_nz = j
+        zeros = zeros + 1 if u == 0 else 0
+        if not any(w):
+            zeros = S + 1
+            break
+        if j > GIVEUP and last_nz > j - 4:
+            return None
+        w = matvec_mod(adj, w, p)
         j += 1
     if zeros < S + 1:
         return None
