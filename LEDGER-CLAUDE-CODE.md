@@ -8693,11 +8693,17 @@ lines fail: 1008 line-rewrites no engine reads, 247 past the state cap, and 39 w
 minimal order differs from the stated one (inconclusive, as before --- a threshold in the
 entry's own recurrence inflates the minimal order of the whole line).
 
-**One structural gap I am recording rather than fixing.** Tables already in the roster are
-skipped by the sweep, so a table that was papered for its EXPLICIT column recurrences does not
-get its `[order N]` lines recovered as well. Those lines are reachable and unclaimed; taking
-them would mean rebuilding the existing paper to cover both, which is the right thing to do and
-is not done yet.
+**The structural gap, now closed.** Tables already in the roster were skipped by the sweep, so
+a table papered for its EXPLICIT column recurrences did not get its `[order N]` lines recovered
+as well. Re-running without the roster skip found **157 tables and 269 recoverable lines** in
+total; 114 of those tables already had a paper for their written-out recurrences, carrying 214
+lines that were reachable and unclaimed. Their papers are rebuilt to cover both, with a new
+section for the recovered lines.
+
+**This adds no papers and is not counted as any.** The tables were already in the roster; what
+changes is that each of the 114 papers now settles more of its entry's conjecture block than it
+did. Recording it here because the alternative --- issuing 114 second papers on the same
+entries --- would have inflated the count for no new mathematics.
 
 **Where the recovery idea now stands.** It settles a conjecture whose text is unavailable, by
 showing the space of recurrences of the stated order has exactly one member. It works whenever
