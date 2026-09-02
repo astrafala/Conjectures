@@ -30,8 +30,8 @@ import namecanon
 NAME = re.compile(
     r'Number of\s+\(?\s*(n\s*\+\s*\d+|n|\d+\s*\+\s*\d+|\d+)\s*\)?\s*X\s*'
     r'\(?\s*(n\s*\+\s*\d+|n|\d+\s*\+\s*\d+|\d+)\s*\)?\s+arrays of permutations of\s+'
-    r'0\.\.[^ ]+\s+with each element having index change\s*'
-    r'(\(\+-,\+-\)|\+-\(\.,\.\))\s*([-\d,\s]+(?:or\s*[-\d,\s]+)?)', re.I)
+    r'0\.\.[^ ]+\s+with each element having (directed )?index change\s*'
+    r'(\(\+-,\+-\)|\+-\(\.,\.\))?\s*([-\d,\s]+(?:or\s*[-\d,\s]+)?)', re.I)
 
 
 def _dv(s):
@@ -56,20 +56,33 @@ def parse_name(nm):
     # (a,b) and (-a,-b) -- and there the second component may be written negative, as in
     # "2,-2". Reading the second form as the first drops the sign, which is what the DATA
     # check caught: thirteen of twenty-three entries in the first sample disagreed.
-    indep = m.group(3).startswith('(')
-    prs = re.findall(r'(-?\d+)\s*,\s*(-?\d+)', m.group(4))
+    # THREE conventions, and they give three different sets:
+    #   "(+-,+-) a,b"   each coordinate signed independently -> (+-a, +-b)
+    #   "+-(.,.) a,b"   the PAIR signed                      -> (a,b) and (-a,-b)
+    #   "directed a,b"  taken literally                      -> (a,b) only
+    # Each was checked by brute force on its own smallest case before use, because a check
+    # on one example only settles the convention that example happens to use.
+    directed = bool(m.group(3))
+    mark = m.group(4) or ''
+    if directed and mark:
+        return None
+    kind = 'directed' if directed else ('indep' if mark.startswith('(') else 'pair')
+    if not directed and not mark:
+        return None
+    prs = re.findall(r'(-?\d+)\s*,\s*(-?\d+)', m.group(5))
     if not prs:
         return None
     A = set()
     for x, y in prs:
         x, y = int(x), int(y)
-        if indep:
+        if kind == 'indep':
             for sx in ({x} if x == 0 else {x, -x}):
                 for sy in ({y} if y == 0 else {y, -y}):
                     A.add((sx, sy))
+        elif kind == 'pair':
+            A.add((x, y)); A.add((-x, -y))
         else:
             A.add((x, y))
-            A.add((-x, -y))
     if d1[0] == 'n' and d2[0] == 'c':
         walk, W = 'rows', d2[1]
     elif d2[0] == 'n' and d1[0] == 'c':
@@ -80,7 +93,7 @@ def parse_name(nm):
     if W < 1:
         return None
     return {'walk': walk, 'fixed': W, 'base': (d1[1] if walk == 'rows' else d2[1]),
-            'allowed': sorted(A), 'R': max(abs(x) for x, _ in A), 'indep': indep}
+            'allowed': sorted(A), 'R': max(abs(x) for x, _ in A), 'kind': kind}
 
 
 def build(p, cap=40000):

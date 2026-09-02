@@ -79,7 +79,7 @@ def check22():
     for h in [x for x in json.load(open('transfer22_hits.json')) if not x.get('FAILS')]:
         a = h['anum']
         p = T.parse_name(h['name'])
-        adj, start, end, S, _ = T.build(p, cap=10 ** 9)
+        adj, start, end, S, _ = T.build(p, cap=h['S'] + 1)
         d = [int(v) for v in LE.get(a)['data'].split(',') if v.strip()]
         N = max(len(d), h['nthr'] - h['offset'] + h['shift'] + 45) + 6
         t = T.terms(adj, start, end, N)

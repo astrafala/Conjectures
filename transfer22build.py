@@ -141,16 +141,17 @@ until the working vector was identically zero, settling every larger $j$ at once
 
 Three checks, each independent of the algebra above.
 
-First, before any of this was built the reading of the entry's wording was tested against the
-entries themselves by brute force: enumerating all $720$ arrangements of a $2\times3$ grid
-gives $20$, the first term of A263960, and the $3\times2$ grid gives $9$, the first term of its
-transposed companion A263966. Second, the transfer model reproduces all ${nterms}$ terms this
-entry publishes, exactly, in integer arithmetic. That check earned its keep: the entries use
-two different sign conventions, ``$(\pm,\pm)$ $a,b$'' meaning each coordinate signed
-independently and ``$\pm(.,.)$ $a,b$'' meaning the PAIR signed, where the second coordinate may
-itself be written negative. Reading the second as the first silently drops a displacement, and
-thirteen of the first twenty-three entries tested disagreed with their own data until the two
-were separated.
+First, the reading of the entry's wording was tested against the entries themselves by brute
+force before any of this was built, and separately for each of the three sign conventions the
+family uses: ``$(\pm,\pm)$ $a,b$'' signs each coordinate independently, ``$\pm(.,.)$ $a,b$''
+signs the PAIR and may write the second coordinate negative, and ``directed $a,b$'' is taken
+literally. Enumerating all $720$ arrangements of a $2\times3$ grid reproduces the first term
+of an entry of each convention. Testing only one of them would have proved only that one:
+reading the second convention as the first silently drops displacements, and thirty-eight
+entries disagreed with their own published data until the conventions were separated.
+
+Second, the transfer model reproduces all ${nterms}$ terms this entry publishes, exactly, in
+integer arithmetic.
 
 Third, the annihilation test of Lemma~\ref{{lem:crit}} was carried out in exact integer
 arithmetic on the whole vector rather than on a sampled prefix.
