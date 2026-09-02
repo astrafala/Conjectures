@@ -16,7 +16,7 @@ import importlib
 from fractions import Fraction
 from math import factorial
 
-ENG = ['transfer3', 'transfer24', 'transfer23', 'transfer17', 'transfer22', 'transfer21', 'transfer20', 'transfer19',
+ENG = ['transfer3', 'transfer25', 'transfer24', 'transfer23', 'transfer17', 'transfer22', 'transfer21', 'transfer20', 'transfer19',
        'transfer18', 'transfer9', 'transfer6', 'transfer16', 'transfer12', 'transfer10',
        'transfer8', 'transfer14', 'transfer11', 'transfer15', 'transfer13', 'transfer7']
 M = {e: importlib.import_module(e) for e in ENG}
@@ -24,7 +24,7 @@ T2 = importlib.import_module('transfer2')
 T19 = M['transfer19']
 SCALED = ('transfer7', 'transfer8', 'transfer10', 'transfer12', 'transfer16')
 PAIR = ('transfer18', 'transfer19', 'transfer24')          # (adj, start, end, S)
-DEN = ('transfer20', 'transfer21', 'transfer22')   # (adj, start, end, S, den)
+DEN = ('transfer20', 'transfer21', 'transfer22', 'transfer25')   # (adj, start, end, S, den)
 PLAIN = ('transfer3', 'transfer6', 'transfer17', 'transfer23')   # (states, adj), all-ones vectors
 
 
@@ -85,6 +85,10 @@ def terms(en, p, b, N):
         adj, start, end, S = b
         f = p['frac']
         return [Fraction(v, f) for v in M[en].terms(adj, start, end, N)]
+    if en == 'transfer25':
+        adj, start, end, S, den = b        # weighted adjacency, its own matvec
+        f = den * p.get('frac', 1)
+        return [Fraction(v, f) for v in M[en].terms(adj, start, end, N)]
     if en in DEN:
         adj, start, end, S, den = b
         f = den * p.get('frac', 1)
@@ -110,6 +114,9 @@ def threshold(en, p, b, coeffs, order):
     if en in PAIR:
         adj, start, end, S = b
         return T19.threshold(adj, start, end, coeffs, order, S)
+    if en == 'transfer25':
+        adj, start, end, S, den = b
+        return M[en].threshold(adj, start, end, coeffs, order, S)
     if en in DEN:
         adj, start, end, S, den = b
         return T19.threshold(adj, start, end, coeffs, order, S)
