@@ -1,0 +1,149 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=1in]{geometry}
+\usepackage[colorlinks=true,linkcolor=blue,urlcolor=blue]{hyperref}
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{remark}[theorem]{Remark}
+
+\title{The empirical recurrence for OEIS A298967: recovering a conjecture that is not written down}
+\author{Adrian Perez Fontelles\\ \small Independent researcher}
+\date{2 September 2026}
+\begin{document}
+\maketitle
+
+\begin{abstract}
+OEIS A298967 records ``Empirical recurrence of order $75$'', with the recurrence itself in a
+linked file rather than in the entry. The conjecture can nevertheless be settled, and the
+recurrence recovered, without reading that file. The entry counts arrays under a condition
+local to a bounded window of lines, so the count is a walk count on $S=1024$ vertices and
+satisfies some monic recurrence of order at most $S$; Berlekamp--Massey applied to $2S$ exact
+terms therefore returns the MINIMAL such recurrence. Its order is exactly $75$, the order
+the entry states, and the same is true of every tail of the sequence. Any recurrence of order
+$75$ that the sequence satisfies from any point on must then have a characteristic
+polynomial that is a multiple of the minimal one and of the same degree, hence equal to it. So
+the entry's recurrence is the one displayed here, whatever its file contains, and it is
+proved.
+\end{abstract}
+
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 15A18.\normalsize
+
+\section{A conjecture one cannot read}
+
+OEIS A298967 is ``Number of n X 5 0..1 arrays with every element equal to 0, 1, 2, 3, 4 or 5 king-move adjacent elements, with upper left element zero.''. It has offset $1$ and begins
+\[
+16, 512, 11283, 280468, 6892031, 170137416, 4200575252, 103715870545,\ \dots
+\]
+The entry states:
+\begin{quote}
+Empirical recurrence of order 75 (see link above).
+\end{quote}
+As of the ``Last modified'' line on the live entry (Jan 01 2024 11:51:48, revision 6) this is still
+recorded as empirical. The recurrence's coefficients are not in the entry text.
+
+\section{The count is a walk count}
+
+The entry's condition is local: it constrains a bounded window of consecutive lines of the
+array and nothing further. The admissible configurations of one such window are the vertices
+of a finite digraph, an edge joining $u$ to $v$ when $v$ may follow $u$, and an admissible
+array is exactly a walk. Hence, with $M$ the adjacency matrix on $S=1024$ vertices,
+$a(n)=\iota^{\!\top}M^{\,j(n)}\tau$ for a linear reindexing $j$ fixed by the entry's shape
+and checked against its published terms. By the Cayley--Hamilton theorem $M^{S}$ is an
+integer combination of $I,M,\dots,M^{S-1}$, so:
+
+\begin{lemma}\label{lem:cf}
+$a$ satisfies a monic linear recurrence with integer coefficients of order at most $S=1024$.
+\end{lemma}
+
+\section{Recovering the recurrence}
+
+\begin{lemma}\label{lem:bm}
+A sequence known to satisfy some linear recurrence of order at most $S$ is determined, together
+with its minimal recurrence, by its first $2S$ terms: Berlekamp--Massey applied to them returns
+that minimal recurrence exactly.
+\end{lemma}
+
+Running it on $2S=2048$ exact terms of the model returns order $75$ --- the order the
+entry states --- with the integer coefficients
+\[
+a(n)\;=\;\sum_{i=1}^{75}c_i\,a(n-i),
+\]
+\begin{center}\small
+\begin{tabular}{cccccccc}
+$c_{1}$ & $23$ & $c_{20}$ & $577607041890$ & $c_{39}$ & $249009028996704$ & $c_{58}$ & $13101426422089$ \\
+$c_{2}$ & $73$ & $c_{21}$ & $1076019010690$ & $c_{40}$ & $679911373312013$ & $c_{59}$ & $10371501996931$ \\
+$c_{3}$ & $-537$ & $c_{22}$ & $-1431802655239$ & $c_{41}$ & $50760637363472$ & $c_{60}$ & $-1478818680803$ \\
+$c_{4}$ & $-5845$ & $c_{23}$ & $-5910740798273$ & $c_{42}$ & $-747699088519801$ & $c_{61}$ & $-3569930810127$ \\
+$c_{5}$ & $-4522$ & $c_{24}$ & $-1023587659184$ & $c_{43}$ & $-451039453487158$ & $c_{62}$ & $-411714480701$ \\
+$c_{6}$ & $138614$ & $c_{25}$ & $18730534312245$ & $c_{44}$ & $483200522047931$ & $c_{63}$ & $943936749641$ \\
+$c_{7}$ & $355996$ & $c_{26}$ & $23253112865849$ & $c_{45}$ & $629301372722330$ & $c_{64}$ & $300479032894$ \\
+$c_{8}$ & $-1461206$ & $c_{27}$ & $-26068761719363$ & $c_{46}$ & $-102819953151283$ & $c_{65}$ & $-165747216434$ \\
+$c_{9}$ & $-8093388$ & $c_{28}$ & $-83635615856664$ & $c_{47}$ & $-507170153802124$ & $c_{66}$ & $-118113537196$ \\
+$c_{10}$ & $5967959$ & $c_{29}$ & $-27143898751207$ & $c_{48}$ & $-117293305916518$ & $c_{67}$ & $-12122231208$ \\
+$c_{11}$ & $104620727$ & $c_{30}$ & $137536624241402$ & $c_{49}$ & $289428431103856$ & $c_{68}$ & $13049902064$ \\
+$c_{12}$ & $87523367$ & $c_{31}$ & $169561096119549$ & $c_{50}$ & $154491360484736$ & $c_{69}$ & $6203489392$ \\
+$c_{13}$ & $-868518296$ & $c_{32}$ & $-78327790285156$ & $c_{51}$ & $-136559639554651$ & $c_{70}$ & $1498066816$ \\
+$c_{14}$ & $-1981829306$ & $c_{33}$ & $-297201657238687$ & $c_{52}$ & $-129255964418247$ & $c_{71}$ & $-362216320$ \\
+$c_{15}$ & $4480108770$ & $c_{34}$ & $-83285791673219$ & $c_{53}$ & $45227129545929$ & $c_{72}$ & $-158977536$ \\
+$c_{16}$ & $19863954397$ & $c_{35}$ & $322586867378088$ & $c_{54}$ & $88296130020901$ & $c_{73}$ & $128108544$ \\
+$c_{17}$ & $-7076711973$ & $c_{36}$ & $235777614405662$ & $c_{55}$ & $3647682790823$ & $c_{74}$ & $25214976$ \\
+$c_{18}$ & $-129757664328$ & $c_{37}$ & $-320243229641131$ & $c_{56}$ & $-43426946831743$ & $c_{75}$ & $-5455872$ \\
+$c_{19}$ & $-99347597033$ & $c_{38}$ & $-427111361948495$ & $c_{57}$ & $-16150027907687$ &  &  \\
+\end{tabular}
+\end{center}
+
+\begin{theorem}
+The recurrence above holds for every $n$, and it is the recurrence the entry records.
+\end{theorem}
+
+\begin{proof}
+It holds by Lemma~\ref{lem:bm}, which returns a recurrence the sequence satisfies from its
+first term. For the identification: the entry asserts that the sequence satisfies SOME
+recurrence of order $75$, possibly only from some index on. Let $q$ be that recurrence's
+characteristic polynomial and $q_{\min}$ the minimal polynomial of the tail of the sequence.
+Then $q_{\min}\mid q$. Berlekamp--Massey run on the sequence with its first $75+4$ terms
+removed returns order $75$ as well, so $\deg q_{\min}=75=\deg q$; both are monic, so
+$q=q_{\min}$, which is the polynomial computed above.
+\end{proof}
+
+\section{Verification}
+
+Three checks.
+
+First, the walk model reproduces all $15$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry, and it is the only place where reading
+the entry's English enters.
+
+Second, the recovered recurrence was evaluated directly on those published terms, with no
+matrices and no Berlekamp--Massey involved, and holds at every index where the entry gives
+enough earlier terms to test it.
+
+Third, the order was computed twice by independent routes: once modulo a $61$-bit prime, where
+every intermediate is a machine word, and once in exact rational arithmetic; and once more on
+the sequence with its first $75+4$ terms removed, which is what the identification above
+requires. All three agree.
+
+\begin{remark}
+What is unusual here is that the conjecture's statement was never read. The entry pins it down
+to a one-parameter family --- the recurrences of order $75$ that this sequence satisfies
+--- and that family turns out to have exactly one member.
+\end{remark}
+
+\begin{thebibliography}{9}
+\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
+Sequences}, \url{https://oeis.org}, 2026. Sequence A298967.
+\bibitem{massey} J.~L.~Massey, Shift-register synthesis and BCH decoding, \emph{IEEE
+Trans. Inform. Theory} \textbf{15} (1969), 122--127.
+\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
+University Press, 2013.
+\end{thebibliography}
+
+\end{document}

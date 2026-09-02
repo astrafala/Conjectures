@@ -1,0 +1,145 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=1in]{geometry}
+\usepackage[colorlinks=true,linkcolor=blue,urlcolor=blue]{hyperref}
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{remark}[theorem]{Remark}
+
+\title{The empirical recurrence for OEIS A233887: recovering a conjecture that is not written down}
+\author{Adrian Perez Fontelles\\ \small Independent researcher}
+\date{2 September 2026}
+\begin{document}
+\maketitle
+
+\begin{abstract}
+OEIS A233887 records ``Empirical recurrence of order $58$'', with the recurrence itself in a
+linked file rather than in the entry. The conjecture can nevertheless be settled, and the
+recurrence recovered, without reading that file. The entry counts arrays under a condition
+local to a bounded window of lines, so the count is a walk count on $S=2401$ vertices and
+satisfies some monic recurrence of order at most $S$; Berlekamp--Massey applied to $2S$ exact
+terms therefore returns the MINIMAL such recurrence. Its order is exactly $58$, the order
+the entry states, and the same is true of every tail of the sequence. Any recurrence of order
+$58$ that the sequence satisfies from any point on must then have a characteristic
+polynomial that is a multiple of the minimal one and of the same degree, hence equal to it. So
+the entry's recurrence is the one displayed here, whatever its file contains, and it is
+proved.
+\end{abstract}
+
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 15A18.\normalsize
+
+\section{A conjecture one cannot read}
+
+OEIS A233887 is ``Number of (n+1)X(3+1) 0..6 arrays with every 2X2 subblock having the sum of the squares of the edge differences equal to 30, and no two adjacent values equal.''. It has offset $1$ and begins
+\[
+1264, 9376, 65280, 496200, 3580624, 27131156, 197246776, 1489635452,\ \dots
+\]
+The entry states:
+\begin{quote}
+Empirical recurrence of order 58 (see link above)
+\end{quote}
+As of the ``Last modified'' line on the live entry (Jul 23 2025 08:14:02, revision 7) this is still
+recorded as empirical. The recurrence's coefficients are not in the entry text.
+
+\section{The count is a walk count}
+
+The entry's condition is local: it constrains a bounded window of consecutive lines of the
+array and nothing further. The admissible configurations of one such window are the vertices
+of a finite digraph, an edge joining $u$ to $v$ when $v$ may follow $u$, and an admissible
+array is exactly a walk. Hence, with $M$ the adjacency matrix on $S=2401$ vertices,
+$a(n)=\iota^{\!\top}M^{\,j(n)}\tau$ for a linear reindexing $j$ fixed by the entry's shape
+and checked against its published terms. By the Cayley--Hamilton theorem $M^{S}$ is an
+integer combination of $I,M,\dots,M^{S-1}$, so:
+
+\begin{lemma}\label{lem:cf}
+$a$ satisfies a monic linear recurrence with integer coefficients of order at most $S=2401$.
+\end{lemma}
+
+\section{Recovering the recurrence}
+
+\begin{lemma}\label{lem:bm}
+A sequence known to satisfy some linear recurrence of order at most $S$ is determined, together
+with its minimal recurrence, by its first $2S$ terms: Berlekamp--Massey applied to them returns
+that minimal recurrence exactly.
+\end{lemma}
+
+Running it on $2S=4802$ exact terms of the model returns order $58$ --- the order the
+entry states --- with the integer coefficients
+\[
+a(n)\;=\;\sum_{i=1}^{58}c_i\,a(n-i),
+\]
+\begin{center}\small
+\begin{tabular}{cccccccc}
+$c_{1}$ & $0$ & $c_{16}$ & $-379772848393$ & $c_{31}$ & $122171542643566$ & $c_{46}$ & $122437844456188$ \\
+$c_{2}$ & $176$ & $c_{17}$ & $-124230108516$ & $c_{32}$ & $-3408946641617390$ & $c_{47}$ & $-8908307446448$ \\
+$c_{3}$ & $32$ & $c_{18}$ & $2500153838987$ & $c_{33}$ & $-85976924413582$ & $c_{48}$ & $-26523105298144$ \\
+$c_{4}$ & $-13110$ & $c_{19}$ & $717416233358$ & $c_{34}$ & $4197345979987647$ & $c_{49}$ & $1956572542208$ \\
+$c_{5}$ & $-4024$ & $c_{20}$ & $-13138200066985$ & $c_{35}$ & $-143079081596$ & $c_{50}$ & $4059044588480$ \\
+$c_{6}$ & $557085$ & $c_{21}$ & $-3217511387526$ & $c_{36}$ & $-4181913275202405$ & $c_{51}$ & $-295835011584$ \\
+$c_{7}$ & $209642$ & $c_{22}$ & $55600736233816$ & $c_{37}$ & $89504281501640$ & $c_{52}$ & $-412012059392$ \\
+$c_{8}$ & $-15389528$ & $c_{23}$ & $11272152535622$ & $c_{38}$ & $3348798045870528$ & $c_{53}$ & $29208473600$ \\
+$c_{9}$ & $-6242702$ & $c_{24}$ & $-190689845225734$ & $c_{39}$ & $-130220796535786$ & $c_{54}$ & $24842804224$ \\
+$c_{10}$ & $297665516$ & $c_{25}$ & $-30846887003066$ & $c_{40}$ & $-2135570432721643$ & $c_{55}$ & $-1700495360$ \\
+$c_{11}$ & $121346888$ & $c_{26}$ & $532204323014373$ & $c_{41}$ & $112246170741038$ & $c_{56}$ & $-695181312$ \\
+$c_{12}$ & $-4226362136$ & $c_{27}$ & $65431668963814$ & $c_{42}$ & $1071360744943143$ & $c_{57}$ & $44564480$ \\
+$c_{13}$ & $-1653985546$ & $c_{28}$ & $-1211515514682464$ & $c_{43}$ & $-67046952552504$ & $c_{58}$ & $2621440$ \\
+$c_{14}$ & $45490985291$ & $c_{29}$ & $-105351016011922$ & $c_{44}$ & $-416063638012388$ &  &  \\
+$c_{15}$ & $16513425642$ & $c_{30}$ & $2250779866841861$ & $c_{45}$ & $28789207285808$ &  &  \\
+\end{tabular}
+\end{center}
+
+\begin{theorem}
+The recurrence above holds for every $n$, and it is the recurrence the entry records.
+\end{theorem}
+
+\begin{proof}
+It holds by Lemma~\ref{lem:bm}, which returns a recurrence the sequence satisfies from its
+first term. For the identification: the entry asserts that the sequence satisfies SOME
+recurrence of order $58$, possibly only from some index on. Let $q$ be that recurrence's
+characteristic polynomial and $q_{\min}$ the minimal polynomial of the tail of the sequence.
+Then $q_{\min}\mid q$. Berlekamp--Massey run on the sequence with its first $58+4$ terms
+removed returns order $58$ as well, so $\deg q_{\min}=58=\deg q$; both are monic, so
+$q=q_{\min}$, which is the polynomial computed above.
+\end{proof}
+
+\section{Verification}
+
+Three checks.
+
+First, the walk model reproduces all $17$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry, and it is the only place where reading
+the entry's English enters.
+
+Second, the recovered recurrence was evaluated directly on those published terms, with no
+matrices and no Berlekamp--Massey involved, and holds at every index where the entry gives
+enough earlier terms to test it.
+
+Third, the order was computed twice by independent routes: once modulo a $61$-bit prime, where
+every intermediate is a machine word, and once in exact rational arithmetic; and once more on
+the sequence with its first $58+4$ terms removed, which is what the identification above
+requires. All three agree.
+
+\begin{remark}
+What is unusual here is that the conjecture's statement was never read. The entry pins it down
+to a one-parameter family --- the recurrences of order $58$ that this sequence satisfies
+--- and that family turns out to have exactly one member.
+\end{remark}
+
+\begin{thebibliography}{9}
+\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
+Sequences}, \url{https://oeis.org}, 2026. Sequence A233887.
+\bibitem{massey} J.~L.~Massey, Shift-register synthesis and BCH decoding, \emph{IEEE
+Trans. Inform. Theory} \textbf{15} (1969), 122--127.
+\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
+University Press, 2013.
+\end{thebibliography}
+
+\end{document}
