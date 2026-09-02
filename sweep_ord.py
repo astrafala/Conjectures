@@ -15,7 +15,9 @@ CAP = int(sys.argv[1]) if len(sys.argv) > 1 else 600
 P = '/tmp/claude-0/-home-user-Conjectures/a6c6c48d-a8e1-5e03-bfd7-16e8d9d94539/scratchpad/'
 names = json.load(open(P + 'all_names.json'))
 roster = {r['anum'] for r in json.load(open('rank-map.json'))}
-HITS, DONE = 'ord_hits.json', 'ord_done.json'
+SKIP_ROSTER = os.environ.get('SKIP_ROSTER', '1') == '1'
+HITS, DONE = (('ord_hits.json', 'ord_done.json') if SKIP_ROSTER else
+              ('ord_ros_hits.json', 'ord_ros_done.json'))
 hits = json.load(open(HITS)) if os.path.exists(HITS) else []
 done = set(json.load(open(DONE))) if os.path.exists(DONE) else set()
 res = collections.Counter()
@@ -29,7 +31,7 @@ def save():
 
 
 for a in sorted(names):
-    if a in done or a in roster:
+    if a in done or (SKIP_ROSTER and a in roster):
         continue
     nm = names[a]
     e = LE.get(a)

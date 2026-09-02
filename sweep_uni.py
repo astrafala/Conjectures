@@ -42,7 +42,12 @@ def save():
 # asking eighteen parsers about 29k names costs ten seconds, which is most of a chunk when
 # the sweep has to run in short foreground pieces; the candidate list is cached instead
 CANDS = json.load(open('uni_cands.json'))
+# a chunk of the sweep can be aimed at one engine's candidates: a newly written engine has
+# its answers in minutes instead of behind every other engine's leftovers
+ONLY = os.environ.get('ONLY', '')
 for a in sorted(CANDS):
+    if ONLY and CANDS[a] != ONLY:
+        continue
     if a in done or a in roster:
         continue
     nm = names[a]
