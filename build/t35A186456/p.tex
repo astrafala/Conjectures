@@ -1,0 +1,134 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=1in]{geometry}
+\usepackage[colorlinks=true,linkcolor=blue,urlcolor=blue]{hyperref}
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{remark}[theorem]{Remark}
+
+\title{The empirical recurrence for OEIS A186456, proved by transfer matrix}
+\author{Adrian Perez Fontelles\\ \small Independent researcher}
+\date{2 September 2026}
+\begin{document}
+\maketitle
+
+\begin{abstract}
+OEIS A186456 counts the $(n+1)\times4$ arrays over $\{0,\dots,1\}$ in which
+neighbouring $2\times2$ subblocks commute as matrices, and carries an empirical recurrence
+of order $5$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
+empirical. The condition ties together $2+1$ consecutive rows, so $2$ consecutive rows are
+a state, the count is a walk count on $S=42$ of them, and the conjectured recurrence is then
+settled by a finite exact computation.
+\end{abstract}
+
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 15A27, 15B36.\normalsize
+
+\section{The conjecture}
+
+OEIS A186456 is ``Number of (n+1) X 4 binary arrays with every 2 X 2 subblock commuting with each of its horizontal and vertical 2 X 2 subblock neighbors.''. It has offset $1$ and begins
+\[
+42, 51, 111, 162, 270, 362, 590, 846,\ \dots
+\]
+The entry states, as a conjecture contributed by its author and never marked settled:
+\begin{quote}
+Empirical: a(n) = 2*a(n-1) - 2*a(n-3) + 2*a(n-4) - a(n-5) for n>9.
+\end{quote}
+As of the ``Last modified'' line on the live entry (Apr 17 2018 14:09:45, revision 8) this is still
+recorded as empirical, and nothing on the entry records it as proved.
+
+\section{What is being counted}
+
+The contiguous $2\times2$ subblocks of an $(n+1)\times4$ array form a grid of $n$
+rows and $3$ columns. Two subblocks that are neighbours in that
+grid OVERLAP: horizontally they share $2\times1$ entries, vertically
+$1\times2$. Nevertheless each is a $2\times2$ integer matrix in its own right, and
+the entry requires that every neighbouring pair, horizontal or vertical, commute --- that is,
+$AB=BA$ as matrices over $\mathbf{Z}$.
+
+At $n=1$ the array has $2$ rows and the grid is a single row of $3$
+subblocks, with only the horizontal pairs to test; the entry's first term is
+$42$, which the model reproduces along with every later term.
+
+\section{The count is a walk count}
+
+A subblock row is fixed by $2$ consecutive array rows, and the vertical condition compares
+two consecutive subblock rows, hence $2+1$ consecutive array rows. So take as state the
+$2$-tuple of consecutive rows whose subblock row has just been completed. A step appends one
+array row: that fixes the next subblock row, and the horizontal pairs inside it and the
+vertical pairs against the previous one are all settled there. An array of $n+1$ rows is
+a walk of $n-1$ steps and every walk comes from exactly one array, so
+\[
+a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,\qquad\iota=\tau=(1,\dots,1)^{\!\top},
+\]
+on the $S=42$ admissible $2$-tuples. In particular $a$ is $C$-finite.
+
+This state does not compress. What a step needs of the past is the previous subblock row, and
+for $4\ge2$ that row already determines the $2$ array rows it was built from, so nothing
+is lost by carrying the rows and nothing would be gained by carrying the matrices instead. The
+size of the construction is therefore $2^{2\cdot4}$ before the condition prunes
+it, which is what puts the wider members of this family out of reach rather than settling them.
+
+\section{The proof}
+
+\begin{lemma}\label{lem:crit}
+Let $q(t)=t^{5}-\sum_i c_it^{5-i}$ be the characteristic polynomial of the
+conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
+$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
+holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
+and it is enough to examine $j<S$.
+\end{lemma}
+
+\begin{proof}
+Factor $M^{j}$ out of $M^{j+5}-\sum_ic_iM^{j+5-i}$. For the bound, $M^{S}$
+is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
+$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
+polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
+pins the threshold exactly.
+\end{proof}
+
+\begin{theorem}
+\[
+a(n)\;=\;2\,a(n-1) - 2\,a(n-3) + 2\,a(n-4) - a(n-5)
+\]
+for every $n>9$.
+\end{theorem}
+
+\begin{proof}
+The vector $w=q(M)\tau$ was formed by $5$ matrix--vector products in exact integer
+arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
+integers vanish from the index corresponding to $n=9+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once.
+\end{proof}
+
+\section{Verification}
+
+Three checks, each independent of the algebra above.
+
+First, the model reproduces all $33$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry: the digraph is built by reading the
+entry's English, and a misreading gives different counts.
+
+Second, the conjectured recurrence was evaluated directly on those published terms, with no
+matrices involved, and holds wherever the proved range and the data overlap.
+
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+arithmetic on the whole vector rather than on a sampled prefix.
+
+\begin{thebibliography}{9}
+\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
+Sequences}, \url{https://oeis.org}, 2026. Sequence A186456.
+\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{suprunenko} D.~A.~Suprunenko and R.~I.~Tyshkevich, \emph{Commutative Matrices},
+Academic Press, 1968.
+\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
+University Press, 2013.
+\end{thebibliography}
+
+\end{document}
