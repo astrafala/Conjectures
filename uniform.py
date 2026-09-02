@@ -16,7 +16,7 @@ import importlib
 from fractions import Fraction
 from math import factorial
 
-ENG = ['transfer3', 'transfer30', 'transfer29', 'transfer28', 'transfer27', 'transfer26', 'transfer25', 'transfer24', 'transfer23', 'transfer17', 'transfer22', 'transfer21', 'transfer20', 'transfer19',
+ENG = ['transfer3', 'transfer31', 'transfer30', 'transfer29', 'transfer28', 'transfer27', 'transfer26', 'transfer25', 'transfer24', 'transfer23', 'transfer17', 'transfer22', 'transfer21', 'transfer20', 'transfer19',
        'transfer18', 'transfer9', 'transfer6', 'transfer16', 'transfer12', 'transfer10',
        'transfer8', 'transfer14', 'transfer11', 'transfer15', 'transfer13', 'transfer7']
 M = {e: importlib.import_module(e) for e in ENG}
@@ -25,7 +25,7 @@ T19 = M['transfer19']
 SCALED = ('transfer7', 'transfer8', 'transfer10', 'transfer12', 'transfer16')
 PAIR = ('transfer18', 'transfer19', 'transfer24', 'transfer26', 'transfer27', 'transfer28')          # (adj, start, end, S)
 DEN = ('transfer20', 'transfer21', 'transfer22', 'transfer25')   # (adj, start, end, S, den)
-PLAIN = ('transfer3', 'transfer6', 'transfer17', 'transfer23', 'transfer29', 'transfer30')   # (states, adj), all-ones vectors
+PLAIN = ('transfer3', 'transfer6', 'transfer17', 'transfer23', 'transfer29', 'transfer30', 'transfer31')   # (states, adj), all-ones vectors
 
 
 def read(nm):
@@ -46,7 +46,7 @@ def build(en, p, cap):
             if (al + 1) ** cols > cap:
                 return None
             return M[en].build(*p)
-        if en in ('transfer17', 'transfer23', 'transfer29', 'transfer30', 'transfer6'):
+        if en in ('transfer17', 'transfer23', 'transfer29', 'transfer30', 'transfer31', 'transfer6'):
             b = M[en].build(p) if en == 'transfer6' else M[en].build(p, cap=cap)
             if b is None or not b[0]:
                 return None
@@ -77,7 +77,7 @@ def terms(en, p, b, N):
     if en == 'transfer3':
         st, adj = b
         return [Fraction(v) for v in T2.terms(adj, len(st), N)]
-    if en in ('transfer6', 'transfer17', 'transfer23', 'transfer29', 'transfer30'):
+    if en in ('transfer6', 'transfer17', 'transfer23', 'transfer29', 'transfer30', 'transfer31'):
         st, adj = b
         f = p['frac']
         return [Fraction(v, f) for v in M[en].terms(adj, len(st), N)]
@@ -108,7 +108,7 @@ def threshold(en, p, b, coeffs, order):
     if en == 'transfer3':
         st, adj = b
         return T2.threshold(adj, len(st), coeffs, order)
-    if en in ('transfer6', 'transfer17', 'transfer23', 'transfer29', 'transfer30'):
+    if en in ('transfer6', 'transfer17', 'transfer23', 'transfer29', 'transfer30', 'transfer31'):
         st, adj = b
         return M[en].threshold(adj, len(st), coeffs, order)
     if en in PAIR:
