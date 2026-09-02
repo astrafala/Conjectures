@@ -22,7 +22,21 @@ FRAC = re.compile(r'^\s*(?:(Half)|One quarter|1/(\d+))\s+the number of\s+', re.I
 HEAD = re.compile(r'^\s*Number of\s+', re.I)
 SHAPE = re.compile(rf'{DIM}\s*X\s*{DIM}\s+(?:(0)\.\.(\d+)|(binary))\s+arrays?\s+with\s+', re.I)
 QUANT = re.compile(r'^(every|each|no|all)\s+3\s*X\s*3\s+subblock\s+', re.I)
-SPLIT = re.compile(r'\s+and\s+(?:every|each|no|all)\s+3\s*X\s*3\s+', re.I)
+# the second clause often drops the "3X3 subblock": "... row and column sum nonprime and
+# every diagonal and antidiagonal sum prime". Requiring the repeat left those unread.
+SPLIT = re.compile(r'\s+and\s+(?:every|each|no|all)\s+(?:3\s*X\s*3\s+)?(?:subblock\s+)?'
+                   r'(?=(?:row|column|diagonal|antidiagonal))', re.I)
+
+
+def _isprime(n):
+    if n < 2:
+        return False
+    i = 2
+    while i * i <= n:
+        if n % i == 0:
+            return False
+        i += 1
+    return True
 
 
 def _numlist(s):
@@ -130,6 +144,31 @@ def _clause(t):
             d, a = diag_of(g), anti_of(g)
             return d[0] == d[1] == d[2] or a[0] == a[1] == a[2]
         return fn, r'\text{the diagonal or the antidiagonal of }g\text{ is constant}'
+
+    m = re.fullmatch(r'((?:row|column|diagonal|antidiagonal)(?:[, ]+(?:and )?'
+                     r'(?:row|column|diagonal|antidiagonal))*) sum (non)?prime', low)
+    if m:
+        kinds = re.findall(r'row|column|diagonal|antidiagonal', m.group(1))
+        want = m.group(2) is None
+
+        def fn(g, kinds=tuple(kinds), want=want):
+            for k in kinds:
+                for ln in LINES[k](g):
+                    if _isprime(sum(ln)) != want:
+                        return False
+            return True
+        return fn, (r'\text{every %s sum is %sprime}'
+                    % (', '.join(kinds), '' if want else 'non'))
+
+    if low in ('having a positive determinant', 'having a negative determinant'):
+        pos = low.endswith('positive determinant')
+
+        def fn(g, pos=pos):
+            det = (g[0][0]*(g[1][1]*g[2][2]-g[1][2]*g[2][1])
+                   - g[0][1]*(g[1][0]*g[2][2]-g[1][2]*g[2][0])
+                   + g[0][2]*(g[1][0]*g[2][1]-g[1][1]*g[2][0]))
+            return det > 0 if pos else det < 0
+        return fn, (r'\det g > 0' if pos else r'\det g < 0')
 
     if low in ('singular', 'nonsingular'):
         want = (low == 'singular')

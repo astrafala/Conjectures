@@ -162,6 +162,31 @@ def _pred(body):
                 r'\text{a cell of value }x\text{ has exactly }x\text{ neighbours of the '
                 r'value paired with }x', m.group(1), None, False)
 
+    m = re.fullmatch(r'no element x\(i,j\) adjacent to value (\d+)-x\(i,j\) ' + NB +
+                     r'(?:, and top left element zero)?', low)
+    if m:
+        K = int(m.group(1))
+        return ((lambda v, ns, K=K: all(u != K - v for u in ns)),
+                r'\text{no cell }v\text{ has a neighbour equal to }%d-v' % K,
+                m.group(2), None, False)
+
+    m = re.fullmatch(r'each element equal to the number (?:of )?its ' + NB +
+                     r' neighbors within one of itself', low)
+    if m:
+        return ((lambda v, ns: v == sum(1 for u in ns if abs(u - v) <= 1)),
+                r'\text{each cell }v\text{ equals the number of its neighbours }u'
+                r'\text{ with }|u-v|\le1', m.group(1), None, False)
+
+    m = re.fullmatch(r'every nonzero element less than or equal to at least (\w+) ' + NB +
+                     r' neighbors', low)
+    if m:
+        k = _n(m.group(1))
+        if k is None:
+            return None
+        return ((lambda v, ns, k=k: v == 0 or sum(1 for u in ns if v <= u) >= k),
+                r'\text{every nonzero }v\text{ has at least %d neighbours }\ge v' % k,
+                m.group(2), None, False)
+
     m = re.fullmatch(r'no element equal to all ' + NB + r' neighbors', low)
     if m:
         return ((lambda v, ns: not (len(ns) > 0 and all(u == v for u in ns))),
@@ -236,6 +261,7 @@ def parse_name(nm):
         walk, fixed, base = 'cols', d1[1], d2[1]
     else:
         return None
+    tl0 = bool(re.search(r'top left element zero', rest, re.I))
     exc = 0
     m = EXC.search(rest)
     if m:
@@ -263,7 +289,7 @@ def parse_name(nm):
             o2 = [(b, a) for (a, b) in o2]
     return {'walk': walk, 'fixed': fixed, 'base': base, 'alpha': alpha, 'frac': frac,
             'exc': exc, 'pred': fn, 'tex': tex, 'body': rest,
-            'offs': o1, 'offs2': o2, 'two': o2 is not None, 'inv': inv}
+            'offs': o1, 'offs2': o2, 'two': o2 is not None, 'inv': inv, 'tl0': tl0}
 
 
 def _gather(p, r, s, t, j, offs):
@@ -320,7 +346,7 @@ def build(p, cap=40000):
                 row.append(_viol(p, r, s, lines[ti]))
             for c in range(E + 1):
                 u = sid(ri, si, c)
-                if ri == n and c == 0:
+                if ri == n and c == 0 and not (p.get('tl0') and s[0] != 0):
                     start[u] = 1
                 if c + vend == E:
                     end[u] = 1
