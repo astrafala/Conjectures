@@ -28,6 +28,7 @@ import re
 from itertools import product
 
 import namecanon
+import imagedet
 
 CLASS = {'horizontal': [(0, -1), (0, 1)],
          'vertical': [(-1, 0), (1, 0)],
@@ -124,35 +125,9 @@ def build(p, cap=20000):
             out.append(1 if _holds(fam, mod, cur[j], nb) else 0)
         return tuple(out)
 
-    states, index, adj, fin = [], {}, [], []
-
-    def sid(s):
-        i = index.get(s)
-        if i is None:
-            i = index[s] = len(states)
-            states.append(s); adj.append([]); fin.append(0)
-        return i
-
-    sid(frozenset((None, r) for r in rows))
-    qi = 0
-    while qi < len(states):
-        s = states[qi]
-        i = qi
-        qi += 1
-        groups, finals = {}, set()
-        for (p0, c) in s:
-            finals.add(brow(p0, c, None))
-            for x in rows:
-                groups.setdefault(brow(p0, c, x), set()).add((c, x))
-        fin[i] = len(finals)
-        for b, tgt in groups.items():
-            adj[i].append(sid(frozenset(tgt)))
-            if len(states) > cap:
-                return None
-    S = len(states)
-    start = [0] * S
-    start[0] = 1
-    return adj, start, fin, S
+    return imagedet.build([(None, r) for r in rows], rows,
+                          lambda el, x: (brow(el[0], el[1], x), (el[1], x)),
+                          lambda el: brow(el[0], el[1], None), cap)
 
 
 matvec = __import__('transfer19').matvec
