@@ -67,7 +67,7 @@ result is worth more than three forced ones.
 
 # Conjecture-hunt ledger
 
-Last updated 2 Sep 2026. Roster: **5969 papers** (5963 proofs, 6 disproofs), files `1-PROOF.pdf` … `5969-PROOF.pdf`, **numbered by how hard the result was**: 1 is the hardest.
+Last updated 2 Sep 2026. Roster: **6045 papers** (6039 proofs, 6 disproofs), files `1-PROOF.pdf` … `6045-PROOF.pdf`, **numbered by how hard the result was**: 1 is the hardest.
 `rank-map.json` records the previous numbering. New results are ranked in, not appended.
 
 ---
@@ -1845,4283 +1845,4359 @@ the label. This is now cheap to detect in a sweep: compare the two fields in the
 | 1690 | PROOF | A189614 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
 | 1691 | PROOF | A206998 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
 | 1692 | PROOF | A208499 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1693 | PROOF | A196425 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1694 | PROOF | A207487 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1695 | PROOF | A203841 | a condition on every cell over the neighbour set the entry names |
-| 1696 | PROOF | A209957 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1697 | PROOF | A188691 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1698 | PROOF | A207499 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1699 | PROOF | A207664 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1700 | PROOF | A207127 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1701 | PROOF | A207907 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1702 | PROOF | A207002 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1703 | PROOF | A206783 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1704 | PROOF | A298090 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1705 | PROOF | A207521 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1706 | PROOF | A207775 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1707 | PROOF | A207343 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1708 | PROOF | A207086 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1709 | PROOF | A207504 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1710 | PROOF | A208026 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1711 | PROOF | A207179 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1712 | PROOF | A207697 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1713 | PROOF | A207349 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1714 | PROOF | A206887 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1715 | PROOF | A207417 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1716 | PROOF | A208075 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1717 | PROOF | A255085 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 1718 | PROOF | A207423 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1719 | PROOF | A252408 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 1720 | PROOF | A207772 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1721 | PROOF | A189108 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1722 | PROOF | A207716 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1723 | PROOF | A209948 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1724 | PROOF | A184660 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 1725 | PROOF | A297984 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1726 | PROOF | A297855 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1727 | PROOF | A207469 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1728 | PROOF | A207959 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1729 | PROOF | A207921 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1730 | PROOF | A207273 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1731 | PROOF | A209551 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1732 | PROOF | A260291 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 1733 | PROOF | A260606 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 1734 | PROOF | A185528 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 1735 | PROOF | A188770 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1736 | PROOF | A209782 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1737 | PROOF | A210330 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1738 | PROOF | A210350 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1739 | PROOF | A298051 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1740 | PROOF | A298656 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1741 | PROOF | A303798 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1742 | PROOF | A188519 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1743 | PROOF | A188854 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1744 | PROOF | A203437 | a condition on every cell over the neighbour set the entry names |
-| 1745 | PROOF | A207246 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1746 | PROOF | A210072 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1747 | PROOF | A302456 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1748 | PROOF | A303238 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1749 | PROOF | A305093 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1750 | PROOF | A316753 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1751 | PROOF | A203097 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1752 | PROOF | A207789 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1753 | PROOF | A209793 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1754 | PROOF | A301665 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1755 | PROOF | A303036 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1756 | PROOF | A303199 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1757 | PROOF | A304948 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1758 | PROOF | A318020 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1759 | PROOF | A207074 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1760 | PROOF | A252098 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 1761 | PROOF | A188603 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1762 | PROOF | A298954 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1763 | PROOF | A206868 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1764 | PROOF | A206991 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1765 | PROOF | A304955 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1766 | PROOF | A210272 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1767 | PROOF | A208418 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1768 | PROOF | A189266 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1769 | PROOF | A209853 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1770 | PROOF | A298578 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1771 | PROOF | A302429 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1772 | PROOF | A302729 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1773 | PROOF | A208695 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1774 | PROOF | A188751 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1775 | PROOF | A252641 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 1776 | PROOF | A298175 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1777 | PROOF | A207740 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1778 | PROOF | A298164 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1779 | PROOF | A298290 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1780 | PROOF | A298556 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1781 | PROOF | A299183 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1782 | PROOF | A299570 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1783 | PROOF | A304006 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1784 | PROOF | A304540 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1785 | PROOF | A306125 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1786 | PROOF | A316307 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1787 | PROOF | A252599 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 1788 | PROOF | A302412 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1789 | PROOF | A303179 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1790 | PROOF | A207686 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1791 | PROOF | A297947 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1792 | PROOF | A298226 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1793 | PROOF | A298766 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1794 | PROOF | A300919 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1795 | PROOF | A301604 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1796 | PROOF | A304015 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1797 | PROOF | A304152 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1798 | PROOF | A304351 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1799 | PROOF | A305363 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1800 | PROOF | A303960 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1801 | PROOF | A252385 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 1802 | PROOF | A317771 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1803 | PROOF | A208701 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1804 | PROOF | A209908 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1805 | PROOF | A304475 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1806 | PROOF | A305219 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1807 | PROOF | A305638 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1808 | PROOF | A306056 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1809 | PROOF | A316300 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1810 | PROOF | A317032 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1811 | PROOF | A317234 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1812 | PROOF | A260367 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 1813 | PROOF | A304300 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1814 | PROOF | A189113 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1815 | PROOF | A207659 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1816 | PROOF | A209711 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1817 | PROOF | A298191 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1818 | PROOF | A298618 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1819 | PROOF | A299085 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1820 | PROOF | A299341 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1821 | PROOF | A299848 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1822 | PROOF | A302281 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1823 | PROOF | A316235 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1824 | PROOF | A207708 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1825 | PROOF | A207428 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1826 | PROOF | A303799 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1827 | PROOF | A318544 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1828 | PROOF | A302638 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1829 | PROOF | A206874 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1830 | PROOF | A208167 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1831 | PROOF | A207091 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1832 | PROOF | A282965 | a condition on every cell over the neighbour set the entry names |
-| 1833 | PROOF | A210295 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1834 | PROOF | A298715 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1835 | PROOF | A298830 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1836 | PROOF | A304259 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1837 | PROOF | A305448 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1838 | PROOF | A255789 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 1839 | PROOF | A252327 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 1840 | PROOF | A305338 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1841 | PROOF | A303621 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1842 | PROOF | A207268 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1843 | PROOF | A297955 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1844 | PROOF | A298066 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1845 | PROOF | A298217 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1846 | PROOF | A299310 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1847 | PROOF | A299447 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1848 | PROOF | A301537 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1849 | PROOF | A303018 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1850 | PROOF | A316214 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1851 | PROOF | A252150 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 1852 | PROOF | A252212 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 1853 | PROOF | A252507 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 1854 | PROOF | A252616 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 1855 | PROOF | A298097 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1856 | PROOF | A298899 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1857 | PROOF | A317899 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1858 | PROOF | A318013 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1859 | PROOF | A232025 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1860 | PROOF | A207491 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1861 | PROOF | A207771 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1862 | PROOF | A231540 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1863 | PROOF | A297317 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1864 | PROOF | A299678 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1865 | PROOF | A302214 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1866 | PROOF | A302312 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1867 | PROOF | A303042 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1868 | PROOF | A316879 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1869 | PROOF | A317607 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1870 | PROOF | A188848 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1871 | PROOF | A252298 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 1872 | PROOF | A305480 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1873 | PROOF | A297227 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1874 | PROOF | A207843 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1875 | PROOF | A207513 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1876 | PROOF | A298135 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1877 | PROOF | A298926 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1878 | PROOF | A301527 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1879 | PROOF | A302305 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1880 | PROOF | A302879 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1881 | PROOF | A260541 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 1882 | PROOF | A260838 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 1883 | PROOF | A196539 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1884 | PROOF | A254974 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 1885 | PROOF | A297436 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1886 | PROOF | A326102 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1887 | PROOF | A207783 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1888 | PROOF | A300085 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1889 | PROOF | A259998 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 1890 | PROOF | A206934 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1891 | PROOF | A298632 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1892 | PROOF | A300469 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1893 | PROOF | A207931 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1894 | PROOF | A298504 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1895 | PROOF | A298723 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1896 | PROOF | A298891 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1897 | PROOF | A303527 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1898 | PROOF | A318419 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1899 | PROOF | A207663 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1900 | PROOF | A207073 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1901 | PROOF | A208365 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1902 | PROOF | A260102 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 1903 | PROOF | A297580 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1904 | PROOF | A188995 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1905 | PROOF | A189192 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1906 | PROOF | A231658 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1907 | PROOF | A207788 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1908 | PROOF | A207498 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1909 | PROOF | A296584 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1910 | PROOF | A297939 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1911 | PROOF | A298083 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1912 | PROOF | A302325 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1913 | PROOF | A304054 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1914 | PROOF | A304306 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1915 | PROOF | A304343 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1916 | PROOF | A305589 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1917 | PROOF | A305772 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1918 | PROOF | A316205 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1919 | PROOF | A317007 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1920 | PROOF | A317121 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1921 | PROOF | A317600 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1922 | PROOF | A317739 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1923 | PROOF | A318073 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1924 | PROOF | A188759 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1925 | PROOF | A207761 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1926 | PROOF | A234212 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1927 | PROOF | A283953 | a condition on every cell over the neighbour set the entry names |
-| 1928 | PROOF | A300111 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1929 | PROOF | A300772 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1930 | PROOF | A302873 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1931 | PROOF | A303080 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1932 | PROOF | A316872 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1933 | PROOF | A320360 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1934 | PROOF | A297394 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1935 | PROOF | A183390 | a condition on every cell's king-move neighbourhood, boundaries included |
-| 1936 | PROOF | A297455 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1937 | PROOF | A189692 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1938 | PROOF | A295940 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1939 | PROOF | A296016 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1940 | PROOF | A296036 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1941 | PROOF | A297604 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1942 | PROOF | A207715 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1943 | PROOF | A203383 | a condition on every cell over the neighbour set the entry names |
-| 1944 | PROOF | A207440 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1945 | PROOF | A188705 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1946 | PROOF | A207126 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1947 | PROOF | A297804 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1948 | PROOF | A299048 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1949 | PROOF | A299810 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1950 | PROOF | A300310 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1951 | PROOF | A303321 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1952 | PROOF | A207030 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1953 | PROOF | A203834 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1954 | PROOF | A252551 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 1955 | PROOF | A252567 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 1956 | PROOF | A260173 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 1957 | PROOF | A302633 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1958 | PROOF | A297516 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1959 | PROOF | A297541 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1960 | PROOF | A305249 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1961 | PROOF | A207512 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1962 | PROOF | A255777 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 1963 | PROOF | A302227 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1964 | PROOF | A305645 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1965 | PROOF | A317892 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1966 | PROOF | A207272 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1967 | PROOF | A206890 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1968 | PROOF | A203186 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1969 | PROOF | A229843 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1970 | PROOF | A207681 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1971 | PROOF | A207906 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1972 | PROOF | A188503 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1973 | PROOF | A298129 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1974 | PROOF | A298255 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1975 | PROOF | A298450 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1976 | PROOF | A299524 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1977 | PROOF | A302071 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1978 | PROOF | A318426 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1979 | PROOF | A208161 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1980 | PROOF | A259720 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 1981 | PROOF | A256806 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 1982 | PROOF | A260763 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 1983 | PROOF | A305689 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1984 | PROOF | A317069 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1985 | PROOF | A232283 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1986 | PROOF | A233880 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1987 | PROOF | A207486 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1988 | PROOF | A189066 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1989 | PROOF | A296401 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1990 | PROOF | A297752 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1991 | PROOF | A297765 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1992 | PROOF | A297872 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1993 | PROOF | A300461 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1994 | PROOF | A317039 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1995 | PROOF | A317693 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1996 | PROOF | A251109 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1997 | PROOF | A207855 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1998 | PROOF | A208074 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 1999 | PROOF | A302628 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2000 | PROOF | A207563 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2001 | PROOF | A282477 | a condition on every cell's king-move neighbourhood, boundaries included |
-| 2002 | PROOF | A284071 | a condition on every cell over the neighbour set the entry names |
-| 2003 | PROOF | A283228 | a condition on every cell over the neighbour set the entry names |
-| 2004 | PROOF | A207888 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2005 | PROOF | A206880 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2006 | PROOF | A251162 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2007 | PROOF | A296959 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2008 | PROOF | A297723 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2009 | PROOF | A298497 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2010 | PROOF | A302891 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2011 | PROOF | A316921 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2012 | PROOF | A302520 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2013 | PROOF | A296310 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2014 | PROOF | A296574 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2015 | PROOF | A296830 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2016 | PROOF | A297911 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2017 | PROOF | A302363 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2018 | PROOF | A304593 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2019 | PROOF | A306139 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2020 | PROOF | A316379 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2021 | PROOF | A317372 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2022 | PROOF | A207915 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2023 | PROOF | A255156 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 2024 | PROOF | A297813 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2025 | PROOF | A252194 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 2026 | PROOF | A297599 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2027 | PROOF | A231973 | a condition on every cell over the neighbour set the entry names |
-| 2028 | PROOF | A188906 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2029 | PROOF | A295048 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2030 | PROOF | A297820 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2031 | PROOF | A229929 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2032 | PROOF | A207503 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2033 | PROOF | A207372 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2034 | PROOF | A188876 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2035 | PROOF | A189112 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2036 | PROOF | A296392 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2037 | PROOF | A299131 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2038 | PROOF | A299224 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2039 | PROOF | A299889 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2040 | PROOF | A300642 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2041 | PROOF | A302816 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2042 | PROOF | A303471 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2043 | PROOF | A303509 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2044 | PROOF | A304890 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2045 | PROOF | A305950 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2046 | PROOF | A234993 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2047 | PROOF | A207245 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2048 | PROOF | A207696 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2049 | PROOF | A208041 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2050 | PROOF | A207125 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2051 | PROOF | A207707 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2052 | PROOF | A207463 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2053 | PROOF | A298182 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2054 | PROOF | A252672 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 2055 | PROOF | A278096 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2056 | PROOF | A278205 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2057 | PROOF | A283127 | a condition on every cell over the neighbour set the entry names |
-| 2058 | PROOF | A207884 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2059 | PROOF | A207964 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2060 | PROOF | A207184 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2061 | PROOF | A207586 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2062 | PROOF | A210151 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2063 | PROOF | A234328 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2064 | PROOF | A296970 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2065 | PROOF | A297016 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2066 | PROOF | A297903 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2067 | PROOF | A298333 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2068 | PROOF | A298625 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2069 | PROOF | A299598 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2070 | PROOF | A302318 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2071 | PROOF | A302810 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2072 | PROOF | A317811 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2073 | PROOF | A207342 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2074 | PROOF | A301969 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2075 | PROOF | A189698 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2076 | PROOF | A303453 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2077 | PROOF | A207267 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2078 | PROOF | A297098 | a condition on every cell's king-move neighbourhood, boundaries included |
-| 2079 | PROOF | A207898 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2080 | PROOF | A297862 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2081 | PROOF | A298236 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2082 | PROOF | A300423 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2083 | PROOF | A300685 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2084 | PROOF | A303521 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2085 | PROOF | A304415 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2086 | PROOF | A207116 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2087 | PROOF | A207892 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2088 | PROOF | A303319 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2089 | PROOF | A305039 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2090 | PROOF | A316692 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2091 | PROOF | A237856 | a condition on every cell over the neighbour set the entry names |
-| 2092 | PROOF | A252466 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 2093 | PROOF | A255097 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 2094 | PROOF | A304773 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2095 | PROOF | A231379 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2096 | PROOF | A255787 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 2097 | PROOF | A302738 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2098 | PROOF | A234885 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2099 | PROOF | A207085 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2100 | PROOF | A283096 | a condition on every cell over the neighbour set the entry names |
-| 2101 | PROOF | A283729 | a condition on every cell over the neighbour set the entry names |
-| 2102 | PROOF | A202976 | a condition on every cell over the neighbour set the entry names |
-| 2103 | PROOF | A206782 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2104 | PROOF | A235170 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2105 | PROOF | A296948 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2106 | PROOF | A297974 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2107 | PROOF | A299362 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2108 | PROOF | A304897 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2109 | PROOF | A316579 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2110 | PROOF | A207416 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2111 | PROOF | A207029 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2112 | PROOF | A207072 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2113 | PROOF | A304229 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2114 | PROOF | A305585 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2115 | PROOF | A260244 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 2116 | PROOF | A304131 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2117 | PROOF | A233953 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2118 | PROOF | A296722 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2119 | PROOF | A305513 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2120 | PROOF | A283854 | a condition on every cell over the neighbour set the entry names |
-| 2121 | PROOF | A207691 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2122 | PROOF | A207926 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2123 | PROOF | A209222 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2124 | PROOF | A231759 | a condition on every cell over the neighbour set the entry names |
-| 2125 | PROOF | A231801 | a condition on every cell over the neighbour set the entry names |
-| 2126 | PROOF | A188562 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2127 | PROOF | A295093 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2128 | PROOF | A295249 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2129 | PROOF | A295348 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2130 | PROOF | A295527 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2131 | PROOF | A295648 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2132 | PROOF | A298837 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2133 | PROOF | A301396 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2134 | PROOF | A316548 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2135 | PROOF | A234439 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2136 | PROOF | A232046 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2137 | PROOF | A259891 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 2138 | PROOF | A189261 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2139 | PROOF | A252416 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 2140 | PROOF | A252559 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 2141 | PROOF | A255788 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 2142 | PROOF | A260366 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 2143 | PROOF | A316516 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2144 | PROOF | A234032 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2145 | PROOF | A278277 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2146 | PROOF | A296332 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2147 | PROOF | A207680 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2148 | PROOF | A207805 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2149 | PROOF | A299685 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2150 | PROOF | A302268 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2151 | PROOF | A302967 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2152 | PROOF | A233750 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2153 | PROOF | A255024 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 2154 | PROOF | A259959 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 2155 | PROOF | A301950 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2156 | PROOF | A197667 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2157 | PROOF | A238318 | a condition on every cell over the neighbour set the entry names |
-| 2158 | PROOF | A278190 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2159 | PROOF | A295779 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2160 | PROOF | A296317 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2161 | PROOF | A302950 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2162 | PROOF | A305179 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2163 | PROOF | A316417 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2164 | PROOF | A317380 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2165 | PROOF | A252598 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 2166 | PROOF | A282859 | a condition on every cell over the neighbour set the entry names |
-| 2167 | PROOF | A188609 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2168 | PROOF | A233962 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2169 | PROOF | A296153 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2170 | PROOF | A296986 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2171 | PROOF | A300368 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2172 | PROOF | A302468 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2173 | PROOF | A303012 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2174 | PROOF | A303250 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2175 | PROOF | A303626 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2176 | PROOF | A207490 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2177 | PROOF | A207511 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2178 | PROOF | A207520 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2179 | PROOF | A255088 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 2180 | PROOF | A260472 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 2181 | PROOF | A282788 | a condition on every cell's king-move neighbourhood, boundaries included |
-| 2182 | PROOF | A255144 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 2183 | PROOF | A303805 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2184 | PROOF | A283576 | a condition on every cell over the neighbour set the entry names |
-| 2185 | PROOF | A282589 | a condition on every cell's king-move neighbourhood, boundaries included |
-| 2186 | PROOF | A283569 | a condition on every cell over the neighbour set the entry names |
-| 2187 | PROOF | A283780 | a condition on every cell over the neighbour set the entry names |
-| 2188 | PROOF | A297090 | a condition on every cell's king-move neighbourhood, boundaries included |
-| 2189 | PROOF | A297716 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2190 | PROOF | A302383 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2191 | PROOF | A302423 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2192 | PROOF | A303104 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2193 | PROOF | A303193 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2194 | PROOF | A304061 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2195 | PROOF | A304665 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2196 | PROOF | A305018 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2197 | PROOF | A316423 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2198 | PROOF | A210386 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2199 | PROOF | A282881 | a condition on every cell over the neighbour set the entry names |
-| 2200 | PROOF | A284077 | a condition on every cell over the neighbour set the entry names |
-| 2201 | PROOF | A207685 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2202 | PROOF | A251315 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2203 | PROOF | A232020 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2204 | PROOF | A235235 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2205 | PROOF | A183447 | a condition on every cell's king-move neighbourhood, boundaries included |
-| 2206 | PROOF | A251943 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 2207 | PROOF | A233687 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2208 | PROOF | A297586 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2209 | PROOF | A297685 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2210 | PROOF | A203332 | a condition on every cell over the neighbour set the entry names |
-| 2211 | PROOF | A208417 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2212 | PROOF | A298490 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2213 | PROOF | A300542 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2214 | PROOF | A300969 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2215 | PROOF | A304851 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2216 | PROOF | A207266 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2217 | PROOF | A207782 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2218 | PROOF | A206937 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2219 | PROOF | A207001 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2220 | PROOF | A251436 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2221 | PROOF | A259949 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 2222 | PROOF | A256025 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 2223 | PROOF | A260290 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 2224 | PROOF | A260497 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 2225 | PROOF | A278268 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2226 | PROOF | A297593 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2227 | PROOF | A297812 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2228 | PROOF | A235234 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2229 | PROOF | A295117 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2230 | PROOF | A295272 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2231 | PROOF | A306163 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2232 | PROOF | A316612 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2233 | PROOF | A231748 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2234 | PROOF | A234109 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2235 | PROOF | A283688 | a condition on every cell over the neighbour set the entry names |
-| 2236 | PROOF | A206886 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2237 | PROOF | A207751 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2238 | PROOF | A235252 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2239 | PROOF | A207371 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2240 | PROOF | A251803 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2241 | PROOF | A278173 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2242 | PROOF | A278283 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2243 | PROOF | A296382 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2244 | PROOF | A297547 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2245 | PROOF | A297640 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2246 | PROOF | A297745 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2247 | PROOF | A300142 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2248 | PROOF | A300317 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2249 | PROOF | A300807 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2250 | PROOF | A301446 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2251 | PROOF | A306168 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2252 | PROOF | A317425 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2253 | PROOF | A320398 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2254 | PROOF | A235065 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2255 | PROOF | A251386 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2256 | PROOF | A207396 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2257 | PROOF | A260067 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 2258 | PROOF | A260281 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 2259 | PROOF | A235194 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2260 | PROOF | A255087 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 2261 | PROOF | A234661 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2262 | PROOF | A251070 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2263 | PROOF | A235193 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2264 | PROOF | A296125 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2265 | PROOF | A299725 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2266 | PROOF | A303633 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2267 | PROOF | A283518 | a condition on every cell over the neighbour set the entry names |
-| 2268 | PROOF | A206997 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2269 | PROOF | A207958 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2270 | PROOF | A207658 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2271 | PROOF | A231526 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2272 | PROOF | A296537 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2273 | PROOF | A296631 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2274 | PROOF | A296800 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2275 | PROOF | A318064 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2276 | PROOF | A234085 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2277 | PROOF | A207115 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2278 | PROOF | A251060 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2279 | PROOF | A251169 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2280 | PROOF | A196680 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2281 | PROOF | A278002 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2282 | PROOF | A252680 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 2283 | PROOF | A261551 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 2284 | PROOF | A295915 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2285 | PROOF | A300205 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2286 | PROOF | A233911 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2287 | PROOF | A283343 | a condition on every cell over the neighbour set the entry names |
-| 2288 | PROOF | A207760 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2289 | PROOF | A255786 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 2290 | PROOF | A299056 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2291 | PROOF | A299664 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2292 | PROOF | A299817 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2293 | PROOF | A303884 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2294 | PROOF | A305526 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2295 | PROOF | A305681 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2296 | PROOF | A316818 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2297 | PROOF | A317000 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2298 | PROOF | A317568 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2299 | PROOF | A233647 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2300 | PROOF | A207502 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2301 | PROOF | A208166 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2302 | PROOF | A207787 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2303 | PROOF | A189062 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2304 | PROOF | A198180 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2305 | PROOF | A209550 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2306 | PROOF | A260605 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 2307 | PROOF | A297429 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2308 | PROOF | A318543 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2309 | PROOF | A207568 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2310 | PROOF | A295413 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2311 | PROOF | A297983 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2312 | PROOF | A302209 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2313 | PROOF | A305344 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2314 | PROOF | A283412 | a condition on every cell over the neighbour set the entry names |
-| 2315 | PROOF | A188742 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2316 | PROOF | A297798 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2317 | PROOF | A298457 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2318 | PROOF | A298997 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2319 | PROOF | A299550 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2320 | PROOF | A317819 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2321 | PROOF | A318346 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2322 | PROOF | A234147 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2323 | PROOF | A207028 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2324 | PROOF | A251153 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2325 | PROOF | A251405 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2326 | PROOF | A234708 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2327 | PROOF | A261289 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 2328 | PROOF | A300181 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2329 | PROOF | A318342 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2330 | PROOF | A196213 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2331 | PROOF | A206471 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2332 | PROOF | A231994 | a condition on every cell over the neighbour set the entry names |
-| 2333 | PROOF | A234707 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2334 | PROOF | A317731 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2335 | PROOF | A188847 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2336 | PROOF | A302167 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2337 | PROOF | A231646 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2338 | PROOF | A208037 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2339 | PROOF | A282334 | a condition on every cell's king-move neighbourhood, boundaries included |
-| 2340 | PROOF | A282993 | a condition on every cell over the neighbour set the entry names |
-| 2341 | PROOF | A232000 | a condition on every cell over the neighbour set the entry names |
-| 2342 | PROOF | A183400 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2343 | PROOF | A188518 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2344 | PROOF | A207920 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2345 | PROOF | A208025 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2346 | PROOF | A208498 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2347 | PROOF | A298543 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2348 | PROOF | A301953 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2349 | PROOF | A303965 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2350 | PROOF | A305284 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2351 | PROOF | A305343 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2352 | PROOF | A318218 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2353 | PROOF | A209956 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2354 | PROOF | A207585 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2355 | PROOF | A207706 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2356 | PROOF | A207859 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2357 | PROOF | A207695 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2358 | PROOF | A251446 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2359 | PROOF | A231766 | a condition on every cell over the neighbour set the entry names |
-| 2360 | PROOF | A251265 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2361 | PROOF | A251323 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2362 | PROOF | A297313 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2363 | PROOF | A302622 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2364 | PROOF | A197777 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2365 | PROOF | A202885 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2366 | PROOF | A302168 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2367 | PROOF | A234120 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2368 | PROOF | A254973 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 2369 | PROOF | A295844 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2370 | PROOF | A297730 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2371 | PROOF | A207767 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2372 | PROOF | A232276 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2373 | PROOF | A207562 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2374 | PROOF | A207948 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2375 | PROOF | A235242 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2376 | PROOF | A234171 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2377 | PROOF | A234186 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2378 | PROOF | A186056 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 2379 | PROOF | A188853 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2380 | PROOF | A296735 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2381 | PROOF | A296823 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2382 | PROOF | A298089 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2383 | PROOF | A298663 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2384 | PROOF | A301844 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2385 | PROOF | A302885 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2386 | PROOF | A303892 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2387 | PROOF | A305765 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2388 | PROOF | A317114 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2389 | PROOF | A234202 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2390 | PROOF | A209654 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2391 | PROOF | A251199 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2392 | PROOF | A251509 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2393 | PROOF | A207468 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2394 | PROOF | A207238 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2395 | PROOF | A207444 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2396 | PROOF | A188704 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2397 | PROOF | A317516 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2398 | PROOF | A197404 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2399 | PROOF | A197426 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2400 | PROOF | A203096 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2401 | PROOF | A255086 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 2402 | PROOF | A260101 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 2403 | PROOF | A298143 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2404 | PROOF | A303185 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2405 | PROOF | A303327 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2406 | PROOF | A304923 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2407 | PROOF | A304928 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2408 | PROOF | A305242 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2409 | PROOF | A207878 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2410 | PROOF | A282437 | a condition on every cell's king-move neighbourhood, boundaries included |
-| 2411 | PROOF | A283946 | a condition on every cell over the neighbour set the entry names |
-| 2412 | PROOF | A283199 | a condition on every cell over the neighbour set the entry names |
-| 2413 | PROOF | A234551 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2414 | PROOF | A297081 | a condition on every cell's king-move neighbourhood, boundaries included |
-| 2415 | PROOF | A231511 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2416 | PROOF | A233787 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2417 | PROOF | A295036 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2418 | PROOF | A297610 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2419 | PROOF | A298440 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2420 | PROOF | A298585 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2421 | PROOF | A299517 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2422 | PROOF | A299577 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2423 | PROOF | A304844 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2424 | PROOF | A316541 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2425 | PROOF | A316928 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2426 | PROOF | A207905 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2427 | PROOF | A207497 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2428 | PROOF | A207370 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2429 | PROOF | A207395 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2430 | PROOF | A228802 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2431 | PROOF | A207271 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2432 | PROOF | A250977 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2433 | PROOF | A251014 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2434 | PROOF | A207071 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2435 | PROOF | A234416 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2436 | PROOF | A252345 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 2437 | PROOF | A252575 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 2438 | PROOF | A260837 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 2439 | PROOF | A188750 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2440 | PROOF | A297461 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2441 | PROOF | A303194 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2442 | PROOF | A303322 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2443 | PROOF | A304601 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2444 | PROOF | A316950 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2445 | PROOF | A317738 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2446 | PROOF | A317770 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2447 | PROOF | A251069 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2448 | PROOF | A188690 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2449 | PROOF | A232050 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2450 | PROOF | A278090 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2451 | PROOF | A297758 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2452 | PROOF | A299138 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2453 | PROOF | A299933 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2454 | PROOF | A209947 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2455 | PROOF | A251331 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2456 | PROOF | A207439 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2457 | PROOF | A207887 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2458 | PROOF | A283786 | a condition on every cell over the neighbour set the entry names |
-| 2459 | PROOF | A207090 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2460 | PROOF | A282964 | a condition on every cell over the neighbour set the entry names |
-| 2461 | PROOF | A208160 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2462 | PROOF | A251289 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2463 | PROOF | A260204 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 2464 | PROOF | A196295 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2465 | PROOF | A197202 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2466 | PROOF | A197608 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2467 | PROOF | A197800 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2468 | PROOF | A230671 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2469 | PROOF | A301882 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2470 | PROOF | A301997 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2471 | PROOF | A302013 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2472 | PROOF | A302079 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2473 | PROOF | A303959 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2474 | PROOF | A223427 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2475 | PROOF | A189107 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2476 | PROOF | A260762 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 2477 | PROOF | A297302 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2478 | PROOF | A304299 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2479 | PROOF | A305337 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2480 | PROOF | A283547 | a condition on every cell over the neighbour set the entry names |
-| 2481 | PROOF | A206933 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2482 | PROOF | A207883 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2483 | PROOF | A233886 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2484 | PROOF | A251502 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2485 | PROOF | A297515 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2486 | PROOF | A297603 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2487 | PROOF | A297633 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2488 | PROOF | A297854 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2489 | PROOF | A298571 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2490 | PROOF | A302666 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2491 | PROOF | A283381 | a condition on every cell over the neighbour set the entry names |
-| 2492 | PROOF | A207114 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2493 | PROOF | A251216 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2494 | PROOF | A300634 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2495 | PROOF | A318209 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2496 | PROOF | A301661 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2497 | PROOF | A302685 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2498 | PROOF | A234487 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2499 | PROOF | A234699 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2500 | PROOF | A297399 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2501 | PROOF | A303419 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2502 | PROOF | A208687 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2503 | PROOF | A207728 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2504 | PROOF | A282525 | a condition on every cell's king-move neighbourhood, boundaries included |
-| 2505 | PROOF | A299651 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2506 | PROOF | A301440 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2507 | PROOF | A302418 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2508 | PROOF | A239180 | a condition on every cell over the neighbour set the entry names |
-| 2509 | PROOF | A208686 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2510 | PROOF | A207727 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2511 | PROOF | A234668 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2512 | PROOF | A234706 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2513 | PROOF | A208700 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2514 | PROOF | A209731 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2515 | PROOF | A231840 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2516 | PROOF | A278153 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2517 | PROOF | A297341 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2518 | PROOF | A297522 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2519 | PROOF | A297919 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2520 | PROOF | A299369 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2521 | PROOF | A302411 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2522 | PROOF | A303178 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2523 | PROOF | A303686 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2524 | PROOF | A304763 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2525 | PROOF | A233640 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2526 | PROOF | A207963 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2527 | PROOF | A207485 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2528 | PROOF | A251256 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2529 | PROOF | A234976 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2530 | PROOF | A250922 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2531 | PROOF | A251005 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2532 | PROOF | A250970 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2533 | PROOF | A251097 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2534 | PROOF | A300430 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2535 | PROOF | A300939 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2536 | PROOF | A301356 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2537 | PROOF | A318547 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2538 | PROOF | A234724 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2539 | PROOF | A204601 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 2540 | PROOF | A252059 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 2541 | PROOF | A282645 | a condition on every cell's king-move neighbourhood, boundaries included |
-| 2542 | PROOF | A230836 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2543 | PROOF | A234723 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2544 | PROOF | A298961 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2545 | PROOF | A223339 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2546 | PROOF | A260172 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 2547 | PROOF | A260496 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 2548 | PROOF | A297579 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2549 | PROOF | A297679 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2550 | PROOF | A250910 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2551 | PROOF | A234722 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2552 | PROOF | A283038 | a condition on every cell over the neighbour set the entry names |
-| 2553 | PROOF | A297885 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2554 | PROOF | A298276 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2555 | PROOF | A299077 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2556 | PROOF | A302220 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2557 | PROOF | A316179 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2558 | PROOF | A317898 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2559 | PROOF | A251206 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2560 | PROOF | A282372 | a condition on every cell's king-move neighbourhood, boundaries included |
-| 2561 | PROOF | A283779 | a condition on every cell over the neighbour set the entry names |
-| 2562 | PROOF | A300600 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2563 | PROOF | A301907 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2564 | PROOF | A318032 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2565 | PROOF | A231835 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2566 | PROOF | A234686 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2567 | PROOF | A196702 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2568 | PROOF | A196851 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2569 | PROOF | A196945 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2570 | PROOF | A204402 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 2571 | PROOF | A204495 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 2572 | PROOF | A238924 | a condition on every cell over the neighbour set the entry names |
-| 2573 | PROOF | A252434 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 2574 | PROOF | A255155 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 2575 | PROOF | A302627 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2576 | PROOF | A234685 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2577 | PROOF | A183306 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2578 | PROOF | A189613 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2579 | PROOF | A255096 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 2580 | PROOF | A260243 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 2581 | PROOF | A297435 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2582 | PROOF | A302632 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2583 | PROOF | A305479 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2584 | PROOF | A318072 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2585 | PROOF | A207766 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2586 | PROOF | A235206 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2587 | PROOF | A188602 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2588 | PROOF | A189697 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2589 | PROOF | A297377 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2590 | PROOF | A299317 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2591 | PROOF | A299717 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2592 | PROOF | A233879 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2593 | PROOF | A203340 | a condition on every cell over the neighbour set the entry names |
-| 2594 | PROOF | A207759 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2595 | PROOF | A209653 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2596 | PROOF | A207265 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2597 | PROOF | A207914 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2598 | PROOF | A251225 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2599 | PROOF | A189200 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2600 | PROOF | A203794 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2601 | PROOF | A259769 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 2602 | PROOF | A260977 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 2603 | PROOF | A261552 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 2604 | PROOF | A261708 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 2605 | PROOF | A297373 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2606 | PROOF | A305229 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2607 | PROOF | A278010 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2608 | PROOF | A260471 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 2609 | PROOF | A203833 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2610 | PROOF | A207953 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2611 | PROOF | A256805 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 2612 | PROOF | A260365 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 2613 | PROOF | A207122 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2614 | PROOF | A184787 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 2615 | PROOF | A207739 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2616 | PROOF | A282556 | a condition on every cell's king-move neighbourhood, boundaries included |
-| 2617 | PROOF | A283722 | a condition on every cell over the neighbour set the entry names |
-| 2618 | PROOF | A283860 | a condition on every cell over the neighbour set the entry names |
-| 2619 | PROOF | A183383 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2620 | PROOF | A188905 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2621 | PROOF | A189106 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2622 | PROOF | A233728 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2623 | PROOF | A295712 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2624 | PROOF | A300134 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2625 | PROOF | A302208 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2626 | PROOF | A303796 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2627 | PROOF | A305241 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2628 | PROOF | A305957 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2629 | PROOF | A317218 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2630 | PROOF | A317461 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2631 | PROOF | A235233 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2632 | PROOF | A207407 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2633 | PROOF | A208146 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2634 | PROOF | A234985 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2635 | PROOF | A283952 | a condition on every cell over the neighbour set the entry names |
-| 2636 | PROOF | A207394 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2637 | PROOF | A207124 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2638 | PROOF | A207244 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2639 | PROOF | A207510 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2640 | PROOF | A207786 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2641 | PROOF | A207027 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2642 | PROOF | A301325 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2643 | PROOF | A326160 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2644 | PROOF | A260924 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 2645 | PROOF | A302162 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2646 | PROOF | A196585 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2647 | PROOF | A196713 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2648 | PROOF | A196962 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2649 | PROOF | A197042 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2650 | PROOF | A197312 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2651 | PROOF | A252426 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 2652 | PROOF | A260540 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 2653 | PROOF | A278184 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2654 | PROOF | A301968 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2655 | PROOF | A235182 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2656 | PROOF | A234126 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2657 | PROOF | A300801 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2658 | PROOF | A282834 | a condition on every cell's king-move neighbourhood, boundaries included |
-| 2659 | PROOF | A283541 | a condition on every cell over the neighbour set the entry names |
-| 2660 | PROOF | A207877 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2661 | PROOF | A188758 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2662 | PROOF | A188994 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2663 | PROOF | A189191 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2664 | PROOF | A189691 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2665 | PROOF | A207714 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2666 | PROOF | A295981 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2667 | PROOF | A296670 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2668 | PROOF | A297226 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2669 | PROOF | A297736 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2670 | PROOF | A299330 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2671 | PROOF | A304423 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2672 | PROOF | A316278 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2673 | PROOF | A251068 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2674 | PROOF | A207690 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2675 | PROOF | A207925 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2676 | PROOF | A209221 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2677 | PROOF | A282476 | a condition on every cell's king-move neighbourhood, boundaries included |
-| 2678 | PROOF | A283227 | a condition on every cell over the neighbour set the entry names |
-| 2679 | PROOF | A207679 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2680 | PROOF | A234884 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2681 | PROOF | A283095 | a condition on every cell over the neighbour set the entry names |
-| 2682 | PROOF | A233711 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2683 | PROOF | A207348 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2684 | PROOF | A208416 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2685 | PROOF | A208497 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2686 | PROOF | A207781 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2687 | PROOF | A251353 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2688 | PROOF | A261377 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 2689 | PROOF | A301822 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2690 | PROOF | A196797 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2691 | PROOF | A197674 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2692 | PROOF | A259997 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 2693 | PROOF | A301949 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2694 | PROOF | A234157 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2695 | PROOF | A256024 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 2696 | PROOF | A297598 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2697 | PROOF | A235181 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2698 | PROOF | A230171 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2699 | PROOF | A283490 | a condition on every cell over the neighbour set the entry names |
-| 2700 | PROOF | A233898 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2701 | PROOF | A188769 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2702 | PROOF | A207750 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2703 | PROOF | A300926 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2704 | PROOF | A302377 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2705 | PROOF | A303098 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2706 | PROOF | A305248 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2707 | PROOF | A318012 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2708 | PROOF | A234453 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2709 | PROOF | A234077 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2710 | PROOF | A207804 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2711 | PROOF | A207662 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2712 | PROOF | A251108 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2713 | PROOF | A251314 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2714 | PROOF | A300501 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2715 | PROOF | A302082 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2716 | PROOF | A317858 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2717 | PROOF | A188872 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2718 | PROOF | A206253 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2719 | PROOF | A261262 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 2720 | PROOF | A197532 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2721 | PROOF | A198150 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2722 | PROOF | A238282 | a condition on every cell over the neighbour set the entry names |
-| 2723 | PROOF | A252107 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 2724 | PROOF | A252294 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 2725 | PROOF | A252608 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 2726 | PROOF | A297393 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2727 | PROOF | A301839 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2728 | PROOF | A302067 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2729 | PROOF | A206470 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2730 | PROOF | A304772 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2731 | PROOF | A316515 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2732 | PROOF | A320368 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2733 | PROOF | A208373 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2734 | PROOF | A209228 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2735 | PROOF | A233984 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2736 | PROOF | A207567 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2737 | PROOF | A209227 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2738 | PROOF | A295375 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2739 | PROOF | A300171 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2740 | PROOF | A300338 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2741 | PROOF | A209792 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2742 | PROOF | A207310 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2743 | PROOF | A207566 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2744 | PROOF | A206879 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2745 | PROOF | A233922 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2746 | PROOF | A207369 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2747 | PROOF | A207415 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2748 | PROOF | A207742 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2749 | PROOF | A207909 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2750 | PROOF | A210271 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2751 | PROOF | A233944 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2752 | PROOF | A250836 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2753 | PROOF | A231704 | a condition on every cell over the neighbour set the entry names |
-| 2754 | PROOF | A207705 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2755 | PROOF | A250959 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2756 | PROOF | A251396 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2757 | PROOF | A300876 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2758 | PROOF | A302151 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2759 | PROOF | A259639 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 2760 | PROOF | A260135 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 2761 | PROOF | A261110 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 2762 | PROOF | A304269 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2763 | PROOF | A196480 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2764 | PROOF | A197745 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2765 | PROOF | A198008 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2766 | PROOF | A232045 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2767 | PROOF | A252185 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 2768 | PROOF | A252400 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 2769 | PROOF | A259948 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 2770 | PROOF | A261288 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 2771 | PROOF | A207812 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2772 | PROOF | A184148 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2773 | PROOF | A260289 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 2774 | PROOF | A260604 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 2775 | PROOF | A303966 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2776 | PROOF | A204600 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 2777 | PROOF | A207952 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2778 | PROOF | A283637 | a condition on every cell over the neighbour set the entry names |
-| 2779 | PROOF | A207121 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2780 | PROOF | A283630 | a condition on every cell over the neighbour set the entry names |
-| 2781 | PROOF | A234684 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2782 | PROOF | A231519 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2783 | PROOF | A297509 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2784 | PROOF | A297650 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2785 | PROOF | A297697 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2786 | PROOF | A297989 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2787 | PROOF | A298283 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2788 | PROOF | A299657 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2789 | PROOF | A299736 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2790 | PROOF | A300211 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2791 | PROOF | A302955 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2792 | PROOF | A251245 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2793 | PROOF | A208036 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2794 | PROOF | A282588 | a condition on every cell's king-move neighbourhood, boundaries included |
-| 2795 | PROOF | A284070 | a condition on every cell over the neighbour set the entry names |
-| 2796 | PROOF | A207178 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2797 | PROOF | A206781 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2798 | PROOF | A207406 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2799 | PROOF | A208145 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2800 | PROOF | A207770 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2801 | PROOF | A208024 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2802 | PROOF | A184491 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2803 | PROOF | A207684 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2804 | PROOF | A207113 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2805 | PROOF | A251161 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2806 | PROOF | A251302 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2807 | PROOF | A300493 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2808 | PROOF | A301486 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2809 | PROOF | A301886 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2810 | PROOF | A318077 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2811 | PROOF | A318086 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2812 | PROOF | A283380 | a condition on every cell over the neighbour set the entry names |
-| 2813 | PROOF | A207427 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2814 | PROOF | A185536 | a condition on every cell over the neighbour set the entry names |
-| 2815 | PROOF | A234734 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2816 | PROOF | A234819 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2817 | PROOF | A301322 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2818 | PROOF | A185819 | a condition on every cell over the neighbour set the entry names |
-| 2819 | PROOF | A234879 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2820 | PROOF | A234654 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2821 | PROOF | A186162 | a condition on every cell over the neighbour set the entry names |
-| 2822 | PROOF | A234733 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2823 | PROOF | A251838 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 2824 | PROOF | A255023 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 2825 | PROOF | A259958 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 2826 | PROOF | A302519 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2827 | PROOF | A303318 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2828 | PROOF | A318341 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2829 | PROOF | A235094 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2830 | PROOF | A234818 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2831 | PROOF | A189260 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2832 | PROOF | A251279 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2833 | PROOF | A261550 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 2834 | PROOF | A318542 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2835 | PROOF | A185553 | a condition on every cell over the neighbour set the entry names |
-| 2836 | PROOF | A252058 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 2837 | PROOF | A234732 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2838 | PROOF | A234817 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2839 | PROOF | A297690 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2840 | PROOF | A298631 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2841 | PROOF | A298966 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2842 | PROOF | A317737 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2843 | PROOF | A235192 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2844 | PROOF | A184371 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2845 | PROOF | A283694 | a condition on every cell over the neighbour set the entry names |
-| 2846 | PROOF | A234492 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2847 | PROOF | A207561 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2848 | PROOF | A207765 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2849 | PROOF | A206873 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2850 | PROOF | A207749 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2851 | PROOF | A209652 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2852 | PROOF | A207678 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2853 | PROOF | A207758 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2854 | PROOF | A188502 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2855 | PROOF | A189265 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2856 | PROOF | A297316 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2857 | PROOF | A300375 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2858 | PROOF | A300677 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2859 | PROOF | A320404 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2860 | PROOF | A197162 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2861 | PROOF | A197445 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2862 | PROOF | A197891 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2863 | PROOF | A252082 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 2864 | PROOF | A259719 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 2865 | PROOF | A259890 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 2866 | PROOF | A297312 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2867 | PROOF | A298181 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2868 | PROOF | A301405 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2869 | PROOF | A234179 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2870 | PROOF | A260836 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 2871 | PROOF | A261287 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 2872 | PROOF | A295778 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2873 | PROOF | A297592 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2874 | PROOF | A316805 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2875 | PROOF | A317522 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2876 | PROOF | A235093 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2877 | PROOF | A207842 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2878 | PROOF | A231694 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2879 | PROOF | A255143 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 2880 | PROOF | A296647 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2881 | PROOF | A297540 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2882 | PROOF | A297982 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2883 | PROOF | A299063 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2884 | PROOF | A299176 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2885 | PROOF | A299835 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2886 | PROOF | A300468 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2887 | PROOF | A302166 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2888 | PROOF | A302637 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2889 | PROOF | A303620 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2890 | PROOF | A326101 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2891 | PROOF | A207882 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2892 | PROOF | A207957 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2893 | PROOF | A283728 | a condition on every cell over the neighbour set the entry names |
-| 2894 | PROOF | A207489 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2895 | PROOF | A207501 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2896 | PROOF | A282880 | a condition on every cell over the neighbour set the entry names |
-| 2897 | PROOF | A184666 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2898 | PROOF | A207393 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2899 | PROOF | A231539 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2900 | PROOF | A251198 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2901 | PROOF | A251453 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2902 | PROOF | A251802 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2903 | PROOF | A296638 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2904 | PROOF | A300534 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2905 | PROOF | A300961 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2906 | PROOF | A207070 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2907 | PROOF | A196133 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2908 | PROOF | A196977 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2909 | PROOF | A197498 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2910 | PROOF | A197540 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2911 | PROOF | A239181 | a condition on every cell over the neighbour set the entry names |
-| 2912 | PROOF | A188703 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2913 | PROOF | A228758 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2914 | PROOF | A252123 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 2915 | PROOF | A252203 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 2916 | PROOF | A259768 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 2917 | PROOF | A260066 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 2918 | PROOF | A260280 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 2919 | PROOF | A261707 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 2920 | PROOF | A302621 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2921 | PROOF | A234653 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2922 | PROOF | A207722 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2923 | PROOF | A237855 | a condition on every cell over the neighbour set the entry names |
-| 2924 | PROOF | A282644 | a condition on every cell's king-move neighbourhood, boundaries included |
-| 2925 | PROOF | A297398 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2926 | PROOF | A302424 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2927 | PROOF | A317730 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2928 | PROOF | A229698 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2929 | PROOF | A184780 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 2930 | PROOF | A230186 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2931 | PROOF | A283546 | a condition on every cell over the neighbour set the entry names |
-| 2932 | PROOF | A231972 | a condition on every cell over the neighbour set the entry names |
-| 2933 | PROOF | A296316 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2934 | PROOF | A296331 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2935 | PROOF | A298142 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2936 | PROOF | A298778 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2937 | PROOF | A302631 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2938 | PROOF | A304468 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2939 | PROOF | A306049 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2940 | PROOF | A316285 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2941 | PROOF | A317226 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2942 | PROOF | A207738 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2943 | PROOF | A283540 | a condition on every cell over the neighbour set the entry names |
-| 2944 | PROOF | A207943 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2945 | PROOF | A206867 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2946 | PROOF | A206990 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2947 | PROOF | A235020 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2948 | PROOF | A206885 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2949 | PROOF | A207183 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2950 | PROOF | A207309 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2951 | PROOF | A282858 | a condition on every cell over the neighbour set the entry names |
-| 2952 | PROOF | A207919 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2953 | PROOF | A183786 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2954 | PROOF | A208165 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2955 | PROOF | A251067 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2956 | PROOF | A231758 | a condition on every cell over the neighbour set the entry names |
-| 2957 | PROOF | A228801 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2958 | PROOF | A296583 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2959 | PROOF | A296958 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2960 | PROOF | A297803 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2961 | PROOF | A300883 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2962 | PROOF | A300918 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2963 | PROOF | A318040 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2964 | PROOF | A207443 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2965 | PROOF | A297337 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2966 | PROOF | A303313 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2967 | PROOF | A197359 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2968 | PROOF | A197618 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2969 | PROOF | A230783 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2970 | PROOF | A260923 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 2971 | PROOF | A261376 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 2972 | PROOF | A301782 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2973 | PROOF | A301904 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2974 | PROOF | A207850 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2975 | PROOF | A208082 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2976 | PROOF | A207756 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2977 | PROOF | A183446 | a condition on every cell's king-move neighbourhood, boundaries included |
-| 2978 | PROOF | A209549 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2979 | PROOF | A297392 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2980 | PROOF | A297428 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2981 | PROOF | A251370 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2982 | PROOF | A277940 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2983 | PROOF | A207367 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2984 | PROOF | A207951 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2985 | PROOF | A254972 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 2986 | PROOF | A260761 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 2987 | PROOF | A301611 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2988 | PROOF | A303465 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2989 | PROOF | A303804 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2990 | PROOF | A207120 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2991 | PROOF | A207253 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2992 | PROOF | A207946 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2993 | PROOF | A282333 | a condition on every cell's king-move neighbourhood, boundaries included |
-| 2994 | PROOF | A283721 | a condition on every cell over the neighbour set the entry names |
-| 2995 | PROOF | A207405 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2996 | PROOF | A208144 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 2997 | PROOF | A231800 | a condition on every cell over the neighbour set the entry names |
-| 2998 | PROOF | A297097 | a condition on every cell's king-move neighbourhood, boundaries included |
-| 2999 | PROOF | A188608 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3000 | PROOF | A189065 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3001 | PROOF | A209781 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3002 | PROOF | A209852 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3003 | PROOF | A210071 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3004 | PROOF | A210329 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3005 | PROOF | A210349 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3006 | PROOF | A251795 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3007 | PROOF | A255084 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 3008 | PROOF | A296400 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3009 | PROOF | A296985 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3010 | PROOF | A297015 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3011 | PROOF | A297946 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3012 | PROOF | A298384 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3013 | PROOF | A299460 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3014 | PROOF | A300084 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3015 | PROOF | A301526 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3016 | PROOF | A301536 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3017 | PROOF | A301664 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3018 | PROOF | A302000 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3019 | PROOF | A302878 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3020 | PROOF | A303243 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3021 | PROOF | A303526 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3022 | PROOF | A304014 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3023 | PROOF | A304546 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3024 | PROOF | A304954 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3025 | PROOF | A306131 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3026 | PROOF | A316125 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3027 | PROOF | A316443 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3028 | PROOF | A317431 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3029 | PROOF | A207421 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3030 | PROOF | A300349 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3031 | PROOF | A197074 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3032 | PROOF | A197245 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3033 | PROOF | A197275 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3034 | PROOF | A204411 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 3035 | PROOF | A209510 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3036 | PROOF | A231286 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3037 | PROOF | A260976 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 3038 | PROOF | A234878 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3039 | PROOF | A259996 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 3040 | PROOF | A260470 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 3041 | PROOF | A260539 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 3042 | PROOF | A303424 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3043 | PROOF | A239172 | a condition on every cell over the neighbour set the entry names |
-| 3044 | PROOF | A202884 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3045 | PROOF | A278016 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3046 | PROOF | A234916 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3047 | PROOF | A189612 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3048 | PROOF | A203377 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3049 | PROOF | A208685 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3050 | PROOF | A231378 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3051 | PROOF | A231741 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3052 | PROOF | A278204 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3053 | PROOF | A297729 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3054 | PROOF | A302961 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3055 | PROOF | A305085 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3056 | PROOF | A316416 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3057 | PROOF | A316736 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3058 | PROOF | A317379 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3059 | PROOF | A235101 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3060 | PROOF | A207726 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3061 | PROOF | A233952 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3062 | PROOF | A283278 | a condition on every cell over the neighbour set the entry names |
-| 3063 | PROOF | A202975 | a condition on every cell over the neighbour set the entry names |
-| 3064 | PROOF | A208684 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3065 | PROOF | A203840 | a condition on every cell over the neighbour set the entry names |
-| 3066 | PROOF | A207484 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3067 | PROOF | A297089 | a condition on every cell's king-move neighbourhood, boundaries included |
-| 3068 | PROOF | A189618 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3069 | PROOF | A209710 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3070 | PROOF | A209907 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3071 | PROOF | A233629 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3072 | PROOF | A296947 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3073 | PROOF | A297751 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3074 | PROOF | A298323 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3075 | PROOF | A298549 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3076 | PROOF | A298617 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3077 | PROOF | A298765 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3078 | PROOF | A298829 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3079 | PROOF | A299216 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3080 | PROOF | A299244 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3081 | PROOF | A299556 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3082 | PROOF | A299583 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3083 | PROOF | A300091 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3084 | PROOF | A301493 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3085 | PROOF | A302213 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3086 | PROOF | A302461 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3087 | PROOF | A302473 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3088 | PROOF | A304692 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3089 | PROOF | A304889 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3090 | PROOF | A316636 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3091 | PROOF | A318093 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3092 | PROOF | A318345 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3093 | PROOF | A207026 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3094 | PROOF | A207270 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3095 | PROOF | A251288 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3096 | PROOF | A251322 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3097 | PROOF | A235315 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3098 | PROOF | A188990 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3099 | PROOF | A259739 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 3100 | PROOF | A260012 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 3101 | PROOF | A304220 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3102 | PROOF | A195957 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3103 | PROOF | A196451 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3104 | PROOF | A196907 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3105 | PROOF | A197345 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3106 | PROOF | A234677 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3107 | PROOF | A232019 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3108 | PROOF | A189061 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3109 | PROOF | A252247 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 3110 | PROOF | A252633 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 3111 | PROOF | A260203 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 3112 | PROOF | A301660 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3113 | PROOF | A235314 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3114 | PROOF | A234676 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3115 | PROOF | A234486 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3116 | PROOF | A255154 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 3117 | PROOF | A255796 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 3118 | PROOF | A303797 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3119 | PROOF | A223410 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3120 | PROOF | A282787 | a condition on every cell's king-move neighbourhood, boundaries included |
-| 3121 | PROOF | A235313 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3122 | PROOF | A238930 | a condition on every cell over the neighbour set the entry names |
-| 3123 | PROOF | A282312 | a condition on every cell's king-move neighbourhood, boundaries included |
-| 3124 | PROOF | A188749 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3125 | PROOF | A188846 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3126 | PROOF | A251295 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3127 | PROOF | A255795 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 3128 | PROOF | A260835 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 3129 | PROOF | A296721 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3130 | PROOF | A297502 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3131 | PROOF | A297819 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3132 | PROOF | A302804 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3133 | PROOF | A303326 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3134 | PROOF | A306162 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3135 | PROOF | A318071 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3136 | PROOF | A233812 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3137 | PROOF | A234675 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3138 | PROOF | A282833 | a condition on every cell's king-move neighbourhood, boundaries included |
-| 3139 | PROOF | A235180 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3140 | PROOF | A283636 | a condition on every cell over the neighbour set the entry names |
-| 3141 | PROOF | A207942 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3142 | PROOF | A282436 | a condition on every cell's king-move neighbourhood, boundaries included |
-| 3143 | PROOF | A283629 | a condition on every cell over the neighbour set the entry names |
-| 3144 | PROOF | A283198 | a condition on every cell over the neighbour set the entry names |
-| 3145 | PROOF | A234108 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3146 | PROOF | A207713 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3147 | PROOF | A207841 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3148 | PROOF | A208699 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3149 | PROOF | A283037 | a condition on every cell over the neighbour set the entry names |
-| 3150 | PROOF | A184210 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3151 | PROOF | A188517 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3152 | PROOF | A255776 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 3153 | PROOF | A295248 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3154 | PROOF | A295347 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3155 | PROOF | A295526 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3156 | PROOF | A295647 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3157 | PROOF | A297639 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3158 | PROOF | A297722 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3159 | PROOF | A298050 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3160 | PROOF | A298128 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3161 | PROOF | A298149 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3162 | PROOF | A298225 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3163 | PROOF | A298254 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3164 | PROOF | A298714 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3165 | PROOF | A299003 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3166 | PROOF | A299123 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3167 | PROOF | A299446 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3168 | PROOF | A299453 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3169 | PROOF | A299670 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3170 | PROOF | A299748 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3171 | PROOF | A299881 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3172 | PROOF | A300262 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3173 | PROOF | A301349 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3174 | PROOF | A301603 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3175 | PROOF | A302273 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3176 | PROOF | A302428 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3177 | PROOF | A302523 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3178 | PROOF | A303198 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3179 | PROOF | A303406 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3180 | PROOF | A304151 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3181 | PROOF | A304350 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3182 | PROOF | A304671 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3183 | PROOF | A304947 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3184 | PROOF | A305170 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3185 | PROOF | A305362 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3186 | PROOF | A305913 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3187 | PROOF | A316171 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3188 | PROOF | A316234 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3189 | PROOF | A317155 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3190 | PROOF | A317453 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3191 | PROOF | A317866 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3192 | PROOF | A318019 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3193 | PROOF | A320359 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3194 | PROOF | A282475 | a condition on every cell's king-move neighbourhood, boundaries included |
-| 3195 | PROOF | A251445 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3196 | PROOF | A302009 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3197 | PROOF | A196073 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3198 | PROOF | A196332 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3199 | PROOF | A197396 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3200 | PROOF | A252450 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 3201 | PROOF | A297372 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3202 | PROOF | A300348 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3203 | PROOF | A302684 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3204 | PROOF | A305228 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3205 | PROOF | A208006 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3206 | PROOF | A260065 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 3207 | PROOF | A234119 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3208 | PROOF | A252081 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 3209 | PROOF | A208372 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3210 | PROOF | A282395 | a condition on every cell's king-move neighbourhood, boundaries included |
-| 3211 | PROOF | A189259 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3212 | PROOF | A233677 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3213 | PROOF | A251338 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3214 | PROOF | A260100 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 3215 | PROOF | A260495 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 3216 | PROOF | A278276 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3217 | PROOF | A296035 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3218 | PROOF | A297585 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3219 | PROOF | A297684 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3220 | PROOF | A302261 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3221 | PROOF | A303184 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3222 | PROOF | A304145 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3223 | PROOF | A304600 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3224 | PROOF | A305485 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3225 | PROOF | A305688 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3226 | PROOF | A316811 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3227 | PROOF | A317068 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3228 | PROOF | A317561 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3229 | PROOF | A283853 | a condition on every cell over the neighbour set the entry names |
-| 3230 | PROOF | A283126 | a condition on every cell over the neighbour set the entry names |
-| 3231 | PROOF | A206996 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3232 | PROOF | A234163 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3233 | PROOF | A234445 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3234 | PROOF | A207308 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3235 | PROOF | A207897 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3236 | PROOF | A207438 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3237 | PROOF | A207496 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3238 | PROOF | A207764 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3239 | PROOF | A232024 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3240 | PROOF | A297080 | a condition on every cell's king-move neighbourhood, boundaries included |
-| 3241 | PROOF | A188852 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3242 | PROOF | A209651 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3243 | PROOF | A233934 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3244 | PROOF | A251255 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3245 | PROOF | A296594 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3246 | PROOF | A296969 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3247 | PROOF | A297546 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3248 | PROOF | A297656 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3249 | PROOF | A297871 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3250 | PROOF | A298058 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3251 | PROOF | A298065 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3252 | PROOF | A298190 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3253 | PROOF | A298289 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3254 | PROOF | A298315 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3255 | PROOF | A298377 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3256 | PROOF | A298449 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3257 | PROOF | A298707 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3258 | PROOF | A298722 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3259 | PROOF | A298890 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3260 | PROOF | A299047 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3261 | PROOF | A299084 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3262 | PROOF | A299182 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3263 | PROOF | A299189 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3264 | PROOF | A299523 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3265 | PROOF | A299809 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3266 | PROOF | A300607 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3267 | PROOF | A303085 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3268 | PROOF | A304258 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3269 | PROOF | A304699 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3270 | PROOF | A305010 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3271 | PROOF | A305447 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3272 | PROOF | A305644 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3273 | PROOF | A316118 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3274 | PROOF | A316450 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3275 | PROOF | A316643 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3276 | PROOF | A316920 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3277 | PROOF | A317038 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3278 | PROOF | A317692 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3279 | PROOF | A317768 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3280 | PROOF | A317810 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3281 | PROOF | A318425 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3282 | PROOF | A207112 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3283 | PROOF | A207243 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3284 | PROOF | A250969 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3285 | PROOF | A251096 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3286 | PROOF | A251224 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3287 | PROOF | A203824 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3288 | PROOF | A297223 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3289 | PROOF | A196969 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3290 | PROOF | A197556 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3291 | PROOF | A234224 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3292 | PROOF | A235084 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3293 | PROOF | A189199 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3294 | PROOF | A260011 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 3295 | PROOF | A261261 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 3296 | PROOF | A301821 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3297 | PROOF | A316691 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3298 | PROOF | A223252 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3299 | PROOF | A234223 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3300 | PROOF | A208117 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3301 | PROOF | A235083 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3302 | PROOF | A259718 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 3303 | PROOF | A259889 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 3304 | PROOF | A259947 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 3305 | PROOF | A302626 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3306 | PROOF | A303418 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3307 | PROOF | A304130 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3308 | PROOF | A207734 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3309 | PROOF | A208012 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3310 | PROOF | A230471 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3311 | PROOF | A278001 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3312 | PROOF | A207811 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3313 | PROOF | A208553 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3314 | PROOF | A208116 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3315 | PROOF | A234031 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3316 | PROOF | A234415 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3317 | PROOF | A207755 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3318 | PROOF | A207733 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3319 | PROOF | A208011 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3320 | PROOF | A234660 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3321 | PROOF | A207366 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3322 | PROOF | A283575 | a condition on every cell over the neighbour set the entry names |
-| 3323 | PROOF | A250955 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3324 | PROOF | A251274 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3325 | PROOF | A251486 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3326 | PROOF | A260469 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 3327 | PROOF | A261286 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 3328 | PROOF | A261549 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 3329 | PROOF | A295843 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3330 | PROOF | A297578 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3331 | PROOF | A297678 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3332 | PROOF | A298096 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3333 | PROOF | A298898 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3334 | PROOF | A299724 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3335 | PROOF | A302417 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3336 | PROOF | A303632 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3337 | PROOF | A316956 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3338 | PROOF | A283568 | a condition on every cell over the neighbour set the entry names |
-| 3339 | PROOF | A207732 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3340 | PROOF | A207754 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3341 | PROOF | A206932 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3342 | PROOF | A207365 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3343 | PROOF | A208010 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3344 | PROOF | A235092 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3345 | PROOF | A207252 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3346 | PROOF | A282555 | a condition on every cell's king-move neighbourhood, boundaries included |
-| 3347 | PROOF | A283945 | a condition on every cell over the neighbour set the entry names |
-| 3348 | PROOF | A283342 | a condition on every cell over the neighbour set the entry names |
-| 3349 | PROOF | A207950 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3350 | PROOF | A207119 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3351 | PROOF | A207565 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3352 | PROOF | A207731 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3353 | PROOF | A208040 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3354 | PROOF | A210385 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3355 | PROOF | A234438 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3356 | PROOF | A188601 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3357 | PROOF | A188741 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3358 | PROOF | A207404 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3359 | PROOF | A208143 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3360 | PROOF | A231510 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3361 | PROOF | A231525 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3362 | PROOF | A233718 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3363 | PROOF | A250929 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3364 | PROOF | A278172 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3365 | PROOF | A278282 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3366 | PROOF | A295092 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3367 | PROOF | A296381 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3368 | PROOF | A296734 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3369 | PROOF | A296799 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3370 | PROOF | A296822 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3371 | PROOF | A297938 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3372 | PROOF | A298082 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3373 | PROOF | A298503 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3374 | PROOF | A299010 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3375 | PROOF | A299092 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3376 | PROOF | A299309 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3377 | PROOF | A299340 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3378 | PROOF | A299677 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3379 | PROOF | A299801 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3380 | PROOF | A299847 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3381 | PROOF | A299874 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3382 | PROOF | A300110 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3383 | PROOF | A300309 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3384 | PROOF | A302280 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3385 | PROOF | A302369 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3386 | PROOF | A302724 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3387 | PROOF | A302890 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3388 | PROOF | A303625 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3389 | PROOF | A303685 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3390 | PROOF | A303883 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3391 | PROOF | A304005 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3392 | PROOF | A304305 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3393 | PROOF | A305092 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3394 | PROOF | A305588 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3395 | PROOF | A305771 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3396 | PROOF | A305949 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3397 | PROOF | A316204 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3398 | PROOF | A316306 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3399 | PROOF | A316752 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3400 | PROOF | A316871 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3401 | PROOF | A317006 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3402 | PROOF | A317120 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3403 | PROOF | A317261 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3404 | PROOF | A317599 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3405 | PROOF | A317818 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3406 | PROOF | A317891 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3407 | PROOF | A207414 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3408 | PROOF | A207704 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3409 | PROOF | A283341 | a condition on every cell over the neighbour set the entry names |
-| 3410 | PROOF | A251215 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3411 | PROOF | A251264 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3412 | PROOF | A251152 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3413 | PROOF | A256745 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 3414 | PROOF | A302514 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3415 | PROOF | A195973 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3416 | PROOF | A196648 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3417 | PROOF | A197302 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3418 | PROOF | A197452 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3419 | PROOF | A197643 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3420 | PROOF | A188871 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3421 | PROOF | A202910 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3422 | PROOF | A206252 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3423 | PROOF | A300180 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3424 | PROOF | A301321 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3425 | PROOF | A302161 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3426 | PROOF | A305584 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3427 | PROOF | A317515 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3428 | PROOF | A223214 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3429 | PROOF | A255022 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 3430 | PROOF | A259957 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 3431 | PROOF | A300347 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3432 | PROOF | A302620 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3433 | PROOF | A303958 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3434 | PROOF | A318340 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3435 | PROOF | A206469 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3436 | PROOF | A229842 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3437 | PROOF | A230677 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3438 | PROOF | A196424 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3439 | PROOF | A196538 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3440 | PROOF | A234698 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3441 | PROOF | A235082 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3442 | PROOF | A207947 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3443 | PROOF | A231941 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3444 | PROOF | A233686 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3445 | PROOF | A251519 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3446 | PROOF | A260171 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 3447 | PROOF | A261705 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 3448 | PROOF | A297460 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3449 | PROOF | A300204 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3450 | PROOF | A302159 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3451 | PROOF | A302737 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3452 | PROOF | A302743 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3453 | PROOF | A303452 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3454 | PROOF | A303458 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3455 | PROOF | A304298 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3456 | PROOF | A305336 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3457 | PROOF | A305519 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3458 | PROOF | A234544 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3459 | PROOF | A234652 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3460 | PROOF | A283517 | a condition on every cell over the neighbour set the entry names |
-| 3461 | PROOF | A234211 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3462 | PROOF | A282992 | a condition on every cell over the neighbour set the entry names |
-| 3463 | PROOF | A207657 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3464 | PROOF | A207941 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3465 | PROOF | A207422 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3466 | PROOF | A207881 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3467 | PROOF | A207886 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3468 | PROOF | A207904 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3469 | PROOF | A207956 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3470 | PROOF | A231657 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3471 | PROOF | A251330 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3472 | PROOF | A251385 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3473 | PROOF | A231999 | a condition on every cell over the neighbour set the entry names |
-| 3474 | PROOF | A188561 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3475 | PROOF | A202909 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3476 | PROOF | A232049 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3477 | PROOF | A296152 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3478 | PROOF | A296829 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3479 | PROOF | A297632 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3480 | PROOF | A297757 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3481 | PROOF | A297797 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3482 | PROOF | A298391 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3483 | PROOF | A298496 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3484 | PROOF | A299509 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3485 | PROOF | A299684 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3486 | PROOF | A300141 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3487 | PROOF | A300316 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3488 | PROOF | A300460 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3489 | PROOF | A300641 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3490 | PROOF | A300771 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3491 | PROOF | A301395 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3492 | PROOF | A302070 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3493 | PROOF | A302226 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3494 | PROOF | A302311 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3495 | PROOF | A302529 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3496 | PROOF | A302821 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3497 | PROOF | A303017 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3498 | PROOF | A303514 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3499 | PROOF | A304053 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3500 | PROOF | A304342 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3501 | PROOF | A304414 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3502 | PROOF | A304592 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3503 | PROOF | A304896 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3504 | PROOF | A305017 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3505 | PROOF | A305218 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3506 | PROOF | A305283 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3507 | PROOF | A305637 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3508 | PROOF | A305906 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3509 | PROOF | A306138 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3510 | PROOF | A316213 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3511 | PROOF | A316378 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3512 | PROOF | A316547 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3513 | PROOF | A316578 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3514 | PROOF | A316878 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3515 | PROOF | A317031 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3516 | PROOF | A317148 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3517 | PROOF | A317371 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3518 | PROOF | A317606 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3519 | PROOF | A283226 | a condition on every cell over the neighbour set the entry names |
-| 3520 | PROOF | A283516 | a condition on every cell over the neighbour set the entry names |
-| 3521 | PROOF | A283785 | a condition on every cell over the neighbour set the entry names |
-| 3522 | PROOF | A282963 | a condition on every cell over the neighbour set the entry names |
-| 3523 | PROOF | A207392 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3524 | PROOF | A251313 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3525 | PROOF | A298916 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3526 | PROOF | A301963 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3527 | PROOF | A196282 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3528 | PROOF | A197175 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3529 | PROOF | A234561 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3530 | PROOF | A235306 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3531 | PROOF | A252026 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 3532 | PROOF | A252257 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 3533 | PROOF | A304219 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3534 | PROOF | A234560 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3535 | PROOF | A208839 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3536 | PROOF | A208107 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3537 | PROOF | A235305 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3538 | PROOF | A231993 | a condition on every cell over the neighbour set the entry names |
-| 3539 | PROOF | A232044 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3540 | PROOF | A259767 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 3541 | PROOF | A260279 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 3542 | PROOF | A260975 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 3543 | PROOF | A261706 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 3544 | PROOF | A301320 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3545 | PROOF | A301967 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3546 | PROOF | A204410 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 3547 | PROOF | A230615 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3548 | PROOF | A208838 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3549 | PROOF | A207594 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3550 | PROOF | A208106 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3551 | PROOF | A234559 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3552 | PROOF | A208122 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3553 | PROOF | A234125 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3554 | PROOF | A282524 | a condition on every cell's king-move neighbourhood, boundaries included |
-| 3555 | PROOF | A183305 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3556 | PROOF | A255095 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 3557 | PROOF | A256804 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 3558 | PROOF | A259995 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 3559 | PROOF | A260242 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 3560 | PROOF | A295116 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3561 | PROOF | A295412 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3562 | PROOF | A296323 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3563 | PROOF | A297810 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3564 | PROOF | A299650 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3565 | PROOF | A305512 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3566 | PROOF | A317769 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3567 | PROOF | A235304 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3568 | PROOF | A207604 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3569 | PROOF | A283687 | a condition on every cell over the neighbour set the entry names |
-| 3570 | PROOF | A207876 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3571 | PROOF | A207603 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3572 | PROOF | A208120 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3573 | PROOF | A228505 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3574 | PROOF | A251273 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3575 | PROOF | A234558 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3576 | PROOF | A207251 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3577 | PROOF | A207602 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3578 | PROOF | A207930 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3579 | PROOF | A209955 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3580 | PROOF | A251205 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3581 | PROOF | A185829 | a condition on every cell over the neighbour set the entry names |
-| 3582 | PROOF | A283859 | a condition on every cell over the neighbour set the entry names |
-| 3583 | PROOF | A188689 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3584 | PROOF | A188768 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3585 | PROOF | A207601 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3586 | PROOF | A210294 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3587 | PROOF | A233853 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3588 | PROOF | A233869 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3589 | PROOF | A233961 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3590 | PROOF | A251562 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3591 | PROOF | A255794 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 3592 | PROOF | A260760 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 3593 | PROOF | A260834 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 3594 | PROOF | A278152 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3595 | PROOF | A296391 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3596 | PROOF | A296573 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3597 | PROOF | A297539 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3598 | PROOF | A297861 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3599 | PROOF | A298216 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3600 | PROOF | A298577 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3601 | PROOF | A299055 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3602 | PROOF | A299223 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3603 | PROOF | A299569 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3604 | PROOF | A299816 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3605 | PROOF | A300367 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3606 | PROOF | A300684 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3607 | PROOF | A301824 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3608 | PROOF | A302317 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3609 | PROOF | A302324 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3610 | PROOF | A302382 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3611 | PROOF | A302467 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3612 | PROOF | A302665 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3613 | PROOF | A302815 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3614 | PROOF | A303103 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3615 | PROOF | A303249 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3616 | PROOF | A303470 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3617 | PROOF | A303508 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3618 | PROOF | A304060 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3619 | PROOF | A304144 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3620 | PROOF | A305084 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3621 | PROOF | A305484 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3622 | PROOF | A305680 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3623 | PROOF | A316735 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3624 | PROOF | A207237 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3625 | PROOF | A207264 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3626 | PROOF | A207903 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3627 | PROOF | A251197 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3628 | PROOF | A250976 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3629 | PROOF | A251013 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3630 | PROOF | A197085 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3631 | PROOF | A197093 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3632 | PROOF | A197470 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3633 | PROOF | A222142 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3634 | PROOF | A230246 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3635 | PROOF | A261109 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 3636 | PROOF | A296552 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3637 | PROOF | A297336 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3638 | PROOF | A305038 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3639 | PROOF | A203060 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3640 | PROOF | A209509 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3641 | PROOF | A188702 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3642 | PROOF | A228757 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3643 | PROOF | A301948 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3644 | PROOF | A302518 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3645 | PROOF | A208032 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3646 | PROOF | A238317 | a condition on every cell over the neighbour set the entry names |
-| 3647 | PROOF | A208424 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3648 | PROOF | A208005 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3649 | PROOF | A223461 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3650 | PROOF | A186045 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 3651 | PROOF | A260538 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 3652 | PROOF | A260603 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 3653 | PROOF | A300346 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3654 | PROOF | A302949 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3655 | PROOF | A303957 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3656 | PROOF | A304922 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3657 | PROOF | A316949 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3658 | PROOF | A318541 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3659 | PROOF | A283411 | a condition on every cell over the neighbour set the entry names |
-| 3660 | PROOF | A250909 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3661 | PROOF | A208004 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3662 | PROOF | A203376 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3663 | PROOF | A233983 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3664 | PROOF | A207560 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3665 | PROOF | A207748 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3666 | PROOF | A209946 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3667 | PROOF | A229928 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3668 | PROOF | A233639 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3669 | PROOF | A234915 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3670 | PROOF | A188875 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3671 | PROOF | A189690 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3672 | PROOF | A207307 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3673 | PROOF | A210150 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3674 | PROOF | A231518 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3675 | PROOF | A234338 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3676 | PROOF | A255142 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 3677 | PROOF | A278089 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3678 | PROOF | A297225 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3679 | PROOF | A297609 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3680 | PROOF | A297715 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3681 | PROOF | A297910 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3682 | PROOF | A297973 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3683 | PROOF | A298235 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3684 | PROOF | A298332 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3685 | PROOF | A298456 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3686 | PROOF | A299549 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3687 | PROOF | A299597 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3688 | PROOF | A299888 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3689 | PROOF | A300422 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3690 | PROOF | A300806 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3691 | PROOF | A301445 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3692 | PROOF | A302304 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3693 | PROOF | A302410 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3694 | PROOF | A302809 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3695 | PROOF | A302872 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3696 | PROOF | A303035 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3697 | PROOF | A303177 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3698 | PROOF | A303237 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3699 | PROOF | A303891 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3700 | PROOF | A304539 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3701 | PROOF | A304762 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3702 | PROOF | A306055 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3703 | PROOF | A306124 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3704 | PROOF | A316927 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3705 | PROOF | A317233 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3706 | PROOF | A203059 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3707 | PROOF | A233659 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3708 | PROOF | A228800 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3709 | PROOF | A250921 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3710 | PROOF | A251004 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3711 | PROOF | A251168 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3712 | PROOF | A255798 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 3713 | PROOF | A297298 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3714 | PROOF | A302679 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3715 | PROOF | A196691 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3716 | PROOF | A197064 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3717 | PROOF | A197212 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3718 | PROOF | A197337 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3719 | PROOF | A203653 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3720 | PROOF | A238519 | a condition on every cell over the neighbour set the entry names |
-| 3721 | PROOF | A188989 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3722 | PROOF | A203793 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3723 | PROOF | A223397 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3724 | PROOF | A252377 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 3725 | PROOF | A252525 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 3726 | PROOF | A252533 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 3727 | PROOF | A255797 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 3728 | PROOF | A259638 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 3729 | PROOF | A260134 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 3730 | PROOF | A304228 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3731 | PROOF | A304268 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3732 | PROOF | A208068 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3733 | PROOF | A256743 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 3734 | PROOF | A260010 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 3735 | PROOF | A260922 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 3736 | PROOF | A261108 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 3737 | PROOF | A261260 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 3738 | PROOF | A261375 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 3739 | PROOF | A297311 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3740 | PROOF | A297811 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3741 | PROOF | A302012 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3742 | PROOF | A302147 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3743 | PROOF | A302160 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3744 | PROOF | A303317 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3745 | PROOF | A305227 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3746 | PROOF | A203832 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3747 | PROOF | A252068 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 3748 | PROOF | A207849 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3749 | PROOF | A207721 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3750 | PROOF | A223460 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3751 | PROOF | A208423 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3752 | PROOF | A185527 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 3753 | PROOF | A208552 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3754 | PROOF | A256023 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 3755 | PROOF | A260364 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 3756 | PROOF | A297434 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3757 | PROOF | A297597 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3758 | PROOF | A208115 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3759 | PROOF | A208371 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3760 | PROOF | A282786 | a condition on every cell's king-move neighbourhood, boundaries included |
-| 3761 | PROOF | A228659 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3762 | PROOF | A228682 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3763 | PROOF | A208551 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3764 | PROOF | A283574 | a condition on every cell over the neighbour set the entry names |
-| 3765 | PROOF | A283567 | a condition on every cell over the neighbour set the entry names |
-| 3766 | PROOF | A207364 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3767 | PROOF | A207753 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3768 | PROOF | A207875 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3769 | PROOF | A207962 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3770 | PROOF | A208009 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3771 | PROOF | A233878 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3772 | PROOF | A188845 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3773 | PROOF | A207940 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3774 | PROOF | A233727 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3775 | PROOF | A234424 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3776 | PROOF | A251272 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3777 | PROOF | A251375 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3778 | PROOF | A251493 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3779 | PROOF | A255785 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 3780 | PROOF | A260468 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 3781 | PROOF | A260494 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 3782 | PROOF | A260602 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 3783 | PROOF | A261285 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 3784 | PROOF | A261548 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 3785 | PROOF | A295711 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3786 | PROOF | A296536 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3787 | PROOF | A296630 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3788 | PROOF | A296669 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3789 | PROOF | A297340 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3790 | PROOF | A297376 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3791 | PROOF | A297521 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3792 | PROOF | A297902 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3793 | PROOF | A297954 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3794 | PROOF | A298439 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3795 | PROOF | A298542 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3796 | PROOF | A298662 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3797 | PROOF | A298836 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3798 | PROOF | A299130 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3799 | PROOF | A299329 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3800 | PROOF | A299361 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3801 | PROOF | A299516 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3802 | PROOF | A299716 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3803 | PROOF | A301843 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3804 | PROOF | A302267 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3805 | PROOF | A302362 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3806 | PROOF | A302455 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3807 | PROOF | A302966 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3808 | PROOF | A303520 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3809 | PROOF | A303964 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3810 | PROOF | A304474 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3811 | PROOF | A304664 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3812 | PROOF | A304850 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3813 | PROOF | A305247 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3814 | PROOF | A305342 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3815 | PROOF | A316299 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3816 | PROOF | A316422 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3817 | PROOF | A317460 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3818 | PROOF | A320397 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3819 | PROOF | A282587 | a condition on every cell's king-move neighbourhood, boundaries included |
-| 3820 | PROOF | A283277 | a condition on every cell over the neighbour set the entry names |
-| 3821 | PROOF | A234905 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3822 | PROOF | A235002 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3823 | PROOF | A235072 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3824 | PROOF | A284076 | a condition on every cell over the neighbour set the entry names |
-| 3825 | PROOF | A206878 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3826 | PROOF | A283094 | a condition on every cell over the neighbour set the entry names |
-| 3827 | PROOF | A282435 | a condition on every cell's king-move neighbourhood, boundaries included |
-| 3828 | PROOF | A207118 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3829 | PROOF | A207462 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3830 | PROOF | A207584 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3831 | PROOF | A207763 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3832 | PROOF | A207961 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3833 | PROOF | A251254 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3834 | PROOF | A184557 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3835 | PROOF | A251066 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3836 | PROOF | A251404 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3837 | PROOF | A251234 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3838 | PROOF | A298186 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3839 | PROOF | A196317 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3840 | PROOF | A251233 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3841 | PROOF | A252545 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 3842 | PROOF | A297222 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3843 | PROOF | A301962 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3844 | PROOF | A209380 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3845 | PROOF | A203051 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3846 | PROOF | A183389 | a condition on every cell's king-move neighbourhood, boundaries included |
-| 3847 | PROOF | A251232 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3848 | PROOF | A260202 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 3849 | PROOF | A298960 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3850 | PROOF | A301659 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3851 | PROOF | A301838 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3852 | PROOF | A301996 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3853 | PROOF | A302066 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3854 | PROOF | A302683 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3855 | PROOF | A223300 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3856 | PROOF | A252025 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 3857 | PROOF | A234222 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3858 | PROOF | A208031 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3859 | PROOF | A234877 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3860 | PROOF | A237854 | a condition on every cell over the neighbour set the entry names |
-| 3861 | PROOF | A209548 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3862 | PROOF | A234156 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3863 | PROOF | A234485 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3864 | PROOF | A251231 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3865 | PROOF | A255153 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 3866 | PROOF | A259766 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 3867 | PROOF | A260064 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 3868 | PROOF | A260974 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 3869 | PROOF | A297453 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3870 | PROOF | A300800 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3871 | PROOF | A301439 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3872 | PROOF | A305178 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3873 | PROOF | A234118 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3874 | PROOF | A234178 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3875 | PROOF | A231645 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3876 | PROOF | A231747 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3877 | PROOF | A283693 | a condition on every cell over the neighbour set the entry names |
-| 3878 | PROOF | A183382 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3879 | PROOF | A188757 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3880 | PROOF | A188993 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3881 | PROOF | A189190 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3882 | PROOF | A209730 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3883 | PROOF | A228388 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3884 | PROOF | A233786 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3885 | PROOF | A233910 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3886 | PROOF | A234327 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3887 | PROOF | A255094 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 3888 | PROOF | A296034 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3889 | PROOF | A296315 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3890 | PROOF | A297501 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3891 | PROOF | A297602 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3892 | PROOF | A297649 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3893 | PROOF | A297981 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3894 | PROOF | A297988 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3895 | PROOF | A298282 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3896 | PROOF | A298489 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3897 | PROOF | A298624 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3898 | PROOF | A299663 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3899 | PROOF | A300170 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3900 | PROOF | A300337 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3901 | PROOF | A302219 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3902 | PROOF | A302376 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3903 | PROOF | A303041 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3904 | PROOF | A303079 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3905 | PROOF | A303097 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3906 | PROOF | A304843 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3907 | PROOF | A305042 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3908 | PROOF | A305525 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3909 | PROOF | A305764 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3910 | PROOF | A316178 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3911 | PROOF | A316540 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3912 | PROOF | A316817 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3913 | PROOF | A316999 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3914 | PROOF | A317567 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3915 | PROOF | A318011 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3916 | PROOF | A318063 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3917 | PROOF | A318217 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3918 | PROOF | A206780 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3919 | PROOF | A234400 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3920 | PROOF | A203454 | a condition on every cell over the neighbour set the entry names |
-| 3921 | PROOF | A282857 | a condition on every cell over the neighbour set the entry names |
-| 3922 | PROOF | A203050 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3923 | PROOF | A207747 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3924 | PROOF | A251059 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3925 | PROOF | A251287 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3926 | PROOF | A235296 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3927 | PROOF | A303726 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3928 | PROOF | A196899 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3929 | PROOF | A230064 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3930 | PROOF | A235014 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3931 | PROOF | A188828 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3932 | PROOF | A228665 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3933 | PROOF | A228687 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3934 | PROOF | A231834 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3935 | PROOF | A235295 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3936 | PROOF | A252132 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 3937 | PROOF | A256744 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 3938 | PROOF | A259738 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 3939 | PROOF | A302008 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3940 | PROOF | A223444 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3941 | PROOF | A235013 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3942 | PROOF | A188870 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3943 | PROOF | A235294 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3944 | PROOF | A259737 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 3945 | PROOF | A296551 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3946 | PROOF | A298180 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3947 | PROOF | A304218 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3948 | PROOF | A204401 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 3949 | PROOF | A204494 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 3950 | PROOF | A230270 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3951 | PROOF | A196212 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3952 | PROOF | A197666 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3953 | PROOF | A208081 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3954 | PROOF | A207810 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3955 | PROOF | A208837 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3956 | PROOF | A235293 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3957 | PROOF | A259717 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 3958 | PROOF | A260288 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 3959 | PROOF | A295777 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3960 | PROOF | A304129 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3961 | PROOF | A304771 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3962 | PROOF | A305478 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3963 | PROOF | A316514 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3964 | PROOF | A251369 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3965 | PROOF | A208105 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3966 | PROOF | A207720 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3967 | PROOF | A208422 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3968 | PROOF | A283489 | a condition on every cell over the neighbour set the entry names |
-| 3969 | PROOF | A208836 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3970 | PROOF | A207725 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3971 | PROOF | A207854 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3972 | PROOF | A209791 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3973 | PROOF | A232282 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3974 | PROOF | A251244 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3975 | PROOF | A235081 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3976 | PROOF | A282311 | a condition on every cell's king-move neighbourhood, boundaries included |
-| 3977 | PROOF | A183795 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3978 | PROOF | A207250 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3979 | PROOF | A231377 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3980 | PROOF | A233676 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3981 | PROOF | A235292 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3982 | PROOF | A251501 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3983 | PROOF | A254971 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 3984 | PROOF | A260170 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 3985 | PROOF | A295115 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3986 | PROOF | A295374 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3987 | PROOF | A295980 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3988 | PROOF | A296646 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3989 | PROOF | A296720 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3990 | PROOF | A297508 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3991 | PROOF | A297884 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3992 | PROOF | A298275 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3993 | PROOF | A298996 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3994 | PROOF | A299076 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3995 | PROOF | A299137 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3996 | PROOF | A299316 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3997 | PROOF | A299368 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3998 | PROOF | A299932 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 3999 | PROOF | A300133 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4000 | PROOF | A301610 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4001 | PROOF | A301952 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4002 | PROOF | A302884 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4003 | PROOF | A303011 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4004 | PROOF | A303803 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4005 | PROOF | A304467 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4006 | PROOF | A305177 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4007 | PROOF | A305511 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4008 | PROOF | A306048 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4009 | PROOF | A316284 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4010 | PROOF | A317113 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4011 | PROOF | A317225 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4012 | PROOF | A317736 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4013 | PROOF | A283686 | a condition on every cell over the neighbour set the entry names |
-| 4014 | PROOF | A235251 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4015 | PROOF | A233885 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4016 | PROOF | A233974 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4017 | PROOF | A234406 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4018 | PROOF | A251611 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4019 | PROOF | A234891 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4020 | PROOF | A234992 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4021 | PROOF | A235064 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4022 | PROOF | A202974 | a condition on every cell over the neighbour set the entry names |
-| 4023 | PROOF | A207341 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4024 | PROOF | A207509 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4025 | PROOF | A234201 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4026 | PROOF | A251468 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4027 | PROOF | A283197 | a condition on every cell over the neighbour set the entry names |
-| 4028 | PROOF | A283488 | a condition on every cell over the neighbour set the entry names |
-| 4029 | PROOF | A283727 | a condition on every cell over the neighbour set the entry names |
-| 4030 | PROOF | A251271 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4031 | PROOF | A282879 | a condition on every cell over the neighbour set the entry names |
-| 4032 | PROOF | A233943 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4033 | PROOF | A250835 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4034 | PROOF | A207025 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4035 | PROOF | A207069 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4036 | PROOF | A251263 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4037 | PROOF | A251312 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4038 | PROOF | A251321 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4039 | PROOF | A251435 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4040 | PROOF | A251026 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4041 | PROOF | A251053 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4042 | PROOF | A195964 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4043 | PROOF | A196205 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4044 | PROOF | A196324 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4045 | PROOF | A196431 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4046 | PROOF | A196631 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4047 | PROOF | A196952 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4048 | PROOF | A196984 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4049 | PROOF | A197524 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4050 | PROOF | A235275 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4051 | PROOF | A252069 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 4052 | PROOF | A251025 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4053 | PROOF | A251052 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4054 | PROOF | A252271 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 4055 | PROOF | A252516 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 4056 | PROOF | A303725 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4057 | PROOF | A235274 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4058 | PROOF | A208112 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4059 | PROOF | A189060 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4060 | PROOF | A206251 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4061 | PROOF | A251024 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4062 | PROOF | A251051 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4063 | PROOF | A259637 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 4064 | PROOF | A260133 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 4065 | PROOF | A297221 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4066 | PROOF | A297371 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4067 | PROOF | A300179 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4068 | PROOF | A302512 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4069 | PROOF | A303311 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4070 | PROOF | A304267 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4071 | PROOF | A230332 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4072 | PROOF | A230521 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4073 | PROOF | A278009 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4074 | PROOF | A196132 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4075 | PROOF | A196294 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4076 | PROOF | A197403 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4077 | PROOF | A197883 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4078 | PROOF | A198179 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4079 | PROOF | A203185 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4080 | PROOF | A235273 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4081 | PROOF | A208111 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4082 | PROOF | A208017 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4083 | PROOF | A208072 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4084 | PROOF | A207593 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4085 | PROOF | A229697 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4086 | PROOF | A183445 | a condition on every cell's king-move neighbourhood, boundaries included |
-| 4087 | PROOF | A282643 | a condition on every cell's king-move neighbourhood, boundaries included |
-| 4088 | PROOF | A184147 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4089 | PROOF | A188712 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4090 | PROOF | A251023 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4091 | PROOF | A251050 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4092 | PROOF | A251278 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4093 | PROOF | A259946 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 4094 | PROOF | A260009 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 4095 | PROOF | A260278 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 4096 | PROOF | A296124 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4097 | PROOF | A297591 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4098 | PROOF | A303423 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4099 | PROOF | A305043 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4100 | PROOF | A320367 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4101 | PROOF | A206468 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4102 | PROOF | A223426 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4103 | PROOF | A207175 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4104 | PROOF | A208110 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4105 | PROOF | A209226 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4106 | PROOF | A207174 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4107 | PROOF | A208015 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4108 | PROOF | A208070 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4109 | PROOF | A250954 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4110 | PROOF | A234030 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4111 | PROOF | A235272 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4112 | PROOF | A207173 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4113 | PROOF | A184370 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4114 | PROOF | A208003 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4115 | PROOF | A208109 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4116 | PROOF | A234876 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4117 | PROOF | A231971 | a condition on every cell over the neighbour set the entry names |
-| 4118 | PROOF | A282394 | a condition on every cell's king-move neighbourhood, boundaries included |
-| 4119 | PROOF | A283125 | a condition on every cell over the neighbour set the entry names |
-| 4120 | PROOF | A183399 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4121 | PROOF | A189105 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4122 | PROOF | A207172 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4123 | PROOF | A233685 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4124 | PROOF | A251022 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4125 | PROOF | A251049 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4126 | PROOF | A251230 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4127 | PROOF | A256022 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 4128 | PROOF | A256741 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 4129 | PROOF | A260008 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 4130 | PROOF | A260099 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 4131 | PROOF | A260287 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 4132 | PROOF | A260537 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 4133 | PROOF | A261704 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 4134 | PROOF | A295046 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4135 | PROOF | A295842 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4136 | PROOF | A296330 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4137 | PROOF | A297514 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4138 | PROOF | A297696 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4139 | PROOF | A297735 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4140 | PROOF | A297818 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4141 | PROOF | A297918 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4142 | PROOF | A298141 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4143 | PROOF | A298570 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4144 | PROOF | A298584 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4145 | PROOF | A299062 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4146 | PROOF | A299576 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4147 | PROOF | A299834 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4148 | PROOF | A300968 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4149 | PROOF | A302207 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4150 | PROOF | A302618 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4151 | PROOF | A302630 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4152 | PROOF | A304297 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4153 | PROOF | A304422 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4154 | PROOF | A305956 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4155 | PROOF | A316277 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4156 | PROOF | A317217 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4157 | PROOF | A326100 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4158 | PROOF | A282832 | a condition on every cell's king-move neighbourhood, boundaries included |
-| 4159 | PROOF | A235169 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4160 | PROOF | A206872 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4161 | PROOF | A207089 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4162 | PROOF | A283635 | a condition on every cell over the neighbour set the entry names |
-| 4163 | PROOF | A282991 | a condition on every cell over the neighbour set the entry names |
-| 4164 | PROOF | A207171 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4165 | PROOF | A207437 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4166 | PROOF | A207483 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4167 | PROOF | A207559 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4168 | PROOF | A207712 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4169 | PROOF | A207730 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4170 | PROOF | A207939 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4171 | PROOF | A208023 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4172 | PROOF | A208496 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4173 | PROOF | A233646 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4174 | PROOF | A233749 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4175 | PROOF | A234084 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4176 | PROOF | A228387 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4177 | PROOF | A228479 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4178 | PROOF | A184490 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4179 | PROOF | A210270 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4180 | PROOF | A203184 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4181 | PROOF | A251508 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4182 | PROOF | A231703 | a condition on every cell over the neighbour set the entry names |
-| 4183 | PROOF | A231765 | a condition on every cell over the neighbour set the entry names |
-| 4184 | PROOF | A231998 | a condition on every cell over the neighbour set the entry names |
-| 4185 | PROOF | A282831 | a condition on every cell's king-move neighbourhood, boundaries included |
-| 4186 | PROOF | A250968 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4187 | PROOF | A251095 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4188 | PROOF | A251196 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4189 | PROOF | A251214 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4190 | PROOF | A296399 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4191 | PROOF | A296572 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4192 | PROOF | A296582 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4193 | PROOF | A297315 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4194 | PROOF | A303681 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4195 | PROOF | A196488 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4196 | PROOF | A196741 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4197 | PROOF | A197368 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4198 | PROOF | A209381 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4199 | PROOF | A252337 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 4200 | PROOF | A223435 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4201 | PROOF | A297297 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4202 | PROOF | A298915 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4203 | PROOF | A302513 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4204 | PROOF | A303312 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4205 | PROOF | A207702 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4206 | PROOF | A207937 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4207 | PROOF | A189198 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4208 | PROOF | A298914 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4209 | PROOF | A298921 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4210 | PROOF | A301404 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4211 | PROOF | A301781 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4212 | PROOF | A303724 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4213 | PROOF | A317514 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4214 | PROOF | A208067 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4215 | PROOF | A196479 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4216 | PROOF | A197174 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4217 | PROOF | A197201 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4218 | PROOF | A197444 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4219 | PROOF | A197531 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4220 | PROOF | A197539 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4221 | PROOF | A197607 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4222 | PROOF | A235012 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4223 | PROOF | A183388 | a condition on every cell's king-move neighbourhood, boundaries included |
-| 4224 | PROOF | A188701 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4225 | PROOF | A207848 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4226 | PROOF | A208066 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4227 | PROOF | A208121 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4228 | PROOF | A228756 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4229 | PROOF | A232043 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4230 | PROOF | A255021 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 4231 | PROOF | A256742 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 4232 | PROOF | A259888 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 4233 | PROOF | A259956 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 4234 | PROOF | A260201 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 4235 | PROOF | A260921 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 4236 | PROOF | A261374 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 4237 | PROOF | A278267 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4238 | PROOF | A297310 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4239 | PROOF | A297397 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4240 | PROOF | A298920 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4241 | PROOF | A301880 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4242 | PROOF | A302077 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4243 | PROOF | A302619 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4244 | PROOF | A302625 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4245 | PROOF | A318339 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4246 | PROOF | A209378 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4247 | PROOF | A208080 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4248 | PROOF | A223213 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4249 | PROOF | A208291 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4250 | PROOF | A283545 | a condition on every cell over the neighbour set the entry names |
-| 4251 | PROOF | A208065 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4252 | PROOF | A283539 | a condition on every cell over the neighbour set the entry names |
-| 4253 | PROOF | A208114 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4254 | PROOF | A208119 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4255 | PROOF | A208370 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4256 | PROOF | A282523 | a condition on every cell's king-move neighbourhood, boundaries included |
-| 4257 | PROOF | A283852 | a condition on every cell over the neighbour set the entry names |
-| 4258 | PROOF | A189258 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4259 | PROOF | A228504 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4260 | PROOF | A234241 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4261 | PROOF | A234476 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4262 | PROOF | A234721 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4263 | PROOF | A256803 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 4264 | PROOF | A259765 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 4265 | PROOF | A259945 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 4266 | PROOF | A260277 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 4267 | PROOF | A260920 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 4268 | PROOF | A260973 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 4269 | PROOF | A278203 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4270 | PROOF | A295411 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4271 | PROOF | A296322 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4272 | PROOF | A297459 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4273 | PROOF | A297683 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4274 | PROOF | A297689 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4275 | PROOF | A297728 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4276 | PROOF | A297853 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4277 | PROOF | A298919 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4278 | PROOF | A298965 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4279 | PROOF | A299656 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4280 | PROOF | A299735 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4281 | PROOF | A300210 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4282 | PROOF | A300345 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4283 | PROOF | A300541 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4284 | PROOF | A300925 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4285 | PROOF | A302948 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4286 | PROOF | A304136 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4287 | PROOF | A305240 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4288 | PROOF | A305687 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4289 | PROOF | A317067 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4290 | PROOF | A235241 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4291 | PROOF | A206931 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4292 | PROOF | A207177 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4293 | PROOF | A235232 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4294 | PROOF | A282554 | a condition on every cell's king-move neighbourhood, boundaries included |
-| 4295 | PROOF | A207249 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4296 | PROOF | A207363 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4297 | PROOF | A234146 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4298 | PROOF | A283951 | a condition on every cell over the neighbour set the entry names |
-| 4299 | PROOF | A234984 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4300 | PROOF | A283036 | a condition on every cell over the neighbour set the entry names |
-| 4301 | PROOF | A233710 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4302 | PROOF | A283276 | a condition on every cell over the neighbour set the entry names |
-| 4303 | PROOF | A228799 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4304 | PROOF | A231538 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4305 | PROOF | A251021 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4306 | PROOF | A251048 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4307 | PROOF | A251223 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4308 | PROOF | A251270 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4309 | PROOF | A296380 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4310 | PROOF | A296593 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4311 | PROOF | A317857 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4312 | PROOF | A203731 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4313 | PROOF | A203883 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4314 | PROOF | A188711 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4315 | PROOF | A317763 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4316 | PROOF | A196781 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4317 | PROOF | A203930 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4318 | PROOF | A222278 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4319 | PROOF | A251087 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4320 | PROOF | A251136 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4321 | PROOF | A223594 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4322 | PROOF | A298185 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4323 | PROOF | A302148 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4324 | PROOF | A303680 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4325 | PROOF | A317762 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4326 | PROOF | A203652 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4327 | PROOF | A222141 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4328 | PROOF | A230529 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4329 | PROOF | A251086 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4330 | PROOF | A251135 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4331 | PROOF | A203792 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4332 | PROOF | A228664 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4333 | PROOF | A228686 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4334 | PROOF | A297335 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4335 | PROOF | A301881 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4336 | PROOF | A302078 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4337 | PROOF | A305037 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4338 | PROOF | A316690 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4339 | PROOF | A209508 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4340 | PROOF | A230464 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4341 | PROOF | A232018 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4342 | PROOF | A251085 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4343 | PROOF | A251134 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4344 | PROOF | A195972 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4345 | PROOF | A196450 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4346 | PROOF | A196584 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4347 | PROOF | A196701 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4348 | PROOF | A196850 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4349 | PROOF | A196961 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4350 | PROOF | A197274 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4351 | PROOF | A197311 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4352 | PROOF | A207701 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4353 | PROOF | A207936 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4354 | PROOF | A188869 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4355 | PROOF | A188987 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4356 | PROOF | A189059 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4357 | PROOF | A189197 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4358 | PROOF | A203095 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4359 | PROOF | A231833 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4360 | PROOF | A258960 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 4361 | PROOF | A278095 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4362 | PROOF | A278189 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4363 | PROOF | A296550 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4364 | PROOF | A297391 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4365 | PROOF | A297427 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4366 | PROOF | A298163 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4367 | PROOF | A301966 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4368 | PROOF | A302511 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4369 | PROOF | A302517 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4370 | PROOF | A302682 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4371 | PROOF | A303310 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4372 | PROOF | A303316 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4373 | PROOF | A304217 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4374 | PROOF | A305036 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4375 | PROOF | A305226 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4376 | PROOF | A316689 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4377 | PROOF | A316804 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4378 | PROOF | A317521 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4379 | PROOF | A203831 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4380 | PROOF | A251084 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4381 | PROOF | A251133 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4382 | PROOF | A207592 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4383 | PROOF | A208030 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4384 | PROOF | A208290 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4385 | PROOF | A228753 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4386 | PROOF | A228795 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4387 | PROOF | A230170 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4388 | PROOF | A250908 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4389 | PROOF | A251083 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4390 | PROOF | A251132 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4391 | PROOF | A186055 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 4392 | PROOF | A203375 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4393 | PROOF | A228658 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4394 | PROOF | A228681 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4395 | PROOF | A234414 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4396 | PROOF | A234667 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4397 | PROOF | A234705 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4398 | PROOF | A234731 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4399 | PROOF | A250953 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4400 | PROOF | A251294 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4401 | PROOF | A251337 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4402 | PROOF | A251485 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4403 | PROOF | A259955 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 4404 | PROOF | A259994 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 4405 | PROOF | A260363 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 4406 | PROOF | A278275 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4407 | PROOF | A297452 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4408 | PROOF | A297596 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4409 | PROOF | A300467 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4410 | PROOF | A302158 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4411 | PROOF | A302742 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4412 | PROOF | A302954 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4413 | PROOF | A303192 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4414 | PROOF | A303457 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4415 | PROOF | A303795 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4416 | PROOF | A303956 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4417 | PROOF | A304599 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4418 | PROOF | A304921 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4419 | PROOF | A305335 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4420 | PROOF | A306161 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4421 | PROOF | A316415 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4422 | PROOF | A316948 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4423 | PROOF | A317378 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4424 | PROOF | A318540 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4425 | PROOF | A206989 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4426 | PROOF | A234185 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4427 | PROOF | A234816 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4428 | PROOF | A207306 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4429 | PROOF | A207495 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4430 | PROOF | A209945 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4431 | PROOF | A209954 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4432 | PROOF | A233638 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4433 | PROOF | A251082 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4434 | PROOF | A251131 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4435 | PROOF | A251345 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4436 | PROOF | A234975 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4437 | PROOF | A184665 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4438 | PROOF | A203094 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4439 | PROOF | A232048 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4440 | PROOF | A250958 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4441 | PROOF | A251301 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4442 | PROOF | A251352 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4443 | PROOF | A251395 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4444 | PROOF | A251452 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4445 | PROOF | A297375 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4446 | PROOF | A300374 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4447 | PROOF | A300500 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4448 | PROOF | A301885 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4449 | PROOF | A318018 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4450 | PROOF | A251106 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4451 | PROOF | A234138 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4452 | PROOF | A235287 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4453 | PROOF | A299594 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4454 | PROOF | A301789 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4455 | PROOF | A303718 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4456 | PROOF | A196573 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4457 | PROOF | A196804 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4458 | PROOF | A196858 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4459 | PROOF | A234265 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4460 | PROOF | A203823 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4461 | PROOF | A234137 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4462 | PROOF | A235286 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4463 | PROOF | A252236 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 4464 | PROOF | A252262 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 4465 | PROOF | A252362 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 4466 | PROOF | A252543 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 4467 | PROOF | A258962 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 4468 | PROOF | A299593 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4469 | PROOF | A301788 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4470 | PROOF | A302678 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4471 | PROOF | A303717 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4472 | PROOF | A229752 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4473 | PROOF | A223419 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4474 | PROOF | A234264 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4475 | PROOF | A223348 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4476 | PROOF | A229751 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4477 | PROOF | A188988 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4478 | PROOF | A234136 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4479 | PROOF | A235285 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4480 | PROOF | A299592 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4481 | PROOF | A301961 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4482 | PROOF | A302007 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4483 | PROOF | A303679 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4484 | PROOF | A303716 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4485 | PROOF | A304227 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4486 | PROOF | A305583 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4487 | PROOF | A229691 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4488 | PROOF | A209379 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4489 | PROOF | A223374 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4490 | PROOF | A234263 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4491 | PROOF | A252336 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 4492 | PROOF | A195956 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4493 | PROOF | A196140 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4494 | PROOF | A196906 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4495 | PROOF | A196976 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4496 | PROOF | A197229 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4497 | PROOF | A197642 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4498 | PROOF | A223251 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4499 | PROOF | A223418 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4500 | PROOF | A229750 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4501 | PROOF | A188826 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4502 | PROOF | A206250 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4503 | PROOF | A208016 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4504 | PROOF | A208071 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4505 | PROOF | A230782 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4506 | PROOF | A234135 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4507 | PROOF | A235284 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4508 | PROOF | A259636 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 4509 | PROOF | A260132 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 4510 | PROOF | A261107 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 4511 | PROOF | A278183 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4512 | PROOF | A295914 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4513 | PROOF | A296309 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4514 | PROOF | A299591 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4515 | PROOF | A300178 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4516 | PROOF | A301947 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4517 | PROOF | A303417 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4518 | PROOF | A303715 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4519 | PROOF | A303723 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4520 | PROOF | A304137 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4521 | PROOF | A304226 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4522 | PROOF | A304266 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4523 | PROOF | A305582 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4524 | PROOF | A317729 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4525 | PROOF | A234262 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4526 | PROOF | A207700 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4527 | PROOF | A223338 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4528 | PROOF | A223425 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4529 | PROOF | A223347 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4530 | PROOF | A207935 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4531 | PROOF | A208383 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4532 | PROOF | A208382 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4533 | PROOF | A234221 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4534 | PROOF | A229696 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4535 | PROOF | A208289 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4536 | PROOF | A208381 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4537 | PROOF | A223408 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4538 | PROOF | A239179 | a condition on every cell over the neighbour set the entry names |
-| 4539 | PROOF | A206467 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4540 | PROOF | A207591 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4541 | PROOF | A207689 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4542 | PROOF | A207737 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4543 | PROOF | A207924 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4544 | PROOF | A208014 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4545 | PROOF | A208035 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4546 | PROOF | A208104 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4547 | PROOF | A209220 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4548 | PROOF | A234261 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4549 | PROOF | A183444 | a condition on every cell's king-move neighbourhood, boundaries included |
-| 4550 | PROOF | A231992 | a condition on every cell over the neighbour set the entry names |
-| 4551 | PROOF | A282642 | a condition on every cell's king-move neighbourhood, boundaries included |
-| 4552 | PROOF | A186044 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 4553 | PROOF | A188748 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4554 | PROOF | A208380 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4555 | PROOF | A209547 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4556 | PROOF | A234134 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4557 | PROOF | A234155 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4558 | PROOF | A234228 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4559 | PROOF | A235283 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4560 | PROOF | A251518 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4561 | PROOF | A255020 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 4562 | PROOF | A255152 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 4563 | PROOF | A257440 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 4564 | PROOF | A259735 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 4565 | PROOF | A260063 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 4566 | PROOF | A260241 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 4567 | PROOF | A261258 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 4568 | PROOF | A261373 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 4569 | PROOF | A297396 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4570 | PROOF | A297426 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4571 | PROOF | A297433 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4572 | PROOF | A297577 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4573 | PROOF | A297590 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4574 | PROOF | A299723 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4575 | PROOF | A303619 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4576 | PROOF | A303722 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4577 | PROOF | A305225 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4578 | PROOF | A305477 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4579 | PROOF | A317728 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4580 | PROOF | A318070 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4581 | PROOF | A282371 | a condition on every cell's king-move neighbourhood, boundaries included |
-| 4582 | PROOF | A235205 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4583 | PROOF | A206866 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4584 | PROOF | A207083 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4585 | PROOF | A233897 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4586 | PROOF | A234124 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4587 | PROOF | A234170 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4588 | PROOF | A234550 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4589 | PROOF | A234683 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4590 | PROOF | A235312 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4591 | PROOF | A196012 | a condition on every cell over the neighbour set the entry names |
-| 4592 | PROOF | A235100 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4593 | PROOF | A235191 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4594 | PROOF | A283544 | a condition on every cell over the neighbour set the entry names |
-| 4595 | PROOF | A282785 | a condition on every cell's king-move neighbourhood, boundaries included |
-| 4596 | PROOF | A207347 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4597 | PROOF | A207683 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4598 | PROOF | A207769 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4599 | PROOF | A207840 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4600 | PROOF | A208103 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4601 | PROOF | A233811 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4602 | PROOF | A234452 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4603 | PROOF | A283538 | a condition on every cell over the neighbour set the entry names |
-| 4604 | PROOF | A228503 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4605 | PROOF | A228657 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4606 | PROOF | A228680 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4607 | PROOF | A234883 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4608 | PROOF | A235019 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4609 | PROOF | A235179 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4610 | PROOF | A283573 | a condition on every cell over the neighbour set the entry names |
-| 4611 | PROOF | A183785 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4612 | PROOF | A210384 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4613 | PROOF | A233877 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4614 | PROOF | A234260 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4615 | PROOF | A234437 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4616 | PROOF | A251204 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4617 | PROOF | A251329 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4618 | PROOF | A251384 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4619 | PROOF | A233921 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4620 | PROOF | A234076 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4621 | PROOF | A234107 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4622 | PROOF | A231799 | a condition on every cell over the neighbour set the entry names |
-| 4623 | PROOF | A282393 | a condition on every cell's king-move neighbourhood, boundaries included |
-| 4624 | PROOF | A297079 | a condition on every cell's king-move neighbourhood, boundaries included |
-| 4625 | PROOF | A297096 | a condition on every cell's king-move neighbourhood, boundaries included |
-| 4626 | PROOF | A184209 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4627 | PROOF | A188501 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4628 | PROOF | A188516 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4629 | PROOF | A207170 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4630 | PROOF | A207436 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4631 | PROOF | A209709 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4632 | PROOF | A209780 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4633 | PROOF | A209851 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4634 | PROOF | A209906 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4635 | PROOF | A210070 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4636 | PROOF | A210328 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4637 | PROOF | A231509 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4638 | PROOF | A251253 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4639 | PROOF | A278171 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4640 | PROOF | A295346 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4641 | PROOF | A295525 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4642 | PROOF | A295937 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4643 | PROOF | A295979 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4644 | PROOF | A296109 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4645 | PROOF | A296645 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4646 | PROOF | A296668 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4647 | PROOF | A296682 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4648 | PROOF | A296733 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4649 | PROOF | A296798 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4650 | PROOF | A296821 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4651 | PROOF | A296984 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4652 | PROOF | A297545 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4653 | PROOF | A297608 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4654 | PROOF | A297638 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4655 | PROOF | A297655 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4656 | PROOF | A297721 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4657 | PROOF | A297750 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4658 | PROOF | A300421 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4659 | PROOF | A300533 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4660 | PROOF | A317735 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4661 | PROOF | A317767 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4662 | PROOF | A317809 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4663 | PROOF | A317817 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4664 | PROOF | A318031 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4665 | PROOF | A318039 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4666 | PROOF | A251081 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4667 | PROOF | A251130 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4668 | PROOF | A251151 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4669 | PROOF | A251444 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4670 | PROOF | A251311 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4671 | PROOF | A196596 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4672 | PROOF | A223250 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4673 | PROOF | A223409 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4674 | PROOF | A230180 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4675 | PROOF | A251148 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4676 | PROOF | A185899 | a condition on every cell over the neighbour set the entry names |
-| 4677 | PROOF | A188710 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4678 | PROOF | A230509 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4679 | PROOF | A198598 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4680 | PROOF | A185405 | a condition on every cell over the neighbour set the entry names |
-| 4681 | PROOF | A251147 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4682 | PROOF | A185535 | a condition on every cell over the neighbour set the entry names |
-| 4683 | PROOF | A301820 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4684 | PROOF | A301903 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4685 | PROOF | A302677 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4686 | PROOF | A208505 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4687 | PROOF | A223292 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4688 | PROOF | A230670 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4689 | PROOF | A251146 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4690 | PROOF | A196072 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4691 | PROOF | A196204 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4692 | PROOF | A196316 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4693 | PROOF | A197211 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4694 | PROOF | A197244 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4695 | PROOF | A197344 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4696 | PROOF | A230393 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4697 | PROOF | A208504 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4698 | PROOF | A223242 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4699 | PROOF | A186161 | a condition on every cell over the neighbour set the entry names |
-| 4700 | PROOF | A251127 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4701 | PROOF | A261259 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 4702 | PROOF | A297220 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4703 | PROOF | A297334 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4704 | PROOF | A298179 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4705 | PROOF | A298959 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4706 | PROOF | A301403 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4707 | PROOF | A301658 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4708 | PROOF | A301837 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4709 | PROOF | A302065 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4710 | PROOF | A303678 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4711 | PROOF | A317760 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4712 | PROOF | A209507 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4713 | PROOF | A251145 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4714 | PROOF | A251126 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4715 | PROOF | A185552 | a condition on every cell over the neighbour set the entry names |
-| 4716 | PROOF | A202883 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4717 | PROOF | A207719 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4718 | PROOF | A208421 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4719 | PROOF | A230185 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4720 | PROOF | A230470 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4721 | PROOF | A230676 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4722 | PROOF | A232017 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4723 | PROOF | A234117 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4724 | PROOF | A251144 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4725 | PROOF | A251368 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4726 | PROOF | A235011 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4727 | PROOF | A237853 | a condition on every cell over the neighbour set the entry names |
-| 4728 | PROOF | A283410 | a condition on every cell over the neighbour set the entry names |
-| 4729 | PROOF | A188700 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4730 | PROOF | A208288 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4731 | PROOF | A228752 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4732 | PROOF | A228794 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4733 | PROOF | A234484 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4734 | PROOF | A234697 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4735 | PROOF | A251125 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4736 | PROOF | A260200 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 4737 | PROOF | A295776 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4738 | PROOF | A298095 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4739 | PROOF | A298897 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4740 | PROOF | A299590 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4741 | PROOF | A299649 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4742 | PROOF | A300203 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4743 | PROOF | A302260 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4744 | PROOF | A302416 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4745 | PROOF | A302636 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4746 | PROOF | A302736 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4747 | PROOF | A302960 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4748 | PROOF | A303183 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4749 | PROOF | A303451 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4750 | PROOF | A303464 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4751 | PROOF | A303631 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4752 | PROOF | A304770 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4753 | PROOF | A305518 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4754 | PROOF | A316513 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4755 | PROOF | A316810 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4756 | PROOF | A316955 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4757 | PROOF | A317560 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4758 | PROOF | A318338 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4759 | PROOF | A234659 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4760 | PROOF | A207718 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4761 | PROOF | A207896 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4762 | PROOF | A234177 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4763 | PROOF | A234491 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4764 | PROOF | A234543 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4765 | PROOF | A234651 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4766 | PROOF | A235303 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4767 | PROOF | A203374 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4768 | PROOF | A251124 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4769 | PROOF | A235091 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4770 | PROOF | A209376 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4771 | PROOF | A251143 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4772 | PROOF | A251243 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4773 | PROOF | A234557 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4774 | PROOF | A283124 | a condition on every cell over the neighbour set the entry names |
-| 4775 | PROOF | A283409 | a condition on every cell over the neighbour set the entry names |
-| 4776 | PROOF | A283692 | a condition on every cell over the neighbour set the entry names |
-| 4777 | PROOF | A297088 | a condition on every cell's king-move neighbourhood, boundaries included |
-| 4778 | PROOF | A210149 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4779 | PROOF | A210348 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4780 | PROOF | A228386 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4781 | PROOF | A231376 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4782 | PROOF | A231524 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4783 | PROOF | A233628 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4784 | PROOF | A233960 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4785 | PROOF | A251123 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4786 | PROOF | A295091 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4787 | PROOF | A295247 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4788 | PROOF | A296033 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4789 | PROOF | A296329 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4790 | PROOF | A296957 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4791 | PROOF | A296968 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4792 | PROOF | A297339 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4793 | PROOF | A297507 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4794 | PROOF | A297734 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4795 | PROOF | A297763 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4796 | PROOF | A297817 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4797 | PROOF | A297852 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4798 | PROOF | A297883 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4799 | PROOF | A297901 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4800 | PROOF | A297945 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4801 | PROOF | A298057 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4802 | PROOF | A298148 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4803 | PROOF | A298189 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4804 | PROOF | A298215 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4805 | PROOF | A298448 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4806 | PROOF | A300344 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4807 | PROOF | A302164 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4808 | PROOF | A302225 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4809 | PROOF | A302310 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4810 | PROOF | A303684 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4811 | PROOF | A303794 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4812 | PROOF | A303882 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4813 | PROOF | A304013 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4814 | PROOF | A304052 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4815 | PROOF | A304143 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4816 | PROOF | A304257 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4817 | PROOF | A304341 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4818 | PROOF | A305091 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4819 | PROOF | A317890 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4820 | PROOF | A282856 | a condition on every cell over the neighbour set the entry names |
-| 4821 | PROOF | A202973 | a condition on every cell over the neighbour set the entry names |
-| 4822 | PROOF | A184556 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4823 | PROOF | A202882 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4824 | PROOF | A250920 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4825 | PROOF | A250975 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4826 | PROOF | A251003 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4827 | PROOF | A251012 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4828 | PROOF | A251403 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4829 | PROOF | A228798 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4830 | PROOF | A250967 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4831 | PROOF | A251122 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4832 | PROOF | A251195 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4833 | PROOF | A251213 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4834 | PROOF | A251222 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4835 | PROOF | A251252 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4836 | PROOF | A251269 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4837 | PROOF | A251286 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4838 | PROOF | A251320 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4839 | PROOF | A188822 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4840 | PROOF | A188829 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4841 | PROOF | A255225 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 4842 | PROOF | A257444 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 4843 | PROOF | A258963 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 4844 | PROOF | A196917 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4845 | PROOF | A255224 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 4846 | PROOF | A257443 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 4847 | PROOF | A230588 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4848 | PROOF | A188709 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4849 | PROOF | A188820 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4850 | PROOF | A188827 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4851 | PROOF | A203822 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4852 | PROOF | A255223 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 4853 | PROOF | A257442 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 4854 | PROOF | A258961 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 4855 | PROOF | A297296 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4856 | PROOF | A301787 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4857 | PROOF | A317761 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4858 | PROOF | A208693 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4859 | PROOF | A196630 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4860 | PROOF | A196690 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4861 | PROOF | A197092 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4862 | PROOF | A197497 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4863 | PROOF | A197617 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4864 | PROOF | A208692 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4865 | PROOF | A208559 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4866 | PROOF | A223396 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4867 | PROOF | A228663 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4868 | PROOF | A228685 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4869 | PROOF | A230835 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4870 | PROOF | A255222 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 4871 | PROOF | A257441 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 4872 | PROOF | A259736 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 4873 | PROOF | A301780 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4874 | PROOF | A301786 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4875 | PROOF | A302006 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4876 | PROOF | A302011 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4877 | PROOF | A302676 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4878 | PROOF | A223442 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4879 | PROOF | A207458 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4880 | PROOF | A208691 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4881 | PROOF | A207457 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4882 | PROOF | A208557 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4883 | PROOF | A207456 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4884 | PROOF | A207847 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4885 | PROOF | A208029 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4886 | PROOF | A208690 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4887 | PROOF | A209225 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4888 | PROOF | A209377 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4889 | PROOF | A229841 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4890 | PROOF | A277939 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4891 | PROOF | A278000 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4892 | PROOF | A278015 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4893 | PROOF | A295913 | a condition on every cell's king-move neighbourhood, boundaries included |
-| 4894 | PROOF | A184146 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4895 | PROOF | A188819 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4896 | PROOF | A188868 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4897 | PROOF | A188986 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4898 | PROOF | A206249 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4899 | PROOF | A207455 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4900 | PROOF | A228755 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4901 | PROOF | A251277 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4902 | PROOF | A255221 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 4903 | PROOF | A259635 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 4904 | PROOF | A259716 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 4905 | PROOF | A259887 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 4906 | PROOF | A260131 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 4907 | PROOF | A297300 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4908 | PROOF | A297309 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4909 | PROOF | A297390 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4910 | PROOF | A301657 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4911 | PROOF | A301965 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4912 | PROOF | A302165 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4913 | PROOF | A302422 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4914 | PROOF | A302510 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4915 | PROOF | A302516 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4916 | PROOF | A302624 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4917 | PROOF | A302681 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4918 | PROOF | A302803 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4919 | PROOF | A303309 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4920 | PROOF | A303315 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4921 | PROOF | A303422 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4922 | PROOF | A304216 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4923 | PROOF | A316803 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4924 | PROOF | A317520 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4925 | PROOF | A207454 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4926 | PROOF | A207694 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4927 | PROOF | A207929 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4928 | PROOF | A208064 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4929 | PROOF | A233951 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4930 | PROOF | A234674 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4931 | PROOF | A228751 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4932 | PROOF | A228793 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4933 | PROOF | A250952 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4934 | PROOF | A184369 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4935 | PROOF | A206466 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4936 | PROOF | A209790 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4937 | PROOF | A234116 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4938 | PROOF | A196423 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4939 | PROOF | A196537 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4940 | PROOF | A234029 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4941 | PROOF | A234162 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4942 | PROOF | A234210 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4943 | PROOF | A234444 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4944 | PROOF | A235271 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4945 | PROOF | A185828 | a condition on every cell over the neighbour set the entry names |
-| 4946 | PROOF | A234875 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4947 | PROOF | A234914 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4948 | PROOF | A235080 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4949 | PROOF | A282522 | a condition on every cell's king-move neighbourhood, boundaries included |
-| 4950 | PROOF | A283858 | a condition on every cell over the neighbour set the entry names |
-| 4951 | PROOF | A183794 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4952 | PROOF | A209546 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4953 | PROOF | A210293 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4954 | PROOF | A228502 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4955 | PROOF | A233675 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4956 | PROOF | A233726 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4957 | PROOF | A233785 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4958 | PROOF | A234326 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4959 | PROOF | A235291 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4960 | PROOF | A250928 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4961 | PROOF | A251229 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4962 | PROOF | A251374 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4963 | PROOF | A251492 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4964 | PROOF | A251500 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4965 | PROOF | A278281 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4966 | PROOF | A295841 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4967 | PROOF | A296946 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4968 | PROOF | A297432 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4969 | PROOF | A297458 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4970 | PROOF | A297520 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4971 | PROOF | A297583 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4972 | PROOF | A297809 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4973 | PROOF | A297860 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4974 | PROOF | A297870 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4975 | PROOF | A297909 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4976 | PROOF | A297917 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4977 | PROOF | A297937 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4978 | PROOF | A297953 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4979 | PROOF | A297980 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4980 | PROOF | A298569 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4981 | PROOF | A301842 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4982 | PROOF | A302266 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4983 | PROOF | A302279 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4984 | PROOF | A302368 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4985 | PROOF | A303677 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4986 | PROOF | A303721 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4987 | PROOF | A303802 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4988 | PROOF | A303890 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4989 | PROOF | A303963 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4990 | PROOF | A304004 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4991 | PROOF | A304304 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4992 | PROOF | A304349 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4993 | PROOF | A317759 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4994 | PROOF | A318010 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4995 | PROOF | A318062 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4996 | PROOF | A282990 | a condition on every cell over the neighbour set the entry names |
-| 4997 | PROOF | A184489 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4998 | PROOF | A233942 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 4999 | PROOF | A250834 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5000 | PROOF | A228385 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5001 | PROOF | A251094 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5002 | PROOF | A251262 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5003 | PROOF | A251194 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5004 | PROOF | A251285 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5005 | PROOF | A251310 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5006 | PROOF | A183631 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5007 | PROOF | A301796 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5008 | PROOF | A183630 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5009 | PROOF | A209726 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5010 | PROOF | A203730 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5011 | PROOF | A222460 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5012 | PROOF | A301795 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5013 | PROOF | A203882 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5014 | PROOF | A222337 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5015 | PROOF | A183629 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5016 | PROOF | A209532 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5017 | PROOF | A209725 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5018 | PROOF | A203929 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5019 | PROOF | A222277 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5020 | PROOF | A208844 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5021 | PROOF | A301794 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5022 | PROOF | A230063 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5023 | PROOF | A197469 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5024 | PROOF | A203651 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5025 | PROOF | A222140 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5026 | PROOF | A208843 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5027 | PROOF | A229690 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5028 | PROOF | A238518 | a condition on every cell over the neighbour set the entry names |
-| 5029 | PROOF | A188708 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5030 | PROOF | A203791 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5031 | PROOF | A208558 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5032 | PROOF | A223395 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5033 | PROOF | A223434 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5034 | PROOF | A230245 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5035 | PROOF | A301793 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5036 | PROOF | A301960 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5037 | PROOF | A301995 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5038 | PROOF | A317513 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5039 | PROOF | A209531 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5040 | PROOF | A209723 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5041 | PROOF | A223337 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5042 | PROOF | A208842 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5043 | PROOF | A208503 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5044 | PROOF | A229689 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5045 | PROOF | A229749 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5046 | PROOF | A183626 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5047 | PROOF | A203830 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5048 | PROOF | A208079 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5049 | PROOF | A208556 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5050 | PROOF | A208841 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5051 | PROOF | A209506 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5052 | PROOF | A209722 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5053 | PROOF | A230269 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5054 | PROOF | A230331 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5055 | PROOF | A230520 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5056 | PROOF | A183304 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5057 | PROOF | A228662 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5058 | PROOF | A228684 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5059 | PROOF | A258959 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 5060 | PROOF | A261106 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 5061 | PROOF | A297219 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5062 | PROOF | A297333 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5063 | PROOF | A297369 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5064 | PROOF | A300177 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5065 | PROOF | A300799 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5066 | PROOF | A301438 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5067 | PROOF | A301792 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5068 | PROOF | A301879 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5069 | PROOF | A301902 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5070 | PROOF | A301946 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5071 | PROOF | A301959 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5072 | PROOF | A301994 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5073 | PROOF | A302076 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5074 | PROOF | A302146 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5075 | PROOF | A303416 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5076 | PROOF | A303714 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5077 | PROOF | A304128 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5078 | PROOF | A304225 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5079 | PROOF | A304265 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5080 | PROOF | A305035 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5081 | PROOF | A305581 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5082 | PROOF | A316688 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5083 | PROOF | A317512 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5084 | PROOF | A320366 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5085 | PROOF | A229695 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5086 | PROOF | A207656 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5087 | PROOF | A208689 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5088 | PROOF | A183625 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5089 | PROOF | A209530 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5090 | PROOF | A250907 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5091 | PROOF | A196700 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5092 | PROOF | A233982 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5093 | PROOF | A234220 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5094 | PROOF | A282310 | a condition on every cell's king-move neighbourhood, boundaries included |
-| 5095 | PROOF | A282641 | a condition on every cell's king-move neighbourhood, boundaries included |
-| 5096 | PROOF | A203373 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5097 | PROOF | A209729 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5098 | PROOF | A228656 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5099 | PROOF | A228750 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5100 | PROOF | A228792 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5101 | PROOF | A233684 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5102 | PROOF | A234133 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5103 | PROOF | A234154 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5104 | PROOF | A234483 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5105 | PROOF | A235282 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5106 | PROOF | A250951 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5107 | PROOF | A251293 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5108 | PROOF | A251336 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5109 | PROOF | A251517 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5110 | PROOF | A278088 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5111 | PROOF | A278151 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5112 | PROOF | A278274 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5113 | PROOF | A296719 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5114 | PROOF | A297695 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5115 | PROOF | A297972 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5116 | PROOF | A298234 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5117 | PROOF | A301791 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5118 | PROOF | A302323 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5119 | PROOF | A304421 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5120 | PROOF | A183624 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5121 | PROOF | A183784 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5122 | PROOF | A209953 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5123 | PROOF | A210269 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5124 | PROOF | A210383 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5125 | PROOF | A234259 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5126 | PROOF | A251203 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5127 | PROOF | A251328 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5128 | PROOF | A251344 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5129 | PROOF | A251383 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5130 | PROOF | A228501 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5131 | PROOF | A228655 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5132 | PROOF | A228678 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5133 | PROOF | A228797 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5134 | PROOF | A251221 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5135 | PROOF | A251251 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5136 | PROOF | A251319 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5137 | PROOF | A127905 | a recurrence derived from the summand by creative telescoping |
-| 5138 | PROOF | A045742 | a recurrence derived from the summand by creative telescoping |
-| 5139 | PROOF | A222276 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5140 | PROOF | A222139 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5141 | PROOF | A223299 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5142 | PROOF | A223291 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5143 | PROOF | A223373 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5144 | PROOF | A223687 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5145 | PROOF | A231280 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5146 | PROOF | A223241 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5147 | PROOF | A208779 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5148 | PROOF | A223212 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5149 | PROOF | A230179 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5150 | PROOF | A208778 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5151 | PROOF | A223249 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5152 | PROOF | A203729 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5153 | PROOF | A222459 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5154 | PROOF | A203881 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5155 | PROOF | A222336 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5156 | PROOF | A238923 | a condition on every cell over the neighbour set the entry names |
-| 5157 | PROOF | A223443 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5158 | PROOF | A203928 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5159 | PROOF | A203650 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5160 | PROOF | A239171 | a condition on every cell over the neighbour set the entry names |
-| 5161 | PROOF | A208502 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5162 | PROOF | A223290 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5163 | PROOF | A223372 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5164 | PROOF | A278008 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5165 | PROOF | A203790 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5166 | PROOF | A298777 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5167 | PROOF | A301402 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5168 | PROOF | A301779 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5169 | PROOF | A301836 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5170 | PROOF | A302064 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5171 | PROOF | A302675 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5172 | PROOF | A223240 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5173 | PROOF | A223417 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5174 | PROOF | A207590 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5175 | PROOF | A207846 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5176 | PROOF | A203829 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5177 | PROOF | A209505 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5178 | PROOF | A184145 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5179 | PROOF | A251276 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5180 | PROOF | A251484 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5181 | PROOF | A184368 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5182 | PROOF | A209789 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5183 | PROOF | A209944 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5184 | PROOF | A233637 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5185 | PROOF | A234436 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5186 | PROOF | A228791 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5187 | PROOF | A243585 | a recurrence derived from the summand by creative telescoping |
-| 5188 | PROOF | A026005 | a recurrence derived from the summand by creative telescoping |
-| 5189 | PROOF | A222335 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5190 | PROOF | A222138 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5191 | PROOF | A188825 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 5192 | PROOF | A359643 | the generating function derived from a coefficient-extraction definition |
-| 5193 | PROOF | A156894 | the generating function derived from a coefficient-extraction definition |
-| 5194 | PROOF | A156894 | the generating function derived from a coefficient-extraction definition |
-| 5195 | PROOF | A371753 | the generating function derived from a coefficient-extraction definition |
-| 5196 | PROOF | A226751 | the generating function derived from a coefficient-extraction definition |
-| 5197 | PROOF | A386830 | the generating function derived from a coefficient-extraction definition |
-| 5198 | PROOF | A172025 | the generating function derived from a coefficient-extraction definition |
-| 5199 | PROOF | A348410 | the generating function derived from a coefficient-extraction definition |
-| 5200 | PROOF | A243764 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 5201 | PROOF | A243760 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 5202 | PROOF | A285195 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 5203 | PROOF | A243814 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 5204 | PROOF | A055392 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 5205 | PROOF | A025758 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 5206 | PROOF | A308726 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 5207 | PROOF | A243022 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 5208 | PROOF | A168506 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 5209 | PROOF | A239425 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 5210 | PROOF | A025757 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 5211 | PROOF | A242566 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 5212 | PROOF | A270530 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 5213 | PROOF | A101478 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 5214 | PROOF | A025756 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 5215 | PROOF | A097180 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 5216 | PROOF | A097189 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 5217 | PROOF | A127632 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 5218 | PROOF | A130655 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 5219 | PROOF | A166135 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 5220 | PROOF | A212696 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 5221 | PROOF | A261196 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 5222 | PROOF | A270530 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 5223 | PROOF | A185010 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 5224 | PROOF | A185020 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 5225 | PROOF | A200312 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 5226 | PROOF | A025754 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 5227 | PROOF | A097188 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 5228 | PROOF | A097192 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 5229 | PROOF | A158826 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 5230 | PROOF | A159769 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 5231 | PROOF | A294159 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 5232 | PROOF | A392976 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 5233 | PROOF | A162972 | a transcendental e.g.f., in a differential module over Q(x) |
-| 5234 | PROOF | A001465 | a transcendental e.g.f., in a differential module over Q(x) |
-| 5235 | PROOF | A085387 | a transcendental e.g.f., in a differential module over Q(x) |
-| 5236 | PROOF | A096471 | a transcendental e.g.f., in a differential module over Q(x) |
-| 5237 | PROOF | A000704 | a transcendental e.g.f., in a differential module over Q(x) |
-| 5238 | PROOF | A001724 | a transcendental e.g.f., in a differential module over Q(x) |
-| 5239 | PROOF | A066052 | a transcendental e.g.f., in a differential module over Q(x) |
-| 5240 | PROOF | A097204 | a transcendental e.g.f., in a differential module over Q(x) |
-| 5241 | PROOF | A053532 | a transcendental e.g.f., in a differential module over Q(x) |
-| 5242 | PROOF | A306948 | a transcendental e.g.f., in a differential module over Q(x) |
-| 5243 | PROOF | A000483 | a transcendental e.g.f., in a differential module over Q(x) |
-| 5244 | PROOF | A000276 | a transcendental e.g.f., in a differential module over Q(x) |
-| 5245 | PROOF | A002104 | a transcendental e.g.f., in a differential module over Q(x) |
-| 5246 | PROOF | A002538 | a transcendental e.g.f., in a differential module over Q(x) |
-| 5247 | PROOF | A066052 | a transcendental e.g.f., in a differential module over Q(x) |
-| 5248 | PROOF | A073591 | a transcendental e.g.f., in a differential module over Q(x) |
-| 5249 | PROOF | A108704 | a transcendental e.g.f., in a differential module over Q(x) |
-| 5250 | PROOF | A110322 | a transcendental e.g.f., in a differential module over Q(x) |
-| 5251 | PROOF | A185369 | a transcendental e.g.f., in a differential module over Q(x) |
-| 5252 | PROOF | A000276 | a transcendental e.g.f., in a differential module over Q(x) |
-| 5253 | PROOF | A000774 | a transcendental e.g.f., in a differential module over Q(x) |
-| 5254 | PROOF | A094905 | a transcendental e.g.f., in a differential module over Q(x) |
-| 5255 | PROOF | A098557 | a transcendental e.g.f., in a differential module over Q(x) |
-| 5256 | PROOF | A051560 | a transcendental e.g.f., in a differential module over Q(x) |
-| 5257 | PROOF | A129149 | a transcendental e.g.f., in a differential module over Q(x) |
-| 5258 | PROOF | A187252 | a transcendental e.g.f., in a differential module over Q(x) |
-| 5259 | PROOF | A005654 | a posted closed form split on the parity of n, then decided by hypergeometric terms |
-| 5260 | PROOF | A116385 | a posted closed form split on the parity of n, then decided by hypergeometric terms |
-| 5261 | PROOF | A005558 | a posted closed form split on the parity of n, then decided by hypergeometric terms |
-| 5262 | PROOF | A065942 | a posted closed form split on the parity of n, then decided by hypergeometric terms |
-| 5263 | PROOF | A081181 | a posted closed form split on the parity of n, then decided by hypergeometric terms |
-| 5264 | PROOF | A081204 | a posted closed form split on the parity of n, then decided by hypergeometric terms |
-| 5265 | PROOF | A005558 | a posted closed form split on the parity of n, then decided by hypergeometric terms |
-| 5266 | PROOF | A005559 | a posted closed form split on the parity of n, then decided by hypergeometric terms |
-| 5267 | PROOF | A005560 | a posted closed form split on the parity of n, then decided by hypergeometric terms |
-| 5268 | PROOF | A005561 | a posted closed form split on the parity of n, then decided by hypergeometric terms |
-| 5269 | PROOF | A005562 | a posted closed form split on the parity of n, then decided by hypergeometric terms |
-| 5270 | PROOF | A081204 | a posted closed form split on the parity of n, then decided by hypergeometric terms |
-| 5271 | PROOF | A081205 | a posted closed form split on the parity of n, then decided by hypergeometric terms |
-| 5272 | PROOF | A213801 | a posted closed form split on the parity of n, then decided by hypergeometric terms |
-| 5273 | PROOF | A006231 | a posted closed form against a derived holonomic recurrence |
-| 5274 | PROOF | A213203 | a posted closed form compared against the posted generating function |
-| 5275 | PROOF | A242429 | a posted closed form compared against the posted generating function |
-| 5276 | PROOF | A026018 | a posted closed form compared against the posted generating function |
-| 5277 | PROOF | A092634 | a posted closed form compared against the posted generating function |
-| 5278 | PROOF | A026026 | a posted closed form compared against the posted generating function |
-| 5279 | PROOF | A052227 | a posted closed form compared against the posted generating function |
-| 5280 | PROOF | A228329 | a posted closed form compared against the posted generating function |
-| 5281 | PROOF | A259457 | a posted closed form compared against the posted generating function |
-| 5282 | PROOF | A268554 | a posted closed form compared against the posted generating function |
-| 5283 | PROOF | A214907 | the recurrence follows from a generating function the entry records as fact |
-| 5284 | PROOF | A263869 | the recurrence follows from a generating function the entry records as fact |
-| 5285 | PROOF | A250782 | the recurrence follows from a generating function the entry records as fact |
-| 5286 | PROOF | A165386 | the recurrence follows from a generating function the entry records as fact |
-| 5287 | PROOF | A250781 | the recurrence follows from a generating function the entry records as fact |
-| 5288 | PROOF | A163020 | the recurrence follows from a generating function the entry records as fact |
-| 5289 | PROOF | A220640 | the recurrence follows from a generating function the entry records as fact |
-| 5290 | PROOF | A204648 | the recurrence follows from a generating function the entry records as fact |
-| 5291 | PROOF | A206264 | the recurrence follows from a generating function the entry records as fact |
-| 5292 | PROOF | A262482 | the recurrence follows from a generating function the entry records as fact |
-| 5293 | PROOF | A208642 | the recurrence follows from a generating function the entry records as fact |
-| 5294 | PROOF | A204647 | the recurrence follows from a generating function the entry records as fact |
-| 5295 | PROOF | A250892 | the recurrence follows from a generating function the entry records as fact |
-| 5296 | PROOF | A250893 | the recurrence follows from a generating function the entry records as fact |
-| 5297 | PROOF | A250894 | the recurrence follows from a generating function the entry records as fact |
-| 5298 | PROOF | A250895 | the recurrence follows from a generating function the entry records as fact |
-| 5299 | PROOF | A250896 | the recurrence follows from a generating function the entry records as fact |
-| 5300 | PROOF | A250897 | the recurrence follows from a generating function the entry records as fact |
-| 5301 | PROOF | A164760 | the recurrence follows from a generating function the entry records as fact |
-| 5302 | PROOF | A202442 | the recurrence follows from a generating function the entry records as fact |
-| 5303 | PROOF | A202443 | the recurrence follows from a generating function the entry records as fact |
-| 5304 | PROOF | A206263 | the recurrence follows from a generating function the entry records as fact |
-| 5305 | PROOF | A250780 | the recurrence follows from a generating function the entry records as fact |
-| 5306 | PROOF | A263794 | the recurrence follows from a generating function the entry records as fact |
-| 5307 | PROOF | A208641 | the recurrence follows from a generating function the entry records as fact |
-| 5308 | PROOF | A204646 | the recurrence follows from a generating function the entry records as fact |
-| 5309 | PROOF | A206262 | the recurrence follows from a generating function the entry records as fact |
-| 5310 | PROOF | A204645 | the recurrence follows from a generating function the entry records as fact |
-| 5311 | PROOF | A233402 | the recurrence follows from a generating function the entry records as fact |
-| 5312 | PROOF | A250900 | the recurrence follows from a generating function the entry records as fact |
-| 5313 | PROOF | A267960 | the recurrence follows from a generating function the entry records as fact |
-| 5314 | PROOF | A220639 | the recurrence follows from a generating function the entry records as fact |
-| 5315 | PROOF | A102319 | several independent square roots |
-| 5316 | PROOF | A115256 | several independent square roots |
-| 5317 | PROOF | A165373 | the recurrence follows from a generating function the entry records as fact |
-| 5318 | PROOF | A165394 | the recurrence follows from a generating function the entry records as fact |
-| 5319 | PROOF | A206261 | the recurrence follows from a generating function the entry records as fact |
-| 5320 | PROOF | A224671 | the recurrence follows from a generating function the entry records as fact |
-| 5321 | PROOF | A224673 | the recurrence follows from a generating function the entry records as fact |
-| 5322 | PROOF | A194772 | the recurrence follows from a generating function the entry records as fact |
-| 5323 | PROOF | A222993 | the recurrence follows from a generating function the entry records as fact |
-| 5324 | PROOF | A223711 | the recurrence follows from a generating function the entry records as fact |
-| 5325 | PROOF | A224670 | the recurrence follows from a generating function the entry records as fact |
-| 5326 | PROOF | A235510 | the recurrence follows from a generating function the entry records as fact |
-| 5327 | PROOF | A250779 | the recurrence follows from a generating function the entry records as fact |
-| 5328 | PROOF | A250792 | the recurrence follows from a generating function the entry records as fact |
-| 5329 | PROOF | A250899 | the recurrence follows from a generating function the entry records as fact |
-| 5330 | PROOF | A157125 | several independent square roots |
-| 5331 | PROOF | A102318 | several independent square roots |
-| 5332 | PROOF | A107587 | several independent square roots |
-| 5333 | PROOF | A190092 | the recurrence follows from a generating function the entry records as fact |
-| 5334 | PROOF | A190093 | the recurrence follows from a generating function the entry records as fact |
-| 5335 | PROOF | A253226 | the recurrence follows from a generating function the entry records as fact |
-| 5336 | PROOF | A253227 | the recurrence follows from a generating function the entry records as fact |
-| 5337 | PROOF | A253228 | the recurrence follows from a generating function the entry records as fact |
-| 5338 | PROOF | A253229 | the recurrence follows from a generating function the entry records as fact |
-| 5339 | PROOF | A253230 | the recurrence follows from a generating function the entry records as fact |
-| 5340 | PROOF | A222835 | the recurrence follows from a generating function the entry records as fact |
-| 5341 | PROOF | A221788 | the recurrence follows from a generating function the entry records as fact |
-| 5342 | PROOF | A222777 | the recurrence follows from a generating function the entry records as fact |
-| 5343 | PROOF | A222892 | the recurrence follows from a generating function the entry records as fact |
-| 5344 | PROOF | A184031 | the recurrence follows from a generating function the entry records as fact |
-| 5345 | PROOF | A184032 | the recurrence follows from a generating function the entry records as fact |
-| 5346 | PROOF | A184033 | the recurrence follows from a generating function the entry records as fact |
-| 5347 | PROOF | A184034 | the recurrence follows from a generating function the entry records as fact |
-| 5348 | PROOF | A184035 | the recurrence follows from a generating function the entry records as fact |
-| 5349 | PROOF | A184036 | the recurrence follows from a generating function the entry records as fact |
-| 5350 | PROOF | A184037 | the recurrence follows from a generating function the entry records as fact |
-| 5351 | PROOF | A184038 | the recurrence follows from a generating function the entry records as fact |
-| 5352 | PROOF | A184041 | the recurrence follows from a generating function the entry records as fact |
-| 5353 | PROOF | A184042 | the recurrence follows from a generating function the entry records as fact |
-| 5354 | PROOF | A184043 | the recurrence follows from a generating function the entry records as fact |
-| 5355 | PROOF | A184044 | the recurrence follows from a generating function the entry records as fact |
-| 5356 | PROOF | A184045 | the recurrence follows from a generating function the entry records as fact |
-| 5357 | PROOF | A184046 | the recurrence follows from a generating function the entry records as fact |
-| 5358 | PROOF | A184047 | the recurrence follows from a generating function the entry records as fact |
-| 5359 | PROOF | A189450 | the recurrence follows from a generating function the entry records as fact |
-| 5360 | PROOF | A190091 | the recurrence follows from a generating function the entry records as fact |
-| 5361 | PROOF | A206170 | the recurrence follows from a generating function the entry records as fact |
-| 5362 | PROOF | A208086 | the recurrence follows from a generating function the entry records as fact |
-| 5363 | PROOF | A208087 | the recurrence follows from a generating function the entry records as fact |
-| 5364 | PROOF | A208089 | the recurrence follows from a generating function the entry records as fact |
-| 5365 | PROOF | A211327 | the recurrence follows from a generating function the entry records as fact |
-| 5366 | PROOF | A214181 | the recurrence follows from a generating function the entry records as fact |
-| 5367 | PROOF | A218185 | several independent square roots |
-| 5368 | PROOF | A221619 | the recurrence follows from a generating function the entry records as fact |
-| 5369 | PROOF | A221764 | the recurrence follows from a generating function the entry records as fact |
-| 5370 | PROOF | A222001 | the recurrence follows from a generating function the entry records as fact |
-| 5371 | PROOF | A239024 | the recurrence follows from a generating function the entry records as fact |
-| 5372 | PROOF | A250610 | the recurrence follows from a generating function the entry records as fact |
-| 5373 | PROOF | A250784 | the recurrence follows from a generating function the entry records as fact |
-| 5374 | PROOF | A250791 | the recurrence follows from a generating function the entry records as fact |
-| 5375 | PROOF | A262267 | the recurrence follows from a generating function the entry records as fact |
-| 5376 | PROOF | A263908 | the recurrence follows from a generating function the entry records as fact |
-| 5377 | PROOF | A267905 | the recurrence follows from a generating function the entry records as fact |
-| 5378 | PROOF | A268053 | the recurrence follows from a generating function the entry records as fact |
-| 5379 | PROOF | A268775 | the recurrence follows from a generating function the entry records as fact |
-| 5380 | PROOF | A269202 | the recurrence follows from a generating function the entry records as fact |
-| 5381 | PROOF | A025567 | several independent square roots |
-| 5382 | PROOF | A071684 | several independent square roots |
-| 5383 | PROOF | A179648 | several independent square roots |
-| 5384 | PROOF | A184120 | several independent square roots |
-| 5385 | PROOF | A026163 | several independent square roots |
-| 5386 | PROOF | A102318 | several independent square roots |
-| 5387 | PROOF | A101500 | several independent square roots |
-| 5388 | PROOF | A102319 | several independent square roots |
-| 5389 | PROOF | A107587 | several independent square roots |
-| 5390 | PROOF | A206336 | the recurrence follows from a generating function the entry records as fact |
-| 5391 | PROOF | A165381 | the recurrence follows from a generating function the entry records as fact |
-| 5392 | PROOF | A165392 | the recurrence follows from a generating function the entry records as fact |
-| 5393 | PROOF | A207142 | the recurrence follows from a generating function the entry records as fact |
-| 5394 | PROOF | A220749 | the recurrence follows from a generating function the entry records as fact |
-| 5395 | PROOF | A253225 | the recurrence follows from a generating function the entry records as fact |
-| 5396 | PROOF | A253490 | the recurrence follows from a generating function the entry records as fact |
-| 5397 | PROOF | A265989 | the recurrence follows from a generating function the entry records as fact |
-| 5398 | PROOF | A165378 | the recurrence follows from a generating function the entry records as fact |
-| 5399 | PROOF | A253491 | the recurrence follows from a generating function the entry records as fact |
-| 5400 | PROOF | A253492 | the recurrence follows from a generating function the entry records as fact |
-| 5401 | PROOF | A253493 | the recurrence follows from a generating function the entry records as fact |
-| 5402 | PROOF | A204609 | the recurrence follows from a generating function the entry records as fact |
-| 5403 | PROOF | A222939 | the recurrence follows from a generating function the entry records as fact |
-| 5404 | PROOF | A267912 | the recurrence follows from a generating function the entry records as fact |
-| 5405 | PROOF | A183356 | the recurrence follows from a generating function the entry records as fact |
-| 5406 | PROOF | A222834 | the recurrence follows from a generating function the entry records as fact |
-| 5407 | PROOF | A233162 | the recurrence follows from a generating function the entry records as fact |
-| 5408 | PROOF | A233175 | the recurrence follows from a generating function the entry records as fact |
-| 5409 | PROOF | A233218 | the recurrence follows from a generating function the entry records as fact |
-| 5410 | PROOF | A276300 | the recurrence follows from a generating function the entry records as fact |
-| 5411 | PROOF | A181192 | the recurrence follows from a generating function the entry records as fact |
-| 5412 | PROOF | A183430 | the recurrence follows from a generating function the entry records as fact |
-| 5413 | PROOF | A184679 | the recurrence follows from a generating function the entry records as fact |
-| 5414 | PROOF | A204707 | the recurrence follows from a generating function the entry records as fact |
-| 5415 | PROOF | A204708 | the recurrence follows from a generating function the entry records as fact |
-| 5416 | PROOF | A211322 | the recurrence follows from a generating function the entry records as fact |
-| 5417 | PROOF | A211490 | the recurrence follows from a generating function the entry records as fact |
-| 5418 | PROOF | A214160 | the recurrence follows from a generating function the entry records as fact |
-| 5419 | PROOF | A221374 | the recurrence follows from a generating function the entry records as fact |
-| 5420 | PROOF | A223363 | the recurrence follows from a generating function the entry records as fact |
-| 5421 | PROOF | A223499 | the recurrence follows from a generating function the entry records as fact |
-| 5422 | PROOF | A224669 | the recurrence follows from a generating function the entry records as fact |
-| 5423 | PROOF | A232951 | the recurrence follows from a generating function the entry records as fact |
-| 5424 | PROOF | A233106 | the recurrence follows from a generating function the entry records as fact |
-| 5425 | PROOF | A233107 | the recurrence follows from a generating function the entry records as fact |
-| 5426 | PROOF | A233124 | the recurrence follows from a generating function the entry records as fact |
-| 5427 | PROOF | A233211 | the recurrence follows from a generating function the entry records as fact |
-| 5428 | PROOF | A233212 | the recurrence follows from a generating function the entry records as fact |
-| 5429 | PROOF | A233213 | the recurrence follows from a generating function the entry records as fact |
-| 5430 | PROOF | A234789 | the recurrence follows from a generating function the entry records as fact |
-| 5431 | PROOF | A235878 | the recurrence follows from a generating function the entry records as fact |
-| 5432 | PROOF | A235879 | the recurrence follows from a generating function the entry records as fact |
-| 5433 | PROOF | A235880 | the recurrence follows from a generating function the entry records as fact |
-| 5434 | PROOF | A235881 | the recurrence follows from a generating function the entry records as fact |
-| 5435 | PROOF | A235882 | the recurrence follows from a generating function the entry records as fact |
-| 5436 | PROOF | A235883 | the recurrence follows from a generating function the entry records as fact |
-| 5437 | PROOF | A235887 | the recurrence follows from a generating function the entry records as fact |
-| 5438 | PROOF | A235888 | the recurrence follows from a generating function the entry records as fact |
-| 5439 | PROOF | A235889 | the recurrence follows from a generating function the entry records as fact |
-| 5440 | PROOF | A235890 | the recurrence follows from a generating function the entry records as fact |
-| 5441 | PROOF | A235891 | the recurrence follows from a generating function the entry records as fact |
-| 5442 | PROOF | A235892 | the recurrence follows from a generating function the entry records as fact |
-| 5443 | PROOF | A235895 | the recurrence follows from a generating function the entry records as fact |
-| 5444 | PROOF | A250461 | the recurrence follows from a generating function the entry records as fact |
-| 5445 | PROOF | A250778 | the recurrence follows from a generating function the entry records as fact |
-| 5446 | PROOF | A262326 | the recurrence follows from a generating function the entry records as fact |
-| 5447 | PROOF | A262327 | the recurrence follows from a generating function the entry records as fact |
-| 5448 | PROOF | A262415 | the recurrence follows from a generating function the entry records as fact |
-| 5449 | PROOF | A265987 | the recurrence follows from a generating function the entry records as fact |
-| 5450 | PROOF | A267946 | the recurrence follows from a generating function the entry records as fact |
-| 5451 | PROOF | A268052 | the recurrence follows from a generating function the entry records as fact |
-| 5452 | PROOF | A268093 | the recurrence follows from a generating function the entry records as fact |
-| 5453 | PROOF | A268164 | the recurrence follows from a generating function the entry records as fact |
-| 5454 | PROOF | A277761 | the recurrence follows from a generating function the entry records as fact |
-| 5455 | PROOF | A072100 | several independent square roots |
-| 5456 | PROOF | A239530 | the recurrence follows from a generating function the entry records as fact |
-| 5457 | PROOF | A263907 | the recurrence follows from a generating function the entry records as fact |
-| 5458 | PROOF | A221588 | the recurrence follows from a generating function the entry records as fact |
-| 5459 | PROOF | A221589 | the recurrence follows from a generating function the entry records as fact |
-| 5460 | PROOF | A221022 | the recurrence follows from a generating function the entry records as fact |
-| 5461 | PROOF | A165372 | the recurrence follows from a generating function the entry records as fact |
-| 5462 | PROOF | A202730 | the recurrence follows from a generating function the entry records as fact |
-| 5463 | PROOF | A206687 | the recurrence follows from a generating function the entry records as fact |
-| 5464 | PROOF | A221829 | the recurrence follows from a generating function the entry records as fact |
-| 5465 | PROOF | A222869 | the recurrence follows from a generating function the entry records as fact |
-| 5466 | PROOF | A222940 | the recurrence follows from a generating function the entry records as fact |
-| 5467 | PROOF | A223332 | the recurrence follows from a generating function the entry records as fact |
-| 5468 | PROOF | A269290 | the recurrence follows from a generating function the entry records as fact |
-| 5469 | PROOF | A223181 | the recurrence follows from a generating function the entry records as fact |
-| 5470 | PROOF | A223234 | the recurrence follows from a generating function the entry records as fact |
-| 5471 | PROOF | A223381 | the recurrence follows from a generating function the entry records as fact |
-| 5472 | PROOF | A233163 | the recurrence follows from a generating function the entry records as fact |
-| 5473 | PROOF | A233164 | the recurrence follows from a generating function the entry records as fact |
-| 5474 | PROOF | A233165 | the recurrence follows from a generating function the entry records as fact |
-| 5475 | PROOF | A233166 | the recurrence follows from a generating function the entry records as fact |
-| 5476 | PROOF | A233167 | the recurrence follows from a generating function the entry records as fact |
-| 5477 | PROOF | A233196 | the recurrence follows from a generating function the entry records as fact |
-| 5478 | PROOF | A233257 | the recurrence follows from a generating function the entry records as fact |
-| 5479 | PROOF | A268622 | the recurrence follows from a generating function the entry records as fact |
-| 5480 | PROOF | A269103 | the recurrence follows from a generating function the entry records as fact |
-| 5481 | PROOF | A269285 | the recurrence follows from a generating function the entry records as fact |
-| 5482 | PROOF | A183586 | the recurrence follows from a generating function the entry records as fact |
-| 5483 | PROOF | A183682 | the recurrence follows from a generating function the entry records as fact |
-| 5484 | PROOF | A183690 | the recurrence follows from a generating function the entry records as fact |
-| 5485 | PROOF | A183702 | the recurrence follows from a generating function the entry records as fact |
-| 5486 | PROOF | A184688 | the recurrence follows from a generating function the entry records as fact |
-| 5487 | PROOF | A185761 | the recurrence follows from a generating function the entry records as fact |
-| 5488 | PROOF | A185858 | the recurrence follows from a generating function the entry records as fact |
-| 5489 | PROOF | A189604 | the recurrence follows from a generating function the entry records as fact |
-| 5490 | PROOF | A205220 | the recurrence follows from a generating function the entry records as fact |
-| 5491 | PROOF | A205329 | the recurrence follows from a generating function the entry records as fact |
-| 5492 | PROOF | A205354 | the recurrence follows from a generating function the entry records as fact |
-| 5493 | PROOF | A208088 | the recurrence follows from a generating function the entry records as fact |
-| 5494 | PROOF | A211715 | the recurrence follows from a generating function the entry records as fact |
-| 5495 | PROOF | A211719 | the recurrence follows from a generating function the entry records as fact |
-| 5496 | PROOF | A220932 | the recurrence follows from a generating function the entry records as fact |
-| 5497 | PROOF | A221121 | the recurrence follows from a generating function the entry records as fact |
-| 5498 | PROOF | A221731 | the recurrence follows from a generating function the entry records as fact |
-| 5499 | PROOF | A222098 | the recurrence follows from a generating function the entry records as fact |
-| 5500 | PROOF | A223197 | the recurrence follows from a generating function the entry records as fact |
-| 5501 | PROOF | A223204 | the recurrence follows from a generating function the entry records as fact |
-| 5502 | PROOF | A223228 | the recurrence follows from a generating function the entry records as fact |
-| 5503 | PROOF | A223258 | the recurrence follows from a generating function the entry records as fact |
-| 5504 | PROOF | A223277 | the recurrence follows from a generating function the entry records as fact |
-| 5505 | PROOF | A223278 | the recurrence follows from a generating function the entry records as fact |
-| 5506 | PROOF | A223318 | the recurrence follows from a generating function the entry records as fact |
-| 5507 | PROOF | A223552 | the recurrence follows from a generating function the entry records as fact |
-| 5508 | PROOF | A231103 | the recurrence follows from a generating function the entry records as fact |
-| 5509 | PROOF | A231104 | the recurrence follows from a generating function the entry records as fact |
-| 5510 | PROOF | A232950 | the recurrence follows from a generating function the entry records as fact |
-| 5511 | PROOF | A232956 | the recurrence follows from a generating function the entry records as fact |
-| 5512 | PROOF | A233123 | the recurrence follows from a generating function the entry records as fact |
-| 5513 | PROOF | A233251 | the recurrence follows from a generating function the entry records as fact |
-| 5514 | PROOF | A233252 | the recurrence follows from a generating function the entry records as fact |
-| 5515 | PROOF | A234779 | the recurrence follows from a generating function the entry records as fact |
-| 5516 | PROOF | A235877 | the recurrence follows from a generating function the entry records as fact |
-| 5517 | PROOF | A235886 | the recurrence follows from a generating function the entry records as fact |
-| 5518 | PROOF | A253029 | the recurrence follows from a generating function the entry records as fact |
-| 5519 | PROOF | A259243 | the recurrence follows from a generating function the entry records as fact |
-| 5520 | PROOF | A259290 | the recurrence follows from a generating function the entry records as fact |
-| 5521 | PROOF | A269284 | the recurrence follows from a generating function the entry records as fact |
-| 5522 | PROOF | A275229 | the recurrence follows from a generating function the entry records as fact |
-| 5523 | PROOF | A221082 | the recurrence follows from a generating function the entry records as fact |
-| 5524 | PROOF | A223270 | the recurrence follows from a generating function the entry records as fact |
-| 5525 | PROOF | A232921 | the recurrence follows from a generating function the entry records as fact |
-| 5526 | PROOF | A233020 | the recurrence follows from a generating function the entry records as fact |
-| 5527 | PROOF | A025567 | several independent square roots |
-| 5528 | PROOF | A264123 | the recurrence follows from a generating function the entry records as fact |
-| 5529 | PROOF | A264185 | the recurrence follows from a generating function the entry records as fact |
-| 5530 | PROOF | A208428 | the recurrence follows from a generating function the entry records as fact |
-| 5531 | PROOF | A189274 | the recurrence follows from a generating function the entry records as fact |
-| 5532 | PROOF | A223322 | the recurrence follows from a generating function the entry records as fact |
-| 5533 | PROOF | A334509 | an identity between different entries |
-| 5534 | PROOF | A298022 | an identity between different entries |
-| 5535 | PROOF | A273676 | an identity between different entries |
-| 5536 | PROOF | A273832 | an identity between different entries |
-| 5537 | PROOF | A319371 | an identity between different entries |
-| 5538 | PROOF | A110320 | an identity between different entries |
-| 5539 | PROOF | A309878 | an identity between different entries |
-| 5540 | PROOF | A315520 | an identity between different entries |
-| 5541 | PROOF | A346370 | an identity between different entries |
-| 5542 | PROOF | A176126 | the residual test over one square root, or none |
-| 5543 | PROOF | A191625 | the residual test over one square root, or none |
-| 5544 | PROOF | A186341 | the residual test over one square root, or none |
-| 5545 | PROOF | A026743 | the residual test over one square root, or none |
-| 5546 | PROOF | A191786 | the residual test over one square root, or none |
-| 5547 | PROOF | A210496 | the residual test over one square root, or none |
-| 5548 | PROOF | A182892 | the residual test over one square root, or none |
-| 5549 | PROOF | A270724 | the residual test over one square root, or none |
-| 5550 | PROOF | A190171 | the residual test over one square root, or none |
-| 5551 | PROOF | A257515 | the residual test over one square root, or none |
-| 5552 | PROOF | A190788 | the residual test over one square root, or none |
-| 5553 | PROOF | A095981 | the residual test over one square root, or none |
-| 5554 | PROOF | A212205 | the residual test over one square root, or none |
-| 5555 | PROOF | A270661 | the residual test over one square root, or none |
-| 5556 | PROOF | A157021 | the residual test over one square root, or none |
-| 5557 | PROOF | A165537 | the residual test over one square root, or none |
-| 5558 | PROOF | A166287 | the residual test over one square root, or none |
-| 5559 | PROOF | A174013 | the residual test over one square root, or none |
-| 5560 | PROOF | A178072 | the residual test over one square root, or none |
-| 5561 | PROOF | A182894 | the residual test over one square root, or none |
-| 5562 | PROOF | A114584 | the residual test over one square root, or none |
-| 5563 | PROOF | A164586 | the residual test over one square root, or none |
-| 5564 | PROOF | A189053 | the residual test over one square root, or none |
-| 5565 | PROOF | A182904 | the residual test over one square root, or none |
-| 5566 | PROOF | A274295 | the residual test over one square root, or none |
-| 5567 | PROOF | A226434 | the residual test over one square root, or none |
-| 5568 | PROOF | A257104 | the residual test over one square root, or none |
-| 5569 | PROOF | A108600 | the residual test over one square root, or none |
-| 5570 | PROOF | A114851 | the residual test over one square root, or none |
-| 5571 | PROOF | A125306 | the residual test over one square root, or none |
-| 5572 | PROOF | A166290 | the residual test over one square root, or none |
-| 5573 | PROOF | A228770 | the residual test over one square root, or none |
-| 5574 | PROOF | A257300 | the residual test over one square root, or none |
-| 5575 | PROOF | A089324 | the residual test over one square root, or none |
-| 5576 | PROOF | A104625 | the residual test over one square root, or none |
-| 5577 | PROOF | A113956 | the residual test over one square root, or none |
-| 5578 | PROOF | A116383 | the residual test over one square root, or none |
-| 5579 | PROOF | A162548 | the residual test over one square root, or none |
-| 5580 | PROOF | A173993 | the residual test over one square root, or none |
-| 5581 | PROOF | A244886 | the residual test over one square root, or none |
-| 5582 | PROOF | A157003 | the residual test over one square root, or none |
-| 5583 | PROOF | A162482 | the residual test over one square root, or none |
-| 5584 | PROOF | A163493 | the residual test over one square root, or none |
-| 5585 | PROOF | A191398 | the residual test over one square root, or none |
-| 5586 | PROOF | A135582 | the residual test over one square root, or none |
-| 5587 | PROOF | A139376 | the residual test over one square root, or none |
-| 5588 | PROOF | A346074 | the residual test over one square root, or none |
-| 5589 | PROOF | A190166 | the residual test over one square root, or none |
-| 5590 | PROOF | A025251 | the residual test over one square root, or none |
-| 5591 | PROOF | A228771 | the residual test over one square root, or none |
-| 5592 | PROOF | A025268 | the residual test over one square root, or none |
-| 5593 | PROOF | A025272 | the residual test over one square root, or none |
-| 5594 | PROOF | A162475 | the residual test over one square root, or none |
-| 5595 | PROOF | A385252 | the residual test over one square root, or none |
-| 5596 | PROOF | A114464 | the residual test over one square root, or none |
-| 5597 | PROOF | A127154 | the residual test over one square root, or none |
-| 5598 | PROOF | A135335 | the residual test over one square root, or none |
-| 5599 | PROOF | A165540 | the residual test over one square root, or none |
-| 5600 | PROOF | A171416 | the residual test over one square root, or none |
-| 5601 | PROOF | A188314 | the residual test over one square root, or none |
-| 5602 | PROOF | A247170 | the residual test over one square root, or none |
-| 5603 | PROOF | A254314 | the residual test over one square root, or none |
-| 5604 | PROOF | A270661 | the residual test over one square root, or none |
-| 5605 | PROOF | A003440 | the residual test over one square root, or none |
-| 5606 | PROOF | A110521 | the residual test over one square root, or none |
-| 5607 | PROOF | A114190 | the residual test over one square root, or none |
-| 5608 | PROOF | A116387 | the residual test over one square root, or none |
-| 5609 | PROOF | A128096 | the residual test over one square root, or none |
-| 5610 | PROOF | A135052 | the residual test over one square root, or none |
-| 5611 | PROOF | A157021 | the residual test over one square root, or none |
-| 5612 | PROOF | A160823 | the residual test over one square root, or none |
-| 5613 | PROOF | A166287 | the residual test over one square root, or none |
-| 5614 | PROOF | A174808 | the residual test over one square root, or none |
-| 5615 | PROOF | A185089 | the residual test over one square root, or none |
-| 5616 | PROOF | A186940 | the residual test over one square root, or none |
-| 5617 | PROOF | A190736 | the residual test over one square root, or none |
-| 5618 | PROOF | A219314 | the residual test over one square root, or none |
-| 5619 | PROOF | A100095 | the residual test over one square root, or none |
-| 5620 | PROOF | A100097 | the residual test over one square root, or none |
-| 5621 | PROOF | A191313 | the residual test over one square root, or none |
-| 5622 | PROOF | A191790 | the residual test over one square root, or none |
-| 5623 | PROOF | A273351 | the residual test over one square root, or none |
-| 5624 | PROOF | A278472 | the residual test over one square root, or none |
-| 5625 | PROOF | A108296 | the residual test over one square root, or none |
-| 5626 | PROOF | A116391 | the residual test over one square root, or none |
-| 5627 | PROOF | A110198 | the residual test over one square root, or none |
-| 5628 | PROOF | A182879 | the residual test over one square root, or none |
-| 5629 | PROOF | A182887 | the residual test over one square root, or none |
-| 5630 | PROOF | A135925 | the residual test over one square root, or none |
-| 5631 | PROOF | A007901 | the residual test over one square root, or none |
-| 5632 | PROOF | A025256 | the residual test over one square root, or none |
-| 5633 | PROOF | A025258 | the residual test over one square root, or none |
-| 5634 | PROOF | A000781 | the residual test over one square root, or none |
-| 5635 | PROOF | A025245 | the residual test over one square root, or none |
-| 5636 | PROOF | A025257 | the residual test over one square root, or none |
-| 5637 | PROOF | A025269 | the residual test over one square root, or none |
-| 5638 | PROOF | A025270 | the residual test over one square root, or none |
-| 5639 | PROOF | A025275 | the residual test over one square root, or none |
-| 5640 | PROOF | A032096 | the residual test over one square root, or none |
-| 5641 | PROOF | A102880 | the residual test over one square root, or none |
-| 5642 | PROOF | A111053 | the residual test over one square root, or none |
-| 5643 | PROOF | A152120 | the residual test over one square root, or none |
-| 5644 | PROOF | A159771 | the residual test over one square root, or none |
-| 5645 | PROOF | A166694 | the residual test over one square root, or none |
-| 5646 | PROOF | A166696 | the residual test over one square root, or none |
-| 5647 | PROOF | A191796 | the residual test over one square root, or none |
-| 5648 | PROOF | A217711 | the residual test over one square root, or none |
-| 5649 | PROOF | A278023 | the residual test over one square root, or none |
-| 5650 | PROOF | A279014 | the residual test over one square root, or none |
-| 5651 | PROOF | A000483 | the residual test over one square root, or none |
-| 5652 | PROOF | A026030 | the residual test over one square root, or none |
-| 5653 | PROOF | A026031 | the residual test over one square root, or none |
-| 5654 | PROOF | A048775 | the residual test over one square root, or none |
-| 5655 | PROOF | A116409 | the residual test over one square root, or none |
-| 5656 | PROOF | A126322 | the residual test over one square root, or none |
-| 5657 | PROOF | A128750 | the residual test over one square root, or none |
-| 5658 | PROOF | A143955 | the residual test over one square root, or none |
-| 5659 | PROOF | A165203 | the residual test over one square root, or none |
-| 5660 | PROOF | A168505 | the residual test over one square root, or none |
-| 5661 | PROOF | A176605 | the residual test over one square root, or none |
-| 5662 | PROOF | A181933 | the residual test over one square root, or none |
-| 5663 | PROOF | A191585 | the residual test over one square root, or none |
-| 5664 | PROOF | A215973 | the residual test over one square root, or none |
-| 5665 | PROOF | A234269 | the residual test over one square root, or none |
-| 5666 | PROOF | A236407 | the residual test over one square root, or none |
-| 5667 | PROOF | A270363 | the residual test over one square root, or none |
-| 5668 | PROOF | A098521 | the residual test over one square root, or none |
-| 5669 | PROOF | A100096 | the residual test over one square root, or none |
-| 5670 | PROOF | A100099 | the residual test over one square root, or none |
-| 5671 | PROOF | A105849 | the residual test over one square root, or none |
-| 5672 | PROOF | A105864 | the residual test over one square root, or none |
-| 5673 | PROOF | A105865 | the residual test over one square root, or none |
-| 5674 | PROOF | A108308 | the residual test over one square root, or none |
-| 5675 | PROOF | A114194 | the residual test over one square root, or none |
-| 5676 | PROOF | A115967 | the residual test over one square root, or none |
-| 5677 | PROOF | A117186 | the residual test over one square root, or none |
-| 5678 | PROOF | A120010 | the residual test over one square root, or none |
-| 5679 | PROOF | A124431 | the residual test over one square root, or none |
-| 5680 | PROOF | A124431 | the residual test over one square root, or none |
-| 5681 | PROOF | A126568 | the residual test over one square root, or none |
-| 5682 | PROOF | A132364 | the residual test over one square root, or none |
-| 5683 | PROOF | A141342 | the residual test over one square root, or none |
-| 5684 | PROOF | A155051 | the residual test over one square root, or none |
-| 5685 | PROOF | A157002 | the residual test over one square root, or none |
-| 5686 | PROOF | A157100 | the residual test over one square root, or none |
-| 5687 | PROOF | A166076 | the residual test over one square root, or none |
-| 5688 | PROOF | A166300 | the residual test over one square root, or none |
-| 5689 | PROOF | A168503 | the residual test over one square root, or none |
-| 5690 | PROOF | A174107 | the residual test over one square root, or none |
-| 5691 | PROOF | A174169 | the residual test over one square root, or none |
-| 5692 | PROOF | A176332 | the residual test over one square root, or none |
-| 5693 | PROOF | A184018 | the residual test over one square root, or none |
-| 5694 | PROOF | A188312 | the residual test over one square root, or none |
-| 5695 | PROOF | A188482 | the residual test over one square root, or none |
-| 5696 | PROOF | A191782 | the residual test over one square root, or none |
-| 5697 | PROOF | A217333 | the residual test over one square root, or none |
-| 5698 | PROOF | A257072 | the residual test over one square root, or none |
-| 5699 | PROOF | A261681 | the residual test over one square root, or none |
-| 5700 | PROOF | A073155 | the residual test over one square root, or none |
-| 5701 | PROOF | A105524 | the residual test over one square root, or none |
-| 5702 | PROOF | A114589 | the residual test over one square root, or none |
-| 5703 | PROOF | A114590 | the residual test over one square root, or none |
-| 5704 | PROOF | A162481 | the residual test over one square root, or none |
-| 5705 | PROOF | A174783 | the residual test over one square root, or none |
-| 5706 | PROOF | A188460 | the residual test over one square root, or none |
-| 5707 | PROOF | A188464 | the residual test over one square root, or none |
-| 5708 | PROOF | A190725 | the residual test over one square root, or none |
-| 5709 | PROOF | A191526 | the residual test over one square root, or none |
-| 5710 | PROOF | A191531 | the residual test over one square root, or none |
-| 5711 | PROOF | A211278 | the residual test over one square root, or none |
-| 5712 | PROOF | A026327 | the residual test over one square root, or none |
-| 5713 | PROOF | A081207 | the residual test over one square root, or none |
-| 5714 | PROOF | A102882 | the residual test over one square root, or none |
-| 5715 | PROOF | A182881 | the residual test over one square root, or none |
-| 5716 | PROOF | A191309 | the residual test over one square root, or none |
-| 5717 | PROOF | A191319 | the residual test over one square root, or none |
-| 5718 | PROOF | A191790 | the residual test over one square root, or none |
-| 5719 | PROOF | A273351 | the residual test over one square root, or none |
-| 5720 | PROOF | A025248 | the residual test over one square root, or none |
-| 5721 | PROOF | A025249 | the residual test over one square root, or none |
-| 5722 | PROOF | A026017 | the residual test over one square root, or none |
-| 5723 | PROOF | A071717 | the residual test over one square root, or none |
-| 5724 | PROOF | A081672 | the residual test over one square root, or none |
-| 5725 | PROOF | A104722 | the residual test over one square root, or none |
-| 5726 | PROOF | A109263 | the residual test over one square root, or none |
-| 5727 | PROOF | A118093 | the residual test over one square root, or none |
-| 5728 | PROOF | A118974 | the residual test over one square root, or none |
-| 5729 | PROOF | A121320 | the residual test over one square root, or none |
-| 5730 | PROOF | A126323 | the residual test over one square root, or none |
-| 5731 | PROOF | A128723 | the residual test over one square root, or none |
-| 5732 | PROOF | A135334 | the residual test over one square root, or none |
-| 5733 | PROOF | A141351 | the residual test over one square root, or none |
-| 5734 | PROOF | A141353 | the residual test over one square root, or none |
-| 5735 | PROOF | A163824 | the residual test over one square root, or none |
-| 5736 | PROOF | A165201 | the residual test over one square root, or none |
-| 5737 | PROOF | A279014 | the residual test over one square root, or none |
-| 5738 | PROOF | A026027 | the residual test over one square root, or none |
-| 5739 | PROOF | A026135 | the residual test over one square root, or none |
-| 5740 | PROOF | A050168 | the residual test over one square root, or none |
-| 5741 | PROOF | A059279 | the residual test over one square root, or none |
-| 5742 | PROOF | A063395 | the residual test over one square root, or none |
-| 5743 | PROOF | A071722 | the residual test over one square root, or none |
-| 5744 | PROOF | A082134 | the residual test over one square root, or none |
-| 5745 | PROOF | A097331 | the residual test over one square root, or none |
-| 5746 | PROOF | A100193 | the residual test over one square root, or none |
-| 5747 | PROOF | A103973 | the residual test over one square root, or none |
-| 5748 | PROOF | A106181 | the residual test over one square root, or none |
-| 5749 | PROOF | A108623 | the residual test over one square root, or none |
-| 5750 | PROOF | A126180 | the residual test over one square root, or none |
-| 5751 | PROOF | A128732 | the residual test over one square root, or none |
-| 5752 | PROOF | A134389 | the residual test over one square root, or none |
-| 5753 | PROOF | A143013 | the residual test over one square root, or none |
-| 5754 | PROOF | A143954 | the residual test over one square root, or none |
-| 5755 | PROOF | A157418 | the residual test over one square root, or none |
-| 5756 | PROOF | A158196 | the residual test over one square root, or none |
-| 5757 | PROOF | A158197 | the residual test over one square root, or none |
-| 5758 | PROOF | A191585 | the residual test over one square root, or none |
-| 5759 | PROOF | A257290 | the residual test over one square root, or none |
-| 5760 | PROOF | A054341 | the residual test over one square root, or none |
-| 5761 | PROOF | A071715 | the residual test over one square root, or none |
-| 5762 | PROOF | A090413 | the residual test over one square root, or none |
-| 5763 | PROOF | A090826 | the residual test over one square root, or none |
-| 5764 | PROOF | A091699 | the residual test over one square root, or none |
-| 5765 | PROOF | A098664 | the residual test over one square root, or none |
-| 5766 | PROOF | A099363 | the residual test over one square root, or none |
-| 5767 | PROOF | A100098 | the residual test over one square root, or none |
-| 5768 | PROOF | A105872 | the residual test over one square root, or none |
-| 5769 | PROOF | A119975 | the residual test over one square root, or none |
-| 5770 | PROOF | A121724 | the residual test over one square root, or none |
-| 5771 | PROOF | A121725 | the residual test over one square root, or none |
-| 5772 | PROOF | A126931 | the residual test over one square root, or none |
-| 5773 | PROOF | A126932 | the residual test over one square root, or none |
-| 5774 | PROOF | A127361 | the residual test over one square root, or none |
-| 5775 | PROOF | A127363 | the residual test over one square root, or none |
-| 5776 | PROOF | A155051 | the residual test over one square root, or none |
-| 5777 | PROOF | A166078 | the residual test over one square root, or none |
-| 5778 | PROOF | A166587 | the residual test over one square root, or none |
-| 5779 | PROOF | A166588 | the residual test over one square root, or none |
-| 5780 | PROOF | A176006 | the residual test over one square root, or none |
-| 5781 | PROOF | A185087 | the residual test over one square root, or none |
-| 5782 | PROOF | A190724 | the residual test over one square root, or none |
-| 5783 | PROOF | A225887 | the residual test over one square root, or none |
-| 5784 | PROOF | A227081 | the residual test over one square root, or none |
-| 5785 | PROOF | A257178 | the residual test over one square root, or none |
-| 5786 | PROOF | A257388 | the residual test over one square root, or none |
-| 5787 | PROOF | A257838 | the residual test over one square root, or none |
-| 5788 | PROOF | A001712 | the residual test over one square root, or none |
-| 5789 | PROOF | A025175 | the residual test over one square root, or none |
-| 5790 | PROOF | A025577 | the residual test over one square root, or none |
-| 5791 | PROOF | A026023 | the residual test over one square root, or none |
-| 5792 | PROOF | A055217 | the residual test over one square root, or none |
-| 5793 | PROOF | A081052 | the residual test over one square root, or none |
-| 5794 | PROOF | A103821 | the residual test over one square root, or none |
-| 5795 | PROOF | A107231 | the residual test over one square root, or none |
-| 5796 | PROOF | A110199 | the residual test over one square root, or none |
-| 5797 | PROOF | A116406 | the residual test over one square root, or none |
-| 5798 | PROOF | A128734 | the residual test over one square root, or none |
-| 5799 | PROOF | A191307 | the residual test over one square root, or none |
-| 5800 | PROOF | A278472 | the residual test over one square root, or none |
-| 5801 | PROOF | A034863 | the residual test over one square root, or none |
-| 5802 | PROOF | A128652 | the residual test over one square root, or none |
-| 5803 | PROOF | A174195 | the residual test over one square root, or none |
-| 5804 | PROOF | A192480 | the residual test over one square root, or none |
-| 5805 | PROOF | A158495 | the residual test over one square root, or none |
-| 5806 | PROOF | A189176 | the residual test over one square root, or none |
-| 5807 | PROOF | A194724 | the residual test over one square root, or none |
-| 5808 | PROOF | A210474 | the residual test over one square root, or none |
-| 5809 | PROOF | A262768 | the residual test over one square root, or none |
-| 5810 | PROOF | A026029 | the residual test over one square root, or none |
-| 5811 | PROOF | A064088 | the residual test over one square root, or none |
-| 5812 | PROOF | A064089 | the residual test over one square root, or none |
-| 5813 | PROOF | A064090 | the residual test over one square root, or none |
-| 5814 | PROOF | A064091 | the residual test over one square root, or none |
-| 5815 | PROOF | A064092 | the residual test over one square root, or none |
-| 5816 | PROOF | A067299 | the residual test over one square root, or none |
-| 5817 | PROOF | A068551 | the residual test over one square root, or none |
-| 5818 | PROOF | A080243 | the residual test over one square root, or none |
-| 5819 | PROOF | A114191 | the residual test over one square root, or none |
-| 5820 | PROOF | A116881 | the residual test over one square root, or none |
-| 5821 | PROOF | A122920 | the residual test over one square root, or none |
-| 5822 | PROOF | A132864 | the residual test over one square root, or none |
-| 5823 | PROOF | A133305 | the residual test over one square root, or none |
-| 5824 | PROOF | A133306 | the residual test over one square root, or none |
-| 5825 | PROOF | A133307 | the residual test over one square root, or none |
-| 5826 | PROOF | A133308 | the residual test over one square root, or none |
-| 5827 | PROOF | A141222 | the residual test over one square root, or none |
-| 5828 | PROOF | A154623 | the residual test over one square root, or none |
-| 5829 | PROOF | A157328 | the residual test over one square root, or none |
-| 5830 | PROOF | A158196 | the residual test over one square root, or none |
-| 5831 | PROOF | A158197 | the residual test over one square root, or none |
-| 5832 | PROOF | A191993 | the residual test over one square root, or none |
-| 5833 | PROOF | A225034 | the residual test over one square root, or none |
-| 5834 | PROOF | A242172 | the residual test over one square root, or none |
-| 5835 | PROOF | A002867 | the residual test over one square root, or none |
-| 5836 | PROOF | A014533 | the residual test over one square root, or none |
-| 5837 | PROOF | A051524 | the residual test over one square root, or none |
-| 5838 | PROOF | A071264 | the residual test over one square root, or none |
-| 5839 | PROOF | A081046 | the residual test over one square root, or none |
-| 5840 | PROOF | A098519 | the residual test over one square root, or none |
-| 5841 | PROOF | A098520 | the residual test over one square root, or none |
-| 5842 | PROOF | A101596 | the residual test over one square root, or none |
-| 5843 | PROOF | A101601 | the residual test over one square root, or none |
-| 5844 | PROOF | A101602 | the residual test over one square root, or none |
-| 5845 | PROOF | A111779 | the residual test over one square root, or none |
-| 5846 | PROOF | A112703 | the residual test over one square root, or none |
-| 5847 | PROOF | A119012 | the residual test over one square root, or none |
-| 5848 | PROOF | A128057 | the residual test over one square root, or none |
-| 5849 | PROOF | A128746 | the residual test over one square root, or none |
-| 5850 | PROOF | A132900 | the residual test over one square root, or none |
-| 5851 | PROOF | A151483 | the residual test over one square root, or none |
-| 5852 | PROOF | A167481 | the residual test over one square root, or none |
-| 5853 | PROOF | A171556 | the residual test over one square root, or none |
-| 5854 | PROOF | A176479 | the residual test over one square root, or none |
-| 5855 | PROOF | A182401 | the residual test over one square root, or none |
-| 5856 | PROOF | A208355 | the residual test over one square root, or none |
-| 5857 | PROOF | A210064 | the residual test over one square root, or none |
-| 5858 | PROOF | A240558 | the residual test over one square root, or none |
-| 5859 | PROOF | A141771 | the residual test over one square root, or none |
-| 5860 | PROOF | A176606 | the residual test over one square root, or none |
-| 5861 | PROOF | A176607 | the residual test over one square root, or none |
-| 5862 | PROOF | A176609 | the residual test over one square root, or none |
-| 5863 | PROOF | A176610 | the residual test over one square root, or none |
-| 5864 | PROOF | A176611 | the residual test over one square root, or none |
-| 5865 | PROOF | A176675 | the residual test over one square root, or none |
-| 5866 | PROOF | A176749 | the residual test over one square root, or none |
-| 5867 | PROOF | A176750 | the residual test over one square root, or none |
-| 5868 | PROOF | A176751 | the residual test over one square root, or none |
-| 5869 | PROOF | A176752 | the residual test over one square root, or none |
-| 5870 | PROOF | A176753 | the residual test over one square root, or none |
-| 5871 | PROOF | A176754 | the residual test over one square root, or none |
-| 5872 | PROOF | A176755 | the residual test over one square root, or none |
-| 5873 | PROOF | A176756 | the residual test over one square root, or none |
-| 5874 | PROOF | A176757 | the residual test over one square root, or none |
-| 5875 | PROOF | A176759 | the residual test over one square root, or none |
-| 5876 | PROOF | A176828 | the residual test over one square root, or none |
-| 5877 | PROOF | A176829 | the residual test over one square root, or none |
-| 5878 | PROOF | A176830 | the residual test over one square root, or none |
-| 5879 | PROOF | A176832 | the residual test over one square root, or none |
-| 5880 | PROOF | A176854 | the residual test over one square root, or none |
-| 5881 | PROOF | A176855 | the residual test over one square root, or none |
-| 5882 | PROOF | A176856 | the residual test over one square root, or none |
-| 5883 | PROOF | A176857 | the residual test over one square root, or none |
-| 5884 | PROOF | A176858 | the residual test over one square root, or none |
-| 5885 | PROOF | A176859 | the residual test over one square root, or none |
-| 5886 | PROOF | A176952 | the residual test over one square root, or none |
-| 5887 | PROOF | A176953 | the residual test over one square root, or none |
-| 5888 | PROOF | A176956 | the residual test over one square root, or none |
-| 5889 | PROOF | A176957 | the residual test over one square root, or none |
-| 5890 | PROOF | A176958 | the residual test over one square root, or none |
-| 5891 | PROOF | A176959 | the residual test over one square root, or none |
-| 5892 | PROOF | A176962 | the residual test over one square root, or none |
-| 5893 | PROOF | A176964 | the residual test over one square root, or none |
-| 5894 | PROOF | A176966 | the residual test over one square root, or none |
-| 5895 | PROOF | A176967 | the residual test over one square root, or none |
-| 5896 | PROOF | A177123 | the residual test over one square root, or none |
-| 5897 | PROOF | A177124 | the residual test over one square root, or none |
-| 5898 | PROOF | A177125 | the residual test over one square root, or none |
-| 5899 | PROOF | A177126 | the residual test over one square root, or none |
-| 5900 | PROOF | A177127 | the residual test over one square root, or none |
-| 5901 | PROOF | A177128 | the residual test over one square root, or none |
-| 5902 | PROOF | A177129 | the residual test over one square root, or none |
-| 5903 | PROOF | A177130 | the residual test over one square root, or none |
-| 5904 | PROOF | A177131 | the residual test over one square root, or none |
-| 5905 | PROOF | A177163 | the residual test over one square root, or none |
-| 5906 | PROOF | A177165 | the residual test over one square root, or none |
-| 5907 | PROOF | A177166 | the residual test over one square root, or none |
-| 5908 | PROOF | A177167 | the residual test over one square root, or none |
-| 5909 | PROOF | A177168 | the residual test over one square root, or none |
-| 5910 | PROOF | A177169 | the residual test over one square root, or none |
-| 5911 | PROOF | A177170 | the residual test over one square root, or none |
-| 5912 | PROOF | A177171 | the residual test over one square root, or none |
-| 5913 | PROOF | A177172 | the residual test over one square root, or none |
-| 5914 | PROOF | A177175 | the residual test over one square root, or none |
-| 5915 | PROOF | A177177 | the residual test over one square root, or none |
-| 5916 | PROOF | A177178 | the residual test over one square root, or none |
-| 5917 | PROOF | A177179 | the residual test over one square root, or none |
-| 5918 | PROOF | A177180 | the residual test over one square root, or none |
-| 5919 | PROOF | A177181 | the residual test over one square root, or none |
-| 5920 | PROOF | A177182 | the residual test over one square root, or none |
-| 5921 | PROOF | A177183 | the residual test over one square root, or none |
-| 5922 | PROOF | A177184 | the residual test over one square root, or none |
-| 5923 | PROOF | A177185 | the residual test over one square root, or none |
-| 5924 | PROOF | A177197 | the residual test over one square root, or none |
-| 5925 | PROOF | A177198 | the residual test over one square root, or none |
-| 5926 | PROOF | A177199 | the residual test over one square root, or none |
-| 5927 | PROOF | A177200 | the residual test over one square root, or none |
-| 5928 | PROOF | A177203 | the residual test over one square root, or none |
-| 5929 | PROOF | A081670 | the known side is the entry's NAME rather than a formula line |
-| 5930 | PROOF | A085781 | the known side is the entry's NAME rather than a formula line |
-| 5931 | PROOF | A026019 | the known side is the entry's NAME rather than a formula line |
-| 5932 | PROOF | A052183 | the known side is the entry's NAME rather than a formula line |
-| 5933 | PROOF | A052204 | the known side is the entry's NAME rather than a formula line |
-| 5934 | PROOF | A157713 | the known side is the entry's NAME rather than a formula line |
-| 5935 | PROOF | A334511 | a posted closed form decided by the theory of hypergeometric terms |
-| 5936 | PROOF | A333905 | a posted closed form decided by the theory of hypergeometric terms |
-| 5937 | PROOF | A049486 | a posted closed form decided by the theory of hypergeometric terms |
-| 5938 | PROOF | A267879 | a posted closed form decided by the theory of hypergeometric terms |
-| 5939 | PROOF | A267802 | a posted closed form decided by the theory of hypergeometric terms |
-| 5940 | PROOF | A267847 | a posted closed form decided by the theory of hypergeometric terms |
-| 5941 | PROOF | A034267 | a posted closed form decided by the theory of hypergeometric terms |
-| 5942 | PROOF | A126501 | a posted closed form decided by the theory of hypergeometric terms |
-| 5943 | PROOF | A128153 | a posted closed form decided by the theory of hypergeometric terms |
-| 5944 | PROOF | A212938 | a posted closed form decided by the theory of hypergeometric terms |
-| 5945 | PROOF | A220250 | a posted closed form decided by the theory of hypergeometric terms |
-| 5946 | PROOF | A248434 | a posted closed form decided by the theory of hypergeometric terms |
-| 5947 | PROOF | A258547 | a posted closed form decided by the theory of hypergeometric terms |
-| 5948 | PROOF | A272706 | a posted closed form decided by the theory of hypergeometric terms |
-| 5949 | PROOF | A126089 | complete annihilation, tested in the Ore algebra Q(n)[N] |
-| 5950 | PROOF | A025271 | division of one posted operator by another |
-| 5951 | PROOF | A138164 | division of one posted operator by another |
-| 5952 | PROOF | A143017 | division of one posted operator by another |
-| 5953 | PROOF | A159772 | division of one posted operator by another |
-| 5954 | PROOF | A000986 | division of one posted operator by another |
-| 5955 | PROOF | A022917 | division of one posted operator by another |
-| 5956 | PROOF | A217447 | division of one posted operator by another |
-| 5957 | PROOF | A226302 | division of one posted operator by another |
-| 5958 | PROOF | A245088 | division of one posted operator by another |
-| 5959 | PROOF | A026165 | division of one posted operator by another |
-| 5960 | PROOF | A185966 | division of one posted operator by another |
-| 5961 | PROOF | A200753 | division of one posted operator by another |
-| 5962 | PROOF | A217358 | division of one posted operator by another |
-| 5963 | PROOF | A228960 | division of one posted operator by another |
-| 5964 | PROOF | A003435 | division of one posted operator by another |
-| 5965 | PROOF | A228331 | division of one posted operator by another |
-| 5966 | PROOF | A273019 | division of one posted operator by another |
-| 5967 | PROOF | A386834 | division of one posted operator by another |
-| 5968 | PROOF | A228330 | division of one posted operator by another |
-| 5969 | PROOF | A228333 | division of one posted operator by another |
+| 1693 | PROOF | A220723 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
+| 1694 | PROOF | A196425 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1695 | PROOF | A207487 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1696 | PROOF | A203841 | a condition on every cell over the neighbour set the entry names |
+| 1697 | PROOF | A209957 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1698 | PROOF | A188691 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1699 | PROOF | A207499 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1700 | PROOF | A207664 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1701 | PROOF | A207127 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1702 | PROOF | A207907 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1703 | PROOF | A207002 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1704 | PROOF | A220715 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
+| 1705 | PROOF | A206783 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1706 | PROOF | A298090 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1707 | PROOF | A207521 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1708 | PROOF | A207775 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1709 | PROOF | A207343 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1710 | PROOF | A207086 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1711 | PROOF | A207504 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1712 | PROOF | A208026 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1713 | PROOF | A207179 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1714 | PROOF | A207697 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1715 | PROOF | A207349 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1716 | PROOF | A206887 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1717 | PROOF | A207417 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1718 | PROOF | A208075 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1719 | PROOF | A255085 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 1720 | PROOF | A220678 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
+| 1721 | PROOF | A207423 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1722 | PROOF | A252408 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 1723 | PROOF | A207772 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1724 | PROOF | A189108 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1725 | PROOF | A207716 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1726 | PROOF | A220741 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
+| 1727 | PROOF | A209948 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1728 | PROOF | A184660 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 1729 | PROOF | A297984 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1730 | PROOF | A297855 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1731 | PROOF | A207469 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1732 | PROOF | A207959 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1733 | PROOF | A207921 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1734 | PROOF | A207273 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1735 | PROOF | A209551 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1736 | PROOF | A260291 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 1737 | PROOF | A260606 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 1738 | PROOF | A220626 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
+| 1739 | PROOF | A185528 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 1740 | PROOF | A188770 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1741 | PROOF | A209782 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1742 | PROOF | A210330 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1743 | PROOF | A210350 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1744 | PROOF | A298051 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1745 | PROOF | A298656 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1746 | PROOF | A220735 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
+| 1747 | PROOF | A303798 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1748 | PROOF | A188519 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1749 | PROOF | A188854 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1750 | PROOF | A203437 | a condition on every cell over the neighbour set the entry names |
+| 1751 | PROOF | A207246 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1752 | PROOF | A210072 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1753 | PROOF | A302456 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1754 | PROOF | A303238 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1755 | PROOF | A305093 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1756 | PROOF | A316753 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1757 | PROOF | A203097 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1758 | PROOF | A207789 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1759 | PROOF | A209793 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1760 | PROOF | A301665 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1761 | PROOF | A303036 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1762 | PROOF | A303199 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1763 | PROOF | A304948 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1764 | PROOF | A318020 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1765 | PROOF | A207074 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1766 | PROOF | A252098 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 1767 | PROOF | A188603 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1768 | PROOF | A298954 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1769 | PROOF | A206868 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1770 | PROOF | A206991 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1771 | PROOF | A304955 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1772 | PROOF | A210272 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1773 | PROOF | A208418 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1774 | PROOF | A189266 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1775 | PROOF | A209853 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1776 | PROOF | A298578 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1777 | PROOF | A302429 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1778 | PROOF | A302729 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1779 | PROOF | A208695 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1780 | PROOF | A188751 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1781 | PROOF | A252641 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 1782 | PROOF | A298175 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1783 | PROOF | A207740 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1784 | PROOF | A298164 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1785 | PROOF | A298290 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1786 | PROOF | A298556 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1787 | PROOF | A299183 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1788 | PROOF | A299570 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1789 | PROOF | A304006 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1790 | PROOF | A304540 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1791 | PROOF | A306125 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1792 | PROOF | A316307 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1793 | PROOF | A252599 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 1794 | PROOF | A302412 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1795 | PROOF | A303179 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1796 | PROOF | A207686 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1797 | PROOF | A297947 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1798 | PROOF | A298226 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1799 | PROOF | A298766 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1800 | PROOF | A300919 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1801 | PROOF | A301604 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1802 | PROOF | A304015 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1803 | PROOF | A304152 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1804 | PROOF | A304351 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1805 | PROOF | A305363 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1806 | PROOF | A303960 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1807 | PROOF | A252385 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 1808 | PROOF | A317771 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1809 | PROOF | A208701 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1810 | PROOF | A209908 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1811 | PROOF | A304475 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1812 | PROOF | A305219 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1813 | PROOF | A305638 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1814 | PROOF | A306056 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1815 | PROOF | A316300 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1816 | PROOF | A317032 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1817 | PROOF | A317234 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1818 | PROOF | A260367 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 1819 | PROOF | A304300 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1820 | PROOF | A189113 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1821 | PROOF | A207659 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1822 | PROOF | A209711 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1823 | PROOF | A298191 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1824 | PROOF | A298618 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1825 | PROOF | A299085 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1826 | PROOF | A299341 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1827 | PROOF | A299848 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1828 | PROOF | A302281 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1829 | PROOF | A316235 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1830 | PROOF | A220551 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
+| 1831 | PROOF | A220567 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
+| 1832 | PROOF | A207708 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1833 | PROOF | A207428 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1834 | PROOF | A303799 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1835 | PROOF | A318544 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1836 | PROOF | A302638 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1837 | PROOF | A206874 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1838 | PROOF | A208167 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1839 | PROOF | A207091 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1840 | PROOF | A282965 | a condition on every cell over the neighbour set the entry names |
+| 1841 | PROOF | A210295 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1842 | PROOF | A298715 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1843 | PROOF | A298830 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1844 | PROOF | A304259 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1845 | PROOF | A305448 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1846 | PROOF | A255789 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 1847 | PROOF | A252327 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 1848 | PROOF | A305338 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1849 | PROOF | A303621 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1850 | PROOF | A207268 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1851 | PROOF | A297955 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1852 | PROOF | A298066 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1853 | PROOF | A298217 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1854 | PROOF | A299310 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1855 | PROOF | A299447 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1856 | PROOF | A301537 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1857 | PROOF | A303018 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1858 | PROOF | A316214 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1859 | PROOF | A252150 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 1860 | PROOF | A252212 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 1861 | PROOF | A252507 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 1862 | PROOF | A252616 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 1863 | PROOF | A298097 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1864 | PROOF | A298899 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1865 | PROOF | A317899 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1866 | PROOF | A318013 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1867 | PROOF | A232025 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1868 | PROOF | A207491 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1869 | PROOF | A207771 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1870 | PROOF | A231540 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1871 | PROOF | A297317 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1872 | PROOF | A299678 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1873 | PROOF | A302214 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1874 | PROOF | A302312 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1875 | PROOF | A303042 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1876 | PROOF | A316879 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1877 | PROOF | A317607 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1878 | PROOF | A188848 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1879 | PROOF | A252298 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 1880 | PROOF | A305480 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1881 | PROOF | A220593 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
+| 1882 | PROOF | A220729 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
+| 1883 | PROOF | A297227 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1884 | PROOF | A207843 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1885 | PROOF | A207513 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1886 | PROOF | A298135 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1887 | PROOF | A298926 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1888 | PROOF | A301527 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1889 | PROOF | A302305 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1890 | PROOF | A302879 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1891 | PROOF | A260541 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 1892 | PROOF | A260838 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 1893 | PROOF | A196539 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1894 | PROOF | A254974 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 1895 | PROOF | A297436 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1896 | PROOF | A326102 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1897 | PROOF | A207783 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1898 | PROOF | A300085 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1899 | PROOF | A259998 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 1900 | PROOF | A206934 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1901 | PROOF | A220599 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
+| 1902 | PROOF | A298632 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1903 | PROOF | A300469 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1904 | PROOF | A207931 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1905 | PROOF | A298504 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1906 | PROOF | A298723 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1907 | PROOF | A298891 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1908 | PROOF | A303527 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1909 | PROOF | A318419 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1910 | PROOF | A207663 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1911 | PROOF | A207073 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1912 | PROOF | A208365 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1913 | PROOF | A220637 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
+| 1914 | PROOF | A260102 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 1915 | PROOF | A297580 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1916 | PROOF | A188995 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1917 | PROOF | A189192 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1918 | PROOF | A231658 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1919 | PROOF | A207788 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1920 | PROOF | A207498 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1921 | PROOF | A296584 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1922 | PROOF | A297939 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1923 | PROOF | A298083 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1924 | PROOF | A302325 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1925 | PROOF | A304054 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1926 | PROOF | A304306 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1927 | PROOF | A304343 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1928 | PROOF | A305589 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1929 | PROOF | A305772 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1930 | PROOF | A316205 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1931 | PROOF | A317007 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1932 | PROOF | A317121 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1933 | PROOF | A317600 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1934 | PROOF | A317739 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1935 | PROOF | A318073 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1936 | PROOF | A188759 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1937 | PROOF | A207761 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1938 | PROOF | A234212 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1939 | PROOF | A283953 | a condition on every cell over the neighbour set the entry names |
+| 1940 | PROOF | A300111 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1941 | PROOF | A300772 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1942 | PROOF | A302873 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1943 | PROOF | A303080 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1944 | PROOF | A316872 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1945 | PROOF | A320360 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1946 | PROOF | A297394 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1947 | PROOF | A183390 | a condition on every cell's king-move neighbourhood, boundaries included |
+| 1948 | PROOF | A297455 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1949 | PROOF | A189692 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1950 | PROOF | A295940 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1951 | PROOF | A296016 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1952 | PROOF | A296036 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1953 | PROOF | A297604 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1954 | PROOF | A207715 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1955 | PROOF | A203383 | a condition on every cell over the neighbour set the entry names |
+| 1956 | PROOF | A207440 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1957 | PROOF | A188705 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1958 | PROOF | A207126 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1959 | PROOF | A297804 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1960 | PROOF | A299048 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1961 | PROOF | A299810 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1962 | PROOF | A300310 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1963 | PROOF | A303321 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1964 | PROOF | A207030 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1965 | PROOF | A203834 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1966 | PROOF | A252551 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 1967 | PROOF | A252567 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 1968 | PROOF | A260173 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 1969 | PROOF | A302633 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1970 | PROOF | A297516 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1971 | PROOF | A297541 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1972 | PROOF | A305249 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1973 | PROOF | A207512 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1974 | PROOF | A255777 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 1975 | PROOF | A302227 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1976 | PROOF | A305645 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1977 | PROOF | A317892 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1978 | PROOF | A207272 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1979 | PROOF | A206890 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1980 | PROOF | A203186 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1981 | PROOF | A229843 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1982 | PROOF | A207681 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1983 | PROOF | A207906 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1984 | PROOF | A188503 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1985 | PROOF | A298129 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1986 | PROOF | A298255 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1987 | PROOF | A298450 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1988 | PROOF | A299524 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1989 | PROOF | A302071 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1990 | PROOF | A318426 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1991 | PROOF | A208161 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1992 | PROOF | A259720 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 1993 | PROOF | A256806 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 1994 | PROOF | A260763 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 1995 | PROOF | A305689 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1996 | PROOF | A317069 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1997 | PROOF | A232283 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1998 | PROOF | A233880 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 1999 | PROOF | A207486 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2000 | PROOF | A189066 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2001 | PROOF | A296401 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2002 | PROOF | A297752 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2003 | PROOF | A297765 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2004 | PROOF | A297872 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2005 | PROOF | A300461 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2006 | PROOF | A317039 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2007 | PROOF | A317693 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2008 | PROOF | A251109 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2009 | PROOF | A207855 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2010 | PROOF | A208074 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2011 | PROOF | A302628 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2012 | PROOF | A207563 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2013 | PROOF | A282477 | a condition on every cell's king-move neighbourhood, boundaries included |
+| 2014 | PROOF | A284071 | a condition on every cell over the neighbour set the entry names |
+| 2015 | PROOF | A283228 | a condition on every cell over the neighbour set the entry names |
+| 2016 | PROOF | A207888 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2017 | PROOF | A206880 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2018 | PROOF | A251162 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2019 | PROOF | A296959 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2020 | PROOF | A297723 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2021 | PROOF | A298497 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2022 | PROOF | A302891 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2023 | PROOF | A316921 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2024 | PROOF | A302520 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2025 | PROOF | A296310 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2026 | PROOF | A296574 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2027 | PROOF | A296830 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2028 | PROOF | A297911 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2029 | PROOF | A302363 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2030 | PROOF | A304593 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2031 | PROOF | A306139 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2032 | PROOF | A316379 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2033 | PROOF | A317372 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2034 | PROOF | A207915 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2035 | PROOF | A255156 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 2036 | PROOF | A297813 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2037 | PROOF | A252194 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 2038 | PROOF | A297599 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2039 | PROOF | A231973 | a condition on every cell over the neighbour set the entry names |
+| 2040 | PROOF | A188906 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2041 | PROOF | A295048 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2042 | PROOF | A297820 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2043 | PROOF | A229929 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2044 | PROOF | A207503 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2045 | PROOF | A207372 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2046 | PROOF | A188876 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2047 | PROOF | A189112 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2048 | PROOF | A296392 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2049 | PROOF | A299131 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2050 | PROOF | A299224 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2051 | PROOF | A299889 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2052 | PROOF | A300642 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2053 | PROOF | A302816 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2054 | PROOF | A303471 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2055 | PROOF | A303509 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2056 | PROOF | A304890 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2057 | PROOF | A305950 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2058 | PROOF | A234993 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2059 | PROOF | A207245 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2060 | PROOF | A207696 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2061 | PROOF | A208041 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2062 | PROOF | A207125 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2063 | PROOF | A207707 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2064 | PROOF | A207463 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2065 | PROOF | A298182 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2066 | PROOF | A252672 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 2067 | PROOF | A278096 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2068 | PROOF | A278205 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2069 | PROOF | A283127 | a condition on every cell over the neighbour set the entry names |
+| 2070 | PROOF | A207884 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2071 | PROOF | A207964 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2072 | PROOF | A207184 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2073 | PROOF | A207586 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2074 | PROOF | A210151 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2075 | PROOF | A234328 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2076 | PROOF | A296970 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2077 | PROOF | A297016 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2078 | PROOF | A297903 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2079 | PROOF | A298333 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2080 | PROOF | A298625 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2081 | PROOF | A299598 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2082 | PROOF | A302318 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2083 | PROOF | A302810 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2084 | PROOF | A317811 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2085 | PROOF | A207342 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2086 | PROOF | A301969 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2087 | PROOF | A189698 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2088 | PROOF | A303453 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2089 | PROOF | A207267 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2090 | PROOF | A297098 | a condition on every cell's king-move neighbourhood, boundaries included |
+| 2091 | PROOF | A207898 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2092 | PROOF | A297862 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2093 | PROOF | A298236 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2094 | PROOF | A300423 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2095 | PROOF | A300685 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2096 | PROOF | A303521 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2097 | PROOF | A304415 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2098 | PROOF | A207116 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2099 | PROOF | A207892 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2100 | PROOF | A303319 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2101 | PROOF | A305039 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2102 | PROOF | A316692 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2103 | PROOF | A237856 | a condition on every cell over the neighbour set the entry names |
+| 2104 | PROOF | A252466 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 2105 | PROOF | A255097 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 2106 | PROOF | A304773 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2107 | PROOF | A231379 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2108 | PROOF | A255787 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 2109 | PROOF | A302738 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2110 | PROOF | A234885 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2111 | PROOF | A207085 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2112 | PROOF | A283096 | a condition on every cell over the neighbour set the entry names |
+| 2113 | PROOF | A283729 | a condition on every cell over the neighbour set the entry names |
+| 2114 | PROOF | A202976 | a condition on every cell over the neighbour set the entry names |
+| 2115 | PROOF | A206782 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2116 | PROOF | A235170 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2117 | PROOF | A296948 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2118 | PROOF | A297974 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2119 | PROOF | A299362 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2120 | PROOF | A304897 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2121 | PROOF | A316579 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2122 | PROOF | A207416 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2123 | PROOF | A207029 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2124 | PROOF | A207072 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2125 | PROOF | A304229 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2126 | PROOF | A305585 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2127 | PROOF | A260244 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 2128 | PROOF | A304131 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2129 | PROOF | A233953 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2130 | PROOF | A296722 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2131 | PROOF | A305513 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2132 | PROOF | A283854 | a condition on every cell over the neighbour set the entry names |
+| 2133 | PROOF | A207691 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2134 | PROOF | A207926 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2135 | PROOF | A209222 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2136 | PROOF | A231759 | a condition on every cell over the neighbour set the entry names |
+| 2137 | PROOF | A231801 | a condition on every cell over the neighbour set the entry names |
+| 2138 | PROOF | A188562 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2139 | PROOF | A295093 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2140 | PROOF | A295249 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2141 | PROOF | A295348 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2142 | PROOF | A295527 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2143 | PROOF | A295648 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2144 | PROOF | A298837 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2145 | PROOF | A301396 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2146 | PROOF | A316548 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2147 | PROOF | A234439 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2148 | PROOF | A232046 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2149 | PROOF | A259891 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 2150 | PROOF | A189261 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2151 | PROOF | A252416 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 2152 | PROOF | A252559 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 2153 | PROOF | A255788 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 2154 | PROOF | A260366 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 2155 | PROOF | A316516 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2156 | PROOF | A234032 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2157 | PROOF | A278277 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2158 | PROOF | A296332 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2159 | PROOF | A207680 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2160 | PROOF | A207805 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2161 | PROOF | A299685 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2162 | PROOF | A302268 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2163 | PROOF | A302967 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2164 | PROOF | A233750 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2165 | PROOF | A255024 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 2166 | PROOF | A259959 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 2167 | PROOF | A301950 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2168 | PROOF | A197667 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2169 | PROOF | A238318 | a condition on every cell over the neighbour set the entry names |
+| 2170 | PROOF | A278190 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2171 | PROOF | A295779 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2172 | PROOF | A296317 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2173 | PROOF | A302950 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2174 | PROOF | A305179 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2175 | PROOF | A316417 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2176 | PROOF | A317380 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2177 | PROOF | A252598 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 2178 | PROOF | A282859 | a condition on every cell over the neighbour set the entry names |
+| 2179 | PROOF | A188609 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2180 | PROOF | A233962 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2181 | PROOF | A296153 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2182 | PROOF | A296986 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2183 | PROOF | A300368 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2184 | PROOF | A302468 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2185 | PROOF | A303012 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2186 | PROOF | A303250 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2187 | PROOF | A303626 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2188 | PROOF | A207490 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2189 | PROOF | A207511 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2190 | PROOF | A207520 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2191 | PROOF | A255088 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 2192 | PROOF | A260472 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 2193 | PROOF | A282788 | a condition on every cell's king-move neighbourhood, boundaries included |
+| 2194 | PROOF | A255144 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 2195 | PROOF | A303805 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2196 | PROOF | A283576 | a condition on every cell over the neighbour set the entry names |
+| 2197 | PROOF | A282589 | a condition on every cell's king-move neighbourhood, boundaries included |
+| 2198 | PROOF | A283569 | a condition on every cell over the neighbour set the entry names |
+| 2199 | PROOF | A283780 | a condition on every cell over the neighbour set the entry names |
+| 2200 | PROOF | A297090 | a condition on every cell's king-move neighbourhood, boundaries included |
+| 2201 | PROOF | A297716 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2202 | PROOF | A302383 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2203 | PROOF | A302423 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2204 | PROOF | A303104 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2205 | PROOF | A303193 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2206 | PROOF | A304061 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2207 | PROOF | A304665 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2208 | PROOF | A305018 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2209 | PROOF | A316423 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2210 | PROOF | A210386 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2211 | PROOF | A282881 | a condition on every cell over the neighbour set the entry names |
+| 2212 | PROOF | A284077 | a condition on every cell over the neighbour set the entry names |
+| 2213 | PROOF | A207685 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2214 | PROOF | A251315 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2215 | PROOF | A232020 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2216 | PROOF | A235235 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2217 | PROOF | A183447 | a condition on every cell's king-move neighbourhood, boundaries included |
+| 2218 | PROOF | A251943 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 2219 | PROOF | A233687 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2220 | PROOF | A297586 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2221 | PROOF | A297685 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2222 | PROOF | A203332 | a condition on every cell over the neighbour set the entry names |
+| 2223 | PROOF | A208417 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2224 | PROOF | A298490 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2225 | PROOF | A300542 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2226 | PROOF | A300969 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2227 | PROOF | A304851 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2228 | PROOF | A207266 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2229 | PROOF | A207782 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2230 | PROOF | A206937 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2231 | PROOF | A207001 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2232 | PROOF | A251436 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2233 | PROOF | A259949 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 2234 | PROOF | A256025 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 2235 | PROOF | A260290 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 2236 | PROOF | A260497 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 2237 | PROOF | A278268 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2238 | PROOF | A297593 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2239 | PROOF | A297812 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2240 | PROOF | A235234 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2241 | PROOF | A295117 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2242 | PROOF | A295272 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2243 | PROOF | A306163 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2244 | PROOF | A316612 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2245 | PROOF | A231748 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2246 | PROOF | A234109 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2247 | PROOF | A283688 | a condition on every cell over the neighbour set the entry names |
+| 2248 | PROOF | A206886 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2249 | PROOF | A207751 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2250 | PROOF | A235252 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2251 | PROOF | A207371 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2252 | PROOF | A251803 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2253 | PROOF | A278173 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2254 | PROOF | A278283 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2255 | PROOF | A296382 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2256 | PROOF | A297547 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2257 | PROOF | A297640 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2258 | PROOF | A297745 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2259 | PROOF | A300142 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2260 | PROOF | A300317 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2261 | PROOF | A300807 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2262 | PROOF | A301446 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2263 | PROOF | A306168 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2264 | PROOF | A317425 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2265 | PROOF | A320398 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2266 | PROOF | A235065 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2267 | PROOF | A251386 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2268 | PROOF | A207396 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2269 | PROOF | A260067 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 2270 | PROOF | A260281 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 2271 | PROOF | A235194 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2272 | PROOF | A255087 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 2273 | PROOF | A234661 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2274 | PROOF | A251070 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2275 | PROOF | A235193 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2276 | PROOF | A296125 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2277 | PROOF | A299725 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2278 | PROOF | A303633 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2279 | PROOF | A283518 | a condition on every cell over the neighbour set the entry names |
+| 2280 | PROOF | A206997 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2281 | PROOF | A207958 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2282 | PROOF | A207658 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2283 | PROOF | A231526 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2284 | PROOF | A296537 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2285 | PROOF | A296631 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2286 | PROOF | A296800 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2287 | PROOF | A318064 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2288 | PROOF | A234085 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2289 | PROOF | A207115 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2290 | PROOF | A251060 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2291 | PROOF | A251169 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2292 | PROOF | A196680 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2293 | PROOF | A278002 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2294 | PROOF | A252680 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 2295 | PROOF | A261551 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 2296 | PROOF | A295915 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2297 | PROOF | A300205 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2298 | PROOF | A233911 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2299 | PROOF | A283343 | a condition on every cell over the neighbour set the entry names |
+| 2300 | PROOF | A207760 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2301 | PROOF | A255786 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 2302 | PROOF | A299056 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2303 | PROOF | A299664 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2304 | PROOF | A299817 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2305 | PROOF | A303884 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2306 | PROOF | A305526 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2307 | PROOF | A305681 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2308 | PROOF | A316818 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2309 | PROOF | A317000 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2310 | PROOF | A317568 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2311 | PROOF | A233647 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2312 | PROOF | A207502 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2313 | PROOF | A208166 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2314 | PROOF | A207787 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2315 | PROOF | A189062 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2316 | PROOF | A198180 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2317 | PROOF | A209550 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2318 | PROOF | A260605 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 2319 | PROOF | A297429 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2320 | PROOF | A318543 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2321 | PROOF | A207568 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2322 | PROOF | A295413 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2323 | PROOF | A297983 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2324 | PROOF | A302209 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2325 | PROOF | A305344 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2326 | PROOF | A283412 | a condition on every cell over the neighbour set the entry names |
+| 2327 | PROOF | A220620 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
+| 2328 | PROOF | A188742 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2329 | PROOF | A297798 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2330 | PROOF | A298457 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2331 | PROOF | A298997 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2332 | PROOF | A299550 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2333 | PROOF | A317819 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2334 | PROOF | A318346 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2335 | PROOF | A234147 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2336 | PROOF | A207028 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2337 | PROOF | A251153 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2338 | PROOF | A251405 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2339 | PROOF | A234708 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2340 | PROOF | A261289 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 2341 | PROOF | A300181 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2342 | PROOF | A318342 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2343 | PROOF | A196213 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2344 | PROOF | A206471 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2345 | PROOF | A231994 | a condition on every cell over the neighbour set the entry names |
+| 2346 | PROOF | A234707 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2347 | PROOF | A317731 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2348 | PROOF | A188847 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2349 | PROOF | A302167 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2350 | PROOF | A220625 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
+| 2351 | PROOF | A220642 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
+| 2352 | PROOF | A231646 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2353 | PROOF | A208037 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2354 | PROOF | A282334 | a condition on every cell's king-move neighbourhood, boundaries included |
+| 2355 | PROOF | A282993 | a condition on every cell over the neighbour set the entry names |
+| 2356 | PROOF | A232000 | a condition on every cell over the neighbour set the entry names |
+| 2357 | PROOF | A183400 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2358 | PROOF | A188518 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2359 | PROOF | A207920 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2360 | PROOF | A208025 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2361 | PROOF | A208498 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2362 | PROOF | A220685 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
+| 2363 | PROOF | A298543 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2364 | PROOF | A301953 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2365 | PROOF | A303965 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2366 | PROOF | A305284 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2367 | PROOF | A305343 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2368 | PROOF | A318218 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2369 | PROOF | A209956 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2370 | PROOF | A220619 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
+| 2371 | PROOF | A207585 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2372 | PROOF | A207706 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2373 | PROOF | A207859 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2374 | PROOF | A207695 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2375 | PROOF | A251446 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2376 | PROOF | A231766 | a condition on every cell over the neighbour set the entry names |
+| 2377 | PROOF | A251265 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2378 | PROOF | A251323 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2379 | PROOF | A297313 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2380 | PROOF | A302622 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2381 | PROOF | A197777 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2382 | PROOF | A202885 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2383 | PROOF | A302168 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2384 | PROOF | A234120 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2385 | PROOF | A254973 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 2386 | PROOF | A295844 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2387 | PROOF | A297730 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2388 | PROOF | A207767 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2389 | PROOF | A232276 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2390 | PROOF | A207562 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2391 | PROOF | A207948 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2392 | PROOF | A235242 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2393 | PROOF | A234171 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2394 | PROOF | A234186 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2395 | PROOF | A186056 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 2396 | PROOF | A188853 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2397 | PROOF | A296735 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2398 | PROOF | A296823 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2399 | PROOF | A298089 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2400 | PROOF | A298663 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2401 | PROOF | A301844 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2402 | PROOF | A302885 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2403 | PROOF | A303892 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2404 | PROOF | A305765 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2405 | PROOF | A317114 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2406 | PROOF | A234202 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2407 | PROOF | A209654 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2408 | PROOF | A251199 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2409 | PROOF | A251509 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2410 | PROOF | A207468 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2411 | PROOF | A207238 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2412 | PROOF | A207444 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2413 | PROOF | A188704 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2414 | PROOF | A317516 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2415 | PROOF | A197404 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2416 | PROOF | A197426 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2417 | PROOF | A203096 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2418 | PROOF | A255086 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 2419 | PROOF | A260101 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 2420 | PROOF | A298143 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2421 | PROOF | A303185 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2422 | PROOF | A303327 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2423 | PROOF | A304923 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2424 | PROOF | A304928 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2425 | PROOF | A305242 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2426 | PROOF | A207878 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2427 | PROOF | A282437 | a condition on every cell's king-move neighbourhood, boundaries included |
+| 2428 | PROOF | A283946 | a condition on every cell over the neighbour set the entry names |
+| 2429 | PROOF | A283199 | a condition on every cell over the neighbour set the entry names |
+| 2430 | PROOF | A234551 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2431 | PROOF | A297081 | a condition on every cell's king-move neighbourhood, boundaries included |
+| 2432 | PROOF | A231511 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2433 | PROOF | A233787 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2434 | PROOF | A295036 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2435 | PROOF | A297610 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2436 | PROOF | A298440 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2437 | PROOF | A298585 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2438 | PROOF | A299517 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2439 | PROOF | A299577 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2440 | PROOF | A304844 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2441 | PROOF | A316541 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2442 | PROOF | A316928 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2443 | PROOF | A207905 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2444 | PROOF | A207497 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2445 | PROOF | A207370 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2446 | PROOF | A207395 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2447 | PROOF | A228802 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2448 | PROOF | A207271 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2449 | PROOF | A250977 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2450 | PROOF | A251014 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2451 | PROOF | A207071 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2452 | PROOF | A234416 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2453 | PROOF | A252345 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 2454 | PROOF | A252575 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 2455 | PROOF | A260837 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 2456 | PROOF | A188750 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2457 | PROOF | A297461 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2458 | PROOF | A303194 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2459 | PROOF | A303322 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2460 | PROOF | A304601 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2461 | PROOF | A316950 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2462 | PROOF | A317738 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2463 | PROOF | A317770 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2464 | PROOF | A251069 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2465 | PROOF | A188690 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2466 | PROOF | A232050 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2467 | PROOF | A278090 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2468 | PROOF | A297758 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2469 | PROOF | A299138 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2470 | PROOF | A299933 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2471 | PROOF | A209947 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2472 | PROOF | A251331 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2473 | PROOF | A207439 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2474 | PROOF | A207887 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2475 | PROOF | A283786 | a condition on every cell over the neighbour set the entry names |
+| 2476 | PROOF | A207090 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2477 | PROOF | A282964 | a condition on every cell over the neighbour set the entry names |
+| 2478 | PROOF | A208160 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2479 | PROOF | A251289 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2480 | PROOF | A260204 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 2481 | PROOF | A196295 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2482 | PROOF | A197202 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2483 | PROOF | A197608 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2484 | PROOF | A197800 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2485 | PROOF | A230671 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2486 | PROOF | A301882 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2487 | PROOF | A301997 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2488 | PROOF | A302013 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2489 | PROOF | A302079 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2490 | PROOF | A303959 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2491 | PROOF | A223427 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2492 | PROOF | A189107 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2493 | PROOF | A260762 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 2494 | PROOF | A297302 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2495 | PROOF | A304299 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2496 | PROOF | A305337 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2497 | PROOF | A283547 | a condition on every cell over the neighbour set the entry names |
+| 2498 | PROOF | A206933 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2499 | PROOF | A207883 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2500 | PROOF | A233886 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2501 | PROOF | A251502 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2502 | PROOF | A297515 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2503 | PROOF | A297603 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2504 | PROOF | A297633 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2505 | PROOF | A297854 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2506 | PROOF | A298571 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2507 | PROOF | A302666 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2508 | PROOF | A283381 | a condition on every cell over the neighbour set the entry names |
+| 2509 | PROOF | A207114 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2510 | PROOF | A220550 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
+| 2511 | PROOF | A220566 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
+| 2512 | PROOF | A251216 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2513 | PROOF | A300634 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2514 | PROOF | A318209 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2515 | PROOF | A301661 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2516 | PROOF | A302685 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2517 | PROOF | A234487 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2518 | PROOF | A234699 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2519 | PROOF | A297399 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2520 | PROOF | A303419 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2521 | PROOF | A208687 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2522 | PROOF | A207728 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2523 | PROOF | A282525 | a condition on every cell's king-move neighbourhood, boundaries included |
+| 2524 | PROOF | A299651 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2525 | PROOF | A301440 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2526 | PROOF | A302418 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2527 | PROOF | A239180 | a condition on every cell over the neighbour set the entry names |
+| 2528 | PROOF | A208686 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2529 | PROOF | A207727 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2530 | PROOF | A234668 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2531 | PROOF | A234706 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2532 | PROOF | A208700 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2533 | PROOF | A209731 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2534 | PROOF | A231840 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2535 | PROOF | A278153 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2536 | PROOF | A297341 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2537 | PROOF | A297522 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2538 | PROOF | A297919 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2539 | PROOF | A299369 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2540 | PROOF | A302411 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2541 | PROOF | A303178 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2542 | PROOF | A303686 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2543 | PROOF | A304763 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2544 | PROOF | A233640 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2545 | PROOF | A207963 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2546 | PROOF | A207485 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2547 | PROOF | A251256 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2548 | PROOF | A234976 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2549 | PROOF | A250922 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2550 | PROOF | A251005 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2551 | PROOF | A250970 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2552 | PROOF | A251097 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2553 | PROOF | A300430 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2554 | PROOF | A300939 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2555 | PROOF | A301356 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2556 | PROOF | A318547 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2557 | PROOF | A234724 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2558 | PROOF | A204601 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 2559 | PROOF | A252059 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 2560 | PROOF | A282645 | a condition on every cell's king-move neighbourhood, boundaries included |
+| 2561 | PROOF | A230836 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2562 | PROOF | A234723 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2563 | PROOF | A298961 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2564 | PROOF | A223339 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2565 | PROOF | A260172 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 2566 | PROOF | A260496 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 2567 | PROOF | A297579 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2568 | PROOF | A297679 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2569 | PROOF | A250910 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2570 | PROOF | A234722 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2571 | PROOF | A283038 | a condition on every cell over the neighbour set the entry names |
+| 2572 | PROOF | A297885 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2573 | PROOF | A298276 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2574 | PROOF | A299077 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2575 | PROOF | A302220 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2576 | PROOF | A316179 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2577 | PROOF | A317898 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2578 | PROOF | A251206 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2579 | PROOF | A282372 | a condition on every cell's king-move neighbourhood, boundaries included |
+| 2580 | PROOF | A283779 | a condition on every cell over the neighbour set the entry names |
+| 2581 | PROOF | A300600 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2582 | PROOF | A301907 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2583 | PROOF | A318032 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2584 | PROOF | A220677 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
+| 2585 | PROOF | A231835 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2586 | PROOF | A234686 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2587 | PROOF | A196702 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2588 | PROOF | A196851 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2589 | PROOF | A196945 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2590 | PROOF | A204402 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 2591 | PROOF | A204495 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 2592 | PROOF | A238924 | a condition on every cell over the neighbour set the entry names |
+| 2593 | PROOF | A252434 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 2594 | PROOF | A255155 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 2595 | PROOF | A302627 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2596 | PROOF | A234685 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2597 | PROOF | A183306 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2598 | PROOF | A189613 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2599 | PROOF | A255096 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 2600 | PROOF | A260243 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 2601 | PROOF | A297435 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2602 | PROOF | A302632 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2603 | PROOF | A305479 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2604 | PROOF | A318072 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2605 | PROOF | A207766 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2606 | PROOF | A235206 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2607 | PROOF | A188602 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2608 | PROOF | A189697 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2609 | PROOF | A297377 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2610 | PROOF | A299317 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2611 | PROOF | A299717 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2612 | PROOF | A233879 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2613 | PROOF | A203340 | a condition on every cell over the neighbour set the entry names |
+| 2614 | PROOF | A207759 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2615 | PROOF | A209653 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2616 | PROOF | A207265 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2617 | PROOF | A207914 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2618 | PROOF | A251225 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2619 | PROOF | A189200 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2620 | PROOF | A203794 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2621 | PROOF | A259769 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 2622 | PROOF | A260977 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 2623 | PROOF | A261552 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 2624 | PROOF | A261708 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 2625 | PROOF | A297373 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2626 | PROOF | A305229 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2627 | PROOF | A278010 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2628 | PROOF | A260471 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 2629 | PROOF | A203833 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2630 | PROOF | A207953 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2631 | PROOF | A256805 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 2632 | PROOF | A260365 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 2633 | PROOF | A207122 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2634 | PROOF | A184787 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 2635 | PROOF | A207739 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2636 | PROOF | A282556 | a condition on every cell's king-move neighbourhood, boundaries included |
+| 2637 | PROOF | A283722 | a condition on every cell over the neighbour set the entry names |
+| 2638 | PROOF | A283860 | a condition on every cell over the neighbour set the entry names |
+| 2639 | PROOF | A183383 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2640 | PROOF | A188905 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2641 | PROOF | A189106 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2642 | PROOF | A233728 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2643 | PROOF | A295712 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2644 | PROOF | A300134 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2645 | PROOF | A302208 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2646 | PROOF | A303796 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2647 | PROOF | A305241 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2648 | PROOF | A305957 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2649 | PROOF | A317218 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2650 | PROOF | A317461 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2651 | PROOF | A235233 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2652 | PROOF | A207407 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2653 | PROOF | A208146 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2654 | PROOF | A234985 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2655 | PROOF | A283952 | a condition on every cell over the neighbour set the entry names |
+| 2656 | PROOF | A207394 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2657 | PROOF | A207124 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2658 | PROOF | A207244 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2659 | PROOF | A207510 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2660 | PROOF | A207786 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2661 | PROOF | A207027 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2662 | PROOF | A301325 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2663 | PROOF | A326160 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2664 | PROOF | A260924 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 2665 | PROOF | A302162 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2666 | PROOF | A196585 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2667 | PROOF | A196713 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2668 | PROOF | A196962 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2669 | PROOF | A197042 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2670 | PROOF | A197312 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2671 | PROOF | A252426 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 2672 | PROOF | A260540 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 2673 | PROOF | A278184 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2674 | PROOF | A301968 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2675 | PROOF | A235182 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2676 | PROOF | A234126 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2677 | PROOF | A220636 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
+| 2678 | PROOF | A300801 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2679 | PROOF | A282834 | a condition on every cell's king-move neighbourhood, boundaries included |
+| 2680 | PROOF | A283541 | a condition on every cell over the neighbour set the entry names |
+| 2681 | PROOF | A207877 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2682 | PROOF | A188758 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2683 | PROOF | A188994 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2684 | PROOF | A189191 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2685 | PROOF | A189691 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2686 | PROOF | A207714 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2687 | PROOF | A295981 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2688 | PROOF | A296670 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2689 | PROOF | A297226 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2690 | PROOF | A297736 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2691 | PROOF | A299330 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2692 | PROOF | A304423 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2693 | PROOF | A316278 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2694 | PROOF | A251068 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2695 | PROOF | A207690 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2696 | PROOF | A207925 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2697 | PROOF | A209221 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2698 | PROOF | A282476 | a condition on every cell's king-move neighbourhood, boundaries included |
+| 2699 | PROOF | A283227 | a condition on every cell over the neighbour set the entry names |
+| 2700 | PROOF | A207679 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2701 | PROOF | A234884 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2702 | PROOF | A283095 | a condition on every cell over the neighbour set the entry names |
+| 2703 | PROOF | A233711 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2704 | PROOF | A207348 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2705 | PROOF | A208416 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2706 | PROOF | A208497 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2707 | PROOF | A207781 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2708 | PROOF | A251353 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2709 | PROOF | A261377 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 2710 | PROOF | A301822 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2711 | PROOF | A196797 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2712 | PROOF | A197674 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2713 | PROOF | A259997 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 2714 | PROOF | A301949 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2715 | PROOF | A220712 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
+| 2716 | PROOF | A234157 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2717 | PROOF | A256024 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 2718 | PROOF | A297598 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2719 | PROOF | A235181 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2720 | PROOF | A230171 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2721 | PROOF | A283490 | a condition on every cell over the neighbour set the entry names |
+| 2722 | PROOF | A233898 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2723 | PROOF | A188769 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2724 | PROOF | A207750 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2725 | PROOF | A300926 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2726 | PROOF | A302377 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2727 | PROOF | A303098 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2728 | PROOF | A305248 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2729 | PROOF | A318012 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2730 | PROOF | A234453 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2731 | PROOF | A234077 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2732 | PROOF | A207804 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2733 | PROOF | A207662 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2734 | PROOF | A251108 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2735 | PROOF | A251314 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2736 | PROOF | A300501 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2737 | PROOF | A302082 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2738 | PROOF | A317858 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2739 | PROOF | A188872 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2740 | PROOF | A206253 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2741 | PROOF | A261262 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 2742 | PROOF | A197532 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2743 | PROOF | A198150 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2744 | PROOF | A238282 | a condition on every cell over the neighbour set the entry names |
+| 2745 | PROOF | A252107 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 2746 | PROOF | A252294 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 2747 | PROOF | A252608 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 2748 | PROOF | A297393 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2749 | PROOF | A301839 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2750 | PROOF | A302067 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2751 | PROOF | A206470 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2752 | PROOF | A304772 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2753 | PROOF | A316515 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2754 | PROOF | A320368 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2755 | PROOF | A208373 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2756 | PROOF | A220649 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
+| 2757 | PROOF | A209228 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2758 | PROOF | A233984 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2759 | PROOF | A207567 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2760 | PROOF | A209227 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2761 | PROOF | A220592 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
+| 2762 | PROOF | A220728 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
+| 2763 | PROOF | A295375 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2764 | PROOF | A300171 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2765 | PROOF | A300338 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2766 | PROOF | A209792 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2767 | PROOF | A220598 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
+| 2768 | PROOF | A207310 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2769 | PROOF | A207566 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2770 | PROOF | A206879 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2771 | PROOF | A220722 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
+| 2772 | PROOF | A233922 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2773 | PROOF | A207369 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2774 | PROOF | A207415 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2775 | PROOF | A207742 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2776 | PROOF | A207909 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2777 | PROOF | A210271 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2778 | PROOF | A233944 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2779 | PROOF | A250836 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2780 | PROOF | A231704 | a condition on every cell over the neighbour set the entry names |
+| 2781 | PROOF | A207705 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2782 | PROOF | A250959 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2783 | PROOF | A251396 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2784 | PROOF | A300876 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2785 | PROOF | A302151 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2786 | PROOF | A259639 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 2787 | PROOF | A260135 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 2788 | PROOF | A261110 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 2789 | PROOF | A304269 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2790 | PROOF | A196480 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2791 | PROOF | A197745 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2792 | PROOF | A198008 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2793 | PROOF | A232045 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2794 | PROOF | A252185 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 2795 | PROOF | A252400 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 2796 | PROOF | A259948 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 2797 | PROOF | A261288 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 2798 | PROOF | A207812 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2799 | PROOF | A184148 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2800 | PROOF | A260289 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 2801 | PROOF | A260604 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 2802 | PROOF | A303966 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2803 | PROOF | A204600 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 2804 | PROOF | A207952 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2805 | PROOF | A283637 | a condition on every cell over the neighbour set the entry names |
+| 2806 | PROOF | A207121 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2807 | PROOF | A283630 | a condition on every cell over the neighbour set the entry names |
+| 2808 | PROOF | A234684 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2809 | PROOF | A231519 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2810 | PROOF | A297509 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2811 | PROOF | A297650 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2812 | PROOF | A297697 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2813 | PROOF | A297989 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2814 | PROOF | A298283 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2815 | PROOF | A299657 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2816 | PROOF | A299736 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2817 | PROOF | A300211 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2818 | PROOF | A302955 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2819 | PROOF | A251245 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2820 | PROOF | A208036 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2821 | PROOF | A282588 | a condition on every cell's king-move neighbourhood, boundaries included |
+| 2822 | PROOF | A284070 | a condition on every cell over the neighbour set the entry names |
+| 2823 | PROOF | A207178 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2824 | PROOF | A206781 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2825 | PROOF | A207406 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2826 | PROOF | A208145 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2827 | PROOF | A207770 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2828 | PROOF | A208024 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2829 | PROOF | A184491 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2830 | PROOF | A207684 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2831 | PROOF | A207113 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2832 | PROOF | A251161 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2833 | PROOF | A251302 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2834 | PROOF | A300493 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2835 | PROOF | A301486 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2836 | PROOF | A301886 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2837 | PROOF | A318077 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2838 | PROOF | A318086 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2839 | PROOF | A283380 | a condition on every cell over the neighbour set the entry names |
+| 2840 | PROOF | A207427 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2841 | PROOF | A185536 | a condition on every cell over the neighbour set the entry names |
+| 2842 | PROOF | A234734 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2843 | PROOF | A234819 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2844 | PROOF | A301322 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2845 | PROOF | A185819 | a condition on every cell over the neighbour set the entry names |
+| 2846 | PROOF | A234879 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2847 | PROOF | A234654 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2848 | PROOF | A186162 | a condition on every cell over the neighbour set the entry names |
+| 2849 | PROOF | A234733 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2850 | PROOF | A251838 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 2851 | PROOF | A255023 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 2852 | PROOF | A259958 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 2853 | PROOF | A302519 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2854 | PROOF | A303318 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2855 | PROOF | A318341 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2856 | PROOF | A235094 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2857 | PROOF | A234818 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2858 | PROOF | A189260 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2859 | PROOF | A251279 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2860 | PROOF | A261550 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 2861 | PROOF | A318542 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2862 | PROOF | A185553 | a condition on every cell over the neighbour set the entry names |
+| 2863 | PROOF | A252058 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 2864 | PROOF | A234732 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2865 | PROOF | A234817 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2866 | PROOF | A297690 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2867 | PROOF | A298631 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2868 | PROOF | A298966 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2869 | PROOF | A317737 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2870 | PROOF | A235192 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2871 | PROOF | A184371 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2872 | PROOF | A283694 | a condition on every cell over the neighbour set the entry names |
+| 2873 | PROOF | A234492 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2874 | PROOF | A207561 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2875 | PROOF | A207765 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2876 | PROOF | A206873 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2877 | PROOF | A207749 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2878 | PROOF | A209652 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2879 | PROOF | A207678 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2880 | PROOF | A207758 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2881 | PROOF | A188502 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2882 | PROOF | A189265 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2883 | PROOF | A297316 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2884 | PROOF | A300375 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2885 | PROOF | A300677 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2886 | PROOF | A320404 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2887 | PROOF | A197162 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2888 | PROOF | A197445 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2889 | PROOF | A197891 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2890 | PROOF | A252082 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 2891 | PROOF | A259719 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 2892 | PROOF | A259890 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 2893 | PROOF | A297312 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2894 | PROOF | A298181 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2895 | PROOF | A301405 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2896 | PROOF | A234179 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2897 | PROOF | A260836 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 2898 | PROOF | A261287 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 2899 | PROOF | A295778 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2900 | PROOF | A297592 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2901 | PROOF | A316805 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2902 | PROOF | A317522 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2903 | PROOF | A235093 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2904 | PROOF | A207842 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2905 | PROOF | A231694 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2906 | PROOF | A255143 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 2907 | PROOF | A296647 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2908 | PROOF | A297540 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2909 | PROOF | A297982 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2910 | PROOF | A299063 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2911 | PROOF | A299176 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2912 | PROOF | A299835 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2913 | PROOF | A300468 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2914 | PROOF | A302166 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2915 | PROOF | A302637 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2916 | PROOF | A303620 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2917 | PROOF | A326101 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2918 | PROOF | A207882 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2919 | PROOF | A207957 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2920 | PROOF | A283728 | a condition on every cell over the neighbour set the entry names |
+| 2921 | PROOF | A207489 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2922 | PROOF | A207501 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2923 | PROOF | A282880 | a condition on every cell over the neighbour set the entry names |
+| 2924 | PROOF | A184666 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2925 | PROOF | A207393 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2926 | PROOF | A231539 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2927 | PROOF | A251198 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2928 | PROOF | A251453 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2929 | PROOF | A251802 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2930 | PROOF | A296638 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2931 | PROOF | A300534 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2932 | PROOF | A300961 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2933 | PROOF | A207070 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2934 | PROOF | A196133 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2935 | PROOF | A196977 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2936 | PROOF | A197498 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2937 | PROOF | A197540 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2938 | PROOF | A239181 | a condition on every cell over the neighbour set the entry names |
+| 2939 | PROOF | A188703 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2940 | PROOF | A228758 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2941 | PROOF | A252123 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 2942 | PROOF | A252203 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 2943 | PROOF | A259768 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 2944 | PROOF | A260066 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 2945 | PROOF | A260280 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 2946 | PROOF | A261707 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 2947 | PROOF | A302621 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2948 | PROOF | A234653 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2949 | PROOF | A207722 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2950 | PROOF | A237855 | a condition on every cell over the neighbour set the entry names |
+| 2951 | PROOF | A282644 | a condition on every cell's king-move neighbourhood, boundaries included |
+| 2952 | PROOF | A297398 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2953 | PROOF | A302424 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2954 | PROOF | A317730 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2955 | PROOF | A229698 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2956 | PROOF | A184780 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 2957 | PROOF | A230186 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2958 | PROOF | A283546 | a condition on every cell over the neighbour set the entry names |
+| 2959 | PROOF | A231972 | a condition on every cell over the neighbour set the entry names |
+| 2960 | PROOF | A296316 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2961 | PROOF | A296331 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2962 | PROOF | A298142 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2963 | PROOF | A298778 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2964 | PROOF | A302631 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2965 | PROOF | A304468 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2966 | PROOF | A306049 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2967 | PROOF | A316285 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2968 | PROOF | A317226 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2969 | PROOF | A207738 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2970 | PROOF | A283540 | a condition on every cell over the neighbour set the entry names |
+| 2971 | PROOF | A207943 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2972 | PROOF | A206867 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2973 | PROOF | A206990 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2974 | PROOF | A235020 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2975 | PROOF | A206885 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2976 | PROOF | A207183 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2977 | PROOF | A207309 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2978 | PROOF | A282858 | a condition on every cell over the neighbour set the entry names |
+| 2979 | PROOF | A207919 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2980 | PROOF | A183786 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2981 | PROOF | A208165 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2982 | PROOF | A251067 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2983 | PROOF | A231758 | a condition on every cell over the neighbour set the entry names |
+| 2984 | PROOF | A228801 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2985 | PROOF | A296583 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2986 | PROOF | A296958 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2987 | PROOF | A297803 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2988 | PROOF | A300883 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2989 | PROOF | A300918 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2990 | PROOF | A318040 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2991 | PROOF | A207443 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2992 | PROOF | A297337 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2993 | PROOF | A303313 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2994 | PROOF | A197359 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2995 | PROOF | A197618 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2996 | PROOF | A230783 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 2997 | PROOF | A260923 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 2998 | PROOF | A261376 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 2999 | PROOF | A301782 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3000 | PROOF | A301904 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3001 | PROOF | A207850 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3002 | PROOF | A208082 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3003 | PROOF | A207756 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3004 | PROOF | A183446 | a condition on every cell's king-move neighbourhood, boundaries included |
+| 3005 | PROOF | A209549 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3006 | PROOF | A297392 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3007 | PROOF | A297428 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3008 | PROOF | A251370 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3009 | PROOF | A277940 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3010 | PROOF | A207367 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3011 | PROOF | A220711 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
+| 3012 | PROOF | A207951 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3013 | PROOF | A254972 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 3014 | PROOF | A260761 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 3015 | PROOF | A301611 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3016 | PROOF | A303465 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3017 | PROOF | A303804 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3018 | PROOF | A207120 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3019 | PROOF | A207253 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3020 | PROOF | A207946 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3021 | PROOF | A282333 | a condition on every cell's king-move neighbourhood, boundaries included |
+| 3022 | PROOF | A283721 | a condition on every cell over the neighbour set the entry names |
+| 3023 | PROOF | A207405 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3024 | PROOF | A208144 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3025 | PROOF | A231800 | a condition on every cell over the neighbour set the entry names |
+| 3026 | PROOF | A297097 | a condition on every cell's king-move neighbourhood, boundaries included |
+| 3027 | PROOF | A188608 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3028 | PROOF | A189065 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3029 | PROOF | A209781 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3030 | PROOF | A209852 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3031 | PROOF | A210071 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3032 | PROOF | A210329 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3033 | PROOF | A210349 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3034 | PROOF | A251795 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3035 | PROOF | A255084 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 3036 | PROOF | A296400 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3037 | PROOF | A296985 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3038 | PROOF | A297015 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3039 | PROOF | A297946 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3040 | PROOF | A298384 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3041 | PROOF | A299460 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3042 | PROOF | A300084 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3043 | PROOF | A301526 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3044 | PROOF | A301536 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3045 | PROOF | A301664 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3046 | PROOF | A302000 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3047 | PROOF | A302878 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3048 | PROOF | A303243 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3049 | PROOF | A303526 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3050 | PROOF | A304014 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3051 | PROOF | A304546 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3052 | PROOF | A304954 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3053 | PROOF | A306131 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3054 | PROOF | A316125 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3055 | PROOF | A316443 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3056 | PROOF | A317431 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3057 | PROOF | A220714 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
+| 3058 | PROOF | A220740 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
+| 3059 | PROOF | A207421 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3060 | PROOF | A220734 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
+| 3061 | PROOF | A220707 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
+| 3062 | PROOF | A300349 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3063 | PROOF | A197074 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3064 | PROOF | A197245 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3065 | PROOF | A197275 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3066 | PROOF | A204411 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 3067 | PROOF | A209510 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3068 | PROOF | A231286 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3069 | PROOF | A260976 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 3070 | PROOF | A234878 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3071 | PROOF | A259996 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 3072 | PROOF | A260470 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 3073 | PROOF | A260539 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 3074 | PROOF | A303424 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3075 | PROOF | A239172 | a condition on every cell over the neighbour set the entry names |
+| 3076 | PROOF | A202884 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3077 | PROOF | A278016 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3078 | PROOF | A234916 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3079 | PROOF | A189612 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3080 | PROOF | A203377 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3081 | PROOF | A208685 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3082 | PROOF | A231378 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3083 | PROOF | A231741 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3084 | PROOF | A278204 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3085 | PROOF | A297729 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3086 | PROOF | A302961 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3087 | PROOF | A305085 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3088 | PROOF | A316416 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3089 | PROOF | A316736 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3090 | PROOF | A317379 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3091 | PROOF | A235101 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3092 | PROOF | A207726 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3093 | PROOF | A233952 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3094 | PROOF | A283278 | a condition on every cell over the neighbour set the entry names |
+| 3095 | PROOF | A202975 | a condition on every cell over the neighbour set the entry names |
+| 3096 | PROOF | A208684 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3097 | PROOF | A203840 | a condition on every cell over the neighbour set the entry names |
+| 3098 | PROOF | A207484 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3099 | PROOF | A297089 | a condition on every cell's king-move neighbourhood, boundaries included |
+| 3100 | PROOF | A189618 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3101 | PROOF | A209710 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3102 | PROOF | A209907 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3103 | PROOF | A233629 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3104 | PROOF | A296947 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3105 | PROOF | A297751 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3106 | PROOF | A298323 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3107 | PROOF | A298549 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3108 | PROOF | A298617 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3109 | PROOF | A298765 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3110 | PROOF | A298829 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3111 | PROOF | A299216 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3112 | PROOF | A299244 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3113 | PROOF | A299556 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3114 | PROOF | A299583 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3115 | PROOF | A300091 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3116 | PROOF | A301493 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3117 | PROOF | A302213 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3118 | PROOF | A302461 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3119 | PROOF | A302473 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3120 | PROOF | A304692 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3121 | PROOF | A304889 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3122 | PROOF | A316636 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3123 | PROOF | A318093 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3124 | PROOF | A318345 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3125 | PROOF | A207026 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3126 | PROOF | A207270 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3127 | PROOF | A251288 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3128 | PROOF | A251322 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3129 | PROOF | A235315 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3130 | PROOF | A188990 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3131 | PROOF | A259739 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 3132 | PROOF | A260012 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 3133 | PROOF | A304220 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3134 | PROOF | A195957 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3135 | PROOF | A196451 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3136 | PROOF | A196907 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3137 | PROOF | A197345 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3138 | PROOF | A234677 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3139 | PROOF | A232019 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3140 | PROOF | A189061 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3141 | PROOF | A252247 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 3142 | PROOF | A252633 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 3143 | PROOF | A260203 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 3144 | PROOF | A301660 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3145 | PROOF | A235314 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3146 | PROOF | A234676 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3147 | PROOF | A234486 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3148 | PROOF | A255154 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 3149 | PROOF | A255796 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 3150 | PROOF | A303797 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3151 | PROOF | A223410 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3152 | PROOF | A282787 | a condition on every cell's king-move neighbourhood, boundaries included |
+| 3153 | PROOF | A235313 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3154 | PROOF | A238930 | a condition on every cell over the neighbour set the entry names |
+| 3155 | PROOF | A282312 | a condition on every cell's king-move neighbourhood, boundaries included |
+| 3156 | PROOF | A188749 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3157 | PROOF | A188846 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3158 | PROOF | A251295 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3159 | PROOF | A255795 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 3160 | PROOF | A260835 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 3161 | PROOF | A296721 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3162 | PROOF | A297502 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3163 | PROOF | A297819 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3164 | PROOF | A302804 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3165 | PROOF | A303326 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3166 | PROOF | A306162 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3167 | PROOF | A318071 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3168 | PROOF | A233812 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3169 | PROOF | A234675 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3170 | PROOF | A282833 | a condition on every cell's king-move neighbourhood, boundaries included |
+| 3171 | PROOF | A235180 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3172 | PROOF | A283636 | a condition on every cell over the neighbour set the entry names |
+| 3173 | PROOF | A207942 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3174 | PROOF | A282436 | a condition on every cell's king-move neighbourhood, boundaries included |
+| 3175 | PROOF | A283629 | a condition on every cell over the neighbour set the entry names |
+| 3176 | PROOF | A283198 | a condition on every cell over the neighbour set the entry names |
+| 3177 | PROOF | A234108 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3178 | PROOF | A207713 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3179 | PROOF | A207841 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3180 | PROOF | A208699 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3181 | PROOF | A283037 | a condition on every cell over the neighbour set the entry names |
+| 3182 | PROOF | A184210 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3183 | PROOF | A188517 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3184 | PROOF | A220684 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
+| 3185 | PROOF | A255776 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 3186 | PROOF | A295248 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3187 | PROOF | A295347 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3188 | PROOF | A295526 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3189 | PROOF | A295647 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3190 | PROOF | A297639 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3191 | PROOF | A297722 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3192 | PROOF | A298050 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3193 | PROOF | A298128 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3194 | PROOF | A298149 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3195 | PROOF | A298225 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3196 | PROOF | A298254 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3197 | PROOF | A298714 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3198 | PROOF | A299003 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3199 | PROOF | A299123 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3200 | PROOF | A299446 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3201 | PROOF | A299453 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3202 | PROOF | A299670 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3203 | PROOF | A299748 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3204 | PROOF | A299881 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3205 | PROOF | A300262 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3206 | PROOF | A301349 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3207 | PROOF | A301603 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3208 | PROOF | A302273 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3209 | PROOF | A302428 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3210 | PROOF | A302523 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3211 | PROOF | A303198 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3212 | PROOF | A303406 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3213 | PROOF | A304151 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3214 | PROOF | A304350 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3215 | PROOF | A304671 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3216 | PROOF | A304947 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3217 | PROOF | A305170 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3218 | PROOF | A305362 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3219 | PROOF | A305913 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3220 | PROOF | A316171 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3221 | PROOF | A316234 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3222 | PROOF | A317155 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3223 | PROOF | A317453 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3224 | PROOF | A317866 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3225 | PROOF | A318019 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3226 | PROOF | A320359 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3227 | PROOF | A282475 | a condition on every cell's king-move neighbourhood, boundaries included |
+| 3228 | PROOF | A251445 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3229 | PROOF | A302009 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3230 | PROOF | A196073 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3231 | PROOF | A196332 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3232 | PROOF | A197396 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3233 | PROOF | A252450 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 3234 | PROOF | A297372 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3235 | PROOF | A300348 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3236 | PROOF | A302684 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3237 | PROOF | A305228 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3238 | PROOF | A208006 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3239 | PROOF | A260065 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 3240 | PROOF | A234119 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3241 | PROOF | A252081 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 3242 | PROOF | A208372 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3243 | PROOF | A282395 | a condition on every cell's king-move neighbourhood, boundaries included |
+| 3244 | PROOF | A189259 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3245 | PROOF | A233677 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3246 | PROOF | A251338 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3247 | PROOF | A260100 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 3248 | PROOF | A260495 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 3249 | PROOF | A278276 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3250 | PROOF | A296035 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3251 | PROOF | A297585 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3252 | PROOF | A297684 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3253 | PROOF | A302261 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3254 | PROOF | A303184 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3255 | PROOF | A304145 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3256 | PROOF | A304600 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3257 | PROOF | A305485 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3258 | PROOF | A305688 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3259 | PROOF | A316811 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3260 | PROOF | A317068 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3261 | PROOF | A317561 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3262 | PROOF | A283853 | a condition on every cell over the neighbour set the entry names |
+| 3263 | PROOF | A220624 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
+| 3264 | PROOF | A220641 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
+| 3265 | PROOF | A283126 | a condition on every cell over the neighbour set the entry names |
+| 3266 | PROOF | A206996 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3267 | PROOF | A234163 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3268 | PROOF | A234445 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3269 | PROOF | A207308 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3270 | PROOF | A207897 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3271 | PROOF | A207438 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3272 | PROOF | A207496 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3273 | PROOF | A207764 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3274 | PROOF | A232024 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3275 | PROOF | A297080 | a condition on every cell's king-move neighbourhood, boundaries included |
+| 3276 | PROOF | A188852 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3277 | PROOF | A209651 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3278 | PROOF | A233934 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3279 | PROOF | A251255 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3280 | PROOF | A296594 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3281 | PROOF | A296969 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3282 | PROOF | A297546 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3283 | PROOF | A297656 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3284 | PROOF | A297871 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3285 | PROOF | A298058 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3286 | PROOF | A298065 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3287 | PROOF | A298190 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3288 | PROOF | A298289 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3289 | PROOF | A298315 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3290 | PROOF | A298377 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3291 | PROOF | A298449 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3292 | PROOF | A298707 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3293 | PROOF | A298722 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3294 | PROOF | A298890 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3295 | PROOF | A299047 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3296 | PROOF | A299084 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3297 | PROOF | A299182 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3298 | PROOF | A299189 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3299 | PROOF | A299523 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3300 | PROOF | A299809 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3301 | PROOF | A300607 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3302 | PROOF | A303085 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3303 | PROOF | A304258 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3304 | PROOF | A304699 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3305 | PROOF | A305010 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3306 | PROOF | A305447 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3307 | PROOF | A305644 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3308 | PROOF | A316118 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3309 | PROOF | A316450 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3310 | PROOF | A316643 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3311 | PROOF | A316920 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3312 | PROOF | A317038 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3313 | PROOF | A317692 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3314 | PROOF | A317768 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3315 | PROOF | A317810 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3316 | PROOF | A318425 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3317 | PROOF | A207112 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3318 | PROOF | A207243 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3319 | PROOF | A250969 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3320 | PROOF | A251096 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3321 | PROOF | A251224 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3322 | PROOF | A203824 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3323 | PROOF | A297223 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3324 | PROOF | A196969 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3325 | PROOF | A197556 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3326 | PROOF | A234224 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3327 | PROOF | A235084 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3328 | PROOF | A189199 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3329 | PROOF | A260011 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 3330 | PROOF | A261261 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 3331 | PROOF | A301821 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3332 | PROOF | A316691 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3333 | PROOF | A223252 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3334 | PROOF | A234223 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3335 | PROOF | A208117 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3336 | PROOF | A235083 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3337 | PROOF | A259718 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 3338 | PROOF | A259889 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 3339 | PROOF | A259947 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 3340 | PROOF | A302626 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3341 | PROOF | A303418 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3342 | PROOF | A304130 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3343 | PROOF | A207734 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3344 | PROOF | A208012 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3345 | PROOF | A230471 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3346 | PROOF | A278001 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3347 | PROOF | A207811 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3348 | PROOF | A208553 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3349 | PROOF | A208116 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3350 | PROOF | A234031 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3351 | PROOF | A234415 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3352 | PROOF | A207755 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3353 | PROOF | A207733 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3354 | PROOF | A208011 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3355 | PROOF | A234660 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3356 | PROOF | A207366 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3357 | PROOF | A283575 | a condition on every cell over the neighbour set the entry names |
+| 3358 | PROOF | A250955 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3359 | PROOF | A251274 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3360 | PROOF | A251486 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3361 | PROOF | A260469 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 3362 | PROOF | A261286 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 3363 | PROOF | A261549 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 3364 | PROOF | A295843 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3365 | PROOF | A297578 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3366 | PROOF | A297678 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3367 | PROOF | A298096 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3368 | PROOF | A298898 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3369 | PROOF | A299724 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3370 | PROOF | A302417 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3371 | PROOF | A303632 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3372 | PROOF | A316956 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3373 | PROOF | A283568 | a condition on every cell over the neighbour set the entry names |
+| 3374 | PROOF | A207732 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3375 | PROOF | A207754 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3376 | PROOF | A206932 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3377 | PROOF | A207365 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3378 | PROOF | A208010 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3379 | PROOF | A235092 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3380 | PROOF | A207252 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3381 | PROOF | A282555 | a condition on every cell's king-move neighbourhood, boundaries included |
+| 3382 | PROOF | A283945 | a condition on every cell over the neighbour set the entry names |
+| 3383 | PROOF | A283342 | a condition on every cell over the neighbour set the entry names |
+| 3384 | PROOF | A207950 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3385 | PROOF | A207119 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3386 | PROOF | A207565 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3387 | PROOF | A207731 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3388 | PROOF | A208040 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3389 | PROOF | A210385 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3390 | PROOF | A234438 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3391 | PROOF | A188601 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3392 | PROOF | A188741 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3393 | PROOF | A207404 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3394 | PROOF | A208143 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3395 | PROOF | A231510 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3396 | PROOF | A231525 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3397 | PROOF | A233718 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3398 | PROOF | A250929 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3399 | PROOF | A278172 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3400 | PROOF | A278282 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3401 | PROOF | A295092 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3402 | PROOF | A296381 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3403 | PROOF | A296734 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3404 | PROOF | A296799 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3405 | PROOF | A296822 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3406 | PROOF | A297938 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3407 | PROOF | A298082 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3408 | PROOF | A298503 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3409 | PROOF | A299010 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3410 | PROOF | A299092 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3411 | PROOF | A299309 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3412 | PROOF | A299340 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3413 | PROOF | A299677 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3414 | PROOF | A299801 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3415 | PROOF | A299847 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3416 | PROOF | A299874 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3417 | PROOF | A300110 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3418 | PROOF | A300309 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3419 | PROOF | A302280 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3420 | PROOF | A302369 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3421 | PROOF | A302724 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3422 | PROOF | A302890 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3423 | PROOF | A303625 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3424 | PROOF | A303685 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3425 | PROOF | A303883 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3426 | PROOF | A304005 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3427 | PROOF | A304305 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3428 | PROOF | A305092 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3429 | PROOF | A305588 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3430 | PROOF | A305771 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3431 | PROOF | A305949 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3432 | PROOF | A316204 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3433 | PROOF | A316306 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3434 | PROOF | A316752 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3435 | PROOF | A316871 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3436 | PROOF | A317006 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3437 | PROOF | A317120 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3438 | PROOF | A317261 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3439 | PROOF | A317599 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3440 | PROOF | A317818 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3441 | PROOF | A317891 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3442 | PROOF | A207414 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3443 | PROOF | A207704 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3444 | PROOF | A220549 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
+| 3445 | PROOF | A283341 | a condition on every cell over the neighbour set the entry names |
+| 3446 | PROOF | A251215 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3447 | PROOF | A251264 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3448 | PROOF | A251152 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3449 | PROOF | A256745 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 3450 | PROOF | A302514 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3451 | PROOF | A195973 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3452 | PROOF | A196648 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3453 | PROOF | A197302 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3454 | PROOF | A197452 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3455 | PROOF | A197643 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3456 | PROOF | A188871 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3457 | PROOF | A202910 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3458 | PROOF | A206252 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3459 | PROOF | A300180 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3460 | PROOF | A301321 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3461 | PROOF | A302161 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3462 | PROOF | A305584 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3463 | PROOF | A317515 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3464 | PROOF | A223214 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3465 | PROOF | A255022 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 3466 | PROOF | A259957 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 3467 | PROOF | A300347 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3468 | PROOF | A302620 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3469 | PROOF | A303958 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3470 | PROOF | A318340 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3471 | PROOF | A206469 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3472 | PROOF | A229842 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3473 | PROOF | A230677 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3474 | PROOF | A196424 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3475 | PROOF | A196538 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3476 | PROOF | A234698 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3477 | PROOF | A235082 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3478 | PROOF | A207947 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3479 | PROOF | A231941 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3480 | PROOF | A233686 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3481 | PROOF | A251519 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3482 | PROOF | A260171 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 3483 | PROOF | A261705 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 3484 | PROOF | A297460 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3485 | PROOF | A300204 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3486 | PROOF | A302159 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3487 | PROOF | A302737 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3488 | PROOF | A302743 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3489 | PROOF | A303452 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3490 | PROOF | A303458 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3491 | PROOF | A304298 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3492 | PROOF | A305336 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3493 | PROOF | A305519 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3494 | PROOF | A234544 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3495 | PROOF | A234652 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3496 | PROOF | A283517 | a condition on every cell over the neighbour set the entry names |
+| 3497 | PROOF | A234211 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3498 | PROOF | A282992 | a condition on every cell over the neighbour set the entry names |
+| 3499 | PROOF | A207657 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3500 | PROOF | A207941 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3501 | PROOF | A207422 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3502 | PROOF | A207881 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3503 | PROOF | A207886 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3504 | PROOF | A207904 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3505 | PROOF | A207956 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3506 | PROOF | A231657 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3507 | PROOF | A251330 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3508 | PROOF | A251385 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3509 | PROOF | A231999 | a condition on every cell over the neighbour set the entry names |
+| 3510 | PROOF | A188561 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3511 | PROOF | A202909 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3512 | PROOF | A232049 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3513 | PROOF | A296152 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3514 | PROOF | A296829 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3515 | PROOF | A297632 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3516 | PROOF | A297757 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3517 | PROOF | A297797 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3518 | PROOF | A298391 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3519 | PROOF | A298496 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3520 | PROOF | A299509 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3521 | PROOF | A299684 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3522 | PROOF | A300141 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3523 | PROOF | A300316 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3524 | PROOF | A300460 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3525 | PROOF | A300641 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3526 | PROOF | A300771 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3527 | PROOF | A301395 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3528 | PROOF | A302070 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3529 | PROOF | A302226 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3530 | PROOF | A302311 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3531 | PROOF | A302529 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3532 | PROOF | A302821 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3533 | PROOF | A303017 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3534 | PROOF | A303514 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3535 | PROOF | A304053 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3536 | PROOF | A304342 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3537 | PROOF | A304414 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3538 | PROOF | A304592 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3539 | PROOF | A304896 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3540 | PROOF | A305017 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3541 | PROOF | A305218 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3542 | PROOF | A305283 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3543 | PROOF | A305637 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3544 | PROOF | A305906 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3545 | PROOF | A306138 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3546 | PROOF | A316213 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3547 | PROOF | A316378 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3548 | PROOF | A316547 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3549 | PROOF | A316578 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3550 | PROOF | A316878 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3551 | PROOF | A317031 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3552 | PROOF | A317148 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3553 | PROOF | A317371 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3554 | PROOF | A317606 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3555 | PROOF | A283226 | a condition on every cell over the neighbour set the entry names |
+| 3556 | PROOF | A283516 | a condition on every cell over the neighbour set the entry names |
+| 3557 | PROOF | A283785 | a condition on every cell over the neighbour set the entry names |
+| 3558 | PROOF | A282963 | a condition on every cell over the neighbour set the entry names |
+| 3559 | PROOF | A207392 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3560 | PROOF | A220565 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
+| 3561 | PROOF | A251313 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3562 | PROOF | A298916 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3563 | PROOF | A301963 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3564 | PROOF | A196282 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3565 | PROOF | A197175 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3566 | PROOF | A234561 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3567 | PROOF | A235306 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3568 | PROOF | A252026 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 3569 | PROOF | A252257 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 3570 | PROOF | A304219 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3571 | PROOF | A234560 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3572 | PROOF | A208839 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3573 | PROOF | A208107 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3574 | PROOF | A235305 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3575 | PROOF | A231993 | a condition on every cell over the neighbour set the entry names |
+| 3576 | PROOF | A232044 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3577 | PROOF | A259767 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 3578 | PROOF | A260279 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 3579 | PROOF | A260975 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 3580 | PROOF | A261706 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 3581 | PROOF | A301320 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3582 | PROOF | A301967 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3583 | PROOF | A204410 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 3584 | PROOF | A230615 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3585 | PROOF | A208838 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3586 | PROOF | A207594 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3587 | PROOF | A208106 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3588 | PROOF | A234559 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3589 | PROOF | A208122 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3590 | PROOF | A234125 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3591 | PROOF | A282524 | a condition on every cell's king-move neighbourhood, boundaries included |
+| 3592 | PROOF | A183305 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3593 | PROOF | A255095 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 3594 | PROOF | A256804 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 3595 | PROOF | A259995 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 3596 | PROOF | A260242 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 3597 | PROOF | A295116 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3598 | PROOF | A295412 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3599 | PROOF | A296323 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3600 | PROOF | A297810 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3601 | PROOF | A299650 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3602 | PROOF | A305512 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3603 | PROOF | A317769 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3604 | PROOF | A235304 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3605 | PROOF | A207604 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3606 | PROOF | A283687 | a condition on every cell over the neighbour set the entry names |
+| 3607 | PROOF | A207876 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3608 | PROOF | A207603 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3609 | PROOF | A208120 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3610 | PROOF | A228505 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3611 | PROOF | A251273 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3612 | PROOF | A234558 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3613 | PROOF | A207251 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3614 | PROOF | A207602 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3615 | PROOF | A207930 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3616 | PROOF | A209955 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3617 | PROOF | A251205 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3618 | PROOF | A185829 | a condition on every cell over the neighbour set the entry names |
+| 3619 | PROOF | A283859 | a condition on every cell over the neighbour set the entry names |
+| 3620 | PROOF | A188689 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3621 | PROOF | A188768 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3622 | PROOF | A207601 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3623 | PROOF | A210294 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3624 | PROOF | A233853 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3625 | PROOF | A233869 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3626 | PROOF | A233961 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3627 | PROOF | A251562 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3628 | PROOF | A255794 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 3629 | PROOF | A260760 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 3630 | PROOF | A260834 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 3631 | PROOF | A278152 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3632 | PROOF | A296391 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3633 | PROOF | A296573 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3634 | PROOF | A297539 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3635 | PROOF | A297861 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3636 | PROOF | A298216 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3637 | PROOF | A298577 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3638 | PROOF | A299055 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3639 | PROOF | A299223 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3640 | PROOF | A299569 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3641 | PROOF | A299816 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3642 | PROOF | A300367 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3643 | PROOF | A300684 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3644 | PROOF | A301824 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3645 | PROOF | A302317 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3646 | PROOF | A302324 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3647 | PROOF | A302382 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3648 | PROOF | A302467 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3649 | PROOF | A302665 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3650 | PROOF | A302815 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3651 | PROOF | A303103 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3652 | PROOF | A303249 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3653 | PROOF | A303470 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3654 | PROOF | A303508 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3655 | PROOF | A304060 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3656 | PROOF | A304144 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3657 | PROOF | A305084 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3658 | PROOF | A305484 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3659 | PROOF | A305680 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3660 | PROOF | A316735 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3661 | PROOF | A207237 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3662 | PROOF | A207264 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3663 | PROOF | A207903 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3664 | PROOF | A220613 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
+| 3665 | PROOF | A220631 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
+| 3666 | PROOF | A251197 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3667 | PROOF | A250976 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3668 | PROOF | A251013 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3669 | PROOF | A220612 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
+| 3670 | PROOF | A197085 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3671 | PROOF | A197093 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3672 | PROOF | A197470 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3673 | PROOF | A222142 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3674 | PROOF | A230246 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3675 | PROOF | A261109 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 3676 | PROOF | A296552 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3677 | PROOF | A297336 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3678 | PROOF | A305038 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3679 | PROOF | A203060 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3680 | PROOF | A209509 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3681 | PROOF | A188702 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3682 | PROOF | A228757 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3683 | PROOF | A301948 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3684 | PROOF | A302518 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3685 | PROOF | A208032 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3686 | PROOF | A238317 | a condition on every cell over the neighbour set the entry names |
+| 3687 | PROOF | A208424 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3688 | PROOF | A208005 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3689 | PROOF | A223461 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3690 | PROOF | A186045 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 3691 | PROOF | A220635 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
+| 3692 | PROOF | A260538 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 3693 | PROOF | A260603 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 3694 | PROOF | A300346 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3695 | PROOF | A302949 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3696 | PROOF | A303957 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3697 | PROOF | A304922 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3698 | PROOF | A316949 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3699 | PROOF | A318541 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3700 | PROOF | A283411 | a condition on every cell over the neighbour set the entry names |
+| 3701 | PROOF | A250909 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3702 | PROOF | A208004 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3703 | PROOF | A203376 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3704 | PROOF | A233983 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3705 | PROOF | A207560 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3706 | PROOF | A207748 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3707 | PROOF | A209946 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3708 | PROOF | A229928 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3709 | PROOF | A233639 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3710 | PROOF | A234915 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3711 | PROOF | A188875 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3712 | PROOF | A189690 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3713 | PROOF | A207307 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3714 | PROOF | A210150 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3715 | PROOF | A231518 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3716 | PROOF | A234338 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3717 | PROOF | A255142 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 3718 | PROOF | A278089 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3719 | PROOF | A297225 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3720 | PROOF | A297609 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3721 | PROOF | A297715 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3722 | PROOF | A297910 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3723 | PROOF | A297973 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3724 | PROOF | A298235 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3725 | PROOF | A298332 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3726 | PROOF | A298456 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3727 | PROOF | A299549 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3728 | PROOF | A299597 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3729 | PROOF | A299888 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3730 | PROOF | A300422 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3731 | PROOF | A300806 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3732 | PROOF | A301445 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3733 | PROOF | A302304 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3734 | PROOF | A302410 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3735 | PROOF | A302809 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3736 | PROOF | A302872 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3737 | PROOF | A303035 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3738 | PROOF | A303177 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3739 | PROOF | A303237 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3740 | PROOF | A303891 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3741 | PROOF | A304539 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3742 | PROOF | A304762 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3743 | PROOF | A306055 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3744 | PROOF | A306124 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3745 | PROOF | A316927 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3746 | PROOF | A317233 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3747 | PROOF | A203059 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3748 | PROOF | A233659 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3749 | PROOF | A228800 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3750 | PROOF | A250921 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3751 | PROOF | A251004 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3752 | PROOF | A251168 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3753 | PROOF | A255798 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 3754 | PROOF | A297298 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3755 | PROOF | A302679 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3756 | PROOF | A196691 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3757 | PROOF | A197064 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3758 | PROOF | A197212 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3759 | PROOF | A197337 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3760 | PROOF | A203653 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3761 | PROOF | A238519 | a condition on every cell over the neighbour set the entry names |
+| 3762 | PROOF | A188989 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3763 | PROOF | A203793 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3764 | PROOF | A223397 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3765 | PROOF | A252377 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 3766 | PROOF | A252525 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 3767 | PROOF | A252533 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 3768 | PROOF | A255797 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 3769 | PROOF | A259638 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 3770 | PROOF | A260134 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 3771 | PROOF | A304228 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3772 | PROOF | A304268 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3773 | PROOF | A208068 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3774 | PROOF | A256743 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 3775 | PROOF | A260010 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 3776 | PROOF | A260922 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 3777 | PROOF | A261108 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 3778 | PROOF | A261260 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 3779 | PROOF | A261375 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 3780 | PROOF | A297311 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3781 | PROOF | A297811 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3782 | PROOF | A302012 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3783 | PROOF | A302147 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3784 | PROOF | A302160 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3785 | PROOF | A303317 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3786 | PROOF | A305227 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3787 | PROOF | A203832 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3788 | PROOF | A252068 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 3789 | PROOF | A207849 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3790 | PROOF | A207721 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3791 | PROOF | A223460 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3792 | PROOF | A208423 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3793 | PROOF | A185527 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 3794 | PROOF | A208552 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3795 | PROOF | A256023 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 3796 | PROOF | A260364 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 3797 | PROOF | A297434 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3798 | PROOF | A297597 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3799 | PROOF | A208115 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3800 | PROOF | A208371 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3801 | PROOF | A282786 | a condition on every cell's king-move neighbourhood, boundaries included |
+| 3802 | PROOF | A228659 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3803 | PROOF | A228682 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3804 | PROOF | A208551 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3805 | PROOF | A283574 | a condition on every cell over the neighbour set the entry names |
+| 3806 | PROOF | A283567 | a condition on every cell over the neighbour set the entry names |
+| 3807 | PROOF | A207364 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3808 | PROOF | A207753 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3809 | PROOF | A207875 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3810 | PROOF | A207962 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3811 | PROOF | A208009 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3812 | PROOF | A233878 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3813 | PROOF | A188845 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3814 | PROOF | A207940 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3815 | PROOF | A233727 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3816 | PROOF | A234424 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3817 | PROOF | A251272 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3818 | PROOF | A251375 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3819 | PROOF | A251493 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3820 | PROOF | A255785 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 3821 | PROOF | A260468 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 3822 | PROOF | A260494 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 3823 | PROOF | A260602 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 3824 | PROOF | A261285 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 3825 | PROOF | A261548 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 3826 | PROOF | A295711 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3827 | PROOF | A296536 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3828 | PROOF | A296630 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3829 | PROOF | A296669 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3830 | PROOF | A297340 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3831 | PROOF | A297376 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3832 | PROOF | A297521 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3833 | PROOF | A297902 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3834 | PROOF | A297954 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3835 | PROOF | A298439 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3836 | PROOF | A298542 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3837 | PROOF | A298662 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3838 | PROOF | A298836 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3839 | PROOF | A299130 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3840 | PROOF | A299329 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3841 | PROOF | A299361 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3842 | PROOF | A299516 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3843 | PROOF | A299716 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3844 | PROOF | A301843 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3845 | PROOF | A302267 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3846 | PROOF | A302362 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3847 | PROOF | A302455 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3848 | PROOF | A302966 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3849 | PROOF | A303520 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3850 | PROOF | A303964 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3851 | PROOF | A304474 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3852 | PROOF | A304664 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3853 | PROOF | A304850 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3854 | PROOF | A305247 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3855 | PROOF | A305342 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3856 | PROOF | A316299 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3857 | PROOF | A316422 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3858 | PROOF | A317460 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3859 | PROOF | A320397 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3860 | PROOF | A282587 | a condition on every cell's king-move neighbourhood, boundaries included |
+| 3861 | PROOF | A283277 | a condition on every cell over the neighbour set the entry names |
+| 3862 | PROOF | A234905 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3863 | PROOF | A235002 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3864 | PROOF | A235072 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3865 | PROOF | A284076 | a condition on every cell over the neighbour set the entry names |
+| 3866 | PROOF | A206878 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3867 | PROOF | A283094 | a condition on every cell over the neighbour set the entry names |
+| 3868 | PROOF | A282435 | a condition on every cell's king-move neighbourhood, boundaries included |
+| 3869 | PROOF | A207118 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3870 | PROOF | A207462 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3871 | PROOF | A207584 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3872 | PROOF | A207763 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3873 | PROOF | A207961 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3874 | PROOF | A220721 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
+| 3875 | PROOF | A251254 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3876 | PROOF | A184557 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3877 | PROOF | A251066 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3878 | PROOF | A251404 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3879 | PROOF | A251234 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3880 | PROOF | A298186 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3881 | PROOF | A196317 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3882 | PROOF | A251233 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3883 | PROOF | A252545 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 3884 | PROOF | A297222 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3885 | PROOF | A301962 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3886 | PROOF | A209380 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3887 | PROOF | A203051 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3888 | PROOF | A183389 | a condition on every cell's king-move neighbourhood, boundaries included |
+| 3889 | PROOF | A251232 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3890 | PROOF | A260202 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 3891 | PROOF | A298960 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3892 | PROOF | A301659 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3893 | PROOF | A301838 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3894 | PROOF | A301996 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3895 | PROOF | A302066 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3896 | PROOF | A302683 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3897 | PROOF | A223300 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3898 | PROOF | A252025 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 3899 | PROOF | A234222 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3900 | PROOF | A208031 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3901 | PROOF | A234877 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3902 | PROOF | A237854 | a condition on every cell over the neighbour set the entry names |
+| 3903 | PROOF | A209548 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3904 | PROOF | A234156 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3905 | PROOF | A234485 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3906 | PROOF | A251231 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3907 | PROOF | A255153 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 3908 | PROOF | A259766 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 3909 | PROOF | A260064 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 3910 | PROOF | A260974 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 3911 | PROOF | A297453 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3912 | PROOF | A300800 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3913 | PROOF | A301439 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3914 | PROOF | A305178 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3915 | PROOF | A234118 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3916 | PROOF | A234178 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3917 | PROOF | A231645 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3918 | PROOF | A231747 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3919 | PROOF | A283693 | a condition on every cell over the neighbour set the entry names |
+| 3920 | PROOF | A183382 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3921 | PROOF | A188757 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3922 | PROOF | A188993 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3923 | PROOF | A189190 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3924 | PROOF | A209730 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3925 | PROOF | A228388 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3926 | PROOF | A233786 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3927 | PROOF | A233910 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3928 | PROOF | A234327 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3929 | PROOF | A255094 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 3930 | PROOF | A296034 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3931 | PROOF | A296315 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3932 | PROOF | A297501 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3933 | PROOF | A297602 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3934 | PROOF | A297649 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3935 | PROOF | A297981 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3936 | PROOF | A297988 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3937 | PROOF | A298282 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3938 | PROOF | A298489 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3939 | PROOF | A298624 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3940 | PROOF | A299663 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3941 | PROOF | A300170 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3942 | PROOF | A300337 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3943 | PROOF | A302219 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3944 | PROOF | A302376 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3945 | PROOF | A303041 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3946 | PROOF | A303079 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3947 | PROOF | A303097 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3948 | PROOF | A304843 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3949 | PROOF | A305042 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3950 | PROOF | A305525 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3951 | PROOF | A305764 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3952 | PROOF | A316178 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3953 | PROOF | A316540 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3954 | PROOF | A316817 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3955 | PROOF | A316999 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3956 | PROOF | A317567 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3957 | PROOF | A318011 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3958 | PROOF | A318063 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3959 | PROOF | A318217 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3960 | PROOF | A206780 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3961 | PROOF | A234400 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3962 | PROOF | A203454 | a condition on every cell over the neighbour set the entry names |
+| 3963 | PROOF | A282857 | a condition on every cell over the neighbour set the entry names |
+| 3964 | PROOF | A203050 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3965 | PROOF | A207747 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3966 | PROOF | A251059 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3967 | PROOF | A251287 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3968 | PROOF | A235296 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3969 | PROOF | A303726 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3970 | PROOF | A196899 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3971 | PROOF | A230064 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3972 | PROOF | A235014 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3973 | PROOF | A188828 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3974 | PROOF | A228665 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3975 | PROOF | A228687 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3976 | PROOF | A231834 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3977 | PROOF | A235295 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3978 | PROOF | A252132 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 3979 | PROOF | A256744 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 3980 | PROOF | A259738 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 3981 | PROOF | A302008 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3982 | PROOF | A223444 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3983 | PROOF | A235013 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3984 | PROOF | A188870 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3985 | PROOF | A235294 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3986 | PROOF | A259737 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 3987 | PROOF | A296551 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3988 | PROOF | A298180 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3989 | PROOF | A304218 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3990 | PROOF | A204401 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 3991 | PROOF | A204494 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 3992 | PROOF | A230270 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3993 | PROOF | A196212 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3994 | PROOF | A197666 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3995 | PROOF | A208081 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3996 | PROOF | A207810 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3997 | PROOF | A208837 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3998 | PROOF | A235293 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 3999 | PROOF | A259717 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 4000 | PROOF | A260288 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 4001 | PROOF | A295777 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4002 | PROOF | A304129 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4003 | PROOF | A304771 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4004 | PROOF | A305478 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4005 | PROOF | A316514 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4006 | PROOF | A251369 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4007 | PROOF | A208105 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4008 | PROOF | A207720 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4009 | PROOF | A208422 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4010 | PROOF | A283489 | a condition on every cell over the neighbour set the entry names |
+| 4011 | PROOF | A220648 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
+| 4012 | PROOF | A208836 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4013 | PROOF | A207725 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4014 | PROOF | A207854 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4015 | PROOF | A209791 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4016 | PROOF | A232282 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4017 | PROOF | A251244 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4018 | PROOF | A235081 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4019 | PROOF | A282311 | a condition on every cell's king-move neighbourhood, boundaries included |
+| 4020 | PROOF | A220623 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
+| 4021 | PROOF | A183795 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4022 | PROOF | A207250 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4023 | PROOF | A220618 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
+| 4024 | PROOF | A231377 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4025 | PROOF | A233676 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4026 | PROOF | A235292 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4027 | PROOF | A251501 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4028 | PROOF | A254971 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 4029 | PROOF | A260170 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 4030 | PROOF | A295115 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4031 | PROOF | A295374 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4032 | PROOF | A295980 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4033 | PROOF | A296646 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4034 | PROOF | A296720 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4035 | PROOF | A297508 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4036 | PROOF | A297884 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4037 | PROOF | A298275 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4038 | PROOF | A298996 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4039 | PROOF | A299076 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4040 | PROOF | A299137 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4041 | PROOF | A299316 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4042 | PROOF | A299368 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4043 | PROOF | A299932 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4044 | PROOF | A300133 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4045 | PROOF | A301610 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4046 | PROOF | A301952 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4047 | PROOF | A302884 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4048 | PROOF | A303011 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4049 | PROOF | A303803 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4050 | PROOF | A304467 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4051 | PROOF | A305177 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4052 | PROOF | A305511 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4053 | PROOF | A306048 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4054 | PROOF | A316284 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4055 | PROOF | A317113 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4056 | PROOF | A317225 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4057 | PROOF | A317736 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4058 | PROOF | A283686 | a condition on every cell over the neighbour set the entry names |
+| 4059 | PROOF | A235251 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4060 | PROOF | A220591 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
+| 4061 | PROOF | A220727 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
+| 4062 | PROOF | A233885 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4063 | PROOF | A233974 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4064 | PROOF | A234406 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4065 | PROOF | A251611 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4066 | PROOF | A234891 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4067 | PROOF | A234992 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4068 | PROOF | A235064 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4069 | PROOF | A202974 | a condition on every cell over the neighbour set the entry names |
+| 4070 | PROOF | A207341 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4071 | PROOF | A207509 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4072 | PROOF | A234201 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4073 | PROOF | A251468 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4074 | PROOF | A283197 | a condition on every cell over the neighbour set the entry names |
+| 4075 | PROOF | A283488 | a condition on every cell over the neighbour set the entry names |
+| 4076 | PROOF | A283727 | a condition on every cell over the neighbour set the entry names |
+| 4077 | PROOF | A251271 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4078 | PROOF | A282879 | a condition on every cell over the neighbour set the entry names |
+| 4079 | PROOF | A233943 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4080 | PROOF | A250835 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4081 | PROOF | A220617 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
+| 4082 | PROOF | A207025 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4083 | PROOF | A207069 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4084 | PROOF | A251263 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4085 | PROOF | A251312 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4086 | PROOF | A251321 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4087 | PROOF | A251435 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4088 | PROOF | A220706 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
+| 4089 | PROOF | A251026 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4090 | PROOF | A251053 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4091 | PROOF | A195964 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4092 | PROOF | A196205 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4093 | PROOF | A196324 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4094 | PROOF | A196431 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4095 | PROOF | A196631 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4096 | PROOF | A196952 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4097 | PROOF | A196984 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4098 | PROOF | A197524 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4099 | PROOF | A235275 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4100 | PROOF | A252069 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 4101 | PROOF | A251025 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4102 | PROOF | A251052 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4103 | PROOF | A252271 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 4104 | PROOF | A252516 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 4105 | PROOF | A303725 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4106 | PROOF | A235274 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4107 | PROOF | A208112 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4108 | PROOF | A189060 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4109 | PROOF | A206251 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4110 | PROOF | A251024 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4111 | PROOF | A251051 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4112 | PROOF | A259637 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 4113 | PROOF | A260133 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 4114 | PROOF | A297221 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4115 | PROOF | A297371 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4116 | PROOF | A300179 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4117 | PROOF | A302512 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4118 | PROOF | A303311 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4119 | PROOF | A304267 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4120 | PROOF | A230332 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4121 | PROOF | A230521 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4122 | PROOF | A278009 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4123 | PROOF | A196132 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4124 | PROOF | A196294 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4125 | PROOF | A197403 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4126 | PROOF | A197883 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4127 | PROOF | A198179 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4128 | PROOF | A203185 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4129 | PROOF | A235273 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4130 | PROOF | A208111 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4131 | PROOF | A208017 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4132 | PROOF | A208072 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4133 | PROOF | A207593 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4134 | PROOF | A229697 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4135 | PROOF | A183445 | a condition on every cell's king-move neighbourhood, boundaries included |
+| 4136 | PROOF | A282643 | a condition on every cell's king-move neighbourhood, boundaries included |
+| 4137 | PROOF | A184147 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4138 | PROOF | A188712 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4139 | PROOF | A251023 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4140 | PROOF | A251050 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4141 | PROOF | A251278 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4142 | PROOF | A259946 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 4143 | PROOF | A260009 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 4144 | PROOF | A260278 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 4145 | PROOF | A296124 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4146 | PROOF | A297591 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4147 | PROOF | A303423 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4148 | PROOF | A305043 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4149 | PROOF | A320367 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4150 | PROOF | A206468 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4151 | PROOF | A223426 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4152 | PROOF | A207175 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4153 | PROOF | A208110 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4154 | PROOF | A209226 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4155 | PROOF | A207174 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4156 | PROOF | A208015 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4157 | PROOF | A208070 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4158 | PROOF | A250954 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4159 | PROOF | A234030 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4160 | PROOF | A235272 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4161 | PROOF | A207173 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4162 | PROOF | A184370 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4163 | PROOF | A208003 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4164 | PROOF | A208109 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4165 | PROOF | A234876 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4166 | PROOF | A231971 | a condition on every cell over the neighbour set the entry names |
+| 4167 | PROOF | A282394 | a condition on every cell's king-move neighbourhood, boundaries included |
+| 4168 | PROOF | A283125 | a condition on every cell over the neighbour set the entry names |
+| 4169 | PROOF | A183399 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4170 | PROOF | A189105 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4171 | PROOF | A207172 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4172 | PROOF | A233685 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4173 | PROOF | A251022 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4174 | PROOF | A251049 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4175 | PROOF | A251230 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4176 | PROOF | A256022 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 4177 | PROOF | A256741 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 4178 | PROOF | A260008 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 4179 | PROOF | A260099 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 4180 | PROOF | A260287 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 4181 | PROOF | A260537 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 4182 | PROOF | A261704 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 4183 | PROOF | A295046 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4184 | PROOF | A295842 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4185 | PROOF | A296330 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4186 | PROOF | A297514 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4187 | PROOF | A297696 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4188 | PROOF | A297735 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4189 | PROOF | A297818 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4190 | PROOF | A297918 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4191 | PROOF | A298141 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4192 | PROOF | A298570 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4193 | PROOF | A298584 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4194 | PROOF | A299062 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4195 | PROOF | A299576 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4196 | PROOF | A299834 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4197 | PROOF | A300968 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4198 | PROOF | A302207 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4199 | PROOF | A302618 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4200 | PROOF | A302630 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4201 | PROOF | A304297 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4202 | PROOF | A304422 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4203 | PROOF | A305956 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4204 | PROOF | A316277 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4205 | PROOF | A317217 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4206 | PROOF | A326100 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4207 | PROOF | A282832 | a condition on every cell's king-move neighbourhood, boundaries included |
+| 4208 | PROOF | A235169 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4209 | PROOF | A206872 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4210 | PROOF | A207089 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4211 | PROOF | A283635 | a condition on every cell over the neighbour set the entry names |
+| 4212 | PROOF | A282991 | a condition on every cell over the neighbour set the entry names |
+| 4213 | PROOF | A207171 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4214 | PROOF | A207437 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4215 | PROOF | A207483 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4216 | PROOF | A207559 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4217 | PROOF | A207712 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4218 | PROOF | A207730 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4219 | PROOF | A207939 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4220 | PROOF | A208023 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4221 | PROOF | A208496 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4222 | PROOF | A233646 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4223 | PROOF | A233749 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4224 | PROOF | A234084 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4225 | PROOF | A228387 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4226 | PROOF | A228479 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4227 | PROOF | A184490 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4228 | PROOF | A210270 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4229 | PROOF | A203184 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4230 | PROOF | A251508 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4231 | PROOF | A231703 | a condition on every cell over the neighbour set the entry names |
+| 4232 | PROOF | A231765 | a condition on every cell over the neighbour set the entry names |
+| 4233 | PROOF | A231998 | a condition on every cell over the neighbour set the entry names |
+| 4234 | PROOF | A282831 | a condition on every cell's king-move neighbourhood, boundaries included |
+| 4235 | PROOF | A220630 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
+| 4236 | PROOF | A250968 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4237 | PROOF | A251095 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4238 | PROOF | A251196 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4239 | PROOF | A251214 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4240 | PROOF | A296399 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4241 | PROOF | A296572 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4242 | PROOF | A296582 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4243 | PROOF | A297315 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4244 | PROOF | A303681 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4245 | PROOF | A196488 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4246 | PROOF | A196741 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4247 | PROOF | A197368 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4248 | PROOF | A209381 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4249 | PROOF | A252337 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 4250 | PROOF | A223435 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4251 | PROOF | A297297 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4252 | PROOF | A298915 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4253 | PROOF | A302513 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4254 | PROOF | A303312 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4255 | PROOF | A207702 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4256 | PROOF | A207937 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4257 | PROOF | A189198 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4258 | PROOF | A298914 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4259 | PROOF | A298921 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4260 | PROOF | A301404 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4261 | PROOF | A301781 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4262 | PROOF | A303724 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4263 | PROOF | A317514 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4264 | PROOF | A208067 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4265 | PROOF | A196479 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4266 | PROOF | A197174 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4267 | PROOF | A197201 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4268 | PROOF | A197444 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4269 | PROOF | A197531 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4270 | PROOF | A197539 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4271 | PROOF | A197607 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4272 | PROOF | A235012 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4273 | PROOF | A183388 | a condition on every cell's king-move neighbourhood, boundaries included |
+| 4274 | PROOF | A188701 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4275 | PROOF | A207848 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4276 | PROOF | A208066 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4277 | PROOF | A208121 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4278 | PROOF | A228756 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4279 | PROOF | A232043 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4280 | PROOF | A255021 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 4281 | PROOF | A256742 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 4282 | PROOF | A259888 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 4283 | PROOF | A259956 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 4284 | PROOF | A260201 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 4285 | PROOF | A260921 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 4286 | PROOF | A261374 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 4287 | PROOF | A278267 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4288 | PROOF | A297310 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4289 | PROOF | A297397 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4290 | PROOF | A298920 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4291 | PROOF | A301880 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4292 | PROOF | A302077 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4293 | PROOF | A302619 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4294 | PROOF | A302625 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4295 | PROOF | A318339 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4296 | PROOF | A209378 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4297 | PROOF | A208080 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4298 | PROOF | A223213 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4299 | PROOF | A208291 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4300 | PROOF | A283545 | a condition on every cell over the neighbour set the entry names |
+| 4301 | PROOF | A208065 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4302 | PROOF | A283539 | a condition on every cell over the neighbour set the entry names |
+| 4303 | PROOF | A208114 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4304 | PROOF | A208119 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4305 | PROOF | A208370 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4306 | PROOF | A282523 | a condition on every cell's king-move neighbourhood, boundaries included |
+| 4307 | PROOF | A283852 | a condition on every cell over the neighbour set the entry names |
+| 4308 | PROOF | A189258 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4309 | PROOF | A228504 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4310 | PROOF | A234241 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4311 | PROOF | A234476 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4312 | PROOF | A234721 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4313 | PROOF | A256803 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 4314 | PROOF | A259765 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 4315 | PROOF | A259945 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 4316 | PROOF | A260277 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 4317 | PROOF | A260920 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 4318 | PROOF | A260973 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 4319 | PROOF | A278203 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4320 | PROOF | A295411 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4321 | PROOF | A296322 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4322 | PROOF | A297459 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4323 | PROOF | A297683 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4324 | PROOF | A297689 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4325 | PROOF | A297728 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4326 | PROOF | A297853 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4327 | PROOF | A298919 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4328 | PROOF | A298965 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4329 | PROOF | A299656 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4330 | PROOF | A299735 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4331 | PROOF | A300210 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4332 | PROOF | A300345 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4333 | PROOF | A300541 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4334 | PROOF | A300925 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4335 | PROOF | A302948 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4336 | PROOF | A304136 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4337 | PROOF | A305240 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4338 | PROOF | A305687 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4339 | PROOF | A317067 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4340 | PROOF | A235241 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4341 | PROOF | A206931 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4342 | PROOF | A207177 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4343 | PROOF | A235232 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4344 | PROOF | A220597 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
+| 4345 | PROOF | A282554 | a condition on every cell's king-move neighbourhood, boundaries included |
+| 4346 | PROOF | A207249 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4347 | PROOF | A207363 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4348 | PROOF | A234146 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4349 | PROOF | A283951 | a condition on every cell over the neighbour set the entry names |
+| 4350 | PROOF | A220560 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
+| 4351 | PROOF | A234984 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4352 | PROOF | A283036 | a condition on every cell over the neighbour set the entry names |
+| 4353 | PROOF | A233710 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4354 | PROOF | A283276 | a condition on every cell over the neighbour set the entry names |
+| 4355 | PROOF | A228799 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4356 | PROOF | A231538 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4357 | PROOF | A251021 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4358 | PROOF | A251048 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4359 | PROOF | A251223 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4360 | PROOF | A251270 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4361 | PROOF | A296380 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4362 | PROOF | A296593 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4363 | PROOF | A317857 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4364 | PROOF | A203731 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4365 | PROOF | A203883 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4366 | PROOF | A188711 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4367 | PROOF | A317763 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4368 | PROOF | A196781 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4369 | PROOF | A203930 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4370 | PROOF | A222278 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4371 | PROOF | A251087 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4372 | PROOF | A251136 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4373 | PROOF | A223594 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4374 | PROOF | A298185 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4375 | PROOF | A302148 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4376 | PROOF | A303680 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4377 | PROOF | A317762 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4378 | PROOF | A203652 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4379 | PROOF | A222141 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4380 | PROOF | A230529 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4381 | PROOF | A251086 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4382 | PROOF | A251135 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4383 | PROOF | A203792 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4384 | PROOF | A228664 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4385 | PROOF | A228686 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4386 | PROOF | A297335 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4387 | PROOF | A301881 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4388 | PROOF | A302078 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4389 | PROOF | A305037 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4390 | PROOF | A316690 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4391 | PROOF | A209508 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4392 | PROOF | A230464 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4393 | PROOF | A232018 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4394 | PROOF | A251085 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4395 | PROOF | A251134 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4396 | PROOF | A195972 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4397 | PROOF | A196450 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4398 | PROOF | A196584 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4399 | PROOF | A196701 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4400 | PROOF | A196850 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4401 | PROOF | A196961 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4402 | PROOF | A197274 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4403 | PROOF | A197311 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4404 | PROOF | A207701 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4405 | PROOF | A207936 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4406 | PROOF | A188869 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4407 | PROOF | A188987 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4408 | PROOF | A189059 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4409 | PROOF | A189197 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4410 | PROOF | A203095 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4411 | PROOF | A231833 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4412 | PROOF | A258960 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 4413 | PROOF | A278095 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4414 | PROOF | A278189 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4415 | PROOF | A296550 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4416 | PROOF | A297391 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4417 | PROOF | A297427 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4418 | PROOF | A298163 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4419 | PROOF | A301966 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4420 | PROOF | A302511 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4421 | PROOF | A302517 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4422 | PROOF | A302682 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4423 | PROOF | A303310 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4424 | PROOF | A303316 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4425 | PROOF | A304217 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4426 | PROOF | A305036 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4427 | PROOF | A305226 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4428 | PROOF | A316689 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4429 | PROOF | A316804 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4430 | PROOF | A317521 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4431 | PROOF | A203831 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4432 | PROOF | A251084 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4433 | PROOF | A251133 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4434 | PROOF | A207592 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4435 | PROOF | A208030 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4436 | PROOF | A208290 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4437 | PROOF | A228753 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4438 | PROOF | A228795 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4439 | PROOF | A220710 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
+| 4440 | PROOF | A230170 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4441 | PROOF | A250908 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4442 | PROOF | A251083 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4443 | PROOF | A251132 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4444 | PROOF | A186055 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 4445 | PROOF | A203375 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4446 | PROOF | A228658 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4447 | PROOF | A228681 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4448 | PROOF | A234414 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4449 | PROOF | A234667 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4450 | PROOF | A234705 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4451 | PROOF | A234731 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4452 | PROOF | A250953 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4453 | PROOF | A251294 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4454 | PROOF | A251337 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4455 | PROOF | A251485 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4456 | PROOF | A259955 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 4457 | PROOF | A259994 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 4458 | PROOF | A260363 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 4459 | PROOF | A278275 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4460 | PROOF | A297452 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4461 | PROOF | A297596 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4462 | PROOF | A300467 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4463 | PROOF | A302158 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4464 | PROOF | A302742 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4465 | PROOF | A302954 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4466 | PROOF | A303192 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4467 | PROOF | A303457 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4468 | PROOF | A303795 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4469 | PROOF | A303956 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4470 | PROOF | A304599 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4471 | PROOF | A304921 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4472 | PROOF | A305335 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4473 | PROOF | A306161 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4474 | PROOF | A316415 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4475 | PROOF | A316948 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4476 | PROOF | A317378 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4477 | PROOF | A318540 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4478 | PROOF | A206989 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4479 | PROOF | A234185 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4480 | PROOF | A234816 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4481 | PROOF | A207306 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4482 | PROOF | A207495 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4483 | PROOF | A209945 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4484 | PROOF | A209954 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4485 | PROOF | A233638 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4486 | PROOF | A251082 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4487 | PROOF | A251131 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4488 | PROOF | A251345 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4489 | PROOF | A234975 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4490 | PROOF | A184665 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4491 | PROOF | A203094 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4492 | PROOF | A232048 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4493 | PROOF | A250958 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4494 | PROOF | A251301 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4495 | PROOF | A251352 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4496 | PROOF | A251395 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4497 | PROOF | A251452 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4498 | PROOF | A297375 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4499 | PROOF | A300374 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4500 | PROOF | A300500 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4501 | PROOF | A301885 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4502 | PROOF | A318018 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4503 | PROOF | A220676 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
+| 4504 | PROOF | A220548 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
+| 4505 | PROOF | A220564 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
+| 4506 | PROOF | A251106 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4507 | PROOF | A234138 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4508 | PROOF | A235287 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4509 | PROOF | A299594 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4510 | PROOF | A301789 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4511 | PROOF | A303718 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4512 | PROOF | A196573 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4513 | PROOF | A196804 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4514 | PROOF | A196858 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4515 | PROOF | A234265 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4516 | PROOF | A203823 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4517 | PROOF | A234137 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4518 | PROOF | A235286 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4519 | PROOF | A252236 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 4520 | PROOF | A252262 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 4521 | PROOF | A252362 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 4522 | PROOF | A252543 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 4523 | PROOF | A258962 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 4524 | PROOF | A299593 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4525 | PROOF | A301788 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4526 | PROOF | A302678 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4527 | PROOF | A303717 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4528 | PROOF | A229752 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4529 | PROOF | A223419 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4530 | PROOF | A234264 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4531 | PROOF | A223348 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4532 | PROOF | A229751 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4533 | PROOF | A188988 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4534 | PROOF | A234136 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4535 | PROOF | A235285 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4536 | PROOF | A299592 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4537 | PROOF | A301961 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4538 | PROOF | A302007 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4539 | PROOF | A303679 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4540 | PROOF | A303716 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4541 | PROOF | A304227 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4542 | PROOF | A305583 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4543 | PROOF | A229691 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4544 | PROOF | A209379 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4545 | PROOF | A223374 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4546 | PROOF | A234263 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4547 | PROOF | A252336 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 4548 | PROOF | A195956 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4549 | PROOF | A196140 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4550 | PROOF | A196906 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4551 | PROOF | A196976 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4552 | PROOF | A197229 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4553 | PROOF | A197642 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4554 | PROOF | A223251 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4555 | PROOF | A223418 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4556 | PROOF | A229750 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4557 | PROOF | A188826 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4558 | PROOF | A206250 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4559 | PROOF | A208016 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4560 | PROOF | A208071 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4561 | PROOF | A230782 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4562 | PROOF | A234135 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4563 | PROOF | A235284 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4564 | PROOF | A259636 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 4565 | PROOF | A260132 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 4566 | PROOF | A261107 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 4567 | PROOF | A278183 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4568 | PROOF | A295914 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4569 | PROOF | A296309 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4570 | PROOF | A299591 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4571 | PROOF | A300178 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4572 | PROOF | A301947 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4573 | PROOF | A303417 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4574 | PROOF | A303715 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4575 | PROOF | A303723 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4576 | PROOF | A304137 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4577 | PROOF | A304226 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4578 | PROOF | A304266 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4579 | PROOF | A305582 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4580 | PROOF | A317729 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4581 | PROOF | A234262 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4582 | PROOF | A207700 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4583 | PROOF | A223338 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4584 | PROOF | A223425 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4585 | PROOF | A223347 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4586 | PROOF | A207935 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4587 | PROOF | A208383 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4588 | PROOF | A208382 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4589 | PROOF | A234221 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4590 | PROOF | A229696 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4591 | PROOF | A208289 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4592 | PROOF | A208381 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4593 | PROOF | A223408 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4594 | PROOF | A239179 | a condition on every cell over the neighbour set the entry names |
+| 4595 | PROOF | A206467 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4596 | PROOF | A207591 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4597 | PROOF | A207689 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4598 | PROOF | A207737 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4599 | PROOF | A207924 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4600 | PROOF | A208014 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4601 | PROOF | A208035 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4602 | PROOF | A208104 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4603 | PROOF | A209220 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4604 | PROOF | A234261 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4605 | PROOF | A183444 | a condition on every cell's king-move neighbourhood, boundaries included |
+| 4606 | PROOF | A231992 | a condition on every cell over the neighbour set the entry names |
+| 4607 | PROOF | A282642 | a condition on every cell's king-move neighbourhood, boundaries included |
+| 4608 | PROOF | A186044 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 4609 | PROOF | A188748 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4610 | PROOF | A208380 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4611 | PROOF | A209547 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4612 | PROOF | A220561 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
+| 4613 | PROOF | A220634 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
+| 4614 | PROOF | A234134 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4615 | PROOF | A234155 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4616 | PROOF | A234228 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4617 | PROOF | A235283 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4618 | PROOF | A251518 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4619 | PROOF | A255020 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 4620 | PROOF | A255152 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 4621 | PROOF | A257440 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 4622 | PROOF | A259735 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 4623 | PROOF | A260063 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 4624 | PROOF | A260241 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 4625 | PROOF | A261258 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 4626 | PROOF | A261373 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 4627 | PROOF | A297396 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4628 | PROOF | A297426 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4629 | PROOF | A297433 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4630 | PROOF | A297577 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4631 | PROOF | A297590 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4632 | PROOF | A299723 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4633 | PROOF | A303619 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4634 | PROOF | A303722 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4635 | PROOF | A305225 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4636 | PROOF | A305477 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4637 | PROOF | A317728 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4638 | PROOF | A318070 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4639 | PROOF | A282371 | a condition on every cell's king-move neighbourhood, boundaries included |
+| 4640 | PROOF | A235205 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4641 | PROOF | A206866 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4642 | PROOF | A207083 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4643 | PROOF | A233897 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4644 | PROOF | A234124 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4645 | PROOF | A234170 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4646 | PROOF | A234550 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4647 | PROOF | A234683 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4648 | PROOF | A235312 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4649 | PROOF | A196012 | a condition on every cell over the neighbour set the entry names |
+| 4650 | PROOF | A235100 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4651 | PROOF | A235191 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4652 | PROOF | A283544 | a condition on every cell over the neighbour set the entry names |
+| 4653 | PROOF | A282785 | a condition on every cell's king-move neighbourhood, boundaries included |
+| 4654 | PROOF | A207347 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4655 | PROOF | A207683 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4656 | PROOF | A207769 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4657 | PROOF | A207840 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4658 | PROOF | A208103 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4659 | PROOF | A233811 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4660 | PROOF | A234452 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4661 | PROOF | A283538 | a condition on every cell over the neighbour set the entry names |
+| 4662 | PROOF | A228503 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4663 | PROOF | A228657 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4664 | PROOF | A228680 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4665 | PROOF | A234883 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4666 | PROOF | A235019 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4667 | PROOF | A235179 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4668 | PROOF | A283573 | a condition on every cell over the neighbour set the entry names |
+| 4669 | PROOF | A183785 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4670 | PROOF | A210384 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4671 | PROOF | A233877 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4672 | PROOF | A234260 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4673 | PROOF | A234437 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4674 | PROOF | A251204 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4675 | PROOF | A251329 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4676 | PROOF | A251384 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4677 | PROOF | A220709 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
+| 4678 | PROOF | A233921 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4679 | PROOF | A234076 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4680 | PROOF | A234107 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4681 | PROOF | A220622 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
+| 4682 | PROOF | A231799 | a condition on every cell over the neighbour set the entry names |
+| 4683 | PROOF | A282393 | a condition on every cell's king-move neighbourhood, boundaries included |
+| 4684 | PROOF | A297079 | a condition on every cell's king-move neighbourhood, boundaries included |
+| 4685 | PROOF | A297096 | a condition on every cell's king-move neighbourhood, boundaries included |
+| 4686 | PROOF | A184209 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4687 | PROOF | A188501 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4688 | PROOF | A188516 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4689 | PROOF | A207170 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4690 | PROOF | A207436 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4691 | PROOF | A209709 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4692 | PROOF | A209780 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4693 | PROOF | A209851 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4694 | PROOF | A209906 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4695 | PROOF | A210070 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4696 | PROOF | A210328 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4697 | PROOF | A231509 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4698 | PROOF | A251253 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4699 | PROOF | A278171 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4700 | PROOF | A295346 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4701 | PROOF | A295525 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4702 | PROOF | A295937 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4703 | PROOF | A295979 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4704 | PROOF | A296109 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4705 | PROOF | A296645 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4706 | PROOF | A296668 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4707 | PROOF | A296682 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4708 | PROOF | A296733 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4709 | PROOF | A296798 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4710 | PROOF | A296821 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4711 | PROOF | A296984 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4712 | PROOF | A297545 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4713 | PROOF | A297608 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4714 | PROOF | A297638 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4715 | PROOF | A297655 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4716 | PROOF | A297721 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4717 | PROOF | A297750 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4718 | PROOF | A300421 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4719 | PROOF | A300533 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4720 | PROOF | A317735 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4721 | PROOF | A317767 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4722 | PROOF | A317809 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4723 | PROOF | A317817 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4724 | PROOF | A318031 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4725 | PROOF | A318039 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4726 | PROOF | A251081 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4727 | PROOF | A251130 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4728 | PROOF | A251151 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4729 | PROOF | A251444 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4730 | PROOF | A220713 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
+| 4731 | PROOF | A220739 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
+| 4732 | PROOF | A251311 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4733 | PROOF | A220705 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
+| 4734 | PROOF | A196596 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4735 | PROOF | A223250 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4736 | PROOF | A223409 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4737 | PROOF | A230180 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4738 | PROOF | A251148 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4739 | PROOF | A185899 | a condition on every cell over the neighbour set the entry names |
+| 4740 | PROOF | A188710 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4741 | PROOF | A230509 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4742 | PROOF | A198598 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4743 | PROOF | A185405 | a condition on every cell over the neighbour set the entry names |
+| 4744 | PROOF | A251147 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4745 | PROOF | A185535 | a condition on every cell over the neighbour set the entry names |
+| 4746 | PROOF | A301820 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4747 | PROOF | A301903 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4748 | PROOF | A302677 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4749 | PROOF | A208505 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4750 | PROOF | A223292 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4751 | PROOF | A230670 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4752 | PROOF | A251146 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4753 | PROOF | A196072 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4754 | PROOF | A196204 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4755 | PROOF | A196316 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4756 | PROOF | A197211 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4757 | PROOF | A197244 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4758 | PROOF | A197344 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4759 | PROOF | A230393 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4760 | PROOF | A208504 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4761 | PROOF | A223242 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4762 | PROOF | A186161 | a condition on every cell over the neighbour set the entry names |
+| 4763 | PROOF | A251127 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4764 | PROOF | A261259 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 4765 | PROOF | A297220 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4766 | PROOF | A297334 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4767 | PROOF | A298179 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4768 | PROOF | A298959 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4769 | PROOF | A301403 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4770 | PROOF | A301658 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4771 | PROOF | A301837 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4772 | PROOF | A302065 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4773 | PROOF | A303678 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4774 | PROOF | A317760 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4775 | PROOF | A209507 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4776 | PROOF | A251145 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4777 | PROOF | A251126 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4778 | PROOF | A185552 | a condition on every cell over the neighbour set the entry names |
+| 4779 | PROOF | A202883 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4780 | PROOF | A207719 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4781 | PROOF | A208421 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4782 | PROOF | A230185 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4783 | PROOF | A230470 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4784 | PROOF | A230676 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4785 | PROOF | A232017 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4786 | PROOF | A234117 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4787 | PROOF | A251144 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4788 | PROOF | A251368 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4789 | PROOF | A235011 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4790 | PROOF | A237853 | a condition on every cell over the neighbour set the entry names |
+| 4791 | PROOF | A283410 | a condition on every cell over the neighbour set the entry names |
+| 4792 | PROOF | A188700 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4793 | PROOF | A208288 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4794 | PROOF | A228752 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4795 | PROOF | A228794 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4796 | PROOF | A234484 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4797 | PROOF | A234697 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4798 | PROOF | A251125 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4799 | PROOF | A260200 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 4800 | PROOF | A295776 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4801 | PROOF | A298095 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4802 | PROOF | A298897 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4803 | PROOF | A299590 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4804 | PROOF | A299649 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4805 | PROOF | A300203 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4806 | PROOF | A302260 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4807 | PROOF | A302416 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4808 | PROOF | A302636 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4809 | PROOF | A302736 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4810 | PROOF | A302960 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4811 | PROOF | A303183 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4812 | PROOF | A303451 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4813 | PROOF | A303464 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4814 | PROOF | A303631 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4815 | PROOF | A304770 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4816 | PROOF | A305518 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4817 | PROOF | A316513 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4818 | PROOF | A316810 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4819 | PROOF | A316955 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4820 | PROOF | A317560 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4821 | PROOF | A318338 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4822 | PROOF | A234659 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4823 | PROOF | A207718 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4824 | PROOF | A207896 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4825 | PROOF | A234177 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4826 | PROOF | A234491 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4827 | PROOF | A234543 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4828 | PROOF | A234651 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4829 | PROOF | A235303 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4830 | PROOF | A203374 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4831 | PROOF | A251124 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4832 | PROOF | A235091 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4833 | PROOF | A209376 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4834 | PROOF | A251143 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4835 | PROOF | A251243 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4836 | PROOF | A234557 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4837 | PROOF | A283124 | a condition on every cell over the neighbour set the entry names |
+| 4838 | PROOF | A283409 | a condition on every cell over the neighbour set the entry names |
+| 4839 | PROOF | A283692 | a condition on every cell over the neighbour set the entry names |
+| 4840 | PROOF | A297088 | a condition on every cell's king-move neighbourhood, boundaries included |
+| 4841 | PROOF | A210149 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4842 | PROOF | A210348 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4843 | PROOF | A220683 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
+| 4844 | PROOF | A228386 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4845 | PROOF | A231376 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4846 | PROOF | A231524 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4847 | PROOF | A233628 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4848 | PROOF | A233960 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4849 | PROOF | A251123 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4850 | PROOF | A295091 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4851 | PROOF | A295247 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4852 | PROOF | A296033 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4853 | PROOF | A296329 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4854 | PROOF | A296957 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4855 | PROOF | A296968 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4856 | PROOF | A297339 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4857 | PROOF | A297507 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4858 | PROOF | A297734 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4859 | PROOF | A297763 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4860 | PROOF | A297817 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4861 | PROOF | A297852 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4862 | PROOF | A297883 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4863 | PROOF | A297901 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4864 | PROOF | A297945 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4865 | PROOF | A298057 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4866 | PROOF | A298148 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4867 | PROOF | A298189 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4868 | PROOF | A298215 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4869 | PROOF | A298448 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4870 | PROOF | A300344 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4871 | PROOF | A302164 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4872 | PROOF | A302225 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4873 | PROOF | A302310 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4874 | PROOF | A303684 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4875 | PROOF | A303794 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4876 | PROOF | A303882 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4877 | PROOF | A304013 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4878 | PROOF | A304052 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4879 | PROOF | A304143 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4880 | PROOF | A304257 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4881 | PROOF | A304341 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4882 | PROOF | A305091 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4883 | PROOF | A317890 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4884 | PROOF | A282856 | a condition on every cell over the neighbour set the entry names |
+| 4885 | PROOF | A202973 | a condition on every cell over the neighbour set the entry names |
+| 4886 | PROOF | A220611 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
+| 4887 | PROOF | A184556 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4888 | PROOF | A202882 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4889 | PROOF | A250920 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4890 | PROOF | A250975 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4891 | PROOF | A251003 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4892 | PROOF | A251012 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4893 | PROOF | A251403 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4894 | PROOF | A220629 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
+| 4895 | PROOF | A220720 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
+| 4896 | PROOF | A220733 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
+| 4897 | PROOF | A228798 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4898 | PROOF | A250967 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4899 | PROOF | A251122 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4900 | PROOF | A251195 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4901 | PROOF | A251213 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4902 | PROOF | A251222 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4903 | PROOF | A251252 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4904 | PROOF | A251269 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4905 | PROOF | A251286 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4906 | PROOF | A251320 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4907 | PROOF | A188822 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4908 | PROOF | A188829 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4909 | PROOF | A255225 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 4910 | PROOF | A257444 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 4911 | PROOF | A258963 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 4912 | PROOF | A196917 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4913 | PROOF | A255224 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 4914 | PROOF | A257443 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 4915 | PROOF | A230588 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4916 | PROOF | A188709 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4917 | PROOF | A188820 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4918 | PROOF | A188827 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4919 | PROOF | A203822 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4920 | PROOF | A255223 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 4921 | PROOF | A257442 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 4922 | PROOF | A258961 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 4923 | PROOF | A297296 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4924 | PROOF | A301787 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4925 | PROOF | A317761 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4926 | PROOF | A208693 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4927 | PROOF | A196630 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4928 | PROOF | A196690 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4929 | PROOF | A197092 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4930 | PROOF | A197497 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4931 | PROOF | A197617 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4932 | PROOF | A208692 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4933 | PROOF | A208559 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4934 | PROOF | A223396 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4935 | PROOF | A228663 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4936 | PROOF | A228685 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4937 | PROOF | A230835 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4938 | PROOF | A255222 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 4939 | PROOF | A257441 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 4940 | PROOF | A259736 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 4941 | PROOF | A301780 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4942 | PROOF | A301786 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4943 | PROOF | A302006 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4944 | PROOF | A302011 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4945 | PROOF | A302676 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4946 | PROOF | A223442 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4947 | PROOF | A207458 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4948 | PROOF | A208691 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4949 | PROOF | A207457 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4950 | PROOF | A208557 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4951 | PROOF | A207456 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4952 | PROOF | A207847 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4953 | PROOF | A208029 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4954 | PROOF | A208690 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4955 | PROOF | A209225 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4956 | PROOF | A209377 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4957 | PROOF | A229841 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4958 | PROOF | A277939 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4959 | PROOF | A278000 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4960 | PROOF | A278015 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4961 | PROOF | A295913 | a condition on every cell's king-move neighbourhood, boundaries included |
+| 4962 | PROOF | A184146 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4963 | PROOF | A188819 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4964 | PROOF | A188868 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4965 | PROOF | A188986 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4966 | PROOF | A206249 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4967 | PROOF | A207455 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4968 | PROOF | A228755 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4969 | PROOF | A251277 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4970 | PROOF | A255221 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 4971 | PROOF | A259635 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 4972 | PROOF | A259716 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 4973 | PROOF | A259887 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 4974 | PROOF | A260131 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 4975 | PROOF | A297300 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4976 | PROOF | A297309 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4977 | PROOF | A297390 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4978 | PROOF | A301657 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4979 | PROOF | A301965 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4980 | PROOF | A302165 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4981 | PROOF | A302422 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4982 | PROOF | A302510 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4983 | PROOF | A302516 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4984 | PROOF | A302624 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4985 | PROOF | A302681 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4986 | PROOF | A302803 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4987 | PROOF | A303309 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4988 | PROOF | A303315 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4989 | PROOF | A303422 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4990 | PROOF | A304216 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4991 | PROOF | A316803 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4992 | PROOF | A317520 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4993 | PROOF | A207454 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4994 | PROOF | A207694 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4995 | PROOF | A207929 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4996 | PROOF | A208064 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4997 | PROOF | A233951 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4998 | PROOF | A234674 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 4999 | PROOF | A228751 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5000 | PROOF | A228793 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5001 | PROOF | A250952 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5002 | PROOF | A184369 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5003 | PROOF | A206466 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5004 | PROOF | A209790 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5005 | PROOF | A234116 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5006 | PROOF | A196423 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5007 | PROOF | A196537 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5008 | PROOF | A234029 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5009 | PROOF | A234162 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5010 | PROOF | A234210 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5011 | PROOF | A234444 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5012 | PROOF | A235271 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5013 | PROOF | A185828 | a condition on every cell over the neighbour set the entry names |
+| 5014 | PROOF | A234875 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5015 | PROOF | A234914 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5016 | PROOF | A235080 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5017 | PROOF | A282522 | a condition on every cell's king-move neighbourhood, boundaries included |
+| 5018 | PROOF | A283858 | a condition on every cell over the neighbour set the entry names |
+| 5019 | PROOF | A183794 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5020 | PROOF | A209546 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5021 | PROOF | A210293 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5022 | PROOF | A220559 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
+| 5023 | PROOF | A228502 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5024 | PROOF | A233675 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5025 | PROOF | A233726 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5026 | PROOF | A233785 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5027 | PROOF | A234326 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5028 | PROOF | A235291 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5029 | PROOF | A250928 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5030 | PROOF | A251229 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5031 | PROOF | A251374 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5032 | PROOF | A251492 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5033 | PROOF | A251500 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5034 | PROOF | A278281 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5035 | PROOF | A295841 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5036 | PROOF | A296946 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5037 | PROOF | A297432 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5038 | PROOF | A297458 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5039 | PROOF | A297520 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5040 | PROOF | A297583 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5041 | PROOF | A297809 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5042 | PROOF | A297860 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5043 | PROOF | A297870 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5044 | PROOF | A297909 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5045 | PROOF | A297917 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5046 | PROOF | A297937 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5047 | PROOF | A297953 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5048 | PROOF | A297980 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5049 | PROOF | A298569 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5050 | PROOF | A301842 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5051 | PROOF | A302266 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5052 | PROOF | A302279 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5053 | PROOF | A302368 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5054 | PROOF | A303677 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5055 | PROOF | A303721 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5056 | PROOF | A303802 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5057 | PROOF | A303890 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5058 | PROOF | A303963 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5059 | PROOF | A304004 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5060 | PROOF | A304304 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5061 | PROOF | A304349 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5062 | PROOF | A317759 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5063 | PROOF | A318010 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5064 | PROOF | A318062 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5065 | PROOF | A282990 | a condition on every cell over the neighbour set the entry names |
+| 5066 | PROOF | A220647 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
+| 5067 | PROOF | A184489 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5068 | PROOF | A220616 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
+| 5069 | PROOF | A233942 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5070 | PROOF | A250834 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5071 | PROOF | A220558 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
+| 5072 | PROOF | A220590 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
+| 5073 | PROOF | A220726 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
+| 5074 | PROOF | A228385 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5075 | PROOF | A251094 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5076 | PROOF | A251262 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5077 | PROOF | A220547 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
+| 5078 | PROOF | A251194 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5079 | PROOF | A251285 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5080 | PROOF | A251310 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5081 | PROOF | A183631 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5082 | PROOF | A301796 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5083 | PROOF | A183630 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5084 | PROOF | A209726 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5085 | PROOF | A203730 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5086 | PROOF | A222460 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5087 | PROOF | A301795 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5088 | PROOF | A203882 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5089 | PROOF | A222337 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5090 | PROOF | A183629 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5091 | PROOF | A209532 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5092 | PROOF | A209725 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5093 | PROOF | A203929 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5094 | PROOF | A222277 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5095 | PROOF | A208844 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5096 | PROOF | A301794 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5097 | PROOF | A230063 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5098 | PROOF | A197469 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5099 | PROOF | A203651 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5100 | PROOF | A222140 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5101 | PROOF | A208843 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5102 | PROOF | A229690 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5103 | PROOF | A238518 | a condition on every cell over the neighbour set the entry names |
+| 5104 | PROOF | A188708 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5105 | PROOF | A203791 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5106 | PROOF | A208558 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5107 | PROOF | A223395 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5108 | PROOF | A223434 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5109 | PROOF | A230245 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5110 | PROOF | A301793 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5111 | PROOF | A301960 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5112 | PROOF | A301995 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5113 | PROOF | A317513 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5114 | PROOF | A209531 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5115 | PROOF | A209723 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5116 | PROOF | A223337 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5117 | PROOF | A208842 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5118 | PROOF | A208503 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5119 | PROOF | A229689 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5120 | PROOF | A229749 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5121 | PROOF | A183626 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5122 | PROOF | A203830 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5123 | PROOF | A208079 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5124 | PROOF | A208556 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5125 | PROOF | A208841 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5126 | PROOF | A209506 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5127 | PROOF | A209722 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5128 | PROOF | A230269 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5129 | PROOF | A230331 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5130 | PROOF | A230520 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5131 | PROOF | A183304 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5132 | PROOF | A228662 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5133 | PROOF | A228684 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5134 | PROOF | A258959 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 5135 | PROOF | A261106 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 5136 | PROOF | A297219 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5137 | PROOF | A297333 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5138 | PROOF | A297369 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5139 | PROOF | A300177 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5140 | PROOF | A300799 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5141 | PROOF | A301438 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5142 | PROOF | A301792 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5143 | PROOF | A301879 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5144 | PROOF | A301902 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5145 | PROOF | A301946 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5146 | PROOF | A301959 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5147 | PROOF | A301994 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5148 | PROOF | A302076 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5149 | PROOF | A302146 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5150 | PROOF | A303416 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5151 | PROOF | A303714 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5152 | PROOF | A304128 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5153 | PROOF | A304225 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5154 | PROOF | A304265 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5155 | PROOF | A305035 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5156 | PROOF | A305581 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5157 | PROOF | A316688 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5158 | PROOF | A317512 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5159 | PROOF | A320366 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5160 | PROOF | A229695 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5161 | PROOF | A207656 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5162 | PROOF | A208689 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5163 | PROOF | A183625 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5164 | PROOF | A209530 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5165 | PROOF | A250907 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5166 | PROOF | A196700 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5167 | PROOF | A233982 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5168 | PROOF | A234220 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5169 | PROOF | A282310 | a condition on every cell's king-move neighbourhood, boundaries included |
+| 5170 | PROOF | A282641 | a condition on every cell's king-move neighbourhood, boundaries included |
+| 5171 | PROOF | A203373 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5172 | PROOF | A209729 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5173 | PROOF | A220633 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
+| 5174 | PROOF | A228656 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5175 | PROOF | A228750 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5176 | PROOF | A228792 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5177 | PROOF | A233684 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5178 | PROOF | A234133 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5179 | PROOF | A234154 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5180 | PROOF | A234483 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5181 | PROOF | A235282 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5182 | PROOF | A250951 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5183 | PROOF | A251293 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5184 | PROOF | A251336 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5185 | PROOF | A251517 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5186 | PROOF | A278088 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5187 | PROOF | A278151 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5188 | PROOF | A278274 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5189 | PROOF | A296719 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5190 | PROOF | A297695 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5191 | PROOF | A297972 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5192 | PROOF | A298234 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5193 | PROOF | A301791 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5194 | PROOF | A302323 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5195 | PROOF | A304421 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5196 | PROOF | A183624 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5197 | PROOF | A183784 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5198 | PROOF | A209953 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5199 | PROOF | A210269 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5200 | PROOF | A210383 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5201 | PROOF | A234259 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5202 | PROOF | A251203 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5203 | PROOF | A251328 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5204 | PROOF | A251344 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5205 | PROOF | A251383 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5206 | PROOF | A228501 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5207 | PROOF | A228655 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5208 | PROOF | A228678 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5209 | PROOF | A228797 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5210 | PROOF | A251221 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5211 | PROOF | A251251 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5212 | PROOF | A251319 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5213 | PROOF | A127905 | a recurrence derived from the summand by creative telescoping |
+| 5214 | PROOF | A045742 | a recurrence derived from the summand by creative telescoping |
+| 5215 | PROOF | A222276 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5216 | PROOF | A222139 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5217 | PROOF | A223299 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5218 | PROOF | A223291 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5219 | PROOF | A223373 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5220 | PROOF | A223687 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5221 | PROOF | A231280 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5222 | PROOF | A223241 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5223 | PROOF | A208779 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5224 | PROOF | A223212 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5225 | PROOF | A230179 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5226 | PROOF | A208778 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5227 | PROOF | A223249 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5228 | PROOF | A203729 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5229 | PROOF | A222459 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5230 | PROOF | A203881 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5231 | PROOF | A222336 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5232 | PROOF | A238923 | a condition on every cell over the neighbour set the entry names |
+| 5233 | PROOF | A223443 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5234 | PROOF | A203928 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5235 | PROOF | A203650 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5236 | PROOF | A239171 | a condition on every cell over the neighbour set the entry names |
+| 5237 | PROOF | A208502 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5238 | PROOF | A223290 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5239 | PROOF | A223372 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5240 | PROOF | A278008 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5241 | PROOF | A203790 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5242 | PROOF | A298777 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5243 | PROOF | A301402 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5244 | PROOF | A301779 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5245 | PROOF | A301836 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5246 | PROOF | A302064 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5247 | PROOF | A302675 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5248 | PROOF | A223240 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5249 | PROOF | A223417 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5250 | PROOF | A207590 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5251 | PROOF | A207846 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5252 | PROOF | A203829 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5253 | PROOF | A209505 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5254 | PROOF | A184145 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5255 | PROOF | A251276 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5256 | PROOF | A251484 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5257 | PROOF | A184368 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5258 | PROOF | A209789 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5259 | PROOF | A209944 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5260 | PROOF | A233637 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5261 | PROOF | A234436 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5262 | PROOF | A228791 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5263 | PROOF | A243585 | a recurrence derived from the summand by creative telescoping |
+| 5264 | PROOF | A026005 | a recurrence derived from the summand by creative telescoping |
+| 5265 | PROOF | A222335 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5266 | PROOF | A222138 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5267 | PROOF | A188825 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 5268 | PROOF | A359643 | the generating function derived from a coefficient-extraction definition |
+| 5269 | PROOF | A156894 | the generating function derived from a coefficient-extraction definition |
+| 5270 | PROOF | A156894 | the generating function derived from a coefficient-extraction definition |
+| 5271 | PROOF | A371753 | the generating function derived from a coefficient-extraction definition |
+| 5272 | PROOF | A226751 | the generating function derived from a coefficient-extraction definition |
+| 5273 | PROOF | A386830 | the generating function derived from a coefficient-extraction definition |
+| 5274 | PROOF | A172025 | the generating function derived from a coefficient-extraction definition |
+| 5275 | PROOF | A348410 | the generating function derived from a coefficient-extraction definition |
+| 5276 | PROOF | A243764 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 5277 | PROOF | A243760 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 5278 | PROOF | A285195 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 5279 | PROOF | A243814 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 5280 | PROOF | A055392 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 5281 | PROOF | A025758 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 5282 | PROOF | A308726 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 5283 | PROOF | A243022 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 5284 | PROOF | A168506 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 5285 | PROOF | A239425 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 5286 | PROOF | A025757 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 5287 | PROOF | A242566 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 5288 | PROOF | A270530 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 5289 | PROOF | A101478 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 5290 | PROOF | A025756 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 5291 | PROOF | A097180 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 5292 | PROOF | A097189 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 5293 | PROOF | A127632 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 5294 | PROOF | A130655 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 5295 | PROOF | A166135 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 5296 | PROOF | A212696 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 5297 | PROOF | A261196 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 5298 | PROOF | A270530 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 5299 | PROOF | A185010 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 5300 | PROOF | A185020 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 5301 | PROOF | A200312 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 5302 | PROOF | A025754 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 5303 | PROOF | A097188 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 5304 | PROOF | A097192 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 5305 | PROOF | A158826 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 5306 | PROOF | A159769 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 5307 | PROOF | A294159 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 5308 | PROOF | A392976 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 5309 | PROOF | A162972 | a transcendental e.g.f., in a differential module over Q(x) |
+| 5310 | PROOF | A001465 | a transcendental e.g.f., in a differential module over Q(x) |
+| 5311 | PROOF | A085387 | a transcendental e.g.f., in a differential module over Q(x) |
+| 5312 | PROOF | A096471 | a transcendental e.g.f., in a differential module over Q(x) |
+| 5313 | PROOF | A000704 | a transcendental e.g.f., in a differential module over Q(x) |
+| 5314 | PROOF | A001724 | a transcendental e.g.f., in a differential module over Q(x) |
+| 5315 | PROOF | A066052 | a transcendental e.g.f., in a differential module over Q(x) |
+| 5316 | PROOF | A097204 | a transcendental e.g.f., in a differential module over Q(x) |
+| 5317 | PROOF | A053532 | a transcendental e.g.f., in a differential module over Q(x) |
+| 5318 | PROOF | A306948 | a transcendental e.g.f., in a differential module over Q(x) |
+| 5319 | PROOF | A000483 | a transcendental e.g.f., in a differential module over Q(x) |
+| 5320 | PROOF | A000276 | a transcendental e.g.f., in a differential module over Q(x) |
+| 5321 | PROOF | A002104 | a transcendental e.g.f., in a differential module over Q(x) |
+| 5322 | PROOF | A002538 | a transcendental e.g.f., in a differential module over Q(x) |
+| 5323 | PROOF | A066052 | a transcendental e.g.f., in a differential module over Q(x) |
+| 5324 | PROOF | A073591 | a transcendental e.g.f., in a differential module over Q(x) |
+| 5325 | PROOF | A108704 | a transcendental e.g.f., in a differential module over Q(x) |
+| 5326 | PROOF | A110322 | a transcendental e.g.f., in a differential module over Q(x) |
+| 5327 | PROOF | A185369 | a transcendental e.g.f., in a differential module over Q(x) |
+| 5328 | PROOF | A000276 | a transcendental e.g.f., in a differential module over Q(x) |
+| 5329 | PROOF | A000774 | a transcendental e.g.f., in a differential module over Q(x) |
+| 5330 | PROOF | A094905 | a transcendental e.g.f., in a differential module over Q(x) |
+| 5331 | PROOF | A098557 | a transcendental e.g.f., in a differential module over Q(x) |
+| 5332 | PROOF | A051560 | a transcendental e.g.f., in a differential module over Q(x) |
+| 5333 | PROOF | A129149 | a transcendental e.g.f., in a differential module over Q(x) |
+| 5334 | PROOF | A187252 | a transcendental e.g.f., in a differential module over Q(x) |
+| 5335 | PROOF | A005654 | a posted closed form split on the parity of n, then decided by hypergeometric terms |
+| 5336 | PROOF | A116385 | a posted closed form split on the parity of n, then decided by hypergeometric terms |
+| 5337 | PROOF | A005558 | a posted closed form split on the parity of n, then decided by hypergeometric terms |
+| 5338 | PROOF | A065942 | a posted closed form split on the parity of n, then decided by hypergeometric terms |
+| 5339 | PROOF | A081181 | a posted closed form split on the parity of n, then decided by hypergeometric terms |
+| 5340 | PROOF | A081204 | a posted closed form split on the parity of n, then decided by hypergeometric terms |
+| 5341 | PROOF | A005558 | a posted closed form split on the parity of n, then decided by hypergeometric terms |
+| 5342 | PROOF | A005559 | a posted closed form split on the parity of n, then decided by hypergeometric terms |
+| 5343 | PROOF | A005560 | a posted closed form split on the parity of n, then decided by hypergeometric terms |
+| 5344 | PROOF | A005561 | a posted closed form split on the parity of n, then decided by hypergeometric terms |
+| 5345 | PROOF | A005562 | a posted closed form split on the parity of n, then decided by hypergeometric terms |
+| 5346 | PROOF | A081204 | a posted closed form split on the parity of n, then decided by hypergeometric terms |
+| 5347 | PROOF | A081205 | a posted closed form split on the parity of n, then decided by hypergeometric terms |
+| 5348 | PROOF | A213801 | a posted closed form split on the parity of n, then decided by hypergeometric terms |
+| 5349 | PROOF | A006231 | a posted closed form against a derived holonomic recurrence |
+| 5350 | PROOF | A213203 | a posted closed form compared against the posted generating function |
+| 5351 | PROOF | A242429 | a posted closed form compared against the posted generating function |
+| 5352 | PROOF | A026018 | a posted closed form compared against the posted generating function |
+| 5353 | PROOF | A092634 | a posted closed form compared against the posted generating function |
+| 5354 | PROOF | A026026 | a posted closed form compared against the posted generating function |
+| 5355 | PROOF | A052227 | a posted closed form compared against the posted generating function |
+| 5356 | PROOF | A228329 | a posted closed form compared against the posted generating function |
+| 5357 | PROOF | A259457 | a posted closed form compared against the posted generating function |
+| 5358 | PROOF | A268554 | a posted closed form compared against the posted generating function |
+| 5359 | PROOF | A214907 | the recurrence follows from a generating function the entry records as fact |
+| 5360 | PROOF | A263869 | the recurrence follows from a generating function the entry records as fact |
+| 5361 | PROOF | A250782 | the recurrence follows from a generating function the entry records as fact |
+| 5362 | PROOF | A165386 | the recurrence follows from a generating function the entry records as fact |
+| 5363 | PROOF | A250781 | the recurrence follows from a generating function the entry records as fact |
+| 5364 | PROOF | A163020 | the recurrence follows from a generating function the entry records as fact |
+| 5365 | PROOF | A220640 | the recurrence follows from a generating function the entry records as fact |
+| 5366 | PROOF | A204648 | the recurrence follows from a generating function the entry records as fact |
+| 5367 | PROOF | A206264 | the recurrence follows from a generating function the entry records as fact |
+| 5368 | PROOF | A262482 | the recurrence follows from a generating function the entry records as fact |
+| 5369 | PROOF | A208642 | the recurrence follows from a generating function the entry records as fact |
+| 5370 | PROOF | A204647 | the recurrence follows from a generating function the entry records as fact |
+| 5371 | PROOF | A250892 | the recurrence follows from a generating function the entry records as fact |
+| 5372 | PROOF | A250893 | the recurrence follows from a generating function the entry records as fact |
+| 5373 | PROOF | A250894 | the recurrence follows from a generating function the entry records as fact |
+| 5374 | PROOF | A250895 | the recurrence follows from a generating function the entry records as fact |
+| 5375 | PROOF | A250896 | the recurrence follows from a generating function the entry records as fact |
+| 5376 | PROOF | A250897 | the recurrence follows from a generating function the entry records as fact |
+| 5377 | PROOF | A164760 | the recurrence follows from a generating function the entry records as fact |
+| 5378 | PROOF | A202442 | the recurrence follows from a generating function the entry records as fact |
+| 5379 | PROOF | A202443 | the recurrence follows from a generating function the entry records as fact |
+| 5380 | PROOF | A206263 | the recurrence follows from a generating function the entry records as fact |
+| 5381 | PROOF | A250780 | the recurrence follows from a generating function the entry records as fact |
+| 5382 | PROOF | A263794 | the recurrence follows from a generating function the entry records as fact |
+| 5383 | PROOF | A208641 | the recurrence follows from a generating function the entry records as fact |
+| 5384 | PROOF | A204646 | the recurrence follows from a generating function the entry records as fact |
+| 5385 | PROOF | A206262 | the recurrence follows from a generating function the entry records as fact |
+| 5386 | PROOF | A204645 | the recurrence follows from a generating function the entry records as fact |
+| 5387 | PROOF | A233402 | the recurrence follows from a generating function the entry records as fact |
+| 5388 | PROOF | A250900 | the recurrence follows from a generating function the entry records as fact |
+| 5389 | PROOF | A267960 | the recurrence follows from a generating function the entry records as fact |
+| 5390 | PROOF | A220639 | the recurrence follows from a generating function the entry records as fact |
+| 5391 | PROOF | A102319 | several independent square roots |
+| 5392 | PROOF | A115256 | several independent square roots |
+| 5393 | PROOF | A165373 | the recurrence follows from a generating function the entry records as fact |
+| 5394 | PROOF | A165394 | the recurrence follows from a generating function the entry records as fact |
+| 5395 | PROOF | A206261 | the recurrence follows from a generating function the entry records as fact |
+| 5396 | PROOF | A224671 | the recurrence follows from a generating function the entry records as fact |
+| 5397 | PROOF | A224673 | the recurrence follows from a generating function the entry records as fact |
+| 5398 | PROOF | A194772 | the recurrence follows from a generating function the entry records as fact |
+| 5399 | PROOF | A222993 | the recurrence follows from a generating function the entry records as fact |
+| 5400 | PROOF | A223711 | the recurrence follows from a generating function the entry records as fact |
+| 5401 | PROOF | A224670 | the recurrence follows from a generating function the entry records as fact |
+| 5402 | PROOF | A235510 | the recurrence follows from a generating function the entry records as fact |
+| 5403 | PROOF | A250779 | the recurrence follows from a generating function the entry records as fact |
+| 5404 | PROOF | A250792 | the recurrence follows from a generating function the entry records as fact |
+| 5405 | PROOF | A250899 | the recurrence follows from a generating function the entry records as fact |
+| 5406 | PROOF | A157125 | several independent square roots |
+| 5407 | PROOF | A102318 | several independent square roots |
+| 5408 | PROOF | A107587 | several independent square roots |
+| 5409 | PROOF | A190092 | the recurrence follows from a generating function the entry records as fact |
+| 5410 | PROOF | A190093 | the recurrence follows from a generating function the entry records as fact |
+| 5411 | PROOF | A253226 | the recurrence follows from a generating function the entry records as fact |
+| 5412 | PROOF | A253227 | the recurrence follows from a generating function the entry records as fact |
+| 5413 | PROOF | A253228 | the recurrence follows from a generating function the entry records as fact |
+| 5414 | PROOF | A253229 | the recurrence follows from a generating function the entry records as fact |
+| 5415 | PROOF | A253230 | the recurrence follows from a generating function the entry records as fact |
+| 5416 | PROOF | A222835 | the recurrence follows from a generating function the entry records as fact |
+| 5417 | PROOF | A221788 | the recurrence follows from a generating function the entry records as fact |
+| 5418 | PROOF | A222777 | the recurrence follows from a generating function the entry records as fact |
+| 5419 | PROOF | A222892 | the recurrence follows from a generating function the entry records as fact |
+| 5420 | PROOF | A184031 | the recurrence follows from a generating function the entry records as fact |
+| 5421 | PROOF | A184032 | the recurrence follows from a generating function the entry records as fact |
+| 5422 | PROOF | A184033 | the recurrence follows from a generating function the entry records as fact |
+| 5423 | PROOF | A184034 | the recurrence follows from a generating function the entry records as fact |
+| 5424 | PROOF | A184035 | the recurrence follows from a generating function the entry records as fact |
+| 5425 | PROOF | A184036 | the recurrence follows from a generating function the entry records as fact |
+| 5426 | PROOF | A184037 | the recurrence follows from a generating function the entry records as fact |
+| 5427 | PROOF | A184038 | the recurrence follows from a generating function the entry records as fact |
+| 5428 | PROOF | A184041 | the recurrence follows from a generating function the entry records as fact |
+| 5429 | PROOF | A184042 | the recurrence follows from a generating function the entry records as fact |
+| 5430 | PROOF | A184043 | the recurrence follows from a generating function the entry records as fact |
+| 5431 | PROOF | A184044 | the recurrence follows from a generating function the entry records as fact |
+| 5432 | PROOF | A184045 | the recurrence follows from a generating function the entry records as fact |
+| 5433 | PROOF | A184046 | the recurrence follows from a generating function the entry records as fact |
+| 5434 | PROOF | A184047 | the recurrence follows from a generating function the entry records as fact |
+| 5435 | PROOF | A189450 | the recurrence follows from a generating function the entry records as fact |
+| 5436 | PROOF | A190091 | the recurrence follows from a generating function the entry records as fact |
+| 5437 | PROOF | A206170 | the recurrence follows from a generating function the entry records as fact |
+| 5438 | PROOF | A208086 | the recurrence follows from a generating function the entry records as fact |
+| 5439 | PROOF | A208087 | the recurrence follows from a generating function the entry records as fact |
+| 5440 | PROOF | A208089 | the recurrence follows from a generating function the entry records as fact |
+| 5441 | PROOF | A211327 | the recurrence follows from a generating function the entry records as fact |
+| 5442 | PROOF | A214181 | the recurrence follows from a generating function the entry records as fact |
+| 5443 | PROOF | A218185 | several independent square roots |
+| 5444 | PROOF | A221619 | the recurrence follows from a generating function the entry records as fact |
+| 5445 | PROOF | A221764 | the recurrence follows from a generating function the entry records as fact |
+| 5446 | PROOF | A222001 | the recurrence follows from a generating function the entry records as fact |
+| 5447 | PROOF | A239024 | the recurrence follows from a generating function the entry records as fact |
+| 5448 | PROOF | A250610 | the recurrence follows from a generating function the entry records as fact |
+| 5449 | PROOF | A250784 | the recurrence follows from a generating function the entry records as fact |
+| 5450 | PROOF | A250791 | the recurrence follows from a generating function the entry records as fact |
+| 5451 | PROOF | A262267 | the recurrence follows from a generating function the entry records as fact |
+| 5452 | PROOF | A263908 | the recurrence follows from a generating function the entry records as fact |
+| 5453 | PROOF | A267905 | the recurrence follows from a generating function the entry records as fact |
+| 5454 | PROOF | A268053 | the recurrence follows from a generating function the entry records as fact |
+| 5455 | PROOF | A268775 | the recurrence follows from a generating function the entry records as fact |
+| 5456 | PROOF | A269202 | the recurrence follows from a generating function the entry records as fact |
+| 5457 | PROOF | A025567 | several independent square roots |
+| 5458 | PROOF | A071684 | several independent square roots |
+| 5459 | PROOF | A179648 | several independent square roots |
+| 5460 | PROOF | A184120 | several independent square roots |
+| 5461 | PROOF | A026163 | several independent square roots |
+| 5462 | PROOF | A102318 | several independent square roots |
+| 5463 | PROOF | A101500 | several independent square roots |
+| 5464 | PROOF | A102319 | several independent square roots |
+| 5465 | PROOF | A107587 | several independent square roots |
+| 5466 | PROOF | A206336 | the recurrence follows from a generating function the entry records as fact |
+| 5467 | PROOF | A165381 | the recurrence follows from a generating function the entry records as fact |
+| 5468 | PROOF | A165392 | the recurrence follows from a generating function the entry records as fact |
+| 5469 | PROOF | A207142 | the recurrence follows from a generating function the entry records as fact |
+| 5470 | PROOF | A220749 | the recurrence follows from a generating function the entry records as fact |
+| 5471 | PROOF | A253225 | the recurrence follows from a generating function the entry records as fact |
+| 5472 | PROOF | A253490 | the recurrence follows from a generating function the entry records as fact |
+| 5473 | PROOF | A265989 | the recurrence follows from a generating function the entry records as fact |
+| 5474 | PROOF | A165378 | the recurrence follows from a generating function the entry records as fact |
+| 5475 | PROOF | A253491 | the recurrence follows from a generating function the entry records as fact |
+| 5476 | PROOF | A253492 | the recurrence follows from a generating function the entry records as fact |
+| 5477 | PROOF | A253493 | the recurrence follows from a generating function the entry records as fact |
+| 5478 | PROOF | A204609 | the recurrence follows from a generating function the entry records as fact |
+| 5479 | PROOF | A222939 | the recurrence follows from a generating function the entry records as fact |
+| 5480 | PROOF | A267912 | the recurrence follows from a generating function the entry records as fact |
+| 5481 | PROOF | A183356 | the recurrence follows from a generating function the entry records as fact |
+| 5482 | PROOF | A222834 | the recurrence follows from a generating function the entry records as fact |
+| 5483 | PROOF | A233162 | the recurrence follows from a generating function the entry records as fact |
+| 5484 | PROOF | A233175 | the recurrence follows from a generating function the entry records as fact |
+| 5485 | PROOF | A233218 | the recurrence follows from a generating function the entry records as fact |
+| 5486 | PROOF | A276300 | the recurrence follows from a generating function the entry records as fact |
+| 5487 | PROOF | A181192 | the recurrence follows from a generating function the entry records as fact |
+| 5488 | PROOF | A183430 | the recurrence follows from a generating function the entry records as fact |
+| 5489 | PROOF | A184679 | the recurrence follows from a generating function the entry records as fact |
+| 5490 | PROOF | A204707 | the recurrence follows from a generating function the entry records as fact |
+| 5491 | PROOF | A204708 | the recurrence follows from a generating function the entry records as fact |
+| 5492 | PROOF | A211322 | the recurrence follows from a generating function the entry records as fact |
+| 5493 | PROOF | A211490 | the recurrence follows from a generating function the entry records as fact |
+| 5494 | PROOF | A214160 | the recurrence follows from a generating function the entry records as fact |
+| 5495 | PROOF | A221374 | the recurrence follows from a generating function the entry records as fact |
+| 5496 | PROOF | A223363 | the recurrence follows from a generating function the entry records as fact |
+| 5497 | PROOF | A223499 | the recurrence follows from a generating function the entry records as fact |
+| 5498 | PROOF | A224669 | the recurrence follows from a generating function the entry records as fact |
+| 5499 | PROOF | A232951 | the recurrence follows from a generating function the entry records as fact |
+| 5500 | PROOF | A233106 | the recurrence follows from a generating function the entry records as fact |
+| 5501 | PROOF | A233107 | the recurrence follows from a generating function the entry records as fact |
+| 5502 | PROOF | A233124 | the recurrence follows from a generating function the entry records as fact |
+| 5503 | PROOF | A233211 | the recurrence follows from a generating function the entry records as fact |
+| 5504 | PROOF | A233212 | the recurrence follows from a generating function the entry records as fact |
+| 5505 | PROOF | A233213 | the recurrence follows from a generating function the entry records as fact |
+| 5506 | PROOF | A234789 | the recurrence follows from a generating function the entry records as fact |
+| 5507 | PROOF | A235878 | the recurrence follows from a generating function the entry records as fact |
+| 5508 | PROOF | A235879 | the recurrence follows from a generating function the entry records as fact |
+| 5509 | PROOF | A235880 | the recurrence follows from a generating function the entry records as fact |
+| 5510 | PROOF | A235881 | the recurrence follows from a generating function the entry records as fact |
+| 5511 | PROOF | A235882 | the recurrence follows from a generating function the entry records as fact |
+| 5512 | PROOF | A235883 | the recurrence follows from a generating function the entry records as fact |
+| 5513 | PROOF | A235887 | the recurrence follows from a generating function the entry records as fact |
+| 5514 | PROOF | A235888 | the recurrence follows from a generating function the entry records as fact |
+| 5515 | PROOF | A235889 | the recurrence follows from a generating function the entry records as fact |
+| 5516 | PROOF | A235890 | the recurrence follows from a generating function the entry records as fact |
+| 5517 | PROOF | A235891 | the recurrence follows from a generating function the entry records as fact |
+| 5518 | PROOF | A235892 | the recurrence follows from a generating function the entry records as fact |
+| 5519 | PROOF | A235895 | the recurrence follows from a generating function the entry records as fact |
+| 5520 | PROOF | A250461 | the recurrence follows from a generating function the entry records as fact |
+| 5521 | PROOF | A250778 | the recurrence follows from a generating function the entry records as fact |
+| 5522 | PROOF | A262326 | the recurrence follows from a generating function the entry records as fact |
+| 5523 | PROOF | A262327 | the recurrence follows from a generating function the entry records as fact |
+| 5524 | PROOF | A262415 | the recurrence follows from a generating function the entry records as fact |
+| 5525 | PROOF | A265987 | the recurrence follows from a generating function the entry records as fact |
+| 5526 | PROOF | A267946 | the recurrence follows from a generating function the entry records as fact |
+| 5527 | PROOF | A268052 | the recurrence follows from a generating function the entry records as fact |
+| 5528 | PROOF | A268093 | the recurrence follows from a generating function the entry records as fact |
+| 5529 | PROOF | A268164 | the recurrence follows from a generating function the entry records as fact |
+| 5530 | PROOF | A277761 | the recurrence follows from a generating function the entry records as fact |
+| 5531 | PROOF | A072100 | several independent square roots |
+| 5532 | PROOF | A239530 | the recurrence follows from a generating function the entry records as fact |
+| 5533 | PROOF | A263907 | the recurrence follows from a generating function the entry records as fact |
+| 5534 | PROOF | A221588 | the recurrence follows from a generating function the entry records as fact |
+| 5535 | PROOF | A221589 | the recurrence follows from a generating function the entry records as fact |
+| 5536 | PROOF | A221022 | the recurrence follows from a generating function the entry records as fact |
+| 5537 | PROOF | A165372 | the recurrence follows from a generating function the entry records as fact |
+| 5538 | PROOF | A202730 | the recurrence follows from a generating function the entry records as fact |
+| 5539 | PROOF | A206687 | the recurrence follows from a generating function the entry records as fact |
+| 5540 | PROOF | A221829 | the recurrence follows from a generating function the entry records as fact |
+| 5541 | PROOF | A222869 | the recurrence follows from a generating function the entry records as fact |
+| 5542 | PROOF | A222940 | the recurrence follows from a generating function the entry records as fact |
+| 5543 | PROOF | A223332 | the recurrence follows from a generating function the entry records as fact |
+| 5544 | PROOF | A269290 | the recurrence follows from a generating function the entry records as fact |
+| 5545 | PROOF | A223181 | the recurrence follows from a generating function the entry records as fact |
+| 5546 | PROOF | A223234 | the recurrence follows from a generating function the entry records as fact |
+| 5547 | PROOF | A223381 | the recurrence follows from a generating function the entry records as fact |
+| 5548 | PROOF | A233163 | the recurrence follows from a generating function the entry records as fact |
+| 5549 | PROOF | A233164 | the recurrence follows from a generating function the entry records as fact |
+| 5550 | PROOF | A233165 | the recurrence follows from a generating function the entry records as fact |
+| 5551 | PROOF | A233166 | the recurrence follows from a generating function the entry records as fact |
+| 5552 | PROOF | A233167 | the recurrence follows from a generating function the entry records as fact |
+| 5553 | PROOF | A233196 | the recurrence follows from a generating function the entry records as fact |
+| 5554 | PROOF | A233257 | the recurrence follows from a generating function the entry records as fact |
+| 5555 | PROOF | A268622 | the recurrence follows from a generating function the entry records as fact |
+| 5556 | PROOF | A269103 | the recurrence follows from a generating function the entry records as fact |
+| 5557 | PROOF | A269285 | the recurrence follows from a generating function the entry records as fact |
+| 5558 | PROOF | A183586 | the recurrence follows from a generating function the entry records as fact |
+| 5559 | PROOF | A183682 | the recurrence follows from a generating function the entry records as fact |
+| 5560 | PROOF | A183690 | the recurrence follows from a generating function the entry records as fact |
+| 5561 | PROOF | A183702 | the recurrence follows from a generating function the entry records as fact |
+| 5562 | PROOF | A184688 | the recurrence follows from a generating function the entry records as fact |
+| 5563 | PROOF | A185761 | the recurrence follows from a generating function the entry records as fact |
+| 5564 | PROOF | A185858 | the recurrence follows from a generating function the entry records as fact |
+| 5565 | PROOF | A189604 | the recurrence follows from a generating function the entry records as fact |
+| 5566 | PROOF | A205220 | the recurrence follows from a generating function the entry records as fact |
+| 5567 | PROOF | A205329 | the recurrence follows from a generating function the entry records as fact |
+| 5568 | PROOF | A205354 | the recurrence follows from a generating function the entry records as fact |
+| 5569 | PROOF | A208088 | the recurrence follows from a generating function the entry records as fact |
+| 5570 | PROOF | A211715 | the recurrence follows from a generating function the entry records as fact |
+| 5571 | PROOF | A211719 | the recurrence follows from a generating function the entry records as fact |
+| 5572 | PROOF | A220932 | the recurrence follows from a generating function the entry records as fact |
+| 5573 | PROOF | A221121 | the recurrence follows from a generating function the entry records as fact |
+| 5574 | PROOF | A221731 | the recurrence follows from a generating function the entry records as fact |
+| 5575 | PROOF | A222098 | the recurrence follows from a generating function the entry records as fact |
+| 5576 | PROOF | A223197 | the recurrence follows from a generating function the entry records as fact |
+| 5577 | PROOF | A223204 | the recurrence follows from a generating function the entry records as fact |
+| 5578 | PROOF | A223228 | the recurrence follows from a generating function the entry records as fact |
+| 5579 | PROOF | A223258 | the recurrence follows from a generating function the entry records as fact |
+| 5580 | PROOF | A223277 | the recurrence follows from a generating function the entry records as fact |
+| 5581 | PROOF | A223278 | the recurrence follows from a generating function the entry records as fact |
+| 5582 | PROOF | A223318 | the recurrence follows from a generating function the entry records as fact |
+| 5583 | PROOF | A223552 | the recurrence follows from a generating function the entry records as fact |
+| 5584 | PROOF | A231103 | the recurrence follows from a generating function the entry records as fact |
+| 5585 | PROOF | A231104 | the recurrence follows from a generating function the entry records as fact |
+| 5586 | PROOF | A232950 | the recurrence follows from a generating function the entry records as fact |
+| 5587 | PROOF | A232956 | the recurrence follows from a generating function the entry records as fact |
+| 5588 | PROOF | A233123 | the recurrence follows from a generating function the entry records as fact |
+| 5589 | PROOF | A233251 | the recurrence follows from a generating function the entry records as fact |
+| 5590 | PROOF | A233252 | the recurrence follows from a generating function the entry records as fact |
+| 5591 | PROOF | A234779 | the recurrence follows from a generating function the entry records as fact |
+| 5592 | PROOF | A235877 | the recurrence follows from a generating function the entry records as fact |
+| 5593 | PROOF | A235886 | the recurrence follows from a generating function the entry records as fact |
+| 5594 | PROOF | A253029 | the recurrence follows from a generating function the entry records as fact |
+| 5595 | PROOF | A259243 | the recurrence follows from a generating function the entry records as fact |
+| 5596 | PROOF | A259290 | the recurrence follows from a generating function the entry records as fact |
+| 5597 | PROOF | A269284 | the recurrence follows from a generating function the entry records as fact |
+| 5598 | PROOF | A275229 | the recurrence follows from a generating function the entry records as fact |
+| 5599 | PROOF | A221082 | the recurrence follows from a generating function the entry records as fact |
+| 5600 | PROOF | A223270 | the recurrence follows from a generating function the entry records as fact |
+| 5601 | PROOF | A232921 | the recurrence follows from a generating function the entry records as fact |
+| 5602 | PROOF | A233020 | the recurrence follows from a generating function the entry records as fact |
+| 5603 | PROOF | A025567 | several independent square roots |
+| 5604 | PROOF | A264123 | the recurrence follows from a generating function the entry records as fact |
+| 5605 | PROOF | A264185 | the recurrence follows from a generating function the entry records as fact |
+| 5606 | PROOF | A208428 | the recurrence follows from a generating function the entry records as fact |
+| 5607 | PROOF | A189274 | the recurrence follows from a generating function the entry records as fact |
+| 5608 | PROOF | A223322 | the recurrence follows from a generating function the entry records as fact |
+| 5609 | PROOF | A334509 | an identity between different entries |
+| 5610 | PROOF | A298022 | an identity between different entries |
+| 5611 | PROOF | A273676 | an identity between different entries |
+| 5612 | PROOF | A273832 | an identity between different entries |
+| 5613 | PROOF | A319371 | an identity between different entries |
+| 5614 | PROOF | A110320 | an identity between different entries |
+| 5615 | PROOF | A309878 | an identity between different entries |
+| 5616 | PROOF | A315520 | an identity between different entries |
+| 5617 | PROOF | A346370 | an identity between different entries |
+| 5618 | PROOF | A176126 | the residual test over one square root, or none |
+| 5619 | PROOF | A191625 | the residual test over one square root, or none |
+| 5620 | PROOF | A186341 | the residual test over one square root, or none |
+| 5621 | PROOF | A026743 | the residual test over one square root, or none |
+| 5622 | PROOF | A191786 | the residual test over one square root, or none |
+| 5623 | PROOF | A210496 | the residual test over one square root, or none |
+| 5624 | PROOF | A182892 | the residual test over one square root, or none |
+| 5625 | PROOF | A270724 | the residual test over one square root, or none |
+| 5626 | PROOF | A190171 | the residual test over one square root, or none |
+| 5627 | PROOF | A257515 | the residual test over one square root, or none |
+| 5628 | PROOF | A190788 | the residual test over one square root, or none |
+| 5629 | PROOF | A095981 | the residual test over one square root, or none |
+| 5630 | PROOF | A212205 | the residual test over one square root, or none |
+| 5631 | PROOF | A270661 | the residual test over one square root, or none |
+| 5632 | PROOF | A157021 | the residual test over one square root, or none |
+| 5633 | PROOF | A165537 | the residual test over one square root, or none |
+| 5634 | PROOF | A166287 | the residual test over one square root, or none |
+| 5635 | PROOF | A174013 | the residual test over one square root, or none |
+| 5636 | PROOF | A178072 | the residual test over one square root, or none |
+| 5637 | PROOF | A182894 | the residual test over one square root, or none |
+| 5638 | PROOF | A114584 | the residual test over one square root, or none |
+| 5639 | PROOF | A164586 | the residual test over one square root, or none |
+| 5640 | PROOF | A189053 | the residual test over one square root, or none |
+| 5641 | PROOF | A182904 | the residual test over one square root, or none |
+| 5642 | PROOF | A274295 | the residual test over one square root, or none |
+| 5643 | PROOF | A226434 | the residual test over one square root, or none |
+| 5644 | PROOF | A257104 | the residual test over one square root, or none |
+| 5645 | PROOF | A108600 | the residual test over one square root, or none |
+| 5646 | PROOF | A114851 | the residual test over one square root, or none |
+| 5647 | PROOF | A125306 | the residual test over one square root, or none |
+| 5648 | PROOF | A166290 | the residual test over one square root, or none |
+| 5649 | PROOF | A228770 | the residual test over one square root, or none |
+| 5650 | PROOF | A257300 | the residual test over one square root, or none |
+| 5651 | PROOF | A089324 | the residual test over one square root, or none |
+| 5652 | PROOF | A104625 | the residual test over one square root, or none |
+| 5653 | PROOF | A113956 | the residual test over one square root, or none |
+| 5654 | PROOF | A116383 | the residual test over one square root, or none |
+| 5655 | PROOF | A162548 | the residual test over one square root, or none |
+| 5656 | PROOF | A173993 | the residual test over one square root, or none |
+| 5657 | PROOF | A244886 | the residual test over one square root, or none |
+| 5658 | PROOF | A157003 | the residual test over one square root, or none |
+| 5659 | PROOF | A162482 | the residual test over one square root, or none |
+| 5660 | PROOF | A163493 | the residual test over one square root, or none |
+| 5661 | PROOF | A191398 | the residual test over one square root, or none |
+| 5662 | PROOF | A135582 | the residual test over one square root, or none |
+| 5663 | PROOF | A139376 | the residual test over one square root, or none |
+| 5664 | PROOF | A346074 | the residual test over one square root, or none |
+| 5665 | PROOF | A190166 | the residual test over one square root, or none |
+| 5666 | PROOF | A025251 | the residual test over one square root, or none |
+| 5667 | PROOF | A228771 | the residual test over one square root, or none |
+| 5668 | PROOF | A025268 | the residual test over one square root, or none |
+| 5669 | PROOF | A025272 | the residual test over one square root, or none |
+| 5670 | PROOF | A162475 | the residual test over one square root, or none |
+| 5671 | PROOF | A385252 | the residual test over one square root, or none |
+| 5672 | PROOF | A114464 | the residual test over one square root, or none |
+| 5673 | PROOF | A127154 | the residual test over one square root, or none |
+| 5674 | PROOF | A135335 | the residual test over one square root, or none |
+| 5675 | PROOF | A165540 | the residual test over one square root, or none |
+| 5676 | PROOF | A171416 | the residual test over one square root, or none |
+| 5677 | PROOF | A188314 | the residual test over one square root, or none |
+| 5678 | PROOF | A247170 | the residual test over one square root, or none |
+| 5679 | PROOF | A254314 | the residual test over one square root, or none |
+| 5680 | PROOF | A270661 | the residual test over one square root, or none |
+| 5681 | PROOF | A003440 | the residual test over one square root, or none |
+| 5682 | PROOF | A110521 | the residual test over one square root, or none |
+| 5683 | PROOF | A114190 | the residual test over one square root, or none |
+| 5684 | PROOF | A116387 | the residual test over one square root, or none |
+| 5685 | PROOF | A128096 | the residual test over one square root, or none |
+| 5686 | PROOF | A135052 | the residual test over one square root, or none |
+| 5687 | PROOF | A157021 | the residual test over one square root, or none |
+| 5688 | PROOF | A160823 | the residual test over one square root, or none |
+| 5689 | PROOF | A166287 | the residual test over one square root, or none |
+| 5690 | PROOF | A174808 | the residual test over one square root, or none |
+| 5691 | PROOF | A185089 | the residual test over one square root, or none |
+| 5692 | PROOF | A186940 | the residual test over one square root, or none |
+| 5693 | PROOF | A190736 | the residual test over one square root, or none |
+| 5694 | PROOF | A219314 | the residual test over one square root, or none |
+| 5695 | PROOF | A100095 | the residual test over one square root, or none |
+| 5696 | PROOF | A100097 | the residual test over one square root, or none |
+| 5697 | PROOF | A191313 | the residual test over one square root, or none |
+| 5698 | PROOF | A191790 | the residual test over one square root, or none |
+| 5699 | PROOF | A273351 | the residual test over one square root, or none |
+| 5700 | PROOF | A278472 | the residual test over one square root, or none |
+| 5701 | PROOF | A108296 | the residual test over one square root, or none |
+| 5702 | PROOF | A116391 | the residual test over one square root, or none |
+| 5703 | PROOF | A110198 | the residual test over one square root, or none |
+| 5704 | PROOF | A182879 | the residual test over one square root, or none |
+| 5705 | PROOF | A182887 | the residual test over one square root, or none |
+| 5706 | PROOF | A135925 | the residual test over one square root, or none |
+| 5707 | PROOF | A007901 | the residual test over one square root, or none |
+| 5708 | PROOF | A025256 | the residual test over one square root, or none |
+| 5709 | PROOF | A025258 | the residual test over one square root, or none |
+| 5710 | PROOF | A000781 | the residual test over one square root, or none |
+| 5711 | PROOF | A025245 | the residual test over one square root, or none |
+| 5712 | PROOF | A025257 | the residual test over one square root, or none |
+| 5713 | PROOF | A025269 | the residual test over one square root, or none |
+| 5714 | PROOF | A025270 | the residual test over one square root, or none |
+| 5715 | PROOF | A025275 | the residual test over one square root, or none |
+| 5716 | PROOF | A032096 | the residual test over one square root, or none |
+| 5717 | PROOF | A102880 | the residual test over one square root, or none |
+| 5718 | PROOF | A111053 | the residual test over one square root, or none |
+| 5719 | PROOF | A152120 | the residual test over one square root, or none |
+| 5720 | PROOF | A159771 | the residual test over one square root, or none |
+| 5721 | PROOF | A166694 | the residual test over one square root, or none |
+| 5722 | PROOF | A166696 | the residual test over one square root, or none |
+| 5723 | PROOF | A191796 | the residual test over one square root, or none |
+| 5724 | PROOF | A217711 | the residual test over one square root, or none |
+| 5725 | PROOF | A278023 | the residual test over one square root, or none |
+| 5726 | PROOF | A279014 | the residual test over one square root, or none |
+| 5727 | PROOF | A000483 | the residual test over one square root, or none |
+| 5728 | PROOF | A026030 | the residual test over one square root, or none |
+| 5729 | PROOF | A026031 | the residual test over one square root, or none |
+| 5730 | PROOF | A048775 | the residual test over one square root, or none |
+| 5731 | PROOF | A116409 | the residual test over one square root, or none |
+| 5732 | PROOF | A126322 | the residual test over one square root, or none |
+| 5733 | PROOF | A128750 | the residual test over one square root, or none |
+| 5734 | PROOF | A143955 | the residual test over one square root, or none |
+| 5735 | PROOF | A165203 | the residual test over one square root, or none |
+| 5736 | PROOF | A168505 | the residual test over one square root, or none |
+| 5737 | PROOF | A176605 | the residual test over one square root, or none |
+| 5738 | PROOF | A181933 | the residual test over one square root, or none |
+| 5739 | PROOF | A191585 | the residual test over one square root, or none |
+| 5740 | PROOF | A215973 | the residual test over one square root, or none |
+| 5741 | PROOF | A234269 | the residual test over one square root, or none |
+| 5742 | PROOF | A236407 | the residual test over one square root, or none |
+| 5743 | PROOF | A270363 | the residual test over one square root, or none |
+| 5744 | PROOF | A098521 | the residual test over one square root, or none |
+| 5745 | PROOF | A100096 | the residual test over one square root, or none |
+| 5746 | PROOF | A100099 | the residual test over one square root, or none |
+| 5747 | PROOF | A105849 | the residual test over one square root, or none |
+| 5748 | PROOF | A105864 | the residual test over one square root, or none |
+| 5749 | PROOF | A105865 | the residual test over one square root, or none |
+| 5750 | PROOF | A108308 | the residual test over one square root, or none |
+| 5751 | PROOF | A114194 | the residual test over one square root, or none |
+| 5752 | PROOF | A115967 | the residual test over one square root, or none |
+| 5753 | PROOF | A117186 | the residual test over one square root, or none |
+| 5754 | PROOF | A120010 | the residual test over one square root, or none |
+| 5755 | PROOF | A124431 | the residual test over one square root, or none |
+| 5756 | PROOF | A124431 | the residual test over one square root, or none |
+| 5757 | PROOF | A126568 | the residual test over one square root, or none |
+| 5758 | PROOF | A132364 | the residual test over one square root, or none |
+| 5759 | PROOF | A141342 | the residual test over one square root, or none |
+| 5760 | PROOF | A155051 | the residual test over one square root, or none |
+| 5761 | PROOF | A157002 | the residual test over one square root, or none |
+| 5762 | PROOF | A157100 | the residual test over one square root, or none |
+| 5763 | PROOF | A166076 | the residual test over one square root, or none |
+| 5764 | PROOF | A166300 | the residual test over one square root, or none |
+| 5765 | PROOF | A168503 | the residual test over one square root, or none |
+| 5766 | PROOF | A174107 | the residual test over one square root, or none |
+| 5767 | PROOF | A174169 | the residual test over one square root, or none |
+| 5768 | PROOF | A176332 | the residual test over one square root, or none |
+| 5769 | PROOF | A184018 | the residual test over one square root, or none |
+| 5770 | PROOF | A188312 | the residual test over one square root, or none |
+| 5771 | PROOF | A188482 | the residual test over one square root, or none |
+| 5772 | PROOF | A191782 | the residual test over one square root, or none |
+| 5773 | PROOF | A217333 | the residual test over one square root, or none |
+| 5774 | PROOF | A257072 | the residual test over one square root, or none |
+| 5775 | PROOF | A261681 | the residual test over one square root, or none |
+| 5776 | PROOF | A073155 | the residual test over one square root, or none |
+| 5777 | PROOF | A105524 | the residual test over one square root, or none |
+| 5778 | PROOF | A114589 | the residual test over one square root, or none |
+| 5779 | PROOF | A114590 | the residual test over one square root, or none |
+| 5780 | PROOF | A162481 | the residual test over one square root, or none |
+| 5781 | PROOF | A174783 | the residual test over one square root, or none |
+| 5782 | PROOF | A188460 | the residual test over one square root, or none |
+| 5783 | PROOF | A188464 | the residual test over one square root, or none |
+| 5784 | PROOF | A190725 | the residual test over one square root, or none |
+| 5785 | PROOF | A191526 | the residual test over one square root, or none |
+| 5786 | PROOF | A191531 | the residual test over one square root, or none |
+| 5787 | PROOF | A211278 | the residual test over one square root, or none |
+| 5788 | PROOF | A026327 | the residual test over one square root, or none |
+| 5789 | PROOF | A081207 | the residual test over one square root, or none |
+| 5790 | PROOF | A102882 | the residual test over one square root, or none |
+| 5791 | PROOF | A182881 | the residual test over one square root, or none |
+| 5792 | PROOF | A191309 | the residual test over one square root, or none |
+| 5793 | PROOF | A191319 | the residual test over one square root, or none |
+| 5794 | PROOF | A191790 | the residual test over one square root, or none |
+| 5795 | PROOF | A273351 | the residual test over one square root, or none |
+| 5796 | PROOF | A025248 | the residual test over one square root, or none |
+| 5797 | PROOF | A025249 | the residual test over one square root, or none |
+| 5798 | PROOF | A026017 | the residual test over one square root, or none |
+| 5799 | PROOF | A071717 | the residual test over one square root, or none |
+| 5800 | PROOF | A081672 | the residual test over one square root, or none |
+| 5801 | PROOF | A104722 | the residual test over one square root, or none |
+| 5802 | PROOF | A109263 | the residual test over one square root, or none |
+| 5803 | PROOF | A118093 | the residual test over one square root, or none |
+| 5804 | PROOF | A118974 | the residual test over one square root, or none |
+| 5805 | PROOF | A121320 | the residual test over one square root, or none |
+| 5806 | PROOF | A126323 | the residual test over one square root, or none |
+| 5807 | PROOF | A128723 | the residual test over one square root, or none |
+| 5808 | PROOF | A135334 | the residual test over one square root, or none |
+| 5809 | PROOF | A141351 | the residual test over one square root, or none |
+| 5810 | PROOF | A141353 | the residual test over one square root, or none |
+| 5811 | PROOF | A163824 | the residual test over one square root, or none |
+| 5812 | PROOF | A165201 | the residual test over one square root, or none |
+| 5813 | PROOF | A279014 | the residual test over one square root, or none |
+| 5814 | PROOF | A026027 | the residual test over one square root, or none |
+| 5815 | PROOF | A026135 | the residual test over one square root, or none |
+| 5816 | PROOF | A050168 | the residual test over one square root, or none |
+| 5817 | PROOF | A059279 | the residual test over one square root, or none |
+| 5818 | PROOF | A063395 | the residual test over one square root, or none |
+| 5819 | PROOF | A071722 | the residual test over one square root, or none |
+| 5820 | PROOF | A082134 | the residual test over one square root, or none |
+| 5821 | PROOF | A097331 | the residual test over one square root, or none |
+| 5822 | PROOF | A100193 | the residual test over one square root, or none |
+| 5823 | PROOF | A103973 | the residual test over one square root, or none |
+| 5824 | PROOF | A106181 | the residual test over one square root, or none |
+| 5825 | PROOF | A108623 | the residual test over one square root, or none |
+| 5826 | PROOF | A126180 | the residual test over one square root, or none |
+| 5827 | PROOF | A128732 | the residual test over one square root, or none |
+| 5828 | PROOF | A134389 | the residual test over one square root, or none |
+| 5829 | PROOF | A143013 | the residual test over one square root, or none |
+| 5830 | PROOF | A143954 | the residual test over one square root, or none |
+| 5831 | PROOF | A157418 | the residual test over one square root, or none |
+| 5832 | PROOF | A158196 | the residual test over one square root, or none |
+| 5833 | PROOF | A158197 | the residual test over one square root, or none |
+| 5834 | PROOF | A191585 | the residual test over one square root, or none |
+| 5835 | PROOF | A257290 | the residual test over one square root, or none |
+| 5836 | PROOF | A054341 | the residual test over one square root, or none |
+| 5837 | PROOF | A071715 | the residual test over one square root, or none |
+| 5838 | PROOF | A090413 | the residual test over one square root, or none |
+| 5839 | PROOF | A090826 | the residual test over one square root, or none |
+| 5840 | PROOF | A091699 | the residual test over one square root, or none |
+| 5841 | PROOF | A098664 | the residual test over one square root, or none |
+| 5842 | PROOF | A099363 | the residual test over one square root, or none |
+| 5843 | PROOF | A100098 | the residual test over one square root, or none |
+| 5844 | PROOF | A105872 | the residual test over one square root, or none |
+| 5845 | PROOF | A119975 | the residual test over one square root, or none |
+| 5846 | PROOF | A121724 | the residual test over one square root, or none |
+| 5847 | PROOF | A121725 | the residual test over one square root, or none |
+| 5848 | PROOF | A126931 | the residual test over one square root, or none |
+| 5849 | PROOF | A126932 | the residual test over one square root, or none |
+| 5850 | PROOF | A127361 | the residual test over one square root, or none |
+| 5851 | PROOF | A127363 | the residual test over one square root, or none |
+| 5852 | PROOF | A155051 | the residual test over one square root, or none |
+| 5853 | PROOF | A166078 | the residual test over one square root, or none |
+| 5854 | PROOF | A166587 | the residual test over one square root, or none |
+| 5855 | PROOF | A166588 | the residual test over one square root, or none |
+| 5856 | PROOF | A176006 | the residual test over one square root, or none |
+| 5857 | PROOF | A185087 | the residual test over one square root, or none |
+| 5858 | PROOF | A190724 | the residual test over one square root, or none |
+| 5859 | PROOF | A225887 | the residual test over one square root, or none |
+| 5860 | PROOF | A227081 | the residual test over one square root, or none |
+| 5861 | PROOF | A257178 | the residual test over one square root, or none |
+| 5862 | PROOF | A257388 | the residual test over one square root, or none |
+| 5863 | PROOF | A257838 | the residual test over one square root, or none |
+| 5864 | PROOF | A001712 | the residual test over one square root, or none |
+| 5865 | PROOF | A025175 | the residual test over one square root, or none |
+| 5866 | PROOF | A025577 | the residual test over one square root, or none |
+| 5867 | PROOF | A026023 | the residual test over one square root, or none |
+| 5868 | PROOF | A055217 | the residual test over one square root, or none |
+| 5869 | PROOF | A081052 | the residual test over one square root, or none |
+| 5870 | PROOF | A103821 | the residual test over one square root, or none |
+| 5871 | PROOF | A107231 | the residual test over one square root, or none |
+| 5872 | PROOF | A110199 | the residual test over one square root, or none |
+| 5873 | PROOF | A116406 | the residual test over one square root, or none |
+| 5874 | PROOF | A128734 | the residual test over one square root, or none |
+| 5875 | PROOF | A191307 | the residual test over one square root, or none |
+| 5876 | PROOF | A278472 | the residual test over one square root, or none |
+| 5877 | PROOF | A034863 | the residual test over one square root, or none |
+| 5878 | PROOF | A128652 | the residual test over one square root, or none |
+| 5879 | PROOF | A174195 | the residual test over one square root, or none |
+| 5880 | PROOF | A192480 | the residual test over one square root, or none |
+| 5881 | PROOF | A158495 | the residual test over one square root, or none |
+| 5882 | PROOF | A189176 | the residual test over one square root, or none |
+| 5883 | PROOF | A194724 | the residual test over one square root, or none |
+| 5884 | PROOF | A210474 | the residual test over one square root, or none |
+| 5885 | PROOF | A262768 | the residual test over one square root, or none |
+| 5886 | PROOF | A026029 | the residual test over one square root, or none |
+| 5887 | PROOF | A064088 | the residual test over one square root, or none |
+| 5888 | PROOF | A064089 | the residual test over one square root, or none |
+| 5889 | PROOF | A064090 | the residual test over one square root, or none |
+| 5890 | PROOF | A064091 | the residual test over one square root, or none |
+| 5891 | PROOF | A064092 | the residual test over one square root, or none |
+| 5892 | PROOF | A067299 | the residual test over one square root, or none |
+| 5893 | PROOF | A068551 | the residual test over one square root, or none |
+| 5894 | PROOF | A080243 | the residual test over one square root, or none |
+| 5895 | PROOF | A114191 | the residual test over one square root, or none |
+| 5896 | PROOF | A116881 | the residual test over one square root, or none |
+| 5897 | PROOF | A122920 | the residual test over one square root, or none |
+| 5898 | PROOF | A132864 | the residual test over one square root, or none |
+| 5899 | PROOF | A133305 | the residual test over one square root, or none |
+| 5900 | PROOF | A133306 | the residual test over one square root, or none |
+| 5901 | PROOF | A133307 | the residual test over one square root, or none |
+| 5902 | PROOF | A133308 | the residual test over one square root, or none |
+| 5903 | PROOF | A141222 | the residual test over one square root, or none |
+| 5904 | PROOF | A154623 | the residual test over one square root, or none |
+| 5905 | PROOF | A157328 | the residual test over one square root, or none |
+| 5906 | PROOF | A158196 | the residual test over one square root, or none |
+| 5907 | PROOF | A158197 | the residual test over one square root, or none |
+| 5908 | PROOF | A191993 | the residual test over one square root, or none |
+| 5909 | PROOF | A225034 | the residual test over one square root, or none |
+| 5910 | PROOF | A242172 | the residual test over one square root, or none |
+| 5911 | PROOF | A002867 | the residual test over one square root, or none |
+| 5912 | PROOF | A014533 | the residual test over one square root, or none |
+| 5913 | PROOF | A051524 | the residual test over one square root, or none |
+| 5914 | PROOF | A071264 | the residual test over one square root, or none |
+| 5915 | PROOF | A081046 | the residual test over one square root, or none |
+| 5916 | PROOF | A098519 | the residual test over one square root, or none |
+| 5917 | PROOF | A098520 | the residual test over one square root, or none |
+| 5918 | PROOF | A101596 | the residual test over one square root, or none |
+| 5919 | PROOF | A101601 | the residual test over one square root, or none |
+| 5920 | PROOF | A101602 | the residual test over one square root, or none |
+| 5921 | PROOF | A111779 | the residual test over one square root, or none |
+| 5922 | PROOF | A112703 | the residual test over one square root, or none |
+| 5923 | PROOF | A119012 | the residual test over one square root, or none |
+| 5924 | PROOF | A128057 | the residual test over one square root, or none |
+| 5925 | PROOF | A128746 | the residual test over one square root, or none |
+| 5926 | PROOF | A132900 | the residual test over one square root, or none |
+| 5927 | PROOF | A151483 | the residual test over one square root, or none |
+| 5928 | PROOF | A167481 | the residual test over one square root, or none |
+| 5929 | PROOF | A171556 | the residual test over one square root, or none |
+| 5930 | PROOF | A176479 | the residual test over one square root, or none |
+| 5931 | PROOF | A182401 | the residual test over one square root, or none |
+| 5932 | PROOF | A208355 | the residual test over one square root, or none |
+| 5933 | PROOF | A210064 | the residual test over one square root, or none |
+| 5934 | PROOF | A240558 | the residual test over one square root, or none |
+| 5935 | PROOF | A141771 | the residual test over one square root, or none |
+| 5936 | PROOF | A176606 | the residual test over one square root, or none |
+| 5937 | PROOF | A176607 | the residual test over one square root, or none |
+| 5938 | PROOF | A176609 | the residual test over one square root, or none |
+| 5939 | PROOF | A176610 | the residual test over one square root, or none |
+| 5940 | PROOF | A176611 | the residual test over one square root, or none |
+| 5941 | PROOF | A176675 | the residual test over one square root, or none |
+| 5942 | PROOF | A176749 | the residual test over one square root, or none |
+| 5943 | PROOF | A176750 | the residual test over one square root, or none |
+| 5944 | PROOF | A176751 | the residual test over one square root, or none |
+| 5945 | PROOF | A176752 | the residual test over one square root, or none |
+| 5946 | PROOF | A176753 | the residual test over one square root, or none |
+| 5947 | PROOF | A176754 | the residual test over one square root, or none |
+| 5948 | PROOF | A176755 | the residual test over one square root, or none |
+| 5949 | PROOF | A176756 | the residual test over one square root, or none |
+| 5950 | PROOF | A176757 | the residual test over one square root, or none |
+| 5951 | PROOF | A176759 | the residual test over one square root, or none |
+| 5952 | PROOF | A176828 | the residual test over one square root, or none |
+| 5953 | PROOF | A176829 | the residual test over one square root, or none |
+| 5954 | PROOF | A176830 | the residual test over one square root, or none |
+| 5955 | PROOF | A176832 | the residual test over one square root, or none |
+| 5956 | PROOF | A176854 | the residual test over one square root, or none |
+| 5957 | PROOF | A176855 | the residual test over one square root, or none |
+| 5958 | PROOF | A176856 | the residual test over one square root, or none |
+| 5959 | PROOF | A176857 | the residual test over one square root, or none |
+| 5960 | PROOF | A176858 | the residual test over one square root, or none |
+| 5961 | PROOF | A176859 | the residual test over one square root, or none |
+| 5962 | PROOF | A176952 | the residual test over one square root, or none |
+| 5963 | PROOF | A176953 | the residual test over one square root, or none |
+| 5964 | PROOF | A176956 | the residual test over one square root, or none |
+| 5965 | PROOF | A176957 | the residual test over one square root, or none |
+| 5966 | PROOF | A176958 | the residual test over one square root, or none |
+| 5967 | PROOF | A176959 | the residual test over one square root, or none |
+| 5968 | PROOF | A176962 | the residual test over one square root, or none |
+| 5969 | PROOF | A176964 | the residual test over one square root, or none |
+| 5970 | PROOF | A176966 | the residual test over one square root, or none |
+| 5971 | PROOF | A176967 | the residual test over one square root, or none |
+| 5972 | PROOF | A177123 | the residual test over one square root, or none |
+| 5973 | PROOF | A177124 | the residual test over one square root, or none |
+| 5974 | PROOF | A177125 | the residual test over one square root, or none |
+| 5975 | PROOF | A177126 | the residual test over one square root, or none |
+| 5976 | PROOF | A177127 | the residual test over one square root, or none |
+| 5977 | PROOF | A177128 | the residual test over one square root, or none |
+| 5978 | PROOF | A177129 | the residual test over one square root, or none |
+| 5979 | PROOF | A177130 | the residual test over one square root, or none |
+| 5980 | PROOF | A177131 | the residual test over one square root, or none |
+| 5981 | PROOF | A177163 | the residual test over one square root, or none |
+| 5982 | PROOF | A177165 | the residual test over one square root, or none |
+| 5983 | PROOF | A177166 | the residual test over one square root, or none |
+| 5984 | PROOF | A177167 | the residual test over one square root, or none |
+| 5985 | PROOF | A177168 | the residual test over one square root, or none |
+| 5986 | PROOF | A177169 | the residual test over one square root, or none |
+| 5987 | PROOF | A177170 | the residual test over one square root, or none |
+| 5988 | PROOF | A177171 | the residual test over one square root, or none |
+| 5989 | PROOF | A177172 | the residual test over one square root, or none |
+| 5990 | PROOF | A177175 | the residual test over one square root, or none |
+| 5991 | PROOF | A177177 | the residual test over one square root, or none |
+| 5992 | PROOF | A177178 | the residual test over one square root, or none |
+| 5993 | PROOF | A177179 | the residual test over one square root, or none |
+| 5994 | PROOF | A177180 | the residual test over one square root, or none |
+| 5995 | PROOF | A177181 | the residual test over one square root, or none |
+| 5996 | PROOF | A177182 | the residual test over one square root, or none |
+| 5997 | PROOF | A177183 | the residual test over one square root, or none |
+| 5998 | PROOF | A177184 | the residual test over one square root, or none |
+| 5999 | PROOF | A177185 | the residual test over one square root, or none |
+| 6000 | PROOF | A177197 | the residual test over one square root, or none |
+| 6001 | PROOF | A177198 | the residual test over one square root, or none |
+| 6002 | PROOF | A177199 | the residual test over one square root, or none |
+| 6003 | PROOF | A177200 | the residual test over one square root, or none |
+| 6004 | PROOF | A177203 | the residual test over one square root, or none |
+| 6005 | PROOF | A081670 | the known side is the entry's NAME rather than a formula line |
+| 6006 | PROOF | A085781 | the known side is the entry's NAME rather than a formula line |
+| 6007 | PROOF | A026019 | the known side is the entry's NAME rather than a formula line |
+| 6008 | PROOF | A052183 | the known side is the entry's NAME rather than a formula line |
+| 6009 | PROOF | A052204 | the known side is the entry's NAME rather than a formula line |
+| 6010 | PROOF | A157713 | the known side is the entry's NAME rather than a formula line |
+| 6011 | PROOF | A334511 | a posted closed form decided by the theory of hypergeometric terms |
+| 6012 | PROOF | A333905 | a posted closed form decided by the theory of hypergeometric terms |
+| 6013 | PROOF | A049486 | a posted closed form decided by the theory of hypergeometric terms |
+| 6014 | PROOF | A267879 | a posted closed form decided by the theory of hypergeometric terms |
+| 6015 | PROOF | A267802 | a posted closed form decided by the theory of hypergeometric terms |
+| 6016 | PROOF | A267847 | a posted closed form decided by the theory of hypergeometric terms |
+| 6017 | PROOF | A034267 | a posted closed form decided by the theory of hypergeometric terms |
+| 6018 | PROOF | A126501 | a posted closed form decided by the theory of hypergeometric terms |
+| 6019 | PROOF | A128153 | a posted closed form decided by the theory of hypergeometric terms |
+| 6020 | PROOF | A212938 | a posted closed form decided by the theory of hypergeometric terms |
+| 6021 | PROOF | A220250 | a posted closed form decided by the theory of hypergeometric terms |
+| 6022 | PROOF | A248434 | a posted closed form decided by the theory of hypergeometric terms |
+| 6023 | PROOF | A258547 | a posted closed form decided by the theory of hypergeometric terms |
+| 6024 | PROOF | A272706 | a posted closed form decided by the theory of hypergeometric terms |
+| 6025 | PROOF | A126089 | complete annihilation, tested in the Ore algebra Q(n)[N] |
+| 6026 | PROOF | A025271 | division of one posted operator by another |
+| 6027 | PROOF | A138164 | division of one posted operator by another |
+| 6028 | PROOF | A143017 | division of one posted operator by another |
+| 6029 | PROOF | A159772 | division of one posted operator by another |
+| 6030 | PROOF | A000986 | division of one posted operator by another |
+| 6031 | PROOF | A022917 | division of one posted operator by another |
+| 6032 | PROOF | A217447 | division of one posted operator by another |
+| 6033 | PROOF | A226302 | division of one posted operator by another |
+| 6034 | PROOF | A245088 | division of one posted operator by another |
+| 6035 | PROOF | A026165 | division of one posted operator by another |
+| 6036 | PROOF | A185966 | division of one posted operator by another |
+| 6037 | PROOF | A200753 | division of one posted operator by another |
+| 6038 | PROOF | A217358 | division of one posted operator by another |
+| 6039 | PROOF | A228960 | division of one posted operator by another |
+| 6040 | PROOF | A003435 | division of one posted operator by another |
+| 6041 | PROOF | A228331 | division of one posted operator by another |
+| 6042 | PROOF | A273019 | division of one posted operator by another |
+| 6043 | PROOF | A386834 | division of one posted operator by another |
+| 6044 | PROOF | A228330 | division of one posted operator by another |
+| 6045 | PROOF | A228333 | division of one posted operator by another |
 
 ### What the ranking means
 
@@ -9301,7 +9377,9 @@ name. The clusters are real families, not a long tail:
 | ~40 | `0..k colorings of a W X (n+1) array circular in the n+1 direction` |
 | ~40 | `arrays of the minimum value of corresponding elements and their neighbors` |
 
-The first family is now closed as far as it goes: `transfer23.py`, **35 papers**.
+The first two families are now closed: `transfer23.py`, **35 papers**, and
+`transfer24.py`, **76 papers** — the whole reciprocal-link family, every entry of it that
+carries a conjectured recurrence.
 
 **Why it needed more than the existing engines.** The condition ties together K consecutive
 ROWS and K consecutive COLUMNS at once, so one row is not a state; the state is the strip of
@@ -9339,6 +9417,42 @@ entries are not a walk in one parameter and are refused, as always. A few wide p
 entries are over the state cap. Recorded, not pending.
 
 The other four families in the table above are untried.
+
+### 2 Sep 2026, same day: the reciprocal-link family — 76 papers, the whole family
+
+`Number of ways to reciprocally link elements of an n X W array either to themselves or to
+exactly one/two <neighbours> neighbors[, without 3-loops | without consecutive collinear
+links]`. 76 entries in the refusal census, and all 76 are now papers.
+
+**The modelling step is the whole difficulty; after it the engine is small.** A link is
+reciprocal, so it is an undirected EDGE, and "linked to itself" means "in no edge". So the
+entry counts the spanning subgraphs of a grid graph whose every vertex has degree 0 or d:
+matchings for d = 1, disjoint unions of cycles for d = 2. Every neighbour offset moves the row
+index by at most one, so the set of edges crossing one row boundary is a state, and placing a
+row settles the degree of each of its cells once and for all.
+
+**Two readings had to be fixed, not guessed.**
+- Can a cell spend both links on the same neighbour? No. For king moves the 1 X 2 and 2 X 2
+  counts are the degree-0-or-2 subgraphs of `K_2` and `K_4`, which are 1 and 1+4+3 = 8 with
+  simple edges and more with a doubled edge; the entries publish 1 and 8.
+- `without 3-loops` is triangles, not doubled edges — and it was nearly misread as `2-loops`
+  from a digit-collapsed cluster listing. Three cells pairwise adjacent always lie in two
+  consecutive rows (three in one row cannot be pairwise adjacent, the outer two being two
+  columns apart), so carrying the previous row's horizontal edges in the state catches every
+  one.
+- `without consecutive collinear links` forbids a vertex whose two links are opposite. It is a
+  condition on one vertex, decided where the degree is.
+
+**State counts are tiny** — 5 to 40 — because the degree bound prunes the boundary hard. The
+whole family cost one sweep.
+
+**Verification.** Besides the usual three, the model was re-derived independently: a brute
+force over every subset of the edge set, straight from the definition, for 12 entries covering
+d = 1 and d = 2, both flags, both orientations and four neighbour sets. All matched. The audit
+of the 76 reports no problems.
+
+Ten entries of the family parse but carry no recurrence a parser reads; nothing is claimed for
+them.
 
 ### Signals worth opening
 Garbled or self-contradictory wording; an idle hypothesis (check whether the caveat is

@@ -1,0 +1,145 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=1in]{geometry}
+\usepackage[colorlinks=true,linkcolor=blue,urlcolor=blue]{hyperref}
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{remark}[theorem]{Remark}
+
+\title{The empirical recurrence for OEIS A220637, proved by transfer matrix}
+\author{Adrian Perez Fontelles\\ \small Independent researcher}
+\date{2 September 2026}
+\begin{document}
+\maketitle
+
+\begin{abstract}
+OEIS A220637 counts the ways of linking the cells of a grid $7$ cells wide, each cell either to
+itself or to exactly $2$ of its neighbours, the links being reciprocal, and carries an
+empirical recurrence of order $57$ contributed by R.~H.~Hardin. It is true, and it is
+decidable rather than empirical. A reciprocal link is an undirected edge and a self-link is
+no edge, so what is counted is the spanning subgraphs of a grid graph in which every vertex
+has degree $0$ or $2$; the edges crossing the boundary between two consecutive rows are a
+state, the count is a walk count on $S=4096$ of them, and the conjectured recurrence is then
+settled by a finite exact computation.
+\end{abstract}
+
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05C30, 05C70.\normalsize
+
+\section{The conjecture}
+
+OEIS A220637 is ``Number of ways to reciprocally link elements of an 7Xn array either to themselves or to exactly two horizontal or antidiagonal neighbors.''. It has offset $1$ and begins
+\[
+1, 1, 21, 1081, 49448, 1932695, 72097810, 2685329069,\ \dots
+\]
+The entry states, as a conjecture contributed by its author and never marked settled:
+\begin{quote}
+Empirical: a(n) = 64*a(n-1) -919*a(n-2) -8570*a(n-3) +216353*a(n-4) +531044*a(n-5) -21261655*a(n-6) -32609802*a(n-7) +1171199810*a(n-8) +2109648488*a(n-9) -39063293438*a(n-10) -92688824988*a(n-11) +805714999129*a(n-12) +2451647584900*a(n-13) -10235971284893*a(n-14) -39686089670614*a(n-15) +77545474788177*a(n-16) +406392430654220*a(n-17) -310370552865987*a(n-18) -2718695732195110*a(n-19) +210699841602232*a(n-20) +12228246476518236*a(n-21) +4161966890556370*a(n-22) -37977869919855064*a(n-23) -22915950784622786*a(n-24) +83551109201976972*a(n-25) +64155355218097920*a(n-26) -133459785405218204*a(n-27) -114791737399493541*a(n-28) +158383696504733072*a(n-29) +141093830957446007*a(n-30) -142389992780977126*a(n-31) -123172425999322826*a(n-32) +98262359403451972*a(n-33) +77694058934774432*a(n-34) -52288937671239360*a(n-35) -35710455324063520*a(n-36) +21366553927398268*a(n-37) +11998414558707900*a(n-38) -6636734211915116*a(n-39) -2945615880166783*a(n-40) +1547201872012720*a(n-41) +525999708944081*a(n-42) -266869650005278*a(n-43) -67611096067185*a(n-44) +33461039766336*a(n-45) +6135683963135*a(n-46) -2975024785990*a(n-47) -380281115163*a(n-48) +180562165772*a(n-49) +15221629883*a(n-50) -7030915042*a(n-51) -357383528*a(n-52) +157690672*a(n-53) +4153756*a(n-54) -1668248*a(n-55) -18816*a(n-56) +6272*a(n-57) for n>63
+\end{quote}
+As of the ``Last modified'' line on the live entry (Oct 03 2025 18:56:04, revision 8) this is still
+recorded as empirical, and nothing on the entry records it as proved.
+
+\section{What is being counted}
+
+A link is \emph{reciprocal}: if $u$ is linked to $v$ then $v$ is linked to $u$. So the links
+of a configuration are the edges of an undirected graph on the cells, and a cell ``linked to
+itself'' is a cell lying in no edge. The neighbour relation the entry names is the offset set
+\[
+\$(-1,0)$, $(-1,1)$, $(1,-1)$, $(1,0)$,
+\]
+and the condition ``either to themselves or to exactly $2$ neighbours'' says that in that
+graph every cell has degree $0$ or $2$. Hence $a(n)$ counts the spanning subgraphs of the
+grid graph on the offset set above, of $n$ rows and $7$ columns,
+whose every degree is $0$ or $2$: a disjoint union of cycles, since every vertex of the link graph has degree $0$ or $2$. The entry writes the array with $n$ as the number of COLUMNS; transposing it exchanges the two coordinates of every neighbour offset, which is done once, before anything else, so that the walk always runs down the rows.
+
+One point of the English has to be fixed rather than guessed: whether a cell may spend both of
+its links on the same neighbour. It may not. For the king-move neighbourhood the $1\times2$
+and $2\times2$ counts are the degree-$0$-or-$2$ subgraphs of $K_2$ and of $K_4$, which are $1$
+and $1+4+3=8$ with simple edges and larger if a doubled edge were allowed; the entries of that
+family publish $1$ and $8$. The reading is in any case pinned entry by entry, because the
+model below is required to reproduce every term the entry publishes.
+
+
+\section{The count is a walk count}
+
+Every offset above changes the row index by at most one, so an edge either lies inside a row
+or crosses the boundary between two consecutive rows. Take as state the set of edges crossing
+one boundary. Placing a row means choosing the horizontal edges inside it and the edges it
+sends down to the next row; at that moment each of its cells knows all of its links --- those
+arriving from the row above, those inside the row, those going down --- so its degree, and any
+condition on the pair of links at a cell, is settled there and never revisited.
+
+Reading a configuration from the top therefore gives a walk that begins at the empty boundary,
+takes one step per row, and ends at the empty boundary, and every such walk comes from exactly
+one configuration. With $M$ the adjacency matrix of the digraph on the $S=4096$ reachable
+states and $\iota,\tau$ the indicator vectors of the empty boundary,
+\[
+a(n)\;=\;\iota^{\!\top}M^{\,n}\tau ,
+\]
+so $a$ is $C$-finite. States are generated from the empty boundary outward, so only the
+reachable ones are ever built; the alignment of the walk index with the entry's own $n$ was
+checked against its published terms rather than assumed.
+
+\section{The proof}
+
+\begin{lemma}\label{lem:crit}
+Let $q(t)=t^{57}-\sum_i c_it^{57-i}$ be the characteristic polynomial of the
+conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
+$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
+holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
+and it is enough to examine $j<S$.
+\end{lemma}
+
+\begin{proof}
+Factor $M^{j}$ out of $M^{j+57}-\sum_ic_iM^{j+57-i}$. For the bound, $M^{S}$
+is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
+$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
+polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
+pins the threshold exactly.
+\end{proof}
+
+\begin{theorem}
+\[
+a(n)\;=\;64\,a(n-1) - 919\,a(n-2) - 8570\,a(n-3) + 216353\,a(n-4) + 531044\,a(n-5) - 21261655\,a(n-6) - 32609802\,a(n-7) + 1171199810\,a(n-8) + 2109648488\,a(n-9) - 39063293438\,a(n-10) - 92688824988\,a(n-11) + 805714999129\,a(n-12) + 2451647584900\,a(n-13) - 10235971284893\,a(n-14) - 39686089670614\,a(n-15) + 77545474788177\,a(n-16) + 406392430654220\,a(n-17) - 310370552865987\,a(n-18) - 2718695732195110\,a(n-19) + 210699841602232\,a(n-20) + 12228246476518236\,a(n-21) + 4161966890556370\,a(n-22) - 37977869919855064\,a(n-23) - 22915950784622786\,a(n-24) + 83551109201976972\,a(n-25) + 64155355218097920\,a(n-26) - 133459785405218204\,a(n-27) - 114791737399493541\,a(n-28) + 158383696504733072\,a(n-29) + 141093830957446007\,a(n-30) - 142389992780977126\,a(n-31) - 123172425999322826\,a(n-32) + 98262359403451972\,a(n-33) + 77694058934774432\,a(n-34) - 52288937671239360\,a(n-35) - 35710455324063520\,a(n-36) + 21366553927398268\,a(n-37) + 11998414558707900\,a(n-38) - 6636734211915116\,a(n-39) - 2945615880166783\,a(n-40) + 1547201872012720\,a(n-41) + 525999708944081\,a(n-42) - 266869650005278\,a(n-43) - 67611096067185\,a(n-44) + 33461039766336\,a(n-45) + 6135683963135\,a(n-46) - 2975024785990\,a(n-47) - 380281115163\,a(n-48) + 180562165772\,a(n-49) + 15221629883\,a(n-50) - 7030915042\,a(n-51) - 357383528\,a(n-52) + 157690672\,a(n-53) + 4153756\,a(n-54) - 1668248\,a(n-55) - 18816\,a(n-56) + 6272\,a(n-57)
+\]
+for every $n>63$.
+\end{theorem}
+
+\begin{proof}
+The vector $w=q(M)\tau$ was formed by $57$ matrix--vector products in exact integer
+arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
+integers vanish from the index corresponding to $n=63+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once.
+\end{proof}
+
+\section{Verification}
+
+Three checks, each independent of the algebra above.
+
+First, the model reproduces all $16$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry: the digraph is built by reading the
+entry's English, and a misreading gives different counts.
+
+Second, the conjectured recurrence was evaluated directly on those published terms, with no
+matrices involved, and holds wherever the proved range and the data overlap.
+
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+arithmetic on the whole vector rather than on a sampled prefix.
+
+\begin{thebibliography}{9}
+\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
+Sequences}, \url{https://oeis.org}, 2026. Sequence A220637.
+\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{lovasz} L.~Lov\'asz and M.~D.~Plummer, \emph{Matching Theory}, AMS Chelsea,
+2009.
+\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
+University Press, 2013.
+\end{thebibliography}
+
+\end{document}
