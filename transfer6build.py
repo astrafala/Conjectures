@@ -48,6 +48,11 @@ def build(h):
                 r"$\alpha\ne\gamma$ and $\beta\ne\delta$;")
     noadjword = (" and in which no two adjacent entries are equal" if h["noadj"] else "")
     fractex = ("" if frac == 1 else rf"\tfrac1{{{frac}}}")
+    # with no scale factor the sentence about it produced an empty "$$", which opens display
+    # math and derails the rest of the proof environment
+    scalarnote = ("" if frac == 1 else
+                  rf" the scalar $\tfrac1{{{frac}}}$ never vanishes, so it does not affect"
+                  rf" whether the left side is zero, and")
     fracsent = ("" if frac == 1 else
                 rf" The entry counts $\tfrac1{{{frac}}}$ of those arrays, a constant factor "
                 r"that passes through every step below unchanged.")
@@ -163,8 +168,7 @@ a(n)-\sum_i c_i a(n-i)
 ={fractex}\mathbf{{1}}^{{\!\top}}\Bigl(M^{{m}}-\sum_i c_i M^{{m-i}}\Bigr)\mathbf{{1}}
 ={fractex}\mathbf{{1}}^{{\!\top}}M^{{\,m-{order}}}\,q(M)\,\mathbf{{1}}
 \]
-with $m=n+{base}-1$, which is the stated identity; the scalar ${fractex}$ never vanishes, so
-it does not affect whether the left side is zero. The equivalence follows by letting
+with $m=n+{base}-1$, which is the stated identity;{scalarnote} the equivalence follows by letting
 $m-{order}=j$ run over $\ge0$. For the last clause put $w=q(M)\mathbf{{1}}$. By the
 Cayley--Hamilton theorem $M^{{S}}$ is an integer combination of $I,M,\dots,M^{{S-1}}$, so
 $\mathbf{{1}}^{{\!\top}}M^{{j}}w$ for $j\ge S$ is the corresponding combination of the earlier

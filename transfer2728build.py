@@ -20,7 +20,7 @@ def conj_line(anum):
 def parts27(p, e):
     W, al = p['W'], p['alpha']
     D = [tuple(t) for t in p['dirs']]
-    dirs = ', '.join('$(%d,%d)$' % t for t in D)
+    dirs = ', '.join('(%d,%d)' % t for t in D)
     which = p['which']
     trans = ('' if re.search(r'n\s*X', e['name']) else
              " The entry writes the array with $n$ as the number of COLUMNS; transposing it "

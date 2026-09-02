@@ -98,7 +98,7 @@ either side, and a neighbour that falls outside is simply absent from both count
 Write an array as a sequence of {lines} $u_1,\dots,u_L$, each in
 $\{{0,\dots,{alpha}\}}^{{{W}}}$. The neighbourhood of a cell in {line} $u_i$ meets $u_{{i-1}}$,
 $u_i$ and $u_{{i+1}}$ and nothing else. Take as vertices the pairs
-$(r,s)\in(\{{0,\dots,{alpha}\}}^{{{W}}}\cup\{{\varnothing\}})\times\{{0,\dots,{alpha}\}}^{{{W}}}${excstate},
+$(r,s)\in(\{{0,\dots,{alpha}\}}^{{{W}}}\cup\{{\varnothing\}})\times\{{0,\dots,{alpha}\}}^{{{W}}}{excstate}$,
 and put an edge $(r,s)\to(s,t)$ when {line} $s$ satisfies the condition at every one of its
 ${W}$ cells, given $r$ above and $t$ below. An array with $L$ {lines} is then a walk of length
 $L-1$ starting at $(\varnothing,u_1)$, each step settling one {line}, and the last {line} is

@@ -88,12 +88,15 @@ def _clauses(body):
         rest = chunks[i + 2]
         if i + 3 < len(chunks):
             # the tail carries the next clause's statistic after a joining "and"
-            m = re.match(r'(.*?) and ([^,]*)$', rest)
+            m = re.match(r'(.*?)\s+and\s*([^,]*)$', rest)
             if not m:
                 return None
             rest, chunks[i + 2] = m.group(1), m.group(2)
             chunks[i + 2] = m.group(2)
-        f = _stat(re.sub(r'^and ', '', name))
+        name = re.sub(r'^and ', '', name).strip()
+        # ``... nonincreasing horizontally and nondecreasing vertically'' names the statistic
+        # once and changes only the relation; an empty name means the previous one again
+        f = out[-1][0] if (not name and out) else _stat(name)
         d = _dirs(rest)
         if f is None or d is None:
             return None

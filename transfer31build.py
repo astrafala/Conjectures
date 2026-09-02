@@ -27,15 +27,18 @@ def build(h):
     cons = []
     for _, cl in p['clauses']:
         for di, dj, rel in cl:
-            cons.append(rf"$\sigma(i,j)\{{{'le' if rel == '<=' else 'ge'}}}"
-                        rf"\sigma(i{di:+d},j{dj:+d})$")
-    conslist = ', '.join(cons)
-    ncl = len(p['clauses'])
+            sym = r'\le' if rel == '<=' else r'\ge'
+            ii = 'i' if di == 0 else 'i%+d' % di
+            jj = 'j' if dj == 0 else 'j%+d' % dj
+            cons.append(rf"\sigma(i,j){sym}\sigma({ii},{jj})")
+    conslist = ',\\qquad '.join(cons)
+    colw = 'column' if K == 1 else 'columns'
+    ncl = len({id(c[0]) for c in p['clauses']})
     d = [int(v) for v in e['data'].split(',') if v.strip()]
     modf, rev = e['modified'], e['revision']
     conj = conj_line(a)
     coeffs = {int(k): int(v) for k, v in h['coeffs'].items()}
-    trans = ('' if re.search(r'\(\s*n\s*\+\s*1\s*\)\s*X', e['name'].replace(' X ', ' X '))
+    trans = ('' if re.search(r'\(\s*n\s*\+\s*%s\s*\)\s*X' % 1, e['name'])
              else " The entry writes the array with $n$ as the number of COLUMNS; transposing "
                   "it exchanges the two coordinates of every direction, which is done once, "
                   "and a direction that then points upward is turned round by reversing its "
@@ -84,7 +87,7 @@ recorded as empirical, and nothing on the entry records it as proved.
 \section{{What is being counted}}
 
 The $2\times2$ subblocks of an $(n+1)\times{W}$ array over $\{{0,\dots,{al}\}}$ form a grid
-of $n$ rows and ${K}$ columns; write $\sigma(i,j)$ for the value the entry's statistic takes on
+of $n$ rows and ${K}$ {colw}; write $\sigma(i,j)$ for the value the entry's statistic takes on
 the subblock in position $(i,j)$, a function of its four entries
 $\begin{{pmatrix}}p&q\\r&s\end{{pmatrix}}$ alone. The condition is
 \[

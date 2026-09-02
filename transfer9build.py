@@ -1,11 +1,29 @@
 #!/usr/bin/env python3
 """One paper per Hardin entry with a two-line-window cell condition over the alphabet."""
+import re as _re
 import os, json, re
 import localentry as LE, phibuild, transferbuild, transfer9 as T9
 
 PRE = phibuild.PRE
 esc = phibuild.esc
 rec_tex = transferbuild.rec_tex
+
+
+
+def _spacerel(t):
+    """two ways a stored formula string breaks LaTeX, both repaired here.
+
+    `\\le' followed straight by a letter is read as the control sequence `\\lex'; and
+    `\\times' inside `\\text{...}' is a math command in text mode.
+    """
+    t = _re.sub(r'\\(le|ge|ne|lt|gt|leq|geq)(?=[A-Za-z])', r'\\\1 ', t)
+
+    def split(m):
+        inner = m.group(1)
+        if '\\times' not in inner:
+            return m.group(0)
+        return '\\text{' + '}\\times\\text{'.join(inner.split('\\times')) + '}'
+    return _re.sub(r'\\text\{([^{}]*)\}', split, t)
 
 
 def conj_line(anum):
@@ -91,7 +109,7 @@ The arrays have ${W}$ {crosses} and $L={Ltex}$ {lines}; write $x_{{t,u}}$ for th
 written as ({line} shift, {cross} shift) and counting only positions inside the array, the
 entry's requirement is
 \begin{{equation}}\label{{eq:loc}}
-{h['tex']}
+{_spacerel(h['tex'])}
 \end{{equation}}
 for every cell $(t,u)$.{ul}
 

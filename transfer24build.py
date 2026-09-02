@@ -17,7 +17,7 @@ def conj_line(anum):
 
 
 def dirtex(D):
-    return ', '.join('$(%d,%d)$' % t for t in D)
+    return ', '.join('(%d,%d)' % t for t in D)
 
 
 def build(h):
@@ -99,7 +99,7 @@ A link is \emph{{reciprocal}}: if $u$ is linked to $v$ then $v$ is linked to $u$
 of a configuration are the edges of an undirected graph on the cells, and a cell ``linked to
 itself'' is a cell lying in no edge. The neighbour relation the entry names is the offset set
 \[
-\{dirtex(D)},
+{dirtex(D)},
 \]
 and the condition ``either to themselves or to exactly ${deg}$ neighbours'' says that in that
 graph every cell has degree $0$ or ${deg}$. Hence $a(n)$ counts the spanning subgraphs of the

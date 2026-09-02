@@ -39,7 +39,7 @@ def build(h):
     mod, rev = e['modified'], e['revision']
     conj = conj_line(a)
     coeffs = {int(k): int(v) for k, v in h['coeffs'].items()}
-    dirs = ', '.join('$(%d,%d)$' % t for t in D)
+    dirs = ', '.join('(%d,%d)' % t for t in D)
     trans = ('' if re.search(r'n\s*X', e['name']) else
              " The entry writes the array with $n$ as the number of COLUMNS; transposing it "
              "exchanges the two coordinates of every neighbour offset, which is done once so "
