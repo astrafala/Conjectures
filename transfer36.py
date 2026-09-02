@@ -66,7 +66,8 @@ def _eq(b):
 STAT = {'clockwise edge increases': _cw, 'counterclockwise edge increases': _ccw,
         'rightwards and downwards edge increases': _rd, 'equal edges': _eq}
 
-HEAD = re.compile(r'Number of \(\s*n\s*\+\s*1\s*\)\s*X\s*(\d+)\s*'
+HEAD = re.compile(r'Number of\s+(?:\(\s*n\s*\+\s*1\s*\)\s*X\s*(\d+)|'
+                  r'(\d+)\s*X\s*\(\s*n\s*\+\s*1\s*\))\s*'
                   r'(?:0\.\.(\d+)|(binary))\s+arrays\s+with\s+(.*?)\s*\.?\s*$', re.I)
 
 B = r'2\s*X\s*2 subblock'
@@ -80,6 +81,22 @@ P4 = re.compile(r'the number of ' + EDGE + r' in each ' + B + r' equal to the nu
 P5 = re.compile(r'the number of ' + EDGE + r' in (?:each|every) ' + B + r' differing from '
                 r'(?:each horizontal or vertical neighbor|the number in (?:all|each of) its '
                 r'horizontal and vertical neighbors)$', re.I)
+# the same conditions said the other way round, and the mixed form that asks for agreement
+# along one direction and disagreement along the other
+P6 = re.compile(r'no ' + B + r' having the same number of ' + EDGE +
+                r' as its horizontal or vertical neighbors$', re.I)
+P7 = re.compile(r'every ' + B + r' having (having nonzero determinant and having )?'
+                r'the same number of ' + EDGE +
+                r' as its horizontal (?:and vertical )?neighbors$', re.I)
+P7b = re.compile(r'every ' + B + r' having nonzero determinant and having the same number of '
+                 + EDGE + r' as its horizontal (?:and vertical )?neighbors$', re.I)
+# ``having the same number of X'' with no neighbour named is the GLOBAL form: one value for
+# the whole array, not a comparison between neighbours
+P9 = re.compile(r'every ' + B + r' having the same number of ' + EDGE + r'$', re.I)
+P8 = re.compile(r'every ' + B + r' having the same number of ' + EDGE +
+                r' as its horizontal neighbors and (?:a different number from its vertical '
+                r'neighbors|no ' + B + r' having the same number of ' + EDGE +
+                r' as its vertical neighbors)$', re.I)
 
 
 def parse_name(nm):
@@ -88,12 +105,13 @@ def parse_name(nm):
     m = HEAD.search(nm)
     if not m:
         return None
-    W = int(m.group(1))
-    alpha = 1 if m.group(3) else int(m.group(2))
-    body = m.group(4)
+    W = int(m.group(1) or m.group(2))
+    trans = m.group(1) is None
+    alpha = 1 if m.group(4) else int(m.group(3))
+    body = m.group(5)
     if W < 2 or alpha < 1:
         return None
-    base = {'W': W, 'alpha': alpha, 'frac': 1, 'det': False}
+    base = {'W': W, 'alpha': alpha, 'frac': 1, 'det': False, 'trans': trans}
     c = P1.match(body)
     if c:
         g = c.group(2).lower()
@@ -119,6 +137,27 @@ def parse_name(nm):
     c = P5.match(body)
     if c:
         base.update(kind='nbdiffer', stat=c.group(1).lower())
+        return base
+    c = P8.match(body)
+    if c:
+        s2 = (c.group(2) or c.group(1)).lower()
+        base.update(kind='mixed', stat=c.group(1).lower(), stat2=s2)
+        return base
+    c = P6.match(body)
+    if c:
+        base.update(kind='nbdiffer', stat=c.group(1).lower())
+        return base
+    c = P7b.match(body)
+    if c:
+        base.update(kind='nbequal', stat=c.group(1).lower(), det=True)
+        return base
+    c = P7.match(body)
+    if c:
+        base.update(kind='nbequal', stat=c.group(2).lower())
+        return base
+    c = P9.match(body)
+    if c:
+        base.update(kind='same', stat=c.group(1).lower())
         return base
     return None
 
@@ -174,14 +213,28 @@ def build(p, cap=40000):
                 adj[index[(x, i)]].append(index[(x, j)])
         return (states, adj) if states else None
 
-    want = (kind == 'nbequal')
+    if kind == 'mixed':
+        # agreement along one direction, disagreement along the other; writing the array with
+        # n as the number of COLUMNS swaps which is which
+        wantH, wantV = (True, False)
+        g = STAT[p['stat2']]
+        if p.get('trans'):
+            wantH, wantV = wantV, wantH
+            f, g = g, f
+    else:
+        wantH = wantV = (kind == 'nbequal')
+        g = f
     vals, ok = {}, []
     for i, r in enumerate(rows):
         for j, s in enumerate(rows):
-            v = tuple(f(b) for b in blocks(r, s))
-            if any((v[t] == v[t + 1]) != want for t in range(K - 1)):
+            bl = blocks(r, s)
+            if p['det'] and any(b[0] * b[3] - b[1] * b[2] == 0 for b in bl):
                 continue
-            vals[(i, j)] = v
+            v = tuple(f(b) for b in bl)
+            w = tuple(g(b) for b in bl)
+            if any((v[t] == v[t + 1]) != wantH for t in range(K - 1)):
+                continue
+            vals[(i, j)] = w
             ok.append((i, j))
             if len(ok) > cap:
                 return None
@@ -195,7 +248,7 @@ def build(p, cap=40000):
     for (i, j) in ok:
         u = vals[(i, j)]
         adj.append([index[(j, t)] for t in nxt.get(j, ())
-                    if all((x == y) == want for x, y in zip(u, vals[(j, t)]))])
+                    if all((x == y) == wantV for x, y in zip(u, vals[(j, t)]))])
     return ok, adj
 
 

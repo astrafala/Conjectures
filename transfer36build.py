@@ -91,8 +91,30 @@ a(n)\;=\;\iota^{{\!\top}}M^{{\,n}}\tau,\qquad\iota=\tau=(1,\dots,1)^{{\!\top}},
 \]
 on the $S={S}$ states that survive. Rows carrying no edge at all are dropped: such a row could
 only be the whole of a one-row array, which is not among the objects counted."""
+    elif kind == 'mixed':
+        hstat, vstat = (p['stat2'], p['stat']) if p.get('trans') else (p['stat'], p['stat2'])
+        det = ('' if not p['det'] else
+               ' No subblock may be singular, which is a condition on one subblock alone.')
+        what = common + rf"""
+
+The condition treats the two directions differently: subblocks that are horizontal neighbours
+must carry the SAME number of {hstat}, while subblocks that are vertical neighbours must carry
+DIFFERENT numbers of {vstat}.{det}{' The entry writes the array with $n$ as the number of COLUMNS, so the two directions are exchanged before anything is built.' if p.get('trans') else ''}"""
+        walk = rf"""A subblock's value needs two consecutive array rows, and the vertical
+comparison needs the two subblock rows that three consecutive rows produce. So the state is the
+PAIR of consecutive array rows: the horizontal condition decides which pairs are admissible at
+all, the vertical one decides which pair may follow which. A step appends one array row,
+turning $(r,s)$ into $(s,t)$ and settling every vertical comparison at once. An $(n+1)$-row
+array is a walk of $n-1$ steps, so
+\[
+a(n)\;=\;\iota^{{\!\top}}M^{{\,n-1}}\tau,\qquad\iota=\tau=(1,\dots,1)^{{\!\top}},
+\]
+on the $S={S}$ admissible pairs."""
     else:
         rel = 'equal' if kind == 'nbequal' else 'different'
+        det = ('' if not p['det'] else
+               ' The entry also asks that no subblock be singular, which is a condition on one '
+               'subblock alone and is checked where the subblock is formed.')
         what = common + rf"""
 
 The condition relates NEIGHBOURING subblocks: two subblocks adjacent in the grid, horizontally
