@@ -55,7 +55,13 @@ def strip_relabel(nm):
         out = out[:m.end()] + LEAD.sub('', out[m.end():])
         hit = True
     out = re.sub(r'\s+,', ',', re.sub(r'\s+', ' ', out)).strip()
-    out = re.sub(r',\s*\.', '.', out)
+    # the clause is sometimes the FIRST thing after "arrays with", and the pattern eats the
+    # "with" along with it, leaving "arrays and no element ..." -- which no engine reads.
+    out = re.sub(r'(arrays?)\s+(?:and|,)\s+', r'\1 with ', out, flags=re.I)
+    out = re.sub(r'(arrays?)\s+(?=no |every |each |all |with )', r'\1 ', out, flags=re.I)
+    out = re.sub(r'(arrays?) (no |every |each |all )', r'\1 with \2', out, flags=re.I)
+    out = re.sub(r'\s*,\s*\.', '.', out)
+    out = out.rstrip().rstrip(',')
     if not out.endswith('.'):
         out += '.'
     return out, hit

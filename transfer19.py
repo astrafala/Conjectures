@@ -83,13 +83,16 @@ def _pred(body):
     """
     low = re.sub(r'\s+', ' ', body.strip().rstrip('.').lower())
 
-    m = re.fullmatch(r'no element (equal|unequal|less than|greater than) '
+    # "unequal TO a strict majority" but "less THAN a strict majority": the connecting word
+    # differs, and leaving it out of the pattern made the equal/unequal forms -- the common
+    # ones -- silently unreadable while the less/greater forms parsed.
+    m = re.fullmatch(r'no element (equal to|unequal to|less than|greater than) '
                      r'a strict majority of its ' + NB + r' neighbors', low)
     if m:
         kind = m.group(1)
-        if kind == 'equal':
+        if kind == 'equal to':
             f = lambda v, ns: sum(1 for u in ns if u == v)
-        elif kind == 'unequal':
+        elif kind == 'unequal to':
             f = lambda v, ns: sum(1 for u in ns if u != v)
         elif kind == 'less than':
             f = lambda v, ns: sum(1 for u in ns if u > v)
@@ -98,7 +101,7 @@ def _pred(body):
         return ((lambda v, ns, f=f: not (2 * f(v, ns) > len(ns))),
                 r'\text{no cell is %s a strict majority of its %s neighbours}'
                 % (kind, _tex(m.group(2))), m.group(2), None,
-                kind in ('equal', 'unequal'))
+                kind in ('equal to', 'unequal to'))
 
     m = re.fullmatch(r'no element having a strict majority of its ' + NB +
                      r' neighbors equal to (\w+)', low)
@@ -123,6 +126,17 @@ def _pred(body):
         return ((lambda v, ns, f=f, k=k: f(v, ns) <= k),
                 r'\text{no cell is %s to more than %d of its %s neighbours}'
                 % (m.group(1), k, _tex(m.group(3))), m.group(3), None, True)
+
+    m = re.fullmatch(r'no (\d+) (?:equal|adjacent) to more than (\w+) of its ' + NB +
+                     r' neighbors', low)
+    if m:
+        V, k = int(m.group(1)), _n(m.group(2))
+        if k is None:
+            return None
+        return ((lambda v, ns, V=V, k=k:
+                 v != V or sum(1 for u in ns if u == v) <= k),
+                r'\text{every %d has at most %d neighbouring %ds}' % (V, k, V),
+                m.group(3), None, False)
 
     m = re.fullmatch(r'every element equal to exactly ([\w, ]+?) of its ' + NB +
                      r' neighbors', low)
