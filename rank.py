@@ -48,7 +48,7 @@ BESPOKE_ORDER = list(range(1, 31))   # already in hardness order from the last r
 
 TIER = {"shared": 2, "stirling-phi": 2, "gauss-congruence": 2, "equate": 3, "disproof": 4, "section": 3, "funceq-mod": 3, "transfer-matrix": 6, "subblock-3x3": 6, "king-move": 6, "neighbour-set": 6, "pattern-neighbour": 5, "pattern-subblock": 5, "index-change": 4, "relabelling": 5, "global-count": 5, "budget": 4, "order-flag": 5, "order-cond": 5, "common-sum": 5, "defective": 4, "table-column": 5, "walk-closed-form": 5, "telescoping-boundary": 5,
         "telescoping": 6, "diagonal": 7, "algfield": 8, "logexp": 9, "parity": 10,
-        "closedform-direct": 11, "holonomic": 11, "multiquad": 12, "cross": 13, "quadratic": 14,
+        "closedform-direct": 11, "holonomic": 11, "gf-implies-rec": 12, "multiquad": 12, "cross": 13, "quadratic": 14,
         "closedform": 15, "ore-complete": 16, "ore": 17,
         # the known side is the entry's NAME rather than a formula line. The mathematics is
         # hyperterm's, so the tier is closedform's; what differs is where the input came

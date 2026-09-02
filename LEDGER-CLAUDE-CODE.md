@@ -67,7 +67,7 @@ result is worth more than three forced ones.
 
 # Conjecture-hunt ledger
 
-Last updated 1 Sep 2026. Roster: **5590 papers** (5584 proofs, 6 disproofs), files `1-PROOF.pdf` … `5590-PROOF.pdf`, **numbered by how hard the result was**: 1 is the hardest.
+Last updated 1 Sep 2026. Roster: **5823 papers** (5817 proofs, 6 disproofs), files `1-PROOF.pdf` … `5823-PROOF.pdf`, **numbered by how hard the result was**: 1 is the hardest.
 `rank-map.json` records the previous numbering. New results are ranked in, not appended.
 
 ---
@@ -5289,460 +5289,693 @@ the label. This is now cheap to detect in a sweep: compare the two fields in the
 | 5134 | PROOF | A228329 | a posted closed form compared against the posted generating function |
 | 5135 | PROOF | A259457 | a posted closed form compared against the posted generating function |
 | 5136 | PROOF | A268554 | a posted closed form compared against the posted generating function |
-| 5137 | PROOF | A102319 | several independent square roots |
-| 5138 | PROOF | A115256 | several independent square roots |
-| 5139 | PROOF | A157125 | several independent square roots |
-| 5140 | PROOF | A102318 | several independent square roots |
-| 5141 | PROOF | A107587 | several independent square roots |
-| 5142 | PROOF | A218185 | several independent square roots |
-| 5143 | PROOF | A025567 | several independent square roots |
-| 5144 | PROOF | A071684 | several independent square roots |
-| 5145 | PROOF | A179648 | several independent square roots |
-| 5146 | PROOF | A184120 | several independent square roots |
-| 5147 | PROOF | A026163 | several independent square roots |
-| 5148 | PROOF | A102318 | several independent square roots |
-| 5149 | PROOF | A101500 | several independent square roots |
-| 5150 | PROOF | A102319 | several independent square roots |
-| 5151 | PROOF | A107587 | several independent square roots |
-| 5152 | PROOF | A072100 | several independent square roots |
-| 5153 | PROOF | A025567 | several independent square roots |
-| 5154 | PROOF | A334509 | an identity between different entries |
-| 5155 | PROOF | A298022 | an identity between different entries |
-| 5156 | PROOF | A273676 | an identity between different entries |
-| 5157 | PROOF | A273832 | an identity between different entries |
-| 5158 | PROOF | A319371 | an identity between different entries |
-| 5159 | PROOF | A110320 | an identity between different entries |
-| 5160 | PROOF | A309878 | an identity between different entries |
-| 5161 | PROOF | A315520 | an identity between different entries |
-| 5162 | PROOF | A346370 | an identity between different entries |
-| 5163 | PROOF | A176126 | the residual test over one square root, or none |
-| 5164 | PROOF | A191625 | the residual test over one square root, or none |
-| 5165 | PROOF | A186341 | the residual test over one square root, or none |
-| 5166 | PROOF | A026743 | the residual test over one square root, or none |
-| 5167 | PROOF | A191786 | the residual test over one square root, or none |
-| 5168 | PROOF | A210496 | the residual test over one square root, or none |
-| 5169 | PROOF | A182892 | the residual test over one square root, or none |
-| 5170 | PROOF | A270724 | the residual test over one square root, or none |
-| 5171 | PROOF | A190171 | the residual test over one square root, or none |
-| 5172 | PROOF | A257515 | the residual test over one square root, or none |
-| 5173 | PROOF | A190788 | the residual test over one square root, or none |
-| 5174 | PROOF | A095981 | the residual test over one square root, or none |
-| 5175 | PROOF | A212205 | the residual test over one square root, or none |
-| 5176 | PROOF | A270661 | the residual test over one square root, or none |
-| 5177 | PROOF | A157021 | the residual test over one square root, or none |
-| 5178 | PROOF | A165537 | the residual test over one square root, or none |
-| 5179 | PROOF | A166287 | the residual test over one square root, or none |
-| 5180 | PROOF | A174013 | the residual test over one square root, or none |
-| 5181 | PROOF | A178072 | the residual test over one square root, or none |
-| 5182 | PROOF | A182894 | the residual test over one square root, or none |
-| 5183 | PROOF | A114584 | the residual test over one square root, or none |
-| 5184 | PROOF | A164586 | the residual test over one square root, or none |
-| 5185 | PROOF | A189053 | the residual test over one square root, or none |
-| 5186 | PROOF | A182904 | the residual test over one square root, or none |
-| 5187 | PROOF | A274295 | the residual test over one square root, or none |
-| 5188 | PROOF | A226434 | the residual test over one square root, or none |
-| 5189 | PROOF | A257104 | the residual test over one square root, or none |
-| 5190 | PROOF | A108600 | the residual test over one square root, or none |
-| 5191 | PROOF | A114851 | the residual test over one square root, or none |
-| 5192 | PROOF | A125306 | the residual test over one square root, or none |
-| 5193 | PROOF | A166290 | the residual test over one square root, or none |
-| 5194 | PROOF | A228770 | the residual test over one square root, or none |
-| 5195 | PROOF | A257300 | the residual test over one square root, or none |
-| 5196 | PROOF | A089324 | the residual test over one square root, or none |
-| 5197 | PROOF | A104625 | the residual test over one square root, or none |
-| 5198 | PROOF | A113956 | the residual test over one square root, or none |
-| 5199 | PROOF | A116383 | the residual test over one square root, or none |
-| 5200 | PROOF | A162548 | the residual test over one square root, or none |
-| 5201 | PROOF | A173993 | the residual test over one square root, or none |
-| 5202 | PROOF | A244886 | the residual test over one square root, or none |
-| 5203 | PROOF | A157003 | the residual test over one square root, or none |
-| 5204 | PROOF | A162482 | the residual test over one square root, or none |
-| 5205 | PROOF | A163493 | the residual test over one square root, or none |
-| 5206 | PROOF | A191398 | the residual test over one square root, or none |
-| 5207 | PROOF | A135582 | the residual test over one square root, or none |
-| 5208 | PROOF | A139376 | the residual test over one square root, or none |
-| 5209 | PROOF | A346074 | the residual test over one square root, or none |
-| 5210 | PROOF | A190166 | the residual test over one square root, or none |
-| 5211 | PROOF | A025251 | the residual test over one square root, or none |
-| 5212 | PROOF | A228771 | the residual test over one square root, or none |
-| 5213 | PROOF | A025268 | the residual test over one square root, or none |
-| 5214 | PROOF | A025272 | the residual test over one square root, or none |
-| 5215 | PROOF | A162475 | the residual test over one square root, or none |
-| 5216 | PROOF | A385252 | the residual test over one square root, or none |
-| 5217 | PROOF | A114464 | the residual test over one square root, or none |
-| 5218 | PROOF | A127154 | the residual test over one square root, or none |
-| 5219 | PROOF | A135335 | the residual test over one square root, or none |
-| 5220 | PROOF | A165540 | the residual test over one square root, or none |
-| 5221 | PROOF | A171416 | the residual test over one square root, or none |
-| 5222 | PROOF | A188314 | the residual test over one square root, or none |
-| 5223 | PROOF | A247170 | the residual test over one square root, or none |
-| 5224 | PROOF | A254314 | the residual test over one square root, or none |
-| 5225 | PROOF | A270661 | the residual test over one square root, or none |
-| 5226 | PROOF | A003440 | the residual test over one square root, or none |
-| 5227 | PROOF | A110521 | the residual test over one square root, or none |
-| 5228 | PROOF | A114190 | the residual test over one square root, or none |
-| 5229 | PROOF | A116387 | the residual test over one square root, or none |
-| 5230 | PROOF | A128096 | the residual test over one square root, or none |
-| 5231 | PROOF | A135052 | the residual test over one square root, or none |
-| 5232 | PROOF | A157021 | the residual test over one square root, or none |
-| 5233 | PROOF | A160823 | the residual test over one square root, or none |
-| 5234 | PROOF | A166287 | the residual test over one square root, or none |
-| 5235 | PROOF | A174808 | the residual test over one square root, or none |
-| 5236 | PROOF | A185089 | the residual test over one square root, or none |
-| 5237 | PROOF | A186940 | the residual test over one square root, or none |
-| 5238 | PROOF | A190736 | the residual test over one square root, or none |
-| 5239 | PROOF | A219314 | the residual test over one square root, or none |
-| 5240 | PROOF | A100095 | the residual test over one square root, or none |
-| 5241 | PROOF | A100097 | the residual test over one square root, or none |
-| 5242 | PROOF | A191313 | the residual test over one square root, or none |
-| 5243 | PROOF | A191790 | the residual test over one square root, or none |
-| 5244 | PROOF | A273351 | the residual test over one square root, or none |
-| 5245 | PROOF | A278472 | the residual test over one square root, or none |
-| 5246 | PROOF | A108296 | the residual test over one square root, or none |
-| 5247 | PROOF | A116391 | the residual test over one square root, or none |
-| 5248 | PROOF | A110198 | the residual test over one square root, or none |
-| 5249 | PROOF | A182879 | the residual test over one square root, or none |
-| 5250 | PROOF | A182887 | the residual test over one square root, or none |
-| 5251 | PROOF | A135925 | the residual test over one square root, or none |
-| 5252 | PROOF | A007901 | the residual test over one square root, or none |
-| 5253 | PROOF | A025256 | the residual test over one square root, or none |
-| 5254 | PROOF | A025258 | the residual test over one square root, or none |
-| 5255 | PROOF | A000781 | the residual test over one square root, or none |
-| 5256 | PROOF | A025245 | the residual test over one square root, or none |
-| 5257 | PROOF | A025257 | the residual test over one square root, or none |
-| 5258 | PROOF | A025269 | the residual test over one square root, or none |
-| 5259 | PROOF | A025270 | the residual test over one square root, or none |
-| 5260 | PROOF | A025275 | the residual test over one square root, or none |
-| 5261 | PROOF | A032096 | the residual test over one square root, or none |
-| 5262 | PROOF | A102880 | the residual test over one square root, or none |
-| 5263 | PROOF | A111053 | the residual test over one square root, or none |
-| 5264 | PROOF | A152120 | the residual test over one square root, or none |
-| 5265 | PROOF | A159771 | the residual test over one square root, or none |
-| 5266 | PROOF | A166694 | the residual test over one square root, or none |
-| 5267 | PROOF | A166696 | the residual test over one square root, or none |
-| 5268 | PROOF | A191796 | the residual test over one square root, or none |
-| 5269 | PROOF | A217711 | the residual test over one square root, or none |
-| 5270 | PROOF | A278023 | the residual test over one square root, or none |
-| 5271 | PROOF | A279014 | the residual test over one square root, or none |
-| 5272 | PROOF | A000483 | the residual test over one square root, or none |
-| 5273 | PROOF | A026030 | the residual test over one square root, or none |
-| 5274 | PROOF | A026031 | the residual test over one square root, or none |
-| 5275 | PROOF | A048775 | the residual test over one square root, or none |
-| 5276 | PROOF | A116409 | the residual test over one square root, or none |
-| 5277 | PROOF | A126322 | the residual test over one square root, or none |
-| 5278 | PROOF | A128750 | the residual test over one square root, or none |
-| 5279 | PROOF | A143955 | the residual test over one square root, or none |
-| 5280 | PROOF | A165203 | the residual test over one square root, or none |
-| 5281 | PROOF | A168505 | the residual test over one square root, or none |
-| 5282 | PROOF | A176605 | the residual test over one square root, or none |
-| 5283 | PROOF | A181933 | the residual test over one square root, or none |
-| 5284 | PROOF | A191585 | the residual test over one square root, or none |
-| 5285 | PROOF | A215973 | the residual test over one square root, or none |
-| 5286 | PROOF | A234269 | the residual test over one square root, or none |
-| 5287 | PROOF | A236407 | the residual test over one square root, or none |
-| 5288 | PROOF | A270363 | the residual test over one square root, or none |
-| 5289 | PROOF | A098521 | the residual test over one square root, or none |
-| 5290 | PROOF | A100096 | the residual test over one square root, or none |
-| 5291 | PROOF | A100099 | the residual test over one square root, or none |
-| 5292 | PROOF | A105849 | the residual test over one square root, or none |
-| 5293 | PROOF | A105864 | the residual test over one square root, or none |
-| 5294 | PROOF | A105865 | the residual test over one square root, or none |
-| 5295 | PROOF | A108308 | the residual test over one square root, or none |
-| 5296 | PROOF | A114194 | the residual test over one square root, or none |
-| 5297 | PROOF | A115967 | the residual test over one square root, or none |
-| 5298 | PROOF | A117186 | the residual test over one square root, or none |
-| 5299 | PROOF | A120010 | the residual test over one square root, or none |
-| 5300 | PROOF | A124431 | the residual test over one square root, or none |
-| 5301 | PROOF | A124431 | the residual test over one square root, or none |
-| 5302 | PROOF | A126568 | the residual test over one square root, or none |
-| 5303 | PROOF | A132364 | the residual test over one square root, or none |
-| 5304 | PROOF | A141342 | the residual test over one square root, or none |
-| 5305 | PROOF | A155051 | the residual test over one square root, or none |
-| 5306 | PROOF | A157002 | the residual test over one square root, or none |
-| 5307 | PROOF | A157100 | the residual test over one square root, or none |
-| 5308 | PROOF | A166076 | the residual test over one square root, or none |
-| 5309 | PROOF | A166300 | the residual test over one square root, or none |
-| 5310 | PROOF | A168503 | the residual test over one square root, or none |
-| 5311 | PROOF | A174107 | the residual test over one square root, or none |
-| 5312 | PROOF | A174169 | the residual test over one square root, or none |
-| 5313 | PROOF | A176332 | the residual test over one square root, or none |
-| 5314 | PROOF | A184018 | the residual test over one square root, or none |
-| 5315 | PROOF | A188312 | the residual test over one square root, or none |
-| 5316 | PROOF | A188482 | the residual test over one square root, or none |
-| 5317 | PROOF | A191782 | the residual test over one square root, or none |
-| 5318 | PROOF | A217333 | the residual test over one square root, or none |
-| 5319 | PROOF | A257072 | the residual test over one square root, or none |
-| 5320 | PROOF | A261681 | the residual test over one square root, or none |
-| 5321 | PROOF | A073155 | the residual test over one square root, or none |
-| 5322 | PROOF | A105524 | the residual test over one square root, or none |
-| 5323 | PROOF | A114589 | the residual test over one square root, or none |
-| 5324 | PROOF | A114590 | the residual test over one square root, or none |
-| 5325 | PROOF | A162481 | the residual test over one square root, or none |
-| 5326 | PROOF | A174783 | the residual test over one square root, or none |
-| 5327 | PROOF | A188460 | the residual test over one square root, or none |
-| 5328 | PROOF | A188464 | the residual test over one square root, or none |
-| 5329 | PROOF | A190725 | the residual test over one square root, or none |
-| 5330 | PROOF | A191526 | the residual test over one square root, or none |
-| 5331 | PROOF | A191531 | the residual test over one square root, or none |
-| 5332 | PROOF | A211278 | the residual test over one square root, or none |
-| 5333 | PROOF | A026327 | the residual test over one square root, or none |
-| 5334 | PROOF | A081207 | the residual test over one square root, or none |
-| 5335 | PROOF | A102882 | the residual test over one square root, or none |
-| 5336 | PROOF | A182881 | the residual test over one square root, or none |
-| 5337 | PROOF | A191309 | the residual test over one square root, or none |
-| 5338 | PROOF | A191319 | the residual test over one square root, or none |
-| 5339 | PROOF | A191790 | the residual test over one square root, or none |
-| 5340 | PROOF | A273351 | the residual test over one square root, or none |
-| 5341 | PROOF | A025248 | the residual test over one square root, or none |
-| 5342 | PROOF | A025249 | the residual test over one square root, or none |
-| 5343 | PROOF | A026017 | the residual test over one square root, or none |
-| 5344 | PROOF | A071717 | the residual test over one square root, or none |
-| 5345 | PROOF | A081672 | the residual test over one square root, or none |
-| 5346 | PROOF | A104722 | the residual test over one square root, or none |
-| 5347 | PROOF | A109263 | the residual test over one square root, or none |
-| 5348 | PROOF | A118093 | the residual test over one square root, or none |
-| 5349 | PROOF | A118974 | the residual test over one square root, or none |
-| 5350 | PROOF | A121320 | the residual test over one square root, or none |
-| 5351 | PROOF | A126323 | the residual test over one square root, or none |
-| 5352 | PROOF | A128723 | the residual test over one square root, or none |
-| 5353 | PROOF | A135334 | the residual test over one square root, or none |
-| 5354 | PROOF | A141351 | the residual test over one square root, or none |
-| 5355 | PROOF | A141353 | the residual test over one square root, or none |
-| 5356 | PROOF | A163824 | the residual test over one square root, or none |
-| 5357 | PROOF | A165201 | the residual test over one square root, or none |
-| 5358 | PROOF | A279014 | the residual test over one square root, or none |
-| 5359 | PROOF | A026027 | the residual test over one square root, or none |
-| 5360 | PROOF | A026135 | the residual test over one square root, or none |
-| 5361 | PROOF | A050168 | the residual test over one square root, or none |
-| 5362 | PROOF | A059279 | the residual test over one square root, or none |
-| 5363 | PROOF | A063395 | the residual test over one square root, or none |
-| 5364 | PROOF | A071722 | the residual test over one square root, or none |
-| 5365 | PROOF | A082134 | the residual test over one square root, or none |
-| 5366 | PROOF | A097331 | the residual test over one square root, or none |
-| 5367 | PROOF | A100193 | the residual test over one square root, or none |
-| 5368 | PROOF | A103973 | the residual test over one square root, or none |
-| 5369 | PROOF | A106181 | the residual test over one square root, or none |
-| 5370 | PROOF | A108623 | the residual test over one square root, or none |
-| 5371 | PROOF | A126180 | the residual test over one square root, or none |
-| 5372 | PROOF | A128732 | the residual test over one square root, or none |
-| 5373 | PROOF | A134389 | the residual test over one square root, or none |
-| 5374 | PROOF | A143013 | the residual test over one square root, or none |
-| 5375 | PROOF | A143954 | the residual test over one square root, or none |
-| 5376 | PROOF | A157418 | the residual test over one square root, or none |
-| 5377 | PROOF | A158196 | the residual test over one square root, or none |
-| 5378 | PROOF | A158197 | the residual test over one square root, or none |
-| 5379 | PROOF | A191585 | the residual test over one square root, or none |
-| 5380 | PROOF | A257290 | the residual test over one square root, or none |
-| 5381 | PROOF | A054341 | the residual test over one square root, or none |
-| 5382 | PROOF | A071715 | the residual test over one square root, or none |
-| 5383 | PROOF | A090413 | the residual test over one square root, or none |
-| 5384 | PROOF | A090826 | the residual test over one square root, or none |
-| 5385 | PROOF | A091699 | the residual test over one square root, or none |
-| 5386 | PROOF | A098664 | the residual test over one square root, or none |
-| 5387 | PROOF | A099363 | the residual test over one square root, or none |
-| 5388 | PROOF | A100098 | the residual test over one square root, or none |
-| 5389 | PROOF | A105872 | the residual test over one square root, or none |
-| 5390 | PROOF | A119975 | the residual test over one square root, or none |
-| 5391 | PROOF | A121724 | the residual test over one square root, or none |
-| 5392 | PROOF | A121725 | the residual test over one square root, or none |
-| 5393 | PROOF | A126931 | the residual test over one square root, or none |
-| 5394 | PROOF | A126932 | the residual test over one square root, or none |
-| 5395 | PROOF | A127361 | the residual test over one square root, or none |
-| 5396 | PROOF | A127363 | the residual test over one square root, or none |
-| 5397 | PROOF | A155051 | the residual test over one square root, or none |
-| 5398 | PROOF | A166078 | the residual test over one square root, or none |
-| 5399 | PROOF | A166587 | the residual test over one square root, or none |
-| 5400 | PROOF | A166588 | the residual test over one square root, or none |
-| 5401 | PROOF | A176006 | the residual test over one square root, or none |
-| 5402 | PROOF | A185087 | the residual test over one square root, or none |
-| 5403 | PROOF | A190724 | the residual test over one square root, or none |
-| 5404 | PROOF | A225887 | the residual test over one square root, or none |
-| 5405 | PROOF | A227081 | the residual test over one square root, or none |
-| 5406 | PROOF | A257178 | the residual test over one square root, or none |
-| 5407 | PROOF | A257388 | the residual test over one square root, or none |
-| 5408 | PROOF | A257838 | the residual test over one square root, or none |
-| 5409 | PROOF | A001712 | the residual test over one square root, or none |
-| 5410 | PROOF | A025175 | the residual test over one square root, or none |
-| 5411 | PROOF | A025577 | the residual test over one square root, or none |
-| 5412 | PROOF | A026023 | the residual test over one square root, or none |
-| 5413 | PROOF | A055217 | the residual test over one square root, or none |
-| 5414 | PROOF | A081052 | the residual test over one square root, or none |
-| 5415 | PROOF | A103821 | the residual test over one square root, or none |
-| 5416 | PROOF | A107231 | the residual test over one square root, or none |
-| 5417 | PROOF | A110199 | the residual test over one square root, or none |
-| 5418 | PROOF | A116406 | the residual test over one square root, or none |
-| 5419 | PROOF | A128734 | the residual test over one square root, or none |
-| 5420 | PROOF | A191307 | the residual test over one square root, or none |
-| 5421 | PROOF | A278472 | the residual test over one square root, or none |
-| 5422 | PROOF | A034863 | the residual test over one square root, or none |
-| 5423 | PROOF | A128652 | the residual test over one square root, or none |
-| 5424 | PROOF | A174195 | the residual test over one square root, or none |
-| 5425 | PROOF | A192480 | the residual test over one square root, or none |
-| 5426 | PROOF | A158495 | the residual test over one square root, or none |
-| 5427 | PROOF | A189176 | the residual test over one square root, or none |
-| 5428 | PROOF | A194724 | the residual test over one square root, or none |
-| 5429 | PROOF | A210474 | the residual test over one square root, or none |
-| 5430 | PROOF | A262768 | the residual test over one square root, or none |
-| 5431 | PROOF | A026029 | the residual test over one square root, or none |
-| 5432 | PROOF | A064088 | the residual test over one square root, or none |
-| 5433 | PROOF | A064089 | the residual test over one square root, or none |
-| 5434 | PROOF | A064090 | the residual test over one square root, or none |
-| 5435 | PROOF | A064091 | the residual test over one square root, or none |
-| 5436 | PROOF | A064092 | the residual test over one square root, or none |
-| 5437 | PROOF | A067299 | the residual test over one square root, or none |
-| 5438 | PROOF | A068551 | the residual test over one square root, or none |
-| 5439 | PROOF | A080243 | the residual test over one square root, or none |
-| 5440 | PROOF | A114191 | the residual test over one square root, or none |
-| 5441 | PROOF | A116881 | the residual test over one square root, or none |
-| 5442 | PROOF | A122920 | the residual test over one square root, or none |
-| 5443 | PROOF | A132864 | the residual test over one square root, or none |
-| 5444 | PROOF | A133305 | the residual test over one square root, or none |
-| 5445 | PROOF | A133306 | the residual test over one square root, or none |
-| 5446 | PROOF | A133307 | the residual test over one square root, or none |
-| 5447 | PROOF | A133308 | the residual test over one square root, or none |
-| 5448 | PROOF | A141222 | the residual test over one square root, or none |
-| 5449 | PROOF | A154623 | the residual test over one square root, or none |
-| 5450 | PROOF | A157328 | the residual test over one square root, or none |
-| 5451 | PROOF | A158196 | the residual test over one square root, or none |
-| 5452 | PROOF | A158197 | the residual test over one square root, or none |
-| 5453 | PROOF | A191993 | the residual test over one square root, or none |
-| 5454 | PROOF | A225034 | the residual test over one square root, or none |
-| 5455 | PROOF | A242172 | the residual test over one square root, or none |
-| 5456 | PROOF | A002867 | the residual test over one square root, or none |
-| 5457 | PROOF | A014533 | the residual test over one square root, or none |
-| 5458 | PROOF | A051524 | the residual test over one square root, or none |
-| 5459 | PROOF | A071264 | the residual test over one square root, or none |
-| 5460 | PROOF | A081046 | the residual test over one square root, or none |
-| 5461 | PROOF | A098519 | the residual test over one square root, or none |
-| 5462 | PROOF | A098520 | the residual test over one square root, or none |
-| 5463 | PROOF | A101596 | the residual test over one square root, or none |
-| 5464 | PROOF | A101601 | the residual test over one square root, or none |
-| 5465 | PROOF | A101602 | the residual test over one square root, or none |
-| 5466 | PROOF | A111779 | the residual test over one square root, or none |
-| 5467 | PROOF | A112703 | the residual test over one square root, or none |
-| 5468 | PROOF | A119012 | the residual test over one square root, or none |
-| 5469 | PROOF | A128057 | the residual test over one square root, or none |
-| 5470 | PROOF | A128746 | the residual test over one square root, or none |
-| 5471 | PROOF | A132900 | the residual test over one square root, or none |
-| 5472 | PROOF | A151483 | the residual test over one square root, or none |
-| 5473 | PROOF | A167481 | the residual test over one square root, or none |
-| 5474 | PROOF | A171556 | the residual test over one square root, or none |
-| 5475 | PROOF | A176479 | the residual test over one square root, or none |
-| 5476 | PROOF | A182401 | the residual test over one square root, or none |
-| 5477 | PROOF | A208355 | the residual test over one square root, or none |
-| 5478 | PROOF | A210064 | the residual test over one square root, or none |
-| 5479 | PROOF | A240558 | the residual test over one square root, or none |
-| 5480 | PROOF | A141771 | the residual test over one square root, or none |
-| 5481 | PROOF | A176606 | the residual test over one square root, or none |
-| 5482 | PROOF | A176607 | the residual test over one square root, or none |
-| 5483 | PROOF | A176609 | the residual test over one square root, or none |
-| 5484 | PROOF | A176610 | the residual test over one square root, or none |
-| 5485 | PROOF | A176611 | the residual test over one square root, or none |
-| 5486 | PROOF | A176675 | the residual test over one square root, or none |
-| 5487 | PROOF | A176749 | the residual test over one square root, or none |
-| 5488 | PROOF | A176750 | the residual test over one square root, or none |
-| 5489 | PROOF | A176751 | the residual test over one square root, or none |
-| 5490 | PROOF | A176752 | the residual test over one square root, or none |
-| 5491 | PROOF | A176753 | the residual test over one square root, or none |
-| 5492 | PROOF | A176754 | the residual test over one square root, or none |
-| 5493 | PROOF | A176755 | the residual test over one square root, or none |
-| 5494 | PROOF | A176756 | the residual test over one square root, or none |
-| 5495 | PROOF | A176757 | the residual test over one square root, or none |
-| 5496 | PROOF | A176759 | the residual test over one square root, or none |
-| 5497 | PROOF | A176828 | the residual test over one square root, or none |
-| 5498 | PROOF | A176829 | the residual test over one square root, or none |
-| 5499 | PROOF | A176830 | the residual test over one square root, or none |
-| 5500 | PROOF | A176832 | the residual test over one square root, or none |
-| 5501 | PROOF | A176854 | the residual test over one square root, or none |
-| 5502 | PROOF | A176855 | the residual test over one square root, or none |
-| 5503 | PROOF | A176856 | the residual test over one square root, or none |
-| 5504 | PROOF | A176857 | the residual test over one square root, or none |
-| 5505 | PROOF | A176858 | the residual test over one square root, or none |
-| 5506 | PROOF | A176859 | the residual test over one square root, or none |
-| 5507 | PROOF | A176952 | the residual test over one square root, or none |
-| 5508 | PROOF | A176953 | the residual test over one square root, or none |
-| 5509 | PROOF | A176956 | the residual test over one square root, or none |
-| 5510 | PROOF | A176957 | the residual test over one square root, or none |
-| 5511 | PROOF | A176958 | the residual test over one square root, or none |
-| 5512 | PROOF | A176959 | the residual test over one square root, or none |
-| 5513 | PROOF | A176962 | the residual test over one square root, or none |
-| 5514 | PROOF | A176964 | the residual test over one square root, or none |
-| 5515 | PROOF | A176966 | the residual test over one square root, or none |
-| 5516 | PROOF | A176967 | the residual test over one square root, or none |
-| 5517 | PROOF | A177123 | the residual test over one square root, or none |
-| 5518 | PROOF | A177124 | the residual test over one square root, or none |
-| 5519 | PROOF | A177125 | the residual test over one square root, or none |
-| 5520 | PROOF | A177126 | the residual test over one square root, or none |
-| 5521 | PROOF | A177127 | the residual test over one square root, or none |
-| 5522 | PROOF | A177128 | the residual test over one square root, or none |
-| 5523 | PROOF | A177129 | the residual test over one square root, or none |
-| 5524 | PROOF | A177130 | the residual test over one square root, or none |
-| 5525 | PROOF | A177131 | the residual test over one square root, or none |
-| 5526 | PROOF | A177163 | the residual test over one square root, or none |
-| 5527 | PROOF | A177165 | the residual test over one square root, or none |
-| 5528 | PROOF | A177166 | the residual test over one square root, or none |
-| 5529 | PROOF | A177167 | the residual test over one square root, or none |
-| 5530 | PROOF | A177168 | the residual test over one square root, or none |
-| 5531 | PROOF | A177169 | the residual test over one square root, or none |
-| 5532 | PROOF | A177170 | the residual test over one square root, or none |
-| 5533 | PROOF | A177171 | the residual test over one square root, or none |
-| 5534 | PROOF | A177172 | the residual test over one square root, or none |
-| 5535 | PROOF | A177175 | the residual test over one square root, or none |
-| 5536 | PROOF | A177177 | the residual test over one square root, or none |
-| 5537 | PROOF | A177178 | the residual test over one square root, or none |
-| 5538 | PROOF | A177179 | the residual test over one square root, or none |
-| 5539 | PROOF | A177180 | the residual test over one square root, or none |
-| 5540 | PROOF | A177181 | the residual test over one square root, or none |
-| 5541 | PROOF | A177182 | the residual test over one square root, or none |
-| 5542 | PROOF | A177183 | the residual test over one square root, or none |
-| 5543 | PROOF | A177184 | the residual test over one square root, or none |
-| 5544 | PROOF | A177185 | the residual test over one square root, or none |
-| 5545 | PROOF | A177197 | the residual test over one square root, or none |
-| 5546 | PROOF | A177198 | the residual test over one square root, or none |
-| 5547 | PROOF | A177199 | the residual test over one square root, or none |
-| 5548 | PROOF | A177200 | the residual test over one square root, or none |
-| 5549 | PROOF | A177203 | the residual test over one square root, or none |
-| 5550 | PROOF | A081670 | the known side is the entry's NAME rather than a formula line |
-| 5551 | PROOF | A085781 | the known side is the entry's NAME rather than a formula line |
-| 5552 | PROOF | A026019 | the known side is the entry's NAME rather than a formula line |
-| 5553 | PROOF | A052183 | the known side is the entry's NAME rather than a formula line |
-| 5554 | PROOF | A052204 | the known side is the entry's NAME rather than a formula line |
-| 5555 | PROOF | A157713 | the known side is the entry's NAME rather than a formula line |
-| 5556 | PROOF | A334511 | a posted closed form decided by the theory of hypergeometric terms |
-| 5557 | PROOF | A333905 | a posted closed form decided by the theory of hypergeometric terms |
-| 5558 | PROOF | A049486 | a posted closed form decided by the theory of hypergeometric terms |
-| 5559 | PROOF | A267879 | a posted closed form decided by the theory of hypergeometric terms |
-| 5560 | PROOF | A267802 | a posted closed form decided by the theory of hypergeometric terms |
-| 5561 | PROOF | A267847 | a posted closed form decided by the theory of hypergeometric terms |
-| 5562 | PROOF | A034267 | a posted closed form decided by the theory of hypergeometric terms |
-| 5563 | PROOF | A126501 | a posted closed form decided by the theory of hypergeometric terms |
-| 5564 | PROOF | A128153 | a posted closed form decided by the theory of hypergeometric terms |
-| 5565 | PROOF | A212938 | a posted closed form decided by the theory of hypergeometric terms |
-| 5566 | PROOF | A220250 | a posted closed form decided by the theory of hypergeometric terms |
-| 5567 | PROOF | A248434 | a posted closed form decided by the theory of hypergeometric terms |
-| 5568 | PROOF | A258547 | a posted closed form decided by the theory of hypergeometric terms |
-| 5569 | PROOF | A272706 | a posted closed form decided by the theory of hypergeometric terms |
-| 5570 | PROOF | A126089 | complete annihilation, tested in the Ore algebra Q(n)[N] |
-| 5571 | PROOF | A025271 | division of one posted operator by another |
-| 5572 | PROOF | A138164 | division of one posted operator by another |
-| 5573 | PROOF | A143017 | division of one posted operator by another |
-| 5574 | PROOF | A159772 | division of one posted operator by another |
-| 5575 | PROOF | A000986 | division of one posted operator by another |
-| 5576 | PROOF | A022917 | division of one posted operator by another |
-| 5577 | PROOF | A217447 | division of one posted operator by another |
-| 5578 | PROOF | A226302 | division of one posted operator by another |
-| 5579 | PROOF | A245088 | division of one posted operator by another |
-| 5580 | PROOF | A026165 | division of one posted operator by another |
-| 5581 | PROOF | A185966 | division of one posted operator by another |
-| 5582 | PROOF | A200753 | division of one posted operator by another |
-| 5583 | PROOF | A217358 | division of one posted operator by another |
-| 5584 | PROOF | A228960 | division of one posted operator by another |
-| 5585 | PROOF | A003435 | division of one posted operator by another |
-| 5586 | PROOF | A228331 | division of one posted operator by another |
-| 5587 | PROOF | A273019 | division of one posted operator by another |
-| 5588 | PROOF | A386834 | division of one posted operator by another |
-| 5589 | PROOF | A228330 | division of one posted operator by another |
-| 5590 | PROOF | A228333 | division of one posted operator by another |
+| 5137 | PROOF | A214907 | the recurrence follows from a generating function the entry records as fact |
+| 5138 | PROOF | A263869 | the recurrence follows from a generating function the entry records as fact |
+| 5139 | PROOF | A250782 | the recurrence follows from a generating function the entry records as fact |
+| 5140 | PROOF | A165386 | the recurrence follows from a generating function the entry records as fact |
+| 5141 | PROOF | A250781 | the recurrence follows from a generating function the entry records as fact |
+| 5142 | PROOF | A163020 | the recurrence follows from a generating function the entry records as fact |
+| 5143 | PROOF | A220640 | the recurrence follows from a generating function the entry records as fact |
+| 5144 | PROOF | A204648 | the recurrence follows from a generating function the entry records as fact |
+| 5145 | PROOF | A206264 | the recurrence follows from a generating function the entry records as fact |
+| 5146 | PROOF | A262482 | the recurrence follows from a generating function the entry records as fact |
+| 5147 | PROOF | A208642 | the recurrence follows from a generating function the entry records as fact |
+| 5148 | PROOF | A204647 | the recurrence follows from a generating function the entry records as fact |
+| 5149 | PROOF | A250892 | the recurrence follows from a generating function the entry records as fact |
+| 5150 | PROOF | A250893 | the recurrence follows from a generating function the entry records as fact |
+| 5151 | PROOF | A250894 | the recurrence follows from a generating function the entry records as fact |
+| 5152 | PROOF | A250895 | the recurrence follows from a generating function the entry records as fact |
+| 5153 | PROOF | A250896 | the recurrence follows from a generating function the entry records as fact |
+| 5154 | PROOF | A250897 | the recurrence follows from a generating function the entry records as fact |
+| 5155 | PROOF | A164760 | the recurrence follows from a generating function the entry records as fact |
+| 5156 | PROOF | A202442 | the recurrence follows from a generating function the entry records as fact |
+| 5157 | PROOF | A202443 | the recurrence follows from a generating function the entry records as fact |
+| 5158 | PROOF | A206263 | the recurrence follows from a generating function the entry records as fact |
+| 5159 | PROOF | A250780 | the recurrence follows from a generating function the entry records as fact |
+| 5160 | PROOF | A263794 | the recurrence follows from a generating function the entry records as fact |
+| 5161 | PROOF | A208641 | the recurrence follows from a generating function the entry records as fact |
+| 5162 | PROOF | A204646 | the recurrence follows from a generating function the entry records as fact |
+| 5163 | PROOF | A206262 | the recurrence follows from a generating function the entry records as fact |
+| 5164 | PROOF | A204645 | the recurrence follows from a generating function the entry records as fact |
+| 5165 | PROOF | A233402 | the recurrence follows from a generating function the entry records as fact |
+| 5166 | PROOF | A250900 | the recurrence follows from a generating function the entry records as fact |
+| 5167 | PROOF | A267960 | the recurrence follows from a generating function the entry records as fact |
+| 5168 | PROOF | A220639 | the recurrence follows from a generating function the entry records as fact |
+| 5169 | PROOF | A102319 | several independent square roots |
+| 5170 | PROOF | A115256 | several independent square roots |
+| 5171 | PROOF | A165373 | the recurrence follows from a generating function the entry records as fact |
+| 5172 | PROOF | A165394 | the recurrence follows from a generating function the entry records as fact |
+| 5173 | PROOF | A206261 | the recurrence follows from a generating function the entry records as fact |
+| 5174 | PROOF | A224671 | the recurrence follows from a generating function the entry records as fact |
+| 5175 | PROOF | A224673 | the recurrence follows from a generating function the entry records as fact |
+| 5176 | PROOF | A194772 | the recurrence follows from a generating function the entry records as fact |
+| 5177 | PROOF | A222993 | the recurrence follows from a generating function the entry records as fact |
+| 5178 | PROOF | A223711 | the recurrence follows from a generating function the entry records as fact |
+| 5179 | PROOF | A224670 | the recurrence follows from a generating function the entry records as fact |
+| 5180 | PROOF | A235510 | the recurrence follows from a generating function the entry records as fact |
+| 5181 | PROOF | A250779 | the recurrence follows from a generating function the entry records as fact |
+| 5182 | PROOF | A250792 | the recurrence follows from a generating function the entry records as fact |
+| 5183 | PROOF | A250899 | the recurrence follows from a generating function the entry records as fact |
+| 5184 | PROOF | A157125 | several independent square roots |
+| 5185 | PROOF | A102318 | several independent square roots |
+| 5186 | PROOF | A107587 | several independent square roots |
+| 5187 | PROOF | A190092 | the recurrence follows from a generating function the entry records as fact |
+| 5188 | PROOF | A190093 | the recurrence follows from a generating function the entry records as fact |
+| 5189 | PROOF | A253226 | the recurrence follows from a generating function the entry records as fact |
+| 5190 | PROOF | A253227 | the recurrence follows from a generating function the entry records as fact |
+| 5191 | PROOF | A253228 | the recurrence follows from a generating function the entry records as fact |
+| 5192 | PROOF | A253229 | the recurrence follows from a generating function the entry records as fact |
+| 5193 | PROOF | A253230 | the recurrence follows from a generating function the entry records as fact |
+| 5194 | PROOF | A222835 | the recurrence follows from a generating function the entry records as fact |
+| 5195 | PROOF | A221788 | the recurrence follows from a generating function the entry records as fact |
+| 5196 | PROOF | A222777 | the recurrence follows from a generating function the entry records as fact |
+| 5197 | PROOF | A222892 | the recurrence follows from a generating function the entry records as fact |
+| 5198 | PROOF | A184031 | the recurrence follows from a generating function the entry records as fact |
+| 5199 | PROOF | A184032 | the recurrence follows from a generating function the entry records as fact |
+| 5200 | PROOF | A184033 | the recurrence follows from a generating function the entry records as fact |
+| 5201 | PROOF | A184034 | the recurrence follows from a generating function the entry records as fact |
+| 5202 | PROOF | A184035 | the recurrence follows from a generating function the entry records as fact |
+| 5203 | PROOF | A184036 | the recurrence follows from a generating function the entry records as fact |
+| 5204 | PROOF | A184037 | the recurrence follows from a generating function the entry records as fact |
+| 5205 | PROOF | A184038 | the recurrence follows from a generating function the entry records as fact |
+| 5206 | PROOF | A184041 | the recurrence follows from a generating function the entry records as fact |
+| 5207 | PROOF | A184042 | the recurrence follows from a generating function the entry records as fact |
+| 5208 | PROOF | A184043 | the recurrence follows from a generating function the entry records as fact |
+| 5209 | PROOF | A184044 | the recurrence follows from a generating function the entry records as fact |
+| 5210 | PROOF | A184045 | the recurrence follows from a generating function the entry records as fact |
+| 5211 | PROOF | A184046 | the recurrence follows from a generating function the entry records as fact |
+| 5212 | PROOF | A184047 | the recurrence follows from a generating function the entry records as fact |
+| 5213 | PROOF | A189450 | the recurrence follows from a generating function the entry records as fact |
+| 5214 | PROOF | A190091 | the recurrence follows from a generating function the entry records as fact |
+| 5215 | PROOF | A206170 | the recurrence follows from a generating function the entry records as fact |
+| 5216 | PROOF | A208086 | the recurrence follows from a generating function the entry records as fact |
+| 5217 | PROOF | A208087 | the recurrence follows from a generating function the entry records as fact |
+| 5218 | PROOF | A208089 | the recurrence follows from a generating function the entry records as fact |
+| 5219 | PROOF | A211327 | the recurrence follows from a generating function the entry records as fact |
+| 5220 | PROOF | A214181 | the recurrence follows from a generating function the entry records as fact |
+| 5221 | PROOF | A218185 | several independent square roots |
+| 5222 | PROOF | A221619 | the recurrence follows from a generating function the entry records as fact |
+| 5223 | PROOF | A221764 | the recurrence follows from a generating function the entry records as fact |
+| 5224 | PROOF | A222001 | the recurrence follows from a generating function the entry records as fact |
+| 5225 | PROOF | A239024 | the recurrence follows from a generating function the entry records as fact |
+| 5226 | PROOF | A250610 | the recurrence follows from a generating function the entry records as fact |
+| 5227 | PROOF | A250784 | the recurrence follows from a generating function the entry records as fact |
+| 5228 | PROOF | A250791 | the recurrence follows from a generating function the entry records as fact |
+| 5229 | PROOF | A262267 | the recurrence follows from a generating function the entry records as fact |
+| 5230 | PROOF | A263908 | the recurrence follows from a generating function the entry records as fact |
+| 5231 | PROOF | A267905 | the recurrence follows from a generating function the entry records as fact |
+| 5232 | PROOF | A268053 | the recurrence follows from a generating function the entry records as fact |
+| 5233 | PROOF | A268775 | the recurrence follows from a generating function the entry records as fact |
+| 5234 | PROOF | A269202 | the recurrence follows from a generating function the entry records as fact |
+| 5235 | PROOF | A025567 | several independent square roots |
+| 5236 | PROOF | A071684 | several independent square roots |
+| 5237 | PROOF | A179648 | several independent square roots |
+| 5238 | PROOF | A184120 | several independent square roots |
+| 5239 | PROOF | A026163 | several independent square roots |
+| 5240 | PROOF | A102318 | several independent square roots |
+| 5241 | PROOF | A101500 | several independent square roots |
+| 5242 | PROOF | A102319 | several independent square roots |
+| 5243 | PROOF | A107587 | several independent square roots |
+| 5244 | PROOF | A206336 | the recurrence follows from a generating function the entry records as fact |
+| 5245 | PROOF | A165381 | the recurrence follows from a generating function the entry records as fact |
+| 5246 | PROOF | A165392 | the recurrence follows from a generating function the entry records as fact |
+| 5247 | PROOF | A207142 | the recurrence follows from a generating function the entry records as fact |
+| 5248 | PROOF | A220749 | the recurrence follows from a generating function the entry records as fact |
+| 5249 | PROOF | A253225 | the recurrence follows from a generating function the entry records as fact |
+| 5250 | PROOF | A253490 | the recurrence follows from a generating function the entry records as fact |
+| 5251 | PROOF | A265989 | the recurrence follows from a generating function the entry records as fact |
+| 5252 | PROOF | A165378 | the recurrence follows from a generating function the entry records as fact |
+| 5253 | PROOF | A253491 | the recurrence follows from a generating function the entry records as fact |
+| 5254 | PROOF | A253492 | the recurrence follows from a generating function the entry records as fact |
+| 5255 | PROOF | A253493 | the recurrence follows from a generating function the entry records as fact |
+| 5256 | PROOF | A204609 | the recurrence follows from a generating function the entry records as fact |
+| 5257 | PROOF | A222939 | the recurrence follows from a generating function the entry records as fact |
+| 5258 | PROOF | A267912 | the recurrence follows from a generating function the entry records as fact |
+| 5259 | PROOF | A183356 | the recurrence follows from a generating function the entry records as fact |
+| 5260 | PROOF | A222834 | the recurrence follows from a generating function the entry records as fact |
+| 5261 | PROOF | A233162 | the recurrence follows from a generating function the entry records as fact |
+| 5262 | PROOF | A233175 | the recurrence follows from a generating function the entry records as fact |
+| 5263 | PROOF | A233218 | the recurrence follows from a generating function the entry records as fact |
+| 5264 | PROOF | A276300 | the recurrence follows from a generating function the entry records as fact |
+| 5265 | PROOF | A181192 | the recurrence follows from a generating function the entry records as fact |
+| 5266 | PROOF | A183430 | the recurrence follows from a generating function the entry records as fact |
+| 5267 | PROOF | A184679 | the recurrence follows from a generating function the entry records as fact |
+| 5268 | PROOF | A204707 | the recurrence follows from a generating function the entry records as fact |
+| 5269 | PROOF | A204708 | the recurrence follows from a generating function the entry records as fact |
+| 5270 | PROOF | A211322 | the recurrence follows from a generating function the entry records as fact |
+| 5271 | PROOF | A211490 | the recurrence follows from a generating function the entry records as fact |
+| 5272 | PROOF | A214160 | the recurrence follows from a generating function the entry records as fact |
+| 5273 | PROOF | A221374 | the recurrence follows from a generating function the entry records as fact |
+| 5274 | PROOF | A223363 | the recurrence follows from a generating function the entry records as fact |
+| 5275 | PROOF | A223499 | the recurrence follows from a generating function the entry records as fact |
+| 5276 | PROOF | A224669 | the recurrence follows from a generating function the entry records as fact |
+| 5277 | PROOF | A232951 | the recurrence follows from a generating function the entry records as fact |
+| 5278 | PROOF | A233106 | the recurrence follows from a generating function the entry records as fact |
+| 5279 | PROOF | A233107 | the recurrence follows from a generating function the entry records as fact |
+| 5280 | PROOF | A233124 | the recurrence follows from a generating function the entry records as fact |
+| 5281 | PROOF | A233211 | the recurrence follows from a generating function the entry records as fact |
+| 5282 | PROOF | A233212 | the recurrence follows from a generating function the entry records as fact |
+| 5283 | PROOF | A233213 | the recurrence follows from a generating function the entry records as fact |
+| 5284 | PROOF | A234789 | the recurrence follows from a generating function the entry records as fact |
+| 5285 | PROOF | A235878 | the recurrence follows from a generating function the entry records as fact |
+| 5286 | PROOF | A235879 | the recurrence follows from a generating function the entry records as fact |
+| 5287 | PROOF | A235880 | the recurrence follows from a generating function the entry records as fact |
+| 5288 | PROOF | A235881 | the recurrence follows from a generating function the entry records as fact |
+| 5289 | PROOF | A235882 | the recurrence follows from a generating function the entry records as fact |
+| 5290 | PROOF | A235883 | the recurrence follows from a generating function the entry records as fact |
+| 5291 | PROOF | A235887 | the recurrence follows from a generating function the entry records as fact |
+| 5292 | PROOF | A235888 | the recurrence follows from a generating function the entry records as fact |
+| 5293 | PROOF | A235889 | the recurrence follows from a generating function the entry records as fact |
+| 5294 | PROOF | A235890 | the recurrence follows from a generating function the entry records as fact |
+| 5295 | PROOF | A235891 | the recurrence follows from a generating function the entry records as fact |
+| 5296 | PROOF | A235892 | the recurrence follows from a generating function the entry records as fact |
+| 5297 | PROOF | A235895 | the recurrence follows from a generating function the entry records as fact |
+| 5298 | PROOF | A250461 | the recurrence follows from a generating function the entry records as fact |
+| 5299 | PROOF | A250778 | the recurrence follows from a generating function the entry records as fact |
+| 5300 | PROOF | A262326 | the recurrence follows from a generating function the entry records as fact |
+| 5301 | PROOF | A262327 | the recurrence follows from a generating function the entry records as fact |
+| 5302 | PROOF | A262415 | the recurrence follows from a generating function the entry records as fact |
+| 5303 | PROOF | A265987 | the recurrence follows from a generating function the entry records as fact |
+| 5304 | PROOF | A267946 | the recurrence follows from a generating function the entry records as fact |
+| 5305 | PROOF | A268052 | the recurrence follows from a generating function the entry records as fact |
+| 5306 | PROOF | A268093 | the recurrence follows from a generating function the entry records as fact |
+| 5307 | PROOF | A268164 | the recurrence follows from a generating function the entry records as fact |
+| 5308 | PROOF | A277761 | the recurrence follows from a generating function the entry records as fact |
+| 5309 | PROOF | A072100 | several independent square roots |
+| 5310 | PROOF | A239530 | the recurrence follows from a generating function the entry records as fact |
+| 5311 | PROOF | A263907 | the recurrence follows from a generating function the entry records as fact |
+| 5312 | PROOF | A221588 | the recurrence follows from a generating function the entry records as fact |
+| 5313 | PROOF | A221589 | the recurrence follows from a generating function the entry records as fact |
+| 5314 | PROOF | A221022 | the recurrence follows from a generating function the entry records as fact |
+| 5315 | PROOF | A165372 | the recurrence follows from a generating function the entry records as fact |
+| 5316 | PROOF | A202730 | the recurrence follows from a generating function the entry records as fact |
+| 5317 | PROOF | A206687 | the recurrence follows from a generating function the entry records as fact |
+| 5318 | PROOF | A221829 | the recurrence follows from a generating function the entry records as fact |
+| 5319 | PROOF | A222869 | the recurrence follows from a generating function the entry records as fact |
+| 5320 | PROOF | A222940 | the recurrence follows from a generating function the entry records as fact |
+| 5321 | PROOF | A223332 | the recurrence follows from a generating function the entry records as fact |
+| 5322 | PROOF | A269290 | the recurrence follows from a generating function the entry records as fact |
+| 5323 | PROOF | A223181 | the recurrence follows from a generating function the entry records as fact |
+| 5324 | PROOF | A223234 | the recurrence follows from a generating function the entry records as fact |
+| 5325 | PROOF | A223381 | the recurrence follows from a generating function the entry records as fact |
+| 5326 | PROOF | A233163 | the recurrence follows from a generating function the entry records as fact |
+| 5327 | PROOF | A233164 | the recurrence follows from a generating function the entry records as fact |
+| 5328 | PROOF | A233165 | the recurrence follows from a generating function the entry records as fact |
+| 5329 | PROOF | A233166 | the recurrence follows from a generating function the entry records as fact |
+| 5330 | PROOF | A233167 | the recurrence follows from a generating function the entry records as fact |
+| 5331 | PROOF | A233196 | the recurrence follows from a generating function the entry records as fact |
+| 5332 | PROOF | A233257 | the recurrence follows from a generating function the entry records as fact |
+| 5333 | PROOF | A268622 | the recurrence follows from a generating function the entry records as fact |
+| 5334 | PROOF | A269103 | the recurrence follows from a generating function the entry records as fact |
+| 5335 | PROOF | A269285 | the recurrence follows from a generating function the entry records as fact |
+| 5336 | PROOF | A183586 | the recurrence follows from a generating function the entry records as fact |
+| 5337 | PROOF | A183682 | the recurrence follows from a generating function the entry records as fact |
+| 5338 | PROOF | A183690 | the recurrence follows from a generating function the entry records as fact |
+| 5339 | PROOF | A183702 | the recurrence follows from a generating function the entry records as fact |
+| 5340 | PROOF | A184688 | the recurrence follows from a generating function the entry records as fact |
+| 5341 | PROOF | A185761 | the recurrence follows from a generating function the entry records as fact |
+| 5342 | PROOF | A185858 | the recurrence follows from a generating function the entry records as fact |
+| 5343 | PROOF | A189604 | the recurrence follows from a generating function the entry records as fact |
+| 5344 | PROOF | A205220 | the recurrence follows from a generating function the entry records as fact |
+| 5345 | PROOF | A205329 | the recurrence follows from a generating function the entry records as fact |
+| 5346 | PROOF | A205354 | the recurrence follows from a generating function the entry records as fact |
+| 5347 | PROOF | A208088 | the recurrence follows from a generating function the entry records as fact |
+| 5348 | PROOF | A211715 | the recurrence follows from a generating function the entry records as fact |
+| 5349 | PROOF | A211719 | the recurrence follows from a generating function the entry records as fact |
+| 5350 | PROOF | A220932 | the recurrence follows from a generating function the entry records as fact |
+| 5351 | PROOF | A221121 | the recurrence follows from a generating function the entry records as fact |
+| 5352 | PROOF | A221731 | the recurrence follows from a generating function the entry records as fact |
+| 5353 | PROOF | A222098 | the recurrence follows from a generating function the entry records as fact |
+| 5354 | PROOF | A223197 | the recurrence follows from a generating function the entry records as fact |
+| 5355 | PROOF | A223204 | the recurrence follows from a generating function the entry records as fact |
+| 5356 | PROOF | A223228 | the recurrence follows from a generating function the entry records as fact |
+| 5357 | PROOF | A223258 | the recurrence follows from a generating function the entry records as fact |
+| 5358 | PROOF | A223277 | the recurrence follows from a generating function the entry records as fact |
+| 5359 | PROOF | A223278 | the recurrence follows from a generating function the entry records as fact |
+| 5360 | PROOF | A223318 | the recurrence follows from a generating function the entry records as fact |
+| 5361 | PROOF | A223552 | the recurrence follows from a generating function the entry records as fact |
+| 5362 | PROOF | A231103 | the recurrence follows from a generating function the entry records as fact |
+| 5363 | PROOF | A231104 | the recurrence follows from a generating function the entry records as fact |
+| 5364 | PROOF | A232950 | the recurrence follows from a generating function the entry records as fact |
+| 5365 | PROOF | A232956 | the recurrence follows from a generating function the entry records as fact |
+| 5366 | PROOF | A233123 | the recurrence follows from a generating function the entry records as fact |
+| 5367 | PROOF | A233251 | the recurrence follows from a generating function the entry records as fact |
+| 5368 | PROOF | A233252 | the recurrence follows from a generating function the entry records as fact |
+| 5369 | PROOF | A234779 | the recurrence follows from a generating function the entry records as fact |
+| 5370 | PROOF | A235877 | the recurrence follows from a generating function the entry records as fact |
+| 5371 | PROOF | A235886 | the recurrence follows from a generating function the entry records as fact |
+| 5372 | PROOF | A253029 | the recurrence follows from a generating function the entry records as fact |
+| 5373 | PROOF | A259243 | the recurrence follows from a generating function the entry records as fact |
+| 5374 | PROOF | A259290 | the recurrence follows from a generating function the entry records as fact |
+| 5375 | PROOF | A269284 | the recurrence follows from a generating function the entry records as fact |
+| 5376 | PROOF | A275229 | the recurrence follows from a generating function the entry records as fact |
+| 5377 | PROOF | A221082 | the recurrence follows from a generating function the entry records as fact |
+| 5378 | PROOF | A223270 | the recurrence follows from a generating function the entry records as fact |
+| 5379 | PROOF | A232921 | the recurrence follows from a generating function the entry records as fact |
+| 5380 | PROOF | A233020 | the recurrence follows from a generating function the entry records as fact |
+| 5381 | PROOF | A025567 | several independent square roots |
+| 5382 | PROOF | A264123 | the recurrence follows from a generating function the entry records as fact |
+| 5383 | PROOF | A264185 | the recurrence follows from a generating function the entry records as fact |
+| 5384 | PROOF | A208428 | the recurrence follows from a generating function the entry records as fact |
+| 5385 | PROOF | A189274 | the recurrence follows from a generating function the entry records as fact |
+| 5386 | PROOF | A223322 | the recurrence follows from a generating function the entry records as fact |
+| 5387 | PROOF | A334509 | an identity between different entries |
+| 5388 | PROOF | A298022 | an identity between different entries |
+| 5389 | PROOF | A273676 | an identity between different entries |
+| 5390 | PROOF | A273832 | an identity between different entries |
+| 5391 | PROOF | A319371 | an identity between different entries |
+| 5392 | PROOF | A110320 | an identity between different entries |
+| 5393 | PROOF | A309878 | an identity between different entries |
+| 5394 | PROOF | A315520 | an identity between different entries |
+| 5395 | PROOF | A346370 | an identity between different entries |
+| 5396 | PROOF | A176126 | the residual test over one square root, or none |
+| 5397 | PROOF | A191625 | the residual test over one square root, or none |
+| 5398 | PROOF | A186341 | the residual test over one square root, or none |
+| 5399 | PROOF | A026743 | the residual test over one square root, or none |
+| 5400 | PROOF | A191786 | the residual test over one square root, or none |
+| 5401 | PROOF | A210496 | the residual test over one square root, or none |
+| 5402 | PROOF | A182892 | the residual test over one square root, or none |
+| 5403 | PROOF | A270724 | the residual test over one square root, or none |
+| 5404 | PROOF | A190171 | the residual test over one square root, or none |
+| 5405 | PROOF | A257515 | the residual test over one square root, or none |
+| 5406 | PROOF | A190788 | the residual test over one square root, or none |
+| 5407 | PROOF | A095981 | the residual test over one square root, or none |
+| 5408 | PROOF | A212205 | the residual test over one square root, or none |
+| 5409 | PROOF | A270661 | the residual test over one square root, or none |
+| 5410 | PROOF | A157021 | the residual test over one square root, or none |
+| 5411 | PROOF | A165537 | the residual test over one square root, or none |
+| 5412 | PROOF | A166287 | the residual test over one square root, or none |
+| 5413 | PROOF | A174013 | the residual test over one square root, or none |
+| 5414 | PROOF | A178072 | the residual test over one square root, or none |
+| 5415 | PROOF | A182894 | the residual test over one square root, or none |
+| 5416 | PROOF | A114584 | the residual test over one square root, or none |
+| 5417 | PROOF | A164586 | the residual test over one square root, or none |
+| 5418 | PROOF | A189053 | the residual test over one square root, or none |
+| 5419 | PROOF | A182904 | the residual test over one square root, or none |
+| 5420 | PROOF | A274295 | the residual test over one square root, or none |
+| 5421 | PROOF | A226434 | the residual test over one square root, or none |
+| 5422 | PROOF | A257104 | the residual test over one square root, or none |
+| 5423 | PROOF | A108600 | the residual test over one square root, or none |
+| 5424 | PROOF | A114851 | the residual test over one square root, or none |
+| 5425 | PROOF | A125306 | the residual test over one square root, or none |
+| 5426 | PROOF | A166290 | the residual test over one square root, or none |
+| 5427 | PROOF | A228770 | the residual test over one square root, or none |
+| 5428 | PROOF | A257300 | the residual test over one square root, or none |
+| 5429 | PROOF | A089324 | the residual test over one square root, or none |
+| 5430 | PROOF | A104625 | the residual test over one square root, or none |
+| 5431 | PROOF | A113956 | the residual test over one square root, or none |
+| 5432 | PROOF | A116383 | the residual test over one square root, or none |
+| 5433 | PROOF | A162548 | the residual test over one square root, or none |
+| 5434 | PROOF | A173993 | the residual test over one square root, or none |
+| 5435 | PROOF | A244886 | the residual test over one square root, or none |
+| 5436 | PROOF | A157003 | the residual test over one square root, or none |
+| 5437 | PROOF | A162482 | the residual test over one square root, or none |
+| 5438 | PROOF | A163493 | the residual test over one square root, or none |
+| 5439 | PROOF | A191398 | the residual test over one square root, or none |
+| 5440 | PROOF | A135582 | the residual test over one square root, or none |
+| 5441 | PROOF | A139376 | the residual test over one square root, or none |
+| 5442 | PROOF | A346074 | the residual test over one square root, or none |
+| 5443 | PROOF | A190166 | the residual test over one square root, or none |
+| 5444 | PROOF | A025251 | the residual test over one square root, or none |
+| 5445 | PROOF | A228771 | the residual test over one square root, or none |
+| 5446 | PROOF | A025268 | the residual test over one square root, or none |
+| 5447 | PROOF | A025272 | the residual test over one square root, or none |
+| 5448 | PROOF | A162475 | the residual test over one square root, or none |
+| 5449 | PROOF | A385252 | the residual test over one square root, or none |
+| 5450 | PROOF | A114464 | the residual test over one square root, or none |
+| 5451 | PROOF | A127154 | the residual test over one square root, or none |
+| 5452 | PROOF | A135335 | the residual test over one square root, or none |
+| 5453 | PROOF | A165540 | the residual test over one square root, or none |
+| 5454 | PROOF | A171416 | the residual test over one square root, or none |
+| 5455 | PROOF | A188314 | the residual test over one square root, or none |
+| 5456 | PROOF | A247170 | the residual test over one square root, or none |
+| 5457 | PROOF | A254314 | the residual test over one square root, or none |
+| 5458 | PROOF | A270661 | the residual test over one square root, or none |
+| 5459 | PROOF | A003440 | the residual test over one square root, or none |
+| 5460 | PROOF | A110521 | the residual test over one square root, or none |
+| 5461 | PROOF | A114190 | the residual test over one square root, or none |
+| 5462 | PROOF | A116387 | the residual test over one square root, or none |
+| 5463 | PROOF | A128096 | the residual test over one square root, or none |
+| 5464 | PROOF | A135052 | the residual test over one square root, or none |
+| 5465 | PROOF | A157021 | the residual test over one square root, or none |
+| 5466 | PROOF | A160823 | the residual test over one square root, or none |
+| 5467 | PROOF | A166287 | the residual test over one square root, or none |
+| 5468 | PROOF | A174808 | the residual test over one square root, or none |
+| 5469 | PROOF | A185089 | the residual test over one square root, or none |
+| 5470 | PROOF | A186940 | the residual test over one square root, or none |
+| 5471 | PROOF | A190736 | the residual test over one square root, or none |
+| 5472 | PROOF | A219314 | the residual test over one square root, or none |
+| 5473 | PROOF | A100095 | the residual test over one square root, or none |
+| 5474 | PROOF | A100097 | the residual test over one square root, or none |
+| 5475 | PROOF | A191313 | the residual test over one square root, or none |
+| 5476 | PROOF | A191790 | the residual test over one square root, or none |
+| 5477 | PROOF | A273351 | the residual test over one square root, or none |
+| 5478 | PROOF | A278472 | the residual test over one square root, or none |
+| 5479 | PROOF | A108296 | the residual test over one square root, or none |
+| 5480 | PROOF | A116391 | the residual test over one square root, or none |
+| 5481 | PROOF | A110198 | the residual test over one square root, or none |
+| 5482 | PROOF | A182879 | the residual test over one square root, or none |
+| 5483 | PROOF | A182887 | the residual test over one square root, or none |
+| 5484 | PROOF | A135925 | the residual test over one square root, or none |
+| 5485 | PROOF | A007901 | the residual test over one square root, or none |
+| 5486 | PROOF | A025256 | the residual test over one square root, or none |
+| 5487 | PROOF | A025258 | the residual test over one square root, or none |
+| 5488 | PROOF | A000781 | the residual test over one square root, or none |
+| 5489 | PROOF | A025245 | the residual test over one square root, or none |
+| 5490 | PROOF | A025257 | the residual test over one square root, or none |
+| 5491 | PROOF | A025269 | the residual test over one square root, or none |
+| 5492 | PROOF | A025270 | the residual test over one square root, or none |
+| 5493 | PROOF | A025275 | the residual test over one square root, or none |
+| 5494 | PROOF | A032096 | the residual test over one square root, or none |
+| 5495 | PROOF | A102880 | the residual test over one square root, or none |
+| 5496 | PROOF | A111053 | the residual test over one square root, or none |
+| 5497 | PROOF | A152120 | the residual test over one square root, or none |
+| 5498 | PROOF | A159771 | the residual test over one square root, or none |
+| 5499 | PROOF | A166694 | the residual test over one square root, or none |
+| 5500 | PROOF | A166696 | the residual test over one square root, or none |
+| 5501 | PROOF | A191796 | the residual test over one square root, or none |
+| 5502 | PROOF | A217711 | the residual test over one square root, or none |
+| 5503 | PROOF | A278023 | the residual test over one square root, or none |
+| 5504 | PROOF | A279014 | the residual test over one square root, or none |
+| 5505 | PROOF | A000483 | the residual test over one square root, or none |
+| 5506 | PROOF | A026030 | the residual test over one square root, or none |
+| 5507 | PROOF | A026031 | the residual test over one square root, or none |
+| 5508 | PROOF | A048775 | the residual test over one square root, or none |
+| 5509 | PROOF | A116409 | the residual test over one square root, or none |
+| 5510 | PROOF | A126322 | the residual test over one square root, or none |
+| 5511 | PROOF | A128750 | the residual test over one square root, or none |
+| 5512 | PROOF | A143955 | the residual test over one square root, or none |
+| 5513 | PROOF | A165203 | the residual test over one square root, or none |
+| 5514 | PROOF | A168505 | the residual test over one square root, or none |
+| 5515 | PROOF | A176605 | the residual test over one square root, or none |
+| 5516 | PROOF | A181933 | the residual test over one square root, or none |
+| 5517 | PROOF | A191585 | the residual test over one square root, or none |
+| 5518 | PROOF | A215973 | the residual test over one square root, or none |
+| 5519 | PROOF | A234269 | the residual test over one square root, or none |
+| 5520 | PROOF | A236407 | the residual test over one square root, or none |
+| 5521 | PROOF | A270363 | the residual test over one square root, or none |
+| 5522 | PROOF | A098521 | the residual test over one square root, or none |
+| 5523 | PROOF | A100096 | the residual test over one square root, or none |
+| 5524 | PROOF | A100099 | the residual test over one square root, or none |
+| 5525 | PROOF | A105849 | the residual test over one square root, or none |
+| 5526 | PROOF | A105864 | the residual test over one square root, or none |
+| 5527 | PROOF | A105865 | the residual test over one square root, or none |
+| 5528 | PROOF | A108308 | the residual test over one square root, or none |
+| 5529 | PROOF | A114194 | the residual test over one square root, or none |
+| 5530 | PROOF | A115967 | the residual test over one square root, or none |
+| 5531 | PROOF | A117186 | the residual test over one square root, or none |
+| 5532 | PROOF | A120010 | the residual test over one square root, or none |
+| 5533 | PROOF | A124431 | the residual test over one square root, or none |
+| 5534 | PROOF | A124431 | the residual test over one square root, or none |
+| 5535 | PROOF | A126568 | the residual test over one square root, or none |
+| 5536 | PROOF | A132364 | the residual test over one square root, or none |
+| 5537 | PROOF | A141342 | the residual test over one square root, or none |
+| 5538 | PROOF | A155051 | the residual test over one square root, or none |
+| 5539 | PROOF | A157002 | the residual test over one square root, or none |
+| 5540 | PROOF | A157100 | the residual test over one square root, or none |
+| 5541 | PROOF | A166076 | the residual test over one square root, or none |
+| 5542 | PROOF | A166300 | the residual test over one square root, or none |
+| 5543 | PROOF | A168503 | the residual test over one square root, or none |
+| 5544 | PROOF | A174107 | the residual test over one square root, or none |
+| 5545 | PROOF | A174169 | the residual test over one square root, or none |
+| 5546 | PROOF | A176332 | the residual test over one square root, or none |
+| 5547 | PROOF | A184018 | the residual test over one square root, or none |
+| 5548 | PROOF | A188312 | the residual test over one square root, or none |
+| 5549 | PROOF | A188482 | the residual test over one square root, or none |
+| 5550 | PROOF | A191782 | the residual test over one square root, or none |
+| 5551 | PROOF | A217333 | the residual test over one square root, or none |
+| 5552 | PROOF | A257072 | the residual test over one square root, or none |
+| 5553 | PROOF | A261681 | the residual test over one square root, or none |
+| 5554 | PROOF | A073155 | the residual test over one square root, or none |
+| 5555 | PROOF | A105524 | the residual test over one square root, or none |
+| 5556 | PROOF | A114589 | the residual test over one square root, or none |
+| 5557 | PROOF | A114590 | the residual test over one square root, or none |
+| 5558 | PROOF | A162481 | the residual test over one square root, or none |
+| 5559 | PROOF | A174783 | the residual test over one square root, or none |
+| 5560 | PROOF | A188460 | the residual test over one square root, or none |
+| 5561 | PROOF | A188464 | the residual test over one square root, or none |
+| 5562 | PROOF | A190725 | the residual test over one square root, or none |
+| 5563 | PROOF | A191526 | the residual test over one square root, or none |
+| 5564 | PROOF | A191531 | the residual test over one square root, or none |
+| 5565 | PROOF | A211278 | the residual test over one square root, or none |
+| 5566 | PROOF | A026327 | the residual test over one square root, or none |
+| 5567 | PROOF | A081207 | the residual test over one square root, or none |
+| 5568 | PROOF | A102882 | the residual test over one square root, or none |
+| 5569 | PROOF | A182881 | the residual test over one square root, or none |
+| 5570 | PROOF | A191309 | the residual test over one square root, or none |
+| 5571 | PROOF | A191319 | the residual test over one square root, or none |
+| 5572 | PROOF | A191790 | the residual test over one square root, or none |
+| 5573 | PROOF | A273351 | the residual test over one square root, or none |
+| 5574 | PROOF | A025248 | the residual test over one square root, or none |
+| 5575 | PROOF | A025249 | the residual test over one square root, or none |
+| 5576 | PROOF | A026017 | the residual test over one square root, or none |
+| 5577 | PROOF | A071717 | the residual test over one square root, or none |
+| 5578 | PROOF | A081672 | the residual test over one square root, or none |
+| 5579 | PROOF | A104722 | the residual test over one square root, or none |
+| 5580 | PROOF | A109263 | the residual test over one square root, or none |
+| 5581 | PROOF | A118093 | the residual test over one square root, or none |
+| 5582 | PROOF | A118974 | the residual test over one square root, or none |
+| 5583 | PROOF | A121320 | the residual test over one square root, or none |
+| 5584 | PROOF | A126323 | the residual test over one square root, or none |
+| 5585 | PROOF | A128723 | the residual test over one square root, or none |
+| 5586 | PROOF | A135334 | the residual test over one square root, or none |
+| 5587 | PROOF | A141351 | the residual test over one square root, or none |
+| 5588 | PROOF | A141353 | the residual test over one square root, or none |
+| 5589 | PROOF | A163824 | the residual test over one square root, or none |
+| 5590 | PROOF | A165201 | the residual test over one square root, or none |
+| 5591 | PROOF | A279014 | the residual test over one square root, or none |
+| 5592 | PROOF | A026027 | the residual test over one square root, or none |
+| 5593 | PROOF | A026135 | the residual test over one square root, or none |
+| 5594 | PROOF | A050168 | the residual test over one square root, or none |
+| 5595 | PROOF | A059279 | the residual test over one square root, or none |
+| 5596 | PROOF | A063395 | the residual test over one square root, or none |
+| 5597 | PROOF | A071722 | the residual test over one square root, or none |
+| 5598 | PROOF | A082134 | the residual test over one square root, or none |
+| 5599 | PROOF | A097331 | the residual test over one square root, or none |
+| 5600 | PROOF | A100193 | the residual test over one square root, or none |
+| 5601 | PROOF | A103973 | the residual test over one square root, or none |
+| 5602 | PROOF | A106181 | the residual test over one square root, or none |
+| 5603 | PROOF | A108623 | the residual test over one square root, or none |
+| 5604 | PROOF | A126180 | the residual test over one square root, or none |
+| 5605 | PROOF | A128732 | the residual test over one square root, or none |
+| 5606 | PROOF | A134389 | the residual test over one square root, or none |
+| 5607 | PROOF | A143013 | the residual test over one square root, or none |
+| 5608 | PROOF | A143954 | the residual test over one square root, or none |
+| 5609 | PROOF | A157418 | the residual test over one square root, or none |
+| 5610 | PROOF | A158196 | the residual test over one square root, or none |
+| 5611 | PROOF | A158197 | the residual test over one square root, or none |
+| 5612 | PROOF | A191585 | the residual test over one square root, or none |
+| 5613 | PROOF | A257290 | the residual test over one square root, or none |
+| 5614 | PROOF | A054341 | the residual test over one square root, or none |
+| 5615 | PROOF | A071715 | the residual test over one square root, or none |
+| 5616 | PROOF | A090413 | the residual test over one square root, or none |
+| 5617 | PROOF | A090826 | the residual test over one square root, or none |
+| 5618 | PROOF | A091699 | the residual test over one square root, or none |
+| 5619 | PROOF | A098664 | the residual test over one square root, or none |
+| 5620 | PROOF | A099363 | the residual test over one square root, or none |
+| 5621 | PROOF | A100098 | the residual test over one square root, or none |
+| 5622 | PROOF | A105872 | the residual test over one square root, or none |
+| 5623 | PROOF | A119975 | the residual test over one square root, or none |
+| 5624 | PROOF | A121724 | the residual test over one square root, or none |
+| 5625 | PROOF | A121725 | the residual test over one square root, or none |
+| 5626 | PROOF | A126931 | the residual test over one square root, or none |
+| 5627 | PROOF | A126932 | the residual test over one square root, or none |
+| 5628 | PROOF | A127361 | the residual test over one square root, or none |
+| 5629 | PROOF | A127363 | the residual test over one square root, or none |
+| 5630 | PROOF | A155051 | the residual test over one square root, or none |
+| 5631 | PROOF | A166078 | the residual test over one square root, or none |
+| 5632 | PROOF | A166587 | the residual test over one square root, or none |
+| 5633 | PROOF | A166588 | the residual test over one square root, or none |
+| 5634 | PROOF | A176006 | the residual test over one square root, or none |
+| 5635 | PROOF | A185087 | the residual test over one square root, or none |
+| 5636 | PROOF | A190724 | the residual test over one square root, or none |
+| 5637 | PROOF | A225887 | the residual test over one square root, or none |
+| 5638 | PROOF | A227081 | the residual test over one square root, or none |
+| 5639 | PROOF | A257178 | the residual test over one square root, or none |
+| 5640 | PROOF | A257388 | the residual test over one square root, or none |
+| 5641 | PROOF | A257838 | the residual test over one square root, or none |
+| 5642 | PROOF | A001712 | the residual test over one square root, or none |
+| 5643 | PROOF | A025175 | the residual test over one square root, or none |
+| 5644 | PROOF | A025577 | the residual test over one square root, or none |
+| 5645 | PROOF | A026023 | the residual test over one square root, or none |
+| 5646 | PROOF | A055217 | the residual test over one square root, or none |
+| 5647 | PROOF | A081052 | the residual test over one square root, or none |
+| 5648 | PROOF | A103821 | the residual test over one square root, or none |
+| 5649 | PROOF | A107231 | the residual test over one square root, or none |
+| 5650 | PROOF | A110199 | the residual test over one square root, or none |
+| 5651 | PROOF | A116406 | the residual test over one square root, or none |
+| 5652 | PROOF | A128734 | the residual test over one square root, or none |
+| 5653 | PROOF | A191307 | the residual test over one square root, or none |
+| 5654 | PROOF | A278472 | the residual test over one square root, or none |
+| 5655 | PROOF | A034863 | the residual test over one square root, or none |
+| 5656 | PROOF | A128652 | the residual test over one square root, or none |
+| 5657 | PROOF | A174195 | the residual test over one square root, or none |
+| 5658 | PROOF | A192480 | the residual test over one square root, or none |
+| 5659 | PROOF | A158495 | the residual test over one square root, or none |
+| 5660 | PROOF | A189176 | the residual test over one square root, or none |
+| 5661 | PROOF | A194724 | the residual test over one square root, or none |
+| 5662 | PROOF | A210474 | the residual test over one square root, or none |
+| 5663 | PROOF | A262768 | the residual test over one square root, or none |
+| 5664 | PROOF | A026029 | the residual test over one square root, or none |
+| 5665 | PROOF | A064088 | the residual test over one square root, or none |
+| 5666 | PROOF | A064089 | the residual test over one square root, or none |
+| 5667 | PROOF | A064090 | the residual test over one square root, or none |
+| 5668 | PROOF | A064091 | the residual test over one square root, or none |
+| 5669 | PROOF | A064092 | the residual test over one square root, or none |
+| 5670 | PROOF | A067299 | the residual test over one square root, or none |
+| 5671 | PROOF | A068551 | the residual test over one square root, or none |
+| 5672 | PROOF | A080243 | the residual test over one square root, or none |
+| 5673 | PROOF | A114191 | the residual test over one square root, or none |
+| 5674 | PROOF | A116881 | the residual test over one square root, or none |
+| 5675 | PROOF | A122920 | the residual test over one square root, or none |
+| 5676 | PROOF | A132864 | the residual test over one square root, or none |
+| 5677 | PROOF | A133305 | the residual test over one square root, or none |
+| 5678 | PROOF | A133306 | the residual test over one square root, or none |
+| 5679 | PROOF | A133307 | the residual test over one square root, or none |
+| 5680 | PROOF | A133308 | the residual test over one square root, or none |
+| 5681 | PROOF | A141222 | the residual test over one square root, or none |
+| 5682 | PROOF | A154623 | the residual test over one square root, or none |
+| 5683 | PROOF | A157328 | the residual test over one square root, or none |
+| 5684 | PROOF | A158196 | the residual test over one square root, or none |
+| 5685 | PROOF | A158197 | the residual test over one square root, or none |
+| 5686 | PROOF | A191993 | the residual test over one square root, or none |
+| 5687 | PROOF | A225034 | the residual test over one square root, or none |
+| 5688 | PROOF | A242172 | the residual test over one square root, or none |
+| 5689 | PROOF | A002867 | the residual test over one square root, or none |
+| 5690 | PROOF | A014533 | the residual test over one square root, or none |
+| 5691 | PROOF | A051524 | the residual test over one square root, or none |
+| 5692 | PROOF | A071264 | the residual test over one square root, or none |
+| 5693 | PROOF | A081046 | the residual test over one square root, or none |
+| 5694 | PROOF | A098519 | the residual test over one square root, or none |
+| 5695 | PROOF | A098520 | the residual test over one square root, or none |
+| 5696 | PROOF | A101596 | the residual test over one square root, or none |
+| 5697 | PROOF | A101601 | the residual test over one square root, or none |
+| 5698 | PROOF | A101602 | the residual test over one square root, or none |
+| 5699 | PROOF | A111779 | the residual test over one square root, or none |
+| 5700 | PROOF | A112703 | the residual test over one square root, or none |
+| 5701 | PROOF | A119012 | the residual test over one square root, or none |
+| 5702 | PROOF | A128057 | the residual test over one square root, or none |
+| 5703 | PROOF | A128746 | the residual test over one square root, or none |
+| 5704 | PROOF | A132900 | the residual test over one square root, or none |
+| 5705 | PROOF | A151483 | the residual test over one square root, or none |
+| 5706 | PROOF | A167481 | the residual test over one square root, or none |
+| 5707 | PROOF | A171556 | the residual test over one square root, or none |
+| 5708 | PROOF | A176479 | the residual test over one square root, or none |
+| 5709 | PROOF | A182401 | the residual test over one square root, or none |
+| 5710 | PROOF | A208355 | the residual test over one square root, or none |
+| 5711 | PROOF | A210064 | the residual test over one square root, or none |
+| 5712 | PROOF | A240558 | the residual test over one square root, or none |
+| 5713 | PROOF | A141771 | the residual test over one square root, or none |
+| 5714 | PROOF | A176606 | the residual test over one square root, or none |
+| 5715 | PROOF | A176607 | the residual test over one square root, or none |
+| 5716 | PROOF | A176609 | the residual test over one square root, or none |
+| 5717 | PROOF | A176610 | the residual test over one square root, or none |
+| 5718 | PROOF | A176611 | the residual test over one square root, or none |
+| 5719 | PROOF | A176675 | the residual test over one square root, or none |
+| 5720 | PROOF | A176749 | the residual test over one square root, or none |
+| 5721 | PROOF | A176750 | the residual test over one square root, or none |
+| 5722 | PROOF | A176751 | the residual test over one square root, or none |
+| 5723 | PROOF | A176752 | the residual test over one square root, or none |
+| 5724 | PROOF | A176753 | the residual test over one square root, or none |
+| 5725 | PROOF | A176754 | the residual test over one square root, or none |
+| 5726 | PROOF | A176755 | the residual test over one square root, or none |
+| 5727 | PROOF | A176756 | the residual test over one square root, or none |
+| 5728 | PROOF | A176757 | the residual test over one square root, or none |
+| 5729 | PROOF | A176759 | the residual test over one square root, or none |
+| 5730 | PROOF | A176828 | the residual test over one square root, or none |
+| 5731 | PROOF | A176829 | the residual test over one square root, or none |
+| 5732 | PROOF | A176830 | the residual test over one square root, or none |
+| 5733 | PROOF | A176832 | the residual test over one square root, or none |
+| 5734 | PROOF | A176854 | the residual test over one square root, or none |
+| 5735 | PROOF | A176855 | the residual test over one square root, or none |
+| 5736 | PROOF | A176856 | the residual test over one square root, or none |
+| 5737 | PROOF | A176857 | the residual test over one square root, or none |
+| 5738 | PROOF | A176858 | the residual test over one square root, or none |
+| 5739 | PROOF | A176859 | the residual test over one square root, or none |
+| 5740 | PROOF | A176952 | the residual test over one square root, or none |
+| 5741 | PROOF | A176953 | the residual test over one square root, or none |
+| 5742 | PROOF | A176956 | the residual test over one square root, or none |
+| 5743 | PROOF | A176957 | the residual test over one square root, or none |
+| 5744 | PROOF | A176958 | the residual test over one square root, or none |
+| 5745 | PROOF | A176959 | the residual test over one square root, or none |
+| 5746 | PROOF | A176962 | the residual test over one square root, or none |
+| 5747 | PROOF | A176964 | the residual test over one square root, or none |
+| 5748 | PROOF | A176966 | the residual test over one square root, or none |
+| 5749 | PROOF | A176967 | the residual test over one square root, or none |
+| 5750 | PROOF | A177123 | the residual test over one square root, or none |
+| 5751 | PROOF | A177124 | the residual test over one square root, or none |
+| 5752 | PROOF | A177125 | the residual test over one square root, or none |
+| 5753 | PROOF | A177126 | the residual test over one square root, or none |
+| 5754 | PROOF | A177127 | the residual test over one square root, or none |
+| 5755 | PROOF | A177128 | the residual test over one square root, or none |
+| 5756 | PROOF | A177129 | the residual test over one square root, or none |
+| 5757 | PROOF | A177130 | the residual test over one square root, or none |
+| 5758 | PROOF | A177131 | the residual test over one square root, or none |
+| 5759 | PROOF | A177163 | the residual test over one square root, or none |
+| 5760 | PROOF | A177165 | the residual test over one square root, or none |
+| 5761 | PROOF | A177166 | the residual test over one square root, or none |
+| 5762 | PROOF | A177167 | the residual test over one square root, or none |
+| 5763 | PROOF | A177168 | the residual test over one square root, or none |
+| 5764 | PROOF | A177169 | the residual test over one square root, or none |
+| 5765 | PROOF | A177170 | the residual test over one square root, or none |
+| 5766 | PROOF | A177171 | the residual test over one square root, or none |
+| 5767 | PROOF | A177172 | the residual test over one square root, or none |
+| 5768 | PROOF | A177175 | the residual test over one square root, or none |
+| 5769 | PROOF | A177177 | the residual test over one square root, or none |
+| 5770 | PROOF | A177178 | the residual test over one square root, or none |
+| 5771 | PROOF | A177179 | the residual test over one square root, or none |
+| 5772 | PROOF | A177180 | the residual test over one square root, or none |
+| 5773 | PROOF | A177181 | the residual test over one square root, or none |
+| 5774 | PROOF | A177182 | the residual test over one square root, or none |
+| 5775 | PROOF | A177183 | the residual test over one square root, or none |
+| 5776 | PROOF | A177184 | the residual test over one square root, or none |
+| 5777 | PROOF | A177185 | the residual test over one square root, or none |
+| 5778 | PROOF | A177197 | the residual test over one square root, or none |
+| 5779 | PROOF | A177198 | the residual test over one square root, or none |
+| 5780 | PROOF | A177199 | the residual test over one square root, or none |
+| 5781 | PROOF | A177200 | the residual test over one square root, or none |
+| 5782 | PROOF | A177203 | the residual test over one square root, or none |
+| 5783 | PROOF | A081670 | the known side is the entry's NAME rather than a formula line |
+| 5784 | PROOF | A085781 | the known side is the entry's NAME rather than a formula line |
+| 5785 | PROOF | A026019 | the known side is the entry's NAME rather than a formula line |
+| 5786 | PROOF | A052183 | the known side is the entry's NAME rather than a formula line |
+| 5787 | PROOF | A052204 | the known side is the entry's NAME rather than a formula line |
+| 5788 | PROOF | A157713 | the known side is the entry's NAME rather than a formula line |
+| 5789 | PROOF | A334511 | a posted closed form decided by the theory of hypergeometric terms |
+| 5790 | PROOF | A333905 | a posted closed form decided by the theory of hypergeometric terms |
+| 5791 | PROOF | A049486 | a posted closed form decided by the theory of hypergeometric terms |
+| 5792 | PROOF | A267879 | a posted closed form decided by the theory of hypergeometric terms |
+| 5793 | PROOF | A267802 | a posted closed form decided by the theory of hypergeometric terms |
+| 5794 | PROOF | A267847 | a posted closed form decided by the theory of hypergeometric terms |
+| 5795 | PROOF | A034267 | a posted closed form decided by the theory of hypergeometric terms |
+| 5796 | PROOF | A126501 | a posted closed form decided by the theory of hypergeometric terms |
+| 5797 | PROOF | A128153 | a posted closed form decided by the theory of hypergeometric terms |
+| 5798 | PROOF | A212938 | a posted closed form decided by the theory of hypergeometric terms |
+| 5799 | PROOF | A220250 | a posted closed form decided by the theory of hypergeometric terms |
+| 5800 | PROOF | A248434 | a posted closed form decided by the theory of hypergeometric terms |
+| 5801 | PROOF | A258547 | a posted closed form decided by the theory of hypergeometric terms |
+| 5802 | PROOF | A272706 | a posted closed form decided by the theory of hypergeometric terms |
+| 5803 | PROOF | A126089 | complete annihilation, tested in the Ore algebra Q(n)[N] |
+| 5804 | PROOF | A025271 | division of one posted operator by another |
+| 5805 | PROOF | A138164 | division of one posted operator by another |
+| 5806 | PROOF | A143017 | division of one posted operator by another |
+| 5807 | PROOF | A159772 | division of one posted operator by another |
+| 5808 | PROOF | A000986 | division of one posted operator by another |
+| 5809 | PROOF | A022917 | division of one posted operator by another |
+| 5810 | PROOF | A217447 | division of one posted operator by another |
+| 5811 | PROOF | A226302 | division of one posted operator by another |
+| 5812 | PROOF | A245088 | division of one posted operator by another |
+| 5813 | PROOF | A026165 | division of one posted operator by another |
+| 5814 | PROOF | A185966 | division of one posted operator by another |
+| 5815 | PROOF | A200753 | division of one posted operator by another |
+| 5816 | PROOF | A217358 | division of one posted operator by another |
+| 5817 | PROOF | A228960 | division of one posted operator by another |
+| 5818 | PROOF | A003435 | division of one posted operator by another |
+| 5819 | PROOF | A228331 | division of one posted operator by another |
+| 5820 | PROOF | A273019 | division of one posted operator by another |
+| 5821 | PROOF | A386834 | division of one posted operator by another |
+| 5822 | PROOF | A228330 | division of one posted operator by another |
+| 5823 | PROOF | A228333 | division of one posted operator by another |
 
 ### What the ranking means
 
@@ -8260,6 +8493,42 @@ check came out the boring way.
 engines that existed when the sweep was written; and a candidate list frozen at what parsed
 when the sweep was last run. The third is the one that persists after the first two are fixed,
 because fixing a parser does not re-open the sweeps that already finished.
+
+### 2 Sep 2026: the entry often already contains the proof, in a different line
+
+A census of what is left outside the roster: **5301 entries still carry a conjectured linear
+recurrence**, and the sweeps cannot touch most of them --- past the state cap, or not array
+counts at all. So I stopped asking "can I model this sequence?" and asked "does the entry
+already say something that settles it?"
+
+276 of them carry a `G.f.:` line that is NOT marked conjectural --- contributed by someone,
+recorded as fact. If that generating function is rational, the recurrence is a consequence of
+it and needs no model whatever. Write `G(x) = sum a(n)x^n` and `D(x) = 1 - sum c_i x^i` for
+the conjectured recurrence; then `a(n) - sum c_i a(n-i)` is the coefficient of `x^n` in
+`D(x)G(x)`, so the recurrence holds past the degree of that product, provided it is a
+polynomial --- which is exactly the condition that the recurrence's characteristic polynomial
+is a multiple of the generating function's denominator. One polynomial division per entry.
+
+**Result: 233 papers.** Every candidate whose generating function parsed and matched the data
+implied its conjectured recurrence; not one failed.
+
+**The strongest external check I have had.** 84 of the 233 entries state the range themselves
+(`for n>=8` and the like) and 149 state none. In all 84 the entry's own range agrees EXACTLY
+with the degree bound computed here. That is 84 independent confirmations, by the entries'
+contributors, of the index conversion --- the very thing that was wrong in 477 papers a day
+ago.
+
+**What these papers are, stated plainly.** They are conditional on the entry's generating
+function. That function is asserted by the entry, not conjectured, and is checked here against
+every published term, but it is not proved in the paper. Each paper says so in a remark: what
+is shown is that the empirical recurrence is not an independent guess but a restatement of
+information the entry already contains. That is a real result and a weaker one than the
+transfer-matrix papers, and it is labelled as such --- rank tier 12, below the closed-form
+routes.
+
+**A uniform finding worth recording:** in all 233, the conjectured recurrence is the MINIMAL
+one --- its polynomial is exactly the reduced denominator, never a proper multiple. Each paper
+says which, computed rather than assumed; it just came out the same way every time.
 
 ### 26 Aug 2026: the ceiling above was wrong, and six things moved it
 
