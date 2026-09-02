@@ -16,14 +16,14 @@ import importlib
 from fractions import Fraction
 from math import factorial
 
-ENG = ['transfer3', 'transfer25', 'transfer24', 'transfer23', 'transfer17', 'transfer22', 'transfer21', 'transfer20', 'transfer19',
+ENG = ['transfer3', 'transfer26', 'transfer25', 'transfer24', 'transfer23', 'transfer17', 'transfer22', 'transfer21', 'transfer20', 'transfer19',
        'transfer18', 'transfer9', 'transfer6', 'transfer16', 'transfer12', 'transfer10',
        'transfer8', 'transfer14', 'transfer11', 'transfer15', 'transfer13', 'transfer7']
 M = {e: importlib.import_module(e) for e in ENG}
 T2 = importlib.import_module('transfer2')
 T19 = M['transfer19']
 SCALED = ('transfer7', 'transfer8', 'transfer10', 'transfer12', 'transfer16')
-PAIR = ('transfer18', 'transfer19', 'transfer24')          # (adj, start, end, S)
+PAIR = ('transfer18', 'transfer19', 'transfer24', 'transfer26')          # (adj, start, end, S)
 DEN = ('transfer20', 'transfer21', 'transfer22', 'transfer25')   # (adj, start, end, S, den)
 PLAIN = ('transfer3', 'transfer6', 'transfer17', 'transfer23')   # (states, adj), all-ones vectors
 
