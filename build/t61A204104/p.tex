@@ -1,0 +1,139 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=1in]{geometry}
+\usepackage[colorlinks=true,linkcolor=blue,urlcolor=blue]{hyperref}
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{remark}[theorem]{Remark}
+
+\title{The empirical recurrence for OEIS A204104, proved by transfer matrix}
+\author{Adrian Perez Fontelles\\ \small Independent researcher}
+\date{3 September 2026}
+\begin{document}
+\maketitle
+
+\begin{abstract}
+OEIS A204104 counts arrays of width $7$ over $\{0,1,2\}$ through two derived arrays of PAIR SUMS ---
+each cell added to its left neighbour, and each cell added to the one above it --- on which the
+entry imposes an order condition. The entry carries an empirical recurrence of order $15$
+contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical: the count is
+a walk count on $S=2188$ states.
+\end{abstract}
+
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 06A07, 15A18.\normalsize
+
+\section{The conjecture}
+
+OEIS A204104 is ``Number of (n+1)X7 0..2 arrays with column and row pair sums b(i,j)=a(i,j)+a(i,j-1) and c(i,j)=a(i,j)+a(i-1,j) such that b(i,j)*b(i-1,j)-c(i,j)*c(i,j-1) is nonzero.''. It has offset $1$ and begins
+\[
+36864, 1119744, 34012224, 1073134656, 34026967296, 1084257353088, 34589078037504, 1104253773912576,\ \dots
+\]
+The entry states, as a conjecture contributed by its author and never marked settled:
+\begin{quote}
+Empirical: a(n) = 39*a(n-1) +117*a(n-2) -13419*a(n-3) +42120*a(n-4) +1465776*a(n-5) -7558272*a(n-6) -59591376*a(n-7) +389959596*a(n-8) +776691180*a(n-9) -7353962460*a(n-10) -230291100*a(n-11) +53356676400*a(n-12) -41452398000*a(n-13) -124357194000*a(n-14) +143489070000*a(n-15)
+\end{quote}
+As of the ``Last modified'' line on the live entry (Oct 03 2025 11:00:03, revision 9) this is still
+recorded as empirical, and nothing on the entry records it as proved.
+
+\section{What is being counted}
+
+The array $a$ has $7$ cells across, with entries in $\{0,1,2\}$. Two derived arrays are formed,
+\[
+b(i,j)=a(i,j)+a(i,j-1)\quad(j\ge1),\qquad c(i,j)=a(i,j)+a(i-1,j)\quad(i\ge1),
+\]
+so $b$ adds each cell to its LEFT neighbour and $c$ adds each cell to the one ABOVE it. The
+entry asks
+
+\[
+b(i,j)\,b(i{-}1,j)\;-\;c(i,j)\,c(i,j{-}1)\;\neq\;0
+\]
+wherever all four terms are defined.
+
+
+\section{Two rows decide it}
+
+\begin{lemma}\label{lem:win}
+The condition is a condition on two consecutive rows of $a$ and nothing more.
+\end{lemma}
+
+\begin{proof}
+$b(i,j)$ is built from row $i$, $b(i{-}1,j)$ from row $i-1$, and each of $c(i,j)$ and
+$c(i,j{-}1)$ from rows $i-1$ and $i$. So all four terms live in those two rows.
+\end{proof}
+
+So a single row of $a$ is a state and one step appends a row.
+
+With $M$ the adjacency matrix of the digraph on those states, $\iota$ the indicator of the
+starting state and $\tau=\mathbf{1}$,
+\[
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=2188.
+\]
+The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
+published terms rather than assumed. In particular $a$ is $C$-finite.
+
+\section{The proof}
+
+\begin{lemma}\label{lem:crit}
+Let $q(t)=t^{15}-\sum_i c_it^{15-i}$ be the characteristic polynomial of the
+conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
+$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
+holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
+and it is enough to examine $j<S$.
+\end{lemma}
+
+\begin{proof}
+Factor $M^{j}$ out of $M^{j+15}-\sum_ic_iM^{j+15-i}$. For the bound, $M^{S}$
+is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
+$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
+polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
+pins the threshold exactly.
+\end{proof}
+
+\begin{theorem}
+\[
+a(n)\;=\;39\,a(n-1) + 117\,a(n-2) - 13419\,a(n-3) + 42120\,a(n-4) + 1465776\,a(n-5) - 7558272\,a(n-6) - 59591376\,a(n-7) + 389959596\,a(n-8) + 776691180\,a(n-9) - 7353962460\,a(n-10) - 230291100\,a(n-11) + 53356676400\,a(n-12) - 41452398000\,a(n-13) - 124357194000\,a(n-14) + 143489070000\,a(n-15)
+\]
+for every $n>15$.
+\end{theorem}
+
+\begin{proof}
+The vector $w=q(M)\tau$ was formed by $15$ matrix--vector products in exact integer
+arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
+integers vanish from the index corresponding to $n=15+1$ onwards and the run continued
+until the working vector was identically zero.
+\end{proof}
+
+\section{Verification}
+
+Four checks, each independent of the algebra above.
+
+First, the model reproduces all $13$ terms the entry publishes, exactly, in integer
+arithmetic.
+
+Second, the count was recomputed for the smallest arrays straight from the definition:
+enumerate every array of that size, form the two derived arrays in full, and test the condition
+on them directly. No window, no state and no incremental bookkeeping are involved, and the
+published terms came back.
+
+Third, the conjectured recurrence was evaluated directly on the published terms, with no
+matrices involved, and holds wherever the proved range and the data overlap.
+
+Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+arithmetic on the whole vector rather than on a sampled prefix.
+
+\begin{thebibliography}{9}
+\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
+Sequences}, \url{https://oeis.org}, 2026. Sequence A204104.
+\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
+University Press, 2013.
+\end{thebibliography}
+
+\end{document}
