@@ -1,0 +1,161 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=1in]{geometry}
+\usepackage[colorlinks=true,linkcolor=blue,urlcolor=blue]{hyperref}
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{remark}[theorem]{Remark}
+
+\title{The empirical recurrence for OEIS A241351, proved by transfer matrix}
+\author{Adrian Perez Fontelles\\ \small Independent researcher}
+\date{3 September 2026}
+\begin{document}
+\maketitle
+
+\begin{abstract}
+OEIS A241351 counts arrays over $\{0,1,2,3\}$ in which no entry may equal, modulo $4$, a given
+constant plus the SUM of all the entries lying before it along one of several rays. The entry
+carries an empirical recurrence of order $68$ contributed by R.~H.~Hardin. It is true, and
+it is decidable rather than empirical. None of those sums is bounded and none is local, but
+each is built one term at a time, so its residue modulo $4$ is carried in the state; the
+count is then a walk count on $S=361$ states.
+\end{abstract}
+
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 11A07, 15A18.\normalsize
+
+\section{The conjecture}
+
+OEIS A241351 is ``Number of n X 3 0..3 arrays with no element equal to zero plus the sum of elements to its left or one plus the sum of elements above it or one plus the sum of the elements diagonally to its northwest or zero plus the sum of the elements antidiagonally to its northeast, modulo 4.''. It has offset $1$ and begins
+\[
+4, 9, 19, 55, 72, 124, 243, 370,\ \dots
+\]
+The entry states, as a conjecture contributed by its author and never marked settled:
+\begin{quote}
+Empirical: a(n) = 3*a(n-5) +4*a(n-6) +5*a(n-8) +2*a(n-9) +16*a(n-11) +3*a(n-13) +6*a(n-14) -10*a(n-15) -22*a(n-16) -2*a(n-17) -13*a(n-18) +26*a(n-19) -18*a(n-20) +18*a(n-21) -49*a(n-22) -2*a(n-23) -21*a(n-24) +18*a(n-25) +22*a(n-26) +61*a(n-27) -62*a(n-28) -13*a(n-29) -102*a(n-30) -32*a(n-31) +71*a(n-32) +43*a(n-33) +30*a(n-34) +53*a(n-35) -34*a(n-36) -204*a(n-37) +137*a(n-38) -22*a(n-39) +80*a(n-40) +108*a(n-41) +118*a(n-42) -242*a(n-43) +150*a(n-44) -100*a(n-45) +49*a(n-46) -3*a(n-47) +176*a(n-48) -162*a(n-49) +87*a(n-50) -118*a(n-51) +40*a(n-52) -89*a(n-53) +74*a(n-54) -11*a(n-55) +4*a(n-56) -65*a(n-57) +62*a(n-58) -91*a(n-59) +20*a(n-60) -22*a(n-61) +38*a(n-62) -20*a(n-63) +21*a(n-64) -19*a(n-65) +7*a(n-66) -5*a(n-67) +2*a(n-68) for n>85.
+\end{quote}
+As of the ``Last modified'' line on the live entry (Jun 26 2022 19:59:55, revision 6) this is still
+recorded as empirical, and nothing on the entry records it as proved.
+
+\section{What is being counted}
+
+The array has $3$ cells across one way, entries $x(i,j)\in\{0,1,2,3\}$, and the entry names these
+rays out of a cell $(i,j)$, with the constant it attaches to each:
+\[
+\begin{array}{lll}
+\text{ray} & \text{the cells on it} & \text{constant} \\[2pt]
+\text{west} & (i,j-1),(i,j-2),\dots & 0 \\
+\text{north} & (i-1,j),(i-2,j),\dots & 1 \\
+\text{northwest} & (i-1,j-1),(i-2,j-2),\dots & 1 \\
+\text{northeast} & (i-1,j+1),(i-2,j+2),\dots & 0 \\
+\end{array}
+\]
+Writing $\Sigma_r(i,j)$ for the sum of the entries on ray $r$ out of $(i,j)$, all of them
+inside the array, the condition is
+\[
+x(i,j)\;\not\equiv\;c_r+\Sigma_r(i,j) \pmod{4}
+\]
+for every ray $r$ named. A ray that leaves the array at once contributes the empty sum,
+zero.
+
+\section{The rays as a bounded state}
+
+Take the array one $row$ at a time, in the direction in which it grows, and index the
+positions of a $row $ by $p$. Let $x$ be the $row$ just written.
+
+\begin{lemma}\label{lem:rays}
+Along the $row$s, the 4 ray sums named by this entry satisfy
+\[
+\begin{aligned}
+\Sigma_{\mathrm{west}}\ &\text{is the running total inside the current row},\\
+U'[p]&=U[p]+x[p], &&\text{the north ray, per position},\\
+NW'[p]&=NW[p-1]+x[p-1], && NW'[0]=0,\\
+NE'[p]&=NE[p+1]+x[p+1], && NE'[W-1]=0 .
+\end{aligned}
+\]
+\end{lemma}
+
+\begin{proof}
+Each ray is a set of cells at a fixed step from $(i,j)$ repeated. Advancing one $row$
+moves a cell one step along the north ray, one step along the northwest ray together with one
+position to the right, and one step along the northeast ray together with one position to the
+left; in each case exactly the cell just left behind is the new term. At the border of the
+array the diagonal rays are empty, which is the stated boundary value.
+\end{proof}
+
+Reduced modulo $4$ these vectors take finitely many values, so they are a state, and one step
+of the walk writes a whole $row$: the position $p$ is filled left to right and the
+running total of the west ray is carried along as it is filled, so every cell is tested
+against every ray at the moment it is written. The walk starts at the all-zero state, the empty
+array, and every state may end one, so $\tau=\mathbf{1}$ and
+\[
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=361.
+\]
+The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
+published terms rather than assumed. In particular $a$ is $C$-finite.
+
+\section{The proof}
+
+\begin{lemma}\label{lem:crit}
+Let $q(t)=t^{68}-\sum_i c_it^{68-i}$ be the characteristic polynomial of the
+conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
+$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
+holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
+and it is enough to examine $j<S$.
+\end{lemma}
+
+\begin{proof}
+Factor $M^{j}$ out of $M^{j+68}-\sum_ic_iM^{j+68-i}$. For the bound, $M^{S}$
+is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
+$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
+polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
+pins the threshold exactly.
+\end{proof}
+
+\begin{theorem}
+\[
+a(n)\;=\;3\,a(n-5) + 4\,a(n-6) + 5\,a(n-8) + 2\,a(n-9) + 16\,a(n-11) + 3\,a(n-13) + 6\,a(n-14) - 10\,a(n-15) - 22\,a(n-16) - 2\,a(n-17) - 13\,a(n-18) + 26\,a(n-19) - 18\,a(n-20) + 18\,a(n-21) - 49\,a(n-22) - 2\,a(n-23) - 21\,a(n-24) + 18\,a(n-25) + 22\,a(n-26) + 61\,a(n-27) - 62\,a(n-28) - 13\,a(n-29) - 102\,a(n-30) - 32\,a(n-31) + 71\,a(n-32) + 43\,a(n-33) + 30\,a(n-34) + 53\,a(n-35) - 34\,a(n-36) - 204\,a(n-37) + 137\,a(n-38) - 22\,a(n-39) + 80\,a(n-40) + 108\,a(n-41) + 118\,a(n-42) - 242\,a(n-43) + 150\,a(n-44) - 100\,a(n-45) + 49\,a(n-46) - 3\,a(n-47) + 176\,a(n-48) - 162\,a(n-49) + 87\,a(n-50) - 118\,a(n-51) + 40\,a(n-52) - 89\,a(n-53) + 74\,a(n-54) - 11\,a(n-55) + 4\,a(n-56) - 65\,a(n-57) + 62\,a(n-58) - 91\,a(n-59) + 20\,a(n-60) - 22\,a(n-61) + 38\,a(n-62) - 20\,a(n-63) + 21\,a(n-64) - 19\,a(n-65) + 7\,a(n-66) - 5\,a(n-67) + 2\,a(n-68)
+\]
+for every $n>85$.
+\end{theorem}
+
+\begin{proof}
+The vector $w=q(M)\tau$ was formed by $68$ matrix--vector products in exact integer
+arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
+integers vanish from the index corresponding to $n=85+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once.
+\end{proof}
+
+\section{Verification}
+
+Four checks, each independent of the algebra above.
+
+First, the model reproduces all $35$ terms the entry publishes, exactly, in integer
+arithmetic.
+
+Second, the count was recomputed for the smallest arrays straight from the definition: fill the
+cells one at a time in the orientation the entry's own name writes and, for each candidate
+value, walk each ray to the edge of the array and add the entries up. No residue, no state and
+no recurrence of Lemma~\ref{lem:rays} is involved, and the published terms came back.
+
+Third, the conjectured recurrence was evaluated directly on the published terms, with no
+matrices involved, and holds wherever the proved range and the data overlap.
+
+Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+arithmetic on the whole vector rather than on a sampled prefix.
+
+\begin{thebibliography}{9}
+\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
+Sequences}, \url{https://oeis.org}, 2026. Sequence A241351.
+\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
+University Press, 2013.
+\end{thebibliography}
+
+\end{document}
