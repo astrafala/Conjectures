@@ -19,7 +19,7 @@ from math import factorial
 ENG = ['transfer3', 'transfer47', 'transfer46', 'transfer45', 'transfer44', 'transfer43', 'transfer42', 'transfer41', 'transfer40', 'transfer38', 'transfer37', 'transfer36', 'transfer35', 'transfer34', 'transfer33', 'transfer32', 'transfer31', 'transfer30', 'transfer29', 'transfer28', 'transfer27', 'transfer26', 'transfer25', 'transfer24', 'transfer23', 'transfer17', 'transfer22', 'transfer21', 'transfer20', 'transfer19',
        'transfer18', 'transfer9', 'transfer6', 'transfer16', 'transfer12', 'transfer10',
        'transfer8', 'transfer14', 'transfer11', 'transfer15', 'transfer13', 'transfer7',
-       'transfer48', 'transfer49', 'transfer50', 'transfer51', 'transfer52', 'transfer53', 'transfer54', 'transfer55', 'transfer56', 'transfer57', 'transfer58', 'transfer59', 'transfer60', 'transfer61', 'transfer62', 'transfer63', 'transfer64']
+       'transfer48', 'transfer49', 'transfer50', 'transfer51', 'transfer52', 'transfer53', 'transfer54', 'transfer55', 'transfer56', 'transfer57', 'transfer58', 'transfer59', 'transfer60', 'transfer61', 'transfer62', 'transfer63', 'transfer64', 'transfer65']
 M = {e: importlib.import_module(e) for e in ENG}
 T2 = importlib.import_module('transfer2')
 T19 = M['transfer19']
@@ -28,7 +28,7 @@ PAIR = ('transfer18', 'transfer19', 'transfer24', 'transfer26', 'transfer27',
         'transfer28', 'transfer32', 'transfer40', 'transfer41', 'transfer43',
         'transfer44', 'transfer46', 'transfer47',
         'transfer48', 'transfer50', 'transfer51', 'transfer52', 'transfer53',
-        'transfer57', 'transfer58', 'transfer59', 'transfer60', 'transfer61', 'transfer63', 'transfer64')          # (adj, start, end, S)
+        'transfer57', 'transfer58', 'transfer59', 'transfer60', 'transfer61', 'transfer63', 'transfer64', 'transfer65')          # (adj, start, end, S)
 DEN = ('transfer20', 'transfer21', 'transfer22', 'transfer25', 'transfer38',
        'transfer42', 'transfer45', 'transfer49', 'transfer54', 'transfer55', 'transfer56', 'transfer62')   # (adj, start, end, S, den)
 PLAIN = ('transfer3', 'transfer6', 'transfer17', 'transfer23', 'transfer29', 'transfer30', 'transfer31', 'transfer33', 'transfer34', 'transfer35', 'transfer36', 'transfer37')   # (states, adj), all-ones vectors
