@@ -45,7 +45,11 @@ def build(starts, nexts, step, final, cap=20000):
         groups, finals = {}, set()
         for el in s:
             if final is not None:
-                finals.add(final(el))
+                r = final(el)
+                # a family may have windows that cannot end an array at all; `final' says so
+                # by returning None, and None is not an output
+                if r is not None:
+                    finals.add(r)
             for x in nexts:
                 r = step(el, x)
                 if r is None:

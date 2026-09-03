@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """One paper per entry settled by the reciprocal-link engine."""
 import os, json, re
+import texbits
 import localentry as LE, phibuild, transferbuild, transfer24
 
 PRE = phibuild.PRE
@@ -17,7 +18,7 @@ def conj_line(anum):
 
 
 def dirtex(D):
-    return ', '.join('(%d,%d)' % t for t in D)
+    return texbits.offsets_tex(D)
 
 
 def build(h):

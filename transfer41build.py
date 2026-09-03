@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Papers for the cell-condition families, plain and up to relabelling."""
 import os, json, re
+import texbits
 import localentry as LE, phibuild, transferbuild, transfer41, transfer42
 
 PRE = phibuild.PRE
@@ -51,7 +52,7 @@ def build(h, rel):
     p = q['p'] if rel else q
     W, al = p['W'], p['alpha']
     D = [tuple(t) for t in p['dirs']]
-    dirs = ', '.join('(%d,%d)' % t for t in D)
+    dirs = texbits.offsets_tex(D)
     d = [int(v) for v in e['data'].split(',') if v.strip()]
     modf, rev = e['modified'], e['revision']
     conj = conj_line(a)

@@ -2,6 +2,7 @@
 """Papers for the two further image-counting families: the minimum-value maps and the
 median/sum-of-three maps."""
 import os, json, re
+import texbits
 import localentry as LE, phibuild, transferbuild, transfer27, transfer28
 
 PRE = phibuild.PRE
@@ -20,7 +21,7 @@ def conj_line(anum):
 def parts27(p, e):
     W, al = p['W'], p['alpha']
     D = [tuple(t) for t in p['dirs']]
-    dirs = ', '.join('(%d,%d)' % t for t in D)
+    dirs = texbits.offsets_tex(D)
     which = p['which']
     trans = ('' if re.search(r'n\s*X', e['name']) else
              " The entry writes the array with $n$ as the number of COLUMNS; transposing it "

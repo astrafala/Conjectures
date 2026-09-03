@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """One paper per entry settled by the image-counting (`maps') engine."""
 import os, json, re
+import texbits
 import localentry as LE, phibuild, transferbuild, transfer26
 
 PRE = phibuild.PRE
@@ -39,7 +40,7 @@ def build(h):
     mod, rev = e['modified'], e['revision']
     conj = conj_line(a)
     coeffs = {int(k): int(v) for k, v in h['coeffs'].items()}
-    dirs = ', '.join('(%d,%d)' % t for t in D)
+    dirs = texbits.offsets_tex(D)
     trans = ('' if re.search(r'n\s*X', e['name']) else
              " The entry writes the array with $n$ as the number of COLUMNS; transposing it "
              "exchanges the two coordinates of every neighbour offset, which is done once so "
