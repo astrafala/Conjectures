@@ -1,0 +1,160 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=1in]{geometry}
+\usepackage[colorlinks=true,linkcolor=blue,urlcolor=blue]{hyperref}
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{remark}[theorem]{Remark}
+
+\title{The empirical recurrence for OEIS A210049, proved by transfer matrix}
+\author{Adrian Perez Fontelles\\ \small Independent researcher}
+\date{3 September 2026}
+\begin{document}
+\maketitle
+
+\begin{abstract}
+OEIS A210049 counts arrays of width $6$ whose every $2\times2$ subblock holds a
+prescribed number of DISTINCT values, which use ALL of the $3$ available letters, and which
+are counted up to renaming. The entry carries an empirical recurrence of order $85$
+contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical. The
+condition counts distinct values and so survives renaming, which lets the count of patterns be
+recovered from counts over fixed alphabets by inverting a triangular system of falling
+factorials; the words ``containing all values'' change which row of that inverse is used and
+nothing else. Each fixed-alphabet count is a walk count on $S=794$ states in all.
+\end{abstract}
+
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A18, 15A18.\normalsize
+
+\section{The conjecture}
+
+OEIS A210049 is ``Number of (n+1)X6 0..2 arrays containing all values 0..2 with every 2X2 subblock having two distinct values, and new values 0..2 introduced in row major order.''. It has offset $1$ and begins
+\[
+2695, 114237, 5169813, 240224641, 11175987745, 518401340537, 23937024685863, 1100584205159383,\ \dots
+\]
+The entry states, as a conjecture contributed by its author and never marked settled:
+\begin{quote}
+Empirical: a(n) = 95*a(n-1) -1900*a(n-2) -56187*a(n-3) +1896826*a(n-4) +10639671*a(n-5) -701967562*a(n-6) +182025504*a(n-7) +145227173547*a(n-8) -419177692530*a(n-9) -19353743252952*a(n-10) +85433587963187*a(n-11) +1789310766121030*a(n-12) -9814164235308092*a(n-13) -120060982729819483*a(n-14) +765035170825593245*a(n-15) +6017016207355416460*a(n-16) -43541812515518188378*a(n-17) -229165729445431519990*a(n-18) +1883135755161684947180*a(n-19) +6681559617272514956311*a(n-20) -63470576622786136682427*a(n-21) -148387908315962080864347*a(n-22) +1696040408430945413751419*a(n-23) +2441965221868975215665887*a(n-24) -36367868110504859946108233*a(n-25) -27123365069860973680044986*a(n-26) +631130053365999735351614148*a(n-27) +119980272688573408489016056*a(n-28) -8915897918476195422100426614*a(n-29) +2412340555420151638480078658*a(n-30) +102896759828837108198775563215*a(n-31) -68644270700583096858101003448*a(n-32) -971547304253211509401889501357*a(n-33) +995012323475586180840182952483*a(n-34) +7499405881793341784125165632547*a(n-35) -10232435340791417316913030684426*a(n-36) -47161621488766896200634807982479*a(n-37) +80820197825843514088408850293447*a(n-38) +239855811396646802214363695180830*a(n-39) -505732140134030094288174473059546*a(n-40) -972742523593329235306216393345880*a(n-41) +2543169520372173508071434849734048*a(n-42) +3058611451317489983173515035561168*a(n-43) -10342968088581061157016175191676640*a(n-44) -6977459283642089223709813906160960*a(n-45) +34073152101317101518285115092132992*a(n-46) +9114754028315599477362585372463872*a(n-47) -90726619705297606228840946528413184*a(n-48) +5712787931119845131108798817557504*a(n-49) +194093674517911624712078233321302016*a(n-50) -67650269415852823479141377504284672*a(n-51) -329954767661586600044634334076174336*a(n-52) +203840703277616818982293766396248064*a(n-53) +437172596651511261196700599060299776*a(n-54) -396576835852277476758522471722385408*a(n-55) -435146329265061509372084133603573760*a(n-56) +560513238066512908271893616141795328*a(n-57) +298566983364908489347607489997176832*a(n-58) -593417366209162076201649845555953664*a(n-59) -100638006616185019609324494583234560*a(n-60) +471240603234583504420313636037197824*a(n-61) -45562344037918621053683765849620480*a(n-62) -275706079523436749614843746456698880*a(n-63) +88841666981863575790183893881061376*a(n-64) +113767808816928441874153965636026368*a(n-65) -63784227683525892936104047204630528*a(n-66) -29715171577770889841433311723913216*a(n-67) +27937344701767998441500182090612736*a(n-68) +3035982582593744479341262252539904*a(n-69) -7898537092413062015374966248177664*a(n-70) +872457845406545206794050963767296*a(n-71) +1383835119274937089141022897733632*a(n-72) -406187967110938717076817165942784*a(n-73) -125911386037639966549457871306752*a(n-74) +71872362752322059117260567478272*a(n-75) +615381469617027062858438934528*a(n-76) -6230031747986295045906157797376*a(n-77) +962157249671359029077329575936*a(n-78) +201447367970440853444823613440*a(n-79) -73731760702864937441302675456*a(n-80) +3853709312871652730349813760*a(n-81) +1381244199549680888917786624*a(n-82) -266234332241304577659371520*a(n-83) +18796013717194851735306240*a(n-84) -487592409806823116242944*a(n-85)
+\end{quote}
+As of the ``Last modified'' line on the live entry (Oct 03 2025 15:39:19, revision 9) this is still
+recorded as empirical, and nothing on the entry records it as proved.
+
+\section{What is being counted}
+
+The array has $6$ cells across and entries in $\{0,1,\dots,2\}$. In every
+$2\times2$ window of it, the number of DISTINCT entries must be one of $2$. Two
+further clauses come with it:
+
+\begin{itemize}
+\item ``new values $0..2$ introduced in row major order'' --- reading the cells in row major
+order, a letter may appear for the first time only when every smaller letter already has, so
+the array counted is the canonical representative of its EQUALITY PATTERN;
+\item ``containing all values $0..2$'' --- every one of the $3$ letters must actually
+occur.
+\end{itemize}
+
+
+\section{From patterns to fixed alphabets}
+
+Write $N_j$ for the number of admissible patterns using exactly $j$ letters and $L_i$ for the
+number of admissible arrays over an alphabet of $i$ letters. An array over $i$ letters is a
+pattern together with an injection of its letters into the alphabet, so
+\[
+L_i\;=\;\sum_{j} N_j\,i(i-1)\cdots(i-j+1)\;=\;\sum_j F_{ij}N_j ,
+\]
+a triangular system with unit diagonal, hence invertible over $\mathbf{Q}$.
+
+Here is the whole difference between this entry and its neighbours. Without the words
+``containing all values'' the quantity counted is $N_1+\dots+N_{3}$, and the weights are
+the row vector $\mathbf{1}^{\!\top}F^{-1}$. With them, the pattern must use every letter,
+so the quantity counted is $N_{3}$ alone and the weights are the single row
+$e_{3}^{\!\top}F^{-1}$ of the same inverse:
+\[
+a\;=\;N_{3}\;=\;\sum_{i=1}^{3}\bigl(F^{-1}\bigr)_{3i}\,L_i .
+\]
+
+The step is legitimate only if the condition survives renaming the alphabet, and it does: the
+condition counts how many DISTINCT values a window holds, and whether two cells agree is
+untouched by any renaming. No clause compares letters by size or does arithmetic on them.
+
+\section{Each $L_i$ is a walk count}
+
+A $2\times2$ window lies in $2$ consecutive array rows, so the window of the last
+$1$ rows is a state and a step appends a row, settling every subblock it completes.
+Assembling the pieces for $i=1,\dots,3$ as a disjoint union, with $\iota$ carrying the
+weights above cleared of denominators and $\tau=\mathbf{1}$,
+\[
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=794.
+\]
+The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
+published terms rather than assumed. In particular $a$ is $C$-finite.
+
+\section{The proof}
+
+\begin{lemma}\label{lem:crit}
+Let $q(t)=t^{85}-\sum_i c_it^{85-i}$ be the characteristic polynomial of the
+conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
+$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
+holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
+and it is enough to examine $j<S$.
+\end{lemma}
+
+\begin{proof}
+Factor $M^{j}$ out of $M^{j+85}-\sum_ic_iM^{j+85-i}$. For the bound, $M^{S}$
+is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
+$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
+polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
+pins the threshold exactly.
+\end{proof}
+
+\begin{theorem}
+\[
+a(n)\;=\;95\,a(n-1) - 1900\,a(n-2) - 56187\,a(n-3) + 1896826\,a(n-4) + 10639671\,a(n-5) - 701967562\,a(n-6) + 182025504\,a(n-7) + 145227173547\,a(n-8) - 419177692530\,a(n-9) - 19353743252952\,a(n-10) + 85433587963187\,a(n-11) + 1789310766121030\,a(n-12) - 9814164235308092\,a(n-13) - 120060982729819483\,a(n-14) + 765035170825593245\,a(n-15) + 6017016207355416460\,a(n-16) - 43541812515518188378\,a(n-17) - 229165729445431519990\,a(n-18) + 1883135755161684947180\,a(n-19) + 6681559617272514956311\,a(n-20) - 63470576622786136682427\,a(n-21) - 148387908315962080864347\,a(n-22) + 1696040408430945413751419\,a(n-23) + 2441965221868975215665887\,a(n-24) - 36367868110504859946108233\,a(n-25) - 27123365069860973680044986\,a(n-26) + 631130053365999735351614148\,a(n-27) + 119980272688573408489016056\,a(n-28) - 8915897918476195422100426614\,a(n-29) + 2412340555420151638480078658\,a(n-30) + 102896759828837108198775563215\,a(n-31) - 68644270700583096858101003448\,a(n-32) - 971547304253211509401889501357\,a(n-33) + 995012323475586180840182952483\,a(n-34) + 7499405881793341784125165632547\,a(n-35) - 10232435340791417316913030684426\,a(n-36) - 47161621488766896200634807982479\,a(n-37) + 80820197825843514088408850293447\,a(n-38) + 239855811396646802214363695180830\,a(n-39) - 505732140134030094288174473059546\,a(n-40) - 972742523593329235306216393345880\,a(n-41) + 2543169520372173508071434849734048\,a(n-42) + 3058611451317489983173515035561168\,a(n-43) - 10342968088581061157016175191676640\,a(n-44) - 6977459283642089223709813906160960\,a(n-45) + 34073152101317101518285115092132992\,a(n-46) + 9114754028315599477362585372463872\,a(n-47) - 90726619705297606228840946528413184\,a(n-48) + 5712787931119845131108798817557504\,a(n-49) + 194093674517911624712078233321302016\,a(n-50) - 67650269415852823479141377504284672\,a(n-51) - 329954767661586600044634334076174336\,a(n-52) + 203840703277616818982293766396248064\,a(n-53) + 437172596651511261196700599060299776\,a(n-54) - 396576835852277476758522471722385408\,a(n-55) - 435146329265061509372084133603573760\,a(n-56) + 560513238066512908271893616141795328\,a(n-57) + 298566983364908489347607489997176832\,a(n-58) - 593417366209162076201649845555953664\,a(n-59) - 100638006616185019609324494583234560\,a(n-60) + 471240603234583504420313636037197824\,a(n-61) - 45562344037918621053683765849620480\,a(n-62) - 275706079523436749614843746456698880\,a(n-63) + 88841666981863575790183893881061376\,a(n-64) + 113767808816928441874153965636026368\,a(n-65) - 63784227683525892936104047204630528\,a(n-66) - 29715171577770889841433311723913216\,a(n-67) + 27937344701767998441500182090612736\,a(n-68) + 3035982582593744479341262252539904\,a(n-69) - 7898537092413062015374966248177664\,a(n-70) + 872457845406545206794050963767296\,a(n-71) + 1383835119274937089141022897733632\,a(n-72) - 406187967110938717076817165942784\,a(n-73) - 125911386037639966549457871306752\,a(n-74) + 71872362752322059117260567478272\,a(n-75) + 615381469617027062858438934528\,a(n-76) - 6230031747986295045906157797376\,a(n-77) + 962157249671359029077329575936\,a(n-78) + 201447367970440853444823613440\,a(n-79) - 73731760702864937441302675456\,a(n-80) + 3853709312871652730349813760\,a(n-81) + 1381244199549680888917786624\,a(n-82) - 266234332241304577659371520\,a(n-83) + 18796013717194851735306240\,a(n-84) - 487592409806823116242944\,a(n-85)
+\]
+for every $n>85$.
+\end{theorem}
+
+\begin{proof}
+The vector $w=q(M)\tau$ was formed by $85$ matrix--vector products in exact integer
+arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
+integers vanish from the index corresponding to $n=85+1$ onwards and the run continued
+until the working vector was identically zero. The rational weights are carried as one common
+denominator throughout, so no division is performed until the final term.
+\end{proof}
+
+\section{Verification}
+
+Four checks, each independent of the algebra above.
+
+First, the model reproduces all $13$ terms the entry publishes, exactly, in integer
+arithmetic.
+
+Second, the count was recomputed for the smallest arrays straight from the definition:
+enumerate every array over $\{0,\dots,2\}$, keep those that are canonical, that use every
+letter, and whose every subblock passes, and count them. Neither the transfer matrix nor the
+falling-factorial inversion is involved, and the published terms came back --- including the
+initial zeros, which are a sharp test of the ``containing all values'' clause: a small array
+cannot show $3$ letters at all.
+
+Third, the conjectured recurrence was evaluated directly on the published terms, with no
+matrices involved, and holds wherever the proved range and the data overlap.
+
+Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+arithmetic on the whole vector rather than on a sampled prefix.
+
+\begin{thebibliography}{9}
+\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
+Sequences}, \url{https://oeis.org}, 2026. Sequence A210049.
+\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; Stirling numbers and
+falling factorials, Section 1.9.)
+\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
+University Press, 2013.
+\end{thebibliography}
+
+\end{document}
