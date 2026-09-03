@@ -16,7 +16,7 @@ import importlib
 from fractions import Fraction
 from math import factorial
 
-ENG = ['transfer3', 'transfer46', 'transfer45', 'transfer44', 'transfer43', 'transfer42', 'transfer41', 'transfer40', 'transfer38', 'transfer37', 'transfer36', 'transfer35', 'transfer34', 'transfer33', 'transfer32', 'transfer31', 'transfer30', 'transfer29', 'transfer28', 'transfer27', 'transfer26', 'transfer25', 'transfer24', 'transfer23', 'transfer17', 'transfer22', 'transfer21', 'transfer20', 'transfer19',
+ENG = ['transfer3', 'transfer47', 'transfer46', 'transfer45', 'transfer44', 'transfer43', 'transfer42', 'transfer41', 'transfer40', 'transfer38', 'transfer37', 'transfer36', 'transfer35', 'transfer34', 'transfer33', 'transfer32', 'transfer31', 'transfer30', 'transfer29', 'transfer28', 'transfer27', 'transfer26', 'transfer25', 'transfer24', 'transfer23', 'transfer17', 'transfer22', 'transfer21', 'transfer20', 'transfer19',
        'transfer18', 'transfer9', 'transfer6', 'transfer16', 'transfer12', 'transfer10',
        'transfer8', 'transfer14', 'transfer11', 'transfer15', 'transfer13', 'transfer7']
 M = {e: importlib.import_module(e) for e in ENG}
@@ -25,7 +25,7 @@ T19 = M['transfer19']
 SCALED = ('transfer7', 'transfer8', 'transfer10', 'transfer12', 'transfer16')
 PAIR = ('transfer18', 'transfer19', 'transfer24', 'transfer26', 'transfer27',
         'transfer28', 'transfer32', 'transfer40', 'transfer41', 'transfer43',
-        'transfer44', 'transfer46')          # (adj, start, end, S)
+        'transfer44', 'transfer46', 'transfer47')          # (adj, start, end, S)
 DEN = ('transfer20', 'transfer21', 'transfer22', 'transfer25', 'transfer38',
        'transfer42', 'transfer45')   # (adj, start, end, S, den)
 PLAIN = ('transfer3', 'transfer6', 'transfer17', 'transfer23', 'transfer29', 'transfer30', 'transfer31', 'transfer33', 'transfer34', 'transfer35', 'transfer36', 'transfer37')   # (states, adj), all-ones vectors
