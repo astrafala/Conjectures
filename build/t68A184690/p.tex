@@ -1,0 +1,145 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=1in]{geometry}
+\usepackage[colorlinks=true,linkcolor=blue,urlcolor=blue]{hyperref}
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{remark}[theorem]{Remark}
+
+\title{The empirical recurrence for OEIS A184690, proved by transfer matrix}
+\author{Adrian Perez Fontelles\\ \small Independent researcher}
+\date{4 September 2026}
+\begin{document}
+\maketitle
+
+\begin{abstract}
+OEIS A184690 counts arrays of width $5$ over $\{0,1,2\}$ in which no cell equals both the cell above it and the cell to its left. The entry carries an
+empirical recurrence of order $8$ contributed by R.~H.~Hardin. It is true, and it is
+decidable rather than empirical: what a cell asks reaches one row above
+it and none below, so the condition on a whole row is settled by
+$2$ consecutive rows and the count is a walk count on $S=244$ states.
+\end{abstract}
+
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B20, 15A18.\normalsize
+
+\section{The conjecture}
+
+OEIS A184690 is ``1/3 the number of nX5 0..2 arrays with no element equal both to the element above and to the element to its left.''. It has offset $1$ and begins
+\[
+81, 12288, 1841856, 275895264, 41325395328, 6189975781728, 927173138866560, 138877768818516672,\ \dots
+\]
+The entry states, as a conjecture contributed by its author and never marked settled:
+\begin{quote}
+Empirical: a(n)=171*a(n-1)-3370*a(n-2)+29805*a(n-3)-149108*a(n-4)+447784*a(n-5)-778496*a(n-6)+649216*a(n-7)-114688*a(n-8)
+\end{quote}
+As of the ``Last modified'' line on the live entry (Oct 03 2025 02:50:46, revision 11) this is still
+recorded as empirical, and nothing on the entry records it as proved.
+
+\section{What is being counted}
+
+The arrays have $5$ columns and a growing number of rows, with entries in $\{0,1,2\}$. Fix the
+list of offsets the entry names,
+\[
+\Delta=\{\,(-1,0), (0,-1)\,\},
+\]
+and for a cell $(i,j)$ write
+\[
+S(i,j)=\{\,(i+\delta_1,\,j+\delta_2) : (\delta_1,\delta_2)\in\Delta\,\}\cap
+\text{(the cells of the array)}
+\]
+for the neighbours it actually has. Only offsets landing inside the array count, so a cell on
+the border simply has fewer neighbours.
+
+The condition is that no cell equals BOTH the cell above it and the cell to its left:
+\[
+\neg\bigl(x(i,j)=x(i-1,j)\ \wedge\ x(i,j)=x(i,j-1)\bigr).
+\]
+A cell in the first row or the first column is missing one of the two and so cannot equal both; it is under no condition. The entry publishes $1/3$ of that count; the division is by the constant 3 and changes nothing about the recurrence.
+
+\section{A window of 2 rows}
+
+The offsets reach one row up and none down, so everything the condition asks of one row is
+decided by that row together with one row above it and none below --- a window of
+$2$ consecutive rows, and nothing wider. Take the array one row at a time
+and let the state be the last row, with a distinguished start standing for the
+array before its first row, so that a walk of $n$ steps is an array of $n$ rows.
+
+Appending a row completes exactly one window, and the row it settles is the bottom row of that window; a step is
+allowed when that row passes. Each row of the finished
+array is therefore tested exactly once.
+
+Every state may end an array, so $\tau=\mathbf{1}$.
+Thus
+\[
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=244,
+\]
+for the transfer matrix $M$ on those $S$ states. The walk index $j$ and the entry's own $n$
+differ by a constant, read off by matching the published terms rather than assumed. In
+particular $a$ is $C$-finite.
+
+\section{The proof}
+
+\begin{lemma}\label{lem:crit}
+Let $q(t)=t^{8}-\sum_i c_it^{8-i}$ be the characteristic polynomial of the
+conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
+$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
+holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
+and it is enough to examine $j<S$.
+\end{lemma}
+
+\begin{proof}
+Factor $M^{j}$ out of $M^{j+8}-\sum_ic_iM^{j+8-i}$. For the bound, $M^{S}$
+is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
+$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
+polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
+pins the threshold exactly.
+\end{proof}
+
+\begin{theorem}
+\[
+a(n)\;=\;171\,a(n-1) - 3370\,a(n-2) + 29805\,a(n-3) - 149108\,a(n-4) + 447784\,a(n-5) - 778496\,a(n-6) + 649216\,a(n-7) - 114688\,a(n-8)
+\]
+for every $n>8$.
+\end{theorem}
+
+\begin{proof}
+The vector $w=q(M)\tau$ was formed by $8$ matrix--vector products in exact integer
+arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
+integers vanish from the index corresponding to $n=8+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once.
+\end{proof}
+
+\section{Verification}
+
+Four checks, each independent of the algebra above.
+
+First, the model reproduces all $12$ terms the entry publishes, exactly, in integer
+arithmetic.
+
+Second, the count was recomputed for the smallest arrays straight from the definition: every
+array of width $5$ over $\{0,1,2\}$ with a few rows was written out cell by cell and each cell
+tested against the neighbours it has. No window, no state and no end vector are involved in that
+computation, and the published terms came back.
+
+Third, the conjectured recurrence was evaluated directly on the published terms, with no
+matrices involved, and holds wherever the proved range and the data overlap.
+
+Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+arithmetic on the whole vector rather than on a sampled prefix.
+
+\begin{thebibliography}{9}
+\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
+Sequences}, \url{https://oeis.org}, 2026. Sequence A184690.
+\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
+University Press, 2013.
+\end{thebibliography}
+
+\end{document}
