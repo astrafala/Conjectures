@@ -1,0 +1,148 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=1in]{geometry}
+\usepackage[colorlinks=true,linkcolor=blue,urlcolor=blue]{hyperref}
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{remark}[theorem]{Remark}
+
+\title{The empirical recurrence for OEIS A232910, proved by transfer matrix}
+\author{Adrian Perez Fontelles\\ \small Independent researcher}
+\date{4 September 2026}
+\begin{document}
+\maketitle
+
+\begin{abstract}
+OEIS A232910 counts arrays of width $3$ over $\{0,1,2\}$ in which every cell sees its own value plus and minus one among its neighbours. The entry carries an
+empirical recurrence of order $29$ contributed by R.~H.~Hardin. It is true, and it is
+decidable rather than empirical: what a cell asks reaches one row above it and one row below, so the
+condition on a whole row is settled by $3$ consecutive rows and the count is a walk
+count on $S=730$ states.
+\end{abstract}
+
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B20, 15A18.\normalsize
+
+\section{The conjecture}
+
+OEIS A232910 is ``Number of (2+1) X (n+1) 0..2 arrays with every element next to itself plus and minus one within the range 0..2 horizontally or antidiagonally.''. It has offset $1$ and begins
+\[
+4, 34, 320, 2958, 27692, 250934, 2338508, 21159320,\ \dots
+\]
+The entry states, as a conjecture contributed by its author and never marked settled:
+\begin{quote}
+Empirical: a(n) = 2*a(n-1) +22*a(n-2) +284*a(n-3) +1034*a(n-4) +1536*a(n-5) -10076*a(n-6) -58252*a(n-7) +51408*a(n-8) +498496*a(n-9) -391702*a(n-10) -7998492*a(n-11) -4700227*a(n-12) +44572282*a(n-13) -40476506*a(n-14) -186165084*a(n-15) +241000952*a(n-16) +553905740*a(n-17) +53162532*a(n-18) -1539394488*a(n-19) +525708784*a(n-20) +2909661120*a(n-21) -4710162944*a(n-22) +146430976*a(n-23) +3625709568*a(n-24) -4520968192*a(n-25) +1704722432*a(n-26) -506986496*a(n-27) -700448768*a(n-28) +167772160*a(n-29) for n>30.
+\end{quote}
+As of the ``Last modified'' line on the live entry (Mar 09 2023 17:25:27, revision 6) this is still
+recorded as empirical, and nothing on the entry records it as proved.
+
+\section{What is being counted}
+
+The arrays have $3$ columns and a growing number of rows, with entries in $\{0,1,2\}$. Fix the
+offsets the entry names,
+\[
+\Delta=\{\,(-1,0), (-1,1), (1,-1), (1,0)\,\},
+\]
+and for a cell $(i,j)$ write
+\[
+S(i,j)=\{\,(i+\delta_1,\,j+\delta_2) : (\delta_1,\delta_2)\in\Delta\,\}\cap
+\text{(the cells of the array)}
+\]
+for the neighbours it actually has. Only offsets landing inside the array count, so a cell on
+the border simply has fewer neighbours. The entry writes the array with $n$ as the number of COLUMNS; transposing it exchanges the two coordinates of every offset, and the offsets above are written in the transposed frame.
+
+The condition is that every cell has, among its neighbours, each of its own value plus one and its own value minus one that still lies in the range:
+\[
+t\in\{x(i,j)-1,\ x(i,j)+1\}\cap\{0,\dots,2\}\ \Longrightarrow\ t\in\{x(a,b):(a,b)\in S(i,j)\}.
+\]
+At the ends of the range only one of the two values exists and only that one is demanded.
+
+\section{A window of 3 rows}
+
+The offsets reach one row up and one row down, so everything the condition asks of one row is
+decided by that row together with one row above it and one row below --- a window of
+$3$ consecutive rows, and nothing wider. Take the array one column at a time and
+let the state be the last 2 of them, with a distinguished start standing for the array before its
+first row, so that a walk of $n$ steps is an array of $n$ rows.
+
+Appending a row completes exactly one window, and the row it settles is the one just above the bottom of that window; a step is
+allowed when that row passes. Each row of the finished array is therefore tested exactly once.
+
+When the array stops, the last row of it has never been tested, because the
+conditions reach one row below. So the end vector is NOT all ones: a state is accepted exactly when
+those rows pass with nothing below them, which is decided by running the same test on the window
+with absent rows appended --- the same rule that governs a cell at the bottom edge in
+Section 2.
+Thus
+\[
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=730,
+\]
+for the transfer matrix $M$ on those $S$ states. The walk index $j$ and the entry's own $n$
+differ by a constant, read off by matching the published terms rather than assumed. In
+particular $a$ is $C$-finite.
+
+\section{The proof}
+
+\begin{lemma}\label{lem:crit}
+Let $q(t)=t^{29}-\sum_i c_it^{29-i}$ be the characteristic polynomial of the
+conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
+$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
+holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
+and it is enough to examine $j<S$.
+\end{lemma}
+
+\begin{proof}
+Factor $M^{j}$ out of $M^{j+29}-\sum_ic_iM^{j+29-i}$. For the bound, $M^{S}$
+is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
+$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
+polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
+pins the threshold exactly.
+\end{proof}
+
+\begin{theorem}
+\[
+a(n)\;=\;2\,a(n-1) + 22\,a(n-2) + 284\,a(n-3) + 1034\,a(n-4) + 1536\,a(n-5) - 10076\,a(n-6) - 58252\,a(n-7) + 51408\,a(n-8) + 498496\,a(n-9) - 391702\,a(n-10) - 7998492\,a(n-11) - 4700227\,a(n-12) + 44572282\,a(n-13) - 40476506\,a(n-14) - 186165084\,a(n-15) + 241000952\,a(n-16) + 553905740\,a(n-17) + 53162532\,a(n-18) - 1539394488\,a(n-19) + 525708784\,a(n-20) + 2909661120\,a(n-21) - 4710162944\,a(n-22) + 146430976\,a(n-23) + 3625709568\,a(n-24) - 4520968192\,a(n-25) + 1704722432\,a(n-26) - 506986496\,a(n-27) - 700448768\,a(n-28) + 167772160\,a(n-29)
+\]
+for every $n>30$.
+\end{theorem}
+
+\begin{proof}
+The vector $w=q(M)\tau$ was formed by $29$ matrix--vector products in exact integer
+arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
+integers vanish from the index corresponding to $n=30+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once.
+\end{proof}
+
+\section{Verification}
+
+Four checks, each independent of the algebra above.
+
+First, the model reproduces all $19$ terms the entry publishes, exactly, in integer
+arithmetic.
+
+Second, the count was recomputed for the smallest arrays straight from the definition: every
+array of width $3$ over $\{0,1,2\}$ with a few rows was written out cell by cell and each cell
+tested against the neighbours it has. No window, no state and no end vector are involved in that
+computation, and the published terms came back.
+
+Third, the conjectured recurrence was evaluated directly on the published terms, with no
+matrices involved, and holds wherever the proved range and the data overlap.
+
+Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+arithmetic on the whole vector rather than on a sampled prefix.
+
+\begin{thebibliography}{9}
+\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
+Sequences}, \url{https://oeis.org}, 2026. Sequence A232910.
+\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
+University Press, 2013.
+\end{thebibliography}
+
+\end{document}
