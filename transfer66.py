@@ -48,6 +48,57 @@ TRI = re.compile(r'(\d+)\s*X\s*(\d+)\s*X\s*(\d+)\s+triangular graph', re.I)
 
 ROWMAX = 400000
 EMAX = 16000000
+# The plain construction is used only when its size is known in advance to be manageable.
+# Both bounds are computed exactly, by a dynamic programme over the columns, so the decision
+# is a function of the entry alone -- not of whatever cap a caller happens to pass -- and a
+# rebuild always takes the same path as the run that produced it.
+PLAIN_ROWS = 300000
+PLAIN_EDGES = 12000000
+
+
+def plain_bounds(p):
+    """(number of legal slices, number of edges) of the unlumped digraph, counted not built."""
+    N, W, ds = p['N'], p['W'], set(p['dirs'])
+    A = [[False] * N for _ in range(N)]
+    for a, b in p['edges']:
+        A[a][b] = A[b][a] = True
+    horiz = 'horizontal' in ds
+    if horiz:
+        r = [1] * N
+        for _ in range(W - 1):
+            r = [sum(r[a] for a in range(N) if A[a][b]) for b in range(N)]
+        rows = sum(r)
+    else:
+        rows = N ** W
+    f = {}
+    for a in range(N):
+        for b in range(N):
+            if 'vertical' in ds and not A[a][b]:
+                continue
+            f[(a, b)] = 1
+    for _ in range(W - 1):
+        g = {}
+        for (a, b), c in f.items():
+            for a2 in range(N):
+                if horiz and not A[a][a2]:
+                    continue
+                if 'antidiagonal' in ds and not A[a2][b]:
+                    continue
+                for b2 in range(N):
+                    if horiz and not A[b][b2]:
+                        continue
+                    if 'vertical' in ds and not A[a2][b2]:
+                        continue
+                    if 'diagonal' in ds and not A[a][b2]:
+                        continue
+                    g[(a2, b2)] = g.get((a2, b2), 0) + c
+        f = g
+    return rows, rows + sum(f.values())
+
+
+def too_big(p):
+    r, e = plain_bounds(p)
+    return r > PLAIN_ROWS or e > PLAIN_EDGES
 
 
 def _octahedron():
@@ -184,8 +235,20 @@ def parse_name(nm):
     start0 = bool(m.group('st1') or t.group('st2'))
     if W < 1:
         return None
-    return {'W': W, 'alpha': alpha, 'N': N, 'edges': sorted(E), 'dirs': sorted(words),
-            'orig': orig, 'start0': start0, 'graph': gname, 'trans': trans, 'frac': 1}
+    p = {'W': W, 'alpha': alpha, 'N': N, 'edges': sorted(E), 'dirs': sorted(words),
+         'orig': orig, 'start0': start0, 'graph': gname, 'trans': trans, 'frac': 1}
+    return None if too_big(p) else p
+
+
+def parse_any(nm):
+    """The same reading with the size test left off, for the lumped engine to use."""
+    global PLAIN_ROWS, PLAIN_EDGES
+    a, b = PLAIN_ROWS, PLAIN_EDGES
+    PLAIN_ROWS = PLAIN_EDGES = float('inf')
+    try:
+        return parse_name(nm)
+    finally:
+        PLAIN_ROWS, PLAIN_EDGES = a, b
 
 
 def build(p, cap=400000):
