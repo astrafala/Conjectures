@@ -17,8 +17,8 @@ signal.signal(signal.SIGALRM, lambda s, f: (_ for _ in ()).throw(Slow()))
 
 def main(budget_s, per_entry, cap):
     out = json.load(open(OUT)) if os.path.exists(OUT) else {}
-    deep = json.load(open('audit_deep.json'))
-    todo = sorted(a for a, v in deep.items() if v['v'] in ('TOO BIG', 'SLOW'))
+    SC = '/tmp/claude-0/-home-user-Conjectures/a6c6c48d-a8e1-5e03-bfd7-16e8d9d94539/scratchpad'
+    todo = sorted(json.load(open(SC + '/bigtodo.json')))
     w, N = int(os.environ.get('W', 0)), int(os.environ.get('N', 1))
     todo = [a for i, a in enumerate(todo) if i % N == w]
     t0 = time.time()

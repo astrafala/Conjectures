@@ -13859,6 +13859,42 @@ closed forms checked against the model, 111 recovered recurrences confirmed, 21 
 rebuild in a container turn are recorded as NOT re-checked, and the comment drafts for those carry
 a hold.
 
+### 6 September 2026, third pass — the array side is fully re-checked, and `uniform.py` was hiding two engines
+
+Every array paper in the roster has now been rebuilt and re-checked. Getting there turned up two
+silent gaps in `uniform.py`, the single interface every sweep goes through.
+
+**`transfer7` could not be built through `uniform` at all.** `uniform.build` dispatches on a list
+of engines whose `build` takes a `cap`; `transfer7.build` takes only `p`. It fell through to the
+generic call, which passes `cap=`, raising `TypeError` — swallowed by the `except Exception:
+return None` that guards the dispatch. So every `transfer7` entry came back "too big" from a model
+that builds in five seconds. Forty-two of the seventy models the audit could not rebuild were
+this one bug. `transfer3` and `transfer6` have the same signature and were handled specially;
+`transfer7` was simply missed. Fixed, with its own branch in `build`, `size`, `terms` and
+`threshold`.
+
+**`uniform` does not know `transfer7`'s LUMPED model, or its second reading.** The sweep that
+produced the relabelling papers calls `build_lumped`, whose states are row PATTERNS rather than
+rows — which is why a model `uniform` reports as 4.8 million states is 430 in the paper — and it
+falls back to `parse_nb` when `parse_name` refuses. `uniform` does neither. The audit now uses the
+sweep's own path for that family; nineteen more models came back in four minutes.
+
+**The last one, `A222142`, needed a different idea.** 15625 rows, and the matrix has 244 million
+entries, which is more than a container turn. But the condition is per adjacent PAIR of cells, so
+the vertical part of the transfer matrix is a sixfold tensor power of one 5×5 matrix and the
+horizontal part is a mask on rows. A vector goes through a step in six passes of a 5×5
+contraction — about half a million operations instead of 244 million — and the counts and the
+recurrence come out exactly. Recorded here because the trick generalises: **whenever the condition
+is a product over columns, the transfer matrix never has to be written down.**
+
+Also re-checked in this pass: all 188 table papers, column by column (315 columns, no failures),
+and all 157 empirical closed forms, evaluated against the rebuilt model past every published term.
+
+Verification standing: **8535 of 8688 re-checked this round**, with zero mathematical failures
+found. The 153 not re-checked are the symbolic papers whose route the re-derivation script does
+not cover — bespoke number theory, hypergeometric closed forms, Ore-algebra divisions,
+coefficient extractions — and their comment drafts carry a hold.
+
 ### Signals worth opening
 Garbled or self-contradictory wording; an idle hypothesis (check whether the caveat is
 load-bearing, or is a classical theorem's hypothesis in disguise); a contributor stating

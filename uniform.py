@@ -59,6 +59,15 @@ def build(en, p, cap):
             if en == 'transfer6' and len(b[0]) > cap:
                 return None
             return b
+        if en == 'transfer7':
+            # transfer7's build takes no cap and returns (adj, start, blocks); it was falling
+            # through to the generic call, which passes cap= and raises TypeError -- swallowed
+            # by the except below, so every transfer7 entry came back "too big" when the model
+            # builds in seconds. A silent refusal, of the kind this file exists to prevent.
+            b = M[en].build(p)
+            if not b or not b[0] or len(b[0]) > cap:
+                return None
+            return b
         if en in PAIR or en in DEN:
             b = M[en].build(p, cap=cap)
             return b if b and b[0] else None
@@ -69,6 +78,8 @@ def build(en, p, cap):
 
 
 def size(en, p, b):
+    if en == 'transfer7':
+        return len(b[0])
     if en in PLAIN:
         return len(b[0])
     if en in PAIR:
@@ -99,6 +110,10 @@ def terms(en, p, b, N):
         adj, start, end, S, den = b
         f = den * p.get('frac', 1)
         return [Fraction(v, f) for v in M[en].terms(adj, start, end, N)]
+    if en == 'transfer7':
+        adj, start, _ = b
+        f = p['frac'] * factorial(p['K'])
+        return [Fraction(v, f) for v in M[en].terms(adj, start, N)]
     if en == 'transfer10':
         adj, start, _ = b
         f = factorial(p['K']) * p['frac']
@@ -126,6 +141,9 @@ def threshold(en, p, b, coeffs, order):
     if en in DEN:
         adj, start, end, S, den = b
         return T19.threshold(adj, start, end, coeffs, order, S)
+    if en == 'transfer7':
+        adj, start, _ = b
+        return M[en].threshold(adj, start, coeffs, order)
     if en == 'transfer10':
         adj, start, _ = b
         return M[en].threshold(adj, start, coeffs, order, p)
