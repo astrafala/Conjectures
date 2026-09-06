@@ -1,0 +1,217 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=1in]{geometry}
+\usepackage[colorlinks=true,linkcolor=blue,urlcolor=blue]{hyperref}
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem*{remark}{Remark}
+
+\title{Square matrices that square to zero:\\
+a proof of Branman's conjecture on OEIS A087726}
+\author{Adrian Perez Fontelles\\ \small Independent researcher}
+\date{24 August 2026}
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Let $a(n)$ be the number of $X\in M_{2}(\mathbb{Z}/n\mathbb{Z})$ with $X^{2}\equiv0$, OEIS
+A087726. In March 2013 B.~Branman conjectured that $a(n)=n^{2}$ if and only if $n$ is
+squarefree; E.~M. Schmidt confirmed the ``if'' direction the following day, and the
+converse has been open since. We prove it. The argument needs no formula for $a(p^{k})$:
+since $a$ is multiplicative and $a(p)=p^{2}$, it suffices to show $a(p^{k})>p^{2k}$ for
+$k\ge2$, and for that a lower bound is enough. Every trace-zero matrix
+$X=\bigl(\begin{smallmatrix}a&b\\c&-a\end{smallmatrix}\bigr)$ satisfies
+$X^{2}=(a^{2}+bc)I$, so
+$a(p^{k})\ge N(k):=\#\{(a,b,c)\bmod p^{k}:a^{2}+bc\equiv0\}$, and $N$ obeys the two-step
+recursion $N(k)=(p^{2}-1)p^{2k-2}+p^{3}N(k-2)$, from which $N(k)>p^{2k}$ for $k\ge2$ falls
+out in two lines.
+\end{abstract}
+
+\section{The conjecture}
+
+OEIS A087726 (Yuval Dekel, September 2003) is
+\[
+  a(n)=\#\bigl\{X\in M_{2}(\mathbb{Z}/n\mathbb{Z}):X^{2}\equiv0\bmod n\bigr\},
+  \qquad a(1),\dots,a(9)=1,4,9,28,25,36,49,112,153.
+\]
+The entry carries
+
+\begin{quote}
+\textbf{Conjecture:} $a(n)=n^{2}$ if and only if $n$ is squarefree. --- Ben Branman,
+Mar 22 2013\\
+Preceding conjecture is true in the case where $n$ is squarefree. --- Eric M. Schmidt,
+Mar 23 2013
+\end{quote}
+
+and, separately, an unproven closed form for $a(p^{k})$ observed by R.~Israel in June 2015,
+of which only the case $k=1$ has a recorded proof. As of the ``Last modified'' line on the
+live entry (23 August 2026) Branman's conjecture is still recorded as unproven. We prove it
+below without using Israel's formula.
+
+\section{Reduction}
+
+\begin{lemma}[multiplicativity]\label{lem:mult}
+If $\gcd(m,n)=1$ then $a(mn)=a(m)a(n)$.
+\end{lemma}
+
+\begin{proof}
+The Chinese remainder theorem gives a ring isomorphism
+$\mathbb{Z}/mn\mathbb{Z}\cong\mathbb{Z}/m\mathbb{Z}\times\mathbb{Z}/n\mathbb{Z}$, hence
+$M_{2}(\mathbb{Z}/mn\mathbb{Z})\cong M_{2}(\mathbb{Z}/m\mathbb{Z})\times
+M_{2}(\mathbb{Z}/n\mathbb{Z})$, and $X^{2}=0$ holds if and only if it holds in each factor.
+\end{proof}
+
+\begin{lemma}[the trace-zero family]\label{lem:trace}
+For any commutative ring $R$ and $a,b,c\in R$, the matrix
+$X=\begin{pmatrix}a&b\\c&-a\end{pmatrix}$ satisfies $X^{2}=(a^{2}+bc)I$. Hence $X^{2}=0$ if
+and only if $a^{2}+bc=0$.
+\end{lemma}
+
+\begin{proof}
+Direct multiplication: the diagonal entries are $a^{2}+bc$ and $cb+a^{2}$, and the
+off-diagonal entries are $ab-ba=0$ and $ca-ac=0$.
+\end{proof}
+
+For a prime $p$ and $k\ge0$ set
+\[
+  N(k)=\#\bigl\{(a,b,c)\in(\mathbb{Z}/p^{k}\mathbb{Z})^{3}:a^{2}+bc\equiv0\bmod p^{k}\bigr\},
+\]
+with the convention $N(0)=1$. Lemma~\ref{lem:trace} gives immediately
+\begin{equation}\label{eq:lower}
+  a(p^{k})\ge N(k).
+\end{equation}
+
+\begin{lemma}[the prime case]\label{lem:prime}
+$a(p)=N(1)=p^{2}$.
+\end{lemma}
+
+\begin{proof}
+Over the field $\mathbb{F}_{p}$, if $X^{2}=0$ and $X\ne0$ then the minimal polynomial of
+$X$ is $t^{2}$, so the characteristic polynomial is $t^{2}$ and $\operatorname{tr}X=\det
+X=0$; and $X=0$ satisfies this too. Conversely if $\operatorname{tr}X=\det X=0$ then
+$X^{2}=0$ by Cayley--Hamilton. So the solutions are exactly the trace-zero matrices with
+$a^{2}+bc=0$, that is $a(p)=N(1)$. To count $N(1)$: for each of the $p^{2}-p$ pairs $(a,b)$
+with $b\ne0$ there is one $c$; for $b=0$ the condition is $a^{2}=0$, that is $a=0$, and $c$
+is free, giving $p$ more. Total $p^{2}-p+p=p^{2}$.
+\end{proof}
+
+\begin{proposition}\label{prop:reduce}
+Suppose $a(p^{k})>p^{2k}$ for every prime $p$ and every $k\ge2$. Then Branman's conjecture
+holds.
+\end{proposition}
+
+\begin{proof}
+Write $n=\prod p^{k_{p}}$. By Lemma~\ref{lem:mult}, $a(n)=\prod_{p}a(p^{k_{p}})$, while
+$n^{2}=\prod_{p}p^{2k_{p}}$. By Lemma~\ref{lem:prime} the factors agree when $k_{p}=1$, and
+by hypothesis $a(p^{k_{p}})>p^{2k_{p}}$ when $k_{p}\ge2$. All factors are positive, so
+$a(n)\ge n^{2}$ with equality precisely when no $k_{p}$ exceeds 1, that is precisely when
+$n$ is squarefree.
+\end{proof}
+
+\section{The counting recursion}
+
+\begin{lemma}\label{lem:rec}
+For every prime $p$ and every $k\ge2$,
+\[
+  N(k)=(p^{2}-1)\,p^{2k-2}+p^{3}\,N(k-2),
+\]
+with $N(0)=1$ and $N(1)=p^{2}$.
+\end{lemma}
+
+\begin{proof}
+Split the solutions according to whether $p$ divides all of $a,b,c$.
+
+\emph{Imprimitive solutions.} If $a\equiv b\equiv c\equiv0\bmod p$, write
+$(a,b,c)=(pa',pb',pc')$ with $a',b',c'$ ranging over $\mathbb{Z}/p^{k-1}\mathbb{Z}$; the
+condition becomes $p^{2}(a'^{2}+b'c')\equiv0\bmod p^{k}$, that is
+$a'^{2}+b'c'\equiv0\bmod p^{k-2}$. That condition depends on $(a',b',c')$ only modulo
+$p^{k-2}$, and each residue modulo $p^{k-2}$ has $p$ lifts modulo $p^{k-1}$ in each
+coordinate. So the imprimitive solutions number $p^{3}N(k-2)$.
+
+\emph{Primitive solutions.} Let $Q(a,b,c)=a^{2}+bc$, with gradient $\nabla Q=(2a,c,b)$. If
+$(a,b,c)$ is a solution modulo $p$ with $\nabla Q\equiv0$ then $b\equiv c\equiv0$; for odd
+$p$ also $a\equiv0$, and for $p=2$ the congruence $Q\equiv0$ forces $a^{2}\equiv0$, hence
+$a\equiv0$ as well. So every primitive solution modulo $p$ is a nonsingular point of $Q$,
+and by Hensel's lemma each lifts to exactly $p^{2(k-1)}$ solutions modulo $p^{k}$. By
+Lemma~\ref{lem:prime} there are $N(1)=p^{2}$ solutions modulo $p$, of which one --- the
+origin --- is imprimitive, so $p^{2}-1$ are primitive. Hence the primitive solutions modulo
+$p^{k}$ number $(p^{2}-1)p^{2k-2}$.
+\end{proof}
+
+\begin{lemma}\label{lem:bound}
+$N(k)\ge p^{2k}$ for every $k\ge0$, and $N(k)>p^{2k}$ for every $k\ge2$.
+\end{lemma}
+
+\begin{proof}
+Rewrite Lemma~\ref{lem:rec} as
+\begin{equation}\label{eq:diff}
+  N(k)-p^{2k}=p^{3}N(k-2)-p^{2k-2}\qquad(k\ge2),
+\end{equation}
+using $(p^{2}-1)p^{2k-2}=p^{2k}-p^{2k-2}$.
+
+First, $N(k)\ge p^{2k}$ for all $k\ge0$, by induction in steps of two. The bases are
+$N(0)=1=p^{0}$ and $N(1)=p^{2}$. For $k\ge2$, the inductive hypothesis $N(k-2)\ge p^{2k-4}$
+and \eqref{eq:diff} give
+\[
+  N(k)-p^{2k}\ge p^{3}p^{2k-4}-p^{2k-2}=p^{2k-1}-p^{2k-2}=p^{2k-2}(p-1)>0.
+\]
+This is a strict inequality, which simultaneously proves the second claim for $k\ge2$.
+\end{proof}
+
+\section{The theorem}
+
+\begin{theorem}\label{thm:main}
+For every $n\ge1$, $a(n)\ge n^{2}$, with equality if and only if $n$ is squarefree.
+\end{theorem}
+
+\begin{proof}
+By \eqref{eq:lower} and Lemma~\ref{lem:bound}, $a(p^{k})\ge N(k)>p^{2k}$ for every $k\ge2$.
+Proposition~\ref{prop:reduce} then gives the statement.
+\end{proof}
+
+\begin{remark}[what is and is not proved]
+Only a lower bound on $a(p^{k})$ is used, so this argument says nothing about the exact
+value of $a(p^{k})$ and in particular does not prove Israel's observed formula, which
+remains open. The gap is real: for instance $a(4)=28$ while $N(2)=20$, the difference being
+the solutions with nonzero trace, which exist over $\mathbb{Z}/p^{k}\mathbb{Z}$ for $k\ge2$
+although not over a field. The conjecture simply does not need them.
+\end{remark}
+
+\begin{remark}[honest assessment]
+The three ingredients --- Chinese remainder, Cayley--Hamilton in the form
+$\bigl(\begin{smallmatrix}a&b\\c&-a\end{smallmatrix}\bigr)^{2}=(a^{2}+bc)I$, and Hensel
+lifting for the ternary form $a^{2}+bc$ --- are all standard, and the write-up is short.
+The reason the statement survived thirteen years is presumably that the natural attack is
+Israel's exact formula for $a(p^{k})$, which is genuinely harder than the conjecture
+itself. The appropriate destination is an OEIS comment.
+\end{remark}
+
+\section{Verification}
+
+A verification script, written separately from this note, checks every claim and prints
+every number quoted. It (i) recomputes $a(1),\dots,a(12)$ by exhaustive search over
+$M_{2}(\mathbb{Z}/n\mathbb{Z})$ and matches the published DATA exactly; (ii) confirms
+Lemma~\ref{lem:mult} on all coprime pairs with $mn\le40$, with 0 mismatches; (iii) confirms
+$a(p)=p^{2}$ for $p=2,3,5,7$; (iv) confirms the recursion of Lemma~\ref{lem:rec} against a
+brute-force count of $N(k)$ for all $p^{k}\le27$, with 0 mismatches, giving for $p=2$ the
+values $N(0..8)=1,4,20,80,352,1408,5888,23552,96256$ and for $p=3$
+$N(0..6)=1,9,99,891,8505,76545,702027$; (v) confirms $N(k)\ge p^{2k}$ for $0\le k\le24$ and
+$p\in\{2,3,5,7,11,13,101,1009\}$, strict for $k\ge2$, together with identity
+\eqref{eq:diff}; (vi) checks $a(p^{k})\ge N(k)>p^{2k}$ directly for
+$p^{k}\in\{4,8,9,16,25,27\}$, for example $a(16)=640\ge352>256$; and (vii) confirms
+Theorem~\ref{thm:main} itself --- that $a(n)=n^{2}$ exactly for the squarefree $n\le40$ ---
+with 0 mismatches.
+
+\begin{thebibliography}{9}
+\bibitem{oeis} N.~J.~A. Sloane et al., \emph{The On-Line Encyclopedia of Integer
+Sequences}, \url{https://oeis.org/A087726}, entry A087726, consulted 24 August 2026.
+\bibitem{serre} J.-P. Serre, \emph{A Course in Arithmetic}, Springer, 1973 (for Hensel's
+lemma and counts of quadratic-form solutions).
+\end{thebibliography}
+\end{document}

@@ -1,0 +1,169 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=1in]{geometry}
+\usepackage[colorlinks=true,linkcolor=blue,urlcolor=blue]{hyperref}
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem*{remark}{Remark}
+
+\title{One local factor:\\
+a proof of Mathar's M\"obius-transform conjecture on\\
+OEIS A062368}
+\author{Adrian Perez Fontelles\\ \small Independent researcher}
+\date{24 August 2026}
+\begin{document}
+\maketitle
+
+\begin{abstract}
+OEIS A062368 is the multiplicative function with $a(p^{e})=(e+1)(e+2)(4e+3)/6$. In August
+2012 R.~J. Mathar conjectured that it is the third inverse M\"obius transform of
+$4^{\omega(n)}$, where $\omega$ counts distinct prime factors. We prove it. Both sides are
+multiplicative, so the whole statement is a single identity between local Dirichlet
+factors, and that identity is $\binom{e+3}{3}+3\binom{e+2}{3}=(e+1)(e+2)(4e+3)/6$: the
+generating function of $a(p^{e})$ is $(1+3x)/(1-x)^{4}$, which is exactly the local factor
+of $4^{\omega}$ times three copies of $\zeta$.
+\end{abstract}
+
+\section{The sequence and the conjecture}
+
+OEIS A062368 (Vladeta Jovovic, 7 July 2001) has offset 1 and is defined as the
+multiplicative function with
+\begin{equation}\label{eq:def}
+  a(p^{e})=\frac{(e+1)(e+2)(4e+3)}{6},
+\end{equation}
+so $a=1,7,7,22,7,49,7,50,22,49,\dots$. The entry carries
+
+\begin{quote}
+\textbf{Conjecture:} this is the third inverse M\"obius transform of the sequence
+$4^{\mathrm{A001221}(n)}$. --- R. J. Mathar, Aug 09 2012
+\end{quote}
+
+Here $\mathrm{A001221}(n)=\omega(n)$ is the number of distinct primes dividing $n$, and the
+inverse M\"obius transform of an arithmetic function $b$ is $(b*1)(n)=\sum_{d\mid n}b(d)$,
+where $*$ is Dirichlet convolution and $1$ is the constant function 1. Applying it three
+times gives $b*1*1*1=b*\tau_{3}$, with $\tau_{3}=1*1*1=\mathrm{A007425}$. So the conjecture
+reads
+\begin{equation}\label{eq:conj}
+  a=4^{\omega}*1*1*1,\qquad\text{that is}\qquad
+  a(n)=\sum_{d\mid n}4^{\omega(d)}\,\tau_{3}(n/d).
+\end{equation}
+As of the ``Last modified'' line on the live entry (24 August 2026) the statement is still
+recorded as an unproven conjecture, with no proof in the entry's links or programs.
+
+\begin{remark}[status, stated plainly]
+On 10 July 2026 R.~Oudra added to the FORMULA section of the same entry the line
+$a(n)=\sum_{d\mid n}4^{\omega(d)}\tau_{3}(n/d)$, unlabelled and without proof, together
+with the Dirichlet generating function $\zeta(s)^{4}\prod_{p}(1+3p^{-s})$. That formula is
+\eqref{eq:conj}, that is Mathar's conjecture restated; it was added six weeks before this
+note and the conjecture label was not removed. I have found no proof of either on the entry
+or in the literature. What follows supplies one, and shows the two statements are the same.
+\end{remark}
+
+\section{Proof}
+
+Write $x=p^{-s}$ and, for an arithmetic function $b$, let $B_{p}(x)=\sum_{e\ge0}b(p^{e})
+x^{e}$ denote its local factor at $p$; for multiplicative $b$ the Dirichlet series is
+$\sum_{n}b(n)n^{-s}=\prod_{p}B_{p}(p^{-s})$, and Dirichlet convolution corresponds to
+multiplication of local factors. All series below are formal.
+
+\begin{lemma}\label{lem:four}
+The local factor of $4^{\omega}$ at every prime is $(1+3x)/(1-x)$, and hence the local
+factor of $4^{\omega}*1*1*1$ is $(1+3x)/(1-x)^{4}$.
+\end{lemma}
+
+\begin{proof}
+$\omega(p^{e})=1$ for $e\ge1$ and $\omega(1)=0$, so
+\[
+  \sum_{e\ge0}4^{\omega(p^{e})}x^{e}=1+4\sum_{e\ge1}x^{e}=1+\frac{4x}{1-x}=\frac{1+3x}{1-x}.
+\]
+The local factor of $1$ is $\sum_{e\ge0}x^{e}=1/(1-x)$; multiplying by it three times gives
+the second claim.
+\end{proof}
+
+\begin{lemma}\label{lem:a}
+The local factor of $a$ at every prime is $(1+3x)/(1-x)^{4}$.
+\end{lemma}
+
+\begin{proof}
+Since $(1-x)^{-4}=\sum_{e\ge0}\binom{e+3}{3}x^{e}$,
+\[
+  \frac{1+3x}{(1-x)^{4}}=\sum_{e\ge0}\left[\binom{e+3}{3}+3\binom{e+2}{3}\right]x^{e},
+\]
+with the convention $\binom{2}{3}=0$ at $e=0$. Now
+\[
+  \binom{e+3}{3}+3\binom{e+2}{3}=\frac{(e+1)(e+2)(e+3)}{6}+3\cdot\frac{e(e+1)(e+2)}{6}
+  =\frac{(e+1)(e+2)\bigl[(e+3)+3e\bigr]}{6}=\frac{(e+1)(e+2)(4e+3)}{6},
+\]
+which is $a(p^{e})$ by \eqref{eq:def}.
+\end{proof}
+
+\begin{theorem}\label{thm:main}
+$a=4^{\omega}*1*1*1$; that is, Mathar's conjecture holds:
+\[
+  a(n)=\sum_{d\mid n}4^{\omega(d)}\,\tau_{3}(n/d)\qquad\text{for every }n\ge1.
+\]
+\end{theorem}
+
+\begin{proof}
+Both sides are multiplicative --- $a$ by definition, and the right-hand side because
+Dirichlet convolution of multiplicative functions is multiplicative. Two multiplicative
+functions are equal precisely when they agree at every prime power, equivalently when their
+local factors agree at every prime. By Lemmas~\ref{lem:four} and \ref{lem:a} both local
+factors equal $(1+3x)/(1-x)^{4}$ at every prime.
+\end{proof}
+
+\begin{corollary}
+The Dirichlet generating function of A062368 is $\zeta(s)^{4}\prod_{p}\bigl(1+3p^{-s}\bigr)$.
+\end{corollary}
+
+\begin{proof}
+Take the product of the local factors of Lemma~\ref{lem:a} over all primes and use
+$\prod_{p}(1-p^{-s})^{-1}=\zeta(s)$.
+\end{proof}
+
+\begin{remark}[why the number three appears twice, and independently]
+The conjecture involves three copies of $1$; the constant 3 in the local factor $(1+3x)$
+comes from $4-1$, not from the number of transforms. They are unrelated, which is
+presumably why the identity looked opaque enough to be left as a conjecture: the statement
+pairs the multiplier 4 in $4^{\omega}$ with the exponent 4 in $(1-x)^{-4}$, and those two
+fours have different origins --- one is $1+3$, the other is $1+3$ copies of $\zeta$.
+\end{remark}
+
+\begin{remark}[honest assessment]
+Half a page, and nothing beyond multiplicativity and one binomial identity. The natural
+destination is a comment on the entry. It is worth recording because the statement has
+carried the label ``Conjecture'' since 2012, and because the same identity was added to the
+same entry's FORMULA section as an unlabelled assertion in July 2026 without the conjecture
+being marked resolved --- the same pattern seen on A005329 and A129364, where a later
+contributor restates a standing conjecture as a fact and nobody reconciles the two.
+\end{remark}
+
+\section{Verification}
+
+A verification script, written separately from this note, checks every claim and prints
+every number quoted. It (i) reproduces the first 68 published terms of A062368 from the
+multiplicative definition \eqref{eq:def}; (ii) confirms the conjecture by applying the
+inverse M\"obius transform to $4^{\omega}$ three times, literally, and comparing with
+$a(n)$ for $1\le n\le300$, with no discrepancy, and likewise in the convolved form
+$\sum_{d\mid n}4^{\omega(d)}\tau_{3}(n/d)$; (iii) confirms the local-factor identity of
+Lemma~\ref{lem:a} symbolically, that the coefficients of $(1+3x)/(1-x)^{4}$ agree with
+$(e+1)(e+2)(4e+3)/6$ through $x^{24}$, and confirms
+$\binom{e+3}{3}+3\binom{e+2}{3}=(e+1)(e+2)(4e+3)/6$ for $0\le e\le40$; and (iv) confirms
+that the threefold transform of $4^{\omega}$ is multiplicative on all coprime pairs
+$m,n<40$.
+
+\begin{thebibliography}{9}
+\bibitem{oeis} N.~J.~A. Sloane et al., \emph{The On-Line Encyclopedia of Integer
+Sequences}, \url{https://oeis.org/A062368}, consulted 24 August 2026; also A001221 and
+A007425.
+\bibitem{apostol} T.~M. Apostol, \emph{Introduction to Analytic Number Theory}, Springer,
+1976; Chapter 2 (Dirichlet multiplication) and Chapter 11 (Dirichlet series and Euler
+products).
+\end{thebibliography}
+\end{document}
