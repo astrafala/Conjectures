@@ -1,0 +1,130 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=1in]{geometry}
+\usepackage[colorlinks=true,linkcolor=blue,urlcolor=blue]{hyperref}
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{remark}[theorem]{Remark}
+
+\title{The empirical recurrence for OEIS A184471, proved by transfer matrix}
+\author{Adrian Perez Fontelles\\ \small Independent researcher}
+\date{6 September 2026}
+\begin{document}
+\maketitle
+
+\begin{abstract}
+OEIS A184471 counts arrays of width $5$ over $\{0,1,2\}$ in which every $3\times3$ subblock
+satisfies a condition on its nine entries. The entry carries an empirical recurrence of order
+$27$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical: a
+$3\times3$ block lies in three consecutive rows, so the state is the last two rows and the
+count is a walk count on $S=59293$ states.
+\end{abstract}
+
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B20, 15A18.\normalsize
+
+\section{The conjecture}
+
+OEIS A184471 is ``1/6 the number of (n+2)X5 0..2 arrays with each 3X3 subblock containing one of one value, four of another, and four of the last.''. It has offset $1$ and begins
+\[
+3705, 7085, 14119, 30681, 86575, 249953, 747735, 2652785,\ \dots
+\]
+The entry states, as a conjecture contributed by its author and never marked settled:
+\begin{quote}
+Empirical: a(n)=6*a(n-1)-11*a(n-2)+129*a(n-3)-738*a(n-4)+1353*a(n-5)-6290*a(n-6)+33312*a(n-7)-61072*a(n-8)+155640*a(n-9)-733968*a(n-10)+1345608*a(n-11)-2177568*a(n-12)+8661600*a(n-13)-15879600*a(n-14)+18027792*a(n-15)-56197152*a(n-16)+103028112*a(n-17)-89177760*a(n-18)+197883648*a(n-19)-362786688*a(n-20)+256296960*a(n-21)-350479872*a(n-22)+642546432*a(n-23)-390790656*a(n-24)+241864704*a(n-25)-443418624*a(n-26)+241864704*a(n-27)
+\end{quote}
+As of the ``Last modified'' line on the live entry (Oct 03 2025 02:40:37, revision 9) this is still
+recorded as empirical, and nothing on the entry records it as proved.
+
+\section{What is being counted}
+
+The arrays have $5$ columns and a growing number of rows, with entries in $\{0,1,2\}$. The
+condition is imposed on every $3\times3$ block of the array --- every choice of three
+consecutive rows and three consecutive columns --- and asks that the numbers of times the values occur are $1,\,4,\,4$ in some order. The entry publishes $1/6$ of that count; the division is by a constant and changes nothing about the recurrence.
+
+The entry's phrasing names the multiplicities without saying which value takes which, so what is fixed is the sorted list; this reading is pinned against the entry's own published terms.
+
+\section{Three rows}
+
+A $3\times3$ block occupies three consecutive rows, so everything the condition asks is decided
+by three consecutive rows and nothing wider. Take the array one row at a time and let the state
+be the last two rows written, with a distinguished start standing for the array before its
+first row. Appending a row completes the blocks whose bottom row is the new one, and the step
+is allowed exactly when each of those blocks passes.
+
+Every block of the finished array is tested exactly once, at the step that writes its bottom
+row, and no step imposes anything the definition does not ask. The first two rows complete no
+block at all, which is why they are laid down without a test. Every state may end an array, so
+$\tau=\mathbf{1}$. Thus
+\[
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=59293,
+\]
+for the transfer matrix $M$ on those $S$ states. The walk index $j$ and the entry's own $n$
+differ by a constant, read off by matching the published terms rather than assumed. In
+particular $a$ is $C$-finite.
+
+\section{The proof}
+
+\begin{lemma}\label{lem:crit}
+Let $q(t)=t^{27}-\sum_i c_it^{27-i}$ be the characteristic polynomial of the
+conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
+$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
+holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
+and it is enough to examine $j<S$.
+\end{lemma}
+
+\begin{proof}
+Factor $M^{j}$ out of $M^{j+27}-\sum_ic_iM^{j+27-i}$. For the bound, $M^{S}$
+is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
+$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
+polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
+pins the threshold exactly.
+\end{proof}
+
+\begin{theorem}
+\[
+a(n)\;=\;6\,a(n-1) - 11\,a(n-2) + 129\,a(n-3) - 738\,a(n-4) + 1353\,a(n-5) - 6290\,a(n-6) + 33312\,a(n-7) - 61072\,a(n-8) + 155640\,a(n-9) - 733968\,a(n-10) + 1345608\,a(n-11) - 2177568\,a(n-12) + 8661600\,a(n-13) - 15879600\,a(n-14) + 18027792\,a(n-15) - 56197152\,a(n-16) + 103028112\,a(n-17) - 89177760\,a(n-18) + 197883648\,a(n-19) - 362786688\,a(n-20) + 256296960\,a(n-21) - 350479872\,a(n-22) + 642546432\,a(n-23) - 390790656\,a(n-24) + 241864704\,a(n-25) - 443418624\,a(n-26) + 241864704\,a(n-27)
+\]
+for every $n>27$.
+\end{theorem}
+
+\begin{proof}
+The vector $w=q(M)\tau$ was formed by $27$ matrix--vector products in exact integer
+arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
+integers vanish from the index corresponding to $n=27+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once.
+\end{proof}
+
+\section{Verification}
+
+Four checks, each independent of the algebra above.
+
+First, the model reproduces all $21$ terms the entry publishes, exactly, in integer
+arithmetic.
+
+Second, the count was recomputed for the smallest arrays straight from the definition: every
+array was written out cell by cell and each $3\times3$ block tested directly on its nine
+entries. No rows, no window, no state and no transfer matrix are involved in that computation,
+and the published terms came back.
+
+Third, the conjectured recurrence was evaluated directly on the published terms, with no
+matrices involved, and holds wherever the proved range and the data overlap.
+
+Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+arithmetic on the whole vector rather than on a sampled prefix.
+
+\begin{thebibliography}{9}
+\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
+Sequences}, \url{https://oeis.org}, 2026. Sequence A184471.
+\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
+University Press, 2013.
+\end{thebibliography}
+
+\end{document}

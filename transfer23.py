@@ -121,7 +121,10 @@ def windows(p, cap):
     g = collections.defaultdict(list)
     for cells in product(range(al + 1), repeat=K * K):
         M = tuple(tuple(cells[i * K:(i + 1) * K]) for i in range(K))
-        key = (sum(cells) if pred == 'pop'
+        # "the same population" is the count of EACH value, not the sum. The two agree on a
+        # binary matrix, which is why the sum reading survived every binary entry of this
+        # family; over 0..2 it gives A224654 = 102789 where the entry publishes 67797.
+        key = (tuple(cells.count(v) for v in range(al + 1)) if pred == 'pop'
                else M[0][0] * M[1][1] + M[0][1] * M[1][0])
         g[key].append(M)
     return [g[k] for k in sorted(g)]

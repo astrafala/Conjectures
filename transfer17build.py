@@ -16,6 +16,16 @@ def conj_line(anum):
     return None
 
 
+import json as _json
+_ROSTER_AT_BUILD = {v['anum'] for v in _json.load(open('paper-engines.json')).values()}
+
+
+def datefor(a):
+    """A paper carries the date its result was obtained, not the date of the batch it is
+    rebuilt with."""
+    return '1 September 2026' if a in _ROSTER_AT_BUILD else '6 September 2026'
+
+
 def build(h):
     a = h["anum"]
     W, alpha, S = h["fixed"], h["alpha"], h["S"]
@@ -36,7 +46,14 @@ def build(h):
                 r" t_j&t_{j+1}&t_{j+2}\end{pmatrix}" if rowwalk else
                 r"g=\begin{pmatrix}r_i&s_i&t_i\\ r_{i+1}&s_{i+1}&t_{i+1}\\"
                 r" r_{i+2}&s_{i+2}&t_{i+2}\end{pmatrix}")
-    quantword = "every" if h["quant"] != "no" else "no"
+    # The negation of a "no ... subblock ..." body is absorbed into h['tex'] when the parser
+    # rewrites it positively ("every diagonal sum \notin {0}"), so quoting the entry's own
+    # "no" around that display negates the condition a SECOND time and states the opposite of
+    # what the entry asks. The quantifier belongs to the displayed formula, not to the body
+    # word it was built from.
+    quantword = ("no" if (h["quant"] == "no"
+                          and not h["tex"].lstrip().startswith(r"\text{every"))
+                 else "every")
     perim = ("" if 'perimeter' not in h['body'].lower() else
              " That check did real work here. The phrase ``clockwise perimeter pattern'' does"
              " not mean that the eight boundary entries, read clockwise from the top left,"
@@ -55,7 +72,7 @@ def build(h):
     return rf"""{PRE}
 \title{{The empirical recurrence for OEIS {a}, proved by transfer matrix}}
 \author{{Adrian Perez Fontelles\\ \small Independent researcher}}
-\date{{1 September 2026}}
+\date{{{datefor(a)}}}
 \begin{{document}}
 \maketitle
 

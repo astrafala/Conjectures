@@ -8,8 +8,21 @@ esc = phibuild.esc
 rec_tex = transferbuild.rec_tex
 
 COND = {'idem': ('idempotent', r'$B^2=B$'),
-        'pop': ('of equal population', r'the same number of nonzero entries'),
+        # "the same population" is the count of EACH value. On a binary matrix that is the
+        # number of 1s; over a larger range the sum reading is wrong, and only the
+        # count-of-each-value one reproduces the published terms.
+        'pop': ('of equal population', r'the same number of occurrences of each value'),
         'perm': ('of equal permanent', r'the same permanent $b_{11}b_{22}+b_{12}b_{21}$')}
+
+
+import json as _json
+_ROSTER_AT_BUILD = {v['anum'] for v in _json.load(open('paper-engines.json')).values()}
+
+
+def datefor(a):
+    """A paper carries the date its result was obtained, not the date of the batch it is
+    rebuilt with."""
+    return '2 September 2026' if a in _ROSTER_AT_BUILD else '6 September 2026'
 
 
 def conj_line(anum):
@@ -76,7 +89,8 @@ narrow.
     what = 'population' if pred == 'pop' else 'permanent'
     if pred == 'pop':
         qty = (r'the number of its entries equal to $1$' if al == 1
-               else r'the sum of its entries')
+               else r'the list of how many times each of the values $0,\dots,%d$ occurs in it'
+               % al)
     else:
         qty = r'$b_{11}b_{22}+b_{12}b_{21}$'
     return rf"""
@@ -120,7 +134,7 @@ def build(h):
     return rf"""{PRE}
 \title{{The empirical recurrence for OEIS {a}, proved by transfer matrix}}
 \author{{Adrian Perez Fontelles\\ \small Independent researcher}}
-\date{{2 September 2026}}
+\date{{{datefor(a)}}}
 \begin{{document}}
 \maketitle
 
