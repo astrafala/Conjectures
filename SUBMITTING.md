@@ -83,7 +83,8 @@ rejected and would look bad.
 ## What your name is on right now
 
 - Every one of the 8887 PDFs carries `Adrian Perez Fontelles, Independent researcher`.
-- `README.md`, `CITATION.cff` and `.zenodo.json` all name you as author.
+- `README.md`, `METHODOLOGY.md`, `LEDGER.md`, `CITATION.cff` and `.zenodo.json` all name you as
+  author and set out what you specified and directed.
 - `LICENSE` is CC BY 4.0, so anyone reusing the papers is required to credit you.
 - GitHub shows a **Cite this repository** button, generated from `CITATION.cff`.
 

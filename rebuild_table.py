@@ -8,7 +8,7 @@ directory actually holds.
 import json, os, re
 import paperpath
 
-LEDGER = "LEDGER-CLAUDE-CODE.md"
+LEDGER = "LEDGER.md"
 
 KIND = [
     (r"conjectured recurrence", "conjectured P-recursive recurrence"),

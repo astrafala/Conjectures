@@ -24,11 +24,11 @@ for m in rm:
         d = DESC.get(f"{m['engine']}|{m['verdict']}", "conjectured recurrence proved")
     rows.append(f"| {m['rank']} | {m['verdict']} | {m['anum']} | {d} |")
 
-txt = open("LEDGER-CLAUDE-CODE.md").read()
+txt = open("LEDGER.md").read()
 lines = txt.split("\n")
 first = next(i for i, l in enumerate(lines) if l.startswith("| 1 | PROOF | A063305"))
 last = first
 while last + 1 < len(lines) and re.match(r"^\| \d+ \| (PROOF|DISPROOF) \| A\d+ \|", lines[last + 1]):
     last += 1
-open("LEDGER-CLAUDE-CODE.md", "w").write("\n".join(lines[:first] + rows + lines[last + 1:]))
+open("LEDGER.md", "w").write("\n".join(lines[:first] + rows + lines[last + 1:]))
 print(f"table rebuilt: {len(rows)} rows (was {last - first + 1})")

@@ -65,7 +65,23 @@ result is worth more than three forced ones.
 
 ---
 
-# Conjecture-hunt ledger
+# Working ledger
+
+The dated working record of this project: every batch, every reading that turned out wrong,
+every dead end, and every result withdrawn. It is kept because the project's specification
+requires the method to be audited and the findings written down — see
+[METHODOLOGY.md](METHODOLOGY.md).
+
+Project and standards: **Adrian Perez Fontelles**. Execution: an AI system (Claude) working to
+his specification. This file is the internal log, not a polished document; it is published
+because a reader assessing the results is entitled to see what went wrong as well as what
+worked.
+
+Newest entries are at the bottom of the dated sections.
+
+---
+
+## Roster
 
 Last updated 6 Sep 2026. Roster: **8951 papers** (8945 proofs, 6 disproofs), in `papers/`, banded by hardness, **numbered by how hard the result was**: 1 is the hardest.
 `rank-map.json` records the previous numbering. New results are ranked in, not appended.

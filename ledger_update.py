@@ -7,7 +7,7 @@ from the papers again.
 """
 import json, os, re, sys
 
-LEDGER = "LEDGER-CLAUDE-CODE.md"
+LEDGER = "LEDGER.md"
 
 
 def rows(pm, conjmap):

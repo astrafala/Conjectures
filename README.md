@@ -1,79 +1,106 @@
 # Proofs and disproofs of open OEIS conjectures
 
-**Adrian Perez Fontelles** — independent researcher
+### Adrian Perez Fontelles — independent researcher
 
 **8951 papers** settling conjectures across **8924 entries** of the
-[On-Line Encyclopedia of Integer Sequences](https://oeis.org):
-**8945 proofs** and **6 disproofs**. Every one of them was recorded as an open
-conjecture, empirical observation, or unverified formula on its OEIS entry at the
-time it was settled.
+[On-Line Encyclopedia of Integer Sequences](https://oeis.org): **8945 proofs** and
+**6 disproofs**, by **93 distinct arguments**. Every one was recorded on its OEIS entry
+as an open conjecture, an empirical observation, or an unverified formula at the moment
+it was settled.
+
+---
 
 ## Start here
 
-- **[OVERVIEW.pdf](OVERVIEW.pdf)** — one document explaining the method, the verification, and
-  the errors it caught. **Read this first if you are here to assess the work rather than to
-  look up an entry.**
-- **[papers/](papers/)** — every paper, as a PDF. One folder per band of 500.
-- **[papers/README.md](papers/README.md)** — how the ordering works, and the contents page.
-- **[papers/index.csv](papers/index.csv)** — every paper with its OEIS entry, in one table.
-- **[SUBMITTING.md](SUBMITTING.md)** — how to get these checked and cited.
-- **[oeis-comments.txt](oeis-comments.txt)** — a short plain-English summary of each result,
-  written to be posted on the entry itself.
+| | |
+| --- | --- |
+| **[OVERVIEW.pdf](OVERVIEW.pdf)** | One paper: the method, the verification, and the errors it caught. **Read this first to assess the work.** |
+| **[METHODOLOGY.md](METHODOLOGY.md)** | The full method, in detail — how a conjecture becomes a proof here, and every gate it has to pass. |
+| **[papers/](papers/)** | All 8951 papers. One folder per band of 500, hardest first. |
+| **[papers/index.csv](papers/index.csv)** | Every paper with its OEIS entry, in one table. |
+| **[LEDGER.md](LEDGER.md)** | The working log — every batch, every dead end, every mistake, dated. |
+| **[SUBMITTING.md](SUBMITTING.md)** | How these get checked and cited. |
+| **[oeis-comments.txt](oeis-comments.txt)** | A short plain-English summary per result, written to be posted on the entry. |
 
-**The paper number is the ranking. 1 is the hardest result and the last is the easiest.**
-Ranking is by the depth of the argument, not by the size of the sequence or the length of
+**The paper number is the ranking. 1 is the hardest result; the last is the easiest.**
+Ranking is by the depth of the argument, not the size of the sequence or the length of
 the paper.
+
+---
+
+## Who did what
+
+**This project is Adrian Perez Fontelles's.** The direction, the standards, and the
+working framework are his, and they are the reason the output can be trusted rather than
+merely produced. Specifically, these were his design decisions, fixed before any result
+existed and enforced on every batch since:
+
+- **The target.** Settle conjectures the OEIS itself records as open. Count nothing else.
+- **The deliverable.** One self-contained paper per result, in a fixed format, quoting the
+  conjecture verbatim with its contributor and date, stating that the entry still records
+  it as open, and reporting the range actually verified.
+- **The independence rule.** No paper may cite another paper in this roster. Where one
+  argument settles two hundred entries, each of the two hundred papers gives that argument
+  in full for its own entry, or it does not ship.
+- **The ranking.** Papers numbered by the depth of the argument, hardest first, and the
+  whole roster re-ranked whenever it changes — never appended to.
+- **The verification discipline.** Pin every reading against the entry's own published data
+  *before* writing any code. Brute-force every family a second time straight from the
+  definition. Exact integer and rational arithmetic only, never floating point, never a
+  sampled prefix.
+- **The honesty rules**, in his words: *never pad the count*; *tell me plainly when something
+  is null, elementary, or probably already known*; *a withheld result costs me nothing, a
+  wrong one costs me credibility*.
+- **The standing instruction to audit the method itself** and to write down what that audit
+  finds — which is why this repository ships its own error log rather than only its results.
+
+[LEDGER.md](LEDGER.md) opens with that specification in his own words, unedited — it is the
+standing brief every working session begins from, and it is reproduced there exactly as
+written rather than paraphrased.
+
+The mathematics, the code, and the drafting were carried out by an AI system (Claude)
+working to that specification across an extended series of sessions.
+
+**Those standards are not decoration.** Nearly every error this project has found in itself
+was caught by one of them, and several results were withdrawn because of them. The error log
+in [METHODOLOGY.md](METHODOLOGY.md#the-errors) and in [LEDGER.md](LEDGER.md) exists because
+the specification demanded it. A project of this size run without those rules would have
+shipped wrong results; this one has a written record of catching its own.
+
+---
 
 ## What is in a paper
 
-Each paper is self-contained and three to five pages. It gives the definition of the
-sequence, **quotes the conjecture verbatim with its contributor and date**, states that the
-entry still records it as open as of the entry's own "Last modified" line, proves it, and
-ends with a verification section reporting the ranges actually checked.
+Three to five pages, self-contained. The definition of the sequence; the conjecture quoted
+verbatim with contributor and date; a statement that the entry still records it as open as
+of the entry's own "Last modified" line; the proof; and a verification section reporting the
+ranges actually checked.
 
-Papers never refer to each other. Where many entries fall to one argument, each paper gives
-that argument in full for its own entry.
+## How a result gets counted
 
-## How the results were checked
+Four gates, all of which must pass. Full detail in [METHODOLOGY.md](METHODOLOGY.md).
 
-No result was accepted on one calculation. The standing rules were:
-
-1. **Read the entry, then pin the reading against its published data before writing any
-   code.** A misreading of the English gives different numbers at the very first term, and
-   several readings that looked obviously right were killed this way.
-2. **Brute force from the definition, independently of the machinery.** Every family was
-   counted a second time by writing out the objects themselves — no transfer matrix, no
-   closed form — and compared against the entry's own terms.
-3. **Exact integer and rational arithmetic throughout.** No floating point, no sampling of a
-   prefix.
-4. **Re-verify the whole roster, repeatedly.** Every entry has been re-checked, from the
-   entry's current text, several times over; the checks are in the repository and so are the
-   errors they caught.
-
-The [ledger](LEDGER-CLAUDE-CODE.md) is the working record. It includes the mistakes: readings
-that were wrong, results that were withdrawn, and checks that turned out to be testing
-something other than what they claimed.
+1. **Read the entry, then pin the reading against its published data** before writing code.
+   A misread sentence reproduces the published terms with probability near zero, so the data
+   is a check on the *reading*, not just the arithmetic.
+2. **Brute-force from the definition**, independently of the machinery — write out the
+   objects themselves and count them.
+3. **Evaluate the conjecture on the raw published terms**, with no model involved.
+4. **Decide it exactly** — the annihilation test in full integer arithmetic, to the
+   Cayley–Hamilton bound, never sampled.
 
 ## Honest limits
 
-- Some results rest on classical theorems, which the papers cite and name. The 41 papers on
-  plane partitions in a box lean on MacMahon's 1916 formula; what they settle is each entry's
-  own unproved expression, not the classical count. Where the weight sits is stated in the
-  abstract of every such paper.
-- Many of the array-counting results share one argument — the count is a walk in a finite
-  graph, so the sequence satisfies a linear recurrence and checking a proposed one is a finite
-  exact computation. That argument is not new. Applying it to a particular entry requires
-  reading that entry's English correctly, which is where the work and the risk actually are.
-- Nothing here has been peer reviewed.
-
-## Method
-
-These results were produced by directing an AI system (Claude) over an extended series of
-sessions: the author set the problem, the standards of proof, the verification rules and the
-direction of search, and the system carried out the reading, the modelling, the computation
-and the drafting. Every result was checked by at least two independent routes, as above.
-
-This is stated because a reader should be able to judge the work knowing how it was made.
+- The core argument is classical. Most of these entries count arrays of fixed width over a
+  finite alphabet, so the count is a walk in a finite digraph, the sequence satisfies a
+  linear recurrence, and checking a proposed one is a finite exact computation. That is in
+  Stanley. What is unusual here is that the question was actually asked, of every such entry.
+- Some results lean on named classical theorems, cited in the paper that uses them. The 41
+  plane-partition papers rest on MacMahon's 1916 box formula; what they settle is each
+  entry's own unproved expression, not the classical count. Every such paper says so in its
+  abstract.
+- No individual result is deep.
+- **Nothing here has been peer reviewed.**
 
 ## Reproducing
 
@@ -83,11 +110,10 @@ python3 rank.py              # re-derive the hardness ordering into papers-ranke
 python3 makeindex.py         # regenerate the index files
 ```
 
-The engines are `transfer*.py`, the sweeps `sweep_*.py`, the brute forces `bf*.py`, and the
-independent re-checks `audit_*.py`.
+Engines are `transfer*.py`, sweeps `sweep_*.py`, brute forces `bf*.py`, independent
+re-checks `audit_*.py`.
 
 ## Licence
 
-The papers and the text are released under
-[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/): reuse them freely, with attribution.
-The code is under the MIT licence.
+Papers and text: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) — reuse freely,
+with attribution to Adrian Perez Fontelles. Code: MIT.
