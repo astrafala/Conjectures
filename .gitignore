@@ -1,13 +1,21 @@
-*.log
+# Build scratch. Every paper's LaTeX source is kept in paper-sources/, banded by rank, so the
+# build tree itself is regenerable working state and is not stored: it held 35 660 files,
+# including a duplicate PDF of every paper and LaTeX's .aux/.out droppings.
+engine/build/
+engine/build_*/
+engine/papers-ranked/
 
-# The delivery archives are gone: the papers live in papers/, one folder per hardness band,
-# and that is the thing to link people to. makezips.py still works if an archive is ever
-# wanted, but nothing builds one by default any more.
+# The `was`-keyed master. The same PDFs as papers/ under different names; restore_master.py
+# rebuilds it exactly from papers/ and rank-map.json, verified byte for byte.
+engine/papers-old-numbering/
+
+# Downloaded OEIS b-files. A cache, refetchable, 145 MB.
+engine/bcache/
+
+# Delivery archives are no longer produced; the papers live in papers/.
 conjecture-papers-*.zip
 
-# The `was`-keyed master. It is the same 8887 PDFs as papers/ under different names, so
-# storing it doubles the clone for nothing; restore_master.py rebuilds it exactly from
-# papers/ and rank-map.json, and rank.py needs it on disk before it can run.
-papers-old-numbering/
-
+*.log
+*.pids
+*.bak
 __pycache__/

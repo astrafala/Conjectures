@@ -17,6 +17,7 @@ it was settled.
 | **[OVERVIEW.pdf](OVERVIEW.pdf)** | One paper: the method, the verification, and the errors it caught. **Read this first to assess the work.** |
 | **[METHODOLOGY.md](METHODOLOGY.md)** | The full method, in detail — how a conjecture becomes a proof here, and every gate it has to pass. |
 | **[papers/](papers/)** | All 9012 papers. One folder per band of 500, hardest first. |
+| **[paper-sources/](paper-sources/)** | The LaTeX source of every paper, banded and named identically. |
 | **[papers/index.csv](papers/index.csv)** | Every paper with its OEIS entry, in one table. |
 | **[LEDGER.md](LEDGER.md)** | The working log — every batch, every dead end, every mistake, dated. |
 | **[SUBMITTING.md](SUBMITTING.md)** | How these get checked and cited. |
@@ -102,15 +103,25 @@ Four gates, all of which must pass. Full detail in [METHODOLOGY.md](METHODOLOGY.
 - No individual result is deep.
 - **Nothing here has been peer reviewed.**
 
+## Layout
+
+| | |
+| --- | --- |
+| `papers/` | the results, as PDFs, banded by hardness |
+| `paper-sources/` | their LaTeX sources, banded identically |
+| `engine/` | everything that produces them — see [engine/README.md](engine/README.md) |
+| `archive/` | withdrawn papers and superseded output |
+
 ## Reproducing
 
 ```
-python3 restore_master.py    # rebuild the was-keyed master from papers/ and rank-map.json
-python3 rank.py              # re-derive the hardness ordering into papers-ranked/
-python3 makeindex.py         # regenerate the index files
+cd engine
+python3 src/restore_master.py   # rebuild the was-keyed master from ../papers and rank-map.json
+python3 src/rank.py             # re-derive the hardness ordering and install it into ../papers
+python3 src/makeindex.py        # regenerate the index files
 ```
 
-Engines are `transfer*.py`, sweeps `sweep_*.py`, brute forces `bf*.py`, independent
+Engines are `engine/src/transfer*.py`, sweeps `sweep_*.py`, brute forces `bf*.py`, independent
 re-checks `audit_*.py`.
 
 ## Licence
