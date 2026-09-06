@@ -31,6 +31,7 @@ from itertools import product
 
 import namecanon
 import transfer19
+import lumpauto
 
 CLASS = {'horizontally': [(0, 1)], 'vertically': [(1, 0)],
          'diagonally': [(1, 1)], 'antidiagonally': [(1, -1)]}
@@ -139,6 +140,38 @@ def build(p, cap=40000):
     rows = [r for r in product(range(A), repeat=W) if rowok(r)]
     if not rows:
         return [], [], [], 0
+    # Which rows may FOLLOW a given one is a per-position condition, so it is decided by bit
+    # operations rather than by scanning every pair: at[k][v] is the set of rows carrying v at
+    # position k, held as one integer, and the rows barred by r are the union of the at[k][v]
+    # over the (k, v) its own entries clash with. The pairwise scan is quadratic in the row
+    # count and is what kept the wider entries of this family out of reach.
+    R = len(rows)
+    at = [[0] * A for _ in range(W)]
+    for i, r in enumerate(rows):
+        for k in range(W):
+            at[k][r[k]] |= 1 << i
+    ALL = (1 << R) - 1
+    succ = []
+    for r in rows:
+        barred = 0
+        for di, dj in D:
+            if di == 0:
+                continue
+            for j in range(W):
+                k = j + dj
+                if not 0 <= k < W:
+                    continue
+                for x in range(A):
+                    if clash(r[j], x):
+                        barred |= at[k][x]
+        good = ALL & ~barred
+        out = []
+        while good:
+            low = good & -good
+            out.append(low.bit_length() - 1)
+            good ^= low
+        succ.append(out)
+    scantab = [[scan(u, sn) for sn in range(FULL + 1)] for u in rows]
     idx, order, adj, start = {}, [], [], []
 
     def push(st):
@@ -158,23 +191,24 @@ def build(p, cap=40000):
         start[push((r, sn))] = 1
         if len(order) > cap:
             return None
+    rowidx = {r: i for i, r in enumerate(rows)}
     t = 0
     while t < len(order):
         r, sn = order[t]
         row = []
-        for u in rows:
-            if not pairok(r, u):
-                continue
-            v = scan(u, sn)
+        for ui in succ[rowidx[r]]:
+            v = scantab[ui][sn]
             if v is None:
                 continue
-            row.append(push((u, v)))
+            row.append(push((rows[ui], v)))
         adj[t] = row
         t += 1
         if len(order) > cap:
             return None
     n = len(order)
-    return adj, start[:n], [1] * n, n
+    # states with the same future are merged; the count iota^T M^n tau is unchanged and the
+    # annihilation test, whose length is governed by the state count, gets much shorter
+    return lumpauto.lump(adj, start[:n], [1] * n)
 
 
 matvec = transfer19.matvec

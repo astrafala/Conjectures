@@ -77,6 +77,16 @@ def norm_title(t):
     return re.sub(r'\s+', ' ', re.sub(r'A\d{6}', 'A', t)).strip()
 
 
+ROWMAJOR = ("This is true. The array grows sideways, so it has to be counted a column at a "
+            "time, but the clause about which value turns up first is stated in row major "
+            "order, and a walk across columns does not read the cells in that order. What the "
+            "walk can carry is, for each named value, the lowest row it has turned up in so "
+            "far, together with the order those lowest rows were reached; the clause itself is "
+            "checked only at the end, since a value's lowest row can still drop later. That "
+            "makes a(n) a walk count on %s states, so it satisfies a constant-coefficient "
+            "linear recurrence and checking the one above is a finite exact computation")
+
+
 def array(S, thr):
     s = "The empirical recurrence is true. Counting the arrays a row at a time gives a transfer matrix"
     if S:
@@ -310,6 +320,10 @@ def main():
                 txt = (PERM % (WINOF.get(a, 'a few'),
                                f"{S:,}".replace(',', ' ') if S else 'finitely many')
                        + ((' that holds for n > %d.' % thr) if thr is not None else '.'))
+            elif t == ('The empirical recurrence for OEIS A, proved by carrying a row major '
+                       'clause across columns'):
+                txt = (ROWMAJOR % (f"{S:,}".replace(',', ' ') if S else 'finitely many')
+                       + ((', and it holds for n > %d.' % thr) if thr is not None else '.'))
             elif t in ARRAY_TITLES:
                 txt = array(S, thr)
             elif t == "The empirical recurrence for OEIS A, derived from the entry's generating function":
