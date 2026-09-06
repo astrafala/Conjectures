@@ -1,0 +1,173 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=1in]{geometry}
+\usepackage[colorlinks=true,linkcolor=blue,urlcolor=blue]{hyperref}
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem*{remark}{Remark}
+
+\title{A divisor of the gcd-product:\\
+a proof of Bala's conjecture on OEIS A129364}
+\author{Adrian Perez Fontelles\\ \small Independent researcher}
+\date{24 August 2026}
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Let $d(n)=\prod_{k=1}^{n}\prod_{e\mid k}e^{k/e}$, OEIS A129364, and let
+$G(n)=\prod_{j,k\le n}\gcd(j,k)$, OEIS A092287. In April 2007 P.~Bala conjectured that
+$d(n)$ divides $G(n)$ for every $n$. We prove it, in the sharp form
+\[
+  v_{p}\bigl(G(n)\bigr)-v_{p}\bigl(d(n)\bigr)=\sum_{i\ge1}B\bigl(\lfloor n/p^{i}\rfloor
+  \bigr),\qquad B(M)=\sum_{k=1}^{M}\bigl(M\bmod k\bigr)\ \ (\text{A004125}),
+\]
+for every prime $p$. Every term on the right is a sum of remainders, hence nonnegative, and
+the divisibility follows at once. Three ingredients: the layer-cake count for
+$v_{p}(G(n))$, Legendre's formula together with the nested-floor identity for
+$v_{p}(d(n))$, and the observation that $M^{2}-\sum_{k\le M}k\lfloor M/k\rfloor$ is exactly
+$\sum_{k\le M}(M\bmod k)$.
+\end{abstract}
+
+\section{The sequences and the conjecture}
+
+OEIS A129364 (Peter Bala, 11 April 2007) has offset 1 and is
+\[
+  d(n)=\prod_{k=1}^{n}\mathrm{A066841}(k)=\prod_{k=1}^{n}\prod_{e\mid k}e^{\,k/e}
+  =1,2,6,96,480,207360,1451520,2972712960,\dots
+\]
+The entry also records the equivalent closed form
+\begin{equation}\label{eq:closed}
+  d(n)=\prod_{k=1}^{n}\bigl(\lfloor n/k\rfloor!\bigr)^{k},
+\end{equation}
+which we use throughout; the two agree because writing $k=e\cdot m$ turns
+$\prod_{k\le n}\prod_{e\mid k}e^{k/e}$ into $\prod_{e\le n}e^{\sum_{m\le n/e}m}$, and the
+same rearrangement applied to \eqref{eq:closed} gives the same exponent of each $e$.
+
+Write $G(n)=\mathrm{A092287}(n)=\prod_{j=1}^{n}\prod_{k=1}^{n}\gcd(j,k)$. The entry carries
+
+\begin{quote}
+\textbf{Conjecture:} $a(n)$ divides A092287$(n)$ for all $n$ --- see comments in A129365.
+--- Peter Bala, Apr 2007
+\end{quote}
+
+As of the ``Last modified'' line on the live entry (24 August 2026) this is still recorded
+as an unproven conjecture, with no proof in the entry's links or programs.
+
+Throughout $p$ is a prime, $v_{p}$ is the $p$-adic valuation, and
+$B(M)=\sum_{k=1}^{M}(M\bmod k)$ is A004125, with $B(0)=0$.
+
+\section{Three ingredients}
+
+\begin{lemma}[layer cake]\label{lem:num}
+$\displaystyle v_{p}\bigl(G(n)\bigr)=\sum_{i\ge1}\lfloor n/p^{i}\rfloor^{2}$.
+\end{lemma}
+
+\begin{proof}
+$v_{p}(\gcd(j,k))=\min(v_{p}(j),v_{p}(k))$ is the number of $i\ge1$ with $p^{i}\mid j$ and
+$p^{i}\mid k$. Summing over $j,k\le n$ and exchanging the order of summation, the two
+divisibility conditions are independent, so level $i$ contributes
+$\bigl(\#\{j\le n:p^{i}\mid j\}\bigr)^{2}=\lfloor n/p^{i}\rfloor^{2}$. (This is the formula
+of A092287, confirmed on that entry by C.~R. Greathouse IV in April 2013.)
+\end{proof}
+
+\begin{lemma}[nested floors]\label{lem:floor}
+$\lfloor n/(kq)\rfloor=\lfloor\lfloor n/q\rfloor/k\rfloor$ for positive integers $n,k,q$.
+\end{lemma}
+
+\begin{proof}
+For real $x$ and a positive integer $k$, $\lfloor x/k\rfloor=\lfloor\lfloor x\rfloor/k
+\rfloor$; apply with $x=n/q$.
+\end{proof}
+
+\begin{lemma}[remainder identity]\label{lem:rem}
+$\displaystyle M^{2}-\sum_{k=1}^{M}k\lfloor M/k\rfloor=B(M)$ for every integer $M\ge0$.
+\end{lemma}
+
+\begin{proof}
+$M^{2}=\sum_{k=1}^{M}M$, and $M-k\lfloor M/k\rfloor=M\bmod k$ termwise.
+\end{proof}
+
+\section{The theorem}
+
+\begin{theorem}\label{thm:main}
+For every $n\ge1$ and every prime $p$,
+\[
+  v_{p}\bigl(G(n)\bigr)-v_{p}\bigl(d(n)\bigr)=\sum_{i\ge1}B\bigl(\lfloor n/p^{i}\rfloor
+  \bigr).
+\]
+\end{theorem}
+
+\begin{proof}
+Put $M_{i}=\lfloor n/p^{i}\rfloor$. By \eqref{eq:closed}, Legendre's formula and
+Lemma~\ref{lem:floor},
+\[
+  v_{p}\bigl(d(n)\bigr)=\sum_{k=1}^{n}k\,v_{p}\bigl(\lfloor n/k\rfloor!\bigr)
+  =\sum_{k=1}^{n}\sum_{i\ge1}k\bigl\lfloor\lfloor n/k\rfloor\big/p^{i}\bigr\rfloor
+  =\sum_{i\ge1}\sum_{k=1}^{n}k\bigl\lfloor n/(kp^{i})\bigr\rfloor
+  =\sum_{i\ge1}\sum_{k=1}^{M_{i}}k\lfloor M_{i}/k\rfloor,
+\]
+where the last step uses Lemma~\ref{lem:floor} again in the form
+$\lfloor n/(kp^{i})\rfloor=\lfloor M_{i}/k\rfloor$, the terms with $k>M_{i}$ vanishing.
+Subtracting this from Lemma~\ref{lem:num} and applying Lemma~\ref{lem:rem} at each level
+$i$,
+\[
+  v_{p}\bigl(G(n)\bigr)-v_{p}\bigl(d(n)\bigr)
+  =\sum_{i\ge1}\Bigl(M_{i}^{2}-\sum_{k=1}^{M_{i}}k\lfloor M_{i}/k\rfloor\Bigr)
+  =\sum_{i\ge1}B(M_{i}).\qedhere
+\]
+\end{proof}
+
+\begin{corollary}[Bala's conjecture]\label{cor:main}
+$d(n)$ divides $G(n)$ for every $n\ge1$.
+\end{corollary}
+
+\begin{proof}
+Each $M\bmod k$ is a nonnegative integer, so $B(M)\ge0$ and hence
+$v_{p}(G(n))\ge v_{p}(d(n))$ for every prime $p$ by Theorem~\ref{thm:main}. A positive
+rational with nonnegative valuation at every prime is an integer.
+\end{proof}
+
+\begin{remark}[the same statement lives on two entries]
+The quotient $G(n)/d(n)$ is A129365, whose own comment list opens with ``Conjectures: A)
+$a(n)$ is always an integer'' (Bala, 13 April 2007). That is the present conjecture
+restated, and the two entries have never been cross-annotated as being the same claim ---
+A129364 merely points at ``comments in A129365''. Theorem~\ref{thm:main} settles both at
+once: the divisibility asked for here, and the integrality of the quotient asked for there
+are the same inequality between valuations. Whoever records these should record both, and
+note that one proof settles both.
+\end{remark}
+
+\begin{remark}[honest assessment]
+Elementary throughout: the layer-cake count, Legendre, and one floor identity. What is
+proved is the divisibility exactly as A129364 poses it, together with the exact size of the
+gap; nothing here is deep, and the value of writing it down is that the exact exponent is
+on neither entry. The natural destination is a comment on the entry.
+\end{remark}
+
+\section{Verification}
+
+A verification script, written separately from this note, checks every claim and prints
+every number quoted. It (i) reproduces the first 12 published terms of A129364 from the
+defining product over divisors; (ii) confirms that the entry's two formulas agree,
+$\prod_{k\le n}\mathrm{A066841}(k)=\prod_{k\le n}(\lfloor n/k\rfloor!)^{k}$, for
+$1\le n\le40$; (iii) confirms the conjecture directly, that $d(n)$ divides $G(n)$, for
+$1\le n\le40$; (iv) confirms Theorem~\ref{thm:main} for every $1\le n\le50$ and every prime
+$p\le n$, that is 437 pairs $(n,p)$, with 0 mismatches, and prints
+$B(0),\dots,B(12)=0,0,0,1,1,4,3,8,8,12,13,22,17$; and (v) confirms that the quotient
+$G(n)/d(n)$ reproduces the published DATA of A129365,
+$1,1,1,1,1,2,2,2,6,48,48,48$.
+
+\begin{thebibliography}{9}
+\bibitem{oeis} N.~J.~A. Sloane et al., \emph{The On-Line Encyclopedia of Integer
+Sequences}, \url{https://oeis.org/A129364}, consulted 24 August 2026; also A066841,
+A092287, A129365 and A004125.
+\bibitem{legendre} A.~M. Legendre, \emph{Th\'eorie des Nombres}, 3rd ed., Firmin Didot,
+Paris, 1830.
+\end{thebibliography}
+\end{document}

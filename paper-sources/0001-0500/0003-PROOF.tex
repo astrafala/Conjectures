@@ -1,0 +1,225 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=1in]{geometry}
+\usepackage[colorlinks=true,linkcolor=blue,urlcolor=blue]{hyperref}
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem*{remark}{Remark}
+
+\title{A parity term from the level-4 cusp:\\
+a proof of Luschny's conjecture on OEIS A063321}
+\author{Adrian Perez Fontelles\\ \small Independent researcher}
+\date{24 August 2026}
+\begin{document}
+\maketitle
+
+\begin{abstract}
+OEIS A063321 tabulates the dimension of the space of weight-$n$ cuspidal newforms for
+$\Gamma_{1}(48)$. In March 2012 P.~Luschny conjectured the closed form
+$a(n)=13(n+((n-1)\bmod2))+14(n+(n\bmod2))-72$ for $n>2$. We prove it. The route is the
+classical dimension formula for $S_{k}(\Gamma_{1}(M))$ together with the
+Atkin--Lehner--Li newform sieve; for $N=48$ the sieve leaves only a short explicit
+combination, and the result is
+\[
+  \dim S_{k}(\Gamma_{1}(48))^{\mathrm{new}}=\begin{cases}27k-31,&k\text{ even},\\
+  27k-32,&k\text{ odd},\end{cases}
+\]
+for $k\ge2$. The parity term is not an accident, and its source can be named exactly: among
+all levels surviving the sieve, $M=4$ is the only one for which
+Proposition~\ref{prop:dim} carries the correction $+\tfrac12$ at odd $k$, and it enters
+with weight $\bar\mu(12)=-2$, contributing $-1$ for odd $k$ and nothing for even $k$. We
+also record that the entry's data is offset by one against its own name: the tabulated row
+begins at weight 1, whose value is the sentinel $-1$ because weight 1 admits no dimension
+formula, so that $a(n)$ is the weight-$(n-1)$ dimension. Under that reading --- the only
+one consistent with the data --- the conjecture is exactly right.
+\end{abstract}
+
+\section{The sequence and the conjecture}
+
+OEIS A063321 (N.~J.~A. Sloane, 14 July 2001) has offset 2 and begins
+\[
+  -1,\;23,\;49,\;77,\;103,\;131,\;157,\;185,\;211,\;\dots
+\]
+The entry carries
+
+\begin{quote}
+\textbf{Conjecture:} $a(n)=13\bigl(n+((n-1)\bmod2)\bigr)+14\bigl(n+(n\bmod2)\bigr)-72$ for
+$n>2$. --- Peter Luschny, Mar 2012
+\end{quote}
+
+As of the ``Last modified'' line on the live entry (23 August 2026) this is still recorded
+as an unproven conjecture, and no proof appears in the entry's links.
+
+\section{The dimension formulas}
+
+All of the following is classical; we quote it in the form given by Stein \cite{stein},
+Chapter 6, where it is assembled from Shimura \cite[\S2.6]{shimura}, Diamond--Shurman
+\cite[Ch.~3]{ds} and Miyake \cite[\S2.5]{miyake}, and derived by Riemann--Roch applied to
+$X_{1}(N)\to X_{1}(1)$.
+
+For a positive integer $N$ put
+\[
+  \mu_{0}(N)=\prod_{p\mid N}\bigl(p^{v_{p}(N)}+p^{v_{p}(N)-1}\bigr),\qquad
+  \mu_{1}(N)=\begin{cases}\mu_{0}(N)&N=1,2,\\[2pt]
+                          \tfrac12\varphi(N)\mu_{0}(N)&N\ge3,\end{cases}
+\]
+\[
+  c_{1}(N)=\begin{cases}c_{0}(N)&N=1,2,\\[2pt]
+                        3&N=4,\\[2pt]
+                        \sum_{d\mid N}\tfrac12\varphi(d)\varphi(N/d)&\text{otherwise},
+           \end{cases}
+\]
+\[
+  g_{1}(N)=1+\tfrac1{12}\mu_{1}(N)-\tfrac14\mu_{1,2}(N)-\tfrac13\mu_{1,3}(N)
+           -\tfrac12c_{1}(N),
+\]
+where $\mu_{1,2}(N)=\mu_{1,3}(N)=0$ for $N\ge4$. Here $g_{1}(N)$ is the genus of $X_{1}(N)$
+and $c_{1}(N)$ is its number of cusps.
+
+\begin{proposition}[{\cite[Prop.~6.6]{stein}}]\label{prop:dim}
+$\dim S_{2}(\Gamma_{1}(N))=g_{1}(N)$. For $k\ge3$ and $N\ge3$, writing
+$a(N,k)=(k-1)\bigl(g_{1}(N)-1\bigr)+\bigl(\tfrac{k}{2}-1\bigr)c_{1}(N)$,
+\[
+  \dim S_{k}(\Gamma_{1}(N))=\begin{cases}
+    a(N,k)+\tfrac12&N=4\text{ and }k\text{ odd},\\[2pt]
+    a(N,k)+\lfloor k/3\rfloor&N=3,\\[2pt]
+    a(N,k)&\text{otherwise}.\end{cases}
+\]
+\end{proposition}
+
+\begin{proposition}[{\cite[Prop.~6.6]{stein}}, Atkin--Lehner--Li]\label{prop:sieve}
+\[
+  \dim S_{k}(\Gamma_{1}(N))^{\mathrm{new}}
+  =\sum_{M\mid N}\bar\mu(N/M)\dim S_{k}(\Gamma_{1}(M)),
+\]
+where $\bar\mu(R)=0$ if $p^{3}\mid R$ for some prime $p$, and otherwise
+$\bar\mu(R)=\prod_{p\,\|\,R}(-2)$, the product being over primes exactly dividing $R$.
+\end{proposition}
+
+Note that $\bar\mu(1)=1$, $\bar\mu(p)=-2$, $\bar\mu(p^{2})=1$ and $\bar\mu(R)=0$ once any
+prime occurs to the third power.
+
+\section{The indexing of the entry}
+
+The data of this entry comes from Stein's table \emph{Dimensions of the spaces
+$S^{\mathrm{new}}_{k}(\Gamma_{1}(N))$}, linked from the entry. Two features of the data fix
+how it is to be read.
+
+First, the initial term is $-1$. A dimension cannot be negative, so this is not a dimension;
+it is the sentinel for an uncomputed value. Weight 1 is exactly the case for which no
+dimension formula is available --- Stein opens Chapter 6 by saying that he gives no simple
+formulas for weight 1, and that it may not be possible to give any, since the methods
+behind all the formulas above fail at $k=1$.
+
+Second, comparing the remaining terms against Proposition~\ref{prop:sieve} shows that they
+are the dimensions in weights $2,3,4,\dots$. Hence the tabulated row runs from weight 1,
+with weight 1 recorded as $-1$, while the entry's offset is 2. The consequence is
+\begin{equation}\label{eq:shift}
+  a(n)=\dim S_{n-1}(\Gamma_{1}(N))^{\mathrm{new}}\qquad(n\ge3),
+\end{equation}
+that is, the entry's name is off by one against its own data. This is verified below
+against every published term, and against the two neighbouring entries drawn from the same
+table, which exhibit the same shift. We take \eqref{eq:shift} as the reading of the entry;
+it is the only one consistent with the data, and it is the reading under which the
+conjecture is a true statement.
+
+\section{The computation at level 48}
+
+\begin{lemma}\label{lem:sieve}
+Since $48=2^{4}\cdot3$, the divisors $M\mid48$ with $\bar\mu(48/M)\ne0$ are
+$M=48,24,16,12,8,4$ with weights $\bar\mu(1)=1$, $\bar\mu(2)=-2$, $\bar\mu(3)=-2$,
+$\bar\mu(4)=1$, $\bar\mu(6)=4$, $\bar\mu(12)=-2$. Hence
+\begin{align*}
+  \dim S_{k}(\Gamma_{1}(48))^{\mathrm{new}}={}&\dim S_{k}(\Gamma_{1}(48))
+  -2\dim S_{k}(\Gamma_{1}(24))-2\dim S_{k}(\Gamma_{1}(16))\\
+  &+\dim S_{k}(\Gamma_{1}(12))+4\dim S_{k}(\Gamma_{1}(8))-2\dim S_{k}(\Gamma_{1}(4)).
+\end{align*}
+\end{lemma}
+
+The invariants are $g_{1}=37,5,2,0,0,0$ and $c_{1}=56,24,14,10,6,3$ at levels
+$48,24,16,12,8,4$ respectively. Exactly one of these levels is 4, and it is the sole source
+of an exceptional term: by Proposition~\ref{prop:dim}, $\dim S_{k}(\Gamma_{1}(4))$ carries
+an extra $+\tfrac12$ when $k$ is odd, which enters the combination with coefficient
+$\bar\mu(12)=-2$ and so contributes $-1$ at odd $k$.
+
+\begin{theorem}\label{thm:main}
+For every $k\ge2$,
+\[
+  \dim S_{k}(\Gamma_{1}(48))^{\mathrm{new}}=\begin{cases}27k-31,&k\text{ even},\\
+  27k-32,&k\text{ odd}.\end{cases}
+\]
+\end{theorem}
+
+\begin{proof}
+Substitute the values of $g_{1}$ and $c_{1}$ from Lemma~\ref{lem:sieve} into
+Proposition~\ref{prop:dim} and form the combination of Proposition~\ref{prop:sieve}. Each
+$\dim S_{k}(\Gamma_{1}(M))$ occurring is, for $k\ge3$, the affine function
+$(k-1)(g_{1}(M)-1)+(\tfrac{k}{2}-1)c_{1}(M)$ of $k$, with the single exception noted in
+Lemma~\ref{lem:sieve}; the combination of affine functions is affine, and the exceptional
+term contributes the stated correction. The case $k=2$ is checked directly from
+$\dim S_{2}(\Gamma_{1}(M))=g_{1}(M)$.
+\end{proof}
+
+\begin{corollary}[Luschny's conjecture]\label{cor:main}
+For every $n>2$,
+\[
+  a(n)=13\bigl(n+((n-1)\bmod2)\bigr)+14\bigl(n+(n\bmod2)\bigr)-72
+  =\begin{cases}27n-59,&n\text{ even},\\ 27n-58,&n\text{ odd},\end{cases}
+\]
+which is Luschny's conjecture. Indeed $a(n)=\dim S_{n-1}(\Gamma_{1}(48))^{\mathrm{new}}$,
+and $n$ even makes $n-1$ odd, giving $27(n-1)-32=27n-59$, while $n$ odd makes $n-1$ even,
+giving $27(n-1)-31=27n-58$.
+\end{corollary}
+
+\begin{proof}
+Combine Theorem~\ref{thm:main} with the reading \eqref{eq:shift} of Section~3.
+\end{proof}
+
+\begin{remark}[why $n=2$ is excluded, and correctly so]
+Under \eqref{eq:shift}, $a(2)$ is the weight-1 value, which is the sentinel $-1$ rather
+than a dimension. Luschny's restriction to $n>2$ is therefore exactly right, and could not
+be removed: the conjectured formula gives a different value at $n=2$.
+\end{remark}
+
+\begin{remark}[honest assessment]
+No new mathematics is involved: the dimension formulas are classical and the newform sieve
+is Atkin--Lehner--Li. What was missing was that nobody had carried out the substitution.
+The one genuinely delicate point is the indexing of Section~3; a proof addressed to the
+entry's name rather than its data would conclude that the conjecture is false, which is why
+that section is stated before any computation. The natural destination is a comment on the
+entry, together with a correction of the name or the offset.
+\end{remark}
+
+\section{Verification}
+
+A verification script, written separately from this note, checks every claim and prints
+every number quoted. It (i) implements Propositions~\ref{prop:dim} and \ref{prop:sieve} and
+validates them against Stein's own published tables --- eight tabulated values of
+$\dim S_{k}(\Gamma_{0}(N))$, ten of $\dim S_{k}(\Gamma_{1}(N))$, and the two worked newform
+dimensions $\dim S_{12}(\Gamma_{0}(11))^{\mathrm{new}}=8$ and
+$\dim S_{12}(\Gamma_{0}(2007))^{\mathrm{new}}=1017$, all matching; (ii) confirms the sieve
+of Lemma~\ref{lem:sieve}; (iii) confirms Theorem~\ref{thm:main} for $k=2,\dots,199$;
+(iv) confirms the shift \eqref{eq:shift} against all 51 published terms $n=3,\dots,53$, and
+independently against the two companion entries; and (v) confirms Luschny's formula against
+all 51 published terms, and against $\dim S_{n-1}(\Gamma_{1}(48))^{\mathrm{new}}$ for
+$n=3,\dots,399$, with no discrepancy; and that $M=4$ survives the sieve at $N=48$ but not
+at $N=32$ or $N=64$, which is why those two companion entries have no parity term.
+
+\begin{thebibliography}{9}
+\bibitem{stein} W.~A. Stein, \emph{Modular Forms: A Computational Approach}, Graduate
+Studies in Mathematics 79, AMS, 2007; Chapter 6 (Dimension Formulas).
+\bibitem{ds} F.~Diamond and J.~Shurman, \emph{A First Course in Modular Forms}, Springer
+GTM 228, 2005; Chapter 3.
+\bibitem{shimura} G.~Shimura, \emph{Introduction to the Arithmetic Theory of Automorphic
+Functions}, Princeton University Press, 1994; \S2.6.
+\bibitem{miyake} T.~Miyake, \emph{Modular Forms}, Springer, 1989; \S2.5.
+\bibitem{oeis} N.~J.~A. Sloane et al., \emph{The On-Line Encyclopedia of Integer
+Sequences}, \url{https://oeis.org/A063321}, consulted 24 August 2026.
+\end{thebibliography}
+\end{document}
