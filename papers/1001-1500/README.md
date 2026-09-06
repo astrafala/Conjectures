@@ -1,6 +1,6 @@
 # Papers 1001-1500
 
-Ranks 1001 to 1500 of 8887, hardest first.
+Ranks 1001 to 1500 of 8907, hardest first.
 
 | # | OEIS | Result | What settles it | Paper |
 | --- | --- | --- | --- | --- |

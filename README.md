@@ -2,9 +2,9 @@
 
 **Adrian Perez Fontelles** — independent researcher
 
-**8887 papers** settling conjectures across **8860 entries** of the
+**8907 papers** settling conjectures across **8880 entries** of the
 [On-Line Encyclopedia of Integer Sequences](https://oeis.org):
-**8881 proofs** and **6 disproofs**. Every one of them was recorded as an open
+**8901 proofs** and **6 disproofs**. Every one of them was recorded as an open
 conjecture, empirical observation, or unverified formula on its OEIS entry at the
 time it was settled.
 

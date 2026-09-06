@@ -110,6 +110,17 @@ BOXPP = ("The empirical formula is true. Reverse the rows and the columns: a mat
          "inspection, so checking it at that many points settles it")
 
 
+BOUNDED = ("This is true, and it is exact rather than eventual guesswork. The shape is fixed "
+           "and it is the alphabet 0..n that grows, so this is not a walk count. The condition "
+           "only ever compares two entries, so adding a constant to every entry keeps an array "
+           "admissible: the arrays fall into translation classes, and a class whose largest and "
+           "smallest entries differ by s contributes max(0, n+1-s) arrays with entries in "
+           "0..n. There are finitely many classes, because any two cells are joined by a path "
+           "of at most D edges and each edge moves the value by at most d, so no class has "
+           "s > d*D. For n at least that bound every term is positive and a(n) is exactly "
+           "linear, so computing a(n) at two points fixes it for good")
+
+
 def array(S, thr):
     s = "The empirical recurrence is true. Counting the arrays a row at a time gives a transfer matrix"
     if S:
@@ -350,6 +361,8 @@ def main():
             elif t == ('The empirical recurrence for OEIS A, proved by an exact '
                        'quasi-polynomial'):
                 txt = QUASI + '.'
+            elif ENGOF.get(a) == 'bounded-difference-triangle':
+                txt = BOUNDED + '.'
             elif t == 'The empirical product formula for OEIS A, proved':
                 txt = BOXPP + '.'
             elif t in ARRAY_TITLES:

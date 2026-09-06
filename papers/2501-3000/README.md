@@ -1,6 +1,6 @@
 # Papers 2501-3000
 
-Ranks 2501 to 3000 of 8887, hardest first.
+Ranks 2501 to 3000 of 8907, hardest first.
 
 | # | OEIS | Result | What settles it | Paper |
 | --- | --- | --- | --- | --- |
@@ -468,39 +468,39 @@ Ranks 2501 to 3000 of 8887, hardest first.
 | 2962 | [A210397](https://oeis.org/A210397) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [2962-PROOF.pdf](2962-PROOF.pdf) |
 | 2963 | [A224404](https://oeis.org/A224404) | Proof | monotone and unimodal conditions along rows, columns and diagonals, with the fallen bits carried in the state | [2963-PROOF.pdf](2963-PROOF.pdf) |
 | 2964 | [A263551](https://oeis.org/A263551) | Proof | rows and columns read as base-b numbers and required to be divisible, or not, by given moduli | [2964-PROOF.pdf](2964-PROOF.pdf) |
-| 2965 | [A204644](https://oeis.org/A204644) | Proof | two derived arrays of pair sums, ordered monotonically, lexicographically, or by a nonvanishing determinant | [2965-PROOF.pdf](2965-PROOF.pdf) |
-| 2966 | [A208264](https://oeis.org/A208264) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [2966-PROOF.pdf](2966-PROOF.pdf) |
-| 2967 | [A209822](https://oeis.org/A209822) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [2967-PROOF.pdf](2967-PROOF.pdf) |
-| 2968 | [A210100](https://oeis.org/A210100) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [2968-PROOF.pdf](2968-PROOF.pdf) |
-| 2969 | [A239249](https://oeis.org/A239249) | Proof | no entry equal, modulo m, to a constant plus the sum of the entries along a ray out of it | [2969-PROOF.pdf](2969-PROOF.pdf) |
-| 2970 | [A238768](https://oeis.org/A238768) | Proof | no entry equal, modulo m, to a constant plus the sum of the entries along a ray out of it | [2970-PROOF.pdf](2970-PROOF.pdf) |
-| 2971 | [A239812](https://oeis.org/A239812) | Proof | no entry equal, modulo m, to a constant plus the sum of the entries along a ray out of it | [2971-PROOF.pdf](2971-PROOF.pdf) |
-| 2972 | [A239851](https://oeis.org/A239851) | Proof | no entry equal, modulo m, to a constant plus the sum of the entries along a ray out of it | [2972-PROOF.pdf](2972-PROOF.pdf) |
-| 2973 | [A129833](https://oeis.org/A129833) | Proof | creative telescoping with the boundary and range corrections carried through | [2973-PROOF.pdf](2973-PROOF.pdf) |
-| 2974 | [A209533](https://oeis.org/A209533) | Proof | an explicit closed form, turned into the recurrence it satisfies | [2974-PROOF.pdf](2974-PROOF.pdf) |
-| 2975 | [A223477](https://oeis.org/A223477) | Proof | arrays whose cells carry vertices of a fixed graph -- the faces or vertices of a cube or icosahedron, a triang... | [2975-PROOF.pdf](2975-PROOF.pdf) |
-| 2976 | [A223354](https://oeis.org/A223354) | Proof | arrays whose cells carry vertices of a fixed graph -- the faces or vertices of a cube or icosahedron, a triang... | [2976-PROOF.pdf](2976-PROOF.pdf) |
-| 2977 | [A223323](https://oeis.org/A223323) | Proof | arrays whose cells carry vertices of a fixed graph -- the faces or vertices of a cube or icosahedron, a triang... | [2977-PROOF.pdf](2977-PROOF.pdf) |
-| 2978 | [A223481](https://oeis.org/A223481) | Proof | arrays whose cells carry vertices of a fixed graph -- the faces or vertices of a cube or icosahedron, a triang... | [2978-PROOF.pdf](2978-PROOF.pdf) |
-| 2979 | [A275138](https://oeis.org/A275138) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [2979-PROOF.pdf](2979-PROOF.pdf) |
-| 2980 | [A264071](https://oeis.org/A264071) | Proof | a table's column recurrences, each column being a fixed-width array count | [2980-PROOF.pdf](2980-PROOF.pdf) |
-| 2981 | [A233078](https://oeis.org/A233078) | Proof | a neighbour condition plus a first-occurrence ordering clause carried as a flag in the state | [2981-PROOF.pdf](2981-PROOF.pdf) |
-| 2982 | [A269272](https://oeis.org/A269272) | Proof | a global count of marked adjacent pairs carried in the state, then a walk count | [2982-PROOF.pdf](2982-PROOF.pdf) |
-| 2983 | [A280668](https://oeis.org/A280668) | Proof | a cell condition counted up to relabelling, by falling-factorial inversion | [2983-PROOF.pdf](2983-PROOF.pdf) |
-| 2984 | [A223265](https://oeis.org/A223265) | Proof | arrays whose cells carry vertices of a fixed graph -- the faces or vertices of a cube or icosahedron, a triang... | [2984-PROOF.pdf](2984-PROOF.pdf) |
-| 2985 | [A208044](https://oeis.org/A208044) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [2985-PROOF.pdf](2985-PROOF.pdf) |
-| 2986 | [A223328](https://oeis.org/A223328) | Proof | arrays whose cells carry vertices of a fixed graph -- the faces or vertices of a cube or icosahedron, a triang... | [2986-PROOF.pdf](2986-PROOF.pdf) |
-| 2987 | [A214108](https://oeis.org/A214108) | Proof | proper colourings of a grid circular in one direction, counted up to renaming the colours | [2987-PROOF.pdf](2987-PROOF.pdf) |
-| 2988 | [A188865](https://oeis.org/A188865) | Proof | an explicit closed form, turned into the recurrence it satisfies | [2988-PROOF.pdf](2988-PROOF.pdf) |
-| 2989 | [A264534](https://oeis.org/A264534) | Proof | a table's column recurrences, each column being a fixed-width array count | [2989-PROOF.pdf](2989-PROOF.pdf) |
-| 2990 | [A223358](https://oeis.org/A223358) | Proof | arrays whose cells carry vertices of a fixed graph -- the faces or vertices of a cube or icosahedron, a triang... | [2990-PROOF.pdf](2990-PROOF.pdf) |
-| 2991 | [A233077](https://oeis.org/A233077) | Proof | a neighbour condition plus a first-occurrence ordering clause carried as a flag in the state | [2991-PROOF.pdf](2991-PROOF.pdf) |
-| 2992 | [A268900](https://oeis.org/A268900) | Proof | a global count of marked adjacent pairs carried in the state, then a walk count | [2992-PROOF.pdf](2992-PROOF.pdf) |
-| 2993 | [A268967](https://oeis.org/A268967) | Proof | a global count of marked adjacent pairs carried in the state, then a walk count | [2993-PROOF.pdf](2993-PROOF.pdf) |
-| 2994 | [A223283](https://oeis.org/A223283) | Proof | arrays whose cells carry vertices of a fixed graph -- the faces or vertices of a cube or icosahedron, a triang... | [2994-PROOF.pdf](2994-PROOF.pdf) |
-| 2995 | [A233083](https://oeis.org/A233083) | Proof | a neighbour condition plus a first-occurrence ordering clause carried as a flag in the state | [2995-PROOF.pdf](2995-PROOF.pdf) |
-| 2996 | [A188864](https://oeis.org/A188864) | Proof | an explicit closed form, turned into the recurrence it satisfies | [2996-PROOF.pdf](2996-PROOF.pdf) |
-| 2997 | [A269271](https://oeis.org/A269271) | Proof | a global count of marked adjacent pairs carried in the state, then a walk count | [2997-PROOF.pdf](2997-PROOF.pdf) |
-| 2998 | [A270112](https://oeis.org/A270112) | Proof | a global count of marked adjacent pairs carried in the state, then a walk count | [2998-PROOF.pdf](2998-PROOF.pdf) |
-| 2999 | [A208393](https://oeis.org/A208393) | Proof | a cell condition counted up to relabelling, by falling-factorial inversion | [2999-PROOF.pdf](2999-PROOF.pdf) |
-| 3000 | [A269896](https://oeis.org/A269896) | Proof | a global count of marked adjacent pairs carried in the state, then a walk count | [3000-PROOF.pdf](3000-PROOF.pdf) |
+| 2965 | [A195000](https://oeis.org/A195000) | Proof | a fixed triangle over 0..n whose condition constrains differences only: translation splits the arrays into fin... | [2965-PROOF.pdf](2965-PROOF.pdf) |
+| 2966 | [A195237](https://oeis.org/A195237) | Proof | a fixed triangle over 0..n whose condition constrains differences only: translation splits the arrays into fin... | [2966-PROOF.pdf](2966-PROOF.pdf) |
+| 2967 | [A195236](https://oeis.org/A195236) | Proof | a fixed triangle over 0..n whose condition constrains differences only: translation splits the arrays into fin... | [2967-PROOF.pdf](2967-PROOF.pdf) |
+| 2968 | [A204644](https://oeis.org/A204644) | Proof | two derived arrays of pair sums, ordered monotonically, lexicographically, or by a nonvanishing determinant | [2968-PROOF.pdf](2968-PROOF.pdf) |
+| 2969 | [A208264](https://oeis.org/A208264) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [2969-PROOF.pdf](2969-PROOF.pdf) |
+| 2970 | [A209822](https://oeis.org/A209822) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [2970-PROOF.pdf](2970-PROOF.pdf) |
+| 2971 | [A210100](https://oeis.org/A210100) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [2971-PROOF.pdf](2971-PROOF.pdf) |
+| 2972 | [A239249](https://oeis.org/A239249) | Proof | no entry equal, modulo m, to a constant plus the sum of the entries along a ray out of it | [2972-PROOF.pdf](2972-PROOF.pdf) |
+| 2973 | [A195235](https://oeis.org/A195235) | Proof | a fixed triangle over 0..n whose condition constrains differences only: translation splits the arrays into fin... | [2973-PROOF.pdf](2973-PROOF.pdf) |
+| 2974 | [A195249](https://oeis.org/A195249) | Proof | a fixed triangle over 0..n whose condition constrains differences only: translation splits the arrays into fin... | [2974-PROOF.pdf](2974-PROOF.pdf) |
+| 2975 | [A238768](https://oeis.org/A238768) | Proof | no entry equal, modulo m, to a constant plus the sum of the entries along a ray out of it | [2975-PROOF.pdf](2975-PROOF.pdf) |
+| 2976 | [A239812](https://oeis.org/A239812) | Proof | no entry equal, modulo m, to a constant plus the sum of the entries along a ray out of it | [2976-PROOF.pdf](2976-PROOF.pdf) |
+| 2977 | [A239851](https://oeis.org/A239851) | Proof | no entry equal, modulo m, to a constant plus the sum of the entries along a ray out of it | [2977-PROOF.pdf](2977-PROOF.pdf) |
+| 2978 | [A195234](https://oeis.org/A195234) | Proof | a fixed triangle over 0..n whose condition constrains differences only: translation splits the arrays into fin... | [2978-PROOF.pdf](2978-PROOF.pdf) |
+| 2979 | [A195233](https://oeis.org/A195233) | Proof | a fixed triangle over 0..n whose condition constrains differences only: translation splits the arrays into fin... | [2979-PROOF.pdf](2979-PROOF.pdf) |
+| 2980 | [A129833](https://oeis.org/A129833) | Proof | creative telescoping with the boundary and range corrections carried through | [2980-PROOF.pdf](2980-PROOF.pdf) |
+| 2981 | [A209533](https://oeis.org/A209533) | Proof | an explicit closed form, turned into the recurrence it satisfies | [2981-PROOF.pdf](2981-PROOF.pdf) |
+| 2982 | [A223477](https://oeis.org/A223477) | Proof | arrays whose cells carry vertices of a fixed graph -- the faces or vertices of a cube or icosahedron, a triang... | [2982-PROOF.pdf](2982-PROOF.pdf) |
+| 2983 | [A223354](https://oeis.org/A223354) | Proof | arrays whose cells carry vertices of a fixed graph -- the faces or vertices of a cube or icosahedron, a triang... | [2983-PROOF.pdf](2983-PROOF.pdf) |
+| 2984 | [A223323](https://oeis.org/A223323) | Proof | arrays whose cells carry vertices of a fixed graph -- the faces or vertices of a cube or icosahedron, a triang... | [2984-PROOF.pdf](2984-PROOF.pdf) |
+| 2985 | [A223481](https://oeis.org/A223481) | Proof | arrays whose cells carry vertices of a fixed graph -- the faces or vertices of a cube or icosahedron, a triang... | [2985-PROOF.pdf](2985-PROOF.pdf) |
+| 2986 | [A275138](https://oeis.org/A275138) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [2986-PROOF.pdf](2986-PROOF.pdf) |
+| 2987 | [A264071](https://oeis.org/A264071) | Proof | a table's column recurrences, each column being a fixed-width array count | [2987-PROOF.pdf](2987-PROOF.pdf) |
+| 2988 | [A233078](https://oeis.org/A233078) | Proof | a neighbour condition plus a first-occurrence ordering clause carried as a flag in the state | [2988-PROOF.pdf](2988-PROOF.pdf) |
+| 2989 | [A269272](https://oeis.org/A269272) | Proof | a global count of marked adjacent pairs carried in the state, then a walk count | [2989-PROOF.pdf](2989-PROOF.pdf) |
+| 2990 | [A280668](https://oeis.org/A280668) | Proof | a cell condition counted up to relabelling, by falling-factorial inversion | [2990-PROOF.pdf](2990-PROOF.pdf) |
+| 2991 | [A223265](https://oeis.org/A223265) | Proof | arrays whose cells carry vertices of a fixed graph -- the faces or vertices of a cube or icosahedron, a triang... | [2991-PROOF.pdf](2991-PROOF.pdf) |
+| 2992 | [A208044](https://oeis.org/A208044) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [2992-PROOF.pdf](2992-PROOF.pdf) |
+| 2993 | [A223328](https://oeis.org/A223328) | Proof | arrays whose cells carry vertices of a fixed graph -- the faces or vertices of a cube or icosahedron, a triang... | [2993-PROOF.pdf](2993-PROOF.pdf) |
+| 2994 | [A214108](https://oeis.org/A214108) | Proof | proper colourings of a grid circular in one direction, counted up to renaming the colours | [2994-PROOF.pdf](2994-PROOF.pdf) |
+| 2995 | [A188865](https://oeis.org/A188865) | Proof | an explicit closed form, turned into the recurrence it satisfies | [2995-PROOF.pdf](2995-PROOF.pdf) |
+| 2996 | [A264534](https://oeis.org/A264534) | Proof | a table's column recurrences, each column being a fixed-width array count | [2996-PROOF.pdf](2996-PROOF.pdf) |
+| 2997 | [A223358](https://oeis.org/A223358) | Proof | arrays whose cells carry vertices of a fixed graph -- the faces or vertices of a cube or icosahedron, a triang... | [2997-PROOF.pdf](2997-PROOF.pdf) |
+| 2998 | [A233077](https://oeis.org/A233077) | Proof | a neighbour condition plus a first-occurrence ordering clause carried as a flag in the state | [2998-PROOF.pdf](2998-PROOF.pdf) |
+| 2999 | [A268900](https://oeis.org/A268900) | Proof | a global count of marked adjacent pairs carried in the state, then a walk count | [2999-PROOF.pdf](2999-PROOF.pdf) |
+| 3000 | [A268967](https://oeis.org/A268967) | Proof | a global count of marked adjacent pairs carried in the state, then a walk count | [3000-PROOF.pdf](3000-PROOF.pdf) |
