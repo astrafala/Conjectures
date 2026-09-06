@@ -12,15 +12,15 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A233197, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A233253, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A233197 counts arrays over $\{0,\dots,7\}$ in which no two entries that are neighbours in
-a named set of directions may sum to $7$, together with clauses that pick one array out of
+OEIS A233253 counts arrays over $\{0,\dots,5\}$ in which no two entries that are neighbours in
+a named set of directions may sum to $5$, together with clauses that pick one array out of
 each class of arrays differing by a renaming. The entry carries an empirical recurrence of
 order $3$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
 empirical: the clash condition is local to two consecutive rows and the renaming clauses are
@@ -31,33 +31,33 @@ carried by one bounded piece of extra state, so the count is a walk count on $S=
 
 \section{The conjecture}
 
-OEIS A233197 is ``Number of n X 3 0..7 arrays with no element x(i,j) adjacent to itself or value 7-x(i,j) horizontally, antidiagonally or vertically, top left element zero, and 1 appearing before 2 3 4 5 and 6, 2 appearing before 3 4 and 5, and 3 appearing before 4 in row major order (unlabelled 8-colorings with no clashing color pairs).''. It has offset $1$ and begins
+OEIS A233253 is ``Number of n X 5 0..5 arrays with no element x(i,j) adjacent to itself or value 5-x(i,j) horizontally or antidiagonally, top left element zero, and 1 appearing before 2 3 and 4, and 2 appearing before 3 in row major order (unlabelled 6-colorings with no clashing color pairs).''. It has offset $1$ and begins
 \[
-3, 36, 1440, 62720, 2779136, 123551744, 5496242176, 244533166080,\ \dots
+36, 13952, 6049792, 2647261184, 1159192379392, 507618560835584, 222290692443996160, 97343107609552486400,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 64*a(n-1) - 960*a(n-2) + 4096*a(n-3) for n>4.
+Empirical: a(n) = 512*a(n-1) - 33792*a(n-2) + 589824*a(n-3).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 10 2018 08:29:46, revision 8) this is still
+As of the ``Last modified'' line on the live entry (Oct 11 2018 04:09:52, revision 7) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The array is $3$ cells across with entries $x(i,j)\in\{0,1,\dots,7\}$. Call two values $u,v$ CLASHING
-when $u+v=7$ and, the entry saying ``adjacent to itself or'', also when $u=v$. Two cells are neighbours when one is obtained from the other by one of
+The array is $5$ cells across with entries $x(i,j)\in\{0,1,\dots,5\}$. Call two values $u,v$ CLASHING
+when $u+v=5$ and, the entry saying ``adjacent to itself or'', also when $u=v$. Two cells are neighbours when one is obtained from the other by one of
 the offsets
 \[
-(0,1), (1,-1), (1,0),
+(0,1), (1,-1),
 \]
-that is, in the horizontal, antidiagonal (ne--sw) and vertical directions, and the condition is that no two neighbouring cells carry
+that is, in the horizontal and antidiagonal (ne--sw) directions, and the condition is that no two neighbouring cells carry
 clashing values. The clash relation is symmetric, so an offset and its negative name the
 same pairs and only one of each is listed. The entry also fixes the top left entry: $x(1,1)=0$.
 
 Finally the entry asks that, reading the cells in ROW MAJOR order, certain values make their
 first appearance before certain others:
 \[
-1\prec 2,\qquad 1\prec 3,\qquad 1\prec 4,\qquad 1\prec 5,\qquad 1\prec 6,\qquad 2\prec 3,\qquad 2\prec 4,\qquad 2\prec 5,\qquad 3\prec 4 ,
+1\prec 2,\qquad 1\prec 3,\qquad 1\prec 4,\qquad 2\prec 3 ,
 \]
 writing $u\prec v$ for ``the first cell carrying $u$ comes before the first cell carrying
 $v$''. The entry's own name glosses the effect of this clause together with $x(1,1)=0$ as
@@ -80,7 +80,7 @@ a first appearance and imposes nothing.
 
 The walk of this paper runs DOWN THE ROWS and visits the cells of each row from left to right,
 which is exactly row major order, so the set $T$ can be carried in the state. It takes at most
-$2^{6}$ values, and the state of the walk is a pair (array row, set $T$).
+$2^{4}$ values, and the state of the walk is a pair (array row, set $T$).
 
 \section{The walk}
 
@@ -120,15 +120,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;64\,a(n-1) - 960\,a(n-2) + 4096\,a(n-3)
+a(n)\;=\;512\,a(n-1) - 33792\,a(n-2) + 589824\,a(n-3)
 \]
-for every $n>4$.
+for every $n>3$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $3$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=4+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=3+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -136,7 +136,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $15$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $11$ terms the entry publishes, exactly, in integer
 arithmetic.
 
 Second, the count was recomputed for the smallest arrays straight from the definition: fill the
@@ -152,7 +152,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A233197.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A233253.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata

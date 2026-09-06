@@ -51,6 +51,40 @@ def build(h):
     Ltex = rf"{mult}n+{base}" if mult != 1 else (rf"n+{base}" if base else "n")
     fracinv = "" if frac == 1 else rf"\tfrac1{{{frac}}}"
     nb = ",\\ ".join(f"({x},{y})" for x, y in h["offs"])
+    # How much explanation this entry needs is a property of the entry, not of the template.
+    # A six-state model needs none of what follows; a model with thousands of states, or one
+    # whose arrays outnumber its states by tens of orders of magnitude, needs the arithmetic
+    # spelled out, and a threshold that is exact deserves saying so.
+    scale_bits = []
+    rows_tot = (alpha + 1) ** W
+    if S >= 1000:
+        scale_bits.append(
+            rf"""
+The size of $\mathcal V$ is worth seeing concretely. There are ${alpha}+1={alpha + 1}$ values
+and ${W}$ cells in a {line}, so $|V|={alpha + 1}^{{{W}}}={rows_tot}$, and the vertex set is
+$V\times V$, of size ${rows_tot}^2={S}$. That is the whole of the state: two consecutive
+{lines} and nothing else about the array's history.""")
+    try:
+        biggest = h['offset'] + h['nterms'] - 1
+        arrays = (alpha + 1) ** (W * (h['mult'] * biggest + h['base']))
+        if arrays > 10 ** 12:
+            scale_bits.append(
+                rf"""
+It is worth saying why this is not done by enumeration. At the largest index the entry
+publishes, $n={biggest}$, the arrays have ${W}\cdot{h['mult'] * biggest + h['base']}$ cells over
+${alpha + 1}$ values, so there are about $10^{{{len(str(arrays)) - 1}}}$ of them to sift. The
+walk count replaces that by ${S}$ states and one matrix--vector product per {line}.""")
+    except Exception:
+        pass
+    if nthr - off < nterms and nthr - off >= order:
+        k = nthr - off
+        if d[k] != sum(int(c) * d[k - int(i)] for i, c in h['coeffs'].items()):
+            scale_bits.append(
+                rf"""
+The threshold below is exact rather than merely sufficient: at $n={nthr}$ the conjectured
+recurrence fails on the entry's own published terms, so no range larger than the one proved
+can hold.""")
+    scale = "\n".join(scale_bits)
     ul = ("" if not h["ul0"] else
           r" A further clause fixes the upper-left entry of the array to be $0$; it removes "
           r"nothing but a relabelling, and enters the construction as a restriction on which "
@@ -153,6 +187,7 @@ its boundary. So the walks are exactly the admissible arrays, and summing over a
 and ending vertices counts them.
 \end{{proof}}
 
+{scale}
 \section{{The criterion}}
 
 Let $q(t)=t^{{{order}}}-\sum_i c_i\,t^{{{order}-i}}$ be the characteristic polynomial of

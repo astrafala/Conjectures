@@ -21,7 +21,7 @@ it was settled.
 | **[papers/index.csv](papers/index.csv)** | Every paper with its OEIS entry, in one table. |
 | **[LEDGER.md](LEDGER.md)** | The working log — every batch, every dead end, every mistake, dated. |
 | **[SUBMITTING.md](SUBMITTING.md)** | How these get checked and cited. |
-| **[oeis-comments.txt](oeis-comments.txt)** | A short plain-English summary per result, written to be posted on the entry. |
+| **[comments/](comments/)** | A proposed OEIS comment for each settled entry, with the date the result was obtained. |
 
 **The paper number is the ranking. 1 is the hardest result; the last is the easiest.**
 Ranking is by the depth of the argument, not the size of the sequence or the length of
@@ -72,7 +72,8 @@ shipped wrong results; this one has a written record of catching its own.
 
 ## What is in a paper
 
-Three to five pages, self-contained. The definition of the sequence; the conjecture quoted
+Self-contained, and as long as the result needs — most run to three pages, a few to
+four or more where the object is complicated enough to be worth spelling out. The definition of the sequence; the conjecture quoted
 verbatim with contributor and date; a statement that the entry still records it as open as
 of the entry's own "Last modified" line; the proof; and a verification section reporting the
 ranges actually checked.
@@ -110,6 +111,7 @@ Four gates, all of which must pass. Full detail in [METHODOLOGY.md](METHODOLOGY.
 | `papers/` | the results, as PDFs, banded by hardness |
 | `paper-sources/` | their LaTeX sources, banded identically |
 | `engine/` | everything that produces them — see [engine/README.md](engine/README.md) |
+| `comments/` | a proposed OEIS comment per entry, with the date each result was obtained |
 | `archive/` | withdrawn papers and superseded output |
 
 ## Reproducing

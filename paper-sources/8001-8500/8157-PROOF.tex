@@ -12,18 +12,18 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A259517, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A234825, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A259517 counts arrays of width $2$ over $\{0,1\}$ subject to a condition read round the
-perimeter of every $2\times2$ subblock: the corners read clockwise spell one of a listed set of words. The entry carries an empirical recurrence of
+OEIS A234825 counts arrays of width $2$ over $\{0,1,2\}$ subject to a condition read round the
+perimeter of every $2\times2$ subblock: the two edge-increase counts are ordered one way in every subblock. The entry carries an empirical recurrence of
 order $3$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
 empirical: the condition is settled inside a bounded window of consecutive rows, so the
-count is a walk count on a finite digraph with $S=5$ vertices, and whether a linear
+count is a walk count on a finite digraph with $S=10$ vertices, and whether a linear
 recurrence holds for such a count is a finite computation.
 \end{abstract}
 
@@ -31,20 +31,20 @@ recurrence holds for such a count is a finite computation.
 
 \section{The conjecture}
 
-OEIS A259517 is ``Number of (n+1) X (1+1) 0..1 arrays with each 2 X 2 subblock having clockwise pattern 0000 0001 0011 0101 or 1111.''. It has offset $1$ and begins
+OEIS A234825 is ``Number of (n+1) X (1+1) 0..2 arrays with each 2 X 2 subblock having the number of clockwise edge increases less than or equal to the number of counterclockwise edge increases.''. It has offset $1$ and begins
 \[
-12, 38, 120, 380, 1204, 3816, 12096, 38344,\ \dots
+69, 516, 3843, 28602, 212850, 1583955, 11787201, 87715899,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 4*a(n-1) - 2*a(n-2) - 2*a(n-3).
+Empirical: a(n) = 9*a(n-1) - 12*a(n-2) + 3*a(n-3).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Dec 25 2018 11:15:21, revision 8) this is still
+As of the ``Last modified'' line on the live entry (Oct 16 2018 07:56:20, revision 7) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The arrays have $2$ columns and a growing number of rows, with entries in $\{0,1\}$. A
+The arrays have $2$ columns and a growing number of rows, with entries in $\{0,1,2\}$. A
 $2\times2$ subblock is a set of four cells
 \[
 B=\begin{pmatrix} p & q \\ r & s \end{pmatrix},
@@ -68,11 +68,11 @@ An edge with distinct ends therefore contributes exactly one rise, to one of the
 an edge with equal ends contributes to neither.
 \end{proof}
 
-The condition the entry imposes is this: reading the four corners clockwise, starting at whichever corner one pleases, spells one of the words
+The condition the entry imposes is this: every subblock $B$ of the array satisfies
 \[
-0000,\ 0001,\ 0011,\ 0101,\ 1111.
+\mathrm{cw}(B)\;\le\;\mathrm{ccw}(B)
 \]
-That is, the cyclic word $pqsr$ is a rotation of one of them. The starting corner is not fixed by the entry, and it is the data that says so: with the words $0000$, $0011$, $0101$ allowed there are seven two-by-two binary arrays, which is what such an entry publishes as its first term, whereas a fixed starting corner would leave three.
+
 
 \section{A bounded window}
 
@@ -85,7 +85,7 @@ for the empty array, so that a walk of $n$ steps is an array of $n$ rows.
 
 The end vector is all ones: an array may stop after any row. Thus
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=5,
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=10,
 \]
 for the transfer matrix $M$ on those $S$ states. The walk index $j$ and the entry's own $n$
 differ by a constant, read off by matching the published terms rather than assumed. In
@@ -112,7 +112,7 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;4\,a(n-1) - 2\,a(n-2) - 2\,a(n-3)
+a(n)\;=\;9\,a(n-1) - 12\,a(n-2) + 3\,a(n-3)
 \]
 for every $n>1$.
 \end{theorem}
@@ -128,11 +128,11 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $24$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $19$ terms the entry publishes, exactly, in integer
 arithmetic.
 
 Second, the count was recomputed for the smallest arrays straight from the definition: every
-array of the stated width and a few rows was written out cell by cell over $\{0,1\}$, each of
+array of the stated width and a few rows was written out cell by cell over $\{0,1,2\}$, each of
 its $2\times2$ subblocks was read round its perimeter, and the condition of Section 2 was
 applied as stated. No window, no state and no recurrence is involved in that computation, and
 the published terms came back.
@@ -145,7 +145,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A259517.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A234825.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge

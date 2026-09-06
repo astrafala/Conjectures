@@ -12,19 +12,19 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A210295, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A209711, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A210295 counts $(n+1)\times4$ arrays over $\{0,\dots,3\}$ subject to a condition imposed on
-every $2\times2$ subblock, and carries an empirical recurrence of order $63$ contributed
+OEIS A209711 counts $(n+1)\times4$ arrays over $\{0,\dots,3\}$ subject to a condition imposed on
+every $2\times2$ subblock, and carries an empirical recurrence of order $64$ contributed
 by R.~H.~Hardin. It is true, and it is not an empirical matter at all. The condition is local
 to each subblock, so the rows of an admissible array are the vertices of a finite digraph
 on $S=256$ vertices whose edges are the admissible consecutive pairs, and the count is a
-number of walks: $a(n)=\tfrac1{2}\mathbf{1}^{\!\top}M^{n}\mathbf{1}$. Writing $q$
+number of walks: $a(n)=\tfrac1{4}\mathbf{1}^{\!\top}M^{n}\mathbf{1}$. Writing $q$
 for the characteristic polynomial of the conjectured recurrence, the recurrence holds for all
 $n$ exactly when $\mathbf{1}^{\!\top}M^{j}q(M)\mathbf{1}=0$ for every $j\ge0$, and the
 Cayley--Hamilton theorem bounds that to $j<S$. It is therefore a finite computation in exact
@@ -35,22 +35,22 @@ integer arithmetic, and it comes out zero.
 
 \section{The sequence and the conjecture}
 
-OEIS A210295 is ``Half the number of (n+1)X4 0..3 arrays with every 2X2 subblock having at most one duplicate clockwise edge difference.''. It has offset $1$ and begins
+OEIS A209711 is ``1/4 the number of (n+1)X4 0..3 arrays with every 2X2 subblock having distinct clockwise edge differences.''. It has offset $1$ and begins
 \[
-22212, 3913002, 688122928, 121040117840, 21290108702694, 3744799069935140, 658686645074030420, 115858857345804835112,\ \dots
+1241, 40600, 1277340, 40731729, 1293734407, 41170011836, 1308905451923, 41634764453267,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 89*a(n-1) +13157*a(n-2) +389069*a(n-3) -1384035*a(n-4) -211162482*a(n-5) -1549456301*a(n-6) +42301277001*a(n-7) +466928153966*a(n-8) -4636261628670*a(n-9) -55128128224832*a(n-10) +370751533087284*a(n-11) +3366354707337810*a(n-12) -22328435349746783*a(n-13) -104225586284146240*a(n-14) +854175060405263249*a(n-15) +1356653716889515994*a(n-16) -19014830237877987785*a(n-17) +1641730329097749459*a(n-18) +256668713343803607594*a(n-19) -283850920478207204987*a(n-20) -2200294064793077336507*a(n-21) +4154431081333758524078*a(n-22) +12254595197762182258478*a(n-23) -33166018406798565230723*a(n-24) -43660613542365036610556*a(n-25) +172531281339678957598286*a(n-26) +88036428021597428197209*a(n-27) -625557643239287634051441*a(n-28) -23488192916919589683517*a(n-29) +1636756886811883299604832*a(n-30) -442333142615381849970325*a(n-31) -3152132125041319182680446*a(n-32) +1533956445599466795911458*a(n-33) +4515914651803603902684910*a(n-34) -2932944704976521929884611*a(n-35) -4830584383987916740632024*a(n-36) +3775053091249940154032353*a(n-37) +3846801776006926918007885*a(n-38) -3460648164297796666212481*a(n-39) -2256322426820416632944954*a(n-40) +2304224975397278803664632*a(n-41) +953248109109959969062182*a(n-42) -1118222886327243392812829*a(n-43) -277325475138122658765711*a(n-44) +392751143869987029073276*a(n-45) +49871755862759374267644*a(n-46) -98198482347792029581086*a(n-47) -3448131392053862639088*a(n-48) +16996739270349483155420*a(n-49) -629760756032881599916*a(n-50) -1947252693503640580336*a(n-51) +187435119472858365264*a(n-52) +136824568314528078056*a(n-53) -20462735030764896544*a(n-54) -5048721444724223120*a(n-55) +1073513772269316096*a(n-56) +56813024280410624*a(n-57) -23345441504431360*a(n-58) +926557026393600*a(n-59) +87338144019456*a(n-60) -5478877973504*a(n-61) -13004288000*a(n-62) +3319529472*a(n-63)
+Empirical: a(n) = 15*a(n-1) +1008*a(n-2) -7876*a(n-3) -328904*a(n-4) +1926537*a(n-5) +52684864*a(n-6) -273951748*a(n-7) -4866393539*a(n-8) +24240653273*a(n-9) +284467521073*a(n-10) -1401913368926*a(n-11) -11199860935130*a(n-12) +55383623152305*a(n-13) +310221810205502*a(n-14) -1550263153851120*a(n-15) -6235493002893665*a(n-16) +31634306714134207*a(n-17) +92998581142818874*a(n-18) -480833347610958673*a(n-19) -1045915789998724699*a(n-20) +5532194062321947358*a(n-21) +8975769923693909839*a(n-22) -48756799709225176849*a(n-23) -59299615298869844599*a(n-24) +332041426928348290121*a(n-25) +303700687565429488003*a(n-26) -1758256324787498237829*a(n-27) -1212811908997938780012*a(n-28) +7270465412741619864800*a(n-29) +3797566692114290775489*a(n-30) -23537814548092748856931*a(n-31) -9379511582307506472416*a(n-32) +59726661084682197089538*a(n-33) +18401973290976709236198*a(n-34) -118737454342588779056334*a(n-35) -28914958687246461124391*a(n-36) +184561198236942732186820*a(n-37) +36699265124914024312999*a(n-38) -223429523113044656251384*a(n-39) -37861805098615603112860*a(n-40) +209387912188279839779389*a(n-41) +31751887956162117388848*a(n-42) -150583340090115952826545*a(n-43) -21431798119336812426970*a(n-44) +82105995000110413699734*a(n-45) +11401867924374467330034*a(n-46) -33394113408712074250948*a(n-47) -4638404024514496142694*a(n-48) +9913173513982954582346*a(n-49) +1389760315203109342656*a(n-50) -2086440149254353119856*a(n-51) -293279980685597445408*a(n-52) +299468489710238488568*a(n-53) +41250131799294016000*a(n-54) -27806351608888814224*a(n-55) -3591128372719351552*a(n-56) +1556040144706074432*a(n-57) +173746695509329664*a(n-58) -48068935504144192*a(n-59) -3984150632877312*a(n-60) +742241025193984*a(n-61) +34721251272704*a(n-62) -4259930669056*a(n-63) -57036898304*a(n-64)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 15:52:25, revision 9) the statement is
+As of the ``Last modified'' line on the live entry (Oct 03 2025 15:25:44, revision 9) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;89\,a(n-1) + 13157\,a(n-2) + 389069\,a(n-3) - 1384035\,a(n-4) - 211162482\,a(n-5) - 1549456301\,a(n-6) + 42301277001\,a(n-7) + 466928153966\,a(n-8) - 4636261628670\,a(n-9) - 55128128224832\,a(n-10) + 370751533087284\,a(n-11) + 3366354707337810\,a(n-12) - 22328435349746783\,a(n-13) - 104225586284146240\,a(n-14) + 854175060405263249\,a(n-15) + 1356653716889515994\,a(n-16) - 19014830237877987785\,a(n-17) + 1641730329097749459\,a(n-18) + 256668713343803607594\,a(n-19) - 283850920478207204987\,a(n-20) - 2200294064793077336507\,a(n-21) + 4154431081333758524078\,a(n-22) + 12254595197762182258478\,a(n-23) - 33166018406798565230723\,a(n-24) - 43660613542365036610556\,a(n-25) + 172531281339678957598286\,a(n-26) + 88036428021597428197209\,a(n-27) - 625557643239287634051441\,a(n-28) - 23488192916919589683517\,a(n-29) + 1636756886811883299604832\,a(n-30) - 442333142615381849970325\,a(n-31) - 3152132125041319182680446\,a(n-32) + 1533956445599466795911458\,a(n-33) + 4515914651803603902684910\,a(n-34) - 2932944704976521929884611\,a(n-35) - 4830584383987916740632024\,a(n-36) + 3775053091249940154032353\,a(n-37) + 3846801776006926918007885\,a(n-38) - 3460648164297796666212481\,a(n-39) - 2256322426820416632944954\,a(n-40) + 2304224975397278803664632\,a(n-41) + 953248109109959969062182\,a(n-42) - 1118222886327243392812829\,a(n-43) - 277325475138122658765711\,a(n-44) + 392751143869987029073276\,a(n-45) + 49871755862759374267644\,a(n-46) - 98198482347792029581086\,a(n-47) - 3448131392053862639088\,a(n-48) + 16996739270349483155420\,a(n-49) - 629760756032881599916\,a(n-50) - 1947252693503640580336\,a(n-51) + 187435119472858365264\,a(n-52) + 136824568314528078056\,a(n-53) - 20462735030764896544\,a(n-54) - 5048721444724223120\,a(n-55) + 1073513772269316096\,a(n-56) + 56813024280410624\,a(n-57) - 23345441504431360\,a(n-58) + 926557026393600\,a(n-59) + 87338144019456\,a(n-60) - 5478877973504\,a(n-61) - 13004288000\,a(n-62) + 3319529472\,a(n-63)
+a(n)\;=\;15\,a(n-1) + 1008\,a(n-2) - 7876\,a(n-3) - 328904\,a(n-4) + 1926537\,a(n-5) + 52684864\,a(n-6) - 273951748\,a(n-7) - 4866393539\,a(n-8) + 24240653273\,a(n-9) + 284467521073\,a(n-10) - 1401913368926\,a(n-11) - 11199860935130\,a(n-12) + 55383623152305\,a(n-13) + 310221810205502\,a(n-14) - 1550263153851120\,a(n-15) - 6235493002893665\,a(n-16) + 31634306714134207\,a(n-17) + 92998581142818874\,a(n-18) - 480833347610958673\,a(n-19) - 1045915789998724699\,a(n-20) + 5532194062321947358\,a(n-21) + 8975769923693909839\,a(n-22) - 48756799709225176849\,a(n-23) - 59299615298869844599\,a(n-24) + 332041426928348290121\,a(n-25) + 303700687565429488003\,a(n-26) - 1758256324787498237829\,a(n-27) - 1212811908997938780012\,a(n-28) + 7270465412741619864800\,a(n-29) + 3797566692114290775489\,a(n-30) - 23537814548092748856931\,a(n-31) - 9379511582307506472416\,a(n-32) + 59726661084682197089538\,a(n-33) + 18401973290976709236198\,a(n-34) - 118737454342588779056334\,a(n-35) - 28914958687246461124391\,a(n-36) + 184561198236942732186820\,a(n-37) + 36699265124914024312999\,a(n-38) - 223429523113044656251384\,a(n-39) - 37861805098615603112860\,a(n-40) + 209387912188279839779389\,a(n-41) + 31751887956162117388848\,a(n-42) - 150583340090115952826545\,a(n-43) - 21431798119336812426970\,a(n-44) + 82105995000110413699734\,a(n-45) + 11401867924374467330034\,a(n-46) - 33394113408712074250948\,a(n-47) - 4638404024514496142694\,a(n-48) + 9913173513982954582346\,a(n-49) + 1389760315203109342656\,a(n-50) - 2086440149254353119856\,a(n-51) - 293279980685597445408\,a(n-52) + 299468489710238488568\,a(n-53) + 41250131799294016000\,a(n-54) - 27806351608888814224\,a(n-55) - 3591128372719351552\,a(n-56) + 1556040144706074432\,a(n-57) + 173746695509329664\,a(n-58) - 48068935504144192\,a(n-59) - 3984150632877312\,a(n-60) + 742241025193984\,a(n-61) + 34721251272704\,a(n-62) - 4259930669056\,a(n-63) - 57036898304\,a(n-64)
 \end{equation}
-for all $n>62$.
+for all $n>64$.
 
 \section{The condition is local, so the rows form a digraph}
 
@@ -65,7 +65,7 @@ the subblock is
 \]
 The entry's requirement on that subblock is
 \begin{equation}\label{eq:loc}
-4-\#\{\beta-\alpha,\ \delta-\beta,\ \gamma-\delta,\ \alpha-\gamma\}\;\le\;1,
+\#\{\beta-\alpha,\ \delta-\beta,\ \gamma-\delta,\ \alpha-\gamma\}=4,
 \end{equation}
 a condition on the four entries alone.
 
@@ -82,7 +82,7 @@ all-ones vector.
 The arrays counted by the entry with $L$ rows are exactly the walks
 $r^{(1)}\to r^{(2)}\to\cdots\to r^{(L)}$ of length $L-1$ in $G$. Consequently
 \[
-a(n)\;=\;\tfrac1{2}\mathbf{1}^{\!\top}M^{n}\mathbf{1} .
+a(n)\;=\;\tfrac1{4}\mathbf{1}^{\!\top}M^{n}\mathbf{1} .
 \]
 \end{lemma}
 
@@ -95,18 +95,18 @@ if and only if each consecutive pair $\bigl(r^{(t)},r^{(t+1)}\bigr)$ satisfies i
 every column pair --- which is exactly the edge relation of $G$. The number of walks of
 length $L-1$, summed over all starting and ending vertices, is
 $\mathbf{1}^{\!\top}M^{L-1}\mathbf{1}$, since $(M^{k})_{r,s}$ counts the walks of
-length $k$ from $r$ to $s$. The entry's index $n$ corresponds to $L=n+1$ rows. The entry counts $\tfrac1{2}$ of those arrays, a constant factor that passes through every step below unchanged.
+length $k$ from $r$ to $s$. The entry's index $n$ corresponds to $L=n+1$ rows. The entry counts $\tfrac1{4}$ of those arrays, a constant factor that passes through every step below unchanged.
 \end{proof}
 
 \section{The criterion}
 
-Let $q(t)=t^{63}-\sum_i c_i\,t^{63-i}$ be the characteristic polynomial of
+Let $q(t)=t^{64}-\sum_i c_i\,t^{64-i}$ be the characteristic polynomial of
 \eqref{eq:conj}, with the $c_i$ read off that equation.
 
 \begin{lemma}\label{lem:crit}
-For every $n$ with $n+1-1\ge63$,
+For every $n$ with $n+1-1\ge64$,
 \[
-a(n)-\sum_i c_i\,a(n-i)\;=\;\tfrac1{2}\mathbf{1}^{\!\top}M^{\,n+1-1-63}\,q(M)\,\mathbf{1} .
+a(n)-\sum_i c_i\,a(n-i)\;=\;\tfrac1{4}\mathbf{1}^{\!\top}M^{\,n+1-1-64}\,q(M)\,\mathbf{1} .
 \]
 Hence \eqref{eq:conj} holds from that point on if and only if
 $\mathbf{1}^{\!\top}M^{j}q(M)\mathbf{1}=0$ for every $j\ge0$; and it is enough to check
@@ -114,14 +114,14 @@ $j=0,1,\dots,S-1$.
 \end{lemma}
 
 \begin{proof}
-By Lemma~\ref{lem:walk}, $a(n-i)=\tfrac1{2}\mathbf{1}^{\!\top}M^{\,n+1-1-i}\mathbf{1}$, so
+By Lemma~\ref{lem:walk}, $a(n-i)=\tfrac1{4}\mathbf{1}^{\!\top}M^{\,n+1-1-i}\mathbf{1}$, so
 \[
 a(n)-\sum_i c_i a(n-i)
-=\tfrac1{2}\mathbf{1}^{\!\top}\Bigl(M^{m}-\sum_i c_i M^{m-i}\Bigr)\mathbf{1}
-=\tfrac1{2}\mathbf{1}^{\!\top}M^{\,m-63}\,q(M)\,\mathbf{1}
+=\tfrac1{4}\mathbf{1}^{\!\top}\Bigl(M^{m}-\sum_i c_i M^{m-i}\Bigr)\mathbf{1}
+=\tfrac1{4}\mathbf{1}^{\!\top}M^{\,m-64}\,q(M)\,\mathbf{1}
 \]
-with $m=n+1-1$, which is the stated identity; the scalar $\tfrac1{2}$ never vanishes, so it does not affect whether the left side is zero, and the equivalence follows by letting
-$m-63=j$ run over $\ge0$. For the last clause put $w=q(M)\mathbf{1}$. By the
+with $m=n+1-1$, which is the stated identity; the scalar $\tfrac1{4}$ never vanishes, so it does not affect whether the left side is zero, and the equivalence follows by letting
+$m-64=j$ run over $\ge0$. For the last clause put $w=q(M)\mathbf{1}$. By the
 Cayley--Hamilton theorem $M^{S}$ is an integer combination of $I,M,\dots,M^{S-1}$, so
 $\mathbf{1}^{\!\top}M^{j}w$ for $j\ge S$ is the corresponding combination of the earlier
 values; if those all vanish, so do all the rest.
@@ -130,7 +130,7 @@ values; if those all vanish, so do all the rest.
 \section{The computation}
 
 \begin{theorem}
-The recurrence \eqref{eq:conj} holds for every $n>62$, which is the statement of
+The recurrence \eqref{eq:conj} holds for every $n>64$, which is the statement of
 Section~1.
 \end{theorem}
 
@@ -138,12 +138,12 @@ Section~1.
 The digraph was constructed from \eqref{eq:loc} by a depth-first scan across the $4$
 columns: the edge condition is a conjunction of one constraint per consecutive column
 pair, so the successors of a row $r$ are enumerated column by column without testing all
-$S^2$ pairs. The vector $w=q(M)\mathbf{1}\in\mathbb{Z}^{S}$ was then formed by $63$
+$S^2$ pairs. The vector $w=q(M)\mathbf{1}\in\mathbb{Z}^{S}$ was then formed by $64$
 matrix--vector products in exact integer arithmetic, and $\mathbf{1}^{\!\top}M^{j}w$ was
 evaluated for $j=0,1,\dots$, again exactly. Every one of those integers vanishes from the
-index corresponding to $n=62+1$ onwards, and the run continued until $w$ itself was the
+index corresponding to $n=64+1$ onwards, and the run continued until $w$ itself was the
 zero vector, which settles every larger $j$ at once. By Lemma~\ref{lem:crit} the recurrence
-holds for every $n>62$.
+holds for every $n>64$.
 \end{proof}
 
 \begin{remark}
@@ -158,8 +158,8 @@ minimal one is a divisor of $q$.
 Three checks, each independent of the algebra above.
 
 First, the digraph was built directly from the entry's stated condition and the walk counts
-$\tfrac1{2}\mathbf{1}^{\!\top}M^{L-1}\mathbf{1}$ compared against the entry's DATA at
-every one of the $11$ published indices; the values agree exactly. That is what ties
+$\tfrac1{4}\mathbf{1}^{\!\top}M^{L-1}\mathbf{1}$ compared against the entry's DATA at
+every one of the $14$ published indices; the values agree exactly. That is what ties
 the digraph to the sequence: a model that reproduced only some of the published terms would
 be the wrong model, and would have been rejected. In particular it is what rules out a
 misreading of the entry's wording, since a different reading of the condition gives a
@@ -174,7 +174,7 @@ throughout.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A210295.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A209711.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

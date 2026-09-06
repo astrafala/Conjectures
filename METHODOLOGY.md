@@ -233,7 +233,27 @@ Recorded rather than quietly omitted:
 - **Triangular inclusion–exclusion** running over `2^|E|` subsets, out of reach past ~30 edges.
 - **113 generating-function-only entries** whose names no engine reads yet. A gap, not a wall.
 
-## 9. How to check a single result
+## 9. How long a paper is
+
+Length follows the result, and until 6 September 2026 it did not. Every family is written by
+its own generator, and each generator emitted a fixed structure, so within a family every paper
+came out the same length whether its object had six states or sixty-five thousand. The
+mathematics was never truncated — these proofs are complete in three pages — but the
+*explanation* did not adapt, and that was a defect in the generators rather than a fact about
+the results.
+
+The measured distribution before the change: 8587 of 9035 papers were exactly three pages, and
+whole families of two hundred papers were 100% one length. The only family with real spread was
+the hand-written number-theoretic one, which is exactly what you would expect when length
+follows content.
+
+Generators are now being made to scale their explanation to the object: the state space spelled
+out concretely when it is large and left alone when it is small, the reason enumeration is
+hopeless given with the actual figure when the arrays outnumber the states by orders of
+magnitude, and the exactness of a threshold stated when the entry's own terms establish it. The
+largest family, 1080 papers, has been rebuilt this way; the rest follow as each is next touched.
+
+## 10. How to check a single result
 
 Every paper is self-contained and checkable independently of everything else here — which is the
 point of the independence rule. To check one:

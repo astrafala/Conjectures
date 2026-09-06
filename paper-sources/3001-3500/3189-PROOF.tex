@@ -11,143 +11,180 @@
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
-
-\title{The empirical product formula for OEIS A140943, proved}
+\title{A proof of the conjectured recurrence for OEIS A000180}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{6 September 2026}
+\date{30 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A140943 counts $11\times11$ matrices over $\{0,\dots,n\}$ whose rows and columns are
-nondecreasing, and carries a product formula for $a(n)$ marked empirical. Reversing rows and
-columns turns such a matrix into a plane partition inside a $11\times11\times n$ box, so
-MacMahon's box theorem applies; the triple product telescopes in its third index and leaves a
-polynomial in $n$ of degree $121$. The entry's own expression, cleared of its denominator,
-becomes an identity between two polynomials of bounded degree, and is therefore settled by a
-finite exact computation. The box count itself is classical and is already recorded on this
-entry; what is proved here is the entry's own formula.
+OEIS A000180 carries a conjectured linear recurrence with polynomial coefficients, of
+order 2. The entry gives no generating function, but it does give the sequence as
+a hypergeometric sum. Creative telescoping produces, from the summand alone, a certificate
+identity that is checked exactly rather than trusted. What it does not produce here is a
+homogeneous recurrence: the summand does not vanish at the ends of the range, and the range
+itself moves with $n$, so summing the certificate leaves boundary and range-correction
+terms. We keep them. They are a finite, explicit expression $h(n)$, and the result is an
+inhomogeneous recurrence $\sum_{i}\sigma_{i}(n)a(n+i)=h(n)$. Since $h$ is a hypergeometric term, the first-order operator $M=N-h(n+1)/h(n)$ annihilates it, and $ML$ annihilates $a$. The conjectured
+operator is then shown to be a left multiple of the resulting annihilator by division in
+the Ore algebra $\mathbb{Q}(n)[N]$.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A17, 05A19.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 33F10, 11B37, 68W30.\normalsize
 
-\section{The conjecture}
+\section{The sequence and the conjecture}
 
-OEIS A140943 is ``Number of 11 X 11 matrices with elements in 0..n with each row and each column in nondecreasing order. 11,11,n can be permuted, see formula.''. It has offset $0$ and begins
+OEIS A000180 is ``Expansion of E.g.f. exp(-x)/(1-3x)''. It has offset $0$ and begins
 \[
-1, 705432, 79483257308, 2543610972177184, 31148053701600494400,\ \dots
+a(0),\dots,a(7)\;=\;1, 2, 13, 116, 1393, 20894, 376093, 7897952,\ \dots
 \]
-The entry states, as conjectures contributed by its author and never marked settled:
-\begin{quote}
-(empirical) set p,q,r to n,11,11 (in any order) in s=p+q+r-1; a(n) = product {i in 0..r-1} (binomial(s,p+i)*i!/(s-i)\^{}(r-i-1))
-
+The entry states, not as a conjecture,
+\begin{quote}\small
+a(n) = Sum\emph{\{k=0..n\} (-1)\^{}(n+k)*binomial(n,k)*k!*3\^{}k. - }Benoit Cloitre\_, Nov 02 2003
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jan 28 2025 10:47:20, revision 8) these are still
-recorded as empirical, and nothing on the entry records them as proved.
+so that, writing $F(n,k)$ for the summand,
+\begin{equation}\label{eq:sum}
+a(n)\;=\;\sum_{k=0}^{n}F(n,k),
+\qquad F(n,k)=\left(-1\right)^{k + n} 3^{k} {\binom{n}{k}} k! .
+\end{equation}
+This is the only input the proof takes from the entry, and it was checked against the
+entry's own DATA before use.
 
-\section{What is being counted}
+The entry separately carries the following comment:
+\begin{quote}\small
+\textbf{Conjecture:} (n+1)*a(n) -(n+1)*(3*n-1)*a(n-1) -3*(n-1)*(n+1)*a(n-2) = 0. - \emph{R. J. Mathar}, Jul 24 2012
+\end{quote}
+As of the ``Last modified'' line on the live entry (2026-07-11, revision 69) the
+statement is still recorded as a conjecture, and no proof appears among the entry's links,
+formulas or programs.
 
-A matrix $x$ of shape $11\times11$ with entries in $\{0,\dots,n\}$, nondecreasing along
-every row and down every column, becomes, on reversing the order of the rows and of the
-columns, an array that is NONINCREASING along rows and down columns with the same entries. That
-is exactly a plane partition whose parts are at most $n$ and whose shape fits inside a
-$11\times11$ rectangle --- a plane partition in a $11\times11\times n$ box. The
-correspondence is a bijection, being an involution on arrays, so
+\section{Telescoping over a range that does not cooperate}
+
+Let $N$ denote the shift in $n$, $(Nf)(n)=f(n+1)$, and $\Delta_{k}$ the forward difference
+in $k$. Creative telescoping looks for rational functions
+$\sigma_{0},\dots,\sigma_{r}$ of $n$, not all zero, and a rational $R(n,k)$ with
+\begin{equation}\label{eq:cert}
+\sum_{i=0}^{r}\sigma_{i}(n)\,F(n+i,k)\;=\;\Delta_{k}\bigl[R(n,k)F(n,k)\bigr].
+\end{equation}
+Divided through by $F(n,k)$ this is an identity between rational functions, because the
+quotients $F(n+i,k)/F(n,k)$ and $F(n,k+1)/F(n,k)$ are rational; so a proposed pair
+$(\sigma,R)$ can be \emph{checked}, exactly, whatever produced it. For A000180 such a pair
+exists with $r=1$:
 \[
-a(n)\;=\;\mathrm{PP}(11,11,n).
+\sigma_{0}(n)=3,\qquad \sigma_{1}(n)=- \frac{1}{n + 1},
+\qquad
+R(n,k)\;=\;\frac{1}{k - n - 1} .
 \]
-Note which parameter grows: the shape is FIXED and it is the alphabet $0..n$ that $n$ counts,
-so nothing about transfer matrices applies here.
 
-\section{The box count is a polynomial}
+The usual next step sums \eqref{eq:cert} over all $k$ and concludes
+$\sum_{i}\sigma_{i}(n)a(n+i)=0$. That step needs $F(n,k)$ to vanish for every $k$ outside
+the range in \eqref{eq:sum}, and here it does not. Summing over a finite window therefore
+leaves something behind, and the point of this note is that what it leaves behind is
+computable.
 
-\begin{theorem}[MacMahon]\label{thm:mm}
+\begin{proposition}\label{prop:inhom}
+Let $L_{0}$ and $H_{0}$ be the lower and upper summation limits in \eqref{eq:sum}, each
+non-decreasing in $n$, and put $L=L_{0}(n)$ and $H=H_{0}(n+r)$, so that the window
+$L\le k\le H$ contains the range of every $a(n+i)$, $0\le i\le r$. Write
+$G(n,k)=R(n,k)F(n,k)$ and suppose $G$ is finite at every integer $k$ in $[L,H+1]$. Then
 \[
-\mathrm{PP}(p,q,r)\;=\;\prod_{i=1}^{p}\prod_{j=1}^{q}\prod_{k=1}^{r}
-\frac{i+j+k-1}{i+j+k-2} .
+\sum_{i=0}^{r}\sigma_{i}(n)\,a(n+i)\;=\;h(n),
+\qquad
+h(n)\;=\;G(n,H+1)-G(n,L)\;-\;\sum_{i=0}^{r}\sigma_{i}(n)\!\!\!
+\sum_{\substack{L\le k\le H\\ k\notin[L_{0}(n+i),\,H_{0}(n+i)]}}\!\!\! F(n+i,k).
 \]
-\end{theorem}
-
-This is classical; see Stanley~\cite{stanley}, and it is already recorded on this entry.
-
-\begin{theorem}\label{thm:poly}
-\[
-a(n)\;=\;\prod_{i=1}^{11}\prod_{j=1}^{11}\frac{n+i+j-1}{i+j-1},
-\]
-a polynomial in $n$ of degree $121$ with rational coefficients.
-\end{theorem}
+\end{proposition}
 
 \begin{proof}
-In Theorem~\ref{thm:mm} the inner product over $k$ telescopes: for fixed $i$ and $j$,
-\[
-\prod_{k=1}^{n}\frac{i+j+k-1}{i+j+k-2}\;=\;\frac{n+i+j-1}{i+j-1} ,
-\]
-every other factor cancelling against its neighbour. The remaining double product has
-$11\cdot11=121$ factors, each linear in $n$, and the denominators are constants.
+Sum \eqref{eq:cert} over $k=L,\dots,H$. The right-hand side telescopes to
+$G(n,H+1)-G(n,L)$, every intermediate value being finite by hypothesis. On the left,
+$\sum_{k=L}^{H}F(n+i,k)$ differs from $a(n+i)=\sum_{k=L_{0}(n+i)}^{H_{0}(n+i)}F(n+i,k)$
+exactly by the terms of the window that lie outside that sequence's own range, which is the
+inner sum above. Rearranging gives the statement; both correction ranges are finite because
+$L_{0}$ and $H_{0}$ are non-decreasing and $i\le r$.
 \end{proof}
 
-So $a$ is a polynomial, and no appeal to Ehrhart theory or to any general position argument is
-needed to see it.
+For A000180 this gives
+\begin{equation}\label{eq:h}
+h(n)\;=\;\frac{\left(-1\right)^{n}}{n + 1} .
+\end{equation}
 
-\section{The entry's expression}
+\section{Clearing the inhomogeneity, and dividing}
 
-The entry writes $s=p+q+r-1$ with $(p,q,r)=(n,11,11)$ and claims
+The inhomogeneity \eqref{eq:h} is a hypergeometric term: its shift quotient is
 \[
-a(n)\;=\;\prod_{i=0}^{11-1}\binom{s}{n+i}\,\frac{i!}{(s-i)^{11-1-i}}\;=\;
-\frac{N(n)}{D(n)} .
+\frac{h(n+1)}{h(n)}\;=\;\frac{- n - 1}{n + 2},
 \]
+a rational function of $n$. Hence $M=N-h(n+1)/h(n)$ satisfies $M(h)=0$, and writing $L_{0}=\sum_{i}\sigma_{i}(n)N^{i}$ for the telescoped operator, Proposition~\ref{prop:inhom} reads $L_{0}(a)=h$, so
+\[
+L\;=\;ML_{0}\quad\text{satisfies}\quad L(a)=M\bigl(L_{0}(a)\bigr)=M(h)=0 .
+\]
+One extra order buys the homogeneity. Explicitly, $L=\left(\frac{3 n + 3}{n + 2}\right) + \left(\frac{3 n + 5}{n + 2}\right)\,N + \left(- \frac{1}{n + 2}\right)\,N^{2}$.
 
-\begin{lemma}\label{lem:deg}
-$N$ and $D$ are polynomials in $n$ of degrees $176$ and $55$ respectively.
+\begin{lemma}\label{lem:factor}
+If $C=QL$ in $\mathcal{A}=\mathbb{Q}(n)[N]$, where $N\,q(n)=q(n+1)\,N$, and $L(a)=0$, then
+$C(a)=0$ at every $n$ where the coefficients of $Q$ are defined.
 \end{lemma}
 
 \begin{proof}
-With $s=n+11+11-1$ one has $s-(n+i)=11+11-1-i$, a constant, so
-\[
-\binom{s}{n+i}=\binom{s}{11+11-1-i}
-=\frac{(s-11-11+2+i)(s-11-11+3+i)\cdots s}{(11+11-1-i)!},
-\]
-a polynomial in $n$ of degree $11+11-1-i$. Multiplying over $i=0,\dots,11-1$ gives
-$\deg N=\sum_{i=0}^{11-1}(11+11-1-i)=176$. The denominator is
-$\prod_{i=0}^{11-1}(s-i)^{11-1-i}$, of degree
-$\sum_{i=0}^{11-1}(11-1-i)=55$, and it does not vanish for $n\ge0$.
+$C(a)=(QL)(a)=Q\bigl(L(a)\bigr)=Q(0)=0$, and the coefficients of $Q$ are rational functions
+of $n$, so the step is valid away from their poles.
 \end{proof}
 
+Writing the conjectured recurrence as an operator $C$ and dividing by $L$ on the right
+leaves remainder $0$, with quotient
+\[
+Q\;=\;\left(- n^{2} - 5 n - 6\right) .
+\]
+No coefficient of $Q$ has an integer pole, so Lemma~\ref{lem:factor} applies at every index.
+
 \begin{theorem}
-The entry's expression equals $a(n)$ for every $n\ge0$.
+The conjectured recurrence
+\[
+(n + 1)\,a(n) -  \left(n + 1\right) \left(3 n - 1\right)\,a(n-1) -  3 \left(n - 1\right) \left(n + 1\right)\,a(n-2) \;=\;0
+\]
+holds for every $n\ge2$.
 \end{theorem}
 
 \begin{proof}
-By Theorem~\ref{thm:poly} and Lemma~\ref{lem:deg}, $a(n)D(n)-N(n)$ is a polynomial in $n$
-of degree at most $121+55=176$. It was evaluated in exact rational arithmetic at
-$n=0,1,\dots,176$, that is at $177$ points, and vanishes at all of them; a nonzero polynomial
-of degree at most $176$ has at most $176$ roots, so it is identically zero. Since $D(n)\neq0$
-for $n\ge0$, the two expressions agree there.
+Proposition~\ref{prop:inhom} gives the inhomogeneous recurrence, the operator $L$ of the
+previous section annihilates $a$, and Lemma~\ref{lem:factor} applied to $C=QL$ carries that
+to the conjectured operator. No coefficient of $Q$ has an integer pole.
 \end{proof}
 
 \section{Verification}
 
-Three checks, each independent of the algebra above.
+Every number above is an output of a script written separately from this note, and four
+independent checks were run.
 
-First, Theorem~\ref{thm:poly} reproduces all $5$ terms the entry publishes,
-exactly, in integer arithmetic.
+First, the certificate was verified rather than trusted: \eqref{eq:cert} was divided by
+$F(n,k)$ and the difference of the two sides cancelled to $0$ as a rational function of $n$
+and $k$.
 
-Second, the matrices themselves were counted for the smallest alphabets, directly from the
-definition: the nondecreasing rows were listed and the chains of $11$ of them increasing
-componentwise counted, with no product formula and no plane partitions anywhere. The counts
-agree, which is what ties the reversal bijection to the entry's own wording.
+Second --- and this is the check that matters most here, because the boundary bookkeeping
+is where such an argument goes wrong --- the inhomogeneous recurrence of
+Proposition~\ref{prop:inhom} was evaluated on the entry's own terms: for each $n$ in range
+the left side was formed from the published values and compared against \eqref{eq:h}, and
+the two agreed exactly. An error in the correction terms would not survive this.
 
-Third, the polynomial identity was evaluated over the whole range $n=0,\dots,176$ rather than
-sampled, in exact rational arithmetic.
+Third, the factorisation was confirmed by multiplying back: $QL$ was expanded in
+$\mathcal{A}$ and its coefficients cancelled against those of $C$ to zero.
+
+Fourth, the conjecture itself was evaluated on the published terms, in exact integer
+arithmetic and without reference to any operator: for each $n$ in range the sum
+$\sum_{i}p_{i}(n)a(n-i)$ was formed from the entry's own values and found to vanish, for
+all 16 values of $n$ from $n=2$ upward. The formula \eqref{eq:sum} was
+likewise checked term by term against the DATA section before being used.
 
 \begin{thebibliography}{9}
-\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A140943.
-\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 2, Cambridge
-University Press, 1999. (Plane partitions with bounded part size, Section 7.21.)
-\bibitem{macmahon} P.~A.~MacMahon, \emph{Combinatory Analysis}, Volume 2, Cambridge
-University Press, 1916.
-\bibitem{andrews} G.~E.~Andrews, \emph{The Theory of Partitions}, Addison--Wesley, 1976.
+\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer Sequences},
+\url{https://oeis.org}, 2026. Sequence A000180.
+\bibitem{aeqb} M.~Petkov\v{s}ek, H.~S.~Wilf and D.~Zeilberger, \emph{A=B}, A K Peters,
+1996.
+\bibitem{zeil} D.~Zeilberger, \emph{The method of creative telescoping}, J. Symbolic
+Comput. 11 (1991), 195--204.
+\bibitem{ore} O.~Ore, \emph{Theory of non-commutative polynomials}, Ann. of Math. 34
+(1933), 480--508.
 \end{thebibliography}
 
 \end{document}

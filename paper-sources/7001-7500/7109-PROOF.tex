@@ -12,18 +12,18 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A250908, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A251133, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A250908 counts $(n+1)\times4$ arrays over $\{0,\dots,2\}$ subject to a condition imposed on
+OEIS A251133 counts $(n+1)\times5$ arrays over $\{0,\dots,2\}$ subject to a condition imposed on
 every $2\times2$ subblock, and carries an empirical recurrence of order $7$ contributed
 by R.~H.~Hardin. It is true, and it is not an empirical matter at all. The condition is local
 to each subblock, so the rows of an admissible array are the vertices of a finite digraph
-on $S=81$ vertices whose edges are the admissible consecutive pairs, and the count is a
+on $S=243$ vertices whose edges are the admissible consecutive pairs, and the count is a
 number of walks: $a(n)=\mathbf{1}^{\!\top}M^{n}\mathbf{1}$. Writing $q$
 for the characteristic polynomial of the conjectured recurrence, the recurrence holds for all
 $n$ exactly when $\mathbf{1}^{\!\top}M^{j}q(M)\mathbf{1}=0$ for every $j\ge0$, and the
@@ -35,28 +35,28 @@ integer arithmetic, and it comes out zero.
 
 \section{The sequence and the conjecture}
 
-OEIS A250908 is ``Number of (n+1)X(3+1) 0..2 arrays with no 2X2 subblock having its maximum diagonal element less than its minimum antidiagonal element.''. It has offset $1$ and begins
+OEIS A251133 is ``Number of (n+1) X (4+1) 0..2 arrays with no 2 X 2 subblock having the sum of its diagonal elements greater than the maximum of its antidiagonal elements.''. It has offset $1$ and begins
 \[
-4909, 297873, 18077319, 1096982379, 66566704705, 4039362762435, 245114118899485, 14873861407326111,\ \dots
+919, 2264, 4110, 8008, 14753, 27738, 51679, 97758,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 74*a(n-1) -825*a(n-2) +1101*a(n-3) -4926*a(n-4) +231*a(n-5) +1684*a(n-6) +736*a(n-7)
+Empirical: a(n) = 6*a(n-1) - 13*a(n-2) + 10*a(n-3) + 5*a(n-4) - 14*a(n-5) + 9*a(n-6) - 2*a(n-7) for n>10.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 12:50:31, revision 6) the statement is
+As of the ``Last modified'' line on the live entry (Nov 26 2018 11:43:52, revision 10) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;74\,a(n-1) - 825\,a(n-2) + 1101\,a(n-3) - 4926\,a(n-4) + 231\,a(n-5) + 1684\,a(n-6) + 736\,a(n-7)
+a(n)\;=\;6\,a(n-1) - 13\,a(n-2) + 10\,a(n-3) + 5\,a(n-4) - 14\,a(n-5) + 9\,a(n-6) - 2\,a(n-7)
 \end{equation}
-for all $n>6$.
+for all $n>10$.
 
 \section{The condition is local, so the rows form a digraph}
 
 Write an array of the shape in question as its list of rows
 $r^{(1)},r^{(2)},\dots$, each an element of
-$V=\{0,1,\dots,2\}^{4}$, so $|V|=S=81$. A $2\times2$ subblock of the array
+$V=\{0,1,\dots,2\}^{5}$, so $|V|=S=243$. A $2\times2$ subblock of the array
 occupies two consecutive rows and two consecutive columns; if the two rows are $r$
 and $s$ (in that order) and the two columns are numbered $j,j+1$,
 the subblock is
@@ -65,12 +65,12 @@ the subblock is
 \]
 The entry's requirement on that subblock is
 \begin{equation}\label{eq:loc}
-\text{not }\bigl(\max(\alpha,\delta)<\min(\beta,\gamma)\bigr),
+\text{not }\bigl((\alpha+\delta)>\max(\beta,\gamma)\bigr),
 \end{equation}
 a condition on the four entries alone.
 
 For $r,s\in V$ declare $r\to s$ an edge of a digraph $G$ when, for every
-$1\le j\le 4-1$,
+$1\le j\le 5-1$,
 \begin{itemize}
 \item the four entries above satisfy \eqref{eq:loc};
 
@@ -87,7 +87,7 @@ a(n)\;=\;\mathbf{1}^{\!\top}M^{n}\mathbf{1} .
 \end{lemma}
 
 \begin{proof}
-An array with $L$ rows and $4$ columns is precisely a sequence
+An array with $L$ rows and $5$ columns is precisely a sequence
 $r^{(1)},\dots,r^{(L)}$ of elements of $V$; conversely any such sequence is an array.
 Every $2\times2$ subblock lies in two consecutive rows $r^{(t)},r^{(t+1)}$ and two
 consecutive columns, so the array satisfies the entry's condition on all of its subblocks
@@ -130,20 +130,20 @@ values; if those all vanish, so do all the rest.
 \section{The computation}
 
 \begin{theorem}
-The recurrence \eqref{eq:conj} holds for every $n>6$, which is the statement of
+The recurrence \eqref{eq:conj} holds for every $n>10$, which is the statement of
 Section~1.
 \end{theorem}
 
 \begin{proof}
-The digraph was constructed from \eqref{eq:loc} by a depth-first scan across the $4$
+The digraph was constructed from \eqref{eq:loc} by a depth-first scan across the $5$
 columns: the edge condition is a conjunction of one constraint per consecutive column
 pair, so the successors of a row $r$ are enumerated column by column without testing all
 $S^2$ pairs. The vector $w=q(M)\mathbf{1}\in\mathbb{Z}^{S}$ was then formed by $7$
 matrix--vector products in exact integer arithmetic, and $\mathbf{1}^{\!\top}M^{j}w$ was
 evaluated for $j=0,1,\dots$, again exactly. Every one of those integers vanishes from the
-index corresponding to $n=6+1$ onwards, and the run continued until $w$ itself was the
+index corresponding to $n=10+1$ onwards, and the run continued until $w$ itself was the
 zero vector, which settles every larger $j$ at once. By Lemma~\ref{lem:crit} the recurrence
-holds for every $n>6$.
+holds for every $n>10$.
 \end{proof}
 
 \begin{remark}
@@ -159,7 +159,7 @@ Three checks, each independent of the algebra above.
 
 First, the digraph was built directly from the entry's stated condition and the walk counts
 $\mathbf{1}^{\!\top}M^{L-1}\mathbf{1}$ compared against the entry's DATA at
-every one of the $12$ published indices; the values agree exactly. That is what ties
+every one of the $26$ published indices; the values agree exactly. That is what ties
 the digraph to the sequence: a model that reproduced only some of the published terms would
 be the wrong model, and would have been rejected. In particular it is what rules out a
 misreading of the entry's wording, since a different reading of the condition gives a
@@ -174,7 +174,7 @@ throughout.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A250908.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A251133.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

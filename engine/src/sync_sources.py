@@ -32,22 +32,32 @@ def index_sources():
 def main():
     h2t = index_sources()
     rm = json.load(open('rank-map.json'))
-    added = have = miss = 0
+    written = kept = dropped = 0
     present = set()
     for m in rm:
-        dst = f"{repopaths.SOURCES}/{P.band(m['rank'])}/{P.name(m['rank'], m['verdict'])[:-4]}.tex"
+        dst = (f"{repopaths.SOURCES}/{P.band(m['rank'])}/"
+               f"{P.name(m['rank'], m['verdict'])[:-4]}.tex")
         present.add(os.path.abspath(dst))
-        if os.path.exists(dst):
-            have += 1
-            continue
         pdf = P.path(m['rank'], m['verdict'])
         t = h2t.get(hashlib.md5(open(pdf, 'rb').read()).hexdigest())
-        if not t:
-            miss += 1
-            continue
-        os.makedirs(os.path.dirname(dst), exist_ok=True)
-        shutil.copy(t, dst)
-        added += 1
+        if t:
+            # ALWAYS rewrite from the hash match. A rank is a position in an ordering that is
+            # re-derived whenever the roster changes, so the paper sitting at a given rank
+            # changes under you. An earlier version of this script skipped any destination that
+            # already existed, and so left the source of a DIFFERENT entry under that name.
+            os.makedirs(os.path.dirname(dst), exist_ok=True)
+            shutil.copy(t, dst)
+            written += 1
+        elif os.path.exists(dst):
+            # no build directory survives; keep what is there only if it is demonstrably this
+            # paper's, and delete it otherwise rather than let it mislead
+            if m['anum'] in open(dst, errors='ignore').read(6000):
+                kept += 1
+            else:
+                os.remove(dst)
+                present.discard(os.path.abspath(dst))
+                dropped += 1
+
     # a re-ranking moves papers, so sources that no longer answer to any rank are stale
     stale = 0
     for dirpath, _, files in os.walk(repopaths.SOURCES):
@@ -66,8 +76,19 @@ def main():
         "were removed before sources were archived; the papers themselves are in papers/ and\n"
         "each is self-contained. The generator that produced them is in engine/src.\n\n"
         + '\n'.join(f"{m['rank']}  {m['anum']}  {m['engine']}" for m in missing) + '\n')
-    print(f'sources: {have} already present, {added} added, {stale} stale removed, '
-          f'{len(missing)} with no surviving build directory')
+    # verify rather than assume: every source must name the paper it sits under
+    wrong = [m for m in rm
+             if os.path.exists(f"{repopaths.SOURCES}/{P.band(m['rank'])}/"
+                               f"{P.name(m['rank'], m['verdict'])[:-4]}.tex")
+             and m['anum'] not in open(
+                 f"{repopaths.SOURCES}/{P.band(m['rank'])}/"
+                 f"{P.name(m['rank'], m['verdict'])[:-4]}.tex", errors='ignore').read(6000)]
+    if wrong:
+        raise SystemExit(f'{len(wrong)} sources do not name their paper, first '
+                         f'{wrong[0]["rank"]} ({wrong[0]["anum"]}) -- refusing to finish')
+    print(f'sources: {written} written from a hash match, {kept} kept and confirmed, '
+          f'{dropped} dropped as belonging to another paper, {stale} stale removed, '
+          f'{len(missing)} with no source')
 
 
 if __name__ == '__main__':

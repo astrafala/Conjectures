@@ -12,64 +12,70 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A237569, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A184768, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A237569 counts arrays over $\{0,\dots,3\}$ subject to a condition on the order
-statistics of every $2\times2$ subblock, and carries an empirical recurrence of order
-$14$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical.
-The condition is local to two consecutive rows, so the count is a walk count on $S=256$
-states and is $C$-finite; whether the conjectured recurrence annihilates it is then settled by
-a finite exact computation, with the Cayley--Hamilton theorem bounding the work.
+OEIS A184768 counts arrays over $\{0,\dots,3\}$ under a condition on the determinant of every
+$2\times2$ subblock, and carries an empirical recurrence of order $14$ contributed by
+R.~H.~Hardin. It is true, and it is decidable rather than empirical. The condition is local to
+a bounded window of consecutive rows, so the count is a walk count on $S=1024$ states and is
+$C$-finite; whether the conjectured recurrence annihilates it is then settled by a finite exact
+computation, with the Cayley--Hamilton theorem bounding the work.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 62G30.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
 \section{The conjecture}
 
-OEIS A237569 is ``Number of (n+1)X(1+1) 0..3 arrays with the upper median minus the lower median of every 2X2 subblock differing from its horizontal and vertical neighbors by exactly one.''. It has offset $1$ and begins
+OEIS A184768 is ``Number of (n+1)X5 0..3 arrays with every 2X2 subblock singular.''. It has offset $1$ and begins
 \[
-256, 1876, 13924, 103264, 769680, 5705156, 42501300, 315065200,\ \dots
+13096, 1792144, 62051344, 4975179472, 267277851856, 18492329456080, 1156853256240592, 77441892454241488,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 23*a(n-2) +1473*a(n-4) +15833*a(n-6) +60176*a(n-8) +65344*a(n-10) -70656*a(n-12) -139264*a(n-14) for n>15
+Empirical: a(n)=125*a(n-1)-3742*a(n-2)-75002*a(n-3)+5541175*a(n-4)-78252347*a(n-5)-405474456*a(n-6)+19948799736*a(n-7)-168899420160*a(n-8)+136470432960*a(n-9)+5318338217472*a(n-10)-29099331896832*a(n-11)+52877545500672*a(n-12)-7064061788160*a(n-13)-49630637260800*a(n-14)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 10:18:47, revision 7) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 02:54:40, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The $2\times2$ subblocks of an $(n+1)\times2$ array form an
-$n\times1$ grid, and each carries the value $\sigma=-b+c$, where $a\le b\le c\le d$ are its four entries sorted --- its minimum, lower median, upper median and maximum. The entry asks that the values of
-subblocks that are neighbours --- horizontally or vertically --- differ by exactly $1$.
-That is sharper than merely differing, and it is a condition on a pair of adjacent subblocks,
-so it is local to the grid.
+Write $\sigma$ for the determinant of a $2\times2$ subblock
+$\begin{pmatrix}p&q\\r&s\end{pmatrix}$, that is $\sigma=ps-qr$. The subblocks of an
+$(n+1)\times5$ array over $\{0,\dots,3\}$ form a grid of $n$ rows and $4$
+columns, and $\sigma$ colours that grid.
 
-A single subblock has no neighbour of either kind, so at $n=1$ the condition is vacuous and
-$a(1)$ must be the number of $2\times2$ arrays over $\{0,\dots,3\}$, namely
-$4^{4}=256$. The entry's first term is $256$.
-That is the cheapest check that the subblock grid has been read with the right shape, and it
-is the first thing the model was made to reproduce.
+The condition is on each subblock separately: every $\sigma$ must vanish, which is what
+``singular'' says of a $2\times2$ matrix. Nothing
+relates one subblock to another.
 
 \section{The count is a walk count}
 
-A subblock's value is decided by two consecutive rows of the array, and the
-vertical condition compares two consecutive rows of the subblock grid, so the state is the
-PAIR of consecutive array rows. A step appends a row: that fixes a new subblock row, whose own
-neighbouring values must differ by exactly $1$ along it, and which must differ by exactly
-$1$ from the previous subblock row in every position. An $(n+1)$-row array is a walk of
-$n-1$ steps, so
+Because the condition looks at one subblock at a time and a subblock is
+built from two consecutive array rows, a single row is a state: rows $r$ and $s$ may follow one
+another exactly when all $4$ of the subblocks they form pass. An $(n+1)$-row array is then a
+walk of $n$ steps and
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,\qquad\iota=\tau=(1,\dots,1)^{\!\top},
+a(n)\;=\;\iota^{\!\top}M^{\,n}\tau,\qquad\iota=\tau=(1,\dots,1)^{\!\top},
 \]
-over the $S=256$ pairs whose own subblock row already satisfies the condition along itself.
-The alignment of the walk index with the entry's own $n$ was checked against its published
-terms rather than assumed. In particular $a$ is $C$-finite.
+on the $S=1024$ rows.
+
+At $n=1$ the array has two rows and the grid is a single row of $4$
+subblocks, each tested on its own, so $a(1)$ counts the
+$2\times5$ arrays over $\{0,\dots,3\}$ all of whose subblocks pass. The entry's
+first term is $13096$, and the model reproduces it along with every later term; that is the
+cheapest check that the grid has been read with the right shape.
+
+Over the alphabet $\{0,\dots,3\}$ the determinant of a $2\times2$ subblock takes values in
+$[-9,9]$, so the colouring of the grid it induces has at most $19$ values.
+That bound is what keeps the construction below finite in the only place where the value of
+$\sigma$, rather than a comparison between two of them, has to be carried.
+In particular $a$ is $C$-finite. The alignment of the walk index with the entry's own $n$ was
+checked against its published terms rather than assumed.
 
 \section{The proof}
 
@@ -91,23 +97,23 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;23\,a(n-2) + 1473\,a(n-4) + 15833\,a(n-6) + 60176\,a(n-8) + 65344\,a(n-10) - 70656\,a(n-12) - 139264\,a(n-14)
+a(n)\;=\;125\,a(n-1) - 3742\,a(n-2) - 75002\,a(n-3) + 5541175\,a(n-4) - 78252347\,a(n-5) - 405474456\,a(n-6) + 19948799736\,a(n-7) - 168899420160\,a(n-8) + 136470432960\,a(n-9) + 5318338217472\,a(n-10) - 29099331896832\,a(n-11) + 52877545500672\,a(n-12) - 7064061788160\,a(n-13) - 49630637260800\,a(n-14)
 \]
-for every $n>15$.
+for every $n>13$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $14$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=15+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once. The bound is exact: at $n=15$ the recurrence fails on the entry's own published terms, so no larger range holds.
+integers vanish from the index corresponding to $n=13+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $18$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $12$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
@@ -119,11 +125,10 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A237569.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A184768.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{david} H.~A.~David and H.~N.~Nagaraja, \emph{Order Statistics}, 3rd ed., Wiley,
-2003.
+\bibitem{minc} H.~Minc, \emph{Permanents}, Addison--Wesley, 1978.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

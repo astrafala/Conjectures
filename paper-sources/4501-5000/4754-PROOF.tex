@@ -12,18 +12,18 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A250587, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A251187, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A250587 counts arrays over $\{0,1,2\}$ in which a statistic taken over short runs
+OEIS A251187 counts arrays over $\{0,1\}$ in which a statistic taken over short runs
 of cells produces a derived array that is monotone in a named direction. The entry carries an
 empirical recurrence of order $26$ contributed by R.~H.~Hardin. It is true, and it is
 decidable rather than empirical: every comparison the condition makes lies inside a bounded
-window of consecutive rows, so the count is a walk count on $S=81$ states, and the
+window of consecutive rows, so the count is a walk count on $S=512$ states, and the
 conjectured recurrence is then settled by a finite exact computation.
 \end{abstract}
 
@@ -31,34 +31,35 @@ conjectured recurrence is then settled by a finite exact computation.
 
 \section{The conjecture}
 
-OEIS A250587 is ``Number of (n+1)X(3+1) 0..2 arrays with nondecreasing max(x(i,j),x(i,j-1)) in the i direction and nondecreasing min(x(i,j),x(i-1,j)) in the j direction.''. It has offset $1$ and begins
+OEIS A251187 is ``Number of (n+2)X(1+2) 0..1 arrays with nondecreasing sum of every three consecutive values in every row and column.''. It has offset $1$ and begins
 \[
-639, 3641, 17718, 79415, 333355, 1347397, 5284985, 20355558,\ \dots
+512, 1728, 5832, 19683, 46656, 110592, 262144, 512000,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 13*a(n-1) -54*a(n-2) -4*a(n-3) +674*a(n-4) -1673*a(n-5) -904*a(n-6) +9791*a(n-7) -10723*a(n-8) -16532*a(n-9) +44343*a(n-10) -9985*a(n-11) -62272*a(n-12) +59755*a(n-13) +25323*a(n-14) -65551*a(n-15) +16714*a(n-16) +28793*a(n-17) -19289*a(n-18) -3357*a(n-19) +6590*a(n-20) -1131*a(n-21) -848*a(n-22) +336*a(n-23) +12*a(n-24) -23*a(n-25) +3*a(n-26) for n>27
+Empirical: a(n) = 2*a(n-1) -a(n-2) +8*a(n-3) -16*a(n-4) +8*a(n-5) -28*a(n-6) +56*a(n-7) -28*a(n-8) +56*a(n-9) -112*a(n-10) +56*a(n-11) -70*a(n-12) +140*a(n-13) -70*a(n-14) +56*a(n-15) -112*a(n-16) +56*a(n-17) -28*a(n-18) +56*a(n-19) -28*a(n-20) +8*a(n-21) -16*a(n-22) +8*a(n-23) -a(n-24) +2*a(n-25) -a(n-26)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 12:34:15, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 13:09:22, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The array has $4$ cells across and entries $x(i,j)\in\{0,1,2\}$.
+The array has $3$ cells across and entries $x(i,j)\in\{0,1\}$.
 
-Two derived arrays are formed. The first reads the horizontal statistic across each
-neighbouring pair of a row,
+Fix the statistic $\sigma(v)=\sum_{t} v_t$ of a run $v$ of $3$ consecutive cells --- in words,
+the sum of the $3$ values. Two derived arrays are formed and both must be
+nondecreasing in their own direction: reading along a row,
 \[
-b(i,j)\;=\;\bigl[\,\max(a,b)\,\bigr]_{a=x(i,j),\,b=x(i,j-1)}\qquad (j\ge1),
+\sigma\bigl(x(i,j),\dots,x(i,j{+}2)\bigr)\ \le\
+\sigma\bigl(x(i,j{+}1),\dots,x(i,j{+}3)\bigr),
 \]
-and must not decrease DOWN a column: $b(i,j)\le b(i{+}1,j)$. The second reads the vertical
-statistic down each neighbouring pair of a column,
+and reading down a column,
 \[
-c(i,j)\;=\;\bigl[\,\min(a,b)\,\bigr]_{a=x(i,j),\,b=x(i{-}1,j)}\qquad (i\ge1),
+\sigma\bigl(x(i,j),\dots,x(i{+}2,j)\bigr)\ \le\
+\sigma\bigl(x(i{+}1,j),\dots,x(i{+}3,j)\bigr).
 \]
-and must not decrease ALONG a row: $c(i,j)\le c(i,j{+}1)$. In words, the horizontal statistic
-is the larger of a cell and its left neighbour, and the vertical one is
-the smaller of a cell and the cell above it.
+The same statistic and the same run length serve both directions, so the condition is
+unchanged by transposing the array.
 
 Nothing in the condition is invariant under renaming the letters --- each statistic either does
 arithmetic on them or compares them by size --- so no reduction to equality patterns is
@@ -67,20 +68,22 @@ available, and the walk is run over the alphabet the entry names.
 \section{A bounded window}
 
 \begin{lemma}\label{lem:win}
-Both conditions are conditions on TWO consecutive array rows and nothing more.
+The row comparisons involve one array row each. A column comparison involves the
+$3+1=4$ consecutive rows $i,\dots,i{+}3$ and no others.
 \end{lemma}
 
 \begin{proof}
-$b(i,j)\le b(i{+}1,j)$ names four cells, all in rows $i$ and $i+1$. $c(i,j)\le c(i,j{+}1)$
-names four cells, all in rows $i-1$ and $i$. No comparison reaches further.
+The two runs compared start at rows $i$ and $i+1$ and have length $3$, so together they
+occupy rows $i$ through $i+3$.
 \end{proof}
 
-So a single row is a state. Let $M$ be the matrix on the $3^{4}=81$ rows with
-$M[r,s]=1$ when the pair $(r,s)$ passes both tests and $0$ otherwise. An array of $R$ rows is a
-walk of $R-1$ steps and every row may begin or end one, so with $\iota=\tau=\mathbf{1}$,
+So the window of the last $3$ rows is a state, each row of it already satisfying its own row
+comparisons, and one step appends a row and settles the column comparisons that the new row
+completes. With $M$ the adjacency matrix of that digraph and $\iota=\tau=\mathbf{1}$,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=81.
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=512,
 \]
+a walk of no steps being an array of exactly $3$ rows.
 
 The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
 published terms rather than assumed. In particular $a$ is $C$-finite.
@@ -105,15 +108,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;13\,a(n-1) - 54\,a(n-2) - 4\,a(n-3) + 674\,a(n-4) - 1673\,a(n-5) - 904\,a(n-6) + 9791\,a(n-7) - 10723\,a(n-8) - 16532\,a(n-9) + 44343\,a(n-10) - 9985\,a(n-11) - 62272\,a(n-12) + 59755\,a(n-13) + 25323\,a(n-14) - 65551\,a(n-15) + 16714\,a(n-16) + 28793\,a(n-17) - 19289\,a(n-18) - 3357\,a(n-19) + 6590\,a(n-20) - 1131\,a(n-21) - 848\,a(n-22) + 336\,a(n-23) + 12\,a(n-24) - 23\,a(n-25) + 3\,a(n-26)
+a(n)\;=\;2\,a(n-1) - a(n-2) + 8\,a(n-3) - 16\,a(n-4) + 8\,a(n-5) - 28\,a(n-6) + 56\,a(n-7) - 28\,a(n-8) + 56\,a(n-9) - 112\,a(n-10) + 56\,a(n-11) - 70\,a(n-12) + 140\,a(n-13) - 70\,a(n-14) + 56\,a(n-15) - 112\,a(n-16) + 56\,a(n-17) - 28\,a(n-18) + 56\,a(n-19) - 28\,a(n-20) + 8\,a(n-21) - 16\,a(n-22) + 8\,a(n-23) - a(n-24) + 2\,a(n-25) - a(n-26)
 \]
-for every $n>27$.
+for every $n>26$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $26$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=27+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=26+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -121,7 +124,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $20$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $26$ terms the entry publishes, exactly, in integer
 arithmetic.
 
 Second, the count was recomputed for the smallest arrays straight from the definition: fill the
@@ -137,7 +140,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A250587.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A251187.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge

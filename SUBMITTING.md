@@ -35,10 +35,16 @@ add comments recording them, and ask how they would like it handled. Do this fir
 unannounced and filing thousands of comments on Hardin entries is the fastest way to get your
 submissions blocked, and it would be a reasonable reaction on their part.
 
-**Drafts are ready.** `oeis-comments.txt` has one short plain-English comment per result.
-`oeis-first-round.txt` is an ordered queue: corrections first, because those are the ones an
-editor can verify against the entry's own data without trusting anything, then the named
-proofs. The first three are A197230, A129454, A141135.
+**Drafts are ready.** [`comments/`](comments/) has one section per entry: the OEIS entry, the
+date the result was obtained, the paper that proves it, what the entry still records as
+unsettled, and the text proposed for posting. `comments/index.csv` lists all of them.
+`comments/submission-order.txt` is an ordered queue: corrections first, because those are the
+ones an editor can verify against the entry's own data without trusting anything, then the
+named proofs. The first three are A197230, A129454, A141135.
+
+**Post the date with the comment.** An OEIS comment is stamped with the day it is posted. The
+date recorded in `comments/` is the day the result was obtained, and it is worth saying so in
+the submission so the record is unambiguous.
 
 **Say it is a proof, and say how it was obtained.** The OEIS wiki asks explicitly that you
 state whether something is a conjecture or a theorem you can prove. Link the paper. Mention the

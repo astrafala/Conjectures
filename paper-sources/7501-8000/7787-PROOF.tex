@@ -12,17 +12,17 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A206065, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A206088, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A206065 counts arrays over $\{0,\dots,2\}$ under a condition on the perimeter cycle of
+OEIS A206088 counts arrays over $\{0,\dots,2\}$ under a condition on the perimeter cycle of
 every $2\times3$ and $3\times2$ subblock, and carries an empirical recurrence of order $4$ contributed by
 R.~H.~Hardin. It is true, and it is decidable rather than empirical. The condition is local to
-a bounded window of consecutive rows, so the count is a walk count on $S=81$ states and is
+a bounded window of consecutive rows, so the count is a walk count on $S=270$ states and is
 $C$-finite; whether the conjectured recurrence annihilates it is then settled by a finite exact
 computation, with the Cayley--Hamilton theorem bounding the work.
 \end{abstract}
@@ -31,15 +31,15 @@ computation, with the Cayley--Hamilton theorem bounding the work.
 
 \section{The conjecture}
 
-OEIS A206065 is ``Number of (n+1) X 2 0..2 arrays with every 2 X 3 or 3 X 2 subblock having exactly three clockwise edge increases.''. It has offset $1$ and begins
+OEIS A206088 is ``Number of (n+1) X 3 0..2 arrays with every 2 X 3 or 3 X 2 subblock having exactly two counterclockwise and two clockwise edge increases.''. It has offset $1$ and begins
 \[
-81, 150, 537, 2052, 7878, 29760, 112236, 423288,\ \dots
+270, 780, 2016, 5952, 17976, 54432, 165936, 504912,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 4*a(n-1) - a(n-2) + 2*a(n-4) for n>5.
+Empirical: a(n) = a(n-1) + 6*a(n-2) + 4*a(n-3) - 10*a(n-4) for n>6.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jun 13 2018 11:24:10, revision 9) this is still
+As of the ``Last modified'' line on the live entry (Jun 13 2018 11:23:42, revision 12) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
@@ -51,7 +51,7 @@ $p\to q\to s\to u\to t\to r\to p$; for
 $\begin{pmatrix}p&q&t\\r&s&u\end{pmatrix}$ it is
 $p\to q\to t\to u\to s\to r\to p$. An edge increase is a step of the cycle that goes up in
 value, and counterclockwise counts the same cycle traversed the other way. The entry requires
-of every window of either shape that its number of clockwise edge increases is exactly $3$.
+of every window of either shape that it has exactly $2$ counterclockwise and $2$ clockwise edge increases.
 
 The readings were pinned by direct enumeration before anything was built: over
 $\{0,1,2\}$ the $3\times2$ arrays of clockwise count $2$ number $423$ and those of count
@@ -70,11 +70,11 @@ array is a walk of $n-1$ steps and
 \[
 a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,\qquad\iota=\tau=(1,\dots,1)^{\!\top},
 \]
-on the $S=81$ admissible pairs.
+on the $S=270$ admissible pairs.
 
 At $n=1$ the array has two rows, so no $3\times2$ window fits and only the
-nonexistent $2\times3$ windows apply; the entry's first term is
-$81$, which the model reproduces along with every later term.
+$2\times3$ windows apply; the entry's first term is
+$270$, which the model reproduces along with every later term.
 In particular $a$ is $C$-finite. The alignment of the walk index with the entry's own $n$ was
 checked against its published terms rather than assumed.
 
@@ -98,16 +98,16 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;4\,a(n-1) - a(n-2) + 2\,a(n-4)
+a(n)\;=\;a(n-1) + 6\,a(n-2) + 4\,a(n-3) - 10\,a(n-4)
 \]
-for every $n>5$.
+for every $n>6$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $4$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=5+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once. The bound is exact: at $n=5$ the recurrence fails on the entry's own published terms, so no larger range holds.
+integers vanish from the index corresponding to $n=6+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once. The bound is exact: at $n=6$ the recurrence fails on the entry's own published terms, so no larger range holds.
 \end{proof}
 
 \section{Verification}
@@ -126,7 +126,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A206065.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A206088.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{bona} M.~B\'ona, \emph{Combinatorics of Permutations}, 2nd ed., CRC
