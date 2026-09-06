@@ -1,0 +1,178 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=1in]{geometry}
+\usepackage[colorlinks=true,linkcolor=blue,urlcolor=blue]{hyperref}
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{remark}[theorem]{Remark}
+
+\title{The half-window of the powers of 3:\\
+a proof of Karttunen's conjecture on OEIS A037097,\\
+in the corrected form}
+\author{Adrian Perez Fontelles\\ \small Independent researcher}
+\date{24 August 2026}
+\begin{document}
+\maketitle
+
+\begin{abstract}
+OEIS A037097 reads one period of the $n$-th binary column of the powers of 3 --- a window
+of length $2^{n-1}$ --- as a polynomial over $\mathrm{GF}(2)$. A.~Karttunen conjectured in
+January 1999 that this polynomial is divisible by a large power of $x+1$. The exponent as
+originally posted was $2^{n-1}-1$; it was corrected to $2^{n-2}-1$ on the entry by Q.~Gu on
+24 July 2026. We prove the corrected statement, and show the exponent is exact:
+\[
+  a(n)=(x+1)^{2^{n-2}-1}\bigl(B(x)(x+1)+x^{2^{n-2}}\bigr),\qquad n\ge3,
+\]
+where $B$ is the first quarter of the doubled window. We also confirm that the
+pre-correction exponent was indeed too large, already at $n=3$. The proof rests on one
+2-adic fact: $3^{2^{n-2}}\equiv1+2^{n}\pmod{2^{n+1}}$, so advancing the exponent by
+$2^{n-2}$ complements bit $n$.
+\end{abstract}
+
+\section{The sequence and the conjecture}
+
+OEIS A037097 (Antti Karttunen, 29 January 1999), \emph{Periodic vertical binary vectors of
+powers of 3, starting from bit-column 2 (halved)}, has offset 2 and
+\[
+  a(n)=\sum_{k=0}^{2^{n-1}-1}\Bigl(\bigl\lfloor 3^{k}/2^{n}\bigr\rfloor \bmod 2\Bigr)2^{k},
+  \qquad a(2),\dots,a(5)=0,\;12,\;120,\;57120.
+\]
+Identifying an integer with the $\mathrm{GF}(2)$ polynomial whose coefficient of $x^{k}$ is
+bit $k$, the entry carries
+
+\begin{quote}
+\textbf{Conjecture:} For $n \ge 3$, each term $a(n)$, when considered as a
+$\mathrm{GF}(2)[X]$-polynomial, is divisible by the $\mathrm{GF}(2)[X]$-polynomial
+$(x+1)^{\mathrm{A000225}(n-2)}$ ($=\mathrm{A051179}(n-2)$). [corrected by Qiyuan Gu,
+Jul 24 2026]
+\end{quote}
+
+Here $\mathrm{A000225}(n-2)=2^{n-2}-1$; the parenthetical is consistent, since
+$(x+1)^{2^{m}-1}=1+x+\dots+x^{2^{m}-1}$ encodes as the integer $2^{2^{m}}-1
+=\mathrm{A051179}(m)$. As of the ``Last modified'' line on the live entry (23 August 2026)
+the statement is still recorded as an unproven conjecture, with no proof in the entry's
+links or programs.
+
+Throughout $n\ge3$ is fixed,
+\[
+  q=2^{n-2},\qquad b(k)=\bigl\lfloor 3^{k}/2^{n}\bigr\rfloor\bmod 2,\qquad
+  a(n)\longleftrightarrow A(x)=\sum_{k=0}^{2q-1}b(k)x^{k},
+\]
+so the window has length $2^{n-1}=2q$. For nonzero $P\in\mathrm{GF}(2)[x]$ let $v(P)$
+denote the exponent of $x+1$ in $P$. We use $x^{2^{m}}+1=(x+1)^{2^{m}}$, the Frobenius
+endomorphism in characteristic 2.
+
+\section{The flip}
+
+\begin{lemma}\label{lem:lte}
+For $m\ge1$, $v_{2}\bigl(3^{2^{m}}-1\bigr)=m+2$; hence
+$3^{2^{m}}\equiv1+2^{m+2}\pmod{2^{m+3}}$, and the multiplicative order of $3$ modulo
+$2^{m+3}$ is $2^{m+1}$.
+\end{lemma}
+
+\begin{proof}
+Lifting the exponent at $p=2$ with even exponent $N$ gives
+$v_{2}(3^{N}-1)=v_{2}(3-1)+v_{2}(3+1)+v_{2}(N)-1=1+2+v_{2}(N)-1$; take $N=2^{m}$. Writing
+$3^{2^{m}}-1=2^{m+2}u$ with $u$ odd gives the congruence, and the order statement follows
+since $3^{2^{m}}\not\equiv1$ but $3^{2^{m+1}}\equiv1$ modulo $2^{m+3}$.
+\end{proof}
+
+With $m=n-2\ge1$, read modulo $2^{n+1}$: the order of 3 is $2^{n-1}=2q$, so $b$ is well
+defined on $\mathbb{Z}/2q\mathbb{Z}$ and the window is exactly one period.
+
+\begin{lemma}[the flip]\label{lem:flip}
+$b(k+q)=1-b(k)$ for every $k$.
+\end{lemma}
+
+\begin{proof}
+Bit $n$ is determined modulo $2^{n+1}$. By Lemma~\ref{lem:lte},
+$3^{k+q}\equiv3^{k}(1+2^{n})=3^{k}+2^{n}3^{k}\equiv3^{k}+2^{n}\pmod{2^{n+1}}$, the last
+step because $3^{k}$ is odd. Adding $2^{n}$ modulo $2^{n+1}$ complements bit $n$ and leaves
+the lower bits unchanged.
+\end{proof}
+
+\section{The theorem}
+
+\begin{theorem}\label{thm:main}
+Let $n\ge3$, $q=2^{n-2}$, and let $B(x)=\sum_{k=0}^{q-1}b(k)x^{k}$ be the first half of the
+window. Then
+\[
+  A(x)=(x+1)^{q-1}\Bigl(B(x)(x+1)+x^{q}\Bigr),
+\]
+and the second factor is not divisible by $x+1$. Hence
+$v\bigl(a(n)\bigr)=q-1=2^{n-2}-1=\mathrm{A000225}(n-2)$ exactly, and in particular
+$(x+1)^{\mathrm{A000225}(n-2)}$ divides $a(n)$.
+\end{theorem}
+
+\begin{proof}
+Put $S(x)=1+x+\dots+x^{q-1}$. By Lemma~\ref{lem:flip} the window of length $2q$ consists of
+the block $B$ followed by its complement, and complementing a $0/1$ block of length $q$ is
+adding $S$ over $\mathrm{GF}(2)$. Hence
+\[
+  A=B+x^{q}\bigl(B+S\bigr)=B\bigl(1+x^{q}\bigr)+S\,x^{q}.
+\]
+Since $q$ is a power of 2 we have $1+x^{q}=(1+x)^{q}$, and therefore
+$S=(1+x^{q})/(1+x)=(1+x)^{q-1}$. Substituting,
+\[
+  A=B(1+x)^{q}+(1+x)^{q-1}x^{q}=(1+x)^{q-1}\Bigl(B(1+x)+x^{q}\Bigr).
+\]
+Evaluating the cofactor at $x=1$ over $\mathrm{GF}(2)$ gives $B(1)\cdot(1+1)+1^{q}=0+1=1
+\ne0$, so $x+1$ does not divide it, and $v(A)=q-1$.
+\end{proof}
+
+\begin{proposition}[the pre-correction exponent was too large]\label{prop:old}
+The statement obtained by replacing $\mathrm{A000225}(n-2)$ with
+$\mathrm{A000225}(n-1)=2^{n-1}-1$ is false for every $n\ge3$. The smallest instance is
+$n=3$: there $a(3)=12$, whose $\mathrm{GF}(2)$ polynomial is $x^{3}+x^{2}=x^{2}(x+1)$, so
+$v(a(3))=1$, whereas $2^{n-1}-1=3$.
+\end{proposition}
+
+\begin{proof}
+By Theorem~\ref{thm:main}, $v(a(n))=2^{n-2}-1<2^{n-1}-1$ for every $n\ge3$.
+\end{proof}
+
+\begin{remark}[the doubled window, and the crossrefs on the entry]
+A037096 takes the same column over a window of length $2^{n}$, that is two periods rather
+than one, and the entry records the crossrefs $a(n)=\lfloor
+\mathrm{A037096}(n)/2^{2^{n-1}}\rfloor$ and $\mathrm{A037096}(n)=\bigl(2^{2^{n-1}}+1\bigr)
+a(n)$. Both follow from Lemma~\ref{lem:flip} without any further work: over two periods the
+window reads $B,\overline{B},B,\overline{B}$, so its polynomial is
+$\bigl(1+x^{2q}\bigr)A(x)$, and $1+x^{2q}=x^{2^{n-1}}+1$ encodes as $2^{2^{n-1}}+1$.
+Dividing by that factor recovers Theorem~\ref{thm:main}. The verification script confirms
+both identities numerically as well.
+\end{remark}
+
+\begin{remark}[honest assessment]
+Five lines once the flip lemma is in place, and the flip lemma is lifting the exponent. The
+natural destination is an OEIS comment. Note the peculiar status of this target: the
+conjecture in its currently posted form is one month old, having been corrected in July
+2026, though the underlying claim dates to 1999. Proposition~\ref{prop:old} confirms that
+correction was necessary and gives the smallest witness.
+\end{remark}
+
+\section{Verification}
+
+A verification script, written separately from this note, checks every claim and prints
+every number quoted. It (i) recomputes $a(2),\dots,a(9)$ from the defining sum and matches
+the published DATA exactly, including $a(3)=12$, $a(4)=120$, $a(5)=57120$; (ii) verifies the
+factorization of Theorem~\ref{thm:main} by explicit polynomial multiplication for
+$3\le n\le15$; (iii) computes $v(a(n))$ for $3\le n\le15$, obtaining
+$1,3,7,15,31,63,127,255,511,1023,2047,4095,8191$, which is $2^{n-2}-1$ in every case, with
+cofactor value 1 at $x=1$ throughout, confirming exactness; and (iv) confirms the two
+crossref identities $a(n)=\lfloor \mathrm{A037096}(n)/2^{2^{n-1}}\rfloor$ and
+$\mathrm{A037096}(n)=(2^{2^{n-1}}+1)\,a(n)$ for $3\le n\le12$.
+
+\begin{thebibliography}{9}
+\bibitem{oeis} N.~J.~A. Sloane et al., \emph{The On-Line Encyclopedia of Integer
+Sequences}, \url{https://oeis.org/A037097}, entry A037097, consulted 24 August 2026; also
+A037096, A000225 and A051179.
+\bibitem{rib} P.~Ribenboim, \emph{The New Book of Prime Number Records}, 3rd ed.,
+Springer, 1996 (for the lifting-the-exponent lemma at $p=2$).
+\end{thebibliography}
+\end{document}

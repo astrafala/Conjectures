@@ -1,0 +1,246 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=1in]{geometry}
+\usepackage[colorlinks=true,linkcolor=blue,urlcolor=blue]{hyperref}
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{remark}[theorem]{Remark}
+\DeclareMathOperator{\mex}{mex}
+
+\title{The nim-factorial of $3\cdot2^{n-1}-1$ is 2:\\
+a proof of Layman's second conjecture on OEIS\\
+A059970}
+\author{Adrian Perez Fontelles\\ \small Independent researcher}
+\date{23 August 2026}
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Let $a(n)=1\otimes2\otimes\dots\otimes n$ be the nim-factorial (OEIS A059970). In March
+2001 J.~W. Layman conjectured that $a(2^{n}+2^{n-1}-1)=2$ for all $n\ge1$, reporting
+verification for $n\le15$. We prove it. The proof rests on two observations. First, the
+subspace polynomial of $\{0,\dots,2^{t}-1\}$ in the nimber field is exactly the $t$-fold
+iterate of the Artin--Schreier map $\wp(y)=y^{2}\oplus y$; this identifies
+$a(2^{n}+2^{n-1}-1)$ with $\wp^{\,n-1}(2^{n})$. Second, this quantity obeys two recursions
+--- one that strips the leading binary bit of $n$, one that handles $n$ a power of 2 ---
+which together reduce every case to $n=1$.
+\end{abstract}
+
+\section{The conjecture}
+
+Conway's nim-addition $\oplus$ is bitwise exclusive-or and nim-multiplication $\otimes$ is
+defined by the mex rule \cite[Ch.~6]{conway}. OEIS A059970 is the nim-factorial $a(1)=1$,
+$a(n)=n\otimes a(n-1)$ for $n>1$, contributed by John W. Layman on 5 March 2001. The entry
+carries the comment
+
+\begin{quote}
+\textbf{Conjectures:} (1) Nim-Factorial$(2^{n}-1)=1$ (verified for $n=1,2,3,\dots,16$).
+(2) Nim-Factorial$(2^{n}+2^{n-1}-1)=2$ (verified for $n=1,2,3,\dots,15$).
+\end{quote}
+
+Here we settle part (2). Part (1) is used along the way, so it is stated and proved below
+as Theorem~\ref{thm:first} and the present note is self-contained. As of the ``Last
+modified'' line on the live entry (23 August 2026) both statements are still recorded as
+unproven conjectures, and no proof appears in the entry's links, programs or in the
+literature on nimber arithmetic.
+
+\section{Notation and the first conjecture}
+
+Write $F_{k}=2^{2^{k}}$ for the $k$-th Fermat 2-power and $K_{k}=\{0,1,\dots,F_{k}-1\}$. We
+use three facts of Conway \cite[Ch.~6]{conway}:
+
+\begin{itemize}
+\item[(N1)] $K_{k}$ is a field of order $2^{2^{k}}$ under $(\oplus,\otimes)$, and
+$K_{0}\subset K_{1}\subset\cdots$;
+\item[(N2)] $F_{k}\otimes a=F_{k}\cdot a$ (ordinary product) for $a<F_{k}$;
+\item[(N3)] $F_{k}\otimes F_{k}=F_{k}\oplus\tfrac12F_{k}$.
+\end{itemize}
+
+Fix $k$ and abbreviate $F=F_{k}$, $K=K_{k}$, $q=|K|=F$, and
+$\mathbb{F}=K_{k+1}\cong\mathrm{GF}(q^{2})$. Powers are nim-powers.
+
+\begin{lemma}\label{lem:coset}
+$F^{q}=F\oplus1$. Consequently $\bigotimes_{b\in K}(z\oplus b)=z^{q}\oplus z$ for every
+$z\in\mathbb{F}$, and $\bigotimes_{b\in K}\bigl((c\otimes F)\oplus b\bigr)=c$ for every
+$c\in K$.
+\end{lemma}
+
+\begin{proof}
+By (N3), $F$ is a root of $X^{2}\oplus X\oplus c_{0}$ with $c_{0}=\tfrac12F\in K$. As
+$F\notin K$ this is irreducible over $K$, so both roots lie in $\mathbb{F}$ and are swapped
+by $x\mapsto x^{q}$; they sum to 1, hence $F^{q}=F\oplus1$. Next,
+$\prod_{b\in K}(X-b)=X^{q}-X$ in $K[X]$; evaluating at $z$ in characteristic 2 gives the
+second claim. Finally for $z=c\otimes F$ with $c\in K$ we get
+$z^{q}=c^{q}\otimes F^{q}=c\otimes(F\oplus1)=z\oplus c$, so $z^{q}\oplus z=c$.
+\end{proof}
+
+\begin{theorem}[the first conjecture]\label{thm:first}
+$\bigotimes_{v=1}^{2^{n}-1}v=1$ for every $n\ge0$. In particular $a(2^{n}-1)=1$.
+\end{theorem}
+
+\begin{proof}
+Induction on $n$; the case $n=0$ is the empty product. For $n\ge1$ let $2^{k}$ be the
+largest power of 2 with $2^{k}\le n$ and $m=n-2^{k}$, so $0\le m<2^{k}$ and
+$2^{n}=2^{m}\cdot F$ with $F=F_{k}$. Every $v<2^{n}$ is uniquely $a\cdot F+b$ with
+$a<2^{m}$, $b\in K$; there are no carries, so $a\cdot F+b=(a\otimes F)\oplus b$ using (N2).
+Splitting the product on $a$, the term $a=0$ contributes the product of all nonzero
+elements of the field $K$, which is $-1=1$ in characteristic 2, and each $a\ne0$
+contributes $\bigotimes_{b\in K}((a\otimes F)\oplus b)=a$ by Lemma~\ref{lem:coset}. Hence
+$\bigotimes_{v=1}^{2^{n}-1}v=\bigotimes_{a=1}^{2^{m}-1}a$, which is 1 by induction.
+\end{proof}
+
+\section{Subspace polynomials and the Artin--Schreier map}
+
+For $t\ge0$ set $V_{t}=\{0,1,\dots,2^{t}-1\}$ and define, for a nimber $x$,
+\[
+  L_{t}(x)=\bigotimes_{j\in V_{t}}(x\oplus j).
+\]
+$V_{t}$ is an $\mathbb{F}_{2}$-subspace of the nimber field (it is closed under $\oplus$,
+with basis $1,2,4,\dots,2^{t-1}$), so $L_{t}$ is the subspace polynomial of $V_{t}$ and is
+therefore 2-linearized, hence additive: $L_{t}(x\oplus y)=L_{t}(x)\oplus L_{t}(y)$
+\cite[Thm.~3.52]{ln}. Let
+\[
+  \wp(y)=y^{2}\oplus y
+\]
+be the Artin--Schreier map.
+
+\begin{lemma}\label{lem:one}
+$\bigotimes_{v=2^{t}}^{2^{t+1}-1}v=1$ for every $t\ge0$; equivalently $L_{t}(2^{t})=1$.
+\end{lemma}
+
+\begin{proof}
+All the factors are nonzero, so we may divide in the nimber field:
+$\bigotimes_{v=2^{t}}^{2^{t+1}-1}v
+=\bigl(\bigotimes_{v=1}^{2^{t+1}-1}v\bigr)\otimes
+ \bigl(\bigotimes_{v=1}^{2^{t}-1}v\bigr)^{-1}=1\otimes1^{-1}=1$ by
+Theorem~\ref{thm:first}. Since $j<2^{t}$ implies $2^{t}+j=2^{t}\oplus j$, the left side is
+$L_{t}(2^{t})$.
+\end{proof}
+
+\begin{lemma}\label{lem:iter}
+$L_{t}(x)=\wp^{\,t}(x)$ for every $t\ge0$ and every nimber $x$, where $\wp^{\,t}$ is the
+$t$-fold iterate.
+\end{lemma}
+
+\begin{proof}
+Induction on $t$. For $t=0$, $L_{0}(x)=x$. For $t\ge1$ write
+$V_{t}=V_{t-1}\cup(2^{t-1}\oplus V_{t-1})$, a disjoint union, so
+$L_{t}(x)=L_{t-1}(x)\otimes L_{t-1}(x\oplus2^{t-1})$. By additivity of $L_{t-1}$ and
+Lemma~\ref{lem:one}, $L_{t-1}(x\oplus2^{t-1})=L_{t-1}(x)\oplus1$. Hence
+\[
+  L_{t}(x)=L_{t-1}(x)\otimes\bigl(L_{t-1}(x)\oplus1\bigr)
+  =L_{t-1}(x)^{2}\oplus L_{t-1}(x)=\wp\bigl(L_{t-1}(x)\bigr)=\wp^{\,t}(x).\qedhere
+\]
+\end{proof}
+
+\section{The second conjecture}
+
+For $n\ge1$ put
+\[
+  g_{n}=\bigotimes_{v=2^{n}}^{2^{n}+2^{n-1}-1}v
+       =\bigotimes_{j\in V_{n-1}}(2^{n}\oplus j)=L_{n-1}(2^{n}),
+\]
+the middle equality because $j<2^{n-1}<2^{n}$ forces $2^{n}+j=2^{n}\oplus j$. By
+Theorem~\ref{thm:first},
+\begin{equation}\label{eq:reduce}
+  a(2^{n}+2^{n-1}-1)=\Bigl(\bigotimes_{v=1}^{2^{n}-1}v\Bigr)\otimes g_{n}=g_{n},
+\end{equation}
+so conjecture (2) is exactly the assertion $g_{n}=2$ for all $n\ge1$.
+
+\begin{lemma}[leading-bit recursion]\label{lem:lead}
+Let $n\ge2$, let $2^{k}$ be the largest power of 2 with $2^{k}\le n$, and suppose
+$m=n-2^{k}\ge1$. Then $g_{n}=g_{m}$.
+\end{lemma}
+
+\begin{proof}
+Keep $F=F_{k}$, $K=K_{k}$. Since $m<2^{k}$ we have $m+1\le2^{k}$, so
+$2^{m+1}\le2^{2^{k}}=F$. Also $2^{n}=2^{m}\cdot F=2^{m}\otimes F$ by (N2), and
+$2^{n-1}=2^{m-1}\cdot F$.
+
+Every $j<2^{n-1}$ is uniquely $a\cdot F+b$ with $a<2^{m-1}$ and $b\in K$, and as before
+$a\cdot F+b=(a\otimes F)\oplus b$. Therefore
+\[
+  2^{n}\oplus j=(2^{m}\otimes F)\oplus(a\otimes F)\oplus b
+  =\bigl((2^{m}\oplus a)\otimes F\bigr)\oplus b.
+\]
+Put $c_{a}=2^{m}\oplus a$. Since $a<2^{m-1}$ we have $c_{a}<2^{m+1}\le F$, so $c_{a}\in K$
+and Lemma~\ref{lem:coset} applies:
+\[
+  g_{n}=\bigotimes_{a\in V_{m-1}}\ \bigotimes_{b\in K}\bigl((c_{a}\otimes F)\oplus b\bigr)
+      =\bigotimes_{a\in V_{m-1}}(2^{m}\oplus a)=g_{m}.\qedhere
+\]
+\end{proof}
+
+\begin{lemma}[power-of-two case]\label{lem:pow}
+$g_{2^{k}}=g_{2^{k}-1}$ for every $k\ge1$.
+\end{lemma}
+
+\begin{proof}
+By (N3), $\wp(F_{k})=F_{k}\otimes F_{k}\oplus F_{k}=(F_{k}\oplus\tfrac12F_{k})\oplus F_{k}
+=\tfrac12F_{k}=2^{2^{k}-1}$. Writing $n=2^{k}$, so that $2^{n}=F_{k}$,
+Lemma~\ref{lem:iter} gives
+\[
+  g_{2^{k}}=L_{2^{k}-1}\bigl(F_{k}\bigr)=\wp^{\,2^{k}-1}(F_{k})
+  =\wp^{\,2^{k}-2}\bigl(\wp(F_{k})\bigr)=\wp^{\,(2^{k}-1)-1}\bigl(2^{2^{k}-1}\bigr)
+  =L_{2^{k}-2}\bigl(2^{2^{k}-1}\bigr)=g_{2^{k}-1},
+\]
+where the last equality is the definition of $g_{n}$ at $n=2^{k}-1\ge1$.
+\end{proof}
+
+\begin{theorem}\label{thm:main}
+$g_{n}=2$ for every $n\ge1$; equivalently, $a(2^{n}+2^{n-1}-1)=2$ for every $n\ge1$. This
+is Layman's conjecture (2).
+\end{theorem}
+
+\begin{proof}
+Strong induction on $n$. For $n=1$, $V_{0}=\{0\}$ and $g_{1}=2\oplus0=2$.
+
+Let $n\ge2$ and let $2^{k}$ be the largest power of 2 with $2^{k}\le n$. If $n\ne2^{k}$
+then $m=n-2^{k}$ satisfies $1\le m<n$ and $g_{n}=g_{m}=2$ by Lemma~\ref{lem:lead} and the
+induction hypothesis. If $n=2^{k}$ then $k\ge1$ and $g_{n}=g_{n-1}=2$ by
+Lemma~\ref{lem:pow} and the induction hypothesis. The equivalence with the statement about
+$a$ is \eqref{eq:reduce}.
+\end{proof}
+
+\begin{remark}
+Two structural facts fall out on the way and may be of independent interest. First,
+Lemma~\ref{lem:iter}: the subspace polynomial of $\{0,\dots,2^{t}-1\}$ in the nimber field
+is the $t$-fold iterate of $y\mapsto y^{2}\oplus y$, so that
+$a(2^{n}+2^{n-1}-1)=\wp^{\,n-1}(2^{n})$. Second, combining Lemma~\ref{lem:one} with
+Lemma~\ref{lem:iter} shows $\wp^{\,t}(2^{t})=1$ for all $t$. Neither is deep ---
+everything here is Conway's field structure plus the Artin--Schreier map --- and the
+natural destination is an OEIS comment rather than a journal.
+\end{remark}
+
+\section{Verification}
+
+A verification script, written separately from this note, checks every assertion made above
+and prints every number quoted. It (i) implements nim-multiplication twice by genuinely
+different algorithms, Conway's recursion on Fermat 2-powers and a direct tabulation from
+the mex definition, and confirms they agree on $\{0,\dots,31\}^{2}$ with 0 mismatches;
+(ii) reproduces the first 70 published terms of A059970 with 0 mismatches; (iii) confirms
+$F\otimes F=F\oplus\tfrac12F$ and $\wp(F)=\tfrac12F$ for $F=2,4,16,256,65536$, obtaining
+$\wp(F)=1,2,8,128,32768$ respectively, and $F^{q}=F\oplus1$ for $k\le3$; (iv) confirms
+Lemma~\ref{lem:coset} in 148 and 22 instances respectively; (v) confirms
+Lemma~\ref{lem:one} for $t=0,\dots,9$ and Lemma~\ref{lem:iter} in 126 instances with
+$t\le8$; (vi) confirms $g_{n}=2$ for $n=1,\dots,14$ together with Lemma~\ref{lem:lead} in
+all 10 applicable cases and Lemma~\ref{lem:pow} for $k=1,2,3$; and (vii) computes
+$a(2^{n}+2^{n-1}-1)$ from the defining recursion $a(n)=n\otimes a(n-1)$ for
+$n=1,\dots,17$, obtaining 2 in every case. The largest index reached was $a(196607)=2$; the
+conjecture as posted was verified only to $n=15$.
+
+\begin{thebibliography}{9}
+\bibitem{conway} J.~H. Conway, \emph{On Numbers and Games}, 2nd ed., A K Peters, 2001,
+Chapter 6.
+\bibitem{ln} R.~Lidl and H.~Niederreiter, \emph{Finite Fields}, 2nd ed., Cambridge
+University Press, 1997, Theorem 3.52.
+\bibitem{oeis} N.~J.~A. Sloane et al., \emph{The On-Line Encyclopedia of Integer
+Sequences}, \url{https://oeis.org/A059970}, entry A059970, consulted 23 August 2026.
+\end{thebibliography}
+\end{document}

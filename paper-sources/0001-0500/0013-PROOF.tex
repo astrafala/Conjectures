@@ -1,0 +1,188 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=1in]{geometry}
+\usepackage[colorlinks=true,linkcolor=blue,urlcolor=blue]{hyperref}
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{remark}[theorem]{Remark}
+\DeclareMathOperator{\mex}{mex}
+
+\title{The nim-factorial of $2^{n}-1$ is 1:\\
+a proof of Layman's conjecture on OEIS A059970}
+\author{Adrian Perez Fontelles\\ \small Independent researcher}
+\date{23 August 2026}
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Let $a(n)=1\otimes2\otimes\dots\otimes n$ denote the nim-factorial, where $\otimes$ is
+Conway's nim-multiplication (OEIS A059970). In March 2001 J.~W. Layman conjectured that
+$a(2^{n}-1)=1$ for all $n$, reporting verification for $n\le16$. We prove the following
+stronger and cleaner statement: for every $n\ge0$, the nim-product of all nonzero nimbers
+below $2^{n}$ equals 1. The conjecture is the special case, since $\{1,\dots,2^{n}-1\}$ is
+exactly that set. The proof is a two-line induction once one observes that
+$\{0,1,\dots,2^{n}-1\}$ splits as a union of additive cosets of the Conway field of order
+$2^{2^{k}}$, on each of which the product collapses by Wilson's theorem for finite fields.
+\end{abstract}
+
+\section{The sequence and the conjecture}
+
+Conway's nim-addition $\oplus$ on the non-negative integers is bitwise exclusive-or, and
+nim-multiplication $\otimes$ is defined by the mex rule
+$a\otimes b=\mex\{\,a'\otimes b\oplus a\otimes b'\oplus a'\otimes b' : a'<a,\ b'<b\,\}$
+\cite[Ch.~6]{conway}. OEIS sequence A059970 is the nim-factorial
+\[
+  a(1)=1,\qquad a(n)=n\otimes a(n-1)\quad(n>1),
+\]
+contributed by John W. Layman on 5 March 2001, with first terms
+$1,2,1,4,2,11,1,8,5,9,2,4,9,4,1,16,\dots$.
+
+The entry carries the comment
+
+\begin{quote}
+\textbf{Conjectures:} (1) Nim-Factorial$(2^{n}-1)=1$ (verified for
+$n=1,2,3,\dots,16$). (2) Nim-Factorial$(2^{n}+2^{n-1}-1)=2$ (verified for
+$n=1,2,3,\dots,15$).
+\end{quote}
+
+This note settles part (1). As of the ``Last modified'' line on the live entry (23 August
+2026) both statements are still recorded as unproven conjectures, no proof appears in the
+entry's links or programs, and a search of the literature on nimber arithmetic turns up
+nothing on products of consecutive nimbers.
+
+\section{Two standard facts, and two lemmas}
+
+We use three facts from Conway \cite[Ch.~6]{conway}. Write $F_{k}=2^{2^{k}}$ for the $k$-th
+Fermat 2-power.
+
+\begin{itemize}
+\item[(N1)] The set $K_{k}=\{0,1,\dots,F_{k}-1\}$ of nimbers below $F_{k}$ is a field of
+order $F_{k}$ under $(\oplus,\otimes)$; that is, $K_{k}\cong\mathrm{GF}(2^{2^{k}})$, and
+$K_{0}\subset K_{1}\subset K_{2}\subset\cdots$.
+\item[(N2)] $F_{k}\otimes a=F_{k}\cdot a$ (ordinary product) for every $a<F_{k}$.
+\item[(N3)] $F_{k}\otimes F_{k}=\tfrac32F_{k}=F_{k}\oplus\tfrac12F_{k}$.
+\end{itemize}
+
+Throughout, fix $k$ and abbreviate $F=F_{k}$, $K=K_{k}$, $q=|K|=F$, and let
+$\mathbb{F}=K_{k+1}\cong\mathrm{GF}(q^{2})$, so that $K\subset\mathbb{F}$ and
+$F\in\mathbb{F}\setminus K$. All powers below are nim-powers taken in $\mathbb{F}$.
+
+\begin{lemma}\label{lem:frob}
+$F^{q}=F\oplus1$.
+\end{lemma}
+
+\begin{proof}
+By (N3), $F\otimes F=F\oplus c$ with $c=\tfrac12F\in K$. Hence $F$ is a root of
+$X^{2}\oplus X\oplus c\in K[X]$. Since $F\notin K$ this quadratic is irreducible over $K$,
+so its two roots lie in $\mathbb{F}=\mathrm{GF}(q^{2})$ and are interchanged by the
+nontrivial element $x\mapsto x^{q}$ of $\mathrm{Gal}(\mathbb{F}/K)$. The two roots sum to
+the coefficient of $X$, namely 1, so they are $F$ and $F\oplus1$. Therefore
+$F^{q}=F\oplus1$.
+\end{proof}
+
+\begin{lemma}\label{lem:coset}
+For every $z\in\mathbb{F}$, $\bigotimes_{b\in K}(z\oplus b)=z^{q}\oplus z$. Consequently,
+for every $c\in K$,
+\[
+  \bigotimes_{b\in K}\bigl((c\otimes F)\oplus b\bigr)=c.
+\]
+\end{lemma}
+
+\begin{proof}
+In $K[X]$ we have $\prod_{b\in K}(X-b)=X^{q}-X$; evaluating at $z$ and using characteristic
+2 gives the first identity. For the second, put $z=c\otimes F$. Since $c\in K$ we have
+$c^{q}=c$, so by Lemma~\ref{lem:frob}
+\[
+  z^{q}=c^{q}\otimes F^{q}=c\otimes(F\oplus1)=(c\otimes F)\oplus c=z\oplus c,
+\]
+whence $z^{q}\oplus z=c$.
+\end{proof}
+
+\section{The theorem}
+
+\begin{theorem}\label{thm:main}
+For every integer $n\ge0$,
+\[
+  \bigotimes_{v=1}^{2^{n}-1}v=1.
+\]
+\end{theorem}
+
+\begin{proof}
+Induction on $n$. For $n=0$ the product is empty and equals 1.
+
+Let $n\ge1$ and let $2^{k}$ be the largest power of 2 with $2^{k}\le n$; put $m=n-2^{k}$,
+so $0\le m<2^{k}$. Keep the notation $F=F_{k}=2^{2^{k}}$, $K=K_{k}$, $q=|K|=F$ of the
+previous section. Note $2^{m}\le F$ because $m<2^{k}\le2^{2^{k}}$, and
+$2^{n}=2^{2^{k}+m}=2^{m}\cdot F$.
+
+Every integer $v$ with $0\le v<2^{n}$ has a unique representation $v=a\cdot F+b$ with
+$0\le a<2^{m}$ and $0\le b<F$. Because $b<F$ the ordinary sum $a\cdot F+b$ has no carries,
+so it equals $a\cdot F\oplus b$; and $a<2^{m}\le F$, so $a\cdot F=a\otimes F$ by (N2).
+Hence
+\[
+  \{0,1,\dots,2^{n}-1\}=\bigl\{\,(a\otimes F)\oplus b\ :\ 0\le a<2^{m},\ b\in K\,\bigr\},
+\]
+and the representation is unique. Splitting the product according to $a$,
+\[
+  \bigotimes_{v=1}^{2^{n}-1}v
+  =\Biggl(\bigotimes_{\substack{b\in K\\ b\ne0}}b\Biggr)\otimes
+   \Biggl(\bigotimes_{a=1}^{2^{m}-1}\ \bigotimes_{b\in K}
+   \bigl((a\otimes F)\oplus b\bigr)\Biggr).
+\]
+The first bracket is the product of all nonzero elements of the finite field $K$, which is
+$-1=1$ in characteristic 2 (Wilson's theorem for finite fields). By the second part of
+Lemma~\ref{lem:coset} the inner product in the second bracket equals $a$. Therefore
+\[
+  \bigotimes_{v=1}^{2^{n}-1}v=\bigotimes_{a=1}^{2^{m}-1}a,
+\]
+which equals 1 by the induction hypothesis, since $m<2^{k}\le n$.
+\end{proof}
+
+\begin{corollary}
+$a(2^{n}-1)=1$ for every $n\ge1$, where $a$ is A059970. This is Layman's conjecture (1).
+\end{corollary}
+
+\begin{proof}
+$a(2^{n}-1)=\bigotimes_{v=1}^{2^{n}-1}v$, which is 1 by Theorem~\ref{thm:main}.
+\end{proof}
+
+\begin{remark}
+Theorem~\ref{thm:main} says more than the conjecture only in the sense that it identifies
+the mechanism: $\{1,\dots,2^{n}-1\}$ is the set of nonzero elements of an
+$\mathbb{F}_{2}$-subspace of a Conway field, and the leading-bit recursion
+$\bigotimes_{v<2^{n}}v=\bigotimes_{v<2^{m}}v$ with $m=n-2^{\lfloor\log_{2}n\rfloor}$ strips
+the binary expansion of $n$ one bit at a time. The statement is elementary: it uses nothing
+beyond Conway's construction of the nimber field and Wilson's theorem. The appropriate
+destination is an OEIS comment, not a journal.
+\end{remark}
+
+\section{Verification}
+
+A verification script, written separately from this note, was used to check every assertion
+made above. It (i) implements nim-multiplication twice by genuinely different algorithms
+--- Conway's recursion on Fermat 2-powers, and a direct tabulation from the mex definition
+--- and confirms that they agree on $\{0,\dots,31\}^{2}$ with 0 mismatches; (ii) reproduces
+the first 70 published terms of A059970 with 0 mismatches; (iii) confirms
+$F\otimes F=F\oplus\tfrac12F$ for $k=0,\dots,4$, $F\otimes a=F\cdot a$ for $a<F$ and
+$k=0,\dots,3$, and $F^{q}=F\oplus1$ for $k=0,\dots,3$; (iv) confirms
+Lemma~\ref{lem:coset} in 148 instances of the first identity and all 22 instances of the
+second with $k\le2$; (v) confirms Theorem~\ref{thm:main} directly for $n=0,\dots,14$; and
+(vi) computes $a(2^{n}-1)$ from the defining recursion $a(n)=n\otimes a(n-1)$ for
+$n=1,\dots,18$, obtaining 1 in every case. The largest index reached was $a(262143)=1$; the
+conjecture as posted was verified only to $n=16$.
+
+\begin{thebibliography}{9}
+\bibitem{conway} J.~H. Conway, \emph{On Numbers and Games}, 2nd ed., A K Peters, 2001,
+Chapter 6.
+\bibitem{ln} R.~Lidl and H.~Niederreiter, \emph{Finite Fields}, 2nd ed., Cambridge
+University Press, 1997.
+\bibitem{oeis} N.~J.~A. Sloane et al., \emph{The On-Line Encyclopedia of Integer
+Sequences}, \url{https://oeis.org/A059970}, entry A059970, consulted 23 August 2026.
+\end{thebibliography}
+\end{document}

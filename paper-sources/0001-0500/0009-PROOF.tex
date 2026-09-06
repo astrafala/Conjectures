@@ -1,0 +1,237 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=1in]{geometry}
+\usepackage[colorlinks=true,linkcolor=blue,urlcolor=blue]{hyperref}
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{remark}[theorem]{Remark}
+\newcommand{\Chat}{\widehat{C}}
+
+\title{Carry periodicity forces a large $(x^3+1)$ factor:\\
+a proof of Karttunen's conjecture on the binary\\
+columns of the Fibonacci numbers}
+\author{Adrian Perez Fontelles\\ \small Independent researcher}
+\date{23 August 2026}
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Write the Fibonacci numbers one under another in binary. The $n$-th column from the right
+is periodic in $k$ with period $3\cdot2^{n}$; reading one full period as the coefficient
+vector of a polynomial over $\mathrm{GF}(2)$ gives OEIS A036284. In November 1998
+A.~Karttunen conjectured that this polynomial is divisible by $(x^{3}+1)^{2^{n-1}-1}$. We
+prove it. The whole content is that the carry into position $n$ depends only on the low
+$n$ bits of the two summands and therefore has period $3\cdot2^{n-1}$ --- exactly half the
+period of the column itself. Since $x^{3\cdot2^{m}}+1=(x^{3}+1)^{2^{m}}$ in characteristic
+2, halving the period is the same as extracting a factor $(x^{3}+1)^{2^{n-1}}$, and the
+conjecture drops out of a one-line valuation count. The argument in fact gives the exact
+$(x^{2}+x+1)$-adic valuation, not just the lower bound.
+\end{abstract}
+
+\section{The sequence and the conjecture}
+
+Let $F(0)=0$, $F(1)=1$, $F(k)=F(k-1)+F(k-2)$. Writing the $F(k)$ in binary, one under
+another, the bits in the $n$-th column from the right repeat with period $3\cdot2^{n}$.
+OEIS A036284, contributed by Antti Karttunen on 1 November 1998 under the name
+\emph{Periodic vertical binary vectors of Fibonacci numbers}, is one full period of that
+column read as a binary number:
+\[
+  a(n)=\sum_{k=0}^{3\cdot2^{n}-1}\Bigl(\bigl\lfloor F(k)/2^{n}\bigr\rfloor\bmod2\Bigr)2^{k},
+  \qquad a(0),a(1),a(2),a(3)=6,\;24,\;1440,\;5728448.
+\]
+Identifying an integer with the $\mathrm{GF}(2)$ polynomial whose coefficient of $x^{k}$ is
+bit $k$, the entry carries the comment
+
+\begin{quote}
+\textbf{Conjecture:} For $n\ge1$, each term $a(n)$, when considered as a
+$\mathrm{GF}(2)[X]$-polynomial, is divisible by the $\mathrm{GF}(2)[X]$-polynomial
+$(x^{3}+1)^{\mathrm{A000225}(n-1)}$. \dots\ \textbf{Conjecture 2:} there is also one extra
+$(x^{1}+1)$ factor present.
+\end{quote}
+
+Here $\mathrm{A000225}(n-1)=2^{n-1}-1$. This note proves the first conjecture. As of the
+``Last modified'' line on the live entry (23 August 2026) both statements are still
+recorded as unproven conjectures, no proof appears in the entry's links or programs, and a
+literature search on binary columns of the Fibonacci numbers turns up nothing.
+
+\section{Notation}
+
+Throughout $n\ge1$ is fixed and
+\[
+  L=3\cdot2^{n},\qquad q(x)=x^{2}+x+1,\qquad x^{3}+1=(x+1)\,q(x).
+\]
+For a nonzero $P\in\mathrm{GF}(2)[x]$ and an irreducible $f$, write $v_{f}(P)$ for the
+exponent of $f$ in $P$. Two facts are used repeatedly:
+\begin{equation}\label{eq:frob}
+  x^{3\cdot2^{m}}+1=(x^{3}+1)^{2^{m}}\quad\text{in }\mathrm{GF}(2)[x]\ (m\ge0),
+\end{equation}
+by the Frobenius endomorphism, and
+$v_{q}\bigl((x^{3}+1)^{m}\bigr)=v_{x+1}\bigl((x^{3}+1)^{m}\bigr)=m$.
+
+Let $r_{k}=F(k)\bmod2^{n+1}$, let
+\[
+  b(k)=\bigl\lfloor r_{k}/2^{n}\bigr\rfloor\in\{0,1\}
+\]
+be the $n$-th bit, and let $s_{k}=r_{k}\bmod2^{n}$ be the low part, so that
+$r_{k}=b(k)2^{n}+s_{k}$. Finally set
+\[
+  \gamma(k)=\bigl\lfloor(s_{k-1}+s_{k-2})/2^{n}\bigr\rfloor\in\{0,1\},
+\]
+the carry into position $n$ when $F(k-1)$ and $F(k-2)$ are added. Put
+\[
+  A(x)=\sum_{k=0}^{L-1}b(k)\,x^{k},
+\]
+so that $A$ is the polynomial attached to $a(n)$.
+
+\section{Three lemmas}
+
+\begin{lemma}\label{lem:pisano}
+For every $m\ge1$ the sequence $\bigl(F(k)\bmod2^{m}\bigr)_{k\ge0}$ is purely periodic with
+least period $3\cdot2^{m-1}$.
+\end{lemma}
+
+\begin{proof}
+Pure periodicity holds for any modulus because the recurrence is invertible:
+$F(k-2)=F(k)-F(k-1)$. The value $\pi(2^{m})=3\cdot2^{m-1}$ of the Pisano period at prime
+power $2^{m}$ is classical; see Wall~\cite{wall}.
+\end{proof}
+
+In particular $\bigl(r_{k}\bigr)_{k}$ has period $L=3\cdot2^{n}$, so $b$, $s$, $\gamma$ are
+all well defined as functions on $\mathbb{Z}/L\mathbb{Z}$, and
+$r_{k}\equiv r_{k-1}+r_{k-2}\pmod{2^{n+1}}$ holds for every
+$k\in\mathbb{Z}/L\mathbb{Z}$ (for $k\ge2$ it is the recurrence; for $k=0,1$ it follows by
+periodicity from the instances $k=L$, $L+1$).
+
+\begin{lemma}[carry identity]\label{lem:carry}
+For every $k\in\mathbb{Z}/L\mathbb{Z}$,
+\[
+  b(k)+b(k-1)+b(k-2)\equiv\gamma(k)\pmod2.
+\]
+\end{lemma}
+
+\begin{proof}
+Split both summands into high bit and low part:
+\[
+  r_{k-1}+r_{k-2}=\bigl(b(k-1)+b(k-2)\bigr)2^{n}+\bigl(s_{k-1}+s_{k-2}\bigr)
+  =\bigl(b(k-1)+b(k-2)+\gamma(k)\bigr)2^{n}+\bigl(s_{k-1}+s_{k-2}\bigr)\bmod2^{n},
+\]
+using $s_{k-1}+s_{k-2}=\gamma(k)2^{n}+\bigl((s_{k-1}+s_{k-2})\bmod2^{n}\bigr)$, which is
+legitimate because $s_{k-1}+s_{k-2}<2^{n+1}$. Reducing modulo $2^{n+1}$ and comparing with
+$r_{k}=b(k)2^{n}+s_{k}$, where $s_{k}=(s_{k-1}+s_{k-2})\bmod2^{n}<2^{n}$, forces
+$b(k)\equiv b(k-1)+b(k-2)+\gamma(k)\pmod2$.
+\end{proof}
+
+\begin{lemma}[the carry has half the period]\label{lem:half}
+$\gamma(k+3\cdot2^{n-1})=\gamma(k)$ for every $k$.
+\end{lemma}
+
+\begin{proof}
+By definition $\gamma(k)$ is a function of $s_{k-1}$ and $s_{k-2}$ alone, and
+$s_{j}=F(j)\bmod2^{n}$. By Lemma~\ref{lem:pisano} with $m=n$ the sequence $(s_{j})_{j}$ has
+period $3\cdot2^{n-1}$.
+\end{proof}
+
+This is the whole point: the column $b$ has period $L=3\cdot2^{n}$, while the carry
+$\gamma$ that drives it has period only $L/2$.
+
+\section{The theorem}
+
+\begin{theorem}\label{thm:main}
+Let $n\ge1$ and let $\Chat(x)=\sum_{k=0}^{L/2-1}\gamma(k)x^{k}$. Then in
+$\mathrm{GF}(2)[x]$
+\begin{equation}\label{eq:main}
+  q(x)\,A(x)=\Chat(x)\,(x^{3}+1)^{2^{n-1}}+M(x)\,(x^{3}+1)^{2^{n}}
+\end{equation}
+for some $M\in\mathrm{GF}(2)[x]$. Consequently
+\[
+  v_{q}(A)\ge2^{n-1}-1,\qquad v_{x+1}(A)\ge2^{n-1},
+\]
+and therefore $(x^{3}+1)^{2^{n-1}-1}$ divides $A$.
+\end{theorem}
+
+\begin{proof}
+Multiply the identity of Lemma~\ref{lem:carry} by $x^{k}$ and sum over
+$k\in\mathbb{Z}/L\mathbb{Z}$. On the left, reading indices modulo $L$ turns the shift
+$k\mapsto k-1$ into multiplication by $x$ modulo $x^{L}+1$, so the left side becomes
+$(1+x+x^{2})A(x)=q(x)A(x)$ modulo $x^{L}+1$. On the right we get
+$\Gamma(x)=\sum_{k=0}^{L-1}\gamma(k)x^{k}$. Hence
+\[
+  q(x)A(x)\equiv\Gamma(x)\pmod{x^{L}+1}.
+\]
+By Lemma~\ref{lem:half} the coefficient list of $\Gamma$ is the concatenation of two copies
+of that of $\Chat$, that is
+\[
+  \Gamma(x)=\Chat(x)\bigl(1+x^{L/2}\bigr)=\Chat(x)\bigl(x^{3\cdot2^{n-1}}+1\bigr)
+  =\Chat(x)\,(x^{3}+1)^{2^{n-1}},
+\]
+the last step by \eqref{eq:frob}. Since $x^{L}+1=(x^{3}+1)^{2^{n}}$, again by
+\eqref{eq:frob}, this is exactly \eqref{eq:main}.
+
+Now take valuations in \eqref{eq:main}. Both terms on the right are divisible by
+$(x^{3}+1)^{2^{n-1}}$, hence
+\[
+  v_{q}\bigl(qA\bigr)\ge2^{n-1},\qquad v_{x+1}\bigl(qA\bigr)\ge2^{n-1}.
+\]
+Since $v_{q}(q)=1$ and $v_{x+1}(q)=0$, this reads $v_{q}(A)\ge2^{n-1}-1$ and
+$v_{x+1}(A)\ge2^{n-1}$. Finally
+$v_{x^{3}+1}(A)=\min\bigl(v_{x+1}(A),v_{q}(A)\bigr)\ge2^{n-1}-1$.
+\end{proof}
+
+\begin{corollary}
+For every $n\ge1$, $(x^{3}+1)^{2^{n-1}-1}$ divides $a(n)$ in $\mathrm{GF}(2)[X]$. This is
+Karttunen's conjecture.
+\end{corollary}
+
+\begin{remark}[the exact valuation]
+Equation \eqref{eq:main} gives more than the bound. If $v_{q}(\Chat)<2^{n-1}$ then the two
+right-hand terms have different $q$-valuations and
+\[
+  v_{q}(A)=2^{n-1}-1+v_{q}(\Chat),
+\]
+and likewise $v_{x+1}(A)=2^{n-1}+v_{x+1}(\Chat)$ when $v_{x+1}(\Chat)<2^{n-1}$.
+Computation (Section~5) gives $v_{q}(\Chat)=0$ for $1\le n\le12$, so $v_{q}(A)=2^{n-1}-1$
+exactly there --- the conjectured bound is sharp on the $q$-side. On the $(x+1)$-side
+$v_{x+1}(\Chat)=0$ for $n=1$ and $4\le n\le12$, but $v_{x+1}(\Chat)=1$ at $n=2$ and 3 at
+$n=3$, which is why $v_{x+1}(A)$ equals 3 and 7 there instead of 2 and 4. I have not proved
+that $v_{q}(\Chat)=0$ for all $n$; that statement is equivalent to $\Chat(\omega)\ne0$ for
+$\omega$ a primitive cube root of unity in $\mathrm{GF}(4)$, that is to a condition on the
+distribution modulo 3 of the positions of the carries. It is an open question here.
+\end{remark}
+
+\begin{remark}[what the proof really uses]
+Nothing about the Fibonacci recurrence is used except that the modulus-$2^{m}$ period
+doubles when $m$ increases by one. The same argument gives, verbatim, the analogous
+statement for any integer sequence satisfying $u(k)=u(k-1)+u(k-2)$ whose period modulo
+$2^{m}$ is $\pi\cdot2^{m-1}$ for a fixed odd $\pi$: the column polynomial is divisible by
+$(x^{\pi}+1)^{2^{n-1}-1}$. The proof is elementary and the natural destination is an OEIS
+comment, not a journal.
+\end{remark}
+
+\section{Verification}
+
+A verification script, written separately from this note, checks every assertion made here
+and prints every number quoted. It (i) recomputes $a(0),\dots,a(3)$ from the defining sum
+and matches the published values $6,24,1440,5728448$ exactly; (ii) checks
+Lemma~\ref{lem:carry} at all $L$ residues for $n=0,\dots,16$, that is up to $L=196608$,
+with no failure; (iii) checks Lemma~\ref{lem:half} over the same range, with no failure;
+(iv) verifies the identity \eqref{eq:main} by explicit polynomial division for
+$n=1,\dots,12$; (v) computes the valuations, obtaining $v_{q}(A)=2^{n-1}-1$ and
+$v_{x+1}(A)=2^{n-1}$ for $n=1$ and $4\le n\le12$, and the two exceptional values
+$v_{x+1}(A)=3$ at $n=2$ and 7 at $n=3$; and (vi) divides $a(n)$ by $(x^{3}+1)^{2^{n-1}-1}$
+directly for $n=1,\dots,12$, obtaining remainder zero in every case.
+
+\begin{thebibliography}{9}
+\bibitem{wall} D.~D. Wall, \emph{Fibonacci series modulo $m$}, Amer. Math. Monthly 67
+(1960), 525--532.
+\bibitem{ln} R.~Lidl and H.~Niederreiter, \emph{Finite Fields}, 2nd ed., Cambridge
+University Press, 1997.
+\bibitem{oeis} N.~J.~A. Sloane et al., \emph{The On-Line Encyclopedia of Integer
+Sequences}, \url{https://oeis.org/A036284}, entry A036284, consulted 23 August 2026.
+\end{thebibliography}
+\end{document}

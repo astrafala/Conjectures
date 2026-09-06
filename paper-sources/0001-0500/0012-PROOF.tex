@@ -1,0 +1,184 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=1in]{geometry}
+\usepackage[colorlinks=true,linkcolor=blue,urlcolor=blue]{hyperref}
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{remark}[theorem]{Remark}
+
+\title{A bit that flips at half period:\\
+a proof of Karttunen's conjecture on the binary\\
+columns of the powers of 3}
+\author{Adrian Perez Fontelles\\ \small Independent researcher}
+\date{23 August 2026}
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Write the powers of 3 one under another in binary. The $n$-th column from the right is
+periodic in $k$ with period dividing $2^{n}$; reading one such window as the coefficient
+vector of a polynomial over $\mathrm{GF}(2)$ gives OEIS A037096. In January 1999
+A.~Karttunen conjectured that for $n\ge3$ this polynomial is divisible by
+$(x+1)^{3\cdot2^{n-2}-1}$. We prove it, and show the exponent is exact. The whole content
+is a single 2-adic fact: $3^{2^{n-2}}\equiv1+2^{n}\pmod{2^{n+1}}$, so advancing $k$ by a
+quarter of the window flips bit $n$. A window built from a block, its complement, the
+block again and its complement again factors as
+$(x+1)^{3q-1}\bigl(B(x)(x+1)+x^{q}\bigr)$ with $q=2^{n-2}$, and $3q-1$ is exactly the
+conjectured exponent.
+\end{abstract}
+
+\section{The sequence and the conjecture}
+
+OEIS A037096, contributed by Antti Karttunen on 29 January 1999 under the name
+\emph{Periodic vertical binary vectors computed for powers of 3}, is
+\[
+  a(n)=\sum_{k=0}^{2^{n}-1}\Bigl(\bigl\lfloor 3^{k}/2^{n}\bigr\rfloor\bmod2\Bigr)2^{k},
+  \qquad a(0),\dots,a(4)=1,\;2,\;0,\;204,\;30840.
+\]
+Identifying an integer with the $\mathrm{GF}(2)$ polynomial whose coefficient of $x^{k}$ is
+bit $k$, the entry carries
+
+\begin{quote}
+\textbf{Conjecture:} For $n\ge3$, each term $a(n)$, when considered as a
+$\mathrm{GF}(2)[X]$ polynomial, is divisible by the $\mathrm{GF}(2)[X]$ polynomial
+$(x+1)^{\mathrm{A055010}(n-1)}$.
+\end{quote}
+
+Here $\mathrm{A055010}(m)=3\cdot2^{m-1}-1$ for $m>0$, so the claimed exponent is
+$3\cdot2^{n-2}-1$. As of the ``Last modified'' line on the live entry (23 August 2026) the
+statement is still recorded as an unproven conjecture and no proof appears in the entry's
+links or programs.
+
+Throughout $n\ge3$ is fixed and
+\[
+  L=2^{n},\qquad q=2^{n-2},\qquad b(k)=\bigl\lfloor3^{k}/2^{n}\bigr\rfloor\bmod2,
+  \qquad A(x)=\sum_{k=0}^{L-1}b(k)x^{k},
+\]
+so $A$ is the polynomial attached to $a(n)$. Note $L=4q$. For a nonzero
+$P\in\mathrm{GF}(2)[x]$ let $v(P)$ denote the exponent of $x+1$ in $P$. We use
+$x^{2^{m}}+1=(x+1)^{2^{m}}$, the Frobenius endomorphism in characteristic 2.
+
+\section{The 2-adic input}
+
+\begin{lemma}\label{lem:lte}
+For every $m\ge1$, $v_{2}\bigl(3^{2^{m}}-1\bigr)=m+2$. Consequently
+$3^{2^{m}}\equiv1+2^{m+2}\pmod{2^{m+3}}$, and the multiplicative order of 3 modulo
+$2^{m+3}$ is $2^{m+1}$.
+\end{lemma}
+
+\begin{proof}
+By the lifting-the-exponent lemma for $p=2$ and even exponent $N$,
+$v_{2}(3^{N}-1)=v_{2}(3-1)+v_{2}(3+1)+v_{2}(N)-1=1+2+v_{2}(N)-1$. With $N=2^{m}$ this is
+$m+2$. Writing $3^{2^{m}}-1=2^{m+2}u$ with $u$ odd gives
+$3^{2^{m}}\equiv1+2^{m+2}\pmod{2^{m+3}}$. The order statement is the standard consequence:
+$3^{2^{m}}\not\equiv1$ and $3^{2^{m+1}}\equiv1$ modulo $2^{m+3}$.
+\end{proof}
+
+Taking $m=n-2\ge1$ and reading modulo $2^{n+1}$:
+\begin{equation}\label{eq:adic}
+  3^{q}\equiv1+2^{n}\pmod{2^{n+1}},\qquad q=2^{n-2},
+\end{equation}
+and the order of 3 modulo $2^{n+1}$ is $2^{n-1}=2q$, which divides $L$; so $b$ is well
+defined as a function on $\mathbb{Z}/L\mathbb{Z}$.
+
+\begin{lemma}[the flip]\label{lem:flip}
+For every $k$, $b(k+q)=1-b(k)$.
+\end{lemma}
+
+\begin{proof}
+Work modulo $2^{n+1}$, which determines bit $n$. By \eqref{eq:adic},
+\[
+  3^{k+q}\equiv3^{k}\bigl(1+2^{n}\bigr)=3^{k}+2^{n}3^{k}\equiv3^{k}+2^{n}\pmod{2^{n+1}},
+\]
+the last step because $3^{k}$ is odd, so $2^{n}3^{k}\equiv2^{n}$ modulo $2^{n+1}$. Adding
+$2^{n}$ modulo $2^{n+1}$ complements bit $n$ and changes nothing below it.
+\end{proof}
+
+\section{The theorem}
+
+\begin{theorem}\label{thm:main}
+Let $n\ge3$, $q=2^{n-2}$, and let $B(x)=\sum_{k=0}^{q-1}b(k)x^{k}$ be the first quarter of
+the window. Then in $\mathrm{GF}(2)[x]$
+\[
+  A(x)=(x+1)^{3q-1}\Bigl(B(x)(x+1)+x^{q}\Bigr),
+\]
+and the second factor is not divisible by $x+1$. Consequently
+\[
+  v\bigl(a(n)\bigr)=3q-1=3\cdot2^{n-2}-1=\mathrm{A055010}(n-1)
+\]
+exactly, and in particular $(x+1)^{\mathrm{A055010}(n-1)}$ divides $a(n)$.
+\end{theorem}
+
+\begin{proof}
+Write $S(x)=1+x+\dots+x^{q-1}$, the all-ones block of length $q$. By
+Lemma~\ref{lem:flip} the four consecutive blocks of length $q$ making up the window are
+$B$, $B+S$, $B$, $B+S$ (complementing a $0/1$ block is adding $S$ over $\mathrm{GF}(2)$;
+note $b(k+2q)=b(k)$, consistent with the order being $2q$). Hence
+\[
+  A=B+x^{q}(B+S)+x^{2q}B+x^{3q}(B+S)
+   =B\bigl(1+x^{q}+x^{2q}+x^{3q}\bigr)+S\bigl(x^{q}+x^{3q}\bigr).
+\]
+Now $1+x^{q}+x^{2q}+x^{3q}=(1+x^{q})(1+x^{2q})$ and $x^{q}+x^{3q}=x^{q}(1+x^{2q})$, so
+\[
+  A=(1+x^{2q})\Bigl(B(1+x^{q})+S\,x^{q}\Bigr).
+\]
+In characteristic 2, $1+x^{q}=(1+x)^{q}$ and $1+x^{2q}=(1+x)^{2q}$ since $q$ is a power of
+2; and $S=(1+x^{q})/(1+x)=(1+x)^{q-1}$. Therefore
+\[
+  A=(1+x)^{2q}\Bigl(B(1+x)^{q}+(1+x)^{q-1}x^{q}\Bigr)
+   =(1+x)^{2q}(1+x)^{q-1}\Bigl(B(1+x)+x^{q}\Bigr)
+   =(1+x)^{3q-1}\Bigl(B(x)(x+1)+x^{q}\Bigr).
+\]
+For the last claim, evaluate the cofactor at $x=1$ over $\mathrm{GF}(2)$:
+$B(1)\cdot(1+1)+1^{q}=0+1=1\ne0$, so $x+1$ does not divide it. Hence $v(A)=3q-1$ exactly.
+\end{proof}
+
+\begin{remark}[why $n=2$ is excluded, and correctly so]
+Lemma~\ref{lem:lte} needs $m=n-2\ge1$. At $n=2$ the conclusion fails and so does the
+conjecture's hypothesis: $3^{k}\bmod8\in\{1,3\}$, so bit 2 is never set, $a(2)=0$, and
+there is nothing to factor. The entry's restriction to $n\ge3$ is exactly the right one.
+\end{remark}
+
+\begin{remark}[the crossref on the entry]
+A037096 records the identity $a(n)=\mathrm{A000215}(n-1)\cdot\mathrm{A037097}(n)$ for
+$n\ge2$, where $\mathrm{A000215}(n-1)=2^{2^{n-1}}+1$ is the Fermat number, that is
+$(x+1)^{2^{n-1}}$ as a $\mathrm{GF}(2)$ polynomial. Theorem~\ref{thm:main} accounts for
+that factor without any extra work: $2^{n-1}=2q$, so the identity says exactly that
+dividing $A$ by $(1+x)^{2q}$ leaves $(1+x)^{q-1}\bigl(B(x)(x+1)+x^{q}\bigr)$, which is the
+same window read over one period instead of two. The verification script confirms the
+identity numerically as well.
+\end{remark}
+
+\begin{remark}[honest assessment]
+The proof is five lines once Lemma~\ref{lem:flip} is in place, and Lemma~\ref{lem:flip} is
+lifting-the-exponent. Nothing here is deep; the natural destination is an OEIS comment.
+What kept the statement open for twenty-seven years is presumably that the object is
+homemade and nobody looked.
+\end{remark}
+
+\section{Verification}
+
+A verification script, written separately from this note, checks every claim and prints
+every number quoted. It (i) recomputes $a(0),\dots,a(8)$ from the defining sum and matches
+the published DATA exactly; (ii) confirms that the multiplicative order of 3 modulo
+$2^{n+1}$ is $2^{n-1}$ and that $3^{2^{n-2}}\equiv1+2^{n}\pmod{2^{n+1}}$ for
+$3\le n\le24$; (iii) confirms Lemma~\ref{lem:flip} at every $k$ for $3\le n\le15$;
+(iv) confirms the factorization of Theorem~\ref{thm:main} by explicit polynomial
+multiplication for $3\le n\le14$; and (v) computes $v(a(n))$ for $3\le n\le14$, obtaining
+$5,11,23,47,95,191,383,767,1535,3071,6143,12287$, which is $3\cdot2^{n-2}-1$ in every
+case, together with cofactor value 1 at $x=1$ in every case, confirming exactness.
+
+\begin{thebibliography}{9}
+\bibitem{oeis} N.~J.~A. Sloane et al., \emph{The On-Line Encyclopedia of Integer
+Sequences}, \url{https://oeis.org/A037096}, entry A037096, consulted 23 August 2026; also
+A055010 and A036284.
+\bibitem{rib} P.~Ribenboim, \emph{The New Book of Prime Number Records}, 3rd ed.,
+Springer, 1996 (for the lifting-the-exponent lemma at $p=2$).
+\end{thebibliography}
+\end{document}
