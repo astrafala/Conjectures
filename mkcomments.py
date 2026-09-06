@@ -40,6 +40,8 @@ NOTE = {
 REC = {}
 CLAIMED = {}
 OPEN_REC = {}
+ENGOF = {}
+WINOF = {}
 
 
 def norm_title(t):
@@ -145,6 +147,14 @@ GFPROOF = ("The conjectured generating function is correct: expanding it and the
            "definition both give the same linear recurrence, and they agree at enough initial "
            "terms for that to settle it.")
 
+PERM = ("The empirical recurrence is true. The count is a permanent: the cells are permuted and "
+        "each one moves by one of the offsets the name lists. Number the cells in row-major "
+        "order and let each choose its image; an offset moves a cell by a bounded number of "
+        "places in that order, so all that has to be carried is which images inside a window of "
+        "%s consecutive positions are already taken. That makes a(n) a walk count on %s states, "
+        "hence C-finite of order at most that, and checking the recurrence above is a finite "
+        "exact computation")
+
 ARRAY_TITLES = {
  'The empirical recurrence for OEIS A, proved by transfer matrix',
  'The empirical recurrence for OEIS A, proved by a two-line transfer matrix',
@@ -201,6 +211,19 @@ def main():
         except Exception:
             pass
     CLAIMED.update(json.load(open(SC + '/table_claimed.json')))
+    for v in json.load(open('paper-engines.json')).values():
+        ENGOF[v['anum']] = v['engine']
+    import transfer73
+    import localentry as _LE
+    for a, en in ENGOF.items():
+        if en != 'array-permutation':
+            continue
+        try:
+            q = transfer73.parse_name(_LE.get(a)['name'])
+            lin = [d1 * q['W'] + d2 for d1, d2 in q['offs']]
+            WINOF[a] = max(lin + [0]) - min(lin + [0]) + 1
+        except Exception:
+            pass
     out, unhandled = {}, collections.Counter()
     live = collections.Counter(v['anum'] for v in json.load(open('paper-engines.json')).values())
     for a in sorted(live):
@@ -228,6 +251,12 @@ def main():
             txt = why = None
             if a in HAND:
                 txt = HAND[a]
+            elif ENGOF.get(a) == 'array-permutation':
+                # the title is the ordinary transfer-matrix one, but the object is not an array
+                # count: these permute the CELLS, so the generic wording would be wrong
+                txt = (PERM % (WINOF.get(a, 'a few'),
+                               f"{S:,}".replace(',', ' ') if S else 'finitely many')
+                       + ((' that holds for n > %d.' % thr) if thr is not None else '.'))
             elif t in ARRAY_TITLES:
                 txt = array(S, thr)
             elif t == "The empirical recurrence for OEIS A, derived from the entry's generating function":
