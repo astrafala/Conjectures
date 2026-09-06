@@ -82,13 +82,17 @@ $2^{{{nnamed}}}$ values, and the state of the walk is a pair (array row, set $T$
         statetxt = rf"""
 So the state is a pair: the last array row, and the set $T$ of Lemma~\ref{{lem:seen}}. A step
 appends a row, which settles every clash between it and the row above, every clash inside it,
-and every first appearance it contains. There are $S={S}$ reachable states.
+and every first appearance it contains. Two states from which, for every remaining length, the
+same number of arrays can be completed contribute identically to the count, so they are
+identified; after that identification there are $S={S}$ of them.
 """
     else:
         prectxt = ''
         statetxt = rf"""
 So a single array row is a state. A step appends a row, which settles every clash between it
-and the row above and every clash inside it. There are $S={S}$ reachable states.
+and the row above and every clash inside it. Two states from which, for every remaining length,
+the same number of arrays can be completed contribute identically to the count, so they are
+identified; after that identification there are $S={S}$ of them.
 """
     trans = ('' if not p['trans'] else
              " The entry writes the array with $n$ as the number of COLUMNS. The walk is run "
