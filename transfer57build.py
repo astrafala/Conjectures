@@ -22,6 +22,16 @@ def conj_line(anum):
     return None
 
 
+import json as _json
+_ROSTER_AT_BUILD = {v['anum'] for v in _json.load(open('paper-engines.json')).values()}
+
+
+def datefor(a):
+    """A paper carries the date its result was obtained, not the date of the batch it
+    happens to be rebuilt with."""
+    return '6 September 2026' if a not in _ROSTER_AT_BUILD else '3 September 2026'
+
+
 def build(h):
     a = h['anum']
     S, order, nterms, nthr = h['S'], h['order'], h['nterms'], h['nthr']
@@ -67,7 +77,7 @@ def build(h):
     return rf"""{PRE}
 \title{{The empirical recurrence for OEIS {a}, proved by transfer matrix}}
 \author{{Adrian Perez Fontelles\\ \small Independent researcher}}
-\date{{3 September 2026}}
+\date{{{datefor(a)}}}
 \begin{{document}}
 \maketitle
 

@@ -22,14 +22,21 @@ SHAPE = r'(?:\((n|\d+)\s*\+\s*(\d+)\)|(n|\d+))\s*X\s*(?:\((n|\d+)\s*\+\s*(\d+)\)
 HEAD = re.compile(r'Number of\s+' + SHAPE + r'\s*0\.\.(\d+)\s*arrays with\s+(.*?)\s*\.?\s*$',
                   re.I)
 
-P1 = re.compile(r'^no row, column, diagonal or antidiagonal in any (\d+)\s*X\s*(\d+) subblock '
-                r'summing to ([\d\s]*\d)$', re.I)
-P2 = re.compile(r'^every row, column, diagonal or antidiagonal in each (\d+)\s*X\s*(\d+) '
+# the entries write these lists three ways -- "3 6", "3, 6" and "1, 2, 3, 4, 5, 6, or 7" --
+# and the class here allowed only the first. The "or" is stripped before matching; the commas
+# were not, so every comma-separated entry silently failed to parse.
+NUMS = r'[\d\s,]*\d'
+# the body has "or" stripped before matching, which also removes the one inside
+# "diagonal or antidiagonal" -- so the literal has to tolerate its absence, or every entry of
+# this shape refuses. That is what kept 28 of them out.
+P1 = re.compile(r'^no row, column, diagonal (?:or )?antidiagonal in any (\d+)\s*X\s*(\d+) subblock '
+                r'summing to (' + NUMS + r')$', re.I)
+P2 = re.compile(r'^every row, column, diagonal (?:or )?antidiagonal in each (\d+)\s*X\s*(\d+) '
                 r'subblock summing to a prime$', re.I)
 P3 = re.compile(r'^every (\d+)\s*X\s*(\d+) subblock row and column sum '
-                r'(not |unequal to |equal to )?([\d\s]*\d) and every diagonal and antidiagonal '
-                r'sum (not |unequal to |equal to )?([\d\s]*\d)$', re.I)
-P4 = re.compile(r'^every (\d+)\s*X\s*(\d+) subblock summing to (\d+)$', re.I)
+                r'(not |unequal to |equal to )?(' + NUMS + r') and every diagonal and '
+                r'antidiagonal sum (not |unequal to |equal to )?(' + NUMS + r')$', re.I)
+P4 = re.compile(r'^every (\d+)\s*X\s*(\d+) subblock summing to (' + NUMS + r')$', re.I)
 # the two comparison forms: one line of a subblock measured against another
 P5 = re.compile(r'^no (\d+)\s*X\s*(\d+) subblock diagonal sum (less than|greater than|equal to)'
                 r' the antidiagonal sum'
@@ -105,7 +112,7 @@ def parse_name(nm):
         g = P4.match(body)
         if g:
             K = int(g.group(1))
-            total = int(g.group(3))
+            total = _set(g.group(3))       # a SET: "summing to 2, 4, or 6" is three values
     cmps = []
     if K is None:
         g = P5.match(body)
@@ -139,7 +146,8 @@ def parse_name(nm):
     if trans:                              # transposing exchanges rows with columns
         rules = {SW.get(t, t): v for t, v in rules.items()}
         cmps = [(SW.get(x, x), SW.get(y, y), c) for x, y, c in cmps]
-    return {'W': W, 'alpha': alpha, 'K': K, 'total': total, 'cmps': cmps,
+    return {'W': W, 'alpha': alpha, 'K': K,
+            'total': sorted(total) if total is not None else None, 'cmps': cmps,
             'rules': {t: (mode, sorted(s) if s is not None else None)
                       for t, (mode, s) in rules.items()},
             'trans': trans, 'frac': 1}
@@ -151,7 +159,7 @@ def build(p, cap=40000):
     # vacuous rather than unsatisfiable: `fits' loops over an empty range and says so
     rules = {t: (mode, frozenset(s) if s is not None else None)
              for t, (mode, s) in p['rules'].items()}
-    total = p['total']
+    total = frozenset(p['total']) if p['total'] is not None else None
     cmps = [tuple(c) for c in p.get('cmps', [])]
     if A ** W > 40 * cap:
         return None
@@ -169,7 +177,7 @@ def build(p, cap=40000):
         for j in range(W - K + 1):
             blk = [[win[r][j + c] for c in range(K)] for r in range(K)]
             if total is not None:
-                if sum(sum(r) for r in blk) != total:
+                if sum(sum(r) for r in blk) not in total:
                     return False
                 continue
             val = {'diagonal': sum(blk[r][r] for r in range(K)),

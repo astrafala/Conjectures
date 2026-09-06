@@ -40,7 +40,9 @@ def count(p, R, C):
     def blockok(i, j):
         blk = [[g[i + r][j + c] for c in range(K)] for r in range(K)]
         if total is not None:
-            return sum(sum(r) for r in blk) == total
+            # the name may allow a SET of window sums -- "summing to 2, 4, or 6" -- so this
+            # is membership, not equality
+            return sum(sum(r) for r in blk) in set(total)
         val = {'diagonal': sum(blk[r][r] for r in range(K)),
                'antidiagonal': sum(blk[r][K - 1 - r] for r in range(K)),
                'crow': sum(blk[K // 2]),
