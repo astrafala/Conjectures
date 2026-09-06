@@ -1,0 +1,186 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=1in]{geometry}
+\usepackage[colorlinks=true,linkcolor=blue,urlcolor=blue]{hyperref}
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem*{remark}{Remark}
+
+\title{A closed form for the $p$-adic valuation of OEIS A129365,\\
+and a proof that its terms are integers}
+\author{Adrian Perez Fontelles\\ \small Independent researcher}
+\date{23 August 2026}
+\begin{document}
+\maketitle
+
+\begin{abstract}
+OEIS A129365 is the quotient
+$a(n)=\bigl(\prod_{j,k\le n}\gcd(j,k)\bigr)\big/\bigl(\prod_{k=1}^{n}(\lfloor
+n/k\rfloor!)^{k}\bigr)$. In April 2007 P.~Bala listed four conjectures about it, the first
+being simply that $a(n)$ is always an integer. We prove the exact closed form
+\[
+  \operatorname{ord}_{p}a(n)=\sum_{i\ge1}B\bigl(\lfloor n/p^{i}\rfloor\bigr),
+  \qquad B(M)=\sum_{k=1}^{M}\bigl(M\bmod k\bigr)\ \ (\text{A004125}),
+\]
+for every prime $p$. Since a sum of remainders is nonnegative, every exponent is
+nonnegative and Conjecture A follows at once. The proof is three steps: the known
+factorisation of the numerator, the nested-floor identity
+$\lfloor n/(kp^{i})\rfloor=\lfloor\lfloor n/p^{i}\rfloor/k\rfloor$ for the denominator, and
+the observation that $M^{2}-\sum_{k\le M}k\lfloor M/k\rfloor$ is exactly
+$\sum_{k\le M}(M\bmod k)$ because $M^{2}=\sum_{k\le M}M$.
+\end{abstract}
+
+\section{The sequence and the conjecture}
+
+OEIS A129365 (Peter Bala, 13 April 2007) has offset 1 and is defined by
+$a(n)=\mathrm{A092287}(n)/\mathrm{A129364}(n)$, equivalently by the formula recorded on the
+entry
+\begin{equation}\label{eq:def}
+  a(n)=\frac{\displaystyle\prod_{j=1}^{n}\prod_{k=1}^{n}\gcd(j,k)}
+            {\displaystyle\prod_{k=1}^{n}\bigl(\lfloor n/k\rfloor!\bigr)^{k}},
+\end{equation}
+with $a(1),\dots,a(10)=1,1,1,1,1,2,2,2,6,48$. The entry carries four conjectures, labelled
+A--D. This note proves the first:
+
+\begin{quote}
+\textbf{Conjectures:} A) $a(n)$ is always an integer.
+\end{quote}
+
+Conjectures B and C were addressed by T.~Adamczewski (arXiv:2608.11941, August 2026), as
+annotated on the entry by M.~De Vlieger on 20 August 2026. Conjecture D is the same closed
+form evaluated at $n\mapsto np$. As of the ``Last modified'' line on the live entry
+(23 August 2026), A and D are still recorded as unproven.
+
+Throughout $p$ is a prime, $v_{p}(N)$ is the exponent of $p$ in $N$ (the entry's
+$\operatorname{ord}_{p}$), and
+\[
+  B(M)=\sum_{k=1}^{M}\bigl(M\bmod k\bigr)
+\]
+is A004125, the sum of remainders, with $B(0)=0$.
+
+\section{Three ingredients}
+
+\begin{lemma}[numerator]\label{lem:num}
+$\displaystyle v_{p}\Bigl(\prod_{j=1}^{n}\prod_{k=1}^{n}\gcd(j,k)\Bigr)
+=\sum_{i\ge1}\lfloor n/p^{i}\rfloor^{2}$.
+\end{lemma}
+
+\begin{proof}
+$v_{p}(\gcd(j,k))=\min(v_{p}(j),v_{p}(k))$ counts the $i\ge1$ with $p^{i}\mid j$ and
+$p^{i}\mid k$. Summing over $j,k\le n$ and exchanging the order of summation, the two
+divisibility conditions are independent, so the count at level $i$ is
+$\bigl(\#\{j\le n:p^{i}\mid j\}\bigr)^{2}=\lfloor n/p^{i}\rfloor^{2}$. (This is the
+square-case formula of A092287, confirmed on that entry by C.~R. Greathouse IV in April
+2013.)
+\end{proof}
+
+\begin{lemma}[nested floors]\label{lem:floor}
+For positive integers $n,k,q$, $\lfloor n/(kq)\rfloor=\lfloor\lfloor n/q\rfloor/k\rfloor$.
+\end{lemma}
+
+\begin{proof}
+Standard: for a real $x$ and a positive integer $k$,
+$\lfloor x/k\rfloor=\lfloor\lfloor x\rfloor/k\rfloor$; apply it to $x=n/q$.
+\end{proof}
+
+\begin{lemma}[remainder identity]\label{lem:rem}
+For every integer $M\ge0$,
+$\displaystyle M^{2}-\sum_{k=1}^{M}k\lfloor M/k\rfloor=\sum_{k=1}^{M}\bigl(M\bmod k\bigr)
+=B(M)$.
+\end{lemma}
+
+\begin{proof}
+$M^{2}=\sum_{k=1}^{M}M$, and $M-k\lfloor M/k\rfloor=M\bmod k$ termwise.
+\end{proof}
+
+\section{The closed form}
+
+\begin{theorem}\label{thm:main}
+For every $n\ge1$ and every prime $p$,
+\[
+  v_{p}\bigl(a(n)\bigr)=\sum_{i\ge1}B\bigl(\lfloor n/p^{i}\rfloor\bigr),
+\]
+where $a(n)$ is given by \eqref{eq:def}. All terms with $p^{i}>n$ vanish, so the sum is
+finite.
+\end{theorem}
+
+\begin{proof}
+Write $M_{i}=\lfloor n/p^{i}\rfloor$. By Legendre's formula and Lemma~\ref{lem:floor},
+\[
+  v_{p}\Bigl(\prod_{k=1}^{n}\bigl(\lfloor n/k\rfloor!\bigr)^{k}\Bigr)
+  =\sum_{k=1}^{n}\sum_{i\ge1}k\bigl\lfloor\lfloor n/k\rfloor\big/p^{i}\bigr\rfloor
+  =\sum_{i\ge1}\sum_{k=1}^{n}k\bigl\lfloor n/(kp^{i})\bigr\rfloor
+  =\sum_{i\ge1}\sum_{k=1}^{M_{i}}k\lfloor M_{i}/k\rfloor,
+\]
+where in the last step Lemma~\ref{lem:floor} was used again in the form
+$\lfloor n/(kp^{i})\rfloor=\lfloor M_{i}/k\rfloor$, and the terms with $k>M_{i}$ were
+dropped because $\lfloor M_{i}/k\rfloor=0$ there. Subtracting this from Lemma~\ref{lem:num}
+and applying Lemma~\ref{lem:rem} at each level $i$,
+\[
+  v_{p}\bigl(a(n)\bigr)=\sum_{i\ge1}\Bigl(M_{i}^{2}-\sum_{k=1}^{M_{i}}k\lfloor M_{i}/k
+  \rfloor\Bigr)=\sum_{i\ge1}B(M_{i}).\qedhere
+\]
+\end{proof}
+
+\begin{corollary}[Conjecture A]\label{cor:A}
+$a(n)$ is an integer for every $n\ge1$.
+\end{corollary}
+
+\begin{proof}
+Each $M\bmod k$ is a nonnegative integer, so $B(M)\ge0$ and hence $v_{p}(a(n))\ge0$ for
+every prime $p$ by Theorem~\ref{thm:main}. A positive rational with nonnegative valuation
+at every prime is an integer.
+\end{proof}
+
+\begin{remark}[the other three conjectures]
+Theorem~\ref{thm:main} settles all four of Bala's conjectures at once, though only A and D
+were still open. For B: $B(M)=0$ exactly when $M\le2$ (for $M\ge3$ the term $k=2$ or
+$k=M-1$ contributes), so $v_{p}(a(n))>0$ iff $\lfloor n/p\rfloor\ge3$ iff $p\le n/3$. For
+C: if $m=np+r$ with $0\le r<p$ then $\lfloor m/p^{i}\rfloor=\lfloor n/p^{i-1}\rfloor$ for
+every $i\ge1$, independent of $r$, so $v_{p}(a(m))$ is constant across the block. For D:
+taking $m=np$ in that same identity gives
+$v_{p}(a(np))=B(n)+B(\lfloor n/p\rfloor)+B(\lfloor n/p^{2}\rfloor)+\cdots$. B and C are
+credited on the entry to Adamczewski (2026); the derivations above are recorded only to
+show that the closed form covers them.
+\end{remark}
+
+\begin{remark}[honest assessment]
+The proof is short and uses nothing beyond Legendre's formula and two elementary floor
+identities. It is an OEIS comment, not a paper. What makes it worth writing down is that
+the closed form is not on the entry in any form, and that it replaces four separate
+conjectures with one identity.
+
+One caution the reader should carry: a benchmark of 492 Lean-formalised open OEIS
+conjectures is currently being worked through by automated systems (Adamczewski,
+arXiv:2608.11941, 12 August 2026, reporting 147 resolved; and earlier work on the same
+492). Conjectures B and C of this entry fell to that effort three days before this note was
+written. I have not been able to confirm whether A or D appear in that formalised set, and
+anyone acting on this note should check the results repositories before assuming priority.
+\end{remark}
+
+\section{Verification}
+
+A verification script, written separately from this note, checks every claim and prints
+every number quoted. It (i) recomputes $a(1),\dots,a(27)$ from \eqref{eq:def} and matches
+the published DATA of A129365 exactly; (ii) confirms $B(M)=0\iff M\le2$ for
+$0\le M\le2000$, and prints $B(0),\dots,B(12)=0,0,0,1,1,4,3,8,8,12,13,22,17$;
+(iii) compares $v_{p}(a(n))$ against $\sum_{i}B(\lfloor n/p^{i}\rfloor)$ for every
+$1\le n\le60$ and every prime $p\le n$, that is 597 pairs $(n,p)$, with 0 mismatches; and
+(iv) confirms directly that $a(n)$ is an integer for $1\le n\le100$.
+
+\begin{thebibliography}{9}
+\bibitem{oeis} N.~J.~A. Sloane et al., \emph{The On-Line Encyclopedia of Integer
+Sequences}, \url{https://oeis.org/A129365}, entry A129365, consulted 23 August 2026; also
+entries A092287 and A004125.
+\bibitem{legendre} A.~M. Legendre, \emph{Th\'eorie des Nombres}, 3rd ed., Firmin Didot,
+Paris, 1830.
+\bibitem{adam} T.~Adamczewski, \emph{OEIS Open: How many conjectures can language models
+turn into theorems?}, arXiv:2608.11941 [cs.AI], 2026.
+\end{thebibliography}
+\end{document}

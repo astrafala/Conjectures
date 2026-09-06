@@ -1,0 +1,195 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=1in]{geometry}
+\usepackage[colorlinks=true,linkcolor=blue,urlcolor=blue]{hyperref}
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem*{remark}{Remark}
+
+\title{One differential equation, two transforms:\\
+a proof of Layman's conjecture on OEIS A005329}
+\author{Adrian Perez Fontelles\\ \small Independent researcher}
+\date{24 August 2026}
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Let $a(n)=\prod_{i=1}^{n}(2^{i}-1)$ be the 2-factorial numbers, OEIS A005329. In September
+2002 J.~W. Layman conjectured that this sequence is the inverse binomial transform of
+A075272, the BinomialMean transform of A075271. We prove it. Both sides are governed by a
+functional equation for an exponential generating function, and the two equations are
+carried into one another by the substitution $g=e^{x}f$ --- which is precisely the
+operation ``take the binomial transform''. On the A005329 side the equation is nothing but
+the defining recurrence $a(n+1)=(2^{n+1}-1)a(n)$ rewritten; on the A075272 side it is the
+definition of the BinomialMean transform rewritten. The conjecture is the observation that
+these two rewritings differ by exactly one factor of $e^{x}$.
+\end{abstract}
+
+\section{The sequences and the conjecture}
+
+OEIS A005329 has offset 0 and is
+\[
+  a(n)=\prod_{i=1}^{n}\bigl(2^{i}-1\bigr)=1,1,3,21,315,9765,615195,78129765,\dots
+\]
+equivalently $a(0)=1$ and
+\begin{equation}\label{eq:rec}
+  a(n+1)=\bigl(2^{n+1}-1\bigr)a(n)\qquad(n\ge0).
+\end{equation}
+
+The BinomialMean transform $\mathrm{BM}$ of a sequence $(u(n))$ is
+\[
+  (\mathrm{BM}u)(n)=\frac{1}{2^{n}}\sum_{k=0}^{n}\binom{n}{k}u(k),
+\]
+and A075271 is the sequence $b$ defined by $b(0)=1$ together with
+\begin{equation}\label{eq:bm}
+  (\mathrm{BM}b)(n)=2\,b(n-1)\qquad(n\ge1),
+\end{equation}
+which determines $b$ uniquely; A075272 is $c=\mathrm{BM}b$. Thus $b=1,3,17,211,5793,\dots$
+and $c=1,2,6,34,422,11586,\dots$, and \eqref{eq:bm} says
+\begin{equation}\label{eq:shift}
+  c(n)=2\,b(n-1)\qquad(n\ge1),
+\end{equation}
+a relation also recorded as a comment on A075272.
+
+The entry A005329 carries
+
+\begin{quote}
+\textbf{Conjecture:} this sequence is the inverse binomial transform of A075272 or,
+equivalently, the inverse binomial transform of the BinomialMean transform of A075271. ---
+John W. Layman, Sep 12 2002
+\end{quote}
+
+(The two readings coincide, since $\mathrm{A075272}=\mathrm{BM}(\mathrm{A075271})$ by
+definition.) As of the ``Last modified'' line on the live entry (24 August 2026) the
+statement is still recorded as an unproven conjecture, with no proof in the entry's links
+or programs. Writing $B$ for the binomial transform, $(Bu)(n)=\sum_{k}\binom{n}{k}u(k)$,
+whose inverse is $(B^{-1}u)(n)=\sum_{k}(-1)^{n-k}\binom{n}{k}u(k)$, the conjecture says
+\begin{equation}\label{eq:conj}
+  Ba=c.
+\end{equation}
+
+\begin{remark}[status, stated plainly]
+A comment added to A075272 by V.~Reshetnikov on 20 November 2015 asserts ``Binomial
+transform of A005329'' flatly, without label or proof, and the Mathematica program on that
+entry generates the terms from that identity. So the same statement sits on one entry as an
+unproven conjecture and on the other as an unsourced assertion, and the two have never been
+reconciled. I have found no proof on either entry or in the literature. What follows
+supplies one.
+\end{remark}
+
+\section{Two functional equations}
+
+All generating functions are formal exponential generating functions over $\mathbb{Q}$; all
+manipulations are formal.
+
+\begin{lemma}\label{lem:f}
+Let $f(x)=\sum_{n\ge0}a(n)x^{n}/n!$. Then \eqref{eq:rec} holds if and only if
+\begin{equation}\label{eq:fe1}
+  f(x)+f'(x)=2f(2x).
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+The coefficient of $x^{n}/n!$ in $f$ is $a(n)$, in $f'$ is $a(n+1)$, and in $2f(2x)$ is
+$2\cdot2^{n}a(n)=2^{n+1}a(n)$. So \eqref{eq:fe1} is equivalent to
+$a(n)+a(n+1)=2^{n+1}a(n)$ for all $n\ge0$, which is \eqref{eq:rec}.
+\end{proof}
+
+\begin{lemma}\label{lem:g}
+The sequence $c=\mathrm{A075272}$ is the unique sequence with $c(0)=1$ satisfying
+\begin{equation}\label{eq:fe2c}
+  \sum_{k=0}^{n}\binom{n}{k}c(k+1)=2^{n+1}c(n)\qquad(n\ge0).
+\end{equation}
+Moreover, if $g(x)=\sum_{n\ge0}c(n)x^{n}/n!$, then \eqref{eq:fe2c} holds if and only if
+\begin{equation}\label{eq:fe2}
+  e^{x}g'(x)=2g(2x).
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+By \eqref{eq:shift}, $b(k)=\tfrac12c(k+1)$ for $k\ge0$. Substituting this into
+$c=\mathrm{BM}b$, that is into $2^{n}c(n)=\sum_{k=0}^{n}\binom{n}{k}b(k)$, gives
+$2^{n}c(n)=\tfrac12\sum_{k=0}^{n}\binom{n}{k}c(k+1)$, which is \eqref{eq:fe2c}. Also
+$c(0)=(\mathrm{BM}b)(0)=b(0)=1$. Conversely \eqref{eq:fe2c} determines $c(n+1)$ from
+$c(0),\dots,c(n)$, since the $k=n$ term is $c(n+1)$ and all other terms involve smaller
+indices; with $c(0)=1$ this fixes the whole sequence, giving uniqueness.
+
+For the second claim: the binomial transform corresponds to multiplication of exponential
+generating functions by $e^{x}$, so
+$\sum_{n}\bigl(\sum_{k}\binom{n}{k}c(k+1)\bigr)x^{n}/n!=e^{x}g'(x)$, while
+$\sum_{n}2^{n+1}c(n)x^{n}/n!=2g(2x)$.
+\end{proof}
+
+\section{The theorem}
+
+\begin{theorem}\label{thm:main}
+$Ba=c$; that is, for every $n\ge0$,
+\[
+  \sum_{k=0}^{n}\binom{n}{k}\prod_{i=1}^{k}\bigl(2^{i}-1\bigr)=\mathrm{A075272}(n),
+  \qquad\text{equivalently}\qquad
+  a(n)=\sum_{k=0}^{n}(-1)^{n-k}\binom{n}{k}\mathrm{A075272}(k).
+\]
+\end{theorem}
+
+\begin{proof}
+Let $f$ be the exponential generating function of $a$ and put $g:=e^{x}f$, which is the
+exponential generating function of $Ba$. Then
+\[
+  e^{x}g'=e^{x}\bigl(e^{x}f+e^{x}f'\bigr)=e^{2x}\bigl(f+f'\bigr),
+  \qquad 2g(2x)=2e^{2x}f(2x).
+\]
+By Lemma~\ref{lem:f}, $f+f'=2f(2x)$, so the two right-hand sides agree and $g$ satisfies
+\eqref{eq:fe2}. Also $(Ba)(0)=a(0)=1$. By Lemma~\ref{lem:g}, $g$ is the exponential
+generating function of A075272, whence $Ba=c$. Applying $B^{-1}$ gives the second form,
+which is Layman's conjecture.
+\end{proof}
+
+\begin{remark}[what the proof is really saying]
+Both sequences are pinned down by a single functional equation, and the two equations
+differ by exactly one factor of $e^{x}$ --- which is what the binomial transform does to an
+exponential generating function. So the conjecture is not an accident of the numbers: it
+says that the recurrence defining the 2-factorials and the recurrence defining A075271
+through its BinomialMean transform are the same statement, one binomial transform apart.
+The factor 2 in \eqref{eq:bm} is what matches the base 2 in $\prod(2^{i}-1)$; the same
+argument with $q$ in place of 2 relates $\prod_{i=1}^{n}(q^{i}-1)$ to the analogous $q$-mean
+transform.
+\end{remark}
+
+\begin{remark}[honest assessment]
+The proof is half a page and uses nothing beyond formal exponential generating functions.
+It is an OEIS comment, not a paper. It is worth recording because the statement has carried
+the label ``Conjecture'' since 2002, because the entry A075272 has meanwhile asserted the
+same identity as a fact since 2015 without proof, and because the two entries have never
+been connected.
+\end{remark}
+
+\section{Verification}
+
+A verification script, written separately from this note, checks every claim and prints
+every number quoted. It (i) reproduces the first 13 published terms of A005329 from the
+product definition; (ii) generates A075271 from its definition \eqref{eq:bm}, obtaining
+$1,3,17,211,5793,339491,41326513,\dots$, forms $c=\mathrm{BM}b$, obtaining
+$1,2,6,34,422,11586,678982,\dots$ in agreement with the published DATA of A075272, and
+confirms \eqref{eq:shift} for $n\le24$; (iii) confirms Layman's conjecture directly,
+checking $B^{-1}(\mathrm{A075272})(n)=\mathrm{A005329}(n)$ and equivalently
+$B(\mathrm{A005329})(n)=\mathrm{A075272}(n)$ for $n=0,\dots,24$, with no discrepancy;
+(iv) confirms the coefficient forms of Lemmas~\ref{lem:f} and \ref{lem:g}, namely
+$a(n)+a(n+1)=2^{n+1}a(n)$ and $\sum_{k}\binom{n}{k}c(k+1)=2^{n+1}c(n)$, for $n\le23$;
+(v) confirms that $Ba$ itself satisfies \eqref{eq:fe2c}, which is the content of
+Theorem~\ref{thm:main} at the level of coefficients; and (vi) confirms the uniqueness claim
+of Lemma~\ref{lem:g} by regenerating A075272 from \eqref{eq:fe2c} and $c(0)=1$ alone.
+
+\begin{thebibliography}{9}
+\bibitem{oeis} N.~J.~A. Sloane et al., \emph{The On-Line Encyclopedia of Integer
+Sequences}, \url{https://oeis.org/A005329}, consulted 24 August 2026; also A075271 and
+A075272.
+\bibitem{spivey} M.~Z. Spivey and L.~L. Steil, \emph{The $k$-binomial transforms and the
+Hankel transform}, Journal of Integer Sequences 9 (2006), Article 06.1.1.
+\end{thebibliography}
+\end{document}

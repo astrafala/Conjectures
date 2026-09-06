@@ -1,0 +1,170 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=1in]{geometry}
+\usepackage[colorlinks=true,linkcolor=blue,urlcolor=blue]{hyperref}
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem*{remark}{Remark}
+
+\title{The prime factorisation of a triple product of gcds,\\
+and an off-by-one in the conjecture as posted}
+\author{Adrian Perez Fontelles\\ \small Independent researcher}
+\date{23 August 2026}
+\begin{document}
+\maketitle
+
+\begin{abstract}
+OEIS A129454 is $a(n)=\prod_{i=1}^{n-1}\prod_{j=1}^{n-1}\prod_{k=1}^{n-1}\gcd(i,j,k)$. In
+April 2007 P.~Bala conjectured that
+$\operatorname{ord}_{p}a(n)=\sum_{t\ge1}\lfloor n/p^{t}\rfloor^{3}$. We prove the exact
+prime factorisation
+$\operatorname{ord}_{p}a(n)=\sum_{t\ge1}\lfloor(n-1)/p^{t}\rfloor^{3}$, by the counting
+argument that also gives Legendre's formula. The conjecture as literally indexed is false
+--- the comment was transplanted from the companion entry A092287, whose products run to
+$n$ rather than $n-1$, and the upper limit was not adjusted. The smallest counterexample is
+$n=4$, $p=2$: the posted formula gives exponent 9, the truth is 1, and indeed $a(4)=6$.
+With $n$ replaced by $n-1$ throughout, the conjecture is exactly right, and that is the
+reading the entry's own definition forces.
+\end{abstract}
+
+\section{The sequence and the conjecture}
+
+OEIS A129454, contributed by Peter Bala on 16 April 2007, has offset 0 and
+\[
+  a(n)=\prod_{i=1}^{n-1}\prod_{j=1}^{n-1}\prod_{k=1}^{n-1}\gcd(i,j,k)\quad(n>2),
+  \qquad a(n)=1\ (n\le2),
+\]
+with $a(0),\dots,a(7)=1,1,1,2,6,1536,7680,8806025134080$. The entry carries
+
+\begin{quote}
+\textbf{Conjecture:} Let $p$ be a prime and let $\operatorname{ord}_{p}(n,p)$ denote the
+largest power of $p$ which divides $n$. \dots\ Then we conjecture that the prime
+factorization of $a(n)$ is given by $\operatorname{ord}_{p}(a(n),p)=(\lfloor
+n/p\rfloor)^{3}+(\lfloor n/p^{2}\rfloor)^{3}+(\lfloor n/p^{3}\rfloor)^{3}+\cdots$. Compare
+with the comments in A092287.
+\end{quote}
+
+As of the ``Last modified'' line on the live entry (23 August 2026) this is still recorded
+as an unproven conjecture, with no proof in the entry's links or programs.
+
+The pointer to A092287 explains the shape of the statement and also its defect. In A092287
+the products run over $1\le j,k\le n$ and the correct exponent is
+$\sum_{t}\lfloor n/p^{t}\rfloor^{2}$; here the products run over $1\le i,j,k\le n-1$, but
+the comment reuses $\lfloor n/p^{t}\rfloor$ unchanged. As stated it is therefore false.
+Section~3 proves the corrected version and Section~4 records the counterexample.
+
+Throughout $p$ is a prime and $v_{p}(N)$ is the exponent of $p$ in $N$.
+
+\section{The counting lemma}
+
+\begin{lemma}[layer cake]\label{lem:layer}
+For positive integers $x_{1},\dots,x_{d}$,
+\[
+  v_{p}\bigl(\gcd(x_{1},\dots,x_{d})\bigr)=\min_{1\le t\le d}v_{p}(x_{t})
+  =\#\bigl\{\,s\ge1:p^{s}\mid x_{t}\text{ for every }t\,\bigr\}.
+\]
+\end{lemma}
+
+\begin{proof}
+The first equality is the description of gcd prime by prime. For the second, $p^{s}$
+divides every $x_{t}$ exactly when $s\le v_{p}(x_{t})$ for every $t$, that is when
+$1\le s\le\min_{t}v_{p}(x_{t})$.
+\end{proof}
+
+\section{The theorem}
+
+\begin{theorem}\label{thm:main}
+Let $N\ge1$, $d\ge1$ and put
+$G_{d}(N)=\prod_{x_{1}=1}^{N}\cdots\prod_{x_{d}=1}^{N}\gcd(x_{1},\dots,x_{d})$. Then for
+every prime $p$,
+\[
+  v_{p}\bigl(G_{d}(N)\bigr)=\sum_{s\ge1}\left\lfloor\frac{N}{p^{s}}\right\rfloor^{d}.
+\]
+\end{theorem}
+
+\begin{proof}
+By additivity of $v_{p}$ and Lemma~\ref{lem:layer},
+\[
+  v_{p}\bigl(G_{d}(N)\bigr)=\sum_{x_{1},\dots,x_{d}\le N}
+  \#\{s\ge1:p^{s}\mid x_{1},\dots,p^{s}\mid x_{d}\}
+  =\sum_{s\ge1}\#\bigl\{(x_{1},\dots,x_{d})\in[1,N]^{d}:p^{s}\mid x_{t}\ \forall t\bigr\},
+\]
+a finite rearrangement of nonnegative terms. The $d$ divisibility conditions are
+independent, so the inner count is
+$\bigl(\#\{x\le N:p^{s}\mid x\}\bigr)^{d}=\lfloor N/p^{s}\rfloor^{d}$.
+\end{proof}
+
+\begin{corollary}\label{cor:main}
+For A129454 and every prime $p$,
+\[
+  \operatorname{ord}_{p}a(n)=\sum_{s\ge1}\left\lfloor\frac{n-1}{p^{s}}\right\rfloor^{3}.
+\]
+This is Bala's conjecture with $n$ replaced by $n-1$, and it is the statement forced by the
+entry's own definition of $a(n)$ as a product over $1\le i,j,k\le n-1$.
+\end{corollary}
+
+\begin{proof}
+Apply Theorem~\ref{thm:main} with $d=3$ and $N=n-1$. For $n\le2$ the product is empty and
+both sides are 0.
+\end{proof}
+
+\section{The conjecture as posted is false}
+
+\begin{proposition}\label{prop:false}
+The formula $\operatorname{ord}_{p}a(n)=\sum_{s\ge1}\lfloor n/p^{s}\rfloor^{3}$ fails
+whenever $p\mid n$ and $n\ge4$. The smallest failure is $n=4$, $p=2$.
+\end{proposition}
+
+\begin{proof}
+By Corollary~\ref{cor:main} the truth is $\sum_{s}\lfloor(n-1)/p^{s}\rfloor^{3}$, and
+$\lfloor n/p^{s}\rfloor=\lfloor(n-1)/p^{s}\rfloor$ unless $p^{s}\mid n$, in which case
+$\lfloor n/p^{s}\rfloor=\lfloor(n-1)/p^{s}\rfloor+1$. So if $p\mid n$ the two expressions
+differ, the posted one being strictly larger.
+
+Explicitly at $n=4$, $p=2$: the only triples $(i,j,k)\in[1,3]^{3}$ with $\gcd(i,j,k)>1$ are
+$(2,2,2)$ and $(3,3,3)$, so $a(4)=2\cdot3=6$ and $v_{2}(a(4))=1$.
+Corollary~\ref{cor:main} gives $\lfloor3/2\rfloor^{3}+\lfloor3/4\rfloor^{3}=1+0=1$,
+correct. The posted formula gives $\lfloor4/2\rfloor^{3}+\lfloor4/4\rfloor^{3}=8+1=9$.
+Since $2^{9}\nmid6$, the posted formula is false at $n=4$. No smaller $n$ fails: for
+$n\le3$ every relevant $\lfloor n/p^{s}\rfloor$ agrees with $\lfloor(n-1)/p^{s}\rfloor$.
+\end{proof}
+
+\begin{remark}[what to record on the entry]
+The right correction is to replace $n$ by $n-1$ in the comment, not to change the
+definition: the definition, the DATA and the Mathematica, Magma and SageMath programs on
+the entry all agree on products over $1\le i,j,k\le n-1$. It is only the comment,
+transplanted from A092287, that is out of step.
+\end{remark}
+
+\begin{remark}[honest assessment]
+Theorem~\ref{thm:main} is a three-line count and is the same argument that proves
+Legendre's formula; its $d=2$ case is the rectangular statement that A092287 records. What
+is worth recording here is not the proof but the off-by-one: the statement people have been
+checking is not the statement that is true.
+\end{remark}
+
+\section{Verification}
+
+A verification script, written separately from this note, checks every claim and prints
+every number quoted. It (i) recomputes $a(0),\dots,a(11)$ of A129454 directly from the
+triple product and matches the published DATA exactly; (ii) compares $v_{p}(a(n))$ against
+$\sum_{s}\lfloor(n-1)/p^{s}\rfloor^{3}$ for every $2\le n\le25$ and every prime $p<n$, with
+0 mismatches; (iii) compares it against the posted formula
+$\sum_{s}\lfloor n/p^{s}\rfloor^{3}$ over the same range, finding 25 mismatches; and
+(iv) confirms that the smallest failure is $n=4$, $p=2$, where the true exponent is 1 and
+the posted formula claims 9, with $a(4)=6=2\cdot3$.
+
+\begin{thebibliography}{9}
+\bibitem{oeis} N.~J.~A. Sloane et al., \emph{The On-Line Encyclopedia of Integer
+Sequences}, \url{https://oeis.org/A129454}, entry A129454, consulted 23 August 2026.
+\bibitem{oeis2} ibid., entry A092287, \url{https://oeis.org/A092287}.
+\bibitem{legendre} A.~M. Legendre, \emph{Th\'eorie des Nombres}, 3rd ed., Firmin Didot,
+Paris, 1830.
+\end{thebibliography}
+\end{document}
