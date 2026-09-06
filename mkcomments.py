@@ -87,6 +87,18 @@ ROWMAJOR = ("This is true. The array grows sideways, so it has to be counted a c
             "linear recurrence and checking the one above is a finite exact computation")
 
 
+QUASI = ("This is true, and the closed form behind it is exact for every n. The shape of "
+         "the triangle is fixed and it is the alphabet 0..n that grows, so this is not a walk "
+         "count and no transfer matrix applies. Sum over the sets of adjacent pairs instead: a "
+         "set of pairs forces the values along each of its connected components to alternate, "
+         "so a bipartite component has n+1 choices (n for the target n+1) and a component with "
+         "an odd cycle forces 2x = t, which is possible only for one parity of n. Inclusion-"
+         "exclusion then gives a(n) = A(n) + (-1)^n C(n) with A and C explicit polynomials, "
+         "and the recurrence above is exactly (E-1)^(deg A+1) (E+1)^(deg C+1) applied to that, "
+         "so it holds for every n. The two n mod 2 formulas on this entry are the same "
+         "statement read at each parity, and are exact as well")
+
+
 def array(S, thr):
     s = "The empirical recurrence is true. Counting the arrays a row at a time gives a transfer matrix"
     if S:
@@ -324,6 +336,9 @@ def main():
                        'clause across columns'):
                 txt = (ROWMAJOR % (f"{S:,}".replace(',', ' ') if S else 'finitely many')
                        + ((', and it holds for n > %d.' % thr) if thr is not None else '.'))
+            elif t == ('The empirical recurrence for OEIS A, proved by an exact '
+                       'quasi-polynomial'):
+                txt = QUASI + '.'
             elif t in ARRAY_TITLES:
                 txt = array(S, thr)
             elif t == "The empirical recurrence for OEIS A, derived from the entry's generating function":
