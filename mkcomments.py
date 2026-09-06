@@ -38,6 +38,7 @@ NOTE = {
 
 
 REC = {}
+CLAIMED = {}
 
 
 def norm_title(t):
@@ -60,11 +61,18 @@ def fromgf(thr):
     return s + ((", and it holds for n > %d." % thr) if thr is not None else ".")
 
 
-def table(thr):
-    return ("The empirical column recurrences are true. Each column counts arrays of a fixed "
-            "width, and counting those a row at a time gives a transfer matrix, so every column "
-            "satisfies a constant-coefficient linear recurrence of order at most the number of "
-            "states; checking the ones above is then a finite exact computation, and they hold.")
+def table(thr, cols=None):
+    if not cols:
+        which = "The empirical column recurrences are true. "
+    elif len(cols) == 1:
+        which = "The empirical recurrence for column k = %d is true. " % cols[0]
+    else:
+        ks = ', '.join(str(k) for k in cols[:-1]) + ' and ' + str(cols[-1])
+        which = "The empirical recurrences for columns k = %s are true. " % ks
+    return (which + "Each column counts arrays of a fixed width, and counting those a row at a "
+            "time gives a transfer matrix, so every column satisfies a constant-coefficient "
+            "linear recurrence of order at most the number of states; checking the ones above "
+            "is then a finite exact computation, and they hold.")
 
 
 def closedform_walk(thr):
@@ -183,6 +191,7 @@ def main():
     tex = {a: v[:keep[a]] for a, v in tex.items() if keep.get(a)}
     st = json.load(open(SC + '/status.json'))
     REC.update(json.load(open('audit_recover.json')))
+    CLAIMED.update(json.load(open(SC + '/table_claimed.json')))
     out, unhandled = {}, collections.Counter()
     for a in sorted(tex):
         for rec in tex[a]:
@@ -195,7 +204,7 @@ def main():
             elif t == "The empirical recurrence for OEIS A, derived from the entry's generating function":
                 txt = fromgf(thr)
             elif t == 'The empirical column recurrences for the table OEIS A':
-                txt = table(thr)
+                txt = table(thr, CLAIMED.get(a))
             elif t == 'The empirical closed form for OEIS A, proved':
                 txt = closedform_walk(thr)
             elif t == 'The empirical recurrence for OEIS A: recovering a conjecture that is not written down':
