@@ -12,67 +12,71 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A186464, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A206679, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A186464 counts the $(n+1)\times2$ arrays over $\{0,\dots,2\}$ in which
-neighbouring $2\times2$ subblocks commute as matrices, and carries an empirical recurrence
-of order $5$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
-empirical. The condition ties together $2+1$ consecutive rows, so $2$ consecutive rows are
-a state, the count is a walk count on $S=81$ of them, and the conjectured recurrence is then
-settled by a finite exact computation.
+OEIS A206679 counts arrays over $\{0,\dots,2\}$ under a condition on the perimeter cycle of
+every $2\times3$ and $3\times2$ subblock, and carries an empirical recurrence of order $5$ contributed by
+R.~H.~Hardin. It is true, and it is decidable rather than empirical. The condition is local to
+a bounded window of consecutive rows, so the count is a walk count on $S=306$ states and is
+$C$-finite; whether the conjectured recurrence annihilates it is then settled by a finite exact
+computation, with the Cayley--Hamilton theorem bounding the work.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 15A27, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
 \section{The conjecture}
 
-OEIS A186464 is ``Number of (n+1) X 2 0..2 arrays with every 2 X 2 subblock commuting with each of its horizontal and vertical 2 X 2 subblock neighbors.''. It has offset $1$ and begins
+OEIS A206679 is ``Number of (n+1) X 3 0..2 arrays with every 2 X 3 or 3 X 2 subblock having an unequal number of clockwise and counterclockwise edge increases.''. It has offset $1$ and begins
 \[
-81, 83, 277, 367, 966, 1321, 3078, 4553,\ \dots
+306, 1728, 9792, 55836, 317736, 1809324, 10300608, 58646916,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 2*a(n-1) + a(n-2) - 4*a(n-3) + 4*a(n-4) - 2*a(n-5) for n>10.
+Empirical: a(n) = 3*a(n-1) + 13*a(n-2) + 11*a(n-3) + 12*a(n-4) + 6*a(n-5) for n>6.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Feb 28 2018 09:02:19, revision 10) this is still
+As of the ``Last modified'' line on the live entry (Jun 17 2018 08:14:15, revision 10) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The contiguous $2\times2$ subblocks of an $(n+1)\times2$ array form a grid of $n$
-rows and $1$ column. Two subblocks that are neighbours in that
-grid OVERLAP: horizontally they share $2\times1$ entries, vertically
-$1\times2$. Nevertheless each is a $2\times2$ integer matrix in its own right, and
-the entry requires that every neighbouring pair, horizontal or vertical, commute --- that is,
-$AB=BA$ as matrices over $\mathbf{Z}$.
+Both a $3\times2$ and a $2\times3$ window have all six of their cells on the
+perimeter, so each carries a $6$-cycle. For
+$\begin{pmatrix}p&q\\r&s\\t&u\end{pmatrix}$ the clockwise cycle is
+$p\to q\to s\to u\to t\to r\to p$; for
+$\begin{pmatrix}p&q&t\\r&s&u\end{pmatrix}$ it is
+$p\to q\to t\to u\to s\to r\to p$. An edge increase is a step of the cycle that goes up in
+value, and counterclockwise counts the same cycle traversed the other way. The entry requires
+of every window of either shape that its clockwise and counterclockwise edge increases are unequal in number.
 
-At $n=1$ the array has $2$ rows and the grid is a single row of $1$
-subblock, with no neighbouring pair at all; the entry's first term is
-$81$, which the model reproduces along with every later term.
+The readings were pinned by direct enumeration before anything was built: over
+$\{0,1,2\}$ the $3\times2$ arrays of clockwise count $2$ number $423$ and those of count
+$3$ number $150$; over $\{0,\dots,3\}$ the $3\times2$ arrays of count $1$ number $480$;
+and the $2\times3$ arrays over $\{0,1,2\}$ of clockwise count $2$ also number $423$. Those
+are the first terms the corresponding entries publish.
 
 \section{The count is a walk count}
 
-A subblock row is fixed by $2$ consecutive array rows, and the vertical condition compares
-two consecutive subblock rows, hence $2+1$ consecutive array rows. So take as state the
-$2$-tuple of consecutive rows whose subblock row has just been completed. A step appends one
-array row: that fixes the next subblock row, and the horizontal pairs inside it and the
-vertical pairs against the previous one are all settled there. An array of $n+1$ rows is
-a walk of $n-1$ steps and every walk comes from exactly one array, so
+A $3\times2$ window spans three consecutive array rows and a $2\times3$
+window two, so take as state the PAIR of consecutive rows. The $2\times3$ windows lie inside a
+single pair, so they decide which pairs are admissible at all; the $3\times2$ windows straddle
+three rows, so they decide which pair may follow which. A step appends one array row, turning
+$(r,s)$ into $(s,t)$ and testing every $3\times2$ window of $r,s,t$ at once. An $(n+1)$-row
+array is a walk of $n-1$ steps and
 \[
 a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,\qquad\iota=\tau=(1,\dots,1)^{\!\top},
 \]
-on the $S=81$ admissible $2$-tuples. In particular $a$ is $C$-finite.
+on the $S=306$ admissible pairs.
 
-This state does not compress. What a step needs of the past is the previous subblock row, and
-for $2\ge2$ that row already determines the $2$ array rows it was built from, so nothing
-is lost by carrying the rows and nothing would be gained by carrying the matrices instead. The
-size of the construction is therefore $3^{2\cdot2}$ before the condition prunes
-it, which is what puts the wider members of this family out of reach rather than settling them.
+At $n=1$ the array has two rows, so no $3\times2$ window fits and only the
+$2\times3$ windows apply; the entry's first term is
+$306$, which the model reproduces along with every later term.
+In particular $a$ is $C$-finite. The alignment of the walk index with the entry's own $n$ was
+checked against its published terms rather than assumed.
 
 \section{The proof}
 
@@ -94,23 +98,23 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;2\,a(n-1) + a(n-2) - 4\,a(n-3) + 4\,a(n-4) - 2\,a(n-5)
+a(n)\;=\;3\,a(n-1) + 13\,a(n-2) + 11\,a(n-3) + 12\,a(n-4) + 6\,a(n-5)
 \]
-for every $n>10$.
+for every $n>6$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $5$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=10+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once.
+integers vanish from the index corresponding to $n=6+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once. The bound is exact: at $n=6$ the recurrence fails on the entry's own published terms, so no larger range holds.
 \end{proof}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $29$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $18$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
@@ -122,11 +126,11 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A186464.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A206679.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{suprunenko} D.~A.~Suprunenko and R.~I.~Tyshkevich, \emph{Commutative Matrices},
-Academic Press, 1968.
+\bibitem{bona} M.~B\'ona, \emph{Combinatorics of Permutations}, 2nd ed., CRC
+Press, 2012.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

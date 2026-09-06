@@ -12,14 +12,14 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A235882, derived from the entry's generating function}
+\title{The empirical recurrence for OEIS A253491, derived from the entry's generating function}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A235882 carries an empirical recurrence of order $3$. The entry separately records a
+OEIS A253491 carries an empirical recurrence of order $3$. The entry separately records a
 generating function, not as a conjecture but as a statement of fact, and the recurrence is a
 consequence of it: multiplying the generating function by the polynomial the recurrence
 supplies gives a POLYNOMIAL, and the recurrence then holds at every index past that
@@ -33,26 +33,26 @@ checked here against every published term.
 
 \section{The two statements}
 
-OEIS A235882 is ``Number of (n+1) X (6+1) 0..2 arrays with the minimum plus the upper median equal to the lower median plus the maximum in every 2 X 2 subblock.''. It has offset $1$ and begins
+OEIS A253491 is ``Number of (n+1) X (4+1) 0..2 arrays with every 2 X 2 subblock diagonal minus antidiagonal sum nondecreasing horizontally, vertically and ne-to-sw antidiagonally.''. It has offset $1$ and begins
 \[
-2571, 3345, 4911, 8097, 14631, 28185, 56751, 118257,\ \dots
+3639, 5386, 6476, 10477, 19475, 40117, 89339, 211597,\ \dots
 \]
 The entry states, as a conjecture and never marked settled:
 \begin{quote}
-Empirical: a(n) = 6*a(n-1) - 11*a(n-2) + 6*a(n-3).
+Empirical: a(n) = 6*a(n-1) - 11*a(n-2) + 6*a(n-3) for n>6.
 \end{quote}
 and, separately and NOT as a conjecture:
 \begin{quote}
-G.f.: 3*x*(857 - 4027*x + 4374*x\^{}2) / ((1 - x)*(1 - 2*x)*(1 - 3*x)).
+G.f.: x*(3639 - 16448*x + 14189*x\^{}2 + 9033*x\^{}3 - 4467*x\^{}4 - 342*x\^{}5) / ((1 - x)*(1 - 2*x)*(1 - 3*x)).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 19 2018 09:21:03, revision 7) the first is still
+As of the ``Last modified'' line on the live entry (Dec 15 2018 15:15:46, revision 11) the first is still
 recorded as empirical. This note derives it from the second.
 
 \section{A rational generating function decides every linear recurrence}
 
 Write
 \[
-G(x)\;=\;\sum_{n}a(n)\,x^{n}\;=\;\frac{- 13122 x^{3} + 12081 x^{2} - 2571 x}{6 x^{3} - 11 x^{2} + 6 x - 1},
+G(x)\;=\;\sum_{n}a(n)\,x^{n}\;=\;\frac{342 x^{6} + 4467 x^{5} - 9033 x^{4} - 14189 x^{3} + 16448 x^{2} - 3639 x}{6 x^{3} - 11 x^{2} + 6 x - 1},
 \]
 the entry's own generating function, and let
 \[
@@ -75,19 +75,19 @@ negative index being zero.
 \[
 a(n)\;=\;6\,a(n-1) - 11\,a(n-2) + 6\,a(n-3)
 \]
-for every $n>3$.
+for every $n>6$.
 \end{theorem}
 
 \begin{proof}
 In exact arithmetic,
 \[
-D(x)\,G(x)\;=\;13122 x^{3} - 12081 x^{2} + 2571 x,
+D(x)\,G(x)\;=\;- 342 x^{6} - 4467 x^{5} + 9033 x^{4} + 14189 x^{3} - 16448 x^{2} + 3639 x,
 \]
-a POLYNOMIAL of degree $3$ --- the denominator of $G$ divides $D(x)$ times its numerator,
+a POLYNOMIAL of degree $6$ --- the denominator of $G$ divides $D(x)$ times its numerator,
 which is precisely the condition for the conjectured recurrence to be implied by the
-generating function. Its coefficients vanish beyond degree $3$, so by
+generating function. Its coefficients vanish beyond degree $6$, so by
 Lemma~\ref{lem:key} the residual $a(n)-\sum_ic_ia(n-i)$ vanishes for every
-$n>3$.
+$n>6$. The bound is exact: at $n=6$ the recurrence fails on the entry's own published terms.
 \end{proof}
 
 \section{Is the conjectured recurrence the shortest one?}
@@ -111,14 +111,17 @@ generating function involved at all. Doing that:
 \begin{center}
 \begin{tabular}{cc}
 index & residual \\ \hline
-$n=4$ & $0$ \\
-$n=5$ & $0$ \\
-$n=6$ & $0$ \\
-$n=7$ & $0$
+$n=4$ & $9033$ \\
+$n=5$ & $-4467$ \\
+$n=6$ & $-342$ \\
+$n=7$ & $0$ \\
+$n=8$ & $0$ \\
+$n=9$ & $0$ \\
+$n=10$ & $0$
 \end{tabular}
 \end{center}
 The residuals are exactly the coefficients of the polynomial displayed above, in order, and
-they stop at index $3$ because that polynomial has degree $3$. A reader who trusts
+they stop at index $6$ because that polynomial has degree $6$. A reader who trusts
 neither the generating function nor the algebra can check the table against the entry's DATA
 by hand; what the generating function adds is the guarantee that the pattern continues, which
 no amount of checking terms could establish on its own.
@@ -135,7 +138,7 @@ Second, the polynomial division above was carried out symbolically, not numerica
 statement that $D(x)G(x)$ is a polynomial is exact rather than approximate.
 
 Third, the recurrence was evaluated directly on the series coefficients for sixty consecutive
-indices beyond $n=3$ and holds at every one, and at $n=3$ itself it fails --- the
+indices beyond $n=6$ and holds at every one, and at $n=6$ itself it fails --- the
 degree bound is attained, so the range stated is the true one and not merely a safe one.
 
 \begin{remark}
@@ -147,7 +150,7 @@ entry already contains.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A235882.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A253491.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Rational generating functions, Section 4.1.)
 \bibitem{kp} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011.

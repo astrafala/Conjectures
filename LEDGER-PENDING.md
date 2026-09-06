@@ -136,3 +136,37 @@ those still refused sit above 6000 states.
   reported 9091 papers missing a section every one of them has. Both now have
   code that cannot repeat them: `dc_phase1.py` compares the multiset of
   (A-number, verdict, engine), and every text check goes through `dc_text.py`.
+
+### transfer81 — arrays counted up to renaming, under a subblock condition (36 entries)
+
+A family of 46 Hardin entries that no engine parsed. Each asks two things at once: a
+condition on every 2×2 or 3×3 subblock, and "new values introduced in row major order".
+The second is not a local condition — whether a value may appear here depends on the whole
+prefix — but the prefix enters only through **how many values have been introduced so far**,
+so one extra integer in the state carries it exactly. 36 proved; the other 10 carry no
+conjecture at all and are not counted.
+
+Four readings pinned against published DATA before the engine was written, one per
+predicate shape, each by a program enumerating arrays from the entry's own words.
+
+**The mistake.** The parser treated `L X (n+a)` as the transpose of `(n+a) X L`. It is not:
+the conditions are stated about ROWS — "every subblock in a row", "adjacent rows differing",
+"row major order" — so transposing rewrites the condition into a different one. Six entries
+were reported as "model does not match DATA", which is the only reason it was caught; had
+those six been absent the error would have shipped. The fix walks the array along its own
+growing direction and keeps the conditions where the entry puts them.
+
+That fix needed one real argument rather than a code change alone. Walking by columns, the
+canonical condition read along the walk is *column* major order, not the entry's row major
+order. They give the same count: every condition here is a statement about which entries are
+equal, so it is invariant under renaming the values, and each rule picks exactly one
+representative from each renaming class. Checked, not assumed — an independent brute force
+written to the entry's row-major wording reproduces the published terms of A205627.
+
+Thirty of these had already been papered and ranked when the defect turned up. The natural
+orientation was not touched by the fix, but "not touched" is a claim about code and the
+roster is a claim about mathematics, so all 36 were re-run from scratch through the shipped
+engine (`src/reverify81.py`) and every paper rebuilt from that run.
+
+**Cap recorded next to the refusal:** A206173 refused at cap 6000 with "state space > cap",
+and settled at cap 400000. Its lumped model has 76 states.

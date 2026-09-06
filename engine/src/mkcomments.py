@@ -141,6 +141,26 @@ def array(S, thr):
     return s + ((", and it holds for n > %d." % thr) if thr is not None else ".")
 
 
+def canonical(S, thr):
+    """The comment for the family counted up to renaming.
+
+    The `array` wording would say only "counting the arrays a row at a time", which is
+    exactly the half of the model that is easy. The point worth putting on the entry is the
+    other half: the relabelling condition is not local, and one counter carries it.
+    """
+    s = ("The empirical recurrence is true. Counting the arrays a line at a time gives a "
+         "transfer matrix: the subblock condition looks only at a bounded window of "
+         "consecutive lines, and \"new values introduced in row major order\" -- which is "
+         "not a condition on any window, since it counts colourings up to renaming -- enters "
+         "only through how many values have been introduced so far, one extra integer in the "
+         "state")
+    if S:
+        s += ". That gives %s states" % f"{S:,}".replace(',', ' ')
+    s += (", so a(n) satisfies a constant-coefficient linear recurrence of order at most "
+          "that; checking the one above is then a finite exact computation")
+    return s + ((", and it holds for n > %d." % thr) if thr is not None else ".")
+
+
 def fromgf(thr):
     s = ("The recurrence follows from the generating function this entry already states as "
          "fact: a recurrence with constant coefficients is exactly a denominator of the "
@@ -379,6 +399,8 @@ def main():
                 txt = BOUNDED + '.'
             elif t == 'The empirical product formula for OEIS A, proved':
                 txt = BOXPP + '.'
+            elif t.startswith('Arrays counted up to renaming'):
+                txt = canonical(S, thr)
             elif t in ARRAY_TITLES:
                 txt = array(S, thr)
             elif t == "The empirical recurrence for OEIS A, derived from the entry's generating function":

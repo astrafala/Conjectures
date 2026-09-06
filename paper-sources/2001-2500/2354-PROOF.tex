@@ -12,15 +12,15 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A280064, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A205257, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A280064 counts $n\times3$ arrays over $\{0,\dots,1\}$ subject to a condition imposed on
-every CELL over a neighbour set the entry names, and counted UP TO RELABELLING of the
+OEIS A205257 counts $(n+2)\times3$ arrays over $\{0,\dots,1\}$ subject to a condition imposed on
+every $3\times3$ subblock, and counted UP TO RELABELLING of the
 alphabet; it carries an empirical recurrence of order $7$ contributed by
 R.~H.~Hardin. It is true, and it is decidable rather than empirical. What is counted is
 equality patterns, which is not a walk count --- but it is a fixed rational combination of
@@ -33,15 +33,15 @@ Cayley--Hamilton theorem bounding the work.
 
 \section{The conjecture}
 
-OEIS A280064 is ``Number of n X 3 0..1 arrays with no element unequal to a strict majority of its horizontal, vertical and antidiagonal neighbors and with new values introduced in order 0 sequentially upwards.''. It has offset $1$ and begins
+OEIS A205257 is ``Number of (n+2) X 3 0..1 arrays with every 3 X 3 subblock having three equal elements in a row horizontally, vertically, diagonally or antidiagonally, and new values 0..1 introduced in row major order.''. It has offset $1$ and begins
 \[
-1, 2, 5, 15, 39, 104, 281, 771,\ \dots
+240, 1814, 13728, 103876, 785920, 5946280, 44989988, 340397184,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 3*a(n-1) + a(n-2) - 6*a(n-3) + 5*a(n-4) - 2*a(n-5) - 2*a(n-6) - a(n-7) for n>9.
+Empirical: a(n) = 6*a(n-1) +7*a(n-2) +32*a(n-3) +34*a(n-4) +14*a(n-5) -20*a(n-6) -16*a(n-7).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Feb 12 2019 12:16:15, revision 7) this is still
+As of the ``Last modified'' line on the live entry (Jun 11 2018 08:42:28, revision 8) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{Patterns are a combination of counts}
@@ -69,39 +69,24 @@ This step needs the condition itself to be unchanged by permuting the alphabet, 
 the condition below is stated through equality between entries and never names a particular
 value or compares sizes.
 
-\section{Cells, not blocks}
+\section{Three consecutive lines}
 
-The entry names the neighbours it means --- horizontal is left and right, vertical is up and
-down, diagonal is northwest-to-southeast, antidiagonal is northeast-to-southwest, king-move is
-all eight --- and every such set lies inside the $3\times3$ square centred on the cell. Here
-the set is $\{(0,-1), (0,1), (-1,0), (1,0), (-1,1), (1,-1)\}$, written as offsets (row, column) from the cell. Every cell carries
-the condition
+The entry's condition constrains every $3\times3$ subblock, which spans three consecutive
+rows and three consecutive columns. Writing an array as a sequence of rows
+$u_1,u_2,\dots$ over $\{0,\dots,1\}^{3}$, the condition
 \[
-\text{no cell is unequal to a strict majority of its horizontal, vertical and antidiagonal neighbours},
+\text{at least one}\text{ of the horizontally, vertically, diagonally or antidiagonally lines of }g\text{ \text{is constant}}
 \]
-and the count of neighbours enters it, so the boundary is not a detail that can be papered
-over: a cell in the interior has $6$ neighbours in this set and a cell on the boundary
-fewer, and a condition such as ``a strict majority of its neighbours'' therefore means
-different things at the two. In particular one cannot pad the array with a border of zeros ---
-that would give every cell the full $6$ and change what is being counted. The outside is
-therefore carried
-explicitly, as a sentinel row above the first and below the last and as a sentinel column
-either side, and a neighbour that falls outside is simply absent from both counts.
-
-Write an array as a sequence of rows $u_1,\dots,u_L$, each in
-$\{0,\dots,1\}^{3}$. The neighbourhood of a cell in row $u_i$ meets $u_{i-1}$,
-$u_i$ and $u_{i+1}$ and nothing else. Take as vertices the pairs
-$(r,s)\in(\{0,\dots,1\}^{3}\cup\{\varnothing\})\times\{0,\dots,1\}^{3}$,
-and put an edge $(r,s)\to(s,t)$ when row $s$ satisfies the condition at every one of its
-$3$ cells, given $r$ above and $t$ below. An array with $L$ rows is then a walk of length
-$L-1$ starting at $(\varnothing,u_1)$, each step settling one row, and the last row is
-settled by the terminal weight, which evaluates it with $\varnothing$ below. Hence,
-with $M$ the adjacency matrix, $\iota$ the starting vector and $\tau$ the terminal weight,
+involves only three consecutive rows. Take as vertices the ordered PAIRS $(r,s)$ of
+rows and put an edge $(r,s)\to(s,t)$ exactly when the condition holds for the triple
+$(r,s,t)$ at every admissible column; an array with $L$ rows is a walk of length $L-2$.
+Doing that for each alphabet size $1,\dots,2$ and combining as above gives
 \[
-a(n)\;=\;\frac{1}{2}\,\iota^{\!\top}M^{\,n-1}\tau ,
+a(n)\;=\;\frac{1}{2}\,\iota^{\!\top}M^{\,n}\tau
 \]
-the exponent fixed by the entry's own shape and checked against its published terms. In
-particular $a$ is $C$-finite.
+on $S=64$ vertices in total, the exponent fixed by the entry's own shape and checked against
+its published terms. States lying on no walk from $\iota$ to $\tau$ are removed first; that
+changes no value and only shrinks the computation.
 
 \section{The proof}
 
@@ -123,24 +108,24 @@ nonzero $u_j$ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;3\,a(n-1) + a(n-2) - 6\,a(n-3) + 5\,a(n-4) - 2\,a(n-5) - 2\,a(n-6) - a(n-7)
+a(n)\;=\;6\,a(n-1) + 7\,a(n-2) + 32\,a(n-3) + 34\,a(n-4) + 14\,a(n-5) - 20\,a(n-6) - 16\,a(n-7)
 \]
-for every $n>9$.
+for every $n>6$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $7$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly. Those
-integers vanish from the index corresponding to $n=9+1$ onwards, and the run was
+integers vanish from the index corresponding to $n=6+1$ onwards, and the run was
 continued until the working vector was identically zero, which settles all larger $j$ at once.
-By Lemma~\ref{lem:crit} the recurrence holds for every $n>9$. The bound is exact: at $n=9$ the recurrence fails on the entry's own published terms, so no larger range holds.
+By Lemma~\ref{lem:crit} the recurrence holds for every $n>6$.
 \end{proof}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the transfer model reproduces all $28$ terms the entry publishes, exactly, in
+First, the transfer model reproduces all $18$ terms the entry publishes, exactly, in
 integer arithmetic. That check earned its place here. The neighbour offsets are named in the
 array's own frame --- horizontal means along a row --- but when the entry fixes the first
 dimension, as in ``$2\times n$'', the walk runs along columns and the two components of every
@@ -157,7 +142,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A280064.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A205257.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

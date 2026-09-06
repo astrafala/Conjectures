@@ -12,21 +12,21 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A207563, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A207906, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A207563 counts arrays over $\{0,\dots,1\}$ of width $7$ that avoid the patterns
-$(0,0,1), (0,1,0)$ along one axis and $(0,1,1), (1,1,0)$ along the other, and carries an empirical recurrence of
-order $51$ contributed by R.~H.~Hardin. It is true. The patterns have length $3$, so
+OEIS A207906 counts arrays over $\{0,\dots,1\}$ of width $6$ that avoid the patterns
+$(0,0,0), (0,1,0)$ along one axis and $(0,0,0), (0,1,1)$ along the other, and carries an empirical recurrence of
+order $53$ contributed by R.~H.~Hardin. It is true. The patterns have length $3$, so
 the constraint across the growing direction ties together $3$ consecutive rows: taking a
 window of $2$ consecutive rows as a state makes the array a walk in a finite digraph
-on $S=961$ vertices, and $a(n)=\mathbf{1}^{\!\top}P^{\,n-2}\mathbf{1}$. Writing $q$
+on $S=625$ vertices, and $a(n)=\mathbf{1}^{\!\top}P^{\,n-2}\mathbf{1}$. Writing $q$
 for the characteristic polynomial of the conjectured recurrence, the residual is
-$\mathbf{1}^{\!\top}P^{\,n-2-51}q(P)\mathbf{1}$, which vanishes identically
+$\mathbf{1}^{\!\top}P^{\,n-2-53}q(P)\mathbf{1}$, which vanishes identically
 beyond a threshold that the computation pins down exactly. Finite, exact, integer.
 \end{abstract}
 
@@ -34,38 +34,38 @@ beyond a threshold that the computation pins down exactly. Finite, exact, intege
 
 \section{The sequence and the conjecture}
 
-OEIS A207563 is ``Number of nX7 0..1 arrays avoiding 0 0 1 and 0 1 0 horizontally and 0 1 1 and 1 1 0 vertically.''. It has offset
+OEIS A207906 is ``Number of nX6 0..1 arrays avoiding 0 0 0 and 0 1 0 horizontally and 0 0 0 and 0 1 1 vertically.''. It has offset
 $1$ and begins
 \[
-31, 961, 4719, 16812, 106833, 493471, 3275898,\ \dots
+25, 625, 3969, 19881, 87025, 314721, 1113025,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 15*a(n-1) +77*a(n-2) -2046*a(n-3) -429*a(n-4) +128837*a(n-5) -179947*a(n-6) -5002742*a(n-7) +10715924*a(n-8) +134822996*a(n-9) -338437234*a(n-10) -2687118622*a(n-11) +7153313284*a(n-12) +41146741810*a(n-13) -109928061876*a(n-14) -495743990582*a(n-15) +1281266267798*a(n-16) +4769695136712*a(n-17) -11615524444272*a(n-18) -36971607384056*a(n-19) +83242108862650*a(n-20) +231971832217622*a(n-21) -476657723689140*a(n-22) -1180217986743574*a(n-23) +2196013630719333*a(n-24) +4866835465582423*a(n-25) -8172102704389697*a(n-26) -16227516943169348*a(n-27) +24594308969516143*a(n-28) +43563976143481107*a(n-29) -59768169359482685*a(n-30) -93570219609964538*a(n-31) +116743033427890578*a(n-32) +159413368148539118*a(n-33) -181770451410051698*a(n-34) -212969039687871148*a(n-35) +222750020950558944*a(n-36) +219831253212876016*a(n-37) -210942550899039672*a(n-38) -172065591066644864*a(n-39) +150479223605638368*a(n-40) +99752372852080576*a(n-41) -78048773506516656*a(n-42) -41589102799746720*a(n-43) +27987000640420608*a(n-44) +11997001677156768*a(n-45) -6427472710615200*a(n-46) -2258184690293760*a(n-47) +827419962124800*a(n-48) +247397856768000*a(n-49) -43647621120000*a(n-50) -11645337600000*a(n-51) for n>52
+Empirical: a(n) = 9*a(n-1) -25*a(n-2) +10*a(n-3) +11*a(n-4) +234*a(n-5) -668*a(n-6) +479*a(n-7) -245*a(n-8) +1805*a(n-9) -4260*a(n-10) +6003*a(n-11) -6488*a(n-12) +6128*a(n-13) -13265*a(n-14) +27257*a(n-15) -29449*a(n-16) +24594*a(n-17) -32021*a(n-18) +49194*a(n-19) -67268*a(n-20) +69023*a(n-21) -55533*a(n-22) +60189*a(n-23) -80428*a(n-24) +89339*a(n-25) -79328*a(n-26) +60128*a(n-27) -55387*a(n-28) +62435*a(n-29) -60147*a(n-30) +47086*a(n-31) -31095*a(n-32) +23230*a(n-33) -23140*a(n-34) +20037*a(n-35) -13527*a(n-36) +7247*a(n-37) -3820*a(n-38) +3473*a(n-39) -3016*a(n-40) +1776*a(n-41) -659*a(n-42) +91*a(n-43) -107*a(n-44) +182*a(n-45) -127*a(n-46) +46*a(n-47) +4*a(n-48) -3*a(n-49) -7*a(n-50) +7*a(n-51) -4*a(n-52) +a(n-53)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 14:04:49, revision
+As of the ``Last modified'' line on the live entry (Oct 03 2025 14:26:23, revision
 9) the statement is still recorded as empirical, and nothing on the entry
 records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;15\,a(n-1) + 77\,a(n-2) - 2046\,a(n-3) - 429\,a(n-4) + 128837\,a(n-5) - 179947\,a(n-6) - 5002742\,a(n-7) + 10715924\,a(n-8) + 134822996\,a(n-9) - 338437234\,a(n-10) - 2687118622\,a(n-11) + 7153313284\,a(n-12) + 41146741810\,a(n-13) - 109928061876\,a(n-14) - 495743990582\,a(n-15) + 1281266267798\,a(n-16) + 4769695136712\,a(n-17) - 11615524444272\,a(n-18) - 36971607384056\,a(n-19) + 83242108862650\,a(n-20) + 231971832217622\,a(n-21) - 476657723689140\,a(n-22) - 1180217986743574\,a(n-23) + 2196013630719333\,a(n-24) + 4866835465582423\,a(n-25) - 8172102704389697\,a(n-26) - 16227516943169348\,a(n-27) + 24594308969516143\,a(n-28) + 43563976143481107\,a(n-29) - 59768169359482685\,a(n-30) - 93570219609964538\,a(n-31) + 116743033427890578\,a(n-32) + 159413368148539118\,a(n-33) - 181770451410051698\,a(n-34) - 212969039687871148\,a(n-35) + 222750020950558944\,a(n-36) + 219831253212876016\,a(n-37) - 210942550899039672\,a(n-38) - 172065591066644864\,a(n-39) + 150479223605638368\,a(n-40) + 99752372852080576\,a(n-41) - 78048773506516656\,a(n-42) - 41589102799746720\,a(n-43) + 27987000640420608\,a(n-44) + 11997001677156768\,a(n-45) - 6427472710615200\,a(n-46) - 2258184690293760\,a(n-47) + 827419962124800\,a(n-48) + 247397856768000\,a(n-49) - 43647621120000\,a(n-50) - 11645337600000\,a(n-51)
+a(n)\;=\;9\,a(n-1) - 25\,a(n-2) + 10\,a(n-3) + 11\,a(n-4) + 234\,a(n-5) - 668\,a(n-6) + 479\,a(n-7) - 245\,a(n-8) + 1805\,a(n-9) - 4260\,a(n-10) + 6003\,a(n-11) - 6488\,a(n-12) + 6128\,a(n-13) - 13265\,a(n-14) + 27257\,a(n-15) - 29449\,a(n-16) + 24594\,a(n-17) - 32021\,a(n-18) + 49194\,a(n-19) - 67268\,a(n-20) + 69023\,a(n-21) - 55533\,a(n-22) + 60189\,a(n-23) - 80428\,a(n-24) + 89339\,a(n-25) - 79328\,a(n-26) + 60128\,a(n-27) - 55387\,a(n-28) + 62435\,a(n-29) - 60147\,a(n-30) + 47086\,a(n-31) - 31095\,a(n-32) + 23230\,a(n-33) - 23140\,a(n-34) + 20037\,a(n-35) - 13527\,a(n-36) + 7247\,a(n-37) - 3820\,a(n-38) + 3473\,a(n-39) - 3016\,a(n-40) + 1776\,a(n-41) - 659\,a(n-42) + 91\,a(n-43) - 107\,a(n-44) + 182\,a(n-45) - 127\,a(n-46) + 46\,a(n-47) + 4\,a(n-48) - 3\,a(n-49) - 7\,a(n-50) + 7\,a(n-51) - 4\,a(n-52) + a(n-53)
 \end{equation}
-for all $n>52$. 
+for all $n>53$. 
 
 \section{The array as a walk}
 
 Call a row \emph{admissible} if the word it forms contains none of the patterns
-$(0,0,1), (0,1,0)$ as $3$ consecutive entries. There are $31$ admissible rows; that condition
+$(0,0,0), (0,1,0)$ as $3$ consecutive entries. There are $25$ admissible rows; that condition
 involves a single row only.
 
-The remaining patterns $(0,1,1), (1,1,0)$ are forbidden along the other axis, so each of them
+The remaining patterns $(0,0,0), (0,1,1)$ are forbidden along the other axis, so each of them
 constrains $3$ consecutive rows at a fixed position of the column. Take as state a
 window $w=\bigl(w^{(1)},\dots,w^{(2)}\bigr)$ of $2$ consecutive admissible
-rows, so $S=961$, and declare $w\to w'$ an edge when $w'$ is $w$ with its first entry
+rows, so $S=625$, and declare $w\to w'$ an edge when $w'$ is $w$ with its first entry
 dropped and one further admissible row $t$ appended, subject to: for every position
 $j$, the $3$-tuple read down the column $j$ across $w^{(1)},\dots,w^{(2)},t$
-is none of $(0,1,1), (1,1,0)$. Let $P$ be the adjacency matrix.
+is none of $(0,0,0), (0,1,1)$. Let $P$ be the adjacency matrix.
 
 \begin{lemma}\label{lem:walk}
 $a(n)=\mathbf{1}^{\!\top}P^{\,n-2}\mathbf{1}$ for every $n\ge2$.
@@ -84,20 +84,20 @@ $\mathbf{1}^{\!\top}P^{\,n-2}\mathbf{1}$.
 
 \section{The criterion}
 
-Let $q(t)=t^{51}-\sum_i c_i t^{51-i}$ be the characteristic polynomial of
+Let $q(t)=t^{53}-\sum_i c_i t^{53-i}$ be the characteristic polynomial of
 \eqref{eq:conj} and $u_j=\mathbf{1}^{\!\top}P^{j}q(P)\mathbf{1}$.
 
 \begin{lemma}\label{lem:crit}
-$a(n)-\sum_i c_i a(n-i)=u_{\,n-2-51}$ whenever $n-51\ge2$. Hence
+$a(n)-\sum_i c_i a(n-i)=u_{\,n-2-53}$ whenever $n-53\ge2$. Hence
 \eqref{eq:conj} holds for every $n>t$ exactly when $u_j=0$ for every
-$j>t-2-51$. Moreover $(u_j)$ satisfies the monic linear recurrence whose
+$j>t-2-53$. Moreover $(u_j)$ satisfies the monic linear recurrence whose
 characteristic polynomial is that of $P$, of degree $S$, so $S$ consecutive zeros force all
 later ones and the last nonzero $u_j$ pins $t$ down exactly.
 \end{lemma}
 
 \begin{proof}
 Substituting Lemma~\ref{lem:walk} into the left side and factoring out
-$P^{\,n-2-51}$ gives the identity. The equivalence follows by letting the exponent
+$P^{\,n-2-53}$ gives the identity. The equivalence follows by letting the exponent
 run. For the last claim, Cayley--Hamilton gives $\chi(P)=0$ for the characteristic
 polynomial $\chi$ of $P$, so $\chi$ applied to the shift annihilates $(u_j)$; being monic of
 degree $S$, it propagates $S$ consecutive zeros forward.
@@ -106,14 +106,14 @@ degree $S$, it propagates $S$ consecutive zeros forward.
 \section{The computation}
 
 \begin{theorem}
-The recurrence \eqref{eq:conj} holds for every $n>52$. This is the statement of
+The recurrence \eqref{eq:conj} holds for every $n>53$. This is the statement of
 Section~1.
 \end{theorem}
 
 \begin{proof}
-The vector $q(P)\mathbf{1}\in\mathbb{Z}^{S}$ was formed by $51$ matrix--vector
+The vector $q(P)\mathbf{1}\in\mathbb{Z}^{S}$ was formed by $53$ matrix--vector
 products in exact integer arithmetic and the $u_j$ evaluated in turn. They vanish from the
-index corresponding to $n=52+1$ onwards, and the run was continued past $S$ consecutive
+index corresponding to $n=53+1$ onwards, and the run was continued past $S$ consecutive
 zeros, which by Lemma~\ref{lem:crit} settles every larger index.
 \end{proof}
 
@@ -122,20 +122,20 @@ zeros, which by Lemma~\ref{lem:crit} settles every larger index.
 Three checks, each independent of the algebra above.
 
 First, the digraph was built directly from the entry's stated patterns and the walk counts
-compared against the entry's DATA at every one of the $19$ published indices; the
-values agree exactly, including the initial count of $31$ admissible rows. That is
+compared against the entry's DATA at every one of the $21$ published indices; the
+values agree exactly, including the initial count of $25$ admissible rows. That is
 what ties the digraph to the sequence, and a model reproducing only part of the published
 data was rejected wherever it occurred.
 
 Second, the recurrence \eqref{eq:conj} was evaluated on those published terms in exact
 integer arithmetic, with no matrices involved, and vanishes at every index the entry claims.
 
-Third, the vanishing test of Lemma~\ref{lem:crit} was carried past $S=961$ consecutive
+Third, the vanishing test of Lemma~\ref{lem:crit} was carried past $S=625$ consecutive
 zeros rather than to a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A207563.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A207906.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

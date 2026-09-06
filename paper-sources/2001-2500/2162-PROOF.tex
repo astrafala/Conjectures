@@ -12,15 +12,15 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A205347, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A206232, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A205347 counts, up to renaming the letters, the arrays of width $2$ over at most $4$
-letters in which no two $2\times2$ subblocks that are neighbours, horizontally or vertically, have the same number of equal edges. It carries an empirical recurrence of order $8$ contributed by
+OEIS A206232 counts, up to renaming the letters, the arrays of width $3$ over at most $4$
+letters in which every $2\times3$ and $3\times2$ subblock has exactly $2$ equal edges, an edge of such a window being one of the six steps of its perimeter cycle and an equal edge one whose two cells agree. It carries an empirical recurrence of order $8$ contributed by
 R.~H.~Hardin. It is true, and it is decidable rather than empirical. Counting up to renaming is
 a fixed rational combination of ordinary array counts, each of those is a walk count, and the
 conjectured recurrence is then settled by a finite exact computation.
@@ -30,20 +30,20 @@ conjectured recurrence is then settled by a finite exact computation.
 
 \section{The conjecture}
 
-OEIS A205347 is ``Number of (n+1) X 2 0..3 arrays with no 2 X 2 subblock having the same number of equal edges as its horizontal or vertical neighbors, and new values 0..3 introduced in row major order.''. It has offset $1$ and begins
+OEIS A206232 is ``Number of (n+1)X3 0..3 arrays with every 2X3 or 3X2 subblock having exactly two equal edges, and new values 0..3 introduced in row major order.''. It has offset $1$ and begins
 \[
-15, 110, 1024, 9894, 96288, 937926, 9140400, 89074638,\ \dots
+60, 256, 1136, 5728, 31652, 170728, 943584, 5175034,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 69*a(n-2) + 248*a(n-3) + 225*a(n-4) - 1296*a(n-5) - 4293*a(n-6) + 1656*a(n-7) + 9072*a(n-8) for n>9.
+Empirical: a(n) = 3*a(n-1) +20*a(n-2) -14*a(n-3) -133*a(n-4) +95*a(n-5) +123*a(n-6) +9*a(n-7) -102*a(n-8) for n>10
 \end{quote}
-As of the ``Last modified'' line on the live entry (Mar 03 2018 13:57:23, revision 12) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 12:49:04, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The condition is that no two $2\times2$ subblocks that are neighbours, horizontally or vertically, have the same number of equal edges.
+The condition is that every $2\times3$ and $3\times2$ subblock has exactly $2$ equal edges, an edge of such a window being one of the six steps of its perimeter cycle and an equal edge one whose two cells agree.
 
 The clause ``new values $0..3$ introduced in row major order'' says the array is the
 canonical representative of its EQUALITY PATTERN, so what is counted is patterns, not arrays.
@@ -86,7 +86,7 @@ it compares neighbours, each $L_i$ is a walk count on its own digraph. Assemblin
 a(n)\;=\;\iota^{\!\top}M^{\,j}\tau
 \]
 on the disjoint union of those digraphs for $i=1,\dots,4$, with $\iota$ carrying the weights
-$w_i$ cleared of denominators and $S=354$ states in all. The walk index $j$ and the entry's own
+$w_i$ cleared of denominators and $S=1560$ states in all. The walk index $j$ and the entry's own
 $n$ differ by a constant, read off by matching the published terms rather than assumed. In
 particular $a$ is $C$-finite.
 
@@ -110,25 +110,25 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;69\,a(n-2) + 248\,a(n-3) + 225\,a(n-4) - 1296\,a(n-5) - 4293\,a(n-6) + 1656\,a(n-7) + 9072\,a(n-8)
+a(n)\;=\;3\,a(n-1) + 20\,a(n-2) - 14\,a(n-3) - 133\,a(n-4) + 95\,a(n-5) + 123\,a(n-6) + 9\,a(n-7) - 102\,a(n-8)
 \]
-for every $n>9$.
+for every $n>10$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $8$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=9+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=10+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once. The
 rational weights are cleared by a common denominator first, so the whole computation is over
-the integers. The bound is exact: at $n=9$ the recurrence fails on the entry's own published terms, so no larger range holds.
+the integers. The bound is exact: at $n=10$ the recurrence fails on the entry's own published terms, so no larger range holds.
 \end{proof}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $18$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $19$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
@@ -140,7 +140,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A205347.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A206232.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{comtet} L.~Comtet, \emph{Advanced Combinatorics}, Reidel, 1974. (Set partitions

@@ -12,91 +12,90 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A223267, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A189349, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{3 September 2026}
+\date{6 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A223267 counts the ways of writing the vertices of a fixed graph $G$ into an array of width
-$6$ so that any two cells adjacent in one of the named directions carry vertices joined by an
-edge of $G$; here $G$ is octahedron graph. The entry carries an empirical recurrence of order $9$
-contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical: every
-condition joins cells inside one slice of the array or inside two consecutive slices, so a
-single slice is a state and the count is a walk count on a finite digraph with $S=6145$ vertices.
+OEIS A189349 counts the permutations of the cells of an $n\times3$ array in which every cell
+moves by one of a fixed short list of offsets. The entry carries an empirical recurrence of
+order $10$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
+empirical. The count is the permanent of the incidence matrix of the offset graph; read the
+cells in row-major order and let each choose its image, and the only thing that has to be
+carried is which images inside a window of $9$ consecutive positions are already taken.
+That makes $a$ a walk count on $S=35$ states, hence $C$-finite, and whether the published
+recurrence is one of its recurrences is then a finite exact computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05C15, 05A15, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A05, 05A15, 15A15.\normalsize
 
 \section{The conjecture}
 
-OEIS A223267 is ``Rolling cube footprints: number of nX6 0..5 arrays starting with 0 where 0..5 label faces of a cube and every array movement to a horizontal, diagonal or antidiagonal neighbor moves across a corresponding cube edge.''. It has offset $1$ and begins
+OEIS A189349 is ``Number of nX3 array permutations with each element moving one space diagonally, horizontally or vertically.''. It has offset $1$ and begins
 \[
-1024, 737280, 611319808, 522106961920, 450204914417664, 389343801904201728, 337035427916688654336, 291846966499723716853760,\ \dots
+0, 13, 48, 557, 3632, 30769, 229248, 1815601,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 1152*a(n-1) -229376*a(n-2) -21233664*a(n-3) +4697620480*a(n-4) +12884901888*a(n-5) -17798344474624*a(n-6) +343047627866112*a(n-7) +6755399441055744*a(n-8) -90071992547409920*a(n-9)
+Empirical: a(n) = 2*a(n-1) +41*a(n-2) +44*a(n-3) -118*a(n-4) +118*a(n-6) -44*a(n-7) -41*a(n-8) -2*a(n-9) +a(n-10)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 21:26:27, revision 8) this is still
+As of the ``Last modified'' line on the live entry (Jul 16 2026 12:35:03, revision 11) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-Let $G$ be the graph on the label set $\{0,1,\dots,5\}$ whose vertices are the six faces of a cube, two of them adjacent unless they are opposite. That is the octahedron graph $K_{2,2,2}$: $6$ vertices, $4$-regular, $12$ edges.
-
-An array $x$ is a map from the cells of a rectangle to the vertices of $G$. The entry names the
-directions antidiagonal, diagonal and horizontal, that is the cell offsets
+Write the cells of the array as pairs $(i,j)$ with $0\le i<n$ and $0\le j<3$. An
+\emph{array permutation} of the kind the entry counts is a bijection $\pi$ from the cells to
+the cells such that for every cell,
 \[
-(1,-1), (1,1), (0,1),
+\pi(i,j)-(i,j)\;\in\;\Delta,\qquad
+\Delta=\{\,(-1,-1),\ (-1,0),\ (0,-1),\ (0,1),\ (1,0),\ (1,1)\,\}.
 \]
-and asks that whenever two cells of the array differ by one of those offsets, the two vertices
-they carry are joined by an edge of $G$:
+The offsets are what the name's words say: one step horizontally, vertically or diagonally, in either direction along each of those axes. A cell may not stay where it is: $(0,0)$ is not among the offsets, so the permutation has no fixed point.
+
+The words name an AXIS, not a single direction: ``diagonally'' admits
+both $(1,1)$ and $(-1,-1)$, and ``antidiagonally'' is a separate word for the other diagonal.
+And a move is only allowed when its target is a cell of the array, so cells near an
+edge have fewer choices. The reading is pinned against the entry's own published terms rather
+than assumed: taking ``diagonally, horizontally or vertically'' to mean all eight king moves
+gives $24$ where A189305 publishes $14$.
+
+Equivalently, $a(n)$ is the permanent of the $n3\times n3$ matrix whose $(c,c')$ entry is
+$1$ exactly when $c'-c\in\Delta$.
+
+\section{A window of 9 positions}
+
+Number the cells in row-major order, $k=i\cdot3+j$. An offset $(\delta_1,\delta_2)$ moves a
+cell by $\delta_13+\delta_2$ places in that order, so every image lies between $lo=-4$ and
+$hi=4$ places from its source. Process the cells in order and let each one choose its image.
+Once the cell at position $k$ has been dealt with, the position $k+-4$ can never be chosen
+again by anybody, so it must already be taken; and no position beyond $k+4$ can have been
+taken yet. What has to be remembered is therefore exactly which of the $9$ positions
+$k+-4,\dots,k+4$ are taken --- a subset of a set of size $9$, and nothing else.
+
+That is the state. One step of the walk is one row, that is $3$ cell choices, and the
+condition ``the position leaving the window is taken'' is what makes the walk count permutations
+rather than partial injections: every position is taken exactly once, once at the moment it
+leaves the window.
+
+The two boundaries are the same condition. Images above the first row do not exist, so the walk
+starts with exactly the window positions lying above the array marked as taken. Images below the
+last row do not exist either, so the walk must end with exactly those positions marked and
+nothing beyond. In the window's own coordinates those two masks are equal, so the start state is
+also the only accepting state and
 \[
-x(i,j)\,x(i+\delta_1,j+\delta_2)\in E(G)\qquad
-\text{for every named offset } (\delta_1,\delta_2)\text{ and every pair of cells in range.}
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=35,
 \]
-The entry also fixes the top-left cell: $x(0,0)=0$.
-
-\begin{lemma}\label{lem:label}
-The count does not depend on how the vertices are labelled.
-\end{lemma}
-
-\begin{proof}
-A relabelling is a bijection $\sigma$ of the label set; if it is an isomorphism from one
-labelled copy of $G$ to another then $x\mapsto\sigma\circ x$ is a bijection between the arrays
-counted for the two copies, because the condition mentions only the edge relation.
-Because the four named graphs are vertex-transitive---the symmetry group of the solid is transitive on its vertices, and on its faces---the count is the same whichever vertex is the one called $0$, so fixing the top-left cell at $0$ is unambiguous too.
-\end{proof}
-
-\section{One slice is a state}
-
-Take the array one $row$ at a time, in the direction in which it grows.
-Every offset the entry names has its two cells either in the same $row$ or in two
-consecutive ones. So a $row$, a word of length $6$ over the vertices of $G$, carries
-everything the next $row$ needs: the conditions inside a $row$ constrain that
-$row$ alone, and the conditions across $row$s are a relation between the
-$row$ just written and the one about to be written.
-
-Let $M$ be the matrix indexed by the legal $row$s, with $M_{uv}=1$ when $v$ may
-follow $u$. Add one further state for the empty array, whose successors are the legal first
-$row$s---those beginning with the vertex $0$; then a walk of
-$n$ steps from that state is exactly an array of $n$ $row$s. Every state may end an
-array, so $\tau=\mathbf{1}$ and
-\[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=6145.
-\]
-The $row$s themselves are built one cell at a time with the conditions applied as soon
-as they can be, which for the sparser graphs is what makes the state list short: a $row$
-of length $6$ over $6$ vertices is one of $6^{6}$ words, but only $S-1$ of them are
-legal. The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
-published terms rather than assumed. In particular $a$ is $C$-finite.
+for the transfer matrix $M$ on those $S$ states. The walk index $j$ and the entry's own $n$
+differ by a constant, read off by matching the published terms rather than assumed. In
+particular $a$ is $C$-finite.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{9}-\sum_i c_it^{9-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{10}-\sum_i c_it^{10-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -104,7 +103,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+9}-\sum_ic_iM^{j+9-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+10}-\sum_ic_iM^{j+10-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -113,13 +112,13 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;1152\,a(n-1) - 229376\,a(n-2) - 21233664\,a(n-3) + 4697620480\,a(n-4) + 12884901888\,a(n-5) - 17798344474624\,a(n-6) + 343047627866112\,a(n-7) + 6755399441055744\,a(n-8) - 90071992547409920\,a(n-9)
+a(n)\;=\;2\,a(n-1) + 41\,a(n-2) + 44\,a(n-3) - 118\,a(n-4) + 118\,a(n-6) - 44\,a(n-7) - 41\,a(n-8) - 2\,a(n-9) + a(n-10)
 \]
 for every $n>9$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $9$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $10$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
 integers vanish from the index corresponding to $n=9+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
@@ -129,14 +128,13 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $10$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $20$ terms the entry publishes, exactly, in integer
 arithmetic.
 
-Second, the count was recomputed for the smallest arrays straight from the definition, with the
-graph rebuilt by a different route---the cube from its corner points and face normals in space,
-the icosahedron as a pentagonal antiprism capped at both poles---and the arrays written out cell
-by cell, each cell tested against the cells it must be joined to. No slice, no state and no
-recurrence is involved in that computation, and the published terms came back.
+Second, the count was recomputed for the smallest arrays straight from the definition: the
+cells of the array were matched to their images one at a time, over the whole grid, with no
+window, no mask over a sliding frame and no transfer matrix, and the published terms came back.
+That computation shares nothing with the construction of Section~3 beyond the offset list.
 
 Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
@@ -146,12 +144,11 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A223267.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A189349.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{cox} H.~S.~M.~Coxeter, \emph{Regular Polytopes}, 3rd ed., Dover, 1973.
-\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
-University Press, 2013.
+\bibitem{minc} H.~Minc, \emph{Permanents}, Encyclopedia of Mathematics and its
+Applications 6, Addison--Wesley, 1978.
 \end{thebibliography}
 
 \end{document}

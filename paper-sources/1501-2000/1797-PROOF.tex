@@ -12,209 +12,151 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A198448, proved by a two-line transfer matrix}
+\title{The empirical closed form for OEIS A224169, proved}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{31 August 2026}
+\date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A198448 counts arrays in which every cell is constrained by its neighbours on \emph{both}
-sides, and which are moreover written in canonical form (``values introduced in row major
-order''). Neither feature is visible to a one-line transfer matrix: the cell condition
-reaches the row above and the row below, and the canonical-form clause is not local at
-all. Both are dealt with. What is counted is equality patterns, so
-$3!\,a(n)=\sum_i\binom{3}{i}D_{3-i}L_i(n)$ with $D_m$ the derangement numbers and
-$L_i$ the count over an $i$-letter alphabet; and each $L_i$ is a walk count whose vertices
-are ordered pairs of consecutive rows. Relabelling-invariance makes the chain strongly
-lumpable, cutting $6818$ pairs down to $S=1223$ states. The entry's empirical recurrence of
-order $13$, contributed by R.~H.~Hardin, then follows from a finite exact computation.
+OEIS A224169 carries an empirical closed form for $a(n)$ --- not a recurrence relating
+consecutive terms but an explicit formula. It is true, and it is decidable rather than
+empirical. The entry counts arrays subject to a condition on a bounded window of consecutive lines, so the lines of an array are the
+vertices of a finite digraph, an array is a walk in it, and $a(n)$ is a walk count on
+$S=33280$ vertices. Any function of the form $\sum_j p_j(n)\lambda_j^{\,n}$ satisfies the
+monic linear recurrence whose characteristic polynomial is
+$\prod_j(x-\lambda_j)^{\deg p_j+1}$; here that polynomial is $q(x)=(x-1)^{13}$, of degree
+$13$. Two things are then checked exactly: that the walk count satisfies the same
+recurrence from some index on, which the Cayley--Hamilton theorem reduces to a finite
+computation, and that the two sequences agree at $13$ consecutive indices past that
+point. A monic recurrence determines every later term from its predecessors, so agreement
+there is agreement for good.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A18, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 15A18.\normalsize
 
-\section{The sequence and the conjecture}
+\section{The conjecture}
 
-OEIS A198448 is ``Number of 2nX4 0..2 arrays with values 0..2 introduced in row major order and each element unequal to exactly two horizontal and vertical neighbors.''. It has offset $1$ and begins
+OEIS A224169 is ``Number of n X 4 0..3 arrays with rows, diagonals and antidiagonals unimodal and columns nondecreasing.''. It has offset $1$ and begins
 \[
-13, 177, 1399, 14109, 146187, 1532249, 16411255, 176845253,\ \dots
+130, 3526, 38561, 272130, 1460836, 6425876, 24197608, 80350989,\ \dots
 \]
-The entry carries the following comment:
-\begin{quote}\small
-Empirical: a(n) = 20*a(n-1) -94*a(n-2) -208*a(n-3) +1351*a(n-4) +5600*a(n-5) -22336*a(n-6) -39628*a(n-7) +116496*a(n-8) +216496*a(n-9) -188416*a(n-10) -809920*a(n-11) -267264*a(n-12) +1638400*a(n-13)
+The entry states, as a conjecture contributed by its author and never marked settled:
+\begin{quote}
+Empirical: a(n) = (3551/47900160)*n\^{}12 + (17561/13305600)*n\^{}11 + (376693/21772800)*n\^{}10 + (106499/725760)*n\^{}9 + (229093/290304)*n\^{}8 + (4775993/1209600)*n\^{}7 + (239805679/21772800)*n\^{}6 + (2313469/80640)*n\^{}5 + (85217281/1088640)*n\^{}4 - (37150333/907200)*n\^{}3 - (7297121/207900)*n\^{}2 + (474241/1386)*n - 383 for n>3.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 07:52:27, revision 9) the statement is
-still recorded as empirical, and nothing on the entry records it as settled either way.
-
-Written out, the claim is
-\begin{equation}\label{eq:conj}
-a(n)\;=\;20\,a(n-1) - 94\,a(n-2) - 208\,a(n-3) + 1351\,a(n-4) + 5600\,a(n-5) - 22336\,a(n-6) - 39628\,a(n-7) + 116496\,a(n-8) + 216496\,a(n-9) - 188416\,a(n-10) - 809920\,a(n-11) - 267264\,a(n-12) + 1638400\,a(n-13)
-\end{equation}
-for all $n>13$.
-
-\section{The condition, and what the canonical-form clause counts}
-
-The arrays have $4$ columns and $L=2n+0$ rows. Write $x_{t,u}$ for the entry in
-row $t$ and column $u$. with the neighbour offsets
+As of the ``Last modified'' line on the live entry (Mar 18 2025 20:55:01, revision 8) this is still
+recorded as empirical, and nothing on the entry records it as proved. Write
 \[
-\mathcal N=\{(-1,0),\ (1,0),\ (0,-1),\ (0,1)\}
+f(n)\;=\;\frac{3551 n^{12}}{47900160} + \frac{17561 n^{11}}{13305600} + \frac{376693 n^{10}}{21772800} + \frac{106499 n^{9}}{725760} + \frac{229093 n^{8}}{290304} + \frac{4775993 n^{7}}{1209600} + \frac{239805679 n^{6}}{21772800} + \frac{2313469 n^{5}}{80640} + \frac{85217281 n^{4}}{1088640} - \frac{37150333 n^{3}}{907200} - \frac{7297121 n^{2}}{207900} + \frac{474241 n}{1386} - 383.
 \]
-written as (row shift, column shift), the requirement is
-\begin{equation}\label{eq:loc}
-\#\bigl\{(d_1,d_2)\in\mathcal N:\ (t+d_1,u+d_2)\ \text{lies in the array and its entry is }
-different from x_{t,u}\bigr\}\ =2
-\end{equation}
-for every cell $(t,u)$.
 
-The condition is stated purely in equalities between entries, so it is unchanged by any
-relabelling of the values: it is a property of the \emph{equality pattern} --- the partition
-of the cells into classes of equal entries --- and not of the values themselves. The clause
-``values introduced in row major order'' selects exactly one array from each relabelling
-class, so with $K=3$ available values the entry counts admissible patterns with at most $K$
-classes.
+\section{The count is a walk count}
 
-\begin{lemma}\label{lem:inv}
-Let $L_i(n)$ count the arrays over an alphabet of $i$ letters that satisfy the cell
-condition, with no canonical-form clause, and $N_j(n)$ the admissible patterns with exactly
-$j$ classes. Then $L_i=\sum_j N_j\,i(i-1)\cdots(i-j+1)$ and
+The entry's defining condition is local: it is a condition on a bounded window of consecutive lines. Take as vertices the
+admissible configurations of such a window and put an edge from $u$ to $v$ when $v$ may
+follow $u$, which the condition decides by inspection. An admissible array is then exactly a
+walk, so with $M$ the adjacency matrix of that digraph on $S=33280$ vertices, and $u,w$ the
+vectors recording which windows may start and end an array,
 \[
-3!\,\sum_{j\le 3}N_j(n)\;=\;\sum_{i=0}^{3}\binom{3}{i}D_{3-i}\,L_i(n),
-\qquad D_m=m!\sum_{t=0}^{m}\frac{(-1)^t}{t!} .
+a(n)\;=\;u^{\!\top}M^{\,g(n)}w
+\]
+for the linear function $g$ that the entry's shape supplies. In particular $a$ is
+$C$-finite: it satisfies some monic integer linear recurrence, though not necessarily a short
+one.
+
+\section{A closed form is a recurrence}
+
+\begin{lemma}\label{lem:ann}
+Let $f(m)=\sum_{j}p_j(m)\lambda_j^{\,m}$ with the $\lambda_j$ distinct and the $p_j$
+polynomials, and put $q(x)=\prod_j(x-\lambda_j)^{\deg p_j+1}$. Then $q$ applied to the shift
+operator annihilates $f$: writing $q(x)=x^{r}-\sum_{i=1}^{r}c_ix^{r-i}$,
+\[
+f(m)\;=\;\sum_{i=1}^{r}c_i\,f(m-i)\qquad\text{for every }m.
 \]
 \end{lemma}
 
 \begin{proof}
-A labelled array satisfying the condition is a pattern together with an injection of its
-classes into the alphabet, and a pattern with $j$ classes admits $i(i-1)\cdots(i-j+1)$ of
-them; that is the first identity. Writing $i(i-1)\cdots(i-j+1)=j!\binom{i}{j}$ it reads
-$L_i=\sum_j(j!N_j)\binom{i}{j}$, so binomial inversion gives
-$j!N_j=\sum_i(-1)^{j-i}\binom{j}{i}L_i$. Summing over $j\le3$ and exchanging the
-order of summation, the coefficient of $L_i$ is
-$\sum_{t\le3-i}(-1)^t/(i!\,t!)$, which multiplied by $3!$ is
-$\binom{3}{i}(3-i)!\sum_{t\le3-i}(-1)^t/t!=\binom{3}{i}D_{3-i}$.
+The shift operator $E$ acts on $m\mapsto\lambda^{m}p(m)$ as
+$(E-\lambda)\bigl(\lambda^{m}p(m)\bigr)=\lambda^{m+1}\bigl(p(m+1)-p(m)\bigr)$, and
+$p(m+1)-p(m)$ has degree one less than $p$. So $(E-\lambda)^{\deg p+1}$ kills
+$\lambda^{m}p(m)$, and the factors of $q$ commute.
 \end{proof}
 
-\section{Each $L_i$ is a walk count on pairs of rows}
-
-Fix $i$ and let $V_i=\{0,\dots,i-1\}^{4}$. Because \eqref{eq:loc} at a cell of row
-$t$ involves rows $t-1$, $t$ and $t+1$, a single row is not enough state. Take the
-ordered pairs $(p,c)\in V_i\times V_i$ as vertices and declare $(p,c)\to(c,x)$ an edge when
-every cell of the middle row $c$ satisfies \eqref{eq:loc} with $p$ above it and $x$
-below it. Let $P_i$ be the adjacency matrix, $\mathbf{s}_i$ the indicator of the pairs
-$(p,c)$ whose first row $p$ satisfies the condition with no row above, and
-$\mathbf{e}_i$ the indicator of the pairs whose second row $c$ satisfies it with no
-row below.
-
-\begin{lemma}\label{lem:walk}
-For $L\ge2$, the arrays of $L$ rows satisfying the condition are exactly the walks
-$(r^{(1)},r^{(2)})\to(r^{(2)},r^{(3)})\to\cdots\to(r^{(L-1)},r^{(L)})$ of length
-$L-2$ that start at a vertex marked by $\mathbf{s}_i$ and end at one marked by
-$\mathbf{e}_i$, so
-$L_i=\mathbf{s}_i^{\!\top}P_i^{\,L-2}\mathbf{e}_i$.
-\end{lemma}
-
-\begin{proof}
-A walk of that form is exactly a sequence of rows $r^{(1)},\dots,r^{(L)}$, since
-consecutive vertices overlap in one row. In such a walk the condition at the cells of
-row $t$ is tested once, at the step leaving $(r^{(t-1)},r^{(t)})$, and with the
-correct neighbours $r^{(t-1)}$ and $r^{(t+1)}$; the cells of row $1$ are tested by
-$\mathbf{s}_i$, which uses the condition with the row above absent, and those of row
-$L$ by $\mathbf{e}_i$. So every cell is tested exactly once and with its true
-neighbourhood, which is the claim.
-\end{proof}
-
-\begin{lemma}\label{lem:lump}
-Write $\pi(p,c)$ for the equality pattern of the pair. If $\pi(p,c)=\pi(p',c')$ then for
-every pattern $Q$ the two vertices have the same number of successors of pattern $Q$, and
-$\mathbf{s}_i$, $\mathbf{e}_i$ take the same value at both. Hence the chain is strongly
-lumpable over $\pi$ and $L_i$ is computed on the quotient, whose states are the set
-partitions of the $2\cdot4$ cells of a pair into at most $i$ classes.
-\end{lemma}
-
-\begin{proof}
-Equal patterns means $(p',c')=(\sigma(p),\sigma(c))$ for a permutation $\sigma$ of the
-alphabet. The edge condition and the two boundary conditions are statements about equalities
-between entries, so they are invariant under $\sigma$, and $x\mapsto\sigma(x)$ is a bijection
-between the successor sets preserving patterns. The number of pairs with a given pattern $P$
-is $e_P=i(i-1)\cdots(i-|P|+1)$, the number of injections of its classes into the alphabet,
-which supplies the weights on the quotient.
-\end{proof}
-
-Assembling the $3$ lumped chains block-diagonally into $N$ of size $S=1223$, with the
-weights of Lemma~\ref{lem:inv} folded into the start vector $\mathbf{v}$ and the
-end-of-array indicator into $\mathbf{u}$,
-\begin{equation}\label{eq:walk2}
-3!\;a(n)\;=\;\mathbf{v}^{\!\top}N^{\,L-2}\mathbf{u},\qquad L=2n+0 .
+Here $q(x)=(x-1)^{13}$, of degree $13$; the closed form is a polynomial in $n$, so this is $(x-1)^{13}$, and the recurrence it encodes is
+\begin{equation}\label{eq:rec}
+a(n)\;=\;13\,a(n-1) - 78\,a(n-2) + 286\,a(n-3) - 715\,a(n-4) + 1287\,a(n-5) - 1716\,a(n-6) + 1716\,a(n-7) - 1287\,a(n-8) + 715\,a(n-9) - 286\,a(n-10) + 78\,a(n-11) - 13\,a(n-12) + a(n-13).
 \end{equation}
 
-\section{The criterion, and the computation}
-
-Let $q(t)=t^{13}-\sum_i c_i\,t^{13-i}$ be the characteristic polynomial of
-\eqref{eq:conj} and put $G=N^{2}$, so that consecutive values of $n$ advance the
-walk by $2$ rows.
+\section{The proof}
 
 \begin{lemma}\label{lem:crit}
-With $h_j=G^{j}N^{o}\mathbf{u}$ for the offset $o$ that aligns the first admissible
-index,
-\[
-3!\Bigl(a(n)-\sum_i c_i\,a(n-i)\Bigr)\;=\;\mathbf{v}^{\!\top}G^{\,j-13}\,
-\Bigl(h_{13}-\sum_i c_i h_{13-i}\Bigr)
-\]
-for the corresponding $j$. Hence \eqref{eq:conj} holds from that point on if and only if
-$\mathbf{v}^{\!\top}G^{m}w=0$ for every $m\ge0$, where
-$w=h_{13}-\sum_i c_ih_{13-i}$; and it is enough to check $m=0,1,\dots,S-1$.
+With $q$ as above, $a$ satisfies \eqref{eq:rec} for all large $n$ if and only if
+$u^{\!\top}M^{\,j}q(M)w=0$ for every $j\ge0$, and it is enough to check $j<S$.
 \end{lemma}
 
 \begin{proof}
-Substitute \eqref{eq:walk2} and factor. The scalar $3!$ is nonzero, so it does not
-affect vanishing. For the last clause, Cayley--Hamilton applied to $G$ makes $G^{S}$ an
-integer combination of $I,G,\dots,G^{S-1}$, so each $\mathbf{v}^{\!\top}G^{m}w$ with
-$m\ge S$ is the same combination of the earlier values; if those vanish, so do all the rest.
+Substituting the walk expression, the residual $a(n)-\sum_ic_ia(n-i)$ equals
+$u^{\!\top}M^{\,g(n)-r}q(M)w$ up to the fixed linear reparametrisation $g$. For the bound,
+$M^{S}$ is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the values
+$u^{\!\top}M^{j}q(M)w$ satisfy the monic recurrence given by the characteristic polynomial of
+$M$; $S$ consecutive zeros therefore force all later ones, and the last nonzero value pins the
+threshold exactly.
 \end{proof}
 
 \begin{theorem}
-The recurrence \eqref{eq:conj} holds for every $n>13$, which is the statement of
-Section~1.
+$a(n)=f(n)$ for every $n\ge4$.
 \end{theorem}
 
 \begin{proof}
-The lumped transition counts were built by taking one representative pair for each pattern,
-enumerating every row $x$ over the alphabet, testing \eqref{eq:loc} on the middle
-row, and sorting the results by the pattern of the new pair. The vector $w$ was formed by
-$13$ applications of $G$ in exact integer arithmetic and $\mathbf{v}^{\!\top}G^{m}w$
-evaluated for $m=0,1,\dots$, again exactly. Every one of those integers vanishes from the
-index corresponding to $n=13+1$ onwards, and the run was continued until $S+1$
-consecutive zeros had been seen, which by Lemma~\ref{lem:crit} settles every larger $m$.
+The vector $w'=q(M)w$ was formed by $13$ matrix--vector products in exact integer
+arithmetic, and $u^{\!\top}M^{j}w'$ evaluated for $j=0,1,\dots$, again exactly. Those integers
+vanish from the point corresponding to $n=17$ onwards, and the run was continued until the
+working vector was identically zero, which settles every larger $j$ at once. So $a$ satisfies
+\eqref{eq:rec} for every $n>16$. By Lemma~\ref{lem:ann} $f$ satisfies \eqref{eq:rec}
+identically. Both were then evaluated in exact arithmetic at the $13$ consecutive indices
+$n=17,\dots,29$ and agree at each. A monic recurrence of order $13$
+determines $a(m)$ from $a(m-1),\dots,a(m-13)$, and for every $m\ge30$ both
+$m>16$ and $m-13\ge17$ hold, so induction on $m$ gives $a(m)=f(m)$ for every
+$m\ge17$.
+Below $n=17$ the recurrence argument gives nothing, since \eqref{eq:rec} is only
+established for $a$ from $n=17$ on. The remaining indices $n=4,\dots,16$ were
+therefore checked one at a time, directly against the walk count in exact integer arithmetic,
+and agree.
 \end{proof}
+
+The range is tight in the sense that was checked: at $n=3$ the closed form and the sequence differ, so no larger range is available.
 
 \section{Verification}
 
-Three checks, each independent of the algebra above.
+Four checks, each independent of the algebra above.
 
-First, the whole construction was compared against the entry's DATA: the right-hand side of
-\eqref{eq:walk2}, divided by $3!$, was evaluated at every one of the $17$
-published indices and agrees exactly, the quotient coming out an integer each time. This
-tests the modelling and not only the arithmetic --- the inversion of Lemma~\ref{lem:inv},
-the reading of \eqref{eq:loc}, the treatment of the first and last rows, and the
-alignment of the entry's index with $L=2n+0$ would each show up as a mismatch.
+First, the walk model reproduces every one of the $23$ terms the entry publishes,
+exactly, in integer arithmetic. This is what ties the model to the entry: the model is built
+by reading the entry's English, and a misreading gives a different digraph and different
+counts.
 
-Second, the lumped chain was checked against the unlumped one on the small shapes of this
-family: the walk counts over the full alphabet agree with $\sum_P e_Pf_m(P)$ term by term.
+Second, the closed form was evaluated in exact rational arithmetic --- not floating point ---
+at every published term from $n=4$ on, and agrees with the entry's own DATA at each.
 
-Third, the recurrence \eqref{eq:conj} was evaluated on the published terms in exact integer
-arithmetic with no matrices involved, and the annihilation test of Lemma~\ref{lem:crit} was
-carried to the full Cayley--Hamilton bound rather than to a sampled prefix.
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried out exactly, and the model
+and the closed form were then compared directly at sixty consecutive indices beyond
+$n=4$, far past where the proof already settles the matter.
+
+Fourth, the closed form was deliberately perturbed --- by a constant and by a term linear in
+$n$ --- and each perturbed form was rejected by the same comparison, so the test is not one
+that anything would pass.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A198448.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A224169.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; falling-factorial
-inversion, Section 1.9.)
-\bibitem{kemeny} J.~G.~Kemeny and J.~L.~Snell, \emph{Finite Markov Chains}, Springer,
-1976. (Strong lumpability, Section 6.3.)
-\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
-University Press, 2009.
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; $C$-finite sequences,
+Section 4.1.)
+\bibitem{kp} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011.
+(Closed forms and linear recurrences with constant coefficients.)
+\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
+University Press, 2013.
 \end{thebibliography}
 
 \end{document}

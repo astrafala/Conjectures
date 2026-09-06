@@ -12,54 +12,54 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A266051, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A265992, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A266051 counts arrays of width $4$ in which every entry is equal to the NUMBER of its own
+OEIS A265992 counts arrays of width $2$ in which every entry is equal to the NUMBER of its own
 neighbours, in named directions, that stand in a stated relation to it. The entry carries an
-empirical recurrence of order $10$ contributed by R.~H.~Hardin. It is true, and it is
+empirical recurrence of order $11$ contributed by R.~H.~Hardin. It is true, and it is
 decidable rather than empirical. The condition is self-referential but local: a cell's
 neighbours lie in the row above, its own row and the row below, so a window of three
 consecutive rows decides the condition for the middle one, and the count is a walk count on
-$S=23306$ states.
+$S=143$ states.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 05C30, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A266051 is ``Number of nX4 integer arrays with each element equal to the number of horizontal and antidiagonal neighbors less than or equal to itself.''. It has offset $1$ and begins
+OEIS A265992 is ``Number of 2 X n integer arrays with each element equal to the number of horizontal and antidiagonal neighbors not equal to itself.''. It has offset $1$ and begins
 \[
-7, 58, 302, 4203, 41919, 406412, 3922630, 37847050,\ \dots
+1, 1, 2, 2, 4, 6, 7, 11,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 7*a(n-1) +19*a(n-2) +54*a(n-3) +52*a(n-4) +580*a(n-5) +223*a(n-6) -275*a(n-7) -60*a(n-8) +44*a(n-9) -4*a(n-10) for n>12
+Empirical: a(n) = 3*a(n-3) + a(n-4) + 2*a(n-5) + 2*a(n-6) + 3*a(n-7) + 2*a(n-8) - 4*a(n-9) - 4*a(n-10) - 4*a(n-11) for n>14.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Dec 20 2015 10:22:47, revision 4) this is still
+As of the ``Last modified'' line on the live entry (Jan 09 2019 09:12:28, revision 7) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The array has $4$ cells across. The NEIGHBOURS of a cell are the cells reached from it by the
+The array has $2$ cells across. The NEIGHBOURS of a cell are the cells reached from it by the
 offsets
 \[
-(-1,1), (0,-1), (0,1), (1,-1),
+(-1,0), (-1,1), (1,-1), (1,0),
 \]
 those that lie inside the array. The condition is that every entry counts its own neighbours
-that are smaller than or equal to it: writing $v=x(i,j)$,
+that differ from it: writing $v=x(i,j)$,
 \[
-v\;=\;\#\{\text{neighbours } y \text{ of } (i,j)\ :\ y\le v\} .
+v\;=\;\#\{\text{neighbours } y \text{ of } (i,j)\ :\ y\ne v\} .
 \]
 
 The entry says ``integer arrays'' and names no alphabet, but one is forced. An entry counts
 neighbours in the named directions, of which there are $4$, so every entry of the array
 lies in $\{0,1,\dots,4\}$ and the count is finite. That bound is used below and
-nothing wider is needed.
+nothing wider is needed. The entry writes the array with $n$ as the number of COLUMNS; the walk is run down the transpose, so the offsets above are already the transposed ones. Each direction is taken with both signs, so transposing cannot lose one.
 
 \section{Three rows decide one}
 
@@ -83,7 +83,7 @@ which asks whether that row satisfies its condition with nothing written below i
 vector is therefore NOT the all-ones vector, and a row that counts correctly only when
 something is written below it does not finish an array. With $M$ the adjacency matrix,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=23306.
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=143.
 \]
 The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
 published terms rather than assumed. In particular $a$ is $C$-finite.
@@ -91,7 +91,7 @@ published terms rather than assumed. In particular $a$ is $C$-finite.
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{10}-\sum_i c_it^{10-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{11}-\sum_i c_it^{11-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -99,7 +99,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+10}-\sum_ic_iM^{j+10-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+11}-\sum_ic_iM^{j+11-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -108,15 +108,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;7\,a(n-1) + 19\,a(n-2) + 54\,a(n-3) + 52\,a(n-4) + 580\,a(n-5) + 223\,a(n-6) - 275\,a(n-7) - 60\,a(n-8) + 44\,a(n-9) - 4\,a(n-10)
+a(n)\;=\;3\,a(n-3) + a(n-4) + 2\,a(n-5) + 2\,a(n-6) + 3\,a(n-7) + 2\,a(n-8) - 4\,a(n-9) - 4\,a(n-10) - 4\,a(n-11)
 \]
-for every $n>12$.
+for every $n>14$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $10$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $11$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=12+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=14+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -124,7 +124,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $18$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $39$ terms the entry publishes, exactly, in integer
 arithmetic.
 
 Second, the count was recomputed for the smallest arrays straight from the definition:
@@ -140,7 +140,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A266051.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A265992.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata

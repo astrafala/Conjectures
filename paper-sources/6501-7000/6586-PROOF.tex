@@ -12,94 +12,81 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A253400, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A250820, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{5 September 2026}
+\date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A253400 counts arrays of width $2$ over $\{0,1,2\}$ in which the largest entry on the main diagonal plus the smallest on the antidiagonal of every $2\times2$ subblock differs from the same number at the neighbouring subblock. The entry carries an
+OEIS A250820 counts arrays over $\{0,1\}$ in which a statistic taken over short runs
+of cells produces a derived array that is monotone in a named direction. The entry carries an
 empirical recurrence of order $10$ contributed by R.~H.~Hardin. It is true, and it is
-decidable rather than empirical: a block of $k$ rows and the block one row lower together
-occupy $k+1$ consecutive rows, so every comparison the condition makes is settled inside
-$3$ consecutive rows and the count is a walk count on $S=91$ states.
+decidable rather than empirical: every comparison the condition makes lies inside a bounded
+window of consecutive rows, so the count is a walk count on $S=512$ states, and the
+conjectured recurrence is then settled by a finite exact computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B20, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A253400 is ``Number of (n+1)X(1+1) 0..2 arrays with every 2X2 subblock diagonal maximum plus antidiagonal minimum unequal to its neighbors horizontally, vertically and ne+sw antidiagonally.''. It has offset $1$ and begins
+OEIS A250820 is ``Number of (n+2) X (1+2) 0..1 arrays with nondecreasing maximum minus minimum of every three consecutive values in every row and column.''. It has offset $1$ and begins
 \[
-81, 480, 2890, 17560, 106540, 646240, 3920448, 23781448,\ \dots
+512, 2744, 13824, 64000, 287496, 1259712, 5451776, 23393656,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 2*a(n-1) +24*a(n-2) +7*a(n-3) -15*a(n-4) -84*a(n-6) -139*a(n-7) -28*a(n-8) -14*a(n-9) -24*a(n-10) for n>11
+Empirical: a(n) = 7*a(n-1) -8*a(n-2) -27*a(n-3) +45*a(n-4) +24*a(n-5) -51*a(n-6) -3*a(n-7) +16*a(n-8) -a(n-9) -a(n-10).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 14:01:56, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Oct 14 2023 11:10:10, revision 7) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The arrays have $2$ columns and a growing number of rows, with entries in $\{0,1,2\}$.
+The array has $3$ cells across and entries $x(i,j)\in\{0,1\}$.
 
-For a $k\times k$ block $B$ of cells of the array, let
+Fix the statistic $\sigma(v)=\max_t v_t-\min_t v_t$ of a run $v$ of $3$ consecutive cells --- in words,
+the maximum minus the minimum of the $3$ values. Two derived arrays are formed and both must be
+nondecreasing in their own direction: reading along a row,
 \[
-f(B)=\max_{1\le t\le k}B_{t,t}\;+\;\min_{1\le t\le k}B_{t,k+1-t} ,
+\sigma\bigl(x(i,j),\dots,x(i,j{+}2)\bigr)\ \le\
+\sigma\bigl(x(i,j{+}1),\dots,x(i,j{+}3)\bigr),
 \]
-which in words is the largest entry on the main diagonal plus the smallest on the antidiagonal. The condition is that $f$ takes different values on any two blocks that
-are neighbours in one of the directions the entry names: writing $B(i,j)$ for the block whose
-top-left cell is $(i,j)$,
+and reading down a column,
 \[
-f\bigl(B(i,j)\bigr)\;\neq\;f\bigl(B(i+\delta_1,\,j+\delta_2)\bigr)
-\qquad\text{for }(\delta_1,\delta_2)\in\Delta,
+\sigma\bigl(x(i,j),\dots,x(i{+}2,j)\bigr)\ \le\
+\sigma\bigl(x(i{+}1,j),\dots,x(i{+}3,j)\bigr).
 \]
-whenever both blocks lie wholly inside the array, where
+The same statistic and the same run length serve both directions, so the condition is
+unchanged by transposing the array.
+
+Nothing in the condition is invariant under renaming the letters --- each statistic either does
+arithmetic on them or compares them by size --- so no reduction to equality patterns is
+available, and the walk is run over the alphabet the entry names.
+
+\section{A bounded window}
+
+\begin{lemma}\label{lem:win}
+The row comparisons involve one array row each. A column comparison involves the
+$3+1=4$ consecutive rows $i,\dots,i{+}3$ and no others.
+\end{lemma}
+
+\begin{proof}
+The two runs compared start at rows $i$ and $i+1$ and have length $3$, so together they
+occupy rows $i$ through $i+3$.
+\end{proof}
+
+So the window of the last $3$ rows is a state, each row of it already satisfying its own row
+comparisons, and one step appends a row and settles the column comparisons that the new row
+completes. With $M$ the adjacency matrix of that digraph and $\iota=\tau=\mathbf{1}$,
 \[
-\Delta=\{\,(1,-1),\ (0,1),\ (1,0)\,\}
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=512,
 \]
-collects the steps for the directions the entry names, namely antidiagonal, horizontal and vertical. The
-requirement is imposed for that one size of block, $2\times2$.
+a walk of no steps being an array of exactly $3$ rows.
 
-Two remarks fix the reading. A neighbouring block is the block one step over, overlapping the
-first, not the next disjoint block: the entry says ``its neighbors'', and the counts below
-confirm it. And a comparison is imposed only when both blocks lie wholly inside the array, so a
-block near an edge is compared in fewer directions and a block whose named neighbour falls off
-the array is under no condition in that direction.
-
-\section{A window of 3 rows}
-
-A $k\times k$ block occupies $k$ consecutive rows, and each of its neighbours occupies either
-the same $k$ rows or the $k$ rows one lower. So both blocks of any comparison lie inside $k+1$
-consecutive rows, hence inside $3$ consecutive rows for every size the entry names. No
-comparison reaches further than that, in either direction.
-
-Take the array one row at a time and let the state be the last 2 rows written so far, with a
-distinguished start standing for the array before its first row, so that a walk of $n$ steps is
-an array of $n$ rows. Appending a row produces a window of $3$ rows, and the step is
-allowed exactly when every comparison whose two blocks both lie inside that window holds.
-
-Every comparison of the finished array is tested this way. Each one lies inside $3$
-consecutive rows, and every $3$ consecutive rows of the array form the window of some
-step. A comparison lying inside more than one window is tested more than once, which costs
-nothing. Conversely no step imposes anything not asked by the definition, since a step tests
-only comparisons whose two blocks lie inside the array.
-
-Every state may end an array, so $\tau=\mathbf{1}$. A block sitting in the final rows whose
-neighbour would lie below the last row is not compared in that direction at all --- the
-neighbour is not part of the array --- so stopping never leaves a condition unchecked. For the
-same reason the array of exactly $2$ rows is handled by the walks of length $2$ with no
-further test: all of its comparisons already lie inside the windows of those steps.
-
-Thus
-\[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=91,
-\]
-for the transfer matrix $M$ on those $S$ states. The walk index $j$ and the entry's own $n$
-differ by a constant, read off by matching the published terms rather than assumed. In
-particular $a$ is $C$-finite.
+The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
+published terms rather than assumed. In particular $a$ is $C$-finite.
 
 \section{The proof}
 
@@ -121,15 +108,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;2\,a(n-1) + 24\,a(n-2) + 7\,a(n-3) - 15\,a(n-4) - 84\,a(n-6) - 139\,a(n-7) - 28\,a(n-8) - 14\,a(n-9) - 24\,a(n-10)
+a(n)\;=\;7\,a(n-1) - 8\,a(n-2) - 27\,a(n-3) + 45\,a(n-4) + 24\,a(n-5) - 51\,a(n-6) - 3\,a(n-7) + 16\,a(n-8) - a(n-9) - a(n-10)
 \]
-for every $n>11$.
+for every $n>10$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $10$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=11+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=10+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -140,11 +127,10 @@ Four checks, each independent of the algebra above.
 First, the model reproduces all $19$ terms the entry publishes, exactly, in integer
 arithmetic.
 
-Second, the count was recomputed for the smallest arrays straight from the definition: every
-array of width $2$ over $\{0,1,2\}$ with a few rows was written out cell by cell, every block of
-that one size was located, its number computed, and the comparison made with each neighbouring block
-that lies inside the array. No window, no state and no end vector are involved in that
-computation, and the published terms came back.
+Second, the count was recomputed for the smallest arrays straight from the definition: fill the
+cells in row major order and test each comparison the moment both of its runs are complete,
+in the orientation the entry's own name writes. No transfer matrix and no transposition are
+involved, and the published terms came back.
 
 Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
@@ -154,7 +140,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A253400.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A250820.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge

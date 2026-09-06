@@ -12,83 +12,104 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A263120, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A235676, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A263120 counts arrays of width $5$ over $\{0,1\}$ whose rows, read as base-$2$
-numbers, are divisible by $15$ and whose columns, read the same way, are not divisible by
-$15$. The entry carries an empirical recurrence of order $46$ contributed by
-R.~H.~Hardin. It is true, and it is decidable rather than empirical. A column's value depends on
-every row of the array, so the condition is not local; but its RESIDUE is built one row at a
-time by Horner's rule, and the vector of column residues is a state of bounded size. The count
-is then a walk count on $S=225$ states.
+OEIS A235676 counts arrays of width $6$ over $\{0,1\}$ by reducing every $2\times2$ subblock to a
+single number---here the largest entry minus the smallest---and requiring the resulting derived array to have its rows
+lexicographically nonincreasing and its columns lexicographically nondecreasing. The entry carries an
+empirical recurrence of order $46$ contributed by R.~H.~Hardin. It is true, and it is
+decidable rather than empirical. The row comparison is settled by three consecutive rows of the
+array; the column comparison is not settled by any bounded window, but what is still outstanding
+about it is one bit per adjacent pair of columns, so the count is a walk count on $S=289$
+states.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 11A63, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 06A05, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A263120 is ``Number of (n+3)X(2+3) 0..1 arrays with each row divisible by 15 and column not divisible by 15, read as a binary number with top and left being the most significant bits.''. It has offset $1$ and begins
+OEIS A235676 is ``Number of (n+1)X(5+1) 0..1 arrays with the difference between each 2X2 subblock maximum and minimum lexicographically nondecreasing columnwise and nonincreasing rowwise.''. It has offset $1$ and begins
 \[
-36, 148, 522, 1708, 5124, 15640, 47602, 144236,\ \dots
+2644, 101398, 3824528, 143484144, 5376199876, 201368802704, 7541722428052, 282448223982692,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 4*a(n-1) -a(n-2) -8*a(n-3) +48*a(n-4) -168*a(n-5) +48*a(n-6) +312*a(n-7) -955*a(n-8) +2884*a(n-9) -955*a(n-10) -4832*a(n-11) +7632*a(n-12) -16032*a(n-13) +7632*a(n-14) +17568*a(n-15) +4886*a(n-16) -72248*a(n-17) +4886*a(n-18) +197200*a(n-19) -366336*a(n-20) +873744*a(n-21) -366336*a(n-22) -1155888*a(n-23) +1014058*a(n-24) -588568*a(n-25) +1014058*a(n-26) -2290528*a(n-27) +6020160*a(n-28) -17209056*a(n-29) +6020160*a(n-30) +27546528*a(n-31) -27604133*a(n-32) +27776948*a(n-33) -27604133*a(n-34) +27085688*a(n-35) -75797424*a(n-36) +221932632*a(n-37) -75797424*a(n-38) -362608200*a(n-39) +362785825*a(n-40) -363318700*a(n-41) +362785825*a(n-42) -361187200*a(n-43) +406335600*a(n-44) -541780800*a(n-45) +406335600*a(n-46)
+Empirical: a(n) = 41*a(n-1) +24*a(n-2) -6193*a(n-3) +1924*a(n-4) +381751*a(n-5) -34904*a(n-6) -12528996*a(n-7) -2476249*a(n-8) +242251344*a(n-9) +95519778*a(n-10) -2921868601*a(n-11) -1424979978*a(n-12) +22890929984*a(n-13) +11443851546*a(n-14) -120327943002*a(n-15) -54753628073*a(n-16) +436238929060*a(n-17) +163082200640*a(n-18) -1115185281644*a(n-19) -305053074990*a(n-20) +2042426147637*a(n-21) +343600635845*a(n-22) -2705840889861*a(n-23) -185737078719*a(n-24) +2604257684139*a(n-25) -47132369846*a(n-26) -1821805821961*a(n-27) +160826214615*a(n-28) +924348718445*a(n-29) -130102603524*a(n-30) -338651235030*a(n-31) +59527885849*a(n-32) +88904498941*a(n-33) -17255577437*a(n-34) -16505197234*a(n-35) +3241956946*a(n-36) +2117356442*a(n-37) -388930038*a(n-38) -180086494*a(n-39) +28441700*a(n-40) +9406424*a(n-41) -1167836*a(n-42) -259016*a(n-43) +24152*a(n-44) +2624*a(n-45) -224*a(n-46)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 10 2015 07:05:36, revision 4) this is still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 08:44:02, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The array has $5$ cells across and entries $x(i,j)\in\{0,1\}$, the digits of
-base $2$. Row $i$ of an array with $R$ rows is the number
+The arrays have $6$ columns and a growing number of rows, with entries in $\{0,1\}$. A
+$2\times2$ subblock of such an array is
 \[
-\rho_i\;=\;\sum_{j=1}^{5}x(i,j)\,2^{5-j} ,
+B=\begin{pmatrix} p & q \\ r & s \end{pmatrix},
+\qquad p=x(i,j),\; q=x(i,j+1),\; r=x(i+1,j),\; s=x(i+1,j+1).
 \]
-the LEFT digit being the most significant, and column $j$ is
+Write $v_1\le v_2\le v_3\le v_4$ for the four entries of $B$ sorted into order. The entry attaches to $B$ the single number
 \[
-\gamma_j\;=\;\sum_{i=1}^{R}x(i,j)\,2^{R-i} ,
+f(B)\;=\;v_4-v_1,
 \]
-the TOP digit being the most significant. The entry asks that every $\rho_i$ be divisible by
-$15$ and every $\gamma_j$ be not divisible by $15$.
-
-
-\section{Column residues by Horner's rule}
-
-The row condition is a condition on one row and is imposed as each row is chosen. The column
-condition is not local: $\gamma_j$ depends on every row. What is local is its residue.
-
-\begin{lemma}\label{lem:horner}
-Let $\gamma_j^{(i)}$ be the value of column $j$ of the first $i$ rows, read the same way.
-Then $\gamma_j^{(0)}=0$ and
+the largest entry minus the smallest. An array with $R$ rows and $6$ columns has $(R-1)\times5$ subblocks, and they
+form a derived array
 \[
-\gamma_j^{(i)}\;=\;2\,\gamma_j^{(i-1)}+x(i,j),
-\qquad\text{hence}\qquad
-\gamma_j^{(i)}\bmod 15\;=\;
-\bigl(2\,(\gamma_j^{(i-1)}\bmod 15)+x(i,j)\bigr)\bmod 15 .
+D(i,j)=f\!\left(\begin{pmatrix} x(i,j) & x(i,j+1) \\ x(i+1,j) & x(i+1,j+1)\end{pmatrix}
+\right),\qquad 0\le i<R-1,\;\; 0\le j<5 .
 \]
+Write $\preceq$ for the lexicographic order on finite sequences of integers: $u\preceq w$ when
+$u=w$, or when $u_k<w_k$ at the first index $k$ where they differ. The condition is that the
+rows of $D$, read left to right and compared in this order, are nonincreasing from top to bottom,
+\[
+D_{i}\;\succeq\;D_{i+1}\qquad\text{for every } i,
+\]
+and that the columns of $D$, read top to bottom and compared in the same order, are nondecreasing
+from left to right,
+\[
+D^{j}\;\preceq\;D^{j+1}\qquad\text{for every } j .
+\]
+
+\section{A bounded state}
+
+Grow the array one row at a time. A row of $D$ is built from two consecutive rows of the array,
+so the row condition is decided three array rows at a time and needs no memory beyond the
+derived row just formed. The column condition is different: which of two columns of $D$ is the
+smaller is decided by the first derived row in which they differ, and that row can be
+arbitrarily far down. What is bounded is not the comparison but what remains open about it.
+
+\begin{lemma}\label{lem:bits}
+Fix $j$ and suppose the derived rows $D_0,\dots,D_i$ have been written. If $D_t(j)=D_t(j+1)$ for
+every $t\le i$, then $D^{j}\;\preceq\;D^{j+1}$ holds for the finished array if and only if,
+at the first later row $t$ with $D_t(j)\neq D_t(j+1)$, the inequality $D_t(j)<D_t(j+1)$
+holds; and if no such row occurs the two columns are equal and the condition holds. If instead
+$D_t(j)\neq D_t(j+1)$ for some $t\le i$, then the comparison is already settled by the earliest
+such $t$ and no later row can change it.
 \end{lemma}
 
 \begin{proof}
-Adding a row at the BOTTOM shifts every earlier digit one place up in significance, which is
-multiplication by $2$, and puts the new digit in the units place. Reduction modulo
-$15$ commutes with both operations.
+Immediate from the definition of the lexicographic order: it looks only at the first index at
+which the two sequences differ, and prefixes that agree contribute nothing.
 \end{proof}
 
-So the vector $\bigl(\gamma_1\bmod 15,\dots,\gamma_{5}\bmod
-15\bigr)$ is a state: at most $15^{5}$ of them, and each array row
-that satisfies the row condition carries one such vector to another. The walk starts at the
-all-zero vector, which is the empty array, and the END vector picks out the residue vectors in
-which every entry is not divisible by $15$ --- so the end vector is not the all-ones
-vector, and the column condition is imposed once, at the end, exactly as the entry states it.
-With $M$ the adjacency matrix,
+So a single bit per adjacent pair of columns---``this pair has agreed in every derived row so
+far''---carries everything the future needs to know, and there are $4$ such pairs. The state
+is therefore
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=225.
+\bigl(\text{the array row just written},\; \text{the derived row just formed},\;
+\text{the 4 bits}\bigr),
+\]
+with a distinguished start standing for the empty array, so that a walk of $n$ steps is an array
+of $n$ rows. A step appends a row, forms the new derived row, checks it against the previous one
+for the row condition, and for each pair still flagged either leaves the flag set (the pair
+agreed again) or clears it after checking the required inequality once. Every state may end an
+array, so $\tau=\mathbf{1}$ and
+\[
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=289.
 \]
 The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
 published terms rather than assumed. In particular $a$ is $C$-finite.
@@ -113,15 +134,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;4\,a(n-1) - a(n-2) - 8\,a(n-3) + 48\,a(n-4) - 168\,a(n-5) + 48\,a(n-6) + 312\,a(n-7) - 955\,a(n-8) + 2884\,a(n-9) - 955\,a(n-10) - 4832\,a(n-11) + 7632\,a(n-12) - 16032\,a(n-13) + 7632\,a(n-14) + 17568\,a(n-15) + 4886\,a(n-16) - 72248\,a(n-17) + 4886\,a(n-18) + 197200\,a(n-19) - 366336\,a(n-20) + 873744\,a(n-21) - 366336\,a(n-22) - 1155888\,a(n-23) + 1014058\,a(n-24) - 588568\,a(n-25) + 1014058\,a(n-26) - 2290528\,a(n-27) + 6020160\,a(n-28) - 17209056\,a(n-29) + 6020160\,a(n-30) + 27546528\,a(n-31) - 27604133\,a(n-32) + 27776948\,a(n-33) - 27604133\,a(n-34) + 27085688\,a(n-35) - 75797424\,a(n-36) + 221932632\,a(n-37) - 75797424\,a(n-38) - 362608200\,a(n-39) + 362785825\,a(n-40) - 363318700\,a(n-41) + 362785825\,a(n-42) - 361187200\,a(n-43) + 406335600\,a(n-44) - 541780800\,a(n-45) + 406335600\,a(n-46)
+a(n)\;=\;41\,a(n-1) + 24\,a(n-2) - 6193\,a(n-3) + 1924\,a(n-4) + 381751\,a(n-5) - 34904\,a(n-6) - 12528996\,a(n-7) - 2476249\,a(n-8) + 242251344\,a(n-9) + 95519778\,a(n-10) - 2921868601\,a(n-11) - 1424979978\,a(n-12) + 22890929984\,a(n-13) + 11443851546\,a(n-14) - 120327943002\,a(n-15) - 54753628073\,a(n-16) + 436238929060\,a(n-17) + 163082200640\,a(n-18) - 1115185281644\,a(n-19) - 305053074990\,a(n-20) + 2042426147637\,a(n-21) + 343600635845\,a(n-22) - 2705840889861\,a(n-23) - 185737078719\,a(n-24) + 2604257684139\,a(n-25) - 47132369846\,a(n-26) - 1821805821961\,a(n-27) + 160826214615\,a(n-28) + 924348718445\,a(n-29) - 130102603524\,a(n-30) - 338651235030\,a(n-31) + 59527885849\,a(n-32) + 88904498941\,a(n-33) - 17255577437\,a(n-34) - 16505197234\,a(n-35) + 3241956946\,a(n-36) + 2117356442\,a(n-37) - 388930038\,a(n-38) - 180086494\,a(n-39) + 28441700\,a(n-40) + 9406424\,a(n-41) - 1167836\,a(n-42) - 259016\,a(n-43) + 24152\,a(n-44) + 2624\,a(n-45) - 224\,a(n-46)
 \]
-for every $n>43$.
+for every $n>44$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $46$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=43+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=44+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -129,13 +150,14 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $23$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $13$ terms the entry publishes, exactly, in integer
 arithmetic.
 
-Second, the count was recomputed for the smallest arrays straight from the definition:
-enumerate every array of that size, turn each row and each column into a base-$2$ number with
-the first digit most significant, and test the divisibility directly. Neither Horner's rule nor
-any residue state is involved, and the published terms came back.
+Second, the count was recomputed for the smallest arrays straight from the definition: every
+array of width $6$ over $\{0,1\}$ with two and with three rows was written out cell by cell,
+the derived array formed, and its rows and its columns compared as whole words. No state, no
+bits of Lemma~\ref{lem:bits} and no recurrence are involved in that computation, and the
+published terms came back.
 
 Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
@@ -145,11 +167,9 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A263120.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A235676.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{knuth} D.~E.~Knuth, \emph{The Art of Computer Programming}, Volume 2, 3rd ed.,
-Addison--Wesley, 1997. (Evaluation of polynomials, Section 4.6.4.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

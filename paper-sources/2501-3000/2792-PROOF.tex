@@ -12,149 +12,214 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical closed form for OEIS A208378, proved}
+\title{The empirical column recurrences for the table OEIS A251065}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A208378 carries an empirical closed form for $a(n)$ --- not a recurrence relating
-consecutive terms but an explicit formula. It is true, and it is decidable rather than
-empirical. The entry counts arrays subject to a condition on a bounded window of consecutive lines, so the lines of an array are the
-vertices of a finite digraph, an array is a walk in it, and $a(n)$ is a walk count on
-$S=1764$ vertices. Any function of the form $\sum_j p_j(n)\lambda_j^{\,n}$ satisfies the
-monic linear recurrence whose characteristic polynomial is
-$\prod_j(x-\lambda_j)^{\deg p_j+1}$; here that polynomial is $q(x)=(x-1)^{4}$, of degree
-$4$. Two things are then checked exactly: that the walk count satisfies the same
-recurrence from some index on, which the Cayley--Hamilton theorem reduces to a finite
-computation, and that the two sequences agree at $4$ consecutive indices past that
-point. A monic recurrence determines every later term from its predecessors, so agreement
-there is agreement for good.
+OEIS A251065 is a two-dimensional table $T(n,k)$, and it carries a block of empirical
+recurrences contributed by R.~H.~Hardin --- one for each of its first few columns. They are
+true. Column $k$ of the table is an ordinary fixed-width array count, so its rows are the
+vertices of a finite digraph and $T(n,k)$ is a number of walks in it; being a walk count the
+column is $C$-finite, and whether a given recurrence annihilates it is decided by a finite
+exact computation, with the Cayley--Hamilton theorem bounding the work. This note settles the columns $k=1$.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
-\section{The conjecture}
+\section{The table and the conjectures}
 
-OEIS A208378 is ``Number of n X 7 0..1 arrays avoiding 0 0 0 and 1 1 1 horizontally and 0 0 1 and 1 0 1 vertically.''. It has offset $1$ and begins
+OEIS A251065 is ``T(n,k)=Number of (n+1)X(k+1) 0..2 arrays with no 2X2 subblock having x11-x00 less than x10-x01.''. It has offset $1$, is
+read by antidiagonals, and begins
 \[
-42, 1764, 6216, 13860, 25200, 40740, 60984, 86436,\ \dots
+50, 222, 336, 867, 2740, 2167, 3123, 17129,\ \dots
 \]
-The entry states, as a conjecture contributed by its author and never marked settled:
-\begin{quote}
-Empirical: a(n) = 84*n\^{}3 + 840*n\^{}2 - 1344*n + 420 for n>1.
+The entry carries the following block:
+\begin{quote}\small
+Empirical for column k:\\
+k=1: a(n) = 6*a(n-1) +7*a(n-2) -23*a(n-3) -4*a(n-4) +12*a(n-5)\\
+k=2: [order 11]\\
+k=3: [order 39]\\
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 02 2018 08:37:36, revision 8) this is still
-recorded as empirical, and nothing on the entry records it as proved. Write
+As of the ``Last modified'' line on the live entry (Jun 02 2025 10:17:50, revision 6) these are still
+recorded as empirical, and nothing on the entry records any of them as settled.
+
+\section{A column of the table is a walk count}
+
+Fix $k$. The entry defines $T(n,k)$ as the number of arrays of a shape in which one dimension
+is $n$ and the other is determined by $k$, subject to a condition imposed on every
+$2\times2$ subblock --- a condition local to two consecutive rows and two consecutive columns.
+Substituting the fixed value of $k$ into the entry's own wording turns the definition into an
+ordinary one-parameter array count, and for such a count the rows are the vertices of a finite
+digraph $G_k$: $r\to s$ is an edge exactly when placing $s$ under $r$ satisfies the condition
+in every column pair. An admissible array is then a walk, so with $M_k$ the adjacency matrix
+of $G_k$,
 \[
-f(n)\;=\;84 n^{3} + 840 n^{2} - 1344 n + 420.
+T(n,k)\;=\;c_k\,\mathbf{1}^{\!\top}M_k^{\,n}\mathbf{1}
 \]
-
-\section{The count is a walk count}
-
-The entry's defining condition is local: it is a condition on a bounded window of consecutive lines. Take as vertices the
-admissible configurations of such a window and put an edge from $u$ to $v$ when $v$ may
-follow $u$, which the condition decides by inspection. An admissible array is then exactly a
-walk, so with $M$ the adjacency matrix of that digraph on $S=1764$ vertices, and $u,w$ the
-vectors recording which windows may start and end an array,
-\[
-a(n)\;=\;u^{\!\top}M^{\,g(n)}w
-\]
-for the linear function $g$ that the entry's shape supplies. In particular $a$ is
-$C$-finite: it satisfies some monic integer linear recurrence, though not necessarily a short
-one.
-
-\section{A closed form is a recurrence}
-
-\begin{lemma}\label{lem:ann}
-Let $f(m)=\sum_{j}p_j(m)\lambda_j^{\,m}$ with the $\lambda_j$ distinct and the $p_j$
-polynomials, and put $q(x)=\prod_j(x-\lambda_j)^{\deg p_j+1}$. Then $q$ applied to the shift
-operator annihilates $f$: writing $q(x)=x^{r}-\sum_{i=1}^{r}c_ix^{r-i}$,
-\[
-f(m)\;=\;\sum_{i=1}^{r}c_i\,f(m-i)\qquad\text{for every }m.
-\]
-\end{lemma}
-
-\begin{proof}
-The shift operator $E$ acts on $m\mapsto\lambda^{m}p(m)$ as
-$(E-\lambda)\bigl(\lambda^{m}p(m)\bigr)=\lambda^{m+1}\bigl(p(m+1)-p(m)\bigr)$, and
-$p(m+1)-p(m)$ has degree one less than $p$. So $(E-\lambda)^{\deg p+1}$ kills
-$\lambda^{m}p(m)$, and the factors of $q$ commute.
-\end{proof}
-
-Here $q(x)=(x-1)^{4}$, of degree $4$; the closed form is a polynomial in $n$, so this is $(x-1)^{4}$, and the recurrence it encodes is
-\begin{equation}\label{eq:rec}
-a(n)\;=\;4\,a(n-1) - 6\,a(n-2) + 4\,a(n-3) - a(n-4).
-\end{equation}
-
-\section{The proof}
+for the constant $c_k$ that the entry's name supplies (a factor such as $\tfrac12$ or
+$\tfrac14$ where the name says so, and $1$ otherwise).
 
 \begin{lemma}\label{lem:crit}
-With $q$ as above, $a$ satisfies \eqref{eq:rec} for all large $n$ if and only if
-$u^{\!\top}M^{\,j}q(M)w=0$ for every $j\ge0$, and it is enough to check $j<S$.
+Let $q(t)=t^{r}-\sum_i c_it^{r-i}$ be the characteristic polynomial of a conjectured
+recurrence of order $r$ for column $k$. Then for every $n\ge r$,
+\[
+T(n,k)-\sum_i c_i\,T(n-i,k)\;=\;c_k\,\mathbf{1}^{\!\top}M_k^{\,n-r}q(M_k)\mathbf{1},
+\]
+so the recurrence holds from some point on if and only if
+$\mathbf{1}^{\!\top}M_k^{j}q(M_k)\mathbf{1}=0$ for every $j\ge0$; and by the
+Cayley--Hamilton theorem it is enough to check $j<S_k$, where $S_k$ is the number of vertices
+of $G_k$.
 \end{lemma}
 
 \begin{proof}
-Substituting the walk expression, the residual $a(n)-\sum_ic_ia(n-i)$ equals
-$u^{\!\top}M^{\,g(n)-r}q(M)w$ up to the fixed linear reparametrisation $g$. For the bound,
-$M^{S}$ is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the values
-$u^{\!\top}M^{j}q(M)w$ satisfy the monic recurrence given by the characteristic polynomial of
-$M$; $S$ consecutive zeros therefore force all later ones, and the last nonzero value pins the
-threshold exactly.
+Substitute the walk expression and factor $M_k^{n-r}$ out of $M_k^{n}-\sum_ic_iM_k^{n-i}$;
+the scalar $c_k$ is nonzero. For the bound, $M_k^{S_k}$ is an integer combination of
+$I,M_k,\dots,M_k^{S_k-1}$, so each $\mathbf{1}^{\!\top}M_k^{j}q(M_k)\mathbf{1}$ with
+$j\ge S_k$ repeats that combination of earlier values.
 \end{proof}
 
-\begin{theorem}
-$a(n)=f(n)$ for every $n\ge2$.
-\end{theorem}
+\section{The computation, column by column}
 
-\begin{proof}
-The vector $w'=q(M)w$ was formed by $4$ matrix--vector products in exact integer
-arithmetic, and $u^{\!\top}M^{j}w'$ evaluated for $j=0,1,\dots$, again exactly. Those integers
-vanish from the point corresponding to $n=6$ onwards, and the run was continued until the
-working vector was identically zero, which settles every larger $j$ at once. So $a$ satisfies
-\eqref{eq:rec} for every $n>5$. By Lemma~\ref{lem:ann} $f$ satisfies \eqref{eq:rec}
-identically. Both were then evaluated in exact arithmetic at the $4$ consecutive indices
-$n=6,\dots,9$ and agree at each. A monic recurrence of order $4$
-determines $a(m)$ from $a(m-1),\dots,a(m-4)$, and for every $m\ge10$ both
-$m>5$ and $m-4\ge6$ hold, so induction on $m$ gives $a(m)=f(m)$ for every
-$m\ge6$.
-Below $n=6$ the recurrence argument gives nothing, since \eqref{eq:rec} is only
-established for $a$ from $n=6$ on. The remaining indices $n=2,\dots,5$ were
-therefore checked one at a time, directly against the walk count in exact integer arithmetic,
-and agree.
-\end{proof}
+\begin{center}
+\begin{tabular}{ccccc}
+line & order & vertices $S$ & proved for & terms checked \\ \hline
+column $k$$=1$ & $5$ & $9$ & $>4$ & $7$ \\
+\end{tabular}
+\end{center}
 
-The range is tight in the sense that was checked: at $n=1$ the closed form and the sequence differ, so no larger range is available.
+In each case the vector $w=q(M_k)\mathbf{1}$ was formed by $r$ matrix--vector products in
+exact integer arithmetic and $\mathbf{1}^{\!\top}M_k^{j}w$ evaluated for $j=0,1,\dots$,
+again exactly; every one of those integers vanishes from the stated point onwards and the run
+continued until the working vector was identically zero, which settles all larger $j$ at once.
+
+\subsection*{Column $k$$=1$}
+The sequence is ``Number of (n+1)X(2) 0..2 arrays with no 2X2 subblock having x11-x00 less than x10-x01.''. Its rows are the vertices of a digraph on
+$S=9$ vertices, edges being the admissible consecutive pairs, and the count is
+$\mathbf{1}^{\!\top}M^{n}\mathbf{1}$ up to the constant factor in the entry's name.
+The conjectured recurrence
+\[
+a(n)\;=\;6\,a(n-1) + 7\,a(n-2) - 23\,a(n-3) - 4\,a(n-4) + 12\,a(n-5)
+\]
+holds from index $4+1$ on.
+
+
+\section{Lines whose recurrence the entry does not print}
+
+For the lines below the entry records only an order, the coefficients being in a linked file.
+They can still be settled, and the recurrences recovered. A line is a walk count on $S$
+vertices, so it satisfies some monic recurrence of order at most $S$ and Berlekamp--Massey on
+$2S$ exact terms returns the MINIMAL one. Where that order equals the stated order --- and
+where the same holds after the first few terms are dropped, since the entry's recurrence may
+begin only partway along --- any recurrence of that order the line satisfies has a
+characteristic polynomial that is a multiple of the minimal one and of equal degree, hence is
+that polynomial. So the entry's recurrence is the one displayed, whatever its file contains.
+
+\subsection*{Column $k=2$, recovered}
+The entry gives only the order for this line: ``k=2: [order 11]''. Its model is a walk on
+$S=27$ vertices, so it satisfies a monic recurrence of order at most $S$;
+Berlekamp--Massey on $2S=54$ exact terms returns the minimal one, of order
+$11$ --- the stated order --- with integer coefficients
+\begin{center}\small\begin{tabular}{cccccccc}
+$c_{1}$ & $14$ & $c_{4}$ & $281$ & $c_{7}$ & $-69$ & $c_{10}$ & $-80$ \\
+$c_{2}$ & $-12$ & $c_{5}$ & $477$ & $c_{8}$ & $517$ & $c_{11}$ & $24$ \\
+$c_{3}$ & $-184$ & $c_{6}$ & $-863$ & $c_{9}$ & $-106$ &  &  \\
+\end{tabular}\end{center}
+Repeating with the first $11+4$ terms removed gives order $11$ again.
+
+\subsection*{Column $k=3$, recovered}
+The entry gives only the order for this line: ``k=3: [order 39]''. Its model is a walk on
+$S=81$ vertices, so it satisfies a monic recurrence of order at most $S$;
+Berlekamp--Massey on $2S=162$ exact terms returns the minimal one, of order
+$39$ --- the stated order --- with integer coefficients
+\[
+(c_1,\dots,c_{39})=(20,\ 149,\ -3483,\ -1646,\ 181002,\ -200603,\ -4389443,\ 7563091,\ 57780280,\ -117969316,\ -443230440,\ 1006122140,\ 2058747657,\ -5162805928,\ -5921804997,\ 16838704214,\ 10500869967,\ -36121221195,\ -10740080874,\ 51975978543,\ 4392901894,\ -50615684360,\ 2927992450,\ 33382009991,\ -5129616183,\ -14828202384,\ 3221326394,\ 4390111165,\ -1132749541,\ -851993343,\ 240896502,\ 105264572,\ -31183216,\ -7839280,\ 2367008,\ 314880,\ -95232,\ -5120,\ 1536).
+\]
+Repeating with the first $39+4$ terms removed gives order $39$ again.
+
+\subsection*{Row $n=2$, recovered}
+The entry gives only the order for this line: ``n=2: [order 12]''. Its model is a walk on
+$S=27$ vertices, so it satisfies a monic recurrence of order at most $S$;
+Berlekamp--Massey on $2S=54$ exact terms returns the minimal one, of order
+$12$ --- the stated order --- with integer coefficients
+\begin{center}\small\begin{tabular}{cccccccc}
+$c_{1}$ & $18$ & $c_{4}$ & $-2268$ & $c_{7}$ & $9654$ & $c_{10}$ & $-1896$ \\
+$c_{2}$ & $-146$ & $c_{5}$ & $5102$ & $c_{8}$ & $-8131$ & $c_{11}$ & $448$ \\
+$c_{3}$ & $706$ & $c_{6}$ & $-8246$ & $c_{9}$ & $4808$ & $c_{12}$ & $-48$ \\
+\end{tabular}\end{center}
+Repeating with the first $12+4$ terms removed gives order $12$ again.
+
+\subsection*{Row $n=3$, recovered}
+The entry gives only the order for this line: ``n=3: [order 21]''. Its model is a walk on
+$S=81$ vertices, so it satisfies a monic recurrence of order at most $S$;
+Berlekamp--Massey on $2S=162$ exact terms returns the minimal one, of order
+$21$ --- the stated order --- with integer coefficients
+\begin{center}\small\begin{tabular}{cccccccc}
+$c_{1}$ & $30$ & $c_{7}$ & $1190790$ & $c_{13}$ & $11438610$ & $c_{19}$ & $51552$ \\
+$c_{2}$ & $-425$ & $c_{8}$ & $-2816743$ & $c_{14}$ & $-8481295$ & $c_{20}$ & $-6464$ \\
+$c_{3}$ & $3782$ & $c_{9}$ & $5459714$ & $c_{15}$ & $5104082$ & $c_{21}$ & $384$ \\
+$c_{4}$ & $-23721$ & $c_{10}$ & $-8729643$ & $c_{16}$ & $-2453580$ &  &  \\
+$c_{5}$ & $111526$ & $c_{11}$ & $11551618$ & $c_{17}$ & $919720$ &  &  \\
+$c_{6}$ & $-408077$ & $c_{12}$ & $-12652835$ & $c_{18}$ & $-259024$ &  &  \\
+\end{tabular}\end{center}
+Repeating with the first $21+4$ terms removed gives order $21$ again.
+
+\subsection*{Row $n=4$, recovered}
+The entry gives only the order for this line: ``n=4: [order 27]''. Its model is a walk on
+$S=243$ vertices, so it satisfies a monic recurrence of order at most $S$;
+Berlekamp--Massey on $2S=486$ exact terms returns the minimal one, of order
+$27$ --- the stated order --- with integer coefficients
+\[
+(c_1,\dots,c_{27})=(38,\ -691,\ 8006,\ -66388,\ 419576,\ -2101468,\ 8562488,\ -28910110,\ 81971700,\ -197093994,\ 404708052,\ -713198484,\ 1082053944,\ -1415611692,\ 1597131096,\ -1551815913,\ 1294677654,\ -923106107,\ 558641686,\ -284224784,\ 119985952,\ -41268128,\ 11267392,\ -2349056,\ 351232,\ -33536,\ 1536).
+\]
+Repeating with the first $27+4$ terms removed gives order $27$ again.
+
+\subsection*{Row $n=5$, recovered}
+The entry gives only the order for this line: ``n=5: [order 33]''. Its model is a walk on
+$S=729$ vertices, so it satisfies a monic recurrence of order at most $S$;
+Berlekamp--Massey on $2S=1458$ exact terms returns the minimal one, of order
+$33$ --- the stated order --- with integer coefficients
+\[
+(c_1,\dots,c_{33})=(46,\ -1021,\ 14566,\ -150115,\ 1190818,\ -7565523,\ 39546498,\ -173394318,\ 646904260,\ -2076097186,\ 5779538716,\ -14047031686,\ 29955478756,\ -56258286310,\ 93298957284,\ -136868817069,\ 177768541494,\ -204435461489,\ 208007834270,\ -186949454951,\ 148041763226,\ -102919401431,\ 62512079546,\ -32963315700,\ 14966379960,\ -5788295520,\ 1880029760,\ -503070080,\ 107966720,\ -17863424,\ 2138624,\ -164864,\ 6144).
+\]
+Repeating with the first $33+4$ terms removed gives order $33$ again.
 
 \section{Verification}
 
-Four checks, each independent of the algebra above.
+Three checks, each independent of the algebra above.
 
-First, the walk model reproduces every one of the $31$ terms the entry publishes,
-exactly, in integer arithmetic. This is what ties the model to the entry: the model is built
-by reading the entry's English, and a misreading gives a different digraph and different
-counts.
+First, each model was compared against the entry's own published values for its line, taken
+both from the antidiagonal DATA read in either orientation and from the ``Table starts''
+block, and agrees at every available term. This is what ties a model to the table:
+substituting the fixed index into the entry's wording is a reading of English, and a wrong
+reading gives a different digraph and different counts. Across the lines settled here the
+model reproduces $7$ published values, $32$ decimal digits in all, every one of
+them exactly; a misreading of the entry would have to reproduce all of them by accident.
 
-Second, the closed form was evaluated in exact rational arithmetic --- not floating point ---
-at every published term from $n=2$ on, and agrees with the entry's own DATA at each.
+Second, each conjectured recurrence was evaluated on those published values in exact
+integer arithmetic, with no matrices involved, and holds wherever the proved range and the
+data overlap.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried out exactly, and the model
-and the closed form were then compared directly at sixty consecutive indices beyond
-$n=2$, far past where the proof already settles the matter.
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+arithmetic rather than on a sampled prefix.
 
-Fourth, the closed form was deliberately perturbed --- by a constant and by a term linear in
-$n$ --- and each perturbed form was rejected by the same comparison, so the test is not one
-that anything would pass.
+\begin{remark}
+A row of the table is a column of the transposed table: fixing $n$ and letting $k$ vary gives a
+count of arrays of fixed height, which is the same kind of object with the two dimensions
+exchanged. Both are settled here by the same argument. Only the lines the entry states
+explicitly, and for which enough published values exist to run the first check above, are
+claimed.
+\end{remark}
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A208378.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A251065.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; $C$-finite sequences,
-Section 4.1.)
-\bibitem{kp} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011.
-(Closed forms and linear recurrences with constant coefficients.)
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+University Press, 2009.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

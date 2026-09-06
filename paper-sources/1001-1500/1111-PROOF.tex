@@ -12,23 +12,23 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A209523, proved by counting patterns}
+\title{The empirical recurrence for OEIS A209500, proved by counting patterns}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A209523 counts arrays subject to a local condition \emph{and} to the clause ``new values
-$0..7$ introduced in row major order'', which says the array is written in canonical
+OEIS A209500 counts arrays subject to a local condition \emph{and} to the clause ``new values
+$0..4$ introduced in row major order'', which says the array is written in canonical
 form. That clause is not local, so a transfer matrix over the alphabet does not see it. It
 does not have to: what is being counted is not arrays but equality patterns, and the number
 of patterns is recovered from the numbers $L_i$ of arrays over an $i$-letter alphabet by
 inverting a falling factorial. The result is the clean identity
-$8!\,a(n)=\sum_i\binom{8}{i}D_{8-i}L_i(n)$ with $D_m$ the derangement numbers,
+$5!\,a(n)=\sum_i\binom{5}{i}D_{5-i}L_i(n)$ with $D_m$ the derangement numbers,
 and each $L_i$ is an ordinary walk count. A second reduction --- the chain is strongly
 lumpable over the patterns, because the condition is relabelling-invariant --- brings the
-state space down from $8772$ to $S=98$. The entry's empirical recurrence of order
+state space down from $4425$ to $S=161$. The entry's empirical recurrence of order
 $51$, contributed by R.~H.~Hardin, then follows from a finite exact computation.
 \end{abstract}
 
@@ -36,26 +36,26 @@ $51$, contributed by R.~H.~Hardin, then follows from a finite exact computation.
 
 \section{The sequence and the conjecture}
 
-OEIS A209523 is ``Number of nX4 0..7 arrays with every 2X2 subblock containing exactly one value repeat, and new values 0..7 introduced in row major order.''. It has offset $1$ and begins
+OEIS A209500 is ``Number of nX5 0..4 arrays with every 2X2 subblock containing exactly one value repeat, and new values 0..4 introduced in row major order.''. It has offset $1$ and begins
 \[
-15, 700, 107693, 27323948, 9700576474, 4194606038254, 2002617518101082, 999998646599976052,\ \dots
+52, 9393, 3268686, 1165032679, 416022303027, 148562491090605, 53052739133301878, 18945498248887912305,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 741*a(n-1) -80239*a(n-2) -27206821*a(n-3) +4305035452*a(n-4) +223990610212*a(n-5) -54620780269672*a(n-6) +80102456008496*a(n-7) +269012192646842580*a(n-8) -5707166224378420708*a(n-9) -614361714034268393448*a(n-10) +20349127506784034500304*a(n-11) +678382194937846639652480*a(n-12) -31846630475071645146740528*a(n-13) -302516138167984951194348896*a(n-14) +26095927856414661783174115840*a(n-15) -42282326119900772602090488064*a(n-16) -11829904605301568248908018568000*a(n-17) +95434060058346872198828125007744*a(n-18) +3049598030451163236051411209616896*a(n-19) -40328192983623784101590586927442944*a(n-20) -439535105889627937805745674742651136*a(n-21) +8800995724627097037828678826851591680*a(n-22) +29877440033653195430840885415475181568*a(n-23) -1153471451160086939353282980879345710080*a(n-24) +361417465904520256348084988960166447104*a(n-25) +96388134984267610666941969352759061807104*a(n-26) -237433518884853914547549341361474933817344*a(n-27) -5316540495638084469441833849843792059400192*a(n-28) +20393494451129478050239694172720827330625536*a(n-29) +199181629390484462577756831982634501905514496*a(n-30) -943607730208397458178494653466136607616663552*a(n-31) -5231256737767831422266603443721419521122631680*a(n-32) +27394524698903915462065541938127887707381170176*a(n-33) +99803868178309860951994852593262049142125887488*a(n-34) -524113006115435854526959526490815473303230087168*a(n-35) -1425032472189917422814910850409521554940678373376*a(n-36) +6686272751430261305221763448226565325352171732992*a(n-37) +15273084369730432523206297036506635896548728242176*a(n-38) -56091093092375144843369119047605323562566155239424*a(n-39) -118040785197556405677917396892327617921876131577856*a(n-40) +298630920918555211168409478061760437589237135572992*a(n-41) +608824256895510126291165994808739474478152800010240*a(n-42) -962534419711355112597884657611613718482518636756992*a(n-43) -1905011080779867767627757598039656592066040429543424*a(n-44) +1823172121497981180819938155626702329391913793224704*a(n-45) +3277374088192893278994603970667689592637714126077952*a(n-46) -2092753233712097492555446237792429997925054491394048*a(n-47) -2790425203670748510069753611132555534785277570580480*a(n-48) +1448099586316124905615364077335799871278771548979200*a(n-49) +912421745734027603434708150458948967598456307712000*a(n-50) -462466146321083955411362178920173757818680115200000*a(n-51) for n>52
+Empirical: a(n) = 477*a(n-1) -39288*a(n-2) -2260566*a(n-3) +384983381*a(n-4) -7839029495*a(n-5) -822053991299*a(n-6) +43393443747057*a(n-7) -53028569481265*a(n-8) -43276863451172253*a(n-9) +861144708089830407*a(n-10) +12560105152201255943*a(n-11) -585547801427750429166*a(n-12) +1844814503928137349186*a(n-13) +169864312213397374809277*a(n-14) -1973425862832147661396693*a(n-15) -22712149774470250087869011*a(n-16) +523193464190926642340571533*a(n-17) +441660411868197024689408971*a(n-18) -72399044493040737831695861121*a(n-19) +297551907214542585886034744663*a(n-20) +5713832787499212458827821059861*a(n-21) -46623259772377465885556624035474*a(n-22) -237243127369110412124411695755424*a(n-23) +3524288981199833800362989098628637*a(n-24) +2017734872801406397171062873724219*a(n-25) -156854633713526170888417297289745006*a(n-26) +288740996321513734985376260993770412*a(n-27) +4248512257074452536352894145685116586*a(n-28) -15558777700629399566840752611585815096*a(n-29) -67069738645589682614836431998415986788*a(n-30) +391870580432283425810055509088818912984*a(n-31) +490477395685384136760468327177713204016*a(n-32) -5697674243306888319078564075420176168448*a(n-33) +1361972893213400216153081399915764209600*a(n-34) +49110417732470688323529968632616447403744*a(n-35) -57738853379778133440382246813990370347872*a(n-36) -239856563637438171277726574554616022449088*a(n-37) +473017651642156450864795051620927552310080*a(n-38) +565918982815415026472879163566265178445952*a(n-39) -1819274946494505618865129339183971184558080*a(n-40) -226770607406789393605631461901849446354176*a(n-41) +3439734464827697349267449602775539202958336*a(n-42) -1296196371235359346225463517905877093691392*a(n-43) -3102116320122327741128067294181852703551488*a(n-44) +2098262472225405871792913745858951958351872*a(n-45) +1180187397994592582735155882747328524566528*a(n-46) -1184748819500496796930575454944900028465152*a(n-47) -79179660215887860751640606150050469117952*a(n-48) +239377682403623686315699650654596059103232*a(n-49) -28581873174380158870112209651115589894144*a(n-50) -7808363148432063893510398863396858494976*a(n-51) for n>52
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 15:18:30, revision 9) the statement is
+As of the ``Last modified'' line on the live entry (Oct 03 2025 15:17:00, revision 11) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;741\,a(n-1) - 80239\,a(n-2) - 27206821\,a(n-3) + 4305035452\,a(n-4) + 223990610212\,a(n-5) - 54620780269672\,a(n-6) + 80102456008496\,a(n-7) + 269012192646842580\,a(n-8) - 5707166224378420708\,a(n-9) - 614361714034268393448\,a(n-10) + 20349127506784034500304\,a(n-11) + 678382194937846639652480\,a(n-12) - 31846630475071645146740528\,a(n-13) - 302516138167984951194348896\,a(n-14) + 26095927856414661783174115840\,a(n-15) - 42282326119900772602090488064\,a(n-16) - 11829904605301568248908018568000\,a(n-17) + 95434060058346872198828125007744\,a(n-18) + 3049598030451163236051411209616896\,a(n-19) - 40328192983623784101590586927442944\,a(n-20) - 439535105889627937805745674742651136\,a(n-21) + 8800995724627097037828678826851591680\,a(n-22) + 29877440033653195430840885415475181568\,a(n-23) - 1153471451160086939353282980879345710080\,a(n-24) + 361417465904520256348084988960166447104\,a(n-25) + 96388134984267610666941969352759061807104\,a(n-26) - 237433518884853914547549341361474933817344\,a(n-27) - 5316540495638084469441833849843792059400192\,a(n-28) + 20393494451129478050239694172720827330625536\,a(n-29) + 199181629390484462577756831982634501905514496\,a(n-30) - 943607730208397458178494653466136607616663552\,a(n-31) - 5231256737767831422266603443721419521122631680\,a(n-32) + 27394524698903915462065541938127887707381170176\,a(n-33) + 99803868178309860951994852593262049142125887488\,a(n-34) - 524113006115435854526959526490815473303230087168\,a(n-35) - 1425032472189917422814910850409521554940678373376\,a(n-36) + 6686272751430261305221763448226565325352171732992\,a(n-37) + 15273084369730432523206297036506635896548728242176\,a(n-38) - 56091093092375144843369119047605323562566155239424\,a(n-39) - 118040785197556405677917396892327617921876131577856\,a(n-40) + 298630920918555211168409478061760437589237135572992\,a(n-41) + 608824256895510126291165994808739474478152800010240\,a(n-42) - 962534419711355112597884657611613718482518636756992\,a(n-43) - 1905011080779867767627757598039656592066040429543424\,a(n-44) + 1823172121497981180819938155626702329391913793224704\,a(n-45) + 3277374088192893278994603970667689592637714126077952\,a(n-46) - 2092753233712097492555446237792429997925054491394048\,a(n-47) - 2790425203670748510069753611132555534785277570580480\,a(n-48) + 1448099586316124905615364077335799871278771548979200\,a(n-49) + 912421745734027603434708150458948967598456307712000\,a(n-50) - 462466146321083955411362178920173757818680115200000\,a(n-51)
+a(n)\;=\;477\,a(n-1) - 39288\,a(n-2) - 2260566\,a(n-3) + 384983381\,a(n-4) - 7839029495\,a(n-5) - 822053991299\,a(n-6) + 43393443747057\,a(n-7) - 53028569481265\,a(n-8) - 43276863451172253\,a(n-9) + 861144708089830407\,a(n-10) + 12560105152201255943\,a(n-11) - 585547801427750429166\,a(n-12) + 1844814503928137349186\,a(n-13) + 169864312213397374809277\,a(n-14) - 1973425862832147661396693\,a(n-15) - 22712149774470250087869011\,a(n-16) + 523193464190926642340571533\,a(n-17) + 441660411868197024689408971\,a(n-18) - 72399044493040737831695861121\,a(n-19) + 297551907214542585886034744663\,a(n-20) + 5713832787499212458827821059861\,a(n-21) - 46623259772377465885556624035474\,a(n-22) - 237243127369110412124411695755424\,a(n-23) + 3524288981199833800362989098628637\,a(n-24) + 2017734872801406397171062873724219\,a(n-25) - 156854633713526170888417297289745006\,a(n-26) + 288740996321513734985376260993770412\,a(n-27) + 4248512257074452536352894145685116586\,a(n-28) - 15558777700629399566840752611585815096\,a(n-29) - 67069738645589682614836431998415986788\,a(n-30) + 391870580432283425810055509088818912984\,a(n-31) + 490477395685384136760468327177713204016\,a(n-32) - 5697674243306888319078564075420176168448\,a(n-33) + 1361972893213400216153081399915764209600\,a(n-34) + 49110417732470688323529968632616447403744\,a(n-35) - 57738853379778133440382246813990370347872\,a(n-36) - 239856563637438171277726574554616022449088\,a(n-37) + 473017651642156450864795051620927552310080\,a(n-38) + 565918982815415026472879163566265178445952\,a(n-39) - 1819274946494505618865129339183971184558080\,a(n-40) - 226770607406789393605631461901849446354176\,a(n-41) + 3439734464827697349267449602775539202958336\,a(n-42) - 1296196371235359346225463517905877093691392\,a(n-43) - 3102116320122327741128067294181852703551488\,a(n-44) + 2098262472225405871792913745858951958351872\,a(n-45) + 1180187397994592582735155882747328524566528\,a(n-46) - 1184748819500496796930575454944900028465152\,a(n-47) - 79179660215887860751640606150050469117952\,a(n-48) + 239377682403623686315699650654596059103232\,a(n-49) - 28581873174380158870112209651115589894144\,a(n-50) - 7808363148432063893510398863396858494976\,a(n-51)
 \end{equation}
 for all $n>52$.
 
 \section{What the canonical-form clause counts}
 
-Fix the shape: $4$ columns and $L=n+0$ rows, so $L\cdot4$ cells. Call a
+Fix the shape: $5$ columns and $L=n+0$ rows, so $L\cdot5$ cells. Call a
 partition of the cells into nonempty classes a \emph{pattern}; an array over an alphabet
 determines a pattern, two cells lying in the same class exactly when they carry the same
 value.
@@ -75,14 +75,14 @@ The condition is stated purely in terms of equalities between entries, so it is 
 under any relabelling of the values and is therefore a property of the pattern alone. Call a
 pattern \emph{admissible} when it has the property.
 
-The clause ``new values $0..7$ introduced in row major order'' selects, from each class
+The clause ``new values $0..4$ introduced in row major order'' selects, from each class
 of arrays that differ only by a relabelling, exactly one representative: reading the cells in
 row major order, the first occurrence of the value $v$ must precede the first occurrence of
-$v+1$. Every pattern with at most $K=8$ classes has exactly one such representative, and
+$v+1$. Every pattern with at most $K=5$ classes has exactly one such representative, and
 every array in canonical form is the representative of its own pattern. Hence, writing
 $N_j(n)$ for the number of admissible patterns with exactly $j$ classes,
 \begin{equation}\label{eq:apat}
-a(n)\;=\;\sum_{j=0}^{8}N_j(n).
+a(n)\;=\;\sum_{j=0}^{5}N_j(n).
 \end{equation}
 
 \begin{lemma}\label{lem:inv}
@@ -91,7 +91,7 @@ condition, with no canonical-form clause. Then
 \[
 L_i(n)=\sum_j N_j(n)\,i(i-1)\cdots(i-j+1),
 \qquad
-8!\,\sum_{j=0}^{8}N_j(n)=\sum_{i=0}^{8}\binom{8}{i}D_{8-i}\,L_i(n),
+5!\,\sum_{j=0}^{5}N_j(n)=\sum_{i=0}^{5}\binom{5}{i}D_{5-i}\,L_i(n),
 \]
 where $D_m=m!\sum_{t=0}^{m}(-1)^t/t!$ is the number of derangements of $m$ letters.
 \end{lemma}
@@ -102,19 +102,19 @@ with an injection of its classes into the alphabet, and conversely; a pattern wi
 classes admits $i(i-1)\cdots(i-j+1)$ injections. That is the first identity. Writing
 $i(i-1)\cdots(i-j+1)=j!\binom{i}{j}$ it reads $L_i=\sum_j (j!N_j)\binom{i}{j}$, so by
 binomial inversion $j!N_j=\sum_{i}(-1)^{j-i}\binom{j}{i}L_i$. Summing over
-$j\le 8$ and exchanging the order of summation,
+$j\le 5$ and exchanging the order of summation,
 \[
-\sum_{j=0}^{8}N_j=\sum_{i=0}^{8}L_i\sum_{j=i}^{8}\frac{(-1)^{j-i}}{i!\,(j-i)!}
-=\sum_{i=0}^{8}\frac{L_i}{i!}\sum_{t=0}^{8-i}\frac{(-1)^t}{t!} ,
+\sum_{j=0}^{5}N_j=\sum_{i=0}^{5}L_i\sum_{j=i}^{5}\frac{(-1)^{j-i}}{i!\,(j-i)!}
+=\sum_{i=0}^{5}\frac{L_i}{i!}\sum_{t=0}^{5-i}\frac{(-1)^t}{t!} ,
 \]
-and multiplying by $8!$ turns the coefficient of $L_i$ into
-$\frac{8!}{i!}\sum_{t\le 8-i}(-1)^t/t!=\binom{8}{i}(8-i)!\sum_{t\le 8-i}(-1)^t/t!
-=\binom{8}{i}D_{8-i}$, an integer.
+and multiplying by $5!$ turns the coefficient of $L_i$ into
+$\frac{5!}{i!}\sum_{t\le 5-i}(-1)^t/t!=\binom{5}{i}(5-i)!\sum_{t\le 5-i}(-1)^t/t!
+=\binom{5}{i}D_{5-i}$, an integer.
 \end{proof}
 
 \section{Each $L_i$ is a walk count, and the chain lumps}
 
-Fix $i$ and let $V_i=\{0,\dots,i-1\}^{4}$ be the possible rows. For $r,s\in V_i$
+Fix $i$ and let $V_i=\{0,\dots,i-1\}^{5}$ be the possible rows. For $r,s\in V_i$
 declare $r\to s$ an edge when placing $s$ directly after $r$ satisfies \eqref{eq:loc} at
 every column, and let $M_i$ be the adjacency matrix. An array is exactly a sequence of
 rows, and its condition is exactly the conjunction of the edge conditions along that
@@ -153,13 +153,13 @@ gives the displayed identity, the number of rows of pattern $P$ being the number
 injections of its $|P|$ classes into the alphabet.
 \end{proof}
 
-Assembling the $8$ lumped chains into one block-diagonal matrix $N$ of size $S=98$ and
+Assembling the $5$ lumped chains into one block-diagonal matrix $N$ of size $S=161$ and
 putting the weights of Lemma~\ref{lem:inv} into the start vector,
-$\mathbf{v}=\bigl(\binom{8}{i}D_{8-i}\varepsilon_P\bigr)_{i,P}$, gives
+$\mathbf{v}=\bigl(\binom{5}{i}D_{5-i}\varepsilon_P\bigr)_{i,P}$, gives
 \begin{equation}\label{eq:walk}
-8!\;a(n)\;=\;\mathbf{v}^{\!\top}N^{\,n+0-1}\mathbf{1} .
+5!\;a(n)\;=\;\mathbf{v}^{\!\top}N^{\,n+0-1}\mathbf{1} .
 \end{equation}
-The unlumped alphabet had $8772$ rows in all; the lumped chain has $S=98$ states.
+The unlumped alphabet had $4425$ rows in all; the lumped chain has $S=161$ states.
 
 \section{The criterion, and the computation}
 
@@ -169,7 +169,7 @@ Let $q(t)=t^{51}-\sum_i c_i\,t^{51-i}$ be the characteristic polynomial of
 \begin{lemma}\label{lem:crit}
 For every $n$ with $m=n+0-1\ge51$,
 \[
-8!\Bigl(a(n)-\sum_i c_i\,a(n-i)\Bigr)\;=\;\mathbf{v}^{\!\top}N^{\,m-51}q(N)\mathbf{1} .
+5!\Bigl(a(n)-\sum_i c_i\,a(n-i)\Bigr)\;=\;\mathbf{v}^{\!\top}N^{\,m-51}q(N)\mathbf{1} .
 \]
 Hence \eqref{eq:conj} holds from that point on if and only if
 $\mathbf{v}^{\!\top}N^{j}q(N)\mathbf{1}=0$ for every $j\ge0$, and it is enough to check
@@ -178,7 +178,7 @@ $j=0,1,\dots,S-1$.
 
 \begin{proof}
 Substitute \eqref{eq:walk} into the left side and factor $N^{m-51}$ out of
-$N^{m}-\sum_i c_iN^{m-i}$. The scalar $8!$ is nonzero, so it does not affect whether
+$N^{m}-\sum_i c_iN^{m-i}$. The scalar $5!$ is nonzero, so it does not affect whether
 the left side vanishes. For the last clause put $w=q(N)\mathbf{1}$: by Cayley--Hamilton
 $N^{S}$ is an integer combination of $I,N,\dots,N^{S-1}$, so each
 $\mathbf{v}^{\!\top}N^{j}w$ with $j\ge S$ is the corresponding combination of earlier
@@ -206,11 +206,11 @@ which settles all larger $j$ at once. Lemma~\ref{lem:crit} gives the theorem.
 Three checks, each independent of the algebra above.
 
 First, the whole construction was compared against the entry's DATA: the right-hand side of
-\eqref{eq:walk}, divided by $8!$, was evaluated at every one of the $12$
+\eqref{eq:walk}, divided by $5!$, was evaluated at every one of the $11$
 published indices and agrees exactly. This is a strong test of the modelling and not only of
 the arithmetic --- the inversion of Lemma~\ref{lem:inv}, the reading of the local
 condition, and the alignment of the entry's index with the number of rows would each
-show up as a mismatch, and the quotient by $8!$ came out an integer at every index.
+show up as a mismatch, and the quotient by $5!$ came out an integer at every index.
 
 Second, the lumped chain was checked against the unlumped one: for the small shapes the walk
 counts $\mathbf{s}_i^{\!\top}M_i^{m}\mathbf{1}$ were computed directly over the full
@@ -222,7 +222,7 @@ run until the working vector was identically zero rather than to a sampled prefi
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A209523.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A209500.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; Stirling and
 falling-factorial inversion, Section 1.9.)

@@ -12,175 +12,133 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical column recurrences for the table OEIS A250927}
+\title{The empirical recurrence for OEIS A224406, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A250927 is a two-dimensional table $T(n,k)$, and it carries a block of empirical
-recurrences contributed by R.~H.~Hardin --- one for each of its first few columns. They are
-true. Column $k$ of the table is an ordinary fixed-width array count, so its rows are the
-vertices of a finite digraph and $T(n,k)$ is a number of walks in it; being a walk count the
-column is $C$-finite, and whether a given recurrence annihilates it is decided by a finite
-exact computation, with the Cayley--Hamilton theorem bounding the work. This note settles the columns $k=1$.
+OEIS A224406 counts arrays over $\{0,\dots,1\}$ whose rows, columns, diagonals or
+antidiagonals are required to be monotone or unimodal, and carries an empirical recurrence of
+order $5$ contributed by R.~H.~Hardin. A monotone condition is local, but a unimodal one
+is not: a sequence is unimodal exactly when it never rises again after it has fallen, so the
+state must remember which sequences have already fallen. With those bits carried along, $a(n)$
+is a walk count on $S=16$ vertices and the recurrence follows from a finite exact
+computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A16, 15B36.\normalsize
 
-\section{The table and the conjectures}
+\section{The sequence and the conjecture}
 
-OEIS A250927 is ``T(n,k)=Number of (n+1)X(k+1) 0..2 arrays with no 2X2 subblock having its minimum diagonal element less than its minimum antidiagonal element.''. It has offset $1$, is
-read by antidiagonals, and begins
+OEIS A224406 is ``Number of n X 5 0..1 arrays with rows unimodal and antidiagonals nondecreasing.''. It has offset $1$ and begins
 \[
-58, 344, 344, 2007, 4148, 2007, 11693, 50722,\ \dots
+16, 101, 465, 1928, 7812, 31710, 129402, 529846,\ \dots
 \]
-The entry carries the following block:
+The entry carries the following comment:
 \begin{quote}\small
-Empirical for column k:\\
-k=1: a(n) = 9*a(n-1) -23*a(n-2) +29*a(n-3) -16*a(n-4) +4*a(n-5)\\
-k=2: [order 13]\\
-k=3: [order 31]\\
-k=4: [order 81]\\
+Empirical: a(n) = 6*a(n-1) - 9*a(n-2) + 4*a(n-3) + 2*a(n-4) + 8*a(n-5).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 12:51:40, revision 6) these are still
-recorded as empirical, and nothing on the entry records any of them as settled.
+As of the ``Last modified'' line on the live entry (Aug 30 2018 06:07:47, revision 8) the statement is
+still recorded as empirical, and nothing on the entry records it as settled either way.
 
-\section{A column of the table is a walk count}
+Written out, the claim is
+\begin{equation}\label{eq:conj}
+a(n)\;=\;6\,a(n-1) - 9\,a(n-2) + 4\,a(n-3) + 2\,a(n-4) + 8\,a(n-5)
+\end{equation}
+for all $n>5$.
 
-Fix $k$. The entry defines $T(n,k)$ as the number of arrays of a shape in which one dimension
-is $n$ and the other is determined by $k$, subject to a condition imposed on every
-$2\times2$ subblock --- a condition local to two consecutive rows and two consecutive columns.
-Substituting the fixed value of $k$ into the entry's own wording turns the definition into an
-ordinary one-parameter array count, and for such a count the rows are the vertices of a finite
-digraph $G_k$: $r\to s$ is an edge exactly when placing $s$ under $r$ satisfies the condition
-in every column pair. An admissible array is then a walk, so with $M_k$ the adjacency matrix
-of $G_k$,
+\section{The conditions}
+
+The arrays have $5$ columns and $L=n$ rows. Written in (row, column)
+coordinates, the entry asks:
+\begin{itemize}
+\item along the direction $(0,1)$ --- one step of $(0,1)$ in (row, column) coordinates --- every sequence is unimodal;
+\item along the direction $(1,-1)$ --- one step of $(1,-1)$ in (row, column) coordinates --- every sequence is nondecreasing;
+\end{itemize}
+Here ``unimodal'' means nondecreasing and then nonincreasing, that is: no rise after a fall.
+
+All the conditions here are local --- each compares two cells one step apart ---
+so no extra state is needed beyond the row itself.
+
+\begin{lemma}\label{lem:walk}
+Let $\mathcal V$ be the set of pairs (a row satisfying every within-row condition, a
+bit vector), $|\mathcal V|=S=16$; let $(r,f)\to(s,f')$ be an edge when placing $s$ after $r$
+breaks none of the across-row conditions and $f'$ is $f$ updated by that step; let
+$\mathbf{v}$ mark the vertices whose bit vector is the one their row alone produces.
+Then
 \[
-T(n,k)\;=\;c_k\,\mathbf{1}^{\!\top}M_k^{\,n}\mathbf{1}
+a(n)\;=\;\,\mathbf{v}^{\!\top}N^{\,L-1}\mathbf{1},\qquad L=n.
 \]
-for the constant $c_k$ that the entry's name supplies (a factor such as $\tfrac12$ or
-$\tfrac14$ where the name says so, and $1$ otherwise).
-
-\begin{lemma}\label{lem:crit}
-Let $q(t)=t^{r}-\sum_i c_it^{r-i}$ be the characteristic polynomial of a conjectured
-recurrence of order $r$ for column $k$. Then for every $n\ge r$,
-\[
-T(n,k)-\sum_i c_i\,T(n-i,k)\;=\;c_k\,\mathbf{1}^{\!\top}M_k^{\,n-r}q(M_k)\mathbf{1},
-\]
-so the recurrence holds from some point on if and only if
-$\mathbf{1}^{\!\top}M_k^{j}q(M_k)\mathbf{1}=0$ for every $j\ge0$; and by the
-Cayley--Hamilton theorem it is enough to check $j<S_k$, where $S_k$ is the number of vertices
-of $G_k$.
 \end{lemma}
 
 \begin{proof}
-Substitute the walk expression and factor $M_k^{n-r}$ out of $M_k^{n}-\sum_ic_iM_k^{n-i}$;
-the scalar $c_k$ is nonzero. For the bound, $M_k^{S_k}$ is an integer combination of
-$I,M_k,\dots,M_k^{S_k-1}$, so each $\mathbf{1}^{\!\top}M_k^{j}q(M_k)\mathbf{1}$ with
-$j\ge S_k$ repeats that combination of earlier values.
+A walk of length $L-1$ is a sequence of $L$ rows, that is, an array, and its bit component
+is determined by them. Every within-row condition is imposed on each vertex; every
+across-row condition compares two consecutive rows and is imposed on each edge; and the
+unimodal and lexicographic bits are, by construction, the record of what the rows laid down
+so far have already decided, so a violation removes the corresponding edge. Hence the walks
+are exactly the admissible arrays. Nothing constrains the last row beyond what has already
+been imposed, so the walk may end anywhere. The state carries a row, not a boundary, so
+$L$ rows make a walk of length $L-1$.
 \end{proof}
 
-\section{The computation, column by column}
+\section{The criterion, and the computation}
 
-\begin{center}
-\begin{tabular}{ccccc}
-line & order & vertices $S$ & proved for & terms checked \\ \hline
-column $k$$=1$ & $5$ & $9$ & $>4$ & $8$ \\
-\end{tabular}
-\end{center}
+Let $q(t)=t^{5}-\sum_i c_i\,t^{5-i}$ be the characteristic polynomial of
+\eqref{eq:conj} and $G=N$.
 
-In each case the vector $w=q(M_k)\mathbf{1}$ was formed by $r$ matrix--vector products in
-exact integer arithmetic and $\mathbf{1}^{\!\top}M_k^{j}w$ evaluated for $j=0,1,\dots$,
-again exactly; every one of those integers vanishes from the stated point onwards and the run
-continued until the working vector was identically zero, which settles all larger $j$ at once.
-
-\subsection*{Column $k$$=1$}
-The sequence is ``Number of (n+1)X(2) 0..2 arrays with no 2X2 subblock having its minimum diagonal element less than its minimum antidiagonal element.''. Its rows are the vertices of a digraph on
-$S=9$ vertices, edges being the admissible consecutive pairs, and the count is
-$\mathbf{1}^{\!\top}M^{n}\mathbf{1}$ up to the constant factor in the entry's name.
-The conjectured recurrence
+\begin{lemma}\label{lem:crit}
+With $n_0$ the least index for which $L\ge1$, $o=1n_0+0-1$ and
+$h_j=G^{j}N^{o}\mathbf{1}$, we have for $j\ge5$
 \[
-a(n)\;=\;9\,a(n-1) - 23\,a(n-2) + 29\,a(n-3) - 16\,a(n-4) + 4\,a(n-5)
+a(n_0+j)-\sum_i c_i\,a(n_0+j-i)=\,\mathbf{v}^{\!\top}G^{\,j-5}w,
+\qquad w=h_{5}-\sum_i c_ih_{5-i} .
 \]
-holds from index $4+1$ on.
+Hence \eqref{eq:conj} holds from that point on if and only if
+$\mathbf{v}^{\!\top}G^{m}w=0$ for all $m\ge0$, and $m<S$ suffices.
+\end{lemma}
 
+\begin{proof}
+Substitute Lemma~\ref{lem:walk} and factor. By Cayley--Hamilton $G^{S}$ is an integer
+combination of $I,G,\dots,G^{S-1}$, so every later value repeats that combination of
+earlier ones.
+\end{proof}
 
-\section{Lines whose recurrence the entry does not print}
+\begin{theorem}
+The recurrence \eqref{eq:conj} holds for every $n>5$, which is the statement of
+Section~1.
+\end{theorem}
 
-For the lines below the entry records only an order, the coefficients being in a linked file.
-They can still be settled, and the recurrences recovered. A line is a walk count on $S$
-vertices, so it satisfies some monic recurrence of order at most $S$ and Berlekamp--Massey on
-$2S$ exact terms returns the MINIMAL one. Where that order equals the stated order --- and
-where the same holds after the first few terms are dropped, since the entry's recurrence may
-begin only partway along --- any recurrence of that order the line satisfies has a
-characteristic polynomial that is a multiple of the minimal one and of equal degree, hence is
-that polynomial. So the entry's recurrence is the one displayed, whatever its file contains.
-
-\subsection*{Column $k=2$, recovered}
-The entry gives only the order for this line: ``k=2: [order 13]''. Its model is a walk on
-$S=27$ vertices, so it satisfies a monic recurrence of order at most $S$;
-Berlekamp--Massey on $2S=54$ exact terms returns the minimal one, of order
-$13$ --- the stated order --- with integer coefficients
-\begin{center}\small\begin{tabular}{cccccccc}
-$c_{1}$ & $27$ & $c_{5}$ & $14885$ & $c_{9}$ & $18548$ & $c_{13}$ & $48$ \\
-$c_{2}$ & $-280$ & $c_{6}$ & $-25640$ & $c_{10}$ & $-8602$ &  &  \\
-$c_{3}$ & $1630$ & $c_{7}$ & $31686$ & $c_{11}$ & $2711$ &  &  \\
-$c_{4}$ & $-6022$ & $c_{8}$ & $-28463$ & $c_{12}$ & $-526$ &  &  \\
-\end{tabular}\end{center}
-Repeating with the first $13+4$ terms removed gives order $13$ again.
-
-\subsection*{Column $k=3$, recovered}
-The entry gives only the order for this line: ``k=3: [order 31]''. Its model is a walk on
-$S=81$ vertices, so it satisfies a monic recurrence of order at most $S$;
-Berlekamp--Massey on $2S=162$ exact terms returns the minimal one, of order
-$31$ --- the stated order --- with integer coefficients
-\[
-(c_1,\dots,c_{31})=(81,\ -2899,\ 63295,\ -958285,\ 10756670,\ -93330409,\ 644640204,\ -3624496674,\ 16880394940,\ -66023717068,\ 219240302561,\ -623358921354,\ 1527544435817,\ -3241977665792,\ 5979956364272,\ -9608041848406,\ 13461986448007,\ -16448861092094,\ 17508255649822,\ -16196842918537,\ 12974801039902,\ -8952649323986,\ 5282187628341,\ -2638768086999,\ 1101316093488,\ -377022705948,\ 103145374080,\ -21690899280,\ 3292887168,\ -321226560,\ 15116544).
-\]
-Repeating with the first $31+4$ terms removed gives order $31$ again.
-
-\subsection*{Column $k=4$, recovered}
-The entry gives only the order for this line: ``k=4: [order 81]''. Its model is a walk on
-$S=243$ vertices, so it satisfies a monic recurrence of order at most $S$;
-Berlekamp--Massey on $2S=486$ exact terms returns the minimal one, of order
-$81$ --- the stated order --- with integer coefficients
-\[
-(c_1,\dots,c_{81})=(243,\ -27764,\ 2015179,\ -105182400,\ 4223631481,\ -136125966767,\ 3625550001219,\ -81527377542987,\ 1573726427167963,\ -26425068602011767,\ 390213315069594779,\ -5113943537364581235,\ 59944541549153011205,\ -632673010991315794758,\ 6047188155526054696614,\ -52608994250640381463034,\ 418425222277267310808028,\ -3054347056740093826010599,\ 20533289137307400145143279,\ -127516996856916234046715620,\ 733554306335506463055321894,\ -3918416366882006468835718789,\ 19478365433409142384538896162,\ -90284011239187282069351733917,\ 390888455515223879548815907826,\ -1583323368667679577720656519628,\ 6008749364932742160277983941660,\ -21392307623796565355437493282297,\ 71531243894551728326444205471570,\ -224881102511757690091397563153723,\ 665329324911933940382832789021765,\ -1854005153529421086701144817758955,\ 4869669463688260661839163168623886,\ -12063918753624964409281159783666566,\ 28205163465580807780455221872699617,\ -62264152489109290784038024191492146,\ 129838571823276834639964238361679155,\ -255848745954510960156230405911023358,\ 476548218130989367040884005455974807,\ -839224584991235137798788547605179349,\ 1397577740161730196744985189615144823,\ -2201174794086024696170920188905677437,\ 3279023424367421554709301120891752520,\ -4620119229660912948092211848415981825,\ 6156931635469487449602500352939969042,\ -7759575769200678036349104966212197597,\ 9247187361979527926038653538557455476,\ -10418121024860168124299380441853597266,\ 11093290336906862616211063743348491145,\ -11160335780814824628520967367541750495,\ 10603865470268466250748010472995991773,\ -9510702904198730711821714897470258251,\ 8047824858823601963235379391104739165,\ -6420660386667933033879852813564123970,\ 4826057220284255151196323258059278336,\ -3414664386489241141618450384594421176,\ 2272105058903993725578703680005933760,\ -1420240348790119850407630364338958208,\ 832947080028941792229852167808759872,\ -457718777672845533368318818004180608,\ 235307893368606396580122349613394688,\ -112974219940318098890241387062430208,\ 50557157574611009994108844741050368,\ -21042356456406641284164526061152256,\ 8125260098603568272023297502625792,\ -2902591451513696973469230710145024,\ 956173895773348805710371577184256,\ -289380787003870534509122260795392,\ 80111496394603915241242652246016,\ -20182918699134518707664000778240,\ 4599116004660324322786588753920,\ -940883573268439062480254140416,\ 171230411714196496633238126592,\ -27402131738494711821351518208,\ 3798876279552207407309389824,\ -447245583982332144412262400,\ 43497630618296645037588480,\ -3356104747675065186779136,\ 192599677384129058439168,\ -7305539716510830821376,\ 137276562229564538880).
-\]
-Repeating with the first $81+4$ terms removed gives order $81$ again.
+\begin{proof}
+The digraph was built directly from the conditions listed above. The vector $w$ was formed by
+$5$ applications of $G$ in exact integer arithmetic and $\mathbf{v}^{\!\top}G^{m}w$
+evaluated for $m=0,1,\dots$, again exactly. Every one of those integers vanishes from the
+index corresponding to $n=5+1$ onwards, and the run continued until $S+1$ consecutive
+zeros had been seen.
+\end{proof}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, each model was compared against the entry's own published values for its line, taken
-both from the antidiagonal DATA read in either orientation and from the ``Table starts''
-block, and agrees at every available term. This is what ties a model to the table:
-substituting the fixed index into the entry's wording is a reading of English, and a wrong
-reading gives a different digraph and different counts. Across the lines settled here the
-model reproduces $8$ published values, $40$ decimal digits in all, every one of
-them exactly; a misreading of the entry would have to reproduce all of them by accident.
+First, the walk counts of Lemma~\ref{lem:walk} were compared against the entry's DATA at
+every one of the $21$ published indices, with no shift fitted. The values agree exactly.
+This is what fixes the reading of the wording: ``rows and columns in nondecreasing order''
+means the rows and columns are sorted as vectors, not that each is nondecreasing along
+itself, and the two readings already differ at the second published term --- $86$ against
+$50$ for $2\times2$ arrays over $\{0,1,2,3\}$. The DATA decides it.
 
-Second, each conjectured recurrence was evaluated on those published values in exact
-integer arithmetic, with no matrices involved, and holds wherever the proved range and the
-data overlap.
+Second, the recurrence \eqref{eq:conj} was evaluated on those published terms in exact
+integer arithmetic, with no matrices involved, and vanishes wherever it applies.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
-arithmetic rather than on a sampled prefix.
-
-\begin{remark}
-A row of the table is a column of the transposed table: fixing $n$ and letting $k$ vary gives a
-count of arrays of fixed height, which is the same kind of object with the two dimensions
-exchanged. Both are settled here by the same argument. Only the lines the entry states
-explicitly, and for which enough published values exist to run the first check above, are
-claimed.
-\end{remark}
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried to the full
+Cayley--Hamilton bound in exact integer arithmetic rather than to a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A250927.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A224406.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

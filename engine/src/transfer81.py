@@ -73,18 +73,26 @@ def _num(t):
 
 
 def _shape(s):
-    """(W, a) with the array having n + a rows of W columns, after transposing if needed"""
+    """(L, a, transposed): L lines fixed, n + a lines added, and which way round it is
+
+    "W X (n+a)" is NOT the transpose of "(n+a) X W" for these entries and must not be turned
+    into one. The conditions are stated about ROWS --- "every subblock in a row", "adjacent
+    rows differing", "row major order" --- so transposing the array rewrites the condition
+    into a different one. Transposing gave exactly the counts of the other orientation, and
+    the six entries where the two orientations disagree failed against the published DATA,
+    which is the only reason it was caught.
+    """
     for rx, kind in SHAPE:
         m = rx.match(s)
         if not m:
             continue
         if kind == 'rows':
-            return int(m.group(2)), int(m.group(1))
+            return int(m.group(2)), int(m.group(1)), False
         if kind == 'rows0':
-            return int(m.group(1)), 0
+            return int(m.group(1)), 0, False
         if kind == 'cols':
-            return int(m.group(1)), int(m.group(2))
-        return int(m.group(1)), 0
+            return int(m.group(1)), int(m.group(2)), True
+        return int(m.group(1)), 0, True
     return None
 
 
@@ -99,7 +107,7 @@ def parse_name(nm):
     sh = _shape(m.group(1).strip())
     if sh is None:
         return None
-    W, a = sh
+    W, a, tr = sh
     k = int(m.group(2)) + 1
     if not 2 <= W <= 5 or not 2 <= k <= 5:
         return None
@@ -121,7 +129,7 @@ def parse_name(nm):
                 return None
             kind = tag
         return {'W': W, 'a': a, 'k': k, 'h': h, 'w': w, 'kind': kind, 'want': want,
-                'frac': 1}
+                'transposed': tr, 'frac': 1}
     return None
 
 
@@ -158,28 +166,90 @@ def _lines(block, j):
 
 
 def build(p, cap=200000):
-    W, k, h, w, kind = p['W'], p['k'], p['h'], p['w'], p['kind']
-    if w > W:
-        return None
-    rows = _rows(W, k)
-    nb = W - w + 1                              # subblocks across one band
+    """The digraph whose walks are the arrays.
 
-    def band(block):
-        """the scores of one band of subblocks, or None if the band is already illegal"""
+    One walk step adds one line: a row when the entry writes "(n+a) X L", a column when it
+    writes "L X (n+a)". A subblock spans `dep` added lines and `spn` fixed positions, which
+    are (h, w) one way round and (w, h) the other, so one step closes `nb = L - spn + 1`
+    subblocks.
+
+    Where the two orientations really differ is what a step closes. Adding a row closes one
+    whole band of subblocks; adding a column closes one subblock from each of nb different
+    bands. The conditions that speak of bands ("every subblock in a row scores the same,
+    adjacent rows differ") therefore need the established score of every band carried at
+    once in the column orientation, and only the last band's score in the row orientation.
+
+    The canonical condition is read along the walk: first occurrences in the order the walk
+    visits the cells. In the row orientation that is the entry's own row major order. In the
+    column orientation it is column major order, which selects a DIFFERENT representative of
+    each renaming class but exactly one of them, just as row major order does --- and every
+    condition here is a statement about which entries are equal, so it is invariant under
+    renaming. The two rules therefore count the same classes, and the count is the same.
+    """
+    L, k, h, w, kind = p['W'], p['k'], p['h'], p['w'], p['kind']
+    tr = p.get('transposed', False)
+    dep, spn = (w, h) if tr else (h, w)
+    if spn > L:
+        return None
+    lines = _rows(L, k)
+    nb = L - spn + 1
+
+    def scores(win):
+        """the score of each subblock closed by this window, in band order"""
         if kind.startswith('lines'):
-            s = [_lines(block, j) for j in range(nb)]
+            blk = [[win[c][r + i] for i in range(3)] for c in range(3)] if tr else win
+            out = []
+            for j in range(nb):
+                b = ([[win[c][j + i] for i in range(3)] for c in range(3)] if tr
+                     else [win[c] for c in range(3)])
+                out.append(_lines(b, 0) if tr else _lines(win, j))
+            return out
+        if tr:
+            # a 2 X 2 subblock at row j, spanning the two columns in the window
+            c0, c1 = win
+            return [(c0[j] == c1[j + 1]) + (c0[j + 1] == c1[j]) for j in range(nb)]
+        return [_stat2(win, j) for j in range(nb)]
+
+    def check(s, est):
+        """(admissible, the new established value) for one window's scores"""
+        if kind.startswith('lines'):
             good = (all(v == p['want'] for v in s) if kind == 'lines_exact'
                     else all(v >= p['want'] for v in s))
-            return () if good else None
-        s = [_stat2(block, j) for j in range(nb)]
+            return good, ()
         if kind == 'neighbour':
+            # a subblock may not score what the subblock beside it scores, which within one
+            # step is the neighbour along the fixed axis, nor what the subblock before it
+            # scores, which is the same position at the previous step
             for j in range(nb - 1):
-                if s[j] == s[j + 1]:            # a subblock beside it with the same score
-                    return None
-            return tuple(s)
-        if len(set(s)) != 1:                    # band and same both force a constant band
-            return None
-        return (s[0],)
+                if s[j] == s[j + 1]:
+                    return False, None
+            if est and any(s[j] == est[j] for j in range(nb)):
+                return False, None
+            return True, tuple(s)
+        if kind == 'same':
+            if len(set(s)) != 1:
+                return False, None
+            if est and est[0] != s[0]:
+                return False, None
+            return True, (s[0],)
+        # kind == 'band'
+        if not tr:
+            if len(set(s)) != 1:
+                return False, None
+            if est and est[0] == s[0]:
+                return False, None
+            return True, (s[0],)
+        # one subblock from each band: fix each band's score, then adjacent bands must differ
+        cur = list(est) if est else [None] * nb
+        for j in range(nb):
+            if cur[j] is None:
+                cur[j] = s[j]
+            elif cur[j] != s[j]:
+                return False, None
+        for j in range(nb - 1):
+            if cur[j] is not None and cur[j + 1] is not None and cur[j] == cur[j + 1]:
+                return False, None
+        return True, tuple(cur)
 
     index, states, adj = {}, [], []
 
@@ -191,10 +261,8 @@ def build(p, cap=200000):
             adj.append([])
         return i
 
-    # a state is (the last h - 1 rows, m, the last band's score); the score is () until a
-    # band has been completed, and for `same' it is the score every band must have
     frontier, seen = [], set()
-    for r in rows:
+    for r in lines:
         m = _advance(0, r, k)
         if m is None:
             continue
@@ -206,27 +274,18 @@ def build(p, cap=200000):
     start_states = list(seen)
     while frontier:
         u = frontier.pop()
-        last, m, prev = states[u]
-        for r in rows:
+        last, m, est = states[u]
+        for r in lines:
             m2 = _advance(m, r, k)
             if m2 is None:
                 continue
-            keep = (last + (r,))[-(h - 1):]
-            if len(last) < h - 1:               # not enough rows yet to close a subblock
-                cur = prev
+            keep = (last + (r,))[-(dep - 1):] if dep > 1 else ()
+            if len(last) < dep - 1:
+                cur = est
             else:
-                cur = band(last + (r,))
-                if cur is None:
+                good, cur = check(scores(last + (r,)), est)
+                if not good:
                     continue
-                if kind == 'band' and prev and cur[0] == prev[0]:
-                    continue                    # adjacent bands must differ in the number
-                if kind == 'neighbour' and prev:
-                    if any(cur[j] == prev[j] for j in range(nb)):
-                        continue                # a subblock above it with the same score
-                if kind == 'same' and prev and cur != prev:
-                    continue
-                if kind.startswith('lines'):
-                    cur = ()
             v = sid((keep, m2, cur))
             if len(states) > cap:
                 return None

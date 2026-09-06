@@ -12,74 +12,97 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A185883, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A241301, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A185883 counts arrays over $\{0,\dots,2\}$ under a condition comparing a statistic of
-every $3\times3$ subblock with those of its neighbours, and carries an empirical recurrence
-of order $4$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
-empirical. The count is a walk count on $S=19683$ states and is $C$-finite; whether the
-conjectured recurrence annihilates it is then settled by a finite exact computation.
+OEIS A241301 counts arrays over $\{0,1,2,3\}$ in which no entry may equal, modulo $4$, a given
+constant plus the SUM of all the entries lying before it along one of several rays. The entry
+carries an empirical recurrence of order $5$ contributed by R.~H.~Hardin. It is true, and
+it is decidable rather than empirical. None of those sums is bounded and none is local, but
+each is built one term at a time, so its residue modulo $4$ is carried in the state; the
+count is then a walk count on $S=11$ states.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 11A07, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A185883 is ``1/729 the number of (n+2) X 3 0..2 arrays with no 3 X 3 subblock trace equal to any horizontal or vertical neighbor 3 X 3 subblock trace.''. It has offset $1$ and begins
+OEIS A241301 is ``Number of n X 2 0..3 arrays with no element equal to zero plus the sum of elements to its left or one plus the sum of elements above it or zero plus the sum of the elements diagonally to its northwest or zero plus the sum of the elements antidiagonally to its northeast, modulo 4.''. It has offset $1$ and begins
 \[
-27, 588, 12900, 282672, 6195480, 135783240, 2975926392, 65222436072,\ \dots
+2, 6, 6, 12, 16, 28, 38, 66,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 10*a(n-1) + 221*a(n-2) + 846*a(n-3) + 756*a(n-4).
+Empirical: a(n) = 2*a(n-2) + a(n-3) - a(n-5).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Apr 17 2018 06:16:41, revision 9) this is still
+As of the ``Last modified'' line on the live entry (Oct 29 2018 20:16:12, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-Write $\sigma$ for the sum of its main diagonal, taken on a $3\times3$ subblock. The contiguous $3\times3$
-subblocks of an $(n+2)\times3$ array over $\{0,\dots,2\}$ form a grid of $n$ rows
-and $1$ column, and $\sigma$ labels that grid. The entry
-requires that no two subblocks that are neighbours horizontally or vertically carry the same value of $\sigma$. The entry counts $1/729$ of that number, and the model divides by $729$ before anything is compared.
-
-\section{The count is a walk count}
-
-The condition is on a PAIR of neighbouring subblocks, so nothing beyond the
-rows themselves has to be remembered. Take as state the $3$-tuple of consecutive array rows
-whose subblock row has just been completed: the horizontal pairs inside that row decide which
-tuples are admissible at all, and the vertical pairs decide which tuple may follow which. A
-step appends one array row. An array of $n+2$ rows is a walk of $n-1$ steps and
+The array has $2$ cells across one way, entries $x(i,j)\in\{0,1,2,3\}$, and the entry names these
+rays out of a cell $(i,j)$, with the constant it attaches to each:
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,\qquad\iota=\tau=(1,\dots,1)^{\!\top},
+\begin{array}{lll}
+\text{ray} & \text{the cells on it} & \text{constant} \\[2pt]
+\text{west} & (i,j-1),(i,j-2),\dots & 0 \\
+\text{north} & (i-1,j),(i-2,j),\dots & 1 \\
+\text{northwest} & (i-1,j-1),(i-2,j-2),\dots & 0 \\
+\text{northeast} & (i-1,j+1),(i-2,j+2),\dots & 0 \\
+\end{array}
 \]
-on the $S=19683$ admissible tuples.
+Writing $\Sigma_r(i,j)$ for the sum of the entries on ray $r$ out of $(i,j)$, all of them
+inside the array, the condition is
+\[
+x(i,j)\;\not\equiv\;c_r+\Sigma_r(i,j) \pmod{4}
+\]
+for every ray $r$ named. A ray that leaves the array at once contributes the empty sum,
+zero.
 
-The state does not compress. What a step needs of the past is the previous subblock row, and
-for $3\ge3$ that row already determines the $3$ array rows it came from, so carrying the
-rows costs nothing and carrying anything smaller loses information. Of the $3^{3\cdot
-3}=19683$ tuples of $3$ rows, $S=19683$ survive the condition inside a single subblock row;
-the rest could not occur in a counted array at all.
+\section{The rays as a bounded state}
 
-Over the alphabet $\{0,\dots,2\}$ the statistic takes values in $[0,6]$, so the
-grid it labels carries at most $7$ different labels. At $n=1$ the array has $3$
-rows and the grid is a single row of $1$
-subblock, which has no neighbour of any kind; the entry's first term is
-$27$, which the model reproduces along with every later term, and that is the cheapest
-check that the grid has been read with the right shape.
+Take the array one $row$ at a time, in the direction in which it grows, and index the
+positions of a $row $ by $p$. Let $x$ be the $row$ just written.
 
-In particular $a$ is $C$-finite. The alignment of the walk index with the entry's own $n$ was
-checked against its published terms rather than assumed.
+\begin{lemma}\label{lem:rays}
+Along the $row$s, the 4 ray sums named by this entry satisfy
+\[
+\begin{aligned}
+\Sigma_{\mathrm{west}}\ &\text{is the running total inside the current row},\\
+U'[p]&=U[p]+x[p], &&\text{the north ray, per position},\\
+NW'[p]&=NW[p-1]+x[p-1], && NW'[0]=0,\\
+NE'[p]&=NE[p+1]+x[p+1], && NE'[W-1]=0 .
+\end{aligned}
+\]
+\end{lemma}
+
+\begin{proof}
+Each ray is a set of cells at a fixed step from $(i,j)$ repeated. Advancing one $row$
+moves a cell one step along the north ray, one step along the northwest ray together with one
+position to the right, and one step along the northeast ray together with one position to the
+left; in each case exactly the cell just left behind is the new term. At the border of the
+array the diagonal rays are empty, which is the stated boundary value.
+\end{proof}
+
+Reduced modulo $4$ these vectors take finitely many values, so they are a state, and one step
+of the walk writes a whole $row$: the position $p$ is filled left to right and the
+running total of the west ray is carried along as it is filled, so every cell is tested
+against every ray at the moment it is written. The walk starts at the all-zero state, the empty
+array, and every state may end one, so $\tau=\mathbf{1}$ and
+\[
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=11.
+\]
+The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
+published terms rather than assumed. In particular $a$ is $C$-finite.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{4}-\sum_i c_it^{4-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{5}-\sum_i c_it^{5-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -87,7 +110,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+4}-\sum_ic_iM^{j+4-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+5}-\sum_ic_iM^{j+5-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -96,39 +119,41 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;10\,a(n-1) + 221\,a(n-2) + 846\,a(n-3) + 756\,a(n-4)
+a(n)\;=\;2\,a(n-2) + a(n-3) - a(n-5)
 \]
-for every $n>4$.
+for every $n>5$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $4$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $5$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=4+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=5+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
-Three checks, each independent of the algebra above.
+Four checks, each independent of the algebra above.
 
-First, the model reproduces all $15$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry: the digraph is built by reading the
-entry's English, and a misreading gives different counts.
+First, the model reproduces all $38$ terms the entry publishes, exactly, in integer
+arithmetic.
 
-Second, the conjectured recurrence was evaluated directly on those published terms, with no
+Second, the count was recomputed for the smallest arrays straight from the definition: fill the
+cells one at a time in the orientation the entry's own name writes and, for each candidate
+value, walk each ray to the edge of the array and add the entries up. No residue, no state and
+no recurrence of Lemma~\ref{lem:rays} is involved, and the published terms came back.
+
+Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
 arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A185883.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A241301.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata
-Theory, Languages, and Computation}, 3rd ed., Addison--Wesley, 2006.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

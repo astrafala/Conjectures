@@ -12,74 +12,129 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A185860, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A214103, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{3 September 2026}
+\date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A185860 counts arrays over $\{0,\dots,1\}$ under a condition comparing a statistic of
-every $3\times3$ subblock with those of its neighbours, and carries an empirical recurrence
-of order $10$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
-empirical. The count is a walk count on $S=15872$ states and is $C$-finite; whether the
-conjectured recurrence annihilates it is then settled by a finite exact computation.
+OEIS A214103 counts the proper colourings of a grid $4\times(n+1)$, wrapped in the growing direction, with at most $3$ colours and
+counted up to renaming the colours, and carries an empirical recurrence of order $11$
+contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical. Counting
+up to renaming is a fixed rational combination of ordinary colouring counts; each of those is
+a walk count; and because permuting the colours preserves everything in sight, the walk may be
+run on the colour-patterns rather than on the colourings, which is what brings the state count
+down to $S=98$ and makes the exact residual test affordable.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05C15, 05C30.\normalsize
 
 \section{The conjecture}
 
-OEIS A185860 is ``1/128 the number of (n+2)X5 binary arrays with no 3X3 subblock trace equal to any horizontal or vertical neighbor 3X3 subblock trace.''. It has offset $1$ and begins
+OEIS A214103 is ``Number of 0..2 colorings of a 4X(n+1) array circular in the n+1 direction with new values 0..2 introduced in row major order.''. It has offset $1$ and begins
 \[
-124, 1254, 13662, 148747, 1625738, 17735956, 193660943, 2113733736,\ \dots
+27, 8, 771, 1080, 29540, 79968, 1241355, 4807928,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n)=9*a(n-1)+37*a(n-2)-181*a(n-3)+36*a(n-4)+264*a(n-5)-119*a(n-6)+27*a(n-7)-49*a(n-8)+25*a(n-9)-16*a(n-10) for n>11
+Empirical: a(n) = 8*a(n-1) +26*a(n-2) -304*a(n-3) +304*a(n-4) +2016*a(n-5) -3991*a(n-6) -2616*a(n-7) +9702*a(n-8) -2064*a(n-9) -6120*a(n-10) +2880*a(n-11)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 03:16:09, revision 9) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 16:51:20, revision 8) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-Write $\sigma$ for the sum of its main diagonal, taken on a $3\times3$ subblock. The contiguous $3\times3$
-subblocks of an $(n+2)\times5$ array over $\{0,\dots,1\}$ form a grid of $n$ rows
-and $3$ columns, and $\sigma$ labels that grid. The entry
-requires that no two subblocks that are neighbours horizontally or vertically carry the same value of $\sigma$. The entry counts $1/128$ of that number, and the model divides by $128$ before anything is compared.
+A \emph{colouring} here is proper: cells adjacent horizontally or vertically carry different
+values, and ``circular in one direction'' means the two ends of that direction are adjacent as
+well. The check that this is the right reading is the entry's own first term for the
+one-row case: a cycle of $W$ cells has $(i-1)^W+(-1)^W(i-1)$ proper colourings over $i$
+colours, which at $W=6$, $i=3$ is $66$, and $66/3!=11$ is what the corresponding entry of this
+family publishes.
 
-\section{The count is a walk count}
-
-The condition is on a PAIR of neighbouring subblocks, so nothing beyond the
-rows themselves has to be remembered. Take as state the $3$-tuple of consecutive array rows
-whose subblock row has just been completed: the horizontal pairs inside that row decide which
-tuples are admissible at all, and the vertical pairs decide which tuple may follow which. A
-step appends one array row. An array of $n+2$ rows is a walk of $n-1$ steps and
+The clause ``new values $0..2$ introduced in row major order'' says the array is the
+canonical representative of its equality pattern, so what is counted is patterns, not arrays.
+Write $N_j$ for the number of admissible patterns using exactly $j$ colours and $L_i$ for the
+number of admissible colourings over an alphabet of $i$ colours. A colouring over $i$ colours
+is a pattern together with an injection of its colours into the alphabet, so
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,\qquad\iota=\tau=(1,\dots,1)^{\!\top},
+L_i\;=\;\sum_j N_j\,i(i-1)\cdots(i-j+1),
 \]
-on the $S=15872$ admissible tuples.
+a triangular system with unit diagonal, hence invertible over $\mathbf{Q}$. The entry counts
+$a=N_1+\dots+N_{3}$, so
+\[
+a\;=\;\sum_{i=1}^{3}w_i\,L_i
+\]
+for one fixed rational vector $w=\mathbf{1}^{\!\top}F^{-1}$, $F$ the matrix of falling
+factorials. Being properly coloured is a statement about equalities alone, so it is invariant
+under permuting the colours and the reduction is legitimate.
 
-The state does not compress. What a step needs of the past is the previous subblock row, and
-for $5\ge3$ that row already determines the $3$ array rows it came from, so carrying the
-rows costs nothing and carrying anything smaller loses information. Of the $2^{3\cdot
-5}=32768$ tuples of $3$ rows, $S=15872$ survive the condition inside a single subblock row;
-the rest could not occur in a counted array at all.
+\section{Each $L_i$ is a walk count}
 
-Over the alphabet $\{0,\dots,1\}$ the statistic takes values in $[0,3]$, so the
-grid it labels carries at most $4$ different labels. At $n=1$ the array has $3$
-rows and the grid is a single row of $3$
-subblocks, with only the neighbours inside that row; the entry's first term is
-$124$, which the model reproduces along with every later term, and that is the cheapest
-check that the grid has been read with the right shape.
+A column of the array is a proper colouring of the path $P_{4}$ and two consecutive
+columns must differ in every one of the $4$ positions; the wrapping makes the last column
+adjacent to the first. A colouring of the array is therefore a CLOSED walk of $m=n+1$ steps
+in the digraph $T_i$ whose vertices are the proper colourings of $P_{4}$ over $i$ colours
+and whose edges join colourings differing everywhere, so
+\[
+L_i(n)\;=\;\operatorname{tr}\,T_i^{\,m},\qquad m=n+1.
+\]
+A trace is not $\iota^{\!\top}M^m\tau$ for fixed vectors, and computing it as a sum over all
+starting vertices is far too expensive. Lemma~\ref{lem:trace} replaces it by a handful of
+walks with fixed ends.
 
-In particular $a$ is $C$-finite. The alignment of the walk index with the entry's own $n$ was
-checked against its published terms rather than assumed.
+\begin{lemma}\label{lem:trace}
+Let $G$ be a group acting on the vertex set of a digraph and preserving its edges, and let $M$
+be the adjacency matrix. Then $(M^m)_{ss}=(M^m)_{\sigma s,\sigma s}$ for every
+$\sigma\in G$, and hence
+\[
+\operatorname{tr} M^m\;=\;\sum_{\text{orbits }O}|O|\;(M^m)_{s_O s_O} ,
+\]
+one representative $s_O$ per orbit. For $T_i$ with $G=S_i$ permuting the colours, the orbits
+are the equality patterns and the orbit of a colouring using $j$ colours has
+$i(i-1)\cdots(i-j+1)$ members.
+\end{lemma}
+
+\begin{proof}
+$\sigma$ permutes the vertices and carries walks to walks bijectively, so the closed walks of
+length $m$ at $s$ correspond to those at $\sigma s$. Summing the diagonal over each orbit
+gives the displayed identity. Permuting colours preserves ``differ in every position'', so
+$S_i$ acts on the colourings of $P_{4}$ preserving $T_i$; two colourings lie in one orbit
+exactly when they have the same equality pattern, and a pattern using $j$ colours is realised
+in $i(i-1)\cdots(i-j+1)$ ways.
+\end{proof}
+
+\begin{lemma}\label{lem:lump}
+Let a group $G$ act on the vertices of a digraph preserving its edges, and let $v$ be constant
+on the $G$-orbits. Then $Mv$ is constant on the $G$-orbits, and for a representative $s$ of
+the orbit $O$,
+\[
+(Mv)(O)\;=\;\sum_{O'}A_{OO'}\,v(O'),\qquad
+A_{OO'}=\#\{t\in O':\ s\to t\} .
+\]
+So an iteration started at a $G$-invariant vector may be carried out on the orbits.
+\end{lemma}
+
+\begin{proof}
+$\sigma\in G$ is an edge-preserving bijection, so it carries the out-neighbours of $s$ onto
+those of $\sigma s$; with $v$ constant on orbits, $(Mv)(s)$ and $(Mv)(\sigma s)$ are the same
+sum. The count $A_{OO'}$ is likewise independent of which representative of $O$ is used.
+\end{proof}
+
+Both endpoint vectors above are invariant under the relevant group --- the all-ones vectors
+under all of $S_i$, and, for a diagonal entry $(T_i^m)_{ss}$, the vector $e_s$ under the
+subgroup fixing $s$ --- so the whole computation runs on orbits. That is the entire reason the
+state count is $S=98$ rather than the number of colourings.
+
+Assembling the pieces, $a(n)$ is $\iota^{\!\top}M^{\,j}\tau$ on the disjoint union of the
+orbit digraphs for $i=1,\dots,3$, with $\iota$ carrying the weights $w_i$ cleared of
+denominators; the walk index $j$ and the entry's $n$ differ by a constant, read off by
+matching the entry's published terms rather than assumed. In particular $a$ is $C$-finite.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{10}-\sum_i c_it^{10-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{11}-\sum_i c_it^{11-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -87,7 +142,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+10}-\sum_ic_iM^{j+10-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+11}-\sum_ic_iM^{j+11-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -96,23 +151,25 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;9\,a(n-1) + 37\,a(n-2) - 181\,a(n-3) + 36\,a(n-4) + 264\,a(n-5) - 119\,a(n-6) + 27\,a(n-7) - 49\,a(n-8) + 25\,a(n-9) - 16\,a(n-10)
+a(n)\;=\;8\,a(n-1) + 26\,a(n-2) - 304\,a(n-3) + 304\,a(n-4) + 2016\,a(n-5) - 3991\,a(n-6) - 2616\,a(n-7) + 9702\,a(n-8) - 2064\,a(n-9) - 6120\,a(n-10) + 2880\,a(n-11)
 \]
-for every $n>11$.
+for every $n>10$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $10$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $11$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=11+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once. The bound is exact: at $n=11$ the recurrence fails on the entry's own published terms, so no larger range holds.
+integers vanish from the index corresponding to $n=10+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once. The
+rational weights $w_i$ are cleared by a common denominator before any of this, so the whole
+computation is over the integers.
 \end{proof}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $16$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $20$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
@@ -124,11 +181,11 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A185860.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A214103.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata
-Theory, Languages, and Computation}, 3rd ed., Addison--Wesley, 2006.
+\bibitem{biggs} N.~Biggs, \emph{Algebraic Graph Theory}, 2nd ed., Cambridge University
+Press, 1993. (Chromatic polynomials and transfer matrices.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

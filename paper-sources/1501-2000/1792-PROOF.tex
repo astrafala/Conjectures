@@ -12,80 +12,61 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A230801, proved by transfer matrix}
+\title{Arrays counted up to renaming: the empirical recurrence for OEIS A205222}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{3 September 2026}
+\date{6 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A230801 counts arrays of width $3$ over $\{0,1,2,3\}$ in which every cell must see, among its
-neighbours in named directions, a stated number carrying the value one MORE than its own
-modulo $4$, and in some of the family a stated number carrying the value one less. The entry
-carries an empirical recurrence of order $13$ contributed by R.~H.~Hardin. It is true, and
-it is decidable rather than empirical: a cell's neighbours lie in three consecutive rows, so
-the count is a walk count on $S=2065$ states.
+OEIS A205222 carries an empirical recurrence of order $14$ contributed by R.~H.~Hardin. It is
+true, and it is decidable rather than empirical. The entry imposes two conditions of different
+kinds: a condition on every subblock, which is local, and ``new values introduced in row major
+order'', which is not --- it makes the count a count of colourings up to renaming. The first is
+handled by a window of consecutive rows; the second by one extra integer, the number of values
+introduced so far, which is an exact summary of everything the whole prefix contributes. With
+both in the state the arrays are exactly the walks in a digraph on $S=24$ vertices, so $a(n)$
+is $C$-finite and whether the conjectured recurrence annihilates it is settled by a finite
+exact computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05C15, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
 \section{The conjecture}
 
-OEIS A230801 is ``Number of n X 3 0..3 arrays x(i,j) with each element horizontally or vertically next to at least one element with value (x(i,j)+1) mod 4 and at least one element with value (x(i,j)-1) mod 4, and upper left element zero.''. It has offset $1$ and begins
+OEIS A205222 is ``Number of (n+1)X5 0..1 arrays with the number of equal 2X2 subblock diagonal pairs and equal antidiagonal pairs differing from each horizontal or vertical neighbor, and new values 0..1 introduced in row major order.''. It has offset $1$ and begins
 \[
-0, 2, 14, 40, 298, 1546, 8704, 50450,\ \dots
+132, 340, 824, 2144, 5424, 14072, 35928, 92736,\ \dots
 \]
+Because of the relabelling condition each array is counted once for the whole class of arrays that differ from it only by renaming the values, so these are colourings counted up to permutation of the colours.
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 8*a(n-1) -7*a(n-2) -40*a(n-3) +3*a(n-4) +221*a(n-5) -237*a(n-6) -55*a(n-7) +182*a(n-8) -270*a(n-9) +324*a(n-10) -172*a(n-11) +112*a(n-12) -64*a(n-13).
+Empirical: a(n) = a(n-1) +16*a(n-2) -13*a(n-3) -98*a(n-4) +63*a(n-5) +280*a(n-6) -128*a(n-7) -352*a(n-8) +52*a(n-9) +150*a(n-10) +104*a(n-11) -72*a(n-12) +16*a(n-13) -8*a(n-14) for n>16
 \end{quote}
-As of the ``Last modified'' line on the live entry (Sep 11 2025 08:22:50, revision 11) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 11:52:28, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
-\section{What is being counted}
+\section{The count is a walk count}
 
-The array has $3$ cells across, with entries in $\{0,1,2,3\}$. The NEIGHBOURS of a cell are the
-cells reached from it by the offsets
+The entry counts arrays of 5 columns over the alphabet $\{0,1\}$, and asks two different kinds of thing of them at once.
+
+\textbf{The subblock condition is local.} It says that every $2\times2$ subblock scores the number of its equal diagonal pairs plus the number of its equal antidiagonal pairs --- a number in $\{0,1,2\}$ --- and no subblock may score what the subblock beside it or the subblock above it scores. A $ 2\times2$ subblock spans $2$ consecutive rows, so a window of $2$ consecutive rows decides every subblock it closes, and nothing outside that window is consulted.
+
+What is compared \emph{across} windows is carried too: the state holds the scores of the whole last band, one number per subblock, since the band arriving next is compared with it subblock by subblock. With $4$ subblocks to a band that is a bounded amount of bookkeeping and no more.
+
+\textbf{The relabelling condition is not local.} ``New values introduced in row major order'' says that, reading the array one row at a time and each row left to right, a value may appear for the first time only once every smaller value already has. Whether a given entry is allowed here therefore depends on the whole prefix of the array, not on any bounded window of it, and no amount of widening the window captures it. What saves it is that the prefix matters only through one number: let $m$ be how many values have been introduced so far. A row $r_1r_2\cdots r_5$ may follow precisely when each $r_i\le m$ at the moment it is read and each $r_i=m$ raises $m$ by one. So $m$, an integer in $\{0,1,\dots,2\}$, is an exact summary of everything the condition needs, and it joins the state.
+
+The vertices of the digraph are therefore the triples (the last $1$ row, the count $m$, what the last band scored), an edge $u\to v$ meaning that $v$'s new row may follow $u$. Of the $32$ possible rows only those admissible from the current $m$ appear, and states with identical futures are merged, which leaves $S=24$. An admissible array is exactly a walk, so with $M$ the adjacency matrix and $\iota,\tau$ the vectors recording which states may begin and end an array,
 \[
-(-1,0), (0,-1), (0,1), (1,0),
+a(n)\;=\;\iota^{\!\top}M^{\,n}\tau ,
 \]
-those lying inside the array. Writing $v$ for the value of a cell, the condition is that among
-its neighbours there be at least $1$ carrying $v+1 \bmod 4$ and at least $1$ carrying $v-1 \bmod 4$. The top left
-cell is fixed at $0$.
-
-Note that the values and the modulus agree: the alphabet has $4$ letters and the arithmetic
-is modulo $4$, so ``one more than $v$'' wraps from $3$ round to $0$.
-
-\section{Three rows decide one}
-
-\begin{lemma}\label{lem:win}
-Every offset above changes the row index by $-1$, $0$ or $+1$, so all the neighbours of a cell
-of row $i$ lie in rows $i-1$, $i$ and $i+1$, and the condition for the whole of row $i$ is
-decided by those three rows. A neighbour outside the array is not a neighbour and contributes
-nothing to any of the counts.
-\end{lemma}
-
-\begin{proof}
-Immediate from the offsets listed.
-\end{proof}
-
-So the state is the pair (row above, current row), the row above allowed to be the symbol
-$\bot$, and a step appends a row and settles the condition for the middle row of the window it
-completes. Two boundaries are decided rather than assumed. The rows that may BEGIN an array are
-exactly those whose first entry is $0$, which is the top-left clause. And the condition for the
-LAST row is settled by the end vector, with nothing below it: the end vector is therefore not
-the all-ones vector, and a row that sees enough neighbours only when a further row is written
-below it does not finish an array. With $M$ the adjacency matrix,
-\[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=2065.
-\]
-The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
-published terms rather than assumed. In particular $a$ is $C$-finite.
+the exponent fixed by the entry's own shape and checked against its published terms. In
+particular $a$ is $C$-finite.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{13}-\sum_i c_it^{13-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{14}-\sum_i c_it^{14-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -93,7 +74,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+13}-\sum_ic_iM^{j+13-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+14}-\sum_ic_iM^{j+14-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -102,32 +83,33 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;8\,a(n-1) - 7\,a(n-2) - 40\,a(n-3) + 3\,a(n-4) + 221\,a(n-5) - 237\,a(n-6) - 55\,a(n-7) + 182\,a(n-8) - 270\,a(n-9) + 324\,a(n-10) - 172\,a(n-11) + 112\,a(n-12) - 64\,a(n-13)
+a(n)\;=\;a(n-1) + 16\,a(n-2) - 13\,a(n-3) - 98\,a(n-4) + 63\,a(n-5) + 280\,a(n-6) - 128\,a(n-7) - 352\,a(n-8) + 52\,a(n-9) + 150\,a(n-10) + 104\,a(n-11) - 72\,a(n-12) + 16\,a(n-13) - 8\,a(n-14)
 \]
-for every $n>13$.
+for every $n>16$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $13$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $14$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=13+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once.
+integers vanish from the index corresponding to $n=16+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once. The bound is exact: at $n=16$ the recurrence fails on the entry's own published terms, so no larger range holds.
 \end{proof}
 
 \section{Verification}
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $25$ terms the entry publishes, exactly, in integer
-arithmetic. The leading zeros the entry publishes are a sharp test of the boundary: a small
-array has too few neighbours for any cell to see what the condition demands.
+First, the model reproduces all $24$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry: the digraph is built by reading the
+entry's English, and a misreading gives different counts.
 
-Second, the count was recomputed for the smallest arrays straight from the definition:
-enumerate every array of that size in the orientation the entry's own name writes, count each
-cell's neighbours of each kind, and keep the array when every cell is satisfied. No window, no
-transfer matrix and no transposition are involved, and the published terms came back.
+Second, the reading was pinned before the digraph was written, by a program that enumerates
+the arrays one by one from the entry's own words --- generating every array over the
+alphabet, discarding those that fail the relabelling condition, then testing each subblock
+directly --- and compares the count with the published terms. That program shares no code
+with the transfer matrix, so an error in one does not hide an error in the other.
 
-Third, the conjectured recurrence was evaluated directly on the published terms, with no
+Third, the conjectured recurrence was evaluated directly on those published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
 
 Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
@@ -135,9 +117,11 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A230801.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A205222.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+University Press, 2009.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

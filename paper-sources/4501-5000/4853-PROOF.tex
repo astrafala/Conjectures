@@ -12,75 +12,61 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A253794, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A184470, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{2 September 2026}
+\date{6 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A253794 counts the arrays over $\{0,\dots,1\}$ whose $3\times3$ subblocks carry a
-statistic that is monotone along named directions of the subblock grid, and carries an
-empirical recurrence of order $26$ contributed by R.~H.~Hardin. It is true, and it is
-decidable rather than empirical. Every direction named moves the subblock row by at most one,
-so the count is a walk count on $S=112$ states --- the last two array rows together with the
-subblock row just completed --- and the conjectured recurrence is then settled by a finite
-exact computation.
+OEIS A184470 counts arrays of width $4$ over $\{0,1,2\}$ in which every $3\times3$ subblock
+satisfies a condition on its nine entries. The entry carries an empirical recurrence of order
+$26$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical: a
+$3\times3$ block lies in three consecutive rows, so the state is the last two rows and the
+count is a walk count on $S=6643$ states.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 06A07.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B20, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A253794 is ``Number of (n+2)X(1+2) 0..1 arrays with every 3X3 subblock diagonal maximum plus antidiagonal median nondecreasing horizontally and vertically.''. It has offset $1$ and begins
+OEIS A184470 is ``1/6 the number of (n+2)X4 0..2 arrays with each 3X3 subblock containing one of one value, four of another, and four of the last.''. It has offset $1$ and begins
 \[
-512, 2908, 14096, 66144, 299472, 1303600, 5525648, 23034276,\ \dots
+1095, 2755, 7085, 19119, 62213, 200215, 645837, 2386807,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 8*a(n-1) -19*a(n-2) +13*a(n-3) -8*a(n-4) +27*a(n-5) -79*a(n-6) +156*a(n-7) -217*a(n-8) -235*a(n-9) +964*a(n-10) -1201*a(n-11) +1488*a(n-12) -256*a(n-13) -1064*a(n-14) +994*a(n-15) -1048*a(n-16) +254*a(n-17) -132*a(n-18) +400*a(n-19) -204*a(n-20) -56*a(n-21) +256*a(n-22) -40*a(n-23) +16*a(n-24) -16*a(n-26)
+Empirical: a(n)=5*a(n-1)-6*a(n-2)+123*a(n-3)-615*a(n-4)+738*a(n-5)-5552*a(n-6)+27760*a(n-7)-33312*a(n-8)+122328*a(n-9)-611640*a(n-10)+733968*a(n-11)-1443600*a(n-12)+7218000*a(n-13)-8661600*a(n-14)+9366192*a(n-15)-46830960*a(n-16)+56197152*a(n-17)-32980608*a(n-18)+164903040*a(n-19)-197883648*a(n-20)+58413312*a(n-21)-292066560*a(n-22)+350479872*a(n-23)-40310784*a(n-24)+201553920*a(n-25)-241864704*a(n-26)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 14:14:36, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 02:40:27, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-A $3\times3$ subblock has four distinguished lines of three cells: its diagonal, its
-antidiagonal, its central row and its central column. The entry's statistic is a signed sum of
-aggregates --- sums, maxima, minima, medians --- taken over those lines, and $\sigma(i,j)$
-denotes its value on the subblock in position $(i,j)$ of the subblock grid, which has $n$ rows
-and $1$ column for an $(n+2)\times3$ array over $\{0,\dots,1\}$. The condition is
+The arrays have $4$ columns and a growing number of rows, with entries in $\{0,1,2\}$. The
+condition is imposed on every $3\times3$ block of the array --- every choice of three
+consecutive rows and three consecutive columns --- and asks that the numbers of times the values occur are $1,\,4,\,4$ in some order. The entry publishes $1/6$ of that count; the division is by a constant and changes nothing about the recurrence.
+
+The entry's phrasing names the multiplicities without saying which value takes which, so what is fixed is the sorted list; this reading is pinned against the entry's own published terms.
+
+\section{Three rows}
+
+A $3\times3$ block occupies three consecutive rows, so everything the condition asks is decided
+by three consecutive rows and nothing wider. Take the array one row at a time and let the state
+be the last two rows written, with a distinguished start standing for the array before its
+first row. Appending a row completes the blocks whose bottom row is the new one, and the step
+is allowed exactly when each of those blocks passes.
+
+Every block of the finished array is tested exactly once, at the step that writes its bottom
+row, and no step imposes anything the definition does not ask. The first two rows complete no
+block at all, which is why they are laid down without a test. Every state may end an array, so
+$\tau=\mathbf{1}$. Thus
 \[
-\sigma(i,j)\le\sigma(i,j+1),\qquad \sigma(i,j)\le\sigma(i+1,j)
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=6643,
 \]
-whenever both positions exist.
-
-``ne-to-sw antidiagonally'' is the offset $(+1,-1)$ on the subblock grid; that reading, and
-the reading of every statistic name here, was checked by counting the small arrays directly
-against what the entries publish.
-
-\section{The count is a walk count}
-
-A subblock spans three array rows and the vertical comparison spans four, so the obvious state
-is three consecutive rows. It is larger than it needs to be. What a step actually consults is
-the last TWO array rows --- enough to build the next subblock row once one more row arrives ---
-and the PREVIOUS SUBBLOCK ROW, to compare against. So take as state the triple
-\[
-\bigl(r_{i+1},\ r_{i+2},\ \sigma\text{-row }i\bigr),
-\]
-and let a step append an array row $r_{i+3}$: that fixes $\sigma$-row $i+1$ from
-$r_{i+1},r_{i+2},r_{i+3}$, and every comparison between the two $\sigma$-rows is settled
-there. All the third rows that produce the same $\sigma$-row collapse into one state, which is
-what makes the wider arrays reachable.
-
-The starting vector is therefore weighted rather than all-ones: a state is entered by as many
-first rows as produce it, and $\iota$ records that count. With $\tau$ all-ones, an
-$(n+2)$-row array is a walk of $n-1$ steps and
-\[
-a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau
-\]
-on the $S=112$ reachable states. In particular $a$ is $C$-finite. The alignment of the walk
-index with the entry's own $n$ was checked against its published terms rather than assumed.
+for the transfer matrix $M$ on those $S$ states. The walk index $j$ and the entry's own $n$
+differ by a constant, read off by matching the published terms rather than assumed. In
+particular $a$ is $C$-finite.
 
 \section{The proof}
 
@@ -102,7 +88,7 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;8\,a(n-1) - 19\,a(n-2) + 13\,a(n-3) - 8\,a(n-4) + 27\,a(n-5) - 79\,a(n-6) + 156\,a(n-7) - 217\,a(n-8) - 235\,a(n-9) + 964\,a(n-10) - 1201\,a(n-11) + 1488\,a(n-12) - 256\,a(n-13) - 1064\,a(n-14) + 994\,a(n-15) - 1048\,a(n-16) + 254\,a(n-17) - 132\,a(n-18) + 400\,a(n-19) - 204\,a(n-20) - 56\,a(n-21) + 256\,a(n-22) - 40\,a(n-23) + 16\,a(n-24) - 16\,a(n-26)
+a(n)\;=\;5\,a(n-1) - 6\,a(n-2) + 123\,a(n-3) - 615\,a(n-4) + 738\,a(n-5) - 5552\,a(n-6) + 27760\,a(n-7) - 33312\,a(n-8) + 122328\,a(n-9) - 611640\,a(n-10) + 733968\,a(n-11) - 1443600\,a(n-12) + 7218000\,a(n-13) - 8661600\,a(n-14) + 9366192\,a(n-15) - 46830960\,a(n-16) + 56197152\,a(n-17) - 32980608\,a(n-18) + 164903040\,a(n-19) - 197883648\,a(n-20) + 58413312\,a(n-21) - 292066560\,a(n-22) + 350479872\,a(n-23) - 40310784\,a(n-24) + 201553920\,a(n-25) - 241864704\,a(n-26)
 \]
 for every $n>26$.
 \end{theorem}
@@ -116,25 +102,27 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 \section{Verification}
 
-Three checks, each independent of the algebra above.
+Four checks, each independent of the algebra above.
 
-First, the model reproduces all $19$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry: the digraph is built by reading the
-entry's English, and a misreading gives different counts.
+First, the model reproduces all $21$ terms the entry publishes, exactly, in integer
+arithmetic.
 
-Second, the conjectured recurrence was evaluated directly on those published terms, with no
+Second, the count was recomputed for the smallest arrays straight from the definition: every
+array was written out cell by cell and each $3\times3$ block tested directly on its nine
+entries. No rows, no window, no state and no transfer matrix are involved in that computation,
+and the published terms came back.
+
+Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
 arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A253794.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A184470.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{davey} B.~A.~Davey and H.~A.~Priestley, \emph{Introduction to Lattices and
-Order}, 2nd ed., Cambridge University Press, 2002.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}
