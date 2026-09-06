@@ -40,6 +40,14 @@ NUM = {'zero': 0, 'one': 1, 'two': 2, 'three': 3, 'four': 4, 'five': 5, 'six': 6
 HEAD = re.compile(r'^\s*(?:(Half)|One quarter|1/(\d+))?\s*(?:the number of|Number of)\s+', re.I)
 SHAPE = re.compile(r'(?:\(\s*n\s*\+\s*1\s*\)|n)\s*X\s*\(?\s*(\d+)(?:\s*\+\s*(\d+))?\s*\)?\s+'
                    r'(?:0\.\.(\d+)|(binary)|(integer))\s+arrays\s+with\s+', re.I)
+# the same family is also written the other way round, with the FIXED side first:
+# "(6+1) X (n+1) 0..1 arrays with ...". Transposing exchanges horizontal with vertical and
+# fixes both diagonals, so it is the same problem with two words swapped -- but the shape
+# pattern only read one orientation, and fifteen entries sat outside every engine for it.
+SHAPE_T = re.compile(r'\(?\s*(\d+)(?:\s*\+\s*(\d+))?\s*\)?\s*X\s*'
+                     r'(?:\(\s*n\s*\+\s*1\s*\)|n)\s+'
+                     r'(?:0\.\.(\d+)|(binary)|(integer))\s+arrays\s+with\s+', re.I)
+SWAPWORD = {'horizontal': 'vertical', 'vertical': 'horizontal'}
 _W1 = r'(?:horizontal|vertical|diagonal|antidiagonal|king-move)(?:ly)?'
 NBW = r'(' + _W1 + r'(?:[, ]+(?:or |and )?' 
 NBSET = _W1 + r')*)'
@@ -97,18 +105,27 @@ def parse_name(nm):
     elif m.group(0).lower().lstrip().startswith('one quarter'):
         frac = 4
     norm = norm[m.end():]
+    trans = False
     m = SHAPE.match(norm)
+    if not m:
+        m = SHAPE_T.match(norm)
+        trans = m is not None
     if not m:
         return None
     W = int(m.group(1)) + (int(m.group(2)) if m.group(2) else 0)
     integer = bool(m.group(5))
     alpha = 1 if m.group(4) else (None if integer else int(m.group(3)))
     body = norm[m.end():].rstrip('. ')
+    if trans:
+        # swap only the two words transposition actually exchanges
+        body = re.sub(r'\b(horizontal|vertical)(ly)?\b',
+                      lambda g: SWAPWORD[g.group(1).lower()] + (g.group(2) or ''), body,
+                      flags=re.I)
     tl = bool(TAIL.search(body))
     body = TAIL.sub('', body)
     noadj = bool(NOADJ.search(body))
     body = NOADJ.sub('', body).rstrip('. ')
-    base = {'W': W, 'frac': frac, 'topleft': tl, 'noadj': noadj}
+    base = {'W': W, 'frac': frac, 'topleft': tl, 'noadj': noadj, 'trans': trans}
     c = P_PM.match(body)
     if c:
         if alpha is None or int(c.group(1)) != alpha:

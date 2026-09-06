@@ -43,12 +43,27 @@ def cond_text(p):
             r"its vertical ones")
 
 
+import json as _json
+_ROSTER_AT_BUILD = {v['anum'] for v in _json.load(open('paper-engines.json')).values()}
+
+
+def datefor(a):
+    """A paper carries the date its result was obtained, not the date of the batch it is
+    rebuilt with."""
+    return '3 September 2026' if a in _ROSTER_AT_BUILD else '6 September 2026'
+
+
 def build(h, rel):
     a = h['anum']
     S, order, nterms, nthr = h['S'], h['order'], h['nterms'], h['nthr']
     off = h['offset']
     e = LE.get(a)
     q = (transfer42 if rel else transfer41).parse_name(e['name'])
+    transnote = ("" if not q.get('trans') else
+                 r""" The entry writes the array with the width fixed and $n$ counting
+COLUMNS; transposing it exchanges rows with columns, which exchanges the words ``horizontal''
+and ``vertical'' and fixes both diagonals, and everything below is stated in that transposed
+frame, where $n$ counts rows.""")
     p = q['p'] if rel else q
     W, al = p['W'], p['alpha']
     D = [tuple(t) for t in p['dirs']]
@@ -102,7 +117,7 @@ included."""))
     return rf"""{PRE}
 \title{{The empirical recurrence for OEIS {a}, proved by transfer matrix}}
 \author{{Adrian Perez Fontelles\\ \small Independent researcher}}
-\date{{3 September 2026}}
+\date{{{datefor(a)}}}
 \begin{{document}}
 \maketitle
 
@@ -112,7 +127,7 @@ and its neighbours, and carries an empirical recurrence of order ${order}$ contr
 R.~H.~Hardin. It is true, and it is decidable rather than empirical. Every neighbour named lies
 in the three rows $i-1,i,i+1$, so an ordered pair of consecutive rows is a state, the count is
 a walk count on $S={S}$ of them, and the conjectured recurrence is then settled by a finite
-exact computation.
+exact computation.{transnote}
 \end{{abstract}}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 68Q45.\normalsize

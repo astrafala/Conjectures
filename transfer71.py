@@ -62,6 +62,10 @@ NBRSOME = re.compile(r'^every (\d+) an? (.+?) neighbou?r to some (\d+)\s*\.?$', 
 ADJCNT = re.compile(r"^every (\d+) (.+?) adjacent to (\d+) or (\d+) neighbou?ring (\d+)'s\s*\.?$",
                     re.I)
 EQONE = re.compile(r'^each element equal to at least one neighbou?r\s*\.?$', re.I)
+# "every one adjacent to another one horizontally or vertically" says the same thing as
+# "every 1 a horizontal or vertical neighbor to some 1", which NBRSOME already reads -- only
+# the wording differs, and thirteen binary entries sat outside every engine because of it.
+ONEADJ = re.compile(r'^every one adjacent to another one (.+?)\s*\.?$', re.I)
 PLUSMINUS = re.compile(r'^every element next to itself plus and minus one within the range '
                        r'0\.\.(\d+) (.+?)\s*\.?$', re.I)
 NOEQ = ', with no adjacent elements equal'
@@ -126,6 +130,11 @@ def parse_name(nm):
     if mm:
         p['kind'], p['offs'] = 'some', _dirs(mm.group(2))
         p['v'], p['w'] = int(mm.group(1)), int(mm.group(3))
+        return _fin(p)
+    mm = ONEADJ.match(body)
+    if mm:
+        p['kind'], p['offs'] = 'some', _dirs(mm.group(1))
+        p['v'], p['w'] = 1, 1
         return _fin(p)
     mm = ADJCNT.match(body)
     if mm:

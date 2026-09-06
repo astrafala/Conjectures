@@ -8,6 +8,16 @@ esc = phibuild.esc
 rec_tex = transferbuild.rec_tex
 
 
+import json as _json
+_ROSTER_AT_BUILD = {v['anum'] for v in _json.load(open('paper-engines.json')).values()}
+
+
+def datefor(a):
+    """A paper carries the date its result was obtained, not the date of the batch it is
+    rebuilt with."""
+    return '4 September 2026' if a in _ROSTER_AT_BUILD else '6 September 2026'
+
+
 def conj_line(anum):
     e = LE.get(anum)
     for L in e['comment'] + e['formula']:
@@ -50,12 +60,14 @@ def cond_tex(p):
                   r"$%d$." % (p['before'][0], p['before'][1], p['before'][0]))
         return s, "every cell has neighbours equal to each of two named values"
     if k == 'some':
+        same = p['v'] == p['w']
         return (r"every cell equal to $%d$ has a neighbour equal to $%d$:" % (p['v'], p['w']) +
                 "\n\\[\n"
                 r"x(i,j)=%d\ \Longrightarrow\ \exists\,(a,b)\in S(i,j)\ \ x(a,b)=%d ."
                 % (p['v'], p['w']) + "\n\\]\n"
                 r"Cells of any other value are under no condition.",
-                "every cell of one value has a neighbour of another")
+                ("every cell of a named value has a neighbour of that same value" if same
+                 else "every cell of one value has a neighbour of another"))
     if k == 'count':
         cs = sorted(p['counts'])
         return (r"every cell equal to $%d$ has exactly $%d$ or exactly $%d$ neighbours equal "
@@ -125,7 +137,7 @@ Section 2.""" % (lastw, 'has' if D == 1 else 'have', dnw))
     return rf"""{PRE}
 \title{{The empirical recurrence for OEIS {a}, proved by transfer matrix}}
 \author{{Adrian Perez Fontelles\\ \small Independent researcher}}
-\date{{4 September 2026}}
+\date{{{datefor(a)}}}
 \begin{{document}}
 \maketitle
 
