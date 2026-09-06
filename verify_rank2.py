@@ -1,3 +1,4 @@
+import paperpath
 #!/usr/bin/env python3
 """Renumbering check, in two cheap pieces instead of one expensive one.
 
@@ -22,12 +23,13 @@ def dig(p):
 rm = json.load(open('rank-map.json'))
 bad = []
 for m in rm:
-    a = f"papers/{m['rank']}-{m['verdict']}.pdf"
+    a = paperpath.path(m['rank'], m['verdict'])
     b = f"papers-old-numbering/{m['was']}-{m['verdict']}.pdf"
     if not os.path.exists(a) or not os.path.exists(b) or dig(a) != dig(b):
         bad.append(m['rank'])
 print('ranks whose file is not the master it claims:', bad or 'none')
-print('papers/ file count:', len(os.listdir('papers')), 'map rows:', len(rm))
+import glob
+print('papers/ file count:', len(glob.glob('papers/*/*.pdf')), 'map rows:', len(rm))
 dup = Counter(m['anum'] for m in rm)
 dup = sorted(a for a, n in dup.items() if n > 1)
 # not an error: an entry can carry more than one conjecture, and each gets its own paper
@@ -39,7 +41,7 @@ if check:
     wrong = []
     for a in check:
         m = byan[a]
-        t = extract_text(f"papers/{m['rank']}-{m['verdict']}.pdf", maxpages=2)
+        t = extract_text(paperpath.path(m['rank'], m['verdict']), maxpages=2)
         found = re.findall(r'A\d{6}', t)
         if not found or found[0] != a:
             wrong.append((a, found[:2]))

@@ -6,6 +6,7 @@ from 29 on is derived from the built PDFs, so the table cannot drift away from w
 directory actually holds.
 """
 import json, os, re
+import paperpath
 
 LEDGER = "LEDGER-CLAUDE-CODE.md"
 
@@ -65,7 +66,8 @@ def main():
             if re.search(pat, title, re.I):
                 kind = name
                 break
-        verdict = "DISPROOF" if os.path.exists(f"papers/{num}-DISPROOF.pdf") else "PROOF"
+        verdict = ("DISPROOF" if os.path.exists(paperpath.path(num, "DISPROOF"))
+                   else "PROOF")
         rows.append(f"| {num} | {verdict} | {a} | {kind} | {who(conjs.get(a))} |")
 
     out = lines[:first] + rows + lines[last + 1:]

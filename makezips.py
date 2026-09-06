@@ -25,7 +25,7 @@ def main():
         # -9 that turned a fifteen-minute pack into hours. The cap is still checked on the
         # ACTUAL size, so a weaker setting cannot produce an oversized archive.
         subprocess.run(["zip", "-q", "-j", "-1", name]
-                       + [f"papers/{c}" for c in batch], check=True)
+                       + [c for c in batch], check=True)
         return os.path.getsize(name)
 
     def flush(batch):
@@ -56,7 +56,7 @@ def main():
         # fires. Bounding it at 1.25*CAP instead made every archive start ~7 MiB too big
         # and re-zip the whole batch once per dropped paper, which is where the pack time
         # went.
-        if sum(os.path.getsize(f"papers/{c}") for c in batch) > CAP:
+        if sum(os.path.getsize(c) for c in batch) > CAP:
             batch.pop()
             batch = flush(batch) + [f]
     while batch:

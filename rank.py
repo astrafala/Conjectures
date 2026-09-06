@@ -40,6 +40,7 @@ The last is honestly the shallowest thing here: both recurrences were already on
 entry and the work is noticing that one divides the other.
 """
 import json, os, shutil
+import paperpath
 
 # hand-ranked, hardest first: these are the thirty separate arguments
 BESPOKE_ORDER = list(range(1, 31))   # already in hardness order from the last rank;
@@ -92,9 +93,12 @@ def main():
         # read from the was-keyed master, not from papers/, which after the first ranking
         # holds the RANK numbering: reading it here would copy whatever paper happens to
         # sit at that rank now.
-        shutil.copy(f"papers-old-numbering/{old}-{suf}.pdf", f"{tmp}/{new}-{suf}.pdf")
+        dst = paperpath.path(new, suf, tmp)
+        os.makedirs(os.path.dirname(dst), exist_ok=True)
+        shutil.copy(f"papers-old-numbering/{old}-{suf}.pdf", dst)
         mapping.append({"rank": new, "was": old, "anum": eng[old]["anum"],
-                        "verdict": suf, "engine": eng[old]["engine"]})
+                        "verdict": suf, "engine": eng[old]["engine"],
+                        "path": paperpath.path(new, suf)})
     json.dump(mapping, open("rank-map.json", "w"), indent=1)
     print(f"{len(mapping)} papers ranked into {tmp}/")
     for m in mapping[:12]:
