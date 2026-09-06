@@ -26,8 +26,17 @@ SETTLED = re.compile(
     # "is true" alone missed "The above conjectures ARE true" (A208658) and "Barker's
     # conjectures are true" (A235089), both of which settle the entry outright. Any of
     # is/are/was/were, and any of the words that follow, must match.
+    # "the empirical/conjectured formulas BECOME true" (A188555) is a settlement, and the
+    # is/are/was/were list did not reach it. Any of become/becomes/became/turn out, and the
+    # copula list, count.
     r"\bproof\b|prove[sndg]?\b|confirm\w*|verif\w*|establish\w*"
-    r"|\b(is|are|was|were)\s+(true|correct|proved|proven|verified|established|known)\b"
+    r"|\b(is|are|was|were|become|becomes|became|turns?\s+out\s+to\s+be)\s+"
+    r"(true|correct|proved|proven|verified|established|known)\b"
+    # Robert Israel settles two entries with "which implies Mathar's conjectured recurrence"
+    # and "from which follows ... as well as Mathar's conjecture"; Sela Fried settles a third
+    # with "All conjectures stated above hold true". None of the three matched.
+    r"|\b(?:implies|implying|from\s+which\s+follows?)\b[^.]{0,120}conjectur"
+    r"|conjectur\w*[^.]{0,40}\bhold[s]?\s+true\b"
     r"|follows\s+(?:\w+\s+){0,2}from"
     r"|is\s+(?:an?\s+)?(?:easy|immediate|direct|simple)?\s*consequence"
     r"|can\s+be\s+(?:easily\s+)?(?:proved|proven|derived|shown|deduced|obtained)"

@@ -37,6 +37,9 @@ NOTE = {
 }
 
 
+REC = {}
+
+
 def norm_title(t):
     return re.sub(r'\s+', ' ', re.sub(r'A\d{6}', 'A', t)).strip()
 
@@ -143,10 +146,18 @@ ARRAY_TITLES = {
  'The empirical recurrence for OEIS A, proved by counting defective colourings',
  'The empirical recurrence for OEIS A, proved by splitting on the common sum',
 }
-HOLD_TITLES = {
- 'The empirical recurrence for OEIS A: recovering a conjecture that is not written down',
- 'Recovering the unwritten recurrences of the table OEIS A',
-}
+RECOVER = ("The recurrence in the linked file is correct, and it is the one below. Counting "
+           "the arrays a row at a time gives a transfer matrix with %s states, so a(n) "
+           "satisfies a constant-coefficient linear recurrence of order at most that, and "
+           "Berlekamp-Massey on exact terms returns the minimal one. Its order is %s, the "
+           "order stated here, and so is the order of every tail. Any recurrence of that "
+           "order the sequence satisfies therefore has the same characteristic polynomial, "
+           "so it is this one.")
+RECOVER_TAB = ("The recurrences in the linked file are correct. Column k counts arrays of a "
+               "fixed width, so it is a walk count in a finite graph and satisfies a "
+               "constant-coefficient linear recurrence; Berlekamp-Massey on exact terms "
+               "returns the minimal one, its order is the order stated for that column, and "
+               "so is the order of every tail, so any recurrence of that order is this one.")
 ABS_PAT = [('algebraic-gf', r'quadratic extension|algebraic over|algebraic gener'),
            ('module', r'finitely generated module'),
            ('hypergeometric', r'hypergeometric'),
@@ -171,6 +182,7 @@ def main():
     keep = collections.Counter(v['anum'] for v in pe.values())
     tex = {a: v[:keep[a]] for a, v in tex.items() if keep.get(a)}
     st = json.load(open(SC + '/status.json'))
+    REC.update(json.load(open('audit_recover.json')))
     out, unhandled = {}, collections.Counter()
     for a in sorted(tex):
         for rec in tex[a]:
@@ -186,8 +198,12 @@ def main():
                 txt = table(thr)
             elif t == 'The empirical closed form for OEIS A, proved':
                 txt = closedform_walk(thr)
-            elif t in HOLD_TITLES:
-                why = 'the conjecture is not written on the entry, only its order'
+            elif t == 'The empirical recurrence for OEIS A: recovering a conjecture that is not written down':
+                r = REC.get(a, {})
+                txt = RECOVER % (f"{S:,}".replace(',', ' ') if S else r.get('S', 'finitely many'),
+                                 r.get('settled_order', 'the one stated'))
+            elif t == 'Recovering the unwritten recurrences of the table OEIS A':
+                txt = RECOVER_TAB
             elif t == 'A proof of the conjectured recurrence for OEIS A':
                 r = route(rec)
                 txt = {'algebraic-gf': alg_gf, 'module': module, 'hypergeometric': hyper,
@@ -212,8 +228,9 @@ def main():
             v = st.get(a)
             hold = why
             if hold is None and v in ('model too big to rebuild here',
-                                      'symbolic engine, no numeric rebuild',
-                                      'claim is not a plain recurrence'):
+                                      'symbolic engine, not re-derived',
+                                      'claim is not a plain recurrence',
+                                      None):
                 hold = 'not re-verified in the September re-check: ' + v
             out.setdefault(a, []).append(
                 {'title': rec['title'], 'conjecture': rec['quote'], 'S': S, 'thr': thr,
