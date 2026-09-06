@@ -12,6 +12,7 @@ the day the result was found; recording the date here is what shows the work cam
 import os, re, sys, json, csv, collections
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import paperpath as P
+import paperdates
 import repopaths
 import localentry as LE
 
@@ -37,18 +38,31 @@ def sortable(d):
 
 
 def dates_and_papers():
+    """A-number -> the papers settling it, each with the date it was written.
+
+    The date is read out of the paper itself (engine/paper-dates.json), because the paper
+    is what is published and 181 papers have no LaTeX source left. The source is consulted
+    only to corroborate; if the two disagree the paper wins and the disagreement is
+    printed, since a date that cannot be corroborated is worth less than no date at all.
+    """
     rm = json.load(open('rank-map.json'))
+    printed = paperdates.load()
     by = collections.defaultdict(list)
+    clash = 0
     for m in rm:
         rel = f"papers/{P.band(m['rank'])}/{P.name(m['rank'], m['verdict'])}"
         tex = (f"{repopaths.SOURCES}/{P.band(m['rank'])}/"
                f"{P.name(m['rank'], m['verdict'])[:-4]}.tex")
-        d = None
+        d = printed.get(rel)
         if os.path.exists(tex):
             mm = re.search(r'\\date\{([^}]*)\}', open(tex, errors='ignore').read())
-            if mm:
+            if mm and d and ' '.join(mm.group(1).split()) != d:
+                clash += 1
+            elif mm and not d:
                 d = mm.group(1).strip()
         by[m['anum']].append({'rank': m['rank'], 'path': rel, 'date': d})
+    if clash:
+        print(f'  {clash} papers whose source disagrees with the date the paper prints')
     return by
 
 
