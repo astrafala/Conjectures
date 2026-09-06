@@ -67,7 +67,7 @@ result is worth more than three forced ones.
 
 # Conjecture-hunt ledger
 
-Last updated 5 Sep 2026. Roster: **8697 papers** (8691 proofs, 6 disproofs), files `1-PROOF.pdf` … `8697-PROOF.pdf`, **numbered by how hard the result was**: 1 is the hardest.
+Last updated 6 Sep 2026. Roster: **8692 papers** (8686 proofs, 6 disproofs), files `1-PROOF.pdf` … `8692-PROOF.pdf`, **numbered by how hard the result was**: 1 is the hardest.
 `rank-map.json` records the previous numbering. New results are ranked in, not appended.
 
 ---
@@ -8073,783 +8073,778 @@ the label. This is now cheap to detect in a sweep: compare the two fields in the
 | 7918 | PROOF | A206143 | the clockwise perimeter cycle of every 2 X 3 and 3 X 2 subblock: how many of its six steps go up |
 | 7919 | PROOF | A188825 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
 | 7920 | PROOF | A359643 | the generating function derived from a coefficient-extraction definition |
-| 7921 | PROOF | A156894 | the generating function derived from a coefficient-extraction definition |
-| 7922 | PROOF | A156894 | the generating function derived from a coefficient-extraction definition |
-| 7923 | PROOF | A371753 | the generating function derived from a coefficient-extraction definition |
-| 7924 | PROOF | A226751 | the generating function derived from a coefficient-extraction definition |
-| 7925 | PROOF | A386830 | the generating function derived from a coefficient-extraction definition |
-| 7926 | PROOF | A172025 | the generating function derived from a coefficient-extraction definition |
-| 7927 | PROOF | A348410 | the generating function derived from a coefficient-extraction definition |
-| 7928 | PROOF | A243764 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 7929 | PROOF | A243760 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 7930 | PROOF | A285195 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 7931 | PROOF | A243814 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 7932 | PROOF | A055392 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 7933 | PROOF | A025758 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 7934 | PROOF | A308726 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 7935 | PROOF | A243022 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 7936 | PROOF | A168506 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 7937 | PROOF | A239425 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 7938 | PROOF | A025757 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 7939 | PROOF | A242566 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 7940 | PROOF | A270530 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 7941 | PROOF | A101478 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 7942 | PROOF | A025756 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 7943 | PROOF | A097180 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 7944 | PROOF | A097189 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 7945 | PROOF | A127632 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 7946 | PROOF | A130655 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 7947 | PROOF | A166135 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 7948 | PROOF | A212696 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 7949 | PROOF | A261196 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 7950 | PROOF | A270530 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 7951 | PROOF | A185010 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 7952 | PROOF | A185020 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 7953 | PROOF | A200312 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 7954 | PROOF | A025754 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 7955 | PROOF | A097188 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 7956 | PROOF | A097192 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 7957 | PROOF | A158826 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 7958 | PROOF | A159769 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 7959 | PROOF | A294159 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 7960 | PROOF | A392976 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 7961 | PROOF | A162972 | a transcendental e.g.f., in a differential module over Q(x) |
-| 7962 | PROOF | A001465 | a transcendental e.g.f., in a differential module over Q(x) |
-| 7963 | PROOF | A085387 | a transcendental e.g.f., in a differential module over Q(x) |
-| 7964 | PROOF | A096471 | a transcendental e.g.f., in a differential module over Q(x) |
-| 7965 | PROOF | A000704 | a transcendental e.g.f., in a differential module over Q(x) |
-| 7966 | PROOF | A001724 | a transcendental e.g.f., in a differential module over Q(x) |
-| 7967 | PROOF | A066052 | a transcendental e.g.f., in a differential module over Q(x) |
-| 7968 | PROOF | A097204 | a transcendental e.g.f., in a differential module over Q(x) |
-| 7969 | PROOF | A053532 | a transcendental e.g.f., in a differential module over Q(x) |
-| 7970 | PROOF | A306948 | a transcendental e.g.f., in a differential module over Q(x) |
-| 7971 | PROOF | A000483 | a transcendental e.g.f., in a differential module over Q(x) |
-| 7972 | PROOF | A000276 | a transcendental e.g.f., in a differential module over Q(x) |
-| 7973 | PROOF | A002104 | a transcendental e.g.f., in a differential module over Q(x) |
-| 7974 | PROOF | A002538 | a transcendental e.g.f., in a differential module over Q(x) |
-| 7975 | PROOF | A066052 | a transcendental e.g.f., in a differential module over Q(x) |
-| 7976 | PROOF | A073591 | a transcendental e.g.f., in a differential module over Q(x) |
-| 7977 | PROOF | A108704 | a transcendental e.g.f., in a differential module over Q(x) |
-| 7978 | PROOF | A110322 | a transcendental e.g.f., in a differential module over Q(x) |
-| 7979 | PROOF | A185369 | a transcendental e.g.f., in a differential module over Q(x) |
-| 7980 | PROOF | A000276 | a transcendental e.g.f., in a differential module over Q(x) |
-| 7981 | PROOF | A000774 | a transcendental e.g.f., in a differential module over Q(x) |
-| 7982 | PROOF | A094905 | a transcendental e.g.f., in a differential module over Q(x) |
-| 7983 | PROOF | A098557 | a transcendental e.g.f., in a differential module over Q(x) |
-| 7984 | PROOF | A051560 | a transcendental e.g.f., in a differential module over Q(x) |
-| 7985 | PROOF | A129149 | a transcendental e.g.f., in a differential module over Q(x) |
-| 7986 | PROOF | A187252 | a transcendental e.g.f., in a differential module over Q(x) |
-| 7987 | PROOF | A005654 | a posted closed form split on the parity of n, then decided by hypergeometric terms |
-| 7988 | PROOF | A116385 | a posted closed form split on the parity of n, then decided by hypergeometric terms |
-| 7989 | PROOF | A005558 | a posted closed form split on the parity of n, then decided by hypergeometric terms |
-| 7990 | PROOF | A065942 | a posted closed form split on the parity of n, then decided by hypergeometric terms |
-| 7991 | PROOF | A081181 | a posted closed form split on the parity of n, then decided by hypergeometric terms |
-| 7992 | PROOF | A081204 | a posted closed form split on the parity of n, then decided by hypergeometric terms |
-| 7993 | PROOF | A005558 | a posted closed form split on the parity of n, then decided by hypergeometric terms |
-| 7994 | PROOF | A005559 | a posted closed form split on the parity of n, then decided by hypergeometric terms |
-| 7995 | PROOF | A005560 | a posted closed form split on the parity of n, then decided by hypergeometric terms |
-| 7996 | PROOF | A005561 | a posted closed form split on the parity of n, then decided by hypergeometric terms |
-| 7997 | PROOF | A005562 | a posted closed form split on the parity of n, then decided by hypergeometric terms |
-| 7998 | PROOF | A081204 | a posted closed form split on the parity of n, then decided by hypergeometric terms |
-| 7999 | PROOF | A081205 | a posted closed form split on the parity of n, then decided by hypergeometric terms |
-| 8000 | PROOF | A213801 | a posted closed form split on the parity of n, then decided by hypergeometric terms |
-| 8001 | PROOF | A006231 | a posted closed form against a derived holonomic recurrence |
-| 8002 | PROOF | A213203 | a posted closed form compared against the posted generating function |
-| 8003 | PROOF | A242429 | a posted closed form compared against the posted generating function |
-| 8004 | PROOF | A026018 | a posted closed form compared against the posted generating function |
-| 8005 | PROOF | A092634 | a posted closed form compared against the posted generating function |
-| 8006 | PROOF | A026026 | a posted closed form compared against the posted generating function |
-| 8007 | PROOF | A052227 | a posted closed form compared against the posted generating function |
-| 8008 | PROOF | A228329 | a posted closed form compared against the posted generating function |
-| 8009 | PROOF | A259457 | a posted closed form compared against the posted generating function |
-| 8010 | PROOF | A268554 | a posted closed form compared against the posted generating function |
-| 8011 | PROOF | A214907 | the recurrence follows from a generating function the entry records as fact |
-| 8012 | PROOF | A263869 | the recurrence follows from a generating function the entry records as fact |
-| 8013 | PROOF | A250782 | the recurrence follows from a generating function the entry records as fact |
-| 8014 | PROOF | A165386 | the recurrence follows from a generating function the entry records as fact |
-| 8015 | PROOF | A250781 | the recurrence follows from a generating function the entry records as fact |
-| 8016 | PROOF | A163020 | the recurrence follows from a generating function the entry records as fact |
-| 8017 | PROOF | A220640 | the recurrence follows from a generating function the entry records as fact |
-| 8018 | PROOF | A204648 | the recurrence follows from a generating function the entry records as fact |
-| 8019 | PROOF | A206264 | the recurrence follows from a generating function the entry records as fact |
-| 8020 | PROOF | A262482 | the recurrence follows from a generating function the entry records as fact |
-| 8021 | PROOF | A208642 | the recurrence follows from a generating function the entry records as fact |
-| 8022 | PROOF | A204647 | the recurrence follows from a generating function the entry records as fact |
-| 8023 | PROOF | A250892 | the recurrence follows from a generating function the entry records as fact |
-| 8024 | PROOF | A250893 | the recurrence follows from a generating function the entry records as fact |
-| 8025 | PROOF | A250894 | the recurrence follows from a generating function the entry records as fact |
-| 8026 | PROOF | A250895 | the recurrence follows from a generating function the entry records as fact |
-| 8027 | PROOF | A250896 | the recurrence follows from a generating function the entry records as fact |
-| 8028 | PROOF | A250897 | the recurrence follows from a generating function the entry records as fact |
-| 8029 | PROOF | A164760 | the recurrence follows from a generating function the entry records as fact |
-| 8030 | PROOF | A202442 | the recurrence follows from a generating function the entry records as fact |
-| 8031 | PROOF | A202443 | the recurrence follows from a generating function the entry records as fact |
-| 8032 | PROOF | A206263 | the recurrence follows from a generating function the entry records as fact |
-| 8033 | PROOF | A250780 | the recurrence follows from a generating function the entry records as fact |
-| 8034 | PROOF | A263794 | the recurrence follows from a generating function the entry records as fact |
-| 8035 | PROOF | A208641 | the recurrence follows from a generating function the entry records as fact |
-| 8036 | PROOF | A204646 | the recurrence follows from a generating function the entry records as fact |
-| 8037 | PROOF | A206262 | the recurrence follows from a generating function the entry records as fact |
-| 8038 | PROOF | A204645 | the recurrence follows from a generating function the entry records as fact |
-| 8039 | PROOF | A233402 | the recurrence follows from a generating function the entry records as fact |
-| 8040 | PROOF | A250900 | the recurrence follows from a generating function the entry records as fact |
-| 8041 | PROOF | A267960 | the recurrence follows from a generating function the entry records as fact |
-| 8042 | PROOF | A220639 | the recurrence follows from a generating function the entry records as fact |
-| 8043 | PROOF | A102319 | several independent square roots |
-| 8044 | PROOF | A115256 | several independent square roots |
-| 8045 | PROOF | A165373 | the recurrence follows from a generating function the entry records as fact |
-| 8046 | PROOF | A165394 | the recurrence follows from a generating function the entry records as fact |
-| 8047 | PROOF | A206261 | the recurrence follows from a generating function the entry records as fact |
-| 8048 | PROOF | A224671 | the recurrence follows from a generating function the entry records as fact |
-| 8049 | PROOF | A224673 | the recurrence follows from a generating function the entry records as fact |
-| 8050 | PROOF | A194772 | the recurrence follows from a generating function the entry records as fact |
-| 8051 | PROOF | A222993 | the recurrence follows from a generating function the entry records as fact |
-| 8052 | PROOF | A223711 | the recurrence follows from a generating function the entry records as fact |
-| 8053 | PROOF | A224670 | the recurrence follows from a generating function the entry records as fact |
-| 8054 | PROOF | A235510 | the recurrence follows from a generating function the entry records as fact |
-| 8055 | PROOF | A250779 | the recurrence follows from a generating function the entry records as fact |
-| 8056 | PROOF | A250792 | the recurrence follows from a generating function the entry records as fact |
-| 8057 | PROOF | A250899 | the recurrence follows from a generating function the entry records as fact |
-| 8058 | PROOF | A157125 | several independent square roots |
-| 8059 | PROOF | A102318 | several independent square roots |
-| 8060 | PROOF | A107587 | several independent square roots |
-| 8061 | PROOF | A190092 | the recurrence follows from a generating function the entry records as fact |
-| 8062 | PROOF | A190093 | the recurrence follows from a generating function the entry records as fact |
-| 8063 | PROOF | A253226 | the recurrence follows from a generating function the entry records as fact |
-| 8064 | PROOF | A253227 | the recurrence follows from a generating function the entry records as fact |
-| 8065 | PROOF | A253228 | the recurrence follows from a generating function the entry records as fact |
-| 8066 | PROOF | A253229 | the recurrence follows from a generating function the entry records as fact |
-| 8067 | PROOF | A253230 | the recurrence follows from a generating function the entry records as fact |
-| 8068 | PROOF | A222835 | the recurrence follows from a generating function the entry records as fact |
-| 8069 | PROOF | A221788 | the recurrence follows from a generating function the entry records as fact |
-| 8070 | PROOF | A222777 | the recurrence follows from a generating function the entry records as fact |
-| 8071 | PROOF | A222892 | the recurrence follows from a generating function the entry records as fact |
-| 8072 | PROOF | A184031 | the recurrence follows from a generating function the entry records as fact |
-| 8073 | PROOF | A184032 | the recurrence follows from a generating function the entry records as fact |
-| 8074 | PROOF | A184033 | the recurrence follows from a generating function the entry records as fact |
-| 8075 | PROOF | A184034 | the recurrence follows from a generating function the entry records as fact |
-| 8076 | PROOF | A184035 | the recurrence follows from a generating function the entry records as fact |
-| 8077 | PROOF | A184036 | the recurrence follows from a generating function the entry records as fact |
-| 8078 | PROOF | A184037 | the recurrence follows from a generating function the entry records as fact |
-| 8079 | PROOF | A184038 | the recurrence follows from a generating function the entry records as fact |
-| 8080 | PROOF | A184041 | the recurrence follows from a generating function the entry records as fact |
-| 8081 | PROOF | A184042 | the recurrence follows from a generating function the entry records as fact |
-| 8082 | PROOF | A184043 | the recurrence follows from a generating function the entry records as fact |
-| 8083 | PROOF | A184044 | the recurrence follows from a generating function the entry records as fact |
-| 8084 | PROOF | A184045 | the recurrence follows from a generating function the entry records as fact |
-| 8085 | PROOF | A184046 | the recurrence follows from a generating function the entry records as fact |
-| 8086 | PROOF | A184047 | the recurrence follows from a generating function the entry records as fact |
-| 8087 | PROOF | A189450 | the recurrence follows from a generating function the entry records as fact |
-| 8088 | PROOF | A190091 | the recurrence follows from a generating function the entry records as fact |
-| 8089 | PROOF | A206170 | the recurrence follows from a generating function the entry records as fact |
-| 8090 | PROOF | A208086 | the recurrence follows from a generating function the entry records as fact |
-| 8091 | PROOF | A208087 | the recurrence follows from a generating function the entry records as fact |
-| 8092 | PROOF | A208089 | the recurrence follows from a generating function the entry records as fact |
-| 8093 | PROOF | A211327 | the recurrence follows from a generating function the entry records as fact |
-| 8094 | PROOF | A214181 | the recurrence follows from a generating function the entry records as fact |
-| 8095 | PROOF | A218185 | several independent square roots |
-| 8096 | PROOF | A221619 | the recurrence follows from a generating function the entry records as fact |
-| 8097 | PROOF | A221764 | the recurrence follows from a generating function the entry records as fact |
-| 8098 | PROOF | A222001 | the recurrence follows from a generating function the entry records as fact |
-| 8099 | PROOF | A239024 | the recurrence follows from a generating function the entry records as fact |
-| 8100 | PROOF | A250610 | the recurrence follows from a generating function the entry records as fact |
-| 8101 | PROOF | A250784 | the recurrence follows from a generating function the entry records as fact |
-| 8102 | PROOF | A250791 | the recurrence follows from a generating function the entry records as fact |
-| 8103 | PROOF | A262267 | the recurrence follows from a generating function the entry records as fact |
-| 8104 | PROOF | A263908 | the recurrence follows from a generating function the entry records as fact |
-| 8105 | PROOF | A267905 | the recurrence follows from a generating function the entry records as fact |
-| 8106 | PROOF | A268053 | the recurrence follows from a generating function the entry records as fact |
-| 8107 | PROOF | A268775 | the recurrence follows from a generating function the entry records as fact |
-| 8108 | PROOF | A269202 | the recurrence follows from a generating function the entry records as fact |
-| 8109 | PROOF | A025567 | several independent square roots |
-| 8110 | PROOF | A071684 | several independent square roots |
-| 8111 | PROOF | A179648 | several independent square roots |
-| 8112 | PROOF | A184120 | several independent square roots |
-| 8113 | PROOF | A026163 | several independent square roots |
-| 8114 | PROOF | A102318 | several independent square roots |
-| 8115 | PROOF | A101500 | several independent square roots |
-| 8116 | PROOF | A102319 | several independent square roots |
-| 8117 | PROOF | A107587 | several independent square roots |
-| 8118 | PROOF | A206336 | the recurrence follows from a generating function the entry records as fact |
-| 8119 | PROOF | A165381 | the recurrence follows from a generating function the entry records as fact |
-| 8120 | PROOF | A165392 | the recurrence follows from a generating function the entry records as fact |
-| 8121 | PROOF | A207142 | the recurrence follows from a generating function the entry records as fact |
-| 8122 | PROOF | A220749 | the recurrence follows from a generating function the entry records as fact |
-| 8123 | PROOF | A253225 | the recurrence follows from a generating function the entry records as fact |
-| 8124 | PROOF | A253490 | the recurrence follows from a generating function the entry records as fact |
-| 8125 | PROOF | A265989 | the recurrence follows from a generating function the entry records as fact |
-| 8126 | PROOF | A165378 | the recurrence follows from a generating function the entry records as fact |
-| 8127 | PROOF | A253491 | the recurrence follows from a generating function the entry records as fact |
-| 8128 | PROOF | A253492 | the recurrence follows from a generating function the entry records as fact |
-| 8129 | PROOF | A253493 | the recurrence follows from a generating function the entry records as fact |
-| 8130 | PROOF | A204609 | the recurrence follows from a generating function the entry records as fact |
-| 8131 | PROOF | A222939 | the recurrence follows from a generating function the entry records as fact |
-| 8132 | PROOF | A267912 | the recurrence follows from a generating function the entry records as fact |
-| 8133 | PROOF | A183356 | the recurrence follows from a generating function the entry records as fact |
-| 8134 | PROOF | A222834 | the recurrence follows from a generating function the entry records as fact |
-| 8135 | PROOF | A233162 | the recurrence follows from a generating function the entry records as fact |
-| 8136 | PROOF | A233175 | the recurrence follows from a generating function the entry records as fact |
-| 8137 | PROOF | A233218 | the recurrence follows from a generating function the entry records as fact |
-| 8138 | PROOF | A276300 | the recurrence follows from a generating function the entry records as fact |
-| 8139 | PROOF | A181192 | the recurrence follows from a generating function the entry records as fact |
-| 8140 | PROOF | A183430 | the recurrence follows from a generating function the entry records as fact |
-| 8141 | PROOF | A184679 | the recurrence follows from a generating function the entry records as fact |
-| 8142 | PROOF | A204707 | the recurrence follows from a generating function the entry records as fact |
-| 8143 | PROOF | A204708 | the recurrence follows from a generating function the entry records as fact |
-| 8144 | PROOF | A211322 | the recurrence follows from a generating function the entry records as fact |
-| 8145 | PROOF | A211490 | the recurrence follows from a generating function the entry records as fact |
-| 8146 | PROOF | A214160 | the recurrence follows from a generating function the entry records as fact |
-| 8147 | PROOF | A221374 | the recurrence follows from a generating function the entry records as fact |
-| 8148 | PROOF | A223363 | the recurrence follows from a generating function the entry records as fact |
-| 8149 | PROOF | A223499 | the recurrence follows from a generating function the entry records as fact |
-| 8150 | PROOF | A224669 | the recurrence follows from a generating function the entry records as fact |
-| 8151 | PROOF | A232951 | the recurrence follows from a generating function the entry records as fact |
-| 8152 | PROOF | A233106 | the recurrence follows from a generating function the entry records as fact |
-| 8153 | PROOF | A233107 | the recurrence follows from a generating function the entry records as fact |
-| 8154 | PROOF | A233124 | the recurrence follows from a generating function the entry records as fact |
-| 8155 | PROOF | A233211 | the recurrence follows from a generating function the entry records as fact |
-| 8156 | PROOF | A233212 | the recurrence follows from a generating function the entry records as fact |
-| 8157 | PROOF | A233213 | the recurrence follows from a generating function the entry records as fact |
-| 8158 | PROOF | A234789 | the recurrence follows from a generating function the entry records as fact |
-| 8159 | PROOF | A235878 | the recurrence follows from a generating function the entry records as fact |
-| 8160 | PROOF | A235879 | the recurrence follows from a generating function the entry records as fact |
-| 8161 | PROOF | A235880 | the recurrence follows from a generating function the entry records as fact |
-| 8162 | PROOF | A235881 | the recurrence follows from a generating function the entry records as fact |
-| 8163 | PROOF | A235882 | the recurrence follows from a generating function the entry records as fact |
-| 8164 | PROOF | A235883 | the recurrence follows from a generating function the entry records as fact |
-| 8165 | PROOF | A235887 | the recurrence follows from a generating function the entry records as fact |
-| 8166 | PROOF | A235888 | the recurrence follows from a generating function the entry records as fact |
-| 8167 | PROOF | A235889 | the recurrence follows from a generating function the entry records as fact |
-| 8168 | PROOF | A235890 | the recurrence follows from a generating function the entry records as fact |
-| 8169 | PROOF | A235891 | the recurrence follows from a generating function the entry records as fact |
-| 8170 | PROOF | A235892 | the recurrence follows from a generating function the entry records as fact |
-| 8171 | PROOF | A235895 | the recurrence follows from a generating function the entry records as fact |
-| 8172 | PROOF | A250461 | the recurrence follows from a generating function the entry records as fact |
-| 8173 | PROOF | A250778 | the recurrence follows from a generating function the entry records as fact |
-| 8174 | PROOF | A262326 | the recurrence follows from a generating function the entry records as fact |
-| 8175 | PROOF | A262327 | the recurrence follows from a generating function the entry records as fact |
-| 8176 | PROOF | A262415 | the recurrence follows from a generating function the entry records as fact |
-| 8177 | PROOF | A265987 | the recurrence follows from a generating function the entry records as fact |
-| 8178 | PROOF | A267946 | the recurrence follows from a generating function the entry records as fact |
-| 8179 | PROOF | A268052 | the recurrence follows from a generating function the entry records as fact |
-| 8180 | PROOF | A268093 | the recurrence follows from a generating function the entry records as fact |
-| 8181 | PROOF | A268164 | the recurrence follows from a generating function the entry records as fact |
-| 8182 | PROOF | A277761 | the recurrence follows from a generating function the entry records as fact |
-| 8183 | PROOF | A072100 | several independent square roots |
-| 8184 | PROOF | A239530 | the recurrence follows from a generating function the entry records as fact |
-| 8185 | PROOF | A263907 | the recurrence follows from a generating function the entry records as fact |
-| 8186 | PROOF | A221588 | the recurrence follows from a generating function the entry records as fact |
-| 8187 | PROOF | A221589 | the recurrence follows from a generating function the entry records as fact |
-| 8188 | PROOF | A221022 | the recurrence follows from a generating function the entry records as fact |
-| 8189 | PROOF | A165372 | the recurrence follows from a generating function the entry records as fact |
-| 8190 | PROOF | A202730 | the recurrence follows from a generating function the entry records as fact |
-| 8191 | PROOF | A206687 | the recurrence follows from a generating function the entry records as fact |
-| 8192 | PROOF | A221829 | the recurrence follows from a generating function the entry records as fact |
-| 8193 | PROOF | A222869 | the recurrence follows from a generating function the entry records as fact |
-| 8194 | PROOF | A222940 | the recurrence follows from a generating function the entry records as fact |
-| 8195 | PROOF | A223332 | the recurrence follows from a generating function the entry records as fact |
-| 8196 | PROOF | A269290 | the recurrence follows from a generating function the entry records as fact |
-| 8197 | PROOF | A223181 | the recurrence follows from a generating function the entry records as fact |
-| 8198 | PROOF | A223234 | the recurrence follows from a generating function the entry records as fact |
-| 8199 | PROOF | A223381 | the recurrence follows from a generating function the entry records as fact |
-| 8200 | PROOF | A233163 | the recurrence follows from a generating function the entry records as fact |
-| 8201 | PROOF | A233164 | the recurrence follows from a generating function the entry records as fact |
-| 8202 | PROOF | A233165 | the recurrence follows from a generating function the entry records as fact |
-| 8203 | PROOF | A233166 | the recurrence follows from a generating function the entry records as fact |
-| 8204 | PROOF | A233167 | the recurrence follows from a generating function the entry records as fact |
-| 8205 | PROOF | A233196 | the recurrence follows from a generating function the entry records as fact |
-| 8206 | PROOF | A233257 | the recurrence follows from a generating function the entry records as fact |
-| 8207 | PROOF | A268622 | the recurrence follows from a generating function the entry records as fact |
-| 8208 | PROOF | A269103 | the recurrence follows from a generating function the entry records as fact |
-| 8209 | PROOF | A269285 | the recurrence follows from a generating function the entry records as fact |
-| 8210 | PROOF | A183586 | the recurrence follows from a generating function the entry records as fact |
-| 8211 | PROOF | A183682 | the recurrence follows from a generating function the entry records as fact |
-| 8212 | PROOF | A183690 | the recurrence follows from a generating function the entry records as fact |
-| 8213 | PROOF | A183702 | the recurrence follows from a generating function the entry records as fact |
-| 8214 | PROOF | A184688 | the recurrence follows from a generating function the entry records as fact |
-| 8215 | PROOF | A185761 | the recurrence follows from a generating function the entry records as fact |
-| 8216 | PROOF | A185858 | the recurrence follows from a generating function the entry records as fact |
-| 8217 | PROOF | A189604 | the recurrence follows from a generating function the entry records as fact |
-| 8218 | PROOF | A205220 | the recurrence follows from a generating function the entry records as fact |
-| 8219 | PROOF | A205329 | the recurrence follows from a generating function the entry records as fact |
-| 8220 | PROOF | A205354 | the recurrence follows from a generating function the entry records as fact |
-| 8221 | PROOF | A208088 | the recurrence follows from a generating function the entry records as fact |
-| 8222 | PROOF | A211715 | the recurrence follows from a generating function the entry records as fact |
-| 8223 | PROOF | A211719 | the recurrence follows from a generating function the entry records as fact |
-| 8224 | PROOF | A220932 | the recurrence follows from a generating function the entry records as fact |
-| 8225 | PROOF | A221121 | the recurrence follows from a generating function the entry records as fact |
-| 8226 | PROOF | A221731 | the recurrence follows from a generating function the entry records as fact |
-| 8227 | PROOF | A222098 | the recurrence follows from a generating function the entry records as fact |
-| 8228 | PROOF | A223197 | the recurrence follows from a generating function the entry records as fact |
-| 8229 | PROOF | A223204 | the recurrence follows from a generating function the entry records as fact |
-| 8230 | PROOF | A223228 | the recurrence follows from a generating function the entry records as fact |
-| 8231 | PROOF | A223258 | the recurrence follows from a generating function the entry records as fact |
-| 8232 | PROOF | A223277 | the recurrence follows from a generating function the entry records as fact |
-| 8233 | PROOF | A223278 | the recurrence follows from a generating function the entry records as fact |
-| 8234 | PROOF | A223318 | the recurrence follows from a generating function the entry records as fact |
-| 8235 | PROOF | A223552 | the recurrence follows from a generating function the entry records as fact |
-| 8236 | PROOF | A231103 | the recurrence follows from a generating function the entry records as fact |
-| 8237 | PROOF | A231104 | the recurrence follows from a generating function the entry records as fact |
-| 8238 | PROOF | A232950 | the recurrence follows from a generating function the entry records as fact |
-| 8239 | PROOF | A232956 | the recurrence follows from a generating function the entry records as fact |
-| 8240 | PROOF | A233123 | the recurrence follows from a generating function the entry records as fact |
-| 8241 | PROOF | A233251 | the recurrence follows from a generating function the entry records as fact |
-| 8242 | PROOF | A233252 | the recurrence follows from a generating function the entry records as fact |
-| 8243 | PROOF | A234779 | the recurrence follows from a generating function the entry records as fact |
-| 8244 | PROOF | A235877 | the recurrence follows from a generating function the entry records as fact |
-| 8245 | PROOF | A235886 | the recurrence follows from a generating function the entry records as fact |
-| 8246 | PROOF | A253029 | the recurrence follows from a generating function the entry records as fact |
-| 8247 | PROOF | A259243 | the recurrence follows from a generating function the entry records as fact |
-| 8248 | PROOF | A259290 | the recurrence follows from a generating function the entry records as fact |
-| 8249 | PROOF | A269284 | the recurrence follows from a generating function the entry records as fact |
-| 8250 | PROOF | A275229 | the recurrence follows from a generating function the entry records as fact |
-| 8251 | PROOF | A221082 | the recurrence follows from a generating function the entry records as fact |
-| 8252 | PROOF | A223270 | the recurrence follows from a generating function the entry records as fact |
-| 8253 | PROOF | A232921 | the recurrence follows from a generating function the entry records as fact |
-| 8254 | PROOF | A233020 | the recurrence follows from a generating function the entry records as fact |
-| 8255 | PROOF | A025567 | several independent square roots |
-| 8256 | PROOF | A264123 | the recurrence follows from a generating function the entry records as fact |
-| 8257 | PROOF | A264185 | the recurrence follows from a generating function the entry records as fact |
-| 8258 | PROOF | A208428 | the recurrence follows from a generating function the entry records as fact |
-| 8259 | PROOF | A189274 | the recurrence follows from a generating function the entry records as fact |
-| 8260 | PROOF | A223322 | the recurrence follows from a generating function the entry records as fact |
-| 8261 | PROOF | A334509 | an identity between different entries |
-| 8262 | PROOF | A298022 | an identity between different entries |
-| 8263 | PROOF | A273676 | an identity between different entries |
-| 8264 | PROOF | A273832 | an identity between different entries |
-| 8265 | PROOF | A319371 | an identity between different entries |
-| 8266 | PROOF | A110320 | an identity between different entries |
-| 8267 | PROOF | A309878 | an identity between different entries |
-| 8268 | PROOF | A315520 | an identity between different entries |
-| 8269 | PROOF | A346370 | an identity between different entries |
-| 8270 | PROOF | A176126 | the residual test over one square root, or none |
-| 8271 | PROOF | A191625 | the residual test over one square root, or none |
-| 8272 | PROOF | A186341 | the residual test over one square root, or none |
-| 8273 | PROOF | A026743 | the residual test over one square root, or none |
-| 8274 | PROOF | A191786 | the residual test over one square root, or none |
-| 8275 | PROOF | A210496 | the residual test over one square root, or none |
-| 8276 | PROOF | A182892 | the residual test over one square root, or none |
-| 8277 | PROOF | A270724 | the residual test over one square root, or none |
-| 8278 | PROOF | A190171 | the residual test over one square root, or none |
-| 8279 | PROOF | A257515 | the residual test over one square root, or none |
-| 8280 | PROOF | A190788 | the residual test over one square root, or none |
-| 8281 | PROOF | A095981 | the residual test over one square root, or none |
-| 8282 | PROOF | A212205 | the residual test over one square root, or none |
-| 8283 | PROOF | A270661 | the residual test over one square root, or none |
-| 8284 | PROOF | A157021 | the residual test over one square root, or none |
-| 8285 | PROOF | A165537 | the residual test over one square root, or none |
-| 8286 | PROOF | A166287 | the residual test over one square root, or none |
-| 8287 | PROOF | A174013 | the residual test over one square root, or none |
-| 8288 | PROOF | A178072 | the residual test over one square root, or none |
-| 8289 | PROOF | A182894 | the residual test over one square root, or none |
-| 8290 | PROOF | A114584 | the residual test over one square root, or none |
-| 8291 | PROOF | A164586 | the residual test over one square root, or none |
-| 8292 | PROOF | A189053 | the residual test over one square root, or none |
-| 8293 | PROOF | A182904 | the residual test over one square root, or none |
-| 8294 | PROOF | A274295 | the residual test over one square root, or none |
-| 8295 | PROOF | A226434 | the residual test over one square root, or none |
-| 8296 | PROOF | A257104 | the residual test over one square root, or none |
-| 8297 | PROOF | A108600 | the residual test over one square root, or none |
-| 8298 | PROOF | A114851 | the residual test over one square root, or none |
-| 8299 | PROOF | A125306 | the residual test over one square root, or none |
-| 8300 | PROOF | A166290 | the residual test over one square root, or none |
-| 8301 | PROOF | A228770 | the residual test over one square root, or none |
-| 8302 | PROOF | A257300 | the residual test over one square root, or none |
-| 8303 | PROOF | A089324 | the residual test over one square root, or none |
-| 8304 | PROOF | A104625 | the residual test over one square root, or none |
-| 8305 | PROOF | A113956 | the residual test over one square root, or none |
-| 8306 | PROOF | A116383 | the residual test over one square root, or none |
-| 8307 | PROOF | A162548 | the residual test over one square root, or none |
-| 8308 | PROOF | A173993 | the residual test over one square root, or none |
-| 8309 | PROOF | A244886 | the residual test over one square root, or none |
-| 8310 | PROOF | A157003 | the residual test over one square root, or none |
-| 8311 | PROOF | A162482 | the residual test over one square root, or none |
-| 8312 | PROOF | A163493 | the residual test over one square root, or none |
-| 8313 | PROOF | A191398 | the residual test over one square root, or none |
-| 8314 | PROOF | A135582 | the residual test over one square root, or none |
-| 8315 | PROOF | A139376 | the residual test over one square root, or none |
-| 8316 | PROOF | A346074 | the residual test over one square root, or none |
-| 8317 | PROOF | A190166 | the residual test over one square root, or none |
-| 8318 | PROOF | A025251 | the residual test over one square root, or none |
-| 8319 | PROOF | A228771 | the residual test over one square root, or none |
-| 8320 | PROOF | A025268 | the residual test over one square root, or none |
-| 8321 | PROOF | A025272 | the residual test over one square root, or none |
-| 8322 | PROOF | A162475 | the residual test over one square root, or none |
-| 8323 | PROOF | A385252 | the residual test over one square root, or none |
-| 8324 | PROOF | A114464 | the residual test over one square root, or none |
-| 8325 | PROOF | A127154 | the residual test over one square root, or none |
-| 8326 | PROOF | A135335 | the residual test over one square root, or none |
-| 8327 | PROOF | A165540 | the residual test over one square root, or none |
-| 8328 | PROOF | A171416 | the residual test over one square root, or none |
-| 8329 | PROOF | A188314 | the residual test over one square root, or none |
-| 8330 | PROOF | A247170 | the residual test over one square root, or none |
-| 8331 | PROOF | A254314 | the residual test over one square root, or none |
-| 8332 | PROOF | A270661 | the residual test over one square root, or none |
-| 8333 | PROOF | A003440 | the residual test over one square root, or none |
-| 8334 | PROOF | A110521 | the residual test over one square root, or none |
-| 8335 | PROOF | A114190 | the residual test over one square root, or none |
-| 8336 | PROOF | A116387 | the residual test over one square root, or none |
-| 8337 | PROOF | A128096 | the residual test over one square root, or none |
-| 8338 | PROOF | A135052 | the residual test over one square root, or none |
-| 8339 | PROOF | A157021 | the residual test over one square root, or none |
-| 8340 | PROOF | A160823 | the residual test over one square root, or none |
-| 8341 | PROOF | A166287 | the residual test over one square root, or none |
-| 8342 | PROOF | A174808 | the residual test over one square root, or none |
-| 8343 | PROOF | A185089 | the residual test over one square root, or none |
-| 8344 | PROOF | A186940 | the residual test over one square root, or none |
-| 8345 | PROOF | A190736 | the residual test over one square root, or none |
-| 8346 | PROOF | A219314 | the residual test over one square root, or none |
-| 8347 | PROOF | A100095 | the residual test over one square root, or none |
-| 8348 | PROOF | A100097 | the residual test over one square root, or none |
-| 8349 | PROOF | A191313 | the residual test over one square root, or none |
-| 8350 | PROOF | A191790 | the residual test over one square root, or none |
-| 8351 | PROOF | A273351 | the residual test over one square root, or none |
-| 8352 | PROOF | A278472 | the residual test over one square root, or none |
-| 8353 | PROOF | A108296 | the residual test over one square root, or none |
-| 8354 | PROOF | A116391 | the residual test over one square root, or none |
-| 8355 | PROOF | A110198 | the residual test over one square root, or none |
-| 8356 | PROOF | A182879 | the residual test over one square root, or none |
-| 8357 | PROOF | A182887 | the residual test over one square root, or none |
-| 8358 | PROOF | A135925 | the residual test over one square root, or none |
-| 8359 | PROOF | A007901 | the residual test over one square root, or none |
-| 8360 | PROOF | A025256 | the residual test over one square root, or none |
-| 8361 | PROOF | A025258 | the residual test over one square root, or none |
-| 8362 | PROOF | A000781 | the residual test over one square root, or none |
-| 8363 | PROOF | A025245 | the residual test over one square root, or none |
-| 8364 | PROOF | A025257 | the residual test over one square root, or none |
-| 8365 | PROOF | A025269 | the residual test over one square root, or none |
-| 8366 | PROOF | A025270 | the residual test over one square root, or none |
-| 8367 | PROOF | A025275 | the residual test over one square root, or none |
-| 8368 | PROOF | A032096 | the residual test over one square root, or none |
-| 8369 | PROOF | A102880 | the residual test over one square root, or none |
-| 8370 | PROOF | A111053 | the residual test over one square root, or none |
-| 8371 | PROOF | A152120 | the residual test over one square root, or none |
-| 8372 | PROOF | A159771 | the residual test over one square root, or none |
-| 8373 | PROOF | A166694 | the residual test over one square root, or none |
-| 8374 | PROOF | A166696 | the residual test over one square root, or none |
-| 8375 | PROOF | A191796 | the residual test over one square root, or none |
-| 8376 | PROOF | A217711 | the residual test over one square root, or none |
-| 8377 | PROOF | A278023 | the residual test over one square root, or none |
-| 8378 | PROOF | A279014 | the residual test over one square root, or none |
-| 8379 | PROOF | A000483 | the residual test over one square root, or none |
-| 8380 | PROOF | A026030 | the residual test over one square root, or none |
-| 8381 | PROOF | A026031 | the residual test over one square root, or none |
-| 8382 | PROOF | A048775 | the residual test over one square root, or none |
-| 8383 | PROOF | A116409 | the residual test over one square root, or none |
-| 8384 | PROOF | A126322 | the residual test over one square root, or none |
-| 8385 | PROOF | A128750 | the residual test over one square root, or none |
-| 8386 | PROOF | A143955 | the residual test over one square root, or none |
-| 8387 | PROOF | A165203 | the residual test over one square root, or none |
-| 8388 | PROOF | A168505 | the residual test over one square root, or none |
-| 8389 | PROOF | A176605 | the residual test over one square root, or none |
-| 8390 | PROOF | A181933 | the residual test over one square root, or none |
-| 8391 | PROOF | A191585 | the residual test over one square root, or none |
-| 8392 | PROOF | A215973 | the residual test over one square root, or none |
-| 8393 | PROOF | A234269 | the residual test over one square root, or none |
-| 8394 | PROOF | A236407 | the residual test over one square root, or none |
-| 8395 | PROOF | A270363 | the residual test over one square root, or none |
-| 8396 | PROOF | A098521 | the residual test over one square root, or none |
-| 8397 | PROOF | A100096 | the residual test over one square root, or none |
-| 8398 | PROOF | A100099 | the residual test over one square root, or none |
-| 8399 | PROOF | A105849 | the residual test over one square root, or none |
-| 8400 | PROOF | A105864 | the residual test over one square root, or none |
-| 8401 | PROOF | A105865 | the residual test over one square root, or none |
-| 8402 | PROOF | A108308 | the residual test over one square root, or none |
-| 8403 | PROOF | A114194 | the residual test over one square root, or none |
-| 8404 | PROOF | A115967 | the residual test over one square root, or none |
-| 8405 | PROOF | A117186 | the residual test over one square root, or none |
-| 8406 | PROOF | A120010 | the residual test over one square root, or none |
-| 8407 | PROOF | A124431 | the residual test over one square root, or none |
-| 8408 | PROOF | A124431 | the residual test over one square root, or none |
-| 8409 | PROOF | A126568 | the residual test over one square root, or none |
-| 8410 | PROOF | A132364 | the residual test over one square root, or none |
-| 8411 | PROOF | A141342 | the residual test over one square root, or none |
-| 8412 | PROOF | A155051 | the residual test over one square root, or none |
-| 8413 | PROOF | A157002 | the residual test over one square root, or none |
-| 8414 | PROOF | A157100 | the residual test over one square root, or none |
-| 8415 | PROOF | A166076 | the residual test over one square root, or none |
-| 8416 | PROOF | A166300 | the residual test over one square root, or none |
-| 8417 | PROOF | A168503 | the residual test over one square root, or none |
-| 8418 | PROOF | A174107 | the residual test over one square root, or none |
-| 8419 | PROOF | A174169 | the residual test over one square root, or none |
-| 8420 | PROOF | A176332 | the residual test over one square root, or none |
-| 8421 | PROOF | A184018 | the residual test over one square root, or none |
-| 8422 | PROOF | A188312 | the residual test over one square root, or none |
-| 8423 | PROOF | A188482 | the residual test over one square root, or none |
-| 8424 | PROOF | A191782 | the residual test over one square root, or none |
-| 8425 | PROOF | A217333 | the residual test over one square root, or none |
-| 8426 | PROOF | A257072 | the residual test over one square root, or none |
-| 8427 | PROOF | A261681 | the residual test over one square root, or none |
-| 8428 | PROOF | A073155 | the residual test over one square root, or none |
-| 8429 | PROOF | A105524 | the residual test over one square root, or none |
-| 8430 | PROOF | A114589 | the residual test over one square root, or none |
-| 8431 | PROOF | A114590 | the residual test over one square root, or none |
-| 8432 | PROOF | A162481 | the residual test over one square root, or none |
-| 8433 | PROOF | A174783 | the residual test over one square root, or none |
-| 8434 | PROOF | A188460 | the residual test over one square root, or none |
-| 8435 | PROOF | A188464 | the residual test over one square root, or none |
-| 8436 | PROOF | A190725 | the residual test over one square root, or none |
-| 8437 | PROOF | A191526 | the residual test over one square root, or none |
-| 8438 | PROOF | A191531 | the residual test over one square root, or none |
-| 8439 | PROOF | A211278 | the residual test over one square root, or none |
-| 8440 | PROOF | A026327 | the residual test over one square root, or none |
-| 8441 | PROOF | A081207 | the residual test over one square root, or none |
-| 8442 | PROOF | A102882 | the residual test over one square root, or none |
-| 8443 | PROOF | A182881 | the residual test over one square root, or none |
-| 8444 | PROOF | A191309 | the residual test over one square root, or none |
-| 8445 | PROOF | A191319 | the residual test over one square root, or none |
-| 8446 | PROOF | A191790 | the residual test over one square root, or none |
-| 8447 | PROOF | A273351 | the residual test over one square root, or none |
-| 8448 | PROOF | A025248 | the residual test over one square root, or none |
-| 8449 | PROOF | A025249 | the residual test over one square root, or none |
-| 8450 | PROOF | A026017 | the residual test over one square root, or none |
-| 8451 | PROOF | A071717 | the residual test over one square root, or none |
-| 8452 | PROOF | A081672 | the residual test over one square root, or none |
-| 8453 | PROOF | A104722 | the residual test over one square root, or none |
-| 8454 | PROOF | A109263 | the residual test over one square root, or none |
-| 8455 | PROOF | A118093 | the residual test over one square root, or none |
-| 8456 | PROOF | A118974 | the residual test over one square root, or none |
-| 8457 | PROOF | A121320 | the residual test over one square root, or none |
-| 8458 | PROOF | A126323 | the residual test over one square root, or none |
-| 8459 | PROOF | A128723 | the residual test over one square root, or none |
-| 8460 | PROOF | A135334 | the residual test over one square root, or none |
-| 8461 | PROOF | A141351 | the residual test over one square root, or none |
-| 8462 | PROOF | A141353 | the residual test over one square root, or none |
-| 8463 | PROOF | A163824 | the residual test over one square root, or none |
-| 8464 | PROOF | A165201 | the residual test over one square root, or none |
-| 8465 | PROOF | A279014 | the residual test over one square root, or none |
-| 8466 | PROOF | A026027 | the residual test over one square root, or none |
-| 8467 | PROOF | A026135 | the residual test over one square root, or none |
-| 8468 | PROOF | A050168 | the residual test over one square root, or none |
-| 8469 | PROOF | A059279 | the residual test over one square root, or none |
-| 8470 | PROOF | A063395 | the residual test over one square root, or none |
-| 8471 | PROOF | A071722 | the residual test over one square root, or none |
-| 8472 | PROOF | A082134 | the residual test over one square root, or none |
-| 8473 | PROOF | A097331 | the residual test over one square root, or none |
-| 8474 | PROOF | A100193 | the residual test over one square root, or none |
-| 8475 | PROOF | A103973 | the residual test over one square root, or none |
-| 8476 | PROOF | A106181 | the residual test over one square root, or none |
-| 8477 | PROOF | A108623 | the residual test over one square root, or none |
-| 8478 | PROOF | A126180 | the residual test over one square root, or none |
-| 8479 | PROOF | A128732 | the residual test over one square root, or none |
-| 8480 | PROOF | A134389 | the residual test over one square root, or none |
-| 8481 | PROOF | A143013 | the residual test over one square root, or none |
-| 8482 | PROOF | A143954 | the residual test over one square root, or none |
-| 8483 | PROOF | A157418 | the residual test over one square root, or none |
-| 8484 | PROOF | A158196 | the residual test over one square root, or none |
-| 8485 | PROOF | A158197 | the residual test over one square root, or none |
-| 8486 | PROOF | A191585 | the residual test over one square root, or none |
-| 8487 | PROOF | A257290 | the residual test over one square root, or none |
-| 8488 | PROOF | A054341 | the residual test over one square root, or none |
-| 8489 | PROOF | A071715 | the residual test over one square root, or none |
-| 8490 | PROOF | A090413 | the residual test over one square root, or none |
-| 8491 | PROOF | A090826 | the residual test over one square root, or none |
-| 8492 | PROOF | A091699 | the residual test over one square root, or none |
-| 8493 | PROOF | A098664 | the residual test over one square root, or none |
-| 8494 | PROOF | A099363 | the residual test over one square root, or none |
-| 8495 | PROOF | A100098 | the residual test over one square root, or none |
-| 8496 | PROOF | A105872 | the residual test over one square root, or none |
-| 8497 | PROOF | A119975 | the residual test over one square root, or none |
-| 8498 | PROOF | A121724 | the residual test over one square root, or none |
-| 8499 | PROOF | A121725 | the residual test over one square root, or none |
-| 8500 | PROOF | A126931 | the residual test over one square root, or none |
-| 8501 | PROOF | A126932 | the residual test over one square root, or none |
-| 8502 | PROOF | A127361 | the residual test over one square root, or none |
-| 8503 | PROOF | A127363 | the residual test over one square root, or none |
-| 8504 | PROOF | A155051 | the residual test over one square root, or none |
-| 8505 | PROOF | A166078 | the residual test over one square root, or none |
-| 8506 | PROOF | A166587 | the residual test over one square root, or none |
-| 8507 | PROOF | A166588 | the residual test over one square root, or none |
-| 8508 | PROOF | A176006 | the residual test over one square root, or none |
-| 8509 | PROOF | A185087 | the residual test over one square root, or none |
-| 8510 | PROOF | A190724 | the residual test over one square root, or none |
-| 8511 | PROOF | A225887 | the residual test over one square root, or none |
-| 8512 | PROOF | A227081 | the residual test over one square root, or none |
-| 8513 | PROOF | A257178 | the residual test over one square root, or none |
-| 8514 | PROOF | A257388 | the residual test over one square root, or none |
-| 8515 | PROOF | A257838 | the residual test over one square root, or none |
-| 8516 | PROOF | A001712 | the residual test over one square root, or none |
-| 8517 | PROOF | A025175 | the residual test over one square root, or none |
-| 8518 | PROOF | A025577 | the residual test over one square root, or none |
-| 8519 | PROOF | A026023 | the residual test over one square root, or none |
-| 8520 | PROOF | A055217 | the residual test over one square root, or none |
-| 8521 | PROOF | A081052 | the residual test over one square root, or none |
-| 8522 | PROOF | A103821 | the residual test over one square root, or none |
-| 8523 | PROOF | A107231 | the residual test over one square root, or none |
-| 8524 | PROOF | A110199 | the residual test over one square root, or none |
-| 8525 | PROOF | A116406 | the residual test over one square root, or none |
-| 8526 | PROOF | A128734 | the residual test over one square root, or none |
-| 8527 | PROOF | A191307 | the residual test over one square root, or none |
-| 8528 | PROOF | A278472 | the residual test over one square root, or none |
-| 8529 | PROOF | A034863 | the residual test over one square root, or none |
-| 8530 | PROOF | A128652 | the residual test over one square root, or none |
-| 8531 | PROOF | A174195 | the residual test over one square root, or none |
-| 8532 | PROOF | A192480 | the residual test over one square root, or none |
-| 8533 | PROOF | A158495 | the residual test over one square root, or none |
-| 8534 | PROOF | A189176 | the residual test over one square root, or none |
-| 8535 | PROOF | A194724 | the residual test over one square root, or none |
-| 8536 | PROOF | A210474 | the residual test over one square root, or none |
-| 8537 | PROOF | A262768 | the residual test over one square root, or none |
-| 8538 | PROOF | A026029 | the residual test over one square root, or none |
-| 8539 | PROOF | A064088 | the residual test over one square root, or none |
-| 8540 | PROOF | A064089 | the residual test over one square root, or none |
-| 8541 | PROOF | A064090 | the residual test over one square root, or none |
-| 8542 | PROOF | A064091 | the residual test over one square root, or none |
-| 8543 | PROOF | A064092 | the residual test over one square root, or none |
-| 8544 | PROOF | A067299 | the residual test over one square root, or none |
-| 8545 | PROOF | A068551 | the residual test over one square root, or none |
-| 8546 | PROOF | A080243 | the residual test over one square root, or none |
-| 8547 | PROOF | A114191 | the residual test over one square root, or none |
-| 8548 | PROOF | A116881 | the residual test over one square root, or none |
-| 8549 | PROOF | A122920 | the residual test over one square root, or none |
-| 8550 | PROOF | A132864 | the residual test over one square root, or none |
-| 8551 | PROOF | A133305 | the residual test over one square root, or none |
-| 8552 | PROOF | A133306 | the residual test over one square root, or none |
-| 8553 | PROOF | A133307 | the residual test over one square root, or none |
-| 8554 | PROOF | A133308 | the residual test over one square root, or none |
-| 8555 | PROOF | A141222 | the residual test over one square root, or none |
-| 8556 | PROOF | A154623 | the residual test over one square root, or none |
-| 8557 | PROOF | A157328 | the residual test over one square root, or none |
-| 8558 | PROOF | A158196 | the residual test over one square root, or none |
-| 8559 | PROOF | A158197 | the residual test over one square root, or none |
-| 8560 | PROOF | A191993 | the residual test over one square root, or none |
-| 8561 | PROOF | A225034 | the residual test over one square root, or none |
-| 8562 | PROOF | A242172 | the residual test over one square root, or none |
-| 8563 | PROOF | A002867 | the residual test over one square root, or none |
-| 8564 | PROOF | A014533 | the residual test over one square root, or none |
-| 8565 | PROOF | A051524 | the residual test over one square root, or none |
-| 8566 | PROOF | A071264 | the residual test over one square root, or none |
-| 8567 | PROOF | A081046 | the residual test over one square root, or none |
-| 8568 | PROOF | A098519 | the residual test over one square root, or none |
-| 8569 | PROOF | A098520 | the residual test over one square root, or none |
-| 8570 | PROOF | A101596 | the residual test over one square root, or none |
-| 8571 | PROOF | A101601 | the residual test over one square root, or none |
-| 8572 | PROOF | A101602 | the residual test over one square root, or none |
-| 8573 | PROOF | A111779 | the residual test over one square root, or none |
-| 8574 | PROOF | A112703 | the residual test over one square root, or none |
-| 8575 | PROOF | A119012 | the residual test over one square root, or none |
-| 8576 | PROOF | A128057 | the residual test over one square root, or none |
-| 8577 | PROOF | A128746 | the residual test over one square root, or none |
-| 8578 | PROOF | A132900 | the residual test over one square root, or none |
-| 8579 | PROOF | A151483 | the residual test over one square root, or none |
-| 8580 | PROOF | A167481 | the residual test over one square root, or none |
-| 8581 | PROOF | A171556 | the residual test over one square root, or none |
-| 8582 | PROOF | A176479 | the residual test over one square root, or none |
-| 8583 | PROOF | A182401 | the residual test over one square root, or none |
-| 8584 | PROOF | A208355 | the residual test over one square root, or none |
-| 8585 | PROOF | A210064 | the residual test over one square root, or none |
-| 8586 | PROOF | A240558 | the residual test over one square root, or none |
-| 8587 | PROOF | A141771 | the residual test over one square root, or none |
-| 8588 | PROOF | A176606 | the residual test over one square root, or none |
-| 8589 | PROOF | A176607 | the residual test over one square root, or none |
-| 8590 | PROOF | A176609 | the residual test over one square root, or none |
-| 8591 | PROOF | A176610 | the residual test over one square root, or none |
-| 8592 | PROOF | A176611 | the residual test over one square root, or none |
-| 8593 | PROOF | A176675 | the residual test over one square root, or none |
-| 8594 | PROOF | A176749 | the residual test over one square root, or none |
-| 8595 | PROOF | A176750 | the residual test over one square root, or none |
-| 8596 | PROOF | A176751 | the residual test over one square root, or none |
-| 8597 | PROOF | A176752 | the residual test over one square root, or none |
-| 8598 | PROOF | A176753 | the residual test over one square root, or none |
-| 8599 | PROOF | A176754 | the residual test over one square root, or none |
-| 8600 | PROOF | A176755 | the residual test over one square root, or none |
-| 8601 | PROOF | A176756 | the residual test over one square root, or none |
-| 8602 | PROOF | A176757 | the residual test over one square root, or none |
-| 8603 | PROOF | A176759 | the residual test over one square root, or none |
-| 8604 | PROOF | A176828 | the residual test over one square root, or none |
-| 8605 | PROOF | A176829 | the residual test over one square root, or none |
-| 8606 | PROOF | A176830 | the residual test over one square root, or none |
-| 8607 | PROOF | A176832 | the residual test over one square root, or none |
-| 8608 | PROOF | A176854 | the residual test over one square root, or none |
-| 8609 | PROOF | A176855 | the residual test over one square root, or none |
-| 8610 | PROOF | A176856 | the residual test over one square root, or none |
-| 8611 | PROOF | A176857 | the residual test over one square root, or none |
-| 8612 | PROOF | A176858 | the residual test over one square root, or none |
-| 8613 | PROOF | A176859 | the residual test over one square root, or none |
-| 8614 | PROOF | A176952 | the residual test over one square root, or none |
-| 8615 | PROOF | A176953 | the residual test over one square root, or none |
-| 8616 | PROOF | A176956 | the residual test over one square root, or none |
-| 8617 | PROOF | A176957 | the residual test over one square root, or none |
-| 8618 | PROOF | A176958 | the residual test over one square root, or none |
-| 8619 | PROOF | A176959 | the residual test over one square root, or none |
-| 8620 | PROOF | A176962 | the residual test over one square root, or none |
-| 8621 | PROOF | A176964 | the residual test over one square root, or none |
-| 8622 | PROOF | A176966 | the residual test over one square root, or none |
-| 8623 | PROOF | A176967 | the residual test over one square root, or none |
-| 8624 | PROOF | A177123 | the residual test over one square root, or none |
-| 8625 | PROOF | A177124 | the residual test over one square root, or none |
-| 8626 | PROOF | A177125 | the residual test over one square root, or none |
-| 8627 | PROOF | A177126 | the residual test over one square root, or none |
-| 8628 | PROOF | A177127 | the residual test over one square root, or none |
-| 8629 | PROOF | A177128 | the residual test over one square root, or none |
-| 8630 | PROOF | A177129 | the residual test over one square root, or none |
-| 8631 | PROOF | A177130 | the residual test over one square root, or none |
-| 8632 | PROOF | A177131 | the residual test over one square root, or none |
-| 8633 | PROOF | A177163 | the residual test over one square root, or none |
-| 8634 | PROOF | A177165 | the residual test over one square root, or none |
-| 8635 | PROOF | A177166 | the residual test over one square root, or none |
-| 8636 | PROOF | A177167 | the residual test over one square root, or none |
-| 8637 | PROOF | A177168 | the residual test over one square root, or none |
-| 8638 | PROOF | A177169 | the residual test over one square root, or none |
-| 8639 | PROOF | A177170 | the residual test over one square root, or none |
-| 8640 | PROOF | A177171 | the residual test over one square root, or none |
-| 8641 | PROOF | A177172 | the residual test over one square root, or none |
-| 8642 | PROOF | A177175 | the residual test over one square root, or none |
-| 8643 | PROOF | A177177 | the residual test over one square root, or none |
-| 8644 | PROOF | A177178 | the residual test over one square root, or none |
-| 8645 | PROOF | A177179 | the residual test over one square root, or none |
-| 8646 | PROOF | A177180 | the residual test over one square root, or none |
-| 8647 | PROOF | A177181 | the residual test over one square root, or none |
-| 8648 | PROOF | A177182 | the residual test over one square root, or none |
-| 8649 | PROOF | A177183 | the residual test over one square root, or none |
-| 8650 | PROOF | A177184 | the residual test over one square root, or none |
-| 8651 | PROOF | A177185 | the residual test over one square root, or none |
-| 8652 | PROOF | A177197 | the residual test over one square root, or none |
-| 8653 | PROOF | A177198 | the residual test over one square root, or none |
-| 8654 | PROOF | A177199 | the residual test over one square root, or none |
-| 8655 | PROOF | A177200 | the residual test over one square root, or none |
-| 8656 | PROOF | A177203 | the residual test over one square root, or none |
-| 8657 | PROOF | A081670 | the known side is the entry's NAME rather than a formula line |
-| 8658 | PROOF | A085781 | the known side is the entry's NAME rather than a formula line |
-| 8659 | PROOF | A026019 | the known side is the entry's NAME rather than a formula line |
-| 8660 | PROOF | A052183 | the known side is the entry's NAME rather than a formula line |
-| 8661 | PROOF | A052204 | the known side is the entry's NAME rather than a formula line |
-| 8662 | PROOF | A157713 | the known side is the entry's NAME rather than a formula line |
-| 8663 | PROOF | A334511 | a posted closed form decided by the theory of hypergeometric terms |
-| 8664 | PROOF | A333905 | a posted closed form decided by the theory of hypergeometric terms |
-| 8665 | PROOF | A049486 | a posted closed form decided by the theory of hypergeometric terms |
-| 8666 | PROOF | A267879 | a posted closed form decided by the theory of hypergeometric terms |
-| 8667 | PROOF | A267802 | a posted closed form decided by the theory of hypergeometric terms |
-| 8668 | PROOF | A267847 | a posted closed form decided by the theory of hypergeometric terms |
-| 8669 | PROOF | A034267 | a posted closed form decided by the theory of hypergeometric terms |
-| 8670 | PROOF | A126501 | a posted closed form decided by the theory of hypergeometric terms |
-| 8671 | PROOF | A128153 | a posted closed form decided by the theory of hypergeometric terms |
-| 8672 | PROOF | A212938 | a posted closed form decided by the theory of hypergeometric terms |
-| 8673 | PROOF | A220250 | a posted closed form decided by the theory of hypergeometric terms |
-| 8674 | PROOF | A248434 | a posted closed form decided by the theory of hypergeometric terms |
-| 8675 | PROOF | A258547 | a posted closed form decided by the theory of hypergeometric terms |
-| 8676 | PROOF | A272706 | a posted closed form decided by the theory of hypergeometric terms |
-| 8677 | PROOF | A126089 | complete annihilation, tested in the Ore algebra Q(n)[N] |
-| 8678 | PROOF | A025271 | division of one posted operator by another |
-| 8679 | PROOF | A138164 | division of one posted operator by another |
-| 8680 | PROOF | A143017 | division of one posted operator by another |
-| 8681 | PROOF | A159772 | division of one posted operator by another |
-| 8682 | PROOF | A000986 | division of one posted operator by another |
-| 8683 | PROOF | A022917 | division of one posted operator by another |
-| 8684 | PROOF | A217447 | division of one posted operator by another |
-| 8685 | PROOF | A226302 | division of one posted operator by another |
-| 8686 | PROOF | A245088 | division of one posted operator by another |
-| 8687 | PROOF | A026165 | division of one posted operator by another |
-| 8688 | PROOF | A185966 | division of one posted operator by another |
-| 8689 | PROOF | A200753 | division of one posted operator by another |
-| 8690 | PROOF | A217358 | division of one posted operator by another |
-| 8691 | PROOF | A228960 | division of one posted operator by another |
-| 8692 | PROOF | A003435 | division of one posted operator by another |
-| 8693 | PROOF | A228331 | division of one posted operator by another |
-| 8694 | PROOF | A273019 | division of one posted operator by another |
-| 8695 | PROOF | A386834 | division of one posted operator by another |
-| 8696 | PROOF | A228330 | division of one posted operator by another |
-| 8697 | PROOF | A228333 | division of one posted operator by another |
+| 7921 | PROOF | A371753 | the generating function derived from a coefficient-extraction definition |
+| 7922 | PROOF | A226751 | the generating function derived from a coefficient-extraction definition |
+| 7923 | PROOF | A386830 | the generating function derived from a coefficient-extraction definition |
+| 7924 | PROOF | A172025 | the generating function derived from a coefficient-extraction definition |
+| 7925 | PROOF | A348410 | the generating function derived from a coefficient-extraction definition |
+| 7926 | PROOF | A243764 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 7927 | PROOF | A243760 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 7928 | PROOF | A285195 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 7929 | PROOF | A243814 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 7930 | PROOF | A055392 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 7931 | PROOF | A025758 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 7932 | PROOF | A308726 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 7933 | PROOF | A243022 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 7934 | PROOF | A168506 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 7935 | PROOF | A239425 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 7936 | PROOF | A025757 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 7937 | PROOF | A242566 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 7938 | PROOF | A270530 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 7939 | PROOF | A101478 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 7940 | PROOF | A025756 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 7941 | PROOF | A097180 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 7942 | PROOF | A097189 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 7943 | PROOF | A127632 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 7944 | PROOF | A130655 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 7945 | PROOF | A166135 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 7946 | PROOF | A212696 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 7947 | PROOF | A261196 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 7948 | PROOF | A270530 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 7949 | PROOF | A185010 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 7950 | PROOF | A185020 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 7951 | PROOF | A200312 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 7952 | PROOF | A025754 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 7953 | PROOF | A097188 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 7954 | PROOF | A097192 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 7955 | PROOF | A158826 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 7956 | PROOF | A159769 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 7957 | PROOF | A294159 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 7958 | PROOF | A392976 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 7959 | PROOF | A162972 | a transcendental e.g.f., in a differential module over Q(x) |
+| 7960 | PROOF | A001465 | a transcendental e.g.f., in a differential module over Q(x) |
+| 7961 | PROOF | A085387 | a transcendental e.g.f., in a differential module over Q(x) |
+| 7962 | PROOF | A096471 | a transcendental e.g.f., in a differential module over Q(x) |
+| 7963 | PROOF | A000704 | a transcendental e.g.f., in a differential module over Q(x) |
+| 7964 | PROOF | A001724 | a transcendental e.g.f., in a differential module over Q(x) |
+| 7965 | PROOF | A066052 | a transcendental e.g.f., in a differential module over Q(x) |
+| 7966 | PROOF | A097204 | a transcendental e.g.f., in a differential module over Q(x) |
+| 7967 | PROOF | A053532 | a transcendental e.g.f., in a differential module over Q(x) |
+| 7968 | PROOF | A000483 | a transcendental e.g.f., in a differential module over Q(x) |
+| 7969 | PROOF | A000276 | a transcendental e.g.f., in a differential module over Q(x) |
+| 7970 | PROOF | A002104 | a transcendental e.g.f., in a differential module over Q(x) |
+| 7971 | PROOF | A002538 | a transcendental e.g.f., in a differential module over Q(x) |
+| 7972 | PROOF | A066052 | a transcendental e.g.f., in a differential module over Q(x) |
+| 7973 | PROOF | A073591 | a transcendental e.g.f., in a differential module over Q(x) |
+| 7974 | PROOF | A108704 | a transcendental e.g.f., in a differential module over Q(x) |
+| 7975 | PROOF | A110322 | a transcendental e.g.f., in a differential module over Q(x) |
+| 7976 | PROOF | A185369 | a transcendental e.g.f., in a differential module over Q(x) |
+| 7977 | PROOF | A000276 | a transcendental e.g.f., in a differential module over Q(x) |
+| 7978 | PROOF | A000774 | a transcendental e.g.f., in a differential module over Q(x) |
+| 7979 | PROOF | A094905 | a transcendental e.g.f., in a differential module over Q(x) |
+| 7980 | PROOF | A098557 | a transcendental e.g.f., in a differential module over Q(x) |
+| 7981 | PROOF | A051560 | a transcendental e.g.f., in a differential module over Q(x) |
+| 7982 | PROOF | A129149 | a transcendental e.g.f., in a differential module over Q(x) |
+| 7983 | PROOF | A187252 | a transcendental e.g.f., in a differential module over Q(x) |
+| 7984 | PROOF | A005654 | a posted closed form split on the parity of n, then decided by hypergeometric terms |
+| 7985 | PROOF | A116385 | a posted closed form split on the parity of n, then decided by hypergeometric terms |
+| 7986 | PROOF | A005558 | a posted closed form split on the parity of n, then decided by hypergeometric terms |
+| 7987 | PROOF | A065942 | a posted closed form split on the parity of n, then decided by hypergeometric terms |
+| 7988 | PROOF | A081181 | a posted closed form split on the parity of n, then decided by hypergeometric terms |
+| 7989 | PROOF | A081204 | a posted closed form split on the parity of n, then decided by hypergeometric terms |
+| 7990 | PROOF | A005558 | a posted closed form split on the parity of n, then decided by hypergeometric terms |
+| 7991 | PROOF | A005559 | a posted closed form split on the parity of n, then decided by hypergeometric terms |
+| 7992 | PROOF | A005560 | a posted closed form split on the parity of n, then decided by hypergeometric terms |
+| 7993 | PROOF | A005561 | a posted closed form split on the parity of n, then decided by hypergeometric terms |
+| 7994 | PROOF | A005562 | a posted closed form split on the parity of n, then decided by hypergeometric terms |
+| 7995 | PROOF | A081204 | a posted closed form split on the parity of n, then decided by hypergeometric terms |
+| 7996 | PROOF | A081205 | a posted closed form split on the parity of n, then decided by hypergeometric terms |
+| 7997 | PROOF | A213801 | a posted closed form split on the parity of n, then decided by hypergeometric terms |
+| 7998 | PROOF | A006231 | a posted closed form against a derived holonomic recurrence |
+| 7999 | PROOF | A213203 | a posted closed form compared against the posted generating function |
+| 8000 | PROOF | A242429 | a posted closed form compared against the posted generating function |
+| 8001 | PROOF | A026018 | a posted closed form compared against the posted generating function |
+| 8002 | PROOF | A092634 | a posted closed form compared against the posted generating function |
+| 8003 | PROOF | A026026 | a posted closed form compared against the posted generating function |
+| 8004 | PROOF | A052227 | a posted closed form compared against the posted generating function |
+| 8005 | PROOF | A228329 | a posted closed form compared against the posted generating function |
+| 8006 | PROOF | A259457 | a posted closed form compared against the posted generating function |
+| 8007 | PROOF | A268554 | a posted closed form compared against the posted generating function |
+| 8008 | PROOF | A214907 | the recurrence follows from a generating function the entry records as fact |
+| 8009 | PROOF | A263869 | the recurrence follows from a generating function the entry records as fact |
+| 8010 | PROOF | A250782 | the recurrence follows from a generating function the entry records as fact |
+| 8011 | PROOF | A165386 | the recurrence follows from a generating function the entry records as fact |
+| 8012 | PROOF | A250781 | the recurrence follows from a generating function the entry records as fact |
+| 8013 | PROOF | A163020 | the recurrence follows from a generating function the entry records as fact |
+| 8014 | PROOF | A220640 | the recurrence follows from a generating function the entry records as fact |
+| 8015 | PROOF | A204648 | the recurrence follows from a generating function the entry records as fact |
+| 8016 | PROOF | A206264 | the recurrence follows from a generating function the entry records as fact |
+| 8017 | PROOF | A262482 | the recurrence follows from a generating function the entry records as fact |
+| 8018 | PROOF | A208642 | the recurrence follows from a generating function the entry records as fact |
+| 8019 | PROOF | A204647 | the recurrence follows from a generating function the entry records as fact |
+| 8020 | PROOF | A250892 | the recurrence follows from a generating function the entry records as fact |
+| 8021 | PROOF | A250893 | the recurrence follows from a generating function the entry records as fact |
+| 8022 | PROOF | A250894 | the recurrence follows from a generating function the entry records as fact |
+| 8023 | PROOF | A250895 | the recurrence follows from a generating function the entry records as fact |
+| 8024 | PROOF | A250896 | the recurrence follows from a generating function the entry records as fact |
+| 8025 | PROOF | A250897 | the recurrence follows from a generating function the entry records as fact |
+| 8026 | PROOF | A164760 | the recurrence follows from a generating function the entry records as fact |
+| 8027 | PROOF | A202442 | the recurrence follows from a generating function the entry records as fact |
+| 8028 | PROOF | A202443 | the recurrence follows from a generating function the entry records as fact |
+| 8029 | PROOF | A206263 | the recurrence follows from a generating function the entry records as fact |
+| 8030 | PROOF | A250780 | the recurrence follows from a generating function the entry records as fact |
+| 8031 | PROOF | A263794 | the recurrence follows from a generating function the entry records as fact |
+| 8032 | PROOF | A208641 | the recurrence follows from a generating function the entry records as fact |
+| 8033 | PROOF | A204646 | the recurrence follows from a generating function the entry records as fact |
+| 8034 | PROOF | A206262 | the recurrence follows from a generating function the entry records as fact |
+| 8035 | PROOF | A204645 | the recurrence follows from a generating function the entry records as fact |
+| 8036 | PROOF | A233402 | the recurrence follows from a generating function the entry records as fact |
+| 8037 | PROOF | A250900 | the recurrence follows from a generating function the entry records as fact |
+| 8038 | PROOF | A267960 | the recurrence follows from a generating function the entry records as fact |
+| 8039 | PROOF | A220639 | the recurrence follows from a generating function the entry records as fact |
+| 8040 | PROOF | A102319 | several independent square roots |
+| 8041 | PROOF | A115256 | several independent square roots |
+| 8042 | PROOF | A165373 | the recurrence follows from a generating function the entry records as fact |
+| 8043 | PROOF | A165394 | the recurrence follows from a generating function the entry records as fact |
+| 8044 | PROOF | A206261 | the recurrence follows from a generating function the entry records as fact |
+| 8045 | PROOF | A224671 | the recurrence follows from a generating function the entry records as fact |
+| 8046 | PROOF | A224673 | the recurrence follows from a generating function the entry records as fact |
+| 8047 | PROOF | A194772 | the recurrence follows from a generating function the entry records as fact |
+| 8048 | PROOF | A222993 | the recurrence follows from a generating function the entry records as fact |
+| 8049 | PROOF | A223711 | the recurrence follows from a generating function the entry records as fact |
+| 8050 | PROOF | A224670 | the recurrence follows from a generating function the entry records as fact |
+| 8051 | PROOF | A235510 | the recurrence follows from a generating function the entry records as fact |
+| 8052 | PROOF | A250779 | the recurrence follows from a generating function the entry records as fact |
+| 8053 | PROOF | A250792 | the recurrence follows from a generating function the entry records as fact |
+| 8054 | PROOF | A250899 | the recurrence follows from a generating function the entry records as fact |
+| 8055 | PROOF | A157125 | several independent square roots |
+| 8056 | PROOF | A102318 | several independent square roots |
+| 8057 | PROOF | A107587 | several independent square roots |
+| 8058 | PROOF | A190092 | the recurrence follows from a generating function the entry records as fact |
+| 8059 | PROOF | A190093 | the recurrence follows from a generating function the entry records as fact |
+| 8060 | PROOF | A253226 | the recurrence follows from a generating function the entry records as fact |
+| 8061 | PROOF | A253227 | the recurrence follows from a generating function the entry records as fact |
+| 8062 | PROOF | A253228 | the recurrence follows from a generating function the entry records as fact |
+| 8063 | PROOF | A253229 | the recurrence follows from a generating function the entry records as fact |
+| 8064 | PROOF | A253230 | the recurrence follows from a generating function the entry records as fact |
+| 8065 | PROOF | A222835 | the recurrence follows from a generating function the entry records as fact |
+| 8066 | PROOF | A221788 | the recurrence follows from a generating function the entry records as fact |
+| 8067 | PROOF | A222777 | the recurrence follows from a generating function the entry records as fact |
+| 8068 | PROOF | A222892 | the recurrence follows from a generating function the entry records as fact |
+| 8069 | PROOF | A184031 | the recurrence follows from a generating function the entry records as fact |
+| 8070 | PROOF | A184032 | the recurrence follows from a generating function the entry records as fact |
+| 8071 | PROOF | A184033 | the recurrence follows from a generating function the entry records as fact |
+| 8072 | PROOF | A184034 | the recurrence follows from a generating function the entry records as fact |
+| 8073 | PROOF | A184035 | the recurrence follows from a generating function the entry records as fact |
+| 8074 | PROOF | A184036 | the recurrence follows from a generating function the entry records as fact |
+| 8075 | PROOF | A184037 | the recurrence follows from a generating function the entry records as fact |
+| 8076 | PROOF | A184038 | the recurrence follows from a generating function the entry records as fact |
+| 8077 | PROOF | A184041 | the recurrence follows from a generating function the entry records as fact |
+| 8078 | PROOF | A184042 | the recurrence follows from a generating function the entry records as fact |
+| 8079 | PROOF | A184043 | the recurrence follows from a generating function the entry records as fact |
+| 8080 | PROOF | A184044 | the recurrence follows from a generating function the entry records as fact |
+| 8081 | PROOF | A184045 | the recurrence follows from a generating function the entry records as fact |
+| 8082 | PROOF | A184046 | the recurrence follows from a generating function the entry records as fact |
+| 8083 | PROOF | A184047 | the recurrence follows from a generating function the entry records as fact |
+| 8084 | PROOF | A189450 | the recurrence follows from a generating function the entry records as fact |
+| 8085 | PROOF | A190091 | the recurrence follows from a generating function the entry records as fact |
+| 8086 | PROOF | A206170 | the recurrence follows from a generating function the entry records as fact |
+| 8087 | PROOF | A208086 | the recurrence follows from a generating function the entry records as fact |
+| 8088 | PROOF | A208087 | the recurrence follows from a generating function the entry records as fact |
+| 8089 | PROOF | A208089 | the recurrence follows from a generating function the entry records as fact |
+| 8090 | PROOF | A211327 | the recurrence follows from a generating function the entry records as fact |
+| 8091 | PROOF | A214181 | the recurrence follows from a generating function the entry records as fact |
+| 8092 | PROOF | A218185 | several independent square roots |
+| 8093 | PROOF | A221619 | the recurrence follows from a generating function the entry records as fact |
+| 8094 | PROOF | A221764 | the recurrence follows from a generating function the entry records as fact |
+| 8095 | PROOF | A222001 | the recurrence follows from a generating function the entry records as fact |
+| 8096 | PROOF | A239024 | the recurrence follows from a generating function the entry records as fact |
+| 8097 | PROOF | A250610 | the recurrence follows from a generating function the entry records as fact |
+| 8098 | PROOF | A250784 | the recurrence follows from a generating function the entry records as fact |
+| 8099 | PROOF | A250791 | the recurrence follows from a generating function the entry records as fact |
+| 8100 | PROOF | A262267 | the recurrence follows from a generating function the entry records as fact |
+| 8101 | PROOF | A263908 | the recurrence follows from a generating function the entry records as fact |
+| 8102 | PROOF | A267905 | the recurrence follows from a generating function the entry records as fact |
+| 8103 | PROOF | A268053 | the recurrence follows from a generating function the entry records as fact |
+| 8104 | PROOF | A268775 | the recurrence follows from a generating function the entry records as fact |
+| 8105 | PROOF | A269202 | the recurrence follows from a generating function the entry records as fact |
+| 8106 | PROOF | A025567 | several independent square roots |
+| 8107 | PROOF | A071684 | several independent square roots |
+| 8108 | PROOF | A179648 | several independent square roots |
+| 8109 | PROOF | A184120 | several independent square roots |
+| 8110 | PROOF | A026163 | several independent square roots |
+| 8111 | PROOF | A102318 | several independent square roots |
+| 8112 | PROOF | A101500 | several independent square roots |
+| 8113 | PROOF | A102319 | several independent square roots |
+| 8114 | PROOF | A107587 | several independent square roots |
+| 8115 | PROOF | A206336 | the recurrence follows from a generating function the entry records as fact |
+| 8116 | PROOF | A165381 | the recurrence follows from a generating function the entry records as fact |
+| 8117 | PROOF | A165392 | the recurrence follows from a generating function the entry records as fact |
+| 8118 | PROOF | A207142 | the recurrence follows from a generating function the entry records as fact |
+| 8119 | PROOF | A220749 | the recurrence follows from a generating function the entry records as fact |
+| 8120 | PROOF | A253225 | the recurrence follows from a generating function the entry records as fact |
+| 8121 | PROOF | A253490 | the recurrence follows from a generating function the entry records as fact |
+| 8122 | PROOF | A265989 | the recurrence follows from a generating function the entry records as fact |
+| 8123 | PROOF | A165378 | the recurrence follows from a generating function the entry records as fact |
+| 8124 | PROOF | A253491 | the recurrence follows from a generating function the entry records as fact |
+| 8125 | PROOF | A253492 | the recurrence follows from a generating function the entry records as fact |
+| 8126 | PROOF | A253493 | the recurrence follows from a generating function the entry records as fact |
+| 8127 | PROOF | A204609 | the recurrence follows from a generating function the entry records as fact |
+| 8128 | PROOF | A222939 | the recurrence follows from a generating function the entry records as fact |
+| 8129 | PROOF | A267912 | the recurrence follows from a generating function the entry records as fact |
+| 8130 | PROOF | A183356 | the recurrence follows from a generating function the entry records as fact |
+| 8131 | PROOF | A222834 | the recurrence follows from a generating function the entry records as fact |
+| 8132 | PROOF | A233162 | the recurrence follows from a generating function the entry records as fact |
+| 8133 | PROOF | A233175 | the recurrence follows from a generating function the entry records as fact |
+| 8134 | PROOF | A233218 | the recurrence follows from a generating function the entry records as fact |
+| 8135 | PROOF | A276300 | the recurrence follows from a generating function the entry records as fact |
+| 8136 | PROOF | A181192 | the recurrence follows from a generating function the entry records as fact |
+| 8137 | PROOF | A183430 | the recurrence follows from a generating function the entry records as fact |
+| 8138 | PROOF | A184679 | the recurrence follows from a generating function the entry records as fact |
+| 8139 | PROOF | A204707 | the recurrence follows from a generating function the entry records as fact |
+| 8140 | PROOF | A204708 | the recurrence follows from a generating function the entry records as fact |
+| 8141 | PROOF | A211322 | the recurrence follows from a generating function the entry records as fact |
+| 8142 | PROOF | A211490 | the recurrence follows from a generating function the entry records as fact |
+| 8143 | PROOF | A214160 | the recurrence follows from a generating function the entry records as fact |
+| 8144 | PROOF | A221374 | the recurrence follows from a generating function the entry records as fact |
+| 8145 | PROOF | A223363 | the recurrence follows from a generating function the entry records as fact |
+| 8146 | PROOF | A223499 | the recurrence follows from a generating function the entry records as fact |
+| 8147 | PROOF | A224669 | the recurrence follows from a generating function the entry records as fact |
+| 8148 | PROOF | A232951 | the recurrence follows from a generating function the entry records as fact |
+| 8149 | PROOF | A233106 | the recurrence follows from a generating function the entry records as fact |
+| 8150 | PROOF | A233107 | the recurrence follows from a generating function the entry records as fact |
+| 8151 | PROOF | A233124 | the recurrence follows from a generating function the entry records as fact |
+| 8152 | PROOF | A233211 | the recurrence follows from a generating function the entry records as fact |
+| 8153 | PROOF | A233212 | the recurrence follows from a generating function the entry records as fact |
+| 8154 | PROOF | A233213 | the recurrence follows from a generating function the entry records as fact |
+| 8155 | PROOF | A234789 | the recurrence follows from a generating function the entry records as fact |
+| 8156 | PROOF | A235878 | the recurrence follows from a generating function the entry records as fact |
+| 8157 | PROOF | A235879 | the recurrence follows from a generating function the entry records as fact |
+| 8158 | PROOF | A235880 | the recurrence follows from a generating function the entry records as fact |
+| 8159 | PROOF | A235881 | the recurrence follows from a generating function the entry records as fact |
+| 8160 | PROOF | A235882 | the recurrence follows from a generating function the entry records as fact |
+| 8161 | PROOF | A235883 | the recurrence follows from a generating function the entry records as fact |
+| 8162 | PROOF | A235887 | the recurrence follows from a generating function the entry records as fact |
+| 8163 | PROOF | A235888 | the recurrence follows from a generating function the entry records as fact |
+| 8164 | PROOF | A235889 | the recurrence follows from a generating function the entry records as fact |
+| 8165 | PROOF | A235890 | the recurrence follows from a generating function the entry records as fact |
+| 8166 | PROOF | A235891 | the recurrence follows from a generating function the entry records as fact |
+| 8167 | PROOF | A235892 | the recurrence follows from a generating function the entry records as fact |
+| 8168 | PROOF | A235895 | the recurrence follows from a generating function the entry records as fact |
+| 8169 | PROOF | A250461 | the recurrence follows from a generating function the entry records as fact |
+| 8170 | PROOF | A250778 | the recurrence follows from a generating function the entry records as fact |
+| 8171 | PROOF | A262326 | the recurrence follows from a generating function the entry records as fact |
+| 8172 | PROOF | A262327 | the recurrence follows from a generating function the entry records as fact |
+| 8173 | PROOF | A262415 | the recurrence follows from a generating function the entry records as fact |
+| 8174 | PROOF | A265987 | the recurrence follows from a generating function the entry records as fact |
+| 8175 | PROOF | A267946 | the recurrence follows from a generating function the entry records as fact |
+| 8176 | PROOF | A268052 | the recurrence follows from a generating function the entry records as fact |
+| 8177 | PROOF | A268093 | the recurrence follows from a generating function the entry records as fact |
+| 8178 | PROOF | A268164 | the recurrence follows from a generating function the entry records as fact |
+| 8179 | PROOF | A277761 | the recurrence follows from a generating function the entry records as fact |
+| 8180 | PROOF | A072100 | several independent square roots |
+| 8181 | PROOF | A239530 | the recurrence follows from a generating function the entry records as fact |
+| 8182 | PROOF | A263907 | the recurrence follows from a generating function the entry records as fact |
+| 8183 | PROOF | A221588 | the recurrence follows from a generating function the entry records as fact |
+| 8184 | PROOF | A221589 | the recurrence follows from a generating function the entry records as fact |
+| 8185 | PROOF | A221022 | the recurrence follows from a generating function the entry records as fact |
+| 8186 | PROOF | A165372 | the recurrence follows from a generating function the entry records as fact |
+| 8187 | PROOF | A202730 | the recurrence follows from a generating function the entry records as fact |
+| 8188 | PROOF | A206687 | the recurrence follows from a generating function the entry records as fact |
+| 8189 | PROOF | A221829 | the recurrence follows from a generating function the entry records as fact |
+| 8190 | PROOF | A222869 | the recurrence follows from a generating function the entry records as fact |
+| 8191 | PROOF | A222940 | the recurrence follows from a generating function the entry records as fact |
+| 8192 | PROOF | A223332 | the recurrence follows from a generating function the entry records as fact |
+| 8193 | PROOF | A269290 | the recurrence follows from a generating function the entry records as fact |
+| 8194 | PROOF | A223181 | the recurrence follows from a generating function the entry records as fact |
+| 8195 | PROOF | A223234 | the recurrence follows from a generating function the entry records as fact |
+| 8196 | PROOF | A223381 | the recurrence follows from a generating function the entry records as fact |
+| 8197 | PROOF | A233163 | the recurrence follows from a generating function the entry records as fact |
+| 8198 | PROOF | A233164 | the recurrence follows from a generating function the entry records as fact |
+| 8199 | PROOF | A233165 | the recurrence follows from a generating function the entry records as fact |
+| 8200 | PROOF | A233166 | the recurrence follows from a generating function the entry records as fact |
+| 8201 | PROOF | A233167 | the recurrence follows from a generating function the entry records as fact |
+| 8202 | PROOF | A233196 | the recurrence follows from a generating function the entry records as fact |
+| 8203 | PROOF | A233257 | the recurrence follows from a generating function the entry records as fact |
+| 8204 | PROOF | A268622 | the recurrence follows from a generating function the entry records as fact |
+| 8205 | PROOF | A269103 | the recurrence follows from a generating function the entry records as fact |
+| 8206 | PROOF | A269285 | the recurrence follows from a generating function the entry records as fact |
+| 8207 | PROOF | A183586 | the recurrence follows from a generating function the entry records as fact |
+| 8208 | PROOF | A183682 | the recurrence follows from a generating function the entry records as fact |
+| 8209 | PROOF | A183690 | the recurrence follows from a generating function the entry records as fact |
+| 8210 | PROOF | A183702 | the recurrence follows from a generating function the entry records as fact |
+| 8211 | PROOF | A184688 | the recurrence follows from a generating function the entry records as fact |
+| 8212 | PROOF | A185761 | the recurrence follows from a generating function the entry records as fact |
+| 8213 | PROOF | A185858 | the recurrence follows from a generating function the entry records as fact |
+| 8214 | PROOF | A189604 | the recurrence follows from a generating function the entry records as fact |
+| 8215 | PROOF | A205220 | the recurrence follows from a generating function the entry records as fact |
+| 8216 | PROOF | A205329 | the recurrence follows from a generating function the entry records as fact |
+| 8217 | PROOF | A205354 | the recurrence follows from a generating function the entry records as fact |
+| 8218 | PROOF | A208088 | the recurrence follows from a generating function the entry records as fact |
+| 8219 | PROOF | A211715 | the recurrence follows from a generating function the entry records as fact |
+| 8220 | PROOF | A211719 | the recurrence follows from a generating function the entry records as fact |
+| 8221 | PROOF | A220932 | the recurrence follows from a generating function the entry records as fact |
+| 8222 | PROOF | A221121 | the recurrence follows from a generating function the entry records as fact |
+| 8223 | PROOF | A221731 | the recurrence follows from a generating function the entry records as fact |
+| 8224 | PROOF | A222098 | the recurrence follows from a generating function the entry records as fact |
+| 8225 | PROOF | A223197 | the recurrence follows from a generating function the entry records as fact |
+| 8226 | PROOF | A223204 | the recurrence follows from a generating function the entry records as fact |
+| 8227 | PROOF | A223228 | the recurrence follows from a generating function the entry records as fact |
+| 8228 | PROOF | A223258 | the recurrence follows from a generating function the entry records as fact |
+| 8229 | PROOF | A223277 | the recurrence follows from a generating function the entry records as fact |
+| 8230 | PROOF | A223278 | the recurrence follows from a generating function the entry records as fact |
+| 8231 | PROOF | A223318 | the recurrence follows from a generating function the entry records as fact |
+| 8232 | PROOF | A223552 | the recurrence follows from a generating function the entry records as fact |
+| 8233 | PROOF | A231103 | the recurrence follows from a generating function the entry records as fact |
+| 8234 | PROOF | A231104 | the recurrence follows from a generating function the entry records as fact |
+| 8235 | PROOF | A232950 | the recurrence follows from a generating function the entry records as fact |
+| 8236 | PROOF | A232956 | the recurrence follows from a generating function the entry records as fact |
+| 8237 | PROOF | A233123 | the recurrence follows from a generating function the entry records as fact |
+| 8238 | PROOF | A233251 | the recurrence follows from a generating function the entry records as fact |
+| 8239 | PROOF | A233252 | the recurrence follows from a generating function the entry records as fact |
+| 8240 | PROOF | A234779 | the recurrence follows from a generating function the entry records as fact |
+| 8241 | PROOF | A235877 | the recurrence follows from a generating function the entry records as fact |
+| 8242 | PROOF | A235886 | the recurrence follows from a generating function the entry records as fact |
+| 8243 | PROOF | A253029 | the recurrence follows from a generating function the entry records as fact |
+| 8244 | PROOF | A259243 | the recurrence follows from a generating function the entry records as fact |
+| 8245 | PROOF | A259290 | the recurrence follows from a generating function the entry records as fact |
+| 8246 | PROOF | A269284 | the recurrence follows from a generating function the entry records as fact |
+| 8247 | PROOF | A275229 | the recurrence follows from a generating function the entry records as fact |
+| 8248 | PROOF | A221082 | the recurrence follows from a generating function the entry records as fact |
+| 8249 | PROOF | A223270 | the recurrence follows from a generating function the entry records as fact |
+| 8250 | PROOF | A232921 | the recurrence follows from a generating function the entry records as fact |
+| 8251 | PROOF | A233020 | the recurrence follows from a generating function the entry records as fact |
+| 8252 | PROOF | A025567 | several independent square roots |
+| 8253 | PROOF | A264123 | the recurrence follows from a generating function the entry records as fact |
+| 8254 | PROOF | A264185 | the recurrence follows from a generating function the entry records as fact |
+| 8255 | PROOF | A208428 | the recurrence follows from a generating function the entry records as fact |
+| 8256 | PROOF | A189274 | the recurrence follows from a generating function the entry records as fact |
+| 8257 | PROOF | A223322 | the recurrence follows from a generating function the entry records as fact |
+| 8258 | PROOF | A334509 | an identity between different entries |
+| 8259 | PROOF | A298022 | an identity between different entries |
+| 8260 | PROOF | A273676 | an identity between different entries |
+| 8261 | PROOF | A273832 | an identity between different entries |
+| 8262 | PROOF | A319371 | an identity between different entries |
+| 8263 | PROOF | A110320 | an identity between different entries |
+| 8264 | PROOF | A309878 | an identity between different entries |
+| 8265 | PROOF | A315520 | an identity between different entries |
+| 8266 | PROOF | A346370 | an identity between different entries |
+| 8267 | PROOF | A176126 | the residual test over one square root, or none |
+| 8268 | PROOF | A191625 | the residual test over one square root, or none |
+| 8269 | PROOF | A186341 | the residual test over one square root, or none |
+| 8270 | PROOF | A026743 | the residual test over one square root, or none |
+| 8271 | PROOF | A191786 | the residual test over one square root, or none |
+| 8272 | PROOF | A210496 | the residual test over one square root, or none |
+| 8273 | PROOF | A182892 | the residual test over one square root, or none |
+| 8274 | PROOF | A270724 | the residual test over one square root, or none |
+| 8275 | PROOF | A190171 | the residual test over one square root, or none |
+| 8276 | PROOF | A257515 | the residual test over one square root, or none |
+| 8277 | PROOF | A190788 | the residual test over one square root, or none |
+| 8278 | PROOF | A095981 | the residual test over one square root, or none |
+| 8279 | PROOF | A212205 | the residual test over one square root, or none |
+| 8280 | PROOF | A270661 | the residual test over one square root, or none |
+| 8281 | PROOF | A157021 | the residual test over one square root, or none |
+| 8282 | PROOF | A165537 | the residual test over one square root, or none |
+| 8283 | PROOF | A166287 | the residual test over one square root, or none |
+| 8284 | PROOF | A174013 | the residual test over one square root, or none |
+| 8285 | PROOF | A178072 | the residual test over one square root, or none |
+| 8286 | PROOF | A182894 | the residual test over one square root, or none |
+| 8287 | PROOF | A114584 | the residual test over one square root, or none |
+| 8288 | PROOF | A164586 | the residual test over one square root, or none |
+| 8289 | PROOF | A189053 | the residual test over one square root, or none |
+| 8290 | PROOF | A182904 | the residual test over one square root, or none |
+| 8291 | PROOF | A274295 | the residual test over one square root, or none |
+| 8292 | PROOF | A226434 | the residual test over one square root, or none |
+| 8293 | PROOF | A257104 | the residual test over one square root, or none |
+| 8294 | PROOF | A108600 | the residual test over one square root, or none |
+| 8295 | PROOF | A114851 | the residual test over one square root, or none |
+| 8296 | PROOF | A125306 | the residual test over one square root, or none |
+| 8297 | PROOF | A166290 | the residual test over one square root, or none |
+| 8298 | PROOF | A228770 | the residual test over one square root, or none |
+| 8299 | PROOF | A257300 | the residual test over one square root, or none |
+| 8300 | PROOF | A089324 | the residual test over one square root, or none |
+| 8301 | PROOF | A104625 | the residual test over one square root, or none |
+| 8302 | PROOF | A113956 | the residual test over one square root, or none |
+| 8303 | PROOF | A116383 | the residual test over one square root, or none |
+| 8304 | PROOF | A162548 | the residual test over one square root, or none |
+| 8305 | PROOF | A173993 | the residual test over one square root, or none |
+| 8306 | PROOF | A244886 | the residual test over one square root, or none |
+| 8307 | PROOF | A157003 | the residual test over one square root, or none |
+| 8308 | PROOF | A162482 | the residual test over one square root, or none |
+| 8309 | PROOF | A163493 | the residual test over one square root, or none |
+| 8310 | PROOF | A191398 | the residual test over one square root, or none |
+| 8311 | PROOF | A135582 | the residual test over one square root, or none |
+| 8312 | PROOF | A139376 | the residual test over one square root, or none |
+| 8313 | PROOF | A346074 | the residual test over one square root, or none |
+| 8314 | PROOF | A190166 | the residual test over one square root, or none |
+| 8315 | PROOF | A025251 | the residual test over one square root, or none |
+| 8316 | PROOF | A228771 | the residual test over one square root, or none |
+| 8317 | PROOF | A025268 | the residual test over one square root, or none |
+| 8318 | PROOF | A025272 | the residual test over one square root, or none |
+| 8319 | PROOF | A162475 | the residual test over one square root, or none |
+| 8320 | PROOF | A385252 | the residual test over one square root, or none |
+| 8321 | PROOF | A114464 | the residual test over one square root, or none |
+| 8322 | PROOF | A127154 | the residual test over one square root, or none |
+| 8323 | PROOF | A135335 | the residual test over one square root, or none |
+| 8324 | PROOF | A165540 | the residual test over one square root, or none |
+| 8325 | PROOF | A171416 | the residual test over one square root, or none |
+| 8326 | PROOF | A188314 | the residual test over one square root, or none |
+| 8327 | PROOF | A247170 | the residual test over one square root, or none |
+| 8328 | PROOF | A254314 | the residual test over one square root, or none |
+| 8329 | PROOF | A270661 | the residual test over one square root, or none |
+| 8330 | PROOF | A003440 | the residual test over one square root, or none |
+| 8331 | PROOF | A110521 | the residual test over one square root, or none |
+| 8332 | PROOF | A114190 | the residual test over one square root, or none |
+| 8333 | PROOF | A116387 | the residual test over one square root, or none |
+| 8334 | PROOF | A128096 | the residual test over one square root, or none |
+| 8335 | PROOF | A135052 | the residual test over one square root, or none |
+| 8336 | PROOF | A157021 | the residual test over one square root, or none |
+| 8337 | PROOF | A160823 | the residual test over one square root, or none |
+| 8338 | PROOF | A166287 | the residual test over one square root, or none |
+| 8339 | PROOF | A174808 | the residual test over one square root, or none |
+| 8340 | PROOF | A185089 | the residual test over one square root, or none |
+| 8341 | PROOF | A186940 | the residual test over one square root, or none |
+| 8342 | PROOF | A190736 | the residual test over one square root, or none |
+| 8343 | PROOF | A219314 | the residual test over one square root, or none |
+| 8344 | PROOF | A100095 | the residual test over one square root, or none |
+| 8345 | PROOF | A100097 | the residual test over one square root, or none |
+| 8346 | PROOF | A191313 | the residual test over one square root, or none |
+| 8347 | PROOF | A191790 | the residual test over one square root, or none |
+| 8348 | PROOF | A273351 | the residual test over one square root, or none |
+| 8349 | PROOF | A278472 | the residual test over one square root, or none |
+| 8350 | PROOF | A108296 | the residual test over one square root, or none |
+| 8351 | PROOF | A116391 | the residual test over one square root, or none |
+| 8352 | PROOF | A110198 | the residual test over one square root, or none |
+| 8353 | PROOF | A182879 | the residual test over one square root, or none |
+| 8354 | PROOF | A182887 | the residual test over one square root, or none |
+| 8355 | PROOF | A135925 | the residual test over one square root, or none |
+| 8356 | PROOF | A007901 | the residual test over one square root, or none |
+| 8357 | PROOF | A025256 | the residual test over one square root, or none |
+| 8358 | PROOF | A025258 | the residual test over one square root, or none |
+| 8359 | PROOF | A000781 | the residual test over one square root, or none |
+| 8360 | PROOF | A025245 | the residual test over one square root, or none |
+| 8361 | PROOF | A025257 | the residual test over one square root, or none |
+| 8362 | PROOF | A025269 | the residual test over one square root, or none |
+| 8363 | PROOF | A025270 | the residual test over one square root, or none |
+| 8364 | PROOF | A025275 | the residual test over one square root, or none |
+| 8365 | PROOF | A102880 | the residual test over one square root, or none |
+| 8366 | PROOF | A111053 | the residual test over one square root, or none |
+| 8367 | PROOF | A152120 | the residual test over one square root, or none |
+| 8368 | PROOF | A159771 | the residual test over one square root, or none |
+| 8369 | PROOF | A166694 | the residual test over one square root, or none |
+| 8370 | PROOF | A166696 | the residual test over one square root, or none |
+| 8371 | PROOF | A191796 | the residual test over one square root, or none |
+| 8372 | PROOF | A217711 | the residual test over one square root, or none |
+| 8373 | PROOF | A278023 | the residual test over one square root, or none |
+| 8374 | PROOF | A279014 | the residual test over one square root, or none |
+| 8375 | PROOF | A000483 | the residual test over one square root, or none |
+| 8376 | PROOF | A026030 | the residual test over one square root, or none |
+| 8377 | PROOF | A026031 | the residual test over one square root, or none |
+| 8378 | PROOF | A048775 | the residual test over one square root, or none |
+| 8379 | PROOF | A116409 | the residual test over one square root, or none |
+| 8380 | PROOF | A126322 | the residual test over one square root, or none |
+| 8381 | PROOF | A128750 | the residual test over one square root, or none |
+| 8382 | PROOF | A143955 | the residual test over one square root, or none |
+| 8383 | PROOF | A165203 | the residual test over one square root, or none |
+| 8384 | PROOF | A168505 | the residual test over one square root, or none |
+| 8385 | PROOF | A176605 | the residual test over one square root, or none |
+| 8386 | PROOF | A181933 | the residual test over one square root, or none |
+| 8387 | PROOF | A191585 | the residual test over one square root, or none |
+| 8388 | PROOF | A215973 | the residual test over one square root, or none |
+| 8389 | PROOF | A234269 | the residual test over one square root, or none |
+| 8390 | PROOF | A236407 | the residual test over one square root, or none |
+| 8391 | PROOF | A270363 | the residual test over one square root, or none |
+| 8392 | PROOF | A098521 | the residual test over one square root, or none |
+| 8393 | PROOF | A100096 | the residual test over one square root, or none |
+| 8394 | PROOF | A100099 | the residual test over one square root, or none |
+| 8395 | PROOF | A105849 | the residual test over one square root, or none |
+| 8396 | PROOF | A105864 | the residual test over one square root, or none |
+| 8397 | PROOF | A105865 | the residual test over one square root, or none |
+| 8398 | PROOF | A108308 | the residual test over one square root, or none |
+| 8399 | PROOF | A114194 | the residual test over one square root, or none |
+| 8400 | PROOF | A115967 | the residual test over one square root, or none |
+| 8401 | PROOF | A117186 | the residual test over one square root, or none |
+| 8402 | PROOF | A120010 | the residual test over one square root, or none |
+| 8403 | PROOF | A124431 | the residual test over one square root, or none |
+| 8404 | PROOF | A126568 | the residual test over one square root, or none |
+| 8405 | PROOF | A132364 | the residual test over one square root, or none |
+| 8406 | PROOF | A141342 | the residual test over one square root, or none |
+| 8407 | PROOF | A155051 | the residual test over one square root, or none |
+| 8408 | PROOF | A157002 | the residual test over one square root, or none |
+| 8409 | PROOF | A157100 | the residual test over one square root, or none |
+| 8410 | PROOF | A166076 | the residual test over one square root, or none |
+| 8411 | PROOF | A166300 | the residual test over one square root, or none |
+| 8412 | PROOF | A168503 | the residual test over one square root, or none |
+| 8413 | PROOF | A174107 | the residual test over one square root, or none |
+| 8414 | PROOF | A174169 | the residual test over one square root, or none |
+| 8415 | PROOF | A176332 | the residual test over one square root, or none |
+| 8416 | PROOF | A184018 | the residual test over one square root, or none |
+| 8417 | PROOF | A188312 | the residual test over one square root, or none |
+| 8418 | PROOF | A188482 | the residual test over one square root, or none |
+| 8419 | PROOF | A191782 | the residual test over one square root, or none |
+| 8420 | PROOF | A217333 | the residual test over one square root, or none |
+| 8421 | PROOF | A257072 | the residual test over one square root, or none |
+| 8422 | PROOF | A261681 | the residual test over one square root, or none |
+| 8423 | PROOF | A073155 | the residual test over one square root, or none |
+| 8424 | PROOF | A105524 | the residual test over one square root, or none |
+| 8425 | PROOF | A114589 | the residual test over one square root, or none |
+| 8426 | PROOF | A114590 | the residual test over one square root, or none |
+| 8427 | PROOF | A162481 | the residual test over one square root, or none |
+| 8428 | PROOF | A174783 | the residual test over one square root, or none |
+| 8429 | PROOF | A188460 | the residual test over one square root, or none |
+| 8430 | PROOF | A188464 | the residual test over one square root, or none |
+| 8431 | PROOF | A190725 | the residual test over one square root, or none |
+| 8432 | PROOF | A191526 | the residual test over one square root, or none |
+| 8433 | PROOF | A191531 | the residual test over one square root, or none |
+| 8434 | PROOF | A211278 | the residual test over one square root, or none |
+| 8435 | PROOF | A026327 | the residual test over one square root, or none |
+| 8436 | PROOF | A081207 | the residual test over one square root, or none |
+| 8437 | PROOF | A102882 | the residual test over one square root, or none |
+| 8438 | PROOF | A182881 | the residual test over one square root, or none |
+| 8439 | PROOF | A191309 | the residual test over one square root, or none |
+| 8440 | PROOF | A191319 | the residual test over one square root, or none |
+| 8441 | PROOF | A191790 | the residual test over one square root, or none |
+| 8442 | PROOF | A273351 | the residual test over one square root, or none |
+| 8443 | PROOF | A025248 | the residual test over one square root, or none |
+| 8444 | PROOF | A025249 | the residual test over one square root, or none |
+| 8445 | PROOF | A026017 | the residual test over one square root, or none |
+| 8446 | PROOF | A071717 | the residual test over one square root, or none |
+| 8447 | PROOF | A081672 | the residual test over one square root, or none |
+| 8448 | PROOF | A104722 | the residual test over one square root, or none |
+| 8449 | PROOF | A109263 | the residual test over one square root, or none |
+| 8450 | PROOF | A118093 | the residual test over one square root, or none |
+| 8451 | PROOF | A118974 | the residual test over one square root, or none |
+| 8452 | PROOF | A121320 | the residual test over one square root, or none |
+| 8453 | PROOF | A126323 | the residual test over one square root, or none |
+| 8454 | PROOF | A128723 | the residual test over one square root, or none |
+| 8455 | PROOF | A135334 | the residual test over one square root, or none |
+| 8456 | PROOF | A141351 | the residual test over one square root, or none |
+| 8457 | PROOF | A141353 | the residual test over one square root, or none |
+| 8458 | PROOF | A163824 | the residual test over one square root, or none |
+| 8459 | PROOF | A165201 | the residual test over one square root, or none |
+| 8460 | PROOF | A279014 | the residual test over one square root, or none |
+| 8461 | PROOF | A026027 | the residual test over one square root, or none |
+| 8462 | PROOF | A026135 | the residual test over one square root, or none |
+| 8463 | PROOF | A050168 | the residual test over one square root, or none |
+| 8464 | PROOF | A059279 | the residual test over one square root, or none |
+| 8465 | PROOF | A063395 | the residual test over one square root, or none |
+| 8466 | PROOF | A071722 | the residual test over one square root, or none |
+| 8467 | PROOF | A082134 | the residual test over one square root, or none |
+| 8468 | PROOF | A097331 | the residual test over one square root, or none |
+| 8469 | PROOF | A100193 | the residual test over one square root, or none |
+| 8470 | PROOF | A103973 | the residual test over one square root, or none |
+| 8471 | PROOF | A106181 | the residual test over one square root, or none |
+| 8472 | PROOF | A108623 | the residual test over one square root, or none |
+| 8473 | PROOF | A126180 | the residual test over one square root, or none |
+| 8474 | PROOF | A128732 | the residual test over one square root, or none |
+| 8475 | PROOF | A134389 | the residual test over one square root, or none |
+| 8476 | PROOF | A143013 | the residual test over one square root, or none |
+| 8477 | PROOF | A143954 | the residual test over one square root, or none |
+| 8478 | PROOF | A157418 | the residual test over one square root, or none |
+| 8479 | PROOF | A158196 | the residual test over one square root, or none |
+| 8480 | PROOF | A158197 | the residual test over one square root, or none |
+| 8481 | PROOF | A191585 | the residual test over one square root, or none |
+| 8482 | PROOF | A257290 | the residual test over one square root, or none |
+| 8483 | PROOF | A054341 | the residual test over one square root, or none |
+| 8484 | PROOF | A071715 | the residual test over one square root, or none |
+| 8485 | PROOF | A090413 | the residual test over one square root, or none |
+| 8486 | PROOF | A090826 | the residual test over one square root, or none |
+| 8487 | PROOF | A091699 | the residual test over one square root, or none |
+| 8488 | PROOF | A098664 | the residual test over one square root, or none |
+| 8489 | PROOF | A099363 | the residual test over one square root, or none |
+| 8490 | PROOF | A100098 | the residual test over one square root, or none |
+| 8491 | PROOF | A105872 | the residual test over one square root, or none |
+| 8492 | PROOF | A119975 | the residual test over one square root, or none |
+| 8493 | PROOF | A121724 | the residual test over one square root, or none |
+| 8494 | PROOF | A121725 | the residual test over one square root, or none |
+| 8495 | PROOF | A126931 | the residual test over one square root, or none |
+| 8496 | PROOF | A126932 | the residual test over one square root, or none |
+| 8497 | PROOF | A127361 | the residual test over one square root, or none |
+| 8498 | PROOF | A127363 | the residual test over one square root, or none |
+| 8499 | PROOF | A155051 | the residual test over one square root, or none |
+| 8500 | PROOF | A166078 | the residual test over one square root, or none |
+| 8501 | PROOF | A166587 | the residual test over one square root, or none |
+| 8502 | PROOF | A166588 | the residual test over one square root, or none |
+| 8503 | PROOF | A176006 | the residual test over one square root, or none |
+| 8504 | PROOF | A185087 | the residual test over one square root, or none |
+| 8505 | PROOF | A190724 | the residual test over one square root, or none |
+| 8506 | PROOF | A225887 | the residual test over one square root, or none |
+| 8507 | PROOF | A227081 | the residual test over one square root, or none |
+| 8508 | PROOF | A257178 | the residual test over one square root, or none |
+| 8509 | PROOF | A257388 | the residual test over one square root, or none |
+| 8510 | PROOF | A257838 | the residual test over one square root, or none |
+| 8511 | PROOF | A001712 | the residual test over one square root, or none |
+| 8512 | PROOF | A025175 | the residual test over one square root, or none |
+| 8513 | PROOF | A025577 | the residual test over one square root, or none |
+| 8514 | PROOF | A026023 | the residual test over one square root, or none |
+| 8515 | PROOF | A055217 | the residual test over one square root, or none |
+| 8516 | PROOF | A081052 | the residual test over one square root, or none |
+| 8517 | PROOF | A103821 | the residual test over one square root, or none |
+| 8518 | PROOF | A107231 | the residual test over one square root, or none |
+| 8519 | PROOF | A110199 | the residual test over one square root, or none |
+| 8520 | PROOF | A116406 | the residual test over one square root, or none |
+| 8521 | PROOF | A128734 | the residual test over one square root, or none |
+| 8522 | PROOF | A191307 | the residual test over one square root, or none |
+| 8523 | PROOF | A278472 | the residual test over one square root, or none |
+| 8524 | PROOF | A034863 | the residual test over one square root, or none |
+| 8525 | PROOF | A128652 | the residual test over one square root, or none |
+| 8526 | PROOF | A174195 | the residual test over one square root, or none |
+| 8527 | PROOF | A192480 | the residual test over one square root, or none |
+| 8528 | PROOF | A158495 | the residual test over one square root, or none |
+| 8529 | PROOF | A189176 | the residual test over one square root, or none |
+| 8530 | PROOF | A194724 | the residual test over one square root, or none |
+| 8531 | PROOF | A210474 | the residual test over one square root, or none |
+| 8532 | PROOF | A262768 | the residual test over one square root, or none |
+| 8533 | PROOF | A026029 | the residual test over one square root, or none |
+| 8534 | PROOF | A064088 | the residual test over one square root, or none |
+| 8535 | PROOF | A064089 | the residual test over one square root, or none |
+| 8536 | PROOF | A064090 | the residual test over one square root, or none |
+| 8537 | PROOF | A064091 | the residual test over one square root, or none |
+| 8538 | PROOF | A064092 | the residual test over one square root, or none |
+| 8539 | PROOF | A067299 | the residual test over one square root, or none |
+| 8540 | PROOF | A068551 | the residual test over one square root, or none |
+| 8541 | PROOF | A080243 | the residual test over one square root, or none |
+| 8542 | PROOF | A114191 | the residual test over one square root, or none |
+| 8543 | PROOF | A116881 | the residual test over one square root, or none |
+| 8544 | PROOF | A122920 | the residual test over one square root, or none |
+| 8545 | PROOF | A132864 | the residual test over one square root, or none |
+| 8546 | PROOF | A133305 | the residual test over one square root, or none |
+| 8547 | PROOF | A133306 | the residual test over one square root, or none |
+| 8548 | PROOF | A133307 | the residual test over one square root, or none |
+| 8549 | PROOF | A133308 | the residual test over one square root, or none |
+| 8550 | PROOF | A141222 | the residual test over one square root, or none |
+| 8551 | PROOF | A154623 | the residual test over one square root, or none |
+| 8552 | PROOF | A157328 | the residual test over one square root, or none |
+| 8553 | PROOF | A158196 | the residual test over one square root, or none |
+| 8554 | PROOF | A158197 | the residual test over one square root, or none |
+| 8555 | PROOF | A191993 | the residual test over one square root, or none |
+| 8556 | PROOF | A225034 | the residual test over one square root, or none |
+| 8557 | PROOF | A242172 | the residual test over one square root, or none |
+| 8558 | PROOF | A002867 | the residual test over one square root, or none |
+| 8559 | PROOF | A014533 | the residual test over one square root, or none |
+| 8560 | PROOF | A051524 | the residual test over one square root, or none |
+| 8561 | PROOF | A071264 | the residual test over one square root, or none |
+| 8562 | PROOF | A081046 | the residual test over one square root, or none |
+| 8563 | PROOF | A098519 | the residual test over one square root, or none |
+| 8564 | PROOF | A098520 | the residual test over one square root, or none |
+| 8565 | PROOF | A101596 | the residual test over one square root, or none |
+| 8566 | PROOF | A101601 | the residual test over one square root, or none |
+| 8567 | PROOF | A101602 | the residual test over one square root, or none |
+| 8568 | PROOF | A111779 | the residual test over one square root, or none |
+| 8569 | PROOF | A112703 | the residual test over one square root, or none |
+| 8570 | PROOF | A119012 | the residual test over one square root, or none |
+| 8571 | PROOF | A128057 | the residual test over one square root, or none |
+| 8572 | PROOF | A128746 | the residual test over one square root, or none |
+| 8573 | PROOF | A132900 | the residual test over one square root, or none |
+| 8574 | PROOF | A151483 | the residual test over one square root, or none |
+| 8575 | PROOF | A167481 | the residual test over one square root, or none |
+| 8576 | PROOF | A171556 | the residual test over one square root, or none |
+| 8577 | PROOF | A176479 | the residual test over one square root, or none |
+| 8578 | PROOF | A182401 | the residual test over one square root, or none |
+| 8579 | PROOF | A208355 | the residual test over one square root, or none |
+| 8580 | PROOF | A210064 | the residual test over one square root, or none |
+| 8581 | PROOF | A240558 | the residual test over one square root, or none |
+| 8582 | PROOF | A141771 | the residual test over one square root, or none |
+| 8583 | PROOF | A176606 | the residual test over one square root, or none |
+| 8584 | PROOF | A176607 | the residual test over one square root, or none |
+| 8585 | PROOF | A176609 | the residual test over one square root, or none |
+| 8586 | PROOF | A176610 | the residual test over one square root, or none |
+| 8587 | PROOF | A176611 | the residual test over one square root, or none |
+| 8588 | PROOF | A176675 | the residual test over one square root, or none |
+| 8589 | PROOF | A176749 | the residual test over one square root, or none |
+| 8590 | PROOF | A176750 | the residual test over one square root, or none |
+| 8591 | PROOF | A176751 | the residual test over one square root, or none |
+| 8592 | PROOF | A176752 | the residual test over one square root, or none |
+| 8593 | PROOF | A176753 | the residual test over one square root, or none |
+| 8594 | PROOF | A176754 | the residual test over one square root, or none |
+| 8595 | PROOF | A176755 | the residual test over one square root, or none |
+| 8596 | PROOF | A176756 | the residual test over one square root, or none |
+| 8597 | PROOF | A176757 | the residual test over one square root, or none |
+| 8598 | PROOF | A176759 | the residual test over one square root, or none |
+| 8599 | PROOF | A176828 | the residual test over one square root, or none |
+| 8600 | PROOF | A176829 | the residual test over one square root, or none |
+| 8601 | PROOF | A176830 | the residual test over one square root, or none |
+| 8602 | PROOF | A176832 | the residual test over one square root, or none |
+| 8603 | PROOF | A176854 | the residual test over one square root, or none |
+| 8604 | PROOF | A176855 | the residual test over one square root, or none |
+| 8605 | PROOF | A176856 | the residual test over one square root, or none |
+| 8606 | PROOF | A176857 | the residual test over one square root, or none |
+| 8607 | PROOF | A176858 | the residual test over one square root, or none |
+| 8608 | PROOF | A176859 | the residual test over one square root, or none |
+| 8609 | PROOF | A176952 | the residual test over one square root, or none |
+| 8610 | PROOF | A176953 | the residual test over one square root, or none |
+| 8611 | PROOF | A176956 | the residual test over one square root, or none |
+| 8612 | PROOF | A176957 | the residual test over one square root, or none |
+| 8613 | PROOF | A176958 | the residual test over one square root, or none |
+| 8614 | PROOF | A176959 | the residual test over one square root, or none |
+| 8615 | PROOF | A176962 | the residual test over one square root, or none |
+| 8616 | PROOF | A176964 | the residual test over one square root, or none |
+| 8617 | PROOF | A176966 | the residual test over one square root, or none |
+| 8618 | PROOF | A176967 | the residual test over one square root, or none |
+| 8619 | PROOF | A177123 | the residual test over one square root, or none |
+| 8620 | PROOF | A177124 | the residual test over one square root, or none |
+| 8621 | PROOF | A177125 | the residual test over one square root, or none |
+| 8622 | PROOF | A177126 | the residual test over one square root, or none |
+| 8623 | PROOF | A177127 | the residual test over one square root, or none |
+| 8624 | PROOF | A177128 | the residual test over one square root, or none |
+| 8625 | PROOF | A177129 | the residual test over one square root, or none |
+| 8626 | PROOF | A177130 | the residual test over one square root, or none |
+| 8627 | PROOF | A177131 | the residual test over one square root, or none |
+| 8628 | PROOF | A177163 | the residual test over one square root, or none |
+| 8629 | PROOF | A177165 | the residual test over one square root, or none |
+| 8630 | PROOF | A177166 | the residual test over one square root, or none |
+| 8631 | PROOF | A177167 | the residual test over one square root, or none |
+| 8632 | PROOF | A177168 | the residual test over one square root, or none |
+| 8633 | PROOF | A177169 | the residual test over one square root, or none |
+| 8634 | PROOF | A177170 | the residual test over one square root, or none |
+| 8635 | PROOF | A177171 | the residual test over one square root, or none |
+| 8636 | PROOF | A177172 | the residual test over one square root, or none |
+| 8637 | PROOF | A177175 | the residual test over one square root, or none |
+| 8638 | PROOF | A177177 | the residual test over one square root, or none |
+| 8639 | PROOF | A177178 | the residual test over one square root, or none |
+| 8640 | PROOF | A177179 | the residual test over one square root, or none |
+| 8641 | PROOF | A177180 | the residual test over one square root, or none |
+| 8642 | PROOF | A177181 | the residual test over one square root, or none |
+| 8643 | PROOF | A177182 | the residual test over one square root, or none |
+| 8644 | PROOF | A177183 | the residual test over one square root, or none |
+| 8645 | PROOF | A177184 | the residual test over one square root, or none |
+| 8646 | PROOF | A177185 | the residual test over one square root, or none |
+| 8647 | PROOF | A177197 | the residual test over one square root, or none |
+| 8648 | PROOF | A177198 | the residual test over one square root, or none |
+| 8649 | PROOF | A177199 | the residual test over one square root, or none |
+| 8650 | PROOF | A177200 | the residual test over one square root, or none |
+| 8651 | PROOF | A177203 | the residual test over one square root, or none |
+| 8652 | PROOF | A081670 | the known side is the entry's NAME rather than a formula line |
+| 8653 | PROOF | A085781 | the known side is the entry's NAME rather than a formula line |
+| 8654 | PROOF | A026019 | the known side is the entry's NAME rather than a formula line |
+| 8655 | PROOF | A052183 | the known side is the entry's NAME rather than a formula line |
+| 8656 | PROOF | A052204 | the known side is the entry's NAME rather than a formula line |
+| 8657 | PROOF | A157713 | the known side is the entry's NAME rather than a formula line |
+| 8658 | PROOF | A334511 | a posted closed form decided by the theory of hypergeometric terms |
+| 8659 | PROOF | A333905 | a posted closed form decided by the theory of hypergeometric terms |
+| 8660 | PROOF | A049486 | a posted closed form decided by the theory of hypergeometric terms |
+| 8661 | PROOF | A267879 | a posted closed form decided by the theory of hypergeometric terms |
+| 8662 | PROOF | A267802 | a posted closed form decided by the theory of hypergeometric terms |
+| 8663 | PROOF | A267847 | a posted closed form decided by the theory of hypergeometric terms |
+| 8664 | PROOF | A034267 | a posted closed form decided by the theory of hypergeometric terms |
+| 8665 | PROOF | A126501 | a posted closed form decided by the theory of hypergeometric terms |
+| 8666 | PROOF | A128153 | a posted closed form decided by the theory of hypergeometric terms |
+| 8667 | PROOF | A212938 | a posted closed form decided by the theory of hypergeometric terms |
+| 8668 | PROOF | A220250 | a posted closed form decided by the theory of hypergeometric terms |
+| 8669 | PROOF | A248434 | a posted closed form decided by the theory of hypergeometric terms |
+| 8670 | PROOF | A258547 | a posted closed form decided by the theory of hypergeometric terms |
+| 8671 | PROOF | A272706 | a posted closed form decided by the theory of hypergeometric terms |
+| 8672 | PROOF | A126089 | complete annihilation, tested in the Ore algebra Q(n)[N] |
+| 8673 | PROOF | A025271 | division of one posted operator by another |
+| 8674 | PROOF | A138164 | division of one posted operator by another |
+| 8675 | PROOF | A143017 | division of one posted operator by another |
+| 8676 | PROOF | A159772 | division of one posted operator by another |
+| 8677 | PROOF | A000986 | division of one posted operator by another |
+| 8678 | PROOF | A022917 | division of one posted operator by another |
+| 8679 | PROOF | A217447 | division of one posted operator by another |
+| 8680 | PROOF | A226302 | division of one posted operator by another |
+| 8681 | PROOF | A245088 | division of one posted operator by another |
+| 8682 | PROOF | A026165 | division of one posted operator by another |
+| 8683 | PROOF | A185966 | division of one posted operator by another |
+| 8684 | PROOF | A200753 | division of one posted operator by another |
+| 8685 | PROOF | A217358 | division of one posted operator by another |
+| 8686 | PROOF | A228960 | division of one posted operator by another |
+| 8687 | PROOF | A003435 | division of one posted operator by another |
+| 8688 | PROOF | A228331 | division of one posted operator by another |
+| 8689 | PROOF | A273019 | division of one posted operator by another |
+| 8690 | PROOF | A386834 | division of one posted operator by another |
+| 8691 | PROOF | A228330 | division of one posted operator by another |
+| 8692 | PROOF | A228333 | division of one posted operator by another |
 
 ### What the ranking means
 
@@ -13760,6 +13755,63 @@ cell-condition-pattern 4, common-sum 3, monotone-subblock 3, the rest one or two
 it needs an argument uniform in `k`, not one model), 30 transposed, 12 square, 7 other head, 1
 with no `n`. The transposed and same-orientation ones are the ones worth a parser widening; the
 `T(n,k)` ones are a different piece of work.
+
+### 6 September 2026 — the full re-check, and five papers withdrawn
+
+The whole roster was re-checked against a fresh OEIS export (the 6 Sep 2026 dump, pulled for
+this pass; the working copy had been eleven days old). What was done, and what it found:
+
+**Still open.** The settlement scan ran over all 8665 A-numbers on the new export: 27 hits, every
+one read by hand. Three were real.
+
+* `A032096` — Barker's conjectured recurrence is the denominator of the g.f. that Hadjicostas
+  PROVES in a comment on the same entry (May 2018). One line from a proved fact. **Withdrawn.**
+* `A156894` — the entry records Bala verifying Mathar's ORDER-2 recurrence with Zeilberger's
+  `sumrecursion`. Our two papers proved the order-3 and order-4 lines. Ore division confirms both
+  are left multiples of the order-2 operator, so both are one-line consequences of something the
+  entry already records. **Both withdrawn.** (An earlier session dropped a third A156894 paper for
+  exactly this reason and did not check for siblings.)
+* `A129365` — Adamczewski, *OEIS Open* (arXiv:2608.11941, linked on the entry Aug 2026), proves
+  Bala's Conjectures B and C. Ours is Conjecture A plus the exact valuation, which is D and
+  implies B and C. Still open, but the comment has to say so. That paper formalised 492 open OEIS
+  conjectures in Lean and resolved 147 of them; the overlap with this roster is **one entry**.
+
+Two more are borderline and are flagged, not withdrawn: `A162548` and `A185089` carry "Formula
+verified and used for computations. - _Fung Lam_", which reads as a numerical check.
+
+**Correct.** Three independent passes.
+
+* `audit_deep.py`, a replacement for `audit_all.py`, rebuilds each array model from the entry's
+  NAME through the one uniform interface, compares against every published term, and evaluates
+  the conjectured recurrence past both the data and the proved threshold. **7380 models, zero
+  problems.** (`audit_all.py` had gone stale: it knew eleven engines of seventy-odd and unpacked a
+  fixed tuple shape, so a third of what it looked at came back as a harness error, not a verdict.)
+* Every conjecture quoted in a paper was re-evaluated on the entry's current data: 5185 testable,
+  **21 failures, every one a contiguous run at the start** — the threshold the paper states — and
+  each read individually.
+* `regf.py` was re-run from scratch on the symbolic papers. The ones in its scope came back
+  PROVED; the rest use a route it does not cover and are recorded as not re-checked.
+
+Still not re-verified in this pass and recorded as such: 70 models too large to rebuild inside a
+container turn, and the symbolic families whose route `regf.py` does not cover.
+
+**Double counting.** 29 entries hold two papers. Comparing the conjecture each paper quotes shows
+28 of them carry two genuinely different conjectures (different orders). Two did not:
+
+* `A124431` — Mathar posted the SAME recurrence twice, in 2012 and 2016. Two papers, one theorem.
+  **One withdrawn.**
+* `A306948` — one conjecture on the entry, two papers. **One withdrawn.**
+
+That is the failure this project is most exposed to, and nothing was checking for it: `rank.py`
+counts an entry twice without asking whether the two papers say the same thing. The check is now
+part of the re-check.
+
+**Attribution.** "contributed by R. J. Mathar" and "contributed by R. H. Hardin" were HARDCODED in
+two paper templates. Matching each paper's quoted line to the entry line and reading its signature:
+5783 correct, three wrong — `A225034` is Bruno Berselli's, `A221783` is Vaclav Kotesovec's,
+`A032096` is Colin Barker's — and `A207747` is Hardin's as corrected by Barker. Fixed and rebuilt.
+
+Roster 8697 → 8692.
 
 ### Signals worth opening
 Garbled or self-contradictory wording; an idle hypothesis (check whether the caveat is

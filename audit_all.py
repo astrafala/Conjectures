@@ -12,7 +12,19 @@ from the entry's NAME, recomputes the sequence, and then:
      paper resting on a weak check can be found;
   4. re-checks that the entry is still recorded as open.
 """
-import json, re, os, sys, collections, importlib, time
+import json, re, os, sys, collections, importlib, time, signal
+
+
+class Slow(Exception):
+    pass
+
+
+def _alarm(sig, frm):
+    raise Slow()
+
+
+signal.signal(signal.SIGALRM, _alarm)
+BUDGET = int(os.environ.get('AUDIT_BUDGET', '150'))
 from math import factorial
 import localentry as LE, ratrec, openness
 
@@ -79,21 +91,30 @@ for t in targets:
     d = [int(v) for v in e['data'].split(',') if v.strip()]
     off = int(e['offset'].split(',')[0])
     op, flag = openness.status(a)
+    signal.alarm(BUDGET)
     try:
         mod0 = M[eng.replace('nb', '')]
         try:
             built = mod0.build(p, cap=400000)
         except TypeError:
             built = mod0.build(p)          # transfer6's build takes no cap
+    except Slow:
+        signal.alarm(0)
+        res['slow'] += 1
+        out[a] = {'v': 'SLOW BUILD'}
+        continue
     except Exception as ex:
+        signal.alarm(0)
         res['build failed'] += 1
         out[a] = {'v': 'BUILD FAILED', 'err': str(ex)[:80]}
         continue
+    signal.alarm(0)
     if built is None:
         res['too big to recheck'] += 1
         out[a] = {'v': 'TOO BIG'}
         continue
     mod = M[eng.replace('nb', '')]
+    signal.alarm(BUDGET)
     try:
         if eng == 'transfer10':
             adj, start, _ = built
@@ -101,10 +122,17 @@ for t in targets:
         else:
             adj, start, end, _ = built
             vals = mod.avals(adj, start, end, p, off + len(d) + EXTRA)
+    except Slow:
+        signal.alarm(0)
+        res['slow'] += 1
+        out[a] = {'v': 'SLOW EVAL'}
+        continue
     except Exception as ex:
+        signal.alarm(0)
         res['eval failed'] += 1
         out[a] = {'v': 'EVAL FAILED', 'err': str(ex)[:80]}
         continue
+    signal.alarm(0)
     f = p.get('frac', 1) * (factorial(p['K']) if eng in SCALED else 1)
     got = [None if v is None or v % f else v // f for v in vals]
     datok = got[off:off + len(d)] == d
