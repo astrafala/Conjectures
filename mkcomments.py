@@ -99,6 +99,17 @@ QUASI = ("This is true, and the closed form behind it is exact for every n. The 
          "statement read at each parity, and are exact as well")
 
 
+BOXPP = ("The empirical formula is true. Reverse the rows and the columns: a matrix over "
+         "0..n that is nondecreasing along rows and down columns becomes one that is "
+         "nonincreasing, which is exactly a plane partition with parts at most n inside a "
+         "P X Q rectangle -- so a(n) counts the plane partitions in a P X Q X n box, which is "
+         "the formula already noted on this entry. That triple product telescopes in its third "
+         "index, leaving a(n) = Product_{i=1..P} Product_{j=1..Q} (n+i+j-1)/(i+j-1), a "
+         "polynomial in n of degree P*Q. Clearing the denominator of the empirical expression "
+         "then turns it into an identity between two polynomials whose degrees are bounded by "
+         "inspection, so checking it at that many points settles it")
+
+
 def array(S, thr):
     s = "The empirical recurrence is true. Counting the arrays a row at a time gives a transfer matrix"
     if S:
@@ -339,6 +350,8 @@ def main():
             elif t == ('The empirical recurrence for OEIS A, proved by an exact '
                        'quasi-polynomial'):
                 txt = QUASI + '.'
+            elif t == 'The empirical product formula for OEIS A, proved':
+                txt = BOXPP + '.'
             elif t in ARRAY_TITLES:
                 txt = array(S, thr)
             elif t == "The empirical recurrence for OEIS A, derived from the entry's generating function":
