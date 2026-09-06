@@ -10,6 +10,9 @@ time it was settled.
 
 ## Start here
 
+- **[OVERVIEW.pdf](OVERVIEW.pdf)** — one document explaining the method, the verification, and
+  the errors it caught. **Read this first if you are here to assess the work rather than to
+  look up an entry.**
 - **[papers/](papers/)** — every paper, as a PDF. One folder per band of 500.
 - **[papers/README.md](papers/README.md)** — how the ordering works, and the contents page.
 - **[papers/index.csv](papers/index.csv)** — every paper with its OEIS entry, in one table.
