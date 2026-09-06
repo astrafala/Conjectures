@@ -21,7 +21,7 @@ HAND = {
  'A076217': "This recurrence fails at n = 3^k, 3^k + 1 and 3^k + 2 for every k >= 2, so it fails infinitely often; the observation above that it seems to fail at powers of 3 is exactly right. It follows from a(n) = 1 precisely when n = 3^k - 2, which an induction on the entry's own defining recursion gives, and then the six values around each power of three can be written down.",
  'A129365': "Conjecture A is true, and more: for every prime p, ord_p(a(n)) = Sum_{i>=1} B(floor(n/p^i)) with B(M) = Sum_{k=1..M} (M mod k) = A004125(M). A sum of remainders is nonnegative, so every exponent is, which gives A; the formula is Conjecture D, and B and C follow from it as well. The proof is the known factorisation of the numerator, the identity floor(n/(k*p^i)) = floor(floor(n/p^i)/k) for the denominator, and M^2 - Sum_{k<=M} k*floor(M/k) = Sum_{k<=M} (M mod k).",
  'A092287': "The rectangle conjecture is true. For each prime p, v_p(gcd(j,k)) counts the i with p^i dividing both j and k, so summing over the rectangle and exchanging the order of summation gives ord_p(f(n,m)) = Sum_{i>=1} floor(n/p^i)*floor(m/p^i). The square case m = n is Bala's older conjecture, already confirmed above, and is the diagonal of this.",
- 'A000071': "This is true. For odd j, F(j) - 1 = F(E)*L(O), where E and O are the even and the odd member of the pair {(j-1)/2, (j+1)/2}; applying that to j = k*n turns the strong divisibility of a(k*n) into the strong divisibility of the Fibonacci and Lucas numbers, which is classical.",
+ 'A000071': "This is true. The sequence itself is not a strong divisibility sequence -- gcd(a(4), a(6)) = 1 while a(gcd(4,6)) = a(2) = 0 -- but restricting the index to a fixed odd geometric progression makes it one. For odd j, F(j) - 1 = F(E)*L(O), where E and O are the even and the odd member of the pair {(j-1)/2, (j+1)/2}; along j = k^n the two indices inherit the cyclotomic gcd structure of k^n -/+ 1, which is exactly what a strong divisibility sequence needs.",
  'A000139': "This is true. By Legendre's formula the parity of a(n) is decided by s(2n+1) + s(n+1) - s(3n) = 1 for the binary digit sum s; writing t for the number of trailing 1s of n and counting the carries in the binary addition n + 2n gives the identity exactly when n is an odd Fibbinary number.",
  'A005329': "This is true. Both sides are governed by a functional equation for an exponential generating function, and the substitution g = e^x f -- which is what taking the binomial transform does -- carries one equation into the other.",
  'A087726': "The converse holds too, so this is an equivalence. No formula for a(p^k) is needed: a is multiplicative with a(p) = p^2, so it is enough that a(p^k) > p^(2k) for k >= 2, and that follows from a lower bound, since every trace-zero X = [[a,b],[c,-a]] has X^2 = (a^2+bc)I.",
@@ -39,6 +39,7 @@ NOTE = {
 
 REC = {}
 CLAIMED = {}
+OPEN_REC = {}
 
 
 def norm_title(t):
@@ -191,8 +192,36 @@ def main():
     tex = {a: v[:keep[a]] for a, v in tex.items() if keep.get(a)}
     st = json.load(open(SC + '/status.json'))
     REC.update(json.load(open('audit_recover.json')))
+    # 259 papers have no build/ directory left, so no title to key on. For the algebraic
+    # generating-function family the residual and its degree are recorded in rec-open.json,
+    # which is all the wording needs; the rest are named individually below.
+    for a, v in json.load(open('rec-open.json')).items():
+        try:
+            OPEN_REC[a] = int(v['degree'])
+        except Exception:
+            pass
     CLAIMED.update(json.load(open(SC + '/table_claimed.json')))
     out, unhandled = {}, collections.Counter()
+    live = collections.Counter(v['anum'] for v in json.load(open('paper-engines.json')).values())
+    for a in sorted(live):
+        if a in tex:
+            continue
+        if a in HAND:
+            out[a] = [{'title': '(hand-written; the paper source is gone)',
+                       'conjecture': None, 'S': None, 'thr': None, 'verify': st.get(a),
+                       'hold': None, 'note': NOTE.get(a),
+                       'comment': HAND[a] + SIG}]
+            continue
+        if a in OPEN_REC:
+            out[a] = [{'title': '(build directory gone; residual recorded in rec-open.json)',
+                       'conjecture': None, 'S': None, 'thr': OPEN_REC[a],
+                       'verify': st.get(a), 'hold': None, 'note': None,
+                       'comment': alg_gf(OPEN_REC[a]) + SIG}]
+        else:
+            out[a] = [{'title': '(no build directory and no recorded residual)',
+                       'conjecture': None, 'S': None, 'thr': None, 'verify': st.get(a),
+                       'hold': 'no draft: the paper source is gone and nothing records its '
+                               'threshold', 'note': None, 'comment': None}]
     for a in sorted(tex):
         for rec in tex[a]:
             t, thr, S = norm_title(rec['title']), rec['thr'], rec['S']

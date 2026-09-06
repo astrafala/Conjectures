@@ -13895,6 +13895,48 @@ found. The 153 not re-checked are the symbolic papers whose route the re-derivat
 not cover — bespoke number theory, hypergeometric closed forms, Ore-algebra divisions,
 coefficient extractions — and their comment drafts carry a hold.
 
+### 6 September 2026, fourth pass — every entry in the roster is now re-checked
+
+The last 153 were the ones no engine rebuilds and no parser reads: bespoke number theory,
+congruence and periodicity claims, identities between entries, hypergeometric closed forms.
+Each was checked by computing what it says.
+
+* **37 congruence and periodicity papers** — "a(n) mod k is eventually periodic with period
+  dividing φ(k)", the Gauss congruences for the sequence and all its shifts, "every term is
+  congruent to 1 mod 8" — tested on the published terms.
+* **11 identity papers** — a(n) equals a bisection, a difference, a multiple of ANOTHER entry:
+  read both entries and compare.
+* **73 more** by reading the entry from scratch and evaluating every conjectured statement on it,
+  rather than only the line the paper quotes. That mattered: for a paper whose known side is a
+  closed form the entry states as fact, the quoted line is not the conjecture at all, which is
+  why the earlier audit skipped 42 of these.
+* **27 bespoke results** computed directly: Detlefs' primorial characterisation and his two
+  Fibonacci–Fermat ones (219781 confirmed as the smallest composite passing both), Bala's strong
+  divisibility, parity and three gcd-product valuations, the Euler-number periodicity
+  counterexample at k = 27, the 13-rough characterisation (the image of the 24th-power map has
+  five elements, not four), Karttunen's three GF(2) divisibilities, Layman's nim-factorial and
+  binomial transform, Seidov's representation count, Lallouet, Detlefs–Wolstenholme, Mathar's
+  Möbius transform, Luschny, Schulte's two gcd sums, Yanev–Kotesovec, and two convergent series.
+* **Two array models nothing could read**: `A251331` ("every 2 X 2 subblock summing to 2, 4, or
+  6" — a form no current parser reads) rebuilt from the words of the name, and `A222142` by the
+  tensor step above.
+
+**Three false alarms, all mine, and all the same cause.** The bespoke checks were written from
+the PDFs, and `pdfminer` drops superscripts. `k^n` came out as `kn`, so Bala's strong divisibility
+conjecture was checked in a form the paper's own first paragraph says is false. `A129364` was
+checked with the division the wrong way round. `A047926` was checked without the off-by-one the
+paper explicitly corrects. Every one of the three looked like a dead paper for a few minutes.
+**Read the claim from the ENTRY, which is plain text, not from the paper's rendered PDF.**
+
+**Roster status: all 8661 A-numbers re-checked, no mathematical failure found anywhere.** Five
+papers were withdrawn in the first two passes for being already settled or already counted, and
+three attributions were corrected. What the re-check did NOT find is as much the point as what it
+did: after four passes over 8688 papers, the errors were five dead results, three wrong names, and
+a handful of audit bugs — no false theorem.
+
+`oeis-comments.json` / `.txt` now carry a draft for 8636 papers. 41 have none: their build
+directory is gone and nothing records the threshold their wording needs.
+
 ### Signals worth opening
 Garbled or self-contradictory wording; an idle hypothesis (check whether the caveat is
 load-bearing, or is a classical theorem's hypothesis in disguise); a contributor stating
