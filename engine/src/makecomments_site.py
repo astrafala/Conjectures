@@ -33,8 +33,17 @@ def conj_lines(a):
 
 
 def sortable(d):
+    """a date, orderable; a month with no day sorts before every dated day in that month
+
+    Nine of the earliest papers print only a month. Treating those as undated sent the very
+    first work in the project to the bottom of a list whose whole purpose is to show what came
+    first, so a month-only date sorts at day 0 of its month.
+    """
     m = re.match(r'(\d+)\s+([A-Za-z]+)\s+(\d{4})', d or '')
-    return (int(m.group(3)), MONTH.get(m.group(2), 0), int(m.group(1))) if m else (9999, 0, 0)
+    if m:
+        return (int(m.group(3)), MONTH.get(m.group(2), 0), int(m.group(1)))
+    m = re.match(r'([A-Za-z]+)\s+(\d{4})', d or '')
+    return (int(m.group(2)), MONTH.get(m.group(1), 0), 0) if m else (9999, 0, 0)
 
 
 def dates_and_papers():
@@ -47,6 +56,11 @@ def dates_and_papers():
     """
     rm = json.load(open('rank-map.json'))
     printed = paperdates.load()
+    # nine of the earliest papers print a month with no day. The day is not guessed: the
+    # first commit that carries the paper bounds it, and that bound is recorded instead.
+    gitday = (json.load(open(os.path.join(repopaths.ROOT, 'engine', 'paper-dates-git.json')))
+              if os.path.exists(os.path.join(repopaths.ROOT, 'engine',
+                                             'paper-dates-git.json')) else {})
     by = collections.defaultdict(list)
     clash = 0
     for m in rm:
@@ -60,7 +74,8 @@ def dates_and_papers():
                 clash += 1
             elif mm and not d:
                 d = mm.group(1).strip()
-        by[m['anum']].append({'rank': m['rank'], 'path': rel, 'date': d})
+        seen = gitday.get(rel) if d and len(d.split()) == 2 else None
+        by[m['anum']].append({'rank': m['rank'], 'path': rel, 'date': d, 'since': seen})
     if clash:
         print(f'  {clash} papers whose source disagrees with the date the paper prints')
     return by
@@ -74,7 +89,8 @@ def main():
         recs = [r for r in comments.get(a, []) if r.get('comment')]
         ps = sorted(papers.get(a, []), key=lambda x: sortable(x['date']))
         rows.append({'anum': a, 'recs': recs, 'papers': ps,
-                     'date': ps[0]['date'] if ps else None})
+                     'date': ps[0]['date'] if ps else None,
+                     'since': ps[0].get('since') if ps else None})
     out = repopaths.doc('comments')
     os.makedirs(out, exist_ok=True)
     for f in os.listdir(out):
@@ -93,6 +109,32 @@ def main():
             w.writerow([r['anum'], r['date'] or '',
                         ' '.join(p['path'] for p in r['papers']),
                         'yes' if r['recs'] else 'no', 'comments/' + names[r['anum']]])
+    # A second view of the same rows, ordered by the day the result was obtained rather
+    # than by A-number. This is the priority record: the earliest work is at the top, and
+    # everything found before this repository existed sits in the first block.
+    order = sorted(rows, key=lambda r: (sortable(r['date']), r['anum']))
+    D = ['# What was found, and when', '',
+         'Every settled entry in the order it was settled, earliest first. The date is the '
+         'date printed on the paper, which is the day the proof was written --- not the day '
+         'anything was posted anywhere.', '',
+         'The first block is the earliest work, done before this repository was started; the '
+         'nine papers there print a month rather than a day, so the day is not guessed and '
+         'the first commit carrying the paper is given as the bound instead.', '',
+         'A comment posted on an OEIS entry is stamped with the day it is posted. This file '
+         'is the record of when the work was actually done, and it is what shows the result '
+         'came first.', '']
+    cur = None
+    for r in order:
+        if r['date'] != cur:
+            cur = r['date']
+            n = sum(1 for x in order if x['date'] == cur)
+            D += ['', f'## {cur}  ({n} {"entry" if n == 1 else "entries"})', '']
+        ps = ', '.join(f"[{q['rank']}](../{q['path']})" for q in r['papers'])
+        note = f" --- in the repository since {r['since']}" if r.get('since') else ''
+        D.append(f"- [{r['anum']}](https://oeis.org/{r['anum']})"
+                 f" --- paper {ps}{note}")
+    open(f'{out}/by-date.md', 'w').write('\n'.join(D) + '\n')
+
     withc = sum(1 for r in rows if r['recs'])
     for ch in chunks:
         nm = f"{ch[0]['anum']}-{ch[-1]['anum']}.md"
@@ -106,7 +148,8 @@ def main():
             a = r['anum']
             L += [f'## {a}', '', f'OEIS entry: <https://oeis.org/{a}>  ']
             if r['date']:
-                L.append(f"Result obtained: **{r['date']}**  ")
+                extra = (f" (in the repository since {r['since']})" if r.get('since') else '')
+                L.append(f"Result obtained: **{r['date']}**{extra}  ")
             if r['papers']:
                 L.append('Paper: ' + ', '.join(f"[{p['rank']}](../{p['path']})"
                                                for p in r['papers']))
@@ -133,7 +176,13 @@ def main():
            '**None of these has been posted.** How to post them, and why not all at once, is in '
            '[../SUBMITTING.md](../SUBMITTING.md).', '',
            '`index.csv` lists every entry with its date, its paper and the file its comment is '
-           'in.', '',
+           'in. **[by-date.md](by-date.md)** lists every entry in the order it was settled, '
+           'earliest first --- the priority record, with the work done before this repository '
+           'existed at the top.', '',
+           'If a conjecture is settled by somebody else after the date recorded here, nothing '
+           'is removed: the date stands, and the result was still obtained first. A result is '
+           'withdrawn only if it turns out to have been settled BEFORE that date, which would '
+           'mean it was never ours to claim.', '',
            '| Entries | Count |', '| --- | ---: |']
     for ch in chunks:
         idx.append(f"| [{ch[0]['anum']} – {ch[-1]['anum']}]"

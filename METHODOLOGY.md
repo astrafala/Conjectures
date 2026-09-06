@@ -182,6 +182,14 @@ settled. One whole engine and its ten papers withdrawn on discovering an existin
 performed the identical reduction. Three papers named the wrong contributor — an attribution
 hard-coded in a template rather than read from the entry — all corrected.
 
+**What counts as grounds for withdrawal, and what does not.** Every paper prints the date it was
+written, and [comments/by-date.md](comments/by-date.md) lists every entry in the order it was
+settled. A paper is withdrawn when the result turns out to have been settled *before* that date:
+it was never ours to claim, and the count comes down. A conjecture settled by somebody else
+*after* that date is a different thing entirely — the work here still came first — and nothing is
+removed; the entry is simply annotated so that no paper claims an entry is open when it is not.
+Later is not earlier.
+
 ## 7. Scope
 
 93 distinct arguments across 9088 entries. The full breakdown is in

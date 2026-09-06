@@ -4,6 +4,23 @@ Written for the author. Everything below needs a login, so none of it is done fo
 
 ---
 
+## If somebody else gets there first
+
+Every paper prints the day it was written, and
+[comments/by-date.md](comments/by-date.md) lists every entry in the order it was settled,
+earliest first. That file is the priority record.
+
+If a conjecture here is settled and commented on the OEIS by somebody else **after** the
+date recorded for it, nothing here is removed and nothing here is wrong: the work was done
+on the day the paper says, and that day came first. Post the comment anyway — an entry can
+carry more than one proof, and the record shows when each was made.
+
+A paper comes down for one reason only: the result turns out to have been settled **before**
+the date on the paper. Then it was never ours, the paper is withdrawn, and the count comes
+down with it.
+
+---
+
 ## The blunt version
 
 **Nobody is going to review 8887 papers.** Any plan that starts with "publish all of them and

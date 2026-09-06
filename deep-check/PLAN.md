@@ -79,16 +79,20 @@ For every settled entry, fetch the live OEIS entry again, from scratch, and chec
 1. The conjecture sentence quoted verbatim in §1 still appears **verbatim** in
    the entry. A one-character difference is a defect: the paper claims to quote.
 2. The contributor name and the date quoted in §1 match the entry.
-3. The entry's `Last modified` line is quoted correctly, and the paper's claim
-   that the conjecture is still open is still true **as of the re-fetch** — if
-   somebody proved it in the meantime, the paper must say so and the result must
-   be reclassified. A result that was open when found and is now closed by
-   somebody else is still ours by date, but the paper must not claim otherwise.
+3. The entry's `Last modified` line is quoted correctly. If somebody has settled the
+   conjecture **since** the date on our paper, that is recorded, and **nothing is removed**:
+   the date on the paper is the day the work was done, it came first, and it stays. What
+   changes is the wording only, so that no paper claims an entry is open when it is not.
 4. The entry's DATA still matches the DATA the engine used. Entries get
    corrected; a corrected entry can invalidate a proof.
-5. The entry's links and programs are searched for a proof that already existed
-   when we started. Anything found is a **padded count** and the paper is
-   withdrawn, not softened.
+5. The entry's links, programs and the literature are searched for a proof that existed
+   **before** the date on our paper. That, and only that, is a **padded count**: the result
+   was never ours to claim, and the paper is withdrawn rather than softened. A proof that
+   appeared afterwards is not that, and is never grounds for withdrawal.
+
+**The rule, stated once so it cannot drift:** *later* is not *earlier*. A result is
+withdrawn only when it was already settled before the date on the paper. Being settled by
+somebody else afterwards leaves the roster exactly as it is.
 
 ## Phase 4 — The reading, re-pinned
 

@@ -6,7 +6,9 @@ Each section names the entry, **the date the result was obtained**, the paper th
 
 **None of these has been posted.** How to post them, and why not all at once, is in [../SUBMITTING.md](../SUBMITTING.md).
 
-`index.csv` lists every entry with its date, its paper and the file its comment is in.
+`index.csv` lists every entry with its date, its paper and the file its comment is in. **[by-date.md](by-date.md)** lists every entry in the order it was settled, earliest first --- the priority record, with the work done before this repository existed at the top.
+
+If a conjecture is settled by somebody else after the date recorded here, nothing is removed: the date stands, and the result was still obtained first. A result is withdrawn only if it turns out to have been settled BEFORE that date, which would mean it was never ours to claim.
 
 | Entries | Count |
 | --- | ---: |
