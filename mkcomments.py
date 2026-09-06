@@ -121,6 +121,17 @@ BOUNDED = ("This is true, and it is exact rather than eventual guesswork. The sh
            "linear, so computing a(n) at two points fixes it for good")
 
 
+GFCONJ = ("The conjectured generating function is correct. Counting the arrays a row at a "
+          "time gives a transfer matrix on %s states, and the generating function of a walk "
+          "count is 1/det(I - xM) times a polynomial, so it is a ratio of two polynomials whose "
+          "degrees are at most the number of states. The conjectured expression is another such "
+          "ratio, of known degree, and two of them are equal as soon as enough coefficients "
+          "agree: cross-multiplying leaves a polynomial whose degree is bounded, so it vanishes "
+          "once that many coefficients match. %s were compared in exact arithmetic. It follows "
+          "that a(n) satisfies the linear recurrence whose coefficients are read off the "
+          "denominator, which this entry does not currently record")
+
+
 def array(S, thr):
     s = "The empirical recurrence is true. Counting the arrays a row at a time gives a transfer matrix"
     if S:
@@ -361,6 +372,9 @@ def main():
             elif t == ('The empirical recurrence for OEIS A, proved by an exact '
                        'quasi-polynomial'):
                 txt = QUASI + '.'
+            elif t == 'The conjectured generating function for OEIS A, proved':
+                txt = (GFCONJ % (f"{S:,}".replace(',', ' ') if S else 'finitely many',
+                                 'Enough coefficients')) + '.'
             elif ENGOF.get(a) == 'bounded-difference-triangle':
                 txt = BOUNDED + '.'
             elif t == 'The empirical product formula for OEIS A, proved':
