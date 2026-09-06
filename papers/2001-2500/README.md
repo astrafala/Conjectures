@@ -1,6 +1,6 @@
 # Papers 2001-2500
 
-Ranks 2001 to 2500 of 9012, hardest first.
+Ranks 2001 to 2500 of 9035, hardest first.
 
 | # | OEIS | Result | What settles it | Paper |
 | --- | --- | --- | --- | --- |
@@ -481,26 +481,26 @@ Ranks 2001 to 2500 of 9012, hardest first.
 | 2475 | [A268792](https://oeis.org/A268792) | Proof | a global count of marked adjacent pairs carried in the state, then a walk count | [2475-PROOF.pdf](2475-PROOF.pdf) |
 | 2476 | [A268803](https://oeis.org/A268803) | Proof | a global count of marked adjacent pairs carried in the state, then a walk count | [2476-PROOF.pdf](2476-PROOF.pdf) |
 | 2477 | [A209013](https://oeis.org/A209013) | Proof | what a cell asks of the cells around it: not their average, not matched by a strict majority of them, not beat... | [2477-PROOF.pdf](2477-PROOF.pdf) |
-| 2478 | [A251258](https://oeis.org/A251258) | Proof | a table's column recurrences, each column being a fixed-width array count | [2478-PROOF.pdf](2478-PROOF.pdf) |
-| 2479 | [A268761](https://oeis.org/A268761) | Proof | a global count of marked adjacent pairs carried in the state, then a walk count | [2479-PROOF.pdf](2479-PROOF.pdf) |
-| 2480 | [A269006](https://oeis.org/A269006) | Proof | a global count of marked adjacent pairs carried in the state, then a walk count | [2480-PROOF.pdf](2480-PROOF.pdf) |
-| 2481 | [A269013](https://oeis.org/A269013) | Proof | a global count of marked adjacent pairs carried in the state, then a walk count | [2481-PROOF.pdf](2481-PROOF.pdf) |
-| 2482 | [A269070](https://oeis.org/A269070) | Proof | a global count of marked adjacent pairs carried in the state, then a walk count | [2482-PROOF.pdf](2482-PROOF.pdf) |
-| 2483 | [A269077](https://oeis.org/A269077) | Proof | a global count of marked adjacent pairs carried in the state, then a walk count | [2483-PROOF.pdf](2483-PROOF.pdf) |
-| 2484 | [A198908](https://oeis.org/A198908) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [2484-PROOF.pdf](2484-PROOF.pdf) |
-| 2485 | [A208196](https://oeis.org/A208196) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [2485-PROOF.pdf](2485-PROOF.pdf) |
-| 2486 | [A209842](https://oeis.org/A209842) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [2486-PROOF.pdf](2486-PROOF.pdf) |
-| 2487 | [A210055](https://oeis.org/A210055) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [2487-PROOF.pdf](2487-PROOF.pdf) |
-| 2488 | [A231806](https://oeis.org/A231806) | Proof | a table's column recurrences, each column being a fixed-width array count | [2488-PROOF.pdf](2488-PROOF.pdf) |
-| 2489 | [A231764](https://oeis.org/A231764) | Proof | a table's column recurrences, each column being a fixed-width array count | [2489-PROOF.pdf](2489-PROOF.pdf) |
-| 2490 | [A231977](https://oeis.org/A231977) | Proof | a table's column recurrences, each column being a fixed-width array count | [2490-PROOF.pdf](2490-PROOF.pdf) |
-| 2491 | [A268013](https://oeis.org/A268013) | Proof | the repeated values of each row and column, in the order they occur, required to stand in a prescribed relatio... | [2491-PROOF.pdf](2491-PROOF.pdf) |
-| 2492 | [A263459](https://oeis.org/A263459) | Proof | rows and columns read as base-b numbers and required to be divisible, or not, by given moduli | [2492-PROOF.pdf](2492-PROOF.pdf) |
-| 2493 | [A251451](https://oeis.org/A251451) | Proof | a table's column recurrences, each column being a fixed-width array count | [2493-PROOF.pdf](2493-PROOF.pdf) |
-| 2494 | [A251317](https://oeis.org/A251317) | Proof | a table's column recurrences, each column being a fixed-width array count | [2494-PROOF.pdf](2494-PROOF.pdf) |
-| 2495 | [A268783](https://oeis.org/A268783) | Proof | a global count of marked adjacent pairs carried in the state, then a walk count | [2495-PROOF.pdf](2495-PROOF.pdf) |
-| 2496 | [A268887](https://oeis.org/A268887) | Proof | a global count of marked adjacent pairs carried in the state, then a walk count | [2496-PROOF.pdf](2496-PROOF.pdf) |
-| 2497 | [A268996](https://oeis.org/A268996) | Proof | a global count of marked adjacent pairs carried in the state, then a walk count | [2497-PROOF.pdf](2497-PROOF.pdf) |
-| 2498 | [A269083](https://oeis.org/A269083) | Proof | a global count of marked adjacent pairs carried in the state, then a walk count | [2498-PROOF.pdf](2498-PROOF.pdf) |
-| 2499 | [A263366](https://oeis.org/A263366) | Proof | rows and columns read as base-b numbers and required to be divisible, or not, by given moduli | [2499-PROOF.pdf](2499-PROOF.pdf) |
-| 2500 | [A232917](https://oeis.org/A232917) | Proof | neighbouring cells forbidden to carry values summing to m, with the renaming clauses that pick one array per c... | [2500-PROOF.pdf](2500-PROOF.pdf) |
+| 2478 | [A225007](https://oeis.org/A225007) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [2478-PROOF.pdf](2478-PROOF.pdf) |
+| 2479 | [A251258](https://oeis.org/A251258) | Proof | a table's column recurrences, each column being a fixed-width array count | [2479-PROOF.pdf](2479-PROOF.pdf) |
+| 2480 | [A268761](https://oeis.org/A268761) | Proof | a global count of marked adjacent pairs carried in the state, then a walk count | [2480-PROOF.pdf](2480-PROOF.pdf) |
+| 2481 | [A269006](https://oeis.org/A269006) | Proof | a global count of marked adjacent pairs carried in the state, then a walk count | [2481-PROOF.pdf](2481-PROOF.pdf) |
+| 2482 | [A269013](https://oeis.org/A269013) | Proof | a global count of marked adjacent pairs carried in the state, then a walk count | [2482-PROOF.pdf](2482-PROOF.pdf) |
+| 2483 | [A269070](https://oeis.org/A269070) | Proof | a global count of marked adjacent pairs carried in the state, then a walk count | [2483-PROOF.pdf](2483-PROOF.pdf) |
+| 2484 | [A269077](https://oeis.org/A269077) | Proof | a global count of marked adjacent pairs carried in the state, then a walk count | [2484-PROOF.pdf](2484-PROOF.pdf) |
+| 2485 | [A198908](https://oeis.org/A198908) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [2485-PROOF.pdf](2485-PROOF.pdf) |
+| 2486 | [A208196](https://oeis.org/A208196) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [2486-PROOF.pdf](2486-PROOF.pdf) |
+| 2487 | [A209842](https://oeis.org/A209842) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [2487-PROOF.pdf](2487-PROOF.pdf) |
+| 2488 | [A210055](https://oeis.org/A210055) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [2488-PROOF.pdf](2488-PROOF.pdf) |
+| 2489 | [A231806](https://oeis.org/A231806) | Proof | a table's column recurrences, each column being a fixed-width array count | [2489-PROOF.pdf](2489-PROOF.pdf) |
+| 2490 | [A231764](https://oeis.org/A231764) | Proof | a table's column recurrences, each column being a fixed-width array count | [2490-PROOF.pdf](2490-PROOF.pdf) |
+| 2491 | [A231977](https://oeis.org/A231977) | Proof | a table's column recurrences, each column being a fixed-width array count | [2491-PROOF.pdf](2491-PROOF.pdf) |
+| 2492 | [A268013](https://oeis.org/A268013) | Proof | the repeated values of each row and column, in the order they occur, required to stand in a prescribed relatio... | [2492-PROOF.pdf](2492-PROOF.pdf) |
+| 2493 | [A263459](https://oeis.org/A263459) | Proof | rows and columns read as base-b numbers and required to be divisible, or not, by given moduli | [2493-PROOF.pdf](2493-PROOF.pdf) |
+| 2494 | [A251451](https://oeis.org/A251451) | Proof | a table's column recurrences, each column being a fixed-width array count | [2494-PROOF.pdf](2494-PROOF.pdf) |
+| 2495 | [A251317](https://oeis.org/A251317) | Proof | a table's column recurrences, each column being a fixed-width array count | [2495-PROOF.pdf](2495-PROOF.pdf) |
+| 2496 | [A268783](https://oeis.org/A268783) | Proof | a global count of marked adjacent pairs carried in the state, then a walk count | [2496-PROOF.pdf](2496-PROOF.pdf) |
+| 2497 | [A268887](https://oeis.org/A268887) | Proof | a global count of marked adjacent pairs carried in the state, then a walk count | [2497-PROOF.pdf](2497-PROOF.pdf) |
+| 2498 | [A268996](https://oeis.org/A268996) | Proof | a global count of marked adjacent pairs carried in the state, then a walk count | [2498-PROOF.pdf](2498-PROOF.pdf) |
+| 2499 | [A269083](https://oeis.org/A269083) | Proof | a global count of marked adjacent pairs carried in the state, then a walk count | [2499-PROOF.pdf](2499-PROOF.pdf) |
+| 2500 | [A263366](https://oeis.org/A263366) | Proof | rows and columns read as base-b numbers and required to be divisible, or not, by given moduli | [2500-PROOF.pdf](2500-PROOF.pdf) |

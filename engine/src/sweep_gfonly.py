@@ -50,9 +50,14 @@ for a in sorted(pool):
     d = [int(v) for v in e['data'].split(',') if v.strip()]
     off = int(e['offset'].split(',')[0])
     need = gfonly.coefficients_needed(S, gl[1])
+    # Enough coefficients for the g.f. argument is NOT necessarily enough to check the entry's
+    # own DATA: an entry publishing more terms than the coefficient budget was being rejected
+    # as "model does not match DATA" when the model in fact matched every published term. Ask
+    # for whichever is longer.
+    want_terms = max(need, len(d) + off) + off + 6
     try:
         signal.alarm(BUDGET * 4)
-        t = uniform.terms(en, p, b, need + off + 5)
+        t = uniform.terms(en, p, b, want_terms)
         signal.alarm(0)
     except Exception:
         signal.alarm(0); res['terms failed or timed out'] += 1; done.add(a); continue

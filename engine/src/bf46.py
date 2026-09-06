@@ -29,14 +29,20 @@ def count(nm, p, R, C, trans):
     tot = 0
     if p['kind'] == 'A':
         h, v = p['h'], p['v']
-        if trans:                      # undo the swap the parser made
+        # the two directions carry their own sense, and this check hardcoded both as
+        # nondecreasing -- the same blindness the parser had, so for a name that is
+        # NONINCREASING in one direction it was testing a different problem and disagreeing
+        # with the model for that reason alone
+        hs, vs = p.get('hsense', 1), p.get('vsense', 1)
+        if trans:                      # undo the swap the parser made, senses included
             h, v = v, h
+            hs, vs = vs, hs
         H, V = PAIR[h], PAIR[v]
 
         def okcell(i, j):
-            if i and j and H(g[i - 1][j], g[i - 1][j - 1]) > H(g[i][j], g[i][j - 1]):
+            if i and j and hs * H(g[i - 1][j], g[i - 1][j - 1]) > hs * H(g[i][j], g[i][j - 1]):
                 return False
-            if i and j and V(g[i][j - 1], g[i - 1][j - 1]) > V(g[i][j], g[i - 1][j]):
+            if i and j and vs * V(g[i][j - 1], g[i - 1][j - 1]) > vs * V(g[i][j], g[i - 1][j]):
                 return False
             return True
     else:

@@ -47,9 +47,12 @@ RUNSTAT = {
 
 COUNT = {'two': 2, 'three': 3, 'four': 4}
 
+# The two directions carry their own sense. Reading both as `nondecreasing' -- which is what
+# this pattern used to do -- makes the parser blind to the entries that are nonincreasing in
+# one direction, and would silently mis-model them if it were not blind.
 NAME_A = re.compile(
-    r'Number of\s+(.*?)\s*0\.\.(\d+)\s*arrays with nondecreasing\s+(.*?)\s+in the i direction '
-    r'and nondecreasing\s+(.*?)\s+in the j direction\s*\.?\s*$', re.I)
+    r'Number of\s+(.*?)\s*0\.\.(\d+)\s*arrays with (non(?:de|in)creasing)\s+(.*?)\s+in the '
+    r'i direction and (non(?:de|in)creasing)\s+(.*?)\s+in the j direction\s*\.?\s*$', re.I)
 NAME_B = re.compile(
     r'Number of\s+(.*?)\s*0\.\.(\d+)\s*arrays with nondecreasing\s+(.*?)\s+of every\s+'
     r'(\w+)\s+consecutive values in every row and column\s*\.?\s*$', re.I)
@@ -92,14 +95,19 @@ def parse_name(nm):
         if not sh:
             return None
         W, trans = sh
-        h = _pair(m.group(3), 'i,j', 'i,j-1')
-        v = _pair(m.group(4), 'i,j', 'i-1,j')
+        h = _pair(m.group(4), 'i,j', 'i,j-1')
+        v = _pair(m.group(6), 'i,j', 'i-1,j')
         if h is None or v is None:
             return None
+        hs = -1 if m.group(3).lower() == 'nonincreasing' else 1
+        vs = -1 if m.group(5).lower() == 'nonincreasing' else 1
         if trans:
+            # transposing exchanges the i and j directions, so the senses travel with the
+            # statistics they belong to
             h, v = v, h
+            hs, vs = vs, hs
         return {'kind': 'A', 'W': W, 'alpha': int(m.group(2)), 'h': h, 'v': v, 'k': 1,
-                'trans': trans, 'frac': 1}
+                'hsense': hs, 'vsense': vs, 'trans': trans, 'frac': 1}
     m = NAME_B.search(nm)
     if m:
         sh = _shape(m.group(1))
@@ -139,12 +147,14 @@ def build(p, cap=40000):
             return None
         idx = {r: i for i, r in enumerate(rows)}
 
+        hs, vs = p.get('hsense', 1), p.get('vsense', 1)
+
         def edge(r, s):
             for j in range(1, W):
-                if h(r[j], r[j - 1]) > h(s[j], s[j - 1]):
+                if hs * h(r[j], r[j - 1]) > hs * h(s[j], s[j - 1]):
                     return False
             for j in range(W - 1):
-                if v(s[j], r[j]) > v(s[j + 1], r[j + 1]):
+                if vs * v(s[j], r[j]) > vs * v(s[j + 1], r[j + 1]):
                     return False
             return True
 
