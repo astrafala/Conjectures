@@ -27,6 +27,33 @@ HAND = {
  'A087726': "The converse holds too, so this is an equivalence. No formula for a(p^k) is needed: a is multiplicative with a(p) = p^2, so it is enough that a(p^k) > p^(2k) for k >= 2, and that follows from a lower bound, since every trace-zero X = [[a,b],[c,-a]] has X^2 = (a^2+bc)I.",
 }
 
+# The papers whose build directory is gone and whose statement no template covers: written out
+# individually, from the entry's own words rather than the paper's rendered PDF -- reading a
+# claim out of PDF text drops superscripts, which is how "k^n" once became "kn".
+HAND2 = {
+ 'A000040-proof': "This is true, and it is the degenerate case of a general fact about power maps on a squarefree modulus: for P = p_1*...*p_k the image of the e-th power map on (Z/PZ)* is a subgroup of order Prod_i (p_i - 1)/gcd(e, p_i - 1), and membership in that image characterises coprimality to P. Detlefs' exponent f(n) = lcm(p_1-1, ..., p_n-1) makes that image trivial, which is what produces the clean congruence k^f(n) = 1 (mod P).",
+ 'A036284-1': "This is true. The whole content is that the carry into binary position n depends only on the low n bits of the two summands, so it has period 3*2^(n-1) -- exactly half the period of the column itself. Since x^(3*2^m) + 1 = (x^3 + 1)^(2^m) in characteristic 2, halving the period is the same as extracting a factor (x^3 + 1)^(2^(n-1)), and the conjectured exponent follows from a valuation count.",
+ 'A036284-2': "Conjecture 2 is true as well: (x^3 + 1)^(2^(n-1) - 1)*(x + 1) divides the n-th term, so the (x+1)-adic valuation is at least 2^(n-1). It is the same carry-periodicity identity that settles Conjecture 1, read on the factor x + 1 rather than on x^2 + x + 1; because x + 1 does not divide x^2 + x + 1, the cancellation that costs one power on the x^2 + x + 1 side does not happen here.",
+ 'A037096': "This is true, and the exponent is exact. It rests on one 2-adic fact: 3^(2^(n-2)) = 1 + 2^n (mod 2^(n+1)), so advancing k by a quarter of the window flips bit n. The window is then a block, its complement, the block, its complement, which factors as (x + 1)^(3q - 1) * (B(x)(x + 1) + x^q) with q = 2^(n-2), and 3q - 1 is exactly the conjectured exponent.",
+ 'A037097': "The corrected statement is true and the exponent is exact: a(n) = (x + 1)^(2^(n-2) - 1) * (B(x)(x + 1) + x^(2^(n-2))) for n >= 3, where B is the first quarter of the doubled window. It rests on 3^(2^(n-2)) = 1 + 2^n (mod 2^(n+1)), which complements bit n. The exponent as originally posted, 2^(n-1) - 1, was indeed too large -- already at n = 3 -- so the correction made on this entry was the right one.",
+ 'A047926': "This is true once an off-by-one in the indexing is corrected: for every k >= 1 the number of representations of 9^k as a^2 + b^2 + c^2 with 0 < a <= b <= c is (3^k + 2^k - 1)/4 = a(k-1), not a(k). More precisely, exactly k of them have two equal parts and (3^k - 2^k - 1)/4 have three distinct parts; none has three equal parts, and 9^k is never a sum of two positive squares. The argument deflates Pall's classical count r_3(9^k) = 6*(2*3^k - 1) to unordered positive triples, the two degenerate shapes being controlled by the divisor counts attached to x^2 + y^2 and x^2 + 2y^2, both of class number one.",
+ 'A059324': "This is true, and the sharper statement holds: such a pair (p, q) exists if and only if 6n + 5 is prime, and then it is unique in its first coordinate, namely p = 3 and q = 6n + 5. So this sequence is exactly the set of n >= 1 admitting no such pair. The reason is elementary: every prime p >= 5 has p^2 = 1 (mod 6), which forces 3 | q and hence q = 3, contradicting q > p^2.",
+ 'A059970-1': "This is true, and the following stronger statement is what the proof gives: for every n >= 0 the nim-product of ALL nonzero nimbers below 2^n equals 1. The conjecture is the special case, since {1, ..., 2^n - 1} is exactly that set. It is a short induction: {0, 1, ..., 2^n - 1} splits into additive cosets of the Conway field of order 2^(2^k), and on each the product collapses by Wilson's theorem for finite fields.",
+ 'A059970-2': "This is true. Two observations do it. The subspace polynomial of {0, ..., 2^t - 1} in the nimber field is the t-fold iterate of the Artin-Schreier map p(y) = y^2 + y (nim-addition), which identifies a(2^n + 2^(n-1) - 1) with the (n-1)-fold iterate applied to 2^n. That quantity then obeys two recursions -- one stripping the leading binary bit of n, one for n a power of 2 -- which together reduce every case to n = 1.",
+ 'A061002': "This is true, and it is a restatement of Wolstenholme's theorem rather than merely a consequence of it: the identity holds for a prime p exactly when p^2 divides the numerator of H_(p-1). Writing H_(p-1) = A/B in lowest terms, the two quantities in the quotient are exactly p*A and A/p^2, and the p^2 in the second is the whole content. The restriction p > 3 is therefore not cosmetic: at p = 2 and p = 3 the quotient is 2 and 9, not 8 and 27.",
+ 'A062368': "This is true. Both sides are multiplicative, so the statement is a single identity between local Dirichlet factors: the generating function of a(p^e) is (1 + 3x)/(1 - x)^4, which is exactly the local factor of 4^omega times three copies of zeta, and the identity is C(e+3,3) + 3*C(e+2,3) = (e+1)(e+2)(4e+3)/6.",
+ 'A063305': "This is true. The route is the classical dimension formula for S_k(Gamma_1(M)) together with the Atkin-Lehner-Li newform sieve; at N = 32 the sieve leaves a short explicit combination and gives dim S_k(Gamma_1(32))^new = 18k - 23 for k >= 2. There is no parity term, and the sieve says why: the level M = 4, the only one carrying a half-integer correction, does not survive at N = 32. Note also that the tabulated data is offset by one against the name.",
+ 'A063321': "This is true. By the dimension formula for S_k(Gamma_1(M)) with the Atkin-Lehner-Li sieve, dim S_k(Gamma_1(48))^new = 27k - 31 for k even and 27k - 32 for k odd. The parity term is not an accident: among the levels surviving the sieve, M = 4 is the only one carrying the correction +1/2 at odd k, and that is where it comes from.",
+ 'A063337': "This is true. By the dimension formula with the Atkin-Lehner-Li sieve, dim S_k(Gamma_1(64))^new = 72k - 83 for k >= 2. As at level 32 there is no parity term, because M = 4 -- the only level carrying a half-integer correction -- does not survive the sieve at N = 64. Note also that the tabulated data is offset by one against the name.",
+ 'A129364': "This is true, in the sharp form v_p(G(n)) - v_p(d(n)) = Sum_{i>=1} B(floor(n/p^i)) for every prime p, where d(n) = A092287(n), G(n) = a(n), and B(M) = Sum_{k=1..M} (M mod k) is A004125. Every term on the right is a sum of remainders, hence nonnegative, and the divisibility follows at once. The ingredients are the layer-cake count for v_p(G(n)), Legendre's formula with the nested-floor identity for v_p(d(n)), and M^2 - Sum_{k<=M} k*floor(M/k) = Sum_{k<=M} (M mod k).",
+ 'A129454': "As literally indexed this conjecture is false. The smallest counterexample is n = 4, p = 2: the posted formula gives exponent 9 while the truth is 1, and indeed a(4) = 6. The formula appears to have been transplanted from A092287, whose products run to n rather than n - 1, without adjusting the upper limit. With n replaced by n - 1 it is exactly right: ord_p(a(n)) = Sum_{t>=1} floor((n-1)/p^t)^3, by the counting argument that also gives Legendre's formula.",
+ 'A305404': "This is true. The argument does not manipulate the sequence at all: form the exponential generating function of the right-hand side and exchange the order of summation. The inner sum is then the central binomial series Sum_k C(2k,k) z^k = (1 - 4z)^(-1/2) at z = e^x/6, and 1 - 4*e^x/6 cancels against the 3 - 2e^x, returning the entry's own generating function. The exchange is justified by absolute convergence on |x| < log(3/2), which is exactly the disc where the generating function is analytic.",
+ 'A327123': "This is true. The weight sin(d*Pi/2) is the non-principal Dirichlet character chi mod 4, and both sides are the convolution chi * phi: the conjectured side by grouping the summation range by gcd(k,n), the defining side by expanding the generating function as a geometric series. Separately, the multiplicative formula currently posted on this entry is false at every prime p = 1 (mod 4), first at n = 5, where it gives 1 against the entry's own a(5) = 5.",
+ 'A352117': "This is true for n > 0. Forming the exponential generating function of the right-hand side and exchanging the order of summation turns the inner sum into the central binomial series (1 - 4z)^(-1/2) at z = e^(2x)/8, and 1 - 4*e^(2x)/8 cancels against 2 - e^(2x). What is left over is the k = 0 term, which the summation range excludes, contributing the constant 1/sqrt(2); that affects only the coefficient of x^0, which is exactly why the conjecture has to be stated for n > 0.",
+ 'A358272': "This is true, and elementary. Group the k in {1, ..., n} by the value of gcd(k,n): any sum of that shape becomes a Dirichlet convolution with Euler's totient, and evaluating the resulting local factor at a prime power is a two-line alternating sum that collapses according to the parity of the exponent.",
+ 'A358319': "This is true, and elementary. Grouping the summation range by gcd(k,n) converts the sum into a Dirichlet convolution with Euler's totient; at a prime power all but two of the terms are equal and collapse into a single multiple of p^e - p^(e-1).",
+}
+
 NOTE = {
  'A162548': "the entry adds 'Formula verified and used for computations - Fung Lam'; that reads as a numerical check rather than a proof, but read it before posting",
  'A185089': "the entry adds 'Formula verified and used for computations - Fung Lam'; that reads as a numerical check rather than a proof, but read it before posting",
@@ -42,6 +69,8 @@ CLAIMED = {}
 OPEN_REC = {}
 ENGOF = {}
 WINOF = {}
+H2BY = {}
+MISS = {}
 
 
 def norm_title(t):
@@ -211,6 +240,9 @@ def main():
         except Exception:
             pass
     CLAIMED.update(json.load(open(SC + '/table_claimed.json')))
+    for k, v in HAND2.items():
+        H2BY.setdefault(k.split('-')[0], []).append(v)
+    MISS.update(json.load(open(SC + '/missthr.json')))
     for v in json.load(open('paper-engines.json')).values():
         ENGOF[v['anum']] = v['engine']
     import transfer73
@@ -229,11 +261,32 @@ def main():
     for a in sorted(live):
         if a in tex:
             continue
-        if a in HAND:
+        if a in HAND or a in H2BY:
+            rows = []
+            if a in HAND:
+                rows.append(HAND[a])
+            rows += H2BY.get(a, [])
             out[a] = [{'title': '(hand-written; the paper source is gone)',
                        'conjecture': None, 'S': None, 'thr': None, 'verify': st.get(a),
-                       'hold': None, 'note': NOTE.get(a),
-                       'comment': HAND[a] + SIG}]
+                       'hold': None, 'note': NOTE.get(a), 'comment': c + SIG} for c in rows]
+            continue
+        if a in MISS:
+            # an ordinary recurrence or closed form whose build directory is gone; the
+            # threshold is read from the paper's own theorem line
+            rows = []
+            for r in MISS[a]:
+                t = r['title'].lower()
+                if 'closed form' in t:
+                    rows.append(CLOSED_EQ)
+                elif 'recurrence' in t:
+                    rows.append(alg_gf(r['thr']) if r['thr'] is not None else None)
+                else:
+                    rows.append(None)
+            out[a] = [{'title': r['title'][:80], 'conjecture': None, 'S': None,
+                       'thr': r['thr'], 'verify': st.get(a),
+                       'hold': None if c else 'no draft: nothing records what this proves',
+                       'note': NOTE.get(a), 'comment': (c + SIG) if c else None}
+                      for r, c in zip(MISS[a], rows)]
             continue
         if a in OPEN_REC:
             out[a] = [{'title': '(build directory gone; residual recorded in rec-open.json)',
