@@ -109,3 +109,30 @@ recovered and three when several were, which is what it should look like.
 **Left standing.** 24 entries of the `nondecreasing ... i direction` family are `(n+1)X(n+1)`,
 both sides growing --- the n X n wall, a real obstruction. Of the remaining order-line tables,
 those still refused sit above 6000 states.
+
+## 6 September 2026
+
+- **Every comment now carries the date the result was found.** 173 entries had
+  none: the date was read out of the LaTeX source and 181 papers have no source
+  left. Every paper prints its date under the author, so the paper is now the
+  source of record (`engine/src/paperdates.py`) and the source only corroborates.
+  Nine papers print a month with no day and are recorded that way rather than
+  guessed at.
+- **The sixteen papers carrying the suggested-comment appendix are all rebuilt.**
+  Reconstructed from the published text, compiled, word-diffed against the
+  original, installed only when nothing but the appendix differed.
+- **Nine of those sixteen also pointed at another paper** --- "proved in a
+  companion note", "treated elsewhere". Each pointer replaced by the thing it
+  stood for. No paper now asks its reader to hold a second one.
+- **Paper 5342 printed "By Lemma ??"**: compiled once, so its own reference never
+  resolved. Recompiled; the diff is "??" to "1", twice.
+- **deep-check/PLAN.md**: the thirteen-phase check for when the roster passes
+  10,000, written down in advance. `dc_gate.py` holds the trigger; Phases 1 and 2
+  are written and pass over all 9115 papers.
+- Two of my own checks were wrong before the papers were, which is now six or
+  seven times running: the roster is keyed by the number a paper was built under
+  and not by its rank (reading it as ranks reported 9079 mismatches that were not
+  there), and the papers use T1 ligatures, so a plain search for "Verification"
+  reported 9091 papers missing a section every one of them has. Both now have
+  code that cannot repeat them: `dc_phase1.py` compares the multiset of
+  (A-number, verdict, engine), and every text check goes through `dc_text.py`.
