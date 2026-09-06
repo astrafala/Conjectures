@@ -1,0 +1,137 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=1in]{geometry}
+\usepackage[colorlinks=true,linkcolor=blue,urlcolor=blue]{hyperref}
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{remark}[theorem]{Remark}
+
+\title{The prime factorisation of a rectangular product of gcds:\\
+a proof of Kaydalov's conjecture on OEIS A092287}
+\author{Adrian Perez Fontelles\\ \small Independent researcher}
+\date{23 August 2026}
+\begin{document}
+\maketitle
+
+\begin{abstract}
+For positive integers $n,m$ put $f(n,m)=\prod_{j=1}^{n}\prod_{k=1}^{m}\gcd(j,k)$. In March
+2019 A.~Kaydalov conjectured on OEIS A092287 that
+$\operatorname{ord}_p f(n,m)=\sum_{i\ge1}\lfloor n/p^i\rfloor\lfloor m/p^i\rfloor$ for every
+prime $p$, reporting verification for $1\le m\le n\le200$. We prove it in three lines:
+$v_p(\gcd(j,k))$ counts the indices $i$ for which $p^i$ divides both $j$ and $k$, so summing
+over the rectangle and exchanging the order of summation gives the product of two counting
+functions at each level $i$. The square case $m=n$, which is Bala's older conjecture on the
+same entry (already known to be correct), is the diagonal specialisation.
+\end{abstract}
+
+\section{The sequence and the conjecture}
+
+OEIS A092287 is
+\[
+a(n)=\prod_{j=1}^{n}\prod_{k=1}^{n}\gcd(j,k),\qquad
+a(0),\dots,a(5)=1,\,1,\,2,\,6,\,96,\,480 .
+\]
+Peter Bala conjectured in April 2007 that $\operatorname{ord}_p a(n)=\sum_{i\ge1}\lfloor
+n/p^i\rfloor^2$, and this was confirmed on the entry by C.~R.~Greathouse~IV in April 2013.
+The entry also carries a second, later comment, which is still open:
+\begin{quote}
+Conjecture: For a product over a rectangle, $f(n,m)=\prod_{j=1}^{n}\prod_{k=1}^{m}\gcd(j,k)$,
+a factorisation similar to the one given above for the square case takes place:
+$\operatorname{ord}_p(f(n,m))=\lfloor n/p\rfloor\lfloor m/p\rfloor+\lfloor
+n/p^2\rfloor\lfloor m/p^2\rfloor+\cdots$. By way of directly computing the values of
+$f(n,m)$, it can be verified that the conjecture holds at least for all $1\le m\le n\le200$.
+--- Andrey Kaydalov, Mar 11 2019
+\end{quote}
+As of the ``Last modified'' line on the live entry (23 August 2026) this statement is still
+recorded as an unproven conjecture, and no proof appears in the entry's links or programs.
+This note proves it.
+
+Throughout, $p$ is a prime and $v_p(N)$ denotes the exponent of $p$ in $N$ (written
+$\operatorname{ord}_p$ in the OEIS comment).
+
+\section{The theorem}
+
+\begin{lemma}[layer cake]\label{lem:layer}
+For positive integers $j,k$,
+\[
+v_p\bigl(\gcd(j,k)\bigr)=\min\bigl(v_p(j),v_p(k)\bigr)
+=\#\bigl\{\,i\ge1:\ p^i\mid j\ \text{and}\ p^i\mid k\,\bigr\}.
+\]
+\end{lemma}
+
+\begin{proof}
+The first equality is the definition of $\gcd$ prime by prime. For the second, $p^i$ divides
+both $j$ and $k$ exactly when $i\le v_p(j)$ and $i\le v_p(k)$, that is when $1\le i\le
+\min(v_p(j),v_p(k))$; the number of such $i$ is that minimum.
+\end{proof}
+
+\begin{theorem}\label{thm:rect}
+For all positive integers $n,m$ and every prime $p$,
+\[
+v_p\bigl(f(n,m)\bigr)=\sum_{i\ge1}\Bigl\lfloor\frac{n}{p^i}\Bigr\rfloor
+\Bigl\lfloor\frac{m}{p^i}\Bigr\rfloor,
+\qquad f(n,m)=\prod_{j=1}^{n}\prod_{k=1}^{m}\gcd(j,k).
+\]
+The sum is finite: every term with $p^i>\min(n,m)$ vanishes.
+\end{theorem}
+
+\begin{proof}
+Since $v_p$ is additive on products, Lemma~\ref{lem:layer} gives
+\[
+v_p\bigl(f(n,m)\bigr)=\sum_{j=1}^{n}\sum_{k=1}^{m}
+\#\{\,i\ge1:\ p^i\mid j,\ p^i\mid k\,\}
+=\sum_{i\ge1}\#\bigl\{(j,k):\ j\le n,\ k\le m,\ p^i\mid j,\ p^i\mid k\bigr\},
+\]
+the exchange being a finite rearrangement of a sum of nonnegative terms. The condition on
+$(j,k)$ splits, so the inner count is
+$\#\{j\le n: p^i\mid j\}\cdot\#\{k\le m: p^i\mid k\}
+=\lfloor n/p^i\rfloor\lfloor m/p^i\rfloor$.
+\end{proof}
+
+\begin{corollary}
+Taking $m=n$ recovers Bala's square-case formula
+$\operatorname{ord}_p a(n)=\sum_{i\ge1}\lfloor n/p^i\rfloor^2$ for A092287.
+\end{corollary}
+
+\begin{remark}[why it is exactly Legendre's formula, squared]
+The de Polignac--Legendre formula $v_p(n!)=\sum_{i\ge1}\lfloor n/p^i\rfloor$ is the
+one-dimensional version of the same count: $v_p(j)=\#\{i: p^i\mid j\}$, summed over $j\le n$.
+Theorem~\ref{thm:rect} is the two-dimensional version with a minimum in place of the single
+valuation, and the minimum is precisely what makes the two counting factors separate. The same
+argument in $d$ dimensions gives
+\[
+v_p\Bigl(\prod_{j_1\le n_1}\cdots\prod_{j_d\le n_d}\gcd(j_1,\dots,j_d)\Bigr)
+=\sum_{i\ge1}\prod_{t=1}^{d}\Bigl\lfloor\frac{n_t}{p^i}\Bigr\rfloor,
+\]
+which covers the companion entry A129454 as well.
+\end{remark}
+
+\begin{remark}[honest assessment]
+This is a three-line argument and its natural destination is an OEIS comment, not a journal.
+The only reason it counts as settling anything is that the comment was posted in 2019 with a
+purely numerical justification and has sat unproven since.
+\end{remark}
+
+\section{Verification}
+
+A verification script, written separately from this note, checks every claim and prints every
+number quoted. It (i) recomputes $a(0),\dots,a(15)$ of A092287 directly from the double
+product and matches the published DATA exactly; and (ii) computes $f(n,m)$ directly from the
+definition and compares $v_p(f(n,m))$ against $\sum_i\lfloor n/p^i\rfloor\lfloor
+m/p^i\rfloor$ for every $1\le m\le n\le60$ and every prime $p\le n$, that is $22952$ triples
+$(n,m,p)$, with $0$ mismatches.
+
+\begin{thebibliography}{9}
+\bibitem{oeis} N.~J.~A.~Sloane et al., \emph{The On-Line Encyclopedia of Integer Sequences},
+\url{https://oeis.org/A092287}, entry A092287, consulted 23 August 2026.
+\bibitem{legendre} A.~M.~Legendre, \emph{Th\'eorie des Nombres}, 3rd ed., Firmin Didot,
+Paris, 1830.
+\end{thebibliography}
+
+\end{document}
