@@ -7,172 +7,174 @@
 \theoremstyle{plain}
 \newtheorem{theorem}{Theorem}
 \newtheorem{lemma}[theorem]{Lemma}
-\newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
-\newtheorem{definition}[theorem]{Definition}
 \newtheorem{remark}[theorem]{Remark}
-\title{A proof of the conjectured recurrence for OEIS A092634}
+\title{A proof of the conjectured recurrence for OEIS A226751}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{30 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A092634 carries a conjectured linear recurrence with polynomial coefficients, of
-order 3. The entry posts no generating function, so the usual route through a
-functional equation is unavailable. It does post a closed form for $a(n)$, and that is
-enough: the closed form is a sum of finitely many hypergeometric terms, and for such a
-term every shift quotient is a rational function of $n$. The conjectured recurrence
-therefore reduces to two rational-function identities, one for each similarity
-class of terms, and each is decided exactly by cancellation. No expansion is truncated and
-nothing is guessed; the procedure returns a proof or a refutation. Here it returns a proof,
-valid for every $n$ outside an explicitly computed finite set.
+OEIS A226751 carries a conjectured linear recurrence with polynomial coefficients, of
+order 2. The entry posts no generating function; it defines the sequence by an
+extraction, $a(n)=[x^{n}]\,f(x)g(x)^{n}$. We derive a generating function from that
+definition and prove the conjecture from it. Reading the extraction as a contour integral
+and summing the geometric series turns $\sum_{n}a(n)t^{n}$ into a single integral whose
+only pole inside a small circle is the branch of $x=t\,g(x)$ through the origin; the
+residue there gives $A(t)=f(x(t))/\bigl(1-t\,g'(x(t))\bigr)$. So $A$ is algebraic, with
+minimal polynomial obtained by eliminating $x$, and the recurrence follows from the
+residual test in the field that polynomial generates. Here the residual is
+$204 x$, of degree $1$, which proves the recurrence for every $n>1$.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 33F10, 11B37, 05A10.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 30B10, 33F10.\normalsize
 
 \section{The sequence and the conjecture}
 
-OEIS A092634 is ``a(n) = 1 - Sum\_\{k=2..n\} k*k!''. It has offset $2$ and begins
+OEIS A226751 is ``G.f.: 1 / (1 + 6*x*G(x) - 7*x*G(x)\^{}2), where G(x) = 1 + x*G(x)\^{}3 is the g.f. of A001764''. It has offset $0$ and begins
 \[
-a(2),\dots,a(9)\;=\;-3, -21, -117, -717, -5037, -40317, -362877, -3628797,\ \dots
+a(0),\dots,a(7)\;=\;1, 1, 9, 48, 289, 1761, 10932, 68664,\ \dots
 \]
 The entry states, not as a conjecture,
 \begin{quote}\small
-a(n) = 3 - (n+1)!. - \emph{Michel Marcus}, Jun 07 2020
+a(n) = [x\^{}n] 1/((1+2*x) * (1-x)\^{}(2*n+1)).
 \end{quote}
 that is,
-\begin{equation}\label{eq:cf}
-a(n)\;=\;3 - \left(n + 1\right)! .
+\begin{equation}\label{eq:def}
+a(n)\;=\;[x^{n}]\,f(x)\,g(x)^{n},
+\qquad f(x)=- \frac{1}{2 x^{2} - x - 1},\qquad g(x)=\frac{1}{x^{2} - 2 x + 1} .
 \end{equation}
-This is the only input the proof takes from the entry, and it was checked against the
-entry's own DATA before use.
+This is the only input taken from the entry, and it was checked against the entry's own
+DATA before use. In particular \emph{no generating function is assumed}: the entry posts
+none, and the one used below is derived.
 
 The entry separately carries the following comment:
 \begin{quote}\small
-\textbf{Conjecture:} a(n) +(-n-3)*a(n-1) +(2*n+1)*a(n-2) +(-n+1)*a(n-3)=0. - \emph{R. J. Mathar}, Sep 27 2014
+\textbf{Conjecture:} 18*n*(2*n-1)*(55*n-76)*a(n) +(-11605*n\^{}3+28521*n\^{}2-20870*n+4536)*a(n-1) -24*(55*n-21)*(3*n-4)*(3*n-2)*a(n-2)=0. - \emph{R. J. Mathar}, Jun 14 2016
 \end{quote}
-As of the ``Last modified'' line on the live entry (2025-09-22, revision 17) the
+As of the ``Last modified'' line on the live entry (2025-08-15, revision 29) the
 statement is still recorded as a conjecture, and no proof appears among the entry's links,
 formulas or programs.
 
-Written out, the conjecture is
-\begin{equation}\label{eq:conj}
-1\,a(n) + (- n - 3)\,a(n-1) + (2 n + 1)\,a(n-2) + (1 - n)\,a(n-3)
-\end{equation}
+\section{A generating function from the extraction}
 
-\section{Hypergeometric terms}
-
-\begin{definition}
-A nonzero expression $c(n)$ is a \emph{hypergeometric term} in $n$ if the quotient
-$c(n+1)/c(n)$ is a rational function of $n$. Two hypergeometric terms $c$ and $d$ are
-\emph{similar}, written $c\sim d$, if $c(n)/d(n)$ is a rational function of $n$.
-\end{definition}
-
-Similarity is an equivalence relation on hypergeometric terms. Products of factorials,
-binomial coefficients with arguments linear in $n$, exponentials $z^{n}$ and polynomials
-are hypergeometric, and so is any product of these; a sum of them need not be.
-
-\begin{lemma}\label{lem:shift}
-If $c$ is a hypergeometric term then for every integer $i\ge 0$ the shift quotient
-$c(n-i)/c(n)$ is a rational function of $n$, computable from $c(n+1)/c(n)$ by a finite
-number of substitutions and multiplications.
+\begin{lemma}\label{lem:diag}
+Let $f,g$ be rational functions regular at $0$ with $g(0)\neq0$, and let
+$a(n)=[x^{n}]f(x)g(x)^{n}$. Then $A(t)=\sum_{n\ge0}a(n)t^{n}$ satisfies
+\[
+A(t)\;=\;\frac{f\bigl(x(t)\bigr)}{1-t\,g'\bigl(x(t)\bigr)},
+\]
+where $x(t)$ is the unique power series with $x(0)=0$ solving $x=t\,g(x)$. In particular
+$A$ is algebraic over $\mathbb{Q}(t)$.
 \end{lemma}
 
 \begin{proof}
-Write $\rho(n)=c(n+1)/c(n)$, a rational function by hypothesis. Then
-$c(n-1)/c(n)=1/\rho(n-1)$, and inductively
-$c(n-i)/c(n)=\prod_{j=1}^{i}\rho(n-j)^{-1}$, a finite product of rational functions.
+Write the extraction as a contour integral on a circle $|x|=\rho$ small enough that $f$
+and $g$ are regular on and inside it:
+\[
+a(n)=\frac{1}{2\pi i}\oint \frac{f(x)g(x)^{n}}{x^{n+1}}\,dx .
+\]
+For $|t|$ small, $|t\,g(x)/x|<1$ on the circle, so the geometric series may be summed
+under the integral:
+\[
+A(t)=\frac{1}{2\pi i}\oint\frac{f(x)}{x}\sum_{n\ge0}\Bigl(\frac{t\,g(x)}{x}\Bigr)^{n}dx
+     =\frac{1}{2\pi i}\oint\frac{f(x)}{x-t\,g(x)}\,dx .
+\]
+Since $g(0)\neq0$, the equation $x=t\,g(x)$ has, for small $t$, exactly one root in the
+disc, namely the branch $x(t)$ with $x(0)=0$ furnished by Lagrange inversion; it is a
+simple zero of $x-t\,g(x)$ because the derivative $1-t\,g'(x)$ is $1$ at $t=0$. The
+residue theorem gives the stated value. Both $x(t)$ and hence $A(t)$ are algebraic,
+being defined by polynomial equations over $\mathbb{Q}(t)$.
 \end{proof}
 
-The fact that makes the test complete rather than merely sufficient is the linear
-independence of dissimilar terms. It is classical; see Petkov\v{s}ek, Wilf and Zeilberger
-\cite{AB}, Chapter~5.
-
-\begin{lemma}\label{lem:indep}
-Let $c_{1},\dots,c_{m}$ be hypergeometric terms, pairwise dissimilar. If
-$\sum_{j=1}^{m}u_{j}(n)c_{j}(n)=0$ for rational functions $u_{j}$ and all large $n$, then
-every $u_{j}$ is the zero rational function.
-\end{lemma}
-
-\section{The recurrence as a finite set of rational identities}
-
-\begin{proposition}\label{prop:main}
-Let $a(n)=\sum_{j=1}^{m}c_{j}(n)$ with each $c_{j}$ hypergeometric, and let
-$p_{0},\dots,p_{r}$ be polynomials. Group the $c_{j}$ into similarity classes and write
-each class as $g_{\ell}(n)\,f_{\ell,s}(n)$ for a representative $g_{\ell}$ and rational
-functions $f_{\ell,s}$. Put
-\[
-S_{\ell}(n)\;=\;\sum_{i=0}^{r}\;\sum_{s}\;p_{i}(n)\,f_{\ell,s}(n-i)\,
-\frac{g_{\ell}(n-i)}{g_{\ell}(n)} ,
-\]
-a rational function of $n$ by Lemma~\ref{lem:shift}. Then
-\[
-\sum_{i=0}^{r}p_{i}(n)\,a(n-i)\;=\;\sum_{\ell}g_{\ell}(n)\,S_{\ell}(n),
-\]
-and the recurrence $\sum_{i}p_{i}(n)a(n-i)=0$ holds for all large $n$ if and only if
-$S_{\ell}=0$ for every $\ell$.
-\end{proposition}
+\begin{corollary}\label{cor:minpoly}
+$A$ satisfies the polynomial obtained by eliminating $x$ between
+$x-t\,g(x)=0$ and $y\bigl(1-t\,g'(x)\bigr)-f(x)=0$.
+\end{corollary}
 
 \begin{proof}
-The displayed identity is the definition of $S_{\ell}$ rearranged: each $a(n-i)$ is the
-sum of its terms, each term is its class representative times a rational function, and the
-representatives are pulled out. The representatives $g_{\ell}$ are pairwise dissimilar by
-construction, so Lemma~\ref{lem:indep} applies to the right-hand side: it vanishes for all
-large $n$ exactly when every $S_{\ell}$ vanishes identically. Sufficiency is immediate.
+Both equations hold at $x=x(t)$, $y=A(t)$ by Lemma~\ref{lem:diag}. Eliminating $x$ by a
+resultant produces a polynomial in $t$ and $y$ vanishing there.
 \end{proof}
 
-Proposition~\ref{prop:main} turns the conjecture into a finite computation in
-$\mathbb{Q}(n)$, with no truncation and no search. The only $n$ it says nothing about are
-those where some $S_{\ell}$ has a pole or some $c_{j}(n-i)$ is undefined, and these are
-finite in number and listed below.
-
-\section{The computation for A092634}
-
-The closed form \eqref{eq:cf} splits into two similarity classes, with
-representativees
+For A226751 this yields
 \[
-3,\qquad - \left(n + 1\right)!
+216 t^{2} y^{3} + 211 t y^{3} - 162 t y^{2} - 36 y^{3} + 24 y^{2} + 11 y + 1 \;=\;0 ,
 \]
-Carrying out Proposition~\ref{prop:main} with the coefficients of \eqref{eq:conj} gives
+and $A$ is the branch of this polynomial whose expansion is the entry's own sequence.
+The branch is identified by that expansion, not by solving for it in radicals --- the
+polynomial can have degree beyond four, where no such expression exists.
+
+\section{The recurrence}
+
+Let $\theta=x\,\dfrac{d}{dx}$, acting on $x^{m}$ as multiplication by $m$.
+
+\begin{lemma}\label{lem:transfer}
+Let $p_{0},\dots,p_{r}$ be polynomials and put $b(n)=\sum_{i}p_{i}(n)a(n-i)$, with
+$a(m)=0$ for $m<0$. Then $B(x)=\sum_{n}b(n)x^{n}=\sum_{i}x^{i}(p_{i}(\theta+i)A)(x)$, so
+the recurrence $\sum_{i}p_{i}(n)a(n-i)=0$ holds for every $n>d$ if and only if $B$ is a
+polynomial of degree at most $d$.
+\end{lemma}
+
+\begin{proof}
+Substituting $m=n-i$ gives $\sum_{n}p_{i}(n)a(n-i)x^{n}=x^{i}(p_{i}(\theta+i)A)(x)$, and
+$b(n)$ is the coefficient of $x^{n}$ in $B$.
+\end{proof}
+
+Since $A$ lies in the algebraic function field generated by the polynomial of
+Corollary~\ref{cor:minpoly}, and such a field is closed under $\theta$ --- differentiating
+its defining relation expresses the derivative of the generator inside the field ---
+every $p_{i}(\theta+i)A$ lies there too, and so does $B$. Computing it exactly gives
 \[
-S_{1}(n)\;=\;0,\qquad S_{2}(n)\;=\;0
+B(x)\;=\;204 x ,
 \]
-so every class residual vanishes identically and the conjecture follows.
+a polynomial of degree $1$.
 
 \begin{theorem}
-For all $n\ge 5$,
+The conjectured recurrence
 \[
-1\,a(n) + (- n - 3)\,a(n-1) + (2 n + 1)\,a(n-2) + (1 - n)\,a(n-3)
+18 n \left(2 n - 1\right) \left(55 n - 76\right)\,a(n) + (- 11605 n^{3} + 28521 n^{2} - 20870 n + 4536)\,a(n-1) -  24 \left(3 n - 4\right) \left(3 n - 2\right) \left(55 n - 21\right)\,a(n-2) \;=\;0
 \]
+holds for every $n>1$.
 \end{theorem}
 
 \begin{proof}
-Immediate from Proposition~\ref{prop:main} and the computation above, the excluded values
-being those at which a class residual has a pole or a term of \eqref{eq:cf} is undefined.
+Immediate from Lemma~\ref{lem:transfer} and the displayed value of $B$.
 \end{proof}
 
 \section{Verification}
 
-Two checks were made, and both are independent of the algebra above.
+Every number above is an output of a script written separately from this note, and three
+independent checks were run.
 
-First, the closed form \eqref{eq:cf} was evaluated at the first $13$ indices and
-compared term by term with the entry's DATA; the values agree exactly. A formula that did
-not reproduce the entry's own terms would not have been used.
+First, the derived generating function was not assumed to be right. Its series was
+computed from \eqref{eq:def} in two independent ways --- once through the residue formula
+of Lemma~\ref{lem:diag}, by solving $x=t\,g(x)$ as a truncated series, and once directly,
+by expanding $f\,g^{n}$ and reading off the coefficient of $x^{n}$ --- and the two agree.
+The result was then compared term by term with the DATA section of A226751, agreeing on
+all 13 terms compared.
 
-Second, the conjectured recurrence \eqref{eq:conj} was evaluated on the published terms in
-exact integer arithmetic at every index where it applies: $15$ instances beginning at
-$n=5$, all of them zero. This is not part of the proof, which is symbolic, but it
-would have caught a transcription error in the coefficients.
+Second, the recurrence was evaluated directly on the published terms, in exact integer
+arithmetic and without reference to any generating function: for each $n$ in range the sum
+$\sum_{i}p_{i}(n)a(n-i)$ was formed from the entry's own values and found to vanish, for
+all 21 values of $n$ from $n=2$ upward.
+
+Third, the symbolic step is exact throughout. The residual is obtained by
+rational-function arithmetic in the algebraic function field, not by series truncation, so
+the identity $B=204 x$ is an identity of functions and the theorem holds for all
+$n>1$ simultaneously.
 
 \begin{thebibliography}{9}
-\bibitem{AB} M.~Petkov\v{s}ek, H.~S.~Wilf and D.~Zeilberger, \emph{A=B}, A K Peters,
-Wellesley MA, 1996.
-\bibitem{OEIS} OEIS Foundation Inc., \emph{The On-Line Encyclopedia of Integer Sequences},
-entry \href{https://oeis.org/A092634}{A092634}, 2025-09-22.
-\bibitem{GKP} R.~L.~Graham, D.~E.~Knuth and O.~Patashnik, \emph{Concrete Mathematics},
-2nd ed., Addison-Wesley, 1994.
+\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer Sequences},
+\url{https://oeis.org}, 2026. Sequence A226751.
+\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 2, Cambridge
+University Press, 1999, Section 6.3 (Lagrange inversion) and Chapter 6 (algebraic and
+D-finite generating functions).
+\bibitem{flajolet} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+University Press, 2009, Chapter VII.
+\bibitem{kp} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011,
+Chapter 7.
 \end{thebibliography}
-
 \end{document}

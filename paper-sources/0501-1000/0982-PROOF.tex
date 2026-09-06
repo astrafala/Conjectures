@@ -12,134 +12,183 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A185800, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A270510, proved by an exact quasi-polynomial}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{3 September 2026}
+\date{6 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A185800 counts arrays over $\{0,\dots,3\}$ under a condition comparing a statistic of
-every $2\times2$ subblock with those of its neighbours, and carries an empirical recurrence
-of order $63$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
-empirical. The count is a walk count on $S=11648$ states and is $C$-finite; whether the
-conjectured recurrence annihilates it is then settled by a finite exact computation.
+OEIS A270510 counts triangular arrays of a FIXED shape over the alphabet $0..n$, and carries an
+empirical recurrence of order $4$ contributed by R.~H.~Hardin. It is true. The array
+family usually met in this part of the OEIS fixes the alphabet and lets the shape grow, so the
+count is a walk count in a finite digraph; here it is the alphabet that grows and there is no
+digraph to walk. Inclusion--exclusion over the adjacent pairs, together with the observation
+that a set of pairs forces the values along each of its connected components to alternate,
+gives $a(n)$ in closed form as a quasi-polynomial of period $2$, exactly and for every $n$.
+The recurrence, and the entry's two branch formulas with it, then follow by polynomial
+division.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A19, 11B37.\normalsize
 
 \section{The conjecture}
 
-OEIS A185800 is ``Number of (n+1)X3 0..3 arrays with every 2X2 subblock trace equal to some horizontal or vertical neighbor 2X2 subblock trace.''. It has offset $1$ and begins
+OEIS A270510 is ``Number of 2X2X2 triangular 0..n arrays with some element plus some adjacent element totalling n+1 exactly once.''. It has offset $1$ and begins
 \[
-704, 13440, 260544, 5177344, 104024384, 2091689856, 42093682560, 847003638592,\ \dots
+3, 6, 21, 36, 63, 90,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n)=35*a(n-1)-454*a(n-2)+3905*a(n-3)-16646*a(n-4)-17907*a(n-5)+949676*a(n-6)-8051993*a(n-7)+41682925*a(n-8)-145051054*a(n-9)+274125122*a(n-10)+232212542*a(n-11)-4891957326*a(n-12)+22568787758*a(n-13)-52952162764*a(n-14)-40197553246*a(n-15)+884511403762*a(n-16)-3849175086718*a(n-17)+12386786882148*a(n-18)-31719905821196*a(n-19)+44680082780334*a(n-20)+58503371604496*a(n-21)-624116103068964*a(n-22)+2471583426312990*a(n-23)-8025230802019217*a(n-24)+23100643729730961*a(n-25)-52410954685702474*a(n-26)+99870156242189745*a(n-27)-183106086725346302*a(n-28)+282874426758050467*a(n-29)-267944916057236664*a(n-30)-84501979059060615*a(n-31)+982257865397375381*a(n-32)-2769960786460148294*a(n-33)+7503773477030521850*a(n-34)-16408969255532390232*a(n-35)+24790965794646922660*a(n-36)-39809538162445401266*a(n-37)+73326743883130370404*a(n-38)-88152723810049981860*a(n-39)+88690256256544688606*a(n-40)-158142366803545853262*a(n-41)+183333104166438307944*a(n-42)-78998084852174982744*a(n-43)+141032721975941852352*a(n-44)-257325656395173610176*a(n-45)+26653160624050682688*a(n-46)+54270729091681913728*a(n-47)+225065674751494199040*a(n-48)-98564884794506065408*a(n-49)-178197029269933901824*a(n-50)-54119922354902036480*a(n-51)+184092856154790076416*a(n-52)+56399964943576768512*a(n-53)-75119022055943995392*a(n-54)-68885215261094412288*a(n-55)+33267791138007416832*a(n-56)+40719151080837218304*a(n-57)-24241304278570106880*a(n-58)-1715033631157125120*a(n-59)+2363911153621401600*a(n-60)+495258590917951488*a(n-61)-402657425573806080*a(n-62)+52241744107929600*a(n-63)
+Empirical: a(n) = 2*a(n-1) -2*a(n-3) +a(n-4)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 03:11:46, revision 9) this is still
+As of the ``Last modified'' line on the live entry (Mar 18 2016 08:04:34, revision 4) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-Write $\sigma$ for the sum of its main diagonal, taken on a $2\times2$ subblock. The contiguous $2\times2$
-subblocks of an $(n+1)\times3$ array over $\{0,\dots,3\}$ form a grid of $n$ rows
-and $2$ columns, and $\sigma$ labels that grid. The entry
-requires that every subblock carries the same value of $\sigma$ as at least ONE of its neighbours horizontally or vertically.
+The array is the triangle with $2$ rows: cells $(i,j)$ for $0\le i<2$ and $0\le j\le i$,
+so $T=3$ of them. Two cells are adjacent when they are neighbours in that triangle --- side
+by side in a row, or one directly below the other on either side --- and there are
+$3\binom{2}{2}=3$ adjacent pairs. Each cell carries a value in
+$\{0,1,\dots,n\}$, and the entry counts those arrays in which EXACTLY ONE adjacent pair
+$\{u,v\}$ has $x_u+x_v=n+1$.
 
-\section{The count is a walk count}
+Note which parameter grows. The shape is fixed; the alphabet is what $n$ counts. So this is not
+a walk in a finite digraph, and nothing about transfer matrices applies.
 
-This condition is NOT a condition on a pair. Whether a subblock has a
-matching neighbour cannot be decided when its own row is placed: the row BELOW it may yet
-supply the match. So the state carries, besides the $2$ consecutive array rows, a tally for
-each of the $2$ subblocks of the row just completed --- a single bit saying whether it has already been matched --- counting its matches
-among its own row and the row above.
+\section{A set of pairs forces the values along its components}
 
-A step appends an array row. It fixes the next subblock row, adds the matches between the two
-rows to the OLD row's tallies, and requires those totals to be acceptable, the old row being
-final at that moment; the new row's tallies start from its own horizontal matches plus the
-matches just made. A state is ACCEPTING when its own tally is already acceptable, which is
-exactly the right condition for the last subblock row, the one with nothing below it. Only the
-states whose tally came from their own row may BEGIN an array, since the first row has nothing
-above it.
+Write $E$ for the set of adjacent pairs, $t=n+1$ for the target, and for $S\subseteq E$ let
+$N(S)$ be the number of arrays satisfying $x_u+x_v=t$ for every pair in $S$ --- and possibly
+others.
 
-An array of $n+1$ rows is then a walk of $n-1$ steps and
+\begin{lemma}\label{lem:comp}
+Let $S\subseteq E$ and let the graph $(V,S)$ have $c_b$ bipartite and $c_o$ non-bipartite
+components among the cells it touches, $v(S)$ cells being touched. Then
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau
+N(S)\;=\;(n+1)^{\,T-v(S)}\;B^{\,c_b}\;F^{\,c_o},
 \]
-with $\iota$ the indicator of the starting states and $\tau$ of the accepting ones, on
-$S=11648$ states in all. Getting the two vectors right is the whole of the argument: with
-$\iota$ taken as all-ones the first row would be allowed a match from a row above it that does
-not exist, and the count would be too large. The entry's own first terms settle it --- for
-the smallest cases
-the model reproduces every published term.
-
-Over the alphabet $\{0,\dots,3\}$ the statistic takes values in $[0,6]$, so the
-grid it labels carries at most $7$ different labels. At $n=1$ the array has $2$
-rows and the grid is a single row of $2$
-subblocks, with only the neighbours inside that row; the entry's first term is
-$704$, which the model reproduces along with every later term, and that is the cheapest
-check that the grid has been read with the right shape.
-
-In particular $a$ is $C$-finite. The alignment of the walk index with the entry's own $n$ was
-checked against its published terms rather than assumed.
-
-\section{The proof}
-
-\begin{lemma}\label{lem:crit}
-Let $q(t)=t^{63}-\sum_i c_it^{63-i}$ be the characteristic polynomial of the
-conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
-$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
-holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
-and it is enough to examine $j<S$.
+where $B=\#\{c: 0\le c\le n,\ 0\le t-c\le n\}$ and $F=1$ if $t$ is even with $0\le t/2\le n$,
+and $F=0$ otherwise.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+63}-\sum_ic_iM^{j+63-i}$. For the bound, $M^{S}$
-is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
-$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
-polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly.
+A pair in $S$ forces $x_v=t-x_u$, so within one connected component of $(V,S)$ the value of any
+one cell determines every other: cells at even distance from a chosen root carry the root's
+value $c$, cells at odd distance carry $t-c$. That assignment is consistent exactly when no
+cycle of the component has odd length; if some cycle does, following it around forces $c=t-c$,
+so $2c=t$, and the component admits one value when $t$ is even and $t/2$ lies in the alphabet,
+and none otherwise. A bipartite component is therefore free to choose $c$ subject only to
+$c$ and $t-c$ both lying in $\{0,\dots,n\}$, which is $B$ choices. Cells touched by no pair
+of $S$ are unconstrained, giving $(n+1)$ choices each.
 \end{proof}
 
-\begin{theorem}
+Here $B=n$ and $F=1$ precisely when $n$ is odd.
+
+\section{The count}
+
+\begin{theorem}\label{thm:quasi}
+For every $n\ge0$,
 \[
-a(n)\;=\;35\,a(n-1) - 454\,a(n-2) + 3905\,a(n-3) - 16646\,a(n-4) - 17907\,a(n-5) + 949676\,a(n-6) - 8051993\,a(n-7) + 41682925\,a(n-8) - 145051054\,a(n-9) + 274125122\,a(n-10) + 232212542\,a(n-11) - 4891957326\,a(n-12) + 22568787758\,a(n-13) - 52952162764\,a(n-14) - 40197553246\,a(n-15) + 884511403762\,a(n-16) - 3849175086718\,a(n-17) + 12386786882148\,a(n-18) - 31719905821196\,a(n-19) + 44680082780334\,a(n-20) + 58503371604496\,a(n-21) - 624116103068964\,a(n-22) + 2471583426312990\,a(n-23) - 8025230802019217\,a(n-24) + 23100643729730961\,a(n-25) - 52410954685702474\,a(n-26) + 99870156242189745\,a(n-27) - 183106086725346302\,a(n-28) + 282874426758050467\,a(n-29) - 267944916057236664\,a(n-30) - 84501979059060615\,a(n-31) + 982257865397375381\,a(n-32) - 2769960786460148294\,a(n-33) + 7503773477030521850\,a(n-34) - 16408969255532390232\,a(n-35) + 24790965794646922660\,a(n-36) - 39809538162445401266\,a(n-37) + 73326743883130370404\,a(n-38) - 88152723810049981860\,a(n-39) + 88690256256544688606\,a(n-40) - 158142366803545853262\,a(n-41) + 183333104166438307944\,a(n-42) - 78998084852174982744\,a(n-43) + 141032721975941852352\,a(n-44) - 257325656395173610176\,a(n-45) + 26653160624050682688\,a(n-46) + 54270729091681913728\,a(n-47) + 225065674751494199040\,a(n-48) - 98564884794506065408\,a(n-49) - 178197029269933901824\,a(n-50) - 54119922354902036480\,a(n-51) + 184092856154790076416\,a(n-52) + 56399964943576768512\,a(n-53) - 75119022055943995392\,a(n-54) - 68885215261094412288\,a(n-55) + 33267791138007416832\,a(n-56) + 40719151080837218304\,a(n-57) - 24241304278570106880\,a(n-58) - 1715033631157125120\,a(n-59) + 2363911153621401600\,a(n-60) + 495258590917951488\,a(n-61) - 402657425573806080\,a(n-62) + 52241744107929600\,a(n-63)
+a(n)\;=\;A(n)+(-1)^n\,C(n),\qquad
+A(n)=3n^{2} - 3n + \tfrac{3}{2},
 \]
-for every $n>63$.
+\[
+C(n)=- \tfrac{3}{2}.
+\]
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $63$ matrix--vector products in exact integer
-arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=63+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once.
+For an array $x$ let $\sigma(x)$ be its number of satisfied pairs. Then
+\[
+\sum_{S\subseteq E}w^{|S|}\,\#\{x:\ S\subseteq\text{satisfied pairs of }x\}
+=\sum_x (1+w)^{\sigma(x)},
+\]
+and differentiating in $w$ at $w=-1$ picks out exactly the arrays with $\sigma(x)=1$:
+\[
+a(n)\;=\;\sum_{\emptyset\neq S\subseteq E}(-1)^{|S|-1}\,|S|\;N(S).
+\]
+Each $N(S)$ is given by Lemma~\ref{lem:comp}. The exponents $T-v(S)$, $c_b$ and $c_o$ do not
+involve $n$, so the sum was formed once by running over all $2^{3}$ subsets and
+recording those three numbers. Every term is a polynomial in $n$ multiplied by $F^{c_o}$, and
+$F$ depends only on the parity of $n$; collecting the two parities gives a polynomial identity
+in $n$ on each, and the displayed $A$ and $C$ are their half-sum and half-difference. The
+identity holds for every $n\ge0$, with no threshold: Lemma~\ref{lem:comp} is exact at every
+$n$.
+\end{proof}
+
+The degree of $A$ is $2$ and that of $C$ is $0$. Both are at most $T-1$,
+because a set $S$ with a single pair leaves $T-2$ cells free and contributes one bipartite
+component.
+
+\section{The two branch formulas}
+
+The entry also records, as separate empirical observations:
+\begin{quote}
+Empirical for n mod 2 = 0: a(n) = 3*n\^{}2 - 3*n
+
+Empirical for n mod 2 = 1: a(n) = 3*n\^{}2 - 3*n + 3
+\end{quote}
+These follow at once, and are exact: putting $n$ even and $n$ odd into
+Theorem~\ref{thm:quasi},
+\[
+a(n)=\begin{cases}
+3n^{2} - 3n, & n\ \text{even},\\[2pt]
+3n^{2} - 3n + 3, & n\ \text{odd},
+\end{cases}
+\]
+which is what the entry states.
+
+\section{The recurrence}
+
+\begin{theorem}
+\[
+a(n)\;=\;2\,a(n-1) - 2\,a(n-3) + a(n-4)
+\]
+for every $n>4$.
+\end{theorem}
+
+\begin{proof}
+Write $E$ for the shift operator, $(Ea)(n)=a(n+1)$. A polynomial of degree $d$ is annihilated
+by $(E-1)^{d+1}$ and by nothing smaller, and $(-1)^n$ times a polynomial of degree $d$ is
+annihilated by $(E+1)^{d+1}$ and by nothing smaller. By Theorem~\ref{thm:quasi} the
+sequence is therefore annihilated by
+\[
+(E-1)^{3}(E+1)^{1},
+\]
+a monic operator of order $4$, and by no proper divisor of it, since the two
+factors act on the two parts independently and neither part is annihilated by less. The
+characteristic polynomial of the conjectured recurrence is
+$t^{4}-\sum_i c_it^{4-i}$; dividing it by the operator above in
+$\mathbb{Z}[t]$ leaves no remainder, so the conjectured recurrence is a consequence of
+Theorem~\ref{thm:quasi} and holds wherever every index it names is at least the offset.
 \end{proof}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $15$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry: the digraph is built by reading the
-entry's English, and a misreading gives different counts.
+First, the closed form reproduces all $47$ terms the entry publishes, exactly, in integer
+arithmetic.
 
-Second, the conjectured recurrence was evaluated directly on those published terms, with no
-matrices involved, and holds wherever the proved range and the data overlap.
+Second, the arrays themselves were enumerated for the smallest alphabets --- every assignment
+of $0..n$ to the $3$ cells written out and its satisfied pairs counted, with no
+inclusion--exclusion and no closed form --- and the counts agree. A wrong reading of the cell
+set, of the adjacency, or of the target would show here and nowhere else.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
-arithmetic on the whole vector rather than on a sampled prefix.
+Third, the conjectured recurrence was applied directly to the closed form's own values over a
+long range, in exact integer arithmetic, and holds throughout; this is independent of the
+divisibility argument, which is what actually proves it.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A185800.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A270510.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata
-Theory, Languages, and Computation}, 3rd ed., Addison--Wesley, 2006.
-\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
-University Press, 2013.
+Cambridge University Press, 2011. (Quasi-polynomials, Section 4.4.)
+\bibitem{beck} M.~Beck and S.~Robins, \emph{Computing the Continuous Discretely}, 2nd ed.,
+Springer, 2015.
+\bibitem{comtet} L.~Comtet, \emph{Advanced Combinatorics}, Reidel, 1974.
 \end{thebibliography}
 
 \end{document}

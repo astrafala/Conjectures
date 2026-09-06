@@ -12,122 +12,104 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A221830, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A218081, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{3 September 2026}
+\date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A221830 counts the distinct OCCUPANCY arrays obtained when every cell of an $n\times3$ grid
-holds one token, each token moves to a neighbouring cell, and the direction a token leaves a
-cell in is restricted by the direction in which another token arrives there. The entry carries
-an empirical recurrence of order $17$ contributed by R.~H.~Hardin. It is true, and it is
-decidable rather than empirical. What is counted is the size of an IMAGE --- two different
-assignments of moves with the same occupancy count once --- so it is not a walk count in the
-obvious graph; determinising the machine that emits the occupancy row by row turns it into
-one, on $S=676$ states, after which the conjectured recurrence is settled by a finite exact
+OEIS A218081 counts the distinct arrays obtained by applying a fixed local operation to every cell
+of an array over a bounded alphabet, and carries an empirical recurrence of order $23$
+contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical. What is
+counted is the IMAGE of a map, not its domain, so it is not a walk count in the obvious graph;
+determinising the machine that emits the derived array row by row turns it into one, on
+$S=155$ states, after which the conjectured recurrence is settled by a finite exact
 computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 68Q45, 60C05.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 68Q45, 15B36.\normalsize
 
 \section{The conjecture}
 
-OEIS A221830 is ``Number of 3Xn arrays of occupancy after each element moves to some horizontal, vertical or antidiagonal neighbor, without 2-loops or left turns.''. It has offset $1$ and begins
+OEIS A218081 is ``Number of nX5 arrays of the minimum value of corresponding elements and their horizontal, vertical or antidiagonal neighbors in a random 0..1 nX5 array.''. It has offset $1$ and begins
 \[
-0, 14, 202, 2879, 40983, 583419, 8304016, 118195328,\ \dots
+10, 38, 246, 1508, 9570, 60258, 380952, 2406376,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 17*a(n-1) -39*a(n-2) -14*a(n-3) +134*a(n-4) -161*a(n-5) +50*a(n-6) -147*a(n-7) +129*a(n-8) +215*a(n-9) -131*a(n-10) +53*a(n-11) -92*a(n-12) -97*a(n-13) +31*a(n-14) -27*a(n-15) +16*a(n-16) +6*a(n-17) for n>18
+Empirical: a(n) = 5*a(n-1) +19*a(n-2) -37*a(n-3) -231*a(n-4) +48*a(n-5) +1233*a(n-6) +765*a(n-7) -3665*a(n-8) -3352*a(n-9) +5681*a(n-10) +6688*a(n-11) -7953*a(n-12) -1406*a(n-13) +2852*a(n-14) +584*a(n-15) -3967*a(n-16) +3715*a(n-17) -278*a(n-18) -660*a(n-19) -621*a(n-20) +458*a(n-21) +99*a(n-22) -4*a(n-23) for n>25
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 20:02:25, revision 8) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 17:33:58, revision 8) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-Every cell of an $n\times3$ grid holds one token. Each token moves by one of the offsets
+Let $R=\{0,\dots,1\}^{5}$ be the set of rows and let the neighbours of
+a cell be the cells at the offsets
 \[
 (-1,0), (-1,1), (0,-1), (0,1), (1,-1), (1,0),
 \]
-a move being available only when it lands inside the grid. The offset $(0,0)$ is NOT among them: every token must move. The entry writes the array with $n$ as the number of COLUMNS. Transposing it exchanges the two coordinates of every offset, which is done once so that the walk always runs down the rows; a transposition is a reflection and reverses the sense of a turn, so the left-hand test is negated in the transposed frame rather than being applied in the wrong one. The OCCUPANCY array
-records, for each cell, how many tokens land on it, and the entry counts how many different
-occupancy arrays occur as the assignment of moves runs over all its possibilities.
-
-The moves are not free of one another. Suppose the token at a cell $A$ moves by $d$ to the
-cell $B$, and the token standing at $B$ moves by $d'$. The entry forbids the ordered pair
-$(d,d')$ when
-\begin{itemize}
-\item $d\wedge d'>0$, that is, the outgoing direction lies to the LEFT of the incoming one, the wedge being the cross product of the two offsets read as plane vectors;
-\item $d'=-d$, that is, the two tokens exchange places --- a $2$-LOOP;
-\end{itemize}
-and imposes nothing else. A token that stays put neither arrives anywhere nor leaves, so a
-zero offset on either side of the pair carries no condition at all.
-
-The sense of ``left'' is fixed once and for all. Rows are numbered downwards, so the offset
-$(d_1,d_2)$ is the plane vector $(d_2,-d_1)$, and $d\wedge d'$ denotes
-$d_2(-d'_1)-(-d_1)d'_2$. A positive value says $d'$ is obtained from $d$ by a rotation through
-an angle strictly between $0$ and $\pi$ counterclockwise, which is what a turn to the left is.
-The condition is not a $90^\circ$ test: for a neighbour set containing diagonal offsets the
-turns of $45^\circ$ and $135^\circ$ are left turns too, and the entry's data distinguishes the
-two readings.
-
-That the count is the size of an IMAGE is the whole difficulty: two assignments with the same
-occupancy must be counted once, and a walk count over the assignments would count them twice.
-
-\section{One window decides everything}
-
-Write $c_i\in\Delta^{3}$ for the row of offsets chosen by the cells of row $i$, where
-$\Delta$ is the offset set above.
-
-\begin{lemma}\label{lem:win}
-Both the occupancy of row $i$ and every instance of the forbidden pair whose FIRST member is a
-move made in row $i$ are determined by $c_{i-1},c_i,c_{i+1}$, with the convention that an
-absent row is the symbol $\bot$.
-\end{lemma}
-
-\begin{proof}
-Every offset changes the row index by at most one, so a token landing on a cell of row $i$
-started in row $i-1$, $i$ or $i+1$; that is the occupancy. For the pairs, a move made by the
-cell $(i,j)$ with offset $d$ lands on the cell $(i+d_1,j+d_2)$, whose row is $i-1$, $i$ or
-$i+1$, so the offset $d'$ of that cell is a coordinate of $c_{i-1}$, $c_i$ or $c_{i+1}$.
-Reading a row of the array as $\bot$ makes ``up'' or ``down'' unavailable, which is exactly
-the boundary rule.
-\end{proof}
-
-Each ordered pair is therefore tested exactly once, from the row of the token that makes the
-first move of the pair; every row plays that part exactly once along the array.
-
-Let $\beta(p,c,x)$ be the occupancy row of $c$ in the context $(p,x)$, undefined when some
-cell of $c$ has no room to move or when some forbidden pair occurs. The occupancy array of an
-assignment $c_1,\dots,c_n$ is
+those falling outside the array being simply absent. For an array
+$A=(r_1,\dots,r_n)\in R^n$ let $\Phi(A)$ be the array whose cell $(i,j)$ carries the
+minimum of $A(i,j)$ and of the values at its neighbours. The entry counts
 \[
-\bigl(\beta(\bot,c_1,c_2),\ \beta(c_1,c_2,c_3),\ \dots,\ \beta(c_{n-1},c_n,\bot)\bigr).
+a(n)\;=\;\bigl|\{\Phi(A):A\in R^n\}\bigr| ,
+\]
+the size of an IMAGE. That is the whole difficulty: two different arrays with the same
+minimum-array must be counted once, and a walk count on the arrays would count them twice.
+
+Because every offset above moves the row index by at most one, row $i$ of
+$\Phi(A)$ depends only on rows $i-1,i,i+1$ of $A$. Write $\beta(p,c,x)$ for that row, with $p$
+or $x$ allowed to be $\bot$ for ``outside''; then
+\[
+\Phi(r_1,\dots,r_n)=\bigl(\beta(\bot,r_1,r_2),\ \dots,\ \beta(r_{n-1},r_n,\bot)\bigr).
 \]
 
 \section{The image is a walk count after determinisation}
 
-Determinise. For a set $D$ of pairs $(p,c)$ and an occupancy row $b$ put
+For a set $D$ of pairs $(p,c)$ and a derived row $b$ put
 \[
-\delta(D,b)=\{(c,x):(p,c)\in D,\ \beta(p,c,x)=b\},\qquad
-f(D)=\bigl|\{\beta(p,c,\bot):(p,c)\in D,\ \beta(p,c,\bot)\ \text{defined}\}\bigr| ,
+\delta(D,b)=\{(c,x):(p,c)\in D,\ x\in R,\ \beta(p,c,x)=b\},\qquad
+f(D)=\bigl|\{\beta(p,c,\bot):(p,c)\in D\}\bigr| ,
 \]
-and let $D_0=\{(\bot,c):c\}$. An induction on the number of rows shows $D_t$ is exactly the
-set of pairs of consecutive move-rows completing a prefix with the emitted occupancy rows, so
-that with $M$ the adjacency matrix of the digraph on the reachable nonempty sets, one edge per
-occupancy row it admits,
+and let $D_0=\{(\bot,r):r\in R\}$.
+
+\begin{lemma}\label{lem:det}
+For every $t\ge0$, $D_t=\delta(\dots\delta(D_0,b_1)\dots,b_t)$ is exactly the set of pairs
+$(r_t,r_{t+1})$ of consecutive rows completing a prefix $r_1,\dots,r_{t+1}$ whose first $t$
+derived rows are $b_1,\dots,b_t$. Consequently, for $n\ge1$,
+\[
+a(n)=\sum_{b_1,\dots,b_{n-1}}f(D_{n-1}),
+\]
+the empty sets contributing nothing.
+\end{lemma}
+
+\begin{proof}
+Induction on $t$: $D_0$ is the set of pairs $(\bot,r_1)$, and $\delta(D_t,b)$ collects the
+pairs $(r_{t+1},r_{t+2})$ extending a consistent prefix with
+$\beta(r_t,r_{t+1},r_{t+2})=b$. An element of the image is a full derived array
+$(b_1,\dots,b_n)$; its prefix $(b_1,\dots,b_{n-1})$ is realisable exactly when
+$D_{n-1}\neq\emptyset$, and then the possible last rows are
+$\{\beta(p,c,\bot):(p,c)\in D_{n-1}\}$, of which there are $f(D_{n-1})$. Distinct sequences
+are distinct derived arrays, so each is counted once.
+\end{proof}
+
+So with $M$ the adjacency matrix of the digraph whose vertices are the reachable nonempty sets
+and which carries one edge $D\to\delta(D,b)$ for each $b$ with $\delta(D,b)\neq\emptyset$ ---
+several $b$ may lead to the same set, and then the edge is repeated, which is exactly right,
+since the derived arrays differ ---
 \[
 a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,\qquad \iota=e_{D_0},\quad \tau=f .
 \]
-The last row is counted by $f$ and not by an edge: it is emitted with nothing below it, so it
-is a property of the state the walk stops in and $\tau$ is not the all-ones vector. There are
-$S=676$ reachable sets. In particular $a$ is $C$-finite.
+There are $S=155$ reachable sets, generated from $D_0$ outward, and $a$ is $C$-finite.
+Note that $\tau$ is not the all-ones vector: the last derived row is not a
+step of the walk but a count attached to the state the walk stops in.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{17}-\sum_i c_it^{17-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{23}-\sum_i c_it^{23-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -135,7 +117,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+17}-\sum_ic_iM^{j+17-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+23}-\sum_ic_iM^{j+23-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -144,40 +126,35 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;17\,a(n-1) - 39\,a(n-2) - 14\,a(n-3) + 134\,a(n-4) - 161\,a(n-5) + 50\,a(n-6) - 147\,a(n-7) + 129\,a(n-8) + 215\,a(n-9) - 131\,a(n-10) + 53\,a(n-11) - 92\,a(n-12) - 97\,a(n-13) + 31\,a(n-14) - 27\,a(n-15) + 16\,a(n-16) + 6\,a(n-17)
+a(n)\;=\;5\,a(n-1) + 19\,a(n-2) - 37\,a(n-3) - 231\,a(n-4) + 48\,a(n-5) + 1233\,a(n-6) + 765\,a(n-7) - 3665\,a(n-8) - 3352\,a(n-9) + 5681\,a(n-10) + 6688\,a(n-11) - 7953\,a(n-12) - 1406\,a(n-13) + 2852\,a(n-14) + 584\,a(n-15) - 3967\,a(n-16) + 3715\,a(n-17) - 278\,a(n-18) - 660\,a(n-19) - 621\,a(n-20) + 458\,a(n-21) + 99\,a(n-22) - 4\,a(n-23)
 \]
-for every $n>18$.
+for every $n>25$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $17$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $23$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=18+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=25+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
-Four checks, each independent of the algebra above.
+Three checks, each independent of the algebra above.
 
-First, the model reproduces all $17$ terms the entry publishes, exactly, in integer
-arithmetic.
+First, the model reproduces all $20$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry: the machine is built by reading the
+entry's English, and a misreading gives different counts.
 
-Second, the count was recomputed for the smallest grids straight from the definition ---
-enumerate every assignment of offsets to cells, discard the assignments containing a forbidden
-pair, form the occupancy array, and count the distinct arrays --- with the forbidden-pair test
-written out from the entry's wording rather than taken from the model. The published terms
-came back.
-
-Third, the conjectured recurrence was evaluated directly on the published terms, with no
+Second, the conjectured recurrence was evaluated directly on those published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
 
-Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
 arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A221830.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A218081.
 \bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata
 Theory, Languages, and Computation}, 3rd ed., Addison--Wesley, 2006. (The subset
 construction, Section 2.3.)

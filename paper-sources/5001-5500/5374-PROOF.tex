@@ -12,19 +12,19 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A282312, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A283278, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A282312 counts $n\times4$ arrays over $\{0,\dots,1\}$ subject to a condition imposed on
-every CELL through its king-move neighbourhood, and it carries an empirical recurrence of
-order $18$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
+OEIS A283278 counts $n\times4$ arrays over $\{0,\dots,1\}$ subject to a condition imposed on
+every CELL over a neighbour set the entry names, and it carries an empirical recurrence of
+order $19$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
 empirical. A cell's neighbourhood meets three consecutive rows, so the state of a transfer
 matrix is a pair of consecutive rows and each step settles the middle one; an array is a
-walk, and $a(n)$ is a walk count on $S=272$ vertices, which is $C$-finite. Whether the
+walk, and $a(n)$ is a walk count on $S=192$ vertices, which is $C$-finite. Whether the
 conjectured recurrence annihilates it is then decided by a finite exact computation, with the
 Cayley--Hamilton theorem bounding the work.
 \end{abstract}
@@ -33,29 +33,33 @@ Cayley--Hamilton theorem bounding the work.
 
 \section{The conjecture}
 
-OEIS A282312 is ``Number of nX4 0..1 arrays with no 1 equal to more than four of its king-move neighbors.''. It has offset $1$ and begins
+OEIS A283278 is ``Number of nX4 0..1 arrays with no 1 equal to more than two of its horizontal, vertical and antidiagonal neighbors.''. It has offset $1$ and begins
 \[
-16, 249, 2968, 40024, 535494, 7114808, 94872444, 1264480188,\ \dots
+16, 176, 1725, 18320, 191025, 1994338, 20834848, 217606715,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 9*a(n-1) +43*a(n-2) +233*a(n-3) -369*a(n-4) -1432*a(n-5) -4530*a(n-6) +2472*a(n-7) +11204*a(n-8) +21774*a(n-9) -142*a(n-10) -13268*a(n-11) -20778*a(n-12) -1758*a(n-13) +3980*a(n-14) +5134*a(n-15) +500*a(n-16) +68*a(n-17) +72*a(n-18)
+Empirical: a(n) = 8*a(n-1) +22*a(n-2) +46*a(n-3) -91*a(n-4) -37*a(n-5) -135*a(n-6) +1263*a(n-7) -1913*a(n-8) +3501*a(n-9) -10568*a(n-10) +23356*a(n-11) -42719*a(n-12) +63699*a(n-13) -67853*a(n-14) +43395*a(n-15) -21088*a(n-16) +15354*a(n-17) -8233*a(n-18) +1521*a(n-19)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Feb 11 2017 11:25:21, revision 4) this is still
+As of the ``Last modified'' line on the live entry (Mar 04 2017 11:52:00, revision 4) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{Cells, not blocks}
 
-The king-move neighbours of a cell are the (at most) eight cells surrounding it. Every cell
-carries the condition
+The entry names the neighbours it means --- horizontal is left and right, vertical is up and
+down, diagonal is northwest-to-southeast, antidiagonal is northeast-to-southwest, king-move is
+all eight --- and every such set lies inside the $3\times3$ square centred on the cell. Here
+the set is $\{(0,-1), (0,1), (-1,0), (1,0), (-1,1), (1,-1)\}$, written as offsets (row, column) from the cell. Every cell carries
+the condition
 \[
-\text{every }1\text{ has at most }4\text{ neighbouring }1\text{s},
+\text{every 1 has at most 2 neighbouring 1s},
 \]
 and the count of neighbours enters it, so the boundary is not a detail that can be papered
-over: a corner cell has three neighbours, an edge cell five, an interior cell eight, and a
-condition such as ``a strict majority of its neighbours'' means different things at each. In
-particular one cannot pad the array with a border of zeros --- that would give boundary cells
-eight neighbours and change what is being counted. The outside is therefore carried
+over: a cell in the interior has $6$ neighbours in this set and a cell on the boundary
+fewer, and a condition such as ``a strict majority of its neighbours'' therefore means
+different things at the two. In particular one cannot pad the array with a border of zeros ---
+that would give every cell the full $6$ and change what is being counted. The outside is
+therefore carried
 explicitly, as a sentinel row above the first and below the last and as a sentinel column
 either side, and a neighbour that falls outside is simply absent from both counts.
 
@@ -77,7 +81,7 @@ particular $a$ is $C$-finite.
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{18}-\sum_i c_it^{18-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{19}-\sum_i c_it^{19-i}$ be the characteristic polynomial of the
 conjectured recurrence. Then the residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the
 recurrence holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all
@@ -85,7 +89,7 @@ large $j$; and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+18}-\sum_ic_iM^{j+18-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+19}-\sum_ic_iM^{j+19-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ satisfy the monic linear recurrence given by the
 characteristic polynomial of $M$; $S$ consecutive zeros force every later one, and the last
@@ -94,30 +98,31 @@ nonzero $u_j$ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;9\,a(n-1) + 43\,a(n-2) + 233\,a(n-3) - 369\,a(n-4) - 1432\,a(n-5) - 4530\,a(n-6) + 2472\,a(n-7) + 11204\,a(n-8) + 21774\,a(n-9) - 142\,a(n-10) - 13268\,a(n-11) - 20778\,a(n-12) - 1758\,a(n-13) + 3980\,a(n-14) + 5134\,a(n-15) + 500\,a(n-16) + 68\,a(n-17) + 72\,a(n-18)
+a(n)\;=\;8\,a(n-1) + 22\,a(n-2) + 46\,a(n-3) - 91\,a(n-4) - 37\,a(n-5) - 135\,a(n-6) + 1263\,a(n-7) - 1913\,a(n-8) + 3501\,a(n-9) - 10568\,a(n-10) + 23356\,a(n-11) - 42719\,a(n-12) + 63699\,a(n-13) - 67853\,a(n-14) + 43395\,a(n-15) - 21088\,a(n-16) + 15354\,a(n-17) - 8233\,a(n-18) + 1521\,a(n-19)
 \]
-for every $n>18$.
+for every $n>19$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $18$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $19$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly. Those
-integers vanish from the index corresponding to $n=18+1$ onwards, and the run was
+integers vanish from the index corresponding to $n=19+1$ onwards, and the run was
 continued until the working vector was identically zero, which settles all larger $j$ at once.
-By Lemma~\ref{lem:crit} the recurrence holds for every $n>18$.
+By Lemma~\ref{lem:crit} the recurrence holds for every $n>19$.
 \end{proof}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the transfer model reproduces all $16$ terms the entry publishes, exactly, in
-integer arithmetic. That check earned its place here. An early version of the construction
-tested whether a neighbour lay in the current row by comparing the row objects rather
-than their positions; when the row above happened to be identical to the current one, the
-cell directly above was then skipped as though it were the cell itself. The counts agreed with
-the entry for arrays of up to three rows and diverged at four, which is exactly the sort of
-error that a check on a handful of small cases would have missed.
+First, the transfer model reproduces all $17$ terms the entry publishes, exactly, in
+integer arithmetic. That check earned its place here. The neighbour offsets are named in the
+array's own frame --- horizontal means along a row --- but when the entry fixes the first
+dimension, as in ``$2\times n$'', the walk runs along columns and the two components of every
+offset swap. Sets such as king-move, or horizontal together with vertical, are unchanged by
+that swap and hide the error completely; a set such as horizontal, diagonal and antidiagonal
+is not, and the counts came out as those of a different member of the same family until the
+offsets were transposed.
 
 Second, the conjectured recurrence was evaluated directly on the entry's own published terms,
 with no matrices involved, and holds wherever the proved range and the data overlap.
@@ -127,7 +132,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A282312.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A283278.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

@@ -12,96 +12,83 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A189182, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A264273, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{6 September 2026}
+\date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A189182 counts the permutations of the cells of an $n\times5$ array in which every cell
-moves by one of a fixed short list of offsets. The entry carries an empirical recurrence of
-order $53$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
-empirical. The count is the permanent of the incidence matrix of the offset graph; read the
-cells in row-major order and let each choose its image, and the only thing that has to be
-carried is which images inside a window of $13$ consecutive positions are already taken.
-That makes $a$ a walk count on $S=462$ states, hence $C$-finite, and whether the published
-recurrence is one of its recurrences is then a finite exact computation.
+OEIS A264273 counts the arrangements of $0,1,\dots,LW-1$ in a grid of $W=3$ columns in which
+every value moves from its home cell by an index change on a short list, and it carries an
+empirical recurrence of order $1$ contributed by R.~H.~Hardin. It is true, and it is
+decidable rather than empirical. Such an arrangement is a perfect matching between cells and
+values, and because a value's row moves by at most $R=2$, the matching splits into
+independent decisions column by column: after the cells of columns $0,\dots,i$ are filled,
+every value whose home column is at most $i-R$ has been used, and only $2R$ home columns are
+partly used. Carrying those as bitmasks makes the count a walk on $S=4096$ vertices, so it is
+$C$-finite and the conjectured recurrence is decided by a finite exact computation.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A05, 05A15, 15A15.\normalsize
 
 \section{The conjecture}
 
-OEIS A189182 is ``Number of nX5 array permutations with each element making a single king move.''. It has offset $1$ and begins
+OEIS A264273 is ``Number of (2+1) X (n+1) arrays of permutations of 0..n*3+2 with each element having index change +-(.,.) 0,0 1,0 or 1,2.''. It has offset $1$ and begins
 \[
-0, 913, 47936, 10599449, 1339732352, 212852911361, 30863909708032, 4646631858824169,\ \dots
+9, 48, 256, 1280, 6400, 32000, 160000, 800000,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 114*a(n-1) +9317*a(n-2) -508866*a(n-3) -20910348*a(n-4) +704525664*a(n-5) +19358697488*a(n-6) -428304917728*a(n-7) -8879601094240*a(n-8) +129853332142720*a(n-9) +2190323609648896*a(n-10) -20574172318548480*a(n-11) -314606162399573504*a(n-12) +1598037911119250432*a(n-13) +27684023072295867392*a(n-14) -32346791780760006656*a(n-15) -1499684717324405215232*a(n-16) -3695155586595907993600*a(n-17) +46583697668722445025280*a(n-18) +290219562521732580573184*a(n-19) -593905480603069347004416*a(n-20) -8401632685478568054226944*a(n-21) -6539590799133706090971136*a(n-22) +96348126155652764263251968*a(n-23) +264417463146912245959622656*a(n-24) +12682495240626001051385856*a(n-25) -1744238428870058772105527296*a(n-26) -5693069153240876119306010624*a(n-27) -4564434382539862336212041728*a(n-28) -7943580772549846384227909632*a(n-29) -31586327988680906132309409792*a(n-30) +143766153982154846382418034688*a(n-31) +511623793291640778265865486336*a(n-32) +551178593322357659823759163392*a(n-33) +202854802351241365026179645440*a(n-34) -2905957648388000419056778739712*a(n-35) -3155337356481894282288074588160*a(n-36) -1042822458306188258889227567104*a(n-37) -2453052645713081078335951339520*a(n-38) +6778721456546169282766280065024*a(n-39) -1504306134813089239960437915648*a(n-40) -10352521978401584357617218617344*a(n-41) -3016565382617002414243131162624*a(n-42) +6150339155711867029113958039552*a(n-43) +10412506380362096054859393400832*a(n-44) +6806793406325595977933081542656*a(n-45) +2721724352275152477557442478080*a(n-46) +569526346586061594312736505856*a(n-47) -1477517748051341183691492687872*a(n-48) -1912761063129875165619605733376*a(n-49) -508156074249026659194220052480*a(n-50) +54066805553079381002532421632*a(n-51) +19155126199747274898514378752*a(n-52) +8773476904398267578136395776*a(n-53)
+Empirical: a(n) = 5*a(n-1) for n>3.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 05:04:21, revision 12) this is still
+As of the ``Last modified'' line on the live entry (Jun 29 2023 11:30:18, revision 11) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
-\section{What is being counted}
+\section{The object is a matching}
 
-Write the cells of the array as pairs $(i,j)$ with $0\le i<n$ and $0\le j<5$. An
-\emph{array permutation} of the kind the entry counts is a bijection $\pi$ from the cells to
-the cells such that for every cell,
+The grid has $W=3$ columns across and holds each of $0,1,\dots,LW-1$ exactly once. The value
+$v$ has a HOME cell, namely its place in the plain row-major filling, and putting $v$ in cell
+$(i,j)$ changes its index by $(i-h_i,\,j-h_j)$ where $(h_i,h_j)$ is that home cell. The entry
+allows the index changes
 \[
-\pi(i,j)-(i,j)\;\in\;\Delta,\qquad
-\Delta=\{\,(-1,-1),\ (-1,0),\ (-1,1),\ (0,-1),\ (0,1),\ (1,-1),\ (1,0),\ (1,1)\,\}.
+(i-h_i,\,j-h_j)\;\in\;\{(-2,-1),\ (0,-1),\ (0,0),\ (0,1),\ (2,1)\},
 \]
-The offsets are what the name's words say: the eight king moves. A cell may not stay where it is: $(0,0)$ is not among the offsets, so the permutation has no fixed point.
+the list being the entry's own, read with the sign convention its wording uses. An admissible
+arrangement is therefore exactly a perfect matching in the bipartite graph joining each cell to
+the values it may hold.
 
-A move is only allowed when its target is a cell of the array, so cells near an
-edge have fewer choices. The reading is pinned against the entry's own published terms rather
-than assumed: taking ``diagonally, horizontally or vertically'' to mean all eight king moves
-gives $24$ where A189305 publishes $14$.
+\section{The matching is a walk}
 
-Equivalently, $a(n)$ is the permanent of the $n5\times n5$ matrix whose $(c,c')$ entry is
-$1$ exactly when $c'-c\in\Delta$.
+Let $R=2$ be the largest $|i-h_i|$ on the list. A value whose home column is $h$ can only be
+placed in columns $h-R,\dots,h+R$. So once the cells of columns $0,\dots,i$ are filled, every
+value with home column at most $i-R$ has been used up, and the only home columns that can be
+partly used are $i-R+1,\dots,i+R$ --- exactly $2R$ of them. Take as the state the tuple of
+$2R$ bitmasks recording which values of those home columns are already placed. One step fills
+the cells of one further column, drawing each of its $W$ values from a home column within $R$
+and at an allowed column offset, and the home column that closes at that step must come out
+full. Nonexistent home columns --- before the first and after the last --- are carried as
+full, which makes the starting and accepting states the same one.
 
-\section{A window of 13 positions}
-
-Number the cells in row-major order, $k=i\cdot5+j$. An offset $(\delta_1,\delta_2)$ moves a
-cell by $\delta_15+\delta_2$ places in that order, so every image lies between $lo=-6$ and
-$hi=6$ places from its source. Process the cells in order and let each one choose its image.
-Once the cell at position $k$ has been dealt with, the position $k+-6$ can never be chosen
-again by anybody, so it must already be taken; and no position beyond $k+6$ can have been
-taken yet. What has to be remembered is therefore exactly which of the $13$ positions
-$k+-6,\dots,k+6$ are taken --- a subset of a set of size $13$, and nothing else.
-
-That is the state. One step of the walk is one row, that is $5$ cell choices, and the
-condition ``the position leaving the window is taken'' is what makes the walk count permutations
-rather than partial injections: every position is taken exactly once, once at the moment it
-leaves the window.
-
-The two boundaries are the same condition. Images above the first row do not exist, so the walk
-starts with exactly the window positions lying above the array marked as taken. Images below the
-last row do not exist either, so the walk must end with exactly those positions marked and
-nothing beyond. In the window's own coordinates those two masks are equal, so the start state is
-also the only accepting state and
+Hence $a$ is a walk count on $S=4096$ vertices,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=462,
+a(n)\;=\;\iota^{\!\top}M^{\,n+1}\tau ,
 \]
-for the transfer matrix $M$ on those $S$ states. The walk index $j$ and the entry's own $n$
-differ by a constant, read off by matching the published terms rather than assumed. In
+the exponent fixed by the entry's own shape and checked against its published terms; in
 particular $a$ is $C$-finite.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{53}-\sum_i c_it^{53-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{1}-\sum_i c_it^{1-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
-holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
+holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$;
 and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+53}-\sum_ic_iM^{j+53-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+1}-\sum_ic_iM^{j+1-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -110,43 +97,45 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;114\,a(n-1) + 9317\,a(n-2) - 508866\,a(n-3) - 20910348\,a(n-4) + 704525664\,a(n-5) + 19358697488\,a(n-6) - 428304917728\,a(n-7) - 8879601094240\,a(n-8) + 129853332142720\,a(n-9) + 2190323609648896\,a(n-10) - 20574172318548480\,a(n-11) - 314606162399573504\,a(n-12) + 1598037911119250432\,a(n-13) + 27684023072295867392\,a(n-14) - 32346791780760006656\,a(n-15) - 1499684717324405215232\,a(n-16) - 3695155586595907993600\,a(n-17) + 46583697668722445025280\,a(n-18) + 290219562521732580573184\,a(n-19) - 593905480603069347004416\,a(n-20) - 8401632685478568054226944\,a(n-21) - 6539590799133706090971136\,a(n-22) + 96348126155652764263251968\,a(n-23) + 264417463146912245959622656\,a(n-24) + 12682495240626001051385856\,a(n-25) - 1744238428870058772105527296\,a(n-26) - 5693069153240876119306010624\,a(n-27) - 4564434382539862336212041728\,a(n-28) - 7943580772549846384227909632\,a(n-29) - 31586327988680906132309409792\,a(n-30) + 143766153982154846382418034688\,a(n-31) + 511623793291640778265865486336\,a(n-32) + 551178593322357659823759163392\,a(n-33) + 202854802351241365026179645440\,a(n-34) - 2905957648388000419056778739712\,a(n-35) - 3155337356481894282288074588160\,a(n-36) - 1042822458306188258889227567104\,a(n-37) - 2453052645713081078335951339520\,a(n-38) + 6778721456546169282766280065024\,a(n-39) - 1504306134813089239960437915648\,a(n-40) - 10352521978401584357617218617344\,a(n-41) - 3016565382617002414243131162624\,a(n-42) + 6150339155711867029113958039552\,a(n-43) + 10412506380362096054859393400832\,a(n-44) + 6806793406325595977933081542656\,a(n-45) + 2721724352275152477557442478080\,a(n-46) + 569526346586061594312736505856\,a(n-47) - 1477517748051341183691492687872\,a(n-48) - 1912761063129875165619605733376\,a(n-49) - 508156074249026659194220052480\,a(n-50) + 54066805553079381002532421632\,a(n-51) + 19155126199747274898514378752\,a(n-52) + 8773476904398267578136395776\,a(n-53)
+a(n)\;=\;5\,a(n-1)
 \]
-for every $n>52$.
+for every $n>3$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $53$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $1$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=52+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once.
+integers vanish from the index corresponding to $n=3+1$ onwards and the run continued
+until the working vector was identically zero, settling every larger $j$ at once. The bound is exact: at $n=3$ the recurrence fails on the entry's own published terms, so no larger range holds.
 \end{proof}
 
 \section{Verification}
 
-Four checks, each independent of the algebra above.
+Three checks, each independent of the algebra above.
 
-First, the model reproduces all $12$ terms the entry publishes, exactly, in integer
-arithmetic.
+First, the reading of the entry's wording was tested against the entries themselves by brute
+force before any of this was built, and separately for each of the three sign conventions the
+family uses: ``$(\pm,\pm)$ $a,b$'' signs each coordinate independently, ``$\pm(.,.)$ $a,b$''
+signs the PAIR and may write the second coordinate negative, and ``directed $a,b$'' is taken
+literally. Enumerating all $720$ arrangements of a $2\times3$ grid reproduces the first term
+of an entry of each convention. Testing only one of them would have proved only that one:
+reading the second convention as the first silently drops displacements, and thirty-eight
+entries disagreed with their own published data until the conventions were separated.
 
-Second, the count was recomputed for the smallest arrays straight from the definition: the
-cells of the array were matched to their images one at a time, over the whole grid, with no
-window, no mask over a sliding frame and no transfer matrix, and the published terms came back.
-That computation shares nothing with the construction of Section~3 beyond the offset list.
+Second, the transfer model reproduces all $21$ terms this entry publishes, exactly, in
+integer arithmetic.
 
-Third, the conjectured recurrence was evaluated directly on the published terms, with no
-matrices involved, and holds wherever the proved range and the data overlap.
-
-Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
 arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A189182.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A264273.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{minc} H.~Minc, \emph{Permanents}, Encyclopedia of Mathematics and its
-Applications 6, Addison--Wesley, 1978.
+\bibitem{lp} L.~Lov\'asz and M.~D.~Plummer, \emph{Matching Theory}, AMS Chelsea, 2009.
+\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
+University Press, 2013.
 \end{thebibliography}
 
 \end{document}

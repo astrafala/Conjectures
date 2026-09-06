@@ -76,3 +76,36 @@ maintains `MISSING.txt`. 8997 of 9035 papers now have their source in the reposi
 **Left standing.** 8 g.f.-only entries over the state cap, 3 where the model could not produce
 enough terms in the time budget, and 2 whose entry publishes a leading term the model does not
 generate. `transfer77`: A233220 and A233221 exhaust memory when built.
+
+## 6 September 2026, eighteenth pass — a table sweep that had been refusing 62 of 71 engines
+
+83 proofs. Roster 9035 -> 9115.
+
+**`sweep_table.py` dispatched per engine by hand and called `<engine>.avals`, which 62 of the
+71 engines do not have.** The `AttributeError` was swallowed by a broad `except` and reported
+as `model does not match the column`, so every table whose column model came from one of those
+engines was rejected as if the mathematics had failed. This is the same failure as the
+`transfer7` one already in this ledger and the same fix: go through `uniform`, the shared
+interface, instead of re-implementing the dispatch. Rewritten, and all 1330 previously examined
+tables reopened and re-examined; 3 tables and 5 columns recovered. Smaller than feared, because
+most of these tables state no explicit column recurrence at all.
+
+**What they state instead is `[order N]`, and that is a claim.** 619 tables carry such lines,
+1095 of them outside the roster. `sweep_ordline.py` settles them: a column is a fixed-width
+array count, hence a walk count on S vertices, hence satisfies a monic recurrence of order at
+most S; Berlekamp--Massey on 2S exact terms returns the minimal one; if its order is the stated
+one then every recurrence of that order the column satisfies is that same polynomial. **The
+sweep had been run at a state cap of 1200, which was refusing most of them.** Re-run at 6000:
+proved tables 43 -> 123, recovered lines 55 -> 197, of which **80 tables and 142 lines are
+new**. The independent re-check passed 123 of 123 with no problems.
+
+**The cap was not a wall, it was a setting**, and nothing recorded that it had been chosen
+rather than reached. Worth a rule: when a sweep reports `state space > cap`, the cap is part of
+the result and belongs in the ledger next to it.
+
+**Length now follows content here.** These papers come out at two pages when one column was
+recovered and three when several were, which is what it should look like.
+
+**Left standing.** 24 entries of the `nondecreasing ... i direction` family are `(n+1)X(n+1)`,
+both sides growing --- the n X n wall, a real obstruction. Of the remaining order-line tables,
+those still refused sit above 6000 states.

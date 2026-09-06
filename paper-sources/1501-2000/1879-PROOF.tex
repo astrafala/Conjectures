@@ -12,23 +12,23 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical closed form for OEIS A223859, proved}
+\title{The empirical closed form for OEIS A224149, proved}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A223859 carries an empirical closed form for $a(n)$ --- not a recurrence relating
+OEIS A224149 carries an empirical closed form for $a(n)$ --- not a recurrence relating
 consecutive terms but an explicit formula. It is true, and it is decidable rather than
 empirical. The entry counts arrays subject to a condition on a bounded window of consecutive lines, so the lines of an array are the
 vertices of a finite digraph, an array is a walk in it, and $a(n)$ is a walk count on
-$S=400$ vertices. Any function of the form $\sum_j p_j(n)\lambda_j^{\,n}$ satisfies the
+$S=6144$ vertices. Any function of the form $\sum_j p_j(n)\lambda_j^{\,n}$ satisfies the
 monic linear recurrence whose characteristic polynomial is
-$\prod_j(x-\lambda_j)^{\deg p_j+1}$; here that polynomial is $q(x)=(x-1)^{10}$, of degree
-$10$. Two things are then checked exactly: that the walk count satisfies the same
+$\prod_j(x-\lambda_j)^{\deg p_j+1}$; here that polynomial is $q(x)=(x-1)^{11}$, of degree
+$11$. Two things are then checked exactly: that the walk count satisfies the same
 recurrence from some index on, which the Cayley--Hamilton theorem reduces to a finite
-computation, and that the two sequences agree at $10$ consecutive indices past that
+computation, and that the two sequences agree at $11$ consecutive indices past that
 point. A monic recurrence determines every later term from its predecessors, so agreement
 there is agreement for good.
 \end{abstract}
@@ -37,18 +37,18 @@ there is agreement for good.
 
 \section{The conjecture}
 
-OEIS A223859 is ``Number of n X 3 0..3 arrays with rows and antidiagonals unimodal and columns nondecreasing.''. It has offset $1$ and begins
+OEIS A224149 is ``Number of 5 X n 0..1 arrays with rows and antidiagonals unimodal and columns nondecreasing.''. It has offset $1$ and begins
 \[
-50, 684, 4884, 24199, 93731, 303560, 857696, 2175884,\ \dots
+6, 36, 155, 526, 1509, 3827, 8838, 18969,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = (353/181440)*n\^{}9 + (353/10080)*n\^{}8 + (9707/30240)*n\^{}7 + (13/8)*n\^{}6 + (45713/8640)*n\^{}5 + (1809/160)*n\^{}4 + (332021/22680)*n\^{}3 + (6569/504)*n\^{}2 + (7241/1260)*n - 2.
+Empirical: a(n) = (1/3628800)*n\^{}10 + (1/241920)*n\^{}9 + (11/120960)*n\^{}8 + (59/40320)*n\^{}7 + (3853/172800)*n\^{}6 + (181/1280)*n\^{}5 + (100381/181440)*n\^{}4 + (76319/60480)*n\^{}3 + (24247/12600)*n\^{}2 + (23/21)*n + 1.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Aug 24 2018 03:59:25, revision 8) this is still
+As of the ``Last modified'' line on the live entry (Aug 28 2018 07:08:10, revision 8) this is still
 recorded as empirical, and nothing on the entry records it as proved. Write
 \[
-f(n)\;=\;\frac{353 n^{9}}{181440} + \frac{353 n^{8}}{10080} + \frac{9707 n^{7}}{30240} + \frac{13 n^{6}}{8} + \frac{45713 n^{5}}{8640} + \frac{1809 n^{4}}{160} + \frac{332021 n^{3}}{22680} + \frac{6569 n^{2}}{504} + \frac{7241 n}{1260} - 2.
+f(n)\;=\;\frac{n^{10}}{3628800} + \frac{n^{9}}{241920} + \frac{11 n^{8}}{120960} + \frac{59 n^{7}}{40320} + \frac{3853 n^{6}}{172800} + \frac{181 n^{5}}{1280} + \frac{100381 n^{4}}{181440} + \frac{76319 n^{3}}{60480} + \frac{24247 n^{2}}{12600} + \frac{23 n}{21} + 1.
 \]
 
 \section{The count is a walk count}
@@ -56,7 +56,7 @@ f(n)\;=\;\frac{353 n^{9}}{181440} + \frac{353 n^{8}}{10080} + \frac{9707 n^{7}}{
 The entry's defining condition is local: it is a condition on a bounded window of consecutive lines. Take as vertices the
 admissible configurations of such a window and put an edge from $u$ to $v$ when $v$ may
 follow $u$, which the condition decides by inspection. An admissible array is then exactly a
-walk, so with $M$ the adjacency matrix of that digraph on $S=400$ vertices, and $u,w$ the
+walk, so with $M$ the adjacency matrix of that digraph on $S=6144$ vertices, and $u,w$ the
 vectors recording which windows may start and end an array,
 \[
 a(n)\;=\;u^{\!\top}M^{\,g(n)}w
@@ -83,9 +83,9 @@ $p(m+1)-p(m)$ has degree one less than $p$. So $(E-\lambda)^{\deg p+1}$ kills
 $\lambda^{m}p(m)$, and the factors of $q$ commute.
 \end{proof}
 
-Here $q(x)=(x-1)^{10}$, of degree $10$; the closed form is a polynomial in $n$, so this is $(x-1)^{10}$, and the recurrence it encodes is
+Here $q(x)=(x-1)^{11}$, of degree $11$; the closed form is a polynomial in $n$, so this is $(x-1)^{11}$, and the recurrence it encodes is
 \begin{equation}\label{eq:rec}
-a(n)\;=\;10\,a(n-1) - 45\,a(n-2) + 120\,a(n-3) - 210\,a(n-4) + 252\,a(n-5) - 210\,a(n-6) + 120\,a(n-7) - 45\,a(n-8) + 10\,a(n-9) - a(n-10).
+a(n)\;=\;11\,a(n-1) - 55\,a(n-2) + 165\,a(n-3) - 330\,a(n-4) + 462\,a(n-5) - 462\,a(n-6) + 330\,a(n-7) - 165\,a(n-8) + 55\,a(n-9) - 11\,a(n-10) + a(n-11).
 \end{equation}
 
 \section{The proof}
@@ -109,18 +109,18 @@ $a(n)=f(n)$ for every $n\ge1$.
 \end{theorem}
 
 \begin{proof}
-The vector $w'=q(M)w$ was formed by $10$ matrix--vector products in exact integer
+The vector $w'=q(M)w$ was formed by $11$ matrix--vector products in exact integer
 arithmetic, and $u^{\!\top}M^{j}w'$ evaluated for $j=0,1,\dots$, again exactly. Those integers
-vanish from the point corresponding to $n=11$ onwards, and the run was continued until the
+vanish from the point corresponding to $n=12$ onwards, and the run was continued until the
 working vector was identically zero, which settles every larger $j$ at once. So $a$ satisfies
-\eqref{eq:rec} for every $n>10$. By Lemma~\ref{lem:ann} $f$ satisfies \eqref{eq:rec}
-identically. Both were then evaluated in exact arithmetic at the $10$ consecutive indices
-$n=11,\dots,20$ and agree at each. A monic recurrence of order $10$
-determines $a(m)$ from $a(m-1),\dots,a(m-10)$, and for every $m\ge21$ both
-$m>10$ and $m-10\ge11$ hold, so induction on $m$ gives $a(m)=f(m)$ for every
-$m\ge11$.
-Below $n=11$ the recurrence argument gives nothing, since \eqref{eq:rec} is only
-established for $a$ from $n=11$ on. The remaining indices $n=1,\dots,10$ were
+\eqref{eq:rec} for every $n>11$. By Lemma~\ref{lem:ann} $f$ satisfies \eqref{eq:rec}
+identically. Both were then evaluated in exact arithmetic at the $11$ consecutive indices
+$n=12,\dots,22$ and agree at each. A monic recurrence of order $11$
+determines $a(m)$ from $a(m-1),\dots,a(m-11)$, and for every $m\ge23$ both
+$m>11$ and $m-11\ge12$ hold, so induction on $m$ gives $a(m)=f(m)$ for every
+$m\ge12$.
+Below $n=12$ the recurrence argument gives nothing, since \eqref{eq:rec} is only
+established for $a$ from $n=12$ on. The remaining indices $n=1,\dots,11$ were
 therefore checked one at a time, directly against the walk count in exact integer arithmetic,
 and agree.
 \end{proof}
@@ -131,7 +131,7 @@ The range is tight in the sense that was checked: the closed form holds from the
 
 Four checks, each independent of the algebra above.
 
-First, the walk model reproduces every one of the $24$ terms the entry publishes,
+First, the walk model reproduces every one of the $28$ terms the entry publishes,
 exactly, in integer arithmetic. This is what ties the model to the entry: the model is built
 by reading the entry's English, and a misreading gives a different digraph and different
 counts.
@@ -149,7 +149,7 @@ that anything would pass.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A223859.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A224149.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; $C$-finite sequences,
 Section 4.1.)

@@ -12,14 +12,14 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A253491, derived from the entry's generating function}
+\title{The empirical recurrence for OEIS A206261, derived from the entry's generating function}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A253491 carries an empirical recurrence of order $3$. The entry separately records a
+OEIS A206261 carries an empirical recurrence of order $5$. The entry separately records a
 generating function, not as a conjecture but as a statement of fact, and the recurrence is a
 consequence of it: multiplying the generating function by the polynomial the recurrence
 supplies gives a POLYNOMIAL, and the recurrence then holds at every index past that
@@ -33,30 +33,30 @@ checked here against every published term.
 
 \section{The two statements}
 
-OEIS A253491 is ``Number of (n+1) X (4+1) 0..2 arrays with every 2 X 2 subblock diagonal minus antidiagonal sum nondecreasing horizontally, vertically and ne-to-sw antidiagonally.''. It has offset $1$ and begins
+OEIS A206261 is ``Number of (n+1) X 3 0..1 arrays with the number of rightwards and downwards edge increases in each 2 X 2 subblock equal to the number in all its horizontal and vertical neighbors.''. It has offset $1$ and begins
 \[
-3639, 5386, 6476, 10477, 19475, 40117, 89339, 211597,\ \dots
+24, 28, 44, 64, 93, 128, 174, 228,\ \dots
 \]
 The entry states, as a conjecture and never marked settled:
 \begin{quote}
-Empirical: a(n) = 6*a(n-1) - 11*a(n-2) + 6*a(n-3) for n>6.
+Empirical: a(n) = 3*a(n-1) -2*a(n-2) -2*a(n-3) +3*a(n-4) -a(n-5) for n>6.
 \end{quote}
 and, separately and NOT as a conjecture:
 \begin{quote}
-G.f.: x*(3639 - 16448*x + 14189*x\^{}2 + 9033*x\^{}3 - 4467*x\^{}4 - 342*x\^{}5) / ((1 - x)*(1 - 2*x)*(1 - 3*x)).
+G.f.: x*(24 - 44*x + 8*x\^{}2 + 36*x\^{}3 - 27*x\^{}4 + 5*x\^{}5) / ((1 - x)\^{}4*(1 + x)).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Dec 15 2018 15:15:46, revision 11) the first is still
+As of the ``Last modified'' line on the live entry (Jun 14 2018 14:45:07, revision 8) the first is still
 recorded as empirical. This note derives it from the second.
 
 \section{A rational generating function decides every linear recurrence}
 
 Write
 \[
-G(x)\;=\;\sum_{n}a(n)\,x^{n}\;=\;\frac{342 x^{6} + 4467 x^{5} - 9033 x^{4} - 14189 x^{3} + 16448 x^{2} - 3639 x}{6 x^{3} - 11 x^{2} + 6 x - 1},
+G(x)\;=\;\sum_{n}a(n)\,x^{n}\;=\;\frac{5 x^{6} - 27 x^{5} + 36 x^{4} + 8 x^{3} - 44 x^{2} + 24 x}{x^{5} - 3 x^{4} + 2 x^{3} + 2 x^{2} - 3 x + 1},
 \]
 the entry's own generating function, and let
 \[
-D(x)\;=\;1-\sum_i c_i x^{i}\;=\;- 6 x^{3} + 11 x^{2} - 6 x + 1
+D(x)\;=\;1-\sum_i c_i x^{i}\;=\;x^{5} - 3 x^{4} + 2 x^{3} + 2 x^{2} - 3 x + 1
 \]
 be the polynomial attached to the conjectured recurrence.
 
@@ -73,7 +73,7 @@ negative index being zero.
 
 \begin{theorem}
 \[
-a(n)\;=\;6\,a(n-1) - 11\,a(n-2) + 6\,a(n-3)
+a(n)\;=\;3\,a(n-1) - 2\,a(n-2) - 2\,a(n-3) + 3\,a(n-4) - a(n-5)
 \]
 for every $n>6$.
 \end{theorem}
@@ -81,7 +81,7 @@ for every $n>6$.
 \begin{proof}
 In exact arithmetic,
 \[
-D(x)\,G(x)\;=\;- 342 x^{6} - 4467 x^{5} + 9033 x^{4} + 14189 x^{3} - 16448 x^{2} + 3639 x,
+D(x)\,G(x)\;=\;5 x^{6} - 27 x^{5} + 36 x^{4} + 8 x^{3} - 44 x^{2} + 24 x,
 \]
 a POLYNOMIAL of degree $6$ --- the denominator of $G$ divides $D(x)$ times its numerator,
 which is precisely the condition for the conjectured recurrence to be implied by the
@@ -94,12 +94,12 @@ $n>6$. The bound is exact: at $n=6$ the recurrence fails on the entry's own publ
 
 Cancelling common factors, $G$ has reduced denominator
 \[
-6 x^{3} - 11 x^{2} + 6 x - 1,
+x^{5} - 3 x^{4} + 2 x^{3} + 2 x^{2} - 3 x + 1,
 \]
-of degree $3$, and that degree is the order of the SHORTEST linear recurrence with
+of degree $5$, and that degree is the order of the SHORTEST linear recurrence with
 constant coefficients the sequence obeys: any shorter one would give a polynomial multiple of
 $G$ with a smaller denominator, contradicting the cancellation. The conjectured recurrence has
-order $3$.
+order $5$.
 
 So the conjecture is the minimal recurrence.
 
@@ -111,9 +111,7 @@ generating function involved at all. Doing that:
 \begin{center}
 \begin{tabular}{cc}
 index & residual \\ \hline
-$n=4$ & $9033$ \\
-$n=5$ & $-4467$ \\
-$n=6$ & $-342$ \\
+$n=6$ & $5$ \\
 $n=7$ & $0$ \\
 $n=8$ & $0$ \\
 $n=9$ & $0$ \\
@@ -131,7 +129,7 @@ no amount of checking terms could establish on its own.
 Three checks.
 
 First, the generating function was expanded as a power series in exact rational arithmetic and
-compared against all $23$ terms the entry publishes: it reproduces every one. This is
+compared against all $44$ terms the entry publishes: it reproduces every one. This is
 what ties the recorded generating function to the sequence the recurrence is about.
 
 Second, the polynomial division above was carried out symbolically, not numerically, so the
@@ -150,7 +148,7 @@ entry already contains.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A253491.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A206261.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Rational generating functions, Section 4.1.)
 \bibitem{kp} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011.

@@ -12,20 +12,20 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A238249, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A235433, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A238249 counts arrays of width $3$ over $\{0,1\}$ by reducing every $2\times2$ subblock to a
-single number---here the sum of the four entries---and requiring the resulting derived array to have its rows
+OEIS A235433 counts arrays of width $3$ over $\{0,1,2\}$ by reducing every $2\times2$ subblock to a
+single number---here the largest entry minus the smallest---and requiring the resulting derived array to have its rows
 lexicographically nondecreasing and its columns lexicographically nondecreasing. The entry carries an
-empirical recurrence of order $33$ contributed by R.~H.~Hardin. It is true, and it is
+empirical recurrence of order $39$ contributed by R.~H.~Hardin. It is true, and it is
 decidable rather than empirical. The row comparison is settled by three consecutive rows of the
 array; the column comparison is not settled by any bounded window, but what is still outstanding
-about it is one bit per adjacent pair of columns, so the count is a walk count on $S=84$
+about it is one bit per adjacent pair of columns, so the count is a walk count on $S=191$
 states.
 \end{abstract}
 
@@ -33,30 +33,30 @@ states.
 
 \section{The conjecture}
 
-OEIS A238249 is ``Number of (n+1)X(2+1) 0..1 arrays with 2X2 subblock sums lexicographically nondecreasing columnwise and rowwise.''. It has offset $1$ and begins
+OEIS A235433 is ``Number of (n+1) X (2+1) 0..2 arrays with the difference between each 2 X 2 subblock maximum and minimum lexicographically nondecreasing rowwise and columnwise.''. It has offset $1$ and begins
 \[
-44, 180, 804, 2818, 9991, 29995, 90225, 241945,\ \dots
+583, 10241, 169041, 2616323, 39122513, 570624077, 8196586161, 116562545251,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 4*a(n-1) +16*a(n-2) -82*a(n-3) -99*a(n-4) +774*a(n-5) +196*a(n-6) -4456*a(n-7) +1106*a(n-8) +17464*a(n-9) -10080*a(n-10) -49212*a(n-11) +40922*a(n-12) +102532*a(n-13) -108728*a(n-14) -159592*a(n-15) +207747*a(n-16) +184428*a(n-17) -296048*a(n-18) -153442*a(n-19) +318857*a(n-20) +83878*a(n-21) -259308*a(n-22) -19872*a(n-23) +157052*a(n-24) -10232*a(n-25) -68768*a(n-26) +12128*a(n-27) +20592*a(n-28) -5472*a(n-29) -3776*a(n-30) +1280*a(n-31) +320*a(n-32) -128*a(n-33)
+Empirical: a(n) = 29*a(n-1) -190*a(n-2) -1384*a(n-3) +16870*a(n-4) +15076*a(n-5) -560073*a(n-6) +386321*a(n-7) +10056820*a(n-8) -14632800*a(n-9) -109381708*a(n-10) +220652040*a(n-11) +747469348*a(n-12) -1951564632*a(n-13) -3157375426*a(n-14) +11088182506*a(n-15) +7356532635*a(n-16) -41949194967*a(n-17) -3725400714*a(n-18) +107872867100*a(n-19) -31037208786*a(n-20) -191491662740*a(n-21) +107475900667*a(n-22) +236430165173*a(n-23) -186697891694*a(n-24) -201814338566*a(n-25) +205843229892*a(n-26) +115575164372*a(n-27) -152490074776*a(n-28) -40687790104*a(n-29) +76482306464*a(n-30) +6170204672*a(n-31) -25383790976*a(n-32) +1141607424*a(n-33) +5260475904*a(n-34) -701665280*a(n-35) -602173440*a(n-36) +118241280*a(n-37) +27869184*a(n-38) -6635520*a(n-39).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 10:48:54, revision 7) this is still
+As of the ``Last modified'' line on the live entry (May 19 2024 20:59:54, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The arrays have $3$ columns and a growing number of rows, with entries in $\{0,1\}$. A
+The arrays have $3$ columns and a growing number of rows, with entries in $\{0,1,2\}$. A
 $2\times2$ subblock of such an array is
 \[
 B=\begin{pmatrix} p & q \\ r & s \end{pmatrix},
 \qquad p=x(i,j),\; q=x(i,j+1),\; r=x(i+1,j),\; s=x(i+1,j+1).
 \]
-The entry attaches to $B$ the single number
+Write $v_1\le v_2\le v_3\le v_4$ for the four entries of $B$ sorted into order. The entry attaches to $B$ the single number
 \[
-f(B)\;=\;p+q+r+s,
+f(B)\;=\;v_4-v_1,
 \]
-the sum of the four entries. An array with $R$ rows and $3$ columns has $(R-1)\times2$ subblocks, and they
+the largest entry minus the smallest. An array with $R$ rows and $3$ columns has $(R-1)\times2$ subblocks, and they
 form a derived array
 \[
 D(i,j)=f\!\left(\begin{pmatrix} x(i,j) & x(i,j+1) \\ x(i+1,j) & x(i+1,j+1)\end{pmatrix}
@@ -109,7 +109,7 @@ for the row condition, and for each pair still flagged either leaves the flag se
 agreed again) or clears it after checking the required inequality once. Every state may end an
 array, so $\tau=\mathbf{1}$ and
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=84.
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=191.
 \]
 The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
 published terms rather than assumed. In particular $a$ is $C$-finite.
@@ -117,7 +117,7 @@ published terms rather than assumed. In particular $a$ is $C$-finite.
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{33}-\sum_i c_it^{33-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{39}-\sum_i c_it^{39-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -125,7 +125,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+33}-\sum_ic_iM^{j+33-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+39}-\sum_ic_iM^{j+39-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -134,15 +134,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;4\,a(n-1) + 16\,a(n-2) - 82\,a(n-3) - 99\,a(n-4) + 774\,a(n-5) + 196\,a(n-6) - 4456\,a(n-7) + 1106\,a(n-8) + 17464\,a(n-9) - 10080\,a(n-10) - 49212\,a(n-11) + 40922\,a(n-12) + 102532\,a(n-13) - 108728\,a(n-14) - 159592\,a(n-15) + 207747\,a(n-16) + 184428\,a(n-17) - 296048\,a(n-18) - 153442\,a(n-19) + 318857\,a(n-20) + 83878\,a(n-21) - 259308\,a(n-22) - 19872\,a(n-23) + 157052\,a(n-24) - 10232\,a(n-25) - 68768\,a(n-26) + 12128\,a(n-27) + 20592\,a(n-28) - 5472\,a(n-29) - 3776\,a(n-30) + 1280\,a(n-31) + 320\,a(n-32) - 128\,a(n-33)
+a(n)\;=\;29\,a(n-1) - 190\,a(n-2) - 1384\,a(n-3) + 16870\,a(n-4) + 15076\,a(n-5) - 560073\,a(n-6) + 386321\,a(n-7) + 10056820\,a(n-8) - 14632800\,a(n-9) - 109381708\,a(n-10) + 220652040\,a(n-11) + 747469348\,a(n-12) - 1951564632\,a(n-13) - 3157375426\,a(n-14) + 11088182506\,a(n-15) + 7356532635\,a(n-16) - 41949194967\,a(n-17) - 3725400714\,a(n-18) + 107872867100\,a(n-19) - 31037208786\,a(n-20) - 191491662740\,a(n-21) + 107475900667\,a(n-22) + 236430165173\,a(n-23) - 186697891694\,a(n-24) - 201814338566\,a(n-25) + 205843229892\,a(n-26) + 115575164372\,a(n-27) - 152490074776\,a(n-28) - 40687790104\,a(n-29) + 76482306464\,a(n-30) + 6170204672\,a(n-31) - 25383790976\,a(n-32) + 1141607424\,a(n-33) + 5260475904\,a(n-34) - 701665280\,a(n-35) - 602173440\,a(n-36) + 118241280\,a(n-37) + 27869184\,a(n-38) - 6635520\,a(n-39)
 \]
-for every $n>32$.
+for every $n>37$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $33$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $39$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=32+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=37+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -150,11 +150,11 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $25$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $15$ terms the entry publishes, exactly, in integer
 arithmetic.
 
 Second, the count was recomputed for the smallest arrays straight from the definition: every
-array of width $3$ over $\{0,1\}$ with two and with three rows was written out cell by cell,
+array of width $3$ over $\{0,1,2\}$ with two and with three rows was written out cell by cell,
 the derived array formed, and its rows and its columns compared as whole words. No state, no
 bits of Lemma~\ref{lem:bits} and no recurrence are involved in that computation, and the
 published terms came back.
@@ -167,7 +167,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A238249.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A235433.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge

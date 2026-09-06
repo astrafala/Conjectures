@@ -12,39 +12,39 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical column recurrences for the table OEIS A251010}
+\title{The empirical column recurrences for the table OEIS A263964}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A251010 is a two-dimensional table $T(n,k)$, and it carries a block of empirical
+OEIS A263964 is a two-dimensional table $T(n,k)$, and it carries a block of empirical
 recurrences contributed by R.~H.~Hardin --- one for each of its first few columns. They are
 true. Column $k$ of the table is an ordinary fixed-width array count, so its rows are the
 vertices of a finite digraph and $T(n,k)$ is a number of walks in it; being a walk count the
 column is $C$-finite, and whether a given recurrence annihilates it is decided by a finite
-exact computation, with the Cayley--Hamilton theorem bounding the work. This note settles the columns $k=1$.
+exact computation, with the Cayley--Hamilton theorem bounding the work. This note settles the columns $k=1, 2$.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
 \section{The table and the conjectures}
 
-OEIS A251010 is ``T(n,k)=Number of (n+1)X(k+1) 0..2 arrays with no 2X2 subblock having its maximum diagonal element less than the absolute difference of its antidiagonal elements.''. It has offset $1$, is
+OEIS A263964 is ``T(n,k)=Number of (n+1)X(k+1) arrays of permutations of 0..(n+1)*(k+1)-1 with each element having index change (+-,+-) 0,0 1,1 or 1,2.''. It has offset $1$, is
 read by antidiagonals, and begins
 \[
-69, 530, 530, 4083, 10743, 4083, 31456, 218298,\ \dots
+4, 20, 9, 108, 141, 25, 465, 2089,\ \dots
 \]
 The entry carries the following block:
 \begin{quote}\small
 Empirical for column k:\\
-k=1: a(n) = 9*a(n-1) -12*a(n-2) +17*a(n-3) -12*a(n-4) +4*a(n-5)\\
-k=2: [order 13]\\
-k=3: [order 31]\\
-k=4: [order 87]\\
+k=1: a(n) = 2*a(n-1) +2*a(n-2) -a(n-3)\\
+k=2: a(n) = 8*a(n-1) +40*a(n-2) -119*a(n-3) -124*a(n-4) +240*a(n-5)\\
+k=3: [order 15]\\
+k=4: [order 82]\\
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 12:58:59, revision 6) these are still
+As of the ``Last modified'' line on the live entry (Nov 10 2015 10:24:48, revision 6) these are still
 recorded as empirical, and nothing on the entry records any of them as settled.
 
 \section{A column of the table is a walk count}
@@ -87,7 +87,8 @@ $j\ge S_k$ repeats that combination of earlier values.
 \begin{center}
 \begin{tabular}{ccccc}
 line & order & vertices $S$ & proved for & terms checked \\ \hline
-column $k$$=1$ & $5$ & $9$ & $>4$ & $7$ \\
+column $k$$=1$ & $3$ & $16$ & $>1$ & $7$ \\
+column $k$$=2$ & $5$ & $64$ & $>3$ & $8$ \\
 \end{tabular}
 \end{center}
 
@@ -97,14 +98,24 @@ again exactly; every one of those integers vanishes from the stated point onward
 continued until the working vector was identically zero, which settles all larger $j$ at once.
 
 \subsection*{Column $k$$=1$}
-The sequence is ``Number of (n+1)X(2) 0..2 arrays with no 2X2 subblock having its maximum diagonal element less than the absolute difference of its antidiagonal elements.''. Its rows are the vertices of a digraph on
-$S=9$ vertices, edges being the admissible consecutive pairs, and the count is
+The sequence is ``Number of (n+1)X(2) arrays of permutations of 0..(n+1)*(2)-1 with each element having index change (+-,+-) 0,0 1,1 or 1,2.''. Its rows are the vertices of a digraph on
+$S=16$ vertices, edges being the admissible consecutive pairs, and the count is
 $\mathbf{1}^{\!\top}M^{n}\mathbf{1}$ up to the constant factor in the entry's name.
 The conjectured recurrence
 \[
-a(n)\;=\;9\,a(n-1) - 12\,a(n-2) + 17\,a(n-3) - 12\,a(n-4) + 4\,a(n-5)
+a(n)\;=\;2\,a(n-1) + 2\,a(n-2) - a(n-3)
 \]
-holds from index $4+1$ on.
+holds from index $1+1$ on.
+
+\subsection*{Column $k$$=2$}
+The sequence is ``Number of (n+1)X(3) arrays of permutations of 0..(n+1)*(3)-1 with each element having index change (+-,+-) 0,0 1,1 or 1,2.''. Its rows are the vertices of a digraph on
+$S=64$ vertices, edges being the admissible consecutive pairs, and the count is
+$\mathbf{1}^{\!\top}M^{n}\mathbf{1}$ up to the constant factor in the entry's name.
+The conjectured recurrence
+\[
+a(n)\;=\;8\,a(n-1) + 40\,a(n-2) - 119\,a(n-3) - 124\,a(n-4) + 240\,a(n-5)
+\]
+holds from index $3+1$ on.
 
 
 \section{Lines whose recurrence the entry does not print}
@@ -118,38 +129,28 @@ begin only partway along --- any recurrence of that order the line satisfies has
 characteristic polynomial that is a multiple of the minimal one and of equal degree, hence is
 that polynomial. So the entry's recurrence is the one displayed, whatever its file contains.
 
-\subsection*{Column $k=2$, recovered}
-The entry gives only the order for this line: ``k=2: [order 13]''. Its model is a walk on
-$S=27$ vertices, so it satisfies a monic recurrence of order at most $S$;
-Berlekamp--Massey on $2S=54$ exact terms returns the minimal one, of order
-$13$ --- the stated order --- with integer coefficients
-\begin{center}\small\begin{tabular}{cccccccc}
-$c_{1}$ & $27$ & $c_{5}$ & $5874$ & $c_{9}$ & $-1473$ & $c_{13}$ & $-68$ \\
-$c_{2}$ & $-169$ & $c_{6}$ & $-6458$ & $c_{10}$ & $1896$ &  &  \\
-$c_{3}$ & $800$ & $c_{7}$ & $2876$ & $c_{11}$ & $-1394$ &  &  \\
-$c_{4}$ & $-2847$ & $c_{8}$ & $558$ & $c_{12}$ & $460$ &  &  \\
-\end{tabular}\end{center}
-Repeating with the first $13+4$ terms removed gives order $13$ again.
-
 \subsection*{Column $k=3$, recovered}
-The entry gives only the order for this line: ``k=3: [order 31]''. Its model is a walk on
-$S=81$ vertices, so it satisfies a monic recurrence of order at most $S$;
-Berlekamp--Massey on $2S=162$ exact terms returns the minimal one, of order
-$31$ --- the stated order --- with integer coefficients
-\[
-(c_1,\dots,c_{31})=(81,\ -1954,\ 32379,\ -419520,\ 4000383,\ -27981900,\ 149000935,\ -627790962,\ 2173730790,\ -6430085803,\ 16294231907,\ -32054037021,\ 35251149270,\ 27785627597,\ -214291598331,\ 474340001188,\ -525110612953,\ -51492530582,\ 1353650012855,\ -2781865247427,\ 3444068301525,\ -3009309907241,\ 1966627276737,\ -984303214776,\ 380879357640,\ -116690528485,\ 31239482235,\ -8714904964,\ 2491548140,\ -492231312,\ 38390400).
-\]
-Repeating with the first $31+4$ terms removed gives order $31$ again.
+The entry gives only the order for this line: ``k=3: [order 15]''. Its model is a walk on
+$S=256$ vertices, so it satisfies a monic recurrence of order at most $S$;
+Berlekamp--Massey on $2S=512$ exact terms returns the minimal one, of order
+$15$ --- the stated order --- with integer coefficients
+\begin{center}\small\begin{tabular}{cccccccc}
+$c_{1}$ & $59$ & $c_{5}$ & $-1193960$ & $c_{9}$ & $-3955605504$ & $c_{13}$ & $461708984320$ \\
+$c_{2}$ & $-800$ & $c_{6}$ & $-8299248$ & $c_{10}$ & $24437587968$ & $c_{14}$ & $-618475290624$ \\
+$c_{3}$ & $-5123$ & $c_{7}$ & $121460288$ & $c_{11}$ & $-38600179712$ & $c_{15}$ & $274877906944$ \\
+$c_{4}$ & $202521$ & $c_{8}$ & $-182636544$ & $c_{12}$ & $-99925098496$ &  &  \\
+\end{tabular}\end{center}
+Repeating with the first $15+4$ terms removed gives order $15$ again.
 
 \subsection*{Column $k=4$, recovered}
-The entry gives only the order for this line: ``k=4: [order 87]''. Its model is a walk on
-$S=243$ vertices, so it satisfies a monic recurrence of order at most $S$;
-Berlekamp--Massey on $2S=486$ exact terms returns the minimal one, of order
-$87$ --- the stated order --- with integer coefficients
+The entry gives only the order for this line: ``k=4: [order 82]''. Its model is a walk on
+$S=1024$ vertices, so it satisfies a monic recurrence of order at most $S$;
+Berlekamp--Massey on $2S=2048$ exact terms returns the minimal one, of order
+$82$ --- the stated order --- with integer coefficients
 \[
-(c_1,\dots,c_{87})=(243,\ -20493,\ 1137320,\ -48968370,\ 1660074126,\ -44634837818,\ 967746677672,\ -17068124680628,\ 243689314141870,\ -2771271784376738,\ 24244713468588507,\ -146741653931132321,\ 290165718947140921,\ 6772301199597629044,\ -120128686970779626924,\ 1290337980725726668601,\ -10997095841855253481106,\ 80531766804597322929398,\ -525717119916835093119093,\ 3110972934649033445604839,\ -16735849846923323800937993,\ 81244203916263823067469744,\ -350416340703436310165956982,\ 1310053014008769100611217140,\ -4069404609077554356080488904,\ 9553096110498373060623750168,\ -11390048466311802311290569758,\ -31247919197470577449527684590,\ 261318622987444316954896951975,\ -1032420856145510224087880547173,\ 2978242929861329612880677440996,\ -6834017778181258768810376827115,\ 12711258476587812926162830736737,\ -18557557689923271217607264914481,\ 17681774295226746906280242801957,\ 4535426194989267465243562688612,\ -74547830576501127926017986796070,\ 235915091706266418767778764894910,\ -558303972809578921355842829140242,\ 1149235873598640209626628103083624,\ -2152009249958486012157521262691128,\ 3693465780073345062916544686127700,\ -5752653298321353700715534979870528,\ 7981639485078402516851358413364395,\ -9598730701328796719754729796091179,\ 9514756312069300079568455925815100,\ -6764873493034973828802443507757448,\ 1101514550246997923992367741291162,\ 6593628794790764808241461731732899,\ -14403210142600165189288288408053172,\ 20032849737318289029981848564608331,\ -21746737653130442457401678080256608,\ 19102397952940763916280752363152005,\ -13133290144566069777846799538322202,\ 5916570047809196908191570911537545,\ 297822875692614179862428439508332,\ -4010565310845367397769525785860904,\ 4970404517112722178051808903497689,\ -3985948792481019808149192914211769,\ 2259307403472709941604337764467396,\ -736300367463740141829742776485060,\ -172512012230111394574174010575517,\ 499260653232545808620520692993349,\ -473013558067733674288084782395529,\ 318275606129283276176229749435141,\ -168912174536011328381728590158321,\ 71311965505396984246098728150653,\ -22300727298963511178740099625720,\ 3383377312083433652557691823272,\ 1543019862106404853806447777196,\ -1699951001231530528674005733344,\ 953194042622459306234161368496,\ -403071658686695750991297960432,\ 139782789350949963342991248064,\ -40810889723384509367836895936,\ 10043609348766007957089796544,\ -2045054782918797363668803840,\ 329172275089893338104934144,\ -37644661522835323464593408,\ 2021156027010784923045888,\ 195581527384791055122432,\ -46310233280696986042368,\ 1147679428600438194176,\ 689456767726494154752,\ -101410677207091642368,\ 4976803086619115520,\ -21059185114349568).
+(c_1,\dots,c_{82})=(118,\ 2127,\ -251434,\ 2418222,\ 97287877,\ -1281284386,\ -15907119343,\ 321677121988,\ -160843061642,\ -30899161556508,\ -37928125832132,\ 3872778546393564,\ 11376859061200478,\ -319358239858596494,\ -894710161778357132,\ 15987539408815649436,\ -15987781479726888708,\ -449462363781438481474,\ 6055284735394485056038,\ -9755626948388894497931,\ -233997516144576625400834,\ 969147169186462184804253,\ 970231428358621403848596,\ -21853087189323512847514088,\ 96780840952925083073577519,\ 121999674230571032464701622,\ -1802772104960969825859714805,\ 2743513216505937329805713142,\ 9499085879968597715184654668,\ -36106031314992565338844415104,\ 47881300498791675701796554528,\ 35863863951559978602886503808,\ -602485831863021293257504283136,\ 944990456239565043715611830144,\ 559873354531171697749646659072,\ -2042846405002144061780446031872,\ 5639710350355334732794541880320,\ -10919566159120997303140701454336,\ 18147323560883260096416644837376,\ 39936529667185911745985162797056,\ -114956946568175207078313684893696,\ -182219799022153744081064713322496,\ -155804022154200802577955105996800,\ 1882548460953297450194617397805056,\ -285850169828023917305160597766144,\ -9458814330023695915493376085458944,\ 10611463280095735779833770841997312,\ 26858845523733132505156327751811072,\ -45351653659540425493462454462578688,\ -51721893208246634620152119065313280,\ 128153962852738923260061818732675072,\ 72309172290880790264088521468805120,\ -287601760268876536722533839324315648,\ -81748882298954611457217204880146432,\ 412991900758674169256073756151906304,\ 94618822951706107415260712822374400,\ -310127540725702211914273444128096256,\ -55673602238528243177149497188810752,\ 99063598679677544637623177565962240,\ -112885051673054706587921553354129408,\ -32118319565038796223590575240118272,\ 219629632788546769870763060210171904,\ 67801165499428846487333764314693632,\ -136017390279150443251682106012598272,\ -48912840378723585749768548625940480,\ 29599986855090693656958900142866432,\ 14058551158827272275321597481451520,\ 1996510268761030655279491855679488,\ -6376335876703166987051390600216576,\ -1543477766131110013355911106527232,\ 2928929832630939960301953751187456,\ -141938317623710974670626411773952,\ -343386812814652966586013047586816,\ 188061853093331689484504428183552,\ 9742318402429894060485134778368,\ -13934488740089651776734818729984,\ 1234529994836267689742088273920,\ 74517394163476620228492787712,\ 29128614276432134478604795904,\ -26207698380515738563867836416,\ 773712524553362671811952640,\ 43521329506126650289422336).
 \]
-Repeating with the first $87+4$ terms removed gives order $87$ again.
+Repeating with the first $82+4$ terms removed gives order $82$ again.
 
 \section{Verification}
 
@@ -160,7 +161,7 @@ both from the antidiagonal DATA read in either orientation and from the ``Table 
 block, and agrees at every available term. This is what ties a model to the table:
 substituting the fixed index into the entry's wording is a reading of English, and a wrong
 reading gives a different digraph and different counts. Across the lines settled here the
-model reproduces $7$ published values, $35$ decimal digits in all, every one of
+model reproduces $15$ published values, $60$ decimal digits in all, every one of
 them exactly; a misreading of the entry would have to reproduce all of them by accident.
 
 Second, each conjectured recurrence was evaluated on those published values in exact
@@ -180,7 +181,7 @@ claimed.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A251010.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A263964.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

@@ -14,7 +14,7 @@ rejected rather than fitted.
 """
 import json, re, os, sys, collections, importlib
 from math import factorial
-import localentry as LE, ratrec, openness, tablecol
+import localentry as LE, ratrec, openness, tablecol, uniform
 
 # transfer3 is the constant-stress family; its name regex is the most specific of the set,
 # so trying it first cannot steal a name from another engine. Its interface differs from the
@@ -136,49 +136,31 @@ for a in sorted(names):
         for colv in cands:
             if len(colv) < order + 2:
                 continue
+            # Go through the shared interface rather than dispatching per engine by hand.
+            # The old code called <engine>.avals directly, which 62 of the 71 engines do not
+            # have; the AttributeError was swallowed by the except below and reported as
+            # "model does not match the column", so every table whose column model came from
+            # one of those engines was silently rejected. Same failure as the transfer7 one
+            # already in the ledger, and the same fix.
             try:
-                if eng in ('transfer6', 'transfer3'):
-                    st, adj = b
-                    tm = M[eng].terms if eng == 'transfer6' else T2.terms
-                    fr = p['frac'] if eng == 'transfer6' else 1
-                    t = [x // fr for x in tm(adj, len(st), len(colv) + 2)]
-                    sh = next((s for s in range(0, 3) if t[s:s + len(colv)] == colv), None)
-                    if sh is None:
-                        continue
-                    got = t; base = sh - 1
-                elif eng == 'transfer10':
-                    adj, start, _ = b
-                    v = M[eng].avals(adj, start, p, len(colv) + 3)
-                    f = factorial(p['K']) * p['frac']
-                    got = [None if x is None or x % f else x // f for x in v]
-                    base = 0
-                    if got[1:1 + len(colv)] != colv:
-                        continue
-                else:
-                    adj, start, end, _ = b
-                    v = M[eng].avals(adj, start, end, p, len(colv) + 3)
-                    f = p['frac'] * (factorial(p['K']) if eng in SCALED else 1)
-                    got = [None if x is None or x % f else x // f for x in v]
-                    base = 0
-                    if got[1:1 + len(colv)] != colv:
-                        continue
+                t = uniform.terms(eng, p, b, len(colv) + 5)
+                tv = [None if (x is None or x.denominator != 1) else x.numerator for x in t]
             except Exception:
                 continue
-            match = (True, got, base, colv); break
+            sh = next((x for x in range(0, 4) if tv[x:x + len(colv)] == colv), None)
+            if sh is None:
+                continue
+            got, base = tv, sh - 1
+            match = (True, got, base, colv)
+            break
         if match is None:
             failed.append((c, 'model does not match the column')); continue
         up, got, base, colv = match
         try:
-            if eng in ('transfer6', 'transfer3'):
-                th = M[eng].threshold if eng == 'transfer6' else T2.threshold
-                thr = th(adj, len(st), coeffs, order)
-                nthr = None if thr is None else thr - base
-            elif eng == 'transfer10':
-                thr = M[eng].threshold(adj, start, coeffs, order, p); nthr = thr
-            else:
-                thr = M[eng].threshold(adj, start, end, coeffs, order, p); nthr = thr
+            thr = uniform.threshold(eng, p, b, coeffs, order)
         except Exception:
             skipped.append((c, 'threshold failed')); continue
+        nthr = None if thr is None else thr - base
         if nthr is None:
             failed.append((c, 'UNRESOLVED')); continue
         # verify the claim on the column's own published terms
@@ -188,7 +170,7 @@ for a in sorted(names):
             failed.append((c, 'claim contradicted at %s' % bad[:3])); continue
         proved.append({'k': c, 'engine': eng, 'order': order, 'nthr': nthr,
                        'coeffs': {int(x): str(y) for x, y in coeffs.items()},
-                       'claimed': dd, 'nterms': len(colv), 'S': len(b[0]),
+                       'claimed': dd, 'nterms': len(colv), 'S': uniform.size(eng, p, b),
                        'upward': up, 'name_k': rn,
                        # the largest published column value the model reproduces: the
                        # Verification section quotes it, so it must be the real figure

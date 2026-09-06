@@ -184,7 +184,7 @@ hard-coded in a template rather than read from the entry — all corrected.
 
 ## 7. Scope
 
-93 distinct arguments across 9008 entries. The full breakdown is in
+93 distinct arguments across 9088 entries. The full breakdown is in
 [papers/index.csv](papers/index.csv); the largest groups:
 
 | Papers | Argument | What it settles |

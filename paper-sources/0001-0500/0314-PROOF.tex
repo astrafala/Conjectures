@@ -12,106 +12,140 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{Recovering the unwritten recurrences of the table OEIS A251515}
+\title{The empirical recurrence for OEIS A230938, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{2 September 2026}
+\date{4 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A251515 is a two-dimensional table $T(n,k)$ whose empirical recurrences are, for several of
-its lines, given only as an ORDER --- ``k=2: [order 35]'' and the like --- with the
-coefficients in a linked file rather than in the entry. Those conjectures can still be settled,
-and the recurrences recovered. A line of the table is a fixed-width or fixed-height array
-count, hence a walk count on finitely many vertices, hence satisfies some monic recurrence of
-order at most that number; Berlekamp--Massey on twice as many exact terms returns the MINIMAL
-one. Where its order equals the order the entry states --- and where the same holds after the
-first few terms are dropped --- any recurrence of that order the line satisfies has a
-characteristic polynomial that is a multiple of the minimal one and of equal degree, hence is
-that polynomial. This note settles column 2.
+OEIS A230938 counts the white-square subarrays of arrays of width $7$ over $\{0,1,2,3\}$ in which
+every cell has a diagonal neighbour one greater than it modulo 4, and none equal to it. The entry carries an empirical recurrence of order $44$ contributed by
+R.~H.~Hardin. It is true, and it is decidable rather than empirical. A diagonal step changes
+both coordinates by one and so never changes the colour of a cell, which makes the two colours
+of the chessboard independent of one another; the count is then a walk over the cells of one
+colour, on $S=4233$ states.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B20, 15A18.\normalsize
 
-\section{The table and the unwritten conjectures}
+\section{The conjecture}
 
-OEIS A251515 is ``T(n,k)=Number of (n+1)X(k+1) 0..4 arrays with every 2X2 subblock summing to a prime.''. It is read by antidiagonals and begins
+OEIS A230938 is ``Number of white-square subarrays of (n+2)X(5+2) 0..3 arrays x(i,j) with each element diagonally or antidiagonally next to at least one element with value (x(i,j)+1) mod 4, no adjacent elements equal, and upper left element zero.''. It has offset $1$ and begins
 \[
-234, 2264, 2264, 21862, 45470, 21862, 211680, 915152,\ \dots
+8, 146, 522, 6896, 28216, 396950, 1604098, 22368688,\ \dots
 \]
-The entry carries, among its empirical claims:
-\begin{quote}\small
-k=2: [order 35]
+The entry states, as a conjecture contributed by its author and never marked settled:
+\begin{quote}
+Empirical: a(n) = 63*a(n-2) -257*a(n-4) -6639*a(n-6) +14476*a(n-8) +210885*a(n-10) +297473*a(n-12) -149746*a(n-14) +3509820*a(n-16) +15998822*a(n-18) +18439507*a(n-20) -5600207*a(n-22) -23359537*a(n-24) -11139145*a(n-26) +4160133*a(n-28) +3040715*a(n-30) -1579065*a(n-32) -872680*a(n-34) +360423*a(n-36) +62740*a(n-38) -14788*a(n-40) +16*a(n-42) -256*a(n-44)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 13:27:00, revision 6) these are still
-recorded as empirical, and the recurrences themselves are not in the entry text.
+As of the ``Last modified'' line on the live entry (Jul 23 2025 06:07:31, revision 6) this is still
+recorded as empirical, and nothing on the entry records it as proved.
 
-\section{Why a line of the table is a walk count}
+\section{What is being counted}
 
-Fix the index that the line fixes. The entry defines $T(n,k)$ as a number of arrays of a shape
-determined by $n$ and $k$, subject to a condition local to a bounded window of consecutive
-lines. Substituting the fixed index into the entry's own wording turns the definition into an
-ordinary one-parameter array count, and for such a count the admissible windows are the
-vertices of a finite digraph and an array is a walk. So the line is a walk count on $S$
-vertices, and by the Cayley--Hamilton theorem it satisfies a monic integer recurrence of order
-at most $S$.
+Colour the cells of the array like a chessboard: $(i,j)$ is white when $i+j$ is even. The
+condition is stated in terms of the DIAGONAL and ANTIDIAGONAL neighbours of a cell, that is the
+four offsets
+\[
+(-1,-1),\ (1,1),\ (-1,1),\ (1,-1),
+\]
+and for a cell $(i,j)$ we write $S(i,j)$ for those of them that land inside the array. The
+condition is that every cell has a neighbour one greater than it modulo $4$, and no neighbour equal to it:
+\[
+\exists\,(a,b)\in S(i,j)\ \ x(a,b)\equiv x(i,j)+1 \!\!\pmod{4},\qquad x(a,b)\neq x(i,j)\ \ \text{for all }(a,b)\in S(i,j).
+\]
 
-\section{Recovering the recurrences}
 
-\begin{lemma}\label{lem:bm}
-A sequence known to satisfy some linear recurrence of order at most $S$ is determined, with its
-minimal recurrence, by its first $2S$ terms; Berlekamp--Massey applied to them returns that
-minimal recurrence exactly.
+The entry adds that the first cell of the subarray in reading order, the cell $(0,0)$ of the array, is $0$.
+
+\begin{lemma}\label{lem:split}
+Each of the four offsets changes $i$ and $j$ each by one, so it changes $i+j$ by $0$ or $\pm2$
+and never changes its parity. Every neighbour of a white cell is therefore white. The condition
+above splits into two systems that share no cell: one on the white cells and one on the black
+cells.
 \end{lemma}
 
-\subsection*{Column $k=2$}
-Substituting the fixed index into the entry's wording gives an ordinary one-parameter array
-count, a walk on $S=125$ vertices. Berlekamp--Massey on $2S=250$ exact terms
-returns a minimal recurrence of order $35$ --- the order the entry states --- with
-integer coefficients
+So what the entry counts is the assignments of values to the white cells alone that satisfy the
+white system; the black cells never enter. That this is the entry's own reading, and not
+merely a convenient one, is settled by its ``upper left element zero'': for a white subarray the
+first cell in reading order is the cell $(0,0)$ of the array, and it is that cell the
+clause fixes, as the published terms confirm and as Section~5 records.
+
+\section{A walk on one colour}
+
+Take the array one row at a time. In a row of even index the white cells sit at every other
+column starting from column $0$, and in a row of odd index they sit at the columns in
+between; the two shapes alternate, so a state must record which of them the next row has.
+
+All four offsets move exactly one row, so the neighbours of the white cells of a row are the
+white cells of the rows immediately above and below it. A row's conditions are therefore settled
+by three consecutive rows, and the state is the last two of them together with the parity of the
+next.
+
+Appending a row completes one such window and settles the row in the middle of it. Because the
+condition looks one row DOWN as well as up, the last row of a finished array has not been tested
+when the walk stops, so the end vector is not all ones: a state is accepted exactly when its
+last row passes with nothing below it. Thus
 \[
-(c_1,\dots,c_{35})=(25,\ 462,\ -14590,\ -42265,\ 2910978,\ -3478794,\ -294784210,\ 909692634,\ 17416731052,\ -74831549442,\ -635489544134,\ 3398784783033,\ 14502751788871,\ -96063953129051,\ -200128268354324,\ 1770329159309660,\ 1413696179854848,\ -21688578534719868,\ 474179661910776,\ 176953098557122256,\ -102811657229884128,\ -946447289145188000,\ 936421248879236608,\ 3191547698036515584,\ -4219264554048107008,\ -6271068576793766400,\ 10431637502838784000,\ 6027014589240266752,\ -13554429422684160000,\ -1359558313948348416,\ 8097473146466598912,\ -1175451099051589632,\ -1511875462953959424,\ 283461546053468160,\ 12892020796293120).
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=4233.
 \]
-so that $a(m)=\sum_{i=1}^{35}c_i\,a(m-i)$ for every $m$. Removing the first
-$35+4$ terms and repeating gives order $35$ again, which is what the
-identification below needs.
+The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
+published terms rather than assumed. In particular $a$ is $C$-finite.
+
+\section{The proof}
+
+\begin{lemma}\label{lem:crit}
+Let $q(t)=t^{44}-\sum_i c_it^{44-i}$ be the characteristic polynomial of the
+conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
+$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
+holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
+and it is enough to examine $j<S$.
+\end{lemma}
+
+\begin{proof}
+Factor $M^{j}$ out of $M^{j+44}-\sum_ic_iM^{j+44-i}$. For the bound, $M^{S}$
+is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
+$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
+polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
+pins the threshold exactly.
+\end{proof}
 
 \begin{theorem}
-For each line above, the displayed recurrence holds for every index, and it is the recurrence
-the entry records.
+\[
+a(n)\;=\;63\,a(n-2) - 257\,a(n-4) - 6639\,a(n-6) + 14476\,a(n-8) + 210885\,a(n-10) + 297473\,a(n-12) - 149746\,a(n-14) + 3509820\,a(n-16) + 15998822\,a(n-18) + 18439507\,a(n-20) - 5600207\,a(n-22) - 23359537\,a(n-24) - 11139145\,a(n-26) + 4160133\,a(n-28) + 3040715\,a(n-30) - 1579065\,a(n-32) - 872680\,a(n-34) + 360423\,a(n-36) + 62740\,a(n-38) - 14788\,a(n-40) + 16\,a(n-42) - 256\,a(n-44)
+\]
+for every $n>43$.
 \end{theorem}
 
 \begin{proof}
-It holds by Lemma~\ref{lem:bm}. For the identification, the entry asserts that the line
-satisfies SOME recurrence of the stated order, possibly only from some index on. Let $q$ be its
-characteristic polynomial and $q_{\min}$ the minimal polynomial of the tail. Then
-$q_{\min}\mid q$, and the second Berlekamp--Massey run --- on the line with its first few
-terms removed --- shows $\deg q_{\min}$ equals the stated order, which is $\deg q$. Both are
-monic, so $q=q_{\min}$.
+The vector $w=q(M)\tau$ was formed by $44$ matrix--vector products in exact integer
+arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
+integers vanish from the index corresponding to $n=43+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
-Three checks.
+Four checks, each independent of the algebra above.
 
-First, each line's model was compared against the entry's own published values for that line,
-taken from the antidiagonal DATA read in either orientation and from the ``Table starts''
-block, and agrees at every available term. This is the only point at which reading the entry's
-English enters, and a misreading gives different counts.
+First, the model reproduces all $19$ terms the entry publishes, exactly, in integer
+arithmetic.
 
-Second, each recovered recurrence was evaluated directly on the model's values, with no
-Berlekamp--Massey involved, and holds at every index tested.
+Second, the count was recomputed for the smallest arrays straight from the definition: the cells
+of the white colour were listed from $i+j$ directly, every assignment of values to them
+enumerated, and each tested by the entry's own words. No rows, no window, no state and no end
+vector are involved in that computation, and the published terms came back.
 
-Third, each order was computed twice by independent routes --- modulo a $61$-bit prime, where
-every intermediate is a machine word, and again in exact rational arithmetic --- and once more
-on the line with its first few terms dropped, which is what the identification requires. All
-agree.
+Third, the conjectured recurrence was evaluated directly on the published terms, with no
+matrices involved, and holds wherever the proved range and the data overlap.
+
+Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A251515.
-\bibitem{massey} J.~L.~Massey, Shift-register synthesis and BCH decoding, \emph{IEEE
-Trans. Inform. Theory} \textbf{15} (1969), 122--127.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A230938.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge

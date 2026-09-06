@@ -12,83 +12,91 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A185490, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A262451, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A185490 counts arrays over $\{0,\dots,1\}$ under a condition comparing a statistic of
-every $2\times2$ subblock with those of its neighbours, and carries an empirical recurrence
-of order $37$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
-empirical. The count is a walk count on $S=256$ states and is $C$-finite; whether the
-conjectured recurrence annihilates it is then settled by a finite exact computation.
+OEIS A262451 counts arrays of width $5$ over $\{0,1\}$ whose rows, read as base-$2$
+numbers, are divisible by $15$ and whose columns, read the same way, are divisible by
+$15$. The entry carries an empirical recurrence of order $46$ contributed by
+R.~H.~Hardin. It is true, and it is decidable rather than empirical. A column's value depends on
+every row of the array, so the condition is not local; but its RESIDUE is built one row at a
+time by Horner's rule, and the vector of column residues is a state of bounded size. The count
+is then a walk count on $S=225$ states.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 11A63, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A185490 is ``Number of (n+1) X 3 binary arrays with every 2 X 2 subblock sum equal to some horizontal or vertical neighbor 2 X 2 subblock sum.''. It has offset $1$ and begins
+OEIS A262451 is ``Number of (n+3)X(2+3) 0..1 arrays with each row and column divisible by 15, read as a binary number with top and left being the most significant bits.''. It has offset $1$ and begins
 \[
-24, 128, 708, 3792, 20872, 114724, 631720, 3480976,\ \dots
+3, 5, 9, 17, 51, 117, 281, 705,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n)=8*a(n-1)-8*a(n-2)-38*a(n-3)+77*a(n-4)-304*a(n-5)+229*a(n-6)+896*a(n-7)+602*a(n-8)+3542*a(n-9)-1451*a(n-10)-1518*a(n-11)-14971*a(n-12)-30824*a(n-13)-23130*a(n-14)-25773*a(n-15)+40123*a(n-16)+73174*a(n-17)+166738*a(n-18)+101179*a(n-19)+52400*a(n-20)-160962*a(n-21)-297696*a(n-22)-442388*a(n-23)-320904*a(n-24)-33320*a(n-25)+401152*a(n-26)+681440*a(n-27)+823424*a(n-28)+439488*a(n-29)-162240*a(n-30)-562816*a(n-31)-538112*a(n-32)-225024*a(n-33)+151040*a(n-34)+199680*a(n-35)+12288*a(n-36)-36864*a(n-37).
+Empirical: a(n) = 4*a(n-1) -a(n-2) -8*a(n-3) +48*a(n-4) -168*a(n-5) +48*a(n-6) +312*a(n-7) -955*a(n-8) +2884*a(n-9) -955*a(n-10) -4832*a(n-11) +7632*a(n-12) -16032*a(n-13) +7632*a(n-14) +17568*a(n-15) +4886*a(n-16) -72248*a(n-17) +4886*a(n-18) +197200*a(n-19) -366336*a(n-20) +873744*a(n-21) -366336*a(n-22) -1155888*a(n-23) +1014058*a(n-24) -588568*a(n-25) +1014058*a(n-26) -2290528*a(n-27) +6020160*a(n-28) -17209056*a(n-29) +6020160*a(n-30) +27546528*a(n-31) -27604133*a(n-32) +27776948*a(n-33) -27604133*a(n-34) +27085688*a(n-35) -75797424*a(n-36) +221932632*a(n-37) -75797424*a(n-38) -362608200*a(n-39) +362785825*a(n-40) -363318700*a(n-41) +362785825*a(n-42) -361187200*a(n-43) +406335600*a(n-44) -541780800*a(n-45) +406335600*a(n-46)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 11 2023 07:58:54, revision 7) this is still
+As of the ``Last modified'' line on the live entry (Sep 23 2015 08:44:40, revision 4) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-Write $\sigma$ for the sum of all its entries, taken on a $2\times2$ subblock. The contiguous $2\times2$
-subblocks of an $(n+1)\times3$ array over $\{0,\dots,1\}$ form a grid of $n$ rows
-and $2$ columns, and $\sigma$ labels that grid. The entry
-requires that every subblock carries the same value of $\sigma$ as at least ONE of its neighbours horizontally or vertically.
-
-\section{The count is a walk count}
-
-This condition is NOT a condition on a pair. Whether a subblock has a
-matching neighbour cannot be decided when its own row is placed: the row BELOW it may yet
-supply the match. So the state carries, besides the $2$ consecutive array rows, a tally for
-each of the $2$ subblocks of the row just completed --- a single bit saying whether it has already been matched --- counting its matches
-among its own row and the row above.
-
-A step appends an array row. It fixes the next subblock row, adds the matches between the two
-rows to the OLD row's tallies, and requires those totals to be acceptable, the old row being
-final at that moment; the new row's tallies start from its own horizontal matches plus the
-matches just made. A state is ACCEPTING when its own tally is already acceptable, which is
-exactly the right condition for the last subblock row, the one with nothing below it. Only the
-states whose tally came from their own row may BEGIN an array, since the first row has nothing
-above it.
-
-An array of $n+1$ rows is then a walk of $n-1$ steps and
+The array has $5$ cells across and entries $x(i,j)\in\{0,1\}$, the digits of
+base $2$. Row $i$ of an array with $R$ rows is the number
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau
+\rho_i\;=\;\sum_{j=1}^{5}x(i,j)\,2^{5-j} ,
 \]
-with $\iota$ the indicator of the starting states and $\tau$ of the accepting ones, on
-$S=256$ states in all. Getting the two vectors right is the whole of the argument: with
-$\iota$ taken as all-ones the first row would be allowed a match from a row above it that does
-not exist, and the count would be too large. The entry's own first terms settle it --- for
-the smallest cases
-the model reproduces every published term.
+the LEFT digit being the most significant, and column $j$ is
+\[
+\gamma_j\;=\;\sum_{i=1}^{R}x(i,j)\,2^{R-i} ,
+\]
+the TOP digit being the most significant. The entry asks that every $\rho_i$ be divisible by
+$15$ and every $\gamma_j$ be divisible by $15$.
 
-Over the alphabet $\{0,\dots,1\}$ the statistic takes values in $[0,4]$, so the
-grid it labels carries at most $5$ different labels. At $n=1$ the array has $2$
-rows and the grid is a single row of $2$
-subblocks, with only the neighbours inside that row; the entry's first term is
-$24$, which the model reproduces along with every later term, and that is the cheapest
-check that the grid has been read with the right shape.
 
-In particular $a$ is $C$-finite. The alignment of the walk index with the entry's own $n$ was
-checked against its published terms rather than assumed.
+\section{Column residues by Horner's rule}
+
+The row condition is a condition on one row and is imposed as each row is chosen. The column
+condition is not local: $\gamma_j$ depends on every row. What is local is its residue.
+
+\begin{lemma}\label{lem:horner}
+Let $\gamma_j^{(i)}$ be the value of column $j$ of the first $i$ rows, read the same way.
+Then $\gamma_j^{(0)}=0$ and
+\[
+\gamma_j^{(i)}\;=\;2\,\gamma_j^{(i-1)}+x(i,j),
+\qquad\text{hence}\qquad
+\gamma_j^{(i)}\bmod 15\;=\;
+\bigl(2\,(\gamma_j^{(i-1)}\bmod 15)+x(i,j)\bigr)\bmod 15 .
+\]
+\end{lemma}
+
+\begin{proof}
+Adding a row at the BOTTOM shifts every earlier digit one place up in significance, which is
+multiplication by $2$, and puts the new digit in the units place. Reduction modulo
+$15$ commutes with both operations.
+\end{proof}
+
+So the vector $\bigl(\gamma_1\bmod 15,\dots,\gamma_{5}\bmod
+15\bigr)$ is a state: at most $15^{5}$ of them, and each array row
+that satisfies the row condition carries one such vector to another. The walk starts at the
+all-zero vector, which is the empty array, and the END vector picks out the residue vectors in
+which every entry is divisible by $15$ --- so the end vector is not the all-ones
+vector, and the column condition is imposed once, at the end, exactly as the entry states it.
+With $M$ the adjacency matrix,
+\[
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=225.
+\]
+The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
+published terms rather than assumed. In particular $a$ is $C$-finite.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{37}-\sum_i c_it^{37-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{46}-\sum_i c_it^{46-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -96,7 +104,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+37}-\sum_ic_iM^{j+37-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+46}-\sum_ic_iM^{j+46-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -105,39 +113,43 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;8\,a(n-1) - 8\,a(n-2) - 38\,a(n-3) + 77\,a(n-4) - 304\,a(n-5) + 229\,a(n-6) + 896\,a(n-7) + 602\,a(n-8) + 3542\,a(n-9) - 1451\,a(n-10) - 1518\,a(n-11) - 14971\,a(n-12) - 30824\,a(n-13) - 23130\,a(n-14) - 25773\,a(n-15) + 40123\,a(n-16) + 73174\,a(n-17) + 166738\,a(n-18) + 101179\,a(n-19) + 52400\,a(n-20) - 160962\,a(n-21) - 297696\,a(n-22) - 442388\,a(n-23) - 320904\,a(n-24) - 33320\,a(n-25) + 401152\,a(n-26) + 681440\,a(n-27) + 823424\,a(n-28) + 439488\,a(n-29) - 162240\,a(n-30) - 562816\,a(n-31) - 538112\,a(n-32) - 225024\,a(n-33) + 151040\,a(n-34) + 199680\,a(n-35) + 12288\,a(n-36) - 36864\,a(n-37)
+a(n)\;=\;4\,a(n-1) - a(n-2) - 8\,a(n-3) + 48\,a(n-4) - 168\,a(n-5) + 48\,a(n-6) + 312\,a(n-7) - 955\,a(n-8) + 2884\,a(n-9) - 955\,a(n-10) - 4832\,a(n-11) + 7632\,a(n-12) - 16032\,a(n-13) + 7632\,a(n-14) + 17568\,a(n-15) + 4886\,a(n-16) - 72248\,a(n-17) + 4886\,a(n-18) + 197200\,a(n-19) - 366336\,a(n-20) + 873744\,a(n-21) - 366336\,a(n-22) - 1155888\,a(n-23) + 1014058\,a(n-24) - 588568\,a(n-25) + 1014058\,a(n-26) - 2290528\,a(n-27) + 6020160\,a(n-28) - 17209056\,a(n-29) + 6020160\,a(n-30) + 27546528\,a(n-31) - 27604133\,a(n-32) + 27776948\,a(n-33) - 27604133\,a(n-34) + 27085688\,a(n-35) - 75797424\,a(n-36) + 221932632\,a(n-37) - 75797424\,a(n-38) - 362608200\,a(n-39) + 362785825\,a(n-40) - 363318700\,a(n-41) + 362785825\,a(n-42) - 361187200\,a(n-43) + 406335600\,a(n-44) - 541780800\,a(n-45) + 406335600\,a(n-46)
 \]
-for every $n>37$.
+for every $n>43$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $37$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $46$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=37+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=43+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
-Three checks, each independent of the algebra above.
+Four checks, each independent of the algebra above.
 
-First, the model reproduces all $20$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry: the digraph is built by reading the
-entry's English, and a misreading gives different counts.
+First, the model reproduces all $27$ terms the entry publishes, exactly, in integer
+arithmetic.
 
-Second, the conjectured recurrence was evaluated directly on those published terms, with no
+Second, the count was recomputed for the smallest arrays straight from the definition:
+enumerate every array of that size, turn each row and each column into a base-$2$ number with
+the first digit most significant, and test the divisibility directly. Neither Horner's rule nor
+any residue state is involved, and the published terms came back.
+
+Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
 arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A185490.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A262451.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata
-Theory, Languages, and Computation}, 3rd ed., Addison--Wesley, 2006.
+\bibitem{knuth} D.~E.~Knuth, \emph{The Art of Computer Programming}, Volume 2, 3rd ed.,
+Addison--Wesley, 1997. (Evaluation of polynomials, Section 4.6.4.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}
