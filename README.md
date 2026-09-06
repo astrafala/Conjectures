@@ -16,6 +16,7 @@ time it was settled.
 - **[papers/](papers/)** — every paper, as a PDF. One folder per band of 500.
 - **[papers/README.md](papers/README.md)** — how the ordering works, and the contents page.
 - **[papers/index.csv](papers/index.csv)** — every paper with its OEIS entry, in one table.
+- **[SUBMITTING.md](SUBMITTING.md)** — how to get these checked and cited.
 - **[oeis-comments.txt](oeis-comments.txt)** — a short plain-English summary of each result,
   written to be posted on the entry itself.
 
