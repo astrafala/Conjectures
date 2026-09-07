@@ -12,85 +12,73 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A259520, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A183332, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A259520 counts arrays of width $5$ over $\{0,1\}$ subject to a condition read round the
-perimeter of every $2\times2$ subblock: the corners read clockwise spell one of a listed set of words. The entry carries an empirical recurrence of
+OEIS A183332 counts arrays of width $4$ over $\{0,1\}$ under local conditions relating each cell
+to its neighbours or to the cells preceding it. The entry carries an empirical recurrence of
 order $19$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
-empirical: the condition is settled inside a bounded window of consecutive rows, so the
-count is a walk count on a finite digraph with $S=33$ vertices, and whether a linear
-recurrence holds for such a count is a finite computation.
+empirical: every condition is settled inside three consecutive array rows, so the count is a
+walk count on $S=170$ states.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A16, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05C30, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A259520 is ``Number of (n+1)X(4+1) 0..1 arrays with each 2X2 subblock having clockwise pattern 0000 0001 0011 0101 or 1111.''. It has offset $1$ and begins
+OEIS A183332 is ``Number of n X 4 binary arrays with each 1 adjacent to exactly two 0's.''. It has offset $1$ and begins
 \[
-380, 6100, 93028, 1447270, 22453286, 348802846, 5417785744, 84159480298,\ \dots
+3, 23, 66, 247, 899, 3254, 11883, 43207,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 25*a(n-1) -152*a(n-2) -109*a(n-3) +3368*a(n-4) -6811*a(n-5) -12971*a(n-6) +49951*a(n-7) -9491*a(n-8) -92048*a(n-9) +49214*a(n-10) +74086*a(n-11) -38089*a(n-12) -32429*a(n-13) +8846*a(n-14) +6910*a(n-15) -139*a(n-16) -458*a(n-17) -58*a(n-18) -2*a(n-19)
+Empirical: a(n)=2*a(n-1)+2*a(n-2)+9*a(n-3)+14*a(n-4)+20*a(n-5)+9*a(n-6)-4*a(n-7)-24*a(n-8)-46*a(n-9)-43*a(n-10)-35*a(n-11)-16*a(n-12)+6*a(n-13)+11*a(n-14)+8*a(n-15)+7*a(n-16)+2*a(n-17)+a(n-18)+2*a(n-19).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jun 02 2025 11:52:44, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 01:34:39, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The arrays have $5$ columns and a growing number of rows, with entries in $\{0,1\}$. A
-$2\times2$ subblock is a set of four cells
-\[
-B=\begin{pmatrix} p & q \\ r & s \end{pmatrix},
-\qquad p=x(i,j),\; q=x(i,j+1),\; r=x(i+1,j),\; s=x(i+1,j+1).
-\]
-Its perimeter is a cycle of four cells, walked clockwise as $p\to q\to s\to r\to p$ and
-counterclockwise as $p\to r\to s\to q\to p$. Write
-\[
-\mathrm{cw}(B)=[p<q]+[q<s]+[s<r]+[r<p],\qquad
-\mathrm{ccw}(B)=[p<r]+[r<s]+[s<q]+[q<p]
-\]
-for the number of steps at which the value rises, going each way round.
+The array has $4$ cells across, with entries in $\{0,1\}$. The NEIGHBOURS of a cell are the
+cells immediately to its left, to its right, above it and below it, those that lie inside the
+array. The entry asks that
+\begin{itemize}
+\item every cell carrying $1$ has exactly $2$ of its four neighbours carrying $0$;
+\end{itemize}
+and nothing else.
 
-\begin{lemma}\label{lem:sum}
-$\mathrm{cw}(B)+\mathrm{ccw}(B)=4-\#\{\text{edges of the cycle with equal ends}\}$.
+\section{Three rows decide everything}
+
+\begin{lemma}\label{lem:win}
+Every clause above is decided by three consecutive array rows. An adjacency clause for a cell
+of row $i$ reads rows $i-1$, $i$ and $i+1$; a precedence clause for a cell of row $i$ reads
+rows $i-2$, $i-1$ and $i$, and columns at most two to the left.
 \end{lemma}
 
 \begin{proof}
-Each of the four edges of the square is walked once by each cycle, and in opposite directions.
-An edge with distinct ends therefore contributes exactly one rise, to one of the two counts;
-an edge with equal ends contributes to neither.
+The neighbours of a cell lie one step away in each of the four directions, and the predecessors
+one step to the left or one step up; a clause naming two cells in a row or column reaches two
+steps, never more.
 \end{proof}
 
-The condition the entry imposes is this: reading the four corners clockwise, starting at whichever corner one pleases, spells one of the words
+So the state is the pair (row above, current row), with a row not yet written carried as
+$\bot$. A step appends a row: the precedence clauses for the NEW row are settled at once,
+because everything they read is already written, and the adjacency clauses for the MIDDLE row
+of the window are settled because the row below it has just arrived. An adjacency clause for a row is settled only when the row BELOW it has been
+written, so the condition for the LAST row of an array belongs to the end vector, which asks
+whether that row is satisfied with nothing below it. The end vector is therefore not the
+all-ones vector: a row satisfied only because a further row is written below it does not
+finish an array. With $M$ the
+adjacency matrix of the digraph on those states,
 \[
-0000,\ 0001,\ 0011,\ 0101,\ 1111.
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=170.
 \]
-That is, the cyclic word $pqsr$ is a rotation of one of them. The starting corner is not fixed by the entry, and it is the data that says so: with the words $0000$, $0011$, $0101$ allowed there are seven two-by-two binary arrays, which is what such an entry publishes as its first term, whereas a fixed starting corner would leave three.
-
-\section{A bounded window}
-
-Two consecutive rows decide every subblock lying between them, and the condition of Section 2 is a condition on single subblocks only. So the state is the row just written, and nothing else.
-
-One step of the walk writes a whole row. The row is filled left to right, and the subblock
-closed by positions $j-1,j$ is tested the moment position $j$ is written, so a partial row that
-cannot be completed is abandoned rather than enumerated. The walk starts at the state standing
-for the empty array, so that a walk of $n$ steps is an array of $n$ rows.
-
-The end vector is all ones: an array may stop after any row. Thus
-\[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=33,
-\]
-for the transfer matrix $M$ on those $S$ states. The walk index $j$ and the entry's own $n$
-differ by a constant, read off by matching the published terms rather than assumed. In
-particular $a$ is $C$-finite, and every question about linear recurrences it satisfies is
-decidable.
+The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
+published terms rather than assumed. In particular $a$ is $C$-finite.
 
 \section{The proof}
 
@@ -112,30 +100,29 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;25\,a(n-1) - 152\,a(n-2) - 109\,a(n-3) + 3368\,a(n-4) - 6811\,a(n-5) - 12971\,a(n-6) + 49951\,a(n-7) - 9491\,a(n-8) - 92048\,a(n-9) + 49214\,a(n-10) + 74086\,a(n-11) - 38089\,a(n-12) - 32429\,a(n-13) + 8846\,a(n-14) + 6910\,a(n-15) - 139\,a(n-16) - 458\,a(n-17) - 58\,a(n-18) - 2\,a(n-19)
+a(n)\;=\;2\,a(n-1) + 2\,a(n-2) + 9\,a(n-3) + 14\,a(n-4) + 20\,a(n-5) + 9\,a(n-6) - 4\,a(n-7) - 24\,a(n-8) - 46\,a(n-9) - 43\,a(n-10) - 35\,a(n-11) - 16\,a(n-12) + 6\,a(n-13) + 11\,a(n-14) + 8\,a(n-15) + 7\,a(n-16) + 2\,a(n-17) + a(n-18) + 2\,a(n-19)
 \]
-for every $n>17$.
+for every $n>19$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $19$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=17+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once.
+integers vanish from the index corresponding to $n=19+1$ onwards and the run continued
+until the working vector was identically zero.
 \end{proof}
 
 \section{Verification}
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $15$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $24$ terms the entry publishes, exactly, in integer
 arithmetic.
 
-Second, the count was recomputed for the smallest arrays straight from the definition: every
-array of the stated width and a few rows was written out cell by cell over $\{0,1\}$, each of
-its $2\times2$ subblocks was read round its perimeter, and the condition of Section 2 was
-applied as stated. No window, no state and no recurrence is involved in that computation, and
-the published terms came back.
+Second, the count was recomputed for the smallest arrays straight from the definition:
+enumerate every array of that size in the orientation the entry's own name writes and test each
+clause on each cell directly. No window, no state and no transfer matrix are involved, and the
+published terms came back.
 
 Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
@@ -145,7 +132,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A259520.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A183332.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge

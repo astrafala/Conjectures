@@ -12,71 +12,61 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A205761, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A187640, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{2 September 2026}
+\date{6 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A205761 counts arrays over $\{0,\dots,3\}$ under a condition on the number of clockwise edge increases
-in every $2\times2$ subblock, and carries an empirical recurrence of order $16$ contributed by
-R.~H.~Hardin. It is true, and it is decidable rather than empirical. The condition is local to
-a bounded window of consecutive rows, so the count is a walk count on $S=192$ states and is
-$C$-finite; whether the conjectured recurrence annihilates it is then settled by a finite exact
-computation, with the Cayley--Hamilton theorem bounding the work.
+OEIS A187640 counts arrays of width $3$ over $\{0,1,2\}$ in which every $3\times3$ subblock
+satisfies a condition on its nine entries. The entry carries an empirical recurrence of order
+$16$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical: a
+$3\times3$ block lies in three consecutive rows, so the state is the last two rows and the
+count is a walk count on $S=757$ states.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B20, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A205761 is ``Number of (n+1)X2 0..3 arrays with every 2X2 subblock having nonzero determinant and having the same number of clockwise edge increases as its horizontal and vertical neighbors.''. It has offset $1$ and begins
+OEIS A187640 is ``Number of (n+2)X3 0..2 arrays with each 3X3 subblock having sum 9.''. It has offset $1$ and begins
 \[
-192, 1262, 8659, 62607, 462040, 3490700, 26672819, 205747848,\ \dots
+3139, 17701, 101419, 596653, 3703651, 23126677, 145502251, 935121589,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 6*a(n-1) +34*a(n-2) -95*a(n-3) -439*a(n-4) -247*a(n-5) +510*a(n-6) -285*a(n-7) -1600*a(n-8) +110*a(n-9) +1431*a(n-10) -111*a(n-11) -883*a(n-12) -96*a(n-13) +262*a(n-14) +100*a(n-15) +8*a(n-16) for n>17
+Empirical: a(n)=7*a(n-1)+448*a(n-3)-3136*a(n-4)-60597*a(n-6)+424179*a(n-7)+3015306*a(n-9)-21107142*a(n-10)-49152096*a(n-12)+344064672*a(n-13)+216040608*a(n-15)-1512284256*a(n-16)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 12:16:10, revision 9) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 04:04:29, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-For a $2\times2$ subblock $\begin{pmatrix}p&q\\r&s\end{pmatrix}$ the
-entry's quantity, the number of clockwise edge increases, counts how many of the four steps of the cycle $p\to q\to s\to r\to p$ go up in value. Write $\sigma$ for it. The subblocks of an
-$(n+1)\times2$ array over $\{0,\dots,3\}$ form a grid of $n$ rows and $1$
-column and $\sigma$ labels that grid.
+The arrays have $3$ columns and a growing number of rows, with entries in $\{0,1,2\}$. The
+condition is imposed on every $3\times3$ block of the array --- every choice of three
+consecutive rows and three consecutive columns --- and asks that the nine entries sum to $9$.
 
-The reading is not a guess. Over $0..1$ the $2\times3$ arrays whose two subblocks have equal
-clockwise counts number $40$; over $0..2$ the $2\times2$ arrays of clockwise count $2$ number
-$30$; the $3\times2$ binary arrays whose two subblocks have unequal rightwards-and-downwards
-counts number $40$. Those are the first terms the corresponding entries publish, and each was
-computed by direct enumeration before any transfer matrix was built.
 
-The condition relates NEIGHBOURING subblocks: two subblocks adjacent in the grid, horizontally
-or vertically, must carry equal values of $\sigma$.
 
-\section{The count is a walk count}
+\section{Three rows}
 
-A subblock's value needs two consecutive array rows, and the vertical
-comparison needs the two subblock rows that three consecutive rows produce. So the state is the
-PAIR of consecutive array rows: the horizontal comparisons decide which pairs are admissible at
-all, the vertical ones decide which pair may follow which. A step appends one array row,
-turning $(r,s)$ into $(s,t)$ and settling every comparison between the two subblock rows at
-once. An $(n+1)$-row array is a walk of $n-1$ steps, so
+A $3\times3$ block occupies three consecutive rows, so everything the condition asks is decided
+by three consecutive rows and nothing wider. Take the array one row at a time and let the state
+be the last two rows written, with a distinguished start standing for the array before its
+first row. Appending a row completes the blocks whose bottom row is the new one, and the step
+is allowed exactly when each of those blocks passes.
+
+Every block of the finished array is tested exactly once, at the step that writes its bottom
+row, and no step imposes anything the definition does not ask. The first two rows complete no
+block at all, which is why they are laid down without a test. Every state may end an array, so
+$\tau=\mathbf{1}$. Thus
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,\qquad\iota=\tau=(1,\dots,1)^{\!\top},
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=757,
 \]
-on the $S=192$ admissible pairs.
-
-At $n=1$ the array has two rows, so the grid is a single row of $1$
-subblock; the entry's first term is $192$, which the model
-reproduces along with every later term. That is the cheapest check that the grid has been read
-with the right shape.
-In particular $a$ is $C$-finite. The alignment of the walk index with the entry's own $n$ was
-checked against its published terms rather than assumed.
+for the transfer matrix $M$ on those $S$ states. The walk index $j$ and the entry's own $n$
+differ by a constant, read off by matching the published terms rather than assumed. In
+particular $a$ is $C$-finite.
 
 \section{The proof}
 
@@ -98,39 +88,41 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;6\,a(n-1) + 34\,a(n-2) - 95\,a(n-3) - 439\,a(n-4) - 247\,a(n-5) + 510\,a(n-6) - 285\,a(n-7) - 1600\,a(n-8) + 110\,a(n-9) + 1431\,a(n-10) - 111\,a(n-11) - 883\,a(n-12) - 96\,a(n-13) + 262\,a(n-14) + 100\,a(n-15) + 8\,a(n-16)
+a(n)\;=\;7\,a(n-1) + 448\,a(n-3) - 3136\,a(n-4) - 60597\,a(n-6) + 424179\,a(n-7) + 3015306\,a(n-9) - 21107142\,a(n-10) - 49152096\,a(n-12) + 344064672\,a(n-13) + 216040608\,a(n-15) - 1512284256\,a(n-16)
 \]
-for every $n>17$.
+for every $n>16$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $16$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=17+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once. The bound is exact: at $n=17$ the recurrence fails on the entry's own published terms, so no larger range holds.
+integers vanish from the index corresponding to $n=16+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
-Three checks, each independent of the algebra above.
+Four checks, each independent of the algebra above.
 
-First, the model reproduces all $18$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry: the digraph is built by reading the
-entry's English, and a misreading gives different counts.
+First, the model reproduces all $17$ terms the entry publishes, exactly, in integer
+arithmetic.
 
-Second, the conjectured recurrence was evaluated directly on those published terms, with no
+Second, the count was recomputed for the smallest arrays straight from the definition: every
+array was written out cell by cell and each $3\times3$ block tested directly on its nine
+entries. No rows, no window, no state and no transfer matrix are involved in that computation,
+and the published terms came back.
+
+Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
 arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A205761.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A187640.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{bona} M.~B\'ona, \emph{Combinatorics of Permutations}, 2nd ed., CRC
-Press, 2012.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

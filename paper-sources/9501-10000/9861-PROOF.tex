@@ -1,0 +1,149 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=1in]{geometry}
+\usepackage[colorlinks=true,linkcolor=blue,urlcolor=blue]{hyperref}
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{remark}[theorem]{Remark}
+\title{A proof of the conjectured recurrence for OEIS A228333}
+\author{Adrian Perez Fontelles\\ \small Independent researcher}
+\date{26 August 2026}
+\begin{document}
+\maketitle
+
+\begin{abstract}
+OEIS A228333 carries a conjectured linear recurrence with polynomial coefficients, of
+order 2. The entry separately states a recurrence of order 1 that is not
+labelled a conjecture. We prove that the first is a consequence of the second, so the
+conjecture holds. The argument is a division in the Ore algebra
+$\mathbb{Q}(n)[N]$, where $N$ is the shift $Nf(n)=f(n+1)$: writing $C$ and $P$ for the two
+recurrences read as operators, we exhibit $Q$ with $C=QP$, whence
+$C(a)=Q(P(a))=Q(0)=0$. No generating function is used. The division is exact
+rational-function arithmetic, and the finitely many $n$ excluded by denominators of $Q$
+are computed rather than ignored.
+\end{abstract}
+
+\noindent\small 2020 Mathematics Subject Classification. 11B37, 12H10, 33F10.\normalsize
+
+\section{The sequence and the two recurrences}
+
+OEIS A228333 is ``Let h(m) denote the sequence whose n-th term is Sum\_\{k=0..n\} (k+1)\^{}m*T(n,k)\^{}2, where T(n,k) is the Catalan triangle A039598. This is h(7)''. It has offset $0$ and begins
+\[
+a(0),\dots,a(7)\;=\;1, 132, 4260, 120400, 3017700, 69776784, 1524611088, 31951782720,\ \dots
+\]
+The entry carries the following comment, still recorded as a conjecture:
+\begin{quote}\small
+\textbf{Conjecture:} n\^{}2*(304*n-411)*a(n) + 4*(-1814*n\^{}3+2554*n\^{}2-4776*n+7567)*a(n-1) + 32*(2*n-5)*(2*n-1)*(299*n-176)*a(n-2) = 0. - \emph{R. J. Mathar}, Dec 04 2013
+\end{quote}
+As of the ``Last modified'' line on the live entry (2025-10-16, revision 39) it is still
+a conjecture, and no proof appears among the entry's links, formulas or programs.
+
+The same entry also states, \emph{not} as a conjecture:
+\begin{quote}\small
+Recurrence: n\^{}2*(6*n\^{}3 - 12*n\^{}2 + 6*n - 1)*a(n) = 4*(2*n-3)*(2*n+1)*(6*n\^{}3 + 6*n\^{}2 - 1)*a(n-1).
+\end{quote}
+This second relation is what the argument below rests on; it is taken as given, exactly as
+a posted generating function would be. It was checked against the entry's own DATA before
+being used, and holds on every published term it reaches.
+
+\section{Recurrences as operators, and what division proves}
+
+Let $N$ be the shift operator, $(Nf)(n)=f(n+1)$, acting on sequences. Polynomials in $n$
+and $N$ generate the Ore algebra $\mathcal{A}=\mathbb{Q}(n)[N]$, in which multiplication is
+associative and distributive but not commutative: moving $N$ past a coefficient shifts it,
+\[
+N\,q(n)\;=\;q(n+1)\,N .
+\]
+A recurrence $\sum_{i=0}^{r}p_{i}(n)\,a(n-i)=0$ becomes an element of $\mathcal{A}$ after
+re-indexing $n\mapsto n+r$, namely
+\[
+L\;=\;\sum_{j=0}^{r}q_{j}(n)\,N^{j},\qquad q_{j}(n)=p_{r-j}(n+r),
+\]
+and the recurrence says exactly that $L$ annihilates the sequence, $L(a)=0$.
+
+\begin{lemma}\label{lem:factor}
+Let $P,C\in\mathcal{A}$ and suppose $C=QP$ for some $Q\in\mathcal{A}$. If $P(a)=0$ then
+$C(a)=0$, at every $n$ where the coefficients of $Q$ are defined.
+\end{lemma}
+
+\begin{proof}
+$C(a)=(QP)(a)=Q\bigl(P(a)\bigr)=Q(0)=0$. The only caveat is the one stated: a coefficient
+of $Q$ is a rational function of $n$, so the step is valid at every $n$ that is not a pole
+of one of them.
+\end{proof}
+
+\begin{lemma}\label{lem:div}
+Right division works in $\mathcal{A}$: given $C$ and $P\neq0$, there are $Q,R\in\mathcal{A}$
+with $C=QP+R$ and $\deg_{N}R<\deg_{N}P$.
+\end{lemma}
+
+\begin{proof}
+Induct on $\deg_{N}C$. If $\deg_{N}C<\deg_{N}P$ take $Q=0$, $R=C$. Otherwise let
+$d=\deg_{N}C-\deg_{N}P$ and let $c$, $p$ be the leading coefficients of $C$ and $P$. By the
+commutation rule, the leading coefficient of $N^{d}P$ is $p(n+d)$, which is a nonzero
+element of $\mathbb{Q}(n)$ and hence invertible there. Then
+$C-\dfrac{c(n)}{p(n+d)}\,N^{d}P$ has strictly smaller degree in $N$, and induction applies.
+\end{proof}
+
+So the question ``does the conjecture follow from the stated recurrence?'' is decided by
+running the division and looking at the remainder. Nothing is approximated: the
+coefficients live in $\mathbb{Q}(n)$ and the arithmetic is exact.
+
+\section{The computation for A228333}
+
+Reading both relations as operators and dividing the conjectured one by the stated one
+leaves remainder $0$, with quotient
+\[
+Q \;=\; \left(\frac{- 2392 n - 3376}{6 n^{3} + 24 n^{2} + 30 n + 11}\right) + \left(\frac{304 n + 197}{6 n^{3} + 24 n^{2} + 30 n + 11}\right)\,N .
+\]
+Hence $C=QP$ in $\mathcal{A}$.
+
+The coefficients of $Q$ are rational functions of $n$, and none of their poles is an integer, so Lemma~\ref{lem:factor} applies at every index.
+
+\begin{theorem}
+The conjectured recurrence
+\[
+n^{2} \left(304 n - 411\right)\,a(n) -  4 \left(1814 n^{3} - 2554 n^{2} + 4776 n - 7567\right)\,a(n-1) + 32 \left(2 n - 5\right) \left(2 n - 1\right) \left(299 n - 176\right)\,a(n-2) \;=\;0
+\]
+holds for every $n\ge2$.
+\end{theorem}
+
+\begin{proof}
+By Lemma~\ref{lem:factor} applied to the factorisation above, using that the stated
+recurrence annihilates the sequence. No coefficient of $Q$ has an integer pole, so the lemma applies at every $n$.
+\end{proof}
+
+\section{Verification}
+
+Every number above is an output of a script written separately from this note, and three
+independent checks were run.
+
+First, the factorisation was not assumed but computed, and then confirmed by multiplying
+back: $QP$ was expanded in $\mathcal{A}$ and its coefficients cancelled against those of
+$C$ to zero, as rational functions of $n$.
+
+Second, the relation the argument rests on was checked against the entry rather than
+trusted: the stated recurrence was evaluated on the published terms in exact integer
+arithmetic and holds on every one it reaches.
+
+Third, the conjecture itself was evaluated the same way, directly and without reference to
+either operator: for each $n$ in range the sum $\sum_{i}p_{i}(n)a(n-i)$ was formed from the
+entry's own values and found to vanish, for all 17 values of $n$ from
+$n=2$ upward.
+
+\begin{thebibliography}{9}
+\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer Sequences},
+\url{https://oeis.org}, 2026. Sequence A228333.
+\bibitem{ore} O.~Ore, \emph{Theory of non-commutative polynomials}, Ann. of Math. 34
+(1933), 480--508.
+\bibitem{kp} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011,
+Chapter 7.
+\bibitem{bronstein} M.~Bronstein and M.~Petkov\v{s}ek, \emph{An introduction to
+pseudo-linear algebra}, Theoret. Comput. Sci. 157 (1996), 3--33.
+\end{thebibliography}
+\end{document}

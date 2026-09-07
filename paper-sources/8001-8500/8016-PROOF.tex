@@ -12,137 +12,151 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A207591, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A253463, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{31 August 2026}
+\date{5 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A207591 counts arrays over $\{0,\dots,1\}$ of width $4$ that avoid the patterns
-$(0,0,1), (1,1,1)$ along one axis and $(0,0,0), (0,0,1)$ along the other, and carries an empirical recurrence of
-order $6$ contributed by R.~H.~Hardin. It is true. The patterns have length $3$, so
-the constraint across the growing direction ties together $3$ consecutive columns: taking a
-window of $2$ consecutive columns as a state makes the array a walk in a finite digraph
-on $S=81$ vertices, and $a(n)=\mathbf{1}^{\!\top}P^{\,n-2}\mathbf{1}$. Writing $q$
-for the characteristic polynomial of the conjectured recurrence, the residual is
-$\mathbf{1}^{\!\top}P^{\,n-2-6}q(P)\mathbf{1}$, which vanishes identically
-beyond a threshold that the computation pins down exactly. Finite, exact, integer.
+OEIS A253463 counts arrays of width $3$ over $\{0,1,2\}$ in which the largest entry on the main diagonal minus the smallest on the antidiagonal of every $2\times2$ subblock differs from the same number at the neighbouring subblock. The entry carries an
+empirical recurrence of order $6$ contributed by R.~H.~Hardin. It is true, and it is
+decidable rather than empirical: a block of $k$ rows and the block one row lower together
+occupy $k+1$ consecutive rows, so every comparison the condition makes is settled inside
+$3$ consecutive rows and the count is a walk count on $S=568$ states.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 68R15, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B20, 15A18.\normalsize
 
-\section{The sequence and the conjecture}
+\section{The conjecture}
 
-OEIS A207591 is ``Number of 4 X n 0..1 arrays avoiding 0 0 0 and 0 0 1 horizontally and 0 0 1 and 1 1 1 vertically.''. It has offset
-$1$ and begins
+OEIS A253463 is ``Number of (n+1) X (2+1) 0..2 arrays with every 2 X 2 subblock diagonal maximum minus antidiagonal minimum unequal to its neighbors horizontally, vertically, diagonally and antidiagonally.''. It has offset $1$ and begins
 \[
-9, 81, 144, 432, 1098, 3150, 8244,\ \dots
+540, 800, 1400, 3072, 8536, 15888, 44464, 94416,\ \dots
 \]
-The entry carries the following comment:
-\begin{quote}\small
-Empirical: a(n) = 8*a(n-2) + 2*a(n-3) - 10*a(n-4) + 2*a(n-6) for n>8.
+The entry states, as a conjecture contributed by its author and never marked settled:
+\begin{quote}
+Empirical: a(n) = 5*a(n-2) + 8*a(n-4) - 12*a(n-6) for n>7.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jun 24 2018 14:43:01, revision
-12) the statement is still recorded as empirical, and nothing on the entry
-records it as settled either way.
+As of the ``Last modified'' line on the live entry (Dec 14 2018 06:07:41, revision 10) this is still
+recorded as empirical, and nothing on the entry records it as proved.
 
-Written out, the claim is
-\begin{equation}\label{eq:conj}
-a(n)\;=\;8\,a(n-2) + 2\,a(n-3) - 10\,a(n-4) + 2\,a(n-6)
-\end{equation}
-for all $n>8$. The entry's array has a fixed number of rows and a growing number of
-columns, so the roles of the two directions are exchanged: what the entry calls the
-horizontal direction runs along the growing side. The transfer below is written in the
-growing direction throughout.
+\section{What is being counted}
 
-\section{The array as a walk}
+The arrays have $3$ columns and a growing number of rows, with entries in $\{0,1,2\}$.
 
-Call a column \emph{admissible} if the word it forms contains none of the patterns
-$(0,0,1), (1,1,1)$ as $3$ consecutive entries. There are $9$ admissible columns; that condition
-involves a single column only.
+For a $k\times k$ block $B$ of cells of the array, let
+\[
+f(B)=\max_{1\le t\le k}B_{t,t}\;-\;\min_{1\le t\le k}B_{t,k+1-t} ,
+\]
+which in words is the largest entry on the main diagonal minus the smallest on the antidiagonal. The condition is that $f$ takes different values on any two blocks that
+are neighbours in one of the directions the entry names: writing $B(i,j)$ for the block whose
+top-left cell is $(i,j)$,
+\[
+f\bigl(B(i,j)\bigr)\;\neq\;f\bigl(B(i+\delta_1,\,j+\delta_2)\bigr)
+\qquad\text{for }(\delta_1,\delta_2)\in\Delta,
+\]
+whenever both blocks lie wholly inside the array, where
+\[
+\Delta=\{\,(1,-1),\ (1,1),\ (0,1),\ (1,0)\,\}
+\]
+collects the steps for the directions the entry names, namely antidiagonal, diagonal, horizontal and vertical. The
+requirement is imposed for that one size of block, $2\times2$.
 
-The remaining patterns $(0,0,0), (0,0,1)$ are forbidden along the other axis, so each of them
-constrains $3$ consecutive columns at a fixed position of the row. Take as state a
-window $w=\bigl(w^{(1)},\dots,w^{(2)}\bigr)$ of $2$ consecutive admissible
-columns, so $S=81$, and declare $w\to w'$ an edge when $w'$ is $w$ with its first entry
-dropped and one further admissible column $t$ appended, subject to: for every position
-$j$, the $3$-tuple read down the row $j$ across $w^{(1)},\dots,w^{(2)},t$
-is none of $(0,0,0), (0,0,1)$. Let $P$ be the adjacency matrix.
+Two remarks fix the reading. A neighbouring block is the block one step over, overlapping the
+first, not the next disjoint block: the entry says ``its neighbors'', and the counts below
+confirm it. And a comparison is imposed only when both blocks lie wholly inside the array, so a
+block near an edge is compared in fewer directions and a block whose named neighbour falls off
+the array is under no condition in that direction.
 
-\begin{lemma}\label{lem:walk}
-$a(n)=\mathbf{1}^{\!\top}P^{\,n-2}\mathbf{1}$ for every $n\ge2$.
-\end{lemma}
+\section{A window of 3 rows}
 
-\begin{proof}
-An array of the entry's kind with $n$ columns is a sequence of $n$ admissible columns in
-which no forbidden pattern appears along the other axis. Reading it as the sequence of its
-overlapping windows of length $2$ turns it into a walk: consecutive windows overlap in
-$1$ columns by construction, and the edge condition is exactly the requirement on the one
-new $3$-tuple that each step creates. Conversely a walk reassembles into such an array,
-and the two constructions are mutually inverse. A walk of length $n-2$ visits $n-1$
-windows, that is $n$ columns; summing over all starting and ending states gives
-$\mathbf{1}^{\!\top}P^{\,n-2}\mathbf{1}$.
-\end{proof}
+A $k\times k$ block occupies $k$ consecutive rows, and each of its neighbours occupies either
+the same $k$ rows or the $k$ rows one lower. So both blocks of any comparison lie inside $k+1$
+consecutive rows, hence inside $3$ consecutive rows for every size the entry names. No
+comparison reaches further than that, in either direction.
 
-\section{The criterion}
+Take the array one row at a time and let the state be the last 2 rows written so far, with a
+distinguished start standing for the array before its first row, so that a walk of $n$ steps is
+an array of $n$ rows. Appending a row produces a window of $3$ rows, and the step is
+allowed exactly when every comparison whose two blocks both lie inside that window holds.
 
-Let $q(t)=t^{6}-\sum_i c_i t^{6-i}$ be the characteristic polynomial of
-\eqref{eq:conj} and $u_j=\mathbf{1}^{\!\top}P^{j}q(P)\mathbf{1}$.
+Every comparison of the finished array is tested this way. Each one lies inside $3$
+consecutive rows, and every $3$ consecutive rows of the array form the window of some
+step. A comparison lying inside more than one window is tested more than once, which costs
+nothing. Conversely no step imposes anything not asked by the definition, since a step tests
+only comparisons whose two blocks lie inside the array.
+
+Every state may end an array, so $\tau=\mathbf{1}$. A block sitting in the final rows whose
+neighbour would lie below the last row is not compared in that direction at all --- the
+neighbour is not part of the array --- so stopping never leaves a condition unchecked. For the
+same reason the array of exactly $2$ rows is handled by the walks of length $2$ with no
+further test: all of its comparisons already lie inside the windows of those steps.
+
+Thus
+\[
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=568,
+\]
+for the transfer matrix $M$ on those $S$ states. The walk index $j$ and the entry's own $n$
+differ by a constant, read off by matching the published terms rather than assumed. In
+particular $a$ is $C$-finite.
+
+\section{The proof}
 
 \begin{lemma}\label{lem:crit}
-$a(n)-\sum_i c_i a(n-i)=u_{\,n-2-6}$ whenever $n-6\ge2$. Hence
-\eqref{eq:conj} holds for every $n>t$ exactly when $u_j=0$ for every
-$j>t-2-6$. Moreover $(u_j)$ satisfies the monic linear recurrence whose
-characteristic polynomial is that of $P$, of degree $S$, so $S$ consecutive zeros force all
-later ones and the last nonzero $u_j$ pins $t$ down exactly.
+Let $q(t)=t^{6}-\sum_i c_it^{6-i}$ be the characteristic polynomial of the
+conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
+$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
+holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
+and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Substituting Lemma~\ref{lem:walk} into the left side and factoring out
-$P^{\,n-2-6}$ gives the identity. The equivalence follows by letting the exponent
-run. For the last claim, Cayley--Hamilton gives $\chi(P)=0$ for the characteristic
-polynomial $\chi$ of $P$, so $\chi$ applied to the shift annihilates $(u_j)$; being monic of
-degree $S$, it propagates $S$ consecutive zeros forward.
+Factor $M^{j}$ out of $M^{j+6}-\sum_ic_iM^{j+6-i}$. For the bound, $M^{S}$
+is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
+$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
+polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
+pins the threshold exactly.
 \end{proof}
 
-\section{The computation}
-
 \begin{theorem}
-The recurrence \eqref{eq:conj} holds for every $n>8$. This is the statement of
-Section~1.
+\[
+a(n)\;=\;5\,a(n-2) + 8\,a(n-4) - 12\,a(n-6)
+\]
+for every $n>7$.
 \end{theorem}
 
 \begin{proof}
-The vector $q(P)\mathbf{1}\in\mathbb{Z}^{S}$ was formed by $6$ matrix--vector
-products in exact integer arithmetic and the $u_j$ evaluated in turn. They vanish from the
-index corresponding to $n=8+1$ onwards, and the run was continued past $S$ consecutive
-zeros, which by Lemma~\ref{lem:crit} settles every larger index.
+The vector $w=q(M)\tau$ was formed by $6$ matrix--vector products in exact integer
+arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
+integers vanish from the index corresponding to $n=7+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
-Three checks, each independent of the algebra above.
+Four checks, each independent of the algebra above.
 
-First, the digraph was built directly from the entry's stated patterns and the walk counts
-compared against the entry's DATA at every one of the $25$ published indices; the
-values agree exactly, including the initial count of $9$ admissible columns. That is
-what ties the digraph to the sequence, and a model reproducing only part of the published
-data was rejected wherever it occurred.
+First, the model reproduces all $24$ terms the entry publishes, exactly, in integer
+arithmetic.
 
-Second, the recurrence \eqref{eq:conj} was evaluated on those published terms in exact
-integer arithmetic, with no matrices involved, and vanishes at every index the entry claims.
+Second, the count was recomputed for the smallest arrays straight from the definition: every
+array of width $3$ over $\{0,1,2\}$ with a few rows was written out cell by cell, every block of
+that one size was located, its number computed, and the comparison made with each neighbouring block
+that lies inside the array. No window, no state and no end vector are involved in that
+computation, and the published terms came back.
 
-Third, the vanishing test of Lemma~\ref{lem:crit} was carried past $S=81$ consecutive
-zeros rather than to a sampled prefix.
+Third, the conjectured recurrence was evaluated directly on the published terms, with no
+matrices involved, and holds wherever the proved range and the data overlap.
+
+Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A207591.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A253463.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
-University Press, 2009.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

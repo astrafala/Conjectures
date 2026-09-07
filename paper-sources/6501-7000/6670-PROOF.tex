@@ -12,85 +12,69 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A234763, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A232834, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A234763 counts arrays of width $3$ over $\{0,1,2,3\}$ subject to a condition read round the
-perimeter of every $2\times2$ subblock: the steps round each subblock rise by at most one in one of the two directions. The entry carries an empirical recurrence of
-order $13$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
-empirical: the condition is settled inside a bounded window of consecutive rows, so the
-count is a walk count on a finite digraph with $S=65$ vertices, and whether a linear
-recurrence holds for such a count is a finite computation.
+OEIS A232834 counts arrays of width $3$ over $\{0,\dots,2\}$ under a condition on each cell
+and its neighbours, and carries an empirical recurrence of order $13$ contributed by
+R.~H.~Hardin. It is true, and it is decidable rather than empirical. Every neighbour named lies
+in the three rows $i-1,i,i+1$, so an ordered pair of consecutive rows is a state, the count is
+a walk count on $S=756$ of them, and the conjectured recurrence is then settled by a finite
+exact computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A16, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 68Q45.\normalsize
 
 \section{The conjecture}
 
-OEIS A234763 is ``Number of (n+1)X(2+1) 0..3 arrays with 2X2 edge jumps all no more than +1 in one of the clockwise or counterclockwise directions but not both.''. It has offset $1$ and begins
+OEIS A232834 is ``Number of (n+1) X (2+1) 0..2 arrays with every element next to itself plus and minus one within the range 0..2 horizontally, diagonally or antidiagonally.''. It has offset $1$ and begins
 \[
-240, 1624, 9404, 64180, 398696, 2678704, 17095452, 113639852,\ \dots
+16, 312, 3720, 44832, 500516, 5809256, 71242892, 828231244,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 8*a(n-1) +21*a(n-2) -252*a(n-3) +125*a(n-4) +1818*a(n-5) -2050*a(n-6) -4364*a(n-7) +6237*a(n-8) +2860*a(n-9) -5787*a(n-10) +336*a(n-11) +1311*a(n-12) -262*a(n-13)
+Empirical: a(n) = 4*a(n-1) +18*a(n-2) +772*a(n-3) +844*a(n-4) +9204*a(n-5) -55335*a(n-6) -127538*a(n-7) -311040*a(n-8) +198402*a(n-9) +173348*a(n-10) -196912*a(n-11) +1920*a(n-12) +15360*a(n-13).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 08:24:52, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Mar 22 2023 14:34:37, revision 7) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The arrays have $3$ columns and a growing number of rows, with entries in $\{0,1,2,3\}$. A
-$2\times2$ subblock is a set of four cells
+The neighbours of a cell are the cells at the offsets
 \[
-B=\begin{pmatrix} p & q \\ r & s \end{pmatrix},
-\qquad p=x(i,j),\; q=x(i,j+1),\; r=x(i+1,j),\; s=x(i+1,j+1).
+(-1,-1), (-1,1), (0,-1), (0,1), (1,-1), (1,1),
 \]
-Its perimeter is a cycle of four cells, walked clockwise as $p\to q\to s\to r\to p$ and
-counterclockwise as $p\to r\to s\to q\to p$. Write
+those falling outside the array being absent. The entry requires that every cell $v$ has, among its neighbours, one equal to $v+1$ and one equal to $v-1$ --- each required only when that value lies in $\{0,\dots,2\}$, which is what ``within the range $0..2$'' says.
+
+\section{The count is a walk count}
+
+Every offset above moves the row index by at most one, so whether a cell of row $i$ passes
+depends on rows $i-1$, $i$ and $i+1$ and nothing else. Take as vertices the ordered PAIRS
+$(p,c)$ of consecutive rows, allowing $p$ to be ABSENT --- that is what lets a walk of no steps
+describe a one-row array --- and put an edge $(p,c)\to(c,x)$ exactly when every cell of the
+middle row $c$ passes with $p$ above it and $x$ below it. A state with $p$ absent may begin an
+array; a state $(p,c)$ accepts when every cell of $c$ passes with nothing below it. An array of
+$L$ rows is then a walk of $L-1$ steps, each step settling one row, and every array arises from
+exactly one walk. Hence
 \[
-\mathrm{cw}(B)=[p<q]+[q<s]+[s<r]+[r<p],\qquad
-\mathrm{ccw}(B)=[p<r]+[r<s]+[s<q]+[q<p]
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau
 \]
-for the number of steps at which the value rises, going each way round.
+with $\iota$ the indicator of the beginning states, $\tau$ of the accepting ones, and $j$ the
+walk index, which differs from the entry's own $n$ by a constant read off from its published
+terms. There are $S=756$ states, and $a$ is $C$-finite.
 
-\begin{lemma}\label{lem:sum}
-$\mathrm{cw}(B)+\mathrm{ccw}(B)=4-\#\{\text{edges of the cycle with equal ends}\}$.
-\end{lemma}
-
-\begin{proof}
-Each of the four edges of the square is walked once by each cycle, and in opposite directions.
-An edge with distinct ends therefore contributes exactly one rise, to one of the two counts;
-an edge with equal ends contributes to neither.
-\end{proof}
-
-The condition the entry imposes is this: write
-\[
-J_{\mathrm{cw}}(B)=\max(q-p,\;s-q,\;r-s,\;p-r),\qquad J_{\mathrm{ccw}}(B)=\max(r-p,\;s-r,\;q-s,\;p-q)
-\]
-for the largest step taken going round the subblock in each of the two directions. The condition is that for every subblock $B$, exactly one of $J_{\mathrm{cw}}(B)\le 1$, $J_{\mathrm{ccw}}(B)\le 1$ holds.
-
-\section{A bounded window}
-
-Two consecutive rows decide every subblock lying between them, and the condition of Section 2 is a condition on single subblocks only. So the state is the row just written, and nothing else.
-
-One step of the walk writes a whole row. The row is filled left to right, and the subblock
-closed by positions $j-1,j$ is tested the moment position $j$ is written, so a partial row that
-cannot be completed is abandoned rather than enumerated. The walk starts at the state standing
-for the empty array, so that a walk of $n$ steps is an array of $n$ rows.
-
-The end vector is all ones: an array may stop after any row. Thus
-\[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=65,
-\]
-for the transfer matrix $M$ on those $S$ states. The walk index $j$ and the entry's own $n$
-differ by a constant, read off by matching the published terms rather than assumed. In
-particular $a$ is $C$-finite, and every question about linear recurrences it satisfies is
-decidable.
+At $n=1$ the array has one row, and
+the condition is tested there with nothing above or below it; the entry's first term is
+$16$, which the model reproduces along with every later term. That is the cheapest check
+that the neighbour set and the boundary have been read the same way the entry reads them: a
+condition tested as though the missing rows were present, rather than absent, gives a different
+first term. There are $3^{3}=27$ possible rows over the entry's own alphabet. The state count $S=756$ is exactly $27\cdot28$,
+one state for each ordered pair of a row and its possible predecessor, the absent predecessor
+included.
 
 \section{The proof}
 
@@ -112,42 +96,38 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;8\,a(n-1) + 21\,a(n-2) - 252\,a(n-3) + 125\,a(n-4) + 1818\,a(n-5) - 2050\,a(n-6) - 4364\,a(n-7) + 6237\,a(n-8) + 2860\,a(n-9) - 5787\,a(n-10) + 336\,a(n-11) + 1311\,a(n-12) - 262\,a(n-13)
+a(n)\;=\;4\,a(n-1) + 18\,a(n-2) + 772\,a(n-3) + 844\,a(n-4) + 9204\,a(n-5) - 55335\,a(n-6) - 127538\,a(n-7) - 311040\,a(n-8) + 198402\,a(n-9) + 173348\,a(n-10) - 196912\,a(n-11) + 1920\,a(n-12) + 15360\,a(n-13)
 \]
-for every $n>13$.
+for every $n>12$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $13$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=13+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=12+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
-Four checks, each independent of the algebra above.
+Three checks, each independent of the algebra above.
 
-First, the model reproduces all $18$ terms the entry publishes, exactly, in integer
-arithmetic.
+First, the model reproduces all $16$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry: the digraph is built by reading the
+entry's English, and a misreading gives different counts.
 
-Second, the count was recomputed for the smallest arrays straight from the definition: every
-array of the stated width and a few rows was written out cell by cell over $\{0,1,2,3\}$, each of
-its $2\times2$ subblocks was read round its perimeter, and the condition of Section 2 was
-applied as stated. No window, no state and no recurrence is involved in that computation, and
-the published terms came back.
-
-Third, the conjectured recurrence was evaluated directly on the published terms, with no
+Second, the conjectured recurrence was evaluated directly on those published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
 
-Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
 arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A234763.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A232834.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{comtet} L.~Comtet, \emph{Advanced Combinatorics}, Reidel, 1974.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

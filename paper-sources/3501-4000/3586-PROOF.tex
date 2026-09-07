@@ -12,48 +12,46 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A206858, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A207011, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A206858 counts arrays of width $3$ over $\{0,1,2\}$ containing no occurrence of certain short
+OEIS A207011 counts arrays of width $4$ over $\{0,1,2\}$ containing no occurrence of certain short
 patterns, read along the rows, the columns or the diagonals. The entry carries an empirical
 recurrence of order $69$ contributed by R.~H.~Hardin. It is true, and it is decidable
 rather than empirical: no pattern is longer than $3$ letters and no direction moves the row
 index by more than one, so every occurrence lies inside $3$ consecutive array rows and the
-count is a walk count on $S=651$ states.
+count is a walk count on $S=3783$ states.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 68R15, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A206858 is ``Number of nX3 0..2 arrays avoiding the pattern z z+1 z in any row, column, diagonal or antidiagonal.''. It has offset $1$ and begins
+OEIS A207011 is ``Number of nX4 0..2 arrays avoiding the patterns z z+1 z or z z-1 z in any row or column.''. It has offset $1$ and begins
 \[
-25, 625, 11092, 192575, 3425501, 61164640, 1090023439, 19411973287,\ \dots
+61, 3721, 130165, 5174065, 201211481, 7825530345, 303753655993, 11797040231217,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 19*a(n-1) -116*a(n-2) +1656*a(n-3) -869*a(n-4) +21477*a(n-5) +132055*a(n-6) -840588*a(n-7) +536035*a(n-8) -6853600*a(n-9) -60451483*a(n-10) +239622640*a(n-11) +438741327*a(n-12) -1195377988*a(n-13) +5700951257*a(n-14) -6858573805*a(n-15) -111005025152*a(n-16) +81130949991*a(n-17) +729595094458*a(n-18) -164145675576*a(n-19) -1939309566165*a(n-20) -923748685709*a(n-21) -1316253867500*a(n-22) +5260520510689*a(n-23) +20022040020338*a(n-24) -5890585307291*a(n-25) -34836595129811*a(n-26) -22702031279219*a(n-27) -33049844533404*a(n-28) +62351641745134*a(n-29) +155113662891657*a(n-30) +33107662721068*a(n-31) -24178641337873*a(n-32) -194402042599881*a(n-33) -311832321249112*a(n-34) -33618123825367*a(n-35) +89850785718241*a(n-36) +300778171884747*a(n-37) +374045469527943*a(n-38) +86092340636653*a(n-39) +3604652678449*a(n-40) -201637013534345*a(n-41) -207248865450281*a(n-42) -71047680122596*a(n-43) -57323557161104*a(n-44) +59400218029312*a(n-45) +25376225539103*a(n-46) +1328368282685*a(n-47) +4014897641042*a(n-48) -31160253752859*a(n-49) +1838520623206*a(n-50) -6407828259429*a(n-51) +3995902092267*a(n-52) +3720821190410*a(n-53) -1212803780265*a(n-54) +697965261753*a(n-55) -2333237925074*a(n-56) -547181285476*a(n-57) -915715203554*a(n-58) -261550523386*a(n-59) -181827672515*a(n-60) -54985098044*a(n-61) -21779928260*a(n-62) -6733838628*a(n-63) -1623288484*a(n-64) -490248576*a(n-65) -68943120*a(n-66) -19647216*a(n-67) -1205568*a(n-68) -323136*a(n-69)
+Empirical: a(n) = 43*a(n-1) -450*a(n-2) +7066*a(n-3) +149078*a(n-4) +398408*a(n-5) -156256*a(n-6) +189709832*a(n-7) -849729344*a(n-8) -62406420032*a(n-9) -442151864704*a(n-10) +2758701413760*a(n-11) +53855187674496*a(n-12) +213255628200064*a(n-13) -906860729972224*a(n-14) -13765804533343744*a(n-15) -69412392714770432*a(n-16) -141575572593162240*a(n-17) +891895598409109504*a(n-18) +10976103144587569152*a(n-19) +60800657685125627904*a(n-20) +220075063263741444096*a(n-21) +251205653030728826880*a(n-22) -2372115829577006219264*a(n-23) -22211871314960033087488*a(n-24) -112572984174397214654464*a(n-25) -432921797873291393499136*a(n-26) -1193556513232888186535936*a(n-27) -2346314498358128271556608*a(n-28) +96803818296443895021568*a(n-29) +18123703470600344114823168*a(n-30) +96760784875972958941609984*a(n-31) +289254631177128537835438080*a(n-32) +688602735014547670368780288*a(n-33) +871005001924264823355342848*a(n-34) +386747677302607395273310208*a(n-35) -4663272032429281453130383360*a(n-36) -9363751501390859020714115072*a(n-37) -24262116190845760407754244096*a(n-38) -7484420146651072245807448064*a(n-39) +28632362615102480180320403456*a(n-40) +71856156228153507880265318400*a(n-41) +253674749075600335274816569344*a(n-42) -293352661844511528115603767296*a(n-43) -197483247170877123837936271360*a(n-44) +509847331682596520432488153088*a(n-45) -1119366433347055997475589455872*a(n-46) +788380794434378597057683259392*a(n-47) +2021072676188307579480376868864*a(n-48) -3592166066866741785050260439040*a(n-49) +1062381005798401300629276327936*a(n-50) -1128844627549631200268208046080*a(n-51) +940621100374342951055801712640*a(n-52) +3452911261058781789771901435904*a(n-53) -7051516710513192479078100238336*a(n-54) +13124312376653644517348936253440*a(n-55) -14779716262838745823632678715392*a(n-56) +6896486073150390389876786724864*a(n-57) +7930164292674956203935028740096*a(n-58) -22930449214126872312942287650816*a(n-59) +24570494536042331832734565007360*a(n-60) -16772370768421321008121408126976*a(n-61) +9251802568263379046750876598272*a(n-62) -3672953945242617143253188739072*a(n-63) +816997521572105908586616455168*a(n-64) -165409434827892030790353027072*a(n-65) +54895047224963695393917370368*a(n-66) -56276874505908412711887175680*a(n-67) +25406107365430754941536829440*a(n-68) -1646500297917330500207247360*a(n-69)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 13:11:32, revision 9) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 13:23:10, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The array has $3$ cells across, with entries in $\{0,1,2\}$. An OCCURRENCE of a pattern in a
+The array has $4$ cells across, with entries in $\{0,1,2\}$. An OCCURRENCE of a pattern in a
 direction is a run of consecutive cells taken in that direction whose entries match the pattern
 in order; the array is counted when it has no occurrence at all. The entry names
 \[
 \begin{array}{ll}
 \text{direction} & \text{forbidden patterns} \\[2pt]
-\text{along a row, left to right} & (z,\,z+1,\,z) \\
-\text{down a column} & (z,\,z+1,\,z) \\
-\text{down a diagonal, nw to se} & (z,\,z+1,\,z) \\
-\text{down an antidiagonal, ne to sw} & (z,\,z+1,\,z) \\
+\text{along a row, left to right} & (z,\,z+1,\,z),\quad (z,\,z-1,\,z) \\
+\text{down a column} & (z,\,z+1,\,z),\quad (z,\,z-1,\,z) \\
 \end{array}
 \]
  A pattern written with the free letter $z$ forbids every window standing in those differences, whatever the value of $z$: the window $(v_1,\dots,v_r)$ is an occurrence exactly when the numbers $v_s-o_s$ are all equal, $o$ being the offsets shown.
@@ -78,7 +76,7 @@ and is not assumed but read off the window. The walk starts at the all-$\bot$ wi
 of no steps is the empty array and a walk of $R$ steps is an array of $R$ rows. With $M$ the
 adjacency matrix, $\iota$ the indicator of the starting window and $\tau=\mathbf{1}$,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=651.
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=3783.
 \]
 The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
 published terms rather than assumed. In particular $a$ is $C$-finite.
@@ -103,15 +101,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;19\,a(n-1) - 116\,a(n-2) + 1656\,a(n-3) - 869\,a(n-4) + 21477\,a(n-5) + 132055\,a(n-6) - 840588\,a(n-7) + 536035\,a(n-8) - 6853600\,a(n-9) - 60451483\,a(n-10) + 239622640\,a(n-11) + 438741327\,a(n-12) - 1195377988\,a(n-13) + 5700951257\,a(n-14) - 6858573805\,a(n-15) - 111005025152\,a(n-16) + 81130949991\,a(n-17) + 729595094458\,a(n-18) - 164145675576\,a(n-19) - 1939309566165\,a(n-20) - 923748685709\,a(n-21) - 1316253867500\,a(n-22) + 5260520510689\,a(n-23) + 20022040020338\,a(n-24) - 5890585307291\,a(n-25) - 34836595129811\,a(n-26) - 22702031279219\,a(n-27) - 33049844533404\,a(n-28) + 62351641745134\,a(n-29) + 155113662891657\,a(n-30) + 33107662721068\,a(n-31) - 24178641337873\,a(n-32) - 194402042599881\,a(n-33) - 311832321249112\,a(n-34) - 33618123825367\,a(n-35) + 89850785718241\,a(n-36) + 300778171884747\,a(n-37) + 374045469527943\,a(n-38) + 86092340636653\,a(n-39) + 3604652678449\,a(n-40) - 201637013534345\,a(n-41) - 207248865450281\,a(n-42) - 71047680122596\,a(n-43) - 57323557161104\,a(n-44) + 59400218029312\,a(n-45) + 25376225539103\,a(n-46) + 1328368282685\,a(n-47) + 4014897641042\,a(n-48) - 31160253752859\,a(n-49) + 1838520623206\,a(n-50) - 6407828259429\,a(n-51) + 3995902092267\,a(n-52) + 3720821190410\,a(n-53) - 1212803780265\,a(n-54) + 697965261753\,a(n-55) - 2333237925074\,a(n-56) - 547181285476\,a(n-57) - 915715203554\,a(n-58) - 261550523386\,a(n-59) - 181827672515\,a(n-60) - 54985098044\,a(n-61) - 21779928260\,a(n-62) - 6733838628\,a(n-63) - 1623288484\,a(n-64) - 490248576\,a(n-65) - 68943120\,a(n-66) - 19647216\,a(n-67) - 1205568\,a(n-68) - 323136\,a(n-69)
+a(n)\;=\;43\,a(n-1) - 450\,a(n-2) + 7066\,a(n-3) + 149078\,a(n-4) + 398408\,a(n-5) - 156256\,a(n-6) + 189709832\,a(n-7) - 849729344\,a(n-8) - 62406420032\,a(n-9) - 442151864704\,a(n-10) + 2758701413760\,a(n-11) + 53855187674496\,a(n-12) + 213255628200064\,a(n-13) - 906860729972224\,a(n-14) - 13765804533343744\,a(n-15) - 69412392714770432\,a(n-16) - 141575572593162240\,a(n-17) + 891895598409109504\,a(n-18) + 10976103144587569152\,a(n-19) + 60800657685125627904\,a(n-20) + 220075063263741444096\,a(n-21) + 251205653030728826880\,a(n-22) - 2372115829577006219264\,a(n-23) - 22211871314960033087488\,a(n-24) - 112572984174397214654464\,a(n-25) - 432921797873291393499136\,a(n-26) - 1193556513232888186535936\,a(n-27) - 2346314498358128271556608\,a(n-28) + 96803818296443895021568\,a(n-29) + 18123703470600344114823168\,a(n-30) + 96760784875972958941609984\,a(n-31) + 289254631177128537835438080\,a(n-32) + 688602735014547670368780288\,a(n-33) + 871005001924264823355342848\,a(n-34) + 386747677302607395273310208\,a(n-35) - 4663272032429281453130383360\,a(n-36) - 9363751501390859020714115072\,a(n-37) - 24262116190845760407754244096\,a(n-38) - 7484420146651072245807448064\,a(n-39) + 28632362615102480180320403456\,a(n-40) + 71856156228153507880265318400\,a(n-41) + 253674749075600335274816569344\,a(n-42) - 293352661844511528115603767296\,a(n-43) - 197483247170877123837936271360\,a(n-44) + 509847331682596520432488153088\,a(n-45) - 1119366433347055997475589455872\,a(n-46) + 788380794434378597057683259392\,a(n-47) + 2021072676188307579480376868864\,a(n-48) - 3592166066866741785050260439040\,a(n-49) + 1062381005798401300629276327936\,a(n-50) - 1128844627549631200268208046080\,a(n-51) + 940621100374342951055801712640\,a(n-52) + 3452911261058781789771901435904\,a(n-53) - 7051516710513192479078100238336\,a(n-54) + 13124312376653644517348936253440\,a(n-55) - 14779716262838745823632678715392\,a(n-56) + 6896486073150390389876786724864\,a(n-57) + 7930164292674956203935028740096\,a(n-58) - 22930449214126872312942287650816\,a(n-59) + 24570494536042331832734565007360\,a(n-60) - 16772370768421321008121408126976\,a(n-61) + 9251802568263379046750876598272\,a(n-62) - 3672953945242617143253188739072\,a(n-63) + 816997521572105908586616455168\,a(n-64) - 165409434827892030790353027072\,a(n-65) + 54895047224963695393917370368\,a(n-66) - 56276874505908412711887175680\,a(n-67) + 25406107365430754941536829440\,a(n-68) - 1646500297917330500207247360\,a(n-69)
 \]
-for every $n>68$.
+for every $n>69$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $69$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=68+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=69+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -119,7 +117,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $15$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $14$ terms the entry publishes, exactly, in integer
 arithmetic.
 
 Second, the count was recomputed for the smallest arrays straight from the definition: fill the
@@ -135,7 +133,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A206858.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A207011.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata

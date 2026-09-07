@@ -111,3 +111,44 @@ reports.
 
 Settlement re-checked against the 7 September export before counting: 25 entries carry
 settlement wording, the same 25 already examined, none of them among the 19.
+
+## 7 September 2026 --- the pair state was never needed: 65 more
+
+The refused pool was swept whole first, and it did not pay: 111 entries processed, one result.
+That pool is genuinely cap-bound, not clock-bound, and the ranking was right to leave it. What
+paid was asking *why* the largest block in it --- 150 `transfer17` entries --- was over the
+cap, and the answer was that the model was built out of the wrong thing.
+
+**The redundancy in a pair-of-lines state is exact, and can be removed before the states
+exist.** The vertices were ordered pairs $(r,s)$, so the count was $(\alpha+1)^{2W}$: sixteen
+million at width 6 over four values. But for a window $j$, whether a line $t$ is admissible
+there depends on $r$ and $s$ only through their own $j$-th windows. Collect for each $j$ the
+set of triples $(t_j,t_{j+1},t_{j+2})$ the pair allows, call it $C(r,s)$; then the lines that
+may follow $(r,s)$ are exactly those consistent with every $C_j$, and the successor $(s,t)$
+carries $C(s,t)$, which does not mention $r$ at all. **Two pairs $(r,s)$, $(r',s)$ with the
+same $C$ have the same outgoing lines and the same successors**, so the vertex is $(s,C)$,
+with the multiplicity of $r$ as its starting weight. Those multiplicities come from a small
+dynamic programme over columns rather than from enumerating $r$.
+
+That is the merge `lumpauto` already performed --- done before the states exist rather than
+after, which is the difference between a model that fits and one that cannot be written down.
+
+- A252060: 59049 states to **3140**, 11.7 seconds to under one.
+- A252072: 4782969 pairs, **75396** states in 1.2 seconds, all 18 published terms.
+- A251946: 16777216 pairs, **465700** states in 11 seconds, all 23 published terms.
+
+Same terms as the pair model wherever the pair model can still be built at all.
+
+**65 proved** in the family, 51 refused at **cap 2000000** even after the merge (the widest
+widths over four letters), 0 contradicted by their own data.
+
+**The papers say which digraph the numbers came from.** They state the pair count, then the
+identification and why it is exact, then the $S$ it leaves. The 142 papers built earlier today
+are untouched and remain correct: they quote the unmerged count, which is a valid
+Cayley--Hamilton bound, merely a generous one.
+
+**A pipeline order that matters.** `makecomments_site.py` reported 3958 papers whose source
+disagreed with the date the paper prints. Nothing was wrong: `paperdates.py` had not finished,
+so the date map was still keyed by the previous ranking and every shifted paper looked like a
+disagreement. Run `rank.py`, then `paperdates.py` to completion, then `makecomments_site.py`;
+out of order it manufactures thousands of false alarms.

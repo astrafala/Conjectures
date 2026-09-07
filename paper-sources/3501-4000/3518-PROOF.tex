@@ -12,70 +12,81 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A204836, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A220741, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A204836 counts arrays over $\{0,\dots,2\}$ under a condition on the permanent of every
-$2\times2$ subblock, and carries an empirical recurrence of order $78$ contributed by
-R.~H.~Hardin. It is true, and it is decidable rather than empirical. The condition is local to
-a bounded window of consecutive rows, so the count is a walk count on $S=246$ states and is
-$C$-finite; whether the conjectured recurrence annihilates it is then settled by a finite exact
-computation, with the Cayley--Hamilton theorem bounding the work.
+OEIS A220741 counts the ways of linking the cells of a grid $4$ cells wide, each cell either to
+itself or to exactly $2$ of its neighbours, the links being reciprocal, and carries an
+empirical recurrence of order $78$ contributed by R.~H.~Hardin. It is true, and it is
+decidable rather than empirical. A reciprocal link is an undirected edge and a self-link is
+no edge, so what is counted is the spanning subgraphs of a grid graph in which every vertex
+has degree $0$ or $2$; the edges crossing the boundary between two consecutive rows are a
+state, the count is a walk count on $S=322$ of them, and the conjectured recurrence is then
+settled by a finite exact computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05C30, 05C70.\normalsize
 
 \section{The conjecture}
 
-OEIS A204836 is ``Number of (n+1)X5 0..2 arrays with the permanents of all 2X2 subblocks equal and nonzero.''. It has offset $1$ and begins
+OEIS A220741 is ``Number of ways to reciprocally link elements of an 4Xn array either to themselves or to exactly two horizontal, diagonal and antidiagonal neighbors, without consecutive collinear links.''. It has offset $1$ and begins
 \[
-804, 6370, 34100, 247108, 1438706, 9984856, 60562860, 410479794,\ \dots
+1, 8, 72, 712, 7369, 78418, 824965, 8705465,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 16*a(n-1) +138*a(n-2) -3388*a(n-3) -4166*a(n-4) +326715*a(n-5) -456632*a(n-6) -19052827*a(n-7) +55274462*a(n-8) +752110302*a(n-9) -3042338996*a(n-10) -21286830257*a(n-11) +109442683323*a(n-12) +444952891344*a(n-13) -2860961797884*a(n-14) -6922784197309*a(n-15) +57235992790257*a(n-16) +78328492438787*a(n-17) -904048049110470*a(n-18) -576669063421264*a(n-19) +11511558540437540*a(n-20) +1114293610632689*a(n-21) -119921234164107504*a(n-22) +39086190201475225*a(n-23) +1032982731618338211*a(n-24) -695476504306389628*a(n-25) -7413281737495209156*a(n-26) +7219723821839974167*a(n-27) +44548439672038469463*a(n-28) -55658495148806677395*a(n-29) -224759471938392915676*a(n-30) +341379620112918395746*a(n-31) +952206719247257760884*a(n-32) -1716782674417798691909*a(n-33) -3377280054557779836326*a(n-34) +7191696449726777470051*a(n-35) +9951393791041738642301*a(n-36) -25320068670462374058660*a(n-37) -23971153495360819414512*a(n-38) +75292639384011589097177*a(n-39) +45586830933781858176749*a(n-40) -189510034468576011711203*a(n-41) -62414934898234976808734*a(n-42) +403718856379207501794880*a(n-43) +39716591317027155288028*a(n-44) -726389005261260972732291*a(n-45) +73904754756251655293812*a(n-46) +1099030659215273510498779*a(n-47) -310444848701355772200220*a(n-48) -1388378043650375197156018*a(n-49) +631298271752259744595870*a(n-50) +1448336706799690267124013*a(n-51) -914597352111896583707347*a(n-52) -1226077192265646111400120*a(n-53) +1021625778832877850856548*a(n-54) +817447750222201551208585*a(n-55) -901043841475176609565370*a(n-56) -403943153752648873902763*a(n-57) +629686908617007725115246*a(n-58) +124050803140828654585754*a(n-59) -345782932240664284335838*a(n-60) -1116112325488736921106*a(n-61) +146338360110467438560104*a(n-62) -23292145154695569193808*a(n-63) -46088370146397403597948*a(n-64) +14421084581512793544720*a(n-65) +10107008732172383494028*a(n-66) -4999251270768805523396*a(n-67) -1308872491318731960056*a(n-68) +1095924493390435290280*a(n-69) +32211622136458445072*a(n-70) -146501383199919759888*a(n-71) +18617977271887828704*a(n-72) +10022307856768942304*a(n-73) -2773414736468978688*a(n-74) -122047671377057664*a(n-75) +123993088540657920*a(n-76) -15154807190999040*a(n-77) +503974741515264*a(n-78)
+Empirical: a(n) = 12*a(n-1) +21*a(n-2) -448*a(n-3) +279*a(n-4) +5524*a(n-5) -10795*a(n-6) -33243*a(n-7) +151603*a(n-8) +217375*a(n-9) -1696599*a(n-10) -2454563*a(n-11) +15287591*a(n-12) +25136093*a(n-13) -101932808*a(n-14) -160407951*a(n-15) +499186392*a(n-16) +576465951*a(n-17) -2102830964*a(n-18) -969873923*a(n-19) +8838550914*a(n-20) -1328714164*a(n-21) -27726463344*a(n-22) +6305121836*a(n-23) +56332035104*a(n-24) +3387670512*a(n-25) -97938123728*a(n-26) -15194857792*a(n-27) +250308293976*a(n-28) -43804316224*a(n-29) -804647616848*a(n-30) +134715853632*a(n-31) +2064903100288*a(n-32) -426059856960*a(n-33) -2947500723136*a(n-34) +659182787008*a(n-35) +2410402240064*a(n-36) -258105063808*a(n-37) -3557798438272*a(n-38) +3304226855808*a(n-39) +3630421527936*a(n-40) -5977152573952*a(n-41) -1282496314368*a(n-42) +1346378819328*a(n-43) +2095543107584*a(n-44) +1926031011328*a(n-45) +3765578029056*a(n-46) -6877547426816*a(n-47) -9325572079616*a(n-48) +4978969147392*a(n-49) +1690974281728*a(n-50) +9106783870976*a(n-51) +31327471878144*a(n-52) -13866806517760*a(n-53) -95837904863232*a(n-54) -11156622491648*a(n-55) +155368601485312*a(n-56) +68196053647360*a(n-57) -169300596883456*a(n-58) -117234867306496*a(n-59) +133558446850048*a(n-60) +112540616228864*a(n-61) -74271306022912*a(n-62) -65445707644928*a(n-63) +28342273179648*a(n-64) +17790281973760*a(n-65) -10585756401664*a(n-66) +10185609314304*a(n-67) +3751045758976*a(n-68) -14713727483904*a(n-69) -450006876160*a(n-70) +8988678684672*a(n-71) -278904438784*a(n-72) -3423156043776*a(n-73) +178509578240*a(n-74) +604516646912*a(n-75) -39191576576*a(n-76) -57982058496*a(n-77) +38654705664*a(n-78)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 11:33:01, revision 9) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 19:01:58, revision 8) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-Write $\sigma$ for the permanent of a $2\times2$ subblock
-$\begin{pmatrix}p&q\\r&s\end{pmatrix}$, that is $\sigma=ps+qr$. The subblocks of an
-$(n+1)\times5$ array over $\{0,\dots,2\}$ form a grid of $n$ rows and $4$
-columns, and $\sigma$ colours that grid.
+A link is \emph{reciprocal}: if $u$ is linked to $v$ then $v$ is linked to $u$. So the links
+of a configuration are the edges of an undirected graph on the cells, and a cell ``linked to
+itself'' is a cell lying in no edge. The neighbour relation the entry names is the offset set
+\[
+(-1,-1), (-1,0), (-1,1), (1,-1), (1,0), (1,1),
+\]
+and the condition ``either to themselves or to exactly $2$ neighbours'' says that in that
+graph every cell has degree $0$ or $2$. Hence $a(n)$ counts the spanning subgraphs of the
+grid graph on the offset set above, of $n$ rows and $4$ columns,
+whose every degree is $0$ or $2$: a disjoint union of cycles, since every vertex of the link graph has degree $0$ or $2$. The entry writes the array with $n$ as the number of COLUMNS; transposing it exchanges the two coordinates of every neighbour offset, which is done once, before anything else, so that the walk always runs down the rows.
 
-The condition is that all the subblocks of one array share a single value of $\sigma$. That
-value is not named, so the count splits by it and the value $0$ is excluded by the entry: for a fixed $v$ let $a_v(n)$ count the
-arrays all of whose subblocks give $\sigma=v$. An array determines its own common value, so
-the sets belonging to different $v$ are disjoint and $a(n)=\sum_v a_v(n)$, a finite sum.
+One point of the English has to be fixed rather than guessed: whether a cell may spend both of
+its links on the same neighbour. It may not. For the king-move neighbourhood the $1\times2$
+and $2\times2$ counts are the degree-$0$-or-$2$ subgraphs of $K_2$ and of $K_4$, which are $1$
+and $1+4+3=8$ with simple edges and larger if a doubled edge were allowed; the entries of that
+family publish $1$ and $8$. The reading is in any case pinned entry by entry, because the
+model below is required to reproduce every term the entry publishes.
+
+The entry adds \emph{that no two consecutive links be collinear}: at a vertex carrying two
+links their offsets may not be opposite. This is a condition on one vertex and its two links,
+so it is decided at the moment that vertex's degree is settled, and costs the construction
+nothing.
 
 \section{The count is a walk count}
 
-For a fixed $v$ the condition again looks at one subblock at a time, so a
-row is a state and rows $r,s$ may follow one another when all $4$ of their subblocks give
-$v$. Taking the disjoint union over $v$ and with $M$ its adjacency matrix,
+Every offset above changes the row index by at most one, so an edge either lies inside a row
+or crosses the boundary between two consecutive rows. Take as state the set of edges crossing
+one boundary. Placing a row means choosing the horizontal edges inside it and the edges it
+sends down to the next row; at that moment each of its cells knows all of its links --- those
+arriving from the row above, those inside the row, those going down --- so its degree, and any
+condition on the pair of links at a cell, is settled there and never revisited.
+
+Reading a configuration from the top therefore gives a walk that begins at the empty boundary,
+takes one step per row, and ends at the empty boundary, and every such walk comes from exactly
+one configuration. With $M$ the adjacency matrix of the digraph on the $S=322$ reachable
+states and $\iota,\tau$ the indicator vectors of the empty boundary,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n}\tau,\qquad\iota=\tau=(1,\dots,1)^{\!\top},
+a(n)\;=\;\iota^{\!\top}M^{\,n}\tau ,
 \]
-on the $S=246$ states that survive. Rows carrying no edge at all are dropped: such a row could
-only be the whole of a one-row array, which is not among the objects counted.
-
-At $n=1$ the array has two rows and the grid is a single row of $4$
-subblocks, each tested on its own, so $a(1)$ counts the
-$2\times5$ arrays over $\{0,\dots,2\}$ all of whose subblocks pass. The entry's
-first term is $804$, and the model reproduces it along with every later term; that is the
-cheapest check that the grid has been read with the right shape.
-
-Over the alphabet $\{0,\dots,2\}$ the permanent of a $2\times2$ subblock takes values in
-$[0,8]$, so the colouring of the grid it induces has at most $9$ values.
-That bound is what keeps the construction below finite in the only place where the value of
-$\sigma$, rather than a comparison between two of them, has to be carried.
-In particular $a$ is $C$-finite. The alignment of the walk index with the entry's own $n$ was
+so $a$ is $C$-finite. States are generated from the empty boundary outward, so only the
+reachable ones are ever built; the alignment of the walk index with the entry's own $n$ was
 checked against its published terms rather than assumed.
 
 \section{The proof}
@@ -98,15 +109,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;16\,a(n-1) + 138\,a(n-2) - 3388\,a(n-3) - 4166\,a(n-4) + 326715\,a(n-5) - 456632\,a(n-6) - 19052827\,a(n-7) + 55274462\,a(n-8) + 752110302\,a(n-9) - 3042338996\,a(n-10) - 21286830257\,a(n-11) + 109442683323\,a(n-12) + 444952891344\,a(n-13) - 2860961797884\,a(n-14) - 6922784197309\,a(n-15) + 57235992790257\,a(n-16) + 78328492438787\,a(n-17) - 904048049110470\,a(n-18) - 576669063421264\,a(n-19) + 11511558540437540\,a(n-20) + 1114293610632689\,a(n-21) - 119921234164107504\,a(n-22) + 39086190201475225\,a(n-23) + 1032982731618338211\,a(n-24) - 695476504306389628\,a(n-25) - 7413281737495209156\,a(n-26) + 7219723821839974167\,a(n-27) + 44548439672038469463\,a(n-28) - 55658495148806677395\,a(n-29) - 224759471938392915676\,a(n-30) + 341379620112918395746\,a(n-31) + 952206719247257760884\,a(n-32) - 1716782674417798691909\,a(n-33) - 3377280054557779836326\,a(n-34) + 7191696449726777470051\,a(n-35) + 9951393791041738642301\,a(n-36) - 25320068670462374058660\,a(n-37) - 23971153495360819414512\,a(n-38) + 75292639384011589097177\,a(n-39) + 45586830933781858176749\,a(n-40) - 189510034468576011711203\,a(n-41) - 62414934898234976808734\,a(n-42) + 403718856379207501794880\,a(n-43) + 39716591317027155288028\,a(n-44) - 726389005261260972732291\,a(n-45) + 73904754756251655293812\,a(n-46) + 1099030659215273510498779\,a(n-47) - 310444848701355772200220\,a(n-48) - 1388378043650375197156018\,a(n-49) + 631298271752259744595870\,a(n-50) + 1448336706799690267124013\,a(n-51) - 914597352111896583707347\,a(n-52) - 1226077192265646111400120\,a(n-53) + 1021625778832877850856548\,a(n-54) + 817447750222201551208585\,a(n-55) - 901043841475176609565370\,a(n-56) - 403943153752648873902763\,a(n-57) + 629686908617007725115246\,a(n-58) + 124050803140828654585754\,a(n-59) - 345782932240664284335838\,a(n-60) - 1116112325488736921106\,a(n-61) + 146338360110467438560104\,a(n-62) - 23292145154695569193808\,a(n-63) - 46088370146397403597948\,a(n-64) + 14421084581512793544720\,a(n-65) + 10107008732172383494028\,a(n-66) - 4999251270768805523396\,a(n-67) - 1308872491318731960056\,a(n-68) + 1095924493390435290280\,a(n-69) + 32211622136458445072\,a(n-70) - 146501383199919759888\,a(n-71) + 18617977271887828704\,a(n-72) + 10022307856768942304\,a(n-73) - 2773414736468978688\,a(n-74) - 122047671377057664\,a(n-75) + 123993088540657920\,a(n-76) - 15154807190999040\,a(n-77) + 503974741515264\,a(n-78)
+a(n)\;=\;12\,a(n-1) + 21\,a(n-2) - 448\,a(n-3) + 279\,a(n-4) + 5524\,a(n-5) - 10795\,a(n-6) - 33243\,a(n-7) + 151603\,a(n-8) + 217375\,a(n-9) - 1696599\,a(n-10) - 2454563\,a(n-11) + 15287591\,a(n-12) + 25136093\,a(n-13) - 101932808\,a(n-14) - 160407951\,a(n-15) + 499186392\,a(n-16) + 576465951\,a(n-17) - 2102830964\,a(n-18) - 969873923\,a(n-19) + 8838550914\,a(n-20) - 1328714164\,a(n-21) - 27726463344\,a(n-22) + 6305121836\,a(n-23) + 56332035104\,a(n-24) + 3387670512\,a(n-25) - 97938123728\,a(n-26) - 15194857792\,a(n-27) + 250308293976\,a(n-28) - 43804316224\,a(n-29) - 804647616848\,a(n-30) + 134715853632\,a(n-31) + 2064903100288\,a(n-32) - 426059856960\,a(n-33) - 2947500723136\,a(n-34) + 659182787008\,a(n-35) + 2410402240064\,a(n-36) - 258105063808\,a(n-37) - 3557798438272\,a(n-38) + 3304226855808\,a(n-39) + 3630421527936\,a(n-40) - 5977152573952\,a(n-41) - 1282496314368\,a(n-42) + 1346378819328\,a(n-43) + 2095543107584\,a(n-44) + 1926031011328\,a(n-45) + 3765578029056\,a(n-46) - 6877547426816\,a(n-47) - 9325572079616\,a(n-48) + 4978969147392\,a(n-49) + 1690974281728\,a(n-50) + 9106783870976\,a(n-51) + 31327471878144\,a(n-52) - 13866806517760\,a(n-53) - 95837904863232\,a(n-54) - 11156622491648\,a(n-55) + 155368601485312\,a(n-56) + 68196053647360\,a(n-57) - 169300596883456\,a(n-58) - 117234867306496\,a(n-59) + 133558446850048\,a(n-60) + 112540616228864\,a(n-61) - 74271306022912\,a(n-62) - 65445707644928\,a(n-63) + 28342273179648\,a(n-64) + 17790281973760\,a(n-65) - 10585756401664\,a(n-66) + 10185609314304\,a(n-67) + 3751045758976\,a(n-68) - 14713727483904\,a(n-69) - 450006876160\,a(n-70) + 8988678684672\,a(n-71) - 278904438784\,a(n-72) - 3423156043776\,a(n-73) + 178509578240\,a(n-74) + 604516646912\,a(n-75) - 39191576576\,a(n-76) - 57982058496\,a(n-77) + 38654705664\,a(n-78)
 \]
-for every $n>78$.
+for every $n>77$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $78$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=78+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=77+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -126,10 +137,11 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A204836.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A220741.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{minc} H.~Minc, \emph{Permanents}, Addison--Wesley, 1978.
+\bibitem{lovasz} L.~Lov\'asz and M.~D.~Plummer, \emph{Matching Theory}, AMS Chelsea,
+2009.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

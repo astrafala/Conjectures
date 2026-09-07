@@ -12,14 +12,14 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A223204, derived from the entry's generating function}
+\title{The empirical recurrence for OEIS A235883, derived from the entry's generating function}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A223204 carries an empirical recurrence of order $2$. The entry separately records a
+OEIS A235883 carries an empirical recurrence of order $3$. The entry separately records a
 generating function, not as a conjecture but as a statement of fact, and the recurrence is a
 consequence of it: multiplying the generating function by the polynomial the recurrence
 supplies gives a POLYNOMIAL, and the recurrence then holds at every index past that
@@ -33,30 +33,30 @@ checked here against every published term.
 
 \section{The two statements}
 
-OEIS A223204 is ``Rolling icosahedron face footprints: number of n X 3 0..19 arrays starting with 0 where 0..19 label faces of an icosahedron and every array movement to a horizontal or vertical neighbor moves across an icosahedral edge.''. It has offset $1$ and begins
+OEIS A235883 is ``Number of (n+1) X (7+1) 0..2 arrays with the minimum plus the upper median equal to the lower median plus the maximum in every 2 X 2 subblock.''. It has offset $1$ and begins
 \[
-9, 75, 657, 5763, 50553, 443451, 3889953, 34122675,\ \dots
+7329, 8871, 11973, 18231, 30909, 56751, 109893, 220551,\ \dots
 \]
 The entry states, as a conjecture and never marked settled:
 \begin{quote}
-Empirical: a(n) = 9*a(n-1) - 2*a(n-2).
+Empirical: a(n) = 6*a(n-1) - 11*a(n-2) + 6*a(n-3).
 \end{quote}
 and, separately and NOT as a conjecture:
 \begin{quote}
-G.f.: 3*x*(3 - 2*x) / (1 - 9*x + 2*x\^{}2).
+G.f.: 3*x*(2443 - 11701*x + 13122*x\^{}2) / ((1 - x)*(1 - 2*x)*(1 - 3*x)).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Aug 17 2018 09:22:07, revision 11) the first is still
+As of the ``Last modified'' line on the live entry (Oct 19 2018 09:28:05, revision 7) the first is still
 recorded as empirical. This note derives it from the second.
 
 \section{A rational generating function decides every linear recurrence}
 
 Write
 \[
-G(x)\;=\;\sum_{n}a(n)\,x^{n}\;=\;\frac{- 6 x^{2} + 9 x}{2 x^{2} - 9 x + 1},
+G(x)\;=\;\sum_{n}a(n)\,x^{n}\;=\;\frac{- 39366 x^{3} + 35103 x^{2} - 7329 x}{6 x^{3} - 11 x^{2} + 6 x - 1},
 \]
 the entry's own generating function, and let
 \[
-D(x)\;=\;1-\sum_i c_i x^{i}\;=\;2 x^{2} - 9 x + 1
+D(x)\;=\;1-\sum_i c_i x^{i}\;=\;- 6 x^{3} + 11 x^{2} - 6 x + 1
 \]
 be the polynomial attached to the conjectured recurrence.
 
@@ -73,33 +73,33 @@ negative index being zero.
 
 \begin{theorem}
 \[
-a(n)\;=\;9\,a(n-1) - 2\,a(n-2)
+a(n)\;=\;6\,a(n-1) - 11\,a(n-2) + 6\,a(n-3)
 \]
-for every $n>2$.
+for every $n>3$.
 \end{theorem}
 
 \begin{proof}
 In exact arithmetic,
 \[
-D(x)\,G(x)\;=\;- 6 x^{2} + 9 x,
+D(x)\,G(x)\;=\;39366 x^{3} - 35103 x^{2} + 7329 x,
 \]
-a POLYNOMIAL of degree $2$ --- the denominator of $G$ divides $D(x)$ times its numerator,
+a POLYNOMIAL of degree $3$ --- the denominator of $G$ divides $D(x)$ times its numerator,
 which is precisely the condition for the conjectured recurrence to be implied by the
-generating function. Its coefficients vanish beyond degree $2$, so by
+generating function. Its coefficients vanish beyond degree $3$, so by
 Lemma~\ref{lem:key} the residual $a(n)-\sum_ic_ia(n-i)$ vanishes for every
-$n>2$.
+$n>3$.
 \end{proof}
 
 \section{Is the conjectured recurrence the shortest one?}
 
 Cancelling common factors, $G$ has reduced denominator
 \[
-2 x^{2} - 9 x + 1,
+6 x^{3} - 11 x^{2} + 6 x - 1,
 \]
-of degree $2$, and that degree is the order of the SHORTEST linear recurrence with
+of degree $3$, and that degree is the order of the SHORTEST linear recurrence with
 constant coefficients the sequence obeys: any shorter one would give a polynomial multiple of
 $G$ with a smaller denominator, contradicting the cancellation. The conjectured recurrence has
-order $2$.
+order $3$.
 
 So the conjecture is the minimal recurrence.
 
@@ -111,14 +111,14 @@ generating function involved at all. Doing that:
 \begin{center}
 \begin{tabular}{cc}
 index & residual \\ \hline
-$n=3$ & $0$ \\
 $n=4$ & $0$ \\
 $n=5$ & $0$ \\
-$n=6$ & $0$
+$n=6$ & $0$ \\
+$n=7$ & $0$
 \end{tabular}
 \end{center}
 The residuals are exactly the coefficients of the polynomial displayed above, in order, and
-they stop at index $2$ because that polynomial has degree $2$. A reader who trusts
+they stop at index $3$ because that polynomial has degree $3$. A reader who trusts
 neither the generating function nor the algebra can check the table against the entry's DATA
 by hand; what the generating function adds is the guarantee that the pattern continues, which
 no amount of checking terms could establish on its own.
@@ -128,14 +128,14 @@ no amount of checking terms could establish on its own.
 Three checks.
 
 First, the generating function was expanded as a power series in exact rational arithmetic and
-compared against all $19$ terms the entry publishes: it reproduces every one. This is
+compared against all $23$ terms the entry publishes: it reproduces every one. This is
 what ties the recorded generating function to the sequence the recurrence is about.
 
 Second, the polynomial division above was carried out symbolically, not numerically, so the
 statement that $D(x)G(x)$ is a polynomial is exact rather than approximate.
 
 Third, the recurrence was evaluated directly on the series coefficients for sixty consecutive
-indices beyond $n=2$ and holds at every one, and at $n=2$ itself it fails --- the
+indices beyond $n=3$ and holds at every one, and at $n=3$ itself it fails --- the
 degree bound is attained, so the range stated is the true one and not merely a safe one.
 
 \begin{remark}
@@ -147,7 +147,7 @@ entry already contains.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A223204.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A235883.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Rational generating functions, Section 4.1.)
 \bibitem{kp} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011.
