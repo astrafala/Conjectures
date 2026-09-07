@@ -12,75 +12,69 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A254770, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A232835, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{2 September 2026}
+\date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A254770 counts the arrays over $\{0,\dots,1\}$ whose $3\times3$ subblocks carry a
-statistic that is monotone along named directions of the subblock grid, and carries an
-empirical recurrence of order $38$ contributed by R.~H.~Hardin. It is true, and it is
-decidable rather than empirical. Every direction named moves the subblock row by at most one,
-so the count is a walk count on $S=3030$ states --- the last two array rows together with the
-subblock row just completed --- and the conjectured recurrence is then settled by a finite
+OEIS A232835 counts arrays of width $4$ over $\{0,\dots,2\}$ under a condition on each cell
+and its neighbours, and carries an empirical recurrence of order $38$ contributed by
+R.~H.~Hardin. It is true, and it is decidable rather than empirical. Every neighbour named lies
+in the three rows $i-1,i,i+1$, so an ordered pair of consecutive rows is a state, the count is
+a walk count on $S=6642$ of them, and the conjectured recurrence is then settled by a finite
 exact computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 06A07.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 68Q45.\normalsize
 
 \section{The conjecture}
 
-OEIS A254770 is ``Number of (n+2)X(3+2) 0..1 arrays with every 3X3 subblock sum of the two maximums of the central row and the central column and the two medians of the diagonal and antidiagonal nondecreasing horizontally, vertically and ne-to-sw antidiagonally.''. It has offset $1$ and begins
+OEIS A232835 is ``Number of (n+1)X(3+1) 0..2 arrays with every element next to itself plus and minus one within the range 0..2 horizontally, diagonally or antidiagonally.''. It has offset $1$ and begins
 \[
-11677, 50173, 295516, 1901784, 11736086, 72739438, 462927268, 2925883667,\ \dots
+216, 6664, 168688, 5659896, 179149960, 5458025808, 172736599272, 5399804456824,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 7*a(n-1) +a(n-2) -36*a(n-3) +104*a(n-4) -577*a(n-5) +406*a(n-6) -2654*a(n-7) -1083*a(n-8) +54521*a(n-9) -21741*a(n-10) -154770*a(n-11) +38931*a(n-12) -13306*a(n-13) -72151*a(n-14) +367153*a(n-15) +1186616*a(n-16) +175841*a(n-17) -2541563*a(n-18) -2203312*a(n-19) -1102181*a(n-20) +5457515*a(n-21) +3952319*a(n-22) -2371833*a(n-23) +70124*a(n-24) -8362041*a(n-25) +760917*a(n-26) +7641448*a(n-27) -182502*a(n-28) -1743336*a(n-29) -1390764*a(n-30) -1542892*a(n-31) -296088*a(n-32) +4265808*a(n-33) -720384*a(n-34) -1733104*a(n-35) +286080*a(n-36) +165568*a(n-37) +32960*a(n-38) for n>51
+Empirical: a(n) = 15*a(n-1) +281*a(n-2) +8227*a(n-3) -21581*a(n-4) -158601*a(n-5) -7158381*a(n-6) -3987980*a(n-7) -71548987*a(n-8) -430803007*a(n-9) +837154777*a(n-10) -3661660987*a(n-11) +5859342317*a(n-12) +2778173683*a(n-13) -20355818757*a(n-14) +91119341964*a(n-15) -211037778164*a(n-16) +307976701502*a(n-17) -359885158016*a(n-18) -322203768360*a(n-19) +682995573288*a(n-20) +869890580304*a(n-21) -2965546300384*a(n-22) +5420239912768*a(n-23) -6826807576576*a(n-24) +3002880366336*a(n-25) +4049008968192*a(n-26) -11735742619648*a(n-27) +12009170051072*a(n-28) -3763733659648*a(n-29) -735262769152*a(n-30) +376502484992*a(n-31) -433194532864*a(n-32) +641795620864*a(n-33) -328124596224*a(n-34) +14998831104*a(n-35) +59995324416*a(n-36) -22280142848*a(n-37) +2147483648*a(n-38)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 14:55:18, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 07:38:21, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-A $3\times3$ subblock has four distinguished lines of three cells: its diagonal, its
-antidiagonal, its central row and its central column. The entry's statistic is a signed sum of
-aggregates --- sums, maxima, minima, medians --- taken over those lines, and $\sigma(i,j)$
-denotes its value on the subblock in position $(i,j)$ of the subblock grid, which has $n$ rows
-and $3$ columns for an $(n+2)\times5$ array over $\{0,\dots,1\}$. The condition is
+The neighbours of a cell are the cells at the offsets
 \[
-\sigma(i,j)\le\sigma(i,j+1),\qquad \sigma(i,j)\le\sigma(i+1,j),\qquad \sigma(i,j)\le\sigma(i+1,j-1)
+(-1,-1), (-1,1), (0,-1), (0,1), (1,-1), (1,1),
 \]
-whenever both positions exist.
-
-``ne-to-sw antidiagonally'' is the offset $(+1,-1)$ on the subblock grid; that reading, and
-the reading of every statistic name here, was checked by counting the small arrays directly
-against what the entries publish.
+those falling outside the array being absent. The entry requires that every cell $v$ has, among its neighbours, one equal to $v+1$ and one equal to $v-1$ --- each required only when that value lies in $\{0,\dots,2\}$, which is what ``within the range $0..2$'' says.
 
 \section{The count is a walk count}
 
-A subblock spans three array rows and the vertical comparison spans four, so the obvious state
-is three consecutive rows. It is larger than it needs to be. What a step actually consults is
-the last TWO array rows --- enough to build the next subblock row once one more row arrives ---
-and the PREVIOUS SUBBLOCK ROW, to compare against. So take as state the triple
+Every offset above moves the row index by at most one, so whether a cell of row $i$ passes
+depends on rows $i-1$, $i$ and $i+1$ and nothing else. Take as vertices the ordered PAIRS
+$(p,c)$ of consecutive rows, allowing $p$ to be ABSENT --- that is what lets a walk of no steps
+describe a one-row array --- and put an edge $(p,c)\to(c,x)$ exactly when every cell of the
+middle row $c$ passes with $p$ above it and $x$ below it. A state with $p$ absent may begin an
+array; a state $(p,c)$ accepts when every cell of $c$ passes with nothing below it. An array of
+$L$ rows is then a walk of $L-1$ steps, each step settling one row, and every array arises from
+exactly one walk. Hence
 \[
-\bigl(r_{i+1},\ r_{i+2},\ \sigma\text{-row }i\bigr),
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau
 \]
-and let a step append an array row $r_{i+3}$: that fixes $\sigma$-row $i+1$ from
-$r_{i+1},r_{i+2},r_{i+3}$, and every comparison between the two $\sigma$-rows is settled
-there. All the third rows that produce the same $\sigma$-row collapse into one state, which is
-what makes the wider arrays reachable.
+with $\iota$ the indicator of the beginning states, $\tau$ of the accepting ones, and $j$ the
+walk index, which differs from the entry's own $n$ by a constant read off from its published
+terms. There are $S=6642$ states, and $a$ is $C$-finite.
 
-The starting vector is therefore weighted rather than all-ones: a state is entered by as many
-first rows as produce it, and $\iota$ records that count. With $\tau$ all-ones, an
-$(n+2)$-row array is a walk of $n-1$ steps and
-\[
-a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau
-\]
-on the $S=3030$ reachable states. In particular $a$ is $C$-finite. The alignment of the walk
-index with the entry's own $n$ was checked against its published terms rather than assumed.
+At $n=1$ the array has one row, and
+the condition is tested there with nothing above or below it; the entry's first term is
+$216$, which the model reproduces along with every later term. That is the cheapest check
+that the neighbour set and the boundary have been read the same way the entry reads them: a
+condition tested as though the missing rows were present, rather than absent, gives a different
+first term. There are $3^{4}=81$ possible rows over the entry's own alphabet. The state count $S=6642$ is exactly $81\cdot82$,
+one state for each ordered pair of a row and its possible predecessor, the absent predecessor
+included.
 
 \section{The proof}
 
@@ -102,15 +96,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;7\,a(n-1) + a(n-2) - 36\,a(n-3) + 104\,a(n-4) - 577\,a(n-5) + 406\,a(n-6) - 2654\,a(n-7) - 1083\,a(n-8) + 54521\,a(n-9) - 21741\,a(n-10) - 154770\,a(n-11) + 38931\,a(n-12) - 13306\,a(n-13) - 72151\,a(n-14) + 367153\,a(n-15) + 1186616\,a(n-16) + 175841\,a(n-17) - 2541563\,a(n-18) - 2203312\,a(n-19) - 1102181\,a(n-20) + 5457515\,a(n-21) + 3952319\,a(n-22) - 2371833\,a(n-23) + 70124\,a(n-24) - 8362041\,a(n-25) + 760917\,a(n-26) + 7641448\,a(n-27) - 182502\,a(n-28) - 1743336\,a(n-29) - 1390764\,a(n-30) - 1542892\,a(n-31) - 296088\,a(n-32) + 4265808\,a(n-33) - 720384\,a(n-34) - 1733104\,a(n-35) + 286080\,a(n-36) + 165568\,a(n-37) + 32960\,a(n-38)
+a(n)\;=\;15\,a(n-1) + 281\,a(n-2) + 8227\,a(n-3) - 21581\,a(n-4) - 158601\,a(n-5) - 7158381\,a(n-6) - 3987980\,a(n-7) - 71548987\,a(n-8) - 430803007\,a(n-9) + 837154777\,a(n-10) - 3661660987\,a(n-11) + 5859342317\,a(n-12) + 2778173683\,a(n-13) - 20355818757\,a(n-14) + 91119341964\,a(n-15) - 211037778164\,a(n-16) + 307976701502\,a(n-17) - 359885158016\,a(n-18) - 322203768360\,a(n-19) + 682995573288\,a(n-20) + 869890580304\,a(n-21) - 2965546300384\,a(n-22) + 5420239912768\,a(n-23) - 6826807576576\,a(n-24) + 3002880366336\,a(n-25) + 4049008968192\,a(n-26) - 11735742619648\,a(n-27) + 12009170051072\,a(n-28) - 3763733659648\,a(n-29) - 735262769152\,a(n-30) + 376502484992\,a(n-31) - 433194532864\,a(n-32) + 641795620864\,a(n-33) - 328124596224\,a(n-34) + 14998831104\,a(n-35) + 59995324416\,a(n-36) - 22280142848\,a(n-37) + 2147483648\,a(n-38)
 \]
-for every $n>51$.
+for every $n>37$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $38$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=51+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=37+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -118,7 +112,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $17$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $15$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
@@ -130,11 +124,10 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A254770.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A232835.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{davey} B.~A.~Davey and H.~A.~Priestley, \emph{Introduction to Lattices and
-Order}, 2nd ed., Cambridge University Press, 2002.
+\bibitem{comtet} L.~Comtet, \emph{Advanced Combinatorics}, Reidel, 1974.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

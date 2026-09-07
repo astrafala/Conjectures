@@ -12,49 +12,45 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{A condition on the multiset of every subblock: OEIS A183596}
+\title{A local condition on an array: OEIS A202414}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{7 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A183596 carries an empirical recurrence of order $4$ contributed by R.~H.~Hardin. It is
-true, and it is decidable rather than empirical. The entry's condition on a subblock depends
-only on which values the block holds and how many times, not on where they sit, so it is
-decided by the few consecutive lines the block spans. The admissible windows are the vertices
-of a finite digraph and the arrays counted are exactly its walks; hence $a(n)$ is a walk count
-on $S=4$ vertices and is $C$-finite, and whether the conjectured recurrence annihilates it
-is settled by a finite exact computation, with the Cayley--Hamilton theorem bounding the
-work. The entry does not count the arrays themselves but $1/6$ of them, so every count below is divided by $6$.
+OEIS A202414 carries an empirical recurrence of order $4$ contributed by R.~H.~Hardin. It is
+true, and it is decidable rather than empirical. The entry's condition is decided by a bounded amount of state carried down the array; the
+admissible windows are the vertices of a finite digraph and the arrays counted are exactly the
+walks in it. Hence $a(n)$ is a walk count on $S=7$ vertices and is $C$-finite, and whether the
+conjectured recurrence annihilates it is settled by a finite exact computation, with the
+Cayley--Hamilton theorem bounding the work.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
 \section{The conjecture}
 
-OEIS A183596 is ``1/6 the number of (n+1) X 3 0..2 arrays with every 2 X 2 subblock containing all three values.''. It has offset $1$ and begins
+OEIS A202414 is ``Number of (n+2) X 3 binary arrays with no more than one of any consecutive three bits set in any row or column.''. It has offset $1$ and begins
 \[
-27, 204, 1479, 10797, 78729, 574185, 4187499, 30539367,\ \dots
+34, 94, 265, 739, 2059, 5746, 16033, 44728,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 8*a(n-1) - 3*a(n-2) - 16*a(n-3) + 2*a(n-4).
+Empirical: a(n) = 2*a(n-1) +a(n-2) +3*a(n-3) +a(n-4).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Mar 30 2018 09:11:12, revision 9) this is still
+As of the ``Last modified'' line on the live entry (May 28 2018 11:48:39, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{The count is a walk count}
 
-The entry counts arrays with $3$ columns over the alphabet $\{0,1,2\}$, growing one row at a time, and asks that every $2\times2$ subblock holds exactly $3$ distinct values.
+The entry counts arrays with $3$ columns over the alphabet $\{0,1\}$, growing one row at a time, and asks that no $3$ consecutive entries, taken along a row or down a column, may contain more than $1$ ones.
 
-That condition does not depend on where in the block a value sits, only on which values the block holds and how many times --- it is a function of the block's multiset of entries. In particular it is decided by $2$ consecutive rows, the ones the block spans, so carrying the previous $1$ row as the state is enough: each new row completes every block that ends on it, and no judgement is left over at the end of the array.
+Every cell the condition names lies within one row of the cell being judged, so three consecutive rows decide everything anchored at the middle one. Carry two consecutive rows as the state; a row is judged when the row after it arrives, and the row with nothing after it is judged by the end vector. That is where the boundary is honest: a neighbour off the edge of the array is not a neighbour, and a run of entries that would leave the array is not a run.
 
-The entry counts not the arrays themselves but $1/6$ of them, so every count below is divided by $6$; the division comes out exact at every term the entry publishes, which is itself a check on the model.
-
-Merging vertices with identical futures leaves $S=4$. An admissible array is exactly a walk, so with $M$ the adjacency matrix and $\iota,\tau$ the vectors recording which states may begin and end an array,
+Merging vertices with identical futures leaves $S=7$. An admissible array is exactly a walk, so with $M$ the adjacency matrix and $\iota,\tau$ the vectors recording which states may begin and end an array,
 \[
-a(n)\;=\;\tfrac{1}{6}\,\iota^{\!\top}M^{\,n}\tau ,
+a(n)\;=\;\iota^{\!\top}M^{\,n+1}\tau ,
 \]
 the exponent fixed by the entry's own shape and checked against its published terms. In
 particular $a$ is $C$-finite.
@@ -80,15 +76,15 @@ changes nothing here.
 
 \begin{theorem}
 \[
-a(n)\;=\;8\,a(n-1) - 3\,a(n-2) - 16\,a(n-3) + 2\,a(n-4)
+a(n)\;=\;2\,a(n-1) + a(n-2) + 3\,a(n-3) + a(n-4)
 \]
-for every $n>3$.
+for every $n>4$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $4$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=3+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=4+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -96,14 +92,13 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $19$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $24$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
 Second, the reading was pinned before the digraph was written, by a program that enumerates
-every array of the given shape one by one, forms each subblock directly and tests the entry's
-condition on it. That program shares no code with the transfer matrix, so an error in one does
-not hide an error in the other.
+every array of the given shape one by one and tests the entry's condition on it directly. That program shares no code with the transfer matrix, so an error in one does not
+hide an error in the other.
 
 Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
@@ -113,7 +108,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A183596.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A202414.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

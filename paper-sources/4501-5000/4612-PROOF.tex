@@ -12,44 +12,44 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A258561, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A257356, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A258561 counts arrays of width $3$ over $\{0,1,2\}$ in which every $3\times3$ window has
+OEIS A257356 counts arrays of width $5$ over $\{0,1\}$ in which every $3\times3$ window has
 constrained SUMS along its rows, its columns and its two diagonals. The entry carries an
 empirical recurrence of order $36$ contributed by R.~H.~Hardin. It is true, and it is
 decidable rather than empirical: a $3\times3$ window lies in $3$ consecutive array rows,
-so the count is a walk count on $S=757$ states.
+so the count is a walk count on $S=1057$ states.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 05B20, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A258561 is ``Number of (n+2)X(1+2) 0..2 arrays with no 3x3 subblock diagonal sum equal to the antidiagonal sum or central row sum equal to the central column sum.''. It has offset $1$ and begins
+OEIS A257356 is ``Number of (n+2)X(3+2) 0..1 arrays with no 3x3 subblock diagonal sum equal to the antidiagonal sum or central row sum less than the central column sum.''. It has offset $1$ and begins
 \[
-11532, 179776, 2826448, 44622400, 702129040, 11033401600, 173567878848, 2731694950656,\ \dots
+3108, 6724, 17056, 45796, 112236, 234256, 475608, 1136356,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 7*a(n-1) +1100*a(n-3) +12006*a(n-4) +49418*a(n-5) +275780*a(n-6) +1112580*a(n-7) +8335952*a(n-8) +13774376*a(n-9) +89252400*a(n-10) -963535920*a(n-11) -16902763680*a(n-12) -18723801600*a(n-13) +230364641280*a(n-14) +297741636480*a(n-15) -3123053432064*a(n-16) -6547113510912*a(n-17) +12428432363520*a(n-18) +82990982246400*a(n-19) +471394004557824*a(n-20) +651326858330112*a(n-21) -707414238167040*a(n-22) -715768694046720*a(n-23) +6527928854642688*a(n-24) +28138279412957184*a(n-25) +39222937387008000*a(n-26) -56776346503741440*a(n-27) -657089355998822400*a(n-28) -810802261839052800*a(n-29) -1209088994181120000*a(n-30) -2826994987302912000*a(n-31) -1546598932807680000*a(n-32) -9591392116408320000*a(n-33) -10019299708108800000*a(n-35) +50096498540544000000*a(n-36)
+Empirical: a(n) = 2*a(n-3) +16*a(n-4) +8*a(n-5) +4*a(n-6) +2*a(n-7) +18*a(n-8) +6*a(n-9) -4*a(n-10) -18*a(n-11) -141*a(n-12) -60*a(n-13) +48*a(n-14) +18*a(n-15) -117*a(n-16) -66*a(n-17) +48*a(n-19) +279*a(n-20) +108*a(n-21) -12*a(n-22) -12*a(n-23) +15*a(n-24) +36*a(n-25) +16*a(n-26) -6*a(n-27) -36*a(n-28) -8*a(n-29) -4*a(n-30) -2*a(n-31) -a(n-32) -2*a(n-33) +a(n-36) for n>39
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 15:28:46, revision 7) this is still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 15:21:40, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The array has $3$ cells across, with entries in $\{0,1,2\}$. A WINDOW is a $3\times3$ block
+The array has $5$ cells across, with entries in $\{0,1\}$. A WINDOW is a $3\times3$ block
 of consecutive cells lying inside the array. Every window must satisfy
 \[
 \begin{array}{ll}
 \text{the sum along} & \text{} \\[2pt]
 \text{the main diagonal} & \text{must NOT be equal to the sum along the antidiagonal} \\
-\text{the central row} & \text{must NOT be equal to the sum along the central column} \\
+\text{the central row} & \text{must NOT be less than the sum along the central column} \\
 \end{array}
 \]
 where the main diagonal of a window runs from its top left corner to its bottom right, and its
@@ -72,7 +72,7 @@ window needing a row that is $\bot$ does not exist, which is the boundary rule; 
 at the all-$\bot$ state, so a walk of $R$ steps is an array of $R$ rows. With $M$ the adjacency
 matrix and $\tau=\mathbf{1}$,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=757.
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=1057.
 \]
 The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
 published terms rather than assumed. In particular $a$ is $C$-finite.
@@ -97,15 +97,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;7\,a(n-1) + 1100\,a(n-3) + 12006\,a(n-4) + 49418\,a(n-5) + 275780\,a(n-6) + 1112580\,a(n-7) + 8335952\,a(n-8) + 13774376\,a(n-9) + 89252400\,a(n-10) - 963535920\,a(n-11) - 16902763680\,a(n-12) - 18723801600\,a(n-13) + 230364641280\,a(n-14) + 297741636480\,a(n-15) - 3123053432064\,a(n-16) - 6547113510912\,a(n-17) + 12428432363520\,a(n-18) + 82990982246400\,a(n-19) + 471394004557824\,a(n-20) + 651326858330112\,a(n-21) - 707414238167040\,a(n-22) - 715768694046720\,a(n-23) + 6527928854642688\,a(n-24) + 28138279412957184\,a(n-25) + 39222937387008000\,a(n-26) - 56776346503741440\,a(n-27) - 657089355998822400\,a(n-28) - 810802261839052800\,a(n-29) - 1209088994181120000\,a(n-30) - 2826994987302912000\,a(n-31) - 1546598932807680000\,a(n-32) - 9591392116408320000\,a(n-33) - 10019299708108800000\,a(n-35) + 50096498540544000000\,a(n-36)
+a(n)\;=\;2\,a(n-3) + 16\,a(n-4) + 8\,a(n-5) + 4\,a(n-6) + 2\,a(n-7) + 18\,a(n-8) + 6\,a(n-9) - 4\,a(n-10) - 18\,a(n-11) - 141\,a(n-12) - 60\,a(n-13) + 48\,a(n-14) + 18\,a(n-15) - 117\,a(n-16) - 66\,a(n-17) + 48\,a(n-19) + 279\,a(n-20) + 108\,a(n-21) - 12\,a(n-22) - 12\,a(n-23) + 15\,a(n-24) + 36\,a(n-25) + 16\,a(n-26) - 6\,a(n-27) - 36\,a(n-28) - 8\,a(n-29) - 4\,a(n-30) - 2\,a(n-31) - a(n-32) - 2\,a(n-33) + a(n-36)
 \]
-for every $n>35$.
+for every $n>39$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $36$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=35+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=39+1$ onwards and the run continued
 until the working vector was identically zero.
 \end{proof}
 
@@ -113,7 +113,7 @@ until the working vector was identically zero.
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $14$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $23$ terms the entry publishes, exactly, in integer
 arithmetic.
 
 Second, the count was recomputed for the smallest arrays straight from the definition: fill the
@@ -129,7 +129,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A258561.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A257356.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge

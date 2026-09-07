@@ -264,3 +264,22 @@ line is satisfied with nothing above --- decompose over the same windows.
 
 Identical terms to the old build on all seven entries small enough to run both, with the state
 count 2 to 6 times smaller (A188554: 64 to 11; A188519: 1024 to 262). 81 entries requeued.
+
+### 13 more from transfer9, and two things the papers had to be told
+
+The pair-free build settled 13 of the 81 requeued `transfer9` entries; the second round found
+nothing in its next 23, which is where that vein ends.
+
+**A paper may not say a false thing about the object its numbers came from.** The general
+builder said "take as vertices the admissible configurations of one such window", which stops
+being true the moment the model identifies windows that behave alike. Those papers now say so:
+*windows that admit exactly the same continuations and lead to the same states are identified,
+which changes no count.* `transfer9build` says it in the family's own terms but wants fields
+the unified sweep does not record, so these thirteen use the general builder rather than a
+builder invoked with the wrong arguments.
+
+**The pipeline order is now a check, not a rule.** `makecomments_site.py` reported 3570 papers
+whose source disagreed with the date the paper prints --- for the second time, and for the same
+reason: it ran before `paperdates.py` had finished, so the date map was still keyed by the
+previous ranking. It now refuses to run when `paper-dates.json` is older than
+`papers/index.csv`. A rule that has to be remembered gets remembered late.

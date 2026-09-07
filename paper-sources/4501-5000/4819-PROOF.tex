@@ -12,64 +12,75 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A237204, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A254982, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A237204 counts arrays over $\{0,\dots,3\}$ subject to a condition on the order
-statistics of every $2\times2$ subblock, and carries an empirical recurrence of order
-$33$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical.
-The condition is local to two consecutive rows, so the count is a walk count on $S=76$
-states and is $C$-finite; whether the conjectured recurrence annihilates it is then settled by
-a finite exact computation, with the Cayley--Hamilton theorem bounding the work.
+OEIS A254982 counts the arrays over $\{0,\dots,1\}$ whose $3\times3$ subblocks carry a
+statistic that is monotone along named directions of the subblock grid, and carries an
+empirical recurrence of order $33$ contributed by R.~H.~Hardin. It is true, and it is
+decidable rather than empirical. Every direction named moves the subblock row by at most one,
+so the count is a walk count on $S=144$ states --- the last two array rows together with the
+subblock row just completed --- and the conjectured recurrence is then settled by a finite
+exact computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 62G30.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 06A07.\normalsize
 
 \section{The conjecture}
 
-OEIS A237204 is ``Number of (n+1)X(1+1) 0..3 arrays with the upper median plus the lower median minus the minimum of every 2X2 subblock equal.''. It has offset $1$ and begins
+OEIS A254982 is ``Number of (n+2)X(1+2) 0..1 arrays with every 3X3 subblock sum of the two medians of the diagonal and antidiagonal minus the sum of the minimums of the central row and column nondecreasing horizontally and vertically.''. It has offset $1$ and begins
 \[
-256, 1160, 5130, 24478, 117800, 581660, 2899672, 14622828,\ \dots
+512, 2642, 10285, 39891, 160753, 639228, 2462249, 9299264,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 20*a(n-1) -80*a(n-2) -906*a(n-3) +7794*a(n-4) +8172*a(n-5) -244035*a(n-6) +300322*a(n-7) +4098296*a(n-8) -10054622*a(n-9) -42612260*a(n-10) +147652688*a(n-11) +293210128*a(n-12) -1340000744*a(n-13) -1394705632*a(n-14) +8282256640*a(n-15) +4845136768*a(n-16) -36284443840*a(n-17) -13676892416*a(n-18) +114105431296*a(n-19) +35979565056*a(n-20) -255448962048*a(n-21) -87993038848*a(n-22) +394876301312*a(n-23) +168883527680*a(n-24) -396779175936*a(n-25) -215149871104*a(n-26) +231483965440*a(n-27) +159506235392*a(n-28) -60435726336*a(n-29) -58549862400*a(n-30) +406847488*a(n-31) +7709130752*a(n-32) +1409286144*a(n-33)
+Empirical: a(n) = 7*a(n-1) -17*a(n-2) +26*a(n-3) -12*a(n-4) -92*a(n-5) +89*a(n-6) -116*a(n-7) -121*a(n-8) +727*a(n-9) +341*a(n-10) +262*a(n-11) +1668*a(n-12) -1380*a(n-13) -791*a(n-14) -5504*a(n-15) -1622*a(n-16) -1160*a(n-17) -1450*a(n-18) +18620*a(n-19) -316*a(n-20) +1254*a(n-21) -27288*a(n-22) +3524*a(n-23) +42952*a(n-24) -9576*a(n-25) -34248*a(n-26) +8272*a(n-27) +11264*a(n-28) -15296*a(n-29) +7200*a(n-30) +3168*a(n-31) -384*a(n-33) for n>38
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 09:57:09, revision 7) this is still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 15:03:41, revision 7) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-Sort the four entries of a $2\times2$ subblock as $a\le b\le c\le d$: they
-are its minimum, lower median, upper median and maximum. The entry fixes the signed sum
+A $3\times3$ subblock has four distinguished lines of three cells: its diagonal, its
+antidiagonal, its central row and its central column. The entry's statistic is a signed sum of
+aggregates --- sums, maxima, minima, medians --- taken over those lines, and $\sigma(i,j)$
+denotes its value on the subblock in position $(i,j)$ of the subblock grid, which has $n$ rows
+and $1$ column for an $(n+2)\times3$ array over $\{0,\dots,1\}$. The condition is
 \[
-\sigma\;=\;-a+b+c,
+\sigma(i,j)\le\sigma(i,j+1),\qquad \sigma(i,j)\le\sigma(i+1,j)
 \]
-and asks that $\sigma$ take the SAME value on every $2\times2$ subblock of an
-$(n+1)\times2$ array over $\{0,\dots,3\}$.
+whenever both positions exist.
 
-The common value is not named, so the count splits by it. For a fixed $v$ let $a_v(n)$ count
-the arrays all of whose subblocks give $\sigma=v$. An array determines its common value, so
-the sets belonging to different $v$ are disjoint and $a(n)=\sum_v a_v(n)$, a finite sum.
-
+``ne-to-sw antidiagonally'' is the offset $(+1,-1)$ on the subblock grid; that reading, and
+the reading of every statistic name here, was checked by counting the small arrays directly
+against what the entries publish.
 
 \section{The count is a walk count}
 
-For a fixed $v$ the condition involves two consecutive rows and nothing
-else: rows $r$ and $s$ may follow one another exactly when $\sigma$ equals $v$ on each of the
-$1$ subblocks they form. So a row is a state, an $(n+1)$-row array is a walk of $n$
-steps, and with $M$ the adjacency matrix on the disjoint union over $v$,
+A subblock spans three array rows and the vertical comparison spans four, so the obvious state
+is three consecutive rows. It is larger than it needs to be. What a step actually consults is
+the last TWO array rows --- enough to build the next subblock row once one more row arrives ---
+and the PREVIOUS SUBBLOCK ROW, to compare against. So take as state the triple
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n}\tau,\qquad\iota=\tau=(1,\dots,1)^{\!\top} .
+\bigl(r_{i+1},\ r_{i+2},\ \sigma\text{-row }i\bigr),
 \]
-Rows carrying no edge at all are dropped: such a row can only be the whole of a one-row
-array, which is not among the objects counted. There are $S=76$ states left.
-The alignment of the walk index with the entry's own $n$ was checked against its published
-terms rather than assumed. In particular $a$ is $C$-finite.
+and let a step append an array row $r_{i+3}$: that fixes $\sigma$-row $i+1$ from
+$r_{i+1},r_{i+2},r_{i+3}$, and every comparison between the two $\sigma$-rows is settled
+there. All the third rows that produce the same $\sigma$-row collapse into one state, which is
+what makes the wider arrays reachable.
+
+The starting vector is therefore weighted rather than all-ones: a state is entered by as many
+first rows as produce it, and $\iota$ records that count. With $\tau$ all-ones, an
+$(n+2)$-row array is a walk of $n-1$ steps and
+\[
+a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau
+\]
+on the $S=144$ reachable states. In particular $a$ is $C$-finite. The alignment of the walk
+index with the entry's own $n$ was checked against its published terms rather than assumed.
 
 \section{The proof}
 
@@ -91,15 +102,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;20\,a(n-1) - 80\,a(n-2) - 906\,a(n-3) + 7794\,a(n-4) + 8172\,a(n-5) - 244035\,a(n-6) + 300322\,a(n-7) + 4098296\,a(n-8) - 10054622\,a(n-9) - 42612260\,a(n-10) + 147652688\,a(n-11) + 293210128\,a(n-12) - 1340000744\,a(n-13) - 1394705632\,a(n-14) + 8282256640\,a(n-15) + 4845136768\,a(n-16) - 36284443840\,a(n-17) - 13676892416\,a(n-18) + 114105431296\,a(n-19) + 35979565056\,a(n-20) - 255448962048\,a(n-21) - 87993038848\,a(n-22) + 394876301312\,a(n-23) + 168883527680\,a(n-24) - 396779175936\,a(n-25) - 215149871104\,a(n-26) + 231483965440\,a(n-27) + 159506235392\,a(n-28) - 60435726336\,a(n-29) - 58549862400\,a(n-30) + 406847488\,a(n-31) + 7709130752\,a(n-32) + 1409286144\,a(n-33)
+a(n)\;=\;7\,a(n-1) - 17\,a(n-2) + 26\,a(n-3) - 12\,a(n-4) - 92\,a(n-5) + 89\,a(n-6) - 116\,a(n-7) - 121\,a(n-8) + 727\,a(n-9) + 341\,a(n-10) + 262\,a(n-11) + 1668\,a(n-12) - 1380\,a(n-13) - 791\,a(n-14) - 5504\,a(n-15) - 1622\,a(n-16) - 1160\,a(n-17) - 1450\,a(n-18) + 18620\,a(n-19) - 316\,a(n-20) + 1254\,a(n-21) - 27288\,a(n-22) + 3524\,a(n-23) + 42952\,a(n-24) - 9576\,a(n-25) - 34248\,a(n-26) + 8272\,a(n-27) + 11264\,a(n-28) - 15296\,a(n-29) + 7200\,a(n-30) + 3168\,a(n-31) - 384\,a(n-33)
 \]
-for every $n>33$.
+for every $n>38$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $33$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=33+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=38+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -107,7 +118,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $19$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $20$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
@@ -119,11 +130,11 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A237204.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A254982.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{david} H.~A.~David and H.~N.~Nagaraja, \emph{Order Statistics}, 3rd ed., Wiley,
-2003.
+\bibitem{davey} B.~A.~Davey and H.~A.~Priestley, \emph{Introduction to Lattices and
+Order}, 2nd ed., Cambridge University Press, 2002.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

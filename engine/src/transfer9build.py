@@ -59,6 +59,23 @@ def build(h):
     conj = conj_line(a)
     off = h["offset"]
     line, lines = ("row", "rows") if rowwalk else ("column", "columns")
+    # The pair vertex set is redundant and the model actually used removes the redundancy
+    # before the states exist, so the paper must not assert that its vertices ARE the pairs.
+    pairs = (alpha + 1) ** (2 * W)
+    merge = "" if S == pairs else (
+        r" Most of those pairs are indistinguishable, and exactly so. Every offset named in "
+        r"\eqref{eq:loc} moves at most a bounded number of columns, so whether a cell of the "
+        r"middle {line} is satisfied depends on the three {lines} only through their windows "
+        r"around that column. Collect, for each column, the indicator over the window of the "
+        r"{line} below, and call that tuple $P(p,c)$: which {lines} may follow $(p,c)$ is read "
+        r"off $P$, so is whether $c$ is satisfied with nothing below it, and the successor "
+        r"$(c,x)$ carries $P(c,x)$, which does not mention $p$. Two pairs $(p,c)$ and "
+        r"$(p',c)$ with the same $P$ therefore have the same outgoing {lines} and the same "
+        r"successors, and the vertex is taken to be $(c,P)$, each carrying as its starting "
+        r"weight the number of $p$ that produced it. That leaves $S={S}$ vertices in place of "
+        r"${pairs}$."
+    ).format(line=line, lines=lines, S=S, pairs=pairs)
+
     cross, crosses = ("column", "columns") if rowwalk else ("row", "rows")
     Ltex = rf"{mult}n+{base}" if mult != 1 else (rf"n+{base}" if base else "n")
     fracinv = "" if frac == 1 else rf"\tfrac1{{{frac}}}"
@@ -168,7 +185,7 @@ the state used below.
 \section{{The digraph}}
 
 Let $V=\{{0,\dots,{alpha}\}}^{{{W}}}$ be the possible {lines} and take
-$\mathcal V=V\times V$, of size $S={S}$, as the vertex set. Declare $(p,c)\to(c,x)$ an edge
+$\mathcal V=V\times V$, of size ${pairs}$, as the vertex set.{merge} Declare $(p,c)\to(c,x)$ an edge
 when every cell of the middle {line} $c$ satisfies \eqref{{eq:loc}} with $p$ above it and $x$
 below it; there is no edge between pairs that do not overlap in this way. Let $N$ be the
 adjacency matrix, $\mathbf{{v}}$ the indicator of the pairs $(p,c)$ whose first {line} $p$
@@ -232,9 +249,9 @@ Section~1.
 \end{{theorem}}
 
 \begin{{proof}}
-The digraph was built directly from \eqref{{eq:loc}}: for each of the $S={S}$ pairs and each
-of the $({alpha}+1)^{{{W}}}$ possible next {lines}, the condition was tested on every cell of
-the middle {line}. The vector $w$ was formed by ${order}$ applications of $G$ in exact integer
+The digraph was built directly from \eqref{{eq:loc}}: for each of the $S={S}$ vertices and
+each of the $({alpha}+1)^{{{W}}}$ possible next {lines}, the condition was tested on every cell
+of the middle {line}. The vector $w$ was formed by ${order}$ applications of $G$ in exact integer
 arithmetic and $\mathbf{{v}}^{{\!\top}}G^{{m}}w$ evaluated for $m=0,1,\dots$, again exactly.
 Every one of those integers vanishes from the index corresponding to $n={nthr}+1$ onwards,
 and the run was continued until $S+1$ consecutive zeros had been seen, which by

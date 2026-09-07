@@ -19,6 +19,8 @@ import localentry as LE
 # transfer17's builder prints the entry's own condition, which the sweep record does not
 # carry: the parse is redone here and folded into the record so the paper can quote it
 # rather than describe it in general terms.
+MERGED = {'transfer9'}
+
 ENRICH = {'transfer17', 'transfer6', 'transfer20', 'transfer21',
           'transfer9', 'transfer14', 'transfer10', 'transfer22', 'transfer19'}
 
@@ -27,7 +29,7 @@ SPECIAL = {'transfer17': 'transfer17build', 'transfer6': 'transfer6build',
            'transfer10': 'transfer10build', 'transfer11': 'transfer11build',
            'transfer22': 'transfer22build', 'transfer32': 'transfer32build',
            'transfer55': 'transfer55build', 'transfer60': 'transfer60build',
-           'transfer9': 'transfer9build', 'transfer14': 'transfer14build',
+           'transfer14': 'transfer14build',
            'transfer23': 'transfer23build', 'transfer26': 'transfer26build',
            'transfer31': 'transfer31build', 'transfer32': 'transfer32build',
            'transfer33': 'transfer33build', 'transfer45': 'transfer45build', 'transfer53': 'transfer53build',
@@ -59,6 +61,8 @@ for h in sorted(hits, key=lambda x: x['anum']):
         h = dict(q, **h)
         # transfer6build predates the unified sweep and names the threshold differently
         h.setdefault('threshold', h['nthr'])
+    if h['engine'] in MERGED:
+        h = dict(h, merged=True)
     dd = f"build/un{h['anum']}"
     os.makedirs(dd, exist_ok=True)
     try:

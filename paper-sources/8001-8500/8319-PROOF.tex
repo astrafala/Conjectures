@@ -12,45 +12,47 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A264536, proved by transfer matrix}
+\title{An element and the cells around it: OEIS A240479}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{7 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A264536 carries an empirical recurrence of order $5$ contributed by R.~H.~Hardin. It is
-true, and it is decidable rather than empirical. The entry's condition is local to a bounded window of consecutive lines, so
-the admissible configurations of such a window are the vertices of a finite digraph and the
-arrays counted are exactly the walks in it; hence $a(n)$ is a walk count on $S=65536$ vertices
-and is $C$-finite. Whether the conjectured recurrence annihilates it is then settled by a
-finite exact computation, with the Cayley--Hamilton theorem bounding the work.
+OEIS A240479 carries an empirical recurrence of order $6$ contributed by R.~H.~Hardin. It is
+true, and it is decidable rather than empirical. The entry's condition is decided by a bounded amount of state carried down the array; the
+admissible windows are the vertices of a finite digraph and the arrays counted are exactly the
+walks in it. Hence $a(n)$ is a walk count on $S=8$ vertices and is $C$-finite, and whether the
+conjectured recurrence annihilates it is settled by a finite exact computation, with the
+Cayley--Hamilton theorem bounding the work.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
 \section{The conjecture}
 
-OEIS A264536 is ``Number of (3+1) X (n+1) arrays of permutations of 0..n*4+3 with each element having directed index change -2,-2 -1,0 0,1 or 1,0.''. It has offset $1$ and begins
+OEIS A240479 is ``Number of n X 3 0..1 arrays with no element equal to more than two horizontal or vertical neighbors, with new values 0..1 introduced in row major order.''. It has offset $1$ and begins
 \[
-1, 4, 13, 29, 89, 261, 673, 1949,\ \dots
+4, 25, 122, 578, 2753, 13147, 62781, 299758,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = a(n-1) + 12*a(n-3) + 16*a(n-5).
+Empirical: a(n) = 4*a(n-1) + 3*a(n-2) + 2*a(n-3) + 6*a(n-4) + 2*a(n-5) - a(n-6).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jan 08 2019 09:50:57, revision 7) this is still
+As of the ``Last modified'' line on the live entry (Oct 29 2018 05:03:23, revision 8) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{The count is a walk count}
 
-The condition the entry imposes is local: it constrains a bounded window of consecutive lines and nothing beyond. Take as
-vertices the admissible configurations of one such window and put an edge from $u$ to $v$
-whenever $v$ may follow $u$, which the condition decides by inspection of the two. An
-admissible array is then exactly a walk, so with $M$ the adjacency matrix on $S=65536$ vertices
-and $\iota,\tau$ the vectors recording which windows may begin and end an array,
+The entry counts arrays with $3$ columns over the alphabet $\{0,1\}$, growing one row at a time, and asks that no element may equal more than $2$ of its horizontal and vertical neighbours.
+
+The furthest that condition reaches is $1$ row, so a window of $3$ consecutive rows decides it for the row in the middle. Carry $2$ rows as the state; a row is judged when the row $1$ beyond it arrives, and the last $1$ row --- the ones with nothing far enough beyond them --- are judged by the end vector. A neighbour off the edge of the array is not a neighbour, which is what the entry means and what keeps the first few terms small.
+
+The entry also asks that new values be introduced in row major order. That is not a condition on any window --- whether a value may appear here depends on the whole prefix --- but it enters through a single integer, how many values have been introduced so far, and the effect is that each array is counted once for the whole class of arrays differing from it only by renaming the values.
+
+Merging vertices with identical futures leaves $S=8$. An admissible array is exactly a walk, so with $M$ the adjacency matrix and $\iota,\tau$ the vectors recording which states may begin and end an array,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n+1}\tau ,
+a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau ,
 \]
 the exponent fixed by the entry's own shape and checked against its published terms. In
 particular $a$ is $C$-finite.
@@ -58,7 +60,7 @@ particular $a$ is $C$-finite.
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{5}-\sum_i c_it^{5-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{6}-\sum_i c_it^{6-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -66,44 +68,50 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+5}-\sum_ic_iM^{j+5-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+6}-\sum_ic_iM^{j+6-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly.
+pins the threshold exactly. A constant factor in front of $a$ divides out of the residual and
+changes nothing here.
 \end{proof}
 
 \begin{theorem}
 \[
-a(n)\;=\;a(n-1) + 12\,a(n-3) + 16\,a(n-5)
+a(n)\;=\;4\,a(n-1) + 3\,a(n-2) + 2\,a(n-3) + 6\,a(n-4) + 2\,a(n-5) - a(n-6)
 \]
-for every $n>5$.
+for every $n>6$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $5$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $6$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=5+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=6+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
-Three checks, each independent of the algebra above.
+Four checks, each independent of the algebra above.
 
-First, the model reproduces all $27$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $22$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
-Second, the conjectured recurrence was evaluated directly on those published terms, with no
+Second, the reading was pinned before the digraph was written, by a program that enumerates
+every array of the given shape one by one and tests the entry's condition at each cell
+directly. That program shares no code with the transfer matrix, so an error in one does not
+hide an error in the other.
+
+Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
 arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A264536.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A240479.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

@@ -12,20 +12,20 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A220612, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A220631, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A220612 counts the ways of linking the cells of a grid $6$ cells wide, each cell either to
+OEIS A220631 counts the ways of linking the cells of a grid $7$ cells wide, each cell either to
 itself or to exactly $2$ of its neighbours, the links being reciprocal, and carries an
 empirical recurrence of order $14$ contributed by R.~H.~Hardin. It is true, and it is
 decidable rather than empirical. A reciprocal link is an undirected edge and a self-link is
 no edge, so what is counted is the spanning subgraphs of a grid graph in which every vertex
 has degree $0$ or $2$; the edges crossing the boundary between two consecutive rows are a
-state, the count is a walk count on $S=20$ of them, and the conjectured recurrence is then
+state, the count is a walk count on $S=32$ of them, and the conjectured recurrence is then
 settled by a finite exact computation.
 \end{abstract}
 
@@ -33,15 +33,15 @@ settled by a finite exact computation.
 
 \section{The conjecture}
 
-OEIS A220612 is ``Number of ways to reciprocally link elements of an nX6 array either to themselves or to exactly two horizontal and vertical neighbors, without consecutive collinear links.''. It has offset $1$ and begins
+OEIS A220631 is ``Number of ways to reciprocally link elements of an nX7 array either to themselves or to exactly two horizontal or antidiagonal neighbors.''. It has offset $1$ and begins
 \[
-1, 13, 43, 281, 1277, 7041, 34981, 183920,\ \dots
+1, 32, 564, 10695, 201903, 3817452, 72097810, 1362188752,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 3*a(n-1) +23*a(n-2) -40*a(n-3) -160*a(n-4) +190*a(n-5) +441*a(n-6) -369*a(n-7) -513*a(n-8) +278*a(n-9) +240*a(n-10) -64*a(n-11) -39*a(n-12) +3*a(n-13) +a(n-14)
+Empirical: a(n) = 11*a(n-1) +119*a(n-2) +510*a(n-3) +1074*a(n-4) +735*a(n-5) -1120*a(n-6) -2716*a(n-7) +5687*a(n-8) -4250*a(n-9) +1973*a(n-10) -802*a(n-11) +244*a(n-12) -36*a(n-13) -4*a(n-14)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 18:53:56, revision 8) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 18:55:35, revision 8) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
@@ -50,11 +50,11 @@ A link is \emph{reciprocal}: if $u$ is linked to $v$ then $v$ is linked to $u$. 
 of a configuration are the edges of an undirected graph on the cells, and a cell ``linked to
 itself'' is a cell lying in no edge. The neighbour relation the entry names is the offset set
 \[
-(-1,0), (0,-1), (0,1), (1,0),
+(-1,1), (0,-1), (0,1), (1,-1),
 \]
 and the condition ``either to themselves or to exactly $2$ neighbours'' says that in that
 graph every cell has degree $0$ or $2$. Hence $a(n)$ counts the spanning subgraphs of the
-grid graph on the offset set above, of $n$ rows and $6$ columns,
+grid graph on the offset set above, of $n$ rows and $7$ columns,
 whose every degree is $0$ or $2$: a disjoint union of cycles, since every vertex of the link graph has degree $0$ or $2$.
 
 One point of the English has to be fixed rather than guessed: whether a cell may spend both of
@@ -64,10 +64,6 @@ and $1+4+3=8$ with simple edges and larger if a doubled edge were allowed; the e
 family publish $1$ and $8$. The reading is in any case pinned entry by entry, because the
 model below is required to reproduce every term the entry publishes.
 
-The entry adds \emph{that no two consecutive links be collinear}: at a vertex carrying two
-links their offsets may not be opposite. This is a condition on one vertex and its two links,
-so it is decided at the moment that vertex's degree is settled, and costs the construction
-nothing.
 
 \section{The count is a walk count}
 
@@ -80,7 +76,7 @@ condition on the pair of links at a cell, is settled there and never revisited.
 
 Reading a configuration from the top therefore gives a walk that begins at the empty boundary,
 takes one step per row, and ends at the empty boundary, and every such walk comes from exactly
-one configuration. With $M$ the adjacency matrix of the digraph on the $S=20$ reachable
+one configuration. With $M$ the adjacency matrix of the digraph on the $S=32$ reachable
 states and $\iota,\tau$ the indicator vectors of the empty boundary,
 \[
 a(n)\;=\;\iota^{\!\top}M^{\,n}\tau ,
@@ -109,15 +105,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;3\,a(n-1) + 23\,a(n-2) - 40\,a(n-3) - 160\,a(n-4) + 190\,a(n-5) + 441\,a(n-6) - 369\,a(n-7) - 513\,a(n-8) + 278\,a(n-9) + 240\,a(n-10) - 64\,a(n-11) - 39\,a(n-12) + 3\,a(n-13) + a(n-14)
+a(n)\;=\;11\,a(n-1) + 119\,a(n-2) + 510\,a(n-3) + 1074\,a(n-4) + 735\,a(n-5) - 1120\,a(n-6) - 2716\,a(n-7) + 5687\,a(n-8) - 4250\,a(n-9) + 1973\,a(n-10) - 802\,a(n-11) + 244\,a(n-12) - 36\,a(n-13) - 4\,a(n-14)
 \]
-for every $n>13$.
+for every $n>14$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $14$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=13+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=14+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -125,7 +121,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $22$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $16$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
@@ -137,7 +133,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A220612.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A220631.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{lovasz} L.~Lov\'asz and M.~D.~Plummer, \emph{Matching Theory}, AMS Chelsea,

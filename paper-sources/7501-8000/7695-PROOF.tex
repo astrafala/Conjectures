@@ -12,75 +12,70 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A232377, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A183692, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{3 September 2026}
+\date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A232377 counts arrays of width $2$ over $\{0,1,2,3\}$ in which every cell carrying one stated
-value must have a neighbour carrying another. The entry carries an empirical recurrence of
-order $8$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
-empirical: a cell's neighbours lie in three consecutive rows, so the count is a walk count on
-$S=77$ states.
+OEIS A183692 counts arrays over $\{0,\dots,2\}$ under a condition on the determinant of every
+$2\times2$ subblock, and carries an empirical recurrence of order $8$ contributed by
+R.~H.~Hardin. It is true, and it is decidable rather than empirical. The condition is local to
+a bounded window of consecutive rows, so the count is a walk count on $S=81$ states and is
+$C$-finite; whether the conjectured recurrence annihilates it is then settled by a finite exact
+computation, with the Cayley--Hamilton theorem bounding the work.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05C15, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
 \section{The conjecture}
 
-OEIS A232377 is ``Number of 2Xn 0..3 arrays with every 0 next to a 1, every 1 next to a 2 and every 2 next to a 3 horizontally, diagonally or antidiagonally, and no adjacent values equal.''. It has offset $1$ and begins
+OEIS A183692 is ``Number of (n+1)X4 0..2 arrays with every 2X2 subblock nonsingular.''. It has offset $1$ and begins
 \[
-1, 14, 74, 296, 1130, 4682, 19448, 79592,\ \dots
+1970, 66658, 2235330, 75166498, 2525447442, 84872526674, 2852069116186, 95843840904146,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 3*a(n-1) +a(n-2) +13*a(n-3) +26*a(n-5) -4*a(n-6) +24*a(n-7) +16*a(n-8) for n>9.
+Empirical: a(n)=17*a(n-1)+526*a(n-2)+1525*a(n-3)-14279*a(n-4)-31924*a(n-5)+135724*a(n-6)+14896*a(n-7)-63104*a(n-8)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Nov 04 2024 02:42:02, revision 9) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 01:59:27, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The array has $2$ cells across, with entries in $\{0,1,2,3\}$. The NEIGHBOURS of a cell are the
-cells reached from it by the offsets
+Write $\sigma$ for the determinant of a $2\times2$ subblock
+$\begin{pmatrix}p&q\\r&s\end{pmatrix}$, that is $\sigma=ps-qr$. The subblocks of an
+$(n+1)\times4$ array over $\{0,\dots,2\}$ form a grid of $n$ rows and $3$
+columns, and $\sigma$ colours that grid.
+
+The condition is on each subblock separately: every $\sigma$ must not vanish, which is what
+``nonsingular'' says of a $2\times2$ matrix. Nothing
+relates one subblock to another.
+
+\section{The count is a walk count}
+
+Because the condition looks at one subblock at a time and a subblock is
+built from two consecutive array rows, a single row is a state: rows $r$ and $s$ may follow one
+another exactly when all $3$ of the subblocks they form pass. An $(n+1)$-row array is then a
+walk of $n$ steps and
 \[
-(-1,-1), (-1,0), (-1,1), (1,-1), (1,0), (1,1),
+a(n)\;=\;\iota^{\!\top}M^{\,n}\tau,\qquad\iota=\tau=(1,\dots,1)^{\!\top},
 \]
-those lying inside the array. The entry asks that
-\begin{itemize}
-\item every cell carrying $0$ has at least one neighbour carrying $1$;
-\item every cell carrying $1$ has at least one neighbour carrying $2$;
-\item every cell carrying $2$ has at least one neighbour carrying $3$;
-\item no two neighbouring cells carry equal values.
-\end{itemize}
-A cell whose value is not named on the left of any clause is unconstrained. The entry writes the array with $n$ as the number of COLUMNS; the walk is run down the transpose, so the offsets above are already the transposed ones. Each direction is taken with both signs, so transposing cannot lose one.
+on the $S=81$ rows.
 
-\section{Three rows decide one}
+At $n=1$ the array has two rows and the grid is a single row of $3$
+subblocks, each tested on its own, so $a(1)$ counts the
+$2\times4$ arrays over $\{0,\dots,2\}$ all of whose subblocks pass. The entry's
+first term is $1970$, and the model reproduces it along with every later term; that is the
+cheapest check that the grid has been read with the right shape.
 
-\begin{lemma}\label{lem:win}
-Every offset above changes the row index by $-1$, $0$ or $+1$, so all the neighbours of a cell
-of row $i$ lie in rows $i-1$, $i$ and $i+1$, and the condition for the whole of row $i$ is
-decided by those three rows.
-\end{lemma}
-
-\begin{proof}
-Immediate from the offsets listed, together with the rule that a neighbour outside the array is
-not a neighbour.
-\end{proof}
-
-So the state is the pair (row above, current row), the row above allowed to be the symbol
-$\bot$, and a step appends a row and settles the condition for the middle row of the window it
-completes. The condition for the LAST row is settled by the end vector, with nothing below it:
-the end vector is therefore not the all-ones vector, and a row whose cells find what they need
-only because a further row is written below them does not finish an array. With $M$ the
-adjacency matrix,
-\[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=77.
-\]
-The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
-published terms rather than assumed. In particular $a$ is $C$-finite.
+Over the alphabet $\{0,\dots,2\}$ the determinant of a $2\times2$ subblock takes values in
+$[-4,4]$, so the colouring of the grid it induces has at most $9$ values.
+That bound is what keeps the construction below finite in the only place where the value of
+$\sigma$, rather than a comparison between two of them, has to be carried.
+In particular $a$ is $C$-finite. The alignment of the walk index with the entry's own $n$ was
+checked against its published terms rather than assumed.
 
 \section{The proof}
 
@@ -102,41 +97,38 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;3\,a(n-1) + a(n-2) + 13\,a(n-3) + 26\,a(n-5) - 4\,a(n-6) + 24\,a(n-7) + 16\,a(n-8)
+a(n)\;=\;17\,a(n-1) + 526\,a(n-2) + 1525\,a(n-3) - 14279\,a(n-4) - 31924\,a(n-5) + 135724\,a(n-6) + 14896\,a(n-7) - 63104\,a(n-8)
 \]
-for every $n>9$.
+for every $n>8$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $8$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=9+1$ onwards and the run continued
-until the working vector was identically zero.
+integers vanish from the index corresponding to $n=8+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
-Four checks, each independent of the algebra above.
+Three checks, each independent of the algebra above.
 
-First, the model reproduces all $25$ terms the entry publishes, exactly, in integer
-arithmetic.
+First, the model reproduces all $14$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry: the digraph is built by reading the
+entry's English, and a misreading gives different counts.
 
-Second, the count was recomputed for the smallest arrays straight from the definition:
-enumerate every array of that size in the orientation the entry's own name writes and test each
-cell against its neighbours directly. No window, no state and no transposition are involved,
-and the published terms came back.
-
-Third, the conjectured recurrence was evaluated directly on the published terms, with no
+Second, the conjectured recurrence was evaluated directly on those published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
 
-Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
 arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A232377.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A183692.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{minc} H.~Minc, \emph{Permanents}, Addison--Wesley, 1978.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

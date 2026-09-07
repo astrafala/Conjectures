@@ -81,7 +81,26 @@ def dates_and_papers():
     return by
 
 
+def stale_dates():
+    """is the date map older than the ranking it is keyed by?
+
+    The map is keyed by paper path, and rank.py renumbers every paper it moves, so running
+    this before paperdates.py has finished compares the new paths against the old map and
+    reports thousands of date disagreements that do not exist. It happened twice; a rule
+    that has to be remembered gets remembered late, so it is checked here instead.
+    """
+    idx = os.path.join(repopaths.ROOT, 'papers', 'index.csv')
+    dates = 'paper-dates.json'
+    if not (os.path.exists(idx) and os.path.exists(dates)):
+        return False
+    return os.path.getmtime(dates) < os.path.getmtime(idx)
+
+
 def main():
+    if stale_dates():
+        raise SystemExit('paper-dates.json is older than papers/index.csv: run '
+                         'paperdates.py to completion first, or every renumbered paper '
+                         'will be reported as disagreeing with its own date.')
     comments = json.load(open('oeis-comments.json'))
     papers = dates_and_papers()
     rows = []

@@ -48,6 +48,14 @@ def build(h):
     conj = conj_line(a)
     coeffs = {int(k): int(v) for k, v in h["coeffs"].items()}
     win = WINDOW.get(h["engine"], "a bounded window of consecutive lines")
+    # Some models are built with the redundancy already removed, so their vertices are not
+    # the admissible windows themselves but the classes of windows that behave alike. Saying
+    # "the vertices are the windows" would then be false, and a paper may not say a false
+    # thing about the object its numbers came from.
+    merged = (" Windows that admit exactly the same continuations and lead to the same states "
+              "are identified, which changes no count: such windows contribute identically to "
+              "every walk count, so the vertex is the class rather than the window."
+              if h.get('merged') else "")
     k = off - sh
     expo = "n" if k == 0 else ("n-%d" % k if k > 0 else "n+%d" % (-k))
     tight = ""
@@ -92,7 +100,7 @@ recorded as empirical, and nothing on the entry records it as proved.
 
 The condition the entry imposes is local: it constrains {win} and nothing beyond. Take as
 vertices the admissible configurations of one such window and put an edge from $u$ to $v$
-whenever $v$ may follow $u$, which the condition decides by inspection of the two. An
+whenever $v$ may follow $u$, which the condition decides by inspection of the two.{merged} An
 admissible array is then exactly a walk, so with $M$ the adjacency matrix on $S={S}$ vertices
 and $\iota,\tau$ the vectors recording which windows may begin and end an array,
 \[
