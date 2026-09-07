@@ -12,20 +12,20 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A234452, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A234261, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A234452 counts $2$-column arrays over $\{0,\dots,5\}$ in which every
+OEIS A234261 counts $4$-column arrays over $\{0,\dots,2\}$ in which every
 $2\times2$ subblock has its diagonal sum differing from its antidiagonal sum by
-exactly $1$, and it
+exactly $2$, and it
 carries an empirical recurrence of order $6$ contributed by R.~H.~Hardin. It is true,
 and it is not an empirical matter: the condition constrains only consecutive pairs of rows,
 so the rows are the vertices of a finite digraph and an $(n+1)$-row array is a walk of
-length $n$. Hence $a(n)=\mathbf{1}^{\!\top}M^{n}\mathbf{1}$ on $S=36$ vertices, which
+length $n$. Hence $a(n)=\mathbf{1}^{\!\top}M^{n}\mathbf{1}$ on $S=81$ vertices, which
 is $C$-finite. Writing $q$ for the characteristic polynomial of the conjectured recurrence,
 the residual is $\mathbf{1}^{\!\top}M^{\,n-6}q(M)\mathbf{1}$, so the recurrence
 holds beyond a threshold exactly when that vanishes from then on --- and since the sequence
@@ -37,23 +37,23 @@ $S$ consecutive zeros settle every later one. The whole test is finite and exact
 
 \section{The sequence and the conjecture}
 
-OEIS A234452 is ``Number of (n+1) X (1+1) 0..5 arrays with every 2 X 2 subblock having its diagonal sum differing from its antidiagonal sum by 1 (constant-stress 1 X 1 tilings).''. It has offset
+OEIS A234261 is ``Number of (n+1) X (3+1) 0..2 arrays with every 2 X 2 subblock having its diagonal sum differing from its antidiagonal sum by 2 (constant-stress 1 X 1 tilings).''. It has offset
 $1$ and begins
 \[
-280, 2400, 21344, 192960, 1755520, 16026240, 146415104,\ \dots
+104, 170, 292, 560, 1100, 2324, 4924,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 100*a(n-2) - 1384*a(n-4) + 1440*a(n-6).
+Empirical: a(n) = 3*a(n-1) + 6*a(n-2) - 24*a(n-3) + 4*a(n-4) + 36*a(n-5) - 24*a(n-6).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jun 20 2022 21:32:26, revision 13) the statement is
+As of the ``Last modified'' line on the live entry (Jun 20 2022 21:33:46, revision 12) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;100\,a(n-2) - 1384\,a(n-4) + 1440\,a(n-6)
+a(n)\;=\;3\,a(n-1) + 6\,a(n-2) - 24\,a(n-3) + 4\,a(n-4) + 36\,a(n-5) - 24\,a(n-6)
 \end{equation}
-for all $n>5$, which is every $n$ at which a recurrence of order $6$ can be
+for all $n>6$, which is every $n$ at which a recurrence of order $6$ can be
 stated.
 
 \section{The rows form a digraph}
@@ -62,13 +62,13 @@ In a $2\times2$ subblock with top row $(r_j,r_{j+1})$ and bottom row $(s_j,s_{j+
 diagonal sum is $r_j+s_{j+1}$ and the antidiagonal sum is $r_{j+1}+s_j$, so the entry's
 condition on that subblock reads
 \[
-\bigl|\,r_j+s_{j+1}-r_{j+1}-s_j\,\bigr|\;=\;1.
+\bigl|\,r_j+s_{j+1}-r_{j+1}-s_j\,\bigr|\;=\;2.
 \]
 Every such condition involves two consecutive rows only.
 
-Let $V$ consist of all of $\{0,\dots,5\}^{2}$, and put $S=|V|=36$. For $r,s\in V$ declare $r\to s$ an edge
-when $\bigl|r_j+s_{j+1}-r_{j+1}-s_j\bigr|=1$ for every $j$ with
-$1\le j\le2-1$. Let $M\in\{0,1\}^{S\times S}$ be the adjacency matrix and $\mathbf{1}$
+Let $V$ consist of all of $\{0,\dots,2\}^{4}$, and put $S=|V|=81$. For $r,s\in V$ declare $r\to s$ an edge
+when $\bigl|r_j+s_{j+1}-r_{j+1}-s_j\bigr|=2$ for every $j$ with
+$1\le j\le4-1$. Let $M\in\{0,1\}^{S\times S}$ be the adjacency matrix and $\mathbf{1}$
 the all-ones vector.
 
 \begin{lemma}\label{lem:walk}
@@ -78,7 +78,7 @@ $a(n)=\mathbf{1}^{\!\top}M^{n}\mathbf{1}$.
 \end{lemma}
 
 \begin{proof}
-An array with $n+1$ rows and $2$ columns is a sequence $r^{(0)},\dots,r^{(n)}$ of
+An array with $n+1$ rows and $4$ columns is a sequence $r^{(0)},\dots,r^{(n)}$ of
 rows. Each of its $2\times2$ subblocks lies in two vertically adjacent rows
 $r^{(i)},r^{(i+1)}$ and two horizontally adjacent columns $j,j+1$, so the array satisfies
 the entry's condition on all subblocks precisely when every consecutive pair of rows is an
@@ -116,16 +116,16 @@ forward.
 \section{The computation}
 
 \begin{theorem}
-The recurrence \eqref{eq:conj} holds for every $n>5$. This is the statement of
+The recurrence \eqref{eq:conj} holds for every $n>6$. This is the statement of
 Section~1.
 \end{theorem}
 
 \begin{proof}
 The vector $q(M)\mathbf{1}\in\mathbb{Z}^{S}$ was formed by $6$ matrix--vector
 products in exact integer arithmetic and the values $u_j$ evaluated for
-$j=0,1,\dots$. They vanish from $j=5-6+1$ onwards, and the run was continued past
+$j=0,1,\dots$. They vanish from $j=6-6+1$ onwards, and the run was continued past
 $S$ consecutive zeros, which by Lemma~\ref{lem:crit} settles every larger $j$. Hence the
-recurrence holds for every $n>5$.
+recurrence holds for every $n>6$.
 \end{proof}
 
 \section{Verification}
@@ -134,19 +134,19 @@ Three checks, each independent of the algebra above.
 
 First, the digraph was built directly from the entry's stated condition and the walk counts
 $\mathbf{1}^{\!\top}M^{n}\mathbf{1}$ compared against the entry's DATA at every one of
-the $17$ published indices; the values agree exactly. That is what ties the digraph to
+the $27$ published indices; the values agree exactly. That is what ties the digraph to
 the sequence: a model reproducing only some published terms would be the wrong model and
 was rejected wherever it occurred.
 
 Second, the recurrence \eqref{eq:conj} was evaluated on those published terms in exact
 integer arithmetic, with no matrices involved, and vanishes wherever it applies.
 
-Third, the vanishing test of Lemma~\ref{lem:crit} was carried past $S=36$ consecutive
+Third, the vanishing test of Lemma~\ref{lem:crit} was carried past $S=81$ consecutive
 zeros rather than to a sampled prefix, in exact integer arithmetic.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A234452.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A234261.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

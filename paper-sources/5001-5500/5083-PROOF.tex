@@ -12,144 +12,169 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A234985, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A203794, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A234985 counts $3$-column arrays over $\{0,\dots,5\}$ in which every
-$2\times2$ subblock has its diagonal sum differing from its antidiagonal sum by
-exactly $2$, and in which no two adjacent entries are equal, and it
-carries an empirical recurrence of order $28$ contributed by R.~H.~Hardin. It is true,
-and it is not an empirical matter: the condition constrains only consecutive pairs of rows,
-so the rows are the vertices of a finite digraph and an $(n+1)$-row array is a walk of
-length $n$. Hence $a(n)=\mathbf{1}^{\!\top}M^{n}\mathbf{1}$ on $S=150$ vertices, which
-is $C$-finite. Writing $q$ for the characteristic polynomial of the conjectured recurrence,
-the residual is $\mathbf{1}^{\!\top}M^{\,n-28}q(M)\mathbf{1}$, so the recurrence
-holds beyond a threshold exactly when that vanishes from then on --- and since the sequence
-of those values obeys the monic recurrence given by the characteristic polynomial of $M$,
-$S$ consecutive zeros settle every later one. The whole test is finite and exact.
+OEIS A203794 counts $(n+1)\times7$ arrays over $\{0,\dots,3\}$ subject to a condition imposed on
+every $2\times2$ subblock, and carries an empirical recurrence of order $28$ contributed
+by R.~H.~Hardin. It is true, and it is not an empirical matter at all. The condition is local
+to each subblock, so the rows of an admissible array are the vertices of a finite digraph
+on $S=16384$ vertices whose edges are the admissible consecutive pairs, and the count is a
+number of walks: $a(n)=\mathbf{1}^{\!\top}M^{n}\mathbf{1}$. Writing $q$
+for the characteristic polynomial of the conjectured recurrence, the recurrence holds for all
+$n$ exactly when $\mathbf{1}^{\!\top}M^{j}q(M)\mathbf{1}=0$ for every $j\ge0$, and the
+Cayley--Hamilton theorem bounds that to $j<S$. It is therefore a finite computation in exact
+integer arithmetic, and it comes out zero.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
 \section{The sequence and the conjecture}
 
-OEIS A234985 is ``Number of (n+1) X (2+1) 0..5 arrays with every 2 X 2 subblock having its diagonal sum differing from its antidiagonal sum by 2, with no adjacent elements equal (constant-stress tilted 1 X 1 tilings).''. It has offset
-$1$ and begins
+OEIS A203794 is ``Number of (n+1)X7 0..3 arrays with every 2X2 subblock having equal diagonal elements or equal antidiagonal elements.''. It has offset $1$ and begins
 \[
-370, 1490, 6908, 35598, 189200, 1026784, 5628414,\ \dots
+1882384, 345682576, 72168659104, 15768587718160, 3504288958063120, 783865714144759744, 175775764083051254128, 39454255487228836622320,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 10*a(n-1) +9*a(n-2) -317*a(n-3) +216*a(n-4) +4392*a(n-5) -4481*a(n-6) -34461*a(n-7) +37067*a(n-8) +168161*a(n-9) -177688*a(n-10) -531245*a(n-11) +547375*a(n-12) +1099678*a(n-13) -1121930*a(n-14) -1478131*a(n-15) +1530027*a(n-16) +1252813*a(n-17) -1355278*a(n-18) -636426*a(n-19) +748324*a(n-20) +180286*a(n-21) -245436*a(n-22) -25096*a(n-23) +44796*a(n-24) +1272*a(n-25) -4080*a(n-26) +144*a(n-28).
+Empirical: a(n) = 208*a(n-1) +17400*a(n-2) -3283416*a(n-3) +23420421*a(n-4) +5886581850*a(n-5) -83228590584*a(n-6) -3526251031431*a(n-7) +57850559193204*a(n-8) +782023861525509*a(n-9) -14739518837987658*a(n-10) -60641138261637936*a(n-11) +1598662604889997434*a(n-12) +238856341604935320*a(n-13) -76586199580277604432*a(n-14) +119784669306218825400*a(n-15) +1667672399025022092660*a(n-16) -3846520848128975062668*a(n-17) -16550563018684070626632*a(n-18) +43676894398326611425920*a(n-19) +69929164554171688755288*a(n-20) -199117214696190701946528*a(n-21) -104062366058720357995200*a(n-22) +320309318149377624589824*a(n-23) +62868535445891985578496*a(n-24) -158787620907305349641472*a(n-25) -9126122457607434141696*a(n-26) +19192360132970190176256*a(n-27) -2161923504213443346432*a(n-28)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jun 20 2022 01:45:04, revision 6) the statement is
+As of the ``Last modified'' line on the live entry (Oct 03 2025 10:44:10, revision 9) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;10\,a(n-1) + 9\,a(n-2) - 317\,a(n-3) + 216\,a(n-4) + 4392\,a(n-5) - 4481\,a(n-6) - 34461\,a(n-7) + 37067\,a(n-8) + 168161\,a(n-9) - 177688\,a(n-10) - 531245\,a(n-11) + 547375\,a(n-12) + 1099678\,a(n-13) - 1121930\,a(n-14) - 1478131\,a(n-15) + 1530027\,a(n-16) + 1252813\,a(n-17) - 1355278\,a(n-18) - 636426\,a(n-19) + 748324\,a(n-20) + 180286\,a(n-21) - 245436\,a(n-22) - 25096\,a(n-23) + 44796\,a(n-24) + 1272\,a(n-25) - 4080\,a(n-26) + 144\,a(n-28)
+a(n)\;=\;208\,a(n-1) + 17400\,a(n-2) - 3283416\,a(n-3) + 23420421\,a(n-4) + 5886581850\,a(n-5) - 83228590584\,a(n-6) - 3526251031431\,a(n-7) + 57850559193204\,a(n-8) + 782023861525509\,a(n-9) - 14739518837987658\,a(n-10) - 60641138261637936\,a(n-11) + 1598662604889997434\,a(n-12) + 238856341604935320\,a(n-13) - 76586199580277604432\,a(n-14) + 119784669306218825400\,a(n-15) + 1667672399025022092660\,a(n-16) - 3846520848128975062668\,a(n-17) - 16550563018684070626632\,a(n-18) + 43676894398326611425920\,a(n-19) + 69929164554171688755288\,a(n-20) - 199117214696190701946528\,a(n-21) - 104062366058720357995200\,a(n-22) + 320309318149377624589824\,a(n-23) + 62868535445891985578496\,a(n-24) - 158787620907305349641472\,a(n-25) - 9126122457607434141696\,a(n-26) + 19192360132970190176256\,a(n-27) - 2161923504213443346432\,a(n-28)
 \end{equation}
-for all $n>28$, which is every $n$ at which a recurrence of order $28$ can be
-stated.
+for all $n>27$.
 
-\section{The rows form a digraph}
+\section{The condition is local, so the rows form a digraph}
 
-In a $2\times2$ subblock with top row $(r_j,r_{j+1})$ and bottom row $(s_j,s_{j+1})$ the
-diagonal sum is $r_j+s_{j+1}$ and the antidiagonal sum is $r_{j+1}+s_j$, so the entry's
-condition on that subblock reads
+Write an array of the shape in question as its list of rows
+$r^{(1)},r^{(2)},\dots$, each an element of
+$V=\{0,1,\dots,3\}^{7}$, so $|V|=S=16384$. A $2\times2$ subblock of the array
+occupies two consecutive rows and two consecutive columns; if the two rows are $r$
+and $s$ (in that order) and the two columns are numbered $j,j+1$,
+the subblock is
 \[
-\bigl|\,r_j+s_{j+1}-r_{j+1}-s_j\,\bigr|\;=\;2.
+\begin{pmatrix}\alpha&\beta\\\gamma&\delta\end{pmatrix}=\begin{pmatrix}r_j&r_{j+1}\\s_j&s_{j+1}\end{pmatrix}.
 \]
-Every such condition involves two consecutive rows only. The condition ``no adjacent elements equal'' splits into a horizontal
-part, which constrains a single row and so selects the vertex set, and a vertical part,
-which constrains a consecutive pair of rows and so belongs to the edge relation.
+The entry's requirement on that subblock is
+\begin{equation}\label{eq:loc}
+\alpha=\delta\ \text{ or }\ \beta=\gamma,
+\end{equation}
+a condition on the four entries alone.
 
-Let $V$ consist of those $r\in\{0,\dots,5\}^{3}$ with $r_j\ne r_{j+1}$ for every
-$j$ --- the rows in which no two horizontally adjacent entries are equal, and put $S=|V|=150$. For $r,s\in V$ declare $r\to s$ an edge
-when $\bigl|r_j+s_{j+1}-r_{j+1}-s_j\bigr|=2$ for every $j$ with
-$1\le j\le3-1$, and $r_j\ne s_j$ for every $j$. Let $M\in\{0,1\}^{S\times S}$ be the adjacency matrix and $\mathbf{1}$
-the all-ones vector.
+For $r,s\in V$ declare $r\to s$ an edge of a digraph $G$ when, for every
+$1\le j\le 7-1$,
+\begin{itemize}
+\item the four entries above satisfy \eqref{eq:loc};
+
+\end{itemize}
+Let $M\in\{0,1\}^{S\times S}$ be the adjacency matrix of $G$ and $\mathbf{1}$ the
+all-ones vector.
 
 \begin{lemma}\label{lem:walk}
-The arrays counted by the entry with $n+1$ rows are exactly the walks
-$r^{(0)}\to\cdots\to r^{(n)}$ of length $n$ in this digraph, so
-$a(n)=\mathbf{1}^{\!\top}M^{n}\mathbf{1}$.
+The arrays counted by the entry with $L$ rows are exactly the walks
+$r^{(1)}\to r^{(2)}\to\cdots\to r^{(L)}$ of length $L-1$ in $G$. Consequently
+\[
+a(n)\;=\;\mathbf{1}^{\!\top}M^{n}\mathbf{1} .
+\]
 \end{lemma}
 
 \begin{proof}
-An array with $n+1$ rows and $3$ columns is a sequence $r^{(0)},\dots,r^{(n)}$ of
-rows. Each of its $2\times2$ subblocks lies in two vertically adjacent rows
-$r^{(i)},r^{(i+1)}$ and two horizontally adjacent columns $j,j+1$, so the array satisfies
-the entry's condition on all subblocks precisely when every consecutive pair of rows is an
-edge; and the row-internal condition, where present, is exactly membership of $V$. Summing
-the walk counts $\bigl(M^{n}\bigr)_{r,s}$ over all $r$ and $s$ gives
-$\mathbf{1}^{\!\top}M^{n}\mathbf{1}$.
+An array with $L$ rows and $7$ columns is precisely a sequence
+$r^{(1)},\dots,r^{(L)}$ of elements of $V$; conversely any such sequence is an array.
+Every $2\times2$ subblock lies in two consecutive rows $r^{(t)},r^{(t+1)}$ and two
+consecutive columns, so the array satisfies the entry's condition on all of its subblocks
+if and only if each consecutive pair $\bigl(r^{(t)},r^{(t+1)}\bigr)$ satisfies it for
+every column pair --- which is exactly the edge relation of $G$. The number of walks of
+length $L-1$, summed over all starting and ending vertices, is
+$\mathbf{1}^{\!\top}M^{L-1}\mathbf{1}$, since $(M^{k})_{r,s}$ counts the walks of
+length $k$ from $r$ to $s$. The entry's index $n$ corresponds to $L=n+1$ rows.
 \end{proof}
 
 \section{The criterion}
 
-Let $q(t)=t^{28}-\sum_i c_i t^{28-i}$ be the characteristic polynomial of
-\eqref{eq:conj}.
+Let $q(t)=t^{28}-\sum_i c_i\,t^{28-i}$ be the characteristic polynomial of
+\eqref{eq:conj}, with the $c_i$ read off that equation.
 
 \begin{lemma}\label{lem:crit}
-For $n\ge28$,
-$a(n)-\sum_i c_i a(n-i)=\mathbf{1}^{\!\top}M^{\,n-28}q(M)\mathbf{1}$. Writing
-$u_j=\mathbf{1}^{\!\top}M^{j}q(M)\mathbf{1}$, the recurrence therefore holds for every
-$n>t$ exactly when $u_j=0$ for every $j>t-28$. Moreover $(u_j)_{j\ge0}$ satisfies the
-monic linear recurrence whose characteristic polynomial is that of $M$, of degree $S$; so
-if $u_j$ vanishes for $S$ consecutive indices it vanishes for every larger index, and the
-last nonzero $u_j$ determines $t$ exactly.
+For every $n$ with $n+1-1\ge28$,
+\[
+a(n)-\sum_i c_i\,a(n-i)\;=\;\mathbf{1}^{\!\top}M^{\,n+1-1-28}\,q(M)\,\mathbf{1} .
+\]
+Hence \eqref{eq:conj} holds from that point on if and only if
+$\mathbf{1}^{\!\top}M^{j}q(M)\mathbf{1}=0$ for every $j\ge0$; and it is enough to check
+$j=0,1,\dots,S-1$.
 \end{lemma}
 
 \begin{proof}
-By Lemma~\ref{lem:walk}, $a(n-i)=\mathbf{1}^{\!\top}M^{n-i}\mathbf{1}$, so
-$a(n)-\sum_i c_i a(n-i)
-=\mathbf{1}^{\!\top}M^{\,n-28}\bigl(M^{28}-\sum_i c_i M^{28-i}\bigr)
-\mathbf{1}$, which is the identity. Putting $j=n-28$ gives the equivalence. For the
-last claim, let $\chi$ be the characteristic polynomial of $M$; by Cayley--Hamilton
-$\chi(M)=0$, so applying $\chi$ to the shift operator annihilates $(u_j)$, and $\chi$ is
-monic of degree $S$, which is exactly the statement that $S$ consecutive zeros propagate
-forward.
+By Lemma~\ref{lem:walk}, $a(n-i)=\mathbf{1}^{\!\top}M^{\,n+1-1-i}\mathbf{1}$, so
+\[
+a(n)-\sum_i c_i a(n-i)
+=\mathbf{1}^{\!\top}\Bigl(M^{m}-\sum_i c_i M^{m-i}\Bigr)\mathbf{1}
+=\mathbf{1}^{\!\top}M^{\,m-28}\,q(M)\,\mathbf{1}
+\]
+with $m=n+1-1$, which is the stated identity; the equivalence follows by letting
+$m-28=j$ run over $\ge0$. For the last clause put $w=q(M)\mathbf{1}$. By the
+Cayley--Hamilton theorem $M^{S}$ is an integer combination of $I,M,\dots,M^{S-1}$, so
+$\mathbf{1}^{\!\top}M^{j}w$ for $j\ge S$ is the corresponding combination of the earlier
+values; if those all vanish, so do all the rest.
 \end{proof}
 
 \section{The computation}
 
 \begin{theorem}
-The recurrence \eqref{eq:conj} holds for every $n>28$. This is the statement of
+The recurrence \eqref{eq:conj} holds for every $n>27$, which is the statement of
 Section~1.
 \end{theorem}
 
 \begin{proof}
-The vector $q(M)\mathbf{1}\in\mathbb{Z}^{S}$ was formed by $28$ matrix--vector
-products in exact integer arithmetic and the values $u_j$ evaluated for
-$j=0,1,\dots$. They vanish from $j=28-28+1$ onwards, and the run was continued past
-$S$ consecutive zeros, which by Lemma~\ref{lem:crit} settles every larger $j$. Hence the
-recurrence holds for every $n>28$.
+The digraph was constructed from \eqref{eq:loc} by a depth-first scan across the $7$
+columns: the edge condition is a conjunction of one constraint per consecutive column
+pair, so the successors of a row $r$ are enumerated column by column without testing all
+$S^2$ pairs. The vector $w=q(M)\mathbf{1}\in\mathbb{Z}^{S}$ was then formed by $28$
+matrix--vector products in exact integer arithmetic, and $\mathbf{1}^{\!\top}M^{j}w$ was
+evaluated for $j=0,1,\dots$, again exactly. Every one of those integers vanishes from the
+index corresponding to $n=27+1$ onwards, and the run continued until $w$ itself was the
+zero vector, which settles every larger $j$ at once. By Lemma~\ref{lem:crit} the recurrence
+holds for every $n>27$.
 \end{proof}
+
+\begin{remark}
+The argument gives more than the recurrence: it shows the sequence is $C$-finite with
+characteristic polynomial dividing that of $M$, so it has a rational generating function
+whose denominator divides $\det(I-xM)$. The conjectured recurrence is one consequence; the
+minimal one is a divisor of $q$.
+\end{remark}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
 First, the digraph was built directly from the entry's stated condition and the walk counts
-$\mathbf{1}^{\!\top}M^{n}\mathbf{1}$ compared against the entry's DATA at every one of
-the $19$ published indices; the values agree exactly. That is what ties the digraph to
-the sequence: a model reproducing only some published terms would be the wrong model and
-was rejected wherever it occurred.
+$\mathbf{1}^{\!\top}M^{L-1}\mathbf{1}$ compared against the entry's DATA at
+every one of the $10$ published indices; the values agree exactly. That is what ties
+the digraph to the sequence: a model that reproduced only some of the published terms would
+be the wrong model, and would have been rejected. In particular it is what rules out a
+misreading of the entry's wording, since a different reading of the condition gives a
+different digraph and different counts.
 
 Second, the recurrence \eqref{eq:conj} was evaluated on those published terms in exact
 integer arithmetic, with no matrices involved, and vanishes wherever it applies.
 
-Third, the vanishing test of Lemma~\ref{lem:crit} was carried past $S=150$ consecutive
-zeros rather than to a sampled prefix, in exact integer arithmetic.
+Third, the annihilation test of Lemma~\ref{lem:crit} was run in exact integer arithmetic
+until the working vector was identically zero, not to a sampled prefix, and returned zero
+throughout.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A234985.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A203794.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

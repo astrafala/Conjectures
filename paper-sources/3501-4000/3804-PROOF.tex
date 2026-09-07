@@ -12,19 +12,19 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A260102, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A261291, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{1 September 2026}
+\date{7 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A260102 counts $(n+2)\times6$ arrays over $\{0,\dots,1\}$ subject to a condition imposed on
-every $3\times3$ subblock, and it carries an empirical recurrence of order $57$
+OEIS A261291 counts $(n+2)\times9$ arrays over $\{0,\dots,1\}$ subject to a condition imposed on
+every $3\times3$ subblock, and it carries an empirical recurrence of order $58$
 contributed by R.~H.~Hardin. It is true, and it is not an empirical matter. A $3\times3$
 subblock spans three consecutive rows, so the state of a transfer matrix is a PAIR of
 consecutive rows and appending one more row is a step; an array is then a walk, and
-$a(n)$ is a walk count on $S=4096$ vertices. Such a sequence is $C$-finite, so whether a given
+$a(n)$ is a walk count on $S=262144$ vertices. Such a sequence is $C$-finite, so whether a given
 recurrence annihilates it is decided by a finite exact computation, with the Cayley--Hamilton
 theorem bounding the work.
 \end{abstract}
@@ -33,21 +33,21 @@ theorem bounding the work.
 
 \section{The conjecture}
 
-OEIS A260102 is ``Number of (n+2)X(4+2) 0..1 arrays with each 3X3 subblock having clockwise perimeter pattern 00000001 00000101 or 00010101.''. It has offset $1$ and begins
+OEIS A261291 is ``Number of (n+2)X(7+2) 0..1 arrays with each 3X3 subblock having clockwise perimeter pattern 00000001 00010101 or 01010101.''. It has offset $1$ and begins
 \[
-472, 1151, 2768, 7119, 18209, 47498, 121800, 316688,\ \dots
+1015, 1361, 4715, 14106, 48435, 153144, 561724, 1703644,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 2*a(n-1) +2*a(n-2) -6*a(n-3) +16*a(n-4) -29*a(n-6) +51*a(n-7) -127*a(n-8) -8*a(n-9) +366*a(n-10) -783*a(n-11) +639*a(n-12) +660*a(n-13) -2033*a(n-14) +1968*a(n-15) -1619*a(n-16) +1793*a(n-17) +3541*a(n-18) -7413*a(n-19) -1289*a(n-20) +6703*a(n-21) +3165*a(n-22) -3460*a(n-23) -14509*a(n-24) +8247*a(n-25) +4423*a(n-26) +10598*a(n-27) -15798*a(n-28) -6055*a(n-29) +16608*a(n-30) +24355*a(n-31) -7596*a(n-32) -30915*a(n-33) -13089*a(n-34) +6263*a(n-35) +16611*a(n-36) -4521*a(n-37) -4505*a(n-38) -6759*a(n-39) +14768*a(n-40) +9118*a(n-41) +2224*a(n-42) -14515*a(n-43) -4663*a(n-44) +2666*a(n-45) +5599*a(n-46) -506*a(n-47) -1079*a(n-48) -688*a(n-49) +527*a(n-50) +34*a(n-51) -2*a(n-52) -110*a(n-53) +54*a(n-54) -22*a(n-55) +22*a(n-56) -8*a(n-57) for n>59
+Empirical: a(n) = 4*a(n-2) +72*a(n-4) +126*a(n-6) -504*a(n-8) -183*a(n-10) +2017*a(n-12) -433*a(n-14) -4301*a(n-16) +4487*a(n-18) -20226*a(n-20) +67671*a(n-22) -85069*a(n-24) +15742*a(n-26) +113631*a(n-28) -145965*a(n-30) -77933*a(n-32) +581282*a(n-34) -888710*a(n-36) +370130*a(n-38) +202679*a(n-40) -271169*a(n-42) +90087*a(n-44) +41519*a(n-46) -19825*a(n-48) +1820*a(n-50) +70*a(n-52) -892*a(n-54) -416*a(n-56) -64*a(n-58) for n>69
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jun 02 2025 12:00:37, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Aug 14 2015 07:17:23, revision 4) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{Three consecutive lines}
 
 Write an admissible array as a sequence of rows $u_1,u_2,\dots$, each an element of
-$\{0,\dots,1\}^{6}$. A $3\times3$ subblock occupies three consecutive rows and
+$\{0,\dots,1\}^{9}$. A $3\times3$ subblock occupies three consecutive rows and
 three consecutive columns, so with $r,s,t$ three consecutive rows the blocks it
 contributes are
 \[
@@ -55,13 +55,13 @@ g=\begin{pmatrix}r_j&r_{j+1}&r_{j+2}\\ s_j&s_{j+1}&s_{j+2}\\ t_j&t_{j+1}&t_{j+2}
 \]
 for each admissible index, and the entry's condition is the requirement that
 \[
-\text{the clockwise perimeter word of }g\text{ is a rotation of one of }\{00000001,\ 00000101,\ 00010101\}
+\text{the clockwise perimeter word of }g\text{ is a rotation of one of }\{00000001,\ 00010101,\ 01010101\}
 \]
 holds for every such $g$. This involves $r$, $s$ and $t$ only: it is a condition on
 three consecutive rows and on nothing else.
 
 Take as vertices of a digraph $G$ the ordered PAIRS $(r,s)$ of rows, of which there are
-$S=(1+1)^{2\cdot6}=4096$, and put an edge $(r,s)\to(s,t)$ exactly when the condition
+$S=(1+1)^{2\cdot9}=262144$, and put an edge $(r,s)\to(s,t)$ exactly when the condition
 holds for the triple $(r,s,t)$ at every admissible index. An array with $L$ rows is then a
 walk of length $L-2$ in $G$: its first two rows name the starting vertex and each further
 row is one step. Hence, with $M$ the adjacency matrix of $G$,
@@ -74,7 +74,7 @@ In particular $a$ is $C$-finite.
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{57}-\sum_i c_it^{57-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{58}-\sum_i c_it^{58-i}$ be the characteristic polynomial of the
 conjectured recurrence. Then the residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\mathbf{1}^{\!\top}M^{\,j}q(M)\mathbf{1}$ for the corresponding walk index
 $j$, so the recurrence holds from some point on if and only if
@@ -83,7 +83,7 @@ Cayley--Hamilton theorem it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+57}-\sum_ic_iM^{j+57-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+58}-\sum_ic_iM^{j+58-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$, so the numbers
 $u_j=\mathbf{1}^{\!\top}M^{j}q(M)\mathbf{1}$ satisfy the monic linear recurrence given by
 the characteristic polynomial of $M$; $S$ consecutive zeros therefore force every later one,
@@ -92,24 +92,24 @@ and the last nonzero $u_j$ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;2\,a(n-1) + 2\,a(n-2) - 6\,a(n-3) + 16\,a(n-4) - 29\,a(n-6) + 51\,a(n-7) - 127\,a(n-8) - 8\,a(n-9) + 366\,a(n-10) - 783\,a(n-11) + 639\,a(n-12) + 660\,a(n-13) - 2033\,a(n-14) + 1968\,a(n-15) - 1619\,a(n-16) + 1793\,a(n-17) + 3541\,a(n-18) - 7413\,a(n-19) - 1289\,a(n-20) + 6703\,a(n-21) + 3165\,a(n-22) - 3460\,a(n-23) - 14509\,a(n-24) + 8247\,a(n-25) + 4423\,a(n-26) + 10598\,a(n-27) - 15798\,a(n-28) - 6055\,a(n-29) + 16608\,a(n-30) + 24355\,a(n-31) - 7596\,a(n-32) - 30915\,a(n-33) - 13089\,a(n-34) + 6263\,a(n-35) + 16611\,a(n-36) - 4521\,a(n-37) - 4505\,a(n-38) - 6759\,a(n-39) + 14768\,a(n-40) + 9118\,a(n-41) + 2224\,a(n-42) - 14515\,a(n-43) - 4663\,a(n-44) + 2666\,a(n-45) + 5599\,a(n-46) - 506\,a(n-47) - 1079\,a(n-48) - 688\,a(n-49) + 527\,a(n-50) + 34\,a(n-51) - 2\,a(n-52) - 110\,a(n-53) + 54\,a(n-54) - 22\,a(n-55) + 22\,a(n-56) - 8\,a(n-57)
+a(n)\;=\;4\,a(n-2) + 72\,a(n-4) + 126\,a(n-6) - 504\,a(n-8) - 183\,a(n-10) + 2017\,a(n-12) - 433\,a(n-14) - 4301\,a(n-16) + 4487\,a(n-18) - 20226\,a(n-20) + 67671\,a(n-22) - 85069\,a(n-24) + 15742\,a(n-26) + 113631\,a(n-28) - 145965\,a(n-30) - 77933\,a(n-32) + 581282\,a(n-34) - 888710\,a(n-36) + 370130\,a(n-38) + 202679\,a(n-40) - 271169\,a(n-42) + 90087\,a(n-44) + 41519\,a(n-46) - 19825\,a(n-48) + 1820\,a(n-50) + 70\,a(n-52) - 892\,a(n-54) - 416\,a(n-56) - 64\,a(n-58)
 \]
-for every $n>59$.
+for every $n>69$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\mathbf{1}$ was formed by $57$ matrix--vector products in exact
+The vector $w=q(M)\mathbf{1}$ was formed by $58$ matrix--vector products in exact
 integer arithmetic and $\mathbf{1}^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again
-exactly. Those integers vanish from the index corresponding to $n=59+1$ onwards, and the
+exactly. Those integers vanish from the index corresponding to $n=69+1$ onwards, and the
 run was continued until the working vector was identically zero, which settles all larger $j$
-at once. By Lemma~\ref{lem:crit} the recurrence holds for every $n>59$.
+at once. By Lemma~\ref{lem:crit} the recurrence holds for every $n>69$.
 \end{proof}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the transfer model reproduces all $23$ terms the entry publishes, exactly, in
+First, the transfer model reproduces all $21$ terms the entry publishes, exactly, in
 integer arithmetic. This is what ties the model to the entry: the digraph is built by reading
 the entry's English, and a misreading gives different counts. That check did real work here. The phrase ``clockwise perimeter pattern'' does not mean that the eight boundary entries, read clockwise from the top left, equal the quoted word; it means the cyclic word they form is that word up to rotation. Read the first way the model returns counts far below the entry's own first term, and only the second reading reproduces the published values. It is the one used.
 
@@ -122,7 +122,7 @@ enters anywhere.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A260102.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A261291.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

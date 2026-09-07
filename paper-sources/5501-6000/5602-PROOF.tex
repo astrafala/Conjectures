@@ -12,53 +12,69 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A229698, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A236896, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A229698 carries an empirical recurrence of order $21$ contributed by R.~H.~Hardin. It is
-true, and it is decidable rather than empirical. The entry's condition is local to a window of consecutive lines fixed by the entry's own offsets, so
-the admissible configurations of such a window are the vertices of a finite digraph and the
-arrays counted are exactly the walks in it; hence $a(n)$ is a walk count on $S=828$ vertices
-and is $C$-finite. Whether the conjectured recurrence annihilates it is then settled by a
-finite exact computation, with the Cayley--Hamilton theorem bounding the work.
+OEIS A236896 counts arrays over $\{0,\dots,2\}$ subject to a condition on the order
+statistics of every $2\times2$ subblock, and carries an empirical recurrence of order
+$22$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical.
+The condition is local to two consecutive rows, so the count is a walk count on $S=69$
+states and is $C$-finite; whether the conjectured recurrence annihilates it is then settled by
+a finite exact computation, with the Cayley--Hamilton theorem bounding the work.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 62G30.\normalsize
 
 \section{The conjecture}
 
-OEIS A229698 is ``Number of defective 3-colorings of a 5 X n 0..2 array connected horizontally and antidiagonally with exactly two mistakes, and colors introduced in row-major 0..2 order.''. It has offset $1$ and begins
+OEIS A236896 is ``Number of (n+1)X(2+1) 0..2 arrays with the maximum plus the upper median of every 2X2 subblock equal.''. It has offset $1$ and begins
 \[
-0, 2304, 62856, 1125333, 17724789, 258006388, 3583403667, 48115029568,\ \dots
+339, 3205, 30644, 337861, 3782769, 43538228, 504121651, 5869125835,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 48*a(n-1) - 960*a(n-2) + 10468*a(n-3) - 68685*a(n-4) + 282276*a(n-5) - 718624*a(n-6) + 997536*a(n-7) - 166467*a(n-8) - 2005784*a(n-9) + 3520224*a(n-10) - 1956780*a(n-11) - 1660207*a(n-12) + 3547332*a(n-13) - 2236608*a(n-14) - 28632*a(n-15) + 1014720*a(n-16) - 774528*a(n-17) + 307392*a(n-18) - 71424*a(n-19) + 9216*a(n-20) - 512*a(n-21) for n > 27.
+Empirical: a(n) = 20*a(n-1) -50*a(n-2) -1079*a(n-3) +5929*a(n-4) +13546*a(n-5) -136152*a(n-6) +32559*a(n-7) +1230196*a(n-8) -1321510*a(n-9) -5558982*a(n-10) +8606104*a(n-11) +13433556*a(n-12) -26908536*a(n-13) -16223728*a(n-14) +45800336*a(n-15) +5469360*a(n-16) -41824640*a(n-17) +6747552*a(n-18) +17907200*a(n-19) -5889280*a(n-20) -2304000*a(n-21) +921600*a(n-22)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Apr 28 2021 01:22:20, revision 8) this is still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 09:39:21, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
+
+\section{What is being counted}
+
+Sort the four entries of a $2\times2$ subblock as $a\le b\le c\le d$: they
+are its minimum, lower median, upper median and maximum. The entry fixes the signed sum
+\[
+\sigma\;=\;c+d,
+\]
+and asks that $\sigma$ take the SAME value on every $2\times2$ subblock of an
+$(n+1)\times3$ array over $\{0,\dots,2\}$.
+
+The common value is not named, so the count splits by it. For a fixed $v$ let $a_v(n)$ count
+the arrays all of whose subblocks give $\sigma=v$. An array determines its common value, so
+the sets belonging to different $v$ are disjoint and $a(n)=\sum_v a_v(n)$, a finite sum.
+
 
 \section{The count is a walk count}
 
-The condition the entry imposes is local: it constrains a window of consecutive lines fixed by the entry's own offsets and nothing beyond. Take as
-vertices the admissible configurations of one such window and put an edge from $u$ to $v$
-whenever $v$ may follow $u$, which the condition decides by inspection of the two. An
-admissible array is then exactly a walk, so with $M$ the adjacency matrix on $S=828$ vertices
-and $\iota,\tau$ the vectors recording which windows may begin and end an array,
+For a fixed $v$ the condition involves two consecutive rows and nothing
+else: rows $r$ and $s$ may follow one another exactly when $\sigma$ equals $v$ on each of the
+$2$ subblocks they form. So a row is a state, an $(n+1)$-row array is a walk of $n$
+steps, and with $M$ the adjacency matrix on the disjoint union over $v$,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n}\tau ,
+a(n)\;=\;\iota^{\!\top}M^{\,n}\tau,\qquad\iota=\tau=(1,\dots,1)^{\!\top} .
 \]
-the exponent fixed by the entry's own shape and checked against its published terms. In
-particular $a$ is $C$-finite.
+Rows carrying no edge at all are dropped: such a row can only be the whole of a one-row
+array, which is not among the objects counted. There are $S=69$ states left.
+The alignment of the walk index with the entry's own $n$ was checked against its published
+terms rather than assumed. In particular $a$ is $C$-finite.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{21}-\sum_i c_it^{21-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{22}-\sum_i c_it^{22-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -66,7 +82,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+21}-\sum_ic_iM^{j+21-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+22}-\sum_ic_iM^{j+22-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -75,15 +91,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;48\,a(n-1) - 960\,a(n-2) + 10468\,a(n-3) - 68685\,a(n-4) + 282276\,a(n-5) - 718624\,a(n-6) + 997536\,a(n-7) - 166467\,a(n-8) - 2005784\,a(n-9) + 3520224\,a(n-10) - 1956780\,a(n-11) - 1660207\,a(n-12) + 3547332\,a(n-13) - 2236608\,a(n-14) - 28632\,a(n-15) + 1014720\,a(n-16) - 774528\,a(n-17) + 307392\,a(n-18) - 71424\,a(n-19) + 9216\,a(n-20) - 512\,a(n-21)
+a(n)\;=\;20\,a(n-1) - 50\,a(n-2) - 1079\,a(n-3) + 5929\,a(n-4) + 13546\,a(n-5) - 136152\,a(n-6) + 32559\,a(n-7) + 1230196\,a(n-8) - 1321510\,a(n-9) - 5558982\,a(n-10) + 8606104\,a(n-11) + 13433556\,a(n-12) - 26908536\,a(n-13) - 16223728\,a(n-14) + 45800336\,a(n-15) + 5469360\,a(n-16) - 41824640\,a(n-17) + 6747552\,a(n-18) + 17907200\,a(n-19) - 5889280\,a(n-20) - 2304000\,a(n-21) + 921600\,a(n-22)
 \]
-for every $n>27$.
+for every $n>22$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $21$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $22$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=27+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=22+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -91,7 +107,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $15$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $16$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
@@ -103,11 +119,11 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A229698.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A236896.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
-University Press, 2009.
+\bibitem{david} H.~A.~David and H.~N.~Nagaraja, \emph{Order Statistics}, 3rd ed., Wiley,
+2003.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

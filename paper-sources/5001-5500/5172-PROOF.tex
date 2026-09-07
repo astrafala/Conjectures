@@ -12,121 +12,121 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A187722, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A252426, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{2 September 2026}
+\date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A187722 counts the $(n+1)\times3$ arrays over $\{0,\dots,1\}$ in which
-neighbouring $2\times2$ subblocks do not commute as matrices, and carries an empirical recurrence
-of order $27$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
-empirical. The condition ties together $2+1$ consecutive rows, so $2$ consecutive rows are
-a state, the count is a walk count on $S=43$ of them, and the conjectured recurrence is then
-settled by a finite exact computation.
+OEIS A252426 counts $(n+2)\times3$ arrays over $\{0,\dots,3\}$ subject to a condition imposed on
+every $3\times3$ subblock, and it carries an empirical recurrence of order $27$
+contributed by R.~H.~Hardin. It is true, and it is not an empirical matter. A $3\times3$
+subblock spans three consecutive rows, so the state of a transfer matrix is a PAIR of
+consecutive rows and appending one more row is a step; an array is then a walk, and
+$a(n)$ is a walk count on $S=4096$ vertices. Such a sequence is $C$-finite, so whether a given
+recurrence annihilates it is decided by a finite exact computation, with the Cayley--Hamilton
+theorem bounding the work.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 15A27, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
 \section{The conjecture}
 
-OEIS A187722 is ``Number of (n+1)X3 binary arrays with no 2X2 subblock commuting with any of its horizontal and vertical 2X2 subblock neighbors.''. It has offset $1$ and begins
+OEIS A252426 is ``Number of (n+2)X(1+2) 0..3 arrays with every 3X3 subblock row and diagonal sum equal to 0 2 4 6 or 7 and every 3X3 column and antidiagonal sum not equal to 0 2 4 6 or 7.''. It has offset $1$ and begins
 \[
-43, 174, 689, 2804, 11324, 46003, 186672, 758077,\ \dots
+641, 602, 608, 878, 1152, 1603, 2617, 4131,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n)=9*a(n-2)+31*a(n-3)+24*a(n-4)-60*a(n-5)-167*a(n-6)-146*a(n-7)+80*a(n-8)+321*a(n-9)+368*a(n-10)+29*a(n-11)-621*a(n-12)-250*a(n-13)+210*a(n-14)+167*a(n-15)+275*a(n-16)-76*a(n-17)-88*a(n-18)-54*a(n-19)-41*a(n-20)-16*a(n-21)+21*a(n-22)+14*a(n-23)-5*a(n-24)+a(n-25)+2*a(n-26)-a(n-27) for n>28
+Empirical: a(n) = 11*a(n-3) -39*a(n-6) +57*a(n-9) -72*a(n-12) +60*a(n-15) -31*a(n-18) +17*a(n-21) -a(n-24) -a(n-27) for n>34
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 04:07:39, revision 9) this is still
+As of the ``Last modified'' line on the live entry (Jun 02 2025 11:13:15, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
-\section{What is being counted}
+\section{Three consecutive lines}
 
-The contiguous $2\times2$ subblocks of an $(n+1)\times3$ array form a grid of $n$
-rows and $2$ columns. Two subblocks that are neighbours in that
-grid OVERLAP: horizontally they share $2\times1$ entries, vertically
-$1\times2$. Nevertheless each is a $2\times2$ integer matrix in its own right, and
-the entry requires that every neighbouring pair, horizontal or vertical, do not commute --- that is,
-$AB=BA$ as matrices over $\mathbf{Z}$.
-
-At $n=1$ the array has $2$ rows and the grid is a single row of $2$
-subblocks, with only the horizontal pairs to test; the entry's first term is
-$43$, which the model reproduces along with every later term.
-
-\section{The count is a walk count}
-
-A subblock row is fixed by $2$ consecutive array rows, and the vertical condition compares
-two consecutive subblock rows, hence $2+1$ consecutive array rows. So take as state the
-$2$-tuple of consecutive rows whose subblock row has just been completed. A step appends one
-array row: that fixes the next subblock row, and the horizontal pairs inside it and the
-vertical pairs against the previous one are all settled there. An array of $n+1$ rows is
-a walk of $n-1$ steps and every walk comes from exactly one array, so
+Write an admissible array as a sequence of rows $u_1,u_2,\dots$, each an element of
+$\{0,\dots,3\}^{3}$. A $3\times3$ subblock occupies three consecutive rows and
+three consecutive columns, so with $r,s,t$ three consecutive rows the blocks it
+contributes are
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,\qquad\iota=\tau=(1,\dots,1)^{\!\top},
+g=\begin{pmatrix}r_j&r_{j+1}&r_{j+2}\\ s_j&s_{j+1}&s_{j+2}\\ t_j&t_{j+1}&t_{j+2}\end{pmatrix}
 \]
-on the $S=43$ admissible $2$-tuples. In particular $a$ is $C$-finite.
+for each admissible index, and the entry's condition is the requirement that
+\[
+\text{every row, diagonal sum} \in \{0,2,4,6,7\}\ \text{ and }\ \text{every column, antidiagonal sum} \notin \{0,2,4,6,7\}
+\]
+holds for every such $g$. This involves $r$, $s$ and $t$ only: it is a condition on
+three consecutive rows and on nothing else.
 
-This state does not compress. What a step needs of the past is the previous subblock row, and
-for $3\ge2$ that row already determines the $2$ array rows it was built from, so nothing
-is lost by carrying the rows and nothing would be gained by carrying the matrices instead. The
-size of the construction is therefore $2^{2\cdot3}$ before the condition prunes
-it, which is what puts the wider members of this family out of reach rather than settling them.
+Take as vertices of a digraph $G$ the ordered PAIRS $(r,s)$ of rows, of which there are
+$S=(3+1)^{2\cdot3}=4096$, and put an edge $(r,s)\to(s,t)$ exactly when the condition
+holds for the triple $(r,s,t)$ at every admissible index. An array with $L$ rows is then a
+walk of length $L-2$ in $G$: its first two rows name the starting vertex and each further
+row is one step. Hence, with $M$ the adjacency matrix of $G$,
+\[
+a(n)\;=\;\,\mathbf{1}^{\!\top}M^{\,n-1+1}\mathbf{1},
+\]
+the exponent being fixed by the entry's own shape and checked against its published terms.
+In particular $a$ is $C$-finite.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
 Let $q(t)=t^{27}-\sum_i c_it^{27-i}$ be the characteristic polynomial of the
-conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
-$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
-holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
-and it is enough to examine $j<S$.
+conjectured recurrence. Then the residual $a(n)-\sum_ic_ia(n-i)$ equals
+$\mathbf{1}^{\!\top}M^{\,j}q(M)\mathbf{1}$ for the corresponding walk index
+$j$, so the recurrence holds from some point on if and only if
+$\mathbf{1}^{\!\top}M^{j}q(M)\mathbf{1}=0$ for all large $j$; and by the
+Cayley--Hamilton theorem it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
 Factor $M^{j}$ out of $M^{j+27}-\sum_ic_iM^{j+27-i}$. For the bound, $M^{S}$
-is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
-$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
-polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly.
+is an integer combination of $I,M,\dots,M^{S-1}$, so the numbers
+$u_j=\mathbf{1}^{\!\top}M^{j}q(M)\mathbf{1}$ satisfy the monic linear recurrence given by
+the characteristic polynomial of $M$; $S$ consecutive zeros therefore force every later one,
+and the last nonzero $u_j$ pins the threshold exactly.
 \end{proof}
 
 \begin{theorem}
 \[
-a(n)\;=\;9\,a(n-2) + 31\,a(n-3) + 24\,a(n-4) - 60\,a(n-5) - 167\,a(n-6) - 146\,a(n-7) + 80\,a(n-8) + 321\,a(n-9) + 368\,a(n-10) + 29\,a(n-11) - 621\,a(n-12) - 250\,a(n-13) + 210\,a(n-14) + 167\,a(n-15) + 275\,a(n-16) - 76\,a(n-17) - 88\,a(n-18) - 54\,a(n-19) - 41\,a(n-20) - 16\,a(n-21) + 21\,a(n-22) + 14\,a(n-23) - 5\,a(n-24) + a(n-25) + 2\,a(n-26) - a(n-27)
+a(n)\;=\;11\,a(n-3) - 39\,a(n-6) + 57\,a(n-9) - 72\,a(n-12) + 60\,a(n-15) - 31\,a(n-18) + 17\,a(n-21) - a(n-24) - a(n-27)
 \]
-for every $n>28$.
+for every $n>34$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $27$ matrix--vector products in exact integer
-arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=28+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once.
+The vector $w=q(M)\mathbf{1}$ was formed by $27$ matrix--vector products in exact
+integer arithmetic and $\mathbf{1}^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again
+exactly. Those integers vanish from the index corresponding to $n=34+1$ onwards, and the
+run was continued until the working vector was identically zero, which settles all larger $j$
+at once. By Lemma~\ref{lem:crit} the recurrence holds for every $n>34$.
 \end{proof}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $21$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry: the digraph is built by reading the
-entry's English, and a misreading gives different counts.
+First, the transfer model reproduces all $30$ terms the entry publishes, exactly, in
+integer arithmetic. This is what ties the model to the entry: the digraph is built by reading
+the entry's English, and a misreading gives different counts.
 
-Second, the conjectured recurrence was evaluated directly on those published terms, with no
-matrices involved, and holds wherever the proved range and the data overlap.
+Second, the conjectured recurrence was evaluated directly on the entry's own published terms,
+with no matrices involved, and holds wherever the proved range and the data overlap.
 
 Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
-arithmetic on the whole vector rather than on a sampled prefix.
+arithmetic on the whole vector rather than on a sampled prefix, so no rounding or sampling
+enters anywhere.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A187722.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A252426.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{suprunenko} D.~A.~Suprunenko and R.~I.~Tyshkevich, \emph{Commutative Matrices},
-Academic Press, 1968.
+\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+University Press, 2009.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

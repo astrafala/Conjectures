@@ -12,49 +12,50 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A207216, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A203350, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A207216 counts arrays of width $3$ over $\{0,1,2\}$ containing no occurrence of certain short
+OEIS A203350 counts arrays of width $5$ over $\{0,1\}$ containing no occurrence of certain short
 patterns, read along the rows, the columns or the diagonals. The entry carries an empirical
-recurrence of order $63$ contributed by R.~H.~Hardin. It is true, and it is decidable
+recurrence of order $64$ contributed by R.~H.~Hardin. It is true, and it is decidable
 rather than empirical: no pattern is longer than $3$ letters and no direction moves the row
 index by more than one, so every occurrence lies inside $3$ consecutive array rows and the
-count is a walk count on $S=651$ states.
+count is a walk count on $S=273$ states.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 68R15, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A207216 is ``Number of nX3 0..2 arrays avoiding the pattern z z+1 z in any row or column.''. It has offset $1$ and begins
+OEIS A203350 is ``Number of (n+2)X5 binary arrays avoiding patterns 010 and 101 in rows, columns and nw-to-se diagonals.''. It has offset $1$ and begins
 \[
-25, 625, 12534, 247163, 4916282, 97935886, 1950327875, 38835489653,\ \dots
+702, 3716, 17676, 84322, 403624, 1933250, 9252084, 44314952,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 19*a(n-1) -80*a(n-2) +1817*a(n-3) +393*a(n-4) +40639*a(n-5) +135655*a(n-6) -288018*a(n-7) +1383524*a(n-8) -6460141*a(n-9) -42527369*a(n-10) +54473671*a(n-11) -3651045*a(n-12) -176749122*a(n-13) +4407855135*a(n-14) +2709812836*a(n-15) -34919565552*a(n-16) -27447585535*a(n-17) +113274818974*a(n-18) +114838914140*a(n-19) -128539719662*a(n-20) -192736763296*a(n-21) -152774223996*a(n-22) -36302533050*a(n-23) +472340733412*a(n-24) +502775352861*a(n-25) -65829409260*a(n-26) -326138062718*a(n-27) -608987401872*a(n-28) -496677891503*a(n-29) +211702810836*a(n-30) +457318062888*a(n-31) +468410661487*a(n-32) +313611961167*a(n-33) -126649818836*a(n-34) -268635687911*a(n-35) -246107284607*a(n-36) -166980560951*a(n-37) +4064457411*a(n-38) +64871730646*a(n-39) +73590617020*a(n-40) +58177206255*a(n-41) +18030791535*a(n-42) +865842795*a(n-43) -7967186465*a(n-44) -8986570910*a(n-45) -4749899549*a(n-46) -2540040800*a(n-47) -578469622*a(n-48) +169446405*a(n-49) +199570174*a(n-50) +252247666*a(n-51) +91768452*a(n-52) +69302160*a(n-53) +17497762*a(n-54) +10560678*a(n-55) +1955316*a(n-56) +1012729*a(n-57) +133774*a(n-58) +61516*a(n-59) +5238*a(n-60) +2199*a(n-61) +90*a(n-62) +36*a(n-63)
+Empirical: a(n) = 8*a(n-1) -12*a(n-2) -24*a(n-3) +17*a(n-4) +88*a(n-5) +102*a(n-6) -243*a(n-7) +99*a(n-8) -772*a(n-9) -1701*a(n-10) +4240*a(n-11) +5897*a(n-12) -4277*a(n-13) -8679*a(n-14) -15973*a(n-15) -19012*a(n-16) +96695*a(n-17) +119498*a(n-18) -305186*a(n-19) -345693*a(n-20) +635898*a(n-21) +828058*a(n-22) -887645*a(n-23) -1637071*a(n-24) +656825*a(n-25) +2571635*a(n-26) +552766*a(n-27) -2937429*a(n-28) -2698824*a(n-29) +1771258*a(n-30) +4613722*a(n-31) +1104975*a(n-32) -4477496*a(n-33) -4207415*a(n-34) +1266663*a(n-35) +4309165*a(n-36) +2221082*a(n-37) -1120602*a(n-38) -2287492*a(n-39) -1232173*a(n-40) +270494*a(n-41) +860200*a(n-42) +589509*a(n-43) +109566*a(n-44) -180687*a(n-45) -220729*a(n-46) -109731*a(n-47) +10788*a(n-48) +55399*a(n-49) +34551*a(n-50) +4495*a(n-51) -8678*a(n-52) -6347*a(n-53) -1159*a(n-54) +1095*a(n-55) +910*a(n-56) +169*a(n-57) -108*a(n-58) -109*a(n-59) -11*a(n-60) +9*a(n-61) +7*a(n-62) +a(n-63) -a(n-64)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 13:37:02, revision 9) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 10:21:56, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The array has $3$ cells across, with entries in $\{0,1,2\}$. An OCCURRENCE of a pattern in a
+The array has $5$ cells across, with entries in $\{0,1\}$. An OCCURRENCE of a pattern in a
 direction is a run of consecutive cells taken in that direction whose entries match the pattern
 in order; the array is counted when it has no occurrence at all. The entry names
 \[
 \begin{array}{ll}
 \text{direction} & \text{forbidden patterns} \\[2pt]
-\text{along a row, left to right} & (z,\,z+1,\,z) \\
-\text{down a column} & (z,\,z+1,\,z) \\
+\text{along a row, left to right} & \mathtt{010},\quad \mathtt{101} \\
+\text{down a column} & \mathtt{010},\quad \mathtt{101} \\
+\text{down a diagonal, nw to se} & \mathtt{010},\quad \mathtt{101} \\
 \end{array}
 \]
- A pattern written with the free letter $z$ forbids every window standing in those differences, whatever the value of $z$: the window $(v_1,\dots,v_r)$ is an occurrence exactly when the numbers $v_s-o_s$ are all equal, $o$ being the offsets shown.
+
 
 \section{Every occurrence lies in $3$ consecutive rows}
 
@@ -76,7 +77,7 @@ and is not assumed but read off the window. The walk starts at the all-$\bot$ wi
 of no steps is the empty array and a walk of $R$ steps is an array of $R$ rows. With $M$ the
 adjacency matrix, $\iota$ the indicator of the starting window and $\tau=\mathbf{1}$,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=651.
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=273.
 \]
 The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
 published terms rather than assumed. In particular $a$ is $C$-finite.
@@ -84,7 +85,7 @@ published terms rather than assumed. In particular $a$ is $C$-finite.
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{63}-\sum_i c_it^{63-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{64}-\sum_i c_it^{64-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -92,7 +93,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+63}-\sum_ic_iM^{j+63-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+64}-\sum_ic_iM^{j+64-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -101,15 +102,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;19\,a(n-1) - 80\,a(n-2) + 1817\,a(n-3) + 393\,a(n-4) + 40639\,a(n-5) + 135655\,a(n-6) - 288018\,a(n-7) + 1383524\,a(n-8) - 6460141\,a(n-9) - 42527369\,a(n-10) + 54473671\,a(n-11) - 3651045\,a(n-12) - 176749122\,a(n-13) + 4407855135\,a(n-14) + 2709812836\,a(n-15) - 34919565552\,a(n-16) - 27447585535\,a(n-17) + 113274818974\,a(n-18) + 114838914140\,a(n-19) - 128539719662\,a(n-20) - 192736763296\,a(n-21) - 152774223996\,a(n-22) - 36302533050\,a(n-23) + 472340733412\,a(n-24) + 502775352861\,a(n-25) - 65829409260\,a(n-26) - 326138062718\,a(n-27) - 608987401872\,a(n-28) - 496677891503\,a(n-29) + 211702810836\,a(n-30) + 457318062888\,a(n-31) + 468410661487\,a(n-32) + 313611961167\,a(n-33) - 126649818836\,a(n-34) - 268635687911\,a(n-35) - 246107284607\,a(n-36) - 166980560951\,a(n-37) + 4064457411\,a(n-38) + 64871730646\,a(n-39) + 73590617020\,a(n-40) + 58177206255\,a(n-41) + 18030791535\,a(n-42) + 865842795\,a(n-43) - 7967186465\,a(n-44) - 8986570910\,a(n-45) - 4749899549\,a(n-46) - 2540040800\,a(n-47) - 578469622\,a(n-48) + 169446405\,a(n-49) + 199570174\,a(n-50) + 252247666\,a(n-51) + 91768452\,a(n-52) + 69302160\,a(n-53) + 17497762\,a(n-54) + 10560678\,a(n-55) + 1955316\,a(n-56) + 1012729\,a(n-57) + 133774\,a(n-58) + 61516\,a(n-59) + 5238\,a(n-60) + 2199\,a(n-61) + 90\,a(n-62) + 36\,a(n-63)
+a(n)\;=\;8\,a(n-1) - 12\,a(n-2) - 24\,a(n-3) + 17\,a(n-4) + 88\,a(n-5) + 102\,a(n-6) - 243\,a(n-7) + 99\,a(n-8) - 772\,a(n-9) - 1701\,a(n-10) + 4240\,a(n-11) + 5897\,a(n-12) - 4277\,a(n-13) - 8679\,a(n-14) - 15973\,a(n-15) - 19012\,a(n-16) + 96695\,a(n-17) + 119498\,a(n-18) - 305186\,a(n-19) - 345693\,a(n-20) + 635898\,a(n-21) + 828058\,a(n-22) - 887645\,a(n-23) - 1637071\,a(n-24) + 656825\,a(n-25) + 2571635\,a(n-26) + 552766\,a(n-27) - 2937429\,a(n-28) - 2698824\,a(n-29) + 1771258\,a(n-30) + 4613722\,a(n-31) + 1104975\,a(n-32) - 4477496\,a(n-33) - 4207415\,a(n-34) + 1266663\,a(n-35) + 4309165\,a(n-36) + 2221082\,a(n-37) - 1120602\,a(n-38) - 2287492\,a(n-39) - 1232173\,a(n-40) + 270494\,a(n-41) + 860200\,a(n-42) + 589509\,a(n-43) + 109566\,a(n-44) - 180687\,a(n-45) - 220729\,a(n-46) - 109731\,a(n-47) + 10788\,a(n-48) + 55399\,a(n-49) + 34551\,a(n-50) + 4495\,a(n-51) - 8678\,a(n-52) - 6347\,a(n-53) - 1159\,a(n-54) + 1095\,a(n-55) + 910\,a(n-56) + 169\,a(n-57) - 108\,a(n-58) - 109\,a(n-59) - 11\,a(n-60) + 9\,a(n-61) + 7\,a(n-62) + a(n-63) - a(n-64)
 \]
-for every $n>62$.
+for every $n>64$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $63$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $64$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=62+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=64+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -117,7 +118,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $15$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $18$ terms the entry publishes, exactly, in integer
 arithmetic.
 
 Second, the count was recomputed for the smallest arrays straight from the definition: fill the
@@ -133,7 +134,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A207216.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A203350.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata

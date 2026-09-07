@@ -152,3 +152,36 @@ disagreed with the date the paper prints. Nothing was wrong: `paperdates.py` had
 so the date map was still keyed by the previous ranking and every shifted paper looked like a
 disagreement. Run `rank.py`, then `paperdates.py` to completion, then `makecomments_site.py`;
 out of order it manufactures thousands of false alarms.
+
+## 7 September 2026 --- the same merge again, on the cell-centred engine: 67 more
+
+`transfer19` indexes its vertices by $(r,s,c)$ --- an ordered pair of lines and the violations
+so far --- and the loop filling its edges runs over TRIPLES of lines. **No vertex guard sees a
+triple loop**, so an entry could pass the guard and then never finish. That is what had
+happened to the wider members of the family, and it is why they sat in the refused pool
+looking cap-bound.
+
+Every offset these entries name has $|dj|\le1$, so whether the cell at column $j$ of the middle
+line is satisfied depends on the three lines only through their windows at $j-1,j,j+1$. Collect
+for each $j$ the indicator over the window of the line below and call it $P(r,s)$: the number
+of cells any $t$ violates is read off $P$, so is the number violated at the bottom edge, and
+the successor $(s,t)$ carries $P(s,t)$, which does not mention $r$. Two pairs with the same $P$
+are indistinguishable, so the vertex is $(s,P,c)$. One column's profile depends only on a pair
+of windows, so it is computed once per such pair rather than once per pair of lines.
+
+Checked against the old build on six entries where the old build still runs: identical terms
+every time. The old build is kept where it is both small and affordable --- for small models it
+gives the tighter state count --- and past either wall the pair-free one is the only one that
+returns.
+
+**67 proved, at a 78% strike rate over the entries reached.** A195974 goes from 390625 pair
+states to **2473**. Round two of the same sweep found nothing in its first ten, which is where
+the vein runs out for now.
+
+**The papers say which digraph the numbers came from,** as they did for `transfer17`: the pair
+count, the identification and why it is exact, then the $S$ it leaves.
+
+Settlement re-checked against the 7 September export: 25 entries carry settlement wording, the
+same 25 already examined, none among the 67.
+
+**The deep check is 72 papers away** (`dc_gate.py` reports 9928 of 10000).

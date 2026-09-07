@@ -7,172 +7,187 @@
 \theoremstyle{plain}
 \newtheorem{theorem}{Theorem}
 \newtheorem{lemma}[theorem]{Lemma}
-\newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
-\newtheorem{definition}[theorem]{Definition}
 \newtheorem{remark}[theorem]{Remark}
-\title{A proof of the conjectured recurrence for OEIS A052227}
+\title{A proof of the conjectured recurrence for OEIS A242566}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{30 August 2026}
+\date{25 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A052227 carries a conjectured linear recurrence with polynomial coefficients, of
-order 2. The entry posts no generating function, so the usual route through a
-functional equation is unavailable. It does post a closed form for $a(n)$, and that is
-enough: the closed form is a sum of finitely many hypergeometric terms, and for such a
-term every shift quotient is a rational function of $n$. The conjectured recurrence
-therefore reduces to one rational-function identity, one for each similarity
-class of terms, and each is decided exactly by cancellation. No expansion is truncated and
-nothing is guessed; the procedure returns a proof or a refutation. Here it returns a proof,
-valid for every $n$ outside an explicitly computed finite set.
+OEIS A242566 carries a conjectured linear recurrence with polynomial coefficients, of
+order 4, contributed by R.~J.~Mathar. We prove it. The generating function of the
+entry is algebraic, and the recurrence is equivalent to the vanishing of an explicit
+differential operator applied to it: writing $\theta=x\,\frac{d}{dx}$, the sequence
+$b(n)=\sum_{i}p_{i}(n)a(n-i)$ has generating function
+$B(x)=\sum_{i}x^{i}\,(p_{i}(\theta+i)A)(x)$, so the conjecture holds for all $n>d$ exactly
+when $B$ is a polynomial of degree $d$. Since $A$ is algebraic over $\mathbb{Q}(x)$, and every simple
+algebraic extension of $\mathbb{Q}(x)$ is closed under $\theta$, the residual $B$ can be
+computed in closed form. Here it equals $- 18 x^{2} + 6 x$, a polynomial of degree $2$, which proves
+the recurrence for every $n>2$.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 33F10, 11B37, 05A10.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 11B37, 05A15, 33F10.\normalsize
 
 \section{The sequence and the conjecture}
 
-OEIS A052227 is ``a(n) = (4*n+1)*binomial(3*n,n)/(2*n+1)''. It has offset $0$ and begins
+OEIS A242566 is ``Expansion of (1-sqrt(1-(2*(1-sqrt(1-4*x\^{}2)))/x))/2''. It has offset $0$ and begins
 \[
-a(0),\dots,a(7)\;=\;1, 5, 27, 156, 935, 5733, 35700, 224808,\ \dots
+a(0),\dots,a(7)\;=\;0, 1, 1, 3, 7, 22, 67, 225,\ \dots
 \]
-The entry states, not as a conjecture,
-\begin{quote}\small
-a(n) = binomial(3*n+1, n) + binomial(3*n, n-1) for n>=0.
-\end{quote}
-that is,
-\begin{equation}\label{eq:cf}
-a(n)\;=\;{\binom{3 n}{n - 1}} + {\binom{3 n + 1}{n}} .
+The entry gives the generating function
+\begin{equation}\label{eq:gf}
+A(x)\;=\;\sum_{n\ge 0} a(n)\,x^{n}\;=\;\frac{1}{2} - \frac{\sqrt{\frac{x + 2 \sqrt{1 - 4 x^{2}} - 2}{x}}}{2} ,
 \end{equation}
-This is the only input the proof takes from the entry, and it was checked against the
-entry's own DATA before use.
-
-The entry separately carries the following comment:
+and it carries the following comment:
 \begin{quote}\small
-\textbf{Conjecture:} 8*n*(2*n+1)*a(n) + 6*(-8*n\^{}2-25*n+13)*a(n-1) - 45*(3*n-4)*(3*n-5)*a(n-2) = 0. - \emph{R. J. Mathar}, Nov 24 2012
+Conjecture D-finite with recurrence: 2*n*(2*n+1)*a(n) +(-49*n\^{}2+97*n-36)*a(n-1) +12*(10*n\^{}2-42*n+41)*a(n-2) +4*(49*n-97)*(n-3)*a(n-3) -544*(n-3)*(n-4)*a(n-4)=0. - \emph{R. J. Mathar}, Jan 25 2020
 \end{quote}
-As of the ``Last modified'' line on the live entry (2025-09-16, revision 46) the
+As of the ``Last modified'' line on the live entry (2020-01-30, revision 51) the
 statement is still recorded as a conjecture, and no proof appears among the entry's links,
 formulas or programs.
 
-Written out, the conjecture is
-\begin{equation}\label{eq:conj}
-8 n \left(2 n + 1\right)\,a(n) -  6 \left(8 n^{2} + 25 n - 13\right)\,a(n-1) -  45 \left(3 n - 5\right) \left(3 n - 4\right)\,a(n-2)
-\end{equation}
+Writing the conjectured relation in the form $\sum_{i=0}^{4}p_{i}(n)\,a(n-i)=0$,
+the coefficient polynomials are
+\[
+p_{0}(n)=2 n \left(2 n + 1\right),\qquad p_{1}(n)=- 49 n^{2} + 97 n - 36,\qquad p_{2}(n)=12 \left(10 n^{2} - 42 n + 41\right),\qquad p_{3}(n)=4 \left(n - 3\right) \left(49 n - 97\right),\qquad p_{4}(n)=- 544 \left(n - 4\right) \left(n - 3\right)
+\]
 
-\section{Hypergeometric terms}
+\section{Recurrences as differential operators}
 
-\begin{definition}
-A nonzero expression $c(n)$ is a \emph{hypergeometric term} in $n$ if the quotient
-$c(n+1)/c(n)$ is a rational function of $n$. Two hypergeometric terms $c$ and $d$ are
-\emph{similar}, written $c\sim d$, if $c(n)/d(n)$ is a rational function of $n$.
-\end{definition}
+Let $A(x)=\sum_{n\ge0}a(n)x^{n}$ be the generating function of a sequence, and let
+$\theta=x\,\dfrac{d}{dx}$, so that $\theta$ acts on $x^{m}$ as multiplication by $m$. For a
+polynomial $p$ we write $p(\theta)$ for the corresponding differential operator, so that
+$p(\theta)A=\sum_{m}p(m)a(m)x^{m}$.
 
-Similarity is an equivalence relation on hypergeometric terms. Products of factorials,
-binomial coefficients with arguments linear in $n$, exponentials $z^{n}$ and polynomials
-are hypergeometric, and so is any product of these; a sum of them need not be.
-
-\begin{lemma}\label{lem:shift}
-If $c$ is a hypergeometric term then for every integer $i\ge 0$ the shift quotient
-$c(n-i)/c(n)$ is a rational function of $n$, computable from $c(n+1)/c(n)$ by a finite
-number of substitutions and multiplications.
+\begin{lemma}\label{lem:transfer}
+Let $p_{0},\dots,p_{r}$ be polynomials and put $b(n)=\sum_{i=0}^{r}p_{i}(n)\,a(n-i)$, with
+the convention $a(m)=0$ for $m<0$. Then
+\[
+B(x):=\sum_{n\ge0}b(n)x^{n}=\sum_{i=0}^{r}x^{i}\,\bigl(p_{i}(\theta+i)A\bigr)(x).
+\]
 \end{lemma}
 
 \begin{proof}
-Write $\rho(n)=c(n+1)/c(n)$, a rational function by hypothesis. Then
-$c(n-1)/c(n)=1/\rho(n-1)$, and inductively
-$c(n-i)/c(n)=\prod_{j=1}^{i}\rho(n-j)^{-1}$, a finite product of rational functions.
+Fix $i$ and substitute $m=n-i$:
+\[
+\sum_{n\ge0}p_{i}(n)a(n-i)x^{n}=\sum_{m\ge0}p_{i}(m+i)a(m)x^{m+i}
+=x^{i}\sum_{m\ge0}p_{i}(m+i)a(m)x^{m}=x^{i}\bigl(p_{i}(\theta+i)A\bigr)(x),
+\]
+the last step because $p_{i}(\theta+i)$ multiplies the coefficient of $x^{m}$ by
+$p_{i}(m+i)$. Summing over $i$ gives the claim.
 \end{proof}
 
-The fact that makes the test complete rather than merely sufficient is the linear
-independence of dissimilar terms. It is classical; see Petkov\v{s}ek, Wilf and Zeilberger
-\cite{AB}, Chapter~5.
-
-\begin{lemma}\label{lem:indep}
-Let $c_{1},\dots,c_{m}$ be hypergeometric terms, pairwise dissimilar. If
-$\sum_{j=1}^{m}u_{j}(n)c_{j}(n)=0$ for rational functions $u_{j}$ and all large $n$, then
-every $u_{j}$ is the zero rational function.
-\end{lemma}
-
-\section{The recurrence as a finite set of rational identities}
-
-\begin{proposition}\label{prop:main}
-Let $a(n)=\sum_{j=1}^{m}c_{j}(n)$ with each $c_{j}$ hypergeometric, and let
-$p_{0},\dots,p_{r}$ be polynomials. Group the $c_{j}$ into similarity classes and write
-each class as $g_{\ell}(n)\,f_{\ell,s}(n)$ for a representative $g_{\ell}$ and rational
-functions $f_{\ell,s}$. Put
-\[
-S_{\ell}(n)\;=\;\sum_{i=0}^{r}\;\sum_{s}\;p_{i}(n)\,f_{\ell,s}(n-i)\,
-\frac{g_{\ell}(n-i)}{g_{\ell}(n)} ,
-\]
-a rational function of $n$ by Lemma~\ref{lem:shift}. Then
-\[
-\sum_{i=0}^{r}p_{i}(n)\,a(n-i)\;=\;\sum_{\ell}g_{\ell}(n)\,S_{\ell}(n),
-\]
-and the recurrence $\sum_{i}p_{i}(n)a(n-i)=0$ holds for all large $n$ if and only if
-$S_{\ell}=0$ for every $\ell$.
-\end{proposition}
+\begin{corollary}\label{cor:criterion}
+With the notation of Lemma~\ref{lem:transfer}, the recurrence
+$\sum_{i}p_{i}(n)a(n-i)=0$ holds for every $n>d$ if and only if $B$ is a polynomial of
+degree at most $d$.
+\end{corollary}
 
 \begin{proof}
-The displayed identity is the definition of $S_{\ell}$ rearranged: each $a(n-i)$ is the
-sum of its terms, each term is its class representative times a rational function, and the
-representatives are pulled out. The representatives $g_{\ell}$ are pairwise dissimilar by
-construction, so Lemma~\ref{lem:indep} applies to the right-hand side: it vanishes for all
-large $n$ exactly when every $S_{\ell}$ vanishes identically. Sufficiency is immediate.
+$b(n)$ is the coefficient of $x^{n}$ in $B$, so $b(n)=0$ for all $n>d$ says exactly that
+$B$ has no terms above $x^{d}$.
 \end{proof}
 
-Proposition~\ref{prop:main} turns the conjecture into a finite computation in
-$\mathbb{Q}(n)$, with no truncation and no search. The only $n$ it says nothing about are
-those where some $S_{\ell}$ has a pole or some $c_{j}(n-i)$ is undefined, and these are
-finite in number and listed below.
+This turns the conjecture into a closed-form identity. The point is that it can then be
+decided exactly, with no truncation: $A$ is algebraic, so $B$ lies in the same field as
+$A$, and one only has to recognise it.
 
-\section{The computation for A052227}
+\begin{lemma}\label{lem:field}
+Let $P(x,y)\in\mathbb{Q}(x)[y]$ be squarefree of degree $m\ge1$ in $y$, let
+$K=\mathbb{Q}(x)[y]/(P)$, and write $\alpha$ for the class of $y$ in $K$. Then $K$ is
+closed under $\theta$. Explicitly,
+\[
+\alpha'=-\frac{P_{x}(x,\alpha)}{P_{y}(x,\alpha)},
+\]
+the quotient taken inside $K$, and for $u=\sum_{i<m}c_{i}(x)\,\alpha^{i}$ with
+$c_{i}\in\mathbb{Q}(x)$,
+\[
+\theta(u)=x\Bigl(\sum_{i<m}c_{i}'(x)\,\alpha^{i}
+ +\alpha'\sum_{i<m}i\,c_{i}(x)\,\alpha^{i-1}\Bigr),
+\]
+reduced modulo $P$.
+\end{lemma}
 
-The closed form \eqref{eq:cf} splits into one similarity class, with
-representative
+\begin{proof}
+$P(x,\alpha)=0$ holds identically in $x$, so differentiating gives
+$P_{x}(x,\alpha)+P_{y}(x,\alpha)\,\alpha'=0$. Because $P$ is squarefree,
+$\gcd(P,P_{y})=1$ in $\mathbb{Q}(x)[y]$, so $P_{y}(x,\alpha)$ is a unit of $K$ and the
+displayed quotient is defined there; its inverse is produced by the extended Euclidean
+algorithm. The formula for $\theta(u)$ is the chain rule, and reduction modulo $P$ returns
+the value to the basis $1,\alpha,\dots,\alpha^{m-1}$. Every operation stays inside $K$.
+\end{proof}
+
+Consequently, if $A\in K$ then every $p_{i}(\theta+i)A$ is in $K$, and so is $B$. Writing
+$B=\sum_{i<m}b_{i}(x)\,\alpha^{i}$ with $b_{i}\in\mathbb{Q}(x)$, the test of
+Corollary~\ref{cor:criterion} becomes: $B$ is a polynomial precisely when $b_{i}=0$ for
+every $i\ge1$ and $b_{0}$ has constant denominator. Both are decided by exact
+cancellation of rational functions.
+
+\section{The computation for A242566}
+
+The generating function \eqref{eq:gf} is algebraic over $\mathbb{Q}(x)$;
+its minimal polynomial is
 \[
-{\binom{3 n}{n - 1}}
+P(x,y) \;=\; 16 \left(x y^{4} - 2 x y^{3} + x y^{2} + x + y^{2} - y\right) ,
 \]
-Carrying out Proposition~\ref{prop:main} with the coefficients of \eqref{eq:conj} gives
+so \eqref{eq:gf} lies in $K=\mathbb{Q}(x)[y]/\bigl(P(x,y)\bigr)$ and is the root of that polynomial with the right
+expansion at the origin. Applying Lemma~\ref{lem:transfer} to the coefficient polynomials
+of Section~1 and reducing in $K$ by Lemma~\ref{lem:field}, every component $b_{i}$ of $B$
+with $i\ge1$ cancels identically and the remaining rational part collapses to
 \[
-S_{1}(n)\;=\;0
+B(x)\;=\;- 18 x^{2} + 6 x ,
 \]
-so every class residual vanishes identically and the conjecture follows.
+a polynomial of degree $2$.
 
 \begin{theorem}
-For all $n\ge 2$,
+The conjectured recurrence
 \[
-8 n \left(2 n + 1\right)\,a(n) -  6 \left(8 n^{2} + 25 n - 13\right)\,a(n-1) -  45 \left(3 n - 5\right) \left(3 n - 4\right)\,a(n-2)
+2 n \left(2 n + 1\right)\,a(n) + (- 49 n^{2} + 97 n - 36)\,a(n-1) + 12 \left(10 n^{2} - 42 n + 41\right)\,a(n-2) + 4 \left(n - 3\right) \left(49 n - 97\right)\,a(n-3) -  544 \left(n - 4\right) \left(n - 3\right)\,a(n-4) \;=\;0
 \]
+holds for every $n>2$.
 \end{theorem}
 
 \begin{proof}
-Immediate from Proposition~\ref{prop:main} and the computation above, the excluded values
-being those at which a class residual has a pole or a term of \eqref{eq:cf} is undefined.
+Immediate from Corollary~\ref{cor:criterion} and the displayed value of $B$.
 \end{proof}
+
+\begin{remark}
+The polynomial $B$ is not an error term: it records the boundary of the recurrence. For
+$n\le2$ some of the shifted terms $a(n-i)$ fall outside the range of the sequence,
+and $B$ collects exactly those contributions. Above that range the relation is exact.
+\end{remark}
 
 \section{Verification}
 
-Two checks were made, and both are independent of the algebra above.
+Every number above is an output of a script written separately from this note, and two
+independent checks were run.
 
-First, the closed form \eqref{eq:cf} was evaluated at the first $13$ indices and
-compared term by term with the entry's DATA; the values agree exactly. A formula that did
-not reproduce the entry's own terms would not have been used.
+First, the generating function was checked against the entry rather than assumed: the
+Taylor coefficients of \eqref{eq:gf} were expanded and compared term by term with the DATA
+section of A242566, agreeing on all 13 terms compared.
 
-Second, the conjectured recurrence \eqref{eq:conj} was evaluated on the published terms in
-exact integer arithmetic at every index where it applies: $22$ instances beginning at
-$n=2$, all of them zero. This is not part of the proof, which is symbolic, but it
-would have caught a transcription error in the coefficients.
+Second, the recurrence itself was evaluated directly on the published terms, in exact
+integer arithmetic and without reference to the generating function: for each $n$ in range
+the sum $\sum_{i}p_{i}(n)a(n-i)$ was formed from the entry's own values and found to
+vanish, for all 22 values of $n$ from $n=4$ upward. This is what
+Corollary~\ref{cor:criterion} predicts from the degree of $B$, and it is a genuinely
+different computation from the symbolic one: it never forms $B$, never differentiates, and
+uses only integers.
+
+The symbolic step is exact throughout. The residual is obtained by rational-function
+cancellation in $K$, not by series truncation, so the identity $B=- 18 x^{2} + 6 x$ is an
+identity of functions and the theorem holds for all $n>2$ simultaneously.
 
 \begin{thebibliography}{9}
-\bibitem{AB} M.~Petkov\v{s}ek, H.~S.~Wilf and D.~Zeilberger, \emph{A=B}, A K Peters,
-Wellesley MA, 1996.
-\bibitem{OEIS} OEIS Foundation Inc., \emph{The On-Line Encyclopedia of Integer Sequences},
-entry \href{https://oeis.org/A052227}{A052227}, 2025-09-16.
-\bibitem{GKP} R.~L.~Graham, D.~E.~Knuth and O.~Patashnik, \emph{Concrete Mathematics},
-2nd ed., Addison-Wesley, 1994.
+\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer Sequences},
+\url{https://oeis.org}, 2026. Sequence A242566.
+\bibitem{kp} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011,
+Chapter 7 (holonomic closure properties and the translation between recurrences and
+differential equations).
+\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 2, Cambridge
+University Press, 1999, Chapter 6 (algebraic and D-finite generating functions).
 \end{thebibliography}
-
 \end{document}

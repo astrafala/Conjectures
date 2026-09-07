@@ -12,128 +12,148 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A264124, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A235169, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{7 September 2026}
+\date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A264124 counts the arrangements of $0,1,\dots,LW-1$ in a grid of $W=5$ rows in which
-every value moves from its home cell by an index change on a short list, and it carries an
-empirical recurrence of order $8$ contributed by R.~H.~Hardin. It is true, and it is
-decidable rather than empirical. Such an arrangement is a perfect matching between cells and
-values, and because a value's row moves by at most $R=2$, the matching splits into
-independent decisions row by row: after the cells of rows $0,\dots,i$ are filled,
-every value whose home row is at most $i-R$ has been used, and only $2R$ home rows are
-partly used. Carrying those as bitmasks makes the count a walk on $S=1048576$ vertices, so it is
-$C$-finite and the conjectured recurrence is decided by a finite exact computation.
+OEIS A235169 counts $2$-column arrays over $\{0,\dots,7\}$ in which every
+$2\times2$ subblock has its diagonal sum differing from its antidiagonal sum by
+exactly $4$, and in which no two adjacent entries are equal, and it
+carries an empirical recurrence of order $9$ contributed by R.~H.~Hardin. It is true,
+and it is not an empirical matter: the condition constrains only consecutive pairs of rows,
+so the rows are the vertices of a finite digraph and an $(n+1)$-row array is a walk of
+length $n$. Hence $a(n)=\mathbf{1}^{\!\top}M^{n}\mathbf{1}$ on $S=56$ vertices, which
+is $C$-finite. Writing $q$ for the characteristic polynomial of the conjectured recurrence,
+the residual is $\mathbf{1}^{\!\top}M^{\,n-9}q(M)\mathbf{1}$, so the recurrence
+holds beyond a threshold exactly when that vanishes from then on --- and since the sequence
+of those values obeys the monic recurrence given by the characteristic polynomial of $M$,
+$S$ consecutive zeros settle every later one. The whole test is finite and exact.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A05, 05A15, 15A15.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 15B36.\normalsize
 
-\section{The conjecture}
+\section{The sequence and the conjecture}
 
-OEIS A264124 is ``Number of (n+1)X(4+1) arrays of permutations of 0..n*5+4 with each element having index change +-(.,.) 0,0 1,-2 or 2,-1.''. It has offset $1$ and begins
+OEIS A235169 is ``Number of (n+1) X (1+1) 0..7 arrays with every 2 X 2 subblock having its diagonal sum differing from its antidiagonal sum by 4, with no adjacent elements equal (constant-stress tilted 1 X 1 tilings).''. It has offset
+$1$ and begins
 \[
-8, 200, 5733, 108045, 1995525, 39592980, 791859600, 15730470000,\ \dots
+268, 1528, 8688, 49464, 281580, 1603344, 9129276,\ \dots
 \]
-The entry states, as a conjecture contributed by its author and never marked settled:
-\begin{quote}
-Empirical: a(n) = 19*a(n-1) +16*a(n-2) -304*a(n-3) +5776*a(n-4) +4864*a(n-5) +4096*a(n-6) -77824*a(n-7) -65536*a(n-8) for n>11
+The entry carries the following comment:
+\begin{quote}\small
+Empirical: a(n) = 6*a(n-1) +37*a(n-2) -234*a(n-3) -141*a(n-4) +1290*a(n-5) +108*a(n-6) -2340*a(n-7) +1296*a(n-9).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Nov 10 2015 11:01:57, revision 6) this is still
-recorded as empirical, and nothing on the entry records it as proved.
+As of the ``Last modified'' line on the live entry (Jun 19 2022 02:12:44, revision 7) the statement is
+still recorded as empirical, and nothing on the entry records it as settled either way.
 
-\section{The object is a matching}
+Written out, the claim is
+\begin{equation}\label{eq:conj}
+a(n)\;=\;6\,a(n-1) + 37\,a(n-2) - 234\,a(n-3) - 141\,a(n-4) + 1290\,a(n-5) + 108\,a(n-6) - 2340\,a(n-7) + 1296\,a(n-9)
+\end{equation}
+for all $n>9$, which is every $n$ at which a recurrence of order $9$ can be
+stated.
 
-The grid has $W=5$ rows across and holds each of $0,1,\dots,LW-1$ exactly once. The value
-$v$ has a HOME cell, namely its place in the plain row-major filling, and putting $v$ in cell
-$(i,j)$ changes its index by $(i-h_i,\,j-h_j)$ where $(h_i,h_j)$ is that home cell. The entry
-allows the index changes
+\section{The rows form a digraph}
+
+In a $2\times2$ subblock with top row $(r_j,r_{j+1})$ and bottom row $(s_j,s_{j+1})$ the
+diagonal sum is $r_j+s_{j+1}$ and the antidiagonal sum is $r_{j+1}+s_j$, so the entry's
+condition on that subblock reads
 \[
-(i-h_i,\,j-h_j)\;\in\;\{(-2,1),\ (-1,2),\ (0,0),\ (1,-2),\ (2,-1)\},
+\bigl|\,r_j+s_{j+1}-r_{j+1}-s_j\,\bigr|\;=\;4.
 \]
-the list being the entry's own, read with the sign convention its wording uses. An admissible
-arrangement is therefore exactly a perfect matching in the bipartite graph joining each cell to
-the values it may hold.
+Every such condition involves two consecutive rows only. The condition ``no adjacent elements equal'' splits into a horizontal
+part, which constrains a single row and so selects the vertex set, and a vertical part,
+which constrains a consecutive pair of rows and so belongs to the edge relation.
 
-\section{The matching is a walk}
+Let $V$ consist of those $r\in\{0,\dots,7\}^{2}$ with $r_j\ne r_{j+1}$ for every
+$j$ --- the rows in which no two horizontally adjacent entries are equal, and put $S=|V|=56$. For $r,s\in V$ declare $r\to s$ an edge
+when $\bigl|r_j+s_{j+1}-r_{j+1}-s_j\bigr|=4$ for every $j$ with
+$1\le j\le2-1$, and $r_j\ne s_j$ for every $j$. Let $M\in\{0,1\}^{S\times S}$ be the adjacency matrix and $\mathbf{1}$
+the all-ones vector.
 
-Let $R=2$ be the largest $|i-h_i|$ on the list. A value whose home row is $h$ can only be
-placed in rows $h-R,\dots,h+R$. So once the cells of rows $0,\dots,i$ are filled, every
-value with home row at most $i-R$ has been used up, and the only home rows that can be
-partly used are $i-R+1,\dots,i+R$ --- exactly $2R$ of them. Take as the state the tuple of
-$2R$ bitmasks recording which values of those home rows are already placed. One step fills
-the cells of one further row, drawing each of its $W$ values from a home row within $R$
-and at an allowed column offset, and the home row that closes at that step must come out
-full. Nonexistent home rows --- before the first and after the last --- are carried as
-full, which makes the starting and accepting states the same one.
-
-Hence $a$ is a walk count on $S=1048576$ vertices,
-\[
-a(n)\;=\;\iota^{\!\top}M^{\,n+1}\tau ,
-\]
-the exponent fixed by the entry's own shape and checked against its published terms; in
-particular $a$ is $C$-finite.
-
-\section{The proof}
-
-\begin{lemma}\label{lem:crit}
-Let $q(t)=t^{8}-\sum_i c_it^{8-i}$ be the characteristic polynomial of the
-conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
-$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
-holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$;
-and it is enough to examine $j<S$.
+\begin{lemma}\label{lem:walk}
+The arrays counted by the entry with $n+1$ rows are exactly the walks
+$r^{(0)}\to\cdots\to r^{(n)}$ of length $n$ in this digraph, so
+$a(n)=\mathbf{1}^{\!\top}M^{n}\mathbf{1}$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+8}-\sum_ic_iM^{j+8-i}$. For the bound, $M^{S}$
-is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
-$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
-polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly.
+An array with $n+1$ rows and $2$ columns is a sequence $r^{(0)},\dots,r^{(n)}$ of
+rows. Each of its $2\times2$ subblocks lies in two vertically adjacent rows
+$r^{(i)},r^{(i+1)}$ and two horizontally adjacent columns $j,j+1$, so the array satisfies
+the entry's condition on all subblocks precisely when every consecutive pair of rows is an
+edge; and the row-internal condition, where present, is exactly membership of $V$. Summing
+the walk counts $\bigl(M^{n}\bigr)_{r,s}$ over all $r$ and $s$ gives
+$\mathbf{1}^{\!\top}M^{n}\mathbf{1}$.
 \end{proof}
 
+\section{The criterion}
+
+Let $q(t)=t^{9}-\sum_i c_i t^{9-i}$ be the characteristic polynomial of
+\eqref{eq:conj}.
+
+\begin{lemma}\label{lem:crit}
+For $n\ge9$,
+$a(n)-\sum_i c_i a(n-i)=\mathbf{1}^{\!\top}M^{\,n-9}q(M)\mathbf{1}$. Writing
+$u_j=\mathbf{1}^{\!\top}M^{j}q(M)\mathbf{1}$, the recurrence therefore holds for every
+$n>t$ exactly when $u_j=0$ for every $j>t-9$. Moreover $(u_j)_{j\ge0}$ satisfies the
+monic linear recurrence whose characteristic polynomial is that of $M$, of degree $S$; so
+if $u_j$ vanishes for $S$ consecutive indices it vanishes for every larger index, and the
+last nonzero $u_j$ determines $t$ exactly.
+\end{lemma}
+
+\begin{proof}
+By Lemma~\ref{lem:walk}, $a(n-i)=\mathbf{1}^{\!\top}M^{n-i}\mathbf{1}$, so
+$a(n)-\sum_i c_i a(n-i)
+=\mathbf{1}^{\!\top}M^{\,n-9}\bigl(M^{9}-\sum_i c_i M^{9-i}\bigr)
+\mathbf{1}$, which is the identity. Putting $j=n-9$ gives the equivalence. For the
+last claim, let $\chi$ be the characteristic polynomial of $M$; by Cayley--Hamilton
+$\chi(M)=0$, so applying $\chi$ to the shift operator annihilates $(u_j)$, and $\chi$ is
+monic of degree $S$, which is exactly the statement that $S$ consecutive zeros propagate
+forward.
+\end{proof}
+
+\section{The computation}
+
 \begin{theorem}
-\[
-a(n)\;=\;19\,a(n-1) + 16\,a(n-2) - 304\,a(n-3) + 5776\,a(n-4) + 4864\,a(n-5) + 4096\,a(n-6) - 77824\,a(n-7) - 65536\,a(n-8)
-\]
-for every $n>11$.
+The recurrence \eqref{eq:conj} holds for every $n>9$. This is the statement of
+Section~1.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $8$ matrix--vector products in exact integer
-arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=11+1$ onwards and the run continued
-until the working vector was identically zero, settling every larger $j$ at once. The bound is exact: at $n=11$ the recurrence fails on the entry's own published terms, so no larger range holds.
+The vector $q(M)\mathbf{1}\in\mathbb{Z}^{S}$ was formed by $9$ matrix--vector
+products in exact integer arithmetic and the values $u_j$ evaluated for
+$j=0,1,\dots$. They vanish from $j=9-9+1$ onwards, and the run was continued past
+$S$ consecutive zeros, which by Lemma~\ref{lem:crit} settles every larger $j$. Hence the
+recurrence holds for every $n>9$.
 \end{proof}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the reading of the entry's wording was tested against the entries themselves by brute
-force before any of this was built, and separately for each of the three sign conventions the
-family uses: ``$(\pm,\pm)$ $a,b$'' signs each coordinate independently, ``$\pm(.,.)$ $a,b$''
-signs the PAIR and may write the second coordinate negative, and ``directed $a,b$'' is taken
-literally. Enumerating all $720$ arrangements of a $2\times3$ grid reproduces the first term
-of an entry of each convention. Testing only one of them would have proved only that one:
-reading the second convention as the first silently drops displacements, and thirty-eight
-entries disagreed with their own published data until the conventions were separated.
+First, the digraph was built directly from the entry's stated condition and the walk counts
+$\mathbf{1}^{\!\top}M^{n}\mathbf{1}$ compared against the entry's DATA at every one of
+the $18$ published indices; the values agree exactly. That is what ties the digraph to
+the sequence: a model reproducing only some published terms would be the wrong model and
+was rejected wherever it occurred.
 
-Second, the transfer model reproduces all $16$ terms this entry publishes, exactly, in
-integer arithmetic.
+Second, the recurrence \eqref{eq:conj} was evaluated on those published terms in exact
+integer arithmetic, with no matrices involved, and vanishes wherever it applies.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
-arithmetic on the whole vector rather than on a sampled prefix.
+Third, the vanishing test of Lemma~\ref{lem:crit} was carried past $S=56$ consecutive
+zeros rather than to a sampled prefix, in exact integer arithmetic.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A264124.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A235169.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{lp} L.~Lov\'asz and M.~D.~Plummer, \emph{Matching Theory}, AMS Chelsea, 2009.
+\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+University Press, 2009.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

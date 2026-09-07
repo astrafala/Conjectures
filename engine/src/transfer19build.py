@@ -30,6 +30,23 @@ def build(h):
     coeffs = {int(k): int(v) for k, v in h["coeffs"].items()}
 
     line, lines = ("row", "rows") if rowwalk else ("column", "columns")
+    # The pair vertex set is enormously redundant, and the model actually used removes the
+    # redundancy before the states exist. A paper must describe the digraph its numbers came
+    # from, so the identification is stated here whenever it was applied.
+    pairs = (alpha + 1) ** (2 * W) * (E + 1)
+    merge = "" if S == pairs else (
+        r" Most of those pairs are indistinguishable, and exactly so. Every offset named "
+        r"above has $|dj|\le 1$, so whether the cell at column $j$ of the middle {line} is "
+        r"satisfied depends on the three {lines} only through their windows at $j-1,j,j+1$. "
+        r"Collect for each $j$ the indicator over the window of the {line} below, and call "
+        r"that tuple $P(r,s)$: the number of cells any $t$ violates is read off $P$, so is "
+        r"the number violated at the bottom edge, and the successor $(s,t)$ carries $P(s,t)$, "
+        r"which does not mention $r$. Hence two pairs $(r,s)$ and $(r',s)$ with the same $P$ "
+        r"have the same outgoing {lines} and the same successors, and the vertex is "
+        r"$(s,P{excstate2})$. That leaves $S={S}$ vertices in place of ${pairs}$."
+    ).format(line=line, lines=lines, S=S, pairs=pairs,
+             excstate2=("" if not E else r",c"))
+
     shape = (rf"$(n+{base})\times{W}$" if base else rf"$n\times{W}$") if rowwalk else \
             (rf"${W}\times(n+{base})$" if base else rf"${W}\times n$")
     fractex = "" if frac == 1 else rf"\tfrac1{{{frac}}}"
@@ -111,8 +128,9 @@ $(r,s)\in(\{{0,\dots,{alpha}\}}^{{{W}}}\cup\{{\varnothing\}})\times\{{0,\dots,{a
 and put an edge $(r,s)\to(s,t)$ when {line} $s$ satisfies the condition at every one of its
 ${W}$ cells, given $r$ above and $t$ below. An array with $L$ {lines} is then a walk of length
 $L-1$ starting at $(\varnothing,u_1)$, each step settling one {line}, and the last {line} is
-settled by the terminal weight, which evaluates it with $\varnothing$ below.{exctex} Hence,
-with $M$ the adjacency matrix, $\iota$ the starting vector and $\tau$ the terminal weight,
+settled by the terminal weight, which evaluates it with $\varnothing$ below.{exctex}{merge} Hence,
+with $M$ the adjacency matrix on $S={S}$ vertices, $\iota$ the starting vector and $\tau$ the
+terminal weight,
 \[
 a(n)\;=\;{fractex}\,\iota^{{\!\top}}M^{{\,{expo}}}\tau ,
 \]
