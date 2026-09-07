@@ -373,3 +373,70 @@ the root, `DEEP-CHECK.md`; the working data moved to `engine/deep-check/` with i
 and is reached through `repopaths.DEEPCHECK`. Phase 1 re-run after the move: 8 checks, 0
 failures. The root is now exactly documents and `papers/ paper-sources/ comments/ engine/
 archive/`.
+
+## 7 September 2026 — six stale filters, one new engine, 86 results found and held
+
+The day's lesson, stated first because it is the whole of it: **almost nothing here was
+blocked by mathematics.** Six separate caches and hard-coded lists had stopped matching the
+code around them, and each was holding back real work.
+
+1. `sweep_table.py` carried its own list of twelve engines — all of them when it was written,
+   twelve of eighty-three now. Every table whose column model needed a later engine was
+   reported *"no engine reads it"* and dropped. **434 entries** sat behind it, 385 of them
+   stating *"Empirical for column k:"*, which is exactly what that sweep settles.
+2. `falsify.py`, the disproof sweep, had the same list. Seventy-two engines' worth of entries
+   were never even parsed, so no conjecture of theirs was ever tested for failure.
+3. `sweep_tablerow.py` had the list *and* a second bug in the same lines: it called `avals`,
+   which most engines do not have, and the `AttributeError` was swallowed and reported as
+   *"model does not match the column"* — a model matching the entry perfectly, thrown away.
+4. The cached name list the sweeps read was missing **358** order-line candidates, so every
+   sweep skipped them silently. The order-line pool is 499 untried, not 168.
+5. `uni_cands.json` is iterated *before* `ANUMS` is applied, so entries a newly written engine
+   reads — which cannot be in a cache built before it existed — were filtered out to nothing
+   and the run reported processing zero of them.
+6. `sweep_cf.py` wrote to fixed file names, so aiming it at a different pool silently reused
+   the old run's `done` set and did nothing.
+
+**A claim of mine was wrong and is corrected in place.** The *"2,098 entries blocked at a
+state cap of 2,000,000"* figure counted the keys of `shard_caps_*.json`, which recorded the cap
+of every entry a sweep **attempted**, not of the ones it refused. A sample of 70 re-run with
+the reason counter read came back **60 with no parsable recurrence, 7 already settled, 3
+refused for size**. The pool is overwhelmingly entries with nothing to prove. Reading all
+1,411: **1,395 carry no unsettled conjecture at all.** Dead, and closed. The sweep now records
+a cap only where a refusal for size happens, and `dc_englists.py` is the enforcing code for the
+engine-list rule, run by Phase 11.
+
+**The whole remaining pool, mapped.** Of every name an engine reads with no paper — 5,621
+entries: 4,053 carry nothing to settle, **841 state a recurrence**, **671 state only an
+order**, 56 something else. So 1,568 live candidates, not the 1,010 Phase 7 counted.
+
+**transfer94**, a new engine, 37 entries no engine read: monotone height arrays, values rising
+by 0 or 1 with every step, pinned to a corner distance. Reading each row relative to its own
+index makes every condition local. Two of my own errors are recorded in the file — a state
+bound derived for city-block distance applied to king-move too, and an accepting condition
+using the tall-array distance for every `n`. All 37 reproduce their published data exactly.
+
+**86 results found and held**, not installed: the check's rule is that the corpus stays frozen
+until it finishes. Recurrence sweep 19, order-line 19, table columns 43, table rows 10, closed
+forms 3.
+
+**Independence**, the weakness Phase 11 named: 90 of 104 argument families had never been
+checked by anything but the program that produced them. Three brute forces that share no
+engine code now exist — `indepcell.py` (**197 of 197**, complete), `indep2x2.py` and
+`indepadj.py` (1,300+ confirmed between them). **Nothing disagrees.** The one disagreement that
+did appear was the checker's fault: a name reading *"a(n) is half the number of ..."* whose
+divisor pattern was anchored at the start of the name, so the brute force came back at exactly
+double.
+
+**Defects found and recorded**: 8 papers printing *"As of the Last modified line on the live
+entry (, revision 0)"* — a check asserted with nothing in it, which Phase 3 had been *skipping*
+as a false alarm; 100 order-line papers quoting a term count from the unmerged bound while
+saying they used the merged one; 263 papers with no stored source, 100 from a build-directory
+collision now fixed.
+
+**A 7.2 MB truncated zip** was found tracked under a scrambled name, holding duplicate PDFs.
+Removed; the ignore rules now catch archives by kind rather than by the one name that was
+listed.
+
+**README** gained an *Authorship, priority and reuse* section: sole authorship, the dated
+record in four independent places, and that CC BY 4.0 permits reuse only with credit.
