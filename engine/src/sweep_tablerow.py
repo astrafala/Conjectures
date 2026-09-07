@@ -208,6 +208,9 @@ for a in sorted(names):
                        # the honest measure of how much a wrong reading would have to fake
                        'totdig': sum(len(str(v)) for v in colv)})
     if proved:
+        # see sweep_table.py: re-asking a widened question must replace an entry's record,
+        # not append a second one
+        hits[:] = [x for x in hits if x.get('anum') != a]
         res['TABLE PROVED'] += 1
         res['columns proved'] += len(proved)
         hits.append({'anum': a, 'name': nm, 'cols': proved,

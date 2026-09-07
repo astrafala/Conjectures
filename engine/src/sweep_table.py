@@ -171,6 +171,9 @@ for a in sorted(names):
                        # the honest measure of how much a wrong reading would have to fake
                        'totdig': sum(len(str(v)) for v in colv)})
     if proved:
+        # clearing the done set to re-ask a widened question must not append a second record
+        # for an entry already in the hits file: it doubled the apparent count until deduped
+        hits[:] = [x for x in hits if x.get('anum') != a]
         res['TABLE PROVED'] += 1
         res['columns proved'] += len(proved)
         hits.append({'anum': a, 'name': nm, 'cols': proved,
