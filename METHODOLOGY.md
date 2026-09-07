@@ -257,6 +257,15 @@ Recorded rather than quietly omitted:
 - **State spaces too large** for the annihilation test even after merging.
 - **Triangular inclusion–exclusion** running over `2^|E|` subsets, out of reach past ~30 edges.
 - **113 generating-function-only entries** whose names no engine reads yet. A gap, not a wall.
+- **The refused pool does not open at a larger cap.** 1,411 entries that an engine reads and
+  that were refused at a state cap of 2,000,000 were retried at **6,000,000** on 7 September
+  2026. 563 were reached before the run was stopped and **every one of them was refused again
+  at the larger cap**: not one settled. Raising the cap is the wrong lever here — a third of
+  the pool is read by `transfer40`, whose state is K consecutive rows and so grows as
+  `A^(K·W)`, and three times the cap does not cover one more row. The lever that would work is
+  the one that worked for transfer9, transfer17 and transfer19: describe the redundancy in the
+  state exactly and remove it before the states exist. Until someone does that for
+  `transfer40`, this pool stays shut, and nobody needs to measure it again.
 
 ## 9. How long a paper is
 
