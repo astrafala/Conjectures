@@ -12,126 +12,137 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A258888, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A207705, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{3 September 2026}
+\date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A258888 counts arrays of width $4$ over $\{0,1\}$ in which every $3\times3$ window has
-constrained SUMS along its rows, its columns and its two diagonals. The entry carries an
-empirical recurrence of order $24$ contributed by R.~H.~Hardin. It is true, and it is
-decidable rather than empirical: a $3\times3$ window lies in $3$ consecutive array rows,
-so the count is a walk count on $S=273$ states.
+OEIS A207705 counts arrays over $\{0,\dots,1\}$ of width $4$ that avoid the patterns
+$(0,0,1), (1,1,0)$ along one axis and $(0,0,0), (0,1,0)$ along the other, and carries an empirical recurrence of
+order $25$ contributed by R.~H.~Hardin. It is true. The patterns have length $3$, so
+the constraint across the growing direction ties together $3$ consecutive columns: taking a
+window of $2$ consecutive columns as a state makes the array a walk in a finite digraph
+on $S=64$ vertices, and $a(n)=\mathbf{1}^{\!\top}P^{\,n-2}\mathbf{1}$. Writing $q$
+for the characteristic polynomial of the conjectured recurrence, the residual is
+$\mathbf{1}^{\!\top}P^{\,n-2-25}q(P)\mathbf{1}$, which vanishes identically
+beyond a threshold that the computation pins down exactly. Finite, exact, integer.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B20, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 68R15, 15B36.\normalsize
 
-\section{The conjecture}
+\section{The sequence and the conjecture}
 
-OEIS A258888 is ``Number of (n+2)X(2+2) 0..1 arrays with no 3x3 subblock diagonal sum less than the antidiagonal sum or central row sum less than the central column sum.''. It has offset $1$ and begins
+OEIS A207705 is ``Number of 4Xn 0..1 arrays avoiding 0 0 0 and 0 1 0 horizontally and 0 0 1 and 1 1 0 vertically.''. It has offset
+$1$ and begins
 \[
-900, 2304, 4489, 10680, 23409, 51188, 104329, 216395,\ \dots
+8, 64, 216, 729, 3321, 15129, 61254,\ \dots
 \]
-The entry states, as a conjecture contributed by its author and never marked settled:
-\begin{quote}
-Empirical: a(n) = 2*a(n-1) +4*a(n-2) -8*a(n-3) -2*a(n-5) -14*a(n-6) +34*a(n-7) +8*a(n-8) -8*a(n-9) +16*a(n-10) -58*a(n-11) -16*a(n-12) +14*a(n-13) -4*a(n-14) +48*a(n-15) +16*a(n-16) -6*a(n-17) -2*a(n-18) -18*a(n-19) -8*a(n-20) +2*a(n-23) +a(n-24) for n>27
+The entry carries the following comment:
+\begin{quote}\small
+Empirical: a(n) = 3*a(n-1) +14*a(n-3) +48*a(n-4) -65*a(n-5) -41*a(n-6) -103*a(n-7) -351*a(n-8) +353*a(n-9) +286*a(n-10) +103*a(n-11) +629*a(n-12) -480*a(n-13) -280*a(n-14) -16*a(n-15) -367*a(n-16) +216*a(n-17) +46*a(n-18) +2*a(n-19) +53*a(n-20) -28*a(n-21) -2*a(n-22) -2*a(n-24) +a(n-25)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 15:31:52, revision 6) this is still
-recorded as empirical, and nothing on the entry records it as proved.
+As of the ``Last modified'' line on the live entry (Oct 03 2025 14:11:30, revision
+9) the statement is still recorded as empirical, and nothing on the entry
+records it as settled either way.
 
-\section{What is being counted}
+Written out, the claim is
+\begin{equation}\label{eq:conj}
+a(n)\;=\;3\,a(n-1) + 14\,a(n-3) + 48\,a(n-4) - 65\,a(n-5) - 41\,a(n-6) - 103\,a(n-7) - 351\,a(n-8) + 353\,a(n-9) + 286\,a(n-10) + 103\,a(n-11) + 629\,a(n-12) - 480\,a(n-13) - 280\,a(n-14) - 16\,a(n-15) - 367\,a(n-16) + 216\,a(n-17) + 46\,a(n-18) + 2\,a(n-19) + 53\,a(n-20) - 28\,a(n-21) - 2\,a(n-22) - 2\,a(n-24) + a(n-25)
+\end{equation}
+for all $n>25$. The entry's array has a fixed number of rows and a growing number of
+columns, so the roles of the two directions are exchanged: what the entry calls the
+horizontal direction runs along the growing side. The transfer below is written in the
+growing direction throughout.
 
-The array has $4$ cells across, with entries in $\{0,1\}$. A WINDOW is a $3\times3$ block
-of consecutive cells lying inside the array. Every window must satisfy
-\[
-\begin{array}{ll}
-\text{the sum along} & \text{} \\[2pt]
-\text{the main diagonal} & \text{must NOT be less than the sum along the antidiagonal} \\
-\text{the central row} & \text{must NOT be less than the sum along the central column} \\
-\end{array}
-\]
-where the main diagonal of a window runs from its top left corner to its bottom right, and its
-antidiagonal from top right to bottom left.
+\section{The array as a walk}
 
-\section{The walk}
+Call a column \emph{admissible} if the word it forms contains none of the patterns
+$(0,0,1), (1,1,0)$ as $3$ consecutive entries. There are $8$ admissible columns; that condition
+involves a single column only.
 
-\begin{lemma}\label{lem:win}
-A $3\times3$ window occupies $3$ consecutive array rows, so every condition above is
-decided by $3$ consecutive rows and by nothing else.
+The remaining patterns $(0,0,0), (0,1,0)$ are forbidden along the other axis, so each of them
+constrains $3$ consecutive columns at a fixed position of the row. Take as state a
+window $w=\bigl(w^{(1)},\dots,w^{(2)}\bigr)$ of $2$ consecutive admissible
+columns, so $S=64$, and declare $w\to w'$ an edge when $w'$ is $w$ with its first entry
+dropped and one further admissible column $t$ appended, subject to: for every position
+$j$, the $3$-tuple read down the row $j$ across $w^{(1)},\dots,w^{(2)},t$
+is none of $(0,0,0), (0,1,0)$. Let $P$ be the adjacency matrix.
+
+\begin{lemma}\label{lem:walk}
+$a(n)=\mathbf{1}^{\!\top}P^{\,n-2}\mathbf{1}$ for every $n\ge2$.
 \end{lemma}
 
 \begin{proof}
-By definition of a window.
+An array of the entry's kind with $n$ columns is a sequence of $n$ admissible columns in
+which no forbidden pattern appears along the other axis. Reading it as the sequence of its
+overlapping windows of length $2$ turns it into a walk: consecutive windows overlap in
+$1$ columns by construction, and the edge condition is exactly the requirement on the one
+new $3$-tuple that each step creates. Conversely a walk reassembles into such an array,
+and the two constructions are mutually inverse. A walk of length $n-2$ visits $n-1$
+windows, that is $n$ columns; summing over all starting and ending states gives
+$\mathbf{1}^{\!\top}P^{\,n-2}\mathbf{1}$.
 \end{proof}
 
-So the state is the window of the last $2$ array rows, a row not yet written carried as
-$\bot$, and a step appends a row and settles every $3\times3$ window that row completes. A
-window needing a row that is $\bot$ does not exist, which is the boundary rule; the walk starts
-at the all-$\bot$ state, so a walk of $R$ steps is an array of $R$ rows. With $M$ the adjacency
-matrix and $\tau=\mathbf{1}$,
-\[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=273.
-\]
-The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
-published terms rather than assumed. In particular $a$ is $C$-finite.
+\section{The criterion}
 
-\section{The proof}
+Let $q(t)=t^{25}-\sum_i c_i t^{25-i}$ be the characteristic polynomial of
+\eqref{eq:conj} and $u_j=\mathbf{1}^{\!\top}P^{j}q(P)\mathbf{1}$.
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{24}-\sum_i c_it^{24-i}$ be the characteristic polynomial of the
-conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
-$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
-holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
-and it is enough to examine $j<S$.
+$a(n)-\sum_i c_i a(n-i)=u_{\,n-2-25}$ whenever $n-25\ge2$. Hence
+\eqref{eq:conj} holds for every $n>t$ exactly when $u_j=0$ for every
+$j>t-2-25$. Moreover $(u_j)$ satisfies the monic linear recurrence whose
+characteristic polynomial is that of $P$, of degree $S$, so $S$ consecutive zeros force all
+later ones and the last nonzero $u_j$ pins $t$ down exactly.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+24}-\sum_ic_iM^{j+24-i}$. For the bound, $M^{S}$
-is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
-$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
-polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly.
+Substituting Lemma~\ref{lem:walk} into the left side and factoring out
+$P^{\,n-2-25}$ gives the identity. The equivalence follows by letting the exponent
+run. For the last claim, Cayley--Hamilton gives $\chi(P)=0$ for the characteristic
+polynomial $\chi$ of $P$, so $\chi$ applied to the shift annihilates $(u_j)$; being monic of
+degree $S$, it propagates $S$ consecutive zeros forward.
 \end{proof}
 
+\section{The computation}
+
 \begin{theorem}
-\[
-a(n)\;=\;2\,a(n-1) + 4\,a(n-2) - 8\,a(n-3) - 2\,a(n-5) - 14\,a(n-6) + 34\,a(n-7) + 8\,a(n-8) - 8\,a(n-9) + 16\,a(n-10) - 58\,a(n-11) - 16\,a(n-12) + 14\,a(n-13) - 4\,a(n-14) + 48\,a(n-15) + 16\,a(n-16) - 6\,a(n-17) - 2\,a(n-18) - 18\,a(n-19) - 8\,a(n-20) + 2\,a(n-23) + a(n-24)
-\]
-for every $n>27$.
+The recurrence \eqref{eq:conj} holds for every $n>25$. This is the statement of
+Section~1.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $24$ matrix--vector products in exact integer
-arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=27+1$ onwards and the run continued
-until the working vector was identically zero.
+The vector $q(P)\mathbf{1}\in\mathbb{Z}^{S}$ was formed by $25$ matrix--vector
+products in exact integer arithmetic and the $u_j$ evaluated in turn. They vanish from the
+index corresponding to $n=25+1$ onwards, and the run was continued past $S$ consecutive
+zeros, which by Lemma~\ref{lem:crit} settles every larger index.
 \end{proof}
 
 \section{Verification}
 
-Four checks, each independent of the algebra above.
+Three checks, each independent of the algebra above.
 
-First, the model reproduces all $25$ terms the entry publishes, exactly, in integer
-arithmetic.
+First, the digraph was built directly from the entry's stated patterns and the walk counts
+compared against the entry's DATA at every one of the $22$ published indices; the
+values agree exactly, including the initial count of $8$ admissible columns. That is
+what ties the digraph to the sequence, and a model reproducing only part of the published
+data was rejected wherever it occurred.
 
-Second, the count was recomputed for the smallest arrays straight from the definition: fill the
-cells in row major order, in the orientation the entry's own name writes, and test a window as
-soon as its last cell is placed. No state, no transposition and no transfer matrix are
-involved, and the published terms came back.
+Second, the recurrence \eqref{eq:conj} was evaluated on those published terms in exact
+integer arithmetic, with no matrices involved, and vanishes at every index the entry claims.
 
-Third, the conjectured recurrence was evaluated directly on the published terms, with no
-matrices involved, and holds wherever the proved range and the data overlap.
-
-Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
-arithmetic on the whole vector rather than on a sampled prefix.
+Third, the vanishing test of Lemma~\ref{lem:crit} was carried past $S=64$ consecutive
+zeros rather than to a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A258888.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A207705.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+University Press, 2009.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

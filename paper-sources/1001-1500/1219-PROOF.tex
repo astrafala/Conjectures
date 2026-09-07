@@ -12,110 +12,80 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A253611, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A231637, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{3 September 2026}
+\date{4 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A253611 counts arrays of width $3$ over an alphabet of $3$ letters in which every three
-consecutive entries taken along a row, a column or a diagonal hold a prescribed number of
-DISTINCT values, the arrays being counted up to renaming of the letters. The entry carries an
+OEIS A231637 counts arrays of width $3$ over $\{0,1,2\}$ in which no cell is beaten by a strict majority of its neighbours. The entry carries an
 empirical recurrence of order $38$ contributed by R.~H.~Hardin. It is true, and it is
-decidable rather than empirical. Nothing in the condition compares letters by size, so the
-count up to renaming is recovered from counts over fixed alphabets by inverting a triangular
-system of falling factorials; each of those is a walk count on pairs of consecutive rows, and
-the same symmetry is used a second time to run the walk on ORBITS of pairs, which is what
-brings the state count down to $S=107$.
+decidable rather than empirical: what a cell asks reaches one row above
+it and one row below, so the condition on a whole row is settled by
+$3$ consecutive rows and the count is a walk count on $S=685$ states.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A18, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B20, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A253611 is ``Number of (n+2)X(1+2) 0..2 arrays with every consecutive three elements in every row and diagonal having one or two distinct values, and in every column and antidiagonal having two or three distinct values, and new values 0 upwards introduced in row major order.''. It has offset $1$ and begins
+OEIS A231637 is ``Number of n X 3 0..2 arrays with no element having a strict majority of its horizontal, vertical, diagonal and antidiagonal neighbors equal to itself plus one mod 3, with upper left element zero (rock paper and scissors drawn positions).''. It has offset $1$ and begins
 \[
-762, 8664, 97232, 1100582, 12433311, 140520343, 1587933587, 17945023519,\ \dots
+3, 25, 362, 5110, 69671, 953726, 13036446, 178192422,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 9*a(n-1) +45*a(n-2) -184*a(n-3) -458*a(n-4) +1161*a(n-5) +1148*a(n-6) -1369*a(n-7) +3794*a(n-8) -2764*a(n-9) -55923*a(n-10) +7449*a(n-11) +208853*a(n-12) -98842*a(n-13) -23515*a(n-14) -853218*a(n-15) +1405774*a(n-16) -204020*a(n-17) -793726*a(n-18) +2392307*a(n-19) -3658864*a(n-20) +612572*a(n-21) +461558*a(n-22) -1884359*a(n-23) +3941388*a(n-24) +1134857*a(n-25) -2874383*a(n-26) +204350*a(n-27) +666534*a(n-28) -42988*a(n-29) -191134*a(n-30) -89650*a(n-31) +7276*a(n-32) -21568*a(n-33) +8124*a(n-34) -12728*a(n-35) -4896*a(n-36) -320*a(n-37) -512*a(n-38)
+Empirical: a(n) = 21*a(n-1) -107*a(n-2) +63*a(n-3) +327*a(n-4) +1807*a(n-5) -11022*a(n-6) +22286*a(n-7) -29911*a(n-8) +38148*a(n-9) -14430*a(n-10) -114794*a(n-11) +310088*a(n-12) -391497*a(n-13) +122088*a(n-14) +685315*a(n-15) -1613102*a(n-16) +1227640*a(n-17) +817156*a(n-18) -2507835*a(n-19) +2085116*a(n-20) +424904*a(n-21) -3237743*a(n-22) +2923285*a(n-23) -121269*a(n-24) -692469*a(n-25) -329220*a(n-26) +486184*a(n-27) +200957*a(n-28) -63170*a(n-29) -17085*a(n-30) -56817*a(n-31) -12152*a(n-32) +25012*a(n-33) +9826*a(n-34) -5584*a(n-35) -844*a(n-36) +436*a(n-37) +8*a(n-38) for n>39.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 14:07:37, revision 7) this is still
+As of the ``Last modified'' line on the live entry (Dec 28 2023 23:18:59, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The array has width $3$ and entries in $\{0,1,\dots,2\}$. Four families of triples
-run through it, and each carries its own condition on how many distinct values the three
-entries may hold:
+The arrays have $3$ columns and a growing number of rows, with entries in $\{0,1,2\}$. Fix the
+list of offsets the entry names,
 \[
-\begin{array}{lll}
-\text{along} & \text{the triple} & \text{admissible numbers of distinct values} \\[2pt]
-\text{a row} & $(i,j),\ (i,j+1),\ (i,j+2)$ & $1, 2$ \\
-\text{a column} & $(i,j),\ (i+1,j),\ (i+2,j)$ & $2, 3$ \\
-\text{a diagonal (nw--se)} & $(i,j),\ (i+1,j+1),\ (i+2,j+2)$ & $1, 2$ \\
-\text{an antidiagonal (ne--sw)} & $(i,j),\ (i+1,j-1),\ (i+2,j-2)$ & $2, 3$ \\
-\end{array}
+\Delta=\{\,(-1,-1), (-1,0), (-1,1), (0,-1), (0,1), (1,-1), (1,0), (1,1)\,\},
 \]
-A triple counts only when all three of its cells lie inside the array.
-
-The clause ``new values $0$ upwards introduced in row major order'' says the array is the
-canonical representative of its EQUALITY PATTERN: reading the cells in row major order, a
-letter may appear for the first time only if every smaller letter already has. So what the
-entry counts is patterns, not arrays.
-
-\section{From patterns to fixed alphabets}
-
-Write $N_j$ for the number of admissible patterns using exactly $j$ letters and $L_i$ for the
-number of admissible arrays over an alphabet of $i$ letters. An array over $i$ letters is a
-pattern together with an injection of its letters into the alphabet, so
+and for a cell $(i,j)$ write
 \[
-L_i\;=\;\sum_j N_j\,i(i-1)\cdots(i-j+1),
+S(i,j)=\{\,(i+\delta_1,\,j+\delta_2) : (\delta_1,\delta_2)\in\Delta\,\}\cap
+\text{(the cells of the array)}
 \]
-a triangular system with unit diagonal, hence invertible over $\mathbf{Q}$. The entry counts
-$a=N_1+\dots+N_{3}$, so
+for the neighbours it actually has. Only offsets landing inside the array count, so a cell on
+the border simply has fewer neighbours.
+
+The condition is that no cell has a strict majority of its neighbours one greater than itself modulo $3$:
 \[
-a\;=\;\sum_{i=1}^{3}w_i\,L_i ,\qquad w=\mathbf{1}^{\!\top}F^{-1},
+2\cdot\#\{(a,b)\in S(i,j) : x(a,b)\equiv x(i,j)+1 \bmod 3\}\;\le\;|S(i,j)| .
 \]
-$F$ being the matrix of falling factorials.
+With three values this is the drawn position of rock, paper and scissors: each value beats the one below it modulo $3$, and no cell is to be beaten by a strict majority of its neighbours. The entry adds that the top-left cell is $0$.
 
-This step is legitimate only if the condition is invariant under permuting the alphabet, and
-here it is: every clause counts how many DISTINCT values a triple holds, and whether two cells
-agree is untouched by any renaming. No clause compares letters by size and none does arithmetic
-on them, so the reduction applies with nothing left over.
+\section{A window of 3 rows}
 
-\section{Each $L_i$ is a walk count, on orbits}
+The offsets reach one row up and one row down, so everything the condition asks of one row is
+decided by that row together with one row above it and one row below --- a window of
+$3$ consecutive rows, and nothing wider. Take the array one row at a time
+and let the state be the last 2 of them, with a distinguished start standing for the
+array before its first row, so that a walk of $n$ steps is an array of $n$ rows.
 
-Every triple lies inside three consecutive rows, so with $c_1,\dots,c_R$ the rows of the array
-the condition is a conjunction of tests on the windows $(c_{t},c_{t+1},c_{t+2})$ together
-with the row test on each $c_t$ separately. A pair of consecutive admissible rows is therefore
-a state, and $L_i$ counts walks in the digraph on those pairs, one edge $(c_t,c_{t+1})\to
-(c_{t+1},c_{t+2})$ for each admissible window.
+Appending a row completes exactly one window, and the row it settles is the one just above the bottom of that window; a step is
+allowed when that row passes. Each row of the finished
+array is therefore tested exactly once.
 
-That digraph has up to $i^{2\cdot3}$ vertices, which is more than can be written down for
-the wider arrays. The symmetry is used again to cut it. Let $G=S_i$ act on states by renaming
-letters. Every test is invariant, so the adjacency matrix $M$ commutes with the action, and the
-all-ones vector $\tau$ is invariant; hence $M^{t}\tau$ is invariant, that is, constant on
-orbits. Writing $\bar M[O,O']$ for the number of edges from one fixed representative of $O$ to
-states of $O'$ --- a number independent of the representative, again by invariance --- gives
-$\overline{M^{t}\tau}=\bar M^{t}\bar\tau$, and therefore
+When the array stops, the last row of it has never been tested, because the
+conditions reach one row below. So the end vector is NOT all ones: a state is accepted exactly when
+those rows pass with nothing below them, which is decided by running the same test on the window
+with absent rows appended --- the same rule that governs a cell at the bottom edge in
+Section 2.
+Thus
 \[
-L_i(R)\;=\;\sum_{s}(M^{R-2}\tau)(s)\;=\;\sum_{O}|O|\,(\bar M^{R-2}\bar\tau)(O),
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=685,
 \]
-the sum being over the orbits of admissible pairs. An orbit is exactly the PATTERN of the pair,
-and if that pattern uses $p$ letters its orbit has $i(i-1)\cdots(i-p+1)$ members, since a state
-is fixed only by permutations fixing every letter it shows. So the start vector is the falling
-factorial and the end vector is all ones.
-
-Assembling the $i=1,\dots,3$ pieces as a disjoint union, with $\iota$ carrying the weights
-$w_i$ cleared of denominators,
-\[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,
-\]
-with $S=107$ states in all. The walk index $j$ and the entry's own $n$ differ by a constant,
-read off by matching the published terms rather than assumed. In particular $a$ is $C$-finite.
+for the transfer matrix $M$ on those $S$ states. The walk index $j$ and the entry's own $n$
+differ by a constant, read off by matching the published terms rather than assumed. In
+particular $a$ is $C$-finite.
 
 \section{The proof}
 
@@ -137,32 +107,29 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;9\,a(n-1) + 45\,a(n-2) - 184\,a(n-3) - 458\,a(n-4) + 1161\,a(n-5) + 1148\,a(n-6) - 1369\,a(n-7) + 3794\,a(n-8) - 2764\,a(n-9) - 55923\,a(n-10) + 7449\,a(n-11) + 208853\,a(n-12) - 98842\,a(n-13) - 23515\,a(n-14) - 853218\,a(n-15) + 1405774\,a(n-16) - 204020\,a(n-17) - 793726\,a(n-18) + 2392307\,a(n-19) - 3658864\,a(n-20) + 612572\,a(n-21) + 461558\,a(n-22) - 1884359\,a(n-23) + 3941388\,a(n-24) + 1134857\,a(n-25) - 2874383\,a(n-26) + 204350\,a(n-27) + 666534\,a(n-28) - 42988\,a(n-29) - 191134\,a(n-30) - 89650\,a(n-31) + 7276\,a(n-32) - 21568\,a(n-33) + 8124\,a(n-34) - 12728\,a(n-35) - 4896\,a(n-36) - 320\,a(n-37) - 512\,a(n-38)
+a(n)\;=\;21\,a(n-1) - 107\,a(n-2) + 63\,a(n-3) + 327\,a(n-4) + 1807\,a(n-5) - 11022\,a(n-6) + 22286\,a(n-7) - 29911\,a(n-8) + 38148\,a(n-9) - 14430\,a(n-10) - 114794\,a(n-11) + 310088\,a(n-12) - 391497\,a(n-13) + 122088\,a(n-14) + 685315\,a(n-15) - 1613102\,a(n-16) + 1227640\,a(n-17) + 817156\,a(n-18) - 2507835\,a(n-19) + 2085116\,a(n-20) + 424904\,a(n-21) - 3237743\,a(n-22) + 2923285\,a(n-23) - 121269\,a(n-24) - 692469\,a(n-25) - 329220\,a(n-26) + 486184\,a(n-27) + 200957\,a(n-28) - 63170\,a(n-29) - 17085\,a(n-30) - 56817\,a(n-31) - 12152\,a(n-32) + 25012\,a(n-33) + 9826\,a(n-34) - 5584\,a(n-35) - 844\,a(n-36) + 436\,a(n-37) + 8\,a(n-38)
 \]
-for every $n>38$.
+for every $n>39$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $38$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=38+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once. The
-rational weights $w_i$ are carried as one common denominator throughout, so no division is
-performed until the final term.
+integers vanish from the index corresponding to $n=39+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $15$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $17$ terms the entry publishes, exactly, in integer
 arithmetic.
 
-Second, the count was recomputed for the smallest arrays straight from the definition: fill the
-cells in row major order, allow a cell to introduce a new letter only when every smaller letter
-is already present, and reject a partial array as soon as a triple all of whose cells are
-placed violates its condition. This uses neither the transfer matrix, nor the orbit reduction,
-nor the falling-factorial inversion, and it returns the published terms.
+Second, the count was recomputed for the smallest arrays straight from the definition: every
+array of width $3$ over $\{0,1,2\}$ with a few rows was written out cell by cell and each cell
+tested against the neighbours it has. No window, no state and no end vector are involved in that
+computation, and the published terms came back.
 
 Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
@@ -172,12 +139,9 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A253611.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A231637.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; Stirling numbers and
-falling factorials, Section 1.9.)
-\bibitem{kemeny} J.~G.~Kemeny and J.~L.~Snell, \emph{Finite Markov Chains}, Springer,
-1976. (Lumping a chain along a partition preserved by the transition rule, Section 6.3.)
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

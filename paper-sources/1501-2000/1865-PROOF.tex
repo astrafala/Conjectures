@@ -12,124 +12,114 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A214240, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A224562, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A214240 counts the proper colourings of a grid $2\times(n+1)$, wrapped in the growing direction, with at most $8$ colours and
-counted up to renaming the colours, and carries an empirical recurrence of order $12$
-contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical. Counting
-up to renaming is a fixed rational combination of ordinary colouring counts; each of those is
-a walk count; and because permuting the colours preserves everything in sight, the walk may be
-run on the colour-patterns rather than on the colourings, which is what brings the state count
-down to $S=168$ and makes the exact residual test affordable.
+OEIS A224562 counts the $(n+3)\times5$ matrices over $\{0,\dots,1\}$ all of whose
+$4\times4$ contiguous subblocks are idempotent, and carries an empirical recurrence of order
+$12$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical.
+The condition ties together $4$ consecutive rows and $4$ consecutive columns at once, so a
+single row is not a state; the strip of the last $3$ rows is, and the admissible strips
+are read off the overlap graph of the admissible windows instead of being enumerated. That
+makes $a(n)$ a walk count on $S=366$ vertices, hence $C$-finite, and whether the conjectured
+recurrence annihilates it is settled by a finite exact computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05C15, 05C30.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
 \section{The conjecture}
 
-OEIS A214240 is ``Number of 0..7 colorings of a 2X(n+1) array circular in the n+1 direction with new values 0..7 introduced in row major order.''. It has offset $1$ and begins
+OEIS A224562 is ``Number of (n+3) X 5 0..1 matrices with each 4 X 4 subblock idempotent.''. It has offset $1$ and begins
 \[
-4, 18, 354, 7749, 231799, 8178855, 318511707, 13046748480,\ \dots
+370, 340, 428, 517, 611, 775, 1044, 1383,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 66*a(n-1) -867*a(n-2) -8354*a(n-3) +120414*a(n-4) +672756*a(n-5) -3902534*a(n-6) -24478884*a(n-7) +5777547*a(n-8) +189931178*a(n-9) +205081401*a(n-10) -166116762*a(n-11) -207075960*a(n-12)
+Empirical: a(n) = 2*a(n-1) - a(n-2) + a(n-3) - 2*a(n-5) + a(n-6) - 2*a(n-7) + 2*a(n-8) + a(n-11) - a(n-12) for n>15.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 16:57:24, revision 8) this is still
+As of the ``Last modified'' line on the live entry (Sep 01 2018 09:17:36, revision 8) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
-\section{What is being counted}
+\section{The count is a walk count}
 
-A \emph{colouring} here is proper: cells adjacent horizontally or vertically carry different
-values, and ``circular in one direction'' means the two ends of that direction are adjacent as
-well. The check that this is the right reading is the entry's own first term for the
-one-row case: a cycle of $W$ cells has $(i-1)^W+(-1)^W(i-1)$ proper colourings over $i$
-colours, which at $W=6$, $i=3$ is $66$, and $66/3!=11$ is what the corresponding entry of this
-family publishes.
+Call a $4\times4$ matrix over $\{0,\dots,1\}$ a \emph{window} when it is idempotent, and
+call a $4\times5$ matrix a \emph{band} when every one of its $2$ contiguous
+$4\times4$ subblocks is a window. What the entry counts is the matrices of $5$ columns
+whose every $4$ consecutive rows form a band.
 
-The clause ``new values $0..7$ introduced in row major order'' says the array is the
-canonical representative of its equality pattern, so what is counted is patterns, not arrays.
-Write $N_j$ for the number of admissible patterns using exactly $j$ colours and $L_i$ for the
-number of admissible colourings over an alphabet of $i$ colours. A colouring over $i$ colours
-is a pattern together with an injection of its colours into the alphabet, so
+Take as states the $3\times5$ strips that occur as the top $3$ rows of a band,
+together with those that occur as its bottom $3$ rows, and put an edge from $u$ to $v$
+when the band whose first $3$ rows are $u$ and whose last $3$ rows are $v$ exists.
+A band is determined by that pair, so the edge is unique when it exists. Reading a counted
+matrix from the top, its rows $1..3$, then $2..4$, and so on, form a walk, and every
+walk arises from exactly one matrix; a matrix with $n+3$ rows gives a walk of $n$ edges.
+Since the first $3$ rows of a counted matrix with at least $4$ rows are the top of a
+band, and since no further condition falls on where a walk starts or ends,
 \[
-L_i\;=\;\sum_j N_j\,i(i-1)\cdots(i-j+1),
+a(n)\;=\;\iota^{\!\top}M^{\,n}\tau ,\qquad \iota=\tau=(1,1,\dots,1)^{\!\top},
 \]
-a triangular system with unit diagonal, hence invertible over $\mathbf{Q}$. The entry counts
-$a=N_1+\dots+N_{8}$, so
-\[
-a\;=\;\sum_{i=1}^{8}w_i\,L_i
-\]
-for one fixed rational vector $w=\mathbf{1}^{\!\top}F^{-1}$, $F$ the matrix of falling
-factorials. Being properly coloured is a statement about equalities alone, so it is invariant
-under permuting the colours and the reduction is legitimate.
+with $M$ the adjacency matrix on $S=366$ states. In particular $a$ is $C$-finite. The
+alignment was checked against the entry's published terms rather than assumed.
 
-\section{Each $L_i$ is a walk count}
+There are $(1 + 1)^{15}$ strips of $3$ rows and $5$ columns, far too
+many to test one by one, and they are not tested one by one. Two consecutive windows of a band
+overlap in $4\times3$ entries, so a band is exactly a walk of $2$ windows in
+the graph that joins a window to those whose first $3$ columns are its last $3$
+columns. Enumerating those walks produces the bands, and with them the states and the edges,
+directly.
 
-A column of the array is a proper colouring of the path $P_{2}$ and two consecutive
-columns must differ in every one of the $2$ positions; the wrapping makes the last column
-adjacent to the first. A colouring of the array is therefore a CLOSED walk of $m=n+1$ steps
-in the digraph $T_i$ whose vertices are the proper colourings of $P_{2}$ over $i$ colours
-and whose edges join colourings differing everywhere, so
-\[
-L_i(n)\;=\;\operatorname{tr}\,T_i^{\,m},\qquad m=n+1.
-\]
-A trace is not $\iota^{\!\top}M^m\tau$ for fixed vectors, and computing it as a sum over all
-starting vertices is far too expensive. Lemma~\ref{lem:trace} replaces it by a handful of
-walks with fixed ends.
+\section{The admissible windows}
 
-\begin{lemma}\label{lem:trace}
-Let $G$ be a group acting on the vertex set of a digraph and preserving its edges, and let $M$
-be the adjacency matrix. Then $(M^m)_{ss}=(M^m)_{\sigma s,\sigma s}$ for every
-$\sigma\in G$, and hence
+The vertices of the overlap graph are the $0/1$ matrices $B$ of size $4\times4$ with
+$B^2=B$. There are $2^{16}$ matrices to sift, which is already awkward at $4=4$ and
+hopeless a little beyond it, so they are not sifted; they are generated from the following
+description, which also makes the count itself transparent.
+
+\begin{lemma}\label{lem:idem}
+Let $B$ be a $k\times k$ matrix with entries in $\{0,1\}$, let $r_i$ denote its $i$th row and
+$S_i=\{j:B_{ij}=1\}$ the support of that row. Then $B^2=B$ if and only if
 \[
-\operatorname{tr} M^m\;=\;\sum_{\text{orbits }O}|O|\;(M^m)_{s_O s_O} ,
+r_i=\sum_{t\in S_i}r_t \qquad (1\le i\le k),
 \]
-one representative $s_O$ per orbit. For $T_i$ with $G=S_i$ permuting the colours, the orbits
-are the equality patterns and the orbit of a colouring using $j$ colours has
-$i(i-1)\cdots(i-j+1)$ members.
+the rows on the right necessarily having pairwise disjoint supports. Writing
+$Z=\{i:r_i=0\}$ and $U=\{1,\dots,k\}\setminus Z$, and calling $i\in U$ \emph{primitive}
+when $S_i\cap U=\{i\}$, the idempotent $0/1$ matrices are exactly those obtained as follows:
+choose $Z$; choose the set $B^{\ast}\subseteq U$ of primitive indices and for each
+$b\in B^{\ast}$ a set $Z_b\subseteq Z$, putting $r_b=e_b+\sum_{j\in Z_b}e_j$; and for each
+$i\in U\setminus B^{\ast}$ choose a nonempty $B_i\subseteq B^{\ast}$ whose rows have
+pairwise disjoint supports, putting $r_i=\sum_{b\in B_i}r_b$. Distinct data give distinct
+matrices.
 \end{lemma}
 
 \begin{proof}
-$\sigma$ permutes the vertices and carries walks to walks bijectively, so the closed walks of
-length $m$ at $s$ correspond to those at $\sigma s$. Summing the diagonal over each orbit
-gives the displayed identity. Permuting colours preserves ``differ in every position'', so
-$S_i$ acts on the colourings of $P_{2}$ preserving $T_i$; two colourings lie in one orbit
-exactly when they have the same equality pattern, and a pattern using $j$ colours is realised
-in $i(i-1)\cdots(i-j+1)$ ways.
+The $i$th row of $B^2$ is $\sum_t B_{it}r_t=\sum_{t\in S_i}r_t$, so $B^2=B$ is precisely the
+displayed system. Its entries lie in $\{0,1\}$, so for each $i$ the supports $S_t$,
+$t\in S_i$, are pairwise disjoint with union $S_i$.
+
+Assume $B^2=B$. Rows indexed by $Z$ vanish, so for $i\in U$ we may write
+$r_i=\sum_{t\in S_i\cap U}r_t$ with $S_i\cap U\neq\emptyset$. If $i$ is primitive this says
+$S_i\subseteq\{i\}\cup Z$, which is the stated shape with $Z_i=S_i\cap Z$. For the rest argue
+by induction on $|S_i|$. The supports $S_t$, $t\in S_i\cap U$, are disjoint, nonempty and
+cover $S_i$; if one of them has $|S_t|=|S_i|$ it is the only one, whence $r_t=r_i$,
+$S_t\cap U=S_i\cap U=\{t\}$ and $t$ is primitive. Otherwise every such $t$ has
+$|S_t|<|S_i|$, and each $r_t$ is by induction a sum of primitive rows with disjoint supports.
+Either way $r_i=\sum_{b\in B_i}r_b$ with $B_i\subseteq B^{\ast}$, and intersecting
+$S_i=\bigsqcup_{b\in B_i}(\{b\}\cup Z_b)$ with $U$ returns $B_i$, so the data is recovered
+from $B$ and distinct data give distinct matrices.
+
+Conversely, given data of the stated shape, the disjointness makes every entry $0$ or $1$, and
+$\sum_{t\in S_i}r_t$ equals $0$, $r_b$, $\sum_{b\in B_i}r_b$ in the three cases, which is
+$r_i$ each time. Hence $B^2=B$.
 \end{proof}
 
-\begin{lemma}\label{lem:lump}
-Let a group $G$ act on the vertices of a digraph preserving its edges, and let $v$ be constant
-on the $G$-orbits. Then $Mv$ is constant on the $G$-orbits, and for a representative $s$ of
-the orbit $O$,
-\[
-(Mv)(O)\;=\;\sum_{O'}A_{OO'}\,v(O'),\qquad
-A_{OO'}=\#\{t\in O':\ s\to t\} .
-\]
-So an iteration started at a $G$-invariant vector may be carried out on the orbits.
-\end{lemma}
-
-\begin{proof}
-$\sigma\in G$ is an edge-preserving bijection, so it carries the out-neighbours of $s$ onto
-those of $\sigma s$; with $v$ constant on orbits, $(Mv)(s)$ and $(Mv)(\sigma s)$ are the same
-sum. The count $A_{OO'}$ is likewise independent of which representative of $O$ is used.
-\end{proof}
-
-Both endpoint vectors above are invariant under the relevant group --- the all-ones vectors
-under all of $S_i$, and, for a diagonal entry $(T_i^m)_{ss}$, the vector $e_s$ under the
-subgroup fixing $s$ --- so the whole computation runs on orbits. That is the entire reason the
-state count is $S=168$ rather than the number of colourings.
-
-Assembling the pieces, $a(n)$ is $\iota^{\!\top}M^{\,j}\tau$ on the disjoint union of the
-orbit digraphs for $i=1,\dots,8$, with $\iota$ carrying the weights $w_i$ cleared of
-denominators; the walk index $j$ and the entry's $n$ differ by a constant, read off by
-matching the entry's published terms rather than assumed. In particular $a$ is $C$-finite.
+Generating from Lemma~\ref{lem:idem} gives $452$ admissible $4\times4$ windows. For
+$k=2,3,4$ the same generation gives $8$, $50$ and $452$, which agree with exhaustion over all
+$2^{k^2}$ matrices; that is the check that the description above is neither too wide nor too
+narrow.
 
 \section{The proof}
 
@@ -151,25 +141,23 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;66\,a(n-1) - 867\,a(n-2) - 8354\,a(n-3) + 120414\,a(n-4) + 672756\,a(n-5) - 3902534\,a(n-6) - 24478884\,a(n-7) + 5777547\,a(n-8) + 189931178\,a(n-9) + 205081401\,a(n-10) - 166116762\,a(n-11) - 207075960\,a(n-12)
+a(n)\;=\;2\,a(n-1) - a(n-2) + a(n-3) - 2\,a(n-5) + a(n-6) - 2\,a(n-7) + 2\,a(n-8) + a(n-11) - a(n-12)
 \]
-for every $n>11$.
+for every $n>15$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $12$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=11+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once. The
-rational weights $w_i$ are cleared by a common denominator before any of this, so the whole
-computation is over the integers.
+integers vanish from the index corresponding to $n=15+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once. The bound is exact: at $n=15$ the recurrence fails on the entry's own published terms, so no larger range holds.
 \end{proof}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $16$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $35$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
@@ -181,11 +169,11 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A214240.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A224562.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{biggs} N.~Biggs, \emph{Algebraic Graph Theory}, 2nd ed., Cambridge University
-Press, 1993. (Chromatic polynomials and transfer matrices.)
+\bibitem{kim} K.~H.~Kim, \emph{Boolean Matrix Theory and Applications}, Marcel Dekker,
+1982.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

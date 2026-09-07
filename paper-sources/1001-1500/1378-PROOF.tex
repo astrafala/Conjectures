@@ -12,98 +12,59 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A233143, proved by transfer matrix}
+\title{Arrays counted up to renaming: the empirical recurrence for OEIS A204506}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{3 September 2026}
+\date{6 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A233143 counts arrays over $\{0,\dots,5\}$ in which no two entries that are neighbours in
-a named set of directions may sum to $5$, together with clauses that pick one array out of
-each class of arrays differing by a renaming. The entry carries an empirical recurrence of
-order $27$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
-empirical: the clash condition is local to two consecutive rows and the renaming clauses are
-carried by one bounded piece of extra state, so the count is a walk count on $S=38$ states.
+OEIS A204506 carries an empirical recurrence of order $28$ contributed by R.~H.~Hardin. It is
+true, and it is decidable rather than empirical. The entry imposes two conditions of different
+kinds: a condition on every subblock, which is local, and ``new values introduced in row major
+order'', which is not --- it makes the count a count of colourings up to renaming. The first is
+handled by a window of consecutive rows; the second by one extra integer, the number of values
+introduced so far, which is an exact summary of everything the whole prefix contributes. With
+both in the state the arrays are exactly the walks in a digraph on $S=40$ vertices, so $a(n)$
+is $C$-finite and whether the conjectured recurrence annihilates it is settled by a finite
+exact computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05C15, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
 \section{The conjecture}
 
-OEIS A233143 is ``Number of nX4 0..5 arrays with no element x(i,j) adjacent to value 5-x(i,j) horizontally, antidiagonally or vertically, top left element zero, and 1 appearing before 2 3 and 4, and 2 appearing before 3 in row major order.''. It has offset $1$ and begins
+OEIS A204506 is ``Number of (n+2)X3 0..2 arrays with every 3X3 subblock having three equal elements in a row horizontally, vertically, diagonally or antidiagonally at least two different ways, and new values 0..2 introduced in row major order.''. It has offset $1$ and begins
 \[
-23, 3727, 845917, 198313130, 46648134615, 10976545771938, 2582927810338210, 607799571521107132,\ \dots
+652, 7344, 87869, 874124, 9306965, 100389366, 1060442883, 11271249888,\ \dots
 \]
+Because of the relabelling condition each array is counted once for the whole class of arrays that differ from it only by renaming the values, so these are colourings counted up to permutation of the colours.
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 310*a(n-1) -19831*a(n-2) +567817*a(n-3) -9045239*a(n-4) +90083339*a(n-5) -602192427*a(n-6) +2821467285*a(n-7) -9491948537*a(n-8) +23238614757*a(n-9) -41808469376*a(n-10) +55264690349*a(n-11) -51692358938*a(n-12) +30252784146*a(n-13) -5648166713*a(n-14) -6372298968*a(n-15) +4876472605*a(n-16) -104115359*a(n-17) -1424089179*a(n-18) +752282173*a(n-19) -147512539*a(n-20) -22839*a(n-21) +3406138*a(n-22) -81513*a(n-23) -44431*a(n-24) -3578*a(n-25) +468*a(n-26) +81*a(n-27) for n>28
+Empirical: a(n) = 11*a(n-1) -8*a(n-2) +184*a(n-3) -1610*a(n-4) +1016*a(n-5) -1186*a(n-6) +42250*a(n-7) -28003*a(n-8) -97163*a(n-9) -310078*a(n-10) +259130*a(n-11) +2103542*a(n-12) -1180456*a(n-13) -3192352*a(n-14) -10472484*a(n-15) +21487392*a(n-16) +17418200*a(n-17) -12454816*a(n-18) -27103840*a(n-19) -50486880*a(n-20) +33266176*a(n-21) +68955392*a(n-22) +21755136*a(n-23) -41044736*a(n-24) -44105216*a(n-25) +8871936*a(n-26) +14843904*a(n-27) +1474560*a(n-28)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 07:54:52, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 11:17:09, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
-\section{What is being counted}
+\section{The count is a walk count}
 
-The array is $4$ cells across with entries $x(i,j)\in\{0,1,\dots,5\}$. Call two values $u,v$ CLASHING
-when $u+v=5$. Two cells are neighbours when one is obtained from the other by one of
-the offsets
+The entry counts arrays of 3 columns over the alphabet $\{0,1,2\}$, and asks two different kinds of thing of them at once.
+
+\textbf{The subblock condition is local.} It says that every $3\times3$ subblock must contain three equal elements in a line --- along one of its three rows, one of its three columns, or one of its two diagonals --- in at least two of those eight ways. A $ 3\times3$ subblock spans $3$ consecutive rows, so a window of $3$ consecutive rows decides every subblock it closes, and nothing outside that window is consulted.
+
+\textbf{The relabelling condition is not local.} ``New values introduced in row major order'' says that, reading the array one row at a time and each row left to right, a value may appear for the first time only once every smaller value already has. Whether a given entry is allowed here therefore depends on the whole prefix of the array, not on any bounded window of it, and no amount of widening the window captures it. What saves it is that the prefix matters only through one number: let $m$ be how many values have been introduced so far. A row $r_1r_2\cdots r_3$ may follow precisely when each $r_i\le m$ at the moment it is read and each $r_i=m$ raises $m$ by one. So $m$, an integer in $\{0,1,\dots,3\}$, is an exact summary of everything the condition needs, and it joins the state.
+
+The vertices of the digraph are therefore the triples (the last $2$ rows, the count $m$, what the last band scored), an edge $u\to v$ meaning that $v$'s new row may follow $u$. Of the $27$ possible rows only those admissible from the current $m$ appear, and states with identical futures are merged, which leaves $S=40$. An admissible array is exactly a walk, so with $M$ the adjacency matrix and $\iota,\tau$ the vectors recording which states may begin and end an array,
 \[
-(0,1), (1,-1), (1,0),
+a(n)\;=\;\iota^{\!\top}M^{\,n+1}\tau ,
 \]
-that is, in the horizontal, antidiagonal (ne--sw) and vertical directions, and the condition is that no two neighbouring cells carry
-clashing values. The clash relation is symmetric, so an offset and its negative name the
-same pairs and only one of each is listed. The entry also fixes the top left entry: $x(1,1)=0$.
-
-Finally the entry asks that, reading the cells in ROW MAJOR order, certain values make their
-first appearance before certain others:
-\[
-1\prec 2,\qquad 1\prec 3,\qquad 1\prec 4,\qquad 2\prec 3 ,
-\]
-writing $u\prec v$ for ``the first cell carrying $u$ comes before the first cell carrying
-$v$''. The entry's own name glosses the effect of this clause together with $x(1,1)=0$ as
-counting UNLABELLED colourings. Nothing below rests on that gloss: the clause is imposed
-exactly as it is written, and it is the written clause that the model and the independent
-check both test.
-
-\begin{lemma}\label{lem:seen}
-Let $P$ be the set of values named in the clause. Reading the cells in row major order and
-carrying the SET $T\subseteq P$ of named values already written, the clause holds if and only
-if every cell whose value $v\in P$ is not yet in $T$ has $u\in T$ for every $u$ with $u\prec v$.
-\end{lemma}
-
-\begin{proof}
-$u\prec v$ says the first cell carrying $v$ is preceded by some cell carrying $u$, that is, at
-the moment $v$ is first written $u$ already belongs to $T$. Conversely if that holds at each
-first writing then each required precedence holds. A cell whose value is already in $T$ is not
-a first appearance and imposes nothing.
-\end{proof}
-
-The walk of this paper runs DOWN THE ROWS and visits the cells of each row from left to right,
-which is exactly row major order, so the set $T$ can be carried in the state. It takes at most
-$2^{4}$ values, and the state of the walk is a pair (array row, set $T$).
-
-\section{The walk}
-
-Every offset above moves the row index by at most one, so a clash is a condition on two
-consecutive array rows and on nothing else.
-
-So the state is a pair: the last array row, and the set $T$ of Lemma~\ref{lem:seen}. A step
-appends a row, which settles every clash between it and the row above, every clash inside it,
-and every first appearance it contains. Two states from which, for every remaining length, the
-same number of arrays can be completed contribute identically to the count, so they are
-identified; after that identification there are $S=38$ of them.
-
-With $\iota$ the indicator of the states that may begin an array and $\tau=\mathbf{1}$,
-\[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau .
-\]
-The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
-published terms rather than assumed. In particular $a$ is $C$-finite.
+the exponent fixed by the entry's own shape and checked against its published terms. In
+particular $a$ is $C$-finite.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{27}-\sum_i c_it^{27-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{28}-\sum_i c_it^{28-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -111,7 +72,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+27}-\sum_ic_iM^{j+27-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+28}-\sum_ic_iM^{j+28-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -120,13 +81,13 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;310\,a(n-1) - 19831\,a(n-2) + 567817\,a(n-3) - 9045239\,a(n-4) + 90083339\,a(n-5) - 602192427\,a(n-6) + 2821467285\,a(n-7) - 9491948537\,a(n-8) + 23238614757\,a(n-9) - 41808469376\,a(n-10) + 55264690349\,a(n-11) - 51692358938\,a(n-12) + 30252784146\,a(n-13) - 5648166713\,a(n-14) - 6372298968\,a(n-15) + 4876472605\,a(n-16) - 104115359\,a(n-17) - 1424089179\,a(n-18) + 752282173\,a(n-19) - 147512539\,a(n-20) - 22839\,a(n-21) + 3406138\,a(n-22) - 81513\,a(n-23) - 44431\,a(n-24) - 3578\,a(n-25) + 468\,a(n-26) + 81\,a(n-27)
+a(n)\;=\;11\,a(n-1) - 8\,a(n-2) + 184\,a(n-3) - 1610\,a(n-4) + 1016\,a(n-5) - 1186\,a(n-6) + 42250\,a(n-7) - 28003\,a(n-8) - 97163\,a(n-9) - 310078\,a(n-10) + 259130\,a(n-11) + 2103542\,a(n-12) - 1180456\,a(n-13) - 3192352\,a(n-14) - 10472484\,a(n-15) + 21487392\,a(n-16) + 17418200\,a(n-17) - 12454816\,a(n-18) - 27103840\,a(n-19) - 50486880\,a(n-20) + 33266176\,a(n-21) + 68955392\,a(n-22) + 21755136\,a(n-23) - 41044736\,a(n-24) - 44105216\,a(n-25) + 8871936\,a(n-26) + 14843904\,a(n-27) + 1474560\,a(n-28)
 \]
 for every $n>28$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $27$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $28$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
 integers vanish from the index corresponding to $n=28+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
@@ -136,15 +97,17 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $12$ terms the entry publishes, exactly, in integer
-arithmetic.
+First, the model reproduces all $15$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry: the digraph is built by reading the
+entry's English, and a misreading gives different counts.
 
-Second, the count was recomputed for the smallest arrays straight from the definition: fill the
-cells in row major order, in the orientation the entry's own name writes, and test each clause
-the moment it can be tested. No transfer matrix, no transposition and no state are involved,
-and the published terms came back.
+Second, the reading was pinned before the digraph was written, by a program that enumerates
+the arrays one by one from the entry's own words --- generating every array over the
+alphabet, discarding those that fail the relabelling condition, then testing each subblock
+directly --- and compares the count with the published terms. That program shares no code
+with the transfer matrix, so an error in one does not hide an error in the other.
 
-Third, the conjectured recurrence was evaluated directly on the published terms, with no
+Third, the conjectured recurrence was evaluated directly on those published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
 
 Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
@@ -152,11 +115,11 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A233143.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A204506.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata
-Theory, Languages, and Computation}, 3rd ed., Addison--Wesley, 2006.
+\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+University Press, 2009.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

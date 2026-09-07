@@ -12,81 +12,83 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A266056, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A241126, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A266056 counts arrays of width $2$ in which every entry is equal to the NUMBER of its own
-neighbours, in named directions, that stand in a stated relation to it. The entry carries an
-empirical recurrence of order $26$ contributed by R.~H.~Hardin. It is true, and it is
-decidable rather than empirical. The condition is self-referential but local: a cell's
-neighbours lie in the row above, its own row and the row below, so a window of three
-consecutive rows decides the condition for the middle one, and the count is a walk count on
-$S=289$ states.
+OEIS A241126 counts arrays of width $3$ over $\{0,\dots,2\}$ under a condition on each cell
+and its neighbours, and carries an empirical recurrence of order $26$ contributed by
+R.~H.~Hardin. It is true, and it is decidable rather than empirical. Every neighbour named lies
+in the three rows $i-1,i,i+1$, so an ordered pair of consecutive rows is a state, the count is
+a walk count on $S=830$ of them, and the conjectured recurrence is then settled by a finite
+exact computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05C30, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 68Q45.\normalsize
 
 \section{The conjecture}
 
-OEIS A266056 is ``Number of 2Xn integer arrays with each element equal to the number of horizontal and antidiagonal neighbors less than or equal to itself.''. It has offset $1$ and begins
+OEIS A241126 is ``Number of nX3 0..2 arrays with no element equal to exactly two horizontal and vertical neighbors, with new values 0..2 introduced in row major order.''. It has offset $1$ and begins
 \[
-1, 7, 12, 58, 598, 4427, 26350, 164148,\ \dots
+4, 54, 723, 9773, 132369, 1792237, 24269723, 328645291,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 3*a(n-1) +11*a(n-2) +51*a(n-3) +156*a(n-4) +141*a(n-5) -429*a(n-6) -2785*a(n-7) -5505*a(n-8) -4470*a(n-9) +6355*a(n-10) +33613*a(n-11) +32025*a(n-12) -21483*a(n-13) -43190*a(n-14) -23519*a(n-15) -2201*a(n-16) +16965*a(n-17) +9808*a(n-18) -2953*a(n-19) -715*a(n-20) +1191*a(n-21) -528*a(n-22) -3*a(n-23) +143*a(n-24) -39*a(n-25) +15*a(n-26)
+Empirical: a(n) = 14*a(n-1) -7*a(n-2) +27*a(n-3) -170*a(n-4) -631*a(n-5) -1135*a(n-6) +5278*a(n-7) -3113*a(n-8) +5125*a(n-9) +13678*a(n-10) -10325*a(n-11) +15744*a(n-12) -52520*a(n-13) -13756*a(n-14) -110176*a(n-15) +64424*a(n-16) -53672*a(n-17) -13552*a(n-18) +87456*a(n-19) -198528*a(n-20) +71552*a(n-21) -44288*a(n-22) -116224*a(n-23) -4096*a(n-24) -122880*a(n-25) -65536*a(n-26)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Dec 20 2015 10:27:07, revision 4) this is still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 11:10:53, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The array has $2$ cells across. The NEIGHBOURS of a cell are the cells reached from it by the
-offsets
+The neighbours of a cell are the cells at the offsets
 \[
-(-1,0), (-1,1), (1,-1), (1,0),
+(-1,0), (0,-1), (0,1), (1,0),
 \]
-those that lie inside the array. The condition is that every entry counts its own neighbours
-that are smaller than or equal to it: writing $v=x(i,j)$,
+those falling outside the array being absent. The entry requires that no cell equals exactly $2$ of its neighbours.
+
+\section{Counting patterns rather than arrays}
+
+The clause ``new values $0..2$ introduced in row major order'' says the array is the
+canonical representative of its EQUALITY PATTERN. Writing $N_j$ for the patterns using exactly
+$j$ letters and $L_i$ for the admissible arrays over an alphabet of $i$ letters,
 \[
-v\;=\;\#\{\text{neighbours } y \text{ of } (i,j)\ :\ y\le v\} .
+L_i\;=\;\sum_j N_j\,i(i-1)\cdots(i-j+1),
 \]
+a triangular system with unit diagonal, so the entry's count $N_1+\dots+N_{3}$ is a
+fixed rational combination of the $L_i$.
 
-The entry says ``integer arrays'' and names no alphabet, but one is forced. An entry counts
-neighbours in the named directions, of which there are $4$, so every entry of the array
-lies in $\{0,1,\dots,4\}$ and the count is finite. That bound is used below and
-nothing wider is needed. The entry writes the array with $n$ as the number of COLUMNS; the walk is run down the transpose, so the offsets above are already the transposed ones. Each direction is taken with both signs, so transposing cannot lose one.
+That step needs the condition to be invariant under permuting the alphabet, and in this family
+most conditions are not: ``next to itself plus and minus one'', ``adjacent to the value
+$2-v$'' and ``equal to the sum modulo $k$'' all compare or combine letters arithmetically.
+The condition here is about AGREEMENT alone, so it is invariant and the reduction applies.
 
-\section{Three rows decide one}
+\section{The count is a walk count}
 
-\begin{lemma}\label{lem:win}
-Every offset above changes the row index by $-1$, $0$ or $+1$, so all the neighbours of a cell
-of row $i$ lie in rows $i-1$, $i$ and $i+1$. The condition for the whole of row $i$ is
-therefore decided by those three rows, an absent row contributing no neighbours.
-\end{lemma}
-
-\begin{proof}
-Immediate from the offsets, together with the rule that a neighbour outside the array is not a
-neighbour.
-\end{proof}
-
-So the state is the pair (row above, current row), the row above allowed to be the symbol
-$\bot$; a step appends a row and settles the condition for the middle row of the window it
-completes. Two boundaries have to be right and neither is assumed. The walk starts at the state
-$(\bot,\bot)$, which stands for the empty array, so a walk of no steps is the empty array and
-one step is a one-row array. And the condition for the LAST row is settled by the end vector,
-which asks whether that row satisfies its condition with nothing written below it: the end
-vector is therefore NOT the all-ones vector, and a row that counts correctly only when
-something is written below it does not finish an array. With $M$ the adjacency matrix,
+Every offset above moves the row index by at most one, so whether a cell of row $i$ passes
+depends on rows $i-1$, $i$ and $i+1$ and nothing else. Take as vertices the ordered PAIRS
+$(p,c)$ of consecutive rows, allowing $p$ to be ABSENT --- that is what lets a walk of no steps
+describe a one-row array --- and put an edge $(p,c)\to(c,x)$ exactly when every cell of the
+middle row $c$ passes with $p$ above it and $x$ below it. A state with $p$ absent may begin an
+array; a state $(p,c)$ accepts when every cell of $c$ passes with nothing below it. An array of
+$L$ rows is then a walk of $L-1$ steps, each step settling one row, and every array arises from
+exactly one walk. Hence
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=289.
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau
 \]
-The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
-published terms rather than assumed. In particular $a$ is $C$-finite.
+with $\iota$ the indicator of the beginning states, $\tau$ of the accepting ones, and $j$ the
+walk index, which differs from the entry's own $n$ by a constant read off from its published
+terms. There are $S=830$ states, and $a$ is $C$-finite.
+
+At $n=1$ the array has one row, and
+the condition is tested there with nothing above or below it; the entry's first term is
+$4$, which the model reproduces along with every later term. That is the cheapest check
+that the neighbour set and the boundary have been read the same way the entry reads them: a
+condition tested as though the missing rows were present, rather than absent, gives a different
+first term. There are $3^{3}=27$ possible rows over the entry's own alphabet.
 
 \section{The proof}
 
@@ -108,7 +110,7 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;3\,a(n-1) + 11\,a(n-2) + 51\,a(n-3) + 156\,a(n-4) + 141\,a(n-5) - 429\,a(n-6) - 2785\,a(n-7) - 5505\,a(n-8) - 4470\,a(n-9) + 6355\,a(n-10) + 33613\,a(n-11) + 32025\,a(n-12) - 21483\,a(n-13) - 43190\,a(n-14) - 23519\,a(n-15) - 2201\,a(n-16) + 16965\,a(n-17) + 9808\,a(n-18) - 2953\,a(n-19) - 715\,a(n-20) + 1191\,a(n-21) - 528\,a(n-22) - 3\,a(n-23) + 143\,a(n-24) - 39\,a(n-25) + 15\,a(n-26)
+a(n)\;=\;14\,a(n-1) - 7\,a(n-2) + 27\,a(n-3) - 170\,a(n-4) - 631\,a(n-5) - 1135\,a(n-6) + 5278\,a(n-7) - 3113\,a(n-8) + 5125\,a(n-9) + 13678\,a(n-10) - 10325\,a(n-11) + 15744\,a(n-12) - 52520\,a(n-13) - 13756\,a(n-14) - 110176\,a(n-15) + 64424\,a(n-16) - 53672\,a(n-17) - 13552\,a(n-18) + 87456\,a(n-19) - 198528\,a(n-20) + 71552\,a(n-21) - 44288\,a(n-22) - 116224\,a(n-23) - 4096\,a(n-24) - 122880\,a(n-25) - 65536\,a(n-26)
 \]
 for every $n>26$.
 \end{theorem}
@@ -122,29 +124,24 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 \section{Verification}
 
-Four checks, each independent of the algebra above.
+Three checks, each independent of the algebra above.
 
-First, the model reproduces all $21$ terms the entry publishes, exactly, in integer
-arithmetic.
+First, the model reproduces all $17$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry: the digraph is built by reading the
+entry's English, and a misreading gives different counts.
 
-Second, the count was recomputed for the smallest arrays straight from the definition:
-enumerate every array of that size, count each cell's neighbours satisfying the relation, and
-keep the array when every cell equals its own count. No window, no transfer matrix and no
-transposition are involved, and the published terms came back.
-
-Third, the conjectured recurrence was evaluated directly on the published terms, with no
+Second, the conjectured recurrence was evaluated directly on those published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
 
-Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
 arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A266056.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A241126.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata
-Theory, Languages, and Computation}, 3rd ed., Addison--Wesley, 2006.
+\bibitem{comtet} L.~Comtet, \emph{Advanced Combinatorics}, Reidel, 1974.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

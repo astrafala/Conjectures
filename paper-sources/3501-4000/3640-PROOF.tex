@@ -12,142 +12,153 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical product formula for OEIS A140929, proved}
+\title{The empirical recurrence for OEIS A253403, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{6 September 2026}
+\date{5 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A140929 counts $6\times10$ matrices over $\{0,\dots,n\}$ whose rows and columns are
-nondecreasing, and carries a product formula for $a(n)$ marked empirical. Reversing rows and
-columns turns such a matrix into a plane partition inside a $6\times10\times n$ box, so
-MacMahon's box theorem applies; the triple product telescopes in its third index and leaves a
-polynomial in $n$ of degree $60$. The entry's own expression, cleared of its denominator,
-becomes an identity between two polynomials of bounded degree, and is therefore settled by a
-finite exact computation. The box count itself is classical and is already recorded on this
-entry; what is proved here is the entry's own formula.
+OEIS A253403 counts arrays of width $5$ over $\{0,1,2\}$ in which the largest entry on the main diagonal plus the smallest on the antidiagonal of every $2\times2$ subblock differs from the same number at the neighbouring subblock. The entry carries an
+empirical recurrence of order $60$ contributed by R.~H.~Hardin. It is true, and it is
+decidable rather than empirical: a block of $k$ rows and the block one row lower together
+occupy $k+1$ consecutive rows, so every comparison the condition makes is settled inside
+$3$ consecutive rows and the count is a walk count on $S=17804$ states.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A17, 05A19.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B20, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A140929 is ``Number of 6 X 10 matrices with elements in 0..n with each row and each column in nondecreasing order. 6,10,n can be permuted, see formula.''. It has offset $0$ and begins
+OEIS A253403 is ``Number of (n+1)X(4+1) 0..2 arrays with every 2X2 subblock diagonal maximum plus antidiagonal minimum unequal to its neighbors horizontally, vertically and ne+sw antidiagonally.''. It has offset $1$ and begins
 \[
-1, 8008, 14158144, 9386849472, 3031952379456, 559611782036736,\ \dots
+17560, 37828, 108950, 403698, 1739014, 7437150, 27085902, 115826070,\ \dots
 \]
-The entry states, as conjectures contributed by its author and never marked settled:
+The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-(empirical) set p,q,r to n,10,6 (in any order) in s=p+q+r-1; a(n) = product {i in 0..r-1} (binomial(s,p+i)*i!/(s-i)\^{}(r-i-1))
-
+Empirical: a(n) = 160*a(n-3) -7952*a(n-6) +98358*a(n-9) +1917280*a(n-12) -53187384*a(n-15) -68774113*a(n-18) +7983927856*a(n-21) -4682894632*a(n-24) -687025828328*a(n-27) -4013350970720*a(n-30) -4983960145280*a(n-33) +22542564452080*a(n-36) +57373712662592*a(n-39) -74581831759040*a(n-42) -225211762413056*a(n-45) +204280702855424*a(n-48) +329790587612160*a(n-51) -337058300150784*a(n-54) -25034074472448*a(n-57) -449521975296*a(n-60) for n>69
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jan 20 2025 10:52:15, revision 8) these are still
-recorded as empirical, and nothing on the entry records them as proved.
+As of the ``Last modified'' line on the live entry (Jul 23 2025 14:02:18, revision 6) this is still
+recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-A matrix $x$ of shape $6\times10$ with entries in $\{0,\dots,n\}$, nondecreasing along
-every row and down every column, becomes, on reversing the order of the rows and of the
-columns, an array that is NONINCREASING along rows and down columns with the same entries. That
-is exactly a plane partition whose parts are at most $n$ and whose shape fits inside a
-$6\times10$ rectangle --- a plane partition in a $6\times10\times n$ box. The
-correspondence is a bijection, being an involution on arrays, so
+The arrays have $5$ columns and a growing number of rows, with entries in $\{0,1,2\}$.
+
+For a $k\times k$ block $B$ of cells of the array, let
 \[
-a(n)\;=\;\mathrm{PP}(6,10,n).
+f(B)=\max_{1\le t\le k}B_{t,t}\;+\;\min_{1\le t\le k}B_{t,k+1-t} ,
 \]
-Note which parameter grows: the shape is FIXED and it is the alphabet $0..n$ that $n$ counts,
-so nothing about transfer matrices applies here.
-
-\section{The box count is a polynomial}
-
-\begin{theorem}[MacMahon]\label{thm:mm}
+which in words is the largest entry on the main diagonal plus the smallest on the antidiagonal. The condition is that $f$ takes different values on any two blocks that
+are neighbours in one of the directions the entry names: writing $B(i,j)$ for the block whose
+top-left cell is $(i,j)$,
 \[
-\mathrm{PP}(p,q,r)\;=\;\prod_{i=1}^{p}\prod_{j=1}^{q}\prod_{k=1}^{r}
-\frac{i+j+k-1}{i+j+k-2} .
+f\bigl(B(i,j)\bigr)\;\neq\;f\bigl(B(i+\delta_1,\,j+\delta_2)\bigr)
+\qquad\text{for }(\delta_1,\delta_2)\in\Delta,
 \]
-\end{theorem}
-
-This is classical; see Stanley~\cite{stanley}, and it is already recorded on this entry.
-
-\begin{theorem}\label{thm:poly}
+whenever both blocks lie wholly inside the array, where
 \[
-a(n)\;=\;\prod_{i=1}^{6}\prod_{j=1}^{10}\frac{n+i+j-1}{i+j-1},
+\Delta=\{\,(1,-1),\ (0,1),\ (1,0)\,\}
 \]
-a polynomial in $n$ of degree $60$ with rational coefficients.
-\end{theorem}
+collects the steps for the directions the entry names, namely antidiagonal, horizontal and vertical. The
+requirement is imposed for that one size of block, $2\times2$.
 
-\begin{proof}
-In Theorem~\ref{thm:mm} the inner product over $k$ telescopes: for fixed $i$ and $j$,
+Two remarks fix the reading. A neighbouring block is the block one step over, overlapping the
+first, not the next disjoint block: the entry says ``its neighbors'', and the counts below
+confirm it. And a comparison is imposed only when both blocks lie wholly inside the array, so a
+block near an edge is compared in fewer directions and a block whose named neighbour falls off
+the array is under no condition in that direction.
+
+\section{A window of 3 rows}
+
+A $k\times k$ block occupies $k$ consecutive rows, and each of its neighbours occupies either
+the same $k$ rows or the $k$ rows one lower. So both blocks of any comparison lie inside $k+1$
+consecutive rows, hence inside $3$ consecutive rows for every size the entry names. No
+comparison reaches further than that, in either direction.
+
+Take the array one row at a time and let the state be the last 2 rows written so far, with a
+distinguished start standing for the array before its first row, so that a walk of $n$ steps is
+an array of $n$ rows. Appending a row produces a window of $3$ rows, and the step is
+allowed exactly when every comparison whose two blocks both lie inside that window holds.
+
+Every comparison of the finished array is tested this way. Each one lies inside $3$
+consecutive rows, and every $3$ consecutive rows of the array form the window of some
+step. A comparison lying inside more than one window is tested more than once, which costs
+nothing. Conversely no step imposes anything not asked by the definition, since a step tests
+only comparisons whose two blocks lie inside the array.
+
+Every state may end an array, so $\tau=\mathbf{1}$. A block sitting in the final rows whose
+neighbour would lie below the last row is not compared in that direction at all --- the
+neighbour is not part of the array --- so stopping never leaves a condition unchecked. For the
+same reason the array of exactly $2$ rows is handled by the walks of length $2$ with no
+further test: all of its comparisons already lie inside the windows of those steps.
+
+Thus
 \[
-\prod_{k=1}^{n}\frac{i+j+k-1}{i+j+k-2}\;=\;\frac{n+i+j-1}{i+j-1} ,
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=17804,
 \]
-every other factor cancelling against its neighbour. The remaining double product has
-$6\cdot10=60$ factors, each linear in $n$, and the denominators are constants.
-\end{proof}
+for the transfer matrix $M$ on those $S$ states. The walk index $j$ and the entry's own $n$
+differ by a constant, read off by matching the published terms rather than assumed. In
+particular $a$ is $C$-finite.
 
-So $a$ is a polynomial, and no appeal to Ehrhart theory or to any general position argument is
-needed to see it.
+\section{The proof}
 
-\section{The entry's expression}
-
-The entry writes $s=p+q+r-1$ with $(p,q,r)=(n,10,6)$ and claims
-\[
-a(n)\;=\;\prod_{i=0}^{6-1}\binom{s}{n+i}\,\frac{i!}{(s-i)^{6-1-i}}\;=\;
-\frac{N(n)}{D(n)} .
-\]
-
-\begin{lemma}\label{lem:deg}
-$N$ and $D$ are polynomials in $n$ of degrees $75$ and $15$ respectively.
+\begin{lemma}\label{lem:crit}
+Let $q(t)=t^{60}-\sum_i c_it^{60-i}$ be the characteristic polynomial of the
+conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
+$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
+holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
+and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-With $s=n+10+6-1$ one has $s-(n+i)=10+6-1-i$, a constant, so
-\[
-\binom{s}{n+i}=\binom{s}{10+6-1-i}
-=\frac{(s-10-6+2+i)(s-10-6+3+i)\cdots s}{(10+6-1-i)!},
-\]
-a polynomial in $n$ of degree $10+6-1-i$. Multiplying over $i=0,\dots,6-1$ gives
-$\deg N=\sum_{i=0}^{6-1}(10+6-1-i)=75$. The denominator is
-$\prod_{i=0}^{6-1}(s-i)^{6-1-i}$, of degree
-$\sum_{i=0}^{6-1}(6-1-i)=15$, and it does not vanish for $n\ge0$.
+Factor $M^{j}$ out of $M^{j+60}-\sum_ic_iM^{j+60-i}$. For the bound, $M^{S}$
+is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
+$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
+polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
+pins the threshold exactly.
 \end{proof}
 
 \begin{theorem}
-The entry's expression equals $a(n)$ for every $n\ge0$.
+\[
+a(n)\;=\;160\,a(n-3) - 7952\,a(n-6) + 98358\,a(n-9) + 1917280\,a(n-12) - 53187384\,a(n-15) - 68774113\,a(n-18) + 7983927856\,a(n-21) - 4682894632\,a(n-24) - 687025828328\,a(n-27) - 4013350970720\,a(n-30) - 4983960145280\,a(n-33) + 22542564452080\,a(n-36) + 57373712662592\,a(n-39) - 74581831759040\,a(n-42) - 225211762413056\,a(n-45) + 204280702855424\,a(n-48) + 329790587612160\,a(n-51) - 337058300150784\,a(n-54) - 25034074472448\,a(n-57) - 449521975296\,a(n-60)
+\]
+for every $n>69$.
 \end{theorem}
 
 \begin{proof}
-By Theorem~\ref{thm:poly} and Lemma~\ref{lem:deg}, $a(n)D(n)-N(n)$ is a polynomial in $n$
-of degree at most $60+15=75$. It was evaluated in exact rational arithmetic at
-$n=0,1,\dots,75$, that is at $76$ points, and vanishes at all of them; a nonzero polynomial
-of degree at most $75$ has at most $75$ roots, so it is identically zero. Since $D(n)\neq0$
-for $n\ge0$, the two expressions agree there.
+The vector $w=q(M)\tau$ was formed by $60$ matrix--vector products in exact integer
+arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
+integers vanish from the index corresponding to $n=69+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
-Three checks, each independent of the algebra above.
+Four checks, each independent of the algebra above.
 
-First, Theorem~\ref{thm:poly} reproduces all $9$ terms the entry publishes,
-exactly, in integer arithmetic.
+First, the model reproduces all $18$ terms the entry publishes, exactly, in integer
+arithmetic.
 
-Second, the matrices themselves were counted for the smallest alphabets, directly from the
-definition: the nondecreasing rows were listed and the chains of $6$ of them increasing
-componentwise counted, with no product formula and no plane partitions anywhere. The counts
-agree, which is what ties the reversal bijection to the entry's own wording.
+Second, the count was recomputed for the smallest arrays straight from the definition: every
+array of width $5$ over $\{0,1,2\}$ with a few rows was written out cell by cell, every block of
+that one size was located, its number computed, and the comparison made with each neighbouring block
+that lies inside the array. No window, no state and no end vector are involved in that
+computation, and the published terms came back.
 
-Third, the polynomial identity was evaluated over the whole range $n=0,\dots,75$ rather than
-sampled, in exact rational arithmetic.
+Third, the conjectured recurrence was evaluated directly on the published terms, with no
+matrices involved, and holds wherever the proved range and the data overlap.
+
+Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A140929.
-\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 2, Cambridge
-University Press, 1999. (Plane partitions with bounded part size, Section 7.21.)
-\bibitem{macmahon} P.~A.~MacMahon, \emph{Combinatory Analysis}, Volume 2, Cambridge
-University Press, 1916.
-\bibitem{andrews} G.~E.~Andrews, \emph{The Theory of Partitions}, Addison--Wesley, 1976.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A253403.
+\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
+University Press, 2013.
 \end{thebibliography}
 
 \end{document}

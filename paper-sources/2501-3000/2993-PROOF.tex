@@ -12,14 +12,14 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical column recurrences for the table OEIS A251499}
+\title{The empirical column recurrences for the table OEIS A234882}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A251499 is a two-dimensional table $T(n,k)$, and it carries a block of empirical
+OEIS A234882 is a two-dimensional table $T(n,k)$, and it carries a block of empirical
 recurrences contributed by R.~H.~Hardin --- one for each of its first few columns. They are
 true. Column $k$ of the table is an ordinary fixed-width array count, so its rows are the
 vertices of a finite digraph and $T(n,k)$ is a number of walks in it; being a walk count the
@@ -31,19 +31,23 @@ exact computation, with the Cayley--Hamilton theorem bounding the work. This not
 
 \section{The table and the conjectures}
 
-OEIS A251499 is ``T(n,k)=Number of (n+1)X(k+1) 0..3 arrays with every 2X2 subblock summing to 4 5 6 7 or 8.''. It has offset $1$, is
+OEIS A234882 is ``T(n,k) is the number of (n+1) X (k+1) 0..4 arrays with every 2 X 2 subblock having its diagonal sum differing from its antidiagonal sum by 1, with no adjacent elements equal (constant-stress tilted 1 X 1 tilings).''. It has offset $1$, is
 read by antidiagonals, and begins
 \[
-186, 2270, 2270, 27844, 86946, 27844, 341718, 3361296,\ \dots
+32, 68, 68, 128, 148, 128, 268, 268,\ \dots
 \]
 The entry carries the following block:
 \begin{quote}\small
 Empirical for column k:\\
-k=1: a(n) = 13*a(n-1) -5*a(n-2) -52*a(n-3) +48*a(n-4)\\
-k=2: [order 12]\\
-k=3: [order 52]\\
+k=1: a(n) = 5*a(n-2) -4*a(n-4).\\
+k=2: [order 9].\\
+k=3: [order 11].\\
+k=4: [order 19].\\
+k=5: [order 23].\\
+k=6: [order 31].\\
+k=7: [order 35].\\
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jun 02 2025 10:26:07, revision 6) these are still
+As of the ``Last modified'' line on the live entry (Jun 20 2022 20:29:15, revision 7) these are still
 recorded as empirical, and nothing on the entry records any of them as settled.
 
 \section{A column of the table is a walk count}
@@ -86,7 +90,7 @@ $j\ge S_k$ repeats that combination of earlier values.
 \begin{center}
 \begin{tabular}{ccccc}
 line & order & vertices $S$ & proved for & terms checked \\ \hline
-column $k$$=1$ & $4$ & $16$ & $>3$ & $7$ \\
+column $k$$=1$ & $4$ & $20$ & $>4$ & $9$ \\
 \end{tabular}
 \end{center}
 
@@ -96,14 +100,14 @@ again exactly; every one of those integers vanishes from the stated point onward
 continued until the working vector was identically zero, which settles all larger $j$ at once.
 
 \subsection*{Column $k$$=1$}
-The sequence is ``Number of (n+1)X(2) 0..3 arrays with every 2X2 subblock summing to 4 5 6 7 or 8.''. Its rows are the vertices of a digraph on
-$S=16$ vertices, edges being the admissible consecutive pairs, and the count is
+The sequence is ``Number of (n+1) X (2) 0..4 arrays with every 2 X 2 subblock having its diagonal sum differing from its antidiagonal sum by 1, with no adjacent elements equal (constant-stress tilted 1 X 1 tilings).''. Its rows are the vertices of a digraph on
+$S=20$ vertices, edges being the admissible consecutive pairs, and the count is
 $\mathbf{1}^{\!\top}M^{n}\mathbf{1}$ up to the constant factor in the entry's name.
 The conjectured recurrence
 \[
-a(n)\;=\;13\,a(n-1) - 5\,a(n-2) - 52\,a(n-3) + 48\,a(n-4)
+a(n)\;=\;5\,a(n-2) - 4\,a(n-4)
 \]
-holds from index $3+1$ on.
+holds from index $4+1$ on.
 
 
 \section{Lines whose recurrence the entry does not print}
@@ -118,26 +122,28 @@ characteristic polynomial that is a multiple of the minimal one and of equal deg
 that polynomial. So the entry's recurrence is the one displayed, whatever its file contains.
 
 \subsection*{Column $k=2$, recovered}
-The entry gives only the order for this line: ``k=2: [order 12]''. Its model is a walk on
-$S=64$ vertices, so it satisfies a monic recurrence of order at most $S$;
-Berlekamp--Massey on $2S=128$ exact terms returns the minimal one, of order
-$12$ --- the stated order --- with integer coefficients
+The entry gives only the order for this line: ``k=2: [order 9].''. Its model is a walk on
+$S=80$ vertices, so it satisfies a monic recurrence of order at most $S$;
+Berlekamp--Massey on $2S=160$ exact terms returns the minimal one, of order
+$9$ --- the stated order --- with integer coefficients
 \begin{center}\small\begin{tabular}{cccccccc}
-$c_{1}$ & $46$ & $c_{4}$ & $12368$ & $c_{7}$ & $67165$ & $c_{10}$ & $15648$ \\
-$c_{2}$ & $-243$ & $c_{5}$ & $-4170$ & $c_{8}$ & $32054$ & $c_{11}$ & $13056$ \\
-$c_{3}$ & $-1796$ & $c_{6}$ & $-57120$ & $c_{9}$ & $-72328$ & $c_{12}$ & $-4608$ \\
+$c_{1}$ & $2$ & $c_{4}$ & $-29$ & $c_{7}$ & $-73$ &  &  \\
+$c_{2}$ & $10$ & $c_{5}$ & $68$ & $c_{8}$ & $0$ &  &  \\
+$c_{3}$ & $-21$ & $c_{6}$ & $22$ & $c_{9}$ & $22$ &  &  \\
 \end{tabular}\end{center}
-Repeating with the first $12+4$ terms removed gives order $12$ again.
+Repeating with the first $9+4$ terms removed gives order $9$ again.
 
 \subsection*{Column $k=3$, recovered}
-The entry gives only the order for this line: ``k=3: [order 52]''. Its model is a walk on
-$S=256$ vertices, so it satisfies a monic recurrence of order at most $S$;
-Berlekamp--Massey on $2S=512$ exact terms returns the minimal one, of order
-$52$ --- the stated order --- with integer coefficients
-\[
-(c_1,\dots,c_{52})=(161,\ -4146,\ -99086,\ 4025719,\ 3352718,\ -1143269351,\ 6323065419,\ 111830788127,\ -946832349806,\ -4245862352721,\ 53521620702661,\ 46473371138334,\ -1558596393101887,\ 1253332953080641,\ 26095778872493510,\ -48654625714125195,\ -260176131205401648,\ 730743832771969293,\ 1502063360489568965,\ -6225510155500329353,\ -4116086371165437899,\ 32877090960710570170,\ -3198116216306014279,\ -110881563115778371997,\ 64601914740248236032,\ 240410371748256608994,\ -229430903046705402626,\ -332055505305503208018,\ 440325723529501943704,\ 281414846009547740281,\ -525294895032204161992,\ -127685608591143631767,\ 408889884173453304811,\ 7499369422803642169,\ -211643864068737289778,\ 25656578512266508379,\ 72974520805344924476,\ -15672822621732300540,\ -16539948067063790336,\ 4693633112265588864,\ 2388614774963306912,\ -819992811228000512,\ -207210908122530176,\ 85006088372128768,\ 9613681651137536,\ -5031422209775616,\ -174843999412224,\ 156119569661952,\ -677293719552,\ -2193692295168,\ 31255953408,\ 10192158720).
-\]
-Repeating with the first $52+4$ terms removed gives order $52$ again.
+The entry gives only the order for this line: ``k=3: [order 11].''. Its model is a walk on
+$S=320$ vertices, so it satisfies a monic recurrence of order at most $S$;
+Berlekamp--Massey on $2S=640$ exact terms returns the minimal one, of order
+$11$ --- the stated order --- with integer coefficients
+\begin{center}\small\begin{tabular}{cccccccc}
+$c_{1}$ & $2$ & $c_{4}$ & $-38$ & $c_{7}$ & $-130$ & $c_{10}$ & $0$ \\
+$c_{2}$ & $11$ & $c_{5}$ & $87$ & $c_{8}$ & $-16$ & $c_{11}$ & $-16$ \\
+$c_{3}$ & $-23$ & $c_{6}$ & $46$ & $c_{9}$ & $78$ &  &  \\
+\end{tabular}\end{center}
+Repeating with the first $11+4$ terms removed gives order $11$ again.
 
 \section{Verification}
 
@@ -148,7 +154,7 @@ both from the antidiagonal DATA read in either orientation and from the ``Table 
 block, and agrees at every available term. This is what ties a model to the table:
 substituting the fixed index into the entry's wording is a reading of English, and a wrong
 reading gives a different digraph and different counts. Across the lines settled here the
-model reproduces $7$ published values, $42$ decimal digits in all, every one of
+model reproduces $9$ published values, $29$ decimal digits in all, every one of
 them exactly; a misreading of the entry would have to reproduce all of them by accident.
 
 Second, each conjectured recurrence was evaluated on those published values in exact
@@ -168,7 +174,7 @@ claimed.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A251499.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A234882.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

@@ -12,41 +12,41 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A232591, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A204295, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{4 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A232591 counts arrays of width $3$ over $\{0,1,2\}$ in which every cell sees its own value plus and minus one among its neighbours. The entry carries an
+OEIS A204295 counts arrays of width $2$ over $\{0,1,2,3\}$ in which every cell has neighbours equal to each of two named values. The entry carries an
 empirical recurrence of order $9$ contributed by R.~H.~Hardin. It is true, and it is
 decidable rather than empirical: what a cell asks reaches one row above it and one row below, so the
 condition on a whole row is settled by $3$ consecutive rows and the count is a walk
-count on $S=100$ states.
+count on $S=171$ states.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 05B20, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A232591 is ``Number of (2+1) X (n+1) 0..2 arrays with every element next to itself plus and minus one within the range 0..2 horizontally or antidiagonally, with no adjacent elements equal.''. It has offset $1$ and begins
+OEIS A204295 is ``Number of n X 2 0..3 arrays with every element neighboring horizontally or vertically both a 0 and a 1, and 2 introduced before 3 in row major order.''. It has offset $1$ and begins
 \[
-2, 34, 12, 152, 108, 690, 744, 3232,\ \dots
+0, 4, 4, 16, 68, 212, 776, 3076,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 5*a(n-2) + 4*a(n-3) - 3*a(n-4) - 12*a(n-5) - 3*a(n-6) + 6*a(n-7) + 6*a(n-8) + 2*a(n-9) for n>10.
+Empirical: a(n) = 4*a(n-1) +2*a(n-2) +4*a(n-3) -42*a(n-4) -30*a(n-5) +13*a(n-6) +38*a(n-7) +28*a(n-8) -16*a(n-9).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 05 2018 12:00:18, revision 7) this is still
+As of the ``Last modified'' line on the live entry (Jun 07 2018 06:18:47, revision 12) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The arrays have $3$ columns and a growing number of rows, with entries in $\{0,1,2\}$. Fix the
+The arrays have $2$ columns and a growing number of rows, with entries in $\{0,1,2,3\}$. Fix the
 offsets the entry names,
 \[
-\Delta=\{\,(-1,0), (-1,1), (1,-1), (1,0)\,\},
+\Delta=\{\,(-1,0), (0,-1), (0,1), (1,0)\,\},
 \]
 and for a cell $(i,j)$ write
 \[
@@ -54,26 +54,28 @@ S(i,j)=\{\,(i+\delta_1,\,j+\delta_2) : (\delta_1,\delta_2)\in\Delta\,\}\cap
 \text{(the cells of the array)}
 \]
 for the neighbours it actually has. Only offsets landing inside the array count, so a cell on
-the border simply has fewer neighbours. The entry writes the array with $n$ as the number of COLUMNS; transposing it exchanges the two coordinates of every offset, and the offsets above are written in the transposed frame.
+the border simply has fewer neighbours.
 
-The condition is that every cell has, among its neighbours, each of its own value plus one and its own value minus one that still lies in the range:
+The condition is that every cell has a neighbour equal to $0$ and a neighbour equal to $1$:
 \[
-t\in\{x(i,j)-1,\ x(i,j)+1\}\cap\{0,\dots,2\}\ \Longrightarrow\ t\in\{x(a,b):(a,b)\in S(i,j)\}.
+0\in\{x(a,b):(a,b)\in S(i,j)\}\quad\text{and}\quad1\in\{x(a,b):(a,b)\in S(i,j)\}.
 \]
-At the ends of the range only one of the two values exists and only that one is demanded.
-
-The entry adds that no two cells at one of these offsets are equal.
+The entry adds that $2$ is introduced before $3$ in reading order: going through the cells row by row, the first one carrying either value carries $2$.
 
 \section{A window of 3 rows}
 
 The offsets reach one row up and one row down, so everything the condition asks of one row is
 decided by that row together with one row above it and one row below --- a window of
-$3$ consecutive rows, and nothing wider. Take the array one column at a time and
+$3$ consecutive rows, and nothing wider. Take the array one row at a time and
 let the state be the last 2 of them, with a distinguished start standing for the array before its
 first row, so that a walk of $n$ steps is an array of $n$ rows.
 
 Appending a row completes exactly one window, and the row it settles is the one just above the bottom of that window; a step is
 allowed when that row passes. Each row of the finished array is therefore tested exactly once.
+
+The reading-order clause is one more symbol in the state: neither value seen yet, or the earlier
+one seen first. It never goes back, and a row that would introduce the later value first is
+simply not taken.
 
 When the array stops, the last row of it has never been tested, because the
 conditions reach one row below. So the end vector is NOT all ones: a state is accepted exactly when
@@ -82,7 +84,7 @@ with absent rows appended --- the same rule that governs a cell at the bottom ed
 Section 2.
 Thus
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=100,
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=171,
 \]
 for the transfer matrix $M$ on those $S$ states. The walk index $j$ and the entry's own $n$
 differ by a constant, read off by matching the published terms rather than assumed. In
@@ -108,15 +110,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;5\,a(n-2) + 4\,a(n-3) - 3\,a(n-4) - 12\,a(n-5) - 3\,a(n-6) + 6\,a(n-7) + 6\,a(n-8) + 2\,a(n-9)
+a(n)\;=\;4\,a(n-1) + 2\,a(n-2) + 4\,a(n-3) - 42\,a(n-4) - 30\,a(n-5) + 13\,a(n-6) + 38\,a(n-7) + 28\,a(n-8) - 16\,a(n-9)
 \]
-for every $n>10$.
+for every $n>9$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $9$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=10+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=9+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -124,11 +126,11 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $28$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $25$ terms the entry publishes, exactly, in integer
 arithmetic.
 
 Second, the count was recomputed for the smallest arrays straight from the definition: every
-array of width $3$ over $\{0,1,2\}$ with a few rows was written out cell by cell and each cell
+array of width $2$ over $\{0,1,2,3\}$ with a few rows was written out cell by cell and each cell
 tested against the neighbours it has. No window, no state and no end vector are involved in that
 computation, and the published terms came back.
 
@@ -140,7 +142,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A232591.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A204295.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge

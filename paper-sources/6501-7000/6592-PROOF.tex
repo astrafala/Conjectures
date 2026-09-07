@@ -12,21 +12,21 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A208837, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A207747, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A208837 counts arrays over $\{0,\dots,1\}$ of width $5$ that avoid the patterns
-$(0,0,0), (0,0,1)$ along one axis and $(0,1,1), (1,1,0)$ along the other, and carries an empirical recurrence of
-order $10$ contributed by R.~H.~Hardin. It is true. The patterns have length $3$, so
+OEIS A207747 counts arrays over $\{0,\dots,1\}$ of width $3$ that avoid the patterns
+$(0,0,1), (0,1,1)$ along one axis and $(0,0,1), (1,0,0)$ along the other, and carries an empirical recurrence of
+order $11$ contributed by R.~H.~Hardin and corrected by Colin Barker. It is true. The patterns have length $3$, so
 the constraint across the growing direction ties together $3$ consecutive rows: taking a
 window of $2$ consecutive rows as a state makes the array a walk in a finite digraph
-on $S=256$ vertices, and $a(n)=\mathbf{1}^{\!\top}P^{\,n-2}\mathbf{1}$. Writing $q$
+on $S=36$ vertices, and $a(n)=\mathbf{1}^{\!\top}P^{\,n-2}\mathbf{1}$. Writing $q$
 for the characteristic polynomial of the conjectured recurrence, the residual is
-$\mathbf{1}^{\!\top}P^{\,n-2-10}q(P)\mathbf{1}$, which vanishes identically
+$\mathbf{1}^{\!\top}P^{\,n-2-11}q(P)\mathbf{1}$, which vanishes identically
 beyond a threshold that the computation pins down exactly. Finite, exact, integer.
 \end{abstract}
 
@@ -34,38 +34,38 @@ beyond a threshold that the computation pins down exactly. Finite, exact, intege
 
 \section{The sequence and the conjecture}
 
-OEIS A208837 is ``Number of nX5 0..1 arrays avoiding 0 0 0 and 0 0 1 horizontally and 0 1 1 and 1 1 0 vertically.''. It has offset
+OEIS A207747 is ``Number of n X 3 0..1 arrays avoiding 0 0 1 and 0 1 1 horizontally and 0 0 1 and 1 0 0 vertically.''. It has offset
 $1$ and begins
 \[
-16, 256, 768, 2421, 8736, 33088, 131355,\ \dots
+6, 36, 102, 270, 798, 2354, 7210,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 7*a(n-1) -8*a(n-2) -27*a(n-3) +45*a(n-4) +24*a(n-5) -51*a(n-6) -3*a(n-7) +16*a(n-8) -a(n-9) -a(n-10) for n>11
+Empirical: a(n) = 7*a(n-1) - 9*a(n-2) - 32*a(n-3) + 72*a(n-4) + 36*a(n-5) - 147*a(n-6) + 9*a(n-7) + 109*a(n-8) - 28*a(n-9) - 24*a(n-10) + 8*a(n-11) for n>12. Corrected by \_Colin Barker\_, Mar 06 2018
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 15:02:01, revision
-9) the statement is still recorded as empirical, and nothing on the entry
+As of the ``Last modified'' line on the live entry (Mar 06 2018 08:54:53, revision
+8) the statement is still recorded as empirical, and nothing on the entry
 records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;7\,a(n-1) - 8\,a(n-2) - 27\,a(n-3) + 45\,a(n-4) + 24\,a(n-5) - 51\,a(n-6) - 3\,a(n-7) + 16\,a(n-8) - a(n-9) - a(n-10)
+a(n)\;=\;7\,a(n-1) - 9\,a(n-2) - 32\,a(n-3) + 72\,a(n-4) + 36\,a(n-5) - 147\,a(n-6) + 9\,a(n-7) + 109\,a(n-8) - 28\,a(n-9) - 24\,a(n-10) + 8\,a(n-11)
 \end{equation}
-for all $n>11$. 
+for all $n>12$. 
 
 \section{The array as a walk}
 
 Call a row \emph{admissible} if the word it forms contains none of the patterns
-$(0,0,0), (0,0,1)$ as $3$ consecutive entries. There are $16$ admissible rows; that condition
+$(0,0,1), (0,1,1)$ as $3$ consecutive entries. There are $6$ admissible rows; that condition
 involves a single row only.
 
-The remaining patterns $(0,1,1), (1,1,0)$ are forbidden along the other axis, so each of them
+The remaining patterns $(0,0,1), (1,0,0)$ are forbidden along the other axis, so each of them
 constrains $3$ consecutive rows at a fixed position of the column. Take as state a
 window $w=\bigl(w^{(1)},\dots,w^{(2)}\bigr)$ of $2$ consecutive admissible
-rows, so $S=256$, and declare $w\to w'$ an edge when $w'$ is $w$ with its first entry
+rows, so $S=36$, and declare $w\to w'$ an edge when $w'$ is $w$ with its first entry
 dropped and one further admissible row $t$ appended, subject to: for every position
 $j$, the $3$-tuple read down the column $j$ across $w^{(1)},\dots,w^{(2)},t$
-is none of $(0,1,1), (1,1,0)$. Let $P$ be the adjacency matrix.
+is none of $(0,0,1), (1,0,0)$. Let $P$ be the adjacency matrix.
 
 \begin{lemma}\label{lem:walk}
 $a(n)=\mathbf{1}^{\!\top}P^{\,n-2}\mathbf{1}$ for every $n\ge2$.
@@ -84,20 +84,20 @@ $\mathbf{1}^{\!\top}P^{\,n-2}\mathbf{1}$.
 
 \section{The criterion}
 
-Let $q(t)=t^{10}-\sum_i c_i t^{10-i}$ be the characteristic polynomial of
+Let $q(t)=t^{11}-\sum_i c_i t^{11-i}$ be the characteristic polynomial of
 \eqref{eq:conj} and $u_j=\mathbf{1}^{\!\top}P^{j}q(P)\mathbf{1}$.
 
 \begin{lemma}\label{lem:crit}
-$a(n)-\sum_i c_i a(n-i)=u_{\,n-2-10}$ whenever $n-10\ge2$. Hence
+$a(n)-\sum_i c_i a(n-i)=u_{\,n-2-11}$ whenever $n-11\ge2$. Hence
 \eqref{eq:conj} holds for every $n>t$ exactly when $u_j=0$ for every
-$j>t-2-10$. Moreover $(u_j)$ satisfies the monic linear recurrence whose
+$j>t-2-11$. Moreover $(u_j)$ satisfies the monic linear recurrence whose
 characteristic polynomial is that of $P$, of degree $S$, so $S$ consecutive zeros force all
 later ones and the last nonzero $u_j$ pins $t$ down exactly.
 \end{lemma}
 
 \begin{proof}
 Substituting Lemma~\ref{lem:walk} into the left side and factoring out
-$P^{\,n-2-10}$ gives the identity. The equivalence follows by letting the exponent
+$P^{\,n-2-11}$ gives the identity. The equivalence follows by letting the exponent
 run. For the last claim, Cayley--Hamilton gives $\chi(P)=0$ for the characteristic
 polynomial $\chi$ of $P$, so $\chi$ applied to the shift annihilates $(u_j)$; being monic of
 degree $S$, it propagates $S$ consecutive zeros forward.
@@ -106,14 +106,14 @@ degree $S$, it propagates $S$ consecutive zeros forward.
 \section{The computation}
 
 \begin{theorem}
-The recurrence \eqref{eq:conj} holds for every $n>11$. This is the statement of
+The recurrence \eqref{eq:conj} holds for every $n>12$. This is the statement of
 Section~1.
 \end{theorem}
 
 \begin{proof}
-The vector $q(P)\mathbf{1}\in\mathbb{Z}^{S}$ was formed by $10$ matrix--vector
+The vector $q(P)\mathbf{1}\in\mathbb{Z}^{S}$ was formed by $11$ matrix--vector
 products in exact integer arithmetic and the $u_j$ evaluated in turn. They vanish from the
-index corresponding to $n=11+1$ onwards, and the run was continued past $S$ consecutive
+index corresponding to $n=12+1$ onwards, and the run was continued past $S$ consecutive
 zeros, which by Lemma~\ref{lem:crit} settles every larger index.
 \end{proof}
 
@@ -122,20 +122,20 @@ zeros, which by Lemma~\ref{lem:crit} settles every larger index.
 Three checks, each independent of the algebra above.
 
 First, the digraph was built directly from the entry's stated patterns and the walk counts
-compared against the entry's DATA at every one of the $21$ published indices; the
-values agree exactly, including the initial count of $16$ admissible rows. That is
+compared against the entry's DATA at every one of the $25$ published indices; the
+values agree exactly, including the initial count of $6$ admissible rows. That is
 what ties the digraph to the sequence, and a model reproducing only part of the published
 data was rejected wherever it occurred.
 
 Second, the recurrence \eqref{eq:conj} was evaluated on those published terms in exact
 integer arithmetic, with no matrices involved, and vanishes at every index the entry claims.
 
-Third, the vanishing test of Lemma~\ref{lem:crit} was carried past $S=256$ consecutive
+Third, the vanishing test of Lemma~\ref{lem:crit} was carried past $S=36$ consecutive
 zeros rather than to a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A208837.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A207747.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

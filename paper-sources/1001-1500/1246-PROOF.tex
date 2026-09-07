@@ -12,41 +12,41 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A231823, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A203282, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{4 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A231823 counts arrays of width $3$ over $\{0,1,2\}$ in which no cell is beaten by a strict majority of its neighbours. The entry carries an
+OEIS A203282 counts arrays of width $5$ over $\{0,1\}$ in which every cell has neighbours equal to each of two named values. The entry carries an
 empirical recurrence of order $36$ contributed by R.~H.~Hardin. It is true, and it is
-decidable rather than empirical: what a cell asks reaches one row above
-it and one row below, so the condition on a whole row is settled by
-$3$ consecutive rows and the count is a walk count on $S=703$ states.
+decidable rather than empirical: what a cell asks reaches one row above it and one row below, so the
+condition on a whole row is settled by $3$ consecutive rows and the count is a walk
+count on $S=1057$ states.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 05B20, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A231823 is ``Number of nX3 0..2 arrays with no element having a strict majority of its horizontal, vertical and antidiagonal neighbors equal to itself plus one mod 3, with upper left element zero (rock paper and scissors drawn positions).''. It has offset $1$ and begins
+OEIS A203282 is ``Number of nX5 binary arrays with every element neighboring horizontally or vertically both a 0 and a 1.''. It has offset $1$ and begins
 \[
-3, 64, 1205, 21770, 393408, 7103846, 128269829, 2316065437,\ \dots
+0, 36, 372, 4624, 72852, 996004, 14644480, 210076036,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 26*a(n-1) -158*a(n-2) +239*a(n-3) +509*a(n-4) -1399*a(n-5) +1090*a(n-6) -11112*a(n-7) +15301*a(n-8) +80873*a(n-9) -119580*a(n-10) -188287*a(n-11) +130867*a(n-12) +298685*a(n-13) +639811*a(n-14) -796809*a(n-15) -1910156*a(n-16) +1602985*a(n-17) +1883568*a(n-18) -1014662*a(n-19) -1402360*a(n-20) -8047*a(n-21) +1663065*a(n-22) -635592*a(n-23) -991770*a(n-24) +711081*a(n-25) +461787*a(n-26) -343648*a(n-27) -210676*a(n-28) +150221*a(n-29) -4791*a(n-30) +4420*a(n-31) -8402*a(n-32) +6071*a(n-33) -3686*a(n-34) +632*a(n-35) +69*a(n-36) for n>37
+Empirical: a(n) = 17*a(n-1) -638*a(n-3) +678*a(n-4) +14260*a(n-5) -31318*a(n-6) -77888*a(n-7) +230062*a(n-8) +800738*a(n-9) -1847062*a(n-10) -12874076*a(n-11) +36370882*a(n-12) -2877388*a(n-13) -108883984*a(n-14) +139903240*a(n-15) +22915510*a(n-16) -94574920*a(n-17) +86030666*a(n-18) -34150532*a(n-19) -291157270*a(n-20) +495606258*a(n-21) -137024746*a(n-22) +41071176*a(n-23) +76637263*a(n-24) -154537901*a(n-25) -354299940*a(n-26) +575474886*a(n-27) -86771088*a(n-28) +143317188*a(n-29) -267467184*a(n-30) +67890312*a(n-31) +62145792*a(n-32) -65610000*a(n-33) -35901792*a(n-35) +34012224*a(n-36)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jun 02 2025 08:47:09, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 10:17:26, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The arrays have $3$ columns and a growing number of rows, with entries in $\{0,1,2\}$. Fix the
-list of offsets the entry names,
+The arrays have $5$ columns and a growing number of rows, with entries in $\{0,1\}$. Fix the
+offsets the entry names,
 \[
-\Delta=\{\,(-1,0), (-1,1), (0,-1), (0,1), (1,-1), (1,0)\,\},
+\Delta=\{\,(-1,0), (0,-1), (0,1), (1,0)\,\},
 \]
 and for a cell $(i,j)$ write
 \[
@@ -56,23 +56,22 @@ S(i,j)=\{\,(i+\delta_1,\,j+\delta_2) : (\delta_1,\delta_2)\in\Delta\,\}\cap
 for the neighbours it actually has. Only offsets landing inside the array count, so a cell on
 the border simply has fewer neighbours.
 
-The condition is that no cell has a strict majority of its neighbours one greater than itself modulo $3$:
+The condition is that every cell has a neighbour equal to $0$ and a neighbour equal to $1$:
 \[
-2\cdot\#\{(a,b)\in S(i,j) : x(a,b)\equiv x(i,j)+1 \bmod 3\}\;\le\;|S(i,j)| .
+0\in\{x(a,b):(a,b)\in S(i,j)\}\quad\text{and}\quad1\in\{x(a,b):(a,b)\in S(i,j)\}.
 \]
-With three values this is the drawn position of rock, paper and scissors: each value beats the one below it modulo $3$, and no cell is to be beaten by a strict majority of its neighbours. The entry adds that the top-left cell is $0$.
+
 
 \section{A window of 3 rows}
 
 The offsets reach one row up and one row down, so everything the condition asks of one row is
 decided by that row together with one row above it and one row below --- a window of
-$3$ consecutive rows, and nothing wider. Take the array one row at a time
-and let the state be the last 2 of them, with a distinguished start standing for the
-array before its first row, so that a walk of $n$ steps is an array of $n$ rows.
+$3$ consecutive rows, and nothing wider. Take the array one row at a time and
+let the state be the last 2 of them, with a distinguished start standing for the array before its
+first row, so that a walk of $n$ steps is an array of $n$ rows.
 
 Appending a row completes exactly one window, and the row it settles is the one just above the bottom of that window; a step is
-allowed when that row passes. Each row of the finished
-array is therefore tested exactly once.
+allowed when that row passes. Each row of the finished array is therefore tested exactly once.
 
 When the array stops, the last row of it has never been tested, because the
 conditions reach one row below. So the end vector is NOT all ones: a state is accepted exactly when
@@ -81,7 +80,7 @@ with absent rows appended --- the same rule that governs a cell at the bottom ed
 Section 2.
 Thus
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=703,
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=1057,
 \]
 for the transfer matrix $M$ on those $S$ states. The walk index $j$ and the entry's own $n$
 differ by a constant, read off by matching the published terms rather than assumed. In
@@ -107,15 +106,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;26\,a(n-1) - 158\,a(n-2) + 239\,a(n-3) + 509\,a(n-4) - 1399\,a(n-5) + 1090\,a(n-6) - 11112\,a(n-7) + 15301\,a(n-8) + 80873\,a(n-9) - 119580\,a(n-10) - 188287\,a(n-11) + 130867\,a(n-12) + 298685\,a(n-13) + 639811\,a(n-14) - 796809\,a(n-15) - 1910156\,a(n-16) + 1602985\,a(n-17) + 1883568\,a(n-18) - 1014662\,a(n-19) - 1402360\,a(n-20) - 8047\,a(n-21) + 1663065\,a(n-22) - 635592\,a(n-23) - 991770\,a(n-24) + 711081\,a(n-25) + 461787\,a(n-26) - 343648\,a(n-27) - 210676\,a(n-28) + 150221\,a(n-29) - 4791\,a(n-30) + 4420\,a(n-31) - 8402\,a(n-32) + 6071\,a(n-33) - 3686\,a(n-34) + 632\,a(n-35) + 69\,a(n-36)
+a(n)\;=\;17\,a(n-1) - 638\,a(n-3) + 678\,a(n-4) + 14260\,a(n-5) - 31318\,a(n-6) - 77888\,a(n-7) + 230062\,a(n-8) + 800738\,a(n-9) - 1847062\,a(n-10) - 12874076\,a(n-11) + 36370882\,a(n-12) - 2877388\,a(n-13) - 108883984\,a(n-14) + 139903240\,a(n-15) + 22915510\,a(n-16) - 94574920\,a(n-17) + 86030666\,a(n-18) - 34150532\,a(n-19) - 291157270\,a(n-20) + 495606258\,a(n-21) - 137024746\,a(n-22) + 41071176\,a(n-23) + 76637263\,a(n-24) - 154537901\,a(n-25) - 354299940\,a(n-26) + 575474886\,a(n-27) - 86771088\,a(n-28) + 143317188\,a(n-29) - 267467184\,a(n-30) + 67890312\,a(n-31) + 62145792\,a(n-32) - 65610000\,a(n-33) - 35901792\,a(n-35) + 34012224\,a(n-36)
 \]
-for every $n>37$.
+for every $n>36$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $36$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=37+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=36+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -123,11 +122,11 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $16$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $17$ terms the entry publishes, exactly, in integer
 arithmetic.
 
 Second, the count was recomputed for the smallest arrays straight from the definition: every
-array of width $3$ over $\{0,1,2\}$ with a few rows was written out cell by cell and each cell
+array of width $5$ over $\{0,1\}$ with a few rows was written out cell by cell and each cell
 tested against the neighbours it has. No window, no state and no end vector are involved in that
 computation, and the published terms came back.
 
@@ -139,7 +138,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A231823.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A203282.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge

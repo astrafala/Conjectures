@@ -12,126 +12,142 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A204870, proved by transfer matrix}
+\title{The empirical product formula for OEIS A140931, proved}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{2 September 2026}
+\date{6 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A204870 counts arrays over $\{0,\dots,3\}$ under a condition on the permanent of every
-$2\times2$ subblock, and carries an empirical recurrence of order $76$ contributed by
-R.~H.~Hardin. It is true, and it is decidable rather than empirical. The condition is local to
-a bounded window of consecutive rows, so the count is a walk count on $S=254$ states and is
-$C$-finite; whether the conjectured recurrence annihilates it is then settled by a finite exact
-computation, with the Cayley--Hamilton theorem bounding the work.
+OEIS A140931 counts $8\times10$ matrices over $\{0,\dots,n\}$ whose rows and columns are
+nondecreasing, and carries a product formula for $a(n)$ marked empirical. Reversing rows and
+columns turns such a matrix into a plane partition inside a $8\times10\times n$ box, so
+MacMahon's box theorem applies; the triple product telescopes in its third index and leaves a
+polynomial in $n$ of degree $80$. The entry's own expression, cleared of its denominator,
+becomes an identity between two polynomials of bounded degree, and is therefore settled by a
+finite exact computation. The box count itself is classical and is already recorded on this
+entry; what is proved here is the entry's own formula.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A17, 05A19.\normalsize
 
 \section{The conjecture}
 
-OEIS A204870 is ``Number of (n+1) X 3 0..3 arrays with the permanents of all 2 X 2 subblocks equal and nonzero.''. It has offset $1$ and begins
+OEIS A140931 is ``Number of 8 X 10 matrices with elements in 0..n with each row and each column in nondecreasing order. 8,10,n can be permuted, see formula.''. It has offset $0$ and begins
 \[
-551, 3167, 10397, 59377, 219871, 1174669, 4655229, 23670949,\ \dots
+1, 43758, 367479684, 1028698128744, 1268665346776464, 819557814017595744,\ \dots
 \]
-The entry states, as a conjecture contributed by its author and never marked settled:
+The entry states, as conjectures contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 17*a(n-1) +63*a(n-2) -2601*a(n-3) +4536*a(n-4) +179113*a(n-5) -747065*a(n-6) -7221895*a(n-7) +45431634*a(n-8) +182343964*a(n-9) -1700316991*a(n-10) -2656170341*a(n-11) +44542956466*a(n-12) +5979050183*a(n-13) -864995557218*a(n-14) +749575671353*a(n-15) +12828157815253*a(n-16) -21664363187009*a(n-17) -147315941270362*a(n-18) +366321656702972*a(n-19) +1309591920470263*a(n-20) -4483773879238923*a(n-21) -8817852135195347*a(n-22) +42452827749552496*a(n-23) +41596247593528608*a(n-24) -320457693221382929*a(n-25) -93129207249788890*a(n-26) +1958909626080065537*a(n-27) -476173625099647129*a(n-28) -9767981574101541098*a(n-29) +6840342164816623067*a(n-30) +39753049499445057547*a(n-31) -45310489336600458567*a(n-32) -131041957635603583114*a(n-33) +213278225795991330860*a(n-34) +342363769797339866697*a(n-35) -781038988875779914266*a(n-36) -669807549203708885447*a(n-37) +2298946713498078670724*a(n-38) +804092456230389378193*a(n-39) -5505999512374820748719*a(n-40) +207542379219804102037*a(n-41) +10741522407172637685604*a(n-42) -3953267360656994842672*a(n-43) -16920094526868407946749*a(n-44) +11661274300467491805569*a(n-45) +21030396596955903605341*a(n-46) -22352392144426303257198*a(n-47) -19525734278225723911209*a(n-48) +31895908287069114927442*a(n-49) +11411741094751979680511*a(n-50) -35030324471821771831618*a(n-51) -159526306989303225199*a(n-52) +29565423612207811002609*a(n-53) -8397136813076848226224*a(n-54) -18617771910806959122428*a(n-55) +10747788846765962658979*a(n-56) +8045850179186250492748*a(n-57) -8076299288350221398115*a(n-58) -1716817531012615385894*a(n-59) +4077060520526278376510*a(n-60) -429576081277299922342*a(n-61) -1357716483124700048222*a(n-62) +508446682354178891036*a(n-63) +253457873453703882950*a(n-64) -197895423575010216388*a(n-65) -3591611700399299896*a(n-66) +39540145879080509104*a(n-67) -9943313643805217392*a(n-68) -3017758897485095424*a(n-69) +1997902475117887744*a(n-70) -232278746578265664*a(n-71) -97120813988239008*a(n-72) +40334967475687872*a(n-73) -6425946586128384*a(n-74) +486358953866496*a(n-75) -14078423324160*a(n-76).
+(empirical) set p,q,r to n,10,8 (in any order) in s=p+q+r-1; a(n) = product {i in 0..r-1} (binomial(s,p+i)*i!/(s-i)\^{}(r-i-1))
+
 \end{quote}
-As of the ``Last modified'' line on the live entry (May 28 2021 13:40:50, revision 13) this is still
-recorded as empirical, and nothing on the entry records it as proved.
+As of the ``Last modified'' line on the live entry (Jan 25 2025 12:15:36, revision 7) these are still
+recorded as empirical, and nothing on the entry records them as proved.
 
 \section{What is being counted}
 
-Write $\sigma$ for the permanent of a $2\times2$ subblock
-$\begin{pmatrix}p&q\\r&s\end{pmatrix}$, that is $\sigma=ps+qr$. The subblocks of an
-$(n+1)\times3$ array over $\{0,\dots,3\}$ form a grid of $n$ rows and $2$
-columns, and $\sigma$ colours that grid.
-
-The condition is that all the subblocks of one array share a single value of $\sigma$. That
-value is not named, so the count splits by it and the value $0$ is excluded by the entry: for a fixed $v$ let $a_v(n)$ count the
-arrays all of whose subblocks give $\sigma=v$. An array determines its own common value, so
-the sets belonging to different $v$ are disjoint and $a(n)=\sum_v a_v(n)$, a finite sum.
-
-\section{The count is a walk count}
-
-For a fixed $v$ the condition again looks at one subblock at a time, so a
-row is a state and rows $r,s$ may follow one another when all $2$ of their subblocks give
-$v$. Taking the disjoint union over $v$ and with $M$ its adjacency matrix,
+A matrix $x$ of shape $8\times10$ with entries in $\{0,\dots,n\}$, nondecreasing along
+every row and down every column, becomes, on reversing the order of the rows and of the
+columns, an array that is NONINCREASING along rows and down columns with the same entries. That
+is exactly a plane partition whose parts are at most $n$ and whose shape fits inside a
+$8\times10$ rectangle --- a plane partition in a $8\times10\times n$ box. The
+correspondence is a bijection, being an involution on arrays, so
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n}\tau,\qquad\iota=\tau=(1,\dots,1)^{\!\top},
+a(n)\;=\;\mathrm{PP}(8,10,n).
 \]
-on the $S=254$ states that survive. Rows carrying no edge at all are dropped: such a row could
-only be the whole of a one-row array, which is not among the objects counted.
+Note which parameter grows: the shape is FIXED and it is the alphabet $0..n$ that $n$ counts,
+so nothing about transfer matrices applies here.
 
-At $n=1$ the array has two rows and the grid is a single row of $2$
-subblocks, each tested on its own, so $a(1)$ counts the
-$2\times3$ arrays over $\{0,\dots,3\}$ all of whose subblocks pass. The entry's
-first term is $551$, and the model reproduces it along with every later term; that is the
-cheapest check that the grid has been read with the right shape.
+\section{The box count is a polynomial}
 
-Over the alphabet $\{0,\dots,3\}$ the permanent of a $2\times2$ subblock takes values in
-$[0,18]$, so the colouring of the grid it induces has at most $19$ values.
-That bound is what keeps the construction below finite in the only place where the value of
-$\sigma$, rather than a comparison between two of them, has to be carried.
-In particular $a$ is $C$-finite. The alignment of the walk index with the entry's own $n$ was
-checked against its published terms rather than assumed.
-
-\section{The proof}
-
-\begin{lemma}\label{lem:crit}
-Let $q(t)=t^{76}-\sum_i c_it^{76-i}$ be the characteristic polynomial of the
-conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
-$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
-holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
-and it is enough to examine $j<S$.
-\end{lemma}
-
-\begin{proof}
-Factor $M^{j}$ out of $M^{j+76}-\sum_ic_iM^{j+76-i}$. For the bound, $M^{S}$
-is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
-$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
-polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly.
-\end{proof}
-
-\begin{theorem}
+\begin{theorem}[MacMahon]\label{thm:mm}
 \[
-a(n)\;=\;17\,a(n-1) + 63\,a(n-2) - 2601\,a(n-3) + 4536\,a(n-4) + 179113\,a(n-5) - 747065\,a(n-6) - 7221895\,a(n-7) + 45431634\,a(n-8) + 182343964\,a(n-9) - 1700316991\,a(n-10) - 2656170341\,a(n-11) + 44542956466\,a(n-12) + 5979050183\,a(n-13) - 864995557218\,a(n-14) + 749575671353\,a(n-15) + 12828157815253\,a(n-16) - 21664363187009\,a(n-17) - 147315941270362\,a(n-18) + 366321656702972\,a(n-19) + 1309591920470263\,a(n-20) - 4483773879238923\,a(n-21) - 8817852135195347\,a(n-22) + 42452827749552496\,a(n-23) + 41596247593528608\,a(n-24) - 320457693221382929\,a(n-25) - 93129207249788890\,a(n-26) + 1958909626080065537\,a(n-27) - 476173625099647129\,a(n-28) - 9767981574101541098\,a(n-29) + 6840342164816623067\,a(n-30) + 39753049499445057547\,a(n-31) - 45310489336600458567\,a(n-32) - 131041957635603583114\,a(n-33) + 213278225795991330860\,a(n-34) + 342363769797339866697\,a(n-35) - 781038988875779914266\,a(n-36) - 669807549203708885447\,a(n-37) + 2298946713498078670724\,a(n-38) + 804092456230389378193\,a(n-39) - 5505999512374820748719\,a(n-40) + 207542379219804102037\,a(n-41) + 10741522407172637685604\,a(n-42) - 3953267360656994842672\,a(n-43) - 16920094526868407946749\,a(n-44) + 11661274300467491805569\,a(n-45) + 21030396596955903605341\,a(n-46) - 22352392144426303257198\,a(n-47) - 19525734278225723911209\,a(n-48) + 31895908287069114927442\,a(n-49) + 11411741094751979680511\,a(n-50) - 35030324471821771831618\,a(n-51) - 159526306989303225199\,a(n-52) + 29565423612207811002609\,a(n-53) - 8397136813076848226224\,a(n-54) - 18617771910806959122428\,a(n-55) + 10747788846765962658979\,a(n-56) + 8045850179186250492748\,a(n-57) - 8076299288350221398115\,a(n-58) - 1716817531012615385894\,a(n-59) + 4077060520526278376510\,a(n-60) - 429576081277299922342\,a(n-61) - 1357716483124700048222\,a(n-62) + 508446682354178891036\,a(n-63) + 253457873453703882950\,a(n-64) - 197895423575010216388\,a(n-65) - 3591611700399299896\,a(n-66) + 39540145879080509104\,a(n-67) - 9943313643805217392\,a(n-68) - 3017758897485095424\,a(n-69) + 1997902475117887744\,a(n-70) - 232278746578265664\,a(n-71) - 97120813988239008\,a(n-72) + 40334967475687872\,a(n-73) - 6425946586128384\,a(n-74) + 486358953866496\,a(n-75) - 14078423324160\,a(n-76)
+\mathrm{PP}(p,q,r)\;=\;\prod_{i=1}^{p}\prod_{j=1}^{q}\prod_{k=1}^{r}
+\frac{i+j+k-1}{i+j+k-2} .
 \]
-for every $n>76$.
+\end{theorem}
+
+This is classical; see Stanley~\cite{stanley}, and it is already recorded on this entry.
+
+\begin{theorem}\label{thm:poly}
+\[
+a(n)\;=\;\prod_{i=1}^{8}\prod_{j=1}^{10}\frac{n+i+j-1}{i+j-1},
+\]
+a polynomial in $n$ of degree $80$ with rational coefficients.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $76$ matrix--vector products in exact integer
-arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=76+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once.
+In Theorem~\ref{thm:mm} the inner product over $k$ telescopes: for fixed $i$ and $j$,
+\[
+\prod_{k=1}^{n}\frac{i+j+k-1}{i+j+k-2}\;=\;\frac{n+i+j-1}{i+j-1} ,
+\]
+every other factor cancelling against its neighbour. The remaining double product has
+$8\cdot10=80$ factors, each linear in $n$, and the denominators are constants.
+\end{proof}
+
+So $a$ is a polynomial, and no appeal to Ehrhart theory or to any general position argument is
+needed to see it.
+
+\section{The entry's expression}
+
+The entry writes $s=p+q+r-1$ with $(p,q,r)=(n,10,8)$ and claims
+\[
+a(n)\;=\;\prod_{i=0}^{8-1}\binom{s}{n+i}\,\frac{i!}{(s-i)^{8-1-i}}\;=\;
+\frac{N(n)}{D(n)} .
+\]
+
+\begin{lemma}\label{lem:deg}
+$N$ and $D$ are polynomials in $n$ of degrees $108$ and $28$ respectively.
+\end{lemma}
+
+\begin{proof}
+With $s=n+10+8-1$ one has $s-(n+i)=10+8-1-i$, a constant, so
+\[
+\binom{s}{n+i}=\binom{s}{10+8-1-i}
+=\frac{(s-10-8+2+i)(s-10-8+3+i)\cdots s}{(10+8-1-i)!},
+\]
+a polynomial in $n$ of degree $10+8-1-i$. Multiplying over $i=0,\dots,8-1$ gives
+$\deg N=\sum_{i=0}^{8-1}(10+8-1-i)=108$. The denominator is
+$\prod_{i=0}^{8-1}(s-i)^{8-1-i}$, of degree
+$\sum_{i=0}^{8-1}(8-1-i)=28$, and it does not vanish for $n\ge0$.
+\end{proof}
+
+\begin{theorem}
+The entry's expression equals $a(n)$ for every $n\ge0$.
+\end{theorem}
+
+\begin{proof}
+By Theorem~\ref{thm:poly} and Lemma~\ref{lem:deg}, $a(n)D(n)-N(n)$ is a polynomial in $n$
+of degree at most $80+28=108$. It was evaluated in exact rational arithmetic at
+$n=0,1,\dots,108$, that is at $109$ points, and vanishes at all of them; a nonzero polynomial
+of degree at most $108$ has at most $108$ roots, so it is identically zero. Since $D(n)\neq0$
+for $n\ge0$, the two expressions agree there.
 \end{proof}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $19$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry: the digraph is built by reading the
-entry's English, and a misreading gives different counts.
+First, Theorem~\ref{thm:poly} reproduces all $7$ terms the entry publishes,
+exactly, in integer arithmetic.
 
-Second, the conjectured recurrence was evaluated directly on those published terms, with no
-matrices involved, and holds wherever the proved range and the data overlap.
+Second, the matrices themselves were counted for the smallest alphabets, directly from the
+definition: the nondecreasing rows were listed and the chains of $8$ of them increasing
+componentwise counted, with no product formula and no plane partitions anywhere. The counts
+agree, which is what ties the reversal bijection to the entry's own wording.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
-arithmetic on the whole vector rather than on a sampled prefix.
+Third, the polynomial identity was evaluated over the whole range $n=0,\dots,108$ rather than
+sampled, in exact rational arithmetic.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A204870.
-\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{minc} H.~Minc, \emph{Permanents}, Addison--Wesley, 1978.
-\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
-University Press, 2013.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A140931.
+\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 2, Cambridge
+University Press, 1999. (Plane partitions with bounded part size, Section 7.21.)
+\bibitem{macmahon} P.~A.~MacMahon, \emph{Combinatory Analysis}, Volume 2, Cambridge
+University Press, 1916.
+\bibitem{andrews} G.~E.~Andrews, \emph{The Theory of Partitions}, Addison--Wesley, 1976.
 \end{thebibliography}
 
 \end{document}

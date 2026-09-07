@@ -161,6 +161,55 @@ def canonical(S, thr):
     return s + ((", and it holds for n > %d." % thr) if thr is not None else ".")
 
 
+def subblockcond(S, thr):
+    s = ("The empirical recurrence is true. The condition is a condition on every subblock of "
+         "a fixed size, so a bounded window of consecutive lines decides it, and counting the "
+         "arrays a line at a time gives a transfer matrix")
+    if S:
+        s += " with %s states" % f"{S:,}".replace(',', ' ')
+    s += (", so a(n) satisfies a constant-coefficient linear recurrence of order at most "
+          "that; checking the one above is then a finite exact computation")
+    return s + ((", and it holds for n > %d." % thr) if thr is not None else ".")
+
+
+def nbrcond(S, thr):
+    s = ("The empirical recurrence is true. The condition names only cells one step apart, so "
+         "three consecutive lines decide it on the middle one, and counting the arrays a line "
+         "at a time gives a transfer matrix")
+    if S:
+        s += " with %s states" % f"{S:,}".replace(',', ' ')
+    s += (", so a(n) satisfies a constant-coefficient linear recurrence of order at most "
+          "that; checking the one above is then a finite exact computation")
+    return s + ((", and it holds for n > %d." % thr) if thr is not None else ".")
+
+
+def coldom(S, thr):
+    s = ("The empirical recurrence is true. \"In all rows\" quantifies over the whole array, "
+         "so no bounded window decides it, but it is a conjunction of independent per-row "
+         "facts: keep one bit per adjacent column pair, recording whether every row so far "
+         "has put column j above column j-1. A row can only clear bits, and the array is "
+         "admissible exactly when all are clear at the end. So the state is that bit mask "
+         "alone")
+    if S:
+        s += ", giving %s states" % f"{S:,}".replace(',', ' ')
+    s += (", however large the alphabet, and a(n) satisfies a constant-coefficient linear "
+          "recurrence of order at most that; checking the one above is a finite exact "
+          "computation")
+    return s + ((", and it holds for n > %d." % thr) if thr is not None else ".")
+
+
+def distrep(S, thr):
+    s = ("The empirical recurrence is true. The condition ranges over the whole array but "
+         "reaches only as far as the value itself, which the alphabet bounds, so carrying "
+         "that many lines together with one bit per cell -- has this cell found its partner "
+         "yet -- makes the count a walk count")
+    if S:
+        s += " on %s states" % f"{S:,}".replace(',', ' ')
+    s += (". Hence a(n) satisfies a constant-coefficient linear recurrence of order at most "
+          "that, and checking the one above is a finite exact computation")
+    return s + ((", and it holds for n > %d." % thr) if thr is not None else ".")
+
+
 def fromgf(thr):
     s = ("The recurrence follows from the generating function this entry already states as "
          "fact: a recurrence with constant coefficients is exactly a denominator of the "
@@ -401,6 +450,14 @@ def main():
                 txt = BOXPP + '.'
             elif t.startswith('Arrays counted up to renaming'):
                 txt = canonical(S, thr)
+            elif t.startswith('A condition on every subblock'):
+                txt = subblockcond(S, thr)
+            elif t.startswith('A condition on each element and its neighbours'):
+                txt = nbrcond(S, thr)
+            elif t.startswith('No column above the one before it'):
+                txt = coldom(S, thr)
+            elif t.startswith('A value repeated at its own distance'):
+                txt = distrep(S, thr)
             elif t in ARRAY_TITLES:
                 txt = array(S, thr)
             elif t == "The empirical recurrence for OEIS A, derived from the entry's generating function":

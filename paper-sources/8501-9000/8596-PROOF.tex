@@ -12,14 +12,14 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A233218, derived from the entry's generating function}
+\title{The empirical recurrence for OEIS A190093, derived from the entry's generating function}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A233218 carries an empirical recurrence of order $3$. The entry separately records a
+OEIS A190093 carries an empirical recurrence of order $4$. The entry separately records a
 generating function, not as a conjecture but as a statement of fact, and the recurrence is a
 consequence of it: multiplying the generating function by the polynomial the recurrence
 supplies gives a POLYNOMIAL, and the recurrence then holds at every index past that
@@ -33,30 +33,30 @@ checked here against every published term.
 
 \section{The two statements}
 
-OEIS A233218 is ``Number of 2 X n 0..5 arrays with no element x(i,j) adjacent to value 5-x(i,j) horizontally or antidiagonally, top left element zero, and 1 appearing before 2 3 and 4, and 2 appearing before 3 in row major order.''. It has offset $1$ and begins
+OEIS A190093 is ``Number of rhombuses on an (n+1) X 5 grid.''. It has offset $1$ and begins
 \[
-3, 23, 376, 7222, 147019, 3054973, 63927526, 1340889772,\ \dots
+4, 15, 36, 66, 96, 130, 164, 204,\ \dots
 \]
 The entry states, as a conjecture and never marked settled:
 \begin{quote}
-Empirical: a(n) = 29*a(n-1) - 175*a(n-2) + 147*a(n-3) for n>4.
+Empirical: a(n) = 2*a(n-1) -2*a(n-3) +a(n-4) for n>11.
 \end{quote}
 and, separately and NOT as a conjecture:
 \begin{quote}
-G.f.: x*(3 - 64*x + 234*x\^{}2 - 98*x\^{}3) / ((1 - x)*(1 - 7*x)*(1 - 21*x)).
+G.f.: x*(4 + 7*x + 6*x\^{}2 + 2*x\^{}3 - 10*x\^{}4 - 5*x\^{}5 + 2*x\^{}7 + 4*x\^{}8 - 2*x\^{}9 - 4*x\^{}10) / ((1 - x)\^{}3*(1 + x)).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 10 2018 10:01:13, revision 7) the first is still
+As of the ``Last modified'' line on the live entry (May 04 2018 12:04:35, revision 8) the first is still
 recorded as empirical. This note derives it from the second.
 
 \section{A rational generating function decides every linear recurrence}
 
 Write
 \[
-G(x)\;=\;\sum_{n}a(n)\,x^{n}\;=\;\frac{98 x^{4} - 234 x^{3} + 64 x^{2} - 3 x}{147 x^{3} - 175 x^{2} + 29 x - 1},
+G(x)\;=\;\sum_{n}a(n)\,x^{n}\;=\;\frac{4 x^{11} + 2 x^{10} - 4 x^{9} - 2 x^{8} + 5 x^{6} + 10 x^{5} - 2 x^{4} - 6 x^{3} - 7 x^{2} - 4 x}{x^{4} - 2 x^{3} + 2 x - 1},
 \]
 the entry's own generating function, and let
 \[
-D(x)\;=\;1-\sum_i c_i x^{i}\;=\;- 147 x^{3} + 175 x^{2} - 29 x + 1
+D(x)\;=\;1-\sum_i c_i x^{i}\;=\;- x^{4} + 2 x^{3} - 2 x + 1
 \]
 be the polynomial attached to the conjectured recurrence.
 
@@ -73,33 +73,33 @@ negative index being zero.
 
 \begin{theorem}
 \[
-a(n)\;=\;29\,a(n-1) - 175\,a(n-2) + 147\,a(n-3)
+a(n)\;=\;2\,a(n-1) - 2\,a(n-3) + a(n-4)
 \]
-for every $n>4$.
+for every $n>11$.
 \end{theorem}
 
 \begin{proof}
 In exact arithmetic,
 \[
-D(x)\,G(x)\;=\;- 98 x^{4} + 234 x^{3} - 64 x^{2} + 3 x,
+D(x)\,G(x)\;=\;- 4 x^{11} - 2 x^{10} + 4 x^{9} + 2 x^{8} - 5 x^{6} - 10 x^{5} + 2 x^{4} + 6 x^{3} + 7 x^{2} + 4 x,
 \]
-a POLYNOMIAL of degree $4$ --- the denominator of $G$ divides $D(x)$ times its numerator,
+a POLYNOMIAL of degree $11$ --- the denominator of $G$ divides $D(x)$ times its numerator,
 which is precisely the condition for the conjectured recurrence to be implied by the
-generating function. Its coefficients vanish beyond degree $4$, so by
+generating function. Its coefficients vanish beyond degree $11$, so by
 Lemma~\ref{lem:key} the residual $a(n)-\sum_ic_ia(n-i)$ vanishes for every
-$n>4$. The bound is exact: at $n=4$ the recurrence fails on the entry's own published terms.
+$n>11$. The bound is exact: at $n=11$ the recurrence fails on the entry's own published terms.
 \end{proof}
 
 \section{Is the conjectured recurrence the shortest one?}
 
 Cancelling common factors, $G$ has reduced denominator
 \[
-147 x^{3} - 175 x^{2} + 29 x - 1,
+x^{4} - 2 x^{3} + 2 x - 1,
 \]
-of degree $3$, and that degree is the order of the SHORTEST linear recurrence with
+of degree $4$, and that degree is the order of the SHORTEST linear recurrence with
 constant coefficients the sequence obeys: any shorter one would give a polynomial multiple of
 $G$ with a smaller denominator, contradicting the cancellation. The conjectured recurrence has
-order $3$.
+order $4$.
 
 So the conjecture is the minimal recurrence.
 
@@ -111,15 +111,21 @@ generating function involved at all. Doing that:
 \begin{center}
 \begin{tabular}{cc}
 index & residual \\ \hline
-$n=4$ & $-98$ \\
-$n=5$ & $0$ \\
-$n=6$ & $0$ \\
+$n=5$ & $-10$ \\
+$n=6$ & $-5$ \\
 $n=7$ & $0$ \\
-$n=8$ & $0$
+$n=8$ & $2$ \\
+$n=9$ & $4$ \\
+$n=10$ & $-2$ \\
+$n=11$ & $-4$ \\
+$n=12$ & $0$ \\
+$n=13$ & $0$ \\
+$n=14$ & $0$ \\
+$n=15$ & $0$
 \end{tabular}
 \end{center}
 The residuals are exactly the coefficients of the polynomial displayed above, in order, and
-they stop at index $4$ because that polynomial has degree $4$. A reader who trusts
+they stop at index $11$ because that polynomial has degree $11$. A reader who trusts
 neither the generating function nor the algebra can check the table against the entry's DATA
 by hand; what the generating function adds is the guarantee that the pattern continues, which
 no amount of checking terms could establish on its own.
@@ -129,14 +135,14 @@ no amount of checking terms could establish on its own.
 Three checks.
 
 First, the generating function was expanded as a power series in exact rational arithmetic and
-compared against all $16$ terms the entry publishes: it reproduces every one. This is
+compared against all $47$ terms the entry publishes: it reproduces every one. This is
 what ties the recorded generating function to the sequence the recurrence is about.
 
 Second, the polynomial division above was carried out symbolically, not numerically, so the
 statement that $D(x)G(x)$ is a polynomial is exact rather than approximate.
 
 Third, the recurrence was evaluated directly on the series coefficients for sixty consecutive
-indices beyond $n=4$ and holds at every one, and at $n=4$ itself it fails --- the
+indices beyond $n=11$ and holds at every one, and at $n=11$ itself it fails --- the
 degree bound is attained, so the range stated is the true one and not merely a safe one.
 
 \begin{remark}
@@ -148,7 +154,7 @@ entry already contains.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A233218.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A190093.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Rational generating functions, Section 4.1.)
 \bibitem{kp} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011.

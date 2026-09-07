@@ -170,3 +170,59 @@ engine (`src/reverify81.py`) and every paper rebuilt from that run.
 
 **Cap recorded next to the refusal:** A206173 refused at cap 6000 with "state space > cap",
 and settled at cap 400000. Its lumped model has 76 states.
+
+## 7 September 2026 — four new engines, 139 conjectures
+
+The unsettled pool was measured properly for the first time: of 29073 OEIS names known
+here, 9124 were settled and **15006 were unsettled and parsed by no engine at all**. Of
+those, **604 carry a conjecture in a form the machinery can test** — that number, not
+15006, is the real target list. The 604 fall into 268 clause shapes, so the way forward is
+engines that each cover several shapes rather than one engine per entry.
+
+Also worth recording as a negative: the largest families of unparsed names — 170 entries of
+"binary arrays symmetric under 90 degree rotation with all ones connected only in a 1 2 1
+pattern", 408 across the "row sums and column sums" families — carry almost no conjectures
+at all. They are large and they are not targets.
+
+### transfer82 — a condition on every subblock (19 entries)
+
+Every subblock summing to a constant; every block having exactly so many ones; no block
+having so many ones; each element of a block the sum mod m of two others; no block the
+mirror of its neighbour. Four readings pinned against published data first. One entry counts
+$1/16$ of the arrays and that factor is carried, not ignored.
+
+**The mistake:** the mirror condition was tested only once two bands of subblocks existed,
+so every two-row array came out unconstrained and the model counted all of them. Caught by
+the data gate on A183804. The window now tests each constraint as soon as the lines it needs
+are present.
+
+### transfer83 — a condition on each element and its neighbours (36 entries)
+
+Counts of equal neighbours in named directions, compared, forbidden or required. Six
+readings pinned first. Three consecutive lines decide the condition on the middle one, and
+the boundary is honest: a missing neighbour is not a neighbour.
+
+**The mistake:** `"horizontally".rstrip("ly")` is `"horizonta"` --- rstrip removes every
+trailing character in the set, not the suffix --- so the whole family using adverbs silently
+failed to parse and would simply have been reported as unreachable. The adverb is mapped now.
+
+### transfer84 — no column above the one before it in every row (9 entries)
+
+"In all rows" quantifies over the whole array, so no bounded window decides it. But it is a
+conjunction of independent per-row facts: one bit per adjacent column pair, cleared and never
+set. The state is that bit mask alone, so entries whose terms run to twenty digits have
+models with three to eleven states.
+
+### transfer85 — a value repeated at exactly its own distance (11 entries)
+
+The condition ranges over the whole array but reaches only as far as the value itself, which
+the alphabet bounds. Carry that many lines plus one bit per cell for "partner found yet".
+
+The reading needed pinning and the strict reading is wrong: "another element value z"
+includes the element itself when z = 0. Strict gives 0, 1, 1, 3 for A209173 where the entry
+publishes 1, 2, 5, 12.
+
+**Cap recorded next to the refusal:** A209370 (n X 4 over 1..3) refused at cap 400000 and
+again at cap 3000000, the second time by exhausting a 280-second build rather than the cap
+itself. Its window is 3 lines of 4 cells with a bit each, which is where the size comes
+from. Not settled.
