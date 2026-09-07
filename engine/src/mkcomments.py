@@ -265,6 +265,19 @@ def lattice(S, thr):
     return s + ((", and it holds for n > %d." % thr) if thr is not None else ".")
 
 
+def nbrreach(S, thr):
+    s = ("The empirical recurrence is true. Every cell the condition names lies a bounded "
+         "number of lines away -- two of them, where it reaches a knight's move -- so a "
+         "window of that width decides the condition on the line in the middle, and the "
+         "lines with nothing far enough beyond them are decided at the end. Counting a line "
+         "at a time therefore gives a transfer matrix")
+    if S:
+        s += " with %s states" % f"{S:,}".replace(',', ' ')
+    s += (", so a(n) satisfies a constant-coefficient linear recurrence of order at most "
+          "that; checking the one above is then a finite exact computation")
+    return s + ((", and it holds for n > %d." % thr) if thr is not None else ".")
+
+
 def fromgf(thr):
     s = ("The recurrence follows from the generating function this entry already states as "
          "fact: a recurrence with constant coefficients is exactly a denominator of the "
@@ -521,6 +534,8 @@ def main():
                 txt = whitesq(S, thr)
             elif t.startswith('A lattice count, not a walk count'):
                 txt = lattice(S, thr)
+            elif t.startswith('An element and the cells around it'):
+                txt = nbrreach(S, thr)
             elif t in ARRAY_TITLES:
                 txt = array(S, thr)
             elif t == "The empirical recurrence for OEIS A, derived from the entry's generating function":

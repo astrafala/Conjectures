@@ -31,6 +31,11 @@ roster = {r['anum'] for r in json.load(open('rank-map.json'))}
 HITS, DONE = 'uniall_hits.json', 'uniall_done.json'
 hits = json.load(open(HITS)) if os.path.exists(HITS) else []
 done = set(json.load(open(DONE))) if os.path.exists(DONE) else set()
+# The standing rule is that a cap is a setting and not a wall, so a refusal is only
+# meaningful next to the cap it was made at. Without this the refused pool cannot be told
+# apart from the pool already re-tried at a higher cap, and the same work gets redone.
+CAPS = 'uniall_caps.json'
+caps = json.load(open(CAPS)) if os.path.exists(CAPS) else {}
 res = collections.Counter()
 
 
@@ -54,6 +59,7 @@ open(LOCK, 'w').write(str(os.getpid()))
 def save():
     json.dump(hits, open(HITS, 'w'), indent=1)
     json.dump(sorted(done), open(DONE, 'w'))
+    json.dump(caps, open(CAPS, 'w'), indent=0, sort_keys=True)
 
 
 # asking eighteen parsers about 29k names costs ten seconds, which is most of a chunk when
@@ -67,6 +73,7 @@ for a in sorted(CANDS):
         continue
     if a in done or a in roster:
         continue
+    caps[a] = max(caps.get(a, 0), CAP)
     nm = names[a]
     got = uniform.read(nm)
     if not got:

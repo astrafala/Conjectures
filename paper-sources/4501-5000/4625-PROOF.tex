@@ -12,46 +12,46 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A251993, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A251773, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{6 September 2026}
+\date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A251993 counts arrays of width $3$ over $\{0,1,2,3\}$ in which every $3\times3$ window has
+OEIS A251773 counts arrays of width $4$ over $\{0,1,2,3\}$ in which every $3\times3$ window has
 constrained SUMS along its rows, its columns and its two diagonals. The entry carries an
 empirical recurrence of order $31$ contributed by R.~H.~Hardin. It is true, and it is
 decidable rather than empirical: a $3\times3$ window lies in $3$ consecutive array rows,
-so the count is a walk count on $S=4161$ states.
+so the count is a walk count on $S=65793$ states.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 05B20, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A251993 is ``Number of (n+2)X(1+2) 0..3 arrays with no row, column, diagonal or antidiagonal in any 3X3 subblock summing to 2 4 5 or 7.''. It has offset $1$ and begins
+OEIS A251773 is ``Number of (n+2) X (2+2) 0..3 arrays with every 3 X 3 subblock row and column sum 3 or 6 and every diagonal and antidiagonal sum not 3 or 6.''. It has offset $1$ and begins
 \[
-1198, 6094, 43572, 340164, 2708560, 21680096, 173871388, 1395137546,\ \dots
+1142, 4182, 12242, 34934, 132886, 430730, 1317638, 5134774,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 11*a(n-1) -26*a(n-2) +37*a(n-3) -205*a(n-4) +376*a(n-5) -230*a(n-6) +1043*a(n-7) -725*a(n-8) -1519*a(n-9) +184*a(n-10) -8070*a(n-11) +14352*a(n-12) -9141*a(n-13) +26804*a(n-14) -17445*a(n-15) +5186*a(n-16) -14288*a(n-17) -9925*a(n-18) +8264*a(n-19) -130*a(n-20) +3216*a(n-21) +7430*a(n-22) -5116*a(n-23) +3318*a(n-24) -1008*a(n-25) -3540*a(n-26) -4*a(n-27) +840*a(n-28) -312*a(n-29) +1008*a(n-30) -384*a(n-31) for n>35
+Empirical: a(n) = a(n-1) +82*a(n-3) -82*a(n-4) -2074*a(n-6) +2074*a(n-7) +19954*a(n-9) -19954*a(n-10) -70907*a(n-12) +70907*a(n-13) -8204*a(n-15) +8204*a(n-16) +575830*a(n-18) -575830*a(n-19) -914592*a(n-21) +914592*a(n-22) -424248*a(n-24) +424248*a(n-25) +1366560*a(n-27) -1366560*a(n-28) -172800*a(n-30) +172800*a(n-31).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jun 02 2025 10:40:40, revision 7) this is still
+As of the ``Last modified'' line on the live entry (Jan 20 2024 18:16:11, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The array has $3$ cells across, with entries in $\{0,1,2,3\}$. A WINDOW is a $3\times3$ block
+The array has $4$ cells across, with entries in $\{0,1,2,3\}$. A WINDOW is a $3\times3$ block
 of consecutive cells lying inside the array. Every window must satisfy
 \[
 \begin{array}{ll}
 \text{the sum along} & \text{} \\[2pt]
-\text{each row} & \text{must NOT be 2 or 4 or 5 or 7} \\
-\text{each column} & \text{must NOT be 2 or 4 or 5 or 7} \\
-\text{the main diagonal} & \text{must NOT be 2 or 4 or 5 or 7} \\
-\text{the antidiagonal} & \text{must NOT be 2 or 4 or 5 or 7} \\
+\text{each row} & \text{must be 3 or 6} \\
+\text{each column} & \text{must be 3 or 6} \\
+\text{the main diagonal} & \text{must NOT be 3 or 6} \\
+\text{the antidiagonal} & \text{must NOT be 3 or 6} \\
 \end{array}
 \]
 where the main diagonal of a window runs from its top left corner to its bottom right, and its
@@ -74,7 +74,7 @@ window needing a row that is $\bot$ does not exist, which is the boundary rule; 
 at the all-$\bot$ state, so a walk of $R$ steps is an array of $R$ rows. With $M$ the adjacency
 matrix and $\tau=\mathbf{1}$,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=4161.
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=65793.
 \]
 The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
 published terms rather than assumed. In particular $a$ is $C$-finite.
@@ -99,15 +99,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;11\,a(n-1) - 26\,a(n-2) + 37\,a(n-3) - 205\,a(n-4) + 376\,a(n-5) - 230\,a(n-6) + 1043\,a(n-7) - 725\,a(n-8) - 1519\,a(n-9) + 184\,a(n-10) - 8070\,a(n-11) + 14352\,a(n-12) - 9141\,a(n-13) + 26804\,a(n-14) - 17445\,a(n-15) + 5186\,a(n-16) - 14288\,a(n-17) - 9925\,a(n-18) + 8264\,a(n-19) - 130\,a(n-20) + 3216\,a(n-21) + 7430\,a(n-22) - 5116\,a(n-23) + 3318\,a(n-24) - 1008\,a(n-25) - 3540\,a(n-26) - 4\,a(n-27) + 840\,a(n-28) - 312\,a(n-29) + 1008\,a(n-30) - 384\,a(n-31)
+a(n)\;=\;a(n-1) + 82\,a(n-3) - 82\,a(n-4) - 2074\,a(n-6) + 2074\,a(n-7) + 19954\,a(n-9) - 19954\,a(n-10) - 70907\,a(n-12) + 70907\,a(n-13) - 8204\,a(n-15) + 8204\,a(n-16) + 575830\,a(n-18) - 575830\,a(n-19) - 914592\,a(n-21) + 914592\,a(n-22) - 424248\,a(n-24) + 424248\,a(n-25) + 1366560\,a(n-27) - 1366560\,a(n-28) - 172800\,a(n-30) + 172800\,a(n-31)
 \]
-for every $n>35$.
+for every $n>31$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $31$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=35+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=31+1$ onwards and the run continued
 until the working vector was identically zero.
 \end{proof}
 
@@ -115,7 +115,7 @@ until the working vector was identically zero.
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $17$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $21$ terms the entry publishes, exactly, in integer
 arithmetic.
 
 Second, the count was recomputed for the smallest arrays straight from the definition: fill the
@@ -131,7 +131,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A251993.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A251773.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge

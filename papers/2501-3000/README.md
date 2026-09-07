@@ -1,6 +1,6 @@
 # Papers 2501-3000
 
-Ranks 2501 to 3000 of 9301, hardest first.
+Ranks 2501 to 3000 of 9322, hardest first.
 
 | # | OEIS | Result | What settles it | Paper |
 | --- | --- | --- | --- | --- |

@@ -15,6 +15,7 @@ real results four times on this project, so that pool is always worth its own li
 """
 import collections
 import json
+import os
 import re
 import sys
 
@@ -68,10 +69,24 @@ def main(top=25):
         cands = json.load(open('uni_cands.json'))
         done = set(json.load(open('uniall_done.json')))
         hits = {h['anum'] for h in json.load(open('uniall_hits.json'))}
+        caps = json.load(open('uniall_caps.json')) if os.path.exists('uniall_caps.json') else {}
         stale = [a for a in cands if a in done and a not in mine and a not in hits]
-        print(f'CHEAPEST CHUNK: {len(stale)} entries an engine already parses that were '
-              f'processed and not settled.\n  A cap is a setting, not a wall: re-run these '
-              f'before writing anything new.\n')
+        # A refusal only means something next to the cap it was made at. Reporting the whole
+        # refused pool as cheap work sends the next pass to redo what the last one just did.
+        best = max(caps.values()) if caps else 0
+        fresh = [a for a in stale if caps.get(a, 0) < best]
+        print(f'REFUSED POOL: {len(stale)} entries an engine parses, processed and not '
+              f'settled.')
+        if caps:
+            buckets = collections.Counter(caps.get(a, 0) for a in stale)
+            for cap, n in sorted(buckets.items()):
+                mark = '  <-- never tried above this' if cap < best else ''
+                print(f'    {n:5d} last tried at cap {cap or "unrecorded"}{mark}')
+            print(f'  {len(fresh)} of them have never been tried at the highest cap used '
+                  f'({best}). A cap is a setting, not a wall.')
+        else:
+            print('  no caps recorded yet, so none of these can be told apart')
+        print()
     except Exception as e:
         print(f'(could not size the refused pool: {e})\n')
 

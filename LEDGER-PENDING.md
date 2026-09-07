@@ -380,3 +380,36 @@ proved. Nothing in the output said so — the count was the only trace, and it w
 Caught by reading the file back rather than trusting the report. `sweep_uni.py` now takes a
 lock and refuses to start while another sweep is writing the same file. The five were
 re-proved and are in.
+
+### transfer91 — an element and the cells around it, reaching further than one line (21)
+
+Five clause shapes in one engine: no element equal to any knight-move neighbour; a
+comparison on how many neighbours an element equals ("more than two", "at least two"); an
+element equal to the largest or the smallest of its neighbours; and an element required to
+find both $x+1$ and $x-1$ modulo $k$ among a listed set of offsets. Several carry the
+row-major canonical condition as well, and one counts half its arrays.
+
+The earlier neighbour engine assumed every cell named lay one line away, which a knight move
+does not. Here the window is $2R+1$ lines for $R$ the furthest the condition reaches, the
+state carries $2R$, and the last $R$ lines are judged by the end vector.
+
+**A reading the data had to settle.** "Each element equal to at least two neighbors" does not
+say which neighbours. The four horizontal and vertical ones give A180752's published
+$0,1,1,2$; all eight king-move neighbours give $0,3,9,37$. Pinned before the engine existed.
+
+### The lock earned itself within the hour
+
+Two sweeps from before the lock was added were still running while the transfer91 sweep
+finished. They hold a stale copy of the whole results list, so either would have dropped all
+21 on its next save. Checked the file immediately, found the 21 present, and stopped the old
+processes before they could write. The lock stops new sweeps from starting into that
+situation; processes already running when it was added were not covered, which is worth
+remembering the next time shared state gets a guard.
+
+### chunks.py now records the cap beside each refusal
+
+The ranking called 676 already-retried entries "the cheapest chunk" and would have sent the
+next pass to redo exactly what the last one had just done. The sweep now records, per entry,
+the largest cap it was tried at, and the ranking reports the refused pool split by that cap
+and names how many have never been tried at the highest one. That is the standing rule about
+caps, made mechanical rather than remembered.

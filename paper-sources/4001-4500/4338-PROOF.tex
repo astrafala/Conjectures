@@ -12,74 +12,78 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A203087, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A220620, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{3 September 2026}
+\date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A203087 counts arrays of width $6$ over $\{0,1\}$ containing no occurrence of certain short
-patterns, read along the rows, the columns or the diagonals. The entry carries an empirical
-recurrence of order $37$ contributed by R.~H.~Hardin. It is true, and it is decidable
-rather than empirical: no pattern is longer than $3$ letters and no direction moves the row
-index by more than one, so every occurrence lies inside $3$ consecutive array rows and the
-count is a walk count on $S=381$ states.
+OEIS A220620 counts the ways of linking the cells of a grid $7$ cells wide, each cell either to
+itself or to exactly $1$ of its neighbours, the links being reciprocal, and carries an
+empirical recurrence of order $37$ contributed by R.~H.~Hardin. It is true, and it is
+decidable rather than empirical. A reciprocal link is an undirected edge and a self-link is
+no edge, so what is counted is the spanning subgraphs of a grid graph in which every vertex
+has degree $0$ or $1$; the edges crossing the boundary between two consecutive rows are a
+state, the count is a walk count on $S=441$ of them, and the conjectured recurrence is then
+settled by a finite exact computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 68R15, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05C30, 05C70.\normalsize
 
 \section{The conjecture}
 
-OEIS A203087 is ``Number of (n+2)X6 binary arrays avoiding patterns 000 and 101 in rows and columns.''. It has offset $1$ and begins
+OEIS A220620 is ``Number of ways to reciprocally link elements of an nX7 array either to themselves or to exactly one horizontal, diagonal and antidiagonal neighbor.''. It has offset $1$ and begins
 \[
-1575, 6615, 26528, 112334, 470807, 1946072, 8108104, 33749405,\ \dots
+21, 4565, 624227, 93905509, 13864972277, 2054706174413, 304265433695569, 45062687311719797,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = a(n-1) +4*a(n-2) +34*a(n-3) +40*a(n-4) -31*a(n-5) -224*a(n-6) -413*a(n-7) +433*a(n-8) +1505*a(n-9) +703*a(n-10) -2455*a(n-11) -5056*a(n-12) +2075*a(n-13) +4934*a(n-14) -656*a(n-15) +3696*a(n-16) +18044*a(n-17) -16513*a(n-18) -39362*a(n-19) +8986*a(n-20) +39868*a(n-21) -19137*a(n-22) +10671*a(n-23) +7513*a(n-24) -14687*a(n-25) -4882*a(n-26) -718*a(n-27) +4632*a(n-28) +3198*a(n-29) +2571*a(n-30) +1542*a(n-31) -1549*a(n-32) +249*a(n-33) -84*a(n-34) -330*a(n-35) +54*a(n-36) -216*a(n-37) for n>41
+Empirical: a(n) = 201*a(n-1) -6982*a(n-2) -189430*a(n-3) +9590330*a(n-4) -17036302*a(n-5) -2815039392*a(n-6) +24279361760*a(n-7) +198170224768*a(n-8) -2875481635520*a(n-9) -383756692624*a(n-10) +115334410373680*a(n-11) -283314863036560*a(n-12) -1777891655816032*a(n-13) +7541953262286912*a(n-14) +7231319523252480*a(n-15) -67620253084304384*a(n-16) +32587945923607040*a(n-17) +252473367356505600*a(n-18) -301020866429181440*a(n-19) -378989877588835840*a(n-20) +740276347708960768*a(n-21) +102424394439131136*a(n-22) -719256751312953344*a(n-23) +211285473650806784*a(n-24) +277487256139481088*a(n-25) -178573089681702912*a(n-26) -26529867221958656*a(n-27) +59859716422762496*a(n-28) -8012264149876736*a(n-29) -11308640300433408*a(n-30) +1932970382327808*a(n-31) +1107369538879488*a(n-32) -185816928223232*a(n-33) -37457215094784*a(n-34) -13028783292416*a(n-35) +6240587481088*a(n-36) -274877906944*a(n-37)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 10:06:58, revision 9) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 18:54:47, revision 8) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The array has $6$ cells across, with entries in $\{0,1\}$. An OCCURRENCE of a pattern in a
-direction is a run of consecutive cells taken in that direction whose entries match the pattern
-in order; the array is counted when it has no occurrence at all. The entry names
+A link is \emph{reciprocal}: if $u$ is linked to $v$ then $v$ is linked to $u$. So the links
+of a configuration are the edges of an undirected graph on the cells, and a cell ``linked to
+itself'' is a cell lying in no edge. The neighbour relation the entry names is the offset set
 \[
-\begin{array}{ll}
-\text{direction} & \text{forbidden patterns} \\[2pt]
-\text{along a row, left to right} & \mathtt{000},\quad \mathtt{101} \\
-\text{down a column} & \mathtt{000},\quad \mathtt{101} \\
-\end{array}
+(-1,-1), (-1,1), (0,-1), (0,1), (1,-1), (1,1),
 \]
+and the condition ``either to themselves or to exactly $1$ neighbours'' says that in that
+graph every cell has degree $0$ or $1$. Hence $a(n)$ counts the spanning subgraphs of the
+grid graph on the offset set above, of $n$ rows and $7$ columns,
+whose every degree is $0$ or $1$: a matching.
+
+One point of the English has to be fixed rather than guessed: whether a cell may spend both of
+its links on the same neighbour. It may not. For the king-move neighbourhood the $1\times2$
+and $2\times2$ counts are the degree-$0$-or-$2$ subgraphs of $K_2$ and of $K_4$, which are $1$
+and $1+4+3=8$ with simple edges and larger if a doubled edge were allowed; the entries of that
+family publish $1$ and $8$. The reading is in any case pinned entry by entry, because the
+model below is required to reproduce every term the entry publishes.
 
 
-\section{Every occurrence lies in $3$ consecutive rows}
+\section{The count is a walk count}
 
-\begin{lemma}\label{lem:win}
-Each of the directions above changes the row index by $0$ or $1$ from one cell of a run to the
-next, and no pattern is longer than $3$ letters. Hence every occurrence lies inside $3$
-consecutive array rows, and an occurrence whose last cell is in row $i$ lies inside rows
-$i-2,\dots,i$.
-\end{lemma}
+Every offset above changes the row index by at most one, so an edge either lies inside a row
+or crosses the boundary between two consecutive rows. Take as state the set of edges crossing
+one boundary. Placing a row means choosing the horizontal edges inside it and the edges it
+sends down to the next row; at that moment each of its cells knows all of its links --- those
+arriving from the row above, those inside the row, those going down --- so its degree, and any
+condition on the pair of links at a cell, is settled there and never revisited.
 
-\begin{proof}
-Immediate from the offsets listed: the row step is $0$ for a row and $1$ for the other three.
-\end{proof}
-
-So the state is the window of the last $2$ array rows, a row still to come being written
-$\bot$. A step appends a row and rejects it exactly when some occurrence ends in it or lies
-inside it; an occurrence needing a row that is $\bot$ cannot exist, which is the boundary rule
-and is not assumed but read off the window. The walk starts at the all-$\bot$ window, so a walk
-of no steps is the empty array and a walk of $R$ steps is an array of $R$ rows. With $M$ the
-adjacency matrix, $\iota$ the indicator of the starting window and $\tau=\mathbf{1}$,
+Reading a configuration from the top therefore gives a walk that begins at the empty boundary,
+takes one step per row, and ends at the empty boundary, and every such walk comes from exactly
+one configuration. With $M$ the adjacency matrix of the digraph on the $S=441$ reachable
+states and $\iota,\tau$ the indicator vectors of the empty boundary,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=381.
+a(n)\;=\;\iota^{\!\top}M^{\,n}\tau ,
 \]
-The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
-published terms rather than assumed. In particular $a$ is $C$-finite.
+so $a$ is $C$-finite. States are generated from the empty boundary outward, so only the
+reachable ones are ever built; the alignment of the walk index with the entry's own $n$ was
+checked against its published terms rather than assumed.
 
 \section{The proof}
 
@@ -101,43 +105,39 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;a(n-1) + 4\,a(n-2) + 34\,a(n-3) + 40\,a(n-4) - 31\,a(n-5) - 224\,a(n-6) - 413\,a(n-7) + 433\,a(n-8) + 1505\,a(n-9) + 703\,a(n-10) - 2455\,a(n-11) - 5056\,a(n-12) + 2075\,a(n-13) + 4934\,a(n-14) - 656\,a(n-15) + 3696\,a(n-16) + 18044\,a(n-17) - 16513\,a(n-18) - 39362\,a(n-19) + 8986\,a(n-20) + 39868\,a(n-21) - 19137\,a(n-22) + 10671\,a(n-23) + 7513\,a(n-24) - 14687\,a(n-25) - 4882\,a(n-26) - 718\,a(n-27) + 4632\,a(n-28) + 3198\,a(n-29) + 2571\,a(n-30) + 1542\,a(n-31) - 1549\,a(n-32) + 249\,a(n-33) - 84\,a(n-34) - 330\,a(n-35) + 54\,a(n-36) - 216\,a(n-37)
+a(n)\;=\;201\,a(n-1) - 6982\,a(n-2) - 189430\,a(n-3) + 9590330\,a(n-4) - 17036302\,a(n-5) - 2815039392\,a(n-6) + 24279361760\,a(n-7) + 198170224768\,a(n-8) - 2875481635520\,a(n-9) - 383756692624\,a(n-10) + 115334410373680\,a(n-11) - 283314863036560\,a(n-12) - 1777891655816032\,a(n-13) + 7541953262286912\,a(n-14) + 7231319523252480\,a(n-15) - 67620253084304384\,a(n-16) + 32587945923607040\,a(n-17) + 252473367356505600\,a(n-18) - 301020866429181440\,a(n-19) - 378989877588835840\,a(n-20) + 740276347708960768\,a(n-21) + 102424394439131136\,a(n-22) - 719256751312953344\,a(n-23) + 211285473650806784\,a(n-24) + 277487256139481088\,a(n-25) - 178573089681702912\,a(n-26) - 26529867221958656\,a(n-27) + 59859716422762496\,a(n-28) - 8012264149876736\,a(n-29) - 11308640300433408\,a(n-30) + 1932970382327808\,a(n-31) + 1107369538879488\,a(n-32) - 185816928223232\,a(n-33) - 37457215094784\,a(n-34) - 13028783292416\,a(n-35) + 6240587481088\,a(n-36) - 274877906944\,a(n-37)
 \]
-for every $n>41$.
+for every $n>36$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $37$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=41+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=36+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
-Four checks, each independent of the algebra above.
+Three checks, each independent of the algebra above.
 
-First, the model reproduces all $19$ terms the entry publishes, exactly, in integer
-arithmetic.
+First, the model reproduces all $12$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry: the digraph is built by reading the
+entry's English, and a misreading gives different counts.
 
-Second, the count was recomputed for the smallest arrays straight from the definition: fill the
-cells one at a time, in the orientation the entry's own name writes, and reject as soon as a
-completed run matches a forbidden pattern. No transfer matrix, no window and no transposition
-are involved, and the published terms came back.
-
-Third, the conjectured recurrence was evaluated directly on the published terms, with no
+Second, the conjectured recurrence was evaluated directly on those published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
 
-Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
 arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A203087.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A220620.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata
-Theory, Languages, and Computation}, 3rd ed., Addison--Wesley, 2006.
+\bibitem{lovasz} L.~Lov\'asz and M.~D.~Plummer, \emph{Matching Theory}, AMS Chelsea,
+2009.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

@@ -10,149 +10,166 @@
 \newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
 \newtheorem{remark}[theorem]{Remark}
-
-\title{The empirical recurrence for OEIS A263869, derived from the entry's generating function}
+\title{A proof of the conjectured recurrence for OEIS A081181}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{2 September 2026}
+\date{30 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A263869 carries an empirical recurrence of order $14$. The entry separately records a
-generating function, not as a conjecture but as a statement of fact, and the recurrence is a
-consequence of it: multiplying the generating function by the polynomial the recurrence
-supplies gives a POLYNOMIAL, and the recurrence then holds at every index past that
-polynomial's degree. No model of the objects being counted is needed, and no search: the
-whole argument is one polynomial division, carried out in exact arithmetic. The result is
-conditional on the recorded generating function, which is what the entry asserts and what is
-checked here against every published term.
+OEIS A081181 carries a conjectured linear recurrence with polynomial coefficients, of
+order 3. The entry posts no generating function, and the closed form it does post
+is not a hypergeometric term in $n$: it contains a floor, so its shift quotients are not
+rational and the usual argument does not start. Splitting on the parity of $n$ repairs
+this. Writing $a(2m)=e_{0}(m)$ and $a(2m+1)=e_{1}(m)$, both halves are ordinary
+hypergeometric expressions in $m$, and the recurrence becomes two identities in $m$, since
+each shifted term $a(n-i)$ lands in whichever half the parity of $n-i$ selects. Both are
+then decided exactly, by grouping into similarity classes and cancelling. The procedure
+returns a proof or a refutation; both halves must hold, and here both do.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 30B10.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 33F10, 11B37, 05A10.\normalsize
 
-\section{The two statements}
+\section{The sequence and the conjecture}
 
-OEIS A263869 is ``Number of (n+1) X (4+1) 0..1 arrays with each row and column divisible by 3, read as a binary number with top and left being the most significant bits, and rows and columns lexicographically nondecreasing.''. It has offset $1$ and begins
+OEIS A081181 is ``Staircase on Pascal's triangle''. It has offset $0$ and begins
 \[
-3, 3, 7, 7, 16, 17, 41, 48,\ \dots
+a(0),\dots,a(7)\;=\;1, 3, 6, 20, 35, 126, 210, 792,\ \dots
 \]
-The entry states, as a conjecture and never marked settled:
-\begin{quote}
-Empirical: a(n) = 2*a(n-1) + 5*a(n-2) - 12*a(n-3) - 9*a(n-4) + 30*a(n-5) + 5*a(n-6) - 40*a(n-7) + 5*a(n-8) + 30*a(n-9) - 9*a(n-10) - 12*a(n-11) + 5*a(n-12) + 2*a(n-13) - a(n-14).
+The entry states, not as a conjecture,
+\begin{quote}\small
+a(n) = binomial(floor((n + 1)/2) + (n + 1), n).
 \end{quote}
-and, separately and NOT as a conjecture:
-\begin{quote}
-G.f.: x*(3 - 3*x - 14*x\^{}2 + 14*x\^{}3 + 30*x\^{}4 - 29*x\^{}5 - 31*x\^{}6 + 31*x\^{}7 + 20*x\^{}8 - 20*x\^{}9 - 7*x\^{}10 + 7*x\^{}11 + x\^{}12 - x\^{}13) / ((1 - x)\^{}8*(1 + x)\^{}6).
+that is,
+\begin{equation}\label{eq:cf}
+a(n)\;=\;{\binom{n + \left\lfloor{\frac{n}{2} + \frac{1}{2}}\right\rfloor + 1}{n}} .
+\end{equation}
+This is the only input the proof takes from the entry. It was checked against the entry's
+own DATA before use, and the index alignment was determined from that check rather than
+assumed: the formula is stated in the entry's own indexing.
+
+The entry separately carries the following comment:
+\begin{quote}\small
+\textbf{Conjecture:} 8*n*(n+3)*(1845*n-2882)*a(n) + 4*(-5097*n\^{}3+11143*n\^{}2 + 42110*n-27416)*a(n-1) + 6*(-16605*n\^{}3-7272*n\^{}2-16701*n+9490)*a(n-2) + 3*(3*n-5)*(5097*n-949)*(3*n-4)*a(n-3) = 0. - \emph{R. J. Mathar}, Oct 29 2014
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jan 03 2019 06:02:13, revision 8) the first is still
-recorded as empirical. This note derives it from the second.
+As of the ``Last modified'' line on the live entry (2025-10-19, revision 20) the
+statement is still recorded as a conjecture, and no proof appears among the entry's links,
+formulas or programs.
 
-\section{A rational generating function decides every linear recurrence}
+Written out, the conjecture is
+\begin{equation}\label{eq:conj}
+8 n \left(n + 3\right) \left(1845 n - 2882\right)\,a(n) -  4 \left(5097 n^{3} - 11143 n^{2} - 42110 n + 27416\right)\,a(n-1) -  6 \left(16605 n^{3} + 7272 n^{2} + 16701 n - 9490\right)\,a(n-2) + 3 \left(3 n - 5\right) \left(3 n - 4\right) \left(5097 n - 949\right)\,a(n-3)
+\end{equation}
 
-Write
-\[
-G(x)\;=\;\sum_{n}a(n)\,x^{n}\;=\;\frac{- x^{14} + x^{13} + 7 x^{12} - 7 x^{11} - 20 x^{10} + 20 x^{9} + 31 x^{8} - 31 x^{7} - 29 x^{6} + 30 x^{5} + 14 x^{4} - 14 x^{3} - 3 x^{2} + 3 x}{x^{14} - 2 x^{13} - 5 x^{12} + 12 x^{11} + 9 x^{10} - 30 x^{9} - 5 x^{8} + 40 x^{7} - 5 x^{6} - 30 x^{5} + 9 x^{4} + 12 x^{3} - 5 x^{2} - 2 x + 1},
-\]
-the entry's own generating function, and let
-\[
-D(x)\;=\;1-\sum_i c_i x^{i}\;=\;x^{14} - 2 x^{13} - 5 x^{12} + 12 x^{11} + 9 x^{10} - 30 x^{9} - 5 x^{8} + 40 x^{7} - 5 x^{6} - 30 x^{5} + 9 x^{4} + 12 x^{3} - 5 x^{2} - 2 x + 1
-\]
-be the polynomial attached to the conjectured recurrence.
+\section{Hypergeometric terms, and why the closed form is not one}
 
-\begin{lemma}\label{lem:key}
-For every $n$ in range, $a(n)-\sum_i c_i\,a(n-i)$ is the coefficient of $x^{n}$ in
-$D(x)G(x)$.
+\begin{definition}
+A nonzero expression $c(m)$ is a \emph{hypergeometric term} in $m$ if $c(m+1)/c(m)$ is a
+rational function of $m$. Two such terms $c,d$ are \emph{similar}, $c\sim d$, if $c/d$ is a
+rational function of $m$.
+\end{definition}
+
+Products of factorials, binomial coefficients with arguments linear in the variable,
+exponentials and polynomials are hypergeometric. A floor is not: $\lfloor n/2\rfloor$ takes
+the same value at $n$ and $n+1$ for even $n$ and jumps at odd $n$, so the quotient
+$c(n+1)/c(n)$ is not a rational function of $n$, and \eqref{eq:cf} is therefore outside the
+reach of the direct argument.
+
+Parity removes the floor. For integer $m$,
+$\lfloor 2m/2\rfloor=m$ and $\lfloor (2m+1)/2\rfloor=m$, and similarly for the ceiling, so
+substituting $n=2m$ and $n=2m+1$ into \eqref{eq:cf} and simplifying gives two expressions
+free of rounding:
+\begin{equation}\label{eq:halves}
+a(2m)\;=\;e_{0}(m)\;=\;{\binom{3 m + 1}{m + 1}},
+\qquad
+a(2m+1)\;=\;e_{1}(m)\;=\;{\binom{3 m + 3}{2 m + 1}},
+\end{equation}
+and each of $e_{0},e_{1}$ is a sum of finitely many hypergeometric terms in $m$.
+
+\begin{lemma}\label{lem:indep}
+Hypergeometric terms that are pairwise dissimilar are linearly independent over the field
+of rational functions: if $\sum_{j}u_{j}(m)c_{j}(m)=0$ for rational $u_{j}$ and all large
+$m$, then every $u_{j}$ is zero. See Petkov\v{s}ek, Wilf and Zeilberger \cite{AB},
+Chapter~5.
 \end{lemma}
 
+\section{The recurrence, one residue class at a time}
+
+Fix the conjectured coefficients $p_{0},\dots,p_{r}$ and consider
+$T(n)=\sum_{i=0}^{r}p_{i}(n)a(n-i)$. Each term reaches a half of \eqref{eq:halves} chosen
+by the parity of $n-i$:
+
+\begin{proposition}\label{prop:split}
+With $a(2j)=e_{0}(j)$ and $a(2j+1)=e_{1}(j)$,
+\[
+T(2m)=\sum_{i \text{ even}}p_{i}(2m)\,e_{0}\!\left(m-\tfrac{i}{2}\right)
+      +\sum_{i \text{ odd}}p_{i}(2m)\,e_{1}\!\left(m-\tfrac{i+1}{2}\right),
+\]
+\[
+T(2m+1)=\sum_{i \text{ even}}p_{i}(2m+1)\,e_{1}\!\left(m-\tfrac{i}{2}\right)
+      +\sum_{i \text{ odd}}p_{i}(2m+1)\,e_{0}\!\left(m-\tfrac{i-1}{2}\right).
+\]
+Both right-hand sides are finite sums of hypergeometric terms in $m$. The recurrence
+$T(n)=0$ holds for all large $n$ if and only if both vanish identically, and by
+Lemma~\ref{lem:indep} each vanishes identically if and only if, after grouping its
+summands into similarity classes, every class contributes the zero rational function.
+\end{proposition}
+
 \begin{proof}
-Multiplying power series, the coefficient of $x^{m}$ in $D(x)G(x)$ is
-$a_m-\sum_i c_i a_{m-i}$ where $a_m$ denotes the coefficient of $x^{m}$ in $G$, terms with
-negative index being zero.
+The two displays are the definition of $T$ with $n-i$ written in the form $2j$ or $2j+1$:
+for $n=2m$ the index $n-i$ is even exactly when $i$ is, and for $n=2m+1$ exactly when $i$
+is odd. Every $e_{\epsilon}(m-s)$ is a sum of hypergeometric terms in $m$, and
+$p_{i}(2m)$, $p_{i}(2m+1)$ are polynomials in $m$, so each display is a finite sum of
+hypergeometric terms. Within a similarity class every summand is the class representative
+times a rational function, so the class contributes the representative times the sum of
+those rational functions; the classes are pairwise dissimilar by construction, and
+Lemma~\ref{lem:indep} applies. Finally $n$ ranges over both parities, so $T(n)=0$ for all
+large $n$ is exactly the conjunction of the two.
 \end{proof}
 
+\section{The computation for A081181}
+
+Carrying out Proposition~\ref{prop:split} with the coefficients of \eqref{eq:conj} and the
+two halves \eqref{eq:halves}, every similarity class of $T(2m)$ contributes zero, and so
+does every similarity class of $T(2m+1)$. The even half splits into one class
+and the odd half into one class.
+
 \begin{theorem}
+For all $n\ge 3$,
 \[
-a(n)\;=\;2\,a(n-1) + 5\,a(n-2) - 12\,a(n-3) - 9\,a(n-4) + 30\,a(n-5) + 5\,a(n-6) - 40\,a(n-7) + 5\,a(n-8) + 30\,a(n-9) - 9\,a(n-10) - 12\,a(n-11) + 5\,a(n-12) + 2\,a(n-13) - a(n-14)
+8 n \left(n + 3\right) \left(1845 n - 2882\right)\,a(n) -  4 \left(5097 n^{3} - 11143 n^{2} - 42110 n + 27416\right)\,a(n-1) -  6 \left(16605 n^{3} + 7272 n^{2} + 16701 n - 9490\right)\,a(n-2) + 3 \left(3 n - 5\right) \left(3 n - 4\right) \left(5097 n - 949\right)\,a(n-3)
 \]
-for every $n>14$.
 \end{theorem}
 
 \begin{proof}
-In exact arithmetic,
-\[
-D(x)\,G(x)\;=\;- x^{14} + x^{13} + 7 x^{12} - 7 x^{11} - 20 x^{10} + 20 x^{9} + 31 x^{8} - 31 x^{7} - 29 x^{6} + 30 x^{5} + 14 x^{4} - 14 x^{3} - 3 x^{2} + 3 x,
-\]
-a POLYNOMIAL of degree $14$ --- the denominator of $G$ divides $D(x)$ times its numerator,
-which is precisely the condition for the conjectured recurrence to be implied by the
-generating function. Its coefficients vanish beyond degree $14$, so by
-Lemma~\ref{lem:key} the residual $a(n)-\sum_ic_ia(n-i)$ vanishes for every
-$n>14$.
+Both residue classes vanish identically by the computation above, and every integer $n$
+lies in one of them. The excluded values are those at which a class residual has a pole or
+a term of \eqref{eq:cf} is undefined.
 \end{proof}
-
-\section{Is the conjectured recurrence the shortest one?}
-
-Cancelling common factors, $G$ has reduced denominator
-\[
-x^{14} - 2 x^{13} - 5 x^{12} + 12 x^{11} + 9 x^{10} - 30 x^{9} - 5 x^{8} + 40 x^{7} - 5 x^{6} - 30 x^{5} + 9 x^{4} + 12 x^{3} - 5 x^{2} - 2 x + 1,
-\]
-of degree $14$, and that degree is the order of the SHORTEST linear recurrence with
-constant coefficients the sequence obeys: any shorter one would give a polynomial multiple of
-$G$ with a smaller denominator, contradicting the cancellation. The conjectured recurrence has
-order $14$.
-
-So the conjecture is the minimal recurrence.
-
-\section{The residuals, explicitly}
-
-Lemma~\ref{lem:key} says the residual $a(n)-\sum_ic_ia(n-i)$ is a coefficient of the
-polynomial $D(x)G(x)$, so it can be read off the entry's own published terms with no
-generating function involved at all. Doing that:
-\begin{center}
-\begin{tabular}{cc}
-index & residual \\ \hline
-$n=15$ & $0$ \\
-$n=16$ & $0$ \\
-$n=17$ & $0$ \\
-$n=18$ & $0$
-\end{tabular}
-\end{center}
-The residuals are exactly the coefficients of the polynomial displayed above, in order, and
-they stop at index $14$ because that polynomial has degree $14$. A reader who trusts
-neither the generating function nor the algebra can check the table against the entry's DATA
-by hand; what the generating function adds is the guarantee that the pattern continues, which
-no amount of checking terms could establish on its own.
 
 \section{Verification}
 
-Three checks.
+Two checks were made, and both are independent of the algebra above.
 
-First, the generating function was expanded as a power series in exact rational arithmetic and
-compared against all $40$ terms the entry publishes: it reproduces every one. This is
-what ties the recorded generating function to the sequence the recurrence is about.
+First, the closed form \eqref{eq:cf} was evaluated at the first $13$ indices and
+compared term by term with the entry's DATA; the values agree exactly, on both parities. A
+formula that did not reproduce the entry's own terms would not have been used, and the
+alignment was fixed by that comparison rather than assumed.
 
-Second, the polynomial division above was carried out symbolically, not numerically, so the
-statement that $D(x)G(x)$ is a polynomial is exact rather than approximate.
-
-Third, the recurrence was evaluated directly on the series coefficients for sixty consecutive
-indices beyond $n=14$ and holds at every one, and at $n=14$ itself it fails --- the
-degree bound is attained, so the range stated is the true one and not merely a safe one.
-
-\begin{remark}
-The argument is conditional on the generating function, which the entry records as a fact and
-attributes to a contributor rather than offering as a conjecture. What is shown here is that
-the empirical recurrence is not an independent guess: it is equivalent to information the
-entry already contains.
-\end{remark}
+Second, the conjectured recurrence \eqref{eq:conj} was evaluated on the published terms in
+exact integer arithmetic at every index where it applies: $26$ instances beginning at
+$n=3$, all of them zero. This is not part of the proof, which is symbolic, but it
+would have caught a transcription error in the coefficients.
 
 \begin{thebibliography}{9}
-\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A263869.
-\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Rational generating functions, Section 4.1.)
-\bibitem{kp} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011.
-\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
-University Press, 2009.
+\bibitem{AB} M.~Petkov\v{s}ek, H.~S.~Wilf and D.~Zeilberger, \emph{A=B}, A K Peters,
+Wellesley MA, 1996.
+\bibitem{OEIS} OEIS Foundation Inc., \emph{The On-Line Encyclopedia of Integer Sequences},
+entry \href{https://oeis.org/A081181}{A081181}, 2025-10-19.
+\bibitem{GKP} R.~L.~Graham, D.~E.~Knuth and O.~Patashnik, \emph{Concrete Mathematics},
+2nd ed., Addison-Wesley, 1994.
 \end{thebibliography}
 
 \end{document}
