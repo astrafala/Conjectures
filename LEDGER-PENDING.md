@@ -453,3 +453,11 @@ whenever the thing that caused it changes. Idle is a defect.
 That last clause is not a slogan. Every wall re-tested on 7 September 2026 turned out to be a
 stale filter rather than mathematics — seven of them in one day, hiding between forty and four
 hundred and thirty-four entries each.
+
+### The 92 held results re-checked before counting
+
+Every pending result was re-read against the OEIS clone (at commit `bc2cd37f64`, 7 September
+2026 03:04) looking for wording that would mean someone else has settled it. **None carries
+any.** The clone is roughly nineteen hours old at the time of the check and a `git pull`
+brought nothing newer; that age is stated rather than described as "live", because a two-day
+stale clone has already cost this project two withdrawn papers once.
