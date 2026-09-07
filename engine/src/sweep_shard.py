@@ -59,6 +59,10 @@ done = set(json.load(open(DONE))) if os.path.exists(DONE) else set()
 # The standing rule is that a cap is a setting and not a wall, so a refusal is only
 # meaningful next to the cap it was made at. Without this the refused pool cannot be told
 # apart from the pool already re-tried at a higher cap, and the same work gets redone.
+# This used to record the cap for every entry the sweep ATTEMPTED, which is not the same
+# thing at all: reading it back as a list of refusals turned "563 attempted, none settled"
+# into "563 refused at the cap", a claim nothing had measured. Only an actual refusal for
+# size is recorded here now.
 CAPS = f'shard{TAG}_caps_{SHARD}.json'
 caps = json.load(open(CAPS)) if os.path.exists(CAPS) else {}
 res = collections.Counter()
@@ -101,7 +105,6 @@ for a in sorted(CANDS):
     # partition differently in every shard and entries would be both duplicated and dropped
     if zlib.crc32(a.encode()) % NSHARD != SHARD:
         continue
-    caps[a] = max(caps.get(a, 0), CAP)
     nm = names[a]
     got = uniform.read(nm)
     if not got:
@@ -112,7 +115,8 @@ for a in sorted(CANDS):
     if isinstance(p, dict) and 'alpha' in p and 'fixed' in p:
         try:
             if (p['alpha'] + 1) ** p['fixed'] > 4 * CAP:
-                res['state space > cap'] += 1; done.add(a); save(); continue
+                res['state space > cap'] += 1; caps[a] = max(caps.get(a, 0), CAP)
+                done.add(a); save(); continue
         except Exception:
             pass
     e = LE.get(a)
@@ -131,7 +135,8 @@ for a in sorted(CANDS):
     except Exception:
         signal.alarm(0); res['build failed'] += 1; done.add(a); save(); continue
     if b is None:
-        res['state space > cap'] += 1; done.add(a); save(); continue
+        res['state space > cap'] += 1; caps[a] = max(caps.get(a, 0), CAP)
+        done.add(a); save(); continue
     S = uniform.size(en, p, b)
     d = [int(v) for v in e['data'].split(',') if v.strip()]
     off = int(e['offset'].split(',')[0])

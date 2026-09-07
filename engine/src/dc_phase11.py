@@ -39,8 +39,11 @@ RULES = [
      'src/build_new.py', r"paper-engines\.json"),
     ('the comments site refuses to run on dates older than the paper index',
      'src/makecomments_site.py', r'def stale_dates'),
-    ('a refusal is recorded next to the cap it was made at',
-     'src/sweep_shard.py', r'CAPS = '),
+    # Not just that a caps file exists --- it did, and it recorded every ATTEMPT, so reading
+    # it back as a list of refusals produced a claim nothing had measured. The rule is that a
+    # REFUSAL carries its cap, so the marker is the refusal line itself.
+    ('a refusal, and only a refusal, is recorded next to the cap it was made at',
+     'src/sweep_shard.py', r"state space > cap'\] \+= 1; caps\[a\]"),
     ('a settled entry is re-checked against the live OEIS before it is counted',
      'src/freshcheck.py', r'def |import '),
     ('the repository root is known in one place only',
