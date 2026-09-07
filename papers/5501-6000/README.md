@@ -1,6 +1,6 @@
 # Papers 5501-6000
 
-Ranks 5501 to 6000 of 9703, hardest first.
+Ranks 5501 to 6000 of 9701, hardest first.
 
 | # | OEIS | Result | What settles it | Paper |
 | --- | --- | --- | --- | --- |

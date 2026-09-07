@@ -1,6 +1,6 @@
 # Papers 7501-8000
 
-Ranks 7501 to 8000 of 9703, hardest first.
+Ranks 7501 to 8000 of 9701, hardest first.
 
 | # | OEIS | Result | What settles it | Paper |
 | --- | --- | --- | --- | --- |

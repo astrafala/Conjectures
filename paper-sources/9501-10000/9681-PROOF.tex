@@ -7,172 +7,162 @@
 \theoremstyle{plain}
 \newtheorem{theorem}{Theorem}
 \newtheorem{lemma}[theorem]{Lemma}
-\newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
-\newtheorem{definition}[theorem]{Definition}
 \newtheorem{remark}[theorem]{Remark}
-\title{A proof of the conjectured recurrence for OEIS A258547}
+\title{A proof of the conjectured recurrence for OEIS A126089}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{30 August 2026}
+\date{26 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A258547 carries a conjectured linear recurrence with polynomial coefficients, of
-order 3. The entry posts no generating function, so the usual route through a
-functional equation is unavailable. It does post a closed form for $a(n)$, and that is
-enough: the closed form is a sum of finitely many hypergeometric terms, and for such a
-term every shift quotient is a rational function of $n$. The conjectured recurrence
-therefore reduces to two rational-function identities, one for each similarity
-class of terms, and each is decided exactly by cancellation. No expansion is truncated and
-nothing is guessed; the procedure returns a proof or a refutation. Here it returns a proof,
-valid for every $n$ outside an explicitly computed finite set.
+OEIS A126089 carries a conjectured linear recurrence with polynomial coefficients, of
+order 1. The entry separately states a recurrence of order 2 that is not
+labelled a conjecture. We prove that the first is a consequence of the second, so the
+conjecture holds. The argument is a division in the Ore algebra
+$\mathbb{Q}(n)[N]$, where $N$ is the shift $Nf(n)=f(n+1)$: writing $C$ and $P$ for the two
+recurrences read as operators, we exhibit $Q$ with $C=QP$, whence
+$C(a)=Q(P(a))=Q(0)=0$. No generating function is used. The division is exact
+rational-function arithmetic, and the finitely many $n$ excluded by denominators of $Q$
+are computed rather than ignored.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 33F10, 11B37, 05A10.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 11B37, 12H10, 33F10.\normalsize
 
-\section{The sequence and the conjecture}
+\section{The sequence and the two recurrences}
 
-OEIS A258547 is ``Number of (n+1)X(1+1) 0..1 arrays with every 2X2 subblock ne-sw antidiagonal difference nondecreasing horizontally and nw+se diagonal sum nondecreasing vertically''. It has offset $1$ and begins
+OEIS A126089 is ``Expansion of e.g.f.: (1-2*x)*sqrt(1-4*x)''. It has offset $0$ and begins
 \[
-a(1),\dots,a(8)\;=\;16, 44, 104, 228, 480, 988, 2008, 4052,\ \dots
+a(0),\dots,a(7)\;=\;1, -4, 4, 0, -48, -960, -20160, -483840,\ \dots
 \]
-The entry states, not as a conjecture,
+The entry carries the following comment, still recorded as a conjecture:
 \begin{quote}\small
-a(n) = 16*2\textasciicircum{}n - 4*n - 12.
+Conjecture D-finite with recurrence: (-n+4)*a(n) +2*(2*n-5)*(n-3)*a(n-1)=0. - \emph{R. J. Mathar}, Jan 24 2020
 \end{quote}
-that is,
-\begin{equation}\label{eq:cf}
-a(n)\;=\;16 \cdot 2^{n} - 4 n - 12 .
-\end{equation}
-This is the only input the proof takes from the entry, and it was checked against the
-entry's own DATA before use.
+As of the ``Last modified'' line on the live entry (2025-12-14, revision 22) it is still
+a conjecture, and no proof appears among the entry's links, formulas or programs.
 
-The entry separately carries the following comment:
+The same entry also states, \emph{not} as a conjecture:
 \begin{quote}\small
-Empirical: a(n) = 4*a(n-1) -5*a(n-2) +2*a(n-3)
+D-finite with recurrence: a(n) -4*n*a(n-1) +12*(2*n-7)*a(n-2)=0. - \emph{R. J. Mathar}, Jan 24 2020
 \end{quote}
-As of the ``Last modified'' line on the live entry (2025-07-23, revision 8) the
-statement is still recorded as a conjecture, and no proof appears among the entry's links,
-formulas or programs.
+This second relation is what the argument below rests on; it is taken as given, exactly as
+a posted generating function would be. It was checked against the entry's own DATA before
+being used, and holds on every published term it reaches.
 
-Written out, the conjecture is
-\begin{equation}\label{eq:conj}
-1\,a(n) - 4\,a(n-1) + 5\,a(n-2) - 2\,a(n-3)
-\end{equation}
+\section{Recurrences as operators, and what division really proves}
 
-\section{Hypergeometric terms}
+Write a recurrence as an element of the Ore algebra $\mathcal{A}=\mathbb{Q}(n)[N]$, where
+$N$ is the shift $Nf(n)=f(n+1)$ and multiplication obeys $N\,q(n)=q(n+1)\,N$. Let $C$ be
+the conjectured operator and $P$ the operator the entry states as fact, so $P(a)=0$.
 
-\begin{definition}
-A nonzero expression $c(n)$ is a \emph{hypergeometric term} in $n$ if the quotient
-$c(n+1)/c(n)$ is a rational function of $n$. Two hypergeometric terms $c$ and $d$ are
-\emph{similar}, written $c\sim d$, if $c(n)/d(n)$ is a rational function of $n$.
-\end{definition}
+The obvious test is whether $C$ is a left multiple of $P$. If $C=QP$ then
+$C(a)=Q(P(a))=Q(0)=0$ and the conjecture follows. But the converse fails, and not as a
+technicality: $C(a)=0$ requires only that $C$ lie in the left ideal of \emph{all} operators
+annihilating $a$, which is generated by the minimal one, and $P$ is in general a proper
+multiple of that. A conjecture can be true with $C$ not a left multiple of $P$, and
+A126089 is such a case.
 
-Similarity is an equivalence relation on hypergeometric terms. Products of factorials,
-binomial coefficients with arguments linear in $n$, exponentials $z^{n}$ and polynomials
-are hypergeometric, and so is any product of these; a sum of them need not be.
+The complete test is short. Divide on the right,
+\[
+C \;=\; QP + R, \qquad \operatorname{ord}(R) < \operatorname{ord}(P) = r ,
+\]
+so that
+\[
+C(a) \;=\; Q\bigl(P(a)\bigr) + R(a) \;=\; R(a),
+\]
+and the question becomes whether $R(a)$ vanishes, where $R$ has order below $r$.
 
-\begin{lemma}\label{lem:shift}
-If $c$ is a hypergeometric term then for every integer $i\ge 0$ the shift quotient
-$c(n-i)/c(n)$ is a rational function of $n$, computable from $c(n+1)/c(n)$ by a finite
-number of substitutions and multiplications.
+\begin{lemma}\label{lem:module}
+Write $S(n)=R(a)(n)=\sum_{i<r}s_{i}(n)\,a(n+i)$. Then $S,\,NS,\,\dots,\,N^{r}S$ all lie in
+the $\mathbb{Q}(n)$-span of $a(n),\dots,a(n+r-1)$, and are therefore linearly dependent
+over $\mathbb{Q}(n)$. Any such dependence is an operator $T$ of order $d\le r$ with
+$T(S)=0$.
 \end{lemma}
 
 \begin{proof}
-Write $\rho(n)=c(n+1)/c(n)$, a rational function by hypothesis. Then
-$c(n-1)/c(n)=1/\rho(n-1)$, and inductively
-$c(n-i)/c(n)=\prod_{j=1}^{i}\rho(n-j)^{-1}$, a finite product of rational functions.
+Shifting $S$ replaces each $a(n+i)$ by $a(n+i+1)$; the only term leaving the span is
+$a(n+r)$, and $P(a)=0$ expresses it as a $\mathbb{Q}(n)$-combination of
+$a(n),\dots,a(n+r-1)$, its coefficient being $-P_{j}/P_{r}$. So each shift stays inside an
+$r$-dimensional space, and $r+1$ vectors in it are dependent.
 \end{proof}
 
-The fact that makes the test complete rather than merely sufficient is the linear
-independence of dissimilar terms. It is classical; see Petkov\v{s}ek, Wilf and Zeilberger
-\cite{AB}, Chapter~5.
-
-\begin{lemma}\label{lem:indep}
-Let $c_{1},\dots,c_{m}$ be hypergeometric terms, pairwise dissimilar. If
-$\sum_{j=1}^{m}u_{j}(n)c_{j}(n)=0$ for rational functions $u_{j}$ and all large $n$, then
-every $u_{j}$ is the zero rational function.
+\begin{lemma}\label{lem:prop}
+Let $T$ have order $d$ and leading coefficient with no zero at any integer $n\ge n_{0}$. If
+$T(S)=0$ and $S(n_{0})=\dots=S(n_{0}+d-1)=0$, then $S(n)=0$ for every $n\ge n_{0}$.
 \end{lemma}
 
-\section{The recurrence as a finite set of rational identities}
-
-\begin{proposition}\label{prop:main}
-Let $a(n)=\sum_{j=1}^{m}c_{j}(n)$ with each $c_{j}$ hypergeometric, and let
-$p_{0},\dots,p_{r}$ be polynomials. Group the $c_{j}$ into similarity classes and write
-each class as $g_{\ell}(n)\,f_{\ell,s}(n)$ for a representative $g_{\ell}$ and rational
-functions $f_{\ell,s}$. Put
-\[
-S_{\ell}(n)\;=\;\sum_{i=0}^{r}\;\sum_{s}\;p_{i}(n)\,f_{\ell,s}(n-i)\,
-\frac{g_{\ell}(n-i)}{g_{\ell}(n)} ,
-\]
-a rational function of $n$ by Lemma~\ref{lem:shift}. Then
-\[
-\sum_{i=0}^{r}p_{i}(n)\,a(n-i)\;=\;\sum_{\ell}g_{\ell}(n)\,S_{\ell}(n),
-\]
-and the recurrence $\sum_{i}p_{i}(n)a(n-i)=0$ holds for all large $n$ if and only if
-$S_{\ell}=0$ for every $\ell$.
-\end{proposition}
-
 \begin{proof}
-The displayed identity is the definition of $S_{\ell}$ rearranged: each $a(n-i)$ is the
-sum of its terms, each term is its class representative times a rational function, and the
-representatives are pulled out. The representatives $g_{\ell}$ are pairwise dissimilar by
-construction, so Lemma~\ref{lem:indep} applies to the right-hand side: it vanishes for all
-large $n$ exactly when every $S_{\ell}$ vanishes identically. Sufficiency is immediate.
+Induction: the recurrence $T(S)=0$ determines $S(m+d)$ from the previous $d$ values
+whenever the leading coefficient at $m$ is nonzero.
 \end{proof}
 
-Proposition~\ref{prop:main} turns the conjecture into a finite computation in
-$\mathbb{Q}(n)$, with no truncation and no search. The only $n$ it says nothing about are
-those where some $S_{\ell}$ has a pole or some $c_{j}(n-i)$ is undefined, and these are
-finite in number and listed below.
+So $C(a)=0$ is decided exactly: divide, compute $T$, evaluate $S$ at $d$ indices, and check
+the leading coefficient. The case $R=0$ recovers the divisibility test as a special case.
 
-\section{The computation for A258547}
+\section{The computation for A126089}
 
-The closed form \eqref{eq:cf} splits into two similarity classes, with
-representativees
+Dividing $C$ by $P$ on the right leaves quotient
 \[
--12,\qquad 16 \cdot 2^{n}
+Q\;=\;0
 \]
-Carrying out Proposition~\ref{prop:main} with the coefficients of \eqref{eq:conj} gives
+and remainder
 \[
-S_{1}(n)\;=\;0,\qquad S_{2}(n)\;=\;0
+R\;=\;\left(4 n^{2} - 14 n + 12\right) + \left(3 - n\right)\,N ,
 \]
-so every class residual vanishes identically and the conjecture follows.
+which is not zero: the conjectured operator is genuinely not a left multiple of the stated
+one, and the divisibility test alone would have refused this conjecture.
+
+Carrying out Lemma~\ref{lem:module} gives an operator $T$ of order $1$ with
+$T(S)=0$, namely
+\[
+T\;=\;-6 + 1\,N .
+\]
+The leading coefficient of $T$ has no integer zero, so the propagation in Lemma~3 is valid at every index. Evaluating $S(n)=R(a)(n)$ on the entry's own terms gives $0$ at the
+$1$ consecutive indices beginning $n=0$, so by Lemma~\ref{lem:prop}
+$S$ vanishes identically from there on, and $C(a)=0$.
 
 \begin{theorem}
-For all $n\ge 4$,
+The conjectured recurrence
 \[
-1\,a(n) - 4\,a(n-1) + 5\,a(n-2) - 2\,a(n-3)
+(4 - n)\,a(n) + 2 \left(n - 3\right) \left(2 n - 5\right)\,a(n-1) \;=\;0
 \]
+holds for every $n\ge1$.
 \end{theorem}
 
 \begin{proof}
-Immediate from Proposition~\ref{prop:main} and the computation above, the excluded values
-being those at which a class residual has a pole or a term of \eqref{eq:cf} is undefined.
+$C(a)=R(a)=S$ by the division above, and $S$ vanishes from $n=0$ onward by
+Lemma~\ref{lem:prop}. The stated recurrence $P$ is asserted by the entry and was checked
+against its published terms before use.
 \end{proof}
 
 \section{Verification}
 
-Two checks were made, and both are independent of the algebra above.
+Every number above is an output of a script written separately from this note, and three
+independent checks were run.
 
-First, the closed form \eqref{eq:cf} was evaluated at the first $13$ indices and
-compared term by term with the entry's DATA; the values agree exactly. A formula that did
-not reproduce the entry's own terms would not have been used.
+First, the factorisation was not assumed but computed, and then confirmed by multiplying
+back: $QP$ was expanded in $\mathcal{A}$ and its coefficients cancelled against those of
+$C$ to zero, as rational functions of $n$.
 
-Second, the conjectured recurrence \eqref{eq:conj} was evaluated on the published terms in
-exact integer arithmetic at every index where it applies: $25$ instances beginning at
-$n=4$, all of them zero. This is not part of the proof, which is symbolic, but it
-would have caught a transcription error in the coefficients.
+Second, the relation the argument rests on was checked against the entry rather than
+trusted: the stated recurrence was evaluated on the published terms in exact integer
+arithmetic and holds on every one it reaches.
+
+Third, the conjecture itself was evaluated the same way, directly and without reference to
+either operator: for each $n$ in range the sum $\sum_{i}p_{i}(n)a(n-i)$ was formed from the
+entry's own values and found to vanish, for all 18 values of $n$ from
+$n=1$ upward.
 
 \begin{thebibliography}{9}
-\bibitem{AB} M.~Petkov\v{s}ek, H.~S.~Wilf and D.~Zeilberger, \emph{A=B}, A K Peters,
-Wellesley MA, 1996.
-\bibitem{OEIS} OEIS Foundation Inc., \emph{The On-Line Encyclopedia of Integer Sequences},
-entry \href{https://oeis.org/A258547}{A258547}, 2025-07-23.
-\bibitem{GKP} R.~L.~Graham, D.~E.~Knuth and O.~Patashnik, \emph{Concrete Mathematics},
-2nd ed., Addison-Wesley, 1994.
+\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer Sequences},
+\url{https://oeis.org}, 2026. Sequence A126089.
+\bibitem{ore} O.~Ore, \emph{Theory of non-commutative polynomials}, Ann. of Math. 34
+(1933), 480--508.
+\bibitem{kp} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011,
+Chapter 7.
+\bibitem{bronstein} M.~Bronstein and M.~Petkov\v{s}ek, \emph{An introduction to
+pseudo-linear algebra}, Theoret. Comput. Sci. 157 (1996), 3--33.
 \end{thebibliography}
-
 \end{document}

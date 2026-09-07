@@ -12,15 +12,15 @@
 \theoremstyle{definition}
 \newtheorem{definition}[theorem]{Definition}
 \newtheorem{remark}[theorem]{Remark}
-\title{A proof of the conjectured recurrence for OEIS A052183}
+\title{A proof of the conjectured recurrence for OEIS A157713}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{30 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A052183 carries a conjectured linear recurrence with polynomial coefficients, of
-order 2. The entry posts no generating function, so the usual route through a
+OEIS A157713 carries a conjectured linear recurrence with polynomial coefficients, of
+order 1. The entry posts no generating function, so the usual route through a
 functional equation is unavailable. None is needed: the sequence is defined by a closed
 form -- the entry's name is that formula -- and that is enough, because the closed form is a sum of finitely many hypergeometric terms, and for such a
 term every shift quotient is a rational function of $n$. The conjectured recurrence
@@ -34,17 +34,17 @@ valid for every $n$ outside an explicitly computed finite set.
 
 \section{The sequence and the conjecture}
 
-OEIS A052183 is ``a(n) = (n + 2) * binomial(3*n, n) / (2*n + 1)''. It has offset $0$ and begins
+OEIS A157713 is ``a(n) = (2*n+1)!*(2*n-2)!/((n-1)!*(n!)\textasciicircum{}2*6)''. It has offset $1$ and begins
 \[
-a(0),\dots,a(7)\;=\;2, 3, 12, 60, 330, 1911, 11424, 69768,\ \dots
+a(1),\dots,a(8)\;=\;1, 10, 280, 12600, 776160, 60540480, 5708102400, 630745315200,\ \dots
 \]
 The name is itself the definition of the sequence:
 \begin{quote}\small
-a(n) = (n + 2) * binomial(3*n, n) / (2*n + 1).
+a(n) = (2*n+1)!*(2*n-2)!/((n-1)!*(n!)\textasciicircum{}2*6).
 \end{quote}
 that is,
 \begin{equation}\label{eq:cf}
-a(n)\;=\;\frac{\left(n + 2\right) {\binom{3 n}{n}}}{2 n + 1} .
+a(n)\;=\;\frac{\left(2 n - 2\right)! \left(2 n + 1\right)!}{6 n!^{2} \left(n - 1\right)!} .
 \end{equation}
 This is the only input the proof takes from the entry. It is not a formula contributed
 later, which might have been found empirically and could in principle be wrong; it is what
@@ -52,15 +52,15 @@ $a(n)$ means. It was nevertheless checked against the entry's own DATA before us
 
 The entry separately carries the following comment:
 \begin{quote}\small
-\textbf{Conjecture:} 2*n*(2*n+1)*a(n) + (-47*n\textasciicircum{}2+50*n-12)*a(n-1) + 15*(3*n-4)*(3*n-5)*a(n-2) = 0. - \emph{R. J. Mathar}, Sep 27 2012
+\textbf{Conjecture:} n*a(n) -4*(2*n+1)*(2*n-3)*a(n-1)=0. - \emph{R. J. Mathar}, Jun 08 2016
 \end{quote}
-As of the ``Last modified'' line on the live entry (2025-09-22, revision 37) the
+As of the ``Last modified'' line on the live entry (2025-05-20, revision 19) the
 statement is still recorded as a conjecture, and no proof appears among the entry's links,
 formulas or programs.
 
 Written out, the conjecture is
 \begin{equation}\label{eq:conj}
-2 n \left(2 n + 1\right)\,a(n) + (- 47 n^{2} + 50 n - 12)\,a(n-1) + 15 \left(3 n - 5\right) \left(3 n - 4\right)\,a(n-2)
+n\,a(n) -  4 \left(2 n - 3\right) \left(2 n + 1\right)\,a(n-1)
 \end{equation}
 
 \section{Hypergeometric terms}
@@ -129,12 +129,12 @@ $\mathbb{Q}(n)$, with no truncation and no search. The only $n$ it says nothing 
 those where some $S_{\ell}$ has a pole or some $c_{j}(n-i)$ is undefined, and these are
 finite in number and listed below.
 
-\section{The computation for A052183}
+\section{The computation for A157713}
 
 The closed form \eqref{eq:cf} splits into one similarity class, with
 representative
 \[
-\frac{2 {\binom{3 n}{n}}}{2 n + 1}
+\frac{\left(2 n - 2\right)! \left(2 n + 1\right)!}{6 n!^{2} \left(n - 1\right)!}
 \]
 Carrying out Proposition~\ref{prop:main} with the coefficients of \eqref{eq:conj} gives
 \[
@@ -145,7 +145,7 @@ so every class residual vanishes identically and the conjecture follows.
 \begin{theorem}
 For all $n\ge 2$,
 \[
-2 n \left(2 n + 1\right)\,a(n) + (- 47 n^{2} + 50 n - 12)\,a(n-1) + 15 \left(3 n - 5\right) \left(3 n - 4\right)\,a(n-2)
+n\,a(n) -  4 \left(2 n - 3\right) \left(2 n + 1\right)\,a(n-1)
 \]
 \end{theorem}
 
@@ -163,7 +163,7 @@ compared term by term with the entry's DATA; the values agree exactly. A formula
 not reproduce the entry's own terms would not have been used.
 
 Second, the conjectured recurrence \eqref{eq:conj} was evaluated on the published terms in
-exact integer arithmetic at every index where it applies: $22$ instances beginning at
+exact integer arithmetic at every index where it applies: $16$ instances beginning at
 $n=2$, all of them zero. This is not part of the proof, which is symbolic, but it
 would have caught a transcription error in the coefficients.
 
@@ -171,7 +171,7 @@ would have caught a transcription error in the coefficients.
 \bibitem{AB} M.~Petkov\v{s}ek, H.~S.~Wilf and D.~Zeilberger, \emph{A=B}, A K Peters,
 Wellesley MA, 1996.
 \bibitem{OEIS} OEIS Foundation Inc., \emph{The On-Line Encyclopedia of Integer Sequences},
-entry \href{https://oeis.org/A052183}{A052183}, 2025-09-22.
+entry \href{https://oeis.org/A157713}{A157713}, 2025-05-20.
 \bibitem{GKP} R.~L.~Graham, D.~E.~Knuth and O.~Patashnik, \emph{Concrete Mathematics},
 2nd ed., Addison-Wesley, 1994.
 \end{thebibliography}

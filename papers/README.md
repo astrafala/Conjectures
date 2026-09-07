@@ -1,6 +1,6 @@
 # The papers
 
-9703 papers: 9697 proofs and 6 disproofs of conjectures recorded as open in
+9701 papers: 9695 proofs and 6 disproofs of conjectures recorded as open in
 the On-Line Encyclopedia of Integer Sequences.
 
 Author: **Adrian Perez Fontelles**, independent researcher.
@@ -41,6 +41,6 @@ its contributor and date, and gives the range over which it has been settled.
 | [8001-8500](8001-8500/) | 500 | [A207840](https://oeis.org/A207840) |
 | [8501-9000](8501-9000/) | 500 | [A207694](https://oeis.org/A207694) |
 | [9001-9500](9001-9500/) | 500 | [A065942](https://oeis.org/A065942) |
-| [9501-10000](9501-10000/) | 203 | [A099363](https://oeis.org/A099363) |
+| [9501-10000](9501-10000/) | 201 | [A099363](https://oeis.org/A099363) |
 
 `index.csv` lists every paper with its OEIS entry and the kind of argument used.
