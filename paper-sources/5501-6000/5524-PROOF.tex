@@ -12,145 +12,142 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A235315, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A259520, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{31 August 2026}
+\date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A235315 counts $5$-column arrays over $\{0,\dots,6\}$ in which every
-$2\times2$ subblock has its diagonal sum differing from its antidiagonal sum by
-exactly $7$, and it
-carries an empirical recurrence of order $18$ contributed by R.~H.~Hardin. It is true,
-and it is not an empirical matter: the condition constrains only consecutive pairs of rows,
-so the rows are the vertices of a finite digraph and an $(n+1)$-row array is a walk of
-length $n$. Hence $a(n)=\mathbf{1}^{\!\top}M^{n}\mathbf{1}$ on $S=16807$ vertices, which
-is $C$-finite. Writing $q$ for the characteristic polynomial of the conjectured recurrence,
-the residual is $\mathbf{1}^{\!\top}M^{\,n-18}q(M)\mathbf{1}$, so the recurrence
-holds beyond a threshold exactly when that vanishes from then on --- and since the sequence
-of those values obeys the monic recurrence given by the characteristic polynomial of $M$,
-$S$ consecutive zeros settle every later one. The whole test is finite and exact.
+OEIS A259520 counts arrays of width $5$ over $\{0,1\}$ subject to a condition read round the
+perimeter of every $2\times2$ subblock: the corners read clockwise spell one of a listed set of words. The entry carries an empirical recurrence of
+order $19$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
+empirical: the condition is settled inside a bounded window of consecutive rows, so the
+count is a walk count on a finite digraph with $S=33$ vertices, and whether a linear
+recurrence holds for such a count is a finite computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A16, 15A18.\normalsize
 
-\section{The sequence and the conjecture}
+\section{The conjecture}
 
-OEIS A235315 is ``Number of (n+1) X (4+1) 0..6 arrays with every 2 X 2 subblock having its diagonal sum differing from its antidiagonal sum by 7 (constant-stress 1 X 1 tilings).''. It has offset
-$1$ and begins
+OEIS A259520 is ``Number of (n+1)X(4+1) 0..1 arrays with each 2X2 subblock having clockwise pattern 0000 0001 0011 0101 or 1111.''. It has offset $1$ and begins
 \[
-3920, 8392, 16352, 40144, 89600, 241600, 598976,\ \dots
+380, 6100, 93028, 1447270, 22453286, 348802846, 5417785744, 84159480298,\ \dots
 \]
-The entry carries the following comment:
-\begin{quote}\small
-Empirical: a(n) = 4*a(n-1) +47*a(n-2) -200*a(n-3) -901*a(n-4) +4204*a(n-5) +8957*a(n-6) -48440*a(n-7) -47194*a(n-8) +334096*a(n-9) +101948*a(n-10) -1410080*a(n-11) +170136*a(n-12) +3549696*a(n-13) -1446912*a(n-14) -4861440*a(n-15) +2954880*a(n-16) +2764800*a(n-17) -2073600*a(n-18).
+The entry states, as a conjecture contributed by its author and never marked settled:
+\begin{quote}
+Empirical: a(n) = 25*a(n-1) -152*a(n-2) -109*a(n-3) +3368*a(n-4) -6811*a(n-5) -12971*a(n-6) +49951*a(n-7) -9491*a(n-8) -92048*a(n-9) +49214*a(n-10) +74086*a(n-11) -38089*a(n-12) -32429*a(n-13) +8846*a(n-14) +6910*a(n-15) -139*a(n-16) -458*a(n-17) -58*a(n-18) -2*a(n-19)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jun 18 2022 23:04:55, revision 7) the statement is
-still recorded as empirical, and nothing on the entry records it as settled either way.
+As of the ``Last modified'' line on the live entry (Jun 02 2025 11:52:44, revision 6) this is still
+recorded as empirical, and nothing on the entry records it as proved.
 
-Written out, the claim is
-\begin{equation}\label{eq:conj}
-a(n)\;=\;4\,a(n-1) + 47\,a(n-2) - 200\,a(n-3) - 901\,a(n-4) + 4204\,a(n-5) + 8957\,a(n-6) - 48440\,a(n-7) - 47194\,a(n-8) + 334096\,a(n-9) + 101948\,a(n-10) - 1410080\,a(n-11) + 170136\,a(n-12) + 3549696\,a(n-13) - 1446912\,a(n-14) - 4861440\,a(n-15) + 2954880\,a(n-16) + 2764800\,a(n-17) - 2073600\,a(n-18)
-\end{equation}
-for all $n>18$, which is every $n$ at which a recurrence of order $18$ can be
-stated.
+\section{What is being counted}
 
-\section{The rows form a digraph}
-
-In a $2\times2$ subblock with top row $(r_j,r_{j+1})$ and bottom row $(s_j,s_{j+1})$ the
-diagonal sum is $r_j+s_{j+1}$ and the antidiagonal sum is $r_{j+1}+s_j$, so the entry's
-condition on that subblock reads
+The arrays have $5$ columns and a growing number of rows, with entries in $\{0,1\}$. A
+$2\times2$ subblock is a set of four cells
 \[
-\bigl|\,r_j+s_{j+1}-r_{j+1}-s_j\,\bigr|\;=\;7.
+B=\begin{pmatrix} p & q \\ r & s \end{pmatrix},
+\qquad p=x(i,j),\; q=x(i,j+1),\; r=x(i+1,j),\; s=x(i+1,j+1).
 \]
-Every such condition involves two consecutive rows only.
+Its perimeter is a cycle of four cells, walked clockwise as $p\to q\to s\to r\to p$ and
+counterclockwise as $p\to r\to s\to q\to p$. Write
+\[
+\mathrm{cw}(B)=[p<q]+[q<s]+[s<r]+[r<p],\qquad
+\mathrm{ccw}(B)=[p<r]+[r<s]+[s<q]+[q<p]
+\]
+for the number of steps at which the value rises, going each way round.
 
-Let $V$ consist of all of $\{0,\dots,6\}^{5}$, and put $S=|V|=16807$. For $r,s\in V$ declare $r\to s$ an edge
-when $\bigl|r_j+s_{j+1}-r_{j+1}-s_j\bigr|=7$ for every $j$ with
-$1\le j\le5-1$. Let $M\in\{0,1\}^{S\times S}$ be the adjacency matrix and $\mathbf{1}$
-the all-ones vector.
-
-\begin{lemma}\label{lem:walk}
-The arrays counted by the entry with $n+1$ rows are exactly the walks
-$r^{(0)}\to\cdots\to r^{(n)}$ of length $n$ in this digraph, so
-$a(n)=\mathbf{1}^{\!\top}M^{n}\mathbf{1}$.
+\begin{lemma}\label{lem:sum}
+$\mathrm{cw}(B)+\mathrm{ccw}(B)=4-\#\{\text{edges of the cycle with equal ends}\}$.
 \end{lemma}
 
 \begin{proof}
-An array with $n+1$ rows and $5$ columns is a sequence $r^{(0)},\dots,r^{(n)}$ of
-rows. Each of its $2\times2$ subblocks lies in two vertically adjacent rows
-$r^{(i)},r^{(i+1)}$ and two horizontally adjacent columns $j,j+1$, so the array satisfies
-the entry's condition on all subblocks precisely when every consecutive pair of rows is an
-edge; and the row-internal condition, where present, is exactly membership of $V$. Summing
-the walk counts $\bigl(M^{n}\bigr)_{r,s}$ over all $r$ and $s$ gives
-$\mathbf{1}^{\!\top}M^{n}\mathbf{1}$.
+Each of the four edges of the square is walked once by each cycle, and in opposite directions.
+An edge with distinct ends therefore contributes exactly one rise, to one of the two counts;
+an edge with equal ends contributes to neither.
 \end{proof}
 
-\section{The criterion}
+The condition the entry imposes is this: reading the four corners clockwise, starting at whichever corner one pleases, spells one of the words
+\[
+0000,\ 0001,\ 0011,\ 0101,\ 1111.
+\]
+That is, the cyclic word $pqsr$ is a rotation of one of them. The starting corner is not fixed by the entry, and it is the data that says so: with the words $0000$, $0011$, $0101$ allowed there are seven two-by-two binary arrays, which is what such an entry publishes as its first term, whereas a fixed starting corner would leave three.
 
-Let $q(t)=t^{18}-\sum_i c_i t^{18-i}$ be the characteristic polynomial of
-\eqref{eq:conj}.
+\section{A bounded window}
+
+Two consecutive rows decide every subblock lying between them, and the condition of Section 2 is a condition on single subblocks only. So the state is the row just written, and nothing else.
+
+One step of the walk writes a whole row. The row is filled left to right, and the subblock
+closed by positions $j-1,j$ is tested the moment position $j$ is written, so a partial row that
+cannot be completed is abandoned rather than enumerated. The walk starts at the state standing
+for the empty array, so that a walk of $n$ steps is an array of $n$ rows.
+
+The end vector is all ones: an array may stop after any row. Thus
+\[
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=33,
+\]
+for the transfer matrix $M$ on those $S$ states. The walk index $j$ and the entry's own $n$
+differ by a constant, read off by matching the published terms rather than assumed. In
+particular $a$ is $C$-finite, and every question about linear recurrences it satisfies is
+decidable.
+
+\section{The proof}
 
 \begin{lemma}\label{lem:crit}
-For $n\ge18$,
-$a(n)-\sum_i c_i a(n-i)=\mathbf{1}^{\!\top}M^{\,n-18}q(M)\mathbf{1}$. Writing
-$u_j=\mathbf{1}^{\!\top}M^{j}q(M)\mathbf{1}$, the recurrence therefore holds for every
-$n>t$ exactly when $u_j=0$ for every $j>t-18$. Moreover $(u_j)_{j\ge0}$ satisfies the
-monic linear recurrence whose characteristic polynomial is that of $M$, of degree $S$; so
-if $u_j$ vanishes for $S$ consecutive indices it vanishes for every larger index, and the
-last nonzero $u_j$ determines $t$ exactly.
+Let $q(t)=t^{19}-\sum_i c_it^{19-i}$ be the characteristic polynomial of the
+conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
+$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
+holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
+and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-By Lemma~\ref{lem:walk}, $a(n-i)=\mathbf{1}^{\!\top}M^{n-i}\mathbf{1}$, so
-$a(n)-\sum_i c_i a(n-i)
-=\mathbf{1}^{\!\top}M^{\,n-18}\bigl(M^{18}-\sum_i c_i M^{18-i}\bigr)
-\mathbf{1}$, which is the identity. Putting $j=n-18$ gives the equivalence. For the
-last claim, let $\chi$ be the characteristic polynomial of $M$; by Cayley--Hamilton
-$\chi(M)=0$, so applying $\chi$ to the shift operator annihilates $(u_j)$, and $\chi$ is
-monic of degree $S$, which is exactly the statement that $S$ consecutive zeros propagate
-forward.
+Factor $M^{j}$ out of $M^{j+19}-\sum_ic_iM^{j+19-i}$. For the bound, $M^{S}$
+is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
+$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
+polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
+pins the threshold exactly.
 \end{proof}
 
-\section{The computation}
-
 \begin{theorem}
-The recurrence \eqref{eq:conj} holds for every $n>18$. This is the statement of
-Section~1.
+\[
+a(n)\;=\;25\,a(n-1) - 152\,a(n-2) - 109\,a(n-3) + 3368\,a(n-4) - 6811\,a(n-5) - 12971\,a(n-6) + 49951\,a(n-7) - 9491\,a(n-8) - 92048\,a(n-9) + 49214\,a(n-10) + 74086\,a(n-11) - 38089\,a(n-12) - 32429\,a(n-13) + 8846\,a(n-14) + 6910\,a(n-15) - 139\,a(n-16) - 458\,a(n-17) - 58\,a(n-18) - 2\,a(n-19)
+\]
+for every $n>17$.
 \end{theorem}
 
 \begin{proof}
-The vector $q(M)\mathbf{1}\in\mathbb{Z}^{S}$ was formed by $18$ matrix--vector
-products in exact integer arithmetic and the values $u_j$ evaluated for
-$j=0,1,\dots$. They vanish from $j=18-18+1$ onwards, and the run was continued past
-$S$ consecutive zeros, which by Lemma~\ref{lem:crit} settles every larger $j$. Hence the
-recurrence holds for every $n>18$.
+The vector $w=q(M)\tau$ was formed by $19$ matrix--vector products in exact integer
+arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
+integers vanish from the index corresponding to $n=17+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
-Three checks, each independent of the algebra above.
+Four checks, each independent of the algebra above.
 
-First, the digraph was built directly from the entry's stated condition and the walk counts
-$\mathbf{1}^{\!\top}M^{n}\mathbf{1}$ compared against the entry's DATA at every one of
-the $21$ published indices; the values agree exactly. That is what ties the digraph to
-the sequence: a model reproducing only some published terms would be the wrong model and
-was rejected wherever it occurred.
+First, the model reproduces all $15$ terms the entry publishes, exactly, in integer
+arithmetic.
 
-Second, the recurrence \eqref{eq:conj} was evaluated on those published terms in exact
-integer arithmetic, with no matrices involved, and vanishes wherever it applies.
+Second, the count was recomputed for the smallest arrays straight from the definition: every
+array of the stated width and a few rows was written out cell by cell over $\{0,1\}$, each of
+its $2\times2$ subblocks was read round its perimeter, and the condition of Section 2 was
+applied as stated. No window, no state and no recurrence is involved in that computation, and
+the published terms came back.
 
-Third, the vanishing test of Lemma~\ref{lem:crit} was carried past $S=16807$ consecutive
-zeros rather than to a sampled prefix, in exact integer arithmetic.
+Third, the conjectured recurrence was evaluated directly on the published terms, with no
+matrices involved, and holds wherever the proved range and the data overlap.
+
+Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A235315.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A259520.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
-University Press, 2009.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

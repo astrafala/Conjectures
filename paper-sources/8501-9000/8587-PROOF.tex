@@ -12,145 +12,141 @@
 \theoremstyle{definition}
 \newtheorem{definition}[theorem]{Definition}
 \newtheorem{remark}[theorem]{Remark}
-\title{A proof of the conjectured recurrence for OEIS A026018}
+\title{A proof of the conjectured recurrence for OEIS A005560}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{30 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A026018 carries a conjectured linear recurrence with polynomial coefficients, of
-order 3. The entry posts no generating function, so the usual route through a
-functional equation is unavailable. It does post a closed form for $a(n)$, and that is
-enough: the closed form is a sum of finitely many hypergeometric terms, and for such a
-term every shift quotient is a rational function of $n$. The conjectured recurrence
-therefore reduces to one rational-function identity, one for each similarity
-class of terms, and each is decided exactly by cancellation. No expansion is truncated and
-nothing is guessed; the procedure returns a proof or a refutation. Here it returns a proof,
-valid for every $n$ outside an explicitly computed finite set.
+OEIS A005560 carries a conjectured linear recurrence with polynomial coefficients, of
+order 2. The entry posts no generating function, and the closed form it does post
+is not a hypergeometric term in $n$: it contains a floor, so its shift quotients are not
+rational and the usual argument does not start. Splitting on the parity of $n$ repairs
+this. Writing $a(2m)=e_{0}(m)$ and $a(2m+1)=e_{1}(m)$, both halves are ordinary
+hypergeometric expressions in $m$, and the recurrence becomes two identities in $m$, since
+each shifted term $a(n-i)$ lands in whichever half the parity of $n-i$ selects. Both are
+then decided exactly, by grouping into similarity classes and cancelling. The procedure
+returns a proof or a refutation; both halves must hold, and here both do.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 33F10, 11B37, 05A10.\normalsize
 
 \section{The sequence and the conjecture}
 
-OEIS A026018 is ``a(n) = number of (s(0), s(1), ..., s(2*n-1)) such that s(i) is a nonnegative integer and |s(i) - s(i-1)| = 1 for i = 1,2,...,n, s(0) = 2, s(2*n-1) = 7. Also a(n) = T(2*n-1,n-3), where T is the array defined in A026009''. It has offset $3$ and begins
+OEIS A005560 is ``Number of walks on square lattice. Column y=2 of A052174''. It has offset $2$ and begins
 \[
-a(3),\dots,a(10)\;=\;1, 7, 36, 164, 702, 2898, 11696, 46512,\ \dots
+a(2),\dots,a(9)\;=\;1, 3, 15, 45, 189, 588, 2352, 7560,\ \dots
 \]
 The entry states, not as a conjecture,
 \begin{quote}\small
-a(n) = binomial(2*n-1, n-3) - binomial(2*n-1, n-6).
+a(n) = C(n+3, ceiling(n/2))*C(n+2, floor(n/2)) - C(n+3, ceiling((n-1)/2))*C(n+2, floor((n-1)/2)). - \emph{Paul D. Hanna}, Apr 16 2004
 \end{quote}
 that is,
 \begin{equation}\label{eq:cf}
-a(n)\;=\;- {\binom{2 n - 1}{n - 6}} + {\binom{2 n - 1}{n - 3}} .
+a(n)\;=\;{\binom{n}{\left\lfloor{\frac{n}{2}}\right\rfloor - 1}} {\binom{n + 1}{\left\lceil{\frac{n}{2}}\right\rceil - 1}} - {\binom{n}{\left\lfloor{\frac{n}{2} - \frac{3}{2}}\right\rfloor}} {\binom{n + 1}{\left\lceil{\frac{n}{2} - \frac{3}{2}}\right\rceil}} .
 \end{equation}
-This is the only input the proof takes from the entry, and it was checked against the
-entry's own DATA before use.
+This is the only input the proof takes from the entry. It was checked against the entry's
+own DATA before use, and the index alignment was determined from that check rather than
+assumed: the formula as posted gives $a(n+2)$, and is used here shifted accordingly.
 
 The entry separately carries the following comment:
 \begin{quote}\small
-\textbf{Conjecture:} -(n+5)*(3*n-37)*a(n) + 3*(-n\^{}2-84*n-173)*a(n-1) + 2*(32*n\^{}2+295*n+254)*a(n-2) - 8*(n+25)*(2*n-5)*a(n-3) = 0. - \emph{R. J. Mathar}, Jun 20 2013
+\textbf{Conjecture:} (n-1)*(n-2)*(2*n+1)*(n+5)*(n+4)*a(n) -4*n*(n+1)*(2*n\^{}2+4*n+19)*a(n-1) -16*n\^{}2*(n-1)*(2*n+3)*(n+1)*a(n-2)=0. - \emph{R. J. Mathar}, Apr 02 2017
 \end{quote}
-As of the ``Last modified'' line on the live entry (2026-01-21, revision 18) the
+As of the ``Last modified'' line on the live entry (2025-02-03, revision 39) the
 statement is still recorded as a conjecture, and no proof appears among the entry's links,
 formulas or programs.
 
 Written out, the conjecture is
 \begin{equation}\label{eq:conj}
-- \left(n + 5\right) \left(3 n - 37\right)\,a(n) -  3 \left(n^{2} + 84 n + 173\right)\,a(n-1) + 2 \left(32 n^{2} + 295 n + 254\right)\,a(n-2) -  8 \left(n + 25\right) \left(2 n - 5\right)\,a(n-3)
+\left(n - 2\right) \left(n - 1\right) \left(n + 4\right) \left(n + 5\right) \left(2 n + 1\right)\,a(n) -  4 n \left(n + 1\right) \left(2 n^{2} + 4 n + 19\right)\,a(n-1) -  16 n^{2} \left(n - 1\right) \left(n + 1\right) \left(2 n + 3\right)\,a(n-2)
 \end{equation}
 
-\section{Hypergeometric terms}
+\section{Hypergeometric terms, and why the closed form is not one}
 
 \begin{definition}
-A nonzero expression $c(n)$ is a \emph{hypergeometric term} in $n$ if the quotient
-$c(n+1)/c(n)$ is a rational function of $n$. Two hypergeometric terms $c$ and $d$ are
-\emph{similar}, written $c\sim d$, if $c(n)/d(n)$ is a rational function of $n$.
+A nonzero expression $c(m)$ is a \emph{hypergeometric term} in $m$ if $c(m+1)/c(m)$ is a
+rational function of $m$. Two such terms $c,d$ are \emph{similar}, $c\sim d$, if $c/d$ is a
+rational function of $m$.
 \end{definition}
 
-Similarity is an equivalence relation on hypergeometric terms. Products of factorials,
-binomial coefficients with arguments linear in $n$, exponentials $z^{n}$ and polynomials
-are hypergeometric, and so is any product of these; a sum of them need not be.
+Products of factorials, binomial coefficients with arguments linear in the variable,
+exponentials and polynomials are hypergeometric. A floor is not: $\lfloor n/2\rfloor$ takes
+the same value at $n$ and $n+1$ for even $n$ and jumps at odd $n$, so the quotient
+$c(n+1)/c(n)$ is not a rational function of $n$, and \eqref{eq:cf} is therefore outside the
+reach of the direct argument.
 
-\begin{lemma}\label{lem:shift}
-If $c$ is a hypergeometric term then for every integer $i\ge 0$ the shift quotient
-$c(n-i)/c(n)$ is a rational function of $n$, computable from $c(n+1)/c(n)$ by a finite
-number of substitutions and multiplications.
-\end{lemma}
-
-\begin{proof}
-Write $\rho(n)=c(n+1)/c(n)$, a rational function by hypothesis. Then
-$c(n-1)/c(n)=1/\rho(n-1)$, and inductively
-$c(n-i)/c(n)=\prod_{j=1}^{i}\rho(n-j)^{-1}$, a finite product of rational functions.
-\end{proof}
-
-The fact that makes the test complete rather than merely sufficient is the linear
-independence of dissimilar terms. It is classical; see Petkov\v{s}ek, Wilf and Zeilberger
-\cite{AB}, Chapter~5.
+Parity removes the floor. For integer $m$,
+$\lfloor 2m/2\rfloor=m$ and $\lfloor (2m+1)/2\rfloor=m$, and similarly for the ceiling, so
+substituting $n=2m$ and $n=2m+1$ into \eqref{eq:cf} and simplifying gives two expressions
+free of rounding:
+\begin{equation}\label{eq:halves}
+a(2m)\;=\;e_{0}(m)\;=\;\frac{3 {\binom{2 m + 1}{m + 2}} \left(2 m\right)!}{\left(m - 1\right)! \left(m + 2\right)!},
+\qquad
+a(2m+1)\;=\;e_{1}(m)\;=\;\frac{6 \left(2 m + 1\right)!^{2}}{\left(m + 2\right) m!^{2} \left(m - 1\right)! \left(m + 3\right)!},
+\end{equation}
+and each of $e_{0},e_{1}$ is a sum of finitely many hypergeometric terms in $m$.
 
 \begin{lemma}\label{lem:indep}
-Let $c_{1},\dots,c_{m}$ be hypergeometric terms, pairwise dissimilar. If
-$\sum_{j=1}^{m}u_{j}(n)c_{j}(n)=0$ for rational functions $u_{j}$ and all large $n$, then
-every $u_{j}$ is the zero rational function.
+Hypergeometric terms that are pairwise dissimilar are linearly independent over the field
+of rational functions: if $\sum_{j}u_{j}(m)c_{j}(m)=0$ for rational $u_{j}$ and all large
+$m$, then every $u_{j}$ is zero. See Petkov\v{s}ek, Wilf and Zeilberger \cite{AB},
+Chapter~5.
 \end{lemma}
 
-\section{The recurrence as a finite set of rational identities}
+\section{The recurrence, one residue class at a time}
 
-\begin{proposition}\label{prop:main}
-Let $a(n)=\sum_{j=1}^{m}c_{j}(n)$ with each $c_{j}$ hypergeometric, and let
-$p_{0},\dots,p_{r}$ be polynomials. Group the $c_{j}$ into similarity classes and write
-each class as $g_{\ell}(n)\,f_{\ell,s}(n)$ for a representative $g_{\ell}$ and rational
-functions $f_{\ell,s}$. Put
+Fix the conjectured coefficients $p_{0},\dots,p_{r}$ and consider
+$T(n)=\sum_{i=0}^{r}p_{i}(n)a(n-i)$. Each term reaches a half of \eqref{eq:halves} chosen
+by the parity of $n-i$:
+
+\begin{proposition}\label{prop:split}
+With $a(2j)=e_{0}(j)$ and $a(2j+1)=e_{1}(j)$,
 \[
-S_{\ell}(n)\;=\;\sum_{i=0}^{r}\;\sum_{s}\;p_{i}(n)\,f_{\ell,s}(n-i)\,
-\frac{g_{\ell}(n-i)}{g_{\ell}(n)} ,
+T(2m)=\sum_{i \text{ even}}p_{i}(2m)\,e_{0}\!\left(m-\tfrac{i}{2}\right)
+      +\sum_{i \text{ odd}}p_{i}(2m)\,e_{1}\!\left(m-\tfrac{i+1}{2}\right),
 \]
-a rational function of $n$ by Lemma~\ref{lem:shift}. Then
 \[
-\sum_{i=0}^{r}p_{i}(n)\,a(n-i)\;=\;\sum_{\ell}g_{\ell}(n)\,S_{\ell}(n),
+T(2m+1)=\sum_{i \text{ even}}p_{i}(2m+1)\,e_{1}\!\left(m-\tfrac{i}{2}\right)
+      +\sum_{i \text{ odd}}p_{i}(2m+1)\,e_{0}\!\left(m-\tfrac{i-1}{2}\right).
 \]
-and the recurrence $\sum_{i}p_{i}(n)a(n-i)=0$ holds for all large $n$ if and only if
-$S_{\ell}=0$ for every $\ell$.
+Both right-hand sides are finite sums of hypergeometric terms in $m$. The recurrence
+$T(n)=0$ holds for all large $n$ if and only if both vanish identically, and by
+Lemma~\ref{lem:indep} each vanishes identically if and only if, after grouping its
+summands into similarity classes, every class contributes the zero rational function.
 \end{proposition}
 
 \begin{proof}
-The displayed identity is the definition of $S_{\ell}$ rearranged: each $a(n-i)$ is the
-sum of its terms, each term is its class representative times a rational function, and the
-representatives are pulled out. The representatives $g_{\ell}$ are pairwise dissimilar by
-construction, so Lemma~\ref{lem:indep} applies to the right-hand side: it vanishes for all
-large $n$ exactly when every $S_{\ell}$ vanishes identically. Sufficiency is immediate.
+The two displays are the definition of $T$ with $n-i$ written in the form $2j$ or $2j+1$:
+for $n=2m$ the index $n-i$ is even exactly when $i$ is, and for $n=2m+1$ exactly when $i$
+is odd. Every $e_{\epsilon}(m-s)$ is a sum of hypergeometric terms in $m$, and
+$p_{i}(2m)$, $p_{i}(2m+1)$ are polynomials in $m$, so each display is a finite sum of
+hypergeometric terms. Within a similarity class every summand is the class representative
+times a rational function, so the class contributes the representative times the sum of
+those rational functions; the classes are pairwise dissimilar by construction, and
+Lemma~\ref{lem:indep} applies. Finally $n$ ranges over both parities, so $T(n)=0$ for all
+large $n$ is exactly the conjunction of the two.
 \end{proof}
 
-Proposition~\ref{prop:main} turns the conjecture into a finite computation in
-$\mathbb{Q}(n)$, with no truncation and no search. The only $n$ it says nothing about are
-those where some $S_{\ell}$ has a pole or some $c_{j}(n-i)$ is undefined, and these are
-finite in number and listed below.
+\section{The computation for A005560}
 
-\section{The computation for A026018}
-
-The closed form \eqref{eq:cf} splits into one similarity class, with
-representative
-\[
-- {\binom{2 n - 1}{n - 6}}
-\]
-Carrying out Proposition~\ref{prop:main} with the coefficients of \eqref{eq:conj} gives
-\[
-S_{1}(n)\;=\;0
-\]
-so every class residual vanishes identically and the conjecture follows.
+Carrying out Proposition~\ref{prop:split} with the coefficients of \eqref{eq:conj} and the
+two halves \eqref{eq:halves}, every similarity class of $T(2m)$ contributes zero, and so
+does every similarity class of $T(2m+1)$. The even half splits into one class
+and the odd half into one class.
 
 \begin{theorem}
-For all $n\ge 6$,
+For all $n\ge 4$,
 \[
-- \left(n + 5\right) \left(3 n - 37\right)\,a(n) -  3 \left(n^{2} + 84 n + 173\right)\,a(n-1) + 2 \left(32 n^{2} + 295 n + 254\right)\,a(n-2) -  8 \left(n + 25\right) \left(2 n - 5\right)\,a(n-3)
+\left(n - 2\right) \left(n - 1\right) \left(n + 4\right) \left(n + 5\right) \left(2 n + 1\right)\,a(n) -  4 n \left(n + 1\right) \left(2 n^{2} + 4 n + 19\right)\,a(n-1) -  16 n^{2} \left(n - 1\right) \left(n + 1\right) \left(2 n + 3\right)\,a(n-2)
 \]
 \end{theorem}
 
 \begin{proof}
-Immediate from Proposition~\ref{prop:main} and the computation above, the excluded values
-being those at which a class residual has a pole or a term of \eqref{eq:cf} is undefined.
+Both residue classes vanish identically by the computation above, and every integer $n$
+lies in one of them. The excluded values are those at which a class residual has a pole or
+a term of \eqref{eq:cf} is undefined.
 \end{proof}
 
 \section{Verification}
@@ -158,19 +154,20 @@ being those at which a class residual has a pole or a term of \eqref{eq:cf} is u
 Two checks were made, and both are independent of the algebra above.
 
 First, the closed form \eqref{eq:cf} was evaluated at the first $13$ indices and
-compared term by term with the entry's DATA; the values agree exactly. A formula that did
-not reproduce the entry's own terms would not have been used.
+compared term by term with the entry's DATA; the values agree exactly, on both parities. A
+formula that did not reproduce the entry's own terms would not have been used, and the
+alignment was fixed by that comparison rather than assumed.
 
 Second, the conjectured recurrence \eqref{eq:conj} was evaluated on the published terms in
-exact integer arithmetic at every index where it applies: $22$ instances beginning at
-$n=6$, all of them zero. This is not part of the proof, which is symbolic, but it
+exact integer arithmetic at every index where it applies: $25$ instances beginning at
+$n=4$, all of them zero. This is not part of the proof, which is symbolic, but it
 would have caught a transcription error in the coefficients.
 
 \begin{thebibliography}{9}
 \bibitem{AB} M.~Petkov\v{s}ek, H.~S.~Wilf and D.~Zeilberger, \emph{A=B}, A K Peters,
 Wellesley MA, 1996.
 \bibitem{OEIS} OEIS Foundation Inc., \emph{The On-Line Encyclopedia of Integer Sequences},
-entry \href{https://oeis.org/A026018}{A026018}, 2026-01-21.
+entry \href{https://oeis.org/A005560}{A005560}, 2025-02-03.
 \bibitem{GKP} R.~L.~Graham, D.~E.~Knuth and O.~Patashnik, \emph{Concrete Mathematics},
 2nd ed., Addison-Wesley, 1994.
 \end{thebibliography}

@@ -12,67 +12,75 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A186798, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A254769, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A186798 counts the $(n+2)\times3$ arrays over $\{0,\dots,1\}$ in which
-neighbouring $3\times3$ subblocks do not commute as matrices, and carries an empirical recurrence
-of order $55$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
-empirical. The condition ties together $3+1$ consecutive rows, so $3$ consecutive rows are
-a state, the count is a walk count on $S=512$ of them, and the conjectured recurrence is then
-settled by a finite exact computation.
+OEIS A254769 counts the arrays over $\{0,\dots,1\}$ whose $3\times3$ subblocks carry a
+statistic that is monotone along named directions of the subblock grid, and carries an
+empirical recurrence of order $55$ contributed by R.~H.~Hardin. It is true, and it is
+decidable rather than empirical. Every direction named moves the subblock row by at most one,
+so the count is a walk count on $S=745$ states --- the last two array rows together with the
+subblock row just completed --- and the conjectured recurrence is then settled by a finite
+exact computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 15A27, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 06A07.\normalsize
 
 \section{The conjecture}
 
-OEIS A186798 is ``Number of (n+2)X3 binary arrays with no 3X3 subblock commuting with any horizontal or vertical neighbor 3X3 subblock.''. It has offset $1$ and begins
+OEIS A254769 is ``Number of (n+2)X(2+2) 0..1 arrays with every 3X3 subblock sum of the two maximums of the central row and the central column and the two medians of the diagonal and antidiagonal nondecreasing horizontally, vertically and ne-to-sw antidiagonally.''. It has offset $1$ and begins
 \[
-512, 3984, 31204, 244558, 1916364, 15016660, 117671951, 922087441,\ \dots
+2630, 11321, 55196, 250996, 1124228, 5140919, 23633202, 108849819,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n)=25*a(n-2)+163*a(n-3)+635*a(n-4)+1829*a(n-5)+4219*a(n-6)+8077*a(n-7)+13098*a(n-8)+18029*a(n-9)+20940*a(n-10)+19779*a(n-11)+13470*a(n-12)+2601*a(n-13)-9874*a(n-14)-18715*a(n-15)-18124*a(n-16)-4854*a(n-17)+16831*a(n-18)+36180*a(n-19)+40250*a(n-20)+25914*a(n-21)+113*a(n-22)-24900*a(n-23)-44479*a(n-24)-58414*a(n-25)-63227*a(n-26)-47878*a(n-27)-6746*a(n-28)+46058*a(n-29)+82994*a(n-30)+83852*a(n-31)+54756*a(n-32)+17658*a(n-33)-7116*a(n-34)-15427*a(n-35)-12634*a(n-36)-6536*a(n-37)-1285*a(n-38)+2283*a(n-39)+5335*a(n-40)+8616*a(n-41)+10232*a(n-42)+8392*a(n-43)+3550*a(n-44)-893*a(n-45)-2547*a(n-46)-1672*a(n-47)-233*a(n-48)+436*a(n-49)+382*a(n-50)+134*a(n-51)+7*a(n-52)-15*a(n-53)-6*a(n-54)-a(n-55) for n>56
+Empirical: a(n) = 6*a(n-1) -3*a(n-2) -6*a(n-3) -43*a(n-4) -77*a(n-5) +309*a(n-6) +116*a(n-7) +44*a(n-8) -130*a(n-9) -1557*a(n-10) -155*a(n-11) +535*a(n-12) +1646*a(n-13) +2223*a(n-14) -269*a(n-15) -483*a(n-16) -3009*a(n-17) +629*a(n-18) -994*a(n-19) -3413*a(n-20) +174*a(n-21) -3872*a(n-22) +6126*a(n-23) +7436*a(n-24) +4876*a(n-25) +5215*a(n-26) -11663*a(n-27) -4317*a(n-28) -6159*a(n-29) -7246*a(n-30) +12175*a(n-31) -2813*a(n-32) +8505*a(n-33) +4164*a(n-34) -4343*a(n-35) +1956*a(n-36) -15945*a(n-37) +4437*a(n-38) -5638*a(n-39) +10900*a(n-40) +13881*a(n-41) -5488*a(n-42) +6329*a(n-43) -18530*a(n-44) -1325*a(n-45) -475*a(n-46) -1024*a(n-47) +10773*a(n-48) -3387*a(n-49) +2336*a(n-50) -1038*a(n-51) -2044*a(n-52) +944*a(n-53) -672*a(n-54) +384*a(n-55) for n>65
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 03:42:18, revision 9) this is still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 14:55:11, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The contiguous $3\times3$ subblocks of an $(n+2)\times3$ array form a grid of $n$
-rows and $1$ column. Two subblocks that are neighbours in that
-grid OVERLAP: horizontally they share $3\times2$ entries, vertically
-$2\times3$. Nevertheless each is a $3\times3$ integer matrix in its own right, and
-the entry requires that every neighbouring pair, horizontal or vertical, do not commute --- that is,
-$AB=BA$ as matrices over $\mathbf{Z}$.
+A $3\times3$ subblock has four distinguished lines of three cells: its diagonal, its
+antidiagonal, its central row and its central column. The entry's statistic is a signed sum of
+aggregates --- sums, maxima, minima, medians --- taken over those lines, and $\sigma(i,j)$
+denotes its value on the subblock in position $(i,j)$ of the subblock grid, which has $n$ rows
+and $2$ columns for an $(n+2)\times4$ array over $\{0,\dots,1\}$. The condition is
+\[
+\sigma(i,j)\le\sigma(i,j+1),\qquad \sigma(i,j)\le\sigma(i+1,j),\qquad \sigma(i,j)\le\sigma(i+1,j-1)
+\]
+whenever both positions exist.
 
-At $n=1$ the array has $3$ rows and the grid is a single row of $1$
-subblock, with no neighbouring pair at all; the entry's first term is
-$512$, which the model reproduces along with every later term.
+``ne-to-sw antidiagonally'' is the offset $(+1,-1)$ on the subblock grid; that reading, and
+the reading of every statistic name here, was checked by counting the small arrays directly
+against what the entries publish.
 
 \section{The count is a walk count}
 
-A subblock row is fixed by $3$ consecutive array rows, and the vertical condition compares
-two consecutive subblock rows, hence $3+1$ consecutive array rows. So take as state the
-$3$-tuple of consecutive rows whose subblock row has just been completed. A step appends one
-array row: that fixes the next subblock row, and the horizontal pairs inside it and the
-vertical pairs against the previous one are all settled there. An array of $n+2$ rows is
-a walk of $n-1$ steps and every walk comes from exactly one array, so
+A subblock spans three array rows and the vertical comparison spans four, so the obvious state
+is three consecutive rows. It is larger than it needs to be. What a step actually consults is
+the last TWO array rows --- enough to build the next subblock row once one more row arrives ---
+and the PREVIOUS SUBBLOCK ROW, to compare against. So take as state the triple
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,\qquad\iota=\tau=(1,\dots,1)^{\!\top},
+\bigl(r_{i+1},\ r_{i+2},\ \sigma\text{-row }i\bigr),
 \]
-on the $S=512$ admissible $3$-tuples. In particular $a$ is $C$-finite.
+and let a step append an array row $r_{i+3}$: that fixes $\sigma$-row $i+1$ from
+$r_{i+1},r_{i+2},r_{i+3}$, and every comparison between the two $\sigma$-rows is settled
+there. All the third rows that produce the same $\sigma$-row collapse into one state, which is
+what makes the wider arrays reachable.
 
-This state does not compress. What a step needs of the past is the previous subblock row, and
-for $3\ge3$ that row already determines the $3$ array rows it was built from, so nothing
-is lost by carrying the rows and nothing would be gained by carrying the matrices instead. The
-size of the construction is therefore $2^{3\cdot3}$ before the condition prunes
-it, which is what puts the wider members of this family out of reach rather than settling them.
+The starting vector is therefore weighted rather than all-ones: a state is entered by as many
+first rows as produce it, and $\iota$ records that count. With $\tau$ all-ones, an
+$(n+2)$-row array is a walk of $n-1$ steps and
+\[
+a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau
+\]
+on the $S=745$ reachable states. In particular $a$ is $C$-finite. The alignment of the walk
+index with the entry's own $n$ was checked against its published terms rather than assumed.
 
 \section{The proof}
 
@@ -94,15 +102,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;25\,a(n-2) + 163\,a(n-3) + 635\,a(n-4) + 1829\,a(n-5) + 4219\,a(n-6) + 8077\,a(n-7) + 13098\,a(n-8) + 18029\,a(n-9) + 20940\,a(n-10) + 19779\,a(n-11) + 13470\,a(n-12) + 2601\,a(n-13) - 9874\,a(n-14) - 18715\,a(n-15) - 18124\,a(n-16) - 4854\,a(n-17) + 16831\,a(n-18) + 36180\,a(n-19) + 40250\,a(n-20) + 25914\,a(n-21) + 113\,a(n-22) - 24900\,a(n-23) - 44479\,a(n-24) - 58414\,a(n-25) - 63227\,a(n-26) - 47878\,a(n-27) - 6746\,a(n-28) + 46058\,a(n-29) + 82994\,a(n-30) + 83852\,a(n-31) + 54756\,a(n-32) + 17658\,a(n-33) - 7116\,a(n-34) - 15427\,a(n-35) - 12634\,a(n-36) - 6536\,a(n-37) - 1285\,a(n-38) + 2283\,a(n-39) + 5335\,a(n-40) + 8616\,a(n-41) + 10232\,a(n-42) + 8392\,a(n-43) + 3550\,a(n-44) - 893\,a(n-45) - 2547\,a(n-46) - 1672\,a(n-47) - 233\,a(n-48) + 436\,a(n-49) + 382\,a(n-50) + 134\,a(n-51) + 7\,a(n-52) - 15\,a(n-53) - 6\,a(n-54) - a(n-55)
+a(n)\;=\;6\,a(n-1) - 3\,a(n-2) - 6\,a(n-3) - 43\,a(n-4) - 77\,a(n-5) + 309\,a(n-6) + 116\,a(n-7) + 44\,a(n-8) - 130\,a(n-9) - 1557\,a(n-10) - 155\,a(n-11) + 535\,a(n-12) + 1646\,a(n-13) + 2223\,a(n-14) - 269\,a(n-15) - 483\,a(n-16) - 3009\,a(n-17) + 629\,a(n-18) - 994\,a(n-19) - 3413\,a(n-20) + 174\,a(n-21) - 3872\,a(n-22) + 6126\,a(n-23) + 7436\,a(n-24) + 4876\,a(n-25) + 5215\,a(n-26) - 11663\,a(n-27) - 4317\,a(n-28) - 6159\,a(n-29) - 7246\,a(n-30) + 12175\,a(n-31) - 2813\,a(n-32) + 8505\,a(n-33) + 4164\,a(n-34) - 4343\,a(n-35) + 1956\,a(n-36) - 15945\,a(n-37) + 4437\,a(n-38) - 5638\,a(n-39) + 10900\,a(n-40) + 13881\,a(n-41) - 5488\,a(n-42) + 6329\,a(n-43) - 18530\,a(n-44) - 1325\,a(n-45) - 475\,a(n-46) - 1024\,a(n-47) + 10773\,a(n-48) - 3387\,a(n-49) + 2336\,a(n-50) - 1038\,a(n-51) - 2044\,a(n-52) + 944\,a(n-53) - 672\,a(n-54) + 384\,a(n-55)
 \]
-for every $n>56$.
+for every $n>65$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $55$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=56+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=65+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -110,7 +118,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $17$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $18$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
@@ -122,11 +130,11 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A186798.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A254769.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{suprunenko} D.~A.~Suprunenko and R.~I.~Tyshkevich, \emph{Commutative Matrices},
-Academic Press, 1968.
+\bibitem{davey} B.~A.~Davey and H.~A.~Priestley, \emph{Introduction to Lattices and
+Order}, 2nd ed., Cambridge University Press, 2002.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}
