@@ -76,7 +76,7 @@ def main(lo, hi):
         if pages < 2:
             defects.append({'rank': int(r['rank']), 'check': 'has a page count',
                             'detail': f'{pages} page'})
-    out = os.path.join(repopaths.ROOT, 'deep-check', f'phase2-{lo}.json')
+    out = os.path.join(repopaths.DEEPCHECK, f'phase2-{lo}.json')
     json.dump(defects, open(out, 'w'), indent=1)
     print(f'{lo}..{hi}: {len(idx)} papers, {len(defects)} defects -> {os.path.basename(out)}')
     return defects

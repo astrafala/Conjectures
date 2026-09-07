@@ -32,11 +32,19 @@ DEN = ('transfer20', 'transfer21', 'transfer22', 'transfer25', 'transfer38',
 PLAIN = ('transfer3', 'transfer6', 'transfer17', 'transfer23', 'transfer29', 'transfer30', 'transfer31', 'transfer33', 'transfer34', 'transfer35', 'transfer36', 'transfer37')   # (states, adj), all-ones vectors
 
 
+# A parser that raises on a name it ought to read makes that name unreachable, and the
+# `continue` below hides it: the name simply comes back as "no engine". That is the silent
+# refusal this project has paid for five times, so the raises are counted and kept. Nothing
+# stops --- one broken parser must not take down a sweep --- but nothing is invisible either.
+RAISED = {}
+
+
 def read(nm):
     for en in ENG:
         try:
             p = M[en].parse_name(nm)
-        except Exception:
+        except Exception as exc:
+            RAISED.setdefault(en, []).append((nm[:70], type(exc).__name__))
             continue
         if p:
             return en, p

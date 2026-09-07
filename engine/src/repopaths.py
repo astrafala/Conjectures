@@ -17,3 +17,9 @@ SOURCES = os.path.join(ROOT, 'paper-sources')
 def doc(name):
     """a document at the repository root, by name"""
     return os.path.join(ROOT, name)
+
+
+# The deep check's working data. It lives under engine/ because all code and working data
+# does; the plan and the running report are a document and live at the repository root.
+DEEPCHECK = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+                         'deep-check')

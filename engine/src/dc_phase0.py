@@ -21,7 +21,7 @@ import sys
 
 import repopaths
 
-OUT = os.path.join(repopaths.ROOT, 'deep-check')
+OUT = repopaths.DEEPCHECK
 FROZEN = os.path.join(OUT, 'frozen-roster.json')
 SNAP = os.path.join(OUT, 'phase0.json')
 LIBS = ['sympy', 'pdfminer', 'numpy']

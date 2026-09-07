@@ -33,8 +33,8 @@ SC = ('/tmp/claude-0/-home-user-Conjectures/'
 
 def main():
     names = json.load(open(SC + 'all_names.json'))
-    roster = {v['anum'] for v in json.load(open(os.path.join(repopaths.ROOT, 'deep-check', 'frozen-roster.json'))).values()} \
-        if os.path.exists(os.path.join(repopaths.ROOT, 'deep-check', 'frozen-roster.json')) else \
+    roster = {v['anum'] for v in json.load(open(os.path.join(repopaths.DEEPCHECK, 'frozen-roster.json'))).values()} \
+        if os.path.exists(os.path.join(repopaths.DEEPCHECK, 'frozen-roster.json')) else \
         {v['anum'] for v in json.load(open('paper-engines.json')).values()}
     cands = json.load(open('uni_cands.json'))
     done = set(json.load(open('uniall_done.json')))
@@ -92,7 +92,7 @@ def main():
     print(f'\n  {len(unread)} names no engine reads; of the first 4000 sampled, '
           f'{live} carry something unsettled')
     if never:
-        open(os.path.join(repopaths.ROOT, 'deep-check', 'phase7-never-processed.txt'), 'w').write(','.join(sorted(never)))
+        open(os.path.join(repopaths.DEEPCHECK, 'phase7-never-processed.txt'), 'w').write(','.join(sorted(never)))
         print(f'\n  {len(never)} entries an engine reads, carrying a testable conjecture, '
               f'never processed at all -> deep-check/phase7-never-processed.txt')
     return 0
