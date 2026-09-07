@@ -552,3 +552,19 @@ runs, 5 distance inequalities. Same rule, same requeue, nothing new to argue.
 Three engines had never had their argument name recorded in the general installer, so their
 papers would have been filed as plain transfer-matrix work; the mapping is now complete
 (`edge-count-pattern`, `forbidden-run`, `distance-inequality`, `subblock-3x3`).
+
+### The queue, filtered by what it can actually prove
+
+Of the 4023 candidates the sweep had never processed, only **799 carry a line that parses as
+a recurrence**. The rest are names an engine reads and that have nothing to prove. Sweeping
+the whole queue in A-number order spends most of its budget discovering that, one entry at a
+time, so the queue is now filtered first and only the 799 are run.
+
+That pass gave **90 more**, spread over sixteen engines --- twenty-two counted up to renaming
+the letters, twelve and one on monotone subblocks, ten on subblock matrices, nine on
+consecutive triples, and a long tail. A first pass at twenty seconds an entry harvests what
+builds quickly; what times out stays queued for a longer pass rather than being written off.
+
+`build_new.py` now falls back to the general builder when an engine's own builder was written
+for an older record shape, so a builder that no longer fits never costs a paper --- it costs
+the paper its specific wording, and says so.

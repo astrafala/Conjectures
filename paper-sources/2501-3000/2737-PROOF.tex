@@ -12,87 +12,106 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A275132, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A233085, proved by carrying a row major clause across
+columns}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{3 September 2026}
+\date{6 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A275132 counts arrays in which no entry may equal the entries at a short list of fixed offsets
-from it, the arrays being counted up to renaming the letters. The entry carries an empirical
-recurrence of order $5$ contributed by R.~H.~Hardin. It is true, and it is decidable
-rather than empirical. The condition tests only whether two cells are equal, so it survives
-renaming; the count of classes is recovered from counts over fixed alphabets by inverting a
-triangular system of falling factorials, and each of those is a walk count on a window of
-$2$ consecutive columns, $S=91$ states in all.
+OEIS A233085 counts $4\times n$ arrays over $\{0,\dots,3\}$ with a forbidden-pair
+condition and a clause on the order in which values first appear, read in ROW MAJOR order, and
+it carries an empirical recurrence of order $5$ contributed by R.~H.~Hardin. It is true.
+The obstacle is that the array grows in $n$, so the walk runs across COLUMNS and does not visit
+the cells in row major order; the running set of ``values seen so far'' that settles the clause
+for a column-fixed entry is simply the wrong set here. What the walk can carry instead is, for
+each value the clause names, the least ROW in which it has yet been seen, together with the
+order in which those least rows were attained. That is enough, and it is bounded, so the count
+is a walk count and the recurrence is settled by a finite exact computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A18, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 68Q45.\normalsize
 
 \section{The conjecture}
 
-OEIS A275132 is ``Number of 3 X n 0..2 arrays with no element equal to any value at offset (-2,-2) (-1,0) or (-1,1) and new values introduced in order 0..2.''. It has offset $1$ and begins
+OEIS A233085 is ``Number of 4Xn 0..3 arrays with no element x(i,j) adjacent to value 3-x(i,j) horizontally or antidiagonally, top left element zero, and 1 appearing before 2 in row major order.''. It has offset $1$ and begins
 \[
-2, 12, 45, 174, 675, 2607, 10077, 38967,\ \dots
+36, 1094, 41675, 1588262, 60632429, 2315298290,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 3*a(n-1) + 2*a(n-2) + 6*a(n-3) - 2*a(n-4) - 4*a(n-5) for n>6.
+Empirical: a(n) = 49*a(n-1) -450*a(n-2) +1466*a(n-3) -1853*a(n-4) +789*a(n-5) for n>8
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jan 31 2019 19:36:30, revision 8) this is still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 07:51:45, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-Entries lie in $\{0,1,\dots,2\}$ and the condition is that
+The array has $4$ rows and $n$ columns. Two cells are adjacent when they differ by one of the
+offsets
 \[
-x(i,j)\ \ne\ x(i+d_1,\,j+d_2)\qquad\text{for each offset }(d_1,d_2)\in\{(-2,-2), (-1,0), (-1,1)\}
+(0,1), (1,-1),
 \]
-whenever the second cell lies inside the array. The entry writes the array with $n$ as the number of COLUMNS, so the array grows one COLUMN at a time and an offset is read with its two coordinates exchanged. The closing clause ``new values
-introduced in order $0..2$'' says the array is the canonical representative of its equality
-pattern.
+and the entry forbids any adjacent pair $u,v$ with $u+v=3$. It fixes the top left cell to
+zero. Finally it asks that, reading the cells in ROW MAJOR order --- along the first row, then
+along the second, and so on --- the first occurrences of the values $1$, $2$ come in a
+prescribed order: $1$ before $2$. A precedence involving a value that never occurs is satisfied
+vacuously; one whose later value occurs while its earlier value does not is broken.
 
-\begin{lemma}\label{lem:order}
-The number counted does not depend on the order in which the array is read.
+\section{Why the obvious state does not work}
+
+Since $n$ grows, the walk must run across the columns: a state is one column, and the
+forbidden-pair condition is settled between two consecutive columns, because every offset above
+moves the column index by at most one.
+
+The clause is the difficulty. For an entry whose WIDTH is fixed the walk runs down the rows and
+therefore visits the cells in row major order, so it is enough to carry the set of named values
+already written and to refuse a column that introduces a value out of turn. Here the walk
+visits the cells in COLUMN major order, and that set is the wrong one: a value first written
+low down in an early column may be written again higher up in a later column, and it is the
+later, higher cell that comes first in row major order.
+
+\section{What the walk can carry}
+
+\begin{lemma}\label{lem:key}
+For a value $v$ occurring in the array, let $r_v$ be the least row in which $v$ occurs and
+$c_v$ the least column with $x_{r_v,c_v}=v$. Then the first occurrence of $v$ in row major
+order is the cell $(r_v,c_v)$, and $u$ precedes $v$ in row major order exactly when
+$(r_u,c_u)<(r_v,c_v)$ lexicographically.
 \end{lemma}
 
 \begin{proof}
-The condition tests only whether two cells carry equal values, so it is unchanged by permuting
-the alphabet, and the admissible arrays fall into classes under renaming. Fix any reading order
-of the cells. Each class contains exactly one array whose distinct values, in order of first
-appearance in that reading, are $0,1,2,\dots$: take any member and rename its values by their
-rank of first appearance. So the count is the number of CLASSES, whatever reading order is
-meant.
+Row major order is the lexicographic order on $(\text{row},\text{column})$, and the least
+element of the set of cells carrying $v$ under a lexicographic order is obtained by minimising
+the first coordinate and then the second.
 \end{proof}
 
-\section{From classes to fixed alphabets}
+\begin{lemma}\label{lem:tie}
+Two distinct values with the same least row attain it in different columns.
+\end{lemma}
 
-Write $N_j$ for the number of classes on exactly $j$ letters and $L_i$ for the number of
-admissible arrays over an alphabet of $i$ letters. An array over $i$ letters is a class together
-with an injection of its letters into the alphabet, so
+\begin{proof}
+If $r_u=r_v=r$ and $c_u=c_v=c$ then the cell $(r,c)$ carries both $u$ and $v$.
+\end{proof}
+
+So the walk carries, for each named value, the least row in which it has been seen so far ---
+or the fact that it has not been seen --- and, for values sharing a least row, which of them
+attained it first. By Lemma~\ref{lem:tie} those attainments happen in different columns, and
+the walk meets the columns in order, so ``which attained it first'' is decided as the walk
+goes. Nothing else about the past matters: a later column can only LOWER a value's least row,
+and Lemma~\ref{lem:key} says the comparison depends on nothing else.
+
+One thing must not be done, and is not done here. The clause cannot be enforced along the way,
+because a least row can still drop and reorder the first occurrences retroactively. It is a
+property of the finished array, so it is tested in the ACCEPTING states and nowhere else.
+
+The state is therefore a column together with an ordered partition of the named values by least
+row, and there are $S=199$ of them after states with identical futures are merged. Hence
 \[
-L_i\;=\;\sum_j N_j\,i(i-1)\cdots(i-j+1),
+a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,
 \]
-a triangular system with unit diagonal. By Lemma~\ref{lem:order} the entry counts
-$N_1+\dots+N_{3}$, so $a=\sum_i w_iL_i$ with $w=\mathbf{1}^{\!\top}F^{-1}$, $F$ the
-matrix of falling factorials.
-
-\section{Each $L_i$ is a walk count}
-
-Equality is symmetric, so an offset and its negative forbid exactly the same pairs; replacing
-each offset by whichever of the two points BACKWARDS along the direction in which the array
-grows makes every pair tested once, from the later of its two cells. After that replacement no
-offset reaches more than $2$ columns back, so the window of the last $2$
-columns is a state and one step appends a column. A column not yet written is
-carried as a symbol, so the walk starts at the empty array and a walk of $t$ steps is an array
-of $t$ columns. Assembling $i=1,\dots,3$ as a disjoint union with $\iota$ carrying the
-weights cleared of denominators and $\tau=\mathbf{1}$,
-\[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=91.
-\]
-The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
-published terms rather than assumed. In particular $a$ is $C$-finite.
+and $a$ is $C$-finite.
 
 \section{The proof}
 
@@ -114,31 +133,31 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;3\,a(n-1) + 2\,a(n-2) + 6\,a(n-3) - 2\,a(n-4) - 4\,a(n-5)
+a(n)\;=\;49\,a(n-1) - 450\,a(n-2) + 1466\,a(n-3) - 1853\,a(n-4) + 789\,a(n-5)
 \]
-for every $n>6$.
+for every $n>8$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $5$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=6+1$ onwards and the run continued
-until the working vector was identically zero. The rational weights are carried as one common
-denominator, so no division is performed until the final term.
+integers vanish from the index corresponding to $n=8+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once. The bound is exact: at $n=8$ the recurrence fails on the entry's own published terms, so no larger range holds.
 \end{proof}
 
 \section{Verification}
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $24$ terms the entry publishes, exactly, in integer
-arithmetic.
+First, the model reproduces all $15$ terms the entry publishes, exactly, in integer
+arithmetic, with no shift fitted.
 
-Second, the count was recomputed for the smallest arrays straight from the definition:
-enumerate every array over $\{0,\dots,2\}$, keep those whose values are introduced in the
-order $0,1,2,\dots$ reading row by row, and test each offset directly. Neither the window, nor
-the backward normalisation of the offsets, nor the falling-factorial inversion is involved, and
-the published terms came back.
+Second --- and this is the check the whole paper turns on --- the arrays were enumerated
+directly for the smallest shapes the entry counts, in the orientation the name writes, with the
+cells listed in true row major order and each precedence tested on that list. No transposing
+and no walk. The counts agree. Reading the clause in the walk's own order instead gives
+different numbers for several entries of this family, so this check is what separates the two
+readings.
 
 Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
@@ -148,10 +167,11 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A275132.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A233085.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; falling factorials,
-Section 1.9.)
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{hopcroft} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to
+Automata Theory, Languages, and Computation}, 3rd ed., Addison--Wesley, 2006.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

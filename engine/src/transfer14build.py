@@ -1,5 +1,17 @@
 #!/usr/bin/env python3
 """One paper per Hardin entry with a two-line-window cell condition over the alphabet."""
+import os
+
+_ROSTER = None
+def _date(a):
+    """the date the result was obtained: a paper already in the roster keeps the
+    date it was written with, a new one takes the date the caller gives."""
+    global _ROSTER
+    if _ROSTER is None:
+        import json as _j
+        _ROSTER = {v['anum'] for v in _j.load(open('paper-engines.json')).values()}
+    return '1 September 2026' if a in _ROSTER else os.environ.get('PAPER_DATE', '1 September 2026')
+
 import os, json, re
 import localentry as LE, phibuild, transferbuild, transfer14 as TE
 
@@ -72,7 +84,7 @@ so no extra state is needed beyond the {line} itself.""")
     return rf"""{PRE}
 \title{{The empirical recurrence for OEIS {a}, proved by transfer matrix}}
 \author{{Adrian Perez Fontelles\\ \small Independent researcher}}
-\date{{1 September 2026}}
+\date{{{_date(a)}}}
 \begin{{document}}
 \maketitle
 

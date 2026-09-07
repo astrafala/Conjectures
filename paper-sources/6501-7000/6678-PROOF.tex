@@ -12,72 +12,75 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A232318, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A254256, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{6 September 2026}
+\date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A232318 counts arrays of width $3$ over $\{0,\dots,1\}$ under a condition on each cell
-and its neighbours, and carries an empirical recurrence of order $12$ contributed by
-R.~H.~Hardin. It is true, and it is decidable rather than empirical. Every neighbour named lies
-in the three rows $i-1,i,i+1$, so an ordered pair of consecutive rows is a state, the count is
-a walk count on $S=72$ of them, and the conjectured recurrence is then settled by a finite
-exact computation. The entry writes the array with the width fixed and $n$ counting
-COLUMNS; transposing it exchanges rows with columns, which exchanges the words ``horizontal''
-and ``vertical'' and fixes both diagonals, and everything below is stated in that transposed
-frame, where $n$ counts rows.
+OEIS A254256 counts the arrays over $\{0,\dots,1\}$ whose $3\times3$ subblocks carry a
+statistic that is monotone along named directions of the subblock grid, and carries an
+empirical recurrence of order $12$ contributed by R.~H.~Hardin. It is true, and it is
+decidable rather than empirical. Every direction named moves the subblock row by at most one,
+so the count is a walk count on $S=5468$ states --- the last two array rows together with the
+subblock row just completed --- and the conjectured recurrence is then settled by a finite
+exact computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 68Q45.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 06A07.\normalsize
 
 \section{The conjecture}
 
-OEIS A232318 is ``Number of (2+1)X(n+1) 0..1 arrays with every element equal to some horizontal or antidiagonal neighbor, with top left element zero.''. It has offset $1$ and begins
+OEIS A254256 is ``Number of (n+2)X(4+2) 0..1 arrays with every 3X3 subblock sum of the two maximums of the diagonal and antidiagonal minus the sum of the minimums of the central row and column nondecreasing horizontally, vertically and ne-to-sw antidiagonally.''. It has offset $1$ and begins
 \[
-5, 24, 139, 853, 5241, 32089, 196698, 1205422,\ \dots
+54236, 382316, 1420232, 2983064, 9308828, 29231312, 98883824, 378114160,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 5*a(n-1) +9*a(n-2) -10*a(n-3) -19*a(n-4) +9*a(n-5) +21*a(n-6) -15*a(n-8) -5*a(n-9) +5*a(n-10) +4*a(n-11) -2*a(n-12) for n>14
+Empirical: a(n) = a(n-1) +20*a(n-2) +20*a(n-3) -104*a(n-4) -608*a(n-5) +160*a(n-6) +1792*a(n-7) +5888*a(n-8) -5120*a(n-9) -8192*a(n-10) -18432*a(n-11) +24576*a(n-12) for n>18
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 07:18:27, revision 8) this is still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 14:35:11, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The neighbours of a cell are the cells at the offsets
+A $3\times3$ subblock has four distinguished lines of three cells: its diagonal, its
+antidiagonal, its central row and its central column. The entry's statistic is a signed sum of
+aggregates --- sums, maxima, minima, medians --- taken over those lines, and $\sigma(i,j)$
+denotes its value on the subblock in position $(i,j)$ of the subblock grid, which has $n$ rows
+and $4$ columns for an $(n+2)\times6$ array over $\{0,\dots,1\}$. The condition is
 \[
-(-1,0), (-1,1), (1,-1), (1,0),
+\sigma(i,j)\le\sigma(i,j+1),\qquad \sigma(i,j)\le\sigma(i+1,j),\qquad \sigma(i,j)\le\sigma(i+1,j-1)
 \]
-those falling outside the array being absent. The entry requires that every cell equals at least one of its neighbours. The entry also fixes the top left cell to zero, which restricts the states an array may begin in and nothing else.
+whenever both positions exist.
+
+``ne-to-sw antidiagonally'' is the offset $(+1,-1)$ on the subblock grid; that reading, and
+the reading of every statistic name here, was checked by counting the small arrays directly
+against what the entries publish.
 
 \section{The count is a walk count}
 
-Every offset above moves the row index by at most one, so whether a cell of row $i$ passes
-depends on rows $i-1$, $i$ and $i+1$ and nothing else. Take as vertices the ordered PAIRS
-$(p,c)$ of consecutive rows, allowing $p$ to be ABSENT --- that is what lets a walk of no steps
-describe a one-row array --- and put an edge $(p,c)\to(c,x)$ exactly when every cell of the
-middle row $c$ passes with $p$ above it and $x$ below it. A state with $p$ absent may begin an
-array; a state $(p,c)$ accepts when every cell of $c$ passes with nothing below it. An array of
-$L$ rows is then a walk of $L-1$ steps, each step settling one row, and every array arises from
-exactly one walk. Hence
+A subblock spans three array rows and the vertical comparison spans four, so the obvious state
+is three consecutive rows. It is larger than it needs to be. What a step actually consults is
+the last TWO array rows --- enough to build the next subblock row once one more row arrives ---
+and the PREVIOUS SUBBLOCK ROW, to compare against. So take as state the triple
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau
+\bigl(r_{i+1},\ r_{i+2},\ \sigma\text{-row }i\bigr),
 \]
-with $\iota$ the indicator of the beginning states, $\tau$ of the accepting ones, and $j$ the
-walk index, which differs from the entry's own $n$ by a constant read off from its published
-terms. There are $S=72$ states, and $a$ is $C$-finite.
+and let a step append an array row $r_{i+3}$: that fixes $\sigma$-row $i+1$ from
+$r_{i+1},r_{i+2},r_{i+3}$, and every comparison between the two $\sigma$-rows is settled
+there. All the third rows that produce the same $\sigma$-row collapse into one state, which is
+what makes the wider arrays reachable.
 
-At $n=1$ the array has one row, and
-the condition is tested there with nothing above or below it; the entry's first term is
-$5$, which the model reproduces along with every later term. That is the cheapest check
-that the neighbour set and the boundary have been read the same way the entry reads them: a
-condition tested as though the missing rows were present, rather than absent, gives a different
-first term. There are $2^{3}=8$ possible rows over the entry's own alphabet. The state count $S=72$ is exactly $8\cdot9$,
-one state for each ordered pair of a row and its possible predecessor, the absent predecessor
-included.
+The starting vector is therefore weighted rather than all-ones: a state is entered by as many
+first rows as produce it, and $\iota$ records that count. With $\tau$ all-ones, an
+$(n+2)$-row array is a walk of $n-1$ steps and
+\[
+a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau
+\]
+on the $S=5468$ reachable states. In particular $a$ is $C$-finite. The alignment of the walk
+index with the entry's own $n$ was checked against its published terms rather than assumed.
 
 \section{The proof}
 
@@ -99,23 +102,23 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;5\,a(n-1) + 9\,a(n-2) - 10\,a(n-3) - 19\,a(n-4) + 9\,a(n-5) + 21\,a(n-6) - 15\,a(n-8) - 5\,a(n-9) + 5\,a(n-10) + 4\,a(n-11) - 2\,a(n-12)
+a(n)\;=\;a(n-1) + 20\,a(n-2) + 20\,a(n-3) - 104\,a(n-4) - 608\,a(n-5) + 160\,a(n-6) + 1792\,a(n-7) + 5888\,a(n-8) - 5120\,a(n-9) - 8192\,a(n-10) - 18432\,a(n-11) + 24576\,a(n-12)
 \]
-for every $n>14$.
+for every $n>18$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $12$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=14+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once. The bound is exact: at $n=14$ the recurrence fails on the entry's own published terms, so no larger range holds.
+integers vanish from the index corresponding to $n=18+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $20$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $17$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
@@ -127,10 +130,11 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A232318.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A254256.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{comtet} L.~Comtet, \emph{Advanced Combinatorics}, Reidel, 1974.
+\bibitem{davey} B.~A.~Davey and H.~A.~Priestley, \emph{Introduction to Lattices and
+Order}, 2nd ed., Cambridge University Press, 2002.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

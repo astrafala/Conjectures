@@ -12,175 +12,132 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A229681, proved by counting defective colourings}
+\title{The empirical recurrence for OEIS A221083, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{1 September 2026}
+\date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A229681 counts the colourings of an array with $K=3$ colours that are proper except at
-exactly two adjacent pairs, the colours being introduced in row
-major order. Neither feature is local: the number of monochromatic adjacent pairs is a
-property of the whole array, and the row major clause fixes a representative of each
-relabelling class. Both are removed by machinery already in hand --- the running count of
-mistakes goes into the state, capped at $2$, and the colour clause disappears into the
-identity $3!\,a(n)=\sum_i\binom{3}{i}D_{3-i}L_i(n)$ with $D_m$ the derangement
-numbers. What is left is a walk count on $S=294$ vertices, and the empirical recurrence of
-order $3$ contributed by R.~H.~Hardin follows from a finite exact computation.
+OEIS A221083 counts the distinct OCCUPANCY arrays obtained when every cell of an $n\times4$ grid
+holds one token and each token moves to a neighbouring cell, and carries an empirical
+recurrence of order $3$ contributed by R.~H.~Hardin. It is true, and it is decidable
+rather than empirical. What is counted is the size of an IMAGE --- two different assignments of
+moves with the same occupancy count once --- so it is not a walk count in the obvious graph;
+determinising the machine that emits the occupancy row by row turns it into one, on $S=761$
+states, after which the conjectured recurrence is settled by a finite exact computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05C15, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 68Q45, 60C05.\normalsize
 
-\section{The sequence and the conjecture}
+\section{The conjecture}
 
-OEIS A229681 is ``Number of defective 3-colorings of an n X 4 0..2 array connected diagonally and antidiagonally with exactly two mistakes, and colors introduced in row-major 0..2 order.''. It has offset $1$ and begins
+OEIS A221083 is ``Number of n X 4 arrays of occupancy after each element moves to some horizontal or antidiagonal neighbor.''. It has offset $1$ and begins
 \[
-0, 360, 10896, 186576, 2700432, 35485776, 437924880, 5169543120,\ \dots
+4, 169, 6889, 279841, 11363641, 461433361, 18736955689, 760832274049,\ \dots
 \]
-The entry carries the following comment:
-\begin{quote}\small
-Empirical: a(n) = 27*a(n-1) - 243*a(n-2) + 729*a(n-3) for n > 6.
+The entry states, as a conjecture contributed by its author and never marked settled:
+\begin{quote}
+Empirical: a(n) = 45*a(n-1) - 180*a(n-2) + 64*a(n-3).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Apr 28 2021 01:23:52, revision 11) the statement is
-still recorded as empirical, and nothing on the entry records it as settled either way.
+As of the ``Last modified'' line on the live entry (Aug 03 2018 08:13:09, revision 7) this is still
+recorded as empirical, and nothing on the entry records it as proved.
 
-Written out, the claim is
-\begin{equation}\label{eq:conj}
-a(n)\;=\;27\,a(n-1) - 243\,a(n-2) + 729\,a(n-3)
-\end{equation}
-for all $n>6$.
+\section{What is being counted}
 
-\section{Mistakes, and the colour clause}
-
-The arrays have $4$ columns and $L=n$ rows, entries in $\{0,\dots,3-1\}$.
-Two cells are adjacent when they differ by one of
+Every cell of an $n\times4$ grid holds one token. Each token moves by one of the offsets
 \[
-\mathcal N=\{(1,1),\ (1,-1)\}
+(-1,1), (0,-1), (0,1), (1,-1),
 \]
-(as (row shift, column shift)); each unordered adjacency is represented by exactly one
-offset, and every offset has a nonnegative row shift, so the pairs inside a row are
-counted when that row is laid down and the pairs joining two rows when the later one
-is. Call an adjacent pair a \emph{mistake} when $x_{t,u}=x_{t+d_1,\,u+d_2}$. The entry asks for exactly
-$E=2$ mistakes.
+a move being available only when it lands inside the grid. The offset $(0,0)$ is NOT among them: every token must move. The OCCUPANCY array
+records, for each cell, how many tokens land on it; the entry counts how many different
+occupancy arrays occur as the assignment of moves runs over all its possibilities.
 
-That is a statement about the whole array, so no bounded window sees it; but the running
-number of mistakes can be carried in the state, capped at $2$, the states past $2$ being
-absent because a count that has passed the budget can never come back.
+That is the size of an IMAGE, and it is the whole difficulty: two assignments with the same
+occupancy must be counted once, and a walk count over the assignments would count them twice.
 
-The condition is stated in equalities, so it is invariant under relabelling the colours, and
-so is the number of mistakes. ``Colors introduced in row-major order'' keeps exactly one
-colouring from each relabelling class, so the entry counts equality PATTERNS with at most
-$K=3$ classes.
+\section{The image is a walk count after determinisation}
 
-\begin{lemma}\label{lem:inv}
-Let $L_i(n)$ count the colourings over $i$ colours with exactly $2$ mistakes, and $N_j(n)$
-the admissible patterns with exactly $j$ classes. Then
-$L_i=\sum_j N_j\,i(i-1)\cdots(i-j+1)$ and
+Every offset moves the row index by at most one, so the occupancy of row $i$ is decided by the
+moves chosen in rows $i-1$, $i$ and $i+1$. Writing $\beta(p,c,x)$ for that occupancy row, with
+$p$ or $x$ allowed to be the symbol $\bot$ for ``outside'', the whole occupancy array is
 \[
-3!\,\sum_{j\le3}N_j(n)=\sum_{i=0}^{3}\binom{3}{i}D_{3-i}L_i(n),
-\qquad D_m=m!\sum_{t=0}^{m}\frac{(-1)^t}{t!} .
+\bigl(\beta(\bot,c_1,c_2),\ \beta(c_1,c_2,c_3),\ \dots,\ \beta(c_{n-1},c_n,\bot)\bigr)
 \]
-\end{lemma}
+for an assignment $c_1,\dots,c_n$ of move-rows. The symbol $\bot$ is not decoration: whether
+``up'' or ``down'' is a legal move for a cell depends on it, and $\beta$ returns nothing at all
+when the row it is given cannot occur in that position.
 
-\begin{proof}
-A colouring is a pattern together with an injection of its classes into the palette, and a
-pattern with $j$ classes admits $i(i-1)\cdots(i-j+1)$ of them, which is the first identity.
-Writing the falling factorial as $j!\binom{i}{j}$ and inverting binomially gives
-$j!N_j=\sum_i(-1)^{j-i}\binom{j}{i}L_i$; summing over $j\le3$ and exchanging the order
-of summation makes the coefficient of $L_i$ equal to $\sum_{t\le3-i}(-1)^t/(i!\,t!)$,
-which multiplied by $3!$ is $\binom{3}{i}D_{3-i}$, an integer.
-\end{proof}
+Determinise. For a set $D$ of pairs $(p,c)$ and an occupancy row $b$ put
+\[
+\delta(D,b)=\{(c,x):(p,c)\in D,\ \beta(p,c,x)=b\},\qquad
+f(D)=\bigl|\{\beta(p,c,\bot):(p,c)\in D,\ \beta(p,c,\bot)\ \text{defined}\}\bigr| ,
+\]
+and let $D_0=\{(\bot,c):c\}$. An induction on the number of rows shows $D_t$ is exactly the
+set of pairs of consecutive move-rows completing a prefix with the emitted occupancy rows, so
+that with $M$ the adjacency matrix of the digraph on the reachable nonempty sets, one edge per
+occupancy row it admits,
+\[
+a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,\qquad \iota=e_{D_0},\quad \tau=f .
+\]
+There are $S=761$ reachable sets. In particular $a$ is $C$-finite.
 
-\section{Each $L_i$ is a walk count}
-
-Fix $i$ and take as vertices the pairs $(r,c)$ with $r\in\{0,\dots,i-1\}^{4}$ a row
-and $0\le c\le2$ a running count. Write $\beta(r,s)$ for the number of mistakes joining
-rows $r$ and $s$ plus the number of mistakes inside $s$. Declare $(r,c)\to(s,c+\beta(r,s))$
-an edge when $c+\beta(r,s)\le2$, let $\mathbf{s}_i$ mark the vertices whose count is the
-number of mistakes inside $r$ alone, and $\mathbf{e}_i$ those with $c=2$.
-
-\begin{lemma}\label{lem:walk}
-$L_i(n)=\mathbf{s}_i^{\!\top}P_i^{\,L-1}\mathbf{e}_i$ for $L\ge1$, where $P_i$ is the
-adjacency matrix of that digraph.
-\end{lemma}
-
-\begin{proof}
-A walk of length $L-1$ determines the sequence of $L$ rows, and conversely; by induction
-the count component after $t$ rows is the number of mistakes among the first $t$ rows,
-since each step adds exactly the mistakes joining rows $t$ and $t+1$ together with those
-inside row $t+1$, and each unordered pair is named by exactly one offset. The walk exists
-precisely when the running count never exceeds $2$, which for a nondecreasing count follows
-from its final value being $2$, and $\mathbf{e}_i$ imposes that final value. The state
-carries a row, not a boundary, so $L$ rows make a walk of length $L-1$.
-\end{proof}
-
-Assembling the $3$ chains block-diagonally into $N$ of size $S=294$ with the weights of
-Lemma~\ref{lem:inv} in the start vector $\mathbf{v}$ and the end markers in
-$\mathbf{u}$,
-\begin{equation}\label{eq:walk2}
-3!\;a(n)\;=\;\mathbf{v}^{\!\top}N^{\,L-1}\mathbf{u},\qquad L=n .
-\end{equation}
-
-\section{The criterion, and the computation}
-
-Let $q(t)=t^{3}-\sum_i c_i\,t^{3-i}$ be the characteristic polynomial of
-\eqref{eq:conj} and $G=N$.
+\section{The proof}
 
 \begin{lemma}\label{lem:crit}
-With $n_0$ the least index for which $L\ge1$, $o=1n_0+0-1$ and
-$h_j=G^{j}N^{o}\mathbf{u}$, we have for $j\ge3$
-\[
-3!\Bigl(a(n_0+j)-\sum_i c_i\,a(n_0+j-i)\Bigr)=\mathbf{v}^{\!\top}G^{\,j-3}w,
-\qquad w=h_{3}-\sum_i c_ih_{3-i} .
-\]
-Hence \eqref{eq:conj} holds from that point on if and only if
-$\mathbf{v}^{\!\top}G^{m}w=0$ for all $m\ge0$, and $m<S$ suffices.
+Let $q(t)=t^{3}-\sum_i c_it^{3-i}$ be the characteristic polynomial of the
+conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
+$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
+holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
+and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Substitute \eqref{eq:walk2} and factor; $3!$ is a nonzero scalar. Cayley--Hamilton
-makes $G^{S}$ an integer combination of $I,G,\dots,G^{S-1}$, so every later value repeats
-that combination of earlier ones.
+Factor $M^{j}$ out of $M^{j+3}-\sum_ic_iM^{j+3-i}$. For the bound, $M^{S}$
+is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
+$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
+polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
+pins the threshold exactly.
 \end{proof}
 
 \begin{theorem}
-The recurrence \eqref{eq:conj} holds for every $n>6$, which is the statement of
-Section~1.
+\[
+a(n)\;=\;45\,a(n-1) - 180\,a(n-2) + 64\,a(n-3)
+\]
+for every $n>3$.
 \end{theorem}
 
 \begin{proof}
-The digraph was built directly from the definitions above. The vector $w$ was formed by
-$3$ applications of $G$ in exact integer arithmetic and $\mathbf{v}^{\!\top}G^{m}w$
-evaluated for $m=0,1,\dots$, again exactly. Every one of those integers vanishes from the
-index corresponding to $n=6+1$ onwards, and the run continued until $S+1$ consecutive
-zeros had been seen.
+The vector $w=q(M)\tau$ was formed by $3$ matrix--vector products in exact integer
+arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
+integers vanish from the index corresponding to $n=3+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the right-hand side of \eqref{eq:walk2}, divided by $3!$, was evaluated at every
-one of the $16$ published indices and agrees with the entry's DATA exactly, the quotient
-coming out an integer each time; no shift was fitted, the number of rows being $L=n$
-from the entry's own name and the offset saying which index carries the first published term.
-Double-counting an unordered pair, or mistaking the budget, changes the counts at once.
+First, the model reproduces all $15$ terms the entry publishes, exactly, in integer
+arithmetic. The entry's first term is $4$, and it is a sharp test of the boundary: a
+one-row grid offers only the moves that stay within one row, so a neighbour set with no
+horizontal offset gives no legal assignment at all and the count is zero, which is what the
+entries of that shape publish.
 
-Second, the recurrence \eqref{eq:conj} was evaluated on those published terms in exact
-integer arithmetic, with no matrices involved, and vanishes wherever it applies.
+Second, the conjectured recurrence was evaluated directly on those published terms, with no
+matrices involved, and holds wherever the proved range and the data overlap.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried to the full
-Cayley--Hamilton bound in exact integer arithmetic rather than to a sampled prefix.
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A229681.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A221083.
+\bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata
+Theory, Languages, and Computation}, 3rd ed., Addison--Wesley, 2006. (The subset
+construction, Section 2.3.)
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; falling-factorial
-inversion, Section 1.9.)
-\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
-University Press, 2009.
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

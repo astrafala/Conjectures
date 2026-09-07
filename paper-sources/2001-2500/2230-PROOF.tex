@@ -12,79 +12,83 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A224644, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A206232, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A224644 counts the $(n+2)\times3$ matrices over $\{0,\dots,1\}$ all of whose
-$3\times3$ contiguous subblocks are of equal population, and carries an empirical recurrence of order
-$8$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical.
-The condition ties together $3$ consecutive rows and $3$ consecutive columns at once, so a
-single row is not a state; the strip of the last $2$ rows is, and the admissible strips
-are read off the overlap graph of the admissible windows instead of being enumerated. That
-makes $a(n)$ a walk count on $S=256$ vertices, hence $C$-finite, and whether the conjectured
-recurrence annihilates it is settled by a finite exact computation.
+OEIS A206232 counts, up to renaming the letters, the arrays of width $3$ over at most $4$
+letters in which every $2\times3$ and $3\times2$ subblock has exactly $2$ equal edges, an edge of such a window being one of the six steps of its perimeter cycle and an equal edge one whose two cells agree. It carries an empirical recurrence of order $8$ contributed by
+R.~H.~Hardin. It is true, and it is decidable rather than empirical. Counting up to renaming is
+a fixed rational combination of ordinary array counts, each of those is a walk count, and the
+conjectured recurrence is then settled by a finite exact computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A18, 05B45.\normalsize
 
 \section{The conjecture}
 
-OEIS A224644 is ``Number of (n+2) X 3 0..1 matrices with each 3 X 3 subblock having the same population.''. It has offset $1$ and begins
+OEIS A206232 is ``Number of (n+1)X3 0..3 arrays with every 2X3 or 3X2 subblock having exactly two equal edges, and new values 0..3 introduced in row major order.''. It has offset $1$ and begins
 \[
-512, 1280, 3200, 8000, 22400, 62720, 175616, 514304,\ \dots
+60, 256, 1136, 5728, 31652, 170728, 943584, 5175034,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 4*a(n-1) - 3*a(n-2) + 12*a(n-3) - 48*a(n-4) + 36*a(n-5) - 27*a(n-6) + 108*a(n-7) - 81*a(n-8).
+Empirical: a(n) = 3*a(n-1) +20*a(n-2) -14*a(n-3) -133*a(n-4) +95*a(n-5) +123*a(n-6) +9*a(n-7) -102*a(n-8) for n>10
 \end{quote}
-As of the ``Last modified'' line on the live entry (Sep 02 2018 17:10:41, revision 10) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 12:49:04, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
-\section{The count is a walk count}
+\section{What is being counted}
 
-Call a $3\times3$ matrix over $\{0,\dots,1\}$ a \emph{window} when it is of equal population, and
-call a $3\times3$ matrix a \emph{band} when every one of its $1$ contiguous
-$3\times3$ subblocks is a window. What the entry counts is the matrices of $3$ columns
-whose every $3$ consecutive rows form a band.
+The condition is that every $2\times3$ and $3\times2$ subblock has exactly $2$ equal edges, an edge of such a window being one of the six steps of its perimeter cycle and an equal edge one whose two cells agree.
 
-Take as states the $2\times3$ strips that occur as the top $2$ rows of a band,
-together with those that occur as its bottom $2$ rows, and put an edge from $u$ to $v$
-when the band whose first $2$ rows are $u$ and whose last $2$ rows are $v$ exists.
-A band is determined by that pair, so the edge is unique when it exists. Reading a counted
-matrix from the top, its rows $1..2$, then $2..3$, and so on, form a walk, and every
-walk arises from exactly one matrix; a matrix with $n+2$ rows gives a walk of $n$ edges.
-Since the first $2$ rows of a counted matrix with at least $3$ rows are the top of a
-band, and since no further condition falls on where a walk starts or ends,
+The clause ``new values $0..3$ introduced in row major order'' says the array is the
+canonical representative of its EQUALITY PATTERN, so what is counted is patterns, not arrays.
+Write $N_j$ for the number of admissible patterns using exactly $j$ letters and $L_i$ for the
+number of admissible arrays over an alphabet of $i$ letters. An array over $i$ letters is a
+pattern together with an injection of its letters into the alphabet, so
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n}\tau ,\qquad \iota=\tau=(1,1,\dots,1)^{\!\top},
+L_i\;=\;\sum_j N_j\,i(i-1)\cdots(i-j+1),
 \]
-with $M$ the adjacency matrix on $S=256$ states. In particular $a$ is $C$-finite. The
-alignment was checked against the entry's published terms rather than assumed.
-
-There are $(1 + 1)^{6}$ strips of $2$ rows and $3$ columns, far too
-many to test one by one, and they are not tested one by one. Two consecutive windows of a band
-overlap in $3\times2$ entries, so a band is exactly a walk of $1$ windows in
-the graph that joins a window to those whose first $2$ columns are its last $2$
-columns. Enumerating those walks produces the bands, and with them the states and the edges,
-directly.
-
-\section{The admissible windows}
-
-The entry does not name the common value; it only asks that all the windows of one matrix agree.
-So fix a value $v$ and let $W_v$ be the set of $3\times3$ matrices over
-$\{0,\dots,1\}$ whose population, the number of its entries equal to $1$, equals $v$. A matrix counted by the entry has all of
-its windows in a single $W_v$, and the value of $v$ is determined by the matrix, so the sets of
-matrices belonging to different $v$ are disjoint and
+a triangular system with unit diagonal, hence invertible over $\mathbf{Q}$. The entry counts
+$a=N_1+\dots+N_{4}$, so
 \[
-a(n)\;=\;\sum_v a_v(n),
+a\;=\;\sum_{i=1}^{4}w_i\,L_i
 \]
-each $a_v$ being the walk count of Section~2 built from $W_v$ alone. A disjoint union of the
-$10$ digraphs, one per value of $v$, therefore counts the whole of $a(n)$ with the same
-all-ones vectors, and the $3\times3$ windows in play number $512$ in total.
+for one fixed rational vector $w=\mathbf{1}^{\!\top}F^{-1}$, $F$ the matrix of falling
+factorials.
+
+\section{Why the reduction is allowed here}
+
+The step above is legitimate only if the condition is invariant under permuting the alphabet,
+and in this family that is a real restriction rather than a formality. An \emph{equal edge}
+is an edge of a subblock whose two cells carry the same letter; whether two cells agree is
+untouched by any renaming, so every condition built from counting equal edges is invariant and
+the reduction applies.
+
+The neighbouring conditions of the same family that count \emph{increases} --- how many steps
+of a subblock's perimeter cycle go UP in value --- are not invariant: they compare letters by
+size, and a permutation of the alphabet changes the count. Those entries are therefore excluded
+here rather than reduced, and are settled, when they are settled, over their own alphabet
+without the pattern step.
+
+\section{Each $L_i$ is a walk count}
+
+For a fixed alphabet the condition is local: a $2\times2$ subblock is built from two
+consecutive array rows, a $2\times3$ or $3\times2$ window from two or three of them, and every
+comparison the entry makes is between subblocks that meet in the grid. Taking as state a single
+row where the condition looks at one subblock at a time, and the pair of consecutive rows where
+it compares neighbours, each $L_i$ is a walk count on its own digraph. Assembling,
+\[
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau
+\]
+on the disjoint union of those digraphs for $i=1,\dots,4$, with $\iota$ carrying the weights
+$w_i$ cleared of denominators and $S=1560$ states in all. The walk index $j$ and the entry's own
+$n$ differ by a constant, read off by matching the published terms rather than assumed. In
+particular $a$ is $C$-finite.
 
 \section{The proof}
 
@@ -106,23 +110,25 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;4\,a(n-1) - 3\,a(n-2) + 12\,a(n-3) - 48\,a(n-4) + 36\,a(n-5) - 27\,a(n-6) + 108\,a(n-7) - 81\,a(n-8)
+a(n)\;=\;3\,a(n-1) + 20\,a(n-2) - 14\,a(n-3) - 133\,a(n-4) + 95\,a(n-5) + 123\,a(n-6) + 9\,a(n-7) - 102\,a(n-8)
 \]
-for every $n>7$.
+for every $n>10$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $8$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=7+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once.
+integers vanish from the index corresponding to $n=10+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once. The
+rational weights are cleared by a common denominator first, so the whole computation is over
+the integers. The bound is exact: at $n=10$ the recurrence fails on the entry's own published terms, so no larger range holds.
 \end{proof}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $22$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $19$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
@@ -134,11 +140,11 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A224644.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A206232.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{kim} K.~H.~Kim, \emph{Boolean Matrix Theory and Applications}, Marcel Dekker,
-1982.
+\bibitem{comtet} L.~Comtet, \emph{Advanced Combinatorics}, Reidel, 1974. (Set partitions
+and falling factorials.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

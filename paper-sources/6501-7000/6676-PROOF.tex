@@ -12,17 +12,17 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A237504, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A236993, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A237504 counts arrays over $\{0,\dots,2\}$ subject to a condition on the order
+OEIS A236993 counts arrays over $\{0,\dots,2\}$ subject to a condition on the order
 statistics of every $2\times2$ subblock, and carries an empirical recurrence of order
 $12$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical.
-The condition is local to two consecutive rows, so the count is a walk count on $S=81$
+The condition is local to two consecutive rows, so the count is a walk count on $S=7200$
 states and is $C$-finite; whether the conjectured recurrence annihilates it is then settled by
 a finite exact computation, with the Cayley--Hamilton theorem bounding the work.
 \end{abstract}
@@ -31,30 +31,29 @@ a finite exact computation, with the Cayley--Hamilton theorem bounding the work.
 
 \section{The conjecture}
 
-OEIS A237504 is ``Number of (n+1)X(1+1) 0..2 arrays with the maximum plus the upper median minus the minimum of every 2X2 subblock differing from its horizontal and vertical neighbors by exactly one.''. It has offset $1$ and begins
+OEIS A236993 is ``Number of (n+1)X(4+1) 0..2 arrays with the maximum plus the lower median minus the upper median minus the minimum of every 2X2 subblock differing from its horizontal and vertical neighbors by exactly one.''. It has offset $1$ and begins
 \[
-81, 328, 1342, 5622, 23545, 97700, 406008, 1690160,\ \dots
+7200, 104976, 1513728, 23825664, 363916800, 5454273024, 80675315712, 1304215105536,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 208*a(n-4) +1448*a(n-6) +2500*a(n-8) +528*a(n-10) -624*a(n-12)
+Empirical: a(n) = 158112*a(n-4) -7941224448*a(n-8) +124128835928064*a(n-12)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 10:14:16, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 09:43:58, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The $2\times2$ subblocks of an $(n+1)\times2$ array form an
-$n\times1$ grid, and each carries the value $\sigma=-a+c+d$, where $a\le b\le c\le d$ are its four entries sorted --- its minimum, lower median, upper median and maximum. The entry asks that the values of
+The $2\times2$ subblocks of an $(n+1)\times5$ array form an
+$n\times4$ grid, and each carries the value $\sigma=-a+b-c+d$, where $a\le b\le c\le d$ are its four entries sorted --- its minimum, lower median, upper median and maximum. The entry asks that the values of
 subblocks that are neighbours --- horizontally or vertically --- differ by exactly $1$.
 That is sharper than merely differing, and it is a condition on a pair of adjacent subblocks,
 so it is local to the grid.
 
-A single subblock has no neighbour of either kind, so at $n=1$ the condition is vacuous and
-$a(1)$ must be the number of $2\times2$ arrays over $\{0,\dots,2\}$, namely
-$3^{4}=81$. The entry's first term is $81$.
-That is the cheapest check that the subblock grid has been read with the right shape, and it
-is the first thing the model was made to reproduce.
+At $n=1$ the array has two rows, so its subblock grid is a single row of $4$ subblocks with
+no vertical neighbours; the condition there is exactly that consecutive values along that row
+differ by $1$. The entry's first term $7200$ counts those, and the model was made to
+reproduce it along with every later term.
 
 \section{The count is a walk count}
 
@@ -67,7 +66,7 @@ $n-1$ steps, so
 \[
 a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,\qquad\iota=\tau=(1,\dots,1)^{\!\top},
 \]
-over the $S=81$ pairs whose own subblock row already satisfies the condition along itself.
+over the $S=7200$ pairs whose own subblock row already satisfies the condition along itself.
 The alignment of the walk index with the entry's own $n$ was checked against its published
 terms rather than assumed. In particular $a$ is $C$-finite.
 
@@ -91,7 +90,7 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;208\,a(n-4) + 1448\,a(n-6) + 2500\,a(n-8) + 528\,a(n-10) - 624\,a(n-12)
+a(n)\;=\;158112\,a(n-4) - 7941224448\,a(n-8) + 124128835928064\,a(n-12)
 \]
 for every $n>12$.
 \end{theorem}
@@ -107,7 +106,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $21$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $14$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
@@ -119,7 +118,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A237504.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A236993.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{david} H.~A.~David and H.~N.~Nagaraja, \emph{Order Statistics}, 3rd ed., Wiley,

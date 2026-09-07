@@ -12,39 +12,39 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A231068, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A230985, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{4 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A231068 counts the black-square subarrays of arrays of width $5$ over $\{0,1\}$ in which
+OEIS A230985 counts the white-square subarrays of arrays of width $5$ over $\{0,1\}$ in which
 no cell matches a strict majority of its diagonal neighbours. The entry carries an empirical recurrence of order $18$ contributed by
 R.~H.~Hardin. It is true, and it is decidable rather than empirical. A diagonal step changes
 both coordinates by one and so never changes the colour of a cell, which makes the two colours
 of the chessboard independent of one another; the count is then a walk over the cells of one
-colour, on $S=67$ states.
+colour, on $S=69$ states.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 05B20, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A231068 is ``Number of black square subarrays of (n+1)X(4+1) binary arrays with no element equal to a strict majority of its diagonal and antidiagonal neighbors, with upper left element zero.''. It has offset $1$ and begins
+OEIS A230985 is ``Number of white square subarrays of (n+1)X(4+1) binary arrays with no element equal to a strict majority of its diagonal and antidiagonal neighbors, with upper left element zero.''. It has offset $1$ and begins
 \[
-3, 11, 24, 89, 191, 748, 1573, 6259,\ \dots
+3, 5, 24, 47, 191, 396, 1573, 3317,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
 Empirical: a(n) = 14*a(n-2) -61*a(n-4) +148*a(n-6) -289*a(n-8) +325*a(n-10) -227*a(n-12) +95*a(n-14) -28*a(n-16) +4*a(n-18)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 06:14:35, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 06:09:41, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-Colour the cells of the array like a chessboard: $(i,j)$ is black when $i+j$ is odd. The
+Colour the cells of the array like a chessboard: $(i,j)$ is white when $i+j$ is even. The
 condition is stated in terms of the DIAGONAL and ANTIDIAGONAL neighbours of a cell, that is the
 four offsets
 \[
@@ -57,29 +57,29 @@ condition is that no cell equals a strict majority of its neighbours:
 \]
 Strict means more than half, so a tie is allowed and a cell with no neighbours is under no condition.
 
-The entry adds that the first cell of the subarray in reading order, the cell $(0,1)$ of the array, is $0$.
+The entry adds that the first cell of the subarray in reading order, the cell $(0,0)$ of the array, is $0$.
 
 \begin{lemma}\label{lem:split}
 Each of the four offsets changes $i$ and $j$ each by one, so it changes $i+j$ by $0$ or $\pm2$
-and never changes its parity. Every neighbour of a black cell is therefore black. The condition
-above splits into two systems that share no cell: one on the black cells and one on the white
+and never changes its parity. Every neighbour of a white cell is therefore white. The condition
+above splits into two systems that share no cell: one on the white cells and one on the black
 cells.
 \end{lemma}
 
-So what the entry counts is the assignments of values to the black cells alone that satisfy the
-black system; the white cells never enter. That this is the entry's own reading, and not
-merely a convenient one, is settled by its ``upper left element zero'': for a black subarray the
-first cell in reading order is the cell $(0,1)$ of the array, and it is that cell the
+So what the entry counts is the assignments of values to the white cells alone that satisfy the
+white system; the black cells never enter. That this is the entry's own reading, and not
+merely a convenient one, is settled by its ``upper left element zero'': for a white subarray the
+first cell in reading order is the cell $(0,0)$ of the array, and it is that cell the
 clause fixes, as the published terms confirm and as Section~5 records.
 
 \section{A walk on one colour}
 
-Take the array one row at a time. In a row of even index the black cells sit at every other
-column starting from column $1$, and in a row of odd index they sit at the columns in
+Take the array one row at a time. In a row of even index the white cells sit at every other
+column starting from column $0$, and in a row of odd index they sit at the columns in
 between; the two shapes alternate, so a state must record which of them the next row has.
 
-All four offsets move exactly one row, so the neighbours of the black cells of a row are the
-black cells of the rows immediately above and below it. A row's conditions are therefore settled
+All four offsets move exactly one row, so the neighbours of the white cells of a row are the
+white cells of the rows immediately above and below it. A row's conditions are therefore settled
 by three consecutive rows, and the state is the last two of them together with the parity of the
 next.
 
@@ -88,7 +88,7 @@ condition looks one row DOWN as well as up, the last row of a finished array has
 when the walk stops, so the end vector is not all ones: a state is accepted exactly when its
 last row passes with nothing below it. Thus
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=67.
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=69.
 \]
 The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
 published terms rather than assumed. In particular $a$ is $C$-finite.
@@ -115,13 +115,13 @@ pins the threshold exactly.
 \[
 a(n)\;=\;14\,a(n-2) - 61\,a(n-4) + 148\,a(n-6) - 289\,a(n-8) + 325\,a(n-10) - 227\,a(n-12) + 95\,a(n-14) - 28\,a(n-16) + 4\,a(n-18)
 \]
-for every $n>17$.
+for every $n>18$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $18$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=17+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=18+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -133,7 +133,7 @@ First, the model reproduces all $26$ terms the entry publishes, exactly, in inte
 arithmetic.
 
 Second, the count was recomputed for the smallest arrays straight from the definition: the cells
-of the black colour were listed from $i+j$ directly, every assignment of values to them
+of the white colour were listed from $i+j$ directly, every assignment of values to them
 enumerated, and each tested by the entry's own words. No rows, no window, no state and no end
 vector are involved in that computation, and the published terms came back.
 
@@ -145,7 +145,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A231068.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A230985.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge

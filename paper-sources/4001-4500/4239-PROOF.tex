@@ -12,138 +12,117 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A304061, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A259641, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{31 August 2026}
+\date{7 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A304061 counts $4$-column arrays over $\{0,\dots,1\}$ in which every entry has,
-among the eight king-move neighbours, a number $different from$ itself lying in $\{2,3,4,5\}$, and it carries an empirical
-recurrence of order $42$ contributed by R.~H.~Hardin. It is true. The neighbourhood
-reaches one row up and one row down, so the condition on a row involves three consecutive
-rows and a window of two rows is a sufficient state; the array is then a walk in a digraph
-on $S=256$ vertices. Unlike a plain walk count the boundary rows matter here --- the first
-row has nothing above it and the last nothing below --- so the count is
-$\mathbf{s}^{\!\top}P^{\,n-2}\mathbf{e}$ for genuine start and end vectors rather than
-all-ones. The conjectured recurrence is then annihilated exactly, in integer arithmetic.
+OEIS A259641 counts $(n+2)\times9$ arrays over $\{0,\dots,1\}$ subject to a condition imposed on
+every $3\times3$ subblock, and it carries an empirical recurrence of order $42$
+contributed by R.~H.~Hardin. It is true, and it is not an empirical matter. A $3\times3$
+subblock spans three consecutive rows, so the state of a transfer matrix is a PAIR of
+consecutive rows and appending one more row is a step; an array is then a walk, and
+$a(n)$ is a walk count on $S=262144$ vertices. Such a sequence is $C$-finite, so whether a given
+recurrence annihilates it is decided by a finite exact computation, with the Cayley--Hamilton
+theorem bounding the work.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B50, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
-\section{The sequence and the conjecture}
+\section{The conjecture}
 
-OEIS A304061 is ``Number of nX4 0..1 arrays with every element unequal to 2, 3, 4 or 5 king-move adjacent elements, with upper left element zero.''. It has offset
-$1$ and begins
+OEIS A259641 is ``Number of (n+2)X(7+2) 0..1 arrays with each 3X3 subblock having clockwise perimeter pattern 00000000 or 00000001.''. It has offset $1$ and begins
 \[
-0, 18, 69, 661, 5580, 48148, 418382, 3621421,\ \dots
+940, 4499, 30957, 133078, 670088, 3919925, 19848497, 100074919,\ \dots
 \]
-The entry carries the following comment:
-\begin{quote}\small
-Empirical: a(n) = 6*a(n-1) +37*a(n-2) -38*a(n-3) -707*a(n-4) -616*a(n-5) +4092*a(n-6) +8653*a(n-7) -5001*a(n-8) -30067*a(n-9) -22368*a(n-10) +31730*a(n-11) +68640*a(n-12) +22165*a(n-13) -61965*a(n-14) -109903*a(n-15) -78019*a(n-16) +97476*a(n-17) +294883*a(n-18) +190465*a(n-19) -201904*a(n-20) -445993*a(n-21) -244956*a(n-22) +202931*a(n-23) +428079*a(n-24) +228808*a(n-25) -144476*a(n-26) -278161*a(n-27) -113821*a(n-28) +63344*a(n-29) +93553*a(n-30) +34356*a(n-31) -17292*a(n-32) -24767*a(n-33) -6317*a(n-34) +5347*a(n-35) +2607*a(n-36) -166*a(n-37) -70*a(n-38) -46*a(n-39) -42*a(n-40) +2*a(n-42) for n>43
+The entry states, as a conjecture contributed by its author and never marked settled:
+\begin{quote}
+Empirical: a(n) = a(n-1) +3*a(n-2) +112*a(n-3) +101*a(n-4) -58*a(n-5) -3612*a(n-6) -5370*a(n-7) -1040*a(n-8) +60962*a(n-9) +85530*a(n-10) +30213*a(n-11) -547937*a(n-12) -706102*a(n-13) -360232*a(n-14) +3054976*a(n-15) +3266750*a(n-16) +2000118*a(n-17) -11214142*a(n-18) -9189754*a(n-19) -5342978*a(n-20) +29875060*a(n-21) +16617176*a(n-22) +7719994*a(n-23) -60637752*a(n-24) -23269512*a(n-25) -8579728*a(n-26) +86059704*a(n-27) +26401696*a(n-28) +13602048*a(n-29) -78987136*a(n-30) -15397504*a(n-31) -14402976*a(n-32) +45323648*a(n-33) +2566528*a(n-34) +3310848*a(n-35) -17071872*a(n-36) -67584*a(n-37) +1142784*a(n-38) +4982784*a(n-39) +399360*a(n-40) -516096*a(n-42) for n>44
 \end{quote}
-As of the ``Last modified'' line on the live entry (May 05 2018 15:27:36, revision
-4) the statement is still recorded as empirical, and nothing on the entry
-records it as settled either way.
+As of the ``Last modified'' line on the live entry (Jun 02 2025 11:53:34, revision 6) this is still
+recorded as empirical, and nothing on the entry records it as proved.
 
-Written out, the claim is
-\begin{equation}\label{eq:conj}
-a(n)\;=\;6\,a(n-1) + 37\,a(n-2) - 38\,a(n-3) - 707\,a(n-4) - 616\,a(n-5) + 4092\,a(n-6) + 8653\,a(n-7) - 5001\,a(n-8) - 30067\,a(n-9) - 22368\,a(n-10) + 31730\,a(n-11) + 68640\,a(n-12) + 22165\,a(n-13) - 61965\,a(n-14) - 109903\,a(n-15) - 78019\,a(n-16) + 97476\,a(n-17) + 294883\,a(n-18) + 190465\,a(n-19) - 201904\,a(n-20) - 445993\,a(n-21) - 244956\,a(n-22) + 202931\,a(n-23) + 428079\,a(n-24) + 228808\,a(n-25) - 144476\,a(n-26) - 278161\,a(n-27) - 113821\,a(n-28) + 63344\,a(n-29) + 93553\,a(n-30) + 34356\,a(n-31) - 17292\,a(n-32) - 24767\,a(n-33) - 6317\,a(n-34) + 5347\,a(n-35) + 2607\,a(n-36) - 166\,a(n-37) - 70\,a(n-38) - 46\,a(n-39) - 42\,a(n-40) + 2\,a(n-42)
-\end{equation}
-for all $n>43$.
+\section{Three consecutive lines}
 
-\section{The array as a walk, with boundary}
+Write an admissible array as a sequence of rows $u_1,u_2,\dots$, each an element of
+$\{0,\dots,1\}^{9}$. A $3\times3$ subblock occupies three consecutive rows and
+three consecutive columns, so with $r,s,t$ three consecutive rows the blocks it
+contributes are
+\[
+g=\begin{pmatrix}r_j&r_{j+1}&r_{j+2}\\ s_j&s_{j+1}&s_{j+2}\\ t_j&t_{j+1}&t_{j+2}\end{pmatrix}
+\]
+for each admissible index, and the entry's condition is the requirement that
+\[
+\text{the clockwise perimeter word of }g\text{ is a rotation of one of }\{00000000,\ 00000001\}
+\]
+holds for every such $g$. This involves $r$, $s$ and $t$ only: it is a condition on
+three consecutive rows and on nothing else.
 
-For a cell of the array let its \emph{score} be the number of the eight king-move neighbours that lie inside
-the array and carry a value $different from$ the cell's own. The entry's condition is that every cell
-has score in $\{2,3,4,5\}$. The entry also fixes the top-left entry to be $0$; that is a condition on the first row alone, so it restricts the start vector and nothing else.
+Take as vertices of a digraph $G$ the ordered PAIRS $(r,s)$ of rows, of which there are
+$S=(1+1)^{2\cdot9}=262144$, and put an edge $(r,s)\to(s,t)$ exactly when the condition
+holds for the triple $(r,s,t)$ at every admissible index. An array with $L$ rows is then a
+walk of length $L-2$ in $G$: its first two rows name the starting vertex and each further
+row is one step. Hence, with $M$ the adjacency matrix of $G$,
+\[
+a(n)\;=\;\,\mathbf{1}^{\!\top}M^{\,n-1+1}\mathbf{1},
+\]
+the exponent being fixed by the entry's own shape and checked against its published terms.
+In particular $a$ is $C$-finite.
 
-A cell's neighbourhood reaches at most one row up and one row down, so the scores of the
-cells of a row $s$ are determined by $s$ together with the row above and the row below.
-Take as state an ordered pair $(r,s)$ of rows, so $S=256$, and set
-\begin{itemize}
-\item $\mathbf{s}(r,s)=1$ when every cell of $r$ has score in $\{2,3,4,5\}$ \emph{with no row
-above $r$} and $r_1=0$, and $0$ otherwise;
-\item an edge $(r,s)\to(s,t)$ when every cell of $s$ has score in $\{2,3,4,5\}$ computed from
-$r$, $s$ and $t$;
-\item $\mathbf{e}(r,s)=1$ when every cell of $s$ has score in $\{2,3,4,5\}$ \emph{with no row
-below $s$}, and $0$ otherwise.
-\end{itemize}
-Let $P$ be the adjacency matrix of that edge relation.
-
-\begin{lemma}\label{lem:walk}
-$a(n)=\mathbf{s}^{\!\top}P^{\,n-2}\mathbf{e}$ for every $n\ge2$.
-\end{lemma}
-
-\begin{proof}
-An array with $n$ rows is a sequence $r^{(1)},\dots,r^{(n)}$ of rows, and it is counted
-exactly when every one of its $n$ rows has all scores in $\{2,3,4,5\}$. Read the sequence as the
-walk $\bigl(r^{(1)},r^{(2)}\bigr)\to\bigl(r^{(2)},r^{(3)}\bigr)\to\cdots\to
-\bigl(r^{(n-1)},r^{(n)}\bigr)$, of length $n-2$. The condition on the first row is
-checked by $\mathbf{s}$ at the initial state, because a first row has no row above it; the
-condition on row $i$ for $2\le i\le n-1$ is checked by the edge entering
-$\bigl(r^{(i)},r^{(i+1)}\bigr)$, which sees exactly $r^{(i-1)}$, $r^{(i)}$ and
-$r^{(i+1)}$; and the condition on the last row is checked by $\mathbf{e}$ at the final
-state. Each row's condition is therefore tested once and with the correct neighbours, and
-summing over all walks gives $\mathbf{s}^{\!\top}P^{\,n-2}\mathbf{e}$.
-\end{proof}
-
-\section{The criterion}
-
-Let $q(t)=t^{42}-\sum_i c_i t^{42-i}$ be the characteristic polynomial of
-\eqref{eq:conj} and $u_j=\mathbf{s}^{\!\top}P^{j}q(P)\mathbf{e}$.
+\section{The proof}
 
 \begin{lemma}\label{lem:crit}
-$a(n)-\sum_i c_i a(n-i)=u_{\,n-2-42}$ whenever $n-42\ge2$. So \eqref{eq:conj}
-holds for every $n>t$ exactly when $u_j=0$ for all $j>t-2-42$. Moreover $(u_j)$
-satisfies the monic linear recurrence given by the characteristic polynomial of $P$, of
-degree $S$, so $S$ consecutive zeros force every later one and the last nonzero $u_j$ pins
-$t$ down exactly.
+Let $q(t)=t^{42}-\sum_i c_it^{42-i}$ be the characteristic polynomial of the
+conjectured recurrence. Then the residual $a(n)-\sum_ic_ia(n-i)$ equals
+$\mathbf{1}^{\!\top}M^{\,j}q(M)\mathbf{1}$ for the corresponding walk index
+$j$, so the recurrence holds from some point on if and only if
+$\mathbf{1}^{\!\top}M^{j}q(M)\mathbf{1}=0$ for all large $j$; and by the
+Cayley--Hamilton theorem it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Substituting Lemma~\ref{lem:walk} and factoring $P^{\,n-2-42}$ out of
-$P^{n-2}-\sum_i c_i P^{n-i-2}$ gives the identity, and letting the exponent run gives the
-equivalence. For the last part, Cayley--Hamilton gives $\chi(P)=0$ for the characteristic
-polynomial $\chi$, so $\chi$ applied to the shift annihilates $(u_j)$; $\chi$ is monic of
-degree $S$, which propagates $S$ consecutive zeros forward.
+Factor $M^{j}$ out of $M^{j+42}-\sum_ic_iM^{j+42-i}$. For the bound, $M^{S}$
+is an integer combination of $I,M,\dots,M^{S-1}$, so the numbers
+$u_j=\mathbf{1}^{\!\top}M^{j}q(M)\mathbf{1}$ satisfy the monic linear recurrence given by
+the characteristic polynomial of $M$; $S$ consecutive zeros therefore force every later one,
+and the last nonzero $u_j$ pins the threshold exactly.
 \end{proof}
 
-\section{The computation}
-
 \begin{theorem}
-The recurrence \eqref{eq:conj} holds for every $n>43$. This is the statement of
-Section~1.
+\[
+a(n)\;=\;a(n-1) + 3\,a(n-2) + 112\,a(n-3) + 101\,a(n-4) - 58\,a(n-5) - 3612\,a(n-6) - 5370\,a(n-7) - 1040\,a(n-8) + 60962\,a(n-9) + 85530\,a(n-10) + 30213\,a(n-11) - 547937\,a(n-12) - 706102\,a(n-13) - 360232\,a(n-14) + 3054976\,a(n-15) + 3266750\,a(n-16) + 2000118\,a(n-17) - 11214142\,a(n-18) - 9189754\,a(n-19) - 5342978\,a(n-20) + 29875060\,a(n-21) + 16617176\,a(n-22) + 7719994\,a(n-23) - 60637752\,a(n-24) - 23269512\,a(n-25) - 8579728\,a(n-26) + 86059704\,a(n-27) + 26401696\,a(n-28) + 13602048\,a(n-29) - 78987136\,a(n-30) - 15397504\,a(n-31) - 14402976\,a(n-32) + 45323648\,a(n-33) + 2566528\,a(n-34) + 3310848\,a(n-35) - 17071872\,a(n-36) - 67584\,a(n-37) + 1142784\,a(n-38) + 4982784\,a(n-39) + 399360\,a(n-40) - 516096\,a(n-42)
+\]
+for every $n>44$.
 \end{theorem}
 
 \begin{proof}
-The vector $q(P)\mathbf{e}\in\mathbb{Z}^{S}$ was formed by $42$ matrix--vector
-products in exact integer arithmetic and the $u_j$ evaluated against $\mathbf{s}$ in turn.
-They vanish from the index corresponding to $n=43+1$ onwards, and the run was continued
-past $S$ consecutive zeros, which by Lemma~\ref{lem:crit} settles every larger index.
+The vector $w=q(M)\mathbf{1}$ was formed by $42$ matrix--vector products in exact
+integer arithmetic and $\mathbf{1}^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again
+exactly. Those integers vanish from the index corresponding to $n=44+1$ onwards, and the
+run was continued until the working vector was identically zero, which settles all larger $j$
+at once. By Lemma~\ref{lem:crit} the recurrence holds for every $n>44$.
 \end{proof}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the digraph, the start vector and the end vector were built directly from the
-entry's stated condition, the one-row count computed separately, and the resulting values
-compared against the entry's DATA at every one of the $20$ published indices; they
-agree exactly. This is the check that ties the model to the sequence, and it is a sharp one:
-getting the boundary rows wrong, or treating them as interior rows, changes the early terms
-immediately.
+First, the transfer model reproduces all $18$ terms the entry publishes, exactly, in
+integer arithmetic. This is what ties the model to the entry: the digraph is built by reading
+the entry's English, and a misreading gives different counts. That check did real work here. The phrase ``clockwise perimeter pattern'' does not mean that the eight boundary entries, read clockwise from the top left, equal the quoted word; it means the cyclic word they form is that word up to rotation. Read the first way the model returns counts far below the entry's own first term, and only the second reading reproduces the published values. It is the one used.
 
-Second, the recurrence \eqref{eq:conj} was evaluated on those published terms in exact
-integer arithmetic, with no matrices involved, and vanishes at every index the entry claims.
+Second, the conjectured recurrence was evaluated directly on the entry's own published terms,
+with no matrices involved, and holds wherever the proved range and the data overlap.
 
-Third, the vanishing test of Lemma~\ref{lem:crit} was carried past $S=256$ consecutive
-zeros rather than to a sampled prefix.
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+arithmetic on the whole vector rather than on a sampled prefix, so no rounding or sampling
+enters anywhere.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A304061.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A259641.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

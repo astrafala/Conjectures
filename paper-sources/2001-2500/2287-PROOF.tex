@@ -12,131 +12,135 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The conjectured generating function for OEIS A184138, proved}
+\title{The empirical recurrence for OEIS A202797, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{6 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A184138 counts arrays of a fixed width under a local condition, and carries a conjectured
-generating function --- and nothing else. It is true. The count is a walk count in a finite
-digraph on $S=32$ vertices, so its generating function is a rational function whose numerator
-and denominator have degrees bounded by $S$; the conjectured expression is another rational
-function of known degree; and two rational functions of bounded degree agree as soon as enough
-coefficients of their expansions do. Comparing $50$ coefficients in exact arithmetic
-therefore settles the conjecture, rather than testing it.
+OEIS A202797 counts arrays of width $3$ over $\{0,1\}$ in which every cell of a named value has a neighbour of that same value. The entry carries an
+empirical recurrence of order $8$ contributed by R.~H.~Hardin. It is true, and it is
+decidable rather than empirical: what a cell asks reaches one row above it and one row below, so the
+condition on a whole row is settled by $3$ consecutive rows and the count is a walk
+count on $S=73$ states.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A19, 68Q45.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B20, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A184138 is ``Number of n X 3 binary arrays with rows and columns in nondecreasing order.''. It has offset $1$ and begins
+OEIS A202797 is ``Number of n X 3 binary arrays with every one adjacent to another one horizontally or vertically.''. It has offset $1$ and begins
 \[
-4, 14, 45, 130, 336, 785,\ \dots
+4, 36, 250, 1718, 11988, 83518, 581518, 4049700,\ \dots
 \]
-The entry states, as a conjecture contributed by a reader and never marked settled:
+The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-G.f.: x*(4 - 18*x + 45*x\^{}2 - 62*x\^{}3 + 52*x\^{}4 - 27*x\^{}5 + 8*x\^{}6 - x\^{}7) / (1 - x)\^{}8.
+Empirical: a(n) = 7*a(n-1) -3*a(n-2) +19*a(n-3) -3*a(n-4) +25*a(n-5) +24*a(n-6) -22*a(n-7) -16*a(n-8).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Aug 13 2026 15:26:19, revision 14) this is still
-recorded as empirical, and nothing on the entry records it as proved. The entry carries no
-conjectured recurrence, which is why this generating function is the whole of what is open
-here.
+As of the ``Last modified'' line on the live entry (Jun 01 2018 14:18:24, revision 8) this is still
+recorded as empirical, and nothing on the entry records it as proved.
 
-\section{The count is a walk count}
+\section{What is being counted}
 
-Every condition the entry names is decided inside a bounded number of consecutive rows: it
-compares a cell with cells a bounded distance from it, and no comparison reaches further than
-that. So a strip of that many consecutive rows is a state of a finite automaton, an array is
-read off row by row, and appending one more row is one step, legal exactly when the row it
-completes satisfies every condition that becomes testable.
-
-Taking those strips as the vertices of a digraph $G$ with adjacency matrix $M$, and writing
-$\iota$ for the indicator of the states an array may begin in and $\tau$ for those it may end
-in,
+The arrays have $3$ columns and a growing number of rows, with entries in $\{0,1\}$. Fix the
+offsets the entry names,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n-1+1}\tau ,
+\Delta=\{\,(-1,0), (0,-1), (0,1), (1,0)\,\},
 \]
-and there are $S=32$ states. The digraph is built by reading the entry's own English, and the
-model reproduces all $35$ terms the entry publishes, exactly, in integer arithmetic --- a
-misreading of the condition gives a different digraph and different counts, so this ties the
-model to the entry and not merely to the arithmetic.
+and for a cell $(i,j)$ write
+\[
+S(i,j)=\{\,(i+\delta_1,\,j+\delta_2) : (\delta_1,\delta_2)\in\Delta\,\}\cap
+\text{(the cells of the array)}
+\]
+for the neighbours it actually has. Only offsets landing inside the array count, so a cell on
+the border simply has fewer neighbours.
 
-The family this entry belongs to is read by one model, described by its author as: ``Order conditions along rows, columns, diagonals and antidiagonals.''
+The condition is that every cell equal to $1$ has a neighbour equal to $1$:
+\[
+x(i,j)=1\ \Longrightarrow\ \exists\,(a,b)\in S(i,j)\ \ x(a,b)=1 .
+\]
+Cells of any other value are under no condition.
 
+\section{A window of 3 rows}
 
-\section{Its generating function is rational, with bounded degree}
+The offsets reach one row up and one row down, so everything the condition asks of one row is
+decided by that row together with one row above it and one row below --- a window of
+$3$ consecutive rows, and nothing wider. Take the array one row at a time and
+let the state be the last 2 of them, with a distinguished start standing for the array before its
+first row, so that a walk of $n$ steps is an array of $n$ rows.
 
-\begin{lemma}\label{lem:rat}
-$A(x)=\sum_{n\ge1}a(n)x^n=N_1(x)/D_1(x)$ where $D_1(x)=\det(I-xM)$ has degree at most
-$S$ and $D_1(0)=1$, and $\deg N_1<S+1$.
+Appending a row completes exactly one window, and the row it settles is the one just above the bottom of that window; a step is
+allowed when that row passes. Each row of the finished array is therefore tested exactly once.
+
+When the array stops, the last row of it has never been tested, because the
+conditions reach one row below. So the end vector is NOT all ones: a state is accepted exactly when
+those rows pass with nothing below them, which is decided by running the same test on the window
+with absent rows appended --- the same rule that governs a cell at the bottom edge in
+Section 2.
+Thus
+\[
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=73,
+\]
+for the transfer matrix $M$ on those $S$ states. The walk index $j$ and the entry's own $n$
+differ by a constant, read off by matching the published terms rather than assumed. In
+particular $a$ is $C$-finite.
+
+\section{The proof}
+
+\begin{lemma}\label{lem:crit}
+Let $q(t)=t^{8}-\sum_i c_it^{8-i}$ be the characteristic polynomial of the
+conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
+$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
+holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
+and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Summing the geometric series of matrices, $\sum_{j\ge0}M^jx^j=(I-xM)^{-1}$ as a formal
-power series, so $A(x)$ is $x^{c}\,\iota^{\!\top}(I-xM)^{-1}\tau$ for the constant $c$
-relating the walk index to the entry's own $n$. By Cramer's rule every entry of
-$(I-xM)^{-1}$ is a polynomial of degree less than $S$ divided by $\det(I-xM)$, and
-$\det(I-xM)$ is a polynomial of degree at most $S$ with constant term $\det I=1$.
+Factor $M^{j}$ out of $M^{j+8}-\sum_ic_iM^{j+8-i}$. For the bound, $M^{S}$
+is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
+$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
+polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
+pins the threshold exactly.
 \end{proof}
 
 \begin{theorem}
-The conjectured generating function is $A(x)$.
+\[
+a(n)\;=\;7\,a(n-1) - 3\,a(n-2) + 19\,a(n-3) - 3\,a(n-4) + 25\,a(n-5) + 24\,a(n-6) - 22\,a(n-7) - 16\,a(n-8)
+\]
+for every $n>7$.
 \end{theorem}
 
 \begin{proof}
-Write the conjecture as $N_2/D_2$ with $\deg N_2=8$ and $\deg D_2=8$; its expansion as a
-power series exists because $D_2(0)\neq0$. Put
-\[
-R(x)\;=\;N_1(x)D_2(x)-N_2(x)D_1(x),
-\]
-a polynomial of degree at most $40$ by Lemma~\ref{lem:rat}. The difference
-$A-N_2/D_2$ equals $R/(D_1D_2)$, and $D_1(0)D_2(0)\neq0$, so if the two power series agree in
-every coefficient up to $x^{40}$ then $R$ has a zero of order greater than its own
-degree at the origin, which forces $R\equiv0$ and hence $A=N_2/D_2$ identically.
-
-The coefficients of $A$ were produced from the model by repeated matrix--vector products in
-exact integer arithmetic, those of $N_2/D_2$ by exact rational long division, and $50$
-of them --- more than the $40+1$ the argument requires --- agree.
+The vector $w=q(M)\tau$ was formed by $8$ matrix--vector products in exact integer
+arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
+integers vanish from the index corresponding to $n=7+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
-
-\section{A recurrence the entry does not state}
-
-The denominator of a rational generating function is a linear recurrence written backwards, so
-the theorem above yields one for free. With $D_2(x)=1-\sum_{i\ge1}c_ix^i$ after normalising
-$D_2(0)=1$, comparing coefficients of $x^n$ in $A(x)D_2(x)=N_2(x)$ gives
-\[
-a(n)\;=\;\sum_{i\ge1}c_i\,a(n-i)\qquad\text{for every }n>8,
-\]
-a constant-coefficient linear recurrence of order $8$, valid past the degree of the
-numerator. Its coefficients are the integers $c_1,\dots,c_{8}$ read off $D_2$, the first few being $8,\ -28,\ 56,\ -70,\ 56,\ -28$. The entry records no recurrence, so this is not a restatement of anything
-already there.
 
 \section{Verification}
 
-Three checks, each independent of the algebra above.
+Four checks, each independent of the algebra above.
 
-First, the model reproduces every one of the $35$ published terms, with the index shift
-read off the entry's offset rather than fitted.
+First, the model reproduces all $20$ terms the entry publishes, exactly, in integer
+arithmetic.
 
-Second, the arrays themselves were enumerated for the smallest shapes the entry counts,
-directly from its English and with no automaton, and the counts agree. Writing that check is
-where the risk actually sits: an earlier version of it dropped a clause from the entry's name
-in three cases and disagreed with the model, and in all three the check was wrong and the model
-was right.
+Second, the count was recomputed for the smallest arrays straight from the definition: every
+array of width $3$ over $\{0,1\}$ with a few rows was written out cell by cell and each cell
+tested against the neighbours it has. No window, no state and no end vector are involved in that
+computation, and the published terms came back.
 
-Third, the coefficient comparison was carried out over the whole range required by the degree
-bound rather than on a prefix, in exact arithmetic throughout.
+Third, the conjectured recurrence was evaluated directly on the published terms, with no
+matrices involved, and holds wherever the proved range and the data overlap.
+
+Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A184138.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A202797.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{flajolet} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
-University Press, 2009.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

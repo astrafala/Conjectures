@@ -12,19 +12,19 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A221266, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A221223, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A221266 counts the distinct OCCUPANCY arrays obtained when every cell of an $n\times2$ grid
+OEIS A221223 counts the distinct OCCUPANCY arrays obtained when every cell of an $n\times2$ grid
 holds one token and each token moves to a neighbouring cell, and carries an empirical
 recurrence of order $3$ contributed by R.~H.~Hardin. It is true, and it is decidable
 rather than empirical. What is counted is the size of an IMAGE --- two different assignments of
 moves with the same occupancy count once --- so it is not a walk count in the obvious graph;
-determinising the machine that emits the occupancy row by row turns it into one, on $S=176$
+determinising the machine that emits the occupancy row by row turns it into one, on $S=281$
 states, after which the conjectured recurrence is settled by a finite exact computation.
 \end{abstract}
 
@@ -32,15 +32,15 @@ states, after which the conjectured recurrence is settled by a finite exact comp
 
 \section{The conjecture}
 
-OEIS A221266 is ``Number of n X 2 arrays of occupancy after each element stays put or moves to some king-move neighbor, with no occupancy greater than 2.''. It has offset $1$ and begins
+OEIS A221223 is ``Number of n X 2 arrays of occupancy after each element stays put or moves to some king-move neighbor.''. It has offset $1$ and begins
 \[
-3, 19, 141, 1073, 8203, 62771, 480437, 3677345,\ \dots
+3, 35, 400, 4525, 51025, 574800, 6473175, 72891475,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 10*a(n-1) - 19*a(n-2) + 8*a(n-3).
+Empirical: a(n) = 15*a(n-1) - 43*a(n-2) + 10*a(n-3).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Aug 04 2018 14:33:03, revision 10) this is still
+As of the ``Last modified'' line on the live entry (Aug 04 2018 10:35:06, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
@@ -51,7 +51,7 @@ Every cell of an $n\times2$ grid holds one token. Each token moves by one of the
 \]
 a move being available only when it lands inside the grid. The offset $(0,0)$ is among them: the entry lets a token stay put. The OCCUPANCY array
 records, for each cell, how many tokens land on it; the entry counts how many different
-occupancy arrays occur as the assignment of moves runs over all its possibilities. The entry also asks that no occupancy exceed $2$.
+occupancy arrays occur as the assignment of moves runs over all its possibilities.
 
 That is the size of an IMAGE, and it is the whole difficulty: two assignments with the same
 occupancy must be counted once, and a walk count over the assignments would count them twice.
@@ -80,7 +80,7 @@ occupancy row it admits,
 \[
 a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,\qquad \iota=e_{D_0},\quad \tau=f .
 \]
-There are $S=176$ reachable sets. In particular $a$ is $C$-finite.
+There are $S=281$ reachable sets. In particular $a$ is $C$-finite.
 
 \section{The proof}
 
@@ -102,7 +102,7 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;10\,a(n-1) - 19\,a(n-2) + 8\,a(n-3)
+a(n)\;=\;15\,a(n-1) - 43\,a(n-2) + 10\,a(n-3)
 \]
 for every $n>3$.
 \end{theorem}
@@ -118,7 +118,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $20$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $17$ terms the entry publishes, exactly, in integer
 arithmetic. The entry's first term is $3$, and it is a sharp test of the boundary: a
 one-row grid offers only the moves that stay within one row, so a neighbour set with no
 horizontal offset gives no legal assignment at all and the count is zero, which is what the
@@ -132,7 +132,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A221266.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A221223.
 \bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata
 Theory, Languages, and Computation}, 3rd ed., Addison--Wesley, 2006. (The subset
 construction, Section 2.3.)

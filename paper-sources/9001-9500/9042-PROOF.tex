@@ -12,14 +12,14 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A207142, derived from the entry's generating function}
+\title{The empirical recurrence for OEIS A202443, derived from the entry's generating function}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A207142 carries an empirical recurrence of order $3$. The entry separately records a
+OEIS A202443 carries an empirical recurrence of order $7$. The entry separately records a
 generating function, not as a conjecture but as a statement of fact, and the recurrence is a
 consequence of it: multiplying the generating function by the polynomial the recurrence
 supplies gives a POLYNOMIAL, and the recurrence then holds at every index past that
@@ -33,30 +33,30 @@ checked here against every published term.
 
 \section{The two statements}
 
-OEIS A207142 is ``Number of (n+1) X 2 0..2 arrays with every 2 X 2 subblock having nonzero determinant and commuting with every horizontal or vertical neighbor.''. It has offset $1$ and begins
+OEIS A202443 is ``Number of (n+2) X 6 binary arrays avoiding patterns 001 and 110 in rows, columns and nw-to-se diagonals.''. It has offset $1$ and begins
 \[
-50, 30, 80, 62, 159, 122, 315, 242,\ \dots
+338, 574, 1102, 1890, 3122, 4822, 7238, 10394,\ \dots
 \]
 The entry states, as a conjecture and never marked settled:
 \begin{quote}
-Empirical: a(n) = a(n-1) + 2*a(n-2) - 2*a(n-3) for n>8.
+Empirical: a(n) = 3*a(n-1) -a(n-2) -5*a(n-3) +5*a(n-4) +a(n-5) -3*a(n-6) +a(n-7) for n>8.
 \end{quote}
 and, separately and NOT as a conjecture:
 \begin{quote}
-G.f.: x*(50 - 20*x - 50*x\^{}2 + 22*x\^{}3 - 3*x\^{}4 - x\^{}5 - x\^{}6 + x\^{}7) / ((1 - x)*(1 - 2*x\^{}2)).
+G.f.: 2*x*(169 - 220*x - 141*x\^{}2 + 424*x\^{}3 - 133*x\^{}4 - 176*x\^{}5 + 137*x\^{}6 - 28*x\^{}7) / ((1 - x)\^{}5*(1 + x)\^{}2).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jun 19 2018 12:25:11, revision 11) the first is still
+As of the ``Last modified'' line on the live entry (May 29 2018 08:29:06, revision 8) the first is still
 recorded as empirical. This note derives it from the second.
 
 \section{A rational generating function decides every linear recurrence}
 
 Write
 \[
-G(x)\;=\;\sum_{n}a(n)\,x^{n}\;=\;\frac{x^{8} - x^{7} - x^{6} - 3 x^{5} + 22 x^{4} - 50 x^{3} - 20 x^{2} + 50 x}{2 x^{3} - 2 x^{2} - x + 1},
+G(x)\;=\;\sum_{n}a(n)\,x^{n}\;=\;\frac{56 x^{8} - 274 x^{7} + 352 x^{6} + 266 x^{5} - 848 x^{4} + 282 x^{3} + 440 x^{2} - 338 x}{x^{7} - 3 x^{6} + x^{5} + 5 x^{4} - 5 x^{3} - x^{2} + 3 x - 1},
 \]
 the entry's own generating function, and let
 \[
-D(x)\;=\;1-\sum_i c_i x^{i}\;=\;2 x^{3} - 2 x^{2} - x + 1
+D(x)\;=\;1-\sum_i c_i x^{i}\;=\;- x^{7} + 3 x^{6} - x^{5} - 5 x^{4} + 5 x^{3} + x^{2} - 3 x + 1
 \]
 be the polynomial attached to the conjectured recurrence.
 
@@ -73,7 +73,7 @@ negative index being zero.
 
 \begin{theorem}
 \[
-a(n)\;=\;a(n-1) + 2\,a(n-2) - 2\,a(n-3)
+a(n)\;=\;3\,a(n-1) - a(n-2) - 5\,a(n-3) + 5\,a(n-4) + a(n-5) - 3\,a(n-6) + a(n-7)
 \]
 for every $n>8$.
 \end{theorem}
@@ -81,7 +81,7 @@ for every $n>8$.
 \begin{proof}
 In exact arithmetic,
 \[
-D(x)\,G(x)\;=\;x^{8} - x^{7} - x^{6} - 3 x^{5} + 22 x^{4} - 50 x^{3} - 20 x^{2} + 50 x,
+D(x)\,G(x)\;=\;- 56 x^{8} + 274 x^{7} - 352 x^{6} - 266 x^{5} + 848 x^{4} - 282 x^{3} - 440 x^{2} + 338 x,
 \]
 a POLYNOMIAL of degree $8$ --- the denominator of $G$ divides $D(x)$ times its numerator,
 which is precisely the condition for the conjectured recurrence to be implied by the
@@ -94,12 +94,12 @@ $n>8$. The bound is exact: at $n=8$ the recurrence fails on the entry's own publ
 
 Cancelling common factors, $G$ has reduced denominator
 \[
-2 x^{3} - 2 x^{2} - x + 1,
+x^{7} - 3 x^{6} + x^{5} + 5 x^{4} - 5 x^{3} - x^{2} + 3 x - 1,
 \]
-of degree $3$, and that degree is the order of the SHORTEST linear recurrence with
+of degree $7$, and that degree is the order of the SHORTEST linear recurrence with
 constant coefficients the sequence obeys: any shorter one would give a polynomial multiple of
 $G$ with a smaller denominator, contradicting the cancellation. The conjectured recurrence has
-order $3$.
+order $7$.
 
 So the conjecture is the minimal recurrence.
 
@@ -111,11 +111,7 @@ generating function involved at all. Doing that:
 \begin{center}
 \begin{tabular}{cc}
 index & residual \\ \hline
-$n=4$ & $22$ \\
-$n=5$ & $-3$ \\
-$n=6$ & $-1$ \\
-$n=7$ & $-1$ \\
-$n=8$ & $1$ \\
+$n=8$ & $-56$ \\
 $n=9$ & $0$ \\
 $n=10$ & $0$ \\
 $n=11$ & $0$ \\
@@ -133,7 +129,7 @@ no amount of checking terms could establish on its own.
 Three checks.
 
 First, the generating function was expanded as a power series in exact rational arithmetic and
-compared against all $37$ terms the entry publishes: it reproduces every one. This is
+compared against all $33$ terms the entry publishes: it reproduces every one. This is
 what ties the recorded generating function to the sequence the recurrence is about.
 
 Second, the polynomial division above was carried out symbolically, not numerically, so the
@@ -152,7 +148,7 @@ entry already contains.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A207142.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A202443.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Rational generating functions, Section 4.1.)
 \bibitem{kp} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011.

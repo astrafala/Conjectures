@@ -12,110 +12,152 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{Recovering the unwritten recurrences of the table OEIS A232038}
+\title{The empirical recurrence for OEIS A218062, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A232038 is a two-dimensional table $T(n,k)$ whose empirical recurrences are, for several of
-its lines, given only as an ORDER --- ``k=3: [order 20]'' and the like --- with the
-coefficients in a linked file rather than in the entry. Those conjectures can still be settled,
-and the recurrences recovered. A line of the table is a fixed-width or fixed-height array
-count, hence a walk count on finitely many vertices, hence satisfies some monic recurrence of
-order at most that number; Berlekamp--Massey on twice as many exact terms returns the MINIMAL
-one. Where its order equals the order the entry states --- and where the same holds after the
-first few terms are dropped --- any recurrence of that order the line satisfies has a
-characteristic polynomial that is a multiple of the minimal one and of equal degree, hence is
-that polynomial. This note settles column 3.
+OEIS A218062 counts the distinct arrays obtained by applying a fixed local operation to every cell
+of an array over a bounded alphabet, and carries an empirical recurrence of order $20$
+contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical. What is
+counted is the IMAGE of a map, not its domain, so it is not a walk count in the obvious graph;
+determinising the machine that emits the derived array row by row turns it into one, on
+$S=535$ states, after which the conjectured recurrence is settled by a finite exact
+computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 68Q45, 15B36.\normalsize
 
-\section{The table and the unwritten conjectures}
+\section{The conjecture}
 
-OEIS A232038 is ``T(n,k)=Number of (n+1)X(k+1) 0..1 arrays with every element equal to some horizontal, vertical or antidiagonal neighbor, with top left element zero.''. It is read by antidiagonals and begins
+OEIS A218062 is ``Number of nX6 arrays of the minimum value of corresponding elements and their horizontal or antidiagonal neighbors in a random 0..1 nX6 array.''. It has offset $1$ and begins
 \[
-3, 11, 11, 37, 76, 37, 129, 521,\ \dots
+16, 268, 3974, 60804, 925904, 14096488, 214514380, 3263893360,\ \dots
 \]
-The entry carries, among its empirical claims:
-\begin{quote}\small
-k=3: [order 20]
+The entry states, as a conjecture contributed by its author and never marked settled:
+\begin{quote}
+Empirical: a(n) = 26*a(n-1) -199*a(n-2) +527*a(n-3) +257*a(n-4) -3086*a(n-5) +918*a(n-6) +11050*a(n-7) -6781*a(n-8) -25737*a(n-9) +23534*a(n-10) +29646*a(n-11) -36015*a(n-12) -15207*a(n-13) +25338*a(n-14) +2853*a(n-15) -8912*a(n-16) +2728*a(n-17) -200*a(n-18) +36*a(n-19) -16*a(n-20) for n>21
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 06:49:39, revision 6) these are still
-recorded as empirical, and the recurrences themselves are not in the entry text.
+As of the ``Last modified'' line on the live entry (Oct 03 2025 17:32:42, revision 8) this is still
+recorded as empirical, and nothing on the entry records it as proved.
 
-\section{Why a line of the table is a walk count}
+\section{What is being counted}
 
-Fix the index that the line fixes. The entry defines $T(n,k)$ as a number of arrays of a shape
-determined by $n$ and $k$, subject to a condition local to a bounded window of consecutive
-lines. Substituting the fixed index into the entry's own wording turns the definition into an
-ordinary one-parameter array count, and for such a count the admissible windows are the
-vertices of a finite digraph and an array is a walk. So the line is a walk count on $S$
-vertices, and by the Cayley--Hamilton theorem it satisfies a monic integer recurrence of order
-at most $S$.
+Let $R=\{0,\dots,1\}^{6}$ be the set of rows and let the neighbours of
+a cell be the cells at the offsets
+\[
+(-1,1), (0,-1), (0,1), (1,-1),
+\]
+those falling outside the array being simply absent. For an array
+$A=(r_1,\dots,r_n)\in R^n$ let $\Phi(A)$ be the array whose cell $(i,j)$ carries the
+minimum of $A(i,j)$ and of the values at its neighbours. The entry counts
+\[
+a(n)\;=\;\bigl|\{\Phi(A):A\in R^n\}\bigr| ,
+\]
+the size of an IMAGE. That is the whole difficulty: two different arrays with the same
+minimum-array must be counted once, and a walk count on the arrays would count them twice.
 
-\section{Recovering the recurrences}
+Because every offset above moves the row index by at most one, row $i$ of
+$\Phi(A)$ depends only on rows $i-1,i,i+1$ of $A$. Write $\beta(p,c,x)$ for that row, with $p$
+or $x$ allowed to be $\bot$ for ``outside''; then
+\[
+\Phi(r_1,\dots,r_n)=\bigl(\beta(\bot,r_1,r_2),\ \dots,\ \beta(r_{n-1},r_n,\bot)\bigr).
+\]
 
-\begin{lemma}\label{lem:bm}
-A sequence known to satisfy some linear recurrence of order at most $S$ is determined, with its
-minimal recurrence, by its first $2S$ terms; Berlekamp--Massey applied to them returns that
-minimal recurrence exactly.
+\section{The image is a walk count after determinisation}
+
+For a set $D$ of pairs $(p,c)$ and a derived row $b$ put
+\[
+\delta(D,b)=\{(c,x):(p,c)\in D,\ x\in R,\ \beta(p,c,x)=b\},\qquad
+f(D)=\bigl|\{\beta(p,c,\bot):(p,c)\in D\}\bigr| ,
+\]
+and let $D_0=\{(\bot,r):r\in R\}$.
+
+\begin{lemma}\label{lem:det}
+For every $t\ge0$, $D_t=\delta(\dots\delta(D_0,b_1)\dots,b_t)$ is exactly the set of pairs
+$(r_t,r_{t+1})$ of consecutive rows completing a prefix $r_1,\dots,r_{t+1}$ whose first $t$
+derived rows are $b_1,\dots,b_t$. Consequently, for $n\ge1$,
+\[
+a(n)=\sum_{b_1,\dots,b_{n-1}}f(D_{n-1}),
+\]
+the empty sets contributing nothing.
 \end{lemma}
 
-\subsection*{Column $k=3$}
-Substituting the fixed index into the entry's wording gives an ordinary one-parameter array
-count, a walk on $S=272$ vertices. Berlekamp--Massey on $2S=544$ exact terms
-returns a minimal recurrence of order $20$ --- the order the entry states --- with
-integer coefficients
-\begin{center}\small\begin{tabular}{cccccccc}
-$c_{1}$ & $16$ & $c_{6}$ & $160$ & $c_{11}$ & $316$ & $c_{16}$ & $-21$ \\
-$c_{2}$ & $-32$ & $c_{7}$ & $-163$ & $c_{12}$ & $-147$ & $c_{17}$ & $-28$ \\
-$c_{3}$ & $-23$ & $c_{8}$ & $-304$ & $c_{13}$ & $-255$ & $c_{18}$ & $2$ \\
-$c_{4}$ & $30$ & $c_{9}$ & $146$ & $c_{14}$ & $70$ & $c_{19}$ & $5$ \\
-$c_{5}$ & $49$ & $c_{10}$ & $59$ & $c_{15}$ & $122$ & $c_{20}$ & $-1$ \\
-\end{tabular}\end{center}
-so that $a(m)=\sum_{i=1}^{20}c_i\,a(m-i)$ for every $m$. Removing the first
-$20+4$ terms and repeating gives order $20$ again, which is what the
-identification below needs.
+\begin{proof}
+Induction on $t$: $D_0$ is the set of pairs $(\bot,r_1)$, and $\delta(D_t,b)$ collects the
+pairs $(r_{t+1},r_{t+2})$ extending a consistent prefix with
+$\beta(r_t,r_{t+1},r_{t+2})=b$. An element of the image is a full derived array
+$(b_1,\dots,b_n)$; its prefix $(b_1,\dots,b_{n-1})$ is realisable exactly when
+$D_{n-1}\neq\emptyset$, and then the possible last rows are
+$\{\beta(p,c,\bot):(p,c)\in D_{n-1}\}$, of which there are $f(D_{n-1})$. Distinct sequences
+are distinct derived arrays, so each is counted once.
+\end{proof}
+
+So with $M$ the adjacency matrix of the digraph whose vertices are the reachable nonempty sets
+and which carries one edge $D\to\delta(D,b)$ for each $b$ with $\delta(D,b)\neq\emptyset$ ---
+several $b$ may lead to the same set, and then the edge is repeated, which is exactly right,
+since the derived arrays differ ---
+\[
+a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,\qquad \iota=e_{D_0},\quad \tau=f .
+\]
+There are $S=535$ reachable sets, generated from $D_0$ outward, and $a$ is $C$-finite.
+Note that $\tau$ is not the all-ones vector: the last derived row is not a
+step of the walk but a count attached to the state the walk stops in.
+
+\section{The proof}
+
+\begin{lemma}\label{lem:crit}
+Let $q(t)=t^{20}-\sum_i c_it^{20-i}$ be the characteristic polynomial of the
+conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
+$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
+holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
+and it is enough to examine $j<S$.
+\end{lemma}
+
+\begin{proof}
+Factor $M^{j}$ out of $M^{j+20}-\sum_ic_iM^{j+20-i}$. For the bound, $M^{S}$
+is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
+$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
+polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
+pins the threshold exactly.
+\end{proof}
 
 \begin{theorem}
-For each line above, the displayed recurrence holds for every index, and it is the recurrence
-the entry records.
+\[
+a(n)\;=\;26\,a(n-1) - 199\,a(n-2) + 527\,a(n-3) + 257\,a(n-4) - 3086\,a(n-5) + 918\,a(n-6) + 11050\,a(n-7) - 6781\,a(n-8) - 25737\,a(n-9) + 23534\,a(n-10) + 29646\,a(n-11) - 36015\,a(n-12) - 15207\,a(n-13) + 25338\,a(n-14) + 2853\,a(n-15) - 8912\,a(n-16) + 2728\,a(n-17) - 200\,a(n-18) + 36\,a(n-19) - 16\,a(n-20)
+\]
+for every $n>21$.
 \end{theorem}
 
 \begin{proof}
-It holds by Lemma~\ref{lem:bm}. For the identification, the entry asserts that the line
-satisfies SOME recurrence of the stated order, possibly only from some index on. Let $q$ be its
-characteristic polynomial and $q_{\min}$ the minimal polynomial of the tail. Then
-$q_{\min}\mid q$, and the second Berlekamp--Massey run --- on the line with its first few
-terms removed --- shows $\deg q_{\min}$ equals the stated order, which is $\deg q$. Both are
-monic, so $q=q_{\min}$.
+The vector $w=q(M)\tau$ was formed by $20$ matrix--vector products in exact integer
+arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
+integers vanish from the index corresponding to $n=21+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
-Three checks.
+Three checks, each independent of the algebra above.
 
-First, each line's model was compared against the entry's own published values for that line,
-taken from the antidiagonal DATA read in either orientation and from the ``Table starts''
-block, and agrees at every available term. This is the only point at which reading the entry's
-English enters, and a misreading gives different counts.
+First, the model reproduces all $16$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry: the machine is built by reading the
+entry's English, and a misreading gives different counts.
 
-Second, each recovered recurrence was evaluated directly on the model's values, with no
-Berlekamp--Massey involved, and holds at every index tested.
+Second, the conjectured recurrence was evaluated directly on those published terms, with no
+matrices involved, and holds wherever the proved range and the data overlap.
 
-Third, each order was computed twice by independent routes --- modulo a $61$-bit prime, where
-every intermediate is a machine word, and again in exact rational arithmetic --- and once more
-on the line with its first few terms dropped, which is what the identification requires. All
-agree.
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A232038.
-\bibitem{massey} J.~L.~Massey, Shift-register synthesis and BCH decoding, \emph{IEEE
-Trans. Inform. Theory} \textbf{15} (1969), 122--127.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A218062.
+\bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata
+Theory, Languages, and Computation}, 3rd ed., Addison--Wesley, 2006. (The subset
+construction, Section 2.3.)
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge

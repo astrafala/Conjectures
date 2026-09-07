@@ -12,14 +12,14 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A281134, proved by counting patterns with a budget}
+\title{The empirical recurrence for OEIS A280119, proved by counting patterns with a budget}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A281134 imposes three things at once: a condition on each cell that reaches one row up and
+OEIS A280119 imposes three things at once: a condition on each cell that reaches one row up and
 one row down; a global budget allowing exactly one cell to
 break it; and the clause ``new values introduced in order $0$ sequentially upwards'', which
 says the array is written in canonical form. None of the three is visible to a plain transfer
@@ -35,20 +35,20 @@ from a finite exact computation on $S=1588$ states.
 
 \section{The sequence and the conjecture}
 
-OEIS A281134 is ``Number of nX3 0..2 arrays with no element equal to more than one of its king-move neighbors, with the exception of exactly one element, and with new values introduced in order 0 sequentially upwards.''. It has offset $1$ and begins
+OEIS A280119 is ``Number of nX3 0..2 arrays with no element unequal to a strict majority of its horizontal, vertical and antidiagonal neighbors, with the exception of exactly one element, and with new values introduced in order 0 sequentially upwards.''. It has offset $1$ and begins
 \[
-1, 24, 297, 1046, 3460, 10790, 32692, 96454,\ \dots
+2, 8, 37, 168, 705, 2852, 11249, 44120,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 4*a(n-1) -4*a(n-2) +8*a(n-3) -18*a(n-4) +4*a(n-5) -12*a(n-6) -4*a(n-7) +7*a(n-8) -16*a(n-9) +20*a(n-10) -4*a(n-11) -4*a(n-12) +8*a(n-13) -4*a(n-14) for n>19
+Empirical: a(n) = 6*a(n-1) +a(n-2) -52*a(n-3) +51*a(n-4) +78*a(n-5) -173*a(n-6) +136*a(n-7) +17*a(n-8) -38*a(n-9) -49*a(n-10) +32*a(n-11) -24*a(n-12) -32*a(n-13) -16*a(n-14) for n>19
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jan 15 2017 09:28:04, revision 4) the statement is
+As of the ``Last modified'' line on the live entry (Dec 26 2016 07:53:51, revision 4) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;4\,a(n-1) - 4\,a(n-2) + 8\,a(n-3) - 18\,a(n-4) + 4\,a(n-5) - 12\,a(n-6) - 4\,a(n-7) + 7\,a(n-8) - 16\,a(n-9) + 20\,a(n-10) - 4\,a(n-11) - 4\,a(n-12) + 8\,a(n-13) - 4\,a(n-14)
+a(n)\;=\;6\,a(n-1) + a(n-2) - 52\,a(n-3) + 51\,a(n-4) + 78\,a(n-5) - 173\,a(n-6) + 136\,a(n-7) + 17\,a(n-8) - 38\,a(n-9) - 49\,a(n-10) + 32\,a(n-11) - 24\,a(n-12) - 32\,a(n-13) - 16\,a(n-14)
 \end{equation}
 for all $n>19$.
 
@@ -57,12 +57,12 @@ for all $n>19$.
 The arrays have $3$ columns and $L=n$ rows; write $x_{t,u}$ for the entry in
 row $t$ and column $u$. With the neighbour offsets
 \[
-\mathcal N=\{(0,-1),\ (0,1),\ (-1,0),\ (1,0),\ (-1,-1),\ (1,1),\ (-1,1),\ (1,-1)\}
+\mathcal N=\{(0,-1),\ (0,1),\ (-1,0),\ (1,0),\ (-1,1),\ (1,-1)\}
 \]
 as (row shift, column shift), counting only positions inside the array, call a cell
 $(t,u)$ \emph{offending} when
 \[
-\#\{\text{neighbours equal to }x_{t,u}\}>1 .
+2\,\#\{\text{neighbours different from }x_{t,u}\}>\#\{\text{neighbours}\} .
 \]
 The entry asks for arrays in which exactly $E=1$ cells offend.
 
@@ -189,7 +189,7 @@ Cayley--Hamilton bound in exact integer arithmetic rather than to a sampled pref
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A281134.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A280119.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; falling-factorial
 inversion, Section 1.9.)

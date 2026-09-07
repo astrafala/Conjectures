@@ -7,172 +7,164 @@
 \theoremstyle{plain}
 \newtheorem{theorem}{Theorem}
 \newtheorem{lemma}[theorem]{Lemma}
-\newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
-\newtheorem{definition}[theorem]{Definition}
 \newtheorem{remark}[theorem]{Remark}
-\title{A proof of the conjectured recurrence for OEIS A052227}
+\title{A proof of the conjectured recurrence for OEIS A026005}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{30 August 2026}
+\date{26 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A052227 carries a conjectured linear recurrence with polynomial coefficients, of
-order 2. The entry posts no generating function, so the usual route through a
-functional equation is unavailable. It does post a closed form for $a(n)$, and that is
-enough: the closed form is a sum of finitely many hypergeometric terms, and for such a
-term every shift quotient is a rational function of $n$. The conjectured recurrence
-therefore reduces to one rational-function identity, one for each similarity
-class of terms, and each is decided exactly by cancellation. No expansion is truncated and
-nothing is guessed; the procedure returns a proof or a refutation. Here it returns a proof,
-valid for every $n$ outside an explicitly computed finite set.
+OEIS A026005 carries a conjectured linear recurrence with polynomial coefficients, of
+order 2. The entry gives no generating function, but it does give the sequence as
+a single hypergeometric sum. We prove the conjecture without assuming any generating
+function: creative telescoping produces, from the summand alone, an operator of order
+1 that annihilates the sequence, together with a rational certificate that is
+checked as an exact identity rather than trusted. The conjectured operator is then shown
+to be a left multiple of it by division in the Ore algebra $\mathbb{Q}(n)[N]$. That last
+step is what the conjecture needs: the conjectured recurrence has order $2$ while the summand only needs order $1$, so it is not itself a telescoper and cannot be produced directly.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 33F10, 11B37, 05A10.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 33F10, 11B37, 68W30.\normalsize
 
 \section{The sequence and the conjecture}
 
-OEIS A052227 is ``a(n) = (4*n+1)*binomial(3*n,n)/(2*n+1)''. It has offset $0$ and begins
+OEIS A026005 is ``a(n) = T(4*n,n), where T = Catalan triangle (A008315)''. It has offset $0$ and begins
 \[
-a(0),\dots,a(7)\;=\;1, 5, 27, 156, 935, 5733, 35700, 224808,\ \dots
+a(0),\dots,a(7)\;=\;1, 4, 27, 208, 1700, 14364, 123970, 1085760,\ \dots
 \]
 The entry states, not as a conjecture,
 \begin{quote}\small
-a(n) = binomial(3*n+1, n) + binomial(3*n, n-1) for n>=0.
+a(n) = Sum\emph{\{k=0..n\}((n+k+1)*binomial(n+k,k)*binomial(3*n-k,n-k))/(2*n+1). - }Vladimir Kruchinin\_, Dec 02 2016
 \end{quote}
-that is,
-\begin{equation}\label{eq:cf}
-a(n)\;=\;{\binom{3 n}{n - 1}} + {\binom{3 n + 1}{n}} .
+so that, writing $F(n,k)$ for the summand,
+\begin{equation}\label{eq:sum}
+a(n)\;=\;\sum_{k=0}^{n}F(n,k),
+\qquad F(n,k)=\frac{\left(k + n + 1\right) {\binom{- k + 3 n}{- k + n}} {\binom{k + n}{k}}}{2 n + 1} .
 \end{equation}
 This is the only input the proof takes from the entry, and it was checked against the
 entry's own DATA before use.
 
 The entry separately carries the following comment:
 \begin{quote}\small
-\textbf{Conjecture:} 8*n*(2*n+1)*a(n) + 6*(-8*n\^{}2-25*n+13)*a(n-1) - 45*(3*n-4)*(3*n-5)*a(n-2) = 0. - \emph{R. J. Mathar}, Nov 24 2012
+\textbf{Conjecture:} 9*n*(3*n+2)*(3*n+1)*a(n) +12*(-55*n\^{}3-59*n\^{}2+65*n-11)*a(n-1) -32*(4*n-5)*(4*n-3)*(2*n-3)*a(n-2)=0. - \emph{R. J. Mathar}, May 22 2013
 \end{quote}
-As of the ``Last modified'' line on the live entry (2025-09-16, revision 46) the
+As of the ``Last modified'' line on the live entry (2017-05-24, revision 28) the
 statement is still recorded as a conjecture, and no proof appears among the entry's links,
 formulas or programs.
 
-Written out, the conjecture is
-\begin{equation}\label{eq:conj}
-8 n \left(2 n + 1\right)\,a(n) -  6 \left(8 n^{2} + 25 n - 13\right)\,a(n-1) -  45 \left(3 n - 5\right) \left(3 n - 4\right)\,a(n-2)
+\section{Telescoping the summand}
+
+Let $N$ denote the shift in $n$, $(Nf)(n)=f(n+1)$, and $\Delta_{k}$ the forward difference
+in $k$, $(\Delta_{k}g)(k)=g(k+1)-g(k)$.
+
+\begin{lemma}\label{lem:tel}
+Suppose there are rational functions $\sigma_{0},\dots,\sigma_{r}$ of $n$, not all zero,
+and a rational function $R(n,k)$ such that
+\begin{equation}\label{eq:cert}
+\sum_{i=0}^{r}\sigma_{i}(n)\,F(n+i,k)\;=\;\Delta_{k}\bigl[R(n,k)F(n,k)\bigr].
 \end{equation}
-
-\section{Hypergeometric terms}
-
-\begin{definition}
-A nonzero expression $c(n)$ is a \emph{hypergeometric term} in $n$ if the quotient
-$c(n+1)/c(n)$ is a rational function of $n$. Two hypergeometric terms $c$ and $d$ are
-\emph{similar}, written $c\sim d$, if $c(n)/d(n)$ is a rational function of $n$.
-\end{definition}
-
-Similarity is an equivalence relation on hypergeometric terms. Products of factorials,
-binomial coefficients with arguments linear in $n$, exponentials $z^{n}$ and polynomials
-are hypergeometric, and so is any product of these; a sum of them need not be.
-
-\begin{lemma}\label{lem:shift}
-If $c$ is a hypergeometric term then for every integer $i\ge 0$ the shift quotient
-$c(n-i)/c(n)$ is a rational function of $n$, computable from $c(n+1)/c(n)$ by a finite
-number of substitutions and multiplications.
+Suppose further that $F(n,k)=0$ for every $k$ outside the range of summation in
+\eqref{eq:sum}. Then $\sum_{i}\sigma_{i}(n)a(n+i)=0$.
 \end{lemma}
 
 \begin{proof}
-Write $\rho(n)=c(n+1)/c(n)$, a rational function by hypothesis. Then
-$c(n-1)/c(n)=1/\rho(n-1)$, and inductively
-$c(n-i)/c(n)=\prod_{j=1}^{i}\rho(n-j)^{-1}$, a finite product of rational functions.
+Because $F(n,k)$ vanishes off the stated range, the sum in \eqref{eq:sum} may be taken
+over all $k\in\mathbb{Z}$ without changing it, and the same holds for each $F(n+i,k)$.
+Summing \eqref{eq:cert} over all $k$, the left side becomes
+$\sum_{i}\sigma_{i}(n)a(n+i)$ and the right side telescopes: the partial sums of a forward
+difference collapse to the boundary values, which are $0$ because $R(n,k)F(n,k)$ vanishes
+for $|k|$ large. Hence the left side is $0$.
 \end{proof}
 
-The fact that makes the test complete rather than merely sufficient is the linear
-independence of dissimilar terms. It is classical; see Petkov\v{s}ek, Wilf and Zeilberger
-\cite{AB}, Chapter~5.
+The point of Lemma~\ref{lem:tel} is that \eqref{eq:cert} is an identity between rational
+functions once both sides are divided by $F(n,k)$: the quotients $F(n+i,k)/F(n,k)$ and
+$F(n,k+1)/F(n,k)$ are rational because $F$ is hypergeometric in both variables. So a
+proposed $(\sigma,R)$ can be \emph{checked}, exactly, whatever produced it.
 
-\begin{lemma}\label{lem:indep}
-Let $c_{1},\dots,c_{m}$ be hypergeometric terms, pairwise dissimilar. If
-$\sum_{j=1}^{m}u_{j}(n)c_{j}(n)=0$ for rational functions $u_{j}$ and all large $n$, then
-every $u_{j}$ is the zero rational function.
+For A026005 such a pair exists with $r=1$:
+\[
+\sigma_{0}(n)=\frac{- 256 n^{4} - 1152 n^{3} - 1776 n^{2} - 1112 n - 240}{9 n^{3} + 30 n^{2} + 33 n + 12},\qquad \sigma_{1}(n)=3 n + 5
+\]
+and certificate
+\[
+R(n,k)\;=\;\frac{9 k^{5} n + 12 k^{5} - 96 k^{4} n^{2} - 192 k^{4} n - 84 k^{4} + 346 k^{3} n^{3} + 856 k^{3} n^{2} + 583 k^{3} n + 84 k^{3} - 712 k^{2} n^{4} - 2496 k^{2} n^{3} - 3138 k^{2} n^{2} - 1688 k^{2} n - 324 k^{2} + 885 k n^{5} + 4252 k n^{4} + 7715 k n^{3} + 6428 k n^{2} + 2368 k n + 312 k}{36 k n^{4} + 174 k n^{3} + 312 k n^{2} + 246 k n + 72 k - 36 n^{5} - 210 n^{4} - 486 n^{3} - 558 n^{2} - 318 n - 72} .
+\]
+Dividing \eqref{eq:cert} by $F(n,k)$ and cancelling gives $0$ identically, so
+Lemma~\ref{lem:tel} applies and
+\begin{equation}\label{eq:L}
+L\;=\;\sum_{i=0}^{1}\sigma_{i}(n)N^{i}
+\end{equation}
+annihilates $a$.
+
+\section{From the derived recurrence to the conjectured one}
+
+The operator \eqref{eq:L} is not the conjectured one. It has order $1$, below the conjectured order $2$: the conjecture is a consequence of a shorter relation, not the shortest relation itself. The two are connected by
+division in the Ore algebra $\mathcal{A}=\mathbb{Q}(n)[N]$, where multiplication obeys
+$N\,q(n)=q(n+1)\,N$.
+
+\begin{lemma}\label{lem:factor}
+If $C=QL$ in $\mathcal{A}$ and $L(a)=0$, then $C(a)=0$ at every $n$ where the coefficients
+of $Q$ are defined.
 \end{lemma}
 
-\section{The recurrence as a finite set of rational identities}
-
-\begin{proposition}\label{prop:main}
-Let $a(n)=\sum_{j=1}^{m}c_{j}(n)$ with each $c_{j}$ hypergeometric, and let
-$p_{0},\dots,p_{r}$ be polynomials. Group the $c_{j}$ into similarity classes and write
-each class as $g_{\ell}(n)\,f_{\ell,s}(n)$ for a representative $g_{\ell}$ and rational
-functions $f_{\ell,s}$. Put
-\[
-S_{\ell}(n)\;=\;\sum_{i=0}^{r}\;\sum_{s}\;p_{i}(n)\,f_{\ell,s}(n-i)\,
-\frac{g_{\ell}(n-i)}{g_{\ell}(n)} ,
-\]
-a rational function of $n$ by Lemma~\ref{lem:shift}. Then
-\[
-\sum_{i=0}^{r}p_{i}(n)\,a(n-i)\;=\;\sum_{\ell}g_{\ell}(n)\,S_{\ell}(n),
-\]
-and the recurrence $\sum_{i}p_{i}(n)a(n-i)=0$ holds for all large $n$ if and only if
-$S_{\ell}=0$ for every $\ell$.
-\end{proposition}
-
 \begin{proof}
-The displayed identity is the definition of $S_{\ell}$ rearranged: each $a(n-i)$ is the
-sum of its terms, each term is its class representative times a rational function, and the
-representatives are pulled out. The representatives $g_{\ell}$ are pairwise dissimilar by
-construction, so Lemma~\ref{lem:indep} applies to the right-hand side: it vanishes for all
-large $n$ exactly when every $S_{\ell}$ vanishes identically. Sufficiency is immediate.
+$C(a)=(QL)(a)=Q\bigl(L(a)\bigr)=Q(0)=0$. The coefficients of $Q$ are rational functions of
+$n$, so the step is valid away from their poles.
 \end{proof}
 
-Proposition~\ref{prop:main} turns the conjecture into a finite computation in
-$\mathbb{Q}(n)$, with no truncation and no search. The only $n$ it says nothing about are
-those where some $S_{\ell}$ has a pole or some $c_{j}(n-i)$ is undefined, and these are
-finite in number and listed below.
-
-\section{The computation for A052227}
-
-The closed form \eqref{eq:cf} splits into one similarity class, with
-representative
+Writing the conjectured recurrence as an operator $C$ and dividing by $L$ leaves remainder
+$0$, with quotient
 \[
-{\binom{3 n}{n - 1}}
+Q\;=\;\left(\frac{36 n^{3} + 120 n^{2} + 132 n + 48}{n + 2}\right) + \left(27 n^{2} + 117 n + 126\right)\,N .
 \]
-Carrying out Proposition~\ref{prop:main} with the coefficients of \eqref{eq:conj} gives
-\[
-S_{1}(n)\;=\;0
-\]
-so every class residual vanishes identically and the conjecture follows.
+The coefficients of $Q$ are rational functions of $n$; their only integer poles are $n\in\{-2\}$, below the range claimed here.
 
 \begin{theorem}
-For all $n\ge 2$,
+The conjectured recurrence
 \[
-8 n \left(2 n + 1\right)\,a(n) -  6 \left(8 n^{2} + 25 n - 13\right)\,a(n-1) -  45 \left(3 n - 5\right) \left(3 n - 4\right)\,a(n-2)
+9 n \left(3 n + 1\right) \left(3 n + 2\right)\,a(n) -  12 \left(55 n^{3} + 59 n^{2} - 65 n + 11\right)\,a(n-1) -  32 \left(2 n - 3\right) \left(4 n - 5\right) \left(4 n - 3\right)\,a(n-2) \;=\;0
 \]
+holds for every $n\ge2$.
 \end{theorem}
 
 \begin{proof}
-Immediate from Proposition~\ref{prop:main} and the computation above, the excluded values
-being those at which a class residual has a pole or a term of \eqref{eq:cf} is undefined.
+By Lemma~\ref{lem:tel} the operator \eqref{eq:L} annihilates $a$, and by
+Lemma~\ref{lem:factor} applied to $C=QL$ so does the conjectured operator. The integer poles of $Q$ all lie below $n=2$.
 \end{proof}
 
 \section{Verification}
 
-Two checks were made, and both are independent of the algebra above.
+Every number above is an output of a script written separately from this note, and four
+independent checks were run.
 
-First, the closed form \eqref{eq:cf} was evaluated at the first $13$ indices and
-compared term by term with the entry's DATA; the values agree exactly. A formula that did
-not reproduce the entry's own terms would not have been used.
+First, the certificate was verified, not trusted: \eqref{eq:cert} was divided by $F(n,k)$
+and the difference of the two sides cancelled to $0$ as a rational function of $n$ and
+$k$.
 
-Second, the conjectured recurrence \eqref{eq:conj} was evaluated on the published terms in
-exact integer arithmetic at every index where it applies: $22$ instances beginning at
-$n=2$, all of them zero. This is not part of the proof, which is symbolic, but it
-would have caught a transcription error in the coefficients.
+Second, the vanishing of $F(n,k)$ off the range of summation --- the hypothesis
+Lemma~\ref{lem:tel} needs, and the one that is easy to assume without looking --- was
+checked directly, on concrete integers on both sides of the range.
+
+Third, the factorisation was confirmed by multiplying back: $QL$ was expanded in
+$\mathcal{A}$ and its coefficients cancelled against those of $C$ to zero.
+
+Fourth, the conjecture itself was evaluated on the published terms, in exact integer
+arithmetic and without reference to any operator: for each $n$ in range the sum
+$\sum_{i}p_{i}(n)a(n-i)$ was formed from the entry's own values and found to vanish, for
+all 17 values of $n$ from $n=2$ upward. The formula \eqref{eq:sum} was
+likewise checked term by term against the DATA section before being used.
 
 \begin{thebibliography}{9}
-\bibitem{AB} M.~Petkov\v{s}ek, H.~S.~Wilf and D.~Zeilberger, \emph{A=B}, A K Peters,
-Wellesley MA, 1996.
-\bibitem{OEIS} OEIS Foundation Inc., \emph{The On-Line Encyclopedia of Integer Sequences},
-entry \href{https://oeis.org/A052227}{A052227}, 2025-09-16.
-\bibitem{GKP} R.~L.~Graham, D.~E.~Knuth and O.~Patashnik, \emph{Concrete Mathematics},
-2nd ed., Addison-Wesley, 1994.
+\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer Sequences},
+\url{https://oeis.org}, 2026. Sequence A026005.
+\bibitem{aeqb} M.~Petkov\v{s}ek, H.~S.~Wilf and D.~Zeilberger, \emph{A=B}, A K Peters,
+1996.
+\bibitem{zeil} D.~Zeilberger, \emph{The method of creative telescoping}, J. Symbolic
+Comput. 11 (1991), 195--204.
+\bibitem{ore} O.~Ore, \emph{Theory of non-commutative polynomials}, Ann. of Math. 34
+(1933), 480--508.
 \end{thebibliography}
-
 \end{document}

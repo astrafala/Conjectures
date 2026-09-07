@@ -12,141 +12,146 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A209539, proved by transfer matrix}
+\title{The empirical closed form and generating function for OEIS A194935, proved}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{6 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A209539 counts the permutations of the cells of an $n\times4$ array in which every cell
-moves by one of a fixed short list of offsets. The entry carries an empirical recurrence of
-order $1$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
-empirical. The count is the permanent of the incidence matrix of the offset graph; read the
-cells in row-major order and let each choose its image, and the only thing that has to be
-carried is which images inside a window of $19$ consecutive positions are already taken.
-That makes $a$ a walk count on $S=486$ states, hence $C$-finite, and whether the published
-recurrence is one of its recurrences is then a finite exact computation.
+OEIS A194935 counts the lower triangles of a $6\times6$ array over $\{0,\dots,n\}$ in which
+adjacent entries differ by at most $1$, and carries closed form and generating function recorded as empirical. The shape here is FIXED
+and it is the alphabet that grows, so there is no digraph to walk. What settles it is that the
+condition constrains DIFFERENCES only: translating an admissible array by a constant leaves it
+admissible, so the arrays split into translation classes, and a class with spread $s$ contains
+exactly $\max(0,n+1-s)$ arrays with entries in $\{0,\dots,n\}$. Since no spread can exceed
+$1$ times the diameter of the neighbour graph, $a(n)$ is exactly linear from a point that is
+known in advance, and two evaluations pin it. Nothing is fitted.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A05, 05A15, 15A15.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A19, 11B37.\normalsize
 
 \section{The conjecture}
 
-OEIS A209539 is ``Number of nX4 array permutations with every element making zero or one right-handed knight moves (out 2, right 1).''. It has offset $1$ and begins
+OEIS A194935 is ``Number of lower triangles of a 6 X 6 0..n array with no element differing from any of its horizontal or vertical neighbors by more than one.''. It has offset $1$ and begins
 \[
-1, 4, 72, 729, 6480, 63504, 635040, 6350400,\ \dots
+2097152, 43337009, 136403494, 248381815, 364130672, 480403525,\ \dots
 \]
-The entry states, as a conjecture contributed by its author and never marked settled:
+The entry states, as conjectures contributed by its author and by later readers and never
+marked settled:
 \begin{quote}
-Empirical: a(n) = 10*a(n-1) for n>6
+Empirical: a(n) = 116330103*n - 217580911 for n>8.
+
+Empirical g.f.: x*(2097152 + 39142705*x + 51826628*x\^{}2 + 18911836*x\^{}3 + 3770536*x\^{}4 + 523996*x\^{}5 + 53564*x\^{}6 + 3556*x\^{}7 + 128*x\^{}8 + 2*x\^{}9) / (1 - x)\^{}2. - \_Colin Barker\_, May 05 2018
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 15:19:42, revision 9) this is still
-recorded as empirical, and nothing on the entry records it as proved.
+As of the ``Last modified'' line on the live entry (May 05 2018 20:43:02, revision 9) these are still
+recorded as empirical, and nothing on the entry records them as proved.
 
 \section{What is being counted}
 
-Write the cells of the array as pairs $(i,j)$ with $0\le i<n$ and $0\le j<4$. An
-\emph{array permutation} of the kind the entry counts is a bijection $\pi$ from the cells to
-the cells such that for every cell,
+The lower triangle of a $6\times6$ array is the set of cells $(i,j)$ with $0\le j\le
+i<6$, so there are $T=21$ of them. Two cells are adjacent when they differ by one of the
+horizontal, vertical offsets, which here gives $30$ adjacent pairs. Each cell carries a value in
+$\{0,\dots,n\}$, and the entry requires
 \[
-\pi(i,j)-(i,j)\;\in\;\Delta,\qquad
-\Delta=\{\,(-2,-1),\ (-1,2),\ (0,0),\ (1,-2),\ (2,1)\,\}.
+|x_u-x_v|\le 1\qquad\text{for every adjacent pair }u,v .
 \]
-The offsets are what the name's words say: the four knight moves that go two squares out and one to the right of that direction. A cell is allowed to stay where it is, and $(0,0)$ is one of the offsets.
 
-A move is only allowed when its target is a cell of the array, so cells near an
-edge have fewer choices. The reading is pinned against the entry's own published terms rather
-than assumed: taking ``diagonally, horizontally or vertically'' to mean all eight king moves
-gives $24$ where A189305 publishes $14$.
+The shape is fixed and $n$ is the size of the ALPHABET. So this is not a walk count and
+nothing about transfer matrices applies.
 
-Equivalently, $a(n)$ is the permanent of the $n4\times n4$ matrix whose $(c,c')$ entry is
-$1$ exactly when $c'-c\in\Delta$.
+\section{Translation}
 
-\section{A window of 19 positions}
-
-Number the cells in row-major order, $k=i\cdot4+j$. An offset $(\delta_1,\delta_2)$ moves a
-cell by $\delta_14+\delta_2$ places in that order, so every image lies between $lo=-9$ and
-$hi=9$ places from its source. Process the cells in order and let each one choose its image.
-Once the cell at position $k$ has been dealt with, the position $k+-9$ can never be chosen
-again by anybody, so it must already be taken; and no position beyond $k+9$ can have been
-taken yet. What has to be remembered is therefore exactly which of the $19$ positions
-$k+-9,\dots,k+9$ are taken --- a subset of a set of size $19$, and nothing else.
-
-That is the state. One step of the walk is one row, that is $4$ cell choices, and the
-condition ``the position leaving the window is taken'' is what makes the walk count permutations
-rather than partial injections: every position is taken exactly once, once at the moment it
-leaves the window.
-
-The two boundaries are the same condition. Images above the first row do not exist, so the walk
-starts with exactly the window positions lying above the array marked as taken. Images below the
-last row do not exist either, so the walk must end with exactly those positions marked and
-nothing beyond. In the window's own coordinates those two masks are equal, so the start state is
-also the only accepting state and
+\begin{lemma}\label{lem:trans}
+Let $\mathcal P$ be the set of integer arrays $y$ on these cells satisfying the same condition
+and having least entry $0$, and for $y\in\mathcal P$ write $\mathrm{sp}(y)$ for its largest
+entry. Then $\mathcal P$ is finite and
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=486,
+a(n)\;=\;\sum_{y\in\mathcal P}\max\bigl(0,\;n+1-\mathrm{sp}(y)\bigr).
 \]
-for the transfer matrix $M$ on those $S$ states. The walk index $j$ and the entry's own $n$
-differ by a constant, read off by matching the published terms rather than assumed. In
-particular $a$ is $C$-finite.
-
-\section{The proof}
-
-\begin{lemma}\label{lem:crit}
-Let $q(t)=t^{1}-\sum_i c_it^{1-i}$ be the characteristic polynomial of the
-conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
-$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
-holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
-and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+1}-\sum_ic_iM^{j+1-i}$. For the bound, $M^{S}$
-is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
-$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
-polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly.
+The condition depends only on the differences $x_u-x_v$, so if $x$ is admissible so is $x+m$
+for any integer $m$, and every admissible $x$ is $y+m$ for exactly one $y\in\mathcal P$ and one
+integer $m$, namely $m=\min x$. Given $y$, the array $y+m$ has all entries in
+$\{0,\dots,n\}$ precisely when $m\ge0$ and $m+\mathrm{sp}(y)\le n$, which is
+$\max(0,n+1-\mathrm{sp}(y))$ values of $m$. Finiteness follows from
+Lemma~\ref{lem:bound}.
 \end{proof}
 
-\begin{theorem}
+\begin{lemma}\label{lem:bound}
+Every $y\in\mathcal P$ has $\mathrm{sp}(y)\le 1\cdot10=10$, where $10$ is the
+diameter of the neighbour graph.
+\end{lemma}
+
+\begin{proof}
+The neighbour graph is connected, so any two cells are joined by a path of at most $10$
+edges, and each edge changes the value by at most $1$. Hence the largest and the smallest
+entry differ by at most $1\cdot10$.
+\end{proof}
+
+\section{The count}
+
+\begin{theorem}\label{thm:line}
 \[
-a(n)\;=\;10\,a(n-1)
+a(n)\;=\;116330103\,n-217580911\qquad\text{for every }n\ge9,
 \]
-for every $n>6$.
+and $\mathcal P$ has exactly $116330103$ elements.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $1$ matrix--vector products in exact integer
-arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=6+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once.
+For $n\ge10$ every term of Lemma~\ref{lem:trans} is positive by
+Lemma~\ref{lem:bound}, so
+\[
+a(n)=\sum_{y\in\mathcal P}\bigl(n+1-\mathrm{sp}(y)\bigr)
+=|\mathcal P|\,(n+1)-\sum_{y}\mathrm{sp}(y),
+\]
+which is a linear function of $n$. Two values determine it, and $a(10)$ and
+$a(10+1)$ were computed exactly, giving slope $116330103$ and the stated intercept; the slope
+is $|\mathcal P|$. That the identity already holds from $n=9$ was then read off by
+comparing it with the exact values of $a(n)$ below $10$, each computed the same way.
 \end{proof}
+
+The counts $a(n)$ themselves are obtained by walking over the cells in row major order and
+carrying only the entries a later cell can still see --- for this shape at most $6+1$ of
+them --- so no array is ever written down.
+
+Since $a$ agrees with a linear polynomial from a known point on, its generating function is a
+polynomial divided by $(1-x)^2$: multiplying the series by $(1-x)^2$ annihilates the linear
+tail term by term, leaving only finitely many nonzero coefficients, and those coefficients are
+the second differences of the values below the threshold. The conjectured generating function
+is that one, which was checked coefficient by coefficient in exact rational arithmetic.
+
+Each statement quoted in Section 1 is a consequence of Theorem~\ref{thm:line}, and each was
+also checked directly against it.
 
 \section{Verification}
 
-Four checks, each independent of the algebra above.
+Three checks, each independent of the argument above.
 
-First, the model reproduces all $19$ terms the entry publishes, exactly, in integer
+First, the count reproduces all $19$ terms the entry publishes, exactly, in integer
 arithmetic.
 
-Second, the count was recomputed for the smallest arrays straight from the definition: the
-cells of the array were matched to their images one at a time, over the whole grid, with no
-window, no mask over a sliding frame and no transfer matrix, and the published terms came back.
-That computation shares nothing with the construction of Section~3 beyond the offset list.
+Second, the arrays themselves were enumerated for the smallest alphabets --- every assignment
+of $0..n$ to the $21$ cells written out and every adjacent pair tested --- with no
+translation argument and no frontier walk. Where the shape is too large for that, the first
+term is settled by an exact argument instead: at $n=1$ every entry is $0$ or $1$, so an ``at
+most'' condition is no condition and the count is $2^{21}$, while ``differing by exactly
+one'' asks for a proper $2$-colouring of the neighbour graph. Both test the cell set and the
+adjacency, which is what this check is for.
 
-Third, the conjectured recurrence was evaluated directly on the published terms, with no
-matrices involved, and holds wherever the proved range and the data overlap.
-
-Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
-arithmetic on the whole vector rather than on a sampled prefix.
+Third, the linear form was compared against the entry's own published terms over their whole
+range, and the conjectured statements were each evaluated against it in exact arithmetic
+rather than sampled.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A209539.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A194935.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{minc} H.~Minc, \emph{Permanents}, Encyclopedia of Mathematics and its
-Applications 6, Addison--Wesley, 1978.
+Cambridge University Press, 2011.
+\bibitem{comtet} L.~Comtet, \emph{Advanced Combinatorics}, Reidel, 1974.
+\bibitem{kauers} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011.
 \end{thebibliography}
 
 \end{document}

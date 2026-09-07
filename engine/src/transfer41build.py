@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 """Papers for the cell-condition families, plain and up to relabelling."""
+import os
+
 import os, json, re
 import texbits
 import localentry as LE, phibuild, transferbuild, transfer41, transfer42
@@ -50,7 +52,8 @@ _ROSTER_AT_BUILD = {v['anum'] for v in _json.load(open('paper-engines.json')).va
 def datefor(a):
     """A paper carries the date its result was obtained, not the date of the batch it is
     rebuilt with."""
-    return '3 September 2026' if a in _ROSTER_AT_BUILD else '6 September 2026'
+    return ('3 September 2026' if a in _ROSTER_AT_BUILD
+            else os.environ.get('PAPER_DATE', '6 September 2026'))
 
 
 def build(h, rel):

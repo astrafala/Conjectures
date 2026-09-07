@@ -8,7 +8,13 @@ ENGNAME = {'transfer81': 'canonical-subblock', 'transfer82': 'subblock-condition
            'transfer91': 'neighbour-reach', 'transfer92': 'straight-line',
            'transfer93': 'subblock-multiset', 'denumerant': 'lattice-count',
            'transfer17': 'subblock-3x3', 'transfer38': 'edge-count-pattern',
-           'transfer56': 'forbidden-run', 'transfer62': 'distance-inequality'}
+           'transfer56': 'forbidden-run', 'transfer62': 'distance-inequality',
+           'transfer23': 'subblock-matrix', 'transfer26': 'image-count',
+           'transfer28': 'image-count', 'transfer30': 'subblock-coloring',
+           'transfer31': 'monotone-subblock', 'transfer32': 'monotone-subblock',
+           'transfer33': 'subblock-difference', 'transfer41': 'cell-condition',
+           'transfer42': 'cell-condition-pattern', 'transfer45': 'consecutive-triple',
+           'transfer53': 'modular-neighbour'}
 eng = {int(k): v for k, v in json.load(open('paper-engines.json')).items()}
 have = {v['anum'] for v in eng.values()}
 nxt = max(eng) + 1

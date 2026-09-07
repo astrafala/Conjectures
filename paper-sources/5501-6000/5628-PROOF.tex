@@ -12,51 +12,78 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{A condition on each element and its neighbours: OEIS A240644}
+\title{The empirical recurrence for OEIS A250989, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{6 September 2026}
+\date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A240644 carries an empirical recurrence of order $20$ contributed by R.~H.~Hardin. It is
-true, and it is decidable rather than empirical. The entry's condition names only cells one step apart, so it is decided by a window of
-three consecutive lines; the
-admissible windows are the vertices of a finite digraph and the arrays counted are exactly the
-walks in it. Hence $a(n)$ is a walk count on $S=20$ vertices and is $C$-finite, and whether the
-conjectured recurrence annihilates it is settled by a finite exact computation, with the
-Cayley--Hamilton theorem bounding the work.
+OEIS A250989 counts arrays over $\{0,1,2\}$ in which a statistic taken over short runs
+of cells produces a derived array that is monotone in a named direction. The entry carries an
+empirical recurrence of order $20$ contributed by R.~H.~Hardin. It is true, and it is
+decidable rather than empirical: every comparison the condition makes lies inside a bounded
+window of consecutive rows, so the count is a walk count on $S=81$ states, and the
+conjectured recurrence is then settled by a finite exact computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A240644 is ``Number of nX3 0..1 arrays with no element equal to the same number of vertical neighbors as horizontal neighbors, with new values 0..1 introduced in row major order.''. It has offset $1$ and begins
+OEIS A250989 is ``Number of (n+1)X(3+1) 0..2 arrays with nondecreasing min(x(i,j),x(i,j-1)) in the i direction and nondecreasing absolute value of x(i,j)-x(i-1,j) in the j direction.''. It has offset $1$ and begins
 \[
-1, 2, 6, 8, 23, 60, 149, 396,\ \dots
+646, 4007, 21955, 111175, 542834, 2592734, 12238954, 57388086,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 4*a(n-1) -3*a(n-2) -2*a(n-3) +2*a(n-4) +2*a(n-5) -7*a(n-6) -8*a(n-7) +15*a(n-8) +4*a(n-9) -8*a(n-10) -4*a(n-11) +15*a(n-12) +8*a(n-13) -7*a(n-14) -2*a(n-15) +2*a(n-16) +2*a(n-17) -3*a(n-18) -4*a(n-19) -a(n-20)
+Empirical: a(n) = 25*a(n-1) -263*a(n-2) +1465*a(n-3) -4208*a(n-4) +2752*a(n-5) +20591*a(n-6) -63149*a(n-7) +39306*a(n-8) +127182*a(n-9) -234935*a(n-10) -16967*a(n-11) +341508*a(n-12) -162216*a(n-13) -227787*a(n-14) +169273*a(n-15) +82343*a(n-16) -69183*a(n-17) -19686*a(n-18) +10818*a(n-19) +3132*a(n-20)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 11:04:25, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 12:57:00, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
-\section{The count is a walk count}
+\section{What is being counted}
 
-The entry counts arrays with $3$ columns over the alphabet $\{0,1\}$, growing one row at a time. Its condition is that every element must equal a different number of its vertical neighbours than it does of its horizontal neighbours.
+The array has $4$ cells across and entries $x(i,j)\in\{0,1,2\}$.
 
-Every cell named there lies at most one step away, so three consecutive rows decide the condition on the middle one completely. Carry two consecutive rows as the state; when a new row arrives, the row it follows has all its neighbours present and is tested then, and the row with nothing after it is tested by the end vector. That is also where the boundary is honest: a cell in the first row has nothing before it and a cell in the last has nothing after it, and a missing neighbour is not a neighbour rather than a wrapped-round one.
-
-The entry also asks that new values be introduced in row major order, which is not a condition on any window: whether a value may appear here depends on the whole prefix. It enters through one integer all the same --- how many values have been introduced so far --- because a row may follow precisely when each of its entries is at most that count at the moment it is read, and an entry equal to it raises it by one. The effect is that each array is counted once for the whole class of arrays differing from it only by renaming the values.
-
-Vertices with identical futures are merged, which leaves $S=20$. An admissible array is exactly a walk, so with $M$ the adjacency matrix and $\iota,\tau$ the vectors recording which states may begin and end an array,
+Two derived arrays are formed. The first reads the horizontal statistic across each
+neighbouring pair of a row,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau ,
+b(i,j)\;=\;\bigl[\,\min(a,b)\,\bigr]_{a=x(i,j),\,b=x(i,j-1)}\qquad (j\ge1),
 \]
-the exponent fixed by the entry's own shape and checked against its published terms. In
-particular $a$ is $C$-finite.
+and must not decrease DOWN a column: $b(i,j)\le b(i{+}1,j)$. The second reads the vertical
+statistic down each neighbouring pair of a column,
+\[
+c(i,j)\;=\;\bigl[\,\lvert a-b\rvert\,\bigr]_{a=x(i,j),\,b=x(i{-}1,j)}\qquad (i\ge1),
+\]
+and must not decrease ALONG a row: $c(i,j)\le c(i,j{+}1)$. In words, the horizontal statistic
+is the smaller of a cell and its left neighbour, and the vertical one is
+the absolute difference of a cell and the cell above it.
+
+Nothing in the condition is invariant under renaming the letters --- each statistic either does
+arithmetic on them or compares them by size --- so no reduction to equality patterns is
+available, and the walk is run over the alphabet the entry names.
+
+\section{A bounded window}
+
+\begin{lemma}\label{lem:win}
+Both conditions are conditions on TWO consecutive array rows and nothing more.
+\end{lemma}
+
+\begin{proof}
+$b(i,j)\le b(i{+}1,j)$ names four cells, all in rows $i$ and $i+1$. $c(i,j)\le c(i,j{+}1)$
+names four cells, all in rows $i-1$ and $i$. No comparison reaches further.
+\end{proof}
+
+So a single row is a state. Let $M$ be the matrix on the $3^{4}=81$ rows with
+$M[r,s]=1$ when the pair $(r,s)$ passes both tests and $0$ otherwise. An array of $R$ rows is a
+walk of $R-1$ steps and every row may begin or end one, so with $\iota=\tau=\mathbf{1}$,
+\[
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=81.
+\]
+
+The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
+published terms rather than assumed. In particular $a$ is $C$-finite.
 
 \section{The proof}
 
@@ -73,13 +100,12 @@ Factor $M^{j}$ out of $M^{j+20}-\sum_ic_iM^{j+20-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly. A constant factor in front of $a$ divides out of the residual and
-changes nothing here.
+pins the threshold exactly.
 \end{proof}
 
 \begin{theorem}
 \[
-a(n)\;=\;4\,a(n-1) - 3\,a(n-2) - 2\,a(n-3) + 2\,a(n-4) + 2\,a(n-5) - 7\,a(n-6) - 8\,a(n-7) + 15\,a(n-8) + 4\,a(n-9) - 8\,a(n-10) - 4\,a(n-11) + 15\,a(n-12) + 8\,a(n-13) - 7\,a(n-14) - 2\,a(n-15) + 2\,a(n-16) + 2\,a(n-17) - 3\,a(n-18) - 4\,a(n-19) - a(n-20)
+a(n)\;=\;25\,a(n-1) - 263\,a(n-2) + 1465\,a(n-3) - 4208\,a(n-4) + 2752\,a(n-5) + 20591\,a(n-6) - 63149\,a(n-7) + 39306\,a(n-8) + 127182\,a(n-9) - 234935\,a(n-10) - 16967\,a(n-11) + 341508\,a(n-12) - 162216\,a(n-13) - 227787\,a(n-14) + 169273\,a(n-15) + 82343\,a(n-16) - 69183\,a(n-17) - 19686\,a(n-18) + 10818\,a(n-19) + 3132\,a(n-20)
 \]
 for every $n>20$.
 \end{theorem}
@@ -95,14 +121,13 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $29$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry: the digraph is built by reading the
-entry's English, and a misreading gives different counts.
+First, the model reproduces all $18$ terms the entry publishes, exactly, in integer
+arithmetic.
 
-Second, the reading was pinned before the digraph was written, by a program that enumerates
-every array of the given shape one by one and tests the entry's condition at each cell
-directly. That program shares no code with the transfer matrix, so an error in one does not
-hide an error in the other.
+Second, the count was recomputed for the smallest arrays straight from the definition: fill the
+cells in row major order and test each comparison the moment both of its runs are complete,
+in the orientation the entry's own name writes. No transfer matrix and no transposition are
+involved, and the published terms came back.
 
 Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
@@ -112,11 +137,9 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A240644.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A250989.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
-University Press, 2009.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

@@ -12,19 +12,19 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A219100, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A221066, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A219100 counts the distinct indicator arrays obtained from the $n\times2$ arrays over
-$\{0,\dots,2\}$ by marking the cells whose value differs from every one of their neighbours, and carries an
+OEIS A221066 counts the distinct indicator arrays obtained from the $n\times2$ arrays over
+$\{0,\dots,3\}$ by marking the cells whose value is congruent modulo 4 to the sum of their neighbours, and carries an
 empirical recurrence of order $5$ contributed by R.~H.~Hardin. It is true, and it is
 decidable rather than empirical. What is counted is the IMAGE of a map, not its domain, so it
 is not a walk count in the obvious graph; the determinisation of the machine that emits the
-indicator row by row turns it into one, on $S=10$ states, after which the conjectured
+indicator row by row turns it into one, on $S=11$ states, after which the conjectured
 recurrence is settled by a finite exact computation.
 \end{abstract}
 
@@ -32,27 +32,27 @@ recurrence is settled by a finite exact computation.
 
 \section{The conjecture}
 
-OEIS A219100 is ``Unmatched value maps: number of n X 2 binary arrays indicating the locations of corresponding elements not equal to any horizontal, vertical or antidiagonal neighbor in a random 0..2 n X 2 array.''. It has offset $1$ and begins
+OEIS A221066 is ``Sum of neighbor maps: number of n X 2 binary arrays indicating the locations of corresponding elements equal to the sum mod 4 of their king-move neighbors in a random 0..3 n X 2 array.''. It has offset $1$ and begins
 \[
-2, 11, 42, 154, 582, 2199, 8287, 31240,\ \dots
+2, 8, 20, 56, 168, 476, 1364, 3952,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 4*a(n-1) - 2*a(n-2) + 5*a(n-3) - 3*a(n-4) + a(n-5).
+Empirical: a(n) = 2*a(n-1) + 2*a(n-2) + 4*a(n-3) - 5*a(n-4) - 6*a(n-5).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Mar 10 2018 08:37:07, revision 8) this is still
+As of the ``Last modified'' line on the live entry (Aug 03 2018 08:11:35, revision 8) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-Let $R=\{0,\dots,2\}^{2}$ be the set of rows and let the neighbours of a cell be the
+Let $R=\{0,\dots,3\}^{2}$ be the set of rows and let the neighbours of a cell be the
 cells at the offsets
 \[
-(-1,0), (-1,1), (0,-1), (0,1), (1,-1), (1,0),
+(-1,-1), (-1,0), (-1,1), (0,-1), (0,1), (1,-1), (1,0), (1,1),
 \]
 those falling outside the array being simply absent. For an array
 $A=(r_1,\dots,r_n)\in R^n$ let $\Phi(A)\in\{0,1\}^{n\times2}$ mark the cells whose value
-differs from every one of its neighbours. The entry counts
+is congruent modulo 4 to the sum of its neighbours. The entry counts
 \[
 a(n)\;=\;\bigl|\{\Phi(A):A\in R^n\}\bigr| ,
 \]
@@ -112,7 +112,7 @@ right, since the markings differ ---
 \[
 a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,\qquad \iota=e_{D_0},\quad \tau=f .
 \]
-There are $S=10$ reachable sets, generated from $D_0$ outward, and $a$ is $C$-finite. Note
+There are $S=11$ reachable sets, generated from $D_0$ outward, and $a$ is $C$-finite. Note
 that $\tau$ is not the all-ones vector: the last marked row is not a step of the walk but a
 count attached to the state the walk stops in.
 
@@ -136,7 +136,7 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;4\,a(n-1) - 2\,a(n-2) + 5\,a(n-3) - 3\,a(n-4) + a(n-5)
+a(n)\;=\;2\,a(n-1) + 2\,a(n-2) + 4\,a(n-3) - 5\,a(n-4) - 6\,a(n-5)
 \]
 for every $n>5$.
 \end{theorem}
@@ -152,7 +152,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $24$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $26$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the machine is built by reading the
 entry's English, and a misreading gives different counts.
 
@@ -164,7 +164,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A219100.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A221066.
 \bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata
 Theory, Languages, and Computation}, 3rd ed., Addison--Wesley, 2006. (The subset
 construction, Section 2.3.)

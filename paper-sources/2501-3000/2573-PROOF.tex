@@ -12,69 +12,87 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A186843, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A275268, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A186843 counts arrays over $\{0,\dots,1\}$ under a condition comparing a statistic of
-every $2\times2$ subblock with those of its neighbours, and carries an empirical recurrence
-of order $6$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
-empirical. The count is a walk count on $S=50$ states and is $C$-finite; whether the
-conjectured recurrence annihilates it is then settled by a finite exact computation.
+OEIS A275268 counts arrays in which no entry may equal the entries at a short list of fixed offsets
+from it, the arrays being counted up to renaming the letters. The entry carries an empirical
+recurrence of order $6$ contributed by R.~H.~Hardin. It is true, and it is decidable
+rather than empirical. The condition tests only whether two cells are equal, so it survives
+renaming; the count of classes is recovered from counts over fixed alphabets by inverting a
+triangular system of falling factorials, and each of those is a walk count on a window of
+$1$ consecutive columns, $S=101$ states in all.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A18, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A186843 is ``Number of (n+1) X 3 binary arrays with no 2 X 2 subblock diagonal sum less antidiagonal sum equal to any horizontal or vertical neighbor 2 X 2 subblock diagonal sum less antidiagonal sum.''. It has offset $1$ and begins
+OEIS A275268 is ``Number of 4 X n 0..2 arrays with no element equal to any value at offset (-2,-1) (-2,1) or (-1,-1) and new values introduced in order 0..2.''. It has offset $1$ and begins
 \[
-50, 218, 970, 4194, 18246, 79778, 347530, 1514138,\ \dots
+14, 64, 396, 2564, 17036, 114184, 767400, 5162348,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 2*a(n-1) + 4*a(n-2) + 24*a(n-3) + 14*a(n-4) + 3*a(n-5) + 2*a(n-6).
+Empirical: a(n) = 8*a(n-1) - 7*a(n-2) - 9*a(n-3) - 8*a(n-4) - 12*a(n-5) + 16*a(n-6) for n>7.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Apr 19 2018 06:21:17, revision 8) this is still
+As of the ``Last modified'' line on the live entry (Feb 04 2019 09:08:17, revision 7) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-Write $\sigma$ for its diagonal sum minus its antidiagonal sum, taken on a $2\times2$ subblock. The contiguous $2\times2$
-subblocks of an $(n+1)\times3$ array over $\{0,\dots,1\}$ form a grid of $n$ rows
-and $2$ columns, and $\sigma$ labels that grid. The entry
-requires that no two subblocks that are neighbours horizontally or vertically carry the same value of $\sigma$.
-
-\section{The count is a walk count}
-
-The condition is on a PAIR of neighbouring subblocks, so nothing beyond the
-rows themselves has to be remembered. Take as state the $2$-tuple of consecutive array rows
-whose subblock row has just been completed: the horizontal pairs inside that row decide which
-tuples are admissible at all, and the vertical pairs decide which tuple may follow which. A
-step appends one array row. An array of $n+1$ rows is a walk of $n-1$ steps and
+Entries lie in $\{0,1,\dots,2\}$ and the condition is that
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,\qquad\iota=\tau=(1,\dots,1)^{\!\top},
+x(i,j)\ \ne\ x(i+d_1,\,j+d_2)\qquad\text{for each offset }(d_1,d_2)\in\{(-2,-1), (-2,1), (-1,-1)\}
 \]
-on the $S=50$ admissible tuples.
+whenever the second cell lies inside the array. The entry writes the array with $n$ as the number of COLUMNS, so the array grows one COLUMN at a time and an offset is read with its two coordinates exchanged. The closing clause ``new values
+introduced in order $0..2$'' says the array is the canonical representative of its equality
+pattern.
 
-The state does not compress. What a step needs of the past is the previous subblock row, and
-for $3\ge2$ that row already determines the $2$ array rows it came from, so carrying the
-rows costs nothing and carrying anything smaller loses information. Of the $2^{2\cdot
-3}=64$ tuples of $2$ rows, $S=50$ survive the condition inside a single subblock row;
-the rest could not occur in a counted array at all.
+\begin{lemma}\label{lem:order}
+The number counted does not depend on the order in which the array is read.
+\end{lemma}
 
-Over the alphabet $\{0,\dots,1\}$ the statistic takes values in $[-2,2]$, so the
-grid it labels carries at most $5$ different labels. At $n=1$ the array has $2$
-rows and the grid is a single row of $2$
-subblocks, with only the neighbours inside that row; the entry's first term is
-$50$, which the model reproduces along with every later term, and that is the cheapest
-check that the grid has been read with the right shape.
+\begin{proof}
+The condition tests only whether two cells carry equal values, so it is unchanged by permuting
+the alphabet, and the admissible arrays fall into classes under renaming. Fix any reading order
+of the cells. Each class contains exactly one array whose distinct values, in order of first
+appearance in that reading, are $0,1,2,\dots$: take any member and rename its values by their
+rank of first appearance. So the count is the number of CLASSES, whatever reading order is
+meant.
+\end{proof}
 
-In particular $a$ is $C$-finite. The alignment of the walk index with the entry's own $n$ was
-checked against its published terms rather than assumed.
+\section{From classes to fixed alphabets}
+
+Write $N_j$ for the number of classes on exactly $j$ letters and $L_i$ for the number of
+admissible arrays over an alphabet of $i$ letters. An array over $i$ letters is a class together
+with an injection of its letters into the alphabet, so
+\[
+L_i\;=\;\sum_j N_j\,i(i-1)\cdots(i-j+1),
+\]
+a triangular system with unit diagonal. By Lemma~\ref{lem:order} the entry counts
+$N_1+\dots+N_{3}$, so $a=\sum_i w_iL_i$ with $w=\mathbf{1}^{\!\top}F^{-1}$, $F$ the
+matrix of falling factorials.
+
+\section{Each $L_i$ is a walk count}
+
+Equality is symmetric, so an offset and its negative forbid exactly the same pairs; replacing
+each offset by whichever of the two points BACKWARDS along the direction in which the array
+grows makes every pair tested once, from the later of its two cells. After that replacement no
+offset reaches more than $1$ columns back, so the window of the last $1$
+columns is a state and one step appends a column. A column not yet written is
+carried as a symbol, so the walk starts at the empty array and a walk of $t$ steps is an array
+of $t$ columns. Assembling $i=1,\dots,3$ as a disjoint union with $\iota$ carrying the
+weights cleared of denominators and $\tau=\mathbf{1}$,
+\[
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=101.
+\]
+The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
+published terms rather than assumed. In particular $a$ is $C$-finite.
 
 \section{The proof}
 
@@ -96,39 +114,44 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;2\,a(n-1) + 4\,a(n-2) + 24\,a(n-3) + 14\,a(n-4) + 3\,a(n-5) + 2\,a(n-6)
+a(n)\;=\;8\,a(n-1) - 7\,a(n-2) - 9\,a(n-3) - 8\,a(n-4) - 12\,a(n-5) + 16\,a(n-6)
 \]
-for every $n>6$.
+for every $n>7$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $6$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=6+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once.
+integers vanish from the index corresponding to $n=7+1$ onwards and the run continued
+until the working vector was identically zero. The rational weights are carried as one common
+denominator, so no division is performed until the final term.
 \end{proof}
 
 \section{Verification}
 
-Three checks, each independent of the algebra above.
+Four checks, each independent of the algebra above.
 
-First, the model reproduces all $21$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry: the digraph is built by reading the
-entry's English, and a misreading gives different counts.
+First, the model reproduces all $19$ terms the entry publishes, exactly, in integer
+arithmetic.
 
-Second, the conjectured recurrence was evaluated directly on those published terms, with no
+Second, the count was recomputed for the smallest arrays straight from the definition:
+enumerate every array over $\{0,\dots,2\}$, keep those whose values are introduced in the
+order $0,1,2,\dots$ reading row by row, and test each offset directly. Neither the window, nor
+the backward normalisation of the offsets, nor the falling-factorial inversion is involved, and
+the published terms came back.
+
+Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
 arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A186843.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A275268.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata
-Theory, Languages, and Computation}, 3rd ed., Addison--Wesley, 2006.
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; falling factorials,
+Section 1.9.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

@@ -12,201 +12,128 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A223325, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A264139, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{4 September 2026}
+\date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A223325 counts the ways of writing the vertices of a fixed graph $G$ into an array of width
-$5$ so that any two cells adjacent in one of the named directions carry vertices joined by an
-edge of $G$; here $G$ is icosahedron graph. The entry carries an empirical recurrence of order $32$
-contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical. A slice of
-the array would be a state, but there are $248832$ legal slices here and that is too many to
-carry one by one. The condition names only the edge relation, so the automorphism group of $G$
---- of order $120$ --- acts on the arrays and commutes with the transfer matrix; the walk may
-then be run on the ORBITS of slices instead of on the slices, and $S=2208$ of those suffice.
+OEIS A264139 counts the arrangements of $0,1,\dots,LW-1$ in a grid of $W=6$ rows in which
+every value moves from its home cell by an index change on a short list, and it carries an
+empirical recurrence of order $32$ contributed by R.~H.~Hardin. It is true, and it is
+decidable rather than empirical. Such an arrangement is a perfect matching between cells and
+values, and because a value's row moves by at most $R=1$, the matching splits into
+independent decisions row by row: after the cells of rows $0,\dots,i$ are filled,
+every value whose home row is at most $i-R$ has been used, and only $2R$ home rows are
+partly used. Carrying those as bitmasks makes the count a walk on $S=4096$ vertices, so it is
+$C$-finite and the conjectured recurrence is decided by a finite exact computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05C15, 05A15, 05C25, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A05, 05A15, 15A15.\normalsize
 
 \section{The conjecture}
 
-OEIS A223325 is ``Rolling icosahedron footprints: number of 5Xn 0..11 arrays starting with 0 where 0..11 label vertices of an icosahedron and every array movement to a horizontal or antidiagonal neighbor moves along an icosahedral edge.''. It has offset $1$ and begins
+OEIS A264139 is ``Number of (n+1)X(5+1) arrays of permutations of 0..n*6+5 with each element having index change +-(.,.) 0,0 1,-2 or 1,1.''. It has offset $1$ and begins
 \[
-20736, 1953125, 446265625, 101966340125, 24143758634125, 5759605530667625, 1379464144963464625, 330817503041200989125,\ \dots
+125, 3600, 168948, 7001316, 302693857, 12968882161, 557669432592, 23961367651225,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 410*a(n-1) -51839*a(n-2) +2998354*a(n-3) -88929070*a(n-4) +1198807214*a(n-5) +2889121905*a(n-6) -340756682572*a(n-7) +4538793109678*a(n-8) -13887817317962*a(n-9) -242674670034177*a(n-10) +2612400275589524*a(n-11) -4250937817051838*a(n-12) -72579353969012690*a(n-13) +404852006352195731*a(n-14) +294243010726671144*a(n-15) -8038059311698199807*a(n-16) +14527240098893219908*a(n-17) +63207106281330811172*a(n-18) -241285400707856322796*a(n-19) -99441316590244134158*a(n-20) +1499939986936247507922*a(n-21) -1264768034332853154292*a(n-22) -3709575277042038429058*a(n-23) +6249708500546392632287*a(n-24) +1712083980241985550010*a(n-25) -7806673210840206689815*a(n-26) +1552725322135658220450*a(n-27) +3587994096679078794377*a(n-28) -1272290169371896871744*a(n-29) -473135759143977735225*a(n-30) +224855787210470741790*a(n-31) -20543329382473731600*a(n-32) for n>36
+Empirical: a(n) = 43*a(n-1) -a(n-2) +3413255*a(n-6) -146769965*a(n-7) +3413255*a(n-8) -6304281985*a(n-12) +271084125355*a(n-13) -6304281985*a(n-14) +6304281985*a(n-18) -271084125355*a(n-19) +6304281985*a(n-20) -3413255*a(n-24) +146769965*a(n-25) -3413255*a(n-26) +a(n-30) -43*a(n-31) +a(n-32)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 21:31:11, revision 9) this is still
+As of the ``Last modified'' line on the live entry (Nov 10 2015 11:15:24, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
-\section{What is being counted}
+\section{The object is a matching}
 
-Let $G$ be the graph on the label set $\{0,1,\dots,11\}$ whose vertices are the twelve vertices of a regular icosahedron, two of them adjacent when an edge joins them. That is the icosahedron graph: $12$ vertices, $5$-regular, $30$ edges.
-
-An array $x$ is a map from the cells of a rectangle to the vertices of $G$. The entry names the
-directions antidiagonal and horizontal, that is the cell offsets
+The grid has $W=6$ rows across and holds each of $0,1,\dots,LW-1$ exactly once. The value
+$v$ has a HOME cell, namely its place in the plain row-major filling, and putting $v$ in cell
+$(i,j)$ changes its index by $(i-h_i,\,j-h_j)$ where $(h_i,h_j)$ is that home cell. The entry
+allows the index changes
 \[
-(1,-1), (0,1),
+(i-h_i,\,j-h_j)\;\in\;\{(-1,-1),\ (-1,2),\ (0,0),\ (1,-2),\ (1,1)\},
 \]
-and asks that whenever two cells of the array differ by one of those offsets, the two vertices
-they carry are joined by an edge of $G$.
+the list being the entry's own, read with the sign convention its wording uses. An admissible
+arrangement is therefore exactly a perfect matching in the bipartite graph joining each cell to
+the values it may hold.
 
-Write $\Gamma=\operatorname{Aut}(G)$ for the group of adjacency-preserving bijections of the
-vertex set. It was computed by backtracking over the vertices in breadth-first order, assigning
-each an image consistent with every vertex already placed, and has order $|\Gamma|=120$.
+\section{The matching is a walk}
 
-\begin{lemma}\label{lem:act}
-For $\sigma\in\Gamma$ the array $\sigma\circ x$ is valid whenever $x$ is, and this is an action
-of $\Gamma$ on the set of valid arrays. In particular the count does not depend on how the
-vertices of $G$ are labelled.
-\end{lemma}
+Let $R=1$ be the largest $|i-h_i|$ on the list. A value whose home row is $h$ can only be
+placed in rows $h-R,\dots,h+R$. So once the cells of rows $0,\dots,i$ are filled, every
+value with home row at most $i-R$ has been used up, and the only home rows that can be
+partly used are $i-R+1,\dots,i+R$ --- exactly $2R$ of them. Take as the state the tuple of
+$2R$ bitmasks recording which values of those home rows are already placed. One step fills
+the cells of one further row, drawing each of its $W$ values from a home row within $R$
+and at an allowed column offset, and the home row that closes at that step must come out
+full. Nonexistent home rows --- before the first and after the last --- are carried as
+full, which makes the starting and accepting states the same one.
 
-\begin{proof}
-The condition mentions the vertices only through the relation ``joined by an edge'', which
-$\sigma$ preserves in both directions. The same argument with an isomorphism between two
-labelled copies of $G$ gives the second statement.
-\end{proof}
-
-\section{The cell the entry fixes}
-
-The entry asks for $x(0,0)=0$. That condition is removed here, and paid for once at the end.
-
-\begin{lemma}\label{lem:fibre}
-$\Gamma$ is transitive on the vertices of $G$. Consequently the valid arrays with $x(0,0)=v$
-are equinumerous for every vertex $v$, and the number with $x(0,0)=0$ is the number of valid
-arrays with no condition on any cell, divided by $12$.
-\end{lemma}
-
-\begin{proof}
-Transitivity was checked directly on the group computed above: the orbit of one vertex is the
-whole vertex set. Given vertices $v,w$ pick $\sigma\in\Gamma$ with $\sigma v=w$; then
-$x\mapsto\sigma\circ x$ is a bijection from the valid arrays with $x(0,0)=v$ onto the valid
-arrays with $x(0,0)=w$, with inverse given by $\sigma^{-1}$. The $12$ fibres of
-$x\mapsto x(0,0)$ therefore all have the same size and partition the unrestricted count.
-\end{proof}
-
-\section{Orbits of slices}
-
-Take the array one $column$ at a time, in the direction in which it grows. The entry writes the array with $n$ as the number of COLUMNS, so the slice added at each step is a column; transposing exchanges the horizontal and vertical directions and carries each diagonal direction to itself.
-Every offset the entry names has its two cells either in the same $column$ or in two
-consecutive ones, so a $column$ is a state: let $M$ be the $0/1$ matrix indexed by the
-legal $column$s with $M_{uv}=1$ when $v$ may follow $u$, and let $\tau=\mathbf{1}$.
-The number of valid arrays of $m$ $column$s is $\mathbf{1}^{\!\top}M^{m-1}\tau$.
-
-There are $248832$ legal $column$s, which is more than can be carried one at a time. They
-need not be.
-
-\begin{lemma}\label{lem:lump}
-$\Gamma$ acts on the $column$s coordinatewise; $M_{uv}=M_{\sigma u\,\sigma v}$ for
-every $\sigma\in\Gamma$, and $\tau$ is fixed by $\Gamma$. Consequently $M^{m}\tau$ is constant
-on each $\Gamma$-orbit of $column$s, for every $m\ge0$.
-\end{lemma}
-
-\begin{proof}
-That $v$ may follow $u$ is again a conjunction of statements ``these two vertices are joined by
-an edge'', so $\sigma$ preserves it; and $\tau$ is the all-ones vector. Induct on $m$: if
-$w=M^{m}\tau$ satisfies $w_{\sigma u}=w_u$ then
-$(Mw)_{\sigma u}=\sum_v M_{\sigma u\,v}w_v=\sum_v M_{u\,\sigma^{-1}v}w_v
-=\sum_{v'}M_{uv'}w_{\sigma v'}=(Mw)_u$.
-\end{proof}
-
-Let $\mathcal{O}$ be the set of orbits, $r_O$ a representative of $O$, and
+Hence $a$ is a walk count on $S=4096$ vertices,
 \[
-\widehat{M}_{O,O'}=\#\{\,v\in O' : M_{r_O v}=1\,\} .
+a(n)\;=\;\iota^{\!\top}M^{\,n+1}\tau ,
 \]
-By Lemma~\ref{lem:lump} the value $(M^{m}\tau)_{r_O}$ is what $M^m\tau$ takes on all of
-$O$, and one step reads
-\[
-(M w)_{r_O}=\sum_{O'}\widehat{M}_{O,O'}\,w_{r_{O'}} ,
-\]
-so the whole walk may be run on $\mathcal{O}$. Summing over $column$s and grouping,
-\[
-\mathbf{1}^{\!\top}M^{m}\tau=\sum_{O\in\mathcal{O}}|O|\,(M^{m}\tau)_{r_O}
-=\iota^{\!\top}\widehat{M}^{\,m}\mathbf{1},\qquad \iota_O=|O| ,
-\]
-and the count the entry publishes is that divided by $12$, by Lemma~\ref{lem:fibre}. Here $S=|\mathcal{O}|=2208$, down from $248832$.
-
-The orbit representatives are generated directly rather than by listing the $column$s and
-grouping them. A $column$ is built one cell at a time, carrying the set of $\sigma$ that
-have so far written exactly the same prefix; a choice is abandoned as soon as one of them would
-write a smaller letter. What reaches the last cell is the lexicographically least member of its
-orbit, one per orbit, and the set still tied there is its stabiliser, so
-$|O|=|\Gamma|/|\Gamma_{r_O}|$ falls out of the same walk.
-
-The walk index and the entry's own $n$ differ by a constant, read off by matching the published
-terms rather than assumed. In particular $a$ is $C$-finite.
+the exponent fixed by the entry's own shape and checked against its published terms; in
+particular $a$ is $C$-finite.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
 Let $q(t)=t^{32}-\sum_i c_it^{32-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
-$\iota^{\!\top}\widehat{M}^{\,j}q(\widehat{M})\mathbf{1}$ for the corresponding walk
-index $j$, so the recurrence holds from some point on if and only if that vanishes for all large
-$j$, and it is enough to examine $j<S$.
+$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
+holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$;
+and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $\widehat{M}^{j}$ out of
-$\widehat{M}^{j+32}-\sum_ic_i\widehat{M}^{j+32-i}$. For the bound,
-$\widehat{M}^{S}$ is an integer combination of
-$I,\widehat{M},\dots,\widehat{M}^{S-1}$ by Cayley--Hamilton, so the numbers
-$u_j=\iota^{\!\top}\widehat{M}^{j}q(\widehat{M})\mathbf{1}$ obey the monic recurrence
-given by its characteristic polynomial; $S$ consecutive zeros force every later one, and the
-last nonzero $u_j$ pins the threshold exactly.
+Factor $M^{j}$ out of $M^{j+32}-\sum_ic_iM^{j+32-i}$. For the bound, $M^{S}$
+is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
+$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
+polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
+pins the threshold exactly.
 \end{proof}
 
 \begin{theorem}
 \[
-a(n)\;=\;410\,a(n-1) - 51839\,a(n-2) + 2998354\,a(n-3) - 88929070\,a(n-4) + 1198807214\,a(n-5) + 2889121905\,a(n-6) - 340756682572\,a(n-7) + 4538793109678\,a(n-8) - 13887817317962\,a(n-9) - 242674670034177\,a(n-10) + 2612400275589524\,a(n-11) - 4250937817051838\,a(n-12) - 72579353969012690\,a(n-13) + 404852006352195731\,a(n-14) + 294243010726671144\,a(n-15) - 8038059311698199807\,a(n-16) + 14527240098893219908\,a(n-17) + 63207106281330811172\,a(n-18) - 241285400707856322796\,a(n-19) - 99441316590244134158\,a(n-20) + 1499939986936247507922\,a(n-21) - 1264768034332853154292\,a(n-22) - 3709575277042038429058\,a(n-23) + 6249708500546392632287\,a(n-24) + 1712083980241985550010\,a(n-25) - 7806673210840206689815\,a(n-26) + 1552725322135658220450\,a(n-27) + 3587994096679078794377\,a(n-28) - 1272290169371896871744\,a(n-29) - 473135759143977735225\,a(n-30) + 224855787210470741790\,a(n-31) - 20543329382473731600\,a(n-32)
+a(n)\;=\;43\,a(n-1) - a(n-2) + 3413255\,a(n-6) - 146769965\,a(n-7) + 3413255\,a(n-8) - 6304281985\,a(n-12) + 271084125355\,a(n-13) - 6304281985\,a(n-14) + 6304281985\,a(n-18) - 271084125355\,a(n-19) + 6304281985\,a(n-20) - 3413255\,a(n-24) + 146769965\,a(n-25) - 3413255\,a(n-26) + a(n-30) - 43\,a(n-31) + a(n-32)
 \]
-for every $n>36$.
+for every $n>30$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(\widehat{M})\mathbf{1}$ was formed by $32$ matrix--vector products in
-exact integer arithmetic and $\iota^{\!\top}\widehat{M}^{j}w$ evaluated for
-$j=0,1,\dots$, again exactly; those integers vanish from the index corresponding to
-$n=36+1$ onwards and the run continued until the working vector was identically zero, which
-settles every larger $j$ at once.
+The vector $w=q(M)\tau$ was formed by $32$ matrix--vector products in exact integer
+arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
+integers vanish from the index corresponding to $n=30+1$ onwards and the run continued
+until the working vector was identically zero, settling every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
-Five checks, each independent of the algebra above.
+Three checks, each independent of the algebra above.
 
-First, the model reproduces all $11$ terms the entry publishes, exactly, in integer
-arithmetic.
+First, the reading of the entry's wording was tested against the entries themselves by brute
+force before any of this was built, and separately for each of the three sign conventions the
+family uses: ``$(\pm,\pm)$ $a,b$'' signs each coordinate independently, ``$\pm(.,.)$ $a,b$''
+signs the PAIR and may write the second coordinate negative, and ``directed $a,b$'' is taken
+literally. Enumerating all $720$ arrangements of a $2\times3$ grid reproduces the first term
+of an entry of each convention. Testing only one of them would have proved only that one:
+reading the second convention as the first silently drops displacements, and thirty-eight
+entries disagreed with their own published data until the conventions were separated.
 
-Second, the count was recomputed for the smallest arrays straight from the definition, with the
-graph rebuilt by a different route---the cube from its corner points and face normals in space,
-the icosahedron as a pentagonal antiprism capped at both poles---and the arrays written out cell
-by cell, each cell tested against the cells it must be joined to. That recount applies the
-entry's own condition on the top-left cell directly, so it tests Lemma~\ref{lem:fibre} as well:
-no orbit, no lumping and no division is involved in it, and the published terms came back.
+Second, the transfer model reproduces all $14$ terms this entry publishes, exactly, in
+integer arithmetic.
 
-Third, the automorphism group was checked to be a group---closed under composition and
-inverses---and every one of its $120$ elements verified to preserve the edge set.
-
-Fourth, the conjectured recurrence was evaluated directly on the published terms, with no
-matrices involved, and holds wherever the proved range and the data overlap.
-
-Fifth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
 arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A223325.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A264139.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{kemeny} J.~G.~Kemeny and J.~L.~Snell, \emph{Finite Markov Chains}, Springer, 1976.
-(Lumping, Section 6.3.)
-\bibitem{cox} H.~S.~M.~Coxeter, \emph{Regular Polytopes}, 3rd ed., Dover, 1973.
+\bibitem{lp} L.~Lov\'asz and M.~D.~Plummer, \emph{Matching Theory}, AMS Chelsea, 2009.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

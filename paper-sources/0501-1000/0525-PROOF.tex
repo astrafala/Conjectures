@@ -12,175 +12,126 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A229603, proved by counting defective colourings}
+\title{Recovering the unwritten recurrences of the table OEIS A259723}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{1 September 2026}
+\date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A229603 counts the colourings of an array with $K=3$ colours that are proper except at
-exactly two adjacent pairs, the colours being introduced in row
-major order. Neither feature is local: the number of monochromatic adjacent pairs is a
-property of the whole array, and the row major clause fixes a representative of each
-relabelling class. Both are removed by machinery already in hand --- the running count of
-mistakes goes into the state, capped at $2$, and the colour clause disappears into the
-identity $3!\,a(n)=\sum_i\binom{3}{i}D_{3-i}L_i(n)$ with $D_m$ the derangement
-numbers. What is left is a walk count on $S=828$ vertices, and the empirical recurrence of
-order $16$ contributed by R.~H.~Hardin follows from a finite exact computation.
+OEIS A259723 is a two-dimensional table $T(n,k)$ whose empirical recurrences are, for several of
+its lines, given only as an ORDER --- ``k=2: [order 10];'' and the like --- with the
+coefficients in a linked file rather than in the entry. Those conjectures can still be settled,
+and the recurrences recovered. A line of the table is a fixed-width or fixed-height array
+count, hence a walk count on finitely many vertices, hence satisfies some monic recurrence of
+order at most that number; Berlekamp--Massey on twice as many exact terms returns the MINIMAL
+one. Where its order equals the order the entry states --- and where the same holds after the
+first few terms are dropped --- any recurrence of that order the line satisfies has a
+characteristic polynomial that is a multiple of the minimal one and of equal degree, hence is
+that polynomial. This note settles column 2, column 3.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05C15, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 15A18.\normalsize
 
-\section{The sequence and the conjecture}
+\section{The table and the unwritten conjectures}
 
-OEIS A229603 is ``Number of defective 3-colorings of an n X 5 0..2 array connected horizontally and vertically with exactly two mistakes, and colors introduced in row-major 0..2 order.''. It has offset $1$ and begins
+OEIS A259723 is ``T(n,k) = Number of (n+2) X (k+2) 0..1 arrays with each 3 X 3 subblock having clockwise perimeter pattern 00000001 or 00000011.''. It is read by antidiagonals and begins
 \[
-12, 925, 20714, 362100, 5655616, 82613904, 1153135492, 15568071652,\ \dots
+32, 54, 54, 140, 95, 140, 242, 228,\ \dots
 \]
-The entry carries the following comment:
+The entry carries, among its empirical claims:
 \begin{quote}\small
-Empirical: a(n) = 47*a(n-1) - 915*a(n-2) + 9649*a(n-3) - 60959*a(n-4) + 242397*a(n-5) - 616481*a(n-6) + 977203*a(n-7) - 836412*a(n-8) + 41816*a(n-9) + 793688*a(n-10) - 1000320*a(n-11) + 656832*a(n-12) - 262080*a(n-13) + 63744*a(n-14) - 8704*a(n-15) + 512*a(n-16) for n > 17.
+k=2: [order 10];\\
+k=3: [order 16];
 \end{quote}
-As of the ``Last modified'' line on the live entry (Apr 27 2021 21:27:42, revision 8) the statement is
-still recorded as empirical, and nothing on the entry records it as settled either way.
+As of the ``Last modified'' line on the live entry (Feb 13 2026 09:57:18, revision 8) these are still
+recorded as empirical, and the recurrences themselves are not in the entry text.
 
-Written out, the claim is
-\begin{equation}\label{eq:conj}
-a(n)\;=\;47\,a(n-1) - 915\,a(n-2) + 9649\,a(n-3) - 60959\,a(n-4) + 242397\,a(n-5) - 616481\,a(n-6) + 977203\,a(n-7) - 836412\,a(n-8) + 41816\,a(n-9) + 793688\,a(n-10) - 1000320\,a(n-11) + 656832\,a(n-12) - 262080\,a(n-13) + 63744\,a(n-14) - 8704\,a(n-15) + 512\,a(n-16)
-\end{equation}
-for all $n>17$.
+\section{Why a line of the table is a walk count}
 
-\section{Mistakes, and the colour clause}
+Fix the index that the line fixes. The entry defines $T(n,k)$ as a number of arrays of a shape
+determined by $n$ and $k$, subject to a condition local to a bounded window of consecutive
+lines. Substituting the fixed index into the entry's own wording turns the definition into an
+ordinary one-parameter array count, and for such a count the admissible windows are the
+vertices of a finite digraph and an array is a walk. So the line is a walk count on $S$
+vertices, and by the Cayley--Hamilton theorem it satisfies a monic integer recurrence of order
+at most $S$.
 
-The arrays have $5$ columns and $L=n$ rows, entries in $\{0,\dots,3-1\}$.
-Two cells are adjacent when they differ by one of
-\[
-\mathcal N=\{(0,1),\ (1,0)\}
-\]
-(as (row shift, column shift)); each unordered adjacency is represented by exactly one
-offset, and every offset has a nonnegative row shift, so the pairs inside a row are
-counted when that row is laid down and the pairs joining two rows when the later one
-is. Call an adjacent pair a \emph{mistake} when $x_{t,u}=x_{t+d_1,\,u+d_2}$. The entry asks for exactly
-$E=2$ mistakes.
+\section{Recovering the recurrences}
 
-That is a statement about the whole array, so no bounded window sees it; but the running
-number of mistakes can be carried in the state, capped at $2$, the states past $2$ being
-absent because a count that has passed the budget can never come back.
-
-The condition is stated in equalities, so it is invariant under relabelling the colours, and
-so is the number of mistakes. ``Colors introduced in row-major order'' keeps exactly one
-colouring from each relabelling class, so the entry counts equality PATTERNS with at most
-$K=3$ classes.
-
-\begin{lemma}\label{lem:inv}
-Let $L_i(n)$ count the colourings over $i$ colours with exactly $2$ mistakes, and $N_j(n)$
-the admissible patterns with exactly $j$ classes. Then
-$L_i=\sum_j N_j\,i(i-1)\cdots(i-j+1)$ and
-\[
-3!\,\sum_{j\le3}N_j(n)=\sum_{i=0}^{3}\binom{3}{i}D_{3-i}L_i(n),
-\qquad D_m=m!\sum_{t=0}^{m}\frac{(-1)^t}{t!} .
-\]
+\begin{lemma}\label{lem:bm}
+A sequence known to satisfy some linear recurrence of order at most $S$ is determined, with its
+minimal recurrence, by its first $2S$ terms; Berlekamp--Massey applied to them returns that
+minimal recurrence exactly.
 \end{lemma}
 
-\begin{proof}
-A colouring is a pattern together with an injection of its classes into the palette, and a
-pattern with $j$ classes admits $i(i-1)\cdots(i-j+1)$ of them, which is the first identity.
-Writing the falling factorial as $j!\binom{i}{j}$ and inverting binomially gives
-$j!N_j=\sum_i(-1)^{j-i}\binom{j}{i}L_i$; summing over $j\le3$ and exchanging the order
-of summation makes the coefficient of $L_i$ equal to $\sum_{t\le3-i}(-1)^t/(i!\,t!)$,
-which multiplied by $3!$ is $\binom{3}{i}D_{3-i}$, an integer.
-\end{proof}
+\subsection*{Column $k=2$}
+Substituting the fixed index into the entry's wording gives an ordinary one-parameter array
+count, a walk on $S=256$ vertices. Berlekamp--Massey on $2S=512$ exact terms
+returns a minimal recurrence of order $10$ --- the order the entry states --- with
+integer coefficients
+\begin{center}\small\begin{tabular}{cccccccc}
+$c_{1}$ & $0$ & $c_{4}$ & $4$ & $c_{7}$ & $-5$ & $c_{10}$ & $3$ \\
+$c_{2}$ & $1$ & $c_{5}$ & $-4$ & $c_{8}$ & $-3$ &  &  \\
+$c_{3}$ & $5$ & $c_{6}$ & $-8$ & $c_{9}$ & $2$ &  &  \\
+\end{tabular}\end{center}
+so that $a(m)=\sum_{i=1}^{10}c_i\,a(m-i)$ for every $m$. Removing the first
+$10+4$ terms and repeating gives order $10$ again, which is what the
+identification below needs.
 
-\section{Each $L_i$ is a walk count}
-
-Fix $i$ and take as vertices the pairs $(r,c)$ with $r\in\{0,\dots,i-1\}^{5}$ a row
-and $0\le c\le2$ a running count. Write $\beta(r,s)$ for the number of mistakes joining
-rows $r$ and $s$ plus the number of mistakes inside $s$. Declare $(r,c)\to(s,c+\beta(r,s))$
-an edge when $c+\beta(r,s)\le2$, let $\mathbf{s}_i$ mark the vertices whose count is the
-number of mistakes inside $r$ alone, and $\mathbf{e}_i$ those with $c=2$.
-
-\begin{lemma}\label{lem:walk}
-$L_i(n)=\mathbf{s}_i^{\!\top}P_i^{\,L-1}\mathbf{e}_i$ for $L\ge1$, where $P_i$ is the
-adjacency matrix of that digraph.
-\end{lemma}
-
-\begin{proof}
-A walk of length $L-1$ determines the sequence of $L$ rows, and conversely; by induction
-the count component after $t$ rows is the number of mistakes among the first $t$ rows,
-since each step adds exactly the mistakes joining rows $t$ and $t+1$ together with those
-inside row $t+1$, and each unordered pair is named by exactly one offset. The walk exists
-precisely when the running count never exceeds $2$, which for a nondecreasing count follows
-from its final value being $2$, and $\mathbf{e}_i$ imposes that final value. The state
-carries a row, not a boundary, so $L$ rows make a walk of length $L-1$.
-\end{proof}
-
-Assembling the $3$ chains block-diagonally into $N$ of size $S=828$ with the weights of
-Lemma~\ref{lem:inv} in the start vector $\mathbf{v}$ and the end markers in
-$\mathbf{u}$,
-\begin{equation}\label{eq:walk2}
-3!\;a(n)\;=\;\mathbf{v}^{\!\top}N^{\,L-1}\mathbf{u},\qquad L=n .
-\end{equation}
-
-\section{The criterion, and the computation}
-
-Let $q(t)=t^{16}-\sum_i c_i\,t^{16-i}$ be the characteristic polynomial of
-\eqref{eq:conj} and $G=N$.
-
-\begin{lemma}\label{lem:crit}
-With $n_0$ the least index for which $L\ge1$, $o=1n_0+0-1$ and
-$h_j=G^{j}N^{o}\mathbf{u}$, we have for $j\ge16$
-\[
-3!\Bigl(a(n_0+j)-\sum_i c_i\,a(n_0+j-i)\Bigr)=\mathbf{v}^{\!\top}G^{\,j-16}w,
-\qquad w=h_{16}-\sum_i c_ih_{16-i} .
-\]
-Hence \eqref{eq:conj} holds from that point on if and only if
-$\mathbf{v}^{\!\top}G^{m}w=0$ for all $m\ge0$, and $m<S$ suffices.
-\end{lemma}
-
-\begin{proof}
-Substitute \eqref{eq:walk2} and factor; $3!$ is a nonzero scalar. Cayley--Hamilton
-makes $G^{S}$ an integer combination of $I,G,\dots,G^{S-1}$, so every later value repeats
-that combination of earlier ones.
-\end{proof}
+\subsection*{Column $k=3$}
+Substituting the fixed index into the entry's wording gives an ordinary one-parameter array
+count, a walk on $S=1024$ vertices. Berlekamp--Massey on $2S=2048$ exact terms
+returns a minimal recurrence of order $16$ --- the order the entry states --- with
+integer coefficients
+\begin{center}\small\begin{tabular}{cccccccc}
+$c_{1}$ & $0$ & $c_{5}$ & $0$ & $c_{9}$ & $4$ & $c_{13}$ & $0$ \\
+$c_{2}$ & $0$ & $c_{6}$ & $-9$ & $c_{10}$ & $7$ & $c_{14}$ & $0$ \\
+$c_{3}$ & $6$ & $c_{7}$ & $-16$ & $c_{11}$ & $10$ & $c_{15}$ & $0$ \\
+$c_{4}$ & $6$ & $c_{8}$ & $-12$ & $c_{12}$ & $14$ & $c_{16}$ & $-3$ \\
+\end{tabular}\end{center}
+so that $a(m)=\sum_{i=1}^{16}c_i\,a(m-i)$ for every $m$. Removing the first
+$16+4$ terms and repeating gives order $16$ again, which is what the
+identification below needs.
 
 \begin{theorem}
-The recurrence \eqref{eq:conj} holds for every $n>17$, which is the statement of
-Section~1.
+For each line above, the displayed recurrence holds for every index, and it is the recurrence
+the entry records.
 \end{theorem}
 
 \begin{proof}
-The digraph was built directly from the definitions above. The vector $w$ was formed by
-$16$ applications of $G$ in exact integer arithmetic and $\mathbf{v}^{\!\top}G^{m}w$
-evaluated for $m=0,1,\dots$, again exactly. Every one of those integers vanishes from the
-index corresponding to $n=17+1$ onwards, and the run continued until $S+1$ consecutive
-zeros had been seen.
+It holds by Lemma~\ref{lem:bm}. For the identification, the entry asserts that the line
+satisfies SOME recurrence of the stated order, possibly only from some index on. Let $q$ be its
+characteristic polynomial and $q_{\min}$ the minimal polynomial of the tail. Then
+$q_{\min}\mid q$, and the second Berlekamp--Massey run --- on the line with its first few
+terms removed --- shows $\deg q_{\min}$ equals the stated order, which is $\deg q$. Both are
+monic, so $q=q_{\min}$.
 \end{proof}
 
 \section{Verification}
 
-Three checks, each independent of the algebra above.
+Three checks.
 
-First, the right-hand side of \eqref{eq:walk2}, divided by $3!$, was evaluated at every
-one of the $15$ published indices and agrees with the entry's DATA exactly, the quotient
-coming out an integer each time; no shift was fitted, the number of rows being $L=n$
-from the entry's own name and the offset saying which index carries the first published term.
-Double-counting an unordered pair, or mistaking the budget, changes the counts at once.
+First, each line's model was compared against the entry's own published values for that line,
+taken from the antidiagonal DATA read in either orientation and from the ``Table starts''
+block, and agrees at every available term. This is the only point at which reading the entry's
+English enters, and a misreading gives different counts.
 
-Second, the recurrence \eqref{eq:conj} was evaluated on those published terms in exact
-integer arithmetic, with no matrices involved, and vanishes wherever it applies.
+Second, each recovered recurrence was evaluated directly on the model's values, with no
+Berlekamp--Massey involved, and holds at every index tested.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried to the full
-Cayley--Hamilton bound in exact integer arithmetic rather than to a sampled prefix.
+Third, each order was computed twice by independent routes --- modulo a $61$-bit prime, where
+every intermediate is a machine word, and again in exact rational arithmetic --- and once more
+on the line with its first few terms dropped, which is what the identification requires. All
+agree.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A229603.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A259723.
+\bibitem{massey} J.~L.~Massey, Shift-register synthesis and BCH decoding, \emph{IEEE
+Trans. Inform. Theory} \textbf{15} (1969), 122--127.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; falling-factorial
-inversion, Section 1.9.)
-\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
-University Press, 2009.
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

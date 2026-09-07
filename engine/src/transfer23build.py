@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 """One paper per entry settled by the K X K-subblock matrix engine."""
+import os
+
 import os, json, re
 import localentry as LE, phibuild, transferbuild, transfer23
 
@@ -22,7 +24,8 @@ _ROSTER_AT_BUILD = {v['anum'] for v in _json.load(open('paper-engines.json')).va
 def datefor(a):
     """A paper carries the date its result was obtained, not the date of the batch it is
     rebuilt with."""
-    return '2 September 2026' if a in _ROSTER_AT_BUILD else '6 September 2026'
+    return ('2 September 2026' if a in _ROSTER_AT_BUILD
+            else os.environ.get('PAPER_DATE', '6 September 2026'))
 
 
 def conj_line(anum):

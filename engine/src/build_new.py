@@ -19,9 +19,14 @@ import localentry as LE
 # transfer17's builder prints the entry's own condition, which the sweep record does not
 # carry: the parse is redone here and folded into the record so the paper can quote it
 # rather than describe it in general terms.
-ENRICH = {'transfer17', 'transfer6', 'transfer20', 'transfer21'}
+ENRICH = {'transfer17', 'transfer6', 'transfer20', 'transfer21',
+          'transfer9', 'transfer14'}
 
 SPECIAL = {'transfer17': 'transfer17build', 'transfer6': 'transfer6build',
+           'transfer9': 'transfer9build', 'transfer14': 'transfer14build',
+           'transfer23': 'transfer23build', 'transfer26': 'transfer26build',
+           'transfer31': 'transfer31build', 'transfer32': 'transfer32build',
+           'transfer33': 'transfer33build', 'transfer45': 'transfer45build', 'transfer53': 'transfer53build',
            'transfer20': 'transfer20build', 'transfer21': 'transfer21build',
            'transfer38': 'transfer38build', 'transfer56': 'transfer56build',
            'transfer62': 'transfer62build',
@@ -43,6 +48,7 @@ made, failed = 0, []
 for h in sorted(hits, key=lambda x: x['anum']):
     name = SPECIAL.get(h['engine'], 'unibuild')
     mods.setdefault(name, importlib.import_module(name))
+    mods.setdefault('unibuild', importlib.import_module('unibuild'))
     if h['engine'] in ENRICH:
         eng = importlib.import_module(h['engine'])
         q = eng.parse_name(LE.get(h['anum'])['name'])
@@ -51,7 +57,14 @@ for h in sorted(hits, key=lambda x: x['anum']):
         h.setdefault('threshold', h['nthr'])
     dd = f"build/un{h['anum']}"
     os.makedirs(dd, exist_ok=True)
-    open(f"{dd}/p.tex", 'w').write(mods[name].build(h))
+    try:
+        tex = mods[name].build(h)
+    except Exception as exc:
+        # a builder written for an older record shape should not cost the paper: the general
+        # builder always works from the fields the sweep does write
+        print(f"  {h['anum']}: {name} failed ({exc}); using the general builder")
+        tex = mods['unibuild'].build(h)
+    open(f"{dd}/p.tex", 'w').write(tex)
     for _ in range(2):
         subprocess.run(['pdflatex', '-interaction=nonstopmode', 'p.tex'], cwd=dd,
                        stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
