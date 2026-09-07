@@ -10,15 +10,15 @@
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
-\title{A proof of the conjectured recurrence for OEIS A228333}
+\title{A proof of the conjectured recurrence for OEIS A226302}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{26 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A228333 carries a conjectured linear recurrence with polynomial coefficients, of
-order 2. The entry separately states a recurrence of order 1 that is not
+OEIS A226302 carries a conjectured linear recurrence with polynomial coefficients, of
+order 5. The entry separately states a recurrence of order 4 that is not
 labelled a conjecture. We prove that the first is a consequence of the second, so the
 conjecture holds. The argument is a division in the Ore algebra
 $\mathbb{Q}(n)[N]$, where $N$ is the shift $Nf(n)=f(n+1)$: writing $C$ and $P$ for the two
@@ -32,20 +32,20 @@ are computed rather than ignored.
 
 \section{The sequence and the two recurrences}
 
-OEIS A228333 is ``Let h(m) denote the sequence whose n-th term is Sum\_\{k=0..n\} (k+1)\^{}m*T(n,k)\^{}2, where T(n,k) is the Catalan triangle A039598. This is h(7)''. It has offset $0$ and begins
+OEIS A226302 is ``a(n) = P\_n(-1), where P\_n(x) is a certain polynomial arising in the enumeration of tatami mat coverings''. It has offset $2$ and begins
 \[
-a(0),\dots,a(7)\;=\;1, 132, 4260, 120400, 3017700, 69776784, 1524611088, 31951782720,\ \dots
+a(2),\dots,a(9)\;=\;1, -1, 2, -4, 6, -14, 20, -48,\ \dots
 \]
 The entry carries the following comment, still recorded as a conjecture:
 \begin{quote}\small
-\textbf{Conjecture:} n\^{}2*(304*n-411)*a(n) + 4*(-1814*n\^{}3+2554*n\^{}2-4776*n+7567)*a(n-1) + 32*(2*n-5)*(2*n-1)*(299*n-176)*a(n-2) = 0. - \emph{R. J. Mathar}, Dec 04 2013
+\textbf{Conjecture:} (-n+2)*a(n) +(-n+2)*a(n-1) +2*(3*n-11)*a(n-2) +2*(3*n-14)*a(n-3) +4*(-2*n+9)*a(n-4) +8*(-n+6)*a(n-5)=0. - \emph{R. J. Mathar}, Nov 06 2013
 \end{quote}
-As of the ``Last modified'' line on the live entry (2025-10-16, revision 39) it is still
+As of the ``Last modified'' line on the live entry (2025-11-05, revision 30) it is still
 a conjecture, and no proof appears among the entry's links, formulas or programs.
 
 The same entry also states, \emph{not} as a conjecture:
 \begin{quote}\small
-Recurrence: n\^{}2*(6*n\^{}3 - 12*n\^{}2 + 6*n - 1)*a(n) = 4*(2*n-3)*(2*n+1)*(6*n\^{}3 + 6*n\^{}2 - 1)*a(n-1).
+Recurrence (for n>5): (n-5)*(n-2)*a(n) = -2*(n-4)*a(n-1) + 2*(n-5)*(3*n-10)*a(n-2) + 4*(n-4)*a(n-3) - 8*(n-5)*(n-4)*a(n-4). - \emph{Vaclav Kotesovec}, Jun 14 2015
 \end{quote}
 This second relation is what the argument below rests on; it is taken as given, exactly as
 a posted generating function would be. It was checked against the entry's own DATA before
@@ -94,28 +94,28 @@ So the question ``does the conjecture follow from the stated recurrence?'' is de
 running the division and looking at the remainder. Nothing is approximated: the
 coefficients live in $\mathbb{Q}(n)$ and the arithmetic is exact.
 
-\section{The computation for A228333}
+\section{The computation for A226302}
 
 Reading both relations as operators and dividing the conjectured one by the stated one
 leaves remainder $0$, with quotient
 \[
-Q \;=\; \left(\frac{- 2392 n - 3376}{6 n^{3} + 24 n^{2} + 30 n + 11}\right) + \left(\frac{304 n + 197}{6 n^{3} + 24 n^{2} + 30 n + 11}\right)\,N .
+Q \;=\; \left(- \frac{1}{n}\right) + \left(- \frac{1}{n}\right)\,N .
 \]
 Hence $C=QP$ in $\mathcal{A}$.
 
-The coefficients of $Q$ are rational functions of $n$, and none of their poles is an integer, so Lemma~\ref{lem:factor} applies at every index.
+The coefficients of $Q$ are rational functions of $n$. Their only integer poles are $n\in\{0\}$, all of them below the range claimed here, so no $n$ in question is excluded.
 
 \begin{theorem}
 The conjectured recurrence
 \[
-n^{2} \left(304 n - 411\right)\,a(n) -  4 \left(1814 n^{3} - 2554 n^{2} + 4776 n - 7567\right)\,a(n-1) + 32 \left(2 n - 5\right) \left(2 n - 1\right) \left(299 n - 176\right)\,a(n-2) \;=\;0
+(2 - n)\,a(n) + (2 - n)\,a(n-1) + 2 \left(3 n - 11\right)\,a(n-2) + 2 \left(3 n - 14\right)\,a(n-3) -  4 \left(2 n - 9\right)\,a(n-4) -  8 \left(n - 6\right)\,a(n-5) \;=\;0
 \]
-holds for every $n\ge2$.
+holds for every $n\ge7$.
 \end{theorem}
 
 \begin{proof}
 By Lemma~\ref{lem:factor} applied to the factorisation above, using that the stated
-recurrence annihilates the sequence. No coefficient of $Q$ has an integer pole, so the lemma applies at every $n$.
+recurrence annihilates the sequence. The integer poles of the coefficients of $Q$ all lie below $n=7$, so the lemma applies throughout the stated range.
 \end{proof}
 
 \section{Verification}
@@ -133,12 +133,12 @@ arithmetic and holds on every one it reaches.
 
 Third, the conjecture itself was evaluated the same way, directly and without reference to
 either operator: for each $n$ in range the sum $\sum_{i}p_{i}(n)a(n-i)$ was formed from the
-entry's own values and found to vanish, for all 17 values of $n$ from
-$n=2$ upward.
+entry's own values and found to vanish, for all 30 values of $n$ from
+$n=7$ upward.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer Sequences},
-\url{https://oeis.org}, 2026. Sequence A228333.
+\url{https://oeis.org}, 2026. Sequence A226302.
 \bibitem{ore} O.~Ore, \emph{Theory of non-commutative polynomials}, Ann. of Math. 34
 (1933), 480--508.
 \bibitem{kp} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011,

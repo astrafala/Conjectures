@@ -10,21 +10,21 @@
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
-\title{A proof of the conjectured closed form for OEIS A272706}
+\title{A proof of the conjectured closed form for OEIS A333905}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{25 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A272706 carries a conjectured closed form for its terms. We prove it. The entry
+OEIS A333905 carries a conjectured closed form for its terms. We prove it. The entry
 also posts a generating function $A(x)$; the conjecture is then exactly the statement
 that the generating function of the conjectured formula agrees with $A$. The formula is
 a $\mathbb{Q}$-linear combination of terms $n^{k}r^{n}$, whose generating function is
 computed in closed form by applying $p(\theta)$ to $1/(1-rx)$, with
 $\theta=x\,\frac{d}{dx}$. The difference of the two generating functions is then an
-explicit rational function; here it collapses to the polynomial $3$, of degree
-$0$, which proves the closed form for every $n>0$. The computation is exact
+explicit rational function; here it collapses to the polynomial $- 2 x^{6} - 2 x^{4} - \frac{x^{3}}{2} - x^{2} + \frac{x}{4}$, of degree
+$6$, which proves the closed form for every $n>6$. The computation is exact
 rational-function arithmetic, so the conclusion holds for all $n$ at once rather than
 for the terms inspected.
 \end{abstract}
@@ -33,30 +33,30 @@ for the terms inspected.
 
 \section{The sequence and the conjecture}
 
-OEIS A272706 is ``Number of active (ON, black) cells at stage 2\^{}n-1 of the two-dimensional cellular automaton defined by "Rule 515", based on the 5-celled von Neumann neighborhood''. It has offset $0$ and begins
+OEIS A333905 is ``Lexicographically earliest sequence of distinct positive integers such that a(n) divides the concatenation of a(n+1) to a(n+2)''. It has offset $1$ and begins
 \[
-a(0),\dots,a(7)\;=\;1, 5, 25, 137, 649, 2825, 11785, 48137,\ \dots
+a(1),\dots,a(8)\;=\;1, 2, 3, 4, 5, 6, 10, 8,\ \dots
 \]
 The entry gives the generating function
 \begin{equation}\label{eq:gf}
-A(x)\;=\;\sum_{n\ge 0} a(n)\,x^{n}\;=\;- \frac{\left(2 x + 1\right) \left(12 x^{2} - 4 x + 1\right)}{\left(x - 1\right) \left(2 x - 1\right) \left(4 x - 1\right)} ,
+A(x)\;=\;\sum_{n\ge 1} a(n)\,x^{n}\;=\;\frac{x \left(4 x^{7} + 2 x^{5} + x^{4} - x^{2} - 2 x - 1\right)}{2 x^{2} - 1} ,
 \end{equation}
 and it carries the following comment:
 \begin{quote}\small
-\textbf{Conjecture:} a(n) = 3*4\^{}n - 8*2\^{}n + 9. - \emph{Lars Blomberg}, Jul 08 2016
+2\^{}((n-7)/2)*(5 + 2*sqrt(2) + (2*sqrt(2) - 5)*(-1)\^{}n) for n > 6. - \emph{Stefano Spezia}, Oct 23 2021
 \end{quote}
-As of the ``Last modified'' line on the live entry (2025-11-05, revision 14) the
+As of the ``Last modified'' line on the live entry (2021-10-26, revision 14) the
 statement is still recorded as a conjecture, and no proof appears among the entry's links,
 formulas or programs.
 
 Write $f(n)$ for the conjectured closed form,
 \[
-f(n)\;=\;- 8 \cdot 2^{n} + 3 \cdot 4^{n} + 9 .
+f(n)\;=\;2^{\frac{n}{2} - \frac{7}{2}} \left(\left(-1\right)^{n} \left(-5 + 2 \sqrt{2}\right) + 2 \sqrt{2} + 5\right) .
 \]
 
 \section{Closed forms as generating functions}
 
-Let $A(x)=\sum_{n\ge 0}a(n)x^{n}$ and let $\theta=x\,\dfrac{d}{dx}$, so $\theta$
+Let $A(x)=\sum_{n\ge 1}a(n)x^{n}$ and let $\theta=x\,\dfrac{d}{dx}$, so $\theta$
 acts on $x^{m}$ as multiplication by $m$.
 
 \begin{lemma}\label{lem:gf}
@@ -77,7 +77,7 @@ $\sum_{n<c}p(n)r^{n}x^{n}$, which changes nothing below.
 \end{proof}
 
 \begin{corollary}\label{cor:criterion}
-Let $F(x)=\sum_{n\ge 0}f(n)x^{n}$. Then $f(n)=a(n)$ for every $n>d$ if and only
+Let $F(x)=\sum_{n\ge 1}f(n)x^{n}$. Then $f(n)=a(n)$ for every $n>d$ if and only
 if $F-A$ is a polynomial of degree at most $d$.
 \end{corollary}
 
@@ -86,23 +86,23 @@ The coefficient of $x^{n}$ in $F-A$ is $f(n)-a(n)$, so that difference vanishes 
 $n>d$ exactly when $F-A$ has no terms above $x^{d}$.
 \end{proof}
 
-\section{The computation for A272706}
+\section{The computation for A333905}
 
 By Lemma~\ref{lem:gf} the conjectured formula has generating function
 \[
-F(x)\;=\;\frac{- 46 x^{2} + 23 x - 4}{8 x^{3} - 14 x^{2} + 7 x - 1} ,
+F(x)\;=\;\frac{x \left(- 4 x - 5\right)}{4 \left(2 x^{2} - 1\right)} ,
 \]
 and subtracting the entry's generating function \eqref{eq:gf} gives, after exact
 cancellation of rational functions,
 \[
-F(x)-A(x)\;=\;3 ,
+F(x)-A(x)\;=\;- 2 x^{6} - 2 x^{4} - \frac{x^{3}}{2} - x^{2} + \frac{x}{4} ,
 \]
-a polynomial of degree $0$.
+a polynomial of degree $6$.
 
 \begin{theorem}
-For every $n>0$,
+For every $n>6$,
 \[
-a(n)\;=\;- 8 \cdot 2^{n} + 3 \cdot 4^{n} + 9 .
+a(n)\;=\;2^{\frac{n}{2} - \frac{7}{2}} \left(\left(-1\right)^{n} \left(-5 + 2 \sqrt{2}\right) + 2 \sqrt{2} + 5\right) .
 \]
 \end{theorem}
 
@@ -124,21 +124,21 @@ independent checks were run.
 
 First, the generating function was checked against the entry rather than assumed: the
 Taylor coefficients of \eqref{eq:gf} were expanded and compared term by term with the DATA
-section of A272706, agreeing on all 13 terms compared.
+section of A333905, agreeing on all 13 terms compared.
 
 Second, the closed form was evaluated directly on the published terms, without reference
 to any generating function: $f(n)$ was computed in exact rational arithmetic and compared
-with the entry's own value for every $n>0$ in range, agreeing in all 15 cases
-from $n=1$ upward. This is what Corollary~\ref{cor:criterion} predicts from the
+with the entry's own value for every $n>6$ in range, agreeing in all 45 cases
+from $n=7$ upward. This is what Corollary~\ref{cor:criterion} predicts from the
 degree of $F-A$, and it is a genuinely different computation from the symbolic one.
 
 The symbolic step is exact throughout. The difference is obtained by rational-function
-cancellation in $K$, not by series truncation, so the identity $B=3$ is an
-identity of functions and the theorem holds for all $n>0$ simultaneously.
+cancellation in $K$, not by series truncation, so the identity $B=- 2 x^{6} - 2 x^{4} - \frac{x^{3}}{2} - x^{2} + \frac{x}{4}$ is an
+identity of functions and the theorem holds for all $n>6$ simultaneously.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer Sequences},
-\url{https://oeis.org}, 2026. Sequence A272706.
+\url{https://oeis.org}, 2026. Sequence A333905.
 \bibitem{kp} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011,
 Chapter 7 (holonomic closure properties and the translation between recurrences and
 differential equations).

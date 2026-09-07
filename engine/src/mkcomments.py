@@ -235,6 +235,19 @@ def paritydiff(S, thr):
     return s + ((", and it holds for n > %d." % thr) if thr is not None else ".")
 
 
+def whitesq(S, thr):
+    s = ("The empirical recurrence is true. Only the cells with i+j even carry a value, and "
+         "the diagonal and antidiagonal neighbours of such a cell are again such cells, so "
+         "the white squares form a board of their own on which the condition looks one line "
+         "up and one line down. Three consecutive lines therefore settle it for the middle "
+         "one, and counting a line at a time gives a transfer matrix")
+    if S:
+        s += " with %s states" % f"{S:,}".replace(',', ' ')
+    s += (", so a(n) satisfies a constant-coefficient linear recurrence of order at most "
+          "that; checking the one above is then a finite exact computation")
+    return s + ((", and it holds for n > %d." % thr) if thr is not None else ".")
+
+
 def fromgf(thr):
     s = ("The recurrence follows from the generating function this entry already states as "
          "fact: a recurrence with constant coefficients is exactly a denominator of the "
@@ -487,6 +500,8 @@ def main():
                 txt = localcond(S, thr)
             elif t.startswith('Parities, differences and neighbours'):
                 txt = paritydiff(S, thr)
+            elif t.startswith('The white squares of a board'):
+                txt = whitesq(S, thr)
             elif t in ARRAY_TITLES:
                 txt = array(S, thr)
             elif t == "The empirical recurrence for OEIS A, derived from the entry's generating function":

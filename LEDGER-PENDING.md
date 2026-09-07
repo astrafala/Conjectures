@@ -318,3 +318,23 @@ dips more than a bounded distance below its target.** The distances on rows up t
 therefore determined by a window of $2K+2$ rows, the strip is invariant under shifting by a
 row, and the induction closes once one window is checked to repeat — a finite check. That
 turns the measured periodicity into a proof and settles all fifteen.
+
+### transfer89 — the white squares of a board (12 entries)
+
+Only the cells with $i+j$ even carry a value, and the diagonal and antidiagonal neighbours
+of such a cell are again such cells, so the white squares form a board of their own and the
+entry's condition never refers to anything else: each must have a neighbour holding a
+prescribed function of its value, the successor modulo the alphabet or the complement. Three
+consecutive lines settle it. The white cells of a line occupy alternate columns and which
+ones depends on the parity of the line, so the state carries that parity in the shape of the
+line it holds.
+
+Both readings pinned against published data first, including the boundary: a cell at the
+edge simply has fewer neighbours, and having none of the right value is a failure rather
+than a special case. That is why A230647 begins at zero rather than one.
+
+Also measured and rejected this pass: the commuting-subblock tables (16 entries, the second
+largest family). Their conjecture is stated once "for every row and column" rather than
+per-column, so it is a claim about infinitely many widths at once, and settling the few
+columns whose data is published would not settle what the entry states. Recorded so it is
+not measured again.

@@ -12,14 +12,14 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A197608, proved by a two-line transfer matrix}
+\title{The empirical recurrence for OEIS A196295, proved by a two-line transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A197608 counts arrays over $\{0,\dots,4\}$ in which every cell is constrained by the
+OEIS A196295 counts arrays over $\{0,\dots,4\}$ in which every cell is constrained by the
 values of its neighbours, and carries an empirical recurrence of order $32$ contributed
 by R.~H.~Hardin. It is true, and it is not an empirical matter. The neighbourhood reaches one
 row up and one row down, so a single row is not enough state and a plain walk count
@@ -34,20 +34,20 @@ computation.
 
 \section{The sequence and the conjecture}
 
-OEIS A197608 is ``Number of nX3 0..4 arrays with each element x equal to the number its horizontal and vertical neighbors equal to 4,2,1,1,1 for x=0,1,2,3,4.''. It has offset $1$ and begins
+OEIS A196295 is ``Number of nX3 0..4 arrays with each element x equal to the number its horizontal and vertical neighbors equal to 3,0,1,4,2 for x=0,1,2,3,4.''. It has offset $1$ and begins
 \[
-2, 14, 67, 366, 1840, 9361, 47610, 242254,\ \dots
+4, 20, 58, 290, 1201, 4988, 21344, 90150,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 2*a(n-1) +6*a(n-2) +26*a(n-3) +53*a(n-4) +232*a(n-5) +501*a(n-6) +551*a(n-7) -245*a(n-8) -2023*a(n-9) -3810*a(n-10) -8322*a(n-11) -13685*a(n-12) -22140*a(n-13) -25568*a(n-14) -31943*a(n-15) -6603*a(n-16) +38551*a(n-17) +60843*a(n-18) +53444*a(n-19) +38044*a(n-20) +14221*a(n-21) +7417*a(n-22) +70469*a(n-23) +71386*a(n-24) +16860*a(n-25) +14396*a(n-26) +8246*a(n-27) +5868*a(n-28) +2756*a(n-29) +716*a(n-30) +240*a(n-31) +48*a(n-32)
+Empirical: a(n) = 4*a(n-1) +3*a(n-2) -2*a(n-3) -3*a(n-4) -28*a(n-5) -108*a(n-6) -553*a(n-7) -1487*a(n-8) -406*a(n-9) +1679*a(n-10) +7367*a(n-11) +29776*a(n-12) +40461*a(n-13) +40921*a(n-14) +25939*a(n-15) +4942*a(n-16) -5887*a(n-17) -21877*a(n-18) -27360*a(n-19) -19016*a(n-20) +284*a(n-21) +3863*a(n-22) -2168*a(n-23) -3302*a(n-24) +3474*a(n-25) +1158*a(n-26) -171*a(n-27) -1312*a(n-28) +650*a(n-29) -96*a(n-30) +70*a(n-31) -18*a(n-32)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 07:20:27, revision 9) the statement is
+As of the ``Last modified'' line on the live entry (Oct 03 2025 06:27:25, revision 9) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;2\,a(n-1) + 6\,a(n-2) + 26\,a(n-3) + 53\,a(n-4) + 232\,a(n-5) + 501\,a(n-6) + 551\,a(n-7) - 245\,a(n-8) - 2023\,a(n-9) - 3810\,a(n-10) - 8322\,a(n-11) - 13685\,a(n-12) - 22140\,a(n-13) - 25568\,a(n-14) - 31943\,a(n-15) - 6603\,a(n-16) + 38551\,a(n-17) + 60843\,a(n-18) + 53444\,a(n-19) + 38044\,a(n-20) + 14221\,a(n-21) + 7417\,a(n-22) + 70469\,a(n-23) + 71386\,a(n-24) + 16860\,a(n-25) + 14396\,a(n-26) + 8246\,a(n-27) + 5868\,a(n-28) + 2756\,a(n-29) + 716\,a(n-30) + 240\,a(n-31) + 48\,a(n-32)
+a(n)\;=\;4\,a(n-1) + 3\,a(n-2) - 2\,a(n-3) - 3\,a(n-4) - 28\,a(n-5) - 108\,a(n-6) - 553\,a(n-7) - 1487\,a(n-8) - 406\,a(n-9) + 1679\,a(n-10) + 7367\,a(n-11) + 29776\,a(n-12) + 40461\,a(n-13) + 40921\,a(n-14) + 25939\,a(n-15) + 4942\,a(n-16) - 5887\,a(n-17) - 21877\,a(n-18) - 27360\,a(n-19) - 19016\,a(n-20) + 284\,a(n-21) + 3863\,a(n-22) - 2168\,a(n-23) - 3302\,a(n-24) + 3474\,a(n-25) + 1158\,a(n-26) - 171\,a(n-27) - 1312\,a(n-28) + 650\,a(n-29) - 96\,a(n-30) + 70\,a(n-31) - 18\,a(n-32)
 \end{equation}
 for all $n>33$.
 
@@ -61,7 +61,7 @@ row $t$ and column $u$, each in $\{0,\dots,4\}$. With the neighbour offsets
 written as (row shift, column shift) and counting only positions inside the array, the
 entry's requirement is
 \begin{equation}\label{eq:loc}
-\#\{\text{neighbours with value }f(x_{t,u})\}=x_{t,u},\quad f=(4,2,1,1,1)
+\#\{\text{neighbours with value }f(x_{t,u})\}=x_{t,u},\quad f=(3,0,1,4,2)
 \end{equation}
 for every cell $(t,u)$.
 
@@ -112,8 +112,8 @@ $V\times V$, of size $125^2=15625$. That is the whole of the state: two consecut
 rows and nothing else about the array's history.
 
 It is worth saying why this is not done by enumeration. At the largest index the entry
-publishes, $n=21$, the arrays have $3\cdot21$ cells over
-$5$ values, so there are about $10^{44}$ of them to sift. The
+publishes, $n=22$, the arrays have $3\cdot22$ cells over
+$5$ values, so there are about $10^{46}$ of them to sift. The
 walk count replaces that by $15625$ states and one matrix--vector product per row.
 \section{The criterion}
 
@@ -168,7 +168,7 @@ divisor of $q$.
 Three checks, each independent of the algebra above.
 
 First, the walk counts of Lemma~\ref{lem:walk} were compared against the entry's DATA at
-every one of the $21$ published indices, with no shift fitted: the number of rows is
+every one of the $22$ published indices, with no shift fitted: the number of rows is
 read off the entry's own name as $L=n$ and the entry's offset says which index the first
 published term carries. The values agree exactly. A misreading of \eqref{eq:loc}, of the
 neighbour set, or of the boundary treatment would give a different digraph and different
@@ -183,7 +183,7 @@ returned zero throughout.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A197608.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A196295.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
