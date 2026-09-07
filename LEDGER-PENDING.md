@@ -322,3 +322,54 @@ else** --- of which the largest shapes are 554 per-column blocks and these 432 o
    the recovered order belongs, because the lookup had no entry for these results.
 
 **Roster 10054 papers over 10027 entries. `dc_gate.py` reports the deep check is DUE.**
+
+## 7 September 2026 --- the deep check, phases 5, 6, 8 and 10, and the repository straightened
+
+**Phase 5 (the mathematics, recomputed from cold)** rebuilds each model in a fresh process
+with nothing reused and checks the paper's claim against it: the model still reproduces every
+published term, the recurrence still annihilates it, and the threshold comes out where the
+paper says. **390 recomputed so far, 0 disagreements.**
+
+Its first finding was a false one of my own making. Some papers' names are now read by a
+*newer* engine than built them --- `transfer93` generalises `transfer75`, and `uniform.read`
+returns whichever comes first in its list --- and the phase called that a disagreement. Both
+engines reproduce every published term of A184404, checked directly, so it is an **overlap**,
+not a defect. What the paper claims is what ITS engine computes, so the rebuild now uses that
+engine and the overlap is recorded for the duplicate-work audit.
+
+**Phase 6 (the checks, themselves audited).** Of 730 modules, 263 exception handlers record
+nothing before continuing. But only 95 modules are on the path a sweep actually takes, and
+**only 3 of the silent handlers are among them.** The one that matters is `uniform.read`: a
+parser raising on a name it ought to read makes that name unreachable, and the handler hid it.
+The raises are now counted and kept --- nothing stops, since one broken parser must not take
+down a sweep, but nothing is invisible. Asked over 6000 names there are currently **none**.
+
+Phase 6 also names the 158 modules that match their own patterns against entry text instead of
+going through the canonical parser. That is how a candidate pool once came out at 49 instead
+of 130.
+
+**Phase 10 (comments): 0 defects over 10022.** Two of its findings were wrong and are fixed:
+it called `Sum_{i>=1}` and set braces LaTeX, condemning 54 correctly written comments, and it
+read `submission-order.txt` as an index when it is a deliberate first-round queue --- the OEIS
+allows three pending submissions at a time --- reporting ten thousand entries as missing from
+a file never meant to hold them.
+
+**Phase 8 (wording and logic)** found two more of my own before finding a real one: "the
+statement is false for k even", written while delimiting a hypothesis, made a proof read as a
+disproof; and a pattern expecting "still recorded as EMPIRICAL" missed "still recorded as an
+unproven conjecture", reporting 68 of the first 400 as missing a sentence they all have.
+
+**The real one: 8 of the first 400 papers carry no statement that the entry is still open.**
+A061002, A000071, A000139 and five others quote the conjecture with its contributor and date
+and then never say the entry is unsettled. That is a required part. The whole-corpus count is
+still running; the fix waits, because the plan's stop rule is that defects are collected and
+fixed only when the check is finished.
+
+### Organisation
+
+`deep-check/` had become a sixth folder at the root, against the stated layout of documents
+plus five folders. The plan and the running report are documents and are now one document at
+the root, `DEEP-CHECK.md`; the working data moved to `engine/deep-check/` with its own README
+and is reached through `repopaths.DEEPCHECK`. Phase 1 re-run after the move: 8 checks, 0
+failures. The root is now exactly documents and `papers/ paper-sources/ comments/ engine/
+archive/`.
