@@ -12,41 +12,41 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A223320, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A223483, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{4 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A223320 counts the ways of writing the vertices of a fixed graph $G$ into an array of width
-$7$ so that any two cells adjacent in one of the named directions carry vertices joined by an
-edge of $G$; here $G$ is icosahedron graph. The entry carries an empirical recurrence of order $8$
+OEIS A223483 counts the ways of writing the vertices of a fixed graph $G$ into an array of width
+$5$ so that any two cells adjacent in one of the named directions carry vertices joined by an
+edge of $G$; here $G$ is dodecahedron graph. The entry carries an empirical recurrence of order $8$
 contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical. A slice of
-the array would be a state, but there are $187500$ legal slices here and that is too many to
+the array would be a state, but there are $3200000$ legal slices here and that is too many to
 carry one by one. The condition names only the edge relation, so the automorphism group of $G$
 --- of order $120$ --- acts on the arrays and commutes with the transfer matrix; the walk may
-then be run on the ORBITS of slices instead of on the slices, and $S=1563$ of those suffice.
+then be run on the ORBITS of slices instead of on the slices, and $S=26800$ of those suffice.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05C15, 05A15, 05C25, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A223320 is ``Rolling icosahedron footprints: number of nX7 0..11 arrays starting with 0 where 0..11 label vertices of an icosahedron and every array movement to a horizontal or antidiagonal neighbor moves along an icosahedral edge.''. It has offset $1$ and begins
+OEIS A223483 is ``Rolling icosahedron face footprints: number of 5Xn 0..19 arrays starting with 0 where 0..19 label faces of an icosahedron and every array movement to a horizontal or antidiagonal neighbor moves across an icosahedral edge.''. It has offset $1$ and begins
 \[
-15625, 46411625, 142980696625, 443803619416625, 1379464144963464625, 4288761014162797342625, 13334277936752000032650625, 41458126974532997739670258625,\ \dots
+160000, 19683, 455625, 10546875, 288507825, 7939566675, 223894186425, 6318290752875,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 4313*a(n-1) -4293540*a(n-2) +1835925129*a(n-3) -400542201531*a(n-4) +46506128233194*a(n-5) -2762797384141236*a(n-6) +72983536818080616*a(n-7) -643864107456947520*a(n-8)
+Empirical: a(n) = 33*a(n-1) -86*a(n-2) -1564*a(n-3) +7040*a(n-4) -6480*a(n-5) -5088*a(n-6) +5824*a(n-7) -512*a(n-8) for n>13
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 21:30:50, revision 8) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 21:44:50, revision 8) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-Let $G$ be the graph on the label set $\{0,1,\dots,11\}$ whose vertices are the twelve vertices of a regular icosahedron, two of them adjacent when an edge joins them. That is the icosahedron graph: $12$ vertices, $5$-regular, $30$ edges.
+Let $G$ be the graph on the label set $\{0,1,\dots,19\}$ whose vertices are the twenty faces of a regular icosahedron, two of them adjacent when they share an edge. That is the dodecahedron graph: $20$ vertices, $3$-regular, $30$ edges.
 
 An array $x$ is a map from the cells of a rectangle to the vertices of $G$. The entry names the
 directions antidiagonal and horizontal, that is the cell offsets
@@ -79,32 +79,32 @@ The entry asks for $x(0,0)=0$. That condition is removed here, and paid for once
 \begin{lemma}\label{lem:fibre}
 $\Gamma$ is transitive on the vertices of $G$. Consequently the valid arrays with $x(0,0)=v$
 are equinumerous for every vertex $v$, and the number with $x(0,0)=0$ is the number of valid
-arrays with no condition on any cell, divided by $12$.
+arrays with no condition on any cell, divided by $20$.
 \end{lemma}
 
 \begin{proof}
 Transitivity was checked directly on the group computed above: the orbit of one vertex is the
 whole vertex set. Given vertices $v,w$ pick $\sigma\in\Gamma$ with $\sigma v=w$; then
 $x\mapsto\sigma\circ x$ is a bijection from the valid arrays with $x(0,0)=v$ onto the valid
-arrays with $x(0,0)=w$, with inverse given by $\sigma^{-1}$. The $12$ fibres of
+arrays with $x(0,0)=w$, with inverse given by $\sigma^{-1}$. The $20$ fibres of
 $x\mapsto x(0,0)$ therefore all have the same size and partition the unrestricted count.
 \end{proof}
 
 \section{Orbits of slices}
 
-Take the array one $row$ at a time, in the direction in which it grows.
-Every offset the entry names has its two cells either in the same $row$ or in two
-consecutive ones, so a $row$ is a state: let $M$ be the $0/1$ matrix indexed by the
-legal $row$s with $M_{uv}=1$ when $v$ may follow $u$, and let $\tau=\mathbf{1}$.
-The number of valid arrays of $m$ $row$s is $\mathbf{1}^{\!\top}M^{m-1}\tau$.
+Take the array one $column$ at a time, in the direction in which it grows. The entry writes the array with $n$ as the number of COLUMNS, so the slice added at each step is a column; transposing exchanges the horizontal and vertical directions and carries each diagonal direction to itself.
+Every offset the entry names has its two cells either in the same $column$ or in two
+consecutive ones, so a $column$ is a state: let $M$ be the $0/1$ matrix indexed by the
+legal $column$s with $M_{uv}=1$ when $v$ may follow $u$, and let $\tau=\mathbf{1}$.
+The number of valid arrays of $m$ $column$s is $\mathbf{1}^{\!\top}M^{m-1}\tau$.
 
-There are $187500$ legal $row$s, which is more than can be carried one at a time. They
+There are $3200000$ legal $column$s, which is more than can be carried one at a time. They
 need not be.
 
 \begin{lemma}\label{lem:lump}
-$\Gamma$ acts on the $row$s coordinatewise; $M_{uv}=M_{\sigma u\,\sigma v}$ for
+$\Gamma$ acts on the $column$s coordinatewise; $M_{uv}=M_{\sigma u\,\sigma v}$ for
 every $\sigma\in\Gamma$, and $\tau$ is fixed by $\Gamma$. Consequently $M^{m}\tau$ is constant
-on each $\Gamma$-orbit of $row$s, for every $m\ge0$.
+on each $\Gamma$-orbit of $column$s, for every $m\ge0$.
 \end{lemma}
 
 \begin{proof}
@@ -124,15 +124,15 @@ $O$, and one step reads
 \[
 (M w)_{r_O}=\sum_{O'}\widehat{M}_{O,O'}\,w_{r_{O'}} ,
 \]
-so the whole walk may be run on $\mathcal{O}$. Summing over $row$s and grouping,
+so the whole walk may be run on $\mathcal{O}$. Summing over $column$s and grouping,
 \[
 \mathbf{1}^{\!\top}M^{m}\tau=\sum_{O\in\mathcal{O}}|O|\,(M^{m}\tau)_{r_O}
 =\iota^{\!\top}\widehat{M}^{\,m}\mathbf{1},\qquad \iota_O=|O| ,
 \]
-and the count the entry publishes is that divided by $12$, by Lemma~\ref{lem:fibre}. Here $S=|\mathcal{O}|=1563$, down from $187500$.
+and the count the entry publishes is that divided by $20$, by Lemma~\ref{lem:fibre}. Here $S=|\mathcal{O}|=26800$, down from $3200000$.
 
-The orbit representatives are generated directly rather than by listing the $row$s and
-grouping them. A $row$ is built one cell at a time, carrying the set of $\sigma$ that
+The orbit representatives are generated directly rather than by listing the $column$s and
+grouping them. A $column$ is built one cell at a time, carrying the set of $\sigma$ that
 have so far written exactly the same prefix; a choice is abandoned as soon as one of them would
 write a smaller letter. What reaches the last cell is the lexicographically least member of its
 orbit, one per orbit, and the set still tied there is its stabiliser, so
@@ -163,16 +163,16 @@ last nonzero $u_j$ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;4313\,a(n-1) - 4293540\,a(n-2) + 1835925129\,a(n-3) - 400542201531\,a(n-4) + 46506128233194\,a(n-5) - 2762797384141236\,a(n-6) + 72983536818080616\,a(n-7) - 643864107456947520\,a(n-8)
+a(n)\;=\;33\,a(n-1) - 86\,a(n-2) - 1564\,a(n-3) + 7040\,a(n-4) - 6480\,a(n-5) - 5088\,a(n-6) + 5824\,a(n-7) - 512\,a(n-8)
 \]
-for every $n>8$.
+for every $n>13$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(\widehat{M})\mathbf{1}$ was formed by $8$ matrix--vector products in
 exact integer arithmetic and $\iota^{\!\top}\widehat{M}^{j}w$ evaluated for
 $j=0,1,\dots$, again exactly; those integers vanish from the index corresponding to
-$n=8+1$ onwards and the run continued until the working vector was identically zero, which
+$n=13+1$ onwards and the run continued until the working vector was identically zero, which
 settles every larger $j$ at once.
 \end{proof}
 
@@ -180,7 +180,7 @@ settles every larger $j$ at once.
 
 Five checks, each independent of the algebra above.
 
-First, the model reproduces all $9$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $14$ terms the entry publishes, exactly, in integer
 arithmetic.
 
 Second, the count was recomputed for the smallest arrays straight from the definition, with the
@@ -201,7 +201,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A223320.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A223483.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{kemeny} J.~G.~Kemeny and J.~L.~Snell, \emph{Finite Markov Chains}, Springer, 1976.

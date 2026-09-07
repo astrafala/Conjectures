@@ -12,20 +12,20 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A235567, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A235426, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A235567 counts arrays of width $3$ over $\{0,1\}$ by reducing every $2\times2$ subblock to a
-single number---here the upper median minus the lower median---and requiring the resulting derived array to have its rows
+OEIS A235426 counts arrays of width $2$ over $\{0,1,2,3\}$ by reducing every $2\times2$ subblock to a
+single number---here the largest entry minus the smallest---and requiring the resulting derived array to have its rows
 lexicographically nondecreasing and its columns lexicographically nondecreasing. The entry carries an
 empirical recurrence of order $12$ contributed by R.~H.~Hardin. It is true, and it is
 decidable rather than empirical. The row comparison is settled by three consecutive rows of the
 array; the column comparison is not settled by any bounded window, but what is still outstanding
-about it is one bit per adjacent pair of columns, so the count is a walk count on $S=49$
+about it is one bit per adjacent pair of columns, so the count is a walk count on $S=61$
 states.
 \end{abstract}
 
@@ -33,20 +33,20 @@ states.
 
 \section{The conjecture}
 
-OEIS A235567 is ``Number of (n+1)X(2+1) 0..1 arrays with the difference of the upper and lower median value of each 2X2 subblock in lexicographically nondecreasing order rowwise and columnwise.''. It has offset $1$ and begins
+OEIS A235426 is ``Number of (n+1)X(1+1) 0..3 arrays with the difference between each 2X2 subblock maximum and minimum lexicographically nondecreasing rowwise and columnwise.''. It has offset $1$ and begins
 \[
-50, 250, 1120, 4670, 18606, 71710, 270016, 998834,\ \dots
+256, 3038, 33610, 344668, 3402366, 32542312, 304784986, 2807381170,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 9*a(n-1) -19*a(n-2) -47*a(n-3) +211*a(n-4) -45*a(n-5) -665*a(n-6) +643*a(n-7) +714*a(n-8) -1200*a(n-9) +16*a(n-10) +640*a(n-11) -256*a(n-12)
+Empirical: a(n) = 15*a(n-1) -17*a(n-2) -518*a(n-3) +1159*a(n-4) +5713*a(n-5) -11569*a(n-6) -22194*a(n-7) +35356*a(n-8) +29720*a(n-9) -34208*a(n-10) -11136*a(n-11) +7680*a(n-12)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 08:39:29, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 08:32:52, revision 7) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The arrays have $3$ columns and a growing number of rows, with entries in $\{0,1\}$. A
+The arrays have $2$ columns and a growing number of rows, with entries in $\{0,1,2,3\}$. A
 $2\times2$ subblock of such an array is
 \[
 B=\begin{pmatrix} p & q \\ r & s \end{pmatrix},
@@ -54,13 +54,13 @@ B=\begin{pmatrix} p & q \\ r & s \end{pmatrix},
 \]
 Write $v_1\le v_2\le v_3\le v_4$ for the four entries of $B$ sorted into order. The entry attaches to $B$ the single number
 \[
-f(B)\;=\;v_3-v_2,
+f(B)\;=\;v_4-v_1,
 \]
-the upper median minus the lower median. An array with $R$ rows and $3$ columns has $(R-1)\times2$ subblocks, and they
+the largest entry minus the smallest. An array with $R$ rows and $2$ columns has $(R-1)\times1$ subblocks, and they
 form a derived array
 \[
 D(i,j)=f\!\left(\begin{pmatrix} x(i,j) & x(i,j+1) \\ x(i+1,j) & x(i+1,j+1)\end{pmatrix}
-\right),\qquad 0\le i<R-1,\;\; 0\le j<2 .
+\right),\qquad 0\le i<R-1,\;\; 0\le j<1 .
 \]
 Write $\preceq$ for the lexicographic order on finite sequences of integers: $u\preceq w$ when
 $u=w$, or when $u_k<w_k$ at the first index $k$ where they differ. The condition is that the
@@ -97,11 +97,11 @@ which the two sequences differ, and prefixes that agree contribute nothing.
 \end{proof}
 
 So a single bit per adjacent pair of columns---``this pair has agreed in every derived row so
-far''---carries everything the future needs to know, and there are $1$ such pairs. The state
+far''---carries everything the future needs to know, and there are $0$ such pairs. The state
 is therefore
 \[
 \bigl(\text{the array row just written},\; \text{the derived row just formed},\;
-\text{the 1 bits}\bigr),
+\text{the 0 bits}\bigr),
 \]
 with a distinguished start standing for the empty array, so that a walk of $n$ steps is an array
 of $n$ rows. A step appends a row, forms the new derived row, checks it against the previous one
@@ -109,7 +109,7 @@ for the row condition, and for each pair still flagged either leaves the flag se
 agreed again) or clears it after checking the required inequality once. Every state may end an
 array, so $\tau=\mathbf{1}$ and
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=49.
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=61.
 \]
 The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
 published terms rather than assumed. In particular $a$ is $C$-finite.
@@ -134,15 +134,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;9\,a(n-1) - 19\,a(n-2) - 47\,a(n-3) + 211\,a(n-4) - 45\,a(n-5) - 665\,a(n-6) + 643\,a(n-7) + 714\,a(n-8) - 1200\,a(n-9) + 16\,a(n-10) + 640\,a(n-11) - 256\,a(n-12)
+a(n)\;=\;15\,a(n-1) - 17\,a(n-2) - 518\,a(n-3) + 1159\,a(n-4) + 5713\,a(n-5) - 11569\,a(n-6) - 22194\,a(n-7) + 35356\,a(n-8) + 29720\,a(n-9) - 34208\,a(n-10) - 11136\,a(n-11) + 7680\,a(n-12)
 \]
-for every $n>11$.
+for every $n>10$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $12$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=11+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=10+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -150,11 +150,11 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $22$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $16$ terms the entry publishes, exactly, in integer
 arithmetic.
 
 Second, the count was recomputed for the smallest arrays straight from the definition: every
-array of width $3$ over $\{0,1\}$ with two and with three rows was written out cell by cell,
+array of width $2$ over $\{0,1,2,3\}$ with two and with three rows was written out cell by cell,
 the derived array formed, and its rows and its columns compared as whole words. No state, no
 bits of Lemma~\ref{lem:bits} and no recurrence are involved in that computation, and the
 published terms came back.
@@ -167,7 +167,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A235567.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A235426.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge

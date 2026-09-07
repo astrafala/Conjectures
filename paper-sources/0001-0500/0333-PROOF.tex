@@ -12,15 +12,15 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{Recovering the unwritten recurrences of the table OEIS A251801}
+\title{Recovering the unwritten recurrences of the table OEIS A235258}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A251801 is a two-dimensional table $T(n,k)$ whose empirical recurrences are, for several of
-its lines, given only as an ORDER --- ``k=2: [order 20]'' and the like --- with the
+OEIS A235258 is a two-dimensional table $T(n,k)$ whose empirical recurrences are, for several of
+its lines, given only as an ORDER --- ``k=2: [order 40].'' and the like --- with the
 coefficients in a linked file rather than in the entry. Those conjectures can still be settled,
 and the recurrences recovered. A line of the table is a fixed-width or fixed-height array
 count, hence a walk count on finitely many vertices, hence satisfies some monic recurrence of
@@ -28,24 +28,22 @@ order at most that number; Berlekamp--Massey on twice as many exact terms return
 one. Where its order equals the order the entry states --- and where the same holds after the
 first few terms are dropped --- any recurrence of that order the line satisfies has a
 characteristic polynomial that is a multiple of the minimal one and of equal degree, hence is
-that polynomial. This note settles column 2, row 2, row 3.
+that polynomial. This note settles column 2.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 15A18.\normalsize
 
 \section{The table and the unwritten conjectures}
 
-OEIS A251801 is ``T(n,k)=Number of (n+1)X(k+1) 0..3 arrays with no 2X2 subblock having x11-x00 less than x10-x01.''. It is read by antidiagonals and begins
+OEIS A235258 is ``T(n,k) is the number of (n+1) X (k+1) 0..7 arrays with every 2 X 2 subblock having its diagonal sum differing from its antidiagonal sum by 7, with no adjacent elements equal (constant-stress tilted 1 X 1 tilings).''. It is read by antidiagonals and begins
 \[
-150, 1080, 1740, 6627, 28932, 19269, 36552, 348679,\ \dots
+184, 744, 744, 2672, 2592, 2672, 10820, 8328,\ \dots
 \]
 The entry carries, among its empirical claims:
 \begin{quote}\small
-k=2: [order 20]\\
-n=2: [order 22]\\
-n=3: [order 40]
+k=2: [order 40].
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jun 02 2025 10:32:19, revision 6) these are still
+As of the ``Last modified'' line on the live entry (Jun 18 2022 23:45:43, revision 7) these are still
 recorded as empirical, and the recurrences themselves are not in the entry text.
 
 \section{Why a line of the table is a walk count}
@@ -68,44 +66,11 @@ minimal recurrence exactly.
 
 \subsection*{Column $k=2$}
 Substituting the fixed index into the entry's wording gives an ordinary one-parameter array
-count, a walk on $S=64$ vertices. Berlekamp--Massey on $2S=128$ exact terms
-returns a minimal recurrence of order $20$ --- the order the entry states --- with
-integer coefficients
-\begin{center}\small\begin{tabular}{cccccccc}
-$c_{1}$ & $30$ & $c_{6}$ & $-170647$ & $c_{11}$ & $2262184$ & $c_{16}$ & $-12352$ \\
-$c_{2}$ & $-40$ & $c_{7}$ & $-169762$ & $c_{12}$ & $3737187$ & $c_{17}$ & $-613952$ \\
-$c_{3}$ & $-2202$ & $c_{8}$ & $1201353$ & $c_{13}$ & $-3793360$ & $c_{18}$ & $105792$ \\
-$c_{4}$ & $7167$ & $c_{9}$ & $-237196$ & $c_{14}$ & $-1475516$ & $c_{19}$ & $54144$ \\
-$c_{5}$ & $41092$ & $c_{10}$ & $-3305290$ & $c_{15}$ & $2385944$ & $c_{20}$ & $-13824$ \\
-\end{tabular}\end{center}
-so that $a(m)=\sum_{i=1}^{20}c_i\,a(m-i)$ for every $m$. Removing the first
-$20+4$ terms and repeating gives order $20$ again, which is what the
-identification below needs.
-
-\subsection*{Row $n=2$}
-Substituting the fixed index into the entry's wording gives an ordinary one-parameter array
-count, a walk on $S=64$ vertices. Berlekamp--Massey on $2S=128$ exact terms
-returns a minimal recurrence of order $22$ --- the order the entry states --- with
-integer coefficients
-\begin{center}\small\begin{tabular}{cccccccc}
-$c_{1}$ & $40$ & $c_{7}$ & $8833486$ & $c_{13}$ & $492639700$ & $c_{19}$ & $20037984$ \\
-$c_{2}$ & $-755$ & $c_{8}$ & $-27833039$ & $c_{14}$ & $-498877265$ & $c_{20}$ & $-4463424$ \\
-$c_{3}$ & $8946$ & $c_{9}$ & $71958408$ & $c_{15}$ & $414825042$ & $c_{21}$ & $625536$ \\
-$c_{4}$ & $-74677$ & $c_{10}$ & $-153781873$ & $c_{16}$ & $-280100140$ & $c_{22}$ & $-41472$ \\
-$c_{5}$ & $467156$ & $c_{11}$ & $272810702$ & $c_{17}$ & $151065320$ &  &  \\
-$c_{6}$ & $-2274363$ & $c_{12}$ & $-402324879$ & $c_{18}$ & $-63500432$ &  &  \\
-\end{tabular}\end{center}
-so that $a(m)=\sum_{i=1}^{22}c_i\,a(m-i)$ for every $m$. Removing the first
-$22+4$ terms and repeating gives order $22$ again, which is what the
-identification below needs.
-
-\subsection*{Row $n=3$}
-Substituting the fixed index into the entry's wording gives an ordinary one-parameter array
-count, a walk on $S=256$ vertices. Berlekamp--Massey on $2S=512$ exact terms
+count, a walk on $S=392$ vertices. Berlekamp--Massey on $2S=784$ exact terms
 returns a minimal recurrence of order $40$ --- the order the entry states --- with
 integer coefficients
 \[
-(c_1,\dots,c_{40})=(70,\ -2375,\ 52042,\ -827990,\ 10195132,\ -101124322,\ 830421108,\ -5758451859,\ 34223487178,\ -176332070653,\ 794779755110,\ -3156457476820,\ 11109873120920,\ -34818233254780,\ 97527763758712,\ -244892909297175,\ 552543768062970,\ -1122181309818449,\ 2053995521193590,\ -3390759101221990,\ 5049772850347484,\ -6783271969135666,\ 8213149434578420,\ -8953247189169461,\ 8772430272272310,\ -7708025280163467,\ 6055906423103258,\ -4238615566223888,\ 2630732733430288,\ -1439628171650384,\ 689679083321824,\ -286667447021696,\ 102211164419072,\ -30802911196416,\ 7693171914240,\ -1549479297024,\ 241805316096,\ -27432235008,\ 2012553216,\ -71663616).
+(c_1,\dots,c_{40})=(6,\ 95,\ -616,\ -3917,\ 28162,\ 91198,\ -756656,\ -1296093,\ 13282950,\ 11064161,\ -160306388,\ -45638472,\ 1364159736,\ -85868097,\ -8277407564,\ 2248525953,\ 35930764870,\ -13377839510,\ -111621640828,\ 42805415777,\ 248607718870,\ -80775638437,\ -398463896692,\ 90040174737,\ 459694923182,\ -53415557378,\ -380977947608,\ 5163558960,\ 225617403088,\ 16935519648,\ -94279251328,\ -14034380336,\ 27080927712,\ 5672434272,\ -5079024000,\ -1315882368,\ 559194624,\ 167643648,\ -27371520,\ -9123840).
 \]
 so that $a(m)=\sum_{i=1}^{40}c_i\,a(m-i)$ for every $m$. Removing the first
 $40+4$ terms and repeating gives order $40$ again, which is what the
@@ -144,7 +109,7 @@ agree.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A251801.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A235258.
 \bibitem{massey} J.~L.~Massey, Shift-register synthesis and BCH decoding, \emph{IEEE
 Trans. Inform. Theory} \textbf{15} (1969), 122--127.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,

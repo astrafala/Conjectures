@@ -10,21 +10,21 @@
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
-\title{A proof of the conjectured closed form for OEIS A128153}
+\title{A proof of the conjectured closed form for OEIS A267879}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{25 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A128153 carries a conjectured closed form for its terms. We prove it. The entry
+OEIS A267879 carries a conjectured closed form for its terms. We prove it. The entry
 also posts a generating function $A(x)$; the conjecture is then exactly the statement
 that the generating function of the conjectured formula agrees with $A$. The formula is
 a $\mathbb{Q}$-linear combination of terms $n^{k}r^{n}$, whose generating function is
 computed in closed form by applying $p(\theta)$ to $1/(1-rx)$, with
 $\theta=x\,\frac{d}{dx}$. The difference of the two generating functions is then an
-explicit rational function; here it collapses to the polynomial $1$, of degree
-$0$, which proves the closed form for every $n>0$. The computation is exact
+explicit rational function; here it collapses to the polynomial $- \frac{x^{2}}{10} - \frac{x}{100} - \frac{101}{1000}$, of degree
+$2$, which proves the closed form for every $n>2$. The computation is exact
 rational-function arithmetic, so the conclusion holds for all $n$ at once rather than
 for the terms inspected.
 \end{abstract}
@@ -33,25 +33,25 @@ for the terms inspected.
 
 \section{The sequence and the conjecture}
 
-OEIS A128153 is ``The number of regular pentagons found by constructing n equally-spaced points on each side of the pentagon and drawing lines parallel to the pentagon sides, as well as lines connecting vertices''. It has offset $0$ and begins
+OEIS A267879 is ``Binary representation of the middle column of the "Rule 233" elementary cellular automaton starting with a single ON (black) cell''. It has offset $0$ and begins
 \[
-a(0),\dots,a(7)\;=\;1, 9, 20, 37, 58, 85, 116, 153,\ \dots
+a(0),\dots,a(7)\;=\;1, 10, 101, 1010, 10101, 101011, 1010111, 10101111,\ \dots
 \]
 The entry gives the generating function
 \begin{equation}\label{eq:gf}
-A(x)\;=\;\sum_{n\ge 0} a(n)\,x^{n}\;=\;\frac{- x^{4} + x^{3} - 2 x^{2} - 7 x - 1}{\left(x - 1\right)^{3} \left(x + 1\right)} ,
+A(x)\;=\;\sum_{n\ge 0} a(n)\,x^{n}\;=\;\frac{x^{4} - x^{3} + x^{2} - x + 1}{\left(x - 1\right) \left(10 x - 1\right)} ,
 \end{equation}
 and it carries the following comment:
 \begin{quote}\small
-\textbf{Conjecture:} a(n) = (10*n\^{}2 + 16*n + 9 -(-1)\^{}n)/4 for n > 0.
+\textbf{Conjecture:} a(n) = (9091*10\^{}(n-3) - 1)/9 for n > 2. - \emph{Stefano Spezia}, Dec 25 2021
 \end{quote}
-As of the ``Last modified'' line on the live entry (2017-10-21, revision 24) the
+As of the ``Last modified'' line on the live entry (2025-02-16, revision 20) the
 statement is still recorded as a conjecture, and no proof appears among the entry's links,
 formulas or programs.
 
 Write $f(n)$ for the conjectured closed form,
 \[
-f(n)\;=\;- \frac{\left(-1\right)^{n}}{4} + \frac{5 n^{2}}{2} + 4 n + \frac{9}{4} .
+f(n)\;=\;\frac{9091 \cdot 10^{n - 3}}{9} - \frac{1}{9} .
 \]
 
 \section{Closed forms as generating functions}
@@ -86,23 +86,23 @@ The coefficient of $x^{n}$ in $F-A$ is $f(n)-a(n)$, so that difference vanishes 
 $n>d$ exactly when $F-A$ has no terms above $x^{d}$.
 \end{proof}
 
-\section{The computation for A128153}
+\section{The computation for A267879}
 
 By Lemma~\ref{lem:gf} the conjectured formula has generating function
 \[
-F(x)\;=\;\frac{- x^{3} - 2 x^{2} - 5 x - 2}{x^{4} - 2 x^{3} + 2 x - 1} ,
+F(x)\;=\;\frac{101 x + 899}{1000 \left(10 x^{2} - 11 x + 1\right)} ,
 \]
 and subtracting the entry's generating function \eqref{eq:gf} gives, after exact
 cancellation of rational functions,
 \[
-F(x)-A(x)\;=\;1 ,
+F(x)-A(x)\;=\;- \frac{x^{2}}{10} - \frac{x}{100} - \frac{101}{1000} ,
 \]
-a polynomial of degree $0$.
+a polynomial of degree $2$.
 
 \begin{theorem}
-For every $n>0$,
+For every $n>2$,
 \[
-a(n)\;=\;- \frac{\left(-1\right)^{n}}{4} + \frac{5 n^{2}}{2} + 4 n + \frac{9}{4} .
+a(n)\;=\;\frac{9091 \cdot 10^{n - 3}}{9} - \frac{1}{9} .
 \]
 \end{theorem}
 
@@ -124,21 +124,21 @@ independent checks were run.
 
 First, the generating function was checked against the entry rather than assumed: the
 Taylor coefficients of \eqref{eq:gf} were expanded and compared term by term with the DATA
-section of A128153, agreeing on all 13 terms compared.
+section of A267879, agreeing on all 13 terms compared.
 
 Second, the closed form was evaluated directly on the published terms, without reference
 to any generating function: $f(n)$ was computed in exact rational arithmetic and compared
-with the entry's own value for every $n>0$ in range, agreeing in all 12 cases
-from $n=1$ upward. This is what Corollary~\ref{cor:criterion} predicts from the
+with the entry's own value for every $n>2$ in range, agreeing in all 17 cases
+from $n=3$ upward. This is what Corollary~\ref{cor:criterion} predicts from the
 degree of $F-A$, and it is a genuinely different computation from the symbolic one.
 
 The symbolic step is exact throughout. The difference is obtained by rational-function
-cancellation in $K$, not by series truncation, so the identity $B=1$ is an
-identity of functions and the theorem holds for all $n>0$ simultaneously.
+cancellation in $K$, not by series truncation, so the identity $B=- \frac{x^{2}}{10} - \frac{x}{100} - \frac{101}{1000}$ is an
+identity of functions and the theorem holds for all $n>2$ simultaneously.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer Sequences},
-\url{https://oeis.org}, 2026. Sequence A128153.
+\url{https://oeis.org}, 2026. Sequence A267879.
 \bibitem{kp} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011,
 Chapter 7 (holonomic closure properties and the translation between recurrences and
 differential equations).

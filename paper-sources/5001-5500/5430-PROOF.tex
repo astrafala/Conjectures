@@ -12,17 +12,17 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A236791, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A236721, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A236791 counts arrays over $\{0,\dots,2\}$ subject to a condition on the order
+OEIS A236721 counts arrays over $\{0,\dots,2\}$ subject to a condition on the order
 statistics of every $2\times2$ subblock, and carries an empirical recurrence of order
 $20$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical.
-The condition is local to two consecutive rows, so the count is a walk count on $S=32$
+The condition is local to two consecutive rows, so the count is a walk count on $S=37$
 states and is $C$-finite; whether the conjectured recurrence annihilates it is then settled by
 a finite exact computation, with the Cayley--Hamilton theorem bounding the work.
 \end{abstract}
@@ -31,15 +31,15 @@ a finite exact computation, with the Cayley--Hamilton theorem bounding the work.
 
 \section{The conjecture}
 
-OEIS A236791 is ``Number of (n+1)X(1+1) 0..2 arrays with the maximum plus the upper median plus the minimum of every 2X2 subblock equal.''. It has offset $1$ and begins
+OEIS A236721 is ``Number of (n+1)X(1+1) 0..2 arrays with the maximum plus the upper median plus the lower median minus the minimum of every 2X2 subblock equal.''. It has offset $1$ and begins
 \[
-81, 255, 825, 2817, 9717, 34317, 122305, 442285,\ \dots
+81, 211, 550, 1517, 4227, 12072, 34817, 101881,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 8*a(n-1) +8*a(n-2) -204*a(n-3) +224*a(n-4) +1972*a(n-5) -3810*a(n-6) -9220*a(n-7) +24389*a(n-8) +20868*a(n-9) -81294*a(n-10) -13536*a(n-11) +150316*a(n-12) -33360*a(n-13) -148072*a(n-14) +72384*a(n-15) +63616*a(n-16) -48128*a(n-17) -2816*a(n-18) +8192*a(n-19) -1536*a(n-20)
+Empirical: a(n) = 7*a(n-1) +12*a(n-2) -177*a(n-3) +89*a(n-4) +1806*a(n-5) -2318*a(n-6) -9698*a(n-7) +16880*a(n-8) +30048*a(n-9) -63832*a(n-10) -54640*a(n-11) +140752*a(n-12) +54864*a(n-13) -184064*a(n-14) -22784*a(n-15) +135936*a(n-16) -4480*a(n-17) -48640*a(n-18) +5120*a(n-19) +5120*a(n-20)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 09:33:17, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 09:29:13, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
@@ -47,7 +47,7 @@ recorded as empirical, and nothing on the entry records it as proved.
 Sort the four entries of a $2\times2$ subblock as $a\le b\le c\le d$: they
 are its minimum, lower median, upper median and maximum. The entry fixes the signed sum
 \[
-\sigma\;=\;a+c+d,
+\sigma\;=\;-a+b+c+d,
 \]
 and asks that $\sigma$ take the SAME value on every $2\times2$ subblock of an
 $(n+1)\times2$ array over $\{0,\dots,2\}$.
@@ -67,7 +67,7 @@ steps, and with $M$ the adjacency matrix on the disjoint union over $v$,
 a(n)\;=\;\iota^{\!\top}M^{\,n}\tau,\qquad\iota=\tau=(1,\dots,1)^{\!\top} .
 \]
 Rows carrying no edge at all are dropped: such a row can only be the whole of a one-row
-array, which is not among the objects counted. There are $S=32$ states left.
+array, which is not among the objects counted. There are $S=37$ states left.
 The alignment of the walk index with the entry's own $n$ was checked against its published
 terms rather than assumed. In particular $a$ is $C$-finite.
 
@@ -91,15 +91,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;8\,a(n-1) + 8\,a(n-2) - 204\,a(n-3) + 224\,a(n-4) + 1972\,a(n-5) - 3810\,a(n-6) - 9220\,a(n-7) + 24389\,a(n-8) + 20868\,a(n-9) - 81294\,a(n-10) - 13536\,a(n-11) + 150316\,a(n-12) - 33360\,a(n-13) - 148072\,a(n-14) + 72384\,a(n-15) + 63616\,a(n-16) - 48128\,a(n-17) - 2816\,a(n-18) + 8192\,a(n-19) - 1536\,a(n-20)
+a(n)\;=\;7\,a(n-1) + 12\,a(n-2) - 177\,a(n-3) + 89\,a(n-4) + 1806\,a(n-5) - 2318\,a(n-6) - 9698\,a(n-7) + 16880\,a(n-8) + 30048\,a(n-9) - 63832\,a(n-10) - 54640\,a(n-11) + 140752\,a(n-12) + 54864\,a(n-13) - 184064\,a(n-14) - 22784\,a(n-15) + 135936\,a(n-16) - 4480\,a(n-17) - 48640\,a(n-18) + 5120\,a(n-19) + 5120\,a(n-20)
 \]
-for every $n>19$.
+for every $n>20$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $20$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=19+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=20+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -107,7 +107,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $22$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $24$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
@@ -119,7 +119,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A236791.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A236721.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{david} H.~A.~David and H.~N.~Nagaraja, \emph{Order Statistics}, 3rd ed., Wiley,

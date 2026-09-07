@@ -12,15 +12,15 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{Recovering the unwritten recurrences of the table OEIS A232431}
+\title{Recovering the unwritten recurrences of the table OEIS A253544}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A232431 is a two-dimensional table $T(n,k)$ whose empirical recurrences are, for several of
-its lines, given only as an ORDER --- ``k=2: [order 21]'' and the like --- with the
+OEIS A253544 is a two-dimensional table $T(n,k)$ whose empirical recurrences are, for several of
+its lines, given only as an ORDER --- ``k=2: [order 19]'' and the like --- with the
 coefficients in a linked file rather than in the entry. Those conjectures can still be settled,
 and the recurrences recovered. A line of the table is a fixed-width or fixed-height array
 count, hence a walk count on finitely many vertices, hence satisfies some monic recurrence of
@@ -28,22 +28,23 @@ order at most that number; Berlekamp--Massey on twice as many exact terms return
 one. Where its order equals the order the entry states --- and where the same holds after the
 first few terms are dropped --- any recurrence of that order the line satisfies has a
 characteristic polynomial that is a multiple of the minimal one and of equal degree, hence is
-that polynomial. This note settles column 2.
+that polynomial. This note settles column 2, column 3.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 15A18.\normalsize
 
 \section{The table and the unwritten conjectures}
 
-OEIS A232431 is ``T(n,k)=Number of (n+1)X(k+1) 0..2 arrays with every element next to itself plus and minus one within the range 0..2 horizontally or vertically.''. It is read by antidiagonals and begins
+OEIS A253544 is ``T(n,k)=Number of (n+2)X(k+2) 0..1 arrays with every 3X3 subblock diagonal maximum minus antidiagonal minimum nonincreasing horizontally and nondecreasing vertically.''. It is read by antidiagonals and begins
 \[
-4, 16, 16, 64, 192, 64, 240, 1632,\ \dots
+512, 3328, 3328, 20480, 33568, 20480, 119040, 317696,\ \dots
 \]
 The entry carries, among its empirical claims:
 \begin{quote}\small
-k=2: [order 21]
+k=2: [order 19]\\
+k=3: [order 21]
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 07:26:50, revision 6) these are still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 14:07:30, revision 6) these are still
 recorded as empirical, and the recurrences themselves are not in the entry text.
 
 \section{Why a line of the table is a walk count}
@@ -66,16 +67,32 @@ minimal recurrence exactly.
 
 \subsection*{Column $k=2$}
 Substituting the fixed index into the entry's wording gives an ordinary one-parameter array
-count, a walk on $S=756$ vertices. Berlekamp--Massey on $2S=1512$ exact terms
+count, a walk on $S=448$ vertices. Berlekamp--Massey on $2S=896$ exact terms
+returns a minimal recurrence of order $19$ --- the order the entry states --- with
+integer coefficients
+\begin{center}\small\begin{tabular}{cccccccc}
+$c_{1}$ & $13$ & $c_{6}$ & $1721$ & $c_{11}$ & $266368$ & $c_{16}$ & $24772608$ \\
+$c_{2}$ & $-37$ & $c_{7}$ & $-11813$ & $c_{12}$ & $-103680$ & $c_{17}$ & $-31457280$ \\
+$c_{3}$ & $-95$ & $c_{8}$ & $86096$ & $c_{13}$ & $1683712$ & $c_{18}$ & $-12582912$ \\
+$c_{4}$ & $1181$ & $c_{9}$ & $-17360$ & $c_{14}$ & $-11894784$ & $c_{19}$ & $16777216$ \\
+$c_{5}$ & $-3897$ & $c_{10}$ & $-280192$ & $c_{15}$ & $12763136$ &  &  \\
+\end{tabular}\end{center}
+so that $a(m)=\sum_{i=1}^{19}c_i\,a(m-i)$ for every $m$. Removing the first
+$19+4$ terms and repeating gives order $19$ again, which is what the
+identification below needs.
+
+\subsection*{Column $k=3$}
+Substituting the fixed index into the entry's wording gives an ordinary one-parameter array
+count, a walk on $S=1792$ vertices. Berlekamp--Massey on $2S=3584$ exact terms
 returns a minimal recurrence of order $21$ --- the order the entry states --- with
 integer coefficients
 \begin{center}\small\begin{tabular}{cccccccc}
-$c_{1}$ & $5$ & $c_{7}$ & $-19491$ & $c_{13}$ & $1239102$ & $c_{19}$ & $-1454080$ \\
-$c_{2}$ & $14$ & $c_{8}$ & $50600$ & $c_{14}$ & $-2382756$ & $c_{20}$ & $-884736$ \\
-$c_{3}$ & $177$ & $c_{9}$ & $-46439$ & $c_{15}$ & $350424$ & $c_{21}$ & $262144$ \\
-$c_{4}$ & $593$ & $c_{10}$ & $-300305$ & $c_{16}$ & $2450976$ &  &  \\
-$c_{5}$ & $-762$ & $c_{11}$ & $356396$ & $c_{17}$ & $-5740800$ &  &  \\
-$c_{6}$ & $-9725$ & $c_{12}$ & $708476$ & $c_{18}$ & $1144832$ &  &  \\
+$c_{1}$ & $17$ & $c_{7}$ & $261248$ & $c_{13}$ & $46170112$ & $c_{19}$ & $16777216$ \\
+$c_{2}$ & $-11$ & $c_{8}$ & $-776832$ & $c_{14}$ & $-132120576$ & $c_{20}$ & $-167772160$ \\
+$c_{3}$ & $-693$ & $c_{9}$ & $664576$ & $c_{15}$ & $1835008$ & $c_{21}$ & $67108864$ \\
+$c_{4}$ & $3244$ & $c_{10}$ & $-1263616$ & $c_{16}$ & $86507520$ &  &  \\
+$c_{5}$ & $-19932$ & $c_{11}$ & $-15355904$ & $c_{17}$ & $-117440512$ &  &  \\
+$c_{6}$ & $46560$ & $c_{12}$ & $39215104$ & $c_{18}$ & $176160768$ &  &  \\
 \end{tabular}\end{center}
 so that $a(m)=\sum_{i=1}^{21}c_i\,a(m-i)$ for every $m$. Removing the first
 $21+4$ terms and repeating gives order $21$ again, which is what the
@@ -114,7 +131,7 @@ agree.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A232431.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A253544.
 \bibitem{massey} J.~L.~Massey, Shift-register synthesis and BCH decoding, \emph{IEEE
 Trans. Inform. Theory} \textbf{15} (1969), 122--127.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,

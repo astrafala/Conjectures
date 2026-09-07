@@ -12,142 +12,138 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical product formula for OEIS A140942, proved}
+\title{The empirical closed form for OEIS A195251, proved}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{6 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A140942 counts $10\times11$ matrices over $\{0,\dots,n\}$ whose rows and columns are
-nondecreasing, and carries a product formula for $a(n)$ marked empirical. Reversing rows and
-columns turns such a matrix into a plane partition inside a $10\times11\times n$ box, so
-MacMahon's box theorem applies; the triple product telescopes in its third index and leaves a
-polynomial in $n$ of degree $110$. The entry's own expression, cleared of its denominator,
-becomes an identity between two polynomials of bounded degree, and is therefore settled by a
-finite exact computation. The box count itself is classical and is already recorded on this
-entry; what is proved here is the entry's own formula.
+OEIS A195251 counts the lower triangles of a $5\times5$ array over $\{0,\dots,n\}$ in which
+adjacent entries differ by at most $2$, and carries closed form recorded as empirical. The shape here is FIXED
+and it is the alphabet that grows, so there is no digraph to walk. What settles it is that the
+condition constrains DIFFERENCES only: translating an admissible array by a constant leaves it
+admissible, so the arrays split into translation classes, and a class with spread $s$ contains
+exactly $\max(0,n+1-s)$ arrays with entries in $\{0,\dots,n\}$. Since no spread can exceed
+$2$ times the diameter of the neighbour graph, $a(n)$ is exactly linear from a point that is
+known in advance, and two evaluations pin it. Nothing is fitted.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A17, 05A19.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A19, 11B37.\normalsize
 
 \section{The conjecture}
 
-OEIS A140942 is ``Number of 10 X 11 matrices with elements in 0..n with each row and each column in nondecreasing order. 10,11,n can be permuted, see formula.''. It has offset $0$ and begins
+OEIS A195251 is ``Number of lower triangles of a 5X5 0..n array with each element differing from all of its diagonal, vertical, antidiagonal and horizontal neighbors by two or less.''. It has offset $1$ and begins
 \[
-1, 352716, 20734762776, 359423289546776, 2464759032039691296, 8048657076493567752960,\ \dots
+32768, 14348907, 67379894, 147824001, 237368212, 329060365,\ \dots
 \]
-The entry states, as conjectures contributed by its author and never marked settled:
+The entry states, as conjectures contributed by its author and by later readers and never
+marked settled:
 \begin{quote}
-(empirical) set p,q,r to n,11,10 (in any order) in s=p+q+r-1; a(n) = product {i in 0..r-1} (binomial(s,p+i)*i!/(s-i)\^{}(r-i-1))
-
+Empirical: a(n) = 92031109*n - 223153377 for n>6
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jan 28 2025 10:52:39, revision 8) these are still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 06:14:33, revision 9) these are still
 recorded as empirical, and nothing on the entry records them as proved.
 
 \section{What is being counted}
 
-A matrix $x$ of shape $10\times11$ with entries in $\{0,\dots,n\}$, nondecreasing along
-every row and down every column, becomes, on reversing the order of the rows and of the
-columns, an array that is NONINCREASING along rows and down columns with the same entries. That
-is exactly a plane partition whose parts are at most $n$ and whose shape fits inside a
-$10\times11$ rectangle --- a plane partition in a $10\times11\times n$ box. The
-correspondence is a bijection, being an involution on arrays, so
+The lower triangle of a $5\times5$ array is the set of cells $(i,j)$ with $0\le j\le
+i<5$, so there are $T=15$ of them. Two cells are adjacent when they differ by one of the
+horizontal, antidiagonal, vertical, diagonal offsets, which here gives $36$ adjacent pairs. Each cell carries a value in
+$\{0,\dots,n\}$, and the entry requires
 \[
-a(n)\;=\;\mathrm{PP}(10,11,n).
-\]
-Note which parameter grows: the shape is FIXED and it is the alphabet $0..n$ that $n$ counts,
-so nothing about transfer matrices applies here.
-
-\section{The box count is a polynomial}
-
-\begin{theorem}[MacMahon]\label{thm:mm}
-\[
-\mathrm{PP}(p,q,r)\;=\;\prod_{i=1}^{p}\prod_{j=1}^{q}\prod_{k=1}^{r}
-\frac{i+j+k-1}{i+j+k-2} .
-\]
-\end{theorem}
-
-This is classical; see Stanley~\cite{stanley}, and it is already recorded on this entry.
-
-\begin{theorem}\label{thm:poly}
-\[
-a(n)\;=\;\prod_{i=1}^{10}\prod_{j=1}^{11}\frac{n+i+j-1}{i+j-1},
-\]
-a polynomial in $n$ of degree $110$ with rational coefficients.
-\end{theorem}
-
-\begin{proof}
-In Theorem~\ref{thm:mm} the inner product over $k$ telescopes: for fixed $i$ and $j$,
-\[
-\prod_{k=1}^{n}\frac{i+j+k-1}{i+j+k-2}\;=\;\frac{n+i+j-1}{i+j-1} ,
-\]
-every other factor cancelling against its neighbour. The remaining double product has
-$10\cdot11=110$ factors, each linear in $n$, and the denominators are constants.
-\end{proof}
-
-So $a$ is a polynomial, and no appeal to Ehrhart theory or to any general position argument is
-needed to see it.
-
-\section{The entry's expression}
-
-The entry writes $s=p+q+r-1$ with $(p,q,r)=(n,11,10)$ and claims
-\[
-a(n)\;=\;\prod_{i=0}^{10-1}\binom{s}{n+i}\,\frac{i!}{(s-i)^{10-1-i}}\;=\;
-\frac{N(n)}{D(n)} .
+|x_u-x_v|\le 2\qquad\text{for every adjacent pair }u,v .
 \]
 
-\begin{lemma}\label{lem:deg}
-$N$ and $D$ are polynomials in $n$ of degrees $155$ and $45$ respectively.
+The shape is fixed and $n$ is the size of the ALPHABET. So this is not a walk count and
+nothing about transfer matrices applies.
+
+\section{Translation}
+
+\begin{lemma}\label{lem:trans}
+Let $\mathcal P$ be the set of integer arrays $y$ on these cells satisfying the same condition
+and having least entry $0$, and for $y\in\mathcal P$ write $\mathrm{sp}(y)$ for its largest
+entry. Then $\mathcal P$ is finite and
+\[
+a(n)\;=\;\sum_{y\in\mathcal P}\max\bigl(0,\;n+1-\mathrm{sp}(y)\bigr).
+\]
 \end{lemma}
 
 \begin{proof}
-With $s=n+11+10-1$ one has $s-(n+i)=11+10-1-i$, a constant, so
-\[
-\binom{s}{n+i}=\binom{s}{11+10-1-i}
-=\frac{(s-11-10+2+i)(s-11-10+3+i)\cdots s}{(11+10-1-i)!},
-\]
-a polynomial in $n$ of degree $11+10-1-i$. Multiplying over $i=0,\dots,10-1$ gives
-$\deg N=\sum_{i=0}^{10-1}(11+10-1-i)=155$. The denominator is
-$\prod_{i=0}^{10-1}(s-i)^{10-1-i}$, of degree
-$\sum_{i=0}^{10-1}(10-1-i)=45$, and it does not vanish for $n\ge0$.
+The condition depends only on the differences $x_u-x_v$, so if $x$ is admissible so is $x+m$
+for any integer $m$, and every admissible $x$ is $y+m$ for exactly one $y\in\mathcal P$ and one
+integer $m$, namely $m=\min x$. Given $y$, the array $y+m$ has all entries in
+$\{0,\dots,n\}$ precisely when $m\ge0$ and $m+\mathrm{sp}(y)\le n$, which is
+$\max(0,n+1-\mathrm{sp}(y))$ values of $m$. Finiteness follows from
+Lemma~\ref{lem:bound}.
 \end{proof}
 
-\begin{theorem}
-The entry's expression equals $a(n)$ for every $n\ge0$.
+\begin{lemma}\label{lem:bound}
+Every $y\in\mathcal P$ has $\mathrm{sp}(y)\le 2\cdot4=8$, where $4$ is the
+diameter of the neighbour graph.
+\end{lemma}
+
+\begin{proof}
+The neighbour graph is connected, so any two cells are joined by a path of at most $4$
+edges, and each edge changes the value by at most $2$. Hence the largest and the smallest
+entry differ by at most $2\cdot4$.
+\end{proof}
+
+\section{The count}
+
+\begin{theorem}\label{thm:line}
+\[
+a(n)\;=\;92031109\,n-223153377\qquad\text{for every }n\ge7,
+\]
+and $\mathcal P$ has exactly $92031109$ elements.
 \end{theorem}
 
 \begin{proof}
-By Theorem~\ref{thm:poly} and Lemma~\ref{lem:deg}, $a(n)D(n)-N(n)$ is a polynomial in $n$
-of degree at most $110+45=155$. It was evaluated in exact rational arithmetic at
-$n=0,1,\dots,155$, that is at $156$ points, and vanishes at all of them; a nonzero polynomial
-of degree at most $155$ has at most $155$ roots, so it is identically zero. Since $D(n)\neq0$
-for $n\ge0$, the two expressions agree there.
+For $n\ge8$ every term of Lemma~\ref{lem:trans} is positive by
+Lemma~\ref{lem:bound}, so
+\[
+a(n)=\sum_{y\in\mathcal P}\bigl(n+1-\mathrm{sp}(y)\bigr)
+=|\mathcal P|\,(n+1)-\sum_{y}\mathrm{sp}(y),
+\]
+which is a linear function of $n$. Two values determine it, and $a(8)$ and
+$a(8+1)$ were computed exactly, giving slope $92031109$ and the stated intercept; the slope
+is $|\mathcal P|$. That the identity already holds from $n=7$ was then read off by
+comparing it with the exact values of $a(n)$ below $8$, each computed the same way.
 \end{proof}
+
+The counts $a(n)$ themselves are obtained by walking over the cells in row major order and
+carrying only the entries a later cell can still see --- for this shape at most $5+1$ of
+them --- so no array is ever written down.
+
+Each statement quoted in Section 1 is a consequence of Theorem~\ref{thm:line}, and each was
+also checked directly against it.
 
 \section{Verification}
 
-Three checks, each independent of the algebra above.
+Three checks, each independent of the argument above.
 
-First, Theorem~\ref{thm:poly} reproduces all $6$ terms the entry publishes,
-exactly, in integer arithmetic.
+First, the count reproduces all $20$ terms the entry publishes, exactly, in integer
+arithmetic.
 
-Second, the matrices themselves were counted for the smallest alphabets, directly from the
-definition: the nondecreasing rows were listed and the chains of $10$ of them increasing
-componentwise counted, with no product formula and no plane partitions anywhere. The counts
-agree, which is what ties the reversal bijection to the entry's own wording.
+Second, the arrays themselves were enumerated for the smallest alphabets --- every assignment
+of $0..n$ to the $15$ cells written out and every adjacent pair tested --- with no
+translation argument and no frontier walk. Where the shape is too large for that, the first
+term is settled by an exact argument instead: at $n=1$ every entry is $0$ or $1$, so an ``at
+most'' condition is no condition and the count is $2^{15}$, while ``differing by exactly
+one'' asks for a proper $2$-colouring of the neighbour graph. Both test the cell set and the
+adjacency, which is what this check is for.
 
-Third, the polynomial identity was evaluated over the whole range $n=0,\dots,155$ rather than
-sampled, in exact rational arithmetic.
+Third, the linear form was compared against the entry's own published terms over their whole
+range, and the conjectured statements were each evaluated against it in exact arithmetic
+rather than sampled.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A140942.
-\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 2, Cambridge
-University Press, 1999. (Plane partitions with bounded part size, Section 7.21.)
-\bibitem{macmahon} P.~A.~MacMahon, \emph{Combinatory Analysis}, Volume 2, Cambridge
-University Press, 1916.
-\bibitem{andrews} G.~E.~Andrews, \emph{The Theory of Partitions}, Addison--Wesley, 1976.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A195251.
+\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
+Cambridge University Press, 2011.
+\bibitem{comtet} L.~Comtet, \emph{Advanced Combinatorics}, Reidel, 1974.
+\bibitem{kauers} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011.
 \end{thebibliography}
 
 \end{document}

@@ -12,88 +12,83 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A189431, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A186916, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{6 September 2026}
+\date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A189431 counts the permutations of the cells of an $n\times5$ array in which every cell
-moves by one of a fixed short list of offsets. The entry carries an empirical recurrence of
-order $66$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
-empirical. The count is the permanent of the incidence matrix of the offset graph; read the
-cells in row-major order and let each choose its image, and the only thing that has to be
-carried is which images inside a window of $12$ consecutive positions are already taken.
-That makes $a$ a walk count on $S=231$ states, hence $C$-finite, and whether the published
-recurrence is one of its recurrences is then a finite exact computation.
+OEIS A186916 counts arrays over $\{0,\dots,3\}$ under a condition comparing a statistic of
+every $2\times2$ subblock with those of its neighbours, and carries an empirical recurrence
+of order $68$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
+empirical. The count is a walk count on $S=11648$ states and is $C$-finite; whether the
+conjectured recurrence annihilates it is then settled by a finite exact computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A05, 05A15, 15A15.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
 \section{The conjecture}
 
-OEIS A189431 is ``Number of nX5 array permutations with each element not moving, or moving one space N, SW or SE.''. It has offset $1$ and begins
+OEIS A186916 is ``Number of (n+1)X3 0..3 arrays with every 2X2 subblock trace equal to exactly one or two horizontal and vertical neighbor 2X2 subblock traces.''. It has offset $1$ and begins
 \[
-1, 8, 65, 571, 5680, 52241, 493941, 4681376,\ \dots
+704, 13440, 253312, 4615296, 86388160, 1613838400, 30161413056, 563483938112,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 9*a(n-1) -a(n-2) +88*a(n-3) -133*a(n-4) -1241*a(n-5) -6173*a(n-6) +1260*a(n-7) -35412*a(n-8) +81872*a(n-9) +143920*a(n-10) -260064*a(n-11) +2649517*a(n-12) -4380197*a(n-13) -10792671*a(n-14) +17380340*a(n-15) +17309201*a(n-16) +82171225*a(n-17) -34858151*a(n-18) -315791376*a(n-19) +66797872*a(n-20) -231978696*a(n-21) +734413152*a(n-22) +760013432*a(n-23) -1058202998*a(n-24) -2085612850*a(n-25) -7191772318*a(n-26) +7045350632*a(n-27) +3638845930*a(n-28) +3481732186*a(n-29) +8643493314*a(n-30) -7150172088*a(n-31) +12002114312*a(n-32) -17160930824*a(n-33) -1460727184*a(n-34) +58198351544*a(n-35) -1772883650*a(n-36) -13721600534*a(n-37) +7148283886*a(n-38) -31542922592*a(n-39) -28065877170*a(n-40) -27375326650*a(n-41) -29235699066*a(n-42) -15582339728*a(n-43) -48617808*a(n-44) +4434566056*a(n-45) -693712320*a(n-46) +2141282408*a(n-47) +2851911223*a(n-48) +1535350953*a(n-49) -85925633*a(n-50) -94378304*a(n-51) +529827963*a(n-52) -125838145*a(n-53) -233700005*a(n-54) -61208340*a(n-55) +22857068*a(n-56) +42821976*a(n-57) +4528704*a(n-58) -1484088*a(n-59) +1003221*a(n-60) -1054917*a(n-61) -305775*a(n-62) -6804*a(n-63) -63423*a(n-64) +6561*a(n-65) +6561*a(n-66)
+Empirical: a(n)=19*a(n-1)-42*a(n-2)+193*a(n-3)+11367*a(n-4)-72730*a(n-5)+643907*a(n-6)-2092699*a(n-7)+2358885*a(n-8)+3857288*a(n-9)-259965739*a(n-10)+923072651*a(n-11)-5781680009*a(n-12)+20491619898*a(n-13)+8894970587*a(n-14)-170675786175*a(n-15)+2368472286552*a(n-16)-8224292736101*a(n-17)+19330903243739*a(n-18)-105830953991576*a(n-19)+57206563938348*a(n-20)+891386946727050*a(n-21)-5108640876870042*a(n-22)+24293633672312964*a(n-23)-55854110178877757*a(n-24)+119328786504692099*a(n-25)-194223424712175754*a(n-26)-758065151423762303*a(n-27)+4705172061925685671*a(n-28)-19283863911879897678*a(n-29)+58477064112798375671*a(n-30)-115420288738501952295*a(n-31)+226881171676804374579*a(n-32)-227406016994050647282*a(n-33)-758918990518733400415*a(n-34)+3927514331879039801141*a(n-35)-14160407221007454217745*a(n-36)+38834128880307712389668*a(n-37)-84378310829784482421755*a(n-38)+186777993653737777355805*a(n-39)-342410464818158459976594*a(n-40)+482753241710170393509689*a(n-41)-694821224047356382119197*a(n-42)+701237606664586708235446*a(n-43)-75636310836208438477376*a(n-44)-941705253640376665897824*a(n-45)+4194854884439913213614720*a(n-46)-9313648502362966805603808*a(n-47)+12537306334386180437424128*a(n-48)-22495404254986469017386624*a(n-49)+34226776839938528858360064*a(n-50)-24704967584148780932904448*a(n-51)+21360185887183265068596224*a(n-52)-23926309520806603554521088*a(n-53)-30199236051497551149019136*a(n-54)+90054299370892913001701376*a(n-55)-121240337983554757193908224*a(n-56)+207295579318514130921553920*a(n-57)-294027413230123317961555968*a(n-58)+327991241277559585551679488*a(n-59)-369179644394232254698094592*a(n-60)+371716373430578247204077568*a(n-61)-333020475532786703168176128*a(n-62)+302328724884170573460013056*a(n-63)-227155277320893889561755648*a(n-64)+139239457898080848662495232*a(n-65)-97256446345939717088870400*a(n-66)+56212147213798847608258560*a(n-67)-13897379972622097317888000*a(n-68)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 05:13:03, revision 9) this is still
+As of the ``Last modified'' line on the live entry (Aug 04 2025 02:13:03, revision 13) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-Write the cells of the array as pairs $(i,j)$ with $0\le i<n$ and $0\le j<5$. An
-\emph{array permutation} of the kind the entry counts is a bijection $\pi$ from the cells to
-the cells such that for every cell,
+Write $\sigma$ for the sum of its main diagonal, taken on a $2\times2$ subblock. The contiguous $2\times2$
+subblocks of an $(n+1)\times3$ array over $\{0,\dots,3\}$ form a grid of $n$ rows
+and $2$ columns, and $\sigma$ labels that grid. The entry
+requires that every subblock carries the same value of $\sigma$ as exactly one or two of its neighbours horizontally or vertically.
+
+\section{The count is a walk count}
+
+This condition is NOT a condition on a pair. Whether a subblock has a
+matching neighbour cannot be decided when its own row is placed: the row BELOW it may yet
+supply the match. So the state carries, besides the $2$ consecutive array rows, a tally for
+each of the $2$ subblocks of the row just completed --- a count of its matches so far, capped at three, three being already too many --- counting its matches
+among its own row and the row above.
+
+A step appends an array row. It fixes the next subblock row, adds the matches between the two
+rows to the OLD row's tallies, and requires those totals to be acceptable, the old row being
+final at that moment; the new row's tallies start from its own horizontal matches plus the
+matches just made. A state is ACCEPTING when its own tally is already acceptable, which is
+exactly the right condition for the last subblock row, the one with nothing below it. Only the
+states whose tally came from their own row may BEGIN an array, since the first row has nothing
+above it.
+
+An array of $n+1$ rows is then a walk of $n-1$ steps and
 \[
-\pi(i,j)-(i,j)\;\in\;\Delta,\qquad
-\Delta=\{\,(-1,0),\ (0,0),\ (1,-1),\ (1,1)\,\}.
+a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau
 \]
-The offsets are what the name's words say: one step southeast, southwest or north. A cell is allowed to stay where it is, and $(0,0)$ is one of the offsets.
+with $\iota$ the indicator of the starting states and $\tau$ of the accepting ones, on
+$S=11648$ states in all. Getting the two vectors right is the whole of the argument: with
+$\iota$ taken as all-ones the first row would be allowed a match from a row above it that does
+not exist, and the count would be too large. The entry's own first terms settle it --- for
+the smallest cases
+the model reproduces every published term.
 
-A move is only allowed when its target is a cell of the array, so cells near an
-edge have fewer choices. The reading is pinned against the entry's own published terms rather
-than assumed: taking ``diagonally, horizontally or vertically'' to mean all eight king moves
-gives $24$ where A189305 publishes $14$.
+Over the alphabet $\{0,\dots,3\}$ the statistic takes values in $[0,6]$, so the
+grid it labels carries at most $7$ different labels. At $n=1$ the array has $2$
+rows and the grid is a single row of $2$
+subblocks, with only the neighbours inside that row; the entry's first term is
+$704$, which the model reproduces along with every later term, and that is the cheapest
+check that the grid has been read with the right shape.
 
-Equivalently, $a(n)$ is the permanent of the $n5\times n5$ matrix whose $(c,c')$ entry is
-$1$ exactly when $c'-c\in\Delta$.
-
-\section{A window of 12 positions}
-
-Number the cells in row-major order, $k=i\cdot5+j$. An offset $(\delta_1,\delta_2)$ moves a
-cell by $\delta_15+\delta_2$ places in that order, so every image lies between $lo=-5$ and
-$hi=6$ places from its source. Process the cells in order and let each one choose its image.
-Once the cell at position $k$ has been dealt with, the position $k+-5$ can never be chosen
-again by anybody, so it must already be taken; and no position beyond $k+6$ can have been
-taken yet. What has to be remembered is therefore exactly which of the $12$ positions
-$k+-5,\dots,k+6$ are taken --- a subset of a set of size $12$, and nothing else.
-
-That is the state. One step of the walk is one row, that is $5$ cell choices, and the
-condition ``the position leaving the window is taken'' is what makes the walk count permutations
-rather than partial injections: every position is taken exactly once, once at the moment it
-leaves the window.
-
-The two boundaries are the same condition. Images above the first row do not exist, so the walk
-starts with exactly the window positions lying above the array marked as taken. Images below the
-last row do not exist either, so the walk must end with exactly those positions marked and
-nothing beyond. In the window's own coordinates those two masks are equal, so the start state is
-also the only accepting state and
-\[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=231,
-\]
-for the transfer matrix $M$ on those $S$ states. The walk index $j$ and the entry's own $n$
-differ by a constant, read off by matching the published terms rather than assumed. In
-particular $a$ is $C$-finite.
+In particular $a$ is $C$-finite. The alignment of the walk index with the entry's own $n$ was
+checked against its published terms rather than assumed.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{66}-\sum_i c_it^{66-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{68}-\sum_i c_it^{68-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -101,7 +96,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+66}-\sum_ic_iM^{j+66-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+68}-\sum_ic_iM^{j+68-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -110,43 +105,41 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;9\,a(n-1) - a(n-2) + 88\,a(n-3) - 133\,a(n-4) - 1241\,a(n-5) - 6173\,a(n-6) + 1260\,a(n-7) - 35412\,a(n-8) + 81872\,a(n-9) + 143920\,a(n-10) - 260064\,a(n-11) + 2649517\,a(n-12) - 4380197\,a(n-13) - 10792671\,a(n-14) + 17380340\,a(n-15) + 17309201\,a(n-16) + 82171225\,a(n-17) - 34858151\,a(n-18) - 315791376\,a(n-19) + 66797872\,a(n-20) - 231978696\,a(n-21) + 734413152\,a(n-22) + 760013432\,a(n-23) - 1058202998\,a(n-24) - 2085612850\,a(n-25) - 7191772318\,a(n-26) + 7045350632\,a(n-27) + 3638845930\,a(n-28) + 3481732186\,a(n-29) + 8643493314\,a(n-30) - 7150172088\,a(n-31) + 12002114312\,a(n-32) - 17160930824\,a(n-33) - 1460727184\,a(n-34) + 58198351544\,a(n-35) - 1772883650\,a(n-36) - 13721600534\,a(n-37) + 7148283886\,a(n-38) - 31542922592\,a(n-39) - 28065877170\,a(n-40) - 27375326650\,a(n-41) - 29235699066\,a(n-42) - 15582339728\,a(n-43) - 48617808\,a(n-44) + 4434566056\,a(n-45) - 693712320\,a(n-46) + 2141282408\,a(n-47) + 2851911223\,a(n-48) + 1535350953\,a(n-49) - 85925633\,a(n-50) - 94378304\,a(n-51) + 529827963\,a(n-52) - 125838145\,a(n-53) - 233700005\,a(n-54) - 61208340\,a(n-55) + 22857068\,a(n-56) + 42821976\,a(n-57) + 4528704\,a(n-58) - 1484088\,a(n-59) + 1003221\,a(n-60) - 1054917\,a(n-61) - 305775\,a(n-62) - 6804\,a(n-63) - 63423\,a(n-64) + 6561\,a(n-65) + 6561\,a(n-66)
+a(n)\;=\;19\,a(n-1) - 42\,a(n-2) + 193\,a(n-3) + 11367\,a(n-4) - 72730\,a(n-5) + 643907\,a(n-6) - 2092699\,a(n-7) + 2358885\,a(n-8) + 3857288\,a(n-9) - 259965739\,a(n-10) + 923072651\,a(n-11) - 5781680009\,a(n-12) + 20491619898\,a(n-13) + 8894970587\,a(n-14) - 170675786175\,a(n-15) + 2368472286552\,a(n-16) - 8224292736101\,a(n-17) + 19330903243739\,a(n-18) - 105830953991576\,a(n-19) + 57206563938348\,a(n-20) + 891386946727050\,a(n-21) - 5108640876870042\,a(n-22) + 24293633672312964\,a(n-23) - 55854110178877757\,a(n-24) + 119328786504692099\,a(n-25) - 194223424712175754\,a(n-26) - 758065151423762303\,a(n-27) + 4705172061925685671\,a(n-28) - 19283863911879897678\,a(n-29) + 58477064112798375671\,a(n-30) - 115420288738501952295\,a(n-31) + 226881171676804374579\,a(n-32) - 227406016994050647282\,a(n-33) - 758918990518733400415\,a(n-34) + 3927514331879039801141\,a(n-35) - 14160407221007454217745\,a(n-36) + 38834128880307712389668\,a(n-37) - 84378310829784482421755\,a(n-38) + 186777993653737777355805\,a(n-39) - 342410464818158459976594\,a(n-40) + 482753241710170393509689\,a(n-41) - 694821224047356382119197\,a(n-42) + 701237606664586708235446\,a(n-43) - 75636310836208438477376\,a(n-44) - 941705253640376665897824\,a(n-45) + 4194854884439913213614720\,a(n-46) - 9313648502362966805603808\,a(n-47) + 12537306334386180437424128\,a(n-48) - 22495404254986469017386624\,a(n-49) + 34226776839938528858360064\,a(n-50) - 24704967584148780932904448\,a(n-51) + 21360185887183265068596224\,a(n-52) - 23926309520806603554521088\,a(n-53) - 30199236051497551149019136\,a(n-54) + 90054299370892913001701376\,a(n-55) - 121240337983554757193908224\,a(n-56) + 207295579318514130921553920\,a(n-57) - 294027413230123317961555968\,a(n-58) + 327991241277559585551679488\,a(n-59) - 369179644394232254698094592\,a(n-60) + 371716373430578247204077568\,a(n-61) - 333020475532786703168176128\,a(n-62) + 302328724884170573460013056\,a(n-63) - 227155277320893889561755648\,a(n-64) + 139239457898080848662495232\,a(n-65) - 97256446345939717088870400\,a(n-66) + 56212147213798847608258560\,a(n-67) - 13897379972622097317888000\,a(n-68)
 \]
-for every $n>65$.
+for every $n>68$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $66$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $68$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=65+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=68+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
-Four checks, each independent of the algebra above.
+Three checks, each independent of the algebra above.
 
-First, the model reproduces all $19$ terms the entry publishes, exactly, in integer
-arithmetic.
+First, the model reproduces all $15$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry: the digraph is built by reading the
+entry's English, and a misreading gives different counts.
 
-Second, the count was recomputed for the smallest arrays straight from the definition: the
-cells of the array were matched to their images one at a time, over the whole grid, with no
-window, no mask over a sliding frame and no transfer matrix, and the published terms came back.
-That computation shares nothing with the construction of Section~3 beyond the offset list.
-
-Third, the conjectured recurrence was evaluated directly on the published terms, with no
+Second, the conjectured recurrence was evaluated directly on those published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
 
-Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
 arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A189431.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A186916.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{minc} H.~Minc, \emph{Permanents}, Encyclopedia of Mathematics and its
-Applications 6, Addison--Wesley, 1978.
+\bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata
+Theory, Languages, and Computation}, 3rd ed., Addison--Wesley, 2006.
+\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
+University Press, 2013.
 \end{thebibliography}
 
 \end{document}

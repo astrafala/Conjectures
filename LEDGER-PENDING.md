@@ -338,3 +338,45 @@ largest family). Their conjecture is stated once "for every row and column" rath
 per-column, so it is a claim about infinitely many widths at once, and settling the few
 columns whose data is published would not settle what the entry states. Recorded so it is
 not measured again.
+
+### denumerant — a lattice count, not a walk count (5 entries)
+
+The first engine here that is not a transfer matrix at all.
+
+A nondecreasing row of $-1$s and $1$s is a block of $-1$s followed by a block of $1$s, so it
+is fixed by one number: how many $-1$s it holds. Writing $k_i$ for that, row $i$ sums to
+$n-2k_i$ and the entry's condition $\sum_{i,j} i\,x(i,j)=0$ becomes $\sum_i i\,k_i =
+nH(H+1)/4$. The arrays vanish; what is left is the lattice points of a box on one hyperplane
+— the points of the $n$-th dilate of a fixed rational polytope, hence a quasi-polynomial in
+$n$.
+
+That is what makes the recurrence provable rather than observed. A quasi-polynomial of
+degree $d$ and period $P$ satisfies the recurrence with characteristic polynomial
+$(x^P-1)^{d+1}$; here $d \le H-1$ and $P \mid 2\,\mathrm{lcm}(1,\dots,H)$ by the classical
+denumerant, so the order is bounded, and the bound is the certificate. Inclusion–exclusion
+over which $k_i$ exceed $n$ turns the count into $2^H$ lookups in one denumerant table, so
+thousands of exact terms cost nothing — which is exactly what a bound of 13440 needs.
+
+The reduction was checked against a brute force over the arrays themselves before anything
+was built, and the model reproduces every published term of all five.
+
+Two things `uniform` needed for this, both contained: `build` no longer refuses a model
+whose first component is not a digraph when the engine supplies its own `terms_p` and
+`threshold_p`, and those hooks are now honoured.
+
+**Left, with the reason:** the seven entries that also require $\sum x(i,j)=0$ have two
+conditions and need a two-dimensional denumerant; their period bound at $H=12$ runs to tens
+of thousands, so the certificate is not affordable there. The idempotent-subblock family (10)
+and the bishop's-tour family (6) are $n \times n$ — both sides grow — which is the standing
+wall, not a new one.
+
+### A methodology bug: two sweeps sharing one results file
+
+The denumerant sweep reported five proved and the file then held none of them. A second
+sweep was still running on the refused pool; each holds the whole hits list in memory and
+writes it back whole, so whichever saved last silently dropped everything the other had
+proved. Nothing in the output said so — the count was the only trace, and it was right.
+
+Caught by reading the file back rather than trusting the report. `sweep_uni.py` now takes a
+lock and refuses to start while another sweep is writing the same file. The five were
+re-proved and are in.

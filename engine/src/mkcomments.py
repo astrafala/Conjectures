@@ -248,6 +248,23 @@ def whitesq(S, thr):
     return s + ((", and it holds for n > %d." % thr) if thr is not None else ".")
 
 
+def lattice(S, thr):
+    s = ("The empirical recurrence is true, and the arrays can be dispensed with entirely. A "
+         "nondecreasing row of -1s and 1s is a block of -1s followed by a block of 1s, so it "
+         "is fixed by one number k_i, the count of -1s; the row sums to n - 2k_i and the "
+         "condition Sum_{i,j} i*x(i,j) = 0 becomes Sum_i i*k_i = n*H*(H+1)/4. So a(n) counts "
+         "the lattice points of the box {0..n}^H on one hyperplane -- the points of the n-th "
+         "dilate of a fixed rational polytope -- and is therefore a quasi-polynomial in n. A "
+         "quasi-polynomial of degree d and period P satisfies the recurrence with "
+         "characteristic polynomial (x^P - 1)^(d+1); here d <= H-1 and P divides "
+         "2*lcm(1..H)")
+    if S:
+        s += ", so the order is at most %s" % f"{S:,}".replace(',', ' ')
+    s += (". Checking the recurrence above against that bound is then a finite exact "
+          "computation")
+    return s + ((", and it holds for n > %d." % thr) if thr is not None else ".")
+
+
 def fromgf(thr):
     s = ("The recurrence follows from the generating function this entry already states as "
          "fact: a recurrence with constant coefficients is exactly a denominator of the "
@@ -502,6 +519,8 @@ def main():
                 txt = paritydiff(S, thr)
             elif t.startswith('The white squares of a board'):
                 txt = whitesq(S, thr)
+            elif t.startswith('A lattice count, not a walk count'):
+                txt = lattice(S, thr)
             elif t in ARRAY_TITLES:
                 txt = array(S, thr)
             elif t == "The empirical recurrence for OEIS A, derived from the entry's generating function":

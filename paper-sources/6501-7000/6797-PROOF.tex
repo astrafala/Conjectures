@@ -12,19 +12,19 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A283197, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A202974, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A283197 counts $n\times2$ arrays over $\{0,\dots,1\}$ subject to a condition imposed on
+OEIS A202974 counts $n\times3$ arrays over $\{0,\dots,1\}$ subject to a condition imposed on
 every CELL over a neighbour set the entry names, and it carries an empirical recurrence of
 order $10$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
 empirical. A cell's neighbourhood meets three consecutive rows, so the state of a transfer
 matrix is a pair of consecutive rows and each step settles the middle one; an array is a
-walk, and $a(n)$ is a walk count on $S=36$ vertices, which is $C$-finite. Whether the
+walk, and $a(n)$ is a walk count on $S=40$ vertices, which is $C$-finite. Whether the
 conjectured recurrence annihilates it is then decided by a finite exact computation, with the
 Cayley--Hamilton theorem bounding the work.
 \end{abstract}
@@ -33,15 +33,15 @@ Cayley--Hamilton theorem bounding the work.
 
 \section{The conjecture}
 
-OEIS A283197 is ``Number of n X 2 0..1 arrays with no 1 equal to more than two of its horizontal and vertical neighbors, with the exception of exactly one element.''. It has offset $1$ and begins
+OEIS A202974 is ``Number of n X 3 0..1 arrays with every nonzero element less than or equal to at least two horizontal and vertical neighbors.''. It has offset $1$ and begins
 \[
-0, 0, 6, 36, 176, 824, 3668, 15808,\ \dots
+1, 4, 17, 58, 215, 866, 3507, 14120,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 6*a(n-1) - 5*a(n-2) - 8*a(n-3) - 18*a(n-4) - 4*a(n-5) + 6*a(n-6) + 8*a(n-7) + 3*a(n-8) - 2*a(n-9) - a(n-10).
+Empirical: a(n) = 6*a(n-1) - 11*a(n-2) + 16*a(n-3) - 14*a(n-4) - 3*a(n-5) + 8*a(n-6) - 9*a(n-7) - 2*a(n-8) + 6*a(n-9) + 2*a(n-10).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Mar 22 2018 09:47:24, revision 8) this is still
+As of the ``Last modified'' line on the live entry (Jun 04 2018 04:29:27, revision 12) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{Cells, not blocks}
@@ -52,7 +52,7 @@ all eight --- and every such set lies inside the $3\times3$ square centred on th
 the set is $\{(0,-1), (0,1), (-1,0), (1,0)\}$, written as offsets (row, column) from the cell. Every cell carries
 the condition
 \[
-\text{every 1 has at most 2 neighbouring 1s},
+\text{every nonzero }v\text{ has at least 2 neighbours }\ge v,
 \]
 and the count of neighbours enters it, so the boundary is not a detail that can be papered
 over: a cell in the interior has $4$ neighbours in this set and a cell on the boundary
@@ -64,15 +64,13 @@ explicitly, as a sentinel row above the first and below the last and as a sentin
 either side, and a neighbour that falls outside is simply absent from both counts.
 
 Write an array as a sequence of rows $u_1,\dots,u_L$, each in
-$\{0,\dots,1\}^{2}$. The neighbourhood of a cell in row $u_i$ meets $u_{i-1}$,
+$\{0,\dots,1\}^{3}$. The neighbourhood of a cell in row $u_i$ meets $u_{i-1}$,
 $u_i$ and $u_{i+1}$ and nothing else. Take as vertices the pairs
-$(r,s)\in(\{0,\dots,1\}^{2}\cup\{\varnothing\})\times\{0,\dots,1\}^{2} \times \{0,\dots,1\}$,
+$(r,s)\in(\{0,\dots,1\}^{3}\cup\{\varnothing\})\times\{0,\dots,1\}^{3}$,
 and put an edge $(r,s)\to(s,t)$ when row $s$ satisfies the condition at every one of its
-$2$ cells, given $r$ above and $t$ below. An array with $L$ rows is then a walk of length
+$3$ cells, given $r$ above and $t$ below. An array with $L$ rows is then a walk of length
 $L-1$ starting at $(\varnothing,u_1)$, each step settling one row, and the last row is
-settled by the terminal weight, which evaluates it with $\varnothing$ below. The clause ``with the exception of exactly $1$ elements'' is carried in
-the state as a counter of violations so far, capped at $1$; a step that would push it past
-$1$ has no edge, and a walk is accepted only when the count reaches exactly $1$. Hence,
+settled by the terminal weight, which evaluates it with $\varnothing$ below. Hence,
 with $M$ the adjacency matrix, $\iota$ the starting vector and $\tau$ the terminal weight,
 \[
 a(n)\;=\;\,\iota^{\!\top}M^{\,n-1}\tau ,
@@ -100,7 +98,7 @@ nonzero $u_j$ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;6\,a(n-1) - 5\,a(n-2) - 8\,a(n-3) - 18\,a(n-4) - 4\,a(n-5) + 6\,a(n-6) + 8\,a(n-7) + 3\,a(n-8) - 2\,a(n-9) - a(n-10)
+a(n)\;=\;6\,a(n-1) - 11\,a(n-2) + 16\,a(n-3) - 14\,a(n-4) - 3\,a(n-5) + 8\,a(n-6) - 9\,a(n-7) - 2\,a(n-8) + 6\,a(n-9) + 2\,a(n-10)
 \]
 for every $n>10$.
 \end{theorem}
@@ -134,7 +132,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A283197.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A202974.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

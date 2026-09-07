@@ -112,7 +112,7 @@ Newest entries are at the bottom of the dated sections.
 
 ## Roster
 
-Last updated 6 Sep 2026. Roster: **9296 papers** (9290 proofs, 6 disproofs), in `papers/`, banded by hardness, **numbered by how hard the result was**: 1 is the hardest.
+Last updated 6 Sep 2026. Roster: **9301 papers** (9295 proofs, 6 disproofs), in `papers/`, banded by hardness, **numbered by how hard the result was**: 1 is the hardest.
 `rank-map.json` records the previous numbering. New results are ranked in, not appended.
 
 ---

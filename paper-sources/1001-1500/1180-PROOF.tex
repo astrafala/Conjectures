@@ -12,73 +12,76 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A267731, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A269140, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A267731 counts arrays in which the REPEATED VALUES of each row, and of each column, stand in a
-prescribed relation to one another in the order they occur. The entry carries an empirical
-recurrence of order $42$ contributed by R.~H.~Hardin. It is true, and it is decidable
-rather than empirical: one of the two scans runs inside a slice of the array and the other
-across slices, and the second needs only the previous slice together with the last repeated
-value so far in each column of the scan, so the count is a walk count on $S=1193$ states.
+OEIS A269140 counts arrays of width $5$ over $\{0,1,2,3\}$ in which the number of adjacent PAIRS of
+cells whose entries add up to $3$ is at most one. The entry carries an empirical recurrence of
+order $42$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
+empirical. The condition is global --- no window of the array decides it --- but the quantity
+it constrains is a count that may be capped at two, and a capped count is a bounded state; the
+result is a walk count on $S=2105$ states.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A18, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05C30, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A267731 is ``Number of nX4 0..1 arrays with every repeated value in every row and column greater than or equal to the previous repeated value.''. It has offset $1$ and begins
+OEIS A269140 is ``Number of nX5 0..3 arrays with some element plus some horizontally, antidiagonally or vertically adjacent neighbor totalling three no more than once.''. It has offset $1$ and begins
 \[
-15, 225, 3375, 39330, 451278, 4705642, 47293550, 453985015,\ \dots
+756, 59916, 3924212, 240647068, 14197016484, 815458664276, 45920055321732, 2546667557472940,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 35*a(n-1) -394*a(n-2) +232*a(n-3) +25654*a(n-4) -115936*a(n-5) -717645*a(n-6) +5125019*a(n-7) +12766457*a(n-8) -121244771*a(n-9) -191484356*a(n-10) +1834417718*a(n-11) +2792153531*a(n-12) -18018352091*a(n-13) -33384924485*a(n-14) +106494035885*a(n-15) +256764018305*a(n-16) -325748093657*a(n-17) -1087241545583*a(n-18) +521256387815*a(n-19) +2786626662683*a(n-20) -415177386323*a(n-21) -4689075652721*a(n-22) +179629691969*a(n-23) +5392367300186*a(n-24) -290951802380*a(n-25) -4225877115281*a(n-26) +592280920475*a(n-27) +2150396673689*a(n-28) -541241558807*a(n-29) -652332203444*a(n-30) +234631819886*a(n-31) +111137103164*a(n-32) -54396401114*a(n-33) -9115774331*a(n-34) +7011916217*a(n-35) +58342140*a(n-36) -479433676*a(n-37) +42704816*a(n-38) +14044864*a(n-39) -2279168*a(n-40) -40960*a(n-41) +16384*a(n-42)
+Empirical: a(n) = 134*a(n-1) -6403*a(n-2) +137212*a(n-3) -1537987*a(n-4) +10006762*a(n-5) -41364815*a(n-6) +107588656*a(n-7) -111196320*a(n-8) -399050332*a(n-9) +2108507944*a(n-10) -4098003684*a(n-11) +445179883*a(n-12) +18009896226*a(n-13) -42207232033*a(n-14) +12581717548*a(n-15) +122544940860*a(n-16) -203283873760*a(n-17) -79843687188*a(n-18) +508551706160*a(n-19) -240288894385*a(n-20) -648319426210*a(n-21) +662670918703*a(n-22) +480938145704*a(n-23) -858808887300*a(n-24) -176689259732*a(n-25) +734283407564*a(n-26) -39751157620*a(n-27) -450104705459*a(n-28) +101139044518*a(n-29) +200718146529*a(n-30) -72282159428*a(n-31) -63674380919*a(n-32) +31546829386*a(n-33) +13183985923*a(n-34) -9057688788*a(n-35) -1275648164*a(n-36) +1571020336*a(n-37) -67398016*a(n-38) -125671104*a(n-39) +17151168*a(n-40) +3564288*a(n-41) -665856*a(n-42) for n>45
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jan 20 2016 07:04:28, revision 4) this is still
+As of the ``Last modified'' line on the live entry (Feb 20 2016 06:47:08, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-Read a row of the array from left to right. A REPEATED VALUE is an entry equal to the entry
-immediately before it; the row thus produces the sequence of values at the places where two
-equal entries stand side by side. The entry asks that each repeated value of a row be
-greater than or equal to the previous repeated value of that row, and that each repeated value of a column,
-read downwards, be greater than or equal to the previous repeated value of that column. The FIRST repeated
-value of a scan has no predecessor and is unconstrained; a scan with no two equal neighbours
-imposes nothing at all.
+The array has $5$ cells across, with entries in $\{0,1,2,3\}$. An ADJACENT PAIR is a pair of cells
+\[
+\begin{array}{l}
+$(i,j)\text{ and }(i,j{+}1)$ \\
+$(i,j)\text{ and }(i{+}1,j)$ \\
+$(i,j)\text{ and }(i{+}1,j{-}1)$ \\
+\end{array}
+\]
+both lying inside the array. A pair is a pair of CELLS, so it is counted once and not once from
+each end. Writing $k$ for the number of adjacent pairs whose two entries add up to $3$, the
+entry counts the arrays with $k$ at most one.
 
-The entry carries no renaming clause, and it could not: the relations here compare letters by
-size or do arithmetic on them, so they are not invariant under permuting the alphabet. The
-count is therefore taken over the alphabet the entry names, with no reduction to patterns.
+\section{A capped count is a state}
 
-\section{One scan inside a slice, one across}
+No window of the array decides the condition: $k$ is a total over the whole array. But the
+condition distinguishes only $k=0$, $k=1$ and $k\ge2$, so the count may be carried capped at
+two and stays bounded.
 
-Take the array a $row$ at a time, the direction in which it grows.
-
-\begin{lemma}\label{lem:state}
-The $row$ scans are settled as each $row$ is written. The $column$ scans are
-settled by the previous $row$ together with, for each position, the last repeated value
-so far in that $column$.
+\begin{lemma}\label{lem:cap}
+Let $k_t$ be the number of qualifying pairs lying inside the first $t$ rows. Then
+\[
+k_{t}\;=\;k_{t-1}+\bigl(\text{pairs inside row } t\bigr)
++\bigl(\text{pairs joining rows } t-1 \text{ and } t\bigr),
+\]
+and both added terms are determined by rows $t-1$ and $t$ alone.
 \end{lemma}
 
 \begin{proof}
-A $row$ scan compares neighbours inside one $row$, so writing the
-$row$ left to right and carrying the last repeated value seen decides it. In a
-$column$ scan a repeat happens at the new $row$ exactly when the new entry equals the
-entry in the same position of the previous $row$, and the only thing the relation needs
-besides that entry is the previous repeated value of that $column$.
+Every adjacent pair lies either inside one row or across two consecutive rows, by the list
+above; a pair inside rows $1..t$ that is not inside rows $1..t-1$ must meet row $t$, so it is
+one of the two kinds counted.
 \end{proof}
 
-So the state is the pair (previous $row$, vector of last repeated values), the second
-component taking $1+2$ values at each position --- the letters together with a symbol for
-``none yet''. With $M$ the adjacency matrix of that digraph,
+So the state is the pair $(\text{previous row},\min(k,2))$: a step appends a row, adds the
+pairs Lemma~\ref{lem:cap} names and caps the total at two. The end vector accepts the states
+with $k\le1$, so it is not the all-ones vector. With $M$ the adjacency matrix,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=1193,\quad\tau=\mathbf{1} .
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=2105.
 \]
 The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
 published terms rather than assumed. In particular $a$ is $C$-finite.
@@ -103,15 +106,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;35\,a(n-1) - 394\,a(n-2) + 232\,a(n-3) + 25654\,a(n-4) - 115936\,a(n-5) - 717645\,a(n-6) + 5125019\,a(n-7) + 12766457\,a(n-8) - 121244771\,a(n-9) - 191484356\,a(n-10) + 1834417718\,a(n-11) + 2792153531\,a(n-12) - 18018352091\,a(n-13) - 33384924485\,a(n-14) + 106494035885\,a(n-15) + 256764018305\,a(n-16) - 325748093657\,a(n-17) - 1087241545583\,a(n-18) + 521256387815\,a(n-19) + 2786626662683\,a(n-20) - 415177386323\,a(n-21) - 4689075652721\,a(n-22) + 179629691969\,a(n-23) + 5392367300186\,a(n-24) - 290951802380\,a(n-25) - 4225877115281\,a(n-26) + 592280920475\,a(n-27) + 2150396673689\,a(n-28) - 541241558807\,a(n-29) - 652332203444\,a(n-30) + 234631819886\,a(n-31) + 111137103164\,a(n-32) - 54396401114\,a(n-33) - 9115774331\,a(n-34) + 7011916217\,a(n-35) + 58342140\,a(n-36) - 479433676\,a(n-37) + 42704816\,a(n-38) + 14044864\,a(n-39) - 2279168\,a(n-40) - 40960\,a(n-41) + 16384\,a(n-42)
+a(n)\;=\;134\,a(n-1) - 6403\,a(n-2) + 137212\,a(n-3) - 1537987\,a(n-4) + 10006762\,a(n-5) - 41364815\,a(n-6) + 107588656\,a(n-7) - 111196320\,a(n-8) - 399050332\,a(n-9) + 2108507944\,a(n-10) - 4098003684\,a(n-11) + 445179883\,a(n-12) + 18009896226\,a(n-13) - 42207232033\,a(n-14) + 12581717548\,a(n-15) + 122544940860\,a(n-16) - 203283873760\,a(n-17) - 79843687188\,a(n-18) + 508551706160\,a(n-19) - 240288894385\,a(n-20) - 648319426210\,a(n-21) + 662670918703\,a(n-22) + 480938145704\,a(n-23) - 858808887300\,a(n-24) - 176689259732\,a(n-25) + 734283407564\,a(n-26) - 39751157620\,a(n-27) - 450104705459\,a(n-28) + 101139044518\,a(n-29) + 200718146529\,a(n-30) - 72282159428\,a(n-31) - 63674380919\,a(n-32) + 31546829386\,a(n-33) + 13183985923\,a(n-34) - 9057688788\,a(n-35) - 1275648164\,a(n-36) + 1571020336\,a(n-37) - 67398016\,a(n-38) - 125671104\,a(n-39) + 17151168\,a(n-40) + 3564288\,a(n-41) - 665856\,a(n-42)
 \]
-for every $n>41$.
+for every $n>45$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $42$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=41+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=45+1$ onwards and the run continued
 until the working vector was identically zero.
 \end{proof}
 
@@ -119,13 +122,14 @@ until the working vector was identically zero.
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $17$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $13$ terms the entry publishes, exactly, in integer
 arithmetic.
 
 Second, the count was recomputed for the smallest arrays straight from the definition:
-enumerate every array of that size, form each row's and each column's list of repeated values
-by scanning it, and test consecutive members of those lists against the relation. No state, no
-window and no transfer matrix are involved, and the published terms came back.
+enumerate every array of that size in the orientation the entry's own name writes, count the
+adjacent pairs summing to $3$ by running over the array once for each kind of pair, and keep
+the array when that count is at most one. No cap, no state and no transfer matrix are involved, and
+the published terms came back.
 
 Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
@@ -135,7 +139,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A267731.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A269140.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge

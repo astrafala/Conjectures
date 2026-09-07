@@ -12,14 +12,14 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A281059, proved by counting patterns with a budget}
+\title{The empirical recurrence for OEIS A281060, proved by counting patterns with a budget}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A281059 imposes three things at once: a condition on each cell that reaches one column up and
+OEIS A281060 imposes three things at once: a condition on each cell that reaches one column up and
 one column down; a global budget allowing exactly two cells to
 break it; and the clause ``new values introduced in order $0$ sequentially upwards'', which
 says the array is written in canonical form. None of the three is visible to a plain transfer
@@ -28,33 +28,33 @@ together with the number of offending cells so far, capped at the budget; and th
 canonical-form clause is removed by counting equality patterns instead of arrays, through the
 identity $2!\,a(n)=\sum_i\binom{2}{i}D_{2-i}L_i(n)$ with $D_m$ the derangement
 numbers. The empirical recurrence of order $9$ contributed by R.~H.~Hardin then follows
-from a finite exact computation on $S=771$ states.
+from a finite exact computation on $S=3075$ states.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 05A18, 15B36.\normalsize
 
 \section{The sequence and the conjecture}
 
-OEIS A281059 is ``Number of 4Xn 0..1 arrays with no element equal to more than one of its horizontal and antidiagonal neighbors, with the exception of exactly two elements, and with new values introduced in order 0 sequentially upwards.''. It has offset $1$ and begins
+OEIS A281060 is ``Number of 5Xn 0..1 arrays with no element equal to more than one of its horizontal and antidiagonal neighbors, with the exception of exactly two elements, and with new values introduced in order 0 sequentially upwards.''. It has offset $1$ and begins
 \[
-0, 29, 376, 1022, 2452, 5400, 10570, 19892,\ \dots
+0, 122, 1492, 3416, 7803, 16875, 32370, 59669,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 6*a(n-1) -12*a(n-2) +5*a(n-3) +12*a(n-4) -12*a(n-5) -3*a(n-6) +6*a(n-7) -a(n-9) for n>17
+Empirical: a(n) = 6*a(n-1) -12*a(n-2) +5*a(n-3) +12*a(n-4) -12*a(n-5) -3*a(n-6) +6*a(n-7) -a(n-9) for n>18
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jan 13 2017 17:01:10, revision 4) the statement is
+As of the ``Last modified'' line on the live entry (Jan 13 2017 17:01:57, revision 4) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
 a(n)\;=\;6\,a(n-1) - 12\,a(n-2) + 5\,a(n-3) + 12\,a(n-4) - 12\,a(n-5) - 3\,a(n-6) + 6\,a(n-7) - a(n-9)
 \end{equation}
-for all $n>17$.
+for all $n>18$.
 
 \section{The condition, the budget, and the canonical form}
 
-The arrays have $4$ rows and $L=n$ columns; write $x_{t,u}$ for the entry in
+The arrays have $5$ rows and $L=n$ columns; write $x_{t,u}$ for the entry in
 column $t$ and row $u$. With the neighbour offsets
 \[
 \mathcal N=\{(-1,0),\ (1,0),\ (1,-1),\ (-1,1)\}
@@ -101,7 +101,7 @@ $\binom{2}{i}D_{2-i}$, an integer.
 
 \section{Each $L_i$ is a walk count}
 
-Fix $i$, let $V_i=\{0,\dots,i-1\}^{4}$, and take the triples $(p,c,v)$ with
+Fix $i$, let $V_i=\{0,\dots,i-1\}^{5}$, and take the triples $(p,c,v)$ with
 $p,c\in V_i$ and $0\le v\le2$ as vertices. Write $\mathrm{viol}(b\mid a,x)$ for the number
 of offending cells in the column $b$ when $a$ lies above it and $x$ below (either may be
 absent, in which case the corresponding neighbours simply do not exist). Declare
@@ -128,7 +128,7 @@ never exceeds $2$; since the total only grows, that is implied by the final valu
 $2$, which $\mathbf{e}_i$ imposes.
 \end{proof}
 
-Assembling the $2$ chains block-diagonally into $N$ of size $S=771$ with the weights of
+Assembling the $2$ chains block-diagonally into $N$ of size $S=3075$ with the weights of
 Lemma~\ref{lem:inv} in the start vector $\mathbf{v}$ and the end markers in
 $\mathbf{u}$,
 \begin{equation}\label{eq:walk2}
@@ -158,7 +158,7 @@ that combination of earlier ones.
 \end{proof}
 
 \begin{theorem}
-The recurrence \eqref{eq:conj} holds for every $n>17$, which is the statement of
+The recurrence \eqref{eq:conj} holds for every $n>18$, which is the statement of
 Section~1.
 \end{theorem}
 
@@ -166,7 +166,7 @@ Section~1.
 The digraph was built directly from the definitions above. The vector $w$ was formed by
 $9$ applications of $G$ in exact integer arithmetic and $\mathbf{v}^{\!\top}G^{m}w$
 evaluated for $m=0,1,\dots$, again exactly. Every one of those integers vanishes from the
-index corresponding to $n=17+1$ onwards, and the run continued until $S+1$ consecutive
+index corresponding to $n=18+1$ onwards, and the run continued until $S+1$ consecutive
 zeros had been seen.
 \end{proof}
 
@@ -175,7 +175,7 @@ zeros had been seen.
 Three checks, each independent of the algebra above.
 
 First, the right-hand side of \eqref{eq:walk2}, divided by $2!$, was evaluated at every
-one of the $28$ published indices and agrees with the entry's DATA exactly, the quotient
+one of the $27$ published indices and agrees with the entry's DATA exactly, the quotient
 coming out an integer each time; no shift was fitted, the number of columns being
 $L=n$ from the entry's own name and the offset saying which index the first published
 term carries. A misreading of the offending-cell rule, of the budget, or of the inversion in
@@ -189,7 +189,7 @@ Cayley--Hamilton bound in exact integer arithmetic rather than to a sampled pref
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A281059.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A281060.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; falling-factorial
 inversion, Section 1.9.)

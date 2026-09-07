@@ -12,49 +12,49 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A232338, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A232363, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A232338 counts arrays of width $4$ over $\{0,1,2\}$ in which every cell carrying one stated
+OEIS A232363 counts arrays of width $3$ over $\{0,1,2\}$ in which every cell carrying one stated
 value must have a neighbour carrying another. The entry carries an empirical recurrence of
 order $21$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
 empirical: a cell's neighbours lie in three consecutive rows, so the count is a walk count on
-$S=394$ states.
+$S=757$ states.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 05C15, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A232338 is ``Number of 4Xn 0..2 arrays with every 0 next to a 1 and every 1 next to a 2 horizontally or antidiagonally, with no adjacent elements equal.''. It has offset $1$ and begins
+OEIS A232363 is ``Number of n X 3 0..2 arrays with every 0 next to a 1 and every 1 next to a 2 horizontally or vertically.''. It has offset $1$ and begins
 \[
-1, 42, 308, 734, 4906, 13170, 82526, 239992,\ \dots
+7, 145, 2411, 39321, 647287, 10652849, 175284259, 2884208601,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = a(n-1) +15*a(n-2) -7*a(n-3) +8*a(n-4) -40*a(n-5) +8*a(n-6) -14*a(n-7) +38*a(n-8) +12*a(n-9) +3*a(n-10) -11*a(n-11) -27*a(n-12) +7*a(n-13) -6*a(n-14) +20*a(n-15) -5*a(n-16) +5*a(n-17) -7*a(n-18) +a(n-19) -a(n-20) +a(n-21) for n>24
+Empirical: a(n) = 15*a(n-1) +13*a(n-2) +171*a(n-3) +144*a(n-4) +128*a(n-5) -1072*a(n-6) -5144*a(n-7) -6575*a(n-8) -1670*a(n-9) +29979*a(n-10) +28328*a(n-11) -17313*a(n-12) -16033*a(n-13) -7412*a(n-14) -6950*a(n-15) +6052*a(n-16) +6881*a(n-17) +4681*a(n-18) +3057*a(n-19) +575*a(n-20) +420*a(n-21).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 07:19:29, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Oct 02 2021 10:25:38, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The array has $4$ cells across, with entries in $\{0,1,2\}$. The NEIGHBOURS of a cell are the
+The array has $3$ cells across, with entries in $\{0,1,2\}$. The NEIGHBOURS of a cell are the
 cells reached from it by the offsets
 \[
-(-1,0), (-1,1), (1,-1), (1,0),
+(-1,0), (0,-1), (0,1), (1,0),
 \]
 those lying inside the array. The entry asks that
 \begin{itemize}
 \item every cell carrying $0$ has at least one neighbour carrying $1$;
 \item every cell carrying $1$ has at least one neighbour carrying $2$;
-\item no two neighbouring cells carry equal values.
+
 \end{itemize}
-A cell whose value is not named on the left of any clause is unconstrained. The entry writes the array with $n$ as the number of COLUMNS; the walk is run down the transpose, so the offsets above are already the transposed ones. Each direction is taken with both signs, so transposing cannot lose one.
+A cell whose value is not named on the left of any clause is unconstrained.
 
 \section{Three rows decide one}
 
@@ -76,7 +76,7 @@ the end vector is therefore not the all-ones vector, and a row whose cells find 
 only because a further row is written below them does not finish an array. With $M$ the
 adjacency matrix,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=394.
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=757.
 \]
 The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
 published terms rather than assumed. In particular $a$ is $C$-finite.
@@ -101,15 +101,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;a(n-1) + 15\,a(n-2) - 7\,a(n-3) + 8\,a(n-4) - 40\,a(n-5) + 8\,a(n-6) - 14\,a(n-7) + 38\,a(n-8) + 12\,a(n-9) + 3\,a(n-10) - 11\,a(n-11) - 27\,a(n-12) + 7\,a(n-13) - 6\,a(n-14) + 20\,a(n-15) - 5\,a(n-16) + 5\,a(n-17) - 7\,a(n-18) + a(n-19) - a(n-20) + a(n-21)
+a(n)\;=\;15\,a(n-1) + 13\,a(n-2) + 171\,a(n-3) + 144\,a(n-4) + 128\,a(n-5) - 1072\,a(n-6) - 5144\,a(n-7) - 6575\,a(n-8) - 1670\,a(n-9) + 29979\,a(n-10) + 28328\,a(n-11) - 17313\,a(n-12) - 16033\,a(n-13) - 7412\,a(n-14) - 6950\,a(n-15) + 6052\,a(n-16) + 6881\,a(n-17) + 4681\,a(n-18) + 3057\,a(n-19) + 575\,a(n-20) + 420\,a(n-21)
 \]
-for every $n>24$.
+for every $n>20$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $21$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=24+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=20+1$ onwards and the run continued
 until the working vector was identically zero.
 \end{proof}
 
@@ -117,7 +117,7 @@ until the working vector was identically zero.
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $22$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $16$ terms the entry publishes, exactly, in integer
 arithmetic.
 
 Second, the count was recomputed for the smallest arrays straight from the definition:
@@ -133,7 +133,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A232338.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A232363.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge

@@ -34,6 +34,23 @@ done = set(json.load(open(DONE))) if os.path.exists(DONE) else set()
 res = collections.Counter()
 
 
+LOCK = HITS + '.lock'
+if os.path.exists(LOCK):
+    try:
+        other = int(open(LOCK).read().strip())
+    except Exception:
+        other = None
+    alive = other is not None and os.path.exists(f'/proc/{other}')
+    if alive:
+        # Two sweeps sharing one hits file destroy each other's results: each holds the
+        # whole list in memory and writes it back whole, so whichever saves last silently
+        # drops everything the other proved. That happened once -- five proved results
+        # vanished between the sweep reporting them and the file being read back -- and it
+        # left no trace anywhere except the count.
+        raise SystemExit(f'another sweep (pid {other}) is writing {HITS}; refusing to run')
+open(LOCK, 'w').write(str(os.getpid()))
+
+
 def save():
     json.dump(hits, open(HITS, 'w'), indent=1)
     json.dump(sorted(done), open(DONE, 'w'))
@@ -123,4 +140,8 @@ for a in sorted(CANDS):
     done.add(a); save()
     print('done', a, res['PROVED'], flush=True)
 save()
+try:
+    os.remove(LOCK)
+except OSError:
+    pass
 print(dict(res))
