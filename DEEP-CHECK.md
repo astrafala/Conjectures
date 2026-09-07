@@ -519,7 +519,8 @@ A stratified sample, one paper from each of the 105 families, drawn with a fixed
 is reproducible and not cherry-picked (`engine/deep-check/phase12-sample.json`). Read the way
 a hostile referee reads: find the weakest step and attack it.
 
-Six read so far.
+Fourteen read so far; the ones below are those where the attack found something or where the
+step most likely to fail was checked by hand.
 
 * **A223181** (`gf-implies-rec`) **passes.** Its proof is conditional on a generating function
   the entry records, and it says so in its own abstract rather than burying it. The
@@ -542,6 +543,17 @@ Six read so far.
   the case was passed over — which silenced the symptom and let the eight stand. A paper that
   prints no Last-modified sentence asserts nothing; a paper that prints the sentence empty
   asserts a check it did not do. Phase 3 now tells those apart and calls the second a defect.
+
+* **A207449** (`gf-conjecture`) **passes, and its degree bound was checked.** It compares 120
+  coefficients of two rational functions and concludes they are equal. That is only valid if
+  120 exceeds the degree of the numerator of their difference: with `f = P/Q` the walk count
+  (`deg P, deg Q ≤ S = 111`) and `g = R/T` the conjecture (`deg ≤ 4`), agreement of the first
+  `N` coefficients forces `PT − RQ` to vanish to order `N`, and `deg(PT − RQ) ≤ 115`, so
+  `N = 116` suffices and 120 is used. The argument also needs `Q(0) ≠ 0`, which holds because
+  a walk count's denominator is `det(I − xM)`. Sound with margin.
+* **A264054** (`index-change`), **A251459** (`table-order-recovery`) and **A240423**
+  (`ray-sum`) pass. The second names exactly which lines it settles — *"column 2, column 3"* —
+  rather than claiming the block.
 
 **375 papers describe the wrong axis.** Found by reading A254424 (rank 5432): its entry is
 `(3+1) X (n+1)` — four rows, a growing number of columns — and the paper says *"a pair of
