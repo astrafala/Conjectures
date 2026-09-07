@@ -519,7 +519,7 @@ A stratified sample, one paper from each of the 105 families, drawn with a fixed
 is reproducible and not cherry-picked (`engine/deep-check/phase12-sample.json`). Read the way
 a hostile referee reads: find the weakest step and attack it.
 
-Twenty-nine read so far; the ones below are those where the attack found something or where the
+Thirty-three read so far; the ones below are those where the attack found something or where the
 step most likely to fail was checked by hand.
 
 * **A223181** (`gf-implies-rec`) **passes.** Its proof is conditional on a generating function
@@ -580,6 +580,17 @@ step most likely to fail was checked by hand.
 * **A237968**, **A259247** and **A232139** pass. The last counts up to relabelling and uses
   the same rational combination of walk counts as A210100, whose identity was verified by hand
   above.
+
+**A211253 breaks the standing `n × n` wall, and the argument is right.** Its matrices grow in
+both directions, which is the one obstruction this project has always recorded as genuine. The
+paper does not walk it — it *solves* it. The 2 X 2 sum-zero condition is linear, and writing it
+out for every block forces `m[i][j] = (-1)^(i+j)(z_i + z_j)`; symmetry collapses the two
+families to one, so the whole matrix is fixed by its own diagonal, `z_i = m[i][i]/2`. What was
+two-dimensional is a sequence, and the walk has 35 states. Verified by hand at `n = 1`: the
+symmetric 2 X 2 matrices with `a + 2b + d = 0` and at most two distinct values number
+`1 + 4 + 12 + 4 = 21`, exactly the `a(1)` the entry publishes. **The wall is now recorded in
+`METHODOLOGY.md` with this exception**: where a both-directions condition is linear, solve it
+instead of walking it.
 
 **A pattern worth recording: the papers that face a non-local condition all name the
 obstacle.** Four read in a row do it, and none of them quietly pretends the condition is

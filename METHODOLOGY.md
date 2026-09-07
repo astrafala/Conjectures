@@ -275,7 +275,19 @@ are stale and need rebuilding from the clone.
 Recorded rather than quietly omitted:
 
 - **`n × n` arrays**, where both sides grow. No fixed width to walk along. A genuine
-  obstruction, not a parser gap.
+  obstruction for a transfer matrix — **but not an absolute one, and A211253 shows why.**
+  That entry counts symmetric `(n+1) × (n+1)` matrices over `-6..6` whose every 2 X 2 subblock
+  sums to zero and has one or two distinct values. The sum-zero condition is *linear and
+  solves completely*: writing it out for every block forces `m[i][j] = (-1)^(i+j) (z_i + z_j)`,
+  and symmetry collapses the two families to one, so a whole matrix is determined by the
+  single sequence `z_i = m[i][i] / 2` — its own diagonal. The remaining conditions are local
+  in that sequence, and the count becomes a walk on 35 states. Checked by hand: at `n = 1` the
+  symmetric 2 X 2 matrices with `a + 2b + d = 0` and at most two distinct values number
+  `1 + 4 + 12 + 4 = 21`, which is the `a(1) = 21` the entry publishes.
+
+  **The lesson is general.** When a growing-in-both-directions condition is linear, solve it
+  rather than walking it: the solution space may be indexed by something one-dimensional, and
+  then there is a slice after all. The wall stands only where no such reduction is found.
 - **State spaces too large** for the annihilation test even after merging.
 - **Triangular inclusion–exclusion** running over `2^|E|` subsets, out of reach past ~30 edges.
 - **113 generating-function-only entries** whose names no engine reads yet. A gap, not a wall.
