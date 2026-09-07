@@ -543,6 +543,20 @@ Six read so far.
   prints no Last-modified sentence asserts nothing; a paper that prints the sentence empty
   asserts a check it did not do. Phase 3 now tells those apart and calls the second a defect.
 
+**375 papers describe the wrong axis.** Found by reading A254424 (rank 5432): its entry is
+`(3+1) X (n+1)` — four rows, a growing number of columns — and the paper says *"a pair of
+consecutive array rows is a state"* and *"a step appends an array row"*. Its rows cannot grow.
+The mathematics is right: the engine transposes when the growing side is second, which is why
+the model reproduces every published term and why `S = 2180` is exactly the number of valid
+4 X 2 blocks. Only the sentence is wrong, and it is wrong in **375 papers across 14 families**.
+
+`unibuild.py` avoids it already by saying *lines*; the special builders say *rows*. The fix
+goes in `build_new.py`, after whichever builder ran, so a fifteenth builder cannot forget it:
+where the entry grows along its second dimension and the text calls the step a row, one
+sentence is added saying the array is read transposed and that a step appends what the entry's
+own name writes as a column. Checked both ways — all 375 receive it, and papers that grow
+along the first dimension do not.
+
 ### Phase 11 — the process itself
 
 `engine/src/dc_phase11.py`, results in `engine/deep-check/phase11.json`.
@@ -615,6 +629,8 @@ builder, which is done when the corpus unfreezes.
    naming 12 and 14 of the 83. Both are on the closed-form vein, which has 39 candidates
    outside the roster, so the cost is small — but the defect is the one that hid 434 entries
    elsewhere.
-8. **11 generators still emit a fixed structure** (Phase 9): their papers vary by less than a
+8. **375 papers describe a step as appending an array row when their entry's rows are fixed**
+   (Phase 12). Prose only; the models are right. Fixed in `build_new.py`, applied on rebuild.
+9. **11 generators still emit a fixed structure** (Phase 9): their papers vary by less than a
    quarter of their median length. `gf-implies-rec` (233 papers), `gf-conjecture` (128) and
    `pattern-neighbour` (101) are the largest.

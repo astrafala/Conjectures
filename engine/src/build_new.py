@@ -9,10 +9,43 @@ on a paper is the day the result was obtained.
     PAPER_DATE='7 September 2026' python3 src/build_new.py
 """
 import importlib
+import re
 import json
 import os
 import subprocess
 import sys
+
+
+# An entry whose name reads "4 X (n+1)" has four rows and a growing number of columns, and the
+# engines walk along the growing side --- they transpose, correctly, when the growing side is
+# second. The special builders then describe the step as appending an "array row", which for
+# those entries is the fixed side: 125 papers said a step appends a row of an array whose rows
+# cannot grow. The mathematics is right and the sentence is not, so one sentence is added
+# saying which way the array is being read. It goes here rather than in fourteen builders,
+# because a fifteenth would forget it. `unibuild` already says "lines" and needs nothing.
+# "4 X (n+1)" and "(3+1) X (n+1)" both fix the first dimension; the second spelling puts a
+# bracket where the first puts a digit, and matching only the digit missed it.
+GROWS_SECOND = re.compile(r'(?:(?<![\dn])\d+|\(\s*\d+\s*\+\s*\d+\s*\))'
+                          r'\s*[xX]\s*\(?\s*n\b')
+ROWWORD = re.compile(r'array rows|consecutive rows|appends? (?:one )?\w{0,6} ?row')
+NOTE = (r" Throughout, \emph{row} means a line of the array in the direction the walk grows: "
+        r"this entry fixes the first dimension and grows the second, so the array is read "
+        r"transposed, and a step appends what the entry's own name writes as a column.")
+
+
+def _note_transpose(tex, name):
+    """say which way the array is read, when the entry grows along its second dimension"""
+    nm = re.sub(r'\s*[xX]\s*', ' X ', ' '.join(name.split()))
+    if not GROWS_SECOND.search(nm) or not ROWWORD.search(tex):
+        return tex
+    if 'read transposed' in tex:
+        return tex
+    m = re.search(r'\\begin\{abstract\}.*?\\end\{abstract\}', tex, re.S)
+    if not m:
+        return tex
+    cut = m.end() - len(r'\end{abstract}')
+    return tex[:cut] + NOTE + tex[cut:]
+
 
 import localentry as LE
 
@@ -77,6 +110,7 @@ for h in sorted(hits, key=lambda x: x['anum']):
         # builder always works from the fields the sweep does write
         print(f"  {h['anum']}: {name} failed ({exc}); using the general builder")
         tex = mods['unibuild'].build(h)
+    tex = _note_transpose(tex, LE.get(h['anum'])['name'])
     open(f"{dd}/p.tex", 'w').write(tex)
     for _ in range(2):
         subprocess.run(['pdflatex', '-interaction=nonstopmode', 'p.tex'], cwd=dd,
