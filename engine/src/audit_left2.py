@@ -1,5 +1,12 @@
 """Re-check the array papers the first two audits could not route, using each engine's own
-term function: transfer6 exposes terms(adj,S,N) and transfer7 lterms(...), not avals."""
+term function: transfer6 exposes terms(adj,S,N) and transfer7 lterms(...), not avals.
+
+SUPERSEDED. This carries its own list of engines, which was the whole set when it
+was written and is eleven of eighty-three now, so it can only re-check papers from
+those eleven. `audit_deep.py` does the same job through `uniform`, which knows all of
+them, and covers 8,667 entries. Kept for the record; do not run it and do not read its
+output as coverage.
+"""
 import json, re, importlib, collections
 from math import factorial
 import localentry as LE, ratrec, openness

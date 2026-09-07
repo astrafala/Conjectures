@@ -54,6 +54,15 @@ RULES = [
      'src/ordbuild.py', r"2S'=\{2 \* Suse\}"),
     ('every engine that raises on a name is recorded rather than silently skipped',
      'src/uniform.py', r'RAISED'),
+    # The defect that appeared five times in one day. dc_englists.py is the enforcing code;
+    # this only checks that it exists, and the phase runs it below for the real answer.
+    ('no file outside uniform.py keeps its own list of engines',
+     'src/dc_englists.py', r'def main'),
+]
+
+# Rules whose enforcing code is a program rather than a line, run for their verdict.
+PROGRAMS = [
+    ('no file outside uniform.py keeps its own list of engines', 'dc_englists'),
 ]
 
 
@@ -131,11 +140,31 @@ def main():
             missing.append(why)
     print(f'\n  {len(missing)} rules have no enforcing code.')
 
+    print('\n  rules whose enforcing code is a program, run here for its verdict:')
+    import importlib
+    import io
+    import contextlib
+    broken = []
+    for why, mod in PROGRAMS:
+        buf = io.StringIO()
+        try:
+            m = importlib.import_module(mod)
+            with contextlib.redirect_stdout(buf):
+                rc = m.main()
+        except Exception as exc:
+            rc, buf = 1, io.StringIO(f'    the check itself failed: {exc}')
+        print(f'    {"holds" if rc == 0 else "BROKEN"}  {why}')
+        for line in buf.getvalue().rstrip().split('\n'):
+            if line.strip():
+                print('    ' + line)
+        if rc:
+            broken.append(why)
+
     out = {'families': dict(perfam), 'independent_by_family': dict(indfam),
            'families_without_independent': [f for _, f in naked],
            'engine_overlaps': {f'{a}|{b}': n for (a, b), n in ov.items()},
            'entries_with_two_papers': {a: [r['rank'] for r in v] for a, v in dup.items()},
-           'rules_without_code': missing}
+           'rules_without_code': missing, 'rules_broken': broken}
     p = os.path.join(repopaths.DEEPCHECK, 'phase11.json')
     json.dump(out, open(p, 'w'), indent=1)
     print(f'\n  written to {p}')

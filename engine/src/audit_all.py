@@ -11,6 +11,13 @@ from the entry's NAME, recomputes the sequence, and then:
   3. records how many DATA terms the check actually had, and how large they are, so that a
      paper resting on a weak check can be found;
   4. re-checks that the entry is still recorded as open.
+
+
+SUPERSEDED. This carries its own list of engines, which was the whole set when it
+was written and is eleven of eighty-three now, so it can only re-check papers from
+those eleven. `audit_deep.py` does the same job through `uniform`, which knows all of
+them, and covers 8,667 entries. Kept for the record; do not run it and do not read its
+output as coverage.
 """
 import json, re, os, sys, collections, importlib, time, signal
 

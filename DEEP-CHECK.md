@@ -535,6 +535,18 @@ numbered conjectures, one settled by each paper. The count stands.
 earlier ones, so an overlap is duplicated capability, not a duplicated paper: each entry is
 settled once, by whichever engine the sweep reached first.
 
+**The same defect appeared five times in one day, and now has a check.** A sweep or an audit
+carrying a list of engine names written into the file, which was the whole set on the day it
+was written and is now eleven or twelve of the eighty-three. Everything needing any other
+engine was reported as *"no engine reads the name"* and dropped: **434 table entries** behind
+`sweep_table.py`, every conjecture from seventy-two engines never once tested for failure
+behind `falsify.py`, and the same in `sweep_tablerow.py` (which also called a method most
+engines do not have, swallowed the `AttributeError`, and reported a model that matched the
+entry perfectly as a mismatch), `sweep_cf.py`, and two superseded audits. `dc_englists.py` is
+the enforcing code and Phase 11 runs it. **It still reports two live files** — `mutation_cf.py`
+and `sweep_cf2.py`, both on the closed-form vein, which has 39 candidates outside the roster
+and so is not costing results; they are on the defect list rather than quietly excused.
+
 **Every rule has enforcing code.** All ten standing rules — the TAG namespace, crc32 sharding,
 the builder reading the roster rather than the ranking, the stale-dates guard, caps recorded
 beside refusals, the live re-check, the single repository root, ligature normalisation, the
@@ -569,6 +581,10 @@ builder, which is done when the corpus unfreezes.
    entries including the 3,417 transfer-matrix papers. The largest piece of unfinished work,
    and now being repaired: `indepcell.py` has confirmed the cell-count family 197 of 197,
    `indep2x2.py` and `indepadj.py` are running on 914 and 1,121 entries.
-7. **11 generators still emit a fixed structure** (Phase 9): their papers vary by less than a
+7. **`mutation_cf.py` and `sweep_cf2.py` still keep their own engine lists** (Phase 11),
+   naming 12 and 14 of the 83. Both are on the closed-form vein, which has 39 candidates
+   outside the roster, so the cost is small — but the defect is the one that hid 434 entries
+   elsewhere.
+8. **11 generators still emit a fixed structure** (Phase 9): their papers vary by less than a
    quarter of their median length. `gf-implies-rec` (233 papers), `gf-conjecture` (128) and
    `pattern-neighbour` (101) are the largest.
