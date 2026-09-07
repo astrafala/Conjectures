@@ -171,6 +171,9 @@ def threshold(en, p, b, coeffs, order):
         return M[en].threshold(adj, start, end, coeffs, order, S)
     if en in DEN:
         adj, start, end, S, den = b
+        # same as the pair engines: the test's length is governed by the state count, so
+        # merging states with identical futures is what makes the larger models decidable
+        adj, start, end, S = lumpauto.lump(adj, start, end)
         return T19.threshold(adj, start, end, coeffs, order, S)
     if en == 'transfer7':
         adj, start, _ = b
