@@ -8,6 +8,7 @@ came out described as a recurrence. The key here is the paper's own TITLE, and w
 title covers several routes, its abstract. Anything not covered by a template is left
 without a draft rather than given a plausible-looking one.
 """
+import os
 import json, re, collections
 
 SC = '/tmp/claude-0/-home-user-Conjectures/a6c6c48d-a8e1-5e03-bfd7-16e8d9d94539/scratchpad'
@@ -451,6 +452,13 @@ def main():
     tex = {a: v[:keep[a]] for a, v in tex.items() if keep.get(a)}
     st = json.load(open(SC + '/status.json'))
     REC.update(json.load(open('audit_recover.json')))
+    # The whole-sequence order-line results carry both the bound the computation actually
+    # used (the merged state count) and the order recovered. Without them the comment quoted
+    # the unmerged count and said "the one stated" where the order belongs.
+    if os.path.exists('ordwhole_hits.json'):
+        for _h in json.load(open('ordwhole_hits.json')):
+            REC[_h['anum']] = {'S': str(_h.get('Smerged', _h['S'])),
+                               'settled_order': str(_h['order'])}
     # 259 papers have no build/ directory left, so no title to key on. For the algebraic
     # generating-function family the residual and its degree are recorded in rec-open.json,
     # which is all the wording needs; the rest are named individually below.
@@ -578,8 +586,10 @@ def main():
                 txt = closedform_walk(thr)
             elif t == 'The empirical recurrence for OEIS A: recovering a conjecture that is not written down':
                 r = REC.get(a, {})
-                txt = RECOVER % (f"{S:,}".replace(',', ' ') if S else r.get('S', 'finitely many'),
-                                 r.get('settled_order', 'the one stated'))
+                # the recorded bound wins: it is the one the paper quotes and the one the
+                # computation used
+                nst = r.get('S') or (f"{S:,}".replace(',', ' ') if S else 'finitely many')
+                txt = RECOVER % (nst, r.get('settled_order', 'the one stated'))
             elif t == 'Recovering the unwritten recurrences of the table OEIS A':
                 txt = RECOVER_TAB
             elif t == 'A proof of the conjectured recurrence for OEIS A':

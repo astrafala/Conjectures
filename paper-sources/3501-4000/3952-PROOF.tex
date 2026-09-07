@@ -12,129 +12,142 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A254190, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A316872, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{2 September 2026}
+\date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A254190 counts the arrays over $\{0,\dots,1\}$ whose $3\times3$ subblocks carry a
-statistic that is monotone along named directions of the subblock grid, and carries an
-empirical recurrence of order $53$ contributed by R.~H.~Hardin. It is true, and it is
-decidable rather than empirical. Every direction named moves the subblock row by at most one,
-so the count is a walk count on $S=544$ states --- the last two array rows together with the
-subblock row just completed --- and the conjectured recurrence is then settled by a finite
-exact computation.
+OEIS A316872 counts $4$-column arrays over $\{0,\dots,1\}$ in which every entry has,
+among the eight king-move neighbours, a number $different from$ itself lying in $\{0,1,2,3,5,6,7\}$, and it carries an empirical
+recurrence of order $56$ contributed by R.~H.~Hardin. It is true. The neighbourhood
+reaches one row up and one row down, so the condition on a row involves three consecutive
+rows and a window of two rows is a sufficient state; the array is then a walk in a digraph
+on $S=256$ vertices. Unlike a plain walk count the boundary rows matter here --- the first
+row has nothing above it and the last nothing below --- so the count is
+$\mathbf{s}^{\!\top}P^{\,n-2}\mathbf{e}$ for genuine start and end vectors rather than
+all-ones. The conjectured recurrence is then annihilated exactly, in integer arithmetic.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 06A07.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B50, 15B36.\normalsize
 
-\section{The conjecture}
+\section{The sequence and the conjecture}
 
-OEIS A254190 is ``Number of (2+2)X(n+2) 0..1 arrays with every 3X3 subblock diagonal maximum plus antidiagonal median nondecreasing horizontally, vertically and ne-to-sw antidiagonally.''. It has offset $1$ and begins
+OEIS A316872 is ``Number of nX4 0..1 arrays with every element unequal to 0, 1, 2, 3, 5, 6 or 7 king-move adjacent elements, with upper left element zero.''. It has offset
+$1$ and begins
 \[
-2908, 20380, 142088, 968448, 6170408, 38010356, 230428580, 1379065312,\ \dots
+8, 65, 425, 2931, 19363, 129974, 871345, 5848852,\ \dots
 \]
-The entry states, as a conjecture contributed by its author and never marked settled:
-\begin{quote}
-Empirical: a(n) = 13*a(n-1) -59*a(n-2) +118*a(n-3) -109*a(n-4) +62*a(n-5) -21*a(n-6) -726*a(n-7) +4071*a(n-8) -10315*a(n-9) +19176*a(n-10) -46058*a(n-11) +124575*a(n-12) -217495*a(n-13) +177069*a(n-14) -3623*a(n-15) -248513*a(n-16) +1095194*a(n-17) -3760891*a(n-18) +7538001*a(n-19) -7897670*a(n-20) +628509*a(n-21) +20668328*a(n-22) -46875198*a(n-23) +45358717*a(n-24) -15981695*a(n-25) -48029323*a(n-26) +132840819*a(n-27) -127707135*a(n-28) +60461374*a(n-29) +36947582*a(n-30) -215291040*a(n-31) +249088792*a(n-32) -140610096*a(n-33) +55297680*a(n-34) +139898632*a(n-35) -230764648*a(n-36) +117081280*a(n-37) -75157472*a(n-38) +37986752*a(n-39) +4809600*a(n-40) +6231936*a(n-41) +6482944*a(n-42) -2228736*a(n-43) -4024320*a(n-44) -14330880*a(n-45) +13410304*a(n-46) -4554752*a(n-47) +1597440*a(n-48) +466944*a(n-49) -704512*a(n-50) +458752*a(n-51) -294912*a(n-52) +65536*a(n-53) for n>64
+The entry carries the following comment:
+\begin{quote}\small
+Empirical: a(n) = 9*a(n-1) -18*a(n-2) +56*a(n-3) -259*a(n-4) -64*a(n-5) +211*a(n-6) +1886*a(n-7) +2523*a(n-8) +878*a(n-9) -9154*a(n-10) -13683*a(n-11) +6221*a(n-12) -38007*a(n-13) +8906*a(n-14) -128091*a(n-15) -107882*a(n-16) +315762*a(n-17) +363860*a(n-18) +1101826*a(n-19) +846143*a(n-20) +427920*a(n-21) -2427427*a(n-22) +3511785*a(n-23) -2728517*a(n-24) +2625660*a(n-25) -5151730*a(n-26) -11861440*a(n-27) -8821843*a(n-28) -21636271*a(n-29) +13157246*a(n-30) -59443053*a(n-31) -22854215*a(n-32) -11238396*a(n-33) -14226060*a(n-34) +9927279*a(n-35) -11806156*a(n-36) +52958705*a(n-37) -10385036*a(n-38) +95481445*a(n-39) +42796528*a(n-40) +3577309*a(n-41) +61364104*a(n-42) +4763501*a(n-43) +9804404*a(n-44) +279972*a(n-45) -7073065*a(n-46) -9689912*a(n-47) -253349*a(n-48) -4170945*a(n-49) -5659326*a(n-50) -711496*a(n-51) +1217130*a(n-52) +1142541*a(n-53) -350714*a(n-54) -395908*a(n-55) -50160*a(n-56) for n>58
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 14:31:08, revision 6) this is still
-recorded as empirical, and nothing on the entry records it as proved.
+As of the ``Last modified'' line on the live entry (Jul 15 2018 14:02:42, revision
+4) the statement is still recorded as empirical, and nothing on the entry
+records it as settled either way.
 
-\section{What is being counted}
+Written out, the claim is
+\begin{equation}\label{eq:conj}
+a(n)\;=\;9\,a(n-1) - 18\,a(n-2) + 56\,a(n-3) - 259\,a(n-4) - 64\,a(n-5) + 211\,a(n-6) + 1886\,a(n-7) + 2523\,a(n-8) + 878\,a(n-9) - 9154\,a(n-10) - 13683\,a(n-11) + 6221\,a(n-12) - 38007\,a(n-13) + 8906\,a(n-14) - 128091\,a(n-15) - 107882\,a(n-16) + 315762\,a(n-17) + 363860\,a(n-18) + 1101826\,a(n-19) + 846143\,a(n-20) + 427920\,a(n-21) - 2427427\,a(n-22) + 3511785\,a(n-23) - 2728517\,a(n-24) + 2625660\,a(n-25) - 5151730\,a(n-26) - 11861440\,a(n-27) - 8821843\,a(n-28) - 21636271\,a(n-29) + 13157246\,a(n-30) - 59443053\,a(n-31) - 22854215\,a(n-32) - 11238396\,a(n-33) - 14226060\,a(n-34) + 9927279\,a(n-35) - 11806156\,a(n-36) + 52958705\,a(n-37) - 10385036\,a(n-38) + 95481445\,a(n-39) + 42796528\,a(n-40) + 3577309\,a(n-41) + 61364104\,a(n-42) + 4763501\,a(n-43) + 9804404\,a(n-44) + 279972\,a(n-45) - 7073065\,a(n-46) - 9689912\,a(n-47) - 253349\,a(n-48) - 4170945\,a(n-49) - 5659326\,a(n-50) - 711496\,a(n-51) + 1217130\,a(n-52) + 1142541\,a(n-53) - 350714\,a(n-54) - 395908\,a(n-55) - 50160\,a(n-56)
+\end{equation}
+for all $n>58$.
 
-A $3\times3$ subblock has four distinguished lines of three cells: its diagonal, its
-antidiagonal, its central row and its central column. The entry's statistic is a signed sum of
-aggregates --- sums, maxima, minima, medians --- taken over those lines, and $\sigma(i,j)$
-denotes its value on the subblock in position $(i,j)$ of the subblock grid, which has $n$ rows
-and $2$ columns for an $(n+2)\times4$ array over $\{0,\dots,1\}$. The condition is
-\[
-\sigma(i,j)\le\sigma(i+1,j),\qquad \sigma(i,j)\le\sigma(i,j+1),\qquad \sigma(i,j)\ge\sigma(i+1,j-1)
-\]
-whenever both positions exist. The entry writes the array with $n$ as the number of COLUMNS; transposing it exchanges the two coordinates of every direction, which is done once, and a direction that then points upward is turned round by reversing its inequality.
+\section{The array as a walk, with boundary}
 
-``ne-to-sw antidiagonally'' is the offset $(+1,-1)$ on the subblock grid; that reading, and
-the reading of every statistic name here, was checked by counting the small arrays directly
-against what the entries publish.
+For a cell of the array let its \emph{score} be the number of the eight king-move neighbours that lie inside
+the array and carry a value $different from$ the cell's own. The entry's condition is that every cell
+has score in $\{0,1,2,3,5,6,7\}$. The entry also fixes the top-left entry to be $0$; that is a condition on the first row alone, so it restricts the start vector and nothing else.
 
-\section{The count is a walk count}
+A cell's neighbourhood reaches at most one row up and one row down, so the scores of the
+cells of a row $s$ are determined by $s$ together with the row above and the row below.
+Take as state an ordered pair $(r,s)$ of rows, so $S=256$, and set
+\begin{itemize}
+\item $\mathbf{s}(r,s)=1$ when every cell of $r$ has score in $\{0,1,2,3,5,6,7\}$ \emph{with no row
+above $r$} and $r_1=0$, and $0$ otherwise;
+\item an edge $(r,s)\to(s,t)$ when every cell of $s$ has score in $\{0,1,2,3,5,6,7\}$ computed from
+$r$, $s$ and $t$;
+\item $\mathbf{e}(r,s)=1$ when every cell of $s$ has score in $\{0,1,2,3,5,6,7\}$ \emph{with no row
+below $s$}, and $0$ otherwise.
+\end{itemize}
+Let $P$ be the adjacency matrix of that edge relation.
 
-A subblock spans three array rows and the vertical comparison spans four, so the obvious state
-is three consecutive rows. It is larger than it needs to be. What a step actually consults is
-the last TWO array rows --- enough to build the next subblock row once one more row arrives ---
-and the PREVIOUS SUBBLOCK ROW, to compare against. So take as state the triple
-\[
-\bigl(r_{i+1},\ r_{i+2},\ \sigma\text{-row }i\bigr),
-\]
-and let a step append an array row $r_{i+3}$: that fixes $\sigma$-row $i+1$ from
-$r_{i+1},r_{i+2},r_{i+3}$, and every comparison between the two $\sigma$-rows is settled
-there. All the third rows that produce the same $\sigma$-row collapse into one state, which is
-what makes the wider arrays reachable.
-
-The starting vector is therefore weighted rather than all-ones: a state is entered by as many
-first rows as produce it, and $\iota$ records that count. With $\tau$ all-ones, an
-$(n+2)$-row array is a walk of $n-1$ steps and
-\[
-a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau
-\]
-on the $S=544$ reachable states. In particular $a$ is $C$-finite. The alignment of the walk
-index with the entry's own $n$ was checked against its published terms rather than assumed.
-
-\section{The proof}
-
-\begin{lemma}\label{lem:crit}
-Let $q(t)=t^{53}-\sum_i c_it^{53-i}$ be the characteristic polynomial of the
-conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
-$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
-holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
-and it is enough to examine $j<S$.
+\begin{lemma}\label{lem:walk}
+$a(n)=\mathbf{s}^{\!\top}P^{\,n-2}\mathbf{e}$ for every $n\ge2$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+53}-\sum_ic_iM^{j+53-i}$. For the bound, $M^{S}$
-is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
-$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
-polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly.
+An array with $n$ rows is a sequence $r^{(1)},\dots,r^{(n)}$ of rows, and it is counted
+exactly when every one of its $n$ rows has all scores in $\{0,1,2,3,5,6,7\}$. Read the sequence as the
+walk $\bigl(r^{(1)},r^{(2)}\bigr)\to\bigl(r^{(2)},r^{(3)}\bigr)\to\cdots\to
+\bigl(r^{(n-1)},r^{(n)}\bigr)$, of length $n-2$. The condition on the first row is
+checked by $\mathbf{s}$ at the initial state, because a first row has no row above it; the
+condition on row $i$ for $2\le i\le n-1$ is checked by the edge entering
+$\bigl(r^{(i)},r^{(i+1)}\bigr)$, which sees exactly $r^{(i-1)}$, $r^{(i)}$ and
+$r^{(i+1)}$; and the condition on the last row is checked by $\mathbf{e}$ at the final
+state. Each row's condition is therefore tested once and with the correct neighbours, and
+summing over all walks gives $\mathbf{s}^{\!\top}P^{\,n-2}\mathbf{e}$.
 \end{proof}
 
+\section{The criterion}
+
+Let $q(t)=t^{56}-\sum_i c_i t^{56-i}$ be the characteristic polynomial of
+\eqref{eq:conj} and $u_j=\mathbf{s}^{\!\top}P^{j}q(P)\mathbf{e}$.
+
+\begin{lemma}\label{lem:crit}
+$a(n)-\sum_i c_i a(n-i)=u_{\,n-2-56}$ whenever $n-56\ge2$. So \eqref{eq:conj}
+holds for every $n>t$ exactly when $u_j=0$ for all $j>t-2-56$. Moreover $(u_j)$
+satisfies the monic linear recurrence given by the characteristic polynomial of $P$, of
+degree $S$, so $S$ consecutive zeros force every later one and the last nonzero $u_j$ pins
+$t$ down exactly.
+\end{lemma}
+
+\begin{proof}
+Substituting Lemma~\ref{lem:walk} and factoring $P^{\,n-2-56}$ out of
+$P^{n-2}-\sum_i c_i P^{n-i-2}$ gives the identity, and letting the exponent run gives the
+equivalence. For the last part, Cayley--Hamilton gives $\chi(P)=0$ for the characteristic
+polynomial $\chi$, so $\chi$ applied to the shift annihilates $(u_j)$; $\chi$ is monic of
+degree $S$, which propagates $S$ consecutive zeros forward.
+\end{proof}
+
+\section{The computation}
+
 \begin{theorem}
-\[
-a(n)\;=\;13\,a(n-1) - 59\,a(n-2) + 118\,a(n-3) - 109\,a(n-4) + 62\,a(n-5) - 21\,a(n-6) - 726\,a(n-7) + 4071\,a(n-8) - 10315\,a(n-9) + 19176\,a(n-10) - 46058\,a(n-11) + 124575\,a(n-12) - 217495\,a(n-13) + 177069\,a(n-14) - 3623\,a(n-15) - 248513\,a(n-16) + 1095194\,a(n-17) - 3760891\,a(n-18) + 7538001\,a(n-19) - 7897670\,a(n-20) + 628509\,a(n-21) + 20668328\,a(n-22) - 46875198\,a(n-23) + 45358717\,a(n-24) - 15981695\,a(n-25) - 48029323\,a(n-26) + 132840819\,a(n-27) - 127707135\,a(n-28) + 60461374\,a(n-29) + 36947582\,a(n-30) - 215291040\,a(n-31) + 249088792\,a(n-32) - 140610096\,a(n-33) + 55297680\,a(n-34) + 139898632\,a(n-35) - 230764648\,a(n-36) + 117081280\,a(n-37) - 75157472\,a(n-38) + 37986752\,a(n-39) + 4809600\,a(n-40) + 6231936\,a(n-41) + 6482944\,a(n-42) - 2228736\,a(n-43) - 4024320\,a(n-44) - 14330880\,a(n-45) + 13410304\,a(n-46) - 4554752\,a(n-47) + 1597440\,a(n-48) + 466944\,a(n-49) - 704512\,a(n-50) + 458752\,a(n-51) - 294912\,a(n-52) + 65536\,a(n-53)
-\]
-for every $n>64$.
+The recurrence \eqref{eq:conj} holds for every $n>58$. This is the statement of
+Section~1.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $53$ matrix--vector products in exact integer
-arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=64+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once.
+The vector $q(P)\mathbf{e}\in\mathbb{Z}^{S}$ was formed by $56$ matrix--vector
+products in exact integer arithmetic and the $u_j$ evaluated against $\mathbf{s}$ in turn.
+They vanish from the index corresponding to $n=58+1$ onwards, and the run was continued
+past $S$ consecutive zeros, which by Lemma~\ref{lem:crit} settles every larger index.
 \end{proof}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $17$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry: the digraph is built by reading the
-entry's English, and a misreading gives different counts.
+First, the digraph, the start vector and the end vector were built directly from the
+entry's stated condition, the one-row count computed separately, and the resulting values
+compared against the entry's DATA at every one of the $20$ published indices; they
+agree exactly. This is the check that ties the model to the sequence, and it is a sharp one:
+getting the boundary rows wrong, or treating them as interior rows, changes the early terms
+immediately.
 
-Second, the conjectured recurrence was evaluated directly on those published terms, with no
-matrices involved, and holds wherever the proved range and the data overlap.
+Second, the recurrence \eqref{eq:conj} was evaluated on those published terms in exact
+integer arithmetic, with no matrices involved, and vanishes at every index the entry claims.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
-arithmetic on the whole vector rather than on a sampled prefix.
+Third, the vanishing test of Lemma~\ref{lem:crit} was carried past $S=256$ consecutive
+zeros rather than to a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A254190.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A316872.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{davey} B.~A.~Davey and H.~A.~Priestley, \emph{Introduction to Lattices and
-Order}, 2nd ed., Cambridge University Press, 2002.
+\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+University Press, 2009.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

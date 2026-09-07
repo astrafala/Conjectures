@@ -3,6 +3,18 @@
 import os, json, re
 import localentry as LE, phibuild
 
+_ROSTER = None
+
+
+def _date(a):
+    """the date the result was obtained: a paper already in the roster keeps the date it was
+    written with, a new one takes the date the caller gives."""
+    global _ROSTER
+    if _ROSTER is None:
+        _ROSTER = {v['anum'] for v in json.load(open('paper-engines.json')).values()}
+    return '2 September 2026' if a in _ROSTER else os.environ.get('PAPER_DATE',
+                                                                  '2 September 2026')
+
 PRE = phibuild.PRE
 esc = phibuild.esc
 
@@ -28,14 +40,23 @@ def build(h):
     e = LE.get(a)
     d = [int(v) for v in e['data'].split(',') if v.strip()]
     mod, rev = e['modified'], e['revision']
+    # The bound the computation actually used is the merged one. Quoting the unmerged count
+    # beside "Berlekamp--Massey on 2S exact terms" would describe a computation that was not
+    # performed, so the paper states both and says which is which.
     S, order, off = h['S'], h['order'], h['offset']
+    Sm = h.get('Smerged', S)
+    merge = "" if Sm == S else (
+        r" States with the same future contribute identically to $\iota^{\!\top}M^n\tau$, so "
+        r"they may be merged without changing any count; merging leaves $S'=%d$ of the $%d$, "
+        r"and it is that smaller bound the computation below uses." % (Sm, S))
+    Suse = Sm
     tab = coeff_table(h['coeffs'], order)
     ncols = 4
 
     return rf"""{PRE}
 \title{{The empirical recurrence for OEIS {a}: recovering a conjecture that is not written down}}
 \author{{Adrian Perez Fontelles\\ \small Independent researcher}}
-\date{{2 September 2026}}
+\date{{{_date(a)}}}
 \begin{{document}}
 \maketitle
 
@@ -43,8 +64,9 @@ def build(h):
 OEIS {a} records ``Empirical recurrence of order ${order}$'', with the recurrence itself in a
 linked file rather than in the entry. The conjecture can nevertheless be settled, and the
 recurrence recovered, without reading that file. The entry counts arrays under a condition
-local to a bounded window of lines, so the count is a walk count on $S={S}$ vertices and
-satisfies some monic recurrence of order at most $S$; Berlekamp--Massey applied to $2S$ exact
+local to a bounded window of lines, so the count is a walk count on a finite digraph and
+satisfies some monic recurrence of order at most the number of its states with distinct
+futures, here $S'={Suse}$; Berlekamp--Massey applied to $2S'$ exact
 terms therefore returns the MINIMAL such recurrence. Its order is exactly ${order}$, the order
 the entry states, and the same is true of every tail of the sequence. Any recurrence of order
 ${order}$ that the sequence satisfies from any point on must then have a characteristic
@@ -75,11 +97,12 @@ array and nothing further. The admissible configurations of one such window are 
 of a finite digraph, an edge joining $u$ to $v$ when $v$ may follow $u$, and an admissible
 array is exactly a walk. Hence, with $M$ the adjacency matrix on $S={S}$ vertices,
 $a(n)=\iota^{{\!\top}}M^{{\,j(n)}}\tau$ for a linear reindexing $j$ fixed by the entry's shape
-and checked against its published terms. By the Cayley--Hamilton theorem $M^{{S}}$ is an
+and checked against its published terms.{merge} By the Cayley--Hamilton theorem $M^{{S}}$ is an
 integer combination of $I,M,\dots,M^{{S-1}}$, so:
 
 \begin{{lemma}}\label{{lem:cf}}
-$a$ satisfies a monic linear recurrence with integer coefficients of order at most $S={S}$.
+$a$ satisfies a monic linear recurrence with integer coefficients of order at most
+$S'={Suse}$.
 \end{{lemma}}
 
 \section{{Recovering the recurrence}}

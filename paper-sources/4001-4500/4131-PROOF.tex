@@ -12,136 +12,142 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A207267, proved by transfer matrix}
+\title{The empirical product formula for OEIS A140928, proved}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{31 August 2026}
+\date{6 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A207267 counts arrays over $\{0,\dots,1\}$ of width $6$ that avoid the patterns
-$(0,0,0), (0,1,1)$ along one axis and $(0,1,1), (1,0,1)$ along the other, and carries an empirical recurrence of
-order $47$ contributed by R.~H.~Hardin. It is true. The patterns have length $3$, so
-the constraint across the growing direction ties together $3$ consecutive rows: taking a
-window of $2$ consecutive rows as a state makes the array a walk in a finite digraph
-on $S=324$ vertices, and $a(n)=\mathbf{1}^{\!\top}P^{\,n-2}\mathbf{1}$. Writing $q$
-for the characteristic polynomial of the conjectured recurrence, the residual is
-$\mathbf{1}^{\!\top}P^{\,n-2-47}q(P)\mathbf{1}$, which vanishes identically
-beyond a threshold that the computation pins down exactly. Finite, exact, integer.
+OEIS A140928 counts $5\times10$ matrices over $\{0,\dots,n\}$ whose rows and columns are
+nondecreasing, and carries a product formula for $a(n)$ marked empirical. Reversing rows and
+columns turns such a matrix into a plane partition inside a $5\times10\times n$ box, so
+MacMahon's box theorem applies; the triple product telescopes in its third index and leaves a
+polynomial in $n$ of degree $50$. The entry's own expression, cleared of its denominator,
+becomes an identity between two polynomials of bounded degree, and is therefore settled by a
+finite exact computation. The box count itself is classical and is already recorded on this
+entry; what is proved here is the entry's own formula.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 68R15, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A17, 05A19.\normalsize
 
-\section{The sequence and the conjecture}
+\section{The conjecture}
 
-OEIS A207267 is ``Number of nX6 0..1 arrays avoiding 0 0 0 and 0 1 1 horizontally and 0 1 1 and 1 0 1 vertically.''. It has offset
-$1$ and begins
+OEIS A140928 is ``Number of 5 X 10 matrices with elements in 0..n with each row and each column in nondecreasing order. 5,10,n can be permuted, see formula.''. It has offset $0$ and begins
 \[
-18, 324, 1014, 3513, 14184, 45520, 135686,\ \dots
+1, 3003, 2186184, 644195552, 98561919456, 9095857138368,\ \dots
 \]
-The entry carries the following comment:
-\begin{quote}\small
-Empirical: a(n) = 9*a(n-1) -35*a(n-2) +114*a(n-3) -399*a(n-4) +1079*a(n-5) -2463*a(n-6) +6127*a(n-7) -13098*a(n-8) +23694*a(n-9) -47818*a(n-10) +85704*a(n-11) -127793*a(n-12) +223478*a(n-13) -347915*a(n-14) +432707*a(n-15) -690997*a(n-16) +957544*a(n-17) -986264*a(n-18) +1521595*a(n-19) -1906256*a(n-20) +1579613*a(n-21) -2522281*a(n-22) +2871789*a(n-23) -1799626*a(n-24) +3258588*a(n-25) -3358495*a(n-26) +1404974*a(n-27) -3326664*a(n-28) +3084036*a(n-29) -636076*a(n-30) +2678402*a(n-31) -2235957*a(n-32) +8150*a(n-33) -1672281*a(n-34) +1278000*a(n-35) +212203*a(n-36) +777969*a(n-37) -564416*a(n-38) -156032*a(n-39) -251160*a(n-40) +184308*a(n-41) +55008*a(n-42) +50616*a(n-43) -41472*a(n-44) -8208*a(n-45) -5184*a(n-46) +5184*a(n-47) for n>50
+The entry states, as conjectures contributed by its author and never marked settled:
+\begin{quote}
+(empirical) set p,q,r to n,10,5 (in any order) in s=p+q+r-1; a(n) = product {i in 0..r-1} (binomial(s,p+i)*i!/(s-i)\^{}(r-i-1))
+
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 13:42:06, revision
-9) the statement is still recorded as empirical, and nothing on the entry
-records it as settled either way.
+As of the ``Last modified'' line on the live entry (Jan 20 2025 10:52:02, revision 7) these are still
+recorded as empirical, and nothing on the entry records them as proved.
 
-Written out, the claim is
-\begin{equation}\label{eq:conj}
-a(n)\;=\;9\,a(n-1) - 35\,a(n-2) + 114\,a(n-3) - 399\,a(n-4) + 1079\,a(n-5) - 2463\,a(n-6) + 6127\,a(n-7) - 13098\,a(n-8) + 23694\,a(n-9) - 47818\,a(n-10) + 85704\,a(n-11) - 127793\,a(n-12) + 223478\,a(n-13) - 347915\,a(n-14) + 432707\,a(n-15) - 690997\,a(n-16) + 957544\,a(n-17) - 986264\,a(n-18) + 1521595\,a(n-19) - 1906256\,a(n-20) + 1579613\,a(n-21) - 2522281\,a(n-22) + 2871789\,a(n-23) - 1799626\,a(n-24) + 3258588\,a(n-25) - 3358495\,a(n-26) + 1404974\,a(n-27) - 3326664\,a(n-28) + 3084036\,a(n-29) - 636076\,a(n-30) + 2678402\,a(n-31) - 2235957\,a(n-32) + 8150\,a(n-33) - 1672281\,a(n-34) + 1278000\,a(n-35) + 212203\,a(n-36) + 777969\,a(n-37) - 564416\,a(n-38) - 156032\,a(n-39) - 251160\,a(n-40) + 184308\,a(n-41) + 55008\,a(n-42) + 50616\,a(n-43) - 41472\,a(n-44) - 8208\,a(n-45) - 5184\,a(n-46) + 5184\,a(n-47)
-\end{equation}
-for all $n>50$. 
+\section{What is being counted}
 
-\section{The array as a walk}
+A matrix $x$ of shape $5\times10$ with entries in $\{0,\dots,n\}$, nondecreasing along
+every row and down every column, becomes, on reversing the order of the rows and of the
+columns, an array that is NONINCREASING along rows and down columns with the same entries. That
+is exactly a plane partition whose parts are at most $n$ and whose shape fits inside a
+$5\times10$ rectangle --- a plane partition in a $5\times10\times n$ box. The
+correspondence is a bijection, being an involution on arrays, so
+\[
+a(n)\;=\;\mathrm{PP}(5,10,n).
+\]
+Note which parameter grows: the shape is FIXED and it is the alphabet $0..n$ that $n$ counts,
+so nothing about transfer matrices applies here.
 
-Call a row \emph{admissible} if the word it forms contains none of the patterns
-$(0,0,0), (0,1,1)$ as $3$ consecutive entries. There are $18$ admissible rows; that condition
-involves a single row only.
+\section{The box count is a polynomial}
 
-The remaining patterns $(0,1,1), (1,0,1)$ are forbidden along the other axis, so each of them
-constrains $3$ consecutive rows at a fixed position of the column. Take as state a
-window $w=\bigl(w^{(1)},\dots,w^{(2)}\bigr)$ of $2$ consecutive admissible
-rows, so $S=324$, and declare $w\to w'$ an edge when $w'$ is $w$ with its first entry
-dropped and one further admissible row $t$ appended, subject to: for every position
-$j$, the $3$-tuple read down the column $j$ across $w^{(1)},\dots,w^{(2)},t$
-is none of $(0,1,1), (1,0,1)$. Let $P$ be the adjacency matrix.
+\begin{theorem}[MacMahon]\label{thm:mm}
+\[
+\mathrm{PP}(p,q,r)\;=\;\prod_{i=1}^{p}\prod_{j=1}^{q}\prod_{k=1}^{r}
+\frac{i+j+k-1}{i+j+k-2} .
+\]
+\end{theorem}
 
-\begin{lemma}\label{lem:walk}
-$a(n)=\mathbf{1}^{\!\top}P^{\,n-2}\mathbf{1}$ for every $n\ge2$.
-\end{lemma}
+This is classical; see Stanley~\cite{stanley}, and it is already recorded on this entry.
 
-\begin{proof}
-An array of the entry's kind with $n$ rows is a sequence of $n$ admissible rows in
-which no forbidden pattern appears along the other axis. Reading it as the sequence of its
-overlapping windows of length $2$ turns it into a walk: consecutive windows overlap in
-$1$ rows by construction, and the edge condition is exactly the requirement on the one
-new $3$-tuple that each step creates. Conversely a walk reassembles into such an array,
-and the two constructions are mutually inverse. A walk of length $n-2$ visits $n-1$
-windows, that is $n$ rows; summing over all starting and ending states gives
-$\mathbf{1}^{\!\top}P^{\,n-2}\mathbf{1}$.
-\end{proof}
-
-\section{The criterion}
-
-Let $q(t)=t^{47}-\sum_i c_i t^{47-i}$ be the characteristic polynomial of
-\eqref{eq:conj} and $u_j=\mathbf{1}^{\!\top}P^{j}q(P)\mathbf{1}$.
-
-\begin{lemma}\label{lem:crit}
-$a(n)-\sum_i c_i a(n-i)=u_{\,n-2-47}$ whenever $n-47\ge2$. Hence
-\eqref{eq:conj} holds for every $n>t$ exactly when $u_j=0$ for every
-$j>t-2-47$. Moreover $(u_j)$ satisfies the monic linear recurrence whose
-characteristic polynomial is that of $P$, of degree $S$, so $S$ consecutive zeros force all
-later ones and the last nonzero $u_j$ pins $t$ down exactly.
-\end{lemma}
-
-\begin{proof}
-Substituting Lemma~\ref{lem:walk} into the left side and factoring out
-$P^{\,n-2-47}$ gives the identity. The equivalence follows by letting the exponent
-run. For the last claim, Cayley--Hamilton gives $\chi(P)=0$ for the characteristic
-polynomial $\chi$ of $P$, so $\chi$ applied to the shift annihilates $(u_j)$; being monic of
-degree $S$, it propagates $S$ consecutive zeros forward.
-\end{proof}
-
-\section{The computation}
-
-\begin{theorem}
-The recurrence \eqref{eq:conj} holds for every $n>50$. This is the statement of
-Section~1.
+\begin{theorem}\label{thm:poly}
+\[
+a(n)\;=\;\prod_{i=1}^{5}\prod_{j=1}^{10}\frac{n+i+j-1}{i+j-1},
+\]
+a polynomial in $n$ of degree $50$ with rational coefficients.
 \end{theorem}
 
 \begin{proof}
-The vector $q(P)\mathbf{1}\in\mathbb{Z}^{S}$ was formed by $47$ matrix--vector
-products in exact integer arithmetic and the $u_j$ evaluated in turn. They vanish from the
-index corresponding to $n=50+1$ onwards, and the run was continued past $S$ consecutive
-zeros, which by Lemma~\ref{lem:crit} settles every larger index.
+In Theorem~\ref{thm:mm} the inner product over $k$ telescopes: for fixed $i$ and $j$,
+\[
+\prod_{k=1}^{n}\frac{i+j+k-1}{i+j+k-2}\;=\;\frac{n+i+j-1}{i+j-1} ,
+\]
+every other factor cancelling against its neighbour. The remaining double product has
+$5\cdot10=50$ factors, each linear in $n$, and the denominators are constants.
+\end{proof}
+
+So $a$ is a polynomial, and no appeal to Ehrhart theory or to any general position argument is
+needed to see it.
+
+\section{The entry's expression}
+
+The entry writes $s=p+q+r-1$ with $(p,q,r)=(n,10,5)$ and claims
+\[
+a(n)\;=\;\prod_{i=0}^{5-1}\binom{s}{n+i}\,\frac{i!}{(s-i)^{5-1-i}}\;=\;
+\frac{N(n)}{D(n)} .
+\]
+
+\begin{lemma}\label{lem:deg}
+$N$ and $D$ are polynomials in $n$ of degrees $60$ and $10$ respectively.
+\end{lemma}
+
+\begin{proof}
+With $s=n+10+5-1$ one has $s-(n+i)=10+5-1-i$, a constant, so
+\[
+\binom{s}{n+i}=\binom{s}{10+5-1-i}
+=\frac{(s-10-5+2+i)(s-10-5+3+i)\cdots s}{(10+5-1-i)!},
+\]
+a polynomial in $n$ of degree $10+5-1-i$. Multiplying over $i=0,\dots,5-1$ gives
+$\deg N=\sum_{i=0}^{5-1}(10+5-1-i)=60$. The denominator is
+$\prod_{i=0}^{5-1}(s-i)^{5-1-i}$, of degree
+$\sum_{i=0}^{5-1}(5-1-i)=10$, and it does not vanish for $n\ge0$.
+\end{proof}
+
+\begin{theorem}
+The entry's expression equals $a(n)$ for every $n\ge0$.
+\end{theorem}
+
+\begin{proof}
+By Theorem~\ref{thm:poly} and Lemma~\ref{lem:deg}, $a(n)D(n)-N(n)$ is a polynomial in $n$
+of degree at most $50+10=60$. It was evaluated in exact rational arithmetic at
+$n=0,1,\dots,60$, that is at $61$ points, and vanishes at all of them; a nonzero polynomial
+of degree at most $60$ has at most $60$ roots, so it is identically zero. Since $D(n)\neq0$
+for $n\ge0$, the two expressions agree there.
 \end{proof}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the digraph was built directly from the entry's stated patterns and the walk counts
-compared against the entry's DATA at every one of the $23$ published indices; the
-values agree exactly, including the initial count of $18$ admissible rows. That is
-what ties the digraph to the sequence, and a model reproducing only part of the published
-data was rejected wherever it occurred.
+First, Theorem~\ref{thm:poly} reproduces all $14$ terms the entry publishes,
+exactly, in integer arithmetic.
 
-Second, the recurrence \eqref{eq:conj} was evaluated on those published terms in exact
-integer arithmetic, with no matrices involved, and vanishes at every index the entry claims.
+Second, the matrices themselves were counted for the smallest alphabets, directly from the
+definition: the nondecreasing rows were listed and the chains of $5$ of them increasing
+componentwise counted, with no product formula and no plane partitions anywhere. The counts
+agree, which is what ties the reversal bijection to the entry's own wording.
 
-Third, the vanishing test of Lemma~\ref{lem:crit} was carried past $S=324$ consecutive
-zeros rather than to a sampled prefix.
+Third, the polynomial identity was evaluated over the whole range $n=0,\dots,60$ rather than
+sampled, in exact rational arithmetic.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A207267.
-\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
-University Press, 2009.
-\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
-University Press, 2013.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A140928.
+\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 2, Cambridge
+University Press, 1999. (Plane partitions with bounded part size, Section 7.21.)
+\bibitem{macmahon} P.~A.~MacMahon, \emph{Combinatory Analysis}, Volume 2, Cambridge
+University Press, 1916.
+\bibitem{andrews} G.~E.~Andrews, \emph{The Theory of Partitions}, Addison--Wesley, 1976.
 \end{thebibliography}
 
 \end{document}

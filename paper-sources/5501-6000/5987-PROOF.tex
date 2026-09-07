@@ -12,15 +12,15 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A188846, proved by a two-line transfer matrix}
+\title{The empirical recurrence for OEIS A189612, proved by a two-line transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A188846 counts arrays over $\{0,\dots,1\}$ in which every cell is constrained by the
-values of its neighbours, and carries an empirical recurrence of order $18$ contributed
+OEIS A189612 counts arrays over $\{0,\dots,1\}$ in which every cell is constrained by the
+values of its neighbours, and carries an empirical recurrence of order $19$ contributed
 by R.~H.~Hardin. It is true, and it is not an empirical matter. The neighbourhood reaches one
 row up and one row down, so a single row is not enough state and a plain walk count
 is wrong; the right object is a walk on ordered \emph{pairs} of consecutive rows, where
@@ -34,34 +34,34 @@ computation.
 
 \section{The sequence and the conjecture}
 
-OEIS A188846 is ``Number of nX4 binary arrays without the pattern 0 0 1 vertically, antidiagonally or horizontally.''. It has offset $1$ and begins
+OEIS A189612 is ``Number of n X 4 binary arrays without the pattern 0 1 0 diagonally, antidiagonally or horizontally.''. It has offset $1$ and begins
 \[
-12, 144, 908, 5711, 32204, 181557, 1001368, 5521489,\ \dots
+12, 144, 1164, 8496, 65160, 515560, 4075336, 32031600,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 2*a(n-1) +28*a(n-2) -6*a(n-3) -237*a(n-4) -150*a(n-5) +757*a(n-6) +891*a(n-7) -942*a(n-8) -1844*a(n-9) +173*a(n-10) +1695*a(n-11) +562*a(n-12) -619*a(n-13) -422*a(n-14) +78*a(n-16) +31*a(n-17) +4*a(n-18)
+Empirical: a(n) = 12*a(n-1) -29*a(n-2) -69*a(n-3) +512*a(n-4) -1626*a(n-5) +60*a(n-6) +9924*a(n-7) -9708*a(n-8) +1120*a(n-9) +1064*a(n-10) -73360*a(n-11) +46560*a(n-12) +40960*a(n-13) +31616*a(n-14) +147456*a(n-15) -64000*a(n-16) -110592*a(n-17) -16384*a(n-18) -32768*a(n-19).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 04:52:59, revision 9) the statement is
+As of the ``Last modified'' line on the live entry (Apr 28 2023 13:57:23, revision 7) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;2\,a(n-1) + 28\,a(n-2) - 6\,a(n-3) - 237\,a(n-4) - 150\,a(n-5) + 757\,a(n-6) + 891\,a(n-7) - 942\,a(n-8) - 1844\,a(n-9) + 173\,a(n-10) + 1695\,a(n-11) + 562\,a(n-12) - 619\,a(n-13) - 422\,a(n-14) + 78\,a(n-16) + 31\,a(n-17) + 4\,a(n-18)
+a(n)\;=\;12\,a(n-1) - 29\,a(n-2) - 69\,a(n-3) + 512\,a(n-4) - 1626\,a(n-5) + 60\,a(n-6) + 9924\,a(n-7) - 9708\,a(n-8) + 1120\,a(n-9) + 1064\,a(n-10) - 73360\,a(n-11) + 46560\,a(n-12) + 40960\,a(n-13) + 31616\,a(n-14) + 147456\,a(n-15) - 64000\,a(n-16) - 110592\,a(n-17) - 16384\,a(n-18) - 32768\,a(n-19)
 \end{equation}
-for all $n>19$.
+for all $n>20$.
 
 \section{The condition, and why one row is not enough}
 
 The arrays have $4$ columns and $L=n$ rows; write $x_{t,u}$ for the entry in
 row $t$ and column $u$, each in $\{0,\dots,1\}$. With the neighbour offsets
 \[
-\mathcal N=\{(1,0),\ (1,-1),\ (0,1)\},
+\mathcal N=\{(1,1),\ (1,-1),\ (0,1)\},
 \]
 written as (row shift, column shift) and counting only positions inside the array, the
 entry's requirement is
 \begin{equation}\label{eq:loc}
-\text{no }0,0,1\text{ occurs consecutively along any direction in }\mathcal N
+\text{no }0,1,0\text{ occurs consecutively along any direction in }\mathcal N
 \end{equation}
 for every cell $(t,u)$.
 
@@ -112,16 +112,16 @@ $2$ values, so there are about $10^{22}$ of them to sift. The
 walk count replaces that by $256$ states and one matrix--vector product per row.
 \section{The criterion}
 
-Let $q(t)=t^{18}-\sum_i c_i\,t^{18-i}$ be the characteristic polynomial of
+Let $q(t)=t^{19}-\sum_i c_i\,t^{19-i}$ be the characteristic polynomial of
 \eqref{eq:conj} and put $G=N$, so that a unit step in $n$ advances the walk by
 $1$ row.
 
 \begin{lemma}\label{lem:crit}
 Let $n_0$ be the least index with $L\ge2$ and $h_j=G^{j}N^{o}\mathbf{u}$, where
-$o=1n_0+0-2$. Then for $j\ge18$,
+$o=1n_0+0-2$. Then for $j\ge19$,
 \[
-a(n_0+j)-\sum_i c_i\,a(n_0+j-i)\;=\;\,\mathbf{v}^{\!\top}G^{\,j-18}w,
-\qquad w=h_{18}-\sum_i c_i\,h_{18-i} .
+a(n_0+j)-\sum_i c_i\,a(n_0+j-i)\;=\;\,\mathbf{v}^{\!\top}G^{\,j-19}w,
+\qquad w=h_{19}-\sum_i c_i\,h_{19-i} .
 \]
 Hence \eqref{eq:conj} holds from that point on if and only if
 $\mathbf{v}^{\!\top}G^{m}w=0$ for every $m\ge0$, and it is enough to check
@@ -129,7 +129,7 @@ $m=0,1,\dots,S-1$.
 \end{lemma}
 
 \begin{proof}
-Substitute Lemma~\ref{lem:walk} and factor $G^{j-18}$ out of
+Substitute Lemma~\ref{lem:walk} and factor $G^{j-19}$ out of
 $G^{j}-\sum_ic_iG^{j-i}$; the nonzero scalar $1$ does not affect
 vanishing. For the last clause, Cayley--Hamilton makes $G^{S}$ an integer combination of
 $I,G,\dots,G^{S-1}$, so $\mathbf{v}^{\!\top}G^{m}w$ for $m\ge S$ is the corresponding
@@ -137,16 +137,16 @@ combination of the earlier values; if those vanish, so do all the rest.
 \end{proof}
 
 \begin{theorem}
-The recurrence \eqref{eq:conj} holds for every $n>19$, which is the statement of
+The recurrence \eqref{eq:conj} holds for every $n>20$, which is the statement of
 Section~1.
 \end{theorem}
 
 \begin{proof}
 The digraph was built directly from \eqref{eq:loc}: for each of the $S=256$ pairs and each
 of the $(1+1)^{4}$ possible next rows, the condition was tested on every cell of
-the middle row. The vector $w$ was formed by $18$ applications of $G$ in exact integer
+the middle row. The vector $w$ was formed by $19$ applications of $G$ in exact integer
 arithmetic and $\mathbf{v}^{\!\top}G^{m}w$ evaluated for $m=0,1,\dots$, again exactly.
-Every one of those integers vanishes from the index corresponding to $n=19+1$ onwards,
+Every one of those integers vanishes from the index corresponding to $n=20+1$ onwards,
 and the run was continued until $S+1$ consecutive zeros had been seen, which by
 Lemma~\ref{lem:crit} settles every larger $m$ at once.
 \end{proof}
@@ -178,7 +178,7 @@ returned zero throughout.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A188846.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A189612.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

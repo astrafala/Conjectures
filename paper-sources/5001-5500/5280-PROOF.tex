@@ -12,69 +12,77 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A237070, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A205740, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A237070 counts arrays over $\{0,\dots,3\}$ subject to a condition on the order
-statistics of every $2\times2$ subblock, and carries an empirical recurrence of order
-$26$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical.
-The condition is local to two consecutive rows, so the count is a walk count on $S=180$
-states and is $C$-finite; whether the conjectured recurrence annihilates it is then settled by
-a finite exact computation, with the Cayley--Hamilton theorem bounding the work.
+OEIS A205740 counts arrays over $\{0,\dots,2\}$ under a condition on the number of clockwise edge increases
+in every $2\times2$ subblock, and carries an empirical recurrence of order $27$ contributed by
+R.~H.~Hardin. It is true, and it is decidable rather than empirical. The condition is local to
+a bounded window of consecutive rows, so the count is a walk count on $S=7572$ states and is
+$C$-finite; whether the conjectured recurrence annihilates it is then settled by a finite exact
+computation, with the Cayley--Hamilton theorem bounding the work.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 62G30.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
 \section{The conjecture}
 
-OEIS A237070 is ``Number of (n+1)X(2+1) 0..3 arrays with the upper median of every 2X2 subblock equal.''. It has offset $1$ and begins
+OEIS A205740 is ``Number of 5X(n+1) 0..2 arrays with every 2 X 2 subblock having the same number of clockwise edge increases as its horizontal neighbors and no 2 X 2 subblock having the same number of counterclockwise edge increases as its vertical neighbors.''. It has offset $1$ and begins
 \[
-2132, 51000, 1046822, 23830240, 540277188, 12551185804, 294492604648, 6989324869096,\ \dots
+7572, 9198, 39450, 223560, 1302228, 7713324, 46226928, 279659868,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 50*a(n-1) -305*a(n-2) -17742*a(n-3) +204833*a(n-4) +2409450*a(n-5) -34681206*a(n-6) -149093728*a(n-7) +2823190637*a(n-8) +3441629610*a(n-9) -127332846181*a(n-10) +56979763614*a(n-11) +3341227459795*a(n-12) -4939345866790*a(n-13) -51735505359284*a(n-14) +115083242035280*a(n-15) +461866266956256*a(n-16) -1354272008080992*a(n-17) -2155667861267200*a(n-18) +8663472669351168*a(n-19) +3465282805447680*a(n-20) -29040718122731520*a(n-21) +7216113174921216*a(n-22) +44921535152652288*a(n-23) -27509147506114560*a(n-24) -21567985066967040*a(n-25) +16606422836969472*a(n-26)
+Empirical: a(n) = 14*a(n-1) -28*a(n-2) -369*a(n-3) +1414*a(n-4) +3701*a(n-5) -19990*a(n-6) -18379*a(n-7) +145521*a(n-8) +47333*a(n-9) -637510*a(n-10) -56726*a(n-11) +1796078*a(n-12) +22442*a(n-13) -3352104*a(n-14) -57742*a(n-15) +4171256*a(n-16) +261182*a(n-17) -3411792*a(n-18) -421206*a(n-19) +1765491*a(n-20) +322860*a(n-21) -537304*a(n-22) -123513*a(n-23) +83415*a(n-24) +21351*a(n-25) -4710*a(n-26) -1188*a(n-27) for n>31.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 09:48:01, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Oct 09 2015 22:33:10, revision 7) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-Sort the four entries of a $2\times2$ subblock as $a\le b\le c\le d$: they
-are its minimum, lower median, upper median and maximum. The entry fixes the signed sum
-\[
-\sigma\;=\;c,
-\]
-and asks that $\sigma$ take the SAME value on every $2\times2$ subblock of an
-$(n+1)\times3$ array over $\{0,\dots,3\}$.
+For a $2\times2$ subblock $\begin{pmatrix}p&q\\r&s\end{pmatrix}$ the
+entry's quantity, the number of clockwise edge increases, counts how many of the four steps of the cycle $p\to q\to s\to r\to p$ go up in value. Write $\sigma$ for it. The subblocks of an
+$(n+1)\times5$ array over $\{0,\dots,2\}$ form a grid of $n$ rows and $4$
+columns and $\sigma$ labels that grid.
 
-The common value is not named, so the count splits by it. For a fixed $v$ let $a_v(n)$ count
-the arrays all of whose subblocks give $\sigma=v$. An array determines its common value, so
-the sets belonging to different $v$ are disjoint and $a(n)=\sum_v a_v(n)$, a finite sum.
+The reading is not a guess. Over $0..1$ the $2\times3$ arrays whose two subblocks have equal
+clockwise counts number $40$; over $0..2$ the $2\times2$ arrays of clockwise count $2$ number
+$30$; the $3\times2$ binary arrays whose two subblocks have unequal rightwards-and-downwards
+counts number $40$. Those are the first terms the corresponding entries publish, and each was
+computed by direct enumeration before any transfer matrix was built.
 
+The condition treats the two directions differently: subblocks that are horizontal neighbours
+must carry the SAME number of counterclockwise edge increases, while subblocks that are vertical neighbours must carry
+DIFFERENT numbers of clockwise edge increases. The entry writes the array with $n$ as the number of COLUMNS, so the two directions are exchanged before anything is built.
 
 \section{The count is a walk count}
 
-For a fixed $v$ the condition involves two consecutive rows and nothing
-else: rows $r$ and $s$ may follow one another exactly when $\sigma$ equals $v$ on each of the
-$2$ subblocks they form. So a row is a state, an $(n+1)$-row array is a walk of $n$
-steps, and with $M$ the adjacency matrix on the disjoint union over $v$,
+A subblock's value needs two consecutive array rows, and the vertical
+comparison needs the two subblock rows that three consecutive rows produce. So the state is the
+PAIR of consecutive array rows: the horizontal condition decides which pairs are admissible at
+all, the vertical one decides which pair may follow which. A step appends one array row,
+turning $(r,s)$ into $(s,t)$ and settling every vertical comparison at once. An $(n+1)$-row
+array is a walk of $n-1$ steps, so
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n}\tau,\qquad\iota=\tau=(1,\dots,1)^{\!\top} .
+a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,\qquad\iota=\tau=(1,\dots,1)^{\!\top},
 \]
-Rows carrying no edge at all are dropped: such a row can only be the whole of a one-row
-array, which is not among the objects counted. There are $S=180$ states left.
-The alignment of the walk index with the entry's own $n$ was checked against its published
-terms rather than assumed. In particular $a$ is $C$-finite.
+on the $S=7572$ admissible pairs.
+
+At $n=1$ the array has two rows, so the grid is a single row of $4$
+subblocks; the entry's first term is $7572$, which the model
+reproduces along with every later term. That is the cheapest check that the grid has been read
+with the right shape.
+In particular $a$ is $C$-finite. The alignment of the walk index with the entry's own $n$ was
+checked against its published terms rather than assumed.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{26}-\sum_i c_it^{26-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{27}-\sum_i c_it^{27-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -82,7 +90,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+26}-\sum_ic_iM^{j+26-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+27}-\sum_ic_iM^{j+27-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -91,15 +99,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;50\,a(n-1) - 305\,a(n-2) - 17742\,a(n-3) + 204833\,a(n-4) + 2409450\,a(n-5) - 34681206\,a(n-6) - 149093728\,a(n-7) + 2823190637\,a(n-8) + 3441629610\,a(n-9) - 127332846181\,a(n-10) + 56979763614\,a(n-11) + 3341227459795\,a(n-12) - 4939345866790\,a(n-13) - 51735505359284\,a(n-14) + 115083242035280\,a(n-15) + 461866266956256\,a(n-16) - 1354272008080992\,a(n-17) - 2155667861267200\,a(n-18) + 8663472669351168\,a(n-19) + 3465282805447680\,a(n-20) - 29040718122731520\,a(n-21) + 7216113174921216\,a(n-22) + 44921535152652288\,a(n-23) - 27509147506114560\,a(n-24) - 21567985066967040\,a(n-25) + 16606422836969472\,a(n-26)
+a(n)\;=\;14\,a(n-1) - 28\,a(n-2) - 369\,a(n-3) + 1414\,a(n-4) + 3701\,a(n-5) - 19990\,a(n-6) - 18379\,a(n-7) + 145521\,a(n-8) + 47333\,a(n-9) - 637510\,a(n-10) - 56726\,a(n-11) + 1796078\,a(n-12) + 22442\,a(n-13) - 3352104\,a(n-14) - 57742\,a(n-15) + 4171256\,a(n-16) + 261182\,a(n-17) - 3411792\,a(n-18) - 421206\,a(n-19) + 1765491\,a(n-20) + 322860\,a(n-21) - 537304\,a(n-22) - 123513\,a(n-23) + 83415\,a(n-24) + 21351\,a(n-25) - 4710\,a(n-26) - 1188\,a(n-27)
 \]
-for every $n>25$.
+for every $n>31$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $26$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $27$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=25+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=31+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -107,7 +115,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $14$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $18$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
@@ -119,11 +127,11 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A237070.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A205740.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{david} H.~A.~David and H.~N.~Nagaraja, \emph{Order Statistics}, 3rd ed., Wiley,
-2003.
+\bibitem{bona} M.~B\'ona, \emph{Combinatorics of Permutations}, 2nd ed., CRC
+Press, 2012.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}
