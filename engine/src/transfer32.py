@@ -226,14 +226,46 @@ def build(p, cap=40000):
             states.append(s); adj.append(None)
         return i
 
+    # The start weights were built by a triple loop over rows: 1.34e8 iterations at width 9
+    # over two letters, each computing every window statistic, which is why that width was
+    # never settled. Only the statistics matter, and window j of them depends on r1 through
+    # columns j, j+1, j+2 alone, so r1 is grown one column at a time and prefixes agreeing on
+    # both the last two entries and the statistics so far are merged, carrying their count.
+    # Same weights, and the merge is exact rather than approximate: two prefixes in the same
+    # class extend identically and contribute identically.
+    cols = list(range(A))
+
+    def rowstats(r2, r3):
+        """{statistics tuple: how many rows r1 produce it}, r1 grown column by column"""
+        layer = {}
+        for a in cols:
+            for b in cols:
+                layer[((a, b), ())] = layer.get(((a, b), ()), 0) + 1
+        for j in range(K):
+            nxt = {}
+            for (last2, done), cnt in layer.items():
+                x, y = last2
+                for z in cols:
+                    col = tuple(_value(e, ((x, y, z),
+                                           (r2[j], r2[j + 1], r2[j + 2]),
+                                           (r3[j], r3[j + 1], r3[j + 2])))
+                                for e, _ in clauses)
+                    key = ((y, z), done + (col,))
+                    nxt[key] = nxt.get(key, 0) + cnt
+            layer = nxt
+        out = {}
+        for (_, done), cnt in layer.items():
+            v = tuple(tuple(done[j][c] for j in range(K)) for c in range(len(clauses)))
+            out[v] = out.get(v, 0) + cnt
+        return out
+
     startw = {}
-    for r1 in rows:
-        for r2 in rows:
-            for r3 in rows:
-                v = srows(r1, r2, r3)
+    for r2 in rows:
+        for r3 in rows:
+            for v, cnt in rowstats(r2, r3).items():
                 if okself(v):
                     k = (r2, r3, v)
-                    startw[k] = startw.get(k, 0) + 1
+                    startw[k] = startw.get(k, 0) + cnt
                     if len(startw) > cap:
                         return None
     for k in startw:
