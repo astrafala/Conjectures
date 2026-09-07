@@ -519,7 +519,7 @@ A stratified sample, one paper from each of the 105 families, drawn with a fixed
 is reproducible and not cherry-picked (`engine/deep-check/phase12-sample.json`). Read the way
 a hostile referee reads: find the weakest step and attack it.
 
-Twenty-one read so far; the ones below are those where the attack found something or where the
+Twenty-five read so far; the ones below are those where the attack found something or where the
 step most likely to fail was checked by hand.
 
 * **A223181** (`gf-implies-rec`) **passes.** Its proof is conditional on a generating function
@@ -580,6 +580,23 @@ step most likely to fail was checked by hand.
 * **A237968**, **A259247** and **A232139** pass. The last counts up to relabelling and uses
   the same rational combination of walk counts as A210100, whose identity was verified by hand
   above.
+
+**39 abstracts state a condition the entry does not.** Found by reading A256768 (rank 4222).
+Its abstract says every 3 X 3 window *"has constrained SUMS along its rows, its columns and
+its two diagonals"*; its entry says only *"no 3 X 3 subblock diagonal sum less than the
+antidiagonal sum"* — one comparison between two lines, and nothing about rows or columns at
+all. The sentence was a fixed template in `transfer57build.py` while the parse it was built
+from knows exactly which line kinds are constrained. **The bodies are right throughout** —
+A256768's states the diagonal condition alone and explains its `S = 16513` exactly as
+`129 x 128 + 1`, the pair of last rows with a not-yet-written row carried as a symbol. Only
+the abstract was a template. It is built from the parse now, and 39 of the 73 papers carrying
+that sentence get a different one.
+
+A first count put this at 51 and then 29; both were my detector, not the papers. It looked for
+the word *sum* immediately after each line word, so a name reading *"no row, column, diagonal
+or antidiagonal in any 3 X 3 subblock summing to 2 4 5 or 7"* — which constrains all four —
+counted as constraining none. The number above is measured by the fix itself: how many papers
+the corrected sentence changes.
 
 **375 papers describe the wrong axis.** Found by reading A254424 (rank 5432): its entry is
 `(3+1) X (n+1)` — four rows, a growing number of columns — and the paper says *"a pair of

@@ -3,6 +3,35 @@
 import os, json, re
 import localentry as LE, phibuild, transferbuild, transfer57
 
+
+def _lineclause(p):
+    """what the window is actually constrained on, from the parse rather than from a template
+
+    The abstract used to say every window has "constrained SUMS along its rows, its columns
+    and its two diagonals" whatever the entry said. For 29 papers the entry constrains fewer
+    than all four --- some only compare the two diagonals to each other --- so the abstract
+    described a condition that is not the one being proved. The bodies were right throughout;
+    only this sentence was a template.
+    """
+    kinds = [t for t in ('row', 'column', 'diagonal', 'antidiagonal') if t in p.get('rules', {})]
+    words = {'row': 'its rows', 'column': 'its columns', 'diagonal': 'its main diagonal',
+             'antidiagonal': 'its antidiagonal'}
+    if p.get('cmps'):
+        cmp_txt = 'has its line sums compared with one another'
+        if not kinds:
+            return cmp_txt
+        lst = [words[t] for t in kinds]
+        return ('has constrained SUMS along ' + ', '.join(lst[:-1]) +
+                (' and ' if len(lst) > 1 else '') + lst[-1] + ', and ' + cmp_txt[4:])
+    if not kinds:
+        return 'is constrained by the entry\'s condition'
+    if len(kinds) == 4:
+        return 'has constrained SUMS along its rows, its columns and its two diagonals'
+    lst = [words[t] for t in kinds]
+    return ('has constrained SUMS along ' + ', '.join(lst[:-1]) +
+            (' and ' if len(lst) > 1 else '') + lst[-1])
+
+
 PRE = phibuild.PRE
 esc = phibuild.esc
 rec_tex = transferbuild.rec_tex
@@ -74,6 +103,7 @@ def build(h):
            rf"${K}\times{K}$ window fits inside it at all and the condition is vacuous: the "
            rf"entry counts every array of its shape. The model says the same, its digraph being "
            rf"complete on the rows.")
+    lineclause = _lineclause(p)
     return rf"""{PRE}
 \title{{The empirical recurrence for OEIS {a}, proved by transfer matrix}}
 \author{{Adrian Perez Fontelles\\ \small Independent researcher}}
@@ -82,8 +112,8 @@ def build(h):
 \maketitle
 
 \begin{{abstract}}
-OEIS {a} counts arrays of width ${W}$ over ${aset}$ in which every ${K}\times{K}$ window has
-constrained SUMS along its rows, its columns and its two diagonals. The entry carries an
+OEIS {a} counts arrays of width ${W}$ over ${aset}$ in which every ${K}\times{K}$ window
+{lineclause}. The entry carries an
 empirical recurrence of order ${order}$ contributed by R.~H.~Hardin. It is true, and it is
 decidable rather than empirical: a ${K}\times{K}$ window lies in ${K}$ consecutive array rows,
 so the count is a walk count on $S={S}$ states.
