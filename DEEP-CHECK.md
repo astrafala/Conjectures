@@ -251,8 +251,9 @@ A full analysis of how the work is done, not just what it produced.
 
 The last phase is not mechanical. A stratified sample across every argument
 family — every family represented, larger samples from the families with the
-most papers and from the papers Phase 4 marked *reading unpinned* — is read the
-way a hostile referee reads: find the weakest step, then attack it numerically at
+most papers, and from the 5,858 entries whose names carry an ambiguous word and
+rest on a single program (Phase 4 left no reading unpinned, but left those on a
+single reading) — is read the way a hostile referee reads: find the weakest step, then attack it numerically at
 parameters beyond anything the paper claims.
 
 Anything that breaks under that is withdrawn, not patched.
@@ -356,7 +357,6 @@ done.**
 
 | Phase | What it must check |
 | --- | --- |
-| 4 | The reading, re-pinned — every paper's reading recomputed cold against published DATA, and every ambiguous word given every plausible reading |
 | 5 | The mathematics, recomputed from cold, with every cache deleted; thresholds shown exact; merges verified; falsification beyond the verified range |
 | 6 | The independent checks, themselves audited — including every swallowed exception and every ad-hoc regex outside the parser |
 | 8 | Wording and logic — verdict agreement, the double-negation class, every number in prose recomputed |
@@ -371,6 +371,46 @@ new conjectures are added** — until the check finishes.
 ---
 
 ## Findings added after the first report
+
+### Phase 4 — the reading, re-pinned
+
+`engine/src/dc_phase4.py`, results in `engine/deep-check/phase4.json`.
+
+A reading is *pinned* when a program written to it reproduces the terms the entry itself
+publishes. All 10,027 entries behind the 10,054 papers were sorted by how strong that pin is,
+and nothing was counted at a strength it does not have:
+
+| | entries | what it means |
+| --- | ---: | --- |
+| INDEPENDENT | 570 | a second program, sharing no code with the engine, agreed with the published terms. Only this strength can catch an engine that reads a name wrongly, because a bug in the engine cannot be present in a program that does not use it. |
+| ENGINE | 8,551 | the engine reproduced the published terms, and that is all. |
+| COLD | 4 | no vein had kept a record, so the model was rebuilt from the name and compared with the entry in this run. |
+| FORMULA | 902 | the entry states its conjecture as an identity, which the paper quotes verbatim. There is no English description of a count, so there is nothing to misread. |
+| NONE | 0 | |
+
+**No reading is unpinned.**
+
+Two of the check's own steps were wrong before the papers were, and both are recorded here
+because the corrected numbers are the ones above:
+
+* The first version fitted a polynomial of the paper's recorded `degree`, or a linear
+  recurrence of its recorded `order`, to the published data — and found almost nothing,
+  because for those papers `degree` and `order` describe the residual of an algebraic
+  generating function and have nothing to do with a polynomial or a linear recurrence. The
+  fit was removed rather than patched: a check built on a wrong reading of its own inputs
+  cannot be repaired by tuning it.
+* The first version then called a pin of fewer than eight terms weak. Seven of the twelve it
+  flagged are plane-partition box counts, whose seven terms are seven twenty-digit numbers;
+  no wrong reading reproduces a hundred and forty digits by coincidence. Pin strength is now
+  counted in **digits of published data reproduced**, and the weakest pin in the whole corpus
+  is 54 digits, the median 175. **No pin is thin.**
+
+What Phase 4 does *not* settle: 6,451 entries carry a word this project has already been
+bitten by — `subblock` (3,134), `horizontally` (2,399), `adjacent` (2,092), `vertically`
+(1,601), `antidiagonally` (1,498), `diagonally` (930), `king` (906), and seven rarer ones —
+and 5,858 of those rest on a single program reading the name. Term agreement rules out a
+reading that is *wrong*; it does not rule out a second reading that is *also right*, which is
+what the ambiguous words threaten. **That is the reading list Phase 12 samples from.**
 
 ### Phase 5 — the mathematics, recomputed from cold
 
