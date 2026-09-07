@@ -185,3 +185,46 @@ Settlement re-checked against the 7 September export: 25 entries carry settlemen
 same 25 already examined, none among the 67.
 
 **The deep check is 72 papers away** (`dc_gate.py` reports 9928 of 10000).
+
+## 7 September 2026 --- the deep check, made real before it fires
+
+72 papers from the 10,000 trigger, and Phases 3--12 were still prose. Two of them are now
+code, and writing them found the usual thing: **the checks were wrong before the papers
+were.**
+
+**Phase 0, `dc_phase0.py`** --- freezes the roster to `deep-check/frozen-roster.json`, records
+the commit, whether the tree is clean, a SHA-256 of all 21069 tracked files, the Python and
+library versions. It refuses to re-freeze without `--refreeze`, because a check that
+re-freezes halfway is checking two corpora and reporting one number.
+
+**Phase 3, `dc_phase3.py`** --- every paper re-checked against the live entry: the quoted
+conjecture, the "Last modified" line and revision, the terms printed in section 1 against the
+entry's current DATA, the paper naming its own A-number, and the settlement scan over the
+whole roster.
+
+**Four false-positive classes, all mine, all fixed:**
+
+1. *Terms.* `a(0), . . . , a(7) = 1, 1, 3, ...` contains an ellipsis of its own, so a pattern
+   that stopped at the first ellipsis captured the label and none of the terms --- **12 papers
+   reported as disagreeing with data they match exactly.** Now the terms are read from the
+   line after "begins", after the last `=`.
+2. *Dates.* The paper prints `22 July 2026` or `2026-07-22`, the entry prints
+   `Jul 22 2026 01:20:48`. **31 papers "edited since they were written"**, none of them edited.
+   Now the revision number decides and the day is compared after parsing both forms.
+3. *Page numbers.* A quotation running across a page break comes back from the extractor with
+   the page number inside it --- `a(n-`, `1`, `40)` --- and A223336 was reported as
+   misquoting an entry it quotes exactly. Lines that are nothing but a number are dropped.
+4. *One lead-in.* The builders introduce the quotation several ways, and knowing only one of
+   them left **280 of the first 400 papers unquotable and unchecked** --- a check that looks
+   like a pass because it never ran. All the lead-ins are now known.
+
+**A real distinction the plan did not draw.** Some papers quote the entry as plain text;
+others TYPESET it, so `x^3` becomes $x^3$ and `>=` becomes a glyph, and the extracted text
+cannot equal the entry character for character. Demanding verbatim there is not a defect in
+the paper. Those are now identified and checked on their numbers instead --- every integer of
+two digits or more, in order, against the best-matching entry line.
+
+**Where it stands:** trialled over papers 1--400. 0 term mismatches, 0 date defects,
+2 entries genuinely edited since their paper (A079144, r71 to r73), **11 quotations still
+unresolved** and listed by rank for examination when the phase runs for real. That list is
+the phase's output, not its failure.
