@@ -259,13 +259,18 @@ Recorded rather than quietly omitted:
 - **113 generating-function-only entries** whose names no engine reads yet. A gap, not a wall.
 - **The refused pool does not open at a larger cap.** 1,411 entries that an engine reads and
   that were refused at a state cap of 2,000,000 were retried at **6,000,000** on 7 September
-  2026. 563 were reached before the run was stopped and **every one of them was refused again
-  at the larger cap**: not one settled. Raising the cap is the wrong lever here — a third of
-  the pool is read by `transfer40`, whose state is K consecutive rows and so grows as
-  `A^(K·W)`, and three times the cap does not cover one more row. The lever that would work is
-  the one that worked for transfer9, transfer17 and transfer19: describe the redundancy in the
-  state exactly and remove it before the states exist. Until someone does that for
-  `transfer40`, this pool stays shut, and nobody needs to measure it again.
+  2026. **563 were attempted and not one settled.** A third of the pool is read by
+  `transfer40`, whose state is K consecutive rows and so grows as `A^(K·W)`; three times the
+  cap does not buy one more row. The lever that would work is the one that worked for
+  transfer9, transfer17 and transfer19: describe the redundancy in the state exactly and
+  remove it before the states exist.
+
+  A first version of this entry said all 563 were *refused at the cap*. That was not
+  measured — `shard_caps_*.json` records the cap of every entry a sweep **attempts**, not
+  only of the ones it refuses, and the run's own reason counter is printed at the end and the
+  run was stopped before it got there. The reasons are recorded below instead, from a sample
+  re-run for the purpose. What was never in doubt is the number that matters: 563 attempted,
+  0 settled.
 
 ## 9. How long a paper is
 
