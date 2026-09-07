@@ -14,15 +14,15 @@ rejected rather than fitted.
 """
 import json, re, os, sys, collections, importlib
 from math import factorial
+import uniform
 import localentry as LE, ratrec, openness, tablecol, tablerow
 
 # transfer3 is the constant-stress family; its name regex is the most specific of the set,
 # so trying it first cannot steal a name from another engine. Its interface differs from the
 # rest -- parse_name returns a tuple, build takes four positional arguments, and terms and
 # threshold live in transfer2 -- so it is dispatched separately below.
-ENG = ['transfer3', 'transfer9', 'transfer6', 'transfer16', 'transfer12', 'transfer10',
-       'transfer8', 'transfer14', 'transfer11', 'transfer15', 'transfer13', 'transfer7']
-M = {e: importlib.import_module(e) for e in ENG}
+# No engine list here: see the note at the dispatch below. `uniform` is the one
+# place that knows all eighty-three.
 import transfer2 as T2
 SCALED = ('transfer7', 'transfer8', 'transfer10', 'transfer12', 'transfer16')
 CAP = int(sys.argv[1]) if len(sys.argv) > 1 else 20000
@@ -141,28 +141,20 @@ for a in sorted(names):
         rn = (tablecol if MODE == 'col' else tablerow).rewrite(nm, c)
         if rn is None:
             skipped.append((c, 'name not rewritable')); continue
-        p = eng = None
-        for en in ENG:
-            try:
-                q = M[en].parse_name(rn)
-            except Exception:
-                q = None
-            if q:
-                p, eng = ({'t3': q} if en == 'transfer3' else q), en; break
-        if p is None:
-            skipped.append((c, 'no engine reads it')); continue
+        # The list of twelve engines that used to be tried here was all of them when this
+        # was written and is twelve of eighty-three now, so every row or column whose model
+        # needs a later engine was recorded as "no engine reads it". `uniform` knows all of
+        # them and handles the ones whose interface differs.
         try:
-            if eng == 'transfer3':
-                t3cols, t3alpha, _, _ = p['t3']
-                if (t3alpha + 1) ** t3cols > CAP:
-                    skipped.append((c, 'state space > cap')); continue
-                b = M[eng].build(*p['t3'])
-                if not b[0]:
-                    skipped.append((c, 'empty state space')); continue
-            else:
-                try: b = M[eng].build(p, cap=CAP)
-                except TypeError: b = M[eng].build(p)
-        except Exception as ex:
+            got_eng = uniform.read(rn)
+        except Exception:
+            got_eng = None
+        if not got_eng:
+            skipped.append((c, 'no engine reads it')); continue
+        eng, p = got_eng
+        try:
+            b = uniform.build(eng, p, CAP)
+        except Exception:
             skipped.append((c, 'build failed')); continue
         if b is None:
             skipped.append((c, 'state space > cap')); continue
@@ -176,49 +168,28 @@ for a in sorted(names):
         for colv in cands:
             if len(colv) < order + 2:
                 continue
+            # One interface, not a dispatch per engine. The old code called `avals`, which
+            # most of the eighty-three do not have; the AttributeError landed in the `except`
+            # just below and was reported as "model does not match the column", so a model
+            # that matched perfectly was thrown away.
             try:
-                if eng in ('transfer6', 'transfer3'):
-                    st, adj = b
-                    tm = M[eng].terms if eng == 'transfer6' else T2.terms
-                    fr = p['frac'] if eng == 'transfer6' else 1
-                    t = [x // fr for x in tm(adj, len(st), len(colv) + 2)]
-                    sh = next((s for s in range(0, 3) if t[s:s + len(colv)] == colv), None)
-                    if sh is None:
-                        continue
-                    got = t; base = sh - 1
-                elif eng == 'transfer10':
-                    adj, start, _ = b
-                    v = M[eng].avals(adj, start, p, len(colv) + 3)
-                    f = factorial(p['K']) * p['frac']
-                    got = [None if x is None or x % f else x // f for x in v]
-                    base = 0
-                    if got[1:1 + len(colv)] != colv:
-                        continue
-                else:
-                    adj, start, end, _ = b
-                    v = M[eng].avals(adj, start, end, p, len(colv) + 3)
-                    f = p['frac'] * (factorial(p['K']) if eng in SCALED else 1)
-                    got = [None if x is None or x % f else x // f for x in v]
-                    base = 0
-                    if got[1:1 + len(colv)] != colv:
-                        continue
+                t = uniform.terms(eng, p, b, len(colv) + 5)
+                tv = [None if (x is None or x.denominator != 1) else x.numerator for x in t]
             except Exception:
                 continue
+            sh = next((s for s in range(0, 4) if tv[s:s + len(colv)] == colv), None)
+            if sh is None:
+                continue
+            got, base = tv, sh - 1
             match = (True, got, base, colv); break
         if match is None:
             failed.append((c, 'model does not match the column')); continue
         up, got, base, colv = match
         try:
-            if eng in ('transfer6', 'transfer3'):
-                th = M[eng].threshold if eng == 'transfer6' else T2.threshold
-                thr = th(adj, len(st), coeffs, order)
-                nthr = None if thr is None else thr - base
-            elif eng == 'transfer10':
-                thr = M[eng].threshold(adj, start, coeffs, order, p); nthr = thr
-            else:
-                thr = M[eng].threshold(adj, start, end, coeffs, order, p); nthr = thr
+            thr = uniform.threshold(eng, p, b, coeffs, order)
         except Exception:
             skipped.append((c, 'threshold failed')); continue
+        nthr = None if thr is None else thr - base
         if nthr is None:
             failed.append((c, 'UNRESOLVED')); continue
         # verify the claim on the column's own published terms
@@ -228,7 +199,7 @@ for a in sorted(names):
             failed.append((c, 'claim contradicted at %s' % bad[:3])); continue
         proved.append({'k': c, 'mode': MODE, 'engine': eng, 'order': order, 'nthr': nthr,
                        'coeffs': {int(x): str(y) for x, y in coeffs.items()},
-                       'claimed': dd, 'nterms': len(colv), 'S': len(b[0]),
+                       'claimed': dd, 'nterms': len(colv), 'S': uniform.size(eng, p, b),
                        'upward': up, 'name_k': rn,
                        # the largest published column value the model reproduces: the
                        # Verification section quotes it, so it must be the real figure
