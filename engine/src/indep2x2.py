@@ -81,6 +81,27 @@ def _side(text):
     return None, text
 
 
+ROWMAJOR = re.compile(r',?\s*and new values 0\.\.\d+ introduced in row major order$')
+
+
+def canonical(flat):
+    """Are the values introduced in row-major order?
+
+    "New values 0..m introduced in row major order" is a labelling convention, not a
+    condition on any one subblock: reading the cells left to right and top to bottom, a value
+    may appear for the first time only after every smaller value already has. It counts one
+    representative of each class of arrays that differ by renaming the values, which is why
+    these entries are so much smaller than their unlabelled siblings.
+    """
+    seen = 0
+    for v in flat:
+        if v > seen:
+            return False
+        if v == seen:
+            seen += 1
+    return True
+
+
 def compile_pred(text):
     """Return f(x00, x01, x10, x11) -> bool for the subblock condition, or None."""
     # The wording often ends with a parenthetical naming the objects being counted --- e.g.
@@ -125,12 +146,27 @@ def _core(t):
     def _cw(a, b, c, d):
         return [b - a, d - b, c - d, a - c]
 
-    m = re.match(r'^(exactly two|two or four|two|three|four) distinct clockwise edge '
-                 r'differences$', t)
+    _N = {'one': 1, 'two': 2, 'three': 3, 'four': 4}
+    m = re.match(r'^(?:exactly\s+)?((?:one|two|three|four)(?:,?\s*(?:or\s+)?'
+                 r'(?:one|two|three|four))*)\s+distinct clockwise edge differences$', t)
     if m:
-        want = {'exactly two': {2}, 'two or four': {2, 4}, 'two': {2}, 'three': {3},
-                'four': {4}}[m.group(1)]
+        want = {_N[w] for w in re.findall(r'one|two|three|four', m.group(1))}
         return lambda a, b, c, d, w=want: len(set(_cw(a, b, c, d))) in w
+    if t == 'distinct clockwise edge differences':
+        return lambda a, b, c, d: len(set(_cw(a, b, c, d))) == 4
+    m = re.match(r'^(exactly|at most|at least) (one|two|three) duplicate clockwise edge '
+                 r'differences?$', t)
+    if m:
+        # a "duplicate" is one repeat: four differences with k distinct values carry 4-k of
+        # them
+        k, how = _N[m.group(2)], m.group(1)
+        f = {'exactly': lambda x: x == k, 'at most': lambda x: x <= k,
+             'at least': lambda x: x >= k}[how]
+        return lambda a, b, c, d, f=f: f(4 - len(set(_cw(a, b, c, d))))
+    if t == 'a diagonal absolute difference less than its antidiagonal absolute difference':
+        return lambda a, b, c, d: abs(a - d) < abs(b - c)
+    if t == 'a diagonal absolute difference greater than its antidiagonal absolute difference':
+        return lambda a, b, c, d: abs(a - d) > abs(b - c)
     if t in ('the number of clockwise edge increases equal to the number of counterclockwise '
              'edge increases',
              'the number of clockwise edge increases equal to the number of clockwise edge '
@@ -197,11 +233,15 @@ def _core(t):
 
 
 def parse(name):
-    """(rows_offset, cols, alpha, quantifier, predicate, divisor) or None"""
+    """(rows_offset, cols, alpha, quantifier, predicate, divisor, canonical) or None"""
     m = SHAPE.search(name)
     c = COND.search(name)
     if not m or not c:
         return None
+    cond = ' '.join(re.sub(r'\([^)]*\)', ' ', c.group(2)).split()).rstrip('. ')
+    canon = bool(ROWMAJOR.search(cond))
+    if canon:
+        cond = ROWMAJOR.sub('', cond).rstrip(', ')
     dv = DIV.match(name)
     div = 1
     if dv:
@@ -209,16 +249,18 @@ def parse(name):
     add = int(m.group(2) or 0)
     cols = (int(m.group(3)) + int(m.group(4))) if m.group(3) else int(m.group(5))
     alpha = int(m.group(6))
-    pred = compile_pred(c.group(2))
+    pred = compile_pred(cond)
     if pred is None:
         return None
-    return add, cols, alpha, c.group(1).lower(), pred, div
+    return add, cols, alpha, c.group(1).lower(), pred, div, canon
 
 
-def count(rows, cols, alpha, every, pred):
+def count(rows, cols, alpha, every, pred, canon=False):
     """Every array, one at a time. No shortcuts: that is what makes this independent."""
     tot = 0
     for flat in itertools.product(range(alpha + 1), repeat=rows * cols):
+        if canon and not canonical(flat):
+            continue
         ok = True
         for i in range(rows - 1):
             for j in range(cols - 1):
@@ -239,7 +281,7 @@ def check(a, max_cells=18):
     got = parse(e['name'])
     if not got:
         return 'not this family, or a condition this program does not read'
-    add, cols, alpha, q, pred, div = got
+    add, cols, alpha, q, pred, div, canon = got
     every = (q == 'every')
     off = int(e['offset'].split(',')[0])
     d = [int(v) for v in e['data'].split(',') if v.strip()]
@@ -248,7 +290,7 @@ def check(a, max_cells=18):
         rows = off + k + add
         if rows * cols > max_cells or (alpha + 1) ** (rows * cols) > 4 * 10 ** 7:
             break
-        n = count(rows, cols, alpha, every, pred)
+        n = count(rows, cols, alpha, every, pred, canon)
         if n % div:
             return (f'the entry counts a {div}th of the arrays but the brute force found '
                     f'{n}, which {div} does not divide')
