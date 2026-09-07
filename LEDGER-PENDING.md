@@ -31,3 +31,28 @@ A290575); only those two were ever in the roster, so nothing else is affected.
 two-day-old export cost two papers that should never have been claimed, and would have kept
 costing them silently. The check is cheap --- one `git pull` and a scan of 9676 entries in
 under a minute --- and belongs at the start of every session, not at the end.
+
+## 7 September 2026 --- the 208 the queue never reached: 76 more
+
+The 799 conjecture-carrying candidates were swept in rounds bounded by wall-clock, and the
+round ended before the list did: **208 were left unprocessed rather than refused**, which is
+a different thing and had to be checked rather than assumed. It was worth checking --- one of
+them, A279576, settles in three seconds from a standing start.
+
+Swept at thirty seconds an entry: **76 proved**, thirty-five of them arrays of permutations
+under an offset condition, nineteen on permutation arrays with a fixed displacement, ten more
+on the same family, and a tail of four engines. None is contradicted by its own published
+data.
+
+**Refusals, with the cap beside them, as the rule requires.** 92 refused with `state space >
+cap` at **cap 2000000**; 3 exceeded the thirty-second budget in the annihilation test rather
+than in the build, and are worth a longer pass rather than a bigger cap; 30 are not open.
+
+**A cost measured, not guessed.** The heavy end of this pool is real work, not a bug:
+A264014 builds 1048576 states in 84 seconds. That is why the pass was run at thirty seconds
+and the expensive tail deferred, instead of letting four entries consume the whole budget.
+
+**Settlement re-checked before counting.** `freshcheck.py` over all 9750 roster entries
+against the 7 September export: 25 carry settlement wording, the same 25 already examined,
+every one about a different statement on the same entry. None of the 76 new entries is among
+them.

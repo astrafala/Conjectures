@@ -12,23 +12,23 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A204568, proved by counting patterns}
+\title{The empirical recurrence for OEIS A198903, proved by counting patterns}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A204568 counts arrays subject to a local condition \emph{and} to the clause ``new values
-$0..3$ introduced in row major order'', which says the array is written in canonical
+OEIS A198903 counts arrays subject to a local condition \emph{and} to the clause ``new values
+$0..4$ introduced in row major order'', which says the array is written in canonical
 form. That clause is not local, so a transfer matrix over the alphabet does not see it. It
 does not have to: what is being counted is not arrays but equality patterns, and the number
 of patterns is recovered from the numbers $L_i$ of arrays over an $i$-letter alphabet by
 inverting a falling factorial. The result is the clean identity
-$4!\,a(n)=\sum_i\binom{4}{i}D_{4-i}L_i(n)$ with $D_m$ the derangement numbers,
+$5!\,a(n)=\sum_i\binom{5}{i}D_{5-i}L_i(n)$ with $D_m$ the derangement numbers,
 and each $L_i$ is an ordinary walk count. A second reduction --- the chain is strongly
 lumpable over the patterns, because the condition is relabelling-invariant --- brings the
-state space down from $1300$ to $S=109$. The entry's empirical recurrence of order
+state space down from $4425$ to $S=161$. The entry's empirical recurrence of order
 $13$, contributed by R.~H.~Hardin, then follows from a finite exact computation.
 \end{abstract}
 
@@ -36,53 +36,57 @@ $13$, contributed by R.~H.~Hardin, then follows from a finite exact computation.
 
 \section{The sequence and the conjecture}
 
-OEIS A204568 is ``Number of (n+1)X5 0..3 arrays with every 2X2 subblock having equal diagonal elements or equal antidiagonal elements, and new values 0..3 introduced in row major order.''. It has offset $1$ and begins
+OEIS A198903 is ``Number of n X 5 0..4 arrays with values 0..4 introduced in row major order and no element equal to any horizontal or vertical neighbor.''. It has offset $1$ and begins
 \[
-1682, 80518, 4220392, 226207388, 12184154082, 657035534014, 35439471578008, 1911668983879844,\ \dots
+15, 4801, 2125425, 948656912, 423503301834, 189062985604305, 84402688527136201, 37679579867128064832,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 66*a(n-1) -371*a(n-2) -20540*a(n-3) +324789*a(n-4) -1657430*a(n-5) +2548727*a(n-6) +4497416*a(n-7) -19534224*a(n-8) +23561568*a(n-9) -10191744*a(n-10) -1130112*a(n-11) +1975104*a(n-12) -373248*a(n-13)
+Empirical: a(n) = 559*a(n-1) -54943*a(n-2) +2182857*a(n-3) -41132051*a(n-4) +348302393*a(n-5) -519526889*a(n-6) -11351340633*a(n-7) +79466721924*a(n-8) -227367989480*a(n-9) +329414183656*a(n-10) -247117199296*a(n-11) +89130224384*a(n-12) -11964372480*a(n-13).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 11:19:50, revision 9) the statement is
+As of the ``Last modified'' line on the live entry (Oct 03 2025 08:01:31, revision 9) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;66\,a(n-1) - 371\,a(n-2) - 20540\,a(n-3) + 324789\,a(n-4) - 1657430\,a(n-5) + 2548727\,a(n-6) + 4497416\,a(n-7) - 19534224\,a(n-8) + 23561568\,a(n-9) - 10191744\,a(n-10) - 1130112\,a(n-11) + 1975104\,a(n-12) - 373248\,a(n-13)
+a(n)\;=\;559\,a(n-1) - 54943\,a(n-2) + 2182857\,a(n-3) - 41132051\,a(n-4) + 348302393\,a(n-5) - 519526889\,a(n-6) - 11351340633\,a(n-7) + 79466721924\,a(n-8) - 227367989480\,a(n-9) + 329414183656\,a(n-10) - 247117199296\,a(n-11) + 89130224384\,a(n-12) - 11964372480\,a(n-13)
 \end{equation}
-for all $n>12$.
+for all $n>13$.
 
 \section{What the canonical-form clause counts}
 
-Fix the shape: $5$ columns and $L=n+1$ rows, so $L\cdot5$ cells. Call a
+Fix the shape: $5$ columns and $L=n+0$ rows, so $L\cdot5$ cells. Call a
 partition of the cells into nonempty classes a \emph{pattern}; an array over an alphabet
 determines a pattern, two cells lying in the same class exactly when they carry the same
 value.
 
-Every $2\times2$ subblock of the array occupies two consecutive
-rows and two consecutive columns; writing those two rows as $r$ and $s$ the
-subblock is
+Write $x_{t,u}$ for the entry in row $t$ and column $u$. The
+entry's requirement is that no cell equals more than $0$ of its neighbours at the
+offsets
 \[
-\begin{pmatrix}\alpha&\beta\\\gamma&\delta\end{pmatrix}=\begin{pmatrix}r_j&r_{j+1}\\s_j&s_{j+1}\end{pmatrix},
+\mathcal N=\{(0,-1),\ (-1,0)\}
 \]
-and the entry's requirement on it is
+(offsets given as (row shift, column shift), and only cells inside the array count),
+that is
 \begin{equation}\label{eq:loc}
-\alpha=\delta\ \text{ or }\ \beta=\gamma.
+\#\bigl\{(d_1,d_2)\in\mathcal N:\ x_{t+d_1,\,u+d_2}=x_{t,u}\bigr\}\;\le\;0
+\qquad\text{for every cell }(t,u).
 \end{equation}
+Every offset in $\mathcal N$ points backwards in the walk, so the condition at a cell of
+row $t$ is settled by row $t$ itself together with row $t-1$.
 
 The condition is stated purely in terms of equalities between entries, so it is invariant
 under any relabelling of the values and is therefore a property of the pattern alone. Call a
 pattern \emph{admissible} when it has the property.
 
-The clause ``new values $0..3$ introduced in row major order'' selects, from each class
+The clause ``new values $0..4$ introduced in row major order'' selects, from each class
 of arrays that differ only by a relabelling, exactly one representative: reading the cells in
 row major order, the first occurrence of the value $v$ must precede the first occurrence of
-$v+1$. Every pattern with at most $K=4$ classes has exactly one such representative, and
+$v+1$. Every pattern with at most $K=5$ classes has exactly one such representative, and
 every array in canonical form is the representative of its own pattern. Hence, writing
 $N_j(n)$ for the number of admissible patterns with exactly $j$ classes,
 \begin{equation}\label{eq:apat}
-a(n)\;=\;\sum_{j=0}^{4}N_j(n).
+a(n)\;=\;\sum_{j=0}^{5}N_j(n).
 \end{equation}
 
 \begin{lemma}\label{lem:inv}
@@ -91,7 +95,7 @@ condition, with no canonical-form clause. Then
 \[
 L_i(n)=\sum_j N_j(n)\,i(i-1)\cdots(i-j+1),
 \qquad
-4!\,\sum_{j=0}^{4}N_j(n)=\sum_{i=0}^{4}\binom{4}{i}D_{4-i}\,L_i(n),
+5!\,\sum_{j=0}^{5}N_j(n)=\sum_{i=0}^{5}\binom{5}{i}D_{5-i}\,L_i(n),
 \]
 where $D_m=m!\sum_{t=0}^{m}(-1)^t/t!$ is the number of derangements of $m$ letters.
 \end{lemma}
@@ -102,14 +106,14 @@ with an injection of its classes into the alphabet, and conversely; a pattern wi
 classes admits $i(i-1)\cdots(i-j+1)$ injections. That is the first identity. Writing
 $i(i-1)\cdots(i-j+1)=j!\binom{i}{j}$ it reads $L_i=\sum_j (j!N_j)\binom{i}{j}$, so by
 binomial inversion $j!N_j=\sum_{i}(-1)^{j-i}\binom{j}{i}L_i$. Summing over
-$j\le 4$ and exchanging the order of summation,
+$j\le 5$ and exchanging the order of summation,
 \[
-\sum_{j=0}^{4}N_j=\sum_{i=0}^{4}L_i\sum_{j=i}^{4}\frac{(-1)^{j-i}}{i!\,(j-i)!}
-=\sum_{i=0}^{4}\frac{L_i}{i!}\sum_{t=0}^{4-i}\frac{(-1)^t}{t!} ,
+\sum_{j=0}^{5}N_j=\sum_{i=0}^{5}L_i\sum_{j=i}^{5}\frac{(-1)^{j-i}}{i!\,(j-i)!}
+=\sum_{i=0}^{5}\frac{L_i}{i!}\sum_{t=0}^{5-i}\frac{(-1)^t}{t!} ,
 \]
-and multiplying by $4!$ turns the coefficient of $L_i$ into
-$\frac{4!}{i!}\sum_{t\le 4-i}(-1)^t/t!=\binom{4}{i}(4-i)!\sum_{t\le 4-i}(-1)^t/t!
-=\binom{4}{i}D_{4-i}$, an integer.
+and multiplying by $5!$ turns the coefficient of $L_i$ into
+$\frac{5!}{i!}\sum_{t\le 5-i}(-1)^t/t!=\binom{5}{i}(5-i)!\sum_{t\le 5-i}(-1)^t/t!
+=\binom{5}{i}D_{5-i}$, an integer.
 \end{proof}
 
 \section{Each $L_i$ is a walk count, and the chain lumps}
@@ -120,10 +124,11 @@ every column, and let $M_i$ be the adjacency matrix. An array is exactly a seque
 rows, and its condition is exactly the conjunction of the edge conditions along that
 sequence, so
 \[
-L_i(n)\;=\;\mathbf{s}_i^{\!\top}M_i^{\,n}\mathbf{1} .
+L_i(n)\;=\;\mathbf{s}_i^{\!\top}M_i^{\,n+0-1}\mathbf{1} .
 \]
-Because the condition involves no row before the first, every
-row may start a walk, and $\mathbf{s}_i=\mathbf{1}$.
+The first row has no row before it, so its cells are tested
+against their within-row neighbours only; $\mathbf{s}_i$ is the indicator vector of the
+rows that pass that test.
 
 \begin{lemma}\label{lem:lump}
 Let $\pi(r)$ be the equality pattern of the row $r$. For all $r,r'$ with
@@ -153,13 +158,13 @@ gives the displayed identity, the number of rows of pattern $P$ being the number
 injections of its $|P|$ classes into the alphabet.
 \end{proof}
 
-Assembling the $4$ lumped chains into one block-diagonal matrix $N$ of size $S=109$ and
+Assembling the $5$ lumped chains into one block-diagonal matrix $N$ of size $S=161$ and
 putting the weights of Lemma~\ref{lem:inv} into the start vector,
-$\mathbf{v}=\bigl(\binom{4}{i}D_{4-i}\varepsilon_P\bigr)_{i,P}$, gives
+$\mathbf{v}=\bigl(\binom{5}{i}D_{5-i}\varepsilon_P\bigr)_{i,P}$, gives
 \begin{equation}\label{eq:walk}
-4!\;a(n)\;=\;\mathbf{v}^{\!\top}N^{\,n}\mathbf{1} .
+5!\;a(n)\;=\;\mathbf{v}^{\!\top}N^{\,n+0-1}\mathbf{1} .
 \end{equation}
-The unlumped alphabet had $1300$ rows in all; the lumped chain has $S=109$ states.
+The unlumped alphabet had $4425$ rows in all; the lumped chain has $S=161$ states.
 
 \section{The criterion, and the computation}
 
@@ -167,9 +172,9 @@ Let $q(t)=t^{13}-\sum_i c_i\,t^{13-i}$ be the characteristic polynomial of
 \eqref{eq:conj}.
 
 \begin{lemma}\label{lem:crit}
-For every $n$ with $m=n+1-1\ge13$,
+For every $n$ with $m=n+0-1\ge13$,
 \[
-4!\Bigl(a(n)-\sum_i c_i\,a(n-i)\Bigr)\;=\;\mathbf{v}^{\!\top}N^{\,m-13}q(N)\mathbf{1} .
+5!\Bigl(a(n)-\sum_i c_i\,a(n-i)\Bigr)\;=\;\mathbf{v}^{\!\top}N^{\,m-13}q(N)\mathbf{1} .
 \]
 Hence \eqref{eq:conj} holds from that point on if and only if
 $\mathbf{v}^{\!\top}N^{j}q(N)\mathbf{1}=0$ for every $j\ge0$, and it is enough to check
@@ -178,7 +183,7 @@ $j=0,1,\dots,S-1$.
 
 \begin{proof}
 Substitute \eqref{eq:walk} into the left side and factor $N^{m-13}$ out of
-$N^{m}-\sum_i c_iN^{m-i}$. The scalar $4!$ is nonzero, so it does not affect whether
+$N^{m}-\sum_i c_iN^{m-i}$. The scalar $5!$ is nonzero, so it does not affect whether
 the left side vanishes. For the last clause put $w=q(N)\mathbf{1}$: by Cayley--Hamilton
 $N^{S}$ is an integer combination of $I,N,\dots,N^{S-1}$, so each
 $\mathbf{v}^{\!\top}N^{j}w$ with $j\ge S$ is the corresponding combination of earlier
@@ -186,7 +191,7 @@ values.
 \end{proof}
 
 \begin{theorem}
-The recurrence \eqref{eq:conj} holds for every $n>12$, which is the statement of
+The recurrence \eqref{eq:conj} holds for every $n>13$, which is the statement of
 Section~1.
 \end{theorem}
 
@@ -197,7 +202,7 @@ generated column by column, since the edge condition is a conjunction of one con
 column. The vector $w=q(N)\mathbf{1}$ was then formed by $13$ matrix--vector products
 in exact integer arithmetic and $\mathbf{v}^{\!\top}N^{j}w$ evaluated for
 $j=0,1,\dots$, again exactly. Every one of those integers vanishes from the index
-corresponding to $n=12+1$ onwards, and the run continued until $w$ was the zero vector,
+corresponding to $n=13+1$ onwards, and the run continued until $w$ was the zero vector,
 which settles all larger $j$ at once. Lemma~\ref{lem:crit} gives the theorem.
 \end{proof}
 
@@ -206,11 +211,11 @@ which settles all larger $j$ at once. Lemma~\ref{lem:crit} gives the theorem.
 Three checks, each independent of the algebra above.
 
 First, the whole construction was compared against the entry's DATA: the right-hand side of
-\eqref{eq:walk}, divided by $4!$, was evaluated at every one of the $13$
+\eqref{eq:walk}, divided by $5!$, was evaluated at every one of the $11$
 published indices and agrees exactly. This is a strong test of the modelling and not only of
 the arithmetic --- the inversion of Lemma~\ref{lem:inv}, the reading of the local
 condition, and the alignment of the entry's index with the number of rows would each
-show up as a mismatch, and the quotient by $4!$ came out an integer at every index.
+show up as a mismatch, and the quotient by $5!$ came out an integer at every index.
 
 Second, the lumped chain was checked against the unlumped one: for the small shapes the walk
 counts $\mathbf{s}_i^{\!\top}M_i^{m}\mathbf{1}$ were computed directly over the full
@@ -222,7 +227,7 @@ run until the working vector was identically zero rather than to a sampled prefi
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A204568.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A198903.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; Stirling and
 falling-factorial inversion, Section 1.9.)

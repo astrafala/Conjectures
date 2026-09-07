@@ -11,206 +11,180 @@
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
-
-\title{The empirical recurrence for OEIS A275139, proved by counting patterns}
+\title{A proof of the conjectured recurrence for OEIS A306948}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{1 September 2026}
+\date{30 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A275139 counts arrays in which no entry may repeat a value found at any of three stated
-offsets, and which are moreover written in canonical form (``new values introduced in order
-$0..2$''). The canonical-form clause is not local and no transfer matrix over the
-alphabet sees it; but the condition is stated in equalities, so what is counted is equality
-patterns, and the pattern counts are recovered from the counts $L_i$ over an $i$-letter
-alphabet by inverting a falling factorial:
-$3!\,a(n)=\sum_i\binom{3}{i}D_{3-i}L_i(n)$ with $D_m$ the derangement numbers.
-Some of the offsets reach two rows back, so each $L_i$ is a walk count whose states are
-ordered pairs of consecutive rows; relabelling-invariance makes that chain lumpable,
-cutting $60074$ pairs to $S=10355$ states. The entry's empirical recurrence of order $3$,
-contributed by R.~H.~Hardin, then follows from a finite exact computation.
+OEIS A306948 carries a conjectured linear recurrence with polynomial coefficients, of
+order 4. The entry gives no generating function, but it does give the sequence as
+a hypergeometric sum. Creative telescoping produces, from the summand alone, a certificate
+identity that is checked exactly rather than trusted. What it does not produce here is a
+homogeneous recurrence: the summand does not vanish at the ends of the range, and the range
+itself moves with $n$, so summing the certificate leaves boundary and range-correction
+terms. We keep them. They are a finite, explicit expression $h(n)$, and the result is an
+inhomogeneous recurrence $\sum_{i}\sigma_{i}(n)a(n+i)=h(n)$. Since $h$ is a hypergeometric term, the first-order operator $M=N-h(n+1)/h(n)$ annihilates it, and $ML$ annihilates $a$. The conjectured
+operator is then shown to be a left multiple of the resulting annihilator by division in
+the Ore algebra $\mathbb{Q}(n)[N]$.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A18, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 33F10, 11B37, 68W30.\normalsize
 
 \section{The sequence and the conjecture}
 
-OEIS A275139 is ``Number of n X 5 0..2 arrays with no element equal to any value at offset (-2,-2) (-1,-2) or (0,-1) and new values introduced in order 0..2.''. It has offset $1$ and begins
+OEIS A306948 is ``Expansion of e.g.f. (1 + x)*log(1 + x)*exp(x)''. It has offset $0$ and begins
 \[
-8, 144, 528, 2320, 9744, 41360, 175120, 741904,\ \dots
+a(0),\dots,a(7)\;=\;0, 1, 3, 5, 8, 9, 19, -15,\ \dots
 \]
-The entry carries the following comment:
+The entry states, not as a conjecture,
 \begin{quote}\small
-Empirical: a(n) = 3*a(n-1) + 5*a(n-2) + a(n-3) for n>4.
+a(n) = Sum\_\{k=1..n\} (-1)\textasciicircum{}(k-1)*binomial(n,k)*(n - k + 1)*(k - 1)!.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jan 31 2019 19:36:47, revision 8) the statement is
-still recorded as empirical, and nothing on the entry records it as settled either way.
-
-Written out, the claim is
-\begin{equation}\label{eq:conj}
-a(n)\;=\;3\,a(n-1) + 5\,a(n-2) + a(n-3)
+so that, writing $F(n,k)$ for the summand,
+\begin{equation}\label{eq:sum}
+a(n)\;=\;\sum_{k=1}^{n}F(n,k),
+\qquad F(n,k)=\left(-1\right)^{k - 1} \left(- k + n + 1\right) {\binom{n}{k}} \left(k - 1\right)! .
 \end{equation}
-for all $n>4$.
+This is the only input the proof takes from the entry, and it was checked against the
+entry's own DATA before use.
 
-\section{The condition, and what the canonical-form clause counts}
+The entry separately carries the following comment:
+\begin{quote}\small
+\textbf{Conjecture:} D-finite with recurrence a(n) +(n-5)*a(n-1) +(-3*n+10)*a(n-2) +3*(n-3)*a(n-3) +(-n+3)*a(n-4)=0. - \emph{R. J. Mathar}, Aug 20 2021
+\end{quote}
+As of the ``Last modified'' line on the live entry (2021-10-29, revision 13) the
+statement is still recorded as a conjecture, and no proof appears among the entry's links,
+formulas or programs.
 
-The arrays have $5$ columns and $L=n$ rows; write $x_{t,u}$ for the entry in
-row $t$ and column $u$. With
-\[
-\mathcal N=\{(-2,-2),\ (-1,-2),\ (0,-1)\}
-\]
-(offsets as (row shift, column shift)), the entry's requirement is
-\begin{equation}\label{eq:loc}
-x_{t+d_1,\,u+d_2}\ne x_{t,u}\quad\text{for every }(d_1,d_2)\in\mathcal N\text{ inside the array}.
+\section{Telescoping over a range that does not cooperate}
+
+Let $N$ denote the shift in $n$, $(Nf)(n)=f(n+1)$, and $\Delta_{k}$ the forward difference
+in $k$. Creative telescoping looks for rational functions
+$\sigma_{0},\dots,\sigma_{r}$ of $n$, not all zero, and a rational $R(n,k)$ with
+\begin{equation}\label{eq:cert}
+\sum_{i=0}^{r}\sigma_{i}(n)\,F(n+i,k)\;=\;\Delta_{k}\bigl[R(n,k)F(n,k)\bigr].
 \end{equation}
-Every offset has a nonpositive row shift, so the condition at a cell of row $t$ is
-settled by rows $t-2$, $t-1$ and $t$; but some shift is $-2$, so one previous row is not
-enough state.
-
-The condition is stated purely in equalities, so it is unchanged by any relabelling of the
-values and is a property of the \emph{equality pattern} of the array --- the partition of
-the cells into classes of equal entries. The clause ``new values introduced in order
-$0..2$'' keeps exactly one array from each relabelling class, so with $K=3$ values
-available the entry counts admissible patterns with at most $K$ classes.
-
-\begin{lemma}\label{lem:inv}
-Let $L_i(n)$ count the arrays over an alphabet of $i$ letters satisfying \eqref{eq:loc},
-with no canonical-form clause, and $N_j(n)$ the admissible patterns with exactly $j$ classes.
-Then $L_i=\sum_j N_j\,i(i-1)\cdots(i-j+1)$ and
+Divided through by $F(n,k)$ this is an identity between rational functions, because the
+quotients $F(n+i,k)/F(n,k)$ and $F(n,k+1)/F(n,k)$ are rational; so a proposed pair
+$(\sigma,R)$ can be \emph{checked}, exactly, whatever produced it. For A306948 such a pair
+exists with $r=2$:
 \[
-3!\,\sum_{j\le 3}N_j(n)\;=\;\sum_{i=0}^{3}\binom{3}{i}D_{3-i}\,L_i(n),
-\qquad D_m=m!\sum_{t=0}^{m}\frac{(-1)^t}{t!} .
+\sigma_{0}(n)=1,\qquad \sigma_{1}(n)=\frac{1 - n}{n + 1},\qquad \sigma_{2}(n)=- \frac{1}{n + 1},
+\qquad
+R(n,k)\;=\;\frac{k^{2} - k n - 3 k}{k^{3} - 3 k^{2} n - 4 k^{2} + 3 k n^{2} + 8 k n + 5 k - n^{3} - 4 n^{2} - 5 n - 2} .
 \]
-\end{lemma}
+
+The usual next step sums \eqref{eq:cert} over all $k$ and concludes
+$\sum_{i}\sigma_{i}(n)a(n+i)=0$. That step needs $F(n,k)$ to vanish for every $k$ outside
+the range in \eqref{eq:sum}, and here it does not. Summing over a finite window therefore
+leaves something behind, and the point of this note is that what it leaves behind is
+computable.
+
+\begin{proposition}\label{prop:inhom}
+Let $L_{0}$ and $H_{0}$ be the lower and upper summation limits in \eqref{eq:sum}, each
+non-decreasing in $n$, and put $L=L_{0}(n)$ and $H=H_{0}(n+r)$, so that the window
+$L\le k\le H$ contains the range of every $a(n+i)$, $0\le i\le r$. Write
+$G(n,k)=R(n,k)F(n,k)$ and suppose $G$ is finite at every integer $k$ in $[L,H+1]$. Then
+\[
+\sum_{i=0}^{r}\sigma_{i}(n)\,a(n+i)\;=\;h(n),
+\qquad
+h(n)\;=\;G(n,H+1)-G(n,L)\;-\;\sum_{i=0}^{r}\sigma_{i}(n)\!\!\!
+\sum_{\substack{L\le k\le H\\ k\notin[L_{0}(n+i),\,H_{0}(n+i)]}}\!\!\! F(n+i,k).
+\]
+\end{proposition}
 
 \begin{proof}
-A labelled array satisfying the condition is a pattern together with an injection of its
-classes into the alphabet, and a pattern with $j$ classes admits $i(i-1)\cdots(i-j+1)$ such
-injections; that is the first identity. Writing the falling factorial as $j!\binom{i}{j}$
-gives $L_i=\sum_j(j!N_j)\binom{i}{j}$, so binomial inversion yields
-$j!N_j=\sum_i(-1)^{j-i}\binom{j}{i}L_i$. Summing over $j\le3$ and exchanging the
-order of summation, the coefficient of $L_i$ is $\sum_{t\le3-i}(-1)^t/(i!\,t!)$, which on
-multiplying by $3!$ becomes
-$\binom{3}{i}(3-i)!\sum_{t\le3-i}(-1)^t/t!=\binom{3}{i}D_{3-i}$, an
-integer.
+Sum \eqref{eq:cert} over $k=L,\dots,H$. The right-hand side telescopes to
+$G(n,H+1)-G(n,L)$, every intermediate value being finite by hypothesis. On the left,
+$\sum_{k=L}^{H}F(n+i,k)$ differs from $a(n+i)=\sum_{k=L_{0}(n+i)}^{H_{0}(n+i)}F(n+i,k)$
+exactly by the terms of the window that lie outside that sequence's own range, which is the
+inner sum above. Rearranging gives the statement; both correction ranges are finite because
+$L_{0}$ and $H_{0}$ are non-decreasing and $i\le r$.
 \end{proof}
 
-\section{Each $L_i$ is a walk count on pairs of rows}
-
-Fix $i$, let $V_i=\{0,\dots,i-1\}^{5}$ and take $\mathcal V=V_i\times V_i$ as vertices.
-Declare $(p,c)\to(c,x)$ an edge when every cell of the NEW row $x$ satisfies
-\eqref{eq:loc}, reading $c$ as the row one step back and $p$ as the row two steps
-back. Let $P_i$ be the adjacency matrix and $\mathbf{s}_i$ the indicator of the pairs
-$(p,c)$ in which $p$ satisfies \eqref{eq:loc} with no row before it and $c$ satisfies it
-with only $p$ before it.
-
-\begin{lemma}\label{lem:walk}
-For $L\ge2$ the arrays of $L$ rows satisfying \eqref{eq:loc} are exactly the walks
-$(r^{(1)},r^{(2)})\to\cdots\to(r^{(L-1)},r^{(L)})$ of length $L-2$ starting at a
-vertex marked by $\mathbf{s}_i$, so
-$L_i=\mathbf{s}_i^{\!\top}P_i^{\,L-2}\mathbf{1}$.
-\end{lemma}
-
-\begin{proof}
-Consecutive vertices overlap in one row, so such a walk is precisely a sequence
-$r^{(1)},\dots,r^{(L)}$ of rows. The condition at the cells of row $t$ for $t\ge3$
-is tested exactly once, at the step arriving at $(r^{(t-1)},r^{(t)})$, and with the
-correct earlier rows; the cells of rows $1$ and $2$ are tested by $\mathbf{s}_i$, with
-the rows that would lie before them absent, which is how the array behaves at its top. No
-further condition constrains the end of the array, so the walk may finish anywhere.
-\end{proof}
-
-\begin{lemma}\label{lem:lump}
-Two vertices with the same equality pattern have, for each target pattern, the same number of
-successors carrying it, and the same value of $\mathbf{s}_i$. Hence the chain is strongly
-lumpable over patterns, and $L_i$ may be computed on the quotient, whose states are the set
-partitions of the $2\cdot5$ cells of a pair into at most $i$ classes.
-\end{lemma}
-
-\begin{proof}
-Equal patterns means $(p',c')=(\sigma(p),\sigma(c))$ for a permutation $\sigma$ of the
-alphabet. Condition \eqref{eq:loc} is a statement about equalities between entries, so it is
-invariant under $\sigma$; therefore $x\mapsto\sigma(x)$ is a bijection between the successor
-sets which preserves patterns, and $\mathbf{s}_i$ agrees on the two vertices. The number of
-pairs with pattern $P$ is $e_P=i(i-1)\cdots(i-|P|+1)$, which supplies the weights.
-\end{proof}
-
-Assembling the $3$ lumped chains block-diagonally into $N$ of size $S=10355$, with the
-weights of Lemma~\ref{lem:inv} folded into the start vector $\mathbf{v}$,
-\begin{equation}\label{eq:walk2}
-3!\;a(n)\;=\;\mathbf{v}^{\!\top}N^{\,L-2}\mathbf{1},\qquad L=n .
+For A306948 this gives
+\begin{equation}\label{eq:h}
+h(n)\;=\;\frac{- n - 2}{n + 1} .
 \end{equation}
 
-\section{The criterion, and the computation}
+\section{Clearing the inhomogeneity, and dividing}
 
-Let $q(t)=t^{3}-\sum_i c_i\,t^{3-i}$ be the characteristic polynomial of
-\eqref{eq:conj} and $G=N$.
-
-\begin{lemma}\label{lem:crit}
-With $n_0$ the least index for which $L\ge2$ and $h_j=G^{j}N^{o}\mathbf{1}$,
-$o=1n_0+0-2$, we have for $j\ge3$
+The inhomogeneity \eqref{eq:h} is a hypergeometric term: its shift quotient is
 \[
-3!\Bigl(a(n_0+j)-\sum_i c_i\,a(n_0+j-i)\Bigr)
-=\mathbf{v}^{\!\top}G^{\,j-3}w,\qquad
-w=h_{3}-\sum_i c_i h_{3-i} .
+\frac{h(n+1)}{h(n)}\;=\;\frac{n^{2} + 4 n + 3}{n^{2} + 4 n + 4},
 \]
-Hence \eqref{eq:conj} holds from that point on if and only if
-$\mathbf{v}^{\!\top}G^{m}w=0$ for every $m\ge0$, and it is enough to check
-$m=0,1,\dots,S-1$.
+a rational function of $n$. Hence $M=N-h(n+1)/h(n)$ satisfies $M(h)=0$, and writing $L_{0}=\sum_{i}\sigma_{i}(n)N^{i}$ for the telescoped operator, Proposition~\ref{prop:inhom} reads $L_{0}(a)=h$, so
+\[
+L\;=\;ML_{0}\quad\text{satisfies}\quad L(a)=M\bigl(L_{0}(a)\bigr)=M(h)=0 .
+\]
+One extra order buys the homogeneity. Explicitly, $L=\left(\frac{- n^{2} - 4 n - 3}{n^{2} + 4 n + 4}\right) + \left(\frac{2 n^{2} + 6 n + 1}{n^{2} + 4 n + 4}\right)\,N + \left(\frac{- n^{2} - n + 3}{n^{2} + 4 n + 4}\right)\,N^{2} + \left(- \frac{1}{n + 2}\right)\,N^{3}$.
+
+\begin{lemma}\label{lem:factor}
+If $C=QL$ in $\mathcal{A}=\mathbb{Q}(n)[N]$, where $N\,q(n)=q(n+1)\,N$, and $L(a)=0$, then
+$C(a)=0$ at every $n$ where the coefficients of $Q$ are defined.
 \end{lemma}
 
 \begin{proof}
-Substitute \eqref{eq:walk2} and factor; the nonzero scalar $3!$ does not affect
-vanishing. By Cayley--Hamilton $G^{S}$ is an integer combination of $I,G,\dots,G^{S-1}$,
-so each $\mathbf{v}^{\!\top}G^{m}w$ with $m\ge S$ is the corresponding combination of
-earlier values.
+$C(a)=(QL)(a)=Q\bigl(L(a)\bigr)=Q(0)=0$, and the coefficients of $Q$ are rational functions
+of $n$, so the step is valid away from their poles.
 \end{proof}
+
+Writing the conjectured recurrence as an operator $C$ and dividing by $L$ on the right
+leaves remainder $0$, with quotient
+\[
+Q\;=\;\left(\frac{n^{2} + 4 n + 4}{n + 3}\right) + \left(- n - 3\right)\,N .
+\]
+The coefficients of $Q$ are rational functions of $n$; their only integer poles are $n\in\{-3\}$, below the range claimed here.
 
 \begin{theorem}
-The recurrence \eqref{eq:conj} holds for every $n>4$, which is the statement of
-Section~1.
+The conjectured recurrence
+\[
+1\,a(n) + (n - 5)\,a(n-1) + (10 - 3 n)\,a(n-2) + 3 \left(n - 3\right)\,a(n-3) + (3 - n)\,a(n-4) \;=\;0
+\]
+holds for every $n\ge4$.
 \end{theorem}
 
 \begin{proof}
-The lumped transition counts were built by taking one representative pair for each pattern,
-enumerating every row $x$ over the alphabet, testing \eqref{eq:loc} on $x$, and sorting
-the survivors by the pattern of the new pair. The vector $w$ was formed by $3$
-applications of $G$ in exact integer arithmetic and $\mathbf{v}^{\!\top}G^{m}w$
-evaluated for $m=0,1,\dots$, again exactly. Every one of those integers vanishes from the
-index corresponding to $n=4+1$ onwards, and the run continued until $S+1$ consecutive
-zeros had been seen.
+Proposition~\ref{prop:inhom} gives the inhomogeneous recurrence, the operator $L$ of the
+previous section annihilates $a$, and Lemma~\ref{lem:factor} applied to $C=QL$ carries that
+to the conjectured operator. The integer poles of $Q$ all lie below $n=4$.
 \end{proof}
 
 \section{Verification}
 
-Three checks, each independent of the algebra above.
+Every number above is an output of a script written separately from this note, and four
+independent checks were run.
 
-First, the right-hand side of \eqref{eq:walk2}, divided by $3!$, was evaluated at every
-one of the $21$ published indices and agrees with the entry's DATA exactly, the quotient
-coming out an integer each time; no shift was fitted, the number of rows being read off the
-entry's own name as $L=n$ and the entry's offset saying which index the first published
-term carries. A misreading of the offsets, of the inversion, or of the treatment of the first
-two rows would show up here.
+First, the certificate was verified rather than trusted: \eqref{eq:cert} was divided by
+$F(n,k)$ and the difference of the two sides cancelled to $0$ as a rational function of $n$
+and $k$.
 
-Second, the lumped chain was checked against the unlumped one on the small shapes of this
-family, the walk counts over the full alphabet agreeing with the weighted sum over patterns
-term by term.
+Second --- and this is the check that matters most here, because the boundary bookkeeping
+is where such an argument goes wrong --- the inhomogeneous recurrence of
+Proposition~\ref{prop:inhom} was evaluated on the entry's own terms: for each $n$ in range
+the left side was formed from the published values and compared against \eqref{eq:h}, and
+the two agreed exactly. An error in the correction terms would not survive this.
 
-Third, the recurrence \eqref{eq:conj} was evaluated on the published terms in exact integer
-arithmetic with no matrices involved, and the annihilation test of Lemma~\ref{lem:crit} was
-carried to the full Cayley--Hamilton bound rather than to a sampled prefix.
+Third, the factorisation was confirmed by multiplying back: $QL$ was expanded in
+$\mathcal{A}$ and its coefficients cancelled against those of $C$ to zero.
+
+Fourth, the conjecture itself was evaluated on the published terms, in exact integer
+arithmetic and without reference to any operator: for each $n$ in range the sum
+$\sum_{i}p_{i}(n)a(n-i)$ was formed from the entry's own values and found to vanish, for
+all 21 values of $n$ from $n=4$ upward. The formula \eqref{eq:sum} was
+likewise checked term by term against the DATA section before being used.
 
 \begin{thebibliography}{9}
-\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A275139.
-\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; falling-factorial
-inversion, Section 1.9.)
-\bibitem{kemeny} J.~G.~Kemeny and J.~L.~Snell, \emph{Finite Markov Chains}, Springer,
-1976. (Strong lumpability, Section 6.3.)
-\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
-University Press, 2009.
+\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer Sequences},
+\url{https://oeis.org}, 2026. Sequence A306948.
+\bibitem{aeqb} M.~Petkov\v{s}ek, H.~S.~Wilf and D.~Zeilberger, \emph{A=B}, A K Peters,
+1996.
+\bibitem{zeil} D.~Zeilberger, \emph{The method of creative telescoping}, J. Symbolic
+Comput. 11 (1991), 195--204.
+\bibitem{ore} O.~Ore, \emph{Theory of non-commutative polynomials}, Ann. of Math. 34
+(1933), 480--508.
 \end{thebibliography}
 
 \end{document}

@@ -12,20 +12,20 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A224654, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A224803, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{6 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A224654 counts the $(n+2)\times3$ matrices over $\{0,\dots,2\}$ all of whose
+OEIS A224803 counts the $(n+2)\times3$ matrices over $\{0,\dots,3\}$ all of whose
 $3\times3$ contiguous subblocks are of equal population, and carries an empirical recurrence of order
 $24$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical.
 The condition ties together $3$ consecutive rows and $3$ consecutive columns at once, so a
 single row is not a state; the strip of the last $2$ rows is, and the admissible strips
 are read off the overlap graph of the admissible windows instead of being enumerated. That
-makes $a(n)$ a walk count on $S=7290$ vertices, hence $C$-finite, and whether the conjectured
+makes $a(n)$ a walk count on $S=81920$ vertices, hence $C$-finite, and whether the conjectured
 recurrence annihilates it is settled by a finite exact computation.
 \end{abstract}
 
@@ -33,20 +33,20 @@ recurrence annihilates it is settled by a finite exact computation.
 
 \section{The conjecture}
 
-OEIS A224654 is ``Number of (n+2)X3 0..2 matrices with each 3X3 subblock having the same population.''. It has offset $1$ and begins
+OEIS A224803 is ``Number of (n+2)X3 0..3 matrices with each 3X3 subblock having the same population.''. It has offset $1$ and begins
 \[
-19683, 67797, 233523, 804357, 3295269, 13499973, 55306341, 259112385,\ \dots
+262144, 1048576, 4194304, 16777216, 78118912, 363741184, 1693669888, 8752522240,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
 Empirical: a(n) = 10*a(n-1) -27*a(n-2) +252*a(n-3) -2340*a(n-4) +6318*a(n-5) -23427*a(n-6) +192150*a(n-7) -518805*a(n-8) +1061424*a(n-9) -7155540*a(n-10) +19319958*a(n-11) -25759944*a(n-12) +128799720*a(n-13) -347759244*a(n-14) +343901376*a(n-15) -1120618800*a(n-16) +3025670760*a(n-17) -2459272752*a(n-18) +4421589120*a(n-19) -11938290624*a(n-20) +8571080448*a(n-21) -6122200320*a(n-22) +16529940864*a(n-23) -11019960576*a(n-24)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 23:34:10, revision 11) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 23:36:32, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{The count is a walk count}
 
-Call a $3\times3$ matrix over $\{0,\dots,2\}$ a \emph{window} when it is of equal population, and
+Call a $3\times3$ matrix over $\{0,\dots,3\}$ a \emph{window} when it is of equal population, and
 call a $3\times3$ matrix a \emph{band} when every one of its $1$ contiguous
 $3\times3$ subblocks is a window. What the entry counts is the matrices of $3$ columns
 whose every $3$ consecutive rows form a band.
@@ -62,10 +62,10 @@ band, and since no further condition falls on where a walk starts or ends,
 \[
 a(n)\;=\;\iota^{\!\top}M^{\,n}\tau ,\qquad \iota=\tau=(1,1,\dots,1)^{\!\top},
 \]
-with $M$ the adjacency matrix on $S=7290$ states. In particular $a$ is $C$-finite. The
+with $M$ the adjacency matrix on $S=81920$ states. In particular $a$ is $C$-finite. The
 alignment was checked against the entry's published terms rather than assumed.
 
-There are $(2 + 1)^{6}$ strips of $2$ rows and $3$ columns, far too
+There are $(3 + 1)^{6}$ strips of $2$ rows and $3$ columns, far too
 many to test one by one, and they are not tested one by one. Two consecutive windows of a band
 overlap in $3\times2$ entries, so a band is exactly a walk of $1$ windows in
 the graph that joins a window to those whose first $2$ columns are its last $2$
@@ -76,15 +76,15 @@ directly.
 
 The entry does not name the common value; it only asks that all the windows of one matrix agree.
 So fix a value $v$ and let $W_v$ be the set of $3\times3$ matrices over
-$\{0,\dots,2\}$ whose population, the list of how many times each of the values $0,\dots,2$ occurs in it, equals $v$. A matrix counted by the entry has all of
+$\{0,\dots,3\}$ whose population, the list of how many times each of the values $0,\dots,3$ occurs in it, equals $v$. A matrix counted by the entry has all of
 its windows in a single $W_v$, and the value of $v$ is determined by the matrix, so the sets of
 matrices belonging to different $v$ are disjoint and
 \[
 a(n)\;=\;\sum_v a_v(n),
 \]
 each $a_v$ being the walk count of Section~2 built from $W_v$ alone. A disjoint union of the
-$55$ digraphs, one per value of $v$, therefore counts the whole of $a(n)$ with the same
-all-ones vectors, and the $3\times3$ windows in play number $19683$ in total.
+$220$ digraphs, one per value of $v$, therefore counts the whole of $a(n)$ with the same
+all-ones vectors, and the $3\times3$ windows in play number $262144$ in total.
 
 \section{The proof}
 
@@ -122,7 +122,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $17$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $16$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
@@ -134,7 +134,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A224654.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A224803.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{kim} K.~H.~Kim, \emph{Boolean Matrix Theory and Applications}, Marcel Dekker,

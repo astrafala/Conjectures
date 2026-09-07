@@ -12,17 +12,17 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A183705, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A204223, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A183705 counts arrays over $\{0,\dots,3\}$ under a condition on the determinant of every
-$2\times2$ subblock, and carries an empirical recurrence of order $22$ contributed by
+OEIS A204223 counts arrays over $\{0,\dots,2\}$ under a condition on the sum of every
+$2\times2$ subblock, and carries an empirical recurrence of order $23$ contributed by
 R.~H.~Hardin. It is true, and it is decidable rather than empirical. The condition is local to
-a bounded window of consecutive rows, so the count is a walk count on $S=1024$ states and is
+a bounded window of consecutive rows, so the count is a walk count on $S=81$ states and is
 $C$-finite; whether the conjectured recurrence annihilates it is then settled by a finite exact
 computation, with the Cayley--Hamilton theorem bounding the work.
 \end{abstract}
@@ -31,47 +31,47 @@ computation, with the Cayley--Hamilton theorem bounding the work.
 
 \section{The conjecture}
 
-OEIS A183705 is ``Number of (n+1)X5 0..3 arrays with every 2X2 subblock nonsingular.''. It has offset $1$ and begins
+OEIS A204223 is ``Number of (n+1)X2 0..2 arrays with the sums of 2X2 subblocks nondecreasing rightwards and downwards.''. It has offset $1$ and begins
 \[
-409128, 208772880, 106093597920, 53961750797424, 27440831422595136, 13954952466340976784, 7096672408605671392416, 3608961753073209868200240,\ \dots
+81, 450, 2500, 11100, 49284, 192474, 751689, 2707641,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n)=280*a(n-1)+112580*a(n-2)+3492162*a(n-3)-819288385*a(n-4)-12793008650*a(n-5)+2892208505752*a(n-6)-40764002087564*a(n-7)-3347388386802251*a(n-8)+143992036050120492*a(n-9)-2105303984131021756*a(n-10)+4800567008428590850*a(n-11)+182742851553762560045*a(n-12)-1364110029736402568010*a(n-13)-5200934207479738964528*a(n-14)+61142874543395383890792*a(n-15)+100553502890870219473632*a(n-16)-1032217400773371826650672*a(n-17)-2029259347165494259181424*a(n-18)+2743207961236529270609952*a(n-19)+5097128258414084374606464*a(n-20)-1701928181673046183177728*a(n-21)-410351258133601815379968*a(n-22)
+Empirical: a(n) = 9*a(n-1) -2*a(n-2) -210*a(n-3) +498*a(n-4) +1782*a(n-5) -7500*a(n-6) -4716*a(n-7) +53007*a(n-8) -25623*a(n-9) -209346*a(n-10) +253710*a(n-11) +460144*a(n-12) -940824*a(n-13) -427120*a(n-14) +1906032*a(n-15) -338256*a(n-16) -2148336*a(n-17) +1287648*a(n-18) +1144800*a(n-19) -1233792*a(n-20) -62208*a(n-21) +414720*a(n-22) -124416*a(n-23)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 02:00:22, revision 9) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 11:02:11, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-Write $\sigma$ for the determinant of a $2\times2$ subblock
-$\begin{pmatrix}p&q\\r&s\end{pmatrix}$, that is $\sigma=ps-qr$. The subblocks of an
-$(n+1)\times5$ array over $\{0,\dots,3\}$ form a grid of $n$ rows and $4$
-columns, and $\sigma$ colours that grid.
+Write $\sigma$ for the sum of a $2\times2$ subblock
+$\begin{pmatrix}p&q\\r&s\end{pmatrix}$, that is $\sigma=p+q+r+s$. The subblocks of an
+$(n+1)\times2$ array over $\{0,\dots,2\}$ form a grid of $n$ rows and $1$
+column, and $\sigma$ colours that grid.
 
-The condition is on each subblock separately: every $\sigma$ must not vanish, which is what
-``nonsingular'' says of a $2\times2$ matrix. Nothing
-relates one subblock to another.
+The condition relates NEIGHBOURING subblocks: the values of two subblocks adjacent in the grid,
+horizontally or vertically, must not decrease. Rightwards and downwards are the two directions named.
 
 \section{The count is a walk count}
 
-Because the condition looks at one subblock at a time and a subblock is
-built from two consecutive array rows, a single row is a state: rows $r$ and $s$ may follow one
-another exactly when all $4$ of the subblocks they form pass. An $(n+1)$-row array is then a
-walk of $n$ steps and
+A subblock's value needs two consecutive array rows, and the vertical
+comparison needs the two subblock rows that three consecutive array rows produce. So the state
+is the PAIR of consecutive array rows: the horizontal comparisons decide which pairs are
+admissible at all, and the vertical ones decide which pair may follow which. A step appends one
+array row, turning $(r,s)$ into $(s,t)$ and settling every comparison between the two subblock
+rows at once. An $(n+1)$-row array is a walk of $n-1$ steps, so
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n}\tau,\qquad\iota=\tau=(1,\dots,1)^{\!\top},
+a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,\qquad\iota=\tau=(1,\dots,1)^{\!\top},
 \]
-on the $S=1024$ rows.
+on the $S=81$ admissible pairs.
 
-At $n=1$ the array has two rows and the grid is a single row of $4$
-subblocks, each tested on its own, so $a(1)$ counts the
-$2\times5$ arrays over $\{0,\dots,3\}$ all of whose subblocks pass. The entry's
-first term is $409128$, and the model reproduces it along with every later term; that is the
-cheapest check that the grid has been read with the right shape.
+At $n=1$ the array has two rows, so the grid is a single row of $1$
+subblock, which has no neighbour at all and so is unconstrained. The
+entry's first term is $81$, and the model reproduces it along with every later term; that
+is the cheapest check that the grid has been read with the right shape.
 
-Over the alphabet $\{0,\dots,3\}$ the determinant of a $2\times2$ subblock takes values in
-$[-9,9]$, so the colouring of the grid it induces has at most $19$ values.
+Over the alphabet $\{0,\dots,2\}$ the sum of a $2\times2$ subblock takes values in
+$[0,8]$, so the colouring of the grid it induces has at most $9$ values.
 That bound is what keeps the construction below finite in the only place where the value of
 $\sigma$, rather than a comparison between two of them, has to be carried.
 In particular $a$ is $C$-finite. The alignment of the walk index with the entry's own $n$ was
@@ -80,7 +80,7 @@ checked against its published terms rather than assumed.
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{22}-\sum_i c_it^{22-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{23}-\sum_i c_it^{23-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -88,7 +88,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+22}-\sum_ic_iM^{j+22-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+23}-\sum_ic_iM^{j+23-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -97,15 +97,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;280\,a(n-1) + 112580\,a(n-2) + 3492162\,a(n-3) - 819288385\,a(n-4) - 12793008650\,a(n-5) + 2892208505752\,a(n-6) - 40764002087564\,a(n-7) - 3347388386802251\,a(n-8) + 143992036050120492\,a(n-9) - 2105303984131021756\,a(n-10) + 4800567008428590850\,a(n-11) + 182742851553762560045\,a(n-12) - 1364110029736402568010\,a(n-13) - 5200934207479738964528\,a(n-14) + 61142874543395383890792\,a(n-15) + 100553502890870219473632\,a(n-16) - 1032217400773371826650672\,a(n-17) - 2029259347165494259181424\,a(n-18) + 2743207961236529270609952\,a(n-19) + 5097128258414084374606464\,a(n-20) - 1701928181673046183177728\,a(n-21) - 410351258133601815379968\,a(n-22)
+a(n)\;=\;9\,a(n-1) - 2\,a(n-2) - 210\,a(n-3) + 498\,a(n-4) + 1782\,a(n-5) - 7500\,a(n-6) - 4716\,a(n-7) + 53007\,a(n-8) - 25623\,a(n-9) - 209346\,a(n-10) + 253710\,a(n-11) + 460144\,a(n-12) - 940824\,a(n-13) - 427120\,a(n-14) + 1906032\,a(n-15) - 338256\,a(n-16) - 2148336\,a(n-17) + 1287648\,a(n-18) + 1144800\,a(n-19) - 1233792\,a(n-20) - 62208\,a(n-21) + 414720\,a(n-22) - 124416\,a(n-23)
 \]
-for every $n>22$.
+for every $n>23$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $22$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $23$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=22+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=23+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -113,7 +113,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $10$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $21$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
@@ -125,7 +125,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A183705.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A204223.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{minc} H.~Minc, \emph{Permanents}, Addison--Wesley, 1978.

@@ -12,18 +12,18 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A234211, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A206252, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A234211 counts $(n+1)\times3$ arrays over $\{0,\dots,4\}$ subject to a condition imposed on
+OEIS A206252 counts $(n+1)\times6$ arrays over $\{0,\dots,3\}$ subject to a condition imposed on
 every $2\times2$ subblock, and carries an empirical recurrence of order $15$ contributed
 by R.~H.~Hardin. It is true, and it is not an empirical matter at all. The condition is local
 to each subblock, so the rows of an admissible array are the vertices of a finite digraph
-on $S=125$ vertices whose edges are the admissible consecutive pairs, and the count is a
+on $S=4096$ vertices whose edges are the admissible consecutive pairs, and the count is a
 number of walks: $a(n)=\mathbf{1}^{\!\top}M^{n}\mathbf{1}$. Writing $q$
 for the characteristic polynomial of the conjectured recurrence, the recurrence holds for all
 $n$ exactly when $\mathbf{1}^{\!\top}M^{j}q(M)\mathbf{1}=0$ for every $j\ge0$, and the
@@ -35,28 +35,28 @@ integer arithmetic, and it comes out zero.
 
 \section{The sequence and the conjecture}
 
-OEIS A234211 is ``Number of (n+1)X(2+1) 0..4 arrays with every 2X2 subblock having the sum of the squares of all six edge and diagonal differences equal to 11.''. It has offset $1$ and begins
+OEIS A206252 is ``Number of (n+1)X6 0..3 arrays with every 2X2 subblock having zero permanent.''. It has offset $1$ and begins
 \[
-308, 1540, 7348, 38424, 190188, 1029224, 5219076, 28931288,\ \dots
+47089, 26512201, 944701696, 226637884225, 14139111560401, 2261195747329024, 186370092021300625, 24455901146017548025,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 6*a(n-1) +51*a(n-2) -354*a(n-3) -656*a(n-4) +6790*a(n-5) -457*a(n-6) -52786*a(n-7) +47381*a(n-8) +158504*a(n-9) -209462*a(n-10) -148184*a(n-11) +260800*a(n-12) +12192*a(n-13) -94128*a(n-14) +21312*a(n-15)
+Empirical: a(n) = 133*a(n-1) +6888*a(n-2) -1340811*a(n-3) +4226391*a(n-4) +4180767372*a(n-5) -80490770091*a(n-6) -5217648903441*a(n-7) +148692944523528*a(n-8) +2437871310147447*a(n-9) -99376895146018923*a(n-10) -199651087166898780*a(n-11) +26256479575727404800*a(n-12) -103833901082736072000*a(n-13) -2123373038352913440000*a(n-14) +13177032454057536000000*a(n-15)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jun 02 2025 09:16:12, revision 6) the statement is
+As of the ``Last modified'' line on the live entry (Oct 03 2025 12:49:49, revision 9) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;6\,a(n-1) + 51\,a(n-2) - 354\,a(n-3) - 656\,a(n-4) + 6790\,a(n-5) - 457\,a(n-6) - 52786\,a(n-7) + 47381\,a(n-8) + 158504\,a(n-9) - 209462\,a(n-10) - 148184\,a(n-11) + 260800\,a(n-12) + 12192\,a(n-13) - 94128\,a(n-14) + 21312\,a(n-15)
+a(n)\;=\;133\,a(n-1) + 6888\,a(n-2) - 1340811\,a(n-3) + 4226391\,a(n-4) + 4180767372\,a(n-5) - 80490770091\,a(n-6) - 5217648903441\,a(n-7) + 148692944523528\,a(n-8) + 2437871310147447\,a(n-9) - 99376895146018923\,a(n-10) - 199651087166898780\,a(n-11) + 26256479575727404800\,a(n-12) - 103833901082736072000\,a(n-13) - 2123373038352913440000\,a(n-14) + 13177032454057536000000\,a(n-15)
 \end{equation}
-for all $n>15$.
+for all $n>14$.
 
 \section{The condition is local, so the rows form a digraph}
 
 Write an array of the shape in question as its list of rows
 $r^{(1)},r^{(2)},\dots$, each an element of
-$V=\{0,1,\dots,4\}^{3}$, so $|V|=S=125$. A $2\times2$ subblock of the array
+$V=\{0,1,\dots,3\}^{6}$, so $|V|=S=4096$. A $2\times2$ subblock of the array
 occupies two consecutive rows and two consecutive columns; if the two rows are $r$
 and $s$ (in that order) and the two columns are numbered $j,j+1$,
 the subblock is
@@ -65,12 +65,12 @@ the subblock is
 \]
 The entry's requirement on that subblock is
 \begin{equation}\label{eq:loc}
-(\beta-\alpha)^2+(\delta-\beta)^2+(\gamma-\delta)^2+(\alpha-\gamma)^2+(\delta-\alpha)^2+(\gamma-\beta)^2=11,
+\alpha\delta+\beta\gamma=0,
 \end{equation}
 a condition on the four entries alone.
 
 For $r,s\in V$ declare $r\to s$ an edge of a digraph $G$ when, for every
-$1\le j\le 3-1$,
+$1\le j\le 6-1$,
 \begin{itemize}
 \item the four entries above satisfy \eqref{eq:loc};
 
@@ -87,7 +87,7 @@ a(n)\;=\;\mathbf{1}^{\!\top}M^{n}\mathbf{1} .
 \end{lemma}
 
 \begin{proof}
-An array with $L$ rows and $3$ columns is precisely a sequence
+An array with $L$ rows and $6$ columns is precisely a sequence
 $r^{(1)},\dots,r^{(L)}$ of elements of $V$; conversely any such sequence is an array.
 Every $2\times2$ subblock lies in two consecutive rows $r^{(t)},r^{(t+1)}$ and two
 consecutive columns, so the array satisfies the entry's condition on all of its subblocks
@@ -130,20 +130,20 @@ values; if those all vanish, so do all the rest.
 \section{The computation}
 
 \begin{theorem}
-The recurrence \eqref{eq:conj} holds for every $n>15$, which is the statement of
+The recurrence \eqref{eq:conj} holds for every $n>14$, which is the statement of
 Section~1.
 \end{theorem}
 
 \begin{proof}
-The digraph was constructed from \eqref{eq:loc} by a depth-first scan across the $3$
+The digraph was constructed from \eqref{eq:loc} by a depth-first scan across the $6$
 columns: the edge condition is a conjunction of one constraint per consecutive column
 pair, so the successors of a row $r$ are enumerated column by column without testing all
 $S^2$ pairs. The vector $w=q(M)\mathbf{1}\in\mathbb{Z}^{S}$ was then formed by $15$
 matrix--vector products in exact integer arithmetic, and $\mathbf{1}^{\!\top}M^{j}w$ was
 evaluated for $j=0,1,\dots$, again exactly. Every one of those integers vanishes from the
-index corresponding to $n=15+1$ onwards, and the run continued until $w$ itself was the
+index corresponding to $n=14+1$ onwards, and the run continued until $w$ itself was the
 zero vector, which settles every larger $j$ at once. By Lemma~\ref{lem:crit} the recurrence
-holds for every $n>15$.
+holds for every $n>14$.
 \end{proof}
 
 \begin{remark}
@@ -159,7 +159,7 @@ Three checks, each independent of the algebra above.
 
 First, the digraph was built directly from the entry's stated condition and the walk counts
 $\mathbf{1}^{\!\top}M^{L-1}\mathbf{1}$ compared against the entry's DATA at
-every one of the $19$ published indices; the values agree exactly. That is what ties
+every one of the $11$ published indices; the values agree exactly. That is what ties
 the digraph to the sequence: a model that reproduced only some of the published terms would
 be the wrong model, and would have been rejected. In particular it is what rules out a
 misreading of the entry's wording, since a different reading of the condition gives a
@@ -174,7 +174,7 @@ throughout.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A234211.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A206252.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

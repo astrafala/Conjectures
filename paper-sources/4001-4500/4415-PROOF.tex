@@ -12,74 +12,99 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A232835, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A253308, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{3 September 2026}
+\date{5 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A232835 counts arrays of width $4$ over $\{0,\dots,2\}$ under a condition on each cell
-and its neighbours, and carries an empirical recurrence of order $38$ contributed by
-R.~H.~Hardin. It is true, and it is decidable rather than empirical. Every neighbour named lies
-in the three rows $i-1,i,i+1$, so an ordered pair of consecutive rows is a state, the count is
-a walk count on $S=6642$ of them, and the conjectured recurrence is then settled by a finite
-exact computation.
+OEIS A253308 counts arrays of width $3$ over $\{0,1,2\}$ in which the largest entry on the main diagonal minus the largest on the antidiagonal of every $2\times2$ subblock differs from the same number at the neighbouring subblock. The entry carries an
+empirical recurrence of order $39$ contributed by R.~H.~Hardin. It is true, and it is
+decidable rather than empirical: a block of $k$ rows and the block one row lower together
+occupy $k+1$ consecutive rows, so every comparison the condition makes is settled inside
+$3$ consecutive rows and the count is a walk count on $S=546$ states.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 68Q45.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B20, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A232835 is ``Number of (n+1)X(3+1) 0..2 arrays with every element next to itself plus and minus one within the range 0..2 horizontally, diagonally or antidiagonally.''. It has offset $1$ and begins
+OEIS A253308 is ``Number of (n+1)X(2+1) 0..2 arrays with every 2X2 subblock diagonal maximum minus antidiagonal maximum unequal to its neighbors horizontally, vertically, diagonally and antidiagonally.''. It has offset $1$ and begins
 \[
-216, 6664, 168688, 5659896, 179149960, 5458025808, 172736599272, 5399804456824,\ \dots
+518, 1752, 10064, 43220, 214676, 1053094, 5067576, 24964956,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 15*a(n-1) +281*a(n-2) +8227*a(n-3) -21581*a(n-4) -158601*a(n-5) -7158381*a(n-6) -3987980*a(n-7) -71548987*a(n-8) -430803007*a(n-9) +837154777*a(n-10) -3661660987*a(n-11) +5859342317*a(n-12) +2778173683*a(n-13) -20355818757*a(n-14) +91119341964*a(n-15) -211037778164*a(n-16) +307976701502*a(n-17) -359885158016*a(n-18) -322203768360*a(n-19) +682995573288*a(n-20) +869890580304*a(n-21) -2965546300384*a(n-22) +5420239912768*a(n-23) -6826807576576*a(n-24) +3002880366336*a(n-25) +4049008968192*a(n-26) -11735742619648*a(n-27) +12009170051072*a(n-28) -3763733659648*a(n-29) -735262769152*a(n-30) +376502484992*a(n-31) -433194532864*a(n-32) +641795620864*a(n-33) -328124596224*a(n-34) +14998831104*a(n-35) +59995324416*a(n-36) -22280142848*a(n-37) +2147483648*a(n-38)
+Empirical: a(n) = 24*a(n-2) +26*a(n-3) -145*a(n-4) -44*a(n-5) +763*a(n-6) -580*a(n-7) -2765*a(n-8) +4186*a(n-9) +3958*a(n-10) -7302*a(n-11) +3974*a(n-12) -9774*a(n-13) -79935*a(n-14) -92532*a(n-15) +32984*a(n-16) +44842*a(n-17) -70565*a(n-18) -259996*a(n-19) -339800*a(n-20) +176472*a(n-21) +289353*a(n-22) -165386*a(n-23) +127218*a(n-24) +671288*a(n-25) -342321*a(n-26) -869646*a(n-27) -311851*a(n-28) -183014*a(n-29) -339987*a(n-30) +104102*a(n-31) +281732*a(n-32) +23044*a(n-33) +15954*a(n-34) +21782*a(n-35) -16718*a(n-36) -8444*a(n-37) +732*a(n-38) +1736*a(n-39) for n>41
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 07:38:21, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 13:56:15, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The neighbours of a cell are the cells at the offsets
+The arrays have $3$ columns and a growing number of rows, with entries in $\{0,1,2\}$.
+
+For a $k\times k$ block $B$ of cells of the array, let
 \[
-(-1,-1), (-1,1), (0,-1), (0,1), (1,-1), (1,1),
+f(B)=\max_{1\le t\le k}B_{t,t}\;-\;\max_{1\le t\le k}B_{t,k+1-t} ,
 \]
-those falling outside the array being absent. The entry requires that every cell $v$ has, among its neighbours, one equal to $v+1$ and one equal to $v-1$ --- each required only when that value lies in $\{0,\dots,2\}$, which is what ``within the range $0..2$'' says.
-
-\section{The count is a walk count}
-
-Every offset above moves the row index by at most one, so whether a cell of row $i$ passes
-depends on rows $i-1$, $i$ and $i+1$ and nothing else. Take as vertices the ordered PAIRS
-$(p,c)$ of consecutive rows, allowing $p$ to be ABSENT --- that is what lets a walk of no steps
-describe a one-row array --- and put an edge $(p,c)\to(c,x)$ exactly when every cell of the
-middle row $c$ passes with $p$ above it and $x$ below it. A state with $p$ absent may begin an
-array; a state $(p,c)$ accepts when every cell of $c$ passes with nothing below it. An array of
-$L$ rows is then a walk of $L-1$ steps, each step settling one row, and every array arises from
-exactly one walk. Hence
+which in words is the largest entry on the main diagonal minus the largest on the antidiagonal. The condition is that $f$ takes different values on any two blocks that
+are neighbours in one of the directions the entry names: writing $B(i,j)$ for the block whose
+top-left cell is $(i,j)$,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau
+f\bigl(B(i,j)\bigr)\;\neq\;f\bigl(B(i+\delta_1,\,j+\delta_2)\bigr)
+\qquad\text{for }(\delta_1,\delta_2)\in\Delta,
 \]
-with $\iota$ the indicator of the beginning states, $\tau$ of the accepting ones, and $j$ the
-walk index, which differs from the entry's own $n$ by a constant read off from its published
-terms. There are $S=6642$ states, and $a$ is $C$-finite.
+whenever both blocks lie wholly inside the array, where
+\[
+\Delta=\{\,(1,-1),\ (1,1),\ (0,1),\ (1,0)\,\}
+\]
+collects the steps for the directions the entry names, namely antidiagonal, diagonal, horizontal and vertical. The
+requirement is imposed for that one size of block, $2\times2$.
 
-At $n=1$ the array has one row, and
-the condition is tested there with nothing above or below it; the entry's first term is
-$216$, which the model reproduces along with every later term. That is the cheapest check
-that the neighbour set and the boundary have been read the same way the entry reads them: a
-condition tested as though the missing rows were present, rather than absent, gives a different
-first term. There are $3^{4}=81$ possible rows over the entry's own alphabet. The state count $S=6642$ is exactly $81\cdot82$,
-one state for each ordered pair of a row and its possible predecessor, the absent predecessor
-included.
+Two remarks fix the reading. A neighbouring block is the block one step over, overlapping the
+first, not the next disjoint block: the entry says ``its neighbors'', and the counts below
+confirm it. And a comparison is imposed only when both blocks lie wholly inside the array, so a
+block near an edge is compared in fewer directions and a block whose named neighbour falls off
+the array is under no condition in that direction.
+
+\section{A window of 3 rows}
+
+A $k\times k$ block occupies $k$ consecutive rows, and each of its neighbours occupies either
+the same $k$ rows or the $k$ rows one lower. So both blocks of any comparison lie inside $k+1$
+consecutive rows, hence inside $3$ consecutive rows for every size the entry names. No
+comparison reaches further than that, in either direction.
+
+Take the array one row at a time and let the state be the last 2 rows written so far, with a
+distinguished start standing for the array before its first row, so that a walk of $n$ steps is
+an array of $n$ rows. Appending a row produces a window of $3$ rows, and the step is
+allowed exactly when every comparison whose two blocks both lie inside that window holds.
+
+Every comparison of the finished array is tested this way. Each one lies inside $3$
+consecutive rows, and every $3$ consecutive rows of the array form the window of some
+step. A comparison lying inside more than one window is tested more than once, which costs
+nothing. Conversely no step imposes anything not asked by the definition, since a step tests
+only comparisons whose two blocks lie inside the array.
+
+Every state may end an array, so $\tau=\mathbf{1}$. A block sitting in the final rows whose
+neighbour would lie below the last row is not compared in that direction at all --- the
+neighbour is not part of the array --- so stopping never leaves a condition unchecked. For the
+same reason the array of exactly $2$ rows is handled by the walks of length $2$ with no
+further test: all of its comparisons already lie inside the windows of those steps.
+
+Thus
+\[
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=546,
+\]
+for the transfer matrix $M$ on those $S$ states. The walk index $j$ and the entry's own $n$
+differ by a constant, read off by matching the published terms rather than assumed. In
+particular $a$ is $C$-finite.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{38}-\sum_i c_it^{38-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{39}-\sum_i c_it^{39-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -87,7 +112,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+38}-\sum_ic_iM^{j+38-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+39}-\sum_ic_iM^{j+39-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -96,38 +121,42 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;15\,a(n-1) + 281\,a(n-2) + 8227\,a(n-3) - 21581\,a(n-4) - 158601\,a(n-5) - 7158381\,a(n-6) - 3987980\,a(n-7) - 71548987\,a(n-8) - 430803007\,a(n-9) + 837154777\,a(n-10) - 3661660987\,a(n-11) + 5859342317\,a(n-12) + 2778173683\,a(n-13) - 20355818757\,a(n-14) + 91119341964\,a(n-15) - 211037778164\,a(n-16) + 307976701502\,a(n-17) - 359885158016\,a(n-18) - 322203768360\,a(n-19) + 682995573288\,a(n-20) + 869890580304\,a(n-21) - 2965546300384\,a(n-22) + 5420239912768\,a(n-23) - 6826807576576\,a(n-24) + 3002880366336\,a(n-25) + 4049008968192\,a(n-26) - 11735742619648\,a(n-27) + 12009170051072\,a(n-28) - 3763733659648\,a(n-29) - 735262769152\,a(n-30) + 376502484992\,a(n-31) - 433194532864\,a(n-32) + 641795620864\,a(n-33) - 328124596224\,a(n-34) + 14998831104\,a(n-35) + 59995324416\,a(n-36) - 22280142848\,a(n-37) + 2147483648\,a(n-38)
+a(n)\;=\;24\,a(n-2) + 26\,a(n-3) - 145\,a(n-4) - 44\,a(n-5) + 763\,a(n-6) - 580\,a(n-7) - 2765\,a(n-8) + 4186\,a(n-9) + 3958\,a(n-10) - 7302\,a(n-11) + 3974\,a(n-12) - 9774\,a(n-13) - 79935\,a(n-14) - 92532\,a(n-15) + 32984\,a(n-16) + 44842\,a(n-17) - 70565\,a(n-18) - 259996\,a(n-19) - 339800\,a(n-20) + 176472\,a(n-21) + 289353\,a(n-22) - 165386\,a(n-23) + 127218\,a(n-24) + 671288\,a(n-25) - 342321\,a(n-26) - 869646\,a(n-27) - 311851\,a(n-28) - 183014\,a(n-29) - 339987\,a(n-30) + 104102\,a(n-31) + 281732\,a(n-32) + 23044\,a(n-33) + 15954\,a(n-34) + 21782\,a(n-35) - 16718\,a(n-36) - 8444\,a(n-37) + 732\,a(n-38) + 1736\,a(n-39)
 \]
-for every $n>37$.
+for every $n>41$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $38$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $39$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=37+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=41+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
-Three checks, each independent of the algebra above.
+Four checks, each independent of the algebra above.
 
-First, the model reproduces all $15$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry: the digraph is built by reading the
-entry's English, and a misreading gives different counts.
+First, the model reproduces all $19$ terms the entry publishes, exactly, in integer
+arithmetic.
 
-Second, the conjectured recurrence was evaluated directly on those published terms, with no
+Second, the count was recomputed for the smallest arrays straight from the definition: every
+array of width $3$ over $\{0,1,2\}$ with a few rows was written out cell by cell, every block of
+that one size was located, its number computed, and the comparison made with each neighbouring block
+that lies inside the array. No window, no state and no end vector are involved in that
+computation, and the published terms came back.
+
+Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
 arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A232835.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A253308.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{comtet} L.~Comtet, \emph{Advanced Combinatorics}, Reidel, 1974.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

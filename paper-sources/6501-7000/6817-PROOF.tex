@@ -12,18 +12,18 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A184557, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A251272, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A184557 counts $(n+1)\times3$ arrays over $\{0,\dots,2\}$ subject to a condition imposed on
+OEIS A251272 counts $6\times(n+1)$ arrays over $\{0,\dots,1\}$ subject to a condition imposed on
 every $2\times2$ subblock, and carries an empirical recurrence of order $12$ contributed
 by R.~H.~Hardin. It is true, and it is not an empirical matter at all. The condition is local
-to each subblock, so the rows of an admissible array are the vertices of a finite digraph
-on $S=27$ vertices whose edges are the admissible consecutive pairs, and the count is a
+to each subblock, so the columns of an admissible array are the vertices of a finite digraph
+on $S=64$ vertices whose edges are the admissible consecutive pairs, and the count is a
 number of walks: $a(n)=\mathbf{1}^{\!\top}M^{n}\mathbf{1}$. Writing $q$
 for the characteristic polynomial of the conjectured recurrence, the recurrence holds for all
 $n$ exactly when $\mathbf{1}^{\!\top}M^{j}q(M)\mathbf{1}=0$ for every $j\ge0$, and the
@@ -35,42 +35,42 @@ integer arithmetic, and it comes out zero.
 
 \section{The sequence and the conjecture}
 
-OEIS A184557 is ``Number of (n+1)X3 0..2 arrays with no 2X2 subblock summing to less than 4.''. It has offset $1$ and begins
+OEIS A251272 is ``Number of (5+1)X(n+1) 0..1 arrays with no 2X2 subblock having x11-x00 less than x10-x01.''. It has offset $1$ and begins
 \[
-336, 5736, 91157, 1486258, 24057629, 390354307, 6329171799, 102644935902,\ \dots
+1049, 8812, 49872, 217634, 790734, 2510004, 7189937, 19018266,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n)=15*a(n-1)+43*a(n-2)-381*a(n-3)-42*a(n-4)+1696*a(n-5)-590*a(n-6)-2216*a(n-7)+1085*a(n-8)+858*a(n-9)-456*a(n-10)-88*a(n-11)+48*a(n-12)
+Empirical: a(n) = 13*a(n-1) -77*a(n-2) +275*a(n-3) -660*a(n-4) +1122*a(n-5) -1386*a(n-6) +1254*a(n-7) -825*a(n-8) +385*a(n-9) -121*a(n-10) +23*a(n-11) -2*a(n-12)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 02:44:23, revision 9) the statement is
+As of the ``Last modified'' line on the live entry (Jun 02 2025 10:20:18, revision 6) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;15\,a(n-1) + 43\,a(n-2) - 381\,a(n-3) - 42\,a(n-4) + 1696\,a(n-5) - 590\,a(n-6) - 2216\,a(n-7) + 1085\,a(n-8) + 858\,a(n-9) - 456\,a(n-10) - 88\,a(n-11) + 48\,a(n-12)
+a(n)\;=\;13\,a(n-1) - 77\,a(n-2) + 275\,a(n-3) - 660\,a(n-4) + 1122\,a(n-5) - 1386\,a(n-6) + 1254\,a(n-7) - 825\,a(n-8) + 385\,a(n-9) - 121\,a(n-10) + 23\,a(n-11) - 2\,a(n-12)
 \end{equation}
 for all $n>11$.
 
-\section{The condition is local, so the rows form a digraph}
+\section{The condition is local, so the columns form a digraph}
 
-Write an array of the shape in question as its list of rows
+Write an array of the shape in question as its list of columns
 $r^{(1)},r^{(2)},\dots$, each an element of
-$V=\{0,1,\dots,2\}^{3}$, so $|V|=S=27$. A $2\times2$ subblock of the array
-occupies two consecutive rows and two consecutive columns; if the two rows are $r$
-and $s$ (in that order) and the two columns are numbered $j,j+1$,
+$V=\{0,1,\dots,1\}^{6}$, so $|V|=S=64$. A $2\times2$ subblock of the array
+occupies two consecutive columns and two consecutive rows; if the two columns are $r$
+and $s$ (in that order) and the two rows are numbered $i,i+1$,
 the subblock is
 \[
-\begin{pmatrix}\alpha&\beta\\\gamma&\delta\end{pmatrix}=\begin{pmatrix}r_j&r_{j+1}\\s_j&s_{j+1}\end{pmatrix}.
+\begin{pmatrix}\alpha&\beta\\\gamma&\delta\end{pmatrix}=\begin{pmatrix}r_i&s_i\\r_{i+1}&s_{i+1}\end{pmatrix}.
 \]
 The entry's requirement on that subblock is
 \begin{equation}\label{eq:loc}
-\text{not }\bigl(\alpha+\beta+\gamma+\delta<4\bigr),
+\text{not }\bigl(\delta-\alpha<\gamma-\beta\bigr),
 \end{equation}
 a condition on the four entries alone.
 
 For $r,s\in V$ declare $r\to s$ an edge of a digraph $G$ when, for every
-$1\le j\le 3-1$,
+$1\le i\le 6-1$,
 \begin{itemize}
 \item the four entries above satisfy \eqref{eq:loc};
 
@@ -79,7 +79,7 @@ Let $M\in\{0,1\}^{S\times S}$ be the adjacency matrix of $G$ and $\mathbf{1}$ th
 all-ones vector.
 
 \begin{lemma}\label{lem:walk}
-The arrays counted by the entry with $L$ rows are exactly the walks
+The arrays counted by the entry with $L$ columns are exactly the walks
 $r^{(1)}\to r^{(2)}\to\cdots\to r^{(L)}$ of length $L-1$ in $G$. Consequently
 \[
 a(n)\;=\;\mathbf{1}^{\!\top}M^{n}\mathbf{1} .
@@ -87,15 +87,15 @@ a(n)\;=\;\mathbf{1}^{\!\top}M^{n}\mathbf{1} .
 \end{lemma}
 
 \begin{proof}
-An array with $L$ rows and $3$ columns is precisely a sequence
+An array with $L$ columns and $6$ rows is precisely a sequence
 $r^{(1)},\dots,r^{(L)}$ of elements of $V$; conversely any such sequence is an array.
-Every $2\times2$ subblock lies in two consecutive rows $r^{(t)},r^{(t+1)}$ and two
-consecutive columns, so the array satisfies the entry's condition on all of its subblocks
+Every $2\times2$ subblock lies in two consecutive columns $r^{(t)},r^{(t+1)}$ and two
+consecutive rows, so the array satisfies the entry's condition on all of its subblocks
 if and only if each consecutive pair $\bigl(r^{(t)},r^{(t+1)}\bigr)$ satisfies it for
-every column pair --- which is exactly the edge relation of $G$. The number of walks of
+every row pair --- which is exactly the edge relation of $G$. The number of walks of
 length $L-1$, summed over all starting and ending vertices, is
 $\mathbf{1}^{\!\top}M^{L-1}\mathbf{1}$, since $(M^{k})_{r,s}$ counts the walks of
-length $k$ from $r$ to $s$. The entry's index $n$ corresponds to $L=n+1$ rows.
+length $k$ from $r$ to $s$. The entry's index $n$ corresponds to $L=n+1$ columns.
 \end{proof}
 
 \section{The criterion}
@@ -135,9 +135,9 @@ Section~1.
 \end{theorem}
 
 \begin{proof}
-The digraph was constructed from \eqref{eq:loc} by a depth-first scan across the $3$
-columns: the edge condition is a conjunction of one constraint per consecutive column
-pair, so the successors of a row $r$ are enumerated column by column without testing all
+The digraph was constructed from \eqref{eq:loc} by a depth-first scan across the $6$
+rows: the edge condition is a conjunction of one constraint per consecutive row
+pair, so the successors of a column $r$ are enumerated row by row without testing all
 $S^2$ pairs. The vector $w=q(M)\mathbf{1}\in\mathbb{Z}^{S}$ was then formed by $12$
 matrix--vector products in exact integer arithmetic, and $\mathbf{1}^{\!\top}M^{j}w$ was
 evaluated for $j=0,1,\dots$, again exactly. Every one of those integers vanishes from the
@@ -159,7 +159,7 @@ Three checks, each independent of the algebra above.
 
 First, the digraph was built directly from the entry's stated condition and the walk counts
 $\mathbf{1}^{\!\top}M^{L-1}\mathbf{1}$ compared against the entry's DATA at
-every one of the $15$ published indices; the values agree exactly. That is what ties
+every one of the $20$ published indices; the values agree exactly. That is what ties
 the digraph to the sequence: a model that reproduced only some of the published terms would
 be the wrong model, and would have been rejected. In particular it is what rules out a
 misreading of the entry's wording, since a different reading of the condition gives a
@@ -174,7 +174,7 @@ throughout.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A184557.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A251272.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

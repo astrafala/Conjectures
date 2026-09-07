@@ -12,142 +12,177 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A259512, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A183400, proved by a two-line transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{3 September 2026}
+\date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A259512 counts arrays of width $6$ over $\{0,1\}$ subject to a condition read round the
-perimeter of every $2\times2$ subblock: the corners read clockwise spell one of a listed set of words. The entry carries an empirical recurrence of
-order $36$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
-empirical: the condition is settled inside a bounded window of consecutive rows, so the
-count is a walk count on a finite digraph with $S=65$ vertices, and whether a linear
-recurrence holds for such a count is a finite computation.
+OEIS A183400 counts arrays over $\{0,\dots,1\}$ in which every cell is constrained by the
+values of its neighbours, and carries an empirical recurrence of order $36$ contributed
+by R.~H.~Hardin. It is true, and it is not an empirical matter. The neighbourhood reaches one
+row up and one row down, so a single row is not enough state and a plain walk count
+is wrong; the right object is a walk on ordered \emph{pairs} of consecutive rows, where
+each step tests the condition on the middle row against both its neighbours and the two
+ends are tested with one neighbour row absent. That makes $a(n)$ a walk count on a digraph
+with $S=256$ vertices, and the conjectured recurrence is then decided by a finite exact
+computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A16, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
-\section{The conjecture}
+\section{The sequence and the conjecture}
 
-OEIS A259512 is ``Number of (n+1)X(5+1) 0..1 arrays with each 2X2 subblock having clockwise pattern 0000 0001 0101 0111.''. It has offset $1$ and begins
+OEIS A183400 is ``Half the number of nX4 binary arrays with no element equal to a strict majority of its diagonal and antidiagonal neighbors.''. It has offset $1$ and begins
 \[
-689, 9227, 126045, 1769635, 25009044, 355119489, 5050441910, 71892362811,\ \dots
+8, 8, 32, 242, 1152, 6962, 38642, 220448,\ \dots
 \]
-The entry states, as a conjecture contributed by its author and never marked settled:
-\begin{quote}
-Empirical: a(n) = 13*a(n-1) +150*a(n-2) -1839*a(n-3) -7337*a(n-4) +97344*a(n-5) +144584*a(n-6) -2601960*a(n-7) -588305*a(n-8) +39116878*a(n-9) -20332011*a(n-10) -347204803*a(n-11) +349046520*a(n-12) +1868665667*a(n-13) -2556742075*a(n-14) -6133493750*a(n-15) +10484944500*a(n-16) +11994133580*a(n-17) -25911862138*a(n-18) -12782872195*a(n-19) +39615238737*a(n-20) +4674887706*a(n-21) -37646826390*a(n-22) +4380964181*a(n-23) +21928503270*a(n-24) -6080186298*a(n-25) -7490471276*a(n-26) +3060886380*a(n-27) +1334826496*a(n-28) -755438296*a(n-29) -80164896*a(n-30) +84756256*a(n-31) -4591488*a(n-32) -2857344*a(n-33) +222976*a(n-34) +31232*a(n-35) -1024*a(n-36)
+The entry carries the following comment:
+\begin{quote}\small
+Empirical: a(n)=7*a(n-1)+9*a(n-2)-97*a(n-3)-120*a(n-4)+838*a(n-5)+583*a(n-6)-4206*a(n-7)-624*a(n-8)+12123*a(n-9)-3315*a(n-10)-22752*a(n-11)+21049*a(n-12)+24140*a(n-13)-56478*a(n-14)-646*a(n-15)+83495*a(n-16)-31249*a(n-17)-80941*a(n-18)+37933*a(n-19)+66083*a(n-20)-26176*a(n-21)-52120*a(n-22)+18250*a(n-23)+33570*a(n-24)-14461*a(n-25)-14422*a(n-26)+8548*a(n-27)+3617*a(n-28)-3175*a(n-29)-362*a(n-30)+704*a(n-31)-43*a(n-32)-84*a(n-33)+12*a(n-34)+5*a(n-35)-a(n-36) for n>37
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jun 02 2025 11:52:04, revision 6) this is still
-recorded as empirical, and nothing on the entry records it as proved.
+As of the ``Last modified'' line on the live entry (Oct 03 2025 01:40:23, revision 9) the statement is
+still recorded as empirical, and nothing on the entry records it as settled either way.
 
-\section{What is being counted}
+Written out, the claim is
+\begin{equation}\label{eq:conj}
+a(n)\;=\;7\,a(n-1) + 9\,a(n-2) - 97\,a(n-3) - 120\,a(n-4) + 838\,a(n-5) + 583\,a(n-6) - 4206\,a(n-7) - 624\,a(n-8) + 12123\,a(n-9) - 3315\,a(n-10) - 22752\,a(n-11) + 21049\,a(n-12) + 24140\,a(n-13) - 56478\,a(n-14) - 646\,a(n-15) + 83495\,a(n-16) - 31249\,a(n-17) - 80941\,a(n-18) + 37933\,a(n-19) + 66083\,a(n-20) - 26176\,a(n-21) - 52120\,a(n-22) + 18250\,a(n-23) + 33570\,a(n-24) - 14461\,a(n-25) - 14422\,a(n-26) + 8548\,a(n-27) + 3617\,a(n-28) - 3175\,a(n-29) - 362\,a(n-30) + 704\,a(n-31) - 43\,a(n-32) - 84\,a(n-33) + 12\,a(n-34) + 5\,a(n-35) - a(n-36)
+\end{equation}
+for all $n>37$.
 
-The arrays have $6$ columns and a growing number of rows, with entries in $\{0,1\}$. A
-$2\times2$ subblock is a set of four cells
+\section{The condition, and why one row is not enough}
+
+The arrays have $4$ columns and $L=n$ rows; write $x_{t,u}$ for the entry in
+row $t$ and column $u$, each in $\{0,\dots,1\}$. With the neighbour offsets
 \[
-B=\begin{pmatrix} p & q \\ r & s \end{pmatrix},
-\qquad p=x(i,j),\; q=x(i,j+1),\; r=x(i+1,j),\; s=x(i+1,j+1).
+\mathcal N=\{(-1,-1),\ (1,1),\ (-1,1),\ (1,-1)\},
 \]
-Its perimeter is a cycle of four cells, walked clockwise as $p\to q\to s\to r\to p$ and
-counterclockwise as $p\to r\to s\to q\to p$. Write
-\[
-\mathrm{cw}(B)=[p<q]+[q<s]+[s<r]+[r<p],\qquad
-\mathrm{ccw}(B)=[p<r]+[r<s]+[s<q]+[q<p]
-\]
-for the number of steps at which the value rises, going each way round.
+written as (row shift, column shift) and counting only positions inside the array, the
+entry's requirement is
+\begin{equation}\label{eq:loc}
+2\,\#\{\text{neighbours }y\text{ with }y=x_{t,u}\}\le\#\{\text{neighbours}\}
+\end{equation}
+for every cell $(t,u)$.
 
-\begin{lemma}\label{lem:sum}
-$\mathrm{cw}(B)+\mathrm{ccw}(B)=4-\#\{\text{edges of the cycle with equal ends}\}$.
+Some offsets in $\mathcal N$ have a positive row shift and some a negative one, so the
+condition at a cell of row $t$ involves rows $t-1$, $t$ and $t+1$ together. A transfer
+matrix whose states are single rows cannot express it: the step from $r^{(t)}$ to
+$r^{(t+1)}$ does not know $r^{(t-1)}$. Two consecutive rows are enough, and that is
+the state used below.
+
+\section{The digraph}
+
+Let $V=\{0,\dots,1\}^{4}$ be the possible rows and take
+$\mathcal V=V\times V$, of size $S=256$, as the vertex set. Declare $(p,c)\to(c,x)$ an edge
+when every cell of the middle row $c$ satisfies \eqref{eq:loc} with $p$ above it and $x$
+below it; there is no edge between pairs that do not overlap in this way. Let $N$ be the
+adjacency matrix, $\mathbf{v}$ the indicator of the pairs $(p,c)$ whose first row $p$
+satisfies \eqref{eq:loc} with no row above, and $\mathbf{u}$ the indicator of
+the pairs $(p,c)$ whose second row $c$ satisfies it with no row below.
+
+\begin{lemma}\label{lem:walk}
+For $L\ge2$, the arrays counted by the entry with $L$ rows are exactly the walks
+\[
+(r^{(1)},r^{(2)})\to(r^{(2)},r^{(3)})\to\cdots\to(r^{(L-1)},r^{(L)})
+\]
+of length $L-2$ starting at a vertex marked by $\mathbf{v}$ and ending at one marked by
+$\mathbf{u}$. Consequently
+\[
+a(n)\;=\;\tfrac1{2}\,\mathbf{v}^{\!\top}N^{\,L-2}\mathbf{u},\qquad L=n .
+\]
 \end{lemma}
 
 \begin{proof}
-Each of the four edges of the square is walked once by each cycle, and in opposite directions.
-An edge with distinct ends therefore contributes exactly one rise, to one of the two counts;
-an edge with equal ends contributes to neither.
+Consecutive vertices of such a walk overlap in one row, so a walk of that shape is
+precisely a sequence $r^{(1)},\dots,r^{(L)}$ of rows, that is, an array of $L$ rows
+and $4$ columns. In the walk, the cells of row $t$ for $2\le t\le L-1$ are tested
+exactly once --- at the step leaving $(r^{(t-1)},r^{(t)})$ --- and with their true
+neighbours $r^{(t-1)}$ and $r^{(t+1)}$. The cells of row $1$ are tested by
+$\mathbf{v}$ and those of row $L$ by $\mathbf{u}$, in both cases by the same condition
+with the missing neighbour row treated as absent, which is how the array itself behaves at
+its boundary. So the walks are exactly the admissible arrays, and summing over all starting
+and ending vertices counts them.
 \end{proof}
 
-The condition the entry imposes is this: reading the four corners clockwise, starting at whichever corner one pleases, spells one of the words
-\[
-0000,\ 0001,\ 0101,\ 0111.
-\]
-That is, the cyclic word $pqsr$ is a rotation of one of them. The starting corner is not fixed by the entry, and it is the data that says so: with the words $0000$, $0011$, $0101$ allowed there are seven two-by-two binary arrays, which is what such an entry publishes as its first term, whereas a fixed starting corner would leave three.
 
-\section{A bounded window}
+It is worth saying why this is not done by enumeration. At the largest index the entry
+publishes, $n=21$, the arrays have $4\cdot21$ cells over
+$2$ values, so there are about $10^{25}$ of them to sift. The
+walk count replaces that by $256$ states and one matrix--vector product per row.
+\section{The criterion}
 
-Two consecutive rows decide every subblock lying between them, and the condition of Section 2 is a condition on single subblocks only. So the state is the row just written, and nothing else.
-
-One step of the walk writes a whole row. The row is filled left to right, and the subblock
-closed by positions $j-1,j$ is tested the moment position $j$ is written, so a partial row that
-cannot be completed is abandoned rather than enumerated. The walk starts at the state standing
-for the empty array, so that a walk of $n$ steps is an array of $n$ rows.
-
-The end vector is all ones: an array may stop after any row. Thus
-\[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=65,
-\]
-for the transfer matrix $M$ on those $S$ states. The walk index $j$ and the entry's own $n$
-differ by a constant, read off by matching the published terms rather than assumed. In
-particular $a$ is $C$-finite, and every question about linear recurrences it satisfies is
-decidable.
-
-\section{The proof}
+Let $q(t)=t^{36}-\sum_i c_i\,t^{36-i}$ be the characteristic polynomial of
+\eqref{eq:conj} and put $G=N$, so that a unit step in $n$ advances the walk by
+$1$ row.
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{36}-\sum_i c_it^{36-i}$ be the characteristic polynomial of the
-conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
-$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
-holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
-and it is enough to examine $j<S$.
+Let $n_0$ be the least index with $L\ge2$ and $h_j=G^{j}N^{o}\mathbf{u}$, where
+$o=1n_0+0-2$. Then for $j\ge36$,
+\[
+a(n_0+j)-\sum_i c_i\,a(n_0+j-i)\;=\;\tfrac1{2}\,\mathbf{v}^{\!\top}G^{\,j-36}w,
+\qquad w=h_{36}-\sum_i c_i\,h_{36-i} .
+\]
+Hence \eqref{eq:conj} holds from that point on if and only if
+$\mathbf{v}^{\!\top}G^{m}w=0$ for every $m\ge0$, and it is enough to check
+$m=0,1,\dots,S-1$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+36}-\sum_ic_iM^{j+36-i}$. For the bound, $M^{S}$
-is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
-$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
-polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly.
+Substitute Lemma~\ref{lem:walk} and factor $G^{j-36}$ out of
+$G^{j}-\sum_ic_iG^{j-i}$; the nonzero scalar $\tfrac1{2}$ does not affect
+vanishing. For the last clause, Cayley--Hamilton makes $G^{S}$ an integer combination of
+$I,G,\dots,G^{S-1}$, so $\mathbf{v}^{\!\top}G^{m}w$ for $m\ge S$ is the corresponding
+combination of the earlier values; if those vanish, so do all the rest.
 \end{proof}
 
 \begin{theorem}
-\[
-a(n)\;=\;13\,a(n-1) + 150\,a(n-2) - 1839\,a(n-3) - 7337\,a(n-4) + 97344\,a(n-5) + 144584\,a(n-6) - 2601960\,a(n-7) - 588305\,a(n-8) + 39116878\,a(n-9) - 20332011\,a(n-10) - 347204803\,a(n-11) + 349046520\,a(n-12) + 1868665667\,a(n-13) - 2556742075\,a(n-14) - 6133493750\,a(n-15) + 10484944500\,a(n-16) + 11994133580\,a(n-17) - 25911862138\,a(n-18) - 12782872195\,a(n-19) + 39615238737\,a(n-20) + 4674887706\,a(n-21) - 37646826390\,a(n-22) + 4380964181\,a(n-23) + 21928503270\,a(n-24) - 6080186298\,a(n-25) - 7490471276\,a(n-26) + 3060886380\,a(n-27) + 1334826496\,a(n-28) - 755438296\,a(n-29) - 80164896\,a(n-30) + 84756256\,a(n-31) - 4591488\,a(n-32) - 2857344\,a(n-33) + 222976\,a(n-34) + 31232\,a(n-35) - 1024\,a(n-36)
-\]
-for every $n>35$.
+The recurrence \eqref{eq:conj} holds for every $n>37$, which is the statement of
+Section~1.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $36$ matrix--vector products in exact integer
-arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=35+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once.
+The digraph was built directly from \eqref{eq:loc}: for each of the $S=256$ pairs and each
+of the $(1+1)^{4}$ possible next rows, the condition was tested on every cell of
+the middle row. The vector $w$ was formed by $36$ applications of $G$ in exact integer
+arithmetic and $\mathbf{v}^{\!\top}G^{m}w$ evaluated for $m=0,1,\dots$, again exactly.
+Every one of those integers vanishes from the index corresponding to $n=37+1$ onwards,
+and the run was continued until $S+1$ consecutive zeros had been seen, which by
+Lemma~\ref{lem:crit} settles every larger $m$ at once.
 \end{proof}
+
+\begin{remark}
+The argument gives more than the recurrence: the sequence is $C$-finite with characteristic
+polynomial dividing that of $G$, hence has a rational generating function whose denominator
+divides $\det(I-xG)$. The conjectured recurrence is one consequence; the minimal one is a
+divisor of $q$.
+\end{remark}
 
 \section{Verification}
 
-Four checks, each independent of the algebra above.
+Three checks, each independent of the algebra above.
 
-First, the model reproduces all $15$ terms the entry publishes, exactly, in integer
-arithmetic.
+First, the walk counts of Lemma~\ref{lem:walk} were compared against the entry's DATA at
+every one of the $21$ published indices, with no shift fitted: the number of rows is
+read off the entry's own name as $L=n$ and the entry's offset says which index the first
+published term carries. The values agree exactly. A misreading of \eqref{eq:loc}, of the
+neighbour set, or of the boundary treatment would give a different digraph and different
+counts, so this is a test of the modelling and not only of the arithmetic.
 
-Second, the count was recomputed for the smallest arrays straight from the definition: every
-array of the stated width and a few rows was written out cell by cell over $\{0,1\}$, each of
-its $2\times2$ subblocks was read round its perimeter, and the condition of Section 2 was
-applied as stated. No window, no state and no recurrence is involved in that computation, and
-the published terms came back.
+Second, the recurrence \eqref{eq:conj} was evaluated on those published terms in exact
+integer arithmetic, with no matrices involved, and vanishes wherever it applies.
 
-Third, the conjectured recurrence was evaluated directly on the published terms, with no
-matrices involved, and holds wherever the proved range and the data overlap.
-
-Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
-arithmetic on the whole vector rather than on a sampled prefix.
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried to the full
+Cayley--Hamilton bound in exact integer arithmetic rather than to a sampled prefix, and
+returned zero throughout.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A259512.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A183400.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+University Press, 2009.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}
