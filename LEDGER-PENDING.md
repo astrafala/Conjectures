@@ -440,3 +440,16 @@ listed.
 
 **README** gained an *Authorship, priority and reuse* section: sole authorship, the dated
 record in four independent places, and that CC BY 4.0 permits reuse only with credit.
+
+### Standing rule added: never stop
+
+Written into `METHODOLOGY.md` as section 7a. **The work does not stop, and there is no state
+of this project in which waiting is the right thing to do.** A sweep that empties its pool is
+pointed at the next one; when every pool an engine can read is exhausted, the next work is a
+new engine, chosen by clustering the names no engine reads and taking the largest cluster;
+when a check finishes it is re-run, because the corpus has grown since; and a wall is re-tested
+whenever the thing that caused it changes. Idle is a defect.
+
+That last clause is not a slogan. Every wall re-tested on 7 September 2026 turned out to be a
+stale filter rather than mathematics — seven of them in one day, hiding between forty and four
+hundred and thirty-four entries each.

@@ -248,6 +248,28 @@ hold no conjectures is itself recorded, so that nobody measures it twice.
 …and 63 further arguments; see [papers/index.csv](papers/index.csv).
 
 
+## 7a. Never stop
+
+**Standing rule, above all the others: the work does not stop.** There is no state of this
+project in which the right thing to do is wait.
+
+* A sweep that empties its pool is pointed at the next pool, not switched off. The pools are
+  listed in `engine/deep-check/pool-*.json` and are rebuilt from the OEIS clone whenever one
+  runs dry, because entries are added to the OEIS every day and a pool measured last week is
+  already short.
+* When every pool an engine can read is exhausted, the next work is a **new engine** — the
+  names no engine reads are clustered by shape and the largest cluster is written next. That
+  is how `transfer94` came to exist, and 1,486 clustered names were still waiting when it did.
+* When a check finishes, it is re-run, because the corpus it checked has grown since.
+* A wall is recorded with what was measured and re-tested when the thing that caused it
+  changes. Almost every wall on this project turned out to be a stale filter and not
+  mathematics: on 7 September 2026 alone, seven of them were, and each hid between forty and
+  four hundred and thirty-four entries.
+
+Idle is a defect. If there is genuinely nothing to sweep, there is a check to re-run; if there
+is no check to re-run, there is an engine to write; if there is no engine to write, the pools
+are stale and need rebuilding from the clone.
+
 ## 8. The walls
 
 Recorded rather than quietly omitted:
