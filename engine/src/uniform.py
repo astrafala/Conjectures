@@ -50,7 +50,13 @@ def build(en, p, cap):
             if (al + 1) ** cols > cap:
                 return None
             return M[en].build(*p)
-        if en in ('transfer17', 'transfer23', 'transfer29', 'transfer30', 'transfer31', 'transfer33', 'transfer34', 'transfer35', 'transfer36', 'transfer37', 'transfer6'):
+        if en == 'transfer17':
+            # the pair state is (alpha+1)^(2W) and almost all of it is redundant; the
+            # pair-free construction merges before the states exist and is both smaller and
+            # faster, so it is what the sweep uses. Nothing falls back to the old build: if
+            # this one passes the cap, the pair state passed it long ago.
+            return M[en].build_pairfree(p, cap=cap)
+        if en in ('transfer23', 'transfer29', 'transfer30', 'transfer31', 'transfer33', 'transfer34', 'transfer35', 'transfer36', 'transfer37', 'transfer6'):
             b = M[en].build(p) if en == 'transfer6' else M[en].build(p, cap=cap)
             if b is None or not b[0]:
                 return None
@@ -83,6 +89,8 @@ def build(en, p, cap):
 
 
 def size(en, p, b):
+    if en == 'transfer17':
+        return b[3]
     if en == 'transfer7':
         return len(b[0])
     if en in PLAIN:
@@ -99,7 +107,10 @@ def terms(en, p, b, N):
     if en == 'transfer3':
         st, adj = b
         return [Fraction(v) for v in T2.terms(adj, len(st), N)]
-    if en in ('transfer6', 'transfer17', 'transfer23', 'transfer29', 'transfer30', 'transfer31', 'transfer33', 'transfer34', 'transfer35', 'transfer36', 'transfer37'):
+    if en == 'transfer17':
+        adj, start, end, S = b
+        return [Fraction(v, p['frac']) for v in T19.terms(adj, start, end, N)]
+    if en in ('transfer6', 'transfer23', 'transfer29', 'transfer30', 'transfer31', 'transfer33', 'transfer34', 'transfer35', 'transfer36', 'transfer37'):
         st, adj = b
         f = p['frac']
         return [Fraction(v, f) for v in M[en].terms(adj, len(st), N)]
@@ -139,7 +150,11 @@ def threshold(en, p, b, coeffs, order):
     if en == 'transfer3':
         st, adj = b
         return T2.threshold(adj, len(st), coeffs, order)
-    if en in ('transfer6', 'transfer17', 'transfer23', 'transfer29', 'transfer30', 'transfer31', 'transfer33', 'transfer34', 'transfer35', 'transfer36', 'transfer37'):
+    if en == 'transfer17':
+        adj, start, end, S = b
+        adj, start, end, S = lumpauto.lump(adj, start, end)
+        return T19.threshold(adj, start, end, coeffs, order, S)
+    if en in ('transfer6', 'transfer23', 'transfer29', 'transfer30', 'transfer31', 'transfer33', 'transfer34', 'transfer35', 'transfer36', 'transfer37'):
         st, adj = b
         # The annihilation test runs until S consecutive residuals vanish, so its cost is
         # governed by the state count, and these models are enormously redundant: the

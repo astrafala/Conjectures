@@ -400,3 +400,132 @@ def threshold(adj, S, coeffs, order):
         return None
     last = max((i for i, u in enumerate(us) if u != 0), default=-1)
     return order + last
+
+
+# ---------------------------------------------------------------------------
+# A build that never materialises the pair state
+#
+# The vertices above are ordered pairs of lines, so the state count is
+# (alpha+1)^(2W): sixteen million at width 6 over four values, which is why the wider
+# members of this family were never settled. Almost all of that is redundant, and the
+# redundancy has an exact description.
+#
+# For a pair (r, s) and a window j, whether a line t is admissible at that window depends
+# on r and s only through their own j-th windows. Collect, for each j, the set of triples
+# (t_j, t_{j+1}, t_{j+2}) the pair allows; call that tuple of sets C(r, s). Then:
+#
+#   * the lines t that may follow (r, s) are exactly those consistent with every C_j, and
+#   * the successor is (s, t), whose own constraint C(s, t) does not mention r at all.
+#
+# So two pairs (r, s) and (r', s) with the same C are indistinguishable --- same outgoing
+# lines, same successors --- and the state may be taken to be (s, C). That is the same
+# merge `lumpauto` performs, done before the states exist rather than after.
+#
+# The start weight of (s, C) is the number of r with C(r, s) = C, and r enters C column by
+# column, so those counts come from a small dynamic programme rather than from enumerating
+# every r.
+# ---------------------------------------------------------------------------
+
+def _windows(line, K):
+    return [(line[j], line[j + 1], line[j + 2]) for j in range(K)]
+
+
+def build_pairfree(p, cap=200000):
+    W, alpha, fn = p['fixed'], p['alpha'], p['pred']
+    rowwalk = p['walk'] == 'rows'
+    A = alpha + 1
+    K = W - 2
+    if K < 1:
+        return None
+    vals = list(range(A))
+    tris = list(product(vals, repeat=3))
+    tri_bit = {t: 1 << i for i, t in enumerate(tris)}
+
+    mask_cache = {}
+
+    def mask(rw, sw):
+        """which third windows the pair of windows (rw, sw) allows"""
+        m = mask_cache.get((rw, sw))
+        if m is None:
+            m = 0
+            for tw in tris:
+                g = (rw, sw, tw) if rowwalk else ((rw[0], sw[0], tw[0]),
+                                                  (rw[1], sw[1], tw[1]),
+                                                  (rw[2], sw[2], tw[2]))
+                if fn(g):
+                    m |= tri_bit[tw]
+            mask_cache[(rw, sw)] = m
+        return m
+
+    def constraint(r, s):
+        rw, sw = _windows(r, K), _windows(s, K)
+        return tuple(mask(rw[j], sw[j]) for j in range(K))
+
+    def follows(C):
+        """the lines consistent with every window constraint, grown column by column"""
+        out, pre = [], []
+
+        def rec(i):
+            if i == W:
+                out.append(tuple(pre))
+                return
+            for v in vals:
+                pre.append(v)
+                j = i - 2
+                if j < 0 or (C[j] >> (tri_bit[(pre[j], pre[j + 1], pre[j + 2])].bit_length() - 1)) & 1:
+                    rec(i + 1)
+                pre.pop()
+
+        rec(0)
+        return out
+
+    rows = list(product(vals, repeat=W))
+
+    # start weights: for each s, how many r give each constraint, r grown column by column
+    startw = {}
+    for s in rows:
+        sw = _windows(s, K)
+        layer = {}
+        for a in vals:
+            for b in vals:
+                layer[((a, b), ())] = layer.get(((a, b), ()), 0) + 1
+        for j in range(K):
+            nxt = {}
+            for (last2, done), cnt in layer.items():
+                x, y = last2
+                for z in vals:
+                    key = ((y, z), done + (mask((x, y, z), sw[j]),))
+                    nxt[key] = nxt.get(key, 0) + cnt
+            layer = nxt
+        for (_, C), cnt in layer.items():
+            k = (s, C)
+            startw[k] = startw.get(k, 0) + cnt
+        if len(startw) > cap:
+            return None
+
+    index, states, adj = {}, [], []
+
+    def sid(key):
+        i = index.get(key)
+        if i is None:
+            i = index[key] = len(states)
+            states.append(key)
+            adj.append(None)
+        return i
+
+    for k in startw:
+        sid(k)
+    qi = 0
+    while qi < len(states):
+        s, C = states[qi]
+        row = []
+        for t in follows(C):
+            row.append(sid((t, constraint(s, t))))
+            if len(states) > cap:
+                return None
+        adj[qi] = row
+        qi += 1
+    S = len(states)
+    start = [startw.get(k, 0) for k in states]
+    end = [1] * S
+    return adj, start, end, S

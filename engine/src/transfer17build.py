@@ -41,6 +41,22 @@ def build(h):
     coeffs = {int(k): int(v) for k, v in h["coeffs"].items()}
 
     line, lines = ("row", "rows") if rowwalk else ("column", "columns")
+    pairs = (alpha + 1) ** (2 * W)
+    # The pair vertex set is enormously redundant and the redundancy is exact, so the model
+    # actually used merges it. A paper must describe the digraph its numbers came from.
+    merge = "" if S == pairs else (
+        r" Most of those pairs are indistinguishable, and exactly so. For a window $j$, "
+        r"whether a {line} $t$ is admissible there depends on $r$ and $s$ only through their "
+        r"own $j$-th windows, so collect for each $j$ the set of triples "
+        r"$(t_j,t_{{j+1}},t_{{j+2}})$ the pair allows and call that tuple $C(r,s)$. The "
+        r"{lines} that may follow $(r,s)$ are exactly those consistent with every $C_j$, and "
+        r"the successor $(s,t)$ carries $C(s,t)$, which does not mention $r$. Hence two pairs "
+        r"$(r,s)$ and $(r',s)$ with the same $C$ have the same outgoing {lines} and the same "
+        r"successors: they may be identified, and the vertex is $(s,C)$. Each such vertex "
+        r"begins an array with the multiplicity of $r$ that produced it, which is what "
+        r"$\iota$ records. That leaves $S={S}$ vertices."
+    ).format(line=line, lines=lines, S=S)
+
     cross = "column" if rowwalk else "row"
     shape = (rf"$(n+{base})\times{W}$" if rowwalk else rf"${W}\times(n+{base})$")
     fractex = "" if frac == 1 else rf"\tfrac1{{{frac}}}"
@@ -121,12 +137,13 @@ holds for {quantword} such $g$. This involves $r$, $s$ and $t$ only: it is a con
 three consecutive {lines} and on nothing else.
 
 Take as vertices of a digraph $G$ the ordered PAIRS $(r,s)$ of {lines}, of which there are
-$S=({alpha}+1)^{{2\cdot{W}}}={S}$, and put an edge $(r,s)\to(s,t)$ exactly when the condition
+$({alpha}+1)^{{2\cdot{W}}}={pairs}$, and put an edge $(r,s)\to(s,t)$ exactly when the condition
 holds for the triple $(r,s,t)$ at every admissible index. An array with $L$ {lines} is then a
 walk of length $L-2$ in $G$: its first two {lines} name the starting vertex and each further
-{line} is one step. Hence, with $M$ the adjacency matrix of $G$,
+{line} is one step.{merge} Hence, with $M$ the adjacency matrix of $G$ on $S={S}$ vertices and
+$\iota$ the vector of starting weights,
 \[
-a(n)\;=\;{fractex}\,\mathbf{{1}}^{{\!\top}}M^{{\,n-{off}+{h['shift']}}}\mathbf{{1}},
+a(n)\;=\;{fractex}\,\iota^{{\!\top}}M^{{\,n-{off}+{h['shift']}}}\mathbf{{1}},
 \]
 the exponent being fixed by the entry's own shape and checked against its published terms.
 In particular $a$ is $C$-finite.
