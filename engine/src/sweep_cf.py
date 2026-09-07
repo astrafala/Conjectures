@@ -12,7 +12,11 @@ CAP = int(sys.argv[1]) if len(sys.argv) > 1 else 20000
 P = '/tmp/claude-0/-home-user-Conjectures/a6c6c48d-a8e1-5e03-bfd7-16e8d9d94539/scratchpad/'
 names = json.load(open(P + 'all_names.json'))
 roster = {r['anum'] for r in json.load(open('rank-map.json'))}
-HITS, DONE = 'cf_hits.json', 'cf_done.json'
+# a run on a different target list must not write into the standing one: HITS and DONE were
+# fixed names, so pointing TARGETS at a new pool silently reused the old run's `done` set and
+# processed nothing
+HITS = os.environ.get('HITS', 'cf_hits.json')
+DONE = os.environ.get('DONE', 'cf_done.json')
 hits = json.load(open(HITS)) if os.path.exists(HITS) else []
 done = set(json.load(open(DONE))) if os.path.exists(DONE) else set()
 res = collections.Counter()

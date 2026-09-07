@@ -85,7 +85,12 @@ ONLY = os.environ.get('ONLY', '')
 ANUMS = {x for x in os.environ.get('ANUMS', '').replace(',', ' ').split() if x}
 if os.environ.get('ANUMS_FILE'):
     ANUMS |= {x for x in open(os.environ['ANUMS_FILE']).read().replace(',', ' ').split() if x}
-for a in sorted(CANDS):
+# ANUMS names entries to ask about, so it must be able to name one the cached candidate list
+# has never heard of. Iterating CANDS alone meant a newly written engine's entries -- which
+# are not in a cache built before it existed -- were filtered out to nothing, and the sweep
+# reported that it had processed zero of them. That is the fifth cache in this codebase found
+# holding back work rather than saving it.
+for a in sorted(set(CANDS) | ANUMS):
     if ANUMS and a not in ANUMS:
         continue
     if ONLY and CANDS[a] != ONLY:
@@ -105,7 +110,12 @@ for a in sorted(CANDS):
     # partition differently in every shard and entries would be both duplicated and dropped
     if zlib.crc32(a.encode()) % NSHARD != SHARD:
         continue
-    nm = names[a]
+    nm = names.get(a)
+    if nm is None:
+        try:
+            nm = LE.get(a)['name']
+        except Exception:
+            res['name unknown'] += 1; done.add(a); save(); continue
     got = uniform.read(nm)
     if not got:
         continue
