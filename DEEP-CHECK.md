@@ -519,7 +519,7 @@ A stratified sample, one paper from each of the 105 families, drawn with a fixed
 is reproducible and not cherry-picked (`engine/deep-check/phase12-sample.json`). Read the way
 a hostile referee reads: find the weakest step and attack it.
 
-Fourteen read so far; the ones below are those where the attack found something or where the
+Seventeen read so far; the ones below are those where the attack found something or where the
 step most likely to fail was checked by hand.
 
 * **A223181** (`gf-implies-rec`) **passes.** Its proof is conditional on a generating function
@@ -554,6 +554,19 @@ step most likely to fail was checked by hand.
 * **A264054** (`index-change`), **A251459** (`table-order-recovery`) and **A240423**
   (`ray-sum`) pass. The second names exactly which lines it settles — *"column 2, column 3"* —
   rather than claiming the block.
+
+* **A237532** (`order-statistic`) **passes, and it is the best-handled ambiguity found so far.**
+  Its entry reads *"the upper median minus the lower median of every 2 X 2 subblock equal"* —
+  equal to *what* is not said. The body does not paper over it: it states that the entry asks
+  the quantity to take the **same** value on every subblock, that the common value is not
+  named, and that the count therefore splits by it — for each `v` a separate walk count, the
+  sets disjoint because an array determines its own common value, and `a(n)` their finite sum
+  on the disjoint union. That is the right treatment of an elliptical condition. The abstract
+  says only *"a condition on the order statistics"*, which is one of the 103 thin abstracts
+  above, but nothing is hidden.
+* **A202445** (`pattern-avoidance`) and **A204034** (`matrix-subblock`) pass; in the second,
+  the published `a(1) = 121` is exactly the state count, which is what a pair-of-rows state
+  predicts.
 
 **375 papers describe the wrong axis.** Found by reading A254424 (rank 5432): its entry is
 `(3+1) X (n+1)` — four rows, a growing number of columns — and the paper says *"a pair of
