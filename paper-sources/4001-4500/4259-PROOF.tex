@@ -12,66 +12,77 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A187373, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A251784, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{6 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A187373 counts arrays of width $3$ over $\{0,1,2,3\}$ in which every $3\times3$ subblock
-satisfies a condition on its nine entries. The entry carries an empirical recurrence of order
-$40$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical: a
-$3\times3$ block lies in three consecutive rows, so the state is the last two rows and the
-count is a walk count on $S=4161$ states.
+OEIS A251784 counts arrays of width $3$ over $\{0,1,2,3\}$ in which every $3\times3$ window has
+constrained SUMS along its rows, its columns and its two diagonals. The entry carries an
+empirical recurrence of order $41$ contributed by R.~H.~Hardin. It is true, and it is
+decidable rather than empirical: a $3\times3$ window lies in $3$ consecutive array rows,
+so the count is a walk count on $S=4161$ states.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 05B20, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A187373 is ``Half the number of (n+2)X3 0..3 arrays with each 3X3 subblock having sum 13 or 14.''. It has offset $1$ and begins
+OEIS A251784 is ``Number of (n+2)X(1+2) 0..3 arrays with no row, column, diagonal or antidiagonal in any 3X3 subblock summing to 2 3 6 or 7.''. It has offset $1$ and begins
 \[
-30276, 578832, 11193852, 222367896, 4615930512, 96136061832, 2017081911744, 42927291866736,\ \dots
+1280, 1664, 3072, 6144, 11834, 22632, 44792, 86988,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n)=12*a(n-1)+144*a(n-2)+8364*a(n-3)-85968*a(n-4)-1025856*a(n-5)-22540932*a(n-6)+175623984*a(n-7)+2326114368*a(n-8)+23022501696*a(n-9)-124292765952*a(n-10)-2240639656704*a(n-11)-6241406088960*a(n-12)+3951551070720*a(n-13)+929936095649280*a(n-14)-2199121049454336*a(n-15)+27388235408044032*a(n-16)-126009950324438016*a(n-17)+1363797544592636928*a(n-18)-10200775372373569536*a(n-19)-9861110258169065472*a(n-20)-200171738877536047104*a(n-21)+1251463466276954062848*a(n-22)+2567465691549838442496*a(n-23)+4989615573505839759360*a(n-24)-39261875389490334597120*a(n-25)-112864472074442185113600*a(n-26)+850401008516066652979200*a(n-27)-1287421175527968905625600*a(n-28)-3120464501194565615616000*a(n-29)-63180604151805785407488000*a(n-30)+42574222265676925501440000*a(n-31)+166130233406853532876800000*a(n-32)+1270747183358845491609600000*a(n-33)+425660202835763842252800000*a(n-34)+2189044430502025494528000000*a(n-35)-2240376895000509677568000000*a(n-36)+16131556022908260188160000000*a(n-37)-65768732975904042516480000000*a(n-38)+34116345635915641651200000000*a(n-39)+227442304239437611008000000000*a(n-40)
+Empirical: a(n) = 2*a(n-1) +2*a(n-2) +14*a(n-3) -29*a(n-4) -39*a(n-5) -60*a(n-6) +103*a(n-7) +261*a(n-8) +219*a(n-9) +54*a(n-10) -679*a(n-11) -1209*a(n-12) -512*a(n-13) +491*a(n-14) +1546*a(n-15) +1721*a(n-16) +293*a(n-17) -756*a(n-18) -463*a(n-19) +513*a(n-20) +1705*a(n-21) +1590*a(n-22) -297*a(n-23) -1862*a(n-24) -1774*a(n-25) -161*a(n-26) +1644*a(n-27) +1852*a(n-28) +334*a(n-29) -1340*a(n-30) -1888*a(n-31) -1090*a(n-32) +44*a(n-33) +608*a(n-34) +484*a(n-35) +32*a(n-36) -352*a(n-37) -424*a(n-38) -336*a(n-39) -192*a(n-40) -48*a(n-41) for n>50
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 03:55:22, revision 10) this is still
+As of the ``Last modified'' line on the live entry (Jun 02 2025 10:30:44, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The arrays have $3$ columns and a growing number of rows, with entries in $\{0,1,2,3\}$. The
-condition is imposed on every $3\times3$ block of the array --- every choice of three
-consecutive rows and three consecutive columns --- and asks that the nine entries sum to one of $13,\,14$. The entry publishes $1/2$ of that count; the division is by a constant and changes nothing about the recurrence.
-
-
-
-\section{Three rows}
-
-A $3\times3$ block occupies three consecutive rows, so everything the condition asks is decided
-by three consecutive rows and nothing wider. Take the array one row at a time and let the state
-be the last two rows written, with a distinguished start standing for the array before its
-first row. Appending a row completes the blocks whose bottom row is the new one, and the step
-is allowed exactly when each of those blocks passes.
-
-Every block of the finished array is tested exactly once, at the step that writes its bottom
-row, and no step imposes anything the definition does not ask. The first two rows complete no
-block at all, which is why they are laid down without a test. Every state may end an array, so
-$\tau=\mathbf{1}$. Thus
+The array has $3$ cells across, with entries in $\{0,1,2,3\}$. A WINDOW is a $3\times3$ block
+of consecutive cells lying inside the array. Every window must satisfy
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=4161,
+\begin{array}{ll}
+\text{the sum along} & \text{} \\[2pt]
+\text{each row} & \text{must NOT be 2 or 3 or 6 or 7} \\
+\text{each column} & \text{must NOT be 2 or 3 or 6 or 7} \\
+\text{the main diagonal} & \text{must NOT be 2 or 3 or 6 or 7} \\
+\text{the antidiagonal} & \text{must NOT be 2 or 3 or 6 or 7} \\
+\end{array}
 \]
-for the transfer matrix $M$ on those $S$ states. The walk index $j$ and the entry's own $n$
-differ by a constant, read off by matching the published terms rather than assumed. In
-particular $a$ is $C$-finite.
+where the main diagonal of a window runs from its top left corner to its bottom right, and its
+antidiagonal from top right to bottom left.
+
+\section{The walk}
+
+\begin{lemma}\label{lem:win}
+A $3\times3$ window occupies $3$ consecutive array rows, so every condition above is
+decided by $3$ consecutive rows and by nothing else.
+\end{lemma}
+
+\begin{proof}
+By definition of a window.
+\end{proof}
+
+So the state is the window of the last $2$ array rows, a row not yet written carried as
+$\bot$, and a step appends a row and settles every $3\times3$ window that row completes. A
+window needing a row that is $\bot$ does not exist, which is the boundary rule; the walk starts
+at the all-$\bot$ state, so a walk of $R$ steps is an array of $R$ rows. With $M$ the adjacency
+matrix and $\tau=\mathbf{1}$,
+\[
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=4161.
+\]
+The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
+published terms rather than assumed. In particular $a$ is $C$-finite.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{40}-\sum_i c_it^{40-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{41}-\sum_i c_it^{41-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -79,7 +90,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+40}-\sum_ic_iM^{j+40-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+41}-\sum_ic_iM^{j+41-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -88,29 +99,29 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;12\,a(n-1) + 144\,a(n-2) + 8364\,a(n-3) - 85968\,a(n-4) - 1025856\,a(n-5) - 22540932\,a(n-6) + 175623984\,a(n-7) + 2326114368\,a(n-8) + 23022501696\,a(n-9) - 124292765952\,a(n-10) - 2240639656704\,a(n-11) - 6241406088960\,a(n-12) + 3951551070720\,a(n-13) + 929936095649280\,a(n-14) - 2199121049454336\,a(n-15) + 27388235408044032\,a(n-16) - 126009950324438016\,a(n-17) + 1363797544592636928\,a(n-18) - 10200775372373569536\,a(n-19) - 9861110258169065472\,a(n-20) - 200171738877536047104\,a(n-21) + 1251463466276954062848\,a(n-22) + 2567465691549838442496\,a(n-23) + 4989615573505839759360\,a(n-24) - 39261875389490334597120\,a(n-25) - 112864472074442185113600\,a(n-26) + 850401008516066652979200\,a(n-27) - 1287421175527968905625600\,a(n-28) - 3120464501194565615616000\,a(n-29) - 63180604151805785407488000\,a(n-30) + 42574222265676925501440000\,a(n-31) + 166130233406853532876800000\,a(n-32) + 1270747183358845491609600000\,a(n-33) + 425660202835763842252800000\,a(n-34) + 2189044430502025494528000000\,a(n-35) - 2240376895000509677568000000\,a(n-36) + 16131556022908260188160000000\,a(n-37) - 65768732975904042516480000000\,a(n-38) + 34116345635915641651200000000\,a(n-39) + 227442304239437611008000000000\,a(n-40)
+a(n)\;=\;2\,a(n-1) + 2\,a(n-2) + 14\,a(n-3) - 29\,a(n-4) - 39\,a(n-5) - 60\,a(n-6) + 103\,a(n-7) + 261\,a(n-8) + 219\,a(n-9) + 54\,a(n-10) - 679\,a(n-11) - 1209\,a(n-12) - 512\,a(n-13) + 491\,a(n-14) + 1546\,a(n-15) + 1721\,a(n-16) + 293\,a(n-17) - 756\,a(n-18) - 463\,a(n-19) + 513\,a(n-20) + 1705\,a(n-21) + 1590\,a(n-22) - 297\,a(n-23) - 1862\,a(n-24) - 1774\,a(n-25) - 161\,a(n-26) + 1644\,a(n-27) + 1852\,a(n-28) + 334\,a(n-29) - 1340\,a(n-30) - 1888\,a(n-31) - 1090\,a(n-32) + 44\,a(n-33) + 608\,a(n-34) + 484\,a(n-35) + 32\,a(n-36) - 352\,a(n-37) - 424\,a(n-38) - 336\,a(n-39) - 192\,a(n-40) - 48\,a(n-41)
 \]
-for every $n>40$.
+for every $n>50$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $40$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $41$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=40+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once.
+integers vanish from the index corresponding to $n=50+1$ onwards and the run continued
+until the working vector was identically zero.
 \end{proof}
 
 \section{Verification}
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $14$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $25$ terms the entry publishes, exactly, in integer
 arithmetic.
 
-Second, the count was recomputed for the smallest arrays straight from the definition: every
-array was written out cell by cell and each $3\times3$ block tested directly on its nine
-entries. No rows, no window, no state and no transfer matrix are involved in that computation,
-and the published terms came back.
+Second, the count was recomputed for the smallest arrays straight from the definition: fill the
+cells in row major order, in the orientation the entry's own name writes, and test a window as
+soon as its last cell is placed. No state, no transposition and no transfer matrix are
+involved, and the published terms came back.
 
 Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
@@ -120,7 +131,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A187373.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A251784.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge

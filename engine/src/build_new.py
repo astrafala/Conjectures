@@ -19,9 +19,12 @@ import localentry as LE
 # transfer17's builder prints the entry's own condition, which the sweep record does not
 # carry: the parse is redone here and folded into the record so the paper can quote it
 # rather than describe it in general terms.
-ENRICH = {'transfer17', 'transfer6'}
+ENRICH = {'transfer17', 'transfer6', 'transfer20', 'transfer21'}
 
 SPECIAL = {'transfer17': 'transfer17build', 'transfer6': 'transfer6build',
+           'transfer20': 'transfer20build', 'transfer21': 'transfer21build',
+           'transfer38': 'transfer38build', 'transfer56': 'transfer56build',
+           'transfer62': 'transfer62build',
            'transfer34': 'transfer34build', 'transfer35': 'transfer35build',
            'transfer36': 'transfer36build', 'transfer37': 'transfer37build',
            'transfer81': 't81build', 'transfer82': 't82build', 'transfer83': 't83build',

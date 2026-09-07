@@ -12,16 +12,16 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A204356, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A204355, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A204356 counts $(n+2)\times5$ arrays over $\{0,\dots,1\}$ subject to a condition imposed on
+OEIS A204355 counts $(n+2)\times4$ arrays over $\{0,\dots,1\}$ subject to a condition imposed on
 every $3\times3$ subblock, and counted UP TO RELABELLING of the
-alphabet; it carries an empirical recurrence of order $23$ contributed by
+alphabet; it carries an empirical recurrence of order $24$ contributed by
 R.~H.~Hardin. It is true, and it is decidable rather than empirical. What is counted is
 equality patterns, which is not a walk count --- but it is a fixed rational combination of
 walk counts, one for each alphabet size, and that combination is again $C$-finite. Whether the
@@ -33,15 +33,15 @@ Cayley--Hamilton theorem bounding the work.
 
 \section{The conjecture}
 
-OEIS A204356 is ``Number of (n+2)X5 0..1 arrays with every 3X3 subblock having three equal elements in a row horizontally, vertically, diagonally or antidiagonally exactly one way, and new values 0..1 introduced in row major order.''. It has offset $1$ and begins
+OEIS A204355 is ``Number of (n+2)X4 0..1 arrays with every 3X3 subblock having three equal elements in a row horizontally, vertically, diagonally or antidiagonally exactly one way, and new values 0..1 introduced in row major order.''. It has offset $1$ and begins
 \[
-764, 2063, 5516, 13721, 35690, 92286, 236382, 607036,\ \dots
+241, 713, 2063, 5812, 16792, 48226, 137407, 391892,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = a(n-1) +a(n-2) +2*a(n-3) +17*a(n-4) -a(n-5) -a(n-6) -5*a(n-7) -58*a(n-8) +28*a(n-9) -9*a(n-10) -11*a(n-11) +84*a(n-12) -82*a(n-13) +49*a(n-14) +a(n-15) -50*a(n-16) +66*a(n-17) -52*a(n-18) +33*a(n-19) -12*a(n-20) +4*a(n-21) -4*a(n-23) for n>29
+Empirical: a(n) = 5*a(n-2) +8*a(n-3) +16*a(n-4) -7*a(n-5) -76*a(n-6) -52*a(n-7) +39*a(n-8) +33*a(n-9) +27*a(n-10) +105*a(n-11) +24*a(n-12) -102*a(n-13) +36*a(n-14) +13*a(n-15) -86*a(n-16) -26*a(n-17) +20*a(n-18) +14*a(n-19) -12*a(n-20) +18*a(n-21) +6*a(n-22) -4*a(n-23) +2*a(n-24) for n>28
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 11:09:34, revision 9) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 11:09:26, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{Patterns are a combination of counts}
@@ -73,7 +73,7 @@ value or compares sizes.
 
 The entry's condition constrains every $3\times3$ subblock, which spans three consecutive
 rows and three consecutive columns. Writing an array as a sequence of rows
-$u_1,u_2,\dots$ over $\{0,\dots,1\}^{5}$, the condition
+$u_1,u_2,\dots$ over $\{0,\dots,1\}^{4}$, the condition
 \[
 \text{exactly }1\text{ of the horizontally, vertically, diagonally or antidiagonally lines of }g\text{ \text{is constant}}
 \]
@@ -84,14 +84,14 @@ Doing that for each alphabet size $1,\dots,2$ and combining as above gives
 \[
 a(n)\;=\;\frac{1}{2}\,\iota^{\!\top}M^{\,n}\tau
 \]
-on $S=1024$ vertices in total, the exponent fixed by the entry's own shape and checked against
+on $S=256$ vertices in total, the exponent fixed by the entry's own shape and checked against
 its published terms. States lying on no walk from $\iota$ to $\tau$ are removed first; that
 changes no value and only shrinks the computation.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{23}-\sum_i c_it^{23-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{24}-\sum_i c_it^{24-i}$ be the characteristic polynomial of the
 conjectured recurrence. Then the residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the
 recurrence holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all
@@ -99,7 +99,7 @@ large $j$; and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+23}-\sum_ic_iM^{j+23-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+24}-\sum_ic_iM^{j+24-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ satisfy the monic linear recurrence given by the
 characteristic polynomial of $M$; $S$ consecutive zeros force every later one, and the last
@@ -108,17 +108,17 @@ nonzero $u_j$ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;a(n-1) + a(n-2) + 2\,a(n-3) + 17\,a(n-4) - a(n-5) - a(n-6) - 5\,a(n-7) - 58\,a(n-8) + 28\,a(n-9) - 9\,a(n-10) - 11\,a(n-11) + 84\,a(n-12) - 82\,a(n-13) + 49\,a(n-14) + a(n-15) - 50\,a(n-16) + 66\,a(n-17) - 52\,a(n-18) + 33\,a(n-19) - 12\,a(n-20) + 4\,a(n-21) - 4\,a(n-23)
+a(n)\;=\;5\,a(n-2) + 8\,a(n-3) + 16\,a(n-4) - 7\,a(n-5) - 76\,a(n-6) - 52\,a(n-7) + 39\,a(n-8) + 33\,a(n-9) + 27\,a(n-10) + 105\,a(n-11) + 24\,a(n-12) - 102\,a(n-13) + 36\,a(n-14) + 13\,a(n-15) - 86\,a(n-16) - 26\,a(n-17) + 20\,a(n-18) + 14\,a(n-19) - 12\,a(n-20) + 18\,a(n-21) + 6\,a(n-22) - 4\,a(n-23) + 2\,a(n-24)
 \]
-for every $n>29$.
+for every $n>28$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $23$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $24$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly. Those
-integers vanish from the index corresponding to $n=29+1$ onwards, and the run was
+integers vanish from the index corresponding to $n=28+1$ onwards, and the run was
 continued until the working vector was identically zero, which settles all larger $j$ at once.
-By Lemma~\ref{lem:crit} the recurrence holds for every $n>29$.
+By Lemma~\ref{lem:crit} the recurrence holds for every $n>28$.
 \end{proof}
 
 \section{Verification}
@@ -142,7 +142,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A204356.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A204355.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

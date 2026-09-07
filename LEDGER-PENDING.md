@@ -541,3 +541,14 @@ subblock-statistic families, three in the commuting-subblock family, one more el
 Most of the 497 were never candidates for a proof at all: 110 of the first 150 carry no line
 that parses as a recurrence, and about a fifth are over the state cap. That is the honest
 shape of the pool, and it is worth writing down so the next pass does not expect more from it.
+
+### And 58 more from the scaled engines
+
+The engines that carry a denominator alongside the digraph had the same omission, and their
+248 processed-but-unsettled candidates gave **58 more**: 24 in the edge-count-pattern family,
+16 counted up to relabelling of the alphabet, 8 in the offset-condition family, 5 forbidden
+runs, 5 distance inequalities. Same rule, same requeue, nothing new to argue.
+
+Three engines had never had their argument name recorded in the general installer, so their
+papers would have been filed as plain transfer-matrix work; the mapping is now complete
+(`edge-count-pattern`, `forbidden-run`, `distance-inequality`, `subblock-3x3`).

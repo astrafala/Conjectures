@@ -12,19 +12,19 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A207177, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A208114, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A207177 counts arrays over $\{0,\dots,1\}$ of width $3$ that avoid the patterns
-$(0,0,0)$ along one axis and $(0,1,0)$ along the other, and carries an empirical recurrence of
+OEIS A208114 counts arrays over $\{0,\dots,1\}$ of width $4$ that avoid the patterns
+$(0,0,0), (0,1,0)$ along one axis and $(0,0,1), (0,1,1)$ along the other, and carries an empirical recurrence of
 order $8$ contributed by R.~H.~Hardin. It is true. The patterns have length $3$, so
 the constraint across the growing direction ties together $3$ consecutive rows: taking a
 window of $2$ consecutive rows as a state makes the array a walk in a finite digraph
-on $S=49$ vertices, and $a(n)=\mathbf{1}^{\!\top}P^{\,n-2}\mathbf{1}$. Writing $q$
+on $S=81$ vertices, and $a(n)=\mathbf{1}^{\!\top}P^{\,n-2}\mathbf{1}$. Writing $q$
 for the characteristic polynomial of the conjectured recurrence, the residual is
 $\mathbf{1}^{\!\top}P^{\,n-2-8}q(P)\mathbf{1}$, which vanishes identically
 beyond a threshold that the computation pins down exactly. Finite, exact, integer.
@@ -34,38 +34,38 @@ beyond a threshold that the computation pins down exactly. Finite, exact, intege
 
 \section{The sequence and the conjecture}
 
-OEIS A207177 is ``Number of n X 3 0..1 arrays avoiding 0 0 0 horizontally and 0 1 0 vertically.''. It has offset
+OEIS A208114 is ``Number of n X 4 0..1 arrays avoiding 0 0 0 and 0 1 0 horizontally and 0 0 1 and 0 1 1 vertically.''. It has offset
 $1$ and begins
 \[
-7, 49, 241, 1171, 5917, 30067, 151981,\ \dots
+9, 81, 225, 625, 1225, 2401, 3969,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 4*a(n-1) + 2*a(n-2) + 12*a(n-3) + 23*a(n-4) + 6*a(n-5) - a(n-6) - 2*a(n-7) - a(n-8).
+Empirical: a(n) = 2*a(n-1) + 2*a(n-2) - 6*a(n-3) + 6*a(n-5) - 2*a(n-6) - 2*a(n-7) + a(n-8).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jun 21 2018 05:49:36, revision
+As of the ``Last modified'' line on the live entry (Jun 28 2018 08:42:24, revision
 8) the statement is still recorded as empirical, and nothing on the entry
 records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;4\,a(n-1) + 2\,a(n-2) + 12\,a(n-3) + 23\,a(n-4) + 6\,a(n-5) - a(n-6) - 2\,a(n-7) - a(n-8)
+a(n)\;=\;2\,a(n-1) + 2\,a(n-2) - 6\,a(n-3) + 6\,a(n-5) - 2\,a(n-6) - 2\,a(n-7) + a(n-8)
 \end{equation}
 for all $n>8$. 
 
 \section{The array as a walk}
 
 Call a row \emph{admissible} if the word it forms contains none of the patterns
-$(0,0,0)$ as $3$ consecutive entries. There are $7$ admissible rows; that condition
+$(0,0,0), (0,1,0)$ as $3$ consecutive entries. There are $9$ admissible rows; that condition
 involves a single row only.
 
-The remaining patterns $(0,1,0)$ are forbidden along the other axis, so each of them
+The remaining patterns $(0,0,1), (0,1,1)$ are forbidden along the other axis, so each of them
 constrains $3$ consecutive rows at a fixed position of the column. Take as state a
 window $w=\bigl(w^{(1)},\dots,w^{(2)}\bigr)$ of $2$ consecutive admissible
-rows, so $S=49$, and declare $w\to w'$ an edge when $w'$ is $w$ with its first entry
+rows, so $S=81$, and declare $w\to w'$ an edge when $w'$ is $w$ with its first entry
 dropped and one further admissible row $t$ appended, subject to: for every position
 $j$, the $3$-tuple read down the column $j$ across $w^{(1)},\dots,w^{(2)},t$
-is none of $(0,1,0)$. Let $P$ be the adjacency matrix.
+is none of $(0,0,1), (0,1,1)$. Let $P$ be the adjacency matrix.
 
 \begin{lemma}\label{lem:walk}
 $a(n)=\mathbf{1}^{\!\top}P^{\,n-2}\mathbf{1}$ for every $n\ge2$.
@@ -122,20 +122,20 @@ zeros, which by Lemma~\ref{lem:crit} settles every larger index.
 Three checks, each independent of the algebra above.
 
 First, the digraph was built directly from the entry's stated patterns and the walk counts
-compared against the entry's DATA at every one of the $21$ published indices; the
-values agree exactly, including the initial count of $7$ admissible rows. That is
+compared against the entry's DATA at every one of the $33$ published indices; the
+values agree exactly, including the initial count of $9$ admissible rows. That is
 what ties the digraph to the sequence, and a model reproducing only part of the published
 data was rejected wherever it occurred.
 
 Second, the recurrence \eqref{eq:conj} was evaluated on those published terms in exact
 integer arithmetic, with no matrices involved, and vanishes at every index the entry claims.
 
-Third, the vanishing test of Lemma~\ref{lem:crit} was carried past $S=49$ consecutive
+Third, the vanishing test of Lemma~\ref{lem:crit} was carried past $S=81$ consecutive
 zeros rather than to a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A207177.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A208114.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

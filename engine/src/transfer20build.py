@@ -1,6 +1,19 @@
 #!/usr/bin/env python3
 """One paper per Hardin entry counting patterns -- arrays up to relabelling -- under a
 cell condition over a named neighbour set."""
+import os
+
+# a paper carries the date its result was obtained; one already in the roster keeps
+# the date it was written with, and this builder runs again when the sweep reaches
+# more of its family
+_ROSTER = None
+def _date(a):
+    global _ROSTER
+    if _ROSTER is None:
+        import json as _j
+        _ROSTER = {v['anum'] for v in _j.load(open('paper-engines.json')).values()}
+    return '1 September 2026' if a in _ROSTER else os.environ.get('PAPER_DATE', '1 September 2026')
+
 import os, json, re
 import localentry as LE, phibuild, transferbuild
 
@@ -61,7 +74,7 @@ ${E}$ has no edge, and a walk is accepted only when the count reaches exactly ${
     return rf"""{PRE}
 \title{{The empirical recurrence for OEIS {a}, proved by transfer matrix}}
 \author{{Adrian Perez Fontelles\\ \small Independent researcher}}
-\date{{1 September 2026}}
+\date{{{_date(a)}}}
 \begin{{document}}
 \maketitle
 

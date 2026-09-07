@@ -12,15 +12,15 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A297541, proved by a two-line transfer matrix}
+\title{The empirical recurrence for OEIS A296036, proved by a two-line transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A297541 counts arrays over $\{0,\dots,1\}$ in which every cell is constrained by the
-values of its neighbours, and carries an empirical recurrence of order $54$ contributed
+OEIS A296036 counts arrays over $\{0,\dots,1\}$ in which every cell is constrained by the
+values of its neighbours, and carries an empirical recurrence of order $55$ contributed
 by R.~H.~Hardin. It is true, and it is not an empirical matter. The neighbourhood reaches one
 row up and one row down, so a single row is not enough state and a plain walk count
 is wrong; the right object is a walk on ordered \emph{pairs} of consecutive rows, where
@@ -34,34 +34,34 @@ computation.
 
 \section{The sequence and the conjecture}
 
-OEIS A297541 is ``Number of nX5 0..1 arrays with every 1 horizontally, diagonally or antidiagonally adjacent to 2 or 3 neighboring 1s.''. It has offset $1$ and begins
+OEIS A296036 is ``Number of nX5 0..1 arrays with each 1 adjacent to 2 or 4 king-move neighboring 1s.''. It has offset $1$ and begins
 \[
-1, 38, 197, 1233, 12161, 94647, 754342, 6315609,\ \dots
+1, 55, 251, 997, 8472, 51941, 285366, 1853852,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 6*a(n-1) +6*a(n-2) +155*a(n-3) -320*a(n-4) -693*a(n-5) -4997*a(n-6) -233*a(n-7) +18446*a(n-8) +54785*a(n-9) +74938*a(n-10) -96705*a(n-11) -141692*a(n-12) -577495*a(n-13) -381242*a(n-14) -61652*a(n-15) +137212*a(n-16) +2109779*a(n-17) -985889*a(n-18) +3157081*a(n-19) -2697127*a(n-20) -1446343*a(n-21) +4917847*a(n-22) -1617916*a(n-23) +9946573*a(n-24) +6569073*a(n-25) +7562648*a(n-26) -5314261*a(n-27) -3981456*a(n-28) -8541002*a(n-29) -14454297*a(n-30) -2043588*a(n-31) +1756817*a(n-32) +3406323*a(n-33) +4985432*a(n-34) +911966*a(n-35) -2187806*a(n-36) -1234552*a(n-37) -7367402*a(n-38) +1222556*a(n-39) -5205982*a(n-40) +2083486*a(n-41) -1209353*a(n-42) +1558920*a(n-43) +249369*a(n-44) +411843*a(n-45) +38223*a(n-46) +4006*a(n-47) +23004*a(n-48) -27954*a(n-49) -33818*a(n-50) -15404*a(n-51) +2096*a(n-52) +3336*a(n-53) +536*a(n-54)
+Empirical: a(n) = 6*a(n-1) +3*a(n-2) +128*a(n-3) -746*a(n-4) -909*a(n-5) -6293*a(n-6) +35992*a(n-7) +63809*a(n-8) +166157*a(n-9) -891020*a(n-10) -1956676*a(n-11) -2686453*a(n-12) +12746724*a(n-13) +31345389*a(n-14) +26894726*a(n-15) -113974303*a(n-16) -281739414*a(n-17) -159264823*a(n-18) +678651173*a(n-19) +1471594058*a(n-20) +509265958*a(n-21) -2717695409*a(n-22) -4589755680*a(n-23) -595020447*a(n-24) +7006602342*a(n-25) +8634960336*a(n-26) -808150288*a(n-27) -11482781948*a(n-28) -10635854486*a(n-29) +2283999533*a(n-30) +11527331115*a(n-31) +8928622654*a(n-32) -1005541095*a(n-33) -7339656323*a(n-34) -6846449601*a(n-35) -2726209070*a(n-36) +1733362716*a(n-37) +4812513079*a(n-38) +4571448221*a(n-39) +899172633*a(n-40) -2356681935*a(n-41) -2570302359*a(n-42) -563881339*a(n-43) +839247925*a(n-44) +582273648*a(n-45) +58080097*a(n-46) -147874991*a(n-47) +43560783*a(n-48) +44608156*a(n-49) -46862788*a(n-50) +5026592*a(n-51) +3110928*a(n-52) -4741248*a(n-53) +431936*a(n-54) -15360*a(n-55)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Dec 31 2017 15:01:39, revision 4) the statement is
+As of the ``Last modified'' line on the live entry (Dec 03 2017 07:11:16, revision 4) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;6\,a(n-1) + 6\,a(n-2) + 155\,a(n-3) - 320\,a(n-4) - 693\,a(n-5) - 4997\,a(n-6) - 233\,a(n-7) + 18446\,a(n-8) + 54785\,a(n-9) + 74938\,a(n-10) - 96705\,a(n-11) - 141692\,a(n-12) - 577495\,a(n-13) - 381242\,a(n-14) - 61652\,a(n-15) + 137212\,a(n-16) + 2109779\,a(n-17) - 985889\,a(n-18) + 3157081\,a(n-19) - 2697127\,a(n-20) - 1446343\,a(n-21) + 4917847\,a(n-22) - 1617916\,a(n-23) + 9946573\,a(n-24) + 6569073\,a(n-25) + 7562648\,a(n-26) - 5314261\,a(n-27) - 3981456\,a(n-28) - 8541002\,a(n-29) - 14454297\,a(n-30) - 2043588\,a(n-31) + 1756817\,a(n-32) + 3406323\,a(n-33) + 4985432\,a(n-34) + 911966\,a(n-35) - 2187806\,a(n-36) - 1234552\,a(n-37) - 7367402\,a(n-38) + 1222556\,a(n-39) - 5205982\,a(n-40) + 2083486\,a(n-41) - 1209353\,a(n-42) + 1558920\,a(n-43) + 249369\,a(n-44) + 411843\,a(n-45) + 38223\,a(n-46) + 4006\,a(n-47) + 23004\,a(n-48) - 27954\,a(n-49) - 33818\,a(n-50) - 15404\,a(n-51) + 2096\,a(n-52) + 3336\,a(n-53) + 536\,a(n-54)
+a(n)\;=\;6\,a(n-1) + 3\,a(n-2) + 128\,a(n-3) - 746\,a(n-4) - 909\,a(n-5) - 6293\,a(n-6) + 35992\,a(n-7) + 63809\,a(n-8) + 166157\,a(n-9) - 891020\,a(n-10) - 1956676\,a(n-11) - 2686453\,a(n-12) + 12746724\,a(n-13) + 31345389\,a(n-14) + 26894726\,a(n-15) - 113974303\,a(n-16) - 281739414\,a(n-17) - 159264823\,a(n-18) + 678651173\,a(n-19) + 1471594058\,a(n-20) + 509265958\,a(n-21) - 2717695409\,a(n-22) - 4589755680\,a(n-23) - 595020447\,a(n-24) + 7006602342\,a(n-25) + 8634960336\,a(n-26) - 808150288\,a(n-27) - 11482781948\,a(n-28) - 10635854486\,a(n-29) + 2283999533\,a(n-30) + 11527331115\,a(n-31) + 8928622654\,a(n-32) - 1005541095\,a(n-33) - 7339656323\,a(n-34) - 6846449601\,a(n-35) - 2726209070\,a(n-36) + 1733362716\,a(n-37) + 4812513079\,a(n-38) + 4571448221\,a(n-39) + 899172633\,a(n-40) - 2356681935\,a(n-41) - 2570302359\,a(n-42) - 563881339\,a(n-43) + 839247925\,a(n-44) + 582273648\,a(n-45) + 58080097\,a(n-46) - 147874991\,a(n-47) + 43560783\,a(n-48) + 44608156\,a(n-49) - 46862788\,a(n-50) + 5026592\,a(n-51) + 3110928\,a(n-52) - 4741248\,a(n-53) + 431936\,a(n-54) - 15360\,a(n-55)
 \end{equation}
-for all $n>55$.
+for all $n>56$.
 
 \section{The condition, and why one row is not enough}
 
 The arrays have $5$ columns and $L=n$ rows; write $x_{t,u}$ for the entry in
 row $t$ and column $u$, each in $\{0,\dots,1\}$. With the neighbour offsets
 \[
-\mathcal N=\{(0,-1),\ (0,1),\ (-1,-1),\ (1,1),\ (-1,1),\ (1,-1)\},
+\mathcal N=\{(0,-1),\ (0,1),\ (-1,0),\ (1,0),\ (-1,-1),\ (1,1),\ (-1,1),\ (1,-1)\},
 \]
 written as (row shift, column shift) and counting only positions inside the array, the
 entry's requirement is
 \begin{equation}\label{eq:loc}
-x_{t,u}=1\ \Rightarrow\ \#\{\text{neighbours equal to }1\}\in\{2,3\}
+x_{t,u}=1\ \Rightarrow\ \#\{\text{neighbours equal to }1\}\in\{2,4\}
 \end{equation}
 for every cell $(t,u)$.
 
@@ -117,16 +117,16 @@ $2$ values, so there are about $10^{30}$ of them to sift. The
 walk count replaces that by $1024$ states and one matrix--vector product per row.
 \section{The criterion}
 
-Let $q(t)=t^{54}-\sum_i c_i\,t^{54-i}$ be the characteristic polynomial of
+Let $q(t)=t^{55}-\sum_i c_i\,t^{55-i}$ be the characteristic polynomial of
 \eqref{eq:conj} and put $G=N$, so that a unit step in $n$ advances the walk by
 $1$ row.
 
 \begin{lemma}\label{lem:crit}
 Let $n_0$ be the least index with $L\ge2$ and $h_j=G^{j}N^{o}\mathbf{u}$, where
-$o=1n_0+0-2$. Then for $j\ge54$,
+$o=1n_0+0-2$. Then for $j\ge55$,
 \[
-a(n_0+j)-\sum_i c_i\,a(n_0+j-i)\;=\;\,\mathbf{v}^{\!\top}G^{\,j-54}w,
-\qquad w=h_{54}-\sum_i c_i\,h_{54-i} .
+a(n_0+j)-\sum_i c_i\,a(n_0+j-i)\;=\;\,\mathbf{v}^{\!\top}G^{\,j-55}w,
+\qquad w=h_{55}-\sum_i c_i\,h_{55-i} .
 \]
 Hence \eqref{eq:conj} holds from that point on if and only if
 $\mathbf{v}^{\!\top}G^{m}w=0$ for every $m\ge0$, and it is enough to check
@@ -134,7 +134,7 @@ $m=0,1,\dots,S-1$.
 \end{lemma}
 
 \begin{proof}
-Substitute Lemma~\ref{lem:walk} and factor $G^{j-54}$ out of
+Substitute Lemma~\ref{lem:walk} and factor $G^{j-55}$ out of
 $G^{j}-\sum_ic_iG^{j-i}$; the nonzero scalar $1$ does not affect
 vanishing. For the last clause, Cayley--Hamilton makes $G^{S}$ an integer combination of
 $I,G,\dots,G^{S-1}$, so $\mathbf{v}^{\!\top}G^{m}w$ for $m\ge S$ is the corresponding
@@ -142,16 +142,16 @@ combination of the earlier values; if those vanish, so do all the rest.
 \end{proof}
 
 \begin{theorem}
-The recurrence \eqref{eq:conj} holds for every $n>55$, which is the statement of
+The recurrence \eqref{eq:conj} holds for every $n>56$, which is the statement of
 Section~1.
 \end{theorem}
 
 \begin{proof}
 The digraph was built directly from \eqref{eq:loc}: for each of the $S=1024$ pairs and each
 of the $(1+1)^{5}$ possible next rows, the condition was tested on every cell of
-the middle row. The vector $w$ was formed by $54$ applications of $G$ in exact integer
+the middle row. The vector $w$ was formed by $55$ applications of $G$ in exact integer
 arithmetic and $\mathbf{v}^{\!\top}G^{m}w$ evaluated for $m=0,1,\dots$, again exactly.
-Every one of those integers vanishes from the index corresponding to $n=55+1$ onwards,
+Every one of those integers vanishes from the index corresponding to $n=56+1$ onwards,
 and the run was continued until $S+1$ consecutive zeros had been seen, which by
 Lemma~\ref{lem:crit} settles every larger $m$ at once.
 \end{proof}
@@ -183,7 +183,7 @@ returned zero throughout.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A297541.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A296036.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

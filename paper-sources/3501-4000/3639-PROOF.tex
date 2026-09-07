@@ -12,17 +12,17 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{A local condition on an array: OEIS A202417}
+\title{Parities, differences and neighbours: OEIS A183318}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{7 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A202417 carries an empirical recurrence of order $62$ contributed by R.~H.~Hardin. It is
+OEIS A183318 carries an empirical recurrence of order $64$ contributed by R.~H.~Hardin. It is
 true, and it is decidable rather than empirical. The entry's condition is decided by a bounded amount of state carried down the array; the
 admissible windows are the vertices of a finite digraph and the arrays counted are exactly the
-walks in it. Hence $a(n)$ is a walk count on $S=71$ vertices and is $C$-finite, and whether the
+walks in it. Hence $a(n)$ is a walk count on $S=64$ vertices and is $C$-finite, and whether the
 conjectured recurrence annihilates it is settled by a finite exact computation, with the
 Cayley--Hamilton theorem bounding the work.
 \end{abstract}
@@ -31,26 +31,26 @@ Cayley--Hamilton theorem bounding the work.
 
 \section{The conjecture}
 
-OEIS A202417 is ``Number of (n+2)X6 binary arrays with no more than one of any consecutive three bits set in any row or column.''. It has offset $1$ and begins
+OEIS A183318 is ``Number of nX6 binary arrays with an element zero only if there are an even number of ones to its left and an even number of ones above it.''. It has offset $1$ and begins
 \[
-739, 5167, 37029, 259651, 1823347, 12853815, 90488829, 636713695,\ \dots
+21, 119, 1109, 7833, 61755, 455509, 3437801, 25528515,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = a(n-1) +15*a(n-2) +163*a(n-3) +435*a(n-4) -312*a(n-5) -6058*a(n-6) -20551*a(n-7) -10846*a(n-8) +129529*a(n-9) +382414*a(n-10) +214587*a(n-11) -1252567*a(n-12) -3718269*a(n-13) -2774661*a(n-14) +7541788*a(n-15) +20442871*a(n-16) +15190133*a(n-17) -16329959*a(n-18) -59139819*a(n-19) -73602496*a(n-20) -10192761*a(n-21) +98952469*a(n-22) +167803153*a(n-23) +149515753*a(n-24) -7453678*a(n-25) -215498436*a(n-26) -282603533*a(n-27) -222705450*a(n-28) -24104176*a(n-29) +248207971*a(n-30) +302814223*a(n-31) +242555242*a(n-32) +89632215*a(n-33) -138303598*a(n-34) -194727635*a(n-35) -160749598*a(n-36) -108454542*a(n-37) +27857814*a(n-38) +55543779*a(n-39) +55776272*a(n-40) +56989956*a(n-41) -63166*a(n-42) +4750982*a(n-43) -12142956*a(n-44) -8474055*a(n-45) -1877613*a(n-46) -2528704*a(n-47) +1168456*a(n-48) +249876*a(n-49) +279332*a(n-50) +195827*a(n-51) -50365*a(n-52) +16393*a(n-53) -15338*a(n-54) -3822*a(n-55) +812*a(n-56) -678*a(n-57) +307*a(n-58) +2*a(n-59) -2*a(n-60) +4*a(n-61) -a(n-62)
+Empirical: a(n)=a(n-1)+155*a(n-2)-83*a(n-3)-10499*a(n-4)+2739*a(n-5)+418493*a(n-6)-42935*a(n-7)-11114743*a(n-8)+187159*a(n-9)+210582515*a(n-10)+4942581*a(n-11)-2969847775*a(n-12)-106170955*a(n-13)+32076857369*a(n-14)+1009462397*a(n-15)-270649716999*a(n-16)-4937331775*a(n-17)+1809326210403*a(n-18)+1914644979*a(n-19)-9680756335999*a(n-20)+163670254649*a(n-21)+41751512005591*a(n-22)-1408662580253*a(n-23)-145837266421261*a(n-24)+7057415803719*a(n-25)+413726670171893*a(n-26)-24987326051091*a(n-27)-954307354257023*a(n-28)+66458580117683*a(n-29)+1789004571454345*a(n-30)-136365538707579*a(n-31)-2720716316400381*a(n-32)+218575487621235*a(n-33)+3345872171110277*a(n-34)-274993070105947*a(n-35)-3312136548981459*a(n-36)+271453232272799*a(n-37)+2623620146984753*a(n-38)-209286828757487*a(n-39)-1650724693067001*a(n-40)+124964898554049*a(n-41)+817527401509143*a(n-42)-57057707865601*a(n-43)-315201100152543*a(n-44)+19563658984353*a(n-45)+93322287344023*a(n-46)-4906758788153*a(n-47)-20850409285435*a(n-48)+864282086203*a(n-49)+3434976022529*a(n-50)-99411558905*a(n-51)-404036952399*a(n-52)+6269911051*a(n-53)+32355800903*a(n-54)-65276327*a(n-55)-1635520523*a(n-56)-16406321*a(n-57)+45651461*a(n-58)+790773*a(n-59)-534995*a(n-60)-5413*a(n-61)+1739*a(n-62)-a(n-63)-a(n-64)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 09:34:45, revision 9) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 01:33:51, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{The count is a walk count}
 
-The entry counts arrays with $6$ columns over the alphabet $\{0,1\}$, growing one row at a time, and asks that no $3$ consecutive entries, taken along a row or down a column, may contain more than $1$ ones.
+The entry counts arrays with $6$ columns over the alphabet $\{0,1\}$, growing one row at a time, and asks that an entry may be zero only where the number of ones to its left in its own line and the number of ones above it in its own column are both even.
 
-Every cell the condition names lies within one row of the cell being judged, so three consecutive rows decide everything anchored at the middle one. Carry two consecutive rows as the state; a row is judged when the row after it arrives, and the row with nothing after it is judged by the end vector. That is where the boundary is honest: a neighbour off the edge of the array is not a neighbour, and a run of entries that would leave the array is not a run.
+The count of ones above a cell reaches back to the top of the array, so no window of consecutive rows holds it. It does not have to: only the parity of that count is ever asked for, and a parity is one bit per column, flipped by each one that lands in that column. The other half of the condition, the ones to a cell's left, is read straight off the row being placed. So the state is $6$ bits and nothing else, and a row may follow a state exactly when every zero in it sits where both parities are even.
 
-Merging vertices with identical futures leaves $S=71$. An admissible array is exactly a walk, so with $M$ the adjacency matrix and $\iota,\tau$ the vectors recording which states may begin and end an array,
+Merging vertices with identical futures leaves $S=64$. An admissible array is exactly a walk, so with $M$ the adjacency matrix and $\iota,\tau$ the vectors recording which states may begin and end an array,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n+1}\tau ,
+a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau ,
 \]
 the exponent fixed by the entry's own shape and checked against its published terms. In
 particular $a$ is $C$-finite.
@@ -58,7 +58,7 @@ particular $a$ is $C$-finite.
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{62}-\sum_i c_it^{62-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{64}-\sum_i c_it^{64-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -66,7 +66,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+62}-\sum_ic_iM^{j+62-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+64}-\sum_ic_iM^{j+64-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -76,15 +76,15 @@ changes nothing here.
 
 \begin{theorem}
 \[
-a(n)\;=\;a(n-1) + 15\,a(n-2) + 163\,a(n-3) + 435\,a(n-4) - 312\,a(n-5) - 6058\,a(n-6) - 20551\,a(n-7) - 10846\,a(n-8) + 129529\,a(n-9) + 382414\,a(n-10) + 214587\,a(n-11) - 1252567\,a(n-12) - 3718269\,a(n-13) - 2774661\,a(n-14) + 7541788\,a(n-15) + 20442871\,a(n-16) + 15190133\,a(n-17) - 16329959\,a(n-18) - 59139819\,a(n-19) - 73602496\,a(n-20) - 10192761\,a(n-21) + 98952469\,a(n-22) + 167803153\,a(n-23) + 149515753\,a(n-24) - 7453678\,a(n-25) - 215498436\,a(n-26) - 282603533\,a(n-27) - 222705450\,a(n-28) - 24104176\,a(n-29) + 248207971\,a(n-30) + 302814223\,a(n-31) + 242555242\,a(n-32) + 89632215\,a(n-33) - 138303598\,a(n-34) - 194727635\,a(n-35) - 160749598\,a(n-36) - 108454542\,a(n-37) + 27857814\,a(n-38) + 55543779\,a(n-39) + 55776272\,a(n-40) + 56989956\,a(n-41) - 63166\,a(n-42) + 4750982\,a(n-43) - 12142956\,a(n-44) - 8474055\,a(n-45) - 1877613\,a(n-46) - 2528704\,a(n-47) + 1168456\,a(n-48) + 249876\,a(n-49) + 279332\,a(n-50) + 195827\,a(n-51) - 50365\,a(n-52) + 16393\,a(n-53) - 15338\,a(n-54) - 3822\,a(n-55) + 812\,a(n-56) - 678\,a(n-57) + 307\,a(n-58) + 2\,a(n-59) - 2\,a(n-60) + 4\,a(n-61) - a(n-62)
+a(n)\;=\;a(n-1) + 155\,a(n-2) - 83\,a(n-3) - 10499\,a(n-4) + 2739\,a(n-5) + 418493\,a(n-6) - 42935\,a(n-7) - 11114743\,a(n-8) + 187159\,a(n-9) + 210582515\,a(n-10) + 4942581\,a(n-11) - 2969847775\,a(n-12) - 106170955\,a(n-13) + 32076857369\,a(n-14) + 1009462397\,a(n-15) - 270649716999\,a(n-16) - 4937331775\,a(n-17) + 1809326210403\,a(n-18) + 1914644979\,a(n-19) - 9680756335999\,a(n-20) + 163670254649\,a(n-21) + 41751512005591\,a(n-22) - 1408662580253\,a(n-23) - 145837266421261\,a(n-24) + 7057415803719\,a(n-25) + 413726670171893\,a(n-26) - 24987326051091\,a(n-27) - 954307354257023\,a(n-28) + 66458580117683\,a(n-29) + 1789004571454345\,a(n-30) - 136365538707579\,a(n-31) - 2720716316400381\,a(n-32) + 218575487621235\,a(n-33) + 3345872171110277\,a(n-34) - 274993070105947\,a(n-35) - 3312136548981459\,a(n-36) + 271453232272799\,a(n-37) + 2623620146984753\,a(n-38) - 209286828757487\,a(n-39) - 1650724693067001\,a(n-40) + 124964898554049\,a(n-41) + 817527401509143\,a(n-42) - 57057707865601\,a(n-43) - 315201100152543\,a(n-44) + 19563658984353\,a(n-45) + 93322287344023\,a(n-46) - 4906758788153\,a(n-47) - 20850409285435\,a(n-48) + 864282086203\,a(n-49) + 3434976022529\,a(n-50) - 99411558905\,a(n-51) - 404036952399\,a(n-52) + 6269911051\,a(n-53) + 32355800903\,a(n-54) - 65276327\,a(n-55) - 1635520523\,a(n-56) - 16406321\,a(n-57) + 45651461\,a(n-58) + 790773\,a(n-59) - 534995\,a(n-60) - 5413\,a(n-61) + 1739\,a(n-62) - a(n-63) - a(n-64)
 \]
-for every $n>62$.
+for every $n>64$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $62$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $64$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=62+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=64+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -92,7 +92,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $18$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $19$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
@@ -108,7 +108,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A202417.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A183318.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

@@ -12,67 +12,67 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A258555, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A190026, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A258555 counts the arrays over $\{0,\dots,1\}$ whose $2\times2$ subblocks carry a
-statistic that is monotone along named directions of the subblock grid, and carries an
-empirical recurrence of order $7$ contributed by R.~H.~Hardin. It is true, and it is
-decidable rather than empirical. Every direction named moves the subblock row by at most one,
-so a pair of consecutive array rows is a state, the count is a walk count on $S=44$ of them,
-and the conjectured recurrence is then settled by a finite exact computation.
+OEIS A190026 counts the $(n+2)\times4$ arrays over $\{0,\dots,1\}$ in which
+neighbouring $3\times3$ subblocks commute as matrices, and carries an empirical recurrence
+of order $7$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
+empirical. The condition ties together $3+1$ consecutive rows, so $3$ consecutive rows are
+a state, the count is a walk count on $S=112$ of them, and the conjectured recurrence is then
+settled by a finite exact computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 06A07.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 15A27, 15B36.\normalsize
 
 \section{The conjecture}
 
-OEIS A258555 is ``Number of (2+1) X (n+1) 0..1 arrays with every 2 X 2 subblock ne-sw antidiagonal difference nondecreasing horizontally and nw+se diagonal sum nondecreasing vertically.''. It has offset $1$ and begins
+OEIS A190026 is ``Number of (n+2) X 4 binary arrays with every 3 X 3 subblock commuting with each horizontal and vertical neighbor 3 X 3 subblock.''. It has offset $1$ and begins
 \[
-44, 112, 210, 344, 506, 683, 894, 1140,\ \dots
+112, 45, 79, 155, 235, 295, 355, 423,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 3*a(n-1) - 3*a(n-2) + a(n-3) + a(n-4) - 3*a(n-5) + 3*a(n-6) - a(n-7) for n>10.
+Empirical: a(n) = 2*a(n-1) -a(n-2) +a(n-3) -2*a(n-4) +a(n-5) +a(n-6) -a(n-7) for n>10.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Dec 22 2018 07:29:01, revision 8) this is still
+As of the ``Last modified'' line on the live entry (May 03 2018 07:02:18, revision 8) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The $2\times2$ subblocks of an $(n+1)\times3$ array over $\{0,\dots,1\}$ form a grid
-of $n$ rows and $2$ columns; write $\sigma(i,j)$ for the value the entry's statistic takes on
-the subblock in position $(i,j)$, a function of its four entries
-$\begin{pmatrix}p&q\\r&s\end{pmatrix}$ alone. The condition is
-\[
-\sigma(i,j)\le\sigma(i+1,j),\qquad \sigma(i,j)\le\sigma(i,j+1)
-\]
-whenever both positions exist. The entry writes the array with $n$ as the number of COLUMNS; transposing it exchanges the two coordinates of every direction, which is done once, and a direction that then points upward is turned round by reversing its inequality. The entry names two statistics, one governing the horizontal direction and one the vertical; both are functions of the same subblock, so both are read off the same pair of rows and no extra state is needed.
+The contiguous $3\times3$ subblocks of an $(n+2)\times4$ array form a grid of $n$
+rows and $2$ columns. Two subblocks that are neighbours in that
+grid OVERLAP: horizontally they share $3\times2$ entries, vertically
+$2\times3$. Nevertheless each is a $3\times3$ integer matrix in its own right, and
+the entry requires that every neighbouring pair, horizontal or vertical, commute --- that is,
+$AB=BA$ as matrices over $\mathbf{Z}$.
 
-Three points of the English are fixed by the entries' own terms rather than guessed:
-``ne-to-sw antidiagonally'' is the offset $(+1,-1)$ on the subblock grid, since the offset
-$(+1,+1)$ gives $164$ where the corresponding entry publishes $126$; ``diagonal minus
-antidiagonal sum'' is $(p+s)-(q+r)$; and ``ne-sw antidiagonal difference'' is $q-r$. Each was
-checked by counting the small arrays directly and comparing with the entry.
+At $n=1$ the array has $3$ rows and the grid is a single row of $2$
+subblocks, with only the horizontal pairs to test; the entry's first term is
+$112$, which the model reproduces along with every later term.
 
 \section{The count is a walk count}
 
-A pair of consecutive array rows determines one whole row of the subblock grid. Take those
-pairs as states. The comparisons with offset $(0,\pm1)$ live inside a single subblock row, so
-they decide which pairs are admissible at all; the comparisons with offset $(\pm1,\cdot)$
-relate two consecutive subblock rows, so they decide which pair may follow which. A step of the
-walk appends one array row, turning the pair $(r,s)$ into $(s,t)$, and settles every comparison
-between the two subblock rows at once. An $(n+1)$-row array is therefore a walk of $n-1$ steps
-and every walk comes from exactly one array, so
+A subblock row is fixed by $3$ consecutive array rows, and the vertical condition compares
+two consecutive subblock rows, hence $3+1$ consecutive array rows. So take as state the
+$3$-tuple of consecutive rows whose subblock row has just been completed. A step appends one
+array row: that fixes the next subblock row, and the horizontal pairs inside it and the
+vertical pairs against the previous one are all settled there. An array of $n+2$ rows is
+a walk of $n-1$ steps and every walk comes from exactly one array, so
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,\qquad \iota=\tau=(1,\dots,1)^{\!\top},
+a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,\qquad\iota=\tau=(1,\dots,1)^{\!\top},
 \]
-on the $S=44$ admissible pairs. In particular $a$ is $C$-finite. The alignment of the walk
-index with the entry's own $n$ was checked against its published terms rather than assumed.
+on the $S=112$ admissible $3$-tuples. In particular $a$ is $C$-finite.
+
+This state does not compress. What a step needs of the past is the previous subblock row, and
+for $4\ge3$ that row already determines the $3$ array rows it was built from, so nothing
+is lost by carrying the rows and nothing would be gained by carrying the matrices instead. The
+size of the construction is therefore $2^{3\cdot4}$ before the condition prunes
+it, which is what puts the wider members of this family out of reach rather than settling them.
 
 \section{The proof}
 
@@ -94,7 +94,7 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;3\,a(n-1) - 3\,a(n-2) + a(n-3) + a(n-4) - 3\,a(n-5) + 3\,a(n-6) - a(n-7)
+a(n)\;=\;2\,a(n-1) - a(n-2) + a(n-3) - 2\,a(n-4) + a(n-5) + a(n-6) - a(n-7)
 \]
 for every $n>10$.
 \end{theorem}
@@ -103,14 +103,14 @@ for every $n>10$.
 The vector $w=q(M)\tau$ was formed by $7$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
 integers vanish from the index corresponding to $n=10+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once. The bound is exact: at $n=10$ the recurrence fails on the entry's own published terms, so no larger range holds.
+until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $41$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $36$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
@@ -122,11 +122,11 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A258555.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A190026.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{davey} B.~A.~Davey and H.~A.~Priestley, \emph{Introduction to Lattices and
-Order}, 2nd ed., Cambridge University Press, 2002.
+\bibitem{suprunenko} D.~A.~Suprunenko and R.~I.~Tyshkevich, \emph{Commutative Matrices},
+Academic Press, 1968.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

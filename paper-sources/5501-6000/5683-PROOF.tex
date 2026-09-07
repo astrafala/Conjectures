@@ -12,52 +12,76 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{A condition on the multiset of every subblock: OEIS A184192}
+\title{The empirical recurrence for OEIS A203177, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{7 September 2026}
+\date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A184192 carries an empirical recurrence of order $19$ contributed by R.~H.~Hardin. It is
-true, and it is decidable rather than empirical. The entry's condition on a subblock depends
-only on which values the block holds and how many times, not on where they sit, so it is
-decided by the few consecutive lines the block spans. The admissible windows are the vertices
-of a finite digraph and the arrays counted are exactly its walks; hence $a(n)$ is a walk count
-on $S=19$ vertices and is $C$-finite, and whether the conjectured recurrence annihilates it
-is settled by a finite exact computation, with the Cayley--Hamilton theorem bounding the
-work. The entry does not count the arrays themselves but $1/2$ of them, so every count below is divided by $2$.
+OEIS A203177 counts arrays of width $4$ over $\{0,1,2\}$ under local conditions relating each cell
+to its neighbours or to the cells preceding it. The entry carries an empirical recurrence of
+order $19$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
+empirical: every condition is settled inside three consecutive array rows, so the count is a
+walk count on $S=111$ states.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05C30, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A184192 is ``Half the number of (n+1)X5 binary arrays with no 2X2 subblock containing exactly one 1.''. It has offset $1$ and begins
+OEIS A203177 is ``Number of nX4 0..2 arrays with every 1 immediately preceded by 0 to the left or above, no 0 immediately preceded by a 0, and every 2 immediately preceded by 0 1 to the left or above.''. It has offset $1$ and begins
 \[
-190, 3050, 46514, 723635, 11226643, 174401423, 2708892872, 42079740149,\ \dots
+2, 4, 17, 59, 205, 724, 2466, 8948,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n)=25*a(n-1)-152*a(n-2)-109*a(n-3)+3368*a(n-4)-6811*a(n-5)-12971*a(n-6)+49951*a(n-7)-9491*a(n-8)-92048*a(n-9)+49214*a(n-10)+74086*a(n-11)-38089*a(n-12)-32429*a(n-13)+8846*a(n-14)+6910*a(n-15)-139*a(n-16)-458*a(n-17)-58*a(n-18)-2*a(n-19)
+Empirical: a(n) = 5*a(n-2) +34*a(n-3) +13*a(n-4) -38*a(n-5) -419*a(n-6) -124*a(n-7) +145*a(n-8) +2520*a(n-9) +37*a(n-10) -584*a(n-11) -6715*a(n-12) +1170*a(n-13) +55*a(n-14) +6304*a(n-15) +476*a(n-16) -78*a(n-17) -480*a(n-19)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 02:23:19, revision 9) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 10:10:30, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
-\section{The count is a walk count}
+\section{What is being counted}
 
-The entry counts arrays with $5$ columns over the alphabet $\{0,1\}$, growing one row at a time, and asks that no $2\times2$ subblock holds exactly $1$ entries equal to $1$.
+The array has $4$ cells across, with entries in $\{0,1,2\}$. The NEIGHBOURS of a cell are the
+cells immediately to its left, to its right, above it and below it, those that lie inside the
+array. The PREDECESSORS of a cell are the cell immediately to its left and the cell
+immediately above it, those that lie inside the array. A cell in the top left corner has none
+at all, so a clause demanding a predecessor of a given value forbids that value there --- which
+is what makes the first published term what it is. The entry asks that
+\begin{itemize}
+\item every cell carrying $1$ has at least one predecessor carrying $0$;
+\item no cell carrying $0$ has a predecessor carrying $0$;
+\item every cell carrying $2$ has the two cells to its left, or the two above it, reading $0$ then $1$ in that order;
+\end{itemize}
+and nothing else.
 
-That condition does not depend on where in the block a value sits, only on which values the block holds and how many times --- it is a function of the block's multiset of entries. In particular it is decided by $2$ consecutive rows, the ones the block spans, so carrying the previous $1$ row as the state is enough: each new row completes every block that ends on it, and no judgement is left over at the end of the array.
+\section{Three rows decide everything}
 
-The entry counts not the arrays themselves but $1/2$ of them, so every count below is divided by $2$; the division comes out exact at every term the entry publishes, which is itself a check on the model.
+\begin{lemma}\label{lem:win}
+Every clause above is decided by three consecutive array rows. An adjacency clause for a cell
+of row $i$ reads rows $i-1$, $i$ and $i+1$; a precedence clause for a cell of row $i$ reads
+rows $i-2$, $i-1$ and $i$, and columns at most two to the left.
+\end{lemma}
 
-Merging vertices with identical futures leaves $S=19$. An admissible array is exactly a walk, so with $M$ the adjacency matrix and $\iota,\tau$ the vectors recording which states may begin and end an array,
+\begin{proof}
+The neighbours of a cell lie one step away in each of the four directions, and the predecessors
+one step to the left or one step up; a clause naming two cells in a row or column reaches two
+steps, never more.
+\end{proof}
+
+So the state is the pair (row above, current row), with a row not yet written carried as
+$\bot$. A step appends a row: the precedence clauses for the NEW row are settled at once,
+because everything they read is already written, and the adjacency clauses for the MIDDLE row
+of the window are settled because the row below it has just arrived. Every clause here reaches backwards only --- to the left and upwards --- so a
+row is settled as it is written and every state may end an array; the end vector is the
+all-ones vector. With $M$ the
+adjacency matrix of the digraph on those states,
 \[
-a(n)\;=\;\tfrac{1}{2}\,\iota^{\!\top}M^{\,n}\tau ,
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=111.
 \]
-the exponent fixed by the entry's own shape and checked against its published terms. In
-particular $a$ is $C$-finite.
+The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
+published terms rather than assumed. In particular $a$ is $C$-finite.
 
 \section{The proof}
 
@@ -74,36 +98,34 @@ Factor $M^{j}$ out of $M^{j+19}-\sum_ic_iM^{j+19-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly. A constant factor in front of $a$ divides out of the residual and
-changes nothing here.
+pins the threshold exactly.
 \end{proof}
 
 \begin{theorem}
 \[
-a(n)\;=\;25\,a(n-1) - 152\,a(n-2) - 109\,a(n-3) + 3368\,a(n-4) - 6811\,a(n-5) - 12971\,a(n-6) + 49951\,a(n-7) - 9491\,a(n-8) - 92048\,a(n-9) + 49214\,a(n-10) + 74086\,a(n-11) - 38089\,a(n-12) - 32429\,a(n-13) + 8846\,a(n-14) + 6910\,a(n-15) - 139\,a(n-16) - 458\,a(n-17) - 58\,a(n-18) - 2\,a(n-19)
+a(n)\;=\;5\,a(n-2) + 34\,a(n-3) + 13\,a(n-4) - 38\,a(n-5) - 419\,a(n-6) - 124\,a(n-7) + 145\,a(n-8) + 2520\,a(n-9) + 37\,a(n-10) - 584\,a(n-11) - 6715\,a(n-12) + 1170\,a(n-13) + 55\,a(n-14) + 6304\,a(n-15) + 476\,a(n-16) - 78\,a(n-17) - 480\,a(n-19)
 \]
-for every $n>18$.
+for every $n>19$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $19$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=18+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once.
+integers vanish from the index corresponding to $n=19+1$ onwards and the run continued
+until the working vector was identically zero.
 \end{proof}
 
 \section{Verification}
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $15$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry: the digraph is built by reading the
-entry's English, and a misreading gives different counts.
+First, the model reproduces all $25$ terms the entry publishes, exactly, in integer
+arithmetic.
 
-Second, the reading was pinned before the digraph was written, by a program that enumerates
-every array of the given shape one by one, forms each subblock directly and tests the entry's
-condition on it. That program shares no code with the transfer matrix, so an error in one does
-not hide an error in the other.
+Second, the count was recomputed for the smallest arrays straight from the definition:
+enumerate every array of that size in the orientation the entry's own name writes and test each
+clause on each cell directly. No window, no state and no transfer matrix are involved, and the
+published terms came back.
 
 Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
@@ -113,11 +135,9 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A184192.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A203177.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
-University Press, 2009.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

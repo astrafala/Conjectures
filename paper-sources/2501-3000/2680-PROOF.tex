@@ -12,199 +12,137 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical column recurrences for the table OEIS A251128}
+\title{The empirical recurrence for OEIS A204376, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A251128 is a two-dimensional table $T(n,k)$, and it carries a block of empirical
-recurrences contributed by R.~H.~Hardin --- one for each of its first few columns. They are
-true. Column $k$ of the table is an ordinary fixed-width array count, so its rows are the
-vertices of a finite digraph and $T(n,k)$ is a number of walks in it; being a walk count the
-column is $C$-finite, and whether a given recurrence annihilates it is decided by a finite
-exact computation, with the Cayley--Hamilton theorem bounding the work. This note settles the
-columns $k=1, 2, 3, 4, 5, 6, 7$.
+OEIS A204376 counts $(n+2)\times5$ arrays over $\{0,\dots,1\}$ subject to a condition imposed on
+every $3\times3$ subblock, and counted UP TO RELABELLING of the
+alphabet; it carries an empirical recurrence of order $5$ contributed by
+R.~H.~Hardin. It is true, and it is decidable rather than empirical. What is counted is
+equality patterns, which is not a walk count --- but it is a fixed rational combination of
+walk counts, one for each alphabet size, and that combination is again $C$-finite. Whether the
+conjectured recurrence annihilates it is then decided by a finite exact computation, with the
+Cayley--Hamilton theorem bounding the work.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
-\section{The table and the conjectures}
+\section{The conjecture}
 
-OEIS A251128 is ``T(n,k)=Number of (n+1)X(k+1) 0..1 arrays with no 2X2 subblock having the sum of its diagonal elements greater than the maximum of its antidiagonal elements.''. It has offset $1$, is
-read by antidiagonals, and begins
+OEIS A204376 is ``Number of (n+2) X 5 0..1 arrays with every 3 X 3 subblock having three equal elements in a row horizontally, vertically or nw-to-se diagonally exactly three ways, and new values 0..1 introduced in row major order.''. It has offset $1$ and begins
 \[
-10, 21, 21, 40, 40, 40, 72, 69,\ \dots
+78, 54, 61, 75, 98, 139, 205, 310,\ \dots
 \]
-The entry carries the following block:
-\begin{quote}\small
-Empirical for column k:\\
-k=1: a(n) = 3*a(n-1) -2*a(n-2) -a(n-3) +a(n-4)\\
-k=2: a(n) = 4*a(n-1) -5*a(n-2) +a(n-3) +2*a(n-4) -a(n-5)\\
-k=3: a(n) = 4*a(n-1) -5*a(n-2) +a(n-3) +2*a(n-4) -a(n-5) for n>6\\
-k=4: a(n) = 4*a(n-1) -5*a(n-2) +a(n-3) +2*a(n-4) -a(n-5) for n>6\\
-k=5: a(n) = 4*a(n-1) -5*a(n-2) +a(n-3) +2*a(n-4) -a(n-5) for n>6\\
-k=6: a(n) = 4*a(n-1) -5*a(n-2) +a(n-3) +2*a(n-4) -a(n-5) for n>6\\
-k=7: a(n) = 4*a(n-1) -5*a(n-2) +a(n-3) +2*a(n-4) -a(n-5) for n>6\\
+The entry states, as a conjecture contributed by its author and never marked settled:
+\begin{quote}
+Empirical: a(n) = a(n-1) +a(n-2) +a(n-3) -a(n-4) -a(n-5) for n>8.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 13:06:01, revision 8) these are still
-recorded as empirical, and nothing on the entry records any of them as settled.
+As of the ``Last modified'' line on the live entry (Jun 07 2018 09:13:30, revision 8) this is still
+recorded as empirical, and nothing on the entry records it as proved.
 
-\section{A column of the table is a walk count}
+\section{Patterns are a combination of counts}
 
-Fix $k$. The entry defines $T(n,k)$ as the number of arrays of a shape in which one dimension
-is $n$ and the other is determined by $k$, subject to a condition imposed on every
-$2\times2$ subblock --- a condition local to two consecutive rows and two consecutive columns.
-Substituting the fixed value of $k$ into the entry's own wording turns the definition into an
-ordinary one-parameter array count, and for such a count the rows are the vertices of a finite
-digraph $G_k$: $r\to s$ is an edge exactly when placing $s$ under $r$ satisfies the condition
-in every column pair. An admissible array is then a walk, so with $M_k$ the adjacency matrix
-of $G_k$,
+The clause ``new values $0..1$ introduced in row major order'' says that the arrays
+counted are the canonical representatives of their EQUALITY PATTERNS: two arrays that differ
+only by a permutation of the alphabet are one object. Write $N_j$ for the number of admissible
+patterns using exactly $j$ letters and $L_i$ for the number of admissible ARRAYS over an
+alphabet of $i$ letters. An array over $i$ letters is a pattern together with an injection of
+its letters into the alphabet, so
 \[
-T(n,k)\;=\;c_k\,\mathbf{1}^{\!\top}M_k^{\,n}\mathbf{1}
+L_i\;=\;\sum_{j}N_j\,i(i-1)\cdots(i-j+1),
 \]
-for the constant $c_k$ that the entry's name supplies (a factor such as $\tfrac12$ or
-$\tfrac14$ where the name says so, and $1$ otherwise).
+a triangular system with nonzero diagonal, hence invertible over $\mathbb{Q}$. The entry
+counts $a=N_1+\dots+N_{2}$, so
+\[
+a\;=\;\bigl(\mathbf{1}^{\!\top}F^{-1}\bigr)L ,
+\]
+a FIXED rational combination of the $L_i$, where $F$ is the matrix of falling factorials.
+Each $L_i$ is a walk count on its own transfer graph, so $a$ is a walk count on the disjoint
+union of those graphs with the combination's coefficients placed in the starting vector; the
+coefficients are rational and some are negative, which costs nothing in what follows.
+
+This step needs the condition itself to be unchanged by permuting the alphabet, and it is:
+the condition below is stated through equality between entries and never names a particular
+value or compares sizes.
+
+\section{Three consecutive lines}
+
+The entry's condition constrains every $3\times3$ subblock, which spans three consecutive
+rows and three consecutive columns. Writing an array as a sequence of rows
+$u_1,u_2,\dots$ over $\{0,\dots,1\}^{5}$, the condition
+\[
+\text{exactly }3\text{ of the horizontally, vertically or nw-to-se diagonally lines of }g\text{ \text{is constant}}
+\]
+involves only three consecutive rows. Take as vertices the ordered PAIRS $(r,s)$ of
+rows and put an edge $(r,s)\to(s,t)$ exactly when the condition holds for the triple
+$(r,s,t)$ at every admissible column; an array with $L$ rows is a walk of length $L-2$.
+Doing that for each alphabet size $1,\dots,2$ and combining as above gives
+\[
+a(n)\;=\;\frac{1}{2}\,\iota^{\!\top}M^{\,n}\tau
+\]
+on $S=1024$ vertices in total, the exponent fixed by the entry's own shape and checked against
+its published terms. States lying on no walk from $\iota$ to $\tau$ are removed first; that
+changes no value and only shrinks the computation.
+
+\section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{r}-\sum_i c_it^{r-i}$ be the characteristic polynomial of a conjectured
-recurrence of order $r$ for column $k$. Then for every $n\ge r$,
-\[
-T(n,k)-\sum_i c_i\,T(n-i,k)\;=\;c_k\,\mathbf{1}^{\!\top}M_k^{\,n-r}q(M_k)\mathbf{1},
-\]
-so the recurrence holds from some point on if and only if
-$\mathbf{1}^{\!\top}M_k^{j}q(M_k)\mathbf{1}=0$ for every $j\ge0$; and by the
-Cayley--Hamilton theorem it is enough to check $j<S_k$, where $S_k$ is the number of vertices
-of $G_k$.
+Let $q(t)=t^{5}-\sum_i c_it^{5-i}$ be the characteristic polynomial of the
+conjectured recurrence. Then the residual $a(n)-\sum_ic_ia(n-i)$ equals
+$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the
+recurrence holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all
+large $j$; and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Substitute the walk expression and factor $M_k^{n-r}$ out of $M_k^{n}-\sum_ic_iM_k^{n-i}$;
-the scalar $c_k$ is nonzero. For the bound, $M_k^{S_k}$ is an integer combination of
-$I,M_k,\dots,M_k^{S_k-1}$, so each $\mathbf{1}^{\!\top}M_k^{j}q(M_k)\mathbf{1}$ with
-$j\ge S_k$ repeats that combination of earlier values.
+Factor $M^{j}$ out of $M^{j+5}-\sum_ic_iM^{j+5-i}$. For the bound, $M^{S}$
+is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
+$u_j=\iota^{\!\top}M^{j}q(M)\tau$ satisfy the monic linear recurrence given by the
+characteristic polynomial of $M$; $S$ consecutive zeros force every later one, and the last
+nonzero $u_j$ pins the threshold exactly.
 \end{proof}
 
-\section{The computation, column by column}
+\begin{theorem}
+\[
+a(n)\;=\;a(n-1) + a(n-2) + a(n-3) - a(n-4) - a(n-5)
+\]
+for every $n>8$.
+\end{theorem}
 
-\begin{center}
-\begin{tabular}{ccccc}
-column $k$ & order & vertices $S_k$ & proved for & terms checked \\ \hline
-$1$ & $4$ & $4$ & $n>3$ & $10$ \\
-$2$ & $5$ & $8$ & $n>5$ & $9$ \\
-$3$ & $5$ & $16$ & $n>6$ & $8$ \\
-$4$ & $5$ & $32$ & $n>6$ & $7$ \\
-$5$ & $5$ & $64$ & $n>6$ & $10$ \\
-$6$ & $5$ & $128$ & $n>6$ & $10$ \\
-$7$ & $5$ & $256$ & $n>6$ & $10$ \\
-\end{tabular}
-\end{center}
-
-In each case the vector $w=q(M_k)\mathbf{1}$ was formed by $r$ matrix--vector products in
-exact integer arithmetic and $\mathbf{1}^{\!\top}M_k^{j}w$ evaluated for $j=0,1,\dots$,
-again exactly; every one of those integers vanishes from the stated point onwards and the run
+\begin{proof}
+The vector $w=q(M)\tau$ was formed by $5$ matrix--vector products in exact integer
+arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly. Those
+integers vanish from the index corresponding to $n=8+1$ onwards, and the run was
 continued until the working vector was identically zero, which settles all larger $j$ at once.
-
-\subsection*{Column $k=1$}
-The sequence is ``Number of (n+1)X(2) 0..1 arrays with no 2X2 subblock having the sum of its diagonal elements greater than the maximum of its antidiagonal elements.''. Its rows are the vertices of a digraph on
-$S=4$ vertices, edges being the admissible consecutive pairs, and the count is
-$\mathbf{1}^{\!\top}M^{n}\mathbf{1}$ up to the constant factor in the entry's name.
-The conjectured recurrence
-\[
-a(n)\;=\;3\,a(n-1) - 2\,a(n-2) - a(n-3) + a(n-4)
-\]
-holds for every $n>3$.
-
-\subsection*{Column $k=2$}
-The sequence is ``Number of (n+1)X(3) 0..1 arrays with no 2X2 subblock having the sum of its diagonal elements greater than the maximum of its antidiagonal elements.''. Its rows are the vertices of a digraph on
-$S=8$ vertices, edges being the admissible consecutive pairs, and the count is
-$\mathbf{1}^{\!\top}M^{n}\mathbf{1}$ up to the constant factor in the entry's name.
-The conjectured recurrence
-\[
-a(n)\;=\;4\,a(n-1) - 5\,a(n-2) + a(n-3) + 2\,a(n-4) - a(n-5)
-\]
-holds for every $n>5$.
-
-\subsection*{Column $k=3$}
-The sequence is ``Number of (n+1)X(4) 0..1 arrays with no 2X2 subblock having the sum of its diagonal elements greater than the maximum of its antidiagonal elements.''. Its rows are the vertices of a digraph on
-$S=16$ vertices, edges being the admissible consecutive pairs, and the count is
-$\mathbf{1}^{\!\top}M^{n}\mathbf{1}$ up to the constant factor in the entry's name.
-The conjectured recurrence
-\[
-a(n)\;=\;4\,a(n-1) - 5\,a(n-2) + a(n-3) + 2\,a(n-4) - a(n-5)
-\]
-holds for every $n>6$.
-
-\subsection*{Column $k=4$}
-The sequence is ``Number of (n+1)X(5) 0..1 arrays with no 2X2 subblock having the sum of its diagonal elements greater than the maximum of its antidiagonal elements.''. Its rows are the vertices of a digraph on
-$S=32$ vertices, edges being the admissible consecutive pairs, and the count is
-$\mathbf{1}^{\!\top}M^{n}\mathbf{1}$ up to the constant factor in the entry's name.
-The conjectured recurrence
-\[
-a(n)\;=\;4\,a(n-1) - 5\,a(n-2) + a(n-3) + 2\,a(n-4) - a(n-5)
-\]
-holds for every $n>6$.
-
-\subsection*{Column $k=5$}
-The sequence is ``Number of (n+1)X(6) 0..1 arrays with no 2X2 subblock having the sum of its diagonal elements greater than the maximum of its antidiagonal elements.''. Its rows are the vertices of a digraph on
-$S=64$ vertices, edges being the admissible consecutive pairs, and the count is
-$\mathbf{1}^{\!\top}M^{n}\mathbf{1}$ up to the constant factor in the entry's name.
-The conjectured recurrence
-\[
-a(n)\;=\;4\,a(n-1) - 5\,a(n-2) + a(n-3) + 2\,a(n-4) - a(n-5)
-\]
-holds for every $n>6$.
-
-\subsection*{Column $k=6$}
-The sequence is ``Number of (n+1)X(7) 0..1 arrays with no 2X2 subblock having the sum of its diagonal elements greater than the maximum of its antidiagonal elements.''. Its rows are the vertices of a digraph on
-$S=128$ vertices, edges being the admissible consecutive pairs, and the count is
-$\mathbf{1}^{\!\top}M^{n}\mathbf{1}$ up to the constant factor in the entry's name.
-The conjectured recurrence
-\[
-a(n)\;=\;4\,a(n-1) - 5\,a(n-2) + a(n-3) + 2\,a(n-4) - a(n-5)
-\]
-holds for every $n>6$.
-
-\subsection*{Column $k=7$}
-The sequence is ``Number of (n+1)X(8) 0..1 arrays with no 2X2 subblock having the sum of its diagonal elements greater than the maximum of its antidiagonal elements.''. Its rows are the vertices of a digraph on
-$S=256$ vertices, edges being the admissible consecutive pairs, and the count is
-$\mathbf{1}^{\!\top}M^{n}\mathbf{1}$ up to the constant factor in the entry's name.
-The conjectured recurrence
-\[
-a(n)\;=\;4\,a(n-1) - 5\,a(n-2) + a(n-3) + 2\,a(n-4) - a(n-5)
-\]
-holds for every $n>6$.
+By Lemma~\ref{lem:crit} the recurrence holds for every $n>8$. The bound is exact: at $n=8$ the recurrence fails on the entry's own published terms, so no larger range holds.
+\end{proof}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, each column model was compared against the entry's own published values for that
-column, taken both from the antidiagonal DATA and from the ``Table starts'' block, and agrees
-at every available term. This is what ties a model to the table: substituting $k$ into the
-entry's wording is a reading of English, and a wrong reading gives a different digraph and
-different counts. Across the columns settled here the model reproduces $64$ published
-values, $200$ decimal digits in all, every one of them exactly; a misreading of the entry
-would have to reproduce all of them by accident.
+First, the transfer model reproduces all $35$ terms the entry publishes, exactly, in
+integer arithmetic. That check earned its place here. The neighbour offsets are named in the
+array's own frame --- horizontal means along a row --- but when the entry fixes the first
+dimension, as in ``$2\times n$'', the walk runs along columns and the two components of every
+offset swap. Sets such as king-move, or horizontal together with vertical, are unchanged by
+that swap and hide the error completely; a set such as horizontal, diagonal and antidiagonal
+is not, and the counts came out as those of a different member of the same family until the
+offsets were transposed.
 
-Second, each conjectured recurrence was evaluated on those published column values in exact
-integer arithmetic, with no matrices involved, and holds wherever the proved range and the
-data overlap.
+Second, the conjectured recurrence was evaluated directly on the entry's own published terms,
+with no matrices involved, and holds wherever the proved range and the data overlap.
 
 Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
-arithmetic rather than on a sampled prefix.
-
-\begin{remark}
-A table row is a column of the transposed table, so the same argument settles the entry's row
-conjectures whenever the transposed shape is itself of the form treated here. Only the columns
-the entry states explicitly, and for which enough published terms exist to run the first check
-above, are claimed.
-\end{remark}
+arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A251128.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A204376.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

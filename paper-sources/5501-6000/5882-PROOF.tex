@@ -12,18 +12,18 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A233934, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A233677, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A233934 counts $(n+1)\times2$ arrays over $\{0,\dots,7\}$ subject to a condition imposed on
+OEIS A233677 counts $(n+1)\times4$ arrays over $\{0,\dots,3\}$ subject to a condition imposed on
 every $2\times2$ subblock, and carries an empirical recurrence of order $17$ contributed
 by R.~H.~Hardin. It is true, and it is not an empirical matter at all. The condition is local
 to each subblock, so the rows of an admissible array are the vertices of a finite digraph
-on $S=64$ vertices whose edges are the admissible consecutive pairs, and the count is a
+on $S=256$ vertices whose edges are the admissible consecutive pairs, and the count is a
 number of walks: $a(n)=\mathbf{1}^{\!\top}M^{n}\mathbf{1}$. Writing $q$
 for the characteristic polynomial of the conjectured recurrence, the recurrence holds for all
 $n$ exactly when $\mathbf{1}^{\!\top}M^{j}q(M)\mathbf{1}=0$ for every $j\ge0$, and the
@@ -35,20 +35,20 @@ integer arithmetic, and it comes out zero.
 
 \section{The sequence and the conjecture}
 
-OEIS A233934 is ``Number of (n+1)X(1+1) 0..7 arrays with every 2X2 subblock having the sum of the absolute values of all six edge and diagonal differences equal to 16.''. It has offset $1$ and begins
+OEIS A233677 is ``Number of (n+1)X(3+1) 0..3 arrays with every 2X2 subblock having the sum of the squares of the edge differences equal to 6.''. It has offset $1$ and begins
 \[
-312, 1996, 12880, 88572, 609912, 4361260, 30999664, 226112364,\ \dots
+648, 4448, 28544, 216592, 1500800, 11482368, 81243904, 617735680,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 10*a(n-1) +56*a(n-2) -828*a(n-3) +457*a(n-4) +18458*a(n-5) -42836*a(n-6) -129360*a(n-7) +480656*a(n-8) +107168*a(n-9) -1616128*a(n-10) +780160*a(n-11) +1960960*a(n-12) -1441792*a(n-13) -809984*a(n-14) +628736*a(n-15) +122880*a(n-16) -65536*a(n-17)
+Empirical: a(n) = 5*a(n-1) +70*a(n-2) -332*a(n-3) -1384*a(n-4) +6780*a(n-5) +11520*a(n-6) -61568*a(n-7) -45216*a(n-8) +280096*a(n-9) +84864*a(n-10) -653696*a(n-11) -81664*a(n-12) +762880*a(n-13) +41984*a(n-14) -397312*a(n-15) -8192*a(n-16) +65536*a(n-17)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jun 02 2025 09:04:32, revision 7) the statement is
+As of the ``Last modified'' line on the live entry (Jun 02 2025 08:57:00, revision 6) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;10\,a(n-1) + 56\,a(n-2) - 828\,a(n-3) + 457\,a(n-4) + 18458\,a(n-5) - 42836\,a(n-6) - 129360\,a(n-7) + 480656\,a(n-8) + 107168\,a(n-9) - 1616128\,a(n-10) + 780160\,a(n-11) + 1960960\,a(n-12) - 1441792\,a(n-13) - 809984\,a(n-14) + 628736\,a(n-15) + 122880\,a(n-16) - 65536\,a(n-17)
+a(n)\;=\;5\,a(n-1) + 70\,a(n-2) - 332\,a(n-3) - 1384\,a(n-4) + 6780\,a(n-5) + 11520\,a(n-6) - 61568\,a(n-7) - 45216\,a(n-8) + 280096\,a(n-9) + 84864\,a(n-10) - 653696\,a(n-11) - 81664\,a(n-12) + 762880\,a(n-13) + 41984\,a(n-14) - 397312\,a(n-15) - 8192\,a(n-16) + 65536\,a(n-17)
 \end{equation}
 for all $n>17$.
 
@@ -56,7 +56,7 @@ for all $n>17$.
 
 Write an array of the shape in question as its list of rows
 $r^{(1)},r^{(2)},\dots$, each an element of
-$V=\{0,1,\dots,7\}^{2}$, so $|V|=S=64$. A $2\times2$ subblock of the array
+$V=\{0,1,\dots,3\}^{4}$, so $|V|=S=256$. A $2\times2$ subblock of the array
 occupies two consecutive rows and two consecutive columns; if the two rows are $r$
 and $s$ (in that order) and the two columns are numbered $j,j+1$,
 the subblock is
@@ -65,12 +65,12 @@ the subblock is
 \]
 The entry's requirement on that subblock is
 \begin{equation}\label{eq:loc}
-|\beta-\alpha|+|\delta-\beta|+|\gamma-\delta|+|\alpha-\gamma|+|\delta-\alpha|+|\gamma-\beta|\;=\;16,
+(\beta-\alpha)^2+(\delta-\beta)^2+(\gamma-\delta)^2+(\alpha-\gamma)^2=6,
 \end{equation}
 a condition on the four entries alone.
 
 For $r,s\in V$ declare $r\to s$ an edge of a digraph $G$ when, for every
-$1\le j\le 2-1$,
+$1\le j\le 4-1$,
 \begin{itemize}
 \item the four entries above satisfy \eqref{eq:loc};
 
@@ -87,7 +87,7 @@ a(n)\;=\;\mathbf{1}^{\!\top}M^{n}\mathbf{1} .
 \end{lemma}
 
 \begin{proof}
-An array with $L$ rows and $2$ columns is precisely a sequence
+An array with $L$ rows and $4$ columns is precisely a sequence
 $r^{(1)},\dots,r^{(L)}$ of elements of $V$; conversely any such sequence is an array.
 Every $2\times2$ subblock lies in two consecutive rows $r^{(t)},r^{(t+1)}$ and two
 consecutive columns, so the array satisfies the entry's condition on all of its subblocks
@@ -135,7 +135,7 @@ Section~1.
 \end{theorem}
 
 \begin{proof}
-The digraph was constructed from \eqref{eq:loc} by a depth-first scan across the $2$
+The digraph was constructed from \eqref{eq:loc} by a depth-first scan across the $4$
 columns: the edge condition is a conjunction of one constraint per consecutive column
 pair, so the successors of a row $r$ are enumerated column by column without testing all
 $S^2$ pairs. The vector $w=q(M)\mathbf{1}\in\mathbb{Z}^{S}$ was then formed by $17$
@@ -174,7 +174,7 @@ throughout.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A233934.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A233677.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

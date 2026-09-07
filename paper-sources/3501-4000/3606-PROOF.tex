@@ -12,142 +12,134 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical product formula for OEIS A140917, proved}
+\title{The empirical recurrence for OEIS A202402, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{6 September 2026}
+\date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A140917 counts $8\times8$ matrices over $\{0,\dots,n\}$ whose rows and columns are
-nondecreasing, and carries a product formula for $a(n)$ marked empirical. Reversing rows and
-columns turns such a matrix into a plane partition inside a $8\times8\times n$ box, so
-MacMahon's box theorem applies; the triple product telescopes in its third index and leaves a
-polynomial in $n$ of degree $64$. The entry's own expression, cleared of its denominator,
-becomes an identity between two polynomials of bounded degree, and is therefore settled by a
-finite exact computation. The box count itself is classical and is already recorded on this
-entry; what is proved here is the entry's own formula.
+OEIS A202402 counts arrays of width $6$ over $\{0,1\}$ containing no occurrence of certain short
+patterns, read along the rows, the columns or the diagonals. The entry carries an empirical
+recurrence of order $65$ contributed by R.~H.~Hardin. It is true, and it is decidable
+rather than empirical: no pattern is longer than $3$ letters and no direction moves the row
+index by more than one, so every occurrence lies inside $3$ consecutive array rows and the
+count is a walk count on $S=651$ states.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A17, 05A19.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 68R15, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A140917 is ``Number of 8 X 8 matrices with elements in 0..n with each row and each column in nondecreasing order. 8,8,n can be permuted, see formula.''. It has offset $0$ and begins
+OEIS A202402 is ``Number of (n+2) X 6 binary arrays avoiding patterns 000 and 010 in rows and columns.''. It has offset $1$ and begins
 \[
-1, 12870, 34763300, 33803832920, 15484613937936, 3940599631842016,\ \dots
+7225, 83521, 1147041, 15752961, 204518601, 2655237841, 35242177441, 467758877041,\ \dots
 \]
-The entry states, as conjectures contributed by its author and never marked settled:
+The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-(empirical) set p,q,r to n,8,8 (in any order) in s=p+q+r-1; a(n) = product {i in 0..r-1} (binomial(s,p+i)*i!/(s-i)\^{}(r-i-1))
-
+Empirical: a(n) = 15*a(n-1) -80*a(n-2) +844*a(n-3) +1004*a(n-4) -35544*a(n-5) +115456*a(n-6) -914564*a(n-7) +444940*a(n-8) +16058184*a(n-9) -40701152*a(n-10) +258860924*a(n-11) -308461204*a(n-12) -1949167256*a(n-13) +3816441696*a(n-14) -19578168100*a(n-15) +28744770072*a(n-16) +77026330196*a(n-17) -103155476592*a(n-18) +388573499036*a(n-19) -607461138756*a(n-20) -1242707886616*a(n-21) +1231928899008*a(n-22) -2762196574420*a(n-23) +4696440435372*a(n-24) +8074621589336*a(n-25) -6227432964928*a(n-26) +8725037408588*a(n-27) -15844024443908*a(n-28) -22686435500376*a(n-29) +12767215026080*a(n-30) -14603301394996*a(n-31) +23997892650910*a(n-32) +27857016656298*a(n-33) -9998958946352*a(n-34) +13206126361508*a(n-35) -13804078162172*a(n-36) -13021464255560*a(n-37) +4470604535936*a(n-38) -4224455602956*a(n-39) +3300210352260*a(n-40) +2630400942136*a(n-41) -975094435296*a(n-42) +564657864628*a(n-43) -353026216956*a(n-44) -244914369416*a(n-45) +98622692256*a(n-46) -33763821932*a(n-47) +16646619840*a(n-48) +10210503028*a(n-49) -4368385296*a(n-50) +927479668*a(n-51) -323553964*a(n-52) -167107784*a(n-53) +74050240*a(n-54) -12894364*a(n-55) +3092036*a(n-56) +862120*a(n-57) -429056*a(n-58) +74372*a(n-59) -14444*a(n-60) +376*a(n-61) +352*a(n-62) -60*a(n-63) +11*a(n-64) -a(n-65)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jan 19 2025 11:09:09, revision 8) these are still
-recorded as empirical, and nothing on the entry records them as proved.
+As of the ``Last modified'' line on the live entry (Feb 02 2018 11:26:15, revision 7) this is still
+recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-A matrix $x$ of shape $8\times8$ with entries in $\{0,\dots,n\}$, nondecreasing along
-every row and down every column, becomes, on reversing the order of the rows and of the
-columns, an array that is NONINCREASING along rows and down columns with the same entries. That
-is exactly a plane partition whose parts are at most $n$ and whose shape fits inside a
-$8\times8$ rectangle --- a plane partition in a $8\times8\times n$ box. The
-correspondence is a bijection, being an involution on arrays, so
+The array has $6$ cells across, with entries in $\{0,1\}$. An OCCURRENCE of a pattern in a
+direction is a run of consecutive cells taken in that direction whose entries match the pattern
+in order; the array is counted when it has no occurrence at all. The entry names
 \[
-a(n)\;=\;\mathrm{PP}(8,8,n).
-\]
-Note which parameter grows: the shape is FIXED and it is the alphabet $0..n$ that $n$ counts,
-so nothing about transfer matrices applies here.
-
-\section{The box count is a polynomial}
-
-\begin{theorem}[MacMahon]\label{thm:mm}
-\[
-\mathrm{PP}(p,q,r)\;=\;\prod_{i=1}^{p}\prod_{j=1}^{q}\prod_{k=1}^{r}
-\frac{i+j+k-1}{i+j+k-2} .
-\]
-\end{theorem}
-
-This is classical; see Stanley~\cite{stanley}, and it is already recorded on this entry.
-
-\begin{theorem}\label{thm:poly}
-\[
-a(n)\;=\;\prod_{i=1}^{8}\prod_{j=1}^{8}\frac{n+i+j-1}{i+j-1},
-\]
-a polynomial in $n$ of degree $64$ with rational coefficients.
-\end{theorem}
-
-\begin{proof}
-In Theorem~\ref{thm:mm} the inner product over $k$ telescopes: for fixed $i$ and $j$,
-\[
-\prod_{k=1}^{n}\frac{i+j+k-1}{i+j+k-2}\;=\;\frac{n+i+j-1}{i+j-1} ,
-\]
-every other factor cancelling against its neighbour. The remaining double product has
-$8\cdot8=64$ factors, each linear in $n$, and the denominators are constants.
-\end{proof}
-
-So $a$ is a polynomial, and no appeal to Ehrhart theory or to any general position argument is
-needed to see it.
-
-\section{The entry's expression}
-
-The entry writes $s=p+q+r-1$ with $(p,q,r)=(n,8,8)$ and claims
-\[
-a(n)\;=\;\prod_{i=0}^{8-1}\binom{s}{n+i}\,\frac{i!}{(s-i)^{8-1-i}}\;=\;
-\frac{N(n)}{D(n)} .
+\begin{array}{ll}
+\text{direction} & \text{forbidden patterns} \\[2pt]
+\text{along a row, left to right} & \mathtt{000},\quad \mathtt{010} \\
+\text{down a column} & \mathtt{000},\quad \mathtt{010} \\
+\end{array}
 \]
 
-\begin{lemma}\label{lem:deg}
-$N$ and $D$ are polynomials in $n$ of degrees $92$ and $28$ respectively.
+
+\section{Every occurrence lies in $3$ consecutive rows}
+
+\begin{lemma}\label{lem:win}
+Each of the directions above changes the row index by $0$ or $1$ from one cell of a run to the
+next, and no pattern is longer than $3$ letters. Hence every occurrence lies inside $3$
+consecutive array rows, and an occurrence whose last cell is in row $i$ lies inside rows
+$i-2,\dots,i$.
 \end{lemma}
 
 \begin{proof}
-With $s=n+8+8-1$ one has $s-(n+i)=8+8-1-i$, a constant, so
+Immediate from the offsets listed: the row step is $0$ for a row and $1$ for the other three.
+\end{proof}
+
+So the state is the window of the last $2$ array rows, a row still to come being written
+$\bot$. A step appends a row and rejects it exactly when some occurrence ends in it or lies
+inside it; an occurrence needing a row that is $\bot$ cannot exist, which is the boundary rule
+and is not assumed but read off the window. The walk starts at the all-$\bot$ window, so a walk
+of no steps is the empty array and a walk of $R$ steps is an array of $R$ rows. With $M$ the
+adjacency matrix, $\iota$ the indicator of the starting window and $\tau=\mathbf{1}$,
 \[
-\binom{s}{n+i}=\binom{s}{8+8-1-i}
-=\frac{(s-8-8+2+i)(s-8-8+3+i)\cdots s}{(8+8-1-i)!},
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=651.
 \]
-a polynomial in $n$ of degree $8+8-1-i$. Multiplying over $i=0,\dots,8-1$ gives
-$\deg N=\sum_{i=0}^{8-1}(8+8-1-i)=92$. The denominator is
-$\prod_{i=0}^{8-1}(s-i)^{8-1-i}$, of degree
-$\sum_{i=0}^{8-1}(8-1-i)=28$, and it does not vanish for $n\ge0$.
+The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
+published terms rather than assumed. In particular $a$ is $C$-finite.
+
+\section{The proof}
+
+\begin{lemma}\label{lem:crit}
+Let $q(t)=t^{65}-\sum_i c_it^{65-i}$ be the characteristic polynomial of the
+conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
+$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
+holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
+and it is enough to examine $j<S$.
+\end{lemma}
+
+\begin{proof}
+Factor $M^{j}$ out of $M^{j+65}-\sum_ic_iM^{j+65-i}$. For the bound, $M^{S}$
+is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
+$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
+polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
+pins the threshold exactly.
 \end{proof}
 
 \begin{theorem}
-The entry's expression equals $a(n)$ for every $n\ge0$.
+\[
+a(n)\;=\;15\,a(n-1) - 80\,a(n-2) + 844\,a(n-3) + 1004\,a(n-4) - 35544\,a(n-5) + 115456\,a(n-6) - 914564\,a(n-7) + 444940\,a(n-8) + 16058184\,a(n-9) - 40701152\,a(n-10) + 258860924\,a(n-11) - 308461204\,a(n-12) - 1949167256\,a(n-13) + 3816441696\,a(n-14) - 19578168100\,a(n-15) + 28744770072\,a(n-16) + 77026330196\,a(n-17) - 103155476592\,a(n-18) + 388573499036\,a(n-19) - 607461138756\,a(n-20) - 1242707886616\,a(n-21) + 1231928899008\,a(n-22) - 2762196574420\,a(n-23) + 4696440435372\,a(n-24) + 8074621589336\,a(n-25) - 6227432964928\,a(n-26) + 8725037408588\,a(n-27) - 15844024443908\,a(n-28) - 22686435500376\,a(n-29) + 12767215026080\,a(n-30) - 14603301394996\,a(n-31) + 23997892650910\,a(n-32) + 27857016656298\,a(n-33) - 9998958946352\,a(n-34) + 13206126361508\,a(n-35) - 13804078162172\,a(n-36) - 13021464255560\,a(n-37) + 4470604535936\,a(n-38) - 4224455602956\,a(n-39) + 3300210352260\,a(n-40) + 2630400942136\,a(n-41) - 975094435296\,a(n-42) + 564657864628\,a(n-43) - 353026216956\,a(n-44) - 244914369416\,a(n-45) + 98622692256\,a(n-46) - 33763821932\,a(n-47) + 16646619840\,a(n-48) + 10210503028\,a(n-49) - 4368385296\,a(n-50) + 927479668\,a(n-51) - 323553964\,a(n-52) - 167107784\,a(n-53) + 74050240\,a(n-54) - 12894364\,a(n-55) + 3092036\,a(n-56) + 862120\,a(n-57) - 429056\,a(n-58) + 74372\,a(n-59) - 14444\,a(n-60) + 376\,a(n-61) + 352\,a(n-62) - 60\,a(n-63) + 11\,a(n-64) - a(n-65)
+\]
+for every $n>62$.
 \end{theorem}
 
 \begin{proof}
-By Theorem~\ref{thm:poly} and Lemma~\ref{lem:deg}, $a(n)D(n)-N(n)$ is a polynomial in $n$
-of degree at most $64+28=92$. It was evaluated in exact rational arithmetic at
-$n=0,1,\dots,92$, that is at $93$ points, and vanishes at all of them; a nonzero polynomial
-of degree at most $92$ has at most $92$ roots, so it is identically zero. Since $D(n)\neq0$
-for $n\ge0$, the two expressions agree there.
+The vector $w=q(M)\tau$ was formed by $65$ matrix--vector products in exact integer
+arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
+integers vanish from the index corresponding to $n=62+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
-Three checks, each independent of the algebra above.
+Four checks, each independent of the algebra above.
 
-First, Theorem~\ref{thm:poly} reproduces all $8$ terms the entry publishes,
-exactly, in integer arithmetic.
+First, the model reproduces all $14$ terms the entry publishes, exactly, in integer
+arithmetic.
 
-Second, the matrices themselves were counted for the smallest alphabets, directly from the
-definition: the nondecreasing rows were listed and the chains of $8$ of them increasing
-componentwise counted, with no product formula and no plane partitions anywhere. The counts
-agree, which is what ties the reversal bijection to the entry's own wording.
+Second, the count was recomputed for the smallest arrays straight from the definition: fill the
+cells one at a time, in the orientation the entry's own name writes, and reject as soon as a
+completed run matches a forbidden pattern. No transfer matrix, no window and no transposition
+are involved, and the published terms came back.
 
-Third, the polynomial identity was evaluated over the whole range $n=0,\dots,92$ rather than
-sampled, in exact rational arithmetic.
+Third, the conjectured recurrence was evaluated directly on the published terms, with no
+matrices involved, and holds wherever the proved range and the data overlap.
+
+Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A140917.
-\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 2, Cambridge
-University Press, 1999. (Plane partitions with bounded part size, Section 7.21.)
-\bibitem{macmahon} P.~A.~MacMahon, \emph{Combinatory Analysis}, Volume 2, Cambridge
-University Press, 1916.
-\bibitem{andrews} G.~E.~Andrews, \emph{The Theory of Partitions}, Addison--Wesley, 1976.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A202402.
+\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata
+Theory, Languages, and Computation}, 3rd ed., Addison--Wesley, 2006.
+\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
+University Press, 2013.
 \end{thebibliography}
 
 \end{document}

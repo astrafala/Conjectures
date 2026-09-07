@@ -12,45 +12,48 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A204403, proved by transfer matrix}
+\title{A condition on each element and its neighbours: OEIS A240645}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{7 September 2026}
+\date{6 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A204403 carries an empirical recurrence of order $46$ contributed by R.~H.~Hardin. It is
-true, and it is decidable rather than empirical. The entry's condition is local to every $3\times3$ subblock, hence three consecutive lines, so
-the admissible configurations of such a window are the vertices of a finite digraph and the
-arrays counted are exactly the walks in it; hence $a(n)$ is a walk count on $S=59049$ vertices
-and is $C$-finite. Whether the conjectured recurrence annihilates it is then settled by a
-finite exact computation, with the Cayley--Hamilton theorem bounding the work.
+OEIS A240645 carries an empirical recurrence of order $48$ contributed by R.~H.~Hardin. It is
+true, and it is decidable rather than empirical. The entry's condition names only cells one step apart, so it is decided by a window of
+three consecutive lines; the
+admissible windows are the vertices of a finite digraph and the arrays counted are exactly the
+walks in it. Hence $a(n)$ is a walk count on $S=71$ vertices and is $C$-finite, and whether the
+conjectured recurrence annihilates it is settled by a finite exact computation, with the
+Cayley--Hamilton theorem bounding the work.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
 \section{The conjecture}
 
-OEIS A204403 is ``Number of (n+2)X5 0..2 arrays with every 3X3 subblock having three strictly increasing elements in a row horizontally, vertically or nw-to-se diagonally.''. It has offset $1$ and begins
+OEIS A240645 is ``Number of nX4 0..1 arrays with no element equal to the same number of vertical neighbors as horizontal neighbors, with new values 0..1 introduced in row major order.''. It has offset $1$ and begins
 \[
-719125, 3588983, 18913491, 316877238, 3226550173, 30090522927, 390091281543, 3739587364093,\ \dots
+2, 3, 8, 18, 61, 168, 526, 1643,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 1459*a(n-3) +2005*a(n-4) +5400*a(n-5) -511983*a(n-6) -1248838*a(n-7) -1399749*a(n-8) +714762*a(n-9) +64262745*a(n-10) -147857412*a(n-11) +251846532*a(n-12) -898658109*a(n-13) -4733939358*a(n-14) -2831865048*a(n-15) +7404357366*a(n-16) +221982268293*a(n-17) +681710954976*a(n-18) -191718197217*a(n-19) -702787962357*a(n-20) -9464665101327*a(n-21) -21327262323174*a(n-22) -12439488171807*a(n-23) +17401336363530*a(n-24) +173135554697358*a(n-25) +62875002085893*a(n-26) +739166217068862*a(n-27) -1794712074525432*a(n-28) +518290728291603*a(n-29) -1393222841384400*a(n-30) -4758624497858445*a(n-31) +10605653860693770*a(n-32) -3711161088195165*a(n-33) -10097972890933716*a(n-34) +17983076076034920*a(n-35) -10063266444531900*a(n-36) +13345831710390708*a(n-37) +724214043336384*a(n-38) +1106192820250656*a(n-39) +1633359467214000*a(n-40) +2807101976072148*a(n-41) +94282898917428*a(n-42) +432804359972160*a(n-43) -178344286971840*a(n-44) -3703931193600*a(n-46) for n>50
+Empirical: a(n) = 5*a(n-1) -5*a(n-2) +4*a(n-3) -3*a(n-4) -49*a(n-5) +10*a(n-6) +15*a(n-7) +45*a(n-8) +124*a(n-9) +131*a(n-10) +301*a(n-11) +18*a(n-12) -615*a(n-13) -201*a(n-14) -1508*a(n-15) -823*a(n-16) -413*a(n-17) -254*a(n-18) +2467*a(n-19) +793*a(n-20) +4516*a(n-21) +1071*a(n-22) +2289*a(n-23) -2289*a(n-25) -1071*a(n-26) -4516*a(n-27) -793*a(n-28) -2467*a(n-29) +254*a(n-30) +413*a(n-31) +823*a(n-32) +1508*a(n-33) +201*a(n-34) +615*a(n-35) -18*a(n-36) -301*a(n-37) -131*a(n-38) -124*a(n-39) -45*a(n-40) -15*a(n-41) -10*a(n-42) +49*a(n-43) +3*a(n-44) -4*a(n-45) +5*a(n-46) -5*a(n-47) +a(n-48)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 11:12:12, revision 9) this is still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 11:04:32, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{The count is a walk count}
 
-The condition the entry imposes is local: it constrains every $3\times3$ subblock, hence three consecutive lines and nothing beyond. Take as
-vertices the admissible configurations of one such window and put an edge from $u$ to $v$
-whenever $v$ may follow $u$, which the condition decides by inspection of the two. An
-admissible array is then exactly a walk, so with $M$ the adjacency matrix on $S=59049$ vertices
-and $\iota,\tau$ the vectors recording which windows may begin and end an array,
+The entry counts arrays with $4$ columns over the alphabet $\{0,1\}$, growing one row at a time. Its condition is that every element must equal a different number of its vertical neighbours than it does of its horizontal neighbours.
+
+Every cell named there lies at most one step away, so three consecutive rows decide the condition on the middle one completely. Carry two consecutive rows as the state; when a new row arrives, the row it follows has all its neighbours present and is tested then, and the row with nothing after it is tested by the end vector. That is also where the boundary is honest: a cell in the first row has nothing before it and a cell in the last has nothing after it, and a missing neighbour is not a neighbour rather than a wrapped-round one.
+
+The entry also asks that new values be introduced in row major order, which is not a condition on any window: whether a value may appear here depends on the whole prefix. It enters through one integer all the same --- how many values have been introduced so far --- because a row may follow precisely when each of its entries is at most that count at the moment it is read, and an entry equal to it raises it by one. The effect is that each array is counted once for the whole class of arrays differing from it only by renaming the values.
+
+Vertices with identical futures are merged, which leaves $S=71$. An admissible array is exactly a walk, so with $M$ the adjacency matrix and $\iota,\tau$ the vectors recording which states may begin and end an array,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n}\tau ,
+a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau ,
 \]
 the exponent fixed by the entry's own shape and checked against its published terms. In
 particular $a$ is $C$-finite.
@@ -58,7 +61,7 @@ particular $a$ is $C$-finite.
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{46}-\sum_i c_it^{46-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{48}-\sum_i c_it^{48-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -66,44 +69,50 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+46}-\sum_ic_iM^{j+46-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+48}-\sum_ic_iM^{j+48-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly.
+pins the threshold exactly. A constant factor in front of $a$ divides out of the residual and
+changes nothing here.
 \end{proof}
 
 \begin{theorem}
 \[
-a(n)\;=\;1459\,a(n-3) + 2005\,a(n-4) + 5400\,a(n-5) - 511983\,a(n-6) - 1248838\,a(n-7) - 1399749\,a(n-8) + 714762\,a(n-9) + 64262745\,a(n-10) - 147857412\,a(n-11) + 251846532\,a(n-12) - 898658109\,a(n-13) - 4733939358\,a(n-14) - 2831865048\,a(n-15) + 7404357366\,a(n-16) + 221982268293\,a(n-17) + 681710954976\,a(n-18) - 191718197217\,a(n-19) - 702787962357\,a(n-20) - 9464665101327\,a(n-21) - 21327262323174\,a(n-22) - 12439488171807\,a(n-23) + 17401336363530\,a(n-24) + 173135554697358\,a(n-25) + 62875002085893\,a(n-26) + 739166217068862\,a(n-27) - 1794712074525432\,a(n-28) + 518290728291603\,a(n-29) - 1393222841384400\,a(n-30) - 4758624497858445\,a(n-31) + 10605653860693770\,a(n-32) - 3711161088195165\,a(n-33) - 10097972890933716\,a(n-34) + 17983076076034920\,a(n-35) - 10063266444531900\,a(n-36) + 13345831710390708\,a(n-37) + 724214043336384\,a(n-38) + 1106192820250656\,a(n-39) + 1633359467214000\,a(n-40) + 2807101976072148\,a(n-41) + 94282898917428\,a(n-42) + 432804359972160\,a(n-43) - 178344286971840\,a(n-44) - 3703931193600\,a(n-46)
+a(n)\;=\;5\,a(n-1) - 5\,a(n-2) + 4\,a(n-3) - 3\,a(n-4) - 49\,a(n-5) + 10\,a(n-6) + 15\,a(n-7) + 45\,a(n-8) + 124\,a(n-9) + 131\,a(n-10) + 301\,a(n-11) + 18\,a(n-12) - 615\,a(n-13) - 201\,a(n-14) - 1508\,a(n-15) - 823\,a(n-16) - 413\,a(n-17) - 254\,a(n-18) + 2467\,a(n-19) + 793\,a(n-20) + 4516\,a(n-21) + 1071\,a(n-22) + 2289\,a(n-23) - 2289\,a(n-25) - 1071\,a(n-26) - 4516\,a(n-27) - 793\,a(n-28) - 2467\,a(n-29) + 254\,a(n-30) + 413\,a(n-31) + 823\,a(n-32) + 1508\,a(n-33) + 201\,a(n-34) + 615\,a(n-35) - 18\,a(n-36) - 301\,a(n-37) - 131\,a(n-38) - 124\,a(n-39) - 45\,a(n-40) - 15\,a(n-41) - 10\,a(n-42) + 49\,a(n-43) + 3\,a(n-44) - 4\,a(n-45) + 5\,a(n-46) - 5\,a(n-47) + a(n-48)
 \]
-for every $n>50$.
+for every $n>48$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $46$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $48$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=50+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=48+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
-Three checks, each independent of the algebra above.
+Four checks, each independent of the algebra above.
 
-First, the model reproduces all $14$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $26$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
-Second, the conjectured recurrence was evaluated directly on those published terms, with no
+Second, the reading was pinned before the digraph was written, by a program that enumerates
+every array of the given shape one by one and tests the entry's condition at each cell
+directly. That program shares no code with the transfer matrix, so an error in one does not
+hide an error in the other.
+
+Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
 arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A204403.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A240645.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

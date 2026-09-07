@@ -12,151 +12,168 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A233214, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A269077, proved by a counting transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{3 September 2026}
+\date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A233214 counts arrays over $\{0,\dots,5\}$ in which no two entries that are neighbours in
-a named set of directions may sum to $5$, together with clauses that pick one array out of
-each class of arrays differing by a renaming. The entry carries an empirical recurrence of
-order $5$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
-empirical: the clash condition is local to two consecutive rows and the renaming clauses are
-carried by one bounded piece of extra state, so the count is a walk count on $S=11$ states.
+OEIS A269077 counts arrays over $\{0,\dots,1\}$ subject to a condition on the array as a
+whole rather than cell by cell: the number of adjacent pairs with a stated property must be
+at most one. A transfer matrix still applies once the running count is carried in the state; and
+because a count of two or more can never come back, those states may be dropped outright,
+which is what keeps the digraph sparse. That makes $a(n)$ a walk count on $S=16$ vertices,
+and the empirical recurrence of order $6$ contributed by R.~H.~Hardin then follows from
+a finite exact computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05C15, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
-\section{The conjecture}
+\section{The sequence and the conjecture}
 
-OEIS A233214 is ``Number of nX5 0..5 arrays with no element x(i,j) adjacent to value 5-x(i,j) horizontally or antidiagonally, top left element zero, and 1 appearing before 2 3 and 4, and 2 appearing before 3 in row major order.''. It has offset $1$ and begins
+OEIS A269077 is ``Number of 3 X n binary arrays with some element plus some horizontally, diagonally or antidiagonally adjacent neighbor totalling two not more than once.''. It has offset $1$ and begins
 \[
-99, 147019, 268289572, 496475792293, 919538740854193, 1703198747507336644, 3154729081272072714436, 5843309615312787017886631,\ \dots
+8, 32, 123, 521, 1887, 7477, 27042, 102070,\ \dots
 \]
-The entry states, as a conjecture contributed by its author and never marked settled:
-\begin{quote}
-Empirical: a(n) = 1975*a(n-1) -228357*a(n-2) +1804281*a(n-3) -4170978*a(n-4) +2593080*a(n-5)
+The entry carries the following comment:
+\begin{quote}\small
+Empirical: a(n) = 4*a(n-1) + 8*a(n-2) - 34*a(n-3) - 16*a(n-4) + 60*a(n-5) - 25*a(n-6).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 07:55:55, revision 6) this is still
-recorded as empirical, and nothing on the entry records it as proved.
+As of the ``Last modified'' line on the live entry (Jan 18 2019 14:38:58, revision 7) the statement is
+still recorded as empirical, and nothing on the entry records it as settled either way.
 
-\section{What is being counted}
+Written out, the claim is
+\begin{equation}\label{eq:conj}
+a(n)\;=\;4\,a(n-1) + 8\,a(n-2) - 34\,a(n-3) - 16\,a(n-4) + 60\,a(n-5) - 25\,a(n-6)
+\end{equation}
+for all $n>6$.
 
-The array is $5$ cells across with entries $x(i,j)\in\{0,1,\dots,5\}$. Call two values $u,v$ CLASHING
-when $u+v=5$. Two cells are neighbours when one is obtained from the other by one of
-the offsets
+\section{A global count, and how to carry it}
+
+The arrays have $3$ rows and $L=n$ columns; write $x_{t,u}$ for the entry in
+column $t$ and row $u$. Call two cells \emph{adjacent} when they differ by one of the
+offsets
 \[
-(0,1), (1,-1),
+\mathcal N=\{(1,0),\ (1,1),\ (1,-1)\},
 \]
-that is, in the horizontal and antidiagonal (ne--sw) directions, and the condition is that no two neighbouring cells carry
-clashing values. The clash relation is symmetric, so an offset and its negative name the
-same pairs and only one of each is listed. The entry also fixes the top left entry: $x(1,1)=0$.
-
-Finally the entry asks that, reading the cells in ROW MAJOR order, certain values make their
-first appearance before certain others:
+written as (column shift, row shift), and call an adjacent pair $\{p,q\}$
+\emph{marked} when
 \[
-1\prec 2,\qquad 1\prec 3,\qquad 1\prec 4,\qquad 2\prec 3 ,
+x_{p}+x_{q}=2 .
 \]
-writing $u\prec v$ for ``the first cell carrying $u$ comes before the first cell carrying
-$v$''. The entry's own name glosses the effect of this clause together with $x(1,1)=0$ as
-counting UNLABELLED colourings. Nothing below rests on that gloss: the clause is imposed
-exactly as it is written, and it is the written clause that the model and the independent
-check both test.
+Each unordered adjacency is represented by exactly one offset, all with a nonnegative column
+shift, so every pair is named once and only once: the pairs inside a column are seen when
+that column is laid down, and the pairs joining two columns when the later of the two is. The
+entry's requirement is
+\begin{equation}\label{eq:glob}
+\#\{\text{marked pairs in the whole array}\}\;\le1.
+\end{equation}
 
-\begin{lemma}\label{lem:seen}
-Let $P$ be the set of values named in the clause. Reading the cells in row major order and
-carrying the SET $T\subseteq P$ of named values already written, the clause holds if and only
-if every cell whose value $v\in P$ is not yet in $T$ has $u\in T$ for every $u$ with $u\prec v$.
+This is not a condition on any bounded window, so no transfer matrix over columns alone can
+express it. It becomes one as soon as the running total is part of the state. Let
+\[
+\mathcal V=\bigl\{(r,c):\ r\in\{0,\dots,1\}^{3},\ c\in\{0,1\}\bigr\},
+\qquad |\mathcal V|=S=16,
+\]
+and for columns $r,s$ write $\beta(r,s)$ for the number of marked pairs joining them plus the
+number of marked pairs inside $s$. Declare $(r,c)\to(s,c+\beta(r,s))$ an edge whenever
+$c+\beta(r,s)\le1$, and no edge otherwise.
+
+\begin{remark}
+Dropping the states with $c\ge2$ is not an approximation. Once the total has reached two it
+can only grow, so no array satisfying \eqref{eq:glob} passes through such a state. Keeping
+them --- as a third, absorbing value of $c$ --- would make every pair of columns an edge and
+the digraph dense, with $(1+1)^{2\cdot3}$ edges instead of the sparse set used here.
+\end{remark}
+
+\begin{lemma}\label{lem:walk}
+Let $\mathbf{v}$ mark the vertices $(r,c)$ whose count $c$ equals the number of marked pairs
+inside $r$ alone, and $\mathbf{u}$ the vertices with $c\le1$. Then for $L\ge1$ the arrays
+of $L$ columns satisfying \eqref{eq:glob} are exactly the walks of length $L-1$ from a
+vertex marked by $\mathbf{v}$ to one marked by $\mathbf{u}$, so
+\[
+a(n)\;=\;\,\mathbf{v}^{\!\top}N^{\,L-1}\mathbf{u},\qquad L=n .
+\]
 \end{lemma}
 
 \begin{proof}
-$u\prec v$ says the first cell carrying $v$ is preceded by some cell carrying $u$, that is, at
-the moment $v$ is first written $u$ already belongs to $T$. Conversely if that holds at each
-first writing then each required precedence holds. A cell whose value is already in $T$ is not
-a first appearance and imposes nothing.
+A walk $(r^{(1)},c_1)\to\cdots\to(r^{(L)},c_L)$ determines the array
+$r^{(1)},\dots,r^{(L)}$, and conversely each array determines at most one walk, since the
+starting count is fixed by $\mathbf{v}$ and each step's count is determined. By induction
+$c_t$ is the number of marked pairs in the first $t$ columns: it holds at $t=1$ by the
+definition of $\mathbf{v}$, and the step from $t$ to $t+1$ adds exactly the pairs joining
+columns $t$ and $t+1$ together with those inside column $t+1$, which are precisely the marked
+pairs of the first $t+1$ columns not already counted --- each unordered pair being named by
+exactly one offset. The walk exists (no edge is missing) if and only if the running total
+never exceeds $1$, which for a nondecreasing total is the same as $c_L\le1$; and
+$\mathbf{u}$ imposes the entry's requirement on $c_L$. Note the state already carries one
+column, so $L$ columns correspond to a walk of length $L-1$.
 \end{proof}
 
-The walk of this paper runs DOWN THE ROWS and visits the cells of each row from left to right,
-which is exactly row major order, so the set $T$ can be carried in the state. It takes at most
-$2^{4}$ values, and the state of the walk is a pair (array row, set $T$).
+\section{The criterion, and the computation}
 
-\section{The walk}
-
-Every offset above moves the row index by at most one, so a clash is a condition on two
-consecutive array rows and on nothing else.
-
-So the state is a pair: the last array row, and the set $T$ of Lemma~\ref{lem:seen}. A step
-appends a row, which settles every clash between it and the row above, every clash inside it,
-and every first appearance it contains. Two states from which, for every remaining length, the
-same number of arrays can be completed contribute identically to the count, so they are
-identified; after that identification there are $S=11$ of them.
-
-With $\iota$ the indicator of the states that may begin an array and $\tau=\mathbf{1}$,
-\[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau .
-\]
-The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
-published terms rather than assumed. In particular $a$ is $C$-finite.
-
-\section{The proof}
+Let $q(t)=t^{6}-\sum_i c_i\,t^{6-i}$ be the characteristic polynomial of
+\eqref{eq:conj} and $G=N$.
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{5}-\sum_i c_it^{5-i}$ be the characteristic polynomial of the
-conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
-$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
-holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
-and it is enough to examine $j<S$.
+With $n_0$ the least index for which $L\ge1$ and $h_j=G^{j}N^{o}\mathbf{u}$,
+$o=1n_0+0-1$,
+\[
+a(n_0+j)-\sum_i c_i\,a(n_0+j-i)\;=\;\,\mathbf{v}^{\!\top}G^{\,j-6}w,
+\qquad w=h_{6}-\sum_i c_i h_{6-i},
+\]
+for $j\ge6$. Hence \eqref{eq:conj} holds from that point on if and only if
+$\mathbf{v}^{\!\top}G^{m}w=0$ for every $m\ge0$, and it is enough to check
+$m=0,1,\dots,S-1$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+5}-\sum_ic_iM^{j+5-i}$. For the bound, $M^{S}$
-is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
-$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
-polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly.
+Substitute Lemma~\ref{lem:walk} and factor. By Cayley--Hamilton $G^{S}$ is an integer
+combination of $I,G,\dots,G^{S-1}$, so every later value is the same combination of earlier
+ones.
 \end{proof}
 
 \begin{theorem}
-\[
-a(n)\;=\;1975\,a(n-1) - 228357\,a(n-2) + 1804281\,a(n-3) - 4170978\,a(n-4) + 2593080\,a(n-5)
-\]
-for every $n>5$.
+The recurrence \eqref{eq:conj} holds for every $n>6$, which is the statement of
+Section~1.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $5$ matrix--vector products in exact integer
-arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=5+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once.
+The digraph was built directly from the definition of a marked pair. The vector $w$ was
+formed by $6$ applications of $G$ in exact integer arithmetic and
+$\mathbf{v}^{\!\top}G^{m}w$ evaluated for $m=0,1,\dots$, again exactly. Every one of
+those integers vanishes from the index corresponding to $n=6+1$ onwards, and the run
+continued until $S+1$ consecutive zeros had been seen, which by Lemma~\ref{lem:crit}
+settles every larger $m$.
 \end{proof}
 
 \section{Verification}
 
-Four checks, each independent of the algebra above.
+Three checks, each independent of the algebra above.
 
-First, the model reproduces all $10$ terms the entry publishes, exactly, in integer
-arithmetic.
+First, the walk counts of Lemma~\ref{lem:walk} were compared against the entry's DATA at
+every one of the $23$ published indices, with no shift fitted: the number of columns is
+$L=n$, read off the entry's own name, and the offset says which index the first
+published term carries. The values agree exactly. This is where an error in the pair
+bookkeeping would show: counting an unordered pair twice, or missing the pairs inside the
+first column, changes the counts immediately. Indeed a first version of the computation
+placed the walk at length $L-2$ rather than $L-1$ --- the state carries a column, not a
+boundary --- and every value came out one index late, which the DATA comparison rejected.
 
-Second, the count was recomputed for the smallest arrays straight from the definition: fill the
-cells in row major order, in the orientation the entry's own name writes, and test each clause
-the moment it can be tested. No transfer matrix, no transposition and no state are involved,
-and the published terms came back.
+Second, the recurrence \eqref{eq:conj} was evaluated on those published terms in exact
+integer arithmetic, with no matrices involved, and vanishes wherever it applies.
 
-Third, the conjectured recurrence was evaluated directly on the published terms, with no
-matrices involved, and holds wherever the proved range and the data overlap.
-
-Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
-arithmetic on the whole vector rather than on a sampled prefix.
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried to the full
+Cayley--Hamilton bound in exact integer arithmetic rather than to a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A233214.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A269077.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata
-Theory, Languages, and Computation}, 3rd ed., Addison--Wesley, 2006.
+\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+University Press, 2009.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

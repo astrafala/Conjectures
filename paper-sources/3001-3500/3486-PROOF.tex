@@ -12,138 +12,142 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A220735, proved by transfer matrix}
+\title{The empirical product formula for OEIS A140939, proved}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{2 September 2026}
+\date{6 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A220735 counts the ways of linking the cells of a grid $5$ cells wide, each cell either to
-itself or to exactly $2$ of its neighbours, the links being reciprocal, and carries an
-empirical recurrence of order $72$ contributed by R.~H.~Hardin. It is true, and it is
-decidable rather than empirical. A reciprocal link is an undirected edge and a self-link is
-no edge, so what is counted is the spanning subgraphs of a grid graph in which every vertex
-has degree $0$ or $2$; the edges crossing the boundary between two consecutive rows are a
-state, the count is a walk count on $S=128$ of them, and the conjectured recurrence is then
-settled by a finite exact computation.
+OEIS A140939 counts $7\times11$ matrices over $\{0,\dots,n\}$ whose rows and columns are
+nondecreasing, and carries a product formula for $a(n)$ marked empirical. Reversing rows and
+columns turns such a matrix into a plane partition inside a $7\times11\times n$ box, so
+MacMahon's box theorem applies; the triple product telescopes in its third index and leaves a
+polynomial in $n$ of degree $77$. The entry's own expression, cleared of its denominator,
+becomes an identity between two polynomials of bounded degree, and is therefore settled by a
+finite exact computation. The box count itself is classical and is already recorded on this
+entry; what is proved here is the entry's own formula.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05C30, 05C70.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A17, 05A19.\normalsize
 
 \section{The conjecture}
 
-OEIS A220735 is ``Number of ways to reciprocally link elements of an nX5 array either to themselves or to exactly two horizontal, diagonal and antidiagonal neighbors, without consecutive collinear links.''. It has offset $1$ and begins
+OEIS A140939 is ``Number of 7 X 11 matrices with elements in 0..n with each row and each column in nondecreasing order. 7,11,n can be permuted, see formula.''. It has offset $0$ and begins
 \[
-1, 32, 487, 7369, 127288, 2027456, 32924133, 534490260,\ \dots
+1, 31824, 200443464, 431621592480, 418241323113120, 216147115784860416,\ \dots
 \]
-The entry states, as a conjecture contributed by its author and never marked settled:
+The entry states, as conjectures contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 20*a(n-1) -65*a(n-2) +76*a(n-3) -1155*a(n-4) +18496*a(n-5) -70044*a(n-6) +72160*a(n-7) -378281*a(n-8) +114092*a(n-9) -564419*a(n-10) +5536756*a(n-11) +25967998*a(n-12) +37954124*a(n-13) +153656513*a(n-14) -157832972*a(n-15) -745918733*a(n-16) -1917603040*a(n-17) -4791944316*a(n-18) -4163305184*a(n-19) +6977275361*a(n-20) +12706741652*a(n-21) +68686379451*a(n-22) +126029637644*a(n-23) +62729877905*a(n-24) +70631612552*a(n-25) -248226923306*a(n-26) -788443556936*a(n-27) -938536545342*a(n-28) -49553932544*a(n-29) -87300444152*a(n-30) -1751070963072*a(n-31) +510955338150*a(n-32) +939527443832*a(n-33) -3349453802910*a(n-34) +1498736584968*a(n-35) +21039268013924*a(n-36) +20041433993432*a(n-37) -10137555492606*a(n-38) -18609838530008*a(n-39) -7234616664154*a(n-40) +12641325810368*a(n-41) +18097001487592*a(n-42) +16535299789824*a(n-43) -21228216014110*a(n-44) -51010314661528*a(n-45) +18061117651606*a(n-46) +8391340051480*a(n-47) +1477654226577*a(n-48) +11274541552932*a(n-49) -9396242028357*a(n-50) +2653547189052*a(n-51) +207617013041*a(n-52) +480000531904*a(n-53) -705614349292*a(n-54) -266915818336*a(n-55) +295072852243*a(n-56) -49147133412*a(n-57) -23941964399*a(n-58) +1948544708*a(n-59) +3237483262*a(n-60) -370954468*a(n-61) +8530157*a(n-62) +24305060*a(n-63) -31080201*a(n-64) -6824672*a(n-65) +1946900*a(n-66) -75296*a(n-67) +108077*a(n-68) -13372*a(n-69) +1151*a(n-70) +28*a(n-71) -a(n-72)
+(empirical) set p,q,r to n,11,7 (in any order) in s=p+q+r-1; a(n) = product {i in 0..r-1} (binomial(s,p+i)*i!/(s-i)\^{}(r-i-1))
+
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 19:01:21, revision 8) this is still
-recorded as empirical, and nothing on the entry records it as proved.
+As of the ``Last modified'' line on the live entry (Jan 25 2025 12:25:57, revision 7) these are still
+recorded as empirical, and nothing on the entry records them as proved.
 
 \section{What is being counted}
 
-A link is \emph{reciprocal}: if $u$ is linked to $v$ then $v$ is linked to $u$. So the links
-of a configuration are the edges of an undirected graph on the cells, and a cell ``linked to
-itself'' is a cell lying in no edge. The neighbour relation the entry names is the offset set
+A matrix $x$ of shape $7\times11$ with entries in $\{0,\dots,n\}$, nondecreasing along
+every row and down every column, becomes, on reversing the order of the rows and of the
+columns, an array that is NONINCREASING along rows and down columns with the same entries. That
+is exactly a plane partition whose parts are at most $n$ and whose shape fits inside a
+$7\times11$ rectangle --- a plane partition in a $7\times11\times n$ box. The
+correspondence is a bijection, being an involution on arrays, so
 \[
-(-1,-1), (-1,1), (0,-1), (0,1), (1,-1), (1,1),
+a(n)\;=\;\mathrm{PP}(7,11,n).
 \]
-and the condition ``either to themselves or to exactly $2$ neighbours'' says that in that
-graph every cell has degree $0$ or $2$. Hence $a(n)$ counts the spanning subgraphs of the
-grid graph on the offset set above, of $n$ rows and $5$ columns,
-whose every degree is $0$ or $2$: a disjoint union of cycles, since every vertex of the link graph has degree $0$ or $2$.
+Note which parameter grows: the shape is FIXED and it is the alphabet $0..n$ that $n$ counts,
+so nothing about transfer matrices applies here.
 
-One point of the English has to be fixed rather than guessed: whether a cell may spend both of
-its links on the same neighbour. It may not. For the king-move neighbourhood the $1\times2$
-and $2\times2$ counts are the degree-$0$-or-$2$ subgraphs of $K_2$ and of $K_4$, which are $1$
-and $1+4+3=8$ with simple edges and larger if a doubled edge were allowed; the entries of that
-family publish $1$ and $8$. The reading is in any case pinned entry by entry, because the
-model below is required to reproduce every term the entry publishes.
+\section{The box count is a polynomial}
 
-The entry adds \emph{that no two consecutive links be collinear}: at a vertex carrying two
-links their offsets may not be opposite. This is a condition on one vertex and its two links,
-so it is decided at the moment that vertex's degree is settled, and costs the construction
-nothing.
-
-\section{The count is a walk count}
-
-Every offset above changes the row index by at most one, so an edge either lies inside a row
-or crosses the boundary between two consecutive rows. Take as state the set of edges crossing
-one boundary. Placing a row means choosing the horizontal edges inside it and the edges it
-sends down to the next row; at that moment each of its cells knows all of its links --- those
-arriving from the row above, those inside the row, those going down --- so its degree, and any
-condition on the pair of links at a cell, is settled there and never revisited.
-
-Reading a configuration from the top therefore gives a walk that begins at the empty boundary,
-takes one step per row, and ends at the empty boundary, and every such walk comes from exactly
-one configuration. With $M$ the adjacency matrix of the digraph on the $S=128$ reachable
-states and $\iota,\tau$ the indicator vectors of the empty boundary,
+\begin{theorem}[MacMahon]\label{thm:mm}
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n}\tau ,
+\mathrm{PP}(p,q,r)\;=\;\prod_{i=1}^{p}\prod_{j=1}^{q}\prod_{k=1}^{r}
+\frac{i+j+k-1}{i+j+k-2} .
 \]
-so $a$ is $C$-finite. States are generated from the empty boundary outward, so only the
-reachable ones are ever built; the alignment of the walk index with the entry's own $n$ was
-checked against its published terms rather than assumed.
+\end{theorem}
 
-\section{The proof}
+This is classical; see Stanley~\cite{stanley}, and it is already recorded on this entry.
 
-\begin{lemma}\label{lem:crit}
-Let $q(t)=t^{72}-\sum_i c_it^{72-i}$ be the characteristic polynomial of the
-conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
-$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
-holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
-and it is enough to examine $j<S$.
-\end{lemma}
-
-\begin{proof}
-Factor $M^{j}$ out of $M^{j+72}-\sum_ic_iM^{j+72-i}$. For the bound, $M^{S}$
-is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
-$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
-polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly.
-\end{proof}
-
-\begin{theorem}
+\begin{theorem}\label{thm:poly}
 \[
-a(n)\;=\;20\,a(n-1) - 65\,a(n-2) + 76\,a(n-3) - 1155\,a(n-4) + 18496\,a(n-5) - 70044\,a(n-6) + 72160\,a(n-7) - 378281\,a(n-8) + 114092\,a(n-9) - 564419\,a(n-10) + 5536756\,a(n-11) + 25967998\,a(n-12) + 37954124\,a(n-13) + 153656513\,a(n-14) - 157832972\,a(n-15) - 745918733\,a(n-16) - 1917603040\,a(n-17) - 4791944316\,a(n-18) - 4163305184\,a(n-19) + 6977275361\,a(n-20) + 12706741652\,a(n-21) + 68686379451\,a(n-22) + 126029637644\,a(n-23) + 62729877905\,a(n-24) + 70631612552\,a(n-25) - 248226923306\,a(n-26) - 788443556936\,a(n-27) - 938536545342\,a(n-28) - 49553932544\,a(n-29) - 87300444152\,a(n-30) - 1751070963072\,a(n-31) + 510955338150\,a(n-32) + 939527443832\,a(n-33) - 3349453802910\,a(n-34) + 1498736584968\,a(n-35) + 21039268013924\,a(n-36) + 20041433993432\,a(n-37) - 10137555492606\,a(n-38) - 18609838530008\,a(n-39) - 7234616664154\,a(n-40) + 12641325810368\,a(n-41) + 18097001487592\,a(n-42) + 16535299789824\,a(n-43) - 21228216014110\,a(n-44) - 51010314661528\,a(n-45) + 18061117651606\,a(n-46) + 8391340051480\,a(n-47) + 1477654226577\,a(n-48) + 11274541552932\,a(n-49) - 9396242028357\,a(n-50) + 2653547189052\,a(n-51) + 207617013041\,a(n-52) + 480000531904\,a(n-53) - 705614349292\,a(n-54) - 266915818336\,a(n-55) + 295072852243\,a(n-56) - 49147133412\,a(n-57) - 23941964399\,a(n-58) + 1948544708\,a(n-59) + 3237483262\,a(n-60) - 370954468\,a(n-61) + 8530157\,a(n-62) + 24305060\,a(n-63) - 31080201\,a(n-64) - 6824672\,a(n-65) + 1946900\,a(n-66) - 75296\,a(n-67) + 108077\,a(n-68) - 13372\,a(n-69) + 1151\,a(n-70) + 28\,a(n-71) - a(n-72)
+a(n)\;=\;\prod_{i=1}^{7}\prod_{j=1}^{11}\frac{n+i+j-1}{i+j-1},
 \]
-for every $n>71$.
+a polynomial in $n$ of degree $77$ with rational coefficients.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $72$ matrix--vector products in exact integer
-arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=71+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once.
+In Theorem~\ref{thm:mm} the inner product over $k$ telescopes: for fixed $i$ and $j$,
+\[
+\prod_{k=1}^{n}\frac{i+j+k-1}{i+j+k-2}\;=\;\frac{n+i+j-1}{i+j-1} ,
+\]
+every other factor cancelling against its neighbour. The remaining double product has
+$7\cdot11=77$ factors, each linear in $n$, and the denominators are constants.
+\end{proof}
+
+So $a$ is a polynomial, and no appeal to Ehrhart theory or to any general position argument is
+needed to see it.
+
+\section{The entry's expression}
+
+The entry writes $s=p+q+r-1$ with $(p,q,r)=(n,11,7)$ and claims
+\[
+a(n)\;=\;\prod_{i=0}^{7-1}\binom{s}{n+i}\,\frac{i!}{(s-i)^{7-1-i}}\;=\;
+\frac{N(n)}{D(n)} .
+\]
+
+\begin{lemma}\label{lem:deg}
+$N$ and $D$ are polynomials in $n$ of degrees $98$ and $21$ respectively.
+\end{lemma}
+
+\begin{proof}
+With $s=n+11+7-1$ one has $s-(n+i)=11+7-1-i$, a constant, so
+\[
+\binom{s}{n+i}=\binom{s}{11+7-1-i}
+=\frac{(s-11-7+2+i)(s-11-7+3+i)\cdots s}{(11+7-1-i)!},
+\]
+a polynomial in $n$ of degree $11+7-1-i$. Multiplying over $i=0,\dots,7-1$ gives
+$\deg N=\sum_{i=0}^{7-1}(11+7-1-i)=98$. The denominator is
+$\prod_{i=0}^{7-1}(s-i)^{7-1-i}$, of degree
+$\sum_{i=0}^{7-1}(7-1-i)=21$, and it does not vanish for $n\ge0$.
+\end{proof}
+
+\begin{theorem}
+The entry's expression equals $a(n)$ for every $n\ge0$.
+\end{theorem}
+
+\begin{proof}
+By Theorem~\ref{thm:poly} and Lemma~\ref{lem:deg}, $a(n)D(n)-N(n)$ is a polynomial in $n$
+of degree at most $77+21=98$. It was evaluated in exact rational arithmetic at
+$n=0,1,\dots,98$, that is at $99$ points, and vanishes at all of them; a nonzero polynomial
+of degree at most $98$ has at most $98$ roots, so it is identically zero. Since $D(n)\neq0$
+for $n\ge0$, the two expressions agree there.
 \end{proof}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $17$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry: the digraph is built by reading the
-entry's English, and a misreading gives different counts.
+First, Theorem~\ref{thm:poly} reproduces all $8$ terms the entry publishes,
+exactly, in integer arithmetic.
 
-Second, the conjectured recurrence was evaluated directly on those published terms, with no
-matrices involved, and holds wherever the proved range and the data overlap.
+Second, the matrices themselves were counted for the smallest alphabets, directly from the
+definition: the nondecreasing rows were listed and the chains of $7$ of them increasing
+componentwise counted, with no product formula and no plane partitions anywhere. The counts
+agree, which is what ties the reversal bijection to the entry's own wording.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
-arithmetic on the whole vector rather than on a sampled prefix.
+Third, the polynomial identity was evaluated over the whole range $n=0,\dots,98$ rather than
+sampled, in exact rational arithmetic.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A220735.
-\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{lovasz} L.~Lov\'asz and M.~D.~Plummer, \emph{Matching Theory}, AMS Chelsea,
-2009.
-\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
-University Press, 2013.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A140939.
+\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 2, Cambridge
+University Press, 1999. (Plane partitions with bounded part size, Section 7.21.)
+\bibitem{macmahon} P.~A.~MacMahon, \emph{Combinatory Analysis}, Volume 2, Cambridge
+University Press, 1916.
+\bibitem{andrews} G.~E.~Andrews, \emph{The Theory of Partitions}, Addison--Wesley, 1976.
 \end{thebibliography}
 
 \end{document}

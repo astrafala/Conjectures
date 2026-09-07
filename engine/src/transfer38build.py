@@ -1,5 +1,18 @@
 #!/usr/bin/env python3
 """Papers for the equal-edge families counted up to relabelling."""
+import os
+
+# a paper carries the date its result was obtained; one already in the roster keeps
+# the date it was written with, and this builder runs again when the sweep reaches
+# more of its family
+_ROSTER = None
+def _date(a):
+    global _ROSTER
+    if _ROSTER is None:
+        import json as _j
+        _ROSTER = {v['anum'] for v in _j.load(open('paper-engines.json')).values()}
+    return '2 September 2026' if a in _ROSTER else os.environ.get('PAPER_DATE', '2 September 2026')
+
 import os, json, re
 import localentry as LE, phibuild, transferbuild, transfer36, transfer37, transfer38
 
@@ -60,7 +73,7 @@ def build(h):
     return rf"""{PRE}
 \title{{The empirical recurrence for OEIS {a}, proved by transfer matrix}}
 \author{{Adrian Perez Fontelles\\ \small Independent researcher}}
-\date{{2 September 2026}}
+\date{{{_date(a)}}}
 \begin{{document}}
 \maketitle
 

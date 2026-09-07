@@ -12,134 +12,229 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A202315, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A208704, proved by counting patterns}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{3 September 2026}
+\date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A202315 counts arrays of width $8$ over $\{0,1\}$ containing no occurrence of certain short
-patterns, read along the rows, the columns or the diagonals. The entry carries an empirical
-recurrence of order $91$ contributed by R.~H.~Hardin. It is true, and it is decidable
-rather than empirical: no pattern is longer than $3$ letters and no direction moves the row
-index by more than one, so every occurrence lies inside $3$ consecutive array rows and the
-count is a walk count on $S=3193$ states.
+OEIS A208704 counts arrays subject to a local condition \emph{and} to the clause ``new values
+$0..1$ introduced in row major order'', which says the array is written in canonical
+form. That clause is not local, so a transfer matrix over the alphabet does not see it. It
+does not have to: what is being counted is not arrays but equality patterns, and the number
+of patterns is recovered from the numbers $L_i$ of arrays over an $i$-letter alphabet by
+inverting a falling factorial. The result is the clean identity
+$2!\,a(n)=\sum_i\binom{2}{i}D_{2-i}L_i(n)$ with $D_m$ the derangement numbers,
+and each $L_i$ is an ordinary walk count. A second reduction --- the chain is strongly
+lumpable over the patterns, because the condition is relabelling-invariant --- brings the
+state space down from $9$ to $S=5$. The entry's empirical recurrence of order
+$1$, contributed by R.~H.~Hardin, then follows from a finite exact computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 68R15, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A18, 15B36.\normalsize
 
-\section{The conjecture}
+\section{The sequence and the conjecture}
 
-OEIS A202315 is ``Number of (n+2)X8 binary arrays avoiding patterns 001 and 100 in rows and columns.''. It has offset $1$ and begins
+OEIS A208704 is ``Number of nX3 0..1 arrays with new values 0..1 introduced in row major order and no element equal to more than two of its immediate leftward or upward or right-upward antidiagonal neighbors.''. It has offset $1$ and begins
 \[
-54250, 1235783, 32097834, 869323542, 23966292639, 664688048868, 18484607981704, 514540668174263,\ \dots
+4, 28, 196, 1372, 9604, 67228, 470596, 3294172,\ \dots
 \]
-The entry states, as a conjecture contributed by its author and never marked settled:
-\begin{quote}
-Empirical: a(n) = 59*a(n-1) -924*a(n-2) -6026*a(n-3) +282252*a(n-4) -1432041*a(n-5) -24373466*a(n-6) +262687352*a(n-7) +640334347*a(n-8) -18036584164*a(n-9) +24686349020*a(n-10) +680471050054*a(n-11) -2467239295881*a(n-12) -15377947410860*a(n-13) +92662822842583*a(n-14) +194388885656516*a(n-15) -2131407685174599*a(n-16) -467753734267144*a(n-17) +33531396792756469*a(n-18) -32611919201386054*a(n-19) -375301729656782418*a(n-20) +734799190598899112*a(n-21) +2997741400908665093*a(n-22) -9147997238275474436*a(n-23) -16316214343525756227*a(n-24) +78832882478117034696*a(n-25) +48105584574234214594*a(n-26) -502045713683652310136*a(n-27) +76795854230662999090*a(n-28) +2421719149610601754694*a(n-29) -1820672376506166048961*a(n-30) -8878196619447561376540*a(n-31) +11784666072006315305776*a(n-32) +24247441564732995970371*a(n-33) -49599209440993705700652*a(n-34) -45817451649553969651616*a(n-35) +153635730778133962607033*a(n-36) +42206994301760839373011*a(n-37) -364338793688947322362461*a(n-38) +66169657270028097597952*a(n-39) +668732484790945487365916*a(n-40) -378322964192357373850226*a(n-41) -941963822970656930583533*a(n-42) +908733901013649360388428*a(n-43) +980929726940257548495599*a(n-44) -1488239739258842681176842*a(n-45) -667237779384636511157802*a(n-46) +1821371462534614719532840*a(n-47) +117369638719122095952095*a(n-48) -1712834479292061280742605*a(n-49) +377307828770252909923261*a(n-50) +1241455377109711904831856*a(n-51) -590390841376794261363734*a(n-52) -681508766968278135569323*a(n-53) +521344759491714620895584*a(n-54) +268123211598481123406576*a(n-55) -327591027187047626376443*a(n-56) -61863869296452399233444*a(n-57) +155533079749226457745780*a(n-58) -3210042153136878014848*a(n-59) -56949908932121720139848*a(n-60) +10222361379310698672882*a(n-61) +16148724873352323873347*a(n-62) -5174216275763024146780*a(n-63) -3519953768544422931941*a(n-64) +1654858930794192749194*a(n-65) +576670798752607495874*a(n-66) -385573927541444905790*a(n-67) -67146118218938550091*a(n-68) +68480296240386083402*a(n-69) +4627739384495964717*a(n-70) -9445137808945595160*a(n-71) +20317201158809823*a(n-72) +1019333562700201986*a(n-73) -49036995386058997*a(n-74) -86191242464007898*a(n-75) +6568805109569104*a(n-76) +5688388710060798*a(n-77) -506749760158095*a(n-78) -290029219018100*a(n-79) +25534310074814*a(n-80) +11189815771309*a(n-81) -835493990060*a(n-82) -314165140034*a(n-83) +16378196942*a(n-84) +5976966479*a(n-85) -154106875*a(n-86) -67750220*a(n-87) +190872*a(n-88) +361296*a(n-89) +3024*a(n-90) -576*a(n-91)
+The entry carries the following comment:
+\begin{quote}\small
+Empirical: a(n) = 7*a(n-1).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 09:32:02, revision 9) this is still
-recorded as empirical, and nothing on the entry records it as proved.
+As of the ``Last modified'' line on the live entry (Apr 06 2016 12:51:09, revision 26) the statement is
+still recorded as empirical, and nothing on the entry records it as settled either way.
 
-\section{What is being counted}
+Written out, the claim is
+\begin{equation}\label{eq:conj}
+a(n)\;=\;7\,a(n-1)
+\end{equation}
+for all $n>1$.
 
-The array has $8$ cells across, with entries in $\{0,1\}$. An OCCURRENCE of a pattern in a
-direction is a run of consecutive cells taken in that direction whose entries match the pattern
-in order; the array is counted when it has no occurrence at all. The entry names
+\section{What the canonical-form clause counts}
+
+Fix the shape: $3$ columns and $L=n+0$ rows, so $L\cdot3$ cells. Call a
+partition of the cells into nonempty classes a \emph{pattern}; an array over an alphabet
+determines a pattern, two cells lying in the same class exactly when they carry the same
+value.
+
+Write $x_{t,u}$ for the entry in row $t$ and column $u$. The
+entry's requirement is that no cell equals more than $2$ of its neighbours at the
+offsets
 \[
-\begin{array}{ll}
-\text{direction} & \text{forbidden patterns} \\[2pt]
-\text{along a row, left to right} & \mathtt{001},\quad \mathtt{100} \\
-\text{down a column} & \mathtt{001},\quad \mathtt{100} \\
-\end{array}
+\mathcal N=\{(0,-1),\ (-1,0),\ (-1,1)\}
 \]
+(offsets given as (row shift, column shift), and only cells inside the array count),
+that is
+\begin{equation}\label{eq:loc}
+\#\bigl\{(d_1,d_2)\in\mathcal N:\ x_{t+d_1,\,u+d_2}=x_{t,u}\bigr\}\;\le\;2
+\qquad\text{for every cell }(t,u).
+\end{equation}
+Every offset in $\mathcal N$ points backwards in the walk, so the condition at a cell of
+row $t$ is settled by row $t$ itself together with row $t-1$.
 
+The condition is stated purely in terms of equalities between entries, so it is invariant
+under any relabelling of the values and is therefore a property of the pattern alone. Call a
+pattern \emph{admissible} when it has the property.
 
-\section{Every occurrence lies in $3$ consecutive rows}
+The clause ``new values $0..1$ introduced in row major order'' selects, from each class
+of arrays that differ only by a relabelling, exactly one representative: reading the cells in
+row major order, the first occurrence of the value $v$ must precede the first occurrence of
+$v+1$. Every pattern with at most $K=2$ classes has exactly one such representative, and
+every array in canonical form is the representative of its own pattern. Hence, writing
+$N_j(n)$ for the number of admissible patterns with exactly $j$ classes,
+\begin{equation}\label{eq:apat}
+a(n)\;=\;\sum_{j=0}^{2}N_j(n).
+\end{equation}
 
-\begin{lemma}\label{lem:win}
-Each of the directions above changes the row index by $0$ or $1$ from one cell of a run to the
-next, and no pattern is longer than $3$ letters. Hence every occurrence lies inside $3$
-consecutive array rows, and an occurrence whose last cell is in row $i$ lies inside rows
-$i-2,\dots,i$.
+\begin{lemma}\label{lem:inv}
+Let $L_i(n)$ be the number of arrays over an alphabet of $i$ letters satisfying the local
+condition, with no canonical-form clause. Then
+\[
+L_i(n)=\sum_j N_j(n)\,i(i-1)\cdots(i-j+1),
+\qquad
+2!\,\sum_{j=0}^{2}N_j(n)=\sum_{i=0}^{2}\binom{2}{i}D_{2-i}\,L_i(n),
+\]
+where $D_m=m!\sum_{t=0}^{m}(-1)^t/t!$ is the number of derangements of $m$ letters.
 \end{lemma}
 
 \begin{proof}
-Immediate from the offsets listed: the row step is $0$ for a row and $1$ for the other three.
+An array over $i$ letters satisfying the condition determines an admissible pattern together
+with an injection of its classes into the alphabet, and conversely; a pattern with $j$
+classes admits $i(i-1)\cdots(i-j+1)$ injections. That is the first identity. Writing
+$i(i-1)\cdots(i-j+1)=j!\binom{i}{j}$ it reads $L_i=\sum_j (j!N_j)\binom{i}{j}$, so by
+binomial inversion $j!N_j=\sum_{i}(-1)^{j-i}\binom{j}{i}L_i$. Summing over
+$j\le 2$ and exchanging the order of summation,
+\[
+\sum_{j=0}^{2}N_j=\sum_{i=0}^{2}L_i\sum_{j=i}^{2}\frac{(-1)^{j-i}}{i!\,(j-i)!}
+=\sum_{i=0}^{2}\frac{L_i}{i!}\sum_{t=0}^{2-i}\frac{(-1)^t}{t!} ,
+\]
+and multiplying by $2!$ turns the coefficient of $L_i$ into
+$\frac{2!}{i!}\sum_{t\le 2-i}(-1)^t/t!=\binom{2}{i}(2-i)!\sum_{t\le 2-i}(-1)^t/t!
+=\binom{2}{i}D_{2-i}$, an integer.
 \end{proof}
 
-So the state is the window of the last $2$ array rows, a row still to come being written
-$\bot$. A step appends a row and rejects it exactly when some occurrence ends in it or lies
-inside it; an occurrence needing a row that is $\bot$ cannot exist, which is the boundary rule
-and is not assumed but read off the window. The walk starts at the all-$\bot$ window, so a walk
-of no steps is the empty array and a walk of $R$ steps is an array of $R$ rows. With $M$ the
-adjacency matrix, $\iota$ the indicator of the starting window and $\tau=\mathbf{1}$,
+\section{Each $L_i$ is a walk count, and the chain lumps}
+
+Fix $i$ and let $V_i=\{0,\dots,i-1\}^{3}$ be the possible rows. For $r,s\in V_i$
+declare $r\to s$ an edge when placing $s$ directly after $r$ satisfies \eqref{eq:loc} at
+every column, and let $M_i$ be the adjacency matrix. An array is exactly a sequence of
+rows, and its condition is exactly the conjunction of the edge conditions along that
+sequence, so
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=3193.
+L_i(n)\;=\;\mathbf{s}_i^{\!\top}M_i^{\,n+0-1}\mathbf{1} .
 \]
-The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
-published terms rather than assumed. In particular $a$ is $C$-finite.
+The first row has no row before it, so its cells are tested
+against their within-row neighbours only; $\mathbf{s}_i$ is the indicator vector of the
+rows that pass that test.
 
-\section{The proof}
-
-\begin{lemma}\label{lem:crit}
-Let $q(t)=t^{91}-\sum_i c_it^{91-i}$ be the characteristic polynomial of the
-conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
-$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
-holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
-and it is enough to examine $j<S$.
+\begin{lemma}\label{lem:lump}
+Let $\pi(r)$ be the equality pattern of the row $r$. For all $r,r'$ with
+$\pi(r)=\pi(r')$ and every pattern $Q$,
+\[
+\#\{s:\ r\to s,\ \pi(s)=Q\}\;=\;\#\{s:\ r'\to s,\ \pi(s)=Q\}\, .
+\]
+Consequently the numbers $\widehat M_i[P][Q]$ obtained by taking any representative of $P$
+are well defined, and with $e_P=i(i-1)\cdots(i-|P|+1)$ the number of rows of pattern $P$,
+\[
+\mathbf{s}_i^{\!\top}M_i^{\,m}\mathbf{1}\;=\;\sum_P \varepsilon_P\,f_m(P),
+\qquad f_0\equiv1,\quad f_{m+1}(P)=\sum_Q\widehat M_i[P][Q]f_m(Q),
+\]
+where $\varepsilon_P=e_P$ if rows of pattern $P$ may start a walk and $0$ otherwise.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+91}-\sum_ic_iM^{j+91-i}$. For the bound, $M^{S}$
-is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
-$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
-polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly.
+If $\pi(r)=\pi(r')$ then the map sending the value of $r$ at a column to the value of $r'$
+at that column is a well-defined injection between the letters used, and extends to a
+permutation $\sigma$ of the alphabet with $r'=\sigma(r)$. The edge condition is a statement
+about equalities among entries, so $r\to s$ if and only if $\sigma(r)\to\sigma(s)$; and
+$\pi(\sigma(s))=\pi(s)$. Hence $s\mapsto\sigma(s)$ is a bijection between the two successor
+sets preserving patterns, which is the first claim. It says the chain is strongly lumpable
+over $\pi$, so $\bigl(M_i^{m}\mathbf{1}\bigr)(r)$ depends on $r$ only through $\pi(r)$;
+calling that value $f_m(\pi(r))$ gives the recursion, and summing over $r$ in each class
+gives the displayed identity, the number of rows of pattern $P$ being the number of
+injections of its $|P|$ classes into the alphabet.
+\end{proof}
+
+Assembling the $2$ lumped chains into one block-diagonal matrix $N$ of size $S=5$ and
+putting the weights of Lemma~\ref{lem:inv} into the start vector,
+$\mathbf{v}=\bigl(\binom{2}{i}D_{2-i}\varepsilon_P\bigr)_{i,P}$, gives
+\begin{equation}\label{eq:walk}
+2!\;a(n)\;=\;\mathbf{v}^{\!\top}N^{\,n+0-1}\mathbf{1} .
+\end{equation}
+The unlumped alphabet had $9$ rows in all; the lumped chain has $S=5$ states.
+
+\section{The criterion, and the computation}
+
+Let $q(t)=t^{1}-\sum_i c_i\,t^{1-i}$ be the characteristic polynomial of
+\eqref{eq:conj}.
+
+\begin{lemma}\label{lem:crit}
+For every $n$ with $m=n+0-1\ge1$,
+\[
+2!\Bigl(a(n)-\sum_i c_i\,a(n-i)\Bigr)\;=\;\mathbf{v}^{\!\top}N^{\,m-1}q(N)\mathbf{1} .
+\]
+Hence \eqref{eq:conj} holds from that point on if and only if
+$\mathbf{v}^{\!\top}N^{j}q(N)\mathbf{1}=0$ for every $j\ge0$, and it is enough to check
+$j=0,1,\dots,S-1$.
+\end{lemma}
+
+\begin{proof}
+Substitute \eqref{eq:walk} into the left side and factor $N^{m-1}$ out of
+$N^{m}-\sum_i c_iN^{m-i}$. The scalar $2!$ is nonzero, so it does not affect whether
+the left side vanishes. For the last clause put $w=q(N)\mathbf{1}$: by Cayley--Hamilton
+$N^{S}$ is an integer combination of $I,N,\dots,N^{S-1}$, so each
+$\mathbf{v}^{\!\top}N^{j}w$ with $j\ge S$ is the corresponding combination of earlier
+values.
 \end{proof}
 
 \begin{theorem}
-\[
-a(n)\;=\;59\,a(n-1) - 924\,a(n-2) - 6026\,a(n-3) + 282252\,a(n-4) - 1432041\,a(n-5) - 24373466\,a(n-6) + 262687352\,a(n-7) + 640334347\,a(n-8) - 18036584164\,a(n-9) + 24686349020\,a(n-10) + 680471050054\,a(n-11) - 2467239295881\,a(n-12) - 15377947410860\,a(n-13) + 92662822842583\,a(n-14) + 194388885656516\,a(n-15) - 2131407685174599\,a(n-16) - 467753734267144\,a(n-17) + 33531396792756469\,a(n-18) - 32611919201386054\,a(n-19) - 375301729656782418\,a(n-20) + 734799190598899112\,a(n-21) + 2997741400908665093\,a(n-22) - 9147997238275474436\,a(n-23) - 16316214343525756227\,a(n-24) + 78832882478117034696\,a(n-25) + 48105584574234214594\,a(n-26) - 502045713683652310136\,a(n-27) + 76795854230662999090\,a(n-28) + 2421719149610601754694\,a(n-29) - 1820672376506166048961\,a(n-30) - 8878196619447561376540\,a(n-31) + 11784666072006315305776\,a(n-32) + 24247441564732995970371\,a(n-33) - 49599209440993705700652\,a(n-34) - 45817451649553969651616\,a(n-35) + 153635730778133962607033\,a(n-36) + 42206994301760839373011\,a(n-37) - 364338793688947322362461\,a(n-38) + 66169657270028097597952\,a(n-39) + 668732484790945487365916\,a(n-40) - 378322964192357373850226\,a(n-41) - 941963822970656930583533\,a(n-42) + 908733901013649360388428\,a(n-43) + 980929726940257548495599\,a(n-44) - 1488239739258842681176842\,a(n-45) - 667237779384636511157802\,a(n-46) + 1821371462534614719532840\,a(n-47) + 117369638719122095952095\,a(n-48) - 1712834479292061280742605\,a(n-49) + 377307828770252909923261\,a(n-50) + 1241455377109711904831856\,a(n-51) - 590390841376794261363734\,a(n-52) - 681508766968278135569323\,a(n-53) + 521344759491714620895584\,a(n-54) + 268123211598481123406576\,a(n-55) - 327591027187047626376443\,a(n-56) - 61863869296452399233444\,a(n-57) + 155533079749226457745780\,a(n-58) - 3210042153136878014848\,a(n-59) - 56949908932121720139848\,a(n-60) + 10222361379310698672882\,a(n-61) + 16148724873352323873347\,a(n-62) - 5174216275763024146780\,a(n-63) - 3519953768544422931941\,a(n-64) + 1654858930794192749194\,a(n-65) + 576670798752607495874\,a(n-66) - 385573927541444905790\,a(n-67) - 67146118218938550091\,a(n-68) + 68480296240386083402\,a(n-69) + 4627739384495964717\,a(n-70) - 9445137808945595160\,a(n-71) + 20317201158809823\,a(n-72) + 1019333562700201986\,a(n-73) - 49036995386058997\,a(n-74) - 86191242464007898\,a(n-75) + 6568805109569104\,a(n-76) + 5688388710060798\,a(n-77) - 506749760158095\,a(n-78) - 290029219018100\,a(n-79) + 25534310074814\,a(n-80) + 11189815771309\,a(n-81) - 835493990060\,a(n-82) - 314165140034\,a(n-83) + 16378196942\,a(n-84) + 5976966479\,a(n-85) - 154106875\,a(n-86) - 67750220\,a(n-87) + 190872\,a(n-88) + 361296\,a(n-89) + 3024\,a(n-90) - 576\,a(n-91)
-\]
-for every $n>90$.
+The recurrence \eqref{eq:conj} holds for every $n>1$, which is the statement of
+Section~1.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $91$ matrix--vector products in exact integer
-arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=90+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once.
+The lumped transition counts were obtained by enumerating, for one representative row of
+each pattern, all admissible successors and sorting them by pattern --- the successors being
+generated column by column, since the edge condition is a conjunction of one constraint per
+column. The vector $w=q(N)\mathbf{1}$ was then formed by $1$ matrix--vector products
+in exact integer arithmetic and $\mathbf{v}^{\!\top}N^{j}w$ evaluated for
+$j=0,1,\dots$, again exactly. Every one of those integers vanishes from the index
+corresponding to $n=1+1$ onwards, and the run continued until $w$ was the zero vector,
+which settles all larger $j$ at once. Lemma~\ref{lem:crit} gives the theorem.
 \end{proof}
 
 \section{Verification}
 
-Four checks, each independent of the algebra above.
+Three checks, each independent of the algebra above.
 
-First, the model reproduces all $13$ terms the entry publishes, exactly, in integer
-arithmetic.
+First, the whole construction was compared against the entry's DATA: the right-hand side of
+\eqref{eq:walk}, divided by $2!$, was evaluated at every one of the $20$
+published indices and agrees exactly. This is a strong test of the modelling and not only of
+the arithmetic --- the inversion of Lemma~\ref{lem:inv}, the reading of the local
+condition, and the alignment of the entry's index with the number of rows would each
+show up as a mismatch, and the quotient by $2!$ came out an integer at every index.
 
-Second, the count was recomputed for the smallest arrays straight from the definition: fill the
-cells one at a time, in the orientation the entry's own name writes, and reject as soon as a
-completed run matches a forbidden pattern. No transfer matrix, no window and no transposition
-are involved, and the published terms came back.
+Second, the lumped chain was checked against the unlumped one: for the small shapes the walk
+counts $\mathbf{s}_i^{\!\top}M_i^{m}\mathbf{1}$ were computed directly over the full
+alphabet as well and agree with $\sum_P\varepsilon_Pf_m(P)$ term by term.
 
-Third, the conjectured recurrence was evaluated directly on the published terms, with no
-matrices involved, and holds wherever the proved range and the data overlap.
-
-Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
-arithmetic on the whole vector rather than on a sampled prefix.
+Third, the recurrence \eqref{eq:conj} was evaluated on the published terms in exact integer
+arithmetic with no matrices involved, and the annihilation test of Lemma~\ref{lem:crit} was
+run until the working vector was identically zero rather than to a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A202315.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A208704.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata
-Theory, Languages, and Computation}, 3rd ed., Addison--Wesley, 2006.
-\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
-University Press, 2013.
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; Stirling and
+falling-factorial inversion, Section 1.9.)
+\bibitem{kemeny} J.~G.~Kemeny and J.~L.~Snell, \emph{Finite Markov Chains}, Springer,
+1976. (Strong lumpability, Section 6.3.)
+\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+University Press, 2009.
 \end{thebibliography}
 
 \end{document}

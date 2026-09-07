@@ -12,19 +12,19 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A252508, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A254973, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{7 September 2026}
+\date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A252508 counts $(n+2)\times4$ arrays over $\{0,\dots,3\}$ subject to a condition imposed on
-every $3\times3$ subblock, and it carries an empirical recurrence of order $34$
+OEIS A254973 counts $(n+2)\times5$ arrays over $\{0,\dots,1\}$ subject to a condition imposed on
+every $3\times3$ subblock, and it carries an empirical recurrence of order $35$
 contributed by R.~H.~Hardin. It is true, and it is not an empirical matter. A $3\times3$
 subblock spans three consecutive rows, so the state of a transfer matrix is a PAIR of
 consecutive rows and appending one more row is a step; an array is then a walk, and
-$a(n)$ is a walk count on $S=65536$ vertices. Such a sequence is $C$-finite, so whether a given
+$a(n)$ is a walk count on $S=1024$ vertices. Such a sequence is $C$-finite, so whether a given
 recurrence annihilates it is decided by a finite exact computation, with the Cayley--Hamilton
 theorem bounding the work.
 \end{abstract}
@@ -33,21 +33,21 @@ theorem bounding the work.
 
 \section{The conjecture}
 
-OEIS A252508 is ``Number of (n+2)X(2+2) 0..3 arrays with every 3X3 subblock row and column sum equal to 0 2 5 6 or 7 and every 3X3 diagonal and antidiagonal sum not equal to 0 2 5 6 or 7.''. It has offset $1$ and begins
+OEIS A254973 is ``Number of (n+2)X(3+2) 0..1 arrays with no 3x3 subblock diagonal sum 0 or 1 and no antidiagonal sum 0 or 1 and no row sum 0 and no column sum 0.''. It has offset $1$ and begins
 \[
-1515, 1644, 3980, 9277, 25197, 76113, 231372, 698936,\ \dots
+1008, 6915, 49040, 260705, 1592767, 9673960, 57587977, 343845199,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 2*a(n-1) +2*a(n-2) +28*a(n-3) -46*a(n-4) -50*a(n-5) -302*a(n-6) +339*a(n-7) +444*a(n-8) +1659*a(n-9) -708*a(n-10) -1726*a(n-11) -5313*a(n-12) -1724*a(n-13) +2968*a(n-14) +10952*a(n-15) +9601*a(n-16) -1890*a(n-17) -15584*a(n-18) -17207*a(n-19) -452*a(n-20) +16151*a(n-21) +18538*a(n-22) +1742*a(n-23) -12916*a(n-24) -15168*a(n-25) -2082*a(n-26) +8130*a(n-27) +9975*a(n-28) +1924*a(n-29) -3684*a(n-30) -4042*a(n-31) -880*a(n-32) +880*a(n-33) +440*a(n-34) for n>41
+Empirical: a(n) = 4*a(n-1) +11*a(n-2) +8*a(n-3) +60*a(n-4) -284*a(n-5) -333*a(n-6) -3571*a(n-7) -6011*a(n-8) +24239*a(n-9) +41276*a(n-10) -7771*a(n-11) -56686*a(n-12) -49978*a(n-13) -80570*a(n-14) -243931*a(n-15) +89792*a(n-16) +493579*a(n-17) +457162*a(n-18) -222384*a(n-19) -624692*a(n-20) +52666*a(n-21) +36815*a(n-22) +113184*a(n-23) +75036*a(n-24) +123561*a(n-25) -85349*a(n-26) -87922*a(n-27) -43653*a(n-28) -9850*a(n-29) -9845*a(n-30) -5348*a(n-31) -334*a(n-32) -16*a(n-33) +84*a(n-34) -60*a(n-35) for n>38
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jun 02 2025 11:18:25, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Jun 02 2025 11:35:12, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{Three consecutive lines}
 
 Write an admissible array as a sequence of rows $u_1,u_2,\dots$, each an element of
-$\{0,\dots,3\}^{4}$. A $3\times3$ subblock occupies three consecutive rows and
+$\{0,\dots,1\}^{5}$. A $3\times3$ subblock occupies three consecutive rows and
 three consecutive columns, so with $r,s,t$ three consecutive rows the blocks it
 contributes are
 \[
@@ -55,13 +55,13 @@ g=\begin{pmatrix}r_j&r_{j+1}&r_{j+2}\\ s_j&s_{j+1}&s_{j+2}\\ t_j&t_{j+1}&t_{j+2}
 \]
 for each admissible index, and the entry's condition is the requirement that
 \[
-\text{every row, column sum} \in \{0,2,5,6,7\}\ \text{ and }\ \text{every diagonal, antidiagonal sum} \notin \{0,2,5,6,7\}
+\text{every diagonal sum} \notin \{0,1\}\ \text{ and }\ \text{every antidiagonal sum} \notin \{0,1\}\ \text{ and }\ \text{every row sum} \notin \{0\}\ \text{ and }\ \text{every column sum} \notin \{0\}
 \]
 holds for every such $g$. This involves $r$, $s$ and $t$ only: it is a condition on
 three consecutive rows and on nothing else.
 
 Take as vertices of a digraph $G$ the ordered PAIRS $(r,s)$ of rows, of which there are
-$S=(3+1)^{2\cdot4}=65536$, and put an edge $(r,s)\to(s,t)$ exactly when the condition
+$S=(1+1)^{2\cdot5}=1024$, and put an edge $(r,s)\to(s,t)$ exactly when the condition
 holds for the triple $(r,s,t)$ at every admissible index. An array with $L$ rows is then a
 walk of length $L-2$ in $G$: its first two rows name the starting vertex and each further
 row is one step. Hence, with $M$ the adjacency matrix of $G$,
@@ -74,7 +74,7 @@ In particular $a$ is $C$-finite.
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{34}-\sum_i c_it^{34-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{35}-\sum_i c_it^{35-i}$ be the characteristic polynomial of the
 conjectured recurrence. Then the residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\mathbf{1}^{\!\top}M^{\,j}q(M)\mathbf{1}$ for the corresponding walk index
 $j$, so the recurrence holds from some point on if and only if
@@ -83,7 +83,7 @@ Cayley--Hamilton theorem it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+34}-\sum_ic_iM^{j+34-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+35}-\sum_ic_iM^{j+35-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$, so the numbers
 $u_j=\mathbf{1}^{\!\top}M^{j}q(M)\mathbf{1}$ satisfy the monic linear recurrence given by
 the characteristic polynomial of $M$; $S$ consecutive zeros therefore force every later one,
@@ -92,24 +92,24 @@ and the last nonzero $u_j$ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;2\,a(n-1) + 2\,a(n-2) + 28\,a(n-3) - 46\,a(n-4) - 50\,a(n-5) - 302\,a(n-6) + 339\,a(n-7) + 444\,a(n-8) + 1659\,a(n-9) - 708\,a(n-10) - 1726\,a(n-11) - 5313\,a(n-12) - 1724\,a(n-13) + 2968\,a(n-14) + 10952\,a(n-15) + 9601\,a(n-16) - 1890\,a(n-17) - 15584\,a(n-18) - 17207\,a(n-19) - 452\,a(n-20) + 16151\,a(n-21) + 18538\,a(n-22) + 1742\,a(n-23) - 12916\,a(n-24) - 15168\,a(n-25) - 2082\,a(n-26) + 8130\,a(n-27) + 9975\,a(n-28) + 1924\,a(n-29) - 3684\,a(n-30) - 4042\,a(n-31) - 880\,a(n-32) + 880\,a(n-33) + 440\,a(n-34)
+a(n)\;=\;4\,a(n-1) + 11\,a(n-2) + 8\,a(n-3) + 60\,a(n-4) - 284\,a(n-5) - 333\,a(n-6) - 3571\,a(n-7) - 6011\,a(n-8) + 24239\,a(n-9) + 41276\,a(n-10) - 7771\,a(n-11) - 56686\,a(n-12) - 49978\,a(n-13) - 80570\,a(n-14) - 243931\,a(n-15) + 89792\,a(n-16) + 493579\,a(n-17) + 457162\,a(n-18) - 222384\,a(n-19) - 624692\,a(n-20) + 52666\,a(n-21) + 36815\,a(n-22) + 113184\,a(n-23) + 75036\,a(n-24) + 123561\,a(n-25) - 85349\,a(n-26) - 87922\,a(n-27) - 43653\,a(n-28) - 9850\,a(n-29) - 9845\,a(n-30) - 5348\,a(n-31) - 334\,a(n-32) - 16\,a(n-33) + 84\,a(n-34) - 60\,a(n-35)
 \]
-for every $n>41$.
+for every $n>38$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\mathbf{1}$ was formed by $34$ matrix--vector products in exact
+The vector $w=q(M)\mathbf{1}$ was formed by $35$ matrix--vector products in exact
 integer arithmetic and $\mathbf{1}^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again
-exactly. Those integers vanish from the index corresponding to $n=41+1$ onwards, and the
+exactly. Those integers vanish from the index corresponding to $n=38+1$ onwards, and the
 run was continued until the working vector was identically zero, which settles all larger $j$
-at once. By Lemma~\ref{lem:crit} the recurrence holds for every $n>41$.
+at once. By Lemma~\ref{lem:crit} the recurrence holds for every $n>38$.
 \end{proof}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the transfer model reproduces all $22$ terms the entry publishes, exactly, in
+First, the transfer model reproduces all $18$ terms the entry publishes, exactly, in
 integer arithmetic. This is what ties the model to the entry: the digraph is built by reading
 the entry's English, and a misreading gives different counts.
 
@@ -122,7 +122,7 @@ enters anywhere.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A252508.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A254973.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

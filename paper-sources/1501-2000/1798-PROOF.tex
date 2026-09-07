@@ -12,14 +12,14 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A209809, proved by counting patterns}
+\title{The empirical recurrence for OEIS A198713, proved by counting patterns}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A209809 counts arrays subject to a local condition \emph{and} to the clause ``new values
+OEIS A198713 counts arrays subject to a local condition \emph{and} to the clause ``new values
 $0..3$ introduced in row major order'', which says the array is written in canonical
 form. That clause is not local, so a transfer matrix over the alphabet does not see it. It
 does not have to: what is being counted is not arrays but equality patterns, and the number
@@ -28,7 +28,7 @@ inverting a falling factorial. The result is the clean identity
 $4!\,a(n)=\sum_i\binom{4}{i}D_{4-i}L_i(n)$ with $D_m$ the derangement numbers,
 and each $L_i$ is an ordinary walk count. A second reduction --- the chain is strongly
 lumpable over the patterns, because the condition is relabelling-invariant --- brings the
-state space down from $354$ to $S=38$. The entry's empirical recurrence of order
+state space down from $4890$ to $S=342$. The entry's empirical recurrence of order
 $14$, contributed by R.~H.~Hardin, then follows from a finite exact computation.
 \end{abstract}
 
@@ -36,40 +36,44 @@ $14$, contributed by R.~H.~Hardin, then follows from a finite exact computation.
 
 \section{The sequence and the conjecture}
 
-OEIS A209809 is ``Number of (n+1)X4 0..3 arrays with every 2X2 subblock having two distinct values, and new values 0..3 introduced in row major order.''. It has offset $1$ and begins
+OEIS A198713 is ``Number of nX6 0..3 arrays with values 0..3 introduced in row major order and no element equal to any horizontal or vertical neighbor.''. It has offset $1$ and begins
 \[
-173, 2721, 43209, 712829, 11912459, 201392025, 3428713825, 58668627061,\ \dots
+41, 8404, 1749965, 364637102, 75987485516, 15835552812749, 3300094936852775, 687733321797971342,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 26*a(n-1) -68*a(n-2) -1905*a(n-3) +6356*a(n-4) +40342*a(n-5) -117881*a(n-6) -302966*a(n-7) +604526*a(n-8) +940543*a(n-9) -1163096*a(n-10) -1137756*a(n-11) +834912*a(n-12) +402624*a(n-13) -124416*a(n-14)
+Empirical: a(n) = 313*a(n-1) -25836*a(n-2) +915863*a(n-3) -16213670*a(n-4) +144756201*a(n-5) -517271096*a(n-6) -1142631169*a(n-7) +16130100519*a(n-8) -49834494904*a(n-9) +41222570902*a(n-10) +81411834252*a(n-11) -186980689770*a(n-12) +120589827444*a(n-13) -21008679048*a(n-14)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 15:30:28, revision 9) the statement is
+As of the ``Last modified'' line on the live entry (Oct 03 2025 08:00:33, revision 9) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;26\,a(n-1) - 68\,a(n-2) - 1905\,a(n-3) + 6356\,a(n-4) + 40342\,a(n-5) - 117881\,a(n-6) - 302966\,a(n-7) + 604526\,a(n-8) + 940543\,a(n-9) - 1163096\,a(n-10) - 1137756\,a(n-11) + 834912\,a(n-12) + 402624\,a(n-13) - 124416\,a(n-14)
+a(n)\;=\;313\,a(n-1) - 25836\,a(n-2) + 915863\,a(n-3) - 16213670\,a(n-4) + 144756201\,a(n-5) - 517271096\,a(n-6) - 1142631169\,a(n-7) + 16130100519\,a(n-8) - 49834494904\,a(n-9) + 41222570902\,a(n-10) + 81411834252\,a(n-11) - 186980689770\,a(n-12) + 120589827444\,a(n-13) - 21008679048\,a(n-14)
 \end{equation}
 for all $n>14$.
 
 \section{What the canonical-form clause counts}
 
-Fix the shape: $4$ columns and $L=n+1$ rows, so $L\cdot4$ cells. Call a
+Fix the shape: $6$ columns and $L=n+0$ rows, so $L\cdot6$ cells. Call a
 partition of the cells into nonempty classes a \emph{pattern}; an array over an alphabet
 determines a pattern, two cells lying in the same class exactly when they carry the same
 value.
 
-Every $2\times2$ subblock of the array occupies two consecutive
-rows and two consecutive columns; writing those two rows as $r$ and $s$ the
-subblock is
+Write $x_{t,u}$ for the entry in row $t$ and column $u$. The
+entry's requirement is that no cell equals more than $0$ of its neighbours at the
+offsets
 \[
-\begin{pmatrix}\alpha&\beta\\\gamma&\delta\end{pmatrix}=\begin{pmatrix}r_j&r_{j+1}\\s_j&s_{j+1}\end{pmatrix},
+\mathcal N=\{(0,-1),\ (-1,0)\}
 \]
-and the entry's requirement on it is
+(offsets given as (row shift, column shift), and only cells inside the array count),
+that is
 \begin{equation}\label{eq:loc}
-\#\{\alpha,\beta,\gamma,\delta\}\in\{2\}.
+\#\bigl\{(d_1,d_2)\in\mathcal N:\ x_{t+d_1,\,u+d_2}=x_{t,u}\bigr\}\;\le\;0
+\qquad\text{for every cell }(t,u).
 \end{equation}
+Every offset in $\mathcal N$ points backwards in the walk, so the condition at a cell of
+row $t$ is settled by row $t$ itself together with row $t-1$.
 
 The condition is stated purely in terms of equalities between entries, so it is invariant
 under any relabelling of the values and is therefore a property of the pattern alone. Call a
@@ -114,16 +118,17 @@ $\frac{4!}{i!}\sum_{t\le 4-i}(-1)^t/t!=\binom{4}{i}(4-i)!\sum_{t\le 4-i}(-1)^t/t
 
 \section{Each $L_i$ is a walk count, and the chain lumps}
 
-Fix $i$ and let $V_i=\{0,\dots,i-1\}^{4}$ be the possible rows. For $r,s\in V_i$
+Fix $i$ and let $V_i=\{0,\dots,i-1\}^{6}$ be the possible rows. For $r,s\in V_i$
 declare $r\to s$ an edge when placing $s$ directly after $r$ satisfies \eqref{eq:loc} at
 every column, and let $M_i$ be the adjacency matrix. An array is exactly a sequence of
 rows, and its condition is exactly the conjunction of the edge conditions along that
 sequence, so
 \[
-L_i(n)\;=\;\mathbf{s}_i^{\!\top}M_i^{\,n}\mathbf{1} .
+L_i(n)\;=\;\mathbf{s}_i^{\!\top}M_i^{\,n+0-1}\mathbf{1} .
 \]
-Because the condition involves no row before the first, every
-row may start a walk, and $\mathbf{s}_i=\mathbf{1}$.
+The first row has no row before it, so its cells are tested
+against their within-row neighbours only; $\mathbf{s}_i$ is the indicator vector of the
+rows that pass that test.
 
 \begin{lemma}\label{lem:lump}
 Let $\pi(r)$ be the equality pattern of the row $r$. For all $r,r'$ with
@@ -153,13 +158,13 @@ gives the displayed identity, the number of rows of pattern $P$ being the number
 injections of its $|P|$ classes into the alphabet.
 \end{proof}
 
-Assembling the $4$ lumped chains into one block-diagonal matrix $N$ of size $S=38$ and
+Assembling the $4$ lumped chains into one block-diagonal matrix $N$ of size $S=342$ and
 putting the weights of Lemma~\ref{lem:inv} into the start vector,
 $\mathbf{v}=\bigl(\binom{4}{i}D_{4-i}\varepsilon_P\bigr)_{i,P}$, gives
 \begin{equation}\label{eq:walk}
-4!\;a(n)\;=\;\mathbf{v}^{\!\top}N^{\,n}\mathbf{1} .
+4!\;a(n)\;=\;\mathbf{v}^{\!\top}N^{\,n+0-1}\mathbf{1} .
 \end{equation}
-The unlumped alphabet had $354$ rows in all; the lumped chain has $S=38$ states.
+The unlumped alphabet had $4890$ rows in all; the lumped chain has $S=342$ states.
 
 \section{The criterion, and the computation}
 
@@ -167,7 +172,7 @@ Let $q(t)=t^{14}-\sum_i c_i\,t^{14-i}$ be the characteristic polynomial of
 \eqref{eq:conj}.
 
 \begin{lemma}\label{lem:crit}
-For every $n$ with $m=n+1-1\ge14$,
+For every $n$ with $m=n+0-1\ge14$,
 \[
 4!\Bigl(a(n)-\sum_i c_i\,a(n-i)\Bigr)\;=\;\mathbf{v}^{\!\top}N^{\,m-14}q(N)\mathbf{1} .
 \]
@@ -206,7 +211,7 @@ which settles all larger $j$ at once. Lemma~\ref{lem:crit} gives the theorem.
 Three checks, each independent of the algebra above.
 
 First, the whole construction was compared against the entry's DATA: the right-hand side of
-\eqref{eq:walk}, divided by $4!$, was evaluated at every one of the $15$
+\eqref{eq:walk}, divided by $4!$, was evaluated at every one of the $12$
 published indices and agrees exactly. This is a strong test of the modelling and not only of
 the arithmetic --- the inversion of Lemma~\ref{lem:inv}, the reading of the local
 condition, and the alignment of the entry's index with the number of rows would each
@@ -222,7 +227,7 @@ run until the working vector was identically zero rather than to a sampled prefi
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A209809.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A198713.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; Stirling and
 falling-factorial inversion, Section 1.9.)

@@ -12,76 +12,83 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A206410, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A220685, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A206410 counts arrays over $\{0,\dots,2\}$ under a condition on the perimeter cycle of
-every $2\times3$ and $3\times2$ subblock, and carries an empirical recurrence of order $35$ contributed by
-R.~H.~Hardin. It is true, and it is decidable rather than empirical. The condition is local to
-a bounded window of consecutive rows, so the count is a walk count on $S=15087$ states and is
-$C$-finite; whether the conjectured recurrence annihilates it is then settled by a finite exact
-computation, with the Cayley--Hamilton theorem bounding the work.
+OEIS A220685 counts the ways of linking the cells of a grid $5$ cells wide, each cell either to
+itself or to exactly $2$ of its neighbours, the links being reciprocal, and carries an
+empirical recurrence of order $36$ contributed by R.~H.~Hardin. It is true, and it is
+decidable rather than empirical. A reciprocal link is an undirected edge and a self-link is
+no edge, so what is counted is the spanning subgraphs of a grid graph in which every vertex
+has degree $0$ or $2$; the edges crossing the boundary between two consecutive rows are a
+state, the count is a walk count on $S=256$ of them, and the conjectured recurrence is then
+settled by a finite exact computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05C30, 05C70.\normalsize
 
 \section{The conjecture}
 
-OEIS A206410 is ``Number of (n+1) X 5 0..2 arrays with every 2 X 3 or 3 X 2 subblock having an equal number of clockwise and counterclockwise edge increases.''. It has offset $1$ and begins
+OEIS A220685 is ``Number of ways to reciprocally link elements of an nX5 array either to themselves or to exactly two horizontal, vertical or antidiagonal neighbors.''. It has offset $1$ and begins
 \[
-15087, 953865, 62351943, 4099250889, 269845754715, 17769571483479, 1170258128101905, 77072446958972853,\ \dots
+1, 114, 5851, 312603, 15978924, 822649205, 42362190063, 2181341369109,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 121*a(n-1) -4842*a(n-2) +93442*a(n-3) -984794*a(n-4) +5503671*a(n-5) -9072726*a(n-6) -78684541*a(n-7) +535626405*a(n-8) -991587240*a(n-9) -2580309619*a(n-10) +15747001849*a(n-11) -20598090193*a(n-12) -41549984245*a(n-13) +164996602285*a(n-14) -124687904298*a(n-15) -276964848873*a(n-16) +640627801097*a(n-17) -268835295686*a(n-18) -615894146346*a(n-19) +919184816798*a(n-20) -316305834243*a(n-21) -338190799906*a(n-22) +415103347869*a(n-23) -166830909951*a(n-24) +1177218958*a(n-25) +23150659951*a(n-26) -7462678489*a(n-27) +119744345*a(n-28) +412765357*a(n-29) -80434289*a(n-30) -308634*a(n-31) +1758176*a(n-32) -205020*a(n-33) +8424*a(n-34) -108*a(n-35).
+Empirical: a(n) = 35*a(n-1) +673*a(n-2) +8237*a(n-3) +46927*a(n-4) -112480*a(n-5) -3992526*a(n-6) -35333024*a(n-7) -169366609*a(n-8) -361164394*a(n-9) +47195630*a(n-10) +13502054*a(n-11) +495005695*a(n-12) +6209070799*a(n-13) +5791334536*a(n-14) -11945755468*a(n-15) -10812604841*a(n-16) +3004142790*a(n-17) -8986269878*a(n-18) +26749603735*a(n-19) -17268218707*a(n-20) +10625240169*a(n-21) +1286966410*a(n-22) -5196232889*a(n-23) -236330168*a(n-24) +3747662678*a(n-25) -4565014033*a(n-26) +2769440835*a(n-27) -1086425818*a(n-28) +220144889*a(n-29) -12788683*a(n-30) -5653764*a(n-31) +2046130*a(n-32) -331034*a(n-33) +12027*a(n-34) +3632*a(n-35) +36*a(n-36) for n>37
 \end{quote}
-As of the ``Last modified'' line on the live entry (Dec 13 2015 01:18:18, revision 7) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 18:58:32, revision 8) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-Both a $3\times2$ and a $2\times3$ window have all six of their cells on the
-perimeter, so each carries a $6$-cycle. For
-$\begin{pmatrix}p&q\\r&s\\t&u\end{pmatrix}$ the clockwise cycle is
-$p\to q\to s\to u\to t\to r\to p$; for
-$\begin{pmatrix}p&q&t\\r&s&u\end{pmatrix}$ it is
-$p\to q\to t\to u\to s\to r\to p$. An edge increase is a step of the cycle that goes up in
-value, and counterclockwise counts the same cycle traversed the other way. The entry requires
-of every window of either shape that its clockwise and counterclockwise edge increases are equal in number.
+A link is \emph{reciprocal}: if $u$ is linked to $v$ then $v$ is linked to $u$. So the links
+of a configuration are the edges of an undirected graph on the cells, and a cell ``linked to
+itself'' is a cell lying in no edge. The neighbour relation the entry names is the offset set
+\[
+(-1,0), (-1,1), (0,-1), (0,1), (1,-1), (1,0),
+\]
+and the condition ``either to themselves or to exactly $2$ neighbours'' says that in that
+graph every cell has degree $0$ or $2$. Hence $a(n)$ counts the spanning subgraphs of the
+grid graph on the offset set above, of $n$ rows and $5$ columns,
+whose every degree is $0$ or $2$: a disjoint union of cycles, since every vertex of the link graph has degree $0$ or $2$.
 
-The readings were pinned by direct enumeration before anything was built: over
-$\{0,1,2\}$ the $3\times2$ arrays of clockwise count $2$ number $423$ and those of count
-$3$ number $150$; over $\{0,\dots,3\}$ the $3\times2$ arrays of count $1$ number $480$;
-and the $2\times3$ arrays over $\{0,1,2\}$ of clockwise count $2$ also number $423$. Those
-are the first terms the corresponding entries publish.
+One point of the English has to be fixed rather than guessed: whether a cell may spend both of
+its links on the same neighbour. It may not. For the king-move neighbourhood the $1\times2$
+and $2\times2$ counts are the degree-$0$-or-$2$ subgraphs of $K_2$ and of $K_4$, which are $1$
+and $1+4+3=8$ with simple edges and larger if a doubled edge were allowed; the entries of that
+family publish $1$ and $8$. The reading is in any case pinned entry by entry, because the
+model below is required to reproduce every term the entry publishes.
+
 
 \section{The count is a walk count}
 
-A $3\times2$ window spans three consecutive array rows and a $2\times3$
-window two, so take as state the PAIR of consecutive rows. The $2\times3$ windows lie inside a
-single pair, so they decide which pairs are admissible at all; the $3\times2$ windows straddle
-three rows, so they decide which pair may follow which. A step appends one array row, turning
-$(r,s)$ into $(s,t)$ and testing every $3\times2$ window of $r,s,t$ at once. An $(n+1)$-row
-array is a walk of $n-1$ steps and
-\[
-a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,\qquad\iota=\tau=(1,\dots,1)^{\!\top},
-\]
-on the $S=15087$ admissible pairs.
+Every offset above changes the row index by at most one, so an edge either lies inside a row
+or crosses the boundary between two consecutive rows. Take as state the set of edges crossing
+one boundary. Placing a row means choosing the horizontal edges inside it and the edges it
+sends down to the next row; at that moment each of its cells knows all of its links --- those
+arriving from the row above, those inside the row, those going down --- so its degree, and any
+condition on the pair of links at a cell, is settled there and never revisited.
 
-At $n=1$ the array has two rows, so no $3\times2$ window fits and only the
-$2\times3$ windows apply; the entry's first term is
-$15087$, which the model reproduces along with every later term.
-In particular $a$ is $C$-finite. The alignment of the walk index with the entry's own $n$ was
+Reading a configuration from the top therefore gives a walk that begins at the empty boundary,
+takes one step per row, and ends at the empty boundary, and every such walk comes from exactly
+one configuration. With $M$ the adjacency matrix of the digraph on the $S=256$ reachable
+states and $\iota,\tau$ the indicator vectors of the empty boundary,
+\[
+a(n)\;=\;\iota^{\!\top}M^{\,n}\tau ,
+\]
+so $a$ is $C$-finite. States are generated from the empty boundary outward, so only the
+reachable ones are ever built; the alignment of the walk index with the entry's own $n$ was
 checked against its published terms rather than assumed.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{35}-\sum_i c_it^{35-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{36}-\sum_i c_it^{36-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -89,7 +96,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+35}-\sum_ic_iM^{j+35-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+36}-\sum_ic_iM^{j+36-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -98,15 +105,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;121\,a(n-1) - 4842\,a(n-2) + 93442\,a(n-3) - 984794\,a(n-4) + 5503671\,a(n-5) - 9072726\,a(n-6) - 78684541\,a(n-7) + 535626405\,a(n-8) - 991587240\,a(n-9) - 2580309619\,a(n-10) + 15747001849\,a(n-11) - 20598090193\,a(n-12) - 41549984245\,a(n-13) + 164996602285\,a(n-14) - 124687904298\,a(n-15) - 276964848873\,a(n-16) + 640627801097\,a(n-17) - 268835295686\,a(n-18) - 615894146346\,a(n-19) + 919184816798\,a(n-20) - 316305834243\,a(n-21) - 338190799906\,a(n-22) + 415103347869\,a(n-23) - 166830909951\,a(n-24) + 1177218958\,a(n-25) + 23150659951\,a(n-26) - 7462678489\,a(n-27) + 119744345\,a(n-28) + 412765357\,a(n-29) - 80434289\,a(n-30) - 308634\,a(n-31) + 1758176\,a(n-32) - 205020\,a(n-33) + 8424\,a(n-34) - 108\,a(n-35)
+a(n)\;=\;35\,a(n-1) + 673\,a(n-2) + 8237\,a(n-3) + 46927\,a(n-4) - 112480\,a(n-5) - 3992526\,a(n-6) - 35333024\,a(n-7) - 169366609\,a(n-8) - 361164394\,a(n-9) + 47195630\,a(n-10) + 13502054\,a(n-11) + 495005695\,a(n-12) + 6209070799\,a(n-13) + 5791334536\,a(n-14) - 11945755468\,a(n-15) - 10812604841\,a(n-16) + 3004142790\,a(n-17) - 8986269878\,a(n-18) + 26749603735\,a(n-19) - 17268218707\,a(n-20) + 10625240169\,a(n-21) + 1286966410\,a(n-22) - 5196232889\,a(n-23) - 236330168\,a(n-24) + 3747662678\,a(n-25) - 4565014033\,a(n-26) + 2769440835\,a(n-27) - 1086425818\,a(n-28) + 220144889\,a(n-29) - 12788683\,a(n-30) - 5653764\,a(n-31) + 2046130\,a(n-32) - 331034\,a(n-33) + 12027\,a(n-34) + 3632\,a(n-35) + 36\,a(n-36)
 \]
-for every $n>35$.
+for every $n>37$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $35$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $36$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=35+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=37+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -114,7 +121,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $12$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $14$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
@@ -126,11 +133,11 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A206410.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A220685.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{bona} M.~B\'ona, \emph{Combinatorics of Permutations}, 2nd ed., CRC
-Press, 2012.
+\bibitem{lovasz} L.~Lov\'asz and M.~D.~Plummer, \emph{Matching Theory}, AMS Chelsea,
+2009.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

@@ -12,45 +12,45 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A232922, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A233157, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A232922 counts arrays over $\{0,\dots,2\}$ in which no two entries that are neighbours in
+OEIS A233157 counts arrays over $\{0,\dots,2\}$ in which no two entries that are neighbours in
 a named set of directions may sum to $2$, together with clauses that pick one array out of
 each class of arrays differing by a renaming. The entry carries an empirical recurrence of
 order $3$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
 empirical: the clash condition is local to two consecutive rows and the renaming clauses are
-carried by one bounded piece of extra state, so the count is a walk count on $S=4$ states.
+carried by one bounded piece of extra state, so the count is a walk count on $S=14$ states.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 05C15, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A232922 is ``Number of 3 X n 0..2 arrays with no element x(i,j) adjacent to value 2-x(i,j) horizontally, diagonally or antidiagonally.''. It has offset $1$ and begins
+OEIS A233157 is ``Number of 4 X n 0..2 arrays with no element x(i,j) adjacent to value 2-x(i,j) horizontally or antidiagonally.''. It has offset $1$ and begins
 \[
-27, 54, 246, 912, 3612, 13992, 54600, 212544,\ \dots
+81, 384, 2592, 17496, 121176, 842616, 5871528, 40931568,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 3*a(n-1) + 4*a(n-2) - 2*a(n-3) for n>4.
+Empirical: a(n) = 9*a(n-1) - 15*a(n-2) + 6*a(n-3) for n>7.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 06 2018 05:47:59, revision 8) this is still
+As of the ``Last modified'' line on the live entry (Oct 09 2018 14:57:30, revision 8) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The array is $3$ cells across with entries $x(i,j)\in\{0,1,2\}$. Call two values $u,v$ CLASHING
+The array is $4$ cells across with entries $x(i,j)\in\{0,1,2\}$. Call two values $u,v$ CLASHING
 when $u+v=2$. Two cells are neighbours when one is obtained from the other by one of
 the offsets
 \[
-(1,-1), (1,0), (1,1),
+(1,-1), (1,0),
 \]
-that is, in the antidiagonal (ne--sw), vertical and diagonal (nw--se) directions, and the condition is that no two neighbouring cells carry
+that is, in the antidiagonal (ne--sw) and vertical directions, and the condition is that no two neighbouring cells carry
 clashing values. The entry writes the array with $n$ as the number of COLUMNS. The walk is run down the transpose, so the offsets above are already the transposed ones: transposing exchanges the horizontal and vertical directions and fixes each diagonal one. The clash relation is symmetric, so an offset and its negative name the
 same pairs and only one of each is listed.
 
@@ -62,7 +62,7 @@ consecutive array rows and on nothing else.
 So a single array row is a state. A step appends a row, which settles every clash between it
 and the row above and every clash inside it. Two states from which, for every remaining length,
 the same number of arrays can be completed contribute identically to the count, so they are
-identified; after that identification there are $S=4$ of them.
+identified; after that identification there are $S=14$ of them.
 
 With $\iota$ the indicator of the states that may begin an array and $\tau=\mathbf{1}$,
 \[
@@ -91,15 +91,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;3\,a(n-1) + 4\,a(n-2) - 2\,a(n-3)
+a(n)\;=\;9\,a(n-1) - 15\,a(n-2) + 6\,a(n-3)
 \]
-for every $n>4$.
+for every $n>7$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $3$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=4+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=7+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -107,7 +107,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $22$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $19$ terms the entry publishes, exactly, in integer
 arithmetic.
 
 Second, the count was recomputed for the smallest arrays straight from the definition: fill the
@@ -123,7 +123,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A232922.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A233157.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata

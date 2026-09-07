@@ -12,70 +12,76 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A203723, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A269139, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A203723 counts arrays of width $4$ over $\{0,1,2\}$ through two derived arrays of PAIR SUMS ---
-each cell added to its left neighbour, and each cell added to the one above it --- on which the
-entry imposes an order condition. The entry carries an empirical recurrence of order $20$
-contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical: the count is
-a walk count on $S=82$ states.
+OEIS A269139 counts arrays of width $4$ over $\{0,1,2,3\}$ in which the number of adjacent PAIRS of
+cells whose entries add up to $3$ is at most one. The entry carries an empirical recurrence of
+order $20$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
+empirical. The condition is global --- no window of the array decides it --- but the quantity
+it constrains is a count that may be capped at two, and a capped count is a bounded state; the
+result is a walk count on $S=581$ states.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 06A07, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05C30, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A203723 is ``Number of (n+1) X 4 0..2 arrays with column and row pair sums b(i,j)=a(i,j)+a(i,j-1) and c(i,j)=a(i,j)+a(i-1,j) nondecreasing in column and row directions, respectively.''. It has offset $1$ and begins
+OEIS A269139 is ``Number of nX4 0..3 arrays with some element plus some horizontally, antidiagonally or vertically adjacent neighbor totalling three no more than once.''. It has offset $1$ and begins
 \[
-326, 1632, 6249, 20290, 58048, 151649, 367595, 839916,\ \dots
+216, 8532, 275796, 8317996, 240647068, 6766301156, 186315931804, 5049212790572,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 9*a(n-1) -30*a(n-2) +31*a(n-3) +67*a(n-4) -220*a(n-5) +136*a(n-6) +300*a(n-7) -546*a(n-8) +78*a(n-9) +572*a(n-10) -494*a(n-11) -130*a(n-12) +404*a(n-13) -152*a(n-14) -100*a(n-15) +99*a(n-16) -15*a(n-17) -14*a(n-18) +7*a(n-19) -a(n-20) for n>23.
+Empirical: a(n) = 58*a(n-1) -1093*a(n-2) +7680*a(n-3) -27078*a(n-4) +58958*a(n-5) -88914*a(n-6) +82212*a(n-7) -35159*a(n-8) -20796*a(n-9) +39556*a(n-10) -11364*a(n-11) -13593*a(n-12) +9618*a(n-13) +429*a(n-14) -2060*a(n-15) +434*a(n-16) +166*a(n-17) -92*a(n-18) +16*a(n-19) -a(n-20) for n>22
 \end{quote}
-As of the ``Last modified'' line on the live entry (Nov 21 2025 11:03:44, revision 13) this is still
+As of the ``Last modified'' line on the live entry (Feb 20 2016 06:48:55, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The array $a$ has $4$ cells across, with entries in $\{0,1,2\}$. Two derived arrays are formed,
+The array has $4$ cells across, with entries in $\{0,1,2,3\}$. An ADJACENT PAIR is a pair of cells
 \[
-b(i,j)=a(i,j)+a(i,j-1)\quad(j\ge1),\qquad c(i,j)=a(i,j)+a(i-1,j)\quad(i\ge1),
+\begin{array}{l}
+$(i,j)\text{ and }(i,j{+}1)$ \\
+$(i,j)\text{ and }(i{+}1,j)$ \\
+$(i,j)\text{ and }(i{+}1,j{-}1)$ \\
+\end{array}
 \]
-so $b$ adds each cell to its LEFT neighbour and $c$ adds each cell to the one ABOVE it. The
-entry asks
+both lying inside the array. A pair is a pair of CELLS, so it is counted once and not once from
+each end. Writing $k$ for the number of adjacent pairs whose two entries add up to $3$, the
+entry counts the arrays with $k$ at most one.
 
+\section{A capped count is a state}
+
+No window of the array decides the condition: $k$ is a total over the whole array. But the
+condition distinguishes only $k=0$, $k=1$ and $k\ge2$, so the count may be carried capped at
+two and stays bounded.
+
+\begin{lemma}\label{lem:cap}
+Let $k_t$ be the number of qualifying pairs lying inside the first $t$ rows. Then
 \[
-b(i,j)\le b(i{+}1,j)\qquad\text{and}\qquad c(i,j)\le c(i,j{+}1)
+k_{t}\;=\;k_{t-1}+\bigl(\text{pairs inside row } t\bigr)
++\bigl(\text{pairs joining rows } t-1 \text{ and } t\bigr),
 \]
-wherever both sides are defined: the array $b$ must not decrease DOWN a column and the array
-$c$ must not decrease ALONG a row. The two directions are crossed, which is the only subtle
-part of the reading --- $b$ is built across a row and tested down a column, and $c$ the other
-way about.
-
-
-\section{Two rows decide it}
-
-\begin{lemma}\label{lem:win}
-Both conditions are conditions on two consecutive rows of $a$ and nothing more.
+and both added terms are determined by rows $t-1$ and $t$ alone.
 \end{lemma}
 
 \begin{proof}
-$b(i,j)\le b(i{+}1,j)$ names four cells of $a$, all in rows $i$ and $i+1$. $c(i,j)\le
-c(i,j{+}1)$ names four cells, all in rows $i-1$ and $i$.
+Every adjacent pair lies either inside one row or across two consecutive rows, by the list
+above; a pair inside rows $1..t$ that is not inside rows $1..t-1$ must meet row $t$, so it is
+one of the two kinds counted.
 \end{proof}
 
-So a single row of $a$ is a state and one step appends a row.
-
-With $M$ the adjacency matrix of the digraph on those states, $\iota$ the indicator of the
-starting state and $\tau=\mathbf{1}$,
+So the state is the pair $(\text{previous row},\min(k,2))$: a step appends a row, adds the
+pairs Lemma~\ref{lem:cap} names and caps the total at two. The end vector accepts the states
+with $k\le1$, so it is not the all-ones vector. With $M$ the adjacency matrix,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=82.
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=581.
 \]
 The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
 published terms rather than assumed. In particular $a$ is $C$-finite.
@@ -100,15 +106,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;9\,a(n-1) - 30\,a(n-2) + 31\,a(n-3) + 67\,a(n-4) - 220\,a(n-5) + 136\,a(n-6) + 300\,a(n-7) - 546\,a(n-8) + 78\,a(n-9) + 572\,a(n-10) - 494\,a(n-11) - 130\,a(n-12) + 404\,a(n-13) - 152\,a(n-14) - 100\,a(n-15) + 99\,a(n-16) - 15\,a(n-17) - 14\,a(n-18) + 7\,a(n-19) - a(n-20)
+a(n)\;=\;58\,a(n-1) - 1093\,a(n-2) + 7680\,a(n-3) - 27078\,a(n-4) + 58958\,a(n-5) - 88914\,a(n-6) + 82212\,a(n-7) - 35159\,a(n-8) - 20796\,a(n-9) + 39556\,a(n-10) - 11364\,a(n-11) - 13593\,a(n-12) + 9618\,a(n-13) + 429\,a(n-14) - 2060\,a(n-15) + 434\,a(n-16) + 166\,a(n-17) - 92\,a(n-18) + 16\,a(n-19) - a(n-20)
 \]
-for every $n>23$.
+for every $n>22$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $20$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=23+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=22+1$ onwards and the run continued
 until the working vector was identically zero.
 \end{proof}
 
@@ -116,13 +122,14 @@ until the working vector was identically zero.
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $27$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $15$ terms the entry publishes, exactly, in integer
 arithmetic.
 
 Second, the count was recomputed for the smallest arrays straight from the definition:
-enumerate every array of that size, form the two derived arrays in full, and test the condition
-on them directly. No window, no state and no incremental bookkeeping are involved, and the
-published terms came back.
+enumerate every array of that size in the orientation the entry's own name writes, count the
+adjacent pairs summing to $3$ by running over the array once for each kind of pair, and keep
+the array when that count is at most one. No cap, no state and no transfer matrix are involved, and
+the published terms came back.
 
 Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
@@ -132,7 +139,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A203723.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A269139.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge

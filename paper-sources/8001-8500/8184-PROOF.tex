@@ -12,52 +12,78 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The white squares of a board: OEIS A230942}
+\title{The empirical recurrence for OEIS A220683, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{7 September 2026}
+\date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A230942 carries an empirical recurrence of order $5$ contributed by R.~H.~Hardin. It is
-true, and it is decidable rather than empirical. The entry's condition is decided by a bounded amount of state carried down the array; the
-admissible windows are the vertices of a finite digraph and the arrays counted are exactly the
-walks in it. Hence $a(n)$ is a walk count on $S=9$ vertices and is $C$-finite, and whether the
-conjectured recurrence annihilates it is settled by a finite exact computation, with the
-Cayley--Hamilton theorem bounding the work.
+OEIS A220683 counts the ways of linking the cells of a grid $3$ cells wide, each cell either to
+itself or to exactly $2$ of its neighbours, the links being reciprocal, and carries an
+empirical recurrence of order $5$ contributed by R.~H.~Hardin. It is true, and it is
+decidable rather than empirical. A reciprocal link is an undirected edge and a self-link is
+no edge, so what is counted is the spanning subgraphs of a grid graph in which every vertex
+has degree $0$ or $2$; the edges crossing the boundary between two consecutive rows are a
+state, the count is a walk count on $S=16$ of them, and the conjectured recurrence is then
+settled by a finite exact computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05C30, 05C70.\normalsize
 
 \section{The conjecture}
 
-OEIS A230942 is ``Number of (n+3) X (1+3) 0..3 white square subarrays x(i,j) with each element diagonally or antidiagonally next to at least one element with value (x(i,j)+1) mod 4, and upper left element zero.''. It has offset $1$ and begins
+OEIS A220683 is ``Number of ways to reciprocally link elements of an n X 3 array either to themselves or to exactly two horizontal, vertical or antidiagonal neighbors.''. It has offset $1$ and begins
 \[
-6, 16, 76, 314, 1170, 4584, 18208, 71242,\ \dots
+1, 12, 94, 745, 5851, 46027, 362057, 2847943,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 3*a(n-1) + 14*a(n-3) + a(n-4) - a(n-5).
+Empirical: a(n) = 6*a(n-1) + 12*a(n-2) + 19*a(n-3) + 16*a(n-4) + 2*a(n-5) for n>6.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Mar 18 2018 05:14:33, revision 8) this is still
+As of the ``Last modified'' line on the live entry (Aug 02 2018 06:24:20, revision 7) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
-\section{The white squares are a board of their own}
+\section{What is being counted}
 
-The board has $4$ columns and grows one row at a time, but only the cells with $i+j$ even carry a value, from the alphabet $\{0,1,2,3\}$. The diagonal and antidiagonal neighbours of such a cell again have $i+j$ even, so the white squares form a board of their own and the entry's condition never refers to anything else: each white cell must have at least one neighbour, diagonally or antidiagonally, holding the value $x+1$ modulo $4$ where $x$ is its own.
-
-That looks one row up and one row down, so three consecutive rows settle the condition on the middle one. Carry two rows as the state, judge a row when the row after it arrives, and judge the row with nothing after it by the end vector. A cell at the edge of the board simply has fewer neighbours, and having none of the right value is a failure rather than a special case.
-
-The white cells of a row occupy alternate columns, and which alternate ones depends on the parity of that row, so the two shapes alternate down the board; the state carries that parity in the shape of the row it holds.
-
-The entry also fixes the top left cell at $0$, which restricts the states an array may begin in and nothing else.
-
-Merging vertices with identical futures leaves $S=9$. An admissible board is exactly a walk, so with $M$ the adjacency matrix and $\iota,\tau$ the vectors recording which states may begin and end a board,
+A link is \emph{reciprocal}: if $u$ is linked to $v$ then $v$ is linked to $u$. So the links
+of a configuration are the edges of an undirected graph on the cells, and a cell ``linked to
+itself'' is a cell lying in no edge. The neighbour relation the entry names is the offset set
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n+2}\tau ,
+(-1,0), (-1,1), (0,-1), (0,1), (1,-1), (1,0),
 \]
-the exponent fixed by the entry's own shape and checked against its published terms. In
-particular $a$ is $C$-finite.
+and the condition ``either to themselves or to exactly $2$ neighbours'' says that in that
+graph every cell has degree $0$ or $2$. Hence $a(n)$ counts the spanning subgraphs of the
+grid graph on the offset set above, of $n$ rows and $3$ columns,
+whose every degree is $0$ or $2$: a disjoint union of cycles, since every vertex of the link graph has degree $0$ or $2$.
+
+One point of the English has to be fixed rather than guessed: whether a cell may spend both of
+its links on the same neighbour. It may not. For the king-move neighbourhood the $1\times2$
+and $2\times2$ counts are the degree-$0$-or-$2$ subgraphs of $K_2$ and of $K_4$, which are $1$
+and $1+4+3=8$ with simple edges and larger if a doubled edge were allowed; the entries of that
+family publish $1$ and $8$. The reading is in any case pinned entry by entry, because the
+model below is required to reproduce every term the entry publishes.
+
+
+\section{The count is a walk count}
+
+Every offset above changes the row index by at most one, so an edge either lies inside a row
+or crosses the boundary between two consecutive rows. Take as state the set of edges crossing
+one boundary. Placing a row means choosing the horizontal edges inside it and the edges it
+sends down to the next row; at that moment each of its cells knows all of its links --- those
+arriving from the row above, those inside the row, those going down --- so its degree, and any
+condition on the pair of links at a cell, is settled there and never revisited.
+
+Reading a configuration from the top therefore gives a walk that begins at the empty boundary,
+takes one step per row, and ends at the empty boundary, and every such walk comes from exactly
+one configuration. With $M$ the adjacency matrix of the digraph on the $S=16$ reachable
+states and $\iota,\tau$ the indicator vectors of the empty boundary,
+\[
+a(n)\;=\;\iota^{\!\top}M^{\,n}\tau ,
+\]
+so $a$ is $C$-finite. States are generated from the empty boundary outward, so only the
+reachable ones are ever built; the alignment of the walk index with the entry's own $n$ was
+checked against its published terms rather than assumed.
 
 \section{The proof}
 
@@ -74,50 +100,44 @@ Factor $M^{j}$ out of $M^{j+5}-\sum_ic_iM^{j+5-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly. A constant factor in front of $a$ divides out of the residual and
-changes nothing here.
+pins the threshold exactly.
 \end{proof}
 
 \begin{theorem}
 \[
-a(n)\;=\;3\,a(n-1) + 14\,a(n-3) + a(n-4) - a(n-5)
+a(n)\;=\;6\,a(n-1) + 12\,a(n-2) + 19\,a(n-3) + 16\,a(n-4) + 2\,a(n-5)
 \]
-for every $n>2$.
+for every $n>6$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $5$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=2+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once.
+integers vanish from the index corresponding to $n=6+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once. The bound is exact: at $n=6$ the recurrence fails on the entry's own published terms, so no larger range holds.
 \end{proof}
 
 \section{Verification}
 
-Four checks, each independent of the algebra above.
+Three checks, each independent of the algebra above.
 
-First, the model reproduces all $23$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $20$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
-Second, the reading was pinned before the digraph was written, by a program that enumerates
-every filling of the white cells one by one and tests, for each of them, whether some
-diagonal or antidiagonal neighbour holds the required value. That program shares no code with the transfer matrix, so an error in one does not
-hide an error in the other.
-
-Third, the conjectured recurrence was evaluated directly on the published terms, with no
+Second, the conjectured recurrence was evaluated directly on those published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
 
-Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
 arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A230942.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A220683.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
-University Press, 2009.
+\bibitem{lovasz} L.~Lov\'asz and M.~D.~Plummer, \emph{Matching Theory}, AMS Chelsea,
+2009.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}
