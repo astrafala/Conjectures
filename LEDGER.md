@@ -65,6 +65,35 @@ result is worth more than three forced ones.
 
 ---
 
+# STANDING RULE, ADDED 7 SEPTEMBER 2026 — WORK IN CHUNKS, BIGGEST FIRST
+
+This sits above every choice of what to attack next, and it is not optional.
+
+1. **Always work in chunks, never one conjecture at a time.** A chunk is a family of open
+   conjectures that one engine can settle together. Settling entries singly is the slowest
+   possible use of the time and is only ever a last resort.
+2. **Target the BIGGEST approachable chunk available.** Before starting anything, rank the
+   remaining families by how many conjecture-carrying entries they hold, and take the
+   largest one that can actually be reached. `python3 src/chunks.py` prints that ranking:
+   run it first, every time, so the choice is made from measurement rather than from
+   whatever happens to be in view.
+3. **If no big chunk is approachable, take smaller ones — but still chunks.** A family of
+   four is a chunk. Falling back to smaller is fine; falling out of chunks is not.
+4. **Approachable is a judgement to make quickly and record.** If the biggest chunk needs
+   machinery that does not exist yet, either build it or write down precisely what stops it
+   and move to the next chunk down. Never leave a chunk silently skipped: the ledger must
+   say what was measured and what blocked it.
+5. **Never stop.** When one chunk is closed, the next action is to re-rank and open the
+   next one. There is no idle state and no finishing point; the work continues
+   indefinitely.
+
+Two things follow from this and are also binding. Re-running an existing engine over
+entries it already parses but refused is a chunk, and usually the cheapest one available —
+a cap is a setting, not a wall. And a chunk that turns out to hold no conjectures is a
+result worth recording, so that nobody measures it twice.
+
+---
+
 # Working ledger
 
 The dated working record of this project: every batch, every reading that turned out wrong,

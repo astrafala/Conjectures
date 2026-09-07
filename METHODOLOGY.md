@@ -190,6 +190,23 @@ it was never ours to claim, and the count comes down. A conjecture settled by so
 removed; the entry is simply annotated so that no paper claims an entry is open when it is not.
 Later is not earlier.
 
+## 6a. How targets are chosen
+
+The standing rule is to work in **chunks**, biggest first. A chunk is a family of open
+conjectures that one engine can settle together; settling entries one at a time is the
+slowest possible use of the effort and is a last resort, not a default.
+
+So the choice of what to attack is made by measurement rather than by whatever is in view.
+`engine/src/chunks.py` groups every open, conjecture-carrying entry that no engine reaches
+by the shape of its clause and prints the groups largest first; it also sizes the cheapest
+chunk of all, the entries an engine already parses that were refused at some earlier cap and
+never revisited. That pool has repeatedly turned out to hold real results, because a cap is
+a setting and not a wall.
+
+If the largest chunk needs machinery that does not exist, the choice is to build it or to
+write down precisely what stops it — not to skip it quietly. A chunk measured and found to
+hold no conjectures is itself recorded, so that nobody measures it twice.
+
 ## 7. Scope
 
 100 distinct arguments across 9248 entries. The full breakdown is in
