@@ -1,6 +1,6 @@
 # Papers 3001-3500
 
-Ranks 3001 to 3500 of 9328, hardest first.
+Ranks 3001 to 3500 of 9390, hardest first.
 
 | # | OEIS | Result | What settles it | Paper |
 | --- | --- | --- | --- | --- |

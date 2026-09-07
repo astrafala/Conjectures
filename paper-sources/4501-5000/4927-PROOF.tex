@@ -12,75 +12,69 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A184769, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A237212, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A184769 counts arrays over $\{0,\dots,3\}$ under a condition on the determinant of every
-$2\times2$ subblock, and carries an empirical recurrence of order $26$ contributed by
-R.~H.~Hardin. It is true, and it is decidable rather than empirical. The condition is local to
-a bounded window of consecutive rows, so the count is a walk count on $S=4096$ states and is
-$C$-finite; whether the conjectured recurrence annihilates it is then settled by a finite exact
-computation, with the Cayley--Hamilton theorem bounding the work.
+OEIS A237212 counts arrays over $\{0,\dots,3\}$ subject to a condition on the order
+statistics of every $2\times2$ subblock, and carries an empirical recurrence of order
+$27$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical.
+The condition is local to two consecutive rows, so the count is a walk count on $S=76$
+states and is $C$-finite; whether the conjectured recurrence annihilates it is then settled by
+a finite exact computation, with the Cayley--Hamilton theorem bounding the work.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 62G30.\normalsize
 
 \section{The conjecture}
 
-OEIS A184769 is ``Number of (n+1)X6 0..3 arrays with every 2X2 subblock singular.''. It has offset $1$ and begins
+OEIS A237212 is ``Number of (n+1)X(1+1) 0..3 arrays with the maximum plus the upper median minus the lower median minus the minimum of every 2X2 subblock equal.''. It has offset $1$ and begins
 \[
-73288, 27993232, 1444491280, 267277851856, 22101775999696, 3063406967117776, 308462363918463952, 38088784754633618128,\ \dots
+256, 1076, 4770, 22420, 107092, 523218, 2580120, 12870804,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n)=269*a(n-1)-18604*a(n-2)-924484*a(n-3)+172021970*a(n-4)-5317125802*a(n-5)-240644036068*a(n-6)+18315084539348*a(n-7)-176828351479993*a(n-8)-15251096945742171*a(n-9)+468969932821527864*a(n-10)+423816748106440680*a(n-11)-220194036707645621952*a(n-12)+3011341305097414924416*a(n-13)+19582053443675695521792*a(n-14)-828980845602116625865728*a(n-15)+5735250851466806177918976*a(n-16)+37237275376312329872805888*a(n-17)-769694345371364662562881536*a(n-18)+3640059294890819989078573056*a(n-19)+6546764792569404029310074880*a(n-20)-138894044476327572267652349952*a(n-21)+612902096956692422783284543488*a(n-22)-1262133089431101071140658872320*a(n-23)+1116871598603441937042892652544*a(n-24)-65595149009308503731758694400*a(n-25)-293649242721509636655022080000*a(n-26)
+Empirical: a(n) = 14*a(n-1) +9*a(n-2) -935*a(n-3) +2584*a(n-4) +23459*a(n-5) -105654*a(n-6) -285952*a(n-7) +1921192*a(n-8) +1588348*a(n-9) -20149416*a(n-10) +685072*a(n-11) +132759648*a(n-12) -66518688*a(n-13) -567564352*a(n-14) +438496896*a(n-15) +1584509184*a(n-16) -1476106752*a(n-17) -2857446400*a(n-18) +2915932160*a(n-19) +3232051200*a(n-20) -3441262592*a(n-21) -2161868800*a(n-22) +2339045376*a(n-23) +759037952*a(n-24) -824180736*a(n-25) -103809024*a(n-26) +113246208*a(n-27)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 02:54:47, revision 9) this is still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 09:58:08, revision 7) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-Write $\sigma$ for the determinant of a $2\times2$ subblock
-$\begin{pmatrix}p&q\\r&s\end{pmatrix}$, that is $\sigma=ps-qr$. The subblocks of an
-$(n+1)\times6$ array over $\{0,\dots,3\}$ form a grid of $n$ rows and $5$
-columns, and $\sigma$ colours that grid.
+Sort the four entries of a $2\times2$ subblock as $a\le b\le c\le d$: they
+are its minimum, lower median, upper median and maximum. The entry fixes the signed sum
+\[
+\sigma\;=\;-a-b+c+d,
+\]
+and asks that $\sigma$ take the SAME value on every $2\times2$ subblock of an
+$(n+1)\times2$ array over $\{0,\dots,3\}$.
 
-The condition is on each subblock separately: every $\sigma$ must vanish, which is what
-``singular'' says of a $2\times2$ matrix. Nothing
-relates one subblock to another.
+The common value is not named, so the count splits by it. For a fixed $v$ let $a_v(n)$ count
+the arrays all of whose subblocks give $\sigma=v$. An array determines its common value, so
+the sets belonging to different $v$ are disjoint and $a(n)=\sum_v a_v(n)$, a finite sum.
+
 
 \section{The count is a walk count}
 
-Because the condition looks at one subblock at a time and a subblock is
-built from two consecutive array rows, a single row is a state: rows $r$ and $s$ may follow one
-another exactly when all $5$ of the subblocks they form pass. An $(n+1)$-row array is then a
-walk of $n$ steps and
+For a fixed $v$ the condition involves two consecutive rows and nothing
+else: rows $r$ and $s$ may follow one another exactly when $\sigma$ equals $v$ on each of the
+$1$ subblocks they form. So a row is a state, an $(n+1)$-row array is a walk of $n$
+steps, and with $M$ the adjacency matrix on the disjoint union over $v$,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n}\tau,\qquad\iota=\tau=(1,\dots,1)^{\!\top},
+a(n)\;=\;\iota^{\!\top}M^{\,n}\tau,\qquad\iota=\tau=(1,\dots,1)^{\!\top} .
 \]
-on the $S=4096$ rows.
-
-At $n=1$ the array has two rows and the grid is a single row of $5$
-subblocks, each tested on its own, so $a(1)$ counts the
-$2\times6$ arrays over $\{0,\dots,3\}$ all of whose subblocks pass. The entry's
-first term is $73288$, and the model reproduces it along with every later term; that is the
-cheapest check that the grid has been read with the right shape.
-
-Over the alphabet $\{0,\dots,3\}$ the determinant of a $2\times2$ subblock takes values in
-$[-9,9]$, so the colouring of the grid it induces has at most $19$ values.
-That bound is what keeps the construction below finite in the only place where the value of
-$\sigma$, rather than a comparison between two of them, has to be carried.
-In particular $a$ is $C$-finite. The alignment of the walk index with the entry's own $n$ was
-checked against its published terms rather than assumed.
+Rows carrying no edge at all are dropped: such a row can only be the whole of a one-row
+array, which is not among the objects counted. There are $S=76$ states left.
+The alignment of the walk index with the entry's own $n$ was checked against its published
+terms rather than assumed. In particular $a$ is $C$-finite.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{26}-\sum_i c_it^{26-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{27}-\sum_i c_it^{27-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -88,7 +82,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+26}-\sum_ic_iM^{j+26-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+27}-\sum_ic_iM^{j+27-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -97,15 +91,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;269\,a(n-1) - 18604\,a(n-2) - 924484\,a(n-3) + 172021970\,a(n-4) - 5317125802\,a(n-5) - 240644036068\,a(n-6) + 18315084539348\,a(n-7) - 176828351479993\,a(n-8) - 15251096945742171\,a(n-9) + 468969932821527864\,a(n-10) + 423816748106440680\,a(n-11) - 220194036707645621952\,a(n-12) + 3011341305097414924416\,a(n-13) + 19582053443675695521792\,a(n-14) - 828980845602116625865728\,a(n-15) + 5735250851466806177918976\,a(n-16) + 37237275376312329872805888\,a(n-17) - 769694345371364662562881536\,a(n-18) + 3640059294890819989078573056\,a(n-19) + 6546764792569404029310074880\,a(n-20) - 138894044476327572267652349952\,a(n-21) + 612902096956692422783284543488\,a(n-22) - 1262133089431101071140658872320\,a(n-23) + 1116871598603441937042892652544\,a(n-24) - 65595149009308503731758694400\,a(n-25) - 293649242721509636655022080000\,a(n-26)
+a(n)\;=\;14\,a(n-1) + 9\,a(n-2) - 935\,a(n-3) + 2584\,a(n-4) + 23459\,a(n-5) - 105654\,a(n-6) - 285952\,a(n-7) + 1921192\,a(n-8) + 1588348\,a(n-9) - 20149416\,a(n-10) + 685072\,a(n-11) + 132759648\,a(n-12) - 66518688\,a(n-13) - 567564352\,a(n-14) + 438496896\,a(n-15) + 1584509184\,a(n-16) - 1476106752\,a(n-17) - 2857446400\,a(n-18) + 2915932160\,a(n-19) + 3232051200\,a(n-20) - 3441262592\,a(n-21) - 2161868800\,a(n-22) + 2339045376\,a(n-23) + 759037952\,a(n-24) - 824180736\,a(n-25) - 103809024\,a(n-26) + 113246208\,a(n-27)
 \]
-for every $n>25$.
+for every $n>26$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $26$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $27$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=25+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=26+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -113,7 +107,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $11$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $19$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
@@ -125,10 +119,11 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A184769.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A237212.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{minc} H.~Minc, \emph{Permanents}, Addison--Wesley, 1978.
+\bibitem{david} H.~A.~David and H.~N.~Nagaraja, \emph{Order Statistics}, 3rd ed., Wiley,
+2003.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

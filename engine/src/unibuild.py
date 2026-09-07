@@ -19,7 +19,15 @@ WINDOW = {
     'transfer8': "a window of two consecutive lines",
     'transfer16': "a window of consecutive lines fixed by the entry's own offsets",
     'transfer17': "every $3\\times3$ subblock, hence three consecutive lines",
+    'transfer21': "every $3\\times3$ subblock, hence three consecutive lines",
+    'transfer36': "every $2\\times2$ subblock, hence two consecutive lines",
+    'transfer37': "every $2\\times3$ and $3\\times2$ subblock, hence three consecutive lines",
 }
+# the date a paper prints is the day the result was obtained, and this builder is run again
+# whenever the sweep finds more; a hard-coded date would stamp today's results with the day
+# the builder was written
+import os as _os
+DATE = _os.environ.get('PAPER_DATE', '2 September 2026')
 
 
 def conj_line(anum):
@@ -52,7 +60,7 @@ def build(h):
     return rf"""{PRE}
 \title{{The empirical recurrence for OEIS {a}, proved by transfer matrix}}
 \author{{Adrian Perez Fontelles\\ \small Independent researcher}}
-\date{{2 September 2026}}
+\date{{{DATE}}}
 \begin{{document}}
 \maketitle
 

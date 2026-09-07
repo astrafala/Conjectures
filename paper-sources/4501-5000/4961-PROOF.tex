@@ -12,18 +12,18 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A234077, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A233898, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A234077 counts $(n+1)\times3$ arrays over $\{0,\dots,4\}$ subject to a condition imposed on
+OEIS A233898 counts $(n+1)\times3$ arrays over $\{0,\dots,6\}$ subject to a condition imposed on
 every $2\times2$ subblock, and carries an empirical recurrence of order $26$ contributed
 by R.~H.~Hardin. It is true, and it is not an empirical matter at all. The condition is local
 to each subblock, so the rows of an admissible array are the vertices of a finite digraph
-on $S=125$ vertices whose edges are the admissible consecutive pairs, and the count is a
+on $S=343$ vertices whose edges are the admissible consecutive pairs, and the count is a
 number of walks: $a(n)=\mathbf{1}^{\!\top}M^{n}\mathbf{1}$. Writing $q$
 for the characteristic polynomial of the conjectured recurrence, the recurrence holds for all
 $n$ exactly when $\mathbf{1}^{\!\top}M^{j}q(M)\mathbf{1}=0$ for every $j\ge0$, and the
@@ -35,20 +35,20 @@ integer arithmetic, and it comes out zero.
 
 \section{The sequence and the conjecture}
 
-OEIS A234077 is ``Number of (n+1)X(2+1) 0..4 arrays with every 2X2 subblock having the sum of the absolute values of all six edge and diagonal differences equal to 10.''. It has offset $1$ and begins
+OEIS A233898 is ``Number of (n+1)X(2+1) 0..6 arrays with every 2X2 subblock having the sum of the squares of all six edge and diagonal differences equal to 35.''. It has offset $1$ and begins
 \[
-476, 2900, 18048, 122532, 849760, 6162980, 45072784, 336800596,\ \dots
+656, 2944, 12152, 62064, 278416, 1521520, 7123728, 40312912,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 5*a(n-1) +110*a(n-2) -519*a(n-3) -4442*a(n-4) +20823*a(n-5) +81982*a(n-6) -411807*a(n-7) -690514*a(n-8) +4300171*a(n-9) +1861828*a(n-10) -23858897*a(n-11) +6643493*a(n-12) +68557098*a(n-13) -46245180*a(n-14) -103634888*a(n-15) +97714860*a(n-16) +81249120*a(n-17) -98401776*a(n-18) -30312448*a(n-19) +51151424*a(n-20) +3449856*a(n-21) -13460736*a(n-22) +567296*a(n-23) +1597440*a(n-24) -98304*a(n-25) -65536*a(n-26)
+Empirical: a(n) = 6*a(n-1) +100*a(n-2) -653*a(n-3) -3922*a(n-4) +29350*a(n-5) +75333*a(n-6) -716686*a(n-7) -663724*a(n-8) +10557778*a(n-9) -189287*a(n-10) -98135157*a(n-11) +62654351*a(n-12) +580526450*a(n-13) -642463362*a(n-14) -2125031984*a(n-15) +3275337984*a(n-16) +4379131280*a(n-17) -9343912016*a(n-18) -3557715392*a(n-19) +14269816000*a(n-20) -2397660416*a(n-21) -9497517824*a(n-22) +4983344128*a(n-23) +925209600*a(n-24) -965386240*a(n-25) +130457600*a(n-26)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jun 02 2025 09:09:18, revision 6) the statement is
+As of the ``Last modified'' line on the live entry (Jun 02 2025 09:03:50, revision 6) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;5\,a(n-1) + 110\,a(n-2) - 519\,a(n-3) - 4442\,a(n-4) + 20823\,a(n-5) + 81982\,a(n-6) - 411807\,a(n-7) - 690514\,a(n-8) + 4300171\,a(n-9) + 1861828\,a(n-10) - 23858897\,a(n-11) + 6643493\,a(n-12) + 68557098\,a(n-13) - 46245180\,a(n-14) - 103634888\,a(n-15) + 97714860\,a(n-16) + 81249120\,a(n-17) - 98401776\,a(n-18) - 30312448\,a(n-19) + 51151424\,a(n-20) + 3449856\,a(n-21) - 13460736\,a(n-22) + 567296\,a(n-23) + 1597440\,a(n-24) - 98304\,a(n-25) - 65536\,a(n-26)
+a(n)\;=\;6\,a(n-1) + 100\,a(n-2) - 653\,a(n-3) - 3922\,a(n-4) + 29350\,a(n-5) + 75333\,a(n-6) - 716686\,a(n-7) - 663724\,a(n-8) + 10557778\,a(n-9) - 189287\,a(n-10) - 98135157\,a(n-11) + 62654351\,a(n-12) + 580526450\,a(n-13) - 642463362\,a(n-14) - 2125031984\,a(n-15) + 3275337984\,a(n-16) + 4379131280\,a(n-17) - 9343912016\,a(n-18) - 3557715392\,a(n-19) + 14269816000\,a(n-20) - 2397660416\,a(n-21) - 9497517824\,a(n-22) + 4983344128\,a(n-23) + 925209600\,a(n-24) - 965386240\,a(n-25) + 130457600\,a(n-26)
 \end{equation}
 for all $n>26$.
 
@@ -56,7 +56,7 @@ for all $n>26$.
 
 Write an array of the shape in question as its list of rows
 $r^{(1)},r^{(2)},\dots$, each an element of
-$V=\{0,1,\dots,4\}^{3}$, so $|V|=S=125$. A $2\times2$ subblock of the array
+$V=\{0,1,\dots,6\}^{3}$, so $|V|=S=343$. A $2\times2$ subblock of the array
 occupies two consecutive rows and two consecutive columns; if the two rows are $r$
 and $s$ (in that order) and the two columns are numbered $j,j+1$,
 the subblock is
@@ -65,7 +65,7 @@ the subblock is
 \]
 The entry's requirement on that subblock is
 \begin{equation}\label{eq:loc}
-|\beta-\alpha|+|\delta-\beta|+|\gamma-\delta|+|\alpha-\gamma|+|\delta-\alpha|+|\gamma-\beta|\;=\;10,
+(\beta-\alpha)^2+(\delta-\beta)^2+(\gamma-\delta)^2+(\alpha-\gamma)^2+(\delta-\alpha)^2+(\gamma-\beta)^2=35,
 \end{equation}
 a condition on the four entries alone.
 
@@ -174,7 +174,7 @@ throughout.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A234077.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A233898.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

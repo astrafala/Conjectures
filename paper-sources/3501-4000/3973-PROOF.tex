@@ -12,126 +12,129 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A297098, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A258531, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{1 September 2026}
+\date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A297098 counts $n\times4$ arrays over $\{0,\dots,1\}$ subject to a condition imposed on
-every CELL through its king-move neighbourhood, and it carries an empirical recurrence of
-order $47$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
-empirical. A cell's neighbourhood meets three consecutive rows, so the state of a transfer
-matrix is a pair of consecutive rows and each step settles the middle one; an array is a
-walk, and $a(n)$ is a walk count on $S=272$ vertices, which is $C$-finite. Whether the
-conjectured recurrence annihilates it is then decided by a finite exact computation, with the
-Cayley--Hamilton theorem bounding the work.
+OEIS A258531 counts the arrays over $\{0,\dots,1\}$ whose $3\times3$ subblocks carry a
+statistic that is monotone along named directions of the subblock grid, and carries an
+empirical recurrence of order $47$ contributed by R.~H.~Hardin. It is true, and it is
+decidable rather than empirical. Every direction named moves the subblock row by at most one,
+so the count is a walk count on $S=472$ states --- the last two array rows together with the
+subblock row just completed --- and the conjectured recurrence is then settled by a finite
+exact computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 06A07.\normalsize
 
 \section{The conjecture}
 
-OEIS A297098 is ``Number of nX4 0..1 arrays with no 1 adjacent to 4 king-move neighboring 1s.''. It has offset $1$ and begins
+OEIS A258531 is ``Number of (2+2)X(n+2) 0..1 arrays with every 3X3 subblock sum of the two maximums of the central row and central column plus the two minimums of the diagonal and antidiagonal nondecreasing horizontally, vertically and ne-to-sw antidiagonally.''. It has offset $1$ and begins
 \[
-16, 216, 2258, 26278, 304059, 3498712, 40369420, 465695460,\ \dots
+2812, 16473, 92996, 523452, 2927601, 16010949, 85453855, 448125325,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 14*a(n-1) -28*a(n-2) +94*a(n-3) -1350*a(n-4) +2450*a(n-5) -4020*a(n-6) +45803*a(n-7) -68309*a(n-8) +96186*a(n-9) -663583*a(n-10) +765476*a(n-11) -1275618*a(n-12) +5007651*a(n-13) -4740055*a(n-14) +9380729*a(n-15) -21319664*a(n-16) +19123381*a(n-17) -37373261*a(n-18) +53990476*a(n-19) -46176823*a(n-20) +79054376*a(n-21) -76934482*a(n-22) +33015683*a(n-23) -89023578*a(n-24) -12437985*a(n-25) +56797137*a(n-26) +3691991*a(n-27) +237033110*a(n-28) -36003395*a(n-29) +240855798*a(n-30) -136876578*a(n-31) +88258413*a(n-32) -127736735*a(n-33) +63475433*a(n-34) +30989469*a(n-35) +55884403*a(n-36) +45629990*a(n-37) +2885825*a(n-38) +23016419*a(n-39) -11248309*a(n-40) +2972000*a(n-41) -5777500*a(n-42) +990176*a(n-43) -264530*a(n-44) +29738*a(n-45) -7612*a(n-46) +144*a(n-47)
+Empirical: a(n) = 10*a(n-1) -19*a(n-2) -74*a(n-3) +257*a(n-4) -222*a(n-5) -127*a(n-6) +1310*a(n-7) +5707*a(n-8) -19034*a(n-9) -42452*a(n-10) +94264*a(n-11) +92763*a(n-12) -76114*a(n-13) -25411*a(n-14) -417498*a(n-15) -322268*a(n-16) +880868*a(n-17) +861164*a(n-18) +190524*a(n-19) -942038*a(n-20) -1632564*a(n-21) -76455*a(n-22) -316746*a(n-23) +1435863*a(n-24) +3277486*a(n-25) -886992*a(n-26) -811984*a(n-27) -1316853*a(n-28) -3598154*a(n-29) +730003*a(n-30) +2935906*a(n-31) +2403955*a(n-32) +102238*a(n-33) -2209317*a(n-34) -1258874*a(n-35) -669825*a(n-36) +1040078*a(n-37) +1511094*a(n-38) -443868*a(n-39) -672040*a(n-40) +29952*a(n-41) +138128*a(n-42) +26784*a(n-43) -15520*a(n-44) -4544*a(n-45) +384*a(n-46) +256*a(n-47) for n>52
 \end{quote}
-As of the ``Last modified'' line on the live entry (Dec 25 2017 14:14:44, revision 4) this is still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 15:27:15, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
-\section{Cells, not blocks}
+\section{What is being counted}
 
-The king-move neighbours of a cell are the (at most) eight cells surrounding it. Every cell
-carries the condition
+A $3\times3$ subblock has four distinguished lines of three cells: its diagonal, its
+antidiagonal, its central row and its central column. The entry's statistic is a signed sum of
+aggregates --- sums, maxima, minima, medians --- taken over those lines, and $\sigma(i,j)$
+denotes its value on the subblock in position $(i,j)$ of the subblock grid, which has $n$ rows
+and $2$ columns for an $(n+2)\times4$ array over $\{0,\dots,1\}$. The condition is
 \[
-\text{every }1\text{ has }\#\{\text{neighbouring }1\text{s}\}\notin\{4\},
+\sigma(i,j)\le\sigma(i+1,j),\qquad \sigma(i,j)\le\sigma(i,j+1),\qquad \sigma(i,j)\ge\sigma(i+1,j-1)
 \]
-and the count of neighbours enters it, so the boundary is not a detail that can be papered
-over: a corner cell has three neighbours, an edge cell five, an interior cell eight, and a
-condition such as ``a strict majority of its neighbours'' means different things at each. In
-particular one cannot pad the array with a border of zeros --- that would give boundary cells
-eight neighbours and change what is being counted. The outside is therefore carried
-explicitly, as a sentinel row above the first and below the last and as a sentinel column
-either side, and a neighbour that falls outside is simply absent from both counts.
+whenever both positions exist. The entry writes the array with $n$ as the number of COLUMNS; transposing it exchanges the two coordinates of every direction, which is done once, and a direction that then points upward is turned round by reversing its inequality.
 
-Write an array as a sequence of rows $u_1,\dots,u_L$, each in
-$\{0,\dots,1\}^{4}$. The neighbourhood of a cell in row $u_i$ meets $u_{i-1}$,
-$u_i$ and $u_{i+1}$ and nothing else. Take as vertices the pairs
-$(r,s)\in(\{0,\dots,1\}^{4}\cup\{\varnothing\})\times\{0,\dots,1\}^{4}$,
-and put an edge $(r,s)\to(s,t)$ when row $s$ satisfies the condition at every one of its
-$4$ cells, given $r$ above and $t$ below. An array with $L$ rows is then a walk of length
-$L-1$ starting at $(\varnothing,u_1)$, each step settling one row, and the last row is
-settled by the terminal weight, which evaluates it with $\varnothing$ below. Hence,
-with $M$ the adjacency matrix, $\iota$ the starting vector and $\tau$ the terminal weight,
+``ne-to-sw antidiagonally'' is the offset $(+1,-1)$ on the subblock grid; that reading, and
+the reading of every statistic name here, was checked by counting the small arrays directly
+against what the entries publish.
+
+\section{The count is a walk count}
+
+A subblock spans three array rows and the vertical comparison spans four, so the obvious state
+is three consecutive rows. It is larger than it needs to be. What a step actually consults is
+the last TWO array rows --- enough to build the next subblock row once one more row arrives ---
+and the PREVIOUS SUBBLOCK ROW, to compare against. So take as state the triple
 \[
-a(n)\;=\;\,\iota^{\!\top}M^{\,n-1}\tau ,
+\bigl(r_{i+1},\ r_{i+2},\ \sigma\text{-row }i\bigr),
 \]
-the exponent fixed by the entry's own shape and checked against its published terms. In
-particular $a$ is $C$-finite.
+and let a step append an array row $r_{i+3}$: that fixes $\sigma$-row $i+1$ from
+$r_{i+1},r_{i+2},r_{i+3}$, and every comparison between the two $\sigma$-rows is settled
+there. All the third rows that produce the same $\sigma$-row collapse into one state, which is
+what makes the wider arrays reachable.
+
+The starting vector is therefore weighted rather than all-ones: a state is entered by as many
+first rows as produce it, and $\iota$ records that count. With $\tau$ all-ones, an
+$(n+2)$-row array is a walk of $n-1$ steps and
+\[
+a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau
+\]
+on the $S=472$ reachable states. In particular $a$ is $C$-finite. The alignment of the walk
+index with the entry's own $n$ was checked against its published terms rather than assumed.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
 Let $q(t)=t^{47}-\sum_i c_it^{47-i}$ be the characteristic polynomial of the
-conjectured recurrence. Then the residual $a(n)-\sum_ic_ia(n-i)$ equals
-$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the
-recurrence holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all
-large $j$; and it is enough to examine $j<S$.
+conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
+$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
+holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
+and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
 Factor $M^{j}$ out of $M^{j+47}-\sum_ic_iM^{j+47-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
-$u_j=\iota^{\!\top}M^{j}q(M)\tau$ satisfy the monic linear recurrence given by the
-characteristic polynomial of $M$; $S$ consecutive zeros force every later one, and the last
-nonzero $u_j$ pins the threshold exactly.
+$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
+polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
+pins the threshold exactly.
 \end{proof}
 
 \begin{theorem}
 \[
-a(n)\;=\;14\,a(n-1) - 28\,a(n-2) + 94\,a(n-3) - 1350\,a(n-4) + 2450\,a(n-5) - 4020\,a(n-6) + 45803\,a(n-7) - 68309\,a(n-8) + 96186\,a(n-9) - 663583\,a(n-10) + 765476\,a(n-11) - 1275618\,a(n-12) + 5007651\,a(n-13) - 4740055\,a(n-14) + 9380729\,a(n-15) - 21319664\,a(n-16) + 19123381\,a(n-17) - 37373261\,a(n-18) + 53990476\,a(n-19) - 46176823\,a(n-20) + 79054376\,a(n-21) - 76934482\,a(n-22) + 33015683\,a(n-23) - 89023578\,a(n-24) - 12437985\,a(n-25) + 56797137\,a(n-26) + 3691991\,a(n-27) + 237033110\,a(n-28) - 36003395\,a(n-29) + 240855798\,a(n-30) - 136876578\,a(n-31) + 88258413\,a(n-32) - 127736735\,a(n-33) + 63475433\,a(n-34) + 30989469\,a(n-35) + 55884403\,a(n-36) + 45629990\,a(n-37) + 2885825\,a(n-38) + 23016419\,a(n-39) - 11248309\,a(n-40) + 2972000\,a(n-41) - 5777500\,a(n-42) + 990176\,a(n-43) - 264530\,a(n-44) + 29738\,a(n-45) - 7612\,a(n-46) + 144\,a(n-47)
+a(n)\;=\;10\,a(n-1) - 19\,a(n-2) - 74\,a(n-3) + 257\,a(n-4) - 222\,a(n-5) - 127\,a(n-6) + 1310\,a(n-7) + 5707\,a(n-8) - 19034\,a(n-9) - 42452\,a(n-10) + 94264\,a(n-11) + 92763\,a(n-12) - 76114\,a(n-13) - 25411\,a(n-14) - 417498\,a(n-15) - 322268\,a(n-16) + 880868\,a(n-17) + 861164\,a(n-18) + 190524\,a(n-19) - 942038\,a(n-20) - 1632564\,a(n-21) - 76455\,a(n-22) - 316746\,a(n-23) + 1435863\,a(n-24) + 3277486\,a(n-25) - 886992\,a(n-26) - 811984\,a(n-27) - 1316853\,a(n-28) - 3598154\,a(n-29) + 730003\,a(n-30) + 2935906\,a(n-31) + 2403955\,a(n-32) + 102238\,a(n-33) - 2209317\,a(n-34) - 1258874\,a(n-35) - 669825\,a(n-36) + 1040078\,a(n-37) + 1511094\,a(n-38) - 443868\,a(n-39) - 672040\,a(n-40) + 29952\,a(n-41) + 138128\,a(n-42) + 26784\,a(n-43) - 15520\,a(n-44) - 4544\,a(n-45) + 384\,a(n-46) + 256\,a(n-47)
 \]
-for every $n>47$.
+for every $n>52$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $47$ matrix--vector products in exact integer
-arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly. Those
-integers vanish from the index corresponding to $n=47+1$ onwards, and the run was
-continued until the working vector was identically zero, which settles all larger $j$ at once.
-By Lemma~\ref{lem:crit} the recurrence holds for every $n>47$.
+arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
+integers vanish from the index corresponding to $n=52+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the transfer model reproduces all $17$ terms the entry publishes, exactly, in
-integer arithmetic. That check earned its place here. An early version of the construction
-tested whether a neighbour lay in the current row by comparing the row objects rather
-than their positions; when the row above happened to be identical to the current one, the
-cell directly above was then skipped as though it were the cell itself. The counts agreed with
-the entry for arrays of up to three rows and diverged at four, which is exactly the sort of
-error that a check on a handful of small cases would have missed.
+First, the model reproduces all $18$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry: the digraph is built by reading the
+entry's English, and a misreading gives different counts.
 
-Second, the conjectured recurrence was evaluated directly on the entry's own published terms,
-with no matrices involved, and holds wherever the proved range and the data overlap.
+Second, the conjectured recurrence was evaluated directly on those published terms, with no
+matrices involved, and holds wherever the proved range and the data overlap.
 
 Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
 arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A297098.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A258531.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
-University Press, 2009.
+\bibitem{davey} B.~A.~Davey and H.~A.~Priestley, \emph{Introduction to Lattices and
+Order}, 2nd ed., Cambridge University Press, 2002.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

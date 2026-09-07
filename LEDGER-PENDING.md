@@ -462,3 +462,39 @@ partition differently in every shard and entries would be both duplicated and dr
 `ONLY=<engine>` now also bypasses the done set, because a newly written engine's candidates
 were marked done by earlier sweeps that had no engine to offer them; honouring that would
 refuse to ask the new question, which is the whole point of the run.
+
+### transfer93: a condition on the multiset of a subblock
+
+Twenty-eight entries ask something of every $h\times w$ subblock that depends only on which
+values the block holds and how many times, never on where in the block they sit: how many
+distinct values it holds, how many entries equal $1$, whether the two middle order statistics
+agree, or what the sorted multiplicity vector is. One predicate on the multiset serves all of
+them, and a block spanning $h$ lines is decided by $h$ consecutive lines, so the state is the
+$h-1$ lines before the current one.
+
+The medians needed pinning and the data pinned them: for a $2\times2$ block with entries
+sorted $v_1\le v_2\le v_3\le v_4$, the lower median is $v_2$ and the upper median $v_3$. An
+independent brute force that forms every subblock directly agrees with the model term for
+term on the median (both senses), the distinct-value and the ones-count families, and the
+model reproduces every published term of all twenty-nine names read.
+
+### A fixed bound on the width is a wall
+
+transfer82 refused any array wider than five columns or over an alphabet larger than four.
+Those were numbers in a parser, not facts about the model: `no 2 X 2 block having four 1's`
+on `n X 7` binary matrices builds in twenty-two states. The bound is now the state space
+measured against the cap the caller gives, and eight more entries follow from that alone
+(A181249--A181251, A181258--A181260, A183807, A183841), each checked against a brute force
+that enumerates the arrays and forms the blocks directly.
+
+### The bug in ONLY, found by reading the file rather than the count
+
+`ONLY=<engine>` bypasses the done set so a new engine's candidates get asked. It bypassed the
+*shard's own* done set as well, so every interrupted rerun started from the front and appended
+the same hits again --- 66 records for 30 entries. The merge deduplicates, so nothing wrong
+would ever have reached a paper, and nothing in the output said a word about it. Only the
+global set is bypassed now.
+
+`ANUMS=<list>` was added for the case a widened parser creates: a handful of named entries
+become reachable, and asking about them should not mean re-asking about every candidate the
+engine has.

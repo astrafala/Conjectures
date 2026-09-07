@@ -11,6 +11,8 @@ import json
 import os
 import re
 
+import os
+
 import localentry as LE
 import phibuild
 import transfer82
@@ -19,6 +21,10 @@ import transferbuild
 PRE = phibuild.PRE
 esc = phibuild.esc
 rec_tex = transferbuild.rec_tex
+
+# the date a paper prints is the day the result was obtained; this builder runs again
+# whenever the sweep reaches more of its family
+DATE = os.environ.get('PAPER_DATE', '6 September 2026')
 
 WORD = {2: 'two', 3: 'three', 4: 'four', 5: 'five', 6: 'six'}
 
@@ -107,7 +113,7 @@ def build(h):
     return rf"""{PRE}
 \title{{A condition on every subblock: the empirical recurrence for OEIS {a}}}
 \author{{Adrian Perez Fontelles\\ \small Independent researcher}}
-\date{{6 September 2026}}
+\date{{{DATE}}}
 \begin{{document}}
 \maketitle
 

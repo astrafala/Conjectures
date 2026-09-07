@@ -294,6 +294,18 @@ def straightline(S, thr):
     return s + ((", and it holds for n > %d." % thr) if thr is not None else ".")
 
 
+def submultiset(S, thr):
+    s = ("The empirical recurrence is true. The condition on a subblock depends only on which "
+         "values the block holds and how many times, not on where in the block they sit, so "
+         "it is decided by the few consecutive lines the block spans. Carrying those lines as "
+         "the state makes the admissible arrays the walks of a finite digraph")
+    if S:
+        s += " with %s vertices" % f"{S:,}".replace(',', ' ')
+    s += (", so a(n) satisfies a constant-coefficient linear recurrence of order at most "
+          "that; checking the one above is then a finite exact computation")
+    return s + ((", and it holds for n > %d." % thr) if thr is not None else ".")
+
+
 def fromgf(thr):
     s = ("The recurrence follows from the generating function this entry already states as "
          "fact: a recurrence with constant coefficients is exactly a denominator of the "
@@ -554,6 +566,8 @@ def main():
                 txt = nbrreach(S, thr)
             elif t.startswith('A global condition that is really a local one'):
                 txt = straightline(S, thr)
+            elif t.startswith('A condition on the multiset of every subblock'):
+                txt = submultiset(S, thr)
             elif t in ARRAY_TITLES:
                 txt = array(S, thr)
             elif t == "The empirical recurrence for OEIS A, derived from the entry's generating function":

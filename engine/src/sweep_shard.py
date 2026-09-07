@@ -71,7 +71,12 @@ CANDS = json.load(open('uni_cands.json'))
 # a chunk of the sweep can be aimed at one engine's candidates: a newly written engine has
 # its answers in minutes instead of behind every other engine's leftovers
 ONLY = os.environ.get('ONLY', '')
+# a widened parser makes a handful of named entries reachable without making a new engine;
+# asking about that handful should not mean re-asking about every candidate the engine has
+ANUMS = {x for x in os.environ.get('ANUMS', '').replace(',', ' ').split() if x}
 for a in sorted(CANDS):
+    if ANUMS and a not in ANUMS:
+        continue
     if ONLY and CANDS[a] != ONLY:
         continue
     # ONLY names a newly written engine, and its candidates were marked done by earlier
@@ -79,7 +84,11 @@ for a in sorted(CANDS):
     # the new question, which is the whole reason for the run.
     if a in roster or a in GHITS:
         continue
-    if not ONLY and (a in done or a in GDONE):
+    # `done` is this shard's own record and is always honoured --- ignoring it made every
+    # interrupted rerun reprocess from the front and append the same hits again. Only the
+    # global set is bypassed under ONLY, since that is where a new engine's candidates were
+    # parked by sweeps that had no engine to offer them.
+    if a in done or (not (ONLY or ANUMS) and a in GDONE):
         continue
     # crc32, not hash(): Python randomises string hashing per process, so hash() would
     # partition differently in every shard and entries would be both duplicated and dropped

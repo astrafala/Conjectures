@@ -12,69 +12,78 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A236004, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A220624, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{6 September 2026}
+\date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A236004 counts arrays of width $3$ over $\{0,1,2,3\}$ in which the smallest and largest of the
-four entries of every $2\times2$ block have a sum equal to the sum of the other two. The entry
-carries an empirical recurrence of order $17$ contributed by R.~H.~Hardin. It is true, and
-it is decidable rather than empirical: the condition involves two consecutive rows and nothing
-wider, so the count is a walk count on $S=64$ states.
+OEIS A220624 counts the ways of linking the cells of a grid $5$ cells wide, each cell either to
+itself or to exactly $1$ of its neighbours, the links being reciprocal, and carries an
+empirical recurrence of order $17$ contributed by R.~H.~Hardin. It is true, and it is
+decidable rather than empirical. A reciprocal link is an undirected edge and a self-link is
+no edge, so what is counted is the spanning subgraphs of a grid graph in which every vertex
+has degree $0$ or $1$; the edges crossing the boundary between two consecutive rows are a
+state, the count is a walk count on $S=228$ of them, and the conjectured recurrence is then
+settled by a finite exact computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B20, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05C30, 05C70.\normalsize
 
 \section{The conjecture}
 
-OEIS A236004 is ``Number of (n+1)X(2+1) 0..3 arrays with the minimum plus the maximum equal to the lower median plus the upper median in every 2X2 subblock.''. It has offset $1$ and begins
+OEIS A220624 is ``Number of ways to reciprocally link elements of an 5Xn array either to themselves or to exactly one horizontal, diagonal and antidiagonal neighbor.''. It has offset $1$ and begins
 \[
-508, 4568, 41608, 389520, 3726296, 36383144, 361779592, 3655701448,\ \dots
+1, 228, 4657, 243119, 8608738, 356768525, 13864972277, 553125347136,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 43*a(n-1) -763*a(n-2) +7147*a(n-3) -36573*a(n-4) +84065*a(n-5) +69894*a(n-6) -844584*a(n-7) +1395964*a(n-8) +1156720*a(n-9) -4996336*a(n-10) +928096*a(n-11) +6404480*a(n-12) -1078656*a(n-13) -4024832*a(n-14) -1081344*a(n-15) +79872*a(n-16) +32768*a(n-17)
+Empirical: a(n) = 29*a(n-1) +557*a(n-2) -4948*a(n-3) -24662*a(n-4) +187560*a(n-5) +182180*a(n-6) -1893504*a(n-7) -127344*a(n-8) +6325072*a(n-9) +132352*a(n-10) -7384448*a(n-11) -1323456*a(n-12) +2439808*a(n-13) +987648*a(n-14) -7168*a(n-15) -69632*a(n-16) +32768*a(n-17)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 08:59:33, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 18:55:07, revision 8) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The arrays have $3$ columns and a growing number of rows, with entries in $\{0,1,2,3\}$. Take any
-$2\times2$ block of the array and sort its four entries as
+A link is \emph{reciprocal}: if $u$ is linked to $v$ then $v$ is linked to $u$. So the links
+of a configuration are the edges of an undirected graph on the cells, and a cell ``linked to
+itself'' is a cell lying in no edge. The neighbour relation the entry names is the offset set
 \[
-\alpha\le\beta\le\gamma\le\delta .
+(-1,-1), (-1,0), (-1,1), (1,-1), (1,0), (1,1),
 \]
-The minimum is $\alpha$ and the maximum is $\delta$; the lower median is $\beta$ and the upper
-median is $\gamma$. The entry's condition, imposed on every $2\times2$ block, is therefore
+and the condition ``either to themselves or to exactly $1$ neighbours'' says that in that
+graph every cell has degree $0$ or $1$. Hence $a(n)$ counts the spanning subgraphs of the
+grid graph on the offset set above, of $n$ rows and $5$ columns,
+whose every degree is $0$ or $1$: a matching. The entry writes the array with $n$ as the number of COLUMNS; transposing it exchanges the two coordinates of every neighbour offset, which is done once, before anything else, so that the walk always runs down the rows.
+
+One point of the English has to be fixed rather than guessed: whether a cell may spend both of
+its links on the same neighbour. It may not. For the king-move neighbourhood the $1\times2$
+and $2\times2$ counts are the degree-$0$-or-$2$ subgraphs of $K_2$ and of $K_4$, which are $1$
+and $1+4+3=8$ with simple edges and larger if a doubled edge were allowed; the entries of that
+family publish $1$ and $8$. The reading is in any case pinned entry by entry, because the
+model below is required to reproduce every term the entry publishes.
+
+
+\section{The count is a walk count}
+
+Every offset above changes the row index by at most one, so an edge either lies inside a row
+or crosses the boundary between two consecutive rows. Take as state the set of edges crossing
+one boundary. Placing a row means choosing the horizontal edges inside it and the edges it
+sends down to the next row; at that moment each of its cells knows all of its links --- those
+arriving from the row above, those inside the row, those going down --- so its degree, and any
+condition on the pair of links at a cell, is settled there and never revisited.
+
+Reading a configuration from the top therefore gives a walk that begins at the empty boundary,
+takes one step per row, and ends at the empty boundary, and every such walk comes from exactly
+one configuration. With $M$ the adjacency matrix of the digraph on the $S=228$ reachable
+states and $\iota,\tau$ the indicator vectors of the empty boundary,
 \[
-\alpha+\delta\;=\;\beta+\gamma .
+a(n)\;=\;\iota^{\!\top}M^{\,n}\tau ,
 \]
-
-Nothing here depends on where in the block each value sits: the condition is a statement about
-the multiset of the four entries. In particular it is symmetric under every rearrangement of
-the block, and under adding a constant to all four entries.
-
-\section{Two rows}
-
-A $2\times2$ block occupies two consecutive rows, so everything the condition asks is decided
-by a pair of consecutive rows and nothing wider. Take the array one row at a time and let the
-state be the row just written; a step appends a new row and is allowed exactly when every one
-of the $3-1$ blocks spanning the two rows satisfies the condition.
-
-Every block of the finished array is tested exactly once, at the step that writes its lower
-row, and no step tests anything the definition does not ask. A one-row array has no block at
-all, so every row may start and every state may end: $\iota$ and $\tau$ are both
-$\mathbf{1}$, and the states are all $4^{3}=64$ rows. Thus
-\[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=64,
-\]
-for the transfer matrix $M$ on those $S$ states. The walk index $j$ and the entry's own $n$
-differ by a constant, read off by matching the published terms rather than assumed. In
-particular $a$ is $C$-finite.
+so $a$ is $C$-finite. States are generated from the empty boundary outward, so only the
+reachable ones are ever built; the alignment of the walk index with the entry's own $n$ was
+checked against its published terms rather than assumed.
 
 \section{The proof}
 
@@ -96,7 +105,7 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;43\,a(n-1) - 763\,a(n-2) + 7147\,a(n-3) - 36573\,a(n-4) + 84065\,a(n-5) + 69894\,a(n-6) - 844584\,a(n-7) + 1395964\,a(n-8) + 1156720\,a(n-9) - 4996336\,a(n-10) + 928096\,a(n-11) + 6404480\,a(n-12) - 1078656\,a(n-13) - 4024832\,a(n-14) - 1081344\,a(n-15) + 79872\,a(n-16) + 32768\,a(n-17)
+a(n)\;=\;29\,a(n-1) + 557\,a(n-2) - 4948\,a(n-3) - 24662\,a(n-4) + 187560\,a(n-5) + 182180\,a(n-6) - 1893504\,a(n-7) - 127344\,a(n-8) + 6325072\,a(n-9) + 132352\,a(n-10) - 7384448\,a(n-11) - 1323456\,a(n-12) + 2439808\,a(n-13) + 987648\,a(n-14) - 7168\,a(n-15) - 69632\,a(n-16) + 32768\,a(n-17)
 \]
 for every $n>16$.
 \end{theorem}
@@ -110,27 +119,25 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 \section{Verification}
 
-Four checks, each independent of the algebra above.
+Three checks, each independent of the algebra above.
 
-First, the model reproduces all $16$ terms the entry publishes, exactly, in integer
-arithmetic.
+First, the model reproduces all $15$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry: the digraph is built by reading the
+entry's English, and a misreading gives different counts.
 
-Second, the count was recomputed for the smallest arrays straight from the definition: every
-array was written out cell by cell and each $2\times2$ block tested by sorting its four values
-and comparing the outer two with the inner two. No rows, no state and no transfer matrix are
-involved in that computation, and the published terms came back.
-
-Third, the conjectured recurrence was evaluated directly on the published terms, with no
+Second, the conjectured recurrence was evaluated directly on those published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
 
-Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
 arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A236004.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A220624.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{lovasz} L.~Lov\'asz and M.~D.~Plummer, \emph{Matching Theory}, AMS Chelsea,
+2009.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

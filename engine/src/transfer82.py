@@ -87,7 +87,11 @@ def parse_name(nm):
         return None
     L, a, tr = sh
     k = 2 if m.group(3).lower() == 'binary' else int(m.group(4)) + 1
-    if not 2 <= L <= 5 or not 2 <= k <= 4:
+    # A fixed bound on the width and the alphabet is a wall, and the standing rule is that
+    # a cap is a setting. The real limit is the state space, which `build` measures against
+    # the cap it is given; refusing "n X 7 binary matrices" here left three whole families
+    # unasked while their models fit in sixteen thousand states.
+    if not 1 <= L <= 14 or not 2 <= k <= 8:
         return None
     cond = m.group(5).strip()
     for kind, rx in CLAUSE:
@@ -133,6 +137,8 @@ def build(p, cap=200000):
     pair = kind == 'reflect'
     dep = dep + 1 if pair else dep
     if spn > L:
+        return None
+    if k ** L > 4 * cap:
         return None
     lines = list(product(range(k), repeat=L))
     nb = L - spn + 1

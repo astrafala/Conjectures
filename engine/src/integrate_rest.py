@@ -1,8 +1,12 @@
 #!/usr/bin/env python3
 """Install every proved result that has a compiled paper and is not yet in the roster."""
 import json, os, shutil
-ENGNAME = {'transfer85': 'distance-repeat', 'transfer86': 'local-array-condition',
-           'transfer87': 'parity-difference'}
+ENGNAME = {'transfer81': 'canonical-subblock', 'transfer82': 'subblock-condition',
+           'transfer83': 'neighbour-condition', 'transfer84': 'column-domination',
+           'transfer85': 'distance-repeat', 'transfer86': 'local-array-condition',
+           'transfer87': 'parity-difference', 'transfer89': 'white-squares',
+           'transfer91': 'neighbour-reach', 'transfer92': 'straight-line',
+           'transfer93': 'subblock-multiset', 'denumerant': 'lattice-count'}
 eng = {int(k): v for k, v in json.load(open('paper-engines.json')).items()}
 have = {v['anum'] for v in eng.values()}
 nxt = max(eng) + 1
