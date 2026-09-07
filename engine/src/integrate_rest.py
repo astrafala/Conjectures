@@ -6,7 +6,8 @@ ENGNAME = {'transfer81': 'canonical-subblock', 'transfer82': 'subblock-condition
            'transfer85': 'distance-repeat', 'transfer86': 'local-array-condition',
            'transfer87': 'parity-difference', 'transfer89': 'white-squares',
            'transfer91': 'neighbour-reach', 'transfer92': 'straight-line',
-           'transfer93': 'subblock-multiset', 'denumerant': 'lattice-count'}
+           'transfer93': 'subblock-multiset', 'denumerant': 'lattice-count',
+           'transfer17': 'subblock-3x3'}
 eng = {int(k): v for k, v in json.load(open('paper-engines.json')).items()}
 have = {v['anum'] for v in eng.values()}
 nxt = max(eng) + 1

@@ -12,17 +12,17 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A186135, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A185768, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A186135 counts arrays over $\{0,\dots,2\}$ under a condition on the trace of every
-$2\times2$ subblock, and carries an empirical recurrence of order $29$ contributed by
+OEIS A185768 counts arrays over $\{0,\dots,1\}$ under a condition on the trace of every
+$2\times2$ subblock, and carries an empirical recurrence of order $30$ contributed by
 R.~H.~Hardin. It is true, and it is decidable rather than empirical. The condition is local to
-a bounded window of consecutive rows, so the count is a walk count on $S=3888$ states and is
+a bounded window of consecutive rows, so the count is a walk count on $S=11400$ states and is
 $C$-finite; whether the conjectured recurrence annihilates it is then settled by a finite exact
 computation, with the Cayley--Hamilton theorem bounding the work.
 \end{abstract}
@@ -31,22 +31,22 @@ computation, with the Cayley--Hamilton theorem bounding the work.
 
 \section{The conjecture}
 
-OEIS A186135 is ``Number of (n+1)X4 0..2 arrays with no 2X2 subblock trace equal to any horizontal or vertical neighbor 2X2 subblock trace.''. It has offset $1$ and begins
+OEIS A185768 is ``Number of (n+1)X9 binary arrays with no 2X2 subblock trace equal to any horizontal or vertical neighbor 2X2 subblock trace.''. It has offset $1$ and begins
 \[
-3888, 107874, 3090564, 88110594, 2513594016, 71683161894, 2044563391476, 58311925687818,\ \dots
+11400, 99464, 1071200, 12760448, 166155112, 2212654240, 29857704328, 404009799752,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n)=8*a(n-1)+551*a(n-2)+2092*a(n-3)-29959*a(n-4)-80288*a(n-5)+807333*a(n-6)+327072*a(n-7)-9377682*a(n-8)+9809631*a(n-9)+37995967*a(n-10)-77988412*a(n-11)-25468024*a(n-12)+142020278*a(n-13)-6381828*a(n-14)-124693659*a(n-15)-23375996*a(n-16)+64568471*a(n-17)+52421184*a(n-18)-6894001*a(n-19)-26781500*a(n-20)-12165465*a(n-21)+158720*a(n-22)+3261613*a(n-23)+1589010*a(n-24)+560063*a(n-25)+355508*a(n-26)+79536*a(n-27)+6024*a(n-28)+5184*a(n-29) for n>30
+Empirical: a(n)=a(n-1)+179*a(n-2)+341*a(n-3)-6316*a(n-4)-6138*a(n-5)+92272*a(n-6)-87872*a(n-7)-479803*a(n-8)+1815915*a(n-9)-852208*a(n-10)-6873004*a(n-11)+8175787*a(n-12)+6036792*a(n-13)-5492010*a(n-14)-12389568*a(n-15)+3504328*a(n-16)+38808492*a(n-17)-4735254*a(n-18)-36745560*a(n-19)-36433267*a(n-20)+12744011*a(n-21)+28480781*a(n-22)+9986028*a(n-23)-2174189*a(n-24)-3904760*a(n-25)-845298*a(n-26)-118044*a(n-27)-60864*a(n-28)-3296*a(n-29)-32*a(n-30) for n>36
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 03:26:27, revision 9) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 03:09:59, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
 Write $\sigma$ for the trace of a $2\times2$ subblock
 $\begin{pmatrix}p&q\\r&s\end{pmatrix}$, that is $\sigma=p+s$. The subblocks of an
-$(n+1)\times4$ array over $\{0,\dots,2\}$ form a grid of $n$ rows and $3$
+$(n+1)\times9$ array over $\{0,\dots,1\}$ form a grid of $n$ rows and $8$
 columns, and $\sigma$ colours that grid.
 
 The condition relates NEIGHBOURING subblocks: the values of two subblocks adjacent in the grid,
@@ -63,15 +63,15 @@ rows at once. An $(n+1)$-row array is a walk of $n-1$ steps, so
 \[
 a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,\qquad\iota=\tau=(1,\dots,1)^{\!\top},
 \]
-on the $S=3888$ admissible pairs.
+on the $S=11400$ admissible pairs.
 
-At $n=1$ the array has two rows, so the grid is a single row of $3$
+At $n=1$ the array has two rows, so the grid is a single row of $8$
 subblocks with no vertical neighbours, so only the horizontal comparisons apply. The
-entry's first term is $3888$, and the model reproduces it along with every later term; that
+entry's first term is $11400$, and the model reproduces it along with every later term; that
 is the cheapest check that the grid has been read with the right shape.
 
-Over the alphabet $\{0,\dots,2\}$ the trace of a $2\times2$ subblock takes values in
-$[0,4]$, so the colouring of the grid it induces has at most $5$ values.
+Over the alphabet $\{0,\dots,1\}$ the trace of a $2\times2$ subblock takes values in
+$[0,2]$, so the colouring of the grid it induces has at most $3$ values.
 That bound is what keeps the construction below finite in the only place where the value of
 $\sigma$, rather than a comparison between two of them, has to be carried.
 In particular $a$ is $C$-finite. The alignment of the walk index with the entry's own $n$ was
@@ -80,7 +80,7 @@ checked against its published terms rather than assumed.
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{29}-\sum_i c_it^{29-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{30}-\sum_i c_it^{30-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -88,7 +88,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+29}-\sum_ic_iM^{j+29-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+30}-\sum_ic_iM^{j+30-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -97,15 +97,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;8\,a(n-1) + 551\,a(n-2) + 2092\,a(n-3) - 29959\,a(n-4) - 80288\,a(n-5) + 807333\,a(n-6) + 327072\,a(n-7) - 9377682\,a(n-8) + 9809631\,a(n-9) + 37995967\,a(n-10) - 77988412\,a(n-11) - 25468024\,a(n-12) + 142020278\,a(n-13) - 6381828\,a(n-14) - 124693659\,a(n-15) - 23375996\,a(n-16) + 64568471\,a(n-17) + 52421184\,a(n-18) - 6894001\,a(n-19) - 26781500\,a(n-20) - 12165465\,a(n-21) + 158720\,a(n-22) + 3261613\,a(n-23) + 1589010\,a(n-24) + 560063\,a(n-25) + 355508\,a(n-26) + 79536\,a(n-27) + 6024\,a(n-28) + 5184\,a(n-29)
+a(n)\;=\;a(n-1) + 179\,a(n-2) + 341\,a(n-3) - 6316\,a(n-4) - 6138\,a(n-5) + 92272\,a(n-6) - 87872\,a(n-7) - 479803\,a(n-8) + 1815915\,a(n-9) - 852208\,a(n-10) - 6873004\,a(n-11) + 8175787\,a(n-12) + 6036792\,a(n-13) - 5492010\,a(n-14) - 12389568\,a(n-15) + 3504328\,a(n-16) + 38808492\,a(n-17) - 4735254\,a(n-18) - 36745560\,a(n-19) - 36433267\,a(n-20) + 12744011\,a(n-21) + 28480781\,a(n-22) + 9986028\,a(n-23) - 2174189\,a(n-24) - 3904760\,a(n-25) - 845298\,a(n-26) - 118044\,a(n-27) - 60864\,a(n-28) - 3296\,a(n-29) - 32\,a(n-30)
 \]
-for every $n>30$.
+for every $n>36$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $29$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $30$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=30+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=36+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -125,7 +125,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A186135.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A185768.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{minc} H.~Minc, \emph{Permanents}, Addison--Wesley, 1978.

@@ -498,3 +498,33 @@ global set is bypassed now.
 `ANUMS=<list>` was added for the case a widened parser creates: a handful of named entries
 become reachable, and asking about them should not mean re-asking about every candidate the
 engine has.
+
+### 142 entries that were waiting on a merge, not on an idea
+
+The 3 X 3 subblock families (A251838--A252700 and their neighbours) are read correctly by
+transfer17 and always have been. They were unsettled because the annihilation test runs until
+$S$ consecutive residuals vanish, and $S$ here is the number of *pairs* of lines:
+$(\alpha+1)^{2W}$, which is 65536 at width 4 over four values and 59049 at width 5 over three.
+A test that long on a matrix that size never finishes.
+
+The models are enormously redundant. Merging states with identical futures takes A252060 from
+**59049 states to 60**. The merge changes no count --- states with the same future contribute
+identically to $\iota^\top M^n\tau$ --- and the unmerged $S$ a paper quotes as its
+Cayley--Hamilton bound is still a valid bound, merely a generous one. The pair engines have
+lumped before the test for a long time; the plain ones did not, and that one missing line was
+the whole obstruction.
+
+Building was the other half. transfer17 tested every candidate line against every block:
+$|lines|\cdot(W-2)$ work for each of tens of thousands of pairs. Each block is decided the
+moment its last column arrives, and a prefix already ruled out rules out everything extending
+it, so the search now grows the next line one column at a time and prunes --- five times
+faster at width 4, and it agrees with the old routine edge for edge on the models where the
+old one could still be run.
+
+With those two changes **142 entries settled**, every one of them open, every one carrying a
+conjecture, none contradicted by its own published data. They were the largest approachable
+chunk on the board and nothing about them was hard; they were simply never asked.
+
+The papers quote the entry's own condition rather than describing it in general terms:
+`build_new.py` re-parses the name and folds the parse into the sweep record, because the
+record does not carry it.

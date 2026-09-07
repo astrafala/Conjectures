@@ -10,166 +10,177 @@
 \newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
-\newtheorem{definition}[theorem]{Definition}
 \newtheorem{remark}[theorem]{Remark}
-\title{A proof of the conjectured recurrence for OEIS A081205}
+
+\title{The empirical recurrence for OEIS A203729, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{30 August 2026}
+\date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A081205 carries a conjectured linear recurrence with polynomial coefficients, of
-order 2. The entry posts no generating function, and the closed form it does post
-is not a hypergeometric term in $n$: it contains a floor, so its shift quotients are not
-rational and the usual argument does not start. Splitting on the parity of $n$ repairs
-this. Writing $a(2m)=e_{0}(m)$ and $a(2m+1)=e_{1}(m)$, both halves are ordinary
-hypergeometric expressions in $m$, and the recurrence becomes two identities in $m$, since
-each shifted term $a(n-i)$ lands in whichever half the parity of $n-i$ selects. Both are
-then decided exactly, by grouping into similarity classes and cancelling. The procedure
-returns a proof or a refutation; both halves must hold, and here both do.
+OEIS A203729 counts $(n+1)\times3$ arrays over $\{0,\dots,7\}$ subject to a condition imposed on
+every $2\times2$ subblock, and carries an empirical recurrence of order $2$ contributed
+by R.~H.~Hardin. It is true, and it is not an empirical matter at all. The condition is local
+to each subblock, so the rows of an admissible array are the vertices of a finite digraph
+on $S=512$ vertices whose edges are the admissible consecutive pairs, and the count is a
+number of walks: $a(n)=\mathbf{1}^{\!\top}M^{n}\mathbf{1}$. Writing $q$
+for the characteristic polynomial of the conjectured recurrence, the recurrence holds for all
+$n$ exactly when $\mathbf{1}^{\!\top}M^{j}q(M)\mathbf{1}=0$ for every $j\ge0$, and the
+Cayley--Hamilton theorem bounds that to $j<S$. It is therefore a finite computation in exact
+integer arithmetic, and it comes out zero.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 33F10, 11B37, 05A10.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
 \section{The sequence and the conjecture}
 
-OEIS A081205 is ``Staircase on Pascal's triangle''. It has offset $0$ and begins
+OEIS A203729 is ``Number of (n+1) X 3 0..7 arrays with every 2 X 2 subblock having equal diagonal elements or equal antidiagonal elements.''. It has offset $1$ and begins
 \[
-a(0),\dots,a(7)\;=\;1, 3, 10, 20, 70, 126, 462, 792,\ \dots
+14400, 539456, 19071424, 681461824, 24301391808, 866928276544, 30924651270080, 1103143816649792,\ \dots
 \]
-The entry states, not as a conjecture,
+The entry carries the following comment:
 \begin{quote}\small
-a(n) = binomial(ceiling((n+1)/2)+(n+1), n).
+Empirical: a(n) = 29*a(n-1) +238*a(n-2).
 \end{quote}
-that is,
-\begin{equation}\label{eq:cf}
-a(n)\;=\;{\binom{n + \left\lceil{\frac{n}{2} + \frac{1}{2}}\right\rceil + 1}{n}} .
-\end{equation}
-This is the only input the proof takes from the entry. It was checked against the entry's
-own DATA before use, and the index alignment was determined from that check rather than
-assumed: the formula is stated in the entry's own indexing.
+As of the ``Last modified'' line on the live entry (Jun 04 2018 17:55:48, revision 9) the statement is
+still recorded as empirical, and nothing on the entry records it as settled either way.
 
-The entry separately carries the following comment:
-\begin{quote}\small
-\textbf{Conjecture:} 4*n*(n-1)*(n+4)*(6*n\^{}2-9*n-1)*a(n) + 6*(n-1)*(27*n\^{}2+29*n+4)*a(n-1) - 3*n*(3*n-1)*(3*n+1)*(6*n\^{}2+3*n-4)*a(n-2) = 0. - \emph{R. J. Mathar}, Nov 19 2014
-\end{quote}
-As of the ``Last modified'' line on the live entry (2025-12-07, revision 16) the
-statement is still recorded as a conjecture, and no proof appears among the entry's links,
-formulas or programs.
-
-Written out, the conjecture is
+Written out, the claim is
 \begin{equation}\label{eq:conj}
-4 n \left(n - 1\right) \left(n + 4\right) \left(6 n^{2} - 9 n - 1\right)\,a(n) + 6 \left(n - 1\right) \left(27 n^{2} + 29 n + 4\right)\,a(n-1) -  3 n \left(3 n - 1\right) \left(3 n + 1\right) \left(6 n^{2} + 3 n - 4\right)\,a(n-2)
+a(n)\;=\;29\,a(n-1) + 238\,a(n-2)
 \end{equation}
+for all $n>1$.
 
-\section{Hypergeometric terms, and why the closed form is not one}
+\section{The condition is local, so the rows form a digraph}
 
-\begin{definition}
-A nonzero expression $c(m)$ is a \emph{hypergeometric term} in $m$ if $c(m+1)/c(m)$ is a
-rational function of $m$. Two such terms $c,d$ are \emph{similar}, $c\sim d$, if $c/d$ is a
-rational function of $m$.
-\end{definition}
-
-Products of factorials, binomial coefficients with arguments linear in the variable,
-exponentials and polynomials are hypergeometric. A floor is not: $\lfloor n/2\rfloor$ takes
-the same value at $n$ and $n+1$ for even $n$ and jumps at odd $n$, so the quotient
-$c(n+1)/c(n)$ is not a rational function of $n$, and \eqref{eq:cf} is therefore outside the
-reach of the direct argument.
-
-Parity removes the floor. For integer $m$,
-$\lfloor 2m/2\rfloor=m$ and $\lfloor (2m+1)/2\rfloor=m$, and similarly for the ceiling, so
-substituting $n=2m$ and $n=2m+1$ into \eqref{eq:cf} and simplifying gives two expressions
-free of rounding:
-\begin{equation}\label{eq:halves}
-a(2m)\;=\;e_{0}(m)\;=\;{\binom{3 m + 2}{m + 2}},
-\qquad
-a(2m+1)\;=\;e_{1}(m)\;=\;{\binom{3 m + 3}{2 m + 1}},
+Write an array of the shape in question as its list of rows
+$r^{(1)},r^{(2)},\dots$, each an element of
+$V=\{0,1,\dots,7\}^{3}$, so $|V|=S=512$. A $2\times2$ subblock of the array
+occupies two consecutive rows and two consecutive columns; if the two rows are $r$
+and $s$ (in that order) and the two columns are numbered $j,j+1$,
+the subblock is
+\[
+\begin{pmatrix}\alpha&\beta\\\gamma&\delta\end{pmatrix}=\begin{pmatrix}r_j&r_{j+1}\\s_j&s_{j+1}\end{pmatrix}.
+\]
+The entry's requirement on that subblock is
+\begin{equation}\label{eq:loc}
+\alpha=\delta\ \text{ or }\ \beta=\gamma,
 \end{equation}
-and each of $e_{0},e_{1}$ is a sum of finitely many hypergeometric terms in $m$.
+a condition on the four entries alone.
 
-\begin{lemma}\label{lem:indep}
-Hypergeometric terms that are pairwise dissimilar are linearly independent over the field
-of rational functions: if $\sum_{j}u_{j}(m)c_{j}(m)=0$ for rational $u_{j}$ and all large
-$m$, then every $u_{j}$ is zero. See Petkov\v{s}ek, Wilf and Zeilberger \cite{AB},
-Chapter~5.
+For $r,s\in V$ declare $r\to s$ an edge of a digraph $G$ when, for every
+$1\le j\le 3-1$,
+\begin{itemize}
+\item the four entries above satisfy \eqref{eq:loc};
+
+\end{itemize}
+Let $M\in\{0,1\}^{S\times S}$ be the adjacency matrix of $G$ and $\mathbf{1}$ the
+all-ones vector.
+
+\begin{lemma}\label{lem:walk}
+The arrays counted by the entry with $L$ rows are exactly the walks
+$r^{(1)}\to r^{(2)}\to\cdots\to r^{(L)}$ of length $L-1$ in $G$. Consequently
+\[
+a(n)\;=\;\mathbf{1}^{\!\top}M^{n}\mathbf{1} .
+\]
 \end{lemma}
 
-\section{The recurrence, one residue class at a time}
-
-Fix the conjectured coefficients $p_{0},\dots,p_{r}$ and consider
-$T(n)=\sum_{i=0}^{r}p_{i}(n)a(n-i)$. Each term reaches a half of \eqref{eq:halves} chosen
-by the parity of $n-i$:
-
-\begin{proposition}\label{prop:split}
-With $a(2j)=e_{0}(j)$ and $a(2j+1)=e_{1}(j)$,
-\[
-T(2m)=\sum_{i \text{ even}}p_{i}(2m)\,e_{0}\!\left(m-\tfrac{i}{2}\right)
-      +\sum_{i \text{ odd}}p_{i}(2m)\,e_{1}\!\left(m-\tfrac{i+1}{2}\right),
-\]
-\[
-T(2m+1)=\sum_{i \text{ even}}p_{i}(2m+1)\,e_{1}\!\left(m-\tfrac{i}{2}\right)
-      +\sum_{i \text{ odd}}p_{i}(2m+1)\,e_{0}\!\left(m-\tfrac{i-1}{2}\right).
-\]
-Both right-hand sides are finite sums of hypergeometric terms in $m$. The recurrence
-$T(n)=0$ holds for all large $n$ if and only if both vanish identically, and by
-Lemma~\ref{lem:indep} each vanishes identically if and only if, after grouping its
-summands into similarity classes, every class contributes the zero rational function.
-\end{proposition}
-
 \begin{proof}
-The two displays are the definition of $T$ with $n-i$ written in the form $2j$ or $2j+1$:
-for $n=2m$ the index $n-i$ is even exactly when $i$ is, and for $n=2m+1$ exactly when $i$
-is odd. Every $e_{\epsilon}(m-s)$ is a sum of hypergeometric terms in $m$, and
-$p_{i}(2m)$, $p_{i}(2m+1)$ are polynomials in $m$, so each display is a finite sum of
-hypergeometric terms. Within a similarity class every summand is the class representative
-times a rational function, so the class contributes the representative times the sum of
-those rational functions; the classes are pairwise dissimilar by construction, and
-Lemma~\ref{lem:indep} applies. Finally $n$ ranges over both parities, so $T(n)=0$ for all
-large $n$ is exactly the conjunction of the two.
+An array with $L$ rows and $3$ columns is precisely a sequence
+$r^{(1)},\dots,r^{(L)}$ of elements of $V$; conversely any such sequence is an array.
+Every $2\times2$ subblock lies in two consecutive rows $r^{(t)},r^{(t+1)}$ and two
+consecutive columns, so the array satisfies the entry's condition on all of its subblocks
+if and only if each consecutive pair $\bigl(r^{(t)},r^{(t+1)}\bigr)$ satisfies it for
+every column pair --- which is exactly the edge relation of $G$. The number of walks of
+length $L-1$, summed over all starting and ending vertices, is
+$\mathbf{1}^{\!\top}M^{L-1}\mathbf{1}$, since $(M^{k})_{r,s}$ counts the walks of
+length $k$ from $r$ to $s$. The entry's index $n$ corresponds to $L=n+1$ rows.
 \end{proof}
 
-\section{The computation for A081205}
+\section{The criterion}
 
-Carrying out Proposition~\ref{prop:split} with the coefficients of \eqref{eq:conj} and the
-two halves \eqref{eq:halves}, every similarity class of $T(2m)$ contributes zero, and so
-does every similarity class of $T(2m+1)$. The even half splits into one class
-and the odd half into one class.
+Let $q(t)=t^{2}-\sum_i c_i\,t^{2-i}$ be the characteristic polynomial of
+\eqref{eq:conj}, with the $c_i$ read off that equation.
+
+\begin{lemma}\label{lem:crit}
+For every $n$ with $n+1-1\ge2$,
+\[
+a(n)-\sum_i c_i\,a(n-i)\;=\;\mathbf{1}^{\!\top}M^{\,n+1-1-2}\,q(M)\,\mathbf{1} .
+\]
+Hence \eqref{eq:conj} holds from that point on if and only if
+$\mathbf{1}^{\!\top}M^{j}q(M)\mathbf{1}=0$ for every $j\ge0$; and it is enough to check
+$j=0,1,\dots,S-1$.
+\end{lemma}
+
+\begin{proof}
+By Lemma~\ref{lem:walk}, $a(n-i)=\mathbf{1}^{\!\top}M^{\,n+1-1-i}\mathbf{1}$, so
+\[
+a(n)-\sum_i c_i a(n-i)
+=\mathbf{1}^{\!\top}\Bigl(M^{m}-\sum_i c_i M^{m-i}\Bigr)\mathbf{1}
+=\mathbf{1}^{\!\top}M^{\,m-2}\,q(M)\,\mathbf{1}
+\]
+with $m=n+1-1$, which is the stated identity; the equivalence follows by letting
+$m-2=j$ run over $\ge0$. For the last clause put $w=q(M)\mathbf{1}$. By the
+Cayley--Hamilton theorem $M^{S}$ is an integer combination of $I,M,\dots,M^{S-1}$, so
+$\mathbf{1}^{\!\top}M^{j}w$ for $j\ge S$ is the corresponding combination of the earlier
+values; if those all vanish, so do all the rest.
+\end{proof}
+
+\section{The computation}
 
 \begin{theorem}
-For all $n\ge 2$,
-\[
-4 n \left(n - 1\right) \left(n + 4\right) \left(6 n^{2} - 9 n - 1\right)\,a(n) + 6 \left(n - 1\right) \left(27 n^{2} + 29 n + 4\right)\,a(n-1) -  3 n \left(3 n - 1\right) \left(3 n + 1\right) \left(6 n^{2} + 3 n - 4\right)\,a(n-2)
-\]
+The recurrence \eqref{eq:conj} holds for every $n>1$, which is the statement of
+Section~1.
 \end{theorem}
 
 \begin{proof}
-Both residue classes vanish identically by the computation above, and every integer $n$
-lies in one of them. The excluded values are those at which a class residual has a pole or
-a term of \eqref{eq:cf} is undefined.
+The digraph was constructed from \eqref{eq:loc} by a depth-first scan across the $3$
+columns: the edge condition is a conjunction of one constraint per consecutive column
+pair, so the successors of a row $r$ are enumerated column by column without testing all
+$S^2$ pairs. The vector $w=q(M)\mathbf{1}\in\mathbb{Z}^{S}$ was then formed by $2$
+matrix--vector products in exact integer arithmetic, and $\mathbf{1}^{\!\top}M^{j}w$ was
+evaluated for $j=0,1,\dots$, again exactly. Every one of those integers vanishes from the
+index corresponding to $n=1+1$ onwards, and the run continued until $w$ itself was the
+zero vector, which settles every larger $j$ at once. By Lemma~\ref{lem:crit} the recurrence
+holds for every $n>1$.
 \end{proof}
+
+\begin{remark}
+The argument gives more than the recurrence: it shows the sequence is $C$-finite with
+characteristic polynomial dividing that of $M$, so it has a rational generating function
+whose denominator divides $\det(I-xM)$. The conjectured recurrence is one consequence; the
+minimal one is a divisor of $q$.
+\end{remark}
 
 \section{Verification}
 
-Two checks were made, and both are independent of the algebra above.
+Three checks, each independent of the algebra above.
 
-First, the closed form \eqref{eq:cf} was evaluated at the first $13$ indices and
-compared term by term with the entry's DATA; the values agree exactly, on both parities. A
-formula that did not reproduce the entry's own terms would not have been used, and the
-alignment was fixed by that comparison rather than assumed.
+First, the digraph was built directly from the entry's stated condition and the walk counts
+$\mathbf{1}^{\!\top}M^{L-1}\mathbf{1}$ compared against the entry's DATA at
+every one of the $13$ published indices; the values agree exactly. That is what ties
+the digraph to the sequence: a model that reproduced only some of the published terms would
+be the wrong model, and would have been rejected. In particular it is what rules out a
+misreading of the entry's wording, since a different reading of the condition gives a
+different digraph and different counts.
 
-Second, the conjectured recurrence \eqref{eq:conj} was evaluated on the published terms in
-exact integer arithmetic at every index where it applies: $29$ instances beginning at
-$n=2$, all of them zero. This is not part of the proof, which is symbolic, but it
-would have caught a transcription error in the coefficients.
+Second, the recurrence \eqref{eq:conj} was evaluated on those published terms in exact
+integer arithmetic, with no matrices involved, and vanishes wherever it applies.
+
+Third, the annihilation test of Lemma~\ref{lem:crit} was run in exact integer arithmetic
+until the working vector was identically zero, not to a sampled prefix, and returned zero
+throughout.
 
 \begin{thebibliography}{9}
-\bibitem{AB} M.~Petkov\v{s}ek, H.~S.~Wilf and D.~Zeilberger, \emph{A=B}, A K Peters,
-Wellesley MA, 1996.
-\bibitem{OEIS} OEIS Foundation Inc., \emph{The On-Line Encyclopedia of Integer Sequences},
-entry \href{https://oeis.org/A081205}{A081205}, 2025-12-07.
-\bibitem{GKP} R.~L.~Graham, D.~E.~Knuth and O.~Patashnik, \emph{Concrete Mathematics},
-2nd ed., Addison-Wesley, 1994.
+\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
+Sequences}, \url{https://oeis.org}, 2026. Sequence A203729.
+\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+University Press, 2009.
+\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
+University Press, 2013.
 \end{thebibliography}
 
 \end{document}

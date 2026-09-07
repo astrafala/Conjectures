@@ -10,52 +10,51 @@
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
-\title{A proof of the conjectured recurrence for OEIS A177127}
+\title{A proof of the conjectured recurrence for OEIS A158197}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{25 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A177127 carries a conjectured linear recurrence with polynomial coefficients, of
-order 4, contributed by R.~J.~Mathar. We prove it. The generating function of the
+OEIS A158197 carries a conjectured linear recurrence with polynomial coefficients, of
+order 3, contributed by R.~J.~Mathar. We prove it. The generating function of the
 entry is algebraic, and the recurrence is equivalent to the vanishing of an explicit
 differential operator applied to it: writing $\theta=x\,\frac{d}{dx}$, the sequence
 $b(n)=\sum_{i}p_{i}(n)a(n-i)$ has generating function
 $B(x)=\sum_{i}x^{i}\,(p_{i}(\theta+i)A)(x)$, so the conjecture holds for all $n>d$ exactly
 when $B$ is a polynomial of degree $d$. Since $A$ lies in a quadratic extension of
 $\mathbb{Q}(x)$, which is closed under $\theta$, the residual $B$ can be computed in
-closed form. Here it equals $8 x^{3} - 16 x^{2} + 8 x + 1$, a polynomial of degree $3$, which proves
-the recurrence for every $n>3$.
+closed form. Here it equals $40 x^{2} - 26 x + 4$, a polynomial of degree $2$, which proves
+the recurrence for every $n>2$.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 11B37, 05A15, 33F10.\normalsize
 
 \section{The sequence and the conjecture}
 
-OEIS A177127 is ``Sequence defined by the recurrence formula a(n+1)=sum(a(p)*a(n-p)+k,p=0..n)+l for n>=1, with here a(0)=1, a(1)=6, k=0 and l=1''. It has offset $0$ and begins
+OEIS A158197 is ``Expansion of (1-x\^{}2*c(x)\^{}4)/(1-4*x*c(x)\^{}2), c(x) the g.f. of A000108''. It has offset $0$ and begins
 \[
-a(0),\dots,a(7)\;=\;1, 6, 13, 63, 283, 1492, 8019, 45270,\ \dots
+a(0),\dots,a(7)\;=\;1, 4, 23, 140, 866, 5388, 33603, 209796,\ \dots
 \]
-The entry posts no generating function of its own. Its NAME states the
-relation \texttt{the entry states the generating function as G.f f: f(z)=(1-sqrt(1-4*z*(a(0)-z*a(0)\textasciicircum{}2+z*a(1)+(k+l)*z\textasciicircum{}2/(1-z)+k*z\textasciicircum{}2/(1-z)\textasciicircum{}2)))/(2*z) (k=0, l=1); a(0) and a(1) are read off the entry's own terms and the parameters are the values given on that line} to another entry, and that entry's exponential generating
-function is known, so the relation supplies one here (a constant $c$ contributes
-$c\,e^{x}$ to an exponential generating function):
+The entry does not list a generating function separately: it is defined as the
+expansion of one, so the identity below is the definition of the sequence rather than a
+claim about it,
 \begin{equation}\label{eq:gf}
-A(x)\;=\;\sum_{n\ge 0} a(n)\,x^{n}\;=\;\frac{1 - \sqrt{\frac{- 16 x^{3} + 16 x^{2} + 5 x - 1}{x - 1}}}{2 x} ,
+A(x)\;=\;\sum_{n\ge 0} a(n)\,x^{n}\;=\;\frac{x^{2} - \frac{\left(\sqrt{1 - 4 x} - 1\right)^{4}}{16}}{x \left(x - \left(\sqrt{1 - 4 x} - 1\right)^{2}\right)} ,
 \end{equation}
 and it carries the following comment:
 \begin{quote}\small
-\textbf{Conjecture:} +(n+1)*a(n) +2*(-3*n+1)*a(n-1) +(-11*n+27)*a(n-2) +32*(n-3)*a(n-3) +16*(-n+4)*a(n-4)=0. - \emph{R. J. Mathar}, Mar 02 2016
+\textbf{Conjecture:} +4*(n+1)*a(n) +(-81*n+23)*a(n-1) +10*(51*n-70)*a(n-2) +500*(-2*n+5)*a(n-3)=0. - \emph{R. J. Mathar}, Feb 05 2015
 \end{quote}
-As of the ``Last modified'' line on the live entry (2016-03-02, revision 5) the
+As of the ``Last modified'' line on the live entry (2026-02-14, revision 6) the
 statement is still recorded as a conjecture, and no proof appears among the entry's links,
 formulas or programs.
 
-Writing the conjectured relation in the form $\sum_{i=0}^{4}p_{i}(n)\,a(n-i)=0$,
+Writing the conjectured relation in the form $\sum_{i=0}^{3}p_{i}(n)\,a(n-i)=0$,
 the coefficient polynomials are
 \[
-p_{0}(n)=n + 1,\qquad p_{1}(n)=- 2 \left(3 n - 1\right),\qquad p_{2}(n)=27 - 11 n,\qquad p_{3}(n)=32 \left(n - 3\right),\qquad p_{4}(n)=- 16 \left(n - 4\right)
+p_{0}(n)=4 \left(n + 1\right),\qquad p_{1}(n)=23 - 81 n,\qquad p_{2}(n)=10 \left(51 n - 70\right),\qquad p_{3}(n)=- 500 \left(2 n - 5\right)
 \]
 
 \section{Recurrences as differential operators}
@@ -117,26 +116,26 @@ $B=P+Q\sqrt{D}$ with $P,Q\in\mathbb{Q}(x)$, the test of Corollary~\ref{cor:crite
 becomes: $B$ is a polynomial precisely when $Q=0$ and $P$ has constant denominator. Both
 are decided by exact cancellation of rational functions.
 
-\section{The computation for A177127}
+\section{The computation for A158197}
 
 The generating function \eqref{eq:gf} lies in $K=\mathbb{Q}(x)[\sqrt{D}]$ with
 \[
-D \;=\; - \frac{16 x^{3} - 16 x^{2} - 5 x + 1}{x - 1} .
+D \;=\; 1 - 4 x .
 \]
 Applying Lemma~\ref{lem:transfer} to the coefficient polynomials of Section~1 and reducing
 in $K$ by Lemma~\ref{lem:field}, the $\sqrt{D}$ component of $B$ cancels identically and
 the rational part collapses to
 \[
-B(x)\;=\;8 x^{3} - 16 x^{2} + 8 x + 1 ,
+B(x)\;=\;40 x^{2} - 26 x + 4 ,
 \]
-a polynomial of degree $3$.
+a polynomial of degree $2$.
 
 \begin{theorem}
 The conjectured recurrence
 \[
-(n + 1)\,a(n) -  2 \left(3 n - 1\right)\,a(n-1) + (27 - 11 n)\,a(n-2) + 32 \left(n - 3\right)\,a(n-3) -  16 \left(n - 4\right)\,a(n-4) \;=\;0
+4 \left(n + 1\right)\,a(n) + (23 - 81 n)\,a(n-1) + 10 \left(51 n - 70\right)\,a(n-2) -  500 \left(2 n - 5\right)\,a(n-3) \;=\;0
 \]
-holds for every $n>3$.
+holds for every $n>2$.
 \end{theorem}
 
 \begin{proof}
@@ -145,7 +144,7 @@ Immediate from Corollary~\ref{cor:criterion} and the displayed value of $B$.
 
 \begin{remark}
 The polynomial $B$ is not an error term: it records the boundary of the recurrence. For
-$n\le3$ some of the shifted terms $a(n-i)$ fall outside the range of the sequence,
+$n\le2$ some of the shifted terms $a(n-i)$ fall outside the range of the sequence,
 and $B$ collects exactly those contributions. Above that range the relation is exact.
 \end{remark}
 
@@ -156,23 +155,23 @@ independent checks were run.
 
 First, the generating function was checked against the entry rather than assumed: the
 Taylor coefficients of \eqref{eq:gf} were expanded and compared term by term with the DATA
-section of A177127, agreeing on all 13 terms compared.
+section of A158197, agreeing on all 13 terms compared.
 
 Second, the recurrence itself was evaluated directly on the published terms, in exact
 integer arithmetic and without reference to the generating function: for each $n$ in range
 the sum $\sum_{i}p_{i}(n)a(n-i)$ was formed from the entry's own values and found to
-vanish, for all 17 values of $n$ from $n=4$ upward. This is what
+vanish, for all 18 values of $n$ from $n=3$ upward. This is what
 Corollary~\ref{cor:criterion} predicts from the degree of $B$, and it is a genuinely
 different computation from the symbolic one: it never forms $B$, never differentiates, and
 uses only integers.
 
 The symbolic step is exact throughout. The residual is obtained by rational-function
-cancellation in $K$, not by series truncation, so the identity $B=8 x^{3} - 16 x^{2} + 8 x + 1$ is an
-identity of functions and the theorem holds for all $n>3$ simultaneously.
+cancellation in $K$, not by series truncation, so the identity $B=40 x^{2} - 26 x + 4$ is an
+identity of functions and the theorem holds for all $n>2$ simultaneously.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer Sequences},
-\url{https://oeis.org}, 2026. Sequence A177127.
+\url{https://oeis.org}, 2026. Sequence A158197.
 \bibitem{kp} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011,
 Chapter 7 (holonomic closure properties and the translation between recurrences and
 differential equations).

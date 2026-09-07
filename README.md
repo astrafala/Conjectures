@@ -2,8 +2,8 @@
 
 ### Adrian Perez Fontelles — independent researcher
 
-**9390 papers** settling conjectures across **9363 entries** of the
-[On-Line Encyclopedia of Integer Sequences](https://oeis.org): **9384 proofs** and
+**9532 papers** settling conjectures across **9505 entries** of the
+[On-Line Encyclopedia of Integer Sequences](https://oeis.org): **9526 proofs** and
 **6 disproofs**, by **105 distinct arguments**. Every one was recorded on its OEIS entry
 as an open conjecture, an empirical observation, or an unverified formula at the moment
 it was settled.
@@ -16,7 +16,7 @@ it was settled.
 | --- | --- |
 | **[OVERVIEW.pdf](OVERVIEW.pdf)** | One paper: the method, the verification, and the errors it caught. **Read this first to assess the work.** |
 | **[METHODOLOGY.md](METHODOLOGY.md)** | The full method, in detail — how a conjecture becomes a proof here, and every gate it has to pass. |
-| **[papers/](papers/)** | All 9390 papers. One folder per band of 500, hardest first. |
+| **[papers/](papers/)** | All 9532 papers. One folder per band of 500, hardest first. |
 | **[paper-sources/](paper-sources/)** | The LaTeX source of every paper, banded and named identically. |
 | **[papers/index.csv](papers/index.csv)** | Every paper with its OEIS entry, in one table. |
 | **[LEDGER.md](LEDGER.md)** | The working log — every batch, every dead end, every mistake, dated. |

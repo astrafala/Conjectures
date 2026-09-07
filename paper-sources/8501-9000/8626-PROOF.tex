@@ -7,174 +7,152 @@
 \theoremstyle{plain}
 \newtheorem{theorem}{Theorem}
 \newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
-\title{A proof of the conjectured recurrence for OEIS A348410}
+
+\title{The empirical recurrence for OEIS A234483, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{30 August 2026}
+\date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A348410 carries a conjectured linear recurrence with polynomial coefficients, of
-order 4. The entry posts no generating function; it defines the sequence by an
-extraction, $a(n)=[x^{n}]\,f(x)g(x)^{n}$. We derive a generating function from that
-definition and prove the conjecture from it. Reading the extraction as a contour integral
-and summing the geometric series turns $\sum_{n}a(n)t^{n}$ into a single integral whose
-only pole inside a small circle is the branch of $x=t\,g(x)$ through the origin; the
-residue there gives $A(t)=f(x(t))/\bigl(1-t\,g'(x(t))\bigr)$. So $A$ is algebraic, with
-minimal polynomial obtained by eliminating $x$, and the recurrence follows from the
-residual test in the field that polynomial generates. Here the residual is
-$2010 x^{4} + 47040 x^{3} - 38400 x^{2}$, of degree $4$, which proves the recurrence for every $n>4$.
+OEIS A234483 counts $2$-column arrays over $\{0,\dots,3\}$ in which every
+$2\times2$ subblock has its diagonal sum differing from its antidiagonal sum by
+exactly $2$, and it
+carries an empirical recurrence of order $3$ contributed by R.~H.~Hardin. It is true,
+and it is not an empirical matter: the condition constrains only consecutive pairs of rows,
+so the rows are the vertices of a finite digraph and an $(n+1)$-row array is a walk of
+length $n$. Hence $a(n)=\mathbf{1}^{\!\top}M^{n}\mathbf{1}$ on $S=16$ vertices, which
+is $C$-finite. Writing $q$ for the characteristic polynomial of the conjectured recurrence,
+the residual is $\mathbf{1}^{\!\top}M^{\,n-3}q(M)\mathbf{1}$, so the recurrence
+holds beyond a threshold exactly when that vanishes from then on --- and since the sequence
+of those values obeys the monic recurrence given by the characteristic polynomial of $M$,
+$S$ consecutive zeros settle every later one. The whole test is finite and exact.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 30B10, 33F10.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 15B36.\normalsize
 
 \section{The sequence and the conjecture}
 
-OEIS A348410 is ``Number of nonnegative integer solutions to n = Sum\_\{i=1..n\} (a\_i + b\_i), with b\_i even''. It has offset $0$ and begins
+OEIS A234483 is ``Number of (n+1) X (1+1) 0..3 arrays with every 2 X 2 subblock having its diagonal sum differing from its antidiagonal sum by 2 (constant-stress 1 X 1 tilings).''. It has offset
+$1$ and begins
 \[
-a(0),\dots,a(7)\;=\;1, 1, 5, 19, 85, 376, 1715, 7890,\ \dots
+62, 242, 944, 3686, 14402, 56312, 220334,\ \dots
 \]
-The entry states, not as a conjecture,
+The entry carries the following comment:
 \begin{quote}\small
-a(n) = [x\textasciicircum{}n] ( (1 - x)*(1 - x\textasciicircum{}2) )\textasciicircum{}(-n).
+Empirical: a(n) = 7*a(n-1) - 9*a(n-2) - 12*a(n-3).
 \end{quote}
-that is,
-\begin{equation}\label{eq:def}
-a(n)\;=\;[x^{n}]\,f(x)\,g(x)^{n},
-\qquad f(x)=1,\qquad g(x)=\frac{1}{x^{3} - x^{2} - x + 1} .
+As of the ``Last modified'' line on the live entry (Jun 20 2022 21:32:16, revision 11) the statement is
+still recorded as empirical, and nothing on the entry records it as settled either way.
+
+Written out, the claim is
+\begin{equation}\label{eq:conj}
+a(n)\;=\;7\,a(n-1) - 9\,a(n-2) - 12\,a(n-3)
 \end{equation}
-This is the only input taken from the entry, and it was checked against the entry's own
-DATA before use. In particular \emph{no generating function is assumed}: the entry posts
-none, and the one used below is derived.
+for all $n>2$, which is every $n$ at which a recurrence of order $3$ can be
+stated.
 
-The entry separately carries the following comment:
-\begin{quote}\small
-\textbf{Conjecture:} D-finite with recurrence +7168*n*(2*n-1)*(n-1)*a(n) -64*(n-1)*(1759*n\textasciicircum{}2-5294*n+5112)*a(n-1) +12*(7561*n\textasciicircum{}3-75690*n\textasciicircum{}2+165271*n-101070)*a(n-2) +5*(110593*n\textasciicircum{}3-743946*n\textasciicircum{}2+1659971*n-1232778)*a(n-3) +2680*(4*n-15)*(2*n-7)*(4*n-13)*a(n-4)=0. - \emph{R. J. Mathar}, Oct 19 2021
-\end{quote}
-As of the ``Last modified'' line on the live entry (2026-06-29, revision 60) the
-statement is still recorded as a conjecture, and no proof appears among the entry's links,
-formulas or programs.
+\section{The rows form a digraph}
 
-\section{A generating function from the extraction}
-
-\begin{lemma}\label{lem:diag}
-Let $f,g$ be rational functions regular at $0$ with $g(0)\neq0$, and let
-$a(n)=[x^{n}]f(x)g(x)^{n}$. Then $A(t)=\sum_{n\ge0}a(n)t^{n}$ satisfies
+In a $2\times2$ subblock with top row $(r_j,r_{j+1})$ and bottom row $(s_j,s_{j+1})$ the
+diagonal sum is $r_j+s_{j+1}$ and the antidiagonal sum is $r_{j+1}+s_j$, so the entry's
+condition on that subblock reads
 \[
-A(t)\;=\;\frac{f\bigl(x(t)\bigr)}{1-t\,g'\bigl(x(t)\bigr)},
+\bigl|\,r_j+s_{j+1}-r_{j+1}-s_j\,\bigr|\;=\;2.
 \]
-where $x(t)$ is the unique power series with $x(0)=0$ solving $x=t\,g(x)$. In particular
-$A$ is algebraic over $\mathbb{Q}(t)$.
+Every such condition involves two consecutive rows only.
+
+Let $V$ consist of all of $\{0,\dots,3\}^{2}$, and put $S=|V|=16$. For $r,s\in V$ declare $r\to s$ an edge
+when $\bigl|r_j+s_{j+1}-r_{j+1}-s_j\bigr|=2$ for every $j$ with
+$1\le j\le2-1$. Let $M\in\{0,1\}^{S\times S}$ be the adjacency matrix and $\mathbf{1}$
+the all-ones vector.
+
+\begin{lemma}\label{lem:walk}
+The arrays counted by the entry with $n+1$ rows are exactly the walks
+$r^{(0)}\to\cdots\to r^{(n)}$ of length $n$ in this digraph, so
+$a(n)=\mathbf{1}^{\!\top}M^{n}\mathbf{1}$.
 \end{lemma}
 
 \begin{proof}
-Write the extraction as a contour integral on a circle $|x|=\rho$ small enough that $f$
-and $g$ are regular on and inside it:
-\[
-a(n)=\frac{1}{2\pi i}\oint \frac{f(x)g(x)^{n}}{x^{n+1}}\,dx .
-\]
-For $|t|$ small, $|t\,g(x)/x|<1$ on the circle, so the geometric series may be summed
-under the integral:
-\[
-A(t)=\frac{1}{2\pi i}\oint\frac{f(x)}{x}\sum_{n\ge0}\Bigl(\frac{t\,g(x)}{x}\Bigr)^{n}dx
-     =\frac{1}{2\pi i}\oint\frac{f(x)}{x-t\,g(x)}\,dx .
-\]
-Since $g(0)\neq0$, the equation $x=t\,g(x)$ has, for small $t$, exactly one root in the
-disc, namely the branch $x(t)$ with $x(0)=0$ furnished by Lagrange inversion; it is a
-simple zero of $x-t\,g(x)$ because the derivative $1-t\,g'(x)$ is $1$ at $t=0$. The
-residue theorem gives the stated value. Both $x(t)$ and hence $A(t)$ are algebraic,
-being defined by polynomial equations over $\mathbb{Q}(t)$.
+An array with $n+1$ rows and $2$ columns is a sequence $r^{(0)},\dots,r^{(n)}$ of
+rows. Each of its $2\times2$ subblocks lies in two vertically adjacent rows
+$r^{(i)},r^{(i+1)}$ and two horizontally adjacent columns $j,j+1$, so the array satisfies
+the entry's condition on all subblocks precisely when every consecutive pair of rows is an
+edge; and the row-internal condition, where present, is exactly membership of $V$. Summing
+the walk counts $\bigl(M^{n}\bigr)_{r,s}$ over all $r$ and $s$ gives
+$\mathbf{1}^{\!\top}M^{n}\mathbf{1}$.
 \end{proof}
 
-\begin{corollary}\label{cor:minpoly}
-$A$ satisfies the polynomial obtained by eliminating $x$ between
-$x-t\,g(x)=0$ and $y\bigl(1-t\,g'(x)\bigr)-f(x)=0$.
-\end{corollary}
+\section{The criterion}
 
-\begin{proof}
-Both equations hold at $x=x(t)$, $y=A(t)$ by Lemma~\ref{lem:diag}. Eliminating $x$ by a
-resultant produces a polynomial in $t$ and $y$ vanishing there.
-\end{proof}
+Let $q(t)=t^{3}-\sum_i c_i t^{3-i}$ be the characteristic polynomial of
+\eqref{eq:conj}.
 
-For A348410 this yields
-\[
-256 t^{2} y^{4} - 256 t^{2} y^{3} + 96 t^{2} y^{2} - 16 t^{2} y + t^{2} + 107 t y^{4} - 107 t y^{3} + 36 t y^{2} - 4 t y - 32 y^{4} + 32 y^{3} \;=\;0 ,
-\]
-and $A$ is the branch of this polynomial whose expansion is the entry's own sequence.
-The branch is identified by that expansion, not by solving for it in radicals --- the
-polynomial can have degree beyond four, where no such expression exists.
-
-\section{The recurrence}
-
-Let $\theta=x\,\dfrac{d}{dx}$, acting on $x^{m}$ as multiplication by $m$.
-
-\begin{lemma}\label{lem:transfer}
-Let $p_{0},\dots,p_{r}$ be polynomials and put $b(n)=\sum_{i}p_{i}(n)a(n-i)$, with
-$a(m)=0$ for $m<0$. Then $B(x)=\sum_{n}b(n)x^{n}=\sum_{i}x^{i}(p_{i}(\theta+i)A)(x)$, so
-the recurrence $\sum_{i}p_{i}(n)a(n-i)=0$ holds for every $n>d$ if and only if $B$ is a
-polynomial of degree at most $d$.
+\begin{lemma}\label{lem:crit}
+For $n\ge3$,
+$a(n)-\sum_i c_i a(n-i)=\mathbf{1}^{\!\top}M^{\,n-3}q(M)\mathbf{1}$. Writing
+$u_j=\mathbf{1}^{\!\top}M^{j}q(M)\mathbf{1}$, the recurrence therefore holds for every
+$n>t$ exactly when $u_j=0$ for every $j>t-3$. Moreover $(u_j)_{j\ge0}$ satisfies the
+monic linear recurrence whose characteristic polynomial is that of $M$, of degree $S$; so
+if $u_j$ vanishes for $S$ consecutive indices it vanishes for every larger index, and the
+last nonzero $u_j$ determines $t$ exactly.
 \end{lemma}
 
 \begin{proof}
-Substituting $m=n-i$ gives $\sum_{n}p_{i}(n)a(n-i)x^{n}=x^{i}(p_{i}(\theta+i)A)(x)$, and
-$b(n)$ is the coefficient of $x^{n}$ in $B$.
+By Lemma~\ref{lem:walk}, $a(n-i)=\mathbf{1}^{\!\top}M^{n-i}\mathbf{1}$, so
+$a(n)-\sum_i c_i a(n-i)
+=\mathbf{1}^{\!\top}M^{\,n-3}\bigl(M^{3}-\sum_i c_i M^{3-i}\bigr)
+\mathbf{1}$, which is the identity. Putting $j=n-3$ gives the equivalence. For the
+last claim, let $\chi$ be the characteristic polynomial of $M$; by Cayley--Hamilton
+$\chi(M)=0$, so applying $\chi$ to the shift operator annihilates $(u_j)$, and $\chi$ is
+monic of degree $S$, which is exactly the statement that $S$ consecutive zeros propagate
+forward.
 \end{proof}
 
-Since $A$ lies in the algebraic function field generated by the polynomial of
-Corollary~\ref{cor:minpoly}, and such a field is closed under $\theta$ --- differentiating
-its defining relation expresses the derivative of the generator inside the field ---
-every $p_{i}(\theta+i)A$ lies there too, and so does $B$. Computing it exactly gives
-\[
-B(x)\;=\;2010 x^{4} + 47040 x^{3} - 38400 x^{2} ,
-\]
-a polynomial of degree $4$.
+\section{The computation}
 
 \begin{theorem}
-The conjectured recurrence
-\[
-7168 n \left(n - 1\right) \left(2 n - 1\right)\,a(n) -  64 \left(n - 1\right) \left(1759 n^{2} - 5294 n + 5112\right)\,a(n-1) + 12 \left(7561 n^{3} - 75690 n^{2} + 165271 n - 101070\right)\,a(n-2) + 5 \left(110593 n^{3} - 743946 n^{2} + 1659971 n - 1232778\right)\,a(n-3) + 2680 \left(2 n - 7\right) \left(4 n - 15\right) \left(4 n - 13\right)\,a(n-4) \;=\;0
-\]
-holds for every $n>4$.
+The recurrence \eqref{eq:conj} holds for every $n>2$. This is the statement of
+Section~1.
 \end{theorem}
 
 \begin{proof}
-Immediate from Lemma~\ref{lem:transfer} and the displayed value of $B$.
+The vector $q(M)\mathbf{1}\in\mathbb{Z}^{S}$ was formed by $3$ matrix--vector
+products in exact integer arithmetic and the values $u_j$ evaluated for
+$j=0,1,\dots$. They vanish from $j=2-3+1$ onwards, and the run was continued past
+$S$ consecutive zeros, which by Lemma~\ref{lem:crit} settles every larger $j$. Hence the
+recurrence holds for every $n>2$.
 \end{proof}
 
 \section{Verification}
 
-Every number above is an output of a script written separately from this note, and three
-independent checks were run.
+Three checks, each independent of the algebra above.
 
-First, the derived generating function was not assumed to be right. Its series was
-computed from \eqref{eq:def} in two independent ways --- once through the residue formula
-of Lemma~\ref{lem:diag}, by solving $x=t\,g(x)$ as a truncated series, and once directly,
-by expanding $f\,g^{n}$ and reading off the coefficient of $x^{n}$ --- and the two agree.
-The result was then compared term by term with the DATA section of A348410, agreeing on
-all 13 terms compared.
+First, the digraph was built directly from the entry's stated condition and the walk counts
+$\mathbf{1}^{\!\top}M^{n}\mathbf{1}$ compared against the entry's DATA at every one of
+the $21$ published indices; the values agree exactly. That is what ties the digraph to
+the sequence: a model reproducing only some published terms would be the wrong model and
+was rejected wherever it occurred.
 
-Second, the recurrence was evaluated directly on the published terms, in exact integer
-arithmetic and without reference to any generating function: for each $n$ in range the sum
-$\sum_{i}p_{i}(n)a(n-i)$ was formed from the entry's own values and found to vanish, for
-all 21 values of $n$ from $n=5$ upward.
+Second, the recurrence \eqref{eq:conj} was evaluated on those published terms in exact
+integer arithmetic, with no matrices involved, and vanishes wherever it applies.
 
-Third, the symbolic step is exact throughout. The residual is obtained by
-rational-function arithmetic in the algebraic function field, not by series truncation, so
-the identity $B=2010 x^{4} + 47040 x^{3} - 38400 x^{2}$ is an identity of functions and the theorem holds for all
-$n>4$ simultaneously.
+Third, the vanishing test of Lemma~\ref{lem:crit} was carried past $S=16$ consecutive
+zeros rather than to a sampled prefix, in exact integer arithmetic.
 
 \begin{thebibliography}{9}
-\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer Sequences},
-\url{https://oeis.org}, 2026. Sequence A348410.
-\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 2, Cambridge
-University Press, 1999, Section 6.3 (Lagrange inversion) and Chapter 6 (algebraic and
-D-finite generating functions).
-\bibitem{flajolet} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
-University Press, 2009, Chapter VII.
-\bibitem{kp} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011,
-Chapter 7.
+\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
+Sequences}, \url{https://oeis.org}, 2026. Sequence A234483.
+\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+University Press, 2009.
+\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
+University Press, 2013.
 \end{thebibliography}
+
 \end{document}

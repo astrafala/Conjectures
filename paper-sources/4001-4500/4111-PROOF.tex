@@ -12,78 +12,80 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A183333, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A257148, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{3 September 2026}
+\date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A183333 counts arrays of width $5$ over $\{0,1\}$ under local conditions relating each cell
-to its neighbours or to the cells preceding it. The entry carries an empirical recurrence of
-order $43$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
-empirical: every condition is settled inside three consecutive array rows, so the count is a
-walk count on $S=570$ states.
+OEIS A257148 counts the arrays over $\{0,\dots,1\}$ whose $3\times3$ subblocks carry a
+statistic that is monotone along named directions of the subblock grid, and carries an
+empirical recurrence of order $44$ contributed by R.~H.~Hardin. It is true, and it is
+decidable rather than empirical. Every direction named moves the subblock row by at most one,
+so the count is a walk count on $S=594$ states --- the last two array rows together with the
+subblock row just completed --- and the conjectured recurrence is then settled by a finite
+exact computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05C30, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 06A07.\normalsize
 
 \section{The conjecture}
 
-OEIS A183333 is ``Number of n X 5 binary arrays with each 1 adjacent to exactly two 0's.''. It has offset $1$ and begins
+OEIS A257148 is ``Number of (n+2)X(2+2) 0..1 arrays with every 3X3 subblock sum of the two medians of the central row and column minus the sum of the minimums of the diagonal and antidiagonal nondecreasing horizontally, vertically and ne-to-sw antidiagonally.''. It has offset $1$ and begins
 \[
-5, 49, 194, 899, 4643, 21708, 104651, 506385,\ \dots
+2848, 16677, 101227, 594229, 3374539, 19028310, 106805258, 596053900,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n)=5*a(n-1)-6*a(n-2)+28*a(n-3)-29*a(n-4)+78*a(n-5)-86*a(n-6)+80*a(n-7)-39*a(n-8)-639*a(n-9)+566*a(n-10)-503*a(n-11)-523*a(n-12)+1335*a(n-13)-182*a(n-14)+1071*a(n-15)+1059*a(n-16)-1447*a(n-17)-502*a(n-18)-534*a(n-19)-3*a(n-20)+644*a(n-21)+713*a(n-22)+1436*a(n-23)-999*a(n-24)-1937*a(n-25)-3051*a(n-26)-1799*a(n-27)+3118*a(n-28)+2735*a(n-29)+645*a(n-30)-582*a(n-31)-405*a(n-32)+280*a(n-33)-306*a(n-34)-222*a(n-35)-48*a(n-36)-41*a(n-37)+101*a(n-38)-14*a(n-39)-5*a(n-40)-6*a(n-41)+4*a(n-42)+3*a(n-43).
+Empirical: a(n) = 9*a(n-1) -14*a(n-2) -32*a(n-3) +120*a(n-4) -1172*a(n-5) +3932*a(n-6) -6280*a(n-7) +19737*a(n-8) -12753*a(n-9) -31142*a(n-10) +10820*a(n-11) -324465*a(n-12) +244165*a(n-13) +487033*a(n-14) +676647*a(n-15) +2800415*a(n-16) -1508929*a(n-17) -11016270*a(n-18) -1321986*a(n-19) -19384745*a(n-20) +29741253*a(n-21) +65612097*a(n-22) +30108231*a(n-23) -132843037*a(n-24) +1221523*a(n-25) -217403908*a(n-26) +39811528*a(n-27) +1191428040*a(n-28) -1237901696*a(n-29) -725097232*a(n-30) +1861412656*a(n-31) -1356213568*a(n-32) +572751872*a(n-33) +971675648*a(n-34) -1887011840*a(n-35) +520824832*a(n-36) +413429760*a(n-37) -34947072*a(n-38) +44400640*a(n-39) -256638976*a(n-40) +222035968*a(n-41) -49283072*a(n-42) -88080384*a(n-43) +50331648*a(n-44) for n>50
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 01:34:46, revision 9) this is still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 15:17:17, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The array has $5$ cells across, with entries in $\{0,1\}$. The NEIGHBOURS of a cell are the
-cells immediately to its left, to its right, above it and below it, those that lie inside the
-array. The entry asks that
-\begin{itemize}
-\item every cell carrying $1$ has exactly $2$ of its four neighbours carrying $0$;
-\end{itemize}
-and nothing else.
-
-\section{Three rows decide everything}
-
-\begin{lemma}\label{lem:win}
-Every clause above is decided by three consecutive array rows. An adjacency clause for a cell
-of row $i$ reads rows $i-1$, $i$ and $i+1$; a precedence clause for a cell of row $i$ reads
-rows $i-2$, $i-1$ and $i$, and columns at most two to the left.
-\end{lemma}
-
-\begin{proof}
-The neighbours of a cell lie one step away in each of the four directions, and the predecessors
-one step to the left or one step up; a clause naming two cells in a row or column reaches two
-steps, never more.
-\end{proof}
-
-So the state is the pair (row above, current row), with a row not yet written carried as
-$\bot$. A step appends a row: the precedence clauses for the NEW row are settled at once,
-because everything they read is already written, and the adjacency clauses for the MIDDLE row
-of the window are settled because the row below it has just arrived. An adjacency clause for a row is settled only when the row BELOW it has been
-written, so the condition for the LAST row of an array belongs to the end vector, which asks
-whether that row is satisfied with nothing below it. The end vector is therefore not the
-all-ones vector: a row satisfied only because a further row is written below it does not
-finish an array. With $M$ the
-adjacency matrix of the digraph on those states,
+A $3\times3$ subblock has four distinguished lines of three cells: its diagonal, its
+antidiagonal, its central row and its central column. The entry's statistic is a signed sum of
+aggregates --- sums, maxima, minima, medians --- taken over those lines, and $\sigma(i,j)$
+denotes its value on the subblock in position $(i,j)$ of the subblock grid, which has $n$ rows
+and $2$ columns for an $(n+2)\times4$ array over $\{0,\dots,1\}$. The condition is
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=570.
+\sigma(i,j)\le\sigma(i,j+1),\qquad \sigma(i,j)\le\sigma(i+1,j),\qquad \sigma(i,j)\le\sigma(i+1,j-1)
 \]
-The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
-published terms rather than assumed. In particular $a$ is $C$-finite.
+whenever both positions exist.
+
+``ne-to-sw antidiagonally'' is the offset $(+1,-1)$ on the subblock grid; that reading, and
+the reading of every statistic name here, was checked by counting the small arrays directly
+against what the entries publish.
+
+\section{The count is a walk count}
+
+A subblock spans three array rows and the vertical comparison spans four, so the obvious state
+is three consecutive rows. It is larger than it needs to be. What a step actually consults is
+the last TWO array rows --- enough to build the next subblock row once one more row arrives ---
+and the PREVIOUS SUBBLOCK ROW, to compare against. So take as state the triple
+\[
+\bigl(r_{i+1},\ r_{i+2},\ \sigma\text{-row }i\bigr),
+\]
+and let a step append an array row $r_{i+3}$: that fixes $\sigma$-row $i+1$ from
+$r_{i+1},r_{i+2},r_{i+3}$, and every comparison between the two $\sigma$-rows is settled
+there. All the third rows that produce the same $\sigma$-row collapse into one state, which is
+what makes the wider arrays reachable.
+
+The starting vector is therefore weighted rather than all-ones: a state is entered by as many
+first rows as produce it, and $\iota$ records that count. With $\tau$ all-ones, an
+$(n+2)$-row array is a walk of $n-1$ steps and
+\[
+a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau
+\]
+on the $S=594$ reachable states. In particular $a$ is $C$-finite. The alignment of the walk
+index with the entry's own $n$ was checked against its published terms rather than assumed.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{43}-\sum_i c_it^{43-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{44}-\sum_i c_it^{44-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -91,7 +93,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+43}-\sum_ic_iM^{j+43-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+44}-\sum_ic_iM^{j+44-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -100,41 +102,39 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;5\,a(n-1) - 6\,a(n-2) + 28\,a(n-3) - 29\,a(n-4) + 78\,a(n-5) - 86\,a(n-6) + 80\,a(n-7) - 39\,a(n-8) - 639\,a(n-9) + 566\,a(n-10) - 503\,a(n-11) - 523\,a(n-12) + 1335\,a(n-13) - 182\,a(n-14) + 1071\,a(n-15) + 1059\,a(n-16) - 1447\,a(n-17) - 502\,a(n-18) - 534\,a(n-19) - 3\,a(n-20) + 644\,a(n-21) + 713\,a(n-22) + 1436\,a(n-23) - 999\,a(n-24) - 1937\,a(n-25) - 3051\,a(n-26) - 1799\,a(n-27) + 3118\,a(n-28) + 2735\,a(n-29) + 645\,a(n-30) - 582\,a(n-31) - 405\,a(n-32) + 280\,a(n-33) - 306\,a(n-34) - 222\,a(n-35) - 48\,a(n-36) - 41\,a(n-37) + 101\,a(n-38) - 14\,a(n-39) - 5\,a(n-40) - 6\,a(n-41) + 4\,a(n-42) + 3\,a(n-43)
+a(n)\;=\;9\,a(n-1) - 14\,a(n-2) - 32\,a(n-3) + 120\,a(n-4) - 1172\,a(n-5) + 3932\,a(n-6) - 6280\,a(n-7) + 19737\,a(n-8) - 12753\,a(n-9) - 31142\,a(n-10) + 10820\,a(n-11) - 324465\,a(n-12) + 244165\,a(n-13) + 487033\,a(n-14) + 676647\,a(n-15) + 2800415\,a(n-16) - 1508929\,a(n-17) - 11016270\,a(n-18) - 1321986\,a(n-19) - 19384745\,a(n-20) + 29741253\,a(n-21) + 65612097\,a(n-22) + 30108231\,a(n-23) - 132843037\,a(n-24) + 1221523\,a(n-25) - 217403908\,a(n-26) + 39811528\,a(n-27) + 1191428040\,a(n-28) - 1237901696\,a(n-29) - 725097232\,a(n-30) + 1861412656\,a(n-31) - 1356213568\,a(n-32) + 572751872\,a(n-33) + 971675648\,a(n-34) - 1887011840\,a(n-35) + 520824832\,a(n-36) + 413429760\,a(n-37) - 34947072\,a(n-38) + 44400640\,a(n-39) - 256638976\,a(n-40) + 222035968\,a(n-41) - 49283072\,a(n-42) - 88080384\,a(n-43) + 50331648\,a(n-44)
 \]
-for every $n>42$.
+for every $n>50$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $43$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $44$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=42+1$ onwards and the run continued
-until the working vector was identically zero.
+integers vanish from the index corresponding to $n=50+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
-Four checks, each independent of the algebra above.
+Three checks, each independent of the algebra above.
 
-First, the model reproduces all $21$ terms the entry publishes, exactly, in integer
-arithmetic.
+First, the model reproduces all $17$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry: the digraph is built by reading the
+entry's English, and a misreading gives different counts.
 
-Second, the count was recomputed for the smallest arrays straight from the definition:
-enumerate every array of that size in the orientation the entry's own name writes and test each
-clause on each cell directly. No window, no state and no transfer matrix are involved, and the
-published terms came back.
-
-Third, the conjectured recurrence was evaluated directly on the published terms, with no
+Second, the conjectured recurrence was evaluated directly on those published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
 
-Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
 arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A183333.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A257148.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{davey} B.~A.~Davey and H.~A.~Priestley, \emph{Introduction to Lattices and
+Order}, 2nd ed., Cambridge University Press, 2002.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

@@ -321,10 +321,43 @@ def build(p, cap=40000):
             if not fn(g):
                 return False
         return True
+    def valid(r, s):
+        """the lines t that may follow (r, s), found by growing t one column at a time
+
+        Testing every t against every block costs |lines| * (W-2) per pair, and with sixty
+        thousand pairs that is where the whole family stalled. Each block is decided the
+        moment its last column arrives, and a prefix the condition already rules out rules
+        out every t extending it, so the search prunes instead of enumerating.
+        """
+        out, pre = [], []
+
+        def rec(j):
+            if j == W:
+                out.append(tuple(pre))
+                return
+            for v in vals:
+                pre.append(v)
+                if j < 2 or blk(r, s, pre, j - 2):
+                    rec(j + 1)
+                pre.pop()
+
+        rec(0)
+        return out
+
+    def blk(r, s, t, j):
+        if rowwalk:
+            g = ((r[j], r[j + 1], r[j + 2]),
+                 (s[j], s[j + 1], s[j + 2]),
+                 (t[j], t[j + 1], t[j + 2]))
+        else:
+            g = ((r[j], s[j], t[j]),
+                 (r[j + 1], s[j + 1], t[j + 1]),
+                 (r[j + 2], s[j + 2], t[j + 2]))
+        return fn(g)
+
     adj = []
     for (r, s) in st:
-        out = [idx[(s, t)] for t in lines if ok(r, s, t)]
-        adj.append(out)
+        adj.append([idx[(s, t)] for t in valid(r, s)])
     return st, adj
 
 

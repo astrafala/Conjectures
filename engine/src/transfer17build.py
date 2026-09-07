@@ -22,8 +22,10 @@ _ROSTER_AT_BUILD = {v['anum'] for v in _json.load(open('paper-engines.json')).va
 
 def datefor(a):
     """A paper carries the date its result was obtained, not the date of the batch it is
-    rebuilt with."""
-    return '1 September 2026' if a in _ROSTER_AT_BUILD else '6 September 2026'
+    rebuilt with. A paper already in the roster keeps the date it was written with; a new
+    one takes today's, which the caller supplies."""
+    return ('1 September 2026' if a in _ROSTER_AT_BUILD
+            else os.environ.get('PAPER_DATE', '6 September 2026'))
 
 
 def build(h):

@@ -74,6 +74,8 @@ ONLY = os.environ.get('ONLY', '')
 # a widened parser makes a handful of named entries reachable without making a new engine;
 # asking about that handful should not mean re-asking about every candidate the engine has
 ANUMS = {x for x in os.environ.get('ANUMS', '').replace(',', ' ').split() if x}
+if os.environ.get('ANUMS_FILE'):
+    ANUMS |= {x for x in open(os.environ['ANUMS_FILE']).read().replace(',', ' ').split() if x}
 for a in sorted(CANDS):
     if ANUMS and a not in ANUMS:
         continue

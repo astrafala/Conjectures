@@ -14,7 +14,14 @@ import os
 import subprocess
 import sys
 
-SPECIAL = {'transfer81': 't81build', 'transfer82': 't82build', 'transfer83': 't83build',
+import localentry as LE
+
+# transfer17's builder prints the entry's own condition, which the sweep record does not
+# carry: the parse is redone here and folded into the record so the paper can quote it
+# rather than describe it in general terms.
+ENRICH = {'transfer17'}
+
+SPECIAL = {'transfer17': 'transfer17build', 'transfer81': 't81build', 'transfer82': 't82build', 'transfer83': 't83build',
            'transfer84': 't84build', 'transfer85': 't85build', 'transfer86': 't86build',
            'transfer87': 't87build', 'transfer89': 't89build', 'transfer91': 't91build',
            'transfer92': 't92build', 'transfer93': 't93build', 'denumerant': 'denbuild'}
@@ -30,6 +37,10 @@ made, failed = 0, []
 for h in sorted(hits, key=lambda x: x['anum']):
     name = SPECIAL.get(h['engine'], 'unibuild')
     mods.setdefault(name, importlib.import_module(name))
+    if h['engine'] in ENRICH:
+        eng = importlib.import_module(h['engine'])
+        q = eng.parse_name(LE.get(h['anum'])['name'])
+        h = dict(q, **h)
     dd = f"build/un{h['anum']}"
     os.makedirs(dd, exist_ok=True)
     open(f"{dd}/p.tex", 'w').write(mods[name].build(h))

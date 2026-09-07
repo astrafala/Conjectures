@@ -141,7 +141,17 @@ def threshold(en, p, b, coeffs, order):
         return T2.threshold(adj, len(st), coeffs, order)
     if en in ('transfer6', 'transfer17', 'transfer23', 'transfer29', 'transfer30', 'transfer31', 'transfer33', 'transfer34', 'transfer35', 'transfer36', 'transfer37'):
         st, adj = b
-        return M[en].threshold(adj, len(st), coeffs, order)
+        # The annihilation test runs until S consecutive residuals vanish, so its cost is
+        # governed by the state count, and these models are enormously redundant: the
+        # 3 X 3 subblock families come out at 59049 states and merge to 60. Without this
+        # the test is hopeless on anything but the narrowest widths, which is why a hundred
+        # and forty entries an engine already read had never been settled. States with the
+        # same future contribute identically to iota^T M^n tau, so merging changes no count;
+        # the threshold returned is the threshold of the same sequence, and the unmerged S a
+        # paper quotes as its Cayley--Hamilton bound is still a valid bound.
+        S = len(st)
+        adj2, start2, end2, S2 = lumpauto.lump(adj, [1] * S, [1] * S)
+        return T19.threshold(adj2, start2, end2, coeffs, order, S2)
     if en in PAIR:
         if hasattr(M[en], 'threshold_p'):
             # the same engines raise their own floor: a residual reading a term the matrix
