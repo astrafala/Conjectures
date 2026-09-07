@@ -263,6 +263,25 @@ def check(a, max_cells=18):
     return f'DISAGREES: brute force {mine}, entry {d[:len(mine)]}'
 
 
+def write_summary(out, family, path):
+    """The tracked record of what this check established.
+
+    The per-entry file is rewritten after every entry, so while a run is going it is dirty
+    in the working tree every few seconds and no commit of it is ever current. That file is
+    progress, not a result: it is left untracked. THIS is the result --- written once, when
+    the run has nothing left to attempt --- and it is the one that is stored.
+    """
+    import collections
+    kinds = collections.Counter(v.split(':')[0].split(' on ')[0] for v in out.values())
+    json.dump({'family': family,
+               'attempted': len(out),
+               'confirmed': sum(1 for v in out.values() if v.startswith('OK')),
+               'disagreeing': sorted(a for a, v in out.items() if v.startswith('DISAGREES')),
+               'terms': {a: int(v.split()[2]) for a, v in out.items() if v.startswith('OK')},
+               'outcomes': dict(kinds)},
+              open(path, 'w'), indent=1, sort_keys=True)
+
+
 def main():
     max_cells = int(sys.argv[1]) if len(sys.argv) > 1 else 18
     limit = int(sys.argv[2]) if len(sys.argv) > 2 else 10 ** 9
@@ -287,6 +306,7 @@ def main():
             break
     ok = sum(1 for v in out.values() if v.startswith('OK'))
     bad = [a for a, v in out.items() if v.startswith('DISAGREES')]
+    write_summary(out, '2 X 2 subblock', 'deep-check/indep-2x2.json')
     print(f'\n{len(out)} entries in the 2 X 2 family attempted, {ok} independently confirmed, '
           f'{len(bad)} disagreeing')
     for a in bad[:20]:
