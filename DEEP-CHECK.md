@@ -519,7 +519,7 @@ A stratified sample, one paper from each of the 105 families, drawn with a fixed
 is reproducible and not cherry-picked (`engine/deep-check/phase12-sample.json`). Read the way
 a hostile referee reads: find the weakest step and attack it.
 
-Seventeen read so far; the ones below are those where the attack found something or where the
+Twenty-one read so far; the ones below are those where the attack found something or where the
 step most likely to fail was checked by hand.
 
 * **A223181** (`gf-implies-rec`) **passes.** Its proof is conditional on a generating function
@@ -567,6 +567,19 @@ step most likely to fail was checked by hand.
 * **A202445** (`pattern-avoidance`) and **A204034** (`matrix-subblock`) pass; in the second,
   the published `a(1) = 121` is exactly the state count, which is what a pair-of-rows state
   predicts.
+
+* **A236195** (`subblock-coloring`) **passes, and it does what Phase 4 asks of a paper.** Its
+  entry says the array is *"colored with"* a statistic of every 2 X 2 subblock, which is not
+  a condition and could be read several ways. The body states the reading — *"coloured with"*
+  is the entry's way of asking for a **proper** colouring, so neighbouring subblocks must
+  differ — and then **excludes the alternatives against the published numbers**: with no
+  condition a 2 X 3 array would give 729 where the entry publishes 294, and counting the
+  diagonal pairs as neighbours too would give 0 at 3 X 3 where the entry publishes 722. That
+  is exactly the *"show that exactly one reading reproduces the DATA"* that Phase 4 requires,
+  carried out inside the paper.
+* **A237968**, **A259247** and **A232139** pass. The last counts up to relabelling and uses
+  the same rational combination of walk counts as A210100, whose identity was verified by hand
+  above.
 
 **375 papers describe the wrong axis.** Found by reading A254424 (rank 5432): its entry is
 `(3+1) X (n+1)` — four rows, a growing number of columns — and the paper says *"a pair of
