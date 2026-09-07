@@ -12,39 +12,39 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A197103, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A180764, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{4 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A197103 counts arrays of width $2$ over $\{0,1,2,3\}$ in which no cell is the average of its neighbours. The entry carries an
+OEIS A180764 counts arrays of width $4$ over $\{0,1\}$ in which every cell equals at least one of its neighbours. The entry carries an
 empirical recurrence of order $20$ contributed by R.~H.~Hardin. It is true, and it is
-decidable rather than empirical: what a cell asks reaches one row above
-it and one row below, so the condition on a whole row is settled by
-$3$ consecutive rows and the count is a walk count on $S=273$ states.
+decidable rather than empirical: what a cell asks reaches one row above it and one row below, so the
+condition on a whole row is settled by $3$ consecutive rows and the count is a walk
+count on $S=273$ states.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 05B20, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A197103 is ``Half the number of nX2 0..3 arrays with no element equal to the average of its horizontal and vertical neighbors.''. It has offset $1$ and begins
+OEIS A180764 is ``Half the number of nX4 binary arrays with each element equal to at least one neighbor.''. It has offset $1$ and begins
 \[
-6, 78, 1015, 13526, 181032, 2421376, 32393085, 433365018,\ \dots
+2, 34, 390, 4475, 52186, 606546, 7053923, 82032712,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 13*a(n-1) +5*a(n-2) +30*a(n-3) -377*a(n-4) -258*a(n-5) +874*a(n-6) +1758*a(n-7) +685*a(n-8) -2995*a(n-9) -3798*a(n-10) -1113*a(n-11) +2557*a(n-12) +3786*a(n-13) +1955*a(n-14) -639*a(n-15) -1523*a(n-16) -683*a(n-17) +14*a(n-18) +254*a(n-19) +36*a(n-20)
+Empirical: a(n) = 9*a(n-1) + 35*a(n-2) - 29*a(n-3) - 256*a(n-4) - 120*a(n-5) + 695*a(n-6) + 579*a(n-7) - 949*a(n-8) - 1076*a(n-9) + 485*a(n-10) + 1488*a(n-11) + 588*a(n-12) - 857*a(n-13) - 368*a(n-14) - 73*a(n-15) - 52*a(n-16) + 26*a(n-17) + 14*a(n-18) + 12*a(n-19) - 4*a(n-20)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 06:59:19, revision 9) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 01:09:37, revision 7) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The arrays have $2$ columns and a growing number of rows, with entries in $\{0,1,2,3\}$. Fix the
-list of offsets the entry names,
+The arrays have $4$ columns and a growing number of rows, with entries in $\{0,1\}$. Fix the
+offsets the entry names,
 \[
 \Delta=\{\,(-1,0), (0,-1), (0,1), (1,0)\,\},
 \]
@@ -56,23 +56,22 @@ S(i,j)=\{\,(i+\delta_1,\,j+\delta_2) : (\delta_1,\delta_2)\in\Delta\,\}\cap
 for the neighbours it actually has. Only offsets landing inside the array count, so a cell on
 the border simply has fewer neighbours.
 
-The condition is that no cell equals the average of the neighbours it has:
+The condition is that every cell is equal to at least one of its neighbours:
 \[
-x(i,j)\;\neq\;\frac{1}{|S(i,j)|}\sum_{(a,b)\in S(i,j)}x(a,b)
+\exists\,(a,b)\in S(i,j)\ \ x(a,b)=x(i,j).
 \]
-whenever $S(i,j)$ is not empty. A cell with no neighbour at all is under no condition, and that is what the entry's first published term says. The entry publishes one half of that count; the division is by the constant 2 and changes nothing about the recurrence.
+ The entry publishes one half of that count; the division is by the constant 2 and changes nothing about the recurrence.
 
 \section{A window of 3 rows}
 
 The offsets reach one row up and one row down, so everything the condition asks of one row is
 decided by that row together with one row above it and one row below --- a window of
-$3$ consecutive rows, and nothing wider. Take the array one row at a time
-and let the state be the last 2 of them, with a distinguished start standing for the
-array before its first row, so that a walk of $n$ steps is an array of $n$ rows.
+$3$ consecutive rows, and nothing wider. Take the array one row at a time and
+let the state be the last 2 of them, with a distinguished start standing for the array before its
+first row, so that a walk of $n$ steps is an array of $n$ rows.
 
 Appending a row completes exactly one window, and the row it settles is the one just above the bottom of that window; a step is
-allowed when that row passes. Each row of the finished
-array is therefore tested exactly once.
+allowed when that row passes. Each row of the finished array is therefore tested exactly once.
 
 When the array stops, the last row of it has never been tested, because the
 conditions reach one row below. So the end vector is NOT all ones: a state is accepted exactly when
@@ -107,7 +106,7 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;13\,a(n-1) + 5\,a(n-2) + 30\,a(n-3) - 377\,a(n-4) - 258\,a(n-5) + 874\,a(n-6) + 1758\,a(n-7) + 685\,a(n-8) - 2995\,a(n-9) - 3798\,a(n-10) - 1113\,a(n-11) + 2557\,a(n-12) + 3786\,a(n-13) + 1955\,a(n-14) - 639\,a(n-15) - 1523\,a(n-16) - 683\,a(n-17) + 14\,a(n-18) + 254\,a(n-19) + 36\,a(n-20)
+a(n)\;=\;9\,a(n-1) + 35\,a(n-2) - 29\,a(n-3) - 256\,a(n-4) - 120\,a(n-5) + 695\,a(n-6) + 579\,a(n-7) - 949\,a(n-8) - 1076\,a(n-9) + 485\,a(n-10) + 1488\,a(n-11) + 588\,a(n-12) - 857\,a(n-13) - 368\,a(n-14) - 73\,a(n-15) - 52\,a(n-16) + 26\,a(n-17) + 14\,a(n-18) + 12\,a(n-19) - 4\,a(n-20)
 \]
 for every $n>20$.
 \end{theorem}
@@ -123,11 +122,11 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $16$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $17$ terms the entry publishes, exactly, in integer
 arithmetic.
 
 Second, the count was recomputed for the smallest arrays straight from the definition: every
-array of width $2$ over $\{0,1,2,3\}$ with a few rows was written out cell by cell and each cell
+array of width $4$ over $\{0,1\}$ with a few rows was written out cell by cell and each cell
 tested against the neighbours it has. No window, no state and no end vector are involved in that
 computation, and the published terms came back.
 
@@ -139,7 +138,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A197103.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A180764.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge

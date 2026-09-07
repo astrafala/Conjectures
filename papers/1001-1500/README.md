@@ -1,6 +1,6 @@
 # Papers 1001-1500
 
-Ranks 1001 to 1500 of 9322, hardest first.
+Ranks 1001 to 1500 of 9328, hardest first.
 
 | # | OEIS | Result | What settles it | Paper |
 | --- | --- | --- | --- | --- |
@@ -477,30 +477,30 @@ Ranks 1001 to 1500 of 9322, hardest first.
 | 1471 | [A279711](https://oeis.org/A279711) | Proof | a cell condition counted up to relabelling, by falling-factorial inversion | [1471-PROOF.pdf](1471-PROOF.pdf) |
 | 1472 | [A209893](https://oeis.org/A209893) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [1472-PROOF.pdf](1472-PROOF.pdf) |
 | 1473 | [A205629](https://oeis.org/A205629) | Proof | the entry asks two things at once: a condition on every subblock, which a window of consecutive rows decides, ... | [1473-PROOF.pdf](1473-PROOF.pdf) |
-| 1474 | [A233096](https://oeis.org/A233096) | Proof | a neighbour condition plus a first-occurrence ordering clause carried as a flag in the state | [1474-PROOF.pdf](1474-PROOF.pdf) |
-| 1475 | [A209540](https://oeis.org/A209540) | Proof | permutations of the CELLS of a fixed-width array in which every cell moves by one of a short list of offsets -... | [1475-PROOF.pdf](1475-PROOF.pdf) |
-| 1476 | [A203392](https://oeis.org/A203392) | Proof | what a cell demands that SOME neighbour of it look like: one at least as large, one of a named value, an allow... | [1476-PROOF.pdf](1476-PROOF.pdf) |
-| 1477 | [A203256](https://oeis.org/A203256) | Proof | what a cell demands that SOME neighbour of it look like: one at least as large, one of a named value, an allow... | [1477-PROOF.pdf](1477-PROOF.pdf) |
-| 1478 | [A231249](https://oeis.org/A231249) | Proof | every cell required to see neighbours carrying the next and the previous value modulo m | [1478-PROOF.pdf](1478-PROOF.pdf) |
-| 1479 | [A203725](https://oeis.org/A203725) | Proof | two derived arrays of pair sums, ordered monotonically, lexicographically, or by a nonvanishing determinant | [1479-PROOF.pdf](1479-PROOF.pdf) |
-| 1480 | [A214169](https://oeis.org/A214169) | Proof | proper colourings of a grid circular in one direction, counted up to renaming the colours | [1480-PROOF.pdf](1480-PROOF.pdf) |
-| 1481 | [A230690](https://oeis.org/A230690) | Proof | every cell required to see neighbours carrying the next and the previous value modulo m | [1481-PROOF.pdf](1481-PROOF.pdf) |
-| 1482 | [A205167](https://oeis.org/A205167) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [1482-PROOF.pdf](1482-PROOF.pdf) |
-| 1483 | [A210091](https://oeis.org/A210091) | Proof | subblocks with a prescribed number of distinct values, counted up to renaming and using every letter | [1483-PROOF.pdf](1483-PROOF.pdf) |
-| 1484 | [A240779](https://oeis.org/A240779) | Proof | a cell condition counted up to relabelling, by falling-factorial inversion | [1484-PROOF.pdf](1484-PROOF.pdf) |
-| 1485 | [A252946](https://oeis.org/A252946) | Proof | consecutive triples along rows, columns and diagonals holding a prescribed number of distinct values, counted ... | [1485-PROOF.pdf](1485-PROOF.pdf) |
-| 1486 | [A186844](https://oeis.org/A186844) | Proof | a subblock statistic compared with its neighbours': none equal, some equal, exactly one or two equal, or bound... | [1486-PROOF.pdf](1486-PROOF.pdf) |
-| 1487 | [A204736](https://oeis.org/A204736) | Proof | each 2 X 2 subblock reduced to one number -- a determinant, a permanent, a sum, or an order statistic -- with ... | [1487-PROOF.pdf](1487-PROOF.pdf) |
-| 1488 | [A235675](https://oeis.org/A235675) | Proof | each 2 X 2 subblock reduced to one number -- a determinant, a permanent, a sum, or an order statistic -- with ... | [1488-PROOF.pdf](1488-PROOF.pdf) |
-| 1489 | [A268738](https://oeis.org/A268738) | Proof | a global count of marked adjacent pairs carried in the state, then a walk count | [1489-PROOF.pdf](1489-PROOF.pdf) |
-| 1490 | [A268748](https://oeis.org/A268748) | Proof | a global count of adjacent pairs summing to a value, carried in the state by capping it | [1490-PROOF.pdf](1490-PROOF.pdf) |
-| 1491 | [A203959](https://oeis.org/A203959) | Proof | two derived arrays of pair sums, ordered monotonically, lexicographically, or by a nonvanishing determinant | [1491-PROOF.pdf](1491-PROOF.pdf) |
-| 1492 | [A209538](https://oeis.org/A209538) | Proof | permutations of the CELLS of a fixed-width array in which every cell moves by one of a short list of offsets -... | [1492-PROOF.pdf](1492-PROOF.pdf) |
-| 1493 | [A235502](https://oeis.org/A235502) | Proof | each 2 X 2 subblock reduced to one number -- a determinant, a permanent, a sum, or an order statistic -- with ... | [1493-PROOF.pdf](1493-PROOF.pdf) |
-| 1494 | [A210103](https://oeis.org/A210103) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [1494-PROOF.pdf](1494-PROOF.pdf) |
-| 1495 | [A233200](https://oeis.org/A233200) | Proof | neighbouring cells forbidden to carry values summing to m, with the renaming clauses that pick one array per c... | [1495-PROOF.pdf](1495-PROOF.pdf) |
-| 1496 | [A231852](https://oeis.org/A231852) | Proof | what a cell asks of the cells around it: not their average, not matched by a strict majority of them, not beat... | [1496-PROOF.pdf](1496-PROOF.pdf) |
-| 1497 | [A232253](https://oeis.org/A232253) | Proof | what a cell demands that SOME neighbour of it look like: one at least as large, one of a named value, an allow... | [1497-PROOF.pdf](1497-PROOF.pdf) |
-| 1498 | [A224648](https://oeis.org/A224648) | Proof | every K X K subblock of a matrix idempotent, or of equal population or permanent | [1498-PROOF.pdf](1498-PROOF.pdf) |
-| 1499 | [A262426](https://oeis.org/A262426) | Proof | rows and columns read as base-b numbers and required to be divisible, or not, by given moduli | [1499-PROOF.pdf](1499-PROOF.pdf) |
-| 1500 | [A263059](https://oeis.org/A263059) | Proof | rows and columns read as base-b numbers and required to be divisible, or not, by given moduli | [1500-PROOF.pdf](1500-PROOF.pdf) |
+| 1474 | [A223384](https://oeis.org/A223384) | Proof |  | [1474-PROOF.pdf](1474-PROOF.pdf) |
+| 1475 | [A233096](https://oeis.org/A233096) | Proof | a neighbour condition plus a first-occurrence ordering clause carried as a flag in the state | [1475-PROOF.pdf](1475-PROOF.pdf) |
+| 1476 | [A209540](https://oeis.org/A209540) | Proof | permutations of the CELLS of a fixed-width array in which every cell moves by one of a short list of offsets -... | [1476-PROOF.pdf](1476-PROOF.pdf) |
+| 1477 | [A203392](https://oeis.org/A203392) | Proof | what a cell demands that SOME neighbour of it look like: one at least as large, one of a named value, an allow... | [1477-PROOF.pdf](1477-PROOF.pdf) |
+| 1478 | [A203256](https://oeis.org/A203256) | Proof | what a cell demands that SOME neighbour of it look like: one at least as large, one of a named value, an allow... | [1478-PROOF.pdf](1478-PROOF.pdf) |
+| 1479 | [A231249](https://oeis.org/A231249) | Proof | every cell required to see neighbours carrying the next and the previous value modulo m | [1479-PROOF.pdf](1479-PROOF.pdf) |
+| 1480 | [A203725](https://oeis.org/A203725) | Proof | two derived arrays of pair sums, ordered monotonically, lexicographically, or by a nonvanishing determinant | [1480-PROOF.pdf](1480-PROOF.pdf) |
+| 1481 | [A214169](https://oeis.org/A214169) | Proof | proper colourings of a grid circular in one direction, counted up to renaming the colours | [1481-PROOF.pdf](1481-PROOF.pdf) |
+| 1482 | [A230690](https://oeis.org/A230690) | Proof | every cell required to see neighbours carrying the next and the previous value modulo m | [1482-PROOF.pdf](1482-PROOF.pdf) |
+| 1483 | [A205167](https://oeis.org/A205167) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [1483-PROOF.pdf](1483-PROOF.pdf) |
+| 1484 | [A210091](https://oeis.org/A210091) | Proof | subblocks with a prescribed number of distinct values, counted up to renaming and using every letter | [1484-PROOF.pdf](1484-PROOF.pdf) |
+| 1485 | [A240779](https://oeis.org/A240779) | Proof | a cell condition counted up to relabelling, by falling-factorial inversion | [1485-PROOF.pdf](1485-PROOF.pdf) |
+| 1486 | [A252946](https://oeis.org/A252946) | Proof | consecutive triples along rows, columns and diagonals holding a prescribed number of distinct values, counted ... | [1486-PROOF.pdf](1486-PROOF.pdf) |
+| 1487 | [A186844](https://oeis.org/A186844) | Proof | a subblock statistic compared with its neighbours': none equal, some equal, exactly one or two equal, or bound... | [1487-PROOF.pdf](1487-PROOF.pdf) |
+| 1488 | [A204736](https://oeis.org/A204736) | Proof | each 2 X 2 subblock reduced to one number -- a determinant, a permanent, a sum, or an order statistic -- with ... | [1488-PROOF.pdf](1488-PROOF.pdf) |
+| 1489 | [A235675](https://oeis.org/A235675) | Proof | each 2 X 2 subblock reduced to one number -- a determinant, a permanent, a sum, or an order statistic -- with ... | [1489-PROOF.pdf](1489-PROOF.pdf) |
+| 1490 | [A268738](https://oeis.org/A268738) | Proof | a global count of marked adjacent pairs carried in the state, then a walk count | [1490-PROOF.pdf](1490-PROOF.pdf) |
+| 1491 | [A268748](https://oeis.org/A268748) | Proof | a global count of adjacent pairs summing to a value, carried in the state by capping it | [1491-PROOF.pdf](1491-PROOF.pdf) |
+| 1492 | [A203959](https://oeis.org/A203959) | Proof | two derived arrays of pair sums, ordered monotonically, lexicographically, or by a nonvanishing determinant | [1492-PROOF.pdf](1492-PROOF.pdf) |
+| 1493 | [A209538](https://oeis.org/A209538) | Proof | permutations of the CELLS of a fixed-width array in which every cell moves by one of a short list of offsets -... | [1493-PROOF.pdf](1493-PROOF.pdf) |
+| 1494 | [A235502](https://oeis.org/A235502) | Proof | each 2 X 2 subblock reduced to one number -- a determinant, a permanent, a sum, or an order statistic -- with ... | [1494-PROOF.pdf](1494-PROOF.pdf) |
+| 1495 | [A210103](https://oeis.org/A210103) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [1495-PROOF.pdf](1495-PROOF.pdf) |
+| 1496 | [A233200](https://oeis.org/A233200) | Proof | neighbouring cells forbidden to carry values summing to m, with the renaming clauses that pick one array per c... | [1496-PROOF.pdf](1496-PROOF.pdf) |
+| 1497 | [A231852](https://oeis.org/A231852) | Proof | what a cell asks of the cells around it: not their average, not matched by a strict majority of them, not beat... | [1497-PROOF.pdf](1497-PROOF.pdf) |
+| 1498 | [A232253](https://oeis.org/A232253) | Proof | what a cell demands that SOME neighbour of it look like: one at least as large, one of a named value, an allow... | [1498-PROOF.pdf](1498-PROOF.pdf) |
+| 1499 | [A224648](https://oeis.org/A224648) | Proof | every K X K subblock of a matrix idempotent, or of equal population or permanent | [1499-PROOF.pdf](1499-PROOF.pdf) |
+| 1500 | [A262426](https://oeis.org/A262426) | Proof | rows and columns read as base-b numbers and required to be divisible, or not, by given moduli | [1500-PROOF.pdf](1500-PROOF.pdf) |

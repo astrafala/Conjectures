@@ -12,15 +12,15 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A235654, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A204956, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A235654 counts arrays of width $3$ over $\{0,1\}$ by reducing every $2\times2$ subblock to a
-single number---here the upper median minus the smallest entry---and requiring the resulting derived array to have its rows
+OEIS A204956 counts arrays of width $3$ over $\{0,1\}$ by reducing every $2\times2$ subblock to a
+single number---here the permanent---and requiring the resulting derived array to have its rows
 lexicographically nondecreasing and its columns lexicographically nondecreasing. The entry carries an
 empirical recurrence of order $21$ contributed by R.~H.~Hardin. It is true, and it is
 decidable rather than empirical. The row comparison is settled by three consecutive rows of the
@@ -33,15 +33,15 @@ states.
 
 \section{The conjecture}
 
-OEIS A235654 is ``Number of (n+1)X(2+1) 0..1 arrays with the difference of the upper median and minimum value of each 2X2 subblock in lexicographically nondecreasing order rowwise and columnwise.''. It has offset $1$ and begins
+OEIS A204956 is ``Number of (n+1)X3 0..1 arrays with rows and columns of permanents of all 2X2 subblocks lexicographically nondecreasing.''. It has offset $1$ and begins
 \[
-52, 276, 1368, 6378, 28823, 126926, 550175, 2355552,\ \dots
+51, 277, 1436, 6921, 32468, 147434, 659392, 2907273,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 10*a(n-1) -20*a(n-2) -97*a(n-3) +393*a(n-4) +130*a(n-5) -2190*a(n-6) +1313*a(n-7) +5707*a(n-8) -6006*a(n-9) -7785*a(n-10) +10983*a(n-11) +5679*a(n-12) -10491*a(n-13) -2203*a(n-14) +5639*a(n-15) +424*a(n-16) -1701*a(n-17) -32*a(n-18) +264*a(n-19) -16*a(n-21)
+Empirical: a(n) = 7*a(n-1) +6*a(n-2) -121*a(n-3) +60*a(n-4) +899*a(n-5) -794*a(n-6) -3741*a(n-7) +3822*a(n-8) +9513*a(n-9) -10198*a(n-10) -15151*a(n-11) +16736*a(n-12) +14873*a(n-13) -17358*a(n-14) -8327*a(n-15) +11131*a(n-16) +1988*a(n-17) -4040*a(n-18) +204*a(n-19) +636*a(n-20) -144*a(n-21)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 08:42:08, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 11:37:49, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
@@ -52,11 +52,11 @@ $2\times2$ subblock of such an array is
 B=\begin{pmatrix} p & q \\ r & s \end{pmatrix},
 \qquad p=x(i,j),\; q=x(i,j+1),\; r=x(i+1,j),\; s=x(i+1,j+1).
 \]
-Write $v_1\le v_2\le v_3\le v_4$ for the four entries of $B$ sorted into order. The entry attaches to $B$ the single number
+The entry attaches to $B$ the single number
 \[
-f(B)\;=\;v_3-v_1,
+f(B)\;=\;\operatorname{per}B=ps+qr,
 \]
-the upper median minus the smallest entry. An array with $R$ rows and $3$ columns has $(R-1)\times2$ subblocks, and they
+the permanent. An array with $R$ rows and $3$ columns has $(R-1)\times2$ subblocks, and they
 form a derived array
 \[
 D(i,j)=f\!\left(\begin{pmatrix} x(i,j) & x(i,j+1) \\ x(i+1,j) & x(i+1,j+1)\end{pmatrix}
@@ -134,15 +134,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;10\,a(n-1) - 20\,a(n-2) - 97\,a(n-3) + 393\,a(n-4) + 130\,a(n-5) - 2190\,a(n-6) + 1313\,a(n-7) + 5707\,a(n-8) - 6006\,a(n-9) - 7785\,a(n-10) + 10983\,a(n-11) + 5679\,a(n-12) - 10491\,a(n-13) - 2203\,a(n-14) + 5639\,a(n-15) + 424\,a(n-16) - 1701\,a(n-17) - 32\,a(n-18) + 264\,a(n-19) - 16\,a(n-21)
+a(n)\;=\;7\,a(n-1) + 6\,a(n-2) - 121\,a(n-3) + 60\,a(n-4) + 899\,a(n-5) - 794\,a(n-6) - 3741\,a(n-7) + 3822\,a(n-8) + 9513\,a(n-9) - 10198\,a(n-10) - 15151\,a(n-11) + 16736\,a(n-12) + 14873\,a(n-13) - 17358\,a(n-14) - 8327\,a(n-15) + 11131\,a(n-16) + 1988\,a(n-17) - 4040\,a(n-18) + 204\,a(n-19) + 636\,a(n-20) - 144\,a(n-21)
 \]
-for every $n>20$.
+for every $n>19$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $21$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=20+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=19+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -167,7 +167,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A235654.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A204956.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge

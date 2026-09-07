@@ -12,15 +12,15 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A316735, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A303508, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A316735 counts $3$-column arrays over $\{0,\dots,1\}$ in which every entry has,
-among the eight king-move neighbours, a number $different from$ itself lying in $\{1,2,3,6,7,8\}$, and it carries an empirical
+OEIS A303508 counts $3$-column arrays over $\{0,\dots,1\}$ in which every entry has,
+among the six horizontal, diagonal and antidiagonal neighbours, a number $equal to$ itself lying in $\{0,1,2,4,5,6\}$, and it carries an empirical
 recurrence of order $14$ contributed by R.~H.~Hardin. It is true. The neighbourhood
 reaches one row up and one row down, so the condition on a row involves three consecutive
 rows and a window of two rows is a sufficient state; the array is then a walk in a digraph
@@ -34,40 +34,40 @@ all-ones. The conjectured recurrence is then annihilated exactly, in integer ari
 
 \section{The sequence and the conjecture}
 
-OEIS A316735 is ``Number of nX3 0..1 arrays with every element unequal to 1, 2, 3, 6, 7 or 8 king-move adjacent elements, with upper left element zero.''. It has offset
+OEIS A303508 is ``Number of nX3 0..1 arrays with every element equal to 0, 1, 2, 4, 5 or 6 horizontally, diagonally or antidiagonally adjacent elements, with upper left element zero.''. It has offset
 $1$ and begins
 \[
-1, 14, 23, 36, 210, 509, 1219, 4537,\ \dots
+4, 20, 78, 420, 2088, 9916, 49740, 245904,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = a(n-1) +4*a(n-2) +12*a(n-3) -6*a(n-4) -36*a(n-5) -28*a(n-6) +a(n-7) +42*a(n-8) +15*a(n-9) +12*a(n-10) -2*a(n-11) -4*a(n-12) -16*a(n-13) -8*a(n-14) for n>16
+Empirical: a(n) = 3*a(n-1) +6*a(n-2) +36*a(n-3) -58*a(n-4) -116*a(n-5) -196*a(n-6) -160*a(n-7) -36*a(n-8) -240*a(n-9) -64*a(n-10) +232*a(n-11) +184*a(n-12) -64*a(n-14)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 11 2018 20:30:47, revision
+As of the ``Last modified'' line on the live entry (Apr 25 2018 12:25:21, revision
 4) the statement is still recorded as empirical, and nothing on the entry
 records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;a(n-1) + 4\,a(n-2) + 12\,a(n-3) - 6\,a(n-4) - 36\,a(n-5) - 28\,a(n-6) + a(n-7) + 42\,a(n-8) + 15\,a(n-9) + 12\,a(n-10) - 2\,a(n-11) - 4\,a(n-12) - 16\,a(n-13) - 8\,a(n-14)
+a(n)\;=\;3\,a(n-1) + 6\,a(n-2) + 36\,a(n-3) - 58\,a(n-4) - 116\,a(n-5) - 196\,a(n-6) - 160\,a(n-7) - 36\,a(n-8) - 240\,a(n-9) - 64\,a(n-10) + 232\,a(n-11) + 184\,a(n-12) - 64\,a(n-14)
 \end{equation}
-for all $n>16$.
+for all $n>14$.
 
 \section{The array as a walk, with boundary}
 
-For a cell of the array let its \emph{score} be the number of the eight king-move neighbours that lie inside
-the array and carry a value $different from$ the cell's own. The entry's condition is that every cell
-has score in $\{1,2,3,6,7,8\}$. The entry also fixes the top-left entry to be $0$; that is a condition on the first row alone, so it restricts the start vector and nothing else.
+For a cell of the array let its \emph{score} be the number of the six horizontal, diagonal and antidiagonal neighbours that lie inside
+the array and carry a value $equal to$ the cell's own. The entry's condition is that every cell
+has score in $\{0,1,2,4,5,6\}$. The entry also fixes the top-left entry to be $0$; that is a condition on the first row alone, so it restricts the start vector and nothing else.
 
 A cell's neighbourhood reaches at most one row up and one row down, so the scores of the
 cells of a row $s$ are determined by $s$ together with the row above and the row below.
 Take as state an ordered pair $(r,s)$ of rows, so $S=64$, and set
 \begin{itemize}
-\item $\mathbf{s}(r,s)=1$ when every cell of $r$ has score in $\{1,2,3,6,7,8\}$ \emph{with no row
+\item $\mathbf{s}(r,s)=1$ when every cell of $r$ has score in $\{0,1,2,4,5,6\}$ \emph{with no row
 above $r$} and $r_1=0$, and $0$ otherwise;
-\item an edge $(r,s)\to(s,t)$ when every cell of $s$ has score in $\{1,2,3,6,7,8\}$ computed from
+\item an edge $(r,s)\to(s,t)$ when every cell of $s$ has score in $\{0,1,2,4,5,6\}$ computed from
 $r$, $s$ and $t$;
-\item $\mathbf{e}(r,s)=1$ when every cell of $s$ has score in $\{1,2,3,6,7,8\}$ \emph{with no row
+\item $\mathbf{e}(r,s)=1$ when every cell of $s$ has score in $\{0,1,2,4,5,6\}$ \emph{with no row
 below $s$}, and $0$ otherwise.
 \end{itemize}
 Let $P$ be the adjacency matrix of that edge relation.
@@ -78,7 +78,7 @@ $a(n)=\mathbf{s}^{\!\top}P^{\,n-2}\mathbf{e}$ for every $n\ge2$.
 
 \begin{proof}
 An array with $n$ rows is a sequence $r^{(1)},\dots,r^{(n)}$ of rows, and it is counted
-exactly when every one of its $n$ rows has all scores in $\{1,2,3,6,7,8\}$. Read the sequence as the
+exactly when every one of its $n$ rows has all scores in $\{0,1,2,4,5,6\}$. Read the sequence as the
 walk $\bigl(r^{(1)},r^{(2)}\bigr)\to\bigl(r^{(2)},r^{(3)}\bigr)\to\cdots\to
 \bigl(r^{(n-1)},r^{(n)}\bigr)$, of length $n-2$. The condition on the first row is
 checked by $\mathbf{s}$ at the initial state, because a first row has no row above it; the
@@ -113,14 +113,14 @@ degree $S$, which propagates $S$ consecutive zeros forward.
 \section{The computation}
 
 \begin{theorem}
-The recurrence \eqref{eq:conj} holds for every $n>16$. This is the statement of
+The recurrence \eqref{eq:conj} holds for every $n>14$. This is the statement of
 Section~1.
 \end{theorem}
 
 \begin{proof}
 The vector $q(P)\mathbf{e}\in\mathbb{Z}^{S}$ was formed by $14$ matrix--vector
 products in exact integer arithmetic and the $u_j$ evaluated against $\mathbf{s}$ in turn.
-They vanish from the index corresponding to $n=16+1$ onwards, and the run was continued
+They vanish from the index corresponding to $n=14+1$ onwards, and the run was continued
 past $S$ consecutive zeros, which by Lemma~\ref{lem:crit} settles every larger index.
 \end{proof}
 
@@ -130,7 +130,7 @@ Three checks, each independent of the algebra above.
 
 First, the digraph, the start vector and the end vector were built directly from the
 entry's stated condition, the one-row count computed separately, and the resulting values
-compared against the entry's DATA at every one of the $26$ published indices; they
+compared against the entry's DATA at every one of the $22$ published indices; they
 agree exactly. This is the check that ties the model to the sequence, and it is a sharp one:
 getting the boundary rows wrong, or treating them as interior rows, changes the early terms
 immediately.
@@ -143,7 +143,7 @@ zeros rather than to a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A316735.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A303508.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

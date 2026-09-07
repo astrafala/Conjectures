@@ -12,14 +12,14 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A267976, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A267929, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A267976 counts arrays in which the REPEATED VALUES of each row, and of each column, stand in a
+OEIS A267929 counts arrays in which the REPEATED VALUES of each row, and of each column, stand in a
 prescribed relation to one another in the order they occur. The entry carries an empirical
 recurrence of order $21$ contributed by R.~H.~Hardin. It is true, and it is decidable
 rather than empirical: one of the two scans runs inside a slice of the array and the other
@@ -31,15 +31,15 @@ value so far in each column of the scan, so the count is a walk count on $S=401$
 
 \section{The conjecture}
 
-OEIS A267976 is ``Number of 2Xn 0..3 arrays with every repeated value in every row greater than or equal to, and in every column greater than, the previous repeated value.''. It has offset $1$ and begins
+OEIS A267929 is ``Number of nX2 0..3 arrays with every repeated value in every row and column greater than the previous repeated value.''. It has offset $1$ and begins
 \[
-16, 256, 4096, 62500, 929296, 13498276, 192321424, 2695374889,\ \dots
+16, 256, 3600, 49284, 646416, 8248384, 102657424, 1251956689,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 70*a(n-1) -2030*a(n-2) +30793*a(n-3) -246680*a(n-4) +794920*a(n-5) +1553979*a(n-6) -13039450*a(n-7) -13949950*a(n-8) +88507965*a(n-9) +242460400*a(n-10) +242460400*a(n-11) +88507965*a(n-12) -13949950*a(n-13) -13039450*a(n-14) +1553979*a(n-15) +794920*a(n-16) -246680*a(n-17) +30793*a(n-18) -2030*a(n-19) +70*a(n-20) -a(n-21)
+Empirical: a(n) = 65*a(n-1) -1714*a(n-2) +21994*a(n-3) -104609*a(n-4) -629015*a(n-5) +9424776*a(n-6) -16529832*a(n-7) -255376098*a(n-8) +1037637378*a(n-9) +3611188980*a(n-10) -20939962212*a(n-11) -32646831786*a(n-12) +213582240666*a(n-13) +202683094344*a(n-14) -1065454174440*a(n-15) -388324470141*a(n-16) +2871948084957*a(n-17) -843801825042*a(n-18) -3200868080118*a(n-19) +3106724901291*a(n-20) -847288609443*a(n-21)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jan 23 2016 10:03:25, revision 4) this is still
+As of the ``Last modified'' line on the live entry (Jan 22 2016 10:06:55, revision 4) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
@@ -47,10 +47,10 @@ recorded as empirical, and nothing on the entry records it as proved.
 Read a row of the array from left to right. A REPEATED VALUE is an entry equal to the entry
 immediately before it; the row thus produces the sequence of values at the places where two
 equal entries stand side by side. The entry asks that each repeated value of a row be
-greater than or equal to the previous repeated value of that row, and that each repeated value of a column,
+greater than the previous repeated value of that row, and that each repeated value of a column,
 read downwards, be greater than the previous repeated value of that column. The FIRST repeated
 value of a scan has no predecessor and is unconstrained; a scan with no two equal neighbours
-imposes nothing at all. The entry writes the array with $n$ as the number of COLUMNS, so the array grows one COLUMN at a time: the column scan is the one that runs inside a slice and the row scan is the one that runs across slices.
+imposes nothing at all.
 
 The entry carries no renaming clause, and it could not: the relations here compare letters by
 size or do arithmetic on them, so they are not invariant under permuting the alphabet. The
@@ -58,23 +58,23 @@ count is therefore taken over the alphabet the entry names, with no reduction to
 
 \section{One scan inside a slice, one across}
 
-Take the array a $column$ at a time, the direction in which it grows.
+Take the array a $row$ at a time, the direction in which it grows.
 
 \begin{lemma}\label{lem:state}
-The $column$ scans are settled as each $column$ is written. The $row$ scans are
-settled by the previous $column$ together with, for each position, the last repeated value
-so far in that $row$.
+The $row$ scans are settled as each $row$ is written. The $column$ scans are
+settled by the previous $row$ together with, for each position, the last repeated value
+so far in that $column$.
 \end{lemma}
 
 \begin{proof}
-A $column$ scan compares neighbours inside one $column$, so writing the
-$column$ left to right and carrying the last repeated value seen decides it. In a
-$row$ scan a repeat happens at the new $column$ exactly when the new entry equals the
-entry in the same position of the previous $column$, and the only thing the relation needs
-besides that entry is the previous repeated value of that $row$.
+A $row$ scan compares neighbours inside one $row$, so writing the
+$row$ left to right and carrying the last repeated value seen decides it. In a
+$column$ scan a repeat happens at the new $row$ exactly when the new entry equals the
+entry in the same position of the previous $row$, and the only thing the relation needs
+besides that entry is the previous repeated value of that $column$.
 \end{proof}
 
-So the state is the pair (previous $column$, vector of last repeated values), the second
+So the state is the pair (previous $row$, vector of last repeated values), the second
 component taking $3+2$ values at each position --- the letters together with a symbol for
 ``none yet''. With $M$ the adjacency matrix of that digraph,
 \[
@@ -103,15 +103,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;70\,a(n-1) - 2030\,a(n-2) + 30793\,a(n-3) - 246680\,a(n-4) + 794920\,a(n-5) + 1553979\,a(n-6) - 13039450\,a(n-7) - 13949950\,a(n-8) + 88507965\,a(n-9) + 242460400\,a(n-10) + 242460400\,a(n-11) + 88507965\,a(n-12) - 13949950\,a(n-13) - 13039450\,a(n-14) + 1553979\,a(n-15) + 794920\,a(n-16) - 246680\,a(n-17) + 30793\,a(n-18) - 2030\,a(n-19) + 70\,a(n-20) - a(n-21)
+a(n)\;=\;65\,a(n-1) - 1714\,a(n-2) + 21994\,a(n-3) - 104609\,a(n-4) - 629015\,a(n-5) + 9424776\,a(n-6) - 16529832\,a(n-7) - 255376098\,a(n-8) + 1037637378\,a(n-9) + 3611188980\,a(n-10) - 20939962212\,a(n-11) - 32646831786\,a(n-12) + 213582240666\,a(n-13) + 202683094344\,a(n-14) - 1065454174440\,a(n-15) - 388324470141\,a(n-16) + 2871948084957\,a(n-17) - 843801825042\,a(n-18) - 3200868080118\,a(n-19) + 3106724901291\,a(n-20) - 847288609443\,a(n-21)
 \]
-for every $n>20$.
+for every $n>21$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $21$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=20+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=21+1$ onwards and the run continued
 until the working vector was identically zero.
 \end{proof}
 
@@ -135,7 +135,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A267976.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A267929.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge

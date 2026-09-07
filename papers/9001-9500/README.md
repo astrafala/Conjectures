@@ -1,328 +1,334 @@
 # Papers 9001-9500
 
-Ranks 9001 to 9322 of 9322, hardest first.
+Ranks 9001 to 9328 of 9328, hardest first.
 
 | # | OEIS | Result | What settles it | Paper |
 | --- | --- | --- | --- | --- |
-| 9001 | [A166694](https://oeis.org/A166694) | Proof | the residual test over one square root, or none | [9001-PROOF.pdf](9001-PROOF.pdf) |
-| 9002 | [A166696](https://oeis.org/A166696) | Proof | the residual test over one square root, or none | [9002-PROOF.pdf](9002-PROOF.pdf) |
-| 9003 | [A191796](https://oeis.org/A191796) | Proof | the residual test over one square root, or none | [9003-PROOF.pdf](9003-PROOF.pdf) |
-| 9004 | [A217711](https://oeis.org/A217711) | Proof | the residual test over one square root, or none | [9004-PROOF.pdf](9004-PROOF.pdf) |
-| 9005 | [A278023](https://oeis.org/A278023) | Proof | the residual test over one square root, or none | [9005-PROOF.pdf](9005-PROOF.pdf) |
-| 9006 | [A279014](https://oeis.org/A279014) | Proof | the residual test over one square root, or none | [9006-PROOF.pdf](9006-PROOF.pdf) |
-| 9007 | [A000483](https://oeis.org/A000483) | Proof | the residual test over one square root, or none | [9007-PROOF.pdf](9007-PROOF.pdf) |
-| 9008 | [A026030](https://oeis.org/A026030) | Proof | the residual test over one square root, or none | [9008-PROOF.pdf](9008-PROOF.pdf) |
-| 9009 | [A026031](https://oeis.org/A026031) | Proof | the residual test over one square root, or none | [9009-PROOF.pdf](9009-PROOF.pdf) |
-| 9010 | [A048775](https://oeis.org/A048775) | Proof | the residual test over one square root, or none | [9010-PROOF.pdf](9010-PROOF.pdf) |
-| 9011 | [A116409](https://oeis.org/A116409) | Proof | the residual test over one square root, or none | [9011-PROOF.pdf](9011-PROOF.pdf) |
-| 9012 | [A126322](https://oeis.org/A126322) | Proof | the residual test over one square root, or none | [9012-PROOF.pdf](9012-PROOF.pdf) |
-| 9013 | [A128750](https://oeis.org/A128750) | Proof | the residual test over one square root, or none | [9013-PROOF.pdf](9013-PROOF.pdf) |
-| 9014 | [A143955](https://oeis.org/A143955) | Proof | the residual test over one square root, or none | [9014-PROOF.pdf](9014-PROOF.pdf) |
-| 9015 | [A165203](https://oeis.org/A165203) | Proof | the residual test over one square root, or none | [9015-PROOF.pdf](9015-PROOF.pdf) |
-| 9016 | [A168505](https://oeis.org/A168505) | Proof | the residual test over one square root, or none | [9016-PROOF.pdf](9016-PROOF.pdf) |
-| 9017 | [A176605](https://oeis.org/A176605) | Proof | the residual test over one square root, or none | [9017-PROOF.pdf](9017-PROOF.pdf) |
-| 9018 | [A181933](https://oeis.org/A181933) | Proof | the residual test over one square root, or none | [9018-PROOF.pdf](9018-PROOF.pdf) |
-| 9019 | [A191585](https://oeis.org/A191585) | Proof | the residual test over one square root, or none | [9019-PROOF.pdf](9019-PROOF.pdf) |
-| 9020 | [A215973](https://oeis.org/A215973) | Proof | the residual test over one square root, or none | [9020-PROOF.pdf](9020-PROOF.pdf) |
-| 9021 | [A234269](https://oeis.org/A234269) | Proof | the residual test over one square root, or none | [9021-PROOF.pdf](9021-PROOF.pdf) |
-| 9022 | [A236407](https://oeis.org/A236407) | Proof | the residual test over one square root, or none | [9022-PROOF.pdf](9022-PROOF.pdf) |
-| 9023 | [A270363](https://oeis.org/A270363) | Proof | the residual test over one square root, or none | [9023-PROOF.pdf](9023-PROOF.pdf) |
-| 9024 | [A098521](https://oeis.org/A098521) | Proof | the residual test over one square root, or none | [9024-PROOF.pdf](9024-PROOF.pdf) |
-| 9025 | [A100096](https://oeis.org/A100096) | Proof | the residual test over one square root, or none | [9025-PROOF.pdf](9025-PROOF.pdf) |
-| 9026 | [A100099](https://oeis.org/A100099) | Proof | the residual test over one square root, or none | [9026-PROOF.pdf](9026-PROOF.pdf) |
-| 9027 | [A105849](https://oeis.org/A105849) | Proof | the residual test over one square root, or none | [9027-PROOF.pdf](9027-PROOF.pdf) |
-| 9028 | [A105864](https://oeis.org/A105864) | Proof | the residual test over one square root, or none | [9028-PROOF.pdf](9028-PROOF.pdf) |
-| 9029 | [A105865](https://oeis.org/A105865) | Proof | the residual test over one square root, or none | [9029-PROOF.pdf](9029-PROOF.pdf) |
-| 9030 | [A108308](https://oeis.org/A108308) | Proof | the residual test over one square root, or none | [9030-PROOF.pdf](9030-PROOF.pdf) |
-| 9031 | [A114194](https://oeis.org/A114194) | Proof | the residual test over one square root, or none | [9031-PROOF.pdf](9031-PROOF.pdf) |
-| 9032 | [A115967](https://oeis.org/A115967) | Proof | the residual test over one square root, or none | [9032-PROOF.pdf](9032-PROOF.pdf) |
-| 9033 | [A117186](https://oeis.org/A117186) | Proof | the residual test over one square root, or none | [9033-PROOF.pdf](9033-PROOF.pdf) |
-| 9034 | [A120010](https://oeis.org/A120010) | Proof | the residual test over one square root, or none | [9034-PROOF.pdf](9034-PROOF.pdf) |
-| 9035 | [A124431](https://oeis.org/A124431) | Proof | the residual test over one square root, or none | [9035-PROOF.pdf](9035-PROOF.pdf) |
-| 9036 | [A126568](https://oeis.org/A126568) | Proof | the residual test over one square root, or none | [9036-PROOF.pdf](9036-PROOF.pdf) |
-| 9037 | [A132364](https://oeis.org/A132364) | Proof | the residual test over one square root, or none | [9037-PROOF.pdf](9037-PROOF.pdf) |
-| 9038 | [A141342](https://oeis.org/A141342) | Proof | the residual test over one square root, or none | [9038-PROOF.pdf](9038-PROOF.pdf) |
-| 9039 | [A155051](https://oeis.org/A155051) | Proof | the residual test over one square root, or none | [9039-PROOF.pdf](9039-PROOF.pdf) |
-| 9040 | [A157002](https://oeis.org/A157002) | Proof | the residual test over one square root, or none | [9040-PROOF.pdf](9040-PROOF.pdf) |
-| 9041 | [A157100](https://oeis.org/A157100) | Proof | the residual test over one square root, or none | [9041-PROOF.pdf](9041-PROOF.pdf) |
-| 9042 | [A166076](https://oeis.org/A166076) | Proof | the residual test over one square root, or none | [9042-PROOF.pdf](9042-PROOF.pdf) |
-| 9043 | [A166300](https://oeis.org/A166300) | Proof | the residual test over one square root, or none | [9043-PROOF.pdf](9043-PROOF.pdf) |
-| 9044 | [A168503](https://oeis.org/A168503) | Proof | the residual test over one square root, or none | [9044-PROOF.pdf](9044-PROOF.pdf) |
-| 9045 | [A174107](https://oeis.org/A174107) | Proof | the residual test over one square root, or none | [9045-PROOF.pdf](9045-PROOF.pdf) |
-| 9046 | [A174169](https://oeis.org/A174169) | Proof | the residual test over one square root, or none | [9046-PROOF.pdf](9046-PROOF.pdf) |
-| 9047 | [A176332](https://oeis.org/A176332) | Proof | the residual test over one square root, or none | [9047-PROOF.pdf](9047-PROOF.pdf) |
-| 9048 | [A184018](https://oeis.org/A184018) | Proof | the residual test over one square root, or none | [9048-PROOF.pdf](9048-PROOF.pdf) |
-| 9049 | [A188312](https://oeis.org/A188312) | Proof | the residual test over one square root, or none | [9049-PROOF.pdf](9049-PROOF.pdf) |
-| 9050 | [A188482](https://oeis.org/A188482) | Proof | the residual test over one square root, or none | [9050-PROOF.pdf](9050-PROOF.pdf) |
-| 9051 | [A191782](https://oeis.org/A191782) | Proof | the residual test over one square root, or none | [9051-PROOF.pdf](9051-PROOF.pdf) |
-| 9052 | [A217333](https://oeis.org/A217333) | Proof | the residual test over one square root, or none | [9052-PROOF.pdf](9052-PROOF.pdf) |
-| 9053 | [A257072](https://oeis.org/A257072) | Proof | the residual test over one square root, or none | [9053-PROOF.pdf](9053-PROOF.pdf) |
-| 9054 | [A261681](https://oeis.org/A261681) | Proof | the residual test over one square root, or none | [9054-PROOF.pdf](9054-PROOF.pdf) |
-| 9055 | [A073155](https://oeis.org/A073155) | Proof | the residual test over one square root, or none | [9055-PROOF.pdf](9055-PROOF.pdf) |
-| 9056 | [A105524](https://oeis.org/A105524) | Proof | the residual test over one square root, or none | [9056-PROOF.pdf](9056-PROOF.pdf) |
-| 9057 | [A114589](https://oeis.org/A114589) | Proof | the residual test over one square root, or none | [9057-PROOF.pdf](9057-PROOF.pdf) |
-| 9058 | [A114590](https://oeis.org/A114590) | Proof | the residual test over one square root, or none | [9058-PROOF.pdf](9058-PROOF.pdf) |
-| 9059 | [A162481](https://oeis.org/A162481) | Proof | the residual test over one square root, or none | [9059-PROOF.pdf](9059-PROOF.pdf) |
-| 9060 | [A174783](https://oeis.org/A174783) | Proof | the residual test over one square root, or none | [9060-PROOF.pdf](9060-PROOF.pdf) |
-| 9061 | [A188460](https://oeis.org/A188460) | Proof | the residual test over one square root, or none | [9061-PROOF.pdf](9061-PROOF.pdf) |
-| 9062 | [A188464](https://oeis.org/A188464) | Proof | the residual test over one square root, or none | [9062-PROOF.pdf](9062-PROOF.pdf) |
-| 9063 | [A190725](https://oeis.org/A190725) | Proof | the residual test over one square root, or none | [9063-PROOF.pdf](9063-PROOF.pdf) |
-| 9064 | [A191526](https://oeis.org/A191526) | Proof | the residual test over one square root, or none | [9064-PROOF.pdf](9064-PROOF.pdf) |
-| 9065 | [A191531](https://oeis.org/A191531) | Proof | the residual test over one square root, or none | [9065-PROOF.pdf](9065-PROOF.pdf) |
-| 9066 | [A211278](https://oeis.org/A211278) | Proof | the residual test over one square root, or none | [9066-PROOF.pdf](9066-PROOF.pdf) |
-| 9067 | [A026327](https://oeis.org/A026327) | Proof | the residual test over one square root, or none | [9067-PROOF.pdf](9067-PROOF.pdf) |
-| 9068 | [A081207](https://oeis.org/A081207) | Proof | the residual test over one square root, or none | [9068-PROOF.pdf](9068-PROOF.pdf) |
-| 9069 | [A102882](https://oeis.org/A102882) | Proof | the residual test over one square root, or none | [9069-PROOF.pdf](9069-PROOF.pdf) |
-| 9070 | [A182881](https://oeis.org/A182881) | Proof | the residual test over one square root, or none | [9070-PROOF.pdf](9070-PROOF.pdf) |
-| 9071 | [A191309](https://oeis.org/A191309) | Proof | the residual test over one square root, or none | [9071-PROOF.pdf](9071-PROOF.pdf) |
-| 9072 | [A191319](https://oeis.org/A191319) | Proof | the residual test over one square root, or none | [9072-PROOF.pdf](9072-PROOF.pdf) |
-| 9073 | [A191790](https://oeis.org/A191790) | Proof | the residual test over one square root, or none | [9073-PROOF.pdf](9073-PROOF.pdf) |
-| 9074 | [A273351](https://oeis.org/A273351) | Proof | the residual test over one square root, or none | [9074-PROOF.pdf](9074-PROOF.pdf) |
-| 9075 | [A025248](https://oeis.org/A025248) | Proof | the residual test over one square root, or none | [9075-PROOF.pdf](9075-PROOF.pdf) |
-| 9076 | [A025249](https://oeis.org/A025249) | Proof | the residual test over one square root, or none | [9076-PROOF.pdf](9076-PROOF.pdf) |
-| 9077 | [A026017](https://oeis.org/A026017) | Proof | the residual test over one square root, or none | [9077-PROOF.pdf](9077-PROOF.pdf) |
-| 9078 | [A071717](https://oeis.org/A071717) | Proof | the residual test over one square root, or none | [9078-PROOF.pdf](9078-PROOF.pdf) |
-| 9079 | [A104722](https://oeis.org/A104722) | Proof | the residual test over one square root, or none | [9079-PROOF.pdf](9079-PROOF.pdf) |
-| 9080 | [A109263](https://oeis.org/A109263) | Proof | the residual test over one square root, or none | [9080-PROOF.pdf](9080-PROOF.pdf) |
-| 9081 | [A118093](https://oeis.org/A118093) | Proof | the residual test over one square root, or none | [9081-PROOF.pdf](9081-PROOF.pdf) |
-| 9082 | [A118974](https://oeis.org/A118974) | Proof | the residual test over one square root, or none | [9082-PROOF.pdf](9082-PROOF.pdf) |
-| 9083 | [A121320](https://oeis.org/A121320) | Proof | the residual test over one square root, or none | [9083-PROOF.pdf](9083-PROOF.pdf) |
-| 9084 | [A126323](https://oeis.org/A126323) | Proof | the residual test over one square root, or none | [9084-PROOF.pdf](9084-PROOF.pdf) |
-| 9085 | [A128723](https://oeis.org/A128723) | Proof | the residual test over one square root, or none | [9085-PROOF.pdf](9085-PROOF.pdf) |
-| 9086 | [A135334](https://oeis.org/A135334) | Proof | the residual test over one square root, or none | [9086-PROOF.pdf](9086-PROOF.pdf) |
-| 9087 | [A141351](https://oeis.org/A141351) | Proof | the residual test over one square root, or none | [9087-PROOF.pdf](9087-PROOF.pdf) |
-| 9088 | [A141353](https://oeis.org/A141353) | Proof | the residual test over one square root, or none | [9088-PROOF.pdf](9088-PROOF.pdf) |
-| 9089 | [A163824](https://oeis.org/A163824) | Proof | the residual test over one square root, or none | [9089-PROOF.pdf](9089-PROOF.pdf) |
-| 9090 | [A165201](https://oeis.org/A165201) | Proof | the residual test over one square root, or none | [9090-PROOF.pdf](9090-PROOF.pdf) |
-| 9091 | [A279014](https://oeis.org/A279014) | Proof | the residual test over one square root, or none | [9091-PROOF.pdf](9091-PROOF.pdf) |
-| 9092 | [A026027](https://oeis.org/A026027) | Proof | the residual test over one square root, or none | [9092-PROOF.pdf](9092-PROOF.pdf) |
-| 9093 | [A026135](https://oeis.org/A026135) | Proof | the residual test over one square root, or none | [9093-PROOF.pdf](9093-PROOF.pdf) |
-| 9094 | [A050168](https://oeis.org/A050168) | Proof | the residual test over one square root, or none | [9094-PROOF.pdf](9094-PROOF.pdf) |
-| 9095 | [A059279](https://oeis.org/A059279) | Proof | the residual test over one square root, or none | [9095-PROOF.pdf](9095-PROOF.pdf) |
-| 9096 | [A063395](https://oeis.org/A063395) | Proof | the residual test over one square root, or none | [9096-PROOF.pdf](9096-PROOF.pdf) |
-| 9097 | [A071722](https://oeis.org/A071722) | Proof | the residual test over one square root, or none | [9097-PROOF.pdf](9097-PROOF.pdf) |
-| 9098 | [A082134](https://oeis.org/A082134) | Proof | the residual test over one square root, or none | [9098-PROOF.pdf](9098-PROOF.pdf) |
-| 9099 | [A097331](https://oeis.org/A097331) | Proof | the residual test over one square root, or none | [9099-PROOF.pdf](9099-PROOF.pdf) |
-| 9100 | [A100193](https://oeis.org/A100193) | Proof | the residual test over one square root, or none | [9100-PROOF.pdf](9100-PROOF.pdf) |
-| 9101 | [A103973](https://oeis.org/A103973) | Proof | the residual test over one square root, or none | [9101-PROOF.pdf](9101-PROOF.pdf) |
-| 9102 | [A106181](https://oeis.org/A106181) | Proof | the residual test over one square root, or none | [9102-PROOF.pdf](9102-PROOF.pdf) |
-| 9103 | [A108623](https://oeis.org/A108623) | Proof | the residual test over one square root, or none | [9103-PROOF.pdf](9103-PROOF.pdf) |
-| 9104 | [A126180](https://oeis.org/A126180) | Proof | the residual test over one square root, or none | [9104-PROOF.pdf](9104-PROOF.pdf) |
-| 9105 | [A128732](https://oeis.org/A128732) | Proof | the residual test over one square root, or none | [9105-PROOF.pdf](9105-PROOF.pdf) |
-| 9106 | [A134389](https://oeis.org/A134389) | Proof | the residual test over one square root, or none | [9106-PROOF.pdf](9106-PROOF.pdf) |
-| 9107 | [A143013](https://oeis.org/A143013) | Proof | the residual test over one square root, or none | [9107-PROOF.pdf](9107-PROOF.pdf) |
-| 9108 | [A143954](https://oeis.org/A143954) | Proof | the residual test over one square root, or none | [9108-PROOF.pdf](9108-PROOF.pdf) |
-| 9109 | [A157418](https://oeis.org/A157418) | Proof | the residual test over one square root, or none | [9109-PROOF.pdf](9109-PROOF.pdf) |
-| 9110 | [A158196](https://oeis.org/A158196) | Proof | the residual test over one square root, or none | [9110-PROOF.pdf](9110-PROOF.pdf) |
-| 9111 | [A158197](https://oeis.org/A158197) | Proof | the residual test over one square root, or none | [9111-PROOF.pdf](9111-PROOF.pdf) |
-| 9112 | [A191585](https://oeis.org/A191585) | Proof | the residual test over one square root, or none | [9112-PROOF.pdf](9112-PROOF.pdf) |
-| 9113 | [A257290](https://oeis.org/A257290) | Proof | the residual test over one square root, or none | [9113-PROOF.pdf](9113-PROOF.pdf) |
-| 9114 | [A054341](https://oeis.org/A054341) | Proof | the residual test over one square root, or none | [9114-PROOF.pdf](9114-PROOF.pdf) |
-| 9115 | [A071715](https://oeis.org/A071715) | Proof | the residual test over one square root, or none | [9115-PROOF.pdf](9115-PROOF.pdf) |
-| 9116 | [A090413](https://oeis.org/A090413) | Proof | the residual test over one square root, or none | [9116-PROOF.pdf](9116-PROOF.pdf) |
-| 9117 | [A090826](https://oeis.org/A090826) | Proof | the residual test over one square root, or none | [9117-PROOF.pdf](9117-PROOF.pdf) |
-| 9118 | [A091699](https://oeis.org/A091699) | Proof | the residual test over one square root, or none | [9118-PROOF.pdf](9118-PROOF.pdf) |
-| 9119 | [A098664](https://oeis.org/A098664) | Proof | the residual test over one square root, or none | [9119-PROOF.pdf](9119-PROOF.pdf) |
-| 9120 | [A099363](https://oeis.org/A099363) | Proof | the residual test over one square root, or none | [9120-PROOF.pdf](9120-PROOF.pdf) |
-| 9121 | [A100098](https://oeis.org/A100098) | Proof | the residual test over one square root, or none | [9121-PROOF.pdf](9121-PROOF.pdf) |
-| 9122 | [A105872](https://oeis.org/A105872) | Proof | the residual test over one square root, or none | [9122-PROOF.pdf](9122-PROOF.pdf) |
-| 9123 | [A119975](https://oeis.org/A119975) | Proof | the residual test over one square root, or none | [9123-PROOF.pdf](9123-PROOF.pdf) |
-| 9124 | [A121724](https://oeis.org/A121724) | Proof | the residual test over one square root, or none | [9124-PROOF.pdf](9124-PROOF.pdf) |
-| 9125 | [A121725](https://oeis.org/A121725) | Proof | the residual test over one square root, or none | [9125-PROOF.pdf](9125-PROOF.pdf) |
-| 9126 | [A126931](https://oeis.org/A126931) | Proof | the residual test over one square root, or none | [9126-PROOF.pdf](9126-PROOF.pdf) |
-| 9127 | [A126932](https://oeis.org/A126932) | Proof | the residual test over one square root, or none | [9127-PROOF.pdf](9127-PROOF.pdf) |
-| 9128 | [A127361](https://oeis.org/A127361) | Proof | the residual test over one square root, or none | [9128-PROOF.pdf](9128-PROOF.pdf) |
-| 9129 | [A127363](https://oeis.org/A127363) | Proof | the residual test over one square root, or none | [9129-PROOF.pdf](9129-PROOF.pdf) |
-| 9130 | [A155051](https://oeis.org/A155051) | Proof | the residual test over one square root, or none | [9130-PROOF.pdf](9130-PROOF.pdf) |
-| 9131 | [A166078](https://oeis.org/A166078) | Proof | the residual test over one square root, or none | [9131-PROOF.pdf](9131-PROOF.pdf) |
-| 9132 | [A166588](https://oeis.org/A166588) | Proof | the residual test over one square root, or none | [9132-PROOF.pdf](9132-PROOF.pdf) |
-| 9133 | [A176006](https://oeis.org/A176006) | Proof | the residual test over one square root, or none | [9133-PROOF.pdf](9133-PROOF.pdf) |
-| 9134 | [A185087](https://oeis.org/A185087) | Proof | the residual test over one square root, or none | [9134-PROOF.pdf](9134-PROOF.pdf) |
-| 9135 | [A190724](https://oeis.org/A190724) | Proof | the residual test over one square root, or none | [9135-PROOF.pdf](9135-PROOF.pdf) |
-| 9136 | [A225887](https://oeis.org/A225887) | Proof | the residual test over one square root, or none | [9136-PROOF.pdf](9136-PROOF.pdf) |
-| 9137 | [A227081](https://oeis.org/A227081) | Proof | the residual test over one square root, or none | [9137-PROOF.pdf](9137-PROOF.pdf) |
-| 9138 | [A257178](https://oeis.org/A257178) | Proof | the residual test over one square root, or none | [9138-PROOF.pdf](9138-PROOF.pdf) |
-| 9139 | [A257388](https://oeis.org/A257388) | Proof | the residual test over one square root, or none | [9139-PROOF.pdf](9139-PROOF.pdf) |
-| 9140 | [A257838](https://oeis.org/A257838) | Proof | the residual test over one square root, or none | [9140-PROOF.pdf](9140-PROOF.pdf) |
-| 9141 | [A001712](https://oeis.org/A001712) | Proof | the residual test over one square root, or none | [9141-PROOF.pdf](9141-PROOF.pdf) |
-| 9142 | [A025175](https://oeis.org/A025175) | Proof | the residual test over one square root, or none | [9142-PROOF.pdf](9142-PROOF.pdf) |
-| 9143 | [A025577](https://oeis.org/A025577) | Proof | the residual test over one square root, or none | [9143-PROOF.pdf](9143-PROOF.pdf) |
-| 9144 | [A026023](https://oeis.org/A026023) | Proof | the residual test over one square root, or none | [9144-PROOF.pdf](9144-PROOF.pdf) |
-| 9145 | [A055217](https://oeis.org/A055217) | Proof | the residual test over one square root, or none | [9145-PROOF.pdf](9145-PROOF.pdf) |
-| 9146 | [A081052](https://oeis.org/A081052) | Proof | the residual test over one square root, or none | [9146-PROOF.pdf](9146-PROOF.pdf) |
-| 9147 | [A103821](https://oeis.org/A103821) | Proof | the residual test over one square root, or none | [9147-PROOF.pdf](9147-PROOF.pdf) |
-| 9148 | [A107231](https://oeis.org/A107231) | Proof | the residual test over one square root, or none | [9148-PROOF.pdf](9148-PROOF.pdf) |
-| 9149 | [A110199](https://oeis.org/A110199) | Proof | the residual test over one square root, or none | [9149-PROOF.pdf](9149-PROOF.pdf) |
-| 9150 | [A116406](https://oeis.org/A116406) | Proof | the residual test over one square root, or none | [9150-PROOF.pdf](9150-PROOF.pdf) |
-| 9151 | [A128734](https://oeis.org/A128734) | Proof | the residual test over one square root, or none | [9151-PROOF.pdf](9151-PROOF.pdf) |
-| 9152 | [A191307](https://oeis.org/A191307) | Proof | the residual test over one square root, or none | [9152-PROOF.pdf](9152-PROOF.pdf) |
-| 9153 | [A278472](https://oeis.org/A278472) | Proof | the residual test over one square root, or none | [9153-PROOF.pdf](9153-PROOF.pdf) |
-| 9154 | [A034863](https://oeis.org/A034863) | Proof | the residual test over one square root, or none | [9154-PROOF.pdf](9154-PROOF.pdf) |
-| 9155 | [A128652](https://oeis.org/A128652) | Proof | the residual test over one square root, or none | [9155-PROOF.pdf](9155-PROOF.pdf) |
-| 9156 | [A174195](https://oeis.org/A174195) | Proof | the residual test over one square root, or none | [9156-PROOF.pdf](9156-PROOF.pdf) |
-| 9157 | [A192480](https://oeis.org/A192480) | Proof | the residual test over one square root, or none | [9157-PROOF.pdf](9157-PROOF.pdf) |
-| 9158 | [A158495](https://oeis.org/A158495) | Proof | the residual test over one square root, or none | [9158-PROOF.pdf](9158-PROOF.pdf) |
-| 9159 | [A189176](https://oeis.org/A189176) | Proof | the residual test over one square root, or none | [9159-PROOF.pdf](9159-PROOF.pdf) |
-| 9160 | [A194724](https://oeis.org/A194724) | Proof | the residual test over one square root, or none | [9160-PROOF.pdf](9160-PROOF.pdf) |
-| 9161 | [A210474](https://oeis.org/A210474) | Proof | the residual test over one square root, or none | [9161-PROOF.pdf](9161-PROOF.pdf) |
-| 9162 | [A262768](https://oeis.org/A262768) | Proof | the residual test over one square root, or none | [9162-PROOF.pdf](9162-PROOF.pdf) |
-| 9163 | [A026029](https://oeis.org/A026029) | Proof | the residual test over one square root, or none | [9163-PROOF.pdf](9163-PROOF.pdf) |
-| 9164 | [A064088](https://oeis.org/A064088) | Proof | the residual test over one square root, or none | [9164-PROOF.pdf](9164-PROOF.pdf) |
-| 9165 | [A064089](https://oeis.org/A064089) | Proof | the residual test over one square root, or none | [9165-PROOF.pdf](9165-PROOF.pdf) |
-| 9166 | [A064090](https://oeis.org/A064090) | Proof | the residual test over one square root, or none | [9166-PROOF.pdf](9166-PROOF.pdf) |
-| 9167 | [A064091](https://oeis.org/A064091) | Proof | the residual test over one square root, or none | [9167-PROOF.pdf](9167-PROOF.pdf) |
-| 9168 | [A064092](https://oeis.org/A064092) | Proof | the residual test over one square root, or none | [9168-PROOF.pdf](9168-PROOF.pdf) |
-| 9169 | [A067299](https://oeis.org/A067299) | Proof | the residual test over one square root, or none | [9169-PROOF.pdf](9169-PROOF.pdf) |
-| 9170 | [A068551](https://oeis.org/A068551) | Proof | the residual test over one square root, or none | [9170-PROOF.pdf](9170-PROOF.pdf) |
-| 9171 | [A080243](https://oeis.org/A080243) | Proof | the residual test over one square root, or none | [9171-PROOF.pdf](9171-PROOF.pdf) |
-| 9172 | [A114191](https://oeis.org/A114191) | Proof | the residual test over one square root, or none | [9172-PROOF.pdf](9172-PROOF.pdf) |
-| 9173 | [A116881](https://oeis.org/A116881) | Proof | the residual test over one square root, or none | [9173-PROOF.pdf](9173-PROOF.pdf) |
-| 9174 | [A122920](https://oeis.org/A122920) | Proof | the residual test over one square root, or none | [9174-PROOF.pdf](9174-PROOF.pdf) |
-| 9175 | [A132864](https://oeis.org/A132864) | Proof | the residual test over one square root, or none | [9175-PROOF.pdf](9175-PROOF.pdf) |
-| 9176 | [A133305](https://oeis.org/A133305) | Proof | the residual test over one square root, or none | [9176-PROOF.pdf](9176-PROOF.pdf) |
-| 9177 | [A133306](https://oeis.org/A133306) | Proof | the residual test over one square root, or none | [9177-PROOF.pdf](9177-PROOF.pdf) |
-| 9178 | [A133307](https://oeis.org/A133307) | Proof | the residual test over one square root, or none | [9178-PROOF.pdf](9178-PROOF.pdf) |
-| 9179 | [A133308](https://oeis.org/A133308) | Proof | the residual test over one square root, or none | [9179-PROOF.pdf](9179-PROOF.pdf) |
-| 9180 | [A141222](https://oeis.org/A141222) | Proof | the residual test over one square root, or none | [9180-PROOF.pdf](9180-PROOF.pdf) |
-| 9181 | [A154623](https://oeis.org/A154623) | Proof | the residual test over one square root, or none | [9181-PROOF.pdf](9181-PROOF.pdf) |
-| 9182 | [A157328](https://oeis.org/A157328) | Proof | the residual test over one square root, or none | [9182-PROOF.pdf](9182-PROOF.pdf) |
-| 9183 | [A158196](https://oeis.org/A158196) | Proof | the residual test over one square root, or none | [9183-PROOF.pdf](9183-PROOF.pdf) |
-| 9184 | [A158197](https://oeis.org/A158197) | Proof | the residual test over one square root, or none | [9184-PROOF.pdf](9184-PROOF.pdf) |
-| 9185 | [A191993](https://oeis.org/A191993) | Proof | the residual test over one square root, or none | [9185-PROOF.pdf](9185-PROOF.pdf) |
-| 9186 | [A225034](https://oeis.org/A225034) | Proof | the residual test over one square root, or none | [9186-PROOF.pdf](9186-PROOF.pdf) |
-| 9187 | [A242172](https://oeis.org/A242172) | Proof | the residual test over one square root, or none | [9187-PROOF.pdf](9187-PROOF.pdf) |
-| 9188 | [A002867](https://oeis.org/A002867) | Proof | the residual test over one square root, or none | [9188-PROOF.pdf](9188-PROOF.pdf) |
-| 9189 | [A014533](https://oeis.org/A014533) | Proof | the residual test over one square root, or none | [9189-PROOF.pdf](9189-PROOF.pdf) |
-| 9190 | [A051524](https://oeis.org/A051524) | Proof | the residual test over one square root, or none | [9190-PROOF.pdf](9190-PROOF.pdf) |
-| 9191 | [A071264](https://oeis.org/A071264) | Proof | the residual test over one square root, or none | [9191-PROOF.pdf](9191-PROOF.pdf) |
-| 9192 | [A081046](https://oeis.org/A081046) | Proof | the residual test over one square root, or none | [9192-PROOF.pdf](9192-PROOF.pdf) |
-| 9193 | [A098519](https://oeis.org/A098519) | Proof | the residual test over one square root, or none | [9193-PROOF.pdf](9193-PROOF.pdf) |
-| 9194 | [A098520](https://oeis.org/A098520) | Proof | the residual test over one square root, or none | [9194-PROOF.pdf](9194-PROOF.pdf) |
-| 9195 | [A101596](https://oeis.org/A101596) | Proof | the residual test over one square root, or none | [9195-PROOF.pdf](9195-PROOF.pdf) |
-| 9196 | [A101601](https://oeis.org/A101601) | Proof | the residual test over one square root, or none | [9196-PROOF.pdf](9196-PROOF.pdf) |
-| 9197 | [A101602](https://oeis.org/A101602) | Proof | the residual test over one square root, or none | [9197-PROOF.pdf](9197-PROOF.pdf) |
-| 9198 | [A111779](https://oeis.org/A111779) | Proof | the residual test over one square root, or none | [9198-PROOF.pdf](9198-PROOF.pdf) |
-| 9199 | [A112703](https://oeis.org/A112703) | Proof | the residual test over one square root, or none | [9199-PROOF.pdf](9199-PROOF.pdf) |
-| 9200 | [A119012](https://oeis.org/A119012) | Proof | the residual test over one square root, or none | [9200-PROOF.pdf](9200-PROOF.pdf) |
-| 9201 | [A128057](https://oeis.org/A128057) | Proof | the residual test over one square root, or none | [9201-PROOF.pdf](9201-PROOF.pdf) |
-| 9202 | [A128746](https://oeis.org/A128746) | Proof | the residual test over one square root, or none | [9202-PROOF.pdf](9202-PROOF.pdf) |
-| 9203 | [A132900](https://oeis.org/A132900) | Proof | the residual test over one square root, or none | [9203-PROOF.pdf](9203-PROOF.pdf) |
-| 9204 | [A151483](https://oeis.org/A151483) | Proof | the residual test over one square root, or none | [9204-PROOF.pdf](9204-PROOF.pdf) |
-| 9205 | [A167481](https://oeis.org/A167481) | Proof | the residual test over one square root, or none | [9205-PROOF.pdf](9205-PROOF.pdf) |
-| 9206 | [A171556](https://oeis.org/A171556) | Proof | the residual test over one square root, or none | [9206-PROOF.pdf](9206-PROOF.pdf) |
-| 9207 | [A176479](https://oeis.org/A176479) | Proof | the residual test over one square root, or none | [9207-PROOF.pdf](9207-PROOF.pdf) |
-| 9208 | [A182401](https://oeis.org/A182401) | Proof | the residual test over one square root, or none | [9208-PROOF.pdf](9208-PROOF.pdf) |
-| 9209 | [A208355](https://oeis.org/A208355) | Proof | the residual test over one square root, or none | [9209-PROOF.pdf](9209-PROOF.pdf) |
-| 9210 | [A210064](https://oeis.org/A210064) | Proof | the residual test over one square root, or none | [9210-PROOF.pdf](9210-PROOF.pdf) |
-| 9211 | [A240558](https://oeis.org/A240558) | Proof | the residual test over one square root, or none | [9211-PROOF.pdf](9211-PROOF.pdf) |
-| 9212 | [A141771](https://oeis.org/A141771) | Proof | the residual test over one square root, or none | [9212-PROOF.pdf](9212-PROOF.pdf) |
-| 9213 | [A176606](https://oeis.org/A176606) | Proof | the residual test over one square root, or none | [9213-PROOF.pdf](9213-PROOF.pdf) |
-| 9214 | [A176607](https://oeis.org/A176607) | Proof | the residual test over one square root, or none | [9214-PROOF.pdf](9214-PROOF.pdf) |
-| 9215 | [A176609](https://oeis.org/A176609) | Proof | the residual test over one square root, or none | [9215-PROOF.pdf](9215-PROOF.pdf) |
-| 9216 | [A176610](https://oeis.org/A176610) | Proof | the residual test over one square root, or none | [9216-PROOF.pdf](9216-PROOF.pdf) |
-| 9217 | [A176611](https://oeis.org/A176611) | Proof | the residual test over one square root, or none | [9217-PROOF.pdf](9217-PROOF.pdf) |
-| 9218 | [A176675](https://oeis.org/A176675) | Proof | the residual test over one square root, or none | [9218-PROOF.pdf](9218-PROOF.pdf) |
-| 9219 | [A176749](https://oeis.org/A176749) | Proof | the residual test over one square root, or none | [9219-PROOF.pdf](9219-PROOF.pdf) |
-| 9220 | [A176750](https://oeis.org/A176750) | Proof | the residual test over one square root, or none | [9220-PROOF.pdf](9220-PROOF.pdf) |
-| 9221 | [A176751](https://oeis.org/A176751) | Proof | the residual test over one square root, or none | [9221-PROOF.pdf](9221-PROOF.pdf) |
-| 9222 | [A176752](https://oeis.org/A176752) | Proof | the residual test over one square root, or none | [9222-PROOF.pdf](9222-PROOF.pdf) |
-| 9223 | [A176753](https://oeis.org/A176753) | Proof | the residual test over one square root, or none | [9223-PROOF.pdf](9223-PROOF.pdf) |
-| 9224 | [A176754](https://oeis.org/A176754) | Proof | the residual test over one square root, or none | [9224-PROOF.pdf](9224-PROOF.pdf) |
-| 9225 | [A176755](https://oeis.org/A176755) | Proof | the residual test over one square root, or none | [9225-PROOF.pdf](9225-PROOF.pdf) |
-| 9226 | [A176756](https://oeis.org/A176756) | Proof | the residual test over one square root, or none | [9226-PROOF.pdf](9226-PROOF.pdf) |
-| 9227 | [A176757](https://oeis.org/A176757) | Proof | the residual test over one square root, or none | [9227-PROOF.pdf](9227-PROOF.pdf) |
-| 9228 | [A176759](https://oeis.org/A176759) | Proof | the residual test over one square root, or none | [9228-PROOF.pdf](9228-PROOF.pdf) |
-| 9229 | [A176828](https://oeis.org/A176828) | Proof | the residual test over one square root, or none | [9229-PROOF.pdf](9229-PROOF.pdf) |
-| 9230 | [A176829](https://oeis.org/A176829) | Proof | the residual test over one square root, or none | [9230-PROOF.pdf](9230-PROOF.pdf) |
-| 9231 | [A176830](https://oeis.org/A176830) | Proof | the residual test over one square root, or none | [9231-PROOF.pdf](9231-PROOF.pdf) |
-| 9232 | [A176832](https://oeis.org/A176832) | Proof | the residual test over one square root, or none | [9232-PROOF.pdf](9232-PROOF.pdf) |
-| 9233 | [A176854](https://oeis.org/A176854) | Proof | the residual test over one square root, or none | [9233-PROOF.pdf](9233-PROOF.pdf) |
-| 9234 | [A176855](https://oeis.org/A176855) | Proof | the residual test over one square root, or none | [9234-PROOF.pdf](9234-PROOF.pdf) |
-| 9235 | [A176856](https://oeis.org/A176856) | Proof | the residual test over one square root, or none | [9235-PROOF.pdf](9235-PROOF.pdf) |
-| 9236 | [A176857](https://oeis.org/A176857) | Proof | the residual test over one square root, or none | [9236-PROOF.pdf](9236-PROOF.pdf) |
-| 9237 | [A176858](https://oeis.org/A176858) | Proof | the residual test over one square root, or none | [9237-PROOF.pdf](9237-PROOF.pdf) |
-| 9238 | [A176859](https://oeis.org/A176859) | Proof | the residual test over one square root, or none | [9238-PROOF.pdf](9238-PROOF.pdf) |
-| 9239 | [A176952](https://oeis.org/A176952) | Proof | the residual test over one square root, or none | [9239-PROOF.pdf](9239-PROOF.pdf) |
-| 9240 | [A176953](https://oeis.org/A176953) | Proof | the residual test over one square root, or none | [9240-PROOF.pdf](9240-PROOF.pdf) |
-| 9241 | [A176956](https://oeis.org/A176956) | Proof | the residual test over one square root, or none | [9241-PROOF.pdf](9241-PROOF.pdf) |
-| 9242 | [A176957](https://oeis.org/A176957) | Proof | the residual test over one square root, or none | [9242-PROOF.pdf](9242-PROOF.pdf) |
-| 9243 | [A176958](https://oeis.org/A176958) | Proof | the residual test over one square root, or none | [9243-PROOF.pdf](9243-PROOF.pdf) |
-| 9244 | [A176959](https://oeis.org/A176959) | Proof | the residual test over one square root, or none | [9244-PROOF.pdf](9244-PROOF.pdf) |
-| 9245 | [A176962](https://oeis.org/A176962) | Proof | the residual test over one square root, or none | [9245-PROOF.pdf](9245-PROOF.pdf) |
-| 9246 | [A176964](https://oeis.org/A176964) | Proof | the residual test over one square root, or none | [9246-PROOF.pdf](9246-PROOF.pdf) |
-| 9247 | [A176966](https://oeis.org/A176966) | Proof | the residual test over one square root, or none | [9247-PROOF.pdf](9247-PROOF.pdf) |
-| 9248 | [A176967](https://oeis.org/A176967) | Proof | the residual test over one square root, or none | [9248-PROOF.pdf](9248-PROOF.pdf) |
-| 9249 | [A177123](https://oeis.org/A177123) | Proof | the residual test over one square root, or none | [9249-PROOF.pdf](9249-PROOF.pdf) |
-| 9250 | [A177124](https://oeis.org/A177124) | Proof | the residual test over one square root, or none | [9250-PROOF.pdf](9250-PROOF.pdf) |
-| 9251 | [A177125](https://oeis.org/A177125) | Proof | the residual test over one square root, or none | [9251-PROOF.pdf](9251-PROOF.pdf) |
-| 9252 | [A177126](https://oeis.org/A177126) | Proof | the residual test over one square root, or none | [9252-PROOF.pdf](9252-PROOF.pdf) |
-| 9253 | [A177127](https://oeis.org/A177127) | Proof | the residual test over one square root, or none | [9253-PROOF.pdf](9253-PROOF.pdf) |
-| 9254 | [A177128](https://oeis.org/A177128) | Proof | the residual test over one square root, or none | [9254-PROOF.pdf](9254-PROOF.pdf) |
-| 9255 | [A177129](https://oeis.org/A177129) | Proof | the residual test over one square root, or none | [9255-PROOF.pdf](9255-PROOF.pdf) |
-| 9256 | [A177130](https://oeis.org/A177130) | Proof | the residual test over one square root, or none | [9256-PROOF.pdf](9256-PROOF.pdf) |
-| 9257 | [A177131](https://oeis.org/A177131) | Proof | the residual test over one square root, or none | [9257-PROOF.pdf](9257-PROOF.pdf) |
-| 9258 | [A177163](https://oeis.org/A177163) | Proof | the residual test over one square root, or none | [9258-PROOF.pdf](9258-PROOF.pdf) |
-| 9259 | [A177165](https://oeis.org/A177165) | Proof | the residual test over one square root, or none | [9259-PROOF.pdf](9259-PROOF.pdf) |
-| 9260 | [A177166](https://oeis.org/A177166) | Proof | the residual test over one square root, or none | [9260-PROOF.pdf](9260-PROOF.pdf) |
-| 9261 | [A177167](https://oeis.org/A177167) | Proof | the residual test over one square root, or none | [9261-PROOF.pdf](9261-PROOF.pdf) |
-| 9262 | [A177168](https://oeis.org/A177168) | Proof | the residual test over one square root, or none | [9262-PROOF.pdf](9262-PROOF.pdf) |
-| 9263 | [A177169](https://oeis.org/A177169) | Proof | the residual test over one square root, or none | [9263-PROOF.pdf](9263-PROOF.pdf) |
-| 9264 | [A177170](https://oeis.org/A177170) | Proof | the residual test over one square root, or none | [9264-PROOF.pdf](9264-PROOF.pdf) |
-| 9265 | [A177171](https://oeis.org/A177171) | Proof | the residual test over one square root, or none | [9265-PROOF.pdf](9265-PROOF.pdf) |
-| 9266 | [A177172](https://oeis.org/A177172) | Proof | the residual test over one square root, or none | [9266-PROOF.pdf](9266-PROOF.pdf) |
-| 9267 | [A177175](https://oeis.org/A177175) | Proof | the residual test over one square root, or none | [9267-PROOF.pdf](9267-PROOF.pdf) |
-| 9268 | [A177177](https://oeis.org/A177177) | Proof | the residual test over one square root, or none | [9268-PROOF.pdf](9268-PROOF.pdf) |
-| 9269 | [A177178](https://oeis.org/A177178) | Proof | the residual test over one square root, or none | [9269-PROOF.pdf](9269-PROOF.pdf) |
-| 9270 | [A177179](https://oeis.org/A177179) | Proof | the residual test over one square root, or none | [9270-PROOF.pdf](9270-PROOF.pdf) |
-| 9271 | [A177180](https://oeis.org/A177180) | Proof | the residual test over one square root, or none | [9271-PROOF.pdf](9271-PROOF.pdf) |
-| 9272 | [A177181](https://oeis.org/A177181) | Proof | the residual test over one square root, or none | [9272-PROOF.pdf](9272-PROOF.pdf) |
-| 9273 | [A177182](https://oeis.org/A177182) | Proof | the residual test over one square root, or none | [9273-PROOF.pdf](9273-PROOF.pdf) |
-| 9274 | [A177183](https://oeis.org/A177183) | Proof | the residual test over one square root, or none | [9274-PROOF.pdf](9274-PROOF.pdf) |
-| 9275 | [A177184](https://oeis.org/A177184) | Proof | the residual test over one square root, or none | [9275-PROOF.pdf](9275-PROOF.pdf) |
-| 9276 | [A177185](https://oeis.org/A177185) | Proof | the residual test over one square root, or none | [9276-PROOF.pdf](9276-PROOF.pdf) |
-| 9277 | [A177197](https://oeis.org/A177197) | Proof | the residual test over one square root, or none | [9277-PROOF.pdf](9277-PROOF.pdf) |
-| 9278 | [A177198](https://oeis.org/A177198) | Proof | the residual test over one square root, or none | [9278-PROOF.pdf](9278-PROOF.pdf) |
-| 9279 | [A177199](https://oeis.org/A177199) | Proof | the residual test over one square root, or none | [9279-PROOF.pdf](9279-PROOF.pdf) |
-| 9280 | [A177200](https://oeis.org/A177200) | Proof | the residual test over one square root, or none | [9280-PROOF.pdf](9280-PROOF.pdf) |
-| 9281 | [A177203](https://oeis.org/A177203) | Proof | the residual test over one square root, or none | [9281-PROOF.pdf](9281-PROOF.pdf) |
-| 9282 | [A081670](https://oeis.org/A081670) | Proof | the known side is the entry's NAME rather than a formula line | [9282-PROOF.pdf](9282-PROOF.pdf) |
-| 9283 | [A085781](https://oeis.org/A085781) | Proof | the known side is the entry's NAME rather than a formula line | [9283-PROOF.pdf](9283-PROOF.pdf) |
-| 9284 | [A026019](https://oeis.org/A026019) | Proof | the known side is the entry's NAME rather than a formula line | [9284-PROOF.pdf](9284-PROOF.pdf) |
-| 9285 | [A052183](https://oeis.org/A052183) | Proof | the known side is the entry's NAME rather than a formula line | [9285-PROOF.pdf](9285-PROOF.pdf) |
-| 9286 | [A052204](https://oeis.org/A052204) | Proof | the known side is the entry's NAME rather than a formula line | [9286-PROOF.pdf](9286-PROOF.pdf) |
-| 9287 | [A157713](https://oeis.org/A157713) | Proof | the known side is the entry's NAME rather than a formula line | [9287-PROOF.pdf](9287-PROOF.pdf) |
-| 9288 | [A334511](https://oeis.org/A334511) | Proof | a posted closed form decided by the theory of hypergeometric terms | [9288-PROOF.pdf](9288-PROOF.pdf) |
-| 9289 | [A333905](https://oeis.org/A333905) | Proof | a posted closed form decided by the theory of hypergeometric terms | [9289-PROOF.pdf](9289-PROOF.pdf) |
-| 9290 | [A049486](https://oeis.org/A049486) | Proof | a posted closed form decided by the theory of hypergeometric terms | [9290-PROOF.pdf](9290-PROOF.pdf) |
-| 9291 | [A267879](https://oeis.org/A267879) | Proof | a posted closed form decided by the theory of hypergeometric terms | [9291-PROOF.pdf](9291-PROOF.pdf) |
-| 9292 | [A267802](https://oeis.org/A267802) | Proof | a posted closed form decided by the theory of hypergeometric terms | [9292-PROOF.pdf](9292-PROOF.pdf) |
-| 9293 | [A267847](https://oeis.org/A267847) | Proof | a posted closed form decided by the theory of hypergeometric terms | [9293-PROOF.pdf](9293-PROOF.pdf) |
-| 9294 | [A034267](https://oeis.org/A034267) | Proof | a posted closed form decided by the theory of hypergeometric terms | [9294-PROOF.pdf](9294-PROOF.pdf) |
-| 9295 | [A126501](https://oeis.org/A126501) | Proof | a posted closed form decided by the theory of hypergeometric terms | [9295-PROOF.pdf](9295-PROOF.pdf) |
-| 9296 | [A128153](https://oeis.org/A128153) | Proof | a posted closed form decided by the theory of hypergeometric terms | [9296-PROOF.pdf](9296-PROOF.pdf) |
-| 9297 | [A212938](https://oeis.org/A212938) | Proof | a posted closed form decided by the theory of hypergeometric terms | [9297-PROOF.pdf](9297-PROOF.pdf) |
-| 9298 | [A220250](https://oeis.org/A220250) | Proof | a posted closed form decided by the theory of hypergeometric terms | [9298-PROOF.pdf](9298-PROOF.pdf) |
-| 9299 | [A248434](https://oeis.org/A248434) | Proof | a posted closed form decided by the theory of hypergeometric terms | [9299-PROOF.pdf](9299-PROOF.pdf) |
-| 9300 | [A258547](https://oeis.org/A258547) | Proof | a posted closed form decided by the theory of hypergeometric terms | [9300-PROOF.pdf](9300-PROOF.pdf) |
-| 9301 | [A272706](https://oeis.org/A272706) | Proof | a posted closed form decided by the theory of hypergeometric terms | [9301-PROOF.pdf](9301-PROOF.pdf) |
-| 9302 | [A126089](https://oeis.org/A126089) | Proof | complete annihilation, tested in the Ore algebra Q(n)[N] | [9302-PROOF.pdf](9302-PROOF.pdf) |
-| 9303 | [A025271](https://oeis.org/A025271) | Proof | division of one posted operator by another | [9303-PROOF.pdf](9303-PROOF.pdf) |
-| 9304 | [A138164](https://oeis.org/A138164) | Proof | division of one posted operator by another | [9304-PROOF.pdf](9304-PROOF.pdf) |
-| 9305 | [A143017](https://oeis.org/A143017) | Proof | division of one posted operator by another | [9305-PROOF.pdf](9305-PROOF.pdf) |
-| 9306 | [A159772](https://oeis.org/A159772) | Proof | division of one posted operator by another | [9306-PROOF.pdf](9306-PROOF.pdf) |
-| 9307 | [A000986](https://oeis.org/A000986) | Proof | division of one posted operator by another | [9307-PROOF.pdf](9307-PROOF.pdf) |
-| 9308 | [A022917](https://oeis.org/A022917) | Proof | division of one posted operator by another | [9308-PROOF.pdf](9308-PROOF.pdf) |
-| 9309 | [A217447](https://oeis.org/A217447) | Proof | division of one posted operator by another | [9309-PROOF.pdf](9309-PROOF.pdf) |
-| 9310 | [A226302](https://oeis.org/A226302) | Proof | division of one posted operator by another | [9310-PROOF.pdf](9310-PROOF.pdf) |
-| 9311 | [A245088](https://oeis.org/A245088) | Proof | division of one posted operator by another | [9311-PROOF.pdf](9311-PROOF.pdf) |
-| 9312 | [A026165](https://oeis.org/A026165) | Proof | division of one posted operator by another | [9312-PROOF.pdf](9312-PROOF.pdf) |
-| 9313 | [A185966](https://oeis.org/A185966) | Proof | division of one posted operator by another | [9313-PROOF.pdf](9313-PROOF.pdf) |
-| 9314 | [A200753](https://oeis.org/A200753) | Proof | division of one posted operator by another | [9314-PROOF.pdf](9314-PROOF.pdf) |
-| 9315 | [A217358](https://oeis.org/A217358) | Proof | division of one posted operator by another | [9315-PROOF.pdf](9315-PROOF.pdf) |
-| 9316 | [A228960](https://oeis.org/A228960) | Proof | division of one posted operator by another | [9316-PROOF.pdf](9316-PROOF.pdf) |
-| 9317 | [A003435](https://oeis.org/A003435) | Proof | division of one posted operator by another | [9317-PROOF.pdf](9317-PROOF.pdf) |
-| 9318 | [A228331](https://oeis.org/A228331) | Proof | division of one posted operator by another | [9318-PROOF.pdf](9318-PROOF.pdf) |
-| 9319 | [A273019](https://oeis.org/A273019) | Proof | division of one posted operator by another | [9319-PROOF.pdf](9319-PROOF.pdf) |
-| 9320 | [A386834](https://oeis.org/A386834) | Proof | division of one posted operator by another | [9320-PROOF.pdf](9320-PROOF.pdf) |
-| 9321 | [A228330](https://oeis.org/A228330) | Proof | division of one posted operator by another | [9321-PROOF.pdf](9321-PROOF.pdf) |
-| 9322 | [A228333](https://oeis.org/A228333) | Proof | division of one posted operator by another | [9322-PROOF.pdf](9322-PROOF.pdf) |
+| 9001 | [A025270](https://oeis.org/A025270) | Proof | the residual test over one square root, or none | [9001-PROOF.pdf](9001-PROOF.pdf) |
+| 9002 | [A025275](https://oeis.org/A025275) | Proof | the residual test over one square root, or none | [9002-PROOF.pdf](9002-PROOF.pdf) |
+| 9003 | [A102880](https://oeis.org/A102880) | Proof | the residual test over one square root, or none | [9003-PROOF.pdf](9003-PROOF.pdf) |
+| 9004 | [A111053](https://oeis.org/A111053) | Proof | the residual test over one square root, or none | [9004-PROOF.pdf](9004-PROOF.pdf) |
+| 9005 | [A152120](https://oeis.org/A152120) | Proof | the residual test over one square root, or none | [9005-PROOF.pdf](9005-PROOF.pdf) |
+| 9006 | [A159771](https://oeis.org/A159771) | Proof | the residual test over one square root, or none | [9006-PROOF.pdf](9006-PROOF.pdf) |
+| 9007 | [A166694](https://oeis.org/A166694) | Proof | the residual test over one square root, or none | [9007-PROOF.pdf](9007-PROOF.pdf) |
+| 9008 | [A166696](https://oeis.org/A166696) | Proof | the residual test over one square root, or none | [9008-PROOF.pdf](9008-PROOF.pdf) |
+| 9009 | [A191796](https://oeis.org/A191796) | Proof | the residual test over one square root, or none | [9009-PROOF.pdf](9009-PROOF.pdf) |
+| 9010 | [A217711](https://oeis.org/A217711) | Proof | the residual test over one square root, or none | [9010-PROOF.pdf](9010-PROOF.pdf) |
+| 9011 | [A278023](https://oeis.org/A278023) | Proof | the residual test over one square root, or none | [9011-PROOF.pdf](9011-PROOF.pdf) |
+| 9012 | [A279014](https://oeis.org/A279014) | Proof | the residual test over one square root, or none | [9012-PROOF.pdf](9012-PROOF.pdf) |
+| 9013 | [A000483](https://oeis.org/A000483) | Proof | the residual test over one square root, or none | [9013-PROOF.pdf](9013-PROOF.pdf) |
+| 9014 | [A026030](https://oeis.org/A026030) | Proof | the residual test over one square root, or none | [9014-PROOF.pdf](9014-PROOF.pdf) |
+| 9015 | [A026031](https://oeis.org/A026031) | Proof | the residual test over one square root, or none | [9015-PROOF.pdf](9015-PROOF.pdf) |
+| 9016 | [A048775](https://oeis.org/A048775) | Proof | the residual test over one square root, or none | [9016-PROOF.pdf](9016-PROOF.pdf) |
+| 9017 | [A116409](https://oeis.org/A116409) | Proof | the residual test over one square root, or none | [9017-PROOF.pdf](9017-PROOF.pdf) |
+| 9018 | [A126322](https://oeis.org/A126322) | Proof | the residual test over one square root, or none | [9018-PROOF.pdf](9018-PROOF.pdf) |
+| 9019 | [A128750](https://oeis.org/A128750) | Proof | the residual test over one square root, or none | [9019-PROOF.pdf](9019-PROOF.pdf) |
+| 9020 | [A143955](https://oeis.org/A143955) | Proof | the residual test over one square root, or none | [9020-PROOF.pdf](9020-PROOF.pdf) |
+| 9021 | [A165203](https://oeis.org/A165203) | Proof | the residual test over one square root, or none | [9021-PROOF.pdf](9021-PROOF.pdf) |
+| 9022 | [A168505](https://oeis.org/A168505) | Proof | the residual test over one square root, or none | [9022-PROOF.pdf](9022-PROOF.pdf) |
+| 9023 | [A176605](https://oeis.org/A176605) | Proof | the residual test over one square root, or none | [9023-PROOF.pdf](9023-PROOF.pdf) |
+| 9024 | [A181933](https://oeis.org/A181933) | Proof | the residual test over one square root, or none | [9024-PROOF.pdf](9024-PROOF.pdf) |
+| 9025 | [A191585](https://oeis.org/A191585) | Proof | the residual test over one square root, or none | [9025-PROOF.pdf](9025-PROOF.pdf) |
+| 9026 | [A215973](https://oeis.org/A215973) | Proof | the residual test over one square root, or none | [9026-PROOF.pdf](9026-PROOF.pdf) |
+| 9027 | [A234269](https://oeis.org/A234269) | Proof | the residual test over one square root, or none | [9027-PROOF.pdf](9027-PROOF.pdf) |
+| 9028 | [A236407](https://oeis.org/A236407) | Proof | the residual test over one square root, or none | [9028-PROOF.pdf](9028-PROOF.pdf) |
+| 9029 | [A270363](https://oeis.org/A270363) | Proof | the residual test over one square root, or none | [9029-PROOF.pdf](9029-PROOF.pdf) |
+| 9030 | [A098521](https://oeis.org/A098521) | Proof | the residual test over one square root, or none | [9030-PROOF.pdf](9030-PROOF.pdf) |
+| 9031 | [A100096](https://oeis.org/A100096) | Proof | the residual test over one square root, or none | [9031-PROOF.pdf](9031-PROOF.pdf) |
+| 9032 | [A100099](https://oeis.org/A100099) | Proof | the residual test over one square root, or none | [9032-PROOF.pdf](9032-PROOF.pdf) |
+| 9033 | [A105849](https://oeis.org/A105849) | Proof | the residual test over one square root, or none | [9033-PROOF.pdf](9033-PROOF.pdf) |
+| 9034 | [A105864](https://oeis.org/A105864) | Proof | the residual test over one square root, or none | [9034-PROOF.pdf](9034-PROOF.pdf) |
+| 9035 | [A105865](https://oeis.org/A105865) | Proof | the residual test over one square root, or none | [9035-PROOF.pdf](9035-PROOF.pdf) |
+| 9036 | [A108308](https://oeis.org/A108308) | Proof | the residual test over one square root, or none | [9036-PROOF.pdf](9036-PROOF.pdf) |
+| 9037 | [A114194](https://oeis.org/A114194) | Proof | the residual test over one square root, or none | [9037-PROOF.pdf](9037-PROOF.pdf) |
+| 9038 | [A115967](https://oeis.org/A115967) | Proof | the residual test over one square root, or none | [9038-PROOF.pdf](9038-PROOF.pdf) |
+| 9039 | [A117186](https://oeis.org/A117186) | Proof | the residual test over one square root, or none | [9039-PROOF.pdf](9039-PROOF.pdf) |
+| 9040 | [A120010](https://oeis.org/A120010) | Proof | the residual test over one square root, or none | [9040-PROOF.pdf](9040-PROOF.pdf) |
+| 9041 | [A124431](https://oeis.org/A124431) | Proof | the residual test over one square root, or none | [9041-PROOF.pdf](9041-PROOF.pdf) |
+| 9042 | [A126568](https://oeis.org/A126568) | Proof | the residual test over one square root, or none | [9042-PROOF.pdf](9042-PROOF.pdf) |
+| 9043 | [A132364](https://oeis.org/A132364) | Proof | the residual test over one square root, or none | [9043-PROOF.pdf](9043-PROOF.pdf) |
+| 9044 | [A141342](https://oeis.org/A141342) | Proof | the residual test over one square root, or none | [9044-PROOF.pdf](9044-PROOF.pdf) |
+| 9045 | [A155051](https://oeis.org/A155051) | Proof | the residual test over one square root, or none | [9045-PROOF.pdf](9045-PROOF.pdf) |
+| 9046 | [A157002](https://oeis.org/A157002) | Proof | the residual test over one square root, or none | [9046-PROOF.pdf](9046-PROOF.pdf) |
+| 9047 | [A157100](https://oeis.org/A157100) | Proof | the residual test over one square root, or none | [9047-PROOF.pdf](9047-PROOF.pdf) |
+| 9048 | [A166076](https://oeis.org/A166076) | Proof | the residual test over one square root, or none | [9048-PROOF.pdf](9048-PROOF.pdf) |
+| 9049 | [A166300](https://oeis.org/A166300) | Proof | the residual test over one square root, or none | [9049-PROOF.pdf](9049-PROOF.pdf) |
+| 9050 | [A168503](https://oeis.org/A168503) | Proof | the residual test over one square root, or none | [9050-PROOF.pdf](9050-PROOF.pdf) |
+| 9051 | [A174107](https://oeis.org/A174107) | Proof | the residual test over one square root, or none | [9051-PROOF.pdf](9051-PROOF.pdf) |
+| 9052 | [A174169](https://oeis.org/A174169) | Proof | the residual test over one square root, or none | [9052-PROOF.pdf](9052-PROOF.pdf) |
+| 9053 | [A176332](https://oeis.org/A176332) | Proof | the residual test over one square root, or none | [9053-PROOF.pdf](9053-PROOF.pdf) |
+| 9054 | [A184018](https://oeis.org/A184018) | Proof | the residual test over one square root, or none | [9054-PROOF.pdf](9054-PROOF.pdf) |
+| 9055 | [A188312](https://oeis.org/A188312) | Proof | the residual test over one square root, or none | [9055-PROOF.pdf](9055-PROOF.pdf) |
+| 9056 | [A188482](https://oeis.org/A188482) | Proof | the residual test over one square root, or none | [9056-PROOF.pdf](9056-PROOF.pdf) |
+| 9057 | [A191782](https://oeis.org/A191782) | Proof | the residual test over one square root, or none | [9057-PROOF.pdf](9057-PROOF.pdf) |
+| 9058 | [A217333](https://oeis.org/A217333) | Proof | the residual test over one square root, or none | [9058-PROOF.pdf](9058-PROOF.pdf) |
+| 9059 | [A257072](https://oeis.org/A257072) | Proof | the residual test over one square root, or none | [9059-PROOF.pdf](9059-PROOF.pdf) |
+| 9060 | [A261681](https://oeis.org/A261681) | Proof | the residual test over one square root, or none | [9060-PROOF.pdf](9060-PROOF.pdf) |
+| 9061 | [A073155](https://oeis.org/A073155) | Proof | the residual test over one square root, or none | [9061-PROOF.pdf](9061-PROOF.pdf) |
+| 9062 | [A105524](https://oeis.org/A105524) | Proof | the residual test over one square root, or none | [9062-PROOF.pdf](9062-PROOF.pdf) |
+| 9063 | [A114589](https://oeis.org/A114589) | Proof | the residual test over one square root, or none | [9063-PROOF.pdf](9063-PROOF.pdf) |
+| 9064 | [A114590](https://oeis.org/A114590) | Proof | the residual test over one square root, or none | [9064-PROOF.pdf](9064-PROOF.pdf) |
+| 9065 | [A162481](https://oeis.org/A162481) | Proof | the residual test over one square root, or none | [9065-PROOF.pdf](9065-PROOF.pdf) |
+| 9066 | [A174783](https://oeis.org/A174783) | Proof | the residual test over one square root, or none | [9066-PROOF.pdf](9066-PROOF.pdf) |
+| 9067 | [A188460](https://oeis.org/A188460) | Proof | the residual test over one square root, or none | [9067-PROOF.pdf](9067-PROOF.pdf) |
+| 9068 | [A188464](https://oeis.org/A188464) | Proof | the residual test over one square root, or none | [9068-PROOF.pdf](9068-PROOF.pdf) |
+| 9069 | [A190725](https://oeis.org/A190725) | Proof | the residual test over one square root, or none | [9069-PROOF.pdf](9069-PROOF.pdf) |
+| 9070 | [A191526](https://oeis.org/A191526) | Proof | the residual test over one square root, or none | [9070-PROOF.pdf](9070-PROOF.pdf) |
+| 9071 | [A191531](https://oeis.org/A191531) | Proof | the residual test over one square root, or none | [9071-PROOF.pdf](9071-PROOF.pdf) |
+| 9072 | [A211278](https://oeis.org/A211278) | Proof | the residual test over one square root, or none | [9072-PROOF.pdf](9072-PROOF.pdf) |
+| 9073 | [A026327](https://oeis.org/A026327) | Proof | the residual test over one square root, or none | [9073-PROOF.pdf](9073-PROOF.pdf) |
+| 9074 | [A081207](https://oeis.org/A081207) | Proof | the residual test over one square root, or none | [9074-PROOF.pdf](9074-PROOF.pdf) |
+| 9075 | [A102882](https://oeis.org/A102882) | Proof | the residual test over one square root, or none | [9075-PROOF.pdf](9075-PROOF.pdf) |
+| 9076 | [A182881](https://oeis.org/A182881) | Proof | the residual test over one square root, or none | [9076-PROOF.pdf](9076-PROOF.pdf) |
+| 9077 | [A191309](https://oeis.org/A191309) | Proof | the residual test over one square root, or none | [9077-PROOF.pdf](9077-PROOF.pdf) |
+| 9078 | [A191319](https://oeis.org/A191319) | Proof | the residual test over one square root, or none | [9078-PROOF.pdf](9078-PROOF.pdf) |
+| 9079 | [A191790](https://oeis.org/A191790) | Proof | the residual test over one square root, or none | [9079-PROOF.pdf](9079-PROOF.pdf) |
+| 9080 | [A273351](https://oeis.org/A273351) | Proof | the residual test over one square root, or none | [9080-PROOF.pdf](9080-PROOF.pdf) |
+| 9081 | [A025248](https://oeis.org/A025248) | Proof | the residual test over one square root, or none | [9081-PROOF.pdf](9081-PROOF.pdf) |
+| 9082 | [A025249](https://oeis.org/A025249) | Proof | the residual test over one square root, or none | [9082-PROOF.pdf](9082-PROOF.pdf) |
+| 9083 | [A026017](https://oeis.org/A026017) | Proof | the residual test over one square root, or none | [9083-PROOF.pdf](9083-PROOF.pdf) |
+| 9084 | [A071717](https://oeis.org/A071717) | Proof | the residual test over one square root, or none | [9084-PROOF.pdf](9084-PROOF.pdf) |
+| 9085 | [A104722](https://oeis.org/A104722) | Proof | the residual test over one square root, or none | [9085-PROOF.pdf](9085-PROOF.pdf) |
+| 9086 | [A109263](https://oeis.org/A109263) | Proof | the residual test over one square root, or none | [9086-PROOF.pdf](9086-PROOF.pdf) |
+| 9087 | [A118093](https://oeis.org/A118093) | Proof | the residual test over one square root, or none | [9087-PROOF.pdf](9087-PROOF.pdf) |
+| 9088 | [A118974](https://oeis.org/A118974) | Proof | the residual test over one square root, or none | [9088-PROOF.pdf](9088-PROOF.pdf) |
+| 9089 | [A121320](https://oeis.org/A121320) | Proof | the residual test over one square root, or none | [9089-PROOF.pdf](9089-PROOF.pdf) |
+| 9090 | [A126323](https://oeis.org/A126323) | Proof | the residual test over one square root, or none | [9090-PROOF.pdf](9090-PROOF.pdf) |
+| 9091 | [A128723](https://oeis.org/A128723) | Proof | the residual test over one square root, or none | [9091-PROOF.pdf](9091-PROOF.pdf) |
+| 9092 | [A135334](https://oeis.org/A135334) | Proof | the residual test over one square root, or none | [9092-PROOF.pdf](9092-PROOF.pdf) |
+| 9093 | [A141351](https://oeis.org/A141351) | Proof | the residual test over one square root, or none | [9093-PROOF.pdf](9093-PROOF.pdf) |
+| 9094 | [A141353](https://oeis.org/A141353) | Proof | the residual test over one square root, or none | [9094-PROOF.pdf](9094-PROOF.pdf) |
+| 9095 | [A163824](https://oeis.org/A163824) | Proof | the residual test over one square root, or none | [9095-PROOF.pdf](9095-PROOF.pdf) |
+| 9096 | [A165201](https://oeis.org/A165201) | Proof | the residual test over one square root, or none | [9096-PROOF.pdf](9096-PROOF.pdf) |
+| 9097 | [A279014](https://oeis.org/A279014) | Proof | the residual test over one square root, or none | [9097-PROOF.pdf](9097-PROOF.pdf) |
+| 9098 | [A026027](https://oeis.org/A026027) | Proof | the residual test over one square root, or none | [9098-PROOF.pdf](9098-PROOF.pdf) |
+| 9099 | [A026135](https://oeis.org/A026135) | Proof | the residual test over one square root, or none | [9099-PROOF.pdf](9099-PROOF.pdf) |
+| 9100 | [A050168](https://oeis.org/A050168) | Proof | the residual test over one square root, or none | [9100-PROOF.pdf](9100-PROOF.pdf) |
+| 9101 | [A059279](https://oeis.org/A059279) | Proof | the residual test over one square root, or none | [9101-PROOF.pdf](9101-PROOF.pdf) |
+| 9102 | [A063395](https://oeis.org/A063395) | Proof | the residual test over one square root, or none | [9102-PROOF.pdf](9102-PROOF.pdf) |
+| 9103 | [A071722](https://oeis.org/A071722) | Proof | the residual test over one square root, or none | [9103-PROOF.pdf](9103-PROOF.pdf) |
+| 9104 | [A082134](https://oeis.org/A082134) | Proof | the residual test over one square root, or none | [9104-PROOF.pdf](9104-PROOF.pdf) |
+| 9105 | [A097331](https://oeis.org/A097331) | Proof | the residual test over one square root, or none | [9105-PROOF.pdf](9105-PROOF.pdf) |
+| 9106 | [A100193](https://oeis.org/A100193) | Proof | the residual test over one square root, or none | [9106-PROOF.pdf](9106-PROOF.pdf) |
+| 9107 | [A103973](https://oeis.org/A103973) | Proof | the residual test over one square root, or none | [9107-PROOF.pdf](9107-PROOF.pdf) |
+| 9108 | [A106181](https://oeis.org/A106181) | Proof | the residual test over one square root, or none | [9108-PROOF.pdf](9108-PROOF.pdf) |
+| 9109 | [A108623](https://oeis.org/A108623) | Proof | the residual test over one square root, or none | [9109-PROOF.pdf](9109-PROOF.pdf) |
+| 9110 | [A126180](https://oeis.org/A126180) | Proof | the residual test over one square root, or none | [9110-PROOF.pdf](9110-PROOF.pdf) |
+| 9111 | [A128732](https://oeis.org/A128732) | Proof | the residual test over one square root, or none | [9111-PROOF.pdf](9111-PROOF.pdf) |
+| 9112 | [A134389](https://oeis.org/A134389) | Proof | the residual test over one square root, or none | [9112-PROOF.pdf](9112-PROOF.pdf) |
+| 9113 | [A143013](https://oeis.org/A143013) | Proof | the residual test over one square root, or none | [9113-PROOF.pdf](9113-PROOF.pdf) |
+| 9114 | [A143954](https://oeis.org/A143954) | Proof | the residual test over one square root, or none | [9114-PROOF.pdf](9114-PROOF.pdf) |
+| 9115 | [A157418](https://oeis.org/A157418) | Proof | the residual test over one square root, or none | [9115-PROOF.pdf](9115-PROOF.pdf) |
+| 9116 | [A158196](https://oeis.org/A158196) | Proof | the residual test over one square root, or none | [9116-PROOF.pdf](9116-PROOF.pdf) |
+| 9117 | [A158197](https://oeis.org/A158197) | Proof | the residual test over one square root, or none | [9117-PROOF.pdf](9117-PROOF.pdf) |
+| 9118 | [A191585](https://oeis.org/A191585) | Proof | the residual test over one square root, or none | [9118-PROOF.pdf](9118-PROOF.pdf) |
+| 9119 | [A257290](https://oeis.org/A257290) | Proof | the residual test over one square root, or none | [9119-PROOF.pdf](9119-PROOF.pdf) |
+| 9120 | [A054341](https://oeis.org/A054341) | Proof | the residual test over one square root, or none | [9120-PROOF.pdf](9120-PROOF.pdf) |
+| 9121 | [A071715](https://oeis.org/A071715) | Proof | the residual test over one square root, or none | [9121-PROOF.pdf](9121-PROOF.pdf) |
+| 9122 | [A090413](https://oeis.org/A090413) | Proof | the residual test over one square root, or none | [9122-PROOF.pdf](9122-PROOF.pdf) |
+| 9123 | [A090826](https://oeis.org/A090826) | Proof | the residual test over one square root, or none | [9123-PROOF.pdf](9123-PROOF.pdf) |
+| 9124 | [A091699](https://oeis.org/A091699) | Proof | the residual test over one square root, or none | [9124-PROOF.pdf](9124-PROOF.pdf) |
+| 9125 | [A098664](https://oeis.org/A098664) | Proof | the residual test over one square root, or none | [9125-PROOF.pdf](9125-PROOF.pdf) |
+| 9126 | [A099363](https://oeis.org/A099363) | Proof | the residual test over one square root, or none | [9126-PROOF.pdf](9126-PROOF.pdf) |
+| 9127 | [A100098](https://oeis.org/A100098) | Proof | the residual test over one square root, or none | [9127-PROOF.pdf](9127-PROOF.pdf) |
+| 9128 | [A105872](https://oeis.org/A105872) | Proof | the residual test over one square root, or none | [9128-PROOF.pdf](9128-PROOF.pdf) |
+| 9129 | [A119975](https://oeis.org/A119975) | Proof | the residual test over one square root, or none | [9129-PROOF.pdf](9129-PROOF.pdf) |
+| 9130 | [A121724](https://oeis.org/A121724) | Proof | the residual test over one square root, or none | [9130-PROOF.pdf](9130-PROOF.pdf) |
+| 9131 | [A121725](https://oeis.org/A121725) | Proof | the residual test over one square root, or none | [9131-PROOF.pdf](9131-PROOF.pdf) |
+| 9132 | [A126931](https://oeis.org/A126931) | Proof | the residual test over one square root, or none | [9132-PROOF.pdf](9132-PROOF.pdf) |
+| 9133 | [A126932](https://oeis.org/A126932) | Proof | the residual test over one square root, or none | [9133-PROOF.pdf](9133-PROOF.pdf) |
+| 9134 | [A127361](https://oeis.org/A127361) | Proof | the residual test over one square root, or none | [9134-PROOF.pdf](9134-PROOF.pdf) |
+| 9135 | [A127363](https://oeis.org/A127363) | Proof | the residual test over one square root, or none | [9135-PROOF.pdf](9135-PROOF.pdf) |
+| 9136 | [A155051](https://oeis.org/A155051) | Proof | the residual test over one square root, or none | [9136-PROOF.pdf](9136-PROOF.pdf) |
+| 9137 | [A166078](https://oeis.org/A166078) | Proof | the residual test over one square root, or none | [9137-PROOF.pdf](9137-PROOF.pdf) |
+| 9138 | [A166588](https://oeis.org/A166588) | Proof | the residual test over one square root, or none | [9138-PROOF.pdf](9138-PROOF.pdf) |
+| 9139 | [A176006](https://oeis.org/A176006) | Proof | the residual test over one square root, or none | [9139-PROOF.pdf](9139-PROOF.pdf) |
+| 9140 | [A185087](https://oeis.org/A185087) | Proof | the residual test over one square root, or none | [9140-PROOF.pdf](9140-PROOF.pdf) |
+| 9141 | [A190724](https://oeis.org/A190724) | Proof | the residual test over one square root, or none | [9141-PROOF.pdf](9141-PROOF.pdf) |
+| 9142 | [A225887](https://oeis.org/A225887) | Proof | the residual test over one square root, or none | [9142-PROOF.pdf](9142-PROOF.pdf) |
+| 9143 | [A227081](https://oeis.org/A227081) | Proof | the residual test over one square root, or none | [9143-PROOF.pdf](9143-PROOF.pdf) |
+| 9144 | [A257178](https://oeis.org/A257178) | Proof | the residual test over one square root, or none | [9144-PROOF.pdf](9144-PROOF.pdf) |
+| 9145 | [A257388](https://oeis.org/A257388) | Proof | the residual test over one square root, or none | [9145-PROOF.pdf](9145-PROOF.pdf) |
+| 9146 | [A257838](https://oeis.org/A257838) | Proof | the residual test over one square root, or none | [9146-PROOF.pdf](9146-PROOF.pdf) |
+| 9147 | [A001712](https://oeis.org/A001712) | Proof | the residual test over one square root, or none | [9147-PROOF.pdf](9147-PROOF.pdf) |
+| 9148 | [A025175](https://oeis.org/A025175) | Proof | the residual test over one square root, or none | [9148-PROOF.pdf](9148-PROOF.pdf) |
+| 9149 | [A025577](https://oeis.org/A025577) | Proof | the residual test over one square root, or none | [9149-PROOF.pdf](9149-PROOF.pdf) |
+| 9150 | [A026023](https://oeis.org/A026023) | Proof | the residual test over one square root, or none | [9150-PROOF.pdf](9150-PROOF.pdf) |
+| 9151 | [A055217](https://oeis.org/A055217) | Proof | the residual test over one square root, or none | [9151-PROOF.pdf](9151-PROOF.pdf) |
+| 9152 | [A081052](https://oeis.org/A081052) | Proof | the residual test over one square root, or none | [9152-PROOF.pdf](9152-PROOF.pdf) |
+| 9153 | [A103821](https://oeis.org/A103821) | Proof | the residual test over one square root, or none | [9153-PROOF.pdf](9153-PROOF.pdf) |
+| 9154 | [A107231](https://oeis.org/A107231) | Proof | the residual test over one square root, or none | [9154-PROOF.pdf](9154-PROOF.pdf) |
+| 9155 | [A110199](https://oeis.org/A110199) | Proof | the residual test over one square root, or none | [9155-PROOF.pdf](9155-PROOF.pdf) |
+| 9156 | [A116406](https://oeis.org/A116406) | Proof | the residual test over one square root, or none | [9156-PROOF.pdf](9156-PROOF.pdf) |
+| 9157 | [A128734](https://oeis.org/A128734) | Proof | the residual test over one square root, or none | [9157-PROOF.pdf](9157-PROOF.pdf) |
+| 9158 | [A191307](https://oeis.org/A191307) | Proof | the residual test over one square root, or none | [9158-PROOF.pdf](9158-PROOF.pdf) |
+| 9159 | [A278472](https://oeis.org/A278472) | Proof | the residual test over one square root, or none | [9159-PROOF.pdf](9159-PROOF.pdf) |
+| 9160 | [A034863](https://oeis.org/A034863) | Proof | the residual test over one square root, or none | [9160-PROOF.pdf](9160-PROOF.pdf) |
+| 9161 | [A128652](https://oeis.org/A128652) | Proof | the residual test over one square root, or none | [9161-PROOF.pdf](9161-PROOF.pdf) |
+| 9162 | [A174195](https://oeis.org/A174195) | Proof | the residual test over one square root, or none | [9162-PROOF.pdf](9162-PROOF.pdf) |
+| 9163 | [A192480](https://oeis.org/A192480) | Proof | the residual test over one square root, or none | [9163-PROOF.pdf](9163-PROOF.pdf) |
+| 9164 | [A158495](https://oeis.org/A158495) | Proof | the residual test over one square root, or none | [9164-PROOF.pdf](9164-PROOF.pdf) |
+| 9165 | [A189176](https://oeis.org/A189176) | Proof | the residual test over one square root, or none | [9165-PROOF.pdf](9165-PROOF.pdf) |
+| 9166 | [A194724](https://oeis.org/A194724) | Proof | the residual test over one square root, or none | [9166-PROOF.pdf](9166-PROOF.pdf) |
+| 9167 | [A210474](https://oeis.org/A210474) | Proof | the residual test over one square root, or none | [9167-PROOF.pdf](9167-PROOF.pdf) |
+| 9168 | [A262768](https://oeis.org/A262768) | Proof | the residual test over one square root, or none | [9168-PROOF.pdf](9168-PROOF.pdf) |
+| 9169 | [A026029](https://oeis.org/A026029) | Proof | the residual test over one square root, or none | [9169-PROOF.pdf](9169-PROOF.pdf) |
+| 9170 | [A064088](https://oeis.org/A064088) | Proof | the residual test over one square root, or none | [9170-PROOF.pdf](9170-PROOF.pdf) |
+| 9171 | [A064089](https://oeis.org/A064089) | Proof | the residual test over one square root, or none | [9171-PROOF.pdf](9171-PROOF.pdf) |
+| 9172 | [A064090](https://oeis.org/A064090) | Proof | the residual test over one square root, or none | [9172-PROOF.pdf](9172-PROOF.pdf) |
+| 9173 | [A064091](https://oeis.org/A064091) | Proof | the residual test over one square root, or none | [9173-PROOF.pdf](9173-PROOF.pdf) |
+| 9174 | [A064092](https://oeis.org/A064092) | Proof | the residual test over one square root, or none | [9174-PROOF.pdf](9174-PROOF.pdf) |
+| 9175 | [A067299](https://oeis.org/A067299) | Proof | the residual test over one square root, or none | [9175-PROOF.pdf](9175-PROOF.pdf) |
+| 9176 | [A068551](https://oeis.org/A068551) | Proof | the residual test over one square root, or none | [9176-PROOF.pdf](9176-PROOF.pdf) |
+| 9177 | [A080243](https://oeis.org/A080243) | Proof | the residual test over one square root, or none | [9177-PROOF.pdf](9177-PROOF.pdf) |
+| 9178 | [A114191](https://oeis.org/A114191) | Proof | the residual test over one square root, or none | [9178-PROOF.pdf](9178-PROOF.pdf) |
+| 9179 | [A116881](https://oeis.org/A116881) | Proof | the residual test over one square root, or none | [9179-PROOF.pdf](9179-PROOF.pdf) |
+| 9180 | [A122920](https://oeis.org/A122920) | Proof | the residual test over one square root, or none | [9180-PROOF.pdf](9180-PROOF.pdf) |
+| 9181 | [A132864](https://oeis.org/A132864) | Proof | the residual test over one square root, or none | [9181-PROOF.pdf](9181-PROOF.pdf) |
+| 9182 | [A133305](https://oeis.org/A133305) | Proof | the residual test over one square root, or none | [9182-PROOF.pdf](9182-PROOF.pdf) |
+| 9183 | [A133306](https://oeis.org/A133306) | Proof | the residual test over one square root, or none | [9183-PROOF.pdf](9183-PROOF.pdf) |
+| 9184 | [A133307](https://oeis.org/A133307) | Proof | the residual test over one square root, or none | [9184-PROOF.pdf](9184-PROOF.pdf) |
+| 9185 | [A133308](https://oeis.org/A133308) | Proof | the residual test over one square root, or none | [9185-PROOF.pdf](9185-PROOF.pdf) |
+| 9186 | [A141222](https://oeis.org/A141222) | Proof | the residual test over one square root, or none | [9186-PROOF.pdf](9186-PROOF.pdf) |
+| 9187 | [A154623](https://oeis.org/A154623) | Proof | the residual test over one square root, or none | [9187-PROOF.pdf](9187-PROOF.pdf) |
+| 9188 | [A157328](https://oeis.org/A157328) | Proof | the residual test over one square root, or none | [9188-PROOF.pdf](9188-PROOF.pdf) |
+| 9189 | [A158196](https://oeis.org/A158196) | Proof | the residual test over one square root, or none | [9189-PROOF.pdf](9189-PROOF.pdf) |
+| 9190 | [A158197](https://oeis.org/A158197) | Proof | the residual test over one square root, or none | [9190-PROOF.pdf](9190-PROOF.pdf) |
+| 9191 | [A191993](https://oeis.org/A191993) | Proof | the residual test over one square root, or none | [9191-PROOF.pdf](9191-PROOF.pdf) |
+| 9192 | [A225034](https://oeis.org/A225034) | Proof | the residual test over one square root, or none | [9192-PROOF.pdf](9192-PROOF.pdf) |
+| 9193 | [A242172](https://oeis.org/A242172) | Proof | the residual test over one square root, or none | [9193-PROOF.pdf](9193-PROOF.pdf) |
+| 9194 | [A002867](https://oeis.org/A002867) | Proof | the residual test over one square root, or none | [9194-PROOF.pdf](9194-PROOF.pdf) |
+| 9195 | [A014533](https://oeis.org/A014533) | Proof | the residual test over one square root, or none | [9195-PROOF.pdf](9195-PROOF.pdf) |
+| 9196 | [A051524](https://oeis.org/A051524) | Proof | the residual test over one square root, or none | [9196-PROOF.pdf](9196-PROOF.pdf) |
+| 9197 | [A071264](https://oeis.org/A071264) | Proof | the residual test over one square root, or none | [9197-PROOF.pdf](9197-PROOF.pdf) |
+| 9198 | [A081046](https://oeis.org/A081046) | Proof | the residual test over one square root, or none | [9198-PROOF.pdf](9198-PROOF.pdf) |
+| 9199 | [A098519](https://oeis.org/A098519) | Proof | the residual test over one square root, or none | [9199-PROOF.pdf](9199-PROOF.pdf) |
+| 9200 | [A098520](https://oeis.org/A098520) | Proof | the residual test over one square root, or none | [9200-PROOF.pdf](9200-PROOF.pdf) |
+| 9201 | [A101596](https://oeis.org/A101596) | Proof | the residual test over one square root, or none | [9201-PROOF.pdf](9201-PROOF.pdf) |
+| 9202 | [A101601](https://oeis.org/A101601) | Proof | the residual test over one square root, or none | [9202-PROOF.pdf](9202-PROOF.pdf) |
+| 9203 | [A101602](https://oeis.org/A101602) | Proof | the residual test over one square root, or none | [9203-PROOF.pdf](9203-PROOF.pdf) |
+| 9204 | [A111779](https://oeis.org/A111779) | Proof | the residual test over one square root, or none | [9204-PROOF.pdf](9204-PROOF.pdf) |
+| 9205 | [A112703](https://oeis.org/A112703) | Proof | the residual test over one square root, or none | [9205-PROOF.pdf](9205-PROOF.pdf) |
+| 9206 | [A119012](https://oeis.org/A119012) | Proof | the residual test over one square root, or none | [9206-PROOF.pdf](9206-PROOF.pdf) |
+| 9207 | [A128057](https://oeis.org/A128057) | Proof | the residual test over one square root, or none | [9207-PROOF.pdf](9207-PROOF.pdf) |
+| 9208 | [A128746](https://oeis.org/A128746) | Proof | the residual test over one square root, or none | [9208-PROOF.pdf](9208-PROOF.pdf) |
+| 9209 | [A132900](https://oeis.org/A132900) | Proof | the residual test over one square root, or none | [9209-PROOF.pdf](9209-PROOF.pdf) |
+| 9210 | [A151483](https://oeis.org/A151483) | Proof | the residual test over one square root, or none | [9210-PROOF.pdf](9210-PROOF.pdf) |
+| 9211 | [A167481](https://oeis.org/A167481) | Proof | the residual test over one square root, or none | [9211-PROOF.pdf](9211-PROOF.pdf) |
+| 9212 | [A171556](https://oeis.org/A171556) | Proof | the residual test over one square root, or none | [9212-PROOF.pdf](9212-PROOF.pdf) |
+| 9213 | [A176479](https://oeis.org/A176479) | Proof | the residual test over one square root, or none | [9213-PROOF.pdf](9213-PROOF.pdf) |
+| 9214 | [A182401](https://oeis.org/A182401) | Proof | the residual test over one square root, or none | [9214-PROOF.pdf](9214-PROOF.pdf) |
+| 9215 | [A208355](https://oeis.org/A208355) | Proof | the residual test over one square root, or none | [9215-PROOF.pdf](9215-PROOF.pdf) |
+| 9216 | [A210064](https://oeis.org/A210064) | Proof | the residual test over one square root, or none | [9216-PROOF.pdf](9216-PROOF.pdf) |
+| 9217 | [A240558](https://oeis.org/A240558) | Proof | the residual test over one square root, or none | [9217-PROOF.pdf](9217-PROOF.pdf) |
+| 9218 | [A141771](https://oeis.org/A141771) | Proof | the residual test over one square root, or none | [9218-PROOF.pdf](9218-PROOF.pdf) |
+| 9219 | [A176606](https://oeis.org/A176606) | Proof | the residual test over one square root, or none | [9219-PROOF.pdf](9219-PROOF.pdf) |
+| 9220 | [A176607](https://oeis.org/A176607) | Proof | the residual test over one square root, or none | [9220-PROOF.pdf](9220-PROOF.pdf) |
+| 9221 | [A176609](https://oeis.org/A176609) | Proof | the residual test over one square root, or none | [9221-PROOF.pdf](9221-PROOF.pdf) |
+| 9222 | [A176610](https://oeis.org/A176610) | Proof | the residual test over one square root, or none | [9222-PROOF.pdf](9222-PROOF.pdf) |
+| 9223 | [A176611](https://oeis.org/A176611) | Proof | the residual test over one square root, or none | [9223-PROOF.pdf](9223-PROOF.pdf) |
+| 9224 | [A176675](https://oeis.org/A176675) | Proof | the residual test over one square root, or none | [9224-PROOF.pdf](9224-PROOF.pdf) |
+| 9225 | [A176749](https://oeis.org/A176749) | Proof | the residual test over one square root, or none | [9225-PROOF.pdf](9225-PROOF.pdf) |
+| 9226 | [A176750](https://oeis.org/A176750) | Proof | the residual test over one square root, or none | [9226-PROOF.pdf](9226-PROOF.pdf) |
+| 9227 | [A176751](https://oeis.org/A176751) | Proof | the residual test over one square root, or none | [9227-PROOF.pdf](9227-PROOF.pdf) |
+| 9228 | [A176752](https://oeis.org/A176752) | Proof | the residual test over one square root, or none | [9228-PROOF.pdf](9228-PROOF.pdf) |
+| 9229 | [A176753](https://oeis.org/A176753) | Proof | the residual test over one square root, or none | [9229-PROOF.pdf](9229-PROOF.pdf) |
+| 9230 | [A176754](https://oeis.org/A176754) | Proof | the residual test over one square root, or none | [9230-PROOF.pdf](9230-PROOF.pdf) |
+| 9231 | [A176755](https://oeis.org/A176755) | Proof | the residual test over one square root, or none | [9231-PROOF.pdf](9231-PROOF.pdf) |
+| 9232 | [A176756](https://oeis.org/A176756) | Proof | the residual test over one square root, or none | [9232-PROOF.pdf](9232-PROOF.pdf) |
+| 9233 | [A176757](https://oeis.org/A176757) | Proof | the residual test over one square root, or none | [9233-PROOF.pdf](9233-PROOF.pdf) |
+| 9234 | [A176759](https://oeis.org/A176759) | Proof | the residual test over one square root, or none | [9234-PROOF.pdf](9234-PROOF.pdf) |
+| 9235 | [A176828](https://oeis.org/A176828) | Proof | the residual test over one square root, or none | [9235-PROOF.pdf](9235-PROOF.pdf) |
+| 9236 | [A176829](https://oeis.org/A176829) | Proof | the residual test over one square root, or none | [9236-PROOF.pdf](9236-PROOF.pdf) |
+| 9237 | [A176830](https://oeis.org/A176830) | Proof | the residual test over one square root, or none | [9237-PROOF.pdf](9237-PROOF.pdf) |
+| 9238 | [A176832](https://oeis.org/A176832) | Proof | the residual test over one square root, or none | [9238-PROOF.pdf](9238-PROOF.pdf) |
+| 9239 | [A176854](https://oeis.org/A176854) | Proof | the residual test over one square root, or none | [9239-PROOF.pdf](9239-PROOF.pdf) |
+| 9240 | [A176855](https://oeis.org/A176855) | Proof | the residual test over one square root, or none | [9240-PROOF.pdf](9240-PROOF.pdf) |
+| 9241 | [A176856](https://oeis.org/A176856) | Proof | the residual test over one square root, or none | [9241-PROOF.pdf](9241-PROOF.pdf) |
+| 9242 | [A176857](https://oeis.org/A176857) | Proof | the residual test over one square root, or none | [9242-PROOF.pdf](9242-PROOF.pdf) |
+| 9243 | [A176858](https://oeis.org/A176858) | Proof | the residual test over one square root, or none | [9243-PROOF.pdf](9243-PROOF.pdf) |
+| 9244 | [A176859](https://oeis.org/A176859) | Proof | the residual test over one square root, or none | [9244-PROOF.pdf](9244-PROOF.pdf) |
+| 9245 | [A176952](https://oeis.org/A176952) | Proof | the residual test over one square root, or none | [9245-PROOF.pdf](9245-PROOF.pdf) |
+| 9246 | [A176953](https://oeis.org/A176953) | Proof | the residual test over one square root, or none | [9246-PROOF.pdf](9246-PROOF.pdf) |
+| 9247 | [A176956](https://oeis.org/A176956) | Proof | the residual test over one square root, or none | [9247-PROOF.pdf](9247-PROOF.pdf) |
+| 9248 | [A176957](https://oeis.org/A176957) | Proof | the residual test over one square root, or none | [9248-PROOF.pdf](9248-PROOF.pdf) |
+| 9249 | [A176958](https://oeis.org/A176958) | Proof | the residual test over one square root, or none | [9249-PROOF.pdf](9249-PROOF.pdf) |
+| 9250 | [A176959](https://oeis.org/A176959) | Proof | the residual test over one square root, or none | [9250-PROOF.pdf](9250-PROOF.pdf) |
+| 9251 | [A176962](https://oeis.org/A176962) | Proof | the residual test over one square root, or none | [9251-PROOF.pdf](9251-PROOF.pdf) |
+| 9252 | [A176964](https://oeis.org/A176964) | Proof | the residual test over one square root, or none | [9252-PROOF.pdf](9252-PROOF.pdf) |
+| 9253 | [A176966](https://oeis.org/A176966) | Proof | the residual test over one square root, or none | [9253-PROOF.pdf](9253-PROOF.pdf) |
+| 9254 | [A176967](https://oeis.org/A176967) | Proof | the residual test over one square root, or none | [9254-PROOF.pdf](9254-PROOF.pdf) |
+| 9255 | [A177123](https://oeis.org/A177123) | Proof | the residual test over one square root, or none | [9255-PROOF.pdf](9255-PROOF.pdf) |
+| 9256 | [A177124](https://oeis.org/A177124) | Proof | the residual test over one square root, or none | [9256-PROOF.pdf](9256-PROOF.pdf) |
+| 9257 | [A177125](https://oeis.org/A177125) | Proof | the residual test over one square root, or none | [9257-PROOF.pdf](9257-PROOF.pdf) |
+| 9258 | [A177126](https://oeis.org/A177126) | Proof | the residual test over one square root, or none | [9258-PROOF.pdf](9258-PROOF.pdf) |
+| 9259 | [A177127](https://oeis.org/A177127) | Proof | the residual test over one square root, or none | [9259-PROOF.pdf](9259-PROOF.pdf) |
+| 9260 | [A177128](https://oeis.org/A177128) | Proof | the residual test over one square root, or none | [9260-PROOF.pdf](9260-PROOF.pdf) |
+| 9261 | [A177129](https://oeis.org/A177129) | Proof | the residual test over one square root, or none | [9261-PROOF.pdf](9261-PROOF.pdf) |
+| 9262 | [A177130](https://oeis.org/A177130) | Proof | the residual test over one square root, or none | [9262-PROOF.pdf](9262-PROOF.pdf) |
+| 9263 | [A177131](https://oeis.org/A177131) | Proof | the residual test over one square root, or none | [9263-PROOF.pdf](9263-PROOF.pdf) |
+| 9264 | [A177163](https://oeis.org/A177163) | Proof | the residual test over one square root, or none | [9264-PROOF.pdf](9264-PROOF.pdf) |
+| 9265 | [A177165](https://oeis.org/A177165) | Proof | the residual test over one square root, or none | [9265-PROOF.pdf](9265-PROOF.pdf) |
+| 9266 | [A177166](https://oeis.org/A177166) | Proof | the residual test over one square root, or none | [9266-PROOF.pdf](9266-PROOF.pdf) |
+| 9267 | [A177167](https://oeis.org/A177167) | Proof | the residual test over one square root, or none | [9267-PROOF.pdf](9267-PROOF.pdf) |
+| 9268 | [A177168](https://oeis.org/A177168) | Proof | the residual test over one square root, or none | [9268-PROOF.pdf](9268-PROOF.pdf) |
+| 9269 | [A177169](https://oeis.org/A177169) | Proof | the residual test over one square root, or none | [9269-PROOF.pdf](9269-PROOF.pdf) |
+| 9270 | [A177170](https://oeis.org/A177170) | Proof | the residual test over one square root, or none | [9270-PROOF.pdf](9270-PROOF.pdf) |
+| 9271 | [A177171](https://oeis.org/A177171) | Proof | the residual test over one square root, or none | [9271-PROOF.pdf](9271-PROOF.pdf) |
+| 9272 | [A177172](https://oeis.org/A177172) | Proof | the residual test over one square root, or none | [9272-PROOF.pdf](9272-PROOF.pdf) |
+| 9273 | [A177175](https://oeis.org/A177175) | Proof | the residual test over one square root, or none | [9273-PROOF.pdf](9273-PROOF.pdf) |
+| 9274 | [A177177](https://oeis.org/A177177) | Proof | the residual test over one square root, or none | [9274-PROOF.pdf](9274-PROOF.pdf) |
+| 9275 | [A177178](https://oeis.org/A177178) | Proof | the residual test over one square root, or none | [9275-PROOF.pdf](9275-PROOF.pdf) |
+| 9276 | [A177179](https://oeis.org/A177179) | Proof | the residual test over one square root, or none | [9276-PROOF.pdf](9276-PROOF.pdf) |
+| 9277 | [A177180](https://oeis.org/A177180) | Proof | the residual test over one square root, or none | [9277-PROOF.pdf](9277-PROOF.pdf) |
+| 9278 | [A177181](https://oeis.org/A177181) | Proof | the residual test over one square root, or none | [9278-PROOF.pdf](9278-PROOF.pdf) |
+| 9279 | [A177182](https://oeis.org/A177182) | Proof | the residual test over one square root, or none | [9279-PROOF.pdf](9279-PROOF.pdf) |
+| 9280 | [A177183](https://oeis.org/A177183) | Proof | the residual test over one square root, or none | [9280-PROOF.pdf](9280-PROOF.pdf) |
+| 9281 | [A177184](https://oeis.org/A177184) | Proof | the residual test over one square root, or none | [9281-PROOF.pdf](9281-PROOF.pdf) |
+| 9282 | [A177185](https://oeis.org/A177185) | Proof | the residual test over one square root, or none | [9282-PROOF.pdf](9282-PROOF.pdf) |
+| 9283 | [A177197](https://oeis.org/A177197) | Proof | the residual test over one square root, or none | [9283-PROOF.pdf](9283-PROOF.pdf) |
+| 9284 | [A177198](https://oeis.org/A177198) | Proof | the residual test over one square root, or none | [9284-PROOF.pdf](9284-PROOF.pdf) |
+| 9285 | [A177199](https://oeis.org/A177199) | Proof | the residual test over one square root, or none | [9285-PROOF.pdf](9285-PROOF.pdf) |
+| 9286 | [A177200](https://oeis.org/A177200) | Proof | the residual test over one square root, or none | [9286-PROOF.pdf](9286-PROOF.pdf) |
+| 9287 | [A177203](https://oeis.org/A177203) | Proof | the residual test over one square root, or none | [9287-PROOF.pdf](9287-PROOF.pdf) |
+| 9288 | [A081670](https://oeis.org/A081670) | Proof | the known side is the entry's NAME rather than a formula line | [9288-PROOF.pdf](9288-PROOF.pdf) |
+| 9289 | [A085781](https://oeis.org/A085781) | Proof | the known side is the entry's NAME rather than a formula line | [9289-PROOF.pdf](9289-PROOF.pdf) |
+| 9290 | [A026019](https://oeis.org/A026019) | Proof | the known side is the entry's NAME rather than a formula line | [9290-PROOF.pdf](9290-PROOF.pdf) |
+| 9291 | [A052183](https://oeis.org/A052183) | Proof | the known side is the entry's NAME rather than a formula line | [9291-PROOF.pdf](9291-PROOF.pdf) |
+| 9292 | [A052204](https://oeis.org/A052204) | Proof | the known side is the entry's NAME rather than a formula line | [9292-PROOF.pdf](9292-PROOF.pdf) |
+| 9293 | [A157713](https://oeis.org/A157713) | Proof | the known side is the entry's NAME rather than a formula line | [9293-PROOF.pdf](9293-PROOF.pdf) |
+| 9294 | [A334511](https://oeis.org/A334511) | Proof | a posted closed form decided by the theory of hypergeometric terms | [9294-PROOF.pdf](9294-PROOF.pdf) |
+| 9295 | [A333905](https://oeis.org/A333905) | Proof | a posted closed form decided by the theory of hypergeometric terms | [9295-PROOF.pdf](9295-PROOF.pdf) |
+| 9296 | [A049486](https://oeis.org/A049486) | Proof | a posted closed form decided by the theory of hypergeometric terms | [9296-PROOF.pdf](9296-PROOF.pdf) |
+| 9297 | [A267879](https://oeis.org/A267879) | Proof | a posted closed form decided by the theory of hypergeometric terms | [9297-PROOF.pdf](9297-PROOF.pdf) |
+| 9298 | [A267802](https://oeis.org/A267802) | Proof | a posted closed form decided by the theory of hypergeometric terms | [9298-PROOF.pdf](9298-PROOF.pdf) |
+| 9299 | [A267847](https://oeis.org/A267847) | Proof | a posted closed form decided by the theory of hypergeometric terms | [9299-PROOF.pdf](9299-PROOF.pdf) |
+| 9300 | [A034267](https://oeis.org/A034267) | Proof | a posted closed form decided by the theory of hypergeometric terms | [9300-PROOF.pdf](9300-PROOF.pdf) |
+| 9301 | [A126501](https://oeis.org/A126501) | Proof | a posted closed form decided by the theory of hypergeometric terms | [9301-PROOF.pdf](9301-PROOF.pdf) |
+| 9302 | [A128153](https://oeis.org/A128153) | Proof | a posted closed form decided by the theory of hypergeometric terms | [9302-PROOF.pdf](9302-PROOF.pdf) |
+| 9303 | [A212938](https://oeis.org/A212938) | Proof | a posted closed form decided by the theory of hypergeometric terms | [9303-PROOF.pdf](9303-PROOF.pdf) |
+| 9304 | [A220250](https://oeis.org/A220250) | Proof | a posted closed form decided by the theory of hypergeometric terms | [9304-PROOF.pdf](9304-PROOF.pdf) |
+| 9305 | [A248434](https://oeis.org/A248434) | Proof | a posted closed form decided by the theory of hypergeometric terms | [9305-PROOF.pdf](9305-PROOF.pdf) |
+| 9306 | [A258547](https://oeis.org/A258547) | Proof | a posted closed form decided by the theory of hypergeometric terms | [9306-PROOF.pdf](9306-PROOF.pdf) |
+| 9307 | [A272706](https://oeis.org/A272706) | Proof | a posted closed form decided by the theory of hypergeometric terms | [9307-PROOF.pdf](9307-PROOF.pdf) |
+| 9308 | [A126089](https://oeis.org/A126089) | Proof | complete annihilation, tested in the Ore algebra Q(n)[N] | [9308-PROOF.pdf](9308-PROOF.pdf) |
+| 9309 | [A025271](https://oeis.org/A025271) | Proof | division of one posted operator by another | [9309-PROOF.pdf](9309-PROOF.pdf) |
+| 9310 | [A138164](https://oeis.org/A138164) | Proof | division of one posted operator by another | [9310-PROOF.pdf](9310-PROOF.pdf) |
+| 9311 | [A143017](https://oeis.org/A143017) | Proof | division of one posted operator by another | [9311-PROOF.pdf](9311-PROOF.pdf) |
+| 9312 | [A159772](https://oeis.org/A159772) | Proof | division of one posted operator by another | [9312-PROOF.pdf](9312-PROOF.pdf) |
+| 9313 | [A000986](https://oeis.org/A000986) | Proof | division of one posted operator by another | [9313-PROOF.pdf](9313-PROOF.pdf) |
+| 9314 | [A022917](https://oeis.org/A022917) | Proof | division of one posted operator by another | [9314-PROOF.pdf](9314-PROOF.pdf) |
+| 9315 | [A217447](https://oeis.org/A217447) | Proof | division of one posted operator by another | [9315-PROOF.pdf](9315-PROOF.pdf) |
+| 9316 | [A226302](https://oeis.org/A226302) | Proof | division of one posted operator by another | [9316-PROOF.pdf](9316-PROOF.pdf) |
+| 9317 | [A245088](https://oeis.org/A245088) | Proof | division of one posted operator by another | [9317-PROOF.pdf](9317-PROOF.pdf) |
+| 9318 | [A026165](https://oeis.org/A026165) | Proof | division of one posted operator by another | [9318-PROOF.pdf](9318-PROOF.pdf) |
+| 9319 | [A185966](https://oeis.org/A185966) | Proof | division of one posted operator by another | [9319-PROOF.pdf](9319-PROOF.pdf) |
+| 9320 | [A200753](https://oeis.org/A200753) | Proof | division of one posted operator by another | [9320-PROOF.pdf](9320-PROOF.pdf) |
+| 9321 | [A217358](https://oeis.org/A217358) | Proof | division of one posted operator by another | [9321-PROOF.pdf](9321-PROOF.pdf) |
+| 9322 | [A228960](https://oeis.org/A228960) | Proof | division of one posted operator by another | [9322-PROOF.pdf](9322-PROOF.pdf) |
+| 9323 | [A003435](https://oeis.org/A003435) | Proof | division of one posted operator by another | [9323-PROOF.pdf](9323-PROOF.pdf) |
+| 9324 | [A228331](https://oeis.org/A228331) | Proof | division of one posted operator by another | [9324-PROOF.pdf](9324-PROOF.pdf) |
+| 9325 | [A273019](https://oeis.org/A273019) | Proof | division of one posted operator by another | [9325-PROOF.pdf](9325-PROOF.pdf) |
+| 9326 | [A386834](https://oeis.org/A386834) | Proof | division of one posted operator by another | [9326-PROOF.pdf](9326-PROOF.pdf) |
+| 9327 | [A228330](https://oeis.org/A228330) | Proof | division of one posted operator by another | [9327-PROOF.pdf](9327-PROOF.pdf) |
+| 9328 | [A228333](https://oeis.org/A228333) | Proof | division of one posted operator by another | [9328-PROOF.pdf](9328-PROOF.pdf) |

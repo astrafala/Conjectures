@@ -12,20 +12,20 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A235675, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A204736, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A235675 counts arrays of width $5$ over $\{0,1\}$ by reducing every $2\times2$ subblock to a
-single number---here the largest entry minus the smallest---and requiring the resulting derived array to have its rows
-lexicographically nonincreasing and its columns lexicographically nondecreasing. The entry carries an
+OEIS A204736 counts arrays of width $5$ over $\{0,1\}$ by reducing every $2\times2$ subblock to a
+single number---here the permanent---and requiring the resulting derived array to have its rows
+lexicographically nondecreasing and its columns lexicographically nondecreasing. The entry carries an
 empirical recurrence of order $22$ contributed by R.~H.~Hardin. It is true, and it is
 decidable rather than empirical. The row comparison is settled by three consecutive rows of the
 array; the column comparison is not settled by any bounded window, but what is still outstanding
-about it is one bit per adjacent pair of columns, so the count is a walk count on $S=129$
+about it is one bit per adjacent pair of columns, so the count is a walk count on $S=143$
 states.
 \end{abstract}
 
@@ -33,15 +33,15 @@ states.
 
 \section{The conjecture}
 
-OEIS A235675 is ``Number of (n+1)X(4+1) 0..1 arrays with the difference between each 2X2 subblock maximum and minimum lexicographically nondecreasing columnwise and nonincreasing rowwise.''. It has offset $1$ and begins
+OEIS A204736 is ``Number of (n+1)X5 0..1 arrays with rows and columns of permanents of all 2X2 subblocks lexicographically nondecreasing, and all 2X2 permanents nonzero.''. It has offset $1$ and begins
 \[
-742, 15790, 330840, 6894210, 143484144, 2985166430, 62100488254, 1291848133836,\ \dots
+63, 304, 1389, 6176, 26680, 113694, 476919, 1988919,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 25*a(n-1) -56*a(n-2) -760*a(n-3) +1870*a(n-4) +9093*a(n-5) -19671*a(n-6) -53908*a(n-7) +96797*a(n-8) +165297*a(n-9) -249510*a(n-10) -263103*a(n-11) +342224*a(n-12) +215121*a(n-13) -241863*a(n-14) -95529*a(n-15) +88208*a(n-16) +23290*a(n-17) -16128*a(n-18) -2854*a(n-19) +1362*a(n-20) +136*a(n-21) -40*a(n-22)
+Empirical: a(n) = a(n-1) +30*a(n-2) -14*a(n-3) -363*a(n-4) +75*a(n-5) +2444*a(n-6) -156*a(n-7) -10383*a(n-8) -177*a(n-9) +29550*a(n-10) +1794*a(n-11) -57869*a(n-12) -4627*a(n-13) +78312*a(n-14) +6440*a(n-15) -71976*a(n-16) -5208*a(n-17) +42880*a(n-18) +2304*a(n-19) -14928*a(n-20) -432*a(n-21) +2304*a(n-22)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 08:43:55, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 11:27:32, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
@@ -52,11 +52,11 @@ $2\times2$ subblock of such an array is
 B=\begin{pmatrix} p & q \\ r & s \end{pmatrix},
 \qquad p=x(i,j),\; q=x(i,j+1),\; r=x(i+1,j),\; s=x(i+1,j+1).
 \]
-Write $v_1\le v_2\le v_3\le v_4$ for the four entries of $B$ sorted into order. The entry attaches to $B$ the single number
+The entry attaches to $B$ the single number
 \[
-f(B)\;=\;v_4-v_1,
+f(B)\;=\;\operatorname{per}B=ps+qr,
 \]
-the largest entry minus the smallest. An array with $R$ rows and $5$ columns has $(R-1)\times4$ subblocks, and they
+the permanent. An array with $R$ rows and $5$ columns has $(R-1)\times4$ subblocks, and they
 form a derived array
 \[
 D(i,j)=f\!\left(\begin{pmatrix} x(i,j) & x(i,j+1) \\ x(i+1,j) & x(i+1,j+1)\end{pmatrix}
@@ -64,15 +64,18 @@ D(i,j)=f\!\left(\begin{pmatrix} x(i,j) & x(i,j+1) \\ x(i+1,j) & x(i+1,j+1)\end{p
 \]
 Write $\preceq$ for the lexicographic order on finite sequences of integers: $u\preceq w$ when
 $u=w$, or when $u_k<w_k$ at the first index $k$ where they differ. The condition is that the
-rows of $D$, read left to right and compared in this order, are nonincreasing from top to bottom,
+rows of $D$, read left to right and compared in this order, are nondecreasing from top to bottom,
 \[
-D_{i}\;\succeq\;D_{i+1}\qquad\text{for every } i,
+D_{i}\;\preceq\;D_{i+1}\qquad\text{for every } i,
 \]
 and that the columns of $D$, read top to bottom and compared in the same order, are nondecreasing
 from left to right,
 \[
 D^{j}\;\preceq\;D^{j+1}\qquad\text{for every } j .
 \]
+
+The entry asks in addition that no subblock statistic be zero, which is a condition on one subblock at a time.
+
 
 \section{A bounded state}
 
@@ -109,7 +112,7 @@ for the row condition, and for each pair still flagged either leaves the flag se
 agreed again) or clears it after checking the required inequality once. Every state may end an
 array, so $\tau=\mathbf{1}$ and
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=129.
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=143.
 \]
 The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
 published terms rather than assumed. In particular $a$ is $C$-finite.
@@ -134,15 +137,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;25\,a(n-1) - 56\,a(n-2) - 760\,a(n-3) + 1870\,a(n-4) + 9093\,a(n-5) - 19671\,a(n-6) - 53908\,a(n-7) + 96797\,a(n-8) + 165297\,a(n-9) - 249510\,a(n-10) - 263103\,a(n-11) + 342224\,a(n-12) + 215121\,a(n-13) - 241863\,a(n-14) - 95529\,a(n-15) + 88208\,a(n-16) + 23290\,a(n-17) - 16128\,a(n-18) - 2854\,a(n-19) + 1362\,a(n-20) + 136\,a(n-21) - 40\,a(n-22)
+a(n)\;=\;a(n-1) + 30\,a(n-2) - 14\,a(n-3) - 363\,a(n-4) + 75\,a(n-5) + 2444\,a(n-6) - 156\,a(n-7) - 10383\,a(n-8) - 177\,a(n-9) + 29550\,a(n-10) + 1794\,a(n-11) - 57869\,a(n-12) - 4627\,a(n-13) + 78312\,a(n-14) + 6440\,a(n-15) - 71976\,a(n-16) - 5208\,a(n-17) + 42880\,a(n-18) + 2304\,a(n-19) - 14928\,a(n-20) - 432\,a(n-21) + 2304\,a(n-22)
 \]
-for every $n>20$.
+for every $n>22$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $22$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=20+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=22+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -150,7 +153,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $15$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $21$ terms the entry publishes, exactly, in integer
 arithmetic.
 
 Second, the count was recomputed for the smallest arrays straight from the definition: every
@@ -167,7 +170,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A235675.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A204736.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge

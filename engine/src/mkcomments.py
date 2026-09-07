@@ -278,6 +278,22 @@ def nbrreach(S, thr):
     return s + ((", and it holds for n > %d." % thr) if thr is not None else ".")
 
 
+def straightline(S, thr):
+    s = ("The empirical recurrence is true. The condition is stated about connected sets of "
+         "equal values, but a connected set fails to lie in a straight line exactly when it "
+         "contains a turn -- a cell with an equal neighbour beside it and an equal neighbour "
+         "above or below it -- since a connected set with both a horizontal and a vertical "
+         "join has two consecutive joins of different kinds, and they share such a cell. "
+         "Whether a cell has an equal neighbour beside it is decided by its own row, so the "
+         "whole condition is a condition on pairs of adjacent rows, and counting a row at a "
+         "time gives a transfer matrix")
+    if S:
+        s += " with %s states" % f"{S:,}".replace(',', ' ')
+    s += (", so a(n) satisfies a constant-coefficient linear recurrence of order at most "
+          "that; checking the one above is then a finite exact computation")
+    return s + ((", and it holds for n > %d." % thr) if thr is not None else ".")
+
+
 def fromgf(thr):
     s = ("The recurrence follows from the generating function this entry already states as "
          "fact: a recurrence with constant coefficients is exactly a denominator of the "
@@ -536,6 +552,8 @@ def main():
                 txt = lattice(S, thr)
             elif t.startswith('An element and the cells around it'):
                 txt = nbrreach(S, thr)
+            elif t.startswith('A global condition that is really a local one'):
+                txt = straightline(S, thr)
             elif t in ARRAY_TITLES:
                 txt = array(S, thr)
             elif t == "The empirical recurrence for OEIS A, derived from the entry's generating function":

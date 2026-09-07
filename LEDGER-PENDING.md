@@ -413,3 +413,52 @@ next pass to redo exactly what the last one had just done. The sweep now records
 the largest cap it was tried at, and the ranking reports the refused pool split by that cap
 and names how many have never been tried at the highest one. That is the standing rule about
 caps, made mechanical rather than remembered.
+
+## 7 September 2026 --- the straight-line family, and the queue
+
+### transfer92: a global condition that is not global
+
+Six entries (A223056, A223057, A223058, A223382, A223383, A223384) count arrays in which
+every horizontally or vertically connected set of equal values lies in a straight line. That
+reads as a condition on connected components, which no bounded window decides. It is
+equivalent to a condition on single pairs of adjacent rows, in two steps.
+
+A component fails to be straight exactly when it contains a **turn**: a cell with an equal
+neighbour beside it and an equal neighbour above or below. (A connected set with both a
+horizontal and a vertical join has, along a path between them, two consecutive joins of
+different kinds; consecutive joins share a cell, and that cell is a turn.)
+
+Then: whether a cell has an equal neighbour *beside* it is decided by its own row. Writing
+$B(r)$ for those positions, the array is admissible iff every consecutive pair $r,s$ has
+$r_j \neq s_j$ for all $j \in B(r)\cup B(s)$. The state is one row --- no window, no
+deferred judgement, no special last row. $S$ runs from 5 to 26.
+
+The reading was pinned first by a brute force that builds the components with a graph search
+and checks each lies in one row or one column, exactly as the entry says. It agrees with the
+local rule and with every published term of all seven names in the family.
+
+**A223060 is not settled and is not padding:** its conjecture line does not parse as a
+recurrence, so there is nothing to prove. A223055 and A223380 are $n \times n$ --- both sides
+grow, the standing wall. A223381 was already settled by the generating-function argument;
+left alone.
+
+### The queue was the bottleneck, not the mathematics
+
+`chunks.py` ranks *unreached* families, so it could not see the largest chunk on the board:
+**5178 candidates that an engine already parses, that carry a conjecture, and that had never
+been processed at all.** The sweep is one process, the container has four cores, and each
+heavy entry can eat the whole per-entry budget, so the queue simply never advanced past the
+first few hundred names. Two contributing causes: every relaunch of the refused-pool loop
+requeued the same 1967 refused entries, and each 1200-second run restarted from the front of
+the list.
+
+**`src/sweep_shard.py`** runs a slice of the candidates and writes its own hits, done and
+caps files; **`src/merge_shards.py`** folds them back under the sweep lock. Shards never
+share a list, so they cannot overwrite each other --- that is the failure the lock exists to
+prevent, and giving each shard its own file is the fix, not serialising them. The partition
+is `crc32`, not `hash()`: Python randomises string hashing per process, so `hash()` would
+partition differently in every shard and entries would be both duplicated and dropped.
+
+`ONLY=<engine>` now also bypasses the done set, because a newly written engine's candidates
+were marked done by earlier sweeps that had no engine to offer them; honouring that would
+refuse to ask the new question, which is the whole point of the run.

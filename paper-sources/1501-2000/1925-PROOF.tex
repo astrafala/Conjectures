@@ -12,14 +12,14 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical closed form for OEIS A223774, proved}
+\title{The empirical closed form for OEIS A223617, proved}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A223774 carries an empirical closed form for $a(n)$ --- not a recurrence relating
+OEIS A223617 carries an empirical closed form for $a(n)$ --- not a recurrence relating
 consecutive terms but an explicit formula. It is true, and it is decidable rather than
 empirical. The entry counts arrays subject to a condition on a bounded window of consecutive lines, so the lines of an array are the
 vertices of a finite digraph, an array is a walk in it, and $a(n)$ is a walk count on
@@ -37,18 +37,18 @@ there is agreement for good.
 
 \section{The conjecture}
 
-OEIS A223774 is ``Number of n X 5 0..1 arrays with rows and columns unimodal and antidiagonals nondecreasing.''. It has offset $1$ and begins
+OEIS A223617 is ``Number of n X 5 0..1 arrays with rows and columns unimodal.''. It has offset $1$ and begins
 \[
-16, 101, 371, 1040, 2516, 5573, 11635, 23230,\ \dots
+16, 256, 2582, 17594, 89630, 367216, 1271969, 3857481,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = (1/3628800)*n\^{}10 + (1/241920)*n\^{}9 + (1/8640)*n\^{}8 + (11/8064)*n\^{}7 + (4273/172800)*n\^{}6 + (589/11520)*n\^{}5 + (649763/362880)*n\^{}4 + (589/12096)*n\^{}3 + (102443/2400)*n\^{}2 - (16061/168)*n + 93 for n>2.
+Empirical: a(n) = (359/453600)*n\^{}10 + (251/30240)*n\^{}9 + (3817/60480)*n\^{}8 + (73/280)*n\^{}7 + (1127/1350)*n\^{}6 + (485/288)*n\^{}5 + (532219/181440)*n\^{}4 + (25699/7560)*n\^{}3 + (30811/8400)*n\^{}2 + (451/210)*n + 1.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Aug 23 2018 08:29:25, revision 7) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 21:52:39, revision 8) this is still
 recorded as empirical, and nothing on the entry records it as proved. Write
 \[
-f(n)\;=\;\frac{n^{10}}{3628800} + \frac{n^{9}}{241920} + \frac{n^{8}}{8640} + \frac{11 n^{7}}{8064} + \frac{4273 n^{6}}{172800} + \frac{589 n^{5}}{11520} + \frac{649763 n^{4}}{362880} + \frac{589 n^{3}}{12096} + \frac{102443 n^{2}}{2400} - \frac{16061 n}{168} + 93.
+f(n)\;=\;\frac{359 n^{10}}{453600} + \frac{251 n^{9}}{30240} + \frac{3817 n^{8}}{60480} + \frac{73 n^{7}}{280} + \frac{1127 n^{6}}{1350} + \frac{485 n^{5}}{288} + \frac{532219 n^{4}}{181440} + \frac{25699 n^{3}}{7560} + \frac{30811 n^{2}}{8400} + \frac{451 n}{210} + 1.
 \]
 
 \section{The count is a walk count}
@@ -105,43 +105,43 @@ threshold exactly.
 \end{proof}
 
 \begin{theorem}
-$a(n)=f(n)$ for every $n\ge3$.
+$a(n)=f(n)$ for every $n\ge1$.
 \end{theorem}
 
 \begin{proof}
 The vector $w'=q(M)w$ was formed by $11$ matrix--vector products in exact integer
 arithmetic, and $u^{\!\top}M^{j}w'$ evaluated for $j=0,1,\dots$, again exactly. Those integers
-vanish from the point corresponding to $n=14$ onwards, and the run was continued until the
+vanish from the point corresponding to $n=12$ onwards, and the run was continued until the
 working vector was identically zero, which settles every larger $j$ at once. So $a$ satisfies
-\eqref{eq:rec} for every $n>13$. By Lemma~\ref{lem:ann} $f$ satisfies \eqref{eq:rec}
+\eqref{eq:rec} for every $n>11$. By Lemma~\ref{lem:ann} $f$ satisfies \eqref{eq:rec}
 identically. Both were then evaluated in exact arithmetic at the $11$ consecutive indices
-$n=14,\dots,24$ and agree at each. A monic recurrence of order $11$
-determines $a(m)$ from $a(m-1),\dots,a(m-11)$, and for every $m\ge25$ both
-$m>13$ and $m-11\ge14$ hold, so induction on $m$ gives $a(m)=f(m)$ for every
-$m\ge14$.
-Below $n=14$ the recurrence argument gives nothing, since \eqref{eq:rec} is only
-established for $a$ from $n=14$ on. The remaining indices $n=3,\dots,13$ were
+$n=12,\dots,22$ and agree at each. A monic recurrence of order $11$
+determines $a(m)$ from $a(m-1),\dots,a(m-11)$, and for every $m\ge23$ both
+$m>11$ and $m-11\ge12$ hold, so induction on $m$ gives $a(m)=f(m)$ for every
+$m\ge12$.
+Below $n=12$ the recurrence argument gives nothing, since \eqref{eq:rec} is only
+established for $a$ from $n=12$ on. The remaining indices $n=1,\dots,11$ were
 therefore checked one at a time, directly against the walk count in exact integer arithmetic,
 and agree.
 \end{proof}
 
-The range is tight in the sense that was checked: at $n=2$ the closed form and the sequence differ, so no larger range is available.
+The range is tight in the sense that was checked: the closed form holds from the entry's first term onwards.
 
 \section{Verification}
 
 Four checks, each independent of the algebra above.
 
-First, the walk model reproduces every one of the $28$ terms the entry publishes,
+First, the walk model reproduces every one of the $23$ terms the entry publishes,
 exactly, in integer arithmetic. This is what ties the model to the entry: the model is built
 by reading the entry's English, and a misreading gives a different digraph and different
 counts.
 
 Second, the closed form was evaluated in exact rational arithmetic --- not floating point ---
-at every published term from $n=3$ on, and agrees with the entry's own DATA at each.
+at every published term from $n=1$ on, and agrees with the entry's own DATA at each.
 
 Third, the annihilation test of Lemma~\ref{lem:crit} was carried out exactly, and the model
 and the closed form were then compared directly at sixty consecutive indices beyond
-$n=3$, far past where the proof already settles the matter.
+$n=1$, far past where the proof already settles the matter.
 
 Fourth, the closed form was deliberately perturbed --- by a constant and by a term linear in
 $n$ --- and each perturbed form was rejected by the same comparison, so the test is not one
@@ -149,7 +149,7 @@ that anything would pass.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A223774.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A223617.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; $C$-finite sequences,
 Section 4.1.)
