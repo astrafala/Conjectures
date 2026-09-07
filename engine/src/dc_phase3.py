@@ -43,6 +43,10 @@ except ImportError:
 
 ANUM = re.compile(r'A\d{6}')
 MODLINE = re.compile(r'\(([^()]*?),\s*revision\s*(\d+)\)')
+# Anchored on the sentence itself, so an empty date can be told apart from a paper that
+# simply prints no such sentence: the first asserts a check it did not do, the second
+# asserts nothing. Reading them as one thing is what let eight blank ones stand.
+CLAIMLINE = re.compile(r"[Ll]ast modified.{0,40}?\(([^()]*?),\s*revision\s*(\d+)\)")
 # The terms sit on the line after "begins". Reading further than that line was the
 # mistake here: "a(0), . . . , a(7) = 1, 1, 3" contains an ellipsis of its own, so a
 # pattern that stopped at the first ellipsis captured the label and none of the terms.
@@ -206,10 +210,19 @@ def main(lo, hi):
             said, rev = ' '.join(m.group(1).split()), m.group(2)
             # the paper prints the day, the entry prints the second as well, and the two
             # are written the other way round; the revision number is the reliable part
-            # a paper that does not print a Last-modified line at all is not claiming one;
-            # eight papers were reported as "edited" because the pattern matched some other
-            # parenthesis and read the revision as zero
-            if daystamp(said) is None:
+            claim = CLAIMLINE.search(t)
+            if claim and (daystamp(claim.group(1)) is None or claim.group(2) == '0'):
+                # The paper prints the Last-modified sentence and puts nothing in it: it
+                # asserts a check it did not do. This used to be skipped along with papers
+                # that print no such sentence at all, which silenced the symptom and let
+                # eight of them stand.
+                said2, rev2 = ' '.join(claim.group(1).split()), claim.group(2)
+                defects.append((rank, a, f"prints the Last-modified sentence empty "
+                                         f"({said2!r}, revision {rev2}); the entry says "
+                                         f"{e['modified']} r{e['revision']}"))
+            elif daystamp(said) is None:
+                # no Last-modified sentence at all: the pattern matched some other
+                # parenthesis, which is not a claim about anything
                 pass
             elif rev != str(e['revision']) or daystamp(said) != daystamp(e['modified']):
                 moved.append((rank, a, f'paper says {said} r{rev}, '

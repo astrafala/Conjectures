@@ -9,6 +9,17 @@ from prove_rec import parse_gf, parse_conj, residual_poly
 import quadfield as qf
 import multiquad as mq
 
+
+def LE_META(anum):
+    """(Last-modified, revision) read from the entry itself, ('', '') if unreadable."""
+    try:
+        import localentry as _LE
+        e = _LE.get(anum)
+        return e["modified"], e["revision"]
+    except Exception:
+        return "", ""
+
+
 n = sp.Symbol('n')
 x = sp.Symbol('x')
 
@@ -274,8 +285,14 @@ def build():
             "DEG": deg,
             "ORDER": 0,
             "CONJ": render_conj(v["conj"]),
-            "TIME": v["time"],
-            "REV": v["revision"],
+            # NOT v["time"] and v["revision"]: those come from the candidate record this
+            # builder was handed, and when that record has no such field they default to an
+            # empty string and 0 -- so eight papers went out asserting "As of the Last
+            # modified line on the live entry (, revision 0)", a sentence claiming a check
+            # with nothing in it while the entries carried real dates and revisions up to 68.
+            # The entry is the authority and is read here.
+            "TIME": LE_META(a)[0] or v["time"],
+            "REV": LE_META(a)[1] or v["revision"],
             "PSLIST": "",
             "RECLATEX": "",
             "NCHECK": min(len(v["data"]), 13),

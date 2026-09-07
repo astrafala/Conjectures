@@ -513,6 +513,36 @@ Two limits of this phase, stated rather than glossed:
   earns its length; the shortest flagged (rank 8439, A186011, 4,173 characters) states a
   bounded-window condition of order 5 and needs no more. Neither is a defect.
 
+### Phase 12 — the reading half, begun
+
+A stratified sample, one paper from each of the 105 families, drawn with a fixed seed so it
+is reproducible and not cherry-picked (`engine/deep-check/phase12-sample.json`). Read the way
+a hostile referee reads: find the weakest step and attack it.
+
+Three read so far.
+
+* **A223181** (`gf-implies-rec`) **passes.** Its proof is conditional on a generating function
+  the entry records, and it says so in its own abstract rather than burying it. The
+  adversarial question is whether that generating function is itself a conjecture — it is
+  not; the entry states it as a plain formula. The polynomial division is right and the
+  threshold `n > 3` is exactly the numerator's degree, which is what the entry claims.
+* **A281560** (`budget`) survives a first reading: it names all three obstacles in its
+  abstract, including the canonical-form clause, rather than passing over the one that is
+  hardest to model.
+* **A002867** (`quadratic`) **carries a defect, and it is not alone.** It prints *"As of the
+  Last modified line on the live entry (, revision 0) the statement is still recorded as a
+  conjecture"* — a blank date and revision 0, while the entry stands at Oct 16 2025,
+  revision 56. That sentence asserts a check with nothing in it. **Eight papers do this**,
+  all from the same three builders, which took the date from the candidate record they were
+  handed rather than from the entry; where that record had no such field it defaulted to an
+  empty string and zero. The builders read the entry now.
+
+  Phase 3 had seen this and *skipped* it. Its note says eight papers were being reported as
+  edited because the pattern matched some other parenthesis and read the revision as zero, so
+  the case was passed over — which silenced the symptom and let the eight stand. A paper that
+  prints no Last-modified sentence asserts nothing; a paper that prints the sentence empty
+  asserts a check it did not do. Phase 3 now tells those apart and calls the second a defect.
+
 ### Phase 11 — the process itself
 
 `engine/src/dc_phase11.py`, results in `engine/deep-check/phase11.json`.
