@@ -29,6 +29,84 @@ the paper.
 
 ---
 
+## What a conjecture is, and why settling one counts
+
+A **conjecture** is a mathematical statement somebody believes is true but nobody has proved.
+It usually starts as a pattern: someone computes a few hundred cases, sees a rule that always
+holds, and writes it down. Until a proof exists it stays a conjecture, no matter how many
+cases have been checked — a pattern can hold for the first ten billion numbers and then fail.
+That has actually happened. Polya's conjecture survived every case up to 906,150,257 before
+someone found a counterexample.
+
+Proving one is the hard part, and it can stay hard for centuries.
+
+| conjecture | posed | settled |
+| --- | --- | --- |
+| Fermat's Last Theorem | 1637 | 1994, by Andrew Wiles — **357 years** |
+| Kepler's sphere-packing conjecture | 1611 | 1998, by Thomas Hales; fully machine-checked only in 2014 |
+| The Four Colour Theorem | 1852 | 1976, and only with computer assistance |
+| Catalan's conjecture | 1844 | 2002, by Preda Mihailescu |
+| The Poincare conjecture | 1904 | 2003, by Grigori Perelman |
+| Goldbach's conjecture | 1742 | **still open** |
+| The twin prime conjecture | ancient | **still open** |
+| The Collatz conjecture | 1937 | **still open** |
+| The Riemann hypothesis | 1859 | **still open** |
+
+### Some are worth a million dollars
+
+In 2000 the Clay Mathematics Institute named seven **Millennium Prize Problems** and attached
+**US$1,000,000** to each. One has been settled — Perelman proved the Poincare conjecture, and
+then declined both the million dollars and the Fields Medal. **Six are still unclaimed**, the
+Riemann hypothesis and P versus NP among them. Separately, the Beal conjecture carries a
+$1,000,000 prize held in trust by the American Mathematical Society, and Paul Erdos spent
+decades offering cash for problems he could not solve himself — from $25 to $10,000, and
+mathematicians framed the cheques rather than cashing them.
+
+That is the top of the scale. Most conjectures are not worth a million dollars. But every one
+of them, large or small, has the same character: **a statement that people have looked at and
+failed to prove.**
+
+### Why it matters that you settled one
+
+When you prove a conjecture you have not solved a puzzle with an answer in the back of the
+book. You have produced a piece of mathematics **that did not exist before you wrote it
+down** — a fact nobody in history had established. That is what research *is*. The field is
+larger afterwards than it was before, and it stays larger.
+
+Universities know this, and it is worth saying plainly for anyone reading this who is
+applying to one. Admissions tutors see thousands of applicants who are good at mathematics.
+They see very few who have **done** mathematics: taken an open question, worked on it, and
+settled it in a way another person can check line by line. It is the difference between
+saying you enjoy a subject and demonstrating that you can contribute to it. That evidence is
+relevant to applications in
+
+- mathematics, pure or applied
+- physics, and the mathematical sciences generally
+- every branch of engineering
+- computer science
+- statistics and data science
+- economics, econometrics and finance
+- actuarial science
+- quantitative business and management courses
+
+— every subject that runs on numbers and rewards someone who can prove a claim rather than
+assert it. A settled conjecture is short, checkable, and permanent: it can be handed to a
+tutor, and it will still be true in fifty years.
+
+### Where this repository sits on that scale
+
+Honestly, and it is in [Honest limits](#honest-limits) too: **the results here are not
+Millennium problems.** They are open conjectures on the On-Line Encyclopedia of Integer
+Sequences — patterns contributors observed, wrote down, marked *empirical* or *conjectured*,
+and left unproved, some of them for over twenty years. Each was genuinely open when it was
+settled. No individual result here is deep, and the method behind most of them is classical.
+
+What is unusual is the scale and the discipline: **10,054 of them**, each with its own paper,
+each quoting its conjecture verbatim with the contributor's name and date, each verified by at
+least two independent routes, and every mistake found along the way written down rather than
+quietly fixed. The number is large because the question was asked of *every* such entry, not
+because any one of them was hard.
+
 ## Who did what
 
 **This project is Adrian Perez Fontelles's.** The direction, the standards, and the
