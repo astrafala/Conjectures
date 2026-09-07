@@ -292,7 +292,11 @@ underneath the check. Python 3.11.15; pdfminer 20260107; sympy 1.14.0.
 | 1 | Inventory integrity | **8 checks, 0 failures** |
 | 2 | Forbidden content | **10,054 papers, 0 defects** |
 | 3 | The entry, re-fetched cold | **10,054 papers, 0 defects** |
+| 5 | The mathematics, recomputed from cold | **925 recomputed, 0 disagreements** (running) |
+| 6 | The checks, themselves audited | complete; findings below |
 | 7 | Caps, refusals, the untried | complete; findings below |
+| 8 | Wording and logic | **10,054 papers, 0 defects; 9 papers missing a required part** |
+| 10 | Comments | **10,022 comments, 0 defects** |
 
 ### Phase 1 — inventory integrity
 
@@ -363,3 +367,76 @@ done.**
 
 Nothing here is optional and nothing may be skipped for time. The corpus stays frozen — **no
 new conjectures are added** — until the check finishes.
+
+---
+
+## Findings added after the first report
+
+### Phase 5 — the mathematics, recomputed from cold
+
+Each model rebuilt in a fresh process with nothing reused. **925 recomputed so far, 0
+disagreements**: the model still reproduces every published term, the recurrence still
+annihilates it, and the threshold comes out where the paper says.
+
+25 entries are read by two engines — `transfer93` generalises `transfer75`, and `uniform.read`
+returns whichever comes first in its list. Both reproduce every published term of A184404,
+checked directly, so this is an **overlap and not a defect**. The rebuild uses the engine the
+paper used, since that is what the paper claims; the overlap is recorded for Phase 11.
+
+### Phase 6 — the checks, themselves audited
+
+Of 730 modules, 263 exception handlers record nothing before continuing. Only 95 modules are
+on the path a sweep actually takes and **only 3 of the silent handlers are among them**. The
+one that matters is `uniform.read`: a parser raising on a name it ought to read makes that
+name unreachable, and the handler hid it. The raises are now counted and kept; asked over
+6000 names, there are currently none.
+
+158 modules match their own patterns against entry text instead of going through the canonical
+parser. That is how a candidate pool once came out at 49 instead of 130.
+
+### Phase 8 — wording and logic
+
+Over all 10,054 papers: **0 defects** in verdict agreement, the double-negation class, or the
+numbers quoted in prose.
+
+**9 papers carry no statement that the entry is still open**, which is a required part:
+
+| rank | entry |
+| ---: | --- |
+| 4 | A061002 |
+| 19 | A000071 |
+| 20 | A000139 |
+| 21 | A000040 |
+| 23 | A059324 |
+| 28 | A000364 |
+| 29 | A000040 |
+| 30 | A008365 |
+| 425 | A197230 (a disproof) |
+
+All are among the earliest papers, written before the requirement was fixed. **Outstanding —
+the fix waits until the check is complete**, per the stop rule.
+
+Three false-positive classes of the phase's own were removed on the way: a proof saying "the
+statement is false for k even" while delimiting a hypothesis read as a disproof; a pattern
+expecting "still recorded as EMPIRICAL" missed "still recorded as an unproven conjecture", and
+reported 68 of 400 as missing a sentence they all have; and after widening, an abstract saying
+"the procedure returns a proof or a refutation — here it returns a proof" read as a disproof,
+flagging 34. An explicit assertion of the result now settles the verdict.
+
+Four papers restate a negative condition positively — "no subblock containing fewer than two
+1s" as "every subblock holds at least two". Those are the same statement, and the check now
+recognises a flip of quantifier and comparison together as the equivalence it is.
+
+### Phase 10 — comments
+
+**0 defects over 10,022 comments.** Two of its findings were its own: `Sum_{i>=1}` and set
+braces are OEIS notation, not LaTeX, and calling them LaTeX condemned 54 correctly written
+comments; and `submission-order.txt` is a deliberate first-round queue, not an index, so
+reading it as one reported ten thousand entries as missing from a file never meant to hold
+them.
+
+## Defects outstanding
+
+1. **9 papers missing the still-open statement** (Phase 8, listed above).
+2. **39 quotations the automated comparison cannot settle** (Phase 3), for the reading pass.
+3. **381 papers whose section 1 quote cannot be located** (Phase 3) — a gap in the check.

@@ -90,9 +90,17 @@ def main(lo, hi):
         isdis = r['verdict'].upper() == 'DISPROOF'
         i = low.find('abstract')
         head = low[i:i + 1400] if i >= 0 else low[:1400]
-        says_dis = ('disprov' in head or 'counterexample' in head
-                    or 'the conjecture is false' in head or 'empirical recurrence is false' in head)
-        says_pro = re.search(r'\bwe prove\b|\bit is true\b|\bis true[,.]|\bproved\b',
+        # A disproof states its verdict in plain English -- "It is false", "Both are false,
+        # and both are refuted" -- and looking only for the word "disproves" called two
+        # unambiguous refutations defective.
+        says_dis = bool(re.search(r'disprov|counterexample|\b(?:is|are) false\b|refut|'
+                                  r'\bfails? at\b|\bfalse[,.]', head))
+        # An abstract that asserts the result decides the matter: a proof may say "the
+        # procedure returns a proof or a refutation; here it returns a proof", and reading
+        # "refutation" out of that called 34 proofs disproofs. The assertion wins.
+        says_pro = re.search(r'\bwe prove\b|\bit is true\b|\bis true[,.]|\bproved\b|'
+                             r'returns a proof|it is proved|and it is proved|'
+                             r'\bis therefore true\b|proves? (?:it|the conjecture)',
                              head) is not None
         if isdis and not says_dis:
             defects.append((rank, a, 'marked a disproof but never says it disproves'))
@@ -115,7 +123,15 @@ def main(lo, hi):
             if mm:
                 pclause = mm.group(1)
                 ppos = bool(POS.match(pclause.strip())) and not NEG.search(pclause[:20])
-                if ename_neg and ppos:
+                # "no subblock with FEWER THAN two" and "every subblock has AT LEAST two"
+                # are the same statement; a restatement that flips the quantifier and the
+                # comparison together is correct, and often clearer than the entry. Only a
+                # flip that does NOT also flip the comparison is worth a reading.
+                paired = bool(re.search(r'fewer than|less than|at most|no more than', clause,
+                                        re.I)) and \
+                         bool(re.search(r'at least|more than|at most|fewer than', pclause,
+                                        re.I))
+                if ename_neg and ppos and not paired:
                     flip.append((rank, a, clause[:40], pclause[:40]))
 
         ordn = ORDER.search(t)
