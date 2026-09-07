@@ -511,8 +511,13 @@ def build(p, cap=200000):
                 end.append(1)
         p['wlen'] = 1
         return adj, start, end, lines
-    if len(lines) ** 2 > cap:
-        return None
+    # The pair branch below fills its edges with a loop over TRIPLES of lines, which the
+    # vertex guard cannot see: an entry could pass the guard and then never finish. Either
+    # wall sends it to the pair-free construction, which gives the same counts from fewer
+    # states and applies its own cap to the states it reaches.
+    n = len(lines)
+    if n * n > cap or n ** 3 > 20000000:
+        return build_pairfree(p, cap=cap)
     idx, st = {}, []
     for a in lines:
         for b in lines:
@@ -604,3 +609,128 @@ def threshold(adj, start, end, coeffs, order, p):
         return None
     last = max((i for i, u in enumerate(us) if u != 0), default=-1)
     return n_lo + order + last
+
+
+# ---------------------------------------------------------------------------
+# The pair branch, without the pair
+#
+# `build` above puts a vertex on every ordered pair of lines and then fills the edges with a
+# loop over TRIPLES of lines. The guard it applies, len(lines)**2 > cap, does not see that
+# third loop, so an entry could pass the guard and then never finish -- the same shape of
+# refusal already found and removed in the 3 X 3 engine and the cell-centred one.
+#
+# Every offset here moves at most R columns, so whether the cell at column u of the middle
+# line is satisfied depends on the three lines only through their windows at u-R..u+R.
+# Collect, for each u, the indicator over the window of the line BELOW; call that P(a,b).
+# Then line_ok(a,b,x) is read off P, the terminal weight line_ok(a,b,None) is read off P, and
+# the successor (b,x) carries P(b,x), which does not mention a. Two pairs (a,b) and (a',b)
+# with the same P are therefore indistinguishable, and the vertex is (b,P).
+#
+# The starting pairs are the ones where the FIRST line is itself satisfied with nothing above
+# it, which decomposes over the same windows, so both the profile and the start test are
+# accumulated by one pass over the columns of a for each b.
+# ---------------------------------------------------------------------------
+
+def _win(line, u, W, R):
+    if line is None:
+        return None
+    return tuple(line[k] if 0 <= k < W else None for k in range(u - R, u + R + 1))
+
+
+def _mk(win, u, W, R):
+    if win is None:
+        return None
+    base = [0] * W
+    for d, v in zip(range(-R, R + 1), win):
+        k = u + d
+        if 0 <= k < W and v is not None:
+            base[k] = v
+    return tuple(base)
+
+
+def build_pairfree(p, cap=200000):
+    W, al = p['fixed'], p['alpha']
+    vals = list(range(al + 1))
+    lines = list(product(vals, repeat=W))
+    offs = p['offs']
+    if p['mode'] == 'patt' and len(p['pat']) == 3:
+        offs = offs + [(-dt, -du) for dt, du in offs]
+    R = max([abs(du) for _, du in offs] + [1])
+
+    wins = {}
+    for line in lines:
+        wins[line] = tuple(_win(line, u, W, R) for u in range(W))
+    allw = sorted({w for t in wins.values() for w in t},
+                  key=lambda w: tuple(-1 if v is None else v for v in w))
+    xw_ix = {w: i for i, w in enumerate(allw)}
+    xw_ix[None] = len(allw)
+    XW = allw + [None]
+
+    prof = {}
+
+    def col_profile(aw, bw, u):
+        """for column u, which windows of the line below leave this cell satisfied"""
+        key = (aw, bw, u if u < R or u >= W - R else -1)
+        got = prof.get(key)
+        if got is None:
+            a = _mk(aw, u, W, R)
+            b = _mk(bw, u, W, R)
+            got = tuple(1 if cell_ok(a, b, _mk(xw, u, W, R), u, W, p) else 0 for xw in XW)
+            prof[key] = got
+        return got
+
+    def profile(a, b):
+        wa, wb = wins[a], wins[b]
+        return tuple(col_profile(wa[u], wb[u], u) for u in range(W))
+
+    def follows(P, x):
+        wx = wins[x]
+        return all(P[u][xw_ix[wx[u]]] for u in range(W))
+
+    def terminal(P):
+        return all(P[u][xw_ix[None]] for u in range(W))
+
+    uv = p.get('ulval')
+    uv = 0 if (uv is None and p['ul0']) else uv
+
+    index, states, adj = {}, [], []
+
+    def sid(key):
+        i = index.get(key)
+        if i is None:
+            i = index[key] = len(states)
+            states.append(key)
+            adj.append(None)
+        return i
+
+    startw = {}
+    for b in lines:
+        for a in lines:
+            if uv is not None and a[0] != uv:
+                continue
+            if not line_ok(None, a, b, W, p):
+                continue
+            k = (b, profile(a, b))
+            startw[k] = startw.get(k, 0) + 1
+        if len(startw) > cap:
+            return None
+    if not startw:
+        return None
+    for k in startw:
+        sid(k)
+    qi = 0
+    while qi < len(states):
+        b, P = states[qi]
+        row = []
+        for x in lines:
+            if follows(P, x):
+                row.append(sid((x, profile(b, x))))
+                if len(states) > cap:
+                    return None
+        adj[qi] = row
+        qi += 1
+    S = len(states)
+    start = [startw.get(k, 0) for k in states]
+    end = [1 if terminal(P) else 0 for (b, P) in states]
+    p['wlen'] = 2
+    return adj, start, end, S

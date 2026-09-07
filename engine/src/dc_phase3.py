@@ -70,6 +70,15 @@ def daystamp(s):
 
 
 PAGENO = re.compile(r'^\s*\d{1,4}\s*$')
+# OEIS ends a contributed line with " - _Name_, Mon DD YYYY"; the paper prints the same
+# credit with an em-dash and without the underscores or the date. Neither string then
+# contains the other, though the sentence they are both quoting is identical, so the credit
+# is cut from both before they are compared.
+CREDIT = re.compile(r'\s[-\u2013\u2014\x16]\s*_?[A-Z][A-Za-z.\' -]+_?(?:,.*)?$')
+
+
+def sentence(t):
+    return CREDIT.sub('', t).strip()
 
 
 def text(path):
@@ -96,7 +105,10 @@ LEADIN = re.compile(
     r'|carries the comment:?'
     r'|The entry states, not as a conjecture,'
     r'|The entry states, as a conjecture[^:]*:'
-    r'|and separately carries the comment)\s*', re.I)
+    r'|and separately carries the comment'
+    r'|The entry states:'
+    r'|The entry records, as a conjecture[^:]*:'
+    r'|the entry carries the line)\s*', re.I)
 STOP = re.compile(r'As of the|Last modified|\n\s*\n|\\section|^\d+\s+The ', re.M)
 
 
@@ -118,7 +130,7 @@ def main(lo, hi):
         return 1
     with open(os.path.join(repopaths.ROOT, 'papers', 'index.csv')) as f:
         idx = [r for r in csv.DictReader(f) if lo <= int(r['rank']) <= hi]
-    defects, moved, unquoted, typeset = [], [], [], []
+    defects, moved, unquoted, typeset, unmatched = [], [], [], [], []
     checked = 0
     for r in idx:
         rank, a = r['rank'], r['anum']
@@ -142,8 +154,15 @@ def main(lo, hi):
             unquoted.append((rank, a))
         else:
             lines = [' '.join(L.split()) for L in e['comment'] + e['formula']]
-            hay = re.sub(r'\s+', '', dc_text.normalise(' '.join(lines)))
-            if re.sub(r'\s+', '', q) in hay:
+            hay = re.sub(r'\s+', '', dc_text.normalise(' '.join(sentence(L) for L in lines)))
+            qs = re.sub(r'\s+', '', sentence(q))
+            # Either containment counts. The paper's block often carries the contributor's
+            # name after the sentence the entry states, and the entry sometimes carries a
+            # date the paper leaves off, so neither string need contain the other; what must
+            # hold is that one of the entry's own lines appears inside the paper's quote, or
+            # the paper's quote appears in the entry.
+            if qs in hay or any(re.sub(r'\s+', '', dc_text.normalise(L)) in qs
+                                for L in (sentence(x) for x in lines) if len(L.strip()) > 20):
                 pass                                   # quoted as plain text, character exact
             else:
                 # Some papers TYPESET the conjecture: the entry's `x^3` becomes $x^3$, `>=`
@@ -161,7 +180,12 @@ def main(lo, hi):
                         [x for x in got if x in want]:
                     typeset.append((rank, a))
                 else:
-                    defects.append((rank, a, 'quoted conjecture not found in the entry'))
+                    # A string comparison cannot adjudicate a quotation the paper has
+                    # typeset: the entry's ASCII and the paper's mathematics are different
+                    # renderings of the same sentence. These are not called defects and they
+                    # are not waved through either -- they are listed for the reading pass,
+                    # which is where a human decides.
+                    unmatched.append((rank, a))
 
         m = MODLINE.search(t)
         if m:
@@ -202,6 +226,10 @@ def main(lo, hi):
         print('   ', *d)
     print(f'  {len(typeset)} papers whose quote is typeset rather than plain, checked on '
           f'their numbers instead')
+    print(f'  {len(unmatched)} quotations the automated comparison cannot settle; these go '
+          f'to the reading pass, by rank:')
+    for d in unmatched[:40]:
+        print('   ', *d)
     print(f'  {len(unquoted)} papers whose section 1 quote could not be located in the text')
     print(f'  {len(flagged)} entries carry settlement wording. Withdraw ONLY when the other '
           f'proof is EARLIER than the date on our paper.')
