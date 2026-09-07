@@ -355,14 +355,13 @@ What it also reports, which is the part worth reading:
 **These are not passes. They are outstanding, and the check is not complete until they are
 done.**
 
-| Phase | What it must check |
+Phases 6, 8 and 10 have run and their findings are below; this table lists only what is
+still incomplete.
+
+| Phase | What is still outstanding |
 | --- | --- |
-| 5 | The mathematics, recomputed from cold, with every cache deleted; thresholds shown exact; merges verified; falsification beyond the verified range |
-| 6 | The independent checks, themselves audited — including every swallowed exception and every ad-hoc regex outside the parser |
-| 8 | Wording and logic — verdict agreement, the double-negation class, every number in prose recomputed |
-| 9 | Length that follows content |
-| 10 | Comments — one per entry, claim matching the paper, dates corroborated, OEIS-safe |
-| 12 | Adversarial referee pass over a stratified sample, plus the 39 + 381 quotations Phase 3 could not settle |
+| 5 | Still running. Every model rebuilt in a fresh process; the corpus is 3,865 sweep records and the run is partway through. |
+| 12 | The numeric half is running --- every sampled claim pushed far past its published range and checked in integer arithmetic. The **reading** half has not been done: a stratified sample read the way a hostile referee reads, together with the quotations the automated comparison could not settle. |
 
 Nothing here is optional and nothing may be skipped for time. The corpus stays frozen — **no
 new conjectures are added** — until the check finishes.
@@ -474,6 +473,39 @@ comments; and `submission-order.txt` is a deliberate first-round queue, not an i
 reading it as one reported ten thousand entries as missing from a file never meant to hold
 them.
 
+### Phase 9 — length that follows content
+
+`engine/src/dc_phase9.py`, results in `engine/deep-check/phase9.json`.
+
+The measure that matters is not the page count. 9,367 of 10,054 papers (93%) print at three
+pages, but a page is coarse enough that two papers differing by half a page of prose land on
+the same number, so that figure would condemn generators that do vary. In characters of text
+the corpus runs from **4,034 to 18,462, median 6,263** — a factor of four and a half.
+
+The real question is whether length varies *within* a family, since across families it must.
+Of the **73 families holding 20 papers or more, 11 vary by less than a quarter of their median
+length**: `logexp` (25 papers, 8%), `occupancy-image` (43, 10%), `gf-conjecture` (128, 12%),
+`planepartition-box` (41, 15%), `ore` (20, 16%), `bounded-difference-triangle` (20, 16%),
+`gf-implies-rec` (233, 17%), `pattern-neighbour` (101, 22%), `occupancy-turn` (54, 23%),
+`chessboard-colour-class` (21, 24%) and `consecutive-triple` (60, 24%). **Those eleven
+generators are still emitting a fixed structure.** The other 62 vary more than that, some far
+more, so the change made on 6 September did work — it did not reach everywhere.
+
+Two limits of this phase, stated rather than glossed:
+
+* **For 5 of those 11 families the check can say nothing at all.** `pattern-neighbour`,
+  `planepartition-box`, `logexp`, `gf-implies-rec` and `ore` have the *same* content score for
+  every member, so there is no variation to correlate length against. Uniform length may be
+  exactly right there. The score, not the papers, is what is missing.
+* **The per-paper "padded" and "under-explained" rankings are not evidence.** Ranked on
+  characters, the top of the under-explained list is entirely transfer-matrix papers whose
+  score is high only because the score credits `log₁₀(S)` and their state count is large — but
+  a large state count from a wide alphabet is not harder to explain than a small one. Reading
+  the extremes confirms it: the longest paper in the corpus (rank 3441, A205213, 18,462
+  characters) carries an extra section deriving what its determinant condition means, and
+  earns its length; the shortest flagged (rank 8439, A186011, 4,173 characters) states a
+  bounded-window condition of order 5 and needs no more. Neither is a defect.
+
 ### Phase 11 — the process itself
 
 `engine/src/dc_phase11.py`, results in `engine/deep-check/phase11.json`.
@@ -527,4 +559,9 @@ builder, which is done when the corpus unfreezes.
 5. **263 papers have no stored source** (Phase 11), 100 from a build-directory collision now
    fixed, 163 whose build directories are gone. Sources regenerated when the corpus unfreezes.
 6. **90 of 104 argument families have no independent check** (Phase 11), covering 9,457
-   entries including the 3,417 transfer-matrix papers. The largest piece of unfinished work.
+   entries including the 3,417 transfer-matrix papers. The largest piece of unfinished work,
+   and now being repaired: `indepcell.py` has confirmed the cell-count family 197 of 197,
+   `indep2x2.py` and `indepadj.py` are running on 914 and 1,121 entries.
+7. **11 generators still emit a fixed structure** (Phase 9): their papers vary by less than a
+   quarter of their median length. `gf-implies-rec` (233 papers), `gf-conjecture` (128) and
+   `pattern-neighbour` (101) are the largest.
