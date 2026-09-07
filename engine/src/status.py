@@ -43,6 +43,9 @@ def main():
     if p:
         out.append(f'phase12 {len(p["ok"])} fail {len(p["bad"])}')
     out.append(f'disproofs {len(L("falsify.json") or [])}')
+    t = L('ordtails.json')
+    if t:
+        out.append(f'tails {len(t["proved"])} proved {len(t["disproved"])} disproof-cand')
     for lbl, f in (('i2x2', 'indep2x2_done.json'), ('iadj', 'indepadj_done.json')):
         d = L(f)
         if d:
