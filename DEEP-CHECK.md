@@ -519,7 +519,7 @@ A stratified sample, one paper from each of the 105 families, drawn with a fixed
 is reproducible and not cherry-picked (`engine/deep-check/phase12-sample.json`). Read the way
 a hostile referee reads: find the weakest step and attack it.
 
-Three read so far.
+Six read so far.
 
 * **A223181** (`gf-implies-rec`) **passes.** Its proof is conditional on a generating function
   the entry records, and it says so in its own abstract rather than burying it. The
