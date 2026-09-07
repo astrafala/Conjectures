@@ -126,6 +126,61 @@ python3 src/makeindex.py        # regenerate the index files
 Engines are `engine/src/transfer*.py`, sweeps `sweep_*.py`, brute forces `bf*.py`, independent
 re-checks `audit_*.py`.
 
+## Authorship, priority and reuse
+
+**Author: Adrian Perez Fontelles, independent researcher.** Every paper in `papers/` names
+him as its sole author, and the mathematical direction, the standing rules the work follows
+and the decisions about what to pursue and what to withdraw are his. The work was carried out
+with AI assistance under his direction; that is stated openly in *Who did what* above and in
+the deposit metadata.
+
+### The record of when each result was obtained
+
+This repository is the primary record, and it is dated in four independent places:
+
+* **Git history.** The first commit is 25 August 2026, and every result since has arrived in a
+  commit carrying its own timestamp and message. `git log` gives the date any given file or
+  line entered the repository, and the history is public on GitHub, which holds its own
+  server-side record of when each push was received.
+* **The papers.** Each paper prints the date the result was obtained on its title page, and
+  quotes its conjecture verbatim with the contributor's name and the date they contributed it.
+* **The entries themselves.** Each paper records the OEIS *Last modified* line and revision
+  number of the entry as it stood when the result was obtained, so the state of the source at
+  that moment is on the record too.
+* **`CITATION.cff` and `.zenodo.json`.** These carry the authorship and licence metadata for
+  archival deposit, which mints a DOI and a third-party timestamp independent of GitHub.
+
+Together these establish **priority**: what was settled here, and when.
+
+### What the licence permits, and what it does not
+
+The papers and text are released under
+[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Code is MIT. Anyone may read,
+copy, redistribute, translate, build on and even sell work derived from these results —
+**on one condition, which is not optional: they must credit Adrian Perez Fontelles as the
+author and indicate what, if anything, they changed.**
+
+That condition is the whole of the permission. Reproducing this work without that credit —
+presenting these proofs as one's own, submitting them under another name, or stripping the
+attribution from a paper or a derived text — is **not** permitted by the licence. A CC BY 4.0
+licence terminates automatically for anyone who breaches its terms, and the copyright in the
+papers remains with the author. Copyright is not waived by publishing openly; it is exercised
+by publishing under stated terms.
+
+### If you want different terms
+
+The author can grant permissions the licence does not, including arrangements about how the
+work is credited or presented. **Those are his to give and must be agreed with him directly,
+in advance.** Nothing in this repository grants them by implication, and no one should assume
+otherwise from the fact that the work is public.
+
+If you believe some of this work duplicates or was anticipated by your own, please raise it —
+the standing rule here is that a result withdrawn is better than a result wrongly claimed, and
+several have already been withdrawn on exactly that ground, recorded in `archive/withdrawn/`
+and the ledger.
+
+*This section describes the licence and the record. It is not legal advice.*
+
 ## Licence
 
 Papers and text: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) — reuse freely,
