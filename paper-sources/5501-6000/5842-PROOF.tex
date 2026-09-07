@@ -12,15 +12,15 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A208010, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A206932, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A208010 counts arrays over $\{0,\dots,1\}$ of width $5$ that avoid the patterns
-$(0,0,0), (1,0,1)$ along one axis and $(0,0,1), (0,1,1)$ along the other, and carries an empirical recurrence of
+OEIS A206932 counts arrays over $\{0,\dots,1\}$ of width $4$ that avoid the patterns
+$(0,0,0)$ along one axis and $(0,1,1)$ along the other, and carries an empirical recurrence of
 order $16$ contributed by R.~H.~Hardin. It is true. The patterns have length $3$, so
 the constraint across the growing direction ties together $3$ consecutive rows: taking a
 window of $2$ consecutive rows as a state makes the array a walk in a finite digraph
@@ -34,38 +34,38 @@ beyond a threshold that the computation pins down exactly. Finite, exact, intege
 
 \section{The sequence and the conjecture}
 
-OEIS A208010 is ``Number of nX5 0..1 arrays avoiding 0 0 0 and 1 0 1 horizontally and 0 0 1 and 0 1 1 vertically.''. It has offset
+OEIS A206932 is ``Number of nX4 0..1 arrays avoiding 0 0 0 horizontally and 0 1 1 vertically.''. It has offset
 $1$ and begins
 \[
-13, 169, 624, 2304, 5952, 15376, 32860,\ \dots
+13, 169, 1153, 6837, 35277, 170409, 783557,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 2*a(n-1) +6*a(n-2) -14*a(n-3) -14*a(n-4) +42*a(n-5) +14*a(n-6) -70*a(n-7) +70*a(n-9) -14*a(n-10) -42*a(n-11) +14*a(n-12) +14*a(n-13) -6*a(n-14) -2*a(n-15) +a(n-16)
+Empirical: a(n) = 10*a(n-1) -24*a(n-2) -50*a(n-3) +241*a(n-4) -8*a(n-5) -750*a(n-6) +328*a(n-7) +1008*a(n-8) -448*a(n-9) -642*a(n-10) +200*a(n-11) +191*a(n-12) -34*a(n-13) -24*a(n-14) +2*a(n-15) +a(n-16)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 14:33:54, revision
+As of the ``Last modified'' line on the live entry (Oct 03 2025 13:16:05, revision
 9) the statement is still recorded as empirical, and nothing on the entry
 records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;2\,a(n-1) + 6\,a(n-2) - 14\,a(n-3) - 14\,a(n-4) + 42\,a(n-5) + 14\,a(n-6) - 70\,a(n-7) + 70\,a(n-9) - 14\,a(n-10) - 42\,a(n-11) + 14\,a(n-12) + 14\,a(n-13) - 6\,a(n-14) - 2\,a(n-15) + a(n-16)
+a(n)\;=\;10\,a(n-1) - 24\,a(n-2) - 50\,a(n-3) + 241\,a(n-4) - 8\,a(n-5) - 750\,a(n-6) + 328\,a(n-7) + 1008\,a(n-8) - 448\,a(n-9) - 642\,a(n-10) + 200\,a(n-11) + 191\,a(n-12) - 34\,a(n-13) - 24\,a(n-14) + 2\,a(n-15) + a(n-16)
 \end{equation}
 for all $n>16$. 
 
 \section{The array as a walk}
 
 Call a row \emph{admissible} if the word it forms contains none of the patterns
-$(0,0,0), (1,0,1)$ as $3$ consecutive entries. There are $13$ admissible rows; that condition
+$(0,0,0)$ as $3$ consecutive entries. There are $13$ admissible rows; that condition
 involves a single row only.
 
-The remaining patterns $(0,0,1), (0,1,1)$ are forbidden along the other axis, so each of them
+The remaining patterns $(0,1,1)$ are forbidden along the other axis, so each of them
 constrains $3$ consecutive rows at a fixed position of the column. Take as state a
 window $w=\bigl(w^{(1)},\dots,w^{(2)}\bigr)$ of $2$ consecutive admissible
 rows, so $S=169$, and declare $w\to w'$ an edge when $w'$ is $w$ with its first entry
 dropped and one further admissible row $t$ appended, subject to: for every position
 $j$, the $3$-tuple read down the column $j$ across $w^{(1)},\dots,w^{(2)},t$
-is none of $(0,0,1), (0,1,1)$. Let $P$ be the adjacency matrix.
+is none of $(0,1,1)$. Let $P$ be the adjacency matrix.
 
 \begin{lemma}\label{lem:walk}
 $a(n)=\mathbf{1}^{\!\top}P^{\,n-2}\mathbf{1}$ for every $n\ge2$.
@@ -122,7 +122,7 @@ zeros, which by Lemma~\ref{lem:crit} settles every larger index.
 Three checks, each independent of the algebra above.
 
 First, the digraph was built directly from the entry's stated patterns and the walk counts
-compared against the entry's DATA at every one of the $27$ published indices; the
+compared against the entry's DATA at every one of the $20$ published indices; the
 values agree exactly, including the initial count of $13$ admissible rows. That is
 what ties the digraph to the sequence, and a model reproducing only part of the published
 data was rejected wherever it occurred.
@@ -135,7 +135,7 @@ zeros rather than to a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A208010.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A206932.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

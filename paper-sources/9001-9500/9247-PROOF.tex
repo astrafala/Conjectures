@@ -12,19 +12,19 @@
 \theoremstyle{definition}
 \newtheorem{definition}[theorem]{Definition}
 \newtheorem{remark}[theorem]{Remark}
-\title{A proof of the conjectured recurrence for OEIS A212938}
+\title{A proof of the conjectured recurrence for OEIS A034267}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{30 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A212938 carries a conjectured linear recurrence with polynomial coefficients, of
-order 3. The entry posts no generating function, so the usual route through a
+OEIS A034267 carries a conjectured linear recurrence with polynomial coefficients, of
+order 2. The entry posts no generating function, so the usual route through a
 functional equation is unavailable. It does post a closed form for $a(n)$, and that is
 enough: the closed form is a sum of finitely many hypergeometric terms, and for such a
 term every shift quotient is a rational function of $n$. The conjectured recurrence
-therefore reduces to 3 rational-function identities, one for each similarity
+therefore reduces to one rational-function identity, one for each similarity
 class of terms, and each is decided exactly by cancellation. No expansion is truncated and
 nothing is guessed; the procedure returns a proof or a refutation. Here it returns a proof,
 valid for every $n$ outside an explicitly computed finite set.
@@ -34,32 +34,32 @@ valid for every $n$ outside an explicitly computed finite set.
 
 \section{The sequence and the conjecture}
 
-OEIS A212938 is ``Number of n X 3 0..2 arrays with no column j greater than or equal to than column j-1 in all rows''. It has offset $1$ and begins
+OEIS A034267 is ``a(n) = f(n,n) where f is given in A034261''. It has offset $0$ and begins
 \[
-a(1),\dots,a(8)\;=\;1, 181, 9019, 331489, 10669771, 320396041, 9245913139, 260489615329,\ \dots
+a(0),\dots,a(7)\;=\;0, 1, 7, 39, 196, 930, 4257, 19019,\ \dots
 \]
 The entry states, not as a conjecture,
 \begin{quote}\small
-a(n) = 10\textasciicircum{}n - 2*18\textasciicircum{}n + 27\textasciicircum{}n.
+a(n) = binomial(2*n, n+1)*(n\textasciicircum{}2+n+1)/(n+2);
 \end{quote}
 that is,
 \begin{equation}\label{eq:cf}
-a(n)\;=\;10^{n} - 2 \cdot 18^{n} + 27^{n} .
+a(n)\;=\;\frac{\left(n^{2} + n + 1\right) {\binom{2 n}{n + 1}}}{n + 2} .
 \end{equation}
 This is the only input the proof takes from the entry, and it was checked against the
 entry's own DATA before use.
 
 The entry separately carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 55*a(n-1) - 936*a(n-2) + 4860*a(n-3).
+Conjecture D-finite with recurrence -(n+2)*(11*n-7)*a(n) + 2*(23*n\textasciicircum{}2+44*n+30)*a(n-1) - 4*(n+5)*(2*n-3)*a(n-2) = 0. - \emph{R. J. Mathar}, Feb 10 2025
 \end{quote}
-As of the ``Last modified'' line on the live entry (2018-07-21, revision 13) the
+As of the ``Last modified'' line on the live entry (2025-09-04, revision 23) the
 statement is still recorded as a conjecture, and no proof appears among the entry's links,
 formulas or programs.
 
 Written out, the conjecture is
 \begin{equation}\label{eq:conj}
-1\,a(n) - 55\,a(n-1) + 936\,a(n-2) - 4860\,a(n-3)
+- \left(n + 2\right) \left(11 n - 7\right)\,a(n) + 2 \left(23 n^{2} + 44 n + 30\right)\,a(n-1) -  4 \left(n + 5\right) \left(2 n - 3\right)\,a(n-2)
 \end{equation}
 
 \section{Hypergeometric terms}
@@ -128,23 +128,23 @@ $\mathbb{Q}(n)$, with no truncation and no search. The only $n$ it says nothing 
 those where some $S_{\ell}$ has a pole or some $c_{j}(n-i)$ is undefined, and these are
 finite in number and listed below.
 
-\section{The computation for A212938}
+\section{The computation for A034267}
 
-The closed form \eqref{eq:cf} splits into 3 similarity classes, with
-representativees
+The closed form \eqref{eq:cf} splits into one similarity class, with
+representative
 \[
-10^{n},\qquad 27^{n},\qquad - 2 \cdot 18^{n}
+\frac{{\binom{2 n}{n + 1}}}{n + 2}
 \]
 Carrying out Proposition~\ref{prop:main} with the coefficients of \eqref{eq:conj} gives
 \[
-S_{1}(n)\;=\;0,\qquad S_{2}(n)\;=\;0,\qquad S_{3}(n)\;=\;0
+S_{1}(n)\;=\;0
 \]
 so every class residual vanishes identically and the conjecture follows.
 
 \begin{theorem}
-For all $n\ge 4$,
+For all $n\ge 2$,
 \[
-1\,a(n) - 55\,a(n-1) + 936\,a(n-2) - 4860\,a(n-3)
+- \left(n + 2\right) \left(11 n - 7\right)\,a(n) + 2 \left(23 n^{2} + 44 n + 30\right)\,a(n-1) -  4 \left(n + 5\right) \left(2 n - 3\right)\,a(n-2)
 \]
 \end{theorem}
 
@@ -162,15 +162,15 @@ compared term by term with the entry's DATA; the values agree exactly. A formula
 not reproduce the entry's own terms would not have been used.
 
 Second, the conjectured recurrence \eqref{eq:conj} was evaluated on the published terms in
-exact integer arithmetic at every index where it applies: $12$ instances beginning at
-$n=4$, all of them zero. This is not part of the proof, which is symbolic, but it
+exact integer arithmetic at every index where it applies: $24$ instances beginning at
+$n=2$, all of them zero. This is not part of the proof, which is symbolic, but it
 would have caught a transcription error in the coefficients.
 
 \begin{thebibliography}{9}
 \bibitem{AB} M.~Petkov\v{s}ek, H.~S.~Wilf and D.~Zeilberger, \emph{A=B}, A K Peters,
 Wellesley MA, 1996.
 \bibitem{OEIS} OEIS Foundation Inc., \emph{The On-Line Encyclopedia of Integer Sequences},
-entry \href{https://oeis.org/A212938}{A212938}, 2018-07-21.
+entry \href{https://oeis.org/A034267}{A034267}, 2025-09-04.
 \bibitem{GKP} R.~L.~Graham, D.~E.~Knuth and O.~Patashnik, \emph{Concrete Mathematics},
 2nd ed., Addison-Wesley, 1994.
 \end{thebibliography}

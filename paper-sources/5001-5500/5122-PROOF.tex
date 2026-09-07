@@ -12,14 +12,14 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A253354, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A253347, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A253354 counts the arrays over $\{0,\dots,1\}$ whose $2\times2$ subblocks carry a
+OEIS A253347 counts the arrays over $\{0,\dots,1\}$ whose $2\times2$ subblocks carry a
 statistic that is monotone along named directions of the subblock grid, and carries an
 empirical recurrence of order $23$ contributed by R.~H.~Hardin. It is true, and it is
 decidable rather than empirical. Every direction named moves the subblock row by at most one,
@@ -31,15 +31,15 @@ and the conjectured recurrence is then settled by a finite exact computation.
 
 \section{The conjecture}
 
-OEIS A253354 is ``Number of (5+1)X(n+1) 0..1 arrays with every 2X2 subblock diagonal maximum minus antidiagonal maximum nondecreasing horizontally, vertically and ne-to-sw antidiagonally.''. It has offset $1$ and begins
+OEIS A253347 is ``Number of (n+1)X(5+1) 0..1 arrays with every 2X2 subblock diagonal maximum minus antidiagonal maximum nondecreasing horizontally, vertically and ne-to-sw antidiagonally.''. It has offset $1$ and begins
 \[
-907, 13917, 199512, 3013228, 44555528, 665370612, 9895936900, 147440625572,\ \dots
+907, 13810, 200740, 3006936, 44555528, 664592224, 9887498224, 147292687568,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 36*a(n-1) -406*a(n-2) +404*a(n-3) +23747*a(n-4) -145816*a(n-5) -129968*a(n-6) +3736568*a(n-7) -7902612*a(n-8) -29701104*a(n-9) +128249776*a(n-10) +34934976*a(n-11) -780114560*a(n-12) +607369728*a(n-13) +2210927104*a(n-14) -3052507136*a(n-15) -2863537152*a(n-16) +5709414400*a(n-17) +1514283008*a(n-18) -4781309952*a(n-19) -281149440*a(n-20) +1658847232*a(n-21) +94371840*a(n-22) -150994944*a(n-23) for n>26
+Empirical: a(n) = 36*a(n-1) -406*a(n-2) +404*a(n-3) +23747*a(n-4) -145816*a(n-5) -129968*a(n-6) +3736568*a(n-7) -7902612*a(n-8) -29701104*a(n-9) +128249776*a(n-10) +34934976*a(n-11) -780114560*a(n-12) +607369728*a(n-13) +2210927104*a(n-14) -3052507136*a(n-15) -2863537152*a(n-16) +5709414400*a(n-17) +1514283008*a(n-18) -4781309952*a(n-19) -281149440*a(n-20) +1658847232*a(n-21) +94371840*a(n-22) -150994944*a(n-23) for n>25
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 13:59:25, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 13:58:44, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
@@ -49,9 +49,9 @@ of $n$ rows and $5$ columns; write $\sigma(i,j)$ for the value the entry's stati
 the subblock in position $(i,j)$, a function of its four entries
 $\begin{pmatrix}p&q\\r&s\end{pmatrix}$ alone. The condition is
 \[
-\sigma(i,j)\le\sigma(i+1,j),\qquad \sigma(i,j)\le\sigma(i,j+1),\qquad \sigma(i,j)\ge\sigma(i+1,j-1)
+\sigma(i,j)\le\sigma(i,j+1),\qquad \sigma(i,j)\le\sigma(i+1,j),\qquad \sigma(i,j)\le\sigma(i+1,j-1)
 \]
-whenever both positions exist. The entry writes the array with $n$ as the number of COLUMNS; transposing it exchanges the two coordinates of every direction, which is done once, and a direction that then points upward is turned round by reversing its inequality.
+whenever both positions exist.
 
 Three points of the English are fixed by the entries' own terms rather than guessed:
 ``ne-to-sw antidiagonally'' is the offset $(+1,-1)$ on the subblock grid, since the offset
@@ -96,13 +96,13 @@ pins the threshold exactly.
 \[
 a(n)\;=\;36\,a(n-1) - 406\,a(n-2) + 404\,a(n-3) + 23747\,a(n-4) - 145816\,a(n-5) - 129968\,a(n-6) + 3736568\,a(n-7) - 7902612\,a(n-8) - 29701104\,a(n-9) + 128249776\,a(n-10) + 34934976\,a(n-11) - 780114560\,a(n-12) + 607369728\,a(n-13) + 2210927104\,a(n-14) - 3052507136\,a(n-15) - 2863537152\,a(n-16) + 5709414400\,a(n-17) + 1514283008\,a(n-18) - 4781309952\,a(n-19) - 281149440\,a(n-20) + 1658847232\,a(n-21) + 94371840\,a(n-22) - 150994944\,a(n-23)
 \]
-for every $n>26$.
+for every $n>25$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $23$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=26+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=25+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -122,7 +122,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A253354.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A253347.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{davey} B.~A.~Davey and H.~A.~Priestley, \emph{Introduction to Lattices and

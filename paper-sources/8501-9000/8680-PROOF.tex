@@ -12,14 +12,14 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A250610, derived from the entry's generating function}
+\title{The empirical recurrence for OEIS A221764, derived from the entry's generating function}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A250610 carries an empirical recurrence of order $4$. The entry separately records a
+OEIS A221764 carries an empirical recurrence of order $4$. The entry separately records a
 generating function, not as a conjecture but as a statement of fact, and the recurrence is a
 consequence of it: multiplying the generating function by the polynomial the recurrence
 supplies gives a POLYNOMIAL, and the recurrence then holds at every index past that
@@ -33,30 +33,30 @@ checked here against every published term.
 
 \section{The two statements}
 
-OEIS A250610 is ``Number of (n+1) X (7+1) 0..1 arrays with nondecreasing x(i,j)-x(i,j-1) in the i direction and nondecreasing x(i,j)-x(i-1,j) in the j direction.''. It has offset $1$ and begins
+OEIS A221764 is ``Number of n X 3 arrays of occupancy after each element moves to some horizontal or vertical neighbor, without 2-loops or left turns.''. It has offset $1$ and begins
 \[
-1013, 2336, 4353, 7320, 11749, 18664, 30113, 50192,\ \dots
+0, 3, 16, 92, 536, 3125, 18216, 106174,\ \dots
 \]
 The entry states, as a conjecture and never marked settled:
 \begin{quote}
-Empirical: a(n) = 5*a(n-1) - 9*a(n-2) + 7*a(n-3) - 2*a(n-4).
+Empirical: a(n) = 8*a(n-1) - 14*a(n-2) + 8*a(n-3) - a(n-4).
 \end{quote}
 and, separately and NOT as a conjecture:
 \begin{quote}
-G.f.: x*(1013 - 2729*x + 1790*x\^{}2 - 512*x\^{}3) / ((1 - x)\^{}3*(1 - 2*x)). - \_Colin Barker\_, Nov 15 2018
+G.f.: x\^{}2*(3 - 8*x + 6*x\^{}2) / ((1 - x)\^{}2*(1 - 6*x + x\^{}2)).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Nov 15 2018 11:07:39, revision 8) the first is still
+As of the ``Last modified'' line on the live entry (Aug 10 2018 17:34:10, revision 8) the first is still
 recorded as empirical. This note derives it from the second.
 
 \section{A rational generating function decides every linear recurrence}
 
 Write
 \[
-G(x)\;=\;\sum_{n}a(n)\,x^{n}\;=\;\frac{- 512 x^{4} + 1790 x^{3} - 2729 x^{2} + 1013 x}{2 x^{4} - 7 x^{3} + 9 x^{2} - 5 x + 1},
+G(x)\;=\;\sum_{n}a(n)\,x^{n}\;=\;\frac{6 x^{4} - 8 x^{3} + 3 x^{2}}{x^{4} - 8 x^{3} + 14 x^{2} - 8 x + 1},
 \]
 the entry's own generating function, and let
 \[
-D(x)\;=\;1-\sum_i c_i x^{i}\;=\;2 x^{4} - 7 x^{3} + 9 x^{2} - 5 x + 1
+D(x)\;=\;1-\sum_i c_i x^{i}\;=\;x^{4} - 8 x^{3} + 14 x^{2} - 8 x + 1
 \]
 be the polynomial attached to the conjectured recurrence.
 
@@ -73,7 +73,7 @@ negative index being zero.
 
 \begin{theorem}
 \[
-a(n)\;=\;5\,a(n-1) - 9\,a(n-2) + 7\,a(n-3) - 2\,a(n-4)
+a(n)\;=\;8\,a(n-1) - 14\,a(n-2) + 8\,a(n-3) - a(n-4)
 \]
 for every $n>4$.
 \end{theorem}
@@ -81,7 +81,7 @@ for every $n>4$.
 \begin{proof}
 In exact arithmetic,
 \[
-D(x)\,G(x)\;=\;- 512 x^{4} + 1790 x^{3} - 2729 x^{2} + 1013 x,
+D(x)\,G(x)\;=\;6 x^{4} - 8 x^{3} + 3 x^{2},
 \]
 a POLYNOMIAL of degree $4$ --- the denominator of $G$ divides $D(x)$ times its numerator,
 which is precisely the condition for the conjectured recurrence to be implied by the
@@ -94,7 +94,7 @@ $n>4$.
 
 Cancelling common factors, $G$ has reduced denominator
 \[
-2 x^{4} - 7 x^{3} + 9 x^{2} - 5 x + 1,
+x^{4} - 8 x^{3} + 14 x^{2} - 8 x + 1,
 \]
 of degree $4$, and that degree is the order of the SHORTEST linear recurrence with
 constant coefficients the sequence obeys: any shorter one would give a polynomial multiple of
@@ -128,7 +128,7 @@ no amount of checking terms could establish on its own.
 Three checks.
 
 First, the generating function was expanded as a power series in exact rational arithmetic and
-compared against all $26$ terms the entry publishes: it reproduces every one. This is
+compared against all $21$ terms the entry publishes: it reproduces every one. This is
 what ties the recorded generating function to the sequence the recurrence is about.
 
 Second, the polynomial division above was carried out symbolically, not numerically, so the
@@ -147,7 +147,7 @@ entry already contains.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A250610.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A221764.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Rational generating functions, Section 4.1.)
 \bibitem{kp} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011.

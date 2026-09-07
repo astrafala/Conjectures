@@ -12,21 +12,21 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A223241, proved by a two-line transfer matrix}
+\title{The empirical recurrence for OEIS A223373, proved by a two-line transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A223241 counts arrays over $\{0,\dots,6\}$ in which every cell is constrained by the
+OEIS A223373 counts arrays over $\{0,\dots,8\}$ in which every cell is constrained by the
 values of its neighbours, and carries an empirical recurrence of order $2$ contributed
 by R.~H.~Hardin. It is true, and it is not an empirical matter. The neighbourhood reaches one
 row up and one row down, so a single row is not enough state and a plain walk count
 is wrong; the right object is a walk on ordered \emph{pairs} of consecutive rows, where
 each step tests the condition on the middle row against both its neighbours and the two
 ends are tested with one neighbour row absent. That makes $a(n)$ a walk count on a digraph
-with $S=2401$ vertices, and the conjectured recurrence is then decided by a finite exact
+with $S=6561$ vertices, and the conjectured recurrence is then decided by a finite exact
 computation.
 \end{abstract}
 
@@ -34,15 +34,15 @@ computation.
 
 \section{The sequence and the conjecture}
 
-OEIS A223241 is ``3-loop graph coloring a rectangular array: number of n X 2 0..6 arrays where 0..6 label nodes of a graph with edges 0,1 1,2 2,0 0,3 3,4 4,0 0,5 5,6 6,0 and every array movement to a horizontal or vertical neighbor moves along an edge of this graph.''. It has offset $1$ and begins
+OEIS A223373 is ``3 X 3 square grid graph coloring a rectangular array: number of n X 2 0..8 arrays where 0..8 label nodes of the square grid graph and every array movement to a horizontal or vertical neighbor moves along an edge of this graph.''. It has offset $1$ and begins
 \[
-18, 102, 642, 4086, 26034, 165894, 1057122, 6736278,\ \dots
+24, 144, 912, 5808, 37008, 235824, 1502736, 9575856,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
 Empirical: a(n) = 7*a(n-1) - 4*a(n-2).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Aug 17 2018 15:28:14, revision 8) the statement is
+As of the ``Last modified'' line on the live entry (Mar 16 2018 07:10:22, revision 7) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
@@ -54,14 +54,14 @@ for all $n>3$.
 \section{The condition, and why one row is not enough}
 
 The arrays have $2$ columns and $L=n$ rows; write $x_{t,u}$ for the entry in
-row $t$ and column $u$, each in $\{0,\dots,6\}$. With the neighbour offsets
+row $t$ and column $u$, each in $\{0,\dots,8\}$. With the neighbour offsets
 \[
 \mathcal N=\{(0,1),\ (1,0)\},
 \]
 written as (row shift, column shift) and counting only positions inside the array, the
 entry's requirement is
 \begin{equation}\label{eq:loc}
-\{x_{t,u},x_{t+d_1,u+d_2}\}\in E\ \text{ for every offset in }\mathcal N,\quad E=\{\{0,1\},\{0,2\},\{0,3\},\{0,4\},\{0,5\},\{0,6\},\{1,2\},\{3,4\},\{5,6\}\}
+\{x_{t,u},x_{t+d_1,u+d_2}\}\in E\ \text{ for every offset in }\mathcal N,\quad E=\text{the 3}\times\text{3 grid graph}
 \end{equation}
 for every cell $(t,u)$.
 
@@ -73,8 +73,8 @@ the state used below.
 
 \section{The digraph}
 
-Let $V=\{0,\dots,6\}^{2}$ be the possible rows and take
-$\mathcal V=V\times V$, of size $S=2401$, as the vertex set. Declare $(p,c)\to(c,x)$ an edge
+Let $V=\{0,\dots,8\}^{2}$ be the possible rows and take
+$\mathcal V=V\times V$, of size $S=6561$, as the vertex set. Declare $(p,c)\to(c,x)$ an edge
 when every cell of the middle row $c$ satisfies \eqref{eq:loc} with $p$ above it and $x$
 below it; there is no edge between pairs that do not overlap in this way. Let $N$ be the
 adjacency matrix, $\mathbf{v}$ the indicator of the pairs $(p,c)$ whose first row $p$
@@ -106,15 +106,15 @@ and ending vertices counts them.
 \end{proof}
 
 
-The size of $\mathcal V$ is worth seeing concretely. There are $6+1=7$ values
-and $2$ cells in a row, so $|V|=7^{2}=49$, and the vertex set is
-$V\times V$, of size $49^2=2401$. That is the whole of the state: two consecutive
+The size of $\mathcal V$ is worth seeing concretely. There are $8+1=9$ values
+and $2$ cells in a row, so $|V|=9^{2}=81$, and the vertex set is
+$V\times V$, of size $81^2=6561$. That is the whole of the state: two consecutive
 rows and nothing else about the array's history.
 
 It is worth saying why this is not done by enumeration. At the largest index the entry
 publishes, $n=19$, the arrays have $2\cdot19$ cells over
-$7$ values, so there are about $10^{32}$ of them to sift. The
-walk count replaces that by $2401$ states and one matrix--vector product per row.
+$9$ values, so there are about $10^{36}$ of them to sift. The
+walk count replaces that by $6561$ states and one matrix--vector product per row.
 \section{The criterion}
 
 Let $q(t)=t^{2}-\sum_i c_i\,t^{2-i}$ be the characteristic polynomial of
@@ -147,8 +147,8 @@ Section~1.
 \end{theorem}
 
 \begin{proof}
-The digraph was built directly from \eqref{eq:loc}: for each of the $S=2401$ pairs and each
-of the $(6+1)^{2}$ possible next rows, the condition was tested on every cell of
+The digraph was built directly from \eqref{eq:loc}: for each of the $S=6561$ pairs and each
+of the $(8+1)^{2}$ possible next rows, the condition was tested on every cell of
 the middle row. The vector $w$ was formed by $2$ applications of $G$ in exact integer
 arithmetic and $\mathbf{v}^{\!\top}G^{m}w$ evaluated for $m=0,1,\dots$, again exactly.
 Every one of those integers vanishes from the index corresponding to $n=3+1$ onwards,
@@ -183,7 +183,7 @@ returned zero throughout.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A223241.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A223373.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

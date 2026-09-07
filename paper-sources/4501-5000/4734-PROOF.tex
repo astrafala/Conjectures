@@ -12,14 +12,14 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A189613, proved by a two-line transfer matrix}
+\title{The empirical recurrence for OEIS A183306, proved by a two-line transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A189613 counts arrays over $\{0,\dots,1\}$ in which every cell is constrained by the
+OEIS A183306 counts arrays over $\{0,\dots,1\}$ in which every cell is constrained by the
 values of its neighbours, and carries an empirical recurrence of order $29$ contributed
 by R.~H.~Hardin. It is true, and it is not an empirical matter. The neighbourhood reaches one
 row up and one row down, so a single row is not enough state and a plain walk count
@@ -34,34 +34,34 @@ computation.
 
 \section{The sequence and the conjecture}
 
-OEIS A189613 is ``Number of nX5 binary arrays without the pattern 0 1 0 diagonally, antidiagonally or horizontally.''. It has offset $1$ and begins
+OEIS A183306 is ``Half the number of nX5 binary arrays with no element equal to a strict majority of its horizontal and vertical neighbors.''. It has offset $1$ and begins
 \[
-21, 441, 5238, 50024, 532565, 6110500, 69943253, 783072552,\ \dots
+3, 9, 42, 178, 910, 4212, 19899, 94217,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 16*a(n-1) -47*a(n-2) -126*a(n-3) +2471*a(n-4) -25560*a(n-5) +55367*a(n-6) -83579*a(n-7) -124019*a(n-8) +7300122*a(n-9) -7365184*a(n-10) -599459*a(n-11) -31727197*a(n-12) -754040572*a(n-13) +142951670*a(n-14) +953676928*a(n-15) +1891140440*a(n-16) +29553742000*a(n-17) +9452004592*a(n-18) -65219737520*a(n-19) -36827703408*a(n-20) -187343367808*a(n-21) -114093863744*a(n-22) +354967210752*a(n-23) +176354022912*a(n-24) +450092691456*a(n-25) +319703132160*a(n-26) -570350149632*a(n-27) -92906913792*a(n-28) +66527690752*a(n-29)
+Empirical: a(n)=9*a(n-1)-26*a(n-2)+24*a(n-3)+47*a(n-4)-157*a(n-5)-43*a(n-6)+641*a(n-7)-643*a(n-8)-952*a(n-9)+3460*a(n-10)-2021*a(n-11)-2111*a(n-12)+2715*a(n-13)-1249*a(n-14)-4657*a(n-15)-1514*a(n-16)+1961*a(n-17)-1230*a(n-18)+6713*a(n-19)+8832*a(n-20)+10212*a(n-21)+1971*a(n-22)-6552*a(n-23)-2819*a(n-24)-2898*a(n-25)-973*a(n-26)+302*a(n-27)+433*a(n-28)+286*a(n-29) for n>31
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 05:21:33, revision 9) the statement is
+As of the ``Last modified'' line on the live entry (Oct 03 2025 01:32:55, revision 9) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;16\,a(n-1) - 47\,a(n-2) - 126\,a(n-3) + 2471\,a(n-4) - 25560\,a(n-5) + 55367\,a(n-6) - 83579\,a(n-7) - 124019\,a(n-8) + 7300122\,a(n-9) - 7365184\,a(n-10) - 599459\,a(n-11) - 31727197\,a(n-12) - 754040572\,a(n-13) + 142951670\,a(n-14) + 953676928\,a(n-15) + 1891140440\,a(n-16) + 29553742000\,a(n-17) + 9452004592\,a(n-18) - 65219737520\,a(n-19) - 36827703408\,a(n-20) - 187343367808\,a(n-21) - 114093863744\,a(n-22) + 354967210752\,a(n-23) + 176354022912\,a(n-24) + 450092691456\,a(n-25) + 319703132160\,a(n-26) - 570350149632\,a(n-27) - 92906913792\,a(n-28) + 66527690752\,a(n-29)
+a(n)\;=\;9\,a(n-1) - 26\,a(n-2) + 24\,a(n-3) + 47\,a(n-4) - 157\,a(n-5) - 43\,a(n-6) + 641\,a(n-7) - 643\,a(n-8) - 952\,a(n-9) + 3460\,a(n-10) - 2021\,a(n-11) - 2111\,a(n-12) + 2715\,a(n-13) - 1249\,a(n-14) - 4657\,a(n-15) - 1514\,a(n-16) + 1961\,a(n-17) - 1230\,a(n-18) + 6713\,a(n-19) + 8832\,a(n-20) + 10212\,a(n-21) + 1971\,a(n-22) - 6552\,a(n-23) - 2819\,a(n-24) - 2898\,a(n-25) - 973\,a(n-26) + 302\,a(n-27) + 433\,a(n-28) + 286\,a(n-29)
 \end{equation}
-for all $n>30$.
+for all $n>31$.
 
 \section{The condition, and why one row is not enough}
 
 The arrays have $5$ columns and $L=n$ rows; write $x_{t,u}$ for the entry in
 row $t$ and column $u$, each in $\{0,\dots,1\}$. With the neighbour offsets
 \[
-\mathcal N=\{(1,1),\ (1,-1),\ (0,1)\},
+\mathcal N=\{(0,-1),\ (0,1),\ (-1,0),\ (1,0)\},
 \]
 written as (row shift, column shift) and counting only positions inside the array, the
 entry's requirement is
 \begin{equation}\label{eq:loc}
-\text{no }0,1,0\text{ occurs consecutively along any direction in }\mathcal N
+2\,\#\{\text{neighbours }y\text{ with }y=x_{t,u}\}\le\#\{\text{neighbours}\}
 \end{equation}
 for every cell $(t,u)$.
 
@@ -89,7 +89,7 @@ For $L\ge2$, the arrays counted by the entry with $L$ rows are exactly the walks
 of length $L-2$ starting at a vertex marked by $\mathbf{v}$ and ending at one marked by
 $\mathbf{u}$. Consequently
 \[
-a(n)\;=\;\,\mathbf{v}^{\!\top}N^{\,L-2}\mathbf{u},\qquad L=n .
+a(n)\;=\;\tfrac1{2}\,\mathbf{v}^{\!\top}N^{\,L-2}\mathbf{u},\qquad L=n .
 \]
 \end{lemma}
 
@@ -112,8 +112,8 @@ $V\times V$, of size $32^2=1024$. That is the whole of the state: two consecutiv
 rows and nothing else about the array's history.
 
 It is worth saying why this is not done by enumeration. At the largest index the entry
-publishes, $n=16$, the arrays have $5\cdot16$ cells over
-$2$ values, so there are about $10^{24}$ of them to sift. The
+publishes, $n=22$, the arrays have $5\cdot22$ cells over
+$2$ values, so there are about $10^{33}$ of them to sift. The
 walk count replaces that by $1024$ states and one matrix--vector product per row.
 \section{The criterion}
 
@@ -125,7 +125,7 @@ $1$ row.
 Let $n_0$ be the least index with $L\ge2$ and $h_j=G^{j}N^{o}\mathbf{u}$, where
 $o=1n_0+0-2$. Then for $j\ge29$,
 \[
-a(n_0+j)-\sum_i c_i\,a(n_0+j-i)\;=\;\,\mathbf{v}^{\!\top}G^{\,j-29}w,
+a(n_0+j)-\sum_i c_i\,a(n_0+j-i)\;=\;\tfrac1{2}\,\mathbf{v}^{\!\top}G^{\,j-29}w,
 \qquad w=h_{29}-\sum_i c_i\,h_{29-i} .
 \]
 Hence \eqref{eq:conj} holds from that point on if and only if
@@ -135,14 +135,14 @@ $m=0,1,\dots,S-1$.
 
 \begin{proof}
 Substitute Lemma~\ref{lem:walk} and factor $G^{j-29}$ out of
-$G^{j}-\sum_ic_iG^{j-i}$; the nonzero scalar $1$ does not affect
+$G^{j}-\sum_ic_iG^{j-i}$; the nonzero scalar $\tfrac1{2}$ does not affect
 vanishing. For the last clause, Cayley--Hamilton makes $G^{S}$ an integer combination of
 $I,G,\dots,G^{S-1}$, so $\mathbf{v}^{\!\top}G^{m}w$ for $m\ge S$ is the corresponding
 combination of the earlier values; if those vanish, so do all the rest.
 \end{proof}
 
 \begin{theorem}
-The recurrence \eqref{eq:conj} holds for every $n>30$, which is the statement of
+The recurrence \eqref{eq:conj} holds for every $n>31$, which is the statement of
 Section~1.
 \end{theorem}
 
@@ -151,7 +151,7 @@ The digraph was built directly from \eqref{eq:loc}: for each of the $S=1024$ pai
 of the $(1+1)^{5}$ possible next rows, the condition was tested on every cell of
 the middle row. The vector $w$ was formed by $29$ applications of $G$ in exact integer
 arithmetic and $\mathbf{v}^{\!\top}G^{m}w$ evaluated for $m=0,1,\dots$, again exactly.
-Every one of those integers vanishes from the index corresponding to $n=30+1$ onwards,
+Every one of those integers vanishes from the index corresponding to $n=31+1$ onwards,
 and the run was continued until $S+1$ consecutive zeros had been seen, which by
 Lemma~\ref{lem:crit} settles every larger $m$ at once.
 \end{proof}
@@ -168,7 +168,7 @@ divisor of $q$.
 Three checks, each independent of the algebra above.
 
 First, the walk counts of Lemma~\ref{lem:walk} were compared against the entry's DATA at
-every one of the $16$ published indices, with no shift fitted: the number of rows is
+every one of the $22$ published indices, with no shift fitted: the number of rows is
 read off the entry's own name as $L=n$ and the entry's offset says which index the first
 published term carries. The values agree exactly. A misreading of \eqref{eq:loc}, of the
 neighbour set, or of the boundary treatment would give a different digraph and different
@@ -183,7 +183,7 @@ returned zero throughout.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A189613.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A183306.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

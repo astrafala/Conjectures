@@ -12,16 +12,16 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A234699, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A234487, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A234699 counts $4$-column arrays over $\{0,\dots,7\}$ in which every
+OEIS A234487 counts $6$-column arrays over $\{0,\dots,3\}$ in which every
 $2\times2$ subblock has its diagonal sum differing from its antidiagonal sum by
-exactly $5$, and it
+exactly $2$, and it
 carries an empirical recurrence of order $31$ contributed by R.~H.~Hardin. It is true,
 and it is not an empirical matter: the condition constrains only consecutive pairs of rows,
 so the rows are the vertices of a finite digraph and an $(n+1)$-row array is a walk of
@@ -37,23 +37,23 @@ $S$ consecutive zeros settle every later one. The whole test is finite and exact
 
 \section{The sequence and the conjecture}
 
-OEIS A234699 is ``Number of (n+1) X (3+1) 0..7 arrays with every 2 X 2 subblock having its diagonal sum differing from its antidiagonal sum by 5 (constant-stress 1 X 1 tilings).''. It has offset
+OEIS A234487 is ``Number of (n+1) X (5+1) 0..3 arrays with every 2 X 2 subblock having its diagonal sum differing from its antidiagonal sum by 2 (constant-stress 1 X 1 tilings).''. It has offset
 $1$ and begins
 \[
-16848, 74308, 329984, 1558600, 7424496, 37338544, 189345872,\ \dots
+14402, 51950, 187196, 677138, 2455350, 8928348, 32545706,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 20*a(n-1) +141*a(n-2) -5340*a(n-3) +5451*a(n-4) +616740*a(n-5) -2678805*a(n-6) -39706740*a(n-7) +278440182*a(n-8) +1491646680*a(n-9) -16092380232*a(n-10) -27470360160*a(n-11) +601403119168*a(n-12) -194332088960*a(n-13) -15257818574160*a(n-14) +26729605928640*a(n-15) +263906583339744*a(n-16) -801813357648000*a(n-17) -2982678610973184*a(n-18) +13948745101747200*a(n-19) +18588639920403456*a(n-20) -156794289434542080*a(n-21) -1681574850293760*a(n-22) +1140373919202508800*a(n-23) -1022866437252096000*a(n-24) -5015897891205120000*a(n-25) +8536532135362560000*a(n-26) +10656426280550400000*a(n-27) -31534442652303360000*a(n-28) +815374290124800000*a(n-29) +46191901645209600000*a(n-30) -31856483893248000000*a(n-31).
+Empirical: a(n) = 21*a(n-1) -128*a(n-2) -301*a(n-3) +6470*a(n-4) -16377*a(n-5) -92720*a(n-6) +529264*a(n-7) +144134*a(n-8) -6281248*a(n-9) +8587390*a(n-10) +35733302*a(n-11) -92619285*a(n-12) -93289189*a(n-13) +447345822*a(n-14) +55762321*a(n-15) -1262355944*a(n-16) +278493999*a(n-17) +2300746886*a(n-18) -753516820*a(n-19) -2817152264*a(n-20) +837146044*a(n-21) +2311698968*a(n-22) -448826360*a(n-23) -1224869744*a(n-24) +85822528*a(n-25) +391294592*a(n-26) +16553184*a(n-27) -67375296*a(n-28) -8961408*a(n-29) +4757760*a(n-30) +967680*a(n-31).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jun 20 2022 00:40:57, revision 6) the statement is
+As of the ``Last modified'' line on the live entry (Jun 19 2022 02:17:50, revision 6) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;20\,a(n-1) + 141\,a(n-2) - 5340\,a(n-3) + 5451\,a(n-4) + 616740\,a(n-5) - 2678805\,a(n-6) - 39706740\,a(n-7) + 278440182\,a(n-8) + 1491646680\,a(n-9) - 16092380232\,a(n-10) - 27470360160\,a(n-11) + 601403119168\,a(n-12) - 194332088960\,a(n-13) - 15257818574160\,a(n-14) + 26729605928640\,a(n-15) + 263906583339744\,a(n-16) - 801813357648000\,a(n-17) - 2982678610973184\,a(n-18) + 13948745101747200\,a(n-19) + 18588639920403456\,a(n-20) - 156794289434542080\,a(n-21) - 1681574850293760\,a(n-22) + 1140373919202508800\,a(n-23) - 1022866437252096000\,a(n-24) - 5015897891205120000\,a(n-25) + 8536532135362560000\,a(n-26) + 10656426280550400000\,a(n-27) - 31534442652303360000\,a(n-28) + 815374290124800000\,a(n-29) + 46191901645209600000\,a(n-30) - 31856483893248000000\,a(n-31)
+a(n)\;=\;21\,a(n-1) - 128\,a(n-2) - 301\,a(n-3) + 6470\,a(n-4) - 16377\,a(n-5) - 92720\,a(n-6) + 529264\,a(n-7) + 144134\,a(n-8) - 6281248\,a(n-9) + 8587390\,a(n-10) + 35733302\,a(n-11) - 92619285\,a(n-12) - 93289189\,a(n-13) + 447345822\,a(n-14) + 55762321\,a(n-15) - 1262355944\,a(n-16) + 278493999\,a(n-17) + 2300746886\,a(n-18) - 753516820\,a(n-19) - 2817152264\,a(n-20) + 837146044\,a(n-21) + 2311698968\,a(n-22) - 448826360\,a(n-23) - 1224869744\,a(n-24) + 85822528\,a(n-25) + 391294592\,a(n-26) + 16553184\,a(n-27) - 67375296\,a(n-28) - 8961408\,a(n-29) + 4757760\,a(n-30) + 967680\,a(n-31)
 \end{equation}
-for all $n>30$, which is every $n$ at which a recurrence of order $31$ can be
+for all $n>31$, which is every $n$ at which a recurrence of order $31$ can be
 stated.
 
 \section{The rows form a digraph}
@@ -62,13 +62,13 @@ In a $2\times2$ subblock with top row $(r_j,r_{j+1})$ and bottom row $(s_j,s_{j+
 diagonal sum is $r_j+s_{j+1}$ and the antidiagonal sum is $r_{j+1}+s_j$, so the entry's
 condition on that subblock reads
 \[
-\bigl|\,r_j+s_{j+1}-r_{j+1}-s_j\,\bigr|\;=\;5.
+\bigl|\,r_j+s_{j+1}-r_{j+1}-s_j\,\bigr|\;=\;2.
 \]
 Every such condition involves two consecutive rows only.
 
-Let $V$ consist of all of $\{0,\dots,7\}^{4}$, and put $S=|V|=4096$. For $r,s\in V$ declare $r\to s$ an edge
-when $\bigl|r_j+s_{j+1}-r_{j+1}-s_j\bigr|=5$ for every $j$ with
-$1\le j\le4-1$. Let $M\in\{0,1\}^{S\times S}$ be the adjacency matrix and $\mathbf{1}$
+Let $V$ consist of all of $\{0,\dots,3\}^{6}$, and put $S=|V|=4096$. For $r,s\in V$ declare $r\to s$ an edge
+when $\bigl|r_j+s_{j+1}-r_{j+1}-s_j\bigr|=2$ for every $j$ with
+$1\le j\le6-1$. Let $M\in\{0,1\}^{S\times S}$ be the adjacency matrix and $\mathbf{1}$
 the all-ones vector.
 
 \begin{lemma}\label{lem:walk}
@@ -78,7 +78,7 @@ $a(n)=\mathbf{1}^{\!\top}M^{n}\mathbf{1}$.
 \end{lemma}
 
 \begin{proof}
-An array with $n+1$ rows and $4$ columns is a sequence $r^{(0)},\dots,r^{(n)}$ of
+An array with $n+1$ rows and $6$ columns is a sequence $r^{(0)},\dots,r^{(n)}$ of
 rows. Each of its $2\times2$ subblocks lies in two vertically adjacent rows
 $r^{(i)},r^{(i+1)}$ and two horizontally adjacent columns $j,j+1$, so the array satisfies
 the entry's condition on all subblocks precisely when every consecutive pair of rows is an
@@ -116,16 +116,16 @@ forward.
 \section{The computation}
 
 \begin{theorem}
-The recurrence \eqref{eq:conj} holds for every $n>30$. This is the statement of
+The recurrence \eqref{eq:conj} holds for every $n>31$. This is the statement of
 Section~1.
 \end{theorem}
 
 \begin{proof}
 The vector $q(M)\mathbf{1}\in\mathbb{Z}^{S}$ was formed by $31$ matrix--vector
 products in exact integer arithmetic and the values $u_j$ evaluated for
-$j=0,1,\dots$. They vanish from $j=30-31+1$ onwards, and the run was continued past
+$j=0,1,\dots$. They vanish from $j=31-31+1$ onwards, and the run was continued past
 $S$ consecutive zeros, which by Lemma~\ref{lem:crit} settles every larger $j$. Hence the
-recurrence holds for every $n>30$.
+recurrence holds for every $n>31$.
 \end{proof}
 
 \section{Verification}
@@ -134,7 +134,7 @@ Three checks, each independent of the algebra above.
 
 First, the digraph was built directly from the entry's stated condition and the walk counts
 $\mathbf{1}^{\!\top}M^{n}\mathbf{1}$ compared against the entry's DATA at every one of
-the $17$ published indices; the values agree exactly. That is what ties the digraph to
+the $18$ published indices; the values agree exactly. That is what ties the digraph to
 the sequence: a model reproducing only some published terms would be the wrong model and
 was rejected wherever it occurred.
 
@@ -146,7 +146,7 @@ zeros rather than to a sampled prefix, in exact integer arithmetic.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A234699.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A234487.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

@@ -12,33 +12,33 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A232337, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A232060, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A232337 counts arrays of width $3$ over $\{0,1,2\}$ in which every cell carrying one stated
+OEIS A232060 counts arrays of width $3$ over $\{0,1,2\}$ in which every cell carrying one stated
 value must have a neighbour carrying another. The entry carries an empirical recurrence of
 order $8$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
 empirical: a cell's neighbours lie in three consecutive rows, so the count is a walk count on
-$S=110$ states.
+$S=124$ states.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 05C15, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A232337 is ``Number of 3 X n 0..2 arrays with every 0 next to a 1 and every 1 next to a 2 horizontally or antidiagonally, with no adjacent elements equal.''. It has offset $1$ and begins
+OEIS A232060 is ``Number of n X 3 0..2 arrays with every 0 next to a 1 and every 1 next to a 2 horizontally or vertically, with no adjacent values equal.''. It has offset $1$ and begins
 \[
-1, 16, 74, 154, 628, 1470, 5530, 13906,\ \dots
+4, 14, 46, 130, 410, 1194, 3722, 10942,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = a(n-1) + 7*a(n-2) - 3*a(n-3) + 3*a(n-4) - 7*a(n-5) + 2*a(n-6) - 2*a(n-7) + 2*a(n-8) for n>12.
+Empirical: a(n) = a(n-1) + 7*a(n-2) - 3*a(n-3) + 3*a(n-4) - 7*a(n-5) + 2*a(n-6) - 2*a(n-7) + 2*a(n-8).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 05 2018 11:03:40, revision 7) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2018 05:54:47, revision 8) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
@@ -46,7 +46,7 @@ recorded as empirical, and nothing on the entry records it as proved.
 The array has $3$ cells across, with entries in $\{0,1,2\}$. The NEIGHBOURS of a cell are the
 cells reached from it by the offsets
 \[
-(-1,0), (-1,1), (1,-1), (1,0),
+(-1,0), (0,-1), (0,1), (1,0),
 \]
 those lying inside the array. The entry asks that
 \begin{itemize}
@@ -54,7 +54,7 @@ those lying inside the array. The entry asks that
 \item every cell carrying $1$ has at least one neighbour carrying $2$;
 \item no two neighbouring cells carry equal values.
 \end{itemize}
-A cell whose value is not named on the left of any clause is unconstrained. The entry writes the array with $n$ as the number of COLUMNS; the walk is run down the transpose, so the offsets above are already the transposed ones. Each direction is taken with both signs, so transposing cannot lose one.
+A cell whose value is not named on the left of any clause is unconstrained.
 
 \section{Three rows decide one}
 
@@ -76,7 +76,7 @@ the end vector is therefore not the all-ones vector, and a row whose cells find 
 only because a further row is written below them does not finish an array. With $M$ the
 adjacency matrix,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=110.
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=124.
 \]
 The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
 published terms rather than assumed. In particular $a$ is $C$-finite.
@@ -103,13 +103,13 @@ pins the threshold exactly.
 \[
 a(n)\;=\;a(n-1) + 7\,a(n-2) - 3\,a(n-3) + 3\,a(n-4) - 7\,a(n-5) + 2\,a(n-6) - 2\,a(n-7) + 2\,a(n-8)
 \]
-for every $n>12$.
+for every $n>8$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $8$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=12+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=8+1$ onwards and the run continued
 until the working vector was identically zero.
 \end{proof}
 
@@ -133,7 +133,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A232337.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A232060.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge

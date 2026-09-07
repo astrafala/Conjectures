@@ -192,7 +192,7 @@ Later is not earlier.
 
 ## 7. Scope
 
-100 distinct arguments across 9245 entries. The full breakdown is in
+100 distinct arguments across 9248 entries. The full breakdown is in
 [papers/index.csv](papers/index.csv); the largest groups:
 
 | Papers | Argument | What it settles |
