@@ -99,6 +99,11 @@ def terms(en, p, b, N):
     if en in PAIR:
         adj, start, end, S = b
         f = p['frac']
+        # an engine whose model is exact only past some board size supplies its own terms,
+        # so the exceptional sizes can be counted on their own boards instead of by the
+        # matrix. Everything else keeps the plain walk count.
+        if hasattr(M[en], 'terms_p'):
+            return [Fraction(v, f) for v in M[en].terms_p(p, b, N)]
         return [Fraction(v, f) for v in M[en].terms(adj, start, end, N)]
     if en == 'transfer25':
         adj, start, end, S, den = b        # weighted adjacency, its own matvec
@@ -131,6 +136,10 @@ def threshold(en, p, b, coeffs, order):
         st, adj = b
         return M[en].threshold(adj, len(st), coeffs, order)
     if en in PAIR:
+        if hasattr(M[en], 'threshold_p'):
+            # the same engines raise their own floor: a residual reading a term the matrix
+            # does not certify cannot be certified by it either, so the bound moves out
+            return M[en].threshold_p(p, b, coeffs, order)
         adj, start, end, S = b
         # States with the same future contribute identically to iota^T M^n tau, so merging
         # them changes no count. The annihilation test's length is governed by the state

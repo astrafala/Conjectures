@@ -275,3 +275,46 @@ widths 3 to 6 the row profile of distances is periodic with period 4 away from t
 which is what a transfer matrix needs; widths 7 and 8 show no period up to 12 in the window
 tested. The bottom edge of the board perturbs distances in its last rows and needs a
 separate finish. That is the next target, written down rather than quietly skipped.
+
+### The knight-distance chunk (19 entries): reading pinned, model correct, one lemma short
+
+Following the chunk rule, this was taken as the biggest new family. Where it stands:
+
+**The reading is pinned.** Writing $w = d - v$ for $d$ the knight distance from the corner
+turns the entry's two conditions into one: $w$ takes values in $\{0,\dots,s\}$ and rises by
+$0$ or $1$ along every minimum-path knight move. Direct enumeration of those labellings
+reproduces A253112's published 53, 272, 1342.
+
+**The model is correct.** A row-by-row count using each board's own distances reproduces
+*every* published term of the fifteen entries of widths 3 to 7 — 26 terms for A253112, 34
+for A253417, 22 for A253113. Widths 8 and 9 (four entries) show no period and are refused.
+
+**Two facts about the board were measured.** Knight distances on a strip do not depend on
+the board's height at all, except for heights 2, 3 and 4 — so one distance function serves
+every board and those three heights are counted on their own boards. And the local structure
+the transfer needs repeats with period 4, from row 5 for widths 3 and 4, row 7 for width 5,
+row 9 for width 6, row 11 for width 7.
+
+**The mistake.** The first measurement of that offset compared the wrong thing: it checked
+the minimum-path edges within rows $i-1, i, i+1$, but the transfer also needs the edges
+between rows $i-2$ and $i$, and those settle one row later. The engine built on it matched
+the first six published terms of A253112 and undercounted every term after. Caught by the
+DATA gate, which compares against the whole published sequence and not a prefix. Fixed; with
+the corrected offsets the model matches everything.
+
+**What is still missing, exactly.** The transfer matrix exists only if the structure really
+does repeat forever, which is the claim $d(i+4,j) = d(i,j) + 2$ for every column once $i$ is
+large. The inequality $\le$ is immediate: the moves $(2,1)$ then $(2,-1)$ drop four rows and
+return to the same column. The inequality $\ge$ is not proved, and a finite check over a few
+hundred rows is evidence, not proof. So `transfer88` is written, its reading pinned, and
+deliberately **not registered**: nothing it certified would be safe to count.
+
+**The proof strategy, written down so it can be executed rather than rediscovered.** Every
+move changes the row by at most 2, so $d(i,j) \ge \lceil i/2 \rceil$; and iterating the
+two-move drop gives $d(i,j) \le \lceil i/2 \rceil + K$ for a constant $K$ computable from the
+first few rows. A shortest path to $(i,j)$ that dipped $k$ rows below would have length at
+least $\lceil i/2 \rceil + \lfloor k/2 \rfloor$, so $k \le 2K+1$: **a shortest path never
+dips more than a bounded distance below its target.** The distances on rows up to $i$ are
+therefore determined by a window of $2K+2$ rows, the strip is invariant under shifting by a
+row, and the induction closes once one window is checked to repeat — a finite check. That
+turns the measured periodicity into a proof and settles all fifteen.
