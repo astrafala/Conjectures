@@ -32,8 +32,15 @@ import localentry as LE
 # Many of these entries count a quotient: "Half the number of ...", "1/4 the number of ...".
 # Ignoring the divisor makes the brute force disagree by exactly that factor and report three
 # perfectly sound papers as wrong, which is what it did before this was added.
-DIV = re.compile(r'(?i)^\s*(?:(half|a third|a quarter)|1\s*/\s*(\d+))\s+the number of\b')
-_WORD = {'half': 2, 'a third': 3, 'a quarter': 4}
+# The divisor is not always the first thing in the name: "a(n) is half the number of ..." and
+# "T(n,k) = 1/4 the number of ..." put it after a label. Anchoring on the start missed those
+# and the brute force then disagreed with a sound paper by exactly the factor it had dropped
+# --- which is how A209944 came back at twice the entry.
+DIV = re.compile(r'(?i)^\s*(?:[a-z]\([^)]*\)\s*(?:is|=)\s*)?'
+                 r'(?:(half|one half|a third|one third|a quarter|one quarter)'
+                 r'|1\s*/\s*(\d+))\s*(?:of\s+)?the number of\b')
+_WORD = {'half': 2, 'one half': 2, 'a third': 3, 'one third': 3, 'a quarter': 4,
+         'one quarter': 4}
 
 # "(n+1)X(3+1) 0..2", "nX4 0..1", "(n+2)X(2+2) 0..3"
 SHAPE = re.compile(r'(?i)(?:^|\s)(\(?n(?:\+(\d+))?\)?)\s*X\s*(?:\((\d+)\+(\d+)\)|(\d+))'
