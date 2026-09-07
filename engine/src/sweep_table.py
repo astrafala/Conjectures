@@ -16,13 +16,10 @@ import json, re, os, sys, collections, importlib
 from math import factorial
 import localentry as LE, ratrec, openness, tablecol, uniform
 
-# transfer3 is the constant-stress family; its name regex is the most specific of the set,
-# so trying it first cannot steal a name from another engine. Its interface differs from the
-# rest -- parse_name returns a tuple, build takes four positional arguments, and terms and
-# threshold live in transfer2 -- so it is dispatched separately below.
-ENG = ['transfer3', 'transfer9', 'transfer6', 'transfer16', 'transfer12', 'transfer10',
-       'transfer8', 'transfer14', 'transfer11', 'transfer15', 'transfer13', 'transfer7']
-M = {e: importlib.import_module(e) for e in ENG}
+# There is no engine list here any more. It named twelve engines, which was all of them when
+# this was written and is now twelve of eighty-three, and every table needing one of the
+# other seventy-one was reported as unreadable. `uniform` is the one place that knows them
+# all, and it handles the engines whose interface differs.
 import transfer2 as T2
 SCALED = ('transfer7', 'transfer8', 'transfer10', 'transfer12', 'transfer16')
 CAP = int(sys.argv[1]) if len(sys.argv) > 1 else 20000
@@ -104,28 +101,23 @@ for a in sorted(names):
         rn = tablecol.rewrite(nm, c)
         if rn is None:
             skipped.append((c, 'name not rewritable')); continue
-        p = eng = None
-        for en in ENG:
-            try:
-                q = M[en].parse_name(rn)
-            except Exception:
-                q = None
-            if q:
-                p, eng = ({'t3': q} if en == 'transfer3' else q), en; break
-        if p is None:
-            skipped.append((c, 'no engine reads it')); continue
+        # This used to try a list of twelve engines written into this file, which was the
+        # full set when it was written and is now twelve of eighty-three. Every table whose
+        # column model needs any engine added since -- transfer17 through transfer93, the
+        # whole pair-free family among them -- was reported as "no engine reads it" and
+        # dropped, 434 entries of them. `uniform` knows all eighty-three and handles
+        # transfer3's different interface itself, so the list is gone.
+        got = None
         try:
-            if eng == 'transfer3':
-                t3cols, t3alpha, _, _ = p['t3']
-                if (t3alpha + 1) ** t3cols > CAP:
-                    skipped.append((c, 'state space > cap')); continue
-                b = M[eng].build(*p['t3'])
-                if not b[0]:
-                    skipped.append((c, 'empty state space')); continue
-            else:
-                try: b = M[eng].build(p, cap=CAP)
-                except TypeError: b = M[eng].build(p)
-        except Exception as ex:
+            got = uniform.read(rn)
+        except Exception:
+            got = None
+        if not got:
+            skipped.append((c, 'no engine reads it')); continue
+        eng, p = got
+        try:
+            b = uniform.build(eng, p, CAP)
+        except Exception:
             skipped.append((c, 'build failed')); continue
         if b is None:
             skipped.append((c, 'state space > cap')); continue
