@@ -44,7 +44,12 @@ roster = {r['anum'] for r in json.load(open('rank-map.json'))}
 # and the integrator reads only its own fields -- but the two runs were mixed in one
 # file and only a KeyError on a missing field made it visible.
 SHARD, NSHARD = int(sys.argv[2]), int(sys.argv[3])
-HITS, DONE = f'shard_hits_{SHARD}.json', f'shard_done_{SHARD}.json'
+# Two sweeps running at once on different pools must not share files: each holds its whole
+# hit list in memory and writes it back whole, so sharing one would have each silently
+# discard the other's results. TAG gives a run its own namespace; without it the names are
+# the ones every earlier run used, so nothing already on disk moves.
+TAG = os.environ.get('TAG', '')
+HITS, DONE = f'shard{TAG}_hits_{SHARD}.json', f'shard{TAG}_done_{SHARD}.json'
 # the shard skips what the global sweep has already settled, but never writes those files
 GDONE = set(json.load(open('uniall_done.json'))) if os.path.exists('uniall_done.json') else set()
 GHITS = ({h['anum'] for h in json.load(open('uniall_hits.json'))}
@@ -54,7 +59,7 @@ done = set(json.load(open(DONE))) if os.path.exists(DONE) else set()
 # The standing rule is that a cap is a setting and not a wall, so a refusal is only
 # meaningful next to the cap it was made at. Without this the refused pool cannot be told
 # apart from the pool already re-tried at a higher cap, and the same work gets redone.
-CAPS = f'shard_caps_{SHARD}.json'
+CAPS = f'shard{TAG}_caps_{SHARD}.json'
 caps = json.load(open(CAPS)) if os.path.exists(CAPS) else {}
 res = collections.Counter()
 
