@@ -38,4 +38,36 @@ def rewrite(name, k):
     s2 = sub_dim(s)
     if 'k' in re.sub(r'[a-zA-Z]k|k[a-zA-Z]', '', s2):
         return None                     # a k survived somewhere unexpected
-    return s2
+    return _tidy(s2)
+
+
+def _tidy(s):
+    """Drop a trailing parenthetical remark and the parentheses round a substituted width.
+
+    A table name often ends with an aside about the table rather than about the arrays ---
+    "(2 maximizes T(1,1))", "(constant-stress 1 X 1 tilings)" --- and no engine's name regex
+    expects it, so 192 tables were being reported unreadable for a remark that says nothing
+    about what is counted. The remark can itself contain brackets, so it is matched from the
+    end rather than with a flat pattern. The substitution above also leaves the width in
+    brackets, "(n+1)X(3)", where the engines are written for "(n+1)X3".
+    """
+    s = re.sub(r'X\s*\(\s*(\d+)\s*\)', lambda m: 'X' + m.group(1), s)
+    t = s.rstrip()
+    dot = t.endswith('.')
+    if dot:
+        t = t[:-1]
+    if t.endswith(')'):
+        depth = 0
+        for i in range(len(t) - 1, -1, -1):
+            if t[i] == ')':
+                depth += 1
+            elif t[i] == '(':
+                depth -= 1
+                if depth == 0:
+                    head = t[:i].rstrip()
+                    # only an ASIDE is dropped: if the brackets are part of the sentence the
+                    # head would not read as a complete name, so require it to end in a word
+                    if re.search(r'[A-Za-z0-9]$', head):
+                        return head + ('.' if dot else '')
+                    break
+    return s
