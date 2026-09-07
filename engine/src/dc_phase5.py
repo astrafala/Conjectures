@@ -25,9 +25,22 @@ import sys
 import zlib
 from fractions import Fraction
 
+import bmrec
 import localentry as LE
 import repopaths
 import uniform
+
+# `uniall_hits.json` labels the order-line recoveries with the name of the VEIN, not of a
+# transfer engine: there is no `uniform.M['ordwhole']`, and Phase 5 was reporting eight
+# perfectly sound papers as disagreements for that reason alone. The engine each of those
+# papers actually used is recorded in the sweep's own file, so the rebuild reads it from
+# there. Those papers also make a claim no other paper makes -- that the recurrence the
+# entry states is the MINIMAL one, which is what makes it unique and hence proved -- so the
+# minimal order is recomputed from scratch too, not read back.
+ORDW = {}
+if os.path.exists('ordwhole_hits.json'):
+    ORDW = {h['anum']: h for h in json.load(open('ordwhole_hits.json'))}
+P62 = (1 << 61) - 1
 
 
 class Timeout(Exception):
@@ -66,6 +79,12 @@ for h in sorted(hits, key=lambda x: x['anum']):
     if not got:
         skip(a, 'no engine reads the name now'); save(); continue
     en, p = got
+    if h['engine'] == 'ordwhole':
+        o = ORDW.get(a)
+        if not o:
+            skip(a, 'order-line record missing'); save(); continue
+        h = dict(h, engine=o['engine'], nthr=o.get('nthr'), stated=o.get('stated'),
+                 order=o.get('order'))
     if en != h['engine']:
         # Two engines reading the same name is an OVERLAP, not a defect: engines written
         # later generalise earlier ones, and `uniform.read` returns whichever comes first in
@@ -108,6 +127,37 @@ for h in sorted(hits, key=lambda x: x['anum']):
     if sh is None:
         state['bad'].append([a, 'the rebuilt model no longer reproduces the published DATA'])
         save(); continue
+    if a in ORDW and ORDW[a].get('stated') is not None:
+        # The paper's claim is that no SHORTER recurrence holds, so a recurrence of the
+        # stated order is forced to be this one. Recompute the minimal order over a large
+        # prime and then exactly over Q; both must come back at the stated order.
+        stated = ORDW[a]['stated']
+        try:
+            signal.alarm(BUDGET)
+            need = 2 * ORDW[a]['Smerged'] + max(8, stated + 4)
+            tt = uniform.terms(en, p, b, need + off + 5)
+            signal.alarm(0)
+        except Timeout:
+            signal.alarm(0); skip(a, 'order-line terms timed out'); save(); continue
+        except Exception:
+            signal.alarm(0); skip(a, 'order-line terms raised'); save(); continue
+        sq = [x.numerator for x in tt[sh:] if x is not None and x.denominator == 1]
+        if len(sq) < 2 * ORDW[a]['Smerged'] + 4:
+            skip(a, 'too few exact terms to recompute the minimal order'); save(); continue
+        L0 = bmrec.bm_mod([v % P62 for v in sq], P62)
+        if L0 != stated:
+            state['bad'].append([a, f'minimal order recomputed as {L0}, the paper needs it '
+                                    f'to be {stated}'])
+            save(); continue
+        Lx, cs = bmrec.bm([Fraction(v) for v in sq])
+        if Lx != stated or any(c.denominator != 1 for c in cs):
+            state['bad'].append([a, 'the minimal recurrence over Q is no longer integral of '
+                                    'the stated order'])
+            save(); continue
+        if {i + 1: int(c) for i, c in enumerate(cs)} != coeffs:
+            state['bad'].append([a, 'the recomputed minimal recurrence is not the one the '
+                                    'paper prints'])
+            save(); continue
     try:
         signal.alarm(BUDGET)
         thr = uniform.threshold(en, p, b, coeffs, order)
