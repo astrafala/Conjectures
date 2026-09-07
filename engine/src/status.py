@@ -30,6 +30,10 @@ def main():
             for h in (L(f) or []):
                 if isinstance(h, dict) and h.get('anum') and h['anum'] not in roster:
                     new.add(h['anum'])
+    # the tail sweep's proofs are results too and belong in the total, not only in its own
+    # line: a headline count that leaves out a whole sweep is the kind of number that drifts
+    t = L('ordtails.json') or {}
+    new |= {x['anum'] for x in t.get('proved', []) if x['anum'] not in roster}
     out = [f'NEW {len(new)}']
     ok = bad = sk = 0
     for f in glob.glob(os.path.join(repopaths.DEEPCHECK, 'phase5-*.json')):
