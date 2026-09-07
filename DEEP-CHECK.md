@@ -480,3 +480,11 @@ them.
 1. **9 papers missing the still-open statement** (Phase 8, listed above).
 2. **39 quotations the automated comparison cannot settle** (Phase 3), for the reading pass.
 3. **381 papers whose section 1 quote cannot be located** (Phase 3) — a gap in the check.
+4. **100 order-line papers describe a computation they did not perform** (Phase 5). Each says
+   in section 2 that merging leaves $S'$ states "and it is that smaller bound the computation
+   below uses", then in section 3 reports running Berlekamp--Massey on $2S$ exact terms with
+   the *unmerged* $S$ — for A232427, $S'=90$ and then "2S = 13284". The paper contradicts
+   itself about its own run. An earlier correction reached the merge sentence and Lemma 1 and
+   stopped there. `engine/src/ordbuild.py` now takes both numbers from the merged bound; the
+   100 papers are rebuilt when the check finishes and the corpus unfreezes. The mathematics
+   is unaffected: 180 terms is what was used and what the lemma needs.

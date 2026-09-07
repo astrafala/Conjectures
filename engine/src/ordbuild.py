@@ -42,7 +42,10 @@ def build(h):
     mod, rev = e['modified'], e['revision']
     # The bound the computation actually used is the merged one. Quoting the unmerged count
     # beside "Berlekamp--Massey on 2S exact terms" would describe a computation that was not
-    # performed, so the paper states both and says which is which.
+    # performed, so the paper states both and says which is which. That correction reached the
+    # merge sentence and Lemma 1 but not the sentence that reports the run, which went on
+    # quoting 2S from the unmerged count -- so each paper said it used the smaller bound and
+    # then named a term count belonging to the larger one. Both now come from Suse.
     S, order, off = h['S'], h['order'], h['offset']
     Sm = h.get('Smerged', S)
     merge = "" if Sm == S else (
@@ -113,7 +116,7 @@ with its minimal recurrence, by its first $2S$ terms: Berlekamp--Massey applied 
 that minimal recurrence exactly.
 \end{{lemma}}
 
-Running it on $2S={2 * S}$ exact terms of the model returns order ${order}$ --- the order the
+Running it on $2S'={2 * Suse}$ exact terms of the model returns order ${order}$ --- the order the
 entry states --- with the integer coefficients
 \[
 a(n)\;=\;\sum_{{i=1}}^{{{order}}}c_i\,a(n-i),

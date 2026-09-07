@@ -170,7 +170,12 @@ for h in sorted(hits, key=lambda x: x['anum']):
         state['bad'].append([a, 'the recurrence no longer annihilates the rebuilt model'])
         save(); continue
     nthr = thr + off - sh
-    if 'nthr' in h and nthr != h['nthr']:
+    # The order-line papers print no threshold: their claim is that the recurrence is the
+    # minimal one, recomputed above, and their record's `nthr` is bookkeeping the paper never
+    # quotes. Comparing against it flagged a paper for a sentence it does not contain.
+    if a in ORDW:
+        h = dict(h); h.pop('nthr', None)
+    if 'nthr' in h and h['nthr'] is not None and nthr != h['nthr']:
         state['bad'].append([a, f"threshold moved: paper says n > {h['nthr']}, "
                                 f"the cold rebuild says n > {nthr}"])
         save(); continue
