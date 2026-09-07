@@ -257,20 +257,28 @@ Recorded rather than quietly omitted:
 - **State spaces too large** for the annihilation test even after merging.
 - **Triangular inclusion–exclusion** running over `2^|E|` subsets, out of reach past ~30 edges.
 - **113 generating-function-only entries** whose names no engine reads yet. A gap, not a wall.
-- **The refused pool does not open at a larger cap.** 1,411 entries that an engine reads and
-  that were refused at a state cap of 2,000,000 were retried at **6,000,000** on 7 September
-  2026. **563 were attempted and not one settled.** A third of the pool is read by
-  `transfer40`, whose state is K consecutive rows and so grows as `A^(K·W)`; three times the
-  cap does not buy one more row. The lever that would work is the one that worked for
-  transfer9, transfer17 and transfer19: describe the redundancy in the state exactly and
-  remove it before the states exist.
+- **The "refused pool" was mostly not refused at all.** 1,411 entries believed to have been
+  refused at a state cap of 2,000,000 were retried at **6,000,000** on 7 September 2026:
+  563 attempted, none settled. A sample of 70 was then re-run with the reason counter read,
+  and the answer was not the cap:
 
-  A first version of this entry said all 563 were *refused at the cap*. That was not
-  measured — `shard_caps_*.json` records the cap of every entry a sweep **attempts**, not
-  only of the ones it refuses, and the run's own reason counter is printed at the end and the
-  run was stopped before it got there. The reasons are recorded below instead, from a sample
-  re-run for the purpose. What was never in doubt is the number that matters: 563 attempted,
-  0 settled.
+  | reason | of 70 |
+  | --- | ---: |
+  | no parsable recurrence — nothing in the entry to test | 60 |
+  | not open — already settled | 7 |
+  | state space > cap | 3 |
+
+  So this pool is overwhelmingly entries with **nothing to prove**, and a larger cap was
+  never going to reach them. The mistake was in the bookkeeping, not the mathematics:
+  `shard_caps_*.json` recorded the cap of every entry a sweep *attempted*, one line before it
+  knew anything about that entry, and reading its keys back as a list of refusals invented a
+  pool of two thousand large-but-tractable models that does not exist. The sweep now writes
+  the cap only where a refusal for size actually happens.
+
+  A genuine size wall does remain, and it is smaller than was thought: three entries in
+  seventy, so of the order of a twentieth of the pool. For those the lever is not a larger
+  cap but the one that worked for transfer9, transfer17 and transfer19 — describe the
+  redundancy in the state exactly and remove it before the states exist.
 
 ## 9. How long a paper is
 

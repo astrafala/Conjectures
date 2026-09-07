@@ -339,7 +339,14 @@ What it also reports, which is the part worth reading:
 
 ### Phase 7 — caps, refusals and everything not attempted
 
-* Entries standing refused: **2,098 at cap 2,000,000** and 5 at cap 400,000.
+* Entries standing refused: **2,098 at cap 2,000,000** and 5 at cap 400,000. **This figure
+  is wrong and the correction is below** — `shard_caps_*.json` recorded the cap of every
+  entry a sweep *attempted*, not of the ones it refused, so counting its keys counted
+  attempts. A sample of 70 drawn from that pool and re-run on 7 September 2026 came back
+  **60 with no parsable recurrence, 7 already settled, and 3 refused for size**. The pool is
+  overwhelmingly entries with nothing to prove, not entries too large to prove. The true
+  number standing refused for size is of the order of a twentieth of 2,098; the sweep now
+  records the cap only at a refusal, so the next measurement will be exact.
 * Of the candidates an engine reads and that are not settled: 4,052 carry no unsettled
   conjecture; **697 state a recurrence and have never been processed**; **313 state an order
   line and have never been processed**; 144 state a recurrence and were processed without
