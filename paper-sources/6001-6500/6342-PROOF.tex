@@ -12,19 +12,19 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A203793, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A203653, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A203793 counts $(n+1)\times6$ arrays over $\{0,\dots,3\}$ subject to a condition imposed on
+OEIS A203653 counts $(n+1)\times6$ arrays over $\{0,\dots,4\}$ subject to a condition imposed on
 every $2\times2$ subblock, and carries an empirical recurrence of order $12$ contributed
 by R.~H.~Hardin. It is true, and it is not an empirical matter at all. The condition is local
 to each subblock, so the rows of an admissible array are the vertices of a finite digraph
-on $S=4096$ vertices whose edges are the admissible consecutive pairs, and the count is a
-number of walks: $a(n)=\mathbf{1}^{\!\top}M^{n}\mathbf{1}$. Writing $q$
+on $S=15625$ vertices whose edges are the admissible consecutive pairs, and the count is a
+number of walks: $a(n)=\tfrac1{25}\mathbf{1}^{\!\top}M^{n}\mathbf{1}$. Writing $q$
 for the characteristic polynomial of the conjectured recurrence, the recurrence holds for all
 $n$ exactly when $\mathbf{1}^{\!\top}M^{j}q(M)\mathbf{1}=0$ for every $j\ge0$, and the
 Cayley--Hamilton theorem bounds that to $j<S$. It is therefore a finite computation in exact
@@ -35,20 +35,20 @@ integer arithmetic, and it comes out zero.
 
 \section{The sequence and the conjecture}
 
-OEIS A203793 is ``Number of (n+1)X6 0..3 arrays with every 2X2 subblock having equal diagonal elements or equal antidiagonal elements.''. It has offset $1$ and begins
+OEIS A203653 is ``1/25 the number of (n+1)X6 0..4 arrays with every 2X2 subblock having equal diagonal elements or equal antidiagonal elements.''. It has offset $1$ and begins
 \[
-268912, 25708528, 2700695728, 292394880208, 31960919852416, 3504288958063120, 384592800378103840, 42221697503213865232,\ \dots
+59049, 9616161, 1780968921, 343812029649, 67213191427593, 13192335511091073, 2592476403527692089, 509649251749126118193,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 148*a(n-1) -3999*a(n-2) -35082*a(n-3) +1582335*a(n-4) -9332901*a(n-5) -26191026*a(n-6) +302396490*a(n-7) -400942710*a(n-8) -868046544*a(n-9) +1153030140*a(n-10) +438143580*a(n-11) -442158912*a(n-12)
+Empirical: a(n) = 249*a(n-1) -8592*a(n-2) -421104*a(n-3) +17434560*a(n-4) -117447936*a(n-5) -1126380544*a(n-6) +12165427200*a(n-7) -13434667008*a(n-8) -89049268224*a(n-9) +101291655168*a(n-10) +94447337472*a(n-11) -82896224256*a(n-12)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 10:44:02, revision 9) the statement is
+As of the ``Last modified'' line on the live entry (Oct 03 2025 10:37:36, revision 9) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;148\,a(n-1) - 3999\,a(n-2) - 35082\,a(n-3) + 1582335\,a(n-4) - 9332901\,a(n-5) - 26191026\,a(n-6) + 302396490\,a(n-7) - 400942710\,a(n-8) - 868046544\,a(n-9) + 1153030140\,a(n-10) + 438143580\,a(n-11) - 442158912\,a(n-12)
+a(n)\;=\;249\,a(n-1) - 8592\,a(n-2) - 421104\,a(n-3) + 17434560\,a(n-4) - 117447936\,a(n-5) - 1126380544\,a(n-6) + 12165427200\,a(n-7) - 13434667008\,a(n-8) - 89049268224\,a(n-9) + 101291655168\,a(n-10) + 94447337472\,a(n-11) - 82896224256\,a(n-12)
 \end{equation}
 for all $n>11$.
 
@@ -56,7 +56,7 @@ for all $n>11$.
 
 Write an array of the shape in question as its list of rows
 $r^{(1)},r^{(2)},\dots$, each an element of
-$V=\{0,1,\dots,3\}^{6}$, so $|V|=S=4096$. A $2\times2$ subblock of the array
+$V=\{0,1,\dots,4\}^{6}$, so $|V|=S=15625$. A $2\times2$ subblock of the array
 occupies two consecutive rows and two consecutive columns; if the two rows are $r$
 and $s$ (in that order) and the two columns are numbered $j,j+1$,
 the subblock is
@@ -82,7 +82,7 @@ all-ones vector.
 The arrays counted by the entry with $L$ rows are exactly the walks
 $r^{(1)}\to r^{(2)}\to\cdots\to r^{(L)}$ of length $L-1$ in $G$. Consequently
 \[
-a(n)\;=\;\mathbf{1}^{\!\top}M^{n}\mathbf{1} .
+a(n)\;=\;\tfrac1{25}\mathbf{1}^{\!\top}M^{n}\mathbf{1} .
 \]
 \end{lemma}
 
@@ -95,7 +95,7 @@ if and only if each consecutive pair $\bigl(r^{(t)},r^{(t+1)}\bigr)$ satisfies i
 every column pair --- which is exactly the edge relation of $G$. The number of walks of
 length $L-1$, summed over all starting and ending vertices, is
 $\mathbf{1}^{\!\top}M^{L-1}\mathbf{1}$, since $(M^{k})_{r,s}$ counts the walks of
-length $k$ from $r$ to $s$. The entry's index $n$ corresponds to $L=n+1$ rows.
+length $k$ from $r$ to $s$. The entry's index $n$ corresponds to $L=n+1$ rows. The entry counts $\tfrac1{25}$ of those arrays, a constant factor that passes through every step below unchanged.
 \end{proof}
 
 \section{The criterion}
@@ -106,7 +106,7 @@ Let $q(t)=t^{12}-\sum_i c_i\,t^{12-i}$ be the characteristic polynomial of
 \begin{lemma}\label{lem:crit}
 For every $n$ with $n+1-1\ge12$,
 \[
-a(n)-\sum_i c_i\,a(n-i)\;=\;\mathbf{1}^{\!\top}M^{\,n+1-1-12}\,q(M)\,\mathbf{1} .
+a(n)-\sum_i c_i\,a(n-i)\;=\;\tfrac1{25}\mathbf{1}^{\!\top}M^{\,n+1-1-12}\,q(M)\,\mathbf{1} .
 \]
 Hence \eqref{eq:conj} holds from that point on if and only if
 $\mathbf{1}^{\!\top}M^{j}q(M)\mathbf{1}=0$ for every $j\ge0$; and it is enough to check
@@ -114,13 +114,13 @@ $j=0,1,\dots,S-1$.
 \end{lemma}
 
 \begin{proof}
-By Lemma~\ref{lem:walk}, $a(n-i)=\mathbf{1}^{\!\top}M^{\,n+1-1-i}\mathbf{1}$, so
+By Lemma~\ref{lem:walk}, $a(n-i)=\tfrac1{25}\mathbf{1}^{\!\top}M^{\,n+1-1-i}\mathbf{1}$, so
 \[
 a(n)-\sum_i c_i a(n-i)
-=\mathbf{1}^{\!\top}\Bigl(M^{m}-\sum_i c_i M^{m-i}\Bigr)\mathbf{1}
-=\mathbf{1}^{\!\top}M^{\,m-12}\,q(M)\,\mathbf{1}
+=\tfrac1{25}\mathbf{1}^{\!\top}\Bigl(M^{m}-\sum_i c_i M^{m-i}\Bigr)\mathbf{1}
+=\tfrac1{25}\mathbf{1}^{\!\top}M^{\,m-12}\,q(M)\,\mathbf{1}
 \]
-with $m=n+1-1$, which is the stated identity; the equivalence follows by letting
+with $m=n+1-1$, which is the stated identity; the scalar $\tfrac1{25}$ never vanishes, so it does not affect whether the left side is zero, and the equivalence follows by letting
 $m-12=j$ run over $\ge0$. For the last clause put $w=q(M)\mathbf{1}$. By the
 Cayley--Hamilton theorem $M^{S}$ is an integer combination of $I,M,\dots,M^{S-1}$, so
 $\mathbf{1}^{\!\top}M^{j}w$ for $j\ge S$ is the corresponding combination of the earlier
@@ -158,7 +158,7 @@ minimal one is a divisor of $q$.
 Three checks, each independent of the algebra above.
 
 First, the digraph was built directly from the entry's stated condition and the walk counts
-$\mathbf{1}^{\!\top}M^{L-1}\mathbf{1}$ compared against the entry's DATA at
+$\tfrac1{25}\mathbf{1}^{\!\top}M^{L-1}\mathbf{1}$ compared against the entry's DATA at
 every one of the $11$ published indices; the values agree exactly. That is what ties
 the digraph to the sequence: a model that reproduced only some of the published terms would
 be the wrong model, and would have been rejected. In particular it is what rules out a
@@ -174,7 +174,7 @@ throughout.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A203793.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A203653.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

@@ -7,147 +7,152 @@
 \theoremstyle{plain}
 \newtheorem{theorem}{Theorem}
 \newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
-\title{A proof of the conjectured identity for OEIS A110320}
+
+\title{The empirical recurrence for OEIS A275229, derived from the entry's generating function}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{26 August 2026}
+\date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A110320 carries a conjectured identity expressing its terms through the terms of
-A051286, A051292. We prove it. Each entry involved posts a generating function, so the claim is
-a single identity between generating functions: writing $F_{a}$ for the generating
-function of A110320 and $F_{j}$ for those of the entries on the right, the conjecture
-says that a specific combination of the $F_{j}$, shifted and weighted as the identity
-prescribes, differs from $F_{a}$ by a polynomial. That difference is computed here in
-closed form and equals $0$, of degree $-1$, which proves the identity for
-every $n>-1$.
+OEIS A275229 carries an empirical recurrence of order $2$. The entry separately records a
+generating function, not as a conjecture but as a statement of fact, and the recurrence is a
+consequence of it: multiplying the generating function by the polynomial the recurrence
+supplies gives a POLYNOMIAL, and the recurrence then holds at every index past that
+polynomial's degree. No model of the objects being counted is needed, and no search: the
+whole argument is one polynomial division, carried out in exact arithmetic. The result is
+conditional on the recorded generating function, which is what the entry asserts and what is
+checked here against every published term.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 11B83, 05A15.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 30B10.\normalsize
 
-\section{The sequences and the conjecture}
+\section{The two statements}
 
-OEIS A110320 is ``Number of blocks in all RNA secondary structures with n nodes (an RNA secondary structure can be viewed as a restricted noncrossing partition)''. It has offset $1$ and begins
+OEIS A275229 is ``Number of 3 X n 0..2 arrays with no element equal to any value at offset (-2,-1) (-2,1) or (-1,0) and new values introduced in order 0..2.''. It has offset $1$ and begins
 \[
-a(1),\dots,a(8)\;=\;1, 2, 5, 13, 32, 80, 201, 505,\ \dots
+2, 11, 61, 339, 1885, 10483, 58301, 324243,\ \dots
 \]
-Its generating function, as posted on the entry, is
-\begin{equation}\label{eq:gf}
-F_{a}(x)\;=\;\sum_{n\ge 1} a(n)\,x^{n}\;=\;\frac{- x^{2} - x - \sqrt{x^{4} - 2 x^{3} - x^{2} - 2 x + 1} + 1}{2 x^{2} \sqrt{x^{4} - 2 x^{3} - x^{2} - 2 x + 1}} ,
-\end{equation}
-and the entry carries the following comment:
-\begin{quote}\small
-\textbf{Conjecture:} a(n) = (A051292(n+2)-A051286(n+1))/2. - \emph{Gerald McGarvey}, Jan 14 2007
+The entry states, as a conjecture and never marked settled:
+\begin{quote}
+Empirical: a(n) = 7*a(n-1) - 8*a(n-2).
 \end{quote}
-As of the ``Last modified'' line on the live entry (2026-05-30, revision 51) the
-statement is still recorded as a conjecture, and no proof appears among the entry's links,
-formulas or programs.
+and, separately and NOT as a conjecture:
+\begin{quote}
+G.f.: x*(2 - 3*x) / (1 - 7*x + 8*x\^{}2).
+\end{quote}
+As of the ``Last modified'' line on the live entry (Feb 02 2019 10:46:56, revision 7) the first is still
+recorded as empirical. This note derives it from the second.
 
-The entries appearing on the right-hand side post the generating functions
+\section{A rational generating function decides every linear recurrence}
+
+Write
 \[
-F_{A051292}(x) \;=\; \frac{- x^{2} + \sqrt{x^{4} - 2 x^{3} - x^{2} - 2 x + 1} + 1}{\sqrt{x^{4} - 2 x^{3} - x^{2} - 2 x + 1}} \qquad F_{A051286}(x) \;=\; \frac{1}{\sqrt{x^{4} - 2 x^{3} - x^{2} - 2 x + 1}}
+G(x)\;=\;\sum_{n}a(n)\,x^{n}\;=\;\frac{- 3 x^{2} + 2 x}{8 x^{2} - 7 x + 1},
 \]
-
-\section{Shifts of a generating function}
-
-Throughout, a sequence $b$ defined on the indices its OEIS entry uses is identified with
-the formal series $F_{b}(x)=\sum_{m\ge0}b(m)x^{m}$, where $b(m)=0$ for $m$ below the
-entry's offset. This convention makes shifting immediate.
-
-\begin{lemma}\label{lem:shift}
-For an integer $k\ge0$,
+the entry's own generating function, and let
 \[
-\sum_{m\ge0}b(m+k)\,x^{m}=\frac{F_{b}(x)-\sum_{m<k}b(m)x^{m}}{x^{k}},
-\qquad
-\sum_{m\ge0}b(m-k)\,x^{m}=x^{k}F_{b}(x).
+D(x)\;=\;1-\sum_i c_i x^{i}\;=\;8 x^{2} - 7 x + 1
 \]
+be the polynomial attached to the conjectured recurrence.
+
+\begin{lemma}\label{lem:key}
+For every $n$ in range, $a(n)-\sum_i c_i\,a(n-i)$ is the coefficient of $x^{n}$ in
+$D(x)G(x)$.
 \end{lemma}
 
 \begin{proof}
-Both are re-indexings of the defining sum. In the first, subtracting the terms below
-$x^{k}$ removes exactly the coefficients that have no counterpart after the shift, and
-dividing by $x^{k}$ relabels $m+k$ as $m$. In the second, multiplying by $x^{k}$ relabels
-$m$ as $m+k$, and the coefficients of $x^{m}$ for $m<k$ are $b(m-k)=0$.
+Multiplying power series, the coefficient of $x^{m}$ in $D(x)G(x)$ is
+$a_m-\sum_i c_i a_{m-i}$ where $a_m$ denotes the coefficient of $x^{m}$ in $G$, terms with
+negative index being zero.
 \end{proof}
-
-\begin{lemma}\label{lem:theta}
-Let $\theta=x\,\dfrac{d}{dx}$, so that $\theta$ acts on $x^{m}$ as multiplication by $m$.
-For a polynomial $c$, the sequence $m\mapsto c(m)b(m)$ has generating function
-$c(\theta)F_{b}$. In particular $m\mapsto m^{j}$ has generating function
-$\theta^{j}\bigl[(1-x)^{-1}\bigr]$.
-\end{lemma}
-
-\begin{proof}
-$\theta$ multiplies the coefficient of $x^{m}$ by $m$, so $c(\theta)$ multiplies it by
-$c(m)$. The last statement is the case $b\equiv1$.
-\end{proof}
-
-\begin{corollary}\label{cor:criterion}
-Let $R(x)$ be the generating function assembled from the right-hand side of the conjecture
-by Lemmas~\ref{lem:shift} and~\ref{lem:theta}. Then the conjectured identity holds for
-every $n>d$ if and only if $F_{a}-R$ is a polynomial of degree at most $d$.
-\end{corollary}
-
-\begin{proof}
-The coefficient of $x^{n}$ in $F_{a}-R$ is the difference between the two sides of the
-identity at $n$. That difference vanishes for all $n>d$ exactly when $F_{a}-R$ has no
-terms above $x^{d}$.
-\end{proof}
-
-Note that the test is for a \emph{polynomial}, not for zero. A claim of this kind
-typically fails at a few small indices, where the shifted terms on the right reach outside
-the range of their own sequences; the polynomial records precisely those indices.
-
-\section{The computation for A110320}
-
-Assembling the right-hand side by Lemmas~\ref{lem:shift} and~\ref{lem:theta} gives
-\[
-R(x)\;=\;\frac{- x^{2} - x - \sqrt{x^{4} - 2 x^{3} - x^{2} - 2 x + 1} + 1}{2 x^{2} \sqrt{x^{4} - 2 x^{3} - x^{2} - 2 x + 1}} ,
-\]
-and subtracting \eqref{eq:gf} the rational parts cancel, leaving
-\[
-F_{a}(x)-R(x)\;=\;0 ,
-\]
-a polynomial of degree $-1$.
 
 \begin{theorem}
-The conjectured identity holds for every $n>-1$.
+\[
+a(n)\;=\;7\,a(n-1) - 8\,a(n-2)
+\]
+for every $n>2$.
 \end{theorem}
 
 \begin{proof}
-Immediate from Corollary~\ref{cor:criterion} and the displayed difference.
+In exact arithmetic,
+\[
+D(x)\,G(x)\;=\;- 3 x^{2} + 2 x,
+\]
+a POLYNOMIAL of degree $2$ --- the denominator of $G$ divides $D(x)$ times its numerator,
+which is precisely the condition for the conjectured recurrence to be implied by the
+generating function. Its coefficients vanish beyond degree $2$, so by
+Lemma~\ref{lem:key} the residual $a(n)-\sum_ic_ia(n-i)$ vanishes for every
+$n>2$.
 \end{proof}
+
+\section{Is the conjectured recurrence the shortest one?}
+
+Cancelling common factors, $G$ has reduced denominator
+\[
+8 x^{2} - 7 x + 1,
+\]
+of degree $2$, and that degree is the order of the SHORTEST linear recurrence with
+constant coefficients the sequence obeys: any shorter one would give a polynomial multiple of
+$G$ with a smaller denominator, contradicting the cancellation. The conjectured recurrence has
+order $2$.
+
+So the conjecture is the minimal recurrence.
+
+\section{The residuals, explicitly}
+
+Lemma~\ref{lem:key} says the residual $a(n)-\sum_ic_ia(n-i)$ is a coefficient of the
+polynomial $D(x)G(x)$, so it can be read off the entry's own published terms with no
+generating function involved at all. Doing that:
+\begin{center}
+\begin{tabular}{cc}
+index & residual \\ \hline
+$n=3$ & $0$ \\
+$n=4$ & $0$ \\
+$n=5$ & $0$ \\
+$n=6$ & $0$
+\end{tabular}
+\end{center}
+The residuals are exactly the coefficients of the polynomial displayed above, in order, and
+they stop at index $2$ because that polynomial has degree $2$. A reader who trusts
+neither the generating function nor the algebra can check the table against the entry's DATA
+by hand; what the generating function adds is the guarantee that the pattern continues, which
+no amount of checking terms could establish on its own.
 
 \section{Verification}
 
-Every number above is an output of a script written separately from this note, and two
-independent checks were run.
+Three checks.
 
-First, no generating function was assumed. For each entry involved, the posted expression
-was expanded as a Taylor series and compared term by term with that entry's own DATA
-section; only expressions reproducing the published terms were used.
+First, the generating function was expanded as a power series in exact rational arithmetic and
+compared against all $21$ terms the entry publishes: it reproduces every one. This is
+what ties the recorded generating function to the sequence the recurrence is about.
 
-Second, the identity itself was evaluated directly on the published terms, in exact
-integer arithmetic and without reference to any generating function: for each $n$ in range
-both sides were formed from the entries' own values and found to agree, for all 28
-values of $n$ from $n=1$ upward. This is what Corollary~\ref{cor:criterion}
-predicts from the degree of the difference, and it is a genuinely different computation
-from the symbolic one.
+Second, the polynomial division above was carried out symbolically, not numerically, so the
+statement that $D(x)G(x)$ is a polynomial is exact rather than approximate.
 
-The symbolic step is exact throughout: the difference is obtained by rational-function
-cancellation, not by series truncation, so the displayed identity is an identity of
-functions and the theorem holds for all $n>-1$ simultaneously.
+Third, the recurrence was evaluated directly on the series coefficients for sixty consecutive
+indices beyond $n=2$ and holds at every one, and at $n=2$ itself it fails --- the
+degree bound is attained, so the range stated is the true one and not merely a safe one.
+
+\begin{remark}
+The argument is conditional on the generating function, which the entry records as a fact and
+attributes to a contributor rather than offering as a conjecture. What is shown here is that
+the empirical recurrence is not an independent guess: it is equivalent to information the
+entry already contains.
+\end{remark}
 
 \begin{thebibliography}{9}
-\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer Sequences},
-\url{https://oeis.org}, 2026. Sequence A110320.
-\bibitem{wilf} H.~S.~Wilf, \emph{generatingfunctionology}, 3rd ed., A K Peters, 2006,
-Chapter 2 (series manipulations and shifts).
+\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
+Sequences}, \url{https://oeis.org}, 2026. Sequence A275229.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011, Chapter 1.
+Cambridge University Press, 2011. (Rational generating functions, Section 4.1.)
+\bibitem{kp} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011.
+\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+University Press, 2009.
 \end{thebibliography}
+
 \end{document}

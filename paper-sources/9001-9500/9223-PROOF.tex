@@ -10,15 +10,15 @@
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
-\title{A proof of the conjectured recurrence for OEIS A273019}
+\title{A proof of the conjectured recurrence for OEIS A025271}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{26 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A273019 carries a conjectured linear recurrence with polynomial coefficients, of
-order 3. The entry separately states a recurrence of order 2 that is not
+OEIS A025271 carries a conjectured linear recurrence with polynomial coefficients, of
+order 6. The entry separately states a recurrence of order 4 that is not
 labelled a conjecture. We prove that the first is a consequence of the second, so the
 conjecture holds. The argument is a division in the Ore algebra
 $\mathbb{Q}(n)[N]$, where $N$ is the shift $Nf(n)=f(n+1)$: writing $C$ and $P$ for the two
@@ -32,20 +32,20 @@ are computed rather than ignored.
 
 \section{The sequence and the two recurrences}
 
-OEIS A273019 is ``a(n) = hypergeom([-2*n-1, 1/2], [2], 4) + (2*n+1)*hypergeom([-n+1/2, -n], [2], 4)''. It has offset $0$ and begins
+OEIS A025271 is ``a(n) = a(1)*a(n-1) + a(2)*a(n-2) + ...+ a(n-1)*a(1) for n >= 5, with initial values 1,1,2,1''. It has offset $1$ and begins
 \[
-a(0),\dots,a(7)\;=\;1, 5, 39, 321, 2675, 22483, 190345, 1621413,\ \dots
+a(1),\dots,a(8)\;=\;1, 1, 2, 1, 6, 18, 52, 165,\ \dots
 \]
 The entry carries the following comment, still recorded as a conjecture:
 \begin{quote}\small
-\textbf{Conjecture:} +(241*n+56) *(2*n+1) *(n+1)*a(n) +(482*n\^{}3-25561*n\^{}2+13831*n-56) *a(n-1) +(-48682*n\^{}3+225897*n\^{}2-300131*n+125310) *a(n-2) +9*(n-2) *(2651*n-3183) *(2*n-3) *a(n-3)=0. - \emph{R. J. Mathar}, May 16 2016
+\textbf{Conjecture:} n*a(n) +(n+1)*a(n-1) +(n+8)*a(n-2) +42*(-2*n+7)*a(n-3) +16*(n-6)*a(n-4) +80*(n-7)*a(n-5) +336*(n-8)*a(n-6)=0. - \emph{R. J. Mathar}, Nov 21 2014
 \end{quote}
-As of the ``Last modified'' line on the live entry (2026-05-24, revision 20) it is still
+As of the ``Last modified'' line on the live entry (2025-11-05, revision 25) it is still
 a conjecture, and no proof appears among the entry's links, formulas or programs.
 
 The same entry also states, \emph{not} as a conjecture:
 \begin{quote}\small
-Recurrence (of order 2): (n+1)*(2*n + 1)*(12*n\^{}2 - 19*n + 9)*a(n) = (240*n\^{}4 - 140*n\^{}3 - 42*n\^{}2 - 7*n + 9)*a(n-1) - 9*(n-1)*(2*n - 1)*(12*n\^{}2 + 5*n + 2)*a(n-2). - \emph{Vaclav Kotesovec}, Jul 05 2018
+Recurrence: n*a(n) = 2*(2*n-3)*a(n-1) - 16*(n-6)*a(n-4). - \emph{Vaclav Kotesovec}, Jan 25 2015
 \end{quote}
 This second relation is what the argument below rests on; it is taken as given, exactly as
 a posted generating function would be. It was checked against the entry's own DATA before
@@ -94,12 +94,12 @@ So the question ``does the conjecture follow from the stated recurrence?'' is de
 running the division and looking at the remainder. Nothing is approximated: the
 coefficients live in $\mathbb{Q}(n)$ and the arithmetic is exact.
 
-\section{The computation for A273019}
+\section{The computation for A025271}
 
 Reading both relations as operators and dividing the conjectured one by the stated one
 leaves remainder $0$, with quotient
 \[
-Q \;=\; \left(\frac{2651 n + 4770}{12 n^{2} + 53 n + 60}\right) + \left(\frac{241 n + 779}{12 n^{2} + 53 n + 60}\right)\,N .
+Q \;=\; 21 + 5\,N + 1\,N^{2} .
 \]
 Hence $C=QP$ in $\mathcal{A}$.
 
@@ -108,9 +108,9 @@ The coefficients of $Q$ are rational functions of $n$, and none of their poles i
 \begin{theorem}
 The conjectured recurrence
 \[
-\left(n + 1\right) \left(2 n + 1\right) \left(241 n + 56\right)\,a(n) + (482 n^{3} - 25561 n^{2} + 13831 n - 56)\,a(n-1) + (- 48682 n^{3} + 225897 n^{2} - 300131 n + 125310)\,a(n-2) + 9 \left(n - 2\right) \left(2 n - 3\right) \left(2651 n - 3183\right)\,a(n-3) \;=\;0
+n\,a(n) + (n + 1)\,a(n-1) + (n + 8)\,a(n-2) -  42 \left(2 n - 7\right)\,a(n-3) + 16 \left(n - 6\right)\,a(n-4) + 80 \left(n - 7\right)\,a(n-5) + 336 \left(n - 8\right)\,a(n-6) \;=\;0
 \]
-holds for every $n\ge3$.
+holds for every $n\ge7$.
 \end{theorem}
 
 \begin{proof}
@@ -133,12 +133,12 @@ arithmetic and holds on every one it reaches.
 
 Third, the conjecture itself was evaluated the same way, directly and without reference to
 either operator: for each $n$ in range the sum $\sum_{i}p_{i}(n)a(n-i)$ was formed from the
-entry's own values and found to vanish, for all 19 values of $n$ from
-$n=3$ upward.
+entry's own values and found to vanish, for all 22 values of $n$ from
+$n=7$ upward.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer Sequences},
-\url{https://oeis.org}, 2026. Sequence A273019.
+\url{https://oeis.org}, 2026. Sequence A025271.
 \bibitem{ore} O.~Ore, \emph{Theory of non-commutative polynomials}, Ann. of Math. 34
 (1933), 480--508.
 \bibitem{kp} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011,

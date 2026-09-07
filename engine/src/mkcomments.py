@@ -210,6 +210,18 @@ def distrep(S, thr):
     return s + ((", and it holds for n > %d." % thr) if thr is not None else ".")
 
 
+def localcond(S, thr):
+    s = ("The empirical recurrence is true. The condition is carried by a bounded amount of "
+         "state down the array -- a window of three consecutive lines where it names only "
+         "cells one step apart, and otherwise a row sum together with one flag per adjacent "
+         "column pair -- so counting the arrays a line at a time gives a transfer matrix")
+    if S:
+        s += " with %s states" % f"{S:,}".replace(',', ' ')
+    s += (", and a(n) satisfies a constant-coefficient linear recurrence of order at most "
+          "that; checking the one above is then a finite exact computation")
+    return s + ((", and it holds for n > %d." % thr) if thr is not None else ".")
+
+
 def fromgf(thr):
     s = ("The recurrence follows from the generating function this entry already states as "
          "fact: a recurrence with constant coefficients is exactly a denominator of the "
@@ -458,6 +470,8 @@ def main():
                 txt = coldom(S, thr)
             elif t.startswith('A value repeated at its own distance'):
                 txt = distrep(S, thr)
+            elif t.startswith('A local condition on an array'):
+                txt = localcond(S, thr)
             elif t in ARRAY_TITLES:
                 txt = array(S, thr)
             elif t == "The empirical recurrence for OEIS A, derived from the entry's generating function":

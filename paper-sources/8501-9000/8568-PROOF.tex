@@ -12,14 +12,14 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A263794, derived from the entry's generating function}
+\title{The empirical recurrence for OEIS A204648, derived from the entry's generating function}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A263794 carries an empirical recurrence of order $7$. The entry separately records a
+OEIS A204648 carries an empirical recurrence of order $8$. The entry separately records a
 generating function, not as a conjecture but as a statement of fact, and the recurrence is a
 consequence of it: multiplying the generating function by the polynomial the recurrence
 supplies gives a POLYNOMIAL, and the recurrence then holds at every index past that
@@ -33,30 +33,30 @@ checked here against every published term.
 
 \section{The two statements}
 
-OEIS A263794 is ``Number of (n+1) X (3+1) 0..1 arrays with each row and column divisible by 3, read as a binary number with top and left being the most significant bits, and rows and columns lexicographically nonincreasing.''. It has offset $1$ and begins
+OEIS A204648 is ``Number of (n+1) X 6 0..1 arrays with column and row pair sums b(i,j)=a(i,j)+a(i,j-1) and c(i,j)=a(i,j)+a(i-1,j) nondecreasing in column and row directions, respectively.''. It has offset $1$ and begins
 \[
-3, 3, 7, 7, 14, 14, 25, 25,\ \dots
+80, 137, 284, 571, 1076, 1918, 3261, 5329,\ \dots
 \]
 The entry states, as a conjecture and never marked settled:
 \begin{quote}
-Empirical: a(n) = a(n-1) + 3*a(n-2) - 3*a(n-3) - 3*a(n-4) + 3*a(n-5) + a(n-6) - a(n-7).
+Empirical: a(n) = 6*a(n-1) -14*a(n-2) +14*a(n-3) -14*a(n-5) +14*a(n-6) -6*a(n-7) +a(n-8) for n>11.
 \end{quote}
 and, separately and NOT as a conjecture:
 \begin{quote}
-G.f.: x*(3 - 5*x\^{}2 + 4*x\^{}4 - x\^{}6) / ((1 - x)\^{}4*(1 + x)\^{}3).
+G.f.: x*(80 - 343*x + 582*x\^{}2 - 335*x\^{}3 - 292*x\^{}4 + 600*x\^{}5 - 379*x\^{}6 + 89*x\^{}7 - 4*x\^{}8 + 8*x\^{}9 - 4*x\^{}10) / ((1 - x)\^{}7*(1 + x)).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Dec 23 2016 22:55:03, revision 24) the first is still
+As of the ``Last modified'' line on the live entry (Jun 08 2018 13:51:18, revision 8) the first is still
 recorded as empirical. This note derives it from the second.
 
 \section{A rational generating function decides every linear recurrence}
 
 Write
 \[
-G(x)\;=\;\sum_{n}a(n)\,x^{n}\;=\;\frac{- x^{7} + 4 x^{5} - 5 x^{3} + 3 x}{x^{7} - x^{6} - 3 x^{5} + 3 x^{4} + 3 x^{3} - 3 x^{2} - x + 1},
+G(x)\;=\;\sum_{n}a(n)\,x^{n}\;=\;\frac{4 x^{11} - 8 x^{10} + 4 x^{9} - 89 x^{8} + 379 x^{7} - 600 x^{6} + 292 x^{5} + 335 x^{4} - 582 x^{3} + 343 x^{2} - 80 x}{x^{8} - 6 x^{7} + 14 x^{6} - 14 x^{5} + 14 x^{3} - 14 x^{2} + 6 x - 1},
 \]
 the entry's own generating function, and let
 \[
-D(x)\;=\;1-\sum_i c_i x^{i}\;=\;x^{7} - x^{6} - 3 x^{5} + 3 x^{4} + 3 x^{3} - 3 x^{2} - x + 1
+D(x)\;=\;1-\sum_i c_i x^{i}\;=\;- x^{8} + 6 x^{7} - 14 x^{6} + 14 x^{5} - 14 x^{3} + 14 x^{2} - 6 x + 1
 \]
 be the polynomial attached to the conjectured recurrence.
 
@@ -73,33 +73,33 @@ negative index being zero.
 
 \begin{theorem}
 \[
-a(n)\;=\;a(n-1) + 3\,a(n-2) - 3\,a(n-3) - 3\,a(n-4) + 3\,a(n-5) + a(n-6) - a(n-7)
+a(n)\;=\;6\,a(n-1) - 14\,a(n-2) + 14\,a(n-3) - 14\,a(n-5) + 14\,a(n-6) - 6\,a(n-7) + a(n-8)
 \]
-for every $n>7$.
+for every $n>11$.
 \end{theorem}
 
 \begin{proof}
 In exact arithmetic,
 \[
-D(x)\,G(x)\;=\;- x^{7} + 4 x^{5} - 5 x^{3} + 3 x,
+D(x)\,G(x)\;=\;- 4 x^{11} + 8 x^{10} - 4 x^{9} + 89 x^{8} - 379 x^{7} + 600 x^{6} - 292 x^{5} - 335 x^{4} + 582 x^{3} - 343 x^{2} + 80 x,
 \]
-a POLYNOMIAL of degree $7$ --- the denominator of $G$ divides $D(x)$ times its numerator,
+a POLYNOMIAL of degree $11$ --- the denominator of $G$ divides $D(x)$ times its numerator,
 which is precisely the condition for the conjectured recurrence to be implied by the
-generating function. Its coefficients vanish beyond degree $7$, so by
+generating function. Its coefficients vanish beyond degree $11$, so by
 Lemma~\ref{lem:key} the residual $a(n)-\sum_ic_ia(n-i)$ vanishes for every
-$n>7$.
+$n>11$. The bound is exact: at $n=11$ the recurrence fails on the entry's own published terms.
 \end{proof}
 
 \section{Is the conjectured recurrence the shortest one?}
 
 Cancelling common factors, $G$ has reduced denominator
 \[
-x^{7} - x^{6} - 3 x^{5} + 3 x^{4} + 3 x^{3} - 3 x^{2} - x + 1,
+x^{8} - 6 x^{7} + 14 x^{6} - 14 x^{5} + 14 x^{3} - 14 x^{2} + 6 x - 1,
 \]
-of degree $7$, and that degree is the order of the SHORTEST linear recurrence with
+of degree $8$, and that degree is the order of the SHORTEST linear recurrence with
 constant coefficients the sequence obeys: any shorter one would give a polynomial multiple of
 $G$ with a smaller denominator, contradicting the cancellation. The conjectured recurrence has
-order $7$.
+order $8$.
 
 So the conjecture is the minimal recurrence.
 
@@ -111,14 +111,17 @@ generating function involved at all. Doing that:
 \begin{center}
 \begin{tabular}{cc}
 index & residual \\ \hline
-$n=8$ & $0$ \\
-$n=9$ & $0$ \\
-$n=10$ & $0$ \\
-$n=11$ & $0$
+$n=9$ & $-4$ \\
+$n=10$ & $8$ \\
+$n=11$ & $-4$ \\
+$n=12$ & $0$ \\
+$n=13$ & $0$ \\
+$n=14$ & $0$ \\
+$n=15$ & $0$
 \end{tabular}
 \end{center}
 The residuals are exactly the coefficients of the polynomial displayed above, in order, and
-they stop at index $7$ because that polynomial has degree $7$. A reader who trusts
+they stop at index $11$ because that polynomial has degree $11$. A reader who trusts
 neither the generating function nor the algebra can check the table against the entry's DATA
 by hand; what the generating function adds is the guarantee that the pattern continues, which
 no amount of checking terms could establish on its own.
@@ -128,14 +131,14 @@ no amount of checking terms could establish on its own.
 Three checks.
 
 First, the generating function was expanded as a power series in exact rational arithmetic and
-compared against all $52$ terms the entry publishes: it reproduces every one. This is
+compared against all $33$ terms the entry publishes: it reproduces every one. This is
 what ties the recorded generating function to the sequence the recurrence is about.
 
 Second, the polynomial division above was carried out symbolically, not numerically, so the
 statement that $D(x)G(x)$ is a polynomial is exact rather than approximate.
 
 Third, the recurrence was evaluated directly on the series coefficients for sixty consecutive
-indices beyond $n=7$ and holds at every one, and at $n=7$ itself it fails --- the
+indices beyond $n=11$ and holds at every one, and at $n=11$ itself it fails --- the
 degree bound is attained, so the range stated is the true one and not merely a safe one.
 
 \begin{remark}
@@ -147,7 +150,7 @@ entry already contains.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A263794.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A204648.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Rational generating functions, Section 4.1.)
 \bibitem{kp} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011.

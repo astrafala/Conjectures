@@ -12,18 +12,18 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{A condition on each element and its neighbours: OEIS A240890}
+\title{A condition on each element and its neighbours: OEIS A240645}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{6 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A240890 carries an empirical recurrence of order $48$ contributed by R.~H.~Hardin. It is
+OEIS A240645 carries an empirical recurrence of order $48$ contributed by R.~H.~Hardin. It is
 true, and it is decidable rather than empirical. The entry's condition names only cells one step apart, so it is decided by a window of
 three consecutive lines; the
 admissible windows are the vertices of a finite digraph and the arrays counted are exactly the
-walks in it. Hence $a(n)$ is a walk count on $S=50$ vertices and is $C$-finite, and whether the
+walks in it. Hence $a(n)$ is a walk count on $S=71$ vertices and is $C$-finite, and whether the
 conjectured recurrence annihilates it is settled by a finite exact computation, with the
 Cayley--Hamilton theorem bounding the work.
 \end{abstract}
@@ -32,26 +32,26 @@ Cayley--Hamilton theorem bounding the work.
 
 \section{The conjecture}
 
-OEIS A240890 is ``Number of nX5 0..2 arrays with no element equal to a different number of vertical neighbors than horizontal neighbors, with new values 0..2 introduced in row major order.''. It has offset $1$ and begins
+OEIS A240645 is ``Number of nX4 0..1 arrays with no element equal to the same number of vertical neighbors as horizontal neighbors, with new values 0..1 introduced in row major order.''. It has offset $1$ and begins
 \[
-8, 116, 1485, 19065, 245268, 3146755, 40424861, 519218802,\ \dots
+2, 3, 8, 18, 61, 168, 526, 1643,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 16*a(n-1) -22*a(n-2) -276*a(n-3) +543*a(n-4) +1114*a(n-5) -24150*a(n-6) -6509*a(n-7) +197916*a(n-8) +80150*a(n-9) -592045*a(n-10) +4684412*a(n-11) +15106341*a(n-12) -17190009*a(n-13) -90244020*a(n-14) -91211136*a(n-15) -290130772*a(n-16) -407134336*a(n-17) +671095240*a(n-18) +2173631712*a(n-19) +6313455104*a(n-20) +12278947872*a(n-21) +8033752064*a(n-22) +6113760384*a(n-23) -31674604288*a(n-24) -122704805888*a(n-25) -110531544064*a(n-26) -270879311872*a(n-27) -593695940608*a(n-28) +82971942912*a(n-29) +283392655360*a(n-30) -69979668480*a(n-31) +3328745078784*a(n-32) +4282541146112*a(n-33) +2076075098112*a(n-34) +9789286383616*a(n-35) +7759030386688*a(n-36) +1140229931008*a(n-37) +7107835330560*a(n-38) -2054940524544*a(n-39) -10791105331200*a(n-40) -2076616687616*a(n-41) -14566381584384*a(n-42) -20598663151616*a(n-43) -2336462209024*a(n-44) -13056700579840*a(n-45) -3848290697216*a(n-46) +3298534883328*a(n-47) -4398046511104*a(n-48)
+Empirical: a(n) = 5*a(n-1) -5*a(n-2) +4*a(n-3) -3*a(n-4) -49*a(n-5) +10*a(n-6) +15*a(n-7) +45*a(n-8) +124*a(n-9) +131*a(n-10) +301*a(n-11) +18*a(n-12) -615*a(n-13) -201*a(n-14) -1508*a(n-15) -823*a(n-16) -413*a(n-17) -254*a(n-18) +2467*a(n-19) +793*a(n-20) +4516*a(n-21) +1071*a(n-22) +2289*a(n-23) -2289*a(n-25) -1071*a(n-26) -4516*a(n-27) -793*a(n-28) -2467*a(n-29) +254*a(n-30) +413*a(n-31) +823*a(n-32) +1508*a(n-33) +201*a(n-34) +615*a(n-35) -18*a(n-36) -301*a(n-37) -131*a(n-38) -124*a(n-39) -45*a(n-40) -15*a(n-41) -10*a(n-42) +49*a(n-43) +3*a(n-44) -4*a(n-45) +5*a(n-46) -5*a(n-47) +a(n-48)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 11:08:04, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 11:04:32, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{The count is a walk count}
 
-The entry counts arrays with $5$ columns over the alphabet $\{0,1,2\}$, growing one row at a time. Its condition is that every element must equal the same number of its vertical neighbours as it does of its horizontal neighbours.
+The entry counts arrays with $4$ columns over the alphabet $\{0,1\}$, growing one row at a time. Its condition is that every element must equal a different number of its vertical neighbours than it does of its horizontal neighbours.
 
 Every cell named there lies at most one step away, so three consecutive rows decide the condition on the middle one completely. Carry two consecutive rows as the state; when a new row arrives, the row it follows has all its neighbours present and is tested then, and the row with nothing after it is tested by the end vector. That is also where the boundary is honest: a cell in the first row has nothing before it and a cell in the last has nothing after it, and a missing neighbour is not a neighbour rather than a wrapped-round one.
 
 The entry also asks that new values be introduced in row major order, which is not a condition on any window: whether a value may appear here depends on the whole prefix. It enters through one integer all the same --- how many values have been introduced so far --- because a row may follow precisely when each of its entries is at most that count at the moment it is read, and an entry equal to it raises it by one. The effect is that each array is counted once for the whole class of arrays differing from it only by renaming the values.
 
-Vertices with identical futures are merged, which leaves $S=50$. An admissible array is exactly a walk, so with $M$ the adjacency matrix and $\iota,\tau$ the vectors recording which states may begin and end an array,
+Vertices with identical futures are merged, which leaves $S=71$. An admissible array is exactly a walk, so with $M$ the adjacency matrix and $\iota,\tau$ the vectors recording which states may begin and end an array,
 \[
 a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau ,
 \]
@@ -79,7 +79,7 @@ changes nothing here.
 
 \begin{theorem}
 \[
-a(n)\;=\;16\,a(n-1) - 22\,a(n-2) - 276\,a(n-3) + 543\,a(n-4) + 1114\,a(n-5) - 24150\,a(n-6) - 6509\,a(n-7) + 197916\,a(n-8) + 80150\,a(n-9) - 592045\,a(n-10) + 4684412\,a(n-11) + 15106341\,a(n-12) - 17190009\,a(n-13) - 90244020\,a(n-14) - 91211136\,a(n-15) - 290130772\,a(n-16) - 407134336\,a(n-17) + 671095240\,a(n-18) + 2173631712\,a(n-19) + 6313455104\,a(n-20) + 12278947872\,a(n-21) + 8033752064\,a(n-22) + 6113760384\,a(n-23) - 31674604288\,a(n-24) - 122704805888\,a(n-25) - 110531544064\,a(n-26) - 270879311872\,a(n-27) - 593695940608\,a(n-28) + 82971942912\,a(n-29) + 283392655360\,a(n-30) - 69979668480\,a(n-31) + 3328745078784\,a(n-32) + 4282541146112\,a(n-33) + 2076075098112\,a(n-34) + 9789286383616\,a(n-35) + 7759030386688\,a(n-36) + 1140229931008\,a(n-37) + 7107835330560\,a(n-38) - 2054940524544\,a(n-39) - 10791105331200\,a(n-40) - 2076616687616\,a(n-41) - 14566381584384\,a(n-42) - 20598663151616\,a(n-43) - 2336462209024\,a(n-44) - 13056700579840\,a(n-45) - 3848290697216\,a(n-46) + 3298534883328\,a(n-47) - 4398046511104\,a(n-48)
+a(n)\;=\;5\,a(n-1) - 5\,a(n-2) + 4\,a(n-3) - 3\,a(n-4) - 49\,a(n-5) + 10\,a(n-6) + 15\,a(n-7) + 45\,a(n-8) + 124\,a(n-9) + 131\,a(n-10) + 301\,a(n-11) + 18\,a(n-12) - 615\,a(n-13) - 201\,a(n-14) - 1508\,a(n-15) - 823\,a(n-16) - 413\,a(n-17) - 254\,a(n-18) + 2467\,a(n-19) + 793\,a(n-20) + 4516\,a(n-21) + 1071\,a(n-22) + 2289\,a(n-23) - 2289\,a(n-25) - 1071\,a(n-26) - 4516\,a(n-27) - 793\,a(n-28) - 2467\,a(n-29) + 254\,a(n-30) + 413\,a(n-31) + 823\,a(n-32) + 1508\,a(n-33) + 201\,a(n-34) + 615\,a(n-35) - 18\,a(n-36) - 301\,a(n-37) - 131\,a(n-38) - 124\,a(n-39) - 45\,a(n-40) - 15\,a(n-41) - 10\,a(n-42) + 49\,a(n-43) + 3\,a(n-44) - 4\,a(n-45) + 5\,a(n-46) - 5\,a(n-47) + a(n-48)
 \]
 for every $n>48$.
 \end{theorem}
@@ -95,7 +95,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $16$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $26$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
@@ -112,7 +112,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A240890.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A240645.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

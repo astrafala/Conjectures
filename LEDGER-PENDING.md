@@ -226,3 +226,20 @@ publishes 1, 2, 5, 12.
 again at cap 3000000, the second time by exhausting a 280-second build rather than the cap
 itself. Its window is 3 lines of 4 cells with a bit each, which is where the size comes
 from. Not settled.
+
+### transfer86 — five more conditions, one engine (16 entries so far)
+
+No two ones adjacent diagonally; the neighbours of any element all different; no more than
+so many of any run of consecutive bits set in a row or column; entries increasing by a fixed
+set of steps modulo m rightwards and downwards; and row sums nondecreasing with columns
+lexicographically nondecreasing.
+
+The first four are local and share a three-line window. The last is not local in either
+direction and needs no window at all: carry the previous row's sum, and one flag per adjacent
+column pair saying whether the two have agreed in every line so far. A pair that separates
+the right way is settled for good; one that separates the wrong way ends the walk; pairs
+still tied at the end are equal, which the entry allows. Five readings pinned against
+published data first, including the two entries that count a quarter of their arrays.
+
+The remaining candidates in this family are still running at cap 2000000; whatever they come
+back as will be recorded next to the cap.
