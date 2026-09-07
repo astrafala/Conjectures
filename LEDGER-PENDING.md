@@ -56,3 +56,39 @@ and the expensive tail deferred, instead of letting four entries consume the who
 against the 7 September export: 25 carry settlement wording, the same 25 already examined,
 every one about a different statement on the same entry. None of the 76 new entries is among
 them.
+
+## 7 September 2026 --- the refused pool, measured properly, and one wall recorded
+
+**`src/whyrefused.py`.** "State space > cap" and "build timed out" come back from the sweep
+as the same thing --- a refusal --- and they want opposite responses: a bigger cap, or a
+longer budget. Re-running everything at both is how an afternoon disappears. The new script
+gives each entry a short fixed slice and records which wall it hit, so the next pass can be
+aimed instead of sprayed.
+
+**What it found in the 132 unsettled entries of the last pass:** 30 not open, and of the rest
+the largest block is `transfer32` at widths 8 and 9, which the diagnostic reported as
+cap-refused --- but the cap was never the binding constraint. The build could not finish at
+all.
+
+**`transfer32` rebuilt, and it is a real improvement.** The start weights were built by a
+triple loop over rows: at width 9 over two letters that is 1.34e8 iterations, each recomputing
+every window statistic. Only the statistics matter, and window $j$ of them depends on the
+first row through columns $j$, $j+1$, $j+2$ alone. The row is now grown one column at a time,
+prefixes agreeing on their last two entries and on the statistics so far are merged carrying
+their count, and the within-row constraints are tested the moment their second column appears
+so a doomed prefix dies immediately. Verified against the old loop on random row pairs at two
+widths --- every weight agrees exactly --- and the rebuilt model reproduces all 22 published
+terms of A253932.
+
+**And it is still not enough. Recording the wall with its numbers.** Width 7 builds in 80
+seconds. Width 9 has 512 rows, so the outer loop alone is 262144 row pairs at about 10 ms
+each: three quarters of an hour before the state count is even known, and it then exceeds
+**cap 2000000** anyway. Three entries were run to completion under a 1500-second budget and
+none settled. **The 21 `transfer32` entries at widths 8 and 9 are out of reach by this route**
+--- not because of the cap, and not for want of a longer budget, but because the pair loop is
+quadratic in a row count that doubles with every column. A different formulation would be
+needed, and I do not have one. Written down so it is not measured a third time.
+
+The 34 `transfer22` entries in the same pool are a separate question and untouched: their
+builds do finish (A264014 reaches 1048576 states in 84 seconds), so they are a cap-and-budget
+matter rather than a structural one.

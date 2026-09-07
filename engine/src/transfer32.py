@@ -178,6 +178,22 @@ def _value(expr, c):
     return tot
 
 
+
+def _ok_far(clauses, done, col, j):
+    """the within-row constraints that the new column j completes"""
+    for c, (_, cons) in enumerate(clauses):
+        for di, dj, rel in cons:
+            if di:
+                continue
+            i = j - dj
+            if 0 <= i < j:
+                a, b = done[i][c], col[c]
+                if (a > b) if rel == '<=' else (a < b):
+                    return False
+            elif dj == 0 and rel not in ('<=', '>='):
+                return False
+    return True
+
 def build(p, cap=40000):
     W, A, clauses = p['W'], p['alpha'] + 1, p['clauses']
     if A ** W > 4096:
@@ -250,6 +266,13 @@ def build(p, cap=40000):
                                            (r2[j], r2[j + 1], r2[j + 2]),
                                            (r3[j], r3[j + 1], r3[j + 2])))
                                 for e, _ in clauses)
+                    # the within-row constraints link column j to an earlier column, and
+                    # normalisation put the later column second, so each one can be tested
+                    # the moment its second column appears. A prefix that already violates
+                    # one can never satisfy okself, so the branch dies here instead of
+                    # surviving to the end of the row.
+                    if not _ok_far(clauses, done, col, j):
+                        continue
                     key = ((y, z), done + (col,))
                     nxt[key] = nxt.get(key, 0) + cnt
             layer = nxt
