@@ -519,7 +519,7 @@ A stratified sample, one paper from each of the 105 families, drawn with a fixed
 is reproducible and not cherry-picked (`engine/deep-check/phase12-sample.json`). Read the way
 a hostile referee reads: find the weakest step and attack it.
 
-Twenty-five read so far; the ones below are those where the attack found something or where the
+Twenty-nine read so far; the ones below are those where the attack found something or where the
 step most likely to fail was checked by hand.
 
 * **A223181** (`gf-implies-rec`) **passes.** Its proof is conditional on a generating function
@@ -580,6 +580,25 @@ step most likely to fail was checked by hand.
 * **A237968**, **A259247** and **A232139** pass. The last counts up to relabelling and uses
   the same rational combination of walk counts as A210100, whose identity was verified by hand
   above.
+
+**A pattern worth recording: the papers that face a non-local condition all name the
+obstacle.** Four read in a row do it, and none of them quietly pretends the condition is
+local.
+
+* **A263366** asks that every row *and every column*, read as base-3 numbers, be divisible by
+  7. A column's value depends on every row, so the condition is not local at all — and the
+  paper says so, then carries the column **residues**, built one row at a time by Horner's
+  rule, which is bounded. Checked by hand: the only rows that are themselves divisible by 7
+  are `00` and `21`, and of the four 2 X 2 arrays they allow, exactly one has both columns
+  divisible by 7. The entry publishes `a(1) = 1`.
+* **A224019** needs *unimodal* antidiagonals. It states plainly that a monotone condition is
+  local and a unimodal one is not, characterises unimodal correctly as *never rising again
+  after it has fallen*, and carries one bit per sequence for whether it has fallen.
+* **A235433** needs a lexicographic order on the **columns** of a derived array, which no
+  bounded window settles; it carries one bit per adjacent pair — the same device this check
+  derived independently for the lexicographic family.
+* **A235021** proves its recurrence minimal *and says the same holds on every tail*, which is
+  the strengthening `ordtails.py` was written around today.
 
 **39 abstracts state a condition the entry does not.** Found by reading A256768 (rank 4222).
 Its abstract says every 3 X 3 window *"has constrained SUMS along its rows, its columns and
