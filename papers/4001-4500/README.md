@@ -1,6 +1,6 @@
 # Papers 4001-4500
 
-Ranks 4001 to 4500 of 9777, hardest first.
+Ranks 4001 to 4500 of 9796, hardest first.
 
 | # | OEIS | Result | What settles it | Paper |
 | --- | --- | --- | --- | --- |

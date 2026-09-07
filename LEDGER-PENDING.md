@@ -92,3 +92,22 @@ needed, and I do not have one. Written down so it is not measured a third time.
 The 34 `transfer22` entries in the same pool are a separate question and untouched: their
 builds do finish (A264014 reaches 1048576 states in 84 seconds), so they are a cap-and-budget
 matter rather than a structural one.
+
+## 7 September 2026 --- 19 more, and the difference between a cap and a clock
+
+`whyrefused.py` said the `transfer22` entries were refused on the cap. They were not: A264014
+builds 1048576 states in 87 seconds, computes its terms in 8 and settles its residual in 10 ---
+**106 seconds in total, against a 30-second budget.** The refusal was a clock, not a wall.
+
+Re-run at a 200-second budget over the 106 buildable entries of the refused pool: **19 proved**,
+all in the permutation-array family, where a value moves from its home cell by an index change
+on a short list and the count becomes a matching problem solved column by column. The remaining
+entries of that pass were refused again, and those really are cap-bound.
+
+**The two refusals look identical in the log and want opposite responses.** That is the whole
+reason `whyrefused.py` exists, and this pass shows it still reports them wrongly when a build
+finishes just past the slice it is given. The diagnostic's own slice is now part of what it
+reports.
+
+Settlement re-checked against the 7 September export before counting: 25 entries carry
+settlement wording, the same 25 already examined, none of them among the 19.

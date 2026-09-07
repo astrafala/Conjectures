@@ -12,19 +12,19 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A251232, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A251233, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A251232 counts $5$-column arrays over $\{0,\dots,3\}$ in which every
+OEIS A251233 counts $6$-column arrays over $\{0,\dots,3\}$ in which every
 $2\times2$ subblock sums to one of $\{6\}$, and in which no $2\times2$ subblock has exactly two nonzero entries, and carries an empirical
 recurrence of order $11$ contributed by R.~H.~Hardin. It is true, and it is not an
 empirical matter at all: the rows of such an array are the vertices of a finite digraph in
 which the admissible row-to-row steps are the edges, so $a(n)=\mathbf{1}^{\!\top}M^{n}
-\mathbf{1}$ for the adjacency matrix $M$ of that digraph, on $S=1024$ vertices. Writing
+\mathbf{1}$ for the adjacency matrix $M$ of that digraph, on $S=4096$ vertices. Writing
 $q$ for the characteristic polynomial of the conjectured recurrence, the recurrence holds
 for every $n$ exactly when $\mathbf{1}^{\!\top}M^{j}q(M)\mathbf{1}=0$ for all
 $j\ge0$, and the Cayley--Hamilton theorem bounds that to $j<S$. It is therefore a finite
@@ -35,16 +35,16 @@ computation in exact integer arithmetic, and it comes out zero.
 
 \section{The sequence and the conjecture}
 
-OEIS A251232 is ``Number of (n+1) X (4+1) 0..3 arrays with every 2 X 2 subblock summing to 6 and no 2 X 2 subblock having exactly two nonzero entries.''. It has offset $1$
+OEIS A251233 is ``Number of (n+1) X (5+1) 0..3 arrays with every 2 X 2 subblock summing to 6 and no 2 X 2 subblock having exactly two nonzero entries.''. It has offset $1$
 and begins
 \[
-966, 1870, 3886, 8686, 20490, 50570, 129378, 340782,\ \dots
+2930, 5194, 9914, 20490, 44966, 103926, 250622, 626122,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
 Empirical: a(n) = 13*a(n-1) -63*a(n-2) +122*a(n-3) +13*a(n-4) -371*a(n-5) +317*a(n-6) +308*a(n-7) -370*a(n-8) -144*a(n-9) +128*a(n-10) +48*a(n-11).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Aug 10 2015 23:35:02, revision 10) the statement is
+As of the ``Last modified'' line on the live entry (Aug 10 2015 23:46:23, revision 10) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
@@ -56,8 +56,8 @@ stated.
 
 \section{The rows form a digraph}
 
-Let $V=\{0,1,\dots,3\}^{5}$, the set of possible rows, so $|V|=S=1024$. For
-$r,s\in V$ declare $r\to s$ an edge when, for every $j$ with $1\le j\le 5-1$,
+Let $V=\{0,1,\dots,3\}^{6}$, the set of possible rows, so $|V|=S=4096$. For
+$r,s\in V$ declare $r\to s$ an edge when, for every $j$ with $1\le j\le 6-1$,
 \begin{itemize}
 \item $r_j+r_{j+1}+s_j+s_{j+1}\in\{6\}$;
 \item the four entries $r_j,r_{j+1},s_j,s_{j+1}$ do not include exactly two nonzero ones, that is $\#\bigl\{v\in\{r_j,r_{j+1},s_j,s_{j+1}\}: v\ne0\bigr\}\ne2$;
@@ -75,7 +75,7 @@ a(n)\;=\;\mathbf{1}^{\!\top}M^{n}\mathbf{1} .
 \end{lemma}
 
 \begin{proof}
-An array with $n+1$ rows and $5$ columns is precisely a sequence
+An array with $n+1$ rows and $6$ columns is precisely a sequence
 $r^{(0)},\dots,r^{(n)}$ of elements of $V$. Every $2\times2$ subblock of the array lies
 in two vertically adjacent rows $r^{(i)},r^{(i+1)}$ and in two horizontally adjacent
 columns $j,j+1$; so the array satisfies the entry's condition on all of its $2\times2$
@@ -144,7 +144,7 @@ Three checks, each independent of the algebra above.
 
 First, the digraph was built directly from the entry's stated condition and the walk counts
 $\mathbf{1}^{\!\top}M^{n}\mathbf{1}$ compared against the entry's DATA at every one of
-the $23$ published indices; the values agree exactly. That is what ties the digraph to
+the $22$ published indices; the values agree exactly. That is what ties the digraph to
 the sequence: a model that reproduced only some of the published terms would be the wrong
 model, and would have been rejected.
 
@@ -152,12 +152,12 @@ Second, the recurrence \eqref{eq:conj} was evaluated on those published terms in
 integer arithmetic, with no matrices involved, and vanishes wherever it applies.
 
 Third, the annihilation test of Lemma~\ref{lem:crit} was run to the full Cayley--Hamilton
-bound $j<S=1024$ rather than to a sampled prefix, in exact integer arithmetic, and returned
+bound $j<S=4096$ rather than to a sampled prefix, in exact integer arithmetic, and returned
 zero throughout.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A251232.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A251233.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

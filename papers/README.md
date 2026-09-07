@@ -1,6 +1,6 @@
 # The papers
 
-9777 papers: 9771 proofs and 6 disproofs of conjectures recorded as open in
+9796 papers: 9790 proofs and 6 disproofs of conjectures recorded as open in
 the On-Line Encyclopedia of Integer Sequences.
 
 Author: **Adrian Perez Fontelles**, independent researcher.
@@ -32,15 +32,15 @@ its contributor and date, and gives the range over which it has been settled.
 | [3501-4000](3501-4000/) | 500 | [A237490](https://oeis.org/A237490) |
 | [4001-4500](4001-4500/) | 500 | [A229929](https://oeis.org/A229929) |
 | [4501-5000](4501-5000/) | 500 | [A236315](https://oeis.org/A236315) |
-| [5001-5500](5001-5500/) | 500 | [A203794](https://oeis.org/A203794) |
-| [5501-6000](5501-6000/) | 500 | [A207393](https://oeis.org/A207393) |
-| [6001-6500](6001-6500/) | 500 | [A302261](https://oeis.org/A302261) |
-| [6501-7000](6501-7000/) | 500 | [A207604](https://oeis.org/A207604) |
-| [7001-7500](7001-7500/) | 500 | [A207747](https://oeis.org/A207747) |
-| [7501-8000](7501-8000/) | 500 | [A253361](https://oeis.org/A253361) |
-| [8001-8500](8001-8500/) | 500 | [A206467](https://oeis.org/A206467) |
-| [8501-9000](8501-9000/) | 500 | [A207458](https://oeis.org/A207458) |
-| [9001-9500](9001-9500/) | 500 | [A183615](https://oeis.org/A183615) |
-| [9501-10000](9501-10000/) | 277 | [A168503](https://oeis.org/A168503) |
+| [5001-5500](5001-5500/) | 500 | [A184380](https://oeis.org/A184380) |
+| [5501-6000](5501-6000/) | 500 | [A207501](https://oeis.org/A207501) |
+| [6001-6500](6001-6500/) | 500 | [A260495](https://oeis.org/A260495) |
+| [6501-7000](6501-7000/) | 500 | [A297810](https://oeis.org/A297810) |
+| [7001-7500](7001-7500/) | 500 | [A318011](https://oeis.org/A318011) |
+| [7501-8000](7501-8000/) | 500 | [A208067](https://oeis.org/A208067) |
+| [8001-8500](8001-8500/) | 500 | [A208382](https://oeis.org/A208382) |
+| [8501-9000](8501-9000/) | 500 | [A237243](https://oeis.org/A237243) |
+| [9001-9500](9001-9500/) | 500 | [A253436](https://oeis.org/A253436) |
+| [9501-10000](9501-10000/) | 296 | [A100096](https://oeis.org/A100096) |
 
 `index.csv` lists every paper with its OEIS entry and the kind of argument used.

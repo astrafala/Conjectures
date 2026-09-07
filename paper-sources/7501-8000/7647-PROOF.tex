@@ -12,79 +12,53 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A233492, proved by transfer matrix}
+\title{Parities, differences and neighbours: OEIS A265929}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{3 September 2026}
+\date{7 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A233492 counts arrays of width $5$ over $\{0,1,2\}$ containing no run of $3$ consecutive
-cells, taken along a named direction of the grid, whose entries are strictly increasing. The entry carries
-an empirical recurrence of order $7$ contributed by R.~H.~Hardin. It is true, and it is
-decidable rather than empirical: every such run lies inside $3$ consecutive array rows, so
-the count is a walk count on $S=46873$ states.
+OEIS A265929 carries an empirical recurrence of order $8$ contributed by R.~H.~Hardin. It is
+true, and it is decidable rather than empirical. The entry's condition is decided by a bounded amount of state carried down the array; the
+admissible windows are the vertices of a finite digraph and the arrays counted are exactly the
+walks in it. Hence $a(n)$ is a walk count on $S=13$ vertices and is $C$-finite, and whether the
+conjectured recurrence annihilates it is settled by a finite exact computation, with the
+Cayley--Hamilton theorem bounding the work.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 68R15, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
 \section{The conjecture}
 
-OEIS A233492 is ``Number of (n+2) X (3+2) 0..2 arrays with no increasing sequence of length 3 horizontally or antidiagonally downwards.''. It has offset $1$ and begins
+OEIS A265929 is ``Number of 1 X n 0..4 arrays with the absolute differences of each element with its with horizontal and antidiagonal neighbors unique.''. It has offset $1$ and begins
 \[
-8946936, 1709348346, 325881917874, 62127117326151, 11844001767009636, 2257956973020836034, 430460043429459971151, 82063498573383090200622,\ \dots
+5, 25, 92, 340, 1252, 4616, 17012, 62696,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 191*a(n-1) +134*a(n-2) -38637*a(n-3) +3177*a(n-4) +1502613*a(n-5) -3705102*a(n-6) +2380185*a(n-7).
+Empirical: a(n) = 3*a(n-1) - 2*a(n-2) + 10*a(n-3) + 27*a(n-4) - 13*a(n-5) + 28*a(n-6) - 20*a(n-7) - 96*a(n-8) for n>9.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Apr 17 2022 20:15:35, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Mar 21 2018 06:45:40, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
-\section{What is being counted}
+\section{The count is a walk count}
 
-A RUN is $3$ consecutive cells taken along one of the directions
+The entry counts arrays with $1$ row over the alphabet $\{0,1,2,3,4\}$, growing one column at a time, and asks that the absolute differences between an element and each of its horizontal and antidiagonal neighbours must all be different from one another.
+
+Every cell the condition names lies within one column of the cell being judged, so three consecutive columns decide everything anchored at the middle one. Carry two consecutive columns as the state; a column is judged when the column after it arrives, and the column with nothing after it is judged by the end vector. A neighbour off the edge of the array is not a neighbour, which is what the entry means and what makes the first and last columns behave differently from the rest.
+
+Merging vertices with identical futures leaves $S=13$. An admissible array is exactly a walk, so with $M$ the adjacency matrix and $\iota,\tau$ the vectors recording which states may begin and end an array,
 \[
-\begin{array}{l}
-\text{along a row} \\
-\text{down an antidiagonal, ne to sw} \\
-\end{array}
+a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau ,
 \]
-all of them inside the array. The array is counted when no run has its entries strictly increasing.
-
-
-The entry carries no renaming clause, and it could not: ``strictly increasing'' compares
-letters by size, so it is not preserved by a permutation of the alphabet. The count is taken
-over the alphabet the entry names.
-
-\section{Every run lies in $3$ consecutive rows}
-
-\begin{lemma}\label{lem:win}
-Each direction above changes the row index by $0$ or $1$ from one cell of a run to the next, so
-a run of $3$ cells lies inside $3$ consecutive array rows, and a run whose last cell is in
-row $i$ lies inside rows $i-2,\dots,i$.
-\end{lemma}
-
-\begin{proof}
-Immediate from the row steps of the four directions, which are $0$ for a row and $1$ for the
-other three.
-\end{proof}
-
-So the state is the window of the last $2$ array rows, a row not yet written carried as
-$\bot$; a step appends a row and rejects it exactly when some run ends in it or lies inside it.
-A run needing a row that is $\bot$ does not exist, which is the boundary rule and is read off
-the window rather than assumed. The walk starts at the all-$\bot$ window, so a walk of $R$ steps
-is an array of $R$ rows. With $M$ the adjacency matrix of that digraph,
-\[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=46873,\quad\tau=\mathbf{1} .
-\]
-The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
-published terms rather than assumed. In particular $a$ is $C$-finite.
+the exponent fixed by the entry's own shape and checked against its published terms. In
+particular $a$ is $C$-finite.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{7}-\sum_i c_it^{7-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{8}-\sum_i c_it^{8-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -92,38 +66,39 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+7}-\sum_ic_iM^{j+7-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+8}-\sum_ic_iM^{j+8-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly.
+pins the threshold exactly. A constant factor in front of $a$ divides out of the residual and
+changes nothing here.
 \end{proof}
 
 \begin{theorem}
 \[
-a(n)\;=\;191\,a(n-1) + 134\,a(n-2) - 38637\,a(n-3) + 3177\,a(n-4) + 1502613\,a(n-5) - 3705102\,a(n-6) + 2380185\,a(n-7)
+a(n)\;=\;3\,a(n-1) - 2\,a(n-2) + 10\,a(n-3) + 27\,a(n-4) - 13\,a(n-5) + 28\,a(n-6) - 20\,a(n-7) - 96\,a(n-8)
 \]
-for every $n>7$.
+for every $n>9$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $7$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $8$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=7+1$ onwards and the run continued
-until the working vector was identically zero.
+integers vanish from the index corresponding to $n=9+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once. The bound is exact: at $n=9$ the recurrence fails on the entry's own published terms, so no larger range holds.
 \end{proof}
 
 \section{Verification}
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $10$ terms the entry publishes, exactly, in integer
-arithmetic.
+First, the model reproduces all $23$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry: the digraph is built by reading the
+entry's English, and a misreading gives different counts.
 
-Second, the count was recomputed for the smallest arrays straight from the definition: fill the
-cells in row major order, in the orientation the entry's own name writes, and reject as soon as
-a completed run is strictly increasing. No window, no transposition and no transfer matrix are involved, and
-the published terms came back.
+Second, the reading was pinned before the digraph was written, by a program that enumerates
+every array of the given shape one by one and tests the entry's condition on it directly. That program shares no code with the transfer matrix, so an error in one does not
+hide an error in the other.
 
 Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
@@ -133,9 +108,11 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A233492.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A265929.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+University Press, 2009.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

@@ -20,7 +20,7 @@ import localentry as LE
 # carry: the parse is redone here and folded into the record so the paper can quote it
 # rather than describe it in general terms.
 ENRICH = {'transfer17', 'transfer6', 'transfer20', 'transfer21',
-          'transfer9', 'transfer14', 'transfer10'}
+          'transfer9', 'transfer14', 'transfer10', 'transfer22'}
 
 SPECIAL = {'transfer17': 'transfer17build', 'transfer6': 'transfer6build',
            'transfer10': 'transfer10build', 'transfer11': 'transfer11build',

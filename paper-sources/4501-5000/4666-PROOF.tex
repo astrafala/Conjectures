@@ -12,19 +12,19 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A283199, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A283946, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A283199 counts $n\times4$ arrays over $\{0,\dots,1\}$ subject to a condition imposed on
+OEIS A283946 counts $n\times4$ arrays over $\{0,\dots,1\}$ subject to a condition imposed on
 every CELL over a neighbour set the entry names, and it carries an empirical recurrence of
 order $34$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
 empirical. A cell's neighbourhood meets three consecutive rows, so the state of a transfer
 matrix is a pair of consecutive rows and each step settles the middle one; an array is a
-walk, and $a(n)$ is a walk count on $S=470$ vertices, which is $C$-finite. Whether the
+walk, and $a(n)$ is a walk count on $S=498$ vertices, which is $C$-finite. Whether the
 conjectured recurrence annihilates it is then decided by a finite exact computation, with the
 Cayley--Hamilton theorem bounding the work.
 \end{abstract}
@@ -33,15 +33,15 @@ Cayley--Hamilton theorem bounding the work.
 
 \section{The conjecture}
 
-OEIS A283199 is ``Number of nX4 0..1 arrays with no 1 equal to more than two of its horizontal and vertical neighbors, with the exception of exactly one element.''. It has offset $1$ and begins
+OEIS A283946 is ``Number of nX4 0..1 arrays with no 1 equal to more than three of its horizontal, diagonal and antidiagonal neighbors, with the exception of exactly one element.''. It has offset $1$ and begins
 \[
-0, 36, 868, 16048, 263232, 4024168, 59065412, 842673912,\ \dots
+0, 16, 906, 16648, 283208, 4510608, 68693470, 1016922620,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 18*a(n-1) -29*a(n-2) -174*a(n-3) -2976*a(n-4) -10280*a(n-5) -36327*a(n-6) -51166*a(n-7) -56733*a(n-8) +136728*a(n-9) +273529*a(n-10) +380780*a(n-11) -354170*a(n-12) -439798*a(n-13) +535820*a(n-14) -171074*a(n-15) -742999*a(n-16) +341418*a(n-17) +261472*a(n-18) -563536*a(n-19) -56145*a(n-20) +338242*a(n-21) -109804*a(n-22) -133254*a(n-23) +120176*a(n-24) +33588*a(n-25) -61637*a(n-26) +4672*a(n-27) +25732*a(n-28) -4460*a(n-29) -7460*a(n-30) +728*a(n-31) +1116*a(n-32) -32*a(n-33) -64*a(n-34)
+Empirical: a(n) = 22*a(n-1) -79*a(n-2) -404*a(n-3) -1735*a(n-4) +5380*a(n-5) +19741*a(n-6) +34190*a(n-7) -114058*a(n-8) -262182*a(n-9) -147141*a(n-10) +773852*a(n-11) +1033244*a(n-12) -636288*a(n-13) -1952548*a(n-14) -773524*a(n-15) +3381918*a(n-16) +701852*a(n-17) -2086167*a(n-18) -1415394*a(n-19) +277411*a(n-20) +2329064*a(n-21) -1494802*a(n-22) +674022*a(n-23) -1245796*a(n-24) +983860*a(n-25) -532781*a(n-26) +405164*a(n-27) -201292*a(n-28) +71680*a(n-29) -28816*a(n-30) +7280*a(n-31) -1128*a(n-32) +96*a(n-33) -4*a(n-34)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Mar 02 2017 20:41:38, revision 4) this is still
+As of the ``Last modified'' line on the live entry (Mar 18 2017 12:21:23, revision 4) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{Cells, not blocks}
@@ -49,16 +49,16 @@ recorded as empirical, and nothing on the entry records it as proved.
 The entry names the neighbours it means --- horizontal is left and right, vertical is up and
 down, diagonal is northwest-to-southeast, antidiagonal is northeast-to-southwest, king-move is
 all eight --- and every such set lies inside the $3\times3$ square centred on the cell. Here
-the set is $\{(0,-1), (0,1), (-1,0), (1,0)\}$, written as offsets (row, column) from the cell. Every cell carries
+the set is $\{(0,-1), (0,1), (-1,-1), (1,1), (-1,1), (1,-1)\}$, written as offsets (row, column) from the cell. Every cell carries
 the condition
 \[
-\text{every 1 has at most 2 neighbouring 1s},
+\text{every 1 has at most 3 neighbouring 1s},
 \]
 and the count of neighbours enters it, so the boundary is not a detail that can be papered
-over: a cell in the interior has $4$ neighbours in this set and a cell on the boundary
+over: a cell in the interior has $6$ neighbours in this set and a cell on the boundary
 fewer, and a condition such as ``a strict majority of its neighbours'' therefore means
 different things at the two. In particular one cannot pad the array with a border of zeros ---
-that would give every cell the full $4$ and change what is being counted. The outside is
+that would give every cell the full $6$ and change what is being counted. The outside is
 therefore carried
 explicitly, as a sentinel row above the first and below the last and as a sentinel column
 either side, and a neighbour that falls outside is simply absent from both counts.
@@ -100,7 +100,7 @@ nonzero $u_j$ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;18\,a(n-1) - 29\,a(n-2) - 174\,a(n-3) - 2976\,a(n-4) - 10280\,a(n-5) - 36327\,a(n-6) - 51166\,a(n-7) - 56733\,a(n-8) + 136728\,a(n-9) + 273529\,a(n-10) + 380780\,a(n-11) - 354170\,a(n-12) - 439798\,a(n-13) + 535820\,a(n-14) - 171074\,a(n-15) - 742999\,a(n-16) + 341418\,a(n-17) + 261472\,a(n-18) - 563536\,a(n-19) - 56145\,a(n-20) + 338242\,a(n-21) - 109804\,a(n-22) - 133254\,a(n-23) + 120176\,a(n-24) + 33588\,a(n-25) - 61637\,a(n-26) + 4672\,a(n-27) + 25732\,a(n-28) - 4460\,a(n-29) - 7460\,a(n-30) + 728\,a(n-31) + 1116\,a(n-32) - 32\,a(n-33) - 64\,a(n-34)
+a(n)\;=\;22\,a(n-1) - 79\,a(n-2) - 404\,a(n-3) - 1735\,a(n-4) + 5380\,a(n-5) + 19741\,a(n-6) + 34190\,a(n-7) - 114058\,a(n-8) - 262182\,a(n-9) - 147141\,a(n-10) + 773852\,a(n-11) + 1033244\,a(n-12) - 636288\,a(n-13) - 1952548\,a(n-14) - 773524\,a(n-15) + 3381918\,a(n-16) + 701852\,a(n-17) - 2086167\,a(n-18) - 1415394\,a(n-19) + 277411\,a(n-20) + 2329064\,a(n-21) - 1494802\,a(n-22) + 674022\,a(n-23) - 1245796\,a(n-24) + 983860\,a(n-25) - 532781\,a(n-26) + 405164\,a(n-27) - 201292\,a(n-28) + 71680\,a(n-29) - 28816\,a(n-30) + 7280\,a(n-31) - 1128\,a(n-32) + 96\,a(n-33) - 4\,a(n-34)
 \]
 for every $n>34$.
 \end{theorem}
@@ -134,7 +134,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A283199.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A283946.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
