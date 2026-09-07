@@ -228,3 +228,39 @@ two digits or more, in order, against the best-matching entry line.
 2 entries genuinely edited since their paper (A079144, r71 to r73), **11 quotations still
 unresolved** and listed by rank for examination when the phase runs for real. That list is
 the phase's output, not its failure.
+
+## 7 September 2026 --- Phase 3 run over the whole corpus, and the pair dropped from a third engine
+
+**Phase 3, all 9928 papers, against the 7 September export: 0 defects.** Every paper names its
+own A-number; every term printed in section 1 is a prefix of the entry's current DATA; every
+quotation the comparison can adjudicate is exact.
+
+What it also reports, which is the useful part:
+
+* **414 papers typeset their quotation**, so the extracted text cannot equal the entry
+  character for character. Those are checked on their numbers --- every integer of two digits
+  or more, in order.
+* **39 quotations the automated comparison cannot settle**, listed by rank for the reading
+  pass. An automated string comparison is not entitled to a verdict on a typeset formula, and
+  saying so is more honest than passing them.
+* **381 papers whose section 1 quote could not be located at all** --- 3.8% of the corpus, the
+  early bespoke papers whose section 1 is laid out individually. That is a coverage gap in the
+  check, not a defect in the papers, and it is named rather than hidden.
+* **11 entries edited since their paper was written** (A079144 r71 to r73, A262482 r13 to r17,
+  and nine that print no Last-modified line at all --- those last were the pattern matching
+  some other parenthesis and reading the revision as zero, now fixed).
+
+Four more of my own false-positive classes were removed getting there: a credit line rendered
+differently in paper and entry, two more quotation lead-ins, containment tested in only one
+direction, and the revision-zero case above.
+
+### transfer9 --- the third engine with a pair state it did not need
+
+Same shape as `transfer17` and `transfer19`: the pair branch fills its edges with a loop over
+TRIPLES of lines, which the guard `len(lines)**2 > cap` cannot see. Every offset moves at most
+$R$ columns, so the profile $P(a,b)$ of indicators over the window of the line below carries
+everything the pair does; the vertex is $(b,P)$, and the starting pairs --- those whose first
+line is satisfied with nothing above --- decompose over the same windows.
+
+Identical terms to the old build on all seven entries small enough to run both, with the state
+count 2 to 6 times smaller (A188554: 64 to 11; A188519: 1024 to 262). 81 entries requeued.

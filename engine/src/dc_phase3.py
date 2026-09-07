@@ -192,7 +192,12 @@ def main(lo, hi):
             said, rev = ' '.join(m.group(1).split()), m.group(2)
             # the paper prints the day, the entry prints the second as well, and the two
             # are written the other way round; the revision number is the reliable part
-            if rev != str(e['revision']) or daystamp(said) != daystamp(e['modified']):
+            # a paper that does not print a Last-modified line at all is not claiming one;
+            # eight papers were reported as "edited" because the pattern matched some other
+            # parenthesis and read the revision as zero
+            if daystamp(said) is None:
+                pass
+            elif rev != str(e['revision']) or daystamp(said) != daystamp(e['modified']):
                 moved.append((rank, a, f'paper says {said} r{rev}, '
                                        f"entry says {e['modified']} r{e['revision']}"))
 
