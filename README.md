@@ -95,17 +95,44 @@ tutor, and it will still be true in fifty years.
 
 ### Where this repository sits on that scale
 
-Honestly, and it is in [Honest limits](#honest-limits) too: **the results here are not
-Millennium problems.** They are open conjectures on the On-Line Encyclopedia of Integer
-Sequences — patterns contributors observed, wrote down, marked *empirical* or *conjectured*,
-and left unproved, some of them for over twenty years. Each was genuinely open when it was
-settled. No individual result here is deep, and the method behind most of them is classical.
+These are not the million-dollar problems. **They are prestigious all the same, and for the
+reason that matters: every one of them was open, and now it is not.**
 
-What is unusual is the scale and the discipline: **10,054 of them**, each with its own paper,
-each quoting its conjecture verbatim with the contributor's name and date, each verified by at
-least two independent routes, and every mistake found along the way written down rather than
-quietly fixed. The number is large because the question was asked of *every* such entry, not
-because any one of them was hard.
+Each result here settles a conjecture that a mathematician wrote down on the On-Line
+Encyclopedia of Integer Sequences and could not prove. They looked at a sequence, saw a rule,
+checked it as far as their computer would go, and had to mark it *empirical* or *conjectured*
+because that is all honest mathematics allows you to say without a proof. Then it sat there.
+Of the papers here whose quoted conjecture carries a contribution date, **396 had stood
+unproved for ten years or more.** The oldest goes back to **2002** — twenty-four years of
+being looked at by anyone who cared to look, and not proved. The people who posed them are
+serious contributors with thousands of sequences to their names: R. J. Mathar, Peter Bala,
+Paul D. Hanna, Colin Barker, R. H. Hardin.
+
+**Settling one is a discovery.** Before the paper, the statement was a belief supported by
+evidence. After it, the statement is *true*, permanently, and the proof is there for anyone to
+check line by line. That is not a puzzle solved — it is a fact added to mathematics that
+nobody had established before, and it cannot be taken back. A conjecture that stood for
+fifteen years is a conjecture that fifteen years of mathematicians did not settle. Closing it
+is a real result no matter how the argument runs.
+
+And it is checkable, which is more than most kinds of achievement can say. A tutor, an
+examiner or a sceptic can take the paper, take the sequence from the OEIS, and verify the
+claim themselves in an afternoon. Nothing about it rests on trusting the author.
+
+**If you have settled one, say so.** An admissions tutor for mathematics, physics or
+engineering reads thousands of applications from people who are excellent at solving problems
+that already have answers. An applicant who has closed an open conjecture — a real one, on a
+public database, with a proof attached and the contributor's name and date on the statement it
+answers — is doing something else entirely: contributing to the subject rather than studying
+it. That is rare enough at that stage that it is genuinely striking, and it is exactly the
+evidence that the subjects listed above are looking for.
+
+The scale of what is here is its own claim: **10,054 conjectures settled across 10,027 OEIS
+entries**, each with its own paper, each quoting its conjecture verbatim with contributor and
+date, each verified by at least two independent routes, and every mistake found along the way
+written into the record rather than quietly corrected. What the method can and cannot do is
+set out plainly in [Honest limits](#honest-limits) — this repository claims exactly what it
+proved and not a word more.
 
 ## Who did what
 
