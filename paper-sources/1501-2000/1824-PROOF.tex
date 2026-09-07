@@ -12,38 +12,38 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A203544, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A202983, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{4 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A203544 counts arrays of width $2$ over $\{0,1,2,3,4\}$ in which every nonzero cell has a neighbour at least as large as itself. The entry carries an
+OEIS A202983 counts arrays of width $3$ over $\{0,1,2\}$ in which every nonzero cell has a neighbour at least as large as itself. The entry carries an
 empirical recurrence of order $13$ contributed by R.~H.~Hardin. It is true, and it is
 decidable rather than empirical: what a cell asks reaches one row above it and one row below, so the
 condition on a whole row is settled by $3$ consecutive rows and the count is a walk
-count on $S=501$ states.
+count on $S=622$ states.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 05B20, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A203544 is ``Number of nX2 0..4 arrays with every nonzero element less than or equal to some NW, E or S neighbor.''. It has offset $1$ and begins
+OEIS A202983 is ``Number of nX3 0..2 arrays with every nonzero element less than or equal to some NW, E or S neighbor.''. It has offset $1$ and begins
 \[
-1, 25, 430, 4773, 48046, 504464, 5448482, 58647145,\ \dots
+1, 63, 1233, 16854, 239196, 3557168, 52328419, 764541713,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 25*a(n-1) -260*a(n-2) +1700*a(n-3) -7878*a(n-4) +25276*a(n-5) -56108*a(n-6) +90339*a(n-7) -109634*a(n-8) +103867*a(n-9) -84017*a(n-10) +52577*a(n-11) -21631*a(n-12) +6561*a(n-13)
+Empirical: a(n) = 27*a(n-1) -271*a(n-2) +1899*a(n-3) -11048*a(n-4) +44346*a(n-5) -113218*a(n-6) +201165*a(n-7) -291398*a(n-8) +360023*a(n-9) -334000*a(n-10) +199528*a(n-11) -66264*a(n-12) +9212*a(n-13)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 10:33:05, revision 9) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 10:01:10, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The arrays have $2$ columns and a growing number of rows, with entries in $\{0,1,2,3,4\}$. Fix the
+The arrays have $3$ columns and a growing number of rows, with entries in $\{0,1,2\}$. Fix the
 offsets the entry names,
 \[
 \Delta=\{\,(-1,-1), (0,1), (1,0)\,\},
@@ -80,7 +80,7 @@ with absent rows appended --- the same rule that governs a cell at the bottom ed
 Section 2.
 Thus
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=501,
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=622,
 \]
 for the transfer matrix $M$ on those $S$ states. The walk index $j$ and the entry's own $n$
 differ by a constant, read off by matching the published terms rather than assumed. In
@@ -106,15 +106,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;25\,a(n-1) - 260\,a(n-2) + 1700\,a(n-3) - 7878\,a(n-4) + 25276\,a(n-5) - 56108\,a(n-6) + 90339\,a(n-7) - 109634\,a(n-8) + 103867\,a(n-9) - 84017\,a(n-10) + 52577\,a(n-11) - 21631\,a(n-12) + 6561\,a(n-13)
+a(n)\;=\;27\,a(n-1) - 271\,a(n-2) + 1899\,a(n-3) - 11048\,a(n-4) + 44346\,a(n-5) - 113218\,a(n-6) + 201165\,a(n-7) - 291398\,a(n-8) + 360023\,a(n-9) - 334000\,a(n-10) + 199528\,a(n-11) - 66264\,a(n-12) + 9212\,a(n-13)
 \]
-for every $n>12$.
+for every $n>13$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $13$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=12+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=13+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -122,11 +122,11 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $18$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $16$ terms the entry publishes, exactly, in integer
 arithmetic.
 
 Second, the count was recomputed for the smallest arrays straight from the definition: every
-array of width $2$ over $\{0,1,2,3,4\}$ with a few rows was written out cell by cell and each cell
+array of width $3$ over $\{0,1,2\}$ with a few rows was written out cell by cell and each cell
 tested against the neighbours it has. No window, no state and no end vector are involved in that
 computation, and the published terms came back.
 
@@ -138,7 +138,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A203544.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A202983.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge

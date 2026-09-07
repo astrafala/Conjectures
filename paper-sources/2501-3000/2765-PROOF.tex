@@ -12,14 +12,14 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A281716, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A281470, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A281716 counts $2\times n$ arrays over $\{0,\dots,1\}$ subject to a condition imposed on
+OEIS A281470 counts $2\times n$ arrays over $\{0,\dots,1\}$ subject to a condition imposed on
 every CELL over a neighbour set the entry names, and counted UP TO RELABELLING of the
 alphabet; it carries an empirical recurrence of order $5$ contributed by
 R.~H.~Hardin. It is true, and it is decidable rather than empirical. What is counted is
@@ -33,15 +33,15 @@ Cayley--Hamilton theorem bounding the work.
 
 \section{The conjecture}
 
-OEIS A281716 is ``Number of 2 X n 0..1 arrays with no element unequal to a strict majority of its horizontal, diagonal and antidiagonal neighbors and with new values introduced in order 0 sequentially upwards.''. It has offset $1$ and begins
+OEIS A281470 is ``Number of 2Xn 0..1 arrays with no element equal to more than two of its horizontal, diagonal or antidiagonal neighbors and with new values introduced in order 0 sequentially upwards.''. It has offset $1$ and begins
 \[
-2, 3, 7, 14, 29, 61, 126, 265,\ \dots
+2, 8, 17, 37, 78, 169, 361, 778,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 3*a(n-1) + a(n-2) - 6*a(n-3) - 2*a(n-4) + 4*a(n-5).
+Empirical: a(n) = 3*a(n-1) +a(n-2) -6*a(n-3) -2*a(n-4) +4*a(n-5) for n>6
 \end{quote}
-As of the ``Last modified'' line on the live entry (Feb 20 2019 05:38:55, revision 7) this is still
+As of the ``Last modified'' line on the live entry (May 14 2017 12:55:02, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{Patterns are a combination of counts}
@@ -77,7 +77,7 @@ all eight --- and every such set lies inside the $3\times3$ square centred on th
 the set is $\{(-1,0), (1,0), (-1,-1), (1,1), (1,-1), (-1,1)\}$, written as offsets (row, column) from the cell. Every cell carries
 the condition
 \[
-\text{no cell is unequal to a strict majority of its horizontal, diagonal and antidiagonal neighbours},
+\text{no cell is equal to more than 2 of its horizontal, diagonal or antidiagonal neighbours},
 \]
 and the count of neighbours enters it, so the boundary is not a detail that can be papered
 over: a cell in the interior has $6$ neighbours in this set and a cell on the boundary
@@ -125,22 +125,22 @@ nonzero $u_j$ pins the threshold exactly.
 \[
 a(n)\;=\;3\,a(n-1) + a(n-2) - 6\,a(n-3) - 2\,a(n-4) + 4\,a(n-5)
 \]
-for every $n>5$.
+for every $n>6$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $5$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly. Those
-integers vanish from the index corresponding to $n=5+1$ onwards, and the run was
+integers vanish from the index corresponding to $n=6+1$ onwards, and the run was
 continued until the working vector was identically zero, which settles all larger $j$ at once.
-By Lemma~\ref{lem:crit} the recurrence holds for every $n>5$.
+By Lemma~\ref{lem:crit} the recurrence holds for every $n>6$. The bound is exact: at $n=6$ the recurrence fails on the entry's own published terms, so no larger range holds.
 \end{proof}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the transfer model reproduces all $31$ terms the entry publishes, exactly, in
+First, the transfer model reproduces all $30$ terms the entry publishes, exactly, in
 integer arithmetic. That check earned its place here. The neighbour offsets are named in the
 array's own frame --- horizontal means along a row --- but when the entry fixes the first
 dimension, as in ``$2\times n$'', the walk runs along columns and the two components of every
@@ -157,7 +157,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A281716.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A281470.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

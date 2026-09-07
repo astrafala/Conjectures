@@ -12,34 +12,34 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A233225, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A233142, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A233225 counts arrays over $\{0,\dots,5\}$ in which no two entries that are neighbours in
+OEIS A233142 counts arrays over $\{0,\dots,5\}$ in which no two entries that are neighbours in
 a named set of directions may sum to $5$, together with clauses that pick one array out of
 each class of arrays differing by a renaming. The entry carries an empirical recurrence of
 order $10$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
 empirical: the clash condition is local to two consecutive rows and the renaming clauses are
-carried by one bounded piece of extra state, so the count is a walk count on $S=10$ states.
+carried by one bounded piece of extra state, so the count is a walk count on $S=12$ states.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 05C15, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A233225 is ``Number of nX3 0..5 arrays with no element x(i,j) adjacent to value 5-x(i,j) horizontally, diagonally, antidiagonally or vertically, top left element zero, and 1 appearing before 2 3 and 4, and 2 appearing before 3 in row major order.''. It has offset $1$ and begins
+OEIS A233142 is ``Number of nX3 0..5 arrays with no element x(i,j) adjacent to value 5-x(i,j) horizontally, antidiagonally or vertically, top left element zero, and 1 appearing before 2 3 and 4, and 2 appearing before 3 in row major order.''. It has offset $1$ and begins
 \[
-6, 174, 8231, 420948, 21895530, 1142726121, 59679029456, 3117164734533,\ \dots
+6, 225, 13259, 845917, 54777233, 3556749764, 231058112982, 15011638934832,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 66*a(n-1) -748*a(n-2) +1422*a(n-3) +5006*a(n-4) -16598*a(n-5) +10288*a(n-6) +8658*a(n-7) -10189*a(n-8) +2228*a(n-9) -132*a(n-10)
+Empirical: a(n) = 84*a(n-1) -1342*a(n-2) +7132*a(n-3) -17820*a(n-4) +24364*a(n-5) -19790*a(n-6) +9748*a(n-7) -2659*a(n-8) +272*a(n-9) +12*a(n-10) for n>11
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 07:56:42, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 07:54:45, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
@@ -48,9 +48,9 @@ The array is $3$ cells across with entries $x(i,j)\in\{0,1,\dots,5\}$. Call two 
 when $u+v=5$. Two cells are neighbours when one is obtained from the other by one of
 the offsets
 \[
-(0,1), (1,-1), (1,0), (1,1),
+(0,1), (1,-1), (1,0),
 \]
-that is, in the horizontal, antidiagonal (ne--sw), vertical and diagonal (nw--se) directions, and the condition is that no two neighbouring cells carry
+that is, in the horizontal, antidiagonal (ne--sw) and vertical directions, and the condition is that no two neighbouring cells carry
 clashing values. The clash relation is symmetric, so an offset and its negative name the
 same pairs and only one of each is listed. The entry also fixes the top left entry: $x(1,1)=0$.
 
@@ -91,7 +91,7 @@ So the state is a pair: the last array row, and the set $T$ of Lemma~\ref{lem:se
 appends a row, which settles every clash between it and the row above, every clash inside it,
 and every first appearance it contains. Two states from which, for every remaining length, the
 same number of arrays can be completed contribute identically to the count, so they are
-identified; after that identification there are $S=10$ of them.
+identified; after that identification there are $S=12$ of them.
 
 With $\iota$ the indicator of the states that may begin an array and $\tau=\mathbf{1}$,
 \[
@@ -120,15 +120,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;66\,a(n-1) - 748\,a(n-2) + 1422\,a(n-3) + 5006\,a(n-4) - 16598\,a(n-5) + 10288\,a(n-6) + 8658\,a(n-7) - 10189\,a(n-8) + 2228\,a(n-9) - 132\,a(n-10)
+a(n)\;=\;84\,a(n-1) - 1342\,a(n-2) + 7132\,a(n-3) - 17820\,a(n-4) + 24364\,a(n-5) - 19790\,a(n-6) + 9748\,a(n-7) - 2659\,a(n-8) + 272\,a(n-9) + 12\,a(n-10)
 \]
-for every $n>10$.
+for every $n>11$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $10$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=10+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=11+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -152,7 +152,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A233225.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A233142.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata

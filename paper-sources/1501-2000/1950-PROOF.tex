@@ -12,14 +12,14 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{No column above the one before it in every row: OEIS A212941}
+\title{No column above the one before it in every row: OEIS A212928}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{7 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A212941 carries an empirical recurrence of order $11$ contributed by R.~H.~Hardin. It is
+OEIS A212928 carries an empirical recurrence of order $11$ contributed by R.~H.~Hardin. It is
 true, and it is decidable rather than empirical. The entry's condition quantifies over all rows at once, so it is not decided by any
 bounded window; but it is a conjunction of independent per-row facts, and one bit per
 adjacent column pair carries it; the
@@ -33,22 +33,22 @@ Cayley--Hamilton theorem bounding the work.
 
 \section{The conjecture}
 
-OEIS A212941 is ``Number of n X 6 0..5 arrays with no column j greater than or equal to than column j-1 in all rows.''. It has offset $1$ and begins
+OEIS A212928 is ``Number of nX6 0..5 arrays with no column j greater than column j-1 in all rows.''. It has offset $1$ and begins
 \[
-1, 152747323, 28744943858947, 2438624218076957695, 153322267564381742818531, 8389667096561737605103329223, 427593510370812774462812710051387, 20973117493971065058428815227499445215,\ \dots
+462, 724082352, 68264066143602, 4051316109991426752, 207406617181155352354002, 10046278068363977051128904352, 475997448692406224810330915906802,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 130453*a(n-1) -6763333836*a(n-2) +185208872760324*a(n-3) -2991440828618168976*a(n-4) +29966228467174160130816*a(n-5) -189618846625740940674481152*a(n-6) +754213725094693350993932353536*a(n-7) -1831929539263722316502211827073024*a(n-8) +2545588680910314328406052486644760576*a(n-9) -1758206800538810904218951296840095498240*a(n-10) +418951577236630476027552063815969641857024*a(n-11).
+Empirical: a(n) = 84893*a(n-1) -2276359483*a(n-2) +25831810460691*a(n-3) -141600299635779300*a(n-4) +393253940006658385200*a(n-5) -543914412861962657592000*a(n-6) +355178573601133735540800000*a(n-7) -106850312683474117501440000000*a(n-8) +12875773990520518094592000000000*a(n-9) -350101309136762266214400000000000*a(n-10) +337332030823872921600000000000000*a(n-11).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Apr 17 2022 21:53:33, revision 8) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 16:40:18, revision 13) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{The count is a walk count}
 
-The entry counts arrays of $6$ columns whose rows are arbitrary over the alphabet $\{0,1,\dots,5\}$, and asks that no column $j$ be greater than or equal to column $j-1$ \emph{in all rows}.
+The entry counts arrays of $6$ columns whose rows are arbitrary over the alphabet $\{0,1,\dots,5\}$, and asks that no column $j$ be greater than column $j-1$ \emph{in all rows}.
 
-That is not a condition on any bounded window: ``in all rows'' quantifies over the whole array, and a row arriving at the very end can still decide it. What makes it a walk anyway is that it is a conjunction of independent facts about single rows. For each of the $5$ adjacent column pairs keep one bit, recording whether every row so far has had column $j$ greater than or equal to column $j-1$. A new row can only clear bits, never set one, and the array is admissible exactly when every bit has been cleared by the time the array ends.
+That is not a condition on any bounded window: ``in all rows'' quantifies over the whole array, and a row arriving at the very end can still decide it. What makes it a walk anyway is that it is a conjunction of independent facts about single rows. For each of the $5$ adjacent column pairs keep one bit, recording whether every row so far has had column $j$ greater than column $j-1$. A new row can only clear bits, never set one, and the array is admissible exactly when every bit has been cleared by the time the array ends.
 
 So the state is that bit mask and nothing else --- at most $2^{5}$ of them, however large the alphabet is, which is why entries whose terms run to twenty digits have models this small. Rows with the same bit pattern act identically, so each row contributes one edge and the multiplicity does the counting. Merging vertices with identical futures leaves $S=11$, and with $M$ the adjacency matrix and $\iota,\tau$ the vectors recording which masks may begin and end an array,
 \[
@@ -78,7 +78,7 @@ changes nothing here.
 
 \begin{theorem}
 \[
-a(n)\;=\;130453\,a(n-1) - 6763333836\,a(n-2) + 185208872760324\,a(n-3) - 2991440828618168976\,a(n-4) + 29966228467174160130816\,a(n-5) - 189618846625740940674481152\,a(n-6) + 754213725094693350993932353536\,a(n-7) - 1831929539263722316502211827073024\,a(n-8) + 2545588680910314328406052486644760576\,a(n-9) - 1758206800538810904218951296840095498240\,a(n-10) + 418951577236630476027552063815969641857024\,a(n-11)
+a(n)\;=\;84893\,a(n-1) - 2276359483\,a(n-2) + 25831810460691\,a(n-3) - 141600299635779300\,a(n-4) + 393253940006658385200\,a(n-5) - 543914412861962657592000\,a(n-6) + 355178573601133735540800000\,a(n-7) - 106850312683474117501440000000\,a(n-8) + 12875773990520518094592000000000\,a(n-9) - 350101309136762266214400000000000\,a(n-10) + 337332030823872921600000000000000\,a(n-11)
 \]
 for every $n>11$.
 \end{theorem}
@@ -94,7 +94,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $8$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $7$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
@@ -111,7 +111,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A212941.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A212928.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

@@ -12,14 +12,14 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A205166, proved by counting patterns}
+\title{The empirical recurrence for OEIS A204568, proved by counting patterns}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A205166 counts arrays subject to a local condition \emph{and} to the clause ``new values
+OEIS A204568 counts arrays subject to a local condition \emph{and} to the clause ``new values
 $0..3$ introduced in row major order'', which says the array is written in canonical
 form. That clause is not local, so a transfer matrix over the alphabet does not see it. It
 does not have to: what is being counted is not arrays but equality patterns, and the number
@@ -36,22 +36,22 @@ $13$, contributed by R.~H.~Hardin, then follows from a finite exact computation.
 
 \section{The sequence and the conjecture}
 
-OEIS A205166 is ``Number of (n+1)X5 0..3 arrays with every 2X2 subblock having unequal diagonal elements or unequal antidiagonal elements, and new values 0..3 introduced in row major order.''. It has offset $1$ and begins
+OEIS A204568 is ``Number of (n+1)X5 0..3 arrays with every 2X2 subblock having equal diagonal elements or equal antidiagonal elements, and new values 0..3 introduced in row major order.''. It has offset $1$ and begins
 \[
-33831, 26702419, 21125224557, 16713430246949, 13223001109687815, 10461512493459648399, 8276732547425415428669, 6548221560172100787717125,\ \dots
+1682, 80518, 4220392, 226207388, 12184154082, 657035534014, 35439471578008, 1911668983879844,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 833*a(n-1) -33758*a(n-2) +523880*a(n-3) -3857129*a(n-4) +13605853*a(n-5) -17604432*a(n-6) -15652010*a(n-7) +55894364*a(n-8) -22106688*a(n-9) -29904720*a(n-10) +18240672*a(n-11) +492672*a(n-12) -1016064*a(n-13)
+Empirical: a(n) = 66*a(n-1) -371*a(n-2) -20540*a(n-3) +324789*a(n-4) -1657430*a(n-5) +2548727*a(n-6) +4497416*a(n-7) -19534224*a(n-8) +23561568*a(n-9) -10191744*a(n-10) -1130112*a(n-11) +1975104*a(n-12) -373248*a(n-13)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 11:48:34, revision 9) the statement is
+As of the ``Last modified'' line on the live entry (Oct 03 2025 11:19:50, revision 9) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;833\,a(n-1) - 33758\,a(n-2) + 523880\,a(n-3) - 3857129\,a(n-4) + 13605853\,a(n-5) - 17604432\,a(n-6) - 15652010\,a(n-7) + 55894364\,a(n-8) - 22106688\,a(n-9) - 29904720\,a(n-10) + 18240672\,a(n-11) + 492672\,a(n-12) - 1016064\,a(n-13)
+a(n)\;=\;66\,a(n-1) - 371\,a(n-2) - 20540\,a(n-3) + 324789\,a(n-4) - 1657430\,a(n-5) + 2548727\,a(n-6) + 4497416\,a(n-7) - 19534224\,a(n-8) + 23561568\,a(n-9) - 10191744\,a(n-10) - 1130112\,a(n-11) + 1975104\,a(n-12) - 373248\,a(n-13)
 \end{equation}
-for all $n>13$.
+for all $n>12$.
 
 \section{What the canonical-form clause counts}
 
@@ -68,7 +68,7 @@ subblock is
 \]
 and the entry's requirement on it is
 \begin{equation}\label{eq:loc}
-\alpha\ne\delta\ \text{ or }\ \beta\ne\gamma.
+\alpha=\delta\ \text{ or }\ \beta=\gamma.
 \end{equation}
 
 The condition is stated purely in terms of equalities between entries, so it is invariant
@@ -186,7 +186,7 @@ values.
 \end{proof}
 
 \begin{theorem}
-The recurrence \eqref{eq:conj} holds for every $n>13$, which is the statement of
+The recurrence \eqref{eq:conj} holds for every $n>12$, which is the statement of
 Section~1.
 \end{theorem}
 
@@ -197,7 +197,7 @@ generated column by column, since the edge condition is a conjunction of one con
 column. The vector $w=q(N)\mathbf{1}$ was then formed by $13$ matrix--vector products
 in exact integer arithmetic and $\mathbf{v}^{\!\top}N^{j}w$ evaluated for
 $j=0,1,\dots$, again exactly. Every one of those integers vanishes from the index
-corresponding to $n=13+1$ onwards, and the run continued until $w$ was the zero vector,
+corresponding to $n=12+1$ onwards, and the run continued until $w$ was the zero vector,
 which settles all larger $j$ at once. Lemma~\ref{lem:crit} gives the theorem.
 \end{proof}
 
@@ -206,7 +206,7 @@ which settles all larger $j$ at once. Lemma~\ref{lem:crit} gives the theorem.
 Three checks, each independent of the algebra above.
 
 First, the whole construction was compared against the entry's DATA: the right-hand side of
-\eqref{eq:walk}, divided by $4!$, was evaluated at every one of the $10$
+\eqref{eq:walk}, divided by $4!$, was evaluated at every one of the $13$
 published indices and agrees exactly. This is a strong test of the modelling and not only of
 the arithmetic --- the inversion of Lemma~\ref{lem:inv}, the reading of the local
 condition, and the alignment of the entry's index with the number of rows would each
@@ -222,7 +222,7 @@ run until the working vector was identically zero rather than to a sampled prefi
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A205166.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A204568.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; Stirling and
 falling-factorial inversion, Section 1.9.)

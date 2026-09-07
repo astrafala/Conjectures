@@ -12,123 +12,142 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A252194, proved by transfer matrix}
+\title{The empirical product formula for OEIS A140928, proved}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{1 September 2026}
+\date{6 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A252194 counts $(n+2)\times3$ arrays over $\{0,\dots,3\}$ subject to a condition imposed on
-every $3\times3$ subblock, and it carries an empirical recurrence of order $49$
-contributed by R.~H.~Hardin. It is true, and it is not an empirical matter. A $3\times3$
-subblock spans three consecutive rows, so the state of a transfer matrix is a PAIR of
-consecutive rows and appending one more row is a step; an array is then a walk, and
-$a(n)$ is a walk count on $S=4096$ vertices. Such a sequence is $C$-finite, so whether a given
-recurrence annihilates it is decided by a finite exact computation, with the Cayley--Hamilton
-theorem bounding the work.
+OEIS A140928 counts $5\times10$ matrices over $\{0,\dots,n\}$ whose rows and columns are
+nondecreasing, and carries a product formula for $a(n)$ marked empirical. Reversing rows and
+columns turns such a matrix into a plane partition inside a $5\times10\times n$ box, so
+MacMahon's box theorem applies; the triple product telescopes in its third index and leaves a
+polynomial in $n$ of degree $50$. The entry's own expression, cleared of its denominator,
+becomes an identity between two polynomials of bounded degree, and is therefore settled by a
+finite exact computation. The box count itself is classical and is already recorded on this
+entry; what is proved here is the entry's own formula.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A17, 05A19.\normalsize
 
 \section{The conjecture}
 
-OEIS A252194 is ``Number of (n+2)X(1+2) 0..3 arrays with every 3X3 subblock row, column, diagonal and antidiagonal sum not equal to 0 3 5 6 or 7.''. It has offset $1$ and begins
+OEIS A140928 is ``Number of 5 X 10 matrices with elements in 0..n with each row and each column in nondecreasing order. 5,10,n can be permuted, see formula.''. It has offset $0$ and begins
 \[
-441, 585, 970, 1642, 2931, 5316, 10074, 19529,\ \dots
+1, 3003, 2186184, 644195552, 98561919456, 9095857138368,\ \dots
 \]
-The entry states, as a conjecture contributed by its author and never marked settled:
+The entry states, as conjectures contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = a(n-1) +2*a(n-2) +15*a(n-3) -4*a(n-4) -30*a(n-5) -118*a(n-6) -66*a(n-7) +140*a(n-8) +587*a(n-9) +729*a(n-10) +8*a(n-11) -1684*a(n-12) -3273*a(n-13) -2404*a(n-14) +1756*a(n-15) +7624*a(n-16) +9761*a(n-17) +4396*a(n-18) -7479*a(n-19) -17969*a(n-20) -18224*a(n-21) -5768*a(n-22) +13012*a(n-23) +26047*a(n-24) +24997*a(n-25) +9358*a(n-26) -12183*a(n-27) -27647*a(n-28) -27815*a(n-29) -12355*a(n-30) +9243*a(n-31) +23426*a(n-32) +21888*a(n-33) +7839*a(n-34) -7392*a(n-35) -13705*a(n-36) -9694*a(n-37) -1521*a(n-38) +3907*a(n-39) +4323*a(n-40) +1938*a(n-41) -210*a(n-42) -881*a(n-43) -574*a(n-44) -140*a(n-45) +52*a(n-46) +60*a(n-47) +24*a(n-48) +4*a(n-49) for n>56
+(empirical) set p,q,r to n,10,5 (in any order) in s=p+q+r-1; a(n) = product {i in 0..r-1} (binomial(s,p+i)*i!/(s-i)\^{}(r-i-1))
+
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jun 02 2025 10:54:50, revision 6) this is still
-recorded as empirical, and nothing on the entry records it as proved.
+As of the ``Last modified'' line on the live entry (Jan 20 2025 10:52:02, revision 7) these are still
+recorded as empirical, and nothing on the entry records them as proved.
 
-\section{Three consecutive lines}
+\section{What is being counted}
 
-Write an admissible array as a sequence of rows $u_1,u_2,\dots$, each an element of
-$\{0,\dots,3\}^{3}$. A $3\times3$ subblock occupies three consecutive rows and
-three consecutive columns, so with $r,s,t$ three consecutive rows the blocks it
-contributes are
+A matrix $x$ of shape $5\times10$ with entries in $\{0,\dots,n\}$, nondecreasing along
+every row and down every column, becomes, on reversing the order of the rows and of the
+columns, an array that is NONINCREASING along rows and down columns with the same entries. That
+is exactly a plane partition whose parts are at most $n$ and whose shape fits inside a
+$5\times10$ rectangle --- a plane partition in a $5\times10\times n$ box. The
+correspondence is a bijection, being an involution on arrays, so
 \[
-g=\begin{pmatrix}r_j&r_{j+1}&r_{j+2}\\ s_j&s_{j+1}&s_{j+2}\\ t_j&t_{j+1}&t_{j+2}\end{pmatrix}
+a(n)\;=\;\mathrm{PP}(5,10,n).
 \]
-for each admissible index, and the entry's condition is the requirement that
+Note which parameter grows: the shape is FIXED and it is the alphabet $0..n$ that $n$ counts,
+so nothing about transfer matrices applies here.
+
+\section{The box count is a polynomial}
+
+\begin{theorem}[MacMahon]\label{thm:mm}
 \[
-\text{every row, column, diagonal, antidiagonal sum} \notin \{0,3,5,6,7\}
+\mathrm{PP}(p,q,r)\;=\;\prod_{i=1}^{p}\prod_{j=1}^{q}\prod_{k=1}^{r}
+\frac{i+j+k-1}{i+j+k-2} .
 \]
-holds for every such $g$. This involves $r$, $s$ and $t$ only: it is a condition on
-three consecutive rows and on nothing else.
+\end{theorem}
 
-Take as vertices of a digraph $G$ the ordered PAIRS $(r,s)$ of rows, of which there are
-$S=(3+1)^{2\cdot3}=4096$, and put an edge $(r,s)\to(s,t)$ exactly when the condition
-holds for the triple $(r,s,t)$ at every admissible index. An array with $L$ rows is then a
-walk of length $L-2$ in $G$: its first two rows name the starting vertex and each further
-row is one step. Hence, with $M$ the adjacency matrix of $G$,
+This is classical; see Stanley~\cite{stanley}, and it is already recorded on this entry.
+
+\begin{theorem}\label{thm:poly}
 \[
-a(n)\;=\;\,\mathbf{1}^{\!\top}M^{\,n-1+1}\mathbf{1},
+a(n)\;=\;\prod_{i=1}^{5}\prod_{j=1}^{10}\frac{n+i+j-1}{i+j-1},
 \]
-the exponent being fixed by the entry's own shape and checked against its published terms.
-In particular $a$ is $C$-finite.
-
-\section{The proof}
-
-\begin{lemma}\label{lem:crit}
-Let $q(t)=t^{49}-\sum_i c_it^{49-i}$ be the characteristic polynomial of the
-conjectured recurrence. Then the residual $a(n)-\sum_ic_ia(n-i)$ equals
-$\mathbf{1}^{\!\top}M^{\,j}q(M)\mathbf{1}$ for the corresponding walk index
-$j$, so the recurrence holds from some point on if and only if
-$\mathbf{1}^{\!\top}M^{j}q(M)\mathbf{1}=0$ for all large $j$; and by the
-Cayley--Hamilton theorem it is enough to examine $j<S$.
-\end{lemma}
-
-\begin{proof}
-Factor $M^{j}$ out of $M^{j+49}-\sum_ic_iM^{j+49-i}$. For the bound, $M^{S}$
-is an integer combination of $I,M,\dots,M^{S-1}$, so the numbers
-$u_j=\mathbf{1}^{\!\top}M^{j}q(M)\mathbf{1}$ satisfy the monic linear recurrence given by
-the characteristic polynomial of $M$; $S$ consecutive zeros therefore force every later one,
-and the last nonzero $u_j$ pins the threshold exactly.
-\end{proof}
-
-\begin{theorem}
-\[
-a(n)\;=\;a(n-1) + 2\,a(n-2) + 15\,a(n-3) - 4\,a(n-4) - 30\,a(n-5) - 118\,a(n-6) - 66\,a(n-7) + 140\,a(n-8) + 587\,a(n-9) + 729\,a(n-10) + 8\,a(n-11) - 1684\,a(n-12) - 3273\,a(n-13) - 2404\,a(n-14) + 1756\,a(n-15) + 7624\,a(n-16) + 9761\,a(n-17) + 4396\,a(n-18) - 7479\,a(n-19) - 17969\,a(n-20) - 18224\,a(n-21) - 5768\,a(n-22) + 13012\,a(n-23) + 26047\,a(n-24) + 24997\,a(n-25) + 9358\,a(n-26) - 12183\,a(n-27) - 27647\,a(n-28) - 27815\,a(n-29) - 12355\,a(n-30) + 9243\,a(n-31) + 23426\,a(n-32) + 21888\,a(n-33) + 7839\,a(n-34) - 7392\,a(n-35) - 13705\,a(n-36) - 9694\,a(n-37) - 1521\,a(n-38) + 3907\,a(n-39) + 4323\,a(n-40) + 1938\,a(n-41) - 210\,a(n-42) - 881\,a(n-43) - 574\,a(n-44) - 140\,a(n-45) + 52\,a(n-46) + 60\,a(n-47) + 24\,a(n-48) + 4\,a(n-49)
-\]
-for every $n>56$.
+a polynomial in $n$ of degree $50$ with rational coefficients.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\mathbf{1}$ was formed by $49$ matrix--vector products in exact
-integer arithmetic and $\mathbf{1}^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again
-exactly. Those integers vanish from the index corresponding to $n=56+1$ onwards, and the
-run was continued until the working vector was identically zero, which settles all larger $j$
-at once. By Lemma~\ref{lem:crit} the recurrence holds for every $n>56$.
+In Theorem~\ref{thm:mm} the inner product over $k$ telescopes: for fixed $i$ and $j$,
+\[
+\prod_{k=1}^{n}\frac{i+j+k-1}{i+j+k-2}\;=\;\frac{n+i+j-1}{i+j-1} ,
+\]
+every other factor cancelling against its neighbour. The remaining double product has
+$5\cdot10=50$ factors, each linear in $n$, and the denominators are constants.
+\end{proof}
+
+So $a$ is a polynomial, and no appeal to Ehrhart theory or to any general position argument is
+needed to see it.
+
+\section{The entry's expression}
+
+The entry writes $s=p+q+r-1$ with $(p,q,r)=(n,10,5)$ and claims
+\[
+a(n)\;=\;\prod_{i=0}^{5-1}\binom{s}{n+i}\,\frac{i!}{(s-i)^{5-1-i}}\;=\;
+\frac{N(n)}{D(n)} .
+\]
+
+\begin{lemma}\label{lem:deg}
+$N$ and $D$ are polynomials in $n$ of degrees $60$ and $10$ respectively.
+\end{lemma}
+
+\begin{proof}
+With $s=n+10+5-1$ one has $s-(n+i)=10+5-1-i$, a constant, so
+\[
+\binom{s}{n+i}=\binom{s}{10+5-1-i}
+=\frac{(s-10-5+2+i)(s-10-5+3+i)\cdots s}{(10+5-1-i)!},
+\]
+a polynomial in $n$ of degree $10+5-1-i$. Multiplying over $i=0,\dots,5-1$ gives
+$\deg N=\sum_{i=0}^{5-1}(10+5-1-i)=60$. The denominator is
+$\prod_{i=0}^{5-1}(s-i)^{5-1-i}$, of degree
+$\sum_{i=0}^{5-1}(5-1-i)=10$, and it does not vanish for $n\ge0$.
+\end{proof}
+
+\begin{theorem}
+The entry's expression equals $a(n)$ for every $n\ge0$.
+\end{theorem}
+
+\begin{proof}
+By Theorem~\ref{thm:poly} and Lemma~\ref{lem:deg}, $a(n)D(n)-N(n)$ is a polynomial in $n$
+of degree at most $50+10=60$. It was evaluated in exact rational arithmetic at
+$n=0,1,\dots,60$, that is at $61$ points, and vanishes at all of them; a nonzero polynomial
+of degree at most $60$ has at most $60$ roots, so it is identically zero. Since $D(n)\neq0$
+for $n\ge0$, the two expressions agree there.
 \end{proof}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the transfer model reproduces all $27$ terms the entry publishes, exactly, in
-integer arithmetic. This is what ties the model to the entry: the digraph is built by reading
-the entry's English, and a misreading gives different counts.
+First, Theorem~\ref{thm:poly} reproduces all $14$ terms the entry publishes,
+exactly, in integer arithmetic.
 
-Second, the conjectured recurrence was evaluated directly on the entry's own published terms,
-with no matrices involved, and holds wherever the proved range and the data overlap.
+Second, the matrices themselves were counted for the smallest alphabets, directly from the
+definition: the nondecreasing rows were listed and the chains of $5$ of them increasing
+componentwise counted, with no product formula and no plane partitions anywhere. The counts
+agree, which is what ties the reversal bijection to the entry's own wording.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
-arithmetic on the whole vector rather than on a sampled prefix, so no rounding or sampling
-enters anywhere.
+Third, the polynomial identity was evaluated over the whole range $n=0,\dots,60$ rather than
+sampled, in exact rational arithmetic.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A252194.
-\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
-University Press, 2009.
-\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
-University Press, 2013.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A140928.
+\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 2, Cambridge
+University Press, 1999. (Plane partitions with bounded part size, Section 7.21.)
+\bibitem{macmahon} P.~A.~MacMahon, \emph{Combinatory Analysis}, Volume 2, Cambridge
+University Press, 1916.
+\bibitem{andrews} G.~E.~Andrews, \emph{The Theory of Partitions}, Addison--Wesley, 1976.
 \end{thebibliography}
 
 \end{document}

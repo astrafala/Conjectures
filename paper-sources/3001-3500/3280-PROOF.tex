@@ -12,14 +12,14 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A198638, proved by a two-line transfer matrix}
+\title{The empirical recurrence for OEIS A198474, proved by a two-line transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A198638 counts arrays in which every cell is constrained by its neighbours on \emph{both}
+OEIS A198474 counts arrays in which every cell is constrained by its neighbours on \emph{both}
 sides, and which are moreover written in canonical form (``values introduced in row major
 order''). Neither feature is visible to a one-line transfer matrix: the cell condition
 reaches the row above and the row below, and the canonical-form clause is not local at
@@ -35,22 +35,22 @@ order $2$, contributed by R.~H.~Hardin, then follows from a finite exact computa
 
 \section{The sequence and the conjecture}
 
-OEIS A198638 is ``Number of 2n X 2 0..2 arrays with values 0..2 introduced in row major order and each element equal to an even number of horizontal and vertical neighbors.''. It has offset $1$ and begins
+OEIS A198474 is ``Number of 2n X 2 0..2 arrays with values 0..2 introduced in row major order and each element equal to an odd number of horizontal and vertical neighbors.''. It has offset $1$ and begins
 \[
-4, 36, 376, 3936, 41216, 431616, 4519936, 47333376,\ \dots
+2, 12, 76, 492, 3212, 21036, 137932, 904812,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 12*a(n-1) -16*a(n-2) for n>3.
+Empirical: a(n) = 9*a(n-1) - 16*a(n-2).
 \end{quote}
-As of the ``Last modified'' line on the live entry (May 15 2018 06:42:06, revision 9) the statement is
+As of the ``Last modified'' line on the live entry (Mar 02 2018 06:27:16, revision 9) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;12\,a(n-1) - 16\,a(n-2)
+a(n)\;=\;9\,a(n-1) - 16\,a(n-2)
 \end{equation}
-for all $n>3$.
+for all $n>2$.
 
 \section{The condition, and what the canonical-form clause counts}
 
@@ -62,7 +62,7 @@ row $t$ and column $u$. with the neighbour offsets
 written as (row shift, column shift), the requirement is
 \begin{equation}\label{eq:loc}
 \#\bigl\{(d_1,d_2)\in\mathcal N:\ (t+d_1,u+d_2)\ \text{lies in the array and its entry is }
-equal to x_{t,u}\bigr\}\ \ \text{is even}
+equal to x_{t,u}\bigr\}\ \ \text{is odd}
 \end{equation}
 for every cell $(t,u)$.
 
@@ -173,7 +173,7 @@ $m\ge S$ is the same combination of the earlier values; if those vanish, so do a
 \end{proof}
 
 \begin{theorem}
-The recurrence \eqref{eq:conj} holds for every $n>3$, which is the statement of
+The recurrence \eqref{eq:conj} holds for every $n>2$, which is the statement of
 Section~1.
 \end{theorem}
 
@@ -183,7 +183,7 @@ enumerating every row $x$ over the alphabet, testing \eqref{eq:loc} on the middl
 row, and sorting the results by the pattern of the new pair. The vector $w$ was formed by
 $2$ applications of $G$ in exact integer arithmetic and $\mathbf{v}^{\!\top}G^{m}w$
 evaluated for $m=0,1,\dots$, again exactly. Every one of those integers vanishes from the
-index corresponding to $n=3+1$ onwards, and the run was continued until $S+1$
+index corresponding to $n=2+1$ onwards, and the run was continued until $S+1$
 consecutive zeros had been seen, which by Lemma~\ref{lem:crit} settles every larger $m$.
 \end{proof}
 
@@ -192,7 +192,7 @@ consecutive zeros had been seen, which by Lemma~\ref{lem:crit} settles every lar
 Three checks, each independent of the algebra above.
 
 First, the whole construction was compared against the entry's DATA: the right-hand side of
-\eqref{eq:walk2}, divided by $3!$, was evaluated at every one of the $18$
+\eqref{eq:walk2}, divided by $3!$, was evaluated at every one of the $20$
 published indices and agrees exactly, the quotient coming out an integer each time. This
 tests the modelling and not only the arithmetic --- the inversion of Lemma~\ref{lem:inv},
 the reading of \eqref{eq:loc}, the treatment of the first and last rows, and the
@@ -207,7 +207,7 @@ carried to the full Cayley--Hamilton bound rather than to a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A198638.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A198474.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; falling-factorial
 inversion, Section 1.9.)

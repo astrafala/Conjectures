@@ -12,14 +12,14 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A208866, proved by counting patterns}
+\title{The empirical recurrence for OEIS A208195, proved by counting patterns}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A208866 counts arrays subject to a local condition \emph{and} to the clause ``new values
+OEIS A208195 counts arrays subject to a local condition \emph{and} to the clause ``new values
 $0..3$ introduced in row major order'', which says the array is written in canonical
 form. That clause is not local, so a transfer matrix over the alphabet does not see it. It
 does not have to: what is being counted is not arrays but equality patterns, and the number
@@ -36,20 +36,20 @@ $4$, contributed by R.~H.~Hardin, then follows from a finite exact computation.
 
 \section{The sequence and the conjecture}
 
-OEIS A208866 is ``Number of n X 2 0..3 arrays with new values 0..3 introduced in row major order and no element equal to more than one of its immediate leftward or upward or right-upward antidiagonal neighbors.''. It has offset $1$ and begins
+OEIS A208195 is ``Number of n X 2 0..3 arrays with new values 0..3 introduced in row major order and no element equal to more than two of its immediate leftward or upward or left-upward diagonal neighbors.''. It has offset $1$ and begins
 \[
-2, 12, 143, 1979, 28246, 405481, 5826959, 83752328,\ \dots
+2, 14, 178, 2653, 41272, 648569, 10215440, 160984657,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 18*a(n-1) - 55*a(n-2) + 42*a(n-3) - 9*a(n-4) for n>5.
+Empirical: a(n) = 18*a(n-1) - 31*a(n-2) - 66*a(n-3) - 24*a(n-4) for n>5.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 07 2018 08:51:39, revision 9) the statement is
+As of the ``Last modified'' line on the live entry (Jun 29 2018 06:02:52, revision 8) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;18\,a(n-1) - 55\,a(n-2) + 42\,a(n-3) - 9\,a(n-4)
+a(n)\;=\;18\,a(n-1) - 31\,a(n-2) - 66\,a(n-3) - 24\,a(n-4)
 \end{equation}
 for all $n>5$.
 
@@ -61,15 +61,15 @@ determines a pattern, two cells lying in the same class exactly when they carry 
 value.
 
 Write $x_{t,u}$ for the entry in row $t$ and column $u$. The
-entry's requirement is that no cell equals more than $1$ of its neighbours at the
+entry's requirement is that no cell equals more than $2$ of its neighbours at the
 offsets
 \[
-\mathcal N=\{(0,-1),\ (-1,0),\ (-1,1)\}
+\mathcal N=\{(0,-1),\ (-1,0),\ (-1,-1)\}
 \]
 (offsets given as (row shift, column shift), and only cells inside the array count),
 that is
 \begin{equation}\label{eq:loc}
-\#\bigl\{(d_1,d_2)\in\mathcal N:\ x_{t+d_1,\,u+d_2}=x_{t,u}\bigr\}\;\le\;1
+\#\bigl\{(d_1,d_2)\in\mathcal N:\ x_{t+d_1,\,u+d_2}=x_{t,u}\bigr\}\;\le\;2
 \qquad\text{for every cell }(t,u).
 \end{equation}
 Every offset in $\mathcal N$ points backwards in the walk, so the condition at a cell of
@@ -227,7 +227,7 @@ run until the working vector was identically zero rather than to a sampled prefi
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A208866.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A208195.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; Stirling and
 falling-factorial inversion, Section 1.9.)

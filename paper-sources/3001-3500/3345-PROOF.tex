@@ -12,14 +12,14 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical closed form for OEIS A195250, proved}
+\title{The empirical closed form for OEIS A195251, proved}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{6 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A195250 counts the lower triangles of a $4\times4$ array over $\{0,\dots,n\}$ in which
+OEIS A195251 counts the lower triangles of a $5\times5$ array over $\{0,\dots,n\}$ in which
 adjacent entries differ by at most $2$, and carries closed form recorded as empirical. The shape here is FIXED
 and it is the alphabet that grows, so there is no digraph to walk. What settles it is that the
 condition constrains DIFFERENCES only: translating an admissible array by a constant leaves it
@@ -33,23 +33,23 @@ known in advance, and two evaluations pin it. Nothing is fitted.
 
 \section{The conjecture}
 
-OEIS A195250 is ``Number of lower triangles of a 4X4 0..n array with each element differing from all of its diagonal, vertical, antidiagonal and horizontal neighbors by two or less.''. It has offset $1$ and begins
+OEIS A195251 is ``Number of lower triangles of a 5X5 0..n array with each element differing from all of its diagonal, vertical, antidiagonal and horizontal neighbors by two or less.''. It has offset $1$ and begins
 \[
-1024, 59049, 190514, 357847, 533142, 709613,\ \dots
+32768, 14348907, 67379894, 147824001, 237368212, 329060365,\ \dots
 \]
 The entry states, as conjectures contributed by its author and by later readers and never
 marked settled:
 \begin{quote}
-Empirical: a(n) = 176471*n - 349213 for n>4
+Empirical: a(n) = 92031109*n - 223153377 for n>6
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 06:14:25, revision 9) these are still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 06:14:33, revision 9) these are still
 recorded as empirical, and nothing on the entry records them as proved.
 
 \section{What is being counted}
 
-The lower triangle of a $4\times4$ array is the set of cells $(i,j)$ with $0\le j\le
-i<4$, so there are $T=10$ of them. Two cells are adjacent when they differ by one of the
-horizontal, antidiagonal, vertical, diagonal offsets, which here gives $21$ adjacent pairs. Each cell carries a value in
+The lower triangle of a $5\times5$ array is the set of cells $(i,j)$ with $0\le j\le
+i<5$, so there are $T=15$ of them. Two cells are adjacent when they differ by one of the
+horizontal, antidiagonal, vertical, diagonal offsets, which here gives $36$ adjacent pairs. Each cell carries a value in
 $\{0,\dots,n\}$, and the entry requires
 \[
 |x_u-x_v|\le 2\qquad\text{for every adjacent pair }u,v .
@@ -79,40 +79,40 @@ Lemma~\ref{lem:bound}.
 \end{proof}
 
 \begin{lemma}\label{lem:bound}
-Every $y\in\mathcal P$ has $\mathrm{sp}(y)\le 2\cdot3=6$, where $3$ is the
+Every $y\in\mathcal P$ has $\mathrm{sp}(y)\le 2\cdot4=8$, where $4$ is the
 diameter of the neighbour graph.
 \end{lemma}
 
 \begin{proof}
-The neighbour graph is connected, so any two cells are joined by a path of at most $3$
+The neighbour graph is connected, so any two cells are joined by a path of at most $4$
 edges, and each edge changes the value by at most $2$. Hence the largest and the smallest
-entry differ by at most $2\cdot3$.
+entry differ by at most $2\cdot4$.
 \end{proof}
 
 \section{The count}
 
 \begin{theorem}\label{thm:line}
 \[
-a(n)\;=\;176471\,n-349213\qquad\text{for every }n\ge5,
+a(n)\;=\;92031109\,n-223153377\qquad\text{for every }n\ge7,
 \]
-and $\mathcal P$ has exactly $176471$ elements.
+and $\mathcal P$ has exactly $92031109$ elements.
 \end{theorem}
 
 \begin{proof}
-For $n\ge6$ every term of Lemma~\ref{lem:trans} is positive by
+For $n\ge8$ every term of Lemma~\ref{lem:trans} is positive by
 Lemma~\ref{lem:bound}, so
 \[
 a(n)=\sum_{y\in\mathcal P}\bigl(n+1-\mathrm{sp}(y)\bigr)
 =|\mathcal P|\,(n+1)-\sum_{y}\mathrm{sp}(y),
 \]
-which is a linear function of $n$. Two values determine it, and $a(6)$ and
-$a(6+1)$ were computed exactly, giving slope $176471$ and the stated intercept; the slope
-is $|\mathcal P|$. That the identity already holds from $n=5$ was then read off by
-comparing it with the exact values of $a(n)$ below $6$, each computed the same way.
+which is a linear function of $n$. Two values determine it, and $a(8)$ and
+$a(8+1)$ were computed exactly, giving slope $92031109$ and the stated intercept; the slope
+is $|\mathcal P|$. That the identity already holds from $n=7$ was then read off by
+comparing it with the exact values of $a(n)$ below $8$, each computed the same way.
 \end{proof}
 
 The counts $a(n)$ themselves are obtained by walking over the cells in row major order and
-carrying only the entries a later cell can still see --- for this shape at most $4+1$ of
+carrying only the entries a later cell can still see --- for this shape at most $5+1$ of
 them --- so no array is ever written down.
 
 Each statement quoted in Section 1 is a consequence of Theorem~\ref{thm:line}, and each was
@@ -122,14 +122,14 @@ also checked directly against it.
 
 Three checks, each independent of the argument above.
 
-First, the count reproduces all $28$ terms the entry publishes, exactly, in integer
+First, the count reproduces all $20$ terms the entry publishes, exactly, in integer
 arithmetic.
 
 Second, the arrays themselves were enumerated for the smallest alphabets --- every assignment
-of $0..n$ to the $10$ cells written out and every adjacent pair tested --- with no
+of $0..n$ to the $15$ cells written out and every adjacent pair tested --- with no
 translation argument and no frontier walk. Where the shape is too large for that, the first
 term is settled by an exact argument instead: at $n=1$ every entry is $0$ or $1$, so an ``at
-most'' condition is no condition and the count is $2^{10}$, while ``differing by exactly
+most'' condition is no condition and the count is $2^{15}$, while ``differing by exactly
 one'' asks for a proper $2$-colouring of the neighbour graph. Both test the cell set and the
 adjacency, which is what this check is for.
 
@@ -139,7 +139,7 @@ rather than sampled.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A195250.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A195251.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011.
 \bibitem{comtet} L.~Comtet, \emph{Advanced Combinatorics}, Reidel, 1974.

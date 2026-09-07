@@ -12,18 +12,18 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A250678, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A250627, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A250678 counts arrays over $\{0,1,2,3\}$ in which a statistic taken over short runs
+OEIS A250627 counts arrays over $\{0,1,2\}$ in which a statistic taken over short runs
 of cells produces a derived array that is monotone in a named direction. The entry carries an
 empirical recurrence of order $20$ contributed by R.~H.~Hardin. It is true, and it is
 decidable rather than empirical: every comparison the condition makes lies inside a bounded
-window of consecutive rows, so the count is a walk count on $S=64$ states, and the
+window of consecutive rows, so the count is a walk count on $S=81$ states, and the
 conjectured recurrence is then settled by a finite exact computation.
 \end{abstract}
 
@@ -31,34 +31,34 @@ conjectured recurrence is then settled by a finite exact computation.
 
 \section{The conjecture}
 
-OEIS A250678 is ``Number of (2+1)X(n+1) 0..3 arrays with nondecreasing x(i,j)+x(i,j-1) in the i direction and nondecreasing absolute value of x(i,j)-x(i-1,j) in the j direction.''. It has offset $1$ and begins
+OEIS A250627 is ``Number of (n+1)X(3+1) 0..2 arrays with nondecreasing x(i,j)+x(i,j-1) in the i direction and nondecreasing min(x(i,j),x(i-1,j)) in the j direction.''. It has offset $1$ and begins
 \[
-520, 5154, 42422, 329226, 2406972, 16949262, 115965426, 777137322,\ \dots
+585, 2969, 12151, 43185, 134878, 381834, 994281, 2419996,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 19*a(n-1) -115*a(n-2) +64*a(n-3) +1793*a(n-4) -4621*a(n-5) -9264*a(n-6) +41507*a(n-7) +14863*a(n-8) -173352*a(n-9) +31915*a(n-10) +399081*a(n-11) -166415*a(n-12) -530154*a(n-13) +278712*a(n-14) +400256*a(n-15) -230016*a(n-16) -156992*a(n-17) +92352*a(n-18) +24192*a(n-19) -13824*a(n-20)
+Empirical: a(n) = 9*a(n-1) -30*a(n-2) +31*a(n-3) +67*a(n-4) -220*a(n-5) +136*a(n-6) +300*a(n-7) -546*a(n-8) +78*a(n-9) +572*a(n-10) -494*a(n-11) -130*a(n-12) +404*a(n-13) -152*a(n-14) -100*a(n-15) +99*a(n-16) -15*a(n-17) -14*a(n-18) +7*a(n-19) -a(n-20)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 12:40:43, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 12:37:02, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The array has $3$ cells across and entries $x(i,j)\in\{0,1,2,3\}$.
+The array has $4$ cells across and entries $x(i,j)\in\{0,1,2\}$.
 
 Two derived arrays are formed. The first reads the horizontal statistic across each
 neighbouring pair of a row,
 \[
-b(i,j)\;=\;\bigl[\,\lvert a-b\rvert\,\bigr]_{a=x(i,j),\,b=x(i,j-1)}\qquad (j\ge1),
+b(i,j)\;=\;\bigl[\,a+b\,\bigr]_{a=x(i,j),\,b=x(i,j-1)}\qquad (j\ge1),
 \]
 and must not decrease DOWN a column: $b(i,j)\le b(i{+}1,j)$. The second reads the vertical
 statistic down each neighbouring pair of a column,
 \[
-c(i,j)\;=\;\bigl[\,a+b\,\bigr]_{a=x(i,j),\,b=x(i{-}1,j)}\qquad (i\ge1),
+c(i,j)\;=\;\bigl[\,\min(a,b)\,\bigr]_{a=x(i,j),\,b=x(i{-}1,j)}\qquad (i\ge1),
 \]
 and must not decrease ALONG a row: $c(i,j)\le c(i,j{+}1)$. In words, the horizontal statistic
-is the absolute difference of a cell and its left neighbour, and the vertical one is
-the sum of a cell and the cell above it. The entry writes the array with $n$ as the number of COLUMNS. The walk is run down the transpose, which exchanges the roles of the two directions once and for all; the arguments of each statistic keep their order under that exchange, the later cell staying the first argument.
+is the sum of a cell and its left neighbour, and the vertical one is
+the smaller of a cell and the cell above it.
 
 Nothing in the condition is invariant under renaming the letters --- each statistic either does
 arithmetic on them or compares them by size --- so no reduction to equality patterns is
@@ -75,11 +75,11 @@ $b(i,j)\le b(i{+}1,j)$ names four cells, all in rows $i$ and $i+1$. $c(i,j)\le c
 names four cells, all in rows $i-1$ and $i$. No comparison reaches further.
 \end{proof}
 
-So a single row is a state. Let $M$ be the matrix on the $4^{3}=64$ rows with
+So a single row is a state. Let $M$ be the matrix on the $3^{4}=81$ rows with
 $M[r,s]=1$ when the pair $(r,s)$ passes both tests and $0$ otherwise. An array of $R$ rows is a
 walk of $R-1$ steps and every row may begin or end one, so with $\iota=\tau=\mathbf{1}$,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=64.
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=81.
 \]
 
 The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
@@ -105,15 +105,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;19\,a(n-1) - 115\,a(n-2) + 64\,a(n-3) + 1793\,a(n-4) - 4621\,a(n-5) - 9264\,a(n-6) + 41507\,a(n-7) + 14863\,a(n-8) - 173352\,a(n-9) + 31915\,a(n-10) + 399081\,a(n-11) - 166415\,a(n-12) - 530154\,a(n-13) + 278712\,a(n-14) + 400256\,a(n-15) - 230016\,a(n-16) - 156992\,a(n-17) + 92352\,a(n-18) + 24192\,a(n-19) - 13824\,a(n-20)
+a(n)\;=\;9\,a(n-1) - 30\,a(n-2) + 31\,a(n-3) + 67\,a(n-4) - 220\,a(n-5) + 136\,a(n-6) + 300\,a(n-7) - 546\,a(n-8) + 78\,a(n-9) + 572\,a(n-10) - 494\,a(n-11) - 130\,a(n-12) + 404\,a(n-13) - 152\,a(n-14) - 100\,a(n-15) + 99\,a(n-16) - 15\,a(n-17) - 14\,a(n-18) + 7\,a(n-19) - a(n-20)
 \]
-for every $n>19$.
+for every $n>20$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $20$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=19+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=20+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -121,7 +121,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $18$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $23$ terms the entry publishes, exactly, in integer
 arithmetic.
 
 Second, the count was recomputed for the smallest arrays straight from the definition: fill the
@@ -137,7 +137,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A250678.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A250627.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge

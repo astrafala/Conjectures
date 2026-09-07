@@ -12,22 +12,22 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A274751, proved by counting patterns}
+\title{The empirical recurrence for OEIS A274724, proved by counting patterns}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A274751 counts arrays in which no entry may repeat a value found at any of three stated
+OEIS A274724 counts arrays in which no entry may repeat a value found at any of three stated
 offsets, and which are moreover written in canonical form (``new values introduced in order
 $0..2$''). The canonical-form clause is not local and no transfer matrix over the
 alphabet sees it; but the condition is stated in equalities, so what is counted is equality
 patterns, and the pattern counts are recovered from the counts $L_i$ over an $i$-letter
 alphabet by inverting a falling factorial:
 $3!\,a(n)=\sum_i\binom{3}{i}D_{3-i}L_i(n)$ with $D_m$ the derangement numbers.
-Some of the offsets reach two columns back, so each $L_i$ is a walk count whose states are
-ordered pairs of consecutive columns; relabelling-invariance makes that chain lumpable,
+Some of the offsets reach two rows back, so each $L_i$ is a walk count whose states are
+ordered pairs of consecutive rows; relabelling-invariance makes that chain lumpable,
 cutting $6818$ pairs to $S=1223$ states. The entry's empirical recurrence of order $8$,
 contributed by R.~H.~Hardin, then follows from a finite exact computation.
 \end{abstract}
@@ -36,36 +36,36 @@ contributed by R.~H.~Hardin, then follows from a finite exact computation.
 
 \section{The sequence and the conjecture}
 
-OEIS A274751 is ``Number of 4 X n 0..2 arrays with no element equal to any value at offset (-1,-2) (0,-1) or (-1,0) and new values introduced in order 0..2.''. It has offset $1$ and begins
+OEIS A274724 is ``Number of nX4 0..2 arrays with no element equal to any value at offset (-1,-2) (-2,-1) or (-1,0) and new values introduced in order 0..2.''. It has offset $1$ and begins
 \[
-4, 27, 144, 813, 4554, 25585, 143634, 806695,\ \dots
+14, 96, 296, 1632, 9308, 52912, 301784, 1721528,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 2*a(n-1) + 20*a(n-2) + 10*a(n-3) - 44*a(n-4) - 20*a(n-5) + 31*a(n-6) + 2*a(n-7) - 4*a(n-8).
+Empirical: a(n) = 3*a(n-1) +13*a(n-2) +14*a(n-3) +4*a(n-4) -28*a(n-5) -13*a(n-6) -7*a(n-7) +15*a(n-8) for n>12
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jan 30 2019 15:26:53, revision 8) the statement is
+As of the ``Last modified'' line on the live entry (Jul 03 2016 19:59:51, revision 4) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;2\,a(n-1) + 20\,a(n-2) + 10\,a(n-3) - 44\,a(n-4) - 20\,a(n-5) + 31\,a(n-6) + 2\,a(n-7) - 4\,a(n-8)
+a(n)\;=\;3\,a(n-1) + 13\,a(n-2) + 14\,a(n-3) + 4\,a(n-4) - 28\,a(n-5) - 13\,a(n-6) - 7\,a(n-7) + 15\,a(n-8)
 \end{equation}
-for all $n>9$.
+for all $n>12$.
 
 \section{The condition, and what the canonical-form clause counts}
 
-The arrays have $4$ rows and $L=n$ columns; write $x_{t,u}$ for the entry in
-column $t$ and row $u$. With
+The arrays have $4$ columns and $L=n$ rows; write $x_{t,u}$ for the entry in
+row $t$ and column $u$. With
 \[
-\mathcal N=\{(-2,-1),\ (-1,0),\ (0,-1)\}
+\mathcal N=\{(-1,-2),\ (-2,-1),\ (-1,0)\}
 \]
-(offsets as (column shift, row shift)), the entry's requirement is
+(offsets as (row shift, column shift)), the entry's requirement is
 \begin{equation}\label{eq:loc}
 x_{t+d_1,\,u+d_2}\ne x_{t,u}\quad\text{for every }(d_1,d_2)\in\mathcal N\text{ inside the array}.
 \end{equation}
-Every offset has a nonpositive column shift, so the condition at a cell of column $t$ is
-settled by columns $t-2$, $t-1$ and $t$; but some shift is $-2$, so one previous column is not
+Every offset has a nonpositive row shift, so the condition at a cell of row $t$ is
+settled by rows $t-2$, $t-1$ and $t$; but some shift is $-2$, so one previous row is not
 enough state.
 
 The condition is stated purely in equalities, so it is unchanged by any relabelling of the
@@ -96,28 +96,28 @@ $\binom{3}{i}(3-i)!\sum_{t\le3-i}(-1)^t/t!=\binom{3}{i}D_{3-i}$, an
 integer.
 \end{proof}
 
-\section{Each $L_i$ is a walk count on pairs of columns}
+\section{Each $L_i$ is a walk count on pairs of rows}
 
 Fix $i$, let $V_i=\{0,\dots,i-1\}^{4}$ and take $\mathcal V=V_i\times V_i$ as vertices.
-Declare $(p,c)\to(c,x)$ an edge when every cell of the NEW column $x$ satisfies
-\eqref{eq:loc}, reading $c$ as the column one step back and $p$ as the column two steps
+Declare $(p,c)\to(c,x)$ an edge when every cell of the NEW row $x$ satisfies
+\eqref{eq:loc}, reading $c$ as the row one step back and $p$ as the row two steps
 back. Let $P_i$ be the adjacency matrix and $\mathbf{s}_i$ the indicator of the pairs
-$(p,c)$ in which $p$ satisfies \eqref{eq:loc} with no column before it and $c$ satisfies it
+$(p,c)$ in which $p$ satisfies \eqref{eq:loc} with no row before it and $c$ satisfies it
 with only $p$ before it.
 
 \begin{lemma}\label{lem:walk}
-For $L\ge2$ the arrays of $L$ columns satisfying \eqref{eq:loc} are exactly the walks
+For $L\ge2$ the arrays of $L$ rows satisfying \eqref{eq:loc} are exactly the walks
 $(r^{(1)},r^{(2)})\to\cdots\to(r^{(L-1)},r^{(L)})$ of length $L-2$ starting at a
 vertex marked by $\mathbf{s}_i$, so
 $L_i=\mathbf{s}_i^{\!\top}P_i^{\,L-2}\mathbf{1}$.
 \end{lemma}
 
 \begin{proof}
-Consecutive vertices overlap in one column, so such a walk is precisely a sequence
-$r^{(1)},\dots,r^{(L)}$ of columns. The condition at the cells of column $t$ for $t\ge3$
+Consecutive vertices overlap in one row, so such a walk is precisely a sequence
+$r^{(1)},\dots,r^{(L)}$ of rows. The condition at the cells of row $t$ for $t\ge3$
 is tested exactly once, at the step arriving at $(r^{(t-1)},r^{(t)})$, and with the
-correct earlier columns; the cells of columns $1$ and $2$ are tested by $\mathbf{s}_i$, with
-the columns that would lie before them absent, which is how the array behaves at its top. No
+correct earlier rows; the cells of rows $1$ and $2$ are tested by $\mathbf{s}_i$, with
+the rows that would lie before them absent, which is how the array behaves at its top. No
 further condition constrains the end of the array, so the walk may finish anywhere.
 \end{proof}
 
@@ -168,17 +168,17 @@ earlier values.
 \end{proof}
 
 \begin{theorem}
-The recurrence \eqref{eq:conj} holds for every $n>9$, which is the statement of
+The recurrence \eqref{eq:conj} holds for every $n>12$, which is the statement of
 Section~1.
 \end{theorem}
 
 \begin{proof}
 The lumped transition counts were built by taking one representative pair for each pattern,
-enumerating every column $x$ over the alphabet, testing \eqref{eq:loc} on $x$, and sorting
+enumerating every row $x$ over the alphabet, testing \eqref{eq:loc} on $x$, and sorting
 the survivors by the pattern of the new pair. The vector $w$ was formed by $8$
 applications of $G$ in exact integer arithmetic and $\mathbf{v}^{\!\top}G^{m}w$
 evaluated for $m=0,1,\dots$, again exactly. Every one of those integers vanishes from the
-index corresponding to $n=9+1$ onwards, and the run continued until $S+1$ consecutive
+index corresponding to $n=12+1$ onwards, and the run continued until $S+1$ consecutive
 zeros had been seen.
 \end{proof}
 
@@ -188,10 +188,10 @@ Three checks, each independent of the algebra above.
 
 First, the right-hand side of \eqref{eq:walk2}, divided by $3!$, was evaluated at every
 one of the $20$ published indices and agrees with the entry's DATA exactly, the quotient
-coming out an integer each time; no shift was fitted, the number of columns being read off the
+coming out an integer each time; no shift was fitted, the number of rows being read off the
 entry's own name as $L=n$ and the entry's offset saying which index the first published
 term carries. A misreading of the offsets, of the inversion, or of the treatment of the first
-two columns would show up here.
+two rows would show up here.
 
 Second, the lumped chain was checked against the unlumped one on the small shapes of this
 family, the walk counts over the full alphabet agreeing with the weighted sum over patterns
@@ -203,7 +203,7 @@ carried to the full Cayley--Hamilton bound rather than to a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A274751.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A274724.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; falling-factorial
 inversion, Section 1.9.)

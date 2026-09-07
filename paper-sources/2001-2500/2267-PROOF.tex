@@ -12,15 +12,15 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A262466, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A262268, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A262466 counts arrays of width $3$ over $\{0,1\}$ whose rows, read as base-$2$
-numbers, are divisible by $3$ and whose columns, read the same way, are divisible by
+OEIS A262268 counts arrays of width $4$ over $\{0,1\}$ whose rows, read as base-$2$
+numbers, are divisible by $5$ and whose columns, read the same way, are divisible by
 $5$. The entry carries an empirical recurrence of order $8$ contributed by
 R.~H.~Hardin. It is true, and it is decidable rather than empirical. A column's value depends on
 every row of the array, so the condition is not local; but its RESIDUE is built one row at a
@@ -32,30 +32,30 @@ is then a walk count on $S=25$ states.
 
 \section{The conjecture}
 
-OEIS A262466 is ``Number of (n+1) X (2+1) 0..1 arrays with each row divisible by 3 and each column divisible by 5, read as a binary number with top and left being the most significant bits.''. It has offset $1$ and begins
+OEIS A262268 is ``Number of (n+2) X (2+2) 0..1 arrays with each row and column divisible by 5, read as a binary number with top and left being the most significant bits.''. It has offset $1$ and begins
 \[
-1, 3, 9, 17, 37, 107, 321, 865,\ \dots
+4, 16, 49, 169, 676, 2704, 10609, 42025,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 4*a(n-1) - 4*a(n-2) + 4*a(n-3) + 8*a(n-4) - 44*a(n-5) + 44*a(n-6) - 44*a(n-7) + 33*a(n-8).
+Empirical: a(n) = 6*a(n-1) - 12*a(n-2) + 24*a(n-3) - 31*a(n-4) - 6*a(n-5) + 12*a(n-6) - 24*a(n-7) + 32*a(n-8).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Mar 20 2018 20:36:34, revision 8) this is still
+As of the ``Last modified'' line on the live entry (Dec 31 2018 05:46:00, revision 7) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The array has $3$ cells across and entries $x(i,j)\in\{0,1\}$, the digits of
+The array has $4$ cells across and entries $x(i,j)\in\{0,1\}$, the digits of
 base $2$. Row $i$ of an array with $R$ rows is the number
 \[
-\rho_i\;=\;\sum_{j=1}^{3}x(i,j)\,2^{3-j} ,
+\rho_i\;=\;\sum_{j=1}^{4}x(i,j)\,2^{4-j} ,
 \]
 the LEFT digit being the most significant, and column $j$ is
 \[
 \gamma_j\;=\;\sum_{i=1}^{R}x(i,j)\,2^{R-i} ,
 \]
 the TOP digit being the most significant. The entry asks that every $\rho_i$ be divisible by
-$3$ and every $\gamma_j$ be divisible by $5$.
+$5$ and every $\gamma_j$ be divisible by $5$.
 
 
 \section{Column residues by Horner's rule}
@@ -80,8 +80,8 @@ multiplication by $2$, and puts the new digit in the units place. Reduction modu
 $5$ commutes with both operations.
 \end{proof}
 
-So the vector $\bigl(\gamma_1\bmod 5,\dots,\gamma_{3}\bmod
-5\bigr)$ is a state: at most $5^{3}$ of them, and each array row
+So the vector $\bigl(\gamma_1\bmod 5,\dots,\gamma_{4}\bmod
+5\bigr)$ is a state: at most $5^{4}$ of them, and each array row
 that satisfies the row condition carries one such vector to another. The walk starts at the
 all-zero vector, which is the empty array, and the END vector picks out the residue vectors in
 which every entry is divisible by $5$ --- so the end vector is not the all-ones
@@ -113,15 +113,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;4\,a(n-1) - 4\,a(n-2) + 4\,a(n-3) + 8\,a(n-4) - 44\,a(n-5) + 44\,a(n-6) - 44\,a(n-7) + 33\,a(n-8)
+a(n)\;=\;6\,a(n-1) - 12\,a(n-2) + 24\,a(n-3) - 31\,a(n-4) - 6\,a(n-5) + 12\,a(n-6) - 24\,a(n-7) + 32\,a(n-8)
 \]
-for every $n>6$.
+for every $n>5$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $8$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=6+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=5+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -129,7 +129,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $27$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $23$ terms the entry publishes, exactly, in integer
 arithmetic.
 
 Second, the count was recomputed for the smallest arrays straight from the definition:
@@ -145,7 +145,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A262466.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A262268.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{knuth} D.~E.~Knuth, \emph{The Art of Computer Programming}, Volume 2, 3rd ed.,

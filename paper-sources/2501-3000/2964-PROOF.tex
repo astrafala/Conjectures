@@ -12,14 +12,14 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A208404, proved by counting patterns}
+\title{The empirical recurrence for OEIS A198711, proved by counting patterns}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A208404 counts arrays subject to a local condition \emph{and} to the clause ``new values
+OEIS A198711 counts arrays subject to a local condition \emph{and} to the clause ``new values
 $0..3$ introduced in row major order'', which says the array is written in canonical
 form. That clause is not local, so a transfer matrix over the alphabet does not see it. It
 does not have to: what is being counted is not arrays but equality patterns, and the number
@@ -36,22 +36,22 @@ $4$, contributed by R.~H.~Hardin, then follows from a finite exact computation.
 
 \section{The sequence and the conjecture}
 
-OEIS A208404 is ``Number of n X 4 0..3 arrays with new values 0..3 introduced in row major order and no element equal to more than two of its immediate leftward or upward or right-upward antidiagonal neighbors.''. It has offset $1$ and begins
+OEIS A198711 is ``Number of n X 4 0..3 arrays with values 0..3 introduced in row major order and no element equal to any horizontal or vertical neighbor.''. It has offset $1$ and begins
 \[
-15, 2698, 658450, 163422914, 40595679634, 10084768380770, 2505261257850802, 622357842865595522,\ \dots
+5, 172, 6548, 250031, 9548295, 364637102, 13925032958, 531779578441,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 262*a(n-1) - 3385*a(n-2) + 2868*a(n-3) - 576*a(n-4) for n>5.
+Empirical: a(n) = 46*a(n-1) - 312*a(n-2) + 530*a(n-3) - 263*a(n-4).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 02 2018 14:14:19, revision 8) the statement is
+As of the ``Last modified'' line on the live entry (Mar 02 2018 10:00:15, revision 8) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;262\,a(n-1) - 3385\,a(n-2) + 2868\,a(n-3) - 576\,a(n-4)
+a(n)\;=\;46\,a(n-1) - 312\,a(n-2) + 530\,a(n-3) - 263\,a(n-4)
 \end{equation}
-for all $n>5$.
+for all $n>4$.
 
 \section{What the canonical-form clause counts}
 
@@ -61,15 +61,15 @@ determines a pattern, two cells lying in the same class exactly when they carry 
 value.
 
 Write $x_{t,u}$ for the entry in row $t$ and column $u$. The
-entry's requirement is that no cell equals more than $2$ of its neighbours at the
+entry's requirement is that no cell equals more than $0$ of its neighbours at the
 offsets
 \[
-\mathcal N=\{(0,-1),\ (-1,0),\ (-1,1)\}
+\mathcal N=\{(0,-1),\ (-1,0)\}
 \]
 (offsets given as (row shift, column shift), and only cells inside the array count),
 that is
 \begin{equation}\label{eq:loc}
-\#\bigl\{(d_1,d_2)\in\mathcal N:\ x_{t+d_1,\,u+d_2}=x_{t,u}\bigr\}\;\le\;2
+\#\bigl\{(d_1,d_2)\in\mathcal N:\ x_{t+d_1,\,u+d_2}=x_{t,u}\bigr\}\;\le\;0
 \qquad\text{for every cell }(t,u).
 \end{equation}
 Every offset in $\mathcal N$ points backwards in the walk, so the condition at a cell of
@@ -191,7 +191,7 @@ values.
 \end{proof}
 
 \begin{theorem}
-The recurrence \eqref{eq:conj} holds for every $n>5$, which is the statement of
+The recurrence \eqref{eq:conj} holds for every $n>4$, which is the statement of
 Section~1.
 \end{theorem}
 
@@ -202,7 +202,7 @@ generated column by column, since the edge condition is a conjunction of one con
 column. The vector $w=q(N)\mathbf{1}$ was then formed by $4$ matrix--vector products
 in exact integer arithmetic and $\mathbf{v}^{\!\top}N^{j}w$ evaluated for
 $j=0,1,\dots$, again exactly. Every one of those integers vanishes from the index
-corresponding to $n=5+1$ onwards, and the run continued until $w$ was the zero vector,
+corresponding to $n=4+1$ onwards, and the run continued until $w$ was the zero vector,
 which settles all larger $j$ at once. Lemma~\ref{lem:crit} gives the theorem.
 \end{proof}
 
@@ -211,7 +211,7 @@ which settles all larger $j$ at once. Lemma~\ref{lem:crit} gives the theorem.
 Three checks, each independent of the algebra above.
 
 First, the whole construction was compared against the entry's DATA: the right-hand side of
-\eqref{eq:walk}, divided by $4!$, was evaluated at every one of the $12$
+\eqref{eq:walk}, divided by $4!$, was evaluated at every one of the $15$
 published indices and agrees exactly. This is a strong test of the modelling and not only of
 the arithmetic --- the inversion of Lemma~\ref{lem:inv}, the reading of the local
 condition, and the alignment of the entry's index with the number of rows would each
@@ -227,7 +227,7 @@ run until the working vector was identically zero rather than to a sampled prefi
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A208404.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A198711.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; Stirling and
 falling-factorial inversion, Section 1.9.)

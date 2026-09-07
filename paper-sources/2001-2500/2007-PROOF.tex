@@ -12,16 +12,16 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A268993, proved by a counting transfer matrix}
+\title{The empirical recurrence for OEIS A268884, proved by a counting transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A268993 counts arrays over $\{0,\dots,1\}$ subject to a condition on the array as a
+OEIS A268884 counts arrays over $\{0,\dots,1\}$ subject to a condition on the array as a
 whole rather than cell by cell: the number of adjacent pairs with a stated property must be
-at most one. A transfer matrix still applies once the running count is carried in the state; and
+exactly one. A transfer matrix still applies once the running count is carried in the state; and
 because a count of two or more can never come back, those states may be dropped outright,
 which is what keeps the digraph sparse. That makes $a(n)$ a walk count on $S=128$ vertices,
 and the empirical recurrence of order $10$ contributed by R.~H.~Hardin then follows from
@@ -32,15 +32,15 @@ a finite exact computation.
 
 \section{The sequence and the conjecture}
 
-OEIS A268993 is ``Number of nX6 binary arrays with some element plus some horizontally or antidiagonally adjacent neighbor totalling two not more than once.''. It has offset $1$ and begins
+OEIS A268884 is ``Number of nX6 binary arrays with some element plus some horizontally or antidiagonally adjacent neighbor totalling two exactly once.''. It has offset $1$ and begins
 \[
-41, 763, 14080, 244397, 4097199, 66954420, 1073436321, 16957258387,\ \dots
+20, 475, 9996, 186732, 3283890, 55491832, 911930096, 14681855846,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
 Empirical: a(n) = 42*a(n-1) -665*a(n-2) +5138*a(n-3) -21972*a(n-4) +55274*a(n-5) -83769*a(n-6) +76202*a(n-7) -40273*a(n-8) +11304*a(n-9) -1296*a(n-10) for n>12
 \end{quote}
-As of the ``Last modified'' line on the live entry (Feb 17 2016 07:24:59, revision 4) the statement is
+As of the ``Last modified'' line on the live entry (Feb 15 2016 11:32:21, revision 4) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
@@ -67,7 +67,7 @@ shift, so every pair is named once and only once: the pairs inside a row are see
 that row is laid down, and the pairs joining two rows when the later of the two is. The
 entry's requirement is
 \begin{equation}\label{eq:glob}
-\#\{\text{marked pairs in the whole array}\}\;\le1.
+\#\{\text{marked pairs in the whole array}\}\;=1.
 \end{equation}
 
 This is not a condition on any bounded window, so no transfer matrix over rows alone can
@@ -89,7 +89,7 @@ the digraph dense, with $(1+1)^{2\cdot6}$ edges instead of the sparse set used h
 
 \begin{lemma}\label{lem:walk}
 Let $\mathbf{v}$ mark the vertices $(r,c)$ whose count $c$ equals the number of marked pairs
-inside $r$ alone, and $\mathbf{u}$ the vertices with $c\le1$. Then for $L\ge1$ the arrays
+inside $r$ alone, and $\mathbf{u}$ the vertices with $c=1$. Then for $L\ge1$ the arrays
 of $L$ rows satisfying \eqref{eq:glob} are exactly the walks of length $L-1$ from a
 vertex marked by $\mathbf{v}$ to one marked by $\mathbf{u}$, so
 \[
@@ -153,7 +153,7 @@ settles every larger $m$.
 Three checks, each independent of the algebra above.
 
 First, the walk counts of Lemma~\ref{lem:walk} were compared against the entry's DATA at
-every one of the $15$ published indices, with no shift fitted: the number of rows is
+every one of the $16$ published indices, with no shift fitted: the number of rows is
 $L=n$, read off the entry's own name, and the offset says which index the first
 published term carries. The values agree exactly. This is where an error in the pair
 bookkeeping would show: counting an unordered pair twice, or missing the pairs inside the
@@ -169,7 +169,7 @@ Cayley--Hamilton bound in exact integer arithmetic rather than to a sampled pref
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A268993.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A268884.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

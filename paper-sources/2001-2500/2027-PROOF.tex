@@ -12,14 +12,14 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A209097, proved by counting patterns}
+\title{The empirical recurrence for OEIS A208319, proved by counting patterns}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A209097 counts arrays subject to a local condition \emph{and} to the clause ``new values
+OEIS A208319 counts arrays subject to a local condition \emph{and} to the clause ``new values
 $0..2$ introduced in row major order'', which says the array is written in canonical
 form. That clause is not local, so a transfer matrix over the alphabet does not see it. It
 does not have to: what is being counted is not arrays but equality patterns, and the number
@@ -36,22 +36,22 @@ $10$, contributed by R.~H.~Hardin, then follows from a finite exact computation.
 
 \section{The sequence and the conjecture}
 
-OEIS A209097 is ``Number of n X 5 0..2 arrays with new values 0..2 introduced in row major order and no element equal to more than one of its immediate leftward or upward or right-upward antidiagonal neighbors.''. It has offset $1$ and begins
+OEIS A208319 is ``Number of nX5 0..2 arrays with new values 0..2 introduced in row major order and no element equal to more than two of its immediate leftward or upward or left-upward diagonal neighbors.''. It has offset $1$ and begins
 \[
-41, 3552, 329064, 30836932, 2896732704, 272236743760, 25586970618660, 2404896311723064,\ \dots
+41, 8534, 1815496, 385979024, 82063614224, 17447625342768, 3709557427849168, 788692779445041968,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 121*a(n-1) -2777*a(n-2) +23322*a(n-3) -88925*a(n-4) +181863*a(n-5) -277613*a(n-6) +499822*a(n-7) -787540*a(n-8) +679392*a(n-9) -232128*a(n-10) for n>12.
+Empirical: a(n) = 197*a(n-1) +3456*a(n-2) -27886*a(n-3) -272376*a(n-4) +2523280*a(n-5) -5952064*a(n-6) +3277568*a(n-7) +2841600*a(n-8) -1871872*a(n-9) -540672*a(n-10) for n>11
 \end{quote}
-As of the ``Last modified'' line on the live entry (Mar 22 2023 14:48:53, revision 7) the statement is
+As of the ``Last modified'' line on the live entry (Oct 03 2025 14:45:42, revision 9) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;121\,a(n-1) - 2777\,a(n-2) + 23322\,a(n-3) - 88925\,a(n-4) + 181863\,a(n-5) - 277613\,a(n-6) + 499822\,a(n-7) - 787540\,a(n-8) + 679392\,a(n-9) - 232128\,a(n-10)
+a(n)\;=\;197\,a(n-1) + 3456\,a(n-2) - 27886\,a(n-3) - 272376\,a(n-4) + 2523280\,a(n-5) - 5952064\,a(n-6) + 3277568\,a(n-7) + 2841600\,a(n-8) - 1871872\,a(n-9) - 540672\,a(n-10)
 \end{equation}
-for all $n>12$.
+for all $n>11$.
 
 \section{What the canonical-form clause counts}
 
@@ -61,15 +61,15 @@ determines a pattern, two cells lying in the same class exactly when they carry 
 value.
 
 Write $x_{t,u}$ for the entry in row $t$ and column $u$. The
-entry's requirement is that no cell equals more than $1$ of its neighbours at the
+entry's requirement is that no cell equals more than $2$ of its neighbours at the
 offsets
 \[
-\mathcal N=\{(0,-1),\ (-1,0),\ (-1,1)\}
+\mathcal N=\{(0,-1),\ (-1,0),\ (-1,-1)\}
 \]
 (offsets given as (row shift, column shift), and only cells inside the array count),
 that is
 \begin{equation}\label{eq:loc}
-\#\bigl\{(d_1,d_2)\in\mathcal N:\ x_{t+d_1,\,u+d_2}=x_{t,u}\bigr\}\;\le\;1
+\#\bigl\{(d_1,d_2)\in\mathcal N:\ x_{t+d_1,\,u+d_2}=x_{t,u}\bigr\}\;\le\;2
 \qquad\text{for every cell }(t,u).
 \end{equation}
 Every offset in $\mathcal N$ points backwards in the walk, so the condition at a cell of
@@ -191,7 +191,7 @@ values.
 \end{proof}
 
 \begin{theorem}
-The recurrence \eqref{eq:conj} holds for every $n>12$, which is the statement of
+The recurrence \eqref{eq:conj} holds for every $n>11$, which is the statement of
 Section~1.
 \end{theorem}
 
@@ -202,7 +202,7 @@ generated column by column, since the edge condition is a conjunction of one con
 column. The vector $w=q(N)\mathbf{1}$ was then formed by $10$ matrix--vector products
 in exact integer arithmetic and $\mathbf{v}^{\!\top}N^{j}w$ evaluated for
 $j=0,1,\dots$, again exactly. Every one of those integers vanishes from the index
-corresponding to $n=12+1$ onwards, and the run continued until $w$ was the zero vector,
+corresponding to $n=11+1$ onwards, and the run continued until $w$ was the zero vector,
 which settles all larger $j$ at once. Lemma~\ref{lem:crit} gives the theorem.
 \end{proof}
 
@@ -227,7 +227,7 @@ run until the working vector was identically zero rather than to a sampled prefi
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A209097.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A208319.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; Stirling and
 falling-factorial inversion, Section 1.9.)

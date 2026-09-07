@@ -12,16 +12,16 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A262473, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A262333, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A262473 counts arrays of width $4$ over $\{0,1\}$ whose rows, read as base-$2$
-numbers, are divisible by $5$ and whose columns, read the same way, are divisible by
-$3$. The entry carries an empirical recurrence of order $5$ contributed by
+OEIS A262333 counts arrays of width $4$ over $\{0,1\}$ whose rows, read as base-$2$
+numbers, are divisible by $9$ and whose columns, read the same way, are divisible by
+$9$. The entry carries an empirical recurrence of order $5$ contributed by
 R.~H.~Hardin. It is true, and it is decidable rather than empirical. A column's value depends on
 every row of the array, so the condition is not local; but its RESIDUE is built one row at a
 time by Horner's rule, and the vector of column residues is a state of bounded size. The count
@@ -32,15 +32,15 @@ is then a walk count on $S=9$ states.
 
 \section{The conjecture}
 
-OEIS A262473 is ``Number of (3+1) X (n+1) 0..1 arrays with each row divisible by 3 and each column divisible by 5, read as a binary number with top and left being the most significant bits.''. It has offset $1$ and begins
+OEIS A262333 is ``Number of (n+3) X (1+3) 0..1 arrays with each row and column divisible by 9, read as a binary number with top and left being the most significant bits.''. It has offset $1$ and begins
 \[
-4, 9, 36, 121, 484, 1849, 7396, 29241,\ \dots
+2, 4, 8, 15, 29, 57, 114, 228,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 4*a(n-1) + 5*a(n-2) - 20*a(n-3) - 4*a(n-4) + 16*a(n-5).
+Empirical: a(n) = 3*a(n-1) - 2*a(n-2) - a(n-3) + 3*a(n-4) - 2*a(n-5).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Dec 31 2018 20:23:43, revision 7) this is still
+As of the ``Last modified'' line on the live entry (Dec 31 2018 06:16:01, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
@@ -55,7 +55,7 @@ the LEFT digit being the most significant, and column $j$ is
 \gamma_j\;=\;\sum_{i=1}^{R}x(i,j)\,2^{R-i} ,
 \]
 the TOP digit being the most significant. The entry asks that every $\rho_i$ be divisible by
-$5$ and every $\gamma_j$ be divisible by $3$. The entry writes the array with $n$ as the number of COLUMNS. The walk is run down the transpose, which exchanges the row condition with the column condition; both readings put the FIRST digit in the most significant place, so nothing else changes under that exchange.
+$9$ and every $\gamma_j$ be divisible by $9$.
 
 
 \section{Column residues by Horner's rule}
@@ -69,22 +69,22 @@ Then $\gamma_j^{(0)}=0$ and
 \[
 \gamma_j^{(i)}\;=\;2\,\gamma_j^{(i-1)}+x(i,j),
 \qquad\text{hence}\qquad
-\gamma_j^{(i)}\bmod 3\;=\;
-\bigl(2\,(\gamma_j^{(i-1)}\bmod 3)+x(i,j)\bigr)\bmod 3 .
+\gamma_j^{(i)}\bmod 9\;=\;
+\bigl(2\,(\gamma_j^{(i-1)}\bmod 9)+x(i,j)\bigr)\bmod 9 .
 \]
 \end{lemma}
 
 \begin{proof}
 Adding a row at the BOTTOM shifts every earlier digit one place up in significance, which is
 multiplication by $2$, and puts the new digit in the units place. Reduction modulo
-$3$ commutes with both operations.
+$9$ commutes with both operations.
 \end{proof}
 
-So the vector $\bigl(\gamma_1\bmod 3,\dots,\gamma_{4}\bmod
-3\bigr)$ is a state: at most $3^{4}$ of them, and each array row
+So the vector $\bigl(\gamma_1\bmod 9,\dots,\gamma_{4}\bmod
+9\bigr)$ is a state: at most $9^{4}$ of them, and each array row
 that satisfies the row condition carries one such vector to another. The walk starts at the
 all-zero vector, which is the empty array, and the END vector picks out the residue vectors in
-which every entry is divisible by $3$ --- so the end vector is not the all-ones
+which every entry is divisible by $9$ --- so the end vector is not the all-ones
 vector, and the column condition is imposed once, at the end, exactly as the entry states it.
 With $M$ the adjacency matrix,
 \[
@@ -113,15 +113,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;4\,a(n-1) + 5\,a(n-2) - 20\,a(n-3) - 4\,a(n-4) + 16\,a(n-5)
+a(n)\;=\;3\,a(n-1) - 2\,a(n-2) - a(n-3) + 3\,a(n-4) - 2\,a(n-5)
 \]
-for every $n>3$.
+for every $n>1$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $5$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=3+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=1+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -129,7 +129,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $24$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $32$ terms the entry publishes, exactly, in integer
 arithmetic.
 
 Second, the count was recomputed for the smallest arrays straight from the definition:
@@ -145,7 +145,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A262473.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A262333.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{knuth} D.~E.~Knuth, \emph{The Art of Computer Programming}, Volume 2, 3rd ed.,

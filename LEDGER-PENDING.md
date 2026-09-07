@@ -243,3 +243,35 @@ published data first, including the two entries that count a quarter of their ar
 
 The remaining candidates in this family are still running at cap 2000000; whatever they come
 back as will be recorded next to the cap.
+
+### transfer87 — parities, forbidden differences, distinct differences, neighbour quantifiers (18)
+
+Four more clause shapes. Three are local and share the three-line window. The fourth is not:
+"an even number of ones above it" counts a whole column back to the top of the array, which
+no window holds --- but only its parity is asked for, so one bit per column carries it, and
+the parity to a cell's left is read off the line being placed. Four readings pinned first.
+
+**A parser bug worth recording:** Hardin writes a fixed dimension as a sum, "(3+1) X (n+1)",
+meaning width 4. Reading only a bare digit there dropped an entire family, which would have
+been reported as unreachable rather than as a bug. Dimensions written as sums are now read.
+
+### The refused pool, re-run at a higher cap
+
+1967 candidates that an engine already parses had been processed and not settled. Re-running
+them at cap 2000000 recovered **12 results** so far from engines transfer8, 20, 21, 38, 44,
+85 and 86 --- with the run interrupted partway. A cap is a setting, not a wall, for the
+fourth time in this project.
+
+### The knight-distance family: measured, not attempted
+
+19 entries, the largest single family left. The reading is pinned: writing $w = d - v$ for
+$d$ the knight distance from the corner turns the entry's condition into "$w$ takes values in
+$\{0,1,2\}$ and rises by 0 or 1 along every minimum-path knight move", and a direct
+enumeration of that reproduces A253112's published 53, 272, 1342 exactly.
+
+What is not built is the digraph. Knight distances depend on the actual board, so the edge
+structure has to come from the board rather than from the entry's words. Measured: for
+widths 3 to 6 the row profile of distances is periodic with period 4 away from the ends,
+which is what a transfer matrix needs; widths 7 and 8 show no period up to 12 in the window
+tested. The bottom edge of the board perturbs distances in its last rows and needs a
+separate finish. That is the next target, written down rather than quietly skipped.
