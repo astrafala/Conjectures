@@ -326,8 +326,13 @@ def build(p, cap=40000):
     W, alpha, E = p['fixed'], p['alpha'], p['exc']
     lines = list(product(range(alpha + 1), repeat=W))
     n = len(lines)
-    if n * (n + 1) * (E + 1) > cap:
-        return None
+    # Two things can put this build out of reach and the pair-free one within it. The vertex
+    # count (alpha+1)^(2W)*(E+1) is the obvious one; the loop below also runs over TRIPLES of
+    # lines, which no vertex guard sees, so an entry could pass the guard and then never
+    # finish. Either way the pair-free build returns the same counts from far fewer states,
+    # and it applies its own cap to the states it actually reaches.
+    if n * (n + 1) * (E + 1) > cap or n * n * (n + 1) > 20000000:
+        return build_pairfree(p, cap=cap)
 
     def sid(ri, si, c):
         return (ri * n + si) * (E + 1) + c
@@ -496,3 +501,128 @@ def _threshold_mod(adj, start, end, coeffs, order, S, p):
         return None
     last = max((i for i, u in enumerate(us) if u != 0), default=-1)
     return order + last
+
+
+# ---------------------------------------------------------------------------
+# The pair of lines is more state than the condition can tell apart
+#
+# `build` above indexes its vertices by (r, s, c): an ordered pair of lines and the count of
+# violations so far. That is (alpha+1)^(2W)*(E+1) vertices, and the loop that fills the edges
+# runs over triples of lines, so the wider members of this family were never built at all --
+# not refused on the cap, simply never finished.
+#
+# Every offset the entry names has |dj| <= 1, so whether the cell at column j of the middle
+# line is violated depends on the three lines only through their windows at j-1, j, j+1.
+# Collect, for each j, the indicator over the third line's window; call that tuple P(r, s).
+# Then the violation count of any t is read off P, the count at the bottom edge is read off P,
+# and the successor (s, t) carries P(s, t), which does not mention r. So two pairs (r, s) and
+# (r', s) with the same P are indistinguishable, and the vertex is (s, P, c).
+#
+# The profile of one column depends only on a pair of windows, so it is computed once per
+# such pair -- (alpha+2)^6 of them at worst -- and P is then W lookups.
+# ---------------------------------------------------------------------------
+
+def _cell_ok(p, r, s, t, j):
+    fn = p['pred']
+    v = s[j]
+    ns = _gather(p, r, s, t, j, p['offs'])
+    if p['two']:
+        return fn(v, ns, _gather(p, r, s, t, j, p['offs2']))
+    return fn(v, ns)
+
+
+def build_pairfree(p, cap=200000):
+    W, alpha, E = p['fixed'], p['alpha'], p['exc']
+    A = alpha + 1
+    vals = list(range(A))
+    lines = list(product(vals, repeat=W))
+
+    def wins(line):
+        """the window (j-1, j, j+1) of a line at each column, None outside the line"""
+        if line is OUT:
+            return [None] * W
+        return [tuple(line[k] if 0 <= k < W else None for k in (j - 1, j, j + 1))
+                for j in range(W)]
+
+    # every window that can occur, plus the all-None window a line off the edge presents
+    wset = set()
+    for line in lines:
+        for w in wins(line):
+            wset.add(w)
+    wset.add(None)
+    twins = sorted(wset, key=lambda w: (w is None,
+                                        tuple(-1 if v is None else v for v in w) if w else ()))
+    tw_ix = {w: i for i, w in enumerate(twins)}
+
+    def mkline(w, j):
+        """some line whose window at column j is w; None means the line is off the edge"""
+        if w is None:
+            return OUT
+        base = [0] * W
+        for d, v in zip((-1, 0, 1), w):
+            k = j + d
+            if 0 <= k < W and v is not None:
+                base[k] = v
+        return tuple(base)
+
+    prof_cache = {}
+
+    def col_profile(rw, sw, j):
+        """for column j, which third-line windows leave the middle cell unviolated"""
+        key = (rw, sw, j if (j == 0 or j == W - 1) else 1)
+        got = prof_cache.get(key)
+        if got is None:
+            r = mkline(rw, j)
+            s = mkline(sw, j)
+            got = tuple(0 if _cell_ok(p, r, s, mkline(tw, j), j) else 1 for tw in twins)
+            prof_cache[key] = got
+        return got
+
+    def profile(r, s):
+        rw, sw = wins(r), wins(s)
+        return tuple(col_profile(rw[j], sw[j], j) for j in range(W))
+
+    def viol_from(P, t):
+        tw = wins(t)
+        return sum(P[j][tw_ix[tw[j]]] for j in range(W))
+
+    def vend_from(P):
+        return sum(P[j][tw_ix[None]] for j in range(W))
+
+    index, states, adj = {}, [], []
+
+    def sid(key):
+        i = index.get(key)
+        if i is None:
+            i = index[key] = len(states)
+            states.append(key)
+            adj.append(None)
+        return i
+
+    starts = []
+    for s in lines:
+        if p.get('tl0') and s[0] != 0:
+            continue
+        starts.append(sid((s, profile(OUT, s), 0)))
+        if len(states) > cap:
+            return None
+    if not states:
+        return None
+    qi = 0
+    while qi < len(states):
+        s, P, c = states[qi]
+        row = []
+        for t in lines:
+            v = viol_from(P, t)
+            if c + v <= E:
+                row.append(sid((t, profile(s, t), c + v)))
+                if len(states) > cap:
+                    return None
+        adj[qi] = row
+        qi += 1
+    S = len(states)
+    start = [0] * S
+    for i in starts:
+        start[i] = 1
+    end = [1 if c + vend_from(P) == E else 0 for (s, P, c) in states]
+    return adj, start, end, S
