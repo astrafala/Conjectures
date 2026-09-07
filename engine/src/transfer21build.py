@@ -48,7 +48,7 @@ def build(h):
             (rf"${W}\times(n+{base})$" if base else rf"${W}\times n$")
     fractex = "" if frac == 1 else rf"\tfrac1{{{frac}}}"
     exctex = ("" if not E else
-              rf""" The clause ``with the exception of exactly ${E}$ elements'' is carried in
+              rf""" The clause ``with the exception of exactly ${E}$ {'element' if E == 1 else 'elements'}'' is carried in
 the state as a counter of violations so far, capped at ${E}$; a step that would push it past
 ${E}$ has no edge, and a walk is accepted only when the count reaches exactly ${E}$.""")
     excstate = ("" if not E else rf" \times \{{0,\dots,{E}\}}")
