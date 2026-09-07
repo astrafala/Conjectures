@@ -63,8 +63,18 @@ def save():
     json.dump(sorted(done), open(DONE, 'w'))
 
 
-def note(k):
+# A count of reasons cannot be re-aimed at anything. Recording the reason PER ENTRY costs one
+# dictionary and answers "why did 407 of 426 not settle" from the sweep's own run rather than
+# from a separate diagnostic that has to rebuild every model again.
+WHY = f'ordwhole_why_{SHARD}.json'
+why = json.load(open(WHY)) if os.path.exists(WHY) else {}
+
+
+def note(k, a=None):
     res[k] = res.get(k, 0) + 1
+    if a is not None:
+        why[a] = k
+        json.dump(why, open(WHY, 'w'), indent=0)
 
 
 targets = [a for a in open(os.environ['ANUMS_FILE']).read().replace(',', ' ').split() if a]
@@ -76,27 +86,27 @@ for a in sorted(targets):
     try:
         e = LE.get(a)
     except Exception:
-        note('entry unreadable'); done.add(a); save(); continue
+        note('entry unreadable', a); done.add(a); save(); continue
     m = ORDER.search(' '.join(e['comment'] + e['formula']))
     if not m:
-        note('no order line'); done.add(a); save(); continue
+        note('no order line', a); done.add(a); save(); continue
     stated = int(m.group(1))
     got = uniform.read(names[a])
     if not got:
-        note('no engine'); done.add(a); save(); continue
+        note('no engine', a); done.add(a); save(); continue
     en, p = got
     if not openness.status(a)[0]:
-        note('not open'); done.add(a); save(); continue
+        note('not open', a); done.add(a); save(); continue
     try:
         signal.alarm(BUDGET)
         b = uniform.build(en, p, CAP)
         signal.alarm(0)
     except Timeout:
-        signal.alarm(0); note('build timed out'); done.add(a); save(); continue
+        signal.alarm(0); note('build timed out', a); done.add(a); save(); continue
     except Exception:
-        signal.alarm(0); note('build failed'); done.add(a); save(); continue
+        signal.alarm(0); note('build failed', a); done.add(a); save(); continue
     if b is None:
-        note(f'state space > cap {CAP}'); done.add(a); save(); continue
+        note(f'state space > cap {CAP}', a); done.add(a); save(); continue
     S = uniform.size(en, p, b)
     # The bound that matters is the merged one: the minimal recurrence has order at most the
     # number of states with distinct futures, and merging first is what makes 2S terms
@@ -108,7 +118,7 @@ for a in sorted(targets):
     except Exception:
         pass
     if S > 4000:
-        note('merged state count too large for 2S terms'); done.add(a); save(); continue
+        note('merged state count too large for 2S terms', a); done.add(a); save(); continue
     d = [int(v) for v in e['data'].split(',') if v.strip()]
     off = int(e['offset'].split(',')[0])
     need = 2 * S + max(8, stated + 4)
@@ -117,29 +127,29 @@ for a in sorted(targets):
         t = uniform.terms(en, p, b, need + off + 5)
         signal.alarm(0)
     except Timeout:
-        signal.alarm(0); note('terms timed out'); done.add(a); save(); continue
+        signal.alarm(0); note('terms timed out', a); done.add(a); save(); continue
     except Exception:
-        signal.alarm(0); note('terms failed'); done.add(a); save(); continue
+        signal.alarm(0); note('terms failed', a); done.add(a); save(); continue
     tv = [None if (x is None or x.denominator != 1) else x.numerator for x in t]
     sh = next((s for s in range(0, off + 4) if tv[s:s + len(d)] == d), None)
     if sh is None:
-        note('model does not match DATA'); done.add(a); save(); continue
+        note('model does not match DATA', a); done.add(a); save(); continue
     seq = [v for v in tv[sh:] if v is not None]
     if len(seq) < 2 * S + 4:
-        note('too few exact terms for the bound'); done.add(a); save(); continue
+        note('too few exact terms for the bound', a); done.add(a); save(); continue
     L0 = bmrec.bm_mod([v % P62 for v in seq], P62)
     if L0 != stated:
-        note(f'minimal order {L0} is not the stated order'); done.add(a); save(); continue
+        note(f'minimal order {L0} is not the stated order', a); done.add(a); save(); continue
     Lx, cs = bmrec.bm([Fraction(v) for v in seq])
     if Lx != stated or any(c.denominator != 1 for c in cs):
-        note('minimal recurrence not integral or order disagrees over Q')
+        note('minimal recurrence not integral or order disagrees over Q', a)
         done.add(a); save(); continue
     coeffs = {i + 1: int(c) for i, c in enumerate(cs)}
     bad = [off + k for k in range(len(d))
            if k - Lx >= 0 and d[k] != sum(coeffs[i] * d[k - i] for i in coeffs)]
     if bad:
-        note('recovered recurrence contradicted by DATA'); done.add(a); save(); continue
-    note('PROVED')
+        note('recovered recurrence contradicted by DATA', a); done.add(a); save(); continue
+    note('PROVED', a)
     # ordbuild quotes the entry's own sentence, so the record carries it
     line = next((' '.join(L.split()) for L in e['comment'] + e['formula']
                  if ORDER.search(L)), 'Empirical recurrence of order %d' % stated)
