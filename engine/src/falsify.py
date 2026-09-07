@@ -6,12 +6,15 @@ ones whose annihilation run was cut off, can still be decided in the negative ch
 """
 import json, re, os, sys, collections, importlib, time
 from math import factorial
-import localentry as LE, ratrec, openness
+import localentry as LE, ratrec, openness, uniform
 
 MARK = re.compile(r'onjectur|Empirical', re.I)
-ENG = ['transfer9', 'transfer6', 'transfer16', 'transfer12', 'transfer10', 'transfer8',
-       'transfer14', 'transfer11', 'transfer15', 'transfer13', 'transfer7']
-M = {e: importlib.import_module(e) for e in ENG}
+# There is no engine list here. It named eleven engines, which was all of them when this was
+# written and is now eleven of eighty-three, so seventy-two engines' worth of entries were
+# never even parsed and no conjecture of theirs was ever tested for failure. `uniform` knows
+# all of them and evaluates each through one interface, which also removes the per-engine
+# `avals` dispatch below --- most engines have no such method, and the AttributeError was
+# being swallowed and counted as an evaluation error.
 names = json.load(open('/tmp/claude-0/-home-user-Conjectures/'
                        'a6c6c48d-a8e1-5e03-bfd7-16e8d9d94539/scratchpad/all_names.json'))
 roster = {r['anum'] for r in json.load(open('rank-map.json'))}
@@ -25,17 +28,13 @@ for a in sorted(names):
     if a in roster or a in done:
         continue
     nm = names[a]
-    p = eng = None
-    for e in ENG:
-        try:
-            q = M[e].parse_name(nm)
-        except Exception:
-            q = None
-        if q:
-            p, eng = q, e
-            break
-    if p is None:
+    try:
+        got_eng = uniform.read(nm)
+    except Exception:
+        got_eng = None
+    if not got_eng:
         continue
+    eng, p = got_eng
     e = LE.get(a)
     recs = [r for r in (ratrec.parse_rec(L) for L in e['comment'] + e['formula']
                         if MARK.search(L)) if r]
@@ -46,25 +45,19 @@ for a in sorted(names):
     d = [int(v) for v in e['data'].split(',') if v.strip()]
     off = int(e['offset'].split(',')[0])
     try:
-        built = M[eng].build(p, cap=CAP)
-    except Exception as ex:
+        built = uniform.build(eng, p, CAP)
+    except Exception:
         res['build error'] += 1; continue
     if built is None:
         res['over cap'] += 1; continue
     t0 = time.time()
     try:
-        if eng in ('transfer10',):
-            adj, start, _ = built
-            vals = M[eng].avals(adj, start, p, off + len(d) + EXTRA)
-        else:
-            adj, start, end, _ = built
-            vals = M[eng].avals(adj, start, end, p, off + len(d) + EXTRA)
+        vals = uniform.terms(eng, p, built, off + len(d) + EXTRA)
     except Exception:
         res['eval error'] += 1; continue
-    K = p.get('K')
-    f = p.get('frac', 1) * (factorial(K) if eng in ('transfer7', 'transfer8', 'transfer10',
-                                                    'transfer12', 'transfer16') else 1)
-    got = [None if v is None or v % f else v // f for v in vals]
+    # uniform.terms already returns the sequence in the entry's own scaling, as exact
+    # rationals; a term that is not an integer is one the model cannot pin and is left out
+    got = [None if (v is None or v.denominator != 1) else v.numerator for v in vals]
     if got[off:off + len(d)] != d:
         res['DATA mismatch'] += 1; continue
     # the entry's own bound: a recurrence stated ``for n>5'' says nothing at n=5, and
