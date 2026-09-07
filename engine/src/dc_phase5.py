@@ -60,10 +60,20 @@ def save():
 
 
 def skip(a, why):
-    state['skip'][why] = state['skip'].get(why, 0) + 1
+    # Two things were wrong here. A count is not enough: a check that cannot say WHICH entries
+    # it could not reach cannot be re-aimed at them. And `seen` was built from the ok and bad
+    # lists only, so a skipped entry was retried on every round and counted again each time --
+    # "179 rebuild over the cap" was 179 skip EVENTS across rounds, not 179 entries. The set
+    # below is the entry list, and the counter is derived from it, so a rerun cannot inflate
+    # either.
+    d = state.setdefault('skipped', {}).setdefault(why, [])
+    if a not in d:
+        d.append(a)
+    state['skip'] = {k: len(v) for k, v in state['skipped'].items()}
 
 
-seen = set(state['ok']) | {b[0] for b in state['bad']}
+seen = (set(state['ok']) | {b[0] for b in state['bad']}
+        | {a for v in state.get('skipped', {}).values() for a in v})
 hits = [h for h in json.load(open('uniall_hits.json'))
         if not h.get('FAILS') and h.get('coeffs') and h.get('engine')]
 for h in sorted(hits, key=lambda x: x['anum']):
