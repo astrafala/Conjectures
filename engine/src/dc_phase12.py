@@ -117,6 +117,28 @@ for h in sorted(sample, key=lambda x: x['anum']):
     save()
     print(f'  {a} ({eng}) holds for {beyond} terms past the published range', flush=True)
 
+# Progress, not result: see the note in dc_phase5.py. The merge is what is stored.
+def _summary():
+    import glob
+    ok, bad, skip = {}, [], {}
+    for f in glob.glob(os.path.join(repopaths.DEEPCHECK, 'phase12-*.json')):
+        try:
+            d = json.load(open(f))
+        except Exception:
+            continue
+        ok.update(d['ok'])
+        bad += d['bad']
+        for k, v in d.get('skip', {}).items():
+            skip[k] = skip.get(k, 0) + v
+    v = sorted(ok.values())
+    json.dump({'attacked': len(ok), 'failures': bad, 'not_attacked': skip,
+               'terms_beyond_the_entry': {'min': v[0], 'median': v[len(v) // 2],
+                                          'max': v[-1]} if v else {},
+               'per_entry': ok},
+              open(os.path.join(repopaths.DEEPCHECK, 'phase12.json'), 'w'), indent=1)
+
+
+_summary()
 print(f'\nPhase 12 numeric attack, shard {SHARD}: {len(state["ok"])} entries pushed past '
       f'their published range, {len(state["bad"])} failures')
 if state['ok']:

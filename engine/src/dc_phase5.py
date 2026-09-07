@@ -187,6 +187,28 @@ for h in sorted(hits, key=lambda x: x['anum']):
         save(); continue
     state['ok'].append(a)
     save()
+# The per-shard file is rewritten after every entry, so while a run is going it is dirty in
+# the working tree every few seconds and no commit of it is ever current. It is progress. The
+# result is the merge of every shard, written when a shard has nothing left to attempt, and
+# that is what is stored.
+def _summary():
+    import glob
+    ok, bad, skip = set(), [], {}
+    for f in glob.glob(os.path.join(repopaths.DEEPCHECK, 'phase5-*.json')):
+        try:
+            d = json.load(open(f))
+        except Exception:
+            continue
+        ok |= set(d['ok'])
+        bad += d['bad']
+        for k, v in d.get('skip', {}).items():
+            skip[k] = skip.get(k, 0) + v
+    json.dump({'recomputed': len(ok), 'disagreements': bad, 'not_recomputed': skip,
+               'entries': sorted(ok)},
+              open(os.path.join(repopaths.DEEPCHECK, 'phase5.json'), 'w'), indent=1)
+
+
+_summary()
 print(f"Phase 5 shard {SHARD}/{NSHARD}: {len(state['ok'])} recomputed and agreeing, "
       f"{len(state['bad'])} disagreements")
 for b in state['bad'][:20]:
