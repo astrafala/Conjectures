@@ -2,13 +2,12 @@
 import json, re, os, sys, collections, importlib
 from fractions import Fraction
 from math import factorial
-import localentry as LE, openness, closedform as CF
+import localentry as LE, openness, closedform as CF, uniform
 
-ENG = ['transfer3', 'transfer9', 'transfer6', 'transfer16', 'transfer12', 'transfer10',
-       'transfer8', 'transfer14', 'transfer11', 'transfer15', 'transfer13', 'transfer7']
-M = {e: importlib.import_module(e) for e in ENG}
-import transfer2 as T2
-SCALED = ('transfer7', 'transfer8', 'transfer10', 'transfer12', 'transfer16')
+# No engine list here. It named twelve, which was all of them when this was written and is
+# twelve of eighty-three now, so every closed-form entry whose model needs a later engine was
+# recorded as "no engine reads the name". `uniform` knows all of them, evaluates each through
+# one interface, and handles the ones whose interface differs.
 CAP = int(sys.argv[1]) if len(sys.argv) > 1 else 20000
 P = '/tmp/claude-0/-home-user-Conjectures/a6c6c48d-a8e1-5e03-bfd7-16e8d9d94539/scratchpad/'
 names = json.load(open(P + 'all_names.json'))
@@ -22,21 +21,7 @@ targets = json.load(open(os.environ.get('TARGETS', 'polyclosed_cands.json')))
 
 def model_values(eng, p, b, N):
     """a(0..N) as Fractions, None where the engine has no value at that index."""
-    if eng in ('transfer6', 'transfer3'):
-        st, adj = b
-        tm = M[eng].terms if eng == 'transfer6' else T2.terms
-        fr = p['frac'] if eng == 'transfer6' else 1
-        t = tm(adj, len(st), N + 2)
-        return [Fraction(v, fr) for v in t], (st, adj)
-    if eng == 'transfer10':
-        adj, start, _ = b
-        v = M[eng].avals(adj, start, p, N + 2)
-        f = factorial(p['K']) * p['frac']
-        return [None if q is None else Fraction(q, f) for q in v], (adj, start)
-    adj, start, end, _ = b
-    v = M[eng].avals(adj, start, end, p, N + 2)
-    f = p['frac'] * (factorial(p['K']) if eng in SCALED else 1)
-    return [None if q is None else Fraction(q, f) for q in v], (adj, start, end)
+    return uniform.terms(eng, p, b, N + 2), b
 
 
 for a in sorted(targets):
@@ -59,28 +44,18 @@ for a in sorted(targets):
     op, _ = openness.status(a)
     if not op:
         res['not open'] += 1; done.add(a); continue
-    p = eng = None
-    for en in ENG:
-        try:
-            r = M[en].parse_name(nm)
-        except Exception:
-            r = None
-        if r:
-            p, eng = ({'t3': r} if en == 'transfer3' else r), en; break
-    if p is None:
-        res['no engine reads the name'] += 1; done.add(a); continue
     try:
-        if eng == 'transfer3':
-            c0, al, _, _ = p['t3']
-            if (al + 1) ** c0 > CAP:
-                res['state space > cap'] += 1; done.add(a); continue
-            b = M[eng].build(*p['t3'])
-        else:
-            try: b = M[eng].build(p, cap=CAP)
-            except TypeError: b = M[eng].build(p)
+        got_eng = uniform.read(nm)
+    except Exception:
+        got_eng = None
+    if not got_eng:
+        res['no engine reads the name'] += 1; done.add(a); continue
+    eng, p = got_eng
+    try:
+        b = uniform.build(eng, p, CAP)
     except Exception:
         res['build failed'] += 1; done.add(a); continue
-    if b is None or not b[0]:
+    if b is None:
         res['state space > cap'] += 1; done.add(a); continue
     d = [int(v) for v in e['data'].split(',') if v.strip()]
     off = int(e['offset'].split(',')[0])
@@ -90,7 +65,7 @@ for a in sorted(targets):
     except Exception:
         res['model evaluation failed'] += 1; done.add(a); continue
     # tie the model to the entry: it must reproduce every published term exactly
-    shifts = [0] if eng not in ('transfer6', 'transfer3') else [0, 1, 2]
+    shifts = [0, 1, 2]
     base = None
     for s in shifts:
         seq = [vals[off + k + s] if off + k + s < len(vals) else None for k in range(len(d))]
@@ -100,17 +75,8 @@ for a in sorted(targets):
     if base is None:
         res['model does not match DATA'] += 1; done.add(a); continue
     try:
-        if eng in ('transfer6', 'transfer3'):
-            th = M[eng].threshold if eng == 'transfer6' else T2.threshold
-            st, adj = parts
-            thr = th(adj, len(st), coeffs, order)
-            thr = None if thr is None else thr - base
-        elif eng == 'transfer10':
-            adj, start = parts
-            thr = M[eng].threshold(adj, start, coeffs, order, p)
-        else:
-            adj, start, end = parts
-            thr = M[eng].threshold(adj, start, end, coeffs, order, p)
+        thr = uniform.threshold(eng, p, b, coeffs, order)
+        thr = None if thr is None else thr - base
     except Exception:
         res['threshold failed'] += 1; done.add(a); continue
     if thr is None:
