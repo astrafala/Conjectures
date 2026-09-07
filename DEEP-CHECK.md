@@ -573,6 +573,14 @@ along the first dimension do not.
 
 `engine/src/dc_phase11.py`, results in `engine/deep-check/phase11.json`.
 
+**Independence: three families now checked by a second program, and the count stands at
+1,736.** `indepcell.py` **197 of 197**, `indepadj.py` **995 of 1,121** — the rest are shapes it
+refuses rather than guesses — and `indep2x2.py` **544 of 908 attempted**, the remainder being
+conditions outside its grammar or arrays too large to enumerate one at a time. **Nothing
+disagrees.** The single disagreement that appeared was the checker's: a name reading *"a(n) is
+half the number of ..."* whose divisor pattern was anchored at the start of the name, so the
+brute force came back at exactly double.
+
 **Independence is the corpus's real weakness.** 570 entries have been checked by a program
 sharing no code with the engine that settled them, and they sit in **14 of the 104 argument
 families** — each of those 14 checked to the last member. **90 families, holding the other
