@@ -528,3 +528,16 @@ chunk on the board and nothing about them was hard; they were simply never asked
 The papers quote the entry's own condition rather than describing it in general terms:
 `build_new.py` re-parses the name and folds the parse into the sweep record, because the
 record does not carry it.
+
+### The same missing line, across the other plain engines
+
+Merging before the annihilation test is not specific to the 3 X 3 families: every engine that
+returns `(states, adj)` with all-ones vectors was running the test on the unmerged graph. The
+497 candidates those engines had processed and left unsettled were requeued --- a refusal made
+under the old test is not a refusal under the new one, the same rule that applies to a cap ---
+and **23 more settled**: ten in the clockwise-edge-increase family, seven and two in the
+subblock-statistic families, three in the commuting-subblock family, one more elsewhere.
+
+Most of the 497 were never candidates for a proof at all: 110 of the first 150 carry no line
+that parses as a recurrence, and about a fifth are over the state cap. That is the honest
+shape of the pool, and it is worth writing down so the next pass does not expect more from it.

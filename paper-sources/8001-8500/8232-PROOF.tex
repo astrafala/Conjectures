@@ -12,69 +12,74 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A232902, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A233838, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A232902 counts arrays of width $3$ over $\{0,\dots,2\}$ under a condition on each cell
-and its neighbours, and carries an empirical recurrence of order $4$ contributed by
-R.~H.~Hardin. It is true, and it is decidable rather than empirical. Every neighbour named lies
-in the three rows $i-1,i,i+1$, so an ordered pair of consecutive rows is a state, the count is
-a walk count on $S=756$ of them, and the conjectured recurrence is then settled by a finite
-exact computation.
+OEIS A233838 counts arrays of width $3$ over $\{0,1,2,3\}$ containing no run of $3$ consecutive
+cells, taken along a named direction of the grid, whose entries are strictly increasing. The entry carries
+an empirical recurrence of order $4$ contributed by R.~H.~Hardin. It is true, and it is
+decidable rather than empirical: every such run lies inside $3$ consecutive array rows, so
+the count is a walk count on $S=3661$ states.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 68Q45.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 68R15, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A232902 is ``Number of (n+1) X (2+1) 0..2 arrays with every element next to itself plus and minus one within the range 0..2 horizontally or antidiagonally.''. It has offset $1$ and begins
+OEIS A233838 is ``Number of (n+2) X (1+2) 0..3 arrays with no increasing sequence of length 3 horizontally or antidiagonally downwards.''. It has offset $1$ and begins
 \[
-10, 34, 194, 1034, 4986, 24498, 122994, 613658,\ \dots
+201664, 11305216, 633584640, 35508588544, 1990039158784, 111529525575680, 6250547858112512, 350304982786899968,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 4*a(n-1) - a(n-2) + 26*a(n-3) + 16*a(n-4).
+Empirical: a(n) = 56*a(n-1) + 16*a(n-2) - 768*a(n-3) + 512*a(n-4).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 06 2018 03:53:04, revision 8) this is still
+As of the ``Last modified'' line on the live entry (Oct 11 2018 14:28:20, revision 8) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The neighbours of a cell are the cells at the offsets
+A RUN is $3$ consecutive cells taken along one of the directions
 \[
-(-1,1), (0,-1), (0,1), (1,-1),
+\begin{array}{l}
+\text{along a row} \\
+\text{down an antidiagonal, ne to sw} \\
+\end{array}
 \]
-those falling outside the array being absent. The entry requires that every cell $v$ has, among its neighbours, one equal to $v+1$ and one equal to $v-1$ --- each required only when that value lies in $\{0,\dots,2\}$, which is what ``within the range $0..2$'' says.
+all of them inside the array. The array is counted when no run has its entries strictly increasing.
 
-\section{The count is a walk count}
 
-Every offset above moves the row index by at most one, so whether a cell of row $i$ passes
-depends on rows $i-1$, $i$ and $i+1$ and nothing else. Take as vertices the ordered PAIRS
-$(p,c)$ of consecutive rows, allowing $p$ to be ABSENT --- that is what lets a walk of no steps
-describe a one-row array --- and put an edge $(p,c)\to(c,x)$ exactly when every cell of the
-middle row $c$ passes with $p$ above it and $x$ below it. A state with $p$ absent may begin an
-array; a state $(p,c)$ accepts when every cell of $c$ passes with nothing below it. An array of
-$L$ rows is then a walk of $L-1$ steps, each step settling one row, and every array arises from
-exactly one walk. Hence
+The entry carries no renaming clause, and it could not: ``strictly increasing'' compares
+letters by size, so it is not preserved by a permutation of the alphabet. The count is taken
+over the alphabet the entry names.
+
+\section{Every run lies in $3$ consecutive rows}
+
+\begin{lemma}\label{lem:win}
+Each direction above changes the row index by $0$ or $1$ from one cell of a run to the next, so
+a run of $3$ cells lies inside $3$ consecutive array rows, and a run whose last cell is in
+row $i$ lies inside rows $i-2,\dots,i$.
+\end{lemma}
+
+\begin{proof}
+Immediate from the row steps of the four directions, which are $0$ for a row and $1$ for the
+other three.
+\end{proof}
+
+So the state is the window of the last $2$ array rows, a row not yet written carried as
+$\bot$; a step appends a row and rejects it exactly when some run ends in it or lies inside it.
+A run needing a row that is $\bot$ does not exist, which is the boundary rule and is read off
+the window rather than assumed. The walk starts at the all-$\bot$ window, so a walk of $R$ steps
+is an array of $R$ rows. With $M$ the adjacency matrix of that digraph,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=3661,\quad\tau=\mathbf{1} .
 \]
-with $\iota$ the indicator of the beginning states, $\tau$ of the accepting ones, and $j$ the
-walk index, which differs from the entry's own $n$ by a constant read off from its published
-terms. There are $S=756$ states, and $a$ is $C$-finite.
-
-At $n=1$ the array has one row, and
-the condition is tested there with nothing above or below it; the entry's first term is
-$10$, which the model reproduces along with every later term. That is the cheapest check
-that the neighbour set and the boundary have been read the same way the entry reads them: a
-condition tested as though the missing rows were present, rather than absent, gives a different
-first term. There are $3^{3}=27$ possible rows over the entry's own alphabet. The state count $S=756$ is exactly $27\cdot28$,
-one state for each ordered pair of a row and its possible predecessor, the absent predecessor
-included.
+The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
+published terms rather than assumed. In particular $a$ is $C$-finite.
 
 \section{The proof}
 
@@ -96,38 +101,41 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;4\,a(n-1) - a(n-2) + 26\,a(n-3) + 16\,a(n-4)
+a(n)\;=\;56\,a(n-1) + 16\,a(n-2) - 768\,a(n-3) + 512\,a(n-4)
 \]
-for every $n>3$.
+for every $n>1$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $4$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=3+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once.
+integers vanish from the index corresponding to $n=1+1$ onwards and the run continued
+until the working vector was identically zero.
 \end{proof}
 
 \section{Verification}
 
-Three checks, each independent of the algebra above.
+Four checks, each independent of the algebra above.
 
-First, the model reproduces all $21$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry: the digraph is built by reading the
-entry's English, and a misreading gives different counts.
+First, the model reproduces all $11$ terms the entry publishes, exactly, in integer
+arithmetic.
 
-Second, the conjectured recurrence was evaluated directly on those published terms, with no
+Second, the count was recomputed for the smallest arrays straight from the definition: fill the
+cells in row major order, in the orientation the entry's own name writes, and reject as soon as
+a completed run is strictly increasing. No window, no transposition and no transfer matrix are involved, and
+the published terms came back.
+
+Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
 arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A232902.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A233838.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{comtet} L.~Comtet, \emph{Advanced Combinatorics}, Reidel, 1974.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

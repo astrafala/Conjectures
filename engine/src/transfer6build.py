@@ -1,5 +1,18 @@
 #!/usr/bin/env python3
 """One paper per Hardin array entry whose 2 X 2 condition is local to the block."""
+import os
+
+# a paper carries the date its result was obtained; a paper already in the roster
+# keeps the date it was written with, and this builder runs again when the sweep
+# reaches more of its family
+_ROSTER = None
+def _date(a):
+    global _ROSTER
+    if _ROSTER is None:
+        import json as _j
+        _ROSTER = {v['anum'] for v in _j.load(open('paper-engines.json')).values()}
+    return '31 August 2026' if a in _ROSTER else os.environ.get('PAPER_DATE', '31 August 2026')
+
 import os, json, re
 import localentry as LE, phibuild, transferbuild
 
@@ -62,7 +75,7 @@ def build(h):
     return rf"""{PRE}
 \title{{The empirical recurrence for OEIS {a}, proved by transfer matrix}}
 \author{{Adrian Perez Fontelles\\ \small Independent researcher}}
-\date{{31 August 2026}}
+\date{{{_date(a)}}}
 \begin{{document}}
 \maketitle
 

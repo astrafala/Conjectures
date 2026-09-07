@@ -10,140 +10,139 @@
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
-\title{A proof of the conjectured recurrence for OEIS A228331}
+\title{A proof of the conjectured closed form for OEIS A126501}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{26 August 2026}
+\date{25 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A228331 carries a conjectured linear recurrence with polynomial coefficients, of
-order 3. The entry separately states a recurrence of order 1 that is not
-labelled a conjecture. We prove that the first is a consequence of the second, so the
-conjecture holds. The argument is a division in the Ore algebra
-$\mathbb{Q}(n)[N]$, where $N$ is the shift $Nf(n)=f(n+1)$: writing $C$ and $P$ for the two
-recurrences read as operators, we exhibit $Q$ with $C=QP$, whence
-$C(a)=Q(P(a))=Q(0)=0$. No generating function is used. The division is exact
-rational-function arithmetic, and the finitely many $n$ excluded by denominators of $Q$
-are computed rather than ignored.
+OEIS A126501 carries a conjectured closed form for its terms. We prove it. The entry
+also posts a generating function $A(x)$; the conjecture is then exactly the statement
+that the generating function of the conjectured formula agrees with $A$. The formula is
+a $\mathbb{Q}$-linear combination of terms $n^{k}r^{n}$, whose generating function is
+computed in closed form by applying $p(\theta)$ to $1/(1-rx)$, with
+$\theta=x\,\frac{d}{dx}$. The difference of the two generating functions is then an
+explicit rational function; here it collapses to the polynomial $0$, of degree
+$0$, which proves the closed form for every $n>0$. The computation is exact
+rational-function arithmetic, so the conclusion holds for all $n$ at once rather than
+for the terms inspected.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 11B37, 12H10, 33F10.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 11B37, 05A15, 33F10.\normalsize
 
-\section{The sequence and the two recurrences}
+\section{The sequence and the conjecture}
 
-OEIS A228331 is ``Let h(m) denote the sequence whose n-th term is Sum\_\_\{k=0..n\} (k+1)\^{}m*T(n,k)\^{}2, where T(n,k) is the Catalan triangle A039598. This is h(5)''. It has offset $0$ and begins
+OEIS A126501 is ``Number of n-tuples of numbers [0..5] (leading zeros allowed) in which adjacent digits differ by 4 or less''. It has offset $0$ and begins
 \[
-a(0),\dots,a(7)\;=\;1, 36, 780, 16240, 321300, 6131664, 114017904, 2079380160,\ \dots
+a(0),\dots,a(7)\;=\;1, 6, 34, 194, 1106, 6306, 35954, 204994,\ \dots
 \]
-The entry carries the following comment, still recorded as a conjecture:
+The entry gives the generating function
+\begin{equation}\label{eq:gf}
+A(x)\;=\;\sum_{n\ge 0} a(n)\,x^{n}\;=\;\frac{- x - 1}{4 x^{2} + 5 x - 1} ,
+\end{equation}
+and it carries the following comment:
 \begin{quote}\small
-\textbf{Conjecture:} n\^{}2*a(n) + 4*(2*n\^{}2-22*n+11)*a(n-1) + 16*(-7*n\^{}2-54*n+166)*a(n-2) - 1088*(2*n-3)*(2*n-7)*a(n-3) = 0. - \emph{R. J. Mathar}, Sep 08 2013
+(2\^{}(-1-n)*((5-sqrt(41))\^{}n*(-7+sqrt(41)) + (5+sqrt(41))\^{}n*(7+sqrt(41)))) / sqrt(41). - \emph{Colin Barker}, Jan 20 2017
 \end{quote}
-As of the ``Last modified'' line on the live entry (2025-10-16, revision 38) it is still
-a conjecture, and no proof appears among the entry's links, formulas or programs.
+As of the ``Last modified'' line on the live entry (2022-10-21, revision 47) the
+statement is still recorded as a conjecture, and no proof appears among the entry's links,
+formulas or programs.
 
-The same entry also states, \emph{not} as a conjecture:
-\begin{quote}\small
-Recurrence: n\^{}2*(3*n\^{}2 - 5*n + 1)*a(n) = 4*(2*n-3)*(2*n+1)*(3*n\^{}2 + n - 1)*a(n-1).
-\end{quote}
-This second relation is what the argument below rests on; it is taken as given, exactly as
-a posted generating function would be. It was checked against the entry's own DATA before
-being used, and holds on every published term it reaches.
-
-\section{Recurrences as operators, and what division proves}
-
-Let $N$ be the shift operator, $(Nf)(n)=f(n+1)$, acting on sequences. Polynomials in $n$
-and $N$ generate the Ore algebra $\mathcal{A}=\mathbb{Q}(n)[N]$, in which multiplication is
-associative and distributive but not commutative: moving $N$ past a coefficient shifts it,
+Write $f(n)$ for the conjectured closed form,
 \[
-N\,q(n)\;=\;q(n+1)\,N .
+f(n)\;=\;\frac{2^{- n - 1} \sqrt{41} \left(\left(-7 + \sqrt{41}\right) \left(5 - \sqrt{41}\right)^{n} + \left(5 + \sqrt{41}\right)^{n} \left(\sqrt{41} + 7\right)\right)}{41} .
 \]
-A recurrence $\sum_{i=0}^{r}p_{i}(n)\,a(n-i)=0$ becomes an element of $\mathcal{A}$ after
-re-indexing $n\mapsto n+r$, namely
-\[
-L\;=\;\sum_{j=0}^{r}q_{j}(n)\,N^{j},\qquad q_{j}(n)=p_{r-j}(n+r),
-\]
-and the recurrence says exactly that $L$ annihilates the sequence, $L(a)=0$.
 
-\begin{lemma}\label{lem:factor}
-Let $P,C\in\mathcal{A}$ and suppose $C=QP$ for some $Q\in\mathcal{A}$. If $P(a)=0$ then
-$C(a)=0$, at every $n$ where the coefficients of $Q$ are defined.
+\section{Closed forms as generating functions}
+
+Let $A(x)=\sum_{n\ge 0}a(n)x^{n}$ and let $\theta=x\,\dfrac{d}{dx}$, so $\theta$
+acts on $x^{m}$ as multiplication by $m$.
+
+\begin{lemma}\label{lem:gf}
+Let $r\in\mathbb{Q}$ and let $p$ be a polynomial. Then
+\[
+\sum_{n\ge0}p(n)\,r^{n}x^{n}\;=\;\bigl(p(\theta)\tfrac{1}{1-rx}\bigr)(x),
+\]
+a rational function of $x$. Consequently the generating function of any
+$\mathbb{Q}$-linear combination of terms $n^{k}r^{n}$ is rational and computable in
+closed form.
 \end{lemma}
 
 \begin{proof}
-$C(a)=(QP)(a)=Q\bigl(P(a)\bigr)=Q(0)=0$. The only caveat is the one stated: a coefficient
-of $Q$ is a rational function of $n$, so the step is valid at every $n$ that is not a pole
-of one of them.
+$\sum_{n\ge0}r^{n}x^{n}=1/(1-rx)$, and applying $\theta$ multiplies the coefficient of
+$x^{n}$ by $n$; so $\theta^{k}$ multiplies it by $n^{k}$, and linearity gives the claim.
+Starting the sum at an offset $c$ instead of $0$ subtracts the polynomial
+$\sum_{n<c}p(n)r^{n}x^{n}$, which changes nothing below.
 \end{proof}
 
-\begin{lemma}\label{lem:div}
-Right division works in $\mathcal{A}$: given $C$ and $P\neq0$, there are $Q,R\in\mathcal{A}$
-with $C=QP+R$ and $\deg_{N}R<\deg_{N}P$.
-\end{lemma}
+\begin{corollary}\label{cor:criterion}
+Let $F(x)=\sum_{n\ge 0}f(n)x^{n}$. Then $f(n)=a(n)$ for every $n>d$ if and only
+if $F-A$ is a polynomial of degree at most $d$.
+\end{corollary}
 
 \begin{proof}
-Induct on $\deg_{N}C$. If $\deg_{N}C<\deg_{N}P$ take $Q=0$, $R=C$. Otherwise let
-$d=\deg_{N}C-\deg_{N}P$ and let $c$, $p$ be the leading coefficients of $C$ and $P$. By the
-commutation rule, the leading coefficient of $N^{d}P$ is $p(n+d)$, which is a nonzero
-element of $\mathbb{Q}(n)$ and hence invertible there. Then
-$C-\dfrac{c(n)}{p(n+d)}\,N^{d}P$ has strictly smaller degree in $N$, and induction applies.
+The coefficient of $x^{n}$ in $F-A$ is $f(n)-a(n)$, so that difference vanishes for all
+$n>d$ exactly when $F-A$ has no terms above $x^{d}$.
 \end{proof}
 
-So the question ``does the conjecture follow from the stated recurrence?'' is decided by
-running the division and looking at the remainder. Nothing is approximated: the
-coefficients live in $\mathbb{Q}(n)$ and the arithmetic is exact.
+\section{The computation for A126501}
 
-\section{The computation for A228331}
-
-Reading both relations as operators and dividing the conjectured one by the stated one
-leaves remainder $0$, with quotient
+By Lemma~\ref{lem:gf} the conjectured formula has generating function
 \[
-Q \;=\; \left(\frac{272}{3 n^{2} + 7 n + 3}\right) + \left(\frac{72 n^{2} + 240 n + 128}{9 n^{4} + 60 n^{3} + 139 n^{2} + 130 n + 39}\right)\,N + \left(\frac{1}{3 n^{2} + 13 n + 13}\right)\,N^{2} .
+F(x)\;=\;\frac{- x - 1}{4 x^{2} + 5 x - 1} ,
 \]
-Hence $C=QP$ in $\mathcal{A}$.
-
-The coefficients of $Q$ are rational functions of $n$, and none of their poles is an integer, so Lemma~\ref{lem:factor} applies at every index.
+and subtracting the entry's generating function \eqref{eq:gf} gives, after exact
+cancellation of rational functions,
+\[
+F(x)-A(x)\;=\;0 ,
+\]
+a polynomial of degree $0$.
 
 \begin{theorem}
-The conjectured recurrence
+For every $n>0$,
 \[
-n^{2}\,a(n) + 4 \left(2 n^{2} - 22 n + 11\right)\,a(n-1) -  16 \left(7 n^{2} + 54 n - 166\right)\,a(n-2) -  1088 \left(2 n - 7\right) \left(2 n - 3\right)\,a(n-3) \;=\;0
+a(n)\;=\;\frac{2^{- n - 1} \sqrt{41} \left(\left(-7 + \sqrt{41}\right) \left(5 - \sqrt{41}\right)^{n} + \left(5 + \sqrt{41}\right)^{n} \left(\sqrt{41} + 7\right)\right)}{41} .
 \]
-holds for every $n\ge3$.
 \end{theorem}
 
 \begin{proof}
-By Lemma~\ref{lem:factor} applied to the factorisation above, using that the stated
-recurrence annihilates the sequence. No coefficient of $Q$ has an integer pole, so the lemma applies at every $n$.
+Immediate from Corollary~\ref{cor:criterion} and the displayed value of $B$.
 \end{proof}
+
+\begin{remark}
+The polynomial $F-A$ is not an error term: it records the boundary of the claim. A closed
+form of this kind typically fails at a few initial indices, where the sequence's own
+definition has not yet settled into its eventual pattern, and $F-A$ collects exactly
+those discrepancies. Above that range the identity is exact.
+\end{remark}
 
 \section{Verification}
 
-Every number above is an output of a script written separately from this note, and three
+Every number above is an output of a script written separately from this note, and two
 independent checks were run.
 
-First, the factorisation was not assumed but computed, and then confirmed by multiplying
-back: $QP$ was expanded in $\mathcal{A}$ and its coefficients cancelled against those of
-$C$ to zero, as rational functions of $n$.
+First, the generating function was checked against the entry rather than assumed: the
+Taylor coefficients of \eqref{eq:gf} were expanded and compared term by term with the DATA
+section of A126501, agreeing on all 13 terms compared.
 
-Second, the relation the argument rests on was checked against the entry rather than
-trusted: the stated recurrence was evaluated on the published terms in exact integer
-arithmetic and holds on every one it reaches.
+Second, the closed form was evaluated directly on the published terms, without reference
+to any generating function: $f(n)$ was computed in exact rational arithmetic and compared
+with the entry's own value for every $n>0$ in range, agreeing in all 21 cases
+from $n=0$ upward. This is what Corollary~\ref{cor:criterion} predicts from the
+degree of $F-A$, and it is a genuinely different computation from the symbolic one.
 
-Third, the conjecture itself was evaluated the same way, directly and without reference to
-either operator: for each $n$ in range the sum $\sum_{i}p_{i}(n)a(n-i)$ was formed from the
-entry's own values and found to vanish, for all 16 values of $n$ from
-$n=3$ upward.
+The symbolic step is exact throughout. The difference is obtained by rational-function
+cancellation in $K$, not by series truncation, so the identity $B=0$ is an
+identity of functions and the theorem holds for all $n>0$ simultaneously.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer Sequences},
-\url{https://oeis.org}, 2026. Sequence A228331.
-\bibitem{ore} O.~Ore, \emph{Theory of non-commutative polynomials}, Ann. of Math. 34
-(1933), 480--508.
+\url{https://oeis.org}, 2026. Sequence A126501.
 \bibitem{kp} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011,
-Chapter 7.
-\bibitem{bronstein} M.~Bronstein and M.~Petkov\v{s}ek, \emph{An introduction to
-pseudo-linear algebra}, Theoret. Comput. Sci. 157 (1996), 3--33.
+Chapter 7 (holonomic closure properties and the translation between recurrences and
+differential equations).
+\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 2, Cambridge
+University Press, 1999, Chapter 6 (algebraic and D-finite generating functions).
 \end{thebibliography}
 \end{document}

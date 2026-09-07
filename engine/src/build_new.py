@@ -19,9 +19,12 @@ import localentry as LE
 # transfer17's builder prints the entry's own condition, which the sweep record does not
 # carry: the parse is redone here and folded into the record so the paper can quote it
 # rather than describe it in general terms.
-ENRICH = {'transfer17'}
+ENRICH = {'transfer17', 'transfer6'}
 
-SPECIAL = {'transfer17': 'transfer17build', 'transfer81': 't81build', 'transfer82': 't82build', 'transfer83': 't83build',
+SPECIAL = {'transfer17': 'transfer17build', 'transfer6': 'transfer6build',
+           'transfer34': 'transfer34build', 'transfer35': 'transfer35build',
+           'transfer36': 'transfer36build', 'transfer37': 'transfer37build',
+           'transfer81': 't81build', 'transfer82': 't82build', 'transfer83': 't83build',
            'transfer84': 't84build', 'transfer85': 't85build', 'transfer86': 't86build',
            'transfer87': 't87build', 'transfer89': 't89build', 'transfer91': 't91build',
            'transfer92': 't92build', 'transfer93': 't93build', 'denumerant': 'denbuild'}
@@ -41,6 +44,8 @@ for h in sorted(hits, key=lambda x: x['anum']):
         eng = importlib.import_module(h['engine'])
         q = eng.parse_name(LE.get(h['anum'])['name'])
         h = dict(q, **h)
+        # transfer6build predates the unified sweep and names the threshold differently
+        h.setdefault('threshold', h['nthr'])
     dd = f"build/un{h['anum']}"
     os.makedirs(dd, exist_ok=True)
     open(f"{dd}/p.tex", 'w').write(mods[name].build(h))

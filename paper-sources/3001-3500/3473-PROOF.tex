@@ -12,117 +12,169 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A185528, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A209551, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{1 September 2026}
+\date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A185528 counts $(n+2)\times5$ arrays over $\{0,\dots,1\}$ subject to a condition imposed on
-every $3\times3$ subblock, and it carries an empirical recurrence of order $72$
-contributed by R.~H.~Hardin. It is true, and it is not an empirical matter. A $3\times3$
-subblock spans three consecutive rows, so the state of a transfer matrix is a PAIR of
-consecutive rows and appending one more row is a step; an array is then a walk, and
-$a(n)$ is a walk count on $S=1024$ vertices. Such a sequence is $C$-finite, so whether a given
-recurrence annihilates it is decided by a finite exact computation, with the Cayley--Hamilton
-theorem bounding the work.
+OEIS A209551 counts $(n+1)\times7$ arrays over $\{0,\dots,3\}$ subject to a condition imposed on
+every $2\times2$ subblock, and carries an empirical recurrence of order $72$ contributed
+by R.~H.~Hardin. It is true, and it is not an empirical matter at all. The condition is local
+to each subblock, so the rows of an admissible array are the vertices of a finite digraph
+on $S=16384$ vertices whose edges are the admissible consecutive pairs, and the count is a
+number of walks: $a(n)=\tfrac1{4}\mathbf{1}^{\!\top}M^{n}\mathbf{1}$. Writing $q$
+for the characteristic polynomial of the conjectured recurrence, the recurrence holds for all
+$n$ exactly when $\mathbf{1}^{\!\top}M^{j}q(M)\mathbf{1}=0$ for every $j\ge0$, and the
+Cayley--Hamilton theorem bounds that to $j<S$. It is therefore a finite computation in exact
+integer arithmetic, and it comes out zero.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
-\section{The conjecture}
+\section{The sequence and the conjecture}
 
-OEIS A185528 is ``Number of (n+2)X5 binary arrays with each 3X3 subblock nonsingular.''. It has offset $1$ and begins
+OEIS A209551 is ``1/4 the number of (n+1)X7 0..3 arrays with every 2X2 subblock having exactly two distinct clockwise edge differences.''. It has offset $1$ and begins
 \[
-3030, 25854, 215644, 1752120, 14532816, 120202866, 989438596, 8169865470,\ \dots
+1909, 90186, 3901194, 174401424, 7751834609, 345350598642, 15380031974285, 685056630399243,\ \dots
 \]
-The entry states, as a conjecture contributed by its author and never marked settled:
-\begin{quote}
-Empirical: a(n)=14*a(n-2)+482*a(n-3)+1025*a(n-4)-217*a(n-5)-71146*a(n-6)-203531*a(n-7)-278567*a(n-8)+4889000*a(n-9)+15798715*a(n-10)+26975584*a(n-11)-187650154*a(n-12)-645572934*a(n-13)-1028074198*a(n-14)+4660709659*a(n-15)+16419678725*a(n-16)+18939501561*a(n-17)-81499828302*a(n-18)-287187041859*a(n-19)-126349749166*a(n-20)+1020912770811*a(n-21)+3649586067565*a(n-22)-1632284441124*a(n-23)-8870607972806*a(n-24)-34265422200258*a(n-25)+46855962261393*a(n-26)+51253382423782*a(n-27)+231002034779743*a(n-28)-525145443847670*a(n-29)-207652748883695*a(n-30)-982594262684296*a(n-31)+3533208944132201*a(n-32)+886474234092441*a(n-33)+1024667138970214*a(n-34)-15540823125302911*a(n-35)-4959303001165722*a(n-36)+17838627784670658*a(n-37)+43898680145500598*a(n-38)+20682078486139944*a(n-39)-133982588467054524*a(n-40)-64700987949250430*a(n-41)-41816693524588761*a(n-42)+490671299006190632*a(n-43)-24171023019707515*a(n-44)-11638160101583578*a(n-45)-1099512809221431741*a(n-46)+308426845841737782*a(n-47)+306770873342717786*a(n-48)+1614125257034898601*a(n-49)-596297664601078697*a(n-50)-999428530208873550*a(n-51)-1545519377630339837*a(n-52)+563223831174360518*a(n-53)+1926062613807906026*a(n-54)+801496531513678312*a(n-55)-245014197051921096*a(n-56)-2369576686048709928*a(n-57)-39910152525929352*a(n-58)-54961445496297392*a(n-59)+1873218942039625728*a(n-60)+8704459065703808*a(n-61)-116485827363870976*a(n-62)-844275558556928000*a(n-63)-289759615136114688*a(n-64)+444986234214604800*a(n-65)+8776872879407104*a(n-66)+354446886908526592*a(n-67)-318933727378669568*a(n-68)+122827898481541120*a(n-69)-155919940098981888*a(n-70)+77739674440826880*a(n-71)-5295965258907648*a(n-72)
+The entry carries the following comment:
+\begin{quote}\small
+Empirical: a(n) = 93*a(n-1) -2828*a(n-2) +25792*a(n-3) +371376*a(n-4) -9898959*a(n-5) +50997316*a(n-6) +600219584*a(n-7) -8458938650*a(n-8) +15460753459*a(n-9) +324261513320*a(n-10) -1997445245287*a(n-11) -2888253677269*a(n-12) +61818955362264*a(n-13) -105335609798253*a(n-14) -919549637987857*a(n-15) +3635125259976035*a(n-16) +6249958420274094*a(n-17) -54555499290246451*a(n-18) +11571882298429625*a(n-19) +495953594288336739*a(n-20) -657345762489787062*a(n-21) -2942275874522263687*a(n-22) +6881779713200302370*a(n-23) +11244898913169983370*a(n-24) -42974781730107130109*a(n-25) -23051215421912913536*a(n-26) +185864776798114709968*a(n-27) -12863209686911573111*a(n-28) -587984628431521336548*a(n-29) +276016166528678978015*a(n-30) +1397897524468136739882*a(n-31) -1073664296329817362259*a(n-32) -2537929904791966336740*a(n-33) +2568552806109627886272*a(n-34) +3559706199665273218930*a(n-35) -4354397060651285431293*a(n-36) -3901454743539065189517*a(n-37) +5483143910166447182278*a(n-38) +3391429255331125848034*a(n-39) -5229357377757064837770*a(n-40) -2387498579023401955317*a(n-41) +3802827193424184634130*a(n-42) +1394499277589912306144*a(n-43) -2104672583906607527310*a(n-44) -686223001308051264232*a(n-45) +877657767435453737858*a(n-46) +281766806240431459892*a(n-47) -270362730870675484681*a(n-48) -92957087420024768497*a(n-49) +59494538810619139593*a(n-50) +23369146321510311361*a(n-51) -8826604119797680384*a(n-52) -4236074000925921714*a(n-53) +782901241541277381*a(n-54) +524243697816902673*a(n-55) -26069037492083522*a(n-56) -41764242069671064*a(n-57) -1908566223569902*a(n-58) +1979458374052951*a(n-59) +240266789154528*a(n-60) -47527093603425*a(n-61) -10067754548810*a(n-62) +255750935719*a(n-63) +181717983160*a(n-64) +9192680176*a(n-65) -1053768700*a(n-66) -122161293*a(n-67) -1991984*a(n-68) +258490*a(n-69) +14852*a(n-70) +296*a(n-71) +2*a(n-72)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 03:04:48, revision 9) this is still
-recorded as empirical, and nothing on the entry records it as proved.
+As of the ``Last modified'' line on the live entry (Oct 03 2025 15:20:55, revision 9) the statement is
+still recorded as empirical, and nothing on the entry records it as settled either way.
 
-\section{Three consecutive lines}
+Written out, the claim is
+\begin{equation}\label{eq:conj}
+a(n)\;=\;93\,a(n-1) - 2828\,a(n-2) + 25792\,a(n-3) + 371376\,a(n-4) - 9898959\,a(n-5) + 50997316\,a(n-6) + 600219584\,a(n-7) - 8458938650\,a(n-8) + 15460753459\,a(n-9) + 324261513320\,a(n-10) - 1997445245287\,a(n-11) - 2888253677269\,a(n-12) + 61818955362264\,a(n-13) - 105335609798253\,a(n-14) - 919549637987857\,a(n-15) + 3635125259976035\,a(n-16) + 6249958420274094\,a(n-17) - 54555499290246451\,a(n-18) + 11571882298429625\,a(n-19) + 495953594288336739\,a(n-20) - 657345762489787062\,a(n-21) - 2942275874522263687\,a(n-22) + 6881779713200302370\,a(n-23) + 11244898913169983370\,a(n-24) - 42974781730107130109\,a(n-25) - 23051215421912913536\,a(n-26) + 185864776798114709968\,a(n-27) - 12863209686911573111\,a(n-28) - 587984628431521336548\,a(n-29) + 276016166528678978015\,a(n-30) + 1397897524468136739882\,a(n-31) - 1073664296329817362259\,a(n-32) - 2537929904791966336740\,a(n-33) + 2568552806109627886272\,a(n-34) + 3559706199665273218930\,a(n-35) - 4354397060651285431293\,a(n-36) - 3901454743539065189517\,a(n-37) + 5483143910166447182278\,a(n-38) + 3391429255331125848034\,a(n-39) - 5229357377757064837770\,a(n-40) - 2387498579023401955317\,a(n-41) + 3802827193424184634130\,a(n-42) + 1394499277589912306144\,a(n-43) - 2104672583906607527310\,a(n-44) - 686223001308051264232\,a(n-45) + 877657767435453737858\,a(n-46) + 281766806240431459892\,a(n-47) - 270362730870675484681\,a(n-48) - 92957087420024768497\,a(n-49) + 59494538810619139593\,a(n-50) + 23369146321510311361\,a(n-51) - 8826604119797680384\,a(n-52) - 4236074000925921714\,a(n-53) + 782901241541277381\,a(n-54) + 524243697816902673\,a(n-55) - 26069037492083522\,a(n-56) - 41764242069671064\,a(n-57) - 1908566223569902\,a(n-58) + 1979458374052951\,a(n-59) + 240266789154528\,a(n-60) - 47527093603425\,a(n-61) - 10067754548810\,a(n-62) + 255750935719\,a(n-63) + 181717983160\,a(n-64) + 9192680176\,a(n-65) - 1053768700\,a(n-66) - 122161293\,a(n-67) - 1991984\,a(n-68) + 258490\,a(n-69) + 14852\,a(n-70) + 296\,a(n-71) + 2\,a(n-72)
+\end{equation}
+for all $n>72$.
 
-Write an admissible array as a sequence of rows $u_1,u_2,\dots$, each an element of
-$\{0,\dots,1\}^{5}$. A $3\times3$ subblock occupies three consecutive rows and
-three consecutive columns, so with $r,s,t$ three consecutive rows the blocks it
-contributes are
+\section{The condition is local, so the rows form a digraph}
+
+Write an array of the shape in question as its list of rows
+$r^{(1)},r^{(2)},\dots$, each an element of
+$V=\{0,1,\dots,3\}^{7}$, so $|V|=S=16384$. A $2\times2$ subblock of the array
+occupies two consecutive rows and two consecutive columns; if the two rows are $r$
+and $s$ (in that order) and the two columns are numbered $j,j+1$,
+the subblock is
 \[
-g=\begin{pmatrix}r_j&r_{j+1}&r_{j+2}\\ s_j&s_{j+1}&s_{j+2}\\ t_j&t_{j+1}&t_{j+2}\end{pmatrix}
+\begin{pmatrix}\alpha&\beta\\\gamma&\delta\end{pmatrix}=\begin{pmatrix}r_j&r_{j+1}\\s_j&s_{j+1}\end{pmatrix}.
 \]
-for each admissible index, and the entry's condition is the requirement that
+The entry's requirement on that subblock is
+\begin{equation}\label{eq:loc}
+\#\{\beta-\alpha,\ \delta-\beta,\ \gamma-\delta,\ \alpha-\gamma\}\in\{2\},
+\end{equation}
+a condition on the four entries alone.
+
+For $r,s\in V$ declare $r\to s$ an edge of a digraph $G$ when, for every
+$1\le j\le 7-1$,
+\begin{itemize}
+\item the four entries above satisfy \eqref{eq:loc};
+
+\end{itemize}
+Let $M\in\{0,1\}^{S\times S}$ be the adjacency matrix of $G$ and $\mathbf{1}$ the
+all-ones vector.
+
+\begin{lemma}\label{lem:walk}
+The arrays counted by the entry with $L$ rows are exactly the walks
+$r^{(1)}\to r^{(2)}\to\cdots\to r^{(L)}$ of length $L-1$ in $G$. Consequently
 \[
-\det g \ne 0
+a(n)\;=\;\tfrac1{4}\mathbf{1}^{\!\top}M^{n}\mathbf{1} .
 \]
-holds for every such $g$. This involves $r$, $s$ and $t$ only: it is a condition on
-three consecutive rows and on nothing else.
-
-Take as vertices of a digraph $G$ the ordered PAIRS $(r,s)$ of rows, of which there are
-$S=(1+1)^{2\cdot5}=1024$, and put an edge $(r,s)\to(s,t)$ exactly when the condition
-holds for the triple $(r,s,t)$ at every admissible index. An array with $L$ rows is then a
-walk of length $L-2$ in $G$: its first two rows name the starting vertex and each further
-row is one step. Hence, with $M$ the adjacency matrix of $G$,
-\[
-a(n)\;=\;\,\mathbf{1}^{\!\top}M^{\,n-1+1}\mathbf{1},
-\]
-the exponent being fixed by the entry's own shape and checked against its published terms.
-In particular $a$ is $C$-finite.
-
-\section{The proof}
-
-\begin{lemma}\label{lem:crit}
-Let $q(t)=t^{72}-\sum_i c_it^{72-i}$ be the characteristic polynomial of the
-conjectured recurrence. Then the residual $a(n)-\sum_ic_ia(n-i)$ equals
-$\mathbf{1}^{\!\top}M^{\,j}q(M)\mathbf{1}$ for the corresponding walk index
-$j$, so the recurrence holds from some point on if and only if
-$\mathbf{1}^{\!\top}M^{j}q(M)\mathbf{1}=0$ for all large $j$; and by the
-Cayley--Hamilton theorem it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+72}-\sum_ic_iM^{j+72-i}$. For the bound, $M^{S}$
-is an integer combination of $I,M,\dots,M^{S-1}$, so the numbers
-$u_j=\mathbf{1}^{\!\top}M^{j}q(M)\mathbf{1}$ satisfy the monic linear recurrence given by
-the characteristic polynomial of $M$; $S$ consecutive zeros therefore force every later one,
-and the last nonzero $u_j$ pins the threshold exactly.
+An array with $L$ rows and $7$ columns is precisely a sequence
+$r^{(1)},\dots,r^{(L)}$ of elements of $V$; conversely any such sequence is an array.
+Every $2\times2$ subblock lies in two consecutive rows $r^{(t)},r^{(t+1)}$ and two
+consecutive columns, so the array satisfies the entry's condition on all of its subblocks
+if and only if each consecutive pair $\bigl(r^{(t)},r^{(t+1)}\bigr)$ satisfies it for
+every column pair --- which is exactly the edge relation of $G$. The number of walks of
+length $L-1$, summed over all starting and ending vertices, is
+$\mathbf{1}^{\!\top}M^{L-1}\mathbf{1}$, since $(M^{k})_{r,s}$ counts the walks of
+length $k$ from $r$ to $s$. The entry's index $n$ corresponds to $L=n+1$ rows. The entry counts $\tfrac1{4}$ of those arrays, a constant factor that passes through every step below unchanged.
 \end{proof}
 
-\begin{theorem}
+\section{The criterion}
+
+Let $q(t)=t^{72}-\sum_i c_i\,t^{72-i}$ be the characteristic polynomial of
+\eqref{eq:conj}, with the $c_i$ read off that equation.
+
+\begin{lemma}\label{lem:crit}
+For every $n$ with $n+1-1\ge72$,
 \[
-a(n)\;=\;14\,a(n-2) + 482\,a(n-3) + 1025\,a(n-4) - 217\,a(n-5) - 71146\,a(n-6) - 203531\,a(n-7) - 278567\,a(n-8) + 4889000\,a(n-9) + 15798715\,a(n-10) + 26975584\,a(n-11) - 187650154\,a(n-12) - 645572934\,a(n-13) - 1028074198\,a(n-14) + 4660709659\,a(n-15) + 16419678725\,a(n-16) + 18939501561\,a(n-17) - 81499828302\,a(n-18) - 287187041859\,a(n-19) - 126349749166\,a(n-20) + 1020912770811\,a(n-21) + 3649586067565\,a(n-22) - 1632284441124\,a(n-23) - 8870607972806\,a(n-24) - 34265422200258\,a(n-25) + 46855962261393\,a(n-26) + 51253382423782\,a(n-27) + 231002034779743\,a(n-28) - 525145443847670\,a(n-29) - 207652748883695\,a(n-30) - 982594262684296\,a(n-31) + 3533208944132201\,a(n-32) + 886474234092441\,a(n-33) + 1024667138970214\,a(n-34) - 15540823125302911\,a(n-35) - 4959303001165722\,a(n-36) + 17838627784670658\,a(n-37) + 43898680145500598\,a(n-38) + 20682078486139944\,a(n-39) - 133982588467054524\,a(n-40) - 64700987949250430\,a(n-41) - 41816693524588761\,a(n-42) + 490671299006190632\,a(n-43) - 24171023019707515\,a(n-44) - 11638160101583578\,a(n-45) - 1099512809221431741\,a(n-46) + 308426845841737782\,a(n-47) + 306770873342717786\,a(n-48) + 1614125257034898601\,a(n-49) - 596297664601078697\,a(n-50) - 999428530208873550\,a(n-51) - 1545519377630339837\,a(n-52) + 563223831174360518\,a(n-53) + 1926062613807906026\,a(n-54) + 801496531513678312\,a(n-55) - 245014197051921096\,a(n-56) - 2369576686048709928\,a(n-57) - 39910152525929352\,a(n-58) - 54961445496297392\,a(n-59) + 1873218942039625728\,a(n-60) + 8704459065703808\,a(n-61) - 116485827363870976\,a(n-62) - 844275558556928000\,a(n-63) - 289759615136114688\,a(n-64) + 444986234214604800\,a(n-65) + 8776872879407104\,a(n-66) + 354446886908526592\,a(n-67) - 318933727378669568\,a(n-68) + 122827898481541120\,a(n-69) - 155919940098981888\,a(n-70) + 77739674440826880\,a(n-71) - 5295965258907648\,a(n-72)
+a(n)-\sum_i c_i\,a(n-i)\;=\;\tfrac1{4}\mathbf{1}^{\!\top}M^{\,n+1-1-72}\,q(M)\,\mathbf{1} .
 \]
-for every $n>72$.
+Hence \eqref{eq:conj} holds from that point on if and only if
+$\mathbf{1}^{\!\top}M^{j}q(M)\mathbf{1}=0$ for every $j\ge0$; and it is enough to check
+$j=0,1,\dots,S-1$.
+\end{lemma}
+
+\begin{proof}
+By Lemma~\ref{lem:walk}, $a(n-i)=\tfrac1{4}\mathbf{1}^{\!\top}M^{\,n+1-1-i}\mathbf{1}$, so
+\[
+a(n)-\sum_i c_i a(n-i)
+=\tfrac1{4}\mathbf{1}^{\!\top}\Bigl(M^{m}-\sum_i c_i M^{m-i}\Bigr)\mathbf{1}
+=\tfrac1{4}\mathbf{1}^{\!\top}M^{\,m-72}\,q(M)\,\mathbf{1}
+\]
+with $m=n+1-1$, which is the stated identity; the scalar $\tfrac1{4}$ never vanishes, so it does not affect whether the left side is zero, and the equivalence follows by letting
+$m-72=j$ run over $\ge0$. For the last clause put $w=q(M)\mathbf{1}$. By the
+Cayley--Hamilton theorem $M^{S}$ is an integer combination of $I,M,\dots,M^{S-1}$, so
+$\mathbf{1}^{\!\top}M^{j}w$ for $j\ge S$ is the corresponding combination of the earlier
+values; if those all vanish, so do all the rest.
+\end{proof}
+
+\section{The computation}
+
+\begin{theorem}
+The recurrence \eqref{eq:conj} holds for every $n>72$, which is the statement of
+Section~1.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\mathbf{1}$ was formed by $72$ matrix--vector products in exact
-integer arithmetic and $\mathbf{1}^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again
-exactly. Those integers vanish from the index corresponding to $n=72+1$ onwards, and the
-run was continued until the working vector was identically zero, which settles all larger $j$
-at once. By Lemma~\ref{lem:crit} the recurrence holds for every $n>72$.
+The digraph was constructed from \eqref{eq:loc} by a depth-first scan across the $7$
+columns: the edge condition is a conjunction of one constraint per consecutive column
+pair, so the successors of a row $r$ are enumerated column by column without testing all
+$S^2$ pairs. The vector $w=q(M)\mathbf{1}\in\mathbb{Z}^{S}$ was then formed by $72$
+matrix--vector products in exact integer arithmetic, and $\mathbf{1}^{\!\top}M^{j}w$ was
+evaluated for $j=0,1,\dots$, again exactly. Every one of those integers vanishes from the
+index corresponding to $n=72+1$ onwards, and the run continued until $w$ itself was the
+zero vector, which settles every larger $j$ at once. By Lemma~\ref{lem:crit} the recurrence
+holds for every $n>72$.
 \end{proof}
+
+\begin{remark}
+The argument gives more than the recurrence: it shows the sequence is $C$-finite with
+characteristic polynomial dividing that of $M$, so it has a rational generating function
+whose denominator divides $\det(I-xM)$. The conjectured recurrence is one consequence; the
+minimal one is a divisor of $q$.
+\end{remark}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the transfer model reproduces all $16$ terms the entry publishes, exactly, in
-integer arithmetic. This is what ties the model to the entry: the digraph is built by reading
-the entry's English, and a misreading gives different counts.
+First, the digraph was built directly from the entry's stated condition and the walk counts
+$\tfrac1{4}\mathbf{1}^{\!\top}M^{L-1}\mathbf{1}$ compared against the entry's DATA at
+every one of the $13$ published indices; the values agree exactly. That is what ties
+the digraph to the sequence: a model that reproduced only some of the published terms would
+be the wrong model, and would have been rejected. In particular it is what rules out a
+misreading of the entry's wording, since a different reading of the condition gives a
+different digraph and different counts.
 
-Second, the conjectured recurrence was evaluated directly on the entry's own published terms,
-with no matrices involved, and holds wherever the proved range and the data overlap.
+Second, the recurrence \eqref{eq:conj} was evaluated on those published terms in exact
+integer arithmetic, with no matrices involved, and vanishes wherever it applies.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
-arithmetic on the whole vector rather than on a sampled prefix, so no rounding or sampling
-enters anywhere.
+Third, the annihilation test of Lemma~\ref{lem:crit} was run in exact integer arithmetic
+until the working vector was identically zero, not to a sampled prefix, and returned zero
+throughout.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A185528.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A209551.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
