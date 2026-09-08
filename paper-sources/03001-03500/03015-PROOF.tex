@@ -12,7 +12,7 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A233085, proved by carrying a row major clause across
+\title{The empirical recurrence for OEIS A233219, proved by carrying a row major clause across
 columns}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{6 September 2026}
@@ -20,7 +20,7 @@ columns}
 \maketitle
 
 \begin{abstract}
-OEIS A233085 counts $4\times n$ arrays over $\{0,\dots,3\}$ with a forbidden-pair
+OEIS A233219 counts $3\times n$ arrays over $\{0,\dots,5\}$ with a forbidden-pair
 condition and a clause on the order in which values first appear, read in ROW MAJOR order, and
 it carries an empirical recurrence of order $5$ contributed by R.~H.~Hardin. It is true.
 The obstacle is that the array grows in $n$, so the walk runs across COLUMNS and does not visit
@@ -35,28 +35,28 @@ is a walk count and the recurrence is settled by a finite exact computation.
 
 \section{The conjecture}
 
-OEIS A233085 is ``Number of 4Xn 0..3 arrays with no element x(i,j) adjacent to value 3-x(i,j) horizontally or antidiagonally, top left element zero, and 1 appearing before 2 in row major order.''. It has offset $1$ and begins
+OEIS A233219 is ``Number of 3Xn 0..5 arrays with no element x(i,j) adjacent to value 5-x(i,j) horizontally or antidiagonally, top left element zero, and 1 appearing before 2 3 and 4, and 2 appearing before 3 in row major order.''. It has offset $1$ and begins
 \[
-36, 1094, 41675, 1588262, 60632429, 2315298290,\ \dots
+11, 452, 35446, 3054973, 268289572, 23644611625,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 49*a(n-1) -450*a(n-2) +1466*a(n-3) -1853*a(n-4) +789*a(n-5) for n>8
+Empirical: a(n) = 111*a(n-1) -2128*a(n-2) +10532*a(n-3) -17559*a(n-4) +9045*a(n-5) for n>7
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 07:51:45, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 07:56:16, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The array has $4$ rows and $n$ columns. Two cells are adjacent when they differ by one of the
+The array has $3$ rows and $n$ columns. Two cells are adjacent when they differ by one of the
 offsets
 \[
 (0,1), (1,-1),
 \]
-and the entry forbids any adjacent pair $u,v$ with $u+v=3$. It fixes the top left cell to
+and the entry forbids any adjacent pair $u,v$ with $u+v=5$. It fixes the top left cell to
 zero. Finally it asks that, reading the cells in ROW MAJOR order --- along the first row, then
-along the second, and so on --- the first occurrences of the values $1$, $2$ come in a
-prescribed order: $1$ before $2$. A precedence involving a value that never occurs is satisfied
+along the second, and so on --- the first occurrences of the values $1$, $2$, $3$, $4$ come in a
+prescribed order: $1$ before $2$, $1$ before $3$, $1$ before $4$, $2$ before $3$. A precedence involving a value that never occurs is satisfied
 vacuously; one whose later value occurs while its earlier value does not is broken.
 
 \section{Why the obvious state does not work}
@@ -107,7 +107,7 @@ because a least row can still drop and reorder the first occurrences retroactive
 property of the finished array, so it is tested in the ACCEPTING states and nowhere else.
 
 The state is therefore a column together with an ordered partition of the named values by least
-row, and there are $S=199$ of them after states with identical futures are merged. Hence
+row, and there are $S=324$ of them after states with identical futures are merged. Hence
 \[
 a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,
 \]
@@ -133,23 +133,23 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;49\,a(n-1) - 450\,a(n-2) + 1466\,a(n-3) - 1853\,a(n-4) + 789\,a(n-5)
+a(n)\;=\;111\,a(n-1) - 2128\,a(n-2) + 10532\,a(n-3) - 17559\,a(n-4) + 9045\,a(n-5)
 \]
-for every $n>8$.
+for every $n>7$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $5$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=8+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once. The bound is exact: at $n=8$ the recurrence fails on the entry's own published terms, so no larger range holds.
+integers vanish from the index corresponding to $n=7+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once. The bound is exact: at $n=7$ the recurrence fails on the entry's own published terms, so no larger range holds.
 \end{proof}
 
 \section{Verification}
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $15$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $13$ terms the entry publishes, exactly, in integer
 arithmetic, with no shift fitted.
 
 Second --- and this is the check the whole paper turns on --- the arrays were enumerated
@@ -167,7 +167,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A233085.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A233219.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{hopcroft} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to

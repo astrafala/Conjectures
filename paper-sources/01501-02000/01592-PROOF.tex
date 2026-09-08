@@ -12,83 +12,111 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A268627, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A233102, proved by carrying a row major clause across
+columns}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{7 September 2026}
+\date{6 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A268627 counts arrays of width $7$ over $\{0,1,2\}$ in which the number of adjacent PAIRS of
-cells whose entries add up to $2$ is at most one. The entry carries an empirical recurrence of
-order $26$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
-empirical. The condition is global --- no window of the array decides it --- but the quantity
-it constrains is a count that may be capped at two, and a capped count is a bounded state; the
-result is a walk count on $S=3148$ states.
+OEIS A233102 counts $5\times n$ arrays over $\{0,\dots,3\}$ with a forbidden-pair
+condition and a clause on the order in which values first appear, read in ROW MAJOR order, and
+it carries an empirical recurrence of order $27$ contributed by R.~H.~Hardin. It is true.
+The obstacle is that the array grows in $n$, so the walk runs across COLUMNS and does not visit
+the cells in row major order; the running set of ``values seen so far'' that settles the clause
+for a column-fixed entry is simply the wrong set here. What the walk can carry instead is, for
+each value the clause names, the least ROW in which it has yet been seen, together with the
+order in which those least rows were attained. That is enough, and it is bounded, so the count
+is a walk count and the recurrence is settled by a finite exact computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05C30, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 68Q45.\normalsize
 
 \section{The conjecture}
 
-OEIS A268627 is ``Number of nX7 0..2 arrays with some element plus some horizontally or vertically adjacent neighbor totalling two no more than once.''. It has offset $1$ and begins
+OEIS A233102 is ``Number of 5 X n 0..3 arrays with no element x(i,j) adjacent to value 3-x(i,j) horizontally, diagonally or antidiagonally, top left element zero, and 1 appearing before 2 in row major order.''. It has offset $1$ and begins
 \[
-768, 29646, 982086, 30553014, 915847266, 26758514760, 767057092212, 21665715966234,\ \dots
+136, 3602, 200165, 10221326, 537122150, 28141137872,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 110*a(n-1) -5243*a(n-2) +144650*a(n-3) -2610593*a(n-4) +33017408*a(n-5) -305811128*a(n-6) +2137462184*a(n-7) -11513372884*a(n-8) +48502300256*a(n-9) -161412354008*a(n-10) +427044616576*a(n-11) -901108804624*a(n-12) +1517344261024*a(n-13) -2035022988048*a(n-14) +2164824966496*a(n-15) -1815145078160*a(n-16) +1189730382208*a(n-17) -603502277248*a(n-18) +234173991424*a(n-19) -68574152448*a(n-20) +14906358784*a(n-21) -2352277504*a(n-22) +260550656*a(n-23) -19140608*a(n-24) +835584*a(n-25) -16384*a(n-26)
+Empirical: a(n) = 68*a(n-1) -600*a(n-2) -15127*a(n-3) +198891*a(n-4) +474114*a(n-5) -15054666*a(n-6) +40876796*a(n-7) +282247277*a(n-8) -1702957346*a(n-9) +1300734258*a(n-10) +10660506741*a(n-11) -25827798163*a(n-12) -5523934284*a(n-13) +82235055992*a(n-14) -73298596738*a(n-15) -60422455252*a(n-16) +120987324040*a(n-17) -24800038680*a(n-18) -50712556504*a(n-19) +26785354528*a(n-20) +4082561568*a(n-21) -4463628544*a(n-22) +203254656*a(n-23) +207891200*a(n-24) -17481216*a(n-25) -2073600*a(n-26) +110592*a(n-27) for n>28.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Feb 09 2016 09:24:08, revision 4) this is still
+As of the ``Last modified'' line on the live entry (Jun 08 2014 09:11:54, revision 8) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The array has $7$ cells across, with entries in $\{0,1,2\}$. An ADJACENT PAIR is a pair of cells
+The array has $5$ rows and $n$ columns. Two cells are adjacent when they differ by one of the
+offsets
 \[
-\begin{array}{l}
-$(i,j)\text{ and }(i,j{+}1)$ \\
-$(i,j)\text{ and }(i{+}1,j)$ \\
-\end{array}
+(0,1), (1,-1), (1,1),
 \]
-both lying inside the array. A pair is a pair of CELLS, so it is counted once and not once from
-each end. Writing $k$ for the number of adjacent pairs whose two entries add up to $2$, the
-entry counts the arrays with $k$ at most one.
+and the entry forbids any adjacent pair $u,v$ with $u+v=3$. It fixes the top left cell to
+zero. Finally it asks that, reading the cells in ROW MAJOR order --- along the first row, then
+along the second, and so on --- the first occurrences of the values $1$, $2$ come in a
+prescribed order: $1$ before $2$. A precedence involving a value that never occurs is satisfied
+vacuously; one whose later value occurs while its earlier value does not is broken.
 
-\section{A capped count is a state}
+\section{Why the obvious state does not work}
 
-No window of the array decides the condition: $k$ is a total over the whole array. But the
-condition distinguishes only $k=0$, $k=1$ and $k\ge2$, so the count may be carried capped at
-two and stays bounded.
+Since $n$ grows, the walk must run across the columns: a state is one column, and the
+forbidden-pair condition is settled between two consecutive columns, because every offset above
+moves the column index by at most one.
 
-\begin{lemma}\label{lem:cap}
-Let $k_t$ be the number of qualifying pairs lying inside the first $t$ rows. Then
-\[
-k_{t}\;=\;k_{t-1}+\bigl(\text{pairs inside row } t\bigr)
-+\bigl(\text{pairs joining rows } t-1 \text{ and } t\bigr),
-\]
-and both added terms are determined by rows $t-1$ and $t$ alone.
+The clause is the difficulty. For an entry whose WIDTH is fixed the walk runs down the rows and
+therefore visits the cells in row major order, so it is enough to carry the set of named values
+already written and to refuse a column that introduces a value out of turn. Here the walk
+visits the cells in COLUMN major order, and that set is the wrong one: a value first written
+low down in an early column may be written again higher up in a later column, and it is the
+later, higher cell that comes first in row major order.
+
+\section{What the walk can carry}
+
+\begin{lemma}\label{lem:key}
+For a value $v$ occurring in the array, let $r_v$ be the least row in which $v$ occurs and
+$c_v$ the least column with $x_{r_v,c_v}=v$. Then the first occurrence of $v$ in row major
+order is the cell $(r_v,c_v)$, and $u$ precedes $v$ in row major order exactly when
+$(r_u,c_u)<(r_v,c_v)$ lexicographically.
 \end{lemma}
 
 \begin{proof}
-Every adjacent pair lies either inside one row or across two consecutive rows, by the list
-above; a pair inside rows $1..t$ that is not inside rows $1..t-1$ must meet row $t$, so it is
-one of the two kinds counted.
+Row major order is the lexicographic order on $(\text{row},\text{column})$, and the least
+element of the set of cells carrying $v$ under a lexicographic order is obtained by minimising
+the first coordinate and then the second.
 \end{proof}
 
-So the state is the pair $(\text{previous row},\min(k,2))$: a step appends a row, adds the
-pairs Lemma~\ref{lem:cap} names and caps the total at two. The end vector accepts the states
-with $k\le1$, so it is not the all-ones vector. With $M$ the adjacency matrix,
+\begin{lemma}\label{lem:tie}
+Two distinct values with the same least row attain it in different columns.
+\end{lemma}
+
+\begin{proof}
+If $r_u=r_v=r$ and $c_u=c_v=c$ then the cell $(r,c)$ carries both $u$ and $v$.
+\end{proof}
+
+So the walk carries, for each named value, the least row in which it has been seen so far ---
+or the fact that it has not been seen --- and, for values sharing a least row, which of them
+attained it first. By Lemma~\ref{lem:tie} those attainments happen in different columns, and
+the walk meets the columns in order, so ``which attained it first'' is decided as the walk
+goes. Nothing else about the past matters: a later column can only LOWER a value's least row,
+and Lemma~\ref{lem:key} says the comparison depends on nothing else.
+
+One thing must not be done, and is not done here. The clause cannot be enforced along the way,
+because a least row can still drop and reorder the first occurrences retroactively. It is a
+property of the finished array, so it is tested in the ACCEPTING states and nowhere else.
+
+The state is therefore a column together with an ordered partition of the named values by least
+row, and there are $S=618$ of them after states with identical futures are merged. Hence
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=3148.
+a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,
 \]
-The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
-published terms rather than assumed. In particular $a$ is $C$-finite.
+and $a$ is $C$-finite.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{26}-\sum_i c_it^{26-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{27}-\sum_i c_it^{27-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -96,7 +124,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+26}-\sum_ic_iM^{j+26-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+27}-\sum_ic_iM^{j+27-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -105,16 +133,16 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;110\,a(n-1) - 5243\,a(n-2) + 144650\,a(n-3) - 2610593\,a(n-4) + 33017408\,a(n-5) - 305811128\,a(n-6) + 2137462184\,a(n-7) - 11513372884\,a(n-8) + 48502300256\,a(n-9) - 161412354008\,a(n-10) + 427044616576\,a(n-11) - 901108804624\,a(n-12) + 1517344261024\,a(n-13) - 2035022988048\,a(n-14) + 2164824966496\,a(n-15) - 1815145078160\,a(n-16) + 1189730382208\,a(n-17) - 603502277248\,a(n-18) + 234173991424\,a(n-19) - 68574152448\,a(n-20) + 14906358784\,a(n-21) - 2352277504\,a(n-22) + 260550656\,a(n-23) - 19140608\,a(n-24) + 835584\,a(n-25) - 16384\,a(n-26)
+a(n)\;=\;68\,a(n-1) - 600\,a(n-2) - 15127\,a(n-3) + 198891\,a(n-4) + 474114\,a(n-5) - 15054666\,a(n-6) + 40876796\,a(n-7) + 282247277\,a(n-8) - 1702957346\,a(n-9) + 1300734258\,a(n-10) + 10660506741\,a(n-11) - 25827798163\,a(n-12) - 5523934284\,a(n-13) + 82235055992\,a(n-14) - 73298596738\,a(n-15) - 60422455252\,a(n-16) + 120987324040\,a(n-17) - 24800038680\,a(n-18) - 50712556504\,a(n-19) + 26785354528\,a(n-20) + 4082561568\,a(n-21) - 4463628544\,a(n-22) + 203254656\,a(n-23) + 207891200\,a(n-24) - 17481216\,a(n-25) - 2073600\,a(n-26) + 110592\,a(n-27)
 \]
-for every $n>26$.
+for every $n>28$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $26$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $27$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=26+1$ onwards and the run continued
-until the working vector was identically zero.
+integers vanish from the index corresponding to $n=28+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
@@ -122,13 +150,14 @@ until the working vector was identically zero.
 Four checks, each independent of the algebra above.
 
 First, the model reproduces all $14$ terms the entry publishes, exactly, in integer
-arithmetic.
+arithmetic, with no shift fitted.
 
-Second, the count was recomputed for the smallest arrays straight from the definition:
-enumerate every array of that size in the orientation the entry's own name writes, count the
-adjacent pairs summing to $2$ by running over the array once for each kind of pair, and keep
-the array when that count is at most one. No cap, no state and no transfer matrix are involved, and
-the published terms came back.
+Second --- and this is the check the whole paper turns on --- the arrays were enumerated
+directly for the smallest shapes the entry counts, in the orientation the name writes, with the
+cells listed in true row major order and each precedence tested on that list. No transposing
+and no walk. The counts agree. Reading the clause in the walk's own order instead gives
+different numbers for several entries of this family, so this check is what separates the two
+readings.
 
 Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
@@ -138,9 +167,11 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A268627.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A233102.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{hopcroft} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to
+Automata Theory, Languages, and Computation}, 3rd ed., Addison--Wesley, 2006.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

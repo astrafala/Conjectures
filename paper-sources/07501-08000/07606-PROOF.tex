@@ -12,121 +12,133 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A261109, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A202770, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{1 September 2026}
+\date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A261109 counts $(n+2)\times6$ arrays over $\{0,\dots,1\}$ subject to a condition imposed on
-every $3\times3$ subblock, and it carries an empirical recurrence of order $13$
-contributed by R.~H.~Hardin. It is true, and it is not an empirical matter. A $3\times3$
-subblock spans three consecutive rows, so the state of a transfer matrix is a PAIR of
-consecutive rows and appending one more row is a step; an array is then a walk, and
-$a(n)$ is a walk count on $S=4096$ vertices. Such a sequence is $C$-finite, so whether a given
-recurrence annihilates it is decided by a finite exact computation, with the Cayley--Hamilton
-theorem bounding the work.
+OEIS A202770 counts arrays of width $3$ over $\{0,1\}$ containing no occurrence of certain short
+patterns, read along the rows, the columns or the diagonals. The entry carries an empirical
+recurrence of order $14$ contributed by R.~H.~Hardin. It is true, and it is decidable
+rather than empirical: no pattern is longer than $3$ letters and no direction moves the row
+index by more than one, so every occurrence lies inside $3$ consecutive array rows and the
+count is a walk count on $S=43$ states.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 68R15, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A261109 is ``Number of (n+2) X (4+2) 0..1 arrays with each 3 X 3 subblock having clockwise perimeter pattern 00010001 00010101 or 01010101.''. It has offset $1$ and begins
+OEIS A202770 is ``Number of (n+2)X3 binary arrays avoiding patterns 000 and 011 in rows, columns and nw-to-se diagonals.''. It has offset $1$ and begins
 \[
-97, 206, 566, 1498, 3908, 10268, 27030, 70980,\ \dots
+86, 201, 424, 833, 1602, 2981, 5467, 9909,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = a(n-1) +6*a(n-3) +8*a(n-4) +10*a(n-5) +11*a(n-6) +7*a(n-7) +a(n-8) -7*a(n-9) -6*a(n-10) +a(n-11) +3*a(n-12) +a(n-13) for n>14.
+Empirical: a(n) = 3*a(n-1) -a(n-2) -a(n-3) -6*a(n-4) +7*a(n-5) +4*a(n-7) -7*a(n-8) +3*a(n-9) -3*a(n-10) +2*a(n-11) -a(n-12) +2*a(n-13) -a(n-14)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Mar 25 2022 18:44:26, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 09:54:09, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
-\section{Three consecutive lines}
+\section{What is being counted}
 
-Write an admissible array as a sequence of rows $u_1,u_2,\dots$, each an element of
-$\{0,\dots,1\}^{6}$. A $3\times3$ subblock occupies three consecutive rows and
-three consecutive columns, so with $r,s,t$ three consecutive rows the blocks it
-contributes are
+The array has $3$ cells across, with entries in $\{0,1\}$. An OCCURRENCE of a pattern in a
+direction is a run of consecutive cells taken in that direction whose entries match the pattern
+in order; the array is counted when it has no occurrence at all. The entry names
 \[
-g=\begin{pmatrix}r_j&r_{j+1}&r_{j+2}\\ s_j&s_{j+1}&s_{j+2}\\ t_j&t_{j+1}&t_{j+2}\end{pmatrix}
+\begin{array}{ll}
+\text{direction} & \text{forbidden patterns} \\[2pt]
+\text{along a row, left to right} & \mathtt{000},\quad \mathtt{011} \\
+\text{down a column} & \mathtt{000},\quad \mathtt{011} \\
+\text{down a diagonal, nw to se} & \mathtt{000},\quad \mathtt{011} \\
+\end{array}
 \]
-for each admissible index, and the entry's condition is the requirement that
-\[
-\text{the clockwise perimeter word of }g\text{ is a rotation of one of }\{00010001,\ 00010101,\ 01010101\}
-\]
-holds for every such $g$. This involves $r$, $s$ and $t$ only: it is a condition on
-three consecutive rows and on nothing else.
 
-Take as vertices of a digraph $G$ the ordered PAIRS $(r,s)$ of rows, of which there are
-$S=(1+1)^{2\cdot6}=4096$, and put an edge $(r,s)\to(s,t)$ exactly when the condition
-holds for the triple $(r,s,t)$ at every admissible index. An array with $L$ rows is then a
-walk of length $L-2$ in $G$: its first two rows name the starting vertex and each further
-row is one step. Hence, with $M$ the adjacency matrix of $G$,
+
+\section{Every occurrence lies in $3$ consecutive rows}
+
+\begin{lemma}\label{lem:win}
+Each of the directions above changes the row index by $0$ or $1$ from one cell of a run to the
+next, and no pattern is longer than $3$ letters. Hence every occurrence lies inside $3$
+consecutive array rows, and an occurrence whose last cell is in row $i$ lies inside rows
+$i-2,\dots,i$.
+\end{lemma}
+
+\begin{proof}
+Immediate from the offsets listed: the row step is $0$ for a row and $1$ for the other three.
+\end{proof}
+
+So the state is the window of the last $2$ array rows, a row still to come being written
+$\bot$. A step appends a row and rejects it exactly when some occurrence ends in it or lies
+inside it; an occurrence needing a row that is $\bot$ cannot exist, which is the boundary rule
+and is not assumed but read off the window. The walk starts at the all-$\bot$ window, so a walk
+of no steps is the empty array and a walk of $R$ steps is an array of $R$ rows. With $M$ the
+adjacency matrix, $\iota$ the indicator of the starting window and $\tau=\mathbf{1}$,
 \[
-a(n)\;=\;\,\mathbf{1}^{\!\top}M^{\,n-1+1}\mathbf{1},
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=43.
 \]
-the exponent being fixed by the entry's own shape and checked against its published terms.
-In particular $a$ is $C$-finite.
+The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
+published terms rather than assumed. In particular $a$ is $C$-finite.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{13}-\sum_i c_it^{13-i}$ be the characteristic polynomial of the
-conjectured recurrence. Then the residual $a(n)-\sum_ic_ia(n-i)$ equals
-$\mathbf{1}^{\!\top}M^{\,j}q(M)\mathbf{1}$ for the corresponding walk index
-$j$, so the recurrence holds from some point on if and only if
-$\mathbf{1}^{\!\top}M^{j}q(M)\mathbf{1}=0$ for all large $j$; and by the
-Cayley--Hamilton theorem it is enough to examine $j<S$.
+Let $q(t)=t^{14}-\sum_i c_it^{14-i}$ be the characteristic polynomial of the
+conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
+$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
+holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
+and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+13}-\sum_ic_iM^{j+13-i}$. For the bound, $M^{S}$
-is an integer combination of $I,M,\dots,M^{S-1}$, so the numbers
-$u_j=\mathbf{1}^{\!\top}M^{j}q(M)\mathbf{1}$ satisfy the monic linear recurrence given by
-the characteristic polynomial of $M$; $S$ consecutive zeros therefore force every later one,
-and the last nonzero $u_j$ pins the threshold exactly.
+Factor $M^{j}$ out of $M^{j+14}-\sum_ic_iM^{j+14-i}$. For the bound, $M^{S}$
+is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
+$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
+polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
+pins the threshold exactly.
 \end{proof}
 
 \begin{theorem}
 \[
-a(n)\;=\;a(n-1) + 6\,a(n-3) + 8\,a(n-4) + 10\,a(n-5) + 11\,a(n-6) + 7\,a(n-7) + a(n-8) - 7\,a(n-9) - 6\,a(n-10) + a(n-11) + 3\,a(n-12) + a(n-13)
+a(n)\;=\;3\,a(n-1) - a(n-2) - a(n-3) - 6\,a(n-4) + 7\,a(n-5) + 4\,a(n-7) - 7\,a(n-8) + 3\,a(n-9) - 3\,a(n-10) + 2\,a(n-11) - a(n-12) + 2\,a(n-13) - a(n-14)
 \]
-for every $n>14$.
+for every $n>11$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\mathbf{1}$ was formed by $13$ matrix--vector products in exact
-integer arithmetic and $\mathbf{1}^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again
-exactly. Those integers vanish from the index corresponding to $n=14+1$ onwards, and the
-run was continued until the working vector was identically zero, which settles all larger $j$
-at once. By Lemma~\ref{lem:crit} the recurrence holds for every $n>14$. The bound is exact: at $n=14$ the recurrence fails on the entry's own published terms, so no larger range holds.
+The vector $w=q(M)\tau$ was formed by $14$ matrix--vector products in exact integer
+arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
+integers vanish from the index corresponding to $n=11+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
-Three checks, each independent of the algebra above.
+Four checks, each independent of the algebra above.
 
-First, the transfer model reproduces all $24$ terms the entry publishes, exactly, in
-integer arithmetic. This is what ties the model to the entry: the digraph is built by reading
-the entry's English, and a misreading gives different counts. That check did real work here. The phrase ``clockwise perimeter pattern'' does not mean that the eight boundary entries, read clockwise from the top left, equal the quoted word; it means the cyclic word they form is that word up to rotation. Read the first way the model returns counts far below the entry's own first term, and only the second reading reproduces the published values. It is the one used.
+First, the model reproduces all $29$ terms the entry publishes, exactly, in integer
+arithmetic.
 
-Second, the conjectured recurrence was evaluated directly on the entry's own published terms,
-with no matrices involved, and holds wherever the proved range and the data overlap.
+Second, the count was recomputed for the smallest arrays straight from the definition: fill the
+cells one at a time, in the orientation the entry's own name writes, and reject as soon as a
+completed run matches a forbidden pattern. No transfer matrix, no window and no transposition
+are involved, and the published terms came back.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
-arithmetic on the whole vector rather than on a sampled prefix, so no rounding or sampling
-enters anywhere.
+Third, the conjectured recurrence was evaluated directly on the published terms, with no
+matrices involved, and holds wherever the proved range and the data overlap.
+
+Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A261109.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A202770.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
-University Press, 2009.
+\bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata
+Theory, Languages, and Computation}, 3rd ed., Addison--Wesley, 2006.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

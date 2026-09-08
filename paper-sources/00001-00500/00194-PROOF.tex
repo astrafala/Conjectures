@@ -12,195 +12,168 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The reduction of OEIS A396099 modulo $2$}
+\title{A bisection identity between OEIS A155543 and OEIS A090129}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A396099 is defined by a functional equation for its ordinary generating function and
-carries a congruence conjecture of P.~D.~Hanna. It is true. The equation determines the
-coefficients one at a time, with $a(N)$ entering with coefficient $1$, so it determines
-them modulo $2$ as well; and modulo $2$ the series $x/(1-x)$ satisfies the equation
-exactly, because its compositional iterates are $x/(1-jx)$ and the relevant product of
-denominators collapses. Uniqueness then identifies the reduction, which is the conjecture.
-The whole argument is an identity between rational functions over
-$\mathbb{Z}/2\mathbb{Z}$; nothing is truncated or estimated.
+OEIS A155543 carries a conjecture that its $n$-th term equals the $(2n+2)$-nd term of
+OEIS A090129, the multiplicative order of $3$ modulo $2^{n}$. It is true. Both entries
+state closed forms as fact --- A090129's is the order computation $2^{n-2}$ for
+$n\ge3$, recorded there with a proof, and A155543's is a rational generating function ---
+and the two match term for term once the even index $2n+2$ is substituted. The identity
+holds at every index, including the one the comment excludes.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 11B50, 05A15, 13F25.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 11A07, 11B37, 11A15.\normalsize
 
-\section{The sequence and the conjecture}
+\section{The two sequences and the conjecture}
 
-OEIS A396099 is ``G.f. satisfies A(x) = x + A\^{}2(x)*A\^{}3(x).''. It has offset $1$ and begins
+OEIS A155543 is ``a(n) = 2*A081294(n).''. It has offset $0$ and begins
 \[
-1, 1, 5, 39, 383, 4357,\ \dots
+2, 4, 16, 64, 256, 1024, 4096,\ \dots
 \]
-Writing $A(x)=\sum_{n\ge1}a(n)x^{n}$ and $A^{\,j}$ for the $j$-th compositional
-iterate of $A$, the entry defines $A$ by
-\begin{equation}\label{eq:fe}
-A(x)\;=\;x+A^{2}(x)\,A^{3}(x) .
-\end{equation}
-This is the only input taken from the entry.
+OEIS A090129 is ``Smallest exponent such that -1 + 3\^{}a(n) is divisible by 2\^{}n.''. It has offset $1$ and begins
+\[
+1, 2, 2, 4, 8, 16, 32, 64,\ \dots
+\]
 
-The entry separately carries the following comment:
+The entry A155543 carries the following comment:
 \begin{quote}\small
-Conjecture: all terms are odd. --- \emph{Paul D. Hanna}
+Conjecture: a(n) = A090129(2*n+2). --- \emph{the entry (unattributed)}, undated
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jun 04 2026 11:37:17, revision 17) it is
-still recorded as a conjecture, and nothing on the entry records
-it as settled either way. The entry carries two further conjectures of the same contributor, on the residues modulo $4$; those are stronger than what is proved here and are not claimed. Section~4 says exactly where the argument stops short of them.
+As of the ``Last modified'' line on the live entry (Jun 30 2026 22:40:50, revision 16) the
+statement is still recorded as unproved, and nothing on either entry records it as settled
+either way.
 
-\section{The equation determines the sequence}
+Written out, the statement to be proved is
+\begin{equation}\label{eq:conj}
+a(n)\;=\;b(2n+2),
+\end{equation}
+where $a$ is A155543 and $b$ is A090129. A090129 has offset $1$, so $b(2n+2)$ is defined
+for every $n\ge0$.
 
-\begin{lemma}\label{lem:jaN}
-Let $A(x)=\sum_{n\ge1}a(n)x^{n}$ with $a(1)=1$. Then for every $j\ge1$ and every
-$N\ge1$,
-\[
-\bigl[x^{N}\bigr]A^{\,j}=j\,a(N)+\bigl(\text{a polynomial in }a(1),\dots,a(N-1)\bigr).
-\]
+\section{What each entry states as fact}
+
+A090129 is defined as the smallest exponent $b(n)$ with $2^{n}\mid 3^{b(n)}-1$, that is,
+the multiplicative order of $3$ modulo $2^{n}$. The entry states, not as a conjecture,
+\begin{quote}\small
+a(n) = 2\^{}(n-2) if n >= 3, 1 for n=1 and 2 for n=2 (see the order comment above).
+\end{quote}
+that is,
+\begin{equation}\label{eq:b}
+b(1)=1,\qquad b(2)=2,\qquad b(n)=2^{\,n-2}\ \ (n\ge3).
+\end{equation}
+The entry also carries the reason, in a comment of W.~Lang: for $n\ge3$ the order of $3$
+modulo $2^{n}$ is $2^{n-2}$, with a reference for the argument. So that nothing here rests
+on a reference, that fact is proved from scratch in Section~4; \eqref{eq:b} is then not an
+assumption at all.
+
+A155543 states, not as a conjecture,
+\begin{quote}\small
+G.f.: 2*(1-2*x)/(1-4*x).
+\end{quote}
+Expanding, $\dfrac{2(1-2x)}{1-4x}=2\sum_{k\ge0}4^{k}x^{k}-4\sum_{k\ge0}4^{k}x^{k+1}
+=2+\sum_{k\ge1}\bigl(2\cdot4^{k}-4\cdot4^{k-1}\bigr)x^{k}$, and
+$2\cdot4^{k}-4^{k}=4^{k}$, so
+\begin{equation}\label{eq:a}
+a(0)=2,\qquad a(n)=4^{n}\ \ (n\ge1).
+\end{equation}
+Each was checked against its own entry's DATA at every published index before use:
+\eqref{eq:a} against all $24$ terms of A155543 and \eqref{eq:b} against all
+$36$ terms of A090129.
+
+\section{The order of $3$ modulo a power of $2$}
+
+Write $v_2(m)$ for the exponent of $2$ in the integer $m\ne0$.
+
+\begin{lemma}\label{lem:val}
+$v_2\bigl(3^{2^{k}}-1\bigr)=k+2$ for every $k\ge1$.
 \end{lemma}
 
 \begin{proof}
-Induction on $j$. For $j=1$ the statement is $\bigl[x^{N}\bigr]A=a(N)$. Suppose it holds
-for $j$, and write $B=A^{\,j}$, so $\bigl[x^{1}\bigr]B=1$ and
-$\bigl[x^{N}\bigr]B=j\,a(N)+\cdots$. Then $A^{\,j+1}=A\circ B=\sum_{m\ge1}a(m)B^{m}$
-and
+For $k=1$, $3^{2}-1=8$ and $v_2(8)=3$. Suppose the claim for some $k\ge1$. Factor
 \[
-\bigl[x^{N}\bigr]A^{\,j+1}=\sum_{m=1}^{N}a(m)\,\bigl[x^{N}\bigr]B^{m} .
+3^{2^{k+1}}-1=\bigl(3^{2^{k}}-1\bigr)\bigl(3^{2^{k}}+1\bigr).
 \]
-The term $m=N$ contributes $a(N)\bigl(\bigl[x^{1}\bigr]B\bigr)^{N}=a(N)$. The term $m=1$
-contributes $\bigl[x^{N}\bigr]B=j\,a(N)+\cdots$. For $2\le m\le N-1$, every monomial of
-$\bigl[x^{N}\bigr]B^{m}$ is a product of $m\ge2$ coefficients of $B$ with indices summing
-to $N$, hence each index is at most $N-1$, so no $a(N)$ occurs. Adding up gives
-$(j+1)a(N)$ plus terms in $a(1),\dots,a(N-1)$.
+Since $k\ge1$, the inductive hypothesis gives $8\mid 3^{2^{k}}-1$, so
+$3^{2^{k}}\equiv1\pmod 8$ and hence $3^{2^{k}}+1\equiv2\pmod 8$, giving
+$v_2\bigl(3^{2^{k}}+1\bigr)=1$. Therefore
+$v_2\bigl(3^{2^{k+1}}-1\bigr)=(k+2)+1=(k+1)+2$.
 \end{proof}
 
-\begin{lemma}\label{lem:unique}
-There is exactly one sequence of integers $a(1),a(2),\dots$ satisfying \eqref{eq:fe}, and
-for each $N\ge2$ the equation read at order $x^{N}$ has the form
-$a(N)=(\text{a polynomial with integer coefficients in }a(1),\dots,a(N-1))$.
-\end{lemma}
+\begin{proposition}\label{prop:ord}
+For $n\ge3$ the multiplicative order of $3$ modulo $2^{n}$ is $2^{\,n-2}$; it is $1$ for
+$n=1$ and $2$ for $n=2$. That is, \eqref{eq:b} holds.
+\end{proposition}
 
 \begin{proof}
-Comparing coefficients of $x$ in \eqref{eq:fe} gives $a(1)=1$. Let $N\ge2$ and collect the
-coefficient of $a(N)$ on each side of \eqref{eq:fe} at order $x^{N}$, using
-Lemma~\ref{lem:jaN}. On the left the coefficient is $1$. On the right, $x$ contributes nothing and the product $A^{\,2}A^{\,3}$ contributes nothing either: every monomial of $\bigl[x^{N}\bigr]\bigl(A^{\,2}A^{\,3}\bigr)$ is a product of one coefficient of $A^{\,2}$ and one of $A^{\,3}$ with indices $i,j\ge1$ and $i+j=N$, so both indices are at most $N-1$. Hence the net coefficient of $a(N)$ is $1$.
-Since that coefficient is $1$, the order-$x^{N}$ equation solves for $a(N)$ over
-$\mathbb{Z}$, and induction gives existence and uniqueness.
+The group $\bigl(\mathbb{Z}/2^{n}\mathbb{Z}\bigr)^{\times}$ has order $2^{\,n-1}$, so the
+order of $3$ divides $2^{\,n-1}$ and is therefore $2^{k}$ for some $k\ge0$; it is the
+least such $k$ with $2^{n}\mid 3^{2^{k}}-1$, that is, with $v_2\bigl(3^{2^{k}}-1\bigr)\ge n$.
+
+Let $n\ge3$. By Lemma~\ref{lem:val} the condition reads $k+2\ge n$ for $k\ge1$, and for
+$k=0$ it reads $v_2(2)=1\ge n$, which fails. The least admissible $k$ is thus $n-2$, which
+is $\ge1$ exactly because $n\ge3$. Hence the order is $2^{\,n-2}$.
+
+For $n=1$, $3\equiv1\pmod2$ and the order is $1$. For $n=2$, $3\equiv3\pmod4$ and
+$3^{2}=9\equiv1$, so the order is $2$.
 \end{proof}
 
-\begin{corollary}\label{cor:mod}
-Let $m\ge2$. If $\bar A\in(\mathbb{Z}/m\mathbb{Z})[[x]]$ satisfies $\bar A=x+O(x^{2})$ and
-\eqref{eq:fe} with all coefficients read modulo $m$, then
-$a(n)\equiv\bigl[x^{n}\bigr]\bar A\pmod m$ for every $n$.
-\end{corollary}
+\section{The proof}
 
-\begin{proof}
-Reduction modulo $m$ is a ring homomorphism, so it carries the integer recursion of
-Lemma~\ref{lem:unique} to the same recursion over $\mathbb{Z}/m\mathbb{Z}$, where the
-coefficient of $a(N)$ is still $1$ and hence still invertible. That recursion therefore has
-a unique solution, and both $a\bmod m$ and the coefficient sequence of $\bar A$ solve it.
-\end{proof}
-
-\section{The reduction modulo $2$}
-
-Write $f(x)=\dfrac{x}{1-x}$ over $\mathbb{Z}/2\mathbb{Z}$.
-
-\begin{lemma}\label{lem:iter}
-$f^{\,j}(x)=\dfrac{x}{1-jx}$ for every $j\ge1$, and more generally for every integer
-$j$, where $f^{-1}$ denotes the compositional inverse.
-\end{lemma}
-
-\begin{proof}
-For $j=1$ this is the definition. If $f^{\,j}(x)=x/(1-jx)$ then
-\[
-f^{\,j+1}(x)=f\bigl(f^{\,j}(x)\bigr)
-=\frac{\dfrac{x}{1-jx}}{1-\dfrac{x}{1-jx}}
-=\frac{x}{(1-jx)-x}=\frac{x}{1-(j+1)x} .
-\]
-The maps $x\mapsto x/(1-jx)$ therefore form a group isomorphic to $(\mathbb{Z},+)$ under
-composition, which also gives the statement for $j\le0$; in particular
-$f^{-1}(x)=x/(1+x)$.
-\end{proof}
-
-\begin{lemma}\label{lem:sat}
-Over $\mathbb{Z}/2\mathbb{Z}$, $f$ satisfies $f=x+f^{\,2}f^{\,3}$.
-\end{lemma}
-
-\begin{proof}
-By Lemma~\ref{lem:iter}, $f^{\,2}f^{\,3}
-=\dfrac{x^{2}}{(1-2x)\bigl(1-3x\bigr)}$, while
-$f-x=\dfrac{x}{1-x}-x=\dfrac{x^{2}}{1-x}$. So the claim is that
-$(1-2x)(1-3x)$ and $1-x$ agree in $(\mathbb{Z}/2\mathbb{Z})[x]$. Expanding,
-\[
-(1-2x)\bigl(1-3x\bigr)=1-5x+6x^{2} ,
-\]
-and modulo $2$ we have $5\equiv1$ and $6\equiv0$. Hence both sides equal
-$1-x$, and the two rational functions agree.
-\end{proof}
-
-
-\begin{theorem}\label{thm:main}
-Over $\mathbb{Z}/2\mathbb{Z}$ the reduction of $A$ is $x/(1-x)$. Equivalently
-$a(n)\equiv1\pmod{2}$ for every $n\ge1$, and more generally
-\[
-\bigl[x^{n}\bigr]A^{\,j}(x)\;\equiv\;j^{\,n-1}\pmod{2}
-\]
-for every $n\ge1$ and every integer $j$. This is the conjecture of Section~1.
+\begin{theorem}
+For every integer $n\ge0$, $a(n)=b(2n+2)$, where $a$ is OEIS A155543 and $b$ is OEIS
+A090129. This is the statement of Section~1.
 \end{theorem}
 
 \begin{proof}
-By Lemma~\ref{lem:sat}, $f=x/(1-x)$ satisfies the reduced equation, and $f=x+O(x^{2})$.
-By Corollary~\ref{cor:mod} the reduction of $A$ equals $f$, so
-$a(n)\equiv\bigl[x^{n}\bigr]f=1$.
+Take $n\ge1$. Then $2n+2\ge4\ge3$, so Proposition~\ref{prop:ord} gives
+\[
+b(2n+2)\;=\;2^{\,(2n+2)-2}\;=\;2^{2n}\;=\;4^{n},
+\]
+which is $a(n)$ by \eqref{eq:a}.
 
-Reduction modulo $2$ carries composition of power series with unit linear coefficient to
-composition, so $A^{\,j}$ reduces to $f^{\,j}$ for every integer $j$ --- for $j<0$
-because $A$ has linear coefficient $1$, hence is invertible under composition, and the
-reduction map is a homomorphism of the composition group. By Lemma~\ref{lem:iter},
-$f^{\,j}(x)=x/(1-jx)=\sum_{n\ge1}j^{\,n-1}x^{n}$, which gives the second statement.
+For $n=0$ the index is $2n+2=2$, and Proposition~\ref{prop:ord} gives $b(2)=2$, while \eqref{eq:a}
+gives $a(0)=2$. The two agree, so the identity holds at $n=0$ as well.
 \end{proof}
 
-\begin{remark}
-The proof used only that $(1-2x)(1-3x)\equiv1-x$ modulo $2$, that is, that
-$2$ divides both $2\cdot2$ and $2\cdot3$. The largest modulus with that property
-is $\gcd\bigl(2p,\,p(p+1)\bigr)$, which is $2p$ for odd $p$ and $p$ for even $p$; here
-$p=2$ gives $2$. This is exactly why the statement is made modulo $2$ and not modulo
-a larger number.
-\end{remark}
+\begin{corollary}
+For every $n\ge1$ the multiplicative order of $3$ modulo $2^{2n+2}$ is $4^{n}$.
+\end{corollary}
 
+\begin{proof}
+Immediate from the theorem and the definition of A090129, together with \eqref{eq:a}.
+\end{proof}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the recursion of Lemma~\ref{lem:unique} was run in exact rational arithmetic and
-its output compared against the entry's DATA at every one of the $21$ published
-indices; the values agree exactly, and every one is an integer. A recursion that reproduced
-only some of them would mean the functional equation had been transcribed wrongly.
+First, the generating function of A155543 was expanded in exact rational arithmetic and
+compared against every one of the $24$ published terms; the values agree exactly. A
+generating function that reproduced only some of them would not have been used.
 
-Second, at every step the coefficient of $a(N)$ was computed rather than assumed, by
-evaluating the order-$x^{N}$ equation at $a(N)=0$ and at $a(N)=1$ and subtracting; it came
-out $1$ at every $N$ up to $24$, as Lemma~\ref{lem:unique} requires. The same run was
-continued to $n=24$ and every term reduced modulo $2$; all residues are
-$1$.
+Second, formula \eqref{eq:b} was evaluated and compared against every one of the
+$36$ published terms of A090129; the values agree exactly. Independently, the order
+of $3$ modulo $2^{n}$ was computed directly by repeated squaring for every $n$ in that
+range and matched the same values, so the closed form was not taken on trust; and
+Lemma~\ref{lem:val} was checked by computing $v_2\bigl(3^{2^{k}}-1\bigr)$ exactly for
+$k\le12$, giving $3,4,5,\dots,14$ as the lemma requires.
 
-Third, the composition of the proof was carried out independently as a formal power series
-over $\mathbb{Z}/2\mathbb{Z}$ to order $30$, starting from the coefficients of $x/(1-x)$
-rather than from the closed form; both sides of \eqref{eq:fe} agree at every order, and the
-iterates $f^{\,j}$ were confirmed to have coefficients $j^{\,n-1}$ for $j\le6$.
+Third, the identity \eqref{eq:conj} was checked directly on the published terms, without
+either formula: for every $n$ from $0$ to $17$ --- the range for which both $a(n)$ and
+$b(2n+2)$ are published --- the two integers agree.
 
 \begin{thebibliography}{9}
-\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A396099.
-\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 2, Cambridge
-University Press, 1999.
-\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
-University Press, 2009.
+\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer Sequences},
+\url{https://oeis.org}, 2026.
 \bibitem{hw} G.~H.~Hardy and E.~M.~Wright, \emph{An Introduction to the Theory of
 Numbers}, 6th ed., Oxford University Press, 2008.
+\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
+Cambridge University Press, 2011.
 \end{thebibliography}
 
 \end{document}

@@ -12,19 +12,19 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A211491, proved by a one-dimensional reduction}
+\title{The empirical recurrence for OEIS A211496, proved by a one-dimensional reduction}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{4 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A211491 counts symmetric $(n+1)\times(n+1)$ matrices over
-$\{-4,\dots,4\}$ in which every $2\times2$ subblock sums to zero and has three distinct
+OEIS A211496 counts symmetric $(n+1)\times(n+1)$ matrices over
+$\{-4,\dots,4\}$ in which every $2\times2$ subblock sums to zero and has one, three or four distinct
 entries. Both sides of the matrix grow with $n$, so there is no slice of bounded width to walk
 along. There does not need to be: the sum-zero condition is linear and solves completely, and
 its solutions are indexed by a SEQUENCE --- the diagonal of the matrix. The count becomes a walk
-on $S=84$ states, and the empirical recurrence of order $8$ contributed by R.~H.~Hardin
+on $S=35$ states, and the empirical recurrence of order $13$ contributed by R.~H.~Hardin
 follows.
 \end{abstract}
 
@@ -32,15 +32,15 @@ follows.
 
 \section{The conjecture}
 
-OEIS A211491 is ``Number of (n+1) X (n+1) -4..4 symmetric matrices with every 2 X 2 subblock having sum zero and three distinct values.''. It has offset $1$ and begins
+OEIS A211496 is ``Number of (n+1)X(n+1) -4..4 symmetric matrices with every 2X2 subblock having sum zero and one, three or four distinct values.''. It has offset $1$ and begins
 \[
-28, 56, 110, 206, 392, 728, 1372, 2562,\ \dots
+29, 105, 385, 1437, 5353, 19901, 73617, 271149,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 4*a(n-1) + a(n-2) - 21*a(n-3) + 16*a(n-4) + 29*a(n-5) - 34*a(n-6) - 6*a(n-7) + 12*a(n-8).
+Empirical: a(n) = 12*a(n-1) -36*a(n-2) -86*a(n-3) +557*a(n-4) -82*a(n-5) -2844*a(n-6) +1812*a(n-7) +6764*a(n-8) -4000*a(n-9) -7184*a(n-10) +1824*a(n-11) +1408*a(n-12) -384*a(n-13)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 18 2018 08:22:34, revision 7) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 16:12:20, revision 8) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{The sum-zero condition solved}
@@ -84,7 +84,7 @@ for each $i$, the case $j=i$ giving one direction and the triangle inequality th
 
 So the matrices of size $N$ correspond one for one to the sequences $u_0,\dots,u_{N-1}$ in
 $\{-4,\dots,4\}$ with all entries of one parity. What remains is to say, in terms of $u$,
-that every $2\times2$ subblock has three distinct entries.
+that every $2\times2$ subblock has one, three or four distinct entries.
 
 \begin{lemma}\label{lem:block}
 Write $\pi_i=(u_i,u_{i+1})$ for the $i$-th consecutive pair. The number of distinct entries of
@@ -101,7 +101,7 @@ By Lemma~\ref{lem:solve} the four entries are $(-1)^{i+j}$ times those four numb
 order. Multiplying all four by $\pm1$ does not change how many are distinct.
 \end{proof}
 
-Call two consecutive pairs COMPATIBLE when that number lies in $\{3\}$. The condition on the
+Call two consecutive pairs COMPATIBLE when that number lies in $\{1,3,4\}$. The condition on the
 matrix is that $\pi_i$ and $\pi_j$ are compatible for every $i$ and $j$ --- including $i=j$,
 which asks each pair to be compatible with itself. In other words:
 
@@ -132,10 +132,10 @@ the only other thing a step needs.
 
 The sets $A$ that arise are intersections of neighbourhoods, of which there are far fewer than
 subsets; enumerated from the start $A_0=\{\pi:\pi\in N(\pi)\}$, the reachable states number
-$S=84$. The two parity classes never mix, so the walk starts by choosing a parity and a first
+$S=35$. The two parity classes never mix, so the walk starts by choosing a parity and a first
 value, and every state may end a sequence:
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad \tau=\mathbf{1},\qquad S=84.
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad \tau=\mathbf{1},\qquad S=35.
 \]
 The walk index $j$ is the size of the matrix, and it differs from the entry's own $n$ by a
 constant read off by matching the published terms rather than assumed. In particular $a$ is
@@ -144,7 +144,7 @@ $C$-finite --- for a family in which both dimensions grow with $n$.
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{8}-\sum_i c_it^{8-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{13}-\sum_i c_it^{13-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -152,7 +152,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+8}-\sum_ic_iM^{j+8-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+13}-\sum_ic_iM^{j+13-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -161,15 +161,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;4\,a(n-1) + a(n-2) - 21\,a(n-3) + 16\,a(n-4) + 29\,a(n-5) - 34\,a(n-6) - 6\,a(n-7) + 12\,a(n-8)
+a(n)\;=\;12\,a(n-1) - 36\,a(n-2) - 86\,a(n-3) + 557\,a(n-4) - 82\,a(n-5) - 2844\,a(n-6) + 1812\,a(n-7) + 6764\,a(n-8) - 4000\,a(n-9) - 7184\,a(n-10) + 1824\,a(n-11) + 1408\,a(n-12) - 384\,a(n-13)
 \]
-for every $n>8$.
+for every $n>12$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $8$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $13$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=8+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=12+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -177,12 +177,12 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $29$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $22$ terms the entry publishes, exactly, in integer
 arithmetic.
 
 Second, the count was recomputed for the smallest matrices straight from the definition:
 symmetric matrices were written out entry by entry over $\{-4,\dots,4\}$ and each
-$2\times2$ subblock tested for summing to zero and for having three distinct entries. The
+$2\times2$ subblock tested for summing to zero and for having one, three or four distinct entries. The
 sequence $u$, the sign pattern, the clique and the state play no part in that computation, and
 the published terms came back. Lemma~\ref{lem:solve} was separately checked the same way: for
 small sizes and small ranges the number of symmetric sum-zero matrices found by direct
@@ -196,7 +196,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A211491.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A211496.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{kemeny} J.~G.~Kemeny and J.~L.~Snell, \emph{Finite Markov Chains}, Springer, 1976.

@@ -12,133 +12,137 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical column recurrences for the table OEIS A233903}
+\title{The empirical recurrence for OEIS A269823, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{1 September 2026}
+\date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A233903 is a two-dimensional table $T(n,k)$, and it carries a block of empirical
-recurrences contributed by R.~H.~Hardin --- one for each of its first few columns. They are
-true. Column $k$ of the table is an ordinary fixed-width array count, so its rows are the
-vertices of a finite digraph and $T(n,k)$ is a number of walks in it; being a walk count the
-column is $C$-finite, and whether a given recurrence annihilates it is decided by a finite
-exact computation, with the Cayley--Hamilton theorem bounding the work. This note settles the columns $k=1$.
+OEIS A269823 counts arrays of width $2$ over $\{0,1,\dots,4\}$ in which the number of adjacent PAIRS of
+cells whose entries add up to $4$ is exactly one. The entry carries an empirical recurrence of
+order $6$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
+empirical. The condition is global --- no window of the array decides it --- but the quantity
+it constrains is a count that may be capped at two, and a capped count is a bounded state; the
+result is a walk count on $S=71$ states.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05C30, 15A18.\normalsize
 
-\section{The table and the conjectures}
+\section{The conjecture}
 
-OEIS A233903 is ``T(n,k)=Number of (n+1)X(k+1) 0..6 arrays with every 2X2 subblock having the sum of the squares of all six edge and diagonal differences equal to 35 (35 maximizes T(1,1)).''. It has offset $1$, is
-read by antidiagonals, and begins
+OEIS A269823 is ``Number of n X 2 0..4 arrays with some element plus some horizontally, diagonally, antidiagonally or vertically adjacent neighbor totaling four exactly once.''. It has offset $1$ and begins
 \[
-144, 656, 656, 2688, 2944, 2688, 12288, 12152,\ \dots
+5, 216, 3096, 39784, 462680, 5145736, 55265336, 580002280,\ \dots
 \]
-The entry carries the following block:
-\begin{quote}\small
-Empirical for column k:\\
-k=1: a(n) = 44*a(n-2) -608*a(n-4) +2560*a(n-6)\\
-k=2: [order 26]\\
-k=3: [order 69]\\
+The entry states, as a conjecture contributed by its author and never marked settled:
+\begin{quote}
+Empirical: a(n) = 10*a(n-1) + 47*a(n-2) - 336*a(n-3) - 1416*a(n-4) - 864*a(n-5) - 144*a(n-6) for n>7.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jun 02 2025 09:04:25, revision 6) these are still
-recorded as empirical, and nothing on the entry records any of them as settled.
+As of the ``Last modified'' line on the live entry (May 03 2023 18:02:57, revision 10) this is still
+recorded as empirical, and nothing on the entry records it as proved.
 
-\section{A column of the table is a walk count}
+\section{What is being counted}
 
-Fix $k$. The entry defines $T(n,k)$ as the number of arrays of a shape in which one dimension
-is $n$ and the other is determined by $k$, subject to a condition imposed on every
-$2\times2$ subblock --- a condition local to two consecutive rows and two consecutive columns.
-Substituting the fixed value of $k$ into the entry's own wording turns the definition into an
-ordinary one-parameter array count, and for such a count the rows are the vertices of a finite
-digraph $G_k$: $r\to s$ is an edge exactly when placing $s$ under $r$ satisfies the condition
-in every column pair. An admissible array is then a walk, so with $M_k$ the adjacency matrix
-of $G_k$,
+The array has $2$ cells across, with entries in $\{0,1,\dots,4\}$. An ADJACENT PAIR is a pair of cells
 \[
-T(n,k)\;=\;c_k\,\mathbf{1}^{\!\top}M_k^{\,n}\mathbf{1}
+\begin{array}{l}
+$(i,j)\text{ and }(i,j{+}1)$ \\
+$(i,j)\text{ and }(i{+}1,j)$ \\
+$(i,j)\text{ and }(i{+}1,j{+}1)$ \\
+$(i,j)\text{ and }(i{+}1,j{-}1)$ \\
+\end{array}
 \]
-for the constant $c_k$ that the entry's name supplies (a factor such as $\tfrac12$ or
-$\tfrac14$ where the name says so, and $1$ otherwise).
+both lying inside the array. A pair is a pair of CELLS, so it is counted once and not once from
+each end. Writing $k$ for the number of adjacent pairs whose two entries add up to $4$, the
+entry counts the arrays with $k$ exactly one.
 
-\begin{lemma}\label{lem:crit}
-Let $q(t)=t^{r}-\sum_i c_it^{r-i}$ be the characteristic polynomial of a conjectured
-recurrence of order $r$ for column $k$. Then for every $n\ge r$,
+\section{A capped count is a state}
+
+No window of the array decides the condition: $k$ is a total over the whole array. But the
+condition distinguishes only $k=0$, $k=1$ and $k\ge2$, so the count may be carried capped at
+two and stays bounded.
+
+\begin{lemma}\label{lem:cap}
+Let $k_t$ be the number of qualifying pairs lying inside the first $t$ rows. Then
 \[
-T(n,k)-\sum_i c_i\,T(n-i,k)\;=\;c_k\,\mathbf{1}^{\!\top}M_k^{\,n-r}q(M_k)\mathbf{1},
+k_{t}\;=\;k_{t-1}+\bigl(\text{pairs inside row } t\bigr)
++\bigl(\text{pairs joining rows } t-1 \text{ and } t\bigr),
 \]
-so the recurrence holds from some point on if and only if
-$\mathbf{1}^{\!\top}M_k^{j}q(M_k)\mathbf{1}=0$ for every $j\ge0$; and by the
-Cayley--Hamilton theorem it is enough to check $j<S_k$, where $S_k$ is the number of vertices
-of $G_k$.
+and both added terms are determined by rows $t-1$ and $t$ alone.
 \end{lemma}
 
 \begin{proof}
-Substitute the walk expression and factor $M_k^{n-r}$ out of $M_k^{n}-\sum_ic_iM_k^{n-i}$;
-the scalar $c_k$ is nonzero. For the bound, $M_k^{S_k}$ is an integer combination of
-$I,M_k,\dots,M_k^{S_k-1}$, so each $\mathbf{1}^{\!\top}M_k^{j}q(M_k)\mathbf{1}$ with
-$j\ge S_k$ repeats that combination of earlier values.
+Every adjacent pair lies either inside one row or across two consecutive rows, by the list
+above; a pair inside rows $1..t$ that is not inside rows $1..t-1$ must meet row $t$, so it is
+one of the two kinds counted.
 \end{proof}
 
-\section{The computation, column by column}
-
-\begin{center}
-\begin{tabular}{ccccc}
-line & order & vertices $S$ & proved for & terms checked \\ \hline
-column $k$$=1$ & $6$ & $49$ & $>6$ & $8$ \\
-\end{tabular}
-\end{center}
-
-In each case the vector $w=q(M_k)\mathbf{1}$ was formed by $r$ matrix--vector products in
-exact integer arithmetic and $\mathbf{1}^{\!\top}M_k^{j}w$ evaluated for $j=0,1,\dots$,
-again exactly; every one of those integers vanishes from the stated point onwards and the run
-continued until the working vector was identically zero, which settles all larger $j$ at once.
-
-\subsection*{Column $k$$=1$}
-The sequence is ``Number of (n+1)X2 0..6 arrays with every 2X2 subblock having the sum of the squares of all six edge and diagonal differences equal to 35.''. Its rows are the vertices of a digraph on
-$S=49$ vertices, edges being the admissible consecutive pairs, and the count is
-$\mathbf{1}^{\!\top}M^{n}\mathbf{1}$ up to the constant factor in the entry's name.
-The conjectured recurrence
+So the state is the pair $(\text{previous row},\min(k,2))$: a step appends a row, adds the
+pairs Lemma~\ref{lem:cap} names and caps the total at two. The end vector accepts the states
+with $k=1$, so it is not the all-ones vector. With $M$ the adjacency matrix,
 \[
-a(n)\;=\;44\,a(n-2) - 608\,a(n-4) + 2560\,a(n-6)
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=71.
 \]
-holds from index $6+1$ on.
+The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
+published terms rather than assumed. In particular $a$ is $C$-finite.
+
+\section{The proof}
+
+\begin{lemma}\label{lem:crit}
+Let $q(t)=t^{6}-\sum_i c_it^{6-i}$ be the characteristic polynomial of the
+conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
+$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
+holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
+and it is enough to examine $j<S$.
+\end{lemma}
+
+\begin{proof}
+Factor $M^{j}$ out of $M^{j+6}-\sum_ic_iM^{j+6-i}$. For the bound, $M^{S}$
+is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
+$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
+polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
+pins the threshold exactly.
+\end{proof}
+
+\begin{theorem}
+\[
+a(n)\;=\;10\,a(n-1) + 47\,a(n-2) - 336\,a(n-3) - 1416\,a(n-4) - 864\,a(n-5) - 144\,a(n-6)
+\]
+for every $n>7$.
+\end{theorem}
+
+\begin{proof}
+The vector $w=q(M)\tau$ was formed by $6$ matrix--vector products in exact integer
+arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
+integers vanish from the index corresponding to $n=7+1$ onwards and the run continued
+until the working vector was identically zero.
+\end{proof}
 
 \section{Verification}
 
-Three checks, each independent of the algebra above.
+Four checks, each independent of the algebra above.
 
-First, each model was compared against the entry's own published values for its line, taken
-both from the antidiagonal DATA read in either orientation and from the ``Table starts''
-block, and agrees at every available term. This is what ties a model to the table:
-substituting the fixed index into the entry's wording is a reading of English, and a wrong
-reading gives a different digraph and different counts. Across the lines settled here the
-model reproduces $8$ published values, $39$ decimal digits in all, every one of
-them exactly; a misreading of the entry would have to reproduce all of them by accident.
+First, the model reproduces all $17$ terms the entry publishes, exactly, in integer
+arithmetic.
 
-Second, each conjectured recurrence was evaluated on those published values in exact
-integer arithmetic, with no matrices involved, and holds wherever the proved range and the
-data overlap.
+Second, the count was recomputed for the smallest arrays straight from the definition:
+enumerate every array of that size in the orientation the entry's own name writes, count the
+adjacent pairs summing to $4$ by running over the array once for each kind of pair, and keep
+the array when that count is exactly one. No cap, no state and no transfer matrix are involved, and
+the published terms came back.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
-arithmetic rather than on a sampled prefix.
+Third, the conjectured recurrence was evaluated directly on the published terms, with no
+matrices involved, and holds wherever the proved range and the data overlap.
 
-\begin{remark}
-A row of the table is a column of the transposed table: fixing $n$ and letting $k$ vary gives a
-count of arrays of fixed height, which is the same kind of object with the two dimensions
-exchanged. Both are settled here by the same argument. Only the lines the entry states
-explicitly, and for which enough published values exist to run the first check above, are
-claimed.
-\end{remark}
+Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A233903.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A269823.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
-University Press, 2009.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

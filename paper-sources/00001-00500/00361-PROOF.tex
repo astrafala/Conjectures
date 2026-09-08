@@ -12,15 +12,15 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{Recovering the unwritten recurrences of the table OEIS A234481}
+\title{Recovering the unwritten recurrences of the table OEIS A236737}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A234481 is a two-dimensional table $T(n,k)$ whose empirical recurrences are, for several of
-its lines, given only as an ORDER --- ``k=2: [order 46].'' and the like --- with the
+OEIS A236737 is a two-dimensional table $T(n,k)$ whose empirical recurrences are, for several of
+its lines, given only as an ORDER --- ``k=2: [order 20]'' and the like --- with the
 coefficients in a linked file rather than in the entry. Those conjectures can still be settled,
 and the recurrences recovered. A line of the table is a fixed-width or fixed-height array
 count, hence a walk count on finitely many vertices, hence satisfies some monic recurrence of
@@ -28,22 +28,23 @@ order at most that number; Berlekamp--Massey on twice as many exact terms return
 one. Where its order equals the order the entry states --- and where the same holds after the
 first few terms are dropped --- any recurrence of that order the line satisfies has a
 characteristic polynomial that is a multiple of the minimal one and of equal degree, hence is
-that polynomial. This note settles column 2.
+that polynomial. This note settles column 2, column 3.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 15A18.\normalsize
 
 \section{The table and the unwritten conjectures}
 
-OEIS A234481 is ``T(n,k) is the number of (n+1) X (k+1) 0..7 arrays with every 2 X 2 subblock having its diagonal sum differing from its antidiagonal sum by 1 (constant-stress 1 X 1 tilings).''. It is read by antidiagonals and begins
+OEIS A236737 is ``T(n,k)=Number of (n+1)X(k+1) 0..2 arrays with the upper median minus the lower median of every 2X2 subblock equal.''. It is read by antidiagonals and begins
 \[
-672, 7840, 7840, 95872, 141728, 95872, 1200640, 2765648,\ \dots
+81, 345, 345, 1497, 2471, 1497, 6663, 17583,\ \dots
 \]
 The entry carries, among its empirical claims:
 \begin{quote}\small
-k=2: [order 46].
+k=2: [order 20]\\
+k=3: [order 49]
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jun 20 2022 21:14:47, revision 6) these are still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 09:30:50, revision 6) these are still
 recorded as empirical, and the recurrences themselves are not in the entry text.
 
 \section{Why a line of the table is a walk count}
@@ -66,14 +67,30 @@ minimal recurrence exactly.
 
 \subsection*{Column $k=2$}
 Substituting the fixed index into the entry's wording gives an ordinary one-parameter array
-count, a walk on $S=512$ vertices. Berlekamp--Massey on $2S=1024$ exact terms
-returns a minimal recurrence of order $46$ --- the order the entry states --- with
+count, a walk on $S=62$ vertices. Berlekamp--Massey on $2S=124$ exact terms
+returns a minimal recurrence of order $20$ --- the order the entry states --- with
+integer coefficients
+\begin{center}\small\begin{tabular}{cccccccc}
+$c_{1}$ & $20$ & $c_{6}$ & $-47573$ & $c_{11}$ & $1364656$ & $c_{16}$ & $436992$ \\
+$c_{2}$ & $-103$ & $c_{7}$ & $201166$ & $c_{12}$ & $-5060624$ & $c_{17}$ & $1161216$ \\
+$c_{3}$ & $-358$ & $c_{8}$ & $-30204$ & $c_{13}$ & $2241312$ & $c_{18}$ & $-387072$ \\
+$c_{4}$ & $4749$ & $c_{9}$ & $-1074134$ & $c_{14}$ & $4225728$ & $c_{19}$ & $-30720$ \\
+$c_{5}$ & $-8438$ & $c_{10}$ & $1618940$ & $c_{15}$ & $-4631936$ & $c_{20}$ & $16384$ \\
+\end{tabular}\end{center}
+so that $a(m)=\sum_{i=1}^{20}c_i\,a(m-i)$ for every $m$. Removing the first
+$20+4$ terms and repeating gives order $20$ again, which is what the
+identification below needs.
+
+\subsection*{Column $k=3$}
+Substituting the fixed index into the entry's wording gives an ordinary one-parameter array
+count, a walk on $S=178$ vertices. Berlekamp--Massey on $2S=356$ exact terms
+returns a minimal recurrence of order $49$ --- the order the entry states --- with
 integer coefficients
 \[
-(c_1,\dots,c_{46})=(44,\ 457,\ -44620,\ 234930,\ 16248415,\ -185703379,\ -2778832058,\ 48457533125,\ 213875519821,\ -6716954885396,\ 130034032028,\ 558392797091904,\ -1422314410108894,\ -29152136220988528,\ 128401145159161040,\ 962583292724269872,\ -6042814510053844248,\ -19260404475359093056,\ 176642861570874277792,\ 189199164561946063232,\ -3380781508738075730624,\ 588511898385060076032,\ 43060005266709461147392,\ -43268532698755630371328,\ -363883699796527015801344,\ 596869370049421248325632,\ 1998274253544647331375104,\ -4470874121743656543588352,\ -6787171179199293038534656,\ 20473090752611461659754496,\ 12492902141433622283501568,\ -58778376409754117102141440,\ -5498128373084365375471616,\ 105166618594294247765311488,\ -23797589538129121646739456,\ -113836957249785716910063616,\ 50471854424733912375754752,\ 69437861158048250462208000,\ -42861651650263899879505920,\ -20032162738835131308441600,\ 16590217606058105615941632,\ 1374235205177560516263936,\ -2408545949662547011436544,\ 137781318443128313610240,\ 107343173020986585907200,\ -10985412443668217856000).
+(c_1,\dots,c_{49})=(26,\ 4,\ -4897,\ 23757,\ 372664,\ -2816701,\ -14378437,\ 158994487,\ 261992532,\ -5397808563,\ 459825889,\ 120334136659,\ -141698210682,\ -1833951780294,\ 3696522197250,\ 19347639120408,\ -54582774010416,\ -138943880437603,\ 535521570639316,\ 628547211611900,\ -3662553078209998,\ -1223066217903613,\ 17676996143984877,\ -4386078312870460,\ -59688124772932962,\ 42042260839965586,\ 136849936687382938,\ -154823470104174670,\ -199375978396153180,\ 334391635911265224,\ 153846358858481672,\ -450652959310585080,\ -5178580138132160,\ 378645845379652192,\ -103790841905468320,\ -191287979513077248,\ 95099028756041472,\ 52852427240566784,\ -40057135271457280,\ -5802884236134400,\ 8683325022240768,\ -390910646222848,\ -926399160877056,\ 133083324710912,\ 44124271476736,\ -9406208278528,\ -582816104448,\ 210390482944,\ -9177137152).
 \]
-so that $a(m)=\sum_{i=1}^{46}c_i\,a(m-i)$ for every $m$. Removing the first
-$46+4$ terms and repeating gives order $46$ again, which is what the
+so that $a(m)=\sum_{i=1}^{49}c_i\,a(m-i)$ for every $m$. Removing the first
+$49+4$ terms and repeating gives order $49$ again, which is what the
 identification below needs.
 
 \begin{theorem}
@@ -109,7 +126,7 @@ agree.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A234481.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A236737.
 \bibitem{massey} J.~L.~Massey, Shift-register synthesis and BCH decoding, \emph{IEEE
 Trans. Inform. Theory} \textbf{15} (1969), 122--127.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,

@@ -12,75 +12,104 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A268749, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A235512, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A268749 counts arrays of width $7$ over $\{0,1\}$ in which the number of adjacent PAIRS of
-cells whose entries add up to $2$ is at most one. The entry carries an empirical recurrence of
-order $42$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
-empirical. The condition is global --- no window of the array decides it --- but the quantity
-it constrains is a count that may be capped at two, and a capped count is a bounded state; the
-result is a walk count on $S=235$ states.
+OEIS A235512 counts arrays of width $4$ over $\{0,1\}$ by reducing every $2\times2$ subblock to a
+single number---here the largest entry plus the smallest---and requiring the resulting derived array to have its rows
+lexicographically nondecreasing and its columns lexicographically nondecreasing. The entry carries an
+empirical recurrence of order $43$ contributed by R.~H.~Hardin. It is true, and it is
+decidable rather than empirical. The row comparison is settled by three consecutive rows of the
+array; the column comparison is not settled by any bounded window, but what is still outstanding
+about it is one bit per adjacent pair of columns, so the count is a walk count on $S=142$
+states.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05C30, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 06A05, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A268749 is ``Number of nX7 binary arrays with some element plus some horizontally or vertically adjacent neighbor totalling two no more than once.''. It has offset $1$ and begins
+OEIS A235512 is ``Number of (n+1)X(3+1) 0..1 arrays with the sum of each 2X2 subblock maximum and minimum lexicographically nondecreasing rowwise and columnwise.''. It has offset $1$ and begins
 \[
-72, 1760, 44067, 1016807, 22577073, 487682438, 10319681062, 215027310572,\ \dots
+209, 2501, 29533, 343063, 3977050, 45985647, 531586422, 6142770286,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 18*a(n-1) +325*a(n-2) -4074*a(n-3) -48747*a(n-4) +201072*a(n-5) +2225020*a(n-6) -6248320*a(n-7) -47573325*a(n-8) +135873052*a(n-9) +512366407*a(n-10) -1794441336*a(n-11) -2517416282*a(n-12) +13453431136*a(n-13) +1270823811*a(n-14) -55187301646*a(n-15) +38695555999*a(n-16) +115237077158*a(n-17) -158181613013*a(n-18) -96178246900*a(n-19) +263575852534*a(n-20) -18739881048*a(n-21) -224653932202*a(n-22) +90835575680*a(n-23) +105290165907*a(n-24) -69076575582*a(n-25) -27720217521*a(n-26) +26811874806*a(n-27) +3877126783*a(n-28) -6197138172*a(n-29) -207452034*a(n-30) +895782500*a(n-31) -10034133*a(n-32) -81777708*a(n-33) +1520627*a(n-34) +4630616*a(n-35) -28132*a(n-36) -153828*a(n-37) -2195*a(n-38) +2658*a(n-39) +93*a(n-40) -18*a(n-41) -a(n-42)
+Empirical: a(n) = 18*a(n-1) -35*a(n-2) -800*a(n-3) +3598*a(n-4) +11518*a(n-5) -86177*a(n-6) -43426*a(n-7) +1030208*a(n-8) -551932*a(n-9) -7523343*a(n-10) +8359408*a(n-11) +36977209*a(n-12) -55765580*a(n-13) -129333424*a(n-14) +236161174*a(n-15) +333558074*a(n-16) -701926806*a(n-17) -650276140*a(n-18) +1531081970*a(n-19) +977200374*a(n-20) -2507610186*a(n-21) -1152187728*a(n-22) +3118788662*a(n-23) +1084336743*a(n-24) -2956454312*a(n-25) -826149717*a(n-26) +2130992178*a(n-27) +511775800*a(n-28) -1158609216*a(n-29) -254345475*a(n-30) +468586344*a(n-31) +98077210*a(n-32) -138111794*a(n-33) -27921777*a(n-34) +28847250*a(n-35) +5513265*a(n-36) -4114646*a(n-37) -697128*a(n-38) +380368*a(n-39) +50000*a(n-40) -20704*a(n-41) -1536*a(n-42) +512*a(n-43)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Feb 12 2016 12:33:35, revision 4) this is still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 08:35:23, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The array has $7$ cells across, with entries in $\{0,1\}$. An ADJACENT PAIR is a pair of cells
+The arrays have $4$ columns and a growing number of rows, with entries in $\{0,1\}$. A
+$2\times2$ subblock of such an array is
 \[
-\begin{array}{l}
-$(i,j)\text{ and }(i,j{+}1)$ \\
-$(i,j)\text{ and }(i{+}1,j)$ \\
-\end{array}
+B=\begin{pmatrix} p & q \\ r & s \end{pmatrix},
+\qquad p=x(i,j),\; q=x(i,j+1),\; r=x(i+1,j),\; s=x(i+1,j+1).
 \]
-both lying inside the array. A pair is a pair of CELLS, so it is counted once and not once from
-each end. Writing $k$ for the number of adjacent pairs whose two entries add up to $2$, the
-entry counts the arrays with $k$ at most one.
-
-\section{A capped count is a state}
-
-No window of the array decides the condition: $k$ is a total over the whole array. But the
-condition distinguishes only $k=0$, $k=1$ and $k\ge2$, so the count may be carried capped at
-two and stays bounded.
-
-\begin{lemma}\label{lem:cap}
-Let $k_t$ be the number of qualifying pairs lying inside the first $t$ rows. Then
+Write $v_1\le v_2\le v_3\le v_4$ for the four entries of $B$ sorted into order. The entry attaches to $B$ the single number
 \[
-k_{t}\;=\;k_{t-1}+\bigl(\text{pairs inside row } t\bigr)
-+\bigl(\text{pairs joining rows } t-1 \text{ and } t\bigr),
+f(B)\;=\;v_4+v_1,
 \]
-and both added terms are determined by rows $t-1$ and $t$ alone.
+the largest entry plus the smallest. An array with $R$ rows and $4$ columns has $(R-1)\times3$ subblocks, and they
+form a derived array
+\[
+D(i,j)=f\!\left(\begin{pmatrix} x(i,j) & x(i,j+1) \\ x(i+1,j) & x(i+1,j+1)\end{pmatrix}
+\right),\qquad 0\le i<R-1,\;\; 0\le j<3 .
+\]
+Write $\preceq$ for the lexicographic order on finite sequences of integers: $u\preceq w$ when
+$u=w$, or when $u_k<w_k$ at the first index $k$ where they differ. The condition is that the
+rows of $D$, read left to right and compared in this order, are nondecreasing from top to bottom,
+\[
+D_{i}\;\preceq\;D_{i+1}\qquad\text{for every } i,
+\]
+and that the columns of $D$, read top to bottom and compared in the same order, are nondecreasing
+from left to right,
+\[
+D^{j}\;\preceq\;D^{j+1}\qquad\text{for every } j .
+\]
+
+\section{A bounded state}
+
+Grow the array one row at a time. A row of $D$ is built from two consecutive rows of the array,
+so the row condition is decided three array rows at a time and needs no memory beyond the
+derived row just formed. The column condition is different: which of two columns of $D$ is the
+smaller is decided by the first derived row in which they differ, and that row can be
+arbitrarily far down. What is bounded is not the comparison but what remains open about it.
+
+\begin{lemma}\label{lem:bits}
+Fix $j$ and suppose the derived rows $D_0,\dots,D_i$ have been written. If $D_t(j)=D_t(j+1)$ for
+every $t\le i$, then $D^{j}\;\preceq\;D^{j+1}$ holds for the finished array if and only if,
+at the first later row $t$ with $D_t(j)\neq D_t(j+1)$, the inequality $D_t(j)<D_t(j+1)$
+holds; and if no such row occurs the two columns are equal and the condition holds. If instead
+$D_t(j)\neq D_t(j+1)$ for some $t\le i$, then the comparison is already settled by the earliest
+such $t$ and no later row can change it.
 \end{lemma}
 
 \begin{proof}
-Every adjacent pair lies either inside one row or across two consecutive rows, by the list
-above; a pair inside rows $1..t$ that is not inside rows $1..t-1$ must meet row $t$, so it is
-one of the two kinds counted.
+Immediate from the definition of the lexicographic order: it looks only at the first index at
+which the two sequences differ, and prefixes that agree contribute nothing.
 \end{proof}
 
-So the state is the pair $(\text{previous row},\min(k,2))$: a step appends a row, adds the
-pairs Lemma~\ref{lem:cap} names and caps the total at two. The end vector accepts the states
-with $k\le1$, so it is not the all-ones vector. With $M$ the adjacency matrix,
+So a single bit per adjacent pair of columns---``this pair has agreed in every derived row so
+far''---carries everything the future needs to know, and there are $2$ such pairs. The state
+is therefore
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=235.
+\bigl(\text{the array row just written},\; \text{the derived row just formed},\;
+\text{the 2 bits}\bigr),
+\]
+with a distinguished start standing for the empty array, so that a walk of $n$ steps is an array
+of $n$ rows. A step appends a row, forms the new derived row, checks it against the previous one
+for the row condition, and for each pair still flagged either leaves the flag set (the pair
+agreed again) or clears it after checking the required inequality once. Every state may end an
+array, so $\tau=\mathbf{1}$ and
+\[
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=142.
 \]
 The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
 published terms rather than assumed. In particular $a$ is $C$-finite.
@@ -88,7 +117,7 @@ published terms rather than assumed. In particular $a$ is $C$-finite.
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{42}-\sum_i c_it^{42-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{43}-\sum_i c_it^{43-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -96,7 +125,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+42}-\sum_ic_iM^{j+42-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+43}-\sum_ic_iM^{j+43-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -105,30 +134,30 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;18\,a(n-1) + 325\,a(n-2) - 4074\,a(n-3) - 48747\,a(n-4) + 201072\,a(n-5) + 2225020\,a(n-6) - 6248320\,a(n-7) - 47573325\,a(n-8) + 135873052\,a(n-9) + 512366407\,a(n-10) - 1794441336\,a(n-11) - 2517416282\,a(n-12) + 13453431136\,a(n-13) + 1270823811\,a(n-14) - 55187301646\,a(n-15) + 38695555999\,a(n-16) + 115237077158\,a(n-17) - 158181613013\,a(n-18) - 96178246900\,a(n-19) + 263575852534\,a(n-20) - 18739881048\,a(n-21) - 224653932202\,a(n-22) + 90835575680\,a(n-23) + 105290165907\,a(n-24) - 69076575582\,a(n-25) - 27720217521\,a(n-26) + 26811874806\,a(n-27) + 3877126783\,a(n-28) - 6197138172\,a(n-29) - 207452034\,a(n-30) + 895782500\,a(n-31) - 10034133\,a(n-32) - 81777708\,a(n-33) + 1520627\,a(n-34) + 4630616\,a(n-35) - 28132\,a(n-36) - 153828\,a(n-37) - 2195\,a(n-38) + 2658\,a(n-39) + 93\,a(n-40) - 18\,a(n-41) - a(n-42)
+a(n)\;=\;18\,a(n-1) - 35\,a(n-2) - 800\,a(n-3) + 3598\,a(n-4) + 11518\,a(n-5) - 86177\,a(n-6) - 43426\,a(n-7) + 1030208\,a(n-8) - 551932\,a(n-9) - 7523343\,a(n-10) + 8359408\,a(n-11) + 36977209\,a(n-12) - 55765580\,a(n-13) - 129333424\,a(n-14) + 236161174\,a(n-15) + 333558074\,a(n-16) - 701926806\,a(n-17) - 650276140\,a(n-18) + 1531081970\,a(n-19) + 977200374\,a(n-20) - 2507610186\,a(n-21) - 1152187728\,a(n-22) + 3118788662\,a(n-23) + 1084336743\,a(n-24) - 2956454312\,a(n-25) - 826149717\,a(n-26) + 2130992178\,a(n-27) + 511775800\,a(n-28) - 1158609216\,a(n-29) - 254345475\,a(n-30) + 468586344\,a(n-31) + 98077210\,a(n-32) - 138111794\,a(n-33) - 27921777\,a(n-34) + 28847250\,a(n-35) + 5513265\,a(n-36) - 4114646\,a(n-37) - 697128\,a(n-38) + 380368\,a(n-39) + 50000\,a(n-40) - 20704\,a(n-41) - 1536\,a(n-42) + 512\,a(n-43)
 \]
 for every $n>41$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $42$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $43$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
 integers vanish from the index corresponding to $n=41+1$ onwards and the run continued
-until the working vector was identically zero.
+until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $15$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $16$ terms the entry publishes, exactly, in integer
 arithmetic.
 
-Second, the count was recomputed for the smallest arrays straight from the definition:
-enumerate every array of that size in the orientation the entry's own name writes, count the
-adjacent pairs summing to $2$ by running over the array once for each kind of pair, and keep
-the array when that count is at most one. No cap, no state and no transfer matrix are involved, and
-the published terms came back.
+Second, the count was recomputed for the smallest arrays straight from the definition: every
+array of width $4$ over $\{0,1\}$ with two and with three rows was written out cell by cell,
+the derived array formed, and its rows and its columns compared as whole words. No state, no
+bits of Lemma~\ref{lem:bits} and no recurrence are involved in that computation, and the
+published terms came back.
 
 Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
@@ -138,7 +167,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A268749.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A235512.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge

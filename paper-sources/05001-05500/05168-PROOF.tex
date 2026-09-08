@@ -12,47 +12,45 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{An element and the cells around it: OEIS A208431}
+\title{The empirical recurrence for OEIS A189201, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{7 September 2026}
+\date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A208431 carries an empirical recurrence of order $41$ contributed by R.~H.~Hardin. It is
-true, and it is decidable rather than empirical. The entry's condition is decided by a bounded amount of state carried down the array; the
-admissible windows are the vertices of a finite digraph and the arrays counted are exactly the
-walks in it. Hence $a(n)$ is a walk count on $S=172$ vertices and is $C$-finite, and whether the
-conjectured recurrence annihilates it is settled by a finite exact computation, with the
-Cayley--Hamilton theorem bounding the work.
+OEIS A189201 carries an empirical recurrence of order $41$ contributed by R.~H.~Hardin. It is
+true, and it is decidable rather than empirical. The entry's condition is local to a bounded window of consecutive lines, so
+the admissible configurations of such a window are the vertices of a finite digraph and the
+arrays counted are exactly the walks in it; hence $a(n)$ is a walk count on $S=65536$ vertices
+and is $C$-finite. Whether the conjectured recurrence annihilates it is then settled by a
+finite exact computation, with the Cayley--Hamilton theorem bounding the work.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
 \section{The conjecture}
 
-OEIS A208431 is ``Number of nX5 0..2 arrays with new values 0..2 introduced in row major order and no element equal to any knight-move neighbor (colorings ignoring permutations of colors).''. It has offset $1$ and begins
+OEIS A189201 is ``Number of 8Xn binary arrays without the pattern 0 0 1 vertically or antidiagonally.''. It has offset $1$ and begins
 \[
-41, 864, 1123, 6416, 50507, 365195, 2623167, 19281232,\ \dots
+88, 7744, 455376, 25421672, 1372985912, 73539558380, 3925306136096, 209311662962608,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 8*a(n-1) +17*a(n-2) -201*a(n-3) +448*a(n-4) -1627*a(n-5) +1693*a(n-6) +22432*a(n-7) -60066*a(n-8) +45696*a(n-9) +32264*a(n-10) -697137*a(n-11) +1671442*a(n-12) -378862*a(n-13) -2203329*a(n-14) +8634970*a(n-15) -17270425*a(n-16) +2222078*a(n-17) +16804877*a(n-18) -40251356*a(n-19) +104103432*a(n-20) -64341121*a(n-21) -37339570*a(n-22) +110797160*a(n-23) -350390806*a(n-24) +352758000*a(n-25) -4026468*a(n-26) -221511112*a(n-27) +581590756*a(n-28) -647331256*a(n-29) +39507416*a(n-30) +335397720*a(n-31) -417266928*a(n-32) +342507344*a(n-33) +68614176*a(n-34) -240816608*a(n-35) +52389024*a(n-36) +43953792*a(n-37) -21497088*a(n-38) +4329216*a(n-39) +746496*a(n-40) -746496*a(n-41) for n>45
+Empirical: a(n) = 88*a(n-1) -2026*a(n-2) +3440*a(n-3) +398024*a(n-4) -4372260*a(n-5) +1662056*a(n-6) +229365552*a(n-7) -1244207140*a(n-8) -3287450640*a(n-9) +66303169320*a(n-10) -269619866448*a(n-11) -20716498800*a(n-12) +3112092680256*a(n-13) -6535480153936*a(n-14) -7661455708576*a(n-15) +40112226193344*a(n-16) -24807334784832*a(n-17) -76731061646720*a(n-18) +158356706608640*a(n-19) -50189552815744*a(n-20) -244506307989760*a(n-21) +288216118457600*a(n-22) -29833514304512*a(n-23) +80794912975360*a(n-24) -13804549521408*a(n-25) -380176960995328*a(n-26) +1693040995549184*a(n-27) -3430504071266304*a(n-28) -2105843944267776*a(n-29) +10231173188296704*a(n-30) -2203984954540032*a(n-31) -11231589378785280*a(n-32) +6937259490410496*a(n-33) +3935367177830400*a(n-34) -4614787858169856*a(n-35) +828100528046080*a(n-36) +243871304908800*a(n-37) +64184423284736*a(n-38) -108500453687296*a(n-39) +29225708945408*a(n-40) -2452157890560*a(n-41)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 14:51:36, revision 9) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 05:06:01, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{The count is a walk count}
 
-The entry counts arrays with $5$ columns over the alphabet $\{0,1,2\}$, growing one row at a time, and asks that no element may equal any of the eight cells a knight's move away.
-
-The furthest that condition reaches is $2$ rows, so a window of $5$ consecutive rows decides it for the row in the middle. Carry $4$ rows as the state; a row is judged when the row $2$ beyond it arrives, and the last $2$ rows --- the ones with nothing far enough beyond them --- are judged by the end vector. A neighbour off the edge of the array is not a neighbour, which is what the entry means and what keeps the first few terms small.
-
-The entry also asks that new values be introduced in row major order. That is not a condition on any window --- whether a value may appear here depends on the whole prefix --- but it enters through a single integer, how many values have been introduced so far, and the effect is that each array is counted once for the whole class of arrays differing from it only by renaming the values.
-
-Merging vertices with identical futures leaves $S=172$. An admissible array is exactly a walk, so with $M$ the adjacency matrix and $\iota,\tau$ the vectors recording which states may begin and end an array,
+The condition the entry imposes is local: it constrains a bounded window of consecutive lines and nothing beyond. Take as
+vertices the admissible configurations of one such window and put an edge from $u$ to $v$
+whenever $v$ may follow $u$, which the condition decides by inspection of the two. An
+admissible array is then exactly a walk, so with $M$ the adjacency matrix on $S=65536$ vertices
+and $\iota,\tau$ the vectors recording which windows may begin and end an array,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau ,
+a(n)\;=\;\iota^{\!\top}M^{\,n}\tau ,
 \]
 the exponent fixed by the entry's own shape and checked against its published terms. In
 particular $a$ is $C$-finite.
@@ -72,46 +70,40 @@ Factor $M^{j}$ out of $M^{j+41}-\sum_ic_iM^{j+41-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly. A constant factor in front of $a$ divides out of the residual and
-changes nothing here.
+pins the threshold exactly.
 \end{proof}
 
 \begin{theorem}
 \[
-a(n)\;=\;8\,a(n-1) + 17\,a(n-2) - 201\,a(n-3) + 448\,a(n-4) - 1627\,a(n-5) + 1693\,a(n-6) + 22432\,a(n-7) - 60066\,a(n-8) + 45696\,a(n-9) + 32264\,a(n-10) - 697137\,a(n-11) + 1671442\,a(n-12) - 378862\,a(n-13) - 2203329\,a(n-14) + 8634970\,a(n-15) - 17270425\,a(n-16) + 2222078\,a(n-17) + 16804877\,a(n-18) - 40251356\,a(n-19) + 104103432\,a(n-20) - 64341121\,a(n-21) - 37339570\,a(n-22) + 110797160\,a(n-23) - 350390806\,a(n-24) + 352758000\,a(n-25) - 4026468\,a(n-26) - 221511112\,a(n-27) + 581590756\,a(n-28) - 647331256\,a(n-29) + 39507416\,a(n-30) + 335397720\,a(n-31) - 417266928\,a(n-32) + 342507344\,a(n-33) + 68614176\,a(n-34) - 240816608\,a(n-35) + 52389024\,a(n-36) + 43953792\,a(n-37) - 21497088\,a(n-38) + 4329216\,a(n-39) + 746496\,a(n-40) - 746496\,a(n-41)
+a(n)\;=\;88\,a(n-1) - 2026\,a(n-2) + 3440\,a(n-3) + 398024\,a(n-4) - 4372260\,a(n-5) + 1662056\,a(n-6) + 229365552\,a(n-7) - 1244207140\,a(n-8) - 3287450640\,a(n-9) + 66303169320\,a(n-10) - 269619866448\,a(n-11) - 20716498800\,a(n-12) + 3112092680256\,a(n-13) - 6535480153936\,a(n-14) - 7661455708576\,a(n-15) + 40112226193344\,a(n-16) - 24807334784832\,a(n-17) - 76731061646720\,a(n-18) + 158356706608640\,a(n-19) - 50189552815744\,a(n-20) - 244506307989760\,a(n-21) + 288216118457600\,a(n-22) - 29833514304512\,a(n-23) + 80794912975360\,a(n-24) - 13804549521408\,a(n-25) - 380176960995328\,a(n-26) + 1693040995549184\,a(n-27) - 3430504071266304\,a(n-28) - 2105843944267776\,a(n-29) + 10231173188296704\,a(n-30) - 2203984954540032\,a(n-31) - 11231589378785280\,a(n-32) + 6937259490410496\,a(n-33) + 3935367177830400\,a(n-34) - 4614787858169856\,a(n-35) + 828100528046080\,a(n-36) + 243871304908800\,a(n-37) + 64184423284736\,a(n-38) - 108500453687296\,a(n-39) + 29225708945408\,a(n-40) - 2452157890560\,a(n-41)
 \]
-for every $n>45$.
+for every $n>42$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $41$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=45+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=42+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
-Four checks, each independent of the algebra above.
+Three checks, each independent of the algebra above.
 
-First, the model reproduces all $19$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $13$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
-Second, the reading was pinned before the digraph was written, by a program that enumerates
-every array of the given shape one by one and tests the entry's condition at each cell
-directly. That program shares no code with the transfer matrix, so an error in one does not
-hide an error in the other.
-
-Third, the conjectured recurrence was evaluated directly on the published terms, with no
+Second, the conjectured recurrence was evaluated directly on those published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
 
-Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
 arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A208431.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A189201.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

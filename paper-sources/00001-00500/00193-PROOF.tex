@@ -12,195 +12,147 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{Every term of OEIS A395833 after the second is divisible by $3$}
+\title{A bisection identity between OEIS A111403 and OEIS A002716}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A395833 is defined by the vanishing condition
-$\bigl[x^{n}\bigr]A\bigl(x/A(x)^{2n-1}\bigr)=0$ for $n>1$, and carries a conjecture of
-P.~D.~Hanna that $a(n)\equiv0\pmod3$ for $n\ge2$. It is true, and the proof reduces the
-whole statement to a single divisibility of binomial coefficients. The condition determines
-the coefficients one at a time, with $a(n)$ entering with coefficient $1$, so it determines
-them modulo $3$; and modulo $3$ the \emph{polynomial} $1+x$ satisfies the condition,
-because substituting it turns the $n$-th condition into
-$(-1)^{n-1}\binom{3n-3}{n-1}\equiv0\pmod3$, which Legendre's formula gives outright:
-$v_3\bigl(\binom{3m}{m}\bigr)=\tfrac12 s_3(2m)\ge1$ for every $m\ge1$. Uniqueness then
-forces $A(x)\equiv1+x$, which is the conjecture. The entry's other conjecture, that $2n-1$
-divides $a(n)$, is \emph{not} settled here.
+OEIS A111403 carries a conjecture of R.~J.~Mathar that its $n$-th term is one less than
+the $(2n)$-th term of OEIS A002716, Somos's infinite coprime sequence. It is true. The
+recurrence A002716 states as fact splits into two closed forms, one for each parity of the
+index, and a short induction proves both at once: the odd-indexed terms are exactly the
+Fermat numbers $2^{2^{n+1}}+1$, and the even-indexed terms are $2^{2^{n+1}}-2^{2^{n}}+1$,
+which is one more than the defining expression for A111403.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 11B50, 11B65, 05A15.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 11B37, 11B83, 11A41.\normalsize
 
-\section{The sequence and the conjecture}
+\section{The two sequences and the conjecture}
 
-OEIS A395833 is ``G.f. A(x) satisfies [x\^{}n] A( x/A(x)\^{}(2*n-1) ) = 0 for n > 1.''. It has offset $0$ and begins
+OEIS A111403 is ``a(n) = f(f(n+1)) - f(f(n)), where f(m) = 2\^{}m.''. It has offset $0$ and begins
 \[
-1, 1, 3, 30, 567, 16452, 663894, 35188218,\ \dots
+2, 12, 240, 65280, 4294901760, 18446744069414584320, 340282366920938463444927863358058659840,\ \dots
 \]
-The entry gives the expansion
+OEIS A002716 is ``An infinite coprime sequence defined by recursion.''. It has offset $0$ and begins
+\[
+3, 5, 13, 17, 241, 257, 65281, 65537,\ \dots
+\]
+
+The entry A111403 carries the following comment:
 \begin{quote}\small
-G.f.: A(x) = 1 + x + 3*x\^{}2 + 30*x\^{}3 + 567*x\^{}4 + 16452*x\^{}5 + 663894*x\^{}6 + \dots
+Conjecture: a(n) = A002716(2*n)-1. --- \emph{R. J. Mathar}, May 15 2007
 \end{quote}
-so, writing $A(x)=\sum_{n\ge0}a(n)x^{n}$, the entry fixes
-\begin{equation}\label{eq:init}
-a(0)=1,\qquad a(1)=1,
-\end{equation}
-and defines the remaining coefficients by
-\begin{equation}\label{eq:fe}
-\bigl[x^{n}\bigr]\,A\!\left(\frac{x}{A(x)^{2n-1}}\right)\;=\;0
-\qquad\text{for } n>1 .
-\end{equation}
-Since $a(0)=1$, the series $A$ is invertible and $A^{-(2n-1)}$ is a well-defined element of
-$\mathbb{Z}[[x]]$, so the composition in \eqref{eq:fe} makes sense: the inner series
-$x\,A(x)^{-(2n-1)}$ has zero constant term. This is the only input taken from the entry.
+As of the ``Last modified'' line on the live entry (Oct 06 2024 09:17:07, revision 29) the
+statement is still recorded as unproved, and nothing on either entry records it as settled
+either way. (A002716 carries a separate conjecture of the same contributor, on its odd-indexed terms; it is not the statement treated here, and it is not used below.)
 
-The entry separately carries the following comment:
+Write $f(m)=2^{m}$. The name of A111403 defines
+\begin{equation}\label{eq:a}
+a(n)\;=\;f\bigl(f(n+1)\bigr)-f\bigl(f(n)\bigr)\;=\;2^{2^{n+1}}-2^{2^{n}},
+\end{equation}
+and the statement to be proved is
+\begin{equation}\label{eq:conj}
+a(n)\;=\;b(2n)-1\qquad\text{for all } n\ge0,
+\end{equation}
+where $b$ is A002716.
+
+\section{What A002716 states as fact}
+
+A002716 states, not as a conjecture,
 \begin{quote}\small
-Conjecture: a(n) == 0 (mod 3) for n >= 2. --- \emph{Paul D. Hanna}
+a(2*n + 1) = a(2*n) + a(2*n - 1) - 1, a(2*n) = a(2*n - 1)\^{}2 - 3 * a(2*n - 1) + 3,
+a(0) = 3, a(1) = 5.
 \end{quote}
-As of the ``Last modified'' line on the live entry (May 09 2026 00:29:02, revision 7) the statement is
-still recorded as a conjecture, and nothing on the entry records it as settled either way.
-The entry carries a second conjecture of the same contributor, that $2n-1$ divides $a(n)$
-for $n\ge1$. It is not proved below and it is not claimed.
+that is, with $b$ for the sequence,
+\begin{equation}\label{eq:rec}
+b(0)=3,\quad b(1)=5,\qquad
+b(2n)=b(2n-1)^{2}-3\,b(2n-1)+3,\qquad
+b(2n+1)=b(2n)+b(2n-1)-1
+\end{equation}
+for $n\ge1$. This determines $b$ completely, and it is the only input taken from that
+entry; it was checked against all $13$ of its published terms before use.
 
-\section{The condition determines the sequence}
+\section{The proof}
 
-\begin{lemma}\label{lem:unique}
-Given \eqref{eq:init}, there is exactly one sequence of integers $a(2),a(3),\dots$
-satisfying \eqref{eq:fe}, and for each $N\ge2$ the condition at $n=N$ has the form
-$a(N)=(\text{a polynomial with integer coefficients in }a(0),\dots,a(N-1))$.
+\begin{lemma}\label{lem:cf}
+For every $n\ge0$,
+\[
+b(2n+1)\;=\;2^{2^{n+1}}+1 ,
+\]
+and for every $n\ge1$,
+\[
+b(2n)\;=\;2^{2^{n+1}}-2^{2^{n}}+1 .
+\]
 \end{lemma}
 
 \begin{proof}
-Fix $N\ge2$ and write $u=x\,A(x)^{-(2N-1)}$, so $u=x+O(x^{2})$ and
-$\bigl[x^{m}\bigr]u^{j}=0$ for $m<j$, while $\bigl[x^{j}\bigr]u^{j}=1$. Expanding,
+Induction on $n$, proving the odd-index statement and using it to get the next
+even-index one.
+
+For $n=0$ the first claim reads $b(1)=2^{2}+1=5$, which is the initial condition in
+\eqref{eq:rec}.
+
+Let $n\ge1$ and suppose $b(2n-1)=2^{2^{n}}+1$, which is the first claim at $n-1$. Write
+$u=2^{2^{n}}$, so $b(2n-1)=u+1$ and $u^{2}=2^{2^{n+1}}$. By \eqref{eq:rec},
 \[
-\bigl[x^{N}\bigr]A(u)\;=\;\sum_{j\ge0}a(j)\,\bigl[x^{N}\bigr]u^{j}
-\;=\;\sum_{j=0}^{N}a(j)\,\bigl[x^{N}\bigr]u^{j} .
+b(2n)=(u+1)^{2}-3(u+1)+3=u^{2}+2u+1-3u-3+3=u^{2}-u+1
+=2^{2^{n+1}}-2^{2^{n}}+1,
 \]
-The term $j=N$ contributes $a(N)\cdot1$. For $j<N$ the factor
-$\bigl[x^{N}\bigr]u^{j}=\bigl[x^{N-j}\bigr]A^{-j(2N-1)}$ is a polynomial in
-$a(1),\dots,a(N-j)$ with $N-j\le N-1$, and it is multiplied by $a(j)$ with $j\le N-1$; so
-no $a(N)$ occurs there. Hence the coefficient of $a(N)$ in \eqref{eq:fe} is exactly $1$,
-the condition solves for $a(N)$ over $\mathbb{Z}$, and induction from \eqref{eq:init}
-gives existence and uniqueness.
-\end{proof}
-
-\begin{corollary}\label{cor:mod}
-Let $k\ge2$. If $\bar A\in(\mathbb{Z}/k\mathbb{Z})[[x]]$ has
-$\bigl[x^{0}\bigr]\bar A=\bigl[x^{1}\bigr]\bar A=1$ and satisfies \eqref{eq:fe} with all
-coefficients read modulo $k$, then $a(n)\equiv\bigl[x^{n}\bigr]\bar A\pmod k$ for every $n$.
-\end{corollary}
-
-\begin{proof}
-Reduction modulo $k$ is a ring homomorphism and carries the recursion of
-Lemma~\ref{lem:unique} to the same recursion over $\mathbb{Z}/k\mathbb{Z}$, where the
-coefficient of $a(N)$ is still $1$ and hence invertible. (The inverse $A^{-(2N-1)}$ is
-carried to the inverse of the reduction, which exists because the constant term $1$ is a
-unit.) That recursion, started from the same two initial values, has a unique solution, and
-both $a\bmod k$ and the coefficients of $\bar A$ solve it.
-\end{proof}
-
-\section{A divisibility of binomial coefficients}
-
-For a prime $p$ let $s_p(m)$ denote the sum of the base-$p$ digits of $m$, and $v_p$ the
-$p$-adic valuation.
-
-\begin{lemma}\label{lem:val}
-$v_3\!\left(\dbinom{3m}{m}\right)=\dfrac{s_3(2m)}{2}$ for every $m\ge0$. In
-particular $3$ divides $\dbinom{3m}{m}$ for every $m\ge1$.
-\end{lemma}
-
-\begin{proof}
-Legendre's formula gives $v_3(j!)=\bigl(j-s_3(j)\bigr)/2$. Hence
+which is the second claim at $n$. Then, again by \eqref{eq:rec},
 \[
-v_3\!\left(\binom{3m}{m}\right)
-=v_3\bigl((3m)!\bigr)-v_3\bigl(m!\bigr)-v_3\bigl((2m)!\bigr)
-=\frac{\bigl(3m-s_3(3m)\bigr)-\bigl(m-s_3(m)\bigr)-\bigl(2m-s_3(2m)\bigr)}{2},
+b(2n+1)=b(2n)+b(2n-1)-1=\bigl(u^{2}-u+1\bigr)+\bigl(u+1\bigr)-1=u^{2}+1
+=2^{2^{n+1}}+1,
 \]
-which simplifies to $\bigl(s_3(m)+s_3(2m)-s_3(3m)\bigr)/2$. Multiplying by $3$ shifts the
-base-$3$ digits and appends a zero, so $s_3(3m)=s_3(m)$ and the expression collapses to
-$s_3(2m)/2$.
-
-For $m\ge1$ we have $2m\ge2$, so $s_3(2m)\ge1$; since the valuation is an integer,
-$s_3(2m)/2\ge1$, that is $3\mid\binom{3m}{m}$.
-\end{proof}
-
-\section{The reduction modulo $3$}
-
-\begin{lemma}\label{lem:sat}
-Over $\mathbb{Z}/3\mathbb{Z}$ the polynomial $\bar A(x)=1+x$ satisfies \eqref{eq:init} and
-\eqref{eq:fe}.
-\end{lemma}
-
-\begin{proof}
-Clearly $\bigl[x^{0}\bigr]\bar A=\bigl[x^{1}\bigr]\bar A=1$. Fix $n>1$ and put
-$u=x\,(1+x)^{-(2n-1)}$. Since $\bar A(u)=1+u$,
-\[
-\bigl[x^{n}\bigr]\bar A(u)\;=\;\bigl[x^{n}\bigr]u
-\;=\;\bigl[x^{\,n-1}\bigr](1+x)^{-(2n-1)} .
-\]
-By the binomial series, $\bigl[x^{m}\bigr](1+x)^{-k}=(-1)^{m}\binom{k+m-1}{m}$, so with
-$k=2n-1$ and $m=n-1$,
-\[
-\bigl[x^{n}\bigr]\bar A(u)\;=\;(-1)^{n-1}\binom{(2n-1)+(n-1)-1}{n-1}
-\;=\;(-1)^{n-1}\binom{3n-3}{n-1}
-\;=\;(-1)^{n-1}\binom{3m'}{m'},\quad m'=n-1 .
-\]
-Since $n>1$ we have $m'\ge1$, so Lemma~\ref{lem:val} makes this $\equiv0\pmod3$. Hence
-\eqref{eq:fe} holds modulo $3$.
+which is the first claim at $n$. The induction is complete.
 \end{proof}
 
 \begin{theorem}
-$a(n)\equiv0\pmod3$ for every $n\ge2$. This is the conjecture of Section~1.
+For every integer $n\ge0$, $a(n)=b(2n)-1$, where $a$ is OEIS A111403 and $b$ is OEIS
+A002716. This is the statement of Section~1.
 \end{theorem}
 
 \begin{proof}
-By Lemma~\ref{lem:sat} the polynomial $1+x$ satisfies \eqref{eq:init} and \eqref{eq:fe}
-over $\mathbb{Z}/3\mathbb{Z}$, so by Corollary~\ref{cor:mod} it is the reduction of $A$
-modulo $3$. Its coefficients are $1,1,0,0,\dots$, so $a(n)\equiv0\pmod3$ for every $n\ge2$.
+For $n\ge1$, Lemma~\ref{lem:cf} gives
+$b(2n)-1=2^{2^{n+1}}-2^{2^{n}}$, which is $a(n)$ by \eqref{eq:a}.
+
+For $n=0$ we have $b(0)=3$ from \eqref{eq:rec}, so $b(0)-1=2$, while \eqref{eq:a} gives
+$a(0)=2^{2}-2^{1}=2$. The two agree.
 \end{proof}
 
-\begin{remark}
-The proof is short because the reduction is a polynomial rather than an infinite series:
-the whole content is that the substitution $x\mapsto x(1+x)^{-(2n-1)}$ makes the $n$-th
-coefficient a single central-type binomial, and that binomial is always divisible by $3$.
-The same computation modulo $2$ gives $\binom{3n-3}{n-1}$ modulo $2$, which is
-\emph{not} always even --- for instance $\binom{6}{2}=15$ --- so $1+x$ is not the
-reduction modulo $2$ and the argument is specific to the prime $3$.
-\end{remark}
+\begin{corollary}
+The odd-indexed terms of A002716 are the Fermat numbers: $b(2n+1)=F_{n+1}$, where
+$F_m=2^{2^{m}}+1$.
+\end{corollary}
+
+\begin{proof}
+This is the first statement of Lemma~\ref{lem:cf}.
+\end{proof}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the recursion of Lemma~\ref{lem:unique} was run in exact rational arithmetic from
-\eqref{eq:init}, inverting $A$ by the usual convolution, and its output compared against
-the entry's DATA at every published index within reach; the values agree exactly and are
-integers. At every step the coefficient of $a(N)$ was computed rather than assumed, by
-evaluating the condition at $a(N)=0$ and at $a(N)=1$ and subtracting; it came out $1$ every
-time.
+First, \eqref{eq:a} was evaluated in exact integer arithmetic and compared against every
+one of the $8$ published terms of A111403; the values agree exactly.
 
-Second, Lemma~\ref{lem:val} was checked directly: $3\mid\binom{3m}{m}$ for every
-$m\le400$, and $v_3\bigl(\binom{3m}{m}\bigr)=s_3(2m)/2$ over the same range, together
-with the identity $s_3(3m)=s_3(m)$ used in its proof.
+Second, the recurrence \eqref{eq:rec} was iterated in exact integer arithmetic and
+compared against every one of the $13$ published terms of A002716; the values agree
+exactly. The two closed forms of Lemma~\ref{lem:cf} were then evaluated independently and
+matched against the same terms at every index of each parity.
 
-Third, the reduced condition of Lemma~\ref{lem:sat} was evaluated for every $n$ from $2$
-to $119$: the value $(-1)^{n-1}\binom{3n-3}{n-1}$ is divisible by $3$ in every case,
-with no exception.
+Third, the identity \eqref{eq:conj} was checked directly on the published terms, without
+any closed form: for every $n$ with $0\le n\le5$ --- the range for which both $a(n)$ and
+$b(2n)$ are published --- the two integers agree.
 
 \begin{thebibliography}{9}
-\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A395833.
-\bibitem{legendre} A.-M.~Legendre, \emph{Essai sur la th\'eorie des nombres}, 2nd ed.,
-Courcier, Paris, 1808.
-\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 2, Cambridge
-University Press, 1999.
+\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer Sequences},
+\url{https://oeis.org}, 2026.
 \bibitem{hw} G.~H.~Hardy and E.~M.~Wright, \emph{An Introduction to the Theory of
 Numbers}, 6th ed., Oxford University Press, 2008.
+\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
+Cambridge University Press, 2011.
 \end{thebibliography}
 
 \end{document}

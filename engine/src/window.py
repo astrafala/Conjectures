@@ -216,7 +216,7 @@ READERS = (_pairsum, _maxmin, _sumtimes, _linear, _samesum, _disjoint, _median, 
 def parse_name(nm):
     m = NAME.match(' '.join(nm.split()))
     if not m:
-        return None
+        return parse_name2(nm)
     base = int(m.group(1)) if m.group(1) else 0
     K = int(m.group(2))
     body = ' '.join(m.group(3).lower().split())
@@ -228,21 +228,116 @@ def parse_name(nm):
             w, pred = got
             if w > 8:
                 return None
-            return {'engine': 'window', 'K': K, 'base': base, 'w': w, 'pred': pred}
+            return {'engine': 'window', 'K': K, 'base': base, 'w': w, 'pred': pred,
+                    'vals': list(range(K + 1))}
+    return None
+
+
+# The same objects are named a second way, with the alphabet written as a range that may be
+# negative and the length written as a count of elements:
+#
+#   Number of 0..7 arrays x(0..n+1) of n+2 elements without any interior element greater
+#     than both neighbors or less than both neighbors.
+#   Number of -5..5 arrays of length n with each element differing from at least one
+#     neighbour by 2 or more.
+#
+# 164 entries are written like that, and the reader above sees none of them.
+NAME2 = re.compile(
+    r'^\s*Number of (-?\d+)\.\.(-?\d+) arrays?\s*'
+    r'(?:x\([^)]*\)\s*)?'
+    r'(?:of\s+)?(?:length\s+)?n(?:\s*([-+])\s*(\d+))?\s*(?:elements?)?\s*'
+    r'with(?:out)?\s+(.*?)\s*\.?\s*$', re.I)
+
+
+def _interior(body, vals):
+    m = re.match(r'any interior element (greater than both neighbors)'
+                 r'(?: or less than both neighbors)?$', body)
+    if not m:
+        return None
+    both = 'less than both' in body
+
+    def bad(v):
+        if v[1] > v[0] and v[1] > v[2]:
+            return True
+        return both and v[1] < v[0] and v[1] < v[2]
+    return 3, (lambda v: not bad(v))
+
+
+def _consec(body, vals):
+    if body != 'any two consecutive increases or two consecutive decreases':
+        return None
+
+    def ok(v):
+        if v[0] < v[1] and v[1] < v[2]:
+            return False
+        if v[0] > v[1] and v[1] > v[2]:
+            return False
+        return True
+    return 3, ok
+
+
+def _prevsum(body, vals):
+    m = re.match(r'each no smaller than the sum of its two previous neighbors modulo (\d+)$',
+                 body)
+    if not m:
+        return None
+    mod = int(m.group(1))
+    return 3, (lambda v: v[2] >= (v[0] + v[1]) % mod)
+
+
+def _threeequal(body, vals):
+    m = re.match(r'no adjacent pair equal to its immediately preceding adjacent pair'
+                 r'(?:, and new values introduced in [-\d.]+ order)?$', body)
+    if not m:
+        return None
+    return 3, (lambda v: not (v[0] == v[1] == v[2]))
+
+
+# _prevsum and _threeequal are NOT here. Both read a name whose meaning I could not pin
+# against the entry's own data: "each no smaller than the sum of its two previous neighbors
+# modulo 4" is not the sliding condition it looks like -- neither the plain reading, nor the
+# cyclic one, nor treating the second element as having its first neighbour twice reproduces
+# the published terms -- and "no adjacent pair equal to its immediately preceding adjacent
+# pair" comes with "new values introduced in 0..k order", a canonical-form clause this engine
+# does not carry. 17 entries wait on those two questions. A reader that half-works is worse
+# than none: it would settle conjectures about the wrong object.
+READERS2 = (_interior, _consec)
+
+
+def parse_name2(nm):
+    m = NAME2.match(' '.join(nm.split()))
+    if not m:
+        return None
+    lo, hi = int(m.group(1)), int(m.group(2))
+    if hi < lo or hi - lo > 12:
+        return None
+    sign, num = m.group(3), m.group(4)
+    base = (int(num) if sign == '+' else -int(num)) if num else 0
+    body = ' '.join(m.group(5).lower().split())
+    if base < 0:
+        return None
+    vals = list(range(lo, hi + 1))
+    for r in READERS2:
+        got = r(body, vals)
+        if got:
+            w, pred = got
+            return {'engine': 'window', 'K': hi - lo, 'base': base, 'w': w, 'pred': pred,
+                    'vals': vals}
     return None
 
 
 def build(p, cap=200000):
-    K, w = p['K'], p['w']
-    if (K + 1) ** (w - 1) > cap:
+    w = p['w']
+    vals = p.get('vals') or list(range(p['K'] + 1))
+    A = len(vals)
+    if A ** (w - 1) > cap:
         return None
-    A = K + 1
-    prev = list(itertools.product(range(A), repeat=w - 1))
+    prev = list(itertools.product(vals, repeat=w - 1))
     index = {s: i for i, s in enumerate(prev)}
     adj = []
     for s in prev:
         row = []
-        for t in range(A):
+        for t in vals:
             if p['pred'](s + (t,)):
                 row.append(index[s[1:] + (t,)])
         adj.append(row)

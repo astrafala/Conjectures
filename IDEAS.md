@@ -45,6 +45,9 @@ counted twice.
 | B11 | arrays constrained through their REPEATED VALUES (`repval`) | 156 | **92 of the 96 length-varying ones proved.** The other 60 fix the length and vary the alphabet: a different argument, untried |
 | B12 | length FIXED, alphabet varying -- `Number of length-5 0..n arrays with ...` | 187 | **untried.** For conditions using only =, < and >, the count is exactly a sum over ordered set partitions of C(n+1, m) and is a polynomial in n, proved rather than fitted. Conditions naming an actual difference or a modulus are not reachable that way |
 | B13 | coordination sequences Gal.u.t.v | 379 | **untried**, and the largest single unreadable family. The name alone does not give the tiling; the Galebach data would have to be read |
+| B14 | window conditions written the second way -- `Number of 0..7 arrays x(0..n+1) of n+2 elements without any interior element ...` | 164 | **17 proved**; the reader is in `window.py` as `parse_name2`. Two spellings are held back on purpose: "each no smaller than the sum of its two previous neighbors modulo k" matches neither the sliding nor the cyclic reading against published data (11 entries), and "no adjacent pair equal to its immediately preceding adjacent pair" carries a canonical-form clause the engine does not have (6). A reader that half-works settles conjectures about the wrong object |
+| B15 | `set{t,u,v in 0,1}((x[i+t]+x[j+u]+x[k+v])*(-1)^(t+u+v))` conditions | 55 | **untried**; the condition ranges over all triples of indices, so it is not a sliding window |
+| B16 | `the sum of ... of adjacent triples multiplied by some arrangement of +-1 equal to zero` | ~20 | **refused, with a reason**: whether zero is reachable depends on a set of partial sums that grows with n, so the model is not finite-state |
 
 ## C. Claim types, not name shapes
 

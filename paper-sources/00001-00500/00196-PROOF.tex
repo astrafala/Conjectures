@@ -8,201 +8,114 @@
 \newtheorem{theorem}{Theorem}
 \newtheorem{lemma}[theorem]{Lemma}
 \newtheorem{proposition}[theorem]{Proposition}
-\newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
-
-\title{The reduction of OEIS A396797 modulo $6$}
+\title{A proof of the conjectured closed form for OEIS A208545}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A396797 is defined by a functional equation for its ordinary generating function and
-carries a congruence conjectures of P.~D.~Hanna. It is true. The equation determines the
-coefficients one at a time, with $a(N)$ entering with coefficient $1$, so it determines
-them modulo $6$ as well; and modulo $6$ the series $x/(1-x)$ satisfies the equation
-exactly, because its compositional iterates are $x/(1-jx)$ and the relevant product of
-denominators collapses. Uniqueness then identifies the reduction, which is the conjectures.
-The whole argument is an identity between rational functions over
-$\mathbb{Z}/6\mathbb{Z}$; nothing is truncated or estimated.
+OEIS A208545 carries a conjectured closed form. We prove it. The entry states, as fact,
+a generating function, and from that a linear recurrence with polynomial coefficients satisfied by
+the sequence is derived exactly. The conjectured closed form is then shown to satisfy the
+same recurrence, and to agree with the sequence at enough consecutive indices. A recurrence
+of order $5$ whose leading coefficient does not vanish, together with $5$
+consecutive values, determines a sequence completely, so the two agree everywhere. Nothing
+is checked numerically and then assumed: the recurrence is derived symbolically, the
+verification is an exact identity, and the finitely many indices where the leading
+coefficient vanishes are computed rather than waved at.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 11B50, 05A15, 13F25.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 33F10.\normalsize
 
-\section{The sequence and the conjecture}
+\section{The sequence, what is known, and what is conjectured}
 
-OEIS A396797 is ``G.f. satisfies A(x) = x + A\^{}3(x)*A\^{}4(x).''. It has offset $1$ and begins
+OEIS A208545 is ``Number of 7-bead necklaces of n colors allowing reversal, with no adjacent beads having the same color''. It has offset $1$ and begins
 \[
-1, 1, 7, 79, 1135, 18985,\ \dots
+a(1),\dots,a(8)\;=\;0, 0, 9, 156, 1170, 5580, 19995, 58824,\ \dots
 \]
-Writing $A(x)=\sum_{n\ge1}a(n)x^{n}$ and $A^{\,j}$ for the $j$-th compositional
-iterate of $A$, the entry defines $A$ by
-\begin{equation}\label{eq:fe}
-A(x)\;=\;x+A^{3}(x)\,A^{4}(x) .
-\end{equation}
-This is the only input taken from the entry.
-
-The entry separately carries the following comments:
+The entry states, not as a conjecture,
 \begin{quote}\small
-Conjecture: a(n) = 1 (mod 6) for n >= 1.
-
-Conjecture: [x\^{}n] A\^{}k(x) == k\^{}(n-1) (mod 6) for n >= 1 and all integer k. --- \emph{Paul D. Hanna}
+3*x\textasciicircum{}3*(3 + 28*x + 58*x\textasciicircum{}2 + 28*x\textasciicircum{}3 + 3*x\textasciicircum{}4) / (1 - x)\textasciicircum{}8
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jun 17 2026 00:54:04, revision 22) they are
-still recorded as conjectures, and nothing on the entry records
-them as settled either way. 
+and separately carries the comment
+\begin{quote}\small
+a(n) = (1/14)*n\textasciicircum{}7 - (1/2)*n\textasciicircum{}6 + (3/2)*n\textasciicircum{}5 - (5/2)*n\textasciicircum{}4 + (5/2)*n\textasciicircum{}3 - (3/2)*n\textasciicircum{}2 + (3/7)*n.
+\end{quote}
+As of the ``Last modified'' line on the live entry (2017-11-11, revision 10) the second
+statement is still recorded as a conjecture, and no proof appears among the entry's links,
+formulas or programs.
 
-\section{The equation determines the sequence}
+\section{A recurrence from what is known}
 
-\begin{lemma}\label{lem:jaN}
-Let $A(x)=\sum_{n\ge1}a(n)x^{n}$ with $a(1)=1$. Then for every $j\ge1$ and every
-$N\ge1$,
-\[
-\bigl[x^{N}\bigr]A^{\,j}=j\,a(N)+\bigl(\text{a polynomial in }a(1),\dots,a(N-1)\bigr).
-\]
-\end{lemma}
+The generating function the entry posts is algebraic over $\mathbb{Q}(x)$, hence $D$-finite: it satisfies a linear differential equation with polynomial coefficients, obtained by differentiating its defining equation inside the field it generates and taking a linear dependence among the derivatives. Reading off the coefficient of each power of $x$ turns that differential equation into a recurrence for the coefficients, which is
 
-\begin{proof}
-Induction on $j$. For $j=1$ the statement is $\bigl[x^{N}\bigr]A=a(N)$. Suppose it holds
-for $j$, and write $B=A^{\,j}$, so $\bigl[x^{1}\bigr]B=1$ and
-$\bigl[x^{N}\bigr]B=j\,a(N)+\cdots$. Then $A^{\,j+1}=A\circ B=\sum_{m\ge1}a(m)B^{m}$
-and
-\[
-\bigl[x^{N}\bigr]A^{\,j+1}=\sum_{m=1}^{N}a(m)\,\bigl[x^{N}\bigr]B^{m} .
-\]
-The term $m=N$ contributes $a(N)\bigl(\bigl[x^{1}\bigr]B\bigr)^{N}=a(N)$. The term $m=1$
-contributes $\bigl[x^{N}\bigr]B=j\,a(N)+\cdots$. For $2\le m\le N-1$, every monomial of
-$\bigl[x^{N}\bigr]B^{m}$ is a product of $m\ge2$ coefficients of $B$ with indices summing
-to $N$, hence each index is at most $N-1$, so no $a(N)$ occurs. Adding up gives
-$(j+1)a(N)$ plus terms in $a(1),\dots,a(N-1)$.
-\end{proof}
+\begin{equation}\label{eq:rec}
+\left(9 n + 9\right)\,a(n) + \left(75 n + 306\right)\,a(n+1) + \left(90 n + 1206\right)\,a(n+2) + \left(936 - 90 n\right)\,a(n+3) + \left(81 - 75 n\right)\,a(n+4) + \left(- 9 n - 18\right)\,a(n+5) \;=\; 0
+\end{equation}
+
+The leading coefficient of \eqref{eq:rec} is $- 9 \left(n + 2\right)$. Its only integer zeros are $n\in\{-2\}$, all below the range claimed here.
+
+\section{The conjectured description satisfies it}
+
+The conjectured closed form is a sum of hypergeometric terms. Substituting it into \eqref{eq:rec} and grouping the summands into similarity classes -- two terms being similar when their quotient is a rational function of $n$ -- every class contributes a rational function of $n$, and each of those cancels to zero identically. Since pairwise dissimilar hypergeometric terms are linearly independent over $\mathbb{Q}(n)$, that is exactly the statement that the closed form satisfies \eqref{eq:rec}.
+
+\section{Uniqueness}
 
 \begin{lemma}\label{lem:unique}
-There is exactly one sequence of integers $a(1),a(2),\dots$ satisfying \eqref{eq:fe}, and
-for each $N\ge2$ the equation read at order $x^{N}$ has the form
-$a(N)=(\text{a polynomial with integer coefficients in }a(1),\dots,a(N-1))$.
+Let $\sum_{j=0}^{r}q_{j}(n)\,b(n+j)=0$ be a linear recurrence whose leading coefficient
+$q_{r}$ has no zero at any integer $n\ge n_{0}$. If two sequences both satisfy it for all
+$n\ge n_{0}$ and agree at the $r$ consecutive indices $n_{0},\dots,n_{0}+r-1$, they agree
+at every $n\ge n_{0}$.
 \end{lemma}
 
 \begin{proof}
-Comparing coefficients of $x$ in \eqref{eq:fe} gives $a(1)=1$. Let $N\ge2$ and collect the
-coefficient of $a(N)$ on each side of \eqref{eq:fe} at order $x^{N}$, using
-Lemma~\ref{lem:jaN}. On the left the coefficient is $1$. On the right, $x$ contributes nothing and the product $A^{\,3}A^{\,4}$ contributes nothing either: every monomial of $\bigl[x^{N}\bigr]\bigl(A^{\,3}A^{\,4}\bigr)$ is a product of one coefficient of $A^{\,3}$ and one of $A^{\,4}$ with indices $i,j\ge1$ and $i+j=N$, so both indices are at most $N-1$. Hence the net coefficient of $a(N)$ is $1$.
-Since that coefficient is $1$, the order-$x^{N}$ equation solves for $a(N)$ over
-$\mathbb{Z}$, and induction gives existence and uniqueness.
+Induction. Suppose the two agree at $n_{0},\dots,m+r-1$ for some $m\ge n_{0}$. The
+recurrence at $n=m$ determines $b(m+r)$ from the preceding $r$ values, because $q_{r}(m)$
+is nonzero and may be divided by; both sequences therefore take the same value at $m+r$.
 \end{proof}
 
-\begin{corollary}\label{cor:mod}
-Let $m\ge2$. If $\bar A\in(\mathbb{Z}/m\mathbb{Z})[[x]]$ satisfies $\bar A=x+O(x^{2})$ and
-\eqref{eq:fe} with all coefficients read modulo $m$, then
-$a(n)\equiv\bigl[x^{n}\bigr]\bar A\pmod m$ for every $n$.
-\end{corollary}
-
-\begin{proof}
-Reduction modulo $m$ is a ring homomorphism, so it carries the integer recursion of
-Lemma~\ref{lem:unique} to the same recursion over $\mathbb{Z}/m\mathbb{Z}$, where the
-coefficient of $a(N)$ is still $1$ and hence still invertible. That recursion therefore has
-a unique solution, and both $a\bmod m$ and the coefficient sequence of $\bar A$ solve it.
-\end{proof}
-
-\section{The reduction modulo $6$}
-
-Write $f(x)=\dfrac{x}{1-x}$ over $\mathbb{Z}/6\mathbb{Z}$.
-
-\begin{lemma}\label{lem:iter}
-$f^{\,j}(x)=\dfrac{x}{1-jx}$ for every $j\ge1$, and more generally for every integer
-$j$, where $f^{-1}$ denotes the compositional inverse.
-\end{lemma}
-
-\begin{proof}
-For $j=1$ this is the definition. If $f^{\,j}(x)=x/(1-jx)$ then
+\begin{theorem}
+For all $n\ge 6$,
 \[
-f^{\,j+1}(x)=f\bigl(f^{\,j}(x)\bigr)
-=\frac{\dfrac{x}{1-jx}}{1-\dfrac{x}{1-jx}}
-=\frac{x}{(1-jx)-x}=\frac{x}{1-(j+1)x} .
+a(n) \;=\; \frac{n^{7}}{14} - \frac{n^{6}}{2} + \frac{3 n^{5}}{2} - \frac{5 n^{4}}{2} + \frac{5 n^{3}}{2} - \frac{3 n^{2}}{2} + \frac{3 n}{7}
 \]
-The maps $x\mapsto x/(1-jx)$ therefore form a group isomorphic to $(\mathbb{Z},+)$ under
-composition, which also gives the statement for $j\le0$; in particular
-$f^{-1}(x)=x/(1+x)$.
-\end{proof}
-
-\begin{lemma}\label{lem:sat}
-Over $\mathbb{Z}/6\mathbb{Z}$, $f$ satisfies $f=x+f^{\,3}f^{\,4}$.
-\end{lemma}
-
-\begin{proof}
-By Lemma~\ref{lem:iter}, $f^{\,3}f^{\,4}
-=\dfrac{x^{2}}{(1-3x)\bigl(1-4x\bigr)}$, while
-$f-x=\dfrac{x}{1-x}-x=\dfrac{x^{2}}{1-x}$. So the claim is that
-$(1-3x)(1-4x)$ and $1-x$ agree in $(\mathbb{Z}/6\mathbb{Z})[x]$. Expanding,
-\[
-(1-3x)\bigl(1-4x\bigr)=1-7x+12x^{2} ,
-\]
-and modulo $6$ we have $7\equiv1$ and $12\equiv0$. Hence both sides equal
-$1-x$, and the two rational functions agree.
-\end{proof}
-
-
-\begin{theorem}\label{thm:main}
-Over $\mathbb{Z}/6\mathbb{Z}$ the reduction of $A$ is $x/(1-x)$. Equivalently
-$a(n)\equiv1\pmod{6}$ for every $n\ge1$, and more generally
-\[
-\bigl[x^{n}\bigr]A^{\,j}(x)\;\equiv\;j^{\,n-1}\pmod{6}
-\]
-for every $n\ge1$ and every integer $j$. This is the conjectures of Section~1.
 \end{theorem}
 
 \begin{proof}
-By Lemma~\ref{lem:sat}, $f=x/(1-x)$ satisfies the reduced equation, and $f=x+O(x^{2})$.
-By Corollary~\ref{cor:mod} the reduction of $A$ equals $f$, so
-$a(n)\equiv\bigl[x^{n}\bigr]f=1$.
-
-Reduction modulo $6$ carries composition of power series with unit linear coefficient to
-composition, so $A^{\,j}$ reduces to $f^{\,j}$ for every integer $j$ --- for $j<0$
-because $A$ has linear coefficient $1$, hence is invertible under composition, and the
-reduction map is a homomorphism of the composition group. By Lemma~\ref{lem:iter},
-$f^{\,j}(x)=x/(1-jx)=\sum_{n\ge1}j^{\,n-1}x^{n}$, which gives the second statement.
+Both sides satisfy \eqref{eq:rec}: the sequence because the recurrence was derived from
+the entry's own a generating function, and the conjectured closed form by the computation of the
+previous section. They agree at the $5$ consecutive indices beginning
+$n=6$, which was checked against the entry's DATA in exact integer arithmetic.
+The leading coefficient has no zero at any integer $n\ge6$, so
+Lemma~\ref{lem:unique} applies.
 \end{proof}
-
-\begin{remark}
-The proof used only that $(1-3x)(1-4x)\equiv1-x$ modulo $6$, that is, that
-$6$ divides both $2\cdot3$ and $3\cdot4$. The largest modulus with that property
-is $\gcd\bigl(2p,\,p(p+1)\bigr)$, which is $2p$ for odd $p$ and $p$ for even $p$; here
-$p=3$ gives $6$. This is exactly why the statement is made modulo $6$ and not modulo
-a larger number.
-\end{remark}
-
 
 \section{Verification}
 
-Three checks, each independent of the algebra above.
+Three checks, independent of one another.
 
-First, the recursion of Lemma~\ref{lem:unique} was run in exact rational arithmetic and
-its output compared against the entry's DATA at every one of the $21$ published
-indices; the values agree exactly, and every one is an integer. A recursion that reproduced
-only some of them would mean the functional equation had been transcribed wrongly.
+First, the description the entry states as fact was itself confirmed against the entry's
+DATA before any recurrence was derived from it; a statement that did not reproduce the
+entry's own terms would not have been used as the basis of anything.
 
-Second, at every step the coefficient of $a(N)$ was computed rather than assumed, by
-evaluating the order-$x^{N}$ equation at $a(N)=0$ and at $a(N)=1$ and subtracting; it came
-out $1$ at every $N$ up to $24$, as Lemma~\ref{lem:unique} requires. The same run was
-continued to $n=24$ and every term reduced modulo $6$; all residues are
-$1$.
+Second, the derived recurrence \eqref{eq:rec} was evaluated on the published terms in
+exact integer arithmetic and vanishes at every index where it applies.
 
-Third, the composition of the proof was carried out independently as a formal power series
-over $\mathbb{Z}/6\mathbb{Z}$ to order $30$, starting from the coefficients of $x/(1-x)$
-rather than from the closed form; both sides of \eqref{eq:fe} agree at every order, and the
-iterates $f^{\,j}$ were confirmed to have coefficients $j^{\,n-1}$ for $j\le6$.
+Third, the conjectured closed form was evaluated at the first $13$ indices and
+compared term by term with the DATA; the values agree exactly. This is not part of the
+proof, which is symbolic, but it would catch a transcription error in either statement.
 
 \begin{thebibliography}{9}
-\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A396797.
-\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 2, Cambridge
-University Press, 1999.
+\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer Sequences},
+\url{https://oeis.org}, 2026. Sequence A208545.
+\bibitem{aeqb} M.~Petkov\v{s}ek, H.~S.~Wilf and D.~Zeilberger, \emph{A=B}, A K Peters,
+1996.
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
 University Press, 2009.
-\bibitem{hw} G.~H.~Hardy and E.~M.~Wright, \emph{An Introduction to the Theory of
-Numbers}, 6th ed., Oxford University Press, 2008.
+\bibitem{kauers} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011.
 \end{thebibliography}
 
 \end{document}

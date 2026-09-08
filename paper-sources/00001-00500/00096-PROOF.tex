@@ -3,206 +3,214 @@
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath,amssymb,amsthm}
 \usepackage[margin=1in]{geometry}
+\usepackage{booktabs}
 \usepackage[colorlinks=true,linkcolor=blue,urlcolor=blue]{hyperref}
 \theoremstyle{plain}
 \newtheorem{theorem}{Theorem}
 \newtheorem{lemma}[theorem]{Lemma}
-\newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
-
-\title{The empirical recurrence for OEIS A211258, proved by a one-dimensional reduction}
+\newcommand{\ord}{\operatorname{ord}}
+\newcommand{\Z}{\mathbb{Z}}
+\title{Eventual periodicity modulo $m$ with period dividing $\varphi(m)$:\\a proof of Bala's conjecture on OEIS A354242}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{4 September 2026}
+\date{25 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A211258 counts symmetric $(n+1)\times(n+1)$ matrices over
-$\{-6,\dots,6\}$ in which every $2\times2$ subblock sums to zero and has three or four distinct
-entries. Both sides of the matrix grow with $n$, so there is no slice of bounded width to walk
-along. There does not need to be: the sum-zero condition is linear and solves completely, and
-its solutions are indexed by a SEQUENCE --- the diagonal of the matrix. The count becomes a walk
-on $S=70$ states, and the empirical recurrence of order $26$ contributed by R.~H.~Hardin
-follows.
+Peter Bala conjectured on OEIS A354242 that the sequence reduced modulo $k$ is eventually periodic with period dividing $\varphi(k)$. We prove it, as an instance of the general statement --- also Bala's --- that this holds for every integer sequence whose exponential generating function has the form $G(e^{x}-1)$ with $G$ an integral power series. Expanding $(e^{x}-1)^{k}$ in Stirling numbers of the second kind writes $a(n)=\sum_{k}c_{k}k!\,S(n,k)$; modulo $m$ every term with $k\ge m$ dies because $m\mid k!$, leaving a fixed finite sum, which inclusion--exclusion turns into an integer combination of the sequences $n\mapsto j^{n}$, each eventually periodic modulo $m$ with period dividing $\varphi(m)$. The identification of $G$ for this entry is carried out in Section~3.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 15B36, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 11B50, 11B73, 05A15, 11A07.\normalsize
 
-\section{The conjecture}
+\section{The sequence and the conjecture}
 
-OEIS A211258 is ``Number of (n+1)X(n+1) -6..6 symmetric matrices with every 2X2 subblock having sum zero and three or four distinct values.''. It has offset $1$ and begins
+Throughout, $m$ and $k$ denote positive integers, $\varphi$ is Euler's totient function
+(OEIS A000010), and $S(n,k)$ are the Stirling numbers of the second kind, with
+$S(0,0)=1$ and $S(n,k)=0$ for $k>n$. We write $0^{0}=1$, and throughout
 \[
-64, 322, 1602, 7994, 39770, 197618, 980042, 4851354,\ \dots
+y := e^{x}-1, \qquad\text{so that}\qquad e^{x}=1+y .
 \]
-The entry states, as a conjecture contributed by its author and never marked settled:
-\begin{quote}
-Empirical: a(n) = 13*a(n-1) +13*a(n-2) -721*a(n-3) +779*a(n-4) +18689*a(n-5) -25301*a(n-6) -297919*a(n-7) +287578*a(n-8) +3113878*a(n-9) -880464*a(n-10) -20368976*a(n-11) -8788232*a(n-12) +71301440*a(n-13) +72542540*a(n-14) -93705748*a(n-15) -122099536*a(n-16) +82149632*a(n-17) +97618464*a(n-18) -62699504*a(n-19) -36898656*a(n-20) +34352128*a(n-21) +226560*a(n-22) -8062208*a(n-23) +3326976*a(n-24) -568320*a(n-25) +36864*a(n-26)
+
+OEIS A354242 is ``Expansion of e.g.f. 1/sqrt(5 - 4 * exp(x))''. It has offset $0$ and begins
+\[
+a(0),\dots,a(7)\;=\;1, 2, 14, 158, 2486, 50222, 1239254, 36126638,\ \dots
+\]
+and it carries the following comment:
+\begin{quote}\small
+\textbf{Conjecture:} Let k be a positive integer. The sequence obtained by reducing a(n) modulo k is eventually periodic with the period dividing phi(k) = A000010(k). For example, modulo 16 we obtain the sequence [1, 2, 14, 14, 6, 14, 6, 14, 6, ...], with an apparent period of 2 beginning at a(3). Cf. A354253.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 16:09:12, revision 8) this is still
-recorded as empirical, and nothing on the entry records it as proved.
+As of the ``Last modified'' line on the live entry (2023-11-16, revision 37) the
+statement is still recorded as a conjecture, and no proof appears among the entry's links,
+formulas or programs.
 
-\section{The sum-zero condition solved}
+Bala also states the conjecture in a general form: that the property should hold for
+every integer sequence whose exponential generating function has the shape $G(e^{x}-1)$
+with $G$ an integral power series. We prove that general statement as
+Theorem~\ref{thm:main} below, and then obtain the present entry as
+Corollary~\ref{cor:this} by identifying its $G$ in Section~\ref{sec:apply}.
 
-Let $x$ be an $N\times N$ symmetric matrix with entries in $\{-6,\dots,6\}$ such that
-\[
-x(i,j)+x(i,j{+}1)+x(i{+}1,j)+x(i{+}1,j{+}1)=0
-\]
-for every $0\le i,j\le N-2$.
+\section{The theorem}
 
-\begin{lemma}\label{lem:solve}
-Such matrices are exactly the matrices
-\[
-x(i,j)=(-1)^{i+j}\,\frac{u_i+u_j}{2},
-\qquad u_0,\dots,u_{N-1}\in\{-6,\dots,6\}\ \text{all of the same parity},
-\]
-and the sequence is recovered from the matrix by $u_i=x(i,i)$, so the correspondence is a
-bijection.
-\end{lemma}
-
-\begin{proof}
-Put $y(i,j)=(-1)^{i+j}x(i,j)$. The four entries of a $2\times2$ subblock alternate in sign
-under this substitution, so
-\[
-x(i,j)+x(i,j{+}1)+x(i{+}1,j)+x(i{+}1,j{+}1)
-=(-1)^{i+j}\bigl[y(i,j)-y(i,j{+}1)-y(i{+}1,j)+y(i{+}1,j{+}1)\bigr],
-\]
-and the condition says exactly that the mixed second difference of $y$ vanishes everywhere.
-Summing that identity over a rectangle gives
-$y(i,j)=y(i,0)+y(0,j)-y(0,0)$ for all $i,j$, which is $y(i,j)=f(i)+g(j)$ with
-$f(i)=y(i,0)-y(0,0)$ and $g(j)=y(0,j)$; conversely every such $y$ has vanishing mixed
-difference. Symmetry of $x$ gives $y(i,j)=y(j,i)$, hence $f(i)-g(i)=f(j)-g(j)$ for all $i,j$:
-the difference is a constant $c$. Writing $u_i=2\bigl(f(i)-c/2\bigr)$, which is an integer
-because $y(i,i)=x(i,i)$ is, we get $y(i,j)=(u_i+u_j)/2$ as claimed. Taking $j=i$ gives
-$u_i=y(i,i)=x(i,i)$.
-
-For the two side conditions: $u_i+u_j$ must be even for all $i,j$, which says all the $u_i$ have
-the same parity; and $|x(i,j)|=|u_i+u_j|/2\le6$ for all $i,j$ is equivalent to $|u_i|\le6$
-for each $i$, the case $j=i$ giving one direction and the triangle inequality the other.
-\end{proof}
-
-So the matrices of size $N$ correspond one for one to the sequences $u_0,\dots,u_{N-1}$ in
-$\{-6,\dots,6\}$ with all entries of one parity. What remains is to say, in terms of $u$,
-that every $2\times2$ subblock has three or four distinct entries.
-
-\begin{lemma}\label{lem:block}
-Write $\pi_i=(u_i,u_{i+1})$ for the $i$-th consecutive pair. The number of distinct entries of
-the subblock at $(i,j)$ depends only on $\pi_i$ and $\pi_j$: with $\pi_i=(\alpha,\beta)$ and
-$\pi_j=(\gamma,\delta)$ it is
-\[
-\Bigl|\Bigl\{\tfrac{\alpha+\gamma}{2},\,-\tfrac{\alpha+\delta}{2},\,
--\tfrac{\beta+\gamma}{2},\,\tfrac{\beta+\delta}{2}\Bigr\}\Bigr| .
-\]
-\end{lemma}
-
-\begin{proof}
-By Lemma~\ref{lem:solve} the four entries are $(-1)^{i+j}$ times those four numbers, in
-order. Multiplying all four by $\pm1$ does not change how many are distinct.
-\end{proof}
-
-Call two consecutive pairs COMPATIBLE when that number lies in $\{3,4\}$. The condition on the
-matrix is that $\pi_i$ and $\pi_j$ are compatible for every $i$ and $j$ --- including $i=j$,
-which asks each pair to be compatible with itself. In other words:
-
-\begin{corollary}
-The matrices counted are exactly the sequences $u$ whose set of consecutive pairs is a clique in
-the compatibility graph on the $\le 169$ pairs.
-\end{corollary}
-
-\section{A walk on the sequence}
-
-The clique condition is not local: a pair must be compatible with every pair anywhere else in
-the sequence. Carrying the set of pairs already used would be an exponential state. Carrying
-what it FORBIDS is not.
-
-\begin{lemma}\label{lem:lump}
-Let $A$ be the set of pairs compatible with every pair used so far. Then a sequence may be
-continued exactly by pairs lying in $A$, and appending a pair $\pi$ replaces $A$ by
-$A\cap N(\pi)$, where $N(\pi)$ is the set of pairs compatible with $\pi$. Hence the pair
-$(\,\text{last value of }u,\;A\,)$ carries everything the future needs.
-\end{lemma}
-
-\begin{proof}
-The condition is a conjunction of pairwise compatibilities, so the set of pairs still allowed
-after using a set $T$ is $\bigcap_{\pi\in T}N(\pi)$, which is a function of $T$ and is updated
-by intersection as $T$ grows. The next pair is $(\text{last value},w)$, so the last value is
-the only other thing a step needs.
-\end{proof}
-
-The sets $A$ that arise are intersections of neighbourhoods, of which there are far fewer than
-subsets; enumerated from the start $A_0=\{\pi:\pi\in N(\pi)\}$, the reachable states number
-$S=70$. The two parity classes never mix, so the walk starts by choosing a parity and a first
-value, and every state may end a sequence:
-\[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad \tau=\mathbf{1},\qquad S=70.
-\]
-The walk index $j$ is the size of the matrix, and it differs from the entry's own $n$ by a
-constant read off by matching the published terms rather than assumed. In particular $a$ is
-$C$-finite --- for a family in which both dimensions grow with $n$.
-
-\section{The proof}
-
-\begin{lemma}\label{lem:crit}
-Let $q(t)=t^{26}-\sum_i c_it^{26-i}$ be the characteristic polynomial of the
-conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
-$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
-holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
-and it is enough to examine $j<S$.
-\end{lemma}
-
-\begin{proof}
-Factor $M^{j}$ out of $M^{j+26}-\sum_ic_iM^{j+26-i}$. For the bound, $M^{S}$
-is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
-$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
-polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly.
-\end{proof}
-
-\begin{theorem}
-\[
-a(n)\;=\;13\,a(n-1) + 13\,a(n-2) - 721\,a(n-3) + 779\,a(n-4) + 18689\,a(n-5) - 25301\,a(n-6) - 297919\,a(n-7) + 287578\,a(n-8) + 3113878\,a(n-9) - 880464\,a(n-10) - 20368976\,a(n-11) - 8788232\,a(n-12) + 71301440\,a(n-13) + 72542540\,a(n-14) - 93705748\,a(n-15) - 122099536\,a(n-16) + 82149632\,a(n-17) + 97618464\,a(n-18) - 62699504\,a(n-19) - 36898656\,a(n-20) + 34352128\,a(n-21) + 226560\,a(n-22) - 8062208\,a(n-23) + 3326976\,a(n-24) - 568320\,a(n-25) + 36864\,a(n-26)
-\]
-for every $n>25$.
+\begin{theorem}\label{thm:main}
+Let $G(t)=\sum_{k\ge0}c_{k}t^{k}$ be a power series with integer coefficients, and define
+integers $a(n)$ by $\sum_{n\ge0}a(n)x^{n}/n!=G(e^{x}-1)$. Then for every $m\ge1$ the
+sequence $\bigl(a(n)\bmod m\bigr)_{n\ge0}$ is eventually periodic, with period dividing
+$\varphi(m)$.
 \end{theorem}
 
+The proof uses three standard facts.
+
+\begin{lemma}\label{lem:stirling}
+$(e^{x}-1)^{k}=k!\sum_{n\ge k}S(n,k)x^{n}/n!$, and hence
+$a(n)=\sum_{k=0}^{n}c_{k}\,k!\,S(n,k)$ for every $n\ge0$. In particular every $a(n)$ is an
+integer.
+\end{lemma}
+
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $26$ matrix--vector products in exact integer
-arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=25+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once.
+The first identity is the exponential generating function of the Stirling numbers of the
+second kind. Multiplying by $c_{k}$ and summing over $k$ is legitimate in $\Z[[x]]$
+because $(e^{x}-1)^{k}$ has order $k$ in $x$, so each coefficient of $x^{n}$ receives
+contributions from only finitely many $k$; comparing coefficients of $x^{n}/n!$ gives the
+formula, and the sum terminates because $S(n,k)=0$ for $k>n$.
 \end{proof}
 
-\section{Verification}
+\begin{lemma}\label{lem:power}
+$k!\,S(n,k)=\sum_{j=0}^{k}(-1)^{k-j}\binom{k}{j}j^{\,n}$ for all $n,k\ge0$.
+\end{lemma}
 
-Four checks, each independent of the algebra above.
+\begin{proof}
+Both sides count the surjections from an $n$-set onto a $k$-set: the left directly, the
+right by inclusion--exclusion over the points of the codomain that are missed. For $n=0$
+both sides equal $[k=0]$, using $0^{0}=1$.
+\end{proof}
 
-First, the model reproduces all $20$ terms the entry publishes, exactly, in integer
-arithmetic.
+\begin{lemma}\label{lem:jn}
+For integers $m\ge1$ and $j\ge0$, the sequence $\bigl(j^{\,n}\bmod m\bigr)_{n\ge0}$ is
+eventually periodic with period dividing $\varphi(m)$.
+\end{lemma}
 
-Second, the count was recomputed for the smallest matrices straight from the definition:
-symmetric matrices were written out entry by entry over $\{-6,\dots,6\}$ and each
-$2\times2$ subblock tested for summing to zero and for having three or four distinct entries. The
-sequence $u$, the sign pattern, the clique and the state play no part in that computation, and
-the published terms came back. Lemma~\ref{lem:solve} was separately checked the same way: for
-small sizes and small ranges the number of symmetric sum-zero matrices found by direct
-enumeration equals the number of admissible sequences.
+\begin{proof}
+Write $m=m_{1}m_{2}$, where $m_{1}$ is the product of those prime powers $p^{v_{p}(m)}$ of
+$m$ whose prime $p$ divides $j$, and $m_{2}=m/m_{1}$. Then $\gcd(m_{1},m_{2})=1$ and
+$\gcd(j,m_{2})=1$.
 
-Third, the conjectured recurrence was evaluated directly on the published terms, with no
-matrices involved, and holds wherever the proved range and the data overlap.
+Every prime dividing $m_{1}$ divides $j$, so $m_{1}\mid j^{\,n}$ once $n\ge\log_{2}m$;
+thus $j^{\,n}\equiv0 \pmod{m_{1}}$ for all large $n$, a sequence of eventual period $1$.
+Modulo $m_{2}$ the integer $j$ is a unit, so $j^{\,n}$ is purely periodic with period
+$\ord_{m_{2}}(j)$, a divisor of $\varphi(m_{2})$. By the Chinese remainder theorem
+$j^{\,n} \bmod m$ is eventually periodic with period dividing
+$\operatorname{lcm}(1,\ord_{m_{2}}(j))=\ord_{m_{2}}(j)$. Finally $m_{2}\mid m$ gives
+$\varphi(m_{2})\mid\varphi(m)$, so that period divides $\varphi(m)$.
+\end{proof}
 
-Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
-arithmetic on the whole vector rather than on a sampled prefix.
+\begin{proof}[Proof of Theorem~\ref{thm:main}]
+Fix $m\ge1$. Because $m\mid m!$ we have $m\mid k!$ for every $k\ge m$, so in
+Lemma~\ref{lem:stirling} every term with $k\ge m$ is divisible by $m$. Hence for $n\ge m$
+\begin{equation}\label{eq:trunc}
+a(n)\;\equiv\;\sum_{k=0}^{m-1}c_{k}\,k!\,S(n,k) \pmod m ,
+\end{equation}
+a sum whose number of terms no longer depends on $n$. This is the only place the
+hypothesis $G\in\Z[[t]]$ is used: it keeps the $c_{k}$ integral, so no denominator can
+cancel the factor $k!$ that supplies the divisibility.
+
+Substituting Lemma~\ref{lem:power} and exchanging the two finite sums,
+\begin{equation}\label{eq:expo}
+a(n)\;\equiv\;\sum_{j=0}^{m-1}w_{j}\,j^{\,n} \pmod m ,
+\qquad
+w_{j}:=\sum_{k=j}^{m-1}(-1)^{k-j}\binom{k}{j}c_{k}\in\Z ,
+\end{equation}
+for all $n\ge m$; the weights $w_{j}$ depend on $m$ and $G$ but not on $n$. By
+Lemma~\ref{lem:jn} each sequence $n\mapsto j^{\,n}\bmod m$ is eventually periodic with
+period dividing $\varphi(m)$. A finite $\Z$-linear combination of eventually periodic
+sequences is eventually periodic with period dividing the least common multiple of their
+periods, and the least common multiple of finitely many divisors of $\varphi(m)$ again
+divides $\varphi(m)$. So the right-hand side of \eqref{eq:expo}, and therefore $a(n)$, is
+eventually periodic modulo $m$ with period dividing $\varphi(m)$.
+\end{proof}
+
+\begin{remark}
+``Eventually'' cannot be dropped, and the divisor need not be $\varphi(m)$ itself.
+Equation \eqref{eq:trunc} is asserted only for $n\ge m$, and Lemma~\ref{lem:jn} adds a
+further preperiod coming from the primes shared by $j$ and $m$; meanwhile the exact period
+is the least common multiple of the orders $\ord_{m_{2}}(j)$ over those $j$ whose weight
+$w_{j}$ survives modulo $m$, which is often a proper divisor of $\varphi(m)$. Both effects
+are visible in the table of Section~\ref{sec:ver}.
+\end{remark}
+
+\section{Application to A354242}\label{sec:apply}
+
+\begin{corollary}\label{cor:this}
+The conjecture quoted in Section~1 is true: for every $m\ge1$ the sequence
+A354242$(n) \bmod m$ is eventually periodic with period dividing $\varphi(m)$.
+\end{corollary}
+
+\begin{proof}
+By Theorem~\ref{thm:main} it suffices to exhibit the entry's exponential generating
+function in the form $G(e^{x}-1)$ with $G$ integral. The entry gives both ``E.g.f.: $1/\sqrt{5-4\exp(x)}$'' and ``E.g.f.: $\sum_{k\ge0}\binom{2k}{k}(\exp(x)-1)^{k}$''. The second is already of the required shape; the first agrees with it because $5-4(1+y)=1-4y$. Therefore
+\[
+\sum_{n\ge0}a(n)\frac{x^{n}}{n!}=G(y),\qquad G(t)=\sum_{k\ge0}\binom{2k}{k}y^{k}=\frac{1}{\sqrt{1-4y}} ,
+\]
+whose coefficients are the central binomial coefficients, all integers. So $G\in\Z[[t]]$ and
+Theorem~\ref{thm:main} applies.
+\end{proof}
+
+Concretely, the first coefficients of $G$ are
+\[
+c_{0},c_{1},c_{2},\dots \;=\; 1, 2, 6, 20, 70, 252, 924, \dots ,
+\]
+and these are exactly what the inversion of Section~\ref{sec:ver} recovers from the
+entry's published terms.
+
+\section{Verification}\label{sec:ver}
+
+Every number quoted here is an output of a script written separately from this note.
+
+First, the identification of $G$ was checked against the entry rather than assumed. If
+$\sum_{n}a(n)x^{n}/n!=G(e^{x}-1)$ then substituting $x=\log(1+y)$ gives
+\[
+c_{k}=\frac{1}{k!}\sum_{n}s(k,n)\,a(n),
+\]
+with $s$ the signed Stirling numbers of the first kind. Applying this to the
+$18$ terms published on A354242 returns integers at every $k$, and the values
+agree with the coefficients of the $G$ named in Section~\ref{sec:apply}.
+
+Second, the conclusion itself was tested. From the recovered $c_{k}$ we generated
+$a(n)\bmod m$ for $n\le400$ using $a(n)=\sum_{k}c_{k}k!\,S(n,k)$ with an integer
+recurrence for $S(n,k)$ --- a computation that touches neither the generating function nor
+the published terms --- then measured the exact eventual period over the last $160$
+values. The results:
+
+\begin{center}
+\begin{tabular}{@{}lcccccccccc@{}}
+\toprule
+$m$  & $5$ & $7$ & $8$ & $9$ & $11$ & $12$ & $13$ & $16$ & $25$ & $27$\\
+$\varphi(m)$  & $4$ & $6$ & $4$ & $6$ & $10$ & $4$ & $12$ & $8$ & $20$ & $18$\\
+exact period  & $4$ & $6$ & $1$ & $6$ & $10$ & $1$ & $12$ & $2$ & $20$ & $18$\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\noindent
+In every column the exact period divides $\varphi(m)$, as Corollary~\ref{cor:this}
+asserts.
+
+\section{Relation to earlier work}
+
+A related note of Bala (\emph{Integer sequences that become periodic on reduction modulo
+$k$ for all $k$}, December 2017, linked from OEIS A047974) proves a different theorem, for
+generating functions of the shape $F(x)\exp(xG(x))$ and with the stronger conclusion
+$a(n+k)\equiv a(n)\pmod{k}$, i.e.\ pure periodicity with period dividing $k$. Neither its
+hypothesis nor its conclusion covers the statement proved here, and the argument of
+Section~2 is independent of it.
 
 \begin{thebibliography}{9}
-\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A211258.
-\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{kemeny} J.~G.~Kemeny and J.~L.~Snell, \emph{Finite Markov Chains}, Springer, 1976.
-(Lumping, Section 6.3.)
-\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
-University Press, 2013.
+\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer Sequences},
+\url{https://oeis.org}, 2026. Sequence A354242; conjecture of P.\ Bala.
+\bibitem{bala} P.\ Bala, \emph{Integer sequences that become periodic on reduction modulo
+$k$ for all $k$}, December 2017; linked from OEIS A047974.
+\bibitem{comtet} L.\ Comtet, \emph{Advanced Combinatorics}, Reidel, 1974, Chapter V.
 \end{thebibliography}
-
 \end{document}

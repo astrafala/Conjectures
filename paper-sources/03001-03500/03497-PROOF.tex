@@ -12,153 +12,136 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical column recurrences for the table OEIS A222944}
+\title{A global condition that is really a local one: OEIS A223382}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{1 September 2026}
+\date{7 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A222944 is a two-dimensional table $T(n,k)$, and it carries a block of empirical
-recurrences contributed by R.~H.~Hardin --- one for each of its first few columns. They are
-true. Column $k$ of the table is an ordinary fixed-width array count, so its rows are the
-vertices of a finite digraph and $T(n,k)$ is a number of walks in it; being a walk count the
-column is $C$-finite, and whether a given recurrence annihilates it is decided by a finite
-exact computation, with the Cayley--Hamilton theorem bounding the work. This note settles the columns $k=1, 2, 3$.
+OEIS A223382 carries an empirical recurrence of order $4$ contributed by R.~H.~Hardin. It is
+true, and it is decidable rather than empirical. The entry asks that every connected set of
+equal values lie in a straight line, which is a condition on components and so on the array as
+a whole. It is shown here to be equivalent to a condition on single pairs of adjacent rows:
+the array is admissible exactly when no cell has an equal neighbour beside it and an equal
+neighbour above or below it, and that in turn is decided one row at a time. The counted arrays
+are then the walks in a finite digraph on $S=5$ vertices, $a(n)$ is $C$-finite, and whether
+the conjectured recurrence annihilates it is a finite exact computation with Cayley--Hamilton
+bounding the work.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
-\section{The table and the conjectures}
+\section{The conjecture}
 
-OEIS A222944 is ``T(n,k) = Number of n X k 0..4 arrays with no element equal to another at a city block distance of exactly two, and new values 0..4 introduced in row major order.''. It has offset $1$, is
-read by antidiagonals, and begins
+OEIS A223382 is ``Number of n X 3 0..2 arrays with all horizontally or vertically connected equal values in a straight line, and new values 0..2 introduced in row major order.''. It has offset $1$ and begins
 \[
-1, 2, 2, 3, 7, 3, 7, 33,\ \dots
+5, 57, 777, 10830, 151962, 2136444, 30053580, 422837280,\ \dots
 \]
-The entry carries the following block:
-\begin{quote}\small
-Empirical for column k:\\
-k=1: a(n) = 7*a(n-1) -14*a(n-2) +8*a(n-3) for n > 5;\\
-k=2: a(n) = 10*a(n-1) -9*a(n-2) for n > 4;\\
-k=3: a(n) = 14*a(n-1) for n > 3;\\
-k=4: a(n) = 17*a(n-1) +136*a(n-2) -512*a(n-3) for n > 5;\\
-k=5: [order 16 for n > 18].\\
+The entry states, as a conjecture contributed by its author and never marked settled:
+\begin{quote}
+Empirical: a(n) = 19*a(n-1) - 72*a(n-2) + 34*a(n-3) + 44*a(n-4) for n>5.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 21:01:54, revision 8) these are still
-recorded as empirical, and nothing on the entry records any of them as settled.
+As of the ``Last modified'' line on the live entry (Aug 20 2018 08:50:26, revision 7) this is still
+recorded as empirical, and nothing on the entry records it as proved.
 
-\section{A column of the table is a walk count}
+\section{The condition is not global}
 
-Fix $k$. The entry defines $T(n,k)$ as the number of arrays of a shape in which one dimension
-is $n$ and the other is determined by $k$, subject to a condition imposed on every
-$2\times2$ subblock --- a condition local to two consecutive rows and two consecutive columns.
-Substituting the fixed value of $k$ into the entry's own wording turns the definition into an
-ordinary one-parameter array count, and for such a count the rows are the vertices of a finite
-digraph $G_k$: $r\to s$ is an edge exactly when placing $s$ under $r$ satisfies the condition
-in every column pair. An admissible array is then a walk, so with $M_k$ the adjacency matrix
-of $G_k$,
-\[
-T(n,k)\;=\;c_k\,\mathbf{1}^{\!\top}M_k^{\,n}\mathbf{1}
-\]
-for the constant $c_k$ that the entry's name supplies (a factor such as $\tfrac12$ or
-$\tfrac14$ where the name says so, and $1$ otherwise).
+The entry counts arrays with $3$ columns over the alphabet $\{0,1,2\}$, and asks that every set of equal values joined horizontally or vertically lie in a straight line. As stated this is a condition on connected components, and a component can run the length of the array; nothing about it is confined to a few rows. The first lemma replaces it by a condition on single cells, and the second by a condition on pairs of consecutive rows.
 
-\begin{lemma}\label{lem:crit}
-Let $q(t)=t^{r}-\sum_i c_it^{r-i}$ be the characteristic polynomial of a conjectured
-recurrence of order $r$ for column $k$. Then for every $n\ge r$,
-\[
-T(n,k)-\sum_i c_i\,T(n-i,k)\;=\;c_k\,\mathbf{1}^{\!\top}M_k^{\,n-r}q(M_k)\mathbf{1},
-\]
-so the recurrence holds from some point on if and only if
-$\mathbf{1}^{\!\top}M_k^{j}q(M_k)\mathbf{1}=0$ for every $j\ge0$; and by the
-Cayley--Hamilton theorem it is enough to check $j<S_k$, where $S_k$ is the number of vertices
-of $G_k$.
+Call two cells \emph{joined} when they are horizontally or vertically adjacent and hold the same value, and let a \emph{component} be a connected set of cells under that relation. A \emph{turn} is a cell with a joined neighbour to its left or right \emph{and} a joined neighbour above or below.
+
+\begin{lemma}\label{lem:turn}
+Every component lies in a single row or a single column if and only if the array has no turn.
 \end{lemma}
 
 \begin{proof}
-Substitute the walk expression and factor $M_k^{n-r}$ out of $M_k^{n}-\sum_ic_iM_k^{n-i}$;
-the scalar $c_k$ is nonzero. For the bound, $M_k^{S_k}$ is an integer combination of
-$I,M_k,\dots,M_k^{S_k-1}$, so each $\mathbf{1}^{\!\top}M_k^{j}q(M_k)\mathbf{1}$ with
-$j\ge S_k$ repeats that combination of earlier values.
+A turn lies in a component containing a cell to its side and a cell above or below it, so that component meets two rows and two columns and lies in neither a single row nor a single column.
+
+Conversely, suppose some component $C$ lies in no single row and no single column. $C$ is connected, so it has at least two cells and hence at least one joining edge; if every edge of $C$ were horizontal then all of $C$ would lie in one row, and if every edge were vertical it would lie in one column. So $C$ has a horizontal edge $e$ and a vertical edge $f$. Take a path of edges of $C$ from $e$ to $f$; along it the type changes somewhere, so two consecutive edges of the path have different types. Consecutive edges of a path share a cell, and that shared cell has a joined neighbour beside it and one above or below it. It is a turn.
 \end{proof}
 
-\section{The computation, column by column}
+The point of Lemma~\ref{lem:turn} is that a turn is visible in one cell and its four neighbours. That already bounds the condition, but it bounds it to three rows. It can be brought down to two.
 
-\begin{center}
-\begin{tabular}{ccccc}
-line & order & vertices $S$ & proved for & terms checked \\ \hline
-column $k$$=1$ & $3$ & $75$ & $>5$ & $9$ \\
-column $k$$=2$ & $2$ & $644$ & $>4$ & $8$ \\
-column $k$$=3$ & $1$ & $4387$ & $>3$ & $7$ \\
-\end{tabular}
-\end{center}
+For a row $r$ write $B(r)\subseteq\{1,\dots,3\}$ for the set of positions $j$ with $r_{j-1}=r_j$ or $r_j=r_{j+1}$ --- the cells of that row with a joined neighbour beside them. $B(r)$ depends on $r$ alone.
 
-In each case the vector $w=q(M_k)\mathbf{1}$ was formed by $r$ matrix--vector products in
-exact integer arithmetic and $\mathbf{1}^{\!\top}M_k^{j}w$ evaluated for $j=0,1,\dots$,
-again exactly; every one of those integers vanishes from the stated point onwards and the run
-continued until the working vector was identically zero, which settles all larger $j$ at once.
+\begin{lemma}\label{lem:pair}
+An array has no turn if and only if every pair of consecutive rows $r,s$ satisfies
+\[ r_j \neq s_j \qquad\text{for every } j \in B(r)\cup B(s). \]
+\end{lemma}
 
-\subsection*{Column $k$$=1$}
-The sequence is ``Number of n X 1 0..4 arrays with no element equal to another at a city block distance of exactly two, and new values 0..4 introduced in row major order.''. Its rows are the vertices of a digraph on
-$S=75$ vertices, edges being the admissible consecutive pairs, and the count is
-$\mathbf{1}^{\!\top}M^{n}\mathbf{1}$ up to the constant factor in the entry's name.
-The conjectured recurrence
+\begin{proof}
+A cell in row $i$ at position $j$ is a turn exactly when $j\in B(r^{(i)})$ and it equals the cell directly above or directly below it. If some pair of consecutive rows $r=r^{(i)}$, $s=r^{(i+1)}$ has $r_j=s_j$ with $j\in B(r)$, that cell of row $i$ is a turn; with $j\in B(s)$, that cell of row $i+1$ is a turn. Conversely a turn at row $i$, position $j$, has $j\in B(r^{(i)})$ and agrees with row $i-1$ or row $i+1$ at $j$, and the corresponding consecutive pair violates the displayed condition.
+\end{proof}
+
+So the array is admissible precisely when consecutive rows are compatible in the sense of Lemma~\ref{lem:pair}, and compatibility is decided by the two rows and nothing else. The state is one row. There is no window to carry, no judgement deferred to a later row, and no special treatment of the last row: a one-row array has no vertical neighbours at all and is always admissible, which is where these sequences start.
+
+The entry also asks that new values be introduced in row major order. That is not a condition on any pair of rows --- whether a value may appear here depends on the whole array so far --- but the whole prefix enters only through one integer, how many values have been introduced already, so the state is a row together with a number in $\{0,\dots,3\}$. The effect is that each array is counted once for the whole class of arrays differing from it only by renaming values, which is what the entry counts.
+
+Make those states the vertices of a digraph, with an edge from $r$ to $s$ when the pair is compatible and the counter advances legally. Merging vertices with identical futures leaves $S=5$. An admissible array is exactly a walk, so with $M$ the adjacency matrix and $\iota,\tau$ the vectors recording which states may begin and end an array,
 \[
-a(n)\;=\;7\,a(n-1) - 14\,a(n-2) + 8\,a(n-3)
+a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau ,
 \]
-holds from index $5+1$ on.
+the exponent fixed by the entry's own shape and checked against its published terms. In
+particular $a$ is $C$-finite.
 
-\subsection*{Column $k$$=2$}
-The sequence is ``Number of n X 2 0..4 arrays with no element equal to another at a city block distance of exactly two, and new values 0..4 introduced in row major order.''. Its rows are the vertices of a digraph on
-$S=644$ vertices, edges being the admissible consecutive pairs, and the count is
-$\mathbf{1}^{\!\top}M^{n}\mathbf{1}$ up to the constant factor in the entry's name.
-The conjectured recurrence
-\[
-a(n)\;=\;10\,a(n-1) - 9\,a(n-2)
-\]
-holds from index $4+1$ on.
+\section{The proof}
 
-\subsection*{Column $k$$=3$}
-The sequence is ``Number of n X 3 0..4 arrays with no element equal to another at a city block distance of exactly two, and new values 0..4 introduced in row major order.''. Its rows are the vertices of a digraph on
-$S=4387$ vertices, edges being the admissible consecutive pairs, and the count is
-$\mathbf{1}^{\!\top}M^{n}\mathbf{1}$ up to the constant factor in the entry's name.
-The conjectured recurrence
+\begin{lemma}\label{lem:crit}
+Let $q(t)=t^{4}-\sum_i c_it^{4-i}$ be the characteristic polynomial of the
+conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
+$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
+holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
+and it is enough to examine $j<S$.
+\end{lemma}
+
+\begin{proof}
+Factor $M^{j}$ out of $M^{j+4}-\sum_ic_iM^{j+4-i}$. For the bound, $M^{S}$
+is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
+$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
+polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
+pins the threshold exactly. A constant factor in front of $a$ divides out of the residual and
+changes nothing here.
+\end{proof}
+
+\begin{theorem}
 \[
-a(n)\;=\;14\,a(n-1)
+a(n)\;=\;19\,a(n-1) - 72\,a(n-2) + 34\,a(n-3) + 44\,a(n-4)
 \]
-holds from index $3+1$ on.
+for every $n>5$.
+\end{theorem}
+
+\begin{proof}
+The vector $w=q(M)\tau$ was formed by $4$ matrix--vector products in exact integer
+arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
+integers vanish from the index corresponding to $n=5+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once. The bound is exact: at $n=5$ the recurrence fails on the entry's own published terms, so no larger range holds.
+\end{proof}
 
 \section{Verification}
 
-Three checks, each independent of the algebra above.
+Four checks, each independent of the algebra above.
 
-First, each model was compared against the entry's own published values for its line, taken
-both from the antidiagonal DATA read in either orientation and from the ``Table starts''
-block, and agrees at every available term. This is what ties a model to the table:
-substituting the fixed index into the entry's wording is a reading of English, and a wrong
-reading gives a different digraph and different counts. Across the lines settled here the
-model reproduces $24$ published values, $77$ decimal digits in all, every one of
-them exactly; a misreading of the entry would have to reproduce all of them by accident.
+First, the model reproduces all $17$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry: the digraph is built by reading the
+entry's English, and a misreading gives different counts.
 
-Second, each conjectured recurrence was evaluated on those published values in exact
-integer arithmetic, with no matrices involved, and holds wherever the proved range and the
-data overlap.
+Second, the reduction of Lemmas~\ref{lem:turn} and~\ref{lem:pair} was checked against the
+thing it replaces. A separate program enumerates every array of the given shape one by one,
+finds the connected sets of equal values by an ordinary graph search, and tests whether each
+lies in a single row or a single column --- the entry's condition as written, with no
+reduction at all. Its counts agree with the model's. That program shares no code with the
+transfer matrix, so an error in one does not hide an error in the other.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
-arithmetic rather than on a sampled prefix.
+Third, the conjectured recurrence was evaluated directly on the published terms, with no
+matrices involved, and holds wherever the proved range and the data overlap.
 
-\begin{remark}
-A row of the table is a column of the transposed table: fixing $n$ and letting $k$ vary gives a
-count of arrays of fixed height, which is the same kind of object with the two dimensions
-exchanged. Both are settled here by the same argument. Only the lines the entry states
-explicitly, and for which enough published values exist to run the first check above, are
-claimed.
-\end{remark}
+Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A222944.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A223382.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

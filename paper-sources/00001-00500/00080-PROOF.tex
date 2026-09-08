@@ -13,14 +13,14 @@
 \newtheorem{remark}[theorem]{Remark}
 \newcommand{\ord}{\operatorname{ord}}
 \newcommand{\Z}{\mathbb{Z}}
-\title{Eventual periodicity modulo $m$ with period dividing $\varphi(m)$:\\a proof of Bala's conjecture on OEIS A316142}
+\title{Eventual periodicity modulo $m$ with period dividing $\varphi(m)$:\\a proof of Bala's conjecture on OEIS A064618}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{25 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-Peter Bala conjectured on OEIS A316142 that the sequence reduced modulo $k$ is eventually periodic with period dividing $\varphi(k)$. We prove it, as an instance of the general statement --- also Bala's --- that this holds for every integer sequence whose exponential generating function has the form $G(e^{x}-1)$ with $G$ an integral power series. Expanding $(e^{x}-1)^{k}$ in Stirling numbers of the second kind writes $a(n)=\sum_{k}c_{k}k!\,S(n,k)$; modulo $m$ every term with $k\ge m$ dies because $m\mid k!$, leaving a fixed finite sum, which inclusion--exclusion turns into an integer combination of the sequences $n\mapsto j^{n}$, each eventually periodic modulo $m$ with period dividing $\varphi(m)$. The identification of $G$ for this entry is carried out in Section~3.
+Peter Bala conjectured on OEIS A064618 that the sequence reduced modulo $k$ is eventually periodic with period dividing $\varphi(k)$. We prove it, as an instance of the general statement --- also Bala's --- that this holds for every integer sequence whose exponential generating function has the form $G(e^{x}-1)$ with $G$ an integral power series. Expanding $(e^{x}-1)^{k}$ in Stirling numbers of the second kind writes $a(n)=\sum_{k}c_{k}k!\,S(n,k)$; modulo $m$ every term with $k\ge m$ dies because $m\mid k!$, leaving a fixed finite sum, which inclusion--exclusion turns into an integer combination of the sequences $n\mapsto j^{n}$, each eventually periodic modulo $m$ with period dividing $\varphi(m)$. The identification of $G$ for this entry is carried out in Section~3.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 11B50, 11B73, 05A15, 11A07.\normalsize
@@ -34,15 +34,15 @@ $S(0,0)=1$ and $S(n,k)=0$ for $k>n$. We write $0^{0}=1$, and throughout
 y := e^{x}-1, \qquad\text{so that}\qquad e^{x}=1+y .
 \]
 
-OEIS A316142 is ``Expansion of e.g.f. Product\_{k>=1} (1 + (exp(x)-1)\^{}k)\^{}2''. It has offset $0$ and begins
+OEIS A064618 is ``Stirling transform of (n!)\^{}2''. It has offset $0$ and begins
 \[
-a(0),\dots,a(7)\;=\;1, 2, 8, 56, 476, 4832, 58508, 815936,\ \dots
+a(0),\dots,a(7)\;=\;1, 1, 5, 49, 821, 21121, 775205, 38516689,\ \dots
 \]
 and it carries the following comment:
 \begin{quote}\small
-\textbf{Conjecture:} Let k be a positive integer. The sequence obtained by reducing a(n) modulo k is eventually periodic with the period dividing phi(k) = A000010(k). For example, modulo 7 we obtain the sequence [1, 2, 1, 0, 0, 2, 2, 2, 1, 0, 0, 2, 2, 2, 1, 0, 0, 2, 2, ...], with a preperiod of length 1 and an apparent period thereafter of 6 = phi(7). - \emph{Peter Bala}, Mar 03 2023
+\textbf{Conjecture:} for fixed k = 1,2,..., the sequence a(n) (mod k) is eventually periodic with the exact period dividing phi(k), where phi(k) is the Euler totient function A000010. For example, modulo 10 the sequence becomes (1, 1, 5, 9, 1, 1, 5, 9, ...), with an apparent period 1, 1, 5, 9 of length 4 = phi(10) beginning at a(0). - \emph{Peter Bala}, Jan 15 2018
 \end{quote}
-As of the ``Last modified'' line on the live entry (2024-02-28, revision 22) the
+As of the ``Last modified'' line on the live entry (2022-01-14, revision 46) the
 statement is still recorded as a conjecture, and no proof appears among the entry's links,
 formulas or programs.
 
@@ -140,26 +140,26 @@ $w_{j}$ survives modulo $m$, which is often a proper divisor of $\varphi(m)$. Bo
 are visible in the table of Section~\ref{sec:ver}.
 \end{remark}
 
-\section{Application to A316142}\label{sec:apply}
+\section{Application to A064618}\label{sec:apply}
 
 \begin{corollary}\label{cor:this}
 The conjecture quoted in Section~1 is true: for every $m\ge1$ the sequence
-A316142$(n) \bmod m$ is eventually periodic with period dividing $\varphi(m)$.
+A064618$(n) \bmod m$ is eventually periodic with period dividing $\varphi(m)$.
 \end{corollary}
 
 \begin{proof}
 By Theorem~\ref{thm:main} it suffices to exhibit the entry's exponential generating
-function in the form $G(e^{x}-1)$ with $G$ integral. The entry is ``Expansion of e.g.f.\ $\prod_{k\ge1}(1+(\exp(x)-1)^{k})^{2}$''. Therefore
+function in the form $G(e^{x}-1)$ with $G$ integral. The entry is the Stirling transform of $(n!)^{2}$, and its formula line gives ``E.g.f: hypergeom$([1,1],[\,],\exp(x)-1)$''. Since ${}_{2}F_{0}(1,1;\,;t)=\sum_{k}\frac{(1)_{k}(1)_{k}}{k!}t^{k}=\sum_{k}k!\,t^{k}$, this is $G(y)$ with $G(t)=\sum_{k}k!\,t^{k}$. Therefore
 \[
-\sum_{n\ge0}a(n)\frac{x^{n}}{n!}=G(y),\qquad G(t)=\prod_{j\ge1}\bigl(1+y^{j}\bigr)^{2} ,
+\sum_{n\ge0}a(n)\frac{x^{n}}{n!}=G(y),\qquad G(t)=\sum_{k\ge0}k!\,y^{k} ,
 \]
-whose coefficients are a product of integral factors, all integers. So $G\in\Z[[t]]$ and
+whose coefficients are the factorials, all integers. So $G\in\Z[[t]]$ and
 Theorem~\ref{thm:main} applies.
 \end{proof}
 
 Concretely, the first coefficients of $G$ are
 \[
-c_{0},c_{1},c_{2},\dots \;=\; 1, 2, 3, 6, 9, 14, 22, \dots ,
+c_{0},c_{1},c_{2},\dots \;=\; 1, 1, 2, 6, 24, 120, 720, \dots ,
 \]
 and these are exactly what the inversion of Section~\ref{sec:ver} recovers from the
 entry's published terms.
@@ -174,7 +174,7 @@ $\sum_{n}a(n)x^{n}/n!=G(e^{x}-1)$ then substituting $x=\log(1+y)$ gives
 c_{k}=\frac{1}{k!}\sum_{n}s(k,n)\,a(n),
 \]
 with $s$ the signed Stirling numbers of the first kind. Applying this to the
-$20$ terms published on A316142 returns integers at every $k$, and the values
+$18$ terms published on A064618 returns integers at every $k$, and the values
 agree with the coefficients of the $G$ named in Section~\ref{sec:apply}.
 
 Second, the conclusion itself was tested. From the recovered $c_{k}$ we generated
@@ -188,7 +188,7 @@ values. The results:
 \toprule
 $m$  & $5$ & $7$ & $8$ & $9$ & $11$ & $12$ & $13$ & $16$ & $25$ & $27$\\
 $\varphi(m)$  & $4$ & $6$ & $4$ & $6$ & $10$ & $4$ & $12$ & $8$ & $20$ & $18$\\
-exact period  & $4$ & $6$ & $2$ & $6$ & $10$ & $1$ & $12$ & $2$ & $20$ & $18$\\
+exact period  & $4$ & $6$ & $2$ & $6$ & $10$ & $2$ & $12$ & $2$ & $20$ & $18$\\
 \bottomrule
 \end{tabular}
 \end{center}
@@ -208,7 +208,7 @@ Section~2 is independent of it.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer Sequences},
-\url{https://oeis.org}, 2026. Sequence A316142; conjecture of P.\ Bala.
+\url{https://oeis.org}, 2026. Sequence A064618; conjecture of P.\ Bala.
 \bibitem{bala} P.\ Bala, \emph{Integer sequences that become periodic on reduction modulo
 $k$ for all $k$}, December 2017; linked from OEIS A047974.
 \bibitem{comtet} L.\ Comtet, \emph{Advanced Combinatorics}, Reidel, 1974, Chapter V.

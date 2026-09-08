@@ -12,180 +12,149 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A214103, proved by transfer matrix}
+\title{The empirical closed form for OEIS A223774, proved}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{2 September 2026}
+\date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A214103 counts the proper colourings of a grid $4\times(n+1)$, wrapped in the growing direction, with at most $3$ colours and
-counted up to renaming the colours, and carries an empirical recurrence of order $11$
-contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical. Counting
-up to renaming is a fixed rational combination of ordinary colouring counts; each of those is
-a walk count; and because permuting the colours preserves everything in sight, the walk may be
-run on the colour-patterns rather than on the colourings, which is what brings the state count
-down to $S=98$ and makes the exact residual test affordable.
+OEIS A223774 carries an empirical closed form for $a(n)$ --- not a recurrence relating
+consecutive terms but an explicit formula. It is true, and it is decidable rather than
+empirical. The entry counts arrays subject to a condition on a bounded window of consecutive lines, so the lines of an array are the
+vertices of a finite digraph, an array is a walk in it, and $a(n)$ is a walk count on
+$S=512$ vertices. Any function of the form $\sum_j p_j(n)\lambda_j^{\,n}$ satisfies the
+monic linear recurrence whose characteristic polynomial is
+$\prod_j(x-\lambda_j)^{\deg p_j+1}$; here that polynomial is $q(x)=(x-1)^{11}$, of degree
+$11$. Two things are then checked exactly: that the walk count satisfies the same
+recurrence from some index on, which the Cayley--Hamilton theorem reduces to a finite
+computation, and that the two sequences agree at $11$ consecutive indices past that
+point. A monic recurrence determines every later term from its predecessors, so agreement
+there is agreement for good.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05C15, 05C30.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A214103 is ``Number of 0..2 colorings of a 4X(n+1) array circular in the n+1 direction with new values 0..2 introduced in row major order.''. It has offset $1$ and begins
+OEIS A223774 is ``Number of n X 5 0..1 arrays with rows and columns unimodal and antidiagonals nondecreasing.''. It has offset $1$ and begins
 \[
-27, 8, 771, 1080, 29540, 79968, 1241355, 4807928,\ \dots
+16, 101, 371, 1040, 2516, 5573, 11635, 23230,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 8*a(n-1) +26*a(n-2) -304*a(n-3) +304*a(n-4) +2016*a(n-5) -3991*a(n-6) -2616*a(n-7) +9702*a(n-8) -2064*a(n-9) -6120*a(n-10) +2880*a(n-11)
+Empirical: a(n) = (1/3628800)*n\^{}10 + (1/241920)*n\^{}9 + (1/8640)*n\^{}8 + (11/8064)*n\^{}7 + (4273/172800)*n\^{}6 + (589/11520)*n\^{}5 + (649763/362880)*n\^{}4 + (589/12096)*n\^{}3 + (102443/2400)*n\^{}2 - (16061/168)*n + 93 for n>2.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 16:51:20, revision 8) this is still
-recorded as empirical, and nothing on the entry records it as proved.
-
-\section{What is being counted}
-
-A \emph{colouring} here is proper: cells adjacent horizontally or vertically carry different
-values, and ``circular in one direction'' means the two ends of that direction are adjacent as
-well. The check that this is the right reading is the entry's own first term for the
-one-row case: a cycle of $W$ cells has $(i-1)^W+(-1)^W(i-1)$ proper colourings over $i$
-colours, which at $W=6$, $i=3$ is $66$, and $66/3!=11$ is what the corresponding entry of this
-family publishes.
-
-The clause ``new values $0..2$ introduced in row major order'' says the array is the
-canonical representative of its equality pattern, so what is counted is patterns, not arrays.
-Write $N_j$ for the number of admissible patterns using exactly $j$ colours and $L_i$ for the
-number of admissible colourings over an alphabet of $i$ colours. A colouring over $i$ colours
-is a pattern together with an injection of its colours into the alphabet, so
+As of the ``Last modified'' line on the live entry (Aug 23 2018 08:29:25, revision 7) this is still
+recorded as empirical, and nothing on the entry records it as proved. Write
 \[
-L_i\;=\;\sum_j N_j\,i(i-1)\cdots(i-j+1),
+f(n)\;=\;\frac{n^{10}}{3628800} + \frac{n^{9}}{241920} + \frac{n^{8}}{8640} + \frac{11 n^{7}}{8064} + \frac{4273 n^{6}}{172800} + \frac{589 n^{5}}{11520} + \frac{649763 n^{4}}{362880} + \frac{589 n^{3}}{12096} + \frac{102443 n^{2}}{2400} - \frac{16061 n}{168} + 93.
 \]
-a triangular system with unit diagonal, hence invertible over $\mathbf{Q}$. The entry counts
-$a=N_1+\dots+N_{3}$, so
-\[
-a\;=\;\sum_{i=1}^{3}w_i\,L_i
-\]
-for one fixed rational vector $w=\mathbf{1}^{\!\top}F^{-1}$, $F$ the matrix of falling
-factorials. Being properly coloured is a statement about equalities alone, so it is invariant
-under permuting the colours and the reduction is legitimate.
 
-\section{Each $L_i$ is a walk count}
+\section{The count is a walk count}
 
-A column of the array is a proper colouring of the path $P_{4}$ and two consecutive
-columns must differ in every one of the $4$ positions; the wrapping makes the last column
-adjacent to the first. A colouring of the array is therefore a CLOSED walk of $m=n+1$ steps
-in the digraph $T_i$ whose vertices are the proper colourings of $P_{4}$ over $i$ colours
-and whose edges join colourings differing everywhere, so
+The entry's defining condition is local: it is a condition on a bounded window of consecutive lines. Take as vertices the
+admissible configurations of such a window and put an edge from $u$ to $v$ when $v$ may
+follow $u$, which the condition decides by inspection. An admissible array is then exactly a
+walk, so with $M$ the adjacency matrix of that digraph on $S=512$ vertices, and $u,w$ the
+vectors recording which windows may start and end an array,
 \[
-L_i(n)\;=\;\operatorname{tr}\,T_i^{\,m},\qquad m=n+1.
+a(n)\;=\;u^{\!\top}M^{\,g(n)}w
 \]
-A trace is not $\iota^{\!\top}M^m\tau$ for fixed vectors, and computing it as a sum over all
-starting vertices is far too expensive. Lemma~\ref{lem:trace} replaces it by a handful of
-walks with fixed ends.
+for the linear function $g$ that the entry's shape supplies. In particular $a$ is
+$C$-finite: it satisfies some monic integer linear recurrence, though not necessarily a short
+one.
 
-\begin{lemma}\label{lem:trace}
-Let $G$ be a group acting on the vertex set of a digraph and preserving its edges, and let $M$
-be the adjacency matrix. Then $(M^m)_{ss}=(M^m)_{\sigma s,\sigma s}$ for every
-$\sigma\in G$, and hence
+\section{A closed form is a recurrence}
+
+\begin{lemma}\label{lem:ann}
+Let $f(m)=\sum_{j}p_j(m)\lambda_j^{\,m}$ with the $\lambda_j$ distinct and the $p_j$
+polynomials, and put $q(x)=\prod_j(x-\lambda_j)^{\deg p_j+1}$. Then $q$ applied to the shift
+operator annihilates $f$: writing $q(x)=x^{r}-\sum_{i=1}^{r}c_ix^{r-i}$,
 \[
-\operatorname{tr} M^m\;=\;\sum_{\text{orbits }O}|O|\;(M^m)_{s_O s_O} ,
+f(m)\;=\;\sum_{i=1}^{r}c_i\,f(m-i)\qquad\text{for every }m.
 \]
-one representative $s_O$ per orbit. For $T_i$ with $G=S_i$ permuting the colours, the orbits
-are the equality patterns and the orbit of a colouring using $j$ colours has
-$i(i-1)\cdots(i-j+1)$ members.
 \end{lemma}
 
 \begin{proof}
-$\sigma$ permutes the vertices and carries walks to walks bijectively, so the closed walks of
-length $m$ at $s$ correspond to those at $\sigma s$. Summing the diagonal over each orbit
-gives the displayed identity. Permuting colours preserves ``differ in every position'', so
-$S_i$ acts on the colourings of $P_{4}$ preserving $T_i$; two colourings lie in one orbit
-exactly when they have the same equality pattern, and a pattern using $j$ colours is realised
-in $i(i-1)\cdots(i-j+1)$ ways.
+The shift operator $E$ acts on $m\mapsto\lambda^{m}p(m)$ as
+$(E-\lambda)\bigl(\lambda^{m}p(m)\bigr)=\lambda^{m+1}\bigl(p(m+1)-p(m)\bigr)$, and
+$p(m+1)-p(m)$ has degree one less than $p$. So $(E-\lambda)^{\deg p+1}$ kills
+$\lambda^{m}p(m)$, and the factors of $q$ commute.
 \end{proof}
 
-\begin{lemma}\label{lem:lump}
-Let a group $G$ act on the vertices of a digraph preserving its edges, and let $v$ be constant
-on the $G$-orbits. Then $Mv$ is constant on the $G$-orbits, and for a representative $s$ of
-the orbit $O$,
-\[
-(Mv)(O)\;=\;\sum_{O'}A_{OO'}\,v(O'),\qquad
-A_{OO'}=\#\{t\in O':\ s\to t\} .
-\]
-So an iteration started at a $G$-invariant vector may be carried out on the orbits.
-\end{lemma}
-
-\begin{proof}
-$\sigma\in G$ is an edge-preserving bijection, so it carries the out-neighbours of $s$ onto
-those of $\sigma s$; with $v$ constant on orbits, $(Mv)(s)$ and $(Mv)(\sigma s)$ are the same
-sum. The count $A_{OO'}$ is likewise independent of which representative of $O$ is used.
-\end{proof}
-
-Both endpoint vectors above are invariant under the relevant group --- the all-ones vectors
-under all of $S_i$, and, for a diagonal entry $(T_i^m)_{ss}$, the vector $e_s$ under the
-subgroup fixing $s$ --- so the whole computation runs on orbits. That is the entire reason the
-state count is $S=98$ rather than the number of colourings.
-
-Assembling the pieces, $a(n)$ is $\iota^{\!\top}M^{\,j}\tau$ on the disjoint union of the
-orbit digraphs for $i=1,\dots,3$, with $\iota$ carrying the weights $w_i$ cleared of
-denominators; the walk index $j$ and the entry's $n$ differ by a constant, read off by
-matching the entry's published terms rather than assumed. In particular $a$ is $C$-finite.
+Here $q(x)=(x-1)^{11}$, of degree $11$; the closed form is a polynomial in $n$, so this is $(x-1)^{11}$, and the recurrence it encodes is
+\begin{equation}\label{eq:rec}
+a(n)\;=\;11\,a(n-1) - 55\,a(n-2) + 165\,a(n-3) - 330\,a(n-4) + 462\,a(n-5) - 462\,a(n-6) + 330\,a(n-7) - 165\,a(n-8) + 55\,a(n-9) - 11\,a(n-10) + a(n-11).
+\end{equation}
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{11}-\sum_i c_it^{11-i}$ be the characteristic polynomial of the
-conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
-$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
-holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
-and it is enough to examine $j<S$.
+With $q$ as above, $a$ satisfies \eqref{eq:rec} for all large $n$ if and only if
+$u^{\!\top}M^{\,j}q(M)w=0$ for every $j\ge0$, and it is enough to check $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+11}-\sum_ic_iM^{j+11-i}$. For the bound, $M^{S}$
-is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
-$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
-polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly.
+Substituting the walk expression, the residual $a(n)-\sum_ic_ia(n-i)$ equals
+$u^{\!\top}M^{\,g(n)-r}q(M)w$ up to the fixed linear reparametrisation $g$. For the bound,
+$M^{S}$ is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the values
+$u^{\!\top}M^{j}q(M)w$ satisfy the monic recurrence given by the characteristic polynomial of
+$M$; $S$ consecutive zeros therefore force all later ones, and the last nonzero value pins the
+threshold exactly.
 \end{proof}
 
 \begin{theorem}
-\[
-a(n)\;=\;8\,a(n-1) + 26\,a(n-2) - 304\,a(n-3) + 304\,a(n-4) + 2016\,a(n-5) - 3991\,a(n-6) - 2616\,a(n-7) + 9702\,a(n-8) - 2064\,a(n-9) - 6120\,a(n-10) + 2880\,a(n-11)
-\]
-for every $n>10$.
+$a(n)=f(n)$ for every $n\ge3$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $11$ matrix--vector products in exact integer
-arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=10+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once. The
-rational weights $w_i$ are cleared by a common denominator before any of this, so the whole
-computation is over the integers.
+The vector $w'=q(M)w$ was formed by $11$ matrix--vector products in exact integer
+arithmetic, and $u^{\!\top}M^{j}w'$ evaluated for $j=0,1,\dots$, again exactly. Those integers
+vanish from the point corresponding to $n=14$ onwards, and the run was continued until the
+working vector was identically zero, which settles every larger $j$ at once. So $a$ satisfies
+\eqref{eq:rec} for every $n>13$. By Lemma~\ref{lem:ann} $f$ satisfies \eqref{eq:rec}
+identically. Both were then evaluated in exact arithmetic at the $11$ consecutive indices
+$n=14,\dots,24$ and agree at each. A monic recurrence of order $11$
+determines $a(m)$ from $a(m-1),\dots,a(m-11)$, and for every $m\ge25$ both
+$m>13$ and $m-11\ge14$ hold, so induction on $m$ gives $a(m)=f(m)$ for every
+$m\ge14$.
+Below $n=14$ the recurrence argument gives nothing, since \eqref{eq:rec} is only
+established for $a$ from $n=14$ on. The remaining indices $n=3,\dots,13$ were
+therefore checked one at a time, directly against the walk count in exact integer arithmetic,
+and agree.
 \end{proof}
+
+The range is tight in the sense that was checked: at $n=2$ the closed form and the sequence differ, so no larger range is available.
 
 \section{Verification}
 
-Three checks, each independent of the algebra above.
+Four checks, each independent of the algebra above.
 
-First, the model reproduces all $20$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry: the digraph is built by reading the
-entry's English, and a misreading gives different counts.
+First, the walk model reproduces every one of the $28$ terms the entry publishes,
+exactly, in integer arithmetic. This is what ties the model to the entry: the model is built
+by reading the entry's English, and a misreading gives a different digraph and different
+counts.
 
-Second, the conjectured recurrence was evaluated directly on those published terms, with no
-matrices involved, and holds wherever the proved range and the data overlap.
+Second, the closed form was evaluated in exact rational arithmetic --- not floating point ---
+at every published term from $n=3$ on, and agrees with the entry's own DATA at each.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
-arithmetic on the whole vector rather than on a sampled prefix.
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried out exactly, and the model
+and the closed form were then compared directly at sixty consecutive indices beyond
+$n=3$, far past where the proof already settles the matter.
+
+Fourth, the closed form was deliberately perturbed --- by a constant and by a term linear in
+$n$ --- and each perturbed form was rejected by the same comparison, so the test is not one
+that anything would pass.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A214103.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A223774.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{biggs} N.~Biggs, \emph{Algebraic Graph Theory}, 2nd ed., Cambridge University
-Press, 1993. (Chromatic polynomials and transfer matrices.)
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; $C$-finite sequences,
+Section 4.1.)
+\bibitem{kp} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011.
+(Closed forms and linear recurrences with constant coefficients.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

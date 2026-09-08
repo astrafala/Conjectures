@@ -12,135 +12,108 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical closed form for OEIS A220199, proved}
+\title{Recovering the unwritten recurrences of the table OEIS A234712}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{8 September 2026}
+\date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A220199 states an explicit closed form for $a(n)$ and records it as empirical. It is true, and
-it is decidable. What the entry counts is not a set of arrays but the SIZE OF AN IMAGE: each
-admissible array is replaced by the array of minima of its cells and their diagonal, horizontal, vertical neighbours,
-and $a(n)$ counts how many different arrays come out. Two arrays with the same image count
-once, so the usual graph over arrays overcounts. Determinising a machine whose state is a pair
-of consecutive rows and whose output is the filtered array turns the count into a walk count on
-$S=410$ vertices, exact and finite. The closed form is a polynomial in $n$, so it satisfies the
-monic recurrence with characteristic polynomial $(x-1)^{30}$; that the walk count
-satisfies the same recurrence, and that the two agree on enough initial terms, are both checked
-in exact integer arithmetic, and together they prove the formula.
+OEIS A234712 is a two-dimensional table $T(n,k)$ whose empirical recurrences are, for several of
+its lines, given only as an ORDER --- ``k=2: [order 31].'' and the like --- with the
+coefficients in a linked file rather than in the entry. Those conjectures can still be settled,
+and the recurrences recovered. A line of the table is a fixed-width or fixed-height array
+count, hence a walk count on finitely many vertices, hence satisfies some monic recurrence of
+order at most that number; Berlekamp--Massey on twice as many exact terms returns the MINIMAL
+one. Where its order equals the order the entry states --- and where the same holds after the
+first few terms are dropped --- any recurrence of that order the line satisfies has a
+characteristic polynomial that is a multiple of the minimal one and of equal degree, hence is
+that polynomial. This note settles column 2.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 68Q45, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 15A18.\normalsize
 
-\section{The entry}
+\section{The table and the unwritten conjectures}
 
-OEIS A220199 is ``Number of nX3 arrays of the minimum value of corresponding elements and their horizontal, vertical or diagonal neighbors in a random, but sorted with lexicographically nondecreasing rows and nonincreasing columns, 0..3 nX3 array.''. It has offset $1$ and begins
+OEIS A234712 is ``T(n,k) is the number of (n+1) X (k+1) 0..7 arrays with every 2 X 2 subblock having its diagonal sum differing from its antidiagonal sum by 6 (constant-stress 1 X 1 tilings).''. It is read by antidiagonals and begins
 \[
-10, 36, 238, 1013, 3916, 15067, 58288, 218422,\ \dots
+322, 1730, 1730, 8738, 7154, 8738, 47306, 28170,\ \dots
 \]
-and states:
-\begin{quote}
-Empirical: a(n) = (1/552610124608731372158976000000)*n\^{}29 - (1/38111043076464232562688000000)*n\^{}28 - (43/10888869450418352160768000000)*n\^{}27 + (1013/1209874383379816906752000000)*n\^{}26 - (37/969450627708186624000000)*n\^{}25 + (59/846066002363508326400000)*n\^{}24 + (54830099/390882493091940846796800000)*n\^{}23 - (7939573/894467947578812006400000)*n\^{}22 + (5134253/22071287018178478080000)*n\^{}21 + (37966001/9196369590907699200000)*n\^{}20 - (152257814897/269760174666625843200000)*n\^{}19 + (918505603831/42593711789467238400000)*n\^{}18 - (962278931784007/2907020829631139020800000)*n\^{}17 - (1930456964404139/342002450544839884800000)*n\^{}16 + (43256823284606443/97714985869954252800000)*n\^{}15 - (33779034291676489/2961060177877401600000)*n\^{}14 + (990119936607349039/7098951964911206400000)*n\^{}13 + (8261472616915478693/21296855894733619200000)*n\^{}12 - (14609050016004250375909/289685642113592524800000)*n\^{}11 + (606095725965810479424827/579371284227185049600000)*n\^{}10 - (6894383399300066098456333/569025368437413888000000)*n\^{}9 + (3094992352284156140975351/42150027291660288000000)*n\^{}8 + (7175705615099463540165439/60590664231761664000000)*n\^{}7 - (204006830067393368414683721/26929184103005184000000)*n\^{}6 + (51776746394532001962514261613/612638938343367936000000)*n\^{}5 - (1063830518327474508898879/1954191190887936000)*n\^{}4 + (31834015971911914244845247/14586641389127808000)*n\^{}3 - (480939292908953611199/96472495959840)*n\^{}2 + (10194642893164011521/2329089562800)*n + 2343378 for n>10
+The entry carries, among its empirical claims:
+\begin{quote}\small
+k=2: [order 31].
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 18:33:56, revision 8)
-this is still recorded as empirical, and it is still open.
+As of the ``Last modified'' line on the live entry (Jun 20 2022 21:23:22, revision 9) these are still
+recorded as empirical, and the recurrences themselves are not in the entry text.
 
-\section{What is being counted}
+\section{Why a line of the table is a walk count}
 
-Fix the width $W=3$ and the value range $0..3$. The underlying arrays are the
-$n\times3$ arrays over that range whose rows are lexicographically nondecreasing read downwards
-and whose columns are lexicographically nonincreasing read left to right. Each such array $g$
-is mapped to $F(g)$, the array whose $(i,j)$ entry is the minimum of $g(i,j)$ and the entries
-of its diagonal, horizontal, vertical neighbours that lie inside the array. The entry counts
-\[
-a(n)\;=\;\bigl|\{\,F(g)\;:\;g\text{ admissible with }n\text{ rows}\,\}\bigr|,
-\]
-the number of DISTINCT images --- not the number of admissible $g$. This is what makes the
-problem different in kind from a walk count: two admissible arrays can have the same image, and
-the graph whose walks are the arrays would count such a pair twice.
+Fix the index that the line fixes. The entry defines $T(n,k)$ as a number of arrays of a shape
+determined by $n$ and $k$, subject to a condition local to a bounded window of consecutive
+lines. Substituting the fixed index into the entry's own wording turns the definition into an
+ordinary one-parameter array count, and for such a count the admissible windows are the
+vertices of a finite digraph and an array is a walk. So the line is a walk count on $S$
+vertices, and by the Cayley--Hamilton theorem it satisfies a monic integer recurrence of order
+at most $S$.
 
-\section{Two constraints, both made local}
+\section{Recovering the recurrences}
 
-\begin{lemma}\label{lem:local}
-Whether a sequence of rows is admissible is decided by the previous row together with
-$2$ bits.
+\begin{lemma}\label{lem:bm}
+A sequence known to satisfy some linear recurrence of order at most $S$ is determined, with its
+minimal recurrence, by its first $2S$ terms; Berlekamp--Massey applied to them returns that
+minimal recurrence exactly.
 \end{lemma}
 
-\begin{proof}
-The row order compares consecutive rows and needs only the previous one. The column order
-compares whole columns read downwards, left to right, which is not a condition on consecutive
-rows --- but for each of the $2$ adjacent column pairs there are only two possibilities:
-either the two columns agree in every row read so far, or they first differed at some earlier
-row, and there the required inequality was already decided and no later row can affect it. One
-bit per adjacent pair records which, and a new row is admissible exactly when, for every pair
-still agreeing, its two entries either agree again or differ in the permitted direction.
-\end{proof}
-
-\begin{lemma}\label{lem:det}
-$a(n)$ is a walk count: there are a matrix $M$ with non-negative integer entries on $S=410$
-vertices and vectors $\iota,\tau$ with $a(n)=\iota^{\!\top}M^{\,n-2}\tau$ for $n\ge2$.
-\end{lemma}
-
-\begin{proof}
-Row $i$ of $F(g)$ depends only on rows $i-1$, $i$ and $i+1$ of $g$, so a machine reading $g$ a
-row at a time, holding the last two rows and the $2$ bits of Lemma~\ref{lem:local}, can
-emit $F(g)$ one row at a time. It is nondeterministic --- several continuations may emit the
-same row --- and the images of $g$ are exactly the words it can emit. Determinising it gives a
-machine in which each emitted row leads to exactly one state, so distinct words of length $n$
-correspond to distinct paths, and counting them is counting walks. The reachable determinised
-states number $S=410$. The last filtered row is emitted with no row below it, so it is not a
-step of the walk but a count attached to the state the walk stops in; that is $\tau$.
-\end{proof}
-
-\section{The closed form}
-
-The entry's formula is a polynomial in $n$. Any polynomial of degree $m$ satisfies the monic
-recurrence whose characteristic polynomial is $(x-1)^{m+1}$, here
+\subsection*{Column $k=2$}
+Substituting the fixed index into the entry's wording gives an ordinary one-parameter array
+count, a walk on $S=512$ vertices. Berlekamp--Massey on $2S=1024$ exact terms
+returns a minimal recurrence of order $31$ --- the order the entry states --- with
+integer coefficients
 \[
-q(x)=(x-1)^{30},\qquad\text{that is}\qquad a(n)=30\,a(n-1) - 435\,a(n-2) + 4060\,a(n-3) - 27405\,a(n-4) + 142506\,a(n-5) - 593775\,a(n-6) + 2035800\,a(n-7) - 5852925\,a(n-8) + 14307150\,a(n-9) - 30045015\,a(n-10) + 54627300\,a(n-11) - 86493225\,a(n-12) + 119759850\,a(n-13) - 145422675\,a(n-14) + 155117520\,a(n-15) - 145422675\,a(n-16) + 119759850\,a(n-17) - 86493225\,a(n-18) + 54627300\,a(n-19) - 30045015\,a(n-20) + 14307150\,a(n-21) - 5852925\,a(n-22) + 2035800\,a(n-23) - 593775\,a(n-24) + 142506\,a(n-25) - 27405\,a(n-26) + 4060\,a(n-27) - 435\,a(n-28) + 30\,a(n-29) - a(n-30).
+(c_1,\dots,c_{31})=(12,\ 159,\ -2412,\ -9452,\ 217248,\ 161262,\ -11578680,\ 10718427,\ 405901116,\ -824307633,\ -9828766476,\ 28650887914,\ 167599827384,\ -632763934044,\ -2003077953360,\ 9664372451624,\ 16138030431072,\ -105143721192576,\ -76625123046912,\ 819575849887488,\ 75093856109568,\ -4528143100320768,\ 1633754973450240,\ 17236678723430400,\ -11938042414080000,\ -42782336704512000,\ 40275310510080000,\ 62010467205120000,\ -70124998164480000,\ -39609913835520000,\ 50565847449600000).
 \]
+so that $a(m)=\sum_{i=1}^{31}c_i\,a(m-i)$ for every $m$. Removing the first
+$31+4$ terms and repeating gives order $31$ again, which is what the
+identification below needs.
 
 \begin{theorem}
-The closed form OEIS A220199 records is correct for all $n>10$.
+For each line above, the displayed recurrence holds for every index, and it is the recurrence
+the entry records.
 \end{theorem}
 
 \begin{proof}
-Two exact computations. First, the walk count of Lemma~\ref{lem:det} satisfies $q$: the
-residual $u_j=\iota^{\!\top}M^{\,j}q(M)\tau$ vanishes for $S$ consecutive indices, and
-since the residual vector lives in the $S$-dimensional space spanned by the iterates of $M$,
-$S$ consecutive zeros force every later one. The last index at which it fails is $40$.
-Second, the polynomial and the walk count agree at every index from $11$ up to
-$1 + 23 - 1$, which is more than the $30$ consecutive agreements a
-common recurrence of order $30$ needs. Two sequences satisfying the same monic recurrence
-of order $30$ and agreeing at $30$ consecutive indices past both their thresholds are
-equal from there on.
+It holds by Lemma~\ref{lem:bm}. For the identification, the entry asserts that the line
+satisfies SOME recurrence of the stated order, possibly only from some index on. Let $q$ be its
+characteristic polynomial and $q_{\min}$ the minimal polynomial of the tail. Then
+$q_{\min}\mid q$, and the second Berlekamp--Massey run --- on the line with its first few
+terms removed --- shows $\deg q_{\min}$ equals the stated order, which is $\deg q$. Both are
+monic, so $q=q_{\min}$.
 \end{proof}
 
 \section{Verification}
 
-Everything above is integer or exact rational arithmetic; no floating point is used anywhere.
+Three checks.
 
-First, the model reproduces all $23$ terms the entry publishes, exactly. This is what
-ties the construction to the entry, and it is the only point at which the entry's English is
-read.
+First, each line's model was compared against the entry's own published values for that line,
+taken from the antidiagonal DATA read in either orientation and from the ``Table starts''
+block, and agrees at every available term. This is the only point at which reading the entry's
+English enters, and a misreading gives different counts.
 
-Second, the reading was pinned by direct enumeration before the model was written: for the
-one-row case the admissible arrays and their images were listed outright and counted, and the
-count is the entry's own first term.
+Second, each recovered recurrence was evaluated directly on the model's values, with no
+Berlekamp--Massey involved, and holds at every index tested.
 
-Third, the annihilation test was run to $S$ consecutive vanishing residuals rather than to a
-fixed horizon, which is what makes it a proof and not a check of finitely many terms.
+Third, each order was computed twice by independent routes --- modulo a $61$-bit prime, where
+every intermediate is a machine word, and again in exact rational arithmetic --- and once more
+on the line with its first few terms dropped, which is what the identification requires. All
+agree.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A220199.
-\bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata
-Theory, Languages, and Computation}, 3rd ed., Addison--Wesley, 2006. (The subset
-construction, Section 2.3.)
+Sequences}, \url{https://oeis.org}, 2026. Sequence A234712.
+\bibitem{massey} J.~L.~Massey, Shift-register synthesis and BCH decoding, \emph{IEEE
+Trans. Inform. Theory} \textbf{15} (1969), 122--127.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{kauers} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

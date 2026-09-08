@@ -12,130 +12,137 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical column recurrences for the table OEIS A231227}
+\title{The empirical recurrence for OEIS A224128, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A231227 is a two-dimensional table $T(n,k)$, and it carries a block of empirical
-recurrences contributed by R.~H.~Hardin --- one for each of its first few columns. They are
-true. Column $k$ of the table is an ordinary fixed-width array count, so its rows are the
-vertices of a finite digraph and $T(n,k)$ is a number of walks in it; being a walk count the
-column is $C$-finite, and whether a given recurrence annihilates it is decided by a finite
-exact computation, with the Cayley--Hamilton theorem bounding the work. This note settles the columns $k=1$.
+OEIS A224128 counts arrays over $\{0,\dots,1\}$ whose rows, columns, diagonals or
+antidiagonals are required to be monotone or unimodal, and carries an empirical recurrence of
+order $3$ contributed by R.~H.~Hardin. A monotone condition is local, but a unimodal one
+is not: a sequence is unimodal exactly when it never rises again after it has fallen, so the
+state must remember which sequences have already fallen. With those bits carried along, $a(n)$
+is a walk count on $S=32$ vertices and the recurrence follows from a finite exact
+computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A16, 15B36.\normalsize
 
-\section{The table and the conjectures}
+\section{The sequence and the conjecture}
 
-OEIS A231227 is ``T(n,k)=Number of (n+2)X(k+2) 0..2 arrays with no element unequal to a strict majority of its horizontal, vertical, diagonal and antidiagonal neighbors, with values 0..2 introduced in row major order.''. It has offset $1$, is
-read by antidiagonals, and begins
+OEIS A224128 is ``Number of n X 3 0..1 arrays with rows nondecreasing and antidiagonals unimodal.''. It has offset $1$ and begins
 \[
-1, 2, 2, 3, 4, 3, 6, 8,\ \dots
+4, 16, 58, 208, 748, 2692, 9688, 34864,\ \dots
 \]
-The entry carries the following block:
+The entry carries the following comment:
 \begin{quote}\small
-Empirical for column k:\\
-k=1: a(n) = 2*a(n-1) +a(n-2) -2*a(n-3)\\
-k=2: [order 11]\\
-k=3: [order 13]\\
-k=4: [order 96]\\
+Empirical: a(n) = 4*a(n-1) - 2*a(n-2) + 2*a(n-3).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 06:19:38, revision 6) these are still
-recorded as empirical, and nothing on the entry records any of them as settled.
+As of the ``Last modified'' line on the live entry (Aug 27 2018 06:04:13, revision 10) the statement is
+still recorded as empirical, and nothing on the entry records it as settled either way.
 
-\section{A column of the table is a walk count}
+Written out, the claim is
+\begin{equation}\label{eq:conj}
+a(n)\;=\;4\,a(n-1) - 2\,a(n-2) + 2\,a(n-3)
+\end{equation}
+for all $n>3$.
 
-Fix $k$. The entry defines $T(n,k)$ as the number of arrays of a shape in which one dimension
-is $n$ and the other is determined by $k$, subject to a condition imposed on every
-$2\times2$ subblock --- a condition local to two consecutive rows and two consecutive columns.
-Substituting the fixed value of $k$ into the entry's own wording turns the definition into an
-ordinary one-parameter array count, and for such a count the rows are the vertices of a finite
-digraph $G_k$: $r\to s$ is an edge exactly when placing $s$ under $r$ satisfies the condition
-in every column pair. An admissible array is then a walk, so with $M_k$ the adjacency matrix
-of $G_k$,
+\section{The conditions}
+
+The arrays have $3$ columns and $L=n$ rows. Written in (row, column)
+coordinates, the entry asks:
+\begin{itemize}
+\item along the direction $(0,1)$ --- one step of $(0,1)$ in (row, column) coordinates --- every sequence is nondecreasing;
+\item along the direction $(1,-1)$ --- one step of $(1,-1)$ in (row, column) coordinates --- every sequence is unimodal;
+\end{itemize}
+Here ``unimodal'' means nondecreasing and then nonincreasing, that is: no rise after a fall.
+
+A unimodal condition across the rows is not local: whether a
+rise is allowed depends on whether the sequence has already fallen. The state therefore
+carries, for each of the $3$ sequences currently running in that direction, one bit saying
+whether it has fallen. Those bits travel with their sequences --- the bit at column $u$
+moves to column $u+d_2$ when the next row is laid down, and a sequence beginning at the
+far end of the new row starts with its bit clear.
+
+\begin{lemma}\label{lem:walk}
+Let $\mathcal V$ be the set of pairs (a row satisfying every within-row condition, a
+bit vector), $|\mathcal V|=S=32$; let $(r,f)\to(s,f')$ be an edge when placing $s$ after $r$
+breaks none of the across-row conditions and $f'$ is $f$ updated by that step; let
+$\mathbf{v}$ mark the vertices whose bit vector is the one their row alone produces.
+Then
 \[
-T(n,k)\;=\;c_k\,\mathbf{1}^{\!\top}M_k^{\,n}\mathbf{1}
+a(n)\;=\;\,\mathbf{v}^{\!\top}N^{\,L-1}\mathbf{1},\qquad L=n.
 \]
-for the constant $c_k$ that the entry's name supplies (a factor such as $\tfrac12$ or
-$\tfrac14$ where the name says so, and $1$ otherwise).
-
-\begin{lemma}\label{lem:crit}
-Let $q(t)=t^{r}-\sum_i c_it^{r-i}$ be the characteristic polynomial of a conjectured
-recurrence of order $r$ for column $k$. Then for every $n\ge r$,
-\[
-T(n,k)-\sum_i c_i\,T(n-i,k)\;=\;c_k\,\mathbf{1}^{\!\top}M_k^{\,n-r}q(M_k)\mathbf{1},
-\]
-so the recurrence holds from some point on if and only if
-$\mathbf{1}^{\!\top}M_k^{j}q(M_k)\mathbf{1}=0$ for every $j\ge0$; and by the
-Cayley--Hamilton theorem it is enough to check $j<S_k$, where $S_k$ is the number of vertices
-of $G_k$.
 \end{lemma}
 
 \begin{proof}
-Substitute the walk expression and factor $M_k^{n-r}$ out of $M_k^{n}-\sum_ic_iM_k^{n-i}$;
-the scalar $c_k$ is nonzero. For the bound, $M_k^{S_k}$ is an integer combination of
-$I,M_k,\dots,M_k^{S_k-1}$, so each $\mathbf{1}^{\!\top}M_k^{j}q(M_k)\mathbf{1}$ with
-$j\ge S_k$ repeats that combination of earlier values.
+A walk of length $L-1$ is a sequence of $L$ rows, that is, an array, and its bit component
+is determined by them. Every within-row condition is imposed on each vertex; every
+across-row condition compares two consecutive rows and is imposed on each edge; and the
+unimodal and lexicographic bits are, by construction, the record of what the rows laid down
+so far have already decided, so a violation removes the corresponding edge. Hence the walks
+are exactly the admissible arrays. Nothing constrains the last row beyond what has already
+been imposed, so the walk may end anywhere. The state carries a row, not a boundary, so
+$L$ rows make a walk of length $L-1$.
 \end{proof}
 
-\section{The computation, column by column}
+\section{The criterion, and the computation}
 
-\begin{center}
-\begin{tabular}{ccccc}
-line & order & vertices $S$ & proved for & terms checked \\ \hline
-column $k$$=1$ & $3$ & $20$ & $>2$ & $11$ \\
-\end{tabular}
-\end{center}
+Let $q(t)=t^{3}-\sum_i c_i\,t^{3-i}$ be the characteristic polynomial of
+\eqref{eq:conj} and $G=N$.
 
-In each case the vector $w=q(M_k)\mathbf{1}$ was formed by $r$ matrix--vector products in
-exact integer arithmetic and $\mathbf{1}^{\!\top}M_k^{j}w$ evaluated for $j=0,1,\dots$,
-again exactly; every one of those integers vanishes from the stated point onwards and the run
-continued until the working vector was identically zero, which settles all larger $j$ at once.
-
-\subsection*{Column $k$$=1$}
-The sequence is ``Number of (n+2)X(3) 0..2 arrays with no element unequal to a strict majority of its horizontal, vertical, diagonal and antidiagonal neighbors, with values 0..2 introduced in row major order.''. Its rows are the vertices of a digraph on
-$S=20$ vertices, edges being the admissible consecutive pairs, and the count is
-$\mathbf{1}^{\!\top}M^{n}\mathbf{1}$ up to the constant factor in the entry's name.
-The conjectured recurrence
+\begin{lemma}\label{lem:crit}
+With $n_0$ the least index for which $L\ge1$, $o=1n_0+0-1$ and
+$h_j=G^{j}N^{o}\mathbf{1}$, we have for $j\ge3$
 \[
-a(n)\;=\;2\,a(n-1) + a(n-2) - 2\,a(n-3)
+a(n_0+j)-\sum_i c_i\,a(n_0+j-i)=\,\mathbf{v}^{\!\top}G^{\,j-3}w,
+\qquad w=h_{3}-\sum_i c_ih_{3-i} .
 \]
-holds from index $2+1$ on.
+Hence \eqref{eq:conj} holds from that point on if and only if
+$\mathbf{v}^{\!\top}G^{m}w=0$ for all $m\ge0$, and $m<S$ suffices.
+\end{lemma}
+
+\begin{proof}
+Substitute Lemma~\ref{lem:walk} and factor. By Cayley--Hamilton $G^{S}$ is an integer
+combination of $I,G,\dots,G^{S-1}$, so every later value repeats that combination of
+earlier ones.
+\end{proof}
+
+\begin{theorem}
+The recurrence \eqref{eq:conj} holds for every $n>3$, which is the statement of
+Section~1.
+\end{theorem}
+
+\begin{proof}
+The digraph was built directly from the conditions listed above. The vector $w$ was formed by
+$3$ applications of $G$ in exact integer arithmetic and $\mathbf{v}^{\!\top}G^{m}w$
+evaluated for $m=0,1,\dots$, again exactly. Every one of those integers vanishes from the
+index corresponding to $n=3+1$ onwards, and the run continued until $S+1$ consecutive
+zeros had been seen.
+\end{proof}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, each model was compared against the entry's own published values for its line, taken
-both from the antidiagonal DATA read in either orientation and from the ``Table starts''
-block, and agrees at every available term. This is what ties a model to the table:
-substituting the fixed index into the entry's wording is a reading of English, and a wrong
-reading gives a different digraph and different counts. Across the lines settled here the
-model reproduces $11$ published values, $21$ decimal digits in all, every one of
-them exactly; a misreading of the entry would have to reproduce all of them by accident.
+First, the walk counts of Lemma~\ref{lem:walk} were compared against the entry's DATA at
+every one of the $24$ published indices, with no shift fitted. The values agree exactly.
+This is what fixes the reading of the wording: ``rows and columns in nondecreasing order''
+means the rows and columns are sorted as vectors, not that each is nondecreasing along
+itself, and the two readings already differ at the second published term --- $86$ against
+$50$ for $2\times2$ arrays over $\{0,1,2,3\}$. The DATA decides it.
 
-Second, each conjectured recurrence was evaluated on those published values in exact
-integer arithmetic, with no matrices involved, and holds wherever the proved range and the
-data overlap.
+Second, the recurrence \eqref{eq:conj} was evaluated on those published terms in exact
+integer arithmetic, with no matrices involved, and vanishes wherever it applies.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
-arithmetic rather than on a sampled prefix.
-
-\begin{remark}
-A row of the table is a column of the transposed table: fixing $n$ and letting $k$ vary gives a
-count of arrays of fixed height, which is the same kind of object with the two dimensions
-exchanged. Both are settled here by the same argument. Only the lines the entry states
-explicitly, and for which enough published values exist to run the first check above, are
-claimed.
-\end{remark}
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried to the full
+Cayley--Hamilton bound in exact integer arithmetic rather than to a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A231227.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A224128.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

@@ -12,14 +12,14 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A274892, proved by counting patterns}
+\title{The empirical recurrence for OEIS A276296, proved by counting patterns}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A274892 counts arrays in which no entry may repeat a value found at any of three stated
+OEIS A276296 counts arrays in which no entry may repeat a value found at any of three stated
 offsets, and which are moreover written in canonical form (``new values introduced in order
 $0..2$''). The canonical-form clause is not local and no transfer matrix over the
 alphabet sees it; but the condition is stated in equalities, so what is counted is equality
@@ -28,7 +28,7 @@ alphabet by inverting a falling factorial:
 $3!\,a(n)=\sum_i\binom{3}{i}D_{3-i}L_i(n)$ with $D_m$ the derangement numbers.
 Some of the offsets reach two rows back, so each $L_i$ is a walk count whose states are
 ordered pairs of consecutive rows; relabelling-invariance makes that chain lumpable,
-cutting $60074$ pairs to $S=10355$ states. The entry's empirical recurrence of order $32$,
+cutting $60074$ pairs to $S=10355$ states. The entry's empirical recurrence of order $33$,
 contributed by R.~H.~Hardin, then follows from a finite exact computation.
 \end{abstract}
 
@@ -36,29 +36,29 @@ contributed by R.~H.~Hardin, then follows from a finite exact computation.
 
 \section{The sequence and the conjecture}
 
-OEIS A274892 is ``Number of n X 5 0..2 arrays with no element equal to any value at offset (0,-1) (-1,-1) or (-2,0) and new values introduced in order 0..2.''. It has offset $1$ and begins
+OEIS A276296 is ``Number of nX5 0..2 arrays with no element equal to any value at offset (-2,-1) (-1,1) or (0,-1) and new values introduced in order 0..2.''. It has offset $1$ and begins
 \[
-8, 108, 86, 290, 913, 3017, 9863, 32539,\ \dots
+8, 108, 693, 5909, 50949, 442001, 3861469, 33851605,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = a(n-1) +16*a(n-2) -120*a(n-4) -55*a(n-5) +549*a(n-6) +319*a(n-7) -1772*a(n-8) -891*a(n-9) +4300*a(n-10) +1407*a(n-11) -7992*a(n-12) -1155*a(n-13) +11470*a(n-14) +a(n-15) -12854*a(n-16) +1155*a(n-17) +11372*a(n-18) -1407*a(n-19) -7960*a(n-20) +891*a(n-21) +4357*a(n-22) -320*a(n-23) -1820*a(n-24) +55*a(n-25) +560*a(n-26) -120*a(n-28) -a(n-29) +16*a(n-30) -a(n-32) for n>34.
+Empirical: a(n) = 15*a(n-1) -59*a(n-2) +88*a(n-3) -753*a(n-4) +3144*a(n-5) -3566*a(n-6) +15470*a(n-7) -60036*a(n-8) +63424*a(n-9) -166302*a(n-10) +522272*a(n-11) -496170*a(n-12) +872844*a(n-13) -2184470*a(n-14) +1728684*a(n-15) -2023510*a(n-16) +4274276*a(n-17) -2552010*a(n-18) +1711922*a(n-19) -3752238*a(n-20) +1631282*a(n-21) -390844*a(n-22) +1591096*a(n-23) -522438*a(n-24) -63580*a(n-25) -336430*a(n-26) +92712*a(n-27) +24271*a(n-28) +31601*a(n-29) -8451*a(n-30) -1540*a(n-31) -993*a(n-32) +290*a(n-33) for n>37
 \end{quote}
-As of the ``Last modified'' line on the live entry (Apr 21 2021 12:53:43, revision 6) the statement is
+As of the ``Last modified'' line on the live entry (Aug 28 2016 08:24:45, revision 4) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;a(n-1) + 16\,a(n-2) - 120\,a(n-4) - 55\,a(n-5) + 549\,a(n-6) + 319\,a(n-7) - 1772\,a(n-8) - 891\,a(n-9) + 4300\,a(n-10) + 1407\,a(n-11) - 7992\,a(n-12) - 1155\,a(n-13) + 11470\,a(n-14) + a(n-15) - 12854\,a(n-16) + 1155\,a(n-17) + 11372\,a(n-18) - 1407\,a(n-19) - 7960\,a(n-20) + 891\,a(n-21) + 4357\,a(n-22) - 320\,a(n-23) - 1820\,a(n-24) + 55\,a(n-25) + 560\,a(n-26) - 120\,a(n-28) - a(n-29) + 16\,a(n-30) - a(n-32)
+a(n)\;=\;15\,a(n-1) - 59\,a(n-2) + 88\,a(n-3) - 753\,a(n-4) + 3144\,a(n-5) - 3566\,a(n-6) + 15470\,a(n-7) - 60036\,a(n-8) + 63424\,a(n-9) - 166302\,a(n-10) + 522272\,a(n-11) - 496170\,a(n-12) + 872844\,a(n-13) - 2184470\,a(n-14) + 1728684\,a(n-15) - 2023510\,a(n-16) + 4274276\,a(n-17) - 2552010\,a(n-18) + 1711922\,a(n-19) - 3752238\,a(n-20) + 1631282\,a(n-21) - 390844\,a(n-22) + 1591096\,a(n-23) - 522438\,a(n-24) - 63580\,a(n-25) - 336430\,a(n-26) + 92712\,a(n-27) + 24271\,a(n-28) + 31601\,a(n-29) - 8451\,a(n-30) - 1540\,a(n-31) - 993\,a(n-32) + 290\,a(n-33)
 \end{equation}
-for all $n>34$.
+for all $n>37$.
 
 \section{The condition, and what the canonical-form clause counts}
 
 The arrays have $5$ columns and $L=n$ rows; write $x_{t,u}$ for the entry in
 row $t$ and column $u$. With
 \[
-\mathcal N=\{(0,-1),\ (-1,-1),\ (-2,0)\}
+\mathcal N=\{(-2,-1),\ (-1,1),\ (0,-1)\}
 \]
 (offsets as (row shift, column shift)), the entry's requirement is
 \begin{equation}\label{eq:loc}
@@ -144,16 +144,16 @@ weights of Lemma~\ref{lem:inv} folded into the start vector $\mathbf{v}$,
 
 \section{The criterion, and the computation}
 
-Let $q(t)=t^{32}-\sum_i c_i\,t^{32-i}$ be the characteristic polynomial of
+Let $q(t)=t^{33}-\sum_i c_i\,t^{33-i}$ be the characteristic polynomial of
 \eqref{eq:conj} and $G=N$.
 
 \begin{lemma}\label{lem:crit}
 With $n_0$ the least index for which $L\ge2$ and $h_j=G^{j}N^{o}\mathbf{1}$,
-$o=1n_0+0-2$, we have for $j\ge32$
+$o=1n_0+0-2$, we have for $j\ge33$
 \[
 3!\Bigl(a(n_0+j)-\sum_i c_i\,a(n_0+j-i)\Bigr)
-=\mathbf{v}^{\!\top}G^{\,j-32}w,\qquad
-w=h_{32}-\sum_i c_i h_{32-i} .
+=\mathbf{v}^{\!\top}G^{\,j-33}w,\qquad
+w=h_{33}-\sum_i c_i h_{33-i} .
 \]
 Hence \eqref{eq:conj} holds from that point on if and only if
 $\mathbf{v}^{\!\top}G^{m}w=0$ for every $m\ge0$, and it is enough to check
@@ -168,17 +168,17 @@ earlier values.
 \end{proof}
 
 \begin{theorem}
-The recurrence \eqref{eq:conj} holds for every $n>34$, which is the statement of
+The recurrence \eqref{eq:conj} holds for every $n>37$, which is the statement of
 Section~1.
 \end{theorem}
 
 \begin{proof}
 The lumped transition counts were built by taking one representative pair for each pattern,
 enumerating every row $x$ over the alphabet, testing \eqref{eq:loc} on $x$, and sorting
-the survivors by the pattern of the new pair. The vector $w$ was formed by $32$
+the survivors by the pattern of the new pair. The vector $w$ was formed by $33$
 applications of $G$ in exact integer arithmetic and $\mathbf{v}^{\!\top}G^{m}w$
 evaluated for $m=0,1,\dots$, again exactly. Every one of those integers vanishes from the
-index corresponding to $n=34+1$ onwards, and the run continued until $S+1$ consecutive
+index corresponding to $n=37+1$ onwards, and the run continued until $S+1$ consecutive
 zeros had been seen.
 \end{proof}
 
@@ -187,7 +187,7 @@ zeros had been seen.
 Three checks, each independent of the algebra above.
 
 First, the right-hand side of \eqref{eq:walk2}, divided by $3!$, was evaluated at every
-one of the $24$ published indices and agrees with the entry's DATA exactly, the quotient
+one of the $19$ published indices and agrees with the entry's DATA exactly, the quotient
 coming out an integer each time; no shift was fitted, the number of rows being read off the
 entry's own name as $L=n$ and the entry's offset saying which index the first published
 term carries. A misreading of the offsets, of the inversion, or of the treatment of the first
@@ -203,7 +203,7 @@ carried to the full Cayley--Hamilton bound rather than to a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A274892.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A276296.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; falling-factorial
 inversion, Section 1.9.)

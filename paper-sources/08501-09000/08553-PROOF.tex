@@ -12,74 +12,69 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A232903, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A237301, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{3 September 2026}
+\date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A232903 counts arrays of width $4$ over $\{0,\dots,2\}$ under a condition on each cell
-and its neighbours, and carries an empirical recurrence of order $8$ contributed by
-R.~H.~Hardin. It is true, and it is decidable rather than empirical. Every neighbour named lies
-in the three rows $i-1,i,i+1$, so an ordered pair of consecutive rows is a state, the count is
-a walk count on $S=6642$ of them, and the conjectured recurrence is then settled by a finite
-exact computation.
+OEIS A237301 counts arrays over $\{0,\dots,2\}$ subject to a condition on the order
+statistics of every $2\times2$ subblock, and carries an empirical recurrence of order
+$9$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical.
+The condition is local to two consecutive rows, so the count is a walk count on $S=22$
+states and is $C$-finite; whether the conjectured recurrence annihilates it is then settled by
+a finite exact computation, with the Cayley--Hamilton theorem bounding the work.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 68Q45.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 62G30.\normalsize
 
 \section{The conjecture}
 
-OEIS A232903 is ``Number of (n+1)X(3+1) 0..2 arrays with every element next to itself plus and minus one within the range 0..2 horizontally or antidiagonally.''. It has offset $1$ and begins
+OEIS A237301 is ``Number of (n+1)X(1+1) 0..2 arrays with the upper median of every 2X2 subblock equal.''. It has offset $1$ and begins
 \[
-52, 320, 4928, 62276, 761860, 9880580, 123587140, 1571314692,\ \dots
+81, 435, 2174, 11545, 61055, 326262, 1745153, 9357963,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 6*a(n-1) +79*a(n-2) +128*a(n-3) -788*a(n-4) +196*a(n-5) -644*a(n-6) +416*a(n-7) -64*a(n-8)
+Empirical: a(n) = 9*a(n-1) -143*a(n-3) +79*a(n-4) +796*a(n-5) -292*a(n-6) -1760*a(n-7) +256*a(n-8) +1280*a(n-9)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 07:42:16, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 10:02:27, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The neighbours of a cell are the cells at the offsets
+Sort the four entries of a $2\times2$ subblock as $a\le b\le c\le d$: they
+are its minimum, lower median, upper median and maximum. The entry fixes the signed sum
 \[
-(-1,1), (0,-1), (0,1), (1,-1),
+\sigma\;=\;c,
 \]
-those falling outside the array being absent. The entry requires that every cell $v$ has, among its neighbours, one equal to $v+1$ and one equal to $v-1$ --- each required only when that value lies in $\{0,\dots,2\}$, which is what ``within the range $0..2$'' says.
+and asks that $\sigma$ take the SAME value on every $2\times2$ subblock of an
+$(n+1)\times2$ array over $\{0,\dots,2\}$.
+
+The common value is not named, so the count splits by it. For a fixed $v$ let $a_v(n)$ count
+the arrays all of whose subblocks give $\sigma=v$. An array determines its common value, so
+the sets belonging to different $v$ are disjoint and $a(n)=\sum_v a_v(n)$, a finite sum.
+
 
 \section{The count is a walk count}
 
-Every offset above moves the row index by at most one, so whether a cell of row $i$ passes
-depends on rows $i-1$, $i$ and $i+1$ and nothing else. Take as vertices the ordered PAIRS
-$(p,c)$ of consecutive rows, allowing $p$ to be ABSENT --- that is what lets a walk of no steps
-describe a one-row array --- and put an edge $(p,c)\to(c,x)$ exactly when every cell of the
-middle row $c$ passes with $p$ above it and $x$ below it. A state with $p$ absent may begin an
-array; a state $(p,c)$ accepts when every cell of $c$ passes with nothing below it. An array of
-$L$ rows is then a walk of $L-1$ steps, each step settling one row, and every array arises from
-exactly one walk. Hence
+For a fixed $v$ the condition involves two consecutive rows and nothing
+else: rows $r$ and $s$ may follow one another exactly when $\sigma$ equals $v$ on each of the
+$1$ subblocks they form. So a row is a state, an $(n+1)$-row array is a walk of $n$
+steps, and with $M$ the adjacency matrix on the disjoint union over $v$,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau
+a(n)\;=\;\iota^{\!\top}M^{\,n}\tau,\qquad\iota=\tau=(1,\dots,1)^{\!\top} .
 \]
-with $\iota$ the indicator of the beginning states, $\tau$ of the accepting ones, and $j$ the
-walk index, which differs from the entry's own $n$ by a constant read off from its published
-terms. There are $S=6642$ states, and $a$ is $C$-finite.
-
-At $n=1$ the array has one row, and
-the condition is tested there with nothing above or below it; the entry's first term is
-$52$, which the model reproduces along with every later term. That is the cheapest check
-that the neighbour set and the boundary have been read the same way the entry reads them: a
-condition tested as though the missing rows were present, rather than absent, gives a different
-first term. There are $3^{4}=81$ possible rows over the entry's own alphabet. The state count $S=6642$ is exactly $81\cdot82$,
-one state for each ordered pair of a row and its possible predecessor, the absent predecessor
-included.
+Rows carrying no edge at all are dropped: such a row can only be the whole of a one-row
+array, which is not among the objects counted. There are $S=22$ states left.
+The alignment of the walk index with the entry's own $n$ was checked against its published
+terms rather than assumed. In particular $a$ is $C$-finite.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{8}-\sum_i c_it^{8-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{9}-\sum_i c_it^{9-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -87,7 +82,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+8}-\sum_ic_iM^{j+8-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+9}-\sum_ic_iM^{j+9-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -96,15 +91,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;6\,a(n-1) + 79\,a(n-2) + 128\,a(n-3) - 788\,a(n-4) + 196\,a(n-5) - 644\,a(n-6) + 416\,a(n-7) - 64\,a(n-8)
+a(n)\;=\;9\,a(n-1) - 143\,a(n-3) + 79\,a(n-4) + 796\,a(n-5) - 292\,a(n-6) - 1760\,a(n-7) + 256\,a(n-8) + 1280\,a(n-9)
 \]
-for every $n>7$.
+for every $n>8$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $8$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $9$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=7+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=8+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -112,7 +107,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $16$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $19$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
@@ -124,10 +119,11 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A232903.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A237301.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{comtet} L.~Comtet, \emph{Advanced Combinatorics}, Reidel, 1974.
+\bibitem{david} H.~A.~David and H.~N.~Nagaraja, \emph{Order Statistics}, 3rd ed., Wiley,
+2003.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

@@ -12,74 +12,53 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A235901, proved by transfer matrix}
+\title{Parities, differences and neighbours: OEIS A229399}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{6 September 2026}
+\date{7 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A235901 counts arrays of width $8$ over $\{0,1,2\}$ in which the smallest and largest of the
-four entries of every $2\times2$ block have a sum equal to the sum of the other two. The entry
-carries an empirical recurrence of order $15$ contributed by R.~H.~Hardin. It is true, and
-it is decidable rather than empirical: the condition involves two consecutive rows and nothing
-wider, so the count is a walk count on $S=6561$ states.
+OEIS A229399 carries an empirical recurrence of order $16$ contributed by R.~H.~Hardin. It is
+true, and it is decidable rather than empirical. The entry's condition is decided by a bounded amount of state carried down the array; the
+admissible windows are the vertices of a finite digraph and the arrays counted are exactly the
+walks in it. Hence $a(n)$ is a walk count on $S=17$ vertices and is $C$-finite, and whether the
+conjectured recurrence annihilates it is settled by a finite exact computation, with the
+Cayley--Hamilton theorem bounding the work.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B20, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
 \section{The conjecture}
 
-OEIS A235901 is ``Number of (n+1)X(7+1) 0..2 arrays with the minimum plus the maximum equal to the lower median plus the upper median in every 2X2 subblock.''. It has offset $1$ and begins
+OEIS A229399 is ``Number of n X 5 0..2 arrays with top left element 0, horizontal differences mod 3 never 1, vertical differences mod 3 never -1, and antidiagonal differences never 0.''. It has offset $1$ and begins
 \[
-100457, 2633969, 51386977, 1221438401, 26681279873, 632701301249, 14843231431681, 363748742848769,\ \dots
+16, 89, 536, 3357, 21464, 138645, 899860, 5852687,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 105*a(n-1) -2912*a(n-2) -48360*a(n-3) +3284176*a(n-4) -9849840*a(n-5) -1413681152*a(n-6) +11064890880*a(n-7) +342354927616*a(n-8) -2914586849280*a(n-9) -53197229588480*a(n-10) +326026026024960*a(n-11) +5257932711133184*a(n-12) -9378006313205760*a(n-13) -253932398608121856*a(n-14) -671129571038330880*a(n-15)
+Empirical: a(n) = 17*a(n-1) -120*a(n-2) +505*a(n-3) -1511*a(n-4) +3524*a(n-5) -6668*a(n-6) +10300*a(n-7) -12840*a(n-8) +12612*a(n-9) -9484*a(n-10) +5308*a(n-11) -2151*a(n-12) +615*a(n-13) -120*a(n-14) +15*a(n-15) -a(n-16).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 08:55:07, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Aug 31 2025 10:49:14, revision 11) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
-\section{What is being counted}
+\section{The count is a walk count}
 
-The arrays have $8$ columns and a growing number of rows, with entries in $\{0,1,2\}$. Take any
-$2\times2$ block of the array and sort its four entries as
+The entry counts arrays with $5$ columns over the alphabet $\{0,1,2\}$, growing one row at a time, and asks that the top left entry is $0$, and the step to the right may never change the entry by $1$ modulo $3$, the step downwards may never change the entry by $-1$ modulo $3$, the step antidiagonally may never change the entry by $0$ modulo $3$.
+
+Every cell the condition names lies within one row of the cell being judged, so three consecutive rows decide everything anchored at the middle one. Carry two consecutive rows as the state; a row is judged when the row after it arrives, and the row with nothing after it is judged by the end vector. A neighbour off the edge of the array is not a neighbour, which is what the entry means and what makes the first and last rows behave differently from the rest.
+
+Merging vertices with identical futures leaves $S=17$. An admissible array is exactly a walk, so with $M$ the adjacency matrix and $\iota,\tau$ the vectors recording which states may begin and end an array,
 \[
-\alpha\le\beta\le\gamma\le\delta .
+a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau ,
 \]
-The minimum is $\alpha$ and the maximum is $\delta$; the lower median is $\beta$ and the upper
-median is $\gamma$. The entry's condition, imposed on every $2\times2$ block, is therefore
-\[
-\alpha+\delta\;=\;\beta+\gamma .
-\]
-
-Nothing here depends on where in the block each value sits: the condition is a statement about
-the multiset of the four entries. In particular it is symmetric under every rearrangement of
-the block, and under adding a constant to all four entries.
-
-\section{Two rows}
-
-A $2\times2$ block occupies two consecutive rows, so everything the condition asks is decided
-by a pair of consecutive rows and nothing wider. Take the array one row at a time and let the
-state be the row just written; a step appends a new row and is allowed exactly when every one
-of the $8-1$ blocks spanning the two rows satisfies the condition.
-
-Every block of the finished array is tested exactly once, at the step that writes its lower
-row, and no step tests anything the definition does not ask. A one-row array has no block at
-all, so every row may start and every state may end: $\iota$ and $\tau$ are both
-$\mathbf{1}$, and the states are all $3^{8}=6561$ rows. Thus
-\[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=6561,
-\]
-for the transfer matrix $M$ on those $S$ states. The walk index $j$ and the entry's own $n$
-differ by a constant, read off by matching the published terms rather than assumed. In
+the exponent fixed by the entry's own shape and checked against its published terms. In
 particular $a$ is $C$-finite.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{15}-\sum_i c_it^{15-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{16}-\sum_i c_it^{16-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -87,24 +66,25 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+15}-\sum_ic_iM^{j+15-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+16}-\sum_ic_iM^{j+16-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly.
+pins the threshold exactly. A constant factor in front of $a$ divides out of the residual and
+changes nothing here.
 \end{proof}
 
 \begin{theorem}
 \[
-a(n)\;=\;105\,a(n-1) - 2912\,a(n-2) - 48360\,a(n-3) + 3284176\,a(n-4) - 9849840\,a(n-5) - 1413681152\,a(n-6) + 11064890880\,a(n-7) + 342354927616\,a(n-8) - 2914586849280\,a(n-9) - 53197229588480\,a(n-10) + 326026026024960\,a(n-11) + 5257932711133184\,a(n-12) - 9378006313205760\,a(n-13) - 253932398608121856\,a(n-14) - 671129571038330880\,a(n-15)
+a(n)\;=\;17\,a(n-1) - 120\,a(n-2) + 505\,a(n-3) - 1511\,a(n-4) + 3524\,a(n-5) - 6668\,a(n-6) + 10300\,a(n-7) - 12840\,a(n-8) + 12612\,a(n-9) - 9484\,a(n-10) + 5308\,a(n-11) - 2151\,a(n-12) + 615\,a(n-13) - 120\,a(n-14) + 15\,a(n-15) - a(n-16)
 \]
-for every $n>14$.
+for every $n>16$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $15$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $16$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=14+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=16+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -112,13 +92,13 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $13$ terms the entry publishes, exactly, in integer
-arithmetic.
+First, the model reproduces all $22$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry: the digraph is built by reading the
+entry's English, and a misreading gives different counts.
 
-Second, the count was recomputed for the smallest arrays straight from the definition: every
-array was written out cell by cell and each $2\times2$ block tested by sorting its four values
-and comparing the outer two with the inner two. No rows, no state and no transfer matrix are
-involved in that computation, and the published terms came back.
+Second, the reading was pinned before the digraph was written, by a program that enumerates
+every array of the given shape one by one and tests the entry's condition on it directly. That program shares no code with the transfer matrix, so an error in one does not
+hide an error in the other.
 
 Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
@@ -128,9 +108,11 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A235901.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A229399.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+University Press, 2009.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

@@ -12,141 +12,131 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A233070, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A203959, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{1 September 2026}
+\date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A233070 counts arrays over $\{0,\dots,3\}$ under a neighbour condition together with
-two symmetry-breaking clauses: the upper-left entry is $0$, and $1$ must appear before
-$2$ in row major order. The last of these is not local --- it compares first occurrences
-across the whole array --- but it becomes local once the state carries which of the two values
-was seen first. With that, $a(n)$ is a walk count on $S=3072$ vertices and the empirical
-recurrence of order $21$ contributed by R.~H.~Hardin follows from a finite exact
-computation.
+OEIS A203959 counts arrays of width $3$ over $\{0,1,2\}$ through two derived arrays of PAIR SUMS ---
+each cell added to its left neighbour, and each cell added to the one above it --- on which the
+entry imposes an order condition. The entry carries an empirical recurrence of order $22$
+contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical: the count is
+a walk count on $S=92$ states.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 06A07, 15A18.\normalsize
 
-\section{The sequence and the conjecture}
+\section{The conjecture}
 
-OEIS A233070 is ``Number of nX5 0..3 arrays with no element x(i,j) adjacent to value 3-x(i,j) horizontally, antidiagonally or vertically, top left element zero, and 1 appearing before 2 in row major order.''. It has offset $1$ and begins
+OEIS A203959 is ``Number of (n+1)X3 0..2 arrays with column and row pair sums b(i,j)=a(i,j)+a(i,j-1) and c(i,j)=a(i,j)+a(i-1,j) such that rows of b(i,j) and columns of c(i,j) are lexicographically nondecreasing.''. It has offset $1$ and begins
 \[
-41, 1682, 80811, 3957778, 194998895, 9622519979, 475027244071, 23452561697310,\ \dots
+121, 851, 6586, 45307, 276516, 1512850, 7559349, 35013044,\ \dots
 \]
-The entry carries the following comment:
-\begin{quote}\small
-Empirical: a(n) = 67*a(n-1) -957*a(n-2) +4487*a(n-3) -10440*a(n-4) +9842*a(n-5) +34671*a(n-6) -145789*a(n-7) +111684*a(n-8) +296032*a(n-9) -481473*a(n-10) -167907*a(n-11) +608240*a(n-12) -12730*a(n-13) -416027*a(n-14) +59065*a(n-15) +178117*a(n-16) -40627*a(n-17) -41054*a(n-18) +13432*a(n-19) +2184*a(n-20) -816*a(n-21) for n>23
+The entry states, as a conjecture contributed by its author and never marked settled:
+\begin{quote}
+Empirical: a(n) = 22*a(n-1) -218*a(n-2) +1274*a(n-3) -4794*a(n-4) +11682*a(n-5) -16350*a(n-6) +3138*a(n-7) +38004*a(n-8) -79674*a(n-9) +61398*a(n-10) +35118*a(n-11) -127974*a(n-12) +113430*a(n-13) -3210*a(n-14) -85098*a(n-15) +79101*a(n-16) -21204*a(n-17) -17108*a(n-18) +19328*a(n-19) -8656*a(n-20) +1984*a(n-21) -192*a(n-22) for n>25
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 07:51:02, revision 6) the statement is
-still recorded as empirical, and nothing on the entry records it as settled either way.
+As of the ``Last modified'' line on the live entry (Oct 03 2025 10:54:07, revision 9) this is still
+recorded as empirical, and nothing on the entry records it as proved.
 
-Written out, the claim is
-\begin{equation}\label{eq:conj}
-a(n)\;=\;67\,a(n-1) - 957\,a(n-2) + 4487\,a(n-3) - 10440\,a(n-4) + 9842\,a(n-5) + 34671\,a(n-6) - 145789\,a(n-7) + 111684\,a(n-8) + 296032\,a(n-9) - 481473\,a(n-10) - 167907\,a(n-11) + 608240\,a(n-12) - 12730\,a(n-13) - 416027\,a(n-14) + 59065\,a(n-15) + 178117\,a(n-16) - 40627\,a(n-17) - 41054\,a(n-18) + 13432\,a(n-19) + 2184\,a(n-20) - 816\,a(n-21)
-\end{equation}
-for all $n>23$.
+\section{What is being counted}
 
-\section{The three clauses}
-
-The arrays have $5$ columns and $L=n$ rows; write $x_{t,u}$ for the entry in
-row $t$ and column $u$. The neighbour condition is
-\begin{equation}\label{eq:loc}
-x_{t+d_1,\,u+d_2}\ne 3-x_{t,u}\qquad\text{for every offset }(d_1,d_2)\in\mathcal N=\{(0,1),\ (1,-1),\ (1,0)\}
-\end{equation}
-inside the array. The relation ``$y=3-x$'' is symmetric, so each unordered adjacency need
-only be tested once; the offsets above are the forward representatives, one per direction,
-and every one of them has a nonnegative row shift. A single row of state is therefore
-enough for \eqref{eq:loc}: the cells of a row are settled by that row and the next.
-
-Here the walk runs along rows, which is the order row
-major reading uses, so a single flag suffices: $0$ while neither $1$ nor $2$ has
-occurred, and thereafter $1$ or $2$ according to which occurred first, the first occurrence
-inside a row being found by scanning it left to right. An array is accepted when the flag
-is not $2$.
-
-\begin{lemma}\label{lem:walk}
-Let $\mathcal V$ be the set of pairs (a row, a flag vector), $|\mathcal V|=S=3072$, let
-$(r,f)\to(s,f')$ be an edge when \eqref{eq:loc} holds for the cells of $r$ with $s$ beneath
-it and $f'$ is $f$ updated by $s$, let $\mathbf{v}$ mark the vertices whose row begins
-with $0$ and whose flag is the one that row alone produces, and $\mathbf{u}$ those whose
-row satisfies \eqref{eq:loc} with nothing beneath it and whose flag is accepted. Then
+The array $a$ has $3$ cells across, with entries in $\{0,1,2\}$. Two derived arrays are formed,
 \[
-a(n)\;=\;\,\mathbf{v}^{\!\top}N^{\,L-1}\mathbf{u},\qquad L=n.
+b(i,j)=a(i,j)+a(i,j-1)\quad(j\ge1),\qquad c(i,j)=a(i,j)+a(i-1,j)\quad(i\ge1),
 \]
+so $b$ adds each cell to its LEFT neighbour and $c$ adds each cell to the one ABOVE it. The
+entry asks
+
+that the ROWS of $b$ and the COLUMNS of $c$ are each in lexicographic nondecreasing order. Row $i$ of $b$
+is $\bigl(b(i,1),\dots,b(i,2)\bigr)$ and column $j$ of $c$ is
+$\bigl(c(1,j),c(2,j),\dots\bigr)$.
+
+
+\section{Two rows decide it}
+
+\begin{lemma}\label{lem:win}
+The row comparison is a condition on two consecutive rows of $a$. The column comparison is
+settled by the FIRST row in which the two columns of $c$ differ.
 \end{lemma}
 
 \begin{proof}
-A walk of length $L-1$ is a sequence of $L$ rows, and its flag component is determined by
-them, so walks correspond to arrays. Along the walk the cells of row $t$ are tested once,
-at the step leaving it, with the correct neighbour row; the cells of the last row are
-tested by $\mathbf{u}$ with no row beneath, which is how the array behaves at its edge.
-The flag component is by construction the record of first occurrences among the rows laid
-down so far, so $\mathbf{u}$ imposes exactly the ordering clause, and $\mathbf{v}$ imposes
-the upper-left clause. The state carries a row, not a boundary, so $L$ rows make a walk
-of length $L-1$.
+Row $i$ of $b$ is built from row $i$ of $a$ alone, so comparing rows $i$ and $i+1$ of $b$ reads
+rows $i$ and $i+1$ of $a$. Two sequences are compared lexicographically by their first
+difference; entry $i$ of column $j$ of $c$ is built from rows $i-1$ and $i$ of $a$, so scanning
+the array downwards reveals the entries of every column of $c$ in order.
 \end{proof}
 
-\section{The criterion, and the computation}
+So the state is the last row of $a$ together with one bit for each adjacent pair of columns,
+recording whether that pair of columns of $c$ has been equal in every row so far. A row that
+would put a pair in the wrong order is rejected at once, and a pair still equal at the end is
+in order, equality being allowed.
 
-Let $q(t)=t^{21}-\sum_i c_i\,t^{21-i}$ be the characteristic polynomial of
-\eqref{eq:conj} and $G=N$.
+With $M$ the adjacency matrix of the digraph on those states, $\iota$ the indicator of the
+starting state and $\tau=\mathbf{1}$,
+\[
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=92.
+\]
+The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
+published terms rather than assumed. In particular $a$ is $C$-finite.
+
+\section{The proof}
 
 \begin{lemma}\label{lem:crit}
-With $n_0$ the least index for which $L\ge1$, $o=1n_0+0-1$ and
-$h_j=G^{j}N^{o}\mathbf{u}$, we have for $j\ge21$
-\[
-a(n_0+j)-\sum_i c_i\,a(n_0+j-i)=\,\mathbf{v}^{\!\top}G^{\,j-21}w,
-\qquad w=h_{21}-\sum_i c_ih_{21-i} .
-\]
-Hence \eqref{eq:conj} holds from that point on if and only if
-$\mathbf{v}^{\!\top}G^{m}w=0$ for all $m\ge0$, and $m<S$ suffices.
+Let $q(t)=t^{22}-\sum_i c_it^{22-i}$ be the characteristic polynomial of the
+conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
+$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
+holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
+and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Substitute Lemma~\ref{lem:walk} and factor. By Cayley--Hamilton $G^{S}$ is an integer
-combination of $I,G,\dots,G^{S-1}$, so every later value repeats that combination of earlier
-ones.
+Factor $M^{j}$ out of $M^{j+22}-\sum_ic_iM^{j+22-i}$. For the bound, $M^{S}$
+is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
+$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
+polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
+pins the threshold exactly.
 \end{proof}
 
 \begin{theorem}
-The recurrence \eqref{eq:conj} holds for every $n>23$, which is the statement of
-Section~1.
+\[
+a(n)\;=\;22\,a(n-1) - 218\,a(n-2) + 1274\,a(n-3) - 4794\,a(n-4) + 11682\,a(n-5) - 16350\,a(n-6) + 3138\,a(n-7) + 38004\,a(n-8) - 79674\,a(n-9) + 61398\,a(n-10) + 35118\,a(n-11) - 127974\,a(n-12) + 113430\,a(n-13) - 3210\,a(n-14) - 85098\,a(n-15) + 79101\,a(n-16) - 21204\,a(n-17) - 17108\,a(n-18) + 19328\,a(n-19) - 8656\,a(n-20) + 1984\,a(n-21) - 192\,a(n-22)
+\]
+for every $n>25$.
 \end{theorem}
 
 \begin{proof}
-The digraph was built directly from \eqref{eq:loc} and the flag update. The vector $w$ was
-formed by $21$ applications of $G$ in exact integer arithmetic and
-$\mathbf{v}^{\!\top}G^{m}w$ evaluated for $m=0,1,\dots$, again exactly. Every one of
-those integers vanishes from the index corresponding to $n=23+1$ onwards, and the run
-continued until $S+1$ consecutive zeros had been seen.
+The vector $w=q(M)\tau$ was formed by $22$ matrix--vector products in exact integer
+arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
+integers vanish from the index corresponding to $n=25+1$ onwards and the run continued
+until the working vector was identically zero.
 \end{proof}
 
 \section{Verification}
 
-Three checks, each independent of the algebra above.
+Four checks, each independent of the algebra above.
 
-First, the walk counts of Lemma~\ref{lem:walk} were compared against the entry's DATA at
-every one of the $14$ published indices, with no shift fitted: the number of rows is
-$L=n$ from the entry's own name and the offset says which index carries the first
-published term. The values agree exactly. The ordering clause is where a misreading would
-show first, and it is the reason the flags are per column rather than a single value.
+First, the model reproduces all $19$ terms the entry publishes, exactly, in integer
+arithmetic.
 
-Second, the recurrence \eqref{eq:conj} was evaluated on those published terms in exact
-integer arithmetic, with no matrices involved, and vanishes wherever it applies.
+Second, the count was recomputed for the smallest arrays straight from the definition:
+enumerate every array of that size, form the two derived arrays in full, and test the condition
+on them directly. No window, no state and no incremental bookkeeping are involved, and the
+published terms came back.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried to the full
-Cayley--Hamilton bound in exact integer arithmetic rather than to a sampled prefix.
+Third, the conjectured recurrence was evaluated directly on the published terms, with no
+matrices involved, and holds wherever the proved range and the data overlap.
+
+Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A233070.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A203959.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
-University Press, 2009.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

@@ -12,21 +12,21 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A233712: recovering a conjecture that is not written down}
+\title{The empirical recurrence for OEIS A250923: recovering a conjecture that is not written down}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A233712 records ``Empirical recurrence of order $75$'', with the recurrence itself in a
+OEIS A250923 records ``Empirical recurrence of order $81$'', with the recurrence itself in a
 linked file rather than in the entry. The conjecture can nevertheless be settled, and the
 recurrence recovered, without reading that file. The entry counts arrays under a condition
-local to a bounded window of lines, so the count is a walk count on $S=625$ vertices and
+local to a bounded window of lines, so the count is a walk count on $S=243$ vertices and
 satisfies some monic recurrence of order at most $S$; Berlekamp--Massey applied to $2S$ exact
-terms therefore returns the MINIMAL such recurrence. Its order is exactly $75$, the order
+terms therefore returns the MINIMAL such recurrence. Its order is exactly $81$, the order
 the entry states, and the same is true of every tail of the sequence. Any recurrence of order
-$75$ that the sequence satisfies from any point on must then have a characteristic
+$81$ that the sequence satisfies from any point on must then have a characteristic
 polynomial that is a multiple of the minimal one and of the same degree, hence equal to it. So
 the entry's recurrence is the one displayed here, whatever its file contains, and it is
 proved.
@@ -36,15 +36,15 @@ proved.
 
 \section{A conjecture one cannot read}
 
-OEIS A233712 is ``Number of (n+1)X(3+1) 0..4 arrays with every 2X2 subblock having the sum of the squares of the edge differences equal to 14.''. It has offset $1$ and begins
+OEIS A250923 is ``Number of (n+1)X(4+1) 0..2 arrays with no 2X2 subblock having its minimum diagonal element less than its minimum antidiagonal element.''. It has offset $1$ and begins
 \[
-1992, 16004, 136960, 1291820, 12203480, 117736088, 1132387344, 10952782784,\ \dots
+11693, 628146, 34521887, 1887760064, 102912852059, 5613563039740, 306543548743117, 16748448512897363,\ \dots
 \]
 The entry states:
 \begin{quote}
-Empirical recurrence of order 75 (see link above)
+Empirical recurrence of order 81 (see link above)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jun 02 2025 08:57:46, revision 7) this is still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 12:51:27, revision 6) this is still
 recorded as empirical. The recurrence's coefficients are not in the entry text.
 
 \section{The count is a walk count}
@@ -52,13 +52,13 @@ recorded as empirical. The recurrence's coefficients are not in the entry text.
 The entry's condition is local: it constrains a bounded window of consecutive lines of the
 array and nothing further. The admissible configurations of one such window are the vertices
 of a finite digraph, an edge joining $u$ to $v$ when $v$ may follow $u$, and an admissible
-array is exactly a walk. Hence, with $M$ the adjacency matrix on $S=625$ vertices,
+array is exactly a walk. Hence, with $M$ the adjacency matrix on $S=243$ vertices,
 $a(n)=\iota^{\!\top}M^{\,j(n)}\tau$ for a linear reindexing $j$ fixed by the entry's shape
 and checked against its published terms. By the Cayley--Hamilton theorem $M^{S}$ is an
 integer combination of $I,M,\dots,M^{S-1}$, so:
 
 \begin{lemma}\label{lem:cf}
-$a$ satisfies a monic linear recurrence with integer coefficients of order at most $S=625$.
+$a$ satisfies a monic linear recurrence with integer coefficients of order at most $S=243$.
 \end{lemma}
 
 \section{Recovering the recurrence}
@@ -69,32 +69,34 @@ with its minimal recurrence, by its first $2S$ terms: Berlekamp--Massey applied 
 that minimal recurrence exactly.
 \end{lemma}
 
-Running it on $2S=1250$ exact terms of the model returns order $75$ --- the order the
+Running it on $2S=486$ exact terms of the model returns order $81$ --- the order the
 entry states --- with the integer coefficients
 \[
-a(n)\;=\;\sum_{i=1}^{75}c_i\,a(n-i),
+a(n)\;=\;\sum_{i=1}^{81}c_i\,a(n-i),
 \]
 \begin{center}\small
 \begin{tabular}{cccccccc}
-$c_{1}$ & $2$ & $c_{20}$ & $-3829932326938807$ & $c_{39}$ & $-5719388252486897950308$ & $c_{58}$ & $364731045044803718968$ \\
-$c_{2}$ & $267$ & $c_{21}$ & $6644096406478322$ & $c_{40}$ & $-4804274071498855060830$ & $c_{59}$ & $-3043488809026006464240$ \\
-$c_{3}$ & $-452$ & $c_{22}$ & $33620412536163789$ & $c_{41}$ & $11570733419549562254010$ & $c_{60}$ & $-64849991828696890432$ \\
-$c_{4}$ & $-31149$ & $c_{23}$ & $-59957629785518266$ & $c_{42}$ & $7855369665305681813210$ & $c_{61}$ & $995300726076930951808$ \\
-$c_{5}$ & $48608$ & $c_{24}$ & $-246310925916316094$ & $c_{43}$ & $-19924478037734085537194$ & $c_{62}$ & $1068678379200427136$ \\
-$c_{6}$ & $2158423$ & $c_{25}$ & $451573015065807790$ & $c_{44}$ & $-10822357171676488755857$ & $c_{63}$ & $-256499541559462762752$ \\
-$c_{7}$ & $-3263100$ & $c_{26}$ & $1514941619676922221$ & $c_{45}$ & $29148016174093418658714$ & $c_{64}$ & $3241218676779530240$ \\
-$c_{8}$ & $-100962722$ & $c_{27}$ & $-2855995410664906532$ & $c_{46}$ & $12498693996080285937608$ & $c_{65}$ & $50896038788870811648$ \\
-$c_{9}$ & $152135886$ & $c_{28}$ & $-7857878356517300912$ & $c_{47}$ & $-36128903485128416851976$ & $c_{66}$ & $-1046786105205553152$ \\
-$c_{10}$ & $3420174268$ & $c_{29}$ & $15242460624624030554$ & $c_{48}$ & $-12016381112916299850889$ & $c_{67}$ & $-7534675030603632640$ \\
-$c_{11}$ & $-5218583970$ & $c_{30}$ & $34487752224832727449$ & $c_{49}$ & $37806475879943865780592$ & $c_{68}$ & $176667247911354368$ \\
-$c_{12}$ & $-87698245409$ & $c_{31}$ & $-68907928299386098162$ & $c_{50}$ & $9526613331603464874991$ & $c_{69}$ & $795611864750587904$ \\
-$c_{13}$ & $136641649548$ & $c_{32}$ & $-128372317874920304136$ & $c_{51}$ & $-33246879493213077895748$ & $c_{70}$ & $-17518401004371968$ \\
-$c_{14}$ & $1754186167962$ & $c_{33}$ & $264624141671456684474$ & $c_{52}$ & $-6146346961361799697929$ & $c_{71}$ & $-55902753915142144$ \\
-$c_{15}$ & $-2802711220100$ & $c_{34}$ & $405789151671720069833$ & $c_{53}$ & $24429394234489194825078$ & $c_{72}$ & $954384180576256$ \\
-$c_{16}$ & $-27971827456828$ & $c_{35}$ & $-864940381145970754452$ & $c_{54}$ & $3164752775333462071278$ & $c_{73}$ & $2311069181673472$ \\
-$c_{17}$ & $45913611557018$ & $c_{36}$ & $-1089744190919702160629$ & $c_{55}$ & $-14892010343738297656716$ & $c_{74}$ & $-21892605935616$ \\
-$c_{18}$ & $361378448931754$ & $c_{37}$ & $2409006394110880654884$ & $c_{56}$ & $-1259911846717588907992$ & $c_{75}$ & $-41979312340992$ \\
-$c_{19}$ & $-609786115736312$ & $c_{38}$ & $2484935877347857881531$ & $c_{57}$ & $7465057802284954905920$ &  &  \\
+$c_{1}$ & $243$ & $c_{22}$ & $-3918416366882006468835718789$ & $c_{43}$ & $3279023424367421554709301120891752520$ & $c_{64}$ & $-21042356456406641284164526061152256$ \\
+$c_{2}$ & $-27764$ & $c_{23}$ & $19478365433409142384538896162$ & $c_{44}$ & $-4620119229660912948092211848415981825$ & $c_{65}$ & $8125260098603568272023297502625792$ \\
+$c_{3}$ & $2015179$ & $c_{24}$ & $-90284011239187282069351733917$ & $c_{45}$ & $6156931635469487449602500352939969042$ & $c_{66}$ & $-2902591451513696973469230710145024$ \\
+$c_{4}$ & $-105182400$ & $c_{25}$ & $390888455515223879548815907826$ & $c_{46}$ & $-7759575769200678036349104966212197597$ & $c_{67}$ & $956173895773348805710371577184256$ \\
+$c_{5}$ & $4223631481$ & $c_{26}$ & $-1583323368667679577720656519628$ & $c_{47}$ & $9247187361979527926038653538557455476$ & $c_{68}$ & $-289380787003870534509122260795392$ \\
+$c_{6}$ & $-136125966767$ & $c_{27}$ & $6008749364932742160277983941660$ & $c_{48}$ & $-10418121024860168124299380441853597266$ & $c_{69}$ & $80111496394603915241242652246016$ \\
+$c_{7}$ & $3625550001219$ & $c_{28}$ & $-21392307623796565355437493282297$ & $c_{49}$ & $11093290336906862616211063743348491145$ & $c_{70}$ & $-20182918699134518707664000778240$ \\
+$c_{8}$ & $-81527377542987$ & $c_{29}$ & $71531243894551728326444205471570$ & $c_{50}$ & $-11160335780814824628520967367541750495$ & $c_{71}$ & $4599116004660324322786588753920$ \\
+$c_{9}$ & $1573726427167963$ & $c_{30}$ & $-224881102511757690091397563153723$ & $c_{51}$ & $10603865470268466250748010472995991773$ & $c_{72}$ & $-940883573268439062480254140416$ \\
+$c_{10}$ & $-26425068602011767$ & $c_{31}$ & $665329324911933940382832789021765$ & $c_{52}$ & $-9510702904198730711821714897470258251$ & $c_{73}$ & $171230411714196496633238126592$ \\
+$c_{11}$ & $390213315069594779$ & $c_{32}$ & $-1854005153529421086701144817758955$ & $c_{53}$ & $8047824858823601963235379391104739165$ & $c_{74}$ & $-27402131738494711821351518208$ \\
+$c_{12}$ & $-5113943537364581235$ & $c_{33}$ & $4869669463688260661839163168623886$ & $c_{54}$ & $-6420660386667933033879852813564123970$ & $c_{75}$ & $3798876279552207407309389824$ \\
+$c_{13}$ & $59944541549153011205$ & $c_{34}$ & $-12063918753624964409281159783666566$ & $c_{55}$ & $4826057220284255151196323258059278336$ & $c_{76}$ & $-447245583982332144412262400$ \\
+$c_{14}$ & $-632673010991315794758$ & $c_{35}$ & $28205163465580807780455221872699617$ & $c_{56}$ & $-3414664386489241141618450384594421176$ & $c_{77}$ & $43497630618296645037588480$ \\
+$c_{15}$ & $6047188155526054696614$ & $c_{36}$ & $-62264152489109290784038024191492146$ & $c_{57}$ & $2272105058903993725578703680005933760$ & $c_{78}$ & $-3356104747675065186779136$ \\
+$c_{16}$ & $-52608994250640381463034$ & $c_{37}$ & $129838571823276834639964238361679155$ & $c_{58}$ & $-1420240348790119850407630364338958208$ & $c_{79}$ & $192599677384129058439168$ \\
+$c_{17}$ & $418425222277267310808028$ & $c_{38}$ & $-255848745954510960156230405911023358$ & $c_{59}$ & $832947080028941792229852167808759872$ & $c_{80}$ & $-7305539716510830821376$ \\
+$c_{18}$ & $-3054347056740093826010599$ & $c_{39}$ & $476548218130989367040884005455974807$ & $c_{60}$ & $-457718777672845533368318818004180608$ & $c_{81}$ & $137276562229564538880$ \\
+$c_{19}$ & $20533289137307400145143279$ & $c_{40}$ & $-839224584991235137798788547605179349$ & $c_{61}$ & $235307893368606396580122349613394688$ &  &  \\
+$c_{20}$ & $-127516996856916234046715620$ & $c_{41}$ & $1397577740161730196744985189615144823$ & $c_{62}$ & $-112974219940318098890241387062430208$ &  &  \\
+$c_{21}$ & $733554306335506463055321894$ & $c_{42}$ & $-2201174794086024696170920188905677437$ & $c_{63}$ & $50557157574611009994108844741050368$ &  &  \\
 \end{tabular}
 \end{center}
 
@@ -105,10 +107,10 @@ The recurrence above holds for every $n$, and it is the recurrence the entry rec
 \begin{proof}
 It holds by Lemma~\ref{lem:bm}, which returns a recurrence the sequence satisfies from its
 first term. For the identification: the entry asserts that the sequence satisfies SOME
-recurrence of order $75$, possibly only from some index on. Let $q$ be that recurrence's
+recurrence of order $81$, possibly only from some index on. Let $q$ be that recurrence's
 characteristic polynomial and $q_{\min}$ the minimal polynomial of the tail of the sequence.
-Then $q_{\min}\mid q$. Berlekamp--Massey run on the sequence with its first $75+4$ terms
-removed returns order $75$ as well, so $\deg q_{\min}=75=\deg q$; both are monic, so
+Then $q_{\min}\mid q$. Berlekamp--Massey run on the sequence with its first $81+4$ terms
+removed returns order $81$ as well, so $\deg q_{\min}=81=\deg q$; both are monic, so
 $q=q_{\min}$, which is the polynomial computed above.
 \end{proof}
 
@@ -116,7 +118,7 @@ $q=q_{\min}$, which is the polynomial computed above.
 
 Three checks.
 
-First, the walk model reproduces all $16$ terms the entry publishes, exactly, in integer
+First, the walk model reproduces all $12$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry, and it is the only place where reading
 the entry's English enters.
 
@@ -126,18 +128,18 @@ enough earlier terms to test it.
 
 Third, the order was computed twice by independent routes: once modulo a $61$-bit prime, where
 every intermediate is a machine word, and once in exact rational arithmetic; and once more on
-the sequence with its first $75+4$ terms removed, which is what the identification above
+the sequence with its first $81+4$ terms removed, which is what the identification above
 requires. All three agree.
 
 \begin{remark}
 What is unusual here is that the conjecture's statement was never read. The entry pins it down
-to a one-parameter family --- the recurrences of order $75$ that this sequence satisfies
+to a one-parameter family --- the recurrences of order $81$ that this sequence satisfies
 --- and that family turns out to have exactly one member.
 \end{remark}
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A233712.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A250923.
 \bibitem{massey} J.~L.~Massey, Shift-register synthesis and BCH decoding, \emph{IEEE
 Trans. Inform. Theory} \textbf{15} (1969), 122--127.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,

@@ -12,93 +12,69 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A253364, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A264425, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{5 September 2026}
+\date{7 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A253364 counts arrays of width $7$ over $\{0,1\}$ in which the largest entry on the main diagonal minus the smallest on the antidiagonal of every $2\times2$ and $3\times3$ subblock differs from the same number at the neighbouring subblock. The entry carries an
+OEIS A264425 counts the arrangements of $0,1,\dots,LW-1$ in a grid of $W=5$ columns in which
+every value moves from its home cell by an index change on a short list, and it carries an
 empirical recurrence of order $16$ contributed by R.~H.~Hardin. It is true, and it is
-decidable rather than empirical: a block of $k$ rows and the block one row lower together
-occupy $k+1$ consecutive rows, so every comparison the condition makes is settled inside
-$4$ consecutive rows and the count is a walk count on $S=3385$ states.
+decidable rather than empirical. Such an arrangement is a perfect matching between cells and
+values, and because a value's row moves by at most $R=2$, the matching splits into
+independent decisions column by column: after the cells of columns $0,\dots,i$ are filled,
+every value whose home column is at most $i-R$ has been used, and only $2R$ home columns are
+partly used. Carrying those as bitmasks makes the count a walk on $S=1048576$ vertices, so it is
+$C$-finite and the conjectured recurrence is decided by a finite exact computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B20, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A05, 05A15, 15A15.\normalsize
 
 \section{The conjecture}
 
-OEIS A253364 is ``Number of (n+2)X(5+2) 0..1 arrays with every 2X2 and 3X3 subblock diagonal maximum minus antidiagonal minimum unequal to its neighbors horizontally and vertically.''. It has offset $1$ and begins
+OEIS A264425 is ``Number of (4+1)X(n+1) arrays of permutations of 0..n*5+4 with each element having directed index change 0,1 2,2 1,0 -1,2 -2,-1 or -1,-1.''. It has offset $1$ and begins
 \[
-1904, 3136, 13800, 23936, 76840, 175328, 438504, 1151296,\ \dots
+1, 85, 529, 7311, 101862, 1103666, 13805196, 169633649,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 12*a(n-2) -58*a(n-4) +152*a(n-6) -105*a(n-8) +248*a(n-10) -500*a(n-12) +236*a(n-14) -128*a(n-16) for n>19
+Empirical: a(n) = a(n-1) +66*a(n-2) +767*a(n-3) +1772*a(n-4) -5737*a(n-5) -60500*a(n-6) -147478*a(n-7) +248837*a(n-8) +915581*a(n-9) -595548*a(n-10) +1256272*a(n-11) +6424752*a(n-12) +2523024*a(n-13) +20229024*a(n-14) +12822912*a(n-15) -24975872*a(n-16) for n>18
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 14:00:00, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Nov 12 2015 23:03:54, revision 4) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
-\section{What is being counted}
+\section{The object is a matching}
 
-The arrays have $7$ columns and a growing number of rows, with entries in $\{0,1\}$.
-
-For a $k\times k$ block $B$ of cells of the array, let
+The grid has $W=5$ columns across and holds each of $0,1,\dots,LW-1$ exactly once. The value
+$v$ has a HOME cell, namely its place in the plain row-major filling, and putting $v$ in cell
+$(i,j)$ changes its index by $(i-h_i,\,j-h_j)$ where $(h_i,h_j)$ is that home cell. The entry
+allows the index changes
 \[
-f(B)=\max_{1\le t\le k}B_{t,t}\;-\;\min_{1\le t\le k}B_{t,k+1-t} ,
+(i-h_i,\,j-h_j)\;\in\;\{(-1,-2),\ (-1,-1),\ (0,1),\ (1,0),\ (2,-1),\ (2,2)\},
 \]
-which in words is the largest entry on the main diagonal minus the smallest on the antidiagonal. The condition is that $f$ takes different values on any two blocks that
-are neighbours in one of the directions the entry names: writing $B(i,j)$ for the block whose
-top-left cell is $(i,j)$,
+the list being the entry's own, read with the sign convention its wording uses. An admissible
+arrangement is therefore exactly a perfect matching in the bipartite graph joining each cell to
+the values it may hold.
+
+\section{The matching is a walk}
+
+Let $R=2$ be the largest $|i-h_i|$ on the list. A value whose home column is $h$ can only be
+placed in columns $h-R,\dots,h+R$. So once the cells of columns $0,\dots,i$ are filled, every
+value with home column at most $i-R$ has been used up, and the only home columns that can be
+partly used are $i-R+1,\dots,i+R$ --- exactly $2R$ of them. Take as the state the tuple of
+$2R$ bitmasks recording which values of those home columns are already placed. One step fills
+the cells of one further column, drawing each of its $W$ values from a home column within $R$
+and at an allowed column offset, and the home column that closes at that step must come out
+full. Nonexistent home columns --- before the first and after the last --- are carried as
+full, which makes the starting and accepting states the same one.
+
+Hence $a$ is a walk count on $S=1048576$ vertices,
 \[
-f\bigl(B(i,j)\bigr)\;\neq\;f\bigl(B(i+\delta_1,\,j+\delta_2)\bigr)
-\qquad\text{for }(\delta_1,\delta_2)\in\Delta,
+a(n)\;=\;\iota^{\!\top}M^{\,n+1}\tau ,
 \]
-whenever both blocks lie wholly inside the array, where
-\[
-\Delta=\{\,(0,1),\ (1,0)\,\}
-\]
-collects the steps for the directions the entry names, namely horizontal and vertical. The
-requirement is imposed for each of the two sizes of block, $2\times2$ and $3\times3$.
-
-Two remarks fix the reading. A neighbouring block is the block one step over, overlapping the
-first, not the next disjoint block: the entry says ``its neighbors'', and the counts below
-confirm it. And a comparison is imposed only when both blocks lie wholly inside the array, so a
-block near an edge is compared in fewer directions and a block whose named neighbour falls off
-the array is under no condition in that direction.
-
-\section{A window of 4 rows}
-
-A $k\times k$ block occupies $k$ consecutive rows, and each of its neighbours occupies either
-the same $k$ rows or the $k$ rows one lower. So both blocks of any comparison lie inside $k+1$
-consecutive rows, hence inside $4$ consecutive rows for every size the entry names. No
-comparison reaches further than that, in either direction.
-
-Take the array one row at a time and let the state be the last 3 rows written so far, with a
-distinguished start standing for the array before its first row, so that a walk of $n$ steps is
-an array of $n$ rows. Appending a row produces a window of $4$ rows, and the step is
-allowed exactly when every comparison whose two blocks both lie inside that window holds.
-
-Every comparison of the finished array is tested this way. Each one lies inside $4$
-consecutive rows, and every $4$ consecutive rows of the array form the window of some
-step. A comparison lying inside more than one window is tested more than once, which costs
-nothing. Conversely no step imposes anything not asked by the definition, since a step tests
-only comparisons whose two blocks lie inside the array.
-
-Every state may end an array, so $\tau=\mathbf{1}$. A block sitting in the final rows whose
-neighbour would lie below the last row is not compared in that direction at all --- the
-neighbour is not part of the array --- so stopping never leaves a condition unchecked. For the
-same reason the array of exactly $3$ rows is handled by the walks of length $3$ with no
-further test: all of its comparisons already lie inside the windows of those steps.
-
-Thus
-\[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=3385,
-\]
-for the transfer matrix $M$ on those $S$ states. The walk index $j$ and the entry's own $n$
-differ by a constant, read off by matching the published terms rather than assumed. In
+the exponent fixed by the entry's own shape and checked against its published terms; in
 particular $a$ is $C$-finite.
 
 \section{The proof}
@@ -107,7 +83,7 @@ particular $a$ is $C$-finite.
 Let $q(t)=t^{16}-\sum_i c_it^{16-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
-holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
+holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$;
 and it is enough to examine $j<S$.
 \end{lemma}
 
@@ -121,42 +97,43 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;12\,a(n-2) - 58\,a(n-4) + 152\,a(n-6) - 105\,a(n-8) + 248\,a(n-10) - 500\,a(n-12) + 236\,a(n-14) - 128\,a(n-16)
+a(n)\;=\;a(n-1) + 66\,a(n-2) + 767\,a(n-3) + 1772\,a(n-4) - 5737\,a(n-5) - 60500\,a(n-6) - 147478\,a(n-7) + 248837\,a(n-8) + 915581\,a(n-9) - 595548\,a(n-10) + 1256272\,a(n-11) + 6424752\,a(n-12) + 2523024\,a(n-13) + 20229024\,a(n-14) + 12822912\,a(n-15) - 24975872\,a(n-16)
 \]
-for every $n>19$.
+for every $n>18$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $16$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=19+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once.
+integers vanish from the index corresponding to $n=18+1$ onwards and the run continued
+until the working vector was identically zero, settling every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
-Four checks, each independent of the algebra above.
+Three checks, each independent of the algebra above.
 
-First, the model reproduces all $22$ terms the entry publishes, exactly, in integer
-arithmetic.
+First, the reading of the entry's wording was tested against the entries themselves by brute
+force before any of this was built, and separately for each of the three sign conventions the
+family uses: ``$(\pm,\pm)$ $a,b$'' signs each coordinate independently, ``$\pm(.,.)$ $a,b$''
+signs the PAIR and may write the second coordinate negative, and ``directed $a,b$'' is taken
+literally. Enumerating all $720$ arrangements of a $2\times3$ grid reproduces the first term
+of an entry of each convention. Testing only one of them would have proved only that one:
+reading the second convention as the first silently drops displacements, and thirty-eight
+entries disagreed with their own published data until the conventions were separated.
 
-Second, the count was recomputed for the smallest arrays straight from the definition: every
-array of width $7$ over $\{0,1\}$ with a few rows was written out cell by cell, every block of
-each of the two sizes was located, its number computed, and the comparison made with each neighbouring block
-that lies inside the array. No window, no state and no end vector are involved in that
-computation, and the published terms came back.
+Second, the transfer model reproduces all $17$ terms this entry publishes, exactly, in
+integer arithmetic.
 
-Third, the conjectured recurrence was evaluated directly on the published terms, with no
-matrices involved, and holds wherever the proved range and the data overlap.
-
-Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
 arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A253364.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A264425.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{lp} L.~Lov\'asz and M.~D.~Plummer, \emph{Matching Theory}, AMS Chelsea, 2009.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

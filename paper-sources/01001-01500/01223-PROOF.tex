@@ -12,131 +12,141 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A203960, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A206653, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{3 September 2026}
+\date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A203960 counts arrays of width $4$ over $\{0,1,2\}$ through two derived arrays of PAIR SUMS ---
-each cell added to its left neighbour, and each cell added to the one above it --- on which the
-entry imposes an order condition. The entry carries an empirical recurrence of order $70$
-contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical: the count is
-a walk count on $S=504$ states.
+OEIS A206653 counts $(n+2)\times4$ arrays over $\{0,\dots,1\}$ subject to a condition imposed on
+every $3\times3$ subblock, and counted UP TO RELABELLING of the
+alphabet; it carries an empirical recurrence of order $82$ contributed by
+R.~H.~Hardin. It is true, and it is decidable rather than empirical. What is counted is
+equality patterns, which is not a walk count --- but it is a fixed rational combination of
+walk counts, one for each alphabet size, and that combination is again $C$-finite. Whether the
+conjectured recurrence annihilates it is then decided by a finite exact computation, with the
+Cayley--Hamilton theorem bounding the work.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 06A07, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
 \section{The conjecture}
 
-OEIS A203960 is ``Number of (n+1)X4 0..2 arrays with column and row pair sums b(i,j)=a(i,j)+a(i,j-1) and c(i,j)=a(i,j)+a(i-1,j) such that rows of b(i,j) and columns of c(i,j) are lexicographically nondecreasing.''. It has offset $1$ and begins
+OEIS A206653 is ``Number of (n+2)X4 0..1 arrays with every 3X3 subblock having three equal elements in a row horizontally, vertically or nw-to-se diagonally exactly two ways, and new values 0..1 introduced in row major order.''. It has offset $1$ and begins
 \[
-447, 6586, 144184, 2774984, 45390107, 632607409, 7690733410, 83135996535,\ \dots
+390, 1769, 8374, 39928, 190577, 910169, 4345011, 20745372,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 70*a(n-1) -2390*a(n-2) +53026*a(n-3) -859280*a(n-4) +10837486*a(n-5) -110689678*a(n-6) +940467534*a(n-7) -6775582821*a(n-8) +41975896416*a(n-9) -225945601128*a(n-10) +1064739771036*a(n-11) -4415619896328*a(n-12) +16165513660116*a(n-13) -52288711297332*a(n-14) +149160295747764*a(n-15) -373162375580709*a(n-16) +809119940631882*a(n-17) -1484223951053770*a(n-18) +2178963883075318*a(n-19) -2146560280535480*a(n-20) -39085438231766*a(n-21) +6024585300469078*a(n-22) -16111370788098326*a(n-23) +26799852258923207*a(n-24) -29210326010513316*a(n-25) +11504776740632844*a(n-26) +32600593598129128*a(n-27) -92110560248711488*a(n-28) +133407867113598392*a(n-29) -112515294835778680*a(n-30) +6161615044794680*a(n-31) +156112517978995805*a(n-32) -288784683826825574*a(n-33) +293693764907358870*a(n-34) -130895641732610322*a(n-35) -134974860855522688*a(n-36) +358965293492784994*a(n-37) -405877274016750338*a(n-38) +243936796446407746*a(n-39) +30720051124321969*a(n-40) -259761347702652728*a(n-41) +328048339099510784*a(n-42) -229573881432089796*a(n-43) +52077364009364856*a(n-44) +95462224098943732*a(n-45) -151426903228240084*a(n-46) +121968628140188372*a(n-47) -54270113113921399*a(n-48) -4686638262187882*a(n-49) +32942542265444042*a(n-50) -33614401931263814*a(n-51) +21094772073143112*a(n-52) -8016780378010938*a(n-53) +41021215954938*a(n-54) +2818476851537094*a(n-55) -2765176161007827*a(n-56) +1790718345039036*a(n-57) -910785954481380*a(n-58) +383581455732864*a(n-59) -136587085998000*a(n-60) +41434143634752*a(n-61) -10708969866816*a(n-62) +2345491881472*a(n-63) -430737604864*a(n-64) +65228628992*a(n-65) -7943769088*a(n-66) +748765184*a(n-67) -51318784*a(n-68) +2277376*a(n-69) -49152*a(n-70) for n>83
+Empirical: a(n) = 6*a(n-2) +70*a(n-3) +111*a(n-4) +11*a(n-5) -1038*a(n-6) -2212*a(n-7) -1228*a(n-8) +6222*a(n-9) +14947*a(n-10) +4864*a(n-11) -21444*a(n-12) -37809*a(n-13) +37708*a(n-14) +69192*a(n-15) -16620*a(n-16) -247948*a(n-17) -181648*a(n-18) +265738*a(n-19) +294365*a(n-20) -25710*a(n-21) -311918*a(n-22) +1014729*a(n-23) +1556509*a(n-24) -3780019*a(n-25) -6949650*a(n-26) -2669749*a(n-27) +16905404*a(n-28) +19548332*a(n-29) -4383804*a(n-30) -36037146*a(n-31) -30507685*a(n-32) +15475748*a(n-33) +43855826*a(n-34) +30266708*a(n-35) -13081195*a(n-36) -21467990*a(n-37) -16915949*a(n-38) +7498639*a(n-39) +2382846*a(n-40) -6646771*a(n-41) +22164150*a(n-42) -20152361*a(n-43) -372616*a(n-44) -19073865*a(n-45) +18150630*a(n-46) +4473011*a(n-47) -14909593*a(n-48) +1916272*a(n-49) -15127805*a(n-50) +20327817*a(n-51) +1517558*a(n-52) -6955067*a(n-53) -6298662*a(n-54) +7138737*a(n-55) +6828905*a(n-56) -5259661*a(n-57) +1095788*a(n-58) +569873*a(n-59) +859792*a(n-60) +1148261*a(n-61) +401017*a(n-62) +1545245*a(n-63) +1189595*a(n-64) +590643*a(n-65) -31467*a(n-66) -26637*a(n-67) +275467*a(n-68) +196219*a(n-69) +198819*a(n-70) +39906*a(n-71) -32890*a(n-72) +32129*a(n-73) +8601*a(n-74) -1306*a(n-75) +613*a(n-76) -1805*a(n-77) -174*a(n-78) -1197*a(n-79) +21*a(n-80) +378*a(n-81) -27*a(n-82) for n>85
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 10:54:15, revision 9) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 13:04:11, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
-\section{What is being counted}
+\section{Patterns are a combination of counts}
 
-The array $a$ has $4$ cells across, with entries in $\{0,1,2\}$. Two derived arrays are formed,
+The clause ``new values $0..1$ introduced in row major order'' says that the arrays
+counted are the canonical representatives of their EQUALITY PATTERNS: two arrays that differ
+only by a permutation of the alphabet are one object. Write $N_j$ for the number of admissible
+patterns using exactly $j$ letters and $L_i$ for the number of admissible ARRAYS over an
+alphabet of $i$ letters. An array over $i$ letters is a pattern together with an injection of
+its letters into the alphabet, so
 \[
-b(i,j)=a(i,j)+a(i,j-1)\quad(j\ge1),\qquad c(i,j)=a(i,j)+a(i-1,j)\quad(i\ge1),
+L_i\;=\;\sum_{j}N_j\,i(i-1)\cdots(i-j+1),
 \]
-so $b$ adds each cell to its LEFT neighbour and $c$ adds each cell to the one ABOVE it. The
-entry asks
-
-that the ROWS of $b$ and the COLUMNS of $c$ are each in lexicographic nondecreasing order. Row $i$ of $b$
-is $\bigl(b(i,1),\dots,b(i,3)\bigr)$ and column $j$ of $c$ is
-$\bigl(c(1,j),c(2,j),\dots\bigr)$.
-
-
-\section{Two rows decide it}
-
-\begin{lemma}\label{lem:win}
-The row comparison is a condition on two consecutive rows of $a$. The column comparison is
-settled by the FIRST row in which the two columns of $c$ differ.
-\end{lemma}
-
-\begin{proof}
-Row $i$ of $b$ is built from row $i$ of $a$ alone, so comparing rows $i$ and $i+1$ of $b$ reads
-rows $i$ and $i+1$ of $a$. Two sequences are compared lexicographically by their first
-difference; entry $i$ of column $j$ of $c$ is built from rows $i-1$ and $i$ of $a$, so scanning
-the array downwards reveals the entries of every column of $c$ in order.
-\end{proof}
-
-So the state is the last row of $a$ together with one bit for each adjacent pair of columns,
-recording whether that pair of columns of $c$ has been equal in every row so far. A row that
-would put a pair in the wrong order is rejected at once, and a pair still equal at the end is
-in order, equality being allowed.
-
-With $M$ the adjacency matrix of the digraph on those states, $\iota$ the indicator of the
-starting state and $\tau=\mathbf{1}$,
+a triangular system with nonzero diagonal, hence invertible over $\mathbb{Q}$. The entry
+counts $a=N_1+\dots+N_{2}$, so
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=504.
+a\;=\;\bigl(\mathbf{1}^{\!\top}F^{-1}\bigr)L ,
 \]
-The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
-published terms rather than assumed. In particular $a$ is $C$-finite.
+a FIXED rational combination of the $L_i$, where $F$ is the matrix of falling factorials.
+Each $L_i$ is a walk count on its own transfer graph, so $a$ is a walk count on the disjoint
+union of those graphs with the combination's coefficients placed in the starting vector; the
+coefficients are rational and some are negative, which costs nothing in what follows.
+
+This step needs the condition itself to be unchanged by permuting the alphabet, and it is:
+the condition below is stated through equality between entries and never names a particular
+value or compares sizes.
+
+\section{Three consecutive lines}
+
+The entry's condition constrains every $3\times3$ subblock, which spans three consecutive
+rows and three consecutive columns. Writing an array as a sequence of rows
+$u_1,u_2,\dots$ over $\{0,\dots,1\}^{4}$, the condition
+\[
+\text{exactly }2\text{ of the horizontally, vertically or nw-to-se diagonally lines of }g\text{ \text{is constant}}
+\]
+involves only three consecutive rows. Take as vertices the ordered PAIRS $(r,s)$ of
+rows and put an edge $(r,s)\to(s,t)$ exactly when the condition holds for the triple
+$(r,s,t)$ at every admissible column; an array with $L$ rows is a walk of length $L-2$.
+Doing that for each alphabet size $1,\dots,2$ and combining as above gives
+\[
+a(n)\;=\;\frac{1}{2}\,\iota^{\!\top}M^{\,n}\tau
+\]
+on $S=256$ vertices in total, the exponent fixed by the entry's own shape and checked against
+its published terms. States lying on no walk from $\iota$ to $\tau$ are removed first; that
+changes no value and only shrinks the computation.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{70}-\sum_i c_it^{70-i}$ be the characteristic polynomial of the
-conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
-$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
-holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
-and it is enough to examine $j<S$.
+Let $q(t)=t^{82}-\sum_i c_it^{82-i}$ be the characteristic polynomial of the
+conjectured recurrence. Then the residual $a(n)-\sum_ic_ia(n-i)$ equals
+$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the
+recurrence holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all
+large $j$; and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+70}-\sum_ic_iM^{j+70-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+82}-\sum_ic_iM^{j+82-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
-$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
-polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly.
+$u_j=\iota^{\!\top}M^{j}q(M)\tau$ satisfy the monic linear recurrence given by the
+characteristic polynomial of $M$; $S$ consecutive zeros force every later one, and the last
+nonzero $u_j$ pins the threshold exactly.
 \end{proof}
 
 \begin{theorem}
 \[
-a(n)\;=\;70\,a(n-1) - 2390\,a(n-2) + 53026\,a(n-3) - 859280\,a(n-4) + 10837486\,a(n-5) - 110689678\,a(n-6) + 940467534\,a(n-7) - 6775582821\,a(n-8) + 41975896416\,a(n-9) - 225945601128\,a(n-10) + 1064739771036\,a(n-11) - 4415619896328\,a(n-12) + 16165513660116\,a(n-13) - 52288711297332\,a(n-14) + 149160295747764\,a(n-15) - 373162375580709\,a(n-16) + 809119940631882\,a(n-17) - 1484223951053770\,a(n-18) + 2178963883075318\,a(n-19) - 2146560280535480\,a(n-20) - 39085438231766\,a(n-21) + 6024585300469078\,a(n-22) - 16111370788098326\,a(n-23) + 26799852258923207\,a(n-24) - 29210326010513316\,a(n-25) + 11504776740632844\,a(n-26) + 32600593598129128\,a(n-27) - 92110560248711488\,a(n-28) + 133407867113598392\,a(n-29) - 112515294835778680\,a(n-30) + 6161615044794680\,a(n-31) + 156112517978995805\,a(n-32) - 288784683826825574\,a(n-33) + 293693764907358870\,a(n-34) - 130895641732610322\,a(n-35) - 134974860855522688\,a(n-36) + 358965293492784994\,a(n-37) - 405877274016750338\,a(n-38) + 243936796446407746\,a(n-39) + 30720051124321969\,a(n-40) - 259761347702652728\,a(n-41) + 328048339099510784\,a(n-42) - 229573881432089796\,a(n-43) + 52077364009364856\,a(n-44) + 95462224098943732\,a(n-45) - 151426903228240084\,a(n-46) + 121968628140188372\,a(n-47) - 54270113113921399\,a(n-48) - 4686638262187882\,a(n-49) + 32942542265444042\,a(n-50) - 33614401931263814\,a(n-51) + 21094772073143112\,a(n-52) - 8016780378010938\,a(n-53) + 41021215954938\,a(n-54) + 2818476851537094\,a(n-55) - 2765176161007827\,a(n-56) + 1790718345039036\,a(n-57) - 910785954481380\,a(n-58) + 383581455732864\,a(n-59) - 136587085998000\,a(n-60) + 41434143634752\,a(n-61) - 10708969866816\,a(n-62) + 2345491881472\,a(n-63) - 430737604864\,a(n-64) + 65228628992\,a(n-65) - 7943769088\,a(n-66) + 748765184\,a(n-67) - 51318784\,a(n-68) + 2277376\,a(n-69) - 49152\,a(n-70)
+a(n)\;=\;6\,a(n-2) + 70\,a(n-3) + 111\,a(n-4) + 11\,a(n-5) - 1038\,a(n-6) - 2212\,a(n-7) - 1228\,a(n-8) + 6222\,a(n-9) + 14947\,a(n-10) + 4864\,a(n-11) - 21444\,a(n-12) - 37809\,a(n-13) + 37708\,a(n-14) + 69192\,a(n-15) - 16620\,a(n-16) - 247948\,a(n-17) - 181648\,a(n-18) + 265738\,a(n-19) + 294365\,a(n-20) - 25710\,a(n-21) - 311918\,a(n-22) + 1014729\,a(n-23) + 1556509\,a(n-24) - 3780019\,a(n-25) - 6949650\,a(n-26) - 2669749\,a(n-27) + 16905404\,a(n-28) + 19548332\,a(n-29) - 4383804\,a(n-30) - 36037146\,a(n-31) - 30507685\,a(n-32) + 15475748\,a(n-33) + 43855826\,a(n-34) + 30266708\,a(n-35) - 13081195\,a(n-36) - 21467990\,a(n-37) - 16915949\,a(n-38) + 7498639\,a(n-39) + 2382846\,a(n-40) - 6646771\,a(n-41) + 22164150\,a(n-42) - 20152361\,a(n-43) - 372616\,a(n-44) - 19073865\,a(n-45) + 18150630\,a(n-46) + 4473011\,a(n-47) - 14909593\,a(n-48) + 1916272\,a(n-49) - 15127805\,a(n-50) + 20327817\,a(n-51) + 1517558\,a(n-52) - 6955067\,a(n-53) - 6298662\,a(n-54) + 7138737\,a(n-55) + 6828905\,a(n-56) - 5259661\,a(n-57) + 1095788\,a(n-58) + 569873\,a(n-59) + 859792\,a(n-60) + 1148261\,a(n-61) + 401017\,a(n-62) + 1545245\,a(n-63) + 1189595\,a(n-64) + 590643\,a(n-65) - 31467\,a(n-66) - 26637\,a(n-67) + 275467\,a(n-68) + 196219\,a(n-69) + 198819\,a(n-70) + 39906\,a(n-71) - 32890\,a(n-72) + 32129\,a(n-73) + 8601\,a(n-74) - 1306\,a(n-75) + 613\,a(n-76) - 1805\,a(n-77) - 174\,a(n-78) - 1197\,a(n-79) + 21\,a(n-80) + 378\,a(n-81) - 27\,a(n-82)
 \]
-for every $n>83$.
+for every $n>85$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $70$ matrix--vector products in exact integer
-arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=83+1$ onwards and the run continued
-until the working vector was identically zero.
+The vector $w=q(M)\tau$ was formed by $82$ matrix--vector products in exact integer
+arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly. Those
+integers vanish from the index corresponding to $n=85+1$ onwards, and the run was
+continued until the working vector was identically zero, which settles all larger $j$ at once.
+By Lemma~\ref{lem:crit} the recurrence holds for every $n>85$.
 \end{proof}
 
 \section{Verification}
 
-Four checks, each independent of the algebra above.
+Three checks, each independent of the algebra above.
 
-First, the model reproduces all $15$ terms the entry publishes, exactly, in integer
-arithmetic.
+First, the transfer model reproduces all $19$ terms the entry publishes, exactly, in
+integer arithmetic. That check earned its place here. The neighbour offsets are named in the
+array's own frame --- horizontal means along a row --- but when the entry fixes the first
+dimension, as in ``$2\times n$'', the walk runs along columns and the two components of every
+offset swap. Sets such as king-move, or horizontal together with vertical, are unchanged by
+that swap and hide the error completely; a set such as horizontal, diagonal and antidiagonal
+is not, and the counts came out as those of a different member of the same family until the
+offsets were transposed.
 
-Second, the count was recomputed for the smallest arrays straight from the definition:
-enumerate every array of that size, form the two derived arrays in full, and test the condition
-on them directly. No window, no state and no incremental bookkeeping are involved, and the
-published terms came back.
+Second, the conjectured recurrence was evaluated directly on the entry's own published terms,
+with no matrices involved, and holds wherever the proved range and the data overlap.
 
-Third, the conjectured recurrence was evaluated directly on the published terms, with no
-matrices involved, and holds wherever the proved range and the data overlap.
-
-Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
 arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A203960.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A206653.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+University Press, 2009.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

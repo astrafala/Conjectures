@@ -10,144 +10,171 @@
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
-\title{A proof of the conjectured identity for OEIS A346370}
+\title{A proof of the conjectured recurrence for OEIS A172025}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{26 August 2026}
+\date{30 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A346370 carries a conjectured identity expressing its terms through the terms of
-A008733, A093907. We prove it. Each entry involved posts a generating function, so the claim is
-a single identity between generating functions: writing $F_{a}$ for the generating
-function of A346370 and $F_{j}$ for those of the entries on the right, the conjecture
-says that a specific combination of the $F_{j}$, shifted and weighted as the identity
-prescribes, differs from $F_{a}$ by a polynomial. That difference is computed here in
-closed form and equals $0$, of degree $-1$, which proves the identity for
-every $n>-1$.
+OEIS A172025 carries a conjectured linear recurrence with polynomial coefficients, of
+order 2. The entry posts no generating function; it defines the sequence by an
+extraction, $a(n)=[x^{n}]\,f(x)g(x)^{n}$. We derive a generating function from that
+definition and prove the conjecture from it. Reading the extraction as a contour integral
+and summing the geometric series turns $\sum_{n}a(n)t^{n}$ into a single integral whose
+only pole inside a small circle is the branch of $x=t\,g(x)$ through the origin; the
+residue there gives $A(t)=f(x(t))/\bigl(1-t\,g'(x(t))\bigr)$. So $A$ is algebraic, with
+minimal polynomial obtained by eliminating $x$, and the recurrence follows from the
+residual test in the field that polynomial generates. Here the residual is
+$0$, of degree $-1$, which proves the recurrence for every $n>-1$.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 11B83, 05A15.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 30B10, 33F10.\normalsize
 
-\section{The sequences and the conjecture}
+\section{The sequence and the conjecture}
 
-OEIS A346370 is ``Upper bound for the number of solutions of the TRINTUM cube puzzle n X 1 X 1 (cuboid formed by 4n + 2 parts) different by the set of parts, which are distinguished by the amount of surface area they contribute to the assembled cuboid''. It has offset $1$ and begins
+OEIS A172025 is ``Expansion of (2/(3*sqrt(1-4*z)-1+4*z))*((1-sqrt(1-4*z))/(2*z))\textasciicircum{}k with k=3''. It has offset $0$ and begins
 \[
-a(1),\dots,a(8)\;=\;3, 8, 10, 19, 22, 34, 38, 54,\ \dots
+a(0),\dots,a(7)\;=\;1, 4, 16, 62, 239, 920, 3544, 13672,\ \dots
 \]
-Its generating function, as posted on the entry, is
-\begin{equation}\label{eq:gf}
-F_{a}(x)\;=\;\sum_{n\ge 1} a(n)\,x^{n}\;=\;- \frac{x \left(2 x^{6} - 2 x^{5} - 2 x^{4} + 4 x^{3} - x^{2} + 5 x + 3\right)}{\left(x - 1\right)^{3} \left(x + 1\right)^{2} \left(x^{2} + 1\right)} ,
-\end{equation}
-and the entry carries the following comment:
+The entry states, not as a conjecture,
 \begin{quote}\small
-\textbf{Conjecture:} a(n) = A008733(n-1) + A093907(n) for n > 0 (noticed by Sequence Machine). - \emph{Mikhail Kurkov}, Oct 14 2021 [verification needed]
+a(n) = [x\textasciicircum{}n] 1/((1 - x\textasciicircum{}2)*(1 - x)\textasciicircum{}(n+3)).
 \end{quote}
-As of the ``Last modified'' line on the live entry (2024-04-21, revision 48) the
+that is,
+\begin{equation}\label{eq:def}
+a(n)\;=\;[x^{n}]\,f(x)\,g(x)^{n},
+\qquad f(x)=\frac{1}{x^{5} - 3 x^{4} + 2 x^{3} + 2 x^{2} - 3 x + 1},\qquad g(x)=- \frac{1}{x - 1} .
+\end{equation}
+This is the only input taken from the entry, and it was checked against the entry's own
+DATA before use. In particular \emph{no generating function is assumed}: the entry posts
+none, and the one used below is derived.
+
+The entry separately carries the following comment:
+\begin{quote}\small
+\textbf{Conjecture:} 2*n*(n+3)*a(n) + (-7*n\textasciicircum{}2 - 17*n - 8)*a(n-1) -2*(n+2)*(2*n+1)*a(n-2) = 0. - \emph{R. J. Mathar}, Feb 19 2016
+\end{quote}
+As of the ``Last modified'' line on the live entry (2026-03-13, revision 46) the
 statement is still recorded as a conjecture, and no proof appears among the entry's links,
 formulas or programs.
 
-The entries appearing on the right-hand side post the generating functions
+\section{A generating function from the extraction}
+
+\begin{lemma}\label{lem:diag}
+Let $f,g$ be rational functions regular at $0$ with $g(0)\neq0$, and let
+$a(n)=[x^{n}]f(x)g(x)^{n}$. Then $A(t)=\sum_{n\ge0}a(n)t^{n}$ satisfies
 \[
-F_{A008733}(x) \;=\; \frac{- x^{2} + x - 1}{\left(x - 1\right)^{3} \left(x + 1\right)^{2} \left(x^{2} + 1\right)} \qquad F_{A093907}(x) \;=\; - \frac{2 x \left(x^{4} - x^{3} - 2 x^{2} + 3 x + 1\right)}{\left(x - 1\right)^{3} \left(x + 1\right)^{2}}
+A(t)\;=\;\frac{f\bigl(x(t)\bigr)}{1-t\,g'\bigl(x(t)\bigr)},
 \]
-
-\section{Shifts of a generating function}
-
-Throughout, a sequence $b$ defined on the indices its OEIS entry uses is identified with
-the formal series $F_{b}(x)=\sum_{m\ge0}b(m)x^{m}$, where $b(m)=0$ for $m$ below the
-entry's offset. This convention makes shifting immediate.
-
-\begin{lemma}\label{lem:shift}
-For an integer $k\ge0$,
-\[
-\sum_{m\ge0}b(m+k)\,x^{m}=\frac{F_{b}(x)-\sum_{m<k}b(m)x^{m}}{x^{k}},
-\qquad
-\sum_{m\ge0}b(m-k)\,x^{m}=x^{k}F_{b}(x).
-\]
+where $x(t)$ is the unique power series with $x(0)=0$ solving $x=t\,g(x)$. In particular
+$A$ is algebraic over $\mathbb{Q}(t)$.
 \end{lemma}
 
 \begin{proof}
-Both are re-indexings of the defining sum. In the first, subtracting the terms below
-$x^{k}$ removes exactly the coefficients that have no counterpart after the shift, and
-dividing by $x^{k}$ relabels $m+k$ as $m$. In the second, multiplying by $x^{k}$ relabels
-$m$ as $m+k$, and the coefficients of $x^{m}$ for $m<k$ are $b(m-k)=0$.
+Write the extraction as a contour integral on a circle $|x|=\rho$ small enough that $f$
+and $g$ are regular on and inside it:
+\[
+a(n)=\frac{1}{2\pi i}\oint \frac{f(x)g(x)^{n}}{x^{n+1}}\,dx .
+\]
+For $|t|$ small, $|t\,g(x)/x|<1$ on the circle, so the geometric series may be summed
+under the integral:
+\[
+A(t)=\frac{1}{2\pi i}\oint\frac{f(x)}{x}\sum_{n\ge0}\Bigl(\frac{t\,g(x)}{x}\Bigr)^{n}dx
+     =\frac{1}{2\pi i}\oint\frac{f(x)}{x-t\,g(x)}\,dx .
+\]
+Since $g(0)\neq0$, the equation $x=t\,g(x)$ has, for small $t$, exactly one root in the
+disc, namely the branch $x(t)$ with $x(0)=0$ furnished by Lagrange inversion; it is a
+simple zero of $x-t\,g(x)$ because the derivative $1-t\,g'(x)$ is $1$ at $t=0$. The
+residue theorem gives the stated value. Both $x(t)$ and hence $A(t)$ are algebraic,
+being defined by polynomial equations over $\mathbb{Q}(t)$.
 \end{proof}
 
-\begin{lemma}\label{lem:theta}
-Let $\theta=x\,\dfrac{d}{dx}$, so that $\theta$ acts on $x^{m}$ as multiplication by $m$.
-For a polynomial $c$, the sequence $m\mapsto c(m)b(m)$ has generating function
-$c(\theta)F_{b}$. In particular $m\mapsto m^{j}$ has generating function
-$\theta^{j}\bigl[(1-x)^{-1}\bigr]$.
-\end{lemma}
-
-\begin{proof}
-$\theta$ multiplies the coefficient of $x^{m}$ by $m$, so $c(\theta)$ multiplies it by
-$c(m)$. The last statement is the case $b\equiv1$.
-\end{proof}
-
-\begin{corollary}\label{cor:criterion}
-Let $R(x)$ be the generating function assembled from the right-hand side of the conjecture
-by Lemmas~\ref{lem:shift} and~\ref{lem:theta}. Then the conjectured identity holds for
-every $n>d$ if and only if $F_{a}-R$ is a polynomial of degree at most $d$.
+\begin{corollary}\label{cor:minpoly}
+$A$ satisfies the polynomial obtained by eliminating $x$ between
+$x-t\,g(x)=0$ and $y\bigl(1-t\,g'(x)\bigr)-f(x)=0$.
 \end{corollary}
 
 \begin{proof}
-The coefficient of $x^{n}$ in $F_{a}-R$ is the difference between the two sides of the
-identity at $n$. That difference vanishes for all $n>d$ exactly when $F_{a}-R$ has no
-terms above $x^{d}$.
+Both equations hold at $x=x(t)$, $y=A(t)$ by Lemma~\ref{lem:diag}. Eliminating $x$ by a
+resultant produces a polynomial in $t$ and $y$ vanishing there.
 \end{proof}
 
-Note that the test is for a \emph{polynomial}, not for zero. A claim of this kind
-typically fails at a few small indices, where the shifted terms on the right reach outside
-the range of their own sequences; the polynomial records precisely those indices.
-
-\section{The computation for A346370}
-
-Assembling the right-hand side by Lemmas~\ref{lem:shift} and~\ref{lem:theta} gives
+For A172025 this yields
 \[
-R(x)\;=\;- \frac{x \left(x^{2} - x + 2 \left(x^{2} + 1\right) \left(x^{4} - x^{3} - 2 x^{2} + 3 x + 1\right) + 1\right)}{\left(x - 1\right)^{3} \left(x + 1\right)^{2} \left(x^{2} + 1\right)} ,
+4 t^{5} y^{2} + 7 t^{4} y^{2} - 2 t^{3} y^{2} + 4 t y - y + 1 \;=\;0 ,
 \]
-and subtracting \eqref{eq:gf} the rational parts cancel, leaving
+and $A$ is the branch of this polynomial whose expansion is the entry's own sequence.
+The branch is identified by that expansion, not by solving for it in radicals --- the
+polynomial can have degree beyond four, where no such expression exists.
+
+\section{The recurrence}
+
+Let $\theta=x\,\dfrac{d}{dx}$, acting on $x^{m}$ as multiplication by $m$.
+
+\begin{lemma}\label{lem:transfer}
+Let $p_{0},\dots,p_{r}$ be polynomials and put $b(n)=\sum_{i}p_{i}(n)a(n-i)$, with
+$a(m)=0$ for $m<0$. Then $B(x)=\sum_{n}b(n)x^{n}=\sum_{i}x^{i}(p_{i}(\theta+i)A)(x)$, so
+the recurrence $\sum_{i}p_{i}(n)a(n-i)=0$ holds for every $n>d$ if and only if $B$ is a
+polynomial of degree at most $d$.
+\end{lemma}
+
+\begin{proof}
+Substituting $m=n-i$ gives $\sum_{n}p_{i}(n)a(n-i)x^{n}=x^{i}(p_{i}(\theta+i)A)(x)$, and
+$b(n)$ is the coefficient of $x^{n}$ in $B$.
+\end{proof}
+
+Since $A$ lies in the algebraic function field generated by the polynomial of
+Corollary~\ref{cor:minpoly}, and such a field is closed under $\theta$ --- differentiating
+its defining relation expresses the derivative of the generator inside the field ---
+every $p_{i}(\theta+i)A$ lies there too, and so does $B$. Computing it exactly gives
 \[
-F_{a}(x)-R(x)\;=\;0 ,
+B(x)\;=\;0 ,
 \]
 a polynomial of degree $-1$.
 
 \begin{theorem}
-The conjectured identity holds for every $n>-1$.
+The conjectured recurrence
+\[
+2 n \left(n + 3\right)\,a(n) + (- 7 n^{2} - 17 n - 8)\,a(n-1) -  2 \left(n + 2\right) \left(2 n + 1\right)\,a(n-2) \;=\;0
+\]
+holds for every $n>-1$.
 \end{theorem}
 
 \begin{proof}
-Immediate from Corollary~\ref{cor:criterion} and the displayed difference.
+Immediate from Lemma~\ref{lem:transfer} and the displayed value of $B$.
 \end{proof}
 
 \section{Verification}
 
-Every number above is an output of a script written separately from this note, and two
+Every number above is an output of a script written separately from this note, and three
 independent checks were run.
 
-First, no generating function was assumed. For each entry involved, the posted expression
-was expanded as a Taylor series and compared term by term with that entry's own DATA
-section; only expressions reproducing the published terms were used.
+First, the derived generating function was not assumed to be right. Its series was
+computed from \eqref{eq:def} in two independent ways --- once through the residue formula
+of Lemma~\ref{lem:diag}, by solving $x=t\,g(x)$ as a truncated series, and once directly,
+by expanding $f\,g^{n}$ and reading off the coefficient of $x^{n}$ --- and the two agree.
+The result was then compared term by term with the DATA section of A172025, agreeing on
+all 13 terms compared.
 
-Second, the identity itself was evaluated directly on the published terms, in exact
-integer arithmetic and without reference to any generating function: for each $n$ in range
-both sides were formed from the entries' own values and found to agree, for all 52
-values of $n$ from $n=1$ upward. This is what Corollary~\ref{cor:criterion}
-predicts from the degree of the difference, and it is a genuinely different computation
-from the symbolic one.
+Second, the recurrence was evaluated directly on the published terms, in exact integer
+arithmetic and without reference to any generating function: for each $n$ in range the sum
+$\sum_{i}p_{i}(n)a(n-i)$ was formed from the entry's own values and found to vanish, for
+all 22 values of $n$ from $n=2$ upward.
 
-The symbolic step is exact throughout: the difference is obtained by rational-function
-cancellation, not by series truncation, so the displayed identity is an identity of
-functions and the theorem holds for all $n>-1$ simultaneously.
+Third, the symbolic step is exact throughout. The residual is obtained by
+rational-function arithmetic in the algebraic function field, not by series truncation, so
+the identity $B=0$ is an identity of functions and the theorem holds for all
+$n>-1$ simultaneously.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer Sequences},
-\url{https://oeis.org}, 2026. Sequence A346370.
-\bibitem{wilf} H.~S.~Wilf, \emph{generatingfunctionology}, 3rd ed., A K Peters, 2006,
-Chapter 2 (series manipulations and shifts).
-\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011, Chapter 1.
+\url{https://oeis.org}, 2026. Sequence A172025.
+\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 2, Cambridge
+University Press, 1999, Section 6.3 (Lagrange inversion) and Chapter 6 (algebraic and
+D-finite generating functions).
+\bibitem{flajolet} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+University Press, 2009, Chapter VII.
+\bibitem{kp} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011,
+Chapter 7.
 \end{thebibliography}
 \end{document}

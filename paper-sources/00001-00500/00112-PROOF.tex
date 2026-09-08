@@ -12,19 +12,19 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A211550, proved by a one-dimensional reduction}
+\title{The empirical recurrence for OEIS A211820, proved by a one-dimensional reduction}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{4 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A211550 counts symmetric $(n+1)\times(n+1)$ matrices over
-$\{-9,\dots,9\}$ in which every $2\times2$ subblock sums to zero and has three distinct
+OEIS A211820 counts symmetric $(n+1)\times(n+1)$ matrices over
+$\{-10,\dots,10\}$ in which every $2\times2$ subblock sums to zero and has two, three or four distinct
 entries. Both sides of the matrix grow with $n$, so there is no slice of bounded width to walk
 along. There does not need to be: the sum-zero condition is linear and solves completely, and
 its solutions are indexed by a SEQUENCE --- the diagonal of the matrix. The count becomes a walk
-on $S=614$ states, and the empirical recurrence of order $17$ contributed by R.~H.~Hardin
+on $S=5104$ states, and the empirical recurrence of order $22$ contributed by R.~H.~Hardin
 follows.
 \end{abstract}
 
@@ -32,20 +32,20 @@ follows.
 
 \section{The conjecture}
 
-OEIS A211550 is ``Number of (n+1)X(n+1) -9..9 symmetric matrices with every 2X2 subblock having sum zero and three distinct values.''. It has offset $1$ and begins
+OEIS A211820 is ``Number of (n+1)X(n+1) -10..10 symmetric matrices with every 2X2 subblock having sum zero and two, three or four distinct values.''. It has offset $1$ and begins
 \[
-150, 330, 640, 1190, 2172, 3922, 7052, 12734,\ \dots
+220, 2310, 24280, 255510, 2692030, 28396180, 299874470, 3170351150,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 5*a(n-1) +6*a(n-2) -66*a(n-3) +32*a(n-4) +343*a(n-5) -396*a(n-6) -874*a(n-7) +1475*a(n-8) +1066*a(n-9) -2702*a(n-10) -373*a(n-11) +2577*a(n-12) -367*a(n-13) -1195*a(n-14) +320*a(n-15) +210*a(n-16) -60*a(n-17)
+Empirical: a(n) = 114*a(n-1) -5925*a(n-2) +185345*a(n-3) -3877235*a(n-4) +56925919*a(n-5) -597748066*a(n-6) +4472218575*a(n-7) -23123238043*a(n-8) +76099390938*a(n-9) -122330317169*a(n-10) -56591154105*a(n-11) +427598872995*a(n-12) +95124362391*a(n-13) -844404272684*a(n-14) -1140261335975*a(n-15) -728986025396*a(n-16) -278757941362*a(n-17) -67965466156*a(n-18) -10635078240*a(n-19) -1030171920*a(n-20) -55951200*a(n-21) -1296000*a(n-22)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 16:12:58, revision 8) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 16:23:29, revision 8) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{The sum-zero condition solved}
 
-Let $x$ be an $N\times N$ symmetric matrix with entries in $\{-9,\dots,9\}$ such that
+Let $x$ be an $N\times N$ symmetric matrix with entries in $\{-10,\dots,10\}$ such that
 \[
 x(i,j)+x(i,j{+}1)+x(i{+}1,j)+x(i{+}1,j{+}1)=0
 \]
@@ -55,7 +55,7 @@ for every $0\le i,j\le N-2$.
 Such matrices are exactly the matrices
 \[
 x(i,j)=(-1)^{i+j}\,\frac{u_i+u_j}{2},
-\qquad u_0,\dots,u_{N-1}\in\{-9,\dots,9\}\ \text{all of the same parity},
+\qquad u_0,\dots,u_{N-1}\in\{-10,\dots,10\}\ \text{all of the same parity},
 \]
 and the sequence is recovered from the matrix by $u_i=x(i,i)$, so the correspondence is a
 bijection.
@@ -78,13 +78,13 @@ because $y(i,i)=x(i,i)$ is, we get $y(i,j)=(u_i+u_j)/2$ as claimed. Taking $j=i$
 $u_i=y(i,i)=x(i,i)$.
 
 For the two side conditions: $u_i+u_j$ must be even for all $i,j$, which says all the $u_i$ have
-the same parity; and $|x(i,j)|=|u_i+u_j|/2\le9$ for all $i,j$ is equivalent to $|u_i|\le9$
+the same parity; and $|x(i,j)|=|u_i+u_j|/2\le10$ for all $i,j$ is equivalent to $|u_i|\le10$
 for each $i$, the case $j=i$ giving one direction and the triangle inequality the other.
 \end{proof}
 
 So the matrices of size $N$ correspond one for one to the sequences $u_0,\dots,u_{N-1}$ in
-$\{-9,\dots,9\}$ with all entries of one parity. What remains is to say, in terms of $u$,
-that every $2\times2$ subblock has three distinct entries.
+$\{-10,\dots,10\}$ with all entries of one parity. What remains is to say, in terms of $u$,
+that every $2\times2$ subblock has two, three or four distinct entries.
 
 \begin{lemma}\label{lem:block}
 Write $\pi_i=(u_i,u_{i+1})$ for the $i$-th consecutive pair. The number of distinct entries of
@@ -101,13 +101,13 @@ By Lemma~\ref{lem:solve} the four entries are $(-1)^{i+j}$ times those four numb
 order. Multiplying all four by $\pm1$ does not change how many are distinct.
 \end{proof}
 
-Call two consecutive pairs COMPATIBLE when that number lies in $\{3\}$. The condition on the
+Call two consecutive pairs COMPATIBLE when that number lies in $\{2,3,4\}$. The condition on the
 matrix is that $\pi_i$ and $\pi_j$ are compatible for every $i$ and $j$ --- including $i=j$,
 which asks each pair to be compatible with itself. In other words:
 
 \begin{corollary}
 The matrices counted are exactly the sequences $u$ whose set of consecutive pairs is a clique in
-the compatibility graph on the $\le 361$ pairs.
+the compatibility graph on the $\le 441$ pairs.
 \end{corollary}
 
 \section{A walk on the sequence}
@@ -132,10 +132,10 @@ the only other thing a step needs.
 
 The sets $A$ that arise are intersections of neighbourhoods, of which there are far fewer than
 subsets; enumerated from the start $A_0=\{\pi:\pi\in N(\pi)\}$, the reachable states number
-$S=614$. The two parity classes never mix, so the walk starts by choosing a parity and a first
+$S=5104$. The two parity classes never mix, so the walk starts by choosing a parity and a first
 value, and every state may end a sequence:
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad \tau=\mathbf{1},\qquad S=614.
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad \tau=\mathbf{1},\qquad S=5104.
 \]
 The walk index $j$ is the size of the matrix, and it differs from the entry's own $n$ by a
 constant read off by matching the published terms rather than assumed. In particular $a$ is
@@ -144,7 +144,7 @@ $C$-finite --- for a family in which both dimensions grow with $n$.
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{17}-\sum_i c_it^{17-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{22}-\sum_i c_it^{22-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -152,7 +152,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+17}-\sum_ic_iM^{j+17-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+22}-\sum_ic_iM^{j+22-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -161,15 +161,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;5\,a(n-1) + 6\,a(n-2) - 66\,a(n-3) + 32\,a(n-4) + 343\,a(n-5) - 396\,a(n-6) - 874\,a(n-7) + 1475\,a(n-8) + 1066\,a(n-9) - 2702\,a(n-10) - 373\,a(n-11) + 2577\,a(n-12) - 367\,a(n-13) - 1195\,a(n-14) + 320\,a(n-15) + 210\,a(n-16) - 60\,a(n-17)
+a(n)\;=\;114\,a(n-1) - 5925\,a(n-2) + 185345\,a(n-3) - 3877235\,a(n-4) + 56925919\,a(n-5) - 597748066\,a(n-6) + 4472218575\,a(n-7) - 23123238043\,a(n-8) + 76099390938\,a(n-9) - 122330317169\,a(n-10) - 56591154105\,a(n-11) + 427598872995\,a(n-12) + 95124362391\,a(n-13) - 844404272684\,a(n-14) - 1140261335975\,a(n-15) - 728986025396\,a(n-16) - 278757941362\,a(n-17) - 67965466156\,a(n-18) - 10635078240\,a(n-19) - 1030171920\,a(n-20) - 55951200\,a(n-21) - 1296000\,a(n-22)
 \]
-for every $n>17$.
+for every $n>21$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $17$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $22$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=17+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=21+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -177,12 +177,12 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $28$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $16$ terms the entry publishes, exactly, in integer
 arithmetic.
 
 Second, the count was recomputed for the smallest matrices straight from the definition:
-symmetric matrices were written out entry by entry over $\{-9,\dots,9\}$ and each
-$2\times2$ subblock tested for summing to zero and for having three distinct entries. The
+symmetric matrices were written out entry by entry over $\{-10,\dots,10\}$ and each
+$2\times2$ subblock tested for summing to zero and for having two, three or four distinct entries. The
 sequence $u$, the sign pattern, the clique and the state play no part in that computation, and
 the published terms came back. Lemma~\ref{lem:solve} was separately checked the same way: for
 small sizes and small ranges the number of symmetric sum-zero matrices found by direct
@@ -196,7 +196,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A211550.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A211820.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{kemeny} J.~G.~Kemeny and J.~L.~Snell, \emph{Finite Markov Chains}, Springer, 1976.

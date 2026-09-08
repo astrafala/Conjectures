@@ -12,144 +12,170 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A234078: recovering a conjecture that is not written down}
+\title{Every term of OEIS A393857 is congruent to $1$ modulo $6$}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{2 September 2026}
+\date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A234078 records ``Empirical recurrence of order $97$'', with the recurrence itself in a
-linked file rather than in the entry. The conjecture can nevertheless be settled, and the
-recurrence recovered, without reading that file. The entry counts arrays under a condition
-local to a bounded window of lines, so the count is a walk count on $S=625$ vertices and
-satisfies some monic recurrence of order at most $S$; Berlekamp--Massey applied to $2S$ exact
-terms therefore returns the MINIMAL such recurrence. Its order is exactly $97$, the order
-the entry states, and the same is true of every tail of the sequence. Any recurrence of order
-$97$ that the sequence satisfies from any point on must then have a characteristic
-polynomial that is a multiple of the minimal one and of the same degree, hence equal to it. So
-the entry's recurrence is the one displayed here, whatever its file contains, and it is
-proved.
+OEIS A393857 is defined by the functional equation $A\bigl(x-xA(5x)/5\bigr)=x$ for its
+ordinary generating function, and carries a conjecture of P.~D.~Hanna that every term is
+congruent to $1$ modulo $6$. It is true, and the reason is that $5\equiv-1$ modulo
+$6$. The functional equation determines the coefficients one at a time, so it determines
+them modulo $6$ as well; and modulo $6$ the series $x/(1-x)$, all of whose coefficients
+are $1$, satisfies the equation exactly. Uniqueness then forces $A(x)\equiv x/(1-x)$, which
+is the conjecture. The argument is an identity between rational functions over
+$\mathbb{Z}/6\mathbb{Z}$ and involves no estimation and no truncation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 11B50, 05A15, 13F25.\normalsize
 
-\section{A conjecture one cannot read}
+\section{The sequence and the conjecture}
 
-OEIS A234078 is ``Number of (n+1)X(3+1) 0..4 arrays with every 2X2 subblock having the sum of the absolute values of all six edge and diagonal differences equal to 10.''. It has offset $1$ and begins
+OEIS A393857 is ``G.f. A(x) satisfies A( x - x*A(5*x)/5 ) = x.''. It has offset $1$ and begins
 \[
-2352, 18048, 139512, 1219868, 10952176, 105917092, 1033754752, 10502679784,\ \dots
+1, 1, 7, 205, 26869, 16984687,\ \dots
 \]
-The entry states:
-\begin{quote}
-Empirical recurrence of order 97 (see link above)
+So, writing $A(x)=\sum_{n\ge1}a(n)x^{n}$, the entry defines $A$ by
+\begin{equation}\label{eq:fe}
+A\!\left(x-\frac{x\,A(5x)}{5}\right)\;=\;x .
+\end{equation}
+This is the only input taken from the entry.
+
+The entry separately carries the following comment:
+\begin{quote}\small
+Conjecture: a(n) == 1 (mod 6) for n >= 1.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jun 02 2025 09:09:25, revision 7) this is still
-recorded as empirical. The recurrence's coefficients are not in the entry text.
+As of the ``Last modified'' line on the live entry (Mar 12 2026 21:55:07, revision 12) the statement is
+still recorded as a conjecture, and nothing on the entry records it as settled either way.
 
-\section{The count is a walk count}
+Written out, the conjecture asserts
+\begin{equation}\label{eq:conj}
+a(n)\;\equiv\;1 \pmod{6}\qquad\text{for every } n\ge1 .
+\end{equation}
 
-The entry's condition is local: it constrains a bounded window of consecutive lines of the
-array and nothing further. The admissible configurations of one such window are the vertices
-of a finite digraph, an edge joining $u$ to $v$ when $v$ may follow $u$, and an admissible
-array is exactly a walk. Hence, with $M$ the adjacency matrix on $S=625$ vertices,
-$a(n)=\iota^{\!\top}M^{\,j(n)}\tau$ for a linear reindexing $j$ fixed by the entry's shape
-and checked against its published terms. By the Cayley--Hamilton theorem $M^{S}$ is an
-integer combination of $I,M,\dots,M^{S-1}$, so:
+\section{The equation determines the sequence}
 
-\begin{lemma}\label{lem:cf}
-$a$ satisfies a monic linear recurrence with integer coefficients of order at most $S=625$.
+It is convenient to clear the division. Since $A$ has no constant term,
+\begin{equation}\label{eq:B}
+B(x)\;:=\;x-\frac{x\,A(5x)}{5}\;=\;x-\sum_{n\ge1}a(n)\,5^{\,n-1}x^{n+1},
+\end{equation}
+so $B$ has integer coefficients even though \eqref{eq:fe} appears to divide by $5$.
+
+\begin{lemma}\label{lem:unique}
+There is exactly one sequence of integers $a(1),a(2),\dots$ satisfying \eqref{eq:fe}, and
+it is given by $a(1)=1$ together with
+\begin{equation}\label{eq:rec}
+a(N)\;=\;-\sum_{j=1}^{N-1}a(j)\,\bigl[x^{N}\bigr]B(x)^{j}\qquad(N\ge2),
+\end{equation}
+in which the right-hand side depends only on $a(1),\dots,a(N-1)$.
 \end{lemma}
 
-\section{Recovering the recurrence}
-
-\begin{lemma}\label{lem:bm}
-A sequence known to satisfy some linear recurrence of order at most $S$ is determined, together
-with its minimal recurrence, by its first $2S$ terms: Berlekamp--Massey applied to them returns
-that minimal recurrence exactly.
-\end{lemma}
-
-Running it on $2S=1250$ exact terms of the model returns order $97$ --- the order the
-entry states --- with the integer coefficients
+\begin{proof}
+$B(x)=x+O(x^{2})$, so $B$ has a compositional inverse and $\bigl[x^{j}\bigr]B^{j}=1$
+while $\bigl[x^{N}\bigr]B^{j}=0$ for $N<j$. Expanding \eqref{eq:fe},
 \[
-a(n)\;=\;\sum_{i=1}^{97}c_i\,a(n-i),
+x\;=\;A\bigl(B(x)\bigr)\;=\;\sum_{j\ge1}a(j)\,B(x)^{j} .
 \]
-\begin{center}\small
-\begin{tabular}{cccccccc}
-$c_{1}$ & $0$ & $c_{26}$ & $2410941839715772046870$ & $c_{51}$ & $224977169348544265148155867906$ & $c_{76}$ & $9371260846345535314579839590$ \\
-$c_{2}$ & $455$ & $c_{27}$ & $6693825461716724940654$ & $c_{52}$ & $-21892306693200064273173481490$ & $c_{77}$ & $-9152332169828381023110399704$ \\
-$c_{3}$ & $200$ & $c_{28}$ & $-21828209835021144312368$ & $c_{53}$ & $-395380337192622016977657367102$ & $c_{78}$ & $-3106010106305699059807933220$ \\
-$c_{4}$ & $-93330$ & $c_{29}$ & $-63665373280964415134736$ & $c_{54}$ & $8672837907111884007682415660$ & $c_{79}$ & $2515442590777198330089510432$ \\
-$c_{5}$ & $-74614$ & $c_{30}$ & $167792458511720135223146$ & $c_{55}$ & $610453473671937195083365177066$ & $c_{80}$ & $859211131927806874197352920$ \\
-$c_{6}$ & $11529141$ & $c_{31}$ & $515013330776263967043812$ & $c_{56}$ & $26275810278016502466881102418$ & $c_{81}$ & $-576337860941017279636220896$ \\
-$c_{7}$ & $12689680$ & $c_{32}$ & $-1100047467091352413512045$ & $c_{57}$ & $-827750551068960978060963278950$ & $c_{82}$ & $-196328053208550934382379488$ \\
-$c_{8}$ & $-966312208$ & $c_{33}$ & $-3564849673032258202275428$ & $c_{58}$ & $-81953579145956377286395958739$ & $c_{83}$ & $108606173187719052079266176$ \\
-$c_{9}$ & $-1311606914$ & $c_{34}$ & $6172911843682779156801196$ & $c_{59}$ & $984975959020269447973098137196$ & $c_{84}$ & $36543333453397743645918656$ \\
-$c_{10}$ & $58670732962$ & $c_{35}$ & $21224843661046729839472520$ & $c_{60}$ & $144882307346823265434558401130$ & $c_{85}$ & $-16539688841548341757483264$ \\
-$c_{11}$ & $92664564072$ & $c_{36}$ & $-29725900600458619844774537$ & $c_{61}$ & $-1027346104065116657640892678844$ & $c_{86}$ & $-5436986365009971382861760$ \\
-$c_{12}$ & $-2689595511716$ & $c_{37}$ & $-109192012571135695800585188$ & $c_{62}$ & $-193382449562756155433357230602$ & $c_{87}$ & $1988283837317665569442816$ \\
-$c_{13}$ & $-4771834526564$ & $c_{38}$ & $123024352699758069559994885$ & $c_{63}$ & $937702654833722532441478795938$ & $c_{88}$ & $629640557392538656561152$ \\
-$c_{14}$ & $95786809974547$ & $c_{39}$ & $487262054933407365968868760$ & $c_{64}$ & $209310733986890984179727831855$ & $c_{89}$ & $-182561223713172902149120$ \\
-$c_{15}$ & $186537265612734$ & $c_{40}$ & $-437639617512442345342287792$ & $c_{65}$ & $-747403161749487074278581056514$ & $c_{90}$ & $-54569530083265144397824$ \\
-$c_{16}$ & $-2706202845320539$ & $c_{41}$ & $-1892282849490229488246618712$ & $c_{66}$ & $-188862061868669311708274214194$ & $c_{91}$ & $12192217059492111286272$ \\
-$c_{17}$ & $-5693603941547564$ & $c_{42}$ & $1335937356864053144489276779$ & $c_{67}$ & $518849459482349586831461593272$ & $c_{92}$ & $3323168756115776421888$ \\
-$c_{18}$ & $61635984759496516$ & $c_{43}$ & $6412861127840925621766672332$ & $c_{68}$ & $143829923826705580459736073480$ & $c_{93}$ & $-547129591007371051008$ \\
-$c_{19}$ & $138550693345071828$ & $c_{44}$ & $-3484225872662711567041334864$ & $c_{69}$ & $-312695329689902615885697226126$ & $c_{94}$ & $-126586316198978863104$ \\
-$c_{20}$ & $-1146326386083770767$ & $c_{45}$ & $-19007772286591075525163200836$ & $c_{70}$ & $-92944724076224605091077192479$ & $c_{95}$ & $14230419030579216384$ \\
-$c_{21}$ & $-2732031867110823006$ & $c_{46}$ & $7695091758987761760752588417$ & $c_{71}$ & $162964549552946773579220171174$ & $c_{96}$ & $2265421189309267968$ \\
-$c_{22}$ & $17594535265986666089$ & $c_{47}$ & $49361648881448694236067860898$ & $c_{72}$ & $51035358258283066634001398015$ & $c_{97}$ & $-149105437833166848$ \\
-$c_{23}$ & $44231608808900499698$ & $c_{48}$ & $-14137822249435225080892775872$ & $c_{73}$ & $-73097117948203130141717780948$ &  &  \\
-$c_{24}$ & $-224857724139343494215$ & $c_{49}$ & $-112459859247753049144443489262$ & $c_{74}$ & $-23780850906176256488952860562$ &  &  \\
-$c_{25}$ & $-594446194759113715004$ & $c_{50}$ & $20779321353871249164668476637$ & $c_{75}$ & $28057896227611179447247341028$ &  &  \\
-\end{tabular}
-\end{center}
+Comparing coefficients of $x^{1}$ gives $a(1)=1$. For $N\ge2$, comparing coefficients of
+$x^{N}$ gives
+\[
+0\;=\;\sum_{j=1}^{N}a(j)\,\bigl[x^{N}\bigr]B^{j}
+\;=\;a(N)+\sum_{j=1}^{N-1}a(j)\,\bigl[x^{N}\bigr]B^{j},
+\]
+since the $j=N$ term contributes $a(N)\cdot1$. This is \eqref{eq:rec}. For the dependence
+claim: by \eqref{eq:B}, $\bigl[x^{i}\bigr]B$ involves only $a(i-1)$, so
+$\bigl[x^{N}\bigr]B^{j}$ involves only $a(1),\dots,a(N-1)$ for every $j\ge1$. Hence
+\eqref{eq:rec} determines $a(N)$ from its predecessors, and induction gives both existence
+and uniqueness.
+\end{proof}
 
-\begin{theorem}
-The recurrence above holds for every $n$, and it is the recurrence the entry records.
+\begin{corollary}\label{cor:mod}
+For any integer $k\ge2$, the reductions $a(n)\bmod k$ are determined by the same recursion
+read in $\mathbb{Z}/k\mathbb{Z}$. Consequently, if $\bar A(x)\in(\mathbb{Z}/k\mathbb{Z})[[x]]$ has
+$\bar A(x)=x+O(x^{2})$ and satisfies \eqref{eq:fe} with coefficients read modulo $k$, then
+$a(n)\equiv\bigl[x^{n}\bigr]\bar A(x) \pmod k$ for every $n$.
+\end{corollary}
+
+\begin{proof}
+Every operation in \eqref{eq:B} and \eqref{eq:rec} is a sum or product of integers, so
+reduction modulo $k$ is a ring homomorphism carrying the integer recursion to the same
+recursion over $\mathbb{Z}/k\mathbb{Z}$. That recursion has a unique solution, by the argument of
+Lemma~\ref{lem:unique} verbatim; both $a\bmod k$ and $\bar A$ solve it.
+\end{proof}
+
+\section{The reduction modulo $6$}
+
+Everything now happens in $(\mathbb{Z}/6\mathbb{Z})[[x]]$. The one fact that drives the proof is
+\begin{equation}\label{eq:minus}
+5\;\equiv\;-1 \pmod{6} .
+\end{equation}
+
+\begin{theorem}\label{thm:main}
+$a(n)\equiv1\pmod{6}$ for every $n\ge1$. This is the conjecture of Section~1.
 \end{theorem}
 
 \begin{proof}
-It holds by Lemma~\ref{lem:bm}, which returns a recurrence the sequence satisfies from its
-first term. For the identification: the entry asserts that the sequence satisfies SOME
-recurrence of order $97$, possibly only from some index on. Let $q$ be that recurrence's
-characteristic polynomial and $q_{\min}$ the minimal polynomial of the tail of the sequence.
-Then $q_{\min}\mid q$. Berlekamp--Massey run on the sequence with its first $97+4$ terms
-removed returns order $97$ as well, so $\deg q_{\min}=97=\deg q$; both are monic, so
-$q=q_{\min}$, which is the polynomial computed above.
+Let $\bar A(x)=\dfrac{x}{1-x}=\sum_{n\ge1}x^{n}$ in $(\mathbb{Z}/6\mathbb{Z})[[x]]$, so all its
+coefficients are $1$ and $\bar A(x)=x+O(x^{2})$. By Corollary~\ref{cor:mod} it suffices to
+check that $\bar A$ satisfies \eqref{eq:fe} modulo $6$.
+
+Form $\bar B$ from $\bar A$ by \eqref{eq:B}. Its coefficients are
+$\bigl[x^{n+1}\bigr]\bar B=-5^{\,n-1}$, and by \eqref{eq:minus}
+$5^{\,n-1}\equiv(-1)^{n-1}$, so
+\[
+\bar B(x)\;=\;x-\sum_{n\ge1}(-1)^{n-1}x^{n+1}
+\;=\;x-x\sum_{n\ge1}(-1)^{n-1}x^{n}
+\;=\;x-x\cdot\frac{x}{1+x}
+\;=\;\frac{x}{1+x} .
+\]
+Composing,
+\[
+\bar A\bigl(\bar B(x)\bigr)\;=\;\frac{\dfrac{x}{1+x}}{1-\dfrac{x}{1+x}}
+\;=\;\frac{\dfrac{x}{1+x}}{\dfrac{(1+x)-x}{1+x}}
+\;=\;\frac{x}{1+x}\cdot\frac{1+x}{1}\;=\;x .
+\]
+Both compositions are legitimate because $\bar B(x)=x+O(x^{2})$ has zero constant term.
+So $\bar A$ satisfies \eqref{eq:fe} modulo $6$, and Corollary~\ref{cor:mod} gives
+$a(n)\equiv\bigl[x^{n}\bigr]\bar A=1\pmod{6}$ for every $n\ge1$.
 \end{proof}
+
+\begin{remark}
+The proof used nothing about $5$ beyond \eqref{eq:minus}. The same argument shows that
+for every integer $m\ge2$, the sequence defined by $A\bigl(x-xA(mx)/m\bigr)=x$ has all of
+its terms congruent to $1$ modulo $m+1$. Note also where the hypothesis bites: modulo $k$
+the quantity $5^{\,n-1}$ must be $(-1)^{n-1}$ for the telescoping above, and that is
+exactly \eqref{eq:minus}.
+\end{remark}
 
 \section{Verification}
 
-Three checks.
+Three checks, each independent of the algebra above.
 
-First, the walk model reproduces all $15$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry, and it is the only place where reading
-the entry's English enters.
+First, the recursion \eqref{eq:rec} was run in exact integer arithmetic and its output
+compared against the entry's DATA at every one of the $14$ published indices; the
+values agree exactly. A recursion that reproduced only some of them would mean the
+functional equation had been transcribed wrongly.
 
-Second, the recovered recurrence was evaluated directly on those published terms, with no
-matrices and no Berlekamp--Massey involved, and holds at every index where the entry gives
-enough earlier terms to test it.
+Second, the same run was continued to $n=24$ and every term reduced modulo $6$; all
+$24$ residues are $1$, as Theorem~\ref{thm:main} requires.
 
-Third, the order was computed twice by independent routes: once modulo a $61$-bit prime, where
-every intermediate is a machine word, and once in exact rational arithmetic; and once more on
-the sequence with its first $97+4$ terms removed, which is what the identification above
-requires. All three agree.
-
-\begin{remark}
-What is unusual here is that the conjecture's statement was never read. The entry pins it down
-to a one-parameter family --- the recurrences of order $97$ that this sequence satisfies
---- and that family turns out to have exactly one member.
-\end{remark}
+Third, the composition $\bar A\bigl(\bar B(x)\bigr)$ of the proof was carried out
+independently as a formal power series over $\mathbb{Z}/6\mathbb{Z}$, coefficient by
+coefficient to order $30$, starting from $\bar a(n)=1$ rather than from the closed form;
+the result is $x$ exactly, and the computed $\bar B$ agrees with $x/(1+x)$ at every one of
+those orders.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A234078.
-\bibitem{massey} J.~L.~Massey, Shift-register synthesis and BCH decoding, \emph{IEEE
-Trans. Inform. Theory} \textbf{15} (1969), 122--127.
-\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
-University Press, 2013.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A393857.
+\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 2, Cambridge
+University Press, 1999.
+\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+University Press, 2009.
+\bibitem{hw} G.~H.~Hardy and E.~M.~Wright, \emph{An Introduction to the Theory of
+Numbers}, 6th ed., Oxford University Press, 2008.
 \end{thebibliography}
 
 \end{document}

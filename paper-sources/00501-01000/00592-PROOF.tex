@@ -12,144 +12,121 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A231068, proved by transfer matrix}
+\title{A lattice count, not a walk count: OEIS A225312}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{4 September 2026}
+\date{7 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A231068 counts the black-square subarrays of arrays of width $5$ over $\{0,1\}$ in which
-no cell matches a strict majority of its diagonal neighbours. The entry carries an empirical recurrence of order $18$ contributed by
-R.~H.~Hardin. It is true, and it is decidable rather than empirical. A diagonal step changes
-both coordinates by one and so never changes the colour of a cell, which makes the two colours
-of the chessboard independent of one another; the count is then a walk over the cells of one
-colour, on $S=67$ states.
+OEIS A225312 carries an empirical recurrence of order $18$ contributed by R.~H.~Hardin. It is
+true, and it is decidable rather than empirical. A nondecreasing row of $-1$s and $1$s is
+determined by one number --- how many $-1$s it holds --- so the entry's condition collapses to
+a single linear equation on a box of lattice points, and the arrays disappear entirely. The
+count is then the number of lattice points in a dilate of a fixed rational polytope, hence a
+quasi-polynomial in $n$; its degree and its period can both be named, which bounds by
+$S=600$ the order of a linear recurrence it must satisfy. Whether the conjectured recurrence
+is that recurrence is then a finite exact computation. There is no digraph and no matrix
+anywhere in this argument.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B20, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
 \section{The conjecture}
 
-OEIS A231068 is ``Number of black square subarrays of (n+1)X(4+1) binary arrays with no element equal to a strict majority of its diagonal and antidiagonal neighbors, with upper left element zero.''. It has offset $1$ and begins
+OEIS A225312 is ``Number of 5 X n -1,1 arrays such that the sum over i=1..5,j=1..n of i*x(i,j) is zero and rows are nondecreasing (ways to put n thrusters pointing east or west at each of 5 positions 1..n distance from the hinge of a south-pointing gate without turning the gate).''. It has offset $1$ and begins
 \[
-3, 11, 24, 89, 191, 748, 1573, 6259,\ \dots
+0, 15, 0, 113, 0, 427, 0, 1165,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 14*a(n-2) -61*a(n-4) +148*a(n-6) -289*a(n-8) +325*a(n-10) -227*a(n-12) +95*a(n-14) -28*a(n-16) +4*a(n-18)
+Empirical: a(n) = 3*a(n-2) - 2*a(n-4) - 2*a(n-6) + 4*a(n-8) - 4*a(n-10) + 2*a(n-12) + 2*a(n-14) - 3*a(n-16) + a(n-18).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 06:14:35, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Sep 05 2018 08:12:24, revision 8) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
-\section{What is being counted}
+\section{The array disappears}
 
-Colour the cells of the array like a chessboard: $(i,j)$ is black when $i+j$ is odd. The
-condition is stated in terms of the DIAGONAL and ANTIDIAGONAL neighbours of a cell, that is the
-four offsets
-\[
-(-1,-1),\ (1,1),\ (-1,1),\ (1,-1),
-\]
-and for a cell $(i,j)$ we write $S(i,j)$ for those of them that land inside the array. The
-condition is that no cell equals a strict majority of its neighbours:
-\[
-2\cdot\#\{(a,b)\in S(i,j) : x(a,b)=x(i,j)\}\;\le\;|S(i,j)| .
-\]
-Strict means more than half, so a tie is allowed and a cell with no neighbours is under no condition.
+A row of $-1$s and $1$s that is nondecreasing is a block of $-1$s followed by a block of $1$s, so it is determined by a single number: how many $-1$s it holds. Write $k_i\in\{0,1,\dots,n\}$ for that number in row $i$. Then row $i$ sums to $(n-k_i)-k_i = n-2k_i$, and the entry's condition
+\[ \sum_{i=1}^{H}\sum_{j=1}^{n} i\,x(i,j) \;=\; \sum_{i=1}^{H} i\,(n-2k_i) \;=\; 0 \]
+becomes $\sum_{i=1}^{5} i\,k_i = T(n)$ with $T(n)=\tfrac{15}{2}n$. The arrays are gone: what is left is the lattice points of the box $\{0,\dots,n\}^{5}$ on one hyperplane.
 
-The entry adds that the first cell of the subarray in reading order, the cell $(0,1)$ of the array, is $0$.
+\section{Why that is enough}
 
-\begin{lemma}\label{lem:split}
-Each of the four offsets changes $i$ and $j$ each by one, so it changes $i+j$ by $0$ or $\pm2$
-and never changes its parity. Every neighbour of a black cell is therefore black. The condition
-above splits into two systems that share no cell: one on the black cells and one on the white
-cells.
-\end{lemma}
+Those lattice points are the ones in the $n$-th dilate of a fixed rational polytope, so the count is a quasi-polynomial in $n$. That is the whole reason a linear recurrence can be proved here rather than observed: a quasi-polynomial of degree $d$ and period $P$ satisfies the recurrence whose characteristic polynomial is $(x^{P}-1)^{d+1}$, so it is $C$-finite of order at most $P(d+1)$.
 
-So what the entry counts is the assignments of values to the black cells alone that satisfy the
-black system; the white cells never enter. That this is the entry's own reading, and not
-merely a convenient one, is settled by its ``upper left element zero'': for a black subarray the
-first cell in reading order is the cell $(0,1)$ of the array, and it is that cell the
-clause fixes, as the published terms confirm and as Section~5 records.
+Both numbers can be named. By inclusion-exclusion over which coordinates exceed $n$,
+\[ a(n)\;=\;\sum_{S\subseteq\{1,\dots,H\}}(-1)^{|S|}\,D\bigl(T(n)-(n+1)\sigma(S)\bigr), \]
+where $\sigma(S)$ is the sum of $S$ and $D(m)$ counts the solutions of $\sum i\,k_i=m$ in non-negative integers with no upper bound --- the classical denumerant for the parts $1,\dots,5$. $D$ is a quasi-polynomial in $m$ of degree $4$ with period dividing $\mathrm{lcm}(1,\dots,5)=60$; each argument above is an integer-linear function of $n$, which preserves the degree and can only shrink the period, and the parity case at worst doubles it. So $a$ is a quasi-polynomial of degree at most $4$ and period dividing $120$, hence satisfies a linear recurrence of order at most $S=600$.
 
-\section{A walk on one colour}
-
-Take the array one row at a time. In a row of even index the black cells sit at every other
-column starting from column $1$, and in a row of odd index they sit at the columns in
-between; the two shapes alternate, so a state must record which of them the next row has.
-
-All four offsets move exactly one row, so the neighbours of the black cells of a row are the
-black cells of the rows immediately above and below it. A row's conditions are therefore settled
-by three consecutive rows, and the state is the last two of them together with the parity of the
-next.
-
-Appending a row completes one such window and settles the row in the middle of it. Because the
-condition looks one row DOWN as well as up, the last row of a finished array has not been tested
-when the walk stops, so the end vector is not all ones: a state is accepted exactly when its
-last row passes with nothing below it. Thus
-\[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=67.
-\]
-The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
-published terms rather than assumed. In particular $a$ is $C$-finite.
+That bound is the certificate. It is also what makes the computation cheap: $D$ is one table, so thousands of exact terms of $a$ cost almost nothing.
+so $a$ is $C$-finite of order at most $S=600$, and the alignment between the model and the
+entry's own $n$ is fixed by matching against every published term.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{18}-\sum_i c_it^{18-i}$ be the characteristic polynomial of the
-conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
-$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
-holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
-and it is enough to examine $j<S$.
+Let $q$ be the characteristic polynomial of the conjectured recurrence, of order $18$,
+and let $u_j=a(j+18)-\sum_i c_i\,a(j+18-i)$ be its residual. Then $u$ satisfies the
+same linear recurrence of order $S=600$ that $a$ does, so if $u_j=0$ for $S$ consecutive
+indices then $u_j=0$ for every larger $j$, and the last nonzero $u_j$ pins the threshold
+exactly.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+18}-\sum_ic_iM^{j+18-i}$. For the bound, $M^{S}$
-is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
-$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
-polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly.
+A sequence annihilated by a linear operator with constant coefficients has every linear
+combination of its shifts annihilated by the same operator, and $u$ is such a combination of
+shifts of $a$. A sequence satisfying a linear recurrence of order $S$ and vanishing at $S$
+consecutive indices vanishes from the first of them onwards, since every later value is a
+fixed combination of the $S$ before it.
 \end{proof}
 
 \begin{theorem}
 \[
-a(n)\;=\;14\,a(n-2) - 61\,a(n-4) + 148\,a(n-6) - 289\,a(n-8) + 325\,a(n-10) - 227\,a(n-12) + 95\,a(n-14) - 28\,a(n-16) + 4\,a(n-18)
+a(n)\;=\;3\,a(n-2) - 2\,a(n-4) - 2\,a(n-6) + 4\,a(n-8) - 4\,a(n-10) + 2\,a(n-12) + 2\,a(n-14) - 3\,a(n-16) + a(n-18)
 \]
 for every $n>17$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $18$ matrix--vector products in exact integer
-arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=17+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once.
+The terms $a(n)$ were computed exactly from the lattice-point formula, far enough to cover
+$S=600$ consecutive residuals, and the residuals were formed in exact integer arithmetic.
+They vanish from the index corresponding to $n=17+1$ onwards and go on vanishing for more
+than $S$ consecutive indices, which by Lemma~\ref{lem:crit} settles every larger $n$ at
+once.
 \end{proof}
 
 \section{Verification}
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $26$ terms the entry publishes, exactly, in integer
-arithmetic.
+First, the model reproduces all $51$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the reduction to the entry: the lattice count is derived by reading the
+entry's English, and a misreading gives different counts.
 
-Second, the count was recomputed for the smallest arrays straight from the definition: the cells
-of the black colour were listed from $i+j$ directly, every assignment of values to them
-enumerated, and each tested by the entry's own words. No rows, no window, no state and no end
-vector are involved in that computation, and the published terms came back.
+Second, the reading was pinned before the reduction was trusted, by a program that enumerates
+the arrays themselves, one by one, from the entry's own words --- every nondecreasing
+row of plus and minus ones, the weighted sum computed directly --- and compares the count
+with the lattice-point formula. That program shares no code with the lattice-point formula, so an error in one does not
+hide an error in the other.
 
-Third, the conjectured recurrence was evaluated directly on the published terms, with no
-matrices involved, and holds wherever the proved range and the data overlap.
+Third, the conjectured recurrence was evaluated directly on the published terms, with
+nothing from the argument above involved, and holds wherever the proved range and the data
+overlap.
 
-Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
-arithmetic on the whole vector rather than on a sampled prefix.
+Fourth, the residual test of Lemma~\ref{lem:crit} was carried out in exact integer
+arithmetic over every index up to the certified bound, not on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A231068.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A225312.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
-University Press, 2013.
+Cambridge University Press, 2011. (Quasi-polynomials and denumerants, Sections 4.4 and 4.6;
+lattice points in dilates of rational polytopes, Section 4.6.)
+\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+University Press, 2009.
+\bibitem{beck} M.~Beck and S.~Robins, \emph{Computing the Continuous Discretely}, 2nd
+ed., Springer, 2015. (Ehrhart quasi-polynomials; the denumerant.)
 \end{thebibliography}
 
 \end{document}

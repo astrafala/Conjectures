@@ -12,15 +12,15 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{Recovering the unwritten recurrences of the table OEIS A237898}
+\title{Recovering the unwritten recurrences of the table OEIS A238046}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A237898 is a two-dimensional table $T(n,k)$ whose empirical recurrences are, for several of
-its lines, given only as an ORDER --- ``k=2: [order 47]'' and the like --- with the
+OEIS A238046 is a two-dimensional table $T(n,k)$ whose empirical recurrences are, for several of
+its lines, given only as an ORDER --- ``k=2: [order 13]'' and the like --- with the
 coefficients in a linked file rather than in the entry. Those conjectures can still be settled,
 and the recurrences recovered. A line of the table is a fixed-width or fixed-height array
 count, hence a walk count on finitely many vertices, hence satisfies some monic recurrence of
@@ -28,22 +28,23 @@ order at most that number; Berlekamp--Massey on twice as many exact terms return
 one. Where its order equals the order the entry states --- and where the same holds after the
 first few terms are dropped --- any recurrence of that order the line satisfies has a
 characteristic polynomial that is a multiple of the minimal one and of equal degree, hence is
-that polynomial. This note settles column 2.
+that polynomial. This note settles column 2, column 3.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 15A18.\normalsize
 
 \section{The table and the unwritten conjectures}
 
-OEIS A237898 is ``T(n,k)=Number of (n+1)X(k+1) 0..3 arrays with the maximum minus the upper median of every 2X2 subblock equal.''. It is read by antidiagonals and begins
+OEIS A238046 is ``T(n,k)=Number of (n+1)X(k+1) 0..2 arrays with the upper median minus the lower median of every 2X2 subblock differing from its horizontal and vertical neighbors by exactly one.''. It is read by antidiagonals and begins
 \[
-256, 1848, 1848, 13600, 32404, 13600, 103536, 563534,\ \dots
+81, 340, 340, 1440, 1944, 1440, 6064, 10812,\ \dots
 \]
 The entry carries, among its empirical claims:
 \begin{quote}\small
-k=2: [order 47]
+k=2: [order 13]\\
+k=3: [order 50]
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 10:33:22, revision 6) these are still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 10:43:13, revision 6) these are still
 recorded as empirical, and the recurrences themselves are not in the entry text.
 
 \section{Why a line of the table is a walk count}
@@ -66,14 +67,29 @@ minimal recurrence exactly.
 
 \subsection*{Column $k=2$}
 Substituting the fixed index into the entry's wording gives an ordinary one-parameter array
-count, a walk on $S=156$ vertices. Berlekamp--Massey on $2S=312$ exact terms
-returns a minimal recurrence of order $47$ --- the order the entry states --- with
+count, a walk on $S=340$ vertices. Berlekamp--Massey on $2S=680$ exact terms
+returns a minimal recurrence of order $13$ --- the order the entry states --- with
+integer coefficients
+\begin{center}\small\begin{tabular}{cccccccc}
+$c_{1}$ & $0$ & $c_{5}$ & $593$ & $c_{9}$ & $-1956$ & $c_{13}$ & $768$ \\
+$c_{2}$ & $7$ & $c_{6}$ & $1251$ & $c_{10}$ & $-4912$ &  &  \\
+$c_{3}$ & $64$ & $c_{7}$ & $1168$ & $c_{11}$ & $-2576$ &  &  \\
+$c_{4}$ & $307$ & $c_{8}$ & $-388$ & $c_{12}$ & $1664$ &  &  \\
+\end{tabular}\end{center}
+so that $a(m)=\sum_{i=1}^{13}c_i\,a(m-i)$ for every $m$. Removing the first
+$13+4$ terms and repeating gives order $13$ again, which is what the
+identification below needs.
+
+\subsection*{Column $k=3$}
+Substituting the fixed index into the entry's wording gives an ordinary one-parameter array
+count, a walk on $S=1440$ vertices. Berlekamp--Massey on $2S=2880$ exact terms
+returns a minimal recurrence of order $50$ --- the order the entry states --- with
 integer coefficients
 \[
-(c_1,\dots,c_{47})=(62,\ -1145,\ -4015,\ 383852,\ -3680952,\ -18457082,\ 503621981,\ -1580676045,\ -22629861466,\ 171994178529,\ 263617129716,\ -6306561400978,\ 10021246907709,\ 113941299484248,\ -412840967285495,\ -1008101938004709,\ 6855228218809292,\ 1765336887356429,\ -65453666549209182,\ 53041024469186198,\ 393978040473440396,\ -613415506563754210,\ -1541096290052114160,\ 3533599971915524892,\ 3870239213375413728,\ -12963297094512860560,\ -5664955966438169584,\ 32606571649242881176,\ 2480623385975901888,\ -58069250056462812896,\ 7480870294724021696,\ 74343569053176476352,\ -17190455248457969728,\ -68838813140007288448,\ 17327891704624158208,\ 46033268683623180160,\ -9156565597849079296,\ -21896440409678540800,\ 1835674733797232128,\ 7040621509842425856,\ 507462521605609472,\ -1320567482265907200,\ -333297172917915648,\ 82634458145882112,\ 48168713329459200,\ 7655936741867520,\ 419046624460800).
+(c_1,\dots,c_{50})=(0,\ 35,\ 0,\ 1365,\ 0,\ 5818,\ 0,\ -253745,\ 0,\ -2515364,\ 0,\ 10622583,\ 0,\ 185736185,\ 0,\ 215793766,\ 0,\ -2565871459,\ 0,\ 1332702148,\ 0,\ 36260764417,\ 0,\ -76174294334,\ 0,\ -318514722516,\ 0,\ 853854046952,\ 0,\ 424255350704,\ 0,\ -1871720624096,\ 0,\ -110445159552,\ 0,\ 754983001216,\ 0,\ -22781154048,\ 0,\ -449740093440,\ 0,\ 150005694464,\ 0,\ 20312506368,\ 0,\ 3601989632,\ 0,\ 1937768448,\ 0,\ 134217728).
 \]
-so that $a(m)=\sum_{i=1}^{47}c_i\,a(m-i)$ for every $m$. Removing the first
-$47+4$ terms and repeating gives order $47$ again, which is what the
+so that $a(m)=\sum_{i=1}^{50}c_i\,a(m-i)$ for every $m$. Removing the first
+$50+4$ terms and repeating gives order $50$ again, which is what the
 identification below needs.
 
 \begin{theorem}
@@ -109,7 +125,7 @@ agree.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A237898.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A238046.
 \bibitem{massey} J.~L.~Massey, Shift-register synthesis and BCH decoding, \emph{IEEE
 Trans. Inform. Theory} \textbf{15} (1969), 122--127.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,

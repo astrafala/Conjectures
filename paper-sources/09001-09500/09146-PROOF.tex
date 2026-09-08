@@ -12,71 +12,81 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A232150, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A204679, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A232150 counts arrays of width $2$ over $\{0,1,2\}$ in which every cell carrying one stated
-value must have a neighbour carrying another. The entry carries an empirical recurrence of
-order $6$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
-empirical: a cell's neighbours lie in three consecutive rows, so the count is a walk count on
-$S=91$ states.
+OEIS A204679 counts arrays of width $2$ over $\{0,1,2,3\}$ containing no run of $3$ consecutive
+cells, taken along a named direction of the grid, whose entries are all equal. The entry carries
+an empirical recurrence of order $6$ contributed by R.~H.~Hardin. It is true, and it is
+decidable rather than empirical: every such run lies inside $3$ consecutive array rows, so
+the count is a walk count on $S=388$ states.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05C15, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 68R15, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A232150 is ``Number of 2 X n 0..2 arrays with every 0 next to a 1 and every 1 next to a 2 horizontally, diagonally or antidiagonally.''. It has offset $1$ and begins
+OEIS A204679 is ``Number of n X 2 0..3 arrays with no occurrence of three equal elements in a row horizontally, vertically, diagonally or antidiagonally, and new values 0..3 introduced in row major order.''. It has offset $1$ and begins
 \[
-1, 23, 191, 1299, 9097, 65837, 474721, 3410799,\ \dots
+2, 15, 159, 2191, 31168, 447343, 6427791, 92387812,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 6*a(n-1) + 4*a(n-2) + 25*a(n-3) + 60*a(n-4) - 24*a(n-5) - 72*a(n-6).
+Empirical: a(n) = 14*a(n-1) +14*a(n-2) -124*a(n-3) -6*a(n-4) +90*a(n-5) -27*a(n-6) for n>8.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2018 10:41:34, revision 8) this is still
+As of the ``Last modified'' line on the live entry (Feb 23 2018 09:51:30, revision 8) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The array has $2$ cells across, with entries in $\{0,1,2\}$. The NEIGHBOURS of a cell are the
-cells reached from it by the offsets
+A RUN is $3$ consecutive cells taken along one of the directions
 \[
-(-1,-1), (-1,0), (-1,1), (1,-1), (1,0), (1,1),
+\begin{array}{l}
+\text{along a row} \\
+\text{down an antidiagonal, ne to sw} \\
+\text{down a column} \\
+\text{down a diagonal, nw to se} \\
+\end{array}
 \]
-those lying inside the array. The entry asks that
-\begin{itemize}
-\item every cell carrying $0$ has at least one neighbour carrying $1$;
-\item every cell carrying $1$ has at least one neighbour carrying $2$;
+all of them inside the array. The array is counted when no run has its entries all equal.
 
-\end{itemize}
-A cell whose value is not named on the left of any clause is unconstrained. The entry writes the array with $n$ as the number of COLUMNS; the walk is run down the transpose, so the offsets above are already the transposed ones. Each direction is taken with both signs, so transposing cannot lose one.
 
-\section{Three rows decide one}
+The entry closes with ``new values $0..3$ introduced in row major order'', so what is counted
+is arrays up to renaming the letters. That is legitimate here because the forbidden runs are
+the runs of EQUAL entries, and whether entries are equal is untouched by any renaming. Writing
+$N_j$ for the classes on exactly $j$ letters and $L_i$ for the admissible arrays over an
+alphabet of $i$ letters,
+\[
+L_i=\sum_j N_j\,i(i-1)\cdots(i-j+1),\qquad
+a=N_1+\dots+N_{4}=\bigl(\mathbf{1}^{\!\top}F^{-1}\bigr)L .
+\]
+The neighbouring entries that forbid INCREASING runs carry no such clause, and could not: a
+permutation of the alphabet does not preserve order.
+
+\section{Every run lies in $3$ consecutive rows}
 
 \begin{lemma}\label{lem:win}
-Every offset above changes the row index by $-1$, $0$ or $+1$, so all the neighbours of a cell
-of row $i$ lie in rows $i-1$, $i$ and $i+1$, and the condition for the whole of row $i$ is
-decided by those three rows.
+Each direction above changes the row index by $0$ or $1$ from one cell of a run to the next, so
+a run of $3$ cells lies inside $3$ consecutive array rows, and a run whose last cell is in
+row $i$ lies inside rows $i-2,\dots,i$.
 \end{lemma}
 
 \begin{proof}
-Immediate from the offsets listed, together with the rule that a neighbour outside the array is
-not a neighbour.
+Immediate from the row steps of the four directions, which are $0$ for a row and $1$ for the
+other three.
 \end{proof}
 
-So the state is the pair (row above, current row), the row above allowed to be the symbol
-$\bot$, and a step appends a row and settles the condition for the middle row of the window it
-completes. The condition for the LAST row is settled by the end vector, with nothing below it:
-the end vector is therefore not the all-ones vector, and a row whose cells find what they need
-only because a further row is written below them does not finish an array. With $M$ the
-adjacency matrix,
+So the state is the window of the last $2$ array rows, a row not yet written carried as
+$\bot$; a step appends a row and rejects it exactly when some run ends in it or lies inside it.
+A run needing a row that is $\bot$ does not exist, which is the boundary rule and is read off
+the window rather than assumed. The walk starts at the all-$\bot$ window, so a walk of $R$ steps
+is an array of $R$ rows. Assembling the pieces for $i=1,\dots,4$ as a disjoint union, with $\iota$ carrying those weights cleared of denominators,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=91.
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=388,\quad\tau=\mathbf{1} .
 \]
 The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
 published terms rather than assumed. In particular $a$ is $C$-finite.
@@ -101,15 +111,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;6\,a(n-1) + 4\,a(n-2) + 25\,a(n-3) + 60\,a(n-4) - 24\,a(n-5) - 72\,a(n-6)
+a(n)\;=\;14\,a(n-1) + 14\,a(n-2) - 124\,a(n-3) - 6\,a(n-4) + 90\,a(n-5) - 27\,a(n-6)
 \]
-for every $n>5$.
+for every $n>8$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $6$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=5+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=8+1$ onwards and the run continued
 until the working vector was identically zero.
 \end{proof}
 
@@ -117,13 +127,13 @@ until the working vector was identically zero.
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $20$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $17$ terms the entry publishes, exactly, in integer
 arithmetic.
 
-Second, the count was recomputed for the smallest arrays straight from the definition:
-enumerate every array of that size in the orientation the entry's own name writes and test each
-cell against its neighbours directly. No window, no state and no transposition are involved,
-and the published terms came back.
+Second, the count was recomputed for the smallest arrays straight from the definition: fill the
+cells in row major order, in the orientation the entry's own name writes, and reject as soon as
+a completed run is all equal. No window, no transposition and no transfer matrix are involved, and
+the published terms came back.
 
 Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
@@ -133,7 +143,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A232150.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A204679.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge

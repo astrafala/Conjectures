@@ -12,180 +12,131 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A214167, proved by transfer matrix}
+\title{The empirical column recurrences for the table OEIS A234564}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{2 September 2026}
+\date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A214167 counts the proper colourings of a grid $1\times(n+1)$, wrapped in the growing direction, with at most $6$ colours and
-counted up to renaming the colours, and carries an empirical recurrence of order $5$
-contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical. Counting
-up to renaming is a fixed rational combination of ordinary colouring counts; each of those is
-a walk count; and because permuting the colours preserves everything in sight, the walk may be
-run on the colour-patterns rather than on the colourings, which is what brings the state count
-down to $S=21$ and makes the exact residual test affordable.
+OEIS A234564 is a two-dimensional table $T(n,k)$, and it carries a block of empirical
+recurrences contributed by R.~H.~Hardin --- one for each of its first few columns. They are
+true. Column $k$ of the table is an ordinary fixed-width array count, so its rows are the
+vertices of a finite digraph and $T(n,k)$ is a number of walks in it; being a walk count the
+column is $C$-finite, and whether a given recurrence annihilates it is decided by a finite
+exact computation, with the Cayley--Hamilton theorem bounding the work. This note settles the
+columns $k=1$.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05C15, 05C30.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
-\section{The conjecture}
+\section{The table and the conjectures}
 
-OEIS A214167 is ``Number of 0..5 colorings of a 1 X (n+1) array circular in the n+1 direction with new values 0..5 introduced in row major order.''. It has offset $1$ and begins
+OEIS A234564 is ``T(n,k) is the number of (n+1) X (k+1) 0..4 arrays with every 2 X 2 subblock having its diagonal sum differing from its antidiagonal sum by 4 (constant-stress 1 X 1 tilings).''. It has offset $1$, is
+read by antidiagonals, and begins
 \[
-1, 1, 4, 11, 41, 161, 694, 3151,\ \dots
+70, 220, 220, 618, 546, 618, 1954, 1240,\ \dots
 \]
-The entry states, as a conjecture contributed by its author and never marked settled:
-\begin{quote}
-Empirical: a(n) = 10*a(n-1) -30*a(n-2) +20*a(n-3) +31*a(n-4) -30*a(n-5).
+The entry carries the following block:
+\begin{quote}\small
+Empirical for column k: (column 2..7 recurrence works also for k=1; apparently all rows and columns satisfy the same order 14 recurrence):\\
+k=1: a(n) = 3*a(n-1) +18*a(n-2) -54*a(n-3) -80*a(n-4) +240*a(n-5).\\
 \end{quote}
-As of the ``Last modified'' line on the live entry (Mar 15 2023 11:12:57, revision 17) this is still
-recorded as empirical, and nothing on the entry records it as proved.
+As of the ``Last modified'' line on the live entry (Jun 20 2022 20:59:54, revision 6) these are still
+recorded as empirical, and nothing on the entry records any of them as settled.
 
-\section{What is being counted}
+\section{A column of the table is a walk count}
 
-A \emph{colouring} here is proper: cells adjacent horizontally or vertically carry different
-values, and ``circular in one direction'' means the two ends of that direction are adjacent as
-well. The check that this is the right reading is the entry's own first term for the
-one-row case: a cycle of $W$ cells has $(i-1)^W+(-1)^W(i-1)$ proper colourings over $i$
-colours, which at $W=6$, $i=3$ is $66$, and $66/3!=11$ is what the corresponding entry of this
-family publishes.
-
-The clause ``new values $0..5$ introduced in row major order'' says the array is the
-canonical representative of its equality pattern, so what is counted is patterns, not arrays.
-Write $N_j$ for the number of admissible patterns using exactly $j$ colours and $L_i$ for the
-number of admissible colourings over an alphabet of $i$ colours. A colouring over $i$ colours
-is a pattern together with an injection of its colours into the alphabet, so
+Fix $k$. The entry defines $T(n,k)$ as the number of arrays of a shape in which one dimension
+is $n$ and the other is determined by $k$, subject to a condition imposed on every
+$2\times2$ subblock --- a condition local to two consecutive rows and two consecutive columns.
+Substituting the fixed value of $k$ into the entry's own wording turns the definition into an
+ordinary one-parameter array count, and for such a count the rows are the vertices of a finite
+digraph $G_k$: $r\to s$ is an edge exactly when placing $s$ under $r$ satisfies the condition
+in every column pair. An admissible array is then a walk, so with $M_k$ the adjacency matrix
+of $G_k$,
 \[
-L_i\;=\;\sum_j N_j\,i(i-1)\cdots(i-j+1),
+T(n,k)\;=\;c_k\,\mathbf{1}^{\!\top}M_k^{\,n}\mathbf{1}
 \]
-a triangular system with unit diagonal, hence invertible over $\mathbf{Q}$. The entry counts
-$a=N_1+\dots+N_{6}$, so
-\[
-a\;=\;\sum_{i=1}^{6}w_i\,L_i
-\]
-for one fixed rational vector $w=\mathbf{1}^{\!\top}F^{-1}$, $F$ the matrix of falling
-factorials. Being properly coloured is a statement about equalities alone, so it is invariant
-under permuting the colours and the reduction is legitimate.
-
-\section{Each $L_i$ is a walk count}
-
-A column of the array is a proper colouring of the path $P_{1}$ and two consecutive
-columns must differ in every one of the $1$ positions; the wrapping makes the last column
-adjacent to the first. A colouring of the array is therefore a CLOSED walk of $m=n+1$ steps
-in the digraph $T_i$ whose vertices are the proper colourings of $P_{1}$ over $i$ colours
-and whose edges join colourings differing everywhere, so
-\[
-L_i(n)\;=\;\operatorname{tr}\,T_i^{\,m},\qquad m=n+1.
-\]
-A trace is not $\iota^{\!\top}M^m\tau$ for fixed vectors, and computing it as a sum over all
-starting vertices is far too expensive. Lemma~\ref{lem:trace} replaces it by a handful of
-walks with fixed ends.
-
-\begin{lemma}\label{lem:trace}
-Let $G$ be a group acting on the vertex set of a digraph and preserving its edges, and let $M$
-be the adjacency matrix. Then $(M^m)_{ss}=(M^m)_{\sigma s,\sigma s}$ for every
-$\sigma\in G$, and hence
-\[
-\operatorname{tr} M^m\;=\;\sum_{\text{orbits }O}|O|\;(M^m)_{s_O s_O} ,
-\]
-one representative $s_O$ per orbit. For $T_i$ with $G=S_i$ permuting the colours, the orbits
-are the equality patterns and the orbit of a colouring using $j$ colours has
-$i(i-1)\cdots(i-j+1)$ members.
-\end{lemma}
-
-\begin{proof}
-$\sigma$ permutes the vertices and carries walks to walks bijectively, so the closed walks of
-length $m$ at $s$ correspond to those at $\sigma s$. Summing the diagonal over each orbit
-gives the displayed identity. Permuting colours preserves ``differ in every position'', so
-$S_i$ acts on the colourings of $P_{1}$ preserving $T_i$; two colourings lie in one orbit
-exactly when they have the same equality pattern, and a pattern using $j$ colours is realised
-in $i(i-1)\cdots(i-j+1)$ ways.
-\end{proof}
-
-\begin{lemma}\label{lem:lump}
-Let a group $G$ act on the vertices of a digraph preserving its edges, and let $v$ be constant
-on the $G$-orbits. Then $Mv$ is constant on the $G$-orbits, and for a representative $s$ of
-the orbit $O$,
-\[
-(Mv)(O)\;=\;\sum_{O'}A_{OO'}\,v(O'),\qquad
-A_{OO'}=\#\{t\in O':\ s\to t\} .
-\]
-So an iteration started at a $G$-invariant vector may be carried out on the orbits.
-\end{lemma}
-
-\begin{proof}
-$\sigma\in G$ is an edge-preserving bijection, so it carries the out-neighbours of $s$ onto
-those of $\sigma s$; with $v$ constant on orbits, $(Mv)(s)$ and $(Mv)(\sigma s)$ are the same
-sum. The count $A_{OO'}$ is likewise independent of which representative of $O$ is used.
-\end{proof}
-
-Both endpoint vectors above are invariant under the relevant group --- the all-ones vectors
-under all of $S_i$, and, for a diagonal entry $(T_i^m)_{ss}$, the vector $e_s$ under the
-subgroup fixing $s$ --- so the whole computation runs on orbits. That is the entire reason the
-state count is $S=21$ rather than the number of colourings.
-
-Assembling the pieces, $a(n)$ is $\iota^{\!\top}M^{\,j}\tau$ on the disjoint union of the
-orbit digraphs for $i=1,\dots,6$, with $\iota$ carrying the weights $w_i$ cleared of
-denominators; the walk index $j$ and the entry's $n$ differ by a constant, read off by
-matching the entry's published terms rather than assumed. In particular $a$ is $C$-finite.
-
-\section{The proof}
+for the constant $c_k$ that the entry's name supplies (a factor such as $\tfrac12$ or
+$\tfrac14$ where the name says so, and $1$ otherwise).
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{5}-\sum_i c_it^{5-i}$ be the characteristic polynomial of the
-conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
-$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
-holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
-and it is enough to examine $j<S$.
+Let $q(t)=t^{r}-\sum_i c_it^{r-i}$ be the characteristic polynomial of a conjectured
+recurrence of order $r$ for column $k$. Then for every $n\ge r$,
+\[
+T(n,k)-\sum_i c_i\,T(n-i,k)\;=\;c_k\,\mathbf{1}^{\!\top}M_k^{\,n-r}q(M_k)\mathbf{1},
+\]
+so the recurrence holds from some point on if and only if
+$\mathbf{1}^{\!\top}M_k^{j}q(M_k)\mathbf{1}=0$ for every $j\ge0$; and by the
+Cayley--Hamilton theorem it is enough to check $j<S_k$, where $S_k$ is the number of vertices
+of $G_k$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+5}-\sum_ic_iM^{j+5-i}$. For the bound, $M^{S}$
-is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
-$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
-polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly.
+Substitute the walk expression and factor $M_k^{n-r}$ out of $M_k^{n}-\sum_ic_iM_k^{n-i}$;
+the scalar $c_k$ is nonzero. For the bound, $M_k^{S_k}$ is an integer combination of
+$I,M_k,\dots,M_k^{S_k-1}$, so each $\mathbf{1}^{\!\top}M_k^{j}q(M_k)\mathbf{1}$ with
+$j\ge S_k$ repeats that combination of earlier values.
 \end{proof}
 
-\begin{theorem}
+\section{The computation, column by column}
+
+\begin{center}
+\begin{tabular}{ccccc}
+column $k$ & order & vertices $S_k$ & proved for & terms checked \\ \hline
+$1$ & $5$ & $25$ & $n>4$ & $9$ \\
+\end{tabular}
+\end{center}
+
+In each case the vector $w=q(M_k)\mathbf{1}$ was formed by $r$ matrix--vector products in
+exact integer arithmetic and $\mathbf{1}^{\!\top}M_k^{j}w$ evaluated for $j=0,1,\dots$,
+again exactly; every one of those integers vanishes from the stated point onwards and the run
+continued until the working vector was identically zero, which settles all larger $j$ at once.
+
+\subsection*{Column $k=1$}
+The sequence is ``Number of (n+1) X (2) 0..4 arrays with every 2 X 2 subblock having its diagonal sum differing from its antidiagonal sum by 4 (constant-stress 1 X 1 tilings).''. Its rows are the vertices of a digraph on
+$S=25$ vertices, edges being the admissible consecutive pairs, and the count is
+$\mathbf{1}^{\!\top}M^{n}\mathbf{1}$ up to the constant factor in the entry's name.
+The conjectured recurrence
 \[
-a(n)\;=\;10\,a(n-1) - 30\,a(n-2) + 20\,a(n-3) + 31\,a(n-4) - 30\,a(n-5)
+a(n)\;=\;3\,a(n-1) + 18\,a(n-2) - 54\,a(n-3) - 80\,a(n-4) + 240\,a(n-5)
 \]
-for every $n>4$.
-\end{theorem}
-
-\begin{proof}
-The vector $w=q(M)\tau$ was formed by $5$ matrix--vector products in exact integer
-arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=4+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once. The
-rational weights $w_i$ are cleared by a common denominator before any of this, so the whole
-computation is over the integers.
-\end{proof}
+holds for every $n>4$.
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $24$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry: the digraph is built by reading the
-entry's English, and a misreading gives different counts.
+First, each column model was compared against the entry's own published values for that
+column, taken both from the antidiagonal DATA and from the ``Table starts'' block, and agrees
+at every available term. This is what ties a model to the table: substituting $k$ into the
+entry's wording is a reading of English, and a wrong reading gives a different digraph and
+different counts. Across the columns settled here the model reproduces $9$ published
+values, $38$ decimal digits in all, every one of them exactly; a misreading of the entry
+would have to reproduce all of them by accident.
 
-Second, the conjectured recurrence was evaluated directly on those published terms, with no
-matrices involved, and holds wherever the proved range and the data overlap.
+Second, each conjectured recurrence was evaluated on those published column values in exact
+integer arithmetic, with no matrices involved, and holds wherever the proved range and the
+data overlap.
 
 Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
-arithmetic on the whole vector rather than on a sampled prefix.
+arithmetic rather than on a sampled prefix.
+
+\begin{remark}
+A table row is a column of the transposed table, so the same argument settles the entry's row
+conjectures whenever the transposed shape is itself of the form treated here. Only the columns
+the entry states explicitly, and for which enough published terms exist to run the first check
+above, are claimed.
+\end{remark}
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A214167.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A234564.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{biggs} N.~Biggs, \emph{Algebraic Graph Theory}, 2nd ed., Cambridge University
-Press, 1993. (Chromatic polynomials and transfer matrices.)
+\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+University Press, 2009.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

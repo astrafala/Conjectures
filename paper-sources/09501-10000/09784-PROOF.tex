@@ -12,17 +12,17 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A185514, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A183703, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A185514 counts arrays over $\{0,\dots,2\}$ under a condition on the determinant of every
+OEIS A183703 counts arrays over $\{0,\dots,3\}$ under a condition on the determinant of every
 $2\times2$ subblock, and carries an empirical recurrence of order $4$ contributed by
 R.~H.~Hardin. It is true, and it is decidable rather than empirical. The condition is local to
-a bounded window of consecutive rows, so the count is a walk count on $S=27$ states and is
+a bounded window of consecutive rows, so the count is a walk count on $S=64$ states and is
 $C$-finite; whether the conjectured recurrence annihilates it is then settled by a finite exact
 computation, with the Cayley--Hamilton theorem bounding the work.
 \end{abstract}
@@ -31,26 +31,26 @@ computation, with the Cayley--Hamilton theorem bounding the work.
 
 \section{The conjecture}
 
-OEIS A185514 is ``Number of (n+1) X 3 0..2 arrays with every 2 X 2 subblock singular.''. It has offset $1$ and begins
+OEIS A183703 is ``Number of (n+1) X 3 0..3 arrays with every 2 X 2 subblock nonsingular.''. It has offset $1$ and begins
 \[
-143, 1489, 12361, 115979, 1058503, 9856209, 91539073, 853020411,\ \dots
+2472, 108624, 4760784, 208772880, 9154058448, 401390133264, 17600152230096, 771732813754128,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 12*a(n-1) - 11*a(n-2) - 154*a(n-3) + 224*a(n-4).
+Empirical: a(n) = 29*a(n-1) + 617*a(n-2) + 1587*a(n-3) - 4104*a(n-4).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Apr 16 2018 08:42:24, revision 8) this is still
+As of the ``Last modified'' line on the live entry (Apr 04 2018 10:48:07, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
 Write $\sigma$ for the determinant of a $2\times2$ subblock
 $\begin{pmatrix}p&q\\r&s\end{pmatrix}$, that is $\sigma=ps-qr$. The subblocks of an
-$(n+1)\times3$ array over $\{0,\dots,2\}$ form a grid of $n$ rows and $2$
+$(n+1)\times3$ array over $\{0,\dots,3\}$ form a grid of $n$ rows and $2$
 columns, and $\sigma$ colours that grid.
 
-The condition is on each subblock separately: every $\sigma$ must vanish, which is what
-``singular'' says of a $2\times2$ matrix. Nothing
+The condition is on each subblock separately: every $\sigma$ must not vanish, which is what
+``nonsingular'' says of a $2\times2$ matrix. Nothing
 relates one subblock to another.
 
 \section{The count is a walk count}
@@ -62,16 +62,16 @@ walk of $n$ steps and
 \[
 a(n)\;=\;\iota^{\!\top}M^{\,n}\tau,\qquad\iota=\tau=(1,\dots,1)^{\!\top},
 \]
-on the $S=27$ rows.
+on the $S=64$ rows.
 
 At $n=1$ the array has two rows and the grid is a single row of $2$
 subblocks, each tested on its own, so $a(1)$ counts the
-$2\times3$ arrays over $\{0,\dots,2\}$ all of whose subblocks pass. The entry's
-first term is $143$, and the model reproduces it along with every later term; that is the
+$2\times3$ arrays over $\{0,\dots,3\}$ all of whose subblocks pass. The entry's
+first term is $2472$, and the model reproduces it along with every later term; that is the
 cheapest check that the grid has been read with the right shape.
 
-Over the alphabet $\{0,\dots,2\}$ the determinant of a $2\times2$ subblock takes values in
-$[-4,4]$, so the colouring of the grid it induces has at most $9$ values.
+Over the alphabet $\{0,\dots,3\}$ the determinant of a $2\times2$ subblock takes values in
+$[-9,9]$, so the colouring of the grid it induces has at most $19$ values.
 That bound is what keeps the construction below finite in the only place where the value of
 $\sigma$, rather than a comparison between two of them, has to be carried.
 In particular $a$ is $C$-finite. The alignment of the walk index with the entry's own $n$ was
@@ -97,15 +97,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;12\,a(n-1) - 11\,a(n-2) - 154\,a(n-3) + 224\,a(n-4)
+a(n)\;=\;29\,a(n-1) + 617\,a(n-2) + 1587\,a(n-3) - 4104\,a(n-4)
 \]
-for every $n>3$.
+for every $n>4$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $4$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=3+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=4+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -113,7 +113,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $17$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $13$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
@@ -125,7 +125,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A185514.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A183703.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{minc} H.~Minc, \emph{Permanents}, Addison--Wesley, 1978.

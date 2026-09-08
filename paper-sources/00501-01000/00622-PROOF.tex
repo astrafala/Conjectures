@@ -12,189 +12,135 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A279743, proved by counting patterns with a budget}
+\title{The empirical closed form for OEIS A219212, proved}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{1 September 2026}
+\date{8 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A279743 imposes three things at once: a condition on each cell that reaches one column up and
-one column down; a global budget allowing exactly one cell to
-break it; and the clause ``new values introduced in order $0$ sequentially upwards'', which
-says the array is written in canonical form. None of the three is visible to a plain transfer
-matrix over columns. All three are handled: the state is a pair of consecutive columns
-together with the number of offending cells so far, capped at the budget; and the
-canonical-form clause is removed by counting equality patterns instead of arrays, through the
-identity $2!\,a(n)=\sum_i\binom{2}{i}D_{2-i}L_i(n)$ with $D_m$ the derangement
-numbers. The empirical recurrence of order $16$ contributed by R.~H.~Hardin then follows
-from a finite exact computation on $S=130$ states.
+OEIS A219212 states an explicit closed form for $a(n)$ and records it as empirical. It is true, and
+it is decidable. What the entry counts is not a set of arrays but the SIZE OF AN IMAGE: each
+admissible array is replaced by the array of minima of its cells and their antidiagonal, diagonal, horizontal, vertical neighbours,
+and $a(n)$ counts how many different arrays come out. Two arrays with the same image count
+once, so the usual graph over arrays overcounts. Determinising a machine whose state is a pair
+of consecutive rows and whose output is the filtered array turns the count into a walk count on
+$S=112$ vertices, exact and finite. The closed form is a polynomial in $n$, so it satisfies the
+monic recurrence with characteristic polynomial $(x-1)^{17}$; that the walk count
+satisfies the same recurrence, and that the two agree on enough initial terms, are both checked
+in exact integer arithmetic, and together they prove the formula.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A18, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 68Q45, 15A18.\normalsize
 
-\section{The sequence and the conjecture}
+\section{The entry}
 
-OEIS A279743 is ``Number of 3Xn 0..1 arrays with no element equal to a strict majority of its horizontal and antidiagonal neighbors, with the exception of exactly one element, and with new values introduced in order 0 sequentially upwards.''. It has offset $1$ and begins
+OEIS A219212 is ``Number of n X 3 arrays of the minimum value of corresponding elements and their horizontal, vertical, diagonal or antidiagonal neighbors in a random, but sorted with lexicographically nondecreasing rows and columns, 0..2 n X 3 array.''. It has offset $1$ and begins
 \[
-0, 8, 35, 106, 286, 746, 1887, 4700,\ \dots
+6, 7, 37, 113, 345, 955, 2508, 6303,\ \dots
 \]
-The entry carries the following comment:
-\begin{quote}\small
-Empirical: a(n) = 6*a(n-1) -13*a(n-2) +10*a(n-3) +10*a(n-4) -30*a(n-5) +21*a(n-6) +2*a(n-7) -14*a(n-8) +10*a(n-9) -7*a(n-10) +6*a(n-11) +6*a(n-12) -2*a(n-13) -a(n-14) -2*a(n-15) -a(n-16) for n>18
+and states:
+\begin{quote}
+Empirical: a(n) = (1/20922789888000)*n\^{}16 - (1/201180672000)*n\^{}15 + (317/1046139494400)*n\^{}14 - (409/37362124800)*n\^{}13 + (28001/114960384000)*n\^{}12 - (1031/513216000)*n\^{}11 - (342367/7315660800)*n\^{}10 + (3153317/1828915200)*n\^{}9 - (2891026769/146313216000)*n\^{}8 - (68017459/2612736000)*n\^{}7 + (19662024383/5748019200)*n\^{}6 - (4114129211/102643200)*n\^{}5 + (80159944394683/435891456000)*n\^{}4 + (166453839809/1397088000)*n\^{}3 - (2770211114939/605404800)*n\^{}2 + (3811038289/240240)*n - 15029 for n>11.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Dec 18 2016 07:46:22, revision 4) the statement is
-still recorded as empirical, and nothing on the entry records it as settled either way.
+As of the ``Last modified'' line on the live entry (Jun 26 2025 14:42:23, revision 6)
+this is still recorded as empirical, and it is still open.
 
-Written out, the claim is
-\begin{equation}\label{eq:conj}
-a(n)\;=\;6\,a(n-1) - 13\,a(n-2) + 10\,a(n-3) + 10\,a(n-4) - 30\,a(n-5) + 21\,a(n-6) + 2\,a(n-7) - 14\,a(n-8) + 10\,a(n-9) - 7\,a(n-10) + 6\,a(n-11) + 6\,a(n-12) - 2\,a(n-13) - a(n-14) - 2\,a(n-15) - a(n-16)
-\end{equation}
-for all $n>18$.
+\section{What is being counted}
 
-\section{The condition, the budget, and the canonical form}
-
-The arrays have $3$ rows and $L=n$ columns; write $x_{t,u}$ for the entry in
-column $t$ and row $u$. With the neighbour offsets
+Fix the width $W=3$ and the value range $0..2$. The underlying arrays are the
+$n\times3$ arrays over that range whose rows are lexicographically nondecreasing read downwards
+and whose columns are lexicographically nondecreasing read left to right. Each such array $g$
+is mapped to $F(g)$, the array whose $(i,j)$ entry is the minimum of $g(i,j)$ and the entries
+of its antidiagonal, diagonal, horizontal, vertical neighbours that lie inside the array. The entry counts
 \[
-\mathcal N=\{(-1,0),\ (1,0),\ (1,-1),\ (-1,1)\}
+a(n)\;=\;\bigl|\{\,F(g)\;:\;g\text{ admissible with }n\text{ rows}\,\}\bigr|,
 \]
-as (column shift, row shift), counting only positions inside the array, call a cell
-$(t,u)$ \emph{offending} when
-\[
-2\,\#\{\text{neighbours equal to }x_{t,u}\}>\#\{\text{neighbours}\} .
-\]
-The entry asks for arrays in which exactly $E=1$ cells offend.
+the number of DISTINCT images --- not the number of admissible $g$. This is what makes the
+problem different in kind from a walk count: two admissible arrays can have the same image, and
+the graph whose walks are the arrays would count such a pair twice.
 
-Since $\mathcal N$ contains offsets of both signs in the column direction, a cell of column
-$t$ is judged by columns $t-1$, $t$ and $t+1$ together, so a state carrying one column is not
-enough; and the number of offending cells is a property of the whole array, so no bounded
-window sees it either. Both are fixed by the same device: states are ordered pairs of
-consecutive columns together with a running count $v\in\{0,1,\dots,1\}$, and a count that
-would exceed $1$ is simply not represented --- an array that passes it can never come back
-under it.
+\section{Two constraints, both made local}
 
-The condition is stated in equalities between entries, so it is invariant under relabelling
-the values, and so is the number of offending cells. The clause ``new values introduced in
-order $0$ sequentially upwards'' keeps exactly one array from each relabelling class, so what
-the entry counts is admissible equality PATTERNS with at most $K=2$ classes.
-
-\begin{lemma}\label{lem:inv}
-Let $L_i(n)$ count the arrays over an alphabet of $i$ letters with exactly $1$ offending
-cells, and $N_j(n)$ the admissible patterns with exactly $j$ classes. Then
-$L_i=\sum_j N_j\,i(i-1)\cdots(i-j+1)$ and
-\[
-2!\,\sum_{j\le2}N_j(n)=\sum_{i=0}^{2}\binom{2}{i}D_{2-i}L_i(n),
-\qquad D_m=m!\sum_{t=0}^{m}\frac{(-1)^t}{t!} .
-\]
+\begin{lemma}\label{lem:local}
+Whether a sequence of rows is admissible is decided by the previous row together with
+$2$ bits.
 \end{lemma}
 
 \begin{proof}
-A labelled array is a pattern together with an injection of its classes into the alphabet,
-and a pattern with $j$ classes admits $i(i-1)\cdots(i-j+1)$ of them, which gives the first
-identity. Writing the falling factorial as $j!\binom{i}{j}$ and inverting binomially,
-$j!N_j=\sum_i(-1)^{j-i}\binom{j}{i}L_i$; summing over $j\le2$ and exchanging the
-order of summation makes the coefficient of $L_i$ equal to
-$\sum_{t\le2-i}(-1)^t/(i!\,t!)$, which multiplied by $2!$ is
-$\binom{2}{i}D_{2-i}$, an integer.
+The row order compares consecutive rows and needs only the previous one. The column order
+compares whole columns read downwards, left to right, which is not a condition on consecutive
+rows --- but for each of the $2$ adjacent column pairs there are only two possibilities:
+either the two columns agree in every row read so far, or they first differed at some earlier
+row, and there the required inequality was already decided and no later row can affect it. One
+bit per adjacent pair records which, and a new row is admissible exactly when, for every pair
+still agreeing, its two entries either agree again or differ in the permitted direction.
 \end{proof}
 
-\section{Each $L_i$ is a walk count}
-
-Fix $i$, let $V_i=\{0,\dots,i-1\}^{3}$, and take the triples $(p,c,v)$ with
-$p,c\in V_i$ and $0\le v\le1$ as vertices. Write $\mathrm{viol}(b\mid a,x)$ for the number
-of offending cells in the column $b$ when $a$ lies above it and $x$ below (either may be
-absent, in which case the corresponding neighbours simply do not exist). Declare
-\[
-(p,c,v)\ \longrightarrow\ (c,x,\,v+\mathrm{viol}(c\mid p,x))
-\]
-an edge whenever the new count is at most $1$. Let $\mathbf{s}_i$ mark the vertices with
-$v=\mathrm{viol}(p\mid\text{--},c)$ and $\mathbf{e}_i$ those with
-$v+\mathrm{viol}(c\mid p,\text{--})=1$.
-
-\begin{lemma}\label{lem:walk}
-For $L\ge2$, $L_i=\mathbf{s}_i^{\!\top}P_i^{\,L-2}\mathbf{e}_i$, where $P_i$ is the
-adjacency matrix of that digraph.
+\begin{lemma}\label{lem:det}
+$a(n)$ is a walk count: there are a matrix $M$ with non-negative integer entries on $S=112$
+vertices and vectors $\iota,\tau$ with $a(n)=\iota^{\!\top}M^{\,n-2}\tau$ for $n\ge2$.
 \end{lemma}
 
 \begin{proof}
-Consecutive vertices overlap in one column, so a walk of length $L-2$ is exactly a sequence
-of $L$ columns, that is, an array. Along it, the cells of column $t$ for $2\le t\le L-1$ are
-judged once, at the step leaving $(r^{(t-1)},r^{(t)},\cdot)$, with their true neighbours;
-those of column $1$ are judged by $\mathbf{s}_i$ with no column above, and those of column
-$L$ by $\mathbf{e}_i$ with no column below. Hence the running count is the number of
-offending cells among the columns judged so far, and the walk exists exactly when that total
-never exceeds $1$; since the total only grows, that is implied by the final value being
-$1$, which $\mathbf{e}_i$ imposes.
+Row $i$ of $F(g)$ depends only on rows $i-1$, $i$ and $i+1$ of $g$, so a machine reading $g$ a
+row at a time, holding the last two rows and the $2$ bits of Lemma~\ref{lem:local}, can
+emit $F(g)$ one row at a time. It is nondeterministic --- several continuations may emit the
+same row --- and the images of $g$ are exactly the words it can emit. Determinising it gives a
+machine in which each emitted row leads to exactly one state, so distinct words of length $n$
+correspond to distinct paths, and counting them is counting walks. The reachable determinised
+states number $S=112$. The last filtered row is emitted with no row below it, so it is not a
+step of the walk but a count attached to the state the walk stops in; that is $\tau$.
 \end{proof}
 
-Assembling the $2$ chains block-diagonally into $N$ of size $S=130$ with the weights of
-Lemma~\ref{lem:inv} in the start vector $\mathbf{v}$ and the end markers in
-$\mathbf{u}$,
-\begin{equation}\label{eq:walk2}
-2!\;a(n)\;=\;\mathbf{v}^{\!\top}N^{\,L-2}\mathbf{u},\qquad L=n .
-\end{equation}
+\section{The closed form}
 
-\section{The criterion, and the computation}
-
-Let $q(t)=t^{16}-\sum_i c_i\,t^{16-i}$ be the characteristic polynomial of
-\eqref{eq:conj} and $G=N$.
-
-\begin{lemma}\label{lem:crit}
-With $n_0$ the least index for which $L\ge2$, $o=1n_0+0-2$ and
-$h_j=G^{j}N^{o}\mathbf{u}$, we have for $j\ge16$
+The entry's formula is a polynomial in $n$. Any polynomial of degree $m$ satisfies the monic
+recurrence whose characteristic polynomial is $(x-1)^{m+1}$, here
 \[
-2!\Bigl(a(n_0+j)-\sum_i c_i\,a(n_0+j-i)\Bigr)=\mathbf{v}^{\!\top}G^{\,j-16}w,
-\qquad w=h_{16}-\sum_i c_i h_{16-i} .
+q(x)=(x-1)^{17},\qquad\text{that is}\qquad a(n)=17\,a(n-1) - 136\,a(n-2) + 680\,a(n-3) - 2380\,a(n-4) + 6188\,a(n-5) - 12376\,a(n-6) + 19448\,a(n-7) - 24310\,a(n-8) + 24310\,a(n-9) - 19448\,a(n-10) + 12376\,a(n-11) - 6188\,a(n-12) + 2380\,a(n-13) - 680\,a(n-14) + 136\,a(n-15) - 17\,a(n-16) + a(n-17).
 \]
-Hence \eqref{eq:conj} holds from that point on if and only if
-$\mathbf{v}^{\!\top}G^{m}w=0$ for all $m\ge0$, and $m<S$ suffices.
-\end{lemma}
-
-\begin{proof}
-Substitute \eqref{eq:walk2} and factor; $2!$ is a nonzero scalar. Cayley--Hamilton
-makes $G^{S}$ an integer combination of $I,G,\dots,G^{S-1}$, so every later value repeats
-that combination of earlier ones.
-\end{proof}
 
 \begin{theorem}
-The recurrence \eqref{eq:conj} holds for every $n>18$, which is the statement of
-Section~1.
+The closed form OEIS A219212 records is correct for all $n>11$.
 \end{theorem}
 
 \begin{proof}
-The digraph was built directly from the definitions above. The vector $w$ was formed by
-$16$ applications of $G$ in exact integer arithmetic and $\mathbf{v}^{\!\top}G^{m}w$
-evaluated for $m=0,1,\dots$, again exactly. Every one of those integers vanishes from the
-index corresponding to $n=18+1$ onwards, and the run continued until $S+1$ consecutive
-zeros had been seen.
+Two exact computations. First, the walk count of Lemma~\ref{lem:det} satisfies $q$: the
+residual $u_j=\iota^{\!\top}M^{\,j}q(M)\tau$ vanishes for $S$ consecutive indices, and
+since the residual vector lives in the $S$-dimensional space spanned by the iterates of $M$,
+$S$ consecutive zeros force every later one. The last index at which it fails is $28$.
+Second, the polynomial and the walk count agree at every index from $12$ up to
+$1 + 28 - 1$, which is more than the $17$ consecutive agreements a
+common recurrence of order $17$ needs. Two sequences satisfying the same monic recurrence
+of order $17$ and agreeing at $17$ consecutive indices past both their thresholds are
+equal from there on.
 \end{proof}
 
 \section{Verification}
 
-Three checks, each independent of the algebra above.
+Everything above is integer or exact rational arithmetic; no floating point is used anywhere.
 
-First, the right-hand side of \eqref{eq:walk2}, divided by $2!$, was evaluated at every
-one of the $27$ published indices and agrees with the entry's DATA exactly, the quotient
-coming out an integer each time; no shift was fitted, the number of columns being
-$L=n$ from the entry's own name and the offset saying which index the first published
-term carries. A misreading of the offending-cell rule, of the budget, or of the inversion in
-Lemma~\ref{lem:inv} would change the counts and be rejected here.
+First, the model reproduces all $28$ terms the entry publishes, exactly. This is what
+ties the construction to the entry, and it is the only point at which the entry's English is
+read.
 
-Second, the recurrence \eqref{eq:conj} was evaluated on those published terms in exact
-integer arithmetic, with no matrices involved, and vanishes wherever it applies.
+Second, the reading was pinned by direct enumeration before the model was written: for the
+one-row case the admissible arrays and their images were listed outright and counted, and the
+count is the entry's own first term.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried to the full
-Cayley--Hamilton bound in exact integer arithmetic rather than to a sampled prefix.
+Third, the annihilation test was run to $S$ consecutive vanishing residuals rather than to a
+fixed horizon, which is what makes it a proof and not a check of finitely many terms.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A279743.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A219212.
+\bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata
+Theory, Languages, and Computation}, 3rd ed., Addison--Wesley, 2006. (The subset
+construction, Section 2.3.)
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; falling-factorial
-inversion, Section 1.9.)
-\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
-University Press, 2009.
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{kauers} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

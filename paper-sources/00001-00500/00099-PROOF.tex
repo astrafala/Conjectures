@@ -12,19 +12,19 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A211469, proved by a one-dimensional reduction}
+\title{The empirical recurrence for OEIS A211259, proved by a one-dimensional reduction}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{4 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A211469 counts symmetric $(n+1)\times(n+1)$ matrices over
-$\{-8,\dots,8\}$ in which every $2\times2$ subblock sums to zero and has two or three distinct
+OEIS A211259 counts symmetric $(n+1)\times(n+1)$ matrices over
+$\{-6,\dots,6\}$ in which every $2\times2$ subblock sums to zero and has one, three or four distinct
 entries. Both sides of the matrix grow with $n$, so there is no slice of bounded width to walk
 along. There does not need to be: the sum-zero condition is linear and solves completely, and
 its solutions are indexed by a SEQUENCE --- the diagonal of the matrix. The count becomes a walk
-on $S=924$ states, and the empirical recurrence of order $23$ contributed by R.~H.~Hardin
+on $S=196$ states, and the empirical recurrence of order $60$ contributed by R.~H.~Hardin
 follows.
 \end{abstract}
 
@@ -32,20 +32,20 @@ follows.
 
 \section{The conjecture}
 
-OEIS A211469 is ``Number of (n+1)X(n+1) -8..8 symmetric matrices with every 2X2 subblock having sum zero and two or three distinct values.''. It has offset $1$ and begins
+OEIS A211259 is ``Number of (n+1)X(n+1) -6..6 symmetric matrices with every 2X2 subblock having sum zero and one, three or four distinct values.''. It has offset $1$ and begins
 \[
-144, 380, 856, 1808, 3706, 7454, 14786, 29300,\ \dots
+65, 335, 1703, 8645, 43643, 219333, 1097247, 5465297,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 3*a(n-1) +20*a(n-2) -64*a(n-3) -172*a(n-4) +598*a(n-5) +826*a(n-6) -3213*a(n-7) -2390*a(n-8) +10954*a(n-9) +4103*a(n-10) -24660*a(n-11) -3463*a(n-12) +36968*a(n-13) -524*a(n-14) -36330*a(n-15) +4151*a(n-16) +22474*a(n-17) -3786*a(n-18) -8144*a(n-19) +1410*a(n-20) +1540*a(n-21) -180*a(n-22) -120*a(n-23)
+Empirical: a(n) = 28*a(n-1) -155*a(n-2) -2658*a(n-3) +32061*a(n-4) +66366*a(n-5) -2314922*a(n-6) +3159336*a(n-7) +97801748*a(n-8) -317172988*a(n-9) -2797365748*a(n-10) +13347627288*a(n-11) +57922813108*a(n-12) -369288318800*a(n-13) -900259137962*a(n-14) +7525220569156*a(n-15) +10736644664141*a(n-16) -118794611594160*a(n-17) -100177501866905*a(n-18) +1492188101583602*a(n-19) +756635414359131*a(n-20) -15127411602979766*a(n-21) -4996517564711412*a(n-22) +124488915629652484*a(n-23) +32496342097994312*a(n-24) -830961220175609104*a(n-25) -217952927487180360*a(n-26) +4471006873093739800*a(n-27) +1356224545195754860*a(n-28) -19189501086495681880*a(n-29) -6829521421681422792*a(n-30) +64885315804531962064*a(n-31) +25455961312177735008*a(n-32) -171074565270467560384*a(n-33) -66023270051350386176*a(n-34) +350852776730555653120*a(n-35) +111115747477690885952*a(n-36) -562968030704836048256*a(n-37) -102780461262027908992*a(n-38) +705293155294335987968*a(n-39) -1905443632362091008*a(n-40) -673839571496082251776*a(n-41) +149968516817181865984*a(n-42) +463807639149162463232*a(n-43) -222954648389494145024*a(n-44) -202119207628642238464*a(n-45) +174410817888004440064*a(n-46) +32943327636122697728*a(n-47) -77835693049096830976*a(n-48) +15691242889927983104*a(n-49) +16793314088391802880*a(n-50) -9742537633650704384*a(n-51) -56226216776040448*a(n-52) +1727131956136640512*a(n-53) -597215426987950080*a(n-54) +331158386638848*a(n-55) +57745072535371776*a(n-56) -19695514744258560*a(n-57) +3305731101032448*a(n-58) -294085000691712*a(n-59) +11132555231232*a(n-60)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 16:11:27, revision 8) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 16:09:20, revision 8) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{The sum-zero condition solved}
 
-Let $x$ be an $N\times N$ symmetric matrix with entries in $\{-8,\dots,8\}$ such that
+Let $x$ be an $N\times N$ symmetric matrix with entries in $\{-6,\dots,6\}$ such that
 \[
 x(i,j)+x(i,j{+}1)+x(i{+}1,j)+x(i{+}1,j{+}1)=0
 \]
@@ -55,7 +55,7 @@ for every $0\le i,j\le N-2$.
 Such matrices are exactly the matrices
 \[
 x(i,j)=(-1)^{i+j}\,\frac{u_i+u_j}{2},
-\qquad u_0,\dots,u_{N-1}\in\{-8,\dots,8\}\ \text{all of the same parity},
+\qquad u_0,\dots,u_{N-1}\in\{-6,\dots,6\}\ \text{all of the same parity},
 \]
 and the sequence is recovered from the matrix by $u_i=x(i,i)$, so the correspondence is a
 bijection.
@@ -78,13 +78,13 @@ because $y(i,i)=x(i,i)$ is, we get $y(i,j)=(u_i+u_j)/2$ as claimed. Taking $j=i$
 $u_i=y(i,i)=x(i,i)$.
 
 For the two side conditions: $u_i+u_j$ must be even for all $i,j$, which says all the $u_i$ have
-the same parity; and $|x(i,j)|=|u_i+u_j|/2\le8$ for all $i,j$ is equivalent to $|u_i|\le8$
+the same parity; and $|x(i,j)|=|u_i+u_j|/2\le6$ for all $i,j$ is equivalent to $|u_i|\le6$
 for each $i$, the case $j=i$ giving one direction and the triangle inequality the other.
 \end{proof}
 
 So the matrices of size $N$ correspond one for one to the sequences $u_0,\dots,u_{N-1}$ in
-$\{-8,\dots,8\}$ with all entries of one parity. What remains is to say, in terms of $u$,
-that every $2\times2$ subblock has two or three distinct entries.
+$\{-6,\dots,6\}$ with all entries of one parity. What remains is to say, in terms of $u$,
+that every $2\times2$ subblock has one, three or four distinct entries.
 
 \begin{lemma}\label{lem:block}
 Write $\pi_i=(u_i,u_{i+1})$ for the $i$-th consecutive pair. The number of distinct entries of
@@ -101,13 +101,13 @@ By Lemma~\ref{lem:solve} the four entries are $(-1)^{i+j}$ times those four numb
 order. Multiplying all four by $\pm1$ does not change how many are distinct.
 \end{proof}
 
-Call two consecutive pairs COMPATIBLE when that number lies in $\{2,3\}$. The condition on the
+Call two consecutive pairs COMPATIBLE when that number lies in $\{1,3,4\}$. The condition on the
 matrix is that $\pi_i$ and $\pi_j$ are compatible for every $i$ and $j$ --- including $i=j$,
 which asks each pair to be compatible with itself. In other words:
 
 \begin{corollary}
 The matrices counted are exactly the sequences $u$ whose set of consecutive pairs is a clique in
-the compatibility graph on the $\le 289$ pairs.
+the compatibility graph on the $\le 169$ pairs.
 \end{corollary}
 
 \section{A walk on the sequence}
@@ -132,10 +132,10 @@ the only other thing a step needs.
 
 The sets $A$ that arise are intersections of neighbourhoods, of which there are far fewer than
 subsets; enumerated from the start $A_0=\{\pi:\pi\in N(\pi)\}$, the reachable states number
-$S=924$. The two parity classes never mix, so the walk starts by choosing a parity and a first
+$S=196$. The two parity classes never mix, so the walk starts by choosing a parity and a first
 value, and every state may end a sequence:
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad \tau=\mathbf{1},\qquad S=924.
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad \tau=\mathbf{1},\qquad S=196.
 \]
 The walk index $j$ is the size of the matrix, and it differs from the entry's own $n$ by a
 constant read off by matching the published terms rather than assumed. In particular $a$ is
@@ -144,7 +144,7 @@ $C$-finite --- for a family in which both dimensions grow with $n$.
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{23}-\sum_i c_it^{23-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{60}-\sum_i c_it^{60-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -152,7 +152,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+23}-\sum_ic_iM^{j+23-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+60}-\sum_ic_iM^{j+60-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -161,15 +161,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;3\,a(n-1) + 20\,a(n-2) - 64\,a(n-3) - 172\,a(n-4) + 598\,a(n-5) + 826\,a(n-6) - 3213\,a(n-7) - 2390\,a(n-8) + 10954\,a(n-9) + 4103\,a(n-10) - 24660\,a(n-11) - 3463\,a(n-12) + 36968\,a(n-13) - 524\,a(n-14) - 36330\,a(n-15) + 4151\,a(n-16) + 22474\,a(n-17) - 3786\,a(n-18) - 8144\,a(n-19) + 1410\,a(n-20) + 1540\,a(n-21) - 180\,a(n-22) - 120\,a(n-23)
+a(n)\;=\;28\,a(n-1) - 155\,a(n-2) - 2658\,a(n-3) + 32061\,a(n-4) + 66366\,a(n-5) - 2314922\,a(n-6) + 3159336\,a(n-7) + 97801748\,a(n-8) - 317172988\,a(n-9) - 2797365748\,a(n-10) + 13347627288\,a(n-11) + 57922813108\,a(n-12) - 369288318800\,a(n-13) - 900259137962\,a(n-14) + 7525220569156\,a(n-15) + 10736644664141\,a(n-16) - 118794611594160\,a(n-17) - 100177501866905\,a(n-18) + 1492188101583602\,a(n-19) + 756635414359131\,a(n-20) - 15127411602979766\,a(n-21) - 4996517564711412\,a(n-22) + 124488915629652484\,a(n-23) + 32496342097994312\,a(n-24) - 830961220175609104\,a(n-25) - 217952927487180360\,a(n-26) + 4471006873093739800\,a(n-27) + 1356224545195754860\,a(n-28) - 19189501086495681880\,a(n-29) - 6829521421681422792\,a(n-30) + 64885315804531962064\,a(n-31) + 25455961312177735008\,a(n-32) - 171074565270467560384\,a(n-33) - 66023270051350386176\,a(n-34) + 350852776730555653120\,a(n-35) + 111115747477690885952\,a(n-36) - 562968030704836048256\,a(n-37) - 102780461262027908992\,a(n-38) + 705293155294335987968\,a(n-39) - 1905443632362091008\,a(n-40) - 673839571496082251776\,a(n-41) + 149968516817181865984\,a(n-42) + 463807639149162463232\,a(n-43) - 222954648389494145024\,a(n-44) - 202119207628642238464\,a(n-45) + 174410817888004440064\,a(n-46) + 32943327636122697728\,a(n-47) - 77835693049096830976\,a(n-48) + 15691242889927983104\,a(n-49) + 16793314088391802880\,a(n-50) - 9742537633650704384\,a(n-51) - 56226216776040448\,a(n-52) + 1727131956136640512\,a(n-53) - 597215426987950080\,a(n-54) + 331158386638848\,a(n-55) + 57745072535371776\,a(n-56) - 19695514744258560\,a(n-57) + 3305731101032448\,a(n-58) - 294085000691712\,a(n-59) + 11132555231232\,a(n-60)
 \]
-for every $n>23$.
+for every $n>59$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $23$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $60$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=23+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=59+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -177,12 +177,12 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $26$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $20$ terms the entry publishes, exactly, in integer
 arithmetic.
 
 Second, the count was recomputed for the smallest matrices straight from the definition:
-symmetric matrices were written out entry by entry over $\{-8,\dots,8\}$ and each
-$2\times2$ subblock tested for summing to zero and for having two or three distinct entries. The
+symmetric matrices were written out entry by entry over $\{-6,\dots,6\}$ and each
+$2\times2$ subblock tested for summing to zero and for having one, three or four distinct entries. The
 sequence $u$, the sign pattern, the clique and the state play no part in that computation, and
 the published terms came back. Lemma~\ref{lem:solve} was separately checked the same way: for
 small sizes and small ranges the number of symmetric sum-zero matrices found by direct
@@ -196,7 +196,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A211469.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A211259.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{kemeny} J.~G.~Kemeny and J.~L.~Snell, \emph{Finite Markov Chains}, Springer, 1976.

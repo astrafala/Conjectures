@@ -12,70 +12,69 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A183339, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A251814, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{3 September 2026}
+\date{6 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A183339 counts arrays of width $7$ over $\{0,1\}$ under local conditions relating each cell
-to its neighbours or to the cells preceding it. The entry carries an empirical recurrence of
-order $18$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
-empirical: every condition is settled inside three consecutive array rows, so the count is a
-walk count on $S=833$ states.
+OEIS A251814 counts arrays of width $5$ over $\{0,1,2\}$ in which every $3\times3$ window has
+constrained SUMS along its rows, its columns and its two diagonals. The entry carries an
+empirical recurrence of order $18$ contributed by R.~H.~Hardin. It is true, and it is
+decidable rather than empirical: a $3\times3$ window lies in $3$ consecutive array rows,
+so the count is a walk count on $S=59293$ states.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05C30, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B20, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A183339 is ``Number of nX7 binary arrays with each 1 adjacent to exactly one 1 vertically and one 1 horizontally.''. It has offset $1$ and begins
+OEIS A251814 is ``Number of (n+2)X(3+2) 0..2 arrays with every row, column, diagonal or antidiagonal in each 3X3 subblock summing to a prime.''. It has offset $1$ and begins
 \[
-1, 13, 37, 97, 407, 1397, 4531, 16029,\ \dots
+738, 771, 1754, 5401, 18227, 62457, 213857, 735191,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n)=a(n-1)+2*a(n-2)+18*a(n-3)+17*a(n-4)+7*a(n-5)-40*a(n-6)-78*a(n-7)-21*a(n-8)+88*a(n-9)+62*a(n-10)-49*a(n-11)-24*a(n-12)+9*a(n-13)-18*a(n-14)+2*a(n-15)+9*a(n-16)+4*a(n-17)+4*a(n-18)
+Empirical: a(n) = a(n-1) +a(n-2) +13*a(n-3) +31*a(n-4) +43*a(n-5) +25*a(n-6) -64*a(n-7) -125*a(n-8) -49*a(n-9) +79*a(n-10) +119*a(n-11) +20*a(n-12) -53*a(n-13) -42*a(n-14) -12*a(n-15) +6*a(n-16) +4*a(n-17) +4*a(n-18) for n>21
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 01:34:53, revision 9) this is still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 13:29:07, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The array has $7$ cells across, with entries in $\{0,1\}$. The NEIGHBOURS of a cell are the
-cells immediately to its left, to its right, above it and below it, those that lie inside the
-array. The entry asks that
-\begin{itemize}
-\item every cell carrying $1$ has exactly $1$ of its two VERTICAL neighbours carrying $1$ and exactly $1$ of its two HORIZONTAL neighbours carrying $1$;
-\end{itemize}
-and nothing else.
+The array has $5$ cells across, with entries in $\{0,1,2\}$. A WINDOW is a $3\times3$ block
+of consecutive cells lying inside the array. Every window must satisfy
+\[
+\begin{array}{ll}
+\text{the sum along} & \text{} \\[2pt]
+\text{each row} & \text{must be prime} \\
+\text{each column} & \text{must be prime} \\
+\text{the main diagonal} & \text{must be prime} \\
+\text{the antidiagonal} & \text{must be prime} \\
+\end{array}
+\]
+where the main diagonal of a window runs from its top left corner to its bottom right, and its
+antidiagonal from top right to bottom left.
 
-\section{Three rows decide everything}
+\section{The walk}
 
 \begin{lemma}\label{lem:win}
-Every clause above is decided by three consecutive array rows. An adjacency clause for a cell
-of row $i$ reads rows $i-1$, $i$ and $i+1$; a precedence clause for a cell of row $i$ reads
-rows $i-2$, $i-1$ and $i$, and columns at most two to the left.
+A $3\times3$ window occupies $3$ consecutive array rows, so every condition above is
+decided by $3$ consecutive rows and by nothing else.
 \end{lemma}
 
 \begin{proof}
-The neighbours of a cell lie one step away in each of the four directions, and the predecessors
-one step to the left or one step up; a clause naming two cells in a row or column reaches two
-steps, never more.
+By definition of a window.
 \end{proof}
 
-So the state is the pair (row above, current row), with a row not yet written carried as
-$\bot$. A step appends a row: the precedence clauses for the NEW row are settled at once,
-because everything they read is already written, and the adjacency clauses for the MIDDLE row
-of the window are settled because the row below it has just arrived. An adjacency clause for a row is settled only when the row BELOW it has been
-written, so the condition for the LAST row of an array belongs to the end vector, which asks
-whether that row is satisfied with nothing below it. The end vector is therefore not the
-all-ones vector: a row satisfied only because a further row is written below it does not
-finish an array. With $M$ the
-adjacency matrix of the digraph on those states,
+So the state is the window of the last $2$ array rows, a row not yet written carried as
+$\bot$, and a step appends a row and settles every $3\times3$ window that row completes. A
+window needing a row that is $\bot$ does not exist, which is the boundary rule; the walk starts
+at the all-$\bot$ state, so a walk of $R$ steps is an array of $R$ rows. With $M$ the adjacency
+matrix and $\tau=\mathbf{1}$,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=833.
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=59293.
 \]
 The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
 published terms rather than assumed. In particular $a$ is $C$-finite.
@@ -100,15 +99,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;a(n-1) + 2\,a(n-2) + 18\,a(n-3) + 17\,a(n-4) + 7\,a(n-5) - 40\,a(n-6) - 78\,a(n-7) - 21\,a(n-8) + 88\,a(n-9) + 62\,a(n-10) - 49\,a(n-11) - 24\,a(n-12) + 9\,a(n-13) - 18\,a(n-14) + 2\,a(n-15) + 9\,a(n-16) + 4\,a(n-17) + 4\,a(n-18)
+a(n)\;=\;a(n-1) + a(n-2) + 13\,a(n-3) + 31\,a(n-4) + 43\,a(n-5) + 25\,a(n-6) - 64\,a(n-7) - 125\,a(n-8) - 49\,a(n-9) + 79\,a(n-10) + 119\,a(n-11) + 20\,a(n-12) - 53\,a(n-13) - 42\,a(n-14) - 12\,a(n-15) + 6\,a(n-16) + 4\,a(n-17) + 4\,a(n-18)
 \]
-for every $n>17$.
+for every $n>21$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $18$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=17+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=21+1$ onwards and the run continued
 until the working vector was identically zero.
 \end{proof}
 
@@ -116,13 +115,13 @@ until the working vector was identically zero.
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $24$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $22$ terms the entry publishes, exactly, in integer
 arithmetic.
 
-Second, the count was recomputed for the smallest arrays straight from the definition:
-enumerate every array of that size in the orientation the entry's own name writes and test each
-clause on each cell directly. No window, no state and no transfer matrix are involved, and the
-published terms came back.
+Second, the count was recomputed for the smallest arrays straight from the definition: fill the
+cells in row major order, in the orientation the entry's own name writes, and test a window as
+soon as its last cell is placed. No state, no transposition and no transfer matrix are
+involved, and the published terms came back.
 
 Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
@@ -132,7 +131,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A183339.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A251814.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge

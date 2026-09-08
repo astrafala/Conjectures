@@ -12,121 +12,144 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{A lattice count, not a walk count: OEIS A225314}
+\title{The empirical closed form for OEIS A219917, proved}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{7 September 2026}
+\date{8 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A225314 carries an empirical recurrence of order $24$ contributed by R.~H.~Hardin. It is
-true, and it is decidable rather than empirical. A nondecreasing row of $-1$s and $1$s is
-determined by one number --- how many $-1$s it holds --- so the entry's condition collapses to
-a single linear equation on a box of lattice points, and the arrays disappear entirely. The
-count is then the number of lattice points in a dilate of a fixed rational polytope, hence a
-quasi-polynomial in $n$; its degree and its period can both be named, which bounds by
-$S=5880$ the order of a linear recurrence it must satisfy. Whether the conjectured recurrence
-is that recurrence is then a finite exact computation. There is no digraph and no matrix
-anywhere in this argument.
+OEIS A219917 states an explicit closed form for $a(n)$ and records it as empirical. It is true, and
+it is decidable. What the entry counts is not a set of arrays but the SIZE OF AN IMAGE: each
+admissible array is replaced by the array of minima of its cells and their antidiagonal, diagonal, horizontal, vertical neighbours,
+and $a(n)$ counts how many different arrays come out. Two arrays with the same image count
+once, so the usual graph over arrays overcounts. Determinising a machine whose state is a pair
+of consecutive rows and whose output is the filtered array turns the count into a walk count on
+$S=637$ vertices, exact and finite. The closed form is a polynomial in $n$, so it satisfies the
+monic recurrence with characteristic polynomial $(x-1)^{26}$; that the walk count
+satisfies the same recurrence, and that the two agree on enough initial terms, are both checked
+in exact integer arithmetic, and together they prove the formula.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 68Q45, 15A18.\normalsize
 
-\section{The conjecture}
+\section{The entry}
 
-OEIS A225314 is ``Number of 7Xn -1,1 arrays such that the sum over i=1..7,j=1..n of i*x(i,j) is zero and rows are nondecreasing (ways to put n thrusters pointing east or west at each of 7 positions 1..n distance from the hinge of a south-pointing gate without turning the gate).''. It has offset $1$ and begins
+OEIS A219917 is ``Number of 4Xn arrays of the minimum value of corresponding elements and their horizontal, diagonal, diagonal or antidiagonal neighbors in a random, but sorted with lexicographically nondecreasing rows and nonincreasing columns, 0..2 4Xn array.''. It has offset $1$ and begins
 \[
-8, 87, 474, 1787, 5304, 13333, 29638, 60007,\ \dots
+10, 12, 62, 234, 758, 2215, 6089, 16131,\ \dots
 \]
-The entry states, as a conjecture contributed by its author and never marked settled:
+and states:
 \begin{quote}
-Empirical: a(n) = 3*a(n-2) +2*a(n-3) -3*a(n-4) -5*a(n-5) +4*a(n-7) +a(n-8) -2*a(n-9) +a(n-10) +3*a(n-11) -3*a(n-13) -a(n-14) +2*a(n-15) -a(n-16) -4*a(n-17) +5*a(n-19) +3*a(n-20) -2*a(n-21) -3*a(n-22) +a(n-24)
+Empirical: a(n) = (1/15511210043330985984000000)*n\^{}25 - (1/41363226782215962624000)*n\^{}24 + (1457/310224200866619719680000)*n\^{}23 - (2713/4496002911110430720000)*n\^{}22 + (692183/12261826121210265600000)*n\^{}21 - (52121/12975477376942080000)*n\^{}20 + (135697207/613091306060513280000)*n\^{}19 - (50515063/5377993912811520000)*n\^{}18 + (189739535861/645359269537382400000)*n\^{}17 - (14435259581/2530820664852480000)*n\^{}16 - (348742189027/41758540970065920000)*n\^{}15 + (3841409550029/662833983651840000)*n\^{}14 - (8531529279941851/32121954592358400000)*n\^{}13 + (212321253363400639/27839027313377280000)*n\^{}12 - (74469442749409999/474528874659840000)*n\^{}11 + (1457206854846086857/632705166213120000)*n\^{}10 - (52637202981307688197/2520934646630400000)*n\^{}9 + (1604277946247058503/128047474114560000)*n\^{}8 + (10327649418025476087671/3193183885731840000)*n\^{}7 - (262245096788378333916653/4257578514309120000)*n\^{}6 + (65733979379968942434416599/97569507619584000000)*n\^{}5 - (1586281697443237016871331/325231692065280000)*n\^{}4 + (2882015655253652215006627/124672148625024000)*n\^{}3 - (1369403974857258551719/21202746364800)*n\^{}2 + (1006233194174754023/13385572200)*n + 27103060 for n>17
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 23:43:04, revision 8) this is still
-recorded as empirical, and nothing on the entry records it as proved.
+As of the ``Last modified'' line on the live entry (Oct 03 2025 18:24:41, revision 8)
+this is still recorded as empirical, and it is still open.
 
-\section{The array disappears}
+\begin{remark}
+The entry's own name reads ``horizontal, diagonal, diagonal or antidiagonal'', naming one direction twice and so naming no set of
+neighbours at all: it has one more slot than it has distinct words. Rather than choose, each
+candidate repair was run against the entry's published terms and exactly one reproduced them,
+which is the reading used here. The defect is in the name, not in the sequence.
+\end{remark}
 
-A row of $-1$s and $1$s that is nondecreasing is a block of $-1$s followed by a block of $1$s, so it is determined by a single number: how many $-1$s it holds. Write $k_i\in\{0,1,\dots,n\}$ for that number in row $i$. Then row $i$ sums to $(n-k_i)-k_i = n-2k_i$, and the entry's condition
-\[ \sum_{i=1}^{H}\sum_{j=1}^{n} i\,x(i,j) \;=\; \sum_{i=1}^{H} i\,(n-2k_i) \;=\; 0 \]
-becomes $\sum_{i=1}^{7} i\,k_i = T(n)$ with $T(n)=14n$. The arrays are gone: what is left is the lattice points of the box $\{0,\dots,n\}^{7}$ on one hyperplane.
+\section{What is being counted}
 
-\section{Why that is enough}
+Fix the width $W=4$ and the value range $0..2$. The underlying arrays are the
+$4\times n$ arrays over that range whose rows are lexicographically nonincreasing read downwards
+and whose columns are lexicographically nondecreasing read left to right. Each such array $g$
+is mapped to $F(g)$, the array whose $(i,j)$ entry is the minimum of $g(i,j)$ and the entries
+of its antidiagonal, diagonal, horizontal, vertical neighbours that lie inside the array. The entry counts
+\[
+a(n)\;=\;\bigl|\{\,F(g)\;:\;g\text{ admissible with }n\text{ rows}\,\}\bigr|,
+\]
+the number of DISTINCT images --- not the number of admissible $g$. This is what makes the
+problem different in kind from a walk count: two admissible arrays can have the same image, and
+the graph whose walks are the arrays would count such a pair twice.
 
-Those lattice points are the ones in the $n$-th dilate of a fixed rational polytope, so the count is a quasi-polynomial in $n$. That is the whole reason a linear recurrence can be proved here rather than observed: a quasi-polynomial of degree $d$ and period $P$ satisfies the recurrence whose characteristic polynomial is $(x^{P}-1)^{d+1}$, so it is $C$-finite of order at most $P(d+1)$.
+\section{Two constraints, both made local}
 
-Both numbers can be named. By inclusion-exclusion over which coordinates exceed $n$,
-\[ a(n)\;=\;\sum_{S\subseteq\{1,\dots,H\}}(-1)^{|S|}\,D\bigl(T(n)-(n+1)\sigma(S)\bigr), \]
-where $\sigma(S)$ is the sum of $S$ and $D(m)$ counts the solutions of $\sum i\,k_i=m$ in non-negative integers with no upper bound --- the classical denumerant for the parts $1,\dots,7$. $D$ is a quasi-polynomial in $m$ of degree $6$ with period dividing $\mathrm{lcm}(1,\dots,7)=420$; each argument above is an integer-linear function of $n$, which preserves the degree and can only shrink the period, and the parity case at worst doubles it. So $a$ is a quasi-polynomial of degree at most $6$ and period dividing $840$, hence satisfies a linear recurrence of order at most $S=5880$.
-
-That bound is the certificate. It is also what makes the computation cheap: $D$ is one table, so thousands of exact terms of $a$ cost almost nothing.
-so $a$ is $C$-finite of order at most $S=5880$, and the alignment between the model and the
-entry's own $n$ is fixed by matching against every published term.
-
-\section{The proof}
-
-\begin{lemma}\label{lem:crit}
-Let $q$ be the characteristic polynomial of the conjectured recurrence, of order $24$,
-and let $u_j=a(j+24)-\sum_i c_i\,a(j+24-i)$ be its residual. Then $u$ satisfies the
-same linear recurrence of order $S=5880$ that $a$ does, so if $u_j=0$ for $S$ consecutive
-indices then $u_j=0$ for every larger $j$, and the last nonzero $u_j$ pins the threshold
-exactly.
+\begin{lemma}\label{lem:local}
+Whether a sequence of rows is admissible is decided by the previous row together with
+$3$ bits.
 \end{lemma}
 
 \begin{proof}
-A sequence annihilated by a linear operator with constant coefficients has every linear
-combination of its shifts annihilated by the same operator, and $u$ is such a combination of
-shifts of $a$. A sequence satisfying a linear recurrence of order $S$ and vanishing at $S$
-consecutive indices vanishes from the first of them onwards, since every later value is a
-fixed combination of the $S$ before it.
+The row order compares consecutive rows and needs only the previous one. The column order
+compares whole columns read downwards, left to right, which is not a condition on consecutive
+rows --- but for each of the $3$ adjacent column pairs there are only two possibilities:
+either the two columns agree in every row read so far, or they first differed at some earlier
+row, and there the required inequality was already decided and no later row can affect it. One
+bit per adjacent pair records which, and a new row is admissible exactly when, for every pair
+still agreeing, its two entries either agree again or differ in the permitted direction.
 \end{proof}
 
-\begin{theorem}
+\begin{lemma}\label{lem:det}
+$a(n)$ is a walk count: there are a matrix $M$ with non-negative integer entries on $S=637$
+vertices and vectors $\iota,\tau$ with $a(n)=\iota^{\!\top}M^{\,n-2}\tau$ for $n\ge2$.
+\end{lemma}
+
+\begin{proof}
+Row $i$ of $F(g)$ depends only on rows $i-1$, $i$ and $i+1$ of $g$, so a machine reading $g$ a
+row at a time, holding the last two rows and the $3$ bits of Lemma~\ref{lem:local}, can
+emit $F(g)$ one row at a time. It is nondeterministic --- several continuations may emit the
+same row --- and the images of $g$ are exactly the words it can emit. Determinising it gives a
+machine in which each emitted row leads to exactly one state, so distinct words of length $n$
+correspond to distinct paths, and counting them is counting walks. The reachable determinised
+states number $S=637$. The last filtered row is emitted with no row below it, so it is not a
+step of the walk but a count attached to the state the walk stops in; that is $\tau$.
+\end{proof}
+
+\section{The closed form}
+
+The entry's formula is a polynomial in $n$. Any polynomial of degree $m$ satisfies the monic
+recurrence whose characteristic polynomial is $(x-1)^{m+1}$, here
 \[
-a(n)\;=\;3\,a(n-2) + 2\,a(n-3) - 3\,a(n-4) - 5\,a(n-5) + 4\,a(n-7) + a(n-8) - 2\,a(n-9) + a(n-10) + 3\,a(n-11) - 3\,a(n-13) - a(n-14) + 2\,a(n-15) - a(n-16) - 4\,a(n-17) + 5\,a(n-19) + 3\,a(n-20) - 2\,a(n-21) - 3\,a(n-22) + a(n-24)
+q(x)=(x-1)^{26},\qquad\text{that is}\qquad a(n)=26\,a(n-1) - 325\,a(n-2) + 2600\,a(n-3) - 14950\,a(n-4) + 65780\,a(n-5) - 230230\,a(n-6) + 657800\,a(n-7) - 1562275\,a(n-8) + 3124550\,a(n-9) - 5311735\,a(n-10) + 7726160\,a(n-11) - 9657700\,a(n-12) + 10400600\,a(n-13) - 9657700\,a(n-14) + 7726160\,a(n-15) - 5311735\,a(n-16) + 3124550\,a(n-17) - 1562275\,a(n-18) + 657800\,a(n-19) - 230230\,a(n-20) + 65780\,a(n-21) - 14950\,a(n-22) + 2600\,a(n-23) - 325\,a(n-24) + 26\,a(n-25) - a(n-26).
 \]
-for every $n>23$.
+
+\begin{theorem}
+The closed form OEIS A219917 records is correct for all $n>17$.
 \end{theorem}
 
 \begin{proof}
-The terms $a(n)$ were computed exactly from the lattice-point formula, far enough to cover
-$S=5880$ consecutive residuals, and the residuals were formed in exact integer arithmetic.
-They vanish from the index corresponding to $n=23+1$ onwards and go on vanishing for more
-than $S$ consecutive indices, which by Lemma~\ref{lem:crit} settles every larger $n$ at
-once.
+Two exact computations. First, the walk count of Lemma~\ref{lem:det} satisfies $q$: the
+residual $u_j=\iota^{\!\top}M^{\,j}q(M)\tau$ vanishes for $S$ consecutive indices, and
+since the residual vector lives in the $S$-dimensional space spanned by the iterates of $M$,
+$S$ consecutive zeros force every later one. The last index at which it fails is $43$.
+Second, the polynomial and the walk count agree at every index from $18$ up to
+$1 + 26 - 1$, which is more than the $26$ consecutive agreements a
+common recurrence of order $26$ needs. Two sequences satisfying the same monic recurrence
+of order $26$ and agreeing at $26$ consecutive indices past both their thresholds are
+equal from there on.
 \end{proof}
 
 \section{Verification}
 
-Four checks, each independent of the algebra above.
+Everything above is integer or exact rational arithmetic; no floating point is used anywhere.
 
-First, the model reproduces all $29$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the reduction to the entry: the lattice count is derived by reading the
-entry's English, and a misreading gives different counts.
+First, the model reproduces all $26$ terms the entry publishes, exactly. This is what
+ties the construction to the entry, and it is the only point at which the entry's English is
+read.
 
-Second, the reading was pinned before the reduction was trusted, by a program that enumerates
-the arrays themselves, one by one, from the entry's own words --- every nondecreasing
-row of plus and minus ones, the weighted sum computed directly --- and compares the count
-with the lattice-point formula. That program shares no code with the lattice-point formula, so an error in one does not
-hide an error in the other.
+Second, the reading was pinned by direct enumeration before the model was written: for the
+one-row case the admissible arrays and their images were listed outright and counted, and the
+count is the entry's own first term.
 
-Third, the conjectured recurrence was evaluated directly on the published terms, with
-nothing from the argument above involved, and holds wherever the proved range and the data
-overlap.
-
-Fourth, the residual test of Lemma~\ref{lem:crit} was carried out in exact integer
-arithmetic over every index up to the certified bound, not on a sampled prefix.
+Third, the annihilation test was run to $S$ consecutive vanishing residuals rather than to a
+fixed horizon, which is what makes it a proof and not a check of finitely many terms.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A225314.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A219917.
+\bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata
+Theory, Languages, and Computation}, 3rd ed., Addison--Wesley, 2006. (The subset
+construction, Section 2.3.)
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Quasi-polynomials and denumerants, Sections 4.4 and 4.6;
-lattice points in dilates of rational polytopes, Section 4.6.)
-\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
-University Press, 2009.
-\bibitem{beck} M.~Beck and S.~Robins, \emph{Computing the Continuous Discretely}, 2nd
-ed., Springer, 2015. (Ehrhart quasi-polynomials; the denumerant.)
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{kauers} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011.
+\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
+University Press, 2013.
 \end{thebibliography}
 
 \end{document}

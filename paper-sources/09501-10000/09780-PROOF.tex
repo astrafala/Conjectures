@@ -12,73 +12,69 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A183324, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A231951, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A183324 counts arrays of width $3$ over $\{0,1\}$ under local conditions relating each cell
-to its neighbours or to the cells preceding it. The entry carries an empirical recurrence of
-order $4$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
-empirical: every condition is settled inside three consecutive array rows, so the count is a
-walk count on $S=29$ states.
+OEIS A231951 counts arrays of width $3$ over $\{0,\dots,1\}$ under a condition on each cell
+and its neighbours, and carries an empirical recurrence of order $4$ contributed by
+R.~H.~Hardin. It is true, and it is decidable rather than empirical. Every neighbour named lies
+in the three rows $i-1,i,i+1$, so an ordered pair of consecutive rows is a state, the count is
+a walk count on $S=72$ of them, and the conjectured recurrence is then settled by a finite
+exact computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05C30, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 68Q45.\normalsize
 
 \section{The conjecture}
 
-OEIS A183324 is ``Number of nX3 binary arrays with each 1 adjacent to exactly two other 1s.''. It has offset $1$ and begins
+OEIS A231951 is ``Number of (n+1) X (2+1) 0..1 arrays with every element equal to some horizontal, vertical, diagonal or antidiagonal neighbor, with top left element zero.''. It has offset $1$ and begins
 \[
-1, 3, 6, 10, 19, 37, 69, 129,\ \dots
+18, 142, 1034, 7756, 58350, 438540, 3295580, 24766738,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n)=2*a(n-1)-a(n-2)+2*a(n-3)-a(n-4).
+Empirical: a(n) = 7*a(n-1) + 2*a(n-2) + 13*a(n-3) + 8*a(n-4).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 01:34:19, revision 12) this is still
+As of the ``Last modified'' line on the live entry (Oct 01 2018 21:09:43, revision 7) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The array has $3$ cells across, with entries in $\{0,1\}$. The NEIGHBOURS of a cell are the
-cells immediately to its left, to its right, above it and below it, those that lie inside the
-array. The entry asks that
-\begin{itemize}
-\item every cell carrying $1$ has exactly $2$ of its four neighbours carrying $1$;
-\end{itemize}
-and nothing else.
-
-\section{Three rows decide everything}
-
-\begin{lemma}\label{lem:win}
-Every clause above is decided by three consecutive array rows. An adjacency clause for a cell
-of row $i$ reads rows $i-1$, $i$ and $i+1$; a precedence clause for a cell of row $i$ reads
-rows $i-2$, $i-1$ and $i$, and columns at most two to the left.
-\end{lemma}
-
-\begin{proof}
-The neighbours of a cell lie one step away in each of the four directions, and the predecessors
-one step to the left or one step up; a clause naming two cells in a row or column reaches two
-steps, never more.
-\end{proof}
-
-So the state is the pair (row above, current row), with a row not yet written carried as
-$\bot$. A step appends a row: the precedence clauses for the NEW row are settled at once,
-because everything they read is already written, and the adjacency clauses for the MIDDLE row
-of the window are settled because the row below it has just arrived. An adjacency clause for a row is settled only when the row BELOW it has been
-written, so the condition for the LAST row of an array belongs to the end vector, which asks
-whether that row is satisfied with nothing below it. The end vector is therefore not the
-all-ones vector: a row satisfied only because a further row is written below it does not
-finish an array. With $M$ the
-adjacency matrix of the digraph on those states,
+The neighbours of a cell are the cells at the offsets
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=29.
+(-1,-1), (-1,0), (-1,1), (0,-1), (0,1), (1,-1), (1,0), (1,1),
 \]
-The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
-published terms rather than assumed. In particular $a$ is $C$-finite.
+those falling outside the array being absent. The entry requires that every cell equals at least one of its neighbours. The entry also fixes the top left cell to zero, which restricts the states an array may begin in and nothing else.
+
+\section{The count is a walk count}
+
+Every offset above moves the row index by at most one, so whether a cell of row $i$ passes
+depends on rows $i-1$, $i$ and $i+1$ and nothing else. Take as vertices the ordered PAIRS
+$(p,c)$ of consecutive rows, allowing $p$ to be ABSENT --- that is what lets a walk of no steps
+describe a one-row array --- and put an edge $(p,c)\to(c,x)$ exactly when every cell of the
+middle row $c$ passes with $p$ above it and $x$ below it. A state with $p$ absent may begin an
+array; a state $(p,c)$ accepts when every cell of $c$ passes with nothing below it. An array of
+$L$ rows is then a walk of $L-1$ steps, each step settling one row, and every array arises from
+exactly one walk. Hence
+\[
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau
+\]
+with $\iota$ the indicator of the beginning states, $\tau$ of the accepting ones, and $j$ the
+walk index, which differs from the entry's own $n$ by a constant read off from its published
+terms. There are $S=72$ states, and $a$ is $C$-finite.
+
+At $n=1$ the array has one row, and
+the condition is tested there with nothing above or below it; the entry's first term is
+$18$, which the model reproduces along with every later term. That is the cheapest check
+that the neighbour set and the boundary have been read the same way the entry reads them: a
+condition tested as though the missing rows were present, rather than absent, gives a different
+first term. There are $2^{3}=8$ possible rows over the entry's own alphabet. The state count $S=72$ is exactly $8\cdot9$,
+one state for each ordered pair of a row and its possible predecessor, the absent predecessor
+included.
 
 \section{The proof}
 
@@ -100,41 +96,38 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;2\,a(n-1) - a(n-2) + 2\,a(n-3) - a(n-4)
+a(n)\;=\;7\,a(n-1) + 2\,a(n-2) + 13\,a(n-3) + 8\,a(n-4)
 \]
-for every $n>3$.
+for every $n>4$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $4$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=3+1$ onwards and the run continued
-until the working vector was identically zero.
+integers vanish from the index corresponding to $n=4+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
-Four checks, each independent of the algebra above.
+Three checks, each independent of the algebra above.
 
-First, the model reproduces all $33$ terms the entry publishes, exactly, in integer
-arithmetic.
+First, the model reproduces all $19$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry: the digraph is built by reading the
+entry's English, and a misreading gives different counts.
 
-Second, the count was recomputed for the smallest arrays straight from the definition:
-enumerate every array of that size in the orientation the entry's own name writes and test each
-clause on each cell directly. No window, no state and no transfer matrix are involved, and the
-published terms came back.
-
-Third, the conjectured recurrence was evaluated directly on the published terms, with no
+Second, the conjectured recurrence was evaluated directly on those published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
 
-Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
 arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A183324.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A231951.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{comtet} L.~Comtet, \emph{Advanced Combinatorics}, Reidel, 1974.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

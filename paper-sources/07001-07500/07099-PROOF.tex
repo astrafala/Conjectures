@@ -12,48 +12,63 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A243387, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A237245, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{8 September 2026}
+\date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A243387 carries an empirical recurrence of order $16$ contributed by R.~H.~Hardin. It is
-true, and it is decidable rather than empirical. The entry's condition is local to a bounded window of consecutive lines, so
-the admissible configurations of such a window are the vertices of a finite digraph and the
-arrays counted are exactly the walks in it; hence $a(n)$ is a walk count on $S=784$ vertices
-and is $C$-finite. Whether the conjectured recurrence annihilates it is then settled by a
-finite exact computation, with the Cayley--Hamilton theorem bounding the work.
+OEIS A237245 counts arrays over $\{0,\dots,2\}$ subject to a condition on the order
+statistics of every $2\times2$ subblock, and carries an empirical recurrence of order
+$16$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical.
+The condition is local to two consecutive rows, so the count is a walk count on $S=6496$
+states and is $C$-finite; whether the conjectured recurrence annihilates it is then settled by
+a finite exact computation, with the Cayley--Hamilton theorem bounding the work.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 62G30.\normalsize
 
 \section{The conjecture}
 
-OEIS A243387 is ``Number of length n+3 0..6 arrays with no four elements in a row with pattern abba (with a!=b) and new values 0..6 introduced in 0..6 order.''. It has offset $1$ and begins
+OEIS A237245 is ``Number of (n+1) X (4+1) 0..2 arrays with the maximum plus the upper median minus the lower median minus the minimum of every 2 X 2 subblock differing from its horizontal and vertical neighbors by exactly one.''. It has offset $1$ and begins
 \[
-14, 46, 174, 737, 3434, 17366, 94164, 541060,\ \dots
+6496, 78420, 974864, 12987512, 163330432, 2059810392, 26060799904, 355097523776,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 22*a(n-1) -195*a(n-2) +914*a(n-3) -2539*a(n-4) +4594*a(n-5) -6074*a(n-6) +6382*a(n-7) -5368*a(n-8) +3726*a(n-9) -2167*a(n-10) +1026*a(n-11) -419*a(n-12) +130*a(n-13) -36*a(n-14) +6*a(n-15) -a(n-16).
+Empirical: a(n) = 80692*a(n-4) -2102571080*a(n-8) +17424111539232*a(n-12) -28895609836800*a(n-16) for n>20.
 \end{quote}
-As of the ``Last modified'' line on the live entry (May 07 2022 22:03:20, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Apr 17 2022 22:06:16, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
+
+\section{What is being counted}
+
+The $2\times2$ subblocks of an $(n+1)\times5$ array form an
+$n\times4$ grid, and each carries the value $\sigma=-a-b+c+d$, where $a\le b\le c\le d$ are its four entries sorted --- its minimum, lower median, upper median and maximum. The entry asks that the values of
+subblocks that are neighbours --- horizontally or vertically --- differ by exactly $1$.
+That is sharper than merely differing, and it is a condition on a pair of adjacent subblocks,
+so it is local to the grid.
+
+At $n=1$ the array has two rows, so its subblock grid is a single row of $4$ subblocks with
+no vertical neighbours; the condition there is exactly that consecutive values along that row
+differ by $1$. The entry's first term $6496$ counts those, and the model was made to
+reproduce it along with every later term.
 
 \section{The count is a walk count}
 
-The condition the entry imposes is local: it constrains a bounded window of consecutive lines and nothing beyond. Take as
-vertices the admissible configurations of one such window and put an edge from $u$ to $v$
-whenever $v$ may follow $u$, which the condition decides by inspection of the two. An
-admissible array is then exactly a walk, so with $M$ the adjacency matrix on $S=784$ vertices
-and $\iota,\tau$ the vectors recording which windows may begin and end an array,
+A subblock's value is decided by two consecutive rows of the array, and the
+vertical condition compares two consecutive rows of the subblock grid, so the state is the
+PAIR of consecutive array rows. A step appends a row: that fixes a new subblock row, whose own
+neighbouring values must differ by exactly $1$ along it, and which must differ by exactly
+$1$ from the previous subblock row in every position. An $(n+1)$-row array is a walk of
+$n-1$ steps, so
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n}\tau ,
+a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,\qquad\iota=\tau=(1,\dots,1)^{\!\top},
 \]
-the exponent fixed by the entry's own shape and checked against its published terms. In
-particular $a$ is $C$-finite.
+over the $S=6496$ pairs whose own subblock row already satisfies the condition along itself.
+The alignment of the walk index with the entry's own $n$ was checked against its published
+terms rather than assumed. In particular $a$ is $C$-finite.
 
 \section{The proof}
 
@@ -75,15 +90,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;22\,a(n-1) - 195\,a(n-2) + 914\,a(n-3) - 2539\,a(n-4) + 4594\,a(n-5) - 6074\,a(n-6) + 6382\,a(n-7) - 5368\,a(n-8) + 3726\,a(n-9) - 2167\,a(n-10) + 1026\,a(n-11) - 419\,a(n-12) + 130\,a(n-13) - 36\,a(n-14) + 6\,a(n-15) - a(n-16)
+a(n)\;=\;80692\,a(n-4) - 2102571080\,a(n-8) + 17424111539232\,a(n-12) - 28895609836800\,a(n-16)
 \]
-for every $n>18$.
+for every $n>20$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $16$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=18+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=20+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -91,7 +106,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $20$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $14$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
@@ -103,11 +118,11 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A243387.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A237245.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
-University Press, 2009.
+\bibitem{david} H.~A.~David and H.~N.~Nagaraja, \emph{Order Statistics}, 3rd ed., Wiley,
+2003.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

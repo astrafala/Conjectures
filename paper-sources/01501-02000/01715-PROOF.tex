@@ -12,87 +12,83 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A210315, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A206362, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{3 September 2026}
+\date{7 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A210315 counts arrays of width $4$ whose every $2\times2$ subblock holds a
-prescribed number of DISTINCT values, which use ALL of the $4$ available letters, and which
-are counted up to renaming. The entry carries an empirical recurrence of order $21$
-contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical. The
-condition counts distinct values and so survives renaming, which lets the count of patterns be
-recovered from counts over fixed alphabets by inverting a triangular system of falling
-factorials; the words ``containing all values'' change which row of that inverse is used and
-nothing else. Each fixed-alphabet count is a walk count on $S=354$ states in all.
+OEIS A206362 counts, up to renaming the letters, the arrays of width $3$ over at most $4$
+letters in which every $2\times3$ and $3\times2$ subblock has at most $2$ equal edges, an edge of such a window being one of the six steps of its perimeter cycle and an equal edge one whose two cells agree. It carries an empirical recurrence of order $21$ contributed by
+R.~H.~Hardin. It is true, and it is decidable rather than empirical. Counting up to renaming is
+a fixed rational combination of ordinary array counts, each of those is a walk count, and the
+conjectured recurrence is then settled by a finite exact computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A18, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A18, 05B45.\normalsize
 
 \section{The conjecture}
 
-OEIS A210315 is ``Number of (n+1)X4 0..3 arrays containing all values 0..3 with every 2X2 subblock having two or three distinct values, and new values 0..3 introduced in row major order.''. It has offset $1$ and begins
+OEIS A206362 is ``Number of (n+1)X3 0..3 arrays with every 2X3 or 3X2 subblock having no more than two equal edges, and new values 0..3 introduced in row major order.''. It has offset $1$ and begins
 \[
-995, 279526, 58464712, 11186190570, 2073034512148, 379491677736164, 69133776440716096, 12569987936154929124,\ \dots
+151, 6329, 294983, 13804578, 643832706, 30049504156, 1402595823865, 65463971182963,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 237*a(n-1) -8494*a(n-2) -300237*a(n-3) +2482313*a(n-4) +58239270*a(n-5) -296444067*a(n-6) -2842201417*a(n-7) +12050668766*a(n-8) +41834205193*a(n-9) -197110345949*a(n-10) -109615007438*a(n-11) +1042214343696*a(n-12) -265321484840*a(n-13) -2283447354472*a(n-14) +1334391576272*a(n-15) +2102283712768*a(n-16) -1614381867264*a(n-17) -554944840192*a(n-18) +578116512768*a(n-19) -98061852672*a(n-20) +1530150912*a(n-21)
+Empirical: a(n) = 45*a(n-1) +16*a(n-2) +3895*a(n-3) -48177*a(n-4) +77462*a(n-5) +110913*a(n-6) +1127659*a(n-7) -4335582*a(n-8) +2941967*a(n-9) -8832158*a(n-10) +22085991*a(n-11) -20203605*a(n-12) +43969692*a(n-13) -43415473*a(n-14) +53063555*a(n-15) -64756263*a(n-16) +19624030*a(n-17) -46916214*a(n-18) +4063848*a(n-19) +972000*a(n-20) +9782208*a(n-21)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 15:54:26, revision 9) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 12:53:44, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The array has $4$ cells across and entries in $\{0,1,\dots,3\}$. In every
-$2\times2$ window of it, the number of DISTINCT entries must be one of $2, 3$. Two
-further clauses come with it:
+The condition is that every $2\times3$ and $3\times2$ subblock has at most $2$ equal edges, an edge of such a window being one of the six steps of its perimeter cycle and an equal edge one whose two cells agree.
 
-\begin{itemize}
-\item ``new values $0..3$ introduced in row major order'' --- reading the cells in row major
-order, a letter may appear for the first time only when every smaller letter already has, so
-the array counted is the canonical representative of its EQUALITY PATTERN;
-\item ``containing all values $0..3$'' --- every one of the $4$ letters must actually
-occur.
-\end{itemize}
-
-
-\section{From patterns to fixed alphabets}
-
+The clause ``new values $0..3$ introduced in row major order'' says the array is the
+canonical representative of its EQUALITY PATTERN, so what is counted is patterns, not arrays.
 Write $N_j$ for the number of admissible patterns using exactly $j$ letters and $L_i$ for the
 number of admissible arrays over an alphabet of $i$ letters. An array over $i$ letters is a
 pattern together with an injection of its letters into the alphabet, so
 \[
-L_i\;=\;\sum_{j} N_j\,i(i-1)\cdots(i-j+1)\;=\;\sum_j F_{ij}N_j ,
+L_i\;=\;\sum_j N_j\,i(i-1)\cdots(i-j+1),
 \]
-a triangular system with unit diagonal, hence invertible over $\mathbf{Q}$.
-
-Here is the whole difference between this entry and its neighbours. Without the words
-``containing all values'' the quantity counted is $N_1+\dots+N_{4}$, and the weights are
-the row vector $\mathbf{1}^{\!\top}F^{-1}$. With them, the pattern must use every letter,
-so the quantity counted is $N_{4}$ alone and the weights are the single row
-$e_{4}^{\!\top}F^{-1}$ of the same inverse:
+a triangular system with unit diagonal, hence invertible over $\mathbf{Q}$. The entry counts
+$a=N_1+\dots+N_{4}$, so
 \[
-a\;=\;N_{4}\;=\;\sum_{i=1}^{4}\bigl(F^{-1}\bigr)_{4i}\,L_i .
+a\;=\;\sum_{i=1}^{4}w_i\,L_i
 \]
+for one fixed rational vector $w=\mathbf{1}^{\!\top}F^{-1}$, $F$ the matrix of falling
+factorials.
 
-The step is legitimate only if the condition survives renaming the alphabet, and it does: the
-condition counts how many DISTINCT values a window holds, and whether two cells agree is
-untouched by any renaming. No clause compares letters by size or does arithmetic on them.
+\section{Why the reduction is allowed here}
+
+The step above is legitimate only if the condition is invariant under permuting the alphabet,
+and in this family that is a real restriction rather than a formality. An \emph{equal edge}
+is an edge of a subblock whose two cells carry the same letter; whether two cells agree is
+untouched by any renaming, so every condition built from counting equal edges is invariant and
+the reduction applies.
+
+The neighbouring conditions of the same family that count \emph{increases} --- how many steps
+of a subblock's perimeter cycle go UP in value --- are not invariant: they compare letters by
+size, and a permutation of the alphabet changes the count. Those entries are therefore excluded
+here rather than reduced, and are settled, when they are settled, over their own alphabet
+without the pattern step.
 
 \section{Each $L_i$ is a walk count}
 
-A $2\times2$ window lies in $2$ consecutive array rows, so the window of the last
-$1$ rows is a state and a step appends a row, settling every subblock it completes.
-Assembling the pieces for $i=1,\dots,4$ as a disjoint union, with $\iota$ carrying the
-weights above cleared of denominators and $\tau=\mathbf{1}$,
+For a fixed alphabet the condition is local: a $2\times2$ subblock is built from two
+consecutive array rows, a $2\times3$ or $3\times2$ window from two or three of them, and every
+comparison the entry makes is between subblocks that meet in the grid. Taking as state a single
+row where the condition looks at one subblock at a time, and the pair of consecutive rows where
+it compares neighbours, each $L_i$ is a walk count on its own digraph. Assembling,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=354.
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau
 \]
-The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
-published terms rather than assumed. In particular $a$ is $C$-finite.
+on the disjoint union of those digraphs for $i=1,\dots,4$, with $\iota$ carrying the weights
+$w_i$ cleared of denominators and $S=3980$ states in all. The walk index $j$ and the entry's own
+$n$ differ by a constant, read off by matching the published terms rather than assumed. In
+particular $a$ is $C$-finite.
 
 \section{The proof}
 
@@ -114,7 +110,7 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;237\,a(n-1) - 8494\,a(n-2) - 300237\,a(n-3) + 2482313\,a(n-4) + 58239270\,a(n-5) - 296444067\,a(n-6) - 2842201417\,a(n-7) + 12050668766\,a(n-8) + 41834205193\,a(n-9) - 197110345949\,a(n-10) - 109615007438\,a(n-11) + 1042214343696\,a(n-12) - 265321484840\,a(n-13) - 2283447354472\,a(n-14) + 1334391576272\,a(n-15) + 2102283712768\,a(n-16) - 1614381867264\,a(n-17) - 554944840192\,a(n-18) + 578116512768\,a(n-19) - 98061852672\,a(n-20) + 1530150912\,a(n-21)
+a(n)\;=\;45\,a(n-1) + 16\,a(n-2) + 3895\,a(n-3) - 48177\,a(n-4) + 77462\,a(n-5) + 110913\,a(n-6) + 1127659\,a(n-7) - 4335582\,a(n-8) + 2941967\,a(n-9) - 8832158\,a(n-10) + 22085991\,a(n-11) - 20203605\,a(n-12) + 43969692\,a(n-13) - 43415473\,a(n-14) + 53063555\,a(n-15) - 64756263\,a(n-16) + 19624030\,a(n-17) - 46916214\,a(n-18) + 4063848\,a(n-19) + 972000\,a(n-20) + 9782208\,a(n-21)
 \]
 for every $n>21$.
 \end{theorem}
@@ -123,36 +119,32 @@ for every $n>21$.
 The vector $w=q(M)\tau$ was formed by $21$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
 integers vanish from the index corresponding to $n=21+1$ onwards and the run continued
-until the working vector was identically zero. The rational weights are carried as one common
-denominator throughout, so no division is performed until the final term.
+until the working vector was identically zero, which settles every larger $j$ at once. The
+rational weights are cleared by a common denominator first, so the whole computation is over
+the integers.
 \end{proof}
 
 \section{Verification}
 
-Four checks, each independent of the algebra above.
+Three checks, each independent of the algebra above.
 
-First, the model reproduces all $11$ terms the entry publishes, exactly, in integer
-arithmetic.
+First, the model reproduces all $14$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry: the digraph is built by reading the
+entry's English, and a misreading gives different counts.
 
-Second, the count was recomputed for the smallest arrays straight from the definition:
-enumerate every array over $\{0,\dots,3\}$, keep those that are canonical, that use every
-letter, and whose every subblock passes, and count them. Neither the transfer matrix nor the
-falling-factorial inversion is involved, and the published terms came back --- including the
-initial zeros, which are a sharp test of the ``containing all values'' clause: a small array
-cannot show $4$ letters at all.
-
-Third, the conjectured recurrence was evaluated directly on the published terms, with no
+Second, the conjectured recurrence was evaluated directly on those published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
 
-Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
 arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A210315.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A206362.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; Stirling numbers and
-falling factorials, Section 1.9.)
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{comtet} L.~Comtet, \emph{Advanced Combinatorics}, Reidel, 1974. (Set partitions
+and falling factorials.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

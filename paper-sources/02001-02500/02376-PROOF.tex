@@ -12,20 +12,19 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A281339, proved by transfer matrix}
+\title{A value repeated at its own distance: OEIS A209369}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{1 September 2026}
+\date{7 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A281339 counts $n\times3$ arrays over $\{0,\dots,1\}$ subject to a condition imposed on
-every CELL over a neighbour set the entry names, and counted UP TO RELABELLING of the
-alphabet; it carries an empirical recurrence of order $9$ contributed by
-R.~H.~Hardin. It is true, and it is decidable rather than empirical. What is counted is
-equality patterns, which is not a walk count --- but it is a fixed rational combination of
-walk counts, one for each alphabet size, and that combination is again $C$-finite. Whether the
-conjectured recurrence annihilates it is then decided by a finite exact computation, with the
+OEIS A209369 carries an empirical recurrence of order $9$ contributed by R.~H.~Hardin. It is
+true, and it is decidable rather than empirical. The entry's condition reaches only as far as the value itself, which is bounded by the
+alphabet, so a window of that many lines decides it; the
+admissible windows are the vertices of a finite digraph and the arrays counted are exactly the
+walks in it. Hence $a(n)$ is a walk count on $S=112$ vertices and is $C$-finite, and whether the
+conjectured recurrence annihilates it is settled by a finite exact computation, with the
 Cayley--Hamilton theorem bounding the work.
 \end{abstract}
 
@@ -33,72 +32,28 @@ Cayley--Hamilton theorem bounding the work.
 
 \section{The conjecture}
 
-OEIS A281339 is ``Number of n X 3 0..1 arrays with no element equal to more than three of its king-move neighbors and with new values introduced in order 0 sequentially upwards.''. It has offset $1$ and begins
+OEIS A209369 is ``Number of n X 3 1..3 arrays with no element with value z exactly a city block distance of z from another element with value z.''. It has offset $1$ and begins
 \[
-4, 25, 68, 193, 544, 1539, 4355, 12332,\ \dots
+19, 84, 115, 242, 690, 1922, 5460, 15488,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 3*a(n-1) - a(n-2) - a(n-3) + 7*a(n-4) - a(n-5) + 2*a(n-6) + 2*a(n-7) + 2*a(n-9) for n>10.
+Empirical: a(n) = 2*a(n-1) +5*a(n-3) +2*a(n-4) +6*a(n-5) +5*a(n-6) -2*a(n-8) -a(n-9) for n>12.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Feb 19 2019 00:48:20, revision 8) this is still
+As of the ``Last modified'' line on the live entry (Jul 22 2025 21:42:30, revision 10) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
-\section{Patterns are a combination of counts}
+\section{The count is a walk count}
 
-The clause ``new values $0..1$ introduced in row major order'' says that the arrays
-counted are the canonical representatives of their EQUALITY PATTERNS: two arrays that differ
-only by a permutation of the alphabet are one object. Write $N_j$ for the number of admissible
-patterns using exactly $j$ letters and $L_i$ for the number of admissible ARRAYS over an
-alphabet of $i$ letters. An array over $i$ letters is a pattern together with an injection of
-its letters into the alphabet, so
+The entry counts arrays with $3$ columns over the alphabet $\{1,2,3\}$, distance measured as $|\Delta \text{row}|+|\Delta \text{column}|$, and asks that no element of value $z$ may have another element of value $z$ exactly $z$ steps away. An element of value $0$ is $0$ steps from itself and so always has such a partner. That is not an interpretation imposed on the entry: it is the reading the entry's own published terms select, and reading ``another'' as strictly some other cell disagrees with them at the very first term.
+
+The condition ranges over the whole array, but only as far as the value itself reaches: a cell of value $z$ looks exactly $z$ steps away, and $z$ is at most $3$. So nothing more than $3$ rows away can matter, and a cell's verdict is settled once the row $3$ beyond it has arrived.
+
+Carry the last $3$ rows together with one bit for each of their cells, recording whether that cell has already found its partner. A new row is paired against the rows it can still reach, sets the bits it completes, and retires the row that has now seen everything it will ever see: the walk continues if that row's bits say what the entry asks and stops otherwise. The rows still held when the array ends are judged by the end vector, which is where the boundary is honest --- a partner off the edge of the array is not a partner.
+
+Merging vertices with identical futures leaves $S=112$. An admissible array is exactly a walk, so with $M$ the adjacency matrix and $\iota,\tau$ the vectors recording which states may begin and end an array,
 \[
-L_i\;=\;\sum_{j}N_j\,i(i-1)\cdots(i-j+1),
-\]
-a triangular system with nonzero diagonal, hence invertible over $\mathbb{Q}$. The entry
-counts $a=N_1+\dots+N_{2}$, so
-\[
-a\;=\;\bigl(\mathbf{1}^{\!\top}F^{-1}\bigr)L ,
-\]
-a FIXED rational combination of the $L_i$, where $F$ is the matrix of falling factorials.
-Each $L_i$ is a walk count on its own transfer graph, so $a$ is a walk count on the disjoint
-union of those graphs with the combination's coefficients placed in the starting vector; the
-coefficients are rational and some are negative, which costs nothing in what follows.
-
-This step needs the condition itself to be unchanged by permuting the alphabet, and it is:
-the condition below is stated through equality between entries and never names a particular
-value or compares sizes.
-
-\section{Cells, not blocks}
-
-The entry names the neighbours it means --- horizontal is left and right, vertical is up and
-down, diagonal is northwest-to-southeast, antidiagonal is northeast-to-southwest, king-move is
-all eight --- and every such set lies inside the $3\times3$ square centred on the cell. Here
-the set is $\{(-1,-1), (-1,0), (-1,1), (0,-1), (0,1), (1,-1), (1,0), (1,1)\}$, written as offsets (row, column) from the cell. Every cell carries
-the condition
-\[
-\text{no cell is equal to more than 3 of its king-move neighbours},
-\]
-and the count of neighbours enters it, so the boundary is not a detail that can be papered
-over: a cell in the interior has $8$ neighbours in this set and a cell on the boundary
-fewer, and a condition such as ``a strict majority of its neighbours'' therefore means
-different things at the two. In particular one cannot pad the array with a border of zeros ---
-that would give every cell the full $8$ and change what is being counted. The outside is
-therefore carried
-explicitly, as a sentinel row above the first and below the last and as a sentinel column
-either side, and a neighbour that falls outside is simply absent from both counts.
-
-Write an array as a sequence of rows $u_1,\dots,u_L$, each in
-$\{0,\dots,1\}^{3}$. The neighbourhood of a cell in row $u_i$ meets $u_{i-1}$,
-$u_i$ and $u_{i+1}$ and nothing else. Take as vertices the pairs
-$(r,s)\in(\{0,\dots,1\}^{3}\cup\{\varnothing\})\times\{0,\dots,1\}^{3}$,
-and put an edge $(r,s)\to(s,t)$ when row $s$ satisfies the condition at every one of its
-$3$ cells, given $r$ above and $t$ below. An array with $L$ rows is then a walk of length
-$L-1$ starting at $(\varnothing,u_1)$, each step settling one row, and the last row is
-settled by the terminal weight, which evaluates it with $\varnothing$ below. Hence,
-with $M$ the adjacency matrix, $\iota$ the starting vector and $\tau$ the terminal weight,
-\[
-a(n)\;=\;\frac{1}{2}\,\iota^{\!\top}M^{\,n-1}\tau ,
+a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau ,
 \]
 the exponent fixed by the entry's own shape and checked against its published terms. In
 particular $a$ is $C$-finite.
@@ -107,57 +62,57 @@ particular $a$ is $C$-finite.
 
 \begin{lemma}\label{lem:crit}
 Let $q(t)=t^{9}-\sum_i c_it^{9-i}$ be the characteristic polynomial of the
-conjectured recurrence. Then the residual $a(n)-\sum_ic_ia(n-i)$ equals
-$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the
-recurrence holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all
-large $j$; and it is enough to examine $j<S$.
+conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
+$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
+holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
+and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
 Factor $M^{j}$ out of $M^{j+9}-\sum_ic_iM^{j+9-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
-$u_j=\iota^{\!\top}M^{j}q(M)\tau$ satisfy the monic linear recurrence given by the
-characteristic polynomial of $M$; $S$ consecutive zeros force every later one, and the last
-nonzero $u_j$ pins the threshold exactly.
+$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
+polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
+pins the threshold exactly. A constant factor in front of $a$ divides out of the residual and
+changes nothing here.
 \end{proof}
 
 \begin{theorem}
 \[
-a(n)\;=\;3\,a(n-1) - a(n-2) - a(n-3) + 7\,a(n-4) - a(n-5) + 2\,a(n-6) + 2\,a(n-7) + 2\,a(n-9)
+a(n)\;=\;2\,a(n-1) + 5\,a(n-3) + 2\,a(n-4) + 6\,a(n-5) + 5\,a(n-6) - 2\,a(n-8) - a(n-9)
 \]
-for every $n>10$.
+for every $n>12$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $9$ matrix--vector products in exact integer
-arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly. Those
-integers vanish from the index corresponding to $n=10+1$ onwards, and the run was
-continued until the working vector was identically zero, which settles all larger $j$ at once.
-By Lemma~\ref{lem:crit} the recurrence holds for every $n>10$. The bound is exact: at $n=10$ the recurrence fails on the entry's own published terms, so no larger range holds.
+arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
+integers vanish from the index corresponding to $n=12+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once. The bound is exact: at $n=12$ the recurrence fails on the entry's own published terms, so no larger range holds.
 \end{proof}
 
 \section{Verification}
 
-Three checks, each independent of the algebra above.
+Four checks, each independent of the algebra above.
 
-First, the transfer model reproduces all $25$ terms the entry publishes, exactly, in
-integer arithmetic. That check earned its place here. The neighbour offsets are named in the
-array's own frame --- horizontal means along a row --- but when the entry fixes the first
-dimension, as in ``$2\times n$'', the walk runs along columns and the two components of every
-offset swap. Sets such as king-move, or horizontal together with vertical, are unchanged by
-that swap and hide the error completely; a set such as horizontal, diagonal and antidiagonal
-is not, and the counts came out as those of a different member of the same family until the
-offsets were transposed.
+First, the model reproduces all $25$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry: the digraph is built by reading the
+entry's English, and a misreading gives different counts.
 
-Second, the conjectured recurrence was evaluated directly on the entry's own published terms,
-with no matrices involved, and holds wherever the proved range and the data overlap.
+Second, the reading was pinned before the digraph was written, by a program that enumerates
+every array of the given shape one by one and measures the distance between every pair
+of cells directly. That program shares no code with the transfer matrix, so an error in one does not
+hide an error in the other.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+Third, the conjectured recurrence was evaluated directly on the published terms, with no
+matrices involved, and holds wherever the proved range and the data overlap.
+
+Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
 arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A281339.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A209369.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

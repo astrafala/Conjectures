@@ -12,20 +12,20 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical closed form for OEIS A219708, proved}
+\title{The empirical closed form for OEIS A219454, proved}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{8 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A219708 states an explicit closed form for $a(n)$ and records it as empirical. It is true, and
+OEIS A219454 states an explicit closed form for $a(n)$ and records it as empirical. It is true, and
 it is decidable. What the entry counts is not a set of arrays but the SIZE OF AN IMAGE: each
-admissible array is replaced by the array of minima of its cells and their antidiagonal, horizontal neighbours,
+admissible array is replaced by the array of minima of its cells and their antidiagonal, diagonal, horizontal, vertical neighbours,
 and $a(n)$ counts how many different arrays come out. Two arrays with the same image count
 once, so the usual graph over arrays overcounts. Determinising a machine whose state is a pair
 of consecutive rows and whose output is the filtered array turns the count into a walk count on
-$S=14$ vertices, exact and finite. The closed form is a polynomial in $n$, so it satisfies the
+$S=27$ vertices, exact and finite. The closed form is a polynomial in $n$, so it satisfies the
 monic recurrence with characteristic polynomial $(x-1)^{9}$; that the walk count
 satisfies the same recurrence, and that the two agree on enough initial terms, are both checked
 in exact integer arithmetic, and together they prove the formula.
@@ -35,24 +35,24 @@ in exact integer arithmetic, and together they prove the formula.
 
 \section{The entry}
 
-OEIS A219708 is ``Number of n X 2 arrays of the minimum value of corresponding elements and their horizontal or antidiagonal neighbors in a random, but sorted with lexicographically nondecreasing rows and nonincreasing columns, 0..3 n X 2 array.''. It has offset $1$ and begins
+OEIS A219454 is ``Number of n X 2 arrays of the minimum value of corresponding elements and their horizontal, vertical, diagonal or antidiagonal neighbors in a random, but sorted with lexicographically nondecreasing rows and columns, 0..3 n X 2 array.''. It has offset $1$ and begins
 \[
-4, 13, 44, 129, 338, 813, 1822, 3840,\ \dots
+4, 4, 13, 26, 57, 116, 231, 450,\ \dots
 \]
 and states:
 \begin{quote}
-Empirical: a(n) = (1/40320)*n\^{}8 + (1/2016)*n\^{}7 + (7/2880)*n\^{}6 + (5/144)*n\^{}5 + (167/5760)*n\^{}4 + (259/288)*n\^{}3 + (4723/10080)*n\^{}2 - (73/168)*n + 3.
+Empirical: a(n) = (1/40320)*n\^{}8 - (1/2016)*n\^{}7 + (7/2880)*n\^{}6 + (53/720)*n\^{}5 - (6313/5760)*n\^{}4 + (1961/288)*n\^{}3 - (170417/10080)*n\^{}2 + (3393/280)*n + 13 for n>5.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 27 2018 06:12:01, revision 8)
+As of the ``Last modified'' line on the live entry (Mar 11 2018 15:09:21, revision 7)
 this is still recorded as empirical, and it is still open.
 
 \section{What is being counted}
 
 Fix the width $W=2$ and the value range $0..3$. The underlying arrays are the
 $n\times2$ arrays over that range whose rows are lexicographically nondecreasing read downwards
-and whose columns are lexicographically nonincreasing read left to right. Each such array $g$
+and whose columns are lexicographically nondecreasing read left to right. Each such array $g$
 is mapped to $F(g)$, the array whose $(i,j)$ entry is the minimum of $g(i,j)$ and the entries
-of its antidiagonal, horizontal neighbours that lie inside the array. The entry counts
+of its antidiagonal, diagonal, horizontal, vertical neighbours that lie inside the array. The entry counts
 \[
 a(n)\;=\;\bigl|\{\,F(g)\;:\;g\text{ admissible with }n\text{ rows}\,\}\bigr|,
 \]
@@ -78,7 +78,7 @@ still agreeing, its two entries either agree again or differ in the permitted di
 \end{proof}
 
 \begin{lemma}\label{lem:det}
-$a(n)$ is a walk count: there are a matrix $M$ with non-negative integer entries on $S=14$
+$a(n)$ is a walk count: there are a matrix $M$ with non-negative integer entries on $S=27$
 vertices and vectors $\iota,\tau$ with $a(n)=\iota^{\!\top}M^{\,n-2}\tau$ for $n\ge2$.
 \end{lemma}
 
@@ -89,7 +89,7 @@ emit $F(g)$ one row at a time. It is nondeterministic --- several continuations 
 same row --- and the images of $g$ are exactly the words it can emit. Determinising it gives a
 machine in which each emitted row leads to exactly one state, so distinct words of length $n$
 correspond to distinct paths, and counting them is counting walks. The reachable determinised
-states number $S=14$. The last filtered row is emitted with no row below it, so it is not a
+states number $S=27$. The last filtered row is emitted with no row below it, so it is not a
 step of the walk but a count attached to the state the walk stops in; that is $\tau$.
 \end{proof}
 
@@ -102,16 +102,16 @@ q(x)=(x-1)^{9},\qquad\text{that is}\qquad a(n)=9\,a(n-1) - 36\,a(n-2) + 84\,a(n-
 \]
 
 \begin{theorem}
-The closed form OEIS A219708 records is correct for all $n>0$.
+The closed form OEIS A219454 records is correct for all $n>5$.
 \end{theorem}
 
 \begin{proof}
 Two exact computations. First, the walk count of Lemma~\ref{lem:det} satisfies $q$: the
 residual $u_j=\iota^{\!\top}M^{\,j}q(M)\tau$ vanishes for $S$ consecutive indices, and
 since the residual vector lives in the $S$-dimensional space spanned by the iterates of $M$,
-$S$ consecutive zeros force every later one. The last index at which it fails is $0$.
-Second, the polynomial and the walk count agree at every index from $1$ up to
-$1 + 31 - 1$, which is more than the $9$ consecutive agreements a
+$S$ consecutive zeros force every later one. The last index at which it fails is $14$.
+Second, the polynomial and the walk count agree at every index from $6$ up to
+$1 + 34 - 1$, which is more than the $9$ consecutive agreements a
 common recurrence of order $9$ needs. Two sequences satisfying the same monic recurrence
 of order $9$ and agreeing at $9$ consecutive indices past both their thresholds are
 equal from there on.
@@ -121,7 +121,7 @@ equal from there on.
 
 Everything above is integer or exact rational arithmetic; no floating point is used anywhere.
 
-First, the model reproduces all $31$ terms the entry publishes, exactly. This is what
+First, the model reproduces all $34$ terms the entry publishes, exactly. This is what
 ties the construction to the entry, and it is the only point at which the entry's English is
 read.
 
@@ -134,7 +134,7 @@ fixed horizon, which is what makes it a proof and not a check of finitely many t
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A219708.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A219454.
 \bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata
 Theory, Languages, and Computation}, 3rd ed., Addison--Wesley, 2006. (The subset
 construction, Section 2.3.)

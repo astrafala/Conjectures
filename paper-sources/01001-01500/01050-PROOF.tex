@@ -12,20 +12,20 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical closed form for OEIS A219699, proved}
+\title{The empirical closed form for OEIS A219774, proved}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{8 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A219699 states an explicit closed form for $a(n)$ and records it as empirical. It is true, and
+OEIS A219774 states an explicit closed form for $a(n)$ and records it as empirical. It is true, and
 it is decidable. What the entry counts is not a set of arrays but the SIZE OF AN IMAGE: each
-admissible array is replaced by the array of minima of its cells and their antidiagonal, horizontal, vertical neighbours,
+admissible array is replaced by the array of minima of its cells and their antidiagonal, horizontal neighbours,
 and $a(n)$ counts how many different arrays come out. Two arrays with the same image count
 once, so the usual graph over arrays overcounts. Determinising a machine whose state is a pair
 of consecutive rows and whose output is the filtered array turns the count into a walk count on
-$S=27$ vertices, exact and finite. The closed form is a polynomial in $n$, so it satisfies the
+$S=42$ vertices, exact and finite. The closed form is a polynomial in $n$, so it satisfies the
 monic recurrence with characteristic polynomial $(x-1)^{5}$; that the walk count
 satisfies the same recurrence, and that the two agree on enough initial terms, are both checked
 in exact integer arithmetic, and together they prove the formula.
@@ -35,24 +35,24 @@ in exact integer arithmetic, and together they prove the formula.
 
 \section{The entry}
 
-OEIS A219699 is ``Number of n X 3 arrays of the minimum value of corresponding elements and their horizontal, vertical or antidiagonal neighbors in a random, but sorted with lexicographically nondecreasing rows and columns, 0..1 n X 3 array.''. It has offset $1$ and begins
+OEIS A219774 is ``Number of 3 X n arrays of the minimum value of corresponding elements and their horizontal or antidiagonal neighbors in a random, but sorted with lexicographically nondecreasing rows and columns, 0..1 3 X n array.''. It has offset $1$ and begins
 \[
-3, 5, 13, 25, 45, 78, 130, 208,\ \dots
+4, 6, 14, 33, 65, 114, 189, 298,\ \dots
 \]
 and states:
 \begin{quote}
-Empirical: a(n) = (1/24)*n\^{}4 + (1/12)*n\^{}3 - (25/24)*n\^{}2 + (107/12)*n - 10 for n>1.
+Empirical: a(n) = (1/24)*n\^{}4 + (1/4)*n\^{}3 - (13/24)*n\^{}2 + (17/4)*n for n>4.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 27 2018 06:11:48, revision 8)
+As of the ``Last modified'' line on the live entry (Jul 27 2018 10:47:06, revision 8)
 this is still recorded as empirical, and it is still open.
 
 \section{What is being counted}
 
 Fix the width $W=3$ and the value range $0..1$. The underlying arrays are the
-$n\times3$ arrays over that range whose rows are lexicographically nondecreasing read downwards
+$3\times n$ arrays over that range whose rows are lexicographically nondecreasing read downwards
 and whose columns are lexicographically nondecreasing read left to right. Each such array $g$
 is mapped to $F(g)$, the array whose $(i,j)$ entry is the minimum of $g(i,j)$ and the entries
-of its antidiagonal, horizontal, vertical neighbours that lie inside the array. The entry counts
+of its antidiagonal, horizontal neighbours that lie inside the array. The entry counts
 \[
 a(n)\;=\;\bigl|\{\,F(g)\;:\;g\text{ admissible with }n\text{ rows}\,\}\bigr|,
 \]
@@ -78,7 +78,7 @@ still agreeing, its two entries either agree again or differ in the permitted di
 \end{proof}
 
 \begin{lemma}\label{lem:det}
-$a(n)$ is a walk count: there are a matrix $M$ with non-negative integer entries on $S=27$
+$a(n)$ is a walk count: there are a matrix $M$ with non-negative integer entries on $S=42$
 vertices and vectors $\iota,\tau$ with $a(n)=\iota^{\!\top}M^{\,n-2}\tau$ for $n\ge2$.
 \end{lemma}
 
@@ -89,7 +89,7 @@ emit $F(g)$ one row at a time. It is nondeterministic --- several continuations 
 same row --- and the images of $g$ are exactly the words it can emit. Determinising it gives a
 machine in which each emitted row leads to exactly one state, so distinct words of length $n$
 correspond to distinct paths, and counting them is counting walks. The reachable determinised
-states number $S=27$. The last filtered row is emitted with no row below it, so it is not a
+states number $S=42$. The last filtered row is emitted with no row below it, so it is not a
 step of the walk but a count attached to the state the walk stops in; that is $\tau$.
 \end{proof}
 
@@ -102,15 +102,15 @@ q(x)=(x-1)^{5},\qquad\text{that is}\qquad a(n)=5\,a(n-1) - 10\,a(n-2) + 10\,a(n-
 \]
 
 \begin{theorem}
-The closed form OEIS A219699 records is correct for all $n>1$.
+The closed form OEIS A219774 records is correct for all $n>4$.
 \end{theorem}
 
 \begin{proof}
 Two exact computations. First, the walk count of Lemma~\ref{lem:det} satisfies $q$: the
 residual $u_j=\iota^{\!\top}M^{\,j}q(M)\tau$ vanishes for $S$ consecutive indices, and
 since the residual vector lives in the $S$-dimensional space spanned by the iterates of $M$,
-$S$ consecutive zeros force every later one. The last index at which it fails is $6$.
-Second, the polynomial and the walk count agree at every index from $2$ up to
+$S$ consecutive zeros force every later one. The last index at which it fails is $9$.
+Second, the polynomial and the walk count agree at every index from $5$ up to
 $1 + 41 - 1$, which is more than the $5$ consecutive agreements a
 common recurrence of order $5$ needs. Two sequences satisfying the same monic recurrence
 of order $5$ and agreeing at $5$ consecutive indices past both their thresholds are
@@ -134,7 +134,7 @@ fixed horizon, which is what makes it a proof and not a check of finitely many t
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A219699.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A219774.
 \bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata
 Theory, Languages, and Computation}, 3rd ed., Addison--Wesley, 2006. (The subset
 construction, Section 2.3.)
