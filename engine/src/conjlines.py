@@ -1,41 +1,47 @@
 #!/usr/bin/env python3
-"""Which lines on an entry are conjectured recurrences -- in EITHER spelling.
+"""The lines of an entry that state a conjecture, blocks included.
 
-Every sweep so far selected conjecture lines with the test
+Every sweep in this repository decided which lines to read with
 
-    "a(n-" in line and "=0" in line
+    MARK = re.compile(r'onjectur|Empirical', re.I)
 
-which reads only the form "Conjecture: p_0(n)a(n) + ... + p_r(n)a(n-r) = 0". OEIS also
-writes the same thing as "Conjecture: a(n) = <combination of earlier terms>", and a census
-of the whole encyclopedia found 183 open conjectures written that way -- excluded from
-every run so far, not because the engines could not settle them but because the filter
-never offered them.
+and that requires the conjectural word to be ON the line. A conjecture is very often written
+as a block instead, and then the formulas carry no such word at all:
+
+    Conjectures from _Colin Barker_, Jun 04 2017: (Start)
+    a(n) = 3*a(n-1) - a(n-3).
+    G.f.: x*(1 + x) / (1 - 3*x + x^3).
+    (End)
+
+Those formula lines were invisible to every sweep the project has ever run. The same defect
+was found and fixed in `pooltrim.py`, where it had hidden 1,648 entries from the candidate
+pools; this is the same mistake one level down, deciding what to read inside an entry that had
+already been selected.
+
+`lines(entry)` returns the conjectural lines: those carrying the word themselves, plus every
+line inside an opened block up to its "(End)".
 """
 import re
 
-# "Empirical" belongs here too. The docstring's "either spelling" meant the two shapes of
-# the recurrence, and the marker test was left matching only "Conjectur" -- so every
-# Empirical recurrence, which is the bulk of the corpus, was refused by this function
-# before any engine saw it.
-CONJ = re.compile(r"^\s*(Conjectur|Empirical)", re.I)
-GUESS = re.compile(r"empirical|apparent|it seems|probably", re.I)
+MARK = re.compile(r'onjectur|Empirical', re.I)
+OPEN = re.compile(r'(?:conjectur\w*|empirical)\b.*\(Start\)', re.I)
+END = re.compile(r'\(End\)', re.I)
 
 
-def is_recurrence(line):
-    """True if the line states a linear recurrence, in either spelling."""
-    if not CONJ.match(line):
-        return False
-    nb = line.replace(" ", "")
-    if "a(n-" not in nb and "a(n+" not in nb:
-        return False
-    if "=0" in nb:
-        return True
-    # "a(n) = <combination of a(n-1), ...>": an equation whose left side is a(n)
-    body = re.sub(r"^\s*(Conjectur\w*|Empirical)\s*\d*\s*[:.,]?\s*", "", line, flags=re.I)
-    body = re.sub(r"^(D-finite with recurrence|to be D-finite with recurrence)[:.]?\s*",
-                  "", body, flags=re.I)
-    return re.match(r"\s*a\(n\)\s*=", body) is not None
-
-
-def recurrences(F):
-    return [l for l in F if is_recurrence(l)]
+def lines(e):
+    """the conjectural lines of an entry dict, in file order"""
+    out, inside = [], False
+    for L in e['comment'] + e['formula']:
+        t = L.strip()
+        if OPEN.search(t):
+            inside = True
+            out.append(L)
+            continue
+        if inside:
+            out.append(L)
+            if END.search(t):
+                inside = False
+            continue
+        if MARK.search(L):
+            out.append(L)
+    return out

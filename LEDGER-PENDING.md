@@ -356,3 +356,50 @@ as "model does not match DATA" — a model that matches every published term, re
 wrong, because the shift search window is deliberately only a few steps wide (a wide one can
 fit a wrong model). `uniform.terms` now drops the leading terms for this engine, and all 101
 align inside the usual window. **The first sweep after the fix returned 25 proofs.**
+
+## 8 September 2026 — cuspdim: a family settled by a formula, not a matrix
+
+51 entries read "Dimension of the space of weight 2n cusp forms for Gamma_0(N)", and nothing
+in this repository resembled them: there is no array to count and no transfer matrix to build.
+There is instead an exact classical formula, and it settles the conjecture outright.
+
+For even $k\ge4$ (Diamond--Shurman, Theorem 3.5.1),
+
+    dim S_k(Gamma_0(N)) = (k-1)(g-1) + (k/2-1)·e_inf + floor(k/4)·e_2 + floor(k/3)·e_3,
+
+with dim S_2 = g and dim S_0 = 0. Every quantity on the right is elementary integer arithmetic
+in N: the index, the two elliptic-point counts, the cusp count, and the genus. With k = 2n the
+right-hand side is linear in n apart from floor(n/2) and floor(2n/3), so a(n) is a
+**quasi-polynomial of period 6** and a conjectured linear recurrence on such an entry is
+decidable outright.
+
+**All 51 reproduce their entry's published terms exactly, 0 mismatch**, and a 400-paper
+regression sample confirms the parser takes no name from an existing engine. **46 are proved.**
+
+### And the reason the first sweep proved none of them
+
+The sweep reported "no parsable recurrence" for 16 of the first 16. The conjectures are there;
+they are written as blocks:
+
+```
+Conjectures from _Colin Barker_, Jun 04 2017: (Start)
+a(n) = 3*a(n-1) - a(n-3).
+G.f.: x*(1 + x) / (1 - 3*x + x^3).
+(End)
+```
+
+**Every sweep this project has ever run decided which lines to read with a regular expression
+requiring the word "Conjecture" or "Empirical" ON the line.** A block's formula lines carry no
+such word, so they were invisible — the same defect found this morning in `pooltrim.py`, where
+it had hidden 1,648 entries from the candidate pools, now found one level down, deciding what
+to read *inside* an entry already selected.
+
+`engine/src/conjlines.py` returns an entry's conjectural lines with blocks understood, and
+`sweep_shard` uses it. On the cusp family the effect was total: 0 proved became 12 in the same
+window, then 46 overall.
+
+**Corpus-wide the effect is much smaller, and the honest number is worth stating: of 9,142
+entries already swept and not in the roster, 14 have a parsable recurrence only inside a
+block.** They have been put back for re-asking. So this defect mattered enormously for one
+family and barely at all for the corpus — both facts are true and neither should be quoted
+without the other.

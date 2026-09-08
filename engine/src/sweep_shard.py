@@ -25,6 +25,7 @@ the offset read off from where they line up. The engine's threshold is in the sa
 terms are, so one conversion serves them all.
 """
 import json, re, os, sys, collections, signal, zlib
+import conjlines
 import localentry as LE, ratrec, openness, uniform
 
 
@@ -130,8 +131,9 @@ for a in sorted(set(CANDS) | ANUMS):
         except Exception:
             pass
     e = LE.get(a)
-    recs = [r for r in (ratrec.parse_rec(L) for L in e['comment'] + e['formula']
-                        if MARK.search(L)) if r]
+    # conjlines understands a "Conjectures from X: (Start) ... (End)" block, whose formula
+    # lines carry no conjectural word of their own; MARK alone could not see them
+    recs = [r for r in (ratrec.parse_rec(L) for L in conjlines.lines(e)) if r]
     if not recs:
         res['no parsable recurrence'] += 1; done.add(a); save(); continue
     if not openness.status(a)[0]:
