@@ -34,6 +34,12 @@ def parse_line(L):
     if 'a(n' in body or 'a(k' in body or not re.search(r'\bn\b', body):
         return None
     body = re.sub(r'\s*-\s*_[^_]+_,.*$', '', body)          # attribution
+    # An editorial note can also follow the formula as a SENTENCE rather than after a dash:
+    # "Empirical: a(n) = (84 + 149*n + 36*n^2 + n^3) / 6. Corrected by _Colin Barker_, ..."
+    # The formula there is perfectly readable; only the note made it unparsable, and the
+    # entry was refused with "no readable closed form".
+    body = re.sub(r'\.\s*(?:Corrected|Edited|Added|Amended|Rewritten|Simplified|Verified|'
+                  r'Formula|Offset)\b.*$', '', body, flags=re.I)
     body = re.sub(r'\.\s*\(End\)\s*$', '', body).strip().rstrip('.')
     claimed = None
     m2 = re.search(r'\bfor\s+n\s*(>=|>)\s*(\d+)\s*$', body)

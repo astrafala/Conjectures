@@ -145,3 +145,23 @@ expensive mistake available here:
 The rule this confirms, again: a result that would be a triumph deserves more suspicion than
 one that is routine. Nineteen disproofs from one small family was not plausible, and it was not
 real.
+
+### A second reader defect, found the same way
+
+The lexicographic family refused A184540 with "no readable closed form". Its line is
+
+```
+Empirical: a(n) = (84 + 149*n + 36*n^2 + n^3) / 6. Corrected by _Colin Barker_, Apr 12 2018
+```
+
+The formula is perfectly readable; the editorial note after it is what made the line
+unparsable. The reader already stripped an attribution written after a dash and did not strip
+one written as its own sentence. It does now.
+
+**813 entries across the closed-form sweep's records had been marked done and unreadable and
+can be read after the fix.** They have been put back for re-asking. Most will refuse again for
+some other reason -- no engine reads the name, a state space over the cap -- and that is
+expected; the point is that they were never asked the question at all.
+
+Both of today's reader defects were found the same way: by looking at *why* a sweep refused,
+rather than at what it proved. A refusal that is really a bug is invisible in a hit count.
