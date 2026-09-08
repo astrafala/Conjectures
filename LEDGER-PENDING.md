@@ -815,3 +815,24 @@ Four readings the entries' own terms settled, none of them guessed:
 
 121 more match their terms but settle into no such shape, and 44 do not match the model at all;
 neither group is counted.
+
+## 8 September 2026 — B8: 112 active-cell counts, and the window was a square not a diamond
+
+168 entries count the active cells of a two-dimensional cellular automaton — plain counts,
+partial sums and first differences. **112 now reproduce their published terms exactly, 0
+mismatch.** (The other 56 index by stage 2^n-1 and need their own handling.)
+
+The reading turned on one thing. Counting the cells inside the **light cone** |i|+|j| ≤ n fits
+every entry whose background stays off — and fails every entry whose background flips, 103 of
+them. At a stage where the background is ON, the cells the diamond excludes are ON as well, so
+the entry counts them. **The window is the square |i|,|j| ≤ n.** With that, the 103 failures
+became 103 matches and nothing that already matched broke.
+
+What gave it away was that the even-indexed terms agreed exactly and only the odd ones differed
+— a difference that alternates with the background is a background problem, not a rule problem.
+That is the third time in one day the background of a cellular automaton has been the thing
+read wrongly.
+
+Also this hour: **wake-ups scheduled every twenty to forty minutes across the next three
+hours**, so the work continues without being prompted; and a harness-tracked background loop
+that re-invokes on completion, which fired and returned control immediately.
