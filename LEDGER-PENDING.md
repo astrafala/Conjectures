@@ -105,3 +105,36 @@ closed-form sweep has already returned **18 proofs from the first 22** of them.
 
 That is the shape of what is left: not one huge chunk, but a long tail of clusters of 30 to 90
 that each need one phrase added to a parser that can already do the mathematics.
+
+### 8 September 2026 — nineteen "disproofs" that were my own bug
+
+The lexicographic-subblock sweep came back with 19 entries whose conjectured closed form it
+said was FALSE, against only 7 proved. Nineteen disproofs in one family would have been the
+largest single find in the project. **Every one of them was a defect in my own reader.**
+
+A long formula in the OEIS is written across several `%F` lines, each continuing the one
+before it:
+
+```
+%F A184566 Empirical: a(n) = (1/121645100408832000)*n^19
+%F A184566 + (53/3201186852864000)*n^18
+```
+
+`localentry.get` returned those as separate formulas, so the sweep was handed
+`a(n) = n^19/121645100408832000` — the first term of a degree-19 polynomial and nothing else —
+and correctly found that the sequence does not satisfy it. The conjecture it was testing was
+not the entry's conjecture. A line whose first character continues an expression is now joined
+to the one before it, and re-asking the same 19 returned **16 proved and 0 failures**.
+
+Two things were checked before this was written down, because a false disproof is the most
+expensive mistake available here:
+
+* **All 6 disproofs already in the roster are unaffected.** Each rests on a conjecture written
+  on a single line — A197230's 295-character recurrence included — so none was ever truncated.
+* **No installed paper quotes a truncated conjecture.** Of 10,665 papers, only 7 sit on an
+  entry that has a continued line at all, and only one of those quotes a conjecture in its text;
+  that quotation is complete.
+
+The rule this confirms, again: a result that would be a triumph deserves more suspicion than
+one that is routine. Nineteen disproofs from one small family was not plausible, and it was not
+real.
