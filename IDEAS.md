@@ -54,6 +54,7 @@ counted twice.
 | C5 | primality or factorisation | 1,618 | **untried**; almost certainly out of reach |
 | C6 | always / never / infinitely many | 541 | **untried** |
 | C7 | algebraic (radical) generating functions | 193 | **next**; decidable against a proved rational g.f. |
+| C9 | conjectured rational generating function, marker written BEHIND the expression | 2,809 | the shared parser refuses `G.f.: ... (conjectured).' outright, so no sweep had ever seen these. `conjgf.py` reads them. Premise veins (D7, D8) are null; the model vein is live |
 | C8 | e.g.f. and Dirichlet g.f. claims | 19 | **untried** |
 
 ## D. Structural tricks that need no model at all
@@ -66,6 +67,9 @@ counted twice.
 | D4 | entries carrying both a known recurrence and a conjecture | 558, mostly already covered |
 | D5 | equivalence between two entries the OEIS cross-references | **untried** |
 | D6 | a conjecture on a table implying one on each of its columns | **untried** |
+| D7 | conjectured g.f. from a recurrence the entry states as fact -- the mirror of D1 | **null: 6 of 1,048.** The census said 1,048 had a stated recurrence; almost every one of them was a line inside the same conjecture block as the g.f., which is the same conjecture in another notation and no premise at all |
+| D8 | conjectured g.f. from a closed form stated as fact | **null: 0 of 204**, same reason |
+| D9 | conjectured g.f. proved from a transfer-matrix model of the name | 1,565 entries no sweep had read | **running** |
 
 ## E. Auditing what the machinery refuses — the highest-yield habit
 
@@ -82,6 +86,7 @@ sweep chose what to look at. Not one was hidden by mathematics.
 | E6 | a threshold scan starting one index late | 6 false disproofs |
 | E7 | a claim's qualifier dropped ("for odd n") | 1 false disproof |
 | E8 | an instrument that cannot see what it is asked about returns a confident zero | nearly cost the whole closed-form vein |
+| E9 | **a new sweep reading a block conjecture as a premise** | 774 false proofs, caught before a single paper was built. E2 again, in code written the same day the defect was written down. A line carrying no conjectural word is NOT a fact: an entry writes `Conjectures from X: (Start)' and then bare formula lines. Any sweep that looks for a premise must exclude everything `conjlines` returns, not merely lines with the word on them. |
 
 ## F. Not yet attempted at all
 

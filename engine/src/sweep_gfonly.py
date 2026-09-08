@@ -2,7 +2,7 @@ import json
 
 import atomicjson, os, collections, signal, sys, zlib
 import sympy
-import localentry as LE, uniform, openness, gfonly
+import localentry as LE, uniform, openness, gfonly, conjgf, conjlines
 
 # sharded, and each shard writes its own files: one entry can take minutes of sympy, so a
 # single process asks about 1,328 entries far too slowly, and two processes on one hits file
@@ -61,8 +61,12 @@ for a in sorted(pool):
     if not openness.status(a)[0]:
         res['not open'] += 1; done.add(a); continue
     gl = None
-    for L in e['comment'] + e['formula']:
-        g = gfonly.parse(L)
+    # conjgf, not gfonly: the corpus writes the conjectural marker behind the expression as
+    # often as in front of it, and gfonly.parse refuses `G.f.: ... (conjectured).' outright.
+    # And the line must be one the entry means conjecturally -- inside a `Conjectures from
+    # X: (Start)' block counts, a bare statement of fact does not.
+    for L in conjlines.lines(e):
+        g = conjgf.parse(L)
         if g is not None:
             gl = (L.strip(), g)
             break

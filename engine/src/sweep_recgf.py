@@ -68,10 +68,16 @@ for a in targets:
             if g is not None]
     if not conj:
         res['no conjectured generating function'] += 1; done.add(a); save(); continue
-    # the premise: a formula line carrying no conjectural word
+    # the premise: a formula line that is not conjectural. Carrying no conjectural WORD is
+    # not enough -- an entry writes `Conjectures from X: (Start)' and then several bare
+    # formula lines, none of which says `conjecture', and reading one of those as a fact
+    # would turn a conjecture into a premise. conjlines names every line the entry means
+    # conjecturally, block members included, and those are excluded here.
+    conjset = {id(L) for L in conjlines.lines(e)}
+    conjtext = {L.strip() for L in conjlines.lines(e)}
     prem = None
     for L in e['formula'] + e['comment']:
-        if CONJW.search(L):
+        if CONJW.search(L) or id(L) in conjset or L.strip() in conjtext:
             continue
         if PREMISE == 'rec':
             r = ratrec.parse_rec(L)
