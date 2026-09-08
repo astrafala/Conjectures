@@ -12,36 +12,36 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A184023, proved by splitting on the common sum}
+\title{The empirical recurrence for OEIS A184025, proved by splitting on the common sum}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A184023 counts arrays over $\{0,\dots,3\}$ in which all $2\times2$ subblock sums are
+OEIS A184025 counts arrays over $\{0,\dots,3\}$ in which all $2\times2$ subblock sums are
 EQUAL --- the common value not being named --- and carries an empirical recurrence of order
 $15$ contributed by R.~H.~Hardin. The unnamed value is what stops a transfer matrix from
 applying directly, and it costs nothing to remove: an array with at least one $2\times2$
 subblock determines its own common sum, so the count splits as a sum over the $12+1$
 possible values with nothing counted twice, and each summand is an ordinary walk count. On
 the block-diagonal matrix over those values the recurrence is decided by a finite exact
-computation on $S=3328$ vertices.
+computation on $S=53248$ vertices.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
 \section{The sequence and the conjecture}
 
-OEIS A184023 is ``1/8 the number of (n+1)X4 0..3 arrays with all 2X2 subblock sums the same.''. It has offset $1$ and begins
+OEIS A184025 is ``1/8 the number of (n+1)X6 0..3 arrays with all 2X2 subblock sums the same.''. It has offset $1$ and begins
 \[
-242, 491, 1052, 2597, 6650, 18701, 53948, 165929,\ \dots
+2312, 3781, 6650, 13603, 29432, 70867, 177386, 477919,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
 Empirical: a(n)=8*a(n-1)+16*a(n-2)-268*a(n-3)+189*a(n-4)+3388*a(n-5)-5824*a(n-6)-20048*a(n-7)+49756*a(n-8)+52752*a(n-9)-196896*a(n-10)-24192*a(n-11)+369216*a(n-12)-131328*a(n-13)-262656*a(n-14)+165888*a(n-15)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 02:15:16, revision 9) the statement is
+As of the ``Last modified'' line on the live entry (Oct 03 2025 02:15:30, revision 9) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
@@ -52,9 +52,9 @@ for all $n>15$.
 
 \section{Splitting on the common sum}
 
-The arrays have $4$ columns and $L=n+1$ rows, entries in
+The arrays have $6$ columns and $L=n+1$ rows, entries in
 $\{0,\dots,3\}$, and every $2\times2$ subblock has the same sum. Since $L\ge2$ and
-$4\ge2$, every such array contains at least one $2\times2$ subblock, and that subblock's
+$6\ge2$, every such array contains at least one $2\times2$ subblock, and that subblock's
 sum is the common value; so each array belongs to exactly one of the classes
 \[
 A_c=\{\text{arrays all of whose }2\times2\text{ subblock sums equal }c\},
@@ -64,14 +64,14 @@ and $\#\{\text{admissible arrays}\}=\sum_c |A_c|$ with no array counted twice. T
 $12=4\cdot3$ is the largest possible subblock sum.
 
 For a fixed $c$ the condition is local, so $|A_c|$ is a walk count. Let
-$V=\{0,\dots,3\}^{4}$ be the possible rows and let $M_c$ be the adjacency
+$V=\{0,\dots,3\}^{6}$ be the possible rows and let $M_c$ be the adjacency
 matrix of the digraph in which $r\to s$ when
-$r_j+r_{j+1}+s_j+s_{j+1}=c$ for every $j$ with $1\le j\le 4-1$. Then
+$r_j+r_{j+1}+s_j+s_{j+1}=c$ for every $j$ with $1\le j\le 6-1$. Then
 $|A_c|=\mathbf{1}^{\!\top}M_c^{\,L-1}\mathbf{1}$, since an array of $L$ rows is a
 sequence of $L$ elements of $V$ and each of its $2\times2$ subblocks lies in two consecutive
 rows and two consecutive columns.
 
-Writing $N=\bigoplus_{c=0}^{12}M_c$, of size $S=3328$, and $\mathbf{v}$ for the
+Writing $N=\bigoplus_{c=0}^{12}M_c$, of size $S=53248$, and $\mathbf{v}$ for the
 all-ones vector on it,
 \begin{equation}\label{eq:walk}
 a(n)\;=\;\tfrac1{8}\,\mathbf{v}^{\!\top}N^{\,L-1}\mathbf{1},\qquad L=n+1.
@@ -117,7 +117,7 @@ The splitting is what makes the argument finite, and it is exact rather than an
 over-count only because every array here has a subblock. For a one-column or one-row
 shape there is no subblock at all, every value of $c$ would be vacuously admissible, and the
 sum would count each array $12+1$ times; those shapes are excluded by $L\ge2$ and
-$4\ge2$.
+$6\ge2$.
 \end{remark}
 
 \section{Verification}
@@ -136,7 +136,7 @@ Cayley--Hamilton bound in exact integer arithmetic rather than to a sampled pref
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A184023.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A184025.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

@@ -12,15 +12,15 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A255152, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A186055, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A255152 counts $(n+2)\times3$ arrays over $\{0,\dots,1\}$ subject to a condition imposed on
-every $3\times3$ subblock, and it carries an empirical recurrence of order $6$
+OEIS A186055 counts $(n+2)\times3$ arrays over $\{0,\dots,1\}$ subject to a condition imposed on
+every $3\times3$ subblock, and it carries an empirical recurrence of order $7$
 contributed by R.~H.~Hardin. It is true, and it is not an empirical matter. A $3\times3$
 subblock spans three consecutive rows, so the state of a transfer matrix is a PAIR of
 consecutive rows and appending one more row is a step; an array is then a walk, and
@@ -33,15 +33,15 @@ theorem bounding the work.
 
 \section{The conjecture}
 
-OEIS A255152 is ``Number of (n+2) X (1+2) 0..1 arrays with no 3 x 3 subblock diagonal sum 1 and no antidiagonal sum 1 and no row sum 0 or 1 and no column sum 0 or 1.''. It has offset $1$ and begins
+OEIS A186055 is ``Number of (n+2) X 3 binary arrays with each 3 X 3 subblock having a positive determinant.''. It has offset $1$ and begins
 \[
-28, 62, 141, 331, 773, 1782, 4105, 9484,\ \dots
+87, 267, 792, 2328, 6915, 20475, 60588, 179442,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 2*a(n-1) - a(n-2) + 3*a(n-3) + a(n-4) + 2*a(n-5) + 2*a(n-6).
+Empirical: a(n) = 2*a(n-1) + a(n-2) + 6*a(n-3) - 2*a(n-4) + 2*a(n-5) - 3*a(n-6) + 2*a(n-7).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Dec 18 2018 11:30:04, revision 7) this is still
+As of the ``Last modified'' line on the live entry (Apr 17 2018 08:33:45, revision 8) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{Three consecutive lines}
@@ -55,7 +55,7 @@ g=\begin{pmatrix}r_j&r_{j+1}&r_{j+2}\\ s_j&s_{j+1}&s_{j+2}\\ t_j&t_{j+1}&t_{j+2}
 \]
 for each admissible index, and the entry's condition is the requirement that
 \[
-\text{every diagonal sum} \notin \{1\}\ \text{ and }\ \text{every antidiagonal sum} \notin \{1\}\ \text{ and }\ \text{every row sum} \notin \{0,1\}\ \text{ and }\ \text{every column sum} \notin \{0,1\}
+\det g > 0
 \]
 holds for every such $g$. This involves $r$, $s$ and $t$ only: it is a condition on
 three consecutive rows and on nothing else.
@@ -74,7 +74,7 @@ In particular $a$ is $C$-finite.
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{6}-\sum_i c_it^{6-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{7}-\sum_i c_it^{7-i}$ be the characteristic polynomial of the
 conjectured recurrence. Then the residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\mathbf{1}^{\!\top}M^{\,j}q(M)\mathbf{1}$ for the corresponding walk index
 $j$, so the recurrence holds from some point on if and only if
@@ -83,7 +83,7 @@ Cayley--Hamilton theorem it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+6}-\sum_ic_iM^{j+6-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+7}-\sum_ic_iM^{j+7-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$, so the numbers
 $u_j=\mathbf{1}^{\!\top}M^{j}q(M)\mathbf{1}$ satisfy the monic linear recurrence given by
 the characteristic polynomial of $M$; $S$ consecutive zeros therefore force every later one,
@@ -92,24 +92,24 @@ and the last nonzero $u_j$ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;2\,a(n-1) - a(n-2) + 3\,a(n-3) + a(n-4) + 2\,a(n-5) + 2\,a(n-6)
+a(n)\;=\;2\,a(n-1) + a(n-2) + 6\,a(n-3) - 2\,a(n-4) + 2\,a(n-5) - 3\,a(n-6) + 2\,a(n-7)
 \]
-for every $n>6$.
+for every $n>7$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\mathbf{1}$ was formed by $6$ matrix--vector products in exact
+The vector $w=q(M)\mathbf{1}$ was formed by $7$ matrix--vector products in exact
 integer arithmetic and $\mathbf{1}^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again
-exactly. Those integers vanish from the index corresponding to $n=6+1$ onwards, and the
+exactly. Those integers vanish from the index corresponding to $n=7+1$ onwards, and the
 run was continued until the working vector was identically zero, which settles all larger $j$
-at once. By Lemma~\ref{lem:crit} the recurrence holds for every $n>6$.
+at once. By Lemma~\ref{lem:crit} the recurrence holds for every $n>7$.
 \end{proof}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the transfer model reproduces all $27$ terms the entry publishes, exactly, in
+First, the transfer model reproduces all $23$ terms the entry publishes, exactly, in
 integer arithmetic. This is what ties the model to the entry: the digraph is built by reading
 the entry's English, and a misreading gives different counts.
 
@@ -122,7 +122,7 @@ enters anywhere.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A255152.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A186055.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

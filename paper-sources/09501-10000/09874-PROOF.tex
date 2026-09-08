@@ -10,169 +10,166 @@
 \newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
 \newtheorem{remark}[theorem]{Remark}
-
-\title{The empirical recurrence for OEIS A241116, recovered from its tail}
+\title{A proof of the conjectured recurrence for OEIS A081181}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{8 September 2026}
+\date{30 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A241116 records ``Empirical recurrence of order $74$'' and keeps the recurrence itself in
-a linked file rather than in the entry, so the conjecture cannot be read off the entry at all.
-It can still be settled. The entry counts arrays under a condition local to a bounded window of
-lines, which makes the count a walk count on a finite digraph and forces a monic integer
-recurrence of order at most the number $S'=83$ of states with distinct futures. Berlekamp--Massey on
-enough exact terms therefore returns the minimal such recurrence, and on the tail beginning at $n=2$, so the recurrence is proved for every $n\ge76$.
-Its last coefficient is $c_{74}=-42845606719488\neq0$, so no further tail satisfies anything
-shorter; any order-$74$ recurrence the sequence satisfies from any point on must then have
-the same characteristic polynomial. The entry's recurrence is the one displayed here, whatever
-its linked file contains, and it is proved.
+OEIS A081181 carries a conjectured linear recurrence with polynomial coefficients, of
+order 3. The entry posts no generating function, and the closed form it does post
+is not a hypergeometric term in $n$: it contains a floor, so its shift quotients are not
+rational and the usual argument does not start. Splitting on the parity of $n$ repairs
+this. Writing $a(2m)=e_{0}(m)$ and $a(2m+1)=e_{1}(m)$, both halves are ordinary
+hypergeometric expressions in $m$, and the recurrence becomes two identities in $m$, since
+each shifted term $a(n-i)$ lands in whichever half the parity of $n-i$ selects. Both are
+then decided exactly, by grouping into similarity classes and cancelling. The procedure
+returns a proof or a refutation; both halves must hold, and here both do.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 33F10, 11B37, 05A10.\normalsize
 
-\section{A conjecture that is not written down}
+\section{The sequence and the conjecture}
 
-OEIS A241116 is ``Number of nX4 0..3 arrays with no element equal to exactly three horizontal or vertical neighbors, with new values 0..3 introduced in row major order.''. It has offset $1$ and begins
+OEIS A081181 is ``Staircase on Pascal's triangle''. It has offset $0$ and begins
 \[
-15, 2614, 587555, 134229632, 30679522712, 7012241396116, 1602748583683541, 366331237082570675,\ \dots
+a(0),\dots,a(7)\;=\;1, 3, 6, 20, 35, 126, 210, 792,\ \dots
 \]
-The entry states:
-\begin{quote}
-Empirical recurrence of order 74 (see link above)
+The entry states, not as a conjecture,
+\begin{quote}\small
+a(n) = binomial(floor((n + 1)/2) + (n + 1), n).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 11:10:31, revision 7)
-this is still recorded as empirical, and it is still open. The coefficients are nowhere in the
-entry text: what is conjectured is only that a recurrence of that order exists.
+that is,
+\begin{equation}\label{eq:cf}
+a(n)\;=\;{\binom{n + \left\lfloor{\frac{n}{2} + \frac{1}{2}}\right\rfloor + 1}{n}} .
+\end{equation}
+This is the only input the proof takes from the entry. It was checked against the entry's
+own DATA before use, and the index alignment was determined from that check rather than
+assumed: the formula is stated in the entry's own indexing.
 
-\section{The count is a walk count}
+The entry separately carries the following comment:
+\begin{quote}\small
+\textbf{Conjecture:} 8*n*(n+3)*(1845*n-2882)*a(n) + 4*(-5097*n\^{}3+11143*n\^{}2 + 42110*n-27416)*a(n-1) + 6*(-16605*n\^{}3-7272*n\^{}2-16701*n+9490)*a(n-2) + 3*(3*n-5)*(5097*n-949)*(3*n-4)*a(n-3) = 0. - \emph{R. J. Mathar}, Oct 29 2014
+\end{quote}
+As of the ``Last modified'' line on the live entry (2025-10-19, revision 20) the
+statement is still recorded as a conjecture, and no proof appears among the entry's links,
+formulas or programs.
 
-The entry's condition is local. It constrains a bounded window of consecutive lines of the
-array and nothing beyond it, so the admissible configurations of one window are the vertices of
-a finite digraph, an edge joins $u$ to $v$ when $v$ may follow $u$, and an admissible array is
-exactly a walk. Writing $M$ for the adjacency matrix and $\iota,\tau$ for the indicator vectors
-of the admissible first and last windows,
-\[
-a(n)\;=\;\iota^{\!\top}M^{\,j(n)}\tau
-\]
-for a linear reindexing $j$ fixed by the entry's shape. States with identical futures
-contribute identically to that product and may be merged without changing any count; after
-merging $S'=83$ states remain, and it is that bound every computation below uses.
+Written out, the conjecture is
+\begin{equation}\label{eq:conj}
+8 n \left(n + 3\right) \left(1845 n - 2882\right)\,a(n) -  4 \left(5097 n^{3} - 11143 n^{2} - 42110 n + 27416\right)\,a(n-1) -  6 \left(16605 n^{3} + 7272 n^{2} + 16701 n - 9490\right)\,a(n-2) + 3 \left(3 n - 5\right) \left(3 n - 4\right) \left(5097 n - 949\right)\,a(n-3)
+\end{equation}
 
-\begin{lemma}\label{lem:cf}
-$a$ satisfies a monic linear recurrence with integer coefficients of order at most $S'=83$.
+\section{Hypergeometric terms, and why the closed form is not one}
+
+\begin{definition}
+A nonzero expression $c(m)$ is a \emph{hypergeometric term} in $m$ if $c(m+1)/c(m)$ is a
+rational function of $m$. Two such terms $c,d$ are \emph{similar}, $c\sim d$, if $c/d$ is a
+rational function of $m$.
+\end{definition}
+
+Products of factorials, binomial coefficients with arguments linear in the variable,
+exponentials and polynomials are hypergeometric. A floor is not: $\lfloor n/2\rfloor$ takes
+the same value at $n$ and $n+1$ for even $n$ and jumps at odd $n$, so the quotient
+$c(n+1)/c(n)$ is not a rational function of $n$, and \eqref{eq:cf} is therefore outside the
+reach of the direct argument.
+
+Parity removes the floor. For integer $m$,
+$\lfloor 2m/2\rfloor=m$ and $\lfloor (2m+1)/2\rfloor=m$, and similarly for the ceiling, so
+substituting $n=2m$ and $n=2m+1$ into \eqref{eq:cf} and simplifying gives two expressions
+free of rounding:
+\begin{equation}\label{eq:halves}
+a(2m)\;=\;e_{0}(m)\;=\;{\binom{3 m + 1}{m + 1}},
+\qquad
+a(2m+1)\;=\;e_{1}(m)\;=\;{\binom{3 m + 3}{2 m + 1}},
+\end{equation}
+and each of $e_{0},e_{1}$ is a sum of finitely many hypergeometric terms in $m$.
+
+\begin{lemma}\label{lem:indep}
+Hypergeometric terms that are pairwise dissimilar are linearly independent over the field
+of rational functions: if $\sum_{j}u_{j}(m)c_{j}(m)=0$ for rational $u_{j}$ and all large
+$m$, then every $u_{j}$ is zero. See Petkov\v{s}ek, Wilf and Zeilberger \cite{AB},
+Chapter~5.
 \end{lemma}
+
+\section{The recurrence, one residue class at a time}
+
+Fix the conjectured coefficients $p_{0},\dots,p_{r}$ and consider
+$T(n)=\sum_{i=0}^{r}p_{i}(n)a(n-i)$. Each term reaches a half of \eqref{eq:halves} chosen
+by the parity of $n-i$:
+
+\begin{proposition}\label{prop:split}
+With $a(2j)=e_{0}(j)$ and $a(2j+1)=e_{1}(j)$,
+\[
+T(2m)=\sum_{i \text{ even}}p_{i}(2m)\,e_{0}\!\left(m-\tfrac{i}{2}\right)
+      +\sum_{i \text{ odd}}p_{i}(2m)\,e_{1}\!\left(m-\tfrac{i+1}{2}\right),
+\]
+\[
+T(2m+1)=\sum_{i \text{ even}}p_{i}(2m+1)\,e_{1}\!\left(m-\tfrac{i}{2}\right)
+      +\sum_{i \text{ odd}}p_{i}(2m+1)\,e_{0}\!\left(m-\tfrac{i-1}{2}\right).
+\]
+Both right-hand sides are finite sums of hypergeometric terms in $m$. The recurrence
+$T(n)=0$ holds for all large $n$ if and only if both vanish identically, and by
+Lemma~\ref{lem:indep} each vanishes identically if and only if, after grouping its
+summands into similarity classes, every class contributes the zero rational function.
+\end{proposition}
 
 \begin{proof}
-By the Cayley--Hamilton theorem $M^{S'}$ is an integer combination of $I,M,\dots,M^{S'-1}$,
-and multiplying that relation on the left by $\iota^{\!\top}M^{\,j}$ and on the right by
-$\tau$ turns it into a relation among $S'+1$ consecutive values of $a$.
+The two displays are the definition of $T$ with $n-i$ written in the form $2j$ or $2j+1$:
+for $n=2m$ the index $n-i$ is even exactly when $i$ is, and for $n=2m+1$ exactly when $i$
+is odd. Every $e_{\epsilon}(m-s)$ is a sum of hypergeometric terms in $m$, and
+$p_{i}(2m)$, $p_{i}(2m+1)$ are polynomials in $m$, so each display is a finite sum of
+hypergeometric terms. Within a similarity class every summand is the class representative
+times a rational function, so the class contributes the representative times the sum of
+those rational functions; the classes are pairwise dissimilar by construction, and
+Lemma~\ref{lem:indep} applies. Finally $n$ ranges over both parities, so $T(n)=0$ for all
+large $n$ is exactly the conjunction of the two.
 \end{proof}
 
-\section{Why the question has to be asked of a tail}
+\section{The computation for A081181}
 
-Running Berlekamp--Massey on the sequence from its first term returns an order LARGER than $74$: the opening terms do not satisfy the recurrence, and a recurrence that holds only eventually always looks longer when the exceptional terms are included. That is not evidence against the entry. An OEIS empirical recurrence is asserted for $n$ beyond some index, not from the first term, so the question has to be asked of the tails. It was asked of each tail in turn, and the tail beginning at $n=2$ is the first whose minimal order is exactly the stated $74$.
-
-\begin{lemma}\label{lem:bm}
-A sequence known to satisfy some linear recurrence of order at most $S'$ is determined,
-together with its minimal recurrence, by any $2S'$ consecutive terms: Berlekamp--Massey applied
-to them returns that minimal recurrence exactly.
-\end{lemma}
-
-Applied to $2S'=166$ exact terms from $n=2$ on, it returns order $74$ --- the
-order the entry states --- with integer coefficients:
-\[
-a(n)\;=\;\sum_{i=1}^{74}c_i\,a(n-i),
-\]
-\begin{center}\small
-\begin{tabular}{cccccccc}
-$c_{1}$ & $226$ & $c_{20}$ & $-1246467103020400$ & $c_{39}$ & $-5106452587324796218$ & $c_{58}$ & $-2699410839618021759$ \\
-$c_{2}$ & $693$ & $c_{21}$ & $-5508255352371160$ & $c_{40}$ & $2467613681967678752$ & $c_{59}$ & $-460730960111588310$ \\
-$c_{3}$ & $-23678$ & $c_{22}$ & $25047984761949083$ & $c_{41}$ & $17039563531521605638$ & $c_{60}$ & $395125673815136394$ \\
-$c_{4}$ & $-181091$ & $c_{23}$ & $-921368268294190$ & $c_{42}$ & $10781217014628719771$ & $c_{61}$ & $303287572181377062$ \\
-$c_{5}$ & $2213828$ & $c_{24}$ & $-59730699027083090$ & $c_{43}$ & $69382524442948718$ & $c_{62}$ & $262327588095820068$ \\
-$c_{6}$ & $5325009$ & $c_{25}$ & $40631378521459194$ & $c_{44}$ & $12156151484816540654$ & $c_{63}$ & $125312329925539632$ \\
-$c_{7}$ & $-276870298$ & $c_{26}$ & $-13979110913298979$ & $c_{45}$ & $5095771529010018944$ & $c_{64}$ & $-133660449588843432$ \\
-$c_{8}$ & $1185266447$ & $c_{27}$ & $-45403085572819750$ & $c_{46}$ & $-14462049206808821399$ & $c_{65}$ & $-119836842379154424$ \\
-$c_{9}$ & $14468765092$ & $c_{28}$ & $384123995073927622$ & $c_{47}$ & $-9966617809907836848$ & $c_{66}$ & $-15039208611201600$ \\
-$c_{10}$ & $-93388379888$ & $c_{29}$ & $-430823724265766858$ & $c_{48}$ & $-13000815465243800430$ & $c_{67}$ & $-10062929761436880$ \\
-$c_{11}$ & $-253358538544$ & $c_{30}$ & $-1555140420011068517$ & $c_{49}$ & $-12543740357289226904$ & $c_{68}$ & $17287488343713312$ \\
-$c_{12}$ & $2599824671183$ & $c_{31}$ & $521706890146161660$ & $c_{50}$ & $-3683840406530978372$ & $c_{69}$ & $17672060138892192$ \\
-$c_{13}$ & $2209740578898$ & $c_{32}$ & $2946226576031067318$ & $c_{51}$ & $7929510056180968806$ & $c_{70}$ & $-37871931179520$ \\
-$c_{14}$ & $-39166542398674$ & $c_{33}$ & $2215767418747375092$ & $c_{52}$ & $1690994771617906494$ & $c_{71}$ & $-1902877202441088$ \\
-$c_{15}$ & $2200557632876$ & $c_{34}$ & $1805361639283735183$ & $c_{53}$ & $10623207271429383902$ & $c_{72}$ & $-271553868513792$ \\
-$c_{16}$ & $314837262211337$ & $c_{35}$ & $-1735976654403425770$ & $c_{54}$ & $6230748871483056159$ & $c_{73}$ & $-163051336682496$ \\
-$c_{17}$ & $-228140561587880$ & $c_{36}$ & $-8179939007786373917$ & $c_{55}$ & $685473548137075674$ & $c_{74}$ & $-42845606719488$ \\
-$c_{18}$ & $-1216926903837371$ & $c_{37}$ & $-6318742757162596574$ & $c_{56}$ & $-1585439530418791908$ &  &  \\
-$c_{19}$ & $2057330996717578$ & $c_{38}$ & $-236870957465717171$ & $c_{57}$ & $-1397536883069218002$ &  &  \\
-\end{tabular}
-\end{center}
-
-\section{The recurrence, and the identification}
+Carrying out Proposition~\ref{prop:split} with the coefficients of \eqref{eq:conj} and the
+two halves \eqref{eq:halves}, every similarity class of $T(2m)$ contributes zero, and so
+does every similarity class of $T(2m+1)$. The even half splits into one class
+and the odd half into one class.
 
 \begin{theorem}
-The recurrence above holds for every $n\ge76$, and it is the recurrence OEIS A241116 records.
+For all $n\ge 3$,
+\[
+8 n \left(n + 3\right) \left(1845 n - 2882\right)\,a(n) -  4 \left(5097 n^{3} - 11143 n^{2} - 42110 n + 27416\right)\,a(n-1) -  6 \left(16605 n^{3} + 7272 n^{2} + 16701 n - 9490\right)\,a(n-2) + 3 \left(3 n - 5\right) \left(3 n - 4\right) \left(5097 n - 949\right)\,a(n-3)
+\]
 \end{theorem}
 
 \begin{proof}
-That it holds is Lemma~\ref{lem:bm} applied to the tail from $n=2$, whose minimal
-recurrence it is.
-
-For the identification, write $q_{\min}$ for the characteristic polynomial of that minimal
-recurrence, $x^{74}-c_1x^{74-1}-\dots-c_{74}$. Its constant term is
-$-c_{74}=42845606719488$, which is not zero, so $q_{\min}(0)\neq0$ and $q_{\min}$ has no
-root at the origin. A solution of a constant-coefficient recurrence is a combination of terms
-$n^{k}\lambda^{n}$ with $\lambda$ a root of its characteristic polynomial, and only the
-components with $\lambda=0$ vanish after finitely many terms. Since $q_{\min}$ has none, no
-component of $a$ dies out, and the minimal recurrence of every further tail is again
-$q_{\min}$ --- the order cannot drop below $74$ at any later starting point.
-
-Now let $q$ be the characteristic polynomial of whatever recurrence the entry asserts. The
-entry asserts it has order $74$, so $\deg q=74$, and it is monic. It holds from some
-index $t$ on. From $\max(t,2)$ on, the sequence satisfies both $q$ and $q_{\min}$, and
-the minimal polynomial of that tail is $q_{\min}$ by the previous paragraph; therefore
-$q_{\min}\mid q$. Both are monic of degree $74$, so $q=q_{\min}$.
+Both residue classes vanish identically by the computation above, and every integer $n$
+lies in one of them. The excluded values are those at which a class residual has a pole or
+a term of \eqref{eq:cf} is undefined.
 \end{proof}
 
 \section{Verification}
 
-Four checks, all in exact integer or rational arithmetic.
+Two checks were made, and both are independent of the algebra above.
 
-First, the walk model reproduces all $12$ terms the entry publishes, exactly. This is
-what ties the model to the entry, and it is the only place where reading the entry's English
-enters the argument.
+First, the closed form \eqref{eq:cf} was evaluated at the first $13$ indices and
+compared term by term with the entry's DATA; the values agree exactly, on both parities. A
+formula that did not reproduce the entry's own terms would not have been used, and the
+alignment was fixed by that comparison rather than assumed.
 
-Second, the order was computed twice by independent routes: once modulo a $61$-bit prime, where
-every intermediate is a machine word, and once over $\mathbb{Q}$ in exact rational arithmetic.
-Both return $74$, and the exact run additionally confirms every coefficient is an integer
---- had any been a proper fraction the recurrence would not be the entry's.
-
-Third, the recovered recurrence was evaluated directly on the entry's own published terms, with
-no matrices and no Berlekamp--Massey involved. It holds at each of the $0$ indices where
-the entry publishes enough earlier terms to test it.
-
-Fourth, the last coefficient was checked to be nonzero, which is what the identification above
-turns on; it is $-42845606719488$.
-
-\begin{remark}
-The conjecture's own statement was never read. The entry pins it down to the family of
-order-$74$ recurrences this sequence satisfies from some point on, and that family turns
-out to have exactly one member.
-\end{remark}
+Second, the conjectured recurrence \eqref{eq:conj} was evaluated on the published terms in
+exact integer arithmetic at every index where it applies: $26$ instances beginning at
+$n=3$, all of them zero. This is not part of the proof, which is symbolic, but it
+would have caught a transcription error in the coefficients.
 
 \begin{thebibliography}{9}
-\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A241116.
-\bibitem{massey} J.~L.~Massey, Shift-register synthesis and BCH decoding, \emph{IEEE
-Trans. Inform. Theory} \textbf{15} (1969), 122--127.
-\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{kauers} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011.
-(C-finite sequences and their closure properties.)
-\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
-University Press, 2013.
+\bibitem{AB} M.~Petkov\v{s}ek, H.~S.~Wilf and D.~Zeilberger, \emph{A=B}, A K Peters,
+Wellesley MA, 1996.
+\bibitem{OEIS} OEIS Foundation Inc., \emph{The On-Line Encyclopedia of Integer Sequences},
+entry \href{https://oeis.org/A081181}{A081181}, 2025-10-19.
+\bibitem{GKP} R.~L.~Graham, D.~E.~Knuth and O.~Patashnik, \emph{Concrete Mathematics},
+2nd ed., Addison-Wesley, 1994.
 \end{thebibliography}
 
 \end{document}

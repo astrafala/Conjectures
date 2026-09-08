@@ -12,14 +12,14 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A282051, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A281472, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A282051 counts $n\times2$ arrays over $\{0,\dots,2\}$ subject to a condition imposed on
+OEIS A281472 counts $4\times n$ arrays over $\{0,\dots,1\}$ subject to a condition imposed on
 every CELL over a neighbour set the entry names, and counted UP TO RELABELLING of the
 alphabet; it carries an empirical recurrence of order $5$ contributed by
 R.~H.~Hardin. It is true, and it is decidable rather than empirical. What is counted is
@@ -33,20 +33,20 @@ Cayley--Hamilton theorem bounding the work.
 
 \section{The conjecture}
 
-OEIS A282051 is ``Number of n X 2 0..2 arrays with no element unequal to more than four of its king-move neighbors and with new values introduced in order 0 sequentially upwards.''. It has offset $1$ and begins
+OEIS A281472 is ``Number of 4 X n 0..1 arrays with no element equal to more than two of its horizontal, diagonal or antidiagonal neighbors and with new values introduced in order 0 sequentially upwards.''. It has offset $1$ and begins
 \[
-2, 14, 91, 600, 4039, 27212, 183195, 1233336,\ \dots
+8, 81, 60, 96, 130, 176, 260, 406,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 8*a(n-1) - 11*a(n-2) + 20*a(n-3) - 24*a(n-4) + 8*a(n-5).
+Empirical: a(n) = 2*a(n-1) - a(n-2) + a(n-3) - a(n-5) for n>9.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Feb 20 2019 10:42:34, revision 10) this is still
+As of the ``Last modified'' line on the live entry (Feb 19 2019 14:41:06, revision 7) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{Patterns are a combination of counts}
 
-The clause ``new values $0..2$ introduced in row major order'' says that the arrays
+The clause ``new values $0..1$ introduced in row major order'' says that the arrays
 counted are the canonical representatives of their EQUALITY PATTERNS: two arrays that differ
 only by a permutation of the alphabet are one object. Write $N_j$ for the number of admissible
 patterns using exactly $j$ letters and $L_i$ for the number of admissible ARRAYS over an
@@ -56,7 +56,7 @@ its letters into the alphabet, so
 L_i\;=\;\sum_{j}N_j\,i(i-1)\cdots(i-j+1),
 \]
 a triangular system with nonzero diagonal, hence invertible over $\mathbb{Q}$. The entry
-counts $a=N_1+\dots+N_{3}$, so
+counts $a=N_1+\dots+N_{2}$, so
 \[
 a\;=\;\bigl(\mathbf{1}^{\!\top}F^{-1}\bigr)L ,
 \]
@@ -74,31 +74,31 @@ value or compares sizes.
 The entry names the neighbours it means --- horizontal is left and right, vertical is up and
 down, diagonal is northwest-to-southeast, antidiagonal is northeast-to-southwest, king-move is
 all eight --- and every such set lies inside the $3\times3$ square centred on the cell. Here
-the set is $\{(-1,-1), (-1,0), (-1,1), (0,-1), (0,1), (1,-1), (1,0), (1,1)\}$, written as offsets (row, column) from the cell. Every cell carries
+the set is $\{(-1,0), (1,0), (-1,-1), (1,1), (1,-1), (-1,1)\}$, written as offsets (row, column) from the cell. Every cell carries
 the condition
 \[
-\text{no cell is unequal to more than 4 of its king-move neighbours},
+\text{no cell is equal to more than 2 of its horizontal, diagonal or antidiagonal neighbours},
 \]
 and the count of neighbours enters it, so the boundary is not a detail that can be papered
-over: a cell in the interior has $8$ neighbours in this set and a cell on the boundary
+over: a cell in the interior has $6$ neighbours in this set and a cell on the boundary
 fewer, and a condition such as ``a strict majority of its neighbours'' therefore means
 different things at the two. In particular one cannot pad the array with a border of zeros ---
-that would give every cell the full $8$ and change what is being counted. The outside is
+that would give every cell the full $6$ and change what is being counted. The outside is
 therefore carried
-explicitly, as a sentinel row above the first and below the last and as a sentinel column
+explicitly, as a sentinel column above the first and below the last and as a sentinel column
 either side, and a neighbour that falls outside is simply absent from both counts.
 
-Write an array as a sequence of rows $u_1,\dots,u_L$, each in
-$\{0,\dots,2\}^{2}$. The neighbourhood of a cell in row $u_i$ meets $u_{i-1}$,
+Write an array as a sequence of columns $u_1,\dots,u_L$, each in
+$\{0,\dots,1\}^{4}$. The neighbourhood of a cell in column $u_i$ meets $u_{i-1}$,
 $u_i$ and $u_{i+1}$ and nothing else. Take as vertices the pairs
-$(r,s)\in(\{0,\dots,2\}^{2}\cup\{\varnothing\})\times\{0,\dots,2\}^{2}$,
-and put an edge $(r,s)\to(s,t)$ when row $s$ satisfies the condition at every one of its
-$2$ cells, given $r$ above and $t$ below. An array with $L$ rows is then a walk of length
-$L-1$ starting at $(\varnothing,u_1)$, each step settling one row, and the last row is
+$(r,s)\in(\{0,\dots,1\}^{4}\cup\{\varnothing\})\times\{0,\dots,1\}^{4}$,
+and put an edge $(r,s)\to(s,t)$ when column $s$ satisfies the condition at every one of its
+$4$ cells, given $r$ above and $t$ below. An array with $L$ columns is then a walk of length
+$L-1$ starting at $(\varnothing,u_1)$, each step settling one column, and the last column is
 settled by the terminal weight, which evaluates it with $\varnothing$ below. Hence,
 with $M$ the adjacency matrix, $\iota$ the starting vector and $\tau$ the terminal weight,
 \[
-a(n)\;=\;\frac{1}{6}\,\iota^{\!\top}M^{\,n-1}\tau ,
+a(n)\;=\;\frac{1}{2}\,\iota^{\!\top}M^{\,n-1}\tau ,
 \]
 the exponent fixed by the entry's own shape and checked against its published terms. In
 particular $a$ is $C$-finite.
@@ -123,24 +123,24 @@ nonzero $u_j$ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;8\,a(n-1) - 11\,a(n-2) + 20\,a(n-3) - 24\,a(n-4) + 8\,a(n-5)
+a(n)\;=\;2\,a(n-1) - a(n-2) + a(n-3) - a(n-5)
 \]
-for every $n>5$.
+for every $n>9$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $5$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly. Those
-integers vanish from the index corresponding to $n=5+1$ onwards, and the run was
+integers vanish from the index corresponding to $n=9+1$ onwards, and the run was
 continued until the working vector was identically zero, which settles all larger $j$ at once.
-By Lemma~\ref{lem:crit} the recurrence holds for every $n>5$.
+By Lemma~\ref{lem:crit} the recurrence holds for every $n>9$. The bound is exact: at $n=9$ the recurrence fails on the entry's own published terms, so no larger range holds.
 \end{proof}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the transfer model reproduces all $20$ terms the entry publishes, exactly, in
+First, the transfer model reproduces all $34$ terms the entry publishes, exactly, in
 integer arithmetic. That check earned its place here. The neighbour offsets are named in the
 array's own frame --- horizontal means along a row --- but when the entry fixes the first
 dimension, as in ``$2\times n$'', the walk runs along columns and the two components of every
@@ -157,7 +157,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A282051.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A281472.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

@@ -12,47 +12,46 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{An element and the cells around it: OEIS A180752}
+\title{A condition on each element and its neighbours: OEIS A183436}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{7 September 2026}
+\date{6 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A180752 carries an empirical recurrence of order $5$ contributed by R.~H.~Hardin. It is
-true, and it is decidable rather than empirical. The entry's condition is decided by a bounded amount of state carried down the array; the
+OEIS A183436 carries an empirical recurrence of order $6$ contributed by R.~H.~Hardin. It is
+true, and it is decidable rather than empirical. The entry's condition names only cells one step apart, so it is decided by a window of
+three consecutive lines; the
 admissible windows are the vertices of a finite digraph and the arrays counted are exactly the
-walks in it. Hence $a(n)$ is a walk count on $S=7$ vertices and is $C$-finite, and whether the
+walks in it. Hence $a(n)$ is a walk count on $S=8$ vertices and is $C$-finite, and whether the
 conjectured recurrence annihilates it is settled by a finite exact computation, with the
-Cayley--Hamilton theorem bounding the work. The entry does not count the arrays themselves but $1/2$ of them, so every count below is divided by $2$; the division is exact at every term, which is itself a check on the model.
+Cayley--Hamilton theorem bounding the work.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
 \section{The conjecture}
 
-OEIS A180752 is ``Half the number of nX3 binary arrays with each element equal to at least two neighbors.''. It has offset $1$ and begins
+OEIS A183436 is ``Number of n X 3 binary arrays with every 1 having exactly one king-move neighbor equal to 1.''. It has offset $1$ and begins
 \[
-0, 1, 1, 2, 3, 7, 14, 31,\ \dots
+3, 13, 29, 89, 273, 751, 2221, 6485,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 2*a(n-1) + a(n-2) - a(n-3) - a(n-5).
+Empirical: a(n) = a(n-1) + 3*a(n-2) + 8*a(n-3) - a(n-4) - 2*a(n-5) - 2*a(n-6).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 01:08:19, revision 9) this is still
+As of the ``Last modified'' line on the live entry (Mar 29 2018 05:30:41, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{The count is a walk count}
 
-The entry counts arrays with $3$ columns over the alphabet $\{0,1\}$, growing one row at a time, and asks that every element must equal at least $2$ of its horizontal and vertical neighbours.
+The entry counts arrays with $3$ columns over the alphabet $\{0,1\}$, growing one row at a time. Its condition is that every entry equal to $1$ must have exactly $1$ of its eight king-move neighbours equal to $1$.
 
-The furthest that condition reaches is $1$ row, so a window of $3$ consecutive rows decides it for the row in the middle. Carry $2$ rows as the state; a row is judged when the row $1$ beyond it arrives, and the last $1$ row --- the ones with nothing far enough beyond them --- are judged by the end vector. A neighbour off the edge of the array is not a neighbour, which is what the entry means and what keeps the first few terms small.
+Every cell named there lies at most one step away, so three consecutive rows decide the condition on the middle one completely. Carry two consecutive rows as the state; when a new row arrives, the row it follows has all its neighbours present and is tested then, and the row with nothing after it is tested by the end vector. That is also where the boundary is honest: a cell in the first row has nothing before it and a cell in the last has nothing after it, and a missing neighbour is not a neighbour rather than a wrapped-round one.
 
-The entry counts not the arrays themselves but $1/2$ of them, so every count below is divided by $2$; the division comes out exact at every term, which is itself a check on the model.
-
-Merging vertices with identical futures leaves $S=7$. An admissible array is exactly a walk, so with $M$ the adjacency matrix and $\iota,\tau$ the vectors recording which states may begin and end an array,
+Vertices with identical futures are merged, which leaves $S=8$. An admissible array is exactly a walk, so with $M$ the adjacency matrix and $\iota,\tau$ the vectors recording which states may begin and end an array,
 \[
-a(n)\;=\;\tfrac{1}{2}\,\iota^{\!\top}M^{\,n-1}\tau ,
+a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau ,
 \]
 the exponent fixed by the entry's own shape and checked against its published terms. In
 particular $a$ is $C$-finite.
@@ -60,7 +59,7 @@ particular $a$ is $C$-finite.
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{5}-\sum_i c_it^{5-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{6}-\sum_i c_it^{6-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -68,7 +67,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+5}-\sum_ic_iM^{j+5-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+6}-\sum_ic_iM^{j+6-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -78,15 +77,15 @@ changes nothing here.
 
 \begin{theorem}
 \[
-a(n)\;=\;2\,a(n-1) + a(n-2) - a(n-3) - a(n-5)
+a(n)\;=\;a(n-1) + 3\,a(n-2) + 8\,a(n-3) - a(n-4) - 2\,a(n-5) - 2\,a(n-6)
 \]
-for every $n>5$.
+for every $n>6$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $5$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $6$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=5+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=6+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -94,7 +93,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $32$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $26$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
@@ -111,7 +110,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A180752.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A183436.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

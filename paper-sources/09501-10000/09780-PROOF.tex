@@ -12,141 +12,137 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A295203: recovering a conjecture that is not written down}
+\title{The empirical recurrence for OEIS A207846, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{2 September 2026}
+\date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A295203 records ``Empirical recurrence of order $85$'', with the recurrence itself in a
-linked file rather than in the entry. The conjecture can nevertheless be settled, and the
-recurrence recovered, without reading that file. The entry counts arrays under a condition
-local to a bounded window of lines, so the count is a walk count on a finite digraph and
-satisfies some monic recurrence of order at most the number of its states with distinct
-futures, here $S'=255$; Berlekamp--Massey applied to $2S'$ exact
-terms therefore returns the MINIMAL such recurrence. Its order is exactly $85$, the order
-the entry states, and the same is true of every tail of the sequence. Any recurrence of order
-$85$ that the sequence satisfies from any point on must then have a characteristic
-polynomial that is a multiple of the minimal one and of the same degree, hence equal to it. So
-the entry's recurrence is the one displayed here, whatever its file contains, and it is
-proved.
+OEIS A207846 counts arrays over $\{0,\dots,1\}$ of width $3$ that avoid the patterns
+$(0,0,0), (1,1,1)$ along one axis and $(0,0,0), (0,0,1)$ along the other, and carries an empirical recurrence of
+order $2$ contributed by R.~H.~Hardin. It is true. The patterns have length $3$, so
+the constraint across the growing direction ties together $3$ consecutive columns: taking a
+window of $2$ consecutive columns as a state makes the array a walk in a finite digraph
+on $S=36$ vertices, and $a(n)=\mathbf{1}^{\!\top}P^{\,n-2}\mathbf{1}$. Writing $q$
+for the characteristic polynomial of the conjectured recurrence, the residual is
+$\mathbf{1}^{\!\top}P^{\,n-2-2}q(P)\mathbf{1}$, which vanishes identically
+beyond a threshold that the computation pins down exactly. Finite, exact, integer.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 68R15, 15B36.\normalsize
 
-\section{A conjecture one cannot read}
+\section{The sequence and the conjecture}
 
-OEIS A295203 is ``Number of nX6 0..1 arrays with each 1 horizontally or vertically adjacent to 2 or 4 1s.''. It has offset $1$ and begins
+OEIS A207846 is ``Number of 3 X n 0..1 arrays avoiding 0 0 0 and 0 0 1 horizontally and 0 0 0 and 1 1 1 vertically.''. It has offset
+$1$ and begins
 \[
-1, 9, 53, 284, 1597, 8241, 40924, 205338,\ \dots
+6, 36, 72, 180, 432, 1044, 2520,\ \dots
 \]
-The entry states:
-\begin{quote}
-Empirical recurrence of order 85 (see link above)
+The entry carries the following comment:
+\begin{quote}\small
+Empirical: a(n) = 2*a(n-1) + a(n-2) for n>3.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Nov 16 2017 21:58:18, revision 4) this is still
-recorded as empirical. The recurrence's coefficients are not in the entry text.
+As of the ``Last modified'' line on the live entry (Jun 25 2018 15:55:10, revision
+8) the statement is still recorded as empirical, and nothing on the entry
+records it as settled either way.
 
-\section{The count is a walk count}
+Written out, the claim is
+\begin{equation}\label{eq:conj}
+a(n)\;=\;2\,a(n-1) + a(n-2)
+\end{equation}
+for all $n>3$. The entry's array has a fixed number of rows and a growing number of
+columns, so the roles of the two directions are exchanged: what the entry calls the
+horizontal direction runs along the growing side. The transfer below is written in the
+growing direction throughout.
 
-The entry's condition is local: it constrains a bounded window of consecutive lines of the
-array and nothing further. The admissible configurations of one such window are the vertices
-of a finite digraph, an edge joining $u$ to $v$ when $v$ may follow $u$, and an admissible
-array is exactly a walk. Hence, with $M$ the adjacency matrix on $S=4096$ vertices,
-$a(n)=\iota^{\!\top}M^{\,j(n)}\tau$ for a linear reindexing $j$ fixed by the entry's shape
-and checked against its published terms. States with the same future contribute identically to $\iota^{\!\top}M^n\tau$, so they may be merged without changing any count; merging leaves $S'=255$ of the $4096$, and it is that smaller bound the computation below uses. By the Cayley--Hamilton theorem $M^{S}$ is an
-integer combination of $I,M,\dots,M^{S-1}$, so:
+\section{The array as a walk}
 
-\begin{lemma}\label{lem:cf}
-$a$ satisfies a monic linear recurrence with integer coefficients of order at most
-$S'=255$.
+Call a column \emph{admissible} if the word it forms contains none of the patterns
+$(0,0,0), (1,1,1)$ as $3$ consecutive entries. There are $6$ admissible columns; that condition
+involves a single column only.
+
+The remaining patterns $(0,0,0), (0,0,1)$ are forbidden along the other axis, so each of them
+constrains $3$ consecutive columns at a fixed position of the row. Take as state a
+window $w=\bigl(w^{(1)},\dots,w^{(2)}\bigr)$ of $2$ consecutive admissible
+columns, so $S=36$, and declare $w\to w'$ an edge when $w'$ is $w$ with its first entry
+dropped and one further admissible column $t$ appended, subject to: for every position
+$j$, the $3$-tuple read down the row $j$ across $w^{(1)},\dots,w^{(2)},t$
+is none of $(0,0,0), (0,0,1)$. Let $P$ be the adjacency matrix.
+
+\begin{lemma}\label{lem:walk}
+$a(n)=\mathbf{1}^{\!\top}P^{\,n-2}\mathbf{1}$ for every $n\ge2$.
 \end{lemma}
 
-\section{Recovering the recurrence}
+\begin{proof}
+An array of the entry's kind with $n$ columns is a sequence of $n$ admissible columns in
+which no forbidden pattern appears along the other axis. Reading it as the sequence of its
+overlapping windows of length $2$ turns it into a walk: consecutive windows overlap in
+$1$ columns by construction, and the edge condition is exactly the requirement on the one
+new $3$-tuple that each step creates. Conversely a walk reassembles into such an array,
+and the two constructions are mutually inverse. A walk of length $n-2$ visits $n-1$
+windows, that is $n$ columns; summing over all starting and ending states gives
+$\mathbf{1}^{\!\top}P^{\,n-2}\mathbf{1}$.
+\end{proof}
 
-\begin{lemma}\label{lem:bm}
-A sequence known to satisfy some linear recurrence of order at most $S$ is determined, together
-with its minimal recurrence, by its first $2S$ terms: Berlekamp--Massey applied to them returns
-that minimal recurrence exactly.
+\section{The criterion}
+
+Let $q(t)=t^{2}-\sum_i c_i t^{2-i}$ be the characteristic polynomial of
+\eqref{eq:conj} and $u_j=\mathbf{1}^{\!\top}P^{j}q(P)\mathbf{1}$.
+
+\begin{lemma}\label{lem:crit}
+$a(n)-\sum_i c_i a(n-i)=u_{\,n-2-2}$ whenever $n-2\ge2$. Hence
+\eqref{eq:conj} holds for every $n>t$ exactly when $u_j=0$ for every
+$j>t-2-2$. Moreover $(u_j)$ satisfies the monic linear recurrence whose
+characteristic polynomial is that of $P$, of degree $S$, so $S$ consecutive zeros force all
+later ones and the last nonzero $u_j$ pins $t$ down exactly.
 \end{lemma}
 
-Running it on $2S'=510$ exact terms of the model returns order $85$ --- the order the
-entry states --- with the integer coefficients
-\[
-a(n)\;=\;\sum_{i=1}^{85}c_i\,a(n-i),
-\]
-\begin{center}\small
-\begin{tabular}{cccccccc}
-$c_{1}$ & $7$ & $c_{23}$ & $-3603466$ & $c_{45}$ & $510985478$ & $c_{67}$ & $3579078$ \\
-$c_{2}$ & $-15$ & $c_{24}$ & $-6033535$ & $c_{46}$ & $466117789$ & $c_{68}$ & $5523787$ \\
-$c_{3}$ & $25$ & $c_{25}$ & $-5859961$ & $c_{47}$ & $285366263$ & $c_{69}$ & $-95715$ \\
-$c_{4}$ & $10$ & $c_{26}$ & $-4027775$ & $c_{48}$ & $347890288$ & $c_{70}$ & $-3419626$ \\
-$c_{5}$ & $-44$ & $c_{27}$ & $3400128$ & $c_{49}$ & $380804382$ & $c_{71}$ & $279592$ \\
-$c_{6}$ & $317$ & $c_{28}$ & $34694977$ & $c_{50}$ & $222958790$ & $c_{72}$ & $-131688$ \\
-$c_{7}$ & $-441$ & $c_{29}$ & $65080327$ & $c_{51}$ & $247189038$ & $c_{73}$ & $-159836$ \\
-$c_{8}$ & $-380$ & $c_{30}$ & $57521147$ & $c_{52}$ & $156335657$ & $c_{74}$ & $-129246$ \\
-$c_{9}$ & $117$ & $c_{31}$ & $59618093$ & $c_{53}$ & $-62117809$ & $c_{75}$ & $79954$ \\
-$c_{10}$ & $-3592$ & $c_{32}$ & $61117524$ & $c_{54}$ & $68720838$ & $c_{76}$ & $1844$ \\
-$c_{11}$ & $-2826$ & $c_{33}$ & $9242717$ & $c_{55}$ & $72198432$ & $c_{77}$ & $-24819$ \\
-$c_{12}$ & $-4150$ & $c_{34}$ & $-53405172$ & $c_{56}$ & $-67785311$ & $c_{78}$ & $-3511$ \\
-$c_{13}$ & $-15878$ & $c_{35}$ & $-200240057$ & $c_{57}$ & $-29371390$ & $c_{79}$ & $14207$ \\
-$c_{14}$ & $30770$ & $c_{36}$ & $-432469442$ & $c_{58}$ & $-125917150$ & $c_{80}$ & $5717$ \\
-$c_{15}$ & $59701$ & $c_{37}$ & $-445800343$ & $c_{59}$ & $-202263007$ & $c_{81}$ & $-368$ \\
-$c_{16}$ & $105016$ & $c_{38}$ & $-311597166$ & $c_{60}$ & $-95170057$ & $c_{82}$ & $-249$ \\
-$c_{17}$ & $242607$ & $c_{39}$ & $-280198147$ & $c_{61}$ & $-45125822$ & $c_{83}$ & $-27$ \\
-$c_{18}$ & $217600$ & $c_{40}$ & $-137857186$ & $c_{62}$ & $-6797306$ & $c_{84}$ & $22$ \\
-$c_{19}$ & $136672$ & $c_{41}$ & $20973696$ & $c_{63}$ & $27946797$ & $c_{85}$ & $-12$ \\
-$c_{20}$ & $-46108$ & $c_{42}$ & $141344229$ & $c_{64}$ & $6623766$ &  &  \\
-$c_{21}$ & $-1445658$ & $c_{43}$ & $435553059$ & $c_{65}$ & $21795014$ &  &  \\
-$c_{22}$ & $-2751376$ & $c_{44}$ & $593203246$ & $c_{66}$ & $7080040$ &  &  \\
-\end{tabular}
-\end{center}
+\begin{proof}
+Substituting Lemma~\ref{lem:walk} into the left side and factoring out
+$P^{\,n-2-2}$ gives the identity. The equivalence follows by letting the exponent
+run. For the last claim, Cayley--Hamilton gives $\chi(P)=0$ for the characteristic
+polynomial $\chi$ of $P$, so $\chi$ applied to the shift annihilates $(u_j)$; being monic of
+degree $S$, it propagates $S$ consecutive zeros forward.
+\end{proof}
+
+\section{The computation}
 
 \begin{theorem}
-The recurrence above holds for every $n$, and it is the recurrence the entry records.
+The recurrence \eqref{eq:conj} holds for every $n>3$. This is the statement of
+Section~1.
 \end{theorem}
 
 \begin{proof}
-It holds by Lemma~\ref{lem:bm}, which returns a recurrence the sequence satisfies from its
-first term. For the identification: the entry asserts that the sequence satisfies SOME
-recurrence of order $85$, possibly only from some index on. Let $q$ be that recurrence's
-characteristic polynomial and $q_{\min}$ the minimal polynomial of the tail of the sequence.
-Then $q_{\min}\mid q$. Berlekamp--Massey run on the sequence with its first $85+4$ terms
-removed returns order $85$ as well, so $\deg q_{\min}=85=\deg q$; both are monic, so
-$q=q_{\min}$, which is the polynomial computed above.
+The vector $q(P)\mathbf{1}\in\mathbb{Z}^{S}$ was formed by $2$ matrix--vector
+products in exact integer arithmetic and the $u_j$ evaluated in turn. They vanish from the
+index corresponding to $n=3+1$ onwards, and the run was continued past $S$ consecutive
+zeros, which by Lemma~\ref{lem:crit} settles every larger index.
 \end{proof}
 
 \section{Verification}
 
-Three checks.
+Three checks, each independent of the algebra above.
 
-First, the walk model reproduces all $22$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry, and it is the only place where reading
-the entry's English enters.
+First, the digraph was built directly from the entry's stated patterns and the walk counts
+compared against the entry's DATA at every one of the $27$ published indices; the
+values agree exactly, including the initial count of $6$ admissible columns. That is
+what ties the digraph to the sequence, and a model reproducing only part of the published
+data was rejected wherever it occurred.
 
-Second, the recovered recurrence was evaluated directly on those published terms, with no
-matrices and no Berlekamp--Massey involved, and holds at every index where the entry gives
-enough earlier terms to test it.
+Second, the recurrence \eqref{eq:conj} was evaluated on those published terms in exact
+integer arithmetic, with no matrices involved, and vanishes at every index the entry claims.
 
-Third, the order was computed twice by independent routes: once modulo a $61$-bit prime, where
-every intermediate is a machine word, and once in exact rational arithmetic; and once more on
-the sequence with its first $85+4$ terms removed, which is what the identification above
-requires. All three agree.
-
-\begin{remark}
-What is unusual here is that the conjecture's statement was never read. The entry pins it down
-to a one-parameter family --- the recurrences of order $85$ that this sequence satisfies
---- and that family turns out to have exactly one member.
-\end{remark}
+Third, the vanishing test of Lemma~\ref{lem:crit} was carried past $S=36$ consecutive
+zeros rather than to a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A295203.
-\bibitem{massey} J.~L.~Massey, Shift-register synthesis and BCH decoding, \emph{IEEE
-Trans. Inform. Theory} \textbf{15} (1969), 122--127.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A207846.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+University Press, 2009.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

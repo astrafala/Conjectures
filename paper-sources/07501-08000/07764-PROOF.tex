@@ -12,72 +12,52 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A188098, proved by transfer matrix}
+\title{A condition on every subblock: the empirical recurrence for OEIS A181249}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{2 September 2026}
+\date{7 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A188098 counts the $(n+3)\times5$ arrays over $\{0,\dots,1\}$ in which
-neighbouring $4\times4$ subblocks commute as matrices, and carries an empirical recurrence
-of order $9$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
-empirical. The condition ties together $4+1$ consecutive rows, so $4$ consecutive rows are
-a state, the count is a walk count on $S=708$ of them, and the conjectured recurrence is then
-settled by a finite exact computation.
+OEIS A181249 carries an empirical recurrence of order $11$ contributed by R.~H.~Hardin. It is
+true, and it is decidable rather than empirical. The entry's condition is a condition on every
+subblock of a fixed size, so it is decided by a bounded window of consecutive lines; the
+admissible windows are the vertices of a finite digraph and the arrays counted are exactly the
+walks in it. Hence $a(n)$ is a walk count on $S=13$ vertices and is $C$-finite, and whether the
+conjectured recurrence annihilates it is settled by a finite exact computation, with the
+Cayley--Hamilton theorem bounding the work.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 15A27, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
 \section{The conjecture}
 
-OEIS A188098 is ``Number of (n+3) X 5 binary arrays with every 4 X 4 subblock commuting with each horizontal and vertical neighbor 4 X 4 subblock.''. It has offset $1$ and begins
+OEIS A181249 is ``Number of nX6 binary matrices with no 2X2 block having four 1's.''. It has offset $1$ and begins
 \[
-708, 143, 243, 643, 1482, 2374, 2866, 3110,\ \dots
+64, 3105, 160697, 8191392, 419045269, 21418970801, 1095020802848, 55979092539545,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 2*a(n-1)-a(n-2)+a(n-4)-2*a(n-5)+a(n-6)+a(n-8)-a(n-9) for n>14.
+Empirical: a(n)=33*a(n-1)+908*a(n-2)+1687*a(n-3)-37947*a(n-4)-16572*a(n-5)+513993*a(n-6)-663729*a(n-7)-486540*a(n-8)+617409*a(n-9)+191835*a(n-10)-49140*a(n-11)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Feb 07 2018 14:35:39, revision 12) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 01:28:08, revision 7) this is still
 recorded as empirical, and nothing on the entry records it as proved.
-
-\section{What is being counted}
-
-The contiguous $4\times4$ subblocks of an $(n+3)\times5$ array form a grid of $n$
-rows and $2$ columns. Two subblocks that are neighbours in that
-grid OVERLAP: horizontally they share $4\times3$ entries, vertically
-$3\times4$. Nevertheless each is a $4\times4$ integer matrix in its own right, and
-the entry requires that every neighbouring pair, horizontal or vertical, commute --- that is,
-$AB=BA$ as matrices over $\mathbf{Z}$.
-
-At $n=1$ the array has $4$ rows and the grid is a single row of $2$
-subblocks, with only the horizontal pairs to test; the entry's first term is
-$708$, which the model reproduces along with every later term.
 
 \section{The count is a walk count}
 
-A subblock row is fixed by $4$ consecutive array rows, and the vertical condition compares
-two consecutive subblock rows, hence $4+1$ consecutive array rows. So take as state the
-$4$-tuple of consecutive rows whose subblock row has just been completed. A step appends one
-array row: that fixes the next subblock row, and the horizontal pairs inside it and the
-vertical pairs against the previous one are all settled there. An array of $n+3$ rows is
-a walk of $n-1$ steps and every walk comes from exactly one array, so
-\[
-a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,\qquad\iota=\tau=(1,\dots,1)^{\!\top},
-\]
-on the $S=708$ admissible $4$-tuples. In particular $a$ is $C$-finite.
+The entry counts arrays with $6$ columns over the alphabet $\{0,1\}$, growing one row at a time, and the condition it imposes is that no $2\times2$ subblock may contain $4$ ones.
 
-This state does not compress. What a step needs of the past is the previous subblock row, and
-for $5\ge4$ that row already determines the $4$ array rows it was built from, so nothing
-is lost by carrying the rows and nothing would be gained by carrying the matrices instead. The
-size of the construction is therefore $2^{4\cdot5}$ before the condition prunes
-it, which is what puts the wider members of this family out of reach rather than settling them.
+That condition is decided by a bounded window. A $2\times2$ subblock occupies $2$ consecutive rows, so a window of $2$ consecutive rows decides everything that the arrival of a new row settles; nothing outside the window is consulted. Take those windows as the vertices of a digraph, with an edge from $u$ to $v$ when $v$'s new row may follow $u$, and merge vertices with identical futures; that leaves $S=13$. An admissible array is exactly a walk, so with $M$ the adjacency matrix and $\iota,\tau$ the vectors recording which windows may begin and end an array,
+\[
+a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau ,
+\]
+the exponent fixed by the entry's own shape and checked against its published terms. In
+particular $a$ is $C$-finite.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{9}-\sum_i c_it^{9-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{11}-\sum_i c_it^{11-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -85,48 +65,54 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+9}-\sum_ic_iM^{j+9-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+11}-\sum_ic_iM^{j+11-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly.
+pins the threshold exactly. A constant factor in front of $a$ divides out of the residual and
+changes nothing here.
 \end{proof}
 
 \begin{theorem}
 \[
-a(n)\;=\;2\,a(n-1) - a(n-2) + a(n-4) - 2\,a(n-5) + a(n-6) + a(n-8) - a(n-9)
+a(n)\;=\;33\,a(n-1) + 908\,a(n-2) + 1687\,a(n-3) - 37947\,a(n-4) - 16572\,a(n-5) + 513993\,a(n-6) - 663729\,a(n-7) - 486540\,a(n-8) + 617409\,a(n-9) + 191835\,a(n-10) - 49140\,a(n-11)
 \]
-for every $n>14$.
+for every $n>11$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $9$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $11$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=14+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=11+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
-Three checks, each independent of the algebra above.
+Four checks, each independent of the algebra above.
 
-First, the model reproduces all $35$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $14$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
-Second, the conjectured recurrence was evaluated directly on those published terms, with no
+Second, the reading was pinned before the digraph was written, by a program that enumerates
+every array of the given shape one by one and tests the entry's condition on each subblock
+directly. That program shares no code with the transfer matrix, so an error in one does not
+hide an error in the other.
+
+Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
 arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A188098.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A181249.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{suprunenko} D.~A.~Suprunenko and R.~I.~Tyshkevich, \emph{Commutative Matrices},
-Academic Press, 1968.
+\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+University Press, 2009.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

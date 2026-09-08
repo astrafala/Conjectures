@@ -12,69 +12,90 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A237385, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A234771, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{2 September 2026}
+\date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A237385 counts arrays over $\{0,\dots,2\}$ subject to a condition on the order
-statistics of every $2\times2$ subblock, and carries an empirical recurrence of order
-$20$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical.
-The condition is local to two consecutive rows, so the count is a walk count on $S=81$
-states and is $C$-finite; whether the conjectured recurrence annihilates it is then settled by
-a finite exact computation, with the Cayley--Hamilton theorem bounding the work.
+OEIS A234771 counts arrays of width $3$ over $\{0,1,2,3,4\}$ subject to a condition read round the
+perimeter of every $2\times2$ subblock: the steps round each subblock rise by at most one in one of the two directions. The entry carries an empirical recurrence of
+order $23$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
+empirical: the condition is settled inside a bounded window of consecutive rows, so the
+count is a walk count on a finite digraph with $S=126$ vertices, and whether a linear
+recurrence holds for such a count is a finite computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 62G30.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A16, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A237385 is ``Number of (n+1)X(1+1) 0..2 arrays colored with the maximum plus the upper median minus the minimum of every 2X2 subblock.''. It has offset $1$ and begins
+OEIS A234771 is ``Number of (n+1)X(2+1) 0..4 arrays with 2X2 edge jumps all no more than +1 in one of the clockwise or counterclockwise directions but not both.''. It has offset $1$ and begins
 \[
-81, 434, 2336, 12624, 68064, 366568, 1976940, 10657560,\ \dots
+454, 3980, 28840, 247394, 1912554, 16146124, 127371542, 1063565190,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 30*a(n-3) +349*a(n-4) +818*a(n-5) +3504*a(n-6) +7320*a(n-7) +9876*a(n-8) +18056*a(n-9) -14960*a(n-10) -63872*a(n-11) -133008*a(n-12) -307168*a(n-13) -194624*a(n-14) +71296*a(n-15) +344832*a(n-16) +1077248*a(n-17) +985088*a(n-18) -16384*a(n-19) -212992*a(n-20)
+Empirical: a(n) = 9*a(n-1) +60*a(n-2) -657*a(n-3) -510*a(n-4) +14451*a(n-5) -9878*a(n-6) -143349*a(n-7) +195967*a(n-8) +711924*a(n-9) -1328829*a(n-10) -1738223*a(n-11) +4362370*a(n-12) +1713737*a(n-13) -7406892*a(n-14) +154943*a(n-15) +6781020*a(n-16) -1542017*a(n-17) -3326149*a(n-18) +1109694*a(n-19) +807890*a(n-20) -310656*a(n-21) -75048*a(n-22) +30144*a(n-23)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 10:08:33, revision 7) this is still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 08:25:35, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The $2\times2$ subblocks of an $(n+1)\times2$ array form an
-$n\times1$ grid. Colour each of them by $\sigma=-a+c+d$, where $a\le b\le c\le d$ are its four entries sorted --- its minimum, lower median, upper median and maximum. ``Coloured with'' is the entry's way of
-asking for a PROPER colouring of that grid: subblocks that are neighbours, horizontally or
-vertically, must receive different colours.
-
-That reading is fixed by the entries themselves rather than guessed. Take the upper median
-over $0..2$. A $2\times2$ array has one subblock and no neighbouring pair, so every one of the
-$3^4=81$ arrays qualifies; a $2\times3$ array has one horizontal pair and $294$ of its $729$
-arrays qualify; a $3\times3$ array has two horizontal and two vertical pairs and $722$
-qualify. Those are the three numbers the corresponding entries publish. Imposing no condition
-would give $729$ at $2\times3$, and counting the two diagonal pairs as neighbours as well
-would give $0$ at $3\times3$, so neither is what is meant.
-
-\section{The count is a walk count}
-
-A subblock's colour is decided by two consecutive rows of the array, and
-the vertical condition compares two consecutive rows of the subblock grid, so the state is the
-PAIR of consecutive array rows. A step appends a row: that fixes a new subblock row, which
-must be properly coloured along itself and must differ from the previous subblock row in every
-position. An $(n+1)$-row array is a walk of $n-1$ steps, so
+The arrays have $3$ columns and a growing number of rows, with entries in $\{0,1,2,3,4\}$. A
+$2\times2$ subblock is a set of four cells
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,\qquad\iota=\tau=(1,\dots,1)^{\!\top},
+B=\begin{pmatrix} p & q \\ r & s \end{pmatrix},
+\qquad p=x(i,j),\; q=x(i,j+1),\; r=x(i+1,j),\; s=x(i+1,j+1).
 \]
-over the $S=81$ pairs whose own subblock row is properly coloured.
-The alignment of the walk index with the entry's own $n$ was checked against its published
-terms rather than assumed. In particular $a$ is $C$-finite.
+Its perimeter is a cycle of four cells, walked clockwise as $p\to q\to s\to r\to p$ and
+counterclockwise as $p\to r\to s\to q\to p$. Write
+\[
+\mathrm{cw}(B)=[p<q]+[q<s]+[s<r]+[r<p],\qquad
+\mathrm{ccw}(B)=[p<r]+[r<s]+[s<q]+[q<p]
+\]
+for the number of steps at which the value rises, going each way round.
+
+\begin{lemma}\label{lem:sum}
+$\mathrm{cw}(B)+\mathrm{ccw}(B)=4-\#\{\text{edges of the cycle with equal ends}\}$.
+\end{lemma}
+
+\begin{proof}
+Each of the four edges of the square is walked once by each cycle, and in opposite directions.
+An edge with distinct ends therefore contributes exactly one rise, to one of the two counts;
+an edge with equal ends contributes to neither.
+\end{proof}
+
+The condition the entry imposes is this: write
+\[
+J_{\mathrm{cw}}(B)=\max(q-p,\;s-q,\;r-s,\;p-r),\qquad J_{\mathrm{ccw}}(B)=\max(r-p,\;s-r,\;q-s,\;p-q)
+\]
+for the largest step taken going round the subblock in each of the two directions. The condition is that for every subblock $B$, exactly one of $J_{\mathrm{cw}}(B)\le 1$, $J_{\mathrm{ccw}}(B)\le 1$ holds.
+
+\section{A bounded window}
+
+Two consecutive rows decide every subblock lying between them, and the condition of Section 2 is a condition on single subblocks only. So the state is the row just written, and nothing else.
+
+One step of the walk writes a whole row. The row is filled left to right, and the subblock
+closed by positions $j-1,j$ is tested the moment position $j$ is written, so a partial row that
+cannot be completed is abandoned rather than enumerated. The walk starts at the state standing
+for the empty array, so that a walk of $n$ steps is an array of $n$ rows.
+
+The end vector is all ones: an array may stop after any row. Thus
+\[
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=126,
+\]
+for the transfer matrix $M$ on those $S$ states. The walk index $j$ and the entry's own $n$
+differ by a constant, read off by matching the published terms rather than assumed. In
+particular $a$ is $C$-finite, and every question about linear recurrences it satisfies is
+decidable.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{20}-\sum_i c_it^{20-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{23}-\sum_i c_it^{23-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -82,7 +103,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+20}-\sum_ic_iM^{j+20-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+23}-\sum_ic_iM^{j+23-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -91,39 +112,42 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;30\,a(n-3) + 349\,a(n-4) + 818\,a(n-5) + 3504\,a(n-6) + 7320\,a(n-7) + 9876\,a(n-8) + 18056\,a(n-9) - 14960\,a(n-10) - 63872\,a(n-11) - 133008\,a(n-12) - 307168\,a(n-13) - 194624\,a(n-14) + 71296\,a(n-15) + 344832\,a(n-16) + 1077248\,a(n-17) + 985088\,a(n-18) - 16384\,a(n-19) - 212992\,a(n-20)
+a(n)\;=\;9\,a(n-1) + 60\,a(n-2) - 657\,a(n-3) - 510\,a(n-4) + 14451\,a(n-5) - 9878\,a(n-6) - 143349\,a(n-7) + 195967\,a(n-8) + 711924\,a(n-9) - 1328829\,a(n-10) - 1738223\,a(n-11) + 4362370\,a(n-12) + 1713737\,a(n-13) - 7406892\,a(n-14) + 154943\,a(n-15) + 6781020\,a(n-16) - 1542017\,a(n-17) - 3326149\,a(n-18) + 1109694\,a(n-19) + 807890\,a(n-20) - 310656\,a(n-21) - 75048\,a(n-22) + 30144\,a(n-23)
 \]
-for every $n>20$.
+for every $n>23$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $20$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $23$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=20+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=23+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
-Three checks, each independent of the algebra above.
+Four checks, each independent of the algebra above.
 
-First, the model reproduces all $19$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry: the digraph is built by reading the
-entry's English, and a misreading gives different counts.
+First, the model reproduces all $17$ terms the entry publishes, exactly, in integer
+arithmetic.
 
-Second, the conjectured recurrence was evaluated directly on those published terms, with no
+Second, the count was recomputed for the smallest arrays straight from the definition: every
+array of the stated width and a few rows was written out cell by cell over $\{0,1,2,3,4\}$, each of
+its $2\times2$ subblocks was read round its perimeter, and the condition of Section 2 was
+applied as stated. No window, no state and no recurrence is involved in that computation, and
+the published terms came back.
+
+Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
 arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A237385.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A234771.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{david} H.~A.~David and H.~N.~Nagaraja, \emph{Order Statistics}, 3rd ed., Wiley,
-2003.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

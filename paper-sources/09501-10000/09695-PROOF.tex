@@ -12,143 +12,134 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A297587: recovering a conjecture that is not written down}
+\title{The empirical recurrence for OEIS A229374, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{2 September 2026}
+\date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A297587 records ``Empirical recurrence of order $94$'', with the recurrence itself in a
-linked file rather than in the entry. The conjecture can nevertheless be settled, and the
-recurrence recovered, without reading that file. The entry counts arrays under a condition
-local to a bounded window of lines, so the count is a walk count on a finite digraph and
-satisfies some monic recurrence of order at most the number of its states with distinct
-futures, here $S'=259$; Berlekamp--Massey applied to $2S'$ exact
-terms therefore returns the MINIMAL such recurrence. Its order is exactly $94$, the order
-the entry states, and the same is true of every tail of the sequence. Any recurrence of order
-$94$ that the sequence satisfies from any point on must then have a characteristic
-polynomial that is a multiple of the minimal one and of the same degree, hence equal to it. So
-the entry's recurrence is the one displayed here, whatever its file contains, and it is
-proved.
+OEIS A229374 counts arrays of width $2$ over $\{0,1,2\}$ containing no occurrence of certain short
+patterns, read along the rows, the columns or the diagonals. The entry carries an empirical
+recurrence of order $3$ contributed by R.~H.~Hardin. It is true, and it is decidable
+rather than empirical: no pattern is longer than $2$ letters and no direction moves the row
+index by more than one, so every occurrence lies inside $2$ consecutive array rows and the
+count is a walk count on $S=9$ states.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 68R15, 15A18.\normalsize
 
-\section{A conjecture one cannot read}
+\section{The conjecture}
 
-OEIS A297587 is ``Number of 6Xn 0..1 arrays with every 1 horizontally, diagonally or antidiagonally adjacent to 1 or 4 neighboring 1s.''. It has offset $1$ and begins
+OEIS A229374 is ``Number of n X 2 0..2 arrays avoiding 11 horizontally, 22 vertically and 00 diagonally or antidiagonally.''. It has offset $1$ and begins
 \[
-1, 85, 1243, 4428, 31171, 395011, 3355439, 21941552,\ \dots
+8, 30, 126, 518, 2138, 8818, 36374, 150038,\ \dots
 \]
-The entry states:
+The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical recurrence of order 94 (see link above)
+Empirical: a(n) = 4*a(n-1) + a(n-2) - 2*a(n-3).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jan 01 2018 11:16:32, revision 4) this is still
-recorded as empirical. The recurrence's coefficients are not in the entry text.
+As of the ``Last modified'' line on the live entry (Sep 14 2018 15:59:06, revision 9) this is still
+recorded as empirical, and nothing on the entry records it as proved.
 
-\section{The count is a walk count}
+\section{What is being counted}
 
-The entry's condition is local: it constrains a bounded window of consecutive lines of the
-array and nothing further. The admissible configurations of one such window are the vertices
-of a finite digraph, an edge joining $u$ to $v$ when $v$ may follow $u$, and an admissible
-array is exactly a walk. Hence, with $M$ the adjacency matrix on $S=4096$ vertices,
-$a(n)=\iota^{\!\top}M^{\,j(n)}\tau$ for a linear reindexing $j$ fixed by the entry's shape
-and checked against its published terms. States with the same future contribute identically to $\iota^{\!\top}M^n\tau$, so they may be merged without changing any count; merging leaves $S'=259$ of the $4096$, and it is that smaller bound the computation below uses. By the Cayley--Hamilton theorem $M^{S}$ is an
-integer combination of $I,M,\dots,M^{S-1}$, so:
-
-\begin{lemma}\label{lem:cf}
-$a$ satisfies a monic linear recurrence with integer coefficients of order at most
-$S'=259$.
-\end{lemma}
-
-\section{Recovering the recurrence}
-
-\begin{lemma}\label{lem:bm}
-A sequence known to satisfy some linear recurrence of order at most $S$ is determined, together
-with its minimal recurrence, by its first $2S$ terms: Berlekamp--Massey applied to them returns
-that minimal recurrence exactly.
-\end{lemma}
-
-Running it on $2S'=518$ exact terms of the model returns order $94$ --- the order the
-entry states --- with the integer coefficients
+The array has $2$ cells across, with entries in $\{0,1,2\}$. An OCCURRENCE of a pattern in a
+direction is a run of consecutive cells taken in that direction whose entries match the pattern
+in order; the array is counted when it has no occurrence at all. The entry names
 \[
-a(n)\;=\;\sum_{i=1}^{94}c_i\,a(n-i),
+\begin{array}{ll}
+\text{direction} & \text{forbidden patterns} \\[2pt]
+\text{along a row, left to right} & \mathtt{11} \\
+\text{down a column} & \mathtt{22} \\
+\text{down a diagonal, nw to se} & \mathtt{00} \\
+\text{down an antidiagonal, ne to sw} & \mathtt{00} \\
+\end{array}
 \]
-\begin{center}\small
-\begin{tabular}{cccccccc}
-$c_{1}$ & $3$ & $c_{25}$ & $137108591465$ & $c_{49}$ & $867681222081534$ & $c_{73}$ & $-222471581806$ \\
-$c_{2}$ & $20$ & $c_{26}$ & $-994236847874$ & $c_{50}$ & $37581719035671$ & $c_{74}$ & $-12201715916826$ \\
-$c_{3}$ & $172$ & $c_{27}$ & $1955225277334$ & $c_{51}$ & $-918871763233842$ & $c_{75}$ & $-8696249801054$ \\
-$c_{4}$ & $1032$ & $c_{28}$ & $103654059302$ & $c_{52}$ & $-1330149976309823$ & $c_{76}$ & $-6948743773369$ \\
-$c_{5}$ & $-4118$ & $c_{29}$ & $3707670663704$ & $c_{53}$ & $-454651944107685$ & $c_{77}$ & $4469444939603$ \\
-$c_{6}$ & $-26121$ & $c_{30}$ & $-6162368985712$ & $c_{54}$ & $579706856082091$ & $c_{78}$ & $6567005248160$ \\
-$c_{7}$ & $-72630$ & $c_{31}$ & $-3850665298877$ & $c_{55}$ & $1308172182829870$ & $c_{79}$ & $373278811872$ \\
-$c_{8}$ & $-4175$ & $c_{32}$ & $-11650754883238$ & $c_{56}$ & $865130343628788$ & $c_{80}$ & $-669619001958$ \\
-$c_{9}$ & $1717096$ & $c_{33}$ & $8564145041322$ & $c_{57}$ & $-74813749268167$ & $c_{81}$ & $-1169298730770$ \\
-$c_{10}$ & $3907660$ & $c_{34}$ & $19409731789953$ & $c_{58}$ & $-631140917322574$ & $c_{82}$ & $-611615415166$ \\
-$c_{11}$ & $-2878686$ & $c_{35}$ & $20182825335421$ & $c_{59}$ & $-685084586604634$ & $c_{83}$ & $63153376925$ \\
-$c_{12}$ & $-26795520$ & $c_{36}$ & $8427264234011$ & $c_{60}$ & $-203560877434736$ & $c_{84}$ & $142643484698$ \\
-$c_{13}$ & $-90783249$ & $c_{37}$ & $-40402120495144$ & $c_{61}$ & $184508373826857$ & $c_{85}$ & $103407324406$ \\
-$c_{14}$ & $-60118989$ & $c_{38}$ & $-59261520686820$ & $c_{62}$ & $282252816777909$ & $c_{86}$ & $10485588578$ \\
-$c_{15}$ & $341526095$ & $c_{39}$ & $-59138864478317$ & $c_{63}$ & $86256773415883$ & $c_{87}$ & $-27454609736$ \\
-$c_{16}$ & $1185388570$ & $c_{40}$ & $25556248826528$ & $c_{64}$ & $-47479115777437$ & $c_{88}$ & $-10397496648$ \\
-$c_{17}$ & $1272072813$ & $c_{41}$ & $103653086261304$ & $c_{65}$ & $-25241496866788$ & $c_{89}$ & $1516733600$ \\
-$c_{18}$ & $-781231796$ & $c_{42}$ & $272487350275679$ & $c_{66}$ & $-7143122180029$ & $c_{90}$ & $1216106560$ \\
-$c_{19}$ & $-11461492942$ & $c_{43}$ & $131522388694897$ & $c_{67}$ & $-5491175571451$ & $c_{91}$ & $234699648$ \\
-$c_{20}$ & $-12221462624$ & $c_{44}$ & $-140054356084112$ & $c_{68}$ & $-22670135943976$ & $c_{92}$ & $82361856$ \\
-$c_{21}$ & $8379670918$ & $c_{45}$ & $-482808650971833$ & $c_{69}$ & $-35692089421354$ & $c_{93}$ & $29675520$ \\
-$c_{22}$ & $29584702099$ & $c_{46}$ & $-474561023015084$ & $c_{70}$ & $6191115384955$ & $c_{94}$ & $3430400$ \\
-$c_{23}$ & $148134190457$ & $c_{47}$ & $65729013442431$ & $c_{71}$ & $32834912900344$ &  &  \\
-$c_{24}$ & $-287266062881$ & $c_{48}$ & $800841699219646$ & $c_{72}$ & $26436739822658$ &  &  \\
-\end{tabular}
-\end{center}
+
+
+\section{Every occurrence lies in $2$ consecutive rows}
+
+\begin{lemma}\label{lem:win}
+Each of the directions above changes the row index by $0$ or $1$ from one cell of a run to the
+next, and no pattern is longer than $2$ letters. Hence every occurrence lies inside $2$
+consecutive array rows, and an occurrence whose last cell is in row $i$ lies inside rows
+$i-1,\dots,i$.
+\end{lemma}
+
+\begin{proof}
+Immediate from the offsets listed: the row step is $0$ for a row and $1$ for the other three.
+\end{proof}
+
+So the state is the window of the last $1$ array rows, a row still to come being written
+$\bot$. A step appends a row and rejects it exactly when some occurrence ends in it or lies
+inside it; an occurrence needing a row that is $\bot$ cannot exist, which is the boundary rule
+and is not assumed but read off the window. The walk starts at the all-$\bot$ window, so a walk
+of no steps is the empty array and a walk of $R$ steps is an array of $R$ rows. With $M$ the
+adjacency matrix, $\iota$ the indicator of the starting window and $\tau=\mathbf{1}$,
+\[
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=9.
+\]
+The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
+published terms rather than assumed. In particular $a$ is $C$-finite.
+
+\section{The proof}
+
+\begin{lemma}\label{lem:crit}
+Let $q(t)=t^{3}-\sum_i c_it^{3-i}$ be the characteristic polynomial of the
+conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
+$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
+holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
+and it is enough to examine $j<S$.
+\end{lemma}
+
+\begin{proof}
+Factor $M^{j}$ out of $M^{j+3}-\sum_ic_iM^{j+3-i}$. For the bound, $M^{S}$
+is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
+$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
+polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
+pins the threshold exactly.
+\end{proof}
 
 \begin{theorem}
-The recurrence above holds for every $n$, and it is the recurrence the entry records.
+\[
+a(n)\;=\;4\,a(n-1) + a(n-2) - 2\,a(n-3)
+\]
+for every $n>2$.
 \end{theorem}
 
 \begin{proof}
-It holds by Lemma~\ref{lem:bm}, which returns a recurrence the sequence satisfies from its
-first term. For the identification: the entry asserts that the sequence satisfies SOME
-recurrence of order $94$, possibly only from some index on. Let $q$ be that recurrence's
-characteristic polynomial and $q_{\min}$ the minimal polynomial of the tail of the sequence.
-Then $q_{\min}\mid q$. Berlekamp--Massey run on the sequence with its first $94+4$ terms
-removed returns order $94$ as well, so $\deg q_{\min}=94=\deg q$; both are monic, so
-$q=q_{\min}$, which is the polynomial computed above.
+The vector $w=q(M)\tau$ was formed by $3$ matrix--vector products in exact integer
+arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
+integers vanish from the index corresponding to $n=2+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
-Three checks.
+Four checks, each independent of the algebra above.
 
-First, the walk model reproduces all $19$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry, and it is the only place where reading
-the entry's English enters.
+First, the model reproduces all $22$ terms the entry publishes, exactly, in integer
+arithmetic.
 
-Second, the recovered recurrence was evaluated directly on those published terms, with no
-matrices and no Berlekamp--Massey involved, and holds at every index where the entry gives
-enough earlier terms to test it.
+Second, the count was recomputed for the smallest arrays straight from the definition: fill the
+cells one at a time, in the orientation the entry's own name writes, and reject as soon as a
+completed run matches a forbidden pattern. No transfer matrix, no window and no transposition
+are involved, and the published terms came back.
 
-Third, the order was computed twice by independent routes: once modulo a $61$-bit prime, where
-every intermediate is a machine word, and once in exact rational arithmetic; and once more on
-the sequence with its first $94+4$ terms removed, which is what the identification above
-requires. All three agree.
+Third, the conjectured recurrence was evaluated directly on the published terms, with no
+matrices involved, and holds wherever the proved range and the data overlap.
 
-\begin{remark}
-What is unusual here is that the conjecture's statement was never read. The entry pins it down
-to a one-parameter family --- the recurrences of order $94$ that this sequence satisfies
---- and that family turns out to have exactly one member.
-\end{remark}
+Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A297587.
-\bibitem{massey} J.~L.~Massey, Shift-register synthesis and BCH decoding, \emph{IEEE
-Trans. Inform. Theory} \textbf{15} (1969), 122--127.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A229374.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata
+Theory, Languages, and Computation}, 3rd ed., Addison--Wesley, 2006.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

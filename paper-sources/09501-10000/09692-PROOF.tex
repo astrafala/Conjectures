@@ -12,143 +12,173 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A297799: recovering a conjecture that is not written down}
+\title{The empirical recurrence for OEIS A209953, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{2 September 2026}
+\date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A297799 records ``Empirical recurrence of order $95$'', with the recurrence itself in a
-linked file rather than in the entry. The conjecture can nevertheless be settled, and the
-recurrence recovered, without reading that file. The entry counts arrays under a condition
-local to a bounded window of lines, so the count is a walk count on a finite digraph and
-satisfies some monic recurrence of order at most the number of its states with distinct
-futures, here $S'=142$; Berlekamp--Massey applied to $2S'$ exact
-terms therefore returns the MINIMAL such recurrence. Its order is exactly $95$, the order
-the entry states, and the same is true of every tail of the sequence. Any recurrence of order
-$95$ that the sequence satisfies from any point on must then have a characteristic
-polynomial that is a multiple of the minimal one and of the same degree, hence equal to it. So
-the entry's recurrence is the one displayed here, whatever its file contains, and it is
-proved.
+OEIS A209953 counts $(n+1)\times2$ arrays over $\{0,\dots,2\}$ subject to a condition imposed on
+every $2\times2$ subblock, and carries an empirical recurrence of order $3$ contributed
+by R.~H.~Hardin. It is true, and it is not an empirical matter at all. The condition is local
+to each subblock, so the rows of an admissible array are the vertices of a finite digraph
+on $S=9$ vertices whose edges are the admissible consecutive pairs, and the count is a
+number of walks: $a(n)=\mathbf{1}^{\!\top}M^{n}\mathbf{1}$. Writing $q$
+for the characteristic polynomial of the conjectured recurrence, the recurrence holds for all
+$n$ exactly when $\mathbf{1}^{\!\top}M^{j}q(M)\mathbf{1}=0$ for every $j\ge0$, and the
+Cayley--Hamilton theorem bounds that to $j<S$. It is therefore a finite computation in exact
+integer arithmetic, and it comes out zero.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
-\section{A conjecture one cannot read}
+\section{The sequence and the conjecture}
 
-OEIS A297799 is ``Number of n X 5 0..1 arrays with every 1 horizontally, diagonally or antidiagonally adjacent to 2, 3 or 5 neighboring 1's.''. It has offset $1$ and begins
+OEIS A209953 is ``Number of (n+1) X 2 0..2 arrays with every 2 X 2 subblock having one, three or four distinct clockwise edge differences.''. It has offset $1$ and begins
 \[
-1, 38, 293, 2195, 23781, 231921, 2174696, 21427001,\ \dots
+71, 567, 4521, 36057, 287559, 2293335, 18289737, 145863801,\ \dots
 \]
-The entry states:
-\begin{quote}
-Empirical recurrence of order 95 (see link above).
+The entry carries the following comment:
+\begin{quote}\small
+Empirical: a(n) = 6*a(n-1) + 15*a(n-2) + 6*a(n-3).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Mar 10 2022 20:42:10, revision 6) this is still
-recorded as empirical. The recurrence's coefficients are not in the entry text.
+As of the ``Last modified'' line on the live entry (Jul 14 2018 02:47:50, revision 9) the statement is
+still recorded as empirical, and nothing on the entry records it as settled either way.
 
-\section{The count is a walk count}
+Written out, the claim is
+\begin{equation}\label{eq:conj}
+a(n)\;=\;6\,a(n-1) + 15\,a(n-2) + 6\,a(n-3)
+\end{equation}
+for all $n>2$.
 
-The entry's condition is local: it constrains a bounded window of consecutive lines of the
-array and nothing further. The admissible configurations of one such window are the vertices
-of a finite digraph, an edge joining $u$ to $v$ when $v$ may follow $u$, and an admissible
-array is exactly a walk. Hence, with $M$ the adjacency matrix on $S=142$ vertices,
-$a(n)=\iota^{\!\top}M^{\,j(n)}\tau$ for a linear reindexing $j$ fixed by the entry's shape
-and checked against its published terms. By the Cayley--Hamilton theorem $M^{S}$ is an
-integer combination of $I,M,\dots,M^{S-1}$, so:
+\section{The condition is local, so the rows form a digraph}
 
-\begin{lemma}\label{lem:cf}
-$a$ satisfies a monic linear recurrence with integer coefficients of order at most
-$S'=142$.
-\end{lemma}
-
-\section{Recovering the recurrence}
-
-\begin{lemma}\label{lem:bm}
-A sequence known to satisfy some linear recurrence of order at most $S$ is determined, together
-with its minimal recurrence, by its first $2S$ terms: Berlekamp--Massey applied to them returns
-that minimal recurrence exactly.
-\end{lemma}
-
-Running it on $2S'=284$ exact terms of the model returns order $95$ --- the order the
-entry states --- with the integer coefficients
+Write an array of the shape in question as its list of rows
+$r^{(1)},r^{(2)},\dots$, each an element of
+$V=\{0,1,\dots,2\}^{2}$, so $|V|=S=9$. A $2\times2$ subblock of the array
+occupies two consecutive rows and two consecutive columns; if the two rows are $r$
+and $s$ (in that order) and the two columns are numbered $j,j+1$,
+the subblock is
 \[
-a(n)\;=\;\sum_{i=1}^{95}c_i\,a(n-i),
+\begin{pmatrix}\alpha&\beta\\\gamma&\delta\end{pmatrix}=\begin{pmatrix}r_j&r_{j+1}\\s_j&s_{j+1}\end{pmatrix}.
 \]
-\begin{center}\small
-\begin{tabular}{cccccccc}
-$c_{1}$ & $7$ & $c_{25}$ & $2089013442935$ & $c_{49}$ & $-86744232741101307$ & $c_{73}$ & $468613504186747958$ \\
-$c_{2}$ & $7$ & $c_{26}$ & $-7034152743937$ & $c_{50}$ & $213877054494768982$ & $c_{74}$ & $274961521834577040$ \\
-$c_{3}$ & $434$ & $c_{27}$ & $30312572394552$ & $c_{51}$ & $397813845993246771$ & $c_{75}$ & $93510957468446828$ \\
-$c_{4}$ & $-1821$ & $c_{28}$ & $-1360728681271$ & $c_{52}$ & $290988891568901288$ & $c_{76}$ & $-31650973210669216$ \\
-$c_{5}$ & $-1104$ & $c_{29}$ & $42788973309498$ & $c_{53}$ & $-349372685632924699$ & $c_{77}$ & $-62053114484178952$ \\
-$c_{6}$ & $-64886$ & $c_{30}$ & $-137104296952958$ & $c_{54}$ & $-963040234565558425$ & $c_{78}$ & $-58610869028885152$ \\
-$c_{7}$ & $186687$ & $c_{31}$ & $-37473911822666$ & $c_{55}$ & $-824149366680897438$ & $c_{79}$ & $-41606512326847136$ \\
-$c_{8}$ & $-2962$ & $c_{32}$ & $-191912166198760$ & $c_{56}$ & $277863442378781890$ & $c_{80}$ & $-19702403533791840$ \\
-$c_{9}$ & $4650314$ & $c_{33}$ & $471820791371282$ & $c_{57}$ & $1698608412833529369$ & $c_{81}$ & $-1269077032864928$ \\
-$c_{10}$ & $-10046690$ & $c_{34}$ & $280563977783043$ & $c_{58}$ & $1841929744935751909$ & $c_{82}$ & $1830005398733632$ \\
-$c_{11}$ & $6244917$ & $c_{35}$ & $541103166735113$ & $c_{59}$ & $315005989023833013$ & $c_{83}$ & $762961512762368$ \\
-$c_{12}$ & $-183986168$ & $c_{36}$ & $-1213128856345238$ & $c_{60}$ & $-1999534733019976629$ & $c_{84}$ & $516382526451712$ \\
-$c_{13}$ & $315411798$ & $c_{37}$ & $-1109548200167786$ & $c_{61}$ & $-2968647320960027422$ & $c_{85}$ & $215902331745920$ \\
-$c_{14}$ & $-319868758$ & $c_{38}$ & $-719337246783296$ & $c_{62}$ & $-1487176670569254374$ & $c_{86}$ & $63206433633280$ \\
-$c_{15}$ & $4400322637$ & $c_{39}$ & $2961398141172792$ & $c_{63}$ & $1282001556387671095$ & $c_{87}$ & $1003153355264$ \\
-$c_{16}$ & $-6071367261$ & $c_{40}$ & $2878797799093290$ & $c_{64}$ & $3015993342920039602$ & $c_{88}$ & $-2153459426304$ \\
-$c_{17}$ & $7501829645$ & $c_{41}$ & $-2194373757940190$ & $c_{65}$ & $2344697336638403675$ & $c_{89}$ & $-1057653999616$ \\
-$c_{18}$ & $-67770946438$ & $c_{42}$ & $-9273646941513091$ & $c_{66}$ & $159928355075088704$ & $c_{90}$ & $97590263808$ \\
-$c_{19}$ & $72626272656$ & $c_{43}$ & $-7773512840030407$ & $c_{67}$ & $-1466701283524052564$ & $c_{91}$ & $51048349696$ \\
-$c_{20}$ & $-102858975805$ & $c_{44}$ & $21608530560905401$ & $c_{68}$ & $-1750826791240558488$ & $c_{92}$ & $-13934329856$ \\
-$c_{21}$ & $707603735690$ & $c_{45}$ & $35033015367364314$ & $c_{69}$ & $-927585556048410276$ & $c_{93}$ & $-4074766336$ \\
-$c_{22}$ & $-528062570032$ & $c_{46}$ & $25119930721780835$ & $c_{70}$ & $-160051753091526033$ & $c_{94}$ & $1140326400$ \\
-$c_{23}$ & $958393619559$ & $c_{47}$ & $-84999346252467047$ & $c_{71}$ & $334408045574809494$ & $c_{95}$ & $-62914560$ \\
-$c_{24}$ & $-5297450598186$ & $c_{48}$ & $-130096604171982828$ & $c_{72}$ & $450638145154538248$ &  &  \\
-\end{tabular}
-\end{center}
+The entry's requirement on that subblock is
+\begin{equation}\label{eq:loc}
+\#\{\beta-\alpha,\ \delta-\beta,\ \gamma-\delta,\ \alpha-\gamma\}\in\{1,3,4\},
+\end{equation}
+a condition on the four entries alone.
+
+For $r,s\in V$ declare $r\to s$ an edge of a digraph $G$ when, for every
+$1\le j\le 2-1$,
+\begin{itemize}
+\item the four entries above satisfy \eqref{eq:loc};
+
+\end{itemize}
+Let $M\in\{0,1\}^{S\times S}$ be the adjacency matrix of $G$ and $\mathbf{1}$ the
+all-ones vector.
+
+\begin{lemma}\label{lem:walk}
+The arrays counted by the entry with $L$ rows are exactly the walks
+$r^{(1)}\to r^{(2)}\to\cdots\to r^{(L)}$ of length $L-1$ in $G$. Consequently
+\[
+a(n)\;=\;\mathbf{1}^{\!\top}M^{n}\mathbf{1} .
+\]
+\end{lemma}
+
+\begin{proof}
+An array with $L$ rows and $2$ columns is precisely a sequence
+$r^{(1)},\dots,r^{(L)}$ of elements of $V$; conversely any such sequence is an array.
+Every $2\times2$ subblock lies in two consecutive rows $r^{(t)},r^{(t+1)}$ and two
+consecutive columns, so the array satisfies the entry's condition on all of its subblocks
+if and only if each consecutive pair $\bigl(r^{(t)},r^{(t+1)}\bigr)$ satisfies it for
+every column pair --- which is exactly the edge relation of $G$. The number of walks of
+length $L-1$, summed over all starting and ending vertices, is
+$\mathbf{1}^{\!\top}M^{L-1}\mathbf{1}$, since $(M^{k})_{r,s}$ counts the walks of
+length $k$ from $r$ to $s$. The entry's index $n$ corresponds to $L=n+1$ rows.
+\end{proof}
+
+\section{The criterion}
+
+Let $q(t)=t^{3}-\sum_i c_i\,t^{3-i}$ be the characteristic polynomial of
+\eqref{eq:conj}, with the $c_i$ read off that equation.
+
+\begin{lemma}\label{lem:crit}
+For every $n$ with $n+1-1\ge3$,
+\[
+a(n)-\sum_i c_i\,a(n-i)\;=\;\mathbf{1}^{\!\top}M^{\,n+1-1-3}\,q(M)\,\mathbf{1} .
+\]
+Hence \eqref{eq:conj} holds from that point on if and only if
+$\mathbf{1}^{\!\top}M^{j}q(M)\mathbf{1}=0$ for every $j\ge0$; and it is enough to check
+$j=0,1,\dots,S-1$.
+\end{lemma}
+
+\begin{proof}
+By Lemma~\ref{lem:walk}, $a(n-i)=\mathbf{1}^{\!\top}M^{\,n+1-1-i}\mathbf{1}$, so
+\[
+a(n)-\sum_i c_i a(n-i)
+=\mathbf{1}^{\!\top}\Bigl(M^{m}-\sum_i c_i M^{m-i}\Bigr)\mathbf{1}
+=\mathbf{1}^{\!\top}M^{\,m-3}\,q(M)\,\mathbf{1}
+\]
+with $m=n+1-1$, which is the stated identity; the equivalence follows by letting
+$m-3=j$ run over $\ge0$. For the last clause put $w=q(M)\mathbf{1}$. By the
+Cayley--Hamilton theorem $M^{S}$ is an integer combination of $I,M,\dots,M^{S-1}$, so
+$\mathbf{1}^{\!\top}M^{j}w$ for $j\ge S$ is the corresponding combination of the earlier
+values; if those all vanish, so do all the rest.
+\end{proof}
+
+\section{The computation}
 
 \begin{theorem}
-The recurrence above holds for every $n$, and it is the recurrence the entry records.
+The recurrence \eqref{eq:conj} holds for every $n>2$, which is the statement of
+Section~1.
 \end{theorem}
 
 \begin{proof}
-It holds by Lemma~\ref{lem:bm}, which returns a recurrence the sequence satisfies from its
-first term. For the identification: the entry asserts that the sequence satisfies SOME
-recurrence of order $95$, possibly only from some index on. Let $q$ be that recurrence's
-characteristic polynomial and $q_{\min}$ the minimal polynomial of the tail of the sequence.
-Then $q_{\min}\mid q$. Berlekamp--Massey run on the sequence with its first $95+4$ terms
-removed returns order $95$ as well, so $\deg q_{\min}=95=\deg q$; both are monic, so
-$q=q_{\min}$, which is the polynomial computed above.
+The digraph was constructed from \eqref{eq:loc} by a depth-first scan across the $2$
+columns: the edge condition is a conjunction of one constraint per consecutive column
+pair, so the successors of a row $r$ are enumerated column by column without testing all
+$S^2$ pairs. The vector $w=q(M)\mathbf{1}\in\mathbb{Z}^{S}$ was then formed by $3$
+matrix--vector products in exact integer arithmetic, and $\mathbf{1}^{\!\top}M^{j}w$ was
+evaluated for $j=0,1,\dots$, again exactly. Every one of those integers vanishes from the
+index corresponding to $n=2+1$ onwards, and the run continued until $w$ itself was the
+zero vector, which settles every larger $j$ at once. By Lemma~\ref{lem:crit} the recurrence
+holds for every $n>2$.
 \end{proof}
+
+\begin{remark}
+The argument gives more than the recurrence: it shows the sequence is $C$-finite with
+characteristic polynomial dividing that of $M$, so it has a rational generating function
+whose denominator divides $\det(I-xM)$. The conjectured recurrence is one consequence; the
+minimal one is a divisor of $q$.
+\end{remark}
 
 \section{Verification}
 
-Three checks.
+Three checks, each independent of the algebra above.
 
-First, the walk model reproduces all $18$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry, and it is the only place where reading
-the entry's English enters.
+First, the digraph was built directly from the entry's stated condition and the walk counts
+$\mathbf{1}^{\!\top}M^{L-1}\mathbf{1}$ compared against the entry's DATA at
+every one of the $18$ published indices; the values agree exactly. That is what ties
+the digraph to the sequence: a model that reproduced only some of the published terms would
+be the wrong model, and would have been rejected. In particular it is what rules out a
+misreading of the entry's wording, since a different reading of the condition gives a
+different digraph and different counts.
 
-Second, the recovered recurrence was evaluated directly on those published terms, with no
-matrices and no Berlekamp--Massey involved, and holds at every index where the entry gives
-enough earlier terms to test it.
+Second, the recurrence \eqref{eq:conj} was evaluated on those published terms in exact
+integer arithmetic, with no matrices involved, and vanishes wherever it applies.
 
-Third, the order was computed twice by independent routes: once modulo a $61$-bit prime, where
-every intermediate is a machine word, and once in exact rational arithmetic; and once more on
-the sequence with its first $95+4$ terms removed, which is what the identification above
-requires. All three agree.
-
-\begin{remark}
-What is unusual here is that the conjecture's statement was never read. The entry pins it down
-to a one-parameter family --- the recurrences of order $95$ that this sequence satisfies
---- and that family turns out to have exactly one member.
-\end{remark}
+Third, the annihilation test of Lemma~\ref{lem:crit} was run in exact integer arithmetic
+until the working vector was identically zero, not to a sampled prefix, and returned zero
+throughout.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A297799.
-\bibitem{massey} J.~L.~Massey, Shift-register synthesis and BCH decoding, \emph{IEEE
-Trans. Inform. Theory} \textbf{15} (1969), 122--127.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A209953.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+University Press, 2009.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

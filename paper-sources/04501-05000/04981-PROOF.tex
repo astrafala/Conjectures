@@ -12,18 +12,18 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A254235, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A253979, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A254235 counts the arrays over $\{0,\dots,1\}$ whose $3\times3$ subblocks carry a
+OEIS A253979 counts the arrays over $\{0,\dots,1\}$ whose $3\times3$ subblocks carry a
 statistic that is monotone along named directions of the subblock grid, and carries an
-empirical recurrence of order $36$ contributed by R.~H.~Hardin. It is true, and it is
+empirical recurrence of order $41$ contributed by R.~H.~Hardin. It is true, and it is
 decidable rather than empirical. Every direction named moves the subblock row by at most one,
-so the count is a walk count on $S=144$ states --- the last two array rows together with the
+so the count is a walk count on $S=436$ states --- the last two array rows together with the
 subblock row just completed --- and the conjectured recurrence is then settled by a finite
 exact computation.
 \end{abstract}
@@ -32,15 +32,15 @@ exact computation.
 
 \section{The conjecture}
 
-OEIS A254235 is ``Number of (n+2)X(1+2) 0..1 arrays with every 3X3 subblock diagonal sum plus antidiagonal minimum nondecreasing horizontally and vertically.''. It has offset $1$ and begins
+OEIS A253979 is ``Number of (n+2)X(2+2) 0..1 arrays with every 3X3 subblock diagonal maximum plus antidiagonal maximum nondecreasing horizontally and vertically.''. It has offset $1$ and begins
 \[
-512, 2616, 10684, 41140, 150016, 514920, 1700100, 5487356,\ \dots
+3372, 36434, 417518, 4858102, 55806952, 642845877, 7415403315, 85480006244,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 8*a(n-1) -22*a(n-2) +21*a(n-3) +11*a(n-4) -62*a(n-5) +112*a(n-6) -36*a(n-7) -224*a(n-8) +374*a(n-9) -222*a(n-10) -293*a(n-11) +1161*a(n-12) -1391*a(n-13) +478*a(n-14) +769*a(n-15) -1984*a(n-16) +2012*a(n-17) -533*a(n-18) -789*a(n-19) +1431*a(n-20) -1120*a(n-21) +233*a(n-22) +300*a(n-23) -436*a(n-24) +229*a(n-25) -75*a(n-26) +35*a(n-27) +51*a(n-28) -55*a(n-29) +32*a(n-30) -7*a(n-31) -10*a(n-32) +5*a(n-33) -3*a(n-34) +a(n-36)
+Empirical: a(n) = 13*a(n-1) -7*a(n-2) -43*a(n-3) -860*a(n-4) -920*a(n-5) +15830*a(n-6) -9400*a(n-7) -7539*a(n-8) -98847*a(n-9) +40329*a(n-10) +147709*a(n-11) +83340*a(n-12) +421956*a(n-13) -537724*a(n-14) +204762*a(n-15) -1909934*a(n-16) -520990*a(n-17) +1344182*a(n-18) -2472492*a(n-19) +10604787*a(n-20) +1923137*a(n-21) -6305887*a(n-22) -1207655*a(n-23) -18037820*a(n-24) +3466634*a(n-25) +11862724*a(n-26) +5340110*a(n-27) +12134681*a(n-28) -11925689*a(n-29) -8047471*a(n-30) +1011577*a(n-31) -3455262*a(n-32) +6530290*a(n-33) +1826872*a(n-34) -3037352*a(n-35) +578112*a(n-36) +205440*a(n-37) -198848*a(n-38) +22784*a(n-39) +10496*a(n-40) -1024*a(n-41)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 14:34:01, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 14:23:06, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
@@ -49,7 +49,7 @@ A $3\times3$ subblock has four distinguished lines of three cells: its diagonal,
 antidiagonal, its central row and its central column. The entry's statistic is a signed sum of
 aggregates --- sums, maxima, minima, medians --- taken over those lines, and $\sigma(i,j)$
 denotes its value on the subblock in position $(i,j)$ of the subblock grid, which has $n$ rows
-and $1$ column for an $(n+2)\times3$ array over $\{0,\dots,1\}$. The condition is
+and $2$ columns for an $(n+2)\times4$ array over $\{0,\dots,1\}$. The condition is
 \[
 \sigma(i,j)\le\sigma(i,j+1),\qquad \sigma(i,j)\le\sigma(i+1,j)
 \]
@@ -79,13 +79,13 @@ $(n+2)$-row array is a walk of $n-1$ steps and
 \[
 a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau
 \]
-on the $S=144$ reachable states. In particular $a$ is $C$-finite. The alignment of the walk
+on the $S=436$ reachable states. In particular $a$ is $C$-finite. The alignment of the walk
 index with the entry's own $n$ was checked against its published terms rather than assumed.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{36}-\sum_i c_it^{36-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{41}-\sum_i c_it^{41-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -93,7 +93,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+36}-\sum_ic_iM^{j+36-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+41}-\sum_ic_iM^{j+41-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -102,15 +102,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;8\,a(n-1) - 22\,a(n-2) + 21\,a(n-3) + 11\,a(n-4) - 62\,a(n-5) + 112\,a(n-6) - 36\,a(n-7) - 224\,a(n-8) + 374\,a(n-9) - 222\,a(n-10) - 293\,a(n-11) + 1161\,a(n-12) - 1391\,a(n-13) + 478\,a(n-14) + 769\,a(n-15) - 1984\,a(n-16) + 2012\,a(n-17) - 533\,a(n-18) - 789\,a(n-19) + 1431\,a(n-20) - 1120\,a(n-21) + 233\,a(n-22) + 300\,a(n-23) - 436\,a(n-24) + 229\,a(n-25) - 75\,a(n-26) + 35\,a(n-27) + 51\,a(n-28) - 55\,a(n-29) + 32\,a(n-30) - 7\,a(n-31) - 10\,a(n-32) + 5\,a(n-33) - 3\,a(n-34) + a(n-36)
+a(n)\;=\;13\,a(n-1) - 7\,a(n-2) - 43\,a(n-3) - 860\,a(n-4) - 920\,a(n-5) + 15830\,a(n-6) - 9400\,a(n-7) - 7539\,a(n-8) - 98847\,a(n-9) + 40329\,a(n-10) + 147709\,a(n-11) + 83340\,a(n-12) + 421956\,a(n-13) - 537724\,a(n-14) + 204762\,a(n-15) - 1909934\,a(n-16) - 520990\,a(n-17) + 1344182\,a(n-18) - 2472492\,a(n-19) + 10604787\,a(n-20) + 1923137\,a(n-21) - 6305887\,a(n-22) - 1207655\,a(n-23) - 18037820\,a(n-24) + 3466634\,a(n-25) + 11862724\,a(n-26) + 5340110\,a(n-27) + 12134681\,a(n-28) - 11925689\,a(n-29) - 8047471\,a(n-30) + 1011577\,a(n-31) - 3455262\,a(n-32) + 6530290\,a(n-33) + 1826872\,a(n-34) - 3037352\,a(n-35) + 578112\,a(n-36) + 205440\,a(n-37) - 198848\,a(n-38) + 22784\,a(n-39) + 10496\,a(n-40) - 1024\,a(n-41)
 \]
-for every $n>36$.
+for every $n>41$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $36$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $41$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=36+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=41+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -118,7 +118,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $21$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $15$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
@@ -130,7 +130,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A254235.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A253979.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{davey} B.~A.~Davey and H.~A.~Priestley, \emph{Introduction to Lattices and

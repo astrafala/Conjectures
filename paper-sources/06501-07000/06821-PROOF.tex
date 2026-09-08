@@ -12,21 +12,21 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A303458, proved by a two-line transfer matrix}
+\title{The empirical recurrence for OEIS A228666, proved by a two-line transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A303458 counts arrays over $\{0,\dots,1\}$ in which every cell is constrained by the
-values of its neighbours, and carries an empirical recurrence of order $15$ contributed
+OEIS A228666 counts arrays over $\{0,\dots,1\}$ in which every cell is constrained by the
+values of its neighbours, and carries an empirical recurrence of order $16$ contributed
 by R.~H.~Hardin. It is true, and it is not an empirical matter. The neighbourhood reaches one
 column up and one column down, so a single column is not enough state and a plain walk count
 is wrong; the right object is a walk on ordered \emph{pairs} of consecutive columns, where
 each step tests the condition on the middle column against both its neighbours and the two
 ends are tested with one neighbour column absent. That makes $a(n)$ a walk count on a digraph
-with $S=256$ vertices, and the conjectured recurrence is then decided by a finite exact
+with $S=16384$ vertices, and the conjectured recurrence is then decided by a finite exact
 computation.
 \end{abstract}
 
@@ -34,36 +34,36 @@ computation.
 
 \section{The sequence and the conjecture}
 
-OEIS A303458 is ``Number of 4Xn 0..1 arrays with every element equal to 0, 1, 2, 3, 4 or 6 horizontally, diagonally or antidiagonally adjacent elements, with upper left element zero.''. It has offset $1$ and begins
+OEIS A228666 is ``Number of 7 X n binary arrays with top left value 1 and no two ones adjacent horizontally, diagonally or antidiagonally.''. It has offset $1$ and begins
 \[
-8, 128, 1696, 22756, 306448, 4129588, 55681352, 750838628,\ \dots
+64, 169, 9598, 63688, 1720343, 17074988, 337258048, 4073313193,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 14*a(n-1) +18*a(n-2) -338*a(n-3) -62*a(n-4) +1192*a(n-5) -648*a(n-6) +1818*a(n-7) +1407*a(n-8) -3144*a(n-9) +3656*a(n-10) -8832*a(n-11) -7324*a(n-12) +8010*a(n-13) +2202*a(n-14) +3312*a(n-15) for n>16
+Empirical: a(n) = 9*a(n-1) +184*a(n-2) -1201*a(n-3) -7155*a(n-4) +46048*a(n-5) +70745*a(n-6) -591673*a(n-7) -154744*a(n-8) +3207657*a(n-9) -715173*a(n-10) -7580648*a(n-11) +3369552*a(n-12) +7114920*a(n-13) -3800952*a(n-14) -1923264*a(n-15) +1083456*a(n-16).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Apr 24 2018 10:23:57, revision 4) the statement is
+As of the ``Last modified'' line on the live entry (Apr 25 2023 07:49:16, revision 10) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;14\,a(n-1) + 18\,a(n-2) - 338\,a(n-3) - 62\,a(n-4) + 1192\,a(n-5) - 648\,a(n-6) + 1818\,a(n-7) + 1407\,a(n-8) - 3144\,a(n-9) + 3656\,a(n-10) - 8832\,a(n-11) - 7324\,a(n-12) + 8010\,a(n-13) + 2202\,a(n-14) + 3312\,a(n-15)
+a(n)\;=\;9\,a(n-1) + 184\,a(n-2) - 1201\,a(n-3) - 7155\,a(n-4) + 46048\,a(n-5) + 70745\,a(n-6) - 591673\,a(n-7) - 154744\,a(n-8) + 3207657\,a(n-9) - 715173\,a(n-10) - 7580648\,a(n-11) + 3369552\,a(n-12) + 7114920\,a(n-13) - 3800952\,a(n-14) - 1923264\,a(n-15) + 1083456\,a(n-16)
 \end{equation}
-for all $n>16$.
+for all $n>17$.
 
 \section{The condition, and why one column is not enough}
 
-The arrays have $4$ rows and $L=n$ columns; write $x_{t,u}$ for the entry in
+The arrays have $7$ rows and $L=n$ columns; write $x_{t,u}$ for the entry in
 column $t$ and row $u$, each in $\{0,\dots,1\}$. With the neighbour offsets
 \[
-\mathcal N=\{(-1,0),\ (1,0),\ (-1,-1),\ (1,1),\ (1,-1),\ (-1,1)\},
+\mathcal N=\{(1,0),\ (1,1),\ (-1,1)\},
 \]
 written as (column shift, row shift) and counting only positions inside the array, the
 entry's requirement is
 \begin{equation}\label{eq:loc}
-\#\{\text{neighbours with a value }equal to\ x_{t,u}\}\in\{0,1,2,3,4,6\}
+\text{no two cells both equal to }1\text{ are adjacent along an offset of }\mathcal N
 \end{equation}
-for every cell $(t,u)$. A further clause fixes the upper-left entry of the array to be $0$; it removes nothing but a relabelling, and enters the construction as a restriction on which columns may begin a walk.
+for every cell $(t,u)$.
 
 Some offsets in $\mathcal N$ have a positive column shift and some a negative one, so the
 condition at a cell of column $t$ involves columns $t-1$, $t$ and $t+1$ together. A transfer
@@ -73,12 +73,12 @@ the state used below.
 
 \section{The digraph}
 
-Let $V=\{0,\dots,1\}^{4}$ be the possible columns and take
-$\mathcal V=V\times V$, of size $S=256$, as the vertex set. Declare $(p,c)\to(c,x)$ an edge
+Let $V=\{0,\dots,1\}^{7}$ be the possible columns and take
+$\mathcal V=V\times V$, of size $S=16384$, as the vertex set. Declare $(p,c)\to(c,x)$ an edge
 when every cell of the middle column $c$ satisfies \eqref{eq:loc} with $p$ above it and $x$
 below it; there is no edge between pairs that do not overlap in this way. Let $N$ be the
 adjacency matrix, $\mathbf{v}$ the indicator of the pairs $(p,c)$ whose first column $p$
-satisfies \eqref{eq:loc} with no column above and, where the entry demands it, whose first entry is $0$, and $\mathbf{u}$ the indicator of
+satisfies \eqref{eq:loc} with no column above, and $\mathbf{u}$ the indicator of
 the pairs $(p,c)$ whose second column $c$ satisfies it with no column below.
 
 \begin{lemma}\label{lem:walk}
@@ -96,7 +96,7 @@ a(n)\;=\;\,\mathbf{v}^{\!\top}N^{\,L-2}\mathbf{u},\qquad L=n .
 \begin{proof}
 Consecutive vertices of such a walk overlap in one column, so a walk of that shape is
 precisely a sequence $r^{(1)},\dots,r^{(L)}$ of columns, that is, an array of $L$ columns
-and $4$ rows. In the walk, the cells of column $t$ for $2\le t\le L-1$ are tested
+and $7$ rows. In the walk, the cells of column $t$ for $2\le t\le L-1$ are tested
 exactly once --- at the step leaving $(r^{(t-1)},r^{(t)})$ --- and with their true
 neighbours $r^{(t-1)}$ and $r^{(t+1)}$. The cells of column $1$ are tested by
 $\mathbf{v}$ and those of column $L$ by $\mathbf{u}$, in both cases by the same condition
@@ -106,26 +106,27 @@ and ending vertices counts them.
 \end{proof}
 
 
-It is worth saying why this is not done by enumeration. At the largest index the entry
-publishes, $n=16$, the arrays have $4\cdot16$ cells over
-$2$ values, so there are about $10^{19}$ of them to sift. The
-walk count replaces that by $256$ states and one matrix--vector product per column.
+The size of $\mathcal V$ is worth seeing concretely. There are $1+1=2$ values
+and $7$ cells in a column, so $|V|=2^{7}=128$, and the vertex set is
+$V\times V$, of size $128^2=16384$. That is the whole of the state: two consecutive
+columns and nothing else about the array's history.
 
-The threshold below is exact rather than merely sufficient: at $n=16$ the conjectured
-recurrence fails on the entry's own published terms, so no range larger than the one proved
-can hold.
+It is worth saying why this is not done by enumeration. At the largest index the entry
+publishes, $n=16$, the arrays have $7\cdot16$ cells over
+$2$ values, so there are about $10^{33}$ of them to sift. The
+walk count replaces that by $16384$ states and one matrix--vector product per column.
 \section{The criterion}
 
-Let $q(t)=t^{15}-\sum_i c_i\,t^{15-i}$ be the characteristic polynomial of
+Let $q(t)=t^{16}-\sum_i c_i\,t^{16-i}$ be the characteristic polynomial of
 \eqref{eq:conj} and put $G=N$, so that a unit step in $n$ advances the walk by
 $1$ column.
 
 \begin{lemma}\label{lem:crit}
 Let $n_0$ be the least index with $L\ge2$ and $h_j=G^{j}N^{o}\mathbf{u}$, where
-$o=1n_0+0-2$. Then for $j\ge15$,
+$o=1n_0+0-2$. Then for $j\ge16$,
 \[
-a(n_0+j)-\sum_i c_i\,a(n_0+j-i)\;=\;\,\mathbf{v}^{\!\top}G^{\,j-15}w,
-\qquad w=h_{15}-\sum_i c_i\,h_{15-i} .
+a(n_0+j)-\sum_i c_i\,a(n_0+j-i)\;=\;\,\mathbf{v}^{\!\top}G^{\,j-16}w,
+\qquad w=h_{16}-\sum_i c_i\,h_{16-i} .
 \]
 Hence \eqref{eq:conj} holds from that point on if and only if
 $\mathbf{v}^{\!\top}G^{m}w=0$ for every $m\ge0$, and it is enough to check
@@ -133,7 +134,7 @@ $m=0,1,\dots,S-1$.
 \end{lemma}
 
 \begin{proof}
-Substitute Lemma~\ref{lem:walk} and factor $G^{j-15}$ out of
+Substitute Lemma~\ref{lem:walk} and factor $G^{j-16}$ out of
 $G^{j}-\sum_ic_iG^{j-i}$; the nonzero scalar $1$ does not affect
 vanishing. For the last clause, Cayley--Hamilton makes $G^{S}$ an integer combination of
 $I,G,\dots,G^{S-1}$, so $\mathbf{v}^{\!\top}G^{m}w$ for $m\ge S$ is the corresponding
@@ -141,16 +142,16 @@ combination of the earlier values; if those vanish, so do all the rest.
 \end{proof}
 
 \begin{theorem}
-The recurrence \eqref{eq:conj} holds for every $n>16$, which is the statement of
+The recurrence \eqref{eq:conj} holds for every $n>17$, which is the statement of
 Section~1.
 \end{theorem}
 
 \begin{proof}
-The digraph was built directly from \eqref{eq:loc}: for each of the $S=256$ pairs and each
-of the $(1+1)^{4}$ possible next columns, the condition was tested on every cell of
-the middle column. The vector $w$ was formed by $15$ applications of $G$ in exact integer
+The digraph was built directly from \eqref{eq:loc}: for each of the $S=16384$ pairs and each
+of the $(1+1)^{7}$ possible next columns, the condition was tested on every cell of
+the middle column. The vector $w$ was formed by $16$ applications of $G$ in exact integer
 arithmetic and $\mathbf{v}^{\!\top}G^{m}w$ evaluated for $m=0,1,\dots$, again exactly.
-Every one of those integers vanishes from the index corresponding to $n=16+1$ onwards,
+Every one of those integers vanishes from the index corresponding to $n=17+1$ onwards,
 and the run was continued until $S+1$ consecutive zeros had been seen, which by
 Lemma~\ref{lem:crit} settles every larger $m$ at once.
 \end{proof}
@@ -182,7 +183,7 @@ returned zero throughout.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A303458.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A228666.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

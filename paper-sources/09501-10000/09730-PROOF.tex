@@ -12,169 +12,182 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A254548, recovered from its tail}
+\title{The empirical recurrence for OEIS A231280, proved by a two-line transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{8 September 2026}
+\date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A254548 records ``Empirical recurrence of order $91$'' and keeps the recurrence itself in
-a linked file rather than in the entry, so the conjecture cannot be read off the entry at all.
-It can still be settled. The entry counts arrays under a condition local to a bounded window of
-lines, which makes the count a walk count on a finite digraph and forces a monic integer
-recurrence of order at most the number $S'=487$ of states with distinct futures. Berlekamp--Massey on
-enough exact terms therefore returns the minimal such recurrence, and on the tail beginning at $n=5$, so the recurrence is proved for every $n\ge96$.
-Its last coefficient is $c_{91}=-1\neq0$, so no further tail satisfies anything
-shorter; any order-$91$ recurrence the sequence satisfies from any point on must then have
-the same characteristic polynomial. The entry's recurrence is the one displayed here, whatever
-its linked file contains, and it is proved.
+OEIS A231280 counts arrays over $\{0,\dots,3\}$ in which every cell is constrained by the
+values of its neighbours, and carries an empirical recurrence of order $2$ contributed
+by R.~H.~Hardin. It is true, and it is not an empirical matter. The neighbourhood reaches one
+row up and one row down, so a single row is not enough state and a plain walk count
+is wrong; the right object is a walk on ordered \emph{pairs} of consecutive rows, where
+each step tests the condition on the middle row against both its neighbours and the two
+ends are tested with one neighbour row absent. That makes $a(n)$ a walk count on a digraph
+with $S=4096$ vertices, and the conjectured recurrence is then decided by a finite exact
+computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
-\section{A conjecture that is not written down}
+\section{The sequence and the conjecture}
 
-OEIS A254548 is ``Number of (n+2)X(3+2) 0..1 arrays with every 3X3 subblock diagonal sum minus antidiagonal minimum nondecreasing horizontally, vertically and ne-to-sw antidiagonally.''. It has offset $1$ and begins
+OEIS A231280 is ``Number of n X 3 0..3 arrays x(i,j) with each element horizontally or antidiagonally next to at least one element with value (x(i,j)+1) mod 4, and upper left element zero.''. It has offset $1$ and begins
 \[
-12260, 34780, 129677, 380406, 1191782, 3475823, 10616893, 30951404,\ \dots
+0, 2, 8, 66, 400, 2722, 17688, 117026,\ \dots
 \]
-The entry states:
-\begin{quote}
-Empirical recurrence of order 91 (see link above)
+The entry carries the following comment:
+\begin{quote}\small
+Empirical: a(n) = 4*a(n-1) + 17*a(n-2).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 14:48:00, revision 8)
-this is still recorded as empirical, and it is still open. The coefficients are nowhere in the
-entry text: what is conjectured is only that a recurrence of that order exists.
+As of the ``Last modified'' line on the live entry (Sep 28 2018 06:57:58, revision 9) the statement is
+still recorded as empirical, and nothing on the entry records it as settled either way.
 
-\section{The count is a walk count}
+Written out, the claim is
+\begin{equation}\label{eq:conj}
+a(n)\;=\;4\,a(n-1) + 17\,a(n-2)
+\end{equation}
+for all $n>3$.
 
-The entry's condition is local. It constrains a bounded window of consecutive lines of the
-array and nothing beyond it, so the admissible configurations of one window are the vertices of
-a finite digraph, an edge joins $u$ to $v$ when $v$ may follow $u$, and an admissible array is
-exactly a walk. Writing $M$ for the adjacency matrix and $\iota,\tau$ for the indicator vectors
-of the admissible first and last windows,
+\section{The condition, and why one row is not enough}
+
+The arrays have $3$ columns and $L=n$ rows; write $x_{t,u}$ for the entry in
+row $t$ and column $u$, each in $\{0,\dots,3\}$. With the neighbour offsets
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j(n)}\tau
+\mathcal N=\{(0,-1),\ (0,1),\ (-1,1),\ (1,-1)\},
 \]
-for a linear reindexing $j$ fixed by the entry's shape. States with identical futures
-contribute identically to that product and may be merged without changing any count; after
-merging $S'=487$ states remain, and it is that bound every computation below uses.
+written as (row shift, column shift) and counting only positions inside the array, the
+entry's requirement is
+\begin{equation}\label{eq:loc}
+\exists\ \text{a neighbour with value }(x_{t,u}+1)\bmod 4
+\end{equation}
+for every cell $(t,u)$. A further clause fixes the upper-left entry of the array to be $0$; it removes nothing but a relabelling, and enters the construction as a restriction on which rows may begin a walk.
 
-\begin{lemma}\label{lem:cf}
-$a$ satisfies a monic linear recurrence with integer coefficients of order at most $S'=487$.
+Some offsets in $\mathcal N$ have a positive row shift and some a negative one, so the
+condition at a cell of row $t$ involves rows $t-1$, $t$ and $t+1$ together. A transfer
+matrix whose states are single rows cannot express it: the step from $r^{(t)}$ to
+$r^{(t+1)}$ does not know $r^{(t-1)}$. Two consecutive rows are enough, and that is
+the state used below.
+
+\section{The digraph}
+
+Let $V=\{0,\dots,3\}^{3}$ be the possible rows and take
+$\mathcal V=V\times V$, of size $S=4096$, as the vertex set. Declare $(p,c)\to(c,x)$ an edge
+when every cell of the middle row $c$ satisfies \eqref{eq:loc} with $p$ above it and $x$
+below it; there is no edge between pairs that do not overlap in this way. Let $N$ be the
+adjacency matrix, $\mathbf{v}$ the indicator of the pairs $(p,c)$ whose first row $p$
+satisfies \eqref{eq:loc} with no row above and, where the entry demands it, whose first entry is $0$, and $\mathbf{u}$ the indicator of
+the pairs $(p,c)$ whose second row $c$ satisfies it with no row below.
+
+\begin{lemma}\label{lem:walk}
+For $L\ge2$, the arrays counted by the entry with $L$ rows are exactly the walks
+\[
+(r^{(1)},r^{(2)})\to(r^{(2)},r^{(3)})\to\cdots\to(r^{(L-1)},r^{(L)})
+\]
+of length $L-2$ starting at a vertex marked by $\mathbf{v}$ and ending at one marked by
+$\mathbf{u}$. Consequently
+\[
+a(n)\;=\;\,\mathbf{v}^{\!\top}N^{\,L-2}\mathbf{u},\qquad L=n .
+\]
 \end{lemma}
 
 \begin{proof}
-By the Cayley--Hamilton theorem $M^{S'}$ is an integer combination of $I,M,\dots,M^{S'-1}$,
-and multiplying that relation on the left by $\iota^{\!\top}M^{\,j}$ and on the right by
-$\tau$ turns it into a relation among $S'+1$ consecutive values of $a$.
+Consecutive vertices of such a walk overlap in one row, so a walk of that shape is
+precisely a sequence $r^{(1)},\dots,r^{(L)}$ of rows, that is, an array of $L$ rows
+and $3$ columns. In the walk, the cells of row $t$ for $2\le t\le L-1$ are tested
+exactly once --- at the step leaving $(r^{(t-1)},r^{(t)})$ --- and with their true
+neighbours $r^{(t-1)}$ and $r^{(t+1)}$. The cells of row $1$ are tested by
+$\mathbf{v}$ and those of row $L$ by $\mathbf{u}$, in both cases by the same condition
+with the missing neighbour row treated as absent, which is how the array itself behaves at
+its boundary. So the walks are exactly the admissible arrays, and summing over all starting
+and ending vertices counts them.
 \end{proof}
 
-\section{Why the question has to be asked of a tail}
 
-Running Berlekamp--Massey on the sequence from its first term returns an order LARGER than $91$: the opening terms do not satisfy the recurrence, and a recurrence that holds only eventually always looks longer when the exceptional terms are included. That is not evidence against the entry. An OEIS empirical recurrence is asserted for $n$ beyond some index, not from the first term, so the question has to be asked of the tails. It was asked of each tail in turn, and the tail beginning at $n=5$ is the first whose minimal order is exactly the stated $91$.
+The size of $\mathcal V$ is worth seeing concretely. There are $3+1=4$ values
+and $3$ cells in a row, so $|V|=4^{3}=64$, and the vertex set is
+$V\times V$, of size $64^2=4096$. That is the whole of the state: two consecutive
+rows and nothing else about the array's history.
 
-\begin{lemma}\label{lem:bm}
-A sequence known to satisfy some linear recurrence of order at most $S'$ is determined,
-together with its minimal recurrence, by any $2S'$ consecutive terms: Berlekamp--Massey applied
-to them returns that minimal recurrence exactly.
+It is worth saying why this is not done by enumeration. At the largest index the entry
+publishes, $n=21$, the arrays have $3\cdot21$ cells over
+$4$ values, so there are about $10^{37}$ of them to sift. The
+walk count replaces that by $4096$ states and one matrix--vector product per row.
+\section{The criterion}
+
+Let $q(t)=t^{2}-\sum_i c_i\,t^{2-i}$ be the characteristic polynomial of
+\eqref{eq:conj} and put $G=N$, so that a unit step in $n$ advances the walk by
+$1$ row.
+
+\begin{lemma}\label{lem:crit}
+Let $n_0$ be the least index with $L\ge2$ and $h_j=G^{j}N^{o}\mathbf{u}$, where
+$o=1n_0+0-2$. Then for $j\ge2$,
+\[
+a(n_0+j)-\sum_i c_i\,a(n_0+j-i)\;=\;\,\mathbf{v}^{\!\top}G^{\,j-2}w,
+\qquad w=h_{2}-\sum_i c_i\,h_{2-i} .
+\]
+Hence \eqref{eq:conj} holds from that point on if and only if
+$\mathbf{v}^{\!\top}G^{m}w=0$ for every $m\ge0$, and it is enough to check
+$m=0,1,\dots,S-1$.
 \end{lemma}
 
-Applied to $2S'=974$ exact terms from $n=5$ on, it returns order $91$ --- the
-order the entry states --- with integer coefficients:
-\[
-a(n)\;=\;\sum_{i=1}^{91}c_i\,a(n-i),
-\]
-\begin{center}\small
-\begin{tabular}{cccccccc}
-$c_{1}$ & $6$ & $c_{24}$ & $-67638$ & $c_{47}$ & $-36962$ & $c_{70}$ & $-170$ \\
-$c_{2}$ & $-8$ & $c_{25}$ & $20357$ & $c_{48}$ & $7514$ & $c_{71}$ & $157$ \\
-$c_{3}$ & $-12$ & $c_{26}$ & $57248$ & $c_{49}$ & $17297$ & $c_{72}$ & $319$ \\
-$c_{4}$ & $37$ & $c_{27}$ & $-66983$ & $c_{50}$ & $-24146$ & $c_{73}$ & $-561$ \\
-$c_{5}$ & $-48$ & $c_{28}$ & $98834$ & $c_{51}$ & $41410$ & $c_{74}$ & $90$ \\
-$c_{6}$ & $47$ & $c_{29}$ & $-113894$ & $c_{52}$ & $-45215$ & $c_{75}$ & $-384$ \\
-$c_{7}$ & $62$ & $c_{30}$ & $93177$ & $c_{53}$ & $32291$ & $c_{76}$ & $43$ \\
-$c_{8}$ & $-136$ & $c_{31}$ & $-99013$ & $c_{54}$ & $-13422$ & $c_{77}$ & $49$ \\
-$c_{9}$ & $-186$ & $c_{32}$ & $62026$ & $c_{55}$ & $4490$ & $c_{78}$ & $23$ \\
-$c_{10}$ & $274$ & $c_{33}$ & $38738$ & $c_{56}$ & $6608$ & $c_{79}$ & $80$ \\
-$c_{11}$ & $1023$ & $c_{34}$ & $-143622$ & $c_{57}$ & $-4066$ & $c_{80}$ & $51$ \\
-$c_{12}$ & $-2268$ & $c_{35}$ & $156837$ & $c_{58}$ & $-7587$ & $c_{81}$ & $15$ \\
-$c_{13}$ & $1439$ & $c_{36}$ & $-168319$ & $c_{59}$ & $-1459$ & $c_{82}$ & $-21$ \\
-$c_{14}$ & $-549$ & $c_{37}$ & $126242$ & $c_{60}$ & $-689$ & $c_{83}$ & $-21$ \\
-$c_{15}$ & $-1211$ & $c_{38}$ & $-21907$ & $c_{61}$ & $961$ & $c_{84}$ & $-22$ \\
-$c_{16}$ & $5668$ & $c_{39}$ & $42423$ & $c_{62}$ & $7787$ & $c_{85}$ & $2$ \\
-$c_{17}$ & $-13358$ & $c_{40}$ & $-22895$ & $c_{63}$ & $-4489$ & $c_{86}$ & $-3$ \\
-$c_{18}$ & $21239$ & $c_{41}$ & $-50377$ & $c_{64}$ & $4376$ & $c_{87}$ & $5$ \\
-$c_{19}$ & $-12778$ & $c_{42}$ & $66896$ & $c_{65}$ & $-3411$ & $c_{88}$ & $4$ \\
-$c_{20}$ & $-2101$ & $c_{43}$ & $-92294$ & $c_{66}$ & $-1413$ & $c_{89}$ & $1$ \\
-$c_{21}$ & $26181$ & $c_{44}$ & $107650$ & $c_{67}$ & $339$ & $c_{90}$ & $0$ \\
-$c_{22}$ & $-62930$ & $c_{45}$ & $-79558$ & $c_{68}$ & $-802$ & $c_{91}$ & $-1$ \\
-$c_{23}$ & $68781$ & $c_{46}$ & $45953$ & $c_{69}$ & $1880$ &  &  \\
-\end{tabular}
-\end{center}
-
-\section{The recurrence, and the identification}
+\begin{proof}
+Substitute Lemma~\ref{lem:walk} and factor $G^{j-2}$ out of
+$G^{j}-\sum_ic_iG^{j-i}$; the nonzero scalar $1$ does not affect
+vanishing. For the last clause, Cayley--Hamilton makes $G^{S}$ an integer combination of
+$I,G,\dots,G^{S-1}$, so $\mathbf{v}^{\!\top}G^{m}w$ for $m\ge S$ is the corresponding
+combination of the earlier values; if those vanish, so do all the rest.
+\end{proof}
 
 \begin{theorem}
-The recurrence above holds for every $n\ge96$, and it is the recurrence OEIS A254548 records.
+The recurrence \eqref{eq:conj} holds for every $n>3$, which is the statement of
+Section~1.
 \end{theorem}
 
 \begin{proof}
-That it holds is Lemma~\ref{lem:bm} applied to the tail from $n=5$, whose minimal
-recurrence it is.
-
-For the identification, write $q_{\min}$ for the characteristic polynomial of that minimal
-recurrence, $x^{91}-c_1x^{91-1}-\dots-c_{91}$. Its constant term is
-$-c_{91}=1$, which is not zero, so $q_{\min}(0)\neq0$ and $q_{\min}$ has no
-root at the origin. A solution of a constant-coefficient recurrence is a combination of terms
-$n^{k}\lambda^{n}$ with $\lambda$ a root of its characteristic polynomial, and only the
-components with $\lambda=0$ vanish after finitely many terms. Since $q_{\min}$ has none, no
-component of $a$ dies out, and the minimal recurrence of every further tail is again
-$q_{\min}$ --- the order cannot drop below $91$ at any later starting point.
-
-Now let $q$ be the characteristic polynomial of whatever recurrence the entry asserts. The
-entry asserts it has order $91$, so $\deg q=91$, and it is monic. It holds from some
-index $t$ on. From $\max(t,5)$ on, the sequence satisfies both $q$ and $q_{\min}$, and
-the minimal polynomial of that tail is $q_{\min}$ by the previous paragraph; therefore
-$q_{\min}\mid q$. Both are monic of degree $91$, so $q=q_{\min}$.
+The digraph was built directly from \eqref{eq:loc}: for each of the $S=4096$ pairs and each
+of the $(3+1)^{3}$ possible next rows, the condition was tested on every cell of
+the middle row. The vector $w$ was formed by $2$ applications of $G$ in exact integer
+arithmetic and $\mathbf{v}^{\!\top}G^{m}w$ evaluated for $m=0,1,\dots$, again exactly.
+Every one of those integers vanishes from the index corresponding to $n=3+1$ onwards,
+and the run was continued until $S+1$ consecutive zeros had been seen, which by
+Lemma~\ref{lem:crit} settles every larger $m$ at once.
 \end{proof}
+
+\begin{remark}
+The argument gives more than the recurrence: the sequence is $C$-finite with characteristic
+polynomial dividing that of $G$, hence has a rational generating function whose denominator
+divides $\det(I-xG)$. The conjectured recurrence is one consequence; the minimal one is a
+divisor of $q$.
+\end{remark}
 
 \section{Verification}
 
-Four checks, all in exact integer or rational arithmetic.
+Three checks, each independent of the algebra above.
 
-First, the walk model reproduces all $20$ terms the entry publishes, exactly. This is
-what ties the model to the entry, and it is the only place where reading the entry's English
-enters the argument.
+First, the walk counts of Lemma~\ref{lem:walk} were compared against the entry's DATA at
+every one of the $21$ published indices, with no shift fitted: the number of rows is
+read off the entry's own name as $L=n$ and the entry's offset says which index the first
+published term carries. The values agree exactly. A misreading of \eqref{eq:loc}, of the
+neighbour set, or of the boundary treatment would give a different digraph and different
+counts, so this is a test of the modelling and not only of the arithmetic.
 
-Second, the order was computed twice by independent routes: once modulo a $61$-bit prime, where
-every intermediate is a machine word, and once over $\mathbb{Q}$ in exact rational arithmetic.
-Both return $91$, and the exact run additionally confirms every coefficient is an integer
---- had any been a proper fraction the recurrence would not be the entry's.
+Second, the recurrence \eqref{eq:conj} was evaluated on those published terms in exact
+integer arithmetic, with no matrices involved, and vanishes wherever it applies.
 
-Third, the recovered recurrence was evaluated directly on the entry's own published terms, with
-no matrices and no Berlekamp--Massey involved. It holds at each of the $0$ indices where
-the entry publishes enough earlier terms to test it.
-
-Fourth, the last coefficient was checked to be nonzero, which is what the identification above
-turns on; it is $-1$.
-
-\begin{remark}
-The conjecture's own statement was never read. The entry pins it down to the family of
-order-$91$ recurrences this sequence satisfies from some point on, and that family turns
-out to have exactly one member.
-\end{remark}
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried to the full
+Cayley--Hamilton bound in exact integer arithmetic rather than to a sampled prefix, and
+returned zero throughout.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A254548.
-\bibitem{massey} J.~L.~Massey, Shift-register synthesis and BCH decoding, \emph{IEEE
-Trans. Inform. Theory} \textbf{15} (1969), 122--127.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A231280.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{kauers} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011.
-(C-finite sequences and their closure properties.)
+\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+University Press, 2009.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

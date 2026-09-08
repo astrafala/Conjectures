@@ -12,108 +12,79 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A253031, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A224646, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{3 September 2026}
+\date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A253031 counts arrays of width $5$ over an alphabet of $3$ letters in which every three
-consecutive entries taken along a row, a column or a diagonal hold a prescribed number of
-DISTINCT values, the arrays being counted up to renaming of the letters. The entry carries an
-empirical recurrence of order $20$ contributed by R.~H.~Hardin. It is true, and it is
-decidable rather than empirical. Nothing in the condition compares letters by size, so the
-count up to renaming is recovered from counts over fixed alphabets by inverting a triangular
-system of falling factorials; each of those is a walk count on pairs of consecutive rows, and
-the same symmetry is used a second time to run the walk on ORBITS of pairs, which is what
-brings the state count down to $S=992$.
+OEIS A224646 counts the $(n+2)\times5$ matrices over $\{0,\dots,1\}$ all of whose
+$3\times3$ contiguous subblocks are of equal population, and carries an empirical recurrence of order
+$20$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical.
+The condition ties together $3$ consecutive rows and $3$ consecutive columns at once, so a
+single row is not a state; the strip of the last $2$ rows is, and the admissible strips
+are read off the overlap graph of the admissible windows instead of being enumerated. That
+makes $a(n)$ a walk count on $S=2240$ vertices, hence $C$-finite, and whether the conjectured
+recurrence annihilates it is settled by a finite exact computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A18, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
 \section{The conjecture}
 
-OEIS A253031 is ``Number of (n+2)X(3+2) 0..2 arrays with every consecutive three elements in every row and column having exactly two distinct values, and new values 0 upwards introduced in row major order.''. It has offset $1$ and begins
+OEIS A224646 is ``Number of (n+2)X5 0..1 matrices with each 3X3 subblock having the same population.''. It has offset $1$ and begins
 \[
-9126, 102060, 1134864, 12647772, 141199416, 1576282464, 17600380920, 196546814928,\ \dots
+3200, 5696, 10304, 19328, 44096, 103232, 250304, 672320,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 12*a(n-1) +8*a(n-2) -96*a(n-3) -1220*a(n-4) +332*a(n-5) +12548*a(n-6) +11360*a(n-7) -41384*a(n-8) -112608*a(n-9) +7728*a(n-10) +341792*a(n-11) +337408*a(n-12) -210560*a(n-13) -870400*a(n-14) -1209856*a(n-15) +668672*a(n-16) +2822144*a(n-17) +458752*a(n-18) -1933312*a(n-19) -851968*a(n-20)
+Empirical: a(n) = 4*a(n-1) -3*a(n-2) +36*a(n-3) -144*a(n-4) +108*a(n-5) -503*a(n-6) +2012*a(n-7) -1509*a(n-8) +3480*a(n-9) -13920*a(n-10) +10440*a(n-11) -12564*a(n-12) +50256*a(n-13) -37692*a(n-14) +22464*a(n-15) -89856*a(n-16) +67392*a(n-17) -15552*a(n-18) +62208*a(n-19) -46656*a(n-20)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 13:52:16, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 23:33:38, revision 8) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
-\section{What is being counted}
+\section{The count is a walk count}
 
-The array has width $5$ and entries in $\{0,1,\dots,2\}$. Four families of triples
-run through it, and each carries its own condition on how many distinct values the three
-entries may hold:
+Call a $3\times3$ matrix over $\{0,\dots,1\}$ a \emph{window} when it is of equal population, and
+call a $3\times5$ matrix a \emph{band} when every one of its $3$ contiguous
+$3\times3$ subblocks is a window. What the entry counts is the matrices of $5$ columns
+whose every $3$ consecutive rows form a band.
+
+Take as states the $2\times5$ strips that occur as the top $2$ rows of a band,
+together with those that occur as its bottom $2$ rows, and put an edge from $u$ to $v$
+when the band whose first $2$ rows are $u$ and whose last $2$ rows are $v$ exists.
+A band is determined by that pair, so the edge is unique when it exists. Reading a counted
+matrix from the top, its rows $1..2$, then $2..3$, and so on, form a walk, and every
+walk arises from exactly one matrix; a matrix with $n+2$ rows gives a walk of $n$ edges.
+Since the first $2$ rows of a counted matrix with at least $3$ rows are the top of a
+band, and since no further condition falls on where a walk starts or ends,
 \[
-\begin{array}{lll}
-\text{along} & \text{the triple} & \text{admissible numbers of distinct values} \\[2pt]
-\text{a row} & $(i,j),\ (i,j+1),\ (i,j+2)$ & $2$ \\
-\text{a column} & $(i,j),\ (i+1,j),\ (i+2,j)$ & $2$ \\
-\end{array}
+a(n)\;=\;\iota^{\!\top}M^{\,n}\tau ,\qquad \iota=\tau=(1,1,\dots,1)^{\!\top},
 \]
-A triple counts only when all three of its cells lie inside the array. The entry places no condition on triples along a diagonal or an antidiagonal.
+with $M$ the adjacency matrix on $S=2240$ states. In particular $a$ is $C$-finite. The
+alignment was checked against the entry's published terms rather than assumed.
 
-The clause ``new values $0$ upwards introduced in row major order'' says the array is the
-canonical representative of its EQUALITY PATTERN: reading the cells in row major order, a
-letter may appear for the first time only if every smaller letter already has. So what the
-entry counts is patterns, not arrays.
+There are $(1 + 1)^{10}$ strips of $2$ rows and $5$ columns, far too
+many to test one by one, and they are not tested one by one. Two consecutive windows of a band
+overlap in $3\times2$ entries, so a band is exactly a walk of $3$ windows in
+the graph that joins a window to those whose first $2$ columns are its last $2$
+columns. Enumerating those walks produces the bands, and with them the states and the edges,
+directly.
 
-\section{From patterns to fixed alphabets}
+\section{The admissible windows}
 
-Write $N_j$ for the number of admissible patterns using exactly $j$ letters and $L_i$ for the
-number of admissible arrays over an alphabet of $i$ letters. An array over $i$ letters is a
-pattern together with an injection of its letters into the alphabet, so
+The entry does not name the common value; it only asks that all the windows of one matrix agree.
+So fix a value $v$ and let $W_v$ be the set of $3\times3$ matrices over
+$\{0,\dots,1\}$ whose population, the number of its entries equal to $1$, equals $v$. A matrix counted by the entry has all of
+its windows in a single $W_v$, and the value of $v$ is determined by the matrix, so the sets of
+matrices belonging to different $v$ are disjoint and
 \[
-L_i\;=\;\sum_j N_j\,i(i-1)\cdots(i-j+1),
+a(n)\;=\;\sum_v a_v(n),
 \]
-a triangular system with unit diagonal, hence invertible over $\mathbf{Q}$. The entry counts
-$a=N_1+\dots+N_{3}$, so
-\[
-a\;=\;\sum_{i=1}^{3}w_i\,L_i ,\qquad w=\mathbf{1}^{\!\top}F^{-1},
-\]
-$F$ being the matrix of falling factorials.
-
-This step is legitimate only if the condition is invariant under permuting the alphabet, and
-here it is: every clause counts how many DISTINCT values a triple holds, and whether two cells
-agree is untouched by any renaming. No clause compares letters by size and none does arithmetic
-on them, so the reduction applies with nothing left over.
-
-\section{Each $L_i$ is a walk count, on orbits}
-
-Every triple lies inside three consecutive rows, so with $c_1,\dots,c_R$ the rows of the array
-the condition is a conjunction of tests on the windows $(c_{t},c_{t+1},c_{t+2})$ together
-with the row test on each $c_t$ separately. A pair of consecutive admissible rows is therefore
-a state, and $L_i$ counts walks in the digraph on those pairs, one edge $(c_t,c_{t+1})\to
-(c_{t+1},c_{t+2})$ for each admissible window.
-
-That digraph has up to $i^{2\cdot5}$ vertices, which is more than can be written down for
-the wider arrays. The symmetry is used again to cut it. Let $G=S_i$ act on states by renaming
-letters. Every test is invariant, so the adjacency matrix $M$ commutes with the action, and the
-all-ones vector $\tau$ is invariant; hence $M^{t}\tau$ is invariant, that is, constant on
-orbits. Writing $\bar M[O,O']$ for the number of edges from one fixed representative of $O$ to
-states of $O'$ --- a number independent of the representative, again by invariance --- gives
-$\overline{M^{t}\tau}=\bar M^{t}\bar\tau$, and therefore
-\[
-L_i(R)\;=\;\sum_{s}(M^{R-2}\tau)(s)\;=\;\sum_{O}|O|\,(\bar M^{R-2}\bar\tau)(O),
-\]
-the sum being over the orbits of admissible pairs. An orbit is exactly the PATTERN of the pair,
-and if that pattern uses $p$ letters its orbit has $i(i-1)\cdots(i-p+1)$ members, since a state
-is fixed only by permutations fixing every letter it shows. So the start vector is the falling
-factorial and the end vector is all ones.
-
-Assembling the $i=1,\dots,3$ pieces as a disjoint union, with $\iota$ carrying the weights
-$w_i$ cleared of denominators,
-\[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,
-\]
-with $S=992$ states in all. The walk index $j$ and the entry's own $n$ differ by a constant,
-read off by matching the published terms rather than assumed. In particular $a$ is $C$-finite.
+each $a_v$ being the walk count of Section~2 built from $W_v$ alone. A disjoint union of the
+$10$ digraphs, one per value of $v$, therefore counts the whole of $a(n)$ with the same
+all-ones vectors, and the $3\times3$ windows in play number $512$ in total.
 
 \section{The proof}
 
@@ -135,7 +106,7 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;12\,a(n-1) + 8\,a(n-2) - 96\,a(n-3) - 1220\,a(n-4) + 332\,a(n-5) + 12548\,a(n-6) + 11360\,a(n-7) - 41384\,a(n-8) - 112608\,a(n-9) + 7728\,a(n-10) + 341792\,a(n-11) + 337408\,a(n-12) - 210560\,a(n-13) - 870400\,a(n-14) - 1209856\,a(n-15) + 668672\,a(n-16) + 2822144\,a(n-17) + 458752\,a(n-18) - 1933312\,a(n-19) - 851968\,a(n-20)
+a(n)\;=\;4\,a(n-1) - 3\,a(n-2) + 36\,a(n-3) - 144\,a(n-4) + 108\,a(n-5) - 503\,a(n-6) + 2012\,a(n-7) - 1509\,a(n-8) + 3480\,a(n-9) - 13920\,a(n-10) + 10440\,a(n-11) - 12564\,a(n-12) + 50256\,a(n-13) - 37692\,a(n-14) + 22464\,a(n-15) - 89856\,a(n-16) + 67392\,a(n-17) - 15552\,a(n-18) + 62208\,a(n-19) - 46656\,a(n-20)
 \]
 for every $n>19$.
 \end{theorem}
@@ -144,38 +115,30 @@ for every $n>19$.
 The vector $w=q(M)\tau$ was formed by $20$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
 integers vanish from the index corresponding to $n=19+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once. The
-rational weights $w_i$ are carried as one common denominator throughout, so no division is
-performed until the final term.
+until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
-Four checks, each independent of the algebra above.
+Three checks, each independent of the algebra above.
 
-First, the model reproduces all $14$ terms the entry publishes, exactly, in integer
-arithmetic.
+First, the model reproduces all $22$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry: the digraph is built by reading the
+entry's English, and a misreading gives different counts.
 
-Second, the count was recomputed for the smallest arrays straight from the definition: fill the
-cells in row major order, allow a cell to introduce a new letter only when every smaller letter
-is already present, and reject a partial array as soon as a triple all of whose cells are
-placed violates its condition. This uses neither the transfer matrix, nor the orbit reduction,
-nor the falling-factorial inversion, and it returns the published terms.
-
-Third, the conjectured recurrence was evaluated directly on the published terms, with no
+Second, the conjectured recurrence was evaluated directly on those published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
 
-Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
 arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A253031.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A224646.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; Stirling numbers and
-falling factorials, Section 1.9.)
-\bibitem{kemeny} J.~G.~Kemeny and J.~L.~Snell, \emph{Finite Markov Chains}, Springer,
-1976. (Lumping a chain along a partition preserved by the transition rule, Section 6.3.)
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{kim} K.~H.~Kim, \emph{Boolean Matrix Theory and Applications}, Marcel Dekker,
+1982.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}
