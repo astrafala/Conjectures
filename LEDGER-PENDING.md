@@ -449,3 +449,47 @@ checked; for the sample entry that is 45 further steps.
 That is the second time today a batch of apparent disproofs turned out to be my own code. The
 rule I am now following without exception: **a disproof is checked by hand against the entry's
 own wording before it is recorded as anything at all.**
+
+## 8 September 2026 — the largest vein in the database: a conjecture that needs no model at all
+
+Asked for bulk in the thousands, I stopped writing engines and measured the ceiling instead.
+**19,097 entries in the whole OEIS carry a conjectured recurrence or generating function and
+link no proof.** That is the number this project is working against.
+
+Then the question that mattered: how many of those can be settled **without a model of any
+kind** — no array to count, no transfer matrix, no name to parse?
+
+**3,520 of them carry a generating function the entry itself states as fact.** For those the
+conjectured recurrence follows from the stated g.f. by algebra alone: a rational g.f. of
+denominator degree d makes the sequence C-finite with that denominator as its characteristic
+polynomial, so whether the conjectured recurrence holds is a polynomial identity, decidable
+exactly. 2,817 of them are not in the roster.
+
+`sweep_gf.py` was written for exactly this and had 233 papers. It had the same four defects
+found in the table sweep this morning, and one of its own:
+
+* it walked all 399,027 names in A-number order;
+* it skipped an entry **without recording the skip**, so every run re-read the same early part
+  of the index and its timeout meant it never reached the rest;
+* it did not shard;
+* it required the conjectural word to be ON the line, so a conjecture written as a block was
+  invisible;
+* and `HITS`/`DONE` were fixed names, so four shards would all have written the same file.
+
+With those fixed and the pool pointed at the 2,817:
+
+| shard | proved in one window |
+| --- | --- |
+| 0 | 573 |
+| 1 | 519 |
+| 2 | 526 |
+| 3 | 533 |
+
+**2,151 proofs from this vein, and 0 records claiming a conjecture is false** — the sweep only
+records a result when the implication holds and never asserts a falsehood, which after two
+batches of false disproofs today is the design I want. Held results across all veins:
+**2,212**, awaiting the live-OEIS re-check before any of them is counted.
+
+The lesson is now unmistakable and is the same one five times over: **every large vein this
+project has found was already reachable by machinery it already had, and was hidden by how a
+sweep chose what to look at.** Not one of them was hidden by mathematics.

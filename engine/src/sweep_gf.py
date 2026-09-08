@@ -1,6 +1,7 @@
 """Conjectured recurrences that follow from a generating function the entry records as fact."""
-import json, re, os, collections, signal
+import json, re, os, collections, signal, zlib
 import sympy
+import conjlines
 import localentry as LE, ratrec, openness, gfrec
 
 
@@ -13,7 +14,10 @@ BUDGET = int(os.environ.get('BUDGET', '30'))
 P = '/tmp/claude-0/-home-user-Conjectures/a6c6c48d-a8e1-5e03-bfd7-16e8d9d94539/scratchpad/'
 names = json.load(open(P + 'all_names.json'))
 roster = {r['anum'] for r in json.load(open('rank-map.json'))}
-HITS, DONE = 'gf_hits.json', 'gf_done.json'
+# settable, so the four shards cannot overwrite one another: they had fixed names and every
+# shard would have written the same file
+HITS = os.environ.get('HITS', 'gf_hits.json')
+DONE = os.environ.get('DONE', 'gf_done.json')
 hits = json.load(open(HITS)) if os.path.exists(HITS) else []
 done = set(json.load(open(DONE))) if os.path.exists(DONE) else set()
 res = collections.Counter()
@@ -26,17 +30,32 @@ def save():
     json.dump(sorted(done), open(DONE, 'w'))
 
 
-for a in sorted(names):
-    if a in done or a in roster:
+# Three failures this sweep shared with every other one here, and a fourth of its own.
+# It walked all 399,027 names in A-number order; it skipped an entry WITHOUT recording the
+# skip, so every run re-read the same early part of the index and a timeout meant it never
+# reached the rest; it did not shard; and it required the conjectural word to be ON the line,
+# so a conjecture written as a "Conjectures from X: (Start)" block was invisible.
+#
+# The pool is the 3,520 entries that carry a conjectured recurrence AND a generating function
+# the entry states as fact -- the premise this sweep is built on, and by far the largest
+# settleable pool in the database.
+POOL = os.environ.get('GFPOOL', 'deep-check/gfdef.txt')
+targets = ([a for a in open(POOL).read().split() if a.startswith('A')]
+           if os.path.exists(POOL) else sorted(names))
+SHARD = int(os.environ.get('GFSHARD', '0'))
+NSHARD = int(os.environ.get('GFNSHARD', '1'))
+
+for a in targets:
+    if a in done or a in roster or zlib.crc32(a.encode()) % NSHARD != SHARD:
         continue
     e = LE.get(a)
     lines = e['comment'] + e['formula']
-    conj = [L for L in lines if CONJ.search(L) and REC.search(L)]
+    conj = [L for L in conjlines.lines(e) if REC.search(L)]
     if not conj:
-        continue
+        res['no conjectured recurrence line'] += 1; done.add(a); save(); continue
     recs = [r for r in (ratrec.parse_rec(L) for L in conj) if r]
     if not recs:
-        continue
+        res['conjectured recurrence unparsable'] += 1; done.add(a); save(); continue
     gfl = [(L, g) for L, g in ((L, gfrec.parse_gf(L)) for L in lines if not CONJ.search(L))
            if g is not None]
     if not gfl:
