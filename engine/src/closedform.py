@@ -24,10 +24,21 @@ x = sympy.Symbol('x')
 LINE = re.compile(r'^(?:Conjecture|Empirical)[^:]*:\s*a\(n\)\s*=\s*([^=]+)$', re.I)
 
 
-def parse_line(L):
-    """the closed form and the range the entry claims for it, or None."""
+# A closed form stated as FACT carries no conjectural prefix -- "a(n) = 2^n - n - 2." -- and
+# LINE demands one, because this module was written to read CONJECTURED closed forms. Asking
+# it whether an entry states a closed form as fact therefore always answered no, and a scan
+# of 8,148 entries built on that question returned a confident, meaningless zero.
+BARE = re.compile(r'^a\(n\)\s*=\s*([^=]+)$', re.I)
+
+
+def parse_line(L, bare=False):
+    """the closed form and the range the entry claims for it, or None.
+
+    `bare=True` also accepts a line that states the formula with no conjectural prefix, which
+    is how a formula recorded as fact is written.
+    """
     t = L.strip()
-    m = LINE.match(t)
+    m = LINE.match(t) or (BARE.match(t) if bare else None)
     if not m:
         return None
     body = m.group(1).strip()

@@ -575,3 +575,31 @@ evidence the conjecture stands, which is what it is.
 There is a general point in this. A settlement checker that only pattern-matches words will
 read a retraction as a confirmation, because retractions quote the claim they retract. Every
 flag it raises has to be read.
+
+## 8 September 2026 — a new vein, and a scan of mine that confidently returned zero
+
+The generating-function vein settles a conjectured recurrence from a g.f. the entry states as
+fact. The same argument runs from a **closed form** stated as fact: a formula built from terms
+n^k·b^n is annihilated by a known monic integer polynomial, so the sequence satisfies exactly
+the recurrences whose characteristic polynomial is a multiple of it, and the conjecture is
+decided by one polynomial division with no model of the sequence at all.
+
+Getting to that number took three tries and the middle one is the instructive part.
+
+* **First measurement: 1,190.** Built on `line.startswith('a(n) = ')`, which also matches
+  English prose — "a(n) is the number of sublattices of index n in a generic 2-dimensional
+  lattice". Wrong.
+* **Second measurement: 0 of 8,148 scanned.** I was ready to record the vein as a dead end.
+  It was not: `closedform.parse_line` requires a line to begin "Conjecture:" or "Empirical:",
+  because that module was written to read *conjectured* closed forms. A formula stated as fact
+  carries no such prefix, so asking it whether an entry states one always answered no. **The
+  scan was confident, thorough, and meaningless.**
+* **Third measurement, with the parser taught to read a bare formula: 189 usable** from the
+  8,148 scanned so far, of 19,097 to scan. **12 proved in the first window**, and 30 refused
+  because the stated formula does not reproduce the entry's own published terms — a premise
+  that cannot be read correctly is a premise I will not use, and nothing is claimed for those.
+
+The pattern I have been reporting all day — a sweep whose refusal is really a defect in what
+it asks — turned up this time in code I had written an hour earlier. It is not a legacy
+problem. **A clean zero deserves the same suspicion as a surprising success**, and I now check
+an instrument on a case I know the answer to before trusting a number it produces.
