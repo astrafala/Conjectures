@@ -12,14 +12,14 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A206264, derived from the entry's generating function}
+\title{The empirical recurrence for OEIS A250085, derived from the entry's generating function}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A206264 carries an empirical recurrence of order $8$. The entry separately records a
+OEIS A250085 carries an empirical recurrence of order $9$. The entry separately records a
 generating function, not as a conjecture but as a statement of fact, and the recurrence is a
 consequence of it: multiplying the generating function by the polynomial the recurrence
 supplies gives a POLYNOMIAL, and the recurrence then holds at every index past that
@@ -33,30 +33,30 @@ checked here against every published term.
 
 \section{The two statements}
 
-OEIS A206264 is ``Number of (n+1) X 6 0..1 arrays with the number of rightwards and downwards edge increases in each 2 X 2 subblock equal to the number in all its horizontal and vertical neighbors.''. It has offset $1$ and begins
+OEIS A250085 is ``Number of length 4+5 0..n arrays with every six consecutive terms having the maximum of some two terms equal to the minimum of the remaining four terms.''. It has offset $1$ and begins
 \[
-72, 93, 218, 471, 932, 1725, 3011, 5014,\ \dots
+252, 5084, 42936, 222329, 847708, 2623376, 6978064, 16547001,\ \dots
 \]
 The entry states, as a conjecture and never marked settled:
 \begin{quote}
-Empirical: a(n) = 6*a(n-1) - 14*a(n-2) + 14*a(n-3) - 14*a(n-5) + 14*a(n-6) - 6*a(n-7) + a(n-8) for n>9.
+a(n) = 9*a(n-1) - 36*a(n-2) + 84*a(n-3) - 126*a(n-4) + 126*a(n-5) - 84*a(n-6) + 36*a(n-7) - 9*a(n-8) + a(n-9) for n>9.
 \end{quote}
 and, separately and NOT as a conjecture:
 \begin{quote}
-G.f.: x*(72 - 339*x + 668*x\^{}2 - 543*x\^{}3 - 144*x\^{}4 + 683*x\^{}5 - 591*x\^{}6 + 232*x\^{}7 - 36*x\^{}8) / ((1 - x)\^{}7*(1 + x)).
+G.f.: x*(252 + 2816*x + 6252*x\^{}2 - 2239*x\^{}3 - 2861*x\^{}4 + 56*x\^{}5 + 52*x\^{}6 - 9*x\^{}7 + x\^{}8) / (1 - x)\^{}9.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jun 15 2018 07:59:34, revision 8) the first is still
+As of the ``Last modified'' line on the live entry (Nov 12 2018 03:00:27, revision 11) the first is still
 recorded as empirical. This note derives it from the second.
 
 \section{A rational generating function decides every linear recurrence}
 
 Write
 \[
-G(x)\;=\;\sum_{n}a(n)\,x^{n}\;=\;\frac{36 x^{9} - 232 x^{8} + 591 x^{7} - 683 x^{6} + 144 x^{5} + 543 x^{4} - 668 x^{3} + 339 x^{2} - 72 x}{x^{8} - 6 x^{7} + 14 x^{6} - 14 x^{5} + 14 x^{3} - 14 x^{2} + 6 x - 1},
+G(x)\;=\;\sum_{n}a(n)\,x^{n}\;=\;\frac{- x^{9} + 9 x^{8} - 52 x^{7} - 56 x^{6} + 2861 x^{5} + 2239 x^{4} - 6252 x^{3} - 2816 x^{2} - 252 x}{x^{9} - 9 x^{8} + 36 x^{7} - 84 x^{6} + 126 x^{5} - 126 x^{4} + 84 x^{3} - 36 x^{2} + 9 x - 1},
 \]
 the entry's own generating function, and let
 \[
-D(x)\;=\;1-\sum_i c_i x^{i}\;=\;- x^{8} + 6 x^{7} - 14 x^{6} + 14 x^{5} - 14 x^{3} + 14 x^{2} - 6 x + 1
+D(x)\;=\;1-\sum_i c_i x^{i}\;=\;- x^{9} + 9 x^{8} - 36 x^{7} + 84 x^{6} - 126 x^{5} + 126 x^{4} - 84 x^{3} + 36 x^{2} - 9 x + 1
 \]
 be the polynomial attached to the conjectured recurrence.
 
@@ -73,7 +73,7 @@ negative index being zero.
 
 \begin{theorem}
 \[
-a(n)\;=\;6\,a(n-1) - 14\,a(n-2) + 14\,a(n-3) - 14\,a(n-5) + 14\,a(n-6) - 6\,a(n-7) + a(n-8)
+a(n)\;=\;9\,a(n-1) - 36\,a(n-2) + 84\,a(n-3) - 126\,a(n-4) + 126\,a(n-5) - 84\,a(n-6) + 36\,a(n-7) - 9\,a(n-8) + a(n-9)
 \]
 for every $n>9$.
 \end{theorem}
@@ -81,25 +81,25 @@ for every $n>9$.
 \begin{proof}
 In exact arithmetic,
 \[
-D(x)\,G(x)\;=\;- 36 x^{9} + 232 x^{8} - 591 x^{7} + 683 x^{6} - 144 x^{5} - 543 x^{4} + 668 x^{3} - 339 x^{2} + 72 x,
+D(x)\,G(x)\;=\;x^{9} - 9 x^{8} + 52 x^{7} + 56 x^{6} - 2861 x^{5} - 2239 x^{4} + 6252 x^{3} + 2816 x^{2} + 252 x,
 \]
 a POLYNOMIAL of degree $9$ --- the denominator of $G$ divides $D(x)$ times its numerator,
 which is precisely the condition for the conjectured recurrence to be implied by the
 generating function. Its coefficients vanish beyond degree $9$, so by
 Lemma~\ref{lem:key} the residual $a(n)-\sum_ic_ia(n-i)$ vanishes for every
-$n>9$. The bound is exact: at $n=9$ the recurrence fails on the entry's own published terms.
+$n>9$.
 \end{proof}
 
 \section{Is the conjectured recurrence the shortest one?}
 
 Cancelling common factors, $G$ has reduced denominator
 \[
-x^{8} - 6 x^{7} + 14 x^{6} - 14 x^{5} + 14 x^{3} - 14 x^{2} + 6 x - 1,
+x^{9} - 9 x^{8} + 36 x^{7} - 84 x^{6} + 126 x^{5} - 126 x^{4} + 84 x^{3} - 36 x^{2} + 9 x - 1,
 \]
-of degree $8$, and that degree is the order of the SHORTEST linear recurrence with
+of degree $9$, and that degree is the order of the SHORTEST linear recurrence with
 constant coefficients the sequence obeys: any shorter one would give a polynomial multiple of
 $G$ with a smaller denominator, contradicting the cancellation. The conjectured recurrence has
-order $8$.
+order $9$.
 
 So the conjecture is the minimal recurrence.
 
@@ -111,7 +111,6 @@ generating function involved at all. Doing that:
 \begin{center}
 \begin{tabular}{cc}
 index & residual \\ \hline
-$n=9$ & $-36$ \\
 $n=10$ & $0$ \\
 $n=11$ & $0$ \\
 $n=12$ & $0$ \\
@@ -129,7 +128,7 @@ no amount of checking terms could establish on its own.
 Three checks.
 
 First, the generating function was expanded as a power series in exact rational arithmetic and
-compared against all $33$ terms the entry publishes: it reproduces every one. This is
+compared against all $22$ terms the entry publishes: it reproduces every one. This is
 what ties the recorded generating function to the sequence the recurrence is about.
 
 Second, the polynomial division above was carried out symbolically, not numerically, so the
@@ -148,7 +147,7 @@ entry already contains.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A206264.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A250085.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Rational generating functions, Section 4.1.)
 \bibitem{kp} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011.

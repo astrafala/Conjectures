@@ -12,14 +12,14 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A250084, derived from the entry's generating function}
+\title{The empirical recurrence for OEIS A245952, derived from the entry's generating function}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A250084 carries an empirical recurrence of order $8$. The entry separately records a
+OEIS A245952 carries an empirical recurrence of order $8$. The entry separately records a
 generating function, not as a conjecture but as a statement of fact, and the recurrence is a
 consequence of it: multiplying the generating function by the polynomial the recurrence
 supplies gives a POLYNOMIAL, and the recurrence then holds at every index past that
@@ -33,30 +33,30 @@ checked here against every published term.
 
 \section{The two statements}
 
-OEIS A250084 is ``Number of length 3+5 0..n arrays with every six consecutive terms having the maximum of some two terms equal to the minimum of the remaining four terms.''. It has offset $1$ and begins
+OEIS A245952 is ``Number of length 2+3 0..n arrays with some pair in every consecutive four terms totalling exactly n.''. It has offset $1$ and begins
 \[
-144, 2228, 15472, 68863, 232096, 647122, 1572320, 3441309,\ \dots
+26, 197, 676, 1889, 3966, 7669, 13064, 21281,\ \dots
 \]
 The entry states, as a conjecture and never marked settled:
 \begin{quote}
-a(n) = 8*a(n-1) - 28*a(n-2) + 56*a(n-3) - 70*a(n-4) + 56*a(n-5) - 28*a(n-6) + 8*a(n-7) - a(n-8) for  n>8.
+Empirical: a(n) = 2*a(n-1) + 2*a(n-2) - 6*a(n-3) + 6*a(n-5) - 2*a(n-6) - 2*a(n-7) + a(n-8).
 \end{quote}
 and, separately and NOT as a conjecture:
 \begin{quote}
-G.f.: x*(144 + 1076*x + 1680*x\^{}2 - 593*x\^{}3 - 280*x\^{}4 - 18*x\^{}5 + 8*x\^{}6 - x\^{}7) / (1 - x)\^{}8.
+G.f.: x*(26 + 145*x + 230*x\^{}2 + 299*x\^{}3 + 18*x\^{}4 - 141*x\^{}5 - 2*x\^{}6 + x\^{}7) / ((1 - x)\^{}5*(1 + x)\^{}3).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Nov 11 2018 09:55:50, revision 8) the first is still
+As of the ``Last modified'' line on the live entry (Nov 05 2018 11:36:15, revision 8) the first is still
 recorded as empirical. This note derives it from the second.
 
 \section{A rational generating function decides every linear recurrence}
 
 Write
 \[
-G(x)\;=\;\sum_{n}a(n)\,x^{n}\;=\;\frac{- x^{8} + 8 x^{7} - 18 x^{6} - 280 x^{5} - 593 x^{4} + 1680 x^{3} + 1076 x^{2} + 144 x}{x^{8} - 8 x^{7} + 28 x^{6} - 56 x^{5} + 70 x^{4} - 56 x^{3} + 28 x^{2} - 8 x + 1},
+G(x)\;=\;\sum_{n}a(n)\,x^{n}\;=\;\frac{- x^{8} + 2 x^{7} + 141 x^{6} - 18 x^{5} - 299 x^{4} - 230 x^{3} - 145 x^{2} - 26 x}{x^{8} - 2 x^{7} - 2 x^{6} + 6 x^{5} - 6 x^{3} + 2 x^{2} + 2 x - 1},
 \]
 the entry's own generating function, and let
 \[
-D(x)\;=\;1-\sum_i c_i x^{i}\;=\;x^{8} - 8 x^{7} + 28 x^{6} - 56 x^{5} + 70 x^{4} - 56 x^{3} + 28 x^{2} - 8 x + 1
+D(x)\;=\;1-\sum_i c_i x^{i}\;=\;- x^{8} + 2 x^{7} + 2 x^{6} - 6 x^{5} + 6 x^{3} - 2 x^{2} - 2 x + 1
 \]
 be the polynomial attached to the conjectured recurrence.
 
@@ -73,7 +73,7 @@ negative index being zero.
 
 \begin{theorem}
 \[
-a(n)\;=\;8\,a(n-1) - 28\,a(n-2) + 56\,a(n-3) - 70\,a(n-4) + 56\,a(n-5) - 28\,a(n-6) + 8\,a(n-7) - a(n-8)
+a(n)\;=\;2\,a(n-1) + 2\,a(n-2) - 6\,a(n-3) + 6\,a(n-5) - 2\,a(n-6) - 2\,a(n-7) + a(n-8)
 \]
 for every $n>8$.
 \end{theorem}
@@ -81,7 +81,7 @@ for every $n>8$.
 \begin{proof}
 In exact arithmetic,
 \[
-D(x)\,G(x)\;=\;- x^{8} + 8 x^{7} - 18 x^{6} - 280 x^{5} - 593 x^{4} + 1680 x^{3} + 1076 x^{2} + 144 x,
+D(x)\,G(x)\;=\;x^{8} - 2 x^{7} - 141 x^{6} + 18 x^{5} + 299 x^{4} + 230 x^{3} + 145 x^{2} + 26 x,
 \]
 a POLYNOMIAL of degree $8$ --- the denominator of $G$ divides $D(x)$ times its numerator,
 which is precisely the condition for the conjectured recurrence to be implied by the
@@ -94,7 +94,7 @@ $n>8$.
 
 Cancelling common factors, $G$ has reduced denominator
 \[
-x^{8} - 8 x^{7} + 28 x^{6} - 56 x^{5} + 70 x^{4} - 56 x^{3} + 28 x^{2} - 8 x + 1,
+x^{8} - 2 x^{7} - 2 x^{6} + 6 x^{5} - 6 x^{3} + 2 x^{2} + 2 x - 1,
 \]
 of degree $8$, and that degree is the order of the SHORTEST linear recurrence with
 constant coefficients the sequence obeys: any shorter one would give a polynomial multiple of
@@ -128,7 +128,7 @@ no amount of checking terms could establish on its own.
 Three checks.
 
 First, the generating function was expanded as a power series in exact rational arithmetic and
-compared against all $23$ terms the entry publishes: it reproduces every one. This is
+compared against all $32$ terms the entry publishes: it reproduces every one. This is
 what ties the recorded generating function to the sequence the recurrence is about.
 
 Second, the polynomial division above was carried out symbolically, not numerically, so the
@@ -147,7 +147,7 @@ entry already contains.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A250084.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A245952.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Rational generating functions, Section 4.1.)
 \bibitem{kp} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011.

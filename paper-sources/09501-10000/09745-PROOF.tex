@@ -12,14 +12,14 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A199838, derived from the entry's generating function}
+\title{The empirical recurrence for OEIS A131662, derived from the entry's generating function}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A199838 carries an empirical recurrence of order $9$. The entry separately records a
+OEIS A131662 carries an empirical recurrence of order $9$. The entry separately records a
 generating function, not as a conjecture but as a statement of fact, and the recurrence is a
 consequence of it: multiplying the generating function by the polynomial the recurrence
 supplies gives a POLYNOMIAL, and the recurrence then holds at every index past that
@@ -33,30 +33,30 @@ checked here against every published term.
 
 \section{The two statements}
 
-OEIS A199838 is ``Number of -n..n arrays x(0..8) of 9 elements with zero sum and no two neighbors summing to zero.''. It has offset $1$ and begins
+OEIS A131662 is ``Numbers n where either n or n+1 is divisible by the numbers from 1 to 12.''. It has offset $1$ and begins
 \[
-66, 23206, 645780, 6715618, 41008804, 179213048, 622300326, 1827026482,\ \dots
+2519, 11879, 13320, 14399, 15840, 25200, 27719, 27720,\ \dots
 \]
 The entry states, as a conjecture and never marked settled:
 \begin{quote}
-a(n) = 9*a(n-1) - 36*a(n-2) + 84*a(n-3) - 126*a(n-4) + 126*a(n-5) - 84*a(n-6) + 36*a(n-7) - 9*a(n-8) + a(n-9) for n>9.
+a(n) = a(n-1) + a(n-8) - a(n-9) for n>9. (End)
 \end{quote}
 and, separately and NOT as a conjecture:
 \begin{quote}
-G.f.: 2*x*(33 + 11306*x + 219651*x\^{}2 + 866735*x\^{}3 + 937667*x\^{}4 + 283090*x\^{}5 + 18897*x\^{}6 + 128*x\^{}7) / (1 - x)\^{}9.
+G.f.: x*(2519 + 9360*x + 1441*x\^{}2 + 1079*x\^{}3 + 1441*x\^{}4 + 9360*x\^{}5 + 2519*x\^{}6 + x\^{}7) / ((1 - x)\^{}2*(1 + x)*(1 + x\^{}2)*(1 + x\^{}4)).
 \end{quote}
-As of the ``Last modified'' line on the live entry (May 25 2021 05:11:21, revision 11) the first is still
+As of the ``Last modified'' line on the live entry (Jan 14 2024 12:28:58, revision 15) the first is still
 recorded as empirical. This note derives it from the second.
 
 \section{A rational generating function decides every linear recurrence}
 
 Write
 \[
-G(x)\;=\;\sum_{n}a(n)\,x^{n}\;=\;\frac{- 256 x^{8} - 37794 x^{7} - 566180 x^{6} - 1875334 x^{5} - 1733470 x^{4} - 439302 x^{3} - 22612 x^{2} - 66 x}{x^{9} - 9 x^{8} + 36 x^{7} - 84 x^{6} + 126 x^{5} - 126 x^{4} + 84 x^{3} - 36 x^{2} + 9 x - 1},
+G(x)\;=\;\sum_{n}a(n)\,x^{n}\;=\;\frac{x^{8} + 2519 x^{7} + 9360 x^{6} + 1441 x^{5} + 1079 x^{4} + 1441 x^{3} + 9360 x^{2} + 2519 x}{x^{9} - x^{8} - x + 1},
 \]
 the entry's own generating function, and let
 \[
-D(x)\;=\;1-\sum_i c_i x^{i}\;=\;- x^{9} + 9 x^{8} - 36 x^{7} + 84 x^{6} - 126 x^{5} + 126 x^{4} - 84 x^{3} + 36 x^{2} - 9 x + 1
+D(x)\;=\;1-\sum_i c_i x^{i}\;=\;x^{9} - x^{8} - x + 1
 \]
 be the polynomial attached to the conjectured recurrence.
 
@@ -73,7 +73,7 @@ negative index being zero.
 
 \begin{theorem}
 \[
-a(n)\;=\;9\,a(n-1) - 36\,a(n-2) + 84\,a(n-3) - 126\,a(n-4) + 126\,a(n-5) - 84\,a(n-6) + 36\,a(n-7) - 9\,a(n-8) + a(n-9)
+a(n)\;=\;a(n-1) + a(n-8) - a(n-9)
 \]
 for every $n>8$.
 \end{theorem}
@@ -81,7 +81,7 @@ for every $n>8$.
 \begin{proof}
 In exact arithmetic,
 \[
-D(x)\,G(x)\;=\;256 x^{8} + 37794 x^{7} + 566180 x^{6} + 1875334 x^{5} + 1733470 x^{4} + 439302 x^{3} + 22612 x^{2} + 66 x,
+D(x)\,G(x)\;=\;x^{8} + 2519 x^{7} + 9360 x^{6} + 1441 x^{5} + 1079 x^{4} + 1441 x^{3} + 9360 x^{2} + 2519 x,
 \]
 a POLYNOMIAL of degree $8$ --- the denominator of $G$ divides $D(x)$ times its numerator,
 which is precisely the condition for the conjectured recurrence to be implied by the
@@ -94,7 +94,7 @@ $n>8$.
 
 Cancelling common factors, $G$ has reduced denominator
 \[
-x^{9} - 9 x^{8} + 36 x^{7} - 84 x^{6} + 126 x^{5} - 126 x^{4} + 84 x^{3} - 36 x^{2} + 9 x - 1,
+x^{9} - x^{8} - x + 1,
 \]
 of degree $9$, and that degree is the order of the SHORTEST linear recurrence with
 constant coefficients the sequence obeys: any shorter one would give a polynomial multiple of
@@ -127,7 +127,7 @@ no amount of checking terms could establish on its own.
 Three checks.
 
 First, the generating function was expanded as a power series in exact rational arithmetic and
-compared against all $19$ terms the entry publishes: it reproduces every one. This is
+compared against all $34$ terms the entry publishes: it reproduces every one. This is
 what ties the recorded generating function to the sequence the recurrence is about.
 
 Second, the polynomial division above was carried out symbolically, not numerically, so the
@@ -146,7 +146,7 @@ entry already contains.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A199838.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A131662.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Rational generating functions, Section 4.1.)
 \bibitem{kp} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011.

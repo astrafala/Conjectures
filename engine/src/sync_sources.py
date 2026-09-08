@@ -17,15 +17,39 @@ import repopaths
 ROOTS = ['build', 'build_rec', 'build_cf', 'build_egf', 'build_logexp']
 
 
+# The build tree now holds twelve thousand directories and every run re-read and re-hashed
+# every PDF in it, several minutes of work to recover hashes that had not changed. A build
+# directory's PDF is written once and not touched again, so its hash is cached against the
+# file's size and modification time and only genuinely new builds are read.
+HCACHE = 'sync-hash-cache.json'
+
+
 def index_sources():
-    h2t = {}
+    try:
+        cache = json.load(open(HCACHE))
+    except Exception:
+        cache = {}
+    h2t, fresh = {}, 0
     for root in ROOTS:
         if not os.path.isdir(root):
             continue
         for d in os.listdir(root):
             pdf, tex = f'{root}/{d}/p.pdf', f'{root}/{d}/p.tex'
-            if os.path.exists(pdf) and os.path.exists(tex):
-                h2t[hashlib.md5(open(pdf, 'rb').read()).hexdigest()] = tex
+            try:
+                st = os.stat(pdf)
+            except OSError:
+                continue
+            if not os.path.exists(tex):
+                continue
+            key = f'{pdf}:{st.st_size}:{int(st.st_mtime)}'
+            h = cache.get(key)
+            if h is None:
+                h = hashlib.md5(open(pdf, 'rb').read()).hexdigest()
+                cache[key] = h
+                fresh += 1
+            h2t[h] = tex
+    json.dump(cache, open(HCACHE, 'w'))
+    print(f'  source index: {len(h2t)} builds, {fresh} hashed fresh')
     return h2t
 
 

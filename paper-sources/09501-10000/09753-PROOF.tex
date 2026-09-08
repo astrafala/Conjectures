@@ -12,14 +12,14 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A202459, derived from the entry's generating function}
+\title{The empirical recurrence for OEIS A199838, derived from the entry's generating function}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A202459 carries an empirical recurrence of order $9$. The entry separately records a
+OEIS A199838 carries an empirical recurrence of order $9$. The entry separately records a
 generating function, not as a conjecture but as a statement of fact, and the recurrence is a
 consequence of it: multiplying the generating function by the polynomial the recurrence
 supplies gives a POLYNOMIAL, and the recurrence then holds at every index past that
@@ -33,9 +33,9 @@ checked here against every published term.
 
 \section{The two statements}
 
-OEIS A202459 is ``Number of (n+2) X 8 binary arrays with consecutive windows of three bits considered as a binary number nondecreasing in every row and column.''. It has offset $1$ and begins
+OEIS A199838 is ``Number of -n..n arrays x(0..8) of 9 elements with zero sum and no two neighbors summing to zero.''. It has offset $1$ and begins
 \[
-2197, 5854, 14586, 33468, 71088, 141192, 264822, 473031,\ \dots
+66, 23206, 645780, 6715618, 41008804, 179213048, 622300326, 1827026482,\ \dots
 \]
 The entry states, as a conjecture and never marked settled:
 \begin{quote}
@@ -43,16 +43,16 @@ a(n) = 9*a(n-1) - 36*a(n-2) + 84*a(n-3) - 126*a(n-4) + 126*a(n-5) - 84*a(n-6) + 
 \end{quote}
 and, separately and NOT as a conjecture:
 \begin{quote}
-G.f.: x*(2197 - 13919*x + 40992*x\^{}2 - 71610*x\^{}3 + 80058*x\^{}4 - 58194*x\^{}5 + 26730*x\^{}6 - 7071*x\^{}7 + 823*x\^{}8) / (1 - x)\^{}9.
+G.f.: 2*x*(33 + 11306*x + 219651*x\^{}2 + 866735*x\^{}3 + 937667*x\^{}4 + 283090*x\^{}5 + 18897*x\^{}6 + 128*x\^{}7) / (1 - x)\^{}9.
 \end{quote}
-As of the ``Last modified'' line on the live entry (May 31 2018 14:06:42, revision 10) the first is still
+As of the ``Last modified'' line on the live entry (May 25 2021 05:11:21, revision 11) the first is still
 recorded as empirical. This note derives it from the second.
 
 \section{A rational generating function decides every linear recurrence}
 
 Write
 \[
-G(x)\;=\;\sum_{n}a(n)\,x^{n}\;=\;\frac{- 823 x^{9} + 7071 x^{8} - 26730 x^{7} + 58194 x^{6} - 80058 x^{5} + 71610 x^{4} - 40992 x^{3} + 13919 x^{2} - 2197 x}{x^{9} - 9 x^{8} + 36 x^{7} - 84 x^{6} + 126 x^{5} - 126 x^{4} + 84 x^{3} - 36 x^{2} + 9 x - 1},
+G(x)\;=\;\sum_{n}a(n)\,x^{n}\;=\;\frac{- 256 x^{8} - 37794 x^{7} - 566180 x^{6} - 1875334 x^{5} - 1733470 x^{4} - 439302 x^{3} - 22612 x^{2} - 66 x}{x^{9} - 9 x^{8} + 36 x^{7} - 84 x^{6} + 126 x^{5} - 126 x^{4} + 84 x^{3} - 36 x^{2} + 9 x - 1},
 \]
 the entry's own generating function, and let
 \[
@@ -75,19 +75,19 @@ negative index being zero.
 \[
 a(n)\;=\;9\,a(n-1) - 36\,a(n-2) + 84\,a(n-3) - 126\,a(n-4) + 126\,a(n-5) - 84\,a(n-6) + 36\,a(n-7) - 9\,a(n-8) + a(n-9)
 \]
-for every $n>9$.
+for every $n>8$.
 \end{theorem}
 
 \begin{proof}
 In exact arithmetic,
 \[
-D(x)\,G(x)\;=\;823 x^{9} - 7071 x^{8} + 26730 x^{7} - 58194 x^{6} + 80058 x^{5} - 71610 x^{4} + 40992 x^{3} - 13919 x^{2} + 2197 x,
+D(x)\,G(x)\;=\;256 x^{8} + 37794 x^{7} + 566180 x^{6} + 1875334 x^{5} + 1733470 x^{4} + 439302 x^{3} + 22612 x^{2} + 66 x,
 \]
-a POLYNOMIAL of degree $9$ --- the denominator of $G$ divides $D(x)$ times its numerator,
+a POLYNOMIAL of degree $8$ --- the denominator of $G$ divides $D(x)$ times its numerator,
 which is precisely the condition for the conjectured recurrence to be implied by the
-generating function. Its coefficients vanish beyond degree $9$, so by
+generating function. Its coefficients vanish beyond degree $8$, so by
 Lemma~\ref{lem:key} the residual $a(n)-\sum_ic_ia(n-i)$ vanishes for every
-$n>9$.
+$n>8$.
 \end{proof}
 
 \section{Is the conjectured recurrence the shortest one?}
@@ -113,12 +113,11 @@ generating function involved at all. Doing that:
 index & residual \\ \hline
 $n=10$ & $0$ \\
 $n=11$ & $0$ \\
-$n=12$ & $0$ \\
-$n=13$ & $0$
+$n=12$ & $0$
 \end{tabular}
 \end{center}
 The residuals are exactly the coefficients of the polynomial displayed above, in order, and
-they stop at index $9$ because that polynomial has degree $9$. A reader who trusts
+they stop at index $8$ because that polynomial has degree $8$. A reader who trusts
 neither the generating function nor the algebra can check the table against the entry's DATA
 by hand; what the generating function adds is the guarantee that the pattern continues, which
 no amount of checking terms could establish on its own.
@@ -128,14 +127,14 @@ no amount of checking terms could establish on its own.
 Three checks.
 
 First, the generating function was expanded as a power series in exact rational arithmetic and
-compared against all $26$ terms the entry publishes: it reproduces every one. This is
+compared against all $19$ terms the entry publishes: it reproduces every one. This is
 what ties the recorded generating function to the sequence the recurrence is about.
 
 Second, the polynomial division above was carried out symbolically, not numerically, so the
 statement that $D(x)G(x)$ is a polynomial is exact rather than approximate.
 
 Third, the recurrence was evaluated directly on the series coefficients for sixty consecutive
-indices beyond $n=9$ and holds at every one, and at $n=9$ itself it fails --- the
+indices beyond $n=8$ and holds at every one, and at $n=8$ itself it fails --- the
 degree bound is attained, so the range stated is the true one and not merely a safe one.
 
 \begin{remark}
@@ -147,7 +146,7 @@ entry already contains.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A202459.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A199838.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Rational generating functions, Section 4.1.)
 \bibitem{kp} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011.

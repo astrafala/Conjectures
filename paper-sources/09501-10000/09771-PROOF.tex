@@ -12,14 +12,14 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A249885, derived from the entry's generating function}
+\title{The empirical recurrence for OEIS A241940, derived from the entry's generating function}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A249885 carries an empirical recurrence of order $9$. The entry separately records a
+OEIS A241940 carries an empirical recurrence of order $9$. The entry separately records a
 generating function, not as a conjecture but as a statement of fact, and the recurrence is a
 consequence of it: multiplying the generating function by the polynomial the recurrence
 supplies gives a POLYNOMIAL, and the recurrence then holds at every index past that
@@ -33,9 +33,9 @@ checked here against every published term.
 
 \section{The two statements}
 
-OEIS A249885 is ``Number of length 2+6 0..n arrays with no seven consecutive terms having the maximum of any three terms equal to the minimum of the remaining four terms.''. It has offset $1$ and begins
+OEIS A241940 is ``Number of length 4+4 0..n arrays with no consecutive five elements summing to more than 2*n.''. It has offset $1$ and begins
 \[
-35, 1365, 18390, 136010, 684585, 2644815, 8435180, 23274900,\ \dots
+71, 1187, 9500, 49355, 193179, 619132, 1710198, 4211175,\ \dots
 \]
 The entry states, as a conjecture and never marked settled:
 \begin{quote}
@@ -43,16 +43,16 @@ a(n) = 9*a(n-1) - 36*a(n-2) + 84*a(n-3) - 126*a(n-4) + 126*a(n-5) - 84*a(n-6) + 
 \end{quote}
 and, separately and NOT as a conjecture:
 \begin{quote}
-G.f.: 5*x*(7 + 210*x + 1473*x\^{}2 + 3340*x\^{}3 + 2457*x\^{}4 + 546*x\^{}5 + 31*x\^{}6) / (1 - x)\^{}9.
+G.f.: x*(71 + 548*x + 1373*x\^{}2 + 623*x\^{}3 + 222*x\^{}4 - 83*x\^{}5 + 36*x\^{}6 - 9*x\^{}7 + x\^{}8) / (1 - x)\^{}9.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Nov 10 2018 05:46:38, revision 8) the first is still
+As of the ``Last modified'' line on the live entry (Oct 31 2018 05:32:28, revision 7) the first is still
 recorded as empirical. This note derives it from the second.
 
 \section{A rational generating function decides every linear recurrence}
 
 Write
 \[
-G(x)\;=\;\sum_{n}a(n)\,x^{n}\;=\;\frac{- 155 x^{7} - 2730 x^{6} - 12285 x^{5} - 16700 x^{4} - 7365 x^{3} - 1050 x^{2} - 35 x}{x^{9} - 9 x^{8} + 36 x^{7} - 84 x^{6} + 126 x^{5} - 126 x^{4} + 84 x^{3} - 36 x^{2} + 9 x - 1},
+G(x)\;=\;\sum_{n}a(n)\,x^{n}\;=\;\frac{- x^{9} + 9 x^{8} - 36 x^{7} + 83 x^{6} - 222 x^{5} - 623 x^{4} - 1373 x^{3} - 548 x^{2} - 71 x}{x^{9} - 9 x^{8} + 36 x^{7} - 84 x^{6} + 126 x^{5} - 126 x^{4} + 84 x^{3} - 36 x^{2} + 9 x - 1},
 \]
 the entry's own generating function, and let
 \[
@@ -75,19 +75,19 @@ negative index being zero.
 \[
 a(n)\;=\;9\,a(n-1) - 36\,a(n-2) + 84\,a(n-3) - 126\,a(n-4) + 126\,a(n-5) - 84\,a(n-6) + 36\,a(n-7) - 9\,a(n-8) + a(n-9)
 \]
-for every $n>7$.
+for every $n>9$.
 \end{theorem}
 
 \begin{proof}
 In exact arithmetic,
 \[
-D(x)\,G(x)\;=\;155 x^{7} + 2730 x^{6} + 12285 x^{5} + 16700 x^{4} + 7365 x^{3} + 1050 x^{2} + 35 x,
+D(x)\,G(x)\;=\;x^{9} - 9 x^{8} + 36 x^{7} - 83 x^{6} + 222 x^{5} + 623 x^{4} + 1373 x^{3} + 548 x^{2} + 71 x,
 \]
-a POLYNOMIAL of degree $7$ --- the denominator of $G$ divides $D(x)$ times its numerator,
+a POLYNOMIAL of degree $9$ --- the denominator of $G$ divides $D(x)$ times its numerator,
 which is precisely the condition for the conjectured recurrence to be implied by the
-generating function. Its coefficients vanish beyond degree $7$, so by
+generating function. Its coefficients vanish beyond degree $9$, so by
 Lemma~\ref{lem:key} the residual $a(n)-\sum_ic_ia(n-i)$ vanishes for every
-$n>7$.
+$n>9$.
 \end{proof}
 
 \section{Is the conjectured recurrence the shortest one?}
@@ -112,11 +112,13 @@ generating function involved at all. Doing that:
 \begin{tabular}{cc}
 index & residual \\ \hline
 $n=10$ & $0$ \\
-$n=11$ & $0$
+$n=11$ & $0$ \\
+$n=12$ & $0$ \\
+$n=13$ & $0$
 \end{tabular}
 \end{center}
 The residuals are exactly the coefficients of the polynomial displayed above, in order, and
-they stop at index $7$ because that polynomial has degree $7$. A reader who trusts
+they stop at index $9$ because that polynomial has degree $9$. A reader who trusts
 neither the generating function nor the algebra can check the table against the entry's DATA
 by hand; what the generating function adds is the guarantee that the pattern continues, which
 no amount of checking terms could establish on its own.
@@ -126,14 +128,14 @@ no amount of checking terms could establish on its own.
 Three checks.
 
 First, the generating function was expanded as a power series in exact rational arithmetic and
-compared against all $22$ terms the entry publishes: it reproduces every one. This is
+compared against all $23$ terms the entry publishes: it reproduces every one. This is
 what ties the recorded generating function to the sequence the recurrence is about.
 
 Second, the polynomial division above was carried out symbolically, not numerically, so the
 statement that $D(x)G(x)$ is a polynomial is exact rather than approximate.
 
 Third, the recurrence was evaluated directly on the series coefficients for sixty consecutive
-indices beyond $n=7$ and holds at every one, and at $n=7$ itself it fails --- the
+indices beyond $n=9$ and holds at every one, and at $n=9$ itself it fails --- the
 degree bound is attained, so the range stated is the true one and not merely a safe one.
 
 \begin{remark}
@@ -145,7 +147,7 @@ entry already contains.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A249885.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A241940.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Rational generating functions, Section 4.1.)
 \bibitem{kp} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011.

@@ -12,14 +12,14 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A249847, derived from the entry's generating function}
+\title{The empirical recurrence for OEIS A241620, derived from the entry's generating function}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A249847 carries an empirical recurrence of order $8$. The entry separately records a
+OEIS A241620 carries an empirical recurrence of order $8$. The entry separately records a
 generating function, not as a conjecture but as a statement of fact, and the recurrence is a
 consequence of it: multiplying the generating function by the polynomial the recurrence
 supplies gives a POLYNOMIAL, and the recurrence then holds at every index past that
@@ -33,9 +33,9 @@ checked here against every published term.
 
 \section{The two statements}
 
-OEIS A249847 is ``Number of length 3+4 0..n arrays with no five consecutive terms having the maximum of any two terms equal to the minimum of the remaining three terms.''. It has offset $1$ and begins
+OEIS A241620 is ``Number of length 5+2 0..n arrays with no consecutive three elements summing to more than n.''. It has offset $1$ and begins
 \[
-10, 359, 4064, 25206, 108250, 363349, 1022672, 2522796,\ \dots
+19, 147, 711, 2567, 7586, 19374, 44274, 92697,\ \dots
 \]
 The entry states, as a conjecture and never marked settled:
 \begin{quote}
@@ -43,16 +43,16 @@ a(n) = 8*a(n-1) - 28*a(n-2) + 56*a(n-3) - 70*a(n-4) + 56*a(n-5) - 28*a(n-6) + 8*
 \end{quote}
 and, separately and NOT as a conjecture:
 \begin{quote}
-G.f.: x*(10 + 279*x + 1472*x\^{}2 + 2186*x\^{}3 + 990*x\^{}4 + 103*x\^{}5) / (1 - x)\^{}8.
+G.f.: x*(19 - 5*x + 67*x\^{}2 - 69*x\^{}3 + 56*x\^{}4 - 28*x\^{}5 + 8*x\^{}6 - x\^{}7) / (1 - x)\^{}8.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Aug 18 2017 18:10:49, revision 10) the first is still
+As of the ``Last modified'' line on the live entry (Oct 30 2018 10:34:37, revision 8) the first is still
 recorded as empirical. This note derives it from the second.
 
 \section{A rational generating function decides every linear recurrence}
 
 Write
 \[
-G(x)\;=\;\sum_{n}a(n)\,x^{n}\;=\;\frac{103 x^{6} + 990 x^{5} + 2186 x^{4} + 1472 x^{3} + 279 x^{2} + 10 x}{x^{8} - 8 x^{7} + 28 x^{6} - 56 x^{5} + 70 x^{4} - 56 x^{3} + 28 x^{2} - 8 x + 1},
+G(x)\;=\;\sum_{n}a(n)\,x^{n}\;=\;\frac{- x^{8} + 8 x^{7} - 28 x^{6} + 56 x^{5} - 69 x^{4} + 67 x^{3} - 5 x^{2} + 19 x}{x^{8} - 8 x^{7} + 28 x^{6} - 56 x^{5} + 70 x^{4} - 56 x^{3} + 28 x^{2} - 8 x + 1},
 \]
 the entry's own generating function, and let
 \[
@@ -75,19 +75,19 @@ negative index being zero.
 \[
 a(n)\;=\;8\,a(n-1) - 28\,a(n-2) + 56\,a(n-3) - 70\,a(n-4) + 56\,a(n-5) - 28\,a(n-6) + 8\,a(n-7) - a(n-8)
 \]
-for every $n>6$.
+for every $n>8$.
 \end{theorem}
 
 \begin{proof}
 In exact arithmetic,
 \[
-D(x)\,G(x)\;=\;103 x^{6} + 990 x^{5} + 2186 x^{4} + 1472 x^{3} + 279 x^{2} + 10 x,
+D(x)\,G(x)\;=\;- x^{8} + 8 x^{7} - 28 x^{6} + 56 x^{5} - 69 x^{4} + 67 x^{3} - 5 x^{2} + 19 x,
 \]
-a POLYNOMIAL of degree $6$ --- the denominator of $G$ divides $D(x)$ times its numerator,
+a POLYNOMIAL of degree $8$ --- the denominator of $G$ divides $D(x)$ times its numerator,
 which is precisely the condition for the conjectured recurrence to be implied by the
-generating function. Its coefficients vanish beyond degree $6$, so by
+generating function. Its coefficients vanish beyond degree $8$, so by
 Lemma~\ref{lem:key} the residual $a(n)-\sum_ic_ia(n-i)$ vanishes for every
-$n>6$.
+$n>8$.
 \end{proof}
 
 \section{Is the conjectured recurrence the shortest one?}
@@ -112,11 +112,13 @@ generating function involved at all. Doing that:
 \begin{tabular}{cc}
 index & residual \\ \hline
 $n=9$ & $0$ \\
-$n=10$ & $0$
+$n=10$ & $0$ \\
+$n=11$ & $0$ \\
+$n=12$ & $0$
 \end{tabular}
 \end{center}
 The residuals are exactly the coefficients of the polynomial displayed above, in order, and
-they stop at index $6$ because that polynomial has degree $6$. A reader who trusts
+they stop at index $8$ because that polynomial has degree $8$. A reader who trusts
 neither the generating function nor the algebra can check the table against the entry's DATA
 by hand; what the generating function adds is the guarantee that the pattern continues, which
 no amount of checking terms could establish on its own.
@@ -126,14 +128,14 @@ no amount of checking terms could establish on its own.
 Three checks.
 
 First, the generating function was expanded as a power series in exact rational arithmetic and
-compared against all $23$ terms the entry publishes: it reproduces every one. This is
+compared against all $27$ terms the entry publishes: it reproduces every one. This is
 what ties the recorded generating function to the sequence the recurrence is about.
 
 Second, the polynomial division above was carried out symbolically, not numerically, so the
 statement that $D(x)G(x)$ is a polynomial is exact rather than approximate.
 
 Third, the recurrence was evaluated directly on the series coefficients for sixty consecutive
-indices beyond $n=6$ and holds at every one, and at $n=6$ itself it fails --- the
+indices beyond $n=8$ and holds at every one, and at $n=8$ itself it fails --- the
 degree bound is attained, so the range stated is the true one and not merely a safe one.
 
 \begin{remark}
@@ -145,7 +147,7 @@ entry already contains.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A249847.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A241620.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Rational generating functions, Section 4.1.)
 \bibitem{kp} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011.

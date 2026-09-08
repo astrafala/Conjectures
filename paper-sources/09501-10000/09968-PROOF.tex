@@ -12,14 +12,14 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A183908, derived from the entry's generating function}
+\title{The empirical recurrence for OEIS A267230, derived from the entry's generating function}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A183908 carries an empirical recurrence of order $6$. The entry separately records a
+OEIS A267230 carries an empirical recurrence of order $7$. The entry separately records a
 generating function, not as a conjecture but as a statement of fact, and the recurrence is a
 consequence of it: multiplying the generating function by the polynomial the recurrence
 supplies gives a POLYNOMIAL, and the recurrence then holds at every index past that
@@ -33,30 +33,30 @@ checked here against every published term.
 
 \section{The two statements}
 
-OEIS A183908 is ``Number of nondecreasing arrangements of n+2 numbers in 0..5 with each number being the sum mod 6 of two others.''. It has offset $1$ and begins
+OEIS A267230 is ``Number of length-n 0..6 arrays with no following elements greater than or equal to the first repeated value.''. It has offset $1$ and begins
 \[
-2, 8, 37, 124, 309, 637, 1163, 1953,\ \dots
+7, 49, 315, 1981, 12327, 76237, 469623, 2884909,\ \dots
 \]
 The entry states, as a conjecture and never marked settled:
 \begin{quote}
-a(n) = 6*a(n-1) - 15*a(n-2) + 20*a(n-3) - 15*a(n-4) + 6*a(n-5) - a(n-6) for n>7.
+Empirical: a(n) = 27*a(n-1) - 301*a(n-2) + 1785*a(n-3) - 6034*a(n-4) + 11508*a(n-5) - 11304*a(n-6) + 4320*a(n-7) for n > 8.
 \end{quote}
 and, separately and NOT as a conjecture:
 \begin{quote}
-G.f.: x*(2 - 4*x + 19*x\^{}2 - 18*x\^{}3 - 10*x\^{}4 + 11*x\^{}5 + 5*x\^{}6 - 4*x\^{}7) / (1 - x)\^{}6.
+G.f.: x*(7 - 140*x + 1099*x\^{}2 - 4270*x\^{}3 + 8428*x\^{}4 - 7476*x\^{}5 + 1512*x\^{}6 + 720*x\^{}7) / ((1 - x)*(1 - 2*x)*(1 - 3*x)*(1 - 4*x)*(1 - 5*x)*(1 - 6*x)\^{}2).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Apr 06 2018 06:21:20, revision 8) the first is still
+As of the ``Last modified'' line on the live entry (Feb 06 2018 04:16:47, revision 9) the first is still
 recorded as empirical. This note derives it from the second.
 
 \section{A rational generating function decides every linear recurrence}
 
 Write
 \[
-G(x)\;=\;\sum_{n}a(n)\,x^{n}\;=\;\frac{- 4 x^{8} + 5 x^{7} + 11 x^{6} - 10 x^{5} - 18 x^{4} + 19 x^{3} - 4 x^{2} + 2 x}{x^{6} - 6 x^{5} + 15 x^{4} - 20 x^{3} + 15 x^{2} - 6 x + 1},
+G(x)\;=\;\sum_{n}a(n)\,x^{n}\;=\;\frac{- 720 x^{8} - 1512 x^{7} + 7476 x^{6} - 8428 x^{5} + 4270 x^{4} - 1099 x^{3} + 140 x^{2} - 7 x}{4320 x^{7} - 11304 x^{6} + 11508 x^{5} - 6034 x^{4} + 1785 x^{3} - 301 x^{2} + 27 x - 1},
 \]
 the entry's own generating function, and let
 \[
-D(x)\;=\;1-\sum_i c_i x^{i}\;=\;x^{6} - 6 x^{5} + 15 x^{4} - 20 x^{3} + 15 x^{2} - 6 x + 1
+D(x)\;=\;1-\sum_i c_i x^{i}\;=\;- 4320 x^{7} + 11304 x^{6} - 11508 x^{5} + 6034 x^{4} - 1785 x^{3} + 301 x^{2} - 27 x + 1
 \]
 be the polynomial attached to the conjectured recurrence.
 
@@ -73,7 +73,7 @@ negative index being zero.
 
 \begin{theorem}
 \[
-a(n)\;=\;6\,a(n-1) - 15\,a(n-2) + 20\,a(n-3) - 15\,a(n-4) + 6\,a(n-5) - a(n-6)
+a(n)\;=\;27\,a(n-1) - 301\,a(n-2) + 1785\,a(n-3) - 6034\,a(n-4) + 11508\,a(n-5) - 11304\,a(n-6) + 4320\,a(n-7)
 \]
 for every $n>8$.
 \end{theorem}
@@ -81,7 +81,7 @@ for every $n>8$.
 \begin{proof}
 In exact arithmetic,
 \[
-D(x)\,G(x)\;=\;- 4 x^{8} + 5 x^{7} + 11 x^{6} - 10 x^{5} - 18 x^{4} + 19 x^{3} - 4 x^{2} + 2 x,
+D(x)\,G(x)\;=\;720 x^{8} + 1512 x^{7} - 7476 x^{6} + 8428 x^{5} - 4270 x^{4} + 1099 x^{3} - 140 x^{2} + 7 x,
 \]
 a POLYNOMIAL of degree $8$ --- the denominator of $G$ divides $D(x)$ times its numerator,
 which is precisely the condition for the conjectured recurrence to be implied by the
@@ -94,12 +94,12 @@ $n>8$. The bound is exact: at $n=8$ the recurrence fails on the entry's own publ
 
 Cancelling common factors, $G$ has reduced denominator
 \[
-x^{6} - 6 x^{5} + 15 x^{4} - 20 x^{3} + 15 x^{2} - 6 x + 1,
+4320 x^{7} - 11304 x^{6} + 11508 x^{5} - 6034 x^{4} + 1785 x^{3} - 301 x^{2} + 27 x - 1,
 \]
-of degree $6$, and that degree is the order of the SHORTEST linear recurrence with
+of degree $7$, and that degree is the order of the SHORTEST linear recurrence with
 constant coefficients the sequence obeys: any shorter one would give a polynomial multiple of
 $G$ with a smaller denominator, contradicting the cancellation. The conjectured recurrence has
-order $6$.
+order $7$.
 
 So the conjecture is the minimal recurrence.
 
@@ -111,8 +111,7 @@ generating function involved at all. Doing that:
 \begin{center}
 \begin{tabular}{cc}
 index & residual \\ \hline
-$n=7$ & $5$ \\
-$n=8$ & $-4$ \\
+$n=8$ & $720$ \\
 $n=9$ & $0$ \\
 $n=10$ & $0$ \\
 $n=11$ & $0$ \\
@@ -130,7 +129,7 @@ no amount of checking terms could establish on its own.
 Three checks.
 
 First, the generating function was expanded as a power series in exact rational arithmetic and
-compared against all $36$ terms the entry publishes: it reproduces every one. This is
+compared against all $20$ terms the entry publishes: it reproduces every one. This is
 what ties the recorded generating function to the sequence the recurrence is about.
 
 Second, the polynomial division above was carried out symbolically, not numerically, so the
@@ -149,7 +148,7 @@ entry already contains.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A183908.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A267230.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Rational generating functions, Section 4.1.)
 \bibitem{kp} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011.

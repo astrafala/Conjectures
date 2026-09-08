@@ -7,173 +7,147 @@
 \theoremstyle{plain}
 \newtheorem{theorem}{Theorem}
 \newtheorem{lemma}[theorem]{Lemma}
-\newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
-
-\title{The empirical recurrence for OEIS A256731, recovered from its tail}
+\title{A proof of the conjectured identity for OEIS A298022}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{8 September 2026}
+\date{26 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A256731 records ``Empirical recurrence of order $78$'' and keeps the recurrence itself in
-a linked file rather than in the entry, so the conjecture cannot be read off the entry at all.
-It can still be settled. The entry counts arrays under a condition local to a bounded window of
-lines, which makes the count a walk count on a finite digraph and forces a monic integer
-recurrence of order at most the number $S'=368$ of states with distinct futures. Berlekamp--Massey on
-enough exact terms therefore returns the minimal such recurrence, and on the tail beginning at $n=3$, so the recurrence is proved for every $n\ge81$.
-Its last coefficient is $c_{78}=1361129467683753853853498429727072845824\neq0$, so no further tail satisfies anything
-shorter; any order-$78$ recurrence the sequence satisfies from any point on must then have
-the same characteristic polynomial. The entry's recurrence is the one displayed here, whatever
-its linked file contains, and it is proved.
+OEIS A298022 carries a conjectured identity expressing its terms through the terms of
+A049347. We prove it. Each entry involved posts a generating function, so the claim is
+a single identity between generating functions: writing $F_{a}$ for the generating
+function of A298022 and $F_{j}$ for those of the entries on the right, the conjecture
+says that a specific combination of the $F_{j}$, shifted and weighted as the identity
+prescribes, differs from $F_{a}$ by a polynomial. That difference is computed here in
+closed form and equals $- 2 x^{4} - 2 x^{3} - 2 x^{2} - 2 x + 1$, of degree $4$, which proves the identity for
+every $n>4$.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 11B83, 05A15.\normalsize
 
-\section{A conjecture that is not written down}
+\section{The sequences and the conjecture}
 
-OEIS A256731 is ``Number of (n+2) X (4+2) 0..1 arrays with no 3 X 3 subblock diagonal sum zero and no antidiagonal sum three.''. It has offset $1$ and begins
+OEIS A298022 is ``Coordination sequence for Dual(3\^{}3.4\^{}2) tiling with respect to a trivalent node''. It has offset $0$ and begins
 \[
-73984, 1648656, 30294016, 635846656, 12465275904, 249872016384, 4910514177024, 97652975330304,\ \dots
+a(0),\dots,a(7)\;=\;1, 3, 7, 12, 17, 23, 28, 33,\ \dots
 \]
-The entry states:
-\begin{quote}
-Empirical recurrence of order 78 (see link above).
+Its generating function, as posted on the entry, is
+\begin{equation}\label{eq:gf}
+F_{a}(x)\;=\;\sum_{n\ge 0} a(n)\,x^{n}\;=\;\frac{- 2 x^{8} + 2 x^{5} + 3 x^{4} + 4 x^{3} + 4 x^{2} + 2 x + 1}{x^{4} - x^{3} - x + 1} ,
+\end{equation}
+and the entry carries the following comment:
+\begin{quote}\small
+\textbf{Conjecture:} a(n) = 2*(21*n + 3*A049347(n+2)/2)/9 for n > 4. - \emph{Stefano Spezia}, Nov 24 2024
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jan 16 2022 01:30:51, revision 6)
-this is still recorded as empirical, and it is still open. The coefficients are nowhere in the
-entry text: what is conjectured is only that a recurrence of that order exists.
+As of the ``Last modified'' line on the live entry (2026-05-30, revision 48) the
+statement is still recorded as a conjecture, and no proof appears among the entry's links,
+formulas or programs.
 
-\section{The count is a walk count}
-
-The entry's condition is local. It constrains a bounded window of consecutive lines of the
-array and nothing beyond it, so the admissible configurations of one window are the vertices of
-a finite digraph, an edge joins $u$ to $v$ when $v$ may follow $u$, and an admissible array is
-exactly a walk. Writing $M$ for the adjacency matrix and $\iota,\tau$ for the indicator vectors
-of the admissible first and last windows,
+The entries appearing on the right-hand side post the generating functions
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j(n)}\tau
+F_{A049347}(x) \;=\; \frac{1}{x^{2} + x + 1}
 \]
-for a linear reindexing $j$ fixed by the entry's shape. States with identical futures
-contribute identically to that product and may be merged without changing any count; after
-merging $S'=368$ states remain, and it is that bound every computation below uses.
 
-\begin{lemma}\label{lem:cf}
-$a$ satisfies a monic linear recurrence with integer coefficients of order at most $S'=368$.
+\section{Shifts of a generating function}
+
+Throughout, a sequence $b$ defined on the indices its OEIS entry uses is identified with
+the formal series $F_{b}(x)=\sum_{m\ge0}b(m)x^{m}$, where $b(m)=0$ for $m$ below the
+entry's offset. This convention makes shifting immediate.
+
+\begin{lemma}\label{lem:shift}
+For an integer $k\ge0$,
+\[
+\sum_{m\ge0}b(m+k)\,x^{m}=\frac{F_{b}(x)-\sum_{m<k}b(m)x^{m}}{x^{k}},
+\qquad
+\sum_{m\ge0}b(m-k)\,x^{m}=x^{k}F_{b}(x).
+\]
 \end{lemma}
 
 \begin{proof}
-By the Cayley--Hamilton theorem $M^{S'}$ is an integer combination of $I,M,\dots,M^{S'-1}$,
-and multiplying that relation on the left by $\iota^{\!\top}M^{\,j}$ and on the right by
-$\tau$ turns it into a relation among $S'+1$ consecutive values of $a$.
+Both are re-indexings of the defining sum. In the first, subtracting the terms below
+$x^{k}$ removes exactly the coefficients that have no counterpart after the shift, and
+dividing by $x^{k}$ relabels $m+k$ as $m$. In the second, multiplying by $x^{k}$ relabels
+$m$ as $m+k$, and the coefficients of $x^{m}$ for $m<k$ are $b(m-k)=0$.
 \end{proof}
 
-\section{Why the question has to be asked of a tail}
-
-Running Berlekamp--Massey on the sequence from its first term returns an order LARGER than $78$: the opening terms do not satisfy the recurrence, and a recurrence that holds only eventually always looks longer when the exceptional terms are included. That is not evidence against the entry. An OEIS empirical recurrence is asserted for $n$ beyond some index, not from the first term, so the question has to be asked of the tails. It was asked of each tail in turn, and the tail beginning at $n=3$ is the first whose minimal order is exactly the stated $78$.
-
-\begin{lemma}\label{lem:bm}
-A sequence known to satisfy some linear recurrence of order at most $S'$ is determined,
-together with its minimal recurrence, by any $2S'$ consecutive terms: Berlekamp--Massey applied
-to them returns that minimal recurrence exactly.
+\begin{lemma}\label{lem:theta}
+Let $\theta=x\,\dfrac{d}{dx}$, so that $\theta$ acts on $x^{m}$ as multiplication by $m$.
+For a polynomial $c$, the sequence $m\mapsto c(m)b(m)$ has generating function
+$c(\theta)F_{b}$. In particular $m\mapsto m^{j}$ has generating function
+$\theta^{j}\bigl[(1-x)^{-1}\bigr]$.
 \end{lemma}
 
-Applied to $2S'=736$ exact terms from $n=3$ on, it returns order $78$ --- the
-order the entry states --- with integer coefficients:
-\[
-a(n)\;=\;\sum_{i=1}^{78}c_i\,a(n-i),
-\]
-\begin{center}\small
-\begin{tabular}{cccccccc}
-$c_{1}$ & $31$ & $c_{21}$ & $13281994997211070464$ & $c_{41}$ & $-4953982026465292887529871114240$ & $c_{61}$ & $55736059985514283716937111733387919360$ \\
-$c_{2}$ & $-199$ & $c_{22}$ & $-4517845908890583040$ & $c_{42}$ & $-35905515093734219523691508662272$ & $c_{62}$ & $97480201402489775561113425620032815104$ \\
-$c_{3}$ & $-1683$ & $c_{23}$ & $-174563735410292555776$ & $c_{43}$ & $-67752241702919924286362914652160$ & $c_{63}$ & $138659801471291365801741738540168904704$ \\
-$c_{4}$ & $38100$ & $c_{24}$ & $-1130706829141803532288$ & $c_{44}$ & $-77699679850679926948195928637440$ & $c_{64}$ & $75493582390775328837997954605487489024$ \\
-$c_{5}$ & $-278840$ & $c_{25}$ & $-4804344074305835892736$ & $c_{45}$ & $-94616000428396559269574970703872$ & $c_{65}$ & $-147952500621910336299872413141260304384$ \\
-$c_{6}$ & $1633904$ & $c_{26}$ & $-8980401005993178169344$ & $c_{46}$ & $407616233005775771007246084866048$ & $c_{66}$ & $-205075665737517892167997607643688468480$ \\
-$c_{7}$ & $-38552080$ & $c_{27}$ & $-76080211539832051073024$ & $c_{47}$ & $4010052938300891063286214147702784$ & $c_{67}$ & $-311557995203402816608889085448729657344$ \\
-$c_{8}$ & $109914176$ & $c_{28}$ & $-524433122155426977153024$ & $c_{48}$ & $16091394738950409926291290914291712$ & $c_{68}$ & $176834690471721939116022664829257908224$ \\
-$c_{9}$ & $955966720$ & $c_{29}$ & $-1560842313208361402761216$ & $c_{49}$ & $25815931794726638015927382246948864$ & $c_{69}$ & $-430024453937110141190437850074033684480$ \\
-$c_{10}$ & $355537280$ & $c_{30}$ & $-7708818660531970240413696$ & $c_{50}$ & $-49888385540347000305297522729943040$ & $c_{70}$ & $-329193567942430022209194166208677543936$ \\
-$c_{11}$ & $100416226432$ & $c_{31}$ & $-34629911214197221477056512$ & $c_{51}$ & $-301012539973533968257908663589535744$ & $c_{71}$ & $-620452864073511910617798092548114219008$ \\
-$c_{12}$ & $-580233449472$ & $c_{32}$ & $-79441249342502171299545088$ & $c_{52}$ & $-498880093667083012896397170653003776$ & $c_{72}$ & $-244162567475741734404018059385245794304$ \\
-$c_{13}$ & $5640801163776$ & $c_{33}$ & $-201767494580785361629216768$ & $c_{53}$ & $-18519513422010184017555648487096320$ & $c_{73}$ & $326117781090855453692743413445655789568$ \\
-$c_{14}$ & $-22212029773824$ & $c_{34}$ & $421220883348064014570618880$ & $c_{54}$ & $1908857989281914205861856397907460096$ & $c_{74}$ & $-363876163846120720207417182751744327680$ \\
-$c_{15}$ & $-68409253369856$ & $c_{35}$ & $7821623351202131490505752576$ & $c_{55}$ & $4519535159642163085743337519297069056$ & $c_{75}$ & $502115875407751970989413117020900163584$ \\
-$c_{16}$ & $-1967703474573312$ & $c_{36}$ & $38154877496118787468406292480$ & $c_{56}$ & $1747145253685405190721809228354289664$ & $c_{76}$ & $1036797836712234380864969507018668769280$ \\
-$c_{17}$ & $-14603201596903424$ & $c_{37}$ & $133015785266497791809653047296$ & $c_{57}$ & $-10560173028906147635516959918395490304$ & $c_{77}$ & $-2296905976716334628377778600164435427328$ \\
-$c_{18}$ & $10870842634588160$ & $c_{38}$ & $339255278863255392518058016768$ & $c_{58}$ & $-23180245940620101519632154219274829824$ & $c_{78}$ & $1361129467683753853853498429727072845824$ \\
-$c_{19}$ & $488673127417925632$ & $c_{39}$ & $937634727360168809134773239808$ & $c_{59}$ & $-18721127900943039500267222027735138304$ &  &  \\
-$c_{20}$ & $3748618121045721088$ & $c_{40}$ & $2044624095306089147644669591552$ & $c_{60}$ & $14088465068055099580726664392377106432$ &  &  \\
-\end{tabular}
-\end{center}
+\begin{proof}
+$\theta$ multiplies the coefficient of $x^{m}$ by $m$, so $c(\theta)$ multiplies it by
+$c(m)$. The last statement is the case $b\equiv1$.
+\end{proof}
 
-\section{The recurrence, and the identification}
+\begin{corollary}\label{cor:criterion}
+Let $R(x)$ be the generating function assembled from the right-hand side of the conjecture
+by Lemmas~\ref{lem:shift} and~\ref{lem:theta}. Then the conjectured identity holds for
+every $n>d$ if and only if $F_{a}-R$ is a polynomial of degree at most $d$.
+\end{corollary}
+
+\begin{proof}
+The coefficient of $x^{n}$ in $F_{a}-R$ is the difference between the two sides of the
+identity at $n$. That difference vanishes for all $n>d$ exactly when $F_{a}-R$ has no
+terms above $x^{d}$.
+\end{proof}
+
+Note that the test is for a \emph{polynomial}, not for zero. A claim of this kind
+typically fails at a few small indices, where the shifted terms on the right reach outside
+the range of their own sequences; the polynomial records precisely those indices.
+
+\section{The computation for A298022}
+
+Assembling the right-hand side by Lemmas~\ref{lem:shift} and~\ref{lem:theta} gives
+\[
+R(x)\;=\;\frac{x \left(5 x^{2} + 4 x + 5\right)}{x^{4} - x^{3} - x + 1} ,
+\]
+and subtracting \eqref{eq:gf} the rational parts cancel, leaving
+\[
+F_{a}(x)-R(x)\;=\;- 2 x^{4} - 2 x^{3} - 2 x^{2} - 2 x + 1 ,
+\]
+a polynomial of degree $4$.
 
 \begin{theorem}
-The recurrence above holds for every $n\ge81$, and it is the recurrence OEIS A256731 records.
+The conjectured identity holds for every $n>4$.
 \end{theorem}
 
 \begin{proof}
-That it holds is Lemma~\ref{lem:bm} applied to the tail from $n=3$, whose minimal
-recurrence it is.
-
-For the identification, write $q_{\min}$ for the characteristic polynomial of that minimal
-recurrence, $x^{78}-c_1x^{78-1}-\dots-c_{78}$. Its constant term is
-$-c_{78}=-1361129467683753853853498429727072845824$, which is not zero, so $q_{\min}(0)\neq0$ and $q_{\min}$ has no
-root at the origin. A solution of a constant-coefficient recurrence is a combination of terms
-$n^{k}\lambda^{n}$ with $\lambda$ a root of its characteristic polynomial, and only the
-components with $\lambda=0$ vanish after finitely many terms. Since $q_{\min}$ has none, no
-component of $a$ dies out, and the minimal recurrence of every further tail is again
-$q_{\min}$ --- the order cannot drop below $78$ at any later starting point.
-
-Now let $q$ be the characteristic polynomial of whatever recurrence the entry asserts. The
-entry asserts it has order $78$, so $\deg q=78$, and it is monic. It holds from some
-index $t$ on. From $\max(t,3)$ on, the sequence satisfies both $q$ and $q_{\min}$, and
-the minimal polynomial of that tail is $q_{\min}$ by the previous paragraph; therefore
-$q_{\min}\mid q$. Both are monic of degree $78$, so $q=q_{\min}$.
+Immediate from Corollary~\ref{cor:criterion} and the displayed difference.
 \end{proof}
 
 \section{Verification}
 
-Four checks, all in exact integer or rational arithmetic.
+Every number above is an output of a script written separately from this note, and two
+independent checks were run.
 
-First, the walk model reproduces all $14$ terms the entry publishes, exactly. This is
-what ties the model to the entry, and it is the only place where reading the entry's English
-enters the argument.
+First, no generating function was assumed. For each entry involved, the posted expression
+was expanded as a Taylor series and compared term by term with that entry's own DATA
+section; only expressions reproducing the published terms were used.
 
-Second, the order was computed twice by independent routes: once modulo a $61$-bit prime, where
-every intermediate is a machine word, and once over $\mathbb{Q}$ in exact rational arithmetic.
-Both return $78$, and the exact run additionally confirms every coefficient is an integer
---- had any been a proper fraction the recurrence would not be the entry's.
+Second, the identity itself was evaluated directly on the published terms, in exact
+integer arithmetic and without reference to any generating function: for each $n$ in range
+both sides were formed from the entries' own values and found to agree, for all 52
+values of $n$ from $n=5$ upward. This is what Corollary~\ref{cor:criterion}
+predicts from the degree of the difference, and it is a genuinely different computation
+from the symbolic one.
 
-Third, the recovered recurrence was evaluated directly on the entry's own published terms, with
-no matrices and no Berlekamp--Massey involved. It holds at each of the $0$ indices where
-the entry publishes enough earlier terms to test it.
-
-Fourth, the last coefficient was checked to be nonzero, which is what the identification above
-turns on; it is $1361129467683753853853498429727072845824$.
-
-\begin{remark}
-The conjecture's own statement was never read. The entry pins it down to the family of
-order-$78$ recurrences this sequence satisfies from some point on, and that family turns
-out to have exactly one member.
-\end{remark}
+The symbolic step is exact throughout: the difference is obtained by rational-function
+cancellation, not by series truncation, so the displayed identity is an identity of
+functions and the theorem holds for all $n>4$ simultaneously.
 
 \begin{thebibliography}{9}
-\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A256731.
-\bibitem{massey} J.~L.~Massey, Shift-register synthesis and BCH decoding, \emph{IEEE
-Trans. Inform. Theory} \textbf{15} (1969), 122--127.
+\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer Sequences},
+\url{https://oeis.org}, 2026. Sequence A298022.
+\bibitem{wilf} H.~S.~Wilf, \emph{generatingfunctionology}, 3rd ed., A K Peters, 2006,
+Chapter 2 (series manipulations and shifts).
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{kauers} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011.
-(C-finite sequences and their closure properties.)
-\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
-University Press, 2013.
+Cambridge University Press, 2011, Chapter 1.
 \end{thebibliography}
-
 \end{document}

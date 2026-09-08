@@ -1,6 +1,6 @@
 # Proposed OEIS comments
 
-A proposed comment for each of the **11040** settled entries, written to be posted on the OEIS entry it belongs to. They are kept here rather than in the papers: a paper is a proof and stays a proof.
+A proposed comment for each of the **11238** settled entries, written to be posted on the OEIS entry it belongs to. They are kept here rather than in the papers: a paper is a proof and stays a proof.
 
 Each section names the entry, **the date the result was obtained**, the paper that proves it, and what the entry still records as unsettled. The date is the point: an OEIS comment is stamped with the day it is posted, so the date here is what shows when the work was actually done.
 
@@ -31,13 +31,14 @@ If a conjecture is settled by somebody else after the date recorded here, nothin
 | [A237398 – A246893](A237398-A246893.md) | 400 |
 | [A246894 – A251039](A246894-A251039.md) | 400 |
 | [A251040 – A252305](A251040-A252305.md) | 400 |
-| [A252307 – A253985](A252307-A253985.md) | 400 |
-| [A253986 – A260013](A253986-A260013.md) | 400 |
-| [A260014 – A264422](A260014-A264422.md) | 400 |
-| [A264423 – A269882](A264423-A269882.md) | 400 |
-| [A269883 – A281202](A269883-A281202.md) | 400 |
-| [A281203 – A296583](A281203-A296583.md) | 400 |
-| [A296584 – A298897](A296584-A298897.md) | 400 |
-| [A298898 – A302260](A298898-A302260.md) | 400 |
-| [A302261 – A305178](A302261-A305178.md) | 400 |
-| [A305179 – A397241](A305179-A397241.md) | 374 |
+| [A252307 – A253835](A252307-A253835.md) | 400 |
+| [A253836 – A259768](A253836-A259768.md) | 400 |
+| [A259769 – A264251](A259769-A264251.md) | 400 |
+| [A264252 – A268765](A264252-A268765.md) | 400 |
+| [A268768 – A278282](A268768-A278282.md) | 400 |
+| [A278283 – A283341](A278283-A283341.md) | 400 |
+| [A283342 – A297729](A283342-A297729.md) | 400 |
+| [A297730 – A300493](A297730-A300493.md) | 400 |
+| [A300494 – A303466](A300494-A303466.md) | 400 |
+| [A303470 – A317156](A303470-A317156.md) | 400 |
+| [A317217 – A397241](A317217-A397241.md) | 170 |

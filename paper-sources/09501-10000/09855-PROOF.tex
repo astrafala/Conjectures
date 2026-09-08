@@ -12,14 +12,14 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A263794, derived from the entry's generating function}
+\title{The empirical recurrence for OEIS A267212, derived from the entry's generating function}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A263794 carries an empirical recurrence of order $7$. The entry separately records a
+OEIS A267212 carries an empirical recurrence of order $8$. The entry separately records a
 generating function, not as a conjecture but as a statement of fact, and the recurrence is a
 consequence of it: multiplying the generating function by the polynomial the recurrence
 supplies gives a POLYNOMIAL, and the recurrence then holds at every index past that
@@ -33,30 +33,30 @@ checked here against every published term.
 
 \section{The two statements}
 
-OEIS A263794 is ``Number of (n+1) X (3+1) 0..1 arrays with each row and column divisible by 3, read as a binary number with top and left being the most significant bits, and rows and columns lexicographically nonincreasing.''. It has offset $1$ and begins
+OEIS A267212 is ``Total number of ON (black) cells after n iterations of the "Rule 109" elementary cellular automaton starting with a single ON (black) cell.''. It has offset $0$ and begins
 \[
-3, 3, 7, 7, 14, 14, 25, 25,\ \dots
+1, 2, 7, 9, 16, 23, 33, 38,\ \dots
 \]
 The entry states, as a conjecture and never marked settled:
 \begin{quote}
-Empirical: a(n) = a(n-1) + 3*a(n-2) - 3*a(n-3) - 3*a(n-4) + 3*a(n-5) + a(n-6) - a(n-7).
+a(n) = a(n-1)+a(n-3)-a(n-5)-a(n-7)+a(n-8) for n>7.
 \end{quote}
 and, separately and NOT as a conjecture:
 \begin{quote}
-G.f.: x*(3 - 5*x\^{}2 + 4*x\^{}4 - x\^{}6) / ((1 - x)\^{}4*(1 + x)\^{}3).
+G.f.: (1+x+5*x\^{}2+x\^{}3+5*x\^{}4+x\^{}5+3*x\^{}6-3*x\^{}7) / ((1-x)\^{}3*(1+x)*(1+x\^{}2)*(1+x+x\^{}2)).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Dec 23 2016 22:55:03, revision 24) the first is still
+As of the ``Last modified'' line on the live entry (Feb 16 2025 08:33:29, revision 16) the first is still
 recorded as empirical. This note derives it from the second.
 
 \section{A rational generating function decides every linear recurrence}
 
 Write
 \[
-G(x)\;=\;\sum_{n}a(n)\,x^{n}\;=\;\frac{- x^{7} + 4 x^{5} - 5 x^{3} + 3 x}{x^{7} - x^{6} - 3 x^{5} + 3 x^{4} + 3 x^{3} - 3 x^{2} - x + 1},
+G(x)\;=\;\sum_{n}a(n)\,x^{n}\;=\;\frac{3 x^{7} - 3 x^{6} - x^{5} - 5 x^{4} - x^{3} - 5 x^{2} - x - 1}{x^{8} - x^{7} - x^{5} + x^{3} + x - 1},
 \]
 the entry's own generating function, and let
 \[
-D(x)\;=\;1-\sum_i c_i x^{i}\;=\;x^{7} - x^{6} - 3 x^{5} + 3 x^{4} + 3 x^{3} - 3 x^{2} - x + 1
+D(x)\;=\;1-\sum_i c_i x^{i}\;=\;- x^{8} + x^{7} + x^{5} - x^{3} - x + 1
 \]
 be the polynomial attached to the conjectured recurrence.
 
@@ -73,7 +73,7 @@ negative index being zero.
 
 \begin{theorem}
 \[
-a(n)\;=\;a(n-1) + 3\,a(n-2) - 3\,a(n-3) - 3\,a(n-4) + 3\,a(n-5) + a(n-6) - a(n-7)
+a(n)\;=\;a(n-1) + a(n-3) - a(n-5) - a(n-7) + a(n-8)
 \]
 for every $n>7$.
 \end{theorem}
@@ -81,7 +81,7 @@ for every $n>7$.
 \begin{proof}
 In exact arithmetic,
 \[
-D(x)\,G(x)\;=\;- x^{7} + 4 x^{5} - 5 x^{3} + 3 x,
+D(x)\,G(x)\;=\;- 3 x^{7} + 3 x^{6} + x^{5} + 5 x^{4} + x^{3} + 5 x^{2} + x + 1,
 \]
 a POLYNOMIAL of degree $7$ --- the denominator of $G$ divides $D(x)$ times its numerator,
 which is precisely the condition for the conjectured recurrence to be implied by the
@@ -94,12 +94,12 @@ $n>7$.
 
 Cancelling common factors, $G$ has reduced denominator
 \[
-x^{7} - x^{6} - 3 x^{5} + 3 x^{4} + 3 x^{3} - 3 x^{2} - x + 1,
+x^{8} - x^{7} - x^{5} + x^{3} + x - 1,
 \]
-of degree $7$, and that degree is the order of the SHORTEST linear recurrence with
+of degree $8$, and that degree is the order of the SHORTEST linear recurrence with
 constant coefficients the sequence obeys: any shorter one would give a polynomial multiple of
 $G$ with a smaller denominator, contradicting the cancellation. The conjectured recurrence has
-order $7$.
+order $8$.
 
 So the conjecture is the minimal recurrence.
 
@@ -147,7 +147,7 @@ entry already contains.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A263794.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A267212.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Rational generating functions, Section 4.1.)
 \bibitem{kp} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011.

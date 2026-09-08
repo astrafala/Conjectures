@@ -532,3 +532,24 @@ title says conjectured, and my result concerns the recurrence rather than that c
 it is probably fine — but "probably fine" is not the standard here. One entry, genuinely
 ambiguous, and a wrong claim costs far more than a withheld one. Dropped, with the reason
 recorded next to it.
+
+### Later the same hour — 11,797, and two flags judged by hand
+
+Another 196 installed from the same vein. **11,797 papers: 11,791 proofs and 6 disproofs over
+11,770 entries.**
+
+The live re-check raised two flags and both were read rather than obeyed:
+
+* **A265380 — kept.** The line that flagged it records N. J. A. Sloane *removing* "an
+  unjustified claim that Colin Barker's conjectures are correct". That is evidence the
+  conjecture is still open, not that it is settled — and a reminder that somebody has already
+  asserted this one without proof.
+* **A164735 — withheld.** Its linked Kauers–Koutschan file is titled "Conjectured closed form",
+  so it is not a proof; but the entry is a known hard one and my result concerns the recurrence
+  rather than that closed form. Ambiguous, one entry, and a wrong claim costs more than a
+  withheld one.
+
+`sync_sources` re-read and re-hashed all twelve thousand build directories on every run,
+several minutes to recover hashes that had not changed. A build directory's PDF is written once
+and never touched again, so its hash is now cached against the file's size and modification
+time and only genuinely new builds are read.

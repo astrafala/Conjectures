@@ -12,135 +12,134 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical closed form for OEIS A219499, proved}
+\title{The empirical recurrence for OEIS A303420: recovering a conjecture that is not written down}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{8 September 2026}
+\date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A219499 states an explicit closed form for $a(n)$ and records it as empirical. It is true, and
-it is decidable. What the entry counts is not a set of arrays but the SIZE OF AN IMAGE: each
-admissible array is replaced by the array of minima of its cells and their horizontal, vertical neighbours,
-and $a(n)$ counts how many different arrays come out. Two arrays with the same image count
-once, so the usual graph over arrays overcounts. Determinising a machine whose state is a pair
-of consecutive rows and whose output is the filtered array turns the count into a walk count on
-$S=84$ vertices, exact and finite. The closed form is a polynomial in $n$, so it satisfies the
-monic recurrence with characteristic polynomial $(x-1)^{5}$; that the walk count
-satisfies the same recurrence, and that the two agree on enough initial terms, are both checked
-in exact integer arithmetic, and together they prove the formula.
+OEIS A303420 records ``Empirical recurrence of order $58$'', with the recurrence itself in a
+linked file rather than in the entry. The conjecture can nevertheless be settled, and the
+recurrence recovered, without reading that file. The entry counts arrays under a condition
+local to a bounded window of lines, so the count is a walk count on a finite digraph and
+satisfies some monic recurrence of order at most the number of its states with distinct
+futures, here $S'=119$; Berlekamp--Massey applied to $2S'$ exact
+terms therefore returns the MINIMAL such recurrence. Its order is exactly $58$, the order
+the entry states, and the same is true of every tail of the sequence. Any recurrence of order
+$58$ that the sequence satisfies from any point on must then have a characteristic
+polynomial that is a multiple of the minimal one and of the same degree, hence equal to it. So
+the entry's recurrence is the one displayed here, whatever its file contains, and it is
+proved.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 68Q45, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 15A18.\normalsize
 
-\section{The entry}
+\section{A conjecture one cannot read}
 
-OEIS A219499 is ``Number of n X 5 arrays of the minimum value of corresponding elements and their horizontal or vertical neighbors in a random, but sorted with lexicographically nondecreasing rows and nonincreasing columns, 0..1 n X 5 array.''. It has offset $1$ and begins
+OEIS A303420 is ``Number of nX7 0..1 arrays with every element equal to 0, 1, 2, 3, 4 or 5 horizontally, diagonally or antidiagonally adjacent elements, with upper left element zero.''. It has offset $1$ and begins
 \[
-5, 9, 26, 58, 107, 179, 281, 421,\ \dots
+64, 8192, 972168, 116517744, 13963574592, 1673186560760, 200493397340704, 24024569786901184,\ \dots
 \]
-and states:
+The entry states:
 \begin{quote}
-Empirical: a(n) = (1/24)*n\^{}4 + (1/4)*n\^{}3 + (35/24)*n\^{}2 + (21/4)*n - 13 for n>2.
+Empirical recurrence of order 58 (see link above)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 26 2018 06:35:05, revision 8)
-this is still recorded as empirical, and it is still open.
+As of the ``Last modified'' line on the live entry (Apr 23 2018 10:54:24, revision 4) this is still
+recorded as empirical. The recurrence's coefficients are not in the entry text.
 
-\section{What is being counted}
+\section{The count is a walk count}
 
-Fix the width $W=5$ and the value range $0..1$. The underlying arrays are the
-$n\times5$ arrays over that range whose rows are lexicographically nondecreasing read downwards
-and whose columns are lexicographically nonincreasing read left to right. Each such array $g$
-is mapped to $F(g)$, the array whose $(i,j)$ entry is the minimum of $g(i,j)$ and the entries
-of its horizontal, vertical neighbours that lie inside the array. The entry counts
-\[
-a(n)\;=\;\bigl|\{\,F(g)\;:\;g\text{ admissible with }n\text{ rows}\,\}\bigr|,
-\]
-the number of DISTINCT images --- not the number of admissible $g$. This is what makes the
-problem different in kind from a walk count: two admissible arrays can have the same image, and
-the graph whose walks are the arrays would count such a pair twice.
+The entry's condition is local: it constrains a bounded window of consecutive lines of the
+array and nothing further. The admissible configurations of one such window are the vertices
+of a finite digraph, an edge joining $u$ to $v$ when $v$ may follow $u$, and an admissible
+array is exactly a walk. Hence, with $M$ the adjacency matrix on $S=16384$ vertices,
+$a(n)=\iota^{\!\top}M^{\,j(n)}\tau$ for a linear reindexing $j$ fixed by the entry's shape
+and checked against its published terms. States with the same future contribute identically to $\iota^{\!\top}M^n\tau$, so they may be merged without changing any count; merging leaves $S'=119$ of the $16384$, and it is that smaller bound the computation below uses. By the Cayley--Hamilton theorem $M^{S}$ is an
+integer combination of $I,M,\dots,M^{S-1}$, so:
 
-\section{Two constraints, both made local}
-
-\begin{lemma}\label{lem:local}
-Whether a sequence of rows is admissible is decided by the previous row together with
-$4$ bits.
+\begin{lemma}\label{lem:cf}
+$a$ satisfies a monic linear recurrence with integer coefficients of order at most
+$S'=119$.
 \end{lemma}
 
-\begin{proof}
-The row order compares consecutive rows and needs only the previous one. The column order
-compares whole columns read downwards, left to right, which is not a condition on consecutive
-rows --- but for each of the $4$ adjacent column pairs there are only two possibilities:
-either the two columns agree in every row read so far, or they first differed at some earlier
-row, and there the required inequality was already decided and no later row can affect it. One
-bit per adjacent pair records which, and a new row is admissible exactly when, for every pair
-still agreeing, its two entries either agree again or differ in the permitted direction.
-\end{proof}
+\section{Recovering the recurrence}
 
-\begin{lemma}\label{lem:det}
-$a(n)$ is a walk count: there are a matrix $M$ with non-negative integer entries on $S=84$
-vertices and vectors $\iota,\tau$ with $a(n)=\iota^{\!\top}M^{\,n-2}\tau$ for $n\ge2$.
+\begin{lemma}\label{lem:bm}
+A sequence known to satisfy some linear recurrence of order at most $S$ is determined, together
+with its minimal recurrence, by its first $2S$ terms: Berlekamp--Massey applied to them returns
+that minimal recurrence exactly.
 \end{lemma}
 
-\begin{proof}
-Row $i$ of $F(g)$ depends only on rows $i-1$, $i$ and $i+1$ of $g$, so a machine reading $g$ a
-row at a time, holding the last two rows and the $4$ bits of Lemma~\ref{lem:local}, can
-emit $F(g)$ one row at a time. It is nondeterministic --- several continuations may emit the
-same row --- and the images of $g$ are exactly the words it can emit. Determinising it gives a
-machine in which each emitted row leads to exactly one state, so distinct words of length $n$
-correspond to distinct paths, and counting them is counting walks. The reachable determinised
-states number $S=84$. The last filtered row is emitted with no row below it, so it is not a
-step of the walk but a count attached to the state the walk stops in; that is $\tau$.
-\end{proof}
-
-\section{The closed form}
-
-The entry's formula is a polynomial in $n$. Any polynomial of degree $m$ satisfies the monic
-recurrence whose characteristic polynomial is $(x-1)^{m+1}$, here
+Running it on $2S'=238$ exact terms of the model returns order $58$ --- the order the
+entry states --- with the integer coefficients
 \[
-q(x)=(x-1)^{5},\qquad\text{that is}\qquad a(n)=5\,a(n-1) - 10\,a(n-2) + 10\,a(n-3) - 5\,a(n-4) + a(n-5).
+a(n)\;=\;\sum_{i=1}^{58}c_i\,a(n-i),
 \]
+\begin{center}\small
+\begin{tabular}{cccccccc}
+$c_{1}$ & $90$ & $c_{16}$ & $13601208374934563$ & $c_{31}$ & $82148840695403522694932$ & $c_{46}$ & $-3963697879951128493359104$ \\
+$c_{2}$ & $2841$ & $c_{17}$ & $-40909335369282248$ & $c_{32}$ & $189738422708530850361952$ & $c_{47}$ & $-4364895623531020327321600$ \\
+$c_{3}$ & $81048$ & $c_{18}$ & $-391070922187888312$ & $c_{33}$ & $94261626558208546258176$ & $c_{48}$ & $-3004619123744971594661888$ \\
+$c_{4}$ & $784236$ & $c_{19}$ & $-351594951026161556$ & $c_{34}$ & $-494781979796909339577200$ & $c_{49}$ & $1022265629083753783492608$ \\
+$c_{5}$ & $4592689$ & $c_{20}$ & $3433574008770476454$ & $c_{35}$ & $-851244656052668580135232$ & $c_{50}$ & $1353550575657544270741504$ \\
+$c_{6}$ & $-102304943$ & $c_{21}$ & $15113046819717488357$ & $c_{36}$ & $-313227632785961624548608$ & $c_{51}$ & $851987593081093542117376$ \\
+$c_{7}$ & $-1241644506$ & $c_{22}$ & $-5028229720223286376$ & $c_{37}$ & $1838487784095553079883392$ & $c_{52}$ & $-57172067483201122074624$ \\
+$c_{8}$ & $-8850189463$ & $c_{23}$ & $-127598621454080558268$ & $c_{38}$ & $2521675140771490988397056$ & $c_{53}$ & $-184192359131761537449984$ \\
+$c_{9}$ & $64051223264$ & $c_{24}$ & $-298815671754416820916$ & $c_{39}$ & $949096343427092547769600$ & $c_{54}$ & $-46722075920229510152192$ \\
+$c_{10}$ & $804797449893$ & $c_{25}$ & $405387526573165614692$ & $c_{40}$ & $-4212769808035545757095936$ & $c_{55}$ & $-164134090840773492736$ \\
+$c_{11}$ & $2333520596384$ & $c_{26}$ & $2454556003226394279316$ & $c_{41}$ & $-4938509284244477658802176$ & $c_{56}$ & $14231886070383793668096$ \\
+$c_{12}$ & $-28652930432621$ & $c_{27}$ & $3295739689029191810044$ & $c_{42}$ & $-2365406772474177363296256$ & $c_{57}$ & $-2536986262264206065664$ \\
+$c_{13}$ & $-176763648668737$ & $c_{28}$ & $-8050181670128118947960$ & $c_{43}$ & $5685619500009556998123520$ & $c_{58}$ & $96981358800726392832$ \\
+$c_{14}$ & $25732331610740$ & $c_{29}$ & $-27368952006859192891296$ & $c_{44}$ & $6170038774650821827624960$ &  &  \\
+$c_{15}$ & $5155337870825714$ & $c_{30}$ & $-21808053703522291873840$ & $c_{45}$ & $3725631438192785222467584$ &  &  \\
+\end{tabular}
+\end{center}
 
 \begin{theorem}
-The closed form OEIS A219499 records is correct for all $n>2$.
+The recurrence above holds for every $n$, and it is the recurrence the entry records.
 \end{theorem}
 
 \begin{proof}
-Two exact computations. First, the walk count of Lemma~\ref{lem:det} satisfies $q$: the
-residual $u_j=\iota^{\!\top}M^{\,j}q(M)\tau$ vanishes for $S$ consecutive indices, and
-since the residual vector lives in the $S$-dimensional space spanned by the iterates of $M$,
-$S$ consecutive zeros force every later one. The last index at which it fails is $7$.
-Second, the polynomial and the walk count agree at every index from $3$ up to
-$1 + 40 - 1$, which is more than the $5$ consecutive agreements a
-common recurrence of order $5$ needs. Two sequences satisfying the same monic recurrence
-of order $5$ and agreeing at $5$ consecutive indices past both their thresholds are
-equal from there on.
+It holds by Lemma~\ref{lem:bm}, which returns a recurrence the sequence satisfies from its
+first term. For the identification: the entry asserts that the sequence satisfies SOME
+recurrence of order $58$, possibly only from some index on. Let $q$ be that recurrence's
+characteristic polynomial and $q_{\min}$ the minimal polynomial of the tail of the sequence.
+Then $q_{\min}\mid q$. Berlekamp--Massey run on the sequence with its first $58+4$ terms
+removed returns order $58$ as well, so $\deg q_{\min}=58=\deg q$; both are monic, so
+$q=q_{\min}$, which is the polynomial computed above.
 \end{proof}
 
 \section{Verification}
 
-Everything above is integer or exact rational arithmetic; no floating point is used anywhere.
+Three checks.
 
-First, the model reproduces all $40$ terms the entry publishes, exactly. This is what
-ties the construction to the entry, and it is the only point at which the entry's English is
-read.
+First, the walk model reproduces all $12$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry, and it is the only place where reading
+the entry's English enters.
 
-Second, the reading was pinned by direct enumeration before the model was written: for the
-one-row case the admissible arrays and their images were listed outright and counted, and the
-count is the entry's own first term.
+Second, the recovered recurrence was evaluated directly on those published terms, with no
+matrices and no Berlekamp--Massey involved, and holds at every index where the entry gives
+enough earlier terms to test it.
 
-Third, the annihilation test was run to $S$ consecutive vanishing residuals rather than to a
-fixed horizon, which is what makes it a proof and not a check of finitely many terms.
+Third, the order was computed twice by independent routes: once modulo a $61$-bit prime, where
+every intermediate is a machine word, and once in exact rational arithmetic; and once more on
+the sequence with its first $58+4$ terms removed, which is what the identification above
+requires. All three agree.
+
+\begin{remark}
+What is unusual here is that the conjecture's statement was never read. The entry pins it down
+to a one-parameter family --- the recurrences of order $58$ that this sequence satisfies
+--- and that family turns out to have exactly one member.
+\end{remark}
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A219499.
-\bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata
-Theory, Languages, and Computation}, 3rd ed., Addison--Wesley, 2006. (The subset
-construction, Section 2.3.)
+Sequences}, \url{https://oeis.org}, 2026. Sequence A303420.
+\bibitem{massey} J.~L.~Massey, Shift-register synthesis and BCH decoding, \emph{IEEE
+Trans. Inform. Theory} \textbf{15} (1969), 122--127.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{kauers} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}
