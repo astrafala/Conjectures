@@ -13,6 +13,10 @@ round=0
 while true; do
   round=$((round + 1))
   for i in 0 1 2; do
+    # the 1,590 entries with a readable conjecture AND a readable name that the cached
+    # candidate list had never heard of -- 610 of them were not in it at all
+    ANUMS_FILE=deep-check/namepool.txt BUDGET=90 TAG=np \
+      timeout 1700 python3 src/sweep_shard.py 2000000 $i 3 >> /tmp/np_$i.log 2>&1 &
     ANUMS_FILE=deep-check/pool-rec.txt BUDGET=90 \
       timeout 1700 python3 src/sweep_shard.py 2000000 $i 3 >> /tmp/sw_$i.log 2>&1 &
     ANUMS_FILE=deep-check/pool-order.txt BUDGET=150 \
