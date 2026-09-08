@@ -519,7 +519,7 @@ A stratified sample, one paper from each of the 105 families, drawn with a fixed
 is reproducible and not cherry-picked (`engine/deep-check/phase12-sample.json`). Read the way
 a hostile referee reads: find the weakest step and attack it.
 
-Forty-one read so far; the ones below are those where the attack found something or where the
+Forty-six read so far; the ones below are those where the attack found something or where the
 step most likely to fail was checked by hand.
 
 * **A223181** (`gf-implies-rec`) **passes.** Its proof is conditional on a generating function
@@ -610,6 +610,16 @@ local.
   derived independently for the lexicographic family.
 * **A235021** proves its recurrence minimal *and says the same holds on every tail*, which is
   the strengthening `ordtails.py` was written around today.
+
+**15 papers write "the strip of the last $1$ rows".** The count is interpolated into a fixed
+plural in `transfer23build.py` and `transfer46build.py`; both take it from a helper that agrees
+with the number now. Same class as the 52 papers writing *"exactly 1 elements"*, which is the
+second time a builder has been caught doing this — a number that can be one should never be
+dropped into a hard-coded plural.
+
+Four others in the batch pass: **A224740** (2 X 2 permanents all equal), **A206057**,
+**A210046** and **A189606**, the last counting array permutations as a permanent and carrying
+only which images are already taken — the standard profile argument, and correct.
 
 **502 papers quote a clause of their condition and then never mention it again.** Found by
 reading A231140 (rank 1158). Its entry ends *"with upper left element zero"* — part of the

@@ -2,6 +2,13 @@
 """One paper per entry settled by the K X K-subblock matrix engine."""
 import os
 
+
+def _rows(n):
+    """`$1$ row` and `$2$ rows` --- 15 papers said "the strip of the last $1$ rows", because
+    the count was interpolated into a fixed plural."""
+    return r'$%d$ row%s' % (n, '' if n == 1 else 's')
+
+
 import os, json, re
 import localentry as LE, phibuild, transferbuild, transfer23
 
@@ -146,7 +153,7 @@ OEIS {a} counts the $(n+{K - 1})\times{W}$ matrices over $\{{0,\dots,{al}\}}$ al
 ${K}\times{K}$ contiguous subblocks are {adj}, and carries an empirical recurrence of order
 ${order}$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical.
 The condition ties together ${K}$ consecutive rows and ${K}$ consecutive columns at once, so a
-single row is not a state; the strip of the last ${K - 1}$ rows is, and the admissible strips
+single row is not a state; the strip of the last {_rows(K - 1)} is, and the admissible strips
 are read off the overlap graph of the admissible windows instead of being enumerated. That
 makes $a(n)$ a walk count on $S={S}$ vertices, hence $C$-finite, and whether the conjectured
 recurrence annihilates it is settled by a finite exact computation.
@@ -176,7 +183,7 @@ whose every ${K}$ consecutive rows form a band.
 
 Take as states the ${K - 1}\times{W}$ strips that occur as the top ${K - 1}$ rows of a band,
 together with those that occur as its bottom ${K - 1}$ rows, and put an edge from $u$ to $v$
-when the band whose first ${K - 1}$ rows are $u$ and whose last ${K - 1}$ rows are $v$ exists.
+when the band whose first {_rows(K - 1)} are $u$ and whose last {_rows(K - 1)} are $v$ exists.
 A band is determined by that pair, so the edge is unique when it exists. Reading a counted
 matrix from the top, its rows $1..{K - 1}$, then $2..{K}$, and so on, form a walk, and every
 walk arises from exactly one matrix; a matrix with $n+{K - 1}$ rows gives a walk of $n$ edges.

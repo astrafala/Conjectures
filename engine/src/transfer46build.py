@@ -3,6 +3,13 @@
 import os, json, re
 import localentry as LE, phibuild, transferbuild, transfer46
 
+
+def _rows(n):
+    """`$1$ row` and `$2$ rows` --- 15 papers said "the strip of the last $1$ rows", because
+    the count was interpolated into a fixed plural."""
+    return r'$%d$ row%s' % (n, '' if n == 1 else 's')
+
+
 PRE = phibuild.PRE
 esc = phibuild.esc
 rec_tex = transferbuild.rec_tex
@@ -110,7 +117,7 @@ The two runs compared start at rows $i$ and $i+1$ and have length ${k}$, so toge
 occupy rows $i$ through $i+{k}$.
 \end{{proof}}
 
-So the window of the last ${k}$ rows is a state, each row of it already satisfying its own row
+So the window of the last {_rows(k)} is a state, each row of it already satisfying its own row
 comparisons, and one step appends a row and settles the column comparisons that the new row
 completes. With $M$ the adjacency matrix of that digraph and $\iota=\tau=\mathbf{{1}}$,
 \[
