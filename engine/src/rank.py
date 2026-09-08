@@ -84,6 +84,8 @@ def order_all():
 
 def main():
     ranked = order_all()
+    # a padding width that no longer exceeds the largest rank stops sorting, silently
+    paperpath.check(len(ranked))
     eng = {int(k): v for k, v in json.load(open("paper-engines.json")).items()}
     tmp = "papers-ranked"
     # two rank.py processes started by mistake raced on this directory: the first was still

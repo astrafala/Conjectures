@@ -82,6 +82,13 @@ def main():
             if p not in present:
                 os.remove(p)
                 stale += 1
+    # a band RENAME leaves the old band directories behind, empty: widening the rank padding
+    # from four digits to five renamed all 22 of them and paper-sources was left showing 44,
+    # half of them empty. An empty directory under here is never meaningful.
+    for dirpath, dirnames, files in os.walk(repopaths.SOURCES, topdown=False):
+        if dirpath != repopaths.SOURCES and not os.listdir(dirpath):
+            os.rmdir(dirpath)
+
     missing = [m for m in rm
                if not os.path.exists(f"{repopaths.SOURCES}/{P.band(m['rank'])}/"
                                      f"{P.name(m['rank'], m['verdict'])[:-4]}.tex")]
