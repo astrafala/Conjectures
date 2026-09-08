@@ -10,22 +10,22 @@
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
-\title{A proof of the conjectured recurrence for OEIS A025245}
+\title{A proof of the conjectured recurrence for OEIS A165540}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{25 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A025245 carries a conjectured linear recurrence with polynomial coefficients, of
-order 4, contributed by R.~J.~Mathar. We prove it. The generating function of the
+OEIS A165540 carries a conjectured linear recurrence with polynomial coefficients, of
+order 5, contributed by R.~J.~Mathar. We prove it. The generating function of the
 entry is algebraic, and the recurrence is equivalent to the vanishing of an explicit
 differential operator applied to it: writing $\theta=x\,\frac{d}{dx}$, the sequence
 $b(n)=\sum_{i}p_{i}(n)a(n-i)$ has generating function
 $B(x)=\sum_{i}x^{i}\,(p_{i}(\theta+i)A)(x)$, so the conjecture holds for all $n>d$ exactly
 when $B$ is a polynomial of degree $d$. Since $A$ lies in a quadratic extension of
 $\mathbb{Q}(x)$, which is closed under $\theta$, the residual $B$ can be computed in
-closed form. Here it equals $- x^{4} + 9 x^{3} + 3 x^{2} + 4 x$, a polynomial of degree $4$, which proves
+closed form. Here it equals $456300 x^{4} - 14661846 x^{3} + 19419476 x^{2} - 6768780 x + 563862$, a polynomial of degree $4$, which proves
 the recurrence for every $n>4$.
 \end{abstract}
 
@@ -33,26 +33,26 @@ the recurrence for every $n>4$.
 
 \section{The sequence and the conjecture}
 
-OEIS A025245 is ``a(n) = (1/2)*s(n+3), where s = A025244''. It has offset $1$ and begins
+OEIS A165540 is ``Number of permutations of length n which avoid the patterns 1234 and 2341''. It has offset $0$ and begins
 \[
-a(1),\dots,a(8)\;=\;1, 2, 5, 11, 26, 65, 163, 416,\ \dots
+a(0),\dots,a(7)\;=\;1, 1, 2, 6, 22, 89, 376, 1611,\ \dots
 \]
 The entry gives the generating function
 \begin{equation}\label{eq:gf}
-A(x)\;=\;\sum_{n\ge 1} a(n)\,x^{n}\;=\;\frac{- 4 x^{3} - x^{2} - x - \sqrt{x^{4} - 6 x^{3} - x^{2} - 2 x + 1} + 1}{4 x^{3}} ,
+A(x)\;=\;\sum_{n\ge 0} a(n)\,x^{n}\;=\;\frac{- 12 x^{4} + 39 x^{3} - 41 x^{2} + 16 x + \sqrt{1 - 4 x} \left(- 4 x^{4} + 7 x^{3} + 9 x^{2} - 10 x + 2\right) - \left(4 x - 1\right) \left(- 3 x + \sqrt{1 - 4 x} \left(1 - x\right) + 1\right) \left(x^{2} - 3 x + 1\right) - 2}{\left(4 x - 1\right) \left(3 x + \sqrt{1 - 4 x} \left(x - 1\right) - 1\right) \left(x^{2} - 3 x + 1\right)} ,
 \end{equation}
 and it carries the following comment:
 \begin{quote}\small
-\textbf{Conjecture:} (n+3)*a(n) +(-2*n-3)*a(n-1) -n*a(n-2) +3*(-2*n+3)*a(n-3) +(n-3)*a(n-4)=0. - \emph{R. J. Mathar}, Feb 25 2015
+\textbf{Conjecture:} +(14681*n+187954)*(n+3) *a(n) +(14681*n\^{}2-2696783*n-4897218) *a(n-1) +(-888761*n\^{}2+12771539*n+5490342) *a(n-2) +2*(1635223*n\^{}2-14850835*n+13281012) *a(n-3) +2*(-1908503*n\^{}2+15402653*n-25889820) *a(n-4) +156*(2*n-7)*(3301*n-14374) *a(n-5)=0. - \emph{R. J. Mathar}, Jun 14 2016
 \end{quote}
-As of the ``Last modified'' line on the live entry (2022-11-11, revision 15) the
+As of the ``Last modified'' line on the live entry (2026-06-28, revision 33) the
 statement is still recorded as a conjecture, and no proof appears among the entry's links,
 formulas or programs.
 
-Writing the conjectured relation in the form $\sum_{i=0}^{4}p_{i}(n)\,a(n-i)=0$,
+Writing the conjectured relation in the form $\sum_{i=0}^{5}p_{i}(n)\,a(n-i)=0$,
 the coefficient polynomials are
 \[
-p_{0}(n)=n + 3,\qquad p_{1}(n)=- 2 n - 3,\qquad p_{2}(n)=- n,\qquad p_{3}(n)=- 3 \left(2 n - 3\right),\qquad p_{4}(n)=n - 3
+p_{0}(n)=\left(n + 3\right) \left(14681 n + 187954\right),\qquad p_{1}(n)=14681 n^{2} - 2696783 n - 4897218,\qquad p_{2}(n)=- 888761 n^{2} + 12771539 n + 5490342,\qquad p_{3}(n)=2 \left(1635223 n^{2} - 14850835 n + 13281012\right),\qquad p_{4}(n)=- 2 \left(1908503 n^{2} - 15402653 n + 25889820\right),\qquad p_{5}(n)=156 \left(2 n - 7\right) \left(3301 n - 14374\right)
 \]
 
 \section{Recurrences as differential operators}
@@ -114,24 +114,24 @@ $B=P+Q\sqrt{D}$ with $P,Q\in\mathbb{Q}(x)$, the test of Corollary~\ref{cor:crite
 becomes: $B$ is a polynomial precisely when $Q=0$ and $P$ has constant denominator. Both
 are decided by exact cancellation of rational functions.
 
-\section{The computation for A025245}
+\section{The computation for A165540}
 
 The generating function \eqref{eq:gf} lies in $K=\mathbb{Q}(x)[\sqrt{D}]$ with
 \[
-D \;=\; x^{4} - 6 x^{3} - x^{2} - 2 x + 1 .
+D \;=\; 1 - 4 x .
 \]
 Applying Lemma~\ref{lem:transfer} to the coefficient polynomials of Section~1 and reducing
 in $K$ by Lemma~\ref{lem:field}, the $\sqrt{D}$ component of $B$ cancels identically and
 the rational part collapses to
 \[
-B(x)\;=\;- x^{4} + 9 x^{3} + 3 x^{2} + 4 x ,
+B(x)\;=\;456300 x^{4} - 14661846 x^{3} + 19419476 x^{2} - 6768780 x + 563862 ,
 \]
 a polynomial of degree $4$.
 
 \begin{theorem}
 The conjectured recurrence
 \[
-(n + 3)\,a(n) + (- 2 n - 3)\,a(n-1) -  n\,a(n-2) -  3 \left(2 n - 3\right)\,a(n-3) + (n - 3)\,a(n-4) \;=\;0
+\left(n + 3\right) \left(14681 n + 187954\right)\,a(n) + (14681 n^{2} - 2696783 n - 4897218)\,a(n-1) + (- 888761 n^{2} + 12771539 n + 5490342)\,a(n-2) + 2 \left(1635223 n^{2} - 14850835 n + 13281012\right)\,a(n-3) -  2 \left(1908503 n^{2} - 15402653 n + 25889820\right)\,a(n-4) + 156 \left(2 n - 7\right) \left(3301 n - 14374\right)\,a(n-5) \;=\;0
 \]
 holds for every $n>4$.
 \end{theorem}
@@ -153,23 +153,23 @@ independent checks were run.
 
 First, the generating function was checked against the entry rather than assumed: the
 Taylor coefficients of \eqref{eq:gf} were expanded and compared term by term with the DATA
-section of A025245, agreeing on all 13 terms compared.
+section of A165540, agreeing on all 13 terms compared.
 
 Second, the recurrence itself was evaluated directly on the published terms, in exact
 integer arithmetic and without reference to the generating function: for each $n$ in range
 the sum $\sum_{i}p_{i}(n)a(n-i)$ was formed from the entry's own values and found to
-vanish, for all 24 values of $n$ from $n=6$ upward. This is what
+vanish, for all 27 values of $n$ from $n=5$ upward. This is what
 Corollary~\ref{cor:criterion} predicts from the degree of $B$, and it is a genuinely
 different computation from the symbolic one: it never forms $B$, never differentiates, and
 uses only integers.
 
 The symbolic step is exact throughout. The residual is obtained by rational-function
-cancellation in $K$, not by series truncation, so the identity $B=- x^{4} + 9 x^{3} + 3 x^{2} + 4 x$ is an
+cancellation in $K$, not by series truncation, so the identity $B=456300 x^{4} - 14661846 x^{3} + 19419476 x^{2} - 6768780 x + 563862$ is an
 identity of functions and the theorem holds for all $n>4$ simultaneously.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer Sequences},
-\url{https://oeis.org}, 2026. Sequence A025245.
+\url{https://oeis.org}, 2026. Sequence A165540.
 \bibitem{kp} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011,
 Chapter 7 (holonomic closure properties and the translation between recurrences and
 differential equations).

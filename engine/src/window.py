@@ -27,7 +27,7 @@ import re
 WORD = {'one': 1, 'two': 2, 'three': 3, 'four': 4, 'five': 5, 'six': 6, 'seven': 7,
         'eight': 8, 'nine': 9, 'ten': 10, 'a': 1, 'an': 1}
 ORD = {'second': 2, 'third': 3, 'fourth': 4, 'fifth': 5, 'sixth': 6, 'seventh': 7}
-MULT = {'twice': 2, 'three times': 3, 'four times': 4, 'five times': 5, 'six times': 6,
+MULT = {'twice': 2, 'two times': 2, 'three times': 3, 'four times': 4, 'five times': 5, 'six times': 6,
         'twin': 2}
 
 NAME = re.compile(
@@ -60,7 +60,7 @@ def _pairsum(body):
 
 def _maxmin(body):
     m = re.match(r'(no|every) (\w+) consecutive terms having the maximum of (any|some) (\w+) '
-                 r'terms equal to the minimum of the remaining (\w+)$', body)
+                 r'terms equal to the minimum of the remaining (\w+)(?: terms)?$', body)
     if not m:
         return None
     w, j, r = _num(m.group(2)), _num(m.group(4)), _num(m.group(5))
@@ -140,7 +140,77 @@ def _downstep(body):
     return w + 1, (lambda v: sum(1 for i in range(len(v) - 1) if v[i] > v[i + 1]) <= k)
 
 
-READERS = (_pairsum, _maxmin, _sumtimes, _disjoint, _median, _downstep)
+def _linear(body):
+    """`c times the sum of some J elements equal to d times the sum of the remaining M'.
+
+    The `sum of any two elements equal to twice the third' reader above is the case d = 1 with
+    a single element on the right; the corpus also writes both sides as sums and puts a
+    multiplier on each. One reader covers every spelling.
+    """
+    m = re.match(r'(no|every) (\w+) consecutive terms having '
+                 r'(?:(twice|two times|three times|four times|five times|six times) )?'
+                 r'the sum of (any|some) (\w+) elements equal to '
+                 r'(?:(twice|two times|three times|four times|five times|six times) )?'
+                 r'the sum of the remaining (\w+)$', body)
+    if not m:
+        return None
+    w, j, r = _num(m.group(2)), _num(m.group(5)), _num(m.group(7))
+    if not (w and j and r) or j + r != w:
+        return None
+    c1 = MULT.get(m.group(3), 1) if m.group(3) else 1
+    c2 = MULT.get(m.group(6), 1) if m.group(6) else 1
+    want = m.group(1) == 'every'
+
+    def pred(v):
+        idx = range(len(v))
+        tot = sum(v)
+        for s_ in itertools.combinations(idx, j):
+            a = sum(v[i] for i in s_)
+            if c1 * a == c2 * (tot - a):
+                return True
+        return False
+    return w, (pred if want else (lambda v: not pred(v)))
+
+
+def _samesum(body):
+    """`no|some disjoint triples in any|every consecutive W terms having the same sum', and
+    the three-disjoint-pairs spelling of the same thing."""
+    m = re.match(r'(no|some) (?:(\w+) )?disjoint (pairs|triples) in (any|every|each) '
+                 r'consecutive (\w+) terms having the same sum$', body)
+    if not m:
+        return None
+    howmany = _num(m.group(2)) if m.group(2) else 2
+    size = 2 if m.group(3) == 'pairs' else 3
+    w = _num(m.group(5))
+    if not w or not howmany or howmany * size > w:
+        return None
+    want = m.group(1) == 'some'
+
+    def pred(v):
+        idx = list(range(len(v)))
+        for pick in itertools.combinations(idx, howmany * size):
+            for grouping in _partitions(list(pick), size):
+                sums = {sum(v[i] for i in g) for g in grouping}
+                if len(sums) == 1:
+                    return True
+        return False
+    return w, (pred if want else (lambda v: not pred(v)))
+
+
+def _partitions(items, size):
+    """the ways to split `items` into blocks of `size`, each block once."""
+    if not items:
+        yield []
+        return
+    first = items[0]
+    for rest in itertools.combinations(items[1:], size - 1):
+        block = (first,) + rest
+        left = [i for i in items[1:] if i not in rest]
+        for tail in _partitions(left, size):
+            yield [block] + tail
+
+
+READERS = (_pairsum, _maxmin, _sumtimes, _linear, _samesum, _disjoint, _median, _downstep)
 
 
 def parse_name(nm):
