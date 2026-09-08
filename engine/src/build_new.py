@@ -33,6 +33,41 @@ NOTE = (r" Throughout, \emph{row} means a line of the array in the direction the
         r"transposed, and a step appends what the entry's own name writes as a column.")
 
 
+
+# Many entries fix the value of one corner cell -- "with upper left element zero" and the like.
+# It is part of the condition and it changes the count: for A231140 at n = 1, 1,710 of the
+# 2 x 4 arrays satisfy the majority condition and 570 of those have the corner zero, and 570 is
+# what the entry publishes. The models enforce it correctly. But 502 papers quote the clause in
+# the entry's name and then never mention it again, so a reader cannot tell whether the paper
+# noticed it. One sentence, added where every builder passes.
+CORNER = re.compile(r'(?i)(upper|top) left (?:element |entry |value )?(zero|0|1)\b')
+
+
+def _note_corner(tex, name):
+    m = CORNER.search(' '.join(name.split()))
+    if not m:
+        return tex
+    # "already explained" has to be judged on the whole document with the QUOTED NAME removed,
+    # exactly as the scan that found these did. Looking only after the last quote block called
+    # twenty papers unexplained that explain it earlier, and would have given them the sentence
+    # twice.
+    body = re.sub(r'\\begin\{quote\}.*?\\end\{quote\}', ' ', tex, flags=re.S)
+    body = re.sub(r"OEIS A\d+ is\s+``.{0,400}?\.''", ' ', body, flags=re.S)
+    if re.search(r'(?i)upper left|top left|corner|start vector|initial cell|first cell', body):
+        return tex
+    val = '0' if m.group(2).lower() in ('zero', '0') else m.group(2)
+    note = (" The entry also fixes one corner: its %s left cell must be $%s$. That is part of "
+            "the condition and it changes the count, so the model enforces it in the starting "
+            "vector, which admits only the states whose first line carries that value in that "
+            "position; every walk counted below begins from one of those."
+            % (m.group(1).lower(), val))
+    mm = re.search(r'\\begin\{abstract\}.*?\\end\{abstract\}', tex, re.S)
+    if not mm:
+        return tex
+    cut = mm.end() - len('\\end{abstract}')
+    return tex[:cut] + note + tex[cut:]
+
+
 def _note_transpose(tex, name):
     """say which way the array is read, when the entry grows along its second dimension"""
     nm = re.sub(r'\s*[xX]\s*', ' X ', ' '.join(name.split()))
@@ -110,7 +145,9 @@ for h in sorted(hits, key=lambda x: x['anum']):
         # builder always works from the fields the sweep does write
         print(f"  {h['anum']}: {name} failed ({exc}); using the general builder")
         tex = mods['unibuild'].build(h)
-    tex = _note_transpose(tex, LE.get(h['anum'])['name'])
+    nm_ = LE.get(h['anum'])['name']
+    tex = _note_transpose(tex, nm_)
+    tex = _note_corner(tex, nm_)
     open(f"{dd}/p.tex", 'w').write(tex)
     for _ in range(2):
         subprocess.run(['pdflatex', '-interaction=nonstopmode', 'p.tex'], cwd=dd,

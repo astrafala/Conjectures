@@ -519,7 +519,7 @@ A stratified sample, one paper from each of the 105 families, drawn with a fixed
 is reproducible and not cherry-picked (`engine/deep-check/phase12-sample.json`). Read the way
 a hostile referee reads: find the weakest step and attack it.
 
-Thirty-seven read so far; the ones below are those where the attack found something or where the
+Forty-one read so far; the ones below are those where the attack found something or where the
 step most likely to fail was checked by hand.
 
 * **A223181** (`gf-implies-rec`) **passes.** Its proof is conditional on a generating function
@@ -610,6 +610,20 @@ local.
   derived independently for the lexicographic family.
 * **A235021** proves its recurrence minimal *and says the same holds on every tail*, which is
   the strengthening `ordtails.py` was written around today.
+
+**502 papers quote a clause of their condition and then never mention it again.** Found by
+reading A231140 (rank 1158). Its entry ends *"with upper left element zero"* — part of the
+condition, and it changes the count — and the paper quotes that sentence in section 1 and
+never returns to it, not in the abstract and not in the body. **1,434 papers have an entry
+that fixes a corner cell; 502 of them never discuss it outside the quotation.**
+
+The models are right. Brute-forcing A231140 at `n = 1`: **1,710** of the 2 X 4 arrays satisfy
+the majority condition and **570** of those have the corner zero — and 570 is what the entry
+publishes, so the model is enforcing the clause, not ignoring it. What is missing is the
+explanation: a reader cannot tell from those 502 papers whether the clause was noticed at all.
+One sentence is added in `build_new.py`, where every builder passes, saying the corner is fixed
+and that the model enforces it in the starting vector. Checked both ways — all 502 receive it,
+and papers that already explain it do not get it twice.
 
 **54 more abstracts name three directions where the entry names four.** `transfer45build.py`
 said every three consecutive entries *"taken along a row, a column or a diagonal"*; 54 of the
