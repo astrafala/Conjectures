@@ -755,3 +755,36 @@ against regenerated terms rather than against the entry is not testing the conje
 Four times today an apparent batch of disproofs has been a defect in how I read or reconstruct
 the claim. Not once has it been a false conjecture. **The disproof count stands at 6, all from
 earlier work, all re-verified.**
+
+## 8 September 2026 — memory made durable, and the 387-entry two-dimensional CA family opened
+
+`STATE.md` now holds everything crucial in one page — the job, the binding rules, the nine
+recurring defects, where things stand, the commands to start a session — and `IDEAS.md` holds
+every angle of attack with its pool and status. Together they are enough to carry on without
+asking anything, so losing the conversation costs nothing. The hourly routine reads both first.
+
+### Ideas closed this hour
+
+* **Inequalities on sequences proved C-finite here: zero.** One hit, and it is a Cramér-type
+  statement on the primes. Dead.
+* **Algebraic (radical) generating functions on proved entries: 6.** Too small to build for.
+
+### The 387-entry family, and two readings the data had to settle
+
+"Binary/Decimal representation of the x-axis (or diagonal) of the n-th stage of growth of the
+two-dimensional cellular automaton defined by Rule N, based on the 5-celled von Neumann
+neighbourhood" — 295 x-axis and 92 diagonal entries, and no engine reads one.
+
+Three things had to be read correctly rather than assumed, and the entry's own terms settled
+each:
+
+* **the rule encoding.** Of the layouts tried, only `bit(2·sum + own)` reproduces the data.
+* **the direction.** The name says "from the left edge to the origin" or "from the origin to
+  the right edge" — these are reverses of each other, and ignoring the phrase cost 21 of 60.
+* **the background, again.** A rule with (own 0, no live neighbours) → 1 flips the entire
+  background, and a grid whose border stays 0 is not that background. With padding that
+  exceeds the number of steps, A279028 and A279053 both come out exactly right where they had
+  been wrong from the third term.
+
+That is the same defect as the one-dimensional automata this morning, in a second place. It is
+now written into `STATE.md` as a standing check.
