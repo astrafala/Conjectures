@@ -519,7 +519,7 @@ A stratified sample, one paper from each of the 105 families, drawn with a fixed
 is reproducible and not cherry-picked (`engine/deep-check/phase12-sample.json`). Read the way
 a hostile referee reads: find the weakest step and attack it.
 
-Fifty-seven read so far; the ones below are those where the attack found something or where the
+Sixty-five read so far; the ones below are those where the attack found something or where the
 step most likely to fail was checked by hand.
 
 * **A223181** (`gf-implies-rec`) **passes.** Its proof is conditional on a generating function
@@ -610,6 +610,17 @@ local.
   derived independently for the lexicographic family.
 * **A235021** proves its recurrence minimal *and says the same holds on every tail*, which is
   the strengthening `ordtails.py` was written around today.
+
+**15 abstracts state a weaker condition than the one proved.** A207146's entry asks that every
+2 X 2 subblock have *nonzero determinant* **and** commute with its neighbours; the abstract
+said only that neighbouring subblocks commute. All 15 bodies do explain the determinant
+clause — the builder already computes a sentence for it and put it in the body alone — so this
+is thinness rather than an omission, and the abstract carries it now.
+
+Seven others in that batch pass, including two symbolic ones: **A185010**, whose generating
+function is algebraic, and **A053532**, whose exponential generating function is
+transcendental and which therefore works in a finitely generated module over `Q(x)` spanned by
+`log` and `exp` monomials rather than reaching for an algebraic argument that does not apply.
 
 **Six more pass** — A183327, A204649, A205156, A232377, A206377, A297677. The first is
 corroborated by hand: its entry asks each `1` to be adjacent to exactly two other `1`s, and in

@@ -42,6 +42,10 @@ def build(h):
     conj = conj_line(a)
     coeffs = {int(k): int(v) for k, v in h['coeffs'].items()}
     word = 'commute' if every else 'do not commute'
+    # The abstract said only that neighbouring subblocks commute. Fifteen of these entries
+    # also require every subblock to have nonzero determinant, which the body explained and
+    # the abstract did not -- so the abstract stated a weaker condition than the one proved.
+    detabs = ', each of nonzero determinant,' if det else ''
     detclause = ('' if not det else
                  r" The entry adds that every subblock have nonzero determinant; that is a "
                  r"condition on one subblock alone and is checked where the subblock is "
@@ -56,7 +60,8 @@ def build(h):
 
 \begin{{abstract}}
 OEIS {a} counts the $(n+{K - 1})\times{W}$ arrays over $\{{0,\dots,{al}\}}$ in which
-neighbouring ${K}\times{K}$ subblocks {word} as matrices, and carries an empirical recurrence
+neighbouring ${K}\times{K}$ subblocks{detabs} {word} as matrices, and carries an empirical
+recurrence
 of order ${order}$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
 empirical. The condition ties together ${K}+1$ consecutive rows, so ${K}$ consecutive rows are
 a state, the count is a walk count on $S={S}$ of them, and the conjectured recurrence is then
