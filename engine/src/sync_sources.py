@@ -32,6 +32,20 @@ def index_sources():
 def main():
     h2t = index_sources()
     rm = json.load(open('rank-map.json'))
+    # one at a time. Two copies of this script racing deleted each other's freshly written
+    # sources and then died on a file the other had just removed; the same mistake broke
+    # rank.py in the same session, and both now refuse rather than interleave.
+    lock = f'{repopaths.SOURCES}/.sync.lock'
+    os.makedirs(repopaths.SOURCES, exist_ok=True)
+    if os.path.exists(lock):
+        try:
+            other = int(open(lock).read().strip())
+        except Exception:
+            other = None
+        if other is not None and os.path.exists(f'/proc/{other}'):
+            raise SystemExit(f'sync_sources (pid {other}) is running; refusing to start')
+    open(lock, 'w').write(str(os.getpid()))
+
     written = kept = dropped = 0
     present = set()
     for m in rm:
@@ -86,6 +100,10 @@ def main():
     if wrong:
         raise SystemExit(f'{len(wrong)} sources do not name their paper, first '
                          f'{wrong[0]["rank"]} ({wrong[0]["anum"]}) -- refusing to finish')
+    try:
+        os.remove(lock)
+    except OSError:
+        pass
     print(f'sources: {written} written from a hash match, {kept} kept and confirmed, '
           f'{dropped} dropped as belonging to another paper, {stale} stale removed, '
           f'{len(missing)} with no source')

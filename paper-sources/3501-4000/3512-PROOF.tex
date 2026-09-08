@@ -12,15 +12,15 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A188691, proved by a two-line transfer matrix}
+\title{The empirical recurrence for OEIS A188563, proved by a two-line transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A188691 counts arrays over $\{0,\dots,1\}$ in which every cell is constrained by the
-values of its neighbours, and carries an empirical recurrence of order $85$ contributed
+OEIS A188563 counts arrays over $\{0,\dots,1\}$ in which every cell is constrained by the
+values of its neighbours, and carries an empirical recurrence of order $99$ contributed
 by R.~H.~Hardin. It is true, and it is not an empirical matter. The neighbourhood reaches one
 row up and one row down, so a single row is not enough state and a plain walk count
 is wrong; the right object is a walk on ordered \emph{pairs} of consecutive rows, where
@@ -34,34 +34,34 @@ computation.
 
 \section{The sequence and the conjecture}
 
-OEIS A188691 is ``Number of nX5 binary arrays without the pattern 0 1 0 diagonally, vertically, antidiagonally or horizontally.''. It has offset $1$ and begins
+OEIS A188563 is ``Number of nX5 binary arrays without the pattern 1 1 1 diagonally, vertically or horizontally.''. It has offset $1$ and begins
 \[
-21, 441, 3609, 20662, 139307, 1181340, 9908740, 75877068,\ \dots
+24, 576, 7722, 127951, 2109386, 33878337, 550371695, 8927734479,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 13*a(n-1) -72*a(n-2) +332*a(n-3) -521*a(n-4) -1967*a(n-5) +10379*a(n-6) -51424*a(n-7) +28054*a(n-8) +403549*a(n-9) -658172*a(n-10) +1849700*a(n-11) -1239067*a(n-12) -15670223*a(n-13) +24330475*a(n-14) -59850183*a(n-15) +88697426*a(n-16) +187045000*a(n-17) -330206715*a(n-18) +997106301*a(n-19) -2085486741*a(n-20) +905028643*a(n-21) -1558095425*a(n-22) -2656363440*a(n-23) +11436708343*a(n-24) -14013816831*a(n-25) +31212150218*a(n-26) -31183419729*a(n-27) +17494688482*a(n-28) -14737356475*a(n-29) -35106747755*a(n-30) +48351271081*a(n-31) -30134345302*a(n-32) +23300773627*a(n-33) +71424898322*a(n-34) -97405122786*a(n-35) +39818238895*a(n-36) +13587042357*a(n-37) -153008165143*a(n-38) +139402107983*a(n-39) +53993622733*a(n-40) -177575083625*a(n-41) +239479631120*a(n-42) -59992856699*a(n-43) -322136456306*a(n-44) +345822727924*a(n-45) -105090887373*a(n-46) -243206217394*a(n-47) +567737556458*a(n-48) -325846320221*a(n-49) -157377258816*a(n-50) +417062824086*a(n-51) -457382653146*a(n-52) +155724264358*a(n-53) +232274780565*a(n-54) -320874952433*a(n-55) +208706182428*a(n-56) -9426335629*a(n-57) -165554039782*a(n-58) +157631943987*a(n-59) -33193398897*a(n-60) -59171749202*a(n-61) +68583775952*a(n-62) -20708014940*a(n-63) -21735450662*a(n-64) +22924522215*a(n-65) -4140818762*a(n-66) -6471757632*a(n-67) +5315187407*a(n-68) -592210350*a(n-69) -1488577678*a(n-70) +830674024*a(n-71) -53562020*a(n-72) -111816478*a(n-73) +91187850*a(n-74) -31175524*a(n-75) -2956816*a(n-76) +5481352*a(n-77) -2588040*a(n-78) +552592*a(n-79) +66736*a(n-80) -58928*a(n-81) +21712*a(n-82) -2752*a(n-83) +144*a(n-84) +32*a(n-85)
+Empirical: a(n)=a(n-1)+81*a(n-2)+1968*a(n-3)+10198*a(n-4)+43534*a(n-5)-234023*a(n-6)-1076579*a(n-7)-7710218*a(n-8)+24006347*a(n-9)+17872668*a(n-10)+667841405*a(n-11)-2271104625*a(n-12)+4340294596*a(n-13)-40288551991*a(n-14)+140799043254*a(n-15)-367357387268*a(n-16)+1626126833419*a(n-17)-4937058082087*a(n-18)+12036905557357*a(n-19)-37333061036842*a(n-20)+94143877370036*a(n-21)-197540340201065*a(n-22)+484763689480798*a(n-23)-1022689739298729*a(n-24)+1810780359805844*a(n-25)-3735287000142085*a(n-26)+6691498222412310*a(n-27)-9820715320305757*a(n-28)+17885149745250658*a(n-29)-27557851666486808*a(n-30)+31686148804091742*a(n-31)-54867315940314229*a(n-32)+73900374795604900*a(n-33)-53547394400046240*a(n-34)+109541394067964935*a(n-35)-137068076811904423*a(n-36)-671341738732344*a(n-37)-140341308504278752*a(n-38)+212929032216508104*a(n-39)+241974226680429512*a(n-40)+82503450410560086*a(n-41)-369575427840252666*a(n-42)-639552653133407674*a(n-43)+120038296860401910*a(n-44)+633848479595783593*a(n-45)+919503615101826039*a(n-46)-401157566451451126*a(n-47)-826769288658598994*a(n-48)-855473552142668621*a(n-49)+562886248215117288*a(n-50)+761449110398180541*a(n-51)+544568230227491932*a(n-52)-500757608328287023*a(n-53)-498682516432561511*a(n-54)-240341125585075947*a(n-55)+311956476409845853*a(n-56)+237763562843915798*a(n-57)+72892741064384507*a(n-58)-142024726797552692*a(n-59)-85112274892438694*a(n-60)-15600377946302881*a(n-61)+47865071419112064*a(n-62)+23566849659045219*a(n-63)+2869103094851538*a(n-64)-12098272395481587*a(n-65)-5342581163807780*a(n-66)-768861930999430*a(n-67)+2313215809512112*a(n-68)+1056731586663470*a(n-69)+258721825247009*a(n-70)-335386863392340*a(n-71)-184178745154265*a(n-72)-67001075100914*a(n-73)+35855580816037*a(n-74)+26627379672137*a(n-75)+12305212472154*a(n-76)-2100680589339*a(n-77)-2766817028237*a(n-78)-1563591964191*a(n-79)-98206976791*a(n-80)+161752526593*a(n-81)+124114552425*a(n-82)+30147751382*a(n-83)-1640050425*a(n-84)-4962256165*a(n-85)-2270181092*a(n-86)-389209284*a(n-87)+24481487*a(n-88)+58567091*a(n-89)+18670145*a(n-90)+2482546*a(n-91)-296948*a(n-92)-339623*a(n-93)-43329*a(n-94)-2290*a(n-95)+2665*a(n-96)+371*a(n-97)-53*a(n-98)-a(n-99)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 04:46:40, revision 9) the statement is
+As of the ``Last modified'' line on the live entry (Oct 03 2025 04:44:30, revision 9) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;13\,a(n-1) - 72\,a(n-2) + 332\,a(n-3) - 521\,a(n-4) - 1967\,a(n-5) + 10379\,a(n-6) - 51424\,a(n-7) + 28054\,a(n-8) + 403549\,a(n-9) - 658172\,a(n-10) + 1849700\,a(n-11) - 1239067\,a(n-12) - 15670223\,a(n-13) + 24330475\,a(n-14) - 59850183\,a(n-15) + 88697426\,a(n-16) + 187045000\,a(n-17) - 330206715\,a(n-18) + 997106301\,a(n-19) - 2085486741\,a(n-20) + 905028643\,a(n-21) - 1558095425\,a(n-22) - 2656363440\,a(n-23) + 11436708343\,a(n-24) - 14013816831\,a(n-25) + 31212150218\,a(n-26) - 31183419729\,a(n-27) + 17494688482\,a(n-28) - 14737356475\,a(n-29) - 35106747755\,a(n-30) + 48351271081\,a(n-31) - 30134345302\,a(n-32) + 23300773627\,a(n-33) + 71424898322\,a(n-34) - 97405122786\,a(n-35) + 39818238895\,a(n-36) + 13587042357\,a(n-37) - 153008165143\,a(n-38) + 139402107983\,a(n-39) + 53993622733\,a(n-40) - 177575083625\,a(n-41) + 239479631120\,a(n-42) - 59992856699\,a(n-43) - 322136456306\,a(n-44) + 345822727924\,a(n-45) - 105090887373\,a(n-46) - 243206217394\,a(n-47) + 567737556458\,a(n-48) - 325846320221\,a(n-49) - 157377258816\,a(n-50) + 417062824086\,a(n-51) - 457382653146\,a(n-52) + 155724264358\,a(n-53) + 232274780565\,a(n-54) - 320874952433\,a(n-55) + 208706182428\,a(n-56) - 9426335629\,a(n-57) - 165554039782\,a(n-58) + 157631943987\,a(n-59) - 33193398897\,a(n-60) - 59171749202\,a(n-61) + 68583775952\,a(n-62) - 20708014940\,a(n-63) - 21735450662\,a(n-64) + 22924522215\,a(n-65) - 4140818762\,a(n-66) - 6471757632\,a(n-67) + 5315187407\,a(n-68) - 592210350\,a(n-69) - 1488577678\,a(n-70) + 830674024\,a(n-71) - 53562020\,a(n-72) - 111816478\,a(n-73) + 91187850\,a(n-74) - 31175524\,a(n-75) - 2956816\,a(n-76) + 5481352\,a(n-77) - 2588040\,a(n-78) + 552592\,a(n-79) + 66736\,a(n-80) - 58928\,a(n-81) + 21712\,a(n-82) - 2752\,a(n-83) + 144\,a(n-84) + 32\,a(n-85)
+a(n)\;=\;a(n-1) + 81\,a(n-2) + 1968\,a(n-3) + 10198\,a(n-4) + 43534\,a(n-5) - 234023\,a(n-6) - 1076579\,a(n-7) - 7710218\,a(n-8) + 24006347\,a(n-9) + 17872668\,a(n-10) + 667841405\,a(n-11) - 2271104625\,a(n-12) + 4340294596\,a(n-13) - 40288551991\,a(n-14) + 140799043254\,a(n-15) - 367357387268\,a(n-16) + 1626126833419\,a(n-17) - 4937058082087\,a(n-18) + 12036905557357\,a(n-19) - 37333061036842\,a(n-20) + 94143877370036\,a(n-21) - 197540340201065\,a(n-22) + 484763689480798\,a(n-23) - 1022689739298729\,a(n-24) + 1810780359805844\,a(n-25) - 3735287000142085\,a(n-26) + 6691498222412310\,a(n-27) - 9820715320305757\,a(n-28) + 17885149745250658\,a(n-29) - 27557851666486808\,a(n-30) + 31686148804091742\,a(n-31) - 54867315940314229\,a(n-32) + 73900374795604900\,a(n-33) - 53547394400046240\,a(n-34) + 109541394067964935\,a(n-35) - 137068076811904423\,a(n-36) - 671341738732344\,a(n-37) - 140341308504278752\,a(n-38) + 212929032216508104\,a(n-39) + 241974226680429512\,a(n-40) + 82503450410560086\,a(n-41) - 369575427840252666\,a(n-42) - 639552653133407674\,a(n-43) + 120038296860401910\,a(n-44) + 633848479595783593\,a(n-45) + 919503615101826039\,a(n-46) - 401157566451451126\,a(n-47) - 826769288658598994\,a(n-48) - 855473552142668621\,a(n-49) + 562886248215117288\,a(n-50) + 761449110398180541\,a(n-51) + 544568230227491932\,a(n-52) - 500757608328287023\,a(n-53) - 498682516432561511\,a(n-54) - 240341125585075947\,a(n-55) + 311956476409845853\,a(n-56) + 237763562843915798\,a(n-57) + 72892741064384507\,a(n-58) - 142024726797552692\,a(n-59) - 85112274892438694\,a(n-60) - 15600377946302881\,a(n-61) + 47865071419112064\,a(n-62) + 23566849659045219\,a(n-63) + 2869103094851538\,a(n-64) - 12098272395481587\,a(n-65) - 5342581163807780\,a(n-66) - 768861930999430\,a(n-67) + 2313215809512112\,a(n-68) + 1056731586663470\,a(n-69) + 258721825247009\,a(n-70) - 335386863392340\,a(n-71) - 184178745154265\,a(n-72) - 67001075100914\,a(n-73) + 35855580816037\,a(n-74) + 26627379672137\,a(n-75) + 12305212472154\,a(n-76) - 2100680589339\,a(n-77) - 2766817028237\,a(n-78) - 1563591964191\,a(n-79) - 98206976791\,a(n-80) + 161752526593\,a(n-81) + 124114552425\,a(n-82) + 30147751382\,a(n-83) - 1640050425\,a(n-84) - 4962256165\,a(n-85) - 2270181092\,a(n-86) - 389209284\,a(n-87) + 24481487\,a(n-88) + 58567091\,a(n-89) + 18670145\,a(n-90) + 2482546\,a(n-91) - 296948\,a(n-92) - 339623\,a(n-93) - 43329\,a(n-94) - 2290\,a(n-95) + 2665\,a(n-96) + 371\,a(n-97) - 53\,a(n-98) - a(n-99)
 \end{equation}
-for all $n>86$.
+for all $n>100$.
 
 \section{The condition, and why one row is not enough}
 
 The arrays have $5$ columns and $L=n$ rows; write $x_{t,u}$ for the entry in
 row $t$ and column $u$, each in $\{0,\dots,1\}$. With the neighbour offsets
 \[
-\mathcal N=\{(1,1),\ (1,0),\ (1,-1),\ (0,1)\},
+\mathcal N=\{(1,1),\ (1,0),\ (0,1)\},
 \]
 written as (row shift, column shift) and counting only positions inside the array, the
 entry's requirement is
 \begin{equation}\label{eq:loc}
-\text{no }0,1,0\text{ occurs consecutively along any direction in }\mathcal N
+\text{no }1,1,1\text{ occurs consecutively along any direction in }\mathcal N
 \end{equation}
 for every cell $(t,u)$.
 
@@ -112,21 +112,21 @@ $V\times V$, of size $32^2=1024$. That is the whole of the state: two consecutiv
 rows and nothing else about the array's history.
 
 It is worth saying why this is not done by enumeration. At the largest index the entry
-publishes, $n=19$, the arrays have $5\cdot19$ cells over
-$2$ values, so there are about $10^{28}$ of them to sift. The
+publishes, $n=16$, the arrays have $5\cdot16$ cells over
+$2$ values, so there are about $10^{24}$ of them to sift. The
 walk count replaces that by $1024$ states and one matrix--vector product per row.
 \section{The criterion}
 
-Let $q(t)=t^{85}-\sum_i c_i\,t^{85-i}$ be the characteristic polynomial of
+Let $q(t)=t^{99}-\sum_i c_i\,t^{99-i}$ be the characteristic polynomial of
 \eqref{eq:conj} and put $G=N$, so that a unit step in $n$ advances the walk by
 $1$ row.
 
 \begin{lemma}\label{lem:crit}
 Let $n_0$ be the least index with $L\ge2$ and $h_j=G^{j}N^{o}\mathbf{u}$, where
-$o=1n_0+0-2$. Then for $j\ge85$,
+$o=1n_0+0-2$. Then for $j\ge99$,
 \[
-a(n_0+j)-\sum_i c_i\,a(n_0+j-i)\;=\;\,\mathbf{v}^{\!\top}G^{\,j-85}w,
-\qquad w=h_{85}-\sum_i c_i\,h_{85-i} .
+a(n_0+j)-\sum_i c_i\,a(n_0+j-i)\;=\;\,\mathbf{v}^{\!\top}G^{\,j-99}w,
+\qquad w=h_{99}-\sum_i c_i\,h_{99-i} .
 \]
 Hence \eqref{eq:conj} holds from that point on if and only if
 $\mathbf{v}^{\!\top}G^{m}w=0$ for every $m\ge0$, and it is enough to check
@@ -134,7 +134,7 @@ $m=0,1,\dots,S-1$.
 \end{lemma}
 
 \begin{proof}
-Substitute Lemma~\ref{lem:walk} and factor $G^{j-85}$ out of
+Substitute Lemma~\ref{lem:walk} and factor $G^{j-99}$ out of
 $G^{j}-\sum_ic_iG^{j-i}$; the nonzero scalar $1$ does not affect
 vanishing. For the last clause, Cayley--Hamilton makes $G^{S}$ an integer combination of
 $I,G,\dots,G^{S-1}$, so $\mathbf{v}^{\!\top}G^{m}w$ for $m\ge S$ is the corresponding
@@ -142,16 +142,16 @@ combination of the earlier values; if those vanish, so do all the rest.
 \end{proof}
 
 \begin{theorem}
-The recurrence \eqref{eq:conj} holds for every $n>86$, which is the statement of
+The recurrence \eqref{eq:conj} holds for every $n>100$, which is the statement of
 Section~1.
 \end{theorem}
 
 \begin{proof}
 The digraph was built directly from \eqref{eq:loc}: for each of the $S=1024$ pairs and each
 of the $(1+1)^{5}$ possible next rows, the condition was tested on every cell of
-the middle row. The vector $w$ was formed by $85$ applications of $G$ in exact integer
+the middle row. The vector $w$ was formed by $99$ applications of $G$ in exact integer
 arithmetic and $\mathbf{v}^{\!\top}G^{m}w$ evaluated for $m=0,1,\dots$, again exactly.
-Every one of those integers vanishes from the index corresponding to $n=86+1$ onwards,
+Every one of those integers vanishes from the index corresponding to $n=100+1$ onwards,
 and the run was continued until $S+1$ consecutive zeros had been seen, which by
 Lemma~\ref{lem:crit} settles every larger $m$ at once.
 \end{proof}
@@ -168,7 +168,7 @@ divisor of $q$.
 Three checks, each independent of the algebra above.
 
 First, the walk counts of Lemma~\ref{lem:walk} were compared against the entry's DATA at
-every one of the $19$ published indices, with no shift fitted: the number of rows is
+every one of the $16$ published indices, with no shift fitted: the number of rows is
 read off the entry's own name as $L=n$ and the entry's offset says which index the first
 published term carries. The values agree exactly. A misreading of \eqref{eq:loc}, of the
 neighbour set, or of the boundary treatment would give a different digraph and different
@@ -183,7 +183,7 @@ returned zero throughout.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A188691.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A188563.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

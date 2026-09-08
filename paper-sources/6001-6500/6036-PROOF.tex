@@ -12,15 +12,15 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A302473, proved by a two-line transfer matrix}
+\title{The empirical recurrence for OEIS A303243, proved by a two-line transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A302473 counts arrays over $\{0,\dots,1\}$ in which every cell is constrained by the
-values of its neighbours, and carries an empirical recurrence of order $19$ contributed
+OEIS A303243 counts arrays over $\{0,\dots,1\}$ in which every cell is constrained by the
+values of its neighbours, and carries an empirical recurrence of order $20$ contributed
 by R.~H.~Hardin. It is true, and it is not an empirical matter. The neighbourhood reaches one
 column up and one column down, so a single column is not enough state and a plain walk count
 is wrong; the right object is a walk on ordered \emph{pairs} of consecutive columns, where
@@ -34,20 +34,20 @@ computation.
 
 \section{The sequence and the conjecture}
 
-OEIS A302473 is ``Number of 3Xn 0..1 arrays with every element equal to 1, 2, 3 or 5 horizontally, diagonally or antidiagonally adjacent elements, with upper left element zero.''. It has offset $1$ and begins
+OEIS A303243 is ``Number of 3 X n 0..1 arrays with every element equal to 0, 2, 3, 5 or 6 horizontally, diagonally or antidiagonally adjacent elements, with upper left element zero.''. It has offset $1$ and begins
 \[
-0, 11, 49, 203, 955, 4556, 21843, 103319,\ \dots
+4, 2, 18, 8, 60, 56, 236, 428,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = a(n-1) +17*a(n-2) +15*a(n-3) -33*a(n-4) -62*a(n-5) -148*a(n-6) -116*a(n-7) +343*a(n-8) +429*a(n-9) +269*a(n-10) +191*a(n-11) -415*a(n-12) -534*a(n-13) -468*a(n-14) -436*a(n-15) -132*a(n-16) -72*a(n-17) -8*a(n-18) +8*a(n-19) for n>21
+Empirical: a(n) = 3*a(n-1) +9*a(n-2) -28*a(n-3) -37*a(n-4) +117*a(n-5) +85*a(n-6) -280*a(n-7) -118*a(n-8) +424*a(n-9) +92*a(n-10) -428*a(n-11) -26*a(n-12) +300*a(n-13) +12*a(n-14) -172*a(n-15) +48*a(n-16) +24*a(n-17) -48*a(n-18) +8*a(n-20).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Apr 08 2018 10:17:14, revision 4) the statement is
+As of the ``Last modified'' line on the live entry (Apr 02 2025 21:47:54, revision 6) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;a(n-1) + 17\,a(n-2) + 15\,a(n-3) - 33\,a(n-4) - 62\,a(n-5) - 148\,a(n-6) - 116\,a(n-7) + 343\,a(n-8) + 429\,a(n-9) + 269\,a(n-10) + 191\,a(n-11) - 415\,a(n-12) - 534\,a(n-13) - 468\,a(n-14) - 436\,a(n-15) - 132\,a(n-16) - 72\,a(n-17) - 8\,a(n-18) + 8\,a(n-19)
+a(n)\;=\;3\,a(n-1) + 9\,a(n-2) - 28\,a(n-3) - 37\,a(n-4) + 117\,a(n-5) + 85\,a(n-6) - 280\,a(n-7) - 118\,a(n-8) + 424\,a(n-9) + 92\,a(n-10) - 428\,a(n-11) - 26\,a(n-12) + 300\,a(n-13) + 12\,a(n-14) - 172\,a(n-15) + 48\,a(n-16) + 24\,a(n-17) - 48\,a(n-18) + 8\,a(n-20)
 \end{equation}
 for all $n>21$.
 
@@ -61,7 +61,7 @@ column $t$ and row $u$, each in $\{0,\dots,1\}$. With the neighbour offsets
 written as (column shift, row shift) and counting only positions inside the array, the
 entry's requirement is
 \begin{equation}\label{eq:loc}
-\#\{\text{neighbours with a value }equal to\ x_{t,u}\}\in\{1,2,3,5\}
+\#\{\text{neighbours with a value }equal to\ x_{t,u}\}\in\{0,2,3,5,6\}
 \end{equation}
 for every cell $(t,u)$. A further clause fixes the upper-left entry of the array to be $0$; it removes nothing but a relabelling, and enters the construction as a restriction on which columns may begin a walk.
 
@@ -107,25 +107,21 @@ and ending vertices counts them.
 
 
 It is worth saying why this is not done by enumeration. At the largest index the entry
-publishes, $n=22$, the arrays have $3\cdot22$ cells over
-$2$ values, so there are about $10^{19}$ of them to sift. The
+publishes, $n=28$, the arrays have $3\cdot28$ cells over
+$2$ values, so there are about $10^{25}$ of them to sift. The
 walk count replaces that by $64$ states and one matrix--vector product per column.
-
-The threshold below is exact rather than merely sufficient: at $n=21$ the conjectured
-recurrence fails on the entry's own published terms, so no range larger than the one proved
-can hold.
 \section{The criterion}
 
-Let $q(t)=t^{19}-\sum_i c_i\,t^{19-i}$ be the characteristic polynomial of
+Let $q(t)=t^{20}-\sum_i c_i\,t^{20-i}$ be the characteristic polynomial of
 \eqref{eq:conj} and put $G=N$, so that a unit step in $n$ advances the walk by
 $1$ column.
 
 \begin{lemma}\label{lem:crit}
 Let $n_0$ be the least index with $L\ge2$ and $h_j=G^{j}N^{o}\mathbf{u}$, where
-$o=1n_0+0-2$. Then for $j\ge19$,
+$o=1n_0+0-2$. Then for $j\ge20$,
 \[
-a(n_0+j)-\sum_i c_i\,a(n_0+j-i)\;=\;\,\mathbf{v}^{\!\top}G^{\,j-19}w,
-\qquad w=h_{19}-\sum_i c_i\,h_{19-i} .
+a(n_0+j)-\sum_i c_i\,a(n_0+j-i)\;=\;\,\mathbf{v}^{\!\top}G^{\,j-20}w,
+\qquad w=h_{20}-\sum_i c_i\,h_{20-i} .
 \]
 Hence \eqref{eq:conj} holds from that point on if and only if
 $\mathbf{v}^{\!\top}G^{m}w=0$ for every $m\ge0$, and it is enough to check
@@ -133,7 +129,7 @@ $m=0,1,\dots,S-1$.
 \end{lemma}
 
 \begin{proof}
-Substitute Lemma~\ref{lem:walk} and factor $G^{j-19}$ out of
+Substitute Lemma~\ref{lem:walk} and factor $G^{j-20}$ out of
 $G^{j}-\sum_ic_iG^{j-i}$; the nonzero scalar $1$ does not affect
 vanishing. For the last clause, Cayley--Hamilton makes $G^{S}$ an integer combination of
 $I,G,\dots,G^{S-1}$, so $\mathbf{v}^{\!\top}G^{m}w$ for $m\ge S$ is the corresponding
@@ -148,7 +144,7 @@ Section~1.
 \begin{proof}
 The digraph was built directly from \eqref{eq:loc}: for each of the $S=64$ pairs and each
 of the $(1+1)^{3}$ possible next columns, the condition was tested on every cell of
-the middle column. The vector $w$ was formed by $19$ applications of $G$ in exact integer
+the middle column. The vector $w$ was formed by $20$ applications of $G$ in exact integer
 arithmetic and $\mathbf{v}^{\!\top}G^{m}w$ evaluated for $m=0,1,\dots$, again exactly.
 Every one of those integers vanishes from the index corresponding to $n=21+1$ onwards,
 and the run was continued until $S+1$ consecutive zeros had been seen, which by
@@ -167,7 +163,7 @@ divisor of $q$.
 Three checks, each independent of the algebra above.
 
 First, the walk counts of Lemma~\ref{lem:walk} were compared against the entry's DATA at
-every one of the $22$ published indices, with no shift fitted: the number of columns is
+every one of the $28$ published indices, with no shift fitted: the number of columns is
 read off the entry's own name as $L=n$ and the entry's offset says which index the first
 published term carries. The values agree exactly. A misreading of \eqref{eq:loc}, of the
 neighbour set, or of the boundary treatment would give a different digraph and different
@@ -182,7 +178,7 @@ returned zero throughout.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A302473.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A303243.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

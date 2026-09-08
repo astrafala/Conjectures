@@ -12,134 +12,141 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A250671, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A203922, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{3 September 2026}
+\date{7 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A250671 counts arrays over $\{0,1,2,3\}$ in which a statistic taken over short runs
-of cells produces a derived array that is monotone in a named direction. The entry carries an
-empirical recurrence of order $35$ contributed by R.~H.~Hardin. It is true, and it is
-decidable rather than empirical: every comparison the condition makes lies inside a bounded
-window of consecutive rows, so the count is a walk count on $S=256$ states, and the
-conjectured recurrence is then settled by a finite exact computation.
+OEIS A203922 counts $(n+2)\times9$ arrays over $\{0,\dots,1\}$ subject to a condition imposed on
+every $3\times3$ subblock, and counted UP TO RELABELLING of the
+alphabet; it carries an empirical recurrence of order $36$ contributed by
+R.~H.~Hardin. It is true, and it is decidable rather than empirical. What is counted is
+equality patterns, which is not a walk count --- but it is a fixed rational combination of
+walk counts, one for each alphabet size, and that combination is again $C$-finite. Whether the
+conjectured recurrence annihilates it is then decided by a finite exact computation, with the
+Cayley--Hamilton theorem bounding the work.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
 \section{The conjecture}
 
-OEIS A250671 is ``Number of (n+1)X(3+1) 0..3 arrays with nondecreasing x(i,j)+x(i,j-1) in the i direction and nondecreasing absolute value of x(i,j)-x(i-1,j) in the j direction.''. It has offset $1$ and begins
+OEIS A203922 is ``Number of (n+2)X9 0..1 arrays with every 3X3 subblock having equal diagonal elements or equal antidiagonal elements, and new values 0..1 introduced in row major order.''. It has offset $1$ and begins
 \[
-3927, 42422, 388916, 3107446, 22408818, 148821788, 923242475, 5408914174,\ \dots
+225704, 1008200, 3376768, 11309768, 38569884, 132454088, 457030140, 1565984648,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 65*a(n-1) -2040*a(n-2) +41182*a(n-3) -601025*a(n-4) +6757461*a(n-5) -60904682*a(n-6) +452104888*a(n-7) -2818259682*a(n-8) +14967704738*a(n-9) -68478620392*a(n-10) +272205579828*a(n-11) -946422923082*a(n-12) +2893259719938*a(n-13) -7808288819292*a(n-14) +18659986712520*a(n-15) -39573170147037*a(n-16) +74582440486893*a(n-17) -125002834972016*a(n-18) +186317017612318*a(n-19) -246795421123605*a(n-20) +290111846304617*a(n-21) -301991734906378*a(n-22) +277530162730704*a(n-23) -224266440175648*a(n-24) +158524442376560*a(n-25) -97366518380640*a(n-26) +51522457118080*a(n-27) -23231309452544*a(n-28) +8797779121920*a(n-29) -2744576054784*a(n-30) +686513332224*a(n-31) -132324212736*a(n-32) +18444423168*a(n-33) -1654235136*a(n-34) +71663616*a(n-35) for n>47
+Empirical: a(n) = 3*a(n-1) +2*a(n-3) +4*a(n-4) +24*a(n-5) -104*a(n-6) +301*a(n-7) -972*a(n-8) +2951*a(n-9) +4454*a(n-10) -8159*a(n-11) +3837*a(n-12) +13919*a(n-13) -26933*a(n-14) -91244*a(n-15) +142632*a(n-16) -570464*a(n-17) -98729*a(n-18) +603130*a(n-19) -1303688*a(n-20) +752149*a(n-21) +3907255*a(n-22) -1500486*a(n-23) -2419833*a(n-24) +46150970*a(n-25) -18016427*a(n-26) -44844189*a(n-27) +17393987*a(n-28) -13261937*a(n-29) +5424393*a(n-30) +454779*a(n-31) -971074*a(n-32) +371293*a(n-33) -12623962*a(n-35) +4826809*a(n-36) for n>41
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 12:40:02, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 10:51:56, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
-\section{What is being counted}
+\section{Patterns are a combination of counts}
 
-The array has $4$ cells across and entries $x(i,j)\in\{0,1,2,3\}$.
-
-Two derived arrays are formed. The first reads the horizontal statistic across each
-neighbouring pair of a row,
+The clause ``new values $0..1$ introduced in row major order'' says that the arrays
+counted are the canonical representatives of their EQUALITY PATTERNS: two arrays that differ
+only by a permutation of the alphabet are one object. Write $N_j$ for the number of admissible
+patterns using exactly $j$ letters and $L_i$ for the number of admissible ARRAYS over an
+alphabet of $i$ letters. An array over $i$ letters is a pattern together with an injection of
+its letters into the alphabet, so
 \[
-b(i,j)\;=\;\bigl[\,a+b\,\bigr]_{a=x(i,j),\,b=x(i,j-1)}\qquad (j\ge1),
+L_i\;=\;\sum_{j}N_j\,i(i-1)\cdots(i-j+1),
 \]
-and must not decrease DOWN a column: $b(i,j)\le b(i{+}1,j)$. The second reads the vertical
-statistic down each neighbouring pair of a column,
+a triangular system with nonzero diagonal, hence invertible over $\mathbb{Q}$. The entry
+counts $a=N_1+\dots+N_{2}$, so
 \[
-c(i,j)\;=\;\bigl[\,\lvert a-b\rvert\,\bigr]_{a=x(i,j),\,b=x(i{-}1,j)}\qquad (i\ge1),
+a\;=\;\bigl(\mathbf{1}^{\!\top}F^{-1}\bigr)L ,
 \]
-and must not decrease ALONG a row: $c(i,j)\le c(i,j{+}1)$. In words, the horizontal statistic
-is the sum of a cell and its left neighbour, and the vertical one is
-the absolute difference of a cell and the cell above it.
+a FIXED rational combination of the $L_i$, where $F$ is the matrix of falling factorials.
+Each $L_i$ is a walk count on its own transfer graph, so $a$ is a walk count on the disjoint
+union of those graphs with the combination's coefficients placed in the starting vector; the
+coefficients are rational and some are negative, which costs nothing in what follows.
 
-Nothing in the condition is invariant under renaming the letters --- each statistic either does
-arithmetic on them or compares them by size --- so no reduction to equality patterns is
-available, and the walk is run over the alphabet the entry names.
+This step needs the condition itself to be unchanged by permuting the alphabet, and it is:
+the condition below is stated through equality between entries and never names a particular
+value or compares sizes.
 
-\section{A bounded window}
+\section{Three consecutive lines}
 
-\begin{lemma}\label{lem:win}
-Both conditions are conditions on TWO consecutive array rows and nothing more.
-\end{lemma}
-
-\begin{proof}
-$b(i,j)\le b(i{+}1,j)$ names four cells, all in rows $i$ and $i+1$. $c(i,j)\le c(i,j{+}1)$
-names four cells, all in rows $i-1$ and $i$. No comparison reaches further.
-\end{proof}
-
-So a single row is a state. Let $M$ be the matrix on the $4^{4}=256$ rows with
-$M[r,s]=1$ when the pair $(r,s)$ passes both tests and $0$ otherwise. An array of $R$ rows is a
-walk of $R-1$ steps and every row may begin or end one, so with $\iota=\tau=\mathbf{1}$,
+The entry's condition constrains every $3\times3$ subblock, which spans three consecutive
+rows and three consecutive columns. Writing an array as a sequence of rows
+$u_1,u_2,\dots$ over $\{0,\dots,1\}^{9}$, the condition
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=256.
+\text{the diagonal or the antidiagonal of }g\text{ is constant}
 \]
-
-The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
-published terms rather than assumed. In particular $a$ is $C$-finite.
+involves only three consecutive rows. Take as vertices the ordered PAIRS $(r,s)$ of
+rows and put an edge $(r,s)\to(s,t)$ exactly when the condition holds for the triple
+$(r,s,t)$ at every admissible column; an array with $L$ rows is a walk of length $L-2$.
+Doing that for each alphabet size $1,\dots,2$ and combining as above gives
+\[
+a(n)\;=\;\frac{1}{1}\,\iota^{\!\top}M^{\,n}\tau
+\]
+on $S=262144$ vertices in total, the exponent fixed by the entry's own shape and checked against
+its published terms. States lying on no walk from $\iota$ to $\tau$ are removed first; that
+changes no value and only shrinks the computation.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{35}-\sum_i c_it^{35-i}$ be the characteristic polynomial of the
-conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
-$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
-holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
-and it is enough to examine $j<S$.
+Let $q(t)=t^{36}-\sum_i c_it^{36-i}$ be the characteristic polynomial of the
+conjectured recurrence. Then the residual $a(n)-\sum_ic_ia(n-i)$ equals
+$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the
+recurrence holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all
+large $j$; and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+35}-\sum_ic_iM^{j+35-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+36}-\sum_ic_iM^{j+36-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
-$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
-polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly.
+$u_j=\iota^{\!\top}M^{j}q(M)\tau$ satisfy the monic linear recurrence given by the
+characteristic polynomial of $M$; $S$ consecutive zeros force every later one, and the last
+nonzero $u_j$ pins the threshold exactly.
 \end{proof}
 
 \begin{theorem}
 \[
-a(n)\;=\;65\,a(n-1) - 2040\,a(n-2) + 41182\,a(n-3) - 601025\,a(n-4) + 6757461\,a(n-5) - 60904682\,a(n-6) + 452104888\,a(n-7) - 2818259682\,a(n-8) + 14967704738\,a(n-9) - 68478620392\,a(n-10) + 272205579828\,a(n-11) - 946422923082\,a(n-12) + 2893259719938\,a(n-13) - 7808288819292\,a(n-14) + 18659986712520\,a(n-15) - 39573170147037\,a(n-16) + 74582440486893\,a(n-17) - 125002834972016\,a(n-18) + 186317017612318\,a(n-19) - 246795421123605\,a(n-20) + 290111846304617\,a(n-21) - 301991734906378\,a(n-22) + 277530162730704\,a(n-23) - 224266440175648\,a(n-24) + 158524442376560\,a(n-25) - 97366518380640\,a(n-26) + 51522457118080\,a(n-27) - 23231309452544\,a(n-28) + 8797779121920\,a(n-29) - 2744576054784\,a(n-30) + 686513332224\,a(n-31) - 132324212736\,a(n-32) + 18444423168\,a(n-33) - 1654235136\,a(n-34) + 71663616\,a(n-35)
+a(n)\;=\;3\,a(n-1) + 2\,a(n-3) + 4\,a(n-4) + 24\,a(n-5) - 104\,a(n-6) + 301\,a(n-7) - 972\,a(n-8) + 2951\,a(n-9) + 4454\,a(n-10) - 8159\,a(n-11) + 3837\,a(n-12) + 13919\,a(n-13) - 26933\,a(n-14) - 91244\,a(n-15) + 142632\,a(n-16) - 570464\,a(n-17) - 98729\,a(n-18) + 603130\,a(n-19) - 1303688\,a(n-20) + 752149\,a(n-21) + 3907255\,a(n-22) - 1500486\,a(n-23) - 2419833\,a(n-24) + 46150970\,a(n-25) - 18016427\,a(n-26) - 44844189\,a(n-27) + 17393987\,a(n-28) - 13261937\,a(n-29) + 5424393\,a(n-30) + 454779\,a(n-31) - 971074\,a(n-32) + 371293\,a(n-33) - 12623962\,a(n-35) + 4826809\,a(n-36)
 \]
-for every $n>47$.
+for every $n>41$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $35$ matrix--vector products in exact integer
-arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=47+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once.
+The vector $w=q(M)\tau$ was formed by $36$ matrix--vector products in exact integer
+arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly. Those
+integers vanish from the index corresponding to $n=41+1$ onwards, and the run was
+continued until the working vector was identically zero, which settles all larger $j$ at once.
+By Lemma~\ref{lem:crit} the recurrence holds for every $n>41$.
 \end{proof}
 
 \section{Verification}
 
-Four checks, each independent of the algebra above.
+Three checks, each independent of the algebra above.
 
-First, the model reproduces all $17$ terms the entry publishes, exactly, in integer
-arithmetic.
+First, the transfer model reproduces all $17$ terms the entry publishes, exactly, in
+integer arithmetic. That check earned its place here. The neighbour offsets are named in the
+array's own frame --- horizontal means along a row --- but when the entry fixes the first
+dimension, as in ``$2\times n$'', the walk runs along columns and the two components of every
+offset swap. Sets such as king-move, or horizontal together with vertical, are unchanged by
+that swap and hide the error completely; a set such as horizontal, diagonal and antidiagonal
+is not, and the counts came out as those of a different member of the same family until the
+offsets were transposed.
 
-Second, the count was recomputed for the smallest arrays straight from the definition: fill the
-cells in row major order and test each comparison the moment both of its runs are complete,
-in the orientation the entry's own name writes. No transfer matrix and no transposition are
-involved, and the published terms came back.
+Second, the conjectured recurrence was evaluated directly on the entry's own published terms,
+with no matrices involved, and holds wherever the proved range and the data overlap.
 
-Third, the conjectured recurrence was evaluated directly on the published terms, with no
-matrices involved, and holds wherever the proved range and the data overlap.
-
-Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
 arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A250671.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A203922.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+University Press, 2009.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

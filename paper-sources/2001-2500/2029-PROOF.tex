@@ -12,106 +12,85 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A233086, proved by carrying a row major clause across
-columns}
+\title{The empirical recurrence for OEIS A189447, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{6 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A233086 counts $5\times n$ arrays over $\{0,\dots,3\}$ with a forbidden-pair
-condition and a clause on the order in which values first appear, read in ROW MAJOR order, and
-it carries an empirical recurrence of order $10$ contributed by R.~H.~Hardin. It is true.
-The obstacle is that the array grows in $n$, so the walk runs across COLUMNS and does not visit
-the cells in row major order; the running set of ``values seen so far'' that settles the clause
-for a column-fixed entry is simply the wrong set here. What the walk can carry instead is, for
-each value the clause names, the least ROW in which it has yet been seen, together with the
-order in which those least rows were attained. That is enough, and it is bounded, so the count
-is a walk count and the recurrence is settled by a finite exact computation.
+OEIS A189447 counts the permutations of the cells of an $n\times7$ array in which every cell
+moves by one of a fixed short list of offsets. The entry carries an empirical recurrence of
+order $10$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
+empirical. The count is the permanent of the incidence matrix of the offset graph; read the
+cells in row-major order and let each choose its image, and the only thing that has to be
+carried is which images inside a window of $17$ consecutive positions are already taken.
+That makes $a$ a walk count on $S=2310$ states, hence $C$-finite, and whether the published
+recurrence is one of its recurrences is then a finite exact computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 68Q45.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A05, 05A15, 15A15.\normalsize
 
 \section{The conjecture}
 
-OEIS A233086 is ``Number of 5Xn 0..3 arrays with no element x(i,j) adjacent to value 3-x(i,j) horizontally or antidiagonally, top left element zero, and 1 appearing before 2 in row major order.''. It has offset $1$ and begins
+OEIS A189447 is ``Number of n X 7 array permutations with each element moving zero or one space horizontally or diagonally.''. It has offset $1$ and begins
 \[
-136, 9842, 875165, 77824814, 6938214854, 618844579511,\ \dots
+21, 3136, 313136, 33735505, 3586575040, 381987110556, 40668908306516, 4329976369716644,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 132*a(n-1) -4507*a(n-2) +66832*a(n-3) -492772*a(n-4) +1765654*a(n-5) -2023881*a(n-6) -4686284*a(n-7) +16006509*a(n-8) -16068834*a(n-9) +5437152*a(n-10) for n>14
+Empirical: a(n) = 119*a(n-1) -1238*a(n-2) -11504*a(n-3) +132848*a(n-4) +180912*a(n-5) -203520*a(n-6) +1542400*a(n-7) +2403200*a(n-8) -768000*a(n-9) +640000*a(n-10) for n>14.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 07:51:51, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 05:14:12, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The array has $5$ rows and $n$ columns. Two cells are adjacent when they differ by one of the
-offsets
+Write the cells of the array as pairs $(i,j)$ with $0\le i<n$ and $0\le j<7$. An
+\emph{array permutation} of the kind the entry counts is a bijection $\pi$ from the cells to
+the cells such that for every cell,
 \[
-(0,1), (1,-1),
+\pi(i,j)-(i,j)\;\in\;\Delta,\qquad
+\Delta=\{\,(-1,-1),\ (0,-1),\ (0,0),\ (0,1),\ (1,1)\,\}.
 \]
-and the entry forbids any adjacent pair $u,v$ with $u+v=3$. It fixes the top left cell to
-zero. Finally it asks that, reading the cells in ROW MAJOR order --- along the first row, then
-along the second, and so on --- the first occurrences of the values $1$, $2$ come in a
-prescribed order: $1$ before $2$. A precedence involving a value that never occurs is satisfied
-vacuously; one whose later value occurs while its earlier value does not is broken.
+The offsets are what the name's words say: one step horizontally or diagonally, in either direction along each of those axes. A cell is allowed to stay where it is, and $(0,0)$ is one of the offsets.
 
-\section{Why the obvious state does not work}
+The words name an AXIS, not a single direction: ``diagonally'' admits
+both $(1,1)$ and $(-1,-1)$, and ``antidiagonally'' is a separate word for the other diagonal.
+And a move is only allowed when its target is a cell of the array, so cells near an
+edge have fewer choices. The reading is pinned against the entry's own published terms rather
+than assumed: taking ``diagonally, horizontally or vertically'' to mean all eight king moves
+gives $24$ where A189305 publishes $14$.
 
-Since $n$ grows, the walk must run across the columns: a state is one column, and the
-forbidden-pair condition is settled between two consecutive columns, because every offset above
-moves the column index by at most one.
+Equivalently, $a(n)$ is the permanent of the $n7\times n7$ matrix whose $(c,c')$ entry is
+$1$ exactly when $c'-c\in\Delta$.
 
-The clause is the difficulty. For an entry whose WIDTH is fixed the walk runs down the rows and
-therefore visits the cells in row major order, so it is enough to carry the set of named values
-already written and to refuse a column that introduces a value out of turn. Here the walk
-visits the cells in COLUMN major order, and that set is the wrong one: a value first written
-low down in an early column may be written again higher up in a later column, and it is the
-later, higher cell that comes first in row major order.
+\section{A window of 17 positions}
 
-\section{What the walk can carry}
+Number the cells in row-major order, $k=i\cdot7+j$. An offset $(\delta_1,\delta_2)$ moves a
+cell by $\delta_17+\delta_2$ places in that order, so every image lies between $lo=-8$ and
+$hi=8$ places from its source. Process the cells in order and let each one choose its image.
+Once the cell at position $k$ has been dealt with, the position $k+-8$ can never be chosen
+again by anybody, so it must already be taken; and no position beyond $k+8$ can have been
+taken yet. What has to be remembered is therefore exactly which of the $17$ positions
+$k+-8,\dots,k+8$ are taken --- a subset of a set of size $17$, and nothing else.
 
-\begin{lemma}\label{lem:key}
-For a value $v$ occurring in the array, let $r_v$ be the least row in which $v$ occurs and
-$c_v$ the least column with $x_{r_v,c_v}=v$. Then the first occurrence of $v$ in row major
-order is the cell $(r_v,c_v)$, and $u$ precedes $v$ in row major order exactly when
-$(r_u,c_u)<(r_v,c_v)$ lexicographically.
-\end{lemma}
+That is the state. One step of the walk is one row, that is $7$ cell choices, and the
+condition ``the position leaving the window is taken'' is what makes the walk count permutations
+rather than partial injections: every position is taken exactly once, once at the moment it
+leaves the window.
 
-\begin{proof}
-Row major order is the lexicographic order on $(\text{row},\text{column})$, and the least
-element of the set of cells carrying $v$ under a lexicographic order is obtained by minimising
-the first coordinate and then the second.
-\end{proof}
-
-\begin{lemma}\label{lem:tie}
-Two distinct values with the same least row attain it in different columns.
-\end{lemma}
-
-\begin{proof}
-If $r_u=r_v=r$ and $c_u=c_v=c$ then the cell $(r,c)$ carries both $u$ and $v$.
-\end{proof}
-
-So the walk carries, for each named value, the least row in which it has been seen so far ---
-or the fact that it has not been seen --- and, for values sharing a least row, which of them
-attained it first. By Lemma~\ref{lem:tie} those attainments happen in different columns, and
-the walk meets the columns in order, so ``which attained it first'' is decided as the walk
-goes. Nothing else about the past matters: a later column can only LOWER a value's least row,
-and Lemma~\ref{lem:key} says the comparison depends on nothing else.
-
-One thing must not be done, and is not done here. The clause cannot be enforced along the way,
-because a least row can still drop and reorder the first occurrences retroactively. It is a
-property of the finished array, so it is tested in the ACCEPTING states and nowhere else.
-
-The state is therefore a column together with an ordered partition of the named values by least
-row, and there are $S=783$ of them after states with identical futures are merged. Hence
+The two boundaries are the same condition. Images above the first row do not exist, so the walk
+starts with exactly the window positions lying above the array marked as taken. Images below the
+last row do not exist either, so the walk must end with exactly those positions marked and
+nothing beyond. In the window's own coordinates those two masks are equal, so the start state is
+also the only accepting state and
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=2310,
 \]
-and $a$ is $C$-finite.
+for the transfer matrix $M$ on those $S$ states. The walk index $j$ and the entry's own $n$
+differ by a constant, read off by matching the published terms rather than assumed. In
+particular $a$ is $C$-finite.
 
 \section{The proof}
 
@@ -133,7 +112,7 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;132\,a(n-1) - 4507\,a(n-2) + 66832\,a(n-3) - 492772\,a(n-4) + 1765654\,a(n-5) - 2023881\,a(n-6) - 4686284\,a(n-7) + 16006509\,a(n-8) - 16068834\,a(n-9) + 5437152\,a(n-10)
+a(n)\;=\;119\,a(n-1) - 1238\,a(n-2) - 11504\,a(n-3) + 132848\,a(n-4) + 180912\,a(n-5) - 203520\,a(n-6) + 1542400\,a(n-7) + 2403200\,a(n-8) - 768000\,a(n-9) + 640000\,a(n-10)
 \]
 for every $n>14$.
 \end{theorem}
@@ -150,14 +129,12 @@ until the working vector was identically zero, which settles every larger $j$ at
 Four checks, each independent of the algebra above.
 
 First, the model reproduces all $12$ terms the entry publishes, exactly, in integer
-arithmetic, with no shift fitted.
+arithmetic.
 
-Second --- and this is the check the whole paper turns on --- the arrays were enumerated
-directly for the smallest shapes the entry counts, in the orientation the name writes, with the
-cells listed in true row major order and each precedence tested on that list. No transposing
-and no walk. The counts agree. Reading the clause in the walk's own order instead gives
-different numbers for several entries of this family, so this check is what separates the two
-readings.
+Second, the count was recomputed for the smallest arrays straight from the definition: the
+cells of the array were matched to their images one at a time, over the whole grid, with no
+window, no mask over a sliding frame and no transfer matrix, and the published terms came back.
+That computation shares nothing with the construction of Section~3 beyond the offset list.
 
 Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
@@ -167,13 +144,11 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A233086.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A189447.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{hopcroft} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to
-Automata Theory, Languages, and Computation}, 3rd ed., Addison--Wesley, 2006.
-\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
-University Press, 2013.
+\bibitem{minc} H.~Minc, \emph{Permanents}, Encyclopedia of Mathematics and its
+Applications 6, Addison--Wesley, 1978.
 \end{thebibliography}
 
 \end{document}

@@ -16,6 +16,7 @@ import sys
 import pypdf
 
 import repopaths
+import singleton
 
 CACHE = os.path.join(repopaths.ROOT, 'engine', 'paper-dates.json')
 MONTHS = ('January February March April May June July August September October '
@@ -54,13 +55,30 @@ def rows():
         return list(csv.DictReader(f))
 
 
+# The date belongs to the PAPER, not to the slot it currently sits in. Keying the cache by
+# file path meant every re-ranking moved every paper and forced all ten thousand PDFs to be
+# read again -- many minutes of work to recover dates that had not changed. This second cache
+# is keyed by A-number and verdict, which a re-ranking does not touch, so a run after a
+# ranking reads only the papers that are new.
+BYPAPER = os.path.join(repopaths.ROOT, 'engine', 'paper-dates-by-anum.json')
+
+
 def build(index):
     """paper path (repository-relative) -> the date printed in that paper"""
-    out = {}
+    known = json.load(open(BYPAPER)) if os.path.exists(BYPAPER) else {}
+    out, fresh = {}, 0
     for row in index:
-        d = from_pdf(os.path.join(repopaths.ROOT, row['file']))
+        key = f"{row['anum']}-{row['verdict']}"
+        d = known.get(key)
+        if d is None:
+            d = from_pdf(os.path.join(repopaths.ROOT, row['file']))
+            fresh += 1
+            if d:
+                known[key] = d
         if d:
             out[row['file']] = d
+    json.dump(known, open(BYPAPER, 'w'), indent=0, sort_keys=True)
+    print(f'  {fresh} read from the PDF, {len(out) - fresh} taken from the cache')
     return out
 
 
@@ -69,6 +87,7 @@ def load():
 
 
 if __name__ == '__main__':
+    singleton.claim('paperdates')
     lo, hi = (int(sys.argv[1]), int(sys.argv[2])) if len(sys.argv) > 2 else (1, 10 ** 9)
     part = [r for r in rows() if lo <= int(r['rank']) <= hi]
     got = build(part)

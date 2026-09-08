@@ -12,77 +12,83 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A251812, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A250530, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{6 September 2026}
+\date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A251812 counts arrays of width $3$ over $\{0,1,2\}$ in which every $3\times3$ window has
-constrained SUMS along its rows, its columns and its two diagonals. The entry carries an
-empirical recurrence of order $27$ contributed by R.~H.~Hardin. It is true, and it is
-decidable rather than empirical: a $3\times3$ window lies in $3$ consecutive array rows,
-so the count is a walk count on $S=757$ states.
+OEIS A250530 counts arrays over $\{0,1,2,3\}$ in which a statistic taken over short runs
+of cells produces a derived array that is monotone in a named direction. The entry carries an
+empirical recurrence of order $29$ contributed by R.~H.~Hardin. It is true, and it is
+decidable rather than empirical: every comparison the condition makes lies inside a bounded
+window of consecutive rows, so the count is a walk count on $S=64$ states, and the
+conjectured recurrence is then settled by a finite exact computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B20, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A251812 is ``Number of (n+2)X(1+2) 0..2 arrays with every row, column, diagonal or antidiagonal in each 3X3 subblock summing to a prime.''. It has offset $1$ and begins
+OEIS A250530 is ``Number of (n+1)X(2+1) 0..3 arrays with nondecreasing max(x(i,j),x(i,j-1)) in the i direction and nondecreasing min(x(i,j),x(i-1,j)) in the j direction.''. It has offset $1$ and begins
 \[
-345, 500, 738, 1215, 1973, 3349, 6066, 11665,\ \dots
+700, 6012, 44017, 289035, 1767743, 10248336, 57297797, 311492811,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = a(n-1) +10*a(n-3) -3*a(n-4) +5*a(n-5) -41*a(n-6) -7*a(n-7) -34*a(n-8) +83*a(n-9) +45*a(n-10) +94*a(n-11) -89*a(n-12) -93*a(n-13) -144*a(n-14) +45*a(n-15) +107*a(n-16) +137*a(n-17) +4*a(n-18) -73*a(n-19) -82*a(n-20) -20*a(n-21) +27*a(n-22) +28*a(n-23) +11*a(n-24) -4*a(n-25) -4*a(n-26) -2*a(n-27) for n>35
+Empirical: a(n) = 19*a(n-1) -126*a(n-2) +183*a(n-3) +1796*a(n-4) -8913*a(n-5) +4573*a(n-6) +66844*a(n-7) -159500*a(n-8) -110347*a(n-9) +880170*a(n-10) -671453*a(n-11) -2023137*a(n-12) +3717534*a(n-13) +1245646*a(n-14) -7902628*a(n-15) +3640217*a(n-16) +8175766*a(n-17) -8942921*a(n-18) -2871444*a(n-19) +8558015*a(n-20) -2088628*a(n-21) -3791479*a(n-22) +2465772*a(n-23) +449922*a(n-24) -865945*a(n-25) +183465*a(n-26) +86000*a(n-27) -45400*a(n-28) +6000*a(n-29)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 13:28:53, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 12:30:31, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The array has $3$ cells across, with entries in $\{0,1,2\}$. A WINDOW is a $3\times3$ block
-of consecutive cells lying inside the array. Every window must satisfy
-\[
-\begin{array}{ll}
-\text{the sum along} & \text{} \\[2pt]
-\text{each row} & \text{must be prime} \\
-\text{each column} & \text{must be prime} \\
-\text{the main diagonal} & \text{must be prime} \\
-\text{the antidiagonal} & \text{must be prime} \\
-\end{array}
-\]
-where the main diagonal of a window runs from its top left corner to its bottom right, and its
-antidiagonal from top right to bottom left.
+The array has $3$ cells across and entries $x(i,j)\in\{0,1,2,3\}$.
 
-\section{The walk}
+Two derived arrays are formed. The first reads the horizontal statistic across each
+neighbouring pair of a row,
+\[
+b(i,j)\;=\;\bigl[\,\max(a,b)\,\bigr]_{a=x(i,j),\,b=x(i,j-1)}\qquad (j\ge1),
+\]
+and must not decrease DOWN a column: $b(i,j)\le b(i{+}1,j)$. The second reads the vertical
+statistic down each neighbouring pair of a column,
+\[
+c(i,j)\;=\;\bigl[\,\min(a,b)\,\bigr]_{a=x(i,j),\,b=x(i{-}1,j)}\qquad (i\ge1),
+\]
+and must not decrease ALONG a row: $c(i,j)\le c(i,j{+}1)$. In words, the horizontal statistic
+is the larger of a cell and its left neighbour, and the vertical one is
+the smaller of a cell and the cell above it.
+
+Nothing in the condition is invariant under renaming the letters --- each statistic either does
+arithmetic on them or compares them by size --- so no reduction to equality patterns is
+available, and the walk is run over the alphabet the entry names.
+
+\section{A bounded window}
 
 \begin{lemma}\label{lem:win}
-A $3\times3$ window occupies $3$ consecutive array rows, so every condition above is
-decided by $3$ consecutive rows and by nothing else.
+Both conditions are conditions on TWO consecutive array rows and nothing more.
 \end{lemma}
 
 \begin{proof}
-By definition of a window.
+$b(i,j)\le b(i{+}1,j)$ names four cells, all in rows $i$ and $i+1$. $c(i,j)\le c(i,j{+}1)$
+names four cells, all in rows $i-1$ and $i$. No comparison reaches further.
 \end{proof}
 
-So the state is the window of the last $2$ array rows, a row not yet written carried as
-$\bot$, and a step appends a row and settles every $3\times3$ window that row completes. A
-window needing a row that is $\bot$ does not exist, which is the boundary rule; the walk starts
-at the all-$\bot$ state, so a walk of $R$ steps is an array of $R$ rows. With $M$ the adjacency
-matrix and $\tau=\mathbf{1}$,
+So a single row is a state. Let $M$ be the matrix on the $4^{3}=64$ rows with
+$M[r,s]=1$ when the pair $(r,s)$ passes both tests and $0$ otherwise. An array of $R$ rows is a
+walk of $R-1$ steps and every row may begin or end one, so with $\iota=\tau=\mathbf{1}$,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=757.
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=64.
 \]
+
 The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
 published terms rather than assumed. In particular $a$ is $C$-finite.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{27}-\sum_i c_it^{27-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{29}-\sum_i c_it^{29-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -90,7 +96,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+27}-\sum_ic_iM^{j+27-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+29}-\sum_ic_iM^{j+29-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -99,28 +105,28 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;a(n-1) + 10\,a(n-3) - 3\,a(n-4) + 5\,a(n-5) - 41\,a(n-6) - 7\,a(n-7) - 34\,a(n-8) + 83\,a(n-9) + 45\,a(n-10) + 94\,a(n-11) - 89\,a(n-12) - 93\,a(n-13) - 144\,a(n-14) + 45\,a(n-15) + 107\,a(n-16) + 137\,a(n-17) + 4\,a(n-18) - 73\,a(n-19) - 82\,a(n-20) - 20\,a(n-21) + 27\,a(n-22) + 28\,a(n-23) + 11\,a(n-24) - 4\,a(n-25) - 4\,a(n-26) - 2\,a(n-27)
+a(n)\;=\;19\,a(n-1) - 126\,a(n-2) + 183\,a(n-3) + 1796\,a(n-4) - 8913\,a(n-5) + 4573\,a(n-6) + 66844\,a(n-7) - 159500\,a(n-8) - 110347\,a(n-9) + 880170\,a(n-10) - 671453\,a(n-11) - 2023137\,a(n-12) + 3717534\,a(n-13) + 1245646\,a(n-14) - 7902628\,a(n-15) + 3640217\,a(n-16) + 8175766\,a(n-17) - 8942921\,a(n-18) - 2871444\,a(n-19) + 8558015\,a(n-20) - 2088628\,a(n-21) - 3791479\,a(n-22) + 2465772\,a(n-23) + 449922\,a(n-24) - 865945\,a(n-25) + 183465\,a(n-26) + 86000\,a(n-27) - 45400\,a(n-28) + 6000\,a(n-29)
 \]
-for every $n>35$.
+for every $n>28$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $27$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $29$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=35+1$ onwards and the run continued
-until the working vector was identically zero.
+integers vanish from the index corresponding to $n=28+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $27$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $18$ terms the entry publishes, exactly, in integer
 arithmetic.
 
 Second, the count was recomputed for the smallest arrays straight from the definition: fill the
-cells in row major order, in the orientation the entry's own name writes, and test a window as
-soon as its last cell is placed. No state, no transposition and no transfer matrix are
+cells in row major order and test each comparison the moment both of its runs are complete,
+in the orientation the entry's own name writes. No transfer matrix and no transposition are
 involved, and the published terms came back.
 
 Third, the conjectured recurrence was evaluated directly on the published terms, with no
@@ -131,7 +137,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A251812.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A250530.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge

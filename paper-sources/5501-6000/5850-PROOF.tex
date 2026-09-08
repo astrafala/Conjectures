@@ -12,18 +12,18 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A253528, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A253531, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{2 September 2026}
+\date{7 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A253528 counts the arrays over $\{0,\dots,2\}$ whose $2\times2$ subblocks carry a
+OEIS A253531 counts the arrays over $\{0,\dots,2\}$ whose $2\times2$ subblocks carry a
 statistic that is monotone along named directions of the subblock grid, and carries an
-empirical recurrence of order $20$ contributed by R.~H.~Hardin. It is true, and it is
+empirical recurrence of order $21$ contributed by R.~H.~Hardin. It is true, and it is
 decidable rather than empirical. Every direction named moves the subblock row by at most one,
-so a pair of consecutive array rows is a state, the count is a walk count on $S=1963$ of them,
+so a pair of consecutive array rows is a state, the count is a walk count on $S=85663$ of them,
 and the conjectured recurrence is then settled by a finite exact computation.
 \end{abstract}
 
@@ -31,21 +31,21 @@ and the conjectured recurrence is then settled by a finite exact computation.
 
 \section{The conjecture}
 
-OEIS A253528 is ``Number of (n+1)X(3+1) 0..2 arrays with every 2X2 subblock antidiagonal maximum minus diagonal minimum nondecreasing horizontally and diagonal maximum minus antidiagonal minimum nondecreasing vertically.''. It has offset $1$ and begins
+OEIS A253531 is ``Number of (n+1)X(6+1) 0..2 arrays with every 2X2 subblock antidiagonal maximum minus diagonal minimum nondecreasing horizontally and diagonal maximum minus antidiagonal minimum nondecreasing vertically.''. It has offset $1$ and begins
 \[
-1963, 9255, 22418, 62237, 142679, 327147, 700492, 1477077,\ \dots
+85663, 176266, 327147, 949158, 1744459, 4292539, 8304638, 18590483,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 9*a(n-1) -28*a(n-2) +14*a(n-3) +120*a(n-4) -268*a(n-5) +16*a(n-6) +648*a(n-7) -734*a(n-8) -370*a(n-9) +1320*a(n-10) -604*a(n-11) -812*a(n-12) +996*a(n-13) -80*a(n-14) -472*a(n-15) +279*a(n-16) +17*a(n-17) -76*a(n-18) +30*a(n-19) -4*a(n-20) for n>29
+Empirical: a(n) = 10*a(n-1) -37*a(n-2) +42*a(n-3) +106*a(n-4) -388*a(n-5) +284*a(n-6) +632*a(n-7) -1382*a(n-8) +364*a(n-9) +1690*a(n-10) -1924*a(n-11) -208*a(n-12) +1808*a(n-13) -1076*a(n-14) -392*a(n-15) +751*a(n-16) -262*a(n-17) -93*a(n-18) +106*a(n-19) -34*a(n-20) +4*a(n-21) for n>42
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 14:06:10, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 14:06:30, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The $2\times2$ subblocks of an $(n+1)\times4$ array over $\{0,\dots,2\}$ form a grid
-of $n$ rows and $3$ columns; write $\sigma(i,j)$ for the value the entry's statistic takes on
+The $2\times2$ subblocks of an $(n+1)\times7$ array over $\{0,\dots,2\}$ form a grid
+of $n$ rows and $6$ columns; write $\sigma(i,j)$ for the value the entry's statistic takes on
 the subblock in position $(i,j)$, a function of its four entries
 $\begin{pmatrix}p&q\\r&s\end{pmatrix}$ alone. The condition is
 \[
@@ -71,13 +71,13 @@ and every walk comes from exactly one array, so
 \[
 a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,\qquad \iota=\tau=(1,\dots,1)^{\!\top},
 \]
-on the $S=1963$ admissible pairs. In particular $a$ is $C$-finite. The alignment of the walk
+on the $S=85663$ admissible pairs. In particular $a$ is $C$-finite. The alignment of the walk
 index with the entry's own $n$ was checked against its published terms rather than assumed.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{20}-\sum_i c_it^{20-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{21}-\sum_i c_it^{21-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -85,7 +85,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+20}-\sum_ic_iM^{j+20-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+21}-\sum_ic_iM^{j+21-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -94,15 +94,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;9\,a(n-1) - 28\,a(n-2) + 14\,a(n-3) + 120\,a(n-4) - 268\,a(n-5) + 16\,a(n-6) + 648\,a(n-7) - 734\,a(n-8) - 370\,a(n-9) + 1320\,a(n-10) - 604\,a(n-11) - 812\,a(n-12) + 996\,a(n-13) - 80\,a(n-14) - 472\,a(n-15) + 279\,a(n-16) + 17\,a(n-17) - 76\,a(n-18) + 30\,a(n-19) - 4\,a(n-20)
+a(n)\;=\;10\,a(n-1) - 37\,a(n-2) + 42\,a(n-3) + 106\,a(n-4) - 388\,a(n-5) + 284\,a(n-6) + 632\,a(n-7) - 1382\,a(n-8) + 364\,a(n-9) + 1690\,a(n-10) - 1924\,a(n-11) - 208\,a(n-12) + 1808\,a(n-13) - 1076\,a(n-14) - 392\,a(n-15) + 751\,a(n-16) - 262\,a(n-17) - 93\,a(n-18) + 106\,a(n-19) - 34\,a(n-20) + 4\,a(n-21)
 \]
-for every $n>29$.
+for every $n>42$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $20$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $21$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=29+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=42+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -110,7 +110,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $23$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $21$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
@@ -122,7 +122,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A253528.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A253531.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{davey} B.~A.~Davey and H.~A.~Priestley, \emph{Introduction to Lattices and

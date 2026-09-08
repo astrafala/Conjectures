@@ -12,17 +12,17 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A185790, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A185925, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A185790 counts arrays over $\{0,\dots,1\}$ under a condition on the sum of every
+OEIS A185925 counts arrays over $\{0,\dots,3\}$ under a condition on the trace of every
 $2\times2$ subblock, and carries an empirical recurrence of order $4$ contributed by
 R.~H.~Hardin. It is true, and it is decidable rather than empirical. The condition is local to
-a bounded window of consecutive rows, so the count is a walk count on $S=16$ states and is
+a bounded window of consecutive rows, so the count is a walk count on $S=256$ states and is
 $C$-finite; whether the conjectured recurrence annihilates it is then settled by a finite exact
 computation, with the Cayley--Hamilton theorem bounding the work.
 \end{abstract}
@@ -31,22 +31,22 @@ computation, with the Cayley--Hamilton theorem bounding the work.
 
 \section{The conjecture}
 
-OEIS A185790 is ``Number of (n+1) X 2 binary arrays with no 2 X 2 subblock sum equal to any horizontal or vertical neighbor 2 X 2 subblock sum.''. It has offset $1$ and begins
+OEIS A185925 is ``Number of (n+1) X 2 0..3 arrays with no 2 X 2 subblock trace equal to any horizontal or vertical neighbor 2 X 2 subblock trace.''. It has offset $1$ and begins
 \[
-16, 40, 100, 260, 676, 1716, 4356, 11220,\ \dots
+256, 3392, 45184, 601280, 8003200, 106519232, 1417744768, 18869769920,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = a(n-1) + 4*a(n-3) + 16*a(n-4).
+Empirical: a(n) = 6*a(n-1) + 81*a(n-2) + 206*a(n-3) + 144*a(n-4).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Apr 16 2018 16:25:10, revision 8) this is still
+As of the ``Last modified'' line on the live entry (Apr 17 2018 06:16:33, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-Write $\sigma$ for the sum of a $2\times2$ subblock
-$\begin{pmatrix}p&q\\r&s\end{pmatrix}$, that is $\sigma=p+q+r+s$. The subblocks of an
-$(n+1)\times2$ array over $\{0,\dots,1\}$ form a grid of $n$ rows and $1$
+Write $\sigma$ for the trace of a $2\times2$ subblock
+$\begin{pmatrix}p&q\\r&s\end{pmatrix}$, that is $\sigma=p+s$. The subblocks of an
+$(n+1)\times2$ array over $\{0,\dots,3\}$ form a grid of $n$ rows and $1$
 column, and $\sigma$ colours that grid.
 
 The condition relates NEIGHBOURING subblocks: the values of two subblocks adjacent in the grid,
@@ -63,15 +63,15 @@ rows at once. An $(n+1)$-row array is a walk of $n-1$ steps, so
 \[
 a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,\qquad\iota=\tau=(1,\dots,1)^{\!\top},
 \]
-on the $S=16$ admissible pairs.
+on the $S=256$ admissible pairs.
 
 At $n=1$ the array has two rows, so the grid is a single row of $1$
 subblock, which has no neighbour at all and so is unconstrained. The
-entry's first term is $16$, and the model reproduces it along with every later term; that
+entry's first term is $256$, and the model reproduces it along with every later term; that
 is the cheapest check that the grid has been read with the right shape.
 
-Over the alphabet $\{0,\dots,1\}$ the sum of a $2\times2$ subblock takes values in
-$[0,4]$, so the colouring of the grid it induces has at most $5$ values.
+Over the alphabet $\{0,\dots,3\}$ the trace of a $2\times2$ subblock takes values in
+$[0,6]$, so the colouring of the grid it induces has at most $7$ values.
 That bound is what keeps the construction below finite in the only place where the value of
 $\sigma$, rather than a comparison between two of them, has to be carried.
 In particular $a$ is $C$-finite. The alignment of the walk index with the entry's own $n$ was
@@ -97,7 +97,7 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;a(n-1) + 4\,a(n-3) + 16\,a(n-4)
+a(n)\;=\;6\,a(n-1) + 81\,a(n-2) + 206\,a(n-3) + 144\,a(n-4)
 \]
 for every $n>4$.
 \end{theorem}
@@ -113,7 +113,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $26$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $15$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
@@ -125,7 +125,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A185790.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A185925.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{minc} H.~Minc, \emph{Permanents}, Addison--Wesley, 1978.

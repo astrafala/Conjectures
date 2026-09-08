@@ -86,6 +86,19 @@ def main():
     ranked = order_all()
     eng = {int(k): v for k, v in json.load(open("paper-engines.json")).items()}
     tmp = "papers-ranked"
+    # two rank.py processes started by mistake raced on this directory: the first was still
+    # copying into it when the second removed it, and the copy died on a destination that had
+    # just been deleted. Nothing was lost -- papers/ is only replaced at the end -- but a
+    # ranking is not something to run twice at once, so it now refuses.
+    lock = tmp + ".lock"
+    if os.path.exists(lock):
+        try:
+            other = int(open(lock).read().strip())
+        except Exception:
+            other = None
+        if other is not None and os.path.exists(f"/proc/{other}"):
+            raise SystemExit(f"rank.py (pid {other}) is already ranking; refusing to start")
+    open(lock, "w").write(str(os.getpid()))
     shutil.rmtree(tmp, ignore_errors=True)
     os.makedirs(tmp)
     mapping = []
@@ -105,6 +118,10 @@ def main():
     # the old numbering and the new one differ, so a half-done move is a corrupt roster
     shutil.rmtree(repopaths.PAPERS, ignore_errors=True)
     shutil.move(tmp, repopaths.PAPERS)
+    try:
+        os.remove(lock)
+    except OSError:
+        pass
     print(f"{len(mapping)} papers ranked into {repopaths.PAPERS}")
     for m in mapping[:12]:
         print(f"   {m['rank']:4d}  (was {m['was']:3d})  {m['anum']}  {m['verdict']}")

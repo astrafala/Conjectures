@@ -12,48 +12,70 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{Parities, differences and neighbours: OEIS A183316}
+\title{The empirical recurrence for OEIS A185572, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{7 September 2026}
+\date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A183316 carries an empirical recurrence of order $16$ contributed by R.~H.~Hardin. It is
-true, and it is decidable rather than empirical. The entry's condition is decided by a bounded amount of state carried down the array; the
-admissible windows are the vertices of a finite digraph and the arrays counted are exactly the
-walks in it. Hence $a(n)$ is a walk count on $S=16$ vertices and is $C$-finite, and whether the
-conjectured recurrence annihilates it is settled by a finite exact computation, with the
-Cayley--Hamilton theorem bounding the work.
+OEIS A185572 counts arrays over $\{0,\dots,3\}$ under a condition on the sum of every
+$2\times2$ subblock, and carries an empirical recurrence of order $16$ contributed by
+R.~H.~Hardin. It is true, and it is decidable rather than empirical. The condition is local to
+a bounded window of consecutive rows, so the count is a walk count on $S=256$ states and is
+$C$-finite; whether the conjectured recurrence annihilates it is then settled by a finite exact
+computation, with the Cayley--Hamilton theorem bounding the work.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
 \section{The conjecture}
 
-OEIS A183316 is ``Number of nX4 binary arrays with an element zero only if there are an even number of ones to its left and an even number of ones above it.''. It has offset $1$ and begins
+OEIS A185572 is ``Number of (n+1)X2 0..3 arrays with no 2X2 subblock sum equal to any horizontal or vertical neighbor 2X2 subblock sum.''. It has offset $1$ and begins
 \[
-8, 27, 124, 480, 1975, 7833, 31428, 125103,\ \dots
+256, 3392, 44944, 598688, 7974976, 106125920, 1412256400, 18797516000,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n)=a(n-1)+23*a(n-2)-10*a(n-3)-180*a(n-4)+34*a(n-5)+630*a(n-6)-63*a(n-7)-1081*a(n-8)+73*a(n-9)+914*a(n-10)-50*a(n-11)-352*a(n-12)+14*a(n-13)+47*a(n-14)+a(n-15)-a(n-16)
+Empirical: a(n)=6*a(n-1)+692*a(n-3)+5325*a(n-4)+24966*a(n-5)+137368*a(n-6)+200736*a(n-7)-730404*a(n-8)-4060664*a(n-9)-19780992*a(n-10)-30858624*a(n-11)+110419200*a(n-12)+328084992*a(n-13)-615112704*a(n-15)-429981696*a(n-16)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 01:33:37, revision 9) this is still
+As of the ``Last modified'' line on the live entry (Sep 17 2025 02:52:57, revision 13) this is still
 recorded as empirical, and nothing on the entry records it as proved.
+
+\section{What is being counted}
+
+Write $\sigma$ for the sum of a $2\times2$ subblock
+$\begin{pmatrix}p&q\\r&s\end{pmatrix}$, that is $\sigma=p+q+r+s$. The subblocks of an
+$(n+1)\times2$ array over $\{0,\dots,3\}$ form a grid of $n$ rows and $1$
+column, and $\sigma$ colours that grid.
+
+The condition relates NEIGHBOURING subblocks: the values of two subblocks adjacent in the grid,
+horizontally or vertically, must differ. The entry writes this as ``no subblock value equal to any horizontal or vertical neighbours, which is the same thing.
 
 \section{The count is a walk count}
 
-The entry counts arrays with $4$ columns over the alphabet $\{0,1\}$, growing one row at a time, and asks that an entry may be zero only where the number of ones to its left in its own line and the number of ones above it in its own column are both even.
-
-The count of ones above a cell reaches back to the top of the array, so no window of consecutive rows holds it. It does not have to: only the parity of that count is ever asked for, and a parity is one bit per column, flipped by each one that lands in that column. The other half of the condition, the ones to a cell's left, is read straight off the row being placed. So the state is $4$ bits and nothing else, and a row may follow a state exactly when every zero in it sits where both parities are even.
-
-Merging vertices with identical futures leaves $S=16$. An admissible array is exactly a walk, so with $M$ the adjacency matrix and $\iota,\tau$ the vectors recording which states may begin and end an array,
+A subblock's value needs two consecutive array rows, and the vertical
+comparison needs the two subblock rows that three consecutive array rows produce. So the state
+is the PAIR of consecutive array rows: the horizontal comparisons decide which pairs are
+admissible at all, and the vertical ones decide which pair may follow which. A step appends one
+array row, turning $(r,s)$ into $(s,t)$ and settling every comparison between the two subblock
+rows at once. An $(n+1)$-row array is a walk of $n-1$ steps, so
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau ,
+a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,\qquad\iota=\tau=(1,\dots,1)^{\!\top},
 \]
-the exponent fixed by the entry's own shape and checked against its published terms. In
-particular $a$ is $C$-finite.
+on the $S=256$ admissible pairs.
+
+At $n=1$ the array has two rows, so the grid is a single row of $1$
+subblock, which has no neighbour at all and so is unconstrained. The
+entry's first term is $256$, and the model reproduces it along with every later term; that
+is the cheapest check that the grid has been read with the right shape.
+
+Over the alphabet $\{0,\dots,3\}$ the sum of a $2\times2$ subblock takes values in
+$[0,12]$, so the colouring of the grid it induces has at most $13$ values.
+That bound is what keeps the construction below finite in the only place where the value of
+$\sigma$, rather than a comparison between two of them, has to be carried.
+In particular $a$ is $C$-finite. The alignment of the walk index with the entry's own $n$ was
+checked against its published terms rather than assumed.
 
 \section{The proof}
 
@@ -70,13 +92,12 @@ Factor $M^{j}$ out of $M^{j+16}-\sum_ic_iM^{j+16-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly. A constant factor in front of $a$ divides out of the residual and
-changes nothing here.
+pins the threshold exactly.
 \end{proof}
 
 \begin{theorem}
 \[
-a(n)\;=\;a(n-1) + 23\,a(n-2) - 10\,a(n-3) - 180\,a(n-4) + 34\,a(n-5) + 630\,a(n-6) - 63\,a(n-7) - 1081\,a(n-8) + 73\,a(n-9) + 914\,a(n-10) - 50\,a(n-11) - 352\,a(n-12) + 14\,a(n-13) + 47\,a(n-14) + a(n-15) - a(n-16)
+a(n)\;=\;6\,a(n-1) + 692\,a(n-3) + 5325\,a(n-4) + 24966\,a(n-5) + 137368\,a(n-6) + 200736\,a(n-7) - 730404\,a(n-8) - 4060664\,a(n-9) - 19780992\,a(n-10) - 30858624\,a(n-11) + 110419200\,a(n-12) + 328084992\,a(n-13) - 615112704\,a(n-15) - 429981696\,a(n-16)
 \]
 for every $n>16$.
 \end{theorem}
@@ -90,29 +111,24 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 \section{Verification}
 
-Four checks, each independent of the algebra above.
+Three checks, each independent of the algebra above.
 
-First, the model reproduces all $23$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $15$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
-Second, the reading was pinned before the digraph was written, by a program that enumerates
-every array of the given shape one by one and tests the entry's condition on it directly. That program shares no code with the transfer matrix, so an error in one does not
-hide an error in the other.
-
-Third, the conjectured recurrence was evaluated directly on the published terms, with no
+Second, the conjectured recurrence was evaluated directly on those published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
 
-Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
 arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A183316.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A185572.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
-University Press, 2009.
+\bibitem{minc} H.~Minc, \emph{Permanents}, Addison--Wesley, 1978.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

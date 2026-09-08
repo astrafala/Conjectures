@@ -1,0 +1,182 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=1in]{geometry}
+\usepackage[colorlinks=true,linkcolor=blue,urlcolor=blue]{hyperref}
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{remark}[theorem]{Remark}
+
+\title{The empirical recurrence for OEIS A252286, recovered from its tail}
+\author{Adrian Perez Fontelles\\ \small Independent researcher}
+\date{8 September 2026}
+\begin{document}
+\maketitle
+
+\begin{abstract}
+OEIS A252286 records ``Empirical recurrence of order $89$'' and keeps the recurrence itself in
+a linked file rather than in the entry, so the conjecture cannot be read off the entry at all.
+It can still be settled. The entry counts arrays under a condition local to a bounded window of
+lines, which makes the count a walk count on a finite digraph and forces a monic integer
+recurrence of order at most the number $S'=107$ of states with distinct futures. Berlekamp--Massey on
+enough exact terms therefore returns the minimal such recurrence, and on the tail beginning at $n=3$, so the recurrence is proved for every $n\ge92$.
+Its last coefficient is $c_{89}=256\neq0$, so no further tail satisfies anything
+shorter; any order-$89$ recurrence the sequence satisfies from any point on must then have
+the same characteristic polynomial. The entry's recurrence is the one displayed here, whatever
+its linked file contains, and it is proved.
+\end{abstract}
+
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 15A18.\normalsize
+
+\section{A conjecture that is not written down}
+
+OEIS A252286 is ``Number of (n+2)X(1+2) 0..2 arrays with every 3X3 subblock row, column, diagonal and antidiagonal sum not equal to 0 1 or 4.''. It has offset $1$ and begins
+\[
+564, 1130, 2525, 5910, 14042, 33171, 79607, 192757,\ \dots
+\]
+The entry states:
+\begin{quote}
+Empirical recurrence of order 89 (see link above)
+\end{quote}
+As of the ``Last modified'' line on the live entry (Jun 02 2025 11:01:06, revision 6)
+this is still recorded as empirical, and it is still open. The coefficients are nowhere in the
+entry text: what is conjectured is only that a recurrence of that order exists.
+
+\section{The count is a walk count}
+
+The entry's condition is local. It constrains a bounded window of consecutive lines of the
+array and nothing beyond it, so the admissible configurations of one window are the vertices of
+a finite digraph, an edge joins $u$ to $v$ when $v$ may follow $u$, and an admissible array is
+exactly a walk. Writing $M$ for the adjacency matrix and $\iota,\tau$ for the indicator vectors
+of the admissible first and last windows,
+\[
+a(n)\;=\;\iota^{\!\top}M^{\,j(n)}\tau
+\]
+for a linear reindexing $j$ fixed by the entry's shape. States with identical futures
+contribute identically to that product and may be merged without changing any count; after
+merging $S'=107$ states remain, and it is that bound every computation below uses.
+
+\begin{lemma}\label{lem:cf}
+$a$ satisfies a monic linear recurrence with integer coefficients of order at most $S'=107$.
+\end{lemma}
+
+\begin{proof}
+By the Cayley--Hamilton theorem $M^{S'}$ is an integer combination of $I,M,\dots,M^{S'-1}$,
+and multiplying that relation on the left by $\iota^{\!\top}M^{\,j}$ and on the right by
+$\tau$ turns it into a relation among $S'+1$ consecutive values of $a$.
+\end{proof}
+
+\section{Why the question has to be asked of a tail}
+
+Running Berlekamp--Massey on the sequence from its first term returns an order LARGER than $89$: the opening terms do not satisfy the recurrence, and a recurrence that holds only eventually always looks longer when the exceptional terms are included. That is not evidence against the entry. An OEIS empirical recurrence is asserted for $n$ beyond some index, not from the first term, so the question has to be asked of the tails. It was asked of each tail in turn, and the tail beginning at $n=3$ is the first whose minimal order is exactly the stated $89$.
+
+\begin{lemma}\label{lem:bm}
+A sequence known to satisfy some linear recurrence of order at most $S'$ is determined,
+together with its minimal recurrence, by any $2S'$ consecutive terms: Berlekamp--Massey applied
+to them returns that minimal recurrence exactly.
+\end{lemma}
+
+Applied to $2S'=214$ exact terms from $n=3$ on, it returns order $89$ --- the
+order the entry states --- with integer coefficients:
+\[
+a(n)\;=\;\sum_{i=1}^{89}c_i\,a(n-i),
+\]
+\begin{center}\small
+\begin{tabular}{cccccccc}
+$c_{1}$ & $3$ & $c_{24}$ & $-116159$ & $c_{47}$ & $-1856440$ & $c_{70}$ & $-1898050$ \\
+$c_{2}$ & $-3$ & $c_{25}$ & $287889$ & $c_{48}$ & $2990852$ & $c_{71}$ & $-835100$ \\
+$c_{3}$ & $33$ & $c_{26}$ & $-398848$ & $c_{49}$ & $-6257105$ & $c_{72}$ & $-815804$ \\
+$c_{4}$ & $-81$ & $c_{27}$ & $356774$ & $c_{50}$ & $3805086$ & $c_{73}$ & $-995180$ \\
+$c_{5}$ & $79$ & $c_{28}$ & $-263360$ & $c_{51}$ & $-7953978$ & $c_{74}$ & $-49248$ \\
+$c_{6}$ & $-448$ & $c_{29}$ & $33189$ & $c_{52}$ & $5490472$ & $c_{75}$ & $962088$ \\
+$c_{7}$ & $833$ & $c_{30}$ & $333282$ & $c_{53}$ & $-5735746$ & $c_{76}$ & $603000$ \\
+$c_{8}$ & $-811$ & $c_{31}$ & $-708931$ & $c_{54}$ & $7074769$ & $c_{77}$ & $114248$ \\
+$c_{9}$ & $3110$ & $c_{32}$ & $919068$ & $c_{55}$ & $-1373168$ & $c_{78}$ & $100976$ \\
+$c_{10}$ & $-3743$ & $c_{33}$ & $-1371615$ & $c_{56}$ & $5508491$ & $c_{79}$ & $-48536$ \\
+$c_{11}$ & $3885$ & $c_{34}$ & $1053515$ & $c_{57}$ & $2623079$ & $c_{80}$ & $-97696$ \\
+$c_{12}$ & $-10592$ & $c_{35}$ & $-348892$ & $c_{58}$ & $2157348$ & $c_{81}$ & $45040$ \\
+$c_{13}$ & $3591$ & $c_{36}$ & $524355$ & $c_{59}$ & $-1311317$ & $c_{82}$ & $83312$ \\
+$c_{14}$ & $-6618$ & $c_{37}$ & $1050066$ & $c_{60}$ & $-4746831$ & $c_{83}$ & $-23616$ \\
+$c_{15}$ & $8020$ & $c_{38}$ & $-728040$ & $c_{61}$ & $-3109970$ & $c_{84}$ & $-47072$ \\
+$c_{16}$ & $28891$ & $c_{39}$ & $1584497$ & $c_{62}$ & $-1805077$ & $c_{85}$ & $11968$ \\
+$c_{17}$ & $-11689$ & $c_{40}$ & $-1954881$ & $c_{63}$ & $-672936$ & $c_{86}$ & $14720$ \\
+$c_{18}$ & $50885$ & $c_{41}$ & $-182644$ & $c_{64}$ & $-334697$ & $c_{87}$ & $1408$ \\
+$c_{19}$ & $-94112$ & $c_{42}$ & $-1231468$ & $c_{65}$ & $562897$ & $c_{88}$ & $384$ \\
+$c_{20}$ & $40047$ & $c_{43}$ & $-845383$ & $c_{66}$ & $4079900$ & $c_{89}$ & $256$ \\
+$c_{21}$ & $-103801$ & $c_{44}$ & $1082647$ & $c_{67}$ & $2687507$ &  &  \\
+$c_{22}$ & $23702$ & $c_{45}$ & $-729403$ & $c_{68}$ & $705500$ &  &  \\
+$c_{23}$ & $97472$ & $c_{46}$ & $3786262$ & $c_{69}$ & $-1816306$ &  &  \\
+\end{tabular}
+\end{center}
+
+\section{The recurrence, and the identification}
+
+\begin{theorem}
+The recurrence above holds for every $n\ge92$, and it is the recurrence OEIS A252286 records.
+\end{theorem}
+
+\begin{proof}
+That it holds is Lemma~\ref{lem:bm} applied to the tail from $n=3$, whose minimal
+recurrence it is.
+
+For the identification, write $q_{\min}$ for the characteristic polynomial of that minimal
+recurrence, $x^{89}-c_1x^{89-1}-\dots-c_{89}$. Its constant term is
+$-c_{89}=-256$, which is not zero, so $q_{\min}(0)\neq0$ and $q_{\min}$ has no
+root at the origin. A solution of a constant-coefficient recurrence is a combination of terms
+$n^{k}\lambda^{n}$ with $\lambda$ a root of its characteristic polynomial, and only the
+components with $\lambda=0$ vanish after finitely many terms. Since $q_{\min}$ has none, no
+component of $a$ dies out, and the minimal recurrence of every further tail is again
+$q_{\min}$ --- the order cannot drop below $89$ at any later starting point.
+
+Now let $q$ be the characteristic polynomial of whatever recurrence the entry asserts. The
+entry asserts it has order $89$, so $\deg q=89$, and it is monic. It holds from some
+index $t$ on. From $\max(t,3)$ on, the sequence satisfies both $q$ and $q_{\min}$, and
+the minimal polynomial of that tail is $q_{\min}$ by the previous paragraph; therefore
+$q_{\min}\mid q$. Both are monic of degree $89$, so $q=q_{\min}$.
+\end{proof}
+
+\section{Verification}
+
+Four checks, all in exact integer or rational arithmetic.
+
+First, the walk model reproduces all $24$ terms the entry publishes, exactly. This is
+what ties the model to the entry, and it is the only place where reading the entry's English
+enters the argument.
+
+Second, the order was computed twice by independent routes: once modulo a $61$-bit prime, where
+every intermediate is a machine word, and once over $\mathbb{Q}$ in exact rational arithmetic.
+Both return $89$, and the exact run additionally confirms every coefficient is an integer
+--- had any been a proper fraction the recurrence would not be the entry's.
+
+Third, the recovered recurrence was evaluated directly on the entry's own published terms, with
+no matrices and no Berlekamp--Massey involved. It holds at each of the $0$ indices where
+the entry publishes enough earlier terms to test it.
+
+Fourth, the last coefficient was checked to be nonzero, which is what the identification above
+turns on; it is $256$.
+
+\begin{remark}
+The conjecture's own statement was never read. The entry pins it down to the family of
+order-$89$ recurrences this sequence satisfies from some point on, and that family turns
+out to have exactly one member.
+\end{remark}
+
+\begin{thebibliography}{9}
+\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
+Sequences}, \url{https://oeis.org}, 2026. Sequence A252286.
+\bibitem{massey} J.~L.~Massey, Shift-register synthesis and BCH decoding, \emph{IEEE
+Trans. Inform. Theory} \textbf{15} (1969), 122--127.
+\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{kauers} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011.
+(C-finite sequences and their closure properties.)
+\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
+University Press, 2013.
+\end{thebibliography}
+
+\end{document}

@@ -12,83 +12,79 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A240514, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A224742, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{3 September 2026}
+\date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A240514 counts arrays of width $3$ over $\{0,\dots,1\}$ under a condition on each cell
-and its neighbours, and carries an empirical recurrence of order $20$ contributed by
-R.~H.~Hardin. It is true, and it is decidable rather than empirical. Every neighbour named lies
-in the three rows $i-1,i,i+1$, so an ordered pair of consecutive rows is a state, the count is
-a walk count on $S=74$ of them, and the conjectured recurrence is then settled by a finite
-exact computation.
+OEIS A224742 counts the $(n+1)\times6$ matrices over $\{0,\dots,1\}$ all of whose
+$2\times2$ contiguous subblocks are of equal permanent, and carries an empirical recurrence of order
+$20$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical.
+The condition ties together $2$ consecutive rows and $2$ consecutive columns at once, so a
+single row is not a state; the strip of the last $1$ rows is, and the admissible strips
+are read off the overlap graph of the admissible windows instead of being enumerated. That
+makes $a(n)$ a walk count on $S=86$ vertices, hence $C$-finite, and whether the conjectured
+recurrence annihilates it is settled by a finite exact computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 68Q45.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
 \section{The conjecture}
 
-OEIS A240514 is ``Number of nX3 0..1 arrays with no element equal to exactly two horizontal and vertical neighbors, with new values 0..1 introduced in row major order.''. It has offset $1$ and begins
+OEIS A224742 is ``Number of (n+1) X 6 0..1 matrices with each 2 X 2 permanent equal.''. It has offset $1$ and begins
 \[
-3, 6, 10, 28, 73, 196, 515, 1376,\ \dots
+538, 9554, 107665, 1644874, 21910274, 316084673, 4390392346, 62260133978,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 4*a(n-1) -3*a(n-2) -2*a(n-3) +2*a(n-4) +2*a(n-5) -7*a(n-6) -8*a(n-7) +15*a(n-8) +4*a(n-9) -8*a(n-10) -4*a(n-11) +15*a(n-12) +8*a(n-13) -7*a(n-14) -2*a(n-15) +2*a(n-16) +2*a(n-17) -3*a(n-18) -4*a(n-19) -a(n-20)
+Empirical: a(n) = 19*a(n-1) +7*a(n-2) -1516*a(n-3) +4721*a(n-4) +32621*a(n-5) -149676*a(n-6) -264873*a(n-7) +1850099*a(n-8) +416492*a(n-9) -11177731*a(n-10) +5573265*a(n-11) +33910965*a(n-12) -31589024*a(n-13) -47422880*a(n-14) +62438904*a(n-15) +21268656*a(n-16) -49177152*a(n-17) +6728832*a(n-18) +10917504*a(n-19) -3359232*a(n-20).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 11:02:01, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 23:36:12, revision 8) this is still
 recorded as empirical, and nothing on the entry records it as proved.
-
-\section{What is being counted}
-
-The neighbours of a cell are the cells at the offsets
-\[
-(-1,0), (0,-1), (0,1), (1,0),
-\]
-those falling outside the array being absent. The entry requires that no cell equals exactly $2$ of its neighbours.
-
-\section{Counting patterns rather than arrays}
-
-The clause ``new values $0..1$ introduced in row major order'' says the array is the
-canonical representative of its EQUALITY PATTERN. Writing $N_j$ for the patterns using exactly
-$j$ letters and $L_i$ for the admissible arrays over an alphabet of $i$ letters,
-\[
-L_i\;=\;\sum_j N_j\,i(i-1)\cdots(i-j+1),
-\]
-a triangular system with unit diagonal, so the entry's count $N_1+\dots+N_{2}$ is a
-fixed rational combination of the $L_i$.
-
-That step needs the condition to be invariant under permuting the alphabet, and in this family
-most conditions are not: ``next to itself plus and minus one'', ``adjacent to the value
-$1-v$'' and ``equal to the sum modulo $k$'' all compare or combine letters arithmetically.
-The condition here is about AGREEMENT alone, so it is invariant and the reduction applies.
 
 \section{The count is a walk count}
 
-Every offset above moves the row index by at most one, so whether a cell of row $i$ passes
-depends on rows $i-1$, $i$ and $i+1$ and nothing else. Take as vertices the ordered PAIRS
-$(p,c)$ of consecutive rows, allowing $p$ to be ABSENT --- that is what lets a walk of no steps
-describe a one-row array --- and put an edge $(p,c)\to(c,x)$ exactly when every cell of the
-middle row $c$ passes with $p$ above it and $x$ below it. A state with $p$ absent may begin an
-array; a state $(p,c)$ accepts when every cell of $c$ passes with nothing below it. An array of
-$L$ rows is then a walk of $L-1$ steps, each step settling one row, and every array arises from
-exactly one walk. Hence
-\[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau
-\]
-with $\iota$ the indicator of the beginning states, $\tau$ of the accepting ones, and $j$ the
-walk index, which differs from the entry's own $n$ by a constant read off from its published
-terms. There are $S=74$ states, and $a$ is $C$-finite.
+Call a $2\times2$ matrix over $\{0,\dots,1\}$ a \emph{window} when it is of equal permanent, and
+call a $2\times6$ matrix a \emph{band} when every one of its $5$ contiguous
+$2\times2$ subblocks is a window. What the entry counts is the matrices of $6$ columns
+whose every $2$ consecutive rows form a band.
 
-At $n=1$ the array has one row, and
-the condition is tested there with nothing above or below it; the entry's first term is
-$3$, which the model reproduces along with every later term. That is the cheapest check
-that the neighbour set and the boundary have been read the same way the entry reads them: a
-condition tested as though the missing rows were present, rather than absent, gives a different
-first term. There are $2^{3}=8$ possible rows over the entry's own alphabet.
+Take as states the $1\times6$ strips that occur as the top $1$ rows of a band,
+together with those that occur as its bottom $1$ rows, and put an edge from $u$ to $v$
+when the band whose first $1$ rows are $u$ and whose last $1$ rows are $v$ exists.
+A band is determined by that pair, so the edge is unique when it exists. Reading a counted
+matrix from the top, its rows $1..1$, then $2..2$, and so on, form a walk, and every
+walk arises from exactly one matrix; a matrix with $n+1$ rows gives a walk of $n$ edges.
+Since the first $1$ rows of a counted matrix with at least $2$ rows are the top of a
+band, and since no further condition falls on where a walk starts or ends,
+\[
+a(n)\;=\;\iota^{\!\top}M^{\,n}\tau ,\qquad \iota=\tau=(1,1,\dots,1)^{\!\top},
+\]
+with $M$ the adjacency matrix on $S=86$ states. In particular $a$ is $C$-finite. The
+alignment was checked against the entry's published terms rather than assumed.
+
+There are $(1 + 1)^{6}$ strips of $1$ rows and $6$ columns, far too
+many to test one by one, and they are not tested one by one. Two consecutive windows of a band
+overlap in $2\times1$ entries, so a band is exactly a walk of $5$ windows in
+the graph that joins a window to those whose first $1$ columns are its last $1$
+columns. Enumerating those walks produces the bands, and with them the states and the edges,
+directly.
+
+\section{The admissible windows}
+
+The entry does not name the common value; it only asks that all the windows of one matrix agree.
+So fix a value $v$ and let $W_v$ be the set of $2\times2$ matrices over
+$\{0,\dots,1\}$ whose permanent, $b_{11}b_{22}+b_{12}b_{21}$, equals $v$. A matrix counted by the entry has all of
+its windows in a single $W_v$, and the value of $v$ is determined by the matrix, so the sets of
+matrices belonging to different $v$ are disjoint and
+\[
+a(n)\;=\;\sum_v a_v(n),
+\]
+each $a_v$ being the walk count of Section~2 built from $W_v$ alone. A disjoint union of the
+$3$ digraphs, one per value of $v$, therefore counts the whole of $a(n)$ with the same
+all-ones vectors, and the $2\times2$ windows in play number $16$ in total.
 
 \section{The proof}
 
@@ -110,7 +106,7 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;4\,a(n-1) - 3\,a(n-2) - 2\,a(n-3) + 2\,a(n-4) + 2\,a(n-5) - 7\,a(n-6) - 8\,a(n-7) + 15\,a(n-8) + 4\,a(n-9) - 8\,a(n-10) - 4\,a(n-11) + 15\,a(n-12) + 8\,a(n-13) - 7\,a(n-14) - 2\,a(n-15) + 2\,a(n-16) + 2\,a(n-17) - 3\,a(n-18) - 4\,a(n-19) - a(n-20)
+a(n)\;=\;19\,a(n-1) + 7\,a(n-2) - 1516\,a(n-3) + 4721\,a(n-4) + 32621\,a(n-5) - 149676\,a(n-6) - 264873\,a(n-7) + 1850099\,a(n-8) + 416492\,a(n-9) - 11177731\,a(n-10) + 5573265\,a(n-11) + 33910965\,a(n-12) - 31589024\,a(n-13) - 47422880\,a(n-14) + 62438904\,a(n-15) + 21268656\,a(n-16) - 49177152\,a(n-17) + 6728832\,a(n-18) + 10917504\,a(n-19) - 3359232\,a(n-20)
 \]
 for every $n>20$.
 \end{theorem}
@@ -126,7 +122,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $27$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $15$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
@@ -138,10 +134,11 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A240514.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A224742.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{comtet} L.~Comtet, \emph{Advanced Combinatorics}, Reidel, 1974.
+\bibitem{kim} K.~H.~Kim, \emph{Boolean Matrix Theory and Applications}, Marcel Dekker,
+1982.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

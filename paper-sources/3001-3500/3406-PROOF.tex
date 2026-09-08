@@ -12,14 +12,14 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical column recurrences for the table OEIS A264059}
+\title{The empirical column recurrences for the table OEIS A264534}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A264059 is a two-dimensional table $T(n,k)$, and it carries a block of empirical
+OEIS A264534 is a two-dimensional table $T(n,k)$, and it carries a block of empirical
 recurrences contributed by R.~H.~Hardin --- one for each of its first few columns. They are
 true. Column $k$ of the table is an ordinary fixed-width array count, so its rows are the
 vertices of a finite digraph and $T(n,k)$ is a number of walks in it; being a walk count the
@@ -31,21 +31,19 @@ exact computation, with the Cayley--Hamilton theorem bounding the work. This not
 
 \section{The table and the conjectures}
 
-OEIS A264059 is ``T(n,k)=Number of (n+1)X(k+1) arrays of permutations of 0..(n+1)*(k+1)-1 with each element having index change +-(.,.) 0,0 1,2 or 2,-2.''. It has offset $1$, is
+OEIS A264534 is ``T(n,k)=Number of (n+1)X(k+1) arrays of permutations of 0..(n+1)*(k+1)-1 with each element having directed index change -2,-2 -1,0 0,1 or 1,0.''. It has offset $1$, is
 read by antidiagonals, and begins
 \[
-1, 2, 1, 4, 8, 1, 8, 64,\ \dots
+1, 1, 0, 1, 4, 1, 1, 2,\ \dots
 \]
 The entry carries the following block:
 \begin{quote}\small
 Empirical for column k:\\
-k=1: a(n) = a(n-1)\\
-k=2: a(n) = 3*a(n-1) -a(n-2) +3*a(n-3) -9*a(n-4) +3*a(n-5) -a(n-6) +3*a(n-7) -a(n-8)\\
-k=3: [order 17]\\
-k=4: [order 8] for n>10\\
-k=5: a(n) = 25*a(n-1) for n>3\\
+k=1: a(n) = a(n-2)\\
+k=2: [order 20]\\
+k=3: [order 42]\\
 \end{quote}
-As of the ``Last modified'' line on the live entry (Nov 10 2015 10:57:44, revision 6) these are still
+As of the ``Last modified'' line on the live entry (Nov 17 2015 09:27:22, revision 4) these are still
 recorded as empirical, and nothing on the entry records any of them as settled.
 
 \section{A column of the table is a walk count}
@@ -88,8 +86,8 @@ $j\ge S_k$ repeats that combination of earlier values.
 \begin{center}
 \begin{tabular}{ccccc}
 line & order & vertices $S$ & proved for & terms checked \\ \hline
-column $k$$=1$ & $1$ & $256$ & $>1$ & $9$ \\
-row $n$$=1$ & $1$ & $256$ & $>1$ & $10$ \\
+column $k$$=1$ & $2$ & $256$ & $>2$ & $10$ \\
+row $n$$=1$ & $1$ & $256$ & $>1$ & $11$ \\
 \end{tabular}
 \end{center}
 
@@ -99,22 +97,22 @@ again exactly; every one of those integers vanishes from the stated point onward
 continued until the working vector was identically zero, which settles all larger $j$ at once.
 
 \subsection*{Column $k$$=1$}
-The sequence is ``Number of (n+1)X(2) arrays of permutations of 0..(n+1)*(2)-1 with each element having index change +-(.,.) 0,0 1,2 or 2,-2.''. Its rows are the vertices of a digraph on
+The sequence is ``Number of (n+1)X(2) arrays of permutations of 0..(n+1)*(2)-1 with each element having directed index change -2,-2 -1,0 0,1 or 1,0.''. Its rows are the vertices of a digraph on
+$S=256$ vertices, edges being the admissible consecutive pairs, and the count is
+$\mathbf{1}^{\!\top}M^{n}\mathbf{1}$ up to the constant factor in the entry's name.
+The conjectured recurrence
+\[
+a(n)\;=\;a(n-2)
+\]
+holds from index $2+1$ on.
+
+\subsection*{Row $n$$=1$}
+The sequence is ``Number of (2)X(n+1) arrays of permutations of 0..(2)*(n+1)-1 with each element having directed index change -2,-2 -1,0 0,1 or 1,0.''. Its rows are the vertices of a digraph on
 $S=256$ vertices, edges being the admissible consecutive pairs, and the count is
 $\mathbf{1}^{\!\top}M^{n}\mathbf{1}$ up to the constant factor in the entry's name.
 The conjectured recurrence
 \[
 a(n)\;=\;a(n-1)
-\]
-holds from index $1+1$ on.
-
-\subsection*{Row $n$$=1$}
-The sequence is ``Number of (2)X(n+1) arrays of permutations of 0..(2)*(n+1)-1 with each element having index change +-(.,.) 0,0 1,2 or 2,-2.''. Its rows are the vertices of a digraph on
-$S=256$ vertices, edges being the admissible consecutive pairs, and the count is
-$\mathbf{1}^{\!\top}M^{n}\mathbf{1}$ up to the constant factor in the entry's name.
-The conjectured recurrence
-\[
-a(n)\;=\;2\,a(n-1)
 \]
 holds from index $1+1$ on.
 
@@ -127,7 +125,7 @@ both from the antidiagonal DATA read in either orientation and from the ``Table 
 block, and agrees at every available term. This is what ties a model to the table:
 substituting the fixed index into the entry's wording is a reading of English, and a wrong
 reading gives a different digraph and different counts. Across the lines settled here the
-model reproduces $19$ published values, $28$ decimal digits in all, every one of
+model reproduces $21$ published values, $21$ decimal digits in all, every one of
 them exactly; a misreading of the entry would have to reproduce all of them by accident.
 
 Second, each conjectured recurrence was evaluated on those published values in exact
@@ -147,7 +145,7 @@ claimed.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A264059.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A264534.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

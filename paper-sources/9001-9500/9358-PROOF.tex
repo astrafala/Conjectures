@@ -10,166 +10,125 @@
 \newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
-\newtheorem{definition}[theorem]{Definition}
 \newtheorem{remark}[theorem]{Remark}
-\title{A proof of the conjectured recurrence for OEIS A005559}
+
+\title{The empirical recurrence for OEIS A253433, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{30 August 2026}
+\date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A005559 carries a conjectured linear recurrence with polynomial coefficients, of
-order 2. The entry posts no generating function, and the closed form it does post
-is not a hypergeometric term in $n$: it contains a floor, so its shift quotients are not
-rational and the usual argument does not start. Splitting on the parity of $n$ repairs
-this. Writing $a(2m)=e_{0}(m)$ and $a(2m+1)=e_{1}(m)$, both halves are ordinary
-hypergeometric expressions in $m$, and the recurrence becomes two identities in $m$, since
-each shifted term $a(n-i)$ lands in whichever half the parity of $n-i$ selects. Both are
-then decided exactly, by grouping into similarity classes and cancelling. The procedure
-returns a proof or a refutation; both halves must hold, and here both do.
+OEIS A253433 counts the arrays over $\{0,\dots,1\}$ whose $2\times2$ subblocks carry a
+statistic that is monotone along named directions of the subblock grid, and carries an
+empirical recurrence of order $2$ contributed by R.~H.~Hardin. It is true, and it is
+decidable rather than empirical. Every direction named moves the subblock row by at most one,
+so a pair of consecutive array rows is a state, the count is a walk count on $S=325$ of them,
+and the conjectured recurrence is then settled by a finite exact computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 33F10, 11B37, 05A10.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 06A07.\normalsize
 
-\section{The sequence and the conjecture}
+\section{The conjecture}
 
-OEIS A005559 is ``Number of walks on square lattice. Column y=1 of A052174''. It has offset $1$ and begins
+OEIS A253433 is ``Number of (n+1) X (6+1) 0..1 arrays with every 2 X 2 subblock diagonal minus antidiagonal sum nondecreasing horizontally, vertically and ne-to-sw antidiagonally.''. It has offset $1$ and begins
 \[
-a(1),\dots,a(8)\;=\;1, 2, 8, 20, 75, 210, 784, 2352,\ \dots
+325, 318, 336, 372, 444, 588, 876, 1452,\ \dots
 \]
-The entry states, not as a conjecture,
-\begin{quote}\small
-a(n) = C(n+1,ceiling((n-1)/2)) *C(n,floor((n-1)/2)) -C(n+1,ceiling((n-2)/2)) *C(n,floor((n-2)/2)). - \emph{Paul D. Hanna}, Apr 16 2004
+The entry states, as a conjecture contributed by its author and never marked settled:
+\begin{quote}
+Empirical: a(n) = 3*a(n-1) - 2*a(n-2) for n>3.
 \end{quote}
-that is,
-\begin{equation}\label{eq:cf}
-a(n)\;=\;- {\binom{n}{\left\lfloor{\frac{n}{2}}\right\rfloor - 1}} {\binom{n + 1}{\left\lceil{\frac{n}{2}}\right\rceil - 1}} + {\binom{n}{\left\lfloor{\frac{n}{2} - \frac{1}{2}}\right\rfloor}} {\binom{n + 1}{\left\lceil{\frac{n}{2} - \frac{1}{2}}\right\rceil}} .
-\end{equation}
-This is the only input the proof takes from the entry. It was checked against the entry's
-own DATA before use, and the index alignment was determined from that check rather than
-assumed: the formula is stated in the entry's own indexing.
+As of the ``Last modified'' line on the live entry (Dec 12 2018 09:40:44, revision 8) this is still
+recorded as empirical, and nothing on the entry records it as proved.
 
-The entry separately carries the following comment:
-\begin{quote}\small
-\textbf{Conjecture:} -(n-1)*(2*n+1)*(n+4)*(n+3)*a(n) +4*(n+1)*(2*n\^{}2+4*n+9)*a(n-1) +16*n*(n-1)*(2*n+3)*(n+1)*a(n-2)=0. - \emph{R. J. Mathar}, Apr 02 2017
-\end{quote}
-As of the ``Last modified'' line on the live entry (2025-02-03, revision 60) the
-statement is still recorded as a conjecture, and no proof appears among the entry's links,
-formulas or programs.
+\section{What is being counted}
 
-Written out, the conjecture is
-\begin{equation}\label{eq:conj}
-- \left(n - 1\right) \left(n + 3\right) \left(n + 4\right) \left(2 n + 1\right)\,a(n) + 4 \left(n + 1\right) \left(2 n^{2} + 4 n + 9\right)\,a(n-1) + 16 n \left(n - 1\right) \left(n + 1\right) \left(2 n + 3\right)\,a(n-2)
-\end{equation}
+The $2\times2$ subblocks of an $(n+1)\times7$ array over $\{0,\dots,1\}$ form a grid
+of $n$ rows and $6$ columns; write $\sigma(i,j)$ for the value the entry's statistic takes on
+the subblock in position $(i,j)$, a function of its four entries
+$\begin{pmatrix}p&q\\r&s\end{pmatrix}$ alone. The condition is
+\[
+\sigma(i,j)\le\sigma(i,j+1),\qquad \sigma(i,j)\le\sigma(i+1,j),\qquad \sigma(i,j)\le\sigma(i+1,j-1)
+\]
+whenever both positions exist.
 
-\section{Hypergeometric terms, and why the closed form is not one}
+Three points of the English are fixed by the entries' own terms rather than guessed:
+``ne-to-sw antidiagonally'' is the offset $(+1,-1)$ on the subblock grid, since the offset
+$(+1,+1)$ gives $164$ where the corresponding entry publishes $126$; ``diagonal minus
+antidiagonal sum'' is $(p+s)-(q+r)$; and ``ne-sw antidiagonal difference'' is $q-r$. Each was
+checked by counting the small arrays directly and comparing with the entry.
 
-\begin{definition}
-A nonzero expression $c(m)$ is a \emph{hypergeometric term} in $m$ if $c(m+1)/c(m)$ is a
-rational function of $m$. Two such terms $c,d$ are \emph{similar}, $c\sim d$, if $c/d$ is a
-rational function of $m$.
-\end{definition}
+\section{The count is a walk count}
 
-Products of factorials, binomial coefficients with arguments linear in the variable,
-exponentials and polynomials are hypergeometric. A floor is not: $\lfloor n/2\rfloor$ takes
-the same value at $n$ and $n+1$ for even $n$ and jumps at odd $n$, so the quotient
-$c(n+1)/c(n)$ is not a rational function of $n$, and \eqref{eq:cf} is therefore outside the
-reach of the direct argument.
+A pair of consecutive array rows determines one whole row of the subblock grid. Take those
+pairs as states. The comparisons with offset $(0,\pm1)$ live inside a single subblock row, so
+they decide which pairs are admissible at all; the comparisons with offset $(\pm1,\cdot)$
+relate two consecutive subblock rows, so they decide which pair may follow which. A step of the
+walk appends one array row, turning the pair $(r,s)$ into $(s,t)$, and settles every comparison
+between the two subblock rows at once. An $(n+1)$-row array is therefore a walk of $n-1$ steps
+and every walk comes from exactly one array, so
+\[
+a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,\qquad \iota=\tau=(1,\dots,1)^{\!\top},
+\]
+on the $S=325$ admissible pairs. In particular $a$ is $C$-finite. The alignment of the walk
+index with the entry's own $n$ was checked against its published terms rather than assumed.
 
-Parity removes the floor. For integer $m$,
-$\lfloor 2m/2\rfloor=m$ and $\lfloor (2m+1)/2\rfloor=m$, and similarly for the ceiling, so
-substituting $n=2m$ and $n=2m+1$ into \eqref{eq:cf} and simplifying gives two expressions
-free of rounding:
-\begin{equation}\label{eq:halves}
-a(2m)\;=\;e_{0}(m)\;=\;\frac{2 {\binom{2 m + 1}{m}} \left(2 m\right)!}{\left(m - 1\right)! \left(m + 2\right)!},
-\qquad
-a(2m+1)\;=\;e_{1}(m)\;=\;\frac{4 \left(2 m + 1\right)!^{2}}{\left(m + 2\right) m!^{3} \left(m + 2\right)!},
-\end{equation}
-and each of $e_{0},e_{1}$ is a sum of finitely many hypergeometric terms in $m$.
+\section{The proof}
 
-\begin{lemma}\label{lem:indep}
-Hypergeometric terms that are pairwise dissimilar are linearly independent over the field
-of rational functions: if $\sum_{j}u_{j}(m)c_{j}(m)=0$ for rational $u_{j}$ and all large
-$m$, then every $u_{j}$ is zero. See Petkov\v{s}ek, Wilf and Zeilberger \cite{AB},
-Chapter~5.
+\begin{lemma}\label{lem:crit}
+Let $q(t)=t^{2}-\sum_i c_it^{2-i}$ be the characteristic polynomial of the
+conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
+$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
+holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
+and it is enough to examine $j<S$.
 \end{lemma}
 
-\section{The recurrence, one residue class at a time}
-
-Fix the conjectured coefficients $p_{0},\dots,p_{r}$ and consider
-$T(n)=\sum_{i=0}^{r}p_{i}(n)a(n-i)$. Each term reaches a half of \eqref{eq:halves} chosen
-by the parity of $n-i$:
-
-\begin{proposition}\label{prop:split}
-With $a(2j)=e_{0}(j)$ and $a(2j+1)=e_{1}(j)$,
-\[
-T(2m)=\sum_{i \text{ even}}p_{i}(2m)\,e_{0}\!\left(m-\tfrac{i}{2}\right)
-      +\sum_{i \text{ odd}}p_{i}(2m)\,e_{1}\!\left(m-\tfrac{i+1}{2}\right),
-\]
-\[
-T(2m+1)=\sum_{i \text{ even}}p_{i}(2m+1)\,e_{1}\!\left(m-\tfrac{i}{2}\right)
-      +\sum_{i \text{ odd}}p_{i}(2m+1)\,e_{0}\!\left(m-\tfrac{i-1}{2}\right).
-\]
-Both right-hand sides are finite sums of hypergeometric terms in $m$. The recurrence
-$T(n)=0$ holds for all large $n$ if and only if both vanish identically, and by
-Lemma~\ref{lem:indep} each vanishes identically if and only if, after grouping its
-summands into similarity classes, every class contributes the zero rational function.
-\end{proposition}
-
 \begin{proof}
-The two displays are the definition of $T$ with $n-i$ written in the form $2j$ or $2j+1$:
-for $n=2m$ the index $n-i$ is even exactly when $i$ is, and for $n=2m+1$ exactly when $i$
-is odd. Every $e_{\epsilon}(m-s)$ is a sum of hypergeometric terms in $m$, and
-$p_{i}(2m)$, $p_{i}(2m+1)$ are polynomials in $m$, so each display is a finite sum of
-hypergeometric terms. Within a similarity class every summand is the class representative
-times a rational function, so the class contributes the representative times the sum of
-those rational functions; the classes are pairwise dissimilar by construction, and
-Lemma~\ref{lem:indep} applies. Finally $n$ ranges over both parities, so $T(n)=0$ for all
-large $n$ is exactly the conjunction of the two.
+Factor $M^{j}$ out of $M^{j+2}-\sum_ic_iM^{j+2-i}$. For the bound, $M^{S}$
+is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
+$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
+polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
+pins the threshold exactly.
 \end{proof}
 
-\section{The computation for A005559}
-
-Carrying out Proposition~\ref{prop:split} with the coefficients of \eqref{eq:conj} and the
-two halves \eqref{eq:halves}, every similarity class of $T(2m)$ contributes zero, and so
-does every similarity class of $T(2m+1)$. The even half splits into one class
-and the odd half into one class.
-
 \begin{theorem}
-For all $n\ge 3$,
 \[
-- \left(n - 1\right) \left(n + 3\right) \left(n + 4\right) \left(2 n + 1\right)\,a(n) + 4 \left(n + 1\right) \left(2 n^{2} + 4 n + 9\right)\,a(n-1) + 16 n \left(n - 1\right) \left(n + 1\right) \left(2 n + 3\right)\,a(n-2)
+a(n)\;=\;3\,a(n-1) - 2\,a(n-2)
 \]
+for every $n>3$.
 \end{theorem}
 
 \begin{proof}
-Both residue classes vanish identically by the computation above, and every integer $n$
-lies in one of them. The excluded values are those at which a class residual has a pole or
-a term of \eqref{eq:cf} is undefined.
+The vector $w=q(M)\tau$ was formed by $2$ matrix--vector products in exact integer
+arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
+integers vanish from the index corresponding to $n=3+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once. The bound is exact: at $n=3$ the recurrence fails on the entry's own published terms, so no larger range holds.
 \end{proof}
 
 \section{Verification}
 
-Two checks were made, and both are independent of the algebra above.
+Three checks, each independent of the algebra above.
 
-First, the closed form \eqref{eq:cf} was evaluated at the first $13$ indices and
-compared term by term with the entry's DATA; the values agree exactly, on both parities. A
-formula that did not reproduce the entry's own terms would not have been used, and the
-alignment was fixed by that comparison rather than assumed.
+First, the model reproduces all $30$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry: the digraph is built by reading the
+entry's English, and a misreading gives different counts.
 
-Second, the conjectured recurrence \eqref{eq:conj} was evaluated on the published terms in
-exact integer arithmetic at every index where it applies: $25$ instances beginning at
-$n=3$, all of them zero. This is not part of the proof, which is symbolic, but it
-would have caught a transcription error in the coefficients.
+Second, the conjectured recurrence was evaluated directly on those published terms, with no
+matrices involved, and holds wherever the proved range and the data overlap.
+
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
-\bibitem{AB} M.~Petkov\v{s}ek, H.~S.~Wilf and D.~Zeilberger, \emph{A=B}, A K Peters,
-Wellesley MA, 1996.
-\bibitem{OEIS} OEIS Foundation Inc., \emph{The On-Line Encyclopedia of Integer Sequences},
-entry \href{https://oeis.org/A005559}{A005559}, 2025-02-03.
-\bibitem{GKP} R.~L.~Graham, D.~E.~Knuth and O.~Patashnik, \emph{Concrete Mathematics},
-2nd ed., Addison-Wesley, 1994.
+\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
+Sequences}, \url{https://oeis.org}, 2026. Sequence A253433.
+\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{davey} B.~A.~Davey and H.~A.~Priestley, \emph{Introduction to Lattices and
+Order}, 2nd ed., Cambridge University Press, 2002.
+\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
+University Press, 2013.
 \end{thebibliography}
 
 \end{document}

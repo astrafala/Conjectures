@@ -12,15 +12,15 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical closed form and generating function for OEIS A195001, proved}
+\title{The empirical closed form, generating function and recurrence for OEIS A195234, proved}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{6 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A195001 counts the lower triangles of a $5\times5$ array over $\{0,\dots,n\}$ in which
-adjacent entries differ by exactly $1$, and carries closed form and generating function recorded as empirical. The shape here is FIXED
+OEIS A195234 counts the lower triangles of a $4\times4$ array over $\{0,\dots,n\}$ in which
+adjacent entries differ by at most $1$, and carries closed form, generating function and recurrence recorded as empirical. The shape here is FIXED
 and it is the alphabet that grows, so there is no digraph to walk. What settles it is that the
 condition constrains DIFFERENCES only: translating an admissible array by a constant leaves it
 admissible, so the arrays split into translation classes, and a class with spread $s$ contains
@@ -33,28 +33,30 @@ known in advance, and two evaluations pin it. Nothing is fitted.
 
 \section{The conjecture}
 
-OEIS A195001 is ``Number of lower triangles of a 5 X 5 0..n array with each element differing from all of its horizontal and vertical neighbors by one.''. It has offset $1$ and begins
+OEIS A195234 is ``Number of lower triangles of a 4 X 4 0..n array with each element differing from all of its diagonal, vertical, antidiagonal and horizontal neighbors by one or less.''. It has offset $1$ and begins
 \[
-2, 576, 2290, 4990, 7858, 10804,\ \dots
+1024, 3151, 5428, 7705, 9982, 12259,\ \dots
 \]
 The entry states, as conjectures contributed by its author and by later readers and never
 marked settled:
 \begin{quote}
-Empirical: a(n) = 2952*n - 6910 for n>6.
+Empirical: a(n) = 2277*n - 1403 for n>1.
 
-Empirical g.f.: 2*x*(1 + 286*x + 570*x\^{}2 + 493*x\^{}3 + 84*x\^{}4 + 39*x\^{}5 + 2*x\^{}6 + x\^{}7) / (1 - x)\^{}2. - \_Colin Barker\_, May 06 2018
+G.f.: x*(1024 + 1103*x + 150*x\^{}2) / (1 - x)\^{}2.
+
+a(n) = 2*a(n-1) - a(n-2) for n>3.
 \end{quote}
-As of the ``Last modified'' line on the live entry (May 06 2018 10:12:37, revision 9) these are still
+As of the ``Last modified'' line on the live entry (May 06 2018 11:53:46, revision 9) these are still
 recorded as empirical, and nothing on the entry records them as proved.
 
 \section{What is being counted}
 
-The lower triangle of a $5\times5$ array is the set of cells $(i,j)$ with $0\le j\le
-i<5$, so there are $T=15$ of them. Two cells are adjacent when they differ by one of the
-horizontal, vertical offsets, which here gives $20$ adjacent pairs. Each cell carries a value in
+The lower triangle of a $4\times4$ array is the set of cells $(i,j)$ with $0\le j\le
+i<4$, so there are $T=10$ of them. Two cells are adjacent when they differ by one of the
+horizontal, antidiagonal, vertical, diagonal offsets, which here gives $21$ adjacent pairs. Each cell carries a value in
 $\{0,\dots,n\}$, and the entry requires
 \[
-|x_u-x_v|=1\qquad\text{for every adjacent pair }u,v .
+|x_u-x_v|\le 1\qquad\text{for every adjacent pair }u,v .
 \]
 
 The shape is fixed and $n$ is the size of the ALPHABET. So this is not a walk count and
@@ -81,40 +83,40 @@ Lemma~\ref{lem:bound}.
 \end{proof}
 
 \begin{lemma}\label{lem:bound}
-Every $y\in\mathcal P$ has $\mathrm{sp}(y)\le 1\cdot8=8$, where $8$ is the
+Every $y\in\mathcal P$ has $\mathrm{sp}(y)\le 1\cdot3=3$, where $3$ is the
 diameter of the neighbour graph.
 \end{lemma}
 
 \begin{proof}
-The neighbour graph is connected, so any two cells are joined by a path of at most $8$
+The neighbour graph is connected, so any two cells are joined by a path of at most $3$
 edges, and each edge changes the value by at most $1$. Hence the largest and the smallest
-entry differ by at most $1\cdot8$.
+entry differ by at most $1\cdot3$.
 \end{proof}
 
 \section{The count}
 
 \begin{theorem}\label{thm:line}
 \[
-a(n)\;=\;2952\,n-6910\qquad\text{for every }n\ge7,
+a(n)\;=\;2277\,n-1403\qquad\text{for every }n\ge2,
 \]
-and $\mathcal P$ has exactly $2952$ elements.
+and $\mathcal P$ has exactly $2277$ elements.
 \end{theorem}
 
 \begin{proof}
-For $n\ge8$ every term of Lemma~\ref{lem:trans} is positive by
+For $n\ge3$ every term of Lemma~\ref{lem:trans} is positive by
 Lemma~\ref{lem:bound}, so
 \[
 a(n)=\sum_{y\in\mathcal P}\bigl(n+1-\mathrm{sp}(y)\bigr)
 =|\mathcal P|\,(n+1)-\sum_{y}\mathrm{sp}(y),
 \]
-which is a linear function of $n$. Two values determine it, and $a(8)$ and
-$a(8+1)$ were computed exactly, giving slope $2952$ and the stated intercept; the slope
-is $|\mathcal P|$. That the identity already holds from $n=7$ was then read off by
-comparing it with the exact values of $a(n)$ below $8$, each computed the same way.
+which is a linear function of $n$. Two values determine it, and $a(3)$ and
+$a(3+1)$ were computed exactly, giving slope $2277$ and the stated intercept; the slope
+is $|\mathcal P|$. That the identity already holds from $n=2$ was then read off by
+comparing it with the exact values of $a(n)$ below $3$, each computed the same way.
 \end{proof}
 
 The counts $a(n)$ themselves are obtained by walking over the cells in row major order and
-carrying only the entries a later cell can still see --- for this shape at most $5+1$ of
+carrying only the entries a later cell can still see --- for this shape at most $4+1$ of
 them --- so no array is ever written down.
 
 Since $a$ agrees with a linear polynomial from a known point on, its generating function is a
@@ -122,6 +124,9 @@ polynomial divided by $(1-x)^2$: multiplying the series by $(1-x)^2$ annihilates
 tail term by term, leaving only finitely many nonzero coefficients, and those coefficients are
 the second differences of the values below the threshold. The conjectured generating function
 is that one, which was checked coefficient by coefficient in exact rational arithmetic.
+
+The conjectured recurrence $a(n)=2a(n-1)-a(n-2)$ is the statement that the second difference
+vanishes, which for a linear function it does; it therefore holds for every $n\ge2+2$.
 
 Each statement quoted in Section 1 is a consequence of Theorem~\ref{thm:line}, and each was
 also checked directly against it.
@@ -134,10 +139,10 @@ First, the count reproduces all $36$ terms the entry publishes, exactly, in inte
 arithmetic.
 
 Second, the arrays themselves were enumerated for the smallest alphabets --- every assignment
-of $0..n$ to the $15$ cells written out and every adjacent pair tested --- with no
+of $0..n$ to the $10$ cells written out and every adjacent pair tested --- with no
 translation argument and no frontier walk. Where the shape is too large for that, the first
 term is settled by an exact argument instead: at $n=1$ every entry is $0$ or $1$, so an ``at
-most'' condition is no condition and the count is $2^{15}$, while ``differing by exactly
+most'' condition is no condition and the count is $2^{10}$, while ``differing by exactly
 one'' asks for a proper $2$-colouring of the neighbour graph. Both test the cell set and the
 adjacency, which is what this check is for.
 
@@ -147,7 +152,7 @@ rather than sampled.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A195001.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A195234.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011.
 \bibitem{comtet} L.~Comtet, \emph{Advanced Combinatorics}, Reidel, 1974.
