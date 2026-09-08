@@ -74,13 +74,16 @@ Recurring defects, all found this way:
 
 ## Where things stand
 
-* **10,925 papers installed** over 10,898 entries (counts are re-derived by
-  `src/sync_counts.py`, never typed by hand). 8 September 2026: 1,353 were withdrawn and 266
+* **11,240 papers installed** over 11,213 entries (counts are re-derived by
+  `src/sync_counts.py`, never typed by hand). 8 September 2026: 1,353 were withdrawn and 581
   installed, from 12,012 before.
 * **The generating-function-as-fact vein is null**, not 2,151. Asked correctly it proves 2.
   Everything held under it has been purged, and `WITHDRAWN.md` records what was taken back.
 * Held: 85 generating-function results being re-derived under the corrected automaton bound,
   plus whatever the standing sweeps are finding now.
+* Running: `sweep_shard` with `TAG=np` over `deep-check/namepool.txt` -- 1,446 entries with a
+  readable conjecture AND a readable name that the cached candidate list had never heard of.
+  About one in five gives a proof.
 * **Every engine's degree bound S must be derived, not assumed.** `ca2dcount` set S = 24 from
   nothing and could certify nothing; it now refuses. `ca2d`'s bound was the one-dimensional
   figure and was too small; it is computed from the certificate's roots.
