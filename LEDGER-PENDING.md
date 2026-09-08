@@ -848,3 +848,23 @@ shares no code with a cellular automaton simulation. That is not a theft of a na
 overlap, and a useful one: **the simulation reproduces all 43 of that entry's published terms.**
 Two independent methods, same sequence. This project has had very little independence checking
 of that kind and it is worth taking where it falls out for free.
+
+### `permrow`: rows that are permutations — small, finished, and honest about its size
+
+Six entries read "Number of n X W arrays with each row a permutation of 1..W having at least as
+many downsteps as the preceding row". No engine read one, because every array engine expects a
+value range like "0..3" and these give a permutation instead. The object is among the easiest
+in the project: the rows are the W! permutations and the condition compares a row with the one
+before it, so the count is a walk on W! vertices — 24 of them for W=4.
+
+**5 of the 6 reproduce their published terms**; the sixth is 7 wide, which is 5,040 states and
+too dense to build. The reading was pinned by enumeration first: A222002's model gives
+24, 157, 704, 2470, 7328, 19228 and the entry publishes exactly those.
+
+The first version parsed none of the six. The name-completeness check — which exists to refuse
+a name saying more than the model implements — was rejecting the word "having". A guard that
+refuses everything is as useless as no guard, and it looked like a hard family rather than a
+typo.
+
+**This is a six-entry family and is reported as one.** It is on the list because the list said
+to attempt it, and attempting it cost twenty minutes.
