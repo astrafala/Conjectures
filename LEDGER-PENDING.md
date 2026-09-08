@@ -788,3 +788,30 @@ each:
 
 That is the same defect as the one-dimensional automata this morning, in a second place. It is
 now written into `STATE.md` as a standing check.
+
+## 8 September 2026 — `ca2d`: 222 two-dimensional cellular automata, and Rule 1
+
+**Rule 1, now at the top of STATE.md and IDEAS.md: never stop.** Finish an idea and start the
+next in the same breath. When the list runs low, add to it.
+
+387 entries read "Binary/Decimal representation of the x-axis (or diagonal) of the n-th stage
+of growth of the two-dimensional cellular automaton defined by Rule N, based on the 5-celled
+von Neumann neighbourhood". No engine read one. **222 now carry a full growth certificate and
+the first sweep window proved 71 of them with 0 failures.**
+
+Four readings the entries' own terms settled, none of them guessed:
+
+* **the rule encoding** — only `bit(2·sum + own)` reproduces the data;
+* **the direction** — the name says "left edge to the origin" or "origin to the right edge",
+  which are reverses; ignoring the phrase cost 21 of 60;
+* **the background** — a rule taking an empty neighbourhood to a live cell flips the entire
+  background, and a grid whose border stays 0 is not that background. A279028 was wrong from
+  its third term until the padding exceeded the number of steps. Same defect as the
+  one-dimensional automata this morning, in a second place;
+* **the growth shape** — these automata alternate, the axis growing on even stages and empty on
+  odd ones, so the words run 1, 0, 101, 0, 10101, 0. A detector requiring w(n+p) to be longer
+  than w(n) at every n found nothing at all, because half the residue classes are constant.
+  Fitting each residue class of n mod p separately found the certificate immediately.
+
+121 more match their terms but settle into no such shape, and 44 do not match the model at all;
+neither group is counted.

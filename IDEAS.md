@@ -1,5 +1,8 @@
 # Every angle of attack, and where each one stands
 
+**RULE 1: NEVER STOP.** Finish one, start the next immediately. When the list runs low, add to
+it — new veins, untried conjecture types, re-measurements of anything called dead.
+
 A standing list, not a plan. Each section is a way to settle conjectures; each says what it is
 worth and what happened when it was tried. **When one is finished, the next is started without
 waiting to be asked.** Ideas found genuinely dead stay here with their numbers so nobody

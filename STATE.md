@@ -1,5 +1,13 @@
 # Read this first. Everything crucial, in one page.
 
+## RULE 1 — NEVER STOP
+
+Never stop finding more. Finish an idea and start the next one in the same breath, without
+being asked and without reporting-and-halting. When the ideas run out, think outside the box:
+look for new veins, look at kinds of conjecture never attempted, re-measure what was called
+dead. There is always another angle. **Rule 1 outranks everything else in this file.**
+
+
 If context was lost, this file plus `IDEAS.md` is enough to carry on without asking anything.
 
 ## The job
