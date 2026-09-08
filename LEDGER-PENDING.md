@@ -259,3 +259,26 @@ ways. 1,718 entries that had never been asked are being asked.
 A sweep that reports a small clean number is not evidence that the pool is small. Both times the
 number came from my own code deciding what to look at, and both times the way to find it was to
 read the refusals rather than the results.
+
+### The table sweep had no clock at all
+
+Pointing it at the real pool was not enough: it still asked about one more entry per
+two-minute window. The reason is worth recording because it is a different failure from the
+pool one.
+
+`sweep_table.py` had **no per-column time limit of any kind** — the only sweep here without
+one. A table states a recurrence for *every* column it has, and the build cost roughly triples
+per column: on A205193, column 9 takes 21 seconds and column 12 would take minutes. One table
+could therefore consume an entire run, and did.
+
+Three guards, each a setting that is named in the refusal it causes:
+
+* a per-column alarm on the build, the terms and the threshold (`BUDGET`, 30s);
+* a **row cap** refusing a column whose board is wider than `ROWCAP` (1,024 rows) before
+  anything is built, since an alarm cannot interrupt a build that sits inside one C-level
+  call — the columns are tried smallest first and those are the ones that get proved;
+* a per-table budget (`ENTRY_BUDGET`, 90s), so no single table can take a whole run.
+
+**43 entries asked per window became 266, and 2 tables proved became 27** (57 column
+conjectures). The remaining columns are refused with the cap that refused them, so a later pass
+at a higher one can be seen to be worth making.

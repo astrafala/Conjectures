@@ -12,7 +12,7 @@ DATA, which a table stores by antidiagonals. The antidiagonal orientation is not
 both are tried and the one matching the model exactly is accepted, so a wrong reading is
 rejected rather than fitted.
 """
-import json, re, os, sys, collections, importlib, zlib
+import json, re, os, sys, collections, importlib, zlib, signal, time
 from math import factorial
 import localentry as LE, ratrec, openness, tablecol, uniform
 
@@ -27,6 +27,18 @@ COL = re.compile(r'^k=(\d+):\s*(a\(n\)\s*=.*)$')
 P = '/tmp/claude-0/-home-user-Conjectures/a6c6c48d-a8e1-5e03-bfd7-16e8d9d94539/scratchpad/'
 names = json.load(open(P + 'all_names.json'))
 roster = {r['anum'] for r in json.load(open('rank-map.json'))}
+# No per-column time limit at all: a single slow build ate the whole run, which is why the
+# sweep asked about one more entry in a two-minute window. Every other sweep here already
+# has this; this one never did.
+class _T(Exception):
+    pass
+
+
+signal.signal(signal.SIGALRM, lambda *a: (_ for _ in ()).throw(_T()))
+BUDGET = int(os.environ.get('BUDGET', '40'))
+ROWCAP = int(os.environ.get('ROWCAP', '1024'))
+ENTRY_BUDGET = int(os.environ.get('ENTRY_BUDGET', '90'))
+
 HITS, DONE = 'table_hits.json', 'table_done.json'
 SKIP_ROSTER = os.environ.get('SKIP_ROSTER', '1') == '1'
 if os.environ.get('HITS'):
@@ -113,7 +125,11 @@ for a in targets:
         res['not open'] += 1; done.add(a); continue
     d = [int(v) for v in e['data'].split(',') if v.strip()]
     proved, failed, skipped = [], [], []
+    t_entry = time.time()
     for c, (coeffs, dd) in sorted(cols.items()):
+        if time.time() - t_entry > ENTRY_BUDGET:
+            skipped.append((c, f'the table used its {ENTRY_BUDGET}s budget before this column'))
+            continue
         rn = tablecol.rewrite(nm, c)
         if rn is None:
             skipped.append((c, 'name not rewritable')); continue
@@ -131,9 +147,40 @@ for a in targets:
         if not got:
             skipped.append((c, 'no engine reads it')); continue
         eng, p = got
+        # A table states a recurrence for column 3 and also for column 15, and column 15 of a
+        # binary table is a 16-wide board: 2^16 rows and their pairs. An alarm cannot save a
+        # build that spends its whole time inside one C-level call, so the size is estimated
+        # from the parse BEFORE anything is built -- the same guard sweep_cf already has. This
+        # is why the sweep asked about one more entry per two-minute window: it was inside a
+        # single hopeless column the whole time.
+        W = p.get('W') or p.get('fixed') or p.get('cols')
+        A = p.get('alpha')
+        if isinstance(W, int) and isinstance(A, int) and W > 0:
+            try:
+                rows = (A + 1) ** W
+            except Exception:
+                rows = None
+            if rows is not None and rows > ROWCAP:
+                # The build cost roughly triples per column -- on A205193 column 9 takes 21
+                # seconds and column 12 would take minutes -- and a table states a recurrence
+                # for every column it has, so one entry could eat a whole run. ROWCAP is a
+                # SETTING and the refusal names it, so a later pass at a higher one can be
+                # seen to be worth making. The columns are tried smallest first, which are the
+                # ones that get proved.
+                skipped.append((c, f'{rows} rows: above the row cap {ROWCAP}'))
+                continue
+            if rows is not None and rows * rows > 64 * CAP:
+                skipped.append((c, f'{rows} rows: too big to start at cap {CAP}'))
+                continue
         try:
+            signal.alarm(BUDGET)
             b = uniform.build(eng, p, CAP)
+            signal.alarm(0)
+        except _T:
+            signal.alarm(0)
+            skipped.append((c, f'build over the {BUDGET}s budget')); continue
         except Exception:
+            signal.alarm(0)
             skipped.append((c, 'build failed')); continue
         if b is None:
             skipped.append((c, 'state space > cap')); continue
@@ -151,7 +198,9 @@ for a in targets:
             # one of those engines was silently rejected. Same failure as the transfer7 one
             # already in the ledger, and the same fix.
             try:
+                signal.alarm(BUDGET)
                 t = uniform.terms(eng, p, b, len(colv) + 5)
+                signal.alarm(0)
                 tv = [None if (x is None or x.denominator != 1) else x.numerator for x in t]
             except Exception:
                 continue
@@ -165,8 +214,14 @@ for a in targets:
             failed.append((c, 'model does not match the column')); continue
         up, got, base, colv = match
         try:
+            signal.alarm(BUDGET * 3)
             thr = uniform.threshold(eng, p, b, coeffs, order)
+            signal.alarm(0)
+        except _T:
+            signal.alarm(0)
+            skipped.append((c, f'threshold over the {BUDGET * 3}s budget')); continue
         except Exception:
+            signal.alarm(0)
             skipped.append((c, 'threshold failed')); continue
         nthr = None if thr is None else thr - base
         if nthr is None:
