@@ -38,7 +38,7 @@ counted twice.
 | B4 | cusp-form dimensions from the classical formula (`cuspdim`) | 51 | **46 proved** |
 | B5 | elementary cellular automaton rows (`ecarow`) | 51 | **done**; 87 more are fractal and out of reach |
 | B6 | derived arrays — indicators of a larger array's subblocks | 54 | **next engine**; `transfer26` has the right machinery |
-| B7 | coordination sequences of tilings | 372 | **untried**; needs the tiling's structure |
+| B7 | coordination sequences of tilings | 414 | **already harvested** — 384 were proved by the generating-function vein (A6) before this family was ever looked at as one. Listing it as untried was wrong. |
 | B8 | two-dimensional CA active-cell counts | 168 | **untried** |
 | B9 | CA x-axis and diagonal representations | 294 | **untried**; same shape-certificate idea as B5 |
 | B10 | permutations with bounded displacement | 35 | **untried**; a transfer matrix on window states |

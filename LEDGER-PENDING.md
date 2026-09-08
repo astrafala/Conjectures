@@ -868,3 +868,22 @@ typo.
 
 **This is a six-entry family and is reported as one.** It is on the list because the list said
 to attempt it, and attempting it cost twenty minutes.
+
+### B7 was not an untried family — 384 of its 414 were already proved
+
+The list carried "coordination sequences of tilings, 372, untried, needs the tiling's
+structure" as one of the largest untried families left. Measuring it before working it:
+**414 entries, and 384 of them were already proved by the generating-function vein.** They
+state a g.f. as fact and conjecture a recurrence, which is exactly what that sweep settles, so
+they were harvested months before anyone thought of them as coordination sequences at all.
+
+The entry in IDEAS.md is corrected. Two lessons, both cheap: **measure a family against what is
+already proved before calling it untried**, and a family's name is not its shape — these were
+never a tiling problem, they were a g.f.-as-fact problem wearing a tiling's name.
+
+### An entry-stated recurrence is now a premise for the second-conjecture sweep
+
+391 of those 414 state a recurrence as fact, and `sweep_second` was refusing every one of them
+as "no proved recurrence on record" while a perfectly good premise sat on the entry's own page.
+It is the same premise the whole generating-function vein rests on. With that accepted:
+**294 entries settled became 331, and 334 claims with new content.**

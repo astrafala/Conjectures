@@ -96,14 +96,28 @@ def poly_of(coeffs):
 for a in targets:
     if a in done or zlib.crc32(a.encode()) % NSHARD != SHARD:
         continue
-    co = PROVED.get(a)
-    if not co:
-        res['no proved recurrence on record for this entry'] += 1
-        done.add(a); save(); continue
     try:
         e = LE.get(a)
     except Exception:
         res['entry unreadable'] += 1
+        done.add(a); save(); continue
+    co = PROVED.get(a)
+    premise = 'proved in this project'
+    if not co:
+        # A recurrence the ENTRY states as fact is the same premise the generating-function
+        # vein rests on, and it was not being used here at all. 391 of the 414 coordination
+        # sequences state one, and every one of them was refused as "no proved recurrence on
+        # record" while carrying a perfectly good premise on its own page.
+        for L in e['comment'] + e['formula']:
+            if re.search(r'onjectur|mpirical|It appears|Apparently', L, re.I):
+                continue
+            r = ratrec.parse_rec(L)
+            if r:
+                co = {str(k): str(v) for k, v in r[0].items()}
+                premise = 'stated by the entry as fact'
+                break
+    if not co:
+        res['no recurrence available as a premise'] += 1
         done.add(a); save(); continue
     if not openness.status(a)[0]:
         res['not open'] += 1
@@ -214,7 +228,8 @@ for a in targets:
         res['claims that only restate the recurrence'] += len(settled) - len(fresh)
     if fresh:
         res['PROVED'] += 1
-        hits.append({'anum': a, 'name': e['name'], 'premise': co, 'qorder': qorder,
+        hits.append({'anum': a, 'name': e['name'], 'premise': co,
+                     'premise_kind': premise, 'qorder': qorder,
                      'settled': fresh, 'restated': [c for c in settled if c not in fresh],
                      'offset': int(e['offset'].split(',')[0]), 'nterms': len(d)})
         print('SETTLED', a, len(fresh), flush=True)
