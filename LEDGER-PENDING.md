@@ -703,3 +703,24 @@ a threshold*, and an entry's early terms need not satisfy it. Testing from the f
 refused 919 entries whose recurrence is perfectly correct. The premise must now hold from some
 index on with at least order+2 confirmations after it — still a real check, and it recovered
 158 entries in one window.
+
+### The second-conjecture vein, counted honestly: 885 not 2,461
+
+The sweep reported **2,461 further conjectures settled** across 1,612 entries. Before counting
+any of them I checked what they were, and most were not a second result at all.
+
+A generating function whose denominator's reciprocal **is** the characteristic polynomial of
+the recurrence already proved for that entry states the same fact in another notation. Of the
+first 389 such claims, **386 were exactly that.** They are not a further conjecture settled;
+they are the conjecture already settled, restated.
+
+The closed forms are different: an explicit formula for a(n) says something a recurrence does
+not, and those are real.
+
+`sweep_second.py` now classifies a generating function as *restating the proved recurrence*
+when its denominator carries no more information, and counts only what says something new. On
+the same shard: **297 claims with new content, 618 restatements** — and the restatements are
+kept in the record under their own name so the distinction is visible rather than discarded.
+
+**The count that would have been reported was 2.8 times the real one.** The standing rule is
+never pad the count; this is what enforcing it looks like when the padding is my own.

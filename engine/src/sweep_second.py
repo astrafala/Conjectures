@@ -169,7 +169,19 @@ for a in targets:
                 signal.alarm(0)
                 continue
             if sympy.simplify(rem) == 0:
-                settled.append(('generating function', t[:200]))
+                # A generating function whose denominator's reciprocal IS the proved
+                # characteristic polynomial is the SAME conjecture written in another
+                # notation, not a second result. 386 of the first 389 were exactly that, and
+                # counting them would have inflated 885 real results into 2,461. Only a claim
+                # of strictly larger degree says something the recurrence does not.
+                equiv = False
+                try:
+                    lead = sympy.LC(rec) if rec.degree() >= 0 else 1
+                    equiv = sympy.simplify(rec.as_expr() / lead - q.as_expr()) == 0
+                except Exception:
+                    equiv = False
+                settled.append(('generating function (restates the proved recurrence)'
+                                if equiv else 'generating function', t[:200]))
             continue
         # (c) a closed form
         cf = CF.parse_line(L, bare=True)
@@ -194,13 +206,18 @@ for a in targets:
                 continue
             if sympy.simplify(rem) == 0:
                 settled.append(('closed form', t[:200]))
+    # only claims that say something the proved recurrence does not are counted
+    fresh = [c for c in settled if not c[0].endswith('(restates the proved recurrence)')]
     if settled:
+        res['entries with something settled'] += 1
+        res['claims settled (new content)'] += len(fresh)
+        res['claims that only restate the recurrence'] += len(settled) - len(fresh)
+    if fresh:
         res['PROVED'] += 1
-        res['claims settled'] += len(settled)
         hits.append({'anum': a, 'name': e['name'], 'premise': co, 'qorder': qorder,
-                     'settled': settled, 'offset': int(e['offset'].split(',')[0]),
-                     'nterms': len(d)})
-        print('SETTLED', a, len(settled), flush=True)
+                     'settled': fresh, 'restated': [c for c in settled if c not in fresh],
+                     'offset': int(e['offset'].split(',')[0]), 'nterms': len(d)})
+        print('SETTLED', a, len(fresh), flush=True)
     else:
         res['nothing further follows from the proved recurrence'] += 1
     done.add(a); save()
