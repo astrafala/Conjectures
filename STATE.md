@@ -81,9 +81,11 @@ Recurring defects, all found this way:
   Everything held under it has been purged, and `WITHDRAWN.md` records what was taken back.
 * Held: 85 generating-function results being re-derived under the corrected automaton bound,
   plus whatever the standing sweeps are finding now.
-* Running: `sweep_shard` with `TAG=np` over `deep-check/namepool.txt` -- 1,446 entries with a
-  readable conjecture AND a readable name that the cached candidate list had never heard of.
-  About one in five gives a proof.
+* `sweep_shard` with `TAG=np` over `deep-check/namepool.txt`: 1,446 entries with a readable
+  conjecture AND a readable name that the cached candidate list had never heard of. 1,017
+  asked, about 190 proved. **811 are refused with `state space > cap` at CAP = 2,000,000**
+  (`deep-check/capped.txt`); a trial at 6,000,000 built two models in five minutes and proved
+  neither. The 429 still unasked are worth asking at the standing cap.
 * **Every engine's degree bound S must be derived, not assumed.** `ca2dcount` set S = 24 from
   nothing and could certify nothing; it now refuses. `ca2d`'s bound was the one-dimensional
   figure and was too small; it is computed from the certificate's roots.
