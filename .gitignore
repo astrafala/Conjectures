@@ -58,3 +58,11 @@ engine/ordwhole_done_[0-9].json
 
 # ordtails runs in shards too; its result is merged by merge_ordtails.py.
 engine/ordtails_[0-9].json
+
+# Per-shard refusal counters. These are aggregates (reason -> count) rewritten from scratch
+# every few seconds by the running sweeps, so they churned the working tree continuously and
+# every commit raced the next write. They are recomputable and carry nothing a later run
+# needs; the refusal reasons that matter are written up in DEEP-CHECK.md and the ledger,
+# where they are read.
+engine/*_why.json
+engine/*_why_*.json
