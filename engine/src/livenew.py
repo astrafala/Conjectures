@@ -53,8 +53,15 @@ for a in targets:
     if not conj:
         state['dropped'][a] = 'no conjectural or empirical line left on the entry'
     else:
+        # A line saying a claim of correctness was REMOVED is evidence the conjecture stands,
+        # not that it is settled. 41 entries were flagged on N. J. A. Sloane's
+        # "Removed an unjustified claim that _Colin Barker_'s conjectures are correct",
+        # which says the opposite of what the flag took it to mean.
+        NEGATED = re.compile(r'\b(removed|deleted|withdrew|retracted|unjustified|'
+                             r'not (?:been )?(?:proved|proven|verified)|no proof)\b', re.I)
         hits = [l[:160] for l in lines
-                if PROOF.search(l) and re.search(r'conjectur|recurrence|empirical', l, re.I)]
+                if PROOF.search(l) and re.search(r'conjectur|recurrence|empirical', l, re.I)
+                and not NEGATED.search(l)]
         if hits:
             state['flagged'][a] = hits[0]
         else:

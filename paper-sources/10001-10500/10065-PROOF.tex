@@ -12,14 +12,14 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A266460, derived from the entry's generating function}
+\title{The empirical recurrence for OEIS A205344, derived from the entry's generating function}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A266460 carries an empirical recurrence of order $6$. The entry separately records a
+OEIS A205344 carries an empirical recurrence of order $6$. The entry separately records a
 generating function, not as a conjecture but as a statement of fact, and the recurrence is a
 consequence of it: multiplying the generating function by the polynomial the recurrence
 supplies gives a POLYNOMIAL, and the recurrence then holds at every index past that
@@ -33,30 +33,30 @@ checked here against every published term.
 
 \section{The two statements}
 
-OEIS A266460 is ``Binary representation of the n-th iteration of the "Rule 27" elementary cellular automaton starting with a single ON (black) cell.''. It has offset $0$ and begins
+OEIS A205344 is ``Number of length 7 nonnegative integer arrays starting and ending with 0 with adjacent elements unequal but differing by no more than n.''. It has offset $1$ and begins
 \[
-1, 101, 10, 1111011, 100, 11111110111, 1000, 111111111101111,\ \dots
+5, 93, 689, 2912, 8927, 22297, 48335, 94456,\ \dots
 \]
 The entry states, as a conjecture and never marked settled:
 \begin{quote}
-a(n) = 10011*a(n-2)-110010*a(n-4)+100000*a(n-6) for n>5.
+a(n) = 6*a(n-1) - 15*a(n-2) + 20*a(n-3) - 15*a(n-4) + 6*a(n-5) - a(n-6) for n>6.
 \end{quote}
 and, separately and NOT as a conjecture:
 \begin{quote}
-G.f.: (1+101*x-10001*x\^{}2+99900*x\^{}3+10000*x\^{}4-110000*x\^{}5) / ((1-x)*(1+x)*(1-100*x)*(1+100*x)*(1-10*x\^{}2)).
+G.f.: x*(5 + 63*x + 206*x\^{}2 + 73*x\^{}3 + 5*x\^{}4) / (1 - x)\^{}6.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Feb 16 2025 08:33:28, revision 26) the first is still
+As of the ``Last modified'' line on the live entry (Jun 11 2018 15:52:46, revision 8) the first is still
 recorded as empirical. This note derives it from the second.
 
 \section{A rational generating function decides every linear recurrence}
 
 Write
 \[
-G(x)\;=\;\sum_{n}a(n)\,x^{n}\;=\;\frac{110000 x^{5} - 10000 x^{4} - 99900 x^{3} + 10001 x^{2} - 101 x - 1}{100000 x^{6} - 110010 x^{4} + 10011 x^{2} - 1},
+G(x)\;=\;\sum_{n}a(n)\,x^{n}\;=\;\frac{5 x^{5} + 73 x^{4} + 206 x^{3} + 63 x^{2} + 5 x}{x^{6} - 6 x^{5} + 15 x^{4} - 20 x^{3} + 15 x^{2} - 6 x + 1},
 \]
 the entry's own generating function, and let
 \[
-D(x)\;=\;1-\sum_i c_i x^{i}\;=\;- 100000 x^{6} + 110010 x^{4} - 10011 x^{2} + 1
+D(x)\;=\;1-\sum_i c_i x^{i}\;=\;x^{6} - 6 x^{5} + 15 x^{4} - 20 x^{3} + 15 x^{2} - 6 x + 1
 \]
 be the polynomial attached to the conjectured recurrence.
 
@@ -73,7 +73,7 @@ negative index being zero.
 
 \begin{theorem}
 \[
-a(n)\;=\;10011\,a(n-2) - 110010\,a(n-4) + 100000\,a(n-6)
+a(n)\;=\;6\,a(n-1) - 15\,a(n-2) + 20\,a(n-3) - 15\,a(n-4) + 6\,a(n-5) - a(n-6)
 \]
 for every $n>5$.
 \end{theorem}
@@ -81,7 +81,7 @@ for every $n>5$.
 \begin{proof}
 In exact arithmetic,
 \[
-D(x)\,G(x)\;=\;- 110000 x^{5} + 10000 x^{4} + 99900 x^{3} - 10001 x^{2} + 101 x + 1,
+D(x)\,G(x)\;=\;5 x^{5} + 73 x^{4} + 206 x^{3} + 63 x^{2} + 5 x,
 \]
 a POLYNOMIAL of degree $5$ --- the denominator of $G$ divides $D(x)$ times its numerator,
 which is precisely the condition for the conjectured recurrence to be implied by the
@@ -94,7 +94,7 @@ $n>5$.
 
 Cancelling common factors, $G$ has reduced denominator
 \[
-100000 x^{6} - 110010 x^{4} + 10011 x^{2} - 1,
+x^{6} - 6 x^{5} + 15 x^{4} - 20 x^{3} + 15 x^{2} - 6 x + 1,
 \]
 of degree $6$, and that degree is the order of the SHORTEST linear recurrence with
 constant coefficients the sequence obeys: any shorter one would give a polynomial multiple of
@@ -111,7 +111,6 @@ generating function involved at all. Doing that:
 \begin{center}
 \begin{tabular}{cc}
 index & residual \\ \hline
-$n=6$ & $0$ \\
 $n=7$ & $0$ \\
 $n=8$ & $0$ \\
 $n=9$ & $0$
@@ -128,7 +127,7 @@ no amount of checking terms could establish on its own.
 Three checks.
 
 First, the generating function was expanded as a power series in exact rational arithmetic and
-compared against all $18$ terms the entry publishes: it reproduces every one. This is
+compared against all $28$ terms the entry publishes: it reproduces every one. This is
 what ties the recorded generating function to the sequence the recurrence is about.
 
 Second, the polynomial division above was carried out symbolically, not numerically, so the
@@ -147,7 +146,7 @@ entry already contains.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A266460.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A205344.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Rational generating functions, Section 4.1.)
 \bibitem{kp} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011.

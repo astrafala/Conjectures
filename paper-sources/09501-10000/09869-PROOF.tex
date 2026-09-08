@@ -12,14 +12,14 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A164760, derived from the entry's generating function}
+\title{The empirical recurrence for OEIS A268948, derived from the entry's generating function}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A164760 carries an empirical recurrence of order $7$. The entry separately records a
+OEIS A268948 carries an empirical recurrence of order $8$. The entry separately records a
 generating function, not as a conjecture but as a statement of fact, and the recurrence is a
 consequence of it: multiplying the generating function by the polynomial the recurrence
 supplies gives a POLYNOMIAL, and the recurrence then holds at every index past that
@@ -33,30 +33,30 @@ checked here against every published term.
 
 \section{The two statements}
 
-OEIS A164760 is ``Number of n X 3 1..4 arrays with all 1s connected, all 2s connected, all 3s connected, all 4s connected, 1 in the upper left corner, 2 in the upper right corner, 3 in the lower left corner, 4 in the lower right corner, and with no element having more than 3 neighbors with the same value.''. It has offset $2$ and begins
+OEIS A268948 is ``Number of length-7 0..n arrays with no repeated value unequal to the previous repeated value plus one mod n+1.''. It has offset $1$ and begins
 \[
-8, 104, 670, 3096, 11786, 39564, 121678, 350992,\ \dots
+30, 969, 9684, 54045, 213042, 667065, 1773384, 4171869,\ \dots
 \]
 The entry states, as a conjecture and never marked settled:
 \begin{quote}
-Empirical: a(n) = 10*a(n-1) - 42*a(n-2) + 96*a(n-3) - 129*a(n-4) + 102*a(n-5) - 44*a(n-6) + 8*a(n-7) for n>=9.
+a(n) = 8*a(n-1) - 28*a(n-2) + 56*a(n-3) - 70*a(n-4) + 56*a(n-5) - 28*a(n-6) + 8*a(n-7) - a(n-8) for n>8.
 \end{quote}
 and, separately and NOT as a conjecture:
 \begin{quote}
-G.f.: 2*x\^{}2*(4 + 12*x - 17*x\^{}2 - 2*x\^{}3 + 7*x\^{}4 + 8*x\^{}5 + 4*x\^{}6) / ((1 - x)\^{}4*(1 - 2*x)\^{}3).
+G.f.: 3*x*(10 + 243*x + 924*x\^{}2 + 675*x\^{}3 - 110*x\^{}4 - 55*x\^{}5 - 8*x\^{}6 + x\^{}7) / (1 - x)\^{}8.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Mar 25 2018 11:41:55, revision 8) the first is still
+As of the ``Last modified'' line on the live entry (Jan 17 2019 05:14:30, revision 8) the first is still
 recorded as empirical. This note derives it from the second.
 
 \section{A rational generating function decides every linear recurrence}
 
 Write
 \[
-G(x)\;=\;\sum_{n}a(n)\,x^{n}\;=\;\frac{- 8 x^{8} - 16 x^{7} - 14 x^{6} + 4 x^{5} + 34 x^{4} - 24 x^{3} - 8 x^{2}}{8 x^{7} - 44 x^{6} + 102 x^{5} - 129 x^{4} + 96 x^{3} - 42 x^{2} + 10 x - 1},
+G(x)\;=\;\sum_{n}a(n)\,x^{n}\;=\;\frac{3 x^{8} - 24 x^{7} - 165 x^{6} - 330 x^{5} + 2025 x^{4} + 2772 x^{3} + 729 x^{2} + 30 x}{x^{8} - 8 x^{7} + 28 x^{6} - 56 x^{5} + 70 x^{4} - 56 x^{3} + 28 x^{2} - 8 x + 1},
 \]
 the entry's own generating function, and let
 \[
-D(x)\;=\;1-\sum_i c_i x^{i}\;=\;- 8 x^{7} + 44 x^{6} - 102 x^{5} + 129 x^{4} - 96 x^{3} + 42 x^{2} - 10 x + 1
+D(x)\;=\;1-\sum_i c_i x^{i}\;=\;x^{8} - 8 x^{7} + 28 x^{6} - 56 x^{5} + 70 x^{4} - 56 x^{3} + 28 x^{2} - 8 x + 1
 \]
 be the polynomial attached to the conjectured recurrence.
 
@@ -73,7 +73,7 @@ negative index being zero.
 
 \begin{theorem}
 \[
-a(n)\;=\;10\,a(n-1) - 42\,a(n-2) + 96\,a(n-3) - 129\,a(n-4) + 102\,a(n-5) - 44\,a(n-6) + 8\,a(n-7)
+a(n)\;=\;8\,a(n-1) - 28\,a(n-2) + 56\,a(n-3) - 70\,a(n-4) + 56\,a(n-5) - 28\,a(n-6) + 8\,a(n-7) - a(n-8)
 \]
 for every $n>8$.
 \end{theorem}
@@ -81,7 +81,7 @@ for every $n>8$.
 \begin{proof}
 In exact arithmetic,
 \[
-D(x)\,G(x)\;=\;8 x^{8} + 16 x^{7} + 14 x^{6} - 4 x^{5} - 34 x^{4} + 24 x^{3} + 8 x^{2},
+D(x)\,G(x)\;=\;3 x^{8} - 24 x^{7} - 165 x^{6} - 330 x^{5} + 2025 x^{4} + 2772 x^{3} + 729 x^{2} + 30 x,
 \]
 a POLYNOMIAL of degree $8$ --- the denominator of $G$ divides $D(x)$ times its numerator,
 which is precisely the condition for the conjectured recurrence to be implied by the
@@ -94,12 +94,12 @@ $n>8$.
 
 Cancelling common factors, $G$ has reduced denominator
 \[
-8 x^{7} - 44 x^{6} + 102 x^{5} - 129 x^{4} + 96 x^{3} - 42 x^{2} + 10 x - 1,
+x^{8} - 8 x^{7} + 28 x^{6} - 56 x^{5} + 70 x^{4} - 56 x^{3} + 28 x^{2} - 8 x + 1,
 \]
-of degree $7$, and that degree is the order of the SHORTEST linear recurrence with
+of degree $8$, and that degree is the order of the SHORTEST linear recurrence with
 constant coefficients the sequence obeys: any shorter one would give a polynomial multiple of
 $G$ with a smaller denominator, contradicting the cancellation. The conjectured recurrence has
-order $7$.
+order $8$.
 
 So the conjecture is the minimal recurrence.
 
@@ -147,7 +147,7 @@ entry already contains.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A164760.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A268948.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Rational generating functions, Section 4.1.)
 \bibitem{kp} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011.

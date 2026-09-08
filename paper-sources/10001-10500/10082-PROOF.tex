@@ -12,14 +12,14 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A266850, derived from the entry's generating function}
+\title{The empirical recurrence for OEIS A226866, derived from the entry's generating function}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A266850 carries an empirical recurrence of order $6$. The entry separately records a
+OEIS A226866 carries an empirical recurrence of order $6$. The entry separately records a
 generating function, not as a conjecture but as a statement of fact, and the recurrence is a
 consequence of it: multiplying the generating function by the polynomial the recurrence
 supplies gives a POLYNOMIAL, and the recurrence then holds at every index past that
@@ -33,30 +33,30 @@ checked here against every published term.
 
 \section{The two statements}
 
-OEIS A266850 is ``Decimal representation of the n-th iteration of the "Rule 71" elementary cellular automaton starting with a single ON (black) cell.''. It has offset $0$ and begins
+OEIS A226866 is ``Number of n X 2 (-1,0,1) arrays of determinants of 2 X 2 subblocks of some (n+1) X 3 binary array with rows and columns of the latter in lexicographically nondecreasing order.''. It has offset $1$ and begins
 \[
-1, 6, 4, 123, 16, 2031, 64, 32703,\ \dots
+4, 13, 37, 91, 199, 397, 736, 1285,\ \dots
 \]
 The entry states, as a conjecture and never marked settled:
 \begin{quote}
-a(n) = 21*a(n-2)-84*a(n-4)+64*a(n-6) for n>5.
+a(n) = 6*a(n-1) - 15*a(n-2) + 20*a(n-3) - 15*a(n-4) + 6*a(n-5) - a(n-6) for n>6.
 \end{quote}
 and, separately and NOT as a conjecture:
 \begin{quote}
-G.f.: (1+6*x-17*x\^{}2-3*x\^{}3+16*x\^{}4-48*x\^{}5) / ((1-x)*(1+x)*(1-2*x)*(1+2*x)*(1-4*x)*(1+4*x)).
+G.f.: x*(4 - 11*x + 19*x\^{}2 - 16*x\^{}3 + 8*x\^{}4 - x\^{}5) / (1 - x)\^{}6.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Feb 16 2025 08:33:29, revision 27) the first is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 23:51:34, revision 9) the first is still
 recorded as empirical. This note derives it from the second.
 
 \section{A rational generating function decides every linear recurrence}
 
 Write
 \[
-G(x)\;=\;\sum_{n}a(n)\,x^{n}\;=\;\frac{48 x^{5} - 16 x^{4} + 3 x^{3} + 17 x^{2} - 6 x - 1}{64 x^{6} - 84 x^{4} + 21 x^{2} - 1},
+G(x)\;=\;\sum_{n}a(n)\,x^{n}\;=\;\frac{- x^{6} + 8 x^{5} - 16 x^{4} + 19 x^{3} - 11 x^{2} + 4 x}{x^{6} - 6 x^{5} + 15 x^{4} - 20 x^{3} + 15 x^{2} - 6 x + 1},
 \]
 the entry's own generating function, and let
 \[
-D(x)\;=\;1-\sum_i c_i x^{i}\;=\;- 64 x^{6} + 84 x^{4} - 21 x^{2} + 1
+D(x)\;=\;1-\sum_i c_i x^{i}\;=\;x^{6} - 6 x^{5} + 15 x^{4} - 20 x^{3} + 15 x^{2} - 6 x + 1
 \]
 be the polynomial attached to the conjectured recurrence.
 
@@ -73,28 +73,28 @@ negative index being zero.
 
 \begin{theorem}
 \[
-a(n)\;=\;21\,a(n-2) - 84\,a(n-4) + 64\,a(n-6)
+a(n)\;=\;6\,a(n-1) - 15\,a(n-2) + 20\,a(n-3) - 15\,a(n-4) + 6\,a(n-5) - a(n-6)
 \]
-for every $n>5$.
+for every $n>6$.
 \end{theorem}
 
 \begin{proof}
 In exact arithmetic,
 \[
-D(x)\,G(x)\;=\;- 48 x^{5} + 16 x^{4} - 3 x^{3} - 17 x^{2} + 6 x + 1,
+D(x)\,G(x)\;=\;- x^{6} + 8 x^{5} - 16 x^{4} + 19 x^{3} - 11 x^{2} + 4 x,
 \]
-a POLYNOMIAL of degree $5$ --- the denominator of $G$ divides $D(x)$ times its numerator,
+a POLYNOMIAL of degree $6$ --- the denominator of $G$ divides $D(x)$ times its numerator,
 which is precisely the condition for the conjectured recurrence to be implied by the
-generating function. Its coefficients vanish beyond degree $5$, so by
+generating function. Its coefficients vanish beyond degree $6$, so by
 Lemma~\ref{lem:key} the residual $a(n)-\sum_ic_ia(n-i)$ vanishes for every
-$n>5$.
+$n>6$.
 \end{proof}
 
 \section{Is the conjectured recurrence the shortest one?}
 
 Cancelling common factors, $G$ has reduced denominator
 \[
-64 x^{6} - 84 x^{4} + 21 x^{2} - 1,
+x^{6} - 6 x^{5} + 15 x^{4} - 20 x^{3} + 15 x^{2} - 6 x + 1,
 \]
 of degree $6$, and that degree is the order of the SHORTEST linear recurrence with
 constant coefficients the sequence obeys: any shorter one would give a polynomial multiple of
@@ -111,14 +111,14 @@ generating function involved at all. Doing that:
 \begin{center}
 \begin{tabular}{cc}
 index & residual \\ \hline
-$n=6$ & $0$ \\
 $n=7$ & $0$ \\
 $n=8$ & $0$ \\
-$n=9$ & $0$
+$n=9$ & $0$ \\
+$n=10$ & $0$
 \end{tabular}
 \end{center}
 The residuals are exactly the coefficients of the polynomial displayed above, in order, and
-they stop at index $5$ because that polynomial has degree $5$. A reader who trusts
+they stop at index $6$ because that polynomial has degree $6$. A reader who trusts
 neither the generating function nor the algebra can check the table against the entry's DATA
 by hand; what the generating function adds is the guarantee that the pattern continues, which
 no amount of checking terms could establish on its own.
@@ -128,14 +128,14 @@ no amount of checking terms could establish on its own.
 Three checks.
 
 First, the generating function was expanded as a power series in exact rational arithmetic and
-compared against all $29$ terms the entry publishes: it reproduces every one. This is
+compared against all $35$ terms the entry publishes: it reproduces every one. This is
 what ties the recorded generating function to the sequence the recurrence is about.
 
 Second, the polynomial division above was carried out symbolically, not numerically, so the
 statement that $D(x)G(x)$ is a polynomial is exact rather than approximate.
 
 Third, the recurrence was evaluated directly on the series coefficients for sixty consecutive
-indices beyond $n=5$ and holds at every one, and at $n=5$ itself it fails --- the
+indices beyond $n=6$ and holds at every one, and at $n=6$ itself it fails --- the
 degree bound is attained, so the range stated is the true one and not merely a safe one.
 
 \begin{remark}
@@ -147,7 +147,7 @@ entry already contains.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A266850.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A226866.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Rational generating functions, Section 4.1.)
 \bibitem{kp} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011.

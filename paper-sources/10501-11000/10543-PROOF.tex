@@ -12,14 +12,14 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A187290, derived from the entry's generating function}
+\title{The empirical recurrence for OEIS A267359, derived from the entry's generating function}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A187290 carries an empirical recurrence of order $3$. The entry separately records a
+OEIS A267359 carries an empirical recurrence of order $4$. The entry separately records a
 generating function, not as a conjecture but as a statement of fact, and the recurrence is a
 consequence of it: multiplying the generating function by the polynomial the recurrence
 supplies gives a POLYNOMIAL, and the recurrence then holds at every index past that
@@ -33,30 +33,30 @@ checked here against every published term.
 
 \section{The two statements}
 
-OEIS A187290 is ``Number of 5-step one or two space at a time rook's tours on an n X n board summed over all starting positions.''. It has offset $1$ and begins
+OEIS A267359 is ``Binary representation of the n-th iteration of the "Rule 125" elementary cellular automaton starting with a single ON (black) cell.''. It has offset $0$ and begins
 \[
-0, 0, 720, 4576, 13640, 28224, 48232, 73408,\ \dots
+1, 11, 11100, 101111, 111110000, 1000111111, 1111101000000, 10001111111111,\ \dots
 \]
 The entry states, as a conjecture and never marked settled:
 \begin{quote}
-a(n) = 3*a(n-1) - 3*a(n-2) + a(n-3) for n>10.
+a(n) = 10001*a(n-2) - 10000*a(n-4) for n > 8.
 \end{quote}
 and, separately and NOT as a conjecture:
 \begin{quote}
-G.f.: 4*x\^{}3*(180 + 604*x + 518*x\^{}2 + 78*x\^{}3 - 24*x\^{}4 - 64*x\^{}5 - 15*x\^{}6 - 7*x\^{}7) / (1 - x)\^{}3.
+G.f.: (1 + 11*x + 1099*x\^{}2 - 8900*x\^{}3 + 108900*x\^{}4 - 10990000*x\^{}5 + 890000*x\^{}6 + 11000000*x\^{}7 - 1000000*x\^{}8) / ((1 - x)*(1 + x)*(1 - 100*x)*(1 + 100*x)).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Apr 23 2018 02:58:50, revision 15) the first is still
+As of the ``Last modified'' line on the live entry (Feb 16 2025 08:33:29, revision 30) the first is still
 recorded as empirical. This note derives it from the second.
 
 \section{A rational generating function decides every linear recurrence}
 
 Write
 \[
-G(x)\;=\;\sum_{n}a(n)\,x^{n}\;=\;\frac{28 x^{10} + 60 x^{9} + 256 x^{8} + 96 x^{7} - 312 x^{6} - 2072 x^{5} - 2416 x^{4} - 720 x^{3}}{x^{3} - 3 x^{2} + 3 x - 1},
+G(x)\;=\;\sum_{n}a(n)\,x^{n}\;=\;\frac{- 1000000 x^{8} + 11000000 x^{7} + 890000 x^{6} - 10990000 x^{5} + 108900 x^{4} - 8900 x^{3} + 1099 x^{2} + 11 x + 1}{10000 x^{4} - 10001 x^{2} + 1},
 \]
 the entry's own generating function, and let
 \[
-D(x)\;=\;1-\sum_i c_i x^{i}\;=\;- x^{3} + 3 x^{2} - 3 x + 1
+D(x)\;=\;1-\sum_i c_i x^{i}\;=\;10000 x^{4} - 10001 x^{2} + 1
 \]
 be the polynomial attached to the conjectured recurrence.
 
@@ -73,33 +73,33 @@ negative index being zero.
 
 \begin{theorem}
 \[
-a(n)\;=\;3\,a(n-1) - 3\,a(n-2) + a(n-3)
+a(n)\;=\;10001\,a(n-2) - 10000\,a(n-4)
 \]
-for every $n>10$.
+for every $n>8$.
 \end{theorem}
 
 \begin{proof}
 In exact arithmetic,
 \[
-D(x)\,G(x)\;=\;- 28 x^{10} - 60 x^{9} - 256 x^{8} - 96 x^{7} + 312 x^{6} + 2072 x^{5} + 2416 x^{4} + 720 x^{3},
+D(x)\,G(x)\;=\;- 1000000 x^{8} + 11000000 x^{7} + 890000 x^{6} - 10990000 x^{5} + 108900 x^{4} - 8900 x^{3} + 1099 x^{2} + 11 x + 1,
 \]
-a POLYNOMIAL of degree $10$ --- the denominator of $G$ divides $D(x)$ times its numerator,
+a POLYNOMIAL of degree $8$ --- the denominator of $G$ divides $D(x)$ times its numerator,
 which is precisely the condition for the conjectured recurrence to be implied by the
-generating function. Its coefficients vanish beyond degree $10$, so by
+generating function. Its coefficients vanish beyond degree $8$, so by
 Lemma~\ref{lem:key} the residual $a(n)-\sum_ic_ia(n-i)$ vanishes for every
-$n>10$. The bound is exact: at $n=10$ the recurrence fails on the entry's own published terms.
+$n>8$. The bound is exact: at $n=8$ the recurrence fails on the entry's own published terms.
 \end{proof}
 
 \section{Is the conjectured recurrence the shortest one?}
 
 Cancelling common factors, $G$ has reduced denominator
 \[
-x^{3} - 3 x^{2} + 3 x - 1,
+10000 x^{4} - 10001 x^{2} + 1,
 \]
-of degree $3$, and that degree is the order of the SHORTEST linear recurrence with
+of degree $4$, and that degree is the order of the SHORTEST linear recurrence with
 constant coefficients the sequence obeys: any shorter one would give a polynomial multiple of
 $G$ with a smaller denominator, contradicting the cancellation. The conjectured recurrence has
-order $3$.
+order $4$.
 
 So the conjecture is the minimal recurrence.
 
@@ -111,21 +111,19 @@ generating function involved at all. Doing that:
 \begin{center}
 \begin{tabular}{cc}
 index & residual \\ \hline
-$n=4$ & $2416$ \\
-$n=5$ & $2072$ \\
-$n=6$ & $312$ \\
-$n=7$ & $-96$ \\
-$n=8$ & $-256$ \\
-$n=9$ & $-60$ \\
-$n=10$ & $-28$ \\
+$n=4$ & $108900$ \\
+$n=5$ & $-10990000$ \\
+$n=6$ & $890000$ \\
+$n=7$ & $11000000$ \\
+$n=8$ & $-1000000$ \\
+$n=9$ & $0$ \\
+$n=10$ & $0$ \\
 $n=11$ & $0$ \\
-$n=12$ & $0$ \\
-$n=13$ & $0$ \\
-$n=14$ & $0$
+$n=12$ & $0$
 \end{tabular}
 \end{center}
 The residuals are exactly the coefficients of the polynomial displayed above, in order, and
-they stop at index $10$ because that polynomial has degree $10$. A reader who trusts
+they stop at index $8$ because that polynomial has degree $8$. A reader who trusts
 neither the generating function nor the algebra can check the table against the entry's DATA
 by hand; what the generating function adds is the guarantee that the pattern continues, which
 no amount of checking terms could establish on its own.
@@ -135,14 +133,14 @@ no amount of checking terms could establish on its own.
 Three checks.
 
 First, the generating function was expanded as a power series in exact rational arithmetic and
-compared against all $32$ terms the entry publishes: it reproduces every one. This is
+compared against all $15$ terms the entry publishes: it reproduces every one. This is
 what ties the recorded generating function to the sequence the recurrence is about.
 
 Second, the polynomial division above was carried out symbolically, not numerically, so the
 statement that $D(x)G(x)$ is a polynomial is exact rather than approximate.
 
 Third, the recurrence was evaluated directly on the series coefficients for sixty consecutive
-indices beyond $n=10$ and holds at every one, and at $n=10$ itself it fails --- the
+indices beyond $n=8$ and holds at every one, and at $n=8$ itself it fails --- the
 degree bound is attained, so the range stated is the true one and not merely a safe one.
 
 \begin{remark}
@@ -154,7 +152,7 @@ entry already contains.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A187290.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A267359.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Rational generating functions, Section 4.1.)
 \bibitem{kp} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011.

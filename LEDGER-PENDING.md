@@ -553,3 +553,25 @@ The live re-check raised two flags and both were read rather than obeyed:
 several minutes to recover hashes that had not changed. A build directory's PDF is written once
 and never touched again, so its hash is now cached against the file's size and modification
 time and only genuinely new builds are read.
+
+### 12,012 — and 41 flags that meant the opposite of what my checker read
+
+**12,012 papers: 12,006 proofs and 6 disproofs over 11,985 entries.** Another 215 installed
+from the generating-function vein.
+
+The live re-check raised 41 flags at once and every one carried the same line from
+N. J. A. Sloane:
+
+> Removed an unjustified claim that _Colin Barker_'s conjectures are correct. Removed a program
+> based on a conjecture.
+
+My checker saw "are correct" and flagged the entries as possibly settled. **The line says the
+opposite**: somebody asserted these conjectures were correct without justification and Sloane
+struck the assertion. Each entry still carries its conjecture — checked directly on three of
+them before any were cleared — so all 41 stand open, and I now have proofs for them.
+`livenew.py` reads a claim that was REMOVED, WITHDRAWN, RETRACTED or called UNJUSTIFIED as
+evidence the conjecture stands, which is what it is.
+
+There is a general point in this. A settlement checker that only pattern-matches words will
+read a retraction as a confirmation, because retractions quote the claim they retract. Every
+flag it raises has to be read.

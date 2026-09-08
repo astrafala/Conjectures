@@ -12,14 +12,14 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A266661, derived from the entry's generating function}
+\title{The empirical recurrence for OEIS A063111, derived from the entry's generating function}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A266661 carries an empirical recurrence of order $4$. The entry separately records a
+OEIS A063111 carries an empirical recurrence of order $4$. The entry separately records a
 generating function, not as a conjecture but as a statement of fact, and the recurrence is a
 consequence of it: multiplying the generating function by the polynomial the recurrence
 supplies gives a POLYNOMIAL, and the recurrence then holds at every index past that
@@ -33,30 +33,30 @@ checked here against every published term.
 
 \section{The two statements}
 
-OEIS A266661 is ``Decimal representation of the n-th iteration of the "Rule 47" elementary cellular automaton starting with a single ON (black) cell.''. It has offset $0$ and begins
+OEIS A063111 is ``Dimension of the space of weight 2n cusp forms for Gamma\_0( 43 ).''. It has offset $1$ and begins
 \[
-1, 6, 3, 124, 3, 2044, 3, 32764,\ \dots
+3, 10, 18, 24, 32, 40, 46, 54,\ \dots
 \]
 The entry states, as a conjecture and never marked settled:
 \begin{quote}
-a(n) = 17*a(n-2)-16*a(n-4) for n>5.
+a(n) = a(n-1) + a(n-3) - a(n-4) for n>5.
 \end{quote}
 and, separately and NOT as a conjecture:
 \begin{quote}
-G.f.: (1+6*x-14*x\^{}2+22*x\^{}3-32*x\^{}4+32*x\^{}5) / ((1-x)*(1+x)*(1-4*x)*(1+4*x)).
+G.f.: x*(3 + 7*x + 8*x\^{}2 + 3*x\^{}3 + x\^{}4) / ((1 - x)\^{}2*(1 + x + x\^{}2)).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Feb 16 2025 08:33:28, revision 33) the first is still
+As of the ``Last modified'' line on the live entry (Aug 22 2019 12:18:12, revision 10) the first is still
 recorded as empirical. This note derives it from the second.
 
 \section{A rational generating function decides every linear recurrence}
 
 Write
 \[
-G(x)\;=\;\sum_{n}a(n)\,x^{n}\;=\;\frac{32 x^{5} - 32 x^{4} + 22 x^{3} - 14 x^{2} + 6 x + 1}{16 x^{4} - 17 x^{2} + 1},
+G(x)\;=\;\sum_{n}a(n)\,x^{n}\;=\;\frac{x^{5} + 3 x^{4} + 8 x^{3} + 7 x^{2} + 3 x}{x^{4} - x^{3} - x + 1},
 \]
 the entry's own generating function, and let
 \[
-D(x)\;=\;1-\sum_i c_i x^{i}\;=\;16 x^{4} - 17 x^{2} + 1
+D(x)\;=\;1-\sum_i c_i x^{i}\;=\;x^{4} - x^{3} - x + 1
 \]
 be the polynomial attached to the conjectured recurrence.
 
@@ -73,7 +73,7 @@ negative index being zero.
 
 \begin{theorem}
 \[
-a(n)\;=\;17\,a(n-2) - 16\,a(n-4)
+a(n)\;=\;a(n-1) + a(n-3) - a(n-4)
 \]
 for every $n>5$.
 \end{theorem}
@@ -81,7 +81,7 @@ for every $n>5$.
 \begin{proof}
 In exact arithmetic,
 \[
-D(x)\,G(x)\;=\;32 x^{5} - 32 x^{4} + 22 x^{3} - 14 x^{2} + 6 x + 1,
+D(x)\,G(x)\;=\;x^{5} + 3 x^{4} + 8 x^{3} + 7 x^{2} + 3 x,
 \]
 a POLYNOMIAL of degree $5$ --- the denominator of $G$ divides $D(x)$ times its numerator,
 which is precisely the condition for the conjectured recurrence to be implied by the
@@ -94,7 +94,7 @@ $n>5$. The bound is exact: at $n=5$ the recurrence fails on the entry's own publ
 
 Cancelling common factors, $G$ has reduced denominator
 \[
-16 x^{4} - 17 x^{2} + 1,
+x^{4} - x^{3} - x + 1,
 \]
 of degree $4$, and that degree is the order of the SHORTEST linear recurrence with
 constant coefficients the sequence obeys: any shorter one would give a polynomial multiple of
@@ -111,8 +111,7 @@ generating function involved at all. Doing that:
 \begin{center}
 \begin{tabular}{cc}
 index & residual \\ \hline
-$n=4$ & $-32$ \\
-$n=5$ & $32$ \\
+$n=5$ & $1$ \\
 $n=6$ & $0$ \\
 $n=7$ & $0$ \\
 $n=8$ & $0$ \\
@@ -130,7 +129,7 @@ no amount of checking terms could establish on its own.
 Three checks.
 
 First, the generating function was expanded as a power series in exact rational arithmetic and
-compared against all $33$ terms the entry publishes: it reproduces every one. This is
+compared against all $50$ terms the entry publishes: it reproduces every one. This is
 what ties the recorded generating function to the sequence the recurrence is about.
 
 Second, the polynomial division above was carried out symbolically, not numerically, so the
@@ -149,7 +148,7 @@ entry already contains.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A266661.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A063111.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Rational generating functions, Section 4.1.)
 \bibitem{kp} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011.
