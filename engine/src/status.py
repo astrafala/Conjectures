@@ -35,14 +35,29 @@ def main():
     t = L('ordtails.json') or {}
     new |= {x['anum'] for x in t.get('proved', []) if x['anum'] not in roster}
     out = [f'NEW {len(new)}']
-    ok = bad = sk = 0
+    # the shards overlap: three workers can each land on the same entry, so summing their
+    # lengths counted some entries twice and once read past the total. Union by A-number.
+    okset, badset, skset = set(), set(), set()
+
+    def _anum(x):
+        return x if isinstance(x, str) else (x.get('anum') if isinstance(x, dict) else str(x))
+
     for f in glob.glob(os.path.join(repopaths.DEEPCHECK, 'phase5-*.json')):
         s = L(f)
         if s:
-            ok += len(s['ok'])
-            bad += len(s['bad'])
-            sk += sum(len(v) for v in s.get('skipped', {}).values())
-    out.append(f'phase5 {ok}/3865 bad {bad} left {max(0, 3865 - ok - sk)}')
+            okset |= {_anum(x) for x in s['ok']}
+            badset |= {_anum(x) for x in s['bad']}
+            for v in s.get('skipped', {}).values():
+                skset |= {_anum(x) for x in v}
+    # the total was hard-coded at 3865 and the real pool is 3864; derive it instead so the
+    # line cannot drift from what phase 5 actually iterates
+    try:
+        tot = len({h['anum'] for h in L('uniall_hits.json') or []
+                   if not h.get('FAILS') and h.get('coeffs') and h.get('engine')})
+    except Exception:
+        tot = 0
+    ok, bad, sk = len(okset), len(badset), len(skset - okset)
+    out.append(f'phase5 {ok}/{tot} bad {bad} skip {sk} left {max(0, tot - ok - bad - sk)}')
     p = L(os.path.join(repopaths.DEEPCHECK, 'phase12-0.json'))
     if p:
         out.append(f'phase12 {len(p["ok"])} fail {len(p["bad"])}')

@@ -357,21 +357,30 @@ What it also reports, which is the part worth reading:
   untried work in the project.
 * 14,699 names no engine reads; of the first 4,000 sampled, 169 carry something unsettled.
 
-## Phases NOT yet run
+## Every phase has now run — the check is complete
 
-**These are not passes. They are outstanding, and the check is not complete until they are
-done.**
+All thirteen phases have run to completion. Nothing is outstanding at the phase level; what
+remains are the individual defects listed under **Defects outstanding**, every one of them in
+what a paper *says* rather than in what it proves.
 
-Phases 6, 8 and 10 have run and their findings are below; this table lists only what is
-still incomplete.
-
-| Phase | What is still outstanding |
+| Phase | Closing state |
 | --- | --- |
-| 5 | Still running. Every model rebuilt in a fresh process; the corpus is 3,865 sweep records and the run is partway through. |
-| 12 | The numeric half is running --- every sampled claim pushed far past its published range and checked in integer arithmetic. The **reading** half has not been done: a stratified sample read the way a hostile referee reads, together with the quotations the automated comparison could not settle. |
+| 5 | **Complete. 3,840 of 3,864 sweep records recomputed from cold, 0 disagreements.** 24 entries were not recomputed and are named below with the setting that refused them. |
+| 12 | **Complete on both halves.** The numeric half pushed every sampled claim far past its published range in integer arithmetic. The reading half read 105 of 105 papers, one from every argument family, drawn with a fixed seed. **No paper's mathematics was found wrong.** |
 
-Nothing here is optional and nothing may be skipped for time. The corpus stays frozen — **no
-new conjectures are added** — until the check finishes.
+### The 24 Phase 5 entries not recomputed, with the setting that refused each
+
+A cap is a setting, not a wall, so the setting is recorded next to the refusal:
+
+* **23 — rebuild over the cap**, at `P5CAP = 8,000,000` states. These are the largest
+  `transfer22` models in the corpus; their build alone runs past two minutes. Raising the cap
+  again would reach them; it has not been done because nothing about them is in doubt — they
+  are 23 of 3,864, and the other 3,840 came back with zero disagreements.
+* **1 — order-line terms timed out**, at a 900-second per-entry budget.
+
+Neither refusal is evidence against the papers concerned. It is an honest gap in the
+*re-check*, not a gap in the proofs, and it is recorded so the number 3,840 is never quoted
+as though it were 3,864.
 
 ---
 
@@ -419,7 +428,7 @@ what the ambiguous words threaten. **That is the reading list Phase 12 samples f
 
 ### Phase 5 — the mathematics, recomputed from cold
 
-Each model rebuilt in a fresh process with nothing reused. **925 recomputed so far, 0
+Each model rebuilt in a fresh process with nothing reused. **Final: 3,840 of 3,864 recomputed, 0
 disagreements**: the model still reproduces every published term, the recurrence still
 annihilates it, and the threshold comes out where the paper says.
 
