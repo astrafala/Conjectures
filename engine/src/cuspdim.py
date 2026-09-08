@@ -141,7 +141,12 @@ def terms(b, N):
 def threshold(b, coeffs, order):
     t = terms(b, 2 * b['S'] + order + 40)
     last, run = None, 0
-    for j in range(order + 1, len(t)):
+    # The scan must start at j = order, the FIRST index at which the recurrence can be
+    # evaluated. Starting at order+1 skipped that index, so a recurrence the entry itself
+    # claims only "for n > 2" was reported as holding from the start -- and the sweep then
+    # tested index 2, found it false, and called the entry's conjecture contradicted. Six
+    # entries were flagged that way and every one was this off-by-one, not a false conjecture.
+    for j in range(order, len(t)):
         u = t[j] - sum(c * t[j - i] for i, c in coeffs.items())
         if u:
             last, run = j, 0

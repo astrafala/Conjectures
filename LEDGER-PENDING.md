@@ -403,3 +403,49 @@ entries already swept and not in the roster, 14 have a parsable recurrence only 
 block.** They have been put back for re-asking. So this defect mattered enormously for one
 family and barely at all for the corpus — both facts are true and neither should be quoted
 without the other.
+
+## 8 September 2026 — ecarow: cellular automaton rows, and the hardest argument so far
+
+138 entries read "Binary representation of the n-th iteration of the Rule N elementary
+cellular automaton starting with a single ON cell", and no engine read any of them. The row at
+step n is the light cone, a word of length 2n+1; "binary representation" reads that word as a
+DECIMAL number whose digits are its bits, "decimal representation" reads it as a binary number.
+
+**51 of the 138 settle into a shape that makes the conjecture provable:**
+
+    w(n+p) = L + w(n) + R,   L and R fixed, |L| + |R| = 2p.
+
+Given that, the value satisfies an exact linear recurrence: a(n+p) = a(n)·B^|R| +
+val(L)·B^(2n+1+|R|) + val(R), which the operator (S^p − B^|R|)(S − B²)(S − 1) annihilates.
+**All 51 reproduce their entry's published terms exactly, 0 mismatch**, and a 400-paper
+regression sample shows the parser takes no existing name.
+
+The other 87 have genuinely fractal rows and no such shape. They are not settled and are not
+counted.
+
+### The shape identity is a proof, not an observation
+
+The automaton is a LOCAL map, so once w(n+p) = L + w(n) + R holds at two consecutive n past
+the settling point — which fixes every three-cell window at both boundaries — it holds at every
+later n by induction. `certify` reports how far past the settling point the identity was
+checked; for the sample entry that is 45 further steps.
+
+### Two errors caught before anything was counted
+
+* **The background leaked into the cone.** Outside the cone the cells never met the initial
+  one, so they follow the orbit of the all-zero configuration — which for a rule with
+  000 → 1 is not zero. With too little padding that background travels inward at one cell per
+  step: rule 175's row came out as 110111111111110 at step 7 instead of 110111111111111. Only
+  the tail was wrong, which is exactly the kind of error that survives a check of the first few
+  terms. The padding now exceeds the number of steps.
+* **Six entries were reported as having their conjecture contradicted, and all six were an
+  off-by-one of mine.** My threshold scan started at index `order + 1` instead of `order`, the
+  first index at which a recurrence can be evaluated at all. So a recurrence the entry itself
+  claims only "for n > 2" was recorded as holding from the start, the sweep then tested index 2,
+  found it false, and called the entry's conjecture contradicted. A262779's conjecture is
+  correct and its own line says "for n > 2". The scan was fixed in all four new engines, every
+  FAILS record they had produced was dropped and re-asked, and **19 proved with 0 failures**.
+
+That is the second time today a batch of apparent disproofs turned out to be my own code. The
+rule I am now following without exception: **a disproof is checked by hand against the entry's
+own wording before it is recorded as anything at all.**
