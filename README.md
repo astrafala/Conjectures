@@ -8,6 +8,12 @@
 as an open conjecture, an empirical observation, or an unverified formula at the moment
 it was settled.
 
+> **Priority and reuse.** Everything here is by Adrian Perez Fontelles and licensed
+> [CC BY 4.0](LICENSE): reuse it freely, but credit the author. `MANIFEST.tsv` is the dated
+> record of every result, with the SHA-256 of every paper, so the date each one was published
+> can be checked by anyone. See **[PRIORITY.md](PRIORITY.md)**. Nothing here has been posted
+> to the OEIS.
+
 ---
 
 ## Start here
