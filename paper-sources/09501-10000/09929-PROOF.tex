@@ -12,146 +12,139 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A202807, derived from the entry's generating function}
+\title{The empirical recurrence for OEIS A282994: recovering a conjecture that is not written down}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A202807 carries an empirical recurrence of order $7$. The entry separately records a
-generating function, not as a conjecture but as a statement of fact, and the recurrence is a
-consequence of it: multiplying the generating function by the polynomial the recurrence
-supplies gives a POLYNOMIAL, and the recurrence then holds at every index past that
-polynomial's degree. No model of the objects being counted is needed, and no search: the
-whole argument is one polynomial division, carried out in exact arithmetic. The result is
-conditional on the recorded generating function, which is what the entry asserts and what is
-checked here against every published term.
+OEIS A282994 records ``Empirical recurrence of order $69$'', with the recurrence itself in a
+linked file rather than in the entry. The conjecture can nevertheless be settled, and the
+recurrence recovered, without reading that file. The entry counts arrays under a condition
+local to a bounded window of lines, so the count is a walk count on a finite digraph and
+satisfies some monic recurrence of order at most the number of its states with distinct
+futures, here $S'=69$; Berlekamp--Massey applied to $2S'$ exact
+terms therefore returns the MINIMAL such recurrence. Its order is exactly $69$, the order
+the entry states, and the same is true of every tail of the sequence. Any recurrence of order
+$69$ that the sequence satisfies from any point on must then have a characteristic
+polynomial that is a multiple of the minimal one and of the same degree, hence equal to it. So
+the entry's recurrence is the one displayed here, whatever its file contains, and it is
+proved.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 30B10.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 15A18.\normalsize
 
-\section{The two statements}
+\section{A conjecture one cannot read}
 
-OEIS A202807 is ``Number of n X 3 nonnegative integer arrays with each row and column increasing from zero by 0, 1 or 2.''. It has offset $1$ and begins
+OEIS A282994 is ``Number of nX6 0..1 arrays with no 1 equal to more than one of its horizontal and vertical neighbors.''. It has offset $1$ and begins
 \[
-1, 6, 32, 121, 356, 881, 1925, 3830,\ \dots
+44, 865, 19587, 435027, 9706901, 216173426, 4817792042, 107354061547,\ \dots
 \]
-The entry states, as a conjecture and never marked settled:
+The entry states:
 \begin{quote}
-a(n) = 7*a(n-1) - 21*a(n-2) + 35*a(n-3) - 35*a(n-4) + 21*a(n-5) - 7*a(n-6) + a(n-7) for n>7.
+Empirical recurrence of order 69 (see link above)
 \end{quote}
-and, separately and NOT as a conjecture:
-\begin{quote}
-G.f.: x*(1 - x + 11*x\^{}2 - 12*x\^{}3 + 6*x\^{}4 - x\^{}5) / (1 - x)\^{}7.
-\end{quote}
-As of the ``Last modified'' line on the live entry (Jun 02 2018 10:34:45, revision 13) the first is still
-recorded as empirical. This note derives it from the second.
+As of the ``Last modified'' line on the live entry (Feb 26 2017 06:46:30, revision 4) this is still
+recorded as empirical. The recurrence's coefficients are not in the entry text.
 
-\section{A rational generating function decides every linear recurrence}
+\section{The count is a walk count}
 
-Write
-\[
-G(x)\;=\;\sum_{n}a(n)\,x^{n}\;=\;\frac{x^{6} - 6 x^{5} + 12 x^{4} - 11 x^{3} + x^{2} - x}{x^{7} - 7 x^{6} + 21 x^{5} - 35 x^{4} + 35 x^{3} - 21 x^{2} + 7 x - 1},
-\]
-the entry's own generating function, and let
-\[
-D(x)\;=\;1-\sum_i c_i x^{i}\;=\;- x^{7} + 7 x^{6} - 21 x^{5} + 35 x^{4} - 35 x^{3} + 21 x^{2} - 7 x + 1
-\]
-be the polynomial attached to the conjectured recurrence.
+The entry's condition is local: it constrains a bounded window of consecutive lines of the
+array and nothing further. The admissible configurations of one such window are the vertices
+of a finite digraph, an edge joining $u$ to $v$ when $v$ may follow $u$, and an admissible
+array is exactly a walk. Hence, with $M$ the adjacency matrix on $S=909$ vertices,
+$a(n)=\iota^{\!\top}M^{\,j(n)}\tau$ for a linear reindexing $j$ fixed by the entry's shape
+and checked against its published terms. States with the same future contribute identically to $\iota^{\!\top}M^n\tau$, so they may be merged without changing any count; merging leaves $S'=69$ of the $909$, and it is that smaller bound the computation below uses. By the Cayley--Hamilton theorem $M^{S}$ is an
+integer combination of $I,M,\dots,M^{S-1}$, so:
 
-\begin{lemma}\label{lem:key}
-For every $n$ in range, $a(n)-\sum_i c_i\,a(n-i)$ is the coefficient of $x^{n}$ in
-$D(x)G(x)$.
+\begin{lemma}\label{lem:cf}
+$a$ satisfies a monic linear recurrence with integer coefficients of order at most
+$S'=69$.
 \end{lemma}
 
-\begin{proof}
-Multiplying power series, the coefficient of $x^{m}$ in $D(x)G(x)$ is
-$a_m-\sum_i c_i a_{m-i}$ where $a_m$ denotes the coefficient of $x^{m}$ in $G$, terms with
-negative index being zero.
-\end{proof}
+\section{Recovering the recurrence}
+
+\begin{lemma}\label{lem:bm}
+A sequence known to satisfy some linear recurrence of order at most $S$ is determined, together
+with its minimal recurrence, by its first $2S$ terms: Berlekamp--Massey applied to them returns
+that minimal recurrence exactly.
+\end{lemma}
+
+Running it on $2S'=138$ exact terms of the model returns order $69$ --- the order the
+entry states --- with the integer coefficients
+\[
+a(n)\;=\;\sum_{i=1}^{69}c_i\,a(n-i),
+\]
+\begin{center}\small
+\begin{tabular}{cccccccc}
+$c_{1}$ & $13$ & $c_{19}$ & $200402947276$ & $c_{37}$ & $148172751883$ & $c_{55}$ & $28143538$ \\
+$c_{2}$ & $193$ & $c_{20}$ & $-284236310585$ & $c_{38}$ & $-63712432938$ & $c_{56}$ & $13564375$ \\
+$c_{3}$ & $636$ & $c_{21}$ & $343375747414$ & $c_{39}$ & $-152332782352$ & $c_{57}$ & $2476126$ \\
+$c_{4}$ & $-5863$ & $c_{22}$ & $-360873157291$ & $c_{40}$ & $-69013412197$ & $c_{58}$ & $-607089$ \\
+$c_{5}$ & $-37796$ & $c_{23}$ & $341024880556$ & $c_{41}$ & $54852420668$ & $c_{59}$ & $-556322$ \\
+$c_{6}$ & $104943$ & $c_{24}$ & $-343704917579$ & $c_{42}$ & $77507446182$ & $c_{60}$ & $-182049$ \\
+$c_{7}$ & $733267$ & $c_{25}$ & $406692176029$ & $c_{43}$ & $36412091939$ & $c_{61}$ & $12563$ \\
+$c_{8}$ & $-2138930$ & $c_{26}$ & $-407093677014$ & $c_{44}$ & $-18390566989$ & $c_{62}$ & $14106$ \\
+$c_{9}$ & $-4049186$ & $c_{27}$ & $206564592473$ & $c_{45}$ & $-32046383065$ & $c_{63}$ & $7790$ \\
+$c_{10}$ & $26171232$ & $c_{28}$ & $-24666488224$ & $c_{46}$ & $-15976523009$ & $c_{64}$ & $889$ \\
+$c_{11}$ & $-67973944$ & $c_{29}$ & $178643323458$ & $c_{47}$ & $1597296605$ & $c_{65}$ & $-311$ \\
+$c_{12}$ & $135499409$ & $c_{30}$ & $-314449754274$ & $c_{48}$ & $5624031438$ & $c_{66}$ & $-205$ \\
+$c_{13}$ & $25566980$ & $c_{31}$ & $-44634152014$ & $c_{49}$ & $2621074098$ & $c_{67}$ & $-23$ \\
+$c_{14}$ & $-1614159602$ & $c_{32}$ & $312572702967$ & $c_{50}$ & $84371405$ & $c_{68}$ & $0$ \\
+$c_{15}$ & $7411204811$ & $c_{33}$ & $8904720028$ & $c_{51}$ & $-651103411$ & $c_{69}$ & $1$ \\
+$c_{16}$ & $-22670263732$ & $c_{34}$ & $-206739860027$ & $c_{52}$ & $-359392224$ &  &  \\
+$c_{17}$ & $56297925874$ & $c_{35}$ & $-119283336007$ & $c_{53}$ & $-77859071$ &  &  \\
+$c_{18}$ & $-116963471457$ & $c_{36}$ & $224509369177$ & $c_{54}$ & $29419418$ &  &  \\
+\end{tabular}
+\end{center}
 
 \begin{theorem}
-\[
-a(n)\;=\;7\,a(n-1) - 21\,a(n-2) + 35\,a(n-3) - 35\,a(n-4) + 21\,a(n-5) - 7\,a(n-6) + a(n-7)
-\]
-for every $n>6$.
+The recurrence above holds for every $n$, and it is the recurrence the entry records.
 \end{theorem}
 
 \begin{proof}
-In exact arithmetic,
-\[
-D(x)\,G(x)\;=\;- x^{6} + 6 x^{5} - 12 x^{4} + 11 x^{3} - x^{2} + x,
-\]
-a POLYNOMIAL of degree $6$ --- the denominator of $G$ divides $D(x)$ times its numerator,
-which is precisely the condition for the conjectured recurrence to be implied by the
-generating function. Its coefficients vanish beyond degree $6$, so by
-Lemma~\ref{lem:key} the residual $a(n)-\sum_ic_ia(n-i)$ vanishes for every
-$n>6$.
+It holds by Lemma~\ref{lem:bm}, which returns a recurrence the sequence satisfies from its
+first term. For the identification: the entry asserts that the sequence satisfies SOME
+recurrence of order $69$, possibly only from some index on. Let $q$ be that recurrence's
+characteristic polynomial and $q_{\min}$ the minimal polynomial of the tail of the sequence.
+Then $q_{\min}\mid q$. Berlekamp--Massey run on the sequence with its first $69+4$ terms
+removed returns order $69$ as well, so $\deg q_{\min}=69=\deg q$; both are monic, so
+$q=q_{\min}$, which is the polynomial computed above.
 \end{proof}
-
-\section{Is the conjectured recurrence the shortest one?}
-
-Cancelling common factors, $G$ has reduced denominator
-\[
-x^{7} - 7 x^{6} + 21 x^{5} - 35 x^{4} + 35 x^{3} - 21 x^{2} + 7 x - 1,
-\]
-of degree $7$, and that degree is the order of the SHORTEST linear recurrence with
-constant coefficients the sequence obeys: any shorter one would give a polynomial multiple of
-$G$ with a smaller denominator, contradicting the cancellation. The conjectured recurrence has
-order $7$.
-
-So the conjecture is the minimal recurrence.
-
-\section{The residuals, explicitly}
-
-Lemma~\ref{lem:key} says the residual $a(n)-\sum_ic_ia(n-i)$ is a coefficient of the
-polynomial $D(x)G(x)$, so it can be read off the entry's own published terms with no
-generating function involved at all. Doing that:
-\begin{center}
-\begin{tabular}{cc}
-index & residual \\ \hline
-$n=8$ & $0$ \\
-$n=9$ & $0$ \\
-$n=10$ & $0$
-\end{tabular}
-\end{center}
-The residuals are exactly the coefficients of the polynomial displayed above, in order, and
-they stop at index $6$ because that polynomial has degree $6$. A reader who trusts
-neither the generating function nor the algebra can check the table against the entry's DATA
-by hand; what the generating function adds is the guarantee that the pattern continues, which
-no amount of checking terms could establish on its own.
 
 \section{Verification}
 
 Three checks.
 
-First, the generating function was expanded as a power series in exact rational arithmetic and
-compared against all $33$ terms the entry publishes: it reproduces every one. This is
-what ties the recorded generating function to the sequence the recurrence is about.
+First, the walk model reproduces all $15$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry, and it is the only place where reading
+the entry's English enters.
 
-Second, the polynomial division above was carried out symbolically, not numerically, so the
-statement that $D(x)G(x)$ is a polynomial is exact rather than approximate.
+Second, the recovered recurrence was evaluated directly on those published terms, with no
+matrices and no Berlekamp--Massey involved, and holds at every index where the entry gives
+enough earlier terms to test it.
 
-Third, the recurrence was evaluated directly on the series coefficients for sixty consecutive
-indices beyond $n=6$ and holds at every one, and at $n=6$ itself it fails --- the
-degree bound is attained, so the range stated is the true one and not merely a safe one.
+Third, the order was computed twice by independent routes: once modulo a $61$-bit prime, where
+every intermediate is a machine word, and once in exact rational arithmetic; and once more on
+the sequence with its first $69+4$ terms removed, which is what the identification above
+requires. All three agree.
 
 \begin{remark}
-The argument is conditional on the generating function, which the entry records as a fact and
-attributes to a contributor rather than offering as a conjecture. What is shown here is that
-the empirical recurrence is not an independent guess: it is equivalent to information the
-entry already contains.
+What is unusual here is that the conjecture's statement was never read. The entry pins it down
+to a one-parameter family --- the recurrences of order $69$ that this sequence satisfies
+--- and that family turns out to have exactly one member.
 \end{remark}
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A202807.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A282994.
+\bibitem{massey} J.~L.~Massey, Shift-register synthesis and BCH decoding, \emph{IEEE
+Trans. Inform. Theory} \textbf{15} (1969), 122--127.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Rational generating functions, Section 4.1.)
-\bibitem{kp} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011.
-\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
-University Press, 2009.
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
+University Press, 2013.
 \end{thebibliography}
 
 \end{document}

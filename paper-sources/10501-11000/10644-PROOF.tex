@@ -7,153 +7,143 @@
 \theoremstyle{plain}
 \newtheorem{theorem}{Theorem}
 \newtheorem{lemma}[theorem]{Lemma}
-\newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
-
-\title{The empirical recurrence for OEIS A063153, derived from the entry's generating function}
+\title{A proof of the conjectured recurrence for OEIS A000986}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{2 September 2026}
+\date{26 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A063153 carries an empirical recurrence of order $3$. The entry separately records a
-generating function, not as a conjecture but as a statement of fact, and the recurrence is a
-consequence of it: multiplying the generating function by the polynomial the recurrence
-supplies gives a POLYNOMIAL, and the recurrence then holds at every index past that
-polynomial's degree. No model of the objects being counted is needed, and no search: the
-whole argument is one polynomial division, carried out in exact arithmetic. The result is
-conditional on the recorded generating function, which is what the entry asserts and what is
-checked here against every published term.
+OEIS A000986 carries a conjectured linear recurrence with polynomial coefficients, of
+order 5. The entry separately states a recurrence of order 4 that is not
+labelled a conjecture. We prove that the first is a consequence of the second, so the
+conjecture holds. The argument is a division in the Ore algebra
+$\mathbb{Q}(n)[N]$, where $N$ is the shift $Nf(n)=f(n+1)$: writing $C$ and $P$ for the two
+recurrences read as operators, we exhibit $Q$ with $C=QP$, whence
+$C(a)=Q(P(a))=Q(0)=0$. No generating function is used. The division is exact
+rational-function arithmetic, and the finitely many $n$ excluded by denominators of $Q$
+are computed rather than ignored.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 30B10.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 11B37, 12H10, 33F10.\normalsize
 
-\section{The two statements}
+\section{The sequence and the two recurrences}
 
-OEIS A063153 is ``Dimension of the space of weight 2n cusp forms for Gamma\_0( 85 ).''. It has offset $1$ and begins
+OEIS A000986 is ``Number of n X n symmetric matrices with (0,1) entries and all row sums 2''. It has offset $0$ and begins
 \[
-7, 26, 42, 62, 78, 98, 114, 134,\ \dots
+a(0),\dots,a(7)\;=\;1, 0, 1, 4, 18, 112, 820, 6912,\ \dots
 \]
-The entry states, as a conjecture and never marked settled:
-\begin{quote}
-a(n) = a(n-1) + a(n-2) - a(n-3) for n>4.
+The entry carries the following comment, still recorded as a conjecture:
+\begin{quote}\small
+\textbf{Conjecture:} 2*a(n) +2*(-2*n+1)*a(n-1) +2*(n\^{}2-2*n-1)*a(n-2) -2*(n-2)*(n-4)*a(n-3) +(n-1)*(n-2)*(n-3)*a(n-4) -(n-2)*(n-3)*(n-4)*a(n-5)=0. - \emph{R. J. Mathar}, Aug 04 2013
 \end{quote}
-and, separately and NOT as a conjecture:
-\begin{quote}
-G.f.: x*(7 + 19*x + 9*x\^{}2 + x\^{}3) / ((1 - x)\^{}2*(1 + x)).
+As of the ``Last modified'' line on the live entry (2026-05-30, revision 65) it is still
+a conjecture, and no proof appears among the entry's links, formulas or programs.
+
+The same entry also states, \emph{not} as a conjecture:
+\begin{quote}\small
+Recurrence: 2*a(n) = 4*(n-1)*a(n-1) - 2*(n-3)*(n-1)*a(n-2) - (n-3)*(n-2)*(n-1)*a(n-4). - \emph{Vaclav Kotesovec}, Feb 13 2014
 \end{quote}
-As of the ``Last modified'' line on the live entry (Aug 22 2019 12:18:12, revision 10) the first is still
-recorded as empirical. This note derives it from the second.
+This second relation is what the argument below rests on; it is taken as given, exactly as
+a posted generating function would be. It was checked against the entry's own DATA before
+being used, and holds on every published term it reaches.
 
-\section{A rational generating function decides every linear recurrence}
+\section{Recurrences as operators, and what division proves}
 
-Write
+Let $N$ be the shift operator, $(Nf)(n)=f(n+1)$, acting on sequences. Polynomials in $n$
+and $N$ generate the Ore algebra $\mathcal{A}=\mathbb{Q}(n)[N]$, in which multiplication is
+associative and distributive but not commutative: moving $N$ past a coefficient shifts it,
 \[
-G(x)\;=\;\sum_{n}a(n)\,x^{n}\;=\;\frac{x^{4} + 9 x^{3} + 19 x^{2} + 7 x}{x^{3} - x^{2} - x + 1},
+N\,q(n)\;=\;q(n+1)\,N .
 \]
-the entry's own generating function, and let
+A recurrence $\sum_{i=0}^{r}p_{i}(n)\,a(n-i)=0$ becomes an element of $\mathcal{A}$ after
+re-indexing $n\mapsto n+r$, namely
 \[
-D(x)\;=\;1-\sum_i c_i x^{i}\;=\;x^{3} - x^{2} - x + 1
+L\;=\;\sum_{j=0}^{r}q_{j}(n)\,N^{j},\qquad q_{j}(n)=p_{r-j}(n+r),
 \]
-be the polynomial attached to the conjectured recurrence.
+and the recurrence says exactly that $L$ annihilates the sequence, $L(a)=0$.
 
-\begin{lemma}\label{lem:key}
-For every $n$ in range, $a(n)-\sum_i c_i\,a(n-i)$ is the coefficient of $x^{n}$ in
-$D(x)G(x)$.
+\begin{lemma}\label{lem:factor}
+Let $P,C\in\mathcal{A}$ and suppose $C=QP$ for some $Q\in\mathcal{A}$. If $P(a)=0$ then
+$C(a)=0$, at every $n$ where the coefficients of $Q$ are defined.
 \end{lemma}
 
 \begin{proof}
-Multiplying power series, the coefficient of $x^{m}$ in $D(x)G(x)$ is
-$a_m-\sum_i c_i a_{m-i}$ where $a_m$ denotes the coefficient of $x^{m}$ in $G$, terms with
-negative index being zero.
+$C(a)=(QP)(a)=Q\bigl(P(a)\bigr)=Q(0)=0$. The only caveat is the one stated: a coefficient
+of $Q$ is a rational function of $n$, so the step is valid at every $n$ that is not a pole
+of one of them.
 \end{proof}
 
-\begin{theorem}
+\begin{lemma}\label{lem:div}
+Right division works in $\mathcal{A}$: given $C$ and $P\neq0$, there are $Q,R\in\mathcal{A}$
+with $C=QP+R$ and $\deg_{N}R<\deg_{N}P$.
+\end{lemma}
+
+\begin{proof}
+Induct on $\deg_{N}C$. If $\deg_{N}C<\deg_{N}P$ take $Q=0$, $R=C$. Otherwise let
+$d=\deg_{N}C-\deg_{N}P$ and let $c$, $p$ be the leading coefficients of $C$ and $P$. By the
+commutation rule, the leading coefficient of $N^{d}P$ is $p(n+d)$, which is a nonzero
+element of $\mathbb{Q}(n)$ and hence invertible there. Then
+$C-\dfrac{c(n)}{p(n+d)}\,N^{d}P$ has strictly smaller degree in $N$, and induction applies.
+\end{proof}
+
+So the question ``does the conjecture follow from the stated recurrence?'' is decided by
+running the division and looking at the remainder. Nothing is approximated: the
+coefficients live in $\mathbb{Q}(n)$ and the arithmetic is exact.
+
+\section{The computation for A000986}
+
+Reading both relations as operators and dividing the conjectured one by the stated one
+leaves remainder $0$, with quotient
 \[
-a(n)\;=\;a(n-1) + a(n-2) - a(n-3)
+Q \;=\; -1 + 1\,N .
 \]
-for every $n>4$.
+Hence $C=QP$ in $\mathcal{A}$.
+
+The coefficients of $Q$ are rational functions of $n$, and none of their poles is an integer, so Lemma~\ref{lem:factor} applies at every index.
+
+\begin{theorem}
+The conjectured recurrence
+\[
+2\,a(n) -  2 \left(2 n - 1\right)\,a(n-1) + 2 \left(n^{2} - 2 n - 1\right)\,a(n-2) -  2 \left(n - 4\right) \left(n - 2\right)\,a(n-3) + \left(n - 3\right) \left(n - 2\right) \left(n - 1\right)\,a(n-4) -  \left(n - 4\right) \left(n - 3\right) \left(n - 2\right)\,a(n-5) \;=\;0
+\]
+holds for every $n\ge5$.
 \end{theorem}
 
 \begin{proof}
-In exact arithmetic,
-\[
-D(x)\,G(x)\;=\;x^{4} + 9 x^{3} + 19 x^{2} + 7 x,
-\]
-a POLYNOMIAL of degree $4$ --- the denominator of $G$ divides $D(x)$ times its numerator,
-which is precisely the condition for the conjectured recurrence to be implied by the
-generating function. Its coefficients vanish beyond degree $4$, so by
-Lemma~\ref{lem:key} the residual $a(n)-\sum_ic_ia(n-i)$ vanishes for every
-$n>4$. The bound is exact: at $n=4$ the recurrence fails on the entry's own published terms.
+By Lemma~\ref{lem:factor} applied to the factorisation above, using that the stated
+recurrence annihilates the sequence. No coefficient of $Q$ has an integer pole, so the lemma applies at every $n$.
 \end{proof}
-
-\section{Is the conjectured recurrence the shortest one?}
-
-Cancelling common factors, $G$ has reduced denominator
-\[
-x^{3} - x^{2} - x + 1,
-\]
-of degree $3$, and that degree is the order of the SHORTEST linear recurrence with
-constant coefficients the sequence obeys: any shorter one would give a polynomial multiple of
-$G$ with a smaller denominator, contradicting the cancellation. The conjectured recurrence has
-order $3$.
-
-So the conjecture is the minimal recurrence.
-
-\section{The residuals, explicitly}
-
-Lemma~\ref{lem:key} says the residual $a(n)-\sum_ic_ia(n-i)$ is a coefficient of the
-polynomial $D(x)G(x)$, so it can be read off the entry's own published terms with no
-generating function involved at all. Doing that:
-\begin{center}
-\begin{tabular}{cc}
-index & residual \\ \hline
-$n=4$ & $1$ \\
-$n=5$ & $0$ \\
-$n=6$ & $0$ \\
-$n=7$ & $0$ \\
-$n=8$ & $0$
-\end{tabular}
-\end{center}
-The residuals are exactly the coefficients of the polynomial displayed above, in order, and
-they stop at index $4$ because that polynomial has degree $4$. A reader who trusts
-neither the generating function nor the algebra can check the table against the entry's DATA
-by hand; what the generating function adds is the guarantee that the pattern continues, which
-no amount of checking terms could establish on its own.
 
 \section{Verification}
 
-Three checks.
+Every number above is an output of a script written separately from this note, and three
+independent checks were run.
 
-First, the generating function was expanded as a power series in exact rational arithmetic and
-compared against all $50$ terms the entry publishes: it reproduces every one. This is
-what ties the recorded generating function to the sequence the recurrence is about.
+First, the factorisation was not assumed but computed, and then confirmed by multiplying
+back: $QP$ was expanded in $\mathcal{A}$ and its coefficients cancelled against those of
+$C$ to zero, as rational functions of $n$.
 
-Second, the polynomial division above was carried out symbolically, not numerically, so the
-statement that $D(x)G(x)$ is a polynomial is exact rather than approximate.
+Second, the relation the argument rests on was checked against the entry rather than
+trusted: the stated recurrence was evaluated on the published terms in exact integer
+arithmetic and holds on every one it reaches.
 
-Third, the recurrence was evaluated directly on the series coefficients for sixty consecutive
-indices beyond $n=4$ and holds at every one, and at $n=4$ itself it fails --- the
-degree bound is attained, so the range stated is the true one and not merely a safe one.
-
-\begin{remark}
-The argument is conditional on the generating function, which the entry records as a fact and
-attributes to a contributor rather than offering as a conjecture. What is shown here is that
-the empirical recurrence is not an independent guess: it is equivalent to information the
-entry already contains.
-\end{remark}
+Third, the conjecture itself was evaluated the same way, directly and without reference to
+either operator: for each $n$ in range the sum $\sum_{i}p_{i}(n)a(n-i)$ was formed from the
+entry's own values and found to vanish, for all 17 values of $n$ from
+$n=5$ upward.
 
 \begin{thebibliography}{9}
-\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A063153.
-\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Rational generating functions, Section 4.1.)
-\bibitem{kp} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011.
-\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
-University Press, 2009.
+\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer Sequences},
+\url{https://oeis.org}, 2026. Sequence A000986.
+\bibitem{ore} O.~Ore, \emph{Theory of non-commutative polynomials}, Ann. of Math. 34
+(1933), 480--508.
+\bibitem{kp} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011,
+Chapter 7.
+\bibitem{bronstein} M.~Bronstein and M.~Petkov\v{s}ek, \emph{An introduction to
+pseudo-linear algebra}, Theoret. Comput. Sci. 157 (1996), 3--33.
 \end{thebibliography}
-
 \end{document}

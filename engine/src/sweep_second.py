@@ -35,6 +35,7 @@ import sympy
 
 import closedform as CF
 import conjlines
+import factlines
 import gfrec
 import localentry as LE
 import openness
@@ -110,9 +111,10 @@ for a in targets:
         # vein rests on, and it was not being used here at all. 391 of the 414 coordination
         # sequences state one, and every one of them was refused as "no proved recurrence on
         # record" while carrying a perfectly good premise on its own page.
-        for L in e['comment'] + e['formula']:
-            if re.search(r'onjectur|mpirical|It appears|Apparently', L, re.I):
-                continue
+        # ... but a line carrying no conjectural WORD is not a fact. A `Conjectures from X:
+        # (Start)' block holds bare formula lines, and taking one of those as a premise for
+        # another line of the same block proves nothing. factlines is the only safe source.
+        for L in factlines.facts(e):
             r = ratrec.parse_rec(L)
             if r:
                 co = {str(k): str(v) for k, v in r[0].items()}

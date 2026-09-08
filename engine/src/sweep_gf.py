@@ -4,6 +4,7 @@ import json
 import atomicjson, re, os, collections, signal, zlib
 import sympy
 import conjlines
+import factlines
 import localentry as LE, ratrec, openness, gfrec
 
 
@@ -47,8 +48,9 @@ targets = ([a for a in open(POOL).read().split() if a.startswith('A')]
 SHARD = int(os.environ.get('GFSHARD', '0'))
 NSHARD = int(os.environ.get('GFNSHARD', '1'))
 
+RECHECK = os.environ.get('RECHECK') == '1'   # ask again about entries already in the roster
 for a in targets:
-    if a in done or a in roster or zlib.crc32(a.encode()) % NSHARD != SHARD:
+    if a in done or (a in roster and not RECHECK) or zlib.crc32(a.encode()) % NSHARD != SHARD:
         continue
     e = LE.get(a)
     lines = e['comment'] + e['formula']
@@ -58,7 +60,11 @@ for a in targets:
     recs = [r for r in (ratrec.parse_rec(L) for L in conj) if r]
     if not recs:
         res['conjectured recurrence unparsable'] += 1; done.add(a); save(); continue
-    gfl = [(L, g) for L, g in ((L, gfrec.parse_gf(L)) for L in lines if not CONJ.search(L))
+    # The premise may only be a line the entry states as FACT. Absence of a conjectural word
+    # is not that test: a `Conjectures from X: (Start)' block holds bare formula lines, and
+    # the generating function there is the same conjecture as the recurrence, not a premise
+    # for it. factlines removes every line conjlines names.
+    gfl = [(L, g) for L, g in ((L, gfrec.parse_gf(L)) for L in factlines.facts(e))
            if g is not None]
     if not gfl:
         res['no usable generating function'] += 1; done.add(a); save(); continue

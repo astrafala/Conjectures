@@ -1,506 +1,165 @@
 # Papers 10501-11000
 
-Ranks 10501 to 11000 of 12012, hardest first.
+Ranks 10501 to 10659 of 10659, hardest first.
 
 | # | OEIS | Result | What settles it | Paper |
 | --- | --- | --- | --- | --- |
-| 10501 | [A263690](https://oeis.org/A263690) | Proof | the recurrence follows from a generating function the entry records as fact | [10501-PROOF.pdf](10501-PROOF.pdf) |
-| 10502 | [A263805](https://oeis.org/A263805) | Proof | the recurrence follows from a generating function the entry records as fact | [10502-PROOF.pdf](10502-PROOF.pdf) |
-| 10503 | [A263806](https://oeis.org/A263806) | Proof | the recurrence follows from a generating function the entry records as fact | [10503-PROOF.pdf](10503-PROOF.pdf) |
-| 10504 | [A265284](https://oeis.org/A265284) | Proof | the recurrence follows from a generating function the entry records as fact | [10504-PROOF.pdf](10504-PROOF.pdf) |
-| 10505 | [A265722](https://oeis.org/A265722) | Proof | the recurrence follows from a generating function the entry records as fact | [10505-PROOF.pdf](10505-PROOF.pdf) |
-| 10506 | [A265723](https://oeis.org/A265723) | Proof | the recurrence follows from a generating function the entry records as fact | [10506-PROOF.pdf](10506-PROOF.pdf) |
-| 10507 | [A266220](https://oeis.org/A266220) | Proof | the recurrence follows from a generating function the entry records as fact | [10507-PROOF.pdf](10507-PROOF.pdf) |
-| 10508 | [A266222](https://oeis.org/A266222) | Proof | the recurrence follows from a generating function the entry records as fact | [10508-PROOF.pdf](10508-PROOF.pdf) |
-| 10509 | [A266249](https://oeis.org/A266249) | Proof | the recurrence follows from a generating function the entry records as fact | [10509-PROOF.pdf](10509-PROOF.pdf) |
-| 10510 | [A266251](https://oeis.org/A266251) | Proof | the recurrence follows from a generating function the entry records as fact | [10510-PROOF.pdf](10510-PROOF.pdf) |
-| 10511 | [A266256](https://oeis.org/A266256) | Proof | the recurrence follows from a generating function the entry records as fact | [10511-PROOF.pdf](10511-PROOF.pdf) |
-| 10512 | [A266258](https://oeis.org/A266258) | Proof | the recurrence follows from a generating function the entry records as fact | [10512-PROOF.pdf](10512-PROOF.pdf) |
-| 10513 | [A266285](https://oeis.org/A266285) | Proof | the recurrence follows from a generating function the entry records as fact | [10513-PROOF.pdf](10513-PROOF.pdf) |
-| 10514 | [A266286](https://oeis.org/A266286) | Proof | the recurrence follows from a generating function the entry records as fact | [10514-PROOF.pdf](10514-PROOF.pdf) |
-| 10515 | [A266303](https://oeis.org/A266303) | Proof | the recurrence follows from a generating function the entry records as fact | [10515-PROOF.pdf](10515-PROOF.pdf) |
-| 10516 | [A266439](https://oeis.org/A266439) | Proof | the recurrence follows from a generating function the entry records as fact | [10516-PROOF.pdf](10516-PROOF.pdf) |
-| 10517 | [A266447](https://oeis.org/A266447) | Proof | the recurrence follows from a generating function the entry records as fact | [10517-PROOF.pdf](10517-PROOF.pdf) |
-| 10518 | [A266449](https://oeis.org/A266449) | Proof | the recurrence follows from a generating function the entry records as fact | [10518-PROOF.pdf](10518-PROOF.pdf) |
-| 10519 | [A266593](https://oeis.org/A266593) | Proof | the recurrence follows from a generating function the entry records as fact | [10519-PROOF.pdf](10519-PROOF.pdf) |
-| 10520 | [A266595](https://oeis.org/A266595) | Proof | the recurrence follows from a generating function the entry records as fact | [10520-PROOF.pdf](10520-PROOF.pdf) |
-| 10521 | [A266660](https://oeis.org/A266660) | Proof | the recurrence follows from a generating function the entry records as fact | [10521-PROOF.pdf](10521-PROOF.pdf) |
-| 10522 | [A266661](https://oeis.org/A266661) | Proof | the recurrence follows from a generating function the entry records as fact | [10522-PROOF.pdf](10522-PROOF.pdf) |
-| 10523 | [A266662](https://oeis.org/A266662) | Proof | the recurrence follows from a generating function the entry records as fact | [10523-PROOF.pdf](10523-PROOF.pdf) |
-| 10524 | [A266664](https://oeis.org/A266664) | Proof | the recurrence follows from a generating function the entry records as fact | [10524-PROOF.pdf](10524-PROOF.pdf) |
-| 10525 | [A266724](https://oeis.org/A266724) | Proof | the recurrence follows from a generating function the entry records as fact | [10525-PROOF.pdf](10525-PROOF.pdf) |
-| 10526 | [A266792](https://oeis.org/A266792) | Proof | the recurrence follows from a generating function the entry records as fact | [10526-PROOF.pdf](10526-PROOF.pdf) |
-| 10527 | [A266794](https://oeis.org/A266794) | Proof | the recurrence follows from a generating function the entry records as fact | [10527-PROOF.pdf](10527-PROOF.pdf) |
-| 10528 | [A266872](https://oeis.org/A266872) | Proof | the recurrence follows from a generating function the entry records as fact | [10528-PROOF.pdf](10528-PROOF.pdf) |
-| 10529 | [A266873](https://oeis.org/A266873) | Proof | the recurrence follows from a generating function the entry records as fact | [10529-PROOF.pdf](10529-PROOF.pdf) |
-| 10530 | [A266981](https://oeis.org/A266981) | Proof | the recurrence follows from a generating function the entry records as fact | [10530-PROOF.pdf](10530-PROOF.pdf) |
-| 10531 | [A266984](https://oeis.org/A266984) | Proof | the recurrence follows from a generating function the entry records as fact | [10531-PROOF.pdf](10531-PROOF.pdf) |
-| 10532 | [A267035](https://oeis.org/A267035) | Proof | the recurrence follows from a generating function the entry records as fact | [10532-PROOF.pdf](10532-PROOF.pdf) |
-| 10533 | [A267046](https://oeis.org/A267046) | Proof | the recurrence follows from a generating function the entry records as fact | [10533-PROOF.pdf](10533-PROOF.pdf) |
-| 10534 | [A267048](https://oeis.org/A267048) | Proof | the recurrence follows from a generating function the entry records as fact | [10534-PROOF.pdf](10534-PROOF.pdf) |
-| 10535 | [A267183](https://oeis.org/A267183) | Proof | the recurrence follows from a generating function the entry records as fact | [10535-PROOF.pdf](10535-PROOF.pdf) |
-| 10536 | [A267186](https://oeis.org/A267186) | Proof | the recurrence follows from a generating function the entry records as fact | [10536-PROOF.pdf](10536-PROOF.pdf) |
-| 10537 | [A267209](https://oeis.org/A267209) | Proof | the recurrence follows from a generating function the entry records as fact | [10537-PROOF.pdf](10537-PROOF.pdf) |
-| 10538 | [A267210](https://oeis.org/A267210) | Proof | the recurrence follows from a generating function the entry records as fact | [10538-PROOF.pdf](10538-PROOF.pdf) |
-| 10539 | [A267227](https://oeis.org/A267227) | Proof | the recurrence follows from a generating function the entry records as fact | [10539-PROOF.pdf](10539-PROOF.pdf) |
-| 10540 | [A267274](https://oeis.org/A267274) | Proof | the recurrence follows from a generating function the entry records as fact | [10540-PROOF.pdf](10540-PROOF.pdf) |
-| 10541 | [A267352](https://oeis.org/A267352) | Proof | the recurrence follows from a generating function the entry records as fact | [10541-PROOF.pdf](10541-PROOF.pdf) |
-| 10542 | [A267354](https://oeis.org/A267354) | Proof | the recurrence follows from a generating function the entry records as fact | [10542-PROOF.pdf](10542-PROOF.pdf) |
-| 10543 | [A267359](https://oeis.org/A267359) | Proof | the recurrence follows from a generating function the entry records as fact | [10543-PROOF.pdf](10543-PROOF.pdf) |
-| 10544 | [A267360](https://oeis.org/A267360) | Proof | the recurrence follows from a generating function the entry records as fact | [10544-PROOF.pdf](10544-PROOF.pdf) |
-| 10545 | [A267456](https://oeis.org/A267456) | Proof | the recurrence follows from a generating function the entry records as fact | [10545-PROOF.pdf](10545-PROOF.pdf) |
-| 10546 | [A267457](https://oeis.org/A267457) | Proof | the recurrence follows from a generating function the entry records as fact | [10546-PROOF.pdf](10546-PROOF.pdf) |
-| 10547 | [A267459](https://oeis.org/A267459) | Proof | the recurrence follows from a generating function the entry records as fact | [10547-PROOF.pdf](10547-PROOF.pdf) |
-| 10548 | [A267461](https://oeis.org/A267461) | Proof | the recurrence follows from a generating function the entry records as fact | [10548-PROOF.pdf](10548-PROOF.pdf) |
-| 10549 | [A267465](https://oeis.org/A267465) | Proof | the recurrence follows from a generating function the entry records as fact | [10549-PROOF.pdf](10549-PROOF.pdf) |
-| 10550 | [A267529](https://oeis.org/A267529) | Proof | the recurrence follows from a generating function the entry records as fact | [10550-PROOF.pdf](10550-PROOF.pdf) |
-| 10551 | [A267531](https://oeis.org/A267531) | Proof | the recurrence follows from a generating function the entry records as fact | [10551-PROOF.pdf](10551-PROOF.pdf) |
-| 10552 | [A267677](https://oeis.org/A267677) | Proof | the recurrence follows from a generating function the entry records as fact | [10552-PROOF.pdf](10552-PROOF.pdf) |
-| 10553 | [A267678](https://oeis.org/A267678) | Proof | the recurrence follows from a generating function the entry records as fact | [10553-PROOF.pdf](10553-PROOF.pdf) |
-| 10554 | [A267680](https://oeis.org/A267680) | Proof | the recurrence follows from a generating function the entry records as fact | [10554-PROOF.pdf](10554-PROOF.pdf) |
-| 10555 | [A267681](https://oeis.org/A267681) | Proof | the recurrence follows from a generating function the entry records as fact | [10555-PROOF.pdf](10555-PROOF.pdf) |
-| 10556 | [A267688](https://oeis.org/A267688) | Proof | the recurrence follows from a generating function the entry records as fact | [10556-PROOF.pdf](10556-PROOF.pdf) |
-| 10557 | [A267689](https://oeis.org/A267689) | Proof | the recurrence follows from a generating function the entry records as fact | [10557-PROOF.pdf](10557-PROOF.pdf) |
-| 10558 | [A267804](https://oeis.org/A267804) | Proof | the recurrence follows from a generating function the entry records as fact | [10558-PROOF.pdf](10558-PROOF.pdf) |
-| 10559 | [A267805](https://oeis.org/A267805) | Proof | the recurrence follows from a generating function the entry records as fact | [10559-PROOF.pdf](10559-PROOF.pdf) |
-| 10560 | [A268255](https://oeis.org/A268255) | Proof | the recurrence follows from a generating function the entry records as fact | [10560-PROOF.pdf](10560-PROOF.pdf) |
-| 10561 | [A206336](https://oeis.org/A206336) | Proof | the recurrence follows from a generating function the entry records as fact | [10561-PROOF.pdf](10561-PROOF.pdf) |
-| 10562 | [A165381](https://oeis.org/A165381) | Proof | the recurrence follows from a generating function the entry records as fact | [10562-PROOF.pdf](10562-PROOF.pdf) |
-| 10563 | [A165392](https://oeis.org/A165392) | Proof | the recurrence follows from a generating function the entry records as fact | [10563-PROOF.pdf](10563-PROOF.pdf) |
-| 10564 | [A207142](https://oeis.org/A207142) | Proof | the recurrence follows from a generating function the entry records as fact | [10564-PROOF.pdf](10564-PROOF.pdf) |
-| 10565 | [A220749](https://oeis.org/A220749) | Proof | the recurrence follows from a generating function the entry records as fact | [10565-PROOF.pdf](10565-PROOF.pdf) |
-| 10566 | [A253225](https://oeis.org/A253225) | Proof | the recurrence follows from a generating function the entry records as fact | [10566-PROOF.pdf](10566-PROOF.pdf) |
-| 10567 | [A253490](https://oeis.org/A253490) | Proof | the recurrence follows from a generating function the entry records as fact | [10567-PROOF.pdf](10567-PROOF.pdf) |
-| 10568 | [A265989](https://oeis.org/A265989) | Proof | the recurrence follows from a generating function the entry records as fact | [10568-PROOF.pdf](10568-PROOF.pdf) |
-| 10569 | [A165378](https://oeis.org/A165378) | Proof | the recurrence follows from a generating function the entry records as fact | [10569-PROOF.pdf](10569-PROOF.pdf) |
-| 10570 | [A253491](https://oeis.org/A253491) | Proof | the recurrence follows from a generating function the entry records as fact | [10570-PROOF.pdf](10570-PROOF.pdf) |
-| 10571 | [A253492](https://oeis.org/A253492) | Proof | the recurrence follows from a generating function the entry records as fact | [10571-PROOF.pdf](10571-PROOF.pdf) |
-| 10572 | [A253493](https://oeis.org/A253493) | Proof | the recurrence follows from a generating function the entry records as fact | [10572-PROOF.pdf](10572-PROOF.pdf) |
-| 10573 | [A204609](https://oeis.org/A204609) | Proof | the recurrence follows from a generating function the entry records as fact | [10573-PROOF.pdf](10573-PROOF.pdf) |
-| 10574 | [A222939](https://oeis.org/A222939) | Proof | the recurrence follows from a generating function the entry records as fact | [10574-PROOF.pdf](10574-PROOF.pdf) |
-| 10575 | [A267912](https://oeis.org/A267912) | Proof | the recurrence follows from a generating function the entry records as fact | [10575-PROOF.pdf](10575-PROOF.pdf) |
-| 10576 | [A183356](https://oeis.org/A183356) | Proof | the recurrence follows from a generating function the entry records as fact | [10576-PROOF.pdf](10576-PROOF.pdf) |
-| 10577 | [A222834](https://oeis.org/A222834) | Proof | the recurrence follows from a generating function the entry records as fact | [10577-PROOF.pdf](10577-PROOF.pdf) |
-| 10578 | [A233162](https://oeis.org/A233162) | Proof | the recurrence follows from a generating function the entry records as fact | [10578-PROOF.pdf](10578-PROOF.pdf) |
-| 10579 | [A233175](https://oeis.org/A233175) | Proof | the recurrence follows from a generating function the entry records as fact | [10579-PROOF.pdf](10579-PROOF.pdf) |
-| 10580 | [A233218](https://oeis.org/A233218) | Proof | the recurrence follows from a generating function the entry records as fact | [10580-PROOF.pdf](10580-PROOF.pdf) |
-| 10581 | [A276300](https://oeis.org/A276300) | Proof | the recurrence follows from a generating function the entry records as fact | [10581-PROOF.pdf](10581-PROOF.pdf) |
-| 10582 | [A181192](https://oeis.org/A181192) | Proof | the recurrence follows from a generating function the entry records as fact | [10582-PROOF.pdf](10582-PROOF.pdf) |
-| 10583 | [A183430](https://oeis.org/A183430) | Proof | the recurrence follows from a generating function the entry records as fact | [10583-PROOF.pdf](10583-PROOF.pdf) |
-| 10584 | [A184679](https://oeis.org/A184679) | Proof | the recurrence follows from a generating function the entry records as fact | [10584-PROOF.pdf](10584-PROOF.pdf) |
-| 10585 | [A204707](https://oeis.org/A204707) | Proof | the recurrence follows from a generating function the entry records as fact | [10585-PROOF.pdf](10585-PROOF.pdf) |
-| 10586 | [A204708](https://oeis.org/A204708) | Proof | the recurrence follows from a generating function the entry records as fact | [10586-PROOF.pdf](10586-PROOF.pdf) |
-| 10587 | [A211322](https://oeis.org/A211322) | Proof | the recurrence follows from a generating function the entry records as fact | [10587-PROOF.pdf](10587-PROOF.pdf) |
-| 10588 | [A211490](https://oeis.org/A211490) | Proof | the recurrence follows from a generating function the entry records as fact | [10588-PROOF.pdf](10588-PROOF.pdf) |
-| 10589 | [A214160](https://oeis.org/A214160) | Proof | the recurrence follows from a generating function the entry records as fact | [10589-PROOF.pdf](10589-PROOF.pdf) |
-| 10590 | [A221374](https://oeis.org/A221374) | Proof | the recurrence follows from a generating function the entry records as fact | [10590-PROOF.pdf](10590-PROOF.pdf) |
-| 10591 | [A223363](https://oeis.org/A223363) | Proof | the recurrence follows from a generating function the entry records as fact | [10591-PROOF.pdf](10591-PROOF.pdf) |
-| 10592 | [A223499](https://oeis.org/A223499) | Proof | the recurrence follows from a generating function the entry records as fact | [10592-PROOF.pdf](10592-PROOF.pdf) |
-| 10593 | [A224669](https://oeis.org/A224669) | Proof | the recurrence follows from a generating function the entry records as fact | [10593-PROOF.pdf](10593-PROOF.pdf) |
-| 10594 | [A232951](https://oeis.org/A232951) | Proof | the recurrence follows from a generating function the entry records as fact | [10594-PROOF.pdf](10594-PROOF.pdf) |
-| 10595 | [A233106](https://oeis.org/A233106) | Proof | the recurrence follows from a generating function the entry records as fact | [10595-PROOF.pdf](10595-PROOF.pdf) |
-| 10596 | [A233107](https://oeis.org/A233107) | Proof | the recurrence follows from a generating function the entry records as fact | [10596-PROOF.pdf](10596-PROOF.pdf) |
-| 10597 | [A233124](https://oeis.org/A233124) | Proof | the recurrence follows from a generating function the entry records as fact | [10597-PROOF.pdf](10597-PROOF.pdf) |
-| 10598 | [A233211](https://oeis.org/A233211) | Proof | the recurrence follows from a generating function the entry records as fact | [10598-PROOF.pdf](10598-PROOF.pdf) |
-| 10599 | [A233212](https://oeis.org/A233212) | Proof | the recurrence follows from a generating function the entry records as fact | [10599-PROOF.pdf](10599-PROOF.pdf) |
-| 10600 | [A233213](https://oeis.org/A233213) | Proof | the recurrence follows from a generating function the entry records as fact | [10600-PROOF.pdf](10600-PROOF.pdf) |
-| 10601 | [A234789](https://oeis.org/A234789) | Proof | the recurrence follows from a generating function the entry records as fact | [10601-PROOF.pdf](10601-PROOF.pdf) |
-| 10602 | [A235878](https://oeis.org/A235878) | Proof | the recurrence follows from a generating function the entry records as fact | [10602-PROOF.pdf](10602-PROOF.pdf) |
-| 10603 | [A235879](https://oeis.org/A235879) | Proof | the recurrence follows from a generating function the entry records as fact | [10603-PROOF.pdf](10603-PROOF.pdf) |
-| 10604 | [A235880](https://oeis.org/A235880) | Proof | the recurrence follows from a generating function the entry records as fact | [10604-PROOF.pdf](10604-PROOF.pdf) |
-| 10605 | [A235881](https://oeis.org/A235881) | Proof | the recurrence follows from a generating function the entry records as fact | [10605-PROOF.pdf](10605-PROOF.pdf) |
-| 10606 | [A235882](https://oeis.org/A235882) | Proof | the recurrence follows from a generating function the entry records as fact | [10606-PROOF.pdf](10606-PROOF.pdf) |
-| 10607 | [A235883](https://oeis.org/A235883) | Proof | the recurrence follows from a generating function the entry records as fact | [10607-PROOF.pdf](10607-PROOF.pdf) |
-| 10608 | [A235887](https://oeis.org/A235887) | Proof | the recurrence follows from a generating function the entry records as fact | [10608-PROOF.pdf](10608-PROOF.pdf) |
-| 10609 | [A235888](https://oeis.org/A235888) | Proof | the recurrence follows from a generating function the entry records as fact | [10609-PROOF.pdf](10609-PROOF.pdf) |
-| 10610 | [A235889](https://oeis.org/A235889) | Proof | the recurrence follows from a generating function the entry records as fact | [10610-PROOF.pdf](10610-PROOF.pdf) |
-| 10611 | [A235890](https://oeis.org/A235890) | Proof | the recurrence follows from a generating function the entry records as fact | [10611-PROOF.pdf](10611-PROOF.pdf) |
-| 10612 | [A235891](https://oeis.org/A235891) | Proof | the recurrence follows from a generating function the entry records as fact | [10612-PROOF.pdf](10612-PROOF.pdf) |
-| 10613 | [A235892](https://oeis.org/A235892) | Proof | the recurrence follows from a generating function the entry records as fact | [10613-PROOF.pdf](10613-PROOF.pdf) |
-| 10614 | [A235895](https://oeis.org/A235895) | Proof | the recurrence follows from a generating function the entry records as fact | [10614-PROOF.pdf](10614-PROOF.pdf) |
-| 10615 | [A250461](https://oeis.org/A250461) | Proof | the recurrence follows from a generating function the entry records as fact | [10615-PROOF.pdf](10615-PROOF.pdf) |
-| 10616 | [A250778](https://oeis.org/A250778) | Proof | the recurrence follows from a generating function the entry records as fact | [10616-PROOF.pdf](10616-PROOF.pdf) |
-| 10617 | [A262326](https://oeis.org/A262326) | Proof | the recurrence follows from a generating function the entry records as fact | [10617-PROOF.pdf](10617-PROOF.pdf) |
-| 10618 | [A262327](https://oeis.org/A262327) | Proof | the recurrence follows from a generating function the entry records as fact | [10618-PROOF.pdf](10618-PROOF.pdf) |
-| 10619 | [A262415](https://oeis.org/A262415) | Proof | the recurrence follows from a generating function the entry records as fact | [10619-PROOF.pdf](10619-PROOF.pdf) |
-| 10620 | [A265987](https://oeis.org/A265987) | Proof | the recurrence follows from a generating function the entry records as fact | [10620-PROOF.pdf](10620-PROOF.pdf) |
-| 10621 | [A267946](https://oeis.org/A267946) | Proof | the recurrence follows from a generating function the entry records as fact | [10621-PROOF.pdf](10621-PROOF.pdf) |
-| 10622 | [A268052](https://oeis.org/A268052) | Proof | the recurrence follows from a generating function the entry records as fact | [10622-PROOF.pdf](10622-PROOF.pdf) |
-| 10623 | [A268093](https://oeis.org/A268093) | Proof | the recurrence follows from a generating function the entry records as fact | [10623-PROOF.pdf](10623-PROOF.pdf) |
-| 10624 | [A268164](https://oeis.org/A268164) | Proof | the recurrence follows from a generating function the entry records as fact | [10624-PROOF.pdf](10624-PROOF.pdf) |
-| 10625 | [A277761](https://oeis.org/A277761) | Proof | the recurrence follows from a generating function the entry records as fact | [10625-PROOF.pdf](10625-PROOF.pdf) |
-| 10626 | [A072100](https://oeis.org/A072100) | Proof | several independent square roots | [10626-PROOF.pdf](10626-PROOF.pdf) |
-| 10627 | [A239530](https://oeis.org/A239530) | Proof | the recurrence follows from a generating function the entry records as fact | [10627-PROOF.pdf](10627-PROOF.pdf) |
-| 10628 | [A263907](https://oeis.org/A263907) | Proof | the recurrence follows from a generating function the entry records as fact | [10628-PROOF.pdf](10628-PROOF.pdf) |
-| 10629 | [A039824](https://oeis.org/A039824) | Proof | the recurrence follows from a generating function the entry records as fact | [10629-PROOF.pdf](10629-PROOF.pdf) |
-| 10630 | [A039827](https://oeis.org/A039827) | Proof | the recurrence follows from a generating function the entry records as fact | [10630-PROOF.pdf](10630-PROOF.pdf) |
-| 10631 | [A059133](https://oeis.org/A059133) | Proof | the recurrence follows from a generating function the entry records as fact | [10631-PROOF.pdf](10631-PROOF.pdf) |
-| 10632 | [A059135](https://oeis.org/A059135) | Proof | the recurrence follows from a generating function the entry records as fact | [10632-PROOF.pdf](10632-PROOF.pdf) |
-| 10633 | [A059138](https://oeis.org/A059138) | Proof | the recurrence follows from a generating function the entry records as fact | [10633-PROOF.pdf](10633-PROOF.pdf) |
-| 10634 | [A059140](https://oeis.org/A059140) | Proof | the recurrence follows from a generating function the entry records as fact | [10634-PROOF.pdf](10634-PROOF.pdf) |
-| 10635 | [A059142](https://oeis.org/A059142) | Proof | the recurrence follows from a generating function the entry records as fact | [10635-PROOF.pdf](10635-PROOF.pdf) |
-| 10636 | [A059145](https://oeis.org/A059145) | Proof | the recurrence follows from a generating function the entry records as fact | [10636-PROOF.pdf](10636-PROOF.pdf) |
-| 10637 | [A063094](https://oeis.org/A063094) | Proof | the recurrence follows from a generating function the entry records as fact | [10637-PROOF.pdf](10637-PROOF.pdf) |
-| 10638 | [A063102](https://oeis.org/A063102) | Proof | the recurrence follows from a generating function the entry records as fact | [10638-PROOF.pdf](10638-PROOF.pdf) |
-| 10639 | [A063109](https://oeis.org/A063109) | Proof | the recurrence follows from a generating function the entry records as fact | [10639-PROOF.pdf](10639-PROOF.pdf) |
-| 10640 | [A063121](https://oeis.org/A063121) | Proof | the recurrence follows from a generating function the entry records as fact | [10640-PROOF.pdf](10640-PROOF.pdf) |
-| 10641 | [A063133](https://oeis.org/A063133) | Proof | the recurrence follows from a generating function the entry records as fact | [10641-PROOF.pdf](10641-PROOF.pdf) |
-| 10642 | [A063142](https://oeis.org/A063142) | Proof | the recurrence follows from a generating function the entry records as fact | [10642-PROOF.pdf](10642-PROOF.pdf) |
-| 10643 | [A063150](https://oeis.org/A063150) | Proof | the recurrence follows from a generating function the entry records as fact | [10643-PROOF.pdf](10643-PROOF.pdf) |
-| 10644 | [A063153](https://oeis.org/A063153) | Proof | the recurrence follows from a generating function the entry records as fact | [10644-PROOF.pdf](10644-PROOF.pdf) |
-| 10645 | [A072134](https://oeis.org/A072134) | Proof | the recurrence follows from a generating function the entry records as fact | [10645-PROOF.pdf](10645-PROOF.pdf) |
-| 10646 | [A126474](https://oeis.org/A126474) | Proof | the recurrence follows from a generating function the entry records as fact | [10646-PROOF.pdf](10646-PROOF.pdf) |
-| 10647 | [A127069](https://oeis.org/A127069) | Proof | the recurrence follows from a generating function the entry records as fact | [10647-PROOF.pdf](10647-PROOF.pdf) |
-| 10648 | [A129393](https://oeis.org/A129393) | Proof | the recurrence follows from a generating function the entry records as fact | [10648-PROOF.pdf](10648-PROOF.pdf) |
-| 10649 | [A135231](https://oeis.org/A135231) | Proof | the recurrence follows from a generating function the entry records as fact | [10649-PROOF.pdf](10649-PROOF.pdf) |
-| 10650 | [A152932](https://oeis.org/A152932) | Proof | the recurrence follows from a generating function the entry records as fact | [10650-PROOF.pdf](10650-PROOF.pdf) |
-| 10651 | [A152934](https://oeis.org/A152934) | Proof | the recurrence follows from a generating function the entry records as fact | [10651-PROOF.pdf](10651-PROOF.pdf) |
-| 10652 | [A164004](https://oeis.org/A164004) | Proof | the recurrence follows from a generating function the entry records as fact | [10652-PROOF.pdf](10652-PROOF.pdf) |
-| 10653 | [A167440](https://oeis.org/A167440) | Proof | the recurrence follows from a generating function the entry records as fact | [10653-PROOF.pdf](10653-PROOF.pdf) |
-| 10654 | [A178297](https://oeis.org/A178297) | Proof | the recurrence follows from a generating function the entry records as fact | [10654-PROOF.pdf](10654-PROOF.pdf) |
-| 10655 | [A181270](https://oeis.org/A181270) | Proof | the recurrence follows from a generating function the entry records as fact | [10655-PROOF.pdf](10655-PROOF.pdf) |
-| 10656 | [A181278](https://oeis.org/A181278) | Proof | the recurrence follows from a generating function the entry records as fact | [10656-PROOF.pdf](10656-PROOF.pdf) |
-| 10657 | [A183247](https://oeis.org/A183247) | Proof | the recurrence follows from a generating function the entry records as fact | [10657-PROOF.pdf](10657-PROOF.pdf) |
-| 10658 | [A183897](https://oeis.org/A183897) | Proof | the recurrence follows from a generating function the entry records as fact | [10658-PROOF.pdf](10658-PROOF.pdf) |
-| 10659 | [A183905](https://oeis.org/A183905) | Proof | the recurrence follows from a generating function the entry records as fact | [10659-PROOF.pdf](10659-PROOF.pdf) |
-| 10660 | [A187029](https://oeis.org/A187029) | Proof | the recurrence follows from a generating function the entry records as fact | [10660-PROOF.pdf](10660-PROOF.pdf) |
-| 10661 | [A187049](https://oeis.org/A187049) | Proof | the recurrence follows from a generating function the entry records as fact | [10661-PROOF.pdf](10661-PROOF.pdf) |
-| 10662 | [A187050](https://oeis.org/A187050) | Proof | the recurrence follows from a generating function the entry records as fact | [10662-PROOF.pdf](10662-PROOF.pdf) |
-| 10663 | [A187051](https://oeis.org/A187051) | Proof | the recurrence follows from a generating function the entry records as fact | [10663-PROOF.pdf](10663-PROOF.pdf) |
-| 10664 | [A187156](https://oeis.org/A187156) | Proof | the recurrence follows from a generating function the entry records as fact | [10664-PROOF.pdf](10664-PROOF.pdf) |
-| 10665 | [A187157](https://oeis.org/A187157) | Proof | the recurrence follows from a generating function the entry records as fact | [10665-PROOF.pdf](10665-PROOF.pdf) |
-| 10666 | [A187158](https://oeis.org/A187158) | Proof | the recurrence follows from a generating function the entry records as fact | [10666-PROOF.pdf](10666-PROOF.pdf) |
-| 10667 | [A187159](https://oeis.org/A187159) | Proof | the recurrence follows from a generating function the entry records as fact | [10667-PROOF.pdf](10667-PROOF.pdf) |
-| 10668 | [A187160](https://oeis.org/A187160) | Proof | the recurrence follows from a generating function the entry records as fact | [10668-PROOF.pdf](10668-PROOF.pdf) |
-| 10669 | [A187161](https://oeis.org/A187161) | Proof | the recurrence follows from a generating function the entry records as fact | [10669-PROOF.pdf](10669-PROOF.pdf) |
-| 10670 | [A187288](https://oeis.org/A187288) | Proof | the recurrence follows from a generating function the entry records as fact | [10670-PROOF.pdf](10670-PROOF.pdf) |
-| 10671 | [A187289](https://oeis.org/A187289) | Proof | the recurrence follows from a generating function the entry records as fact | [10671-PROOF.pdf](10671-PROOF.pdf) |
-| 10672 | [A187290](https://oeis.org/A187290) | Proof | the recurrence follows from a generating function the entry records as fact | [10672-PROOF.pdf](10672-PROOF.pdf) |
-| 10673 | [A187291](https://oeis.org/A187291) | Proof | the recurrence follows from a generating function the entry records as fact | [10673-PROOF.pdf](10673-PROOF.pdf) |
-| 10674 | [A187292](https://oeis.org/A187292) | Proof | the recurrence follows from a generating function the entry records as fact | [10674-PROOF.pdf](10674-PROOF.pdf) |
-| 10675 | [A187298](https://oeis.org/A187298) | Proof | the recurrence follows from a generating function the entry records as fact | [10675-PROOF.pdf](10675-PROOF.pdf) |
-| 10676 | [A187299](https://oeis.org/A187299) | Proof | the recurrence follows from a generating function the entry records as fact | [10676-PROOF.pdf](10676-PROOF.pdf) |
-| 10677 | [A187300](https://oeis.org/A187300) | Proof | the recurrence follows from a generating function the entry records as fact | [10677-PROOF.pdf](10677-PROOF.pdf) |
-| 10678 | [A187301](https://oeis.org/A187301) | Proof | the recurrence follows from a generating function the entry records as fact | [10678-PROOF.pdf](10678-PROOF.pdf) |
-| 10679 | [A187302](https://oeis.org/A187302) | Proof | the recurrence follows from a generating function the entry records as fact | [10679-PROOF.pdf](10679-PROOF.pdf) |
-| 10680 | [A187303](https://oeis.org/A187303) | Proof | the recurrence follows from a generating function the entry records as fact | [10680-PROOF.pdf](10680-PROOF.pdf) |
-| 10681 | [A187380](https://oeis.org/A187380) | Proof | the recurrence follows from a generating function the entry records as fact | [10681-PROOF.pdf](10681-PROOF.pdf) |
-| 10682 | [A187381](https://oeis.org/A187381) | Proof | the recurrence follows from a generating function the entry records as fact | [10682-PROOF.pdf](10682-PROOF.pdf) |
-| 10683 | [A187382](https://oeis.org/A187382) | Proof | the recurrence follows from a generating function the entry records as fact | [10683-PROOF.pdf](10683-PROOF.pdf) |
-| 10684 | [A187383](https://oeis.org/A187383) | Proof | the recurrence follows from a generating function the entry records as fact | [10684-PROOF.pdf](10684-PROOF.pdf) |
-| 10685 | [A187384](https://oeis.org/A187384) | Proof | the recurrence follows from a generating function the entry records as fact | [10685-PROOF.pdf](10685-PROOF.pdf) |
-| 10686 | [A187511](https://oeis.org/A187511) | Proof | the recurrence follows from a generating function the entry records as fact | [10686-PROOF.pdf](10686-PROOF.pdf) |
-| 10687 | [A187512](https://oeis.org/A187512) | Proof | the recurrence follows from a generating function the entry records as fact | [10687-PROOF.pdf](10687-PROOF.pdf) |
-| 10688 | [A187514](https://oeis.org/A187514) | Proof | the recurrence follows from a generating function the entry records as fact | [10688-PROOF.pdf](10688-PROOF.pdf) |
-| 10689 | [A187515](https://oeis.org/A187515) | Proof | the recurrence follows from a generating function the entry records as fact | [10689-PROOF.pdf](10689-PROOF.pdf) |
-| 10690 | [A187589](https://oeis.org/A187589) | Proof | the recurrence follows from a generating function the entry records as fact | [10690-PROOF.pdf](10690-PROOF.pdf) |
-| 10691 | [A187590](https://oeis.org/A187590) | Proof | the recurrence follows from a generating function the entry records as fact | [10691-PROOF.pdf](10691-PROOF.pdf) |
-| 10692 | [A187591](https://oeis.org/A187591) | Proof | the recurrence follows from a generating function the entry records as fact | [10692-PROOF.pdf](10692-PROOF.pdf) |
-| 10693 | [A187592](https://oeis.org/A187592) | Proof | the recurrence follows from a generating function the entry records as fact | [10693-PROOF.pdf](10693-PROOF.pdf) |
-| 10694 | [A187607](https://oeis.org/A187607) | Proof | the recurrence follows from a generating function the entry records as fact | [10694-PROOF.pdf](10694-PROOF.pdf) |
-| 10695 | [A187608](https://oeis.org/A187608) | Proof | the recurrence follows from a generating function the entry records as fact | [10695-PROOF.pdf](10695-PROOF.pdf) |
-| 10696 | [A187609](https://oeis.org/A187609) | Proof | the recurrence follows from a generating function the entry records as fact | [10696-PROOF.pdf](10696-PROOF.pdf) |
-| 10697 | [A187610](https://oeis.org/A187610) | Proof | the recurrence follows from a generating function the entry records as fact | [10697-PROOF.pdf](10697-PROOF.pdf) |
-| 10698 | [A187611](https://oeis.org/A187611) | Proof | the recurrence follows from a generating function the entry records as fact | [10698-PROOF.pdf](10698-PROOF.pdf) |
-| 10699 | [A187612](https://oeis.org/A187612) | Proof | the recurrence follows from a generating function the entry records as fact | [10699-PROOF.pdf](10699-PROOF.pdf) |
-| 10700 | [A187851](https://oeis.org/A187851) | Proof | the recurrence follows from a generating function the entry records as fact | [10700-PROOF.pdf](10700-PROOF.pdf) |
-| 10701 | [A187852](https://oeis.org/A187852) | Proof | the recurrence follows from a generating function the entry records as fact | [10701-PROOF.pdf](10701-PROOF.pdf) |
-| 10702 | [A187853](https://oeis.org/A187853) | Proof | the recurrence follows from a generating function the entry records as fact | [10702-PROOF.pdf](10702-PROOF.pdf) |
-| 10703 | [A187854](https://oeis.org/A187854) | Proof | the recurrence follows from a generating function the entry records as fact | [10703-PROOF.pdf](10703-PROOF.pdf) |
-| 10704 | [A187858](https://oeis.org/A187858) | Proof | the recurrence follows from a generating function the entry records as fact | [10704-PROOF.pdf](10704-PROOF.pdf) |
-| 10705 | [A187859](https://oeis.org/A187859) | Proof | the recurrence follows from a generating function the entry records as fact | [10705-PROOF.pdf](10705-PROOF.pdf) |
-| 10706 | [A187860](https://oeis.org/A187860) | Proof | the recurrence follows from a generating function the entry records as fact | [10706-PROOF.pdf](10706-PROOF.pdf) |
-| 10707 | [A187861](https://oeis.org/A187861) | Proof | the recurrence follows from a generating function the entry records as fact | [10707-PROOF.pdf](10707-PROOF.pdf) |
-| 10708 | [A188149](https://oeis.org/A188149) | Proof | the recurrence follows from a generating function the entry records as fact | [10708-PROOF.pdf](10708-PROOF.pdf) |
-| 10709 | [A188150](https://oeis.org/A188150) | Proof | the recurrence follows from a generating function the entry records as fact | [10709-PROOF.pdf](10709-PROOF.pdf) |
-| 10710 | [A188151](https://oeis.org/A188151) | Proof | the recurrence follows from a generating function the entry records as fact | [10710-PROOF.pdf](10710-PROOF.pdf) |
-| 10711 | [A188152](https://oeis.org/A188152) | Proof | the recurrence follows from a generating function the entry records as fact | [10711-PROOF.pdf](10711-PROOF.pdf) |
-| 10712 | [A188153](https://oeis.org/A188153) | Proof | the recurrence follows from a generating function the entry records as fact | [10712-PROOF.pdf](10712-PROOF.pdf) |
-| 10713 | [A188154](https://oeis.org/A188154) | Proof | the recurrence follows from a generating function the entry records as fact | [10713-PROOF.pdf](10713-PROOF.pdf) |
-| 10714 | [A188155](https://oeis.org/A188155) | Proof | the recurrence follows from a generating function the entry records as fact | [10714-PROOF.pdf](10714-PROOF.pdf) |
-| 10715 | [A189807](https://oeis.org/A189807) | Proof | the recurrence follows from a generating function the entry records as fact | [10715-PROOF.pdf](10715-PROOF.pdf) |
-| 10716 | [A189808](https://oeis.org/A189808) | Proof | the recurrence follows from a generating function the entry records as fact | [10716-PROOF.pdf](10716-PROOF.pdf) |
-| 10717 | [A189809](https://oeis.org/A189809) | Proof | the recurrence follows from a generating function the entry records as fact | [10717-PROOF.pdf](10717-PROOF.pdf) |
-| 10718 | [A190036](https://oeis.org/A190036) | Proof | the recurrence follows from a generating function the entry records as fact | [10718-PROOF.pdf](10718-PROOF.pdf) |
-| 10719 | [A190038](https://oeis.org/A190038) | Proof | the recurrence follows from a generating function the entry records as fact | [10719-PROOF.pdf](10719-PROOF.pdf) |
-| 10720 | [A201722](https://oeis.org/A201722) | Proof | the recurrence follows from a generating function the entry records as fact | [10720-PROOF.pdf](10720-PROOF.pdf) |
-| 10721 | [A206198](https://oeis.org/A206198) | Proof | the recurrence follows from a generating function the entry records as fact | [10721-PROOF.pdf](10721-PROOF.pdf) |
-| 10722 | [A211479](https://oeis.org/A211479) | Proof | the recurrence follows from a generating function the entry records as fact | [10722-PROOF.pdf](10722-PROOF.pdf) |
-| 10723 | [A211525](https://oeis.org/A211525) | Proof | the recurrence follows from a generating function the entry records as fact | [10723-PROOF.pdf](10723-PROOF.pdf) |
-| 10724 | [A221597](https://oeis.org/A221597) | Proof | the recurrence follows from a generating function the entry records as fact | [10724-PROOF.pdf](10724-PROOF.pdf) |
-| 10725 | [A221685](https://oeis.org/A221685) | Proof | the recurrence follows from a generating function the entry records as fact | [10725-PROOF.pdf](10725-PROOF.pdf) |
-| 10726 | [A221686](https://oeis.org/A221686) | Proof | the recurrence follows from a generating function the entry records as fact | [10726-PROOF.pdf](10726-PROOF.pdf) |
-| 10727 | [A224666](https://oeis.org/A224666) | Proof | the recurrence follows from a generating function the entry records as fact | [10727-PROOF.pdf](10727-PROOF.pdf) |
-| 10728 | [A224667](https://oeis.org/A224667) | Proof | the recurrence follows from a generating function the entry records as fact | [10728-PROOF.pdf](10728-PROOF.pdf) |
-| 10729 | [A224668](https://oeis.org/A224668) | Proof | the recurrence follows from a generating function the entry records as fact | [10729-PROOF.pdf](10729-PROOF.pdf) |
-| 10730 | [A228219](https://oeis.org/A228219) | Proof | the recurrence follows from a generating function the entry records as fact | [10730-PROOF.pdf](10730-PROOF.pdf) |
-| 10731 | [A228261](https://oeis.org/A228261) | Proof | the recurrence follows from a generating function the entry records as fact | [10731-PROOF.pdf](10731-PROOF.pdf) |
-| 10732 | [A243513](https://oeis.org/A243513) | Proof | the recurrence follows from a generating function the entry records as fact | [10732-PROOF.pdf](10732-PROOF.pdf) |
-| 10733 | [A247284](https://oeis.org/A247284) | Proof | the recurrence follows from a generating function the entry records as fact | [10733-PROOF.pdf](10733-PROOF.pdf) |
-| 10734 | [A251421](https://oeis.org/A251421) | Proof | the recurrence follows from a generating function the entry records as fact | [10734-PROOF.pdf](10734-PROOF.pdf) |
-| 10735 | [A252831](https://oeis.org/A252831) | Proof | the recurrence follows from a generating function the entry records as fact | [10735-PROOF.pdf](10735-PROOF.pdf) |
-| 10736 | [A252832](https://oeis.org/A252832) | Proof | the recurrence follows from a generating function the entry records as fact | [10736-PROOF.pdf](10736-PROOF.pdf) |
-| 10737 | [A252833](https://oeis.org/A252833) | Proof | the recurrence follows from a generating function the entry records as fact | [10737-PROOF.pdf](10737-PROOF.pdf) |
-| 10738 | [A252834](https://oeis.org/A252834) | Proof | the recurrence follows from a generating function the entry records as fact | [10738-PROOF.pdf](10738-PROOF.pdf) |
-| 10739 | [A252978](https://oeis.org/A252978) | Proof | the recurrence follows from a generating function the entry records as fact | [10739-PROOF.pdf](10739-PROOF.pdf) |
-| 10740 | [A252979](https://oeis.org/A252979) | Proof | the recurrence follows from a generating function the entry records as fact | [10740-PROOF.pdf](10740-PROOF.pdf) |
-| 10741 | [A252980](https://oeis.org/A252980) | Proof | the recurrence follows from a generating function the entry records as fact | [10741-PROOF.pdf](10741-PROOF.pdf) |
-| 10742 | [A253122](https://oeis.org/A253122) | Proof | the recurrence follows from a generating function the entry records as fact | [10742-PROOF.pdf](10742-PROOF.pdf) |
-| 10743 | [A253218](https://oeis.org/A253218) | Proof | the recurrence follows from a generating function the entry records as fact | [10743-PROOF.pdf](10743-PROOF.pdf) |
-| 10744 | [A253219](https://oeis.org/A253219) | Proof | the recurrence follows from a generating function the entry records as fact | [10744-PROOF.pdf](10744-PROOF.pdf) |
-| 10745 | [A253220](https://oeis.org/A253220) | Proof | the recurrence follows from a generating function the entry records as fact | [10745-PROOF.pdf](10745-PROOF.pdf) |
-| 10746 | [A253221](https://oeis.org/A253221) | Proof | the recurrence follows from a generating function the entry records as fact | [10746-PROOF.pdf](10746-PROOF.pdf) |
-| 10747 | [A253503](https://oeis.org/A253503) | Proof | the recurrence follows from a generating function the entry records as fact | [10747-PROOF.pdf](10747-PROOF.pdf) |
-| 10748 | [A261952](https://oeis.org/A261952) | Proof | the recurrence follows from a generating function the entry records as fact | [10748-PROOF.pdf](10748-PROOF.pdf) |
-| 10749 | [A263244](https://oeis.org/A263244) | Proof | the recurrence follows from a generating function the entry records as fact | [10749-PROOF.pdf](10749-PROOF.pdf) |
-| 10750 | [A263245](https://oeis.org/A263245) | Proof | the recurrence follows from a generating function the entry records as fact | [10750-PROOF.pdf](10750-PROOF.pdf) |
-| 10751 | [A265207](https://oeis.org/A265207) | Proof | the recurrence follows from a generating function the entry records as fact | [10751-PROOF.pdf](10751-PROOF.pdf) |
-| 10752 | [A265283](https://oeis.org/A265283) | Proof | the recurrence follows from a generating function the entry records as fact | [10752-PROOF.pdf](10752-PROOF.pdf) |
-| 10753 | [A266219](https://oeis.org/A266219) | Proof | the recurrence follows from a generating function the entry records as fact | [10753-PROOF.pdf](10753-PROOF.pdf) |
-| 10754 | [A266592](https://oeis.org/A266592) | Proof | the recurrence follows from a generating function the entry records as fact | [10754-PROOF.pdf](10754-PROOF.pdf) |
-| 10755 | [A266612](https://oeis.org/A266612) | Proof | the recurrence follows from a generating function the entry records as fact | [10755-PROOF.pdf](10755-PROOF.pdf) |
-| 10756 | [A266613](https://oeis.org/A266613) | Proof | the recurrence follows from a generating function the entry records as fact | [10756-PROOF.pdf](10756-PROOF.pdf) |
-| 10757 | [A266844](https://oeis.org/A266844) | Proof | the recurrence follows from a generating function the entry records as fact | [10757-PROOF.pdf](10757-PROOF.pdf) |
-| 10758 | [A266846](https://oeis.org/A266846) | Proof | the recurrence follows from a generating function the entry records as fact | [10758-PROOF.pdf](10758-PROOF.pdf) |
-| 10759 | [A266975](https://oeis.org/A266975) | Proof | the recurrence follows from a generating function the entry records as fact | [10759-PROOF.pdf](10759-PROOF.pdf) |
-| 10760 | [A266976](https://oeis.org/A266976) | Proof | the recurrence follows from a generating function the entry records as fact | [10760-PROOF.pdf](10760-PROOF.pdf) |
-| 10761 | [A267036](https://oeis.org/A267036) | Proof | the recurrence follows from a generating function the entry records as fact | [10761-PROOF.pdf](10761-PROOF.pdf) |
-| 10762 | [A267044](https://oeis.org/A267044) | Proof | the recurrence follows from a generating function the entry records as fact | [10762-PROOF.pdf](10762-PROOF.pdf) |
-| 10763 | [A267045](https://oeis.org/A267045) | Proof | the recurrence follows from a generating function the entry records as fact | [10763-PROOF.pdf](10763-PROOF.pdf) |
-| 10764 | [A267051](https://oeis.org/A267051) | Proof | the recurrence follows from a generating function the entry records as fact | [10764-PROOF.pdf](10764-PROOF.pdf) |
-| 10765 | [A267052](https://oeis.org/A267052) | Proof | the recurrence follows from a generating function the entry records as fact | [10765-PROOF.pdf](10765-PROOF.pdf) |
-| 10766 | [A267156](https://oeis.org/A267156) | Proof | the recurrence follows from a generating function the entry records as fact | [10766-PROOF.pdf](10766-PROOF.pdf) |
-| 10767 | [A267157](https://oeis.org/A267157) | Proof | the recurrence follows from a generating function the entry records as fact | [10767-PROOF.pdf](10767-PROOF.pdf) |
-| 10768 | [A267185](https://oeis.org/A267185) | Proof | the recurrence follows from a generating function the entry records as fact | [10768-PROOF.pdf](10768-PROOF.pdf) |
-| 10769 | [A267226](https://oeis.org/A267226) | Proof | the recurrence follows from a generating function the entry records as fact | [10769-PROOF.pdf](10769-PROOF.pdf) |
-| 10770 | [A267297](https://oeis.org/A267297) | Proof | the recurrence follows from a generating function the entry records as fact | [10770-PROOF.pdf](10770-PROOF.pdf) |
-| 10771 | [A267458](https://oeis.org/A267458) | Proof | the recurrence follows from a generating function the entry records as fact | [10771-PROOF.pdf](10771-PROOF.pdf) |
-| 10772 | [A267460](https://oeis.org/A267460) | Proof | the recurrence follows from a generating function the entry records as fact | [10772-PROOF.pdf](10772-PROOF.pdf) |
-| 10773 | [A267530](https://oeis.org/A267530) | Proof | the recurrence follows from a generating function the entry records as fact | [10773-PROOF.pdf](10773-PROOF.pdf) |
-| 10774 | [A267705](https://oeis.org/A267705) | Proof | the recurrence follows from a generating function the entry records as fact | [10774-PROOF.pdf](10774-PROOF.pdf) |
-| 10775 | [A267774](https://oeis.org/A267774) | Proof | the recurrence follows from a generating function the entry records as fact | [10775-PROOF.pdf](10775-PROOF.pdf) |
-| 10776 | [A267775](https://oeis.org/A267775) | Proof | the recurrence follows from a generating function the entry records as fact | [10776-PROOF.pdf](10776-PROOF.pdf) |
-| 10777 | [A267779](https://oeis.org/A267779) | Proof | the recurrence follows from a generating function the entry records as fact | [10777-PROOF.pdf](10777-PROOF.pdf) |
-| 10778 | [A267780](https://oeis.org/A267780) | Proof | the recurrence follows from a generating function the entry records as fact | [10778-PROOF.pdf](10778-PROOF.pdf) |
-| 10779 | [A267812](https://oeis.org/A267812) | Proof | the recurrence follows from a generating function the entry records as fact | [10779-PROOF.pdf](10779-PROOF.pdf) |
-| 10780 | [A267815](https://oeis.org/A267815) | Proof | the recurrence follows from a generating function the entry records as fact | [10780-PROOF.pdf](10780-PROOF.pdf) |
-| 10781 | [A267816](https://oeis.org/A267816) | Proof | the recurrence follows from a generating function the entry records as fact | [10781-PROOF.pdf](10781-PROOF.pdf) |
-| 10782 | [A267882](https://oeis.org/A267882) | Proof | the recurrence follows from a generating function the entry records as fact | [10782-PROOF.pdf](10782-PROOF.pdf) |
-| 10783 | [A267925](https://oeis.org/A267925) | Proof | the recurrence follows from a generating function the entry records as fact | [10783-PROOF.pdf](10783-PROOF.pdf) |
-| 10784 | [A267926](https://oeis.org/A267926) | Proof | the recurrence follows from a generating function the entry records as fact | [10784-PROOF.pdf](10784-PROOF.pdf) |
-| 10785 | [A268939](https://oeis.org/A268939) | Proof | the recurrence follows from a generating function the entry records as fact | [10785-PROOF.pdf](10785-PROOF.pdf) |
-| 10786 | [A268941](https://oeis.org/A268941) | Proof | the recurrence follows from a generating function the entry records as fact | [10786-PROOF.pdf](10786-PROOF.pdf) |
-| 10787 | [A268943](https://oeis.org/A268943) | Proof | the recurrence follows from a generating function the entry records as fact | [10787-PROOF.pdf](10787-PROOF.pdf) |
-| 10788 | [A269461](https://oeis.org/A269461) | Proof | the recurrence follows from a generating function the entry records as fact | [10788-PROOF.pdf](10788-PROOF.pdf) |
-| 10789 | [A269462](https://oeis.org/A269462) | Proof | the recurrence follows from a generating function the entry records as fact | [10789-PROOF.pdf](10789-PROOF.pdf) |
-| 10790 | [A269464](https://oeis.org/A269464) | Proof | the recurrence follows from a generating function the entry records as fact | [10790-PROOF.pdf](10790-PROOF.pdf) |
-| 10791 | [A269465](https://oeis.org/A269465) | Proof | the recurrence follows from a generating function the entry records as fact | [10791-PROOF.pdf](10791-PROOF.pdf) |
-| 10792 | [A269466](https://oeis.org/A269466) | Proof | the recurrence follows from a generating function the entry records as fact | [10792-PROOF.pdf](10792-PROOF.pdf) |
-| 10793 | [A269613](https://oeis.org/A269613) | Proof | the recurrence follows from a generating function the entry records as fact | [10793-PROOF.pdf](10793-PROOF.pdf) |
-| 10794 | [A269673](https://oeis.org/A269673) | Proof | the recurrence follows from a generating function the entry records as fact | [10794-PROOF.pdf](10794-PROOF.pdf) |
-| 10795 | [A269675](https://oeis.org/A269675) | Proof | the recurrence follows from a generating function the entry records as fact | [10795-PROOF.pdf](10795-PROOF.pdf) |
-| 10796 | [A269677](https://oeis.org/A269677) | Proof | the recurrence follows from a generating function the entry records as fact | [10796-PROOF.pdf](10796-PROOF.pdf) |
-| 10797 | [A269684](https://oeis.org/A269684) | Proof | the recurrence follows from a generating function the entry records as fact | [10797-PROOF.pdf](10797-PROOF.pdf) |
-| 10798 | [A269685](https://oeis.org/A269685) | Proof | the recurrence follows from a generating function the entry records as fact | [10798-PROOF.pdf](10798-PROOF.pdf) |
-| 10799 | [A269686](https://oeis.org/A269686) | Proof | the recurrence follows from a generating function the entry records as fact | [10799-PROOF.pdf](10799-PROOF.pdf) |
-| 10800 | [A269687](https://oeis.org/A269687) | Proof | the recurrence follows from a generating function the entry records as fact | [10800-PROOF.pdf](10800-PROOF.pdf) |
-| 10801 | [A269688](https://oeis.org/A269688) | Proof | the recurrence follows from a generating function the entry records as fact | [10801-PROOF.pdf](10801-PROOF.pdf) |
-| 10802 | [A269689](https://oeis.org/A269689) | Proof | the recurrence follows from a generating function the entry records as fact | [10802-PROOF.pdf](10802-PROOF.pdf) |
-| 10803 | [A269907](https://oeis.org/A269907) | Proof | the recurrence follows from a generating function the entry records as fact | [10803-PROOF.pdf](10803-PROOF.pdf) |
-| 10804 | [A269911](https://oeis.org/A269911) | Proof | the recurrence follows from a generating function the entry records as fact | [10804-PROOF.pdf](10804-PROOF.pdf) |
-| 10805 | [A270080](https://oeis.org/A270080) | Proof | the recurrence follows from a generating function the entry records as fact | [10805-PROOF.pdf](10805-PROOF.pdf) |
-| 10806 | [A221588](https://oeis.org/A221588) | Proof | the recurrence follows from a generating function the entry records as fact | [10806-PROOF.pdf](10806-PROOF.pdf) |
-| 10807 | [A221589](https://oeis.org/A221589) | Proof | the recurrence follows from a generating function the entry records as fact | [10807-PROOF.pdf](10807-PROOF.pdf) |
-| 10808 | [A221022](https://oeis.org/A221022) | Proof | the recurrence follows from a generating function the entry records as fact | [10808-PROOF.pdf](10808-PROOF.pdf) |
-| 10809 | [A165372](https://oeis.org/A165372) | Proof | the recurrence follows from a generating function the entry records as fact | [10809-PROOF.pdf](10809-PROOF.pdf) |
-| 10810 | [A202730](https://oeis.org/A202730) | Proof | the recurrence follows from a generating function the entry records as fact | [10810-PROOF.pdf](10810-PROOF.pdf) |
-| 10811 | [A206687](https://oeis.org/A206687) | Proof | the recurrence follows from a generating function the entry records as fact | [10811-PROOF.pdf](10811-PROOF.pdf) |
-| 10812 | [A221829](https://oeis.org/A221829) | Proof | the recurrence follows from a generating function the entry records as fact | [10812-PROOF.pdf](10812-PROOF.pdf) |
-| 10813 | [A222869](https://oeis.org/A222869) | Proof | the recurrence follows from a generating function the entry records as fact | [10813-PROOF.pdf](10813-PROOF.pdf) |
-| 10814 | [A222940](https://oeis.org/A222940) | Proof | the recurrence follows from a generating function the entry records as fact | [10814-PROOF.pdf](10814-PROOF.pdf) |
-| 10815 | [A223332](https://oeis.org/A223332) | Proof | the recurrence follows from a generating function the entry records as fact | [10815-PROOF.pdf](10815-PROOF.pdf) |
-| 10816 | [A269290](https://oeis.org/A269290) | Proof | the recurrence follows from a generating function the entry records as fact | [10816-PROOF.pdf](10816-PROOF.pdf) |
-| 10817 | [A223181](https://oeis.org/A223181) | Proof | the recurrence follows from a generating function the entry records as fact | [10817-PROOF.pdf](10817-PROOF.pdf) |
-| 10818 | [A223234](https://oeis.org/A223234) | Proof | the recurrence follows from a generating function the entry records as fact | [10818-PROOF.pdf](10818-PROOF.pdf) |
-| 10819 | [A223381](https://oeis.org/A223381) | Proof | the recurrence follows from a generating function the entry records as fact | [10819-PROOF.pdf](10819-PROOF.pdf) |
-| 10820 | [A233163](https://oeis.org/A233163) | Proof | the recurrence follows from a generating function the entry records as fact | [10820-PROOF.pdf](10820-PROOF.pdf) |
-| 10821 | [A233164](https://oeis.org/A233164) | Proof | the recurrence follows from a generating function the entry records as fact | [10821-PROOF.pdf](10821-PROOF.pdf) |
-| 10822 | [A233165](https://oeis.org/A233165) | Proof | the recurrence follows from a generating function the entry records as fact | [10822-PROOF.pdf](10822-PROOF.pdf) |
-| 10823 | [A233166](https://oeis.org/A233166) | Proof | the recurrence follows from a generating function the entry records as fact | [10823-PROOF.pdf](10823-PROOF.pdf) |
-| 10824 | [A233167](https://oeis.org/A233167) | Proof | the recurrence follows from a generating function the entry records as fact | [10824-PROOF.pdf](10824-PROOF.pdf) |
-| 10825 | [A233196](https://oeis.org/A233196) | Proof | the recurrence follows from a generating function the entry records as fact | [10825-PROOF.pdf](10825-PROOF.pdf) |
-| 10826 | [A233257](https://oeis.org/A233257) | Proof | the recurrence follows from a generating function the entry records as fact | [10826-PROOF.pdf](10826-PROOF.pdf) |
-| 10827 | [A268622](https://oeis.org/A268622) | Proof | the recurrence follows from a generating function the entry records as fact | [10827-PROOF.pdf](10827-PROOF.pdf) |
-| 10828 | [A269103](https://oeis.org/A269103) | Proof | the recurrence follows from a generating function the entry records as fact | [10828-PROOF.pdf](10828-PROOF.pdf) |
-| 10829 | [A269285](https://oeis.org/A269285) | Proof | the recurrence follows from a generating function the entry records as fact | [10829-PROOF.pdf](10829-PROOF.pdf) |
-| 10830 | [A183586](https://oeis.org/A183586) | Proof | the recurrence follows from a generating function the entry records as fact | [10830-PROOF.pdf](10830-PROOF.pdf) |
-| 10831 | [A183682](https://oeis.org/A183682) | Proof | the recurrence follows from a generating function the entry records as fact | [10831-PROOF.pdf](10831-PROOF.pdf) |
-| 10832 | [A183690](https://oeis.org/A183690) | Proof | the recurrence follows from a generating function the entry records as fact | [10832-PROOF.pdf](10832-PROOF.pdf) |
-| 10833 | [A183702](https://oeis.org/A183702) | Proof | the recurrence follows from a generating function the entry records as fact | [10833-PROOF.pdf](10833-PROOF.pdf) |
-| 10834 | [A184688](https://oeis.org/A184688) | Proof | the recurrence follows from a generating function the entry records as fact | [10834-PROOF.pdf](10834-PROOF.pdf) |
-| 10835 | [A185761](https://oeis.org/A185761) | Proof | the recurrence follows from a generating function the entry records as fact | [10835-PROOF.pdf](10835-PROOF.pdf) |
-| 10836 | [A185858](https://oeis.org/A185858) | Proof | the recurrence follows from a generating function the entry records as fact | [10836-PROOF.pdf](10836-PROOF.pdf) |
-| 10837 | [A189604](https://oeis.org/A189604) | Proof | the recurrence follows from a generating function the entry records as fact | [10837-PROOF.pdf](10837-PROOF.pdf) |
-| 10838 | [A205220](https://oeis.org/A205220) | Proof | the recurrence follows from a generating function the entry records as fact | [10838-PROOF.pdf](10838-PROOF.pdf) |
-| 10839 | [A205329](https://oeis.org/A205329) | Proof | the recurrence follows from a generating function the entry records as fact | [10839-PROOF.pdf](10839-PROOF.pdf) |
-| 10840 | [A205354](https://oeis.org/A205354) | Proof | the recurrence follows from a generating function the entry records as fact | [10840-PROOF.pdf](10840-PROOF.pdf) |
-| 10841 | [A208088](https://oeis.org/A208088) | Proof | the recurrence follows from a generating function the entry records as fact | [10841-PROOF.pdf](10841-PROOF.pdf) |
-| 10842 | [A211715](https://oeis.org/A211715) | Proof | the recurrence follows from a generating function the entry records as fact | [10842-PROOF.pdf](10842-PROOF.pdf) |
-| 10843 | [A211719](https://oeis.org/A211719) | Proof | the recurrence follows from a generating function the entry records as fact | [10843-PROOF.pdf](10843-PROOF.pdf) |
-| 10844 | [A220932](https://oeis.org/A220932) | Proof | the recurrence follows from a generating function the entry records as fact | [10844-PROOF.pdf](10844-PROOF.pdf) |
-| 10845 | [A221121](https://oeis.org/A221121) | Proof | the recurrence follows from a generating function the entry records as fact | [10845-PROOF.pdf](10845-PROOF.pdf) |
-| 10846 | [A221731](https://oeis.org/A221731) | Proof | the recurrence follows from a generating function the entry records as fact | [10846-PROOF.pdf](10846-PROOF.pdf) |
-| 10847 | [A222098](https://oeis.org/A222098) | Proof | the recurrence follows from a generating function the entry records as fact | [10847-PROOF.pdf](10847-PROOF.pdf) |
-| 10848 | [A223197](https://oeis.org/A223197) | Proof | the recurrence follows from a generating function the entry records as fact | [10848-PROOF.pdf](10848-PROOF.pdf) |
-| 10849 | [A223204](https://oeis.org/A223204) | Proof | the recurrence follows from a generating function the entry records as fact | [10849-PROOF.pdf](10849-PROOF.pdf) |
-| 10850 | [A223228](https://oeis.org/A223228) | Proof | the recurrence follows from a generating function the entry records as fact | [10850-PROOF.pdf](10850-PROOF.pdf) |
-| 10851 | [A223258](https://oeis.org/A223258) | Proof | the recurrence follows from a generating function the entry records as fact | [10851-PROOF.pdf](10851-PROOF.pdf) |
-| 10852 | [A223277](https://oeis.org/A223277) | Proof | the recurrence follows from a generating function the entry records as fact | [10852-PROOF.pdf](10852-PROOF.pdf) |
-| 10853 | [A223278](https://oeis.org/A223278) | Proof | the recurrence follows from a generating function the entry records as fact | [10853-PROOF.pdf](10853-PROOF.pdf) |
-| 10854 | [A223318](https://oeis.org/A223318) | Proof | the recurrence follows from a generating function the entry records as fact | [10854-PROOF.pdf](10854-PROOF.pdf) |
-| 10855 | [A223552](https://oeis.org/A223552) | Proof | the recurrence follows from a generating function the entry records as fact | [10855-PROOF.pdf](10855-PROOF.pdf) |
-| 10856 | [A231103](https://oeis.org/A231103) | Proof | the recurrence follows from a generating function the entry records as fact | [10856-PROOF.pdf](10856-PROOF.pdf) |
-| 10857 | [A231104](https://oeis.org/A231104) | Proof | the recurrence follows from a generating function the entry records as fact | [10857-PROOF.pdf](10857-PROOF.pdf) |
-| 10858 | [A232950](https://oeis.org/A232950) | Proof | the recurrence follows from a generating function the entry records as fact | [10858-PROOF.pdf](10858-PROOF.pdf) |
-| 10859 | [A232956](https://oeis.org/A232956) | Proof | the recurrence follows from a generating function the entry records as fact | [10859-PROOF.pdf](10859-PROOF.pdf) |
-| 10860 | [A233123](https://oeis.org/A233123) | Proof | the recurrence follows from a generating function the entry records as fact | [10860-PROOF.pdf](10860-PROOF.pdf) |
-| 10861 | [A233251](https://oeis.org/A233251) | Proof | the recurrence follows from a generating function the entry records as fact | [10861-PROOF.pdf](10861-PROOF.pdf) |
-| 10862 | [A233252](https://oeis.org/A233252) | Proof | the recurrence follows from a generating function the entry records as fact | [10862-PROOF.pdf](10862-PROOF.pdf) |
-| 10863 | [A234779](https://oeis.org/A234779) | Proof | the recurrence follows from a generating function the entry records as fact | [10863-PROOF.pdf](10863-PROOF.pdf) |
-| 10864 | [A235877](https://oeis.org/A235877) | Proof | the recurrence follows from a generating function the entry records as fact | [10864-PROOF.pdf](10864-PROOF.pdf) |
-| 10865 | [A235886](https://oeis.org/A235886) | Proof | the recurrence follows from a generating function the entry records as fact | [10865-PROOF.pdf](10865-PROOF.pdf) |
-| 10866 | [A253029](https://oeis.org/A253029) | Proof | the recurrence follows from a generating function the entry records as fact | [10866-PROOF.pdf](10866-PROOF.pdf) |
-| 10867 | [A259243](https://oeis.org/A259243) | Proof | the recurrence follows from a generating function the entry records as fact | [10867-PROOF.pdf](10867-PROOF.pdf) |
-| 10868 | [A259290](https://oeis.org/A259290) | Proof | the recurrence follows from a generating function the entry records as fact | [10868-PROOF.pdf](10868-PROOF.pdf) |
-| 10869 | [A269284](https://oeis.org/A269284) | Proof | the recurrence follows from a generating function the entry records as fact | [10869-PROOF.pdf](10869-PROOF.pdf) |
-| 10870 | [A275229](https://oeis.org/A275229) | Proof | the recurrence follows from a generating function the entry records as fact | [10870-PROOF.pdf](10870-PROOF.pdf) |
-| 10871 | [A221082](https://oeis.org/A221082) | Proof | the recurrence follows from a generating function the entry records as fact | [10871-PROOF.pdf](10871-PROOF.pdf) |
-| 10872 | [A223270](https://oeis.org/A223270) | Proof | the recurrence follows from a generating function the entry records as fact | [10872-PROOF.pdf](10872-PROOF.pdf) |
-| 10873 | [A232921](https://oeis.org/A232921) | Proof | the recurrence follows from a generating function the entry records as fact | [10873-PROOF.pdf](10873-PROOF.pdf) |
-| 10874 | [A233020](https://oeis.org/A233020) | Proof | the recurrence follows from a generating function the entry records as fact | [10874-PROOF.pdf](10874-PROOF.pdf) |
-| 10875 | [A007780](https://oeis.org/A007780) | Proof | the recurrence follows from a generating function the entry records as fact | [10875-PROOF.pdf](10875-PROOF.pdf) |
-| 10876 | [A025567](https://oeis.org/A025567) | Proof | several independent square roots | [10876-PROOF.pdf](10876-PROOF.pdf) |
-| 10877 | [A046960](https://oeis.org/A046960) | Proof | the recurrence follows from a generating function the entry records as fact | [10877-PROOF.pdf](10877-PROOF.pdf) |
-| 10878 | [A046961](https://oeis.org/A046961) | Proof | the recurrence follows from a generating function the entry records as fact | [10878-PROOF.pdf](10878-PROOF.pdf) |
-| 10879 | [A046962](https://oeis.org/A046962) | Proof | the recurrence follows from a generating function the entry records as fact | [10879-PROOF.pdf](10879-PROOF.pdf) |
-| 10880 | [A046963](https://oeis.org/A046963) | Proof | the recurrence follows from a generating function the entry records as fact | [10880-PROOF.pdf](10880-PROOF.pdf) |
-| 10881 | [A059158](https://oeis.org/A059158) | Proof | the recurrence follows from a generating function the entry records as fact | [10881-PROOF.pdf](10881-PROOF.pdf) |
-| 10882 | [A063098](https://oeis.org/A063098) | Proof | the recurrence follows from a generating function the entry records as fact | [10882-PROOF.pdf](10882-PROOF.pdf) |
-| 10883 | [A063116](https://oeis.org/A063116) | Proof | the recurrence follows from a generating function the entry records as fact | [10883-PROOF.pdf](10883-PROOF.pdf) |
-| 10884 | [A063120](https://oeis.org/A063120) | Proof | the recurrence follows from a generating function the entry records as fact | [10884-PROOF.pdf](10884-PROOF.pdf) |
-| 10885 | [A063122](https://oeis.org/A063122) | Proof | the recurrence follows from a generating function the entry records as fact | [10885-PROOF.pdf](10885-PROOF.pdf) |
-| 10886 | [A063128](https://oeis.org/A063128) | Proof | the recurrence follows from a generating function the entry records as fact | [10886-PROOF.pdf](10886-PROOF.pdf) |
-| 10887 | [A063130](https://oeis.org/A063130) | Proof | the recurrence follows from a generating function the entry records as fact | [10887-PROOF.pdf](10887-PROOF.pdf) |
-| 10888 | [A063134](https://oeis.org/A063134) | Proof | the recurrence follows from a generating function the entry records as fact | [10888-PROOF.pdf](10888-PROOF.pdf) |
-| 10889 | [A063136](https://oeis.org/A063136) | Proof | the recurrence follows from a generating function the entry records as fact | [10889-PROOF.pdf](10889-PROOF.pdf) |
-| 10890 | [A063140](https://oeis.org/A063140) | Proof | the recurrence follows from a generating function the entry records as fact | [10890-PROOF.pdf](10890-PROOF.pdf) |
-| 10891 | [A063143](https://oeis.org/A063143) | Proof | the recurrence follows from a generating function the entry records as fact | [10891-PROOF.pdf](10891-PROOF.pdf) |
-| 10892 | [A063144](https://oeis.org/A063144) | Proof | the recurrence follows from a generating function the entry records as fact | [10892-PROOF.pdf](10892-PROOF.pdf) |
-| 10893 | [A063146](https://oeis.org/A063146) | Proof | the recurrence follows from a generating function the entry records as fact | [10893-PROOF.pdf](10893-PROOF.pdf) |
-| 10894 | [A063148](https://oeis.org/A063148) | Proof | the recurrence follows from a generating function the entry records as fact | [10894-PROOF.pdf](10894-PROOF.pdf) |
-| 10895 | [A063151](https://oeis.org/A063151) | Proof | the recurrence follows from a generating function the entry records as fact | [10895-PROOF.pdf](10895-PROOF.pdf) |
-| 10896 | [A063152](https://oeis.org/A063152) | Proof | the recurrence follows from a generating function the entry records as fact | [10896-PROOF.pdf](10896-PROOF.pdf) |
-| 10897 | [A063154](https://oeis.org/A063154) | Proof | the recurrence follows from a generating function the entry records as fact | [10897-PROOF.pdf](10897-PROOF.pdf) |
-| 10898 | [A063155](https://oeis.org/A063155) | Proof | the recurrence follows from a generating function the entry records as fact | [10898-PROOF.pdf](10898-PROOF.pdf) |
-| 10899 | [A063158](https://oeis.org/A063158) | Proof | the recurrence follows from a generating function the entry records as fact | [10899-PROOF.pdf](10899-PROOF.pdf) |
-| 10900 | [A063160](https://oeis.org/A063160) | Proof | the recurrence follows from a generating function the entry records as fact | [10900-PROOF.pdf](10900-PROOF.pdf) |
-| 10901 | [A063162](https://oeis.org/A063162) | Proof | the recurrence follows from a generating function the entry records as fact | [10901-PROOF.pdf](10901-PROOF.pdf) |
-| 10902 | [A063164](https://oeis.org/A063164) | Proof | the recurrence follows from a generating function the entry records as fact | [10902-PROOF.pdf](10902-PROOF.pdf) |
-| 10903 | [A063166](https://oeis.org/A063166) | Proof | the recurrence follows from a generating function the entry records as fact | [10903-PROOF.pdf](10903-PROOF.pdf) |
-| 10904 | [A067360](https://oeis.org/A067360) | Proof | the recurrence follows from a generating function the entry records as fact | [10904-PROOF.pdf](10904-PROOF.pdf) |
-| 10905 | [A087970](https://oeis.org/A087970) | Proof | the recurrence follows from a generating function the entry records as fact | [10905-PROOF.pdf](10905-PROOF.pdf) |
-| 10906 | [A112032](https://oeis.org/A112032) | Proof | the recurrence follows from a generating function the entry records as fact | [10906-PROOF.pdf](10906-PROOF.pdf) |
-| 10907 | [A114111](https://oeis.org/A114111) | Proof | the recurrence follows from a generating function the entry records as fact | [10907-PROOF.pdf](10907-PROOF.pdf) |
-| 10908 | [A117547](https://oeis.org/A117547) | Proof | the recurrence follows from a generating function the entry records as fact | [10908-PROOF.pdf](10908-PROOF.pdf) |
-| 10909 | [A119651](https://oeis.org/A119651) | Proof | the recurrence follows from a generating function the entry records as fact | [10909-PROOF.pdf](10909-PROOF.pdf) |
-| 10910 | [A119652](https://oeis.org/A119652) | Proof | the recurrence follows from a generating function the entry records as fact | [10910-PROOF.pdf](10910-PROOF.pdf) |
-| 10911 | [A152930](https://oeis.org/A152930) | Proof | the recurrence follows from a generating function the entry records as fact | [10911-PROOF.pdf](10911-PROOF.pdf) |
-| 10912 | [A152933](https://oeis.org/A152933) | Proof | the recurrence follows from a generating function the entry records as fact | [10912-PROOF.pdf](10912-PROOF.pdf) |
-| 10913 | [A153010](https://oeis.org/A153010) | Proof | the recurrence follows from a generating function the entry records as fact | [10913-PROOF.pdf](10913-PROOF.pdf) |
-| 10914 | [A159715](https://oeis.org/A159715) | Proof | the recurrence follows from a generating function the entry records as fact | [10914-PROOF.pdf](10914-PROOF.pdf) |
-| 10915 | [A180486](https://oeis.org/A180486) | Proof | the recurrence follows from a generating function the entry records as fact | [10915-PROOF.pdf](10915-PROOF.pdf) |
-| 10916 | [A183245](https://oeis.org/A183245) | Proof | the recurrence follows from a generating function the entry records as fact | [10916-PROOF.pdf](10916-PROOF.pdf) |
-| 10917 | [A183246](https://oeis.org/A183246) | Proof | the recurrence follows from a generating function the entry records as fact | [10917-PROOF.pdf](10917-PROOF.pdf) |
-| 10918 | [A190035](https://oeis.org/A190035) | Proof | the recurrence follows from a generating function the entry records as fact | [10918-PROOF.pdf](10918-PROOF.pdf) |
-| 10919 | [A190039](https://oeis.org/A190039) | Proof | the recurrence follows from a generating function the entry records as fact | [10919-PROOF.pdf](10919-PROOF.pdf) |
-| 10920 | [A200249](https://oeis.org/A200249) | Proof | the recurrence follows from a generating function the entry records as fact | [10920-PROOF.pdf](10920-PROOF.pdf) |
-| 10921 | [A211482](https://oeis.org/A211482) | Proof | the recurrence follows from a generating function the entry records as fact | [10921-PROOF.pdf](10921-PROOF.pdf) |
-| 10922 | [A226264](https://oeis.org/A226264) | Proof | the recurrence follows from a generating function the entry records as fact | [10922-PROOF.pdf](10922-PROOF.pdf) |
-| 10923 | [A226265](https://oeis.org/A226265) | Proof | the recurrence follows from a generating function the entry records as fact | [10923-PROOF.pdf](10923-PROOF.pdf) |
-| 10924 | [A228254](https://oeis.org/A228254) | Proof | the recurrence follows from a generating function the entry records as fact | [10924-PROOF.pdf](10924-PROOF.pdf) |
-| 10925 | [A228255](https://oeis.org/A228255) | Proof | the recurrence follows from a generating function the entry records as fact | [10925-PROOF.pdf](10925-PROOF.pdf) |
-| 10926 | [A228256](https://oeis.org/A228256) | Proof | the recurrence follows from a generating function the entry records as fact | [10926-PROOF.pdf](10926-PROOF.pdf) |
-| 10927 | [A234429](https://oeis.org/A234429) | Proof | the recurrence follows from a generating function the entry records as fact | [10927-PROOF.pdf](10927-PROOF.pdf) |
-| 10928 | [A235643](https://oeis.org/A235643) | Proof | the recurrence follows from a generating function the entry records as fact | [10928-PROOF.pdf](10928-PROOF.pdf) |
-| 10929 | [A245990](https://oeis.org/A245990) | Proof | the recurrence follows from a generating function the entry records as fact | [10929-PROOF.pdf](10929-PROOF.pdf) |
-| 10930 | [A247283](https://oeis.org/A247283) | Proof | the recurrence follows from a generating function the entry records as fact | [10930-PROOF.pdf](10930-PROOF.pdf) |
-| 10931 | [A255162](https://oeis.org/A255162) | Proof | the recurrence follows from a generating function the entry records as fact | [10931-PROOF.pdf](10931-PROOF.pdf) |
-| 10932 | [A255163](https://oeis.org/A255163) | Proof | the recurrence follows from a generating function the entry records as fact | [10932-PROOF.pdf](10932-PROOF.pdf) |
-| 10933 | [A262242](https://oeis.org/A262242) | Proof | the recurrence follows from a generating function the entry records as fact | [10933-PROOF.pdf](10933-PROOF.pdf) |
-| 10934 | [A262779](https://oeis.org/A262779) | Proof | the recurrence follows from a generating function the entry records as fact | [10934-PROOF.pdf](10934-PROOF.pdf) |
-| 10935 | [A263660](https://oeis.org/A263660) | Proof | the recurrence follows from a generating function the entry records as fact | [10935-PROOF.pdf](10935-PROOF.pdf) |
-| 10936 | [A266327](https://oeis.org/A266327) | Proof | the recurrence follows from a generating function the entry records as fact | [10936-PROOF.pdf](10936-PROOF.pdf) |
-| 10937 | [A266444](https://oeis.org/A266444) | Proof | the recurrence follows from a generating function the entry records as fact | [10937-PROOF.pdf](10937-PROOF.pdf) |
-| 10938 | [A266680](https://oeis.org/A266680) | Proof | the recurrence follows from a generating function the entry records as fact | [10938-PROOF.pdf](10938-PROOF.pdf) |
-| 10939 | [A266752](https://oeis.org/A266752) | Proof | the recurrence follows from a generating function the entry records as fact | [10939-PROOF.pdf](10939-PROOF.pdf) |
-| 10940 | [A266753](https://oeis.org/A266753) | Proof | the recurrence follows from a generating function the entry records as fact | [10940-PROOF.pdf](10940-PROOF.pdf) |
-| 10941 | [A267524](https://oeis.org/A267524) | Proof | the recurrence follows from a generating function the entry records as fact | [10941-PROOF.pdf](10941-PROOF.pdf) |
-| 10942 | [A267535](https://oeis.org/A267535) | Proof | the recurrence follows from a generating function the entry records as fact | [10942-PROOF.pdf](10942-PROOF.pdf) |
-| 10943 | [A267536](https://oeis.org/A267536) | Proof | the recurrence follows from a generating function the entry records as fact | [10943-PROOF.pdf](10943-PROOF.pdf) |
-| 10944 | [A267538](https://oeis.org/A267538) | Proof | the recurrence follows from a generating function the entry records as fact | [10944-PROOF.pdf](10944-PROOF.pdf) |
-| 10945 | [A267539](https://oeis.org/A267539) | Proof | the recurrence follows from a generating function the entry records as fact | [10945-PROOF.pdf](10945-PROOF.pdf) |
-| 10946 | [A267588](https://oeis.org/A267588) | Proof | the recurrence follows from a generating function the entry records as fact | [10946-PROOF.pdf](10946-PROOF.pdf) |
-| 10947 | [A267589](https://oeis.org/A267589) | Proof | the recurrence follows from a generating function the entry records as fact | [10947-PROOF.pdf](10947-PROOF.pdf) |
-| 10948 | [A267595](https://oeis.org/A267595) | Proof | the recurrence follows from a generating function the entry records as fact | [10948-PROOF.pdf](10948-PROOF.pdf) |
-| 10949 | [A267596](https://oeis.org/A267596) | Proof | the recurrence follows from a generating function the entry records as fact | [10949-PROOF.pdf](10949-PROOF.pdf) |
-| 10950 | [A267599](https://oeis.org/A267599) | Proof | the recurrence follows from a generating function the entry records as fact | [10950-PROOF.pdf](10950-PROOF.pdf) |
-| 10951 | [A267604](https://oeis.org/A267604) | Proof | the recurrence follows from a generating function the entry records as fact | [10951-PROOF.pdf](10951-PROOF.pdf) |
-| 10952 | [A267613](https://oeis.org/A267613) | Proof | the recurrence follows from a generating function the entry records as fact | [10952-PROOF.pdf](10952-PROOF.pdf) |
-| 10953 | [A267614](https://oeis.org/A267614) | Proof | the recurrence follows from a generating function the entry records as fact | [10953-PROOF.pdf](10953-PROOF.pdf) |
-| 10954 | [A267622](https://oeis.org/A267622) | Proof | the recurrence follows from a generating function the entry records as fact | [10954-PROOF.pdf](10954-PROOF.pdf) |
-| 10955 | [A267623](https://oeis.org/A267623) | Proof | the recurrence follows from a generating function the entry records as fact | [10955-PROOF.pdf](10955-PROOF.pdf) |
-| 10956 | [A267777](https://oeis.org/A267777) | Proof | the recurrence follows from a generating function the entry records as fact | [10956-PROOF.pdf](10956-PROOF.pdf) |
-| 10957 | [A267801](https://oeis.org/A267801) | Proof | the recurrence follows from a generating function the entry records as fact | [10957-PROOF.pdf](10957-PROOF.pdf) |
-| 10958 | [A267846](https://oeis.org/A267846) | Proof | the recurrence follows from a generating function the entry records as fact | [10958-PROOF.pdf](10958-PROOF.pdf) |
-| 10959 | [A267850](https://oeis.org/A267850) | Proof | the recurrence follows from a generating function the entry records as fact | [10959-PROOF.pdf](10959-PROOF.pdf) |
-| 10960 | [A267851](https://oeis.org/A267851) | Proof | the recurrence follows from a generating function the entry records as fact | [10960-PROOF.pdf](10960-PROOF.pdf) |
-| 10961 | [A267872](https://oeis.org/A267872) | Proof | the recurrence follows from a generating function the entry records as fact | [10961-PROOF.pdf](10961-PROOF.pdf) |
-| 10962 | [A267873](https://oeis.org/A267873) | Proof | the recurrence follows from a generating function the entry records as fact | [10962-PROOF.pdf](10962-PROOF.pdf) |
-| 10963 | [A267876](https://oeis.org/A267876) | Proof | the recurrence follows from a generating function the entry records as fact | [10963-PROOF.pdf](10963-PROOF.pdf) |
-| 10964 | [A267877](https://oeis.org/A267877) | Proof | the recurrence follows from a generating function the entry records as fact | [10964-PROOF.pdf](10964-PROOF.pdf) |
-| 10965 | [A267880](https://oeis.org/A267880) | Proof | the recurrence follows from a generating function the entry records as fact | [10965-PROOF.pdf](10965-PROOF.pdf) |
-| 10966 | [A267881](https://oeis.org/A267881) | Proof | the recurrence follows from a generating function the entry records as fact | [10966-PROOF.pdf](10966-PROOF.pdf) |
-| 10967 | [A267885](https://oeis.org/A267885) | Proof | the recurrence follows from a generating function the entry records as fact | [10967-PROOF.pdf](10967-PROOF.pdf) |
-| 10968 | [A267886](https://oeis.org/A267886) | Proof | the recurrence follows from a generating function the entry records as fact | [10968-PROOF.pdf](10968-PROOF.pdf) |
-| 10969 | [A267887](https://oeis.org/A267887) | Proof | the recurrence follows from a generating function the entry records as fact | [10969-PROOF.pdf](10969-PROOF.pdf) |
-| 10970 | [A267888](https://oeis.org/A267888) | Proof | the recurrence follows from a generating function the entry records as fact | [10970-PROOF.pdf](10970-PROOF.pdf) |
-| 10971 | [A267889](https://oeis.org/A267889) | Proof | the recurrence follows from a generating function the entry records as fact | [10971-PROOF.pdf](10971-PROOF.pdf) |
-| 10972 | [A267890](https://oeis.org/A267890) | Proof | the recurrence follows from a generating function the entry records as fact | [10972-PROOF.pdf](10972-PROOF.pdf) |
-| 10973 | [A267920](https://oeis.org/A267920) | Proof | the recurrence follows from a generating function the entry records as fact | [10973-PROOF.pdf](10973-PROOF.pdf) |
-| 10974 | [A267921](https://oeis.org/A267921) | Proof | the recurrence follows from a generating function the entry records as fact | [10974-PROOF.pdf](10974-PROOF.pdf) |
-| 10975 | [A267923](https://oeis.org/A267923) | Proof | the recurrence follows from a generating function the entry records as fact | [10975-PROOF.pdf](10975-PROOF.pdf) |
-| 10976 | [A267924](https://oeis.org/A267924) | Proof | the recurrence follows from a generating function the entry records as fact | [10976-PROOF.pdf](10976-PROOF.pdf) |
-| 10977 | [A267934](https://oeis.org/A267934) | Proof | the recurrence follows from a generating function the entry records as fact | [10977-PROOF.pdf](10977-PROOF.pdf) |
-| 10978 | [A267935](https://oeis.org/A267935) | Proof | the recurrence follows from a generating function the entry records as fact | [10978-PROOF.pdf](10978-PROOF.pdf) |
-| 10979 | [A267937](https://oeis.org/A267937) | Proof | the recurrence follows from a generating function the entry records as fact | [10979-PROOF.pdf](10979-PROOF.pdf) |
-| 10980 | [A267938](https://oeis.org/A267938) | Proof | the recurrence follows from a generating function the entry records as fact | [10980-PROOF.pdf](10980-PROOF.pdf) |
-| 10981 | [A267940](https://oeis.org/A267940) | Proof | the recurrence follows from a generating function the entry records as fact | [10981-PROOF.pdf](10981-PROOF.pdf) |
-| 10982 | [A267941](https://oeis.org/A267941) | Proof | the recurrence follows from a generating function the entry records as fact | [10982-PROOF.pdf](10982-PROOF.pdf) |
-| 10983 | [A269708](https://oeis.org/A269708) | Proof | the recurrence follows from a generating function the entry records as fact | [10983-PROOF.pdf](10983-PROOF.pdf) |
-| 10984 | [A269712](https://oeis.org/A269712) | Proof | the recurrence follows from a generating function the entry records as fact | [10984-PROOF.pdf](10984-PROOF.pdf) |
-| 10985 | [A269716](https://oeis.org/A269716) | Proof | the recurrence follows from a generating function the entry records as fact | [10985-PROOF.pdf](10985-PROOF.pdf) |
-| 10986 | [A264123](https://oeis.org/A264123) | Proof | the recurrence follows from a generating function the entry records as fact | [10986-PROOF.pdf](10986-PROOF.pdf) |
-| 10987 | [A264185](https://oeis.org/A264185) | Proof | the recurrence follows from a generating function the entry records as fact | [10987-PROOF.pdf](10987-PROOF.pdf) |
-| 10988 | [A208428](https://oeis.org/A208428) | Proof | the recurrence follows from a generating function the entry records as fact | [10988-PROOF.pdf](10988-PROOF.pdf) |
-| 10989 | [A189274](https://oeis.org/A189274) | Proof | the recurrence follows from a generating function the entry records as fact | [10989-PROOF.pdf](10989-PROOF.pdf) |
-| 10990 | [A223322](https://oeis.org/A223322) | Proof | the recurrence follows from a generating function the entry records as fact | [10990-PROOF.pdf](10990-PROOF.pdf) |
-| 10991 | [A267884](https://oeis.org/A267884) | Proof | the recurrence follows from a generating function the entry records as fact | [10991-PROOF.pdf](10991-PROOF.pdf) |
-| 10992 | [A269696](https://oeis.org/A269696) | Proof | the recurrence follows from a generating function the entry records as fact | [10992-PROOF.pdf](10992-PROOF.pdf) |
-| 10993 | [A334509](https://oeis.org/A334509) | Proof | an identity between different entries | [10993-PROOF.pdf](10993-PROOF.pdf) |
-| 10994 | [A298022](https://oeis.org/A298022) | Proof | an identity between different entries | [10994-PROOF.pdf](10994-PROOF.pdf) |
-| 10995 | [A273676](https://oeis.org/A273676) | Proof | an identity between different entries | [10995-PROOF.pdf](10995-PROOF.pdf) |
-| 10996 | [A273832](https://oeis.org/A273832) | Proof | an identity between different entries | [10996-PROOF.pdf](10996-PROOF.pdf) |
-| 10997 | [A319371](https://oeis.org/A319371) | Proof | an identity between different entries | [10997-PROOF.pdf](10997-PROOF.pdf) |
-| 10998 | [A110320](https://oeis.org/A110320) | Proof | an identity between different entries | [10998-PROOF.pdf](10998-PROOF.pdf) |
-| 10999 | [A315520](https://oeis.org/A315520) | Proof | an identity between different entries | [10999-PROOF.pdf](10999-PROOF.pdf) |
-| 11000 | [A346370](https://oeis.org/A346370) | Proof | an identity between different entries | [11000-PROOF.pdf](11000-PROOF.pdf) |
+| 10501 | [A278472](https://oeis.org/A278472) | Proof | the residual test over one square root, or none | [10501-PROOF.pdf](10501-PROOF.pdf) |
+| 10502 | [A034863](https://oeis.org/A034863) | Proof | the residual test over one square root, or none | [10502-PROOF.pdf](10502-PROOF.pdf) |
+| 10503 | [A128652](https://oeis.org/A128652) | Proof | the residual test over one square root, or none | [10503-PROOF.pdf](10503-PROOF.pdf) |
+| 10504 | [A174195](https://oeis.org/A174195) | Proof | the residual test over one square root, or none | [10504-PROOF.pdf](10504-PROOF.pdf) |
+| 10505 | [A192480](https://oeis.org/A192480) | Proof | the residual test over one square root, or none | [10505-PROOF.pdf](10505-PROOF.pdf) |
+| 10506 | [A158495](https://oeis.org/A158495) | Proof | the residual test over one square root, or none | [10506-PROOF.pdf](10506-PROOF.pdf) |
+| 10507 | [A189176](https://oeis.org/A189176) | Proof | the residual test over one square root, or none | [10507-PROOF.pdf](10507-PROOF.pdf) |
+| 10508 | [A194724](https://oeis.org/A194724) | Proof | the residual test over one square root, or none | [10508-PROOF.pdf](10508-PROOF.pdf) |
+| 10509 | [A210474](https://oeis.org/A210474) | Proof | the residual test over one square root, or none | [10509-PROOF.pdf](10509-PROOF.pdf) |
+| 10510 | [A262768](https://oeis.org/A262768) | Proof | the residual test over one square root, or none | [10510-PROOF.pdf](10510-PROOF.pdf) |
+| 10511 | [A026029](https://oeis.org/A026029) | Proof | the residual test over one square root, or none | [10511-PROOF.pdf](10511-PROOF.pdf) |
+| 10512 | [A064088](https://oeis.org/A064088) | Proof | the residual test over one square root, or none | [10512-PROOF.pdf](10512-PROOF.pdf) |
+| 10513 | [A064089](https://oeis.org/A064089) | Proof | the residual test over one square root, or none | [10513-PROOF.pdf](10513-PROOF.pdf) |
+| 10514 | [A064090](https://oeis.org/A064090) | Proof | the residual test over one square root, or none | [10514-PROOF.pdf](10514-PROOF.pdf) |
+| 10515 | [A064091](https://oeis.org/A064091) | Proof | the residual test over one square root, or none | [10515-PROOF.pdf](10515-PROOF.pdf) |
+| 10516 | [A064092](https://oeis.org/A064092) | Proof | the residual test over one square root, or none | [10516-PROOF.pdf](10516-PROOF.pdf) |
+| 10517 | [A067299](https://oeis.org/A067299) | Proof | the residual test over one square root, or none | [10517-PROOF.pdf](10517-PROOF.pdf) |
+| 10518 | [A068551](https://oeis.org/A068551) | Proof | the residual test over one square root, or none | [10518-PROOF.pdf](10518-PROOF.pdf) |
+| 10519 | [A080243](https://oeis.org/A080243) | Proof | the residual test over one square root, or none | [10519-PROOF.pdf](10519-PROOF.pdf) |
+| 10520 | [A114191](https://oeis.org/A114191) | Proof | the residual test over one square root, or none | [10520-PROOF.pdf](10520-PROOF.pdf) |
+| 10521 | [A116881](https://oeis.org/A116881) | Proof | the residual test over one square root, or none | [10521-PROOF.pdf](10521-PROOF.pdf) |
+| 10522 | [A122920](https://oeis.org/A122920) | Proof | the residual test over one square root, or none | [10522-PROOF.pdf](10522-PROOF.pdf) |
+| 10523 | [A132864](https://oeis.org/A132864) | Proof | the residual test over one square root, or none | [10523-PROOF.pdf](10523-PROOF.pdf) |
+| 10524 | [A133305](https://oeis.org/A133305) | Proof | the residual test over one square root, or none | [10524-PROOF.pdf](10524-PROOF.pdf) |
+| 10525 | [A133306](https://oeis.org/A133306) | Proof | the residual test over one square root, or none | [10525-PROOF.pdf](10525-PROOF.pdf) |
+| 10526 | [A133307](https://oeis.org/A133307) | Proof | the residual test over one square root, or none | [10526-PROOF.pdf](10526-PROOF.pdf) |
+| 10527 | [A133308](https://oeis.org/A133308) | Proof | the residual test over one square root, or none | [10527-PROOF.pdf](10527-PROOF.pdf) |
+| 10528 | [A141222](https://oeis.org/A141222) | Proof | the residual test over one square root, or none | [10528-PROOF.pdf](10528-PROOF.pdf) |
+| 10529 | [A154623](https://oeis.org/A154623) | Proof | the residual test over one square root, or none | [10529-PROOF.pdf](10529-PROOF.pdf) |
+| 10530 | [A157328](https://oeis.org/A157328) | Proof | the residual test over one square root, or none | [10530-PROOF.pdf](10530-PROOF.pdf) |
+| 10531 | [A158196](https://oeis.org/A158196) | Proof | the residual test over one square root, or none | [10531-PROOF.pdf](10531-PROOF.pdf) |
+| 10532 | [A158197](https://oeis.org/A158197) | Proof | the residual test over one square root, or none | [10532-PROOF.pdf](10532-PROOF.pdf) |
+| 10533 | [A191993](https://oeis.org/A191993) | Proof | the residual test over one square root, or none | [10533-PROOF.pdf](10533-PROOF.pdf) |
+| 10534 | [A225034](https://oeis.org/A225034) | Proof | the residual test over one square root, or none | [10534-PROOF.pdf](10534-PROOF.pdf) |
+| 10535 | [A242172](https://oeis.org/A242172) | Proof | the residual test over one square root, or none | [10535-PROOF.pdf](10535-PROOF.pdf) |
+| 10536 | [A002867](https://oeis.org/A002867) | Proof | the residual test over one square root, or none | [10536-PROOF.pdf](10536-PROOF.pdf) |
+| 10537 | [A014533](https://oeis.org/A014533) | Proof | the residual test over one square root, or none | [10537-PROOF.pdf](10537-PROOF.pdf) |
+| 10538 | [A051524](https://oeis.org/A051524) | Proof | the residual test over one square root, or none | [10538-PROOF.pdf](10538-PROOF.pdf) |
+| 10539 | [A071264](https://oeis.org/A071264) | Proof | the residual test over one square root, or none | [10539-PROOF.pdf](10539-PROOF.pdf) |
+| 10540 | [A081046](https://oeis.org/A081046) | Proof | the residual test over one square root, or none | [10540-PROOF.pdf](10540-PROOF.pdf) |
+| 10541 | [A098519](https://oeis.org/A098519) | Proof | the residual test over one square root, or none | [10541-PROOF.pdf](10541-PROOF.pdf) |
+| 10542 | [A098520](https://oeis.org/A098520) | Proof | the residual test over one square root, or none | [10542-PROOF.pdf](10542-PROOF.pdf) |
+| 10543 | [A101596](https://oeis.org/A101596) | Proof | the residual test over one square root, or none | [10543-PROOF.pdf](10543-PROOF.pdf) |
+| 10544 | [A101601](https://oeis.org/A101601) | Proof | the residual test over one square root, or none | [10544-PROOF.pdf](10544-PROOF.pdf) |
+| 10545 | [A101602](https://oeis.org/A101602) | Proof | the residual test over one square root, or none | [10545-PROOF.pdf](10545-PROOF.pdf) |
+| 10546 | [A111779](https://oeis.org/A111779) | Proof | the residual test over one square root, or none | [10546-PROOF.pdf](10546-PROOF.pdf) |
+| 10547 | [A112703](https://oeis.org/A112703) | Proof | the residual test over one square root, or none | [10547-PROOF.pdf](10547-PROOF.pdf) |
+| 10548 | [A119012](https://oeis.org/A119012) | Proof | the residual test over one square root, or none | [10548-PROOF.pdf](10548-PROOF.pdf) |
+| 10549 | [A128057](https://oeis.org/A128057) | Proof | the residual test over one square root, or none | [10549-PROOF.pdf](10549-PROOF.pdf) |
+| 10550 | [A128746](https://oeis.org/A128746) | Proof | the residual test over one square root, or none | [10550-PROOF.pdf](10550-PROOF.pdf) |
+| 10551 | [A132900](https://oeis.org/A132900) | Proof | the residual test over one square root, or none | [10551-PROOF.pdf](10551-PROOF.pdf) |
+| 10552 | [A151483](https://oeis.org/A151483) | Proof | the residual test over one square root, or none | [10552-PROOF.pdf](10552-PROOF.pdf) |
+| 10553 | [A167481](https://oeis.org/A167481) | Proof | the residual test over one square root, or none | [10553-PROOF.pdf](10553-PROOF.pdf) |
+| 10554 | [A171556](https://oeis.org/A171556) | Proof | the residual test over one square root, or none | [10554-PROOF.pdf](10554-PROOF.pdf) |
+| 10555 | [A176479](https://oeis.org/A176479) | Proof | the residual test over one square root, or none | [10555-PROOF.pdf](10555-PROOF.pdf) |
+| 10556 | [A182401](https://oeis.org/A182401) | Proof | the residual test over one square root, or none | [10556-PROOF.pdf](10556-PROOF.pdf) |
+| 10557 | [A208355](https://oeis.org/A208355) | Proof | the residual test over one square root, or none | [10557-PROOF.pdf](10557-PROOF.pdf) |
+| 10558 | [A210064](https://oeis.org/A210064) | Proof | the residual test over one square root, or none | [10558-PROOF.pdf](10558-PROOF.pdf) |
+| 10559 | [A240558](https://oeis.org/A240558) | Proof | the residual test over one square root, or none | [10559-PROOF.pdf](10559-PROOF.pdf) |
+| 10560 | [A141771](https://oeis.org/A141771) | Proof | the residual test over one square root, or none | [10560-PROOF.pdf](10560-PROOF.pdf) |
+| 10561 | [A176606](https://oeis.org/A176606) | Proof | the residual test over one square root, or none | [10561-PROOF.pdf](10561-PROOF.pdf) |
+| 10562 | [A176607](https://oeis.org/A176607) | Proof | the residual test over one square root, or none | [10562-PROOF.pdf](10562-PROOF.pdf) |
+| 10563 | [A176609](https://oeis.org/A176609) | Proof | the residual test over one square root, or none | [10563-PROOF.pdf](10563-PROOF.pdf) |
+| 10564 | [A176610](https://oeis.org/A176610) | Proof | the residual test over one square root, or none | [10564-PROOF.pdf](10564-PROOF.pdf) |
+| 10565 | [A176611](https://oeis.org/A176611) | Proof | the residual test over one square root, or none | [10565-PROOF.pdf](10565-PROOF.pdf) |
+| 10566 | [A176675](https://oeis.org/A176675) | Proof | the residual test over one square root, or none | [10566-PROOF.pdf](10566-PROOF.pdf) |
+| 10567 | [A176749](https://oeis.org/A176749) | Proof | the residual test over one square root, or none | [10567-PROOF.pdf](10567-PROOF.pdf) |
+| 10568 | [A176750](https://oeis.org/A176750) | Proof | the residual test over one square root, or none | [10568-PROOF.pdf](10568-PROOF.pdf) |
+| 10569 | [A176751](https://oeis.org/A176751) | Proof | the residual test over one square root, or none | [10569-PROOF.pdf](10569-PROOF.pdf) |
+| 10570 | [A176752](https://oeis.org/A176752) | Proof | the residual test over one square root, or none | [10570-PROOF.pdf](10570-PROOF.pdf) |
+| 10571 | [A176753](https://oeis.org/A176753) | Proof | the residual test over one square root, or none | [10571-PROOF.pdf](10571-PROOF.pdf) |
+| 10572 | [A176754](https://oeis.org/A176754) | Proof | the residual test over one square root, or none | [10572-PROOF.pdf](10572-PROOF.pdf) |
+| 10573 | [A176755](https://oeis.org/A176755) | Proof | the residual test over one square root, or none | [10573-PROOF.pdf](10573-PROOF.pdf) |
+| 10574 | [A176756](https://oeis.org/A176756) | Proof | the residual test over one square root, or none | [10574-PROOF.pdf](10574-PROOF.pdf) |
+| 10575 | [A176757](https://oeis.org/A176757) | Proof | the residual test over one square root, or none | [10575-PROOF.pdf](10575-PROOF.pdf) |
+| 10576 | [A176759](https://oeis.org/A176759) | Proof | the residual test over one square root, or none | [10576-PROOF.pdf](10576-PROOF.pdf) |
+| 10577 | [A176828](https://oeis.org/A176828) | Proof | the residual test over one square root, or none | [10577-PROOF.pdf](10577-PROOF.pdf) |
+| 10578 | [A176829](https://oeis.org/A176829) | Proof | the residual test over one square root, or none | [10578-PROOF.pdf](10578-PROOF.pdf) |
+| 10579 | [A176830](https://oeis.org/A176830) | Proof | the residual test over one square root, or none | [10579-PROOF.pdf](10579-PROOF.pdf) |
+| 10580 | [A176832](https://oeis.org/A176832) | Proof | the residual test over one square root, or none | [10580-PROOF.pdf](10580-PROOF.pdf) |
+| 10581 | [A176854](https://oeis.org/A176854) | Proof | the residual test over one square root, or none | [10581-PROOF.pdf](10581-PROOF.pdf) |
+| 10582 | [A176855](https://oeis.org/A176855) | Proof | the residual test over one square root, or none | [10582-PROOF.pdf](10582-PROOF.pdf) |
+| 10583 | [A176856](https://oeis.org/A176856) | Proof | the residual test over one square root, or none | [10583-PROOF.pdf](10583-PROOF.pdf) |
+| 10584 | [A176857](https://oeis.org/A176857) | Proof | the residual test over one square root, or none | [10584-PROOF.pdf](10584-PROOF.pdf) |
+| 10585 | [A176858](https://oeis.org/A176858) | Proof | the residual test over one square root, or none | [10585-PROOF.pdf](10585-PROOF.pdf) |
+| 10586 | [A176859](https://oeis.org/A176859) | Proof | the residual test over one square root, or none | [10586-PROOF.pdf](10586-PROOF.pdf) |
+| 10587 | [A176952](https://oeis.org/A176952) | Proof | the residual test over one square root, or none | [10587-PROOF.pdf](10587-PROOF.pdf) |
+| 10588 | [A176953](https://oeis.org/A176953) | Proof | the residual test over one square root, or none | [10588-PROOF.pdf](10588-PROOF.pdf) |
+| 10589 | [A176956](https://oeis.org/A176956) | Proof | the residual test over one square root, or none | [10589-PROOF.pdf](10589-PROOF.pdf) |
+| 10590 | [A176957](https://oeis.org/A176957) | Proof | the residual test over one square root, or none | [10590-PROOF.pdf](10590-PROOF.pdf) |
+| 10591 | [A176958](https://oeis.org/A176958) | Proof | the residual test over one square root, or none | [10591-PROOF.pdf](10591-PROOF.pdf) |
+| 10592 | [A176959](https://oeis.org/A176959) | Proof | the residual test over one square root, or none | [10592-PROOF.pdf](10592-PROOF.pdf) |
+| 10593 | [A176962](https://oeis.org/A176962) | Proof | the residual test over one square root, or none | [10593-PROOF.pdf](10593-PROOF.pdf) |
+| 10594 | [A176964](https://oeis.org/A176964) | Proof | the residual test over one square root, or none | [10594-PROOF.pdf](10594-PROOF.pdf) |
+| 10595 | [A176966](https://oeis.org/A176966) | Proof | the residual test over one square root, or none | [10595-PROOF.pdf](10595-PROOF.pdf) |
+| 10596 | [A176967](https://oeis.org/A176967) | Proof | the residual test over one square root, or none | [10596-PROOF.pdf](10596-PROOF.pdf) |
+| 10597 | [A177123](https://oeis.org/A177123) | Proof | the residual test over one square root, or none | [10597-PROOF.pdf](10597-PROOF.pdf) |
+| 10598 | [A177124](https://oeis.org/A177124) | Proof | the residual test over one square root, or none | [10598-PROOF.pdf](10598-PROOF.pdf) |
+| 10599 | [A177125](https://oeis.org/A177125) | Proof | the residual test over one square root, or none | [10599-PROOF.pdf](10599-PROOF.pdf) |
+| 10600 | [A177126](https://oeis.org/A177126) | Proof | the residual test over one square root, or none | [10600-PROOF.pdf](10600-PROOF.pdf) |
+| 10601 | [A177127](https://oeis.org/A177127) | Proof | the residual test over one square root, or none | [10601-PROOF.pdf](10601-PROOF.pdf) |
+| 10602 | [A177128](https://oeis.org/A177128) | Proof | the residual test over one square root, or none | [10602-PROOF.pdf](10602-PROOF.pdf) |
+| 10603 | [A177129](https://oeis.org/A177129) | Proof | the residual test over one square root, or none | [10603-PROOF.pdf](10603-PROOF.pdf) |
+| 10604 | [A177130](https://oeis.org/A177130) | Proof | the residual test over one square root, or none | [10604-PROOF.pdf](10604-PROOF.pdf) |
+| 10605 | [A177131](https://oeis.org/A177131) | Proof | the residual test over one square root, or none | [10605-PROOF.pdf](10605-PROOF.pdf) |
+| 10606 | [A177163](https://oeis.org/A177163) | Proof | the residual test over one square root, or none | [10606-PROOF.pdf](10606-PROOF.pdf) |
+| 10607 | [A177165](https://oeis.org/A177165) | Proof | the residual test over one square root, or none | [10607-PROOF.pdf](10607-PROOF.pdf) |
+| 10608 | [A177166](https://oeis.org/A177166) | Proof | the residual test over one square root, or none | [10608-PROOF.pdf](10608-PROOF.pdf) |
+| 10609 | [A177167](https://oeis.org/A177167) | Proof | the residual test over one square root, or none | [10609-PROOF.pdf](10609-PROOF.pdf) |
+| 10610 | [A177168](https://oeis.org/A177168) | Proof | the residual test over one square root, or none | [10610-PROOF.pdf](10610-PROOF.pdf) |
+| 10611 | [A177169](https://oeis.org/A177169) | Proof | the residual test over one square root, or none | [10611-PROOF.pdf](10611-PROOF.pdf) |
+| 10612 | [A177170](https://oeis.org/A177170) | Proof | the residual test over one square root, or none | [10612-PROOF.pdf](10612-PROOF.pdf) |
+| 10613 | [A177171](https://oeis.org/A177171) | Proof | the residual test over one square root, or none | [10613-PROOF.pdf](10613-PROOF.pdf) |
+| 10614 | [A177172](https://oeis.org/A177172) | Proof | the residual test over one square root, or none | [10614-PROOF.pdf](10614-PROOF.pdf) |
+| 10615 | [A177175](https://oeis.org/A177175) | Proof | the residual test over one square root, or none | [10615-PROOF.pdf](10615-PROOF.pdf) |
+| 10616 | [A177177](https://oeis.org/A177177) | Proof | the residual test over one square root, or none | [10616-PROOF.pdf](10616-PROOF.pdf) |
+| 10617 | [A177178](https://oeis.org/A177178) | Proof | the residual test over one square root, or none | [10617-PROOF.pdf](10617-PROOF.pdf) |
+| 10618 | [A177179](https://oeis.org/A177179) | Proof | the residual test over one square root, or none | [10618-PROOF.pdf](10618-PROOF.pdf) |
+| 10619 | [A177180](https://oeis.org/A177180) | Proof | the residual test over one square root, or none | [10619-PROOF.pdf](10619-PROOF.pdf) |
+| 10620 | [A177181](https://oeis.org/A177181) | Proof | the residual test over one square root, or none | [10620-PROOF.pdf](10620-PROOF.pdf) |
+| 10621 | [A177182](https://oeis.org/A177182) | Proof | the residual test over one square root, or none | [10621-PROOF.pdf](10621-PROOF.pdf) |
+| 10622 | [A177183](https://oeis.org/A177183) | Proof | the residual test over one square root, or none | [10622-PROOF.pdf](10622-PROOF.pdf) |
+| 10623 | [A177184](https://oeis.org/A177184) | Proof | the residual test over one square root, or none | [10623-PROOF.pdf](10623-PROOF.pdf) |
+| 10624 | [A177185](https://oeis.org/A177185) | Proof | the residual test over one square root, or none | [10624-PROOF.pdf](10624-PROOF.pdf) |
+| 10625 | [A177197](https://oeis.org/A177197) | Proof | the residual test over one square root, or none | [10625-PROOF.pdf](10625-PROOF.pdf) |
+| 10626 | [A177198](https://oeis.org/A177198) | Proof | the residual test over one square root, or none | [10626-PROOF.pdf](10626-PROOF.pdf) |
+| 10627 | [A177199](https://oeis.org/A177199) | Proof | the residual test over one square root, or none | [10627-PROOF.pdf](10627-PROOF.pdf) |
+| 10628 | [A177200](https://oeis.org/A177200) | Proof | the residual test over one square root, or none | [10628-PROOF.pdf](10628-PROOF.pdf) |
+| 10629 | [A177203](https://oeis.org/A177203) | Proof | the residual test over one square root, or none | [10629-PROOF.pdf](10629-PROOF.pdf) |
+| 10630 | [A081670](https://oeis.org/A081670) | Proof | the known side is the entry's NAME rather than a formula line | [10630-PROOF.pdf](10630-PROOF.pdf) |
+| 10631 | [A085781](https://oeis.org/A085781) | Proof | the known side is the entry's NAME rather than a formula line | [10631-PROOF.pdf](10631-PROOF.pdf) |
+| 10632 | [A026019](https://oeis.org/A026019) | Proof | the known side is the entry's NAME rather than a formula line | [10632-PROOF.pdf](10632-PROOF.pdf) |
+| 10633 | [A052183](https://oeis.org/A052183) | Proof | the known side is the entry's NAME rather than a formula line | [10633-PROOF.pdf](10633-PROOF.pdf) |
+| 10634 | [A052204](https://oeis.org/A052204) | Proof | the known side is the entry's NAME rather than a formula line | [10634-PROOF.pdf](10634-PROOF.pdf) |
+| 10635 | [A157713](https://oeis.org/A157713) | Proof | the known side is the entry's NAME rather than a formula line | [10635-PROOF.pdf](10635-PROOF.pdf) |
+| 10636 | [A049486](https://oeis.org/A049486) | Proof | a posted closed form decided by the theory of hypergeometric terms | [10636-PROOF.pdf](10636-PROOF.pdf) |
+| 10637 | [A126501](https://oeis.org/A126501) | Proof | a posted closed form decided by the theory of hypergeometric terms | [10637-PROOF.pdf](10637-PROOF.pdf) |
+| 10638 | [A248434](https://oeis.org/A248434) | Proof | a posted closed form decided by the theory of hypergeometric terms | [10638-PROOF.pdf](10638-PROOF.pdf) |
+| 10639 | [A126089](https://oeis.org/A126089) | Proof | complete annihilation, tested in the Ore algebra Q(n)[N] | [10639-PROOF.pdf](10639-PROOF.pdf) |
+| 10640 | [A025271](https://oeis.org/A025271) | Proof | division of one posted operator by another | [10640-PROOF.pdf](10640-PROOF.pdf) |
+| 10641 | [A138164](https://oeis.org/A138164) | Proof | division of one posted operator by another | [10641-PROOF.pdf](10641-PROOF.pdf) |
+| 10642 | [A143017](https://oeis.org/A143017) | Proof | division of one posted operator by another | [10642-PROOF.pdf](10642-PROOF.pdf) |
+| 10643 | [A159772](https://oeis.org/A159772) | Proof | division of one posted operator by another | [10643-PROOF.pdf](10643-PROOF.pdf) |
+| 10644 | [A000986](https://oeis.org/A000986) | Proof | division of one posted operator by another | [10644-PROOF.pdf](10644-PROOF.pdf) |
+| 10645 | [A022917](https://oeis.org/A022917) | Proof | division of one posted operator by another | [10645-PROOF.pdf](10645-PROOF.pdf) |
+| 10646 | [A217447](https://oeis.org/A217447) | Proof | division of one posted operator by another | [10646-PROOF.pdf](10646-PROOF.pdf) |
+| 10647 | [A226302](https://oeis.org/A226302) | Proof | division of one posted operator by another | [10647-PROOF.pdf](10647-PROOF.pdf) |
+| 10648 | [A245088](https://oeis.org/A245088) | Proof | division of one posted operator by another | [10648-PROOF.pdf](10648-PROOF.pdf) |
+| 10649 | [A026165](https://oeis.org/A026165) | Proof | division of one posted operator by another | [10649-PROOF.pdf](10649-PROOF.pdf) |
+| 10650 | [A185966](https://oeis.org/A185966) | Proof | division of one posted operator by another | [10650-PROOF.pdf](10650-PROOF.pdf) |
+| 10651 | [A200753](https://oeis.org/A200753) | Proof | division of one posted operator by another | [10651-PROOF.pdf](10651-PROOF.pdf) |
+| 10652 | [A217358](https://oeis.org/A217358) | Proof | division of one posted operator by another | [10652-PROOF.pdf](10652-PROOF.pdf) |
+| 10653 | [A228960](https://oeis.org/A228960) | Proof | division of one posted operator by another | [10653-PROOF.pdf](10653-PROOF.pdf) |
+| 10654 | [A003435](https://oeis.org/A003435) | Proof | division of one posted operator by another | [10654-PROOF.pdf](10654-PROOF.pdf) |
+| 10655 | [A228331](https://oeis.org/A228331) | Proof | division of one posted operator by another | [10655-PROOF.pdf](10655-PROOF.pdf) |
+| 10656 | [A273019](https://oeis.org/A273019) | Proof | division of one posted operator by another | [10656-PROOF.pdf](10656-PROOF.pdf) |
+| 10657 | [A386834](https://oeis.org/A386834) | Proof | division of one posted operator by another | [10657-PROOF.pdf](10657-PROOF.pdf) |
+| 10658 | [A228330](https://oeis.org/A228330) | Proof | division of one posted operator by another | [10658-PROOF.pdf](10658-PROOF.pdf) |
+| 10659 | [A228333](https://oeis.org/A228333) | Proof | division of one posted operator by another | [10659-PROOF.pdf](10659-PROOF.pdf) |

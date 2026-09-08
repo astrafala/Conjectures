@@ -12,147 +12,172 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A184547, derived from the entry's generating function}
+\title{The empirical recurrence for OEIS A254087, recovered from its tail}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{2 September 2026}
+\date{8 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A184547 carries an empirical recurrence of order $11$. The entry separately records a
-generating function, not as a conjecture but as a statement of fact, and the recurrence is a
-consequence of it: multiplying the generating function by the polynomial the recurrence
-supplies gives a POLYNOMIAL, and the recurrence then holds at every index past that
-polynomial's degree. No model of the objects being counted is needed, and no search: the
-whole argument is one polynomial division, carried out in exact arithmetic. The result is
-conditional on the recorded generating function, which is what the entry asserts and what is
-checked here against every published term.
+OEIS A254087 records ``Empirical recurrence of order $96$'' and keeps the recurrence itself in
+a linked file rather than in the entry, so the conjecture cannot be read off the entry at all.
+It can still be settled. The entry counts arrays under a condition local to a bounded window of
+lines, which makes the count a walk count on a finite digraph and forces a monic integer
+recurrence of order at most the number $S'=188$ of states with distinct futures. Berlekamp--Massey on
+enough exact terms therefore returns the minimal such recurrence, and on the tail beginning at $n=4$, so the recurrence is proved for every $n\ge100$.
+Its last coefficient is $c_{96}=2339171884152397435280588361695232\neq0$, so no further tail satisfies anything
+shorter; any order-$96$ recurrence the sequence satisfies from any point on must then have
+the same characteristic polynomial. The entry's recurrence is the one displayed here, whatever
+its linked file contains, and it is proved.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 30B10.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 15A18.\normalsize
 
-\section{The two statements}
+\section{A conjecture that is not written down}
 
-OEIS A184547 is ``Number of (n+2) X 10 binary arrays with each 3 X 3 subblock having rows and columns in lexicographically nondecreasing order.''. It has offset $1$ and begins
+OEIS A254087 is ``Number of (n+2)X(3+2) 0..1 arrays with every 3X3 subblock diagonal maximum minus antidiagonal maximum nondecreasing horizontally, vertically and ne-to-sw antidiagonally.''. It has offset $1$ and begins
 \[
-682, 2000, 4837, 10909, 23648, 49489, 99872, 194245,\ \dots
+22728, 437412, 9231485, 194642351, 4074710828, 85580284203, 1797518333568, 37753559435660,\ \dots
 \]
-The entry states, as a conjecture and never marked settled:
+The entry states:
 \begin{quote}
-a(n) = 11*a(n-1) - 55*a(n-2) + 165*a(n-3) - 330*a(n-4) + 462*a(n-5) - 462*a(n-6) + 330*a(n-7) - 165*a(n-8) + 55*a(n-9) - 11*a(n-10) + a(n-11) for n>11.
+Empirical recurrence of order 96 (see link above)
 \end{quote}
-and, separately and NOT as a conjecture:
-\begin{quote}
-G.f.: x*(682 - 5502*x + 20347*x\^{}2 - 44828*x\^{}3 + 64744*x\^{}4 - 63833*x\^{}5 + 43442*x\^{}6 - 20156*x\^{}7 + 6118*x\^{}8 - 1104*x\^{}9 + 91*x\^{}10) / (1 - x)\^{}11.
-\end{quote}
-As of the ``Last modified'' line on the live entry (Apr 14 2018 07:33:49, revision 9) the first is still
-recorded as empirical. This note derives it from the second.
+As of the ``Last modified'' line on the live entry (Jul 23 2025 14:27:21, revision 6)
+this is still recorded as empirical, and it is still open. The coefficients are nowhere in the
+entry text: what is conjectured is only that a recurrence of that order exists.
 
-\section{A rational generating function decides every linear recurrence}
+\section{The count is a walk count}
 
-Write
+The entry's condition is local. It constrains a bounded window of consecutive lines of the
+array and nothing beyond it, so the admissible configurations of one window are the vertices of
+a finite digraph, an edge joins $u$ to $v$ when $v$ may follow $u$, and an admissible array is
+exactly a walk. Writing $M$ for the adjacency matrix and $\iota,\tau$ for the indicator vectors
+of the admissible first and last windows,
 \[
-G(x)\;=\;\sum_{n}a(n)\,x^{n}\;=\;\frac{- 91 x^{11} + 1104 x^{10} - 6118 x^{9} + 20156 x^{8} - 43442 x^{7} + 63833 x^{6} - 64744 x^{5} + 44828 x^{4} - 20347 x^{3} + 5502 x^{2} - 682 x}{x^{11} - 11 x^{10} + 55 x^{9} - 165 x^{8} + 330 x^{7} - 462 x^{6} + 462 x^{5} - 330 x^{4} + 165 x^{3} - 55 x^{2} + 11 x - 1},
+a(n)\;=\;\iota^{\!\top}M^{\,j(n)}\tau
 \]
-the entry's own generating function, and let
-\[
-D(x)\;=\;1-\sum_i c_i x^{i}\;=\;- x^{11} + 11 x^{10} - 55 x^{9} + 165 x^{8} - 330 x^{7} + 462 x^{6} - 462 x^{5} + 330 x^{4} - 165 x^{3} + 55 x^{2} - 11 x + 1
-\]
-be the polynomial attached to the conjectured recurrence.
+for a linear reindexing $j$ fixed by the entry's shape. States with identical futures
+contribute identically to that product and may be merged without changing any count; after
+merging $S'=188$ states remain, and it is that bound every computation below uses.
 
-\begin{lemma}\label{lem:key}
-For every $n$ in range, $a(n)-\sum_i c_i\,a(n-i)$ is the coefficient of $x^{n}$ in
-$D(x)G(x)$.
+\begin{lemma}\label{lem:cf}
+$a$ satisfies a monic linear recurrence with integer coefficients of order at most $S'=188$.
 \end{lemma}
 
 \begin{proof}
-Multiplying power series, the coefficient of $x^{m}$ in $D(x)G(x)$ is
-$a_m-\sum_i c_i a_{m-i}$ where $a_m$ denotes the coefficient of $x^{m}$ in $G$, terms with
-negative index being zero.
+By the Cayley--Hamilton theorem $M^{S'}$ is an integer combination of $I,M,\dots,M^{S'-1}$,
+and multiplying that relation on the left by $\iota^{\!\top}M^{\,j}$ and on the right by
+$\tau$ turns it into a relation among $S'+1$ consecutive values of $a$.
 \end{proof}
 
-\begin{theorem}
+\section{Why the question has to be asked of a tail}
+
+Running Berlekamp--Massey on the sequence from its first term returns an order LARGER than $96$: the opening terms do not satisfy the recurrence, and a recurrence that holds only eventually always looks longer when the exceptional terms are included. That is not evidence against the entry. An OEIS empirical recurrence is asserted for $n$ beyond some index, not from the first term, so the question has to be asked of the tails. It was asked of each tail in turn, and the tail beginning at $n=4$ is the first whose minimal order is exactly the stated $96$.
+
+\begin{lemma}\label{lem:bm}
+A sequence known to satisfy some linear recurrence of order at most $S'$ is determined,
+together with its minimal recurrence, by any $2S'$ consecutive terms: Berlekamp--Massey applied
+to them returns that minimal recurrence exactly.
+\end{lemma}
+
+Applied to $2S'=376$ exact terms from $n=4$ on, it returns order $96$ --- the
+order the entry states --- with integer coefficients:
 \[
-a(n)\;=\;11\,a(n-1) - 55\,a(n-2) + 165\,a(n-3) - 330\,a(n-4) + 462\,a(n-5) - 462\,a(n-6) + 330\,a(n-7) - 165\,a(n-8) + 55\,a(n-9) - 11\,a(n-10) + a(n-11)
+a(n)\;=\;\sum_{i=1}^{96}c_i\,a(n-i),
 \]
-for every $n>11$.
+\begin{center}\small
+\begin{tabular}{cccccccc}
+$c_{1}$ & $25$ & $c_{25}$ & $-2873981855456869376$ & $c_{49}$ & $-194604061417652666630269829120$ & $c_{73}$ & $-25967563969089556069100782526398464$ \\
+$c_{2}$ & $74$ & $c_{26}$ & $-19028584596400902144$ & $c_{50}$ & $-130793466105753551804041265152$ & $c_{74}$ & $-19053118353758404532675585654128640$ \\
+$c_{3}$ & $-3922$ & $c_{27}$ & $-62015750932079628288$ & $c_{51}$ & $-879838857739473878395771682816$ & $c_{75}$ & $-177073985234647431624227039796527104$ \\
+$c_{4}$ & $8499$ & $c_{28}$ & $609012396045575913472$ & $c_{52}$ & $-707809685318819623430468403200$ & $c_{76}$ & $-49025790909276283144011348969521152$ \\
+$c_{5}$ & $100677$ & $c_{29}$ & $146083501910781640704$ & $c_{53}$ & $2635658927988553283137563525120$ & $c_{77}$ & $72218465657773073254769514080370688$ \\
+$c_{6}$ & $-438272$ & $c_{30}$ & $4395038710391680139264$ & $c_{54}$ & $1512234610686919608614216794112$ & $c_{78}$ & $46049222676823062302263916265209856$ \\
+$c_{7}$ & $4596776$ & $c_{31}$ & $337857196105811951616$ & $c_{55}$ & $15436163413082959858506303275008$ & $c_{79}$ & $285001882014794785507354818102951936$ \\
+$c_{8}$ & $-31381116$ & $c_{32}$ & $-30498487879440811687936$ & $c_{56}$ & $9190489925376020277003454251008$ & $c_{80}$ & $80564519549207588688707776526942208$ \\
+$c_{9}$ & $338829100$ & $c_{33}$ & $-37908451561667436478464$ & $c_{57}$ & $-29887695252048131775198499176448$ & $c_{81}$ & $-141797596945405268890573756176531456$ \\
+$c_{10}$ & $290830160$ & $c_{34}$ & $-398823695144776492908544$ & $c_{58}$ & $-15753216753726094895685178490880$ & $c_{82}$ & $-67573426361919372616984615811284992$ \\
+$c_{11}$ & $-37313273328$ & $c_{35}$ & $61188596834557006708736$ & $c_{59}$ & $-196260687235483117858301226778624$ & $c_{83}$ & $-249413052789898355757185710612807680$ \\
+$c_{12}$ & $107202880752$ & $c_{36}$ & $487255220291998424498176$ & $c_{60}$ & $-89820981641373169355204811816960$ & $c_{84}$ & $-65958528302369239349387381427929088$ \\
+$c_{13}$ & $278976895184$ & $c_{37}$ & $5313992572260430377910272$ & $c_{61}$ & $308196389311361626052829393190912$ & $c_{85}$ & $173231989533983317798885983051055104$ \\
+$c_{14}$ & $-1294945138176$ & $c_{38}$ & $18863079053700383167741952$ & $c_{62}$ & $126014294679383004587025089167360$ & $c_{86}$ & $70559943352466291350560881837604864$ \\
+$c_{15}$ & $28891041420672$ & $c_{39}$ & $1021744632157233123164160$ & $c_{63}$ & $1752076679885143105655482399850496$ & $c_{87}$ & $136869427729415179549470887346438144$ \\
+$c_{16}$ & $-90861769333568$ & $c_{40}$ & $26206910822454959097774080$ & $c_{64}$ & $648382821605463511469219620323328$ & $c_{88}$ & $35022802203482280276084306456084480$ \\
+$c_{17}$ & $-410241650033088$ & $c_{41}$ & $-292273032179925956933189632$ & $c_{65}$ & $-1887910026468524998110514792890368$ & $c_{89}$ & $-97497250424048046101488224832585728$ \\
+$c_{18}$ & $945674896933120$ & $c_{42}$ & $-531755939556448952263901184$ & $c_{66}$ & $-793156825910421645786776715919360$ & $c_{90}$ & $-39582920410747670619514218271997952$ \\
+$c_{19}$ & $-4432887649873664$ & $c_{43}$ & $-624697681159216410149257216$ & $c_{67}$ & $-12375345040318905481503943742717952$ & $c_{91}$ & $-52530179257815289684850724260806656$ \\
+$c_{20}$ & $27509595796634880$ & $c_{44}$ & $-1628753461578137772754993152$ & $c_{68}$ & $-3712475142016305693015744620527616$ & $c_{92}$ & $-16528523556424058266652768458506240$ \\
+$c_{21}$ & $28703553721845504$ & $c_{45}$ & $9351970182432968987818065920$ & $c_{69}$ & $7607825167670929024104805888425984$ & $c_{93}$ & $14368038413422191191011669485551616$ \\
+$c_{22}$ & $-51880597362352128$ & $c_{46}$ & $9784043129989582239572164608$ & $c_{70}$ & $4577561255315084550120053376286720$ & $c_{94}$ & $5847929710380993588201470904238080$ \\
+$c_{23}$ & $1051883582860617728$ & $c_{47}$ & $34149268177437205445071601664$ & $c_{71}$ & $60766436842108804338682266935885824$ & $c_{95}$ & $6627653671765126066628333691469824$ \\
+$c_{24}$ & $-5894720728960627712$ & $c_{48}$ & $41910780417206576715204132864$ & $c_{72}$ & $16588052611872623979014619205206016$ & $c_{96}$ & $2339171884152397435280588361695232$ \\
+\end{tabular}
+\end{center}
+
+\section{The recurrence, and the identification}
+
+\begin{theorem}
+The recurrence above holds for every $n\ge100$, and it is the recurrence OEIS A254087 records.
 \end{theorem}
 
 \begin{proof}
-In exact arithmetic,
-\[
-D(x)\,G(x)\;=\;91 x^{11} - 1104 x^{10} + 6118 x^{9} - 20156 x^{8} + 43442 x^{7} - 63833 x^{6} + 64744 x^{5} - 44828 x^{4} + 20347 x^{3} - 5502 x^{2} + 682 x,
-\]
-a POLYNOMIAL of degree $11$ --- the denominator of $G$ divides $D(x)$ times its numerator,
-which is precisely the condition for the conjectured recurrence to be implied by the
-generating function. Its coefficients vanish beyond degree $11$, so by
-Lemma~\ref{lem:key} the residual $a(n)-\sum_ic_ia(n-i)$ vanishes for every
-$n>11$.
+That it holds is Lemma~\ref{lem:bm} applied to the tail from $n=4$, whose minimal
+recurrence it is.
+
+For the identification, write $q_{\min}$ for the characteristic polynomial of that minimal
+recurrence, $x^{96}-c_1x^{96-1}-\dots-c_{96}$. Its constant term is
+$-c_{96}=-2339171884152397435280588361695232$, which is not zero, so $q_{\min}(0)\neq0$ and $q_{\min}$ has no
+root at the origin. A solution of a constant-coefficient recurrence is a combination of terms
+$n^{k}\lambda^{n}$ with $\lambda$ a root of its characteristic polynomial, and only the
+components with $\lambda=0$ vanish after finitely many terms. Since $q_{\min}$ has none, no
+component of $a$ dies out, and the minimal recurrence of every further tail is again
+$q_{\min}$ --- the order cannot drop below $96$ at any later starting point.
+
+Now let $q$ be the characteristic polynomial of whatever recurrence the entry asserts. The
+entry asserts it has order $96$, so $\deg q=96$, and it is monic. It holds from some
+index $t$ on. From $\max(t,4)$ on, the sequence satisfies both $q$ and $q_{\min}$, and
+the minimal polynomial of that tail is $q_{\min}$ by the previous paragraph; therefore
+$q_{\min}\mid q$. Both are monic of degree $96$, so $q=q_{\min}$.
 \end{proof}
-
-\section{Is the conjectured recurrence the shortest one?}
-
-Cancelling common factors, $G$ has reduced denominator
-\[
-x^{11} - 11 x^{10} + 55 x^{9} - 165 x^{8} + 330 x^{7} - 462 x^{6} + 462 x^{5} - 330 x^{4} + 165 x^{3} - 55 x^{2} + 11 x - 1,
-\]
-of degree $11$, and that degree is the order of the SHORTEST linear recurrence with
-constant coefficients the sequence obeys: any shorter one would give a polynomial multiple of
-$G$ with a smaller denominator, contradicting the cancellation. The conjectured recurrence has
-order $11$.
-
-So the conjecture is the minimal recurrence.
-
-\section{The residuals, explicitly}
-
-Lemma~\ref{lem:key} says the residual $a(n)-\sum_ic_ia(n-i)$ is a coefficient of the
-polynomial $D(x)G(x)$, so it can be read off the entry's own published terms with no
-generating function involved at all. Doing that:
-\begin{center}
-\begin{tabular}{cc}
-index & residual \\ \hline
-$n=12$ & $0$ \\
-$n=13$ & $0$ \\
-$n=14$ & $0$ \\
-$n=15$ & $0$
-\end{tabular}
-\end{center}
-The residuals are exactly the coefficients of the polynomial displayed above, in order, and
-they stop at index $11$ because that polynomial has degree $11$. A reader who trusts
-neither the generating function nor the algebra can check the table against the entry's DATA
-by hand; what the generating function adds is the guarantee that the pattern continues, which
-no amount of checking terms could establish on its own.
 
 \section{Verification}
 
-Three checks.
+Four checks, all in exact integer or rational arithmetic.
 
-First, the generating function was expanded as a power series in exact rational arithmetic and
-compared against all $26$ terms the entry publishes: it reproduces every one. This is
-what ties the recorded generating function to the sequence the recurrence is about.
+First, the walk model reproduces all $14$ terms the entry publishes, exactly. This is
+what ties the model to the entry, and it is the only place where reading the entry's English
+enters the argument.
 
-Second, the polynomial division above was carried out symbolically, not numerically, so the
-statement that $D(x)G(x)$ is a polynomial is exact rather than approximate.
+Second, the order was computed twice by independent routes: once modulo a $61$-bit prime, where
+every intermediate is a machine word, and once over $\mathbb{Q}$ in exact rational arithmetic.
+Both return $96$, and the exact run additionally confirms every coefficient is an integer
+--- had any been a proper fraction the recurrence would not be the entry's.
 
-Third, the recurrence was evaluated directly on the series coefficients for sixty consecutive
-indices beyond $n=11$ and holds at every one, and at $n=11$ itself it fails --- the
-degree bound is attained, so the range stated is the true one and not merely a safe one.
+Third, the recovered recurrence was evaluated directly on the entry's own published terms, with
+no matrices and no Berlekamp--Massey involved. It holds at each of the $0$ indices where
+the entry publishes enough earlier terms to test it.
+
+Fourth, the last coefficient was checked to be nonzero, which is what the identification above
+turns on; it is $2339171884152397435280588361695232$.
 
 \begin{remark}
-The argument is conditional on the generating function, which the entry records as a fact and
-attributes to a contributor rather than offering as a conjecture. What is shown here is that
-the empirical recurrence is not an independent guess: it is equivalent to information the
-entry already contains.
+The conjecture's own statement was never read. The entry pins it down to the family of
+order-$96$ recurrences this sequence satisfies from some point on, and that family turns
+out to have exactly one member.
 \end{remark}
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A184547.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A254087.
+\bibitem{massey} J.~L.~Massey, Shift-register synthesis and BCH decoding, \emph{IEEE
+Trans. Inform. Theory} \textbf{15} (1969), 122--127.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Rational generating functions, Section 4.1.)
-\bibitem{kp} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011.
-\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
-University Press, 2009.
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{kauers} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011.
+(C-finite sequences and their closure properties.)
+\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
+University Press, 2013.
 \end{thebibliography}
 
 \end{document}

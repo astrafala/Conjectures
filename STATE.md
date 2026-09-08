@@ -65,13 +65,22 @@ Recurring defects, all found this way:
    instrument on a case whose answer is known before trusting its number
 9. comparing a conjecture against regenerated terms instead of the entry's own data — the
    entry's published data is the ground truth; the recurrence only carries a claim beyond it
+10. **taking a line with no conjectural word on it to be a statement of fact.** It is not.
+    A `Conjectures from X: (Start) ... (End)' block holds bare formula lines and none of them
+    says "conjecture". This cost 1,353 installed papers, withdrawn on 8 September 2026: they
+    proved a conjectured recurrence from a generating function on the same entry and inside
+    the same block, which is the same conjecture in another notation. **A premise may only be
+    taken from `factlines.facts(e)`** — never from a word test on the line.
 
 ## Where things stand
 
-* **12,012 papers installed** (11,791 proofs + 6 disproofs at last ranking; counts are
-  re-derived by `src/sync_counts.py`, never typed by hand).
-* Held and awaiting install: the generating-function vein (2,151 proved), plus tables,
-  min-filter, words, cusp forms, CA rows, second conjectures, e.g.f.s.
+* **10,659 papers installed** after the withdrawal of 8 September 2026 (counts are re-derived
+  by `src/sync_counts.py`, never typed by hand). The figure was 12,012 before it.
+* **The generating-function-as-fact vein is null**, not 2,151. Asked correctly it proves 2.
+  Everything held under it has been purged, and `WITHDRAWN.md` records what was taken back.
+* Held and awaiting install: 1,069 results live-re-checked and kept — tables, min-filter,
+  words, cusp forms, CA rows, e.g.f.s — plus the conjectured generating functions proved from
+  a transfer-matrix model (`deep-check/gfonly-new.txt`, running).
 * **19,097 OEIS entries carry a conjectured recurrence with no linked proof.** 32,629 carry a
   conjecture of any recognised kind. That is the ceiling this project works against.
 

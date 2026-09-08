@@ -24,8 +24,8 @@ counted twice.
 | A3 | order line re-asked on tails — a claim "for n > t" is not a claim from term 0 | 493 | **done** |
 | A4 | T(n,k) table columns and rows | 1,729 | **running**, 184 tables so far |
 | A5 | closed forms proved from a transfer-matrix model | 1,100+ | **running** |
-| A6 | conjectured recurrence from a **g.f. the entry states as fact** | 2,817 | **2,151 proved** — the largest vein found |
-| A7 | conjectured recurrence from a **closed form stated as fact** | 442 | **running**, 41 so far |
+| A6 | conjectured recurrence from a **g.f. the entry states as fact** | 2,817 | **null: 2 proved.** The 2,151 rested on a generating function inside the same `Conjectures from X: (Start)' block as the recurrence — one conjecture written twice. 1,336 of them were installed and have been withdrawn; see WITHDRAWN.md |
+| A7 | conjectured recurrence from a **closed form stated as fact** | 442 | **null**: all 41 rested on a block line; purged |
 | A8 | further conjectures on sequences already proved C-finite | 13,109 | **running**, 297 with new content |
 
 ## B. Engines written for name shapes nothing could read
@@ -61,7 +61,7 @@ counted twice.
 
 | # | idea | status |
 | --- | --- | --- |
-| D1 | premise from a formula the entry states as fact | **the biggest win of the project** (A6, A7) |
+| D1 | premise from a formula the entry states as fact | **null, and it was the biggest mistake of the project.** The corpus almost never states a formula as fact beside a conjectured one; what looked like 2,800 such entries were block conjectures. `factlines.facts` is now the only allowed source of a premise |
 | D2 | premise from a proof this project already owns | A8 |
 | D3 | closure under transforms — partial sums, differences, bisections | **measured, small**: 2,074 such entries, only 43 with an open conjecture, 12 usable |
 | D4 | entries carrying both a known recurrence and a conjecture | 558, mostly already covered |

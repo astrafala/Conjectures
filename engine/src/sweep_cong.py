@@ -65,9 +65,10 @@ for a in targets:
         res['entry unreadable'] += 1
         done.add(a); save(); continue
     # the premise: a recurrence stated as fact, or one already proved here
+    _conjset = {L.strip() for L in conjlines.lines(e)}
     fact = None
     for L in e['comment'] + e['formula']:
-        if CONJ.search(L):
+        if CONJ.search(L) or L.strip() in _conjset:
             continue
         r = ratrec.parse_rec(L)
         if r:

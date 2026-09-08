@@ -86,9 +86,10 @@ for a in targets:
         save()
         continue
     # the closed form must be stated as FACT: not inside a conjecture block, no hedge word
+    _conjset = {L.strip() for L in conjlines.lines(e)}
     fact = None
     for L in e['comment'] + e['formula']:
-        if CONJ.search(L):
+        if CONJ.search(L) or L.strip() in _conjset:
             continue
         q = CF.parse_line(L, bare=True)
         if q and q[0] is not None:
