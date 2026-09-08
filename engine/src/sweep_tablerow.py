@@ -12,7 +12,7 @@ DATA, which a table stores by antidiagonals. The antidiagonal orientation is not
 both are tried and the one matching the model exactly is accepted, so a wrong reading is
 rejected rather than fitted.
 """
-import json, re, os, sys, collections, importlib
+import json, re, os, sys, collections, importlib, zlib, signal, time
 from math import factorial
 import uniform
 import localentry as LE, ratrec, openness, tablecol, tablerow
@@ -101,11 +101,35 @@ def column(d, c, upward):
     return out
 
 
-for a in sorted(names):
+# Everything sweep_table needed, this sweep needed too and never got: it walked all 399,027
+# names in A-number order, skipped non-tables WITHOUT recording the skip so every run re-read
+# the same early index, and had no clock of any kind while a table states a recurrence for
+# every row it has. Same pool, same shards, same three guards, each a setting named in the
+# refusal it causes.
+class _T(Exception):
+    pass
+
+
+signal.signal(signal.SIGALRM, lambda *a: (_ for _ in ()).throw(_T()))
+BUDGET = int(os.environ.get('BUDGET', '30'))
+ROWCAP = int(os.environ.get('ROWCAP', '1024'))
+ENTRY_BUDGET = int(os.environ.get('ENTRY_BUDGET', '90'))
+POOL = os.environ.get('TABPOOL', 'deep-check/tabpool.txt')
+if os.path.exists(POOL):
+    targets = [a for a in open(POOL).read().split() if a.startswith('A')]
+else:
+    targets = sorted(names)
+SHARD = int(os.environ.get('TABSHARD', '0'))
+NSHARD = int(os.environ.get('TABNSHARD', '1'))
+
+for a in targets:
     if a in done or (SKIP_ROSTER and a in roster):
         continue
-    nm = names[a]
-    if not nm.strip().startswith('T(n,k)'):
+    if zlib.crc32(a.encode()) % NSHARD != SHARD:
+        continue
+    nm = names.get(a, '')
+    if not nm.strip().startswith(('T(n,k)', 'T(n,m)')):
+        done.add(a)
         continue
     e = LE.get(a)
     cols = {}
@@ -137,7 +161,11 @@ for a in sorted(names):
         res['not open'] += 1; done.add(a); continue
     d = [int(v) for v in e['data'].split(',') if v.strip()]
     proved, failed, skipped = [], [], []
+    t_entry = time.time()
     for c, (coeffs, dd) in sorted(cols.items()):
+        if time.time() - t_entry > ENTRY_BUDGET:
+            skipped.append((c, f'the table used its {ENTRY_BUDGET}s budget before this row'))
+            continue
         rn = (tablecol if MODE == 'col' else tablerow).rewrite(nm, c)
         if rn is None:
             skipped.append((c, 'name not rewritable')); continue
@@ -152,9 +180,26 @@ for a in sorted(names):
         if not got_eng:
             skipped.append((c, 'no engine reads it')); continue
         eng, p = got_eng
+        # the size is estimated from the parse before anything is built: an alarm cannot
+        # interrupt a build that spends its whole time inside one C-level call
+        W = p.get('W') or p.get('fixed') or p.get('cols')
+        A = p.get('alpha')
+        if isinstance(W, int) and isinstance(A, int) and W > 0:
+            try:
+                nrows = (A + 1) ** W
+            except Exception:
+                nrows = None
+            if nrows is not None and nrows > ROWCAP:
+                skipped.append((c, f'{nrows} rows: above the row cap {ROWCAP}')); continue
         try:
+            signal.alarm(BUDGET)
             b = uniform.build(eng, p, CAP)
+            signal.alarm(0)
+        except _T:
+            signal.alarm(0)
+            skipped.append((c, f'build over the {BUDGET}s budget')); continue
         except Exception:
+            signal.alarm(0)
             skipped.append((c, 'build failed')); continue
         if b is None:
             skipped.append((c, 'state space > cap')); continue
@@ -173,9 +218,12 @@ for a in sorted(names):
             # just below and was reported as "model does not match the column", so a model
             # that matched perfectly was thrown away.
             try:
+                signal.alarm(BUDGET)
                 t = uniform.terms(eng, p, b, len(colv) + 5)
+                signal.alarm(0)
                 tv = [None if (x is None or x.denominator != 1) else x.numerator for x in t]
             except Exception:
+                signal.alarm(0)
                 continue
             sh = next((s for s in range(0, 4) if tv[s:s + len(colv)] == colv), None)
             if sh is None:
@@ -186,8 +234,14 @@ for a in sorted(names):
             failed.append((c, 'model does not match the column')); continue
         up, got, base, colv = match
         try:
+            signal.alarm(BUDGET * 3)
             thr = uniform.threshold(eng, p, b, coeffs, order)
+            signal.alarm(0)
+        except _T:
+            signal.alarm(0)
+            skipped.append((c, f'threshold over the {BUDGET * 3}s budget')); continue
         except Exception:
+            signal.alarm(0)
             skipped.append((c, 'threshold failed')); continue
         nthr = None if thr is None else thr - base
         if nthr is None:
