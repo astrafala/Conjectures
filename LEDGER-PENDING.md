@@ -724,3 +724,34 @@ kept in the record under their own name so the distinction is visible rather tha
 
 **The count that would have been reported was 2.8 times the real one.** The standing rule is
 never pad the count; this is what enforcing it looks like when the padding is my own.
+
+## 8 September 2026 — exponential generating functions, a class never attempted
+
+An ordinary generating function conjecture is settled by comparing denominators. An
+**exponential** one is a different transform, written with exp, sin and cosh rather than as a
+ratio of polynomials, and nothing here had ever looked at one. 122 entries conjecture an
+e.g.f.; **28 have a recurrence available as a premise, and 11 are proved.**
+
+It is decidable because a C-finite sequence's e.g.f. is a combination of exponentials fixed by
+the recurrence's roots. The test expands the conjectured e.g.f., requires it to reproduce every
+term the entry publishes, and then requires its own coefficients to satisfy the premise
+recurrence — two sequences satisfying the same recurrence and agreeing on `order` consecutive
+terms past its threshold agree for ever.
+
+### The fourth false-disproof class of the day, and I created it in the same hour
+
+The first run reported **8 conjectures false**. Every one was mine.
+
+I had just relaxed the premise check to allow a recurrence that holds only past a threshold —
+correct in itself — and then seeded the comparison by regenerating the sequence from that
+recurrence starting at index 0. The regenerated early terms are not the entry's terms, so eight
+e.g.f.s that match their entry exactly came out false. A273790's conjectured e.g.f. gives
+1, 6, 31, 80, 161, 282, 451, 676 and the entry publishes 1, 6, 31, 80, 161, 282, 451, 676.
+
+The fix is a rule worth stating on its own: **the entry's published data is the ground truth,
+and the recurrence is only what carries a claim beyond it.** A test that compares a conjecture
+against regenerated terms rather than against the entry is not testing the conjecture.
+
+Four times today an apparent batch of disproofs has been a defect in how I read or reconstruct
+the claim. Not once has it been a false conjecture. **The disproof count stands at 6, all from
+earlier work, all re-verified.**
