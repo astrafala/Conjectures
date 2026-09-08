@@ -12,7 +12,7 @@ DATA, which a table stores by antidiagonals. The antidiagonal orientation is not
 both are tried and the one matching the model exactly is accepted, so a wrong reading is
 rejected rather than fitted.
 """
-import json, re, os, sys, collections, importlib
+import json, re, os, sys, collections, importlib, zlib
 from math import factorial
 import localentry as LE, ratrec, openness, tablecol, uniform
 
@@ -76,11 +76,27 @@ def column(d, c, upward):
     return out
 
 
-for a in sorted(names):
+# The sweep used to walk all 399,027 names in A-number order and skip anything not starting
+# with "T(n,k)" WITHOUT recording the skip, so every run re-read the whole index from the top
+# and a timeout meant it never got past the early A-numbers. It had asked about 889 entries in
+# total, 11 of the 1,729 that carry a column conjecture. It now reads an explicit pool built
+# from the clone, and it shards.
+POOL = os.environ.get('TABPOOL', 'deep-check/tabpool.txt')
+if os.path.exists(POOL):
+    targets = [a for a in open(POOL).read().split() if a.startswith('A')]
+else:
+    targets = sorted(names)
+SHARD = int(os.environ.get('TABSHARD', '0'))
+NSHARD = int(os.environ.get('TABNSHARD', '1'))
+
+for a in targets:
     if a in done or (SKIP_ROSTER and a in roster):
         continue
-    nm = names[a]
-    if not nm.strip().startswith('T(n,k)'):
+    if zlib.crc32(a.encode()) % NSHARD != SHARD:
+        continue
+    nm = names.get(a, '')
+    if not nm.strip().startswith(('T(n,k)', 'T(n,m)')):
+        done.add(a)
         continue
     e = LE.get(a)
     cols = {}

@@ -213,3 +213,49 @@ Two pieces of shared machinery needed widening for an engine whose model is not 
 matrix: `uniform` gained an image-engine branch in `build`, `terms`, `size` and `threshold`, and
 `sweep_cf` was reading the state count as `len(b[0])` — true of every engine written until now
 and false of this one. It asks `uniform.size` instead.
+
+## 8 September 2026 — pushed to find veins in the thousands, and my own filter was the wall
+
+Asked whether the families I was working were too small, I went back over the measurement
+rather than the mathematics, and the measurement was wrong twice.
+
+### My conjecture filter required the hedge word and the formula on the same line
+
+A conjecture is very often written as a block, and then the formulas carry no conjectural word
+of their own at all:
+
+```
+%F Axxxxxx Conjectures from _Colin Barker_, Apr 12 2018: (Start)
+%F Axxxxxx a(n) = 3*a(n-1) - a(n-3).
+%F Axxxxxx G.f.: x*(1 + x) / (1 - 3*x + x^3).
+%F Axxxxxx (End)
+```
+
+`pooltrim.py` required "Conjecture"/"Empirical" and a formula on ONE line, so it dropped every
+entry whose only conjecture is a block. **1,648 entries.** It reads the block as a whole now,
+and the reservoir of genuinely open unread entries goes from **5,511 to 7,091**.
+
+A second phrasing was missing entirely: "It appears that", "Apparently", "It seems that". 3,743
+entries use one of them, and **551 that state a formula or recurrence were in no pool at all**.
+
+### The vein in the thousands was one the project already had the machinery for
+
+Sampling the entries the filter had dropped turned up "Empirical for column k:" over and over.
+That is the T(n,k) table-column conjecture — the shape `sweep_table.py` was written for, and
+which has 188 papers in the roster already.
+
+**2,101 entries carry one. 372 are in the roster. 1,729 are not — and the sweep had asked
+about 11 of them.**
+
+Not because they were hard: because of how the sweep chose what to ask. It walked all 399,027
+names in A-number order, skipped anything not beginning "T(n,k)" **without recording the skip**,
+and was killed by its timeout long before the interesting A-numbers. Every run re-read the same
+early part of the index. In its whole life it had asked about 889 entries.
+
+It now reads an explicit pool built from the clone, records what it skips, and shards four
+ways. 1,718 entries that had never been asked are being asked.
+
+**The lesson is the same one as this morning's nineteen false disproofs, from the other side.**
+A sweep that reports a small clean number is not evidence that the pool is small. Both times the
+number came from my own code deciding what to look at, and both times the way to find it was to
+read the refusals rather than the results.

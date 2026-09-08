@@ -23,6 +23,37 @@ SETTLED = re.compile(r'^%[CF] .*(this is now (a )?(proved|theorem)|no longer a c
 # the conjecture wording that is worth a sweep: a recurrence, a g.f., or an order line
 REAL = re.compile(r'^%[CF] .*(Conjectur|Empirical).*'
                   r'(a\(n\)\s*=|g\.f\.|recurrence of order)', re.I | re.M)
+# ...but a conjecture is very often written as a BLOCK, and then the formulas carry no
+# conjectural word of their own at all:
+#
+#   %F Axxxxxx Conjectures from _Colin Barker_, Apr 12 2018: (Start)
+#   %F Axxxxxx a(n) = 3*a(n-1) - a(n-3).
+#   %F Axxxxxx G.f.: x*(1 + x) / (1 - 3*x + x^3).
+#   %F Axxxxxx (End)
+#
+# Requiring the word and the formula on the SAME line dropped 1,648 entries whose only
+# conjecture is a block like this. The block is read as a whole.
+BLOCK_OPEN = re.compile(r'^%[CF] (?:A\d+ )?.*Conjectur\w*\s+from\b.*\(Start\)', re.I)
+BLOCK_END = re.compile(r'\(End\)', re.I)
+FORMULA = re.compile(r'a\(n\)\s*=|g\.f\.|recurrence of order', re.I)
+
+
+def _block_claim(t):
+    """a formula inside a 'Conjectures from ...: (Start)' block"""
+    inside = False
+    for line in t.splitlines():
+        if not line.startswith('%C ') and not line.startswith('%F '):
+            continue
+        body = re.sub(r'^%[CF] A\d+ ?', '', line)
+        if BLOCK_OPEN.match(line):
+            inside = True
+            continue
+        if inside:
+            if FORMULA.search(body):
+                return True
+            if BLOCK_END.search(body):
+                inside = False
+    return False
 
 
 def keep(a):
@@ -35,7 +66,7 @@ def keep(a):
         return False, 'entry links a published proof'
     if SETTLED.search(t):
         return False, 'entry says the conjecture is settled'
-    if not REAL.search(t):
+    if not REAL.search(t) and not _block_claim(t):
         return False, 'no conjectured recurrence, g.f. or order line'
     return True, ''
 
