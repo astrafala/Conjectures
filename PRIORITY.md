@@ -36,13 +36,20 @@ Three independent things fix that file to a date:
    a GitHub release mints a **DOI** with a fixed publication date, held by CERN, independent of
    GitHub and of me. This is the ordinary academic priority mechanism and it is the single
    strongest step available. **Do this.**
-3. **An OpenTimestamps stamp.** Free, no account, anchors the hash of `MANIFEST.tsv` in the
-   Bitcoin blockchain, which nobody can backdate:
+3. **An OpenTimestamps stamp. DONE.** `MANIFEST.tsv.ots` is committed. It anchors the SHA-256
+   of `MANIFEST.tsv` in the Bitcoin blockchain, which nobody can backdate, and it needed no
+   account from anyone. Anyone can check it:
    ```
    pip install opentimestamps-client
-   ots stamp MANIFEST.tsv          # writes MANIFEST.tsv.ots -- commit it
-   ots verify MANIFEST.tsv.ots     # anyone can check it, forever
+   ots verify MANIFEST.tsv.ots
    ```
+   For a few hours after stamping this reads "Pending confirmation in Bitcoin blockchain",
+   which is normal -- the calendar servers batch submissions into a block. Once it is in,
+   run `ots upgrade MANIFEST.tsv.ots` and commit the upgraded file; from then on the proof is
+   complete and stands on its own, with no calendar server needed to check it.
+
+   **Re-stamp whenever the roster changes**: rebuild `MANIFEST.tsv`, `ots stamp` it again, and
+   commit both. Each stamp fixes the roster as it stood that day.
 
 With the DOI and the stamp, "I had this on 8 September 2026" stops being a claim and becomes a
 fact anyone can check without trusting me, GitHub, or each other.
