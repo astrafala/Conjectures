@@ -1,4 +1,6 @@
-import json, os, collections, signal, sys, zlib
+import json
+
+import atomicjson, os, collections, signal, sys, zlib
 import sympy
 import localentry as LE, uniform, openness, gfonly
 
@@ -36,12 +38,12 @@ class Timeout(Exception):
 signal.signal(signal.SIGALRM, lambda *a: (_ for _ in ()).throw(Timeout()))
 
 def save():
-    json.dump(hits, open(HITS, 'w'), indent=1)
-    json.dump(sorted(done), open(DONE, 'w'))
+    atomicjson.dump(hits, HITS, indent=1)
+    atomicjson.dump(sorted(done), DONE)
     # the reasons were printed only after the whole pool, which a timeout never reaches, so a
     # run that refused everything looked the same as a run that had not started. They are
     # stored now, and a refusal that is only a setting says which setting.
-    json.dump(dict(res), open(f'gfonly_why{SFX}.json', 'w'), indent=1, sort_keys=True)
+    atomicjson.dump(dict(res), f'gfonly_why{SFX}.json', indent=1, sort_keys=True)
 
 
 # The sweep used to write its files only after a PROVED hit, so a run that was killed -- and
@@ -132,10 +134,10 @@ for a in sorted(pool):
                  'shift': sh, 'nterms': len(d), 'line': gl[0],
                  'degnum': int(dn), 'degden': int(dd), 'checked': int(need)})
     done.add(a)
-    json.dump(hits, open(HITS, 'w'), indent=1)
-    json.dump(sorted(done), open(DONE, 'w'))
+    atomicjson.dump(hits, HITS, indent=1)
+    atomicjson.dump(sorted(done), DONE)
     print('done', a, res['PROVED'], flush=True)
 
-json.dump(hits, open(HITS, 'w'), indent=1)
-json.dump(sorted(done), open(DONE, 'w'))
+atomicjson.dump(hits, HITS, indent=1)
+atomicjson.dump(sorted(done), DONE)
 print(dict(res))

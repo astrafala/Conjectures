@@ -24,6 +24,8 @@ Re-asking on tails separates three cases, and two of them are results:
     ANUMS_FILE=... python3 src/ordtails.py [cap] [shard] [nshards]
 """
 import json
+
+import atomicjson
 import os
 import re
 import signal
@@ -59,7 +61,7 @@ state = json.load(open(OUT)) if os.path.exists(OUT) else {'proved': [], 'disprov
 
 
 def save():
-    json.dump(state, open(OUT, 'w'), indent=1)
+    atomicjson.dump(state, OUT, indent=1)
 
 
 seen = (set(state['why']) | {x['anum'] for x in state['proved']}

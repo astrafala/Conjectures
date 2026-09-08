@@ -1,5 +1,7 @@
 """Entries that state an explicit closed form rather than a recurrence."""
-import json, re, os, sys, collections, importlib, zlib
+import json
+
+import atomicjson, re, os, sys, collections, importlib, zlib
 from fractions import Fraction
 from math import factorial
 import signal
@@ -87,17 +89,17 @@ for a in sorted(targets):
             rows = None
         if rows is not None and rows * rows > 64 * CAP:
             res[f'too big to be worth starting: {rows} rows at cap {CAP}'] += 1
-            done.add(a); json.dump(sorted(done), open(DONE, 'w')); continue
+            done.add(a); atomicjson.dump(sorted(done), DONE); continue
     try:
         signal.alarm(BUDGET)
         b = uniform.build(eng, p, CAP)
         signal.alarm(0)
     except _T:
         signal.alarm(0); res['build timed out'] += 1; done.add(a)
-        json.dump(sorted(done), open(DONE, 'w')); continue
+        atomicjson.dump(sorted(done), DONE); continue
     except Exception:
         signal.alarm(0); res['build failed'] += 1; done.add(a)
-        json.dump(sorted(done), open(DONE, 'w')); continue
+        atomicjson.dump(sorted(done), DONE); continue
     if b is None:
         res['state space > cap'] += 1; done.add(a); continue
     d = [int(v) for v in e['data'].split(',') if v.strip()]
@@ -109,7 +111,7 @@ for a in sorted(targets):
         signal.alarm(0)
     except Exception:
         signal.alarm(0); res['model evaluation failed'] += 1; done.add(a)
-        json.dump(sorted(done), open(DONE, 'w')); continue
+        atomicjson.dump(sorted(done), DONE); continue
     # tie the model to the entry: it must reproduce every published term exactly
     shifts = [0, 1, 2]
     base = None
@@ -139,8 +141,8 @@ for a in sorted(targets):
     if not agree:
         res['closed form FAILS beyond the threshold'] += 1
         hits.append({'anum': a, 'FAILS': True, 'name': nm, 'line': line})
-        done.add(a); json.dump(hits, open(HITS, 'w'), indent=1)
-        json.dump(sorted(done), open(DONE, 'w')); continue
+        done.add(a); atomicjson.dump(hits, HITS, indent=1)
+        atomicjson.dump(sorted(done), DONE); continue
     # tighten: the first index from which the closed form holds for good
     first = lo
     while first > off and vals[first - 1 + base] is not None and \
@@ -153,9 +155,9 @@ for a in sorted(targets):
                  'order': order, 'thr': thr, 'first': first, 'claimed': claimed,
                  'offset': off, 'nterms': len(d), 'S': uniform.size(eng, p, b), 'base': base})
     done.add(a)
-    json.dump(hits, open(HITS, 'w'), indent=1)
-    json.dump(sorted(done), open(DONE, 'w'))
+    atomicjson.dump(hits, HITS, indent=1)
+    atomicjson.dump(sorted(done), DONE)
     print('done', a, res['PROVED'], flush=True)
-json.dump(hits, open(HITS, 'w'), indent=1)
-json.dump(sorted(done), open(DONE, 'w'))
+atomicjson.dump(hits, HITS, indent=1)
+atomicjson.dump(sorted(done), DONE)
 print(dict(res))

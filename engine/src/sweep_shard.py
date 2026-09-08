@@ -24,7 +24,9 @@ constant is not assumed: the model's terms are matched against the entry's publi
 the offset read off from where they line up. The engine's threshold is in the same index its
 terms are, so one conversion serves them all.
 """
-import json, re, os, sys, collections, signal, zlib
+import json
+
+import atomicjson, re, os, sys, collections, signal, zlib
 import conjlines
 import localentry as LE, ratrec, openness, uniform
 
@@ -70,9 +72,9 @@ res = collections.Counter()
 
 
 def save():
-    json.dump(hits, open(HITS, 'w'), indent=1)
-    json.dump(sorted(done), open(DONE, 'w'))
-    json.dump(caps, open(CAPS, 'w'), indent=0, sort_keys=True)
+    atomicjson.dump(hits, HITS, indent=1)
+    atomicjson.dump(sorted(done), DONE)
+    atomicjson.dump(caps, CAPS, indent=0, sort_keys=True)
 
 
 # asking eighteen parsers about 29k names costs ten seconds, which is most of a chunk when

@@ -24,6 +24,8 @@ already has.
 """
 import collections
 import json
+
+import atomicjson
 import os
 import re
 import signal
@@ -83,8 +85,8 @@ except Exception:
 
 
 def save():
-    json.dump(hits, open(HITS, 'w'), indent=1)
-    json.dump(sorted(done), open(DONE, 'w'))
+    atomicjson.dump(hits, HITS, indent=1)
+    atomicjson.dump(sorted(done), DONE)
 
 
 def poly_of(coeffs):

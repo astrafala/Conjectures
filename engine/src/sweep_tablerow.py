@@ -12,7 +12,9 @@ DATA, which a table stores by antidiagonals. The antidiagonal orientation is not
 both are tried and the one matching the model exactly is accepted, so a wrong reading is
 rejected rather than fitted.
 """
-import json, re, os, sys, collections, importlib, zlib, signal, time
+import json
+
+import atomicjson, re, os, sys, collections, importlib, zlib, signal, time
 from math import factorial
 import uniform
 import localentry as LE, ratrec, openness, tablecol, tablerow
@@ -272,9 +274,9 @@ for a in targets:
     else:
         res['nothing proved on this table'] += 1
     done.add(a)
-    json.dump(hits, open(HITS, 'w'), indent=1)
-    json.dump(sorted(done), open(DONE, 'w'))
+    atomicjson.dump(hits, HITS, indent=1)
+    atomicjson.dump(sorted(done), DONE)
     print('done', a, res['TABLE PROVED'], res['columns proved'], flush=True)
-json.dump(hits, open(HITS, 'w'), indent=1)
-json.dump(sorted(done), open(DONE, 'w'))
+atomicjson.dump(hits, HITS, indent=1)
+atomicjson.dump(sorted(done), DONE)
 print(dict(res))

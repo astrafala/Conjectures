@@ -1,5 +1,7 @@
 """Conjectured recurrences that follow from a generating function the entry records as fact."""
-import json, re, os, collections, signal, zlib
+import json
+
+import atomicjson, re, os, collections, signal, zlib
 import sympy
 import conjlines
 import localentry as LE, ratrec, openness, gfrec
@@ -26,8 +28,8 @@ REC = re.compile(r'a\(n\)\s*=.*a\(n\s*-\s*\d+\)')
 
 
 def save():
-    json.dump(hits, open(HITS, 'w'), indent=1)
-    json.dump(sorted(done), open(DONE, 'w'))
+    atomicjson.dump(hits, HITS, indent=1)
+    atomicjson.dump(sorted(done), DONE)
 
 
 # Three failures this sweep shared with every other one here, and a fourth of its own.

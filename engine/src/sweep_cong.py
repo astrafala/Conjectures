@@ -10,6 +10,8 @@ would be a conditional result dressed as an unconditional one, so those are refu
 """
 import collections
 import json
+
+import atomicjson
 import os
 import re
 import signal
@@ -50,8 +52,8 @@ for f in ('uniall_hits.json', 'gfdef_hits.json', 'gf_hits.json'):
 
 
 def save():
-    json.dump(hits, open(HITS, 'w'), indent=1)
-    json.dump(sorted(done), open(DONE, 'w'))
+    atomicjson.dump(hits, HITS, indent=1)
+    atomicjson.dump(sorted(done), DONE)
 
 
 for a in targets:
