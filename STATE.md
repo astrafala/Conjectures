@@ -66,6 +66,13 @@ Recurring defects, all found this way:
 * **19,097 OEIS entries carry a conjectured recurrence with no linked proof.** 32,629 carry a
   conjecture of any recognised kind. That is the ceiling this project works against.
 
+## When you create a new sharded sweep
+
+Add its shard files to `.gitignore` **at the moment you create it**, and add its stem to
+`merge_sharded.py`. Six workers rewriting their own progress file every few seconds leave the
+tree dirty between every commit, and the merge is what keeps the tracked pair complete. This
+has been caught by the stop hook four separate times.
+
 ## Every session, first three commands
 
 ```
