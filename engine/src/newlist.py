@@ -24,7 +24,8 @@ def L(f):
 roster = {v['anum'] for v in (L('paper-engines.json') or {}).values()}
 new = set()
 for pat in ('shard_hits_*.json', 'ordwhole_hits.json', 'tabnew_hits.json',
-            'rownew_hits.json', 'cfnew_hits.json', 'shardt94_hits_*.json'):
+            'rownew_hits.json', 'cfnew_hits.json', 'shardt94_hits_*.json',
+            'lexcf_hits.json'):
     for f in glob.glob(pat):
         for h in (L(f) or []):
             if isinstance(h, dict) and h.get('anum') and h['anum'] not in roster:
