@@ -93,7 +93,9 @@ def build(p, cap=200000):
     # + val(R), so (S^p - B^|R|) kills the first term and leaves a geometric B^(2n) and a
     # constant, which (S - B^2)(S - 1) kills in turn
     return {'rule': p['rule'], 'B': p['base'], 'n0': n0, 'p': per, 'L': L, 'R': R,
-            'ws': ws, 'S': per + 2}
+            # ... and the pre-period n0 before the shape settles adds to the degree of the
+            # numerator, which the residual test bounds by S as well
+            'ws': ws, 'S': per + 2 + n0}
 
 
 def terms(b, N):

@@ -113,6 +113,32 @@ def shape(ws):
     return None
 
 
+def bound(B, n0, p, per):
+    """an upper bound on the degree of the denominator of this sequence's generating function.
+
+    The certificate is w(n+p) = L_r + w(n) + R_r on each residue class r of n mod p, so along
+    that class
+
+        a(n+p) = v(L_r) * B^(|w(n)| + |R_r|) + a(n) * B^|R_r| + v(R_r),
+
+    and |w(n)| grows by |L_r| + |R_r| every p steps. In the shift T = S^p that is a first-order
+    recurrence with a geometric forcing term and a constant, killed by
+
+        (T - B^|R_r|) (T - B^(|L_r| + |R_r|)) (T - 1).
+
+    The whole sequence is killed by the product over the DISTINCT roots that appear across the
+    residue classes, each pulled back to (S^p - lambda). The earlier bound, p + 3, was the
+    one-class figure carried over from the one-dimensional case, where there is a single pair
+    (L, R); with p classes carrying p different pairs it is too small, and a residual test
+    that trusts it checks too few coefficients to prove anything.
+    """
+    lam = {1}
+    for L, R in per:
+        lam.add(B ** len(R))
+        lam.add(B ** (len(L) + len(R)))
+    return len(lam) * p + n0 + p
+
+
 def value(word, base):
     v = 0
     for ch in word:
@@ -129,7 +155,8 @@ def build(p, cap=200000):
         if sh is None:
             continue
         return {'rule': p['rule'], 'B': p['base'], 'axis': p['axis'], 'dir': dr,
-                'n0': sh[0], 'p': sh[1], 'per': sh[2], 'ws': ws, 'S': sh[1] + 3}
+                'n0': sh[0], 'p': sh[1], 'per': sh[2], 'ws': ws,
+                'S': bound(p['base'], sh[0], sh[1], sh[2])}
     return None
 
 
