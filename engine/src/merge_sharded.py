@@ -17,7 +17,7 @@ import json
 import os
 import sys
 
-SWEEPS = ['tabnew', 'rownew', 'lexcf', 'mfcf', 'gfonly', 'wordcf', 'cuspcf', 'ecacf', 'gfdef', 'fcf']
+SWEEPS = ['tabnew', 'rownew', 'lexcf', 'mfcf', 'gfonly', 'wordcf', 'cuspcf', 'ecacf', 'gfdef', 'fcf', 'snd', 'cong']
 
 
 def merge(stem):

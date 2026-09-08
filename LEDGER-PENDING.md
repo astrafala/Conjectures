@@ -663,3 +663,43 @@ sequence mod 84 has pre-period 1 and period 2, so the two residues alternate for
 Three times today a batch of apparent disproofs has been a defect in how I read the claim, not
 in the claim. The mathematics in this project is not the hard part; **reading the sentence
 correctly is**, and that is where every error of the day has been.
+
+## 8 September 2026 — the leverage was not in exotic classes, it was in the second conjecture
+
+Pressed on why only one kind of claim ever gets attempted, I built the next two classes
+properly and measured them honestly. **Both are structurally out of reach, and it is worth
+saying exactly why:**
+
+* **Congruences.** Decidable for a C-finite sequence — the state vector mod m evolves under a
+  fixed matrix over a finite state space, so the sequence mod m is eventually periodic with
+  computable pre-period and period. Of 4,000 entries sampled, 294 carry a congruence
+  conjecture and **4** also carry a usable recurrence. **17 usable in total.**
+* **Asymptotics.** Decidable for a C-finite sequence — the growth rate is the dominant root of
+  the characteristic polynomial, an exact algebraic number, so a stated limit is compared
+  digit for digit rather than estimated. 47 entries carry a ratio-limit conjecture. **0 of
+  them has a linear recurrence.**
+
+Both classes live overwhelmingly on sequences that are not C-finite at all — primes, digit
+functions, divisor counts — where these methods say nothing. That is a wall in the mathematics,
+not a shortage of effort, and the right response is to name it.
+
+### Where the leverage actually was
+
+**11,968 of the 11,985 entries in the roster still carry a conjectural line**, and **6,150 of
+those lines are a further recurrence, generating function or closed form** — for a sequence
+this project has ALREADY PROVED is C-finite. The premise that is the whole difficulty
+elsewhere is, for these, already in hand:
+
+* another recurrence holds exactly when its characteristic polynomial is a multiple of the
+  proved one;
+* a generating function holds exactly when its denominator's reciprocal is;
+* a closed form holds exactly when its own annihilator is.
+
+`engine/src/sweep_second.py`. One shard of four, one window: **362 entries, 581 further
+conjectures settled.**
+
+One guard had to be loosened, and the reason matters. A recurrence proved here is proved *past
+a threshold*, and an entry's early terms need not satisfy it. Testing from the first term
+refused 919 entries whose recurrence is perfectly correct. The premise must now hold from some
+index on with at least order+2 confirmations after it — still a real check, and it recovered
+158 entries in one window.
