@@ -38,6 +38,9 @@ def parse_line(L, bare=False):
     is how a formula recorded as fact is written.
     """
     t = L.strip()
+    # a marker written behind the formula, "a(n) = 2^n - n - 2 (conjectured).", left the
+    # line unreadable for the same reason it did in the generating-function parser
+    t = re.sub(r'\s*\(\s*conjectur\w*\s*\.?\s*\)\s*\.?\s*$', '', t, flags=re.I)
     m = LINE.match(t) or (BARE.match(t) if bare else None)
     if not m:
         return None

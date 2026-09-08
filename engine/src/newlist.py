@@ -27,7 +27,12 @@ for pat in ('shard_hits_*.json', 'ordwhole_hits.json', 'tabnew_hits.json', 'tabn
             'rownew_hits.json', 'rownew_hits_*.json', 'cfnew_hits.json', 'shardt94_hits_*.json',
             'lexcf_hits.json', 'lexcf_hits_*.json', 'mfcf_hits_*.json', 'wordcf_hits*.json', 'cuspcf_hits*.json',
             'ecacf_hits*.json', 'gf_hits.json',
-            'gfdef_hits*.json', 'fcf_hits*.json', 'egf_hits.json', 'ca2dcf_hits*.json', 'b8cf_hits*.json'):
+            'gfdef_hits*.json', 'fcf_hits*.json', 'egf_hits.json', 'ca2dcf_hits*.json',
+            'b8cf_hits*.json',
+            # the conjectured generating functions proved from a model. This vein kept its
+            # own files from the day it was written and was never listed here, so 241 results
+            # sat held and invisible to the installer.
+            'gfonly_hits*.json'):
     for f in glob.glob(pat):
         for h in (L(f) or []):
             if isinstance(h, dict) and h.get('anum') and h['anum'] not in roster:

@@ -59,6 +59,11 @@ def parse_rec(line):
     """Return (coeffs dict i->c, threshold d or None) for a constant-coefficient claim."""
     body = ATTRIB.sub('', line)
     body = re.sub(r'^\s*(Conjectur\w*|Empirical)\s*\d*\s*[:.,]?\s*', '', body, flags=re.I)
+    # The marker is written BEHIND the formula as often as in front of it -- "a(n) = 2*a(n-1)
+    # + a(n-2) (conjectured)." -- and the leftover check then rejects the whole line. 19
+    # entries carry a conjectured recurrence written only that way and were invisible to
+    # every sweep.
+    body = re.sub(r'\s*\(\s*conjectur\w*\s*\.?\s*\)\s*\.?\s*$', '', body, flags=re.I)
     m = REC.search(body)
     if not m:
         return None
