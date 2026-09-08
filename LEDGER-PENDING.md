@@ -98,10 +98,17 @@ this cannot happen quietly again.
 `transfer17` reads "every 3X3 subblock <predicate>" names and has 510 papers. 37 entries state
 the predicate "having rows and columns in lexicographically nondecreasing order", and the
 shape, the quantifier and the block size all parsed — only that phrase was missing from the
-vocabulary. Adding it, with the three related orderings, made **91 entries readable**, the
+vocabulary. Adding it, with the three related orderings, made **37 entries readable**, the
 model matched the published terms of all 21 tried so far with **0 mismatches** (6 more want a
-cap above 400,000), and the existing engine's 400 sampled papers all still parse. The
-closed-form sweep has already returned **18 proofs from the first 22** of them.
+cap above 400,000), and the existing engine's 400 sampled papers all still parse.
+
+**Correction to my own first count.** I said 91. 91 was how many names matched the phrase
+"lexicographically ... order" anywhere, and 54 of those are a different object altogether:
+arrays that *indicate a property of the subblocks of some larger array*, which is an image
+count and not a walk count. The clause unlocked **37**, not 91. The 54 are kept in
+`engine/deep-check/derived-arrays.txt` as the next engine target -- `transfer26` already has
+the right machinery (the subset construction for counting images) and would need a parser and a
+condition written for this shape.
 
 That is the shape of what is left: not one huge chunk, but a long tail of clusters of 30 to 90
 that each need one phrase added to a parser that can already do the mathematics.

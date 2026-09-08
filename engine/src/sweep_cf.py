@@ -1,5 +1,5 @@
 """Entries that state an explicit closed form rather than a recurrence."""
-import json, re, os, sys, collections, importlib
+import json, re, os, sys, collections, importlib, zlib
 from fractions import Fraction
 from math import factorial
 import signal
@@ -40,8 +40,15 @@ def model_values(eng, p, b, N):
     return uniform.terms(eng, p, b, N + 2), b
 
 
+# Sharded. One entry whose terms computation runs past the window ate every window on its
+# own -- the sweep restarted at the head of the pool each time, reached the same entry, and
+# processed nothing else. The counter printed an empty dict six runs in a row and that is what
+# it meant. Shards divide the pool by A-number, so a blocker only stalls its own shard.
+SHARD = int(os.environ.get('CFSHARD', '0'))
+NSHARD = int(os.environ.get('CFNSHARD', '1'))
+
 for a in sorted(targets):
-    if a in done or a in roster:
+    if a in done or a in roster or zlib.crc32(a.encode()) % NSHARD != SHARD:
         continue
     nm = names[a]
     e = LE.get(a)
