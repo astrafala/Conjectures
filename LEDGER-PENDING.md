@@ -493,3 +493,26 @@ batches of false disproofs today is the design I want. Held results across all v
 The lesson is now unmistakable and is the same one five times over: **every large vein this
 project has found was already reachable by machinery it already had, and was hidden by how a
 sweep chose what to look at.** Not one of them was hidden by mathematics.
+
+### The block defect a third time, and this one was destroying finished results
+
+`livenew.py` is the gate every result passes before it is counted: it re-fetches the entry from
+the live OEIS and drops anything that no longer carries an unsettled conjecture. It decided
+that with a search for "conjectur" or "Empirical" **on the line** — so a conjecture written as
+a block was invisible to it too.
+
+The first two times this defect appeared it hid work. Here it **threw finished work away**:
+183 proved entries were dropped as "no conjectural line left on the entry" when the conjecture
+is plainly on the entry, in a block. A004484's live text reads
+
+```
+Conjectures from _Chai Wah Wu_, Apr 05 2021: (Start)
+a(n) = a(n-1) + a(n-6) - a(n-7) for n > 14.
+```
+
+With blocks understood, the same 1,035 entries re-checked and **0 were dropped**.
+
+There is a second lesson in how long this took to see. The fix was in the file and the drops
+kept coming, because a background copy of the checker had been started before the edit and was
+still running the old code inside a 1,700-second window. A source fix does not reach a process
+that is already running.

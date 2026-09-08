@@ -31,7 +31,25 @@ for a in targets:
     lines = []
     for k in ('comment', 'formula', 'link', 'ext', 'example', 'maple', 'mathematica'):
         lines += e.get(k) or []
-    conj = [l for l in lines if re.search(r'conjectur|[Ee]mpirical', l)]
+    # the same block defect a third time, and this one is the most dangerous of the three:
+    # here it does not hide work, it THROWS AWAY finished results. A conjecture written as a
+    # "Conjectures from X: (Start) ... (End)" block has no conjectural word on its formula
+    # lines, so 23 proved entries were dropped as "no conjectural line left on the entry"
+    # when the conjecture is plainly there. Blocks are read as a whole.
+    inside = False
+    conj = []
+    for l in lines:
+        if re.search(r'(?:conjectur\w*|empirical)\b.*\(Start\)', l, re.I):
+            inside = True
+            conj.append(l)
+            continue
+        if inside:
+            conj.append(l)
+            if '(End)' in l:
+                inside = False
+            continue
+        if re.search(r'conjectur|[Ee]mpirical|It appears|Apparently', l, re.I):
+            conj.append(l)
     if not conj:
         state['dropped'][a] = 'no conjectural or empirical line left on the entry'
     else:
