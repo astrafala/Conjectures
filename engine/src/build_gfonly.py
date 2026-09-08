@@ -16,6 +16,7 @@ import zlib
 
 import atomicjson
 import gfonlybuild
+import refused
 import localentry as LE
 import uniform
 
@@ -37,6 +38,12 @@ for f in glob.glob('deep-check/livenew*.json'):
 made, bad, notlive, stale = 0, [], 0, []
 for a, h in sorted(recs.items()):
     if a in roster or zlib.crc32(a.encode()) % NSHARD != SHARD:
+        continue
+    if not refused.ok(h.get('engine')):
+        try:
+            os.remove(f'build/gfo{a}/p.pdf')
+        except OSError:
+            pass
         continue
     if a not in kept:
         notlive += 1

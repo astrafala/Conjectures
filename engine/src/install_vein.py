@@ -18,6 +18,8 @@ import os
 import shutil
 import sys
 
+import refused
+
 prefix, source, engname = sys.argv[1], sys.argv[2], sys.argv[3]
 if ':' in source:
     f, key = source.split(':', 1)
@@ -29,10 +31,13 @@ eng = {int(k): v for k, v in json.load(open('paper-engines.json')).items()}
 have = {v['anum'] for v in eng.values()}
 have |= {r['anum'] for r in json.load(open('rank-map.json'))}
 nxt = max(eng) + 1
-added, nopaper = 0, []
+added, nopaper, norefuse = 0, [], []
 for h in sorted(recs, key=lambda x: x.get('anum', '')):
     a = h.get('anum')
     if not a or h.get('FAILS') or a in have:
+        continue
+    if not refused.ok(h.get('engine')):
+        norefuse.append(a)
         continue
     src = f'build/{prefix}{a}/p.pdf'
     if not (os.path.exists(src) and os.path.getsize(src) > 40000):
@@ -47,6 +52,7 @@ for h in sorted(recs, key=lambda x: x.get('anum', '')):
     added += 1
 json.dump({str(k): v for k, v in eng.items()}, open('paper-engines.json', 'w'),
           indent=1, sort_keys=True)
-print(f'added {added}; {len(nopaper)} had no compiled paper')
+print(f'added {added}; {len(nopaper)} had no compiled paper; '
+      f'{len(norefuse)} from a refused engine')
 for a in nopaper[:10]:
     print('  no paper for', a)
