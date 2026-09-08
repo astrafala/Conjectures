@@ -165,3 +165,51 @@ expected; the point is that they were never asked the question at all.
 
 Both of today's reader defects were found the same way: by looking at *why* a sweep refused,
 rather than at what it proved. A refusal that is really a bug is invisible in a hit count.
+
+## 8 September 2026 — a new engine, and the biggest single family found this month
+
+Going back for big veins rather than small ones, the reservoir was re-measured by CONDITION
+rather than by name, and one family dominated everything else:
+
+> Number of n X 4 arrays of the minimum value of corresponding elements and their horizontal or
+> vertical neighbors in a random, but sorted with lexicographically nondecreasing rows and
+> nonincreasing columns, 0..1 n X 4 array.
+
+**134 entries, and no engine could read a single one of them.** `engine/src/transfer95.py` now
+does. **97 are proved.**
+
+Two things make the object different from everything the project had built before.
+
+**It counts an image, not a set of arrays.** What varies is the underlying sorted array; what
+is counted is how many *different* filtered arrays come out, so two underlying arrays with the
+same image count once and the obvious graph overcounts. The cure is the subset construction:
+the filtered row is decided by three consecutive underlying rows, so a pair of rows is a state
+of a nondeterministic machine whose output is the filtered array, and the distinct outputs are
+the paths of its determinisation.
+
+**One of the domain constraints is not row-local.** "Rows in lexicographically nondecreasing
+order" compares consecutive rows. "Columns in lexicographically nonincreasing order" compares
+whole columns read downward, left to right, which looks global — but it decomposes: an adjacent
+column pair is either still equal in every row so far, or already decided at some earlier row
+and never constrained again. One bit per adjacent column pair makes it local.
+
+### Nothing was assumed; the entry settled every question
+
+* The reading was pinned by brute force before a line of the engine was written: for A219498
+  the one-row arrays are the nonincreasing 4-bit words, their images are 1111, 1100, 1000 and
+  0000, and the entry's a(1) is 4.
+* **99 of the 134 reproduce their entry's published terms exactly. 0 mismatch.** The other 35
+  are refused at a DFA-state cap derived from 400,000 — recorded as the setting it is.
+* 30 entries disagreed at first and every one was written `W X n` rather than `n X W`.
+  Transposing the array exchanges the two orderings as well as the offsets, and the engine was
+  transposing only the offsets. The data caught it; nothing else would have.
+* Two entries name a direction twice — "horizontal, diagonal, diagonal or antidiagonal" — which
+  names no set at all. Rather than guess, each candidate repair was run against the entry's own
+  terms and exactly one reproduced them. The parse records that the name is defective so a
+  paper built from it has to say so.
+* A 300-paper regression sample confirms the new engine takes no name away from an existing one.
+
+Two pieces of shared machinery needed widening for an engine whose model is not an adjacency
+matrix: `uniform` gained an image-engine branch in `build`, `terms`, `size` and `threshold`, and
+`sweep_cf` was reading the state count as `len(b[0])` — true of every engine written until now
+and false of this one. It asks `uniform.size` instead.

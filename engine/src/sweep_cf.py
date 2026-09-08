@@ -151,7 +151,7 @@ for a in sorted(targets):
                  'expr': sympy_str(expr) if False else str(expr),
                  'coeffs': {int(k): str(v) for k, v in coeffs.items()},
                  'order': order, 'thr': thr, 'first': first, 'claimed': claimed,
-                 'offset': off, 'nterms': len(d), 'S': len(b[0]), 'base': base})
+                 'offset': off, 'nterms': len(d), 'S': uniform.size(eng, p, b), 'base': base})
     done.add(a)
     json.dump(hits, open(HITS, 'w'), indent=1)
     json.dump(sorted(done), open(DONE, 'w'))
