@@ -74,13 +74,16 @@ Recurring defects, all found this way:
 
 ## Where things stand
 
-* **10,659 papers installed** after the withdrawal of 8 September 2026 (counts are re-derived
-  by `src/sync_counts.py`, never typed by hand). The figure was 12,012 before it.
+* **10,925 papers installed** over 10,898 entries (counts are re-derived by
+  `src/sync_counts.py`, never typed by hand). 8 September 2026: 1,353 were withdrawn and 266
+  installed, from 12,012 before.
 * **The generating-function-as-fact vein is null**, not 2,151. Asked correctly it proves 2.
   Everything held under it has been purged, and `WITHDRAWN.md` records what was taken back.
-* Held and awaiting install: 1,069 results live-re-checked and kept — tables, min-filter,
-  words, cusp forms, CA rows, e.g.f.s — plus the conjectured generating functions proved from
-  a transfer-matrix model (`deep-check/gfonly-new.txt`, running).
+* Held: 85 generating-function results being re-derived under the corrected automaton bound,
+  plus whatever the standing sweeps are finding now.
+* **Every engine's degree bound S must be derived, not assumed.** `ca2dcount` set S = 24 from
+  nothing and could certify nothing; it now refuses. `ca2d`'s bound was the one-dimensional
+  figure and was too small; it is computed from the certificate's roots.
 * **19,097 OEIS entries carry a conjectured recurrence with no linked proof.** 32,629 carry a
   conjecture of any recognised kind. That is the ceiling this project works against.
 
