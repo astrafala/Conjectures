@@ -12,14 +12,14 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A232951, derived from the entry's generating function}
+\title{The empirical recurrence for OEIS A250896, derived from the entry's generating function}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A232951 carries an empirical recurrence of order $3$. The entry separately records a
+OEIS A250896 carries an empirical recurrence of order $7$. The entry separately records a
 generating function, not as a conjecture but as a statement of fact, and the recurrence is a
 consequence of it: multiplying the generating function by the polynomial the recurrence
 supplies gives a POLYNOMIAL, and the recurrence then holds at every index past that
@@ -33,30 +33,30 @@ checked here against every published term.
 
 \section{The two statements}
 
-OEIS A232951 is ``Number of n X 4 0..3 arrays with no element x(i,j) adjacent to value 3-x(i,j) horizontally, diagonally or antidiagonally, and top left element zero.''. It has offset $1$ and begins
+OEIS A250896 is ``Number of (n+1) X (6+1) 0..2 arrays with nondecreasing x(i,j)-x(i,j-1) in the i direction and nondecreasing absolute value of x(i,j)-x(i-1,j) in the j direction.''. It has offset $1$ and begins
 \[
-27, 771, 22971, 685251, 20442651, 609853251, 18193384251, 542752261251,\ \dots
+10875, 31215, 91030, 265546, 764315, 2168405, 6060594, 16732140,\ \dots
 \]
 The entry states, as a conjecture and never marked settled:
 \begin{quote}
-Empirical: a(n) = 31*a(n-1) - 35*a(n-2) + 5*a(n-3).
+Empirical: a(n) = 12*a(n-1) - 60*a(n-2) + 162*a(n-3) - 255*a(n-4) + 234*a(n-5) - 116*a(n-6) + 24*a(n-7) for n>9.
 \end{quote}
 and, separately and NOT as a conjecture:
 \begin{quote}
-G.f.: 3*x*(9 - 22*x + 5*x\^{}2) / ((1 - x)*(1 - 30*x + 5*x\^{}2)).
+G.f.: x*(10875 - 99285*x + 368950*x\^{}2 - 715664*x\^{}3 + 755858*x\^{}4 - 402400*x\^{}5 + 50022*x\^{}6 + 63432*x\^{}7 - 26568*x\^{}8) / ((1 - x)\^{}3*(1 - 2*x)\^{}3*(1 - 3*x)).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 06 2018 09:39:15, revision 7) the first is still
+As of the ``Last modified'' line on the live entry (Nov 23 2018 05:31:02, revision 8) the first is still
 recorded as empirical. This note derives it from the second.
 
 \section{A rational generating function decides every linear recurrence}
 
 Write
 \[
-G(x)\;=\;\sum_{n}a(n)\,x^{n}\;=\;\frac{- 15 x^{3} + 66 x^{2} - 27 x}{5 x^{3} - 35 x^{2} + 31 x - 1},
+G(x)\;=\;\sum_{n}a(n)\,x^{n}\;=\;\frac{26568 x^{9} - 63432 x^{8} - 50022 x^{7} + 402400 x^{6} - 755858 x^{5} + 715664 x^{4} - 368950 x^{3} + 99285 x^{2} - 10875 x}{24 x^{7} - 116 x^{6} + 234 x^{5} - 255 x^{4} + 162 x^{3} - 60 x^{2} + 12 x - 1},
 \]
 the entry's own generating function, and let
 \[
-D(x)\;=\;1-\sum_i c_i x^{i}\;=\;- 5 x^{3} + 35 x^{2} - 31 x + 1
+D(x)\;=\;1-\sum_i c_i x^{i}\;=\;- 24 x^{7} + 116 x^{6} - 234 x^{5} + 255 x^{4} - 162 x^{3} + 60 x^{2} - 12 x + 1
 \]
 be the polynomial attached to the conjectured recurrence.
 
@@ -73,33 +73,33 @@ negative index being zero.
 
 \begin{theorem}
 \[
-a(n)\;=\;31\,a(n-1) - 35\,a(n-2) + 5\,a(n-3)
+a(n)\;=\;12\,a(n-1) - 60\,a(n-2) + 162\,a(n-3) - 255\,a(n-4) + 234\,a(n-5) - 116\,a(n-6) + 24\,a(n-7)
 \]
-for every $n>3$.
+for every $n>9$.
 \end{theorem}
 
 \begin{proof}
 In exact arithmetic,
 \[
-D(x)\,G(x)\;=\;15 x^{3} - 66 x^{2} + 27 x,
+D(x)\,G(x)\;=\;- 26568 x^{9} + 63432 x^{8} + 50022 x^{7} - 402400 x^{6} + 755858 x^{5} - 715664 x^{4} + 368950 x^{3} - 99285 x^{2} + 10875 x,
 \]
-a POLYNOMIAL of degree $3$ --- the denominator of $G$ divides $D(x)$ times its numerator,
+a POLYNOMIAL of degree $9$ --- the denominator of $G$ divides $D(x)$ times its numerator,
 which is precisely the condition for the conjectured recurrence to be implied by the
-generating function. Its coefficients vanish beyond degree $3$, so by
+generating function. Its coefficients vanish beyond degree $9$, so by
 Lemma~\ref{lem:key} the residual $a(n)-\sum_ic_ia(n-i)$ vanishes for every
-$n>3$.
+$n>9$. The bound is exact: at $n=9$ the recurrence fails on the entry's own published terms.
 \end{proof}
 
 \section{Is the conjectured recurrence the shortest one?}
 
 Cancelling common factors, $G$ has reduced denominator
 \[
-5 x^{3} - 35 x^{2} + 31 x - 1,
+24 x^{7} - 116 x^{6} + 234 x^{5} - 255 x^{4} + 162 x^{3} - 60 x^{2} + 12 x - 1,
 \]
-of degree $3$, and that degree is the order of the SHORTEST linear recurrence with
+of degree $7$, and that degree is the order of the SHORTEST linear recurrence with
 constant coefficients the sequence obeys: any shorter one would give a polynomial multiple of
 $G$ with a smaller denominator, contradicting the cancellation. The conjectured recurrence has
-order $3$.
+order $7$.
 
 So the conjecture is the minimal recurrence.
 
@@ -111,14 +111,16 @@ generating function involved at all. Doing that:
 \begin{center}
 \begin{tabular}{cc}
 index & residual \\ \hline
-$n=4$ & $0$ \\
-$n=5$ & $0$ \\
-$n=6$ & $0$ \\
-$n=7$ & $0$
+$n=8$ & $63432$ \\
+$n=9$ & $-26568$ \\
+$n=10$ & $0$ \\
+$n=11$ & $0$ \\
+$n=12$ & $0$ \\
+$n=13$ & $0$
 \end{tabular}
 \end{center}
 The residuals are exactly the coefficients of the polynomial displayed above, in order, and
-they stop at index $3$ because that polynomial has degree $3$. A reader who trusts
+they stop at index $9$ because that polynomial has degree $9$. A reader who trusts
 neither the generating function nor the algebra can check the table against the entry's DATA
 by hand; what the generating function adds is the guarantee that the pattern continues, which
 no amount of checking terms could establish on its own.
@@ -128,14 +130,14 @@ no amount of checking terms could establish on its own.
 Three checks.
 
 First, the generating function was expanded as a power series in exact rational arithmetic and
-compared against all $15$ terms the entry publishes: it reproduces every one. This is
+compared against all $20$ terms the entry publishes: it reproduces every one. This is
 what ties the recorded generating function to the sequence the recurrence is about.
 
 Second, the polynomial division above was carried out symbolically, not numerically, so the
 statement that $D(x)G(x)$ is a polynomial is exact rather than approximate.
 
 Third, the recurrence was evaluated directly on the series coefficients for sixty consecutive
-indices beyond $n=3$ and holds at every one, and at $n=3$ itself it fails --- the
+indices beyond $n=9$ and holds at every one, and at $n=9$ itself it fails --- the
 degree bound is attained, so the range stated is the true one and not merely a safe one.
 
 \begin{remark}
@@ -147,7 +149,7 @@ entry already contains.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A232951.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A250896.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Rational generating functions, Section 4.1.)
 \bibitem{kp} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011.

@@ -12,15 +12,15 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A184145, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A209729, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A184145 counts $(n+1)\times2$ arrays over $\{0,\dots,3\}$ subject to a condition imposed on
-every $2\times2$ subblock, and carries an empirical recurrence of order $2$ contributed
+OEIS A209729 counts $(n+1)\times2$ arrays over $\{0,\dots,3\}$ subject to a condition imposed on
+every $2\times2$ subblock, and carries an empirical recurrence of order $3$ contributed
 by R.~H.~Hardin. It is true, and it is not an empirical matter at all. The condition is local
 to each subblock, so the rows of an admissible array are the vertices of a finite digraph
 on $S=16$ vertices whose edges are the admissible consecutive pairs, and the count is a
@@ -35,22 +35,22 @@ integer arithmetic, and it comes out zero.
 
 \section{The sequence and the conjecture}
 
-OEIS A184145 is ``1/4 the number of (n+1) X 2 0..3 arrays with every 2 X 2 subblock having at least two equal elements connected horizontally or vertically.''. It has offset $1$ and begins
+OEIS A209729 is ``1/4 the number of (n+1) X 2 0..3 arrays with every 2 X 2 subblock having distinct edge sums.''. It has offset $1$ and begins
 \[
-43, 499, 5695, 65227, 746503, 8544883, 97806031, 1119511003,\ \dots
+22, 124, 696, 3912, 21976, 123480, 693752, 3897880,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 9*a(n-1) + 28*a(n-2).
+Empirical: a(n) = 3*a(n-1) + 14*a(n-2) + 4*a(n-3).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Apr 12 2018 06:31:51, revision 8) the statement is
+As of the ``Last modified'' line on the live entry (Jul 12 2018 20:26:34, revision 8) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;9\,a(n-1) + 28\,a(n-2)
+a(n)\;=\;3\,a(n-1) + 14\,a(n-2) + 4\,a(n-3)
 \end{equation}
-for all $n>1$.
+for all $n>2$.
 
 \section{The condition is local, so the rows form a digraph}
 
@@ -65,7 +65,7 @@ the subblock is
 \]
 The entry's requirement on that subblock is
 \begin{equation}\label{eq:loc}
-\alpha=\beta\ \text{ or }\ \gamma=\delta\ \text{ or }\ \alpha=\gamma\ \text{ or }\ \beta=\delta,
+\#\{\alpha+\beta,\ \beta+\delta,\ \delta+\gamma,\ \gamma+\alpha\}=4,
 \end{equation}
 a condition on the four entries alone.
 
@@ -100,13 +100,13 @@ length $k$ from $r$ to $s$. The entry's index $n$ corresponds to $L=n+1$ rows. T
 
 \section{The criterion}
 
-Let $q(t)=t^{2}-\sum_i c_i\,t^{2-i}$ be the characteristic polynomial of
+Let $q(t)=t^{3}-\sum_i c_i\,t^{3-i}$ be the characteristic polynomial of
 \eqref{eq:conj}, with the $c_i$ read off that equation.
 
 \begin{lemma}\label{lem:crit}
-For every $n$ with $n+1-1\ge2$,
+For every $n$ with $n+1-1\ge3$,
 \[
-a(n)-\sum_i c_i\,a(n-i)\;=\;\tfrac1{4}\mathbf{1}^{\!\top}M^{\,n+1-1-2}\,q(M)\,\mathbf{1} .
+a(n)-\sum_i c_i\,a(n-i)\;=\;\tfrac1{4}\mathbf{1}^{\!\top}M^{\,n+1-1-3}\,q(M)\,\mathbf{1} .
 \]
 Hence \eqref{eq:conj} holds from that point on if and only if
 $\mathbf{1}^{\!\top}M^{j}q(M)\mathbf{1}=0$ for every $j\ge0$; and it is enough to check
@@ -118,10 +118,10 @@ By Lemma~\ref{lem:walk}, $a(n-i)=\tfrac1{4}\mathbf{1}^{\!\top}M^{\,n+1-1-i}\math
 \[
 a(n)-\sum_i c_i a(n-i)
 =\tfrac1{4}\mathbf{1}^{\!\top}\Bigl(M^{m}-\sum_i c_i M^{m-i}\Bigr)\mathbf{1}
-=\tfrac1{4}\mathbf{1}^{\!\top}M^{\,m-2}\,q(M)\,\mathbf{1}
+=\tfrac1{4}\mathbf{1}^{\!\top}M^{\,m-3}\,q(M)\,\mathbf{1}
 \]
 with $m=n+1-1$, which is the stated identity; the scalar $\tfrac1{4}$ never vanishes, so it does not affect whether the left side is zero, and the equivalence follows by letting
-$m-2=j$ run over $\ge0$. For the last clause put $w=q(M)\mathbf{1}$. By the
+$m-3=j$ run over $\ge0$. For the last clause put $w=q(M)\mathbf{1}$. By the
 Cayley--Hamilton theorem $M^{S}$ is an integer combination of $I,M,\dots,M^{S-1}$, so
 $\mathbf{1}^{\!\top}M^{j}w$ for $j\ge S$ is the corresponding combination of the earlier
 values; if those all vanish, so do all the rest.
@@ -130,7 +130,7 @@ values; if those all vanish, so do all the rest.
 \section{The computation}
 
 \begin{theorem}
-The recurrence \eqref{eq:conj} holds for every $n>1$, which is the statement of
+The recurrence \eqref{eq:conj} holds for every $n>2$, which is the statement of
 Section~1.
 \end{theorem}
 
@@ -138,12 +138,12 @@ Section~1.
 The digraph was constructed from \eqref{eq:loc} by a depth-first scan across the $2$
 columns: the edge condition is a conjunction of one constraint per consecutive column
 pair, so the successors of a row $r$ are enumerated column by column without testing all
-$S^2$ pairs. The vector $w=q(M)\mathbf{1}\in\mathbb{Z}^{S}$ was then formed by $2$
+$S^2$ pairs. The vector $w=q(M)\mathbf{1}\in\mathbb{Z}^{S}$ was then formed by $3$
 matrix--vector products in exact integer arithmetic, and $\mathbf{1}^{\!\top}M^{j}w$ was
 evaluated for $j=0,1,\dots$, again exactly. Every one of those integers vanishes from the
-index corresponding to $n=1+1$ onwards, and the run continued until $w$ itself was the
+index corresponding to $n=2+1$ onwards, and the run continued until $w$ itself was the
 zero vector, which settles every larger $j$ at once. By Lemma~\ref{lem:crit} the recurrence
-holds for every $n>1$.
+holds for every $n>2$.
 \end{proof}
 
 \begin{remark}
@@ -159,7 +159,7 @@ Three checks, each independent of the algebra above.
 
 First, the digraph was built directly from the entry's stated condition and the walk counts
 $\tfrac1{4}\mathbf{1}^{\!\top}M^{L-1}\mathbf{1}$ compared against the entry's DATA at
-every one of the $16$ published indices; the values agree exactly. That is what ties
+every one of the $19$ published indices; the values agree exactly. That is what ties
 the digraph to the sequence: a model that reproduced only some of the published terms would
 be the wrong model, and would have been rejected. In particular it is what rules out a
 misreading of the entry's wording, since a different reading of the condition gives a
@@ -174,7 +174,7 @@ throughout.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A184145.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A209729.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

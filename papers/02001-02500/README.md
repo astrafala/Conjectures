@@ -1,6 +1,6 @@
 # Papers 02001-02500
 
-Ranks 2001 to 2500 of 10665, hardest first.
+Ranks 2001 to 2500 of 10900, hardest first.
 
 | # | OEIS | Result | What settles it | Paper |
 | --- | --- | --- | --- | --- |
@@ -248,259 +248,259 @@ Ranks 2001 to 2500 of 10665, hardest first.
 | 2242 | [A268903](https://oeis.org/A268903) | Proof | a global count of marked adjacent pairs carried in the state, then a walk count | [02242-PROOF.pdf](02242-PROOF.pdf) |
 | 2243 | [A268970](https://oeis.org/A268970) | Proof | a global count of marked adjacent pairs carried in the state, then a walk count | [02243-PROOF.pdf](02243-PROOF.pdf) |
 | 2244 | [A204344](https://oeis.org/A204344) | Proof | a 3 X 3 subblock condition counted up to relabelling, by falling-factorial inversion | [02244-PROOF.pdf](02244-PROOF.pdf) |
-| 2245 | [A224145](https://oeis.org/A224145) | Proof | an explicit closed form, turned into the recurrence it satisfies | [02245-PROOF.pdf](02245-PROOF.pdf) |
-| 2246 | [A233015](https://oeis.org/A233015) | Proof | a neighbour condition plus a first-occurrence ordering clause carried as a flag in the state | [02246-PROOF.pdf](02246-PROOF.pdf) |
-| 2247 | [A224567](https://oeis.org/A224567) | Proof | every K X K subblock of a matrix idempotent, or of equal population or permanent | [02247-PROOF.pdf](02247-PROOF.pdf) |
-| 2248 | [A207258](https://oeis.org/A207258) | Proof | an explicit closed form, turned into the recurrence it satisfies | [02248-PROOF.pdf](02248-PROOF.pdf) |
-| 2249 | [A208286](https://oeis.org/A208286) | Proof | an explicit closed form, turned into the recurrence it satisfies | [02249-PROOF.pdf](02249-PROOF.pdf) |
-| 2250 | [A206232](https://oeis.org/A206232) | Proof | equal-edge conditions on the subblocks, counted up to renaming the letters | [02250-PROOF.pdf](02250-PROOF.pdf) |
-| 2251 | [A237249](https://oeis.org/A237249) | Proof | a table's column recurrences, each column being a fixed-width array count | [02251-PROOF.pdf](02251-PROOF.pdf) |
-| 2252 | [A237384](https://oeis.org/A237384) | Proof | a table's column recurrences, each column being a fixed-width array count | [02252-PROOF.pdf](02252-PROOF.pdf) |
-| 2253 | [A223554](https://oeis.org/A223554) | Proof | arrays whose cells carry vertices of a fixed graph -- the faces or vertices of a cube or icosahedron, a triang... | [02253-PROOF.pdf](02253-PROOF.pdf) |
-| 2254 | [A236018](https://oeis.org/A236018) | Proof | a table's column recurrences, each column being a fixed-width array count | [02254-PROOF.pdf](02254-PROOF.pdf) |
-| 2255 | [A274724](https://oeis.org/A274724) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [02255-PROOF.pdf](02255-PROOF.pdf) |
-| 2256 | [A274751](https://oeis.org/A274751) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [02256-PROOF.pdf](02256-PROOF.pdf) |
-| 2257 | [A236055](https://oeis.org/A236055) | Proof | a table's column recurrences, each column being a fixed-width array count | [02257-PROOF.pdf](02257-PROOF.pdf) |
-| 2258 | [A185563](https://oeis.org/A185563) | Proof | what a cell asks of the cells around it: not their average, not matched by a strict majority of them, not beat... | [02258-PROOF.pdf](02258-PROOF.pdf) |
-| 2259 | [A252856](https://oeis.org/A252856) | Proof | consecutive triples along rows, columns and diagonals holding a prescribed number of distinct values, counted ... | [02259-PROOF.pdf](02259-PROOF.pdf) |
-| 2260 | [A224565](https://oeis.org/A224565) | Proof | every K X K subblock of a matrix idempotent, or of equal population or permanent | [02260-PROOF.pdf](02260-PROOF.pdf) |
-| 2261 | [A207067](https://oeis.org/A207067) | Proof | an explicit closed form, turned into the recurrence it satisfies | [02261-PROOF.pdf](02261-PROOF.pdf) |
-| 2262 | [A207390](https://oeis.org/A207390) | Proof | an explicit closed form, turned into the recurrence it satisfies | [02262-PROOF.pdf](02262-PROOF.pdf) |
-| 2263 | [A237234](https://oeis.org/A237234) | Proof | a table's column recurrences, each column being a fixed-width array count | [02263-PROOF.pdf](02263-PROOF.pdf) |
-| 2264 | [A269292](https://oeis.org/A269292) | Proof | a global count of adjacent pairs summing to a value, carried in the state by capping it | [02264-PROOF.pdf](02264-PROOF.pdf) |
-| 2265 | [A241365](https://oeis.org/A241365) | Proof | a cell condition counted up to relabelling, by falling-factorial inversion | [02265-PROOF.pdf](02265-PROOF.pdf) |
-| 2266 | [A207110](https://oeis.org/A207110) | Proof | an explicit closed form, turned into the recurrence it satisfies | [02266-PROOF.pdf](02266-PROOF.pdf) |
-| 2267 | [A224563](https://oeis.org/A224563) | Proof | every K X K subblock of a matrix idempotent, or of equal population or permanent | [02267-PROOF.pdf](02267-PROOF.pdf) |
-| 2268 | [A187956](https://oeis.org/A187956) | Proof | a subblock statistic compared with its neighbours': none equal, some equal, exactly one or two equal, or bound... | [02268-PROOF.pdf](02268-PROOF.pdf) |
-| 2269 | [A269279](https://oeis.org/A269279) | Proof | a global count of marked adjacent pairs carried in the state, then a walk count | [02269-PROOF.pdf](02269-PROOF.pdf) |
-| 2270 | [A230905](https://oeis.org/A230905) | Proof | every cell required to see neighbours carrying the next and the previous value modulo m | [02270-PROOF.pdf](02270-PROOF.pdf) |
-| 2271 | [A185799](https://oeis.org/A185799) | Proof | a subblock statistic compared with its neighbours': none equal, some equal, exactly one or two equal, or bound... | [02271-PROOF.pdf](02271-PROOF.pdf) |
-| 2272 | [A224561](https://oeis.org/A224561) | Proof | every K X K subblock of a matrix idempotent, or of equal population or permanent | [02272-PROOF.pdf](02272-PROOF.pdf) |
-| 2273 | [A207402](https://oeis.org/A207402) | Proof | an explicit closed form, turned into the recurrence it satisfies | [02273-PROOF.pdf](02273-PROOF.pdf) |
-| 2274 | [A208141](https://oeis.org/A208141) | Proof | an explicit closed form, turned into the recurrence it satisfies | [02274-PROOF.pdf](02274-PROOF.pdf) |
-| 2275 | [A205347](https://oeis.org/A205347) | Proof | equal-edge conditions on the subblocks, counted up to renaming the letters | [02275-PROOF.pdf](02275-PROOF.pdf) |
-| 2276 | [A206594](https://oeis.org/A206594) | Proof | equal-edge conditions on the subblocks, counted up to renaming the letters | [02276-PROOF.pdf](02276-PROOF.pdf) |
-| 2277 | [A183393](https://oeis.org/A183393) | Proof | what a cell asks of the cells around it: not their average, not matched by a strict majority of them, not beat... | [02277-PROOF.pdf](02277-PROOF.pdf) |
-| 2278 | [A230964](https://oeis.org/A230964) | Proof | every cell required to see neighbours carrying the next and the previous value modulo m | [02278-PROOF.pdf](02278-PROOF.pdf) |
-| 2279 | [A224644](https://oeis.org/A224644) | Proof | every K X K subblock of a matrix idempotent, or of equal population or permanent | [02279-PROOF.pdf](02279-PROOF.pdf) |
-| 2280 | [A260207](https://oeis.org/A260207) | Proof | a table's column recurrences, each column being a fixed-width array count | [02280-PROOF.pdf](02280-PROOF.pdf) |
-| 2281 | [A260927](https://oeis.org/A260927) | Proof | a table's column recurrences, each column being a fixed-width array count | [02281-PROOF.pdf](02281-PROOF.pdf) |
-| 2282 | [A261380](https://oeis.org/A261380) | Proof | a table's column recurrences, each column being a fixed-width array count | [02282-PROOF.pdf](02282-PROOF.pdf) |
-| 2283 | [A264163](https://oeis.org/A264163) | Proof | a table's column recurrences, each column being a fixed-width array count | [02283-PROOF.pdf](02283-PROOF.pdf) |
-| 2284 | [A184690](https://oeis.org/A184690) | Proof | what a cell asks of the cells around it: not their average, not matched by a strict majority of them, not beat... | [02284-PROOF.pdf](02284-PROOF.pdf) |
-| 2285 | [A202049](https://oeis.org/A202049) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [02285-PROOF.pdf](02285-PROOF.pdf) |
-| 2286 | [A275232](https://oeis.org/A275232) | Proof | no cell equal to the cells at a fixed list of offsets, counted up to renaming | [02286-PROOF.pdf](02286-PROOF.pdf) |
-| 2287 | [A269203](https://oeis.org/A269203) | Proof | a global count of adjacent pairs summing to a value, carried in the state by capping it | [02287-PROOF.pdf](02287-PROOF.pdf) |
-| 2288 | [A204795](https://oeis.org/A204795) | Proof | each 2 X 2 subblock reduced to one number -- a determinant, a permanent, a sum, or an order statistic -- with ... | [02288-PROOF.pdf](02288-PROOF.pdf) |
-| 2289 | [A268770](https://oeis.org/A268770) | Proof | a global count of marked adjacent pairs carried in the state, then a walk count | [02289-PROOF.pdf](02289-PROOF.pdf) |
-| 2290 | [A269138](https://oeis.org/A269138) | Proof | a global count of adjacent pairs summing to a value, carried in the state by capping it | [02290-PROOF.pdf](02290-PROOF.pdf) |
-| 2291 | [A269189](https://oeis.org/A269189) | Proof | a global count of adjacent pairs summing to a value, carried in the state by capping it | [02291-PROOF.pdf](02291-PROOF.pdf) |
-| 2292 | [A274890](https://oeis.org/A274890) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [02292-PROOF.pdf](02292-PROOF.pdf) |
-| 2293 | [A231296](https://oeis.org/A231296) | Proof | a cell condition counted up to relabelling, by falling-factorial inversion | [02293-PROOF.pdf](02293-PROOF.pdf) |
-| 2294 | [A188841](https://oeis.org/A188841) | Proof | an explicit closed form, turned into the recurrence it satisfies | [02294-PROOF.pdf](02294-PROOF.pdf) |
-| 2295 | [A269147](https://oeis.org/A269147) | Proof | a global count of marked adjacent pairs carried in the state, then a walk count | [02295-PROOF.pdf](02295-PROOF.pdf) |
-| 2296 | [A269181](https://oeis.org/A269181) | Proof | a global count of marked adjacent pairs carried in the state, then a walk count | [02296-PROOF.pdf](02296-PROOF.pdf) |
-| 2297 | [A269216](https://oeis.org/A269216) | Proof | a global count of marked adjacent pairs carried in the state, then a walk count | [02297-PROOF.pdf](02297-PROOF.pdf) |
-| 2298 | [A279705](https://oeis.org/A279705) | Proof | a cell condition counted up to relabelling, by falling-factorial inversion | [02298-PROOF.pdf](02298-PROOF.pdf) |
-| 2299 | [A198712](https://oeis.org/A198712) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [02299-PROOF.pdf](02299-PROOF.pdf) |
-| 2300 | [A233022](https://oeis.org/A233022) | Proof | neighbouring cells forbidden to carry values summing to m, with the renaming clauses that pick one array per c... | [02300-PROOF.pdf](02300-PROOF.pdf) |
-| 2301 | [A210177](https://oeis.org/A210177) | Proof | subblocks with a prescribed number of distinct values, counted up to renaming and using every letter | [02301-PROOF.pdf](02301-PROOF.pdf) |
-| 2302 | [A210261](https://oeis.org/A210261) | Proof | subblocks with a prescribed number of distinct values, counted up to renaming and using every letter | [02302-PROOF.pdf](02302-PROOF.pdf) |
-| 2303 | [A232345](https://oeis.org/A232345) | Proof | what a cell demands that SOME neighbour of it look like: one at least as large, one of a named value, an allow... | [02303-PROOF.pdf](02303-PROOF.pdf) |
-| 2304 | [A232840](https://oeis.org/A232840) | Proof | what a cell demands that SOME neighbour of it look like: one at least as large, one of a named value, an allow... | [02304-PROOF.pdf](02304-PROOF.pdf) |
-| 2305 | [A281465](https://oeis.org/A281465) | Proof | a cell condition counted up to relabelling, by falling-factorial inversion | [02305-PROOF.pdf](02305-PROOF.pdf) |
-| 2306 | [A232909](https://oeis.org/A232909) | Proof | what a cell demands that SOME neighbour of it look like: one at least as large, one of a named value, an allow... | [02306-PROOF.pdf](02306-PROOF.pdf) |
-| 2307 | [A185848](https://oeis.org/A185848) | Proof | a subblock statistic compared with its neighbours': none equal, some equal, exactly one or two equal, or bound... | [02307-PROOF.pdf](02307-PROOF.pdf) |
-| 2308 | [A263055](https://oeis.org/A263055) | Proof | rows and columns read as base-b numbers and required to be divisible, or not, by given moduli | [02308-PROOF.pdf](02308-PROOF.pdf) |
-| 2309 | [A231856](https://oeis.org/A231856) | Proof | what a cell asks of the cells around it: not their average, not matched by a strict majority of them, not beat... | [02309-PROOF.pdf](02309-PROOF.pdf) |
-| 2310 | [A240631](https://oeis.org/A240631) | Proof | a cell condition stated through equality alone, counted up to renaming the letters | [02310-PROOF.pdf](02310-PROOF.pdf) |
-| 2311 | [A180763](https://oeis.org/A180763) | Proof | what a cell demands that SOME neighbour of it look like: one at least as large, one of a named value, an allow... | [02311-PROOF.pdf](02311-PROOF.pdf) |
-| 2312 | [A202797](https://oeis.org/A202797) | Proof | what a cell demands that SOME neighbour of it look like: one at least as large, one of a named value, an allow... | [02312-PROOF.pdf](02312-PROOF.pdf) |
-| 2313 | [A214168](https://oeis.org/A214168) | Proof | proper colourings of a grid circular in one direction, counted up to renaming the colours | [02313-PROOF.pdf](02313-PROOF.pdf) |
-| 2314 | [A205315](https://oeis.org/A205315) | Proof | equal-edge conditions on the subblocks, counted up to renaming the letters | [02314-PROOF.pdf](02314-PROOF.pdf) |
-| 2315 | [A208708](https://oeis.org/A208708) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [02315-PROOF.pdf](02315-PROOF.pdf) |
-| 2316 | [A234728](https://oeis.org/A234728) | Proof | a table's column recurrences, each column being a fixed-width array count | [02316-PROOF.pdf](02316-PROOF.pdf) |
-| 2317 | [A256810](https://oeis.org/A256810) | Proof | a table's column recurrences, each column being a fixed-width array count | [02317-PROOF.pdf](02317-PROOF.pdf) |
-| 2318 | [A259770](https://oeis.org/A259770) | Proof | a table's column recurrences, each column being a fixed-width array count | [02318-PROOF.pdf](02318-PROOF.pdf) |
-| 2319 | [A259952](https://oeis.org/A259952) | Proof | a table's column recurrences, each column being a fixed-width array count | [02319-PROOF.pdf](02319-PROOF.pdf) |
-| 2320 | [A260284](https://oeis.org/A260284) | Proof | a table's column recurrences, each column being a fixed-width array count | [02320-PROOF.pdf](02320-PROOF.pdf) |
-| 2321 | [A264257](https://oeis.org/A264257) | Proof | a table's column recurrences, each column being a fixed-width array count | [02321-PROOF.pdf](02321-PROOF.pdf) |
-| 2322 | [A264299](https://oeis.org/A264299) | Proof | a table's column recurrences, each column being a fixed-width array count | [02322-PROOF.pdf](02322-PROOF.pdf) |
-| 2323 | [A268883](https://oeis.org/A268883) | Proof | a global count of marked adjacent pairs carried in the state, then a walk count | [02323-PROOF.pdf](02323-PROOF.pdf) |
-| 2324 | [A268992](https://oeis.org/A268992) | Proof | a global count of marked adjacent pairs carried in the state, then a walk count | [02324-PROOF.pdf](02324-PROOF.pdf) |
-| 2325 | [A204072](https://oeis.org/A204072) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [02325-PROOF.pdf](02325-PROOF.pdf) |
-| 2326 | [A204626](https://oeis.org/A204626) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [02326-PROOF.pdf](02326-PROOF.pdf) |
-| 2327 | [A208255](https://oeis.org/A208255) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [02327-PROOF.pdf](02327-PROOF.pdf) |
-| 2328 | [A297584](https://oeis.org/A297584) | Proof | what a cell demands that SOME neighbour of it look like: one at least as large, one of a named value, an allow... | [02328-PROOF.pdf](02328-PROOF.pdf) |
-| 2329 | [A235956](https://oeis.org/A235956) | Proof | each 2 X 2 subblock reduced to one number -- a determinant, a permanent, a sum, or an order statistic -- with ... | [02329-PROOF.pdf](02329-PROOF.pdf) |
-| 2330 | [A279710](https://oeis.org/A279710) | Proof | a cell condition counted up to relabelling, by falling-factorial inversion | [02330-PROOF.pdf](02330-PROOF.pdf) |
-| 2331 | [A200795](https://oeis.org/A200795) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [02331-PROOF.pdf](02331-PROOF.pdf) |
-| 2332 | [A208171](https://oeis.org/A208171) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [02332-PROOF.pdf](02332-PROOF.pdf) |
-| 2333 | [A208868](https://oeis.org/A208868) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [02333-PROOF.pdf](02333-PROOF.pdf) |
-| 2334 | [A268777](https://oeis.org/A268777) | Proof | a global count of adjacent pairs summing to a value, carried in the state by capping it | [02334-PROOF.pdf](02334-PROOF.pdf) |
-| 2335 | [A189180](https://oeis.org/A189180) | Proof | permutations of the CELLS of a fixed-width array in which every cell moves by one of a short list of offsets -... | [02335-PROOF.pdf](02335-PROOF.pdf) |
-| 2336 | [A184138](https://oeis.org/A184138) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [02336-PROOF.pdf](02336-PROOF.pdf) |
-| 2337 | [A185489](https://oeis.org/A185489) | Proof | a subblock statistic compared with its neighbours': none equal, some equal, exactly one or two equal, or bound... | [02337-PROOF.pdf](02337-PROOF.pdf) |
-| 2338 | [A268762](https://oeis.org/A268762) | Proof | a global count of marked adjacent pairs carried in the state, then a walk count | [02338-PROOF.pdf](02338-PROOF.pdf) |
-| 2339 | [A269014](https://oeis.org/A269014) | Proof | a global count of marked adjacent pairs carried in the state, then a walk count | [02339-PROOF.pdf](02339-PROOF.pdf) |
-| 2340 | [A269078](https://oeis.org/A269078) | Proof | a global count of marked adjacent pairs carried in the state, then a walk count | [02340-PROOF.pdf](02340-PROOF.pdf) |
-| 2341 | [A225009](https://oeis.org/A225009) | Proof | an explicit closed form, turned into the recurrence it satisfies | [02341-PROOF.pdf](02341-PROOF.pdf) |
-| 2342 | [A238721](https://oeis.org/A238721) | Proof | no entry equal, modulo m, to a constant plus the sum of the entries along a ray out of it | [02342-PROOF.pdf](02342-PROOF.pdf) |
-| 2343 | [A239025](https://oeis.org/A239025) | Proof | no entry equal, modulo m, to a constant plus the sum of the entries along a ray out of it | [02343-PROOF.pdf](02343-PROOF.pdf) |
-| 2344 | [A262918](https://oeis.org/A262918) | Proof | rows and columns read as base-b numbers and required to be divisible, or not, by given moduli | [02344-PROOF.pdf](02344-PROOF.pdf) |
-| 2345 | [A205622](https://oeis.org/A205622) | Proof | the entry asks two things at once: a condition on every subblock, which a window of consecutive rows decides, ... | [02345-PROOF.pdf](02345-PROOF.pdf) |
-| 2346 | [A262268](https://oeis.org/A262268) | Proof | rows and columns read as base-b numbers and required to be divisible, or not, by given moduli | [02346-PROOF.pdf](02346-PROOF.pdf) |
-| 2347 | [A262466](https://oeis.org/A262466) | Proof | rows and columns read as base-b numbers and required to be divisible, or not, by given moduli | [02347-PROOF.pdf](02347-PROOF.pdf) |
-| 2348 | [A262789](https://oeis.org/A262789) | Proof | rows and columns read as base-b numbers and required to be divisible, or not, by given moduli | [02348-PROOF.pdf](02348-PROOF.pdf) |
-| 2349 | [A189145](https://oeis.org/A189145) | Proof | permutations of the CELLS of a fixed-width array in which every cell moves by one of a short list of offsets -... | [02349-PROOF.pdf](02349-PROOF.pdf) |
-| 2350 | [A240290](https://oeis.org/A240290) | Proof | no entry equal, modulo m, to a constant plus the sum of the entries along a ray out of it | [02350-PROOF.pdf](02350-PROOF.pdf) |
-| 2351 | [A267928](https://oeis.org/A267928) | Proof | the repeated values of each row and column, in the order they occur, required to stand in a prescribed relatio... | [02351-PROOF.pdf](02351-PROOF.pdf) |
-| 2352 | [A267975](https://oeis.org/A267975) | Proof | the repeated values of each row and column, in the order they occur, required to stand in a prescribed relatio... | [02352-PROOF.pdf](02352-PROOF.pdf) |
-| 2353 | [A268745](https://oeis.org/A268745) | Proof | a global count of adjacent pairs summing to a value, carried in the state by capping it | [02353-PROOF.pdf](02353-PROOF.pdf) |
-| 2354 | [A209498](https://oeis.org/A209498) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [02354-PROOF.pdf](02354-PROOF.pdf) |
-| 2355 | [A240316](https://oeis.org/A240316) | Proof | no entry equal, modulo m, to a constant plus the sum of the entries along a ray out of it | [02355-PROOF.pdf](02355-PROOF.pdf) |
-| 2356 | [A208311](https://oeis.org/A208311) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [02356-PROOF.pdf](02356-PROOF.pdf) |
-| 2357 | [A240285](https://oeis.org/A240285) | Proof | no entry equal, modulo m, to a constant plus the sum of the entries along a ray out of it | [02357-PROOF.pdf](02357-PROOF.pdf) |
-| 2358 | [A240382](https://oeis.org/A240382) | Proof | no entry equal, modulo m, to a constant plus the sum of the entries along a ray out of it | [02358-PROOF.pdf](02358-PROOF.pdf) |
-| 2359 | [A240389](https://oeis.org/A240389) | Proof | no entry equal, modulo m, to a constant plus the sum of the entries along a ray out of it | [02359-PROOF.pdf](02359-PROOF.pdf) |
-| 2360 | [A240428](https://oeis.org/A240428) | Proof | no entry equal, modulo m, to a constant plus the sum of the entries along a ray out of it | [02360-PROOF.pdf](02360-PROOF.pdf) |
-| 2361 | [A228279](https://oeis.org/A228279) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [02361-PROOF.pdf](02361-PROOF.pdf) |
-| 2362 | [A228478](https://oeis.org/A228478) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [02362-PROOF.pdf](02362-PROOF.pdf) |
-| 2363 | [A251028](https://oeis.org/A251028) | Proof | a table's column recurrences, each column being a fixed-width array count | [02363-PROOF.pdf](02363-PROOF.pdf) |
-| 2364 | [A251055](https://oeis.org/A251055) | Proof | a table's column recurrences, each column being a fixed-width array count | [02364-PROOF.pdf](02364-PROOF.pdf) |
-| 2365 | [A268735](https://oeis.org/A268735) | Proof | a global count of marked adjacent pairs carried in the state, then a walk count | [02365-PROOF.pdf](02365-PROOF.pdf) |
-| 2366 | [A209459](https://oeis.org/A209459) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [02366-PROOF.pdf](02366-PROOF.pdf) |
-| 2367 | [A205221](https://oeis.org/A205221) | Proof | the entry asks two things at once: a condition on every subblock, which a window of consecutive rows decides, ... | [02367-PROOF.pdf](02367-PROOF.pdf) |
-| 2368 | [A252717](https://oeis.org/A252717) | Proof | consecutive triples along rows, columns and diagonals holding a prescribed number of distinct values, counted ... | [02368-PROOF.pdf](02368-PROOF.pdf) |
-| 2369 | [A223953](https://oeis.org/A223953) | Proof | an explicit closed form, turned into the recurrence it satisfies | [02369-PROOF.pdf](02369-PROOF.pdf) |
-| 2370 | [A252254](https://oeis.org/A252254) | Proof | a table's column recurrences, each column being a fixed-width array count | [02370-PROOF.pdf](02370-PROOF.pdf) |
-| 2371 | [A252726](https://oeis.org/A252726) | Proof | consecutive triples along rows, columns and diagonals holding a prescribed number of distinct values, counted ... | [02371-PROOF.pdf](02371-PROOF.pdf) |
-| 2372 | [A223836](https://oeis.org/A223836) | Proof | an explicit closed form, turned into the recurrence it satisfies | [02372-PROOF.pdf](02372-PROOF.pdf) |
-| 2373 | [A206500](https://oeis.org/A206500) | Proof | no two cells within a stated distance may agree, counted up to renaming | [02373-PROOF.pdf](02373-PROOF.pdf) |
-| 2374 | [A252260](https://oeis.org/A252260) | Proof | a table's column recurrences, each column being a fixed-width array count | [02374-PROOF.pdf](02374-PROOF.pdf) |
-| 2375 | [A252725](https://oeis.org/A252725) | Proof | consecutive triples along rows, columns and diagonals holding a prescribed number of distinct values, counted ... | [02375-PROOF.pdf](02375-PROOF.pdf) |
-| 2376 | [A250858](https://oeis.org/A250858) | Proof | an explicit closed form, turned into the recurrence it satisfies | [02376-PROOF.pdf](02376-PROOF.pdf) |
-| 2377 | [A223324](https://oeis.org/A223324) | Proof | arrays whose cells carry vertices of a fixed graph -- the faces or vertices of a cube or icosahedron, a triang... | [02377-PROOF.pdf](02377-PROOF.pdf) |
-| 2378 | [A274730](https://oeis.org/A274730) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [02378-PROOF.pdf](02378-PROOF.pdf) |
-| 2379 | [A274800](https://oeis.org/A274800) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [02379-PROOF.pdf](02379-PROOF.pdf) |
-| 2380 | [A223360](https://oeis.org/A223360) | Proof | arrays whose cells carry vertices of a fixed graph -- the faces or vertices of a cube or icosahedron, a triang... | [02380-PROOF.pdf](02380-PROOF.pdf) |
-| 2381 | [A232515](https://oeis.org/A232515) | Proof | a table's column recurrences, each column being a fixed-width array count | [02381-PROOF.pdf](02381-PROOF.pdf) |
-| 2382 | [A251088](https://oeis.org/A251088) | Proof | a table's column recurrences, each column being a fixed-width array count | [02382-PROOF.pdf](02382-PROOF.pdf) |
-| 2383 | [A251137](https://oeis.org/A251137) | Proof | a table's column recurrences, each column being a fixed-width array count | [02383-PROOF.pdf](02383-PROOF.pdf) |
-| 2384 | [A252724](https://oeis.org/A252724) | Proof | consecutive triples along rows, columns and diagonals holding a prescribed number of distinct values, counted ... | [02384-PROOF.pdf](02384-PROOF.pdf) |
-| 2385 | [A223200](https://oeis.org/A223200) | Proof | arrays whose cells carry vertices of a fixed graph -- the faces or vertices of a cube or icosahedron, a triang... | [02385-PROOF.pdf](02385-PROOF.pdf) |
-| 2386 | [A188557](https://oeis.org/A188557) | Proof | an explicit closed form, turned into the recurrence it satisfies | [02386-PROOF.pdf](02386-PROOF.pdf) |
-| 2387 | [A223670](https://oeis.org/A223670) | Proof | an explicit closed form, turned into the recurrence it satisfies | [02387-PROOF.pdf](02387-PROOF.pdf) |
-| 2388 | [A224042](https://oeis.org/A224042) | Proof | an explicit closed form, turned into the recurrence it satisfies | [02388-PROOF.pdf](02388-PROOF.pdf) |
-| 2389 | [A224137](https://oeis.org/A224137) | Proof | an explicit closed form, turned into the recurrence it satisfies | [02389-PROOF.pdf](02389-PROOF.pdf) |
-| 2390 | [A250857](https://oeis.org/A250857) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [02390-PROOF.pdf](02390-PROOF.pdf) |
-| 2391 | [A223639](https://oeis.org/A223639) | Proof | an explicit closed form, turned into the recurrence it satisfies | [02391-PROOF.pdf](02391-PROOF.pdf) |
-| 2392 | [A265988](https://oeis.org/A265988) | Proof | every entry equal to the number of its own neighbours standing in a stated relation to it | [02392-PROOF.pdf](02392-PROOF.pdf) |
-| 2393 | [A231242](https://oeis.org/A231242) | Proof | every cell required to see neighbours carrying the next and the previous value modulo m | [02393-PROOF.pdf](02393-PROOF.pdf) |
-| 2394 | [A233171](https://oeis.org/A233171) | Proof | neighbouring cells forbidden to carry values summing to m, with the renaming clauses that pick one array per c... | [02394-PROOF.pdf](02394-PROOF.pdf) |
-| 2395 | [A223839](https://oeis.org/A223839) | Proof | an explicit closed form, turned into the recurrence it satisfies | [02395-PROOF.pdf](02395-PROOF.pdf) |
-| 2396 | [A258554](https://oeis.org/A258554) | Proof | a table's column recurrences, each column being a fixed-width array count | [02396-PROOF.pdf](02396-PROOF.pdf) |
-| 2397 | [A233109](https://oeis.org/A233109) | Proof | neighbouring cells forbidden to carry values summing to m, with the renaming clauses that pick one array per c... | [02397-PROOF.pdf](02397-PROOF.pdf) |
-| 2398 | [A224354](https://oeis.org/A224354) | Proof | an explicit closed form, turned into the recurrence it satisfies | [02398-PROOF.pdf](02398-PROOF.pdf) |
-| 2399 | [A223206](https://oeis.org/A223206) | Proof | arrays whose cells carry vertices of a fixed graph -- the faces or vertices of a cube or icosahedron, a triang... | [02399-PROOF.pdf](02399-PROOF.pdf) |
-| 2400 | [A252723](https://oeis.org/A252723) | Proof | consecutive triples along rows, columns and diagonals holding a prescribed number of distinct values, counted ... | [02400-PROOF.pdf](02400-PROOF.pdf) |
-| 2401 | [A224144](https://oeis.org/A224144) | Proof | an explicit closed form, turned into the recurrence it satisfies | [02401-PROOF.pdf](02401-PROOF.pdf) |
-| 2402 | [A224257](https://oeis.org/A224257) | Proof | an explicit closed form, turned into the recurrence it satisfies | [02402-PROOF.pdf](02402-PROOF.pdf) |
-| 2403 | [A224132](https://oeis.org/A224132) | Proof | monotone and unimodal conditions along rows, columns and diagonals, with the fallen bits carried in the state | [02403-PROOF.pdf](02403-PROOF.pdf) |
-| 2404 | [A250856](https://oeis.org/A250856) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [02404-PROOF.pdf](02404-PROOF.pdf) |
-| 2405 | [A258966](https://oeis.org/A258966) | Proof | a table's column recurrences, each column being a fixed-width array count | [02405-PROOF.pdf](02405-PROOF.pdf) |
-| 2406 | [A207257](https://oeis.org/A207257) | Proof | an explicit closed form, turned into the recurrence it satisfies | [02406-PROOF.pdf](02406-PROOF.pdf) |
-| 2407 | [A208285](https://oeis.org/A208285) | Proof | an explicit closed form, turned into the recurrence it satisfies | [02407-PROOF.pdf](02407-PROOF.pdf) |
-| 2408 | [A252713](https://oeis.org/A252713) | Proof | consecutive triples along rows, columns and diagonals holding a prescribed number of distinct values, counted ... | [02408-PROOF.pdf](02408-PROOF.pdf) |
-| 2409 | [A231414](https://oeis.org/A231414) | Proof | a cell condition counted up to relabelling, by falling-factorial inversion | [02409-PROOF.pdf](02409-PROOF.pdf) |
-| 2410 | [A223681](https://oeis.org/A223681) | Proof | an explicit closed form, turned into the recurrence it satisfies | [02410-PROOF.pdf](02410-PROOF.pdf) |
-| 2411 | [A224159](https://oeis.org/A224159) | Proof | an explicit closed form, turned into the recurrence it satisfies | [02411-PROOF.pdf](02411-PROOF.pdf) |
-| 2412 | [A205584](https://oeis.org/A205584) | Proof | equal-edge conditions on the subblocks, counted up to renaming the letters | [02412-PROOF.pdf](02412-PROOF.pdf) |
-| 2413 | [A223632](https://oeis.org/A223632) | Proof | an explicit closed form, turned into the recurrence it satisfies | [02413-PROOF.pdf](02413-PROOF.pdf) |
-| 2414 | [A223765](https://oeis.org/A223765) | Proof | an explicit closed form, turned into the recurrence it satisfies | [02414-PROOF.pdf](02414-PROOF.pdf) |
-| 2415 | [A207066](https://oeis.org/A207066) | Proof | an explicit closed form, turned into the recurrence it satisfies | [02415-PROOF.pdf](02415-PROOF.pdf) |
-| 2416 | [A207389](https://oeis.org/A207389) | Proof | an explicit closed form, turned into the recurrence it satisfies | [02416-PROOF.pdf](02416-PROOF.pdf) |
-| 2417 | [A206231](https://oeis.org/A206231) | Proof | equal-edge conditions on the subblocks, counted up to renaming the letters | [02417-PROOF.pdf](02417-PROOF.pdf) |
-| 2418 | [A206361](https://oeis.org/A206361) | Proof | equal-edge conditions on the subblocks, counted up to renaming the letters | [02418-PROOF.pdf](02418-PROOF.pdf) |
-| 2419 | [A231248](https://oeis.org/A231248) | Proof | every cell required to see neighbours carrying the next and the previous value modulo m | [02419-PROOF.pdf](02419-PROOF.pdf) |
-| 2420 | [A203875](https://oeis.org/A203875) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [02420-PROOF.pdf](02420-PROOF.pdf) |
-| 2421 | [A207109](https://oeis.org/A207109) | Proof | an explicit closed form, turned into the recurrence it satisfies | [02421-PROOF.pdf](02421-PROOF.pdf) |
-| 2422 | [A208711](https://oeis.org/A208711) | Proof | a cell condition counted up to relabelling, by falling-factorial inversion | [02422-PROOF.pdf](02422-PROOF.pdf) |
-| 2423 | [A214100](https://oeis.org/A214100) | Proof | proper colourings of a grid circular in one direction, counted up to renaming the colours | [02423-PROOF.pdf](02423-PROOF.pdf) |
-| 2424 | [A207401](https://oeis.org/A207401) | Proof | an explicit closed form, turned into the recurrence it satisfies | [02424-PROOF.pdf](02424-PROOF.pdf) |
-| 2425 | [A208140](https://oeis.org/A208140) | Proof | an explicit closed form, turned into the recurrence it satisfies | [02425-PROOF.pdf](02425-PROOF.pdf) |
-| 2426 | [A224147](https://oeis.org/A224147) | Proof | an explicit closed form, turned into the recurrence it satisfies | [02426-PROOF.pdf](02426-PROOF.pdf) |
-| 2427 | [A250855](https://oeis.org/A250855) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [02427-PROOF.pdf](02427-PROOF.pdf) |
-| 2428 | [A233158](https://oeis.org/A233158) | Proof | neighbouring cells forbidden to carry values summing to m, with the renaming clauses that pick one array per c... | [02428-PROOF.pdf](02428-PROOF.pdf) |
-| 2429 | [A224008](https://oeis.org/A224008) | Proof | monotone and unimodal conditions along rows, columns and diagonals, with the fallen bits carried in the state | [02429-PROOF.pdf](02429-PROOF.pdf) |
-| 2430 | [A267668](https://oeis.org/A267668) | Proof | the repeated values of each row and column, in the order they occur, required to stand in a prescribed relatio... | [02430-PROOF.pdf](02430-PROOF.pdf) |
-| 2431 | [A224001](https://oeis.org/A224001) | Proof | an explicit closed form, turned into the recurrence it satisfies | [02431-PROOF.pdf](02431-PROOF.pdf) |
-| 2432 | [A224013](https://oeis.org/A224013) | Proof | an explicit closed form, turned into the recurrence it satisfies | [02432-PROOF.pdf](02432-PROOF.pdf) |
-| 2433 | [A280854](https://oeis.org/A280854) | Proof | a cell condition counted up to relabelling, by falling-factorial inversion | [02433-PROOF.pdf](02433-PROOF.pdf) |
-| 2434 | [A267906](https://oeis.org/A267906) | Proof | the repeated values of each row and column, in the order they occur, required to stand in a prescribed relatio... | [02434-PROOF.pdf](02434-PROOF.pdf) |
-| 2435 | [A223913](https://oeis.org/A223913) | Proof | an explicit closed form, turned into the recurrence it satisfies | [02435-PROOF.pdf](02435-PROOF.pdf) |
-| 2436 | [A223970](https://oeis.org/A223970) | Proof | monotone and unimodal conditions along rows, columns and diagonals, with the fallen bits carried in the state | [02436-PROOF.pdf](02436-PROOF.pdf) |
-| 2437 | [A223500](https://oeis.org/A223500) | Proof | arrays whose cells carry vertices of a fixed graph -- the faces or vertices of a cube or icosahedron, a triang... | [02437-PROOF.pdf](02437-PROOF.pdf) |
-| 2438 | [A224019](https://oeis.org/A224019) | Proof | monotone and unimodal conditions along rows, columns and diagonals, with the fallen bits carried in the state | [02438-PROOF.pdf](02438-PROOF.pdf) |
-| 2439 | [A202048](https://oeis.org/A202048) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [02439-PROOF.pdf](02439-PROOF.pdf) |
-| 2440 | [A275499](https://oeis.org/A275499) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [02440-PROOF.pdf](02440-PROOF.pdf) |
-| 2441 | [A223506](https://oeis.org/A223506) | Proof | arrays whose cells carry vertices of a fixed graph -- the faces or vertices of a cube or icosahedron, a triang... | [02441-PROOF.pdf](02441-PROOF.pdf) |
-| 2442 | [A210080](https://oeis.org/A210080) | Proof | subblocks with a prescribed number of distinct values, counted up to renaming and using every letter | [02442-PROOF.pdf](02442-PROOF.pdf) |
-| 2443 | [A210303](https://oeis.org/A210303) | Proof | subblocks with a prescribed number of distinct values, counted up to renaming and using every letter | [02443-PROOF.pdf](02443-PROOF.pdf) |
-| 2444 | [A231038](https://oeis.org/A231038) | Proof | every cell required to see neighbours carrying the next and the previous value modulo m | [02444-PROOF.pdf](02444-PROOF.pdf) |
-| 2445 | [A262328](https://oeis.org/A262328) | Proof | rows and columns read as base-b numbers and required to be divisible, or not, by given moduli | [02445-PROOF.pdf](02445-PROOF.pdf) |
-| 2446 | [A262416](https://oeis.org/A262416) | Proof | rows and columns read as base-b numbers and required to be divisible, or not, by given moduli | [02446-PROOF.pdf](02446-PROOF.pdf) |
-| 2447 | [A224034](https://oeis.org/A224034) | Proof | monotone and unimodal conditions along rows, columns and diagonals, with the fallen bits carried in the state | [02447-PROOF.pdf](02447-PROOF.pdf) |
-| 2448 | [A231356](https://oeis.org/A231356) | Proof | a cell condition counted up to relabelling, by falling-factorial inversion | [02448-PROOF.pdf](02448-PROOF.pdf) |
-| 2449 | [A231363](https://oeis.org/A231363) | Proof | a table's column recurrences, each column being a fixed-width array count | [02449-PROOF.pdf](02449-PROOF.pdf) |
-| 2450 | [A231636](https://oeis.org/A231636) | Proof | what a cell asks of the cells around it: not their average, not matched by a strict majority of them, not beat... | [02450-PROOF.pdf](02450-PROOF.pdf) |
-| 2451 | [A202982](https://oeis.org/A202982) | Proof | what a cell demands that SOME neighbour of it look like: one at least as large, one of a named value, an allow... | [02451-PROOF.pdf](02451-PROOF.pdf) |
-| 2452 | [A240778](https://oeis.org/A240778) | Proof | a cell condition counted up to relabelling, by falling-factorial inversion | [02452-PROOF.pdf](02452-PROOF.pdf) |
-| 2453 | [A281832](https://oeis.org/A281832) | Proof | a cell condition counted up to relabelling, by falling-factorial inversion | [02453-PROOF.pdf](02453-PROOF.pdf) |
-| 2454 | [A188840](https://oeis.org/A188840) | Proof | an explicit closed form, turned into the recurrence it satisfies | [02454-PROOF.pdf](02454-PROOF.pdf) |
-| 2455 | [A205257](https://oeis.org/A205257) | Proof | a 3 X 3 subblock condition counted up to relabelling, by falling-factorial inversion | [02455-PROOF.pdf](02455-PROOF.pdf) |
-| 2456 | [A223962](https://oeis.org/A223962) | Proof | an explicit closed form, turned into the recurrence it satisfies | [02456-PROOF.pdf](02456-PROOF.pdf) |
-| 2457 | [A224410](https://oeis.org/A224410) | Proof | an explicit closed form, turned into the recurrence it satisfies | [02457-PROOF.pdf](02457-PROOF.pdf) |
-| 2458 | [A234421](https://oeis.org/A234421) | Proof | a table's column recurrences, each column being a fixed-width array count | [02458-PROOF.pdf](02458-PROOF.pdf) |
-| 2459 | [A234738](https://oeis.org/A234738) | Proof | a table's column recurrences, each column being a fixed-width array count | [02459-PROOF.pdf](02459-PROOF.pdf) |
-| 2460 | [A250854](https://oeis.org/A250854) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [02460-PROOF.pdf](02460-PROOF.pdf) |
-| 2461 | [A259962](https://oeis.org/A259962) | Proof | a table's column recurrences, each column being a fixed-width array count | [02461-PROOF.pdf](02461-PROOF.pdf) |
-| 2462 | [A260001](https://oeis.org/A260001) | Proof | a table's column recurrences, each column being a fixed-width array count | [02462-PROOF.pdf](02462-PROOF.pdf) |
-| 2463 | [A260370](https://oeis.org/A260370) | Proof | a table's column recurrences, each column being a fixed-width array count | [02463-PROOF.pdf](02463-PROOF.pdf) |
-| 2464 | [A232517](https://oeis.org/A232517) | Proof | what a cell demands that SOME neighbour of it look like: one at least as large, one of a named value, an allow... | [02464-PROOF.pdf](02464-PROOF.pdf) |
-| 2465 | [A224553](https://oeis.org/A224553) | Proof | every K X K subblock of a matrix idempotent, or of equal population or permanent | [02465-PROOF.pdf](02465-PROOF.pdf) |
-| 2466 | [A223615](https://oeis.org/A223615) | Proof | an explicit closed form, turned into the recurrence it satisfies | [02466-PROOF.pdf](02466-PROOF.pdf) |
-| 2467 | [A223772](https://oeis.org/A223772) | Proof | an explicit closed form, turned into the recurrence it satisfies | [02467-PROOF.pdf](02467-PROOF.pdf) |
-| 2468 | [A198902](https://oeis.org/A198902) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [02468-PROOF.pdf](02468-PROOF.pdf) |
-| 2469 | [A224199](https://oeis.org/A224199) | Proof | monotone and unimodal conditions along rows, columns and diagonals, with the fallen bits carried in the state | [02469-PROOF.pdf](02469-PROOF.pdf) |
-| 2470 | [A262753](https://oeis.org/A262753) | Proof | rows and columns read as base-b numbers and required to be divisible, or not, by given moduli | [02470-PROOF.pdf](02470-PROOF.pdf) |
-| 2471 | [A214183](https://oeis.org/A214183) | Proof | proper colourings of a grid circular in one direction, counted up to renaming the colours | [02471-PROOF.pdf](02471-PROOF.pdf) |
-| 2472 | [A224370](https://oeis.org/A224370) | Proof | monotone and unimodal conditions along rows, columns and diagonals, with the fallen bits carried in the state | [02472-PROOF.pdf](02472-PROOF.pdf) |
-| 2473 | [A281464](https://oeis.org/A281464) | Proof | a cell condition counted up to relabelling, by falling-factorial inversion | [02473-PROOF.pdf](02473-PROOF.pdf) |
-| 2474 | [A204567](https://oeis.org/A204567) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [02474-PROOF.pdf](02474-PROOF.pdf) |
-| 2475 | [A214239](https://oeis.org/A214239) | Proof | proper colourings of a grid circular in one direction, counted up to renaming the colours | [02475-PROOF.pdf](02475-PROOF.pdf) |
-| 2476 | [A235443](https://oeis.org/A235443) | Proof | each 2 X 2 subblock reduced to one number -- a determinant, a permanent, a sum, or an order statistic -- with ... | [02476-PROOF.pdf](02476-PROOF.pdf) |
-| 2477 | [A280064](https://oeis.org/A280064) | Proof | a cell condition counted up to relabelling, by falling-factorial inversion | [02477-PROOF.pdf](02477-PROOF.pdf) |
-| 2478 | [A233215](https://oeis.org/A233215) | Proof | neighbouring cells forbidden to carry values summing to m, with the renaming clauses that pick one array per c... | [02478-PROOF.pdf](02478-PROOF.pdf) |
-| 2479 | [A239032](https://oeis.org/A239032) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [02479-PROOF.pdf](02479-PROOF.pdf) |
-| 2480 | [A224408](https://oeis.org/A224408) | Proof | monotone and unimodal conditions along rows, columns and diagonals, with the fallen bits carried in the state | [02480-PROOF.pdf](02480-PROOF.pdf) |
-| 2481 | [A235432](https://oeis.org/A235432) | Proof | each 2 X 2 subblock reduced to one number -- a determinant, a permanent, a sum, or an order statistic -- with ... | [02481-PROOF.pdf](02481-PROOF.pdf) |
-| 2482 | [A238807](https://oeis.org/A238807) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [02482-PROOF.pdf](02482-PROOF.pdf) |
-| 2483 | [A262421](https://oeis.org/A262421) | Proof | rows and columns read as base-b numbers and required to be divisible, or not, by given moduli | [02483-PROOF.pdf](02483-PROOF.pdf) |
-| 2484 | [A263054](https://oeis.org/A263054) | Proof | rows and columns read as base-b numbers and required to be divisible, or not, by given moduli | [02484-PROOF.pdf](02484-PROOF.pdf) |
-| 2485 | [A214102](https://oeis.org/A214102) | Proof | proper colourings of a grid circular in one direction, counted up to renaming the colours | [02485-PROOF.pdf](02485-PROOF.pdf) |
-| 2486 | [A198977](https://oeis.org/A198977) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [02486-PROOF.pdf](02486-PROOF.pdf) |
-| 2487 | [A239188](https://oeis.org/A239188) | Proof | no entry equal, modulo m, to a constant plus the sum of the entries along a ray out of it | [02487-PROOF.pdf](02487-PROOF.pdf) |
-| 2488 | [A224185](https://oeis.org/A224185) | Proof | an explicit closed form, turned into the recurrence it satisfies | [02488-PROOF.pdf](02488-PROOF.pdf) |
-| 2489 | [A225008](https://oeis.org/A225008) | Proof | an explicit closed form, turned into the recurrence it satisfies | [02489-PROOF.pdf](02489-PROOF.pdf) |
-| 2490 | [A183510](https://oeis.org/A183510) | Proof | what a cell asks of the cells around it: not their average, not matched by a strict majority of them, not beat... | [02490-PROOF.pdf](02490-PROOF.pdf) |
-| 2491 | [A238287](https://oeis.org/A238287) | Proof | a table's column recurrences, each column being a fixed-width array count | [02491-PROOF.pdf](02491-PROOF.pdf) |
-| 2492 | [A214161](https://oeis.org/A214161) | Proof | proper colourings of a grid circular in one direction, counted up to renaming the colours | [02492-PROOF.pdf](02492-PROOF.pdf) |
-| 2493 | [A302081](https://oeis.org/A302081) | Proof | a table's column recurrences, each column being a fixed-width array count | [02493-PROOF.pdf](02493-PROOF.pdf) |
-| 2494 | [A209808](https://oeis.org/A209808) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [02494-PROOF.pdf](02494-PROOF.pdf) |
-| 2495 | [A210119](https://oeis.org/A210119) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [02495-PROOF.pdf](02495-PROOF.pdf) |
-| 2496 | [A210159](https://oeis.org/A210159) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [02496-PROOF.pdf](02496-PROOF.pdf) |
-| 2497 | [A235541](https://oeis.org/A235541) | Proof | each 2 X 2 subblock reduced to one number -- a determinant, a permanent, a sum, or an order statistic -- with ... | [02497-PROOF.pdf](02497-PROOF.pdf) |
-| 2498 | [A239406](https://oeis.org/A239406) | Proof | no entry equal, modulo m, to a constant plus the sum of the entries along a ray out of it | [02498-PROOF.pdf](02498-PROOF.pdf) |
-| 2499 | [A239650](https://oeis.org/A239650) | Proof | no entry equal, modulo m, to a constant plus the sum of the entries along a ray out of it | [02499-PROOF.pdf](02499-PROOF.pdf) |
-| 2500 | [A297595](https://oeis.org/A297595) | Proof | a table's column recurrences, each column being a fixed-width array count | [02500-PROOF.pdf](02500-PROOF.pdf) |
+| 2245 | [A258894](https://oeis.org/A258894) | Proof | a table's column recurrences, each column being a fixed-width array count | [02245-PROOF.pdf](02245-PROOF.pdf) |
+| 2246 | [A224145](https://oeis.org/A224145) | Proof | an explicit closed form, turned into the recurrence it satisfies | [02246-PROOF.pdf](02246-PROOF.pdf) |
+| 2247 | [A233015](https://oeis.org/A233015) | Proof | a neighbour condition plus a first-occurrence ordering clause carried as a flag in the state | [02247-PROOF.pdf](02247-PROOF.pdf) |
+| 2248 | [A224567](https://oeis.org/A224567) | Proof | every K X K subblock of a matrix idempotent, or of equal population or permanent | [02248-PROOF.pdf](02248-PROOF.pdf) |
+| 2249 | [A224568](https://oeis.org/A224568) | Proof | a table's column recurrences, each column being a fixed-width array count | [02249-PROOF.pdf](02249-PROOF.pdf) |
+| 2250 | [A207258](https://oeis.org/A207258) | Proof | an explicit closed form, turned into the recurrence it satisfies | [02250-PROOF.pdf](02250-PROOF.pdf) |
+| 2251 | [A208286](https://oeis.org/A208286) | Proof | an explicit closed form, turned into the recurrence it satisfies | [02251-PROOF.pdf](02251-PROOF.pdf) |
+| 2252 | [A206232](https://oeis.org/A206232) | Proof | equal-edge conditions on the subblocks, counted up to renaming the letters | [02252-PROOF.pdf](02252-PROOF.pdf) |
+| 2253 | [A237249](https://oeis.org/A237249) | Proof | a table's column recurrences, each column being a fixed-width array count | [02253-PROOF.pdf](02253-PROOF.pdf) |
+| 2254 | [A237384](https://oeis.org/A237384) | Proof | a table's column recurrences, each column being a fixed-width array count | [02254-PROOF.pdf](02254-PROOF.pdf) |
+| 2255 | [A223554](https://oeis.org/A223554) | Proof | arrays whose cells carry vertices of a fixed graph -- the faces or vertices of a cube or icosahedron, a triang... | [02255-PROOF.pdf](02255-PROOF.pdf) |
+| 2256 | [A236018](https://oeis.org/A236018) | Proof | a table's column recurrences, each column being a fixed-width array count | [02256-PROOF.pdf](02256-PROOF.pdf) |
+| 2257 | [A274724](https://oeis.org/A274724) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [02257-PROOF.pdf](02257-PROOF.pdf) |
+| 2258 | [A274751](https://oeis.org/A274751) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [02258-PROOF.pdf](02258-PROOF.pdf) |
+| 2259 | [A236055](https://oeis.org/A236055) | Proof | a table's column recurrences, each column being a fixed-width array count | [02259-PROOF.pdf](02259-PROOF.pdf) |
+| 2260 | [A185563](https://oeis.org/A185563) | Proof | what a cell asks of the cells around it: not their average, not matched by a strict majority of them, not beat... | [02260-PROOF.pdf](02260-PROOF.pdf) |
+| 2261 | [A252856](https://oeis.org/A252856) | Proof | consecutive triples along rows, columns and diagonals holding a prescribed number of distinct values, counted ... | [02261-PROOF.pdf](02261-PROOF.pdf) |
+| 2262 | [A224565](https://oeis.org/A224565) | Proof | every K X K subblock of a matrix idempotent, or of equal population or permanent | [02262-PROOF.pdf](02262-PROOF.pdf) |
+| 2263 | [A207067](https://oeis.org/A207067) | Proof | an explicit closed form, turned into the recurrence it satisfies | [02263-PROOF.pdf](02263-PROOF.pdf) |
+| 2264 | [A207390](https://oeis.org/A207390) | Proof | an explicit closed form, turned into the recurrence it satisfies | [02264-PROOF.pdf](02264-PROOF.pdf) |
+| 2265 | [A237234](https://oeis.org/A237234) | Proof | a table's column recurrences, each column being a fixed-width array count | [02265-PROOF.pdf](02265-PROOF.pdf) |
+| 2266 | [A253367](https://oeis.org/A253367) | Proof | a table's column recurrences, each column being a fixed-width array count | [02266-PROOF.pdf](02266-PROOF.pdf) |
+| 2267 | [A269292](https://oeis.org/A269292) | Proof | a global count of adjacent pairs summing to a value, carried in the state by capping it | [02267-PROOF.pdf](02267-PROOF.pdf) |
+| 2268 | [A241365](https://oeis.org/A241365) | Proof | a cell condition counted up to relabelling, by falling-factorial inversion | [02268-PROOF.pdf](02268-PROOF.pdf) |
+| 2269 | [A207110](https://oeis.org/A207110) | Proof | an explicit closed form, turned into the recurrence it satisfies | [02269-PROOF.pdf](02269-PROOF.pdf) |
+| 2270 | [A224563](https://oeis.org/A224563) | Proof | every K X K subblock of a matrix idempotent, or of equal population or permanent | [02270-PROOF.pdf](02270-PROOF.pdf) |
+| 2271 | [A187956](https://oeis.org/A187956) | Proof | a subblock statistic compared with its neighbours': none equal, some equal, exactly one or two equal, or bound... | [02271-PROOF.pdf](02271-PROOF.pdf) |
+| 2272 | [A269279](https://oeis.org/A269279) | Proof | a global count of marked adjacent pairs carried in the state, then a walk count | [02272-PROOF.pdf](02272-PROOF.pdf) |
+| 2273 | [A230905](https://oeis.org/A230905) | Proof | every cell required to see neighbours carrying the next and the previous value modulo m | [02273-PROOF.pdf](02273-PROOF.pdf) |
+| 2274 | [A185799](https://oeis.org/A185799) | Proof | a subblock statistic compared with its neighbours': none equal, some equal, exactly one or two equal, or bound... | [02274-PROOF.pdf](02274-PROOF.pdf) |
+| 2275 | [A224561](https://oeis.org/A224561) | Proof | every K X K subblock of a matrix idempotent, or of equal population or permanent | [02275-PROOF.pdf](02275-PROOF.pdf) |
+| 2276 | [A207402](https://oeis.org/A207402) | Proof | an explicit closed form, turned into the recurrence it satisfies | [02276-PROOF.pdf](02276-PROOF.pdf) |
+| 2277 | [A208141](https://oeis.org/A208141) | Proof | an explicit closed form, turned into the recurrence it satisfies | [02277-PROOF.pdf](02277-PROOF.pdf) |
+| 2278 | [A205347](https://oeis.org/A205347) | Proof | equal-edge conditions on the subblocks, counted up to renaming the letters | [02278-PROOF.pdf](02278-PROOF.pdf) |
+| 2279 | [A206594](https://oeis.org/A206594) | Proof | equal-edge conditions on the subblocks, counted up to renaming the letters | [02279-PROOF.pdf](02279-PROOF.pdf) |
+| 2280 | [A183393](https://oeis.org/A183393) | Proof | what a cell asks of the cells around it: not their average, not matched by a strict majority of them, not beat... | [02280-PROOF.pdf](02280-PROOF.pdf) |
+| 2281 | [A230964](https://oeis.org/A230964) | Proof | every cell required to see neighbours carrying the next and the previous value modulo m | [02281-PROOF.pdf](02281-PROOF.pdf) |
+| 2282 | [A224644](https://oeis.org/A224644) | Proof | every K X K subblock of a matrix idempotent, or of equal population or permanent | [02282-PROOF.pdf](02282-PROOF.pdf) |
+| 2283 | [A260207](https://oeis.org/A260207) | Proof | a table's column recurrences, each column being a fixed-width array count | [02283-PROOF.pdf](02283-PROOF.pdf) |
+| 2284 | [A260927](https://oeis.org/A260927) | Proof | a table's column recurrences, each column being a fixed-width array count | [02284-PROOF.pdf](02284-PROOF.pdf) |
+| 2285 | [A261380](https://oeis.org/A261380) | Proof | a table's column recurrences, each column being a fixed-width array count | [02285-PROOF.pdf](02285-PROOF.pdf) |
+| 2286 | [A264163](https://oeis.org/A264163) | Proof | a table's column recurrences, each column being a fixed-width array count | [02286-PROOF.pdf](02286-PROOF.pdf) |
+| 2287 | [A184690](https://oeis.org/A184690) | Proof | what a cell asks of the cells around it: not their average, not matched by a strict majority of them, not beat... | [02287-PROOF.pdf](02287-PROOF.pdf) |
+| 2288 | [A202049](https://oeis.org/A202049) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [02288-PROOF.pdf](02288-PROOF.pdf) |
+| 2289 | [A275232](https://oeis.org/A275232) | Proof | no cell equal to the cells at a fixed list of offsets, counted up to renaming | [02289-PROOF.pdf](02289-PROOF.pdf) |
+| 2290 | [A269203](https://oeis.org/A269203) | Proof | a global count of adjacent pairs summing to a value, carried in the state by capping it | [02290-PROOF.pdf](02290-PROOF.pdf) |
+| 2291 | [A204795](https://oeis.org/A204795) | Proof | each 2 X 2 subblock reduced to one number -- a determinant, a permanent, a sum, or an order statistic -- with ... | [02291-PROOF.pdf](02291-PROOF.pdf) |
+| 2292 | [A268770](https://oeis.org/A268770) | Proof | a global count of marked adjacent pairs carried in the state, then a walk count | [02292-PROOF.pdf](02292-PROOF.pdf) |
+| 2293 | [A269138](https://oeis.org/A269138) | Proof | a global count of adjacent pairs summing to a value, carried in the state by capping it | [02293-PROOF.pdf](02293-PROOF.pdf) |
+| 2294 | [A269189](https://oeis.org/A269189) | Proof | a global count of adjacent pairs summing to a value, carried in the state by capping it | [02294-PROOF.pdf](02294-PROOF.pdf) |
+| 2295 | [A274890](https://oeis.org/A274890) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [02295-PROOF.pdf](02295-PROOF.pdf) |
+| 2296 | [A231296](https://oeis.org/A231296) | Proof | a cell condition counted up to relabelling, by falling-factorial inversion | [02296-PROOF.pdf](02296-PROOF.pdf) |
+| 2297 | [A188841](https://oeis.org/A188841) | Proof | an explicit closed form, turned into the recurrence it satisfies | [02297-PROOF.pdf](02297-PROOF.pdf) |
+| 2298 | [A269147](https://oeis.org/A269147) | Proof | a global count of marked adjacent pairs carried in the state, then a walk count | [02298-PROOF.pdf](02298-PROOF.pdf) |
+| 2299 | [A269181](https://oeis.org/A269181) | Proof | a global count of marked adjacent pairs carried in the state, then a walk count | [02299-PROOF.pdf](02299-PROOF.pdf) |
+| 2300 | [A269216](https://oeis.org/A269216) | Proof | a global count of marked adjacent pairs carried in the state, then a walk count | [02300-PROOF.pdf](02300-PROOF.pdf) |
+| 2301 | [A279705](https://oeis.org/A279705) | Proof | a cell condition counted up to relabelling, by falling-factorial inversion | [02301-PROOF.pdf](02301-PROOF.pdf) |
+| 2302 | [A198712](https://oeis.org/A198712) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [02302-PROOF.pdf](02302-PROOF.pdf) |
+| 2303 | [A233022](https://oeis.org/A233022) | Proof | neighbouring cells forbidden to carry values summing to m, with the renaming clauses that pick one array per c... | [02303-PROOF.pdf](02303-PROOF.pdf) |
+| 2304 | [A210177](https://oeis.org/A210177) | Proof | subblocks with a prescribed number of distinct values, counted up to renaming and using every letter | [02304-PROOF.pdf](02304-PROOF.pdf) |
+| 2305 | [A210261](https://oeis.org/A210261) | Proof | subblocks with a prescribed number of distinct values, counted up to renaming and using every letter | [02305-PROOF.pdf](02305-PROOF.pdf) |
+| 2306 | [A232345](https://oeis.org/A232345) | Proof | what a cell demands that SOME neighbour of it look like: one at least as large, one of a named value, an allow... | [02306-PROOF.pdf](02306-PROOF.pdf) |
+| 2307 | [A232840](https://oeis.org/A232840) | Proof | what a cell demands that SOME neighbour of it look like: one at least as large, one of a named value, an allow... | [02307-PROOF.pdf](02307-PROOF.pdf) |
+| 2308 | [A281465](https://oeis.org/A281465) | Proof | a cell condition counted up to relabelling, by falling-factorial inversion | [02308-PROOF.pdf](02308-PROOF.pdf) |
+| 2309 | [A232909](https://oeis.org/A232909) | Proof | what a cell demands that SOME neighbour of it look like: one at least as large, one of a named value, an allow... | [02309-PROOF.pdf](02309-PROOF.pdf) |
+| 2310 | [A185848](https://oeis.org/A185848) | Proof | a subblock statistic compared with its neighbours': none equal, some equal, exactly one or two equal, or bound... | [02310-PROOF.pdf](02310-PROOF.pdf) |
+| 2311 | [A263055](https://oeis.org/A263055) | Proof | rows and columns read as base-b numbers and required to be divisible, or not, by given moduli | [02311-PROOF.pdf](02311-PROOF.pdf) |
+| 2312 | [A231856](https://oeis.org/A231856) | Proof | what a cell asks of the cells around it: not their average, not matched by a strict majority of them, not beat... | [02312-PROOF.pdf](02312-PROOF.pdf) |
+| 2313 | [A240631](https://oeis.org/A240631) | Proof | a cell condition stated through equality alone, counted up to renaming the letters | [02313-PROOF.pdf](02313-PROOF.pdf) |
+| 2314 | [A180763](https://oeis.org/A180763) | Proof | what a cell demands that SOME neighbour of it look like: one at least as large, one of a named value, an allow... | [02314-PROOF.pdf](02314-PROOF.pdf) |
+| 2315 | [A202797](https://oeis.org/A202797) | Proof | what a cell demands that SOME neighbour of it look like: one at least as large, one of a named value, an allow... | [02315-PROOF.pdf](02315-PROOF.pdf) |
+| 2316 | [A214168](https://oeis.org/A214168) | Proof | proper colourings of a grid circular in one direction, counted up to renaming the colours | [02316-PROOF.pdf](02316-PROOF.pdf) |
+| 2317 | [A205315](https://oeis.org/A205315) | Proof | equal-edge conditions on the subblocks, counted up to renaming the letters | [02317-PROOF.pdf](02317-PROOF.pdf) |
+| 2318 | [A208708](https://oeis.org/A208708) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [02318-PROOF.pdf](02318-PROOF.pdf) |
+| 2319 | [A234728](https://oeis.org/A234728) | Proof | a table's column recurrences, each column being a fixed-width array count | [02319-PROOF.pdf](02319-PROOF.pdf) |
+| 2320 | [A256810](https://oeis.org/A256810) | Proof | a table's column recurrences, each column being a fixed-width array count | [02320-PROOF.pdf](02320-PROOF.pdf) |
+| 2321 | [A259770](https://oeis.org/A259770) | Proof | a table's column recurrences, each column being a fixed-width array count | [02321-PROOF.pdf](02321-PROOF.pdf) |
+| 2322 | [A259952](https://oeis.org/A259952) | Proof | a table's column recurrences, each column being a fixed-width array count | [02322-PROOF.pdf](02322-PROOF.pdf) |
+| 2323 | [A260284](https://oeis.org/A260284) | Proof | a table's column recurrences, each column being a fixed-width array count | [02323-PROOF.pdf](02323-PROOF.pdf) |
+| 2324 | [A264257](https://oeis.org/A264257) | Proof | a table's column recurrences, each column being a fixed-width array count | [02324-PROOF.pdf](02324-PROOF.pdf) |
+| 2325 | [A264299](https://oeis.org/A264299) | Proof | a table's column recurrences, each column being a fixed-width array count | [02325-PROOF.pdf](02325-PROOF.pdf) |
+| 2326 | [A268883](https://oeis.org/A268883) | Proof | a global count of marked adjacent pairs carried in the state, then a walk count | [02326-PROOF.pdf](02326-PROOF.pdf) |
+| 2327 | [A268992](https://oeis.org/A268992) | Proof | a global count of marked adjacent pairs carried in the state, then a walk count | [02327-PROOF.pdf](02327-PROOF.pdf) |
+| 2328 | [A204072](https://oeis.org/A204072) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [02328-PROOF.pdf](02328-PROOF.pdf) |
+| 2329 | [A204626](https://oeis.org/A204626) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [02329-PROOF.pdf](02329-PROOF.pdf) |
+| 2330 | [A208255](https://oeis.org/A208255) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [02330-PROOF.pdf](02330-PROOF.pdf) |
+| 2331 | [A297584](https://oeis.org/A297584) | Proof | what a cell demands that SOME neighbour of it look like: one at least as large, one of a named value, an allow... | [02331-PROOF.pdf](02331-PROOF.pdf) |
+| 2332 | [A235956](https://oeis.org/A235956) | Proof | each 2 X 2 subblock reduced to one number -- a determinant, a permanent, a sum, or an order statistic -- with ... | [02332-PROOF.pdf](02332-PROOF.pdf) |
+| 2333 | [A279710](https://oeis.org/A279710) | Proof | a cell condition counted up to relabelling, by falling-factorial inversion | [02333-PROOF.pdf](02333-PROOF.pdf) |
+| 2334 | [A200795](https://oeis.org/A200795) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [02334-PROOF.pdf](02334-PROOF.pdf) |
+| 2335 | [A208171](https://oeis.org/A208171) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [02335-PROOF.pdf](02335-PROOF.pdf) |
+| 2336 | [A208868](https://oeis.org/A208868) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [02336-PROOF.pdf](02336-PROOF.pdf) |
+| 2337 | [A268777](https://oeis.org/A268777) | Proof | a global count of adjacent pairs summing to a value, carried in the state by capping it | [02337-PROOF.pdf](02337-PROOF.pdf) |
+| 2338 | [A189180](https://oeis.org/A189180) | Proof | permutations of the CELLS of a fixed-width array in which every cell moves by one of a short list of offsets -... | [02338-PROOF.pdf](02338-PROOF.pdf) |
+| 2339 | [A184138](https://oeis.org/A184138) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [02339-PROOF.pdf](02339-PROOF.pdf) |
+| 2340 | [A185489](https://oeis.org/A185489) | Proof | a subblock statistic compared with its neighbours': none equal, some equal, exactly one or two equal, or bound... | [02340-PROOF.pdf](02340-PROOF.pdf) |
+| 2341 | [A268762](https://oeis.org/A268762) | Proof | a global count of marked adjacent pairs carried in the state, then a walk count | [02341-PROOF.pdf](02341-PROOF.pdf) |
+| 2342 | [A269014](https://oeis.org/A269014) | Proof | a global count of marked adjacent pairs carried in the state, then a walk count | [02342-PROOF.pdf](02342-PROOF.pdf) |
+| 2343 | [A269078](https://oeis.org/A269078) | Proof | a global count of marked adjacent pairs carried in the state, then a walk count | [02343-PROOF.pdf](02343-PROOF.pdf) |
+| 2344 | [A225009](https://oeis.org/A225009) | Proof | an explicit closed form, turned into the recurrence it satisfies | [02344-PROOF.pdf](02344-PROOF.pdf) |
+| 2345 | [A238721](https://oeis.org/A238721) | Proof | no entry equal, modulo m, to a constant plus the sum of the entries along a ray out of it | [02345-PROOF.pdf](02345-PROOF.pdf) |
+| 2346 | [A239025](https://oeis.org/A239025) | Proof | no entry equal, modulo m, to a constant plus the sum of the entries along a ray out of it | [02346-PROOF.pdf](02346-PROOF.pdf) |
+| 2347 | [A262918](https://oeis.org/A262918) | Proof | rows and columns read as base-b numbers and required to be divisible, or not, by given moduli | [02347-PROOF.pdf](02347-PROOF.pdf) |
+| 2348 | [A205622](https://oeis.org/A205622) | Proof | the entry asks two things at once: a condition on every subblock, which a window of consecutive rows decides, ... | [02348-PROOF.pdf](02348-PROOF.pdf) |
+| 2349 | [A262268](https://oeis.org/A262268) | Proof | rows and columns read as base-b numbers and required to be divisible, or not, by given moduli | [02349-PROOF.pdf](02349-PROOF.pdf) |
+| 2350 | [A262466](https://oeis.org/A262466) | Proof | rows and columns read as base-b numbers and required to be divisible, or not, by given moduli | [02350-PROOF.pdf](02350-PROOF.pdf) |
+| 2351 | [A262789](https://oeis.org/A262789) | Proof | rows and columns read as base-b numbers and required to be divisible, or not, by given moduli | [02351-PROOF.pdf](02351-PROOF.pdf) |
+| 2352 | [A189145](https://oeis.org/A189145) | Proof | permutations of the CELLS of a fixed-width array in which every cell moves by one of a short list of offsets -... | [02352-PROOF.pdf](02352-PROOF.pdf) |
+| 2353 | [A240290](https://oeis.org/A240290) | Proof | no entry equal, modulo m, to a constant plus the sum of the entries along a ray out of it | [02353-PROOF.pdf](02353-PROOF.pdf) |
+| 2354 | [A267928](https://oeis.org/A267928) | Proof | the repeated values of each row and column, in the order they occur, required to stand in a prescribed relatio... | [02354-PROOF.pdf](02354-PROOF.pdf) |
+| 2355 | [A267975](https://oeis.org/A267975) | Proof | the repeated values of each row and column, in the order they occur, required to stand in a prescribed relatio... | [02355-PROOF.pdf](02355-PROOF.pdf) |
+| 2356 | [A268745](https://oeis.org/A268745) | Proof | a global count of adjacent pairs summing to a value, carried in the state by capping it | [02356-PROOF.pdf](02356-PROOF.pdf) |
+| 2357 | [A209498](https://oeis.org/A209498) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [02357-PROOF.pdf](02357-PROOF.pdf) |
+| 2358 | [A240316](https://oeis.org/A240316) | Proof | no entry equal, modulo m, to a constant plus the sum of the entries along a ray out of it | [02358-PROOF.pdf](02358-PROOF.pdf) |
+| 2359 | [A208311](https://oeis.org/A208311) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [02359-PROOF.pdf](02359-PROOF.pdf) |
+| 2360 | [A240285](https://oeis.org/A240285) | Proof | no entry equal, modulo m, to a constant plus the sum of the entries along a ray out of it | [02360-PROOF.pdf](02360-PROOF.pdf) |
+| 2361 | [A240382](https://oeis.org/A240382) | Proof | no entry equal, modulo m, to a constant plus the sum of the entries along a ray out of it | [02361-PROOF.pdf](02361-PROOF.pdf) |
+| 2362 | [A240389](https://oeis.org/A240389) | Proof | no entry equal, modulo m, to a constant plus the sum of the entries along a ray out of it | [02362-PROOF.pdf](02362-PROOF.pdf) |
+| 2363 | [A240428](https://oeis.org/A240428) | Proof | no entry equal, modulo m, to a constant plus the sum of the entries along a ray out of it | [02363-PROOF.pdf](02363-PROOF.pdf) |
+| 2364 | [A228279](https://oeis.org/A228279) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [02364-PROOF.pdf](02364-PROOF.pdf) |
+| 2365 | [A228478](https://oeis.org/A228478) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [02365-PROOF.pdf](02365-PROOF.pdf) |
+| 2366 | [A251028](https://oeis.org/A251028) | Proof | a table's column recurrences, each column being a fixed-width array count | [02366-PROOF.pdf](02366-PROOF.pdf) |
+| 2367 | [A251055](https://oeis.org/A251055) | Proof | a table's column recurrences, each column being a fixed-width array count | [02367-PROOF.pdf](02367-PROOF.pdf) |
+| 2368 | [A268735](https://oeis.org/A268735) | Proof | a global count of marked adjacent pairs carried in the state, then a walk count | [02368-PROOF.pdf](02368-PROOF.pdf) |
+| 2369 | [A209459](https://oeis.org/A209459) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [02369-PROOF.pdf](02369-PROOF.pdf) |
+| 2370 | [A205221](https://oeis.org/A205221) | Proof | the entry asks two things at once: a condition on every subblock, which a window of consecutive rows decides, ... | [02370-PROOF.pdf](02370-PROOF.pdf) |
+| 2371 | [A252717](https://oeis.org/A252717) | Proof | consecutive triples along rows, columns and diagonals holding a prescribed number of distinct values, counted ... | [02371-PROOF.pdf](02371-PROOF.pdf) |
+| 2372 | [A223953](https://oeis.org/A223953) | Proof | an explicit closed form, turned into the recurrence it satisfies | [02372-PROOF.pdf](02372-PROOF.pdf) |
+| 2373 | [A252254](https://oeis.org/A252254) | Proof | a table's column recurrences, each column being a fixed-width array count | [02373-PROOF.pdf](02373-PROOF.pdf) |
+| 2374 | [A252726](https://oeis.org/A252726) | Proof | consecutive triples along rows, columns and diagonals holding a prescribed number of distinct values, counted ... | [02374-PROOF.pdf](02374-PROOF.pdf) |
+| 2375 | [A223836](https://oeis.org/A223836) | Proof | an explicit closed form, turned into the recurrence it satisfies | [02375-PROOF.pdf](02375-PROOF.pdf) |
+| 2376 | [A206500](https://oeis.org/A206500) | Proof | no two cells within a stated distance may agree, counted up to renaming | [02376-PROOF.pdf](02376-PROOF.pdf) |
+| 2377 | [A252260](https://oeis.org/A252260) | Proof | a table's column recurrences, each column being a fixed-width array count | [02377-PROOF.pdf](02377-PROOF.pdf) |
+| 2378 | [A252725](https://oeis.org/A252725) | Proof | consecutive triples along rows, columns and diagonals holding a prescribed number of distinct values, counted ... | [02378-PROOF.pdf](02378-PROOF.pdf) |
+| 2379 | [A250858](https://oeis.org/A250858) | Proof | an explicit closed form, turned into the recurrence it satisfies | [02379-PROOF.pdf](02379-PROOF.pdf) |
+| 2380 | [A223324](https://oeis.org/A223324) | Proof | arrays whose cells carry vertices of a fixed graph -- the faces or vertices of a cube or icosahedron, a triang... | [02380-PROOF.pdf](02380-PROOF.pdf) |
+| 2381 | [A274730](https://oeis.org/A274730) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [02381-PROOF.pdf](02381-PROOF.pdf) |
+| 2382 | [A274800](https://oeis.org/A274800) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [02382-PROOF.pdf](02382-PROOF.pdf) |
+| 2383 | [A223360](https://oeis.org/A223360) | Proof | arrays whose cells carry vertices of a fixed graph -- the faces or vertices of a cube or icosahedron, a triang... | [02383-PROOF.pdf](02383-PROOF.pdf) |
+| 2384 | [A252228](https://oeis.org/A252228) | Proof | a table's column recurrences, each column being a fixed-width array count | [02384-PROOF.pdf](02384-PROOF.pdf) |
+| 2385 | [A232515](https://oeis.org/A232515) | Proof | a table's column recurrences, each column being a fixed-width array count | [02385-PROOF.pdf](02385-PROOF.pdf) |
+| 2386 | [A251088](https://oeis.org/A251088) | Proof | a table's column recurrences, each column being a fixed-width array count | [02386-PROOF.pdf](02386-PROOF.pdf) |
+| 2387 | [A251137](https://oeis.org/A251137) | Proof | a table's column recurrences, each column being a fixed-width array count | [02387-PROOF.pdf](02387-PROOF.pdf) |
+| 2388 | [A252724](https://oeis.org/A252724) | Proof | consecutive triples along rows, columns and diagonals holding a prescribed number of distinct values, counted ... | [02388-PROOF.pdf](02388-PROOF.pdf) |
+| 2389 | [A223200](https://oeis.org/A223200) | Proof | arrays whose cells carry vertices of a fixed graph -- the faces or vertices of a cube or icosahedron, a triang... | [02389-PROOF.pdf](02389-PROOF.pdf) |
+| 2390 | [A251652](https://oeis.org/A251652) | Proof | a table's column recurrences, each column being a fixed-width array count | [02390-PROOF.pdf](02390-PROOF.pdf) |
+| 2391 | [A188557](https://oeis.org/A188557) | Proof | an explicit closed form, turned into the recurrence it satisfies | [02391-PROOF.pdf](02391-PROOF.pdf) |
+| 2392 | [A223670](https://oeis.org/A223670) | Proof | an explicit closed form, turned into the recurrence it satisfies | [02392-PROOF.pdf](02392-PROOF.pdf) |
+| 2393 | [A224042](https://oeis.org/A224042) | Proof | an explicit closed form, turned into the recurrence it satisfies | [02393-PROOF.pdf](02393-PROOF.pdf) |
+| 2394 | [A224137](https://oeis.org/A224137) | Proof | an explicit closed form, turned into the recurrence it satisfies | [02394-PROOF.pdf](02394-PROOF.pdf) |
+| 2395 | [A250857](https://oeis.org/A250857) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [02395-PROOF.pdf](02395-PROOF.pdf) |
+| 2396 | [A303682](https://oeis.org/A303682) | Proof | a table's column recurrences, each column being a fixed-width array count | [02396-PROOF.pdf](02396-PROOF.pdf) |
+| 2397 | [A223639](https://oeis.org/A223639) | Proof | an explicit closed form, turned into the recurrence it satisfies | [02397-PROOF.pdf](02397-PROOF.pdf) |
+| 2398 | [A265988](https://oeis.org/A265988) | Proof | every entry equal to the number of its own neighbours standing in a stated relation to it | [02398-PROOF.pdf](02398-PROOF.pdf) |
+| 2399 | [A231242](https://oeis.org/A231242) | Proof | every cell required to see neighbours carrying the next and the previous value modulo m | [02399-PROOF.pdf](02399-PROOF.pdf) |
+| 2400 | [A233171](https://oeis.org/A233171) | Proof | neighbouring cells forbidden to carry values summing to m, with the renaming clauses that pick one array per c... | [02400-PROOF.pdf](02400-PROOF.pdf) |
+| 2401 | [A223839](https://oeis.org/A223839) | Proof | an explicit closed form, turned into the recurrence it satisfies | [02401-PROOF.pdf](02401-PROOF.pdf) |
+| 2402 | [A258554](https://oeis.org/A258554) | Proof | a table's column recurrences, each column being a fixed-width array count | [02402-PROOF.pdf](02402-PROOF.pdf) |
+| 2403 | [A233109](https://oeis.org/A233109) | Proof | neighbouring cells forbidden to carry values summing to m, with the renaming clauses that pick one array per c... | [02403-PROOF.pdf](02403-PROOF.pdf) |
+| 2404 | [A224354](https://oeis.org/A224354) | Proof | an explicit closed form, turned into the recurrence it satisfies | [02404-PROOF.pdf](02404-PROOF.pdf) |
+| 2405 | [A223206](https://oeis.org/A223206) | Proof | arrays whose cells carry vertices of a fixed graph -- the faces or vertices of a cube or icosahedron, a triang... | [02405-PROOF.pdf](02405-PROOF.pdf) |
+| 2406 | [A252723](https://oeis.org/A252723) | Proof | consecutive triples along rows, columns and diagonals holding a prescribed number of distinct values, counted ... | [02406-PROOF.pdf](02406-PROOF.pdf) |
+| 2407 | [A224144](https://oeis.org/A224144) | Proof | an explicit closed form, turned into the recurrence it satisfies | [02407-PROOF.pdf](02407-PROOF.pdf) |
+| 2408 | [A224257](https://oeis.org/A224257) | Proof | an explicit closed form, turned into the recurrence it satisfies | [02408-PROOF.pdf](02408-PROOF.pdf) |
+| 2409 | [A224132](https://oeis.org/A224132) | Proof | monotone and unimodal conditions along rows, columns and diagonals, with the fallen bits carried in the state | [02409-PROOF.pdf](02409-PROOF.pdf) |
+| 2410 | [A250856](https://oeis.org/A250856) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [02410-PROOF.pdf](02410-PROOF.pdf) |
+| 2411 | [A258966](https://oeis.org/A258966) | Proof | a table's column recurrences, each column being a fixed-width array count | [02411-PROOF.pdf](02411-PROOF.pdf) |
+| 2412 | [A207257](https://oeis.org/A207257) | Proof | an explicit closed form, turned into the recurrence it satisfies | [02412-PROOF.pdf](02412-PROOF.pdf) |
+| 2413 | [A208285](https://oeis.org/A208285) | Proof | an explicit closed form, turned into the recurrence it satisfies | [02413-PROOF.pdf](02413-PROOF.pdf) |
+| 2414 | [A252713](https://oeis.org/A252713) | Proof | consecutive triples along rows, columns and diagonals holding a prescribed number of distinct values, counted ... | [02414-PROOF.pdf](02414-PROOF.pdf) |
+| 2415 | [A231414](https://oeis.org/A231414) | Proof | a cell condition counted up to relabelling, by falling-factorial inversion | [02415-PROOF.pdf](02415-PROOF.pdf) |
+| 2416 | [A223681](https://oeis.org/A223681) | Proof | an explicit closed form, turned into the recurrence it satisfies | [02416-PROOF.pdf](02416-PROOF.pdf) |
+| 2417 | [A224159](https://oeis.org/A224159) | Proof | an explicit closed form, turned into the recurrence it satisfies | [02417-PROOF.pdf](02417-PROOF.pdf) |
+| 2418 | [A205584](https://oeis.org/A205584) | Proof | equal-edge conditions on the subblocks, counted up to renaming the letters | [02418-PROOF.pdf](02418-PROOF.pdf) |
+| 2419 | [A223632](https://oeis.org/A223632) | Proof | an explicit closed form, turned into the recurrence it satisfies | [02419-PROOF.pdf](02419-PROOF.pdf) |
+| 2420 | [A223765](https://oeis.org/A223765) | Proof | an explicit closed form, turned into the recurrence it satisfies | [02420-PROOF.pdf](02420-PROOF.pdf) |
+| 2421 | [A207066](https://oeis.org/A207066) | Proof | an explicit closed form, turned into the recurrence it satisfies | [02421-PROOF.pdf](02421-PROOF.pdf) |
+| 2422 | [A207389](https://oeis.org/A207389) | Proof | an explicit closed form, turned into the recurrence it satisfies | [02422-PROOF.pdf](02422-PROOF.pdf) |
+| 2423 | [A206231](https://oeis.org/A206231) | Proof | equal-edge conditions on the subblocks, counted up to renaming the letters | [02423-PROOF.pdf](02423-PROOF.pdf) |
+| 2424 | [A206361](https://oeis.org/A206361) | Proof | equal-edge conditions on the subblocks, counted up to renaming the letters | [02424-PROOF.pdf](02424-PROOF.pdf) |
+| 2425 | [A231248](https://oeis.org/A231248) | Proof | every cell required to see neighbours carrying the next and the previous value modulo m | [02425-PROOF.pdf](02425-PROOF.pdf) |
+| 2426 | [A203875](https://oeis.org/A203875) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [02426-PROOF.pdf](02426-PROOF.pdf) |
+| 2427 | [A207109](https://oeis.org/A207109) | Proof | an explicit closed form, turned into the recurrence it satisfies | [02427-PROOF.pdf](02427-PROOF.pdf) |
+| 2428 | [A208711](https://oeis.org/A208711) | Proof | a cell condition counted up to relabelling, by falling-factorial inversion | [02428-PROOF.pdf](02428-PROOF.pdf) |
+| 2429 | [A214100](https://oeis.org/A214100) | Proof | proper colourings of a grid circular in one direction, counted up to renaming the colours | [02429-PROOF.pdf](02429-PROOF.pdf) |
+| 2430 | [A207401](https://oeis.org/A207401) | Proof | an explicit closed form, turned into the recurrence it satisfies | [02430-PROOF.pdf](02430-PROOF.pdf) |
+| 2431 | [A208140](https://oeis.org/A208140) | Proof | an explicit closed form, turned into the recurrence it satisfies | [02431-PROOF.pdf](02431-PROOF.pdf) |
+| 2432 | [A224147](https://oeis.org/A224147) | Proof | an explicit closed form, turned into the recurrence it satisfies | [02432-PROOF.pdf](02432-PROOF.pdf) |
+| 2433 | [A250855](https://oeis.org/A250855) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [02433-PROOF.pdf](02433-PROOF.pdf) |
+| 2434 | [A233158](https://oeis.org/A233158) | Proof | neighbouring cells forbidden to carry values summing to m, with the renaming clauses that pick one array per c... | [02434-PROOF.pdf](02434-PROOF.pdf) |
+| 2435 | [A224008](https://oeis.org/A224008) | Proof | monotone and unimodal conditions along rows, columns and diagonals, with the fallen bits carried in the state | [02435-PROOF.pdf](02435-PROOF.pdf) |
+| 2436 | [A267668](https://oeis.org/A267668) | Proof | the repeated values of each row and column, in the order they occur, required to stand in a prescribed relatio... | [02436-PROOF.pdf](02436-PROOF.pdf) |
+| 2437 | [A224001](https://oeis.org/A224001) | Proof | an explicit closed form, turned into the recurrence it satisfies | [02437-PROOF.pdf](02437-PROOF.pdf) |
+| 2438 | [A224013](https://oeis.org/A224013) | Proof | an explicit closed form, turned into the recurrence it satisfies | [02438-PROOF.pdf](02438-PROOF.pdf) |
+| 2439 | [A280854](https://oeis.org/A280854) | Proof | a cell condition counted up to relabelling, by falling-factorial inversion | [02439-PROOF.pdf](02439-PROOF.pdf) |
+| 2440 | [A267906](https://oeis.org/A267906) | Proof | the repeated values of each row and column, in the order they occur, required to stand in a prescribed relatio... | [02440-PROOF.pdf](02440-PROOF.pdf) |
+| 2441 | [A223913](https://oeis.org/A223913) | Proof | an explicit closed form, turned into the recurrence it satisfies | [02441-PROOF.pdf](02441-PROOF.pdf) |
+| 2442 | [A223970](https://oeis.org/A223970) | Proof | monotone and unimodal conditions along rows, columns and diagonals, with the fallen bits carried in the state | [02442-PROOF.pdf](02442-PROOF.pdf) |
+| 2443 | [A223500](https://oeis.org/A223500) | Proof | arrays whose cells carry vertices of a fixed graph -- the faces or vertices of a cube or icosahedron, a triang... | [02443-PROOF.pdf](02443-PROOF.pdf) |
+| 2444 | [A224019](https://oeis.org/A224019) | Proof | monotone and unimodal conditions along rows, columns and diagonals, with the fallen bits carried in the state | [02444-PROOF.pdf](02444-PROOF.pdf) |
+| 2445 | [A202048](https://oeis.org/A202048) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [02445-PROOF.pdf](02445-PROOF.pdf) |
+| 2446 | [A275499](https://oeis.org/A275499) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [02446-PROOF.pdf](02446-PROOF.pdf) |
+| 2447 | [A223506](https://oeis.org/A223506) | Proof | arrays whose cells carry vertices of a fixed graph -- the faces or vertices of a cube or icosahedron, a triang... | [02447-PROOF.pdf](02447-PROOF.pdf) |
+| 2448 | [A210080](https://oeis.org/A210080) | Proof | subblocks with a prescribed number of distinct values, counted up to renaming and using every letter | [02448-PROOF.pdf](02448-PROOF.pdf) |
+| 2449 | [A210303](https://oeis.org/A210303) | Proof | subblocks with a prescribed number of distinct values, counted up to renaming and using every letter | [02449-PROOF.pdf](02449-PROOF.pdf) |
+| 2450 | [A231038](https://oeis.org/A231038) | Proof | every cell required to see neighbours carrying the next and the previous value modulo m | [02450-PROOF.pdf](02450-PROOF.pdf) |
+| 2451 | [A262328](https://oeis.org/A262328) | Proof | rows and columns read as base-b numbers and required to be divisible, or not, by given moduli | [02451-PROOF.pdf](02451-PROOF.pdf) |
+| 2452 | [A262416](https://oeis.org/A262416) | Proof | rows and columns read as base-b numbers and required to be divisible, or not, by given moduli | [02452-PROOF.pdf](02452-PROOF.pdf) |
+| 2453 | [A224034](https://oeis.org/A224034) | Proof | monotone and unimodal conditions along rows, columns and diagonals, with the fallen bits carried in the state | [02453-PROOF.pdf](02453-PROOF.pdf) |
+| 2454 | [A231356](https://oeis.org/A231356) | Proof | a cell condition counted up to relabelling, by falling-factorial inversion | [02454-PROOF.pdf](02454-PROOF.pdf) |
+| 2455 | [A231363](https://oeis.org/A231363) | Proof | a table's column recurrences, each column being a fixed-width array count | [02455-PROOF.pdf](02455-PROOF.pdf) |
+| 2456 | [A231636](https://oeis.org/A231636) | Proof | what a cell asks of the cells around it: not their average, not matched by a strict majority of them, not beat... | [02456-PROOF.pdf](02456-PROOF.pdf) |
+| 2457 | [A202982](https://oeis.org/A202982) | Proof | what a cell demands that SOME neighbour of it look like: one at least as large, one of a named value, an allow... | [02457-PROOF.pdf](02457-PROOF.pdf) |
+| 2458 | [A240778](https://oeis.org/A240778) | Proof | a cell condition counted up to relabelling, by falling-factorial inversion | [02458-PROOF.pdf](02458-PROOF.pdf) |
+| 2459 | [A281832](https://oeis.org/A281832) | Proof | a cell condition counted up to relabelling, by falling-factorial inversion | [02459-PROOF.pdf](02459-PROOF.pdf) |
+| 2460 | [A188840](https://oeis.org/A188840) | Proof | an explicit closed form, turned into the recurrence it satisfies | [02460-PROOF.pdf](02460-PROOF.pdf) |
+| 2461 | [A205257](https://oeis.org/A205257) | Proof | a 3 X 3 subblock condition counted up to relabelling, by falling-factorial inversion | [02461-PROOF.pdf](02461-PROOF.pdf) |
+| 2462 | [A223962](https://oeis.org/A223962) | Proof | an explicit closed form, turned into the recurrence it satisfies | [02462-PROOF.pdf](02462-PROOF.pdf) |
+| 2463 | [A224410](https://oeis.org/A224410) | Proof | an explicit closed form, turned into the recurrence it satisfies | [02463-PROOF.pdf](02463-PROOF.pdf) |
+| 2464 | [A234421](https://oeis.org/A234421) | Proof | a table's column recurrences, each column being a fixed-width array count | [02464-PROOF.pdf](02464-PROOF.pdf) |
+| 2465 | [A234738](https://oeis.org/A234738) | Proof | a table's column recurrences, each column being a fixed-width array count | [02465-PROOF.pdf](02465-PROOF.pdf) |
+| 2466 | [A250854](https://oeis.org/A250854) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [02466-PROOF.pdf](02466-PROOF.pdf) |
+| 2467 | [A259962](https://oeis.org/A259962) | Proof | a table's column recurrences, each column being a fixed-width array count | [02467-PROOF.pdf](02467-PROOF.pdf) |
+| 2468 | [A260001](https://oeis.org/A260001) | Proof | a table's column recurrences, each column being a fixed-width array count | [02468-PROOF.pdf](02468-PROOF.pdf) |
+| 2469 | [A260370](https://oeis.org/A260370) | Proof | a table's column recurrences, each column being a fixed-width array count | [02469-PROOF.pdf](02469-PROOF.pdf) |
+| 2470 | [A232517](https://oeis.org/A232517) | Proof | what a cell demands that SOME neighbour of it look like: one at least as large, one of a named value, an allow... | [02470-PROOF.pdf](02470-PROOF.pdf) |
+| 2471 | [A224553](https://oeis.org/A224553) | Proof | every K X K subblock of a matrix idempotent, or of equal population or permanent | [02471-PROOF.pdf](02471-PROOF.pdf) |
+| 2472 | [A224559](https://oeis.org/A224559) | Proof | a table's column recurrences, each column being a fixed-width array count | [02472-PROOF.pdf](02472-PROOF.pdf) |
+| 2473 | [A223615](https://oeis.org/A223615) | Proof | an explicit closed form, turned into the recurrence it satisfies | [02473-PROOF.pdf](02473-PROOF.pdf) |
+| 2474 | [A223772](https://oeis.org/A223772) | Proof | an explicit closed form, turned into the recurrence it satisfies | [02474-PROOF.pdf](02474-PROOF.pdf) |
+| 2475 | [A198902](https://oeis.org/A198902) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [02475-PROOF.pdf](02475-PROOF.pdf) |
+| 2476 | [A224199](https://oeis.org/A224199) | Proof | monotone and unimodal conditions along rows, columns and diagonals, with the fallen bits carried in the state | [02476-PROOF.pdf](02476-PROOF.pdf) |
+| 2477 | [A262753](https://oeis.org/A262753) | Proof | rows and columns read as base-b numbers and required to be divisible, or not, by given moduli | [02477-PROOF.pdf](02477-PROOF.pdf) |
+| 2478 | [A214183](https://oeis.org/A214183) | Proof | proper colourings of a grid circular in one direction, counted up to renaming the colours | [02478-PROOF.pdf](02478-PROOF.pdf) |
+| 2479 | [A224370](https://oeis.org/A224370) | Proof | monotone and unimodal conditions along rows, columns and diagonals, with the fallen bits carried in the state | [02479-PROOF.pdf](02479-PROOF.pdf) |
+| 2480 | [A281464](https://oeis.org/A281464) | Proof | a cell condition counted up to relabelling, by falling-factorial inversion | [02480-PROOF.pdf](02480-PROOF.pdf) |
+| 2481 | [A204567](https://oeis.org/A204567) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [02481-PROOF.pdf](02481-PROOF.pdf) |
+| 2482 | [A214239](https://oeis.org/A214239) | Proof | proper colourings of a grid circular in one direction, counted up to renaming the colours | [02482-PROOF.pdf](02482-PROOF.pdf) |
+| 2483 | [A235443](https://oeis.org/A235443) | Proof | each 2 X 2 subblock reduced to one number -- a determinant, a permanent, a sum, or an order statistic -- with ... | [02483-PROOF.pdf](02483-PROOF.pdf) |
+| 2484 | [A280064](https://oeis.org/A280064) | Proof | a cell condition counted up to relabelling, by falling-factorial inversion | [02484-PROOF.pdf](02484-PROOF.pdf) |
+| 2485 | [A233215](https://oeis.org/A233215) | Proof | neighbouring cells forbidden to carry values summing to m, with the renaming clauses that pick one array per c... | [02485-PROOF.pdf](02485-PROOF.pdf) |
+| 2486 | [A239032](https://oeis.org/A239032) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [02486-PROOF.pdf](02486-PROOF.pdf) |
+| 2487 | [A224408](https://oeis.org/A224408) | Proof | monotone and unimodal conditions along rows, columns and diagonals, with the fallen bits carried in the state | [02487-PROOF.pdf](02487-PROOF.pdf) |
+| 2488 | [A235432](https://oeis.org/A235432) | Proof | each 2 X 2 subblock reduced to one number -- a determinant, a permanent, a sum, or an order statistic -- with ... | [02488-PROOF.pdf](02488-PROOF.pdf) |
+| 2489 | [A235437](https://oeis.org/A235437) | Proof | a table's column recurrences, each column being a fixed-width array count | [02489-PROOF.pdf](02489-PROOF.pdf) |
+| 2490 | [A233644](https://oeis.org/A233644) | Proof | a table's column recurrences, each column being a fixed-width array count | [02490-PROOF.pdf](02490-PROOF.pdf) |
+| 2491 | [A238807](https://oeis.org/A238807) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [02491-PROOF.pdf](02491-PROOF.pdf) |
+| 2492 | [A262421](https://oeis.org/A262421) | Proof | rows and columns read as base-b numbers and required to be divisible, or not, by given moduli | [02492-PROOF.pdf](02492-PROOF.pdf) |
+| 2493 | [A263054](https://oeis.org/A263054) | Proof | rows and columns read as base-b numbers and required to be divisible, or not, by given moduli | [02493-PROOF.pdf](02493-PROOF.pdf) |
+| 2494 | [A263060](https://oeis.org/A263060) | Proof | a table's column recurrences, each column being a fixed-width array count | [02494-PROOF.pdf](02494-PROOF.pdf) |
+| 2495 | [A214102](https://oeis.org/A214102) | Proof | proper colourings of a grid circular in one direction, counted up to renaming the colours | [02495-PROOF.pdf](02495-PROOF.pdf) |
+| 2496 | [A263799](https://oeis.org/A263799) | Proof | a table's column recurrences, each column being a fixed-width array count | [02496-PROOF.pdf](02496-PROOF.pdf) |
+| 2497 | [A198977](https://oeis.org/A198977) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [02497-PROOF.pdf](02497-PROOF.pdf) |
+| 2498 | [A239188](https://oeis.org/A239188) | Proof | no entry equal, modulo m, to a constant plus the sum of the entries along a ray out of it | [02498-PROOF.pdf](02498-PROOF.pdf) |
+| 2499 | [A224185](https://oeis.org/A224185) | Proof | an explicit closed form, turned into the recurrence it satisfies | [02499-PROOF.pdf](02499-PROOF.pdf) |
+| 2500 | [A225008](https://oeis.org/A225008) | Proof | an explicit closed form, turned into the recurrence it satisfies | [02500-PROOF.pdf](02500-PROOF.pdf) |

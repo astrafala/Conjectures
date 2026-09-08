@@ -282,3 +282,38 @@ Three guards, each a setting that is named in the refusal it causes:
 **43 entries asked per window became 266, and 2 tables proved became 27** (57 column
 conjectures). The remaining columns are refused with the cap that refused them, so a later pass
 at a higher one can be seen to be worth making.
+
+## 8 September 2026, evening — 235 results installed: the roster reaches 10,900
+
+Every one re-checked against the live OEIS first: **243 fetched, 0 dropped, 0 carrying
+settlement wording.** The roster goes from 10,665 to **10,900 — 10,894 proofs and 6 disproofs
+over 10,873 entries, 108 arguments.**
+
+| vein | installed |
+| --- | --- |
+| T(n,k) table columns and rows | 123 |
+| min-filter images (the new engine) | 97 |
+| order line recovered on a tail | 14 |
+| unified transfer-matrix sweep | 1 |
+
+### The min-filter papers needed a builder of their own, and this is why
+
+`cfbuild` writes every closed-form paper in the corpus, and each of its papers says: *the lines
+of an array are the vertices of a finite digraph, an array is a walk in it, and a(n) is a walk
+count.* For every engine it was written for that sentence is true. **For these it is false.**
+These entries count how many DIFFERENT filtered arrays arise, so two underlying arrays with the
+same image must be counted once; the walk whose steps are counted lives in the determinisation
+of a machine whose output is the filtered array, not in a graph of arrays.
+
+Using the existing builder would have produced 97 papers each describing a construction that
+was not the one performed. `engine/src/mfbuild.py` states what was actually done: the image, why
+the obvious graph overcounts, the two lemmas that make the domain local and the count a walk,
+and — for the two entries whose own name repeats a direction word — a remark saying the name is
+defective and that the reading was settled by the entry's published terms rather than chosen.
+
+### One more defect, found while installing
+
+`mkcomments` opened each paper's stored source to pick a comment template, and died on the
+first paper whose source is missing. 263 papers have no stored source, and a re-ranking moves
+every path. A missing source now only means that paper's abstract cannot be read to choose a
+template; it is not a reason to abandon a redraft of ten thousand comments.

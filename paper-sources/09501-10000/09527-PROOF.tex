@@ -12,148 +12,175 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A202443, derived from the entry's generating function}
+\title{The empirical recurrence for OEIS A184368, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{2 September 2026}
+\date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A202443 carries an empirical recurrence of order $7$. The entry separately records a
-generating function, not as a conjecture but as a statement of fact, and the recurrence is a
-consequence of it: multiplying the generating function by the polynomial the recurrence
-supplies gives a POLYNOMIAL, and the recurrence then holds at every index past that
-polynomial's degree. No model of the objects being counted is needed, and no search: the
-whole argument is one polynomial division, carried out in exact arithmetic. The result is
-conditional on the recorded generating function, which is what the entry asserts and what is
-checked here against every published term.
+OEIS A184368 counts $(n+1)\times2$ arrays over $\{0,\dots,2\}$ subject to a condition imposed on
+every $2\times2$ subblock, and carries an empirical recurrence of order $2$ contributed
+by R.~H.~Hardin. It is true, and it is not an empirical matter at all. The condition is local
+to each subblock, so the rows of an admissible array are the vertices of a finite digraph
+on $S=9$ vertices whose edges are the admissible consecutive pairs, and the count is a
+number of walks: $a(n)=\tfrac1{3}\mathbf{1}^{\!\top}M^{n}\mathbf{1}$. Writing $q$
+for the characteristic polynomial of the conjectured recurrence, the recurrence holds for all
+$n$ exactly when $\mathbf{1}^{\!\top}M^{j}q(M)\mathbf{1}=0$ for every $j\ge0$, and the
+Cayley--Hamilton theorem bounds that to $j<S$. It is therefore a finite computation in exact
+integer arithmetic, and it comes out zero.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 30B10.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
-\section{The two statements}
+\section{The sequence and the conjecture}
 
-OEIS A202443 is ``Number of (n+2) X 6 binary arrays avoiding patterns 001 and 110 in rows, columns and nw-to-se diagonals.''. It has offset $1$ and begins
+OEIS A184368 is ``1/3 the number of (n+1) X 2 0..2 arrays with every 2 X 2 subblock having at least two equal elements connected horizontally or vertically.''. It has offset $1$ and begins
 \[
-338, 574, 1102, 1890, 3122, 4822, 7238, 10394,\ \dots
+21, 153, 1107, 8019, 58077, 420633, 3046491, 22064643,\ \dots
 \]
-The entry states, as a conjecture and never marked settled:
-\begin{quote}
-Empirical: a(n) = 3*a(n-1) -a(n-2) -5*a(n-3) +5*a(n-4) +a(n-5) -3*a(n-6) +a(n-7) for n>8.
+The entry carries the following comment:
+\begin{quote}\small
+Empirical: a(n) = 6*a(n-1) + 9*a(n-2).
 \end{quote}
-and, separately and NOT as a conjecture:
-\begin{quote}
-G.f.: 2*x*(169 - 220*x - 141*x\^{}2 + 424*x\^{}3 - 133*x\^{}4 - 176*x\^{}5 + 137*x\^{}6 - 28*x\^{}7) / ((1 - x)\^{}5*(1 + x)\^{}2).
-\end{quote}
-As of the ``Last modified'' line on the live entry (May 29 2018 08:29:06, revision 8) the first is still
-recorded as empirical. This note derives it from the second.
+As of the ``Last modified'' line on the live entry (Feb 27 2018 08:44:08, revision 8) the statement is
+still recorded as empirical, and nothing on the entry records it as settled either way.
 
-\section{A rational generating function decides every linear recurrence}
+Written out, the claim is
+\begin{equation}\label{eq:conj}
+a(n)\;=\;6\,a(n-1) + 9\,a(n-2)
+\end{equation}
+for all $n>1$.
 
-Write
+\section{The condition is local, so the rows form a digraph}
+
+Write an array of the shape in question as its list of rows
+$r^{(1)},r^{(2)},\dots$, each an element of
+$V=\{0,1,\dots,2\}^{2}$, so $|V|=S=9$. A $2\times2$ subblock of the array
+occupies two consecutive rows and two consecutive columns; if the two rows are $r$
+and $s$ (in that order) and the two columns are numbered $j,j+1$,
+the subblock is
 \[
-G(x)\;=\;\sum_{n}a(n)\,x^{n}\;=\;\frac{56 x^{8} - 274 x^{7} + 352 x^{6} + 266 x^{5} - 848 x^{4} + 282 x^{3} + 440 x^{2} - 338 x}{x^{7} - 3 x^{6} + x^{5} + 5 x^{4} - 5 x^{3} - x^{2} + 3 x - 1},
+\begin{pmatrix}\alpha&\beta\\\gamma&\delta\end{pmatrix}=\begin{pmatrix}r_j&r_{j+1}\\s_j&s_{j+1}\end{pmatrix}.
 \]
-the entry's own generating function, and let
-\[
-D(x)\;=\;1-\sum_i c_i x^{i}\;=\;- x^{7} + 3 x^{6} - x^{5} - 5 x^{4} + 5 x^{3} + x^{2} - 3 x + 1
-\]
-be the polynomial attached to the conjectured recurrence.
+The entry's requirement on that subblock is
+\begin{equation}\label{eq:loc}
+\alpha=\beta\ \text{ or }\ \gamma=\delta\ \text{ or }\ \alpha=\gamma\ \text{ or }\ \beta=\delta,
+\end{equation}
+a condition on the four entries alone.
 
-\begin{lemma}\label{lem:key}
-For every $n$ in range, $a(n)-\sum_i c_i\,a(n-i)$ is the coefficient of $x^{n}$ in
-$D(x)G(x)$.
+For $r,s\in V$ declare $r\to s$ an edge of a digraph $G$ when, for every
+$1\le j\le 2-1$,
+\begin{itemize}
+\item the four entries above satisfy \eqref{eq:loc};
+
+\end{itemize}
+Let $M\in\{0,1\}^{S\times S}$ be the adjacency matrix of $G$ and $\mathbf{1}$ the
+all-ones vector.
+
+\begin{lemma}\label{lem:walk}
+The arrays counted by the entry with $L$ rows are exactly the walks
+$r^{(1)}\to r^{(2)}\to\cdots\to r^{(L)}$ of length $L-1$ in $G$. Consequently
+\[
+a(n)\;=\;\tfrac1{3}\mathbf{1}^{\!\top}M^{n}\mathbf{1} .
+\]
 \end{lemma}
 
 \begin{proof}
-Multiplying power series, the coefficient of $x^{m}$ in $D(x)G(x)$ is
-$a_m-\sum_i c_i a_{m-i}$ where $a_m$ denotes the coefficient of $x^{m}$ in $G$, terms with
-negative index being zero.
+An array with $L$ rows and $2$ columns is precisely a sequence
+$r^{(1)},\dots,r^{(L)}$ of elements of $V$; conversely any such sequence is an array.
+Every $2\times2$ subblock lies in two consecutive rows $r^{(t)},r^{(t+1)}$ and two
+consecutive columns, so the array satisfies the entry's condition on all of its subblocks
+if and only if each consecutive pair $\bigl(r^{(t)},r^{(t+1)}\bigr)$ satisfies it for
+every column pair --- which is exactly the edge relation of $G$. The number of walks of
+length $L-1$, summed over all starting and ending vertices, is
+$\mathbf{1}^{\!\top}M^{L-1}\mathbf{1}$, since $(M^{k})_{r,s}$ counts the walks of
+length $k$ from $r$ to $s$. The entry's index $n$ corresponds to $L=n+1$ rows. The entry counts $\tfrac1{3}$ of those arrays, a constant factor that passes through every step below unchanged.
 \end{proof}
 
-\begin{theorem}
+\section{The criterion}
+
+Let $q(t)=t^{2}-\sum_i c_i\,t^{2-i}$ be the characteristic polynomial of
+\eqref{eq:conj}, with the $c_i$ read off that equation.
+
+\begin{lemma}\label{lem:crit}
+For every $n$ with $n+1-1\ge2$,
 \[
-a(n)\;=\;3\,a(n-1) - a(n-2) - 5\,a(n-3) + 5\,a(n-4) + a(n-5) - 3\,a(n-6) + a(n-7)
+a(n)-\sum_i c_i\,a(n-i)\;=\;\tfrac1{3}\mathbf{1}^{\!\top}M^{\,n+1-1-2}\,q(M)\,\mathbf{1} .
 \]
-for every $n>8$.
+Hence \eqref{eq:conj} holds from that point on if and only if
+$\mathbf{1}^{\!\top}M^{j}q(M)\mathbf{1}=0$ for every $j\ge0$; and it is enough to check
+$j=0,1,\dots,S-1$.
+\end{lemma}
+
+\begin{proof}
+By Lemma~\ref{lem:walk}, $a(n-i)=\tfrac1{3}\mathbf{1}^{\!\top}M^{\,n+1-1-i}\mathbf{1}$, so
+\[
+a(n)-\sum_i c_i a(n-i)
+=\tfrac1{3}\mathbf{1}^{\!\top}\Bigl(M^{m}-\sum_i c_i M^{m-i}\Bigr)\mathbf{1}
+=\tfrac1{3}\mathbf{1}^{\!\top}M^{\,m-2}\,q(M)\,\mathbf{1}
+\]
+with $m=n+1-1$, which is the stated identity; the scalar $\tfrac1{3}$ never vanishes, so it does not affect whether the left side is zero, and the equivalence follows by letting
+$m-2=j$ run over $\ge0$. For the last clause put $w=q(M)\mathbf{1}$. By the
+Cayley--Hamilton theorem $M^{S}$ is an integer combination of $I,M,\dots,M^{S-1}$, so
+$\mathbf{1}^{\!\top}M^{j}w$ for $j\ge S$ is the corresponding combination of the earlier
+values; if those all vanish, so do all the rest.
+\end{proof}
+
+\section{The computation}
+
+\begin{theorem}
+The recurrence \eqref{eq:conj} holds for every $n>1$, which is the statement of
+Section~1.
 \end{theorem}
 
 \begin{proof}
-In exact arithmetic,
-\[
-D(x)\,G(x)\;=\;- 56 x^{8} + 274 x^{7} - 352 x^{6} - 266 x^{5} + 848 x^{4} - 282 x^{3} - 440 x^{2} + 338 x,
-\]
-a POLYNOMIAL of degree $8$ --- the denominator of $G$ divides $D(x)$ times its numerator,
-which is precisely the condition for the conjectured recurrence to be implied by the
-generating function. Its coefficients vanish beyond degree $8$, so by
-Lemma~\ref{lem:key} the residual $a(n)-\sum_ic_ia(n-i)$ vanishes for every
-$n>8$. The bound is exact: at $n=8$ the recurrence fails on the entry's own published terms.
+The digraph was constructed from \eqref{eq:loc} by a depth-first scan across the $2$
+columns: the edge condition is a conjunction of one constraint per consecutive column
+pair, so the successors of a row $r$ are enumerated column by column without testing all
+$S^2$ pairs. The vector $w=q(M)\mathbf{1}\in\mathbb{Z}^{S}$ was then formed by $2$
+matrix--vector products in exact integer arithmetic, and $\mathbf{1}^{\!\top}M^{j}w$ was
+evaluated for $j=0,1,\dots$, again exactly. Every one of those integers vanishes from the
+index corresponding to $n=1+1$ onwards, and the run continued until $w$ itself was the
+zero vector, which settles every larger $j$ at once. By Lemma~\ref{lem:crit} the recurrence
+holds for every $n>1$.
 \end{proof}
 
-\section{Is the conjectured recurrence the shortest one?}
-
-Cancelling common factors, $G$ has reduced denominator
-\[
-x^{7} - 3 x^{6} + x^{5} + 5 x^{4} - 5 x^{3} - x^{2} + 3 x - 1,
-\]
-of degree $7$, and that degree is the order of the SHORTEST linear recurrence with
-constant coefficients the sequence obeys: any shorter one would give a polynomial multiple of
-$G$ with a smaller denominator, contradicting the cancellation. The conjectured recurrence has
-order $7$.
-
-So the conjecture is the minimal recurrence.
-
-\section{The residuals, explicitly}
-
-Lemma~\ref{lem:key} says the residual $a(n)-\sum_ic_ia(n-i)$ is a coefficient of the
-polynomial $D(x)G(x)$, so it can be read off the entry's own published terms with no
-generating function involved at all. Doing that:
-\begin{center}
-\begin{tabular}{cc}
-index & residual \\ \hline
-$n=8$ & $-56$ \\
-$n=9$ & $0$ \\
-$n=10$ & $0$ \\
-$n=11$ & $0$ \\
-$n=12$ & $0$
-\end{tabular}
-\end{center}
-The residuals are exactly the coefficients of the polynomial displayed above, in order, and
-they stop at index $8$ because that polynomial has degree $8$. A reader who trusts
-neither the generating function nor the algebra can check the table against the entry's DATA
-by hand; what the generating function adds is the guarantee that the pattern continues, which
-no amount of checking terms could establish on its own.
+\begin{remark}
+The argument gives more than the recurrence: it shows the sequence is $C$-finite with
+characteristic polynomial dividing that of $M$, so it has a rational generating function
+whose denominator divides $\det(I-xM)$. The conjectured recurrence is one consequence; the
+minimal one is a divisor of $q$.
+\end{remark}
 
 \section{Verification}
 
-Three checks.
+Three checks, each independent of the algebra above.
 
-First, the generating function was expanded as a power series in exact rational arithmetic and
-compared against all $33$ terms the entry publishes: it reproduces every one. This is
-what ties the recorded generating function to the sequence the recurrence is about.
+First, the digraph was built directly from the entry's stated condition and the walk counts
+$\tfrac1{3}\mathbf{1}^{\!\top}M^{L-1}\mathbf{1}$ compared against the entry's DATA at
+every one of the $19$ published indices; the values agree exactly. That is what ties
+the digraph to the sequence: a model that reproduced only some of the published terms would
+be the wrong model, and would have been rejected. In particular it is what rules out a
+misreading of the entry's wording, since a different reading of the condition gives a
+different digraph and different counts.
 
-Second, the polynomial division above was carried out symbolically, not numerically, so the
-statement that $D(x)G(x)$ is a polynomial is exact rather than approximate.
+Second, the recurrence \eqref{eq:conj} was evaluated on those published terms in exact
+integer arithmetic, with no matrices involved, and vanishes wherever it applies.
 
-Third, the recurrence was evaluated directly on the series coefficients for sixty consecutive
-indices beyond $n=8$ and holds at every one, and at $n=8$ itself it fails --- the
-degree bound is attained, so the range stated is the true one and not merely a safe one.
-
-\begin{remark}
-The argument is conditional on the generating function, which the entry records as a fact and
-attributes to a contributor rather than offering as a conjecture. What is shown here is that
-the empirical recurrence is not an independent guess: it is equivalent to information the
-entry already contains.
-\end{remark}
+Third, the annihilation test of Lemma~\ref{lem:crit} was run in exact integer arithmetic
+until the working vector was identically zero, not to a sampled prefix, and returned zero
+throughout.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A202443.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A184368.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Rational generating functions, Section 4.1.)
-\bibitem{kp} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011.
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
 University Press, 2009.
+\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
+University Press, 2013.
 \end{thebibliography}
 
 \end{document}

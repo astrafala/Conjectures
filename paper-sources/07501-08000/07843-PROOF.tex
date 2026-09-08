@@ -12,19 +12,19 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A209381, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A233685, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A209381 counts $(n+1)\times8$ arrays over $\{0,\dots,2\}$ subject to a condition imposed on
-every $2\times2$ subblock, and carries an empirical recurrence of order $8$ contributed
+OEIS A233685 counts $(n+1)\times3$ arrays over $\{0,\dots,3\}$ subject to a condition imposed on
+every $2\times2$ subblock, and carries an empirical recurrence of order $9$ contributed
 by R.~H.~Hardin. It is true, and it is not an empirical matter at all. The condition is local
 to each subblock, so the rows of an admissible array are the vertices of a finite digraph
-on $S=6561$ vertices whose edges are the admissible consecutive pairs, and the count is a
-number of walks: $a(n)=\tfrac1{4}\mathbf{1}^{\!\top}M^{n}\mathbf{1}$. Writing $q$
+on $S=64$ vertices whose edges are the admissible consecutive pairs, and the count is a
+number of walks: $a(n)=\mathbf{1}^{\!\top}M^{n}\mathbf{1}$. Writing $q$
 for the characteristic polynomial of the conjectured recurrence, the recurrence holds for all
 $n$ exactly when $\mathbf{1}^{\!\top}M^{j}q(M)\mathbf{1}=0$ for every $j\ge0$, and the
 Cayley--Hamilton theorem bounds that to $j<S$. It is therefore a finite computation in exact
@@ -35,28 +35,28 @@ integer arithmetic, and it comes out zero.
 
 \section{The sequence and the conjecture}
 
-OEIS A209381 is ``1/4 the number of (n+1) X 8 0..2 arrays with every 2 X 2 subblock having distinct edge sums.''. It has offset $1$ and begins
+OEIS A233685 is ``Number of (n+1)X(2+1) 0..3 arrays with every 2X2 subblock having the sum of the squares of the edge differences equal to 10, and no two adjacent values equal.''. It has offset $1$ and begins
 \[
-256, 882, 1792, 8612, 18176, 114056, 242176, 1784720,\ \dots
+108, 548, 2628, 13324, 64756, 327588, 1596200, 8064200,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 32*a(n-2) - 308*a(n-4) + 1072*a(n-6) - 1152*a(n-8).
+Empirical: a(n) = a(n-1) +28*a(n-2) -25*a(n-3) -103*a(n-4) +97*a(n-5) +68*a(n-6) -47*a(n-7) -12*a(n-8) +2*a(n-9)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 10 2018 05:40:58, revision 8) the statement is
+As of the ``Last modified'' line on the live entry (Jul 23 2025 08:08:39, revision 6) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;32\,a(n-2) - 308\,a(n-4) + 1072\,a(n-6) - 1152\,a(n-8)
+a(n)\;=\;a(n-1) + 28\,a(n-2) - 25\,a(n-3) - 103\,a(n-4) + 97\,a(n-5) + 68\,a(n-6) - 47\,a(n-7) - 12\,a(n-8) + 2\,a(n-9)
 \end{equation}
-for all $n>8$.
+for all $n>9$.
 
 \section{The condition is local, so the rows form a digraph}
 
 Write an array of the shape in question as its list of rows
 $r^{(1)},r^{(2)},\dots$, each an element of
-$V=\{0,1,\dots,2\}^{8}$, so $|V|=S=6561$. A $2\times2$ subblock of the array
+$V=\{0,1,\dots,3\}^{3}$, so $|V|=S=64$. A $2\times2$ subblock of the array
 occupies two consecutive rows and two consecutive columns; if the two rows are $r$
 and $s$ (in that order) and the two columns are numbered $j,j+1$,
 the subblock is
@@ -65,15 +65,15 @@ the subblock is
 \]
 The entry's requirement on that subblock is
 \begin{equation}\label{eq:loc}
-\#\{\alpha+\beta,\ \beta+\delta,\ \delta+\gamma,\ \gamma+\alpha\}=4,
+(\beta-\alpha)^2+(\delta-\beta)^2+(\gamma-\delta)^2+(\alpha-\gamma)^2=10,
 \end{equation}
-a condition on the four entries alone.
+a condition on the four entries alone and in which no two adjacent entries are equal.
 
 For $r,s\in V$ declare $r\to s$ an edge of a digraph $G$ when, for every
-$1\le j\le 8-1$,
+$1\le j\le 3-1$,
 \begin{itemize}
 \item the four entries above satisfy \eqref{eq:loc};
-
+\item no two of those four entries that are horizontally or vertically adjacent are equal, that is $\alpha\ne\beta$, $\gamma\ne\delta$, $\alpha\ne\gamma$ and $\beta\ne\delta$;
 \end{itemize}
 Let $M\in\{0,1\}^{S\times S}$ be the adjacency matrix of $G$ and $\mathbf{1}$ the
 all-ones vector.
@@ -82,12 +82,12 @@ all-ones vector.
 The arrays counted by the entry with $L$ rows are exactly the walks
 $r^{(1)}\to r^{(2)}\to\cdots\to r^{(L)}$ of length $L-1$ in $G$. Consequently
 \[
-a(n)\;=\;\tfrac1{4}\mathbf{1}^{\!\top}M^{n}\mathbf{1} .
+a(n)\;=\;\mathbf{1}^{\!\top}M^{n}\mathbf{1} .
 \]
 \end{lemma}
 
 \begin{proof}
-An array with $L$ rows and $8$ columns is precisely a sequence
+An array with $L$ rows and $3$ columns is precisely a sequence
 $r^{(1)},\dots,r^{(L)}$ of elements of $V$; conversely any such sequence is an array.
 Every $2\times2$ subblock lies in two consecutive rows $r^{(t)},r^{(t+1)}$ and two
 consecutive columns, so the array satisfies the entry's condition on all of its subblocks
@@ -95,18 +95,18 @@ if and only if each consecutive pair $\bigl(r^{(t)},r^{(t+1)}\bigr)$ satisfies i
 every column pair --- which is exactly the edge relation of $G$. The number of walks of
 length $L-1$, summed over all starting and ending vertices, is
 $\mathbf{1}^{\!\top}M^{L-1}\mathbf{1}$, since $(M^{k})_{r,s}$ counts the walks of
-length $k$ from $r$ to $s$. The entry's index $n$ corresponds to $L=n+1$ rows. The entry counts $\tfrac1{4}$ of those arrays, a constant factor that passes through every step below unchanged.
+length $k$ from $r$ to $s$. The entry's index $n$ corresponds to $L=n+1$ rows.
 \end{proof}
 
 \section{The criterion}
 
-Let $q(t)=t^{8}-\sum_i c_i\,t^{8-i}$ be the characteristic polynomial of
+Let $q(t)=t^{9}-\sum_i c_i\,t^{9-i}$ be the characteristic polynomial of
 \eqref{eq:conj}, with the $c_i$ read off that equation.
 
 \begin{lemma}\label{lem:crit}
-For every $n$ with $n+1-1\ge8$,
+For every $n$ with $n+1-1\ge9$,
 \[
-a(n)-\sum_i c_i\,a(n-i)\;=\;\tfrac1{4}\mathbf{1}^{\!\top}M^{\,n+1-1-8}\,q(M)\,\mathbf{1} .
+a(n)-\sum_i c_i\,a(n-i)\;=\;\mathbf{1}^{\!\top}M^{\,n+1-1-9}\,q(M)\,\mathbf{1} .
 \]
 Hence \eqref{eq:conj} holds from that point on if and only if
 $\mathbf{1}^{\!\top}M^{j}q(M)\mathbf{1}=0$ for every $j\ge0$; and it is enough to check
@@ -114,14 +114,14 @@ $j=0,1,\dots,S-1$.
 \end{lemma}
 
 \begin{proof}
-By Lemma~\ref{lem:walk}, $a(n-i)=\tfrac1{4}\mathbf{1}^{\!\top}M^{\,n+1-1-i}\mathbf{1}$, so
+By Lemma~\ref{lem:walk}, $a(n-i)=\mathbf{1}^{\!\top}M^{\,n+1-1-i}\mathbf{1}$, so
 \[
 a(n)-\sum_i c_i a(n-i)
-=\tfrac1{4}\mathbf{1}^{\!\top}\Bigl(M^{m}-\sum_i c_i M^{m-i}\Bigr)\mathbf{1}
-=\tfrac1{4}\mathbf{1}^{\!\top}M^{\,m-8}\,q(M)\,\mathbf{1}
+=\mathbf{1}^{\!\top}\Bigl(M^{m}-\sum_i c_i M^{m-i}\Bigr)\mathbf{1}
+=\mathbf{1}^{\!\top}M^{\,m-9}\,q(M)\,\mathbf{1}
 \]
-with $m=n+1-1$, which is the stated identity; the scalar $\tfrac1{4}$ never vanishes, so it does not affect whether the left side is zero, and the equivalence follows by letting
-$m-8=j$ run over $\ge0$. For the last clause put $w=q(M)\mathbf{1}$. By the
+with $m=n+1-1$, which is the stated identity; the equivalence follows by letting
+$m-9=j$ run over $\ge0$. For the last clause put $w=q(M)\mathbf{1}$. By the
 Cayley--Hamilton theorem $M^{S}$ is an integer combination of $I,M,\dots,M^{S-1}$, so
 $\mathbf{1}^{\!\top}M^{j}w$ for $j\ge S$ is the corresponding combination of the earlier
 values; if those all vanish, so do all the rest.
@@ -130,20 +130,20 @@ values; if those all vanish, so do all the rest.
 \section{The computation}
 
 \begin{theorem}
-The recurrence \eqref{eq:conj} holds for every $n>8$, which is the statement of
+The recurrence \eqref{eq:conj} holds for every $n>9$, which is the statement of
 Section~1.
 \end{theorem}
 
 \begin{proof}
-The digraph was constructed from \eqref{eq:loc} by a depth-first scan across the $8$
+The digraph was constructed from \eqref{eq:loc} by a depth-first scan across the $3$
 columns: the edge condition is a conjunction of one constraint per consecutive column
 pair, so the successors of a row $r$ are enumerated column by column without testing all
-$S^2$ pairs. The vector $w=q(M)\mathbf{1}\in\mathbb{Z}^{S}$ was then formed by $8$
+$S^2$ pairs. The vector $w=q(M)\mathbf{1}\in\mathbb{Z}^{S}$ was then formed by $9$
 matrix--vector products in exact integer arithmetic, and $\mathbf{1}^{\!\top}M^{j}w$ was
 evaluated for $j=0,1,\dots$, again exactly. Every one of those integers vanishes from the
-index corresponding to $n=8+1$ onwards, and the run continued until $w$ itself was the
+index corresponding to $n=9+1$ onwards, and the run continued until $w$ itself was the
 zero vector, which settles every larger $j$ at once. By Lemma~\ref{lem:crit} the recurrence
-holds for every $n>8$.
+holds for every $n>9$.
 \end{proof}
 
 \begin{remark}
@@ -158,8 +158,8 @@ minimal one is a divisor of $q$.
 Three checks, each independent of the algebra above.
 
 First, the digraph was built directly from the entry's stated condition and the walk counts
-$\tfrac1{4}\mathbf{1}^{\!\top}M^{L-1}\mathbf{1}$ compared against the entry's DATA at
-every one of the $21$ published indices; the values agree exactly. That is what ties
+$\mathbf{1}^{\!\top}M^{L-1}\mathbf{1}$ compared against the entry's DATA at
+every one of the $19$ published indices; the values agree exactly. That is what ties
 the digraph to the sequence: a model that reproduced only some of the published terms would
 be the wrong model, and would have been rejected. In particular it is what rules out a
 misreading of the entry's wording, since a different reading of the condition gives a
@@ -174,7 +174,7 @@ throughout.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A209381.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A233685.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

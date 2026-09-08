@@ -12,79 +12,72 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A233612, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A258549, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{3 September 2026}
+\date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A233612 counts arrays of width $4$ over $\{0,1,2\}$ containing no run of $3$ consecutive
-cells, taken along a named direction of the grid, whose entries are strictly increasing. The entry carries
-an empirical recurrence of order $7$ contributed by R.~H.~Hardin. It is true, and it is
-decidable rather than empirical: every such run lies inside $3$ consecutive array rows, so
-the count is a walk count on $S=5701$ states.
+OEIS A258549 counts the arrays over $\{0,\dots,1\}$ whose $2\times2$ subblocks carry a
+statistic that is monotone along named directions of the subblock grid, and carries an
+empirical recurrence of order $8$ contributed by R.~H.~Hardin. It is true, and it is
+decidable rather than empirical. Every direction named moves the subblock row by at most one,
+so a pair of consecutive array rows is a state, the count is a walk count on $S=104$ of them,
+and the conjectured recurrence is then settled by a finite exact computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 68R15, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 06A07.\normalsize
 
 \section{The conjecture}
 
-OEIS A233612 is ``Number of (n+2)X(2+2) 0..2 arrays with no increasing sequence of length 3 horizontally or diagonally downwards.''. It has offset $1$ and begins
+OEIS A258549 is ``Number of (n+1) X (3+1) 0..1 arrays with every 2 X 2 subblock ne-sw antidiagonal difference nondecreasing horizontally and nw+se diagonal sum nondecreasing vertically.''. It has offset $1$ and begins
 \[
-395955, 27826929, 1955165211, 137370562281, 9651696380883, 678130944334209, 47645673900633963, 3347598657948373881,\ \dots
+104, 210, 598, 1244, 2384, 3980, 6348, 9567,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 75*a(n-1) -279*a(n-2) -4023*a(n-3) +15264*a(n-4) +56196*a(n-5) -228096*a(n-6) +186624*a(n-7)
+Empirical: a(n) = 4*a(n-1) - 6*a(n-2) + 4*a(n-3) - 4*a(n-5) + 6*a(n-6) - 4*a(n-7) + a(n-8) for n>11.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 08:06:56, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Dec 21 2018 14:56:03, revision 8) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-A RUN is $3$ consecutive cells taken along one of the directions
+The $2\times2$ subblocks of an $(n+1)\times4$ array over $\{0,\dots,1\}$ form a grid
+of $n$ rows and $3$ columns; write $\sigma(i,j)$ for the value the entry's statistic takes on
+the subblock in position $(i,j)$, a function of its four entries
+$\begin{pmatrix}p&q\\r&s\end{pmatrix}$ alone. The condition is
 \[
-\begin{array}{l}
-\text{along a row} \\
-\text{down a diagonal, nw to se} \\
-\end{array}
+\sigma(i,j)\le\sigma(i,j+1),\qquad \sigma(i,j)\le\sigma(i+1,j)
 \]
-all of them inside the array. The array is counted when no run has its entries strictly increasing.
+whenever both positions exist. The entry names two statistics, one governing the horizontal direction and one the vertical; both are functions of the same subblock, so both are read off the same pair of rows and no extra state is needed.
 
+Three points of the English are fixed by the entries' own terms rather than guessed:
+``ne-to-sw antidiagonally'' is the offset $(+1,-1)$ on the subblock grid, since the offset
+$(+1,+1)$ gives $164$ where the corresponding entry publishes $126$; ``diagonal minus
+antidiagonal sum'' is $(p+s)-(q+r)$; and ``ne-sw antidiagonal difference'' is $q-r$. Each was
+checked by counting the small arrays directly and comparing with the entry.
 
-The entry carries no renaming clause, and it could not: ``strictly increasing'' compares
-letters by size, so it is not preserved by a permutation of the alphabet. The count is taken
-over the alphabet the entry names.
+\section{The count is a walk count}
 
-\section{Every run lies in $3$ consecutive rows}
-
-\begin{lemma}\label{lem:win}
-Each direction above changes the row index by $0$ or $1$ from one cell of a run to the next, so
-a run of $3$ cells lies inside $3$ consecutive array rows, and a run whose last cell is in
-row $i$ lies inside rows $i-2,\dots,i$.
-\end{lemma}
-
-\begin{proof}
-Immediate from the row steps of the four directions, which are $0$ for a row and $1$ for the
-other three.
-\end{proof}
-
-So the state is the window of the last $2$ array rows, a row not yet written carried as
-$\bot$; a step appends a row and rejects it exactly when some run ends in it or lies inside it.
-A run needing a row that is $\bot$ does not exist, which is the boundary rule and is read off
-the window rather than assumed. The walk starts at the all-$\bot$ window, so a walk of $R$ steps
-is an array of $R$ rows. With $M$ the adjacency matrix of that digraph,
+A pair of consecutive array rows determines one whole row of the subblock grid. Take those
+pairs as states. The comparisons with offset $(0,\pm1)$ live inside a single subblock row, so
+they decide which pairs are admissible at all; the comparisons with offset $(\pm1,\cdot)$
+relate two consecutive subblock rows, so they decide which pair may follow which. A step of the
+walk appends one array row, turning the pair $(r,s)$ into $(s,t)$, and settles every comparison
+between the two subblock rows at once. An $(n+1)$-row array is therefore a walk of $n-1$ steps
+and every walk comes from exactly one array, so
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=5701,\quad\tau=\mathbf{1} .
+a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,\qquad \iota=\tau=(1,\dots,1)^{\!\top},
 \]
-The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
-published terms rather than assumed. In particular $a$ is $C$-finite.
+on the $S=104$ admissible pairs. In particular $a$ is $C$-finite. The alignment of the walk
+index with the entry's own $n$ was checked against its published terms rather than assumed.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{7}-\sum_i c_it^{7-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{8}-\sum_i c_it^{8-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -92,7 +85,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+7}-\sum_ic_iM^{j+7-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+8}-\sum_ic_iM^{j+8-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -101,41 +94,39 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;75\,a(n-1) - 279\,a(n-2) - 4023\,a(n-3) + 15264\,a(n-4) + 56196\,a(n-5) - 228096\,a(n-6) + 186624\,a(n-7)
+a(n)\;=\;4\,a(n-1) - 6\,a(n-2) + 4\,a(n-3) - 4\,a(n-5) + 6\,a(n-6) - 4\,a(n-7) + a(n-8)
 \]
-for every $n>4$.
+for every $n>11$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $7$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $8$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=4+1$ onwards and the run continued
-until the working vector was identically zero.
+integers vanish from the index corresponding to $n=11+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once. The bound is exact: at $n=11$ the recurrence fails on the entry's own published terms, so no larger range holds.
 \end{proof}
 
 \section{Verification}
 
-Four checks, each independent of the algebra above.
+Three checks, each independent of the algebra above.
 
-First, the model reproduces all $11$ terms the entry publishes, exactly, in integer
-arithmetic.
+First, the model reproduces all $33$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry: the digraph is built by reading the
+entry's English, and a misreading gives different counts.
 
-Second, the count was recomputed for the smallest arrays straight from the definition: fill the
-cells in row major order, in the orientation the entry's own name writes, and reject as soon as
-a completed run is strictly increasing. No window, no transposition and no transfer matrix are involved, and
-the published terms came back.
-
-Third, the conjectured recurrence was evaluated directly on the published terms, with no
+Second, the conjectured recurrence was evaluated directly on those published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
 
-Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
 arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A233612.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A258549.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{davey} B.~A.~Davey and H.~A.~Priestley, \emph{Introduction to Lattices and
+Order}, 2nd ed., Cambridge University Press, 2002.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

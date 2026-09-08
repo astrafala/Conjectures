@@ -12,16 +12,16 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A238650, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A241373, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{7 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A238650 counts $(n+2)\times6$ arrays over $\{0,\dots,1\}$ subject to a condition imposed on
+OEIS A241373 counts $4\times n$ arrays over $\{0,\dots,2\}$ subject to a condition imposed on
 every CELL over a neighbour set the entry names, and counted UP TO RELABELLING of the
-alphabet; it carries an empirical recurrence of order $20$ contributed by
+alphabet; it carries an empirical recurrence of order $21$ contributed by
 R.~H.~Hardin. It is true, and it is decidable rather than empirical. What is counted is
 equality patterns, which is not a walk count --- but it is a fixed rational combination of
 walk counts, one for each alphabet size, and that combination is again $C$-finite. Whether the
@@ -33,20 +33,20 @@ Cayley--Hamilton theorem bounding the work.
 
 \section{The conjecture}
 
-OEIS A238650 is ``Number of (n+2)X(4+2) 0..1 arrays with no element equal to all horizontal neighbors or equal to all vertical neighbors, and new values 0..1 introduced in row major order.''. It has offset $1$ and begins
+OEIS A241373 is ``Number of 4Xn 0..2 arrays with no element equal to fewer vertical neighbors than horizontal neighbors, with new values 0..2 introduced in row major order.''. It has offset $1$ and begins
 \[
-5, 50, 189, 1015, 4742, 23373, 112827, 549068,\ \dots
+14, 326, 7376, 169982, 3910194, 90008909, 2071815945, 47690157718,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 3*a(n-1) +12*a(n-2) +a(n-3) -58*a(n-4) -115*a(n-5) +83*a(n-6) +312*a(n-7) +120*a(n-8) -336*a(n-9) -348*a(n-10) +420*a(n-11) +104*a(n-12) -194*a(n-13) +43*a(n-14) +35*a(n-15) -42*a(n-16) -3*a(n-17) +14*a(n-18) -a(n-19) -a(n-20)
+Empirical: a(n) = 32*a(n-1) -214*a(n-2) +26*a(n-3) +3879*a(n-4) -15470*a(n-5) +19107*a(n-6) +72463*a(n-7) -211026*a(n-8) +106996*a(n-9) +193844*a(n-10) -2000756*a(n-11) +412552*a(n-12) +8652096*a(n-13) -3035456*a(n-14) -10691648*a(n-15) +6530688*a(n-16) +2014720*a(n-17) -6114304*a(n-18) +2244608*a(n-19) +1933312*a(n-20) -720896*a(n-21) for n>23
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 10:53:19, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 11:14:19, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{Patterns are a combination of counts}
 
-The clause ``new values $0..1$ introduced in row major order'' says that the arrays
+The clause ``new values $0..2$ introduced in row major order'' says that the arrays
 counted are the canonical representatives of their EQUALITY PATTERNS: two arrays that differ
 only by a permutation of the alphabet are one object. Write $N_j$ for the number of admissible
 patterns using exactly $j$ letters and $L_i$ for the number of admissible ARRAYS over an
@@ -56,7 +56,7 @@ its letters into the alphabet, so
 L_i\;=\;\sum_{j}N_j\,i(i-1)\cdots(i-j+1),
 \]
 a triangular system with nonzero diagonal, hence invertible over $\mathbb{Q}$. The entry
-counts $a=N_1+\dots+N_{2}$, so
+counts $a=N_1+\dots+N_{3}$, so
 \[
 a\;=\;\bigl(\mathbf{1}^{\!\top}F^{-1}\bigr)L ,
 \]
@@ -77,7 +77,7 @@ all eight --- and every such set lies inside the $3\times3$ square centred on th
 the set is $\{(0,-1), (0,1)\}$ and the second $\{(-1,0), (1,0)\}$, written as offsets (row, column) from the cell. Every cell carries
 the condition
 \[
-\text{no cell is equal to all its horizontal neighbours or equal to all its vertical neighbours},
+\text{no cell equals fewer of its vertical neighbours than of its horizontal},
 \]
 and the count of neighbours enters it, so the boundary is not a detail that can be papered
 over: a cell in the interior has $2$ neighbours in this set and a cell on the boundary
@@ -85,20 +85,20 @@ fewer, and a condition such as ``a strict majority of its neighbours'' therefore
 different things at the two. In particular one cannot pad the array with a border of zeros ---
 that would give every cell the full $2$ and change what is being counted. The outside is
 therefore carried
-explicitly, as a sentinel row above the first and below the last and as a sentinel column
+explicitly, as a sentinel column above the first and below the last and as a sentinel column
 either side, and a neighbour that falls outside is simply absent from both counts.
 
-Write an array as a sequence of rows $u_1,\dots,u_L$, each in
-$\{0,\dots,1\}^{6}$. The neighbourhood of a cell in row $u_i$ meets $u_{i-1}$,
+Write an array as a sequence of columns $u_1,\dots,u_L$, each in
+$\{0,\dots,2\}^{4}$. The neighbourhood of a cell in column $u_i$ meets $u_{i-1}$,
 $u_i$ and $u_{i+1}$ and nothing else. Take as vertices the pairs
-$(r,s)\in(\{0,\dots,1\}^{6}\cup\{\varnothing\})\times\{0,\dots,1\}^{6}$,
-and put an edge $(r,s)\to(s,t)$ when row $s$ satisfies the condition at every one of its
-$6$ cells, given $r$ above and $t$ below. An array with $L$ rows is then a walk of length
-$L-1$ starting at $(\varnothing,u_1)$, each step settling one row, and the last row is
+$(r,s)\in(\{0,\dots,2\}^{4}\cup\{\varnothing\})\times\{0,\dots,2\}^{4}$,
+and put an edge $(r,s)\to(s,t)$ when column $s$ satisfies the condition at every one of its
+$4$ cells, given $r$ above and $t$ below. An array with $L$ columns is then a walk of length
+$L-1$ starting at $(\varnothing,u_1)$, each step settling one column, and the last column is
 settled by the terminal weight, which evaluates it with $\varnothing$ below. Hence,
 with $M$ the adjacency matrix, $\iota$ the starting vector and $\tau$ the terminal weight,
 \[
-a(n)\;=\;\frac{1}{1}\,\iota^{\!\top}M^{\,n+1}\tau ,
+a(n)\;=\;\frac{1}{1}\,\iota^{\!\top}M^{\,n-1}\tau ,
 \]
 the exponent fixed by the entry's own shape and checked against its published terms. In
 particular $a$ is $C$-finite.
@@ -106,7 +106,7 @@ particular $a$ is $C$-finite.
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{20}-\sum_i c_it^{20-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{21}-\sum_i c_it^{21-i}$ be the characteristic polynomial of the
 conjectured recurrence. Then the residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the
 recurrence holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all
@@ -114,7 +114,7 @@ large $j$; and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+20}-\sum_ic_iM^{j+20-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+21}-\sum_ic_iM^{j+21-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ satisfy the monic linear recurrence given by the
 characteristic polynomial of $M$; $S$ consecutive zeros force every later one, and the last
@@ -123,24 +123,24 @@ nonzero $u_j$ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;3\,a(n-1) + 12\,a(n-2) + a(n-3) - 58\,a(n-4) - 115\,a(n-5) + 83\,a(n-6) + 312\,a(n-7) + 120\,a(n-8) - 336\,a(n-9) - 348\,a(n-10) + 420\,a(n-11) + 104\,a(n-12) - 194\,a(n-13) + 43\,a(n-14) + 35\,a(n-15) - 42\,a(n-16) - 3\,a(n-17) + 14\,a(n-18) - a(n-19) - a(n-20)
+a(n)\;=\;32\,a(n-1) - 214\,a(n-2) + 26\,a(n-3) + 3879\,a(n-4) - 15470\,a(n-5) + 19107\,a(n-6) + 72463\,a(n-7) - 211026\,a(n-8) + 106996\,a(n-9) + 193844\,a(n-10) - 2000756\,a(n-11) + 412552\,a(n-12) + 8652096\,a(n-13) - 3035456\,a(n-14) - 10691648\,a(n-15) + 6530688\,a(n-16) + 2014720\,a(n-17) - 6114304\,a(n-18) + 2244608\,a(n-19) + 1933312\,a(n-20) - 720896\,a(n-21)
 \]
-for every $n>19$.
+for every $n>23$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $20$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $21$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly. Those
-integers vanish from the index corresponding to $n=19+1$ onwards, and the run was
+integers vanish from the index corresponding to $n=23+1$ onwards, and the run was
 continued until the working vector was identically zero, which settles all larger $j$ at once.
-By Lemma~\ref{lem:crit} the recurrence holds for every $n>19$.
+By Lemma~\ref{lem:crit} the recurrence holds for every $n>23$.
 \end{proof}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the transfer model reproduces all $21$ terms the entry publishes, exactly, in
+First, the transfer model reproduces all $15$ terms the entry publishes, exactly, in
 integer arithmetic. That check earned its place here. The neighbour offsets are named in the
 array's own frame --- horizontal means along a row --- but when the entry fixes the first
 dimension, as in ``$2\times n$'', the walk runs along columns and the two components of every
@@ -157,7 +157,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A238650.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A241373.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

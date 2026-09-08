@@ -12,72 +12,75 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A253754, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A204033, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{7 September 2026}
+\date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A253754 counts the arrays over $\{0,\dots,2\}$ whose $2\times2$ subblocks carry a
-statistic that is monotone along named directions of the subblock grid, and carries an
-empirical recurrence of order $19$ contributed by R.~H.~Hardin. It is true, and it is
-decidable rather than empirical. Every direction named moves the subblock row by at most one,
-so a pair of consecutive array rows is a state, the count is a walk count on $S=95940$ of them,
-and the conjectured recurrence is then settled by a finite exact computation.
+OEIS A204033 counts arrays over $\{0,\dots,1\}$ under a condition on the sum of every
+$2\times2$ subblock, and carries an empirical recurrence of order $21$ contributed by
+R.~H.~Hardin. It is true, and it is decidable rather than empirical. The condition is local to
+a bounded window of consecutive rows, so the count is a walk count on $S=44$ states and is
+$C$-finite; whether the conjectured recurrence annihilates it is then settled by a finite exact
+computation, with the Cayley--Hamilton theorem bounding the work.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 06A07.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
 \section{The conjecture}
 
-OEIS A253754 is ``Number of (6+1) X (n+1) 0..2 arrays with every 2 X 2 subblock ne-sw antidiagonal difference nondecreasing horizontally and nw+se diagonal sum nondecreasing vertically.''. It has offset $1$ and begins
+OEIS A204033 is ``Number of (n+1)X3 0..1 arrays with the sums of 2X2 subblocks nondecreasing rightwards and downwards.''. It has offset $1$ and begins
 \[
-95940, 1087364, 5648005, 17656505, 36766701, 64166071, 106040628, 163826702,\ \dots
+44, 164, 603, 1758, 5130, 13040, 33223, 77574,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 3*a(n-1) -3*a(n-2) +a(n-3) +4*a(n-4) -12*a(n-5) +12*a(n-6) -4*a(n-7) -6*a(n-8) +18*a(n-9) -18*a(n-10) +6*a(n-11) +4*a(n-12) -12*a(n-13) +12*a(n-14) -4*a(n-15) -a(n-16) +3*a(n-17) -3*a(n-18) +a(n-19) for n>29.
+Empirical: a(n) = 4*a(n-1) +8*a(n-2) -50*a(n-3) -9*a(n-4) +270*a(n-5) -128*a(n-6) -820*a(n-7) +709*a(n-8) +1520*a(n-9) -1824*a(n-10) -1722*a(n-11) +2797*a(n-12) +1070*a(n-13) -2696*a(n-14) -160*a(n-15) +1608*a(n-16) -240*a(n-17) -544*a(n-18) +160*a(n-19) +80*a(n-20) -32*a(n-21)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jun 26 2022 20:07:17, revision 8) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 10:56:20, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The $2\times2$ subblocks of an $(n+1)\times7$ array over $\{0,\dots,2\}$ form a grid
-of $n$ rows and $6$ columns; write $\sigma(i,j)$ for the value the entry's statistic takes on
-the subblock in position $(i,j)$, a function of its four entries
-$\begin{pmatrix}p&q\\r&s\end{pmatrix}$ alone. The condition is
-\[
-\sigma(i,j)\le\sigma(i+1,j),\qquad \sigma(i,j)\le\sigma(i,j+1)
-\]
-whenever both positions exist. The entry writes the array with $n$ as the number of COLUMNS; transposing it exchanges the two coordinates of every direction, which is done once, and a direction that then points upward is turned round by reversing its inequality. The entry names two statistics, one governing the horizontal direction and one the vertical; both are functions of the same subblock, so both are read off the same pair of rows and no extra state is needed.
+Write $\sigma$ for the sum of a $2\times2$ subblock
+$\begin{pmatrix}p&q\\r&s\end{pmatrix}$, that is $\sigma=p+q+r+s$. The subblocks of an
+$(n+1)\times3$ array over $\{0,\dots,1\}$ form a grid of $n$ rows and $2$
+columns, and $\sigma$ colours that grid.
 
-Three points of the English are fixed by the entries' own terms rather than guessed:
-``ne-to-sw antidiagonally'' is the offset $(+1,-1)$ on the subblock grid, since the offset
-$(+1,+1)$ gives $164$ where the corresponding entry publishes $126$; ``diagonal minus
-antidiagonal sum'' is $(p+s)-(q+r)$; and ``ne-sw antidiagonal difference'' is $q-r$. Each was
-checked by counting the small arrays directly and comparing with the entry.
+The condition relates NEIGHBOURING subblocks: the values of two subblocks adjacent in the grid,
+horizontally or vertically, must not decrease. Rightwards and downwards are the two directions named.
 
 \section{The count is a walk count}
 
-A pair of consecutive array rows determines one whole row of the subblock grid. Take those
-pairs as states. The comparisons with offset $(0,\pm1)$ live inside a single subblock row, so
-they decide which pairs are admissible at all; the comparisons with offset $(\pm1,\cdot)$
-relate two consecutive subblock rows, so they decide which pair may follow which. A step of the
-walk appends one array row, turning the pair $(r,s)$ into $(s,t)$, and settles every comparison
-between the two subblock rows at once. An $(n+1)$-row array is therefore a walk of $n-1$ steps
-and every walk comes from exactly one array, so
+A subblock's value needs two consecutive array rows, and the vertical
+comparison needs the two subblock rows that three consecutive array rows produce. So the state
+is the PAIR of consecutive array rows: the horizontal comparisons decide which pairs are
+admissible at all, and the vertical ones decide which pair may follow which. A step appends one
+array row, turning $(r,s)$ into $(s,t)$ and settling every comparison between the two subblock
+rows at once. An $(n+1)$-row array is a walk of $n-1$ steps, so
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,\qquad \iota=\tau=(1,\dots,1)^{\!\top},
+a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,\qquad\iota=\tau=(1,\dots,1)^{\!\top},
 \]
-on the $S=95940$ admissible pairs. In particular $a$ is $C$-finite. The alignment of the walk
-index with the entry's own $n$ was checked against its published terms rather than assumed.
+on the $S=44$ admissible pairs.
+
+At $n=1$ the array has two rows, so the grid is a single row of $2$
+subblocks with no vertical neighbours, so only the horizontal comparisons apply. The
+entry's first term is $44$, and the model reproduces it along with every later term; that
+is the cheapest check that the grid has been read with the right shape.
+
+Over the alphabet $\{0,\dots,1\}$ the sum of a $2\times2$ subblock takes values in
+$[0,4]$, so the colouring of the grid it induces has at most $5$ values.
+That bound is what keeps the construction below finite in the only place where the value of
+$\sigma$, rather than a comparison between two of them, has to be carried.
+In particular $a$ is $C$-finite. The alignment of the walk index with the entry's own $n$ was
+checked against its published terms rather than assumed.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{19}-\sum_i c_it^{19-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{21}-\sum_i c_it^{21-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -85,7 +88,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+19}-\sum_ic_iM^{j+19-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+21}-\sum_ic_iM^{j+21-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -94,15 +97,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;3\,a(n-1) - 3\,a(n-2) + a(n-3) + 4\,a(n-4) - 12\,a(n-5) + 12\,a(n-6) - 4\,a(n-7) - 6\,a(n-8) + 18\,a(n-9) - 18\,a(n-10) + 6\,a(n-11) + 4\,a(n-12) - 12\,a(n-13) + 12\,a(n-14) - 4\,a(n-15) - a(n-16) + 3\,a(n-17) - 3\,a(n-18) + a(n-19)
+a(n)\;=\;4\,a(n-1) + 8\,a(n-2) - 50\,a(n-3) - 9\,a(n-4) + 270\,a(n-5) - 128\,a(n-6) - 820\,a(n-7) + 709\,a(n-8) + 1520\,a(n-9) - 1824\,a(n-10) - 1722\,a(n-11) + 2797\,a(n-12) + 1070\,a(n-13) - 2696\,a(n-14) - 160\,a(n-15) + 1608\,a(n-16) - 240\,a(n-17) - 544\,a(n-18) + 160\,a(n-19) + 80\,a(n-20) - 32\,a(n-21)
 \]
-for every $n>29$.
+for every $n>21$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $19$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $21$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=29+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=21+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -110,7 +113,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $21$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $25$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
@@ -122,11 +125,10 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A253754.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A204033.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{davey} B.~A.~Davey and H.~A.~Priestley, \emph{Introduction to Lattices and
-Order}, 2nd ed., Cambridge University Press, 2002.
+\bibitem{minc} H.~Minc, \emph{Permanents}, Addison--Wesley, 1978.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

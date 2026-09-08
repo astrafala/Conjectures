@@ -435,7 +435,13 @@ ABS_PAT = [('algebraic-gf', r'quadratic extension|algebraic over|algebraic gener
 
 
 def route(rec):
-    s = open(rec['f'], errors='ignore').read()
+    # The stored path is a convenience, not the record: a re-ranking moves every paper, and
+    # 263 papers have no stored source at all. A missing file is not a reason to abandon the
+    # whole redraft -- it only means this paper's abstract cannot be read to pick a template.
+    try:
+        s = open(rec['f'], errors='ignore').read()
+    except OSError:
+        return None
     i = s.find('begin{abstract}')
     ab = ' '.join(s[i:i + 1400].split())
     for k, pat in ABS_PAT:

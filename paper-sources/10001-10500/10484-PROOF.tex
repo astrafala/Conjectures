@@ -10,76 +10,74 @@
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
-\title{A proof of the conjectured recurrence for OEIS A001712}
+\title{A proof of the conjectured recurrence for OEIS A228770}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{25 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A001712 carries a conjectured linear recurrence with polynomial coefficients, of
-order 3, contributed by its contributor. We prove it. The generating function of the
+OEIS A228770 carries a conjectured linear recurrence with polynomial coefficients, of
+order 6, contributed by R.~J.~Mathar. We prove it. The generating function of the
 entry is algebraic, and the recurrence is equivalent to the vanishing of an explicit
 differential operator applied to it: writing $\theta=x\,\frac{d}{dx}$, the sequence
 $b(n)=\sum_{i}p_{i}(n)a(n-i)$ has generating function
 $B(x)=\sum_{i}x^{i}\,(p_{i}(\theta+i)A)(x)$, so the conjecture holds for all $n>d$ exactly
 when $B$ is a polynomial of degree $d$. Since $A$ lies in a quadratic extension of
 $\mathbb{Q}(x)$, which is closed under $\theta$, the residual $B$ can be computed in
-closed form. Here it equals $0$, a polynomial of degree $0$, which proves
-the recurrence for every $n>0$.
+closed form. Here it equals $62284518 x^{5} - 133858314 x^{4} + 117291960 x^{3} - 39977022 x^{2} + 4869274 x$, a polynomial of degree $5$, which proves
+the recurrence for every $n>5$.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 11B37, 05A15, 33F10.\normalsize
 
 \section{The sequence and the conjecture}
 
-OEIS A001712 is ``Generalized Stirling numbers, [n+5,5]\_3''. It has offset $0$ and begins
+OEIS A228770 is ``The number of sum indecomposable permutations which avoid the patterns 3124 and 4312''. It has offset $1$ and begins
 \[
-a(0),\dots,a(7)\;=\;1, 12, 119, 1175, 12154, 133938, 1580508, 19978308,\ \dots
+a(1),\dots,a(8)\;=\;1, 1, 3, 12, 51, 217, 912, 3785,\ \dots
 \]
-The entry gives the exponential generating function
+The entry gives the generating function
 \begin{equation}\label{eq:gf}
-A(x)\;=\;\sum_{n\ge 0} a(n)\,\frac{x^{n}}{n!}\;=\;\frac{- 6 \log{\left(1 - x \right)}^{2} + 7 \log{\left(1 - x \right)} - 1}{\left(x - 1\right)^{5}} ,
+A(x)\;=\;\sum_{n\ge 1} a(n)\,x^{n}\;=\;- \frac{x \left(24 x^{5} - 71 x^{4} + 84 x^{3} - 45 x^{2} + 11 x + \sqrt{1 - 4 x} \left(4 x^{5} - 25 x^{4} + 40 x^{3} - 29 x^{2} + 9 x - 1\right) - 1\right)}{8 x^{6} - 54 x^{5} + 117 x^{4} - 114 x^{3} + 54 x^{2} - 12 x - \sqrt{1 - 4 x} \left(12 x^{5} - 43 x^{4} + 58 x^{3} - 36 x^{2} + 10 x - 1\right) + 1} ,
 \end{equation}
 and it carries the following comment:
 \begin{quote}\small
-\textbf{Conjecture:} a(n) + 3*(-n-3)*a(n-1) + (3*n\^{}2 + 15*n + 19)*a(n-2) - (n+2)\^{}3*a(n-3)=0. - \emph{R. J. Mathar}, Jun 09 2018
+\textbf{Conjecture:} -(n+1)*(39961*n-2474598)*a(n) +(-39961*n\^{}2-25975201*n+4949196) *a(n-1) +3*(1460811*n\^{}2+27429105*n-41310802) *a(n-2) +3 *(-8653921*n\^{}2-4750029*n+74360724) *a(n-3) +4*(15005713*n\^{}2-82481258*n+83094771) *a(n-4) +12*(-4937548*n\^{}2+40726604*n-73155719) *a(n-5) +16*(652718*n-2110173)*(2*n-13) *a(n-6)=0. - \emph{R. J. Mathar}, Jun 14 2016
 \end{quote}
-As of the ``Last modified'' line on the live entry (, revision 0) the
+As of the ``Last modified'' line on the live entry (2025-11-05, revision 15) the
 statement is still recorded as a conjecture, and no proof appears among the entry's links,
 formulas or programs.
 
-Writing the conjectured relation in the form $\sum_{i=0}^{3}p_{i}(n)\,a(n-i)=0$,
+Writing the conjectured relation in the form $\sum_{i=0}^{6}p_{i}(n)\,a(n-i)=0$,
 the coefficient polynomials are
 \[
-p_{0}(n)=1,\qquad p_{1}(n)=- 3 \left(n + 3\right),\qquad p_{2}(n)=3 n^{2} + 15 n + 19,\qquad p_{3}(n)=- \left(n + 2\right)^{3}
+p_{0}(n)=- \left(n + 1\right) \left(39961 n - 2474598\right),\qquad p_{1}(n)=- 39961 n^{2} - 25975201 n + 4949196,\qquad p_{2}(n)=3 \left(1460811 n^{2} + 27429105 n - 41310802\right),\qquad p_{3}(n)=- 3 \left(8653921 n^{2} + 4750029 n - 74360724\right),\qquad p_{4}(n)=4 \left(15005713 n^{2} - 82481258 n + 83094771\right),\qquad p_{5}(n)=- 12 \left(4937548 n^{2} - 40726604 n + 73155719\right),\qquad p_{6}(n)=16 \left(2 n - 13\right) \left(652718 n - 2110173\right)
 \]
 
 \section{Recurrences as differential operators}
 
-Let $A(x)=\sum_{n\ge0}a(n)x^{n}/n!$ be the exponential generating function of a sequence, and let
+Let $A(x)=\sum_{n\ge0}a(n)x^{n}$ be the generating function of a sequence, and let
 $\theta=x\,\dfrac{d}{dx}$, so that $\theta$ acts on $x^{m}$ as multiplication by $m$. For a
 polynomial $p$ we write $p(\theta)$ for the corresponding differential operator, so that
-$p(\theta)A=\sum_{m}p(m)a(m)x^{m}/m!$.
+$p(\theta)A=\sum_{m}p(m)a(m)x^{m}$.
 
 \begin{lemma}\label{lem:transfer}
-Let $p_{0},\dots,p_{r}$ be polynomials and suppose the conjecture asserts
-$\sum_{i=0}^{r}p_{i}(n)a(n-i)=0$. Re-index by $n=m+r$ and $j=r-i$, and write
-$q_{j}(m)=p_{r-j}(m+r)$, so the claim reads $\sum_{j=0}^{r}q_{j}(m)\,a(m+j)=0$. Put
-$b(m)=\sum_{j}q_{j}(m)a(m+j)$. Then
+Let $p_{0},\dots,p_{r}$ be polynomials and put $b(n)=\sum_{i=0}^{r}p_{i}(n)\,a(n-i)$, with
+the convention $a(m)=0$ for $m<0$. Then
 \[
-B(x):=\sum_{m\ge0}b(m)\frac{x^{m}}{m!}=\sum_{j=0}^{r}\bigl(q_{j}(\theta)A^{(j)}\bigr)(x),
+B(x):=\sum_{n\ge0}b(n)x^{n}=\sum_{i=0}^{r}x^{i}\,\bigl(p_{i}(\theta+i)A\bigr)(x).
 \]
-where $A^{(j)}$ denotes the $j$-th derivative of $A$.
 \end{lemma}
 
 \begin{proof}
-For an exponential generating function an upward shift is differentiation:
-$\sum_{m\ge0}a(m+j)x^{m}/m!=A^{(j)}(x)$. Multiplying the coefficient of $x^{m}/m!$ by
-$q_{j}(m)$ is exactly the action of $q_{j}(\theta)$, and summing over $j$ gives the
-statement. The re-indexing is what makes this work: a downward shift $a(n-i)$ would
-correspond to repeated integration, whereas an upward shift is a derivative, and the
-field used below is closed under differentiation.
+Fix $i$ and substitute $m=n-i$:
+\[
+\sum_{n\ge0}p_{i}(n)a(n-i)x^{n}=\sum_{m\ge0}p_{i}(m+i)a(m)x^{m+i}
+=x^{i}\sum_{m\ge0}p_{i}(m+i)a(m)x^{m}=x^{i}\bigl(p_{i}(\theta+i)A\bigr)(x),
+\]
+the last step because $p_{i}(\theta+i)$ multiplies the coefficient of $x^{m}$ by
+$p_{i}(m+i)$. Summing over $i$ gives the claim.
 \end{proof}
 
 \begin{corollary}\label{cor:criterion}
@@ -89,8 +87,8 @@ degree at most $d$.
 \end{corollary}
 
 \begin{proof}
-$b(m)$ is $m!$ times the coefficient of $x^{m}$ in $B$, so $b(m)=0$ for all $m>d$ says
-exactly that $B$ has no terms above $x^{d}$.
+$b(n)$ is the coefficient of $x^{n}$ in $B$, so $b(n)=0$ for all $n>d$ says exactly that
+$B$ has no terms above $x^{d}$.
 \end{proof}
 
 This turns the conjecture into a closed-form identity. The point is that it can then be
@@ -99,7 +97,7 @@ $A$, and one only has to recognise it.
 
 \begin{lemma}\label{lem:field}
 Let $D\in\mathbb{Q}(x)$ and let $K=\mathbb{Q}(x)\bigl[\sqrt{D}\bigr]$. Then $K$ is closed
-under $\theta$ and under $d/dx$; explicitly,
+under $\theta$; explicitly,
 \[
 \theta\bigl(u+v\sqrt{D}\bigr)=x\,u'+\Bigl(x\,v'+\frac{x\,v\,D'}{2D}\Bigr)\sqrt{D},
 \qquad u,v\in\mathbb{Q}(x).
@@ -116,26 +114,26 @@ $B=P+Q\sqrt{D}$ with $P,Q\in\mathbb{Q}(x)$, the test of Corollary~\ref{cor:crite
 becomes: $B$ is a polynomial precisely when $Q=0$ and $P$ has constant denominator. Both
 are decided by exact cancellation of rational functions.
 
-\section{The computation for A001712}
+\section{The computation for A228770}
 
 The generating function \eqref{eq:gf} lies in $K=\mathbb{Q}(x)[\sqrt{D}]$ with
 \[
-D \;=\; 1 .
+D \;=\; 1 - 4 x .
 \]
 Applying Lemma~\ref{lem:transfer} to the coefficient polynomials of Section~1 and reducing
 in $K$ by Lemma~\ref{lem:field}, the $\sqrt{D}$ component of $B$ cancels identically and
 the rational part collapses to
 \[
-B(x)\;=\;0 ,
+B(x)\;=\;62284518 x^{5} - 133858314 x^{4} + 117291960 x^{3} - 39977022 x^{2} + 4869274 x ,
 \]
-a polynomial of degree $0$.
+a polynomial of degree $5$.
 
 \begin{theorem}
 The conjectured recurrence
 \[
-1\,a(n) -  3 \left(n + 3\right)\,a(n-1) + (3 n^{2} + 15 n + 19)\,a(n-2) -  \left(n + 2\right)^{3}\,a(n-3) \;=\;0
+- \left(n + 1\right) \left(39961 n - 2474598\right)\,a(n) + (- 39961 n^{2} - 25975201 n + 4949196)\,a(n-1) + 3 \left(1460811 n^{2} + 27429105 n - 41310802\right)\,a(n-2) -  3 \left(8653921 n^{2} + 4750029 n - 74360724\right)\,a(n-3) + 4 \left(15005713 n^{2} - 82481258 n + 83094771\right)\,a(n-4) -  12 \left(4937548 n^{2} - 40726604 n + 73155719\right)\,a(n-5) + 16 \left(2 n - 13\right) \left(652718 n - 2110173\right)\,a(n-6) \;=\;0
 \]
-holds for every $n>0$.
+holds for every $n>5$.
 \end{theorem}
 
 \begin{proof}
@@ -144,7 +142,7 @@ Immediate from Corollary~\ref{cor:criterion} and the displayed value of $B$.
 
 \begin{remark}
 The polynomial $B$ is not an error term: it records the boundary of the recurrence. For
-$n\le0$ some of the shifted terms $a(n-i)$ fall outside the range of the sequence,
+$n\le5$ some of the shifted terms $a(n-i)$ fall outside the range of the sequence,
 and $B$ collects exactly those contributions. Above that range the relation is exact.
 \end{remark}
 
@@ -155,23 +153,23 @@ independent checks were run.
 
 First, the generating function was checked against the entry rather than assumed: the
 Taylor coefficients of \eqref{eq:gf} were expanded and compared term by term with the DATA
-section of A001712, agreeing on all 13 terms compared.
+section of A228770, agreeing on all 13 terms compared.
 
 Second, the recurrence itself was evaluated directly on the published terms, in exact
 integer arithmetic and without reference to the generating function: for each $n$ in range
 the sum $\sum_{i}p_{i}(n)a(n-i)$ was formed from the entry's own values and found to
-vanish, for all 16 values of $n$ from $n=3$ upward. This is what
+vanish, for all 24 values of $n$ from $n=7$ upward. This is what
 Corollary~\ref{cor:criterion} predicts from the degree of $B$, and it is a genuinely
 different computation from the symbolic one: it never forms $B$, never differentiates, and
 uses only integers.
 
 The symbolic step is exact throughout. The residual is obtained by rational-function
-cancellation in $K$, not by series truncation, so the identity $B=0$ is an
-identity of functions and the theorem holds for all $n>0$ simultaneously.
+cancellation in $K$, not by series truncation, so the identity $B=62284518 x^{5} - 133858314 x^{4} + 117291960 x^{3} - 39977022 x^{2} + 4869274 x$ is an
+identity of functions and the theorem holds for all $n>5$ simultaneously.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer Sequences},
-\url{https://oeis.org}, 2026. Sequence A001712.
+\url{https://oeis.org}, 2026. Sequence A228770.
 \bibitem{kp} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011,
 Chapter 7 (holonomic closure properties and the translation between recurrences and
 differential equations).
