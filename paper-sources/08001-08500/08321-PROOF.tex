@@ -12,19 +12,19 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A252388, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A252300, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{7 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A252388 counts $6\times(n+2)$ arrays over $\{0,\dots,3\}$ subject to a condition imposed on
+OEIS A252300 counts $(n+2)\times5$ arrays over $\{0,\dots,3\}$ subject to a condition imposed on
 every $3\times3$ subblock, and it carries an empirical recurrence of order $9$
 contributed by R.~H.~Hardin. It is true, and it is not an empirical matter. A $3\times3$
-subblock spans three consecutive columns, so the state of a transfer matrix is a PAIR of
-consecutive columns and appending one more column is a step; an array is then a walk, and
-$a(n)$ is a walk count on $S=192112$ vertices. Such a sequence is $C$-finite, so whether a given
+subblock spans three consecutive rows, so the state of a transfer matrix is a PAIR of
+consecutive rows and appending one more row is a step; an array is then a walk, and
+$a(n)$ is a walk count on $S=1048576$ vertices. Such a sequence is $C$-finite, so whether a given
 recurrence annihilates it is decided by a finite exact computation, with the Cayley--Hamilton
 theorem bounding the work.
 \end{abstract}
@@ -33,41 +33,40 @@ theorem bounding the work.
 
 \section{The conjecture}
 
-OEIS A252388 is ``Number of (4+2) X (n+2) 0..3 arrays with every 3 X 3 subblock row and diagonal sum equal to 0 3 5 6 or 7 and every 3 X 3 column and antidiagonal sum not equal to 0 3 5 6 or 7.''. It has offset $1$ and begins
+OEIS A252300 is ``Number of (n+2)X(3+2) 0..3 arrays with every 3X3 subblock row and diagonal sum equal to 0 1 3 6 or 7 and every 3X3 column and antidiagonal sum not equal to 0 1 3 6 or 7.''. It has offset $1$ and begins
 \[
-651, 570, 616, 744, 1091, 1475, 1880, 2734,\ \dots
+1675, 1370, 1677, 2151, 3669, 5416, 7492, 13386,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 4*a(n-3) - 4*a(n-6) + a(n-9) for n>14.
+Empirical: a(n) = 7*a(n-3) -14*a(n-6) +8*a(n-9) for n>18
 \end{quote}
-As of the ``Last modified'' line on the live entry (Dec 03 2018 11:09:49, revision 7) this is still
+As of the ``Last modified'' line on the live entry (Jun 02 2025 11:02:34, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{Three consecutive lines}
 
-Write an admissible array as a sequence of columns $u_1,u_2,\dots$, each an element of
-$\{0,\dots,3\}^{6}$. A $3\times3$ subblock occupies three consecutive columns and
-three consecutive rows, so with $r,s,t$ three consecutive columns the blocks it
+Write an admissible array as a sequence of rows $u_1,u_2,\dots$, each an element of
+$\{0,\dots,3\}^{5}$. A $3\times3$ subblock occupies three consecutive rows and
+three consecutive columns, so with $r,s,t$ three consecutive rows the blocks it
 contributes are
 \[
-g=\begin{pmatrix}r_i&s_i&t_i\\ r_{i+1}&s_{i+1}&t_{i+1}\\ r_{i+2}&s_{i+2}&t_{i+2}\end{pmatrix}
+g=\begin{pmatrix}r_j&r_{j+1}&r_{j+2}\\ s_j&s_{j+1}&s_{j+2}\\ t_j&t_{j+1}&t_{j+2}\end{pmatrix}
 \]
 for each admissible index, and the entry's condition is the requirement that
 \[
-\text{every row, diagonal sum} \in \{0,3,5,6,7\}\ \text{ and }\ \text{every column, antidiagonal sum} \notin \{0,3,5,6,7\}
+\text{every row, diagonal sum} \in \{0,1,3,6,7\}\ \text{ and }\ \text{every column, antidiagonal sum} \notin \{0,1,3,6,7\}
 \]
 holds for every such $g$. This involves $r$, $s$ and $t$ only: it is a condition on
-three consecutive columns and on nothing else.
+three consecutive rows and on nothing else.
 
-Take as vertices of a digraph $G$ the ordered PAIRS $(r,s)$ of columns, of which there are
-$(3+1)^{2\cdot6}=16777216$, and put an edge $(r,s)\to(s,t)$ exactly when the condition
-holds for the triple $(r,s,t)$ at every admissible index. An array with $L$ columns is then a
-walk of length $L-2$ in $G$: its first two columns name the starting vertex and each further
-column is one step. Most of those pairs are indistinguishable, and exactly so. For a window $j$, whether a column $t$ is admissible there depends on $r$ and $s$ only through their own $j$-th windows, so collect for each $j$ the set of triples $(t_j,t_{j+1},t_{j+2})$ the pair allows and call that tuple $C(r,s)$. The columns that may follow $(r,s)$ are exactly those consistent with every $C_j$, and the successor $(s,t)$ carries $C(s,t)$, which does not mention $r$. Hence two pairs $(r,s)$ and $(r',s)$ with the same $C$ have the same outgoing columns and the same successors: they may be identified, and the vertex is $(s,C)$. Each such vertex begins an array with the multiplicity of $r$ that produced it, which is what $\iota$ records. That leaves $S=192112$ vertices. Hence, with $M$ the adjacency matrix of $G$ on $S=192112$ vertices and
-$\iota$ the vector of starting weights,
+Take as vertices of a digraph $G$ the ordered PAIRS $(r,s)$ of rows, of which there are
+$S=(3+1)^{2\cdot5}=1048576$, and put an edge $(r,s)\to(s,t)$ exactly when the condition
+holds for the triple $(r,s,t)$ at every admissible index. An array with $L$ rows is then a
+walk of length $L-2$ in $G$: its first two rows name the starting vertex and each further
+row is one step. Hence, with $M$ the adjacency matrix of $G$,
 \[
-a(n)\;=\;\,\iota^{\!\top}M^{\,n-1+1}\mathbf{1},
+a(n)\;=\;\,\mathbf{1}^{\!\top}M^{\,n-1+1}\mathbf{1},
 \]
 the exponent being fixed by the entry's own shape and checked against its published terms.
 In particular $a$ is $C$-finite.
@@ -93,24 +92,24 @@ and the last nonzero $u_j$ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;4\,a(n-3) - 4\,a(n-6) + a(n-9)
+a(n)\;=\;7\,a(n-3) - 14\,a(n-6) + 8\,a(n-9)
 \]
-for every $n>14$.
+for every $n>18$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\mathbf{1}$ was formed by $9$ matrix--vector products in exact
 integer arithmetic and $\mathbf{1}^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again
-exactly. Those integers vanish from the index corresponding to $n=14+1$ onwards, and the
+exactly. Those integers vanish from the index corresponding to $n=18+1$ onwards, and the
 run was continued until the working vector was identically zero, which settles all larger $j$
-at once. By Lemma~\ref{lem:crit} the recurrence holds for every $n>14$. The bound is exact: at $n=14$ the recurrence fails on the entry's own published terms, so no larger range holds.
+at once. By Lemma~\ref{lem:crit} the recurrence holds for every $n>18$. The bound is exact: at $n=18$ the recurrence fails on the entry's own published terms, so no larger range holds.
 \end{proof}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the transfer model reproduces all $34$ terms the entry publishes, exactly, in
+First, the transfer model reproduces all $29$ terms the entry publishes, exactly, in
 integer arithmetic. This is what ties the model to the entry: the digraph is built by reading
 the entry's English, and a misreading gives different counts.
 
@@ -123,7 +122,7 @@ enters anywhere.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A252388.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A252300.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

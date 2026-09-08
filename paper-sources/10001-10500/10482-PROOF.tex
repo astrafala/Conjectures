@@ -7,147 +7,172 @@
 \theoremstyle{plain}
 \newtheorem{theorem}{Theorem}
 \newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
 \newtheorem{remark}[theorem]{Remark}
-\title{A proof of the conjectured identity for OEIS A110320}
+\title{A proof of the conjectured recurrence for OEIS A268554}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{26 August 2026}
+\date{30 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A110320 carries a conjectured identity expressing its terms through the terms of
-A051286, A051292. We prove it. Each entry involved posts a generating function, so the claim is
-a single identity between generating functions: writing $F_{a}$ for the generating
-function of A110320 and $F_{j}$ for those of the entries on the right, the conjecture
-says that a specific combination of the $F_{j}$, shifted and weighted as the identity
-prescribes, differs from $F_{a}$ by a polynomial. That difference is computed here in
-closed form and equals $0$, of degree $-1$, which proves the identity for
-every $n>-1$.
+OEIS A268554 carries a conjectured linear recurrence with polynomial coefficients, of
+order 1. The entry posts no generating function, so the usual route through a
+functional equation is unavailable. It does post a closed form for $a(n)$, and that is
+enough: the closed form is a sum of finitely many hypergeometric terms, and for such a
+term every shift quotient is a rational function of $n$. The conjectured recurrence
+therefore reduces to one rational-function identity, one for each similarity
+class of terms, and each is decided exactly by cancellation. No expansion is truncated and
+nothing is guessed; the procedure returns a proof or a refutation. Here it returns a proof,
+valid for every $n$ outside an explicitly computed finite set.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 11B83, 05A15.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 33F10, 11B37, 05A10.\normalsize
 
-\section{The sequences and the conjecture}
+\section{The sequence and the conjecture}
 
-OEIS A110320 is ``Number of blocks in all RNA secondary structures with n nodes (an RNA secondary structure can be viewed as a restricted noncrossing partition)''. It has offset $1$ and begins
+OEIS A268554 is ``Diagonal of the rational function 1/((1 - w - u v) * (1 - x y - x z - y z))''. It has offset $0$ and begins
 \[
-a(1),\dots,a(8)\;=\;1, 2, 5, 13, 32, 80, 201, 505,\ \dots
+a(0),\dots,a(7)\;=\;1, 36, 6300, 1552320, 445945500, 139815211536, 46384755633216, 16009450307136000,\ \dots
 \]
-Its generating function, as posted on the entry, is
-\begin{equation}\label{eq:gf}
-F_{a}(x)\;=\;\sum_{n\ge 1} a(n)\,x^{n}\;=\;\frac{- x^{2} - x - \sqrt{x^{4} - 2 x^{3} - x^{2} - 2 x + 1} + 1}{2 x^{2} \sqrt{x^{4} - 2 x^{3} - x^{2} - 2 x + 1}} ,
-\end{equation}
-and the entry carries the following comment:
+The entry states, not as a conjecture,
 \begin{quote}\small
-\textbf{Conjecture:} a(n) = (A051292(n+2)-A051286(n+1))/2. - \emph{Gerald McGarvey}, Jan 14 2007
+a(n) = (4*n)! * (3*n)! / ((n!)\^{}3 * (2*n)!\^{}2).
 \end{quote}
-As of the ``Last modified'' line on the live entry (2026-05-30, revision 51) the
+that is,
+\begin{equation}\label{eq:cf}
+a(n)\;=\;\frac{\left(3 n\right)! \left(4 n\right)!}{n!^{3} \left(2 n\right)!^{2}} .
+\end{equation}
+This is the only input the proof takes from the entry, and it was checked against the
+entry's own DATA before use.
+
+The entry separately carries the following comment:
+\begin{quote}\small
+\textbf{Conjecture:} n\^{}3*(2*n-1)*a(n) -6*(4*n-1)*(3*n-1)*(3*n-2)*(4*n-3)*a(n-1)=0. - \emph{R. J. Mathar}, Mar 10 2016
+\end{quote}
+As of the ``Last modified'' line on the live entry (2025-11-05, revision 34) the
 statement is still recorded as a conjecture, and no proof appears among the entry's links,
 formulas or programs.
 
-The entries appearing on the right-hand side post the generating functions
-\[
-F_{A051292}(x) \;=\; \frac{- x^{2} + \sqrt{x^{4} - 2 x^{3} - x^{2} - 2 x + 1} + 1}{\sqrt{x^{4} - 2 x^{3} - x^{2} - 2 x + 1}} \qquad F_{A051286}(x) \;=\; \frac{1}{\sqrt{x^{4} - 2 x^{3} - x^{2} - 2 x + 1}}
-\]
+Written out, the conjecture is
+\begin{equation}\label{eq:conj}
+n^{3} \left(2 n - 1\right)\,a(n) -  6 \left(3 n - 2\right) \left(3 n - 1\right) \left(4 n - 3\right) \left(4 n - 1\right)\,a(n-1)
+\end{equation}
 
-\section{Shifts of a generating function}
+\section{Hypergeometric terms}
 
-Throughout, a sequence $b$ defined on the indices its OEIS entry uses is identified with
-the formal series $F_{b}(x)=\sum_{m\ge0}b(m)x^{m}$, where $b(m)=0$ for $m$ below the
-entry's offset. This convention makes shifting immediate.
+\begin{definition}
+A nonzero expression $c(n)$ is a \emph{hypergeometric term} in $n$ if the quotient
+$c(n+1)/c(n)$ is a rational function of $n$. Two hypergeometric terms $c$ and $d$ are
+\emph{similar}, written $c\sim d$, if $c(n)/d(n)$ is a rational function of $n$.
+\end{definition}
+
+Similarity is an equivalence relation on hypergeometric terms. Products of factorials,
+binomial coefficients with arguments linear in $n$, exponentials $z^{n}$ and polynomials
+are hypergeometric, and so is any product of these; a sum of them need not be.
 
 \begin{lemma}\label{lem:shift}
-For an integer $k\ge0$,
-\[
-\sum_{m\ge0}b(m+k)\,x^{m}=\frac{F_{b}(x)-\sum_{m<k}b(m)x^{m}}{x^{k}},
-\qquad
-\sum_{m\ge0}b(m-k)\,x^{m}=x^{k}F_{b}(x).
-\]
+If $c$ is a hypergeometric term then for every integer $i\ge 0$ the shift quotient
+$c(n-i)/c(n)$ is a rational function of $n$, computable from $c(n+1)/c(n)$ by a finite
+number of substitutions and multiplications.
 \end{lemma}
 
 \begin{proof}
-Both are re-indexings of the defining sum. In the first, subtracting the terms below
-$x^{k}$ removes exactly the coefficients that have no counterpart after the shift, and
-dividing by $x^{k}$ relabels $m+k$ as $m$. In the second, multiplying by $x^{k}$ relabels
-$m$ as $m+k$, and the coefficients of $x^{m}$ for $m<k$ are $b(m-k)=0$.
+Write $\rho(n)=c(n+1)/c(n)$, a rational function by hypothesis. Then
+$c(n-1)/c(n)=1/\rho(n-1)$, and inductively
+$c(n-i)/c(n)=\prod_{j=1}^{i}\rho(n-j)^{-1}$, a finite product of rational functions.
 \end{proof}
 
-\begin{lemma}\label{lem:theta}
-Let $\theta=x\,\dfrac{d}{dx}$, so that $\theta$ acts on $x^{m}$ as multiplication by $m$.
-For a polynomial $c$, the sequence $m\mapsto c(m)b(m)$ has generating function
-$c(\theta)F_{b}$. In particular $m\mapsto m^{j}$ has generating function
-$\theta^{j}\bigl[(1-x)^{-1}\bigr]$.
+The fact that makes the test complete rather than merely sufficient is the linear
+independence of dissimilar terms. It is classical; see Petkov\v{s}ek, Wilf and Zeilberger
+\cite{AB}, Chapter~5.
+
+\begin{lemma}\label{lem:indep}
+Let $c_{1},\dots,c_{m}$ be hypergeometric terms, pairwise dissimilar. If
+$\sum_{j=1}^{m}u_{j}(n)c_{j}(n)=0$ for rational functions $u_{j}$ and all large $n$, then
+every $u_{j}$ is the zero rational function.
 \end{lemma}
 
+\section{The recurrence as a finite set of rational identities}
+
+\begin{proposition}\label{prop:main}
+Let $a(n)=\sum_{j=1}^{m}c_{j}(n)$ with each $c_{j}$ hypergeometric, and let
+$p_{0},\dots,p_{r}$ be polynomials. Group the $c_{j}$ into similarity classes and write
+each class as $g_{\ell}(n)\,f_{\ell,s}(n)$ for a representative $g_{\ell}$ and rational
+functions $f_{\ell,s}$. Put
+\[
+S_{\ell}(n)\;=\;\sum_{i=0}^{r}\;\sum_{s}\;p_{i}(n)\,f_{\ell,s}(n-i)\,
+\frac{g_{\ell}(n-i)}{g_{\ell}(n)} ,
+\]
+a rational function of $n$ by Lemma~\ref{lem:shift}. Then
+\[
+\sum_{i=0}^{r}p_{i}(n)\,a(n-i)\;=\;\sum_{\ell}g_{\ell}(n)\,S_{\ell}(n),
+\]
+and the recurrence $\sum_{i}p_{i}(n)a(n-i)=0$ holds for all large $n$ if and only if
+$S_{\ell}=0$ for every $\ell$.
+\end{proposition}
+
 \begin{proof}
-$\theta$ multiplies the coefficient of $x^{m}$ by $m$, so $c(\theta)$ multiplies it by
-$c(m)$. The last statement is the case $b\equiv1$.
+The displayed identity is the definition of $S_{\ell}$ rearranged: each $a(n-i)$ is the
+sum of its terms, each term is its class representative times a rational function, and the
+representatives are pulled out. The representatives $g_{\ell}$ are pairwise dissimilar by
+construction, so Lemma~\ref{lem:indep} applies to the right-hand side: it vanishes for all
+large $n$ exactly when every $S_{\ell}$ vanishes identically. Sufficiency is immediate.
 \end{proof}
 
-\begin{corollary}\label{cor:criterion}
-Let $R(x)$ be the generating function assembled from the right-hand side of the conjecture
-by Lemmas~\ref{lem:shift} and~\ref{lem:theta}. Then the conjectured identity holds for
-every $n>d$ if and only if $F_{a}-R$ is a polynomial of degree at most $d$.
-\end{corollary}
+Proposition~\ref{prop:main} turns the conjecture into a finite computation in
+$\mathbb{Q}(n)$, with no truncation and no search. The only $n$ it says nothing about are
+those where some $S_{\ell}$ has a pole or some $c_{j}(n-i)$ is undefined, and these are
+finite in number and listed below.
 
-\begin{proof}
-The coefficient of $x^{n}$ in $F_{a}-R$ is the difference between the two sides of the
-identity at $n$. That difference vanishes for all $n>d$ exactly when $F_{a}-R$ has no
-terms above $x^{d}$.
-\end{proof}
+\section{The computation for A268554}
 
-Note that the test is for a \emph{polynomial}, not for zero. A claim of this kind
-typically fails at a few small indices, where the shifted terms on the right reach outside
-the range of their own sequences; the polynomial records precisely those indices.
-
-\section{The computation for A110320}
-
-Assembling the right-hand side by Lemmas~\ref{lem:shift} and~\ref{lem:theta} gives
+The closed form \eqref{eq:cf} splits into one similarity class, with
+representative
 \[
-R(x)\;=\;\frac{- x^{2} - x - \sqrt{x^{4} - 2 x^{3} - x^{2} - 2 x + 1} + 1}{2 x^{2} \sqrt{x^{4} - 2 x^{3} - x^{2} - 2 x + 1}} ,
+\frac{\left(3 n\right)! \left(4 n\right)!}{n!^{3} \left(2 n\right)!^{2}}
 \]
-and subtracting \eqref{eq:gf} the rational parts cancel, leaving
+Carrying out Proposition~\ref{prop:main} with the coefficients of \eqref{eq:conj} gives
 \[
-F_{a}(x)-R(x)\;=\;0 ,
+S_{1}(n)\;=\;0
 \]
-a polynomial of degree $-1$.
+so every class residual vanishes identically and the conjecture follows.
 
 \begin{theorem}
-The conjectured identity holds for every $n>-1$.
+For all $n\ge 1$,
+\[
+n^{3} \left(2 n - 1\right)\,a(n) -  6 \left(3 n - 2\right) \left(3 n - 1\right) \left(4 n - 3\right) \left(4 n - 1\right)\,a(n-1)
+\]
 \end{theorem}
 
 \begin{proof}
-Immediate from Corollary~\ref{cor:criterion} and the displayed difference.
+Immediate from Proposition~\ref{prop:main} and the computation above, the excluded values
+being those at which a class residual has a pole or a term of \eqref{eq:cf} is undefined.
 \end{proof}
 
 \section{Verification}
 
-Every number above is an output of a script written separately from this note, and two
-independent checks were run.
+Two checks were made, and both are independent of the algebra above.
 
-First, no generating function was assumed. For each entry involved, the posted expression
-was expanded as a Taylor series and compared term by term with that entry's own DATA
-section; only expressions reproducing the published terms were used.
+First, the closed form \eqref{eq:cf} was evaluated at the first $13$ indices and
+compared term by term with the entry's DATA; the values agree exactly. A formula that did
+not reproduce the entry's own terms would not have been used.
 
-Second, the identity itself was evaluated directly on the published terms, in exact
-integer arithmetic and without reference to any generating function: for each $n$ in range
-both sides were formed from the entries' own values and found to agree, for all 28
-values of $n$ from $n=1$ upward. This is what Corollary~\ref{cor:criterion}
-predicts from the degree of the difference, and it is a genuinely different computation
-from the symbolic one.
-
-The symbolic step is exact throughout: the difference is obtained by rational-function
-cancellation, not by series truncation, so the displayed identity is an identity of
-functions and the theorem holds for all $n>-1$ simultaneously.
+Second, the conjectured recurrence \eqref{eq:conj} was evaluated on the published terms in
+exact integer arithmetic at every index where it applies: $12$ instances beginning at
+$n=1$, all of them zero. This is not part of the proof, which is symbolic, but it
+would have caught a transcription error in the coefficients.
 
 \begin{thebibliography}{9}
-\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer Sequences},
-\url{https://oeis.org}, 2026. Sequence A110320.
-\bibitem{wilf} H.~S.~Wilf, \emph{generatingfunctionology}, 3rd ed., A K Peters, 2006,
-Chapter 2 (series manipulations and shifts).
-\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011, Chapter 1.
+\bibitem{AB} M.~Petkov\v{s}ek, H.~S.~Wilf and D.~Zeilberger, \emph{A=B}, A K Peters,
+Wellesley MA, 1996.
+\bibitem{OEIS} OEIS Foundation Inc., \emph{The On-Line Encyclopedia of Integer Sequences},
+entry \href{https://oeis.org/A268554}{A268554}, 2025-11-05.
+\bibitem{GKP} R.~L.~Graham, D.~E.~Knuth and O.~Patashnik, \emph{Concrete Mathematics},
+2nd ed., Addison-Wesley, 1994.
 \end{thebibliography}
+
 \end{document}

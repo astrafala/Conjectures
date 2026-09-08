@@ -12,63 +12,74 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A237406, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A203087, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{2 September 2026}
+\date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A237406 counts arrays over $\{0,\dots,2\}$ subject to a condition on the order
-statistics of every $2\times2$ subblock, and carries an empirical recurrence of order
-$37$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical.
-The condition is local to two consecutive rows, so the count is a walk count on $S=322$
-states and is $C$-finite; whether the conjectured recurrence annihilates it is then settled by
-a finite exact computation, with the Cayley--Hamilton theorem bounding the work.
+OEIS A203087 counts arrays of width $6$ over $\{0,1\}$ containing no occurrence of certain short
+patterns, read along the rows, the columns or the diagonals. The entry carries an empirical
+recurrence of order $37$ contributed by R.~H.~Hardin. It is true, and it is decidable
+rather than empirical: no pattern is longer than $3$ letters and no direction moves the row
+index by more than one, so every occurrence lies inside $3$ consecutive array rows and the
+count is a walk count on $S=381$ states.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 62G30.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 68R15, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A237406 is ``Number of (n+1) X (2+1) 0..2 arrays with the maximum plus the upper median plus the minimum of every 2 X 2 subblock differing from its horizontal and vertical neighbors by exactly one.''. It has offset $1$ and begins
+OEIS A203087 is ``Number of (n+2)X6 binary arrays avoiding patterns 000 and 101 in rows and columns.''. It has offset $1$ and begins
 \[
-322, 1632, 8236, 44186, 238640, 1260486, 6627450, 35198148,\ \dots
+1575, 6615, 26528, 112334, 470807, 1946072, 8108104, 33749405,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 35*a(n-3) +422*a(n-4) +861*a(n-5) +1775*a(n-6) +703*a(n-7) -24448*a(n-8) -61622*a(n-9) -68118*a(n-10) +25946*a(n-11) +456293*a(n-12) +865728*a(n-13) +610758*a(n-14) -676767*a(n-15) -3048586*a(n-16) -3041167*a(n-17) -326886*a(n-18) +2509173*a(n-19) +5909549*a(n-20) +3426904*a(n-21) -1802161*a(n-22) -2482842*a(n-23) -2687207*a(n-24) -458763*a(n-25) +1972154*a(n-26) +1952715*a(n-27) +779599*a(n-28) -268828*a(n-29) -154455*a(n-30) -76262*a(n-31) +51183*a(n-32) -16342*a(n-33) +5863*a(n-34) -1640*a(n-35) +614*a(n-36) +64*a(n-37).
+Empirical: a(n) = a(n-1) +4*a(n-2) +34*a(n-3) +40*a(n-4) -31*a(n-5) -224*a(n-6) -413*a(n-7) +433*a(n-8) +1505*a(n-9) +703*a(n-10) -2455*a(n-11) -5056*a(n-12) +2075*a(n-13) +4934*a(n-14) -656*a(n-15) +3696*a(n-16) +18044*a(n-17) -16513*a(n-18) -39362*a(n-19) +8986*a(n-20) +39868*a(n-21) -19137*a(n-22) +10671*a(n-23) +7513*a(n-24) -14687*a(n-25) -4882*a(n-26) -718*a(n-27) +4632*a(n-28) +3198*a(n-29) +2571*a(n-30) +1542*a(n-31) -1549*a(n-32) +249*a(n-33) -84*a(n-34) -330*a(n-35) +54*a(n-36) -216*a(n-37) for n>41
 \end{quote}
-As of the ``Last modified'' line on the live entry (Feb 07 2014 19:18:42, revision 8) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 10:06:58, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The $2\times2$ subblocks of an $(n+1)\times3$ array form an
-$n\times2$ grid, and each carries the value $\sigma=a+c+d$, where $a\le b\le c\le d$ are its four entries sorted --- its minimum, lower median, upper median and maximum. The entry asks that the values of
-subblocks that are neighbours --- horizontally or vertically --- differ by exactly $1$.
-That is sharper than merely differing, and it is a condition on a pair of adjacent subblocks,
-so it is local to the grid.
-
-At $n=1$ the array has two rows, so its subblock grid is a single row of $2$ subblocks with
-no vertical neighbours; the condition there is exactly that consecutive values along that row
-differ by $1$. The entry's first term $322$ counts those, and the model was made to
-reproduce it along with every later term.
-
-\section{The count is a walk count}
-
-A subblock's value is decided by two consecutive rows of the array, and the
-vertical condition compares two consecutive rows of the subblock grid, so the state is the
-PAIR of consecutive array rows. A step appends a row: that fixes a new subblock row, whose own
-neighbouring values must differ by exactly $1$ along it, and which must differ by exactly
-$1$ from the previous subblock row in every position. An $(n+1)$-row array is a walk of
-$n-1$ steps, so
+The array has $6$ cells across, with entries in $\{0,1\}$. An OCCURRENCE of a pattern in a
+direction is a run of consecutive cells taken in that direction whose entries match the pattern
+in order; the array is counted when it has no occurrence at all. The entry names
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,\qquad\iota=\tau=(1,\dots,1)^{\!\top},
+\begin{array}{ll}
+\text{direction} & \text{forbidden patterns} \\[2pt]
+\text{along a row, left to right} & \mathtt{000},\quad \mathtt{101} \\
+\text{down a column} & \mathtt{000},\quad \mathtt{101} \\
+\end{array}
 \]
-over the $S=322$ pairs whose own subblock row already satisfies the condition along itself.
-The alignment of the walk index with the entry's own $n$ was checked against its published
-terms rather than assumed. In particular $a$ is $C$-finite.
+
+
+\section{Every occurrence lies in $3$ consecutive rows}
+
+\begin{lemma}\label{lem:win}
+Each of the directions above changes the row index by $0$ or $1$ from one cell of a run to the
+next, and no pattern is longer than $3$ letters. Hence every occurrence lies inside $3$
+consecutive array rows, and an occurrence whose last cell is in row $i$ lies inside rows
+$i-2,\dots,i$.
+\end{lemma}
+
+\begin{proof}
+Immediate from the offsets listed: the row step is $0$ for a row and $1$ for the other three.
+\end{proof}
+
+So the state is the window of the last $2$ array rows, a row still to come being written
+$\bot$. A step appends a row and rejects it exactly when some occurrence ends in it or lies
+inside it; an occurrence needing a row that is $\bot$ cannot exist, which is the boundary rule
+and is not assumed but read off the window. The walk starts at the all-$\bot$ window, so a walk
+of no steps is the empty array and a walk of $R$ steps is an array of $R$ rows. With $M$ the
+adjacency matrix, $\iota$ the indicator of the starting window and $\tau=\mathbf{1}$,
+\[
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=381.
+\]
+The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
+published terms rather than assumed. In particular $a$ is $C$-finite.
 
 \section{The proof}
 
@@ -90,39 +101,43 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;35\,a(n-3) + 422\,a(n-4) + 861\,a(n-5) + 1775\,a(n-6) + 703\,a(n-7) - 24448\,a(n-8) - 61622\,a(n-9) - 68118\,a(n-10) + 25946\,a(n-11) + 456293\,a(n-12) + 865728\,a(n-13) + 610758\,a(n-14) - 676767\,a(n-15) - 3048586\,a(n-16) - 3041167\,a(n-17) - 326886\,a(n-18) + 2509173\,a(n-19) + 5909549\,a(n-20) + 3426904\,a(n-21) - 1802161\,a(n-22) - 2482842\,a(n-23) - 2687207\,a(n-24) - 458763\,a(n-25) + 1972154\,a(n-26) + 1952715\,a(n-27) + 779599\,a(n-28) - 268828\,a(n-29) - 154455\,a(n-30) - 76262\,a(n-31) + 51183\,a(n-32) - 16342\,a(n-33) + 5863\,a(n-34) - 1640\,a(n-35) + 614\,a(n-36) + 64\,a(n-37)
+a(n)\;=\;a(n-1) + 4\,a(n-2) + 34\,a(n-3) + 40\,a(n-4) - 31\,a(n-5) - 224\,a(n-6) - 413\,a(n-7) + 433\,a(n-8) + 1505\,a(n-9) + 703\,a(n-10) - 2455\,a(n-11) - 5056\,a(n-12) + 2075\,a(n-13) + 4934\,a(n-14) - 656\,a(n-15) + 3696\,a(n-16) + 18044\,a(n-17) - 16513\,a(n-18) - 39362\,a(n-19) + 8986\,a(n-20) + 39868\,a(n-21) - 19137\,a(n-22) + 10671\,a(n-23) + 7513\,a(n-24) - 14687\,a(n-25) - 4882\,a(n-26) - 718\,a(n-27) + 4632\,a(n-28) + 3198\,a(n-29) + 2571\,a(n-30) + 1542\,a(n-31) - 1549\,a(n-32) + 249\,a(n-33) - 84\,a(n-34) - 330\,a(n-35) + 54\,a(n-36) - 216\,a(n-37)
 \]
-for every $n>37$.
+for every $n>41$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $37$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=37+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=41+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
-Three checks, each independent of the algebra above.
+Four checks, each independent of the algebra above.
 
 First, the model reproduces all $19$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry: the digraph is built by reading the
-entry's English, and a misreading gives different counts.
+arithmetic.
 
-Second, the conjectured recurrence was evaluated directly on those published terms, with no
+Second, the count was recomputed for the smallest arrays straight from the definition: fill the
+cells one at a time, in the orientation the entry's own name writes, and reject as soon as a
+completed run matches a forbidden pattern. No transfer matrix, no window and no transposition
+are involved, and the published terms came back.
+
+Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
 arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A237406.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A203087.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{david} H.~A.~David and H.~N.~Nagaraja, \emph{Order Statistics}, 3rd ed., Wiley,
-2003.
+\bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata
+Theory, Languages, and Computation}, 3rd ed., Addison--Wesley, 2006.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

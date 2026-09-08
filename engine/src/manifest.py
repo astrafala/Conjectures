@@ -45,6 +45,9 @@ def main():
         fh.write(f'{digest}  MANIFEST.tsv\n')
     print(f'{len(rows)} results listed in MANIFEST.tsv')
     print(f'MANIFEST.tsv sha256 = {digest}')
+    print('The roster has changed, so the previous stamp no longer covers it. Keep the old')
+    print('manifest AND its .ots together in stamps/ -- a proof of a hash is worthless')
+    print('without the file that hashes to it -- then:  ots stamp MANIFEST.tsv')
 
 
 if __name__ == '__main__':

@@ -214,6 +214,9 @@ READERS = (_pairsum, _maxmin, _sumtimes, _linear, _samesum, _disjoint, _median, 
 
 
 def parse_name(nm):
+    got = parse_neigh(nm)
+    if got:
+        return got
     m = NAME.match(' '.join(nm.split()))
     if not m:
         return parse_name2(nm)
@@ -301,7 +304,145 @@ def _threeequal(body, vals):
 # pair" comes with "new values introduced in 0..k order", a canonical-form clause this engine
 # does not carry. 17 entries wait on those two questions. A reader that half-works is worse
 # than none: it would settle conjectures about the wrong object.
-READERS2 = (_interior, _consec)
+def _diffs(body, vals):
+    """`with first and second differences also in -7..7', and its longer spellings."""
+    m = re.match(r'(?:(adjacent element)|first(?:,| through| and)?\s*(second)?(?:,? (?:and )?)?'
+                 r'(third)?(?:,? (?:and )?)?(fourth)?) differences also in '
+                 r'(-?\d+)\.\.(-?\d+)$', body)
+    if not m:
+        return None
+    if m.group(1):
+        k = 1
+    else:
+        k = 1 + (1 if m.group(2) else 0) + (1 if m.group(3) else 0) + (1 if m.group(4) else 0)
+    lo, hi = int(m.group(5)), int(m.group(6))
+    if k > 5:
+        return None
+
+    def ok(v):
+        # every difference of the window, not only the newest one: overlapping windows check
+        # the later ones anyway, but the FIRST window of an array is the only one that ever
+        # sees its own early differences, and checking only the newest let those through
+        cur = list(v)
+        for _ in range(k):
+            cur = [cur[i + 1] - cur[i] for i in range(len(cur) - 1)]
+            if any(not (lo <= x <= hi) for x in cur):
+                return False
+        return True
+
+    def short(L, vals):
+        # An array shorter than the window is NOT unconstrained here: a two-element array
+        # still has a first difference. Counting those as free was the whole discrepancy.
+        n = 0
+        for v in itertools.product(vals, repeat=L):
+            cur = list(v)
+            good = True
+            for _ in range(min(k, L - 1)):
+                cur = [cur[i + 1] - cur[i] for i in range(len(cur) - 1)]
+                if any(not (lo <= x <= hi) for x in cur):
+                    good = False
+                    break
+            n += 1 if good else 0
+        return n
+
+    def prefix_ok(st):
+        cur = list(st)
+        for _ in range(min(k, len(st) - 1)):
+            cur = [cur[i + 1] - cur[i] for i in range(len(cur) - 1)]
+            if any(not (lo <= x <= hi) for x in cur):
+                return False
+        return True
+    return k + 1, ok, short, prefix_ok
+
+
+READERS2 = (_interior, _consec, _diffs)
+
+
+# `each element differing from at least one neighbour' is not a sliding-window condition: the
+# first and last elements have one neighbour rather than two, and whether an element is already
+# satisfied has to be carried forward. 62 entries are written this way. The walk therefore needs
+# its own start and end vectors -- an element is only allowed to be left behind once something
+# has satisfied it, and the last element must be satisfied before the array can end.
+NEIGH = re.compile(
+    r'^\s*Number of (-?\d+)\.\.(-?\d+) arrays?\s*(?:x\([^)]*\)\s*)?(?:of\s+)?'
+    r'(?:length\s+)?n(?:\s*\+\s*(\d+))?\s*(?:elements?)?\s*with\s+'
+    r'each element (unequal to|differing from) at least one neighbou?r'
+    r'(?: by (\d+) or more)?'
+    r'(, starting with (-?\d+))?'
+    r'(, with new values introduced in [-\d.]+ order)?\s*\.?\s*$', re.I)
+
+
+def parse_neigh(nm):
+    m = NEIGH.match(' '.join(nm.split()))
+    if not m:
+        return None
+    lo, hi = int(m.group(1)), int(m.group(2))
+    if hi < lo or hi - lo > 14:
+        return None
+    base = int(m.group(3)) if m.group(3) else 0
+    d = int(m.group(5)) if m.group(5) else 1
+    start0 = int(m.group(7)) if m.group(7) else None
+    canon = bool(m.group(8))
+    return {'engine': 'window', 'K': hi - lo, 'base': base, 'kind': 'neighbour',
+            'vals': list(range(lo, hi + 1)), 'd': d, 'start0': start0, 'canon': canon}
+
+
+def build_neigh(p, cap=200000):
+    vals, d = p['vals'], p['d']
+    states, index = [], {}
+
+    def sid(st):
+        if st not in index:
+            index[st] = len(states)
+            states.append(st)
+        return index[st]
+
+    start = []
+    for v in vals:
+        if p['start0'] is not None and v != p['start0']:
+            continue
+        if p['canon'] and v != vals[0]:
+            continue
+        start.append(sid((v, False, v) if p['canon'] else (v, False)))
+    adj = {}
+    i = 0
+    while i < len(states):
+        st = states[i]
+        row = []
+        p_, sat = st[0], st[1]
+        mx = st[2] if p['canon'] else None
+        for t in vals:
+            if p['canon'] and t > mx + 1:
+                continue
+            far = abs(p_ - t) >= d
+            if not (sat or far):
+                continue          # the element about to be left behind is not satisfied
+            nxt = (t, far, max(mx, t)) if p['canon'] else (t, far)
+            row.append(sid(nxt))
+        adj[i] = row
+        i += 1
+        if len(states) > cap:
+            return None
+    end = [1 if st[1] else 0 for st in states]
+    return {'adj': [adj[j] for j in range(len(states))], 'start': start, 'end': end,
+            'S': len(states), 'kind': 'neighbour'}
+
+
+def terms_neigh(b, N):
+    """arrays of each length from 1 up; an array ends only in a satisfied state."""
+    v = [0] * b['S']
+    for s in b['start']:
+        v[s] += 1
+    out = [sum(c for i, c in enumerate(v) if b['end'][i])]
+    for _ in range(N + 2):
+        w = [0] * b['S']
+        for i, c in enumerate(v):
+            if c:
+                for j in b['adj'][i]:
+                    w[j] += c
+        v = w
+        out.append(sum(c for i, c in enumerate(v) if b['end'][i]))
+    return out
 
 
 def parse_name2(nm):
@@ -320,19 +461,24 @@ def parse_name2(nm):
     for r in READERS2:
         got = r(body, vals)
         if got:
-            w, pred = got
+            w, pred = got[0], got[1]
+            short = got[2] if len(got) > 2 else None
+            pok = got[3] if len(got) > 3 else None
             return {'engine': 'window', 'K': hi - lo, 'base': base, 'w': w, 'pred': pred,
-                    'vals': vals}
+                    'vals': vals, 'short': short, 'prefix_ok': pok}
     return None
 
 
 def build(p, cap=200000):
+    if p.get('kind') == 'neighbour':
+        return build_neigh(p, cap)
     w = p['w']
     vals = p.get('vals') or list(range(p['K'] + 1))
     A = len(vals)
     if A ** (w - 1) > cap:
         return None
     prev = list(itertools.product(vals, repeat=w - 1))
+    short = p.get('short')
     index = {s: i for i, s in enumerate(prev)}
     adj = []
     for s in prev:
@@ -341,20 +487,26 @@ def build(p, cap=200000):
             if p['pred'](s + (t,)):
                 row.append(index[s[1:] + (t,)])
         adj.append(row)
-    return {'adj': adj, 'S': len(prev), 'A': A, 'w': w}
+    head = [short(L, vals) for L in range(1, w)] if short else [A ** L for L in range(1, w)]
+    # A prefix shorter than the window can already break the condition -- a two-element array
+    # has a first difference. Seeding the walk with every prefix would let inadmissible ones
+    # through into every longer array.
+    pok = p.get('prefix_ok')
+    seed = [1 if (pok is None or pok(st)) else 0 for st in prev]
+    return {'adj': adj, 'S': len(prev), 'A': A, 'w': w, 'head': head, 'seed': seed}
 
 
 def terms(b, N):
+    if b.get('kind') == 'neighbour':
+        return terms_neigh(b, N)
     """the number of arrays of each length, from length 1 up.
 
     Windows shorter than w carry no condition, so the first w - 1 lengths are counted by
     filling the prefix freely; from length w on the walk applies the predicate at every step.
     """
     A, w, S = b['A'], b['w'], b['S']
-    out = [A ** L for L in range(1, w)]
-    v = [0] * S
-    for i in range(S):
-        v[i] = 1
+    out = list(b.get('head') or [A ** L for L in range(1, w)])
+    v = list(b.get('seed') or [1] * S)
     # length w - 1 is the state itself; step once for each further symbol
     cur = list(v)
     for L in range(w - 1, N + 3):

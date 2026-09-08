@@ -12,68 +12,79 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A258919, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A250430, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A258919 counts arrays of width $4$ over $\{0,1\}$ in which every $3\times3$ window has
-constrained SUMS along its rows, its columns and its two diagonals. The entry carries an
+OEIS A250430 counts arrays over $\{0,1\}$ in which a statistic taken over short runs
+of cells produces a derived array that is monotone in a named direction. The entry carries an
 empirical recurrence of order $28$ contributed by R.~H.~Hardin. It is true, and it is
-decidable rather than empirical: a $3\times3$ window lies in $3$ consecutive array rows,
-so the count is a walk count on $S=273$ states.
+decidable rather than empirical: every comparison the condition makes lies inside a bounded
+window of consecutive rows, so the count is a walk count on $S=400$ states, and the
+conjectured recurrence is then settled by a finite exact computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B20, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A258919 is ``Number of (n+2)X(2+2) 0..1 arrays with no 3x3 subblock diagonal sum equal to the antidiagonal sum or central row sum equal to the central column sum.''. It has offset $1$ and begins
+OEIS A250430 is ``Number of (n+1)X(6+1) 0..1 arrays with nondecreasing sum of every two consecutive values in every row and column.''. It has offset $1$ and begins
 \[
-576, 1156, 1936, 4096, 9216, 17424, 30976, 66564,\ \dots
+400, 3000, 22500, 105000, 490000, 1715000, 6002500, 17287200,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 3*a(n-2) +a(n-3) +14*a(n-4) -43*a(n-6) +3*a(n-7) -58*a(n-8) -44*a(n-9) +201*a(n-10) +33*a(n-11) +34*a(n-12) +42*a(n-13) -271*a(n-14) -191*a(n-15) -208*a(n-16) +352*a(n-17) +1001*a(n-18) +213*a(n-19) -574*a(n-20) -526*a(n-21) +129*a(n-22) -91*a(n-23) +66*a(n-24) +20*a(n-25) -7*a(n-26) +7*a(n-27) -a(n-28)
+Empirical: a(n) = 2*a(n-1) +12*a(n-2) -26*a(n-3) -65*a(n-4) +156*a(n-5) +208*a(n-6) -572*a(n-7) -429*a(n-8) +1430*a(n-9) +572*a(n-10) -2574*a(n-11) -429*a(n-12) +3432*a(n-13) -3432*a(n-15) +429*a(n-16) +2574*a(n-17) -572*a(n-18) -1430*a(n-19) +429*a(n-20) +572*a(n-21) -208*a(n-22) -156*a(n-23) +65*a(n-24) +26*a(n-25) -12*a(n-26) -2*a(n-27) +a(n-28)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 15:32:45, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 12:24:13, revision 10) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The array has $4$ cells across, with entries in $\{0,1\}$. A WINDOW is a $3\times3$ block
-of consecutive cells lying inside the array. Every window must satisfy
-\[
-\begin{array}{ll}
-\text{the sum along} & \text{} \\[2pt]
-\text{the main diagonal} & \text{must NOT be equal to the sum along the antidiagonal} \\
-\text{the central row} & \text{must NOT be equal to the sum along the central column} \\
-\end{array}
-\]
-where the main diagonal of a window runs from its top left corner to its bottom right, and its
-antidiagonal from top right to bottom left.
+The array has $7$ cells across and entries $x(i,j)\in\{0,1\}$.
 
-\section{The walk}
+Fix the statistic $\sigma(v)=\sum_{t} v_t$ of a run $v$ of $2$ consecutive cells --- in words,
+the sum of the $2$ values. Two derived arrays are formed and both must be
+nondecreasing in their own direction: reading along a row,
+\[
+\sigma\bigl(x(i,j),\dots,x(i,j{+}1)\bigr)\ \le\
+\sigma\bigl(x(i,j{+}1),\dots,x(i,j{+}2)\bigr),
+\]
+and reading down a column,
+\[
+\sigma\bigl(x(i,j),\dots,x(i{+}1,j)\bigr)\ \le\
+\sigma\bigl(x(i{+}1,j),\dots,x(i{+}2,j)\bigr).
+\]
+The same statistic and the same run length serve both directions, so the condition is
+unchanged by transposing the array.
+
+Nothing in the condition is invariant under renaming the letters --- each statistic either does
+arithmetic on them or compares them by size --- so no reduction to equality patterns is
+available, and the walk is run over the alphabet the entry names.
+
+\section{A bounded window}
 
 \begin{lemma}\label{lem:win}
-A $3\times3$ window occupies $3$ consecutive array rows, so every condition above is
-decided by $3$ consecutive rows and by nothing else.
+The row comparisons involve one array row each. A column comparison involves the
+$2+1=3$ consecutive rows $i,\dots,i{+}2$ and no others.
 \end{lemma}
 
 \begin{proof}
-By definition of a window.
+The two runs compared start at rows $i$ and $i+1$ and have length $2$, so together they
+occupy rows $i$ through $i+2$.
 \end{proof}
 
-So the state is the window of the last $2$ array rows, a row not yet written carried as
-$\bot$, and a step appends a row and settles every $3\times3$ window that row completes. A
-window needing a row that is $\bot$ does not exist, which is the boundary rule; the walk starts
-at the all-$\bot$ state, so a walk of $R$ steps is an array of $R$ rows. With $M$ the adjacency
-matrix and $\tau=\mathbf{1}$,
+So the window of the last $2$ rows is a state, each row of it already satisfying its own row
+comparisons, and one step appends a row and settles the column comparisons that the new row
+completes. With $M$ the adjacency matrix of that digraph and $\iota=\tau=\mathbf{1}$,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=273.
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=400,
 \]
+a walk of no steps being an array of exactly $2$ rows.
+
 The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
 published terms rather than assumed. In particular $a$ is $C$-finite.
 
@@ -97,28 +108,28 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;3\,a(n-2) + a(n-3) + 14\,a(n-4) - 43\,a(n-6) + 3\,a(n-7) - 58\,a(n-8) - 44\,a(n-9) + 201\,a(n-10) + 33\,a(n-11) + 34\,a(n-12) + 42\,a(n-13) - 271\,a(n-14) - 191\,a(n-15) - 208\,a(n-16) + 352\,a(n-17) + 1001\,a(n-18) + 213\,a(n-19) - 574\,a(n-20) - 526\,a(n-21) + 129\,a(n-22) - 91\,a(n-23) + 66\,a(n-24) + 20\,a(n-25) - 7\,a(n-26) + 7\,a(n-27) - a(n-28)
+a(n)\;=\;2\,a(n-1) + 12\,a(n-2) - 26\,a(n-3) - 65\,a(n-4) + 156\,a(n-5) + 208\,a(n-6) - 572\,a(n-7) - 429\,a(n-8) + 1430\,a(n-9) + 572\,a(n-10) - 2574\,a(n-11) - 429\,a(n-12) + 3432\,a(n-13) - 3432\,a(n-15) + 429\,a(n-16) + 2574\,a(n-17) - 572\,a(n-18) - 1430\,a(n-19) + 429\,a(n-20) + 572\,a(n-21) - 208\,a(n-22) - 156\,a(n-23) + 65\,a(n-24) + 26\,a(n-25) - 12\,a(n-26) - 2\,a(n-27) + a(n-28)
 \]
-for every $n>27$.
+for every $n>28$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $28$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=27+1$ onwards and the run continued
-until the working vector was identically zero.
+integers vanish from the index corresponding to $n=28+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $26$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $20$ terms the entry publishes, exactly, in integer
 arithmetic.
 
 Second, the count was recomputed for the smallest arrays straight from the definition: fill the
-cells in row major order, in the orientation the entry's own name writes, and test a window as
-soon as its last cell is placed. No state, no transposition and no transfer matrix are
+cells in row major order and test each comparison the moment both of its runs are complete,
+in the orientation the entry's own name writes. No transfer matrix and no transposition are
 involved, and the published terms came back.
 
 Third, the conjectured recurrence was evaluated directly on the published terms, with no
@@ -129,7 +140,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A258919.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A250430.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge

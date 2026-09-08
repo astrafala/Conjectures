@@ -10,88 +10,85 @@
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
-\title{A proof of the conjectured recurrence for OEIS A162972}
+\title{A proof of the conjectured recurrence for OEIS A308726}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{25 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A162972 carries a conjectured linear recurrence with polynomial coefficients, of
-order 7. We prove it. The entry's exponential generating function is
-transcendental, so the usual algebraic arguments do not apply; instead we observe that it
-lies in a finitely generated module over $\mathbb{Q}(x)$ spanned by monomials
-$\log(u)^{a}\exp(g)^{k}$, and that this module is closed under differentiation, because
-$(\log u)'=u'/u$ and $(\exp g)'=g'\exp g$ lower the log power and fix the exponential
-respectively. Re-indexing the recurrence forward turns shifts into derivatives, so the
-sequence $b(m)=\sum_{j}q_{j}(m)a(m+j)$ has exponential generating function
-$B=\sum_{j}q_{j}(\theta)A^{(j)}$, computed exactly inside that module. Here $B$ collapses
-to the polynomial $0$, of degree $0$, which proves the recurrence for every
-$n>0$.
+OEIS A308726 carries a conjectured linear recurrence with polynomial coefficients, of
+order 5, contributed by R.~J.~Mathar. We prove it. The generating function of the
+entry is algebraic, and the recurrence is equivalent to the vanishing of an explicit
+differential operator applied to it: writing $\theta=x\,\frac{d}{dx}$, the sequence
+$b(n)=\sum_{i}p_{i}(n)a(n-i)$ has generating function
+$B(x)=\sum_{i}x^{i}\,(p_{i}(\theta+i)A)(x)$, so the conjecture holds for all $n>d$ exactly
+when $B$ is a polynomial of degree $d$. Since $A$ is algebraic over $\mathbb{Q}(x)$, and every simple
+algebraic extension of $\mathbb{Q}(x)$ is closed under $\theta$, the residual $B$ can be
+computed in closed form. Here it equals $- 96 x^{4} + 24 x^{3} - 12 x^{2}$, a polynomial of degree $4$, which proves
+the recurrence for every $n>4$.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 11B37, 05A15, 12H05, 33F10.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 11B37, 05A15, 33F10.\normalsize
 
 \section{The sequence and the conjecture}
 
-OEIS A162972 is ``Number of cycles in all non-derangement permutations of \{1,2,...,n\}''. It has offset $1$ and begins
+OEIS A308726 is ``The number of permutations of length n and tier at most 1, that is, the number of permutations of length n sortable by two passes through a stack where outputting the longest prefix matching the identity permutation is prioritized''. It has offset $0$ and begins
 \[
-a(1),\dots,a(8)\;=\;1, 2, 9, 38, 210, 1339, 9870, 82368,\ \dots
+a(0),\dots,a(7)\;=\;1, 1, 2, 6, 24, 112, 556, 2811,\ \dots
 \]
-The entry gives the exponential generating function
+The entry gives the generating function
 \begin{equation}\label{eq:gf}
-A(x)\;=\;\sum_{n\ge 1} a(n)\,\frac{x^{n}}{n!}\;=\;\frac{\left(- x - \left(1 - e^{x}\right) \log{\left(1 - x \right)}\right) e^{- x}}{x - 1} ,
+A(x)\;=\;\sum_{n\ge 0} a(n)\,x^{n}\;=\;\frac{1}{\sqrt{1 - 4 x}} - \frac{\sqrt{2 \sqrt{1 - 4 x} - 1}}{2 x} + \frac{1}{x} - \frac{1}{2 x \sqrt{1 - 4 x}} ,
 \end{equation}
 and it carries the following comment:
 \begin{quote}\small
-Conjecture D-finite with recurrence a(n) +(-3*n+8)*a(n-1) +(n-3)*(3*n-14)*a(n-2) +(-n\textasciicircum{}3+19*n\textasciicircum{}2- 98*n+156)*a(n-3) +(-4*n\textasciicircum{}3+56*n\textasciicircum{}2-258*n+395)*a(n-4) +(-6*n\textasciicircum{}3+84*n\textasciicircum{}2-395*n+624)*a(n- 5) -(n-5)*(4*n\textasciicircum{}2-41*n+106)*a(n-6) -(n-5)*(n-6)\textasciicircum{}2*a(n-7)=0.
+\textbf{Conjecture:} D-finite with recurrence: 3*n*(n-1)*(n+1)*a(n) -n*(n-1)*(67*n-101)*a(n-1) +2*(n-1)*(286*n\^{}2-1112*n+1089)*a(n-2) +4*(-580*n\^{}3+4200*n\^{}2-10106*n+8049)*a(n-3) +24*(184*n\^{}3-1784*n\^{}2+5770*n-6221)*a(n-4) -96*(4*n-15)*(2*n-9)*(4*n-17)*a(n-5)=0. - \emph{R. J. Mathar}, Jan 27 2020
 \end{quote}
-As of the ``Last modified'' line on the live entry (2022-07-26, revision 15) the
+As of the ``Last modified'' line on the live entry (2021-10-29, revision 33) the
 statement is still recorded as a conjecture, and no proof appears among the entry's links,
 formulas or programs.
 
-Writing the conjectured relation in the form $\sum_{i=0}^{7}p_{i}(n)\,a(n-i)=0$,
+Writing the conjectured relation in the form $\sum_{i=0}^{5}p_{i}(n)\,a(n-i)=0$,
 the coefficient polynomials are
 \[
-p_{0}(n)=1,\qquad p_{1}(n)=8 - 3 n,\qquad p_{2}(n)=\left(n - 3\right) \left(3 n - 14\right),\qquad p_{3}(n)=- n^{3} + 19 n^{2} - 98 n + 156,\qquad p_{4}(n)=- 4 n^{3} + 56 n^{2} - 258 n + 395,\qquad p_{5}(n)=- 6 n^{3} + 84 n^{2} - 395 n + 624,\qquad p_{6}(n)=- \left(n - 5\right) \left(4 n^{2} - 41 n + 106\right),\qquad p_{7}(n)=- \left(n - 6\right)^{2} \left(n - 5\right)
+p_{0}(n)=3 n \left(n - 1\right) \left(n + 1\right),\qquad p_{1}(n)=- n \left(n - 1\right) \left(67 n - 101\right),\qquad p_{2}(n)=2 \left(n - 1\right) \left(286 n^{2} - 1112 n + 1089\right),\qquad p_{3}(n)=- 4 \left(580 n^{3} - 4200 n^{2} + 10106 n - 8049\right),\qquad p_{4}(n)=24 \left(184 n^{3} - 1784 n^{2} + 5770 n - 6221\right),\qquad p_{5}(n)=- 96 \left(2 n - 9\right) \left(4 n - 17\right) \left(4 n - 15\right)
 \]
 
 \section{Recurrences as differential operators}
 
-Let $A(x)=\sum_{n\ge0}a(n)x^{n}/n!$ be the exponential generating function of a sequence, and let
+Let $A(x)=\sum_{n\ge0}a(n)x^{n}$ be the generating function of a sequence, and let
 $\theta=x\,\dfrac{d}{dx}$, so that $\theta$ acts on $x^{m}$ as multiplication by $m$. For a
 polynomial $p$ we write $p(\theta)$ for the corresponding differential operator, so that
-$p(\theta)A=\sum_{m}p(m)a(m)x^{m}/m!$.
+$p(\theta)A=\sum_{m}p(m)a(m)x^{m}$.
 
 \begin{lemma}\label{lem:transfer}
-Let $p_{0},\dots,p_{r}$ be polynomials and suppose the conjecture asserts
-$\sum_{i=0}^{r}p_{i}(n)a(n-i)=0$. Re-index by $n=m+r$ and $j=r-i$, and write
-$q_{j}(m)=p_{r-j}(m+r)$, so the claim reads $\sum_{j=0}^{r}q_{j}(m)\,a(m+j)=0$. Put
-$b(m)=\sum_{j}q_{j}(m)a(m+j)$. Then
+Let $p_{0},\dots,p_{r}$ be polynomials and put $b(n)=\sum_{i=0}^{r}p_{i}(n)\,a(n-i)$, with
+the convention $a(m)=0$ for $m<0$. Then
 \[
-B(x):=\sum_{m\ge0}b(m)\frac{x^{m}}{m!}=\sum_{j=0}^{r}\bigl(q_{j}(\theta)A^{(j)}\bigr)(x),
+B(x):=\sum_{n\ge0}b(n)x^{n}=\sum_{i=0}^{r}x^{i}\,\bigl(p_{i}(\theta+i)A\bigr)(x).
 \]
-where $A^{(j)}$ denotes the $j$-th derivative of $A$.
 \end{lemma}
 
 \begin{proof}
-For an exponential generating function an upward shift is differentiation:
-$\sum_{m\ge0}a(m+j)x^{m}/m!=A^{(j)}(x)$. Multiplying the coefficient of $x^{m}/m!$ by
-$q_{j}(m)$ is exactly the action of $q_{j}(\theta)$, and summing over $j$ gives the
-statement. The re-indexing is what makes this work: a downward shift $a(n-i)$ would
-correspond to repeated integration, whereas an upward shift is a derivative, and the
-field used below is closed under differentiation.
+Fix $i$ and substitute $m=n-i$:
+\[
+\sum_{n\ge0}p_{i}(n)a(n-i)x^{n}=\sum_{m\ge0}p_{i}(m+i)a(m)x^{m+i}
+=x^{i}\sum_{m\ge0}p_{i}(m+i)a(m)x^{m}=x^{i}\bigl(p_{i}(\theta+i)A\bigr)(x),
+\]
+the last step because $p_{i}(\theta+i)$ multiplies the coefficient of $x^{m}$ by
+$p_{i}(m+i)$. Summing over $i$ gives the claim.
 \end{proof}
 
 \begin{corollary}\label{cor:criterion}
 With the notation of Lemma~\ref{lem:transfer}, the recurrence
-$\sum_{i}p_{i}(n)a(n-i)=0$ holds for every $n>d+r$ if and only if $B$ is a polynomial of
+$\sum_{i}p_{i}(n)a(n-i)=0$ holds for every $n>d$ if and only if $B$ is a polynomial of
 degree at most $d$.
 \end{corollary}
 
 \begin{proof}
-$b(m)$ is $m!$ times the coefficient of $x^{m}$ in $B$, so $b(m)=0$ for all $m>d$ says
-exactly that $B$ has no terms above $x^{d}$.
+$b(n)$ is the coefficient of $x^{n}$ in $B$, so $b(n)=0$ for all $n>d$ says exactly that
+$B$ has no terms above $x^{d}$.
 \end{proof}
 
 This turns the conjecture into a closed-form identity. The point is that it can then be
@@ -99,50 +96,58 @@ decided exactly, with no truncation: $A$ is algebraic, so $B$ lies in the same f
 $A$, and one only has to recognise it.
 
 \begin{lemma}\label{lem:field}
-Let $u,g\in\mathbb{Q}(x)$ and let $M$ be the $\mathbb{Q}(x)$-module spanned by the
-monomials $\log(u)^{a}\exp(g)^{k}$ for $a\ge0$ and $k\in\mathbb{Z}$. Then $M$ is closed
-under $d/dx$, and hence under $\theta=x\,d/dx$; explicitly,
+Let $P(x,y)\in\mathbb{Q}(x)[y]$ be squarefree of degree $m\ge1$ in $y$, let
+$K=\mathbb{Q}(x)[y]/(P)$, and write $\alpha$ for the class of $y$ in $K$. Then $K$ is
+closed under $\theta$. Explicitly,
 \[
-\frac{d}{dx}\Bigl(c\,\log(u)^{a}\exp(g)^{k}\Bigr)
-=\Bigl(c'+c\,k\,g'\Bigr)\log(u)^{a}\exp(g)^{k}
-\;+\;c\,a\,\frac{u'}{u}\,\log(u)^{a-1}\exp(g)^{k},
-\qquad c\in\mathbb{Q}(x).
+\alpha'=-\frac{P_{x}(x,\alpha)}{P_{y}(x,\alpha)},
 \]
+the quotient taken inside $K$, and for $u=\sum_{i<m}c_{i}(x)\,\alpha^{i}$ with
+$c_{i}\in\mathbb{Q}(x)$,
+\[
+\theta(u)=x\Bigl(\sum_{i<m}c_{i}'(x)\,\alpha^{i}
+ +\alpha'\sum_{i<m}i\,c_{i}(x)\,\alpha^{i-1}\Bigr),
+\]
+reduced modulo $P$.
 \end{lemma}
 
 \begin{proof}
-Differentiate the product. The factor $\exp(g)^{k}=\exp(kg)$ contributes $kg'$ and does
-not change the monomial; the factor $\log(u)^{a}$ contributes $a(u'/u)\log(u)^{a-1}$,
-lowering the log exponent by one. Both new coefficients lie in $\mathbb{Q}(x)$, so the
-result is again a finite combination of the same monomials.
+$P(x,\alpha)=0$ holds identically in $x$, so differentiating gives
+$P_{x}(x,\alpha)+P_{y}(x,\alpha)\,\alpha'=0$. Because $P$ is squarefree,
+$\gcd(P,P_{y})=1$ in $\mathbb{Q}(x)[y]$, so $P_{y}(x,\alpha)$ is a unit of $K$ and the
+displayed quotient is defined there; its inverse is produced by the extended Euclidean
+algorithm. The formula for $\theta(u)$ is the chain rule, and reduction modulo $P$ returns
+the value to the basis $1,\alpha,\dots,\alpha^{m-1}$. Every operation stays inside $K$.
 \end{proof}
 
-Two features make this usable. The exponential part never mixes monomials at all, and the
-logarithmic part only ever moves \emph{downwards}, so the module generated by any single
-element is finite dimensional and every computation terminates. Writing $B$ in this basis,
-the test of Corollary~\ref{cor:criterion} becomes: $B$ is a polynomial precisely when every
-coefficient outside the monomial $\log(u)^{0}\exp(g)^{0}$ vanishes and the remaining
-coefficient has constant denominator. Both are decided by exact cancellation of rational
-functions, so no series truncation enters anywhere.
+Consequently, if $A\in K$ then every $p_{i}(\theta+i)A$ is in $K$, and so is $B$. Writing
+$B=\sum_{i<m}b_{i}(x)\,\alpha^{i}$ with $b_{i}\in\mathbb{Q}(x)$, the test of
+Corollary~\ref{cor:criterion} becomes: $B$ is a polynomial precisely when $b_{i}=0$ for
+every $i\ge1$ and $b_{0}$ has constant denominator. Both are decided by exact
+cancellation of rational functions.
 
-\section{The computation for A162972}
+\section{The computation for A308726}
 
-The generating function \eqref{eq:gf} lies in the module $M$ of
-Lemma~\ref{lem:field}.
-Applying Lemma~\ref{lem:transfer} to the coefficient polynomials of Section~1 and reducing
-in $K$ by Lemma~\ref{lem:field}, the $\sqrt{D}$ component of $B$ cancels identically and
-the rational part collapses to
+The generating function \eqref{eq:gf} is algebraic over $\mathbb{Q}(x)$;
+its minimal polynomial is
 \[
-B(x)\;=\;0 ,
+P(x,y) \;=\; 16 x^{5} y^{4} - 8 x^{4} y^{4} - 64 x^{4} y^{3} + 8 x^{4} y^{2} + x^{3} y^{4} + 32 x^{3} y^{3} + 94 x^{3} y^{2} - 48 x^{3} y + x^{3} - 4 x^{2} y^{3} - 48 x^{2} y^{2} - 28 x^{2} y + 52 x^{2} + 6 x y^{2} + 22 x y - 25 x - 3 y + 3 ,
 \]
-a polynomial of degree $0$.
+so \eqref{eq:gf} lies in $K=\mathbb{Q}(x)[y]/\bigl(P(x,y)\bigr)$ and is the root of that polynomial with the right
+expansion at the origin. Applying Lemma~\ref{lem:transfer} to the coefficient polynomials
+of Section~1 and reducing in $K$ by Lemma~\ref{lem:field}, every component $b_{i}$ of $B$
+with $i\ge1$ cancels identically and the remaining rational part collapses to
+\[
+B(x)\;=\;- 96 x^{4} + 24 x^{3} - 12 x^{2} ,
+\]
+a polynomial of degree $4$.
 
 \begin{theorem}
 The conjectured recurrence
 \[
-1\,a(n) + (8 - 3 n)\,a(n-1) + \left(n - 3\right) \left(3 n - 14\right)\,a(n-2) + (- n^{3} + 19 n^{2} - 98 n + 156)\,a(n-3) + (- 4 n^{3} + 56 n^{2} - 258 n + 395)\,a(n-4) + (- 6 n^{3} + 84 n^{2} - 395 n + 624)\,a(n-5) -  \left(n - 5\right) \left(4 n^{2} - 41 n + 106\right)\,a(n-6) -  \left(n - 6\right)^{2} \left(n - 5\right)\,a(n-7) \;=\;0
+3 n \left(n - 1\right) \left(n + 1\right)\,a(n) -  n \left(n - 1\right) \left(67 n - 101\right)\,a(n-1) + 2 \left(n - 1\right) \left(286 n^{2} - 1112 n + 1089\right)\,a(n-2) -  4 \left(580 n^{3} - 4200 n^{2} + 10106 n - 8049\right)\,a(n-3) + 24 \left(184 n^{3} - 1784 n^{2} + 5770 n - 6221\right)\,a(n-4) -  96 \left(2 n - 9\right) \left(4 n - 17\right) \left(4 n - 15\right)\,a(n-5) \;=\;0
 \]
-holds for every $n>7$.
+holds for every $n>4$.
 \end{theorem}
 
 \begin{proof}
@@ -151,7 +156,7 @@ Immediate from Corollary~\ref{cor:criterion} and the displayed value of $B$.
 
 \begin{remark}
 The polynomial $B$ is not an error term: it records the boundary of the recurrence. For
-$n\le0$ some of the shifted terms $a(n-i)$ fall outside the range of the sequence,
+$n\le4$ some of the shifted terms $a(n-i)$ fall outside the range of the sequence,
 and $B$ collects exactly those contributions. Above that range the relation is exact.
 \end{remark}
 
@@ -162,23 +167,23 @@ independent checks were run.
 
 First, the generating function was checked against the entry rather than assumed: the
 Taylor coefficients of \eqref{eq:gf} were expanded and compared term by term with the DATA
-section of A162972, agreeing on all 13 terms compared.
+section of A308726, agreeing on all 13 terms compared.
 
 Second, the recurrence itself was evaluated directly on the published terms, in exact
 integer arithmetic and without reference to the generating function: for each $n$ in range
 the sum $\sum_{i}p_{i}(n)a(n-i)$ was formed from the entry's own values and found to
-vanish, for all 14 values of $n$ from $n=9$ upward. This is what
+vanish, for all 21 values of $n$ from $n=5$ upward. This is what
 Corollary~\ref{cor:criterion} predicts from the degree of $B$, and it is a genuinely
 different computation from the symbolic one: it never forms $B$, never differentiates, and
 uses only integers.
 
 The symbolic step is exact throughout. The residual is obtained by rational-function
-cancellation in $K$, not by series truncation, so the identity $B=0$ is an
-identity of functions and the theorem holds for all $n>7$ simultaneously.
+cancellation in $K$, not by series truncation, so the identity $B=- 96 x^{4} + 24 x^{3} - 12 x^{2}$ is an
+identity of functions and the theorem holds for all $n>4$ simultaneously.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer Sequences},
-\url{https://oeis.org}, 2026. Sequence A162972.
+\url{https://oeis.org}, 2026. Sequence A308726.
 \bibitem{kp} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011,
 Chapter 7 (holonomic closure properties and the translation between recurrences and
 differential equations).
