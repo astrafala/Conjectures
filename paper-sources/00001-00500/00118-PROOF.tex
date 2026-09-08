@@ -12,176 +12,197 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The reduction of OEIS A091713 modulo $2$}
+\title{The empirical recurrence for OEIS A211443, proved by a one-dimensional reduction}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{31 August 2026}
+\date{4 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A091713 is defined by the functional equation $A(x)=x+x\,A^{3}(x)$, where
-$A^{3}$ is the $3$-th compositional iterate, and carries a conjecture of
-P.~D.~Hanna that every term is odd. It is true. The equation determines the coefficients one at a
-time, with $a(N)$ entering with coefficient $1$, so it determines them modulo $2$ as
-well. Modulo $2$ the series $x/(1-x)$ satisfies the equation exactly, because its
-iterates are $x/(1-jx)$ and $3\equiv1$ modulo $2$. Uniqueness then identifies the
-reduction. The argument is an identity between rational functions over
-$\mathbb{Z}/2\mathbb{Z}$; nothing is truncated or estimated.
+OEIS A211443 counts symmetric $(n+1)\times(n+1)$ matrices over
+$\{-7,\dots,7\}$ in which every $2\times2$ subblock sums to zero and has one or three distinct
+entries. Both sides of the matrix grow with $n$, so there is no slice of bounded width to walk
+along. There does not need to be: the sum-zero condition is linear and solves completely, and
+its solutions are indexed by a SEQUENCE --- the diagonal of the matrix. The count becomes a walk
+on $S=329$ states, and the empirical recurrence of order $14$ contributed by R.~H.~Hardin
+follows.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 11B50, 05A15, 13F25.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 15B36, 15A18.\normalsize
 
-\section{The sequence and the conjecture}
+\section{The conjecture}
 
-OEIS A091713 is ``G.f. A(x) satisfies A(x) = x + x*A(A(A(x))).''. It has offset $1$ and begins
+OEIS A211443 is ``Number of (n+1)X(n+1) -7..7 symmetric matrices with every 2X2 subblock having sum zero and one or three distinct values.''. It has offset $1$ and begins
 \[
-1, 1, 3, 15, 99, 781, 7001,\ \dots
+91, 201, 397, 765, 1459, 2751, 5215, 9855,\ \dots
 \]
-Writing $A(x)=\sum_{n\ge1}a(n)x^{n}$ and $A^{\,i}$ for the $i$-th compositional
-iterate of $A$, the entry defines $A$ by
-\begin{equation}\label{eq:fe}
-A(x)\;=\;x+x\,A^{3}(x).
-\end{equation}
-This is the only input taken from the entry.
-
-The entry separately carries the following comment:
-\begin{quote}\small
-Conjecture: all terms are odd. --- \emph{Paul D. Hanna}
+The entry states, as a conjecture contributed by its author and never marked settled:
+\begin{quote}
+Empirical: a(n) = 3*a(n-1) +9*a(n-2) -31*a(n-3) -30*a(n-4) +125*a(n-5) +48*a(n-6) -251*a(n-7) -46*a(n-8) +264*a(n-9) +40*a(n-10) -138*a(n-11) -28*a(n-12) +28*a(n-13) +8*a(n-14)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jun 13 2026 09:32:47, revision 32) the statement is
-still recorded as a conjecture, and nothing on the entry records it as settled either way.
+As of the ``Last modified'' line on the live entry (Oct 03 2025 16:10:13, revision 8) this is still
+recorded as empirical, and nothing on the entry records it as proved.
 
-\section{The equation determines the sequence}
+\section{The sum-zero condition solved}
 
-\begin{lemma}\label{lem:jaN}
-Let $A(x)=\sum_{n\ge1}a(n)x^{n}$ with $a(1)=1$. Then for every $i\ge1$ and every $N\ge1$,
+Let $x$ be an $N\times N$ symmetric matrix with entries in $\{-7,\dots,7\}$ such that
 \[
-\bigl[x^{N}\bigr]A^{\,i}=i\,a(N)+\bigl(\text{a polynomial in }a(1),\dots,a(N-1)\bigr).
+x(i,j)+x(i,j{+}1)+x(i{+}1,j)+x(i{+}1,j{+}1)=0
+\]
+for every $0\le i,j\le N-2$.
+
+\begin{lemma}\label{lem:solve}
+Such matrices are exactly the matrices
+\[
+x(i,j)=(-1)^{i+j}\,\frac{u_i+u_j}{2},
+\qquad u_0,\dots,u_{N-1}\in\{-7,\dots,7\}\ \text{all of the same parity},
+\]
+and the sequence is recovered from the matrix by $u_i=x(i,i)$, so the correspondence is a
+bijection.
+\end{lemma}
+
+\begin{proof}
+Put $y(i,j)=(-1)^{i+j}x(i,j)$. The four entries of a $2\times2$ subblock alternate in sign
+under this substitution, so
+\[
+x(i,j)+x(i,j{+}1)+x(i{+}1,j)+x(i{+}1,j{+}1)
+=(-1)^{i+j}\bigl[y(i,j)-y(i,j{+}1)-y(i{+}1,j)+y(i{+}1,j{+}1)\bigr],
+\]
+and the condition says exactly that the mixed second difference of $y$ vanishes everywhere.
+Summing that identity over a rectangle gives
+$y(i,j)=y(i,0)+y(0,j)-y(0,0)$ for all $i,j$, which is $y(i,j)=f(i)+g(j)$ with
+$f(i)=y(i,0)-y(0,0)$ and $g(j)=y(0,j)$; conversely every such $y$ has vanishing mixed
+difference. Symmetry of $x$ gives $y(i,j)=y(j,i)$, hence $f(i)-g(i)=f(j)-g(j)$ for all $i,j$:
+the difference is a constant $c$. Writing $u_i=2\bigl(f(i)-c/2\bigr)$, which is an integer
+because $y(i,i)=x(i,i)$ is, we get $y(i,j)=(u_i+u_j)/2$ as claimed. Taking $j=i$ gives
+$u_i=y(i,i)=x(i,i)$.
+
+For the two side conditions: $u_i+u_j$ must be even for all $i,j$, which says all the $u_i$ have
+the same parity; and $|x(i,j)|=|u_i+u_j|/2\le7$ for all $i,j$ is equivalent to $|u_i|\le7$
+for each $i$, the case $j=i$ giving one direction and the triangle inequality the other.
+\end{proof}
+
+So the matrices of size $N$ correspond one for one to the sequences $u_0,\dots,u_{N-1}$ in
+$\{-7,\dots,7\}$ with all entries of one parity. What remains is to say, in terms of $u$,
+that every $2\times2$ subblock has one or three distinct entries.
+
+\begin{lemma}\label{lem:block}
+Write $\pi_i=(u_i,u_{i+1})$ for the $i$-th consecutive pair. The number of distinct entries of
+the subblock at $(i,j)$ depends only on $\pi_i$ and $\pi_j$: with $\pi_i=(\alpha,\beta)$ and
+$\pi_j=(\gamma,\delta)$ it is
+\[
+\Bigl|\Bigl\{\tfrac{\alpha+\gamma}{2},\,-\tfrac{\alpha+\delta}{2},\,
+-\tfrac{\beta+\gamma}{2},\,\tfrac{\beta+\delta}{2}\Bigr\}\Bigr| .
 \]
 \end{lemma}
 
 \begin{proof}
-Induction on $i$. For $i=1$ the statement is $\bigl[x^{N}\bigr]A=a(N)$. Suppose it holds
-for $i$ and put $B=A^{\,i}$, so $\bigl[x^{1}\bigr]B=1$ and
-$\bigl[x^{N}\bigr]B=i\,a(N)+\cdots$. Then
-$A^{\,i+1}=A\circ B=\sum_{m\ge1}a(m)B^{m}$, so
-\[
-\bigl[x^{N}\bigr]A^{\,i+1}=\sum_{m=1}^{N}a(m)\,\bigl[x^{N}\bigr]B^{m} .
-\]
-The term $m=N$ contributes $a(N)\bigl(\bigl[x^{1}\bigr]B\bigr)^{N}=a(N)$; the term $m=1$
-contributes $\bigl[x^{N}\bigr]B=i\,a(N)+\cdots$; and for $2\le m\le N-1$ every monomial of
-$\bigl[x^{N}\bigr]B^{m}$ is a product of $m\ge2$ coefficients of $B$ whose indices sum to
-$N$, so each index is at most $N-1$ and no $a(N)$ occurs. Adding up gives $(i+1)a(N)$ plus
-terms in $a(1),\dots,a(N-1)$.
+By Lemma~\ref{lem:solve} the four entries are $(-1)^{i+j}$ times those four numbers, in
+order. Multiplying all four by $\pm1$ does not change how many are distinct.
 \end{proof}
 
-\begin{lemma}\label{lem:unique}
-There is exactly one sequence of integers $a(1),a(2),\dots$ satisfying \eqref{eq:fe}, and
-for each $N\ge2$ the equation read at order $x^{N}$ has the form
-$a(N)=(\text{a polynomial with integer coefficients in }a(1),\dots,a(N-1))$.
-\end{lemma}
+Call two consecutive pairs COMPATIBLE when that number lies in $\{1,3\}$. The condition on the
+matrix is that $\pi_i$ and $\pi_j$ are compatible for every $i$ and $j$ --- including $i=j$,
+which asks each pair to be compatible with itself. In other words:
 
-\begin{proof}
-Comparing coefficients of $x$ in \eqref{eq:fe} gives $a(1)=1$, since $x\,A^{3}(x)$ has
-no linear term. Let $N\ge2$. The left side contributes $a(N)$. On the right,
-$\bigl[x^{N}\bigr]\bigl(x\,A^{3}\bigr)=\bigl[x^{N-1}\bigr]A^{3}$, which by
-Lemma~\ref{lem:jaN} involves only $a(1),\dots,a(N-1)$. So the coefficient of $a(N)$ in the
-order-$x^{N}$ equation is $1$, the equation solves for $a(N)$ over $\mathbb{Z}$, and
-induction gives existence and uniqueness.
-\end{proof}
-
-\begin{corollary}\label{cor:mod}
-Let $m\ge2$. If $\bar A\in(\mathbb{Z}/m\mathbb{Z})[[x]]$ satisfies $\bar A=x+O(x^{2})$ and
-\eqref{eq:fe} with all coefficients read modulo $m$, then
-$a(n)\equiv\bigl[x^{n}\bigr]\bar A\pmod m$ for every $n$.
+\begin{corollary}
+The matrices counted are exactly the sequences $u$ whose set of consecutive pairs is a clique in
+the compatibility graph on the $\le 225$ pairs.
 \end{corollary}
 
-\begin{proof}
-Reduction modulo $m$ is a ring homomorphism, so it carries the integer recursion of
-Lemma~\ref{lem:unique} to the same recursion over $\mathbb{Z}/m\mathbb{Z}$, in which the
-coefficient of $a(N)$ is still $1$ and hence still invertible. That recursion has a unique
-solution, and both $a\bmod m$ and the coefficients of $\bar A$ solve it.
-\end{proof}
+\section{A walk on the sequence}
 
-\section{The reduction modulo $2$}
+The clique condition is not local: a pair must be compatible with every pair anywhere else in
+the sequence. Carrying the set of pairs already used would be an exponential state. Carrying
+what it FORBIDS is not.
 
-Write $f(x)=\dfrac{x}{1-x}$ over $\mathbb{Z}/2\mathbb{Z}$.
-
-\begin{lemma}\label{lem:iter}
-$f^{\,i}(x)=\dfrac{x}{1-ix}$ for every $i\ge1$.
+\begin{lemma}\label{lem:lump}
+Let $A$ be the set of pairs compatible with every pair used so far. Then a sequence may be
+continued exactly by pairs lying in $A$, and appending a pair $\pi$ replaces $A$ by
+$A\cap N(\pi)$, where $N(\pi)$ is the set of pairs compatible with $\pi$. Hence the pair
+$(\,\text{last value of }u,\;A\,)$ carries everything the future needs.
 \end{lemma}
 
 \begin{proof}
-True for $i=1$. If $f^{\,i}(x)=x/(1-ix)$ then
-\[
-f^{\,i+1}(x)=f\bigl(f^{\,i}(x)\bigr)
-=\frac{\dfrac{x}{1-ix}}{1-\dfrac{x}{1-ix}}
-=\frac{x}{(1-ix)-x}=\frac{x}{1-(i+1)x} .
-\]
+The condition is a conjunction of pairwise compatibilities, so the set of pairs still allowed
+after using a set $T$ is $\bigcap_{\pi\in T}N(\pi)$, which is a function of $T$ and is updated
+by intersection as $T$ grows. The next pair is $(\text{last value},w)$, so the last value is
+the only other thing a step needs.
 \end{proof}
 
-\begin{lemma}\label{lem:sat}
-Over $\mathbb{Z}/2\mathbb{Z}$, $f$ satisfies $f(x)=x+x\,f^{3}(x)$.
+The sets $A$ that arise are intersections of neighbourhoods, of which there are far fewer than
+subsets; enumerated from the start $A_0=\{\pi:\pi\in N(\pi)\}$, the reachable states number
+$S=329$. The two parity classes never mix, so the walk starts by choosing a parity and a first
+value, and every state may end a sequence:
+\[
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad \tau=\mathbf{1},\qquad S=329.
+\]
+The walk index $j$ is the size of the matrix, and it differs from the entry's own $n$ by a
+constant read off by matching the published terms rather than assumed. In particular $a$ is
+$C$-finite --- for a family in which both dimensions grow with $n$.
+
+\section{The proof}
+
+\begin{lemma}\label{lem:crit}
+Let $q(t)=t^{14}-\sum_i c_it^{14-i}$ be the characteristic polynomial of the
+conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
+$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
+holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
+and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-By Lemma~\ref{lem:iter}, $f^{3}(x)=\dfrac{x}{1-3x}$. Since $3\equiv1$ modulo
-$2$ --- this is the whole content of the choice of modulus, as $2=3-1$ --- we have
-$1-3x=1-x$ in $(\mathbb{Z}/2\mathbb{Z})[x]$, so $f^{3}(x)=\dfrac{x}{1-x}$.
-Therefore
-\[
-x+x\,f^{3}(x)=x+\frac{x^{2}}{1-x}
-=\frac{x(1-x)+x^{2}}{1-x}=\frac{x}{1-x}=f(x).
-\]
+Factor $M^{j}$ out of $M^{j+14}-\sum_ic_iM^{j+14-i}$. For the bound, $M^{S}$
+is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
+$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
+polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
+pins the threshold exactly.
 \end{proof}
 
-\begin{theorem}\label{thm:main}
-Over $\mathbb{Z}/2\mathbb{Z}$ the reduction of $A$ is $x/(1-x)$; equivalently
-$a(n)\equiv1\pmod{2}$ for every $n\ge1$. This is the conjecture of Section~1.
+\begin{theorem}
+\[
+a(n)\;=\;3\,a(n-1) + 9\,a(n-2) - 31\,a(n-3) - 30\,a(n-4) + 125\,a(n-5) + 48\,a(n-6) - 251\,a(n-7) - 46\,a(n-8) + 264\,a(n-9) + 40\,a(n-10) - 138\,a(n-11) - 28\,a(n-12) + 28\,a(n-13) + 8\,a(n-14)
+\]
+for every $n>14$.
 \end{theorem}
 
 \begin{proof}
-By Lemma~\ref{lem:sat} the series $f=x/(1-x)$ satisfies the reduced equation, and
-$f=x+O(x^{2})$. By Corollary~\ref{cor:mod} the reduction of $A$ equals $f$, every
-coefficient of which is $1$.
+The vector $w=q(M)\tau$ was formed by $14$ matrix--vector products in exact integer
+arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
+integers vanish from the index corresponding to $n=14+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
-
-\begin{remark}
-The proof used only $3\equiv1$ modulo $2$. The same argument shows that for every
-$i\ge2$ the sequence defined by $A(x)=x+x\,A^{\,i}(x)$ has all of its terms congruent to
-$1$ modulo $i-1$. It also shows where the argument stops: if $m\nmid i-1$ then $1-ix$ and
-$1-x$ differ in $(\mathbb{Z}/m\mathbb{Z})[x]$, so $x/(1-x)$ is not a solution of the
-reduced equation and this route says nothing modulo $m$.
-\end{remark}
 
 \section{Verification}
 
-Three checks, each independent of the algebra above.
+Four checks, each independent of the algebra above.
 
-First, the recursion of Lemma~\ref{lem:unique} was run in exact rational arithmetic and
-its output compared against the entry's DATA at every one of the $22$ published
-indices; the values agree exactly, and every one is an integer. A recursion that reproduced
-only some of them would mean the functional equation had been transcribed wrongly.
+First, the model reproduces all $27$ terms the entry publishes, exactly, in integer
+arithmetic.
 
-Second, at every step the coefficient of $a(N)$ was computed rather than assumed, by
-evaluating the order-$x^{N}$ equation at $a(N)=0$ and at $a(N)=1$ and subtracting; it came
-out $1$ at every $N$ up to $25$, as Lemma~\ref{lem:unique} requires. The run was continued
-to $n=25$ and every term reduced modulo $2$; all residues are $1$.
+Second, the count was recomputed for the smallest matrices straight from the definition:
+symmetric matrices were written out entry by entry over $\{-7,\dots,7\}$ and each
+$2\times2$ subblock tested for summing to zero and for having one or three distinct entries. The
+sequence $u$, the sign pattern, the clique and the state play no part in that computation, and
+the published terms came back. Lemma~\ref{lem:solve} was separately checked the same way: for
+small sizes and small ranges the number of symmetric sum-zero matrices found by direct
+enumeration equals the number of admissible sequences.
 
-Third, both sides of \eqref{eq:fe} were expanded independently as formal power series over
-$\mathbb{Z}/2\mathbb{Z}$ to order $30$, starting from the coefficients of $x/(1-x)$
-rather than from the closed form, and they agree at every order; the iterates $f^{\,i}$
-were confirmed to have coefficients $i^{\,n-1}$ for $i\le6$.
+Third, the conjectured recurrence was evaluated directly on the published terms, with no
+matrices involved, and holds wherever the proved range and the data overlap.
+
+Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A091713.
-\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 2, Cambridge
-University Press, 1999.
-\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
-University Press, 2009.
-\bibitem{hw} G.~H.~Hardy and E.~M.~Wright, \emph{An Introduction to the Theory of
-Numbers}, 6th ed., Oxford University Press, 2008.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A211443.
+\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{kemeny} J.~G.~Kemeny and J.~L.~Snell, \emph{Finite Markov Chains}, Springer, 1976.
+(Lumping, Section 6.3.)
+\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
+University Press, 2013.
 \end{thebibliography}
 
 \end{document}

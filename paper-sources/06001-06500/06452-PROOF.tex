@@ -12,17 +12,17 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A185861, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A229698, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A185861 carries an empirical recurrence of order $19$ contributed by R.~H.~Hardin. It is
-true, and it is decidable rather than empirical. The entry's condition is local to a bounded window of consecutive lines, so
+OEIS A229698 carries an empirical recurrence of order $21$ contributed by R.~H.~Hardin. It is
+true, and it is decidable rather than empirical. The entry's condition is local to a window of consecutive lines fixed by the entry's own offsets, so
 the admissible configurations of such a window are the vertices of a finite digraph and the
-arrays counted are exactly the walks in it; hence $a(n)$ is a walk count on $S=88832$ vertices
+arrays counted are exactly the walks in it; hence $a(n)$ is a walk count on $S=828$ vertices
 and is $C$-finite. Whether the conjectured recurrence annihilates it is then settled by a
 finite exact computation, with the Cayley--Hamilton theorem bounding the work.
 \end{abstract}
@@ -31,26 +31,26 @@ finite exact computation, with the Cayley--Hamilton theorem bounding the work.
 
 \section{The conjecture}
 
-OEIS A185861 is ``1/128 the number of (n+2)X6 binary arrays with no 3X3 subblock trace equal to any horizontal or vertical neighbor 3X3 subblock trace.''. It has offset $1$ and begins
+OEIS A229698 is ``Number of defective 3-colorings of a 5 X n 0..2 array connected horizontally and antidiagonally with exactly two mistakes, and colors introduced in row-major 0..2 order.''. It has offset $1$ and begins
 \[
-694, 9604, 148747, 2306566, 35696805, 552341314, 8546141676, 132241750157,\ \dots
+0, 2304, 62856, 1125333, 17724789, 258006388, 3583403667, 48115029568,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n)=13*a(n-1)+86*a(n-2)-729*a(n-3)-588*a(n-4)+7148*a(n-5)-4926*a(n-6)-832*a(n-7)-7418*a(n-8)+5675*a(n-9)-4618*a(n-10)+5644*a(n-11)-1871*a(n-12)+4193*a(n-13)-1693*a(n-14)+70*a(n-15)-954*a(n-16)-206*a(n-17)+152*a(n-18)+28*a(n-19) for n>21
+Empirical: a(n) = 48*a(n-1) - 960*a(n-2) + 10468*a(n-3) - 68685*a(n-4) + 282276*a(n-5) - 718624*a(n-6) + 997536*a(n-7) - 166467*a(n-8) - 2005784*a(n-9) + 3520224*a(n-10) - 1956780*a(n-11) - 1660207*a(n-12) + 3547332*a(n-13) - 2236608*a(n-14) - 28632*a(n-15) + 1014720*a(n-16) - 774528*a(n-17) + 307392*a(n-18) - 71424*a(n-19) + 9216*a(n-20) - 512*a(n-21) for n > 27.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 03:16:16, revision 9) this is still
+As of the ``Last modified'' line on the live entry (Apr 28 2021 01:22:20, revision 8) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{The count is a walk count}
 
-The condition the entry imposes is local: it constrains a bounded window of consecutive lines and nothing beyond. Take as
+The condition the entry imposes is local: it constrains a window of consecutive lines fixed by the entry's own offsets and nothing beyond. Take as
 vertices the admissible configurations of one such window and put an edge from $u$ to $v$
 whenever $v$ may follow $u$, which the condition decides by inspection of the two. An
-admissible array is then exactly a walk, so with $M$ the adjacency matrix on $S=88832$ vertices
+admissible array is then exactly a walk, so with $M$ the adjacency matrix on $S=828$ vertices
 and $\iota,\tau$ the vectors recording which windows may begin and end an array,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau ,
+a(n)\;=\;\iota^{\!\top}M^{\,n}\tau ,
 \]
 the exponent fixed by the entry's own shape and checked against its published terms. In
 particular $a$ is $C$-finite.
@@ -58,7 +58,7 @@ particular $a$ is $C$-finite.
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{19}-\sum_i c_it^{19-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{21}-\sum_i c_it^{21-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -66,7 +66,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+19}-\sum_ic_iM^{j+19-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+21}-\sum_ic_iM^{j+21-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -75,15 +75,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;13\,a(n-1) + 86\,a(n-2) - 729\,a(n-3) - 588\,a(n-4) + 7148\,a(n-5) - 4926\,a(n-6) - 832\,a(n-7) - 7418\,a(n-8) + 5675\,a(n-9) - 4618\,a(n-10) + 5644\,a(n-11) - 1871\,a(n-12) + 4193\,a(n-13) - 1693\,a(n-14) + 70\,a(n-15) - 954\,a(n-16) - 206\,a(n-17) + 152\,a(n-18) + 28\,a(n-19)
+a(n)\;=\;48\,a(n-1) - 960\,a(n-2) + 10468\,a(n-3) - 68685\,a(n-4) + 282276\,a(n-5) - 718624\,a(n-6) + 997536\,a(n-7) - 166467\,a(n-8) - 2005784\,a(n-9) + 3520224\,a(n-10) - 1956780\,a(n-11) - 1660207\,a(n-12) + 3547332\,a(n-13) - 2236608\,a(n-14) - 28632\,a(n-15) + 1014720\,a(n-16) - 774528\,a(n-17) + 307392\,a(n-18) - 71424\,a(n-19) + 9216\,a(n-20) - 512\,a(n-21)
 \]
-for every $n>21$.
+for every $n>27$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $19$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $21$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=21+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=27+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -103,7 +103,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A185861.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A229698.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

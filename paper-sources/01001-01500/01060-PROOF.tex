@@ -12,84 +12,104 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A203393, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A218051, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{4 September 2026}
+\date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A203393 counts arrays of width $4$ over $\{0,1,2,3\}$ in which every nonzero cell has a neighbour at least as large as itself. The entry carries an
-empirical recurrence of order $69$ contributed by R.~H.~Hardin. It is true, and it is
-decidable rather than empirical: what a cell asks reaches one row above it and one row below, so the
-condition on a whole row is settled by $3$ consecutive rows and the count is a walk
-count on $S=51457$ states.
+OEIS A218051 counts the distinct arrays obtained by applying a fixed local operation to every cell
+of an array over a bounded alphabet, and carries an empirical recurrence of order $5$
+contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical. What is
+counted is the IMAGE of a map, not its domain, so it is not a walk count in the obvious graph;
+determinising the machine that emits the derived array row by row turns it into one, on
+$S=20$ states, after which the conjectured recurrence is settled by a finite exact
+computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B20, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 68Q45, 15B36.\normalsize
 
 \section{The conjecture}
 
-OEIS A203393 is ``Number of nX4 0..3 arrays with every nonzero element less than or equal to some NW, E or S neighbor.''. It has offset $1$ and begins
+OEIS A218051 is ``Number of n X 1 arrays of the minimum value of corresponding elements and their horizontal, vertical, diagonal or antidiagonal neighbors in a random 0..3 n X 1 array.''. It has offset $1$ and begins
 \[
-1, 1455, 210342, 18530502, 1650100394, 156174348536, 14710444493905, 1372836933907585,\ \dots
+4, 4, 16, 36, 94, 236, 602, 1528,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 256*a(n-1) -29090*a(n-2) +2153038*a(n-3) -120944727*a(n-4) +5436646342*a(n-5) -198945018323*a(n-6) +6003449140692*a(n-7) -151490335797269*a(n-8) +3240317293041080*a(n-9) -59500934757098762*a(n-10) +949038930153766434*a(n-11) -13285095671770751016*a(n-12) +164629867881714537648*a(n-13) -1818708645514335411069*a(n-14) +18019183251665136750748*a(n-15) -161013944018276223599206*a(n-16) +1304848682002387575033057*a(n-17) -9642366875610995594804141*a(n-18) +65297558111297993866162988*a(n-19) -406908269506433946471285146*a(n-20) +2340417848622212329436618906*a(n-21) -12447857077524000781235099523*a(n-22) +61278448404873112884892693973*a(n-23) -279365544520936934890345258977*a(n-24) +1180581666658039470554345280924*a(n-25) -4634913139270070141468491132416*a(n-26) +16979719003247974451022248099411*a(n-27) -58472989356825741616487219264610*a(n-28) +191263015374651743998308318212436*a(n-29) -601633601805721339650756351764880*a(n-30) +1841419852553709646298509432750748*a(n-31) -5524642571323469382644603708863177*a(n-32) +16247469042262613645435266321896508*a(n-33) -46473061822372632391493702003363500*a(n-34) +127620665890499262976414209872254640*a(n-35) -331740032997304395060573201508741636*a(n-36) +806177280449047505997073877180292144*a(n-37) -1814005848831966862350673767584880512*a(n-38) +3753194605861022769828032160834662368*a(n-39) -7106970436595069700771383358595656640*a(n-40) +12290589008568457157502359461698461504*a(n-41) -19453630004196367798073732916339463616*a(n-42) +28479077257882210090665515689598374656*a(n-43) -39574304011789196433443726940726866944*a(n-44) +54681174679312418056220012413906508544*a(n-45) -79176948221321101690168515808511847424*a(n-46) +122177657784390493403831036916653042688*a(n-47) -193454138802802719604512365809422476288*a(n-48) +297174549788869459877966899002657284096*a(n-49) -425519978594213046755275108578461618176*a(n-50) +555485630624894620772101798561653030912*a(n-51) -652385980129718776338961520372751024128*a(n-52) +683964695262790109371628484454295027712*a(n-53) -639336049180392370700144246191526313984*a(n-54) +534993765751397906669274201456241410048*a(n-55) -403215093582680213509177079792562601984*a(n-56) +275630186707803916179390290766676099072*a(n-57) -171951225433812540656255100103054852096*a(n-58) +98140851307702814827329477789251272704*a(n-59) -51078904642777602931112820164731600896*a(n-60) +24193696175876653597711814582681468928*a(n-61) -10523965764418288497404371204218814464*a(n-62) +4322956604382436021315328521210429440*a(n-63) -1754705971003024311366545062886375424*a(n-64) +706965429448002803178814127594274816*a(n-65) -249266841801593983689982528179929088*a(n-66) +60865598748541919949174818859909120*a(n-67) -7614542965724679909938329011879936*a(n-68) +212512959365284489308619250073600*a(n-69) for n>70
+Empirical: a(n) = 2*a(n-1) + a(n-2) + 2*a(n-4) + a(n-5).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 10:26:03, revision 9) this is still
+As of the ``Last modified'' line on the live entry (Feb 19 2018 09:11:29, revision 8) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The arrays have $4$ columns and a growing number of rows, with entries in $\{0,1,2,3\}$. Fix the
-offsets the entry names,
+Let $R=\{0,\dots,3\}^{1}$ be the set of rows and let the neighbours of
+a cell be the cells at the offsets
 \[
-\Delta=\{\,(-1,-1), (0,1), (1,0)\,\},
+(-1,-1), (-1,0), (-1,1), (0,-1), (0,1), (1,-1), (1,0), (1,1),
 \]
-and for a cell $(i,j)$ write
+those falling outside the array being simply absent. For an array
+$A=(r_1,\dots,r_n)\in R^n$ let $\Phi(A)$ be the array whose cell $(i,j)$ carries the
+minimum of $A(i,j)$ and of the values at its neighbours. The entry counts
 \[
-S(i,j)=\{\,(i+\delta_1,\,j+\delta_2) : (\delta_1,\delta_2)\in\Delta\,\}\cap
-\text{(the cells of the array)}
+a(n)\;=\;\bigl|\{\Phi(A):A\in R^n\}\bigr| ,
 \]
-for the neighbours it actually has. Only offsets landing inside the array count, so a cell on
-the border simply has fewer neighbours.
+the size of an IMAGE. That is the whole difficulty: two different arrays with the same
+minimum-array must be counted once, and a walk count on the arrays would count them twice.
 
-The condition is that every cell that is not zero has among its neighbours one at least as large as itself:
+Because every offset above moves the row index by at most one, row $i$ of
+$\Phi(A)$ depends only on rows $i-1,i,i+1$ of $A$. Write $\beta(p,c,x)$ for that row, with $p$
+or $x$ allowed to be $\bot$ for ``outside''; then
 \[
-x(i,j)\neq0\ \Longrightarrow\ \exists\,(a,b)\in S(i,j)\ \ x(a,b)\ge x(i,j).
+\Phi(r_1,\dots,r_n)=\bigl(\beta(\bot,r_1,r_2),\ \dots,\ \beta(r_{n-1},r_n,\bot)\bigr).
 \]
-A zero cell is under no condition, and neither is a cell whose named neighbours all lie outside the array --- except that then the condition forces it to be zero, since the empty set contains nothing at least as large.
 
-\section{A window of 3 rows}
+\section{The image is a walk count after determinisation}
 
-The offsets reach one row up and one row down, so everything the condition asks of one row is
-decided by that row together with one row above it and one row below --- a window of
-$3$ consecutive rows, and nothing wider. Take the array one row at a time and
-let the state be the last 2 of them, with a distinguished start standing for the array before its
-first row, so that a walk of $n$ steps is an array of $n$ rows.
-
-Appending a row completes exactly one window, and the row it settles is the one just above the bottom of that window; a step is
-allowed when that row passes. Each row of the finished array is therefore tested exactly once.
-
-When the array stops, the last row of it has never been tested, because the
-conditions reach one row below. So the end vector is NOT all ones: a state is accepted exactly when
-those rows pass with nothing below them, which is decided by running the same test on the window
-with absent rows appended --- the same rule that governs a cell at the bottom edge in
-Section 2.
-Thus
+For a set $D$ of pairs $(p,c)$ and a derived row $b$ put
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=51457,
+\delta(D,b)=\{(c,x):(p,c)\in D,\ x\in R,\ \beta(p,c,x)=b\},\qquad
+f(D)=\bigl|\{\beta(p,c,\bot):(p,c)\in D\}\bigr| ,
 \]
-for the transfer matrix $M$ on those $S$ states. The walk index $j$ and the entry's own $n$
-differ by a constant, read off by matching the published terms rather than assumed. In
-particular $a$ is $C$-finite.
+and let $D_0=\{(\bot,r):r\in R\}$.
+
+\begin{lemma}\label{lem:det}
+For every $t\ge0$, $D_t=\delta(\dots\delta(D_0,b_1)\dots,b_t)$ is exactly the set of pairs
+$(r_t,r_{t+1})$ of consecutive rows completing a prefix $r_1,\dots,r_{t+1}$ whose first $t$
+derived rows are $b_1,\dots,b_t$. Consequently, for $n\ge1$,
+\[
+a(n)=\sum_{b_1,\dots,b_{n-1}}f(D_{n-1}),
+\]
+the empty sets contributing nothing.
+\end{lemma}
+
+\begin{proof}
+Induction on $t$: $D_0$ is the set of pairs $(\bot,r_1)$, and $\delta(D_t,b)$ collects the
+pairs $(r_{t+1},r_{t+2})$ extending a consistent prefix with
+$\beta(r_t,r_{t+1},r_{t+2})=b$. An element of the image is a full derived array
+$(b_1,\dots,b_n)$; its prefix $(b_1,\dots,b_{n-1})$ is realisable exactly when
+$D_{n-1}\neq\emptyset$, and then the possible last rows are
+$\{\beta(p,c,\bot):(p,c)\in D_{n-1}\}$, of which there are $f(D_{n-1})$. Distinct sequences
+are distinct derived arrays, so each is counted once.
+\end{proof}
+
+So with $M$ the adjacency matrix of the digraph whose vertices are the reachable nonempty sets
+and which carries one edge $D\to\delta(D,b)$ for each $b$ with $\delta(D,b)\neq\emptyset$ ---
+several $b$ may lead to the same set, and then the edge is repeated, which is exactly right,
+since the derived arrays differ ---
+\[
+a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,\qquad \iota=e_{D_0},\quad \tau=f .
+\]
+There are $S=20$ reachable sets, generated from $D_0$ outward, and $a$ is $C$-finite.
+Note that $\tau$ is not the all-ones vector: the last derived row is not a
+step of the walk but a count attached to the state the walk stops in.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{69}-\sum_i c_it^{69-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{5}-\sum_i c_it^{5-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -97,7 +117,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+69}-\sum_ic_iM^{j+69-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+5}-\sum_ic_iM^{j+5-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -106,39 +126,38 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;256\,a(n-1) - 29090\,a(n-2) + 2153038\,a(n-3) - 120944727\,a(n-4) + 5436646342\,a(n-5) - 198945018323\,a(n-6) + 6003449140692\,a(n-7) - 151490335797269\,a(n-8) + 3240317293041080\,a(n-9) - 59500934757098762\,a(n-10) + 949038930153766434\,a(n-11) - 13285095671770751016\,a(n-12) + 164629867881714537648\,a(n-13) - 1818708645514335411069\,a(n-14) + 18019183251665136750748\,a(n-15) - 161013944018276223599206\,a(n-16) + 1304848682002387575033057\,a(n-17) - 9642366875610995594804141\,a(n-18) + 65297558111297993866162988\,a(n-19) - 406908269506433946471285146\,a(n-20) + 2340417848622212329436618906\,a(n-21) - 12447857077524000781235099523\,a(n-22) + 61278448404873112884892693973\,a(n-23) - 279365544520936934890345258977\,a(n-24) + 1180581666658039470554345280924\,a(n-25) - 4634913139270070141468491132416\,a(n-26) + 16979719003247974451022248099411\,a(n-27) - 58472989356825741616487219264610\,a(n-28) + 191263015374651743998308318212436\,a(n-29) - 601633601805721339650756351764880\,a(n-30) + 1841419852553709646298509432750748\,a(n-31) - 5524642571323469382644603708863177\,a(n-32) + 16247469042262613645435266321896508\,a(n-33) - 46473061822372632391493702003363500\,a(n-34) + 127620665890499262976414209872254640\,a(n-35) - 331740032997304395060573201508741636\,a(n-36) + 806177280449047505997073877180292144\,a(n-37) - 1814005848831966862350673767584880512\,a(n-38) + 3753194605861022769828032160834662368\,a(n-39) - 7106970436595069700771383358595656640\,a(n-40) + 12290589008568457157502359461698461504\,a(n-41) - 19453630004196367798073732916339463616\,a(n-42) + 28479077257882210090665515689598374656\,a(n-43) - 39574304011789196433443726940726866944\,a(n-44) + 54681174679312418056220012413906508544\,a(n-45) - 79176948221321101690168515808511847424\,a(n-46) + 122177657784390493403831036916653042688\,a(n-47) - 193454138802802719604512365809422476288\,a(n-48) + 297174549788869459877966899002657284096\,a(n-49) - 425519978594213046755275108578461618176\,a(n-50) + 555485630624894620772101798561653030912\,a(n-51) - 652385980129718776338961520372751024128\,a(n-52) + 683964695262790109371628484454295027712\,a(n-53) - 639336049180392370700144246191526313984\,a(n-54) + 534993765751397906669274201456241410048\,a(n-55) - 403215093582680213509177079792562601984\,a(n-56) + 275630186707803916179390290766676099072\,a(n-57) - 171951225433812540656255100103054852096\,a(n-58) + 98140851307702814827329477789251272704\,a(n-59) - 51078904642777602931112820164731600896\,a(n-60) + 24193696175876653597711814582681468928\,a(n-61) - 10523965764418288497404371204218814464\,a(n-62) + 4322956604382436021315328521210429440\,a(n-63) - 1754705971003024311366545062886375424\,a(n-64) + 706965429448002803178814127594274816\,a(n-65) - 249266841801593983689982528179929088\,a(n-66) + 60865598748541919949174818859909120\,a(n-67) - 7614542965724679909938329011879936\,a(n-68) + 212512959365284489308619250073600\,a(n-69)
+a(n)\;=\;2\,a(n-1) + a(n-2) + 2\,a(n-4) + a(n-5)
 \]
-for every $n>70$.
+for every $n>5$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $69$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $5$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=70+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=5+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
-Four checks, each independent of the algebra above.
+Three checks, each independent of the algebra above.
 
-First, the model reproduces all $12$ terms the entry publishes, exactly, in integer
-arithmetic.
+First, the model reproduces all $28$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry: the machine is built by reading the
+entry's English, and a misreading gives different counts.
 
-Second, the count was recomputed for the smallest arrays straight from the definition: every
-array of width $4$ over $\{0,1,2,3\}$ with a few rows was written out cell by cell and each cell
-tested against the neighbours it has. No window, no state and no end vector are involved in that
-computation, and the published terms came back.
-
-Third, the conjectured recurrence was evaluated directly on the published terms, with no
+Second, the conjectured recurrence was evaluated directly on those published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
 
-Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
 arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A203393.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A218051.
+\bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata
+Theory, Languages, and Computation}, 3rd ed., Addison--Wesley, 2006. (The subset
+construction, Section 2.3.)
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge

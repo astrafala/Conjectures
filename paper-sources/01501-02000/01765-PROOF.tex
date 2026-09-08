@@ -12,131 +12,152 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A184024, proved by splitting on the common sum}
+\title{The empirical recurrence for OEIS A281717, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A184024 counts arrays over $\{0,\dots,3\}$ in which all $2\times2$ subblock sums are
-EQUAL --- the common value not being named --- and carries an empirical recurrence of order
-$15$ contributed by R.~H.~Hardin. The unnamed value is what stops a transfer matrix from
-applying directly, and it costs nothing to remove: an array with at least one $2\times2$
-subblock determines its own common sum, so the count splits as a sum over the $12+1$
-possible values with nothing counted twice, and each summand is an ordinary walk count. On
-the block-diagonal matrix over those values the recurrence is decided by a finite exact
-computation on $S=13312$ vertices.
+OEIS A281717 counts $3\times n$ arrays over $\{0,\dots,1\}$ subject to a condition imposed on
+every CELL over a neighbour set the entry names, and counted UP TO RELABELLING of the
+alphabet; it carries an empirical recurrence of order $20$ contributed by
+R.~H.~Hardin. It is true, and it is decidable rather than empirical. What is counted is
+equality patterns, which is not a walk count --- but it is a fixed rational combination of
+walk counts, one for each alphabet size, and that combination is again $C$-finite. Whether the
+conjectured recurrence annihilates it is then decided by a finite exact computation, with the
+Cayley--Hamilton theorem bounding the work.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
-\section{The sequence and the conjecture}
+\section{The conjecture}
 
-OEIS A184024 is ``1/8 the number of (n+1)X5 0..3 arrays with all 2X2 subblock sums the same.''. It has offset $1$ and begins
+OEIS A281717 is ``Number of 3 X n 0..1 arrays with no element unequal to a strict majority of its horizontal, diagonal and antidiagonal neighbors and with new values introduced in order 0 sequentially upwards.''. It has offset $1$ and begins
 \[
-748, 1347, 2597, 5802, 13603, 35256, 94469, 271176,\ \dots
+4, 4, 8, 38, 90, 305, 902, 2710,\ \dots
 \]
-The entry carries the following comment:
-\begin{quote}\small
-Empirical: a(n)=8*a(n-1)+16*a(n-2)-268*a(n-3)+189*a(n-4)+3388*a(n-5)-5824*a(n-6)-20048*a(n-7)+49756*a(n-8)+52752*a(n-9)-196896*a(n-10)-24192*a(n-11)+369216*a(n-12)-131328*a(n-13)-262656*a(n-14)+165888*a(n-15)
+The entry states, as a conjecture contributed by its author and never marked settled:
+\begin{quote}
+Empirical: a(n) = 3*a(n-1) +8*a(n-2) -16*a(n-3) -46*a(n-4) +39*a(n-5) +121*a(n-6) -66*a(n-7) -185*a(n-8) +78*a(n-9) +216*a(n-10) -71*a(n-11) -182*a(n-12) +51*a(n-13) +107*a(n-14) -24*a(n-15) -43*a(n-16) +7*a(n-17) +10*a(n-18) -a(n-19) -a(n-20) for n>21.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 02:15:23, revision 9) the statement is
-still recorded as empirical, and nothing on the entry records it as settled either way.
+As of the ``Last modified'' line on the live entry (Aug 19 2022 15:26:41, revision 6) this is still
+recorded as empirical, and nothing on the entry records it as proved.
 
-Written out, the claim is
-\begin{equation}\label{eq:conj}
-a(n)\;=\;8\,a(n-1) + 16\,a(n-2) - 268\,a(n-3) + 189\,a(n-4) + 3388\,a(n-5) - 5824\,a(n-6) - 20048\,a(n-7) + 49756\,a(n-8) + 52752\,a(n-9) - 196896\,a(n-10) - 24192\,a(n-11) + 369216\,a(n-12) - 131328\,a(n-13) - 262656\,a(n-14) + 165888\,a(n-15)
-\end{equation}
-for all $n>15$.
+\section{Patterns are a combination of counts}
 
-\section{Splitting on the common sum}
-
-The arrays have $5$ columns and $L=n+1$ rows, entries in
-$\{0,\dots,3\}$, and every $2\times2$ subblock has the same sum. Since $L\ge2$ and
-$5\ge2$, every such array contains at least one $2\times2$ subblock, and that subblock's
-sum is the common value; so each array belongs to exactly one of the classes
+The clause ``new values $0..1$ introduced in row major order'' says that the arrays
+counted are the canonical representatives of their EQUALITY PATTERNS: two arrays that differ
+only by a permutation of the alphabet are one object. Write $N_j$ for the number of admissible
+patterns using exactly $j$ letters and $L_i$ for the number of admissible ARRAYS over an
+alphabet of $i$ letters. An array over $i$ letters is a pattern together with an injection of
+its letters into the alphabet, so
 \[
-A_c=\{\text{arrays all of whose }2\times2\text{ subblock sums equal }c\},
-\qquad 0\le c\le 12,
+L_i\;=\;\sum_{j}N_j\,i(i-1)\cdots(i-j+1),
 \]
-and $\#\{\text{admissible arrays}\}=\sum_c |A_c|$ with no array counted twice. The bound
-$12=4\cdot3$ is the largest possible subblock sum.
+a triangular system with nonzero diagonal, hence invertible over $\mathbb{Q}$. The entry
+counts $a=N_1+\dots+N_{2}$, so
+\[
+a\;=\;\bigl(\mathbf{1}^{\!\top}F^{-1}\bigr)L ,
+\]
+a FIXED rational combination of the $L_i$, where $F$ is the matrix of falling factorials.
+Each $L_i$ is a walk count on its own transfer graph, so $a$ is a walk count on the disjoint
+union of those graphs with the combination's coefficients placed in the starting vector; the
+coefficients are rational and some are negative, which costs nothing in what follows.
 
-For a fixed $c$ the condition is local, so $|A_c|$ is a walk count. Let
-$V=\{0,\dots,3\}^{5}$ be the possible rows and let $M_c$ be the adjacency
-matrix of the digraph in which $r\to s$ when
-$r_j+r_{j+1}+s_j+s_{j+1}=c$ for every $j$ with $1\le j\le 5-1$. Then
-$|A_c|=\mathbf{1}^{\!\top}M_c^{\,L-1}\mathbf{1}$, since an array of $L$ rows is a
-sequence of $L$ elements of $V$ and each of its $2\times2$ subblocks lies in two consecutive
-rows and two consecutive columns.
+This step needs the condition itself to be unchanged by permuting the alphabet, and it is:
+the condition below is stated through equality between entries and never names a particular
+value or compares sizes.
 
-Writing $N=\bigoplus_{c=0}^{12}M_c$, of size $S=13312$, and $\mathbf{v}$ for the
-all-ones vector on it,
-\begin{equation}\label{eq:walk}
-a(n)\;=\;\tfrac1{8}\,\mathbf{v}^{\!\top}N^{\,L-1}\mathbf{1},\qquad L=n+1.
-\end{equation}
+\section{Cells, not blocks}
 
-\section{The criterion, and the computation}
+The entry names the neighbours it means --- horizontal is left and right, vertical is up and
+down, diagonal is northwest-to-southeast, antidiagonal is northeast-to-southwest, king-move is
+all eight --- and every such set lies inside the $3\times3$ square centred on the cell. Here
+the set is $\{(-1,0), (1,0), (-1,-1), (1,1), (1,-1), (-1,1)\}$, written as offsets (row, column) from the cell. Every cell carries
+the condition
+\[
+\text{no cell is unequal to a strict majority of its horizontal, diagonal and antidiagonal neighbours},
+\]
+and the count of neighbours enters it, so the boundary is not a detail that can be papered
+over: a cell in the interior has $6$ neighbours in this set and a cell on the boundary
+fewer, and a condition such as ``a strict majority of its neighbours'' therefore means
+different things at the two. In particular one cannot pad the array with a border of zeros ---
+that would give every cell the full $6$ and change what is being counted. The outside is
+therefore carried
+explicitly, as a sentinel column above the first and below the last and as a sentinel column
+either side, and a neighbour that falls outside is simply absent from both counts.
 
-Let $q(t)=t^{15}-\sum_i c_i\,t^{15-i}$ be the characteristic polynomial of
-\eqref{eq:conj} and $G=N$.
+Write an array as a sequence of columns $u_1,\dots,u_L$, each in
+$\{0,\dots,1\}^{3}$. The neighbourhood of a cell in column $u_i$ meets $u_{i-1}$,
+$u_i$ and $u_{i+1}$ and nothing else. Take as vertices the pairs
+$(r,s)\in(\{0,\dots,1\}^{3}\cup\{\varnothing\})\times\{0,\dots,1\}^{3}$,
+and put an edge $(r,s)\to(s,t)$ when column $s$ satisfies the condition at every one of its
+$3$ cells, given $r$ above and $t$ below. An array with $L$ columns is then a walk of length
+$L-1$ starting at $(\varnothing,u_1)$, each step settling one column, and the last column is
+settled by the terminal weight, which evaluates it with $\varnothing$ below. Hence,
+with $M$ the adjacency matrix, $\iota$ the starting vector and $\tau$ the terminal weight,
+\[
+a(n)\;=\;\frac{1}{2}\,\iota^{\!\top}M^{\,n-1}\tau ,
+\]
+the exponent fixed by the entry's own shape and checked against its published terms. In
+particular $a$ is $C$-finite.
+
+\section{The proof}
 
 \begin{lemma}\label{lem:crit}
-With $n_0$ the least index for which $L\ge1$, $o=1n_0+1-1$ and
-$h_j=G^{j}N^{o}\mathbf{1}$, we have for $j\ge15$
-\[
-a(n_0+j)-\sum_i c_i\,a(n_0+j-i)=\tfrac1{8}\,\mathbf{v}^{\!\top}G^{\,j-15}w,
-\qquad w=h_{15}-\sum_i c_ih_{15-i} .
-\]
-Hence \eqref{eq:conj} holds from that point on if and only if
-$\mathbf{v}^{\!\top}G^{m}w=0$ for all $m\ge0$, and $m<S$ suffices.
+Let $q(t)=t^{20}-\sum_i c_it^{20-i}$ be the characteristic polynomial of the
+conjectured recurrence. Then the residual $a(n)-\sum_ic_ia(n-i)$ equals
+$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the
+recurrence holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all
+large $j$; and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Substitute \eqref{eq:walk} and factor. By Cayley--Hamilton $G^{S}$ is an integer
-combination of $I,G,\dots,G^{S-1}$, so every later value repeats that combination of
-earlier ones.
+Factor $M^{j}$ out of $M^{j+20}-\sum_ic_iM^{j+20-i}$. For the bound, $M^{S}$
+is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
+$u_j=\iota^{\!\top}M^{j}q(M)\tau$ satisfy the monic linear recurrence given by the
+characteristic polynomial of $M$; $S$ consecutive zeros force every later one, and the last
+nonzero $u_j$ pins the threshold exactly.
 \end{proof}
 
 \begin{theorem}
-The recurrence \eqref{eq:conj} holds for every $n>15$, which is the statement of
-Section~1.
+\[
+a(n)\;=\;3\,a(n-1) + 8\,a(n-2) - 16\,a(n-3) - 46\,a(n-4) + 39\,a(n-5) + 121\,a(n-6) - 66\,a(n-7) - 185\,a(n-8) + 78\,a(n-9) + 216\,a(n-10) - 71\,a(n-11) - 182\,a(n-12) + 51\,a(n-13) + 107\,a(n-14) - 24\,a(n-15) - 43\,a(n-16) + 7\,a(n-17) + 10\,a(n-18) - a(n-19) - a(n-20)
+\]
+for every $n>21$.
 \end{theorem}
 
 \begin{proof}
-Each $M_c$ was built directly from its defining condition. The vector $w$ was formed by
-$15$ applications of $G$ in exact integer arithmetic and $\mathbf{v}^{\!\top}G^{m}w$
-evaluated for $m=0,1,\dots$, again exactly. Every one of those integers vanishes from the
-index corresponding to $n=15+1$ onwards, and the run continued until $S+1$ consecutive
-zeros had been seen.
+The vector $w=q(M)\tau$ was formed by $20$ matrix--vector products in exact integer
+arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly. Those
+integers vanish from the index corresponding to $n=21+1$ onwards, and the run was
+continued until the working vector was identically zero, which settles all larger $j$ at once.
+By Lemma~\ref{lem:crit} the recurrence holds for every $n>21$. The bound is exact: at $n=21$ the recurrence fails on the entry's own published terms, so no larger range holds.
 \end{proof}
-
-\begin{remark}
-The splitting is what makes the argument finite, and it is exact rather than an
-over-count only because every array here has a subblock. For a one-column or one-row
-shape there is no subblock at all, every value of $c$ would be vacuously admissible, and the
-sum would count each array $12+1$ times; those shapes are excluded by $L\ge2$ and
-$5\ge2$.
-\end{remark}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the right-hand side of \eqref{eq:walk} was evaluated at every one of the $22$
-published indices and agrees with the entry's DATA exactly, with no shift fitted. A double
-count in the splitting, or a wrong bound on $c$, would show up here immediately.
+First, the transfer model reproduces all $27$ terms the entry publishes, exactly, in
+integer arithmetic. That check earned its place here. The neighbour offsets are named in the
+array's own frame --- horizontal means along a row --- but when the entry fixes the first
+dimension, as in ``$2\times n$'', the walk runs along columns and the two components of every
+offset swap. Sets such as king-move, or horizontal together with vertical, are unchanged by
+that swap and hide the error completely; a set such as horizontal, diagonal and antidiagonal
+is not, and the counts came out as those of a different member of the same family until the
+offsets were transposed.
 
-Second, the recurrence \eqref{eq:conj} was evaluated on those published terms in exact
-integer arithmetic, with no matrices involved, and vanishes wherever it applies.
+Second, the conjectured recurrence was evaluated directly on the entry's own published terms,
+with no matrices involved, and holds wherever the proved range and the data overlap.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried to the full
-Cayley--Hamilton bound in exact integer arithmetic rather than to a sampled prefix.
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A184024.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A281717.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

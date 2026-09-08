@@ -12,57 +12,57 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A279301, proved by counting patterns with a budget}
+\title{The empirical recurrence for OEIS A280175, proved by counting patterns with a budget}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A279301 imposes three things at once: a condition on each cell that reaches one row up and
+OEIS A280175 imposes three things at once: a condition on each cell that reaches one row up and
 one row down; a global budget allowing exactly two cells to
 break it; and the clause ``new values introduced in order $0$ sequentially upwards'', which
 says the array is written in canonical form. None of the three is visible to a plain transfer
 matrix over rows. All three are handled: the state is a pair of consecutive rows
 together with the number of offending cells so far, capped at the budget; and the
 canonical-form clause is removed by counting equality patterns instead of arrays, through the
-identity $3!\,a(n)=\sum_i\binom{3}{i}D_{3-i}L_i(n)$ with $D_m$ the derangement
-numbers. The empirical recurrence of order $15$ contributed by R.~H.~Hardin then follows
-from a finite exact computation on $S=294$ states.
+identity $2!\,a(n)=\sum_i\binom{2}{i}D_{2-i}L_i(n)$ with $D_m$ the derangement
+numbers. The empirical recurrence of order $21$ contributed by R.~H.~Hardin then follows
+from a finite exact computation on $S=195$ states.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 05A18, 15B36.\normalsize
 
 \section{The sequence and the conjecture}
 
-OEIS A279301 is ``Number of nX2 0..2 arrays with no element equal to a strict majority of its king-move neighbors, with the exception of exactly two elements, and with new values introduced in order 0 sequentially upwards.''. It has offset $1$ and begins
+OEIS A280175 is ``Number of nX3 0..1 arrays with no element unequal to a strict majority of its horizontal, vertical and antidiagonal neighbors, with the exception of exactly two elements, and with new values introduced in order 0 sequentially upwards.''. It has offset $1$ and begins
 \[
-1, 0, 12, 104, 872, 8064, 71680, 635312,\ \dots
+0, 12, 60, 279, 1082, 3931, 13720, 46467,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 24*a(n-1) -198*a(n-2) +536*a(n-3) +636*a(n-4) -2832*a(n-5) -8360*a(n-6) +14880*a(n-7) +38112*a(n-8) -1344*a(n-9) -105600*a(n-10) -73728*a(n-11) +26624*a(n-12) +58368*a(n-13) -30720*a(n-14) +4096*a(n-15) for n>16
+Empirical: a(n) = 9*a(n-1) -24*a(n-2) -9*a(n-3) +147*a(n-4) -213*a(n-5) -80*a(n-6) +567*a(n-7) -624*a(n-8) -30*a(n-9) +711*a(n-10) -687*a(n-11) +215*a(n-12) +84*a(n-13) +3*a(n-14) -86*a(n-15) +27*a(n-16) +6*a(n-17) -17*a(n-18) -18*a(n-19) -6*a(n-20) -a(n-21) for n>28
 \end{quote}
-As of the ``Last modified'' line on the live entry (Dec 09 2016 15:32:08, revision 4) the statement is
+As of the ``Last modified'' line on the live entry (Dec 28 2016 06:59:34, revision 4) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;24\,a(n-1) - 198\,a(n-2) + 536\,a(n-3) + 636\,a(n-4) - 2832\,a(n-5) - 8360\,a(n-6) + 14880\,a(n-7) + 38112\,a(n-8) - 1344\,a(n-9) - 105600\,a(n-10) - 73728\,a(n-11) + 26624\,a(n-12) + 58368\,a(n-13) - 30720\,a(n-14) + 4096\,a(n-15)
+a(n)\;=\;9\,a(n-1) - 24\,a(n-2) - 9\,a(n-3) + 147\,a(n-4) - 213\,a(n-5) - 80\,a(n-6) + 567\,a(n-7) - 624\,a(n-8) - 30\,a(n-9) + 711\,a(n-10) - 687\,a(n-11) + 215\,a(n-12) + 84\,a(n-13) + 3\,a(n-14) - 86\,a(n-15) + 27\,a(n-16) + 6\,a(n-17) - 17\,a(n-18) - 18\,a(n-19) - 6\,a(n-20) - a(n-21)
 \end{equation}
-for all $n>16$.
+for all $n>28$.
 
 \section{The condition, the budget, and the canonical form}
 
-The arrays have $2$ columns and $L=n$ rows; write $x_{t,u}$ for the entry in
+The arrays have $3$ columns and $L=n$ rows; write $x_{t,u}$ for the entry in
 row $t$ and column $u$. With the neighbour offsets
 \[
-\mathcal N=\{(0,-1),\ (0,1),\ (-1,0),\ (1,0),\ (-1,-1),\ (1,1),\ (-1,1),\ (1,-1)\}
+\mathcal N=\{(0,-1),\ (0,1),\ (-1,0),\ (1,0),\ (-1,1),\ (1,-1)\}
 \]
 as (row shift, column shift), counting only positions inside the array, call a cell
 $(t,u)$ \emph{offending} when
 \[
-2\,\#\{\text{neighbours equal to }x_{t,u}\}>\#\{\text{neighbours}\} .
+2\,\#\{\text{neighbours different from }x_{t,u}\}>\#\{\text{neighbours}\} .
 \]
 The entry asks for arrays in which exactly $E=2$ cells offend.
 
@@ -77,14 +77,14 @@ under it.
 The condition is stated in equalities between entries, so it is invariant under relabelling
 the values, and so is the number of offending cells. The clause ``new values introduced in
 order $0$ sequentially upwards'' keeps exactly one array from each relabelling class, so what
-the entry counts is admissible equality PATTERNS with at most $K=3$ classes.
+the entry counts is admissible equality PATTERNS with at most $K=2$ classes.
 
 \begin{lemma}\label{lem:inv}
 Let $L_i(n)$ count the arrays over an alphabet of $i$ letters with exactly $2$ offending
 cells, and $N_j(n)$ the admissible patterns with exactly $j$ classes. Then
 $L_i=\sum_j N_j\,i(i-1)\cdots(i-j+1)$ and
 \[
-3!\,\sum_{j\le3}N_j(n)=\sum_{i=0}^{3}\binom{3}{i}D_{3-i}L_i(n),
+2!\,\sum_{j\le2}N_j(n)=\sum_{i=0}^{2}\binom{2}{i}D_{2-i}L_i(n),
 \qquad D_m=m!\sum_{t=0}^{m}\frac{(-1)^t}{t!} .
 \]
 \end{lemma}
@@ -93,15 +93,15 @@ $L_i=\sum_j N_j\,i(i-1)\cdots(i-j+1)$ and
 A labelled array is a pattern together with an injection of its classes into the alphabet,
 and a pattern with $j$ classes admits $i(i-1)\cdots(i-j+1)$ of them, which gives the first
 identity. Writing the falling factorial as $j!\binom{i}{j}$ and inverting binomially,
-$j!N_j=\sum_i(-1)^{j-i}\binom{j}{i}L_i$; summing over $j\le3$ and exchanging the
+$j!N_j=\sum_i(-1)^{j-i}\binom{j}{i}L_i$; summing over $j\le2$ and exchanging the
 order of summation makes the coefficient of $L_i$ equal to
-$\sum_{t\le3-i}(-1)^t/(i!\,t!)$, which multiplied by $3!$ is
-$\binom{3}{i}D_{3-i}$, an integer.
+$\sum_{t\le2-i}(-1)^t/(i!\,t!)$, which multiplied by $2!$ is
+$\binom{2}{i}D_{2-i}$, an integer.
 \end{proof}
 
 \section{Each $L_i$ is a walk count}
 
-Fix $i$, let $V_i=\{0,\dots,i-1\}^{2}$, and take the triples $(p,c,v)$ with
+Fix $i$, let $V_i=\{0,\dots,i-1\}^{3}$, and take the triples $(p,c,v)$ with
 $p,c\in V_i$ and $0\le v\le2$ as vertices. Write $\mathrm{viol}(b\mid a,x)$ for the number
 of offending cells in the row $b$ when $a$ lies above it and $x$ below (either may be
 absent, in which case the corresponding neighbours simply do not exist). Declare
@@ -128,45 +128,45 @@ never exceeds $2$; since the total only grows, that is implied by the final valu
 $2$, which $\mathbf{e}_i$ imposes.
 \end{proof}
 
-Assembling the $3$ chains block-diagonally into $N$ of size $S=294$ with the weights of
+Assembling the $2$ chains block-diagonally into $N$ of size $S=195$ with the weights of
 Lemma~\ref{lem:inv} in the start vector $\mathbf{v}$ and the end markers in
 $\mathbf{u}$,
 \begin{equation}\label{eq:walk2}
-3!\;a(n)\;=\;\mathbf{v}^{\!\top}N^{\,L-2}\mathbf{u},\qquad L=n .
+2!\;a(n)\;=\;\mathbf{v}^{\!\top}N^{\,L-2}\mathbf{u},\qquad L=n .
 \end{equation}
 
 \section{The criterion, and the computation}
 
-Let $q(t)=t^{15}-\sum_i c_i\,t^{15-i}$ be the characteristic polynomial of
+Let $q(t)=t^{21}-\sum_i c_i\,t^{21-i}$ be the characteristic polynomial of
 \eqref{eq:conj} and $G=N$.
 
 \begin{lemma}\label{lem:crit}
 With $n_0$ the least index for which $L\ge2$, $o=1n_0+0-2$ and
-$h_j=G^{j}N^{o}\mathbf{u}$, we have for $j\ge15$
+$h_j=G^{j}N^{o}\mathbf{u}$, we have for $j\ge21$
 \[
-3!\Bigl(a(n_0+j)-\sum_i c_i\,a(n_0+j-i)\Bigr)=\mathbf{v}^{\!\top}G^{\,j-15}w,
-\qquad w=h_{15}-\sum_i c_i h_{15-i} .
+2!\Bigl(a(n_0+j)-\sum_i c_i\,a(n_0+j-i)\Bigr)=\mathbf{v}^{\!\top}G^{\,j-21}w,
+\qquad w=h_{21}-\sum_i c_i h_{21-i} .
 \]
 Hence \eqref{eq:conj} holds from that point on if and only if
 $\mathbf{v}^{\!\top}G^{m}w=0$ for all $m\ge0$, and $m<S$ suffices.
 \end{lemma}
 
 \begin{proof}
-Substitute \eqref{eq:walk2} and factor; $3!$ is a nonzero scalar. Cayley--Hamilton
+Substitute \eqref{eq:walk2} and factor; $2!$ is a nonzero scalar. Cayley--Hamilton
 makes $G^{S}$ an integer combination of $I,G,\dots,G^{S-1}$, so every later value repeats
 that combination of earlier ones.
 \end{proof}
 
 \begin{theorem}
-The recurrence \eqref{eq:conj} holds for every $n>16$, which is the statement of
+The recurrence \eqref{eq:conj} holds for every $n>28$, which is the statement of
 Section~1.
 \end{theorem}
 
 \begin{proof}
 The digraph was built directly from the definitions above. The vector $w$ was formed by
-$15$ applications of $G$ in exact integer arithmetic and $\mathbf{v}^{\!\top}G^{m}w$
+$21$ applications of $G$ in exact integer arithmetic and $\mathbf{v}^{\!\top}G^{m}w$
 evaluated for $m=0,1,\dots$, again exactly. Every one of those integers vanishes from the
-index corresponding to $n=16+1$ onwards, and the run continued until $S+1$ consecutive
+index corresponding to $n=28+1$ onwards, and the run continued until $S+1$ consecutive
 zeros had been seen.
 \end{proof}
 
@@ -174,8 +174,8 @@ zeros had been seen.
 
 Three checks, each independent of the algebra above.
 
-First, the right-hand side of \eqref{eq:walk2}, divided by $3!$, was evaluated at every
-one of the $21$ published indices and agrees with the entry's DATA exactly, the quotient
+First, the right-hand side of \eqref{eq:walk2}, divided by $2!$, was evaluated at every
+one of the $24$ published indices and agrees with the entry's DATA exactly, the quotient
 coming out an integer each time; no shift was fitted, the number of rows being
 $L=n$ from the entry's own name and the offset saying which index the first published
 term carries. A misreading of the offending-cell rule, of the budget, or of the inversion in
@@ -189,7 +189,7 @@ Cayley--Hamilton bound in exact integer arithmetic rather than to a sampled pref
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A279301.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A280175.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; falling-factorial
 inversion, Section 1.9.)

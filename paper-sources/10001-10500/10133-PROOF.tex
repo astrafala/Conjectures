@@ -12,136 +12,140 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A283861: recovering a conjecture that is not written down}
+\title{The empirical recurrence for OEIS A208485, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{2 September 2026}
+\date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A283861 records ``Empirical recurrence of order $74$'', with the recurrence itself in a
-linked file rather than in the entry. The conjecture can nevertheless be settled, and the
-recurrence recovered, without reading that file. The entry counts arrays under a condition
-local to a bounded window of lines, so the count is a walk count on a finite digraph and
-satisfies some monic recurrence of order at most the number of its states with distinct
-futures, here $S'=147$; Berlekamp--Massey applied to $2S'$ exact
-terms therefore returns the MINIMAL such recurrence. Its order is exactly $74$, the order
-the entry states, and the same is true of every tail of the sequence. Any recurrence of order
-$74$ that the sequence satisfies from any point on must then have a characteristic
-polynomial that is a multiple of the minimal one and of the same degree, hence equal to it. So
-the entry's recurrence is the one displayed here, whatever its file contains, and it is
-proved.
+OEIS A208485 counts arrays of width $2$ over $\{0,1,2,3\}$ subject to a condition read round the
+perimeter of every $2\times2$ subblock: the two edge-increase counts agree in every subblock. The entry carries an empirical recurrence of
+order $2$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
+empirical: the condition is settled inside a bounded window of consecutive rows, so the
+count is a walk count on a finite digraph with $S=17$ vertices, and whether a linear
+recurrence holds for such a count is a finite computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A16, 15A18.\normalsize
 
-\section{A conjecture one cannot read}
+\section{The conjecture}
 
-OEIS A283861 is ``Number of 5Xn 0..1 arrays with no 1 equal to more than three of its horizontal, diagonal and antidiagonal neighbors.''. It has offset $1$ and begins
+OEIS A208485 is ``Number of (n+1) X 2 0..3 arrays with the number of clockwise edge increases in every 2 X 2 subblock equal to the number of counterclockwise edge increases.''. It has offset $1$ and begins
 \[
-32, 1024, 19776, 448490, 10741381, 247708452, 5724272337, 133133661082,\ \dots
+152, 1448, 13800, 131528, 1253608, 11948296, 113880744, 1085412040,\ \dots
 \]
-The entry states:
+The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical recurrence of order 74 (see link above)
+Empirical: a(n) = 11*a(n-1) - 14*a(n-2).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Mar 17 2017 12:04:50, revision 4) this is still
-recorded as empirical. The recurrence's coefficients are not in the entry text.
+As of the ``Last modified'' line on the live entry (Dec 16 2025 07:41:37, revision 17) this is still
+recorded as empirical, and nothing on the entry records it as proved.
 
-\section{The count is a walk count}
+\section{What is being counted}
 
-The entry's condition is local: it constrains a bounded window of consecutive lines of the
-array and nothing further. The admissible configurations of one such window are the vertices
-of a finite digraph, an edge joining $u$ to $v$ when $v$ may follow $u$, and an admissible
-array is exactly a walk. Hence, with $M$ the adjacency matrix on $S=1056$ vertices,
-$a(n)=\iota^{\!\top}M^{\,j(n)}\tau$ for a linear reindexing $j$ fixed by the entry's shape
-and checked against its published terms. States with the same future contribute identically to $\iota^{\!\top}M^n\tau$, so they may be merged without changing any count; merging leaves $S'=147$ of the $1056$, and it is that smaller bound the computation below uses. By the Cayley--Hamilton theorem $M^{S}$ is an
-integer combination of $I,M,\dots,M^{S-1}$, so:
-
-\begin{lemma}\label{lem:cf}
-$a$ satisfies a monic linear recurrence with integer coefficients of order at most
-$S'=147$.
-\end{lemma}
-
-\section{Recovering the recurrence}
-
-\begin{lemma}\label{lem:bm}
-A sequence known to satisfy some linear recurrence of order at most $S$ is determined, together
-with its minimal recurrence, by its first $2S$ terms: Berlekamp--Massey applied to them returns
-that minimal recurrence exactly.
-\end{lemma}
-
-Running it on $2S'=294$ exact terms of the model returns order $74$ --- the order the
-entry states --- with the integer coefficients
+The arrays have $2$ columns and a growing number of rows, with entries in $\{0,1,2,3\}$. A
+$2\times2$ subblock is a set of four cells
 \[
-a(n)\;=\;\sum_{i=1}^{74}c_i\,a(n-i),
+B=\begin{pmatrix} p & q \\ r & s \end{pmatrix},
+\qquad p=x(i,j),\; q=x(i,j+1),\; r=x(i+1,j),\; s=x(i+1,j+1).
 \]
-\begin{center}\small
-\begin{tabular}{cccccccc}
-$c_{1}$ & $14$ & $c_{20}$ & $6287984113513$ & $c_{39}$ & $-62377129033094893$ & $c_{58}$ & $1556051573660422$ \\
-$c_{2}$ & $86$ & $c_{21}$ & $15035466218915$ & $c_{40}$ & $-35015823619913444$ & $c_{59}$ & $17444693106614215$ \\
-$c_{3}$ & $2675$ & $c_{22}$ & $-29231226815987$ & $c_{41}$ & $31165648692031793$ & $c_{60}$ & $16578663367860121$ \\
-$c_{4}$ & $7366$ & $c_{23}$ & $-30218237751565$ & $c_{42}$ & $53873718006609945$ & $c_{61}$ & $10001478903293153$ \\
-$c_{5}$ & $9187$ & $c_{24}$ & $66913014944865$ & $c_{43}$ & $-13387980291866877$ & $c_{62}$ & $6785590066430941$ \\
-$c_{6}$ & $-372998$ & $c_{25}$ & $-68150110435621$ & $c_{44}$ & $-27352984118524539$ & $c_{63}$ & $3637331201063691$ \\
-$c_{7}$ & $-3668317$ & $c_{26}$ & $-127107817882018$ & $c_{45}$ & $29794290789366156$ & $c_{64}$ & $2413295256940129$ \\
-$c_{8}$ & $-15244255$ & $c_{27}$ & $178858202054925$ & $c_{46}$ & $-26595725897452661$ & $c_{65}$ & $751718943020690$ \\
-$c_{9}$ & $-32044000$ & $c_{28}$ & $-460935328496070$ & $c_{47}$ & $117394428180488266$ & $c_{66}$ & $347201607393958$ \\
-$c_{10}$ & $57200116$ & $c_{29}$ & $-709967776623697$ & $c_{48}$ & $-13761889044836587$ & $c_{67}$ & $126105465326786$ \\
-$c_{11}$ & $860643565$ & $c_{30}$ & $2510824208010939$ & $c_{49}$ & $-25658601789096768$ & $c_{68}$ & $1500056624952$ \\
-$c_{12}$ & $2448891047$ & $c_{31}$ & $1324939008126784$ & $c_{50}$ & $-12260130214848191$ & $c_{69}$ & $700115434752$ \\
-$c_{13}$ & $-720409095$ & $c_{32}$ & $-7994426753716621$ & $c_{51}$ & $17745334352617353$ & $c_{70}$ & $-1153674458136$ \\
-$c_{14}$ & $-18569710668$ & $c_{33}$ & $3049429606501294$ & $c_{52}$ & $17090785758566613$ & $c_{71}$ & $-46534915592$ \\
-$c_{15}$ & $-72979395112$ & $c_{34}$ & $17316315194060964$ & $c_{53}$ & $6195268680833883$ & $c_{72}$ & $9844372464$ \\
-$c_{16}$ & $-24902329363$ & $c_{35}$ & $-9662322112837158$ & $c_{54}$ & $5901968677641244$ & $c_{73}$ & $236767680$ \\
-$c_{17}$ & $528199520901$ & $c_{36}$ & $-28066608282537607$ & $c_{55}$ & $-37670814220299272$ & $c_{74}$ & $-493056$ \\
-$c_{18}$ & $-116254751440$ & $c_{37}$ & $25641671611725109$ & $c_{56}$ & $44253965824453705$ &  &  \\
-$c_{19}$ & $-2739700486338$ & $c_{38}$ & $61563193686518328$ & $c_{57}$ & $36934800573461002$ &  &  \\
-\end{tabular}
-\end{center}
+Its perimeter is a cycle of four cells, walked clockwise as $p\to q\to s\to r\to p$ and
+counterclockwise as $p\to r\to s\to q\to p$. Write
+\[
+\mathrm{cw}(B)=[p<q]+[q<s]+[s<r]+[r<p],\qquad
+\mathrm{ccw}(B)=[p<r]+[r<s]+[s<q]+[q<p]
+\]
+for the number of steps at which the value rises, going each way round.
+
+\begin{lemma}\label{lem:sum}
+$\mathrm{cw}(B)+\mathrm{ccw}(B)=4-\#\{\text{edges of the cycle with equal ends}\}$.
+\end{lemma}
+
+\begin{proof}
+Each of the four edges of the square is walked once by each cycle, and in opposite directions.
+An edge with distinct ends therefore contributes exactly one rise, to one of the two counts;
+an edge with equal ends contributes to neither.
+\end{proof}
+
+The condition the entry imposes is this: every subblock $B$ of the array satisfies
+\[
+\mathrm{cw}(B)\;=\;\mathrm{ccw}(B)
+\]
+
+
+\section{A bounded window}
+
+Two consecutive rows decide every subblock lying between them, and the condition of Section 2 is a condition on single subblocks only. So the state is the row just written, and nothing else.
+
+One step of the walk writes a whole row. The row is filled left to right, and the subblock
+closed by positions $j-1,j$ is tested the moment position $j$ is written, so a partial row that
+cannot be completed is abandoned rather than enumerated. The walk starts at the state standing
+for the empty array, so that a walk of $n$ steps is an array of $n$ rows.
+
+The end vector is all ones: an array may stop after any row. Thus
+\[
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=17,
+\]
+for the transfer matrix $M$ on those $S$ states. The walk index $j$ and the entry's own $n$
+differ by a constant, read off by matching the published terms rather than assumed. In
+particular $a$ is $C$-finite, and every question about linear recurrences it satisfies is
+decidable.
+
+\section{The proof}
+
+\begin{lemma}\label{lem:crit}
+Let $q(t)=t^{2}-\sum_i c_it^{2-i}$ be the characteristic polynomial of the
+conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
+$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
+holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
+and it is enough to examine $j<S$.
+\end{lemma}
+
+\begin{proof}
+Factor $M^{j}$ out of $M^{j+2}-\sum_ic_iM^{j+2-i}$. For the bound, $M^{S}$
+is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
+$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
+polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
+pins the threshold exactly.
+\end{proof}
 
 \begin{theorem}
-The recurrence above holds for every $n$, and it is the recurrence the entry records.
+\[
+a(n)\;=\;11\,a(n-1) - 14\,a(n-2)
+\]
+for every $n>1$.
 \end{theorem}
 
 \begin{proof}
-It holds by Lemma~\ref{lem:bm}, which returns a recurrence the sequence satisfies from its
-first term. For the identification: the entry asserts that the sequence satisfies SOME
-recurrence of order $74$, possibly only from some index on. Let $q$ be that recurrence's
-characteristic polynomial and $q_{\min}$ the minimal polynomial of the tail of the sequence.
-Then $q_{\min}\mid q$. Berlekamp--Massey run on the sequence with its first $74+4$ terms
-removed returns order $74$ as well, so $\deg q_{\min}=74=\deg q$; both are monic, so
-$q=q_{\min}$, which is the polynomial computed above.
+The vector $w=q(M)\tau$ was formed by $2$ matrix--vector products in exact integer
+arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
+integers vanish from the index corresponding to $n=1+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
-Three checks.
+Four checks, each independent of the algebra above.
 
-First, the walk model reproduces all $15$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry, and it is the only place where reading
-the entry's English enters.
+First, the model reproduces all $20$ terms the entry publishes, exactly, in integer
+arithmetic.
 
-Second, the recovered recurrence was evaluated directly on those published terms, with no
-matrices and no Berlekamp--Massey involved, and holds at every index where the entry gives
-enough earlier terms to test it.
+Second, the count was recomputed for the smallest arrays straight from the definition: every
+array of the stated width and a few rows was written out cell by cell over $\{0,1,2,3\}$, each of
+its $2\times2$ subblocks was read round its perimeter, and the condition of Section 2 was
+applied as stated. No window, no state and no recurrence is involved in that computation, and
+the published terms came back.
 
-Third, the order was computed twice by independent routes: once modulo a $61$-bit prime, where
-every intermediate is a machine word, and once in exact rational arithmetic; and once more on
-the sequence with its first $74+4$ terms removed, which is what the identification above
-requires. All three agree.
+Third, the conjectured recurrence was evaluated directly on the published terms, with no
+matrices involved, and holds wherever the proved range and the data overlap.
 
-\begin{remark}
-What is unusual here is that the conjecture's statement was never read. The entry pins it down
-to a one-parameter family --- the recurrences of order $74$ that this sequence satisfies
---- and that family turns out to have exactly one member.
-\end{remark}
+Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A283861.
-\bibitem{massey} J.~L.~Massey, Shift-register synthesis and BCH decoding, \emph{IEEE
-Trans. Inform. Theory} \textbf{15} (1969), 122--127.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A208485.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge

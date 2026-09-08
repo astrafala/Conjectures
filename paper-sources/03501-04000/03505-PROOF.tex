@@ -12,129 +12,131 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A204644, proved by transfer matrix}
+\title{The conjectured generating function for OEIS A250753, proved}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{3 September 2026}
+\date{6 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A204644 counts arrays of width $2$ over $\{0,1\}$ through two derived arrays of PAIR SUMS ---
-each cell added to its left neighbour, and each cell added to the one above it --- on which the
-entry imposes an order condition. The entry carries an empirical recurrence of order $3$
-contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical: the count is
-a walk count on $S=5$ states.
+OEIS A250753 counts arrays of a fixed width under a local condition, and carries a conjectured
+generating function --- and nothing else. It is true. The count is a walk count in a finite
+digraph on $S=2187$ vertices, so its generating function is a rational function whose numerator
+and denominator have degrees bounded by $S$; the conjectured expression is another rational
+function of known degree; and two rational functions of bounded degree agree as soon as enough
+coefficients of their expansions do. Comparing $2195$ coefficients in exact arithmetic
+therefore settles the conjecture, rather than testing it.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 06A07, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A19, 68Q45.\normalsize
 
 \section{The conjecture}
 
-OEIS A204644 is ``Number of (n+1) X 2 0..1 arrays with column and row pair sums b(i,j)=a(i,j)+a(i,j-1) and c(i,j)=a(i,j)+a(i-1,j) nondecreasing in column and row directions, respectively.''. It has offset $1$ and begins
+OEIS A250753 is ``Number of (n+1) X (6+1) 0..2 arrays with nondecreasing x(i,j)-x(i,j-1) in the i direction and nondecreasing x(i,j)+x(i-1,j) in the j direction.''. It has offset $1$ and begins
 \[
-8, 16, 28, 48, 80, 132, 216, 352,\ \dots
+402, 1305, 4182, 13149, 40722, 124785,\ \dots
 \]
-The entry states, as a conjecture contributed by its author and never marked settled:
+The entry states, as a conjecture contributed by a reader and never marked settled:
 \begin{quote}
-Empirical: a(n) = 2*a(n-1) - a(n-3).
+Empirical g.f.: 3*x*(134 - 369*x + 258*x\^{}2) / ((1 - x)*(1 - 2*x)*(1 - 3*x)). - \_Colin Barker\_, Nov 17 2018
 \end{quote}
-As of the ``Last modified'' line on the live entry (Apr 05 2019 12:23:51, revision 28) this is still
-recorded as empirical, and nothing on the entry records it as proved.
+As of the ``Last modified'' line on the live entry (Nov 17 2018 20:55:18, revision 8) this is still
+recorded as empirical, and nothing on the entry records it as proved. The entry carries no
+conjectured recurrence, which is why this generating function is the whole of what is open
+here.
 
-\section{What is being counted}
+\section{The count is a walk count}
 
-The array $a$ has $2$ cells across, with entries in $\{0,1\}$. Two derived arrays are formed,
+Every condition the entry names is decided inside a bounded number of consecutive rows: it
+compares a cell with cells a bounded distance from it, and no comparison reaches further than
+that. So a strip of that many consecutive rows is a state of a finite automaton, an array is
+read off row by row, and appending one more row is one step, legal exactly when the row it
+completes satisfies every condition that becomes testable.
+
+Taking those strips as the vertices of a digraph $G$ with adjacency matrix $M$, and writing
+$\iota$ for the indicator of the states an array may begin in and $\tau$ for those it may end
+in,
 \[
-b(i,j)=a(i,j)+a(i,j-1)\quad(j\ge1),\qquad c(i,j)=a(i,j)+a(i-1,j)\quad(i\ge1),
+a(n)\;=\;\iota^{\!\top}M^{\,n-1+1}\tau ,
 \]
-so $b$ adds each cell to its LEFT neighbour and $c$ adds each cell to the one ABOVE it. The
-entry asks
+and there are $S=2187$ states. The digraph is built by reading the entry's own English, and the
+model reproduces all $22$ terms the entry publishes, exactly, in integer arithmetic --- a
+misreading of the condition gives a different digraph and different counts, so this ties the
+model to the entry and not merely to the arithmetic.
 
-\[
-b(i,j)\le b(i{+}1,j)\qquad\text{and}\qquad c(i,j)\le c(i,j{+}1)
-\]
-wherever both sides are defined: the array $b$ must not decrease DOWN a column and the array
-$c$ must not decrease ALONG a row. The two directions are crossed, which is the only subtle
-part of the reading --- $b$ is built across a row and tested down a column, and $c$ the other
-way about.
+The family this entry belongs to is read by one model, described by its author as: ```... arrays with nondecreasing <f>(x(i,j),x(i,j-1)) in the i direction and nondecreasing <g>(x(i,j),x(i-1,j)) in the j direction' and `... with nondecreasing <statistic> of every <k> consecutive values in every row and column'.''
 
 
-\section{Two rows decide it}
+\section{Its generating function is rational, with bounded degree}
 
-\begin{lemma}\label{lem:win}
-Both conditions are conditions on two consecutive rows of $a$ and nothing more.
+\begin{lemma}\label{lem:rat}
+$A(x)=\sum_{n\ge1}a(n)x^n=N_1(x)/D_1(x)$ where $D_1(x)=\det(I-xM)$ has degree at most
+$S$ and $D_1(0)=1$, and $\deg N_1<S+1$.
 \end{lemma}
 
 \begin{proof}
-$b(i,j)\le b(i{+}1,j)$ names four cells of $a$, all in rows $i$ and $i+1$. $c(i,j)\le
-c(i,j{+}1)$ names four cells, all in rows $i-1$ and $i$.
-\end{proof}
-
-So a single row of $a$ is a state and one step appends a row.
-
-With $M$ the adjacency matrix of the digraph on those states, $\iota$ the indicator of the
-starting state and $\tau=\mathbf{1}$,
-\[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=5.
-\]
-The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
-published terms rather than assumed. In particular $a$ is $C$-finite.
-
-\section{The proof}
-
-\begin{lemma}\label{lem:crit}
-Let $q(t)=t^{3}-\sum_i c_it^{3-i}$ be the characteristic polynomial of the
-conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
-$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
-holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
-and it is enough to examine $j<S$.
-\end{lemma}
-
-\begin{proof}
-Factor $M^{j}$ out of $M^{j+3}-\sum_ic_iM^{j+3-i}$. For the bound, $M^{S}$
-is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
-$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
-polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly.
+Summing the geometric series of matrices, $\sum_{j\ge0}M^jx^j=(I-xM)^{-1}$ as a formal
+power series, so $A(x)$ is $x^{c}\,\iota^{\!\top}(I-xM)^{-1}\tau$ for the constant $c$
+relating the walk index to the entry's own $n$. By Cramer's rule every entry of
+$(I-xM)^{-1}$ is a polynomial of degree less than $S$ divided by $\det(I-xM)$, and
+$\det(I-xM)$ is a polynomial of degree at most $S$ with constant term $\det I=1$.
 \end{proof}
 
 \begin{theorem}
-\[
-a(n)\;=\;2\,a(n-1) - a(n-3)
-\]
-for every $n>2$.
+The conjectured generating function is $A(x)$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $3$ matrix--vector products in exact integer
-arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=2+1$ onwards and the run continued
-until the working vector was identically zero.
+Write the conjecture as $N_2/D_2$ with $\deg N_2=3$ and $\deg D_2=3$; its expansion as a
+power series exists because $D_2(0)\neq0$. Put
+\[
+R(x)\;=\;N_1(x)D_2(x)-N_2(x)D_1(x),
+\]
+a polynomial of degree at most $2190$ by Lemma~\ref{lem:rat}. The difference
+$A-N_2/D_2$ equals $R/(D_1D_2)$, and $D_1(0)D_2(0)\neq0$, so if the two power series agree in
+every coefficient up to $x^{2190}$ then $R$ has a zero of order greater than its own
+degree at the origin, which forces $R\equiv0$ and hence $A=N_2/D_2$ identically.
+
+The coefficients of $A$ were produced from the model by repeated matrix--vector products in
+exact integer arithmetic, those of $N_2/D_2$ by exact rational long division, and $2195$
+of them --- more than the $2190+1$ the argument requires --- agree.
 \end{proof}
+
+\section{A recurrence the entry does not state}
+
+The denominator of a rational generating function is a linear recurrence written backwards, so
+the theorem above yields one for free. With $D_2(x)=1-\sum_{i\ge1}c_ix^i$ after normalising
+$D_2(0)=1$, comparing coefficients of $x^n$ in $A(x)D_2(x)=N_2(x)$ gives
+\[
+a(n)\;=\;\sum_{i\ge1}c_i\,a(n-i)\qquad\text{for every }n>3,
+\]
+a constant-coefficient linear recurrence of order $3$, valid past the degree of the
+numerator. Its coefficients are the integers $c_1,\dots,c_{3}$ read off $D_2$, the first few being $6,\ -11,\ 6$. The entry records no recurrence, so this is not a restatement of anything
+already there.
 
 \section{Verification}
 
-Four checks, each independent of the algebra above.
+Three checks, each independent of the algebra above.
 
-First, the model reproduces all $36$ terms the entry publishes, exactly, in integer
-arithmetic.
+First, the model reproduces every one of the $22$ published terms, with the index shift
+read off the entry's offset rather than fitted.
 
-Second, the count was recomputed for the smallest arrays straight from the definition:
-enumerate every array of that size, form the two derived arrays in full, and test the condition
-on them directly. No window, no state and no incremental bookkeeping are involved, and the
-published terms came back.
+Second, the arrays themselves were enumerated for the smallest shapes the entry counts,
+directly from its English and with no automaton, and the counts agree. Writing that check is
+where the risk actually sits: an earlier version of it dropped a clause from the entry's name
+in three cases and disagreed with the model, and in all three the check was wrong and the model
+was right.
 
-Third, the conjectured recurrence was evaluated directly on the published terms, with no
-matrices involved, and holds wherever the proved range and the data overlap.
-
-Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
-arithmetic on the whole vector rather than on a sampled prefix.
+Third, the coefficient comparison was carried out over the whole range required by the degree
+bound rather than on a prefix, in exact arithmetic throughout.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A204644.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A250753.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{flajolet} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+University Press, 2009.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

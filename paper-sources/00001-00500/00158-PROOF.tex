@@ -12,108 +12,195 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{Recovering the unwritten recurrences of the table OEIS A237488}
+\title{The empirical recurrence for OEIS A211329, proved by a one-dimensional reduction}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{2 September 2026}
+\date{4 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A237488 is a two-dimensional table $T(n,k)$ whose empirical recurrences are, for several of
-its lines, given only as an ORDER --- ``k=2: [order 88]'' and the like --- with the
-coefficients in a linked file rather than in the entry. Those conjectures can still be settled,
-and the recurrences recovered. A line of the table is a fixed-width or fixed-height array
-count, hence a walk count on finitely many vertices, hence satisfies some monic recurrence of
-order at most that number; Berlekamp--Massey on twice as many exact terms returns the MINIMAL
-one. Where its order equals the order the entry states --- and where the same holds after the
-first few terms are dropped --- any recurrence of that order the line satisfies has a
-characteristic polynomial that is a multiple of the minimal one and of equal degree, hence is
-that polynomial. This note settles column 2.
+OEIS A211329 counts symmetric $(n+1)\times(n+1)$ matrices over
+$\{-5,\dots,5\}$ in which every $2\times2$ subblock sums to zero and has one or two distinct
+entries. Both sides of the matrix grow with $n$, so there is no slice of bounded width to walk
+along. There does not need to be: the sum-zero condition is linear and solves completely, and
+its solutions are indexed by a SEQUENCE --- the diagonal of the matrix. The count becomes a walk
+on $S=22$ states, and the empirical recurrence of order $3$ contributed by R.~H.~Hardin
+follows.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 15B36, 15A18.\normalsize
 
-\section{The table and the unwritten conjectures}
+\section{The conjecture}
 
-OEIS A237488 is ``T(n,k)=Number of (n+1)X(k+1) 0..3 arrays with the maximum plus the minimum minus the lower median of every 2X2 subblock equal.''. It is read by antidiagonals and begins
+OEIS A211329 is ``Number of (n+1) X (n+1) -5..5 symmetric matrices with every 2 X 2 subblock having sum zero and one or two distinct values.''. It has offset $1$ and begins
 \[
-256, 1464, 1464, 8770, 15898, 8770, 55318, 180730,\ \dots
+15, 19, 25, 35, 51, 77, 119, 187,\ \dots
 \]
-The entry carries, among its empirical claims:
-\begin{quote}\small
-k=2: [order 88]
+The entry states, as a conjecture contributed by its author and never marked settled:
+\begin{quote}
+Empirical: a(n) = 2*a(n-1) - a(n-3).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 10:13:22, revision 6) these are still
-recorded as empirical, and the recurrences themselves are not in the entry text.
+As of the ``Last modified'' line on the live entry (Jul 17 2018 08:37:53, revision 8) this is still
+recorded as empirical, and nothing on the entry records it as proved.
 
-\section{Why a line of the table is a walk count}
+\section{The sum-zero condition solved}
 
-Fix the index that the line fixes. The entry defines $T(n,k)$ as a number of arrays of a shape
-determined by $n$ and $k$, subject to a condition local to a bounded window of consecutive
-lines. Substituting the fixed index into the entry's own wording turns the definition into an
-ordinary one-parameter array count, and for such a count the admissible windows are the
-vertices of a finite digraph and an array is a walk. So the line is a walk count on $S$
-vertices, and by the Cayley--Hamilton theorem it satisfies a monic integer recurrence of order
-at most $S$.
+Let $x$ be an $N\times N$ symmetric matrix with entries in $\{-5,\dots,5\}$ such that
+\[
+x(i,j)+x(i,j{+}1)+x(i{+}1,j)+x(i{+}1,j{+}1)=0
+\]
+for every $0\le i,j\le N-2$.
 
-\section{Recovering the recurrences}
-
-\begin{lemma}\label{lem:bm}
-A sequence known to satisfy some linear recurrence of order at most $S$ is determined, with its
-minimal recurrence, by its first $2S$ terms; Berlekamp--Massey applied to them returns that
-minimal recurrence exactly.
+\begin{lemma}\label{lem:solve}
+Such matrices are exactly the matrices
+\[
+x(i,j)=(-1)^{i+j}\,\frac{u_i+u_j}{2},
+\qquad u_0,\dots,u_{N-1}\in\{-5,\dots,5\}\ \text{all of the same parity},
+\]
+and the sequence is recovered from the matrix by $u_i=x(i,i)$, so the correspondence is a
+bijection.
 \end{lemma}
 
-\subsection*{Column $k=2$}
-Substituting the fixed index into the entry's wording gives an ordinary one-parameter array
-count, a walk on $S=200$ vertices. Berlekamp--Massey on $2S=400$ exact terms
-returns a minimal recurrence of order $88$ --- the order the entry states --- with
-integer coefficients
+\begin{proof}
+Put $y(i,j)=(-1)^{i+j}x(i,j)$. The four entries of a $2\times2$ subblock alternate in sign
+under this substitution, so
 \[
-(c_1,\dots,c_{88})=(45,\ -466,\ -8291,\ 199874,\ -187243,\ -27395034,\ 182275632,\ 1759242718,\ -22897490225,\ -35479516029,\ 1541240189465,\ -2983851254422,\ -64981162714459,\ 299134055797142,\ 1725788095704285,\ -14047527762184836,\ -23093251970849371,\ 432174961168292973,\ -216036952443781705,\ -9422204230197533218,\ 19672764107898696412,\ 147517260692207956513,\ -550439090945393674478,\ -1580714750717567899471,\ 9997398366652665100912,\ 8862509715853352773442,\ -132618426190837951661077,\ 45573433732151485025288,\ 1332000090021718123599322,\ -1761028637129243539787037,\ -10155036510428624561906311,\ 23618263282616212702741106,\ 56816699229242350837475982,\ -212855924182543629774547151,\ -203418248756214265461846677,\ 1439190777130387271395538836,\ 109313557860524540794437314,\ -7562880679486620305507018671,\ 4428289812818603856867808151,\ 31135721431513151162164091141,\ -37124355274642720491006719912,\ -99096737186441885020214391834,\ 187887556215958642303441695092,\ 231716994144473961250339295917,\ -699402889001484792604403936663,\ -328850683690156848152171131124,\ 2022514687539142781689785411270,\ -82691610413510556248930089566,\ -4624878728755303463792278403372,\ 2067981221434891191342779845666,\ 8358174498723274091763810015458,\ -6948011520668375504460115157148,\ -11717513371541844362926460579088,\ 15018195320790184236950942204932,\ 12072251820061825798840257185376,\ -24100638410954735753376333634552,\ -7589635985905127931027839397600,\ 29887232040010272033485677455904,\ -498361237357788350884753351136,\ -28892657976224672986082870540928,\ 8065455226749960423558071654656,\ 21568739739719419077546289515328,\ -11303848048672358200807754801280,\ -12058217001844269041775344226176,\ 9758806874418423987587524906496,\ 4671537151725735886904480174592,\ -5967648437627199027170256639488,\ -942872314485368652119642586112,\ 2655197409448761604391352838144,\ -149463541468007172497807034368,\ -848858291323477434157507588096,\ 190954874902425364456562286592,\ 186243055875423086639136514048,\ -72463948066733400433394335744,\ -25126465159573923432949317632,\ 15657431425993780842128539648,\ 1401890463270535928849629184,\ -2010461769513204327303872512,\ 101092538944332666231062528,\ 143177138094879693018234880,\ -19234374189332467384582144,\ -4911272715705746708234240,\ 892939475782863673098240,\ 81819925090552762073088,\ -15963189859400237973504,\ -631797581170253758464,\ 80863585100837683200,\ -324635225474727936).
+x(i,j)+x(i,j{+}1)+x(i{+}1,j)+x(i{+}1,j{+}1)
+=(-1)^{i+j}\bigl[y(i,j)-y(i,j{+}1)-y(i{+}1,j)+y(i{+}1,j{+}1)\bigr],
 \]
-so that $a(m)=\sum_{i=1}^{88}c_i\,a(m-i)$ for every $m$. Removing the first
-$88+4$ terms and repeating gives order $88$ again, which is what the
-identification below needs.
+and the condition says exactly that the mixed second difference of $y$ vanishes everywhere.
+Summing that identity over a rectangle gives
+$y(i,j)=y(i,0)+y(0,j)-y(0,0)$ for all $i,j$, which is $y(i,j)=f(i)+g(j)$ with
+$f(i)=y(i,0)-y(0,0)$ and $g(j)=y(0,j)$; conversely every such $y$ has vanishing mixed
+difference. Symmetry of $x$ gives $y(i,j)=y(j,i)$, hence $f(i)-g(i)=f(j)-g(j)$ for all $i,j$:
+the difference is a constant $c$. Writing $u_i=2\bigl(f(i)-c/2\bigr)$, which is an integer
+because $y(i,i)=x(i,i)$ is, we get $y(i,j)=(u_i+u_j)/2$ as claimed. Taking $j=i$ gives
+$u_i=y(i,i)=x(i,i)$.
+
+For the two side conditions: $u_i+u_j$ must be even for all $i,j$, which says all the $u_i$ have
+the same parity; and $|x(i,j)|=|u_i+u_j|/2\le5$ for all $i,j$ is equivalent to $|u_i|\le5$
+for each $i$, the case $j=i$ giving one direction and the triangle inequality the other.
+\end{proof}
+
+So the matrices of size $N$ correspond one for one to the sequences $u_0,\dots,u_{N-1}$ in
+$\{-5,\dots,5\}$ with all entries of one parity. What remains is to say, in terms of $u$,
+that every $2\times2$ subblock has one or two distinct entries.
+
+\begin{lemma}\label{lem:block}
+Write $\pi_i=(u_i,u_{i+1})$ for the $i$-th consecutive pair. The number of distinct entries of
+the subblock at $(i,j)$ depends only on $\pi_i$ and $\pi_j$: with $\pi_i=(\alpha,\beta)$ and
+$\pi_j=(\gamma,\delta)$ it is
+\[
+\Bigl|\Bigl\{\tfrac{\alpha+\gamma}{2},\,-\tfrac{\alpha+\delta}{2},\,
+-\tfrac{\beta+\gamma}{2},\,\tfrac{\beta+\delta}{2}\Bigr\}\Bigr| .
+\]
+\end{lemma}
+
+\begin{proof}
+By Lemma~\ref{lem:solve} the four entries are $(-1)^{i+j}$ times those four numbers, in
+order. Multiplying all four by $\pm1$ does not change how many are distinct.
+\end{proof}
+
+Call two consecutive pairs COMPATIBLE when that number lies in $\{1,2\}$. The condition on the
+matrix is that $\pi_i$ and $\pi_j$ are compatible for every $i$ and $j$ --- including $i=j$,
+which asks each pair to be compatible with itself. In other words:
+
+\begin{corollary}
+The matrices counted are exactly the sequences $u$ whose set of consecutive pairs is a clique in
+the compatibility graph on the $\le 121$ pairs.
+\end{corollary}
+
+\section{A walk on the sequence}
+
+The clique condition is not local: a pair must be compatible with every pair anywhere else in
+the sequence. Carrying the set of pairs already used would be an exponential state. Carrying
+what it FORBIDS is not.
+
+\begin{lemma}\label{lem:lump}
+Let $A$ be the set of pairs compatible with every pair used so far. Then a sequence may be
+continued exactly by pairs lying in $A$, and appending a pair $\pi$ replaces $A$ by
+$A\cap N(\pi)$, where $N(\pi)$ is the set of pairs compatible with $\pi$. Hence the pair
+$(\,\text{last value of }u,\;A\,)$ carries everything the future needs.
+\end{lemma}
+
+\begin{proof}
+The condition is a conjunction of pairwise compatibilities, so the set of pairs still allowed
+after using a set $T$ is $\bigcap_{\pi\in T}N(\pi)$, which is a function of $T$ and is updated
+by intersection as $T$ grows. The next pair is $(\text{last value},w)$, so the last value is
+the only other thing a step needs.
+\end{proof}
+
+The sets $A$ that arise are intersections of neighbourhoods, of which there are far fewer than
+subsets; enumerated from the start $A_0=\{\pi:\pi\in N(\pi)\}$, the reachable states number
+$S=22$. The two parity classes never mix, so the walk starts by choosing a parity and a first
+value, and every state may end a sequence:
+\[
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad \tau=\mathbf{1},\qquad S=22.
+\]
+The walk index $j$ is the size of the matrix, and it differs from the entry's own $n$ by a
+constant read off by matching the published terms rather than assumed. In particular $a$ is
+$C$-finite --- for a family in which both dimensions grow with $n$.
+
+\section{The proof}
+
+\begin{lemma}\label{lem:crit}
+Let $q(t)=t^{3}-\sum_i c_it^{3-i}$ be the characteristic polynomial of the
+conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
+$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
+holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
+and it is enough to examine $j<S$.
+\end{lemma}
+
+\begin{proof}
+Factor $M^{j}$ out of $M^{j+3}-\sum_ic_iM^{j+3-i}$. For the bound, $M^{S}$
+is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
+$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
+polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
+pins the threshold exactly.
+\end{proof}
 
 \begin{theorem}
-For each line above, the displayed recurrence holds for every index, and it is the recurrence
-the entry records.
+\[
+a(n)\;=\;2\,a(n-1) - a(n-3)
+\]
+for every $n>3$.
 \end{theorem}
 
 \begin{proof}
-It holds by Lemma~\ref{lem:bm}. For the identification, the entry asserts that the line
-satisfies SOME recurrence of the stated order, possibly only from some index on. Let $q$ be its
-characteristic polynomial and $q_{\min}$ the minimal polynomial of the tail. Then
-$q_{\min}\mid q$, and the second Berlekamp--Massey run --- on the line with its first few
-terms removed --- shows $\deg q_{\min}$ equals the stated order, which is $\deg q$. Both are
-monic, so $q=q_{\min}$.
+The vector $w=q(M)\tau$ was formed by $3$ matrix--vector products in exact integer
+arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
+integers vanish from the index corresponding to $n=3+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
-Three checks.
+Four checks, each independent of the algebra above.
 
-First, each line's model was compared against the entry's own published values for that line,
-taken from the antidiagonal DATA read in either orientation and from the ``Table starts''
-block, and agrees at every available term. This is the only point at which reading the entry's
-English enters, and a misreading gives different counts.
+First, the model reproduces all $35$ terms the entry publishes, exactly, in integer
+arithmetic.
 
-Second, each recovered recurrence was evaluated directly on the model's values, with no
-Berlekamp--Massey involved, and holds at every index tested.
+Second, the count was recomputed for the smallest matrices straight from the definition:
+symmetric matrices were written out entry by entry over $\{-5,\dots,5\}$ and each
+$2\times2$ subblock tested for summing to zero and for having one or two distinct entries. The
+sequence $u$, the sign pattern, the clique and the state play no part in that computation, and
+the published terms came back. Lemma~\ref{lem:solve} was separately checked the same way: for
+small sizes and small ranges the number of symmetric sum-zero matrices found by direct
+enumeration equals the number of admissible sequences.
 
-Third, each order was computed twice by independent routes --- modulo a $61$-bit prime, where
-every intermediate is a machine word, and again in exact rational arithmetic --- and once more
-on the line with its first few terms dropped, which is what the identification requires. All
-agree.
+Third, the conjectured recurrence was evaluated directly on the published terms, with no
+matrices involved, and holds wherever the proved range and the data overlap.
+
+Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A237488.
-\bibitem{massey} J.~L.~Massey, Shift-register synthesis and BCH decoding, \emph{IEEE
-Trans. Inform. Theory} \textbf{15} (1969), 122--127.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A211329.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{kemeny} J.~G.~Kemeny and J.~L.~Snell, \emph{Finite Markov Chains}, Springer, 1976.
+(Lumping, Section 6.3.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

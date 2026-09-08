@@ -8,144 +8,114 @@
 \newtheorem{theorem}{Theorem}
 \newtheorem{lemma}[theorem]{Lemma}
 \newtheorem{proposition}[theorem]{Proposition}
-\newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
-
-\title{The empirical recurrence for OEIS A264516: recovering a conjecture that is not written down}
+\title{A proof of the conjectured generating function for OEIS A266072}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{2 September 2026}
+\date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A264516 records ``Empirical recurrence of order $84$'', with the recurrence itself in a
-linked file rather than in the entry. The conjecture can nevertheless be settled, and the
-recurrence recovered, without reading that file. The entry counts arrays under a condition
-local to a bounded window of lines, so the count is a walk count on $S=1024$ vertices and
-satisfies some monic recurrence of order at most $S$; Berlekamp--Massey applied to $2S$ exact
-terms therefore returns the MINIMAL such recurrence. Its order is exactly $84$, the order
-the entry states, and the same is true of every tail of the sequence. Any recurrence of order
-$84$ that the sequence satisfies from any point on must then have a characteristic
-polynomial that is a multiple of the minimal one and of the same degree, hence equal to it. So
-the entry's recurrence is the one displayed here, whatever its file contains, and it is
-proved.
+OEIS A266072 carries a conjectured generating function. We prove it. The entry states, as fact,
+a closed form, and from that a linear recurrence with polynomial coefficients satisfied by
+the sequence is derived exactly. The conjectured generating function is then shown to satisfy the
+same recurrence, and to agree with the sequence at enough consecutive indices. A recurrence
+of order $3$ whose leading coefficient does not vanish, together with $3$
+consecutive values, determines a sequence completely, so the two agree everywhere. Nothing
+is checked numerically and then assumed: the recurrence is derived symbolically, the
+verification is an exact identity, and the finitely many indices where the leading
+coefficient vanishes are computed rather than waved at.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 33F10.\normalsize
 
-\section{A conjecture one cannot read}
+\section{The sequence, what is known, and what is conjectured}
 
-OEIS A264516 is ``Number of (n+1) X (4+1) arrays of permutations of 0..n*5+4 with each element having directed index change -1,0 0,2 -1,-2 or 1,0.''. It has offset $1$ and begins
+OEIS A266072 is ``Number of ON (black) cells in the n-th iteration of the "Rule 3" elementary cellular automaton starting with a single ON (black) cell''. It has offset $0$ and begins
 \[
-2, 2, 42, 228, 1644, 10368, 65182, 414414,\ \dots
+a(0),\dots,a(7)\;=\;1, 1, 1, 5, 1, 9, 1, 13,\ \dots
 \]
-The entry states:
-\begin{quote}
-Empirical recurrence of order 84 (see link above)
+The entry states, not as a conjecture,
+\begin{quote}\small
+a(n) = n-(-1)\textasciicircum{}n*(n-1).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Apr 21 2021 13:45:52, revision 6) this is still
-recorded as empirical. The recurrence's coefficients are not in the entry text.
+and separately carries the comment
+\begin{quote}\small
+Conjectured g.f.: (1 + x - x\textasciicircum{}2 + 3*x\textasciicircum{}3)/(-1 + x\textasciicircum{}2)\textasciicircum{}2. - \emph{Michael De Vlieger}, Dec 21 2015
+\end{quote}
+As of the ``Last modified'' line on the live entry (2025-02-16, revision 30) the second
+statement is still recorded as a conjecture, and no proof appears among the entry's links,
+formulas or programs.
 
-\section{The count is a walk count}
+\section{A recurrence from what is known}
 
-The entry's condition is local: it constrains a bounded window of consecutive lines of the
-array and nothing further. The admissible configurations of one such window are the vertices
-of a finite digraph, an edge joining $u$ to $v$ when $v$ may follow $u$, and an admissible
-array is exactly a walk. Hence, with $M$ the adjacency matrix on $S=1024$ vertices,
-$a(n)=\iota^{\!\top}M^{\,j(n)}\tau$ for a linear reindexing $j$ fixed by the entry's shape
-and checked against its published terms. By the Cayley--Hamilton theorem $M^{S}$ is an
-integer combination of $I,M,\dots,M^{S-1}$, so:
+The closed form the entry posts is a sum of finitely many hypergeometric terms. For terms $t_{1},\dots,t_{m}$ one may seek $c_{0},\dots,c_{m}$ in $\mathbb{Q}(n)$ with $\sum_{k}c_{k}(n)t_{j}(n+k)=0$ for every $j$; dividing the $j$-th equation by $t_{j}(n)$ makes every coefficient a rational function, so this is $m$ equations in $m+1$ unknowns over $\mathbb{Q}(n)$ and a nonzero solution exists. It gives
 
-\begin{lemma}\label{lem:cf}
-$a$ satisfies a monic linear recurrence with integer coefficients of order at most $S=1024$.
+\begin{equation}\label{eq:rec}
+\left(- n - 2\right)\,a(n) + \left(- n - 3\right)\,a(n+1) + n\,a(n+2) + \left(n + 1\right)\,a(n+3) \;=\; 0
+\end{equation}
+
+The leading coefficient of \eqref{eq:rec} is $n + 1$. Its only integer zeros are $n\in\{-1\}$, all below the range claimed here.
+
+\section{The conjectured description satisfies it}
+
+Write $\theta=x\,\frac{d}{dx}$ and, for the coefficients $p_{i}$ of \eqref{eq:rec} written in the backward form $\sum_{i}p_{i}(n)a(n-i)=0$, set $B(x)=\sum_{i}x^{i}\,(p_{i}(\theta+i)A)(x)$ for the conjectured generating function $A$. Then $[x^{n}]B=\sum_{i}p_{i}(n)a(n-i)$, so the conjectured generating function has coefficients satisfying \eqref{eq:rec} exactly when $B$ is a polynomial. Reducing $B$ inside the field $A$ generates, which is closed under $\theta$, gives a polynomial, and the verification is an exact cancellation of rational functions.
+
+\section{Uniqueness}
+
+\begin{lemma}\label{lem:unique}
+Let $\sum_{j=0}^{r}q_{j}(n)\,b(n+j)=0$ be a linear recurrence whose leading coefficient
+$q_{r}$ has no zero at any integer $n\ge n_{0}$. If two sequences both satisfy it for all
+$n\ge n_{0}$ and agree at the $r$ consecutive indices $n_{0},\dots,n_{0}+r-1$, they agree
+at every $n\ge n_{0}$.
 \end{lemma}
 
-\section{Recovering the recurrence}
-
-\begin{lemma}\label{lem:bm}
-A sequence known to satisfy some linear recurrence of order at most $S$ is determined, together
-with its minimal recurrence, by its first $2S$ terms: Berlekamp--Massey applied to them returns
-that minimal recurrence exactly.
-\end{lemma}
-
-Running it on $2S=2048$ exact terms of the model returns order $84$ --- the order the
-entry states --- with the integer coefficients
-\[
-a(n)\;=\;\sum_{i=1}^{84}c_i\,a(n-i),
-\]
-\begin{center}\small
-\begin{tabular}{cccccccc}
-$c_{1}$ & $4$ & $c_{22}$ & $1182301310$ & $c_{43}$ & $-1268853264$ & $c_{64}$ & $-453210430$ \\
-$c_{2}$ & $46$ & $c_{23}$ & $980431632$ & $c_{44}$ & $11553685878$ & $c_{65}$ & $103599474$ \\
-$c_{3}$ & $-162$ & $c_{24}$ & $-2383944670$ & $c_{45}$ & $3480567568$ & $c_{66}$ & $131640593$ \\
-$c_{4}$ & $-769$ & $c_{25}$ & $-1920813272$ & $c_{46}$ & $-8827860683$ & $c_{67}$ & $-12089012$ \\
-$c_{5}$ & $3246$ & $c_{26}$ & $3804117496$ & $c_{47}$ & $-4895850428$ & $c_{68}$ & $-29708092$ \\
-$c_{6}$ & $6983$ & $c_{27}$ & $3053179766$ & $c_{48}$ & $4897162294$ & $c_{69}$ & $-4361588$ \\
-$c_{7}$ & $-36718$ & $c_{28}$ & $-4814349472$ & $c_{49}$ & $5463063972$ & $c_{70}$ & $5642561$ \\
-$c_{8}$ & $-40546$ & $c_{29}$ & $-4130018726$ & $c_{50}$ & $-692722037$ & $c_{71}$ & $3144158$ \\
-$c_{9}$ & $249934$ & $c_{30}$ & $4624993035$ & $c_{51}$ & $-5418119852$ & $c_{72}$ & $-1002475$ \\
-$c_{10}$ & $192846$ & $c_{31}$ & $4950624320$ & $c_{52}$ & $-2737843569$ & $c_{73}$ & $-1093946$ \\
-$c_{11}$ & $-1093946$ & $c_{32}$ & $-2737843569$ & $c_{53}$ & $4950624320$ & $c_{74}$ & $192846$ \\
-$c_{12}$ & $-1002475$ & $c_{33}$ & $-5418119852$ & $c_{54}$ & $4624993035$ & $c_{75}$ & $249934$ \\
-$c_{13}$ & $3144158$ & $c_{34}$ & $-692722037$ & $c_{55}$ & $-4130018726$ & $c_{76}$ & $-40546$ \\
-$c_{14}$ & $5642561$ & $c_{35}$ & $5463063972$ & $c_{56}$ & $-4814349472$ & $c_{77}$ & $-36718$ \\
-$c_{15}$ & $-4361588$ & $c_{36}$ & $4897162294$ & $c_{57}$ & $3053179766$ & $c_{78}$ & $6983$ \\
-$c_{16}$ & $-29708092$ & $c_{37}$ & $-4895850428$ & $c_{58}$ & $3804117496$ & $c_{79}$ & $3246$ \\
-$c_{17}$ & $-12089012$ & $c_{38}$ & $-8827860683$ & $c_{59}$ & $-1920813272$ & $c_{80}$ & $-769$ \\
-$c_{18}$ & $131640593$ & $c_{39}$ & $3480567568$ & $c_{60}$ & $-2383944670$ & $c_{81}$ & $-162$ \\
-$c_{19}$ & $103599474$ & $c_{40}$ & $11553685878$ & $c_{61}$ & $980431632$ & $c_{82}$ & $46$ \\
-$c_{20}$ & $-453210430$ & $c_{41}$ & $-1268853264$ & $c_{62}$ & $1182301310$ & $c_{83}$ & $4$ \\
-$c_{21}$ & $-383548266$ & $c_{42}$ & $-12517761315$ & $c_{63}$ & $-383548266$ & $c_{84}$ & $-1$ \\
-\end{tabular}
-\end{center}
+\begin{proof}
+Induction. Suppose the two agree at $n_{0},\dots,m+r-1$ for some $m\ge n_{0}$. The
+recurrence at $n=m$ determines $b(m+r)$ from the preceding $r$ values, because $q_{r}(m)$
+is nonzero and may be divided by; both sequences therefore take the same value at $m+r$.
+\end{proof}
 
 \begin{theorem}
-The recurrence above holds for every $n$, and it is the recurrence the entry records.
+For all $n\ge 0$,
+\[
+\sum_{n\ge 0} a(n)x^{n} \;=\; \frac{3 x^{3} - x^{2} + x + 1}{\left(x^{2} - 1\right)^{2}}
+\]
 \end{theorem}
 
 \begin{proof}
-It holds by Lemma~\ref{lem:bm}, which returns a recurrence the sequence satisfies from its
-first term. For the identification: the entry asserts that the sequence satisfies SOME
-recurrence of order $84$, possibly only from some index on. Let $q$ be that recurrence's
-characteristic polynomial and $q_{\min}$ the minimal polynomial of the tail of the sequence.
-Then $q_{\min}\mid q$. Berlekamp--Massey run on the sequence with its first $84+4$ terms
-removed returns order $84$ as well, so $\deg q_{\min}=84=\deg q$; both are monic, so
-$q=q_{\min}$, which is the polynomial computed above.
+Both sides satisfy \eqref{eq:rec}: the sequence because the recurrence was derived from
+the entry's own a closed form, and the conjectured generating function by the computation of the
+previous section. They agree at the $3$ consecutive indices beginning
+$n=0$, which was checked against the entry's DATA in exact integer arithmetic.
+The leading coefficient has no zero at any integer $n\ge0$, so
+Lemma~\ref{lem:unique} applies.
 \end{proof}
 
 \section{Verification}
 
-Three checks.
+Three checks, independent of one another.
 
-First, the walk model reproduces all $21$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry, and it is the only place where reading
-the entry's English enters.
+First, the description the entry states as fact was itself confirmed against the entry's
+DATA before any recurrence was derived from it; a statement that did not reproduce the
+entry's own terms would not have been used as the basis of anything.
 
-Second, the recovered recurrence was evaluated directly on those published terms, with no
-matrices and no Berlekamp--Massey involved, and holds at every index where the entry gives
-enough earlier terms to test it.
+Second, the derived recurrence \eqref{eq:rec} was evaluated on the published terms in
+exact integer arithmetic and vanishes at every index where it applies.
 
-Third, the order was computed twice by independent routes: once modulo a $61$-bit prime, where
-every intermediate is a machine word, and once in exact rational arithmetic; and once more on
-the sequence with its first $84+4$ terms removed, which is what the identification above
-requires. All three agree.
-
-\begin{remark}
-What is unusual here is that the conjecture's statement was never read. The entry pins it down
-to a one-parameter family --- the recurrences of order $84$ that this sequence satisfies
---- and that family turns out to have exactly one member.
-\end{remark}
+Third, the conjectured generating function was evaluated at the first $13$ indices and
+compared term by term with the DATA; the values agree exactly. This is not part of the
+proof, which is symbolic, but it would catch a transcription error in either statement.
 
 \begin{thebibliography}{9}
-\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A264516.
-\bibitem{massey} J.~L.~Massey, Shift-register synthesis and BCH decoding, \emph{IEEE
-Trans. Inform. Theory} \textbf{15} (1969), 122--127.
-\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
-University Press, 2013.
+\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer Sequences},
+\url{https://oeis.org}, 2026. Sequence A266072.
+\bibitem{aeqb} M.~Petkov\v{s}ek, H.~S.~Wilf and D.~Zeilberger, \emph{A=B}, A K Peters,
+1996.
+\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+University Press, 2009.
+\bibitem{kauers} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011.
 \end{thebibliography}
 
 \end{document}

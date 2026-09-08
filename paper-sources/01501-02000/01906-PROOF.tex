@@ -12,84 +12,85 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A224741, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A268779, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{2 September 2026}
+\date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A224741 counts the $(n+1)\times5$ matrices over $\{0,\dots,1\}$ all of whose
-$2\times2$ contiguous subblocks are of equal permanent, and carries an empirical recurrence of order
-$13$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical.
-The condition ties together $2$ consecutive rows and $2$ consecutive columns at once, so a
-single row is not a state; the strip of the last $1$ rows is, and the admissible strips
-are read off the overlap graph of the admissible windows instead of being enumerated. That
-makes $a(n)$ a walk count on $S=46$ vertices, hence $C$-finite, and whether the conjectured
-recurrence annihilates it is settled by a finite exact computation.
+OEIS A268779 counts arrays of width $6$ over $\{0,1\}$ in which the number of adjacent PAIRS of
+cells whose entries add up to $2$ is at most one. The entry carries an empirical recurrence of
+order $16$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
+empirical. The condition is global --- no window of the array decides it --- but the quantity
+it constrains is a count that may be capped at two, and a capped count is a bounded state; the
+result is a walk count on $S=127$ states.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05C30, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A224741 is ``Number of (n+1)X5 0..1 matrices with each 2X2 permanent equal.''. It has offset $1$ and begins
+OEIS A268779 is ``Number of nX6 binary arrays with some element plus some horizontally, vertically, diagonally or antidiagonally adjacent neighbor totalling two no more than once.''. It has offset $1$ and begins
 \[
-218, 2326, 18257, 180546, 1644874, 15845297, 149592266, 1430571502,\ \dots
+41, 343, 3354, 27531, 224960, 1755113, 13493468, 101738555,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 13*a(n-1) +a(n-2) -436*a(n-3) +747*a(n-4) +3955*a(n-5) -7874*a(n-6) -12461*a(n-7) +25451*a(n-8) +13120*a(n-9) -30315*a(n-10) -175*a(n-11) +9975*a(n-12) -2000*a(n-13)
+Empirical: a(n) = 6*a(n-1) +51*a(n-2) -214*a(n-3) -1074*a(n-4) +2018*a(n-5) +7713*a(n-6) -10572*a(n-7) -22926*a(n-8) +30116*a(n-9) +25283*a(n-10) -32400*a(n-11) -15148*a(n-12) +15184*a(n-13) +5660*a(n-14) -2688*a(n-15) -1024*a(n-16)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 23:36:05, revision 8) this is still
+As of the ``Last modified'' line on the live entry (Feb 13 2016 09:47:24, revision 4) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
-\section{The count is a walk count}
+\section{What is being counted}
 
-Call a $2\times2$ matrix over $\{0,\dots,1\}$ a \emph{window} when it is of equal permanent, and
-call a $2\times5$ matrix a \emph{band} when every one of its $4$ contiguous
-$2\times2$ subblocks is a window. What the entry counts is the matrices of $5$ columns
-whose every $2$ consecutive rows form a band.
-
-Take as states the $1\times5$ strips that occur as the top $1$ rows of a band,
-together with those that occur as its bottom $1$ rows, and put an edge from $u$ to $v$
-when the band whose first $1$ rows are $u$ and whose last $1$ rows are $v$ exists.
-A band is determined by that pair, so the edge is unique when it exists. Reading a counted
-matrix from the top, its rows $1..1$, then $2..2$, and so on, form a walk, and every
-walk arises from exactly one matrix; a matrix with $n+1$ rows gives a walk of $n$ edges.
-Since the first $1$ rows of a counted matrix with at least $2$ rows are the top of a
-band, and since no further condition falls on where a walk starts or ends,
+The array has $6$ cells across, with entries in $\{0,1\}$. An ADJACENT PAIR is a pair of cells
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n}\tau ,\qquad \iota=\tau=(1,1,\dots,1)^{\!\top},
+\begin{array}{l}
+$(i,j)\text{ and }(i,j{+}1)$ \\
+$(i,j)\text{ and }(i{+}1,j)$ \\
+$(i,j)\text{ and }(i{+}1,j{+}1)$ \\
+$(i,j)\text{ and }(i{+}1,j{-}1)$ \\
+\end{array}
 \]
-with $M$ the adjacency matrix on $S=46$ states. In particular $a$ is $C$-finite. The
-alignment was checked against the entry's published terms rather than assumed.
+both lying inside the array. A pair is a pair of CELLS, so it is counted once and not once from
+each end. Writing $k$ for the number of adjacent pairs whose two entries add up to $2$, the
+entry counts the arrays with $k$ at most one.
 
-There are $(1 + 1)^{5}$ strips of $1$ rows and $5$ columns, far too
-many to test one by one, and they are not tested one by one. Two consecutive windows of a band
-overlap in $2\times1$ entries, so a band is exactly a walk of $4$ windows in
-the graph that joins a window to those whose first $1$ columns are its last $1$
-columns. Enumerating those walks produces the bands, and with them the states and the edges,
-directly.
+\section{A capped count is a state}
 
-\section{The admissible windows}
+No window of the array decides the condition: $k$ is a total over the whole array. But the
+condition distinguishes only $k=0$, $k=1$ and $k\ge2$, so the count may be carried capped at
+two and stays bounded.
 
-The entry does not name the common value; it only asks that all the windows of one matrix agree.
-So fix a value $v$ and let $W_v$ be the set of $2\times2$ matrices over
-$\{0,\dots,1\}$ whose permanent, $b_{11}b_{22}+b_{12}b_{21}$, equals $v$. A matrix counted by the entry has all of
-its windows in a single $W_v$, and the value of $v$ is determined by the matrix, so the sets of
-matrices belonging to different $v$ are disjoint and
+\begin{lemma}\label{lem:cap}
+Let $k_t$ be the number of qualifying pairs lying inside the first $t$ rows. Then
 \[
-a(n)\;=\;\sum_v a_v(n),
+k_{t}\;=\;k_{t-1}+\bigl(\text{pairs inside row } t\bigr)
++\bigl(\text{pairs joining rows } t-1 \text{ and } t\bigr),
 \]
-each $a_v$ being the walk count of Section~2 built from $W_v$ alone. A disjoint union of the
-$3$ digraphs, one per value of $v$, therefore counts the whole of $a(n)$ with the same
-all-ones vectors, and the $2\times2$ windows in play number $16$ in total.
+and both added terms are determined by rows $t-1$ and $t$ alone.
+\end{lemma}
+
+\begin{proof}
+Every adjacent pair lies either inside one row or across two consecutive rows, by the list
+above; a pair inside rows $1..t$ that is not inside rows $1..t-1$ must meet row $t$, so it is
+one of the two kinds counted.
+\end{proof}
+
+So the state is the pair $(\text{previous row},\min(k,2))$: a step appends a row, adds the
+pairs Lemma~\ref{lem:cap} names and caps the total at two. The end vector accepts the states
+with $k\le1$, so it is not the all-ones vector. With $M$ the adjacency matrix,
+\[
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=127.
+\]
+The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
+published terms rather than assumed. In particular $a$ is $C$-finite.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{13}-\sum_i c_it^{13-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{16}-\sum_i c_it^{16-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -97,7 +98,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+13}-\sum_ic_iM^{j+13-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+16}-\sum_ic_iM^{j+16-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -106,39 +107,42 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;13\,a(n-1) + a(n-2) - 436\,a(n-3) + 747\,a(n-4) + 3955\,a(n-5) - 7874\,a(n-6) - 12461\,a(n-7) + 25451\,a(n-8) + 13120\,a(n-9) - 30315\,a(n-10) - 175\,a(n-11) + 9975\,a(n-12) - 2000\,a(n-13)
+a(n)\;=\;6\,a(n-1) + 51\,a(n-2) - 214\,a(n-3) - 1074\,a(n-4) + 2018\,a(n-5) + 7713\,a(n-6) - 10572\,a(n-7) - 22926\,a(n-8) + 30116\,a(n-9) + 25283\,a(n-10) - 32400\,a(n-11) - 15148\,a(n-12) + 15184\,a(n-13) + 5660\,a(n-14) - 2688\,a(n-15) - 1024\,a(n-16)
 \]
-for every $n>12$.
+for every $n>15$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $13$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $16$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=12+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once.
+integers vanish from the index corresponding to $n=15+1$ onwards and the run continued
+until the working vector was identically zero.
 \end{proof}
 
 \section{Verification}
 
-Three checks, each independent of the algebra above.
+Four checks, each independent of the algebra above.
 
-First, the model reproduces all $17$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry: the digraph is built by reading the
-entry's English, and a misreading gives different counts.
+First, the model reproduces all $18$ terms the entry publishes, exactly, in integer
+arithmetic.
 
-Second, the conjectured recurrence was evaluated directly on those published terms, with no
+Second, the count was recomputed for the smallest arrays straight from the definition:
+enumerate every array of that size in the orientation the entry's own name writes, count the
+adjacent pairs summing to $2$ by running over the array once for each kind of pair, and keep
+the array when that count is at most one. No cap, no state and no transfer matrix are involved, and
+the published terms came back.
+
+Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
 arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A224741.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A268779.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{kim} K.~H.~Kim, \emph{Boolean Matrix Theory and Applications}, Marcel Dekker,
-1982.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

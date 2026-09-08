@@ -12,144 +12,175 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A262315, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A229572, proved by counting defective colourings}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{3 September 2026}
+\date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A262315 counts arrays of width $5$ over $\{0,1\}$ whose rows, read as base-$2$
-numbers, are divisible by $7$ and whose columns, read the same way, are divisible by
-$7$. The entry carries an empirical recurrence of order $43$ contributed by
-R.~H.~Hardin. It is true, and it is decidable rather than empirical. A column's value depends on
-every row of the array, so the condition is not local; but its RESIDUE is built one row at a
-time by Horner's rule, and the vector of column residues is a state of bounded size. The count
-is then a walk count on $S=343$ states.
+OEIS A229572 counts the colourings of an array with $K=4$ colours that are proper except at
+exactly one adjacent pair, the colours being introduced in row
+major order. Neither feature is local: the number of monochromatic adjacent pairs is a
+property of the whole array, and the row major clause fixes a representative of each
+relabelling class. Both are removed by machinery already in hand --- the running count of
+mistakes goes into the state, capped at $1$, and the colour clause disappears into the
+identity $4!\,a(n)=\sum_i\binom{4}{i}D_{4-i}L_i(n)$ with $D_m$ the derangement
+numbers. What is left is a walk count on $S=60$ vertices, and the empirical recurrence of
+order $2$ contributed by R.~H.~Hardin follows from a finite exact computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 11A63, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05C15, 15B36.\normalsize
 
-\section{The conjecture}
+\section{The sequence and the conjecture}
 
-OEIS A262315 is ``Number of (n+2)X(3+2) 0..1 arrays with each row and column divisible by 7, read as a binary number with top and left being the most significant bits.''. It has offset $1$ and begins
+OEIS A229572 is ``Number of defective 4-colorings of an n X 2 0..3 array connected horizontally, vertically, diagonally and antidiagonally with exactly one mistake, and colors introduced in row-major 0..3 order.''. It has offset $1$ and begins
 \[
-5, 9, 17, 133, 361, 1009, 8357, 33993,\ \dots
+1, 6, 26, 80, 216, 544, 1312, 3072,\ \dots
 \]
-The entry states, as a conjecture contributed by its author and never marked settled:
-\begin{quote}
-Empirical: a(n) = 5*a(n-1) +203*a(n-3) -1015*a(n-4) -17262*a(n-6) +86310*a(n-7) +803306*a(n-9) -4016530*a(n-10) -22920723*a(n-12) +114603615*a(n-13) +424713065*a(n-15) -2123565325*a(n-16) -5289109868*a(n-18) +26445549340*a(n-19) +45727616604*a(n-21) -228638083020*a(n-22) -289788580823*a(n-24) +1448942904115*a(n-25) +1453125527917*a(n-27) -7265627639585*a(n-28) -5836364956590*a(n-30) +29181824782950*a(n-31) +16212555187738*a(n-33) -81062775938690*a(n-34) -21276199455861*a(n-36) +106380997279305*a(n-37) -6355957095425*a(n-39) +31779785477125*a(n-40) +38763541794536*a(n-42) -193817708972680*a(n-43)
+The entry carries the following comment:
+\begin{quote}\small
+Empirical: a(n) = 4*a(n-1) - 4*a(n-2) for n>3.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Sep 17 2015 22:20:56, revision 4) this is still
-recorded as empirical, and nothing on the entry records it as proved.
+As of the ``Last modified'' line on the live entry (Oct 21 2022 11:10:03, revision 12) the statement is
+still recorded as empirical, and nothing on the entry records it as settled either way.
 
-\section{What is being counted}
+Written out, the claim is
+\begin{equation}\label{eq:conj}
+a(n)\;=\;4\,a(n-1) - 4\,a(n-2)
+\end{equation}
+for all $n>3$.
 
-The array has $5$ cells across and entries $x(i,j)\in\{0,1\}$, the digits of
-base $2$. Row $i$ of an array with $R$ rows is the number
+\section{Mistakes, and the colour clause}
+
+The arrays have $2$ columns and $L=n$ rows, entries in $\{0,\dots,4-1\}$.
+Two cells are adjacent when they differ by one of
 \[
-\rho_i\;=\;\sum_{j=1}^{5}x(i,j)\,2^{5-j} ,
+\mathcal N=\{(0,1),\ (1,0),\ (1,1),\ (1,-1)\}
 \]
-the LEFT digit being the most significant, and column $j$ is
+(as (row shift, column shift)); each unordered adjacency is represented by exactly one
+offset, and every offset has a nonnegative row shift, so the pairs inside a row are
+counted when that row is laid down and the pairs joining two rows when the later one
+is. Call an adjacent pair a \emph{mistake} when $x_{t,u}=x_{t+d_1,\,u+d_2}$. The entry asks for exactly
+$E=1$ mistakes.
+
+That is a statement about the whole array, so no bounded window sees it; but the running
+number of mistakes can be carried in the state, capped at $1$, the states past $1$ being
+absent because a count that has passed the budget can never come back.
+
+The condition is stated in equalities, so it is invariant under relabelling the colours, and
+so is the number of mistakes. ``Colors introduced in row-major order'' keeps exactly one
+colouring from each relabelling class, so the entry counts equality PATTERNS with at most
+$K=4$ classes.
+
+\begin{lemma}\label{lem:inv}
+Let $L_i(n)$ count the colourings over $i$ colours with exactly $1$ mistakes, and $N_j(n)$
+the admissible patterns with exactly $j$ classes. Then
+$L_i=\sum_j N_j\,i(i-1)\cdots(i-j+1)$ and
 \[
-\gamma_j\;=\;\sum_{i=1}^{R}x(i,j)\,2^{R-i} ,
-\]
-the TOP digit being the most significant. The entry asks that every $\rho_i$ be divisible by
-$7$ and every $\gamma_j$ be divisible by $7$.
-
-
-\section{Column residues by Horner's rule}
-
-The row condition is a condition on one row and is imposed as each row is chosen. The column
-condition is not local: $\gamma_j$ depends on every row. What is local is its residue.
-
-\begin{lemma}\label{lem:horner}
-Let $\gamma_j^{(i)}$ be the value of column $j$ of the first $i$ rows, read the same way.
-Then $\gamma_j^{(0)}=0$ and
-\[
-\gamma_j^{(i)}\;=\;2\,\gamma_j^{(i-1)}+x(i,j),
-\qquad\text{hence}\qquad
-\gamma_j^{(i)}\bmod 7\;=\;
-\bigl(2\,(\gamma_j^{(i-1)}\bmod 7)+x(i,j)\bigr)\bmod 7 .
+4!\,\sum_{j\le4}N_j(n)=\sum_{i=0}^{4}\binom{4}{i}D_{4-i}L_i(n),
+\qquad D_m=m!\sum_{t=0}^{m}\frac{(-1)^t}{t!} .
 \]
 \end{lemma}
 
 \begin{proof}
-Adding a row at the BOTTOM shifts every earlier digit one place up in significance, which is
-multiplication by $2$, and puts the new digit in the units place. Reduction modulo
-$7$ commutes with both operations.
+A colouring is a pattern together with an injection of its classes into the palette, and a
+pattern with $j$ classes admits $i(i-1)\cdots(i-j+1)$ of them, which is the first identity.
+Writing the falling factorial as $j!\binom{i}{j}$ and inverting binomially gives
+$j!N_j=\sum_i(-1)^{j-i}\binom{j}{i}L_i$; summing over $j\le4$ and exchanging the order
+of summation makes the coefficient of $L_i$ equal to $\sum_{t\le4-i}(-1)^t/(i!\,t!)$,
+which multiplied by $4!$ is $\binom{4}{i}D_{4-i}$, an integer.
 \end{proof}
 
-So the vector $\bigl(\gamma_1\bmod 7,\dots,\gamma_{5}\bmod
-7\bigr)$ is a state: at most $7^{5}$ of them, and each array row
-that satisfies the row condition carries one such vector to another. The walk starts at the
-all-zero vector, which is the empty array, and the END vector picks out the residue vectors in
-which every entry is divisible by $7$ --- so the end vector is not the all-ones
-vector, and the column condition is imposed once, at the end, exactly as the entry states it.
-With $M$ the adjacency matrix,
-\[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=343.
-\]
-The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
-published terms rather than assumed. In particular $a$ is $C$-finite.
+\section{Each $L_i$ is a walk count}
 
-\section{The proof}
+Fix $i$ and take as vertices the pairs $(r,c)$ with $r\in\{0,\dots,i-1\}^{2}$ a row
+and $0\le c\le1$ a running count. Write $\beta(r,s)$ for the number of mistakes joining
+rows $r$ and $s$ plus the number of mistakes inside $s$. Declare $(r,c)\to(s,c+\beta(r,s))$
+an edge when $c+\beta(r,s)\le1$, let $\mathbf{s}_i$ mark the vertices whose count is the
+number of mistakes inside $r$ alone, and $\mathbf{e}_i$ those with $c=1$.
 
-\begin{lemma}\label{lem:crit}
-Let $q(t)=t^{43}-\sum_i c_it^{43-i}$ be the characteristic polynomial of the
-conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
-$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
-holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
-and it is enough to examine $j<S$.
+\begin{lemma}\label{lem:walk}
+$L_i(n)=\mathbf{s}_i^{\!\top}P_i^{\,L-1}\mathbf{e}_i$ for $L\ge1$, where $P_i$ is the
+adjacency matrix of that digraph.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+43}-\sum_ic_iM^{j+43-i}$. For the bound, $M^{S}$
-is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
-$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
-polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly.
+A walk of length $L-1$ determines the sequence of $L$ rows, and conversely; by induction
+the count component after $t$ rows is the number of mistakes among the first $t$ rows,
+since each step adds exactly the mistakes joining rows $t$ and $t+1$ together with those
+inside row $t+1$, and each unordered pair is named by exactly one offset. The walk exists
+precisely when the running count never exceeds $1$, which for a nondecreasing count follows
+from its final value being $1$, and $\mathbf{e}_i$ imposes that final value. The state
+carries a row, not a boundary, so $L$ rows make a walk of length $L-1$.
+\end{proof}
+
+Assembling the $4$ chains block-diagonally into $N$ of size $S=60$ with the weights of
+Lemma~\ref{lem:inv} in the start vector $\mathbf{v}$ and the end markers in
+$\mathbf{u}$,
+\begin{equation}\label{eq:walk2}
+4!\;a(n)\;=\;\mathbf{v}^{\!\top}N^{\,L-1}\mathbf{u},\qquad L=n .
+\end{equation}
+
+\section{The criterion, and the computation}
+
+Let $q(t)=t^{2}-\sum_i c_i\,t^{2-i}$ be the characteristic polynomial of
+\eqref{eq:conj} and $G=N$.
+
+\begin{lemma}\label{lem:crit}
+With $n_0$ the least index for which $L\ge1$, $o=1n_0+0-1$ and
+$h_j=G^{j}N^{o}\mathbf{u}$, we have for $j\ge2$
+\[
+4!\Bigl(a(n_0+j)-\sum_i c_i\,a(n_0+j-i)\Bigr)=\mathbf{v}^{\!\top}G^{\,j-2}w,
+\qquad w=h_{2}-\sum_i c_ih_{2-i} .
+\]
+Hence \eqref{eq:conj} holds from that point on if and only if
+$\mathbf{v}^{\!\top}G^{m}w=0$ for all $m\ge0$, and $m<S$ suffices.
+\end{lemma}
+
+\begin{proof}
+Substitute \eqref{eq:walk2} and factor; $4!$ is a nonzero scalar. Cayley--Hamilton
+makes $G^{S}$ an integer combination of $I,G,\dots,G^{S-1}$, so every later value repeats
+that combination of earlier ones.
 \end{proof}
 
 \begin{theorem}
-\[
-a(n)\;=\;5\,a(n-1) + 203\,a(n-3) - 1015\,a(n-4) - 17262\,a(n-6) + 86310\,a(n-7) + 803306\,a(n-9) - 4016530\,a(n-10) - 22920723\,a(n-12) + 114603615\,a(n-13) + 424713065\,a(n-15) - 2123565325\,a(n-16) - 5289109868\,a(n-18) + 26445549340\,a(n-19) + 45727616604\,a(n-21) - 228638083020\,a(n-22) - 289788580823\,a(n-24) + 1448942904115\,a(n-25) + 1453125527917\,a(n-27) - 7265627639585\,a(n-28) - 5836364956590\,a(n-30) + 29181824782950\,a(n-31) + 16212555187738\,a(n-33) - 81062775938690\,a(n-34) - 21276199455861\,a(n-36) + 106380997279305\,a(n-37) - 6355957095425\,a(n-39) + 31779785477125\,a(n-40) + 38763541794536\,a(n-42) - 193817708972680\,a(n-43)
-\]
-for every $n>40$.
+The recurrence \eqref{eq:conj} holds for every $n>3$, which is the statement of
+Section~1.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $43$ matrix--vector products in exact integer
-arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=40+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once.
+The digraph was built directly from the definitions above. The vector $w$ was formed by
+$2$ applications of $G$ in exact integer arithmetic and $\mathbf{v}^{\!\top}G^{m}w$
+evaluated for $m=0,1,\dots$, again exactly. Every one of those integers vanishes from the
+index corresponding to $n=3+1$ onwards, and the run continued until $S+1$ consecutive
+zeros had been seen.
 \end{proof}
 
 \section{Verification}
 
-Four checks, each independent of the algebra above.
+Three checks, each independent of the algebra above.
 
-First, the model reproduces all $23$ terms the entry publishes, exactly, in integer
-arithmetic.
+First, the right-hand side of \eqref{eq:walk2}, divided by $4!$, was evaluated at every
+one of the $29$ published indices and agrees with the entry's DATA exactly, the quotient
+coming out an integer each time; no shift was fitted, the number of rows being $L=n$
+from the entry's own name and the offset saying which index carries the first published term.
+Double-counting an unordered pair, or mistaking the budget, changes the counts at once.
 
-Second, the count was recomputed for the smallest arrays straight from the definition:
-enumerate every array of that size, turn each row and each column into a base-$2$ number with
-the first digit most significant, and test the divisibility directly. Neither Horner's rule nor
-any residue state is involved, and the published terms came back.
+Second, the recurrence \eqref{eq:conj} was evaluated on those published terms in exact
+integer arithmetic, with no matrices involved, and vanishes wherever it applies.
 
-Third, the conjectured recurrence was evaluated directly on the published terms, with no
-matrices involved, and holds wherever the proved range and the data overlap.
-
-Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
-arithmetic on the whole vector rather than on a sampled prefix.
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried to the full
+Cayley--Hamilton bound in exact integer arithmetic rather than to a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A262315.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A229572.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{knuth} D.~E.~Knuth, \emph{The Art of Computer Programming}, Volume 2, 3rd ed.,
-Addison--Wesley, 1997. (Evaluation of polynomials, Section 4.6.4.)
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; falling-factorial
+inversion, Section 1.9.)
+\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+University Press, 2009.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

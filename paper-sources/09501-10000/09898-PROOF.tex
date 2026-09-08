@@ -12,146 +12,139 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A220639, derived from the entry's generating function}
+\title{The empirical recurrence for OEIS A208842, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{2 September 2026}
+\date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A220639 carries an empirical recurrence of order $6$. The entry separately records a
-generating function, not as a conjecture but as a statement of fact, and the recurrence is a
-consequence of it: multiplying the generating function by the polynomial the recurrence
-supplies gives a POLYNOMIAL, and the recurrence then holds at every index past that
-polynomial's degree. No model of the objects being counted is needed, and no search: the
-whole argument is one polynomial division, carried out in exact arithmetic. The result is
-conditional on the recorded generating function, which is what the entry asserts and what is
-checked here against every published term.
+OEIS A208842 counts arrays over $\{0,\dots,1\}$ of width $5$ that avoid the patterns
+$(0,1,1), (1,1,0)$ along one axis and $(0,0,0), (0,0,1)$ along the other, and carries an empirical recurrence of
+order $3$ contributed by R.~H.~Hardin. It is true. The patterns have length $3$, so
+the constraint across the growing direction ties together $3$ consecutive columns: taking a
+window of $2$ consecutive columns as a state makes the array a walk in a finite digraph
+on $S=196$ vertices, and $a(n)=\mathbf{1}^{\!\top}P^{\,n-2}\mathbf{1}$. Writing $q$
+for the characteristic polynomial of the conjectured recurrence, the residual is
+$\mathbf{1}^{\!\top}P^{\,n-2-3}q(P)\mathbf{1}$, which vanishes identically
+beyond a threshold that the computation pins down exactly. Finite, exact, integer.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 30B10.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 68R15, 15B36.\normalsize
 
-\section{The two statements}
+\section{The sequence and the conjecture}
 
-OEIS A220639 is ``Number of ways to reciprocally link elements of an n X 3 array either to themselves or to exactly one king-move neighbor.''. It has offset $0$ and begins
+OEIS A208842 is ``Number of 5 X n 0..1 arrays avoiding 0 0 0 and 0 0 1 horizontally and 0 1 1 and 1 1 0 vertically.''. It has offset
+$1$ and begins
 \[
-1, 3, 40, 369, 3755, 37320, 373177, 3725843,\ \dots
+14, 196, 406, 3010, 8736, 49126, 169974,\ \dots
 \]
-The entry states, as a conjecture and never marked settled:
-\begin{quote}
-Empirical: a(n) = 8*a(n-1) +22*a(n-2) -20*a(n-3) -16*a(n-4) +10*a(n-5) -3*a(n-6).
+The entry carries the following comment:
+\begin{quote}\small
+Empirical: a(n) = 2*a(n-1) + 12*a(n-2) - 11*a(n-3).
 \end{quote}
-and, separately and NOT as a conjecture:
-\begin{quote}
-G.f.: -(x\^{}4-3*x\^{}3+6*x\^{}2+5*x-1)/((x-1)*(3*x\^{}5-7*x\^{}4+9*x\^{}3+29*x\^{}2+7*x-1)). - \_Alois P. Heinz\_, Jun 03 2014
-\end{quote}
-As of the ``Last modified'' line on the live entry (Nov 03 2023 15:23:24, revision 16) the first is still
-recorded as empirical. This note derives it from the second.
+As of the ``Last modified'' line on the live entry (Jul 07 2018 06:17:41, revision
+9) the statement is still recorded as empirical, and nothing on the entry
+records it as settled either way.
 
-\section{A rational generating function decides every linear recurrence}
+Written out, the claim is
+\begin{equation}\label{eq:conj}
+a(n)\;=\;2\,a(n-1) + 12\,a(n-2) - 11\,a(n-3)
+\end{equation}
+for all $n>3$. The entry's array has a fixed number of rows and a growing number of
+columns, so the roles of the two directions are exchanged: what the entry calls the
+horizontal direction runs along the growing side. The transfer below is written in the
+growing direction throughout.
 
-Write
-\[
-G(x)\;=\;\sum_{n}a(n)\,x^{n}\;=\;\frac{- x^{4} + 3 x^{3} - 6 x^{2} - 5 x + 1}{3 x^{6} - 10 x^{5} + 16 x^{4} + 20 x^{3} - 22 x^{2} - 8 x + 1},
-\]
-the entry's own generating function, and let
-\[
-D(x)\;=\;1-\sum_i c_i x^{i}\;=\;3 x^{6} - 10 x^{5} + 16 x^{4} + 20 x^{3} - 22 x^{2} - 8 x + 1
-\]
-be the polynomial attached to the conjectured recurrence.
+\section{The array as a walk}
 
-\begin{lemma}\label{lem:key}
-For every $n$ in range, $a(n)-\sum_i c_i\,a(n-i)$ is the coefficient of $x^{n}$ in
-$D(x)G(x)$.
+Call a column \emph{admissible} if the word it forms contains none of the patterns
+$(0,1,1), (1,1,0)$ as $3$ consecutive entries. There are $14$ admissible columns; that condition
+involves a single column only.
+
+The remaining patterns $(0,0,0), (0,0,1)$ are forbidden along the other axis, so each of them
+constrains $3$ consecutive columns at a fixed position of the row. Take as state a
+window $w=\bigl(w^{(1)},\dots,w^{(2)}\bigr)$ of $2$ consecutive admissible
+columns, so $S=196$, and declare $w\to w'$ an edge when $w'$ is $w$ with its first entry
+dropped and one further admissible column $t$ appended, subject to: for every position
+$j$, the $3$-tuple read down the row $j$ across $w^{(1)},\dots,w^{(2)},t$
+is none of $(0,0,0), (0,0,1)$. Let $P$ be the adjacency matrix.
+
+\begin{lemma}\label{lem:walk}
+$a(n)=\mathbf{1}^{\!\top}P^{\,n-2}\mathbf{1}$ for every $n\ge2$.
 \end{lemma}
 
 \begin{proof}
-Multiplying power series, the coefficient of $x^{m}$ in $D(x)G(x)$ is
-$a_m-\sum_i c_i a_{m-i}$ where $a_m$ denotes the coefficient of $x^{m}$ in $G$, terms with
-negative index being zero.
+An array of the entry's kind with $n$ columns is a sequence of $n$ admissible columns in
+which no forbidden pattern appears along the other axis. Reading it as the sequence of its
+overlapping windows of length $2$ turns it into a walk: consecutive windows overlap in
+$1$ columns by construction, and the edge condition is exactly the requirement on the one
+new $3$-tuple that each step creates. Conversely a walk reassembles into such an array,
+and the two constructions are mutually inverse. A walk of length $n-2$ visits $n-1$
+windows, that is $n$ columns; summing over all starting and ending states gives
+$\mathbf{1}^{\!\top}P^{\,n-2}\mathbf{1}$.
 \end{proof}
 
+\section{The criterion}
+
+Let $q(t)=t^{3}-\sum_i c_i t^{3-i}$ be the characteristic polynomial of
+\eqref{eq:conj} and $u_j=\mathbf{1}^{\!\top}P^{j}q(P)\mathbf{1}$.
+
+\begin{lemma}\label{lem:crit}
+$a(n)-\sum_i c_i a(n-i)=u_{\,n-2-3}$ whenever $n-3\ge2$. Hence
+\eqref{eq:conj} holds for every $n>t$ exactly when $u_j=0$ for every
+$j>t-2-3$. Moreover $(u_j)$ satisfies the monic linear recurrence whose
+characteristic polynomial is that of $P$, of degree $S$, so $S$ consecutive zeros force all
+later ones and the last nonzero $u_j$ pins $t$ down exactly.
+\end{lemma}
+
+\begin{proof}
+Substituting Lemma~\ref{lem:walk} into the left side and factoring out
+$P^{\,n-2-3}$ gives the identity. The equivalence follows by letting the exponent
+run. For the last claim, Cayley--Hamilton gives $\chi(P)=0$ for the characteristic
+polynomial $\chi$ of $P$, so $\chi$ applied to the shift annihilates $(u_j)$; being monic of
+degree $S$, it propagates $S$ consecutive zeros forward.
+\end{proof}
+
+\section{The computation}
+
 \begin{theorem}
-\[
-a(n)\;=\;8\,a(n-1) + 22\,a(n-2) - 20\,a(n-3) - 16\,a(n-4) + 10\,a(n-5) - 3\,a(n-6)
-\]
-for every $n>4$.
+The recurrence \eqref{eq:conj} holds for every $n>3$. This is the statement of
+Section~1.
 \end{theorem}
 
 \begin{proof}
-In exact arithmetic,
-\[
-D(x)\,G(x)\;=\;- x^{4} + 3 x^{3} - 6 x^{2} - 5 x + 1,
-\]
-a POLYNOMIAL of degree $4$ --- the denominator of $G$ divides $D(x)$ times its numerator,
-which is precisely the condition for the conjectured recurrence to be implied by the
-generating function. Its coefficients vanish beyond degree $4$, so by
-Lemma~\ref{lem:key} the residual $a(n)-\sum_ic_ia(n-i)$ vanishes for every
-$n>4$.
+The vector $q(P)\mathbf{1}\in\mathbb{Z}^{S}$ was formed by $3$ matrix--vector
+products in exact integer arithmetic and the $u_j$ evaluated in turn. They vanish from the
+index corresponding to $n=3+1$ onwards, and the run was continued past $S$ consecutive
+zeros, which by Lemma~\ref{lem:crit} settles every larger index.
 \end{proof}
-
-\section{Is the conjectured recurrence the shortest one?}
-
-Cancelling common factors, $G$ has reduced denominator
-\[
-3 x^{6} - 10 x^{5} + 16 x^{4} + 20 x^{3} - 22 x^{2} - 8 x + 1,
-\]
-of degree $6$, and that degree is the order of the SHORTEST linear recurrence with
-constant coefficients the sequence obeys: any shorter one would give a polynomial multiple of
-$G$ with a smaller denominator, contradicting the cancellation. The conjectured recurrence has
-order $6$.
-
-So the conjecture is the minimal recurrence.
-
-\section{The residuals, explicitly}
-
-Lemma~\ref{lem:key} says the residual $a(n)-\sum_ic_ia(n-i)$ is a coefficient of the
-polynomial $D(x)G(x)$, so it can be read off the entry's own published terms with no
-generating function involved at all. Doing that:
-\begin{center}
-\begin{tabular}{cc}
-index & residual \\ \hline
-$n=6$ & $0$ \\
-$n=7$ & $0$ \\
-$n=8$ & $0$
-\end{tabular}
-\end{center}
-The residuals are exactly the coefficients of the polynomial displayed above, in order, and
-they stop at index $4$ because that polynomial has degree $4$. A reader who trusts
-neither the generating function nor the algebra can check the table against the entry's DATA
-by hand; what the generating function adds is the guarantee that the pattern continues, which
-no amount of checking terms could establish on its own.
 
 \section{Verification}
 
-Three checks.
+Three checks, each independent of the algebra above.
 
-First, the generating function was expanded as a power series in exact rational arithmetic and
-compared against all $21$ terms the entry publishes: it reproduces every one. This is
-what ties the recorded generating function to the sequence the recurrence is about.
+First, the digraph was built directly from the entry's stated patterns and the walk counts
+compared against the entry's DATA at every one of the $21$ published indices; the
+values agree exactly, including the initial count of $14$ admissible columns. That is
+what ties the digraph to the sequence, and a model reproducing only part of the published
+data was rejected wherever it occurred.
 
-Second, the polynomial division above was carried out symbolically, not numerically, so the
-statement that $D(x)G(x)$ is a polynomial is exact rather than approximate.
+Second, the recurrence \eqref{eq:conj} was evaluated on those published terms in exact
+integer arithmetic, with no matrices involved, and vanishes at every index the entry claims.
 
-Third, the recurrence was evaluated directly on the series coefficients for sixty consecutive
-indices beyond $n=4$ and holds at every one, and at $n=4$ itself it fails --- the
-degree bound is attained, so the range stated is the true one and not merely a safe one.
-
-\begin{remark}
-The argument is conditional on the generating function, which the entry records as a fact and
-attributes to a contributor rather than offering as a conjecture. What is shown here is that
-the empirical recurrence is not an independent guess: it is equivalent to information the
-entry already contains.
-\end{remark}
+Third, the vanishing test of Lemma~\ref{lem:crit} was carried past $S=196$ consecutive
+zeros rather than to a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A220639.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A208842.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Rational generating functions, Section 4.1.)
-\bibitem{kp} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011.
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
 University Press, 2009.
+\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
+University Press, 2013.
 \end{thebibliography}
 
 \end{document}

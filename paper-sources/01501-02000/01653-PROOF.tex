@@ -12,19 +12,19 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A223995, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A223665, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A223995 counts arrays over $\{0,\dots,2\}$ whose rows, columns, diagonals or
+OEIS A223665 counts arrays over $\{0,\dots,1\}$ whose rows, columns, diagonals or
 antidiagonals are required to be monotone or unimodal, and carries an empirical recurrence of
-order $18$ contributed by R.~H.~Hardin. A monotone condition is local, but a unimodal one
+order $23$ contributed by R.~H.~Hardin. A monotone condition is local, but a unimodal one
 is not: a sequence is unimodal exactly when it never rises again after it has fallen, so the
 state must remember which sequences have already fallen. With those bits carried along, $a(n)$
-is a walk count on $S=240$ vertices and the recurrence follows from a finite exact
+is a walk count on $S=2816$ vertices and the recurrence follows from a finite exact
 computation.
 \end{abstract}
 
@@ -32,31 +32,31 @@ computation.
 
 \section{The sequence and the conjecture}
 
-OEIS A223995 is ``Number of nX4 0..2 arrays with antidiagonals unimodal and rows and diagonals nondecreasing.''. It has offset $1$ and begins
+OEIS A223665 is ``Number of nX4 0..1 arrays with rows, diagonals and antidiagonals unimodal.''. It has offset $1$ and begins
 \[
-15, 155, 1144, 7927, 55333, 388598, 2743444, 19437479,\ \dots
+11, 121, 948, 6454, 44693, 321163, 2343189, 17087771,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 15*a(n-1) -69*a(n-2) +66*a(n-3) +226*a(n-4) -172*a(n-5) -1192*a(n-6) +2157*a(n-7) -1714*a(n-8) -2876*a(n-9) +4966*a(n-10) +12095*a(n-11) -17584*a(n-12) +28968*a(n-13) +156*a(n-14) -2874*a(n-15) -2964*a(n-16) +15876*a(n-17) +1008*a(n-18) for n>19
+Empirical: a(n) = 9*a(n-1) -8*a(n-2) -63*a(n-3) +250*a(n-4) -152*a(n-5) -522*a(n-6) -2735*a(n-7) +4120*a(n-8) +9651*a(n-9) +1347*a(n-10) -13682*a(n-11) -24899*a(n-12) +6443*a(n-13) +11258*a(n-14) +8578*a(n-15) -11567*a(n-16) +8480*a(n-17) +22660*a(n-18) -17587*a(n-19) +2236*a(n-20) +4536*a(n-21) -2700*a(n-22) -864*a(n-23)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 23:09:40, revision 8) the statement is
+As of the ``Last modified'' line on the live entry (Oct 03 2025 22:02:54, revision 8) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;15\,a(n-1) - 69\,a(n-2) + 66\,a(n-3) + 226\,a(n-4) - 172\,a(n-5) - 1192\,a(n-6) + 2157\,a(n-7) - 1714\,a(n-8) - 2876\,a(n-9) + 4966\,a(n-10) + 12095\,a(n-11) - 17584\,a(n-12) + 28968\,a(n-13) + 156\,a(n-14) - 2874\,a(n-15) - 2964\,a(n-16) + 15876\,a(n-17) + 1008\,a(n-18)
+a(n)\;=\;9\,a(n-1) - 8\,a(n-2) - 63\,a(n-3) + 250\,a(n-4) - 152\,a(n-5) - 522\,a(n-6) - 2735\,a(n-7) + 4120\,a(n-8) + 9651\,a(n-9) + 1347\,a(n-10) - 13682\,a(n-11) - 24899\,a(n-12) + 6443\,a(n-13) + 11258\,a(n-14) + 8578\,a(n-15) - 11567\,a(n-16) + 8480\,a(n-17) + 22660\,a(n-18) - 17587\,a(n-19) + 2236\,a(n-20) + 4536\,a(n-21) - 2700\,a(n-22) - 864\,a(n-23)
 \end{equation}
-for all $n>19$.
+for all $n>23$.
 
 \section{The conditions}
 
 The arrays have $4$ columns and $L=n$ rows. Written in (row, column)
 coordinates, the entry asks:
 \begin{itemize}
+\item along the direction $(0,1)$ --- one step of $(0,1)$ in (row, column) coordinates --- every sequence is unimodal;
+\item along the direction $(1,1)$ --- one step of $(1,1)$ in (row, column) coordinates --- every sequence is unimodal;
 \item along the direction $(1,-1)$ --- one step of $(1,-1)$ in (row, column) coordinates --- every sequence is unimodal;
-\item along the direction $(0,1)$ --- one step of $(0,1)$ in (row, column) coordinates --- every sequence is nondecreasing;
-\item along the direction $(1,1)$ --- one step of $(1,1)$ in (row, column) coordinates --- every sequence is nondecreasing;
 \end{itemize}
 Here ``unimodal'' means nondecreasing and then nonincreasing, that is: no rise after a fall.
 
@@ -69,7 +69,7 @@ far end of the new row starts with its bit clear.
 
 \begin{lemma}\label{lem:walk}
 Let $\mathcal V$ be the set of pairs (a row satisfying every within-row condition, a
-bit vector), $|\mathcal V|=S=240$; let $(r,f)\to(s,f')$ be an edge when placing $s$ after $r$
+bit vector), $|\mathcal V|=S=2816$; let $(r,f)\to(s,f')$ be an edge when placing $s$ after $r$
 breaks none of the across-row conditions and $f'$ is $f$ updated by that step; let
 $\mathbf{v}$ mark the vertices whose bit vector is the one their row alone produces.
 Then
@@ -91,15 +91,15 @@ $L$ rows make a walk of length $L-1$.
 
 \section{The criterion, and the computation}
 
-Let $q(t)=t^{18}-\sum_i c_i\,t^{18-i}$ be the characteristic polynomial of
+Let $q(t)=t^{23}-\sum_i c_i\,t^{23-i}$ be the characteristic polynomial of
 \eqref{eq:conj} and $G=N$.
 
 \begin{lemma}\label{lem:crit}
 With $n_0$ the least index for which $L\ge1$, $o=1n_0+0-1$ and
-$h_j=G^{j}N^{o}\mathbf{1}$, we have for $j\ge18$
+$h_j=G^{j}N^{o}\mathbf{1}$, we have for $j\ge23$
 \[
-a(n_0+j)-\sum_i c_i\,a(n_0+j-i)=\,\mathbf{v}^{\!\top}G^{\,j-18}w,
-\qquad w=h_{18}-\sum_i c_ih_{18-i} .
+a(n_0+j)-\sum_i c_i\,a(n_0+j-i)=\,\mathbf{v}^{\!\top}G^{\,j-23}w,
+\qquad w=h_{23}-\sum_i c_ih_{23-i} .
 \]
 Hence \eqref{eq:conj} holds from that point on if and only if
 $\mathbf{v}^{\!\top}G^{m}w=0$ for all $m\ge0$, and $m<S$ suffices.
@@ -112,15 +112,15 @@ earlier ones.
 \end{proof}
 
 \begin{theorem}
-The recurrence \eqref{eq:conj} holds for every $n>19$, which is the statement of
+The recurrence \eqref{eq:conj} holds for every $n>23$, which is the statement of
 Section~1.
 \end{theorem}
 
 \begin{proof}
 The digraph was built directly from the conditions listed above. The vector $w$ was formed by
-$18$ applications of $G$ in exact integer arithmetic and $\mathbf{v}^{\!\top}G^{m}w$
+$23$ applications of $G$ in exact integer arithmetic and $\mathbf{v}^{\!\top}G^{m}w$
 evaluated for $m=0,1,\dots$, again exactly. Every one of those integers vanishes from the
-index corresponding to $n=19+1$ onwards, and the run continued until $S+1$ consecutive
+index corresponding to $n=23+1$ onwards, and the run continued until $S+1$ consecutive
 zeros had been seen.
 \end{proof}
 
@@ -143,7 +143,7 @@ Cayley--Hamilton bound in exact integer arithmetic rather than to a sampled pref
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A223995.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A223665.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

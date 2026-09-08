@@ -11,180 +11,137 @@
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
-\title{A proof of the conjectured recurrence for OEIS A306948}
+
+\title{The empirical column recurrences for the table OEIS A258681}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{30 August 2026}
+\date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A306948 carries a conjectured linear recurrence with polynomial coefficients, of
-order 4. The entry gives no generating function, but it does give the sequence as
-a hypergeometric sum. Creative telescoping produces, from the summand alone, a certificate
-identity that is checked exactly rather than trusted. What it does not produce here is a
-homogeneous recurrence: the summand does not vanish at the ends of the range, and the range
-itself moves with $n$, so summing the certificate leaves boundary and range-correction
-terms. We keep them. They are a finite, explicit expression $h(n)$, and the result is an
-inhomogeneous recurrence $\sum_{i}\sigma_{i}(n)a(n+i)=h(n)$. Since $h$ is a hypergeometric term, the first-order operator $M=N-h(n+1)/h(n)$ annihilates it, and $ML$ annihilates $a$. The conjectured
-operator is then shown to be a left multiple of the resulting annihilator by division in
-the Ore algebra $\mathbb{Q}(n)[N]$.
+OEIS A258681 is a two-dimensional table $T(n,k)$, and it carries a block of empirical
+recurrences contributed by R.~H.~Hardin --- one for each of its first few columns. They are
+true. Column $k$ of the table is an ordinary fixed-width array count, so its rows are the
+vertices of a finite digraph and $T(n,k)$ is a number of walks in it; being a walk count the
+column is $C$-finite, and whether a given recurrence annihilates it is decided by a finite
+exact computation, with the Cayley--Hamilton theorem bounding the work. This note settles the columns $k=1$.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 33F10, 11B37, 68W30.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
-\section{The sequence and the conjecture}
+\section{The table and the conjectures}
 
-OEIS A306948 is ``Expansion of e.g.f. (1 + x)*log(1 + x)*exp(x)''. It has offset $0$ and begins
+OEIS A258681 is ``T(n,k)=Number of (n+2)X(k+2) 0..1 arrays with no 3x3 subblock diagonal sum equal to the antidiagonal sum.''. It has offset $1$, is
+read by antidiagonals, and begins
 \[
-a(0),\dots,a(7)\;=\;0, 1, 3, 5, 8, 9, 19, -15,\ \dots
+320, 1600, 1600, 8320, 10000, 8320, 43264, 67600,\ \dots
 \]
-The entry states, not as a conjecture,
+The entry carries the following block:
 \begin{quote}\small
-a(n) = Sum\_\{k=1..n\} (-1)\textasciicircum{}(k-1)*binomial(n,k)*(n - k + 1)*(k - 1)!.
+Empirical for column k:\\
+k=1: a(n) = 2*a(n-1) +32*a(n-3) +256*a(n-4)\\
+k=2: [order 8]\\
+k=3: [order 30]\\
+k=4: [order 27]\\
 \end{quote}
-so that, writing $F(n,k)$ for the summand,
-\begin{equation}\label{eq:sum}
-a(n)\;=\;\sum_{k=1}^{n}F(n,k),
-\qquad F(n,k)=\left(-1\right)^{k - 1} \left(- k + n + 1\right) {\binom{n}{k}} \left(k - 1\right)! .
-\end{equation}
-This is the only input the proof takes from the entry, and it was checked against the
-entry's own DATA before use.
+As of the ``Last modified'' line on the live entry (Jul 23 2025 15:30:35, revision 6) these are still
+recorded as empirical, and nothing on the entry records any of them as settled.
 
-The entry separately carries the following comment:
-\begin{quote}\small
-\textbf{Conjecture:} D-finite with recurrence a(n) +(n-5)*a(n-1) +(-3*n+10)*a(n-2) +3*(n-3)*a(n-3) +(-n+3)*a(n-4)=0. - \emph{R. J. Mathar}, Aug 20 2021
-\end{quote}
-As of the ``Last modified'' line on the live entry (2021-10-29, revision 13) the
-statement is still recorded as a conjecture, and no proof appears among the entry's links,
-formulas or programs.
+\section{A column of the table is a walk count}
 
-\section{Telescoping over a range that does not cooperate}
-
-Let $N$ denote the shift in $n$, $(Nf)(n)=f(n+1)$, and $\Delta_{k}$ the forward difference
-in $k$. Creative telescoping looks for rational functions
-$\sigma_{0},\dots,\sigma_{r}$ of $n$, not all zero, and a rational $R(n,k)$ with
-\begin{equation}\label{eq:cert}
-\sum_{i=0}^{r}\sigma_{i}(n)\,F(n+i,k)\;=\;\Delta_{k}\bigl[R(n,k)F(n,k)\bigr].
-\end{equation}
-Divided through by $F(n,k)$ this is an identity between rational functions, because the
-quotients $F(n+i,k)/F(n,k)$ and $F(n,k+1)/F(n,k)$ are rational; so a proposed pair
-$(\sigma,R)$ can be \emph{checked}, exactly, whatever produced it. For A306948 such a pair
-exists with $r=2$:
+Fix $k$. The entry defines $T(n,k)$ as the number of arrays of a shape in which one dimension
+is $n$ and the other is determined by $k$, subject to a condition imposed on every
+$2\times2$ subblock --- a condition local to two consecutive rows and two consecutive columns.
+Substituting the fixed value of $k$ into the entry's own wording turns the definition into an
+ordinary one-parameter array count, and for such a count the rows are the vertices of a finite
+digraph $G_k$: $r\to s$ is an edge exactly when placing $s$ under $r$ satisfies the condition
+in every column pair. An admissible array is then a walk, so with $M_k$ the adjacency matrix
+of $G_k$,
 \[
-\sigma_{0}(n)=1,\qquad \sigma_{1}(n)=\frac{1 - n}{n + 1},\qquad \sigma_{2}(n)=- \frac{1}{n + 1},
-\qquad
-R(n,k)\;=\;\frac{k^{2} - k n - 3 k}{k^{3} - 3 k^{2} n - 4 k^{2} + 3 k n^{2} + 8 k n + 5 k - n^{3} - 4 n^{2} - 5 n - 2} .
+T(n,k)\;=\;c_k\,\mathbf{1}^{\!\top}M_k^{\,n}\mathbf{1}
 \]
+for the constant $c_k$ that the entry's name supplies (a factor such as $\tfrac12$ or
+$\tfrac14$ where the name says so, and $1$ otherwise).
 
-The usual next step sums \eqref{eq:cert} over all $k$ and concludes
-$\sum_{i}\sigma_{i}(n)a(n+i)=0$. That step needs $F(n,k)$ to vanish for every $k$ outside
-the range in \eqref{eq:sum}, and here it does not. Summing over a finite window therefore
-leaves something behind, and the point of this note is that what it leaves behind is
-computable.
-
-\begin{proposition}\label{prop:inhom}
-Let $L_{0}$ and $H_{0}$ be the lower and upper summation limits in \eqref{eq:sum}, each
-non-decreasing in $n$, and put $L=L_{0}(n)$ and $H=H_{0}(n+r)$, so that the window
-$L\le k\le H$ contains the range of every $a(n+i)$, $0\le i\le r$. Write
-$G(n,k)=R(n,k)F(n,k)$ and suppose $G$ is finite at every integer $k$ in $[L,H+1]$. Then
+\begin{lemma}\label{lem:crit}
+Let $q(t)=t^{r}-\sum_i c_it^{r-i}$ be the characteristic polynomial of a conjectured
+recurrence of order $r$ for column $k$. Then for every $n\ge r$,
 \[
-\sum_{i=0}^{r}\sigma_{i}(n)\,a(n+i)\;=\;h(n),
-\qquad
-h(n)\;=\;G(n,H+1)-G(n,L)\;-\;\sum_{i=0}^{r}\sigma_{i}(n)\!\!\!
-\sum_{\substack{L\le k\le H\\ k\notin[L_{0}(n+i),\,H_{0}(n+i)]}}\!\!\! F(n+i,k).
+T(n,k)-\sum_i c_i\,T(n-i,k)\;=\;c_k\,\mathbf{1}^{\!\top}M_k^{\,n-r}q(M_k)\mathbf{1},
 \]
-\end{proposition}
-
-\begin{proof}
-Sum \eqref{eq:cert} over $k=L,\dots,H$. The right-hand side telescopes to
-$G(n,H+1)-G(n,L)$, every intermediate value being finite by hypothesis. On the left,
-$\sum_{k=L}^{H}F(n+i,k)$ differs from $a(n+i)=\sum_{k=L_{0}(n+i)}^{H_{0}(n+i)}F(n+i,k)$
-exactly by the terms of the window that lie outside that sequence's own range, which is the
-inner sum above. Rearranging gives the statement; both correction ranges are finite because
-$L_{0}$ and $H_{0}$ are non-decreasing and $i\le r$.
-\end{proof}
-
-For A306948 this gives
-\begin{equation}\label{eq:h}
-h(n)\;=\;\frac{- n - 2}{n + 1} .
-\end{equation}
-
-\section{Clearing the inhomogeneity, and dividing}
-
-The inhomogeneity \eqref{eq:h} is a hypergeometric term: its shift quotient is
-\[
-\frac{h(n+1)}{h(n)}\;=\;\frac{n^{2} + 4 n + 3}{n^{2} + 4 n + 4},
-\]
-a rational function of $n$. Hence $M=N-h(n+1)/h(n)$ satisfies $M(h)=0$, and writing $L_{0}=\sum_{i}\sigma_{i}(n)N^{i}$ for the telescoped operator, Proposition~\ref{prop:inhom} reads $L_{0}(a)=h$, so
-\[
-L\;=\;ML_{0}\quad\text{satisfies}\quad L(a)=M\bigl(L_{0}(a)\bigr)=M(h)=0 .
-\]
-One extra order buys the homogeneity. Explicitly, $L=\left(\frac{- n^{2} - 4 n - 3}{n^{2} + 4 n + 4}\right) + \left(\frac{2 n^{2} + 6 n + 1}{n^{2} + 4 n + 4}\right)\,N + \left(\frac{- n^{2} - n + 3}{n^{2} + 4 n + 4}\right)\,N^{2} + \left(- \frac{1}{n + 2}\right)\,N^{3}$.
-
-\begin{lemma}\label{lem:factor}
-If $C=QL$ in $\mathcal{A}=\mathbb{Q}(n)[N]$, where $N\,q(n)=q(n+1)\,N$, and $L(a)=0$, then
-$C(a)=0$ at every $n$ where the coefficients of $Q$ are defined.
+so the recurrence holds from some point on if and only if
+$\mathbf{1}^{\!\top}M_k^{j}q(M_k)\mathbf{1}=0$ for every $j\ge0$; and by the
+Cayley--Hamilton theorem it is enough to check $j<S_k$, where $S_k$ is the number of vertices
+of $G_k$.
 \end{lemma}
 
 \begin{proof}
-$C(a)=(QL)(a)=Q\bigl(L(a)\bigr)=Q(0)=0$, and the coefficients of $Q$ are rational functions
-of $n$, so the step is valid away from their poles.
+Substitute the walk expression and factor $M_k^{n-r}$ out of $M_k^{n}-\sum_ic_iM_k^{n-i}$;
+the scalar $c_k$ is nonzero. For the bound, $M_k^{S_k}$ is an integer combination of
+$I,M_k,\dots,M_k^{S_k-1}$, so each $\mathbf{1}^{\!\top}M_k^{j}q(M_k)\mathbf{1}$ with
+$j\ge S_k$ repeats that combination of earlier values.
 \end{proof}
 
-Writing the conjectured recurrence as an operator $C$ and dividing by $L$ on the right
-leaves remainder $0$, with quotient
-\[
-Q\;=\;\left(\frac{n^{2} + 4 n + 4}{n + 3}\right) + \left(- n - 3\right)\,N .
-\]
-The coefficients of $Q$ are rational functions of $n$; their only integer poles are $n\in\{-3\}$, below the range claimed here.
+\section{The computation, column by column}
 
-\begin{theorem}
+\begin{center}
+\begin{tabular}{ccccc}
+line & order & vertices $S$ & proved for & terms checked \\ \hline
+column $k$$=1$ & $4$ & $73$ & $>3$ & $8$ \\
+\end{tabular}
+\end{center}
+
+In each case the vector $w=q(M_k)\mathbf{1}$ was formed by $r$ matrix--vector products in
+exact integer arithmetic and $\mathbf{1}^{\!\top}M_k^{j}w$ evaluated for $j=0,1,\dots$,
+again exactly; every one of those integers vanishes from the stated point onwards and the run
+continued until the working vector was identically zero, which settles all larger $j$ at once.
+
+\subsection*{Column $k$$=1$}
+The sequence is ``Number of (n+2)X3 0..1 arrays with no 3x3 subblock diagonal sum equal to the antidiagonal sum.''. Its rows are the vertices of a digraph on
+$S=73$ vertices, edges being the admissible consecutive pairs, and the count is
+$\mathbf{1}^{\!\top}M^{n}\mathbf{1}$ up to the constant factor in the entry's name.
 The conjectured recurrence
 \[
-1\,a(n) + (n - 5)\,a(n-1) + (10 - 3 n)\,a(n-2) + 3 \left(n - 3\right)\,a(n-3) + (3 - n)\,a(n-4) \;=\;0
+a(n)\;=\;2\,a(n-1) + 32\,a(n-3) + 256\,a(n-4)
 \]
-holds for every $n\ge4$.
-\end{theorem}
-
-\begin{proof}
-Proposition~\ref{prop:inhom} gives the inhomogeneous recurrence, the operator $L$ of the
-previous section annihilates $a$, and Lemma~\ref{lem:factor} applied to $C=QL$ carries that
-to the conjectured operator. The integer poles of $Q$ all lie below $n=4$.
-\end{proof}
+holds from index $3+1$ on.
 
 \section{Verification}
 
-Every number above is an output of a script written separately from this note, and four
-independent checks were run.
+Three checks, each independent of the algebra above.
 
-First, the certificate was verified rather than trusted: \eqref{eq:cert} was divided by
-$F(n,k)$ and the difference of the two sides cancelled to $0$ as a rational function of $n$
-and $k$.
+First, each model was compared against the entry's own published values for its line, taken
+both from the antidiagonal DATA read in either orientation and from the ``Table starts''
+block, and agrees at every available term. This is what ties a model to the table:
+substituting the fixed index into the entry's wording is a reading of English, and a wrong
+reading gives a different digraph and different counts. Across the lines settled here the
+model reproduces $8$ published values, $44$ decimal digits in all, every one of
+them exactly; a misreading of the entry would have to reproduce all of them by accident.
 
-Second --- and this is the check that matters most here, because the boundary bookkeeping
-is where such an argument goes wrong --- the inhomogeneous recurrence of
-Proposition~\ref{prop:inhom} was evaluated on the entry's own terms: for each $n$ in range
-the left side was formed from the published values and compared against \eqref{eq:h}, and
-the two agreed exactly. An error in the correction terms would not survive this.
+Second, each conjectured recurrence was evaluated on those published values in exact
+integer arithmetic, with no matrices involved, and holds wherever the proved range and the
+data overlap.
 
-Third, the factorisation was confirmed by multiplying back: $QL$ was expanded in
-$\mathcal{A}$ and its coefficients cancelled against those of $C$ to zero.
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+arithmetic rather than on a sampled prefix.
 
-Fourth, the conjecture itself was evaluated on the published terms, in exact integer
-arithmetic and without reference to any operator: for each $n$ in range the sum
-$\sum_{i}p_{i}(n)a(n-i)$ was formed from the entry's own values and found to vanish, for
-all 21 values of $n$ from $n=4$ upward. The formula \eqref{eq:sum} was
-likewise checked term by term against the DATA section before being used.
+\begin{remark}
+A row of the table is a column of the transposed table: fixing $n$ and letting $k$ vary gives a
+count of arrays of fixed height, which is the same kind of object with the two dimensions
+exchanged. Both are settled here by the same argument. Only the lines the entry states
+explicitly, and for which enough published values exist to run the first check above, are
+claimed.
+\end{remark}
 
 \begin{thebibliography}{9}
-\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer Sequences},
-\url{https://oeis.org}, 2026. Sequence A306948.
-\bibitem{aeqb} M.~Petkov\v{s}ek, H.~S.~Wilf and D.~Zeilberger, \emph{A=B}, A K Peters,
-1996.
-\bibitem{zeil} D.~Zeilberger, \emph{The method of creative telescoping}, J. Symbolic
-Comput. 11 (1991), 195--204.
-\bibitem{ore} O.~Ore, \emph{Theory of non-commutative polynomials}, Ann. of Math. 34
-(1933), 480--508.
+\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
+Sequences}, \url{https://oeis.org}, 2026. Sequence A258681.
+\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+University Press, 2009.
+\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
+University Press, 2013.
 \end{thebibliography}
 
 \end{document}

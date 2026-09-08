@@ -7,180 +7,129 @@
 \theoremstyle{plain}
 \newtheorem{theorem}{Theorem}
 \newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
-\title{A proof of the conjectured recurrence for OEIS A026163}
+
+\title{The empirical recurrence for OEIS A232901, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{25 August 2026}
+\date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A026163 carries a conjectured linear recurrence with polynomial coefficients, of
-order 4, contributed by R.~J.~Mathar. We prove it. The generating function of the
-entry is algebraic, and the recurrence is equivalent to the vanishing of an explicit
-differential operator applied to it: writing $\theta=x\,\frac{d}{dx}$, the sequence
-$b(n)=\sum_{i}p_{i}(n)a(n-i)$ has generating function
-$B(x)=\sum_{i}x^{i}\,(p_{i}(\theta+i)A)(x)$, so the conjecture holds for all $n>d$ exactly
-when $B$ is a polynomial of degree $d$. Since $A$ lies in a multiquadratic extension of
-$\mathbb{Q}(x)$, which is closed under $\theta$, the residual $B$ can be computed in
-closed form. Here it equals $224 x$, a polynomial of degree $1$, which proves
-the recurrence for every $n>1$.
+OEIS A232901 counts arrays of width $2$ over $\{0,\dots,2\}$ under a condition on each cell
+and its neighbours, and carries an empirical recurrence of order $3$ contributed by
+R.~H.~Hardin. It is true, and it is decidable rather than empirical. Every neighbour named lies
+in the three rows $i-1,i,i+1$, so an ordered pair of consecutive rows is a state, the count is
+a walk count on $S=90$ of them, and the conjectured recurrence is then settled by a finite
+exact computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 11B37, 05A15, 33F10.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 68Q45.\normalsize
 
-\section{The sequence and the conjecture}
+\section{The conjecture}
 
-OEIS A026163 is ``Sum\{T(k,k-1)\}, k = 1,2,...,n, where T is the array in A026148''. It has offset $1$ and begins
+OEIS A232901 is ``Number of (n+1) X (1+1) 0..2 arrays with every element next to itself plus and minus one within the range 0..2 horizontally or antidiagonally.''. It has offset $1$ and begins
 \[
-a(1),\dots,a(8)\;=\;1, 2, 6, 16, 45, 126, 356, 1008,\ \dots
+0, 4, 8, 12, 32, 84, 184, 412,\ \dots
 \]
-The entry gives the generating function
-\begin{equation}\label{eq:gf}
-A(x)\;=\;\sum_{n\ge 1} a(n)\,x^{n}\;=\;\frac{\left(2 x - 1\right) \left(x^{4} - 4 x^{3} - 2 x^{2} + 4 x + \sqrt{1 - 3 x} \left(x - 1\right) \sqrt{x + 1} \left(x^{2} + 2 x - 1\right) - 1\right)}{2 x^{7}} ,
-\end{equation}
-and it carries the following comment:
-\begin{quote}\small
-\textbf{Conjecture:} -(n+7)*(3*n-31)*a(n) +3*(-n\^{}2-35*n-76)*a(n-1) +2*(32*n\^{}2+27*n-459)*a(n-2) +(-47*n\^{}2+286*n-204)*a(n-3) -3*(37*n-51)*(n-2)*a(n-4)=0. - \emph{R. J. Mathar}, Jun 23 2013
+The entry states, as a conjecture contributed by its author and never marked settled:
+\begin{quote}
+Empirical: a(n) = 2*a(n-1) - a(n-2) + 4*a(n-3).
 \end{quote}
-As of the ``Last modified'' line on the live entry (2020-05-10, revision 15) the
-statement is still recorded as a conjecture, and no proof appears among the entry's links,
-formulas or programs.
+As of the ``Last modified'' line on the live entry (Oct 06 2018 03:53:01, revision 8) this is still
+recorded as empirical, and nothing on the entry records it as proved.
 
-Writing the conjectured relation in the form $\sum_{i=0}^{4}p_{i}(n)\,a(n-i)=0$,
-the coefficient polynomials are
+\section{What is being counted}
+
+The neighbours of a cell are the cells at the offsets
 \[
-p_{0}(n)=- \left(n + 7\right) \left(3 n - 31\right),\qquad p_{1}(n)=- 3 \left(n^{2} + 35 n + 76\right),\qquad p_{2}(n)=2 \left(32 n^{2} + 27 n - 459\right),\qquad p_{3}(n)=- 47 n^{2} + 286 n - 204,\qquad p_{4}(n)=- 3 \left(n - 2\right) \left(37 n - 51\right)
+(-1,1), (0,-1), (0,1), (1,-1),
 \]
+those falling outside the array being absent. The entry requires that every cell $v$ has, among its neighbours, one equal to $v+1$ and one equal to $v-1$ --- each required only when that value lies in $\{0,\dots,2\}$, which is what ``within the range $0..2$'' says.
 
-\section{Recurrences as differential operators}
+\section{The count is a walk count}
 
-Let $A(x)=\sum_{n\ge0}a(n)x^{n}$ be the generating function of a sequence, and let
-$\theta=x\,\dfrac{d}{dx}$, so that $\theta$ acts on $x^{m}$ as multiplication by $m$. For a
-polynomial $p$ we write $p(\theta)$ for the corresponding differential operator, so that
-$p(\theta)A=\sum_{m}p(m)a(m)x^{m}$.
-
-\begin{lemma}\label{lem:transfer}
-Let $p_{0},\dots,p_{r}$ be polynomials and put $b(n)=\sum_{i=0}^{r}p_{i}(n)\,a(n-i)$, with
-the convention $a(m)=0$ for $m<0$. Then
+Every offset above moves the row index by at most one, so whether a cell of row $i$ passes
+depends on rows $i-1$, $i$ and $i+1$ and nothing else. Take as vertices the ordered PAIRS
+$(p,c)$ of consecutive rows, allowing $p$ to be ABSENT --- that is what lets a walk of no steps
+describe a one-row array --- and put an edge $(p,c)\to(c,x)$ exactly when every cell of the
+middle row $c$ passes with $p$ above it and $x$ below it. A state with $p$ absent may begin an
+array; a state $(p,c)$ accepts when every cell of $c$ passes with nothing below it. An array of
+$L$ rows is then a walk of $L-1$ steps, each step settling one row, and every array arises from
+exactly one walk. Hence
 \[
-B(x):=\sum_{n\ge0}b(n)x^{n}=\sum_{i=0}^{r}x^{i}\,\bigl(p_{i}(\theta+i)A\bigr)(x).
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau
 \]
+with $\iota$ the indicator of the beginning states, $\tau$ of the accepting ones, and $j$ the
+walk index, which differs from the entry's own $n$ by a constant read off from its published
+terms. There are $S=90$ states, and $a$ is $C$-finite.
+
+At $n=1$ the array has one row, and
+the condition is tested there with nothing above or below it; the entry's first term is
+$0$, which the model reproduces along with every later term. That is the cheapest check
+that the neighbour set and the boundary have been read the same way the entry reads them: a
+condition tested as though the missing rows were present, rather than absent, gives a different
+first term. There are $3^{2}=9$ possible rows over the entry's own alphabet. The state count $S=90$ is exactly $9\cdot10$,
+one state for each ordered pair of a row and its possible predecessor, the absent predecessor
+included.
+
+\section{The proof}
+
+\begin{lemma}\label{lem:crit}
+Let $q(t)=t^{3}-\sum_i c_it^{3-i}$ be the characteristic polynomial of the
+conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
+$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
+holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
+and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Fix $i$ and substitute $m=n-i$:
-\[
-\sum_{n\ge0}p_{i}(n)a(n-i)x^{n}=\sum_{m\ge0}p_{i}(m+i)a(m)x^{m+i}
-=x^{i}\sum_{m\ge0}p_{i}(m+i)a(m)x^{m}=x^{i}\bigl(p_{i}(\theta+i)A\bigr)(x),
-\]
-the last step because $p_{i}(\theta+i)$ multiplies the coefficient of $x^{m}$ by
-$p_{i}(m+i)$. Summing over $i$ gives the claim.
+Factor $M^{j}$ out of $M^{j+3}-\sum_ic_iM^{j+3-i}$. For the bound, $M^{S}$
+is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
+$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
+polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
+pins the threshold exactly.
 \end{proof}
-
-\begin{corollary}\label{cor:criterion}
-With the notation of Lemma~\ref{lem:transfer}, the recurrence
-$\sum_{i}p_{i}(n)a(n-i)=0$ holds for every $n>d$ if and only if $B$ is a polynomial of
-degree at most $d$.
-\end{corollary}
-
-\begin{proof}
-$b(n)$ is the coefficient of $x^{n}$ in $B$, so $b(n)=0$ for all $n>d$ says exactly that
-$B$ has no terms above $x^{d}$.
-\end{proof}
-
-This turns the conjecture into a closed-form identity. The point is that it can then be
-decided exactly, with no truncation: $A$ is algebraic, so $B$ lies in the same field as
-$A$, and one only has to recognise it.
-
-\begin{lemma}\label{lem:field}
-Let $D_{1},\dots,D_{k}\in\mathbb{Q}(x)$ and let
-$K=\mathbb{Q}(x)\bigl[\sqrt{D_{1}},\dots,\sqrt{D_{k}}\bigr]$. For a subset
-$S\subseteq\{1,\dots,k\}$ write $e_{S}=\prod_{i\in S}\sqrt{D_{i}}$, so that the $e_{S}$
-span $K$ over $\mathbb{Q}(x)$. Then $K$ is closed under $\theta$, and $\theta$ is diagonal
-in this spanning set:
-\[
-\theta\bigl(c\,e_{S}\bigr)=\Bigl(x\,c'+c\sum_{i\in S}\frac{x\,D_{i}'}{2D_{i}}\Bigr)e_{S},
-\qquad c\in\mathbb{Q}(x).
-\]
-\end{lemma}
-
-\begin{proof}
-For each $i$, $(\sqrt{D_{i}})'=D_{i}'/(2\sqrt{D_{i}})=\bigl(D_{i}'/(2D_{i})\bigr)\sqrt{D_{i}}$.
-Applying the Leibniz rule to the product $e_{S}=\prod_{i\in S}\sqrt{D_{i}}$ therefore
-returns $e_{S}$ itself multiplied by $\sum_{i\in S}D_{i}'/(2D_{i})$, a rational function.
-Differentiating $c\,e_{S}$ and multiplying by $x$ gives the stated formula. No basis
-element other than $e_{S}$ occurs, which is the diagonality claim.
-\end{proof}
-
-Consequently, if $A\in K$ then every $p_{i}(\theta+i)A$ is in $K$, and so is $B$. Writing
-$B=\sum_{S}c_{S}\,e_{S}$ with $c_{S}\in\mathbb{Q}(x)$, the test of
-Corollary~\ref{cor:criterion} becomes: $B$ is a polynomial precisely when $c_{S}=0$ for
-every $S\neq\emptyset$ and $c_{\emptyset}$ has constant denominator. Both are decided by
-exact cancellation of rational functions.
-
-\section{The computation for A026163}
-
-The generating function \eqref{eq:gf} lies in $K=\mathbb{Q}(x)\bigl[\sqrt{D_{1}},\dots,\sqrt{D_{2}}\bigr]$ with
-\[
-D_{1} \;=\; x + 1,\quad D_{2} \;=\; 1 - 3 x .
-\]
-Applying Lemma~\ref{lem:transfer} to the coefficient polynomials of Section~1 and reducing
-in $K$ by Lemma~\ref{lem:field}, every component $c_{S}$ of $B$ with $S\neq\emptyset$
-cancels identically and the remaining rational part collapses to
-\[
-B(x)\;=\;224 x ,
-\]
-a polynomial of degree $1$.
 
 \begin{theorem}
-The conjectured recurrence
 \[
-- \left(n + 7\right) \left(3 n - 31\right)\,a(n) -  3 \left(n^{2} + 35 n + 76\right)\,a(n-1) + 2 \left(32 n^{2} + 27 n - 459\right)\,a(n-2) + (- 47 n^{2} + 286 n - 204)\,a(n-3) -  3 \left(n - 2\right) \left(37 n - 51\right)\,a(n-4) \;=\;0
+a(n)\;=\;2\,a(n-1) - a(n-2) + 4\,a(n-3)
 \]
-holds for every $n>1$.
+for every $n>2$.
 \end{theorem}
 
 \begin{proof}
-Immediate from Corollary~\ref{cor:criterion} and the displayed value of $B$.
+The vector $w=q(M)\tau$ was formed by $3$ matrix--vector products in exact integer
+arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
+integers vanish from the index corresponding to $n=2+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
-
-\begin{remark}
-The polynomial $B$ is not an error term: it records the boundary of the recurrence. For
-$n\le1$ some of the shifted terms $a(n-i)$ fall outside the range of the sequence,
-and $B$ collects exactly those contributions. Above that range the relation is exact.
-\end{remark}
 
 \section{Verification}
 
-Every number above is an output of a script written separately from this note, and two
-independent checks were run.
+Three checks, each independent of the algebra above.
 
-First, the generating function was checked against the entry rather than assumed: the
-Taylor coefficients of \eqref{eq:gf} were expanded and compared term by term with the DATA
-section of A026163, agreeing on all 13 terms compared.
+First, the model reproduces all $30$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry: the digraph is built by reading the
+entry's English, and a misreading gives different counts.
 
-Second, the recurrence itself was evaluated directly on the published terms, in exact
-integer arithmetic and without reference to the generating function: for each $n$ in range
-the sum $\sum_{i}p_{i}(n)a(n-i)$ was formed from the entry's own values and found to
-vanish, for all 23 values of $n$ from $n=5$ upward. This is what
-Corollary~\ref{cor:criterion} predicts from the degree of $B$, and it is a genuinely
-different computation from the symbolic one: it never forms $B$, never differentiates, and
-uses only integers.
+Second, the conjectured recurrence was evaluated directly on those published terms, with no
+matrices involved, and holds wherever the proved range and the data overlap.
 
-The symbolic step is exact throughout. The residual is obtained by rational-function
-cancellation in $K$, not by series truncation, so the identity $B=224 x$ is an
-identity of functions and the theorem holds for all $n>1$ simultaneously.
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
-\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer Sequences},
-\url{https://oeis.org}, 2026. Sequence A026163.
-\bibitem{kp} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011,
-Chapter 7 (holonomic closure properties and the translation between recurrences and
-differential equations).
-\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 2, Cambridge
-University Press, 1999, Chapter 6 (algebraic and D-finite generating functions).
+\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
+Sequences}, \url{https://oeis.org}, 2026. Sequence A232901.
+\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{comtet} L.~Comtet, \emph{Advanced Combinatorics}, Reidel, 1974.
+\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
+University Press, 2013.
 \end{thebibliography}
+
 \end{document}

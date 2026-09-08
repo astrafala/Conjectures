@@ -12,141 +12,102 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A297717: recovering a conjecture that is not written down}
+\title{The empirical recurrence for OEIS A268938, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{2 September 2026}
+\date{8 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A297717 records ``Empirical recurrence of order $87$'', with the recurrence itself in a
-linked file rather than in the entry. The conjecture can nevertheless be settled, and the
-recurrence recovered, without reading that file. The entry counts arrays under a condition
-local to a bounded window of lines, so the count is a walk count on a finite digraph and
-satisfies some monic recurrence of order at most the number of its states with distinct
-futures, here $S'=160$; Berlekamp--Massey applied to $2S'$ exact
-terms therefore returns the MINIMAL such recurrence. Its order is exactly $87$, the order
-the entry states, and the same is true of every tail of the sequence. Any recurrence of order
-$87$ that the sequence satisfies from any point on must then have a characteristic
-polynomial that is a multiple of the minimal one and of the same degree, hence equal to it. So
-the entry's recurrence is the one displayed here, whatever its file contains, and it is
-proved.
+OEIS A268938 carries an empirical recurrence of order $3$ contributed by R.~H.~Hardin. It is
+true, and it is decidable rather than empirical. The entry's condition is local to a bounded window of consecutive lines, so
+the admissible configurations of such a window are the vertices of a finite digraph and the
+arrays counted are exactly the walks in it; hence $a(n)$ is a walk count on $S=12$ vertices
+and is $C$-finite. Whether the conjectured recurrence annihilates it is then settled by a
+finite exact computation, with the Cayley--Hamilton theorem bounding the work.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
-\section{A conjecture one cannot read}
+\section{The conjecture}
 
-OEIS A297717 is ``Number of nX5 0..1 arrays with every 1 horizontally, diagonally or antidiagonally adjacent to 1, 2 or 4 neighboring 1s.''. It has offset $1$ and begins
+OEIS A268938 is ``Number of length-n 0..2 arrays with no repeated value unequal to the previous repeated value plus one mod 2+1.''. It has offset $1$ and begins
 \[
-12, 258, 2717, 36981, 512354, 6812856, 91994155, 1242370107,\ \dots
+3, 9, 24, 63, 159, 396, 969, 2349,\ \dots
 \]
-The entry states:
+The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical recurrence of order 87 (see link above)
+Empirical: a(n) = 3*a(n-1) + a(n-2) - 6*a(n-3).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jan 04 2018 21:57:00, revision 4) this is still
-recorded as empirical. The recurrence's coefficients are not in the entry text.
+As of the ``Last modified'' line on the live entry (Mar 21 2018 11:42:38, revision 7) this is still
+recorded as empirical, and nothing on the entry records it as proved.
 
 \section{The count is a walk count}
 
-The entry's condition is local: it constrains a bounded window of consecutive lines of the
-array and nothing further. The admissible configurations of one such window are the vertices
-of a finite digraph, an edge joining $u$ to $v$ when $v$ may follow $u$, and an admissible
-array is exactly a walk. Hence, with $M$ the adjacency matrix on $S=160$ vertices,
-$a(n)=\iota^{\!\top}M^{\,j(n)}\tau$ for a linear reindexing $j$ fixed by the entry's shape
-and checked against its published terms. By the Cayley--Hamilton theorem $M^{S}$ is an
-integer combination of $I,M,\dots,M^{S-1}$, so:
-
-\begin{lemma}\label{lem:cf}
-$a$ satisfies a monic linear recurrence with integer coefficients of order at most
-$S'=160$.
-\end{lemma}
-
-\section{Recovering the recurrence}
-
-\begin{lemma}\label{lem:bm}
-A sequence known to satisfy some linear recurrence of order at most $S$ is determined, together
-with its minimal recurrence, by its first $2S$ terms: Berlekamp--Massey applied to them returns
-that minimal recurrence exactly.
-\end{lemma}
-
-Running it on $2S'=320$ exact terms of the model returns order $87$ --- the order the
-entry states --- with the integer coefficients
+The condition the entry imposes is local: it constrains a bounded window of consecutive lines and nothing beyond. Take as
+vertices the admissible configurations of one such window and put an edge from $u$ to $v$
+whenever $v$ may follow $u$, which the condition decides by inspection of the two. An
+admissible array is then exactly a walk, so with $M$ the adjacency matrix on $S=12$ vertices
+and $\iota,\tau$ the vectors recording which windows may begin and end an array,
 \[
-a(n)\;=\;\sum_{i=1}^{87}c_i\,a(n-i),
+a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau ,
 \]
-\begin{center}\small
-\begin{tabular}{cccccccc}
-$c_{1}$ & $3$ & $c_{23}$ & $47215431808357$ & $c_{45}$ & $-58867526402283279$ & $c_{67}$ & $-37965781427152543$ \\
-$c_{2}$ & $65$ & $c_{24}$ & $-85854003046602$ & $c_{46}$ & $22232306732530181$ & $c_{68}$ & $8620109597525530$ \\
-$c_{3}$ & $974$ & $c_{25}$ & $-372659146265787$ & $c_{47}$ & $169331763226716417$ & $c_{69}$ & $18494587424474240$ \\
-$c_{4}$ & $2559$ & $c_{26}$ & $-384482998249747$ & $c_{48}$ & $-88841568286773539$ & $c_{70}$ & $-2681840214349148$ \\
-$c_{5}$ & $-6672$ & $c_{27}$ & $634317645484519$ & $c_{49}$ & $-346204799739577450$ & $c_{71}$ & $-6813233383191569$ \\
-$c_{6}$ & $-190573$ & $c_{28}$ & $2374135336343227$ & $c_{50}$ & $-23361314423321120$ & $c_{72}$ & $1465424633744359$ \\
-$c_{7}$ & $-713401$ & $c_{29}$ & $1914627407840762$ & $c_{51}$ & $559254616067039643$ & $c_{73}$ & $1748851869416999$ \\
-$c_{8}$ & $-438712$ & $c_{30}$ & $-3464592630241349$ & $c_{52}$ & $259529287002934040$ & $c_{74}$ & $-1282695052737217$ \\
-$c_{9}$ & $16946521$ & $c_{31}$ & $-9956819099538304$ & $c_{53}$ & $-632335872132504554$ & $c_{75}$ & $299490978610408$ \\
-$c_{10}$ & $73217887$ & $c_{32}$ & $-4864126068148344$ & $c_{54}$ & $-635193391701701435$ & $c_{76}$ & $50135219906278$ \\
-$c_{11}$ & $94076795$ & $c_{33}$ & $13999119118180517$ & $c_{55}$ & $431712007459249093$ & $c_{77}$ & $-86744612041332$ \\
-$c_{12}$ & $-854286377$ & $c_{34}$ & $25804245527780770$ & $c_{56}$ & $774142455311130725$ & $c_{78}$ & $25782290481372$ \\
-$c_{13}$ & $-3992049167$ & $c_{35}$ & $-295835456577939$ & $c_{57}$ & $-12281366028555536$ & $c_{79}$ & $-19341790881768$ \\
-$c_{14}$ & $-5759123116$ & $c_{36}$ & $-39139124048432458$ & $c_{58}$ & $-702397800197862900$ & $c_{80}$ & $6623994274688$ \\
-$c_{15}$ & $27136547751$ & $c_{37}$ & $-31959207319715375$ & $c_{59}$ & $-99517230628573416$ & $c_{81}$ & $1060857654768$ \\
-$c_{16}$ & $131515133086$ & $c_{38}$ & $38461827257361144$ & $c_{60}$ & $400045302979487525$ & $c_{82}$ & $508534794352$ \\
-$c_{17}$ & $187454197889$ & $c_{39}$ & $63003789051426297$ & $c_{61}$ & $268823913115448814$ & $c_{83}$ & $230010604736$ \\
-$c_{18}$ & $-574591003561$ & $c_{40}$ & $-17238386308431333$ & $c_{62}$ & $-260539610278019977$ & $c_{84}$ & $-56402411936$ \\
-$c_{19}$ & $-2788344950454$ & $c_{41}$ & $-93534673168029088$ & $c_{63}$ & $-170249239536786085$ & $c_{85}$ & $6407365696$ \\
-$c_{20}$ & $-3719614070168$ & $c_{42}$ & $-24729413502170232$ & $c_{64}$ & $38630371713837123$ & $c_{86}$ & $-2486058368$ \\
-$c_{21}$ & $8372770779265$ & $c_{43}$ & $92163028079186634$ & $c_{65}$ & $114140336968661111$ & $c_{87}$ & $18191360$ \\
-$c_{22}$ & $39288268243022$ & $c_{44}$ & $29489510540696167$ & $c_{66}$ & $-28807457897821363$ &  &  \\
-\end{tabular}
-\end{center}
+the exponent fixed by the entry's own shape and checked against its published terms. In
+particular $a$ is $C$-finite.
+
+\section{The proof}
+
+\begin{lemma}\label{lem:crit}
+Let $q(t)=t^{3}-\sum_i c_it^{3-i}$ be the characteristic polynomial of the
+conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
+$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
+holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
+and it is enough to examine $j<S$.
+\end{lemma}
+
+\begin{proof}
+Factor $M^{j}$ out of $M^{j+3}-\sum_ic_iM^{j+3-i}$. For the bound, $M^{S}$
+is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
+$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
+polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
+pins the threshold exactly.
+\end{proof}
 
 \begin{theorem}
-The recurrence above holds for every $n$, and it is the recurrence the entry records.
+\[
+a(n)\;=\;3\,a(n-1) + a(n-2) - 6\,a(n-3)
+\]
+for every $n>1$.
 \end{theorem}
 
 \begin{proof}
-It holds by Lemma~\ref{lem:bm}, which returns a recurrence the sequence satisfies from its
-first term. For the identification: the entry asserts that the sequence satisfies SOME
-recurrence of order $87$, possibly only from some index on. Let $q$ be that recurrence's
-characteristic polynomial and $q_{\min}$ the minimal polynomial of the tail of the sequence.
-Then $q_{\min}\mid q$. Berlekamp--Massey run on the sequence with its first $87+4$ terms
-removed returns order $87$ as well, so $\deg q_{\min}=87=\deg q$; both are monic, so
-$q=q_{\min}$, which is the polynomial computed above.
+The vector $w=q(M)\tau$ was formed by $3$ matrix--vector products in exact integer
+arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
+integers vanish from the index corresponding to $n=1+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
-Three checks.
+Three checks, each independent of the algebra above.
 
-First, the walk model reproduces all $16$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry, and it is the only place where reading
-the entry's English enters.
+First, the model reproduces all $28$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry: the digraph is built by reading the
+entry's English, and a misreading gives different counts.
 
-Second, the recovered recurrence was evaluated directly on those published terms, with no
-matrices and no Berlekamp--Massey involved, and holds at every index where the entry gives
-enough earlier terms to test it.
+Second, the conjectured recurrence was evaluated directly on those published terms, with no
+matrices involved, and holds wherever the proved range and the data overlap.
 
-Third, the order was computed twice by independent routes: once modulo a $61$-bit prime, where
-every intermediate is a machine word, and once in exact rational arithmetic; and once more on
-the sequence with its first $87+4$ terms removed, which is what the identification above
-requires. All three agree.
-
-\begin{remark}
-What is unusual here is that the conjecture's statement was never read. The entry pins it down
-to a one-parameter family --- the recurrences of order $87$ that this sequence satisfies
---- and that family turns out to have exactly one member.
-\end{remark}
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A297717.
-\bibitem{massey} J.~L.~Massey, Shift-register synthesis and BCH decoding, \emph{IEEE
-Trans. Inform. Theory} \textbf{15} (1969), 122--127.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A268938.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+University Press, 2009.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

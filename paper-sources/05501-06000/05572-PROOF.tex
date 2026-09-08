@@ -12,53 +12,68 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A270147, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A237862, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{8 September 2026}
+\date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A270147 carries an empirical recurrence of order $30$ contributed by R.~H.~Hardin. It is
-true, and it is decidable rather than empirical. The entry's condition is local to a bounded window of consecutive lines, so
-the admissible configurations of such a window are the vertices of a finite digraph and the
-arrays counted are exactly the walks in it; hence $a(n)$ is a walk count on $S=8192$ vertices
-and is $C$-finite. Whether the conjectured recurrence annihilates it is then settled by a
-finite exact computation, with the Cayley--Hamilton theorem bounding the work.
+OEIS A237862 counts arrays over $\{0,\dots,2\}$ subject to a condition on the order
+statistics of every $2\times2$ subblock, and carries an empirical recurrence of order
+$33$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical.
+The condition is local to two consecutive rows, so the count is a walk count on $S=336$
+states and is $C$-finite; whether the conjectured recurrence annihilates it is then settled by
+a finite exact computation, with the Cayley--Hamilton theorem bounding the work.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 62G30.\normalsize
 
 \section{The conjecture}
 
-OEIS A270147 is ``Number of nX4 0..7 arrays with some element plus some horizontally, diagonally, antidiagonally or vertically adjacent neighbor totalling seven exactly once.''. It has offset $1$ and begins
+OEIS A237862 is ``Number of (n+1)X(2+1) 0..2 arrays with the upper median plus the lower median minus the minimum of every 2X2 subblock differing from its horizontal and vertical neighbors by exactly one.''. It has offset $1$ and begins
 \[
-1176, 4126368, 5750902944, 6697695002208, 7142783643783792, 7232246139319438944, 7076007579749239522560, 6756572506861579320074976,\ \dots
+336, 1944, 11454, 68830, 405758, 2385956, 14144254, 84226372,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 1742*a(n-1) -827249*a(n-2) +55735166*a(n-3) +2410177430*a(n-4) -208388398056*a(n-5) -3167015848153*a(n-6) +256479806611406*a(n-7) +2376722394136390*a(n-8) -119974226647646126*a(n-9) -748066037036869804*a(n-10) +14495677890626797680*a(n-11) -44282335922464026472*a(n-12) -87656882172897101898*a(n-13) +633122185223835748191*a(n-14) -486595208994066512314*a(n-15) -2521515704709696475982*a(n-16) +4786585967458397581320*a(n-17) +2256779180091586437315*a(n-18) -11568026205666473386010*a(n-19) +4081366110373471964624*a(n-20) +11206797106037834726810*a(n-21) -8694022358907130403200*a(n-22) -3768022188795704598344*a(n-23) +5316074296028246592431*a(n-24) -410670862474703529840*a(n-25) -1029555514715631146860*a(n-26) +336961514541159804000*a(n-27) -22395037969800912100*a(n-28) -1605006621279476000*a(n-29) -20684134872040000*a(n-30) for n>31
+Empirical: a(n) = 48*a(n-3) +764*a(n-4) +1113*a(n-5) +2630*a(n-6) -1330*a(n-7) -76808*a(n-8) -103834*a(n-9) +42139*a(n-10) +213170*a(n-11) +624044*a(n-12) +404402*a(n-13) -474767*a(n-14) -1195423*a(n-15) -845864*a(n-16) -233832*a(n-17) -278031*a(n-18) +2684781*a(n-19) -785243*a(n-20) +690749*a(n-21) +16053*a(n-22) -191039*a(n-23) -140612*a(n-24) -402983*a(n-25) +152122*a(n-26) -120738*a(n-27) -14602*a(n-28) +3372*a(n-29) +2280*a(n-30) -1368*a(n-31) +264*a(n-32) +128*a(n-33)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Mar 12 2016 08:44:16, revision 4) this is still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 10:31:37, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
+
+\section{What is being counted}
+
+The $2\times2$ subblocks of an $(n+1)\times3$ array form an
+$n\times2$ grid, and each carries the value $\sigma=-a+b+c$, where $a\le b\le c\le d$ are its four entries sorted --- its minimum, lower median, upper median and maximum. The entry asks that the values of
+subblocks that are neighbours --- horizontally or vertically --- differ by exactly $1$.
+That is sharper than merely differing, and it is a condition on a pair of adjacent subblocks,
+so it is local to the grid.
+
+At $n=1$ the array has two rows, so its subblock grid is a single row of $2$ subblocks with
+no vertical neighbours; the condition there is exactly that consecutive values along that row
+differ by $1$. The entry's first term $336$ counts those, and the model was made to
+reproduce it along with every later term.
 
 \section{The count is a walk count}
 
-The condition the entry imposes is local: it constrains a bounded window of consecutive lines and nothing beyond. Take as
-vertices the admissible configurations of one such window and put an edge from $u$ to $v$
-whenever $v$ may follow $u$, which the condition decides by inspection of the two. An
-admissible array is then exactly a walk, so with $M$ the adjacency matrix on $S=8192$ vertices
-and $\iota,\tau$ the vectors recording which windows may begin and end an array,
+A subblock's value is decided by two consecutive rows of the array, and the
+vertical condition compares two consecutive rows of the subblock grid, so the state is the
+PAIR of consecutive array rows. A step appends a row: that fixes a new subblock row, whose own
+neighbouring values must differ by exactly $1$ along it, and which must differ by exactly
+$1$ from the previous subblock row in every position. An $(n+1)$-row array is a walk of
+$n-1$ steps, so
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n}\tau ,
+a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,\qquad\iota=\tau=(1,\dots,1)^{\!\top},
 \]
-the exponent fixed by the entry's own shape and checked against its published terms. In
-particular $a$ is $C$-finite.
+over the $S=336$ pairs whose own subblock row already satisfies the condition along itself.
+The alignment of the walk index with the entry's own $n$ was checked against its published
+terms rather than assumed. In particular $a$ is $C$-finite.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{30}-\sum_i c_it^{30-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{33}-\sum_i c_it^{33-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -66,7 +81,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+30}-\sum_ic_iM^{j+30-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+33}-\sum_ic_iM^{j+33-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -75,15 +90,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;1742\,a(n-1) - 827249\,a(n-2) + 55735166\,a(n-3) + 2410177430\,a(n-4) - 208388398056\,a(n-5) - 3167015848153\,a(n-6) + 256479806611406\,a(n-7) + 2376722394136390\,a(n-8) - 119974226647646126\,a(n-9) - 748066037036869804\,a(n-10) + 14495677890626797680\,a(n-11) - 44282335922464026472\,a(n-12) - 87656882172897101898\,a(n-13) + 633122185223835748191\,a(n-14) - 486595208994066512314\,a(n-15) - 2521515704709696475982\,a(n-16) + 4786585967458397581320\,a(n-17) + 2256779180091586437315\,a(n-18) - 11568026205666473386010\,a(n-19) + 4081366110373471964624\,a(n-20) + 11206797106037834726810\,a(n-21) - 8694022358907130403200\,a(n-22) - 3768022188795704598344\,a(n-23) + 5316074296028246592431\,a(n-24) - 410670862474703529840\,a(n-25) - 1029555514715631146860\,a(n-26) + 336961514541159804000\,a(n-27) - 22395037969800912100\,a(n-28) - 1605006621279476000\,a(n-29) - 20684134872040000\,a(n-30)
+a(n)\;=\;48\,a(n-3) + 764\,a(n-4) + 1113\,a(n-5) + 2630\,a(n-6) - 1330\,a(n-7) - 76808\,a(n-8) - 103834\,a(n-9) + 42139\,a(n-10) + 213170\,a(n-11) + 624044\,a(n-12) + 404402\,a(n-13) - 474767\,a(n-14) - 1195423\,a(n-15) - 845864\,a(n-16) - 233832\,a(n-17) - 278031\,a(n-18) + 2684781\,a(n-19) - 785243\,a(n-20) + 690749\,a(n-21) + 16053\,a(n-22) - 191039\,a(n-23) - 140612\,a(n-24) - 402983\,a(n-25) + 152122\,a(n-26) - 120738\,a(n-27) - 14602\,a(n-28) + 3372\,a(n-29) + 2280\,a(n-30) - 1368\,a(n-31) + 264\,a(n-32) + 128\,a(n-33)
 \]
-for every $n>31$.
+for every $n>33$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $30$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $33$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=31+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=33+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -91,7 +106,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $10$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $18$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
@@ -103,11 +118,11 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A270147.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A237862.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
-University Press, 2009.
+\bibitem{david} H.~A.~David and H.~N.~Nagaraja, \emph{Order Statistics}, 3rd ed., Wiley,
+2003.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

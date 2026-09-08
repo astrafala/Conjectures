@@ -12,19 +12,19 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A224276, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A223957, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A224276 counts arrays over $\{0,\dots,3\}$ whose rows, columns, diagonals or
+OEIS A223957 counts arrays over $\{0,\dots,3\}$ whose rows, columns, diagonals or
 antidiagonals are required to be monotone or unimodal, and carries an empirical recurrence of
-order $25$ contributed by R.~H.~Hardin. A monotone condition is local, but a unimodal one
+order $34$ contributed by R.~H.~Hardin. A monotone condition is local, but a unimodal one
 is not: a sequence is unimodal exactly when it never rises again after it has fallen, so the
 state must remember which sequences have already fallen. With those bits carried along, $a(n)$
-is a walk count on $S=400$ vertices and the recurrence follows from a finite exact
+is a walk count on $S=560$ vertices and the recurrence follows from a finite exact
 computation.
 \end{abstract}
 
@@ -32,44 +32,44 @@ computation.
 
 \section{The sequence and the conjecture}
 
-OEIS A224276 is ``Number of nX3 0..3 arrays with diagonals and rows unimodal and antidiagonals nondecreasing.''. It has offset $1$ and begins
+OEIS A223957 is ``Number of nX4 0..3 arrays with antidiagonals unimodal and rows and diagonals nondecreasing.''. It has offset $1$ and begins
 \[
-50, 984, 13683, 186516, 2596992, 37128051, 537465766, 7804602744,\ \dots
+35, 805, 12311, 176893, 2575955, 37844037, 559416917, 8299429418,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 20*a(n-1) -70*a(n-2) -211*a(n-3) +192*a(n-4) +15174*a(n-5) -36608*a(n-6) -83340*a(n-7) +59774*a(n-8) +2310958*a(n-9) -3620776*a(n-10) -5846720*a(n-11) +390652*a(n-12) +87932540*a(n-13) -70516876*a(n-14) +46329332*a(n-15) +7472696*a(n-16) -557612816*a(n-17) +319521288*a(n-18) -63018416*a(n-19) +17463360*a(n-20) +1046997696*a(n-21) -323677440*a(n-22) -14515200*a(n-23) -56540160*a(n-24) -635904000*a(n-25) for n>26
+Empirical: a(n) = 35*a(n-1) -411*a(n-2) +1521*a(n-3) +4495*a(n-4) -33893*a(n-5) -76333*a(n-6) +769422*a(n-7) -657978*a(n-8) -4892638*a(n-9) +11892141*a(n-10) +26545075*a(n-11) -212154687*a(n-12) +180127811*a(n-13) +844199306*a(n-14) -1964869675*a(n-15) -925267902*a(n-16) +18361374116*a(n-17) -28421809002*a(n-18) +14606204778*a(n-19) +43447425250*a(n-20) +45550238994*a(n-21) -206541843216*a(n-22) +420735920152*a(n-23) +123206624124*a(n-24) -263534650788*a(n-25) -263768865528*a(n-26) +1543560996888*a(n-27) +154734998544*a(n-28) -494508716208*a(n-29) -124707094560*a(n-30) +893424774528*a(n-31) +244581703200*a(n-32) +20427292800*a(n-33) +536699520*a(n-34) for n>36
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 23:20:09, revision 8) the statement is
+As of the ``Last modified'' line on the live entry (Oct 03 2025 23:01:58, revision 8) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;20\,a(n-1) - 70\,a(n-2) - 211\,a(n-3) + 192\,a(n-4) + 15174\,a(n-5) - 36608\,a(n-6) - 83340\,a(n-7) + 59774\,a(n-8) + 2310958\,a(n-9) - 3620776\,a(n-10) - 5846720\,a(n-11) + 390652\,a(n-12) + 87932540\,a(n-13) - 70516876\,a(n-14) + 46329332\,a(n-15) + 7472696\,a(n-16) - 557612816\,a(n-17) + 319521288\,a(n-18) - 63018416\,a(n-19) + 17463360\,a(n-20) + 1046997696\,a(n-21) - 323677440\,a(n-22) - 14515200\,a(n-23) - 56540160\,a(n-24) - 635904000\,a(n-25)
+a(n)\;=\;35\,a(n-1) - 411\,a(n-2) + 1521\,a(n-3) + 4495\,a(n-4) - 33893\,a(n-5) - 76333\,a(n-6) + 769422\,a(n-7) - 657978\,a(n-8) - 4892638\,a(n-9) + 11892141\,a(n-10) + 26545075\,a(n-11) - 212154687\,a(n-12) + 180127811\,a(n-13) + 844199306\,a(n-14) - 1964869675\,a(n-15) - 925267902\,a(n-16) + 18361374116\,a(n-17) - 28421809002\,a(n-18) + 14606204778\,a(n-19) + 43447425250\,a(n-20) + 45550238994\,a(n-21) - 206541843216\,a(n-22) + 420735920152\,a(n-23) + 123206624124\,a(n-24) - 263534650788\,a(n-25) - 263768865528\,a(n-26) + 1543560996888\,a(n-27) + 154734998544\,a(n-28) - 494508716208\,a(n-29) - 124707094560\,a(n-30) + 893424774528\,a(n-31) + 244581703200\,a(n-32) + 20427292800\,a(n-33) + 536699520\,a(n-34)
 \end{equation}
-for all $n>26$.
+for all $n>36$.
 
 \section{The conditions}
 
-The arrays have $3$ columns and $L=n$ rows. Written in (row, column)
+The arrays have $4$ columns and $L=n$ rows. Written in (row, column)
 coordinates, the entry asks:
 \begin{itemize}
-\item along the direction $(1,1)$ --- one step of $(1,1)$ in (row, column) coordinates --- every sequence is unimodal;
-\item along the direction $(0,1)$ --- one step of $(0,1)$ in (row, column) coordinates --- every sequence is unimodal;
-\item along the direction $(1,-1)$ --- one step of $(1,-1)$ in (row, column) coordinates --- every sequence is nondecreasing;
+\item along the direction $(1,-1)$ --- one step of $(1,-1)$ in (row, column) coordinates --- every sequence is unimodal;
+\item along the direction $(0,1)$ --- one step of $(0,1)$ in (row, column) coordinates --- every sequence is nondecreasing;
+\item along the direction $(1,1)$ --- one step of $(1,1)$ in (row, column) coordinates --- every sequence is nondecreasing;
 \end{itemize}
 Here ``unimodal'' means nondecreasing and then nonincreasing, that is: no rise after a fall.
 
 A unimodal condition across the rows is not local: whether a
 rise is allowed depends on whether the sequence has already fallen. The state therefore
-carries, for each of the $3$ sequences currently running in that direction, one bit saying
+carries, for each of the $4$ sequences currently running in that direction, one bit saying
 whether it has fallen. Those bits travel with their sequences --- the bit at column $u$
 moves to column $u+d_2$ when the next row is laid down, and a sequence beginning at the
 far end of the new row starts with its bit clear.
 
 \begin{lemma}\label{lem:walk}
 Let $\mathcal V$ be the set of pairs (a row satisfying every within-row condition, a
-bit vector), $|\mathcal V|=S=400$; let $(r,f)\to(s,f')$ be an edge when placing $s$ after $r$
+bit vector), $|\mathcal V|=S=560$; let $(r,f)\to(s,f')$ be an edge when placing $s$ after $r$
 breaks none of the across-row conditions and $f'$ is $f$ updated by that step; let
 $\mathbf{v}$ mark the vertices whose bit vector is the one their row alone produces.
 Then
@@ -91,15 +91,15 @@ $L$ rows make a walk of length $L-1$.
 
 \section{The criterion, and the computation}
 
-Let $q(t)=t^{25}-\sum_i c_i\,t^{25-i}$ be the characteristic polynomial of
+Let $q(t)=t^{34}-\sum_i c_i\,t^{34-i}$ be the characteristic polynomial of
 \eqref{eq:conj} and $G=N$.
 
 \begin{lemma}\label{lem:crit}
 With $n_0$ the least index for which $L\ge1$, $o=1n_0+0-1$ and
-$h_j=G^{j}N^{o}\mathbf{1}$, we have for $j\ge25$
+$h_j=G^{j}N^{o}\mathbf{1}$, we have for $j\ge34$
 \[
-a(n_0+j)-\sum_i c_i\,a(n_0+j-i)=\,\mathbf{v}^{\!\top}G^{\,j-25}w,
-\qquad w=h_{25}-\sum_i c_ih_{25-i} .
+a(n_0+j)-\sum_i c_i\,a(n_0+j-i)=\,\mathbf{v}^{\!\top}G^{\,j-34}w,
+\qquad w=h_{34}-\sum_i c_ih_{34-i} .
 \]
 Hence \eqref{eq:conj} holds from that point on if and only if
 $\mathbf{v}^{\!\top}G^{m}w=0$ for all $m\ge0$, and $m<S$ suffices.
@@ -112,15 +112,15 @@ earlier ones.
 \end{proof}
 
 \begin{theorem}
-The recurrence \eqref{eq:conj} holds for every $n>26$, which is the statement of
+The recurrence \eqref{eq:conj} holds for every $n>36$, which is the statement of
 Section~1.
 \end{theorem}
 
 \begin{proof}
 The digraph was built directly from the conditions listed above. The vector $w$ was formed by
-$25$ applications of $G$ in exact integer arithmetic and $\mathbf{v}^{\!\top}G^{m}w$
+$34$ applications of $G$ in exact integer arithmetic and $\mathbf{v}^{\!\top}G^{m}w$
 evaluated for $m=0,1,\dots$, again exactly. Every one of those integers vanishes from the
-index corresponding to $n=26+1$ onwards, and the run continued until $S+1$ consecutive
+index corresponding to $n=36+1$ onwards, and the run continued until $S+1$ consecutive
 zeros had been seen.
 \end{proof}
 
@@ -143,7 +143,7 @@ Cayley--Hamilton bound in exact integer arithmetic rather than to a sampled pref
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A224276.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A223957.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

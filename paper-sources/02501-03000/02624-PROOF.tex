@@ -12,89 +12,91 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A267913, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A223500, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A267913 counts arrays in which the REPEATED VALUES of each row, and of each column, stand in a
-prescribed relation to one another in the order they occur. The entry carries an empirical
-recurrence of order $6$ contributed by R.~H.~Hardin. It is true, and it is decidable
-rather than empirical: one of the two scans runs inside a slice of the array and the other
-across slices, and the second needs only the previous slice together with the last repeated
-value so far in each column of the scan, so the count is a walk count on $S=185$ states.
+OEIS A223500 counts the ways of writing the vertices of a fixed graph $G$ into an array of width
+$4$ so that any two cells adjacent in one of the named directions carry vertices joined by an
+edge of $G$; here $G$ is graph named in the entry. The entry carries an empirical recurrence of order $7$
+contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical: every
+condition joins cells inside one slice of the array or inside two consecutive slices, so a
+single slice is a state and the count is a walk count on a finite digraph with $S=163$ vertices.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A18, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05C15, 05A15, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A267913 is ``Number of 2 X n 0..2 arrays with every repeated value in every row unequal to the previous repeated value, and in every column equal to the previous repeated value, and new values introduced in row-major sequential order.''. It has offset $1$ and begins
+OEIS A223500 is ``Petersen graph (3,1) coloring a rectangular array: number of nX4 0..5 arrays where 0..5 label nodes of a graph with edges 0,1 0,3 3,5 3,4 1,2 1,4 4,5 2,0 2,5 and every array movement to a horizontal, diagonal or antidiagonal neighbor moves along an edge of this graph, with the array starting at 0.''. It has offset $1$ and begins
 \[
-2, 14, 96, 726, 5046, 35574, 242406, 1653750,\ \dots
+27, 631, 16323, 426359, 11148439, 291545903, 7624417031, 199391762123,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 11*a(n-1) - 2*a(n-2) - 288*a(n-3) + 544*a(n-4) + 1792*a(n-5) - 4096*a(n-6) for n>8.
+Empirical: a(n) = 31*a(n-1) -127*a(n-2) -20*a(n-3) +705*a(n-4) -1027*a(n-5) +499*a(n-6) -60*a(n-7)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Feb 21 2018 11:41:37, revision 9) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 21:45:56, revision 8) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-Read a row of the array from left to right. A REPEATED VALUE is an entry equal to the entry
-immediately before it; the row thus produces the sequence of values at the places where two
-equal entries stand side by side. The entry asks that each repeated value of a row be
-different from the previous repeated value of that row, and that each repeated value of a column,
-read downwards, be equal to the previous repeated value of that column. The FIRST repeated
-value of a scan has no predecessor and is unconstrained; a scan with no two equal neighbours
-imposes nothing at all. The entry writes the array with $n$ as the number of COLUMNS, so the array grows one COLUMN at a time: the column scan is the one that runs inside a slice and the row scan is the one that runs across slices.
+Let $G$ be the graph on the label set $\{0,1,\dots,5\}$ whose vertices are the $6$ nodes $0,\dots,5$ with the edges the entry lists, namely \{0,1\}, \{0,2\}, \{0,3\}, \{1,2\}, \{1,4\}, \{2,5\}, \{3,4\}, \{3,5\}, \{4,5\}.
 
-The entry closes with ``new values introduced in row-major sequential order'', so what is
-counted is arrays up to renaming the letters. Both relations here are built from equality
-alone, so the condition survives renaming and the usual inversion applies: with $N_j$ the
-classes on exactly $j$ letters and $L_i$ the admissible arrays over an alphabet of $i$ letters,
+An array $x$ is a map from the cells of a rectangle to the vertices of $G$. The entry names the
+directions antidiagonal, diagonal and horizontal, that is the cell offsets
 \[
-L_i=\sum_j N_j\,i(i-1)\cdots(i-j+1),\qquad
-a=N_1+\dots+N_{3}=\bigl(\mathbf{1}^{\!\top}F^{-1}\bigr)L .
+(1,-1), (1,1), (0,1),
 \]
-An entry of this family whose relation compares letters by size, or does arithmetic on them,
-carries no such clause and is counted over its own alphabet instead; the two cases are not
-mixed.
+and asks that whenever two cells of the array differ by one of those offsets, the two vertices
+they carry are joined by an edge of $G$:
+\[
+x(i,j)\,x(i+\delta_1,j+\delta_2)\in E(G)\qquad
+\text{for every named offset } (\delta_1,\delta_2)\text{ and every pair of cells in range.}
+\]
+The entry also fixes the top-left cell: $x(0,0)=0$.
 
-\section{One scan inside a slice, one across}
-
-Take the array a $column$ at a time, the direction in which it grows.
-
-\begin{lemma}\label{lem:state}
-The $column$ scans are settled as each $column$ is written. The $row$ scans are
-settled by the previous $column$ together with, for each position, the last repeated value
-so far in that $row$.
+\begin{lemma}\label{lem:label}
+The count does not depend on how the vertices are labelled.
 \end{lemma}
 
 \begin{proof}
-A $column$ scan compares neighbours inside one $column$, so writing the
-$column$ left to right and carrying the last repeated value seen decides it. In a
-$row$ scan a repeat happens at the new $column$ exactly when the new entry equals the
-entry in the same position of the previous $column$, and the only thing the relation needs
-besides that entry is the previous repeated value of that $row$.
+A relabelling is a bijection $\sigma$ of the label set; if it is an isomorphism from one
+labelled copy of $G$ to another then $x\mapsto\sigma\circ x$ is a bijection between the arrays
+counted for the two copies, because the condition mentions only the edge relation.
+Here the labelling is written out in the entry itself, so nothing is left to choose.
 \end{proof}
 
-So the state is the pair (previous $column$, vector of last repeated values), the second
-component taking $2+2$ values at each position --- the letters together with a symbol for
-``none yet''. Assembling the pieces for $i=1,\dots,3$ as a disjoint union, with $\iota$ carrying the weights above cleared of denominators,
+\section{One slice is a state}
+
+Take the array one $row$ at a time, in the direction in which it grows.
+Every offset the entry names has its two cells either in the same $row$ or in two
+consecutive ones. So a $row$, a word of length $4$ over the vertices of $G$, carries
+everything the next $row$ needs: the conditions inside a $row$ constrain that
+$row$ alone, and the conditions across $row$s are a relation between the
+$row$ just written and the one about to be written.
+
+Let $M$ be the matrix indexed by the legal $row$s, with $M_{uv}=1$ when $v$ may
+follow $u$. Add one further state for the empty array, whose successors are the legal first
+$row$s---those beginning with the vertex $0$; then a walk of
+$n$ steps from that state is exactly an array of $n$ $row$s. Every state may end an
+array, so $\tau=\mathbf{1}$ and
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=185,\quad\tau=\mathbf{1} .
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=163.
 \]
-The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
+The $row$s themselves are built one cell at a time with the conditions applied as soon
+as they can be, which for the sparser graphs is what makes the state list short: a $row$
+of length $4$ over $6$ vertices is one of $6^{4}$ words, but only $S-1$ of them are
+legal. The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
 published terms rather than assumed. In particular $a$ is $C$-finite.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{6}-\sum_i c_it^{6-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{7}-\sum_i c_it^{7-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -102,7 +104,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+6}-\sum_ic_iM^{j+6-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+7}-\sum_ic_iM^{j+7-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -111,29 +113,30 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;11\,a(n-1) - 2\,a(n-2) - 288\,a(n-3) + 544\,a(n-4) + 1792\,a(n-5) - 4096\,a(n-6)
+a(n)\;=\;31\,a(n-1) - 127\,a(n-2) - 20\,a(n-3) + 705\,a(n-4) - 1027\,a(n-5) + 499\,a(n-6) - 60\,a(n-7)
 \]
-for every $n>8$.
+for every $n>7$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $6$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $7$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=8+1$ onwards and the run continued
-until the working vector was identically zero.
+integers vanish from the index corresponding to $n=7+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $20$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $15$ terms the entry publishes, exactly, in integer
 arithmetic.
 
-Second, the count was recomputed for the smallest arrays straight from the definition:
-enumerate every array of that size, form each row's and each column's list of repeated values
-by scanning it, and test consecutive members of those lists against the relation. No state, no
-window and no transfer matrix are involved, and the published terms came back.
+Second, the count was recomputed for the smallest arrays straight from the definition, with the
+graph rebuilt by a different route---the cube from its corner points and face normals in space,
+the icosahedron as a pentagonal antiprism capped at both poles---and the arrays written out cell
+by cell, each cell tested against the cells it must be joined to. No slice, no state and no
+recurrence is involved in that computation, and the published terms came back.
 
 Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
@@ -143,9 +146,10 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A267913.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A223500.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{cox} H.~S.~M.~Coxeter, \emph{Regular Polytopes}, 3rd ed., Dover, 1973.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

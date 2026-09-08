@@ -12,141 +12,137 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A189431, proved by transfer matrix}
+\title{The empirical closed form for OEIS A219621, proved}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{6 September 2026}
+\date{8 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A189431 counts the permutations of the cells of an $n\times5$ array in which every cell
-moves by one of a fixed short list of offsets. The entry carries an empirical recurrence of
-order $66$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
-empirical. The count is the permanent of the incidence matrix of the offset graph; read the
-cells in row-major order and let each choose its image, and the only thing that has to be
-carried is which images inside a window of $12$ consecutive positions are already taken.
-That makes $a$ a walk count on $S=231$ states, hence $C$-finite, and whether the published
-recurrence is one of its recurrences is then a finite exact computation.
+OEIS A219621 states an explicit closed form for $a(n)$ and records it as empirical. It is true, and
+it is decidable. What the entry counts is not a set of arrays but the SIZE OF AN IMAGE: each
+admissible array is replaced by the array of minima of its cells and their antidiagonal, horizontal neighbours,
+and $a(n)$ counts how many different arrays come out. Two arrays with the same image count
+once, so the usual graph over arrays overcounts. Determinising a machine whose state is a pair
+of consecutive rows and whose output is the filtered array turns the count into a walk count on
+$S=11$ vertices, exact and finite. The closed form is a polynomial in $n$, so it satisfies the
+monic recurrence with characteristic polynomial $(x-1)^{5}$; that the walk count
+satisfies the same recurrence, and that the two agree on enough initial terms, are both checked
+in exact integer arithmetic, and together they prove the formula.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A05, 05A15, 15A15.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 68Q45, 15A18.\normalsize
 
-\section{The conjecture}
+\section{The entry}
 
-OEIS A189431 is ``Number of nX5 array permutations with each element not moving, or moving one space N, SW or SE.''. It has offset $1$ and begins
+OEIS A219621 is ``Number of n X 2 arrays of the minimum value of corresponding elements and their horizontal or antidiagonal neighbors in a random, but sorted with lexicographically nondecreasing rows and columns, 0..2 n X 2 array.''. It has offset $1$ and begins
 \[
-1, 8, 65, 571, 5680, 52241, 493941, 4681376,\ \dots
+3, 11, 27, 56, 105, 183, 301, 472,\ \dots
 \]
-The entry states, as a conjecture contributed by its author and never marked settled:
+and states:
 \begin{quote}
-Empirical: a(n) = 9*a(n-1) -a(n-2) +88*a(n-3) -133*a(n-4) -1241*a(n-5) -6173*a(n-6) +1260*a(n-7) -35412*a(n-8) +81872*a(n-9) +143920*a(n-10) -260064*a(n-11) +2649517*a(n-12) -4380197*a(n-13) -10792671*a(n-14) +17380340*a(n-15) +17309201*a(n-16) +82171225*a(n-17) -34858151*a(n-18) -315791376*a(n-19) +66797872*a(n-20) -231978696*a(n-21) +734413152*a(n-22) +760013432*a(n-23) -1058202998*a(n-24) -2085612850*a(n-25) -7191772318*a(n-26) +7045350632*a(n-27) +3638845930*a(n-28) +3481732186*a(n-29) +8643493314*a(n-30) -7150172088*a(n-31) +12002114312*a(n-32) -17160930824*a(n-33) -1460727184*a(n-34) +58198351544*a(n-35) -1772883650*a(n-36) -13721600534*a(n-37) +7148283886*a(n-38) -31542922592*a(n-39) -28065877170*a(n-40) -27375326650*a(n-41) -29235699066*a(n-42) -15582339728*a(n-43) -48617808*a(n-44) +4434566056*a(n-45) -693712320*a(n-46) +2141282408*a(n-47) +2851911223*a(n-48) +1535350953*a(n-49) -85925633*a(n-50) -94378304*a(n-51) +529827963*a(n-52) -125838145*a(n-53) -233700005*a(n-54) -61208340*a(n-55) +22857068*a(n-56) +42821976*a(n-57) +4528704*a(n-58) -1484088*a(n-59) +1003221*a(n-60) -1054917*a(n-61) -305775*a(n-62) -6804*a(n-63) -63423*a(n-64) +6561*a(n-65) +6561*a(n-66)
+Empirical: a(n) = (1/12)*n\^{}4 + (23/12)*n\^{}2 + n.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 05:13:03, revision 9) this is still
-recorded as empirical, and nothing on the entry records it as proved.
+As of the ``Last modified'' line on the live entry (Jul 26 2018 11:54:53, revision 7)
+this is still recorded as empirical, and it is still open.
 
 \section{What is being counted}
 
-Write the cells of the array as pairs $(i,j)$ with $0\le i<n$ and $0\le j<5$. An
-\emph{array permutation} of the kind the entry counts is a bijection $\pi$ from the cells to
-the cells such that for every cell,
+Fix the width $W=2$ and the value range $0..2$. The underlying arrays are the
+$n\times2$ arrays over that range whose rows are lexicographically nondecreasing read downwards
+and whose columns are lexicographically nondecreasing read left to right. Each such array $g$
+is mapped to $F(g)$, the array whose $(i,j)$ entry is the minimum of $g(i,j)$ and the entries
+of its antidiagonal, horizontal neighbours that lie inside the array. The entry counts
 \[
-\pi(i,j)-(i,j)\;\in\;\Delta,\qquad
-\Delta=\{\,(-1,0),\ (0,0),\ (1,-1),\ (1,1)\,\}.
+a(n)\;=\;\bigl|\{\,F(g)\;:\;g\text{ admissible with }n\text{ rows}\,\}\bigr|,
 \]
-The offsets are what the name's words say: one step southeast, southwest or north. A cell is allowed to stay where it is, and $(0,0)$ is one of the offsets.
+the number of DISTINCT images --- not the number of admissible $g$. This is what makes the
+problem different in kind from a walk count: two admissible arrays can have the same image, and
+the graph whose walks are the arrays would count such a pair twice.
 
-A move is only allowed when its target is a cell of the array, so cells near an
-edge have fewer choices. The reading is pinned against the entry's own published terms rather
-than assumed: taking ``diagonally, horizontally or vertically'' to mean all eight king moves
-gives $24$ where A189305 publishes $14$.
+\section{Two constraints, both made local}
 
-Equivalently, $a(n)$ is the permanent of the $n5\times n5$ matrix whose $(c,c')$ entry is
-$1$ exactly when $c'-c\in\Delta$.
-
-\section{A window of 12 positions}
-
-Number the cells in row-major order, $k=i\cdot5+j$. An offset $(\delta_1,\delta_2)$ moves a
-cell by $\delta_15+\delta_2$ places in that order, so every image lies between $lo=-5$ and
-$hi=6$ places from its source. Process the cells in order and let each one choose its image.
-Once the cell at position $k$ has been dealt with, the position $k+-5$ can never be chosen
-again by anybody, so it must already be taken; and no position beyond $k+6$ can have been
-taken yet. What has to be remembered is therefore exactly which of the $12$ positions
-$k+-5,\dots,k+6$ are taken --- a subset of a set of size $12$, and nothing else.
-
-That is the state. One step of the walk is one row, that is $5$ cell choices, and the
-condition ``the position leaving the window is taken'' is what makes the walk count permutations
-rather than partial injections: every position is taken exactly once, once at the moment it
-leaves the window.
-
-The two boundaries are the same condition. Images above the first row do not exist, so the walk
-starts with exactly the window positions lying above the array marked as taken. Images below the
-last row do not exist either, so the walk must end with exactly those positions marked and
-nothing beyond. In the window's own coordinates those two masks are equal, so the start state is
-also the only accepting state and
-\[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=231,
-\]
-for the transfer matrix $M$ on those $S$ states. The walk index $j$ and the entry's own $n$
-differ by a constant, read off by matching the published terms rather than assumed. In
-particular $a$ is $C$-finite.
-
-\section{The proof}
-
-\begin{lemma}\label{lem:crit}
-Let $q(t)=t^{66}-\sum_i c_it^{66-i}$ be the characteristic polynomial of the
-conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
-$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
-holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
-and it is enough to examine $j<S$.
+\begin{lemma}\label{lem:local}
+Whether a sequence of rows is admissible is decided by the previous row together with
+$1$ bits.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+66}-\sum_ic_iM^{j+66-i}$. For the bound, $M^{S}$
-is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
-$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
-polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly.
+The row order compares consecutive rows and needs only the previous one. The column order
+compares whole columns read downwards, left to right, which is not a condition on consecutive
+rows --- but for each of the $1$ adjacent column pairs there are only two possibilities:
+either the two columns agree in every row read so far, or they first differed at some earlier
+row, and there the required inequality was already decided and no later row can affect it. One
+bit per adjacent pair records which, and a new row is admissible exactly when, for every pair
+still agreeing, its two entries either agree again or differ in the permitted direction.
 \end{proof}
 
-\begin{theorem}
+\begin{lemma}\label{lem:det}
+$a(n)$ is a walk count: there are a matrix $M$ with non-negative integer entries on $S=11$
+vertices and vectors $\iota,\tau$ with $a(n)=\iota^{\!\top}M^{\,n-2}\tau$ for $n\ge2$.
+\end{lemma}
+
+\begin{proof}
+Row $i$ of $F(g)$ depends only on rows $i-1$, $i$ and $i+1$ of $g$, so a machine reading $g$ a
+row at a time, holding the last two rows and the $1$ bits of Lemma~\ref{lem:local}, can
+emit $F(g)$ one row at a time. It is nondeterministic --- several continuations may emit the
+same row --- and the images of $g$ are exactly the words it can emit. Determinising it gives a
+machine in which each emitted row leads to exactly one state, so distinct words of length $n$
+correspond to distinct paths, and counting them is counting walks. The reachable determinised
+states number $S=11$. The last filtered row is emitted with no row below it, so it is not a
+step of the walk but a count attached to the state the walk stops in; that is $\tau$.
+\end{proof}
+
+\section{The closed form}
+
+The entry's formula is a polynomial in $n$. Any polynomial of degree $m$ satisfies the monic
+recurrence whose characteristic polynomial is $(x-1)^{m+1}$, here
 \[
-a(n)\;=\;9\,a(n-1) - a(n-2) + 88\,a(n-3) - 133\,a(n-4) - 1241\,a(n-5) - 6173\,a(n-6) + 1260\,a(n-7) - 35412\,a(n-8) + 81872\,a(n-9) + 143920\,a(n-10) - 260064\,a(n-11) + 2649517\,a(n-12) - 4380197\,a(n-13) - 10792671\,a(n-14) + 17380340\,a(n-15) + 17309201\,a(n-16) + 82171225\,a(n-17) - 34858151\,a(n-18) - 315791376\,a(n-19) + 66797872\,a(n-20) - 231978696\,a(n-21) + 734413152\,a(n-22) + 760013432\,a(n-23) - 1058202998\,a(n-24) - 2085612850\,a(n-25) - 7191772318\,a(n-26) + 7045350632\,a(n-27) + 3638845930\,a(n-28) + 3481732186\,a(n-29) + 8643493314\,a(n-30) - 7150172088\,a(n-31) + 12002114312\,a(n-32) - 17160930824\,a(n-33) - 1460727184\,a(n-34) + 58198351544\,a(n-35) - 1772883650\,a(n-36) - 13721600534\,a(n-37) + 7148283886\,a(n-38) - 31542922592\,a(n-39) - 28065877170\,a(n-40) - 27375326650\,a(n-41) - 29235699066\,a(n-42) - 15582339728\,a(n-43) - 48617808\,a(n-44) + 4434566056\,a(n-45) - 693712320\,a(n-46) + 2141282408\,a(n-47) + 2851911223\,a(n-48) + 1535350953\,a(n-49) - 85925633\,a(n-50) - 94378304\,a(n-51) + 529827963\,a(n-52) - 125838145\,a(n-53) - 233700005\,a(n-54) - 61208340\,a(n-55) + 22857068\,a(n-56) + 42821976\,a(n-57) + 4528704\,a(n-58) - 1484088\,a(n-59) + 1003221\,a(n-60) - 1054917\,a(n-61) - 305775\,a(n-62) - 6804\,a(n-63) - 63423\,a(n-64) + 6561\,a(n-65) + 6561\,a(n-66)
+q(x)=(x-1)^{5},\qquad\text{that is}\qquad a(n)=5\,a(n-1) - 10\,a(n-2) + 10\,a(n-3) - 5\,a(n-4) + a(n-5).
 \]
-for every $n>65$.
+
+\begin{theorem}
+The closed form OEIS A219621 records is correct for all $n>0$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $66$ matrix--vector products in exact integer
-arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=65+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once.
+Two exact computations. First, the walk count of Lemma~\ref{lem:det} satisfies $q$: the
+residual $u_j=\iota^{\!\top}M^{\,j}q(M)\tau$ vanishes for $S$ consecutive indices, and
+since the residual vector lives in the $S$-dimensional space spanned by the iterates of $M$,
+$S$ consecutive zeros force every later one. The last index at which it fails is $0$.
+Second, the polynomial and the walk count agree at every index from $1$ up to
+$1 + 39 - 1$, which is more than the $5$ consecutive agreements a
+common recurrence of order $5$ needs. Two sequences satisfying the same monic recurrence
+of order $5$ and agreeing at $5$ consecutive indices past both their thresholds are
+equal from there on.
 \end{proof}
 
 \section{Verification}
 
-Four checks, each independent of the algebra above.
+Everything above is integer or exact rational arithmetic; no floating point is used anywhere.
 
-First, the model reproduces all $19$ terms the entry publishes, exactly, in integer
-arithmetic.
+First, the model reproduces all $39$ terms the entry publishes, exactly. This is what
+ties the construction to the entry, and it is the only point at which the entry's English is
+read.
 
-Second, the count was recomputed for the smallest arrays straight from the definition: the
-cells of the array were matched to their images one at a time, over the whole grid, with no
-window, no mask over a sliding frame and no transfer matrix, and the published terms came back.
-That computation shares nothing with the construction of Section~3 beyond the offset list.
+Second, the reading was pinned by direct enumeration before the model was written: for the
+one-row case the admissible arrays and their images were listed outright and counted, and the
+count is the entry's own first term.
 
-Third, the conjectured recurrence was evaluated directly on the published terms, with no
-matrices involved, and holds wherever the proved range and the data overlap.
-
-Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
-arithmetic on the whole vector rather than on a sampled prefix.
+Third, the annihilation test was run to $S$ consecutive vanishing residuals rather than to a
+fixed horizon, which is what makes it a proof and not a check of finitely many terms.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A189431.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A219621.
+\bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata
+Theory, Languages, and Computation}, 3rd ed., Addison--Wesley, 2006. (The subset
+construction, Section 2.3.)
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{minc} H.~Minc, \emph{Permanents}, Encyclopedia of Mathematics and its
-Applications 6, Addison--Wesley, 1978.
+\bibitem{kauers} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011.
+\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
+University Press, 2013.
 \end{thebibliography}
 
 \end{document}

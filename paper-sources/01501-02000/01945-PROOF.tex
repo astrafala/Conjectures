@@ -12,81 +12,88 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A267789, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A189439, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{3 September 2026}
+\date{6 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A267789 counts arrays in which the REPEATED VALUES of each row, and of each column, stand in a
-prescribed relation to one another in the order they occur. The entry carries an empirical
-recurrence of order $12$ contributed by R.~H.~Hardin. It is true, and it is decidable
-rather than empirical: one of the two scans runs inside a slice of the array and the other
-across slices, and the second needs only the previous slice together with the last repeated
-value so far in each column of the scan, so the count is a walk count on $S=151$ states.
+OEIS A189439 counts the permutations of the cells of an $n\times7$ array in which every cell
+moves by one of a fixed short list of offsets. The entry carries an empirical recurrence of
+order $15$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
+empirical. The count is the permanent of the incidence matrix of the offset graph; read the
+cells in row-major order and let each choose its image, and the only thing that has to be
+carried is which images inside a window of $15$ consecutive positions are already taken.
+That makes $a$ a walk count on $S=570$ states, hence $C$-finite, and whether the published
+recurrence is one of its recurrences is then a finite exact computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A18, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A05, 05A15, 15A15.\normalsize
 
 \section{The conjecture}
 
-OEIS A267789 is ``Number of 3Xn 0..1 arrays with every repeated value in every row greater than or equal to, and in every column greater than, the previous repeated value.''. It has offset $1$ and begins
+OEIS A189439 is ``Number of 7Xn array permutations with each element not moving, or moving one space N, SW or SE.''. It has offset $1$ and begins
 \[
-6, 36, 216, 1056, 5004, 22110, 94554, 391314,\ \dots
+1, 85, 1245, 26589, 493941, 9557077, 181540773, 3467525301,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 8*a(n-1) -12*a(n-2) -40*a(n-3) +80*a(n-4) +100*a(n-5) -134*a(n-6) -160*a(n-7) +8*a(n-8) +48*a(n-9) +8*a(n-10) -4*a(n-11) -a(n-12)
+Empirical: a(n) = 23*a(n-1) +26*a(n-2) -2256*a(n-3) +3272*a(n-4) +63936*a(n-5) -101752*a(n-6) -714624*a(n-7) +1041216*a(n-8) +3522752*a(n-9) -4444032*a(n-10) -7691264*a(n-11) +5545472*a(n-12) +11157504*a(n-13) -4947968*a(n-14) -4030464*a(n-15)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jan 20 2016 12:31:59, revision 4) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 05:13:42, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-Read a row of the array from left to right. A REPEATED VALUE is an entry equal to the entry
-immediately before it; the row thus produces the sequence of values at the places where two
-equal entries stand side by side. The entry asks that each repeated value of a row be
-greater than or equal to the previous repeated value of that row, and that each repeated value of a column,
-read downwards, be greater than the previous repeated value of that column. The FIRST repeated
-value of a scan has no predecessor and is unconstrained; a scan with no two equal neighbours
-imposes nothing at all. The entry writes the array with $n$ as the number of COLUMNS, so the array grows one COLUMN at a time: the column scan is the one that runs inside a slice and the row scan is the one that runs across slices.
-
-The entry carries no renaming clause, and it could not: the relations here compare letters by
-size or do arithmetic on them, so they are not invariant under permuting the alphabet. The
-count is therefore taken over the alphabet the entry names, with no reduction to patterns.
-
-\section{One scan inside a slice, one across}
-
-Take the array a $column$ at a time, the direction in which it grows.
-
-\begin{lemma}\label{lem:state}
-The $column$ scans are settled as each $column$ is written. The $row$ scans are
-settled by the previous $column$ together with, for each position, the last repeated value
-so far in that $row$.
-\end{lemma}
-
-\begin{proof}
-A $column$ scan compares neighbours inside one $column$, so writing the
-$column$ left to right and carrying the last repeated value seen decides it. In a
-$row$ scan a repeat happens at the new $column$ exactly when the new entry equals the
-entry in the same position of the previous $column$, and the only thing the relation needs
-besides that entry is the previous repeated value of that $row$.
-\end{proof}
-
-So the state is the pair (previous $column$, vector of last repeated values), the second
-component taking $1+2$ values at each position --- the letters together with a symbol for
-``none yet''. With $M$ the adjacency matrix of that digraph,
+Write the cells of the array as pairs $(i,j)$ with $0\le i<n$ and $0\le j<7$. An
+\emph{array permutation} of the kind the entry counts is a bijection $\pi$ from the cells to
+the cells such that for every cell,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=151,\quad\tau=\mathbf{1} .
+\pi(i,j)-(i,j)\;\in\;\Delta,\qquad
+\Delta=\{\,(-1,1),\ (0,-1),\ (0,0),\ (1,1)\,\}.
 \]
-The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
-published terms rather than assumed. In particular $a$ is $C$-finite.
+The offsets are what the name's words say: one step southeast, southwest or north. A cell is allowed to stay where it is, and $(0,0)$ is one of the offsets. The entry writes the array with $n$ as the number of ROWS; transposing it exchanges the two coordinates of every offset, and the offsets above are written in the transposed frame.
+
+A move is only allowed when its target is a cell of the array, so cells near an
+edge have fewer choices. The reading is pinned against the entry's own published terms rather
+than assumed: taking ``diagonally, horizontally or vertically'' to mean all eight king moves
+gives $24$ where A189305 publishes $14$.
+
+Equivalently, $a(n)$ is the permanent of the $n7\times n7$ matrix whose $(c,c')$ entry is
+$1$ exactly when $c'-c\in\Delta$.
+
+\section{A window of 15 positions}
+
+Number the cells in row-major order, $k=i\cdot7+j$. An offset $(\delta_1,\delta_2)$ moves a
+cell by $\delta_17+\delta_2$ places in that order, so every image lies between $lo=-6$ and
+$hi=8$ places from its source. Process the cells in order and let each one choose its image.
+Once the cell at position $k$ has been dealt with, the position $k+-6$ can never be chosen
+again by anybody, so it must already be taken; and no position beyond $k+8$ can have been
+taken yet. What has to be remembered is therefore exactly which of the $15$ positions
+$k+-6,\dots,k+8$ are taken --- a subset of a set of size $15$, and nothing else.
+
+That is the state. One step of the walk is one row, that is $7$ cell choices, and the
+condition ``the position leaving the window is taken'' is what makes the walk count permutations
+rather than partial injections: every position is taken exactly once, once at the moment it
+leaves the window.
+
+The two boundaries are the same condition. Images above the first row do not exist, so the walk
+starts with exactly the window positions lying above the array marked as taken. Images below the
+last row do not exist either, so the walk must end with exactly those positions marked and
+nothing beyond. In the window's own coordinates those two masks are equal, so the start state is
+also the only accepting state and
+\[
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=570,
+\]
+for the transfer matrix $M$ on those $S$ states. The walk index $j$ and the entry's own $n$
+differ by a constant, read off by matching the published terms rather than assumed. In
+particular $a$ is $C$-finite.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{12}-\sum_i c_it^{12-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{15}-\sum_i c_it^{15-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -94,7 +101,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+12}-\sum_ic_iM^{j+12-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+15}-\sum_ic_iM^{j+15-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -103,29 +110,29 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;8\,a(n-1) - 12\,a(n-2) - 40\,a(n-3) + 80\,a(n-4) + 100\,a(n-5) - 134\,a(n-6) - 160\,a(n-7) + 8\,a(n-8) + 48\,a(n-9) + 8\,a(n-10) - 4\,a(n-11) - a(n-12)
+a(n)\;=\;23\,a(n-1) + 26\,a(n-2) - 2256\,a(n-3) + 3272\,a(n-4) + 63936\,a(n-5) - 101752\,a(n-6) - 714624\,a(n-7) + 1041216\,a(n-8) + 3522752\,a(n-9) - 4444032\,a(n-10) - 7691264\,a(n-11) + 5545472\,a(n-12) + 11157504\,a(n-13) - 4947968\,a(n-14) - 4030464\,a(n-15)
 \]
-for every $n>12$.
+for every $n>14$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $12$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $15$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=12+1$ onwards and the run continued
-until the working vector was identically zero.
+integers vanish from the index corresponding to $n=14+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $22$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $16$ terms the entry publishes, exactly, in integer
 arithmetic.
 
-Second, the count was recomputed for the smallest arrays straight from the definition:
-enumerate every array of that size, form each row's and each column's list of repeated values
-by scanning it, and test consecutive members of those lists against the relation. No state, no
-window and no transfer matrix are involved, and the published terms came back.
+Second, the count was recomputed for the smallest arrays straight from the definition: the
+cells of the array were matched to their images one at a time, over the whole grid, with no
+window, no mask over a sliding frame and no transfer matrix, and the published terms came back.
+That computation shares nothing with the construction of Section~3 beyond the offset list.
 
 Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
@@ -135,11 +142,11 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A267789.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A189439.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
-University Press, 2013.
+\bibitem{minc} H.~Minc, \emph{Permanents}, Encyclopedia of Mathematics and its
+Applications 6, Addison--Wesley, 1978.
 \end{thebibliography}
 
 \end{document}

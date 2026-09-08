@@ -12,138 +12,142 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A255145: recovering a conjecture that is not written down}
+\title{The empirical recurrence for OEIS A302675, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{2 September 2026}
+\date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A255145 records ``Empirical recurrence of order $76$'', with the recurrence itself in a
-linked file rather than in the entry. The conjecture can nevertheless be settled, and the
-recurrence recovered, without reading that file. The entry counts arrays under a condition
-local to a bounded window of lines, so the count is a walk count on a finite digraph and
-satisfies some monic recurrence of order at most the number of its states with distinct
-futures, here $S'=80$; Berlekamp--Massey applied to $2S'$ exact
-terms therefore returns the MINIMAL such recurrence. Its order is exactly $76$, the order
-the entry states, and the same is true of every tail of the sequence. Any recurrence of order
-$76$ that the sequence satisfies from any point on must then have a characteristic
-polynomial that is a multiple of the minimal one and of the same degree, hence equal to it. So
-the entry's recurrence is the one displayed here, whatever its file contains, and it is
-proved.
+OEIS A302675 counts $3$-column arrays over $\{0,\dots,1\}$ in which every entry has,
+among the six horizontal, diagonal and antidiagonal neighbours, a number $equal to$ itself lying in $\{0,1,4,6\}$, and it carries an empirical
+recurrence of order $2$ contributed by R.~H.~Hardin. It is true. The neighbourhood
+reaches one row up and one row down, so the condition on a row involves three consecutive
+rows and a window of two rows is a sufficient state; the array is then a walk in a digraph
+on $S=64$ vertices. Unlike a plain walk count the boundary rows matter here --- the first
+row has nothing above it and the last nothing below --- so the count is
+$\mathbf{s}^{\!\top}P^{\,n-2}\mathbf{e}$ for genuine start and end vectors rather than
+all-ones. The conjectured recurrence is then annihilated exactly, in integer arithmetic.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B50, 15B36.\normalsize
 
-\section{A conjecture one cannot read}
+\section{The sequence and the conjecture}
 
-OEIS A255145 is ``Number of (n+2)X(4+2) 0..1 arrays with no 3x3 subblock diagonal sum 0 and no antidiagonal sum 0 and no row sum 1 and no column sum 1.''. It has offset $1$ and begins
+OEIS A302675 is ``Number of nX3 0..1 arrays with every element equal to 0, 1, 4 or 6 horizontally, diagonally or antidiagonally adjacent elements, with upper left element zero.''. It has offset
+$1$ and begins
 \[
-784, 4576, 29731, 190731, 1241971, 8173810, 53762469, 353508918,\ \dots
+3, 3, 8, 7, 11, 18, 29, 47,\ \dots
 \]
-The entry states:
-\begin{quote}
-Empirical recurrence of order 76 (see link above)
+The entry carries the following comment:
+\begin{quote}\small
+Empirical: a(n) = a(n-1) +a(n-2) for n>5
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jun 02 2025 11:38:55, revision 6) this is still
-recorded as empirical. The recurrence's coefficients are not in the entry text.
+As of the ``Last modified'' line on the live entry (Apr 11 2018 12:24:58, revision
+4) the statement is still recorded as empirical, and nothing on the entry
+records it as settled either way.
 
-\section{The count is a walk count}
+Written out, the claim is
+\begin{equation}\label{eq:conj}
+a(n)\;=\;a(n-1) + a(n-2)
+\end{equation}
+for all $n>5$.
 
-The entry's condition is local: it constrains a bounded window of consecutive lines of the
-array and nothing further. The admissible configurations of one such window are the vertices
-of a finite digraph, an edge joining $u$ to $v$ when $v$ may follow $u$, and an admissible
-array is exactly a walk. Hence, with $M$ the adjacency matrix on $S=1914$ vertices,
-$a(n)=\iota^{\!\top}M^{\,j(n)}\tau$ for a linear reindexing $j$ fixed by the entry's shape
-and checked against its published terms. States with the same future contribute identically to $\iota^{\!\top}M^n\tau$, so they may be merged without changing any count; merging leaves $S'=80$ of the $1914$, and it is that smaller bound the computation below uses. By the Cayley--Hamilton theorem $M^{S}$ is an
-integer combination of $I,M,\dots,M^{S-1}$, so:
+\section{The array as a walk, with boundary}
 
-\begin{lemma}\label{lem:cf}
-$a$ satisfies a monic linear recurrence with integer coefficients of order at most
-$S'=80$.
+For a cell of the array let its \emph{score} be the number of the six horizontal, diagonal and antidiagonal neighbours that lie inside
+the array and carry a value $equal to$ the cell's own. The entry's condition is that every cell
+has score in $\{0,1,4,6\}$. The entry also fixes the top-left entry to be $0$; that is a condition on the first row alone, so it restricts the start vector and nothing else.
+
+A cell's neighbourhood reaches at most one row up and one row down, so the scores of the
+cells of a row $s$ are determined by $s$ together with the row above and the row below.
+Take as state an ordered pair $(r,s)$ of rows, so $S=64$, and set
+\begin{itemize}
+\item $\mathbf{s}(r,s)=1$ when every cell of $r$ has score in $\{0,1,4,6\}$ \emph{with no row
+above $r$} and $r_1=0$, and $0$ otherwise;
+\item an edge $(r,s)\to(s,t)$ when every cell of $s$ has score in $\{0,1,4,6\}$ computed from
+$r$, $s$ and $t$;
+\item $\mathbf{e}(r,s)=1$ when every cell of $s$ has score in $\{0,1,4,6\}$ \emph{with no row
+below $s$}, and $0$ otherwise.
+\end{itemize}
+Let $P$ be the adjacency matrix of that edge relation.
+
+\begin{lemma}\label{lem:walk}
+$a(n)=\mathbf{s}^{\!\top}P^{\,n-2}\mathbf{e}$ for every $n\ge2$.
 \end{lemma}
 
-\section{Recovering the recurrence}
+\begin{proof}
+An array with $n$ rows is a sequence $r^{(1)},\dots,r^{(n)}$ of rows, and it is counted
+exactly when every one of its $n$ rows has all scores in $\{0,1,4,6\}$. Read the sequence as the
+walk $\bigl(r^{(1)},r^{(2)}\bigr)\to\bigl(r^{(2)},r^{(3)}\bigr)\to\cdots\to
+\bigl(r^{(n-1)},r^{(n)}\bigr)$, of length $n-2$. The condition on the first row is
+checked by $\mathbf{s}$ at the initial state, because a first row has no row above it; the
+condition on row $i$ for $2\le i\le n-1$ is checked by the edge entering
+$\bigl(r^{(i)},r^{(i+1)}\bigr)$, which sees exactly $r^{(i-1)}$, $r^{(i)}$ and
+$r^{(i+1)}$; and the condition on the last row is checked by $\mathbf{e}$ at the final
+state. Each row's condition is therefore tested once and with the correct neighbours, and
+summing over all walks gives $\mathbf{s}^{\!\top}P^{\,n-2}\mathbf{e}$.
+\end{proof}
 
-\begin{lemma}\label{lem:bm}
-A sequence known to satisfy some linear recurrence of order at most $S$ is determined, together
-with its minimal recurrence, by its first $2S$ terms: Berlekamp--Massey applied to them returns
-that minimal recurrence exactly.
+\section{The criterion}
+
+Let $q(t)=t^{2}-\sum_i c_i t^{2-i}$ be the characteristic polynomial of
+\eqref{eq:conj} and $u_j=\mathbf{s}^{\!\top}P^{j}q(P)\mathbf{e}$.
+
+\begin{lemma}\label{lem:crit}
+$a(n)-\sum_i c_i a(n-i)=u_{\,n-2-2}$ whenever $n-2\ge2$. So \eqref{eq:conj}
+holds for every $n>t$ exactly when $u_j=0$ for all $j>t-2-2$. Moreover $(u_j)$
+satisfies the monic linear recurrence given by the characteristic polynomial of $P$, of
+degree $S$, so $S$ consecutive zeros force every later one and the last nonzero $u_j$ pins
+$t$ down exactly.
 \end{lemma}
 
-Running it on $2S'=160$ exact terms of the model returns order $76$ --- the order the
-entry states --- with the integer coefficients
-\[
-a(n)\;=\;\sum_{i=1}^{76}c_i\,a(n-i),
-\]
-\begin{center}\small
-\begin{tabular}{cccccccc}
-$c_{1}$ & $5$ & $c_{20}$ & $162600038$ & $c_{39}$ & $-27734688425$ & $c_{58}$ & $291850215$ \\
-$c_{2}$ & $5$ & $c_{21}$ & $398605209$ & $c_{40}$ & $-7878847991$ & $c_{59}$ & $-105076206$ \\
-$c_{3}$ & $86$ & $c_{22}$ & $299728823$ & $c_{41}$ & $18992372243$ & $c_{60}$ & $-180988013$ \\
-$c_{4}$ & $-146$ & $c_{23}$ & $-433643217$ & $c_{42}$ & $32202769038$ & $c_{61}$ & $-97591309$ \\
-$c_{5}$ & $-979$ & $c_{24}$ & $-1415720346$ & $c_{43}$ & $23223954918$ & $c_{62}$ & $-15938954$ \\
-$c_{6}$ & $-2643$ & $c_{25}$ & $-1472275291$ & $c_{44}$ & $-441443568$ & $c_{63}$ & $16717834$ \\
-$c_{7}$ & $830$ & $c_{26}$ & $370938986$ & $c_{45}$ & $-20418308559$ & $c_{64}$ & $15123914$ \\
-$c_{8}$ & $31120$ & $c_{27}$ & $3439905869$ & $c_{46}$ & $-23418175725$ & $c_{65}$ & $5796118$ \\
-$c_{9}$ & $72561$ & $c_{28}$ & $4905066585$ & $c_{47}$ & $-11161229102$ & $c_{66}$ & $-56492$ \\
-$c_{10}$ & $-11229$ & $c_{29}$ & $2002634231$ & $c_{48}$ & $4949160558$ & $c_{67}$ & $-1224058$ \\
-$c_{11}$ & $-491986$ & $c_{30}$ & $-4973105229$ & $c_{49}$ & $12728907076$ & $c_{68}$ & $-612268$ \\
-$c_{12}$ & $-1172995$ & $c_{31}$ & $-10928113888$ & $c_{50}$ & $10228175512$ & $c_{69}$ & $-143528$ \\
-$c_{13}$ & $-101007$ & $c_{32}$ & $-9671183640$ & $c_{51}$ & $2350485220$ & $c_{70}$ & $62664$ \\
-$c_{14}$ & $5414867$ & $c_{33}$ & $1265555282$ & $c_{52}$ & $-3476112990$ & $c_{71}$ & $27088$ \\
-$c_{15}$ & $11540991$ & $c_{34}$ & $15219111933$ & $c_{53}$ & $-4641102276$ & $c_{72}$ & $6696$ \\
-$c_{16}$ & $3052797$ & $c_{35}$ & $21532298419$ & $c_{54}$ & $-2420293052$ & $c_{73}$ & $-200$ \\
-$c_{17}$ & $-36517085$ & $c_{36}$ & $11692078687$ & $c_{55}$ & $40901875$ & $c_{74}$ & $-1456$ \\
-$c_{18}$ & $-80711624$ & $c_{37}$ & $-9418854814$ & $c_{56}$ & $1132983687$ & $c_{75}$ & $48$ \\
-$c_{19}$ & $-39106828$ & $c_{38}$ & $-27915138627$ & $c_{57}$ & $915679287$ & $c_{76}$ & $96$ \\
-\end{tabular}
-\end{center}
+\begin{proof}
+Substituting Lemma~\ref{lem:walk} and factoring $P^{\,n-2-2}$ out of
+$P^{n-2}-\sum_i c_i P^{n-i-2}$ gives the identity, and letting the exponent run gives the
+equivalence. For the last part, Cayley--Hamilton gives $\chi(P)=0$ for the characteristic
+polynomial $\chi$, so $\chi$ applied to the shift annihilates $(u_j)$; $\chi$ is monic of
+degree $S$, which propagates $S$ consecutive zeros forward.
+\end{proof}
+
+\section{The computation}
 
 \begin{theorem}
-The recurrence above holds for every $n$, and it is the recurrence the entry records.
+The recurrence \eqref{eq:conj} holds for every $n>5$. This is the statement of
+Section~1.
 \end{theorem}
 
 \begin{proof}
-It holds by Lemma~\ref{lem:bm}, which returns a recurrence the sequence satisfies from its
-first term. For the identification: the entry asserts that the sequence satisfies SOME
-recurrence of order $76$, possibly only from some index on. Let $q$ be that recurrence's
-characteristic polynomial and $q_{\min}$ the minimal polynomial of the tail of the sequence.
-Then $q_{\min}\mid q$. Berlekamp--Massey run on the sequence with its first $76+4$ terms
-removed returns order $76$ as well, so $\deg q_{\min}=76=\deg q$; both are monic, so
-$q=q_{\min}$, which is the polynomial computed above.
+The vector $q(P)\mathbf{e}\in\mathbb{Z}^{S}$ was formed by $2$ matrix--vector
+products in exact integer arithmetic and the $u_j$ evaluated against $\mathbf{s}$ in turn.
+They vanish from the index corresponding to $n=5+1$ onwards, and the run was continued
+past $S$ consecutive zeros, which by Lemma~\ref{lem:crit} settles every larger index.
 \end{proof}
 
 \section{Verification}
 
-Three checks.
+Three checks, each independent of the algebra above.
 
-First, the walk model reproduces all $18$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry, and it is the only place where reading
-the entry's English enters.
+First, the digraph, the start vector and the end vector were built directly from the
+entry's stated condition, the one-row count computed separately, and the resulting values
+compared against the entry's DATA at every one of the $37$ published indices; they
+agree exactly. This is the check that ties the model to the sequence, and it is a sharp one:
+getting the boundary rows wrong, or treating them as interior rows, changes the early terms
+immediately.
 
-Second, the recovered recurrence was evaluated directly on those published terms, with no
-matrices and no Berlekamp--Massey involved, and holds at every index where the entry gives
-enough earlier terms to test it.
+Second, the recurrence \eqref{eq:conj} was evaluated on those published terms in exact
+integer arithmetic, with no matrices involved, and vanishes at every index the entry claims.
 
-Third, the order was computed twice by independent routes: once modulo a $61$-bit prime, where
-every intermediate is a machine word, and once in exact rational arithmetic; and once more on
-the sequence with its first $76+4$ terms removed, which is what the identification above
-requires. All three agree.
-
-\begin{remark}
-What is unusual here is that the conjecture's statement was never read. The entry pins it down
-to a one-parameter family --- the recurrences of order $76$ that this sequence satisfies
---- and that family turns out to have exactly one member.
-\end{remark}
+Third, the vanishing test of Lemma~\ref{lem:crit} was carried past $S=64$ consecutive
+zeros rather than to a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A255145.
-\bibitem{massey} J.~L.~Massey, Shift-register synthesis and BCH decoding, \emph{IEEE
-Trans. Inform. Theory} \textbf{15} (1969), 122--127.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A302675.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+University Press, 2009.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

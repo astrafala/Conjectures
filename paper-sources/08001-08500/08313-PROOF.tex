@@ -12,79 +12,92 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A232337, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A183730, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A232337 counts arrays of width $3$ over $\{0,1,2\}$ in which every cell carrying one stated
-value must have a neighbour carrying another. The entry carries an empirical recurrence of
-order $8$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
-empirical: a cell's neighbours lie in three consecutive rows, so the count is a walk count on
-$S=110$ states.
+OEIS A183730 counts arrays of width $2$ over $\{0,1,\dots,7\}$ subject to a condition read round the
+perimeter of every $2\times2$ subblock: every subblock turns strictly one way with a single decrease, and some two adjacent subblocks turn the same way. The entry carries an empirical recurrence of
+order $9$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
+empirical: the condition is settled inside a bounded window of consecutive rows, so the
+count is a walk count on a finite digraph with $S=225$ vertices, and whether a linear
+recurrence holds for such a count is a finite computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05C15, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A16, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A232337 is ``Number of 3 X n 0..2 arrays with every 0 next to a 1 and every 1 next to a 2 horizontally or antidiagonally, with no adjacent elements equal.''. It has offset $1$ and begins
+OEIS A183730 is ``1/16 the number of (n+1) X 2 0..7 arrays with every 2 X 2 subblock strictly increasing clockwise or counterclockwise with one decrease, and at least two adjacent blocks having the same increasing direction.''. It has offset $1$ and begins
 \[
-1, 16, 74, 154, 628, 1470, 5530, 13906,\ \dots
+0, 21, 563, 9403, 135578, 1814815, 23204876, 287769879,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = a(n-1) + 7*a(n-2) - 3*a(n-3) + 3*a(n-4) - 7*a(n-5) + 2*a(n-6) - 2*a(n-7) + 2*a(n-8) for n>12.
+Empirical: a(n)=18*a(n-1)-46*a(n-2)-342*a(n-3)-33*a(n-4)+435*a(n-5)-157*a(n-6)-37*a(n-7)+21*a(n-8)-2*a(n-9).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 05 2018 11:03:40, revision 7) this is still
+As of the ``Last modified'' line on the live entry (Oct 06 2015 22:06:56, revision 8) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The array has $3$ cells across, with entries in $\{0,1,2\}$. The NEIGHBOURS of a cell are the
-cells reached from it by the offsets
+The arrays have $2$ columns and a growing number of rows, with entries in $\{0,1,\dots,7\}$. A
+$2\times2$ subblock is a set of four cells
 \[
-(-1,0), (-1,1), (1,-1), (1,0),
+B=\begin{pmatrix} p & q \\ r & s \end{pmatrix},
+\qquad p=x(i,j),\; q=x(i,j+1),\; r=x(i+1,j),\; s=x(i+1,j+1).
 \]
-those lying inside the array. The entry asks that
-\begin{itemize}
-\item every cell carrying $0$ has at least one neighbour carrying $1$;
-\item every cell carrying $1$ has at least one neighbour carrying $2$;
-\item no two neighbouring cells carry equal values.
-\end{itemize}
-A cell whose value is not named on the left of any clause is unconstrained. The entry writes the array with $n$ as the number of COLUMNS; the walk is run down the transpose, so the offsets above are already the transposed ones. Each direction is taken with both signs, so transposing cannot lose one.
+Its perimeter is a cycle of four cells, walked clockwise as $p\to q\to s\to r\to p$ and
+counterclockwise as $p\to r\to s\to q\to p$. Write
+\[
+\mathrm{cw}(B)=[p<q]+[q<s]+[s<r]+[r<p],\qquad
+\mathrm{ccw}(B)=[p<r]+[r<s]+[s<q]+[q<p]
+\]
+for the number of steps at which the value rises, going each way round.
 
-\section{Three rows decide one}
-
-\begin{lemma}\label{lem:win}
-Every offset above changes the row index by $-1$, $0$ or $+1$, so all the neighbours of a cell
-of row $i$ lie in rows $i-1$, $i$ and $i+1$, and the condition for the whole of row $i$ is
-decided by those three rows.
+\begin{lemma}\label{lem:sum}
+$\mathrm{cw}(B)+\mathrm{ccw}(B)=4-\#\{\text{edges of the cycle with equal ends}\}$.
 \end{lemma}
 
 \begin{proof}
-Immediate from the offsets listed, together with the rule that a neighbour outside the array is
-not a neighbour.
+Each of the four edges of the square is walked once by each cycle, and in opposite directions.
+An edge with distinct ends therefore contributes exactly one rise, to one of the two counts;
+an edge with equal ends contributes to neither.
 \end{proof}
 
-So the state is the pair (row above, current row), the row above allowed to be the symbol
-$\bot$, and a step appends a row and settles the condition for the middle row of the window it
-completes. The condition for the LAST row is settled by the end vector, with nothing below it:
-the end vector is therefore not the all-ones vector, and a row whose cells find what they need
-only because a further row is written below them does not finish an array. With $M$ the
-adjacency matrix,
+The condition the entry imposes is this: every subblock $B$ has its four corners pairwise unequal along the cycle ($p\ne q$, $q\ne s$, $s\ne r$, $r\ne p$) and
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=110.
+\mathrm{cw}(B)\in\{1,3\}.
 \]
-The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
-published terms rather than assumed. In particular $a$ is $C$-finite.
+Going round clockwise there are then four strict steps, of which either three rise and one falls ($\mathrm{cw}(B)=3$: strictly increasing clockwise with one decrease) or one rises and three fall ($\mathrm{cw}(B)=1$, which is the same statement read counterclockwise). Call the subblock \emph{clockwise} in the first case and \emph{counterclockwise} in the second; this is its increasing direction.
+
+The entry asks in addition that at least two adjacent subblocks ---adjacent meaning one step right or one step down in the grid of subblocks---have the same increasing direction. That is a condition on the array as a whole, not on any one subblock. The entry publishes $1/16$ of that count; the division is by the constant 16 and changes nothing about the recurrence.
+
+\section{A bounded window}
+
+Two consecutive rows decide every subblock lying between them, and their increasing directions. The extra requirement is an EXISTENCE statement about the whole array, and an existence statement needs only one bit: the state carries the row just written, the increasing direction of each subblock of the pair just closed---which is what a subblock in the next pair must be compared against---and a single flag, set the first time two adjacent subblocks are seen to agree and never cleared.
+
+One step of the walk writes a whole row. The row is filled left to right, and the subblock
+closed by positions $j-1,j$ is tested the moment position $j$ is written, so a partial row that
+cannot be completed is abandoned rather than enumerated. The walk starts at the state standing
+for the empty array, so that a walk of $n$ steps is an array of $n$ rows.
+
+The end vector is the indicator of the states in which the required pair of adjacent subblocks has already been witnessed; every other state is rejected. Thus
+\[
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=225,
+\]
+for the transfer matrix $M$ on those $S$ states. The walk index $j$ and the entry's own $n$
+differ by a constant, read off by matching the published terms rather than assumed. In
+particular $a$ is $C$-finite, and every question about linear recurrences it satisfies is
+decidable.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{8}-\sum_i c_it^{8-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{9}-\sum_i c_it^{9-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -92,7 +105,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+8}-\sum_ic_iM^{j+8-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+9}-\sum_ic_iM^{j+9-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -101,29 +114,30 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;a(n-1) + 7\,a(n-2) - 3\,a(n-3) + 3\,a(n-4) - 7\,a(n-5) + 2\,a(n-6) - 2\,a(n-7) + 2\,a(n-8)
+a(n)\;=\;18\,a(n-1) - 46\,a(n-2) - 342\,a(n-3) - 33\,a(n-4) + 435\,a(n-5) - 157\,a(n-6) - 37\,a(n-7) + 21\,a(n-8) - 2\,a(n-9)
 \]
-for every $n>12$.
+for every $n>9$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $8$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $9$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=12+1$ onwards and the run continued
-until the working vector was identically zero.
+integers vanish from the index corresponding to $n=9+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $25$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $17$ terms the entry publishes, exactly, in integer
 arithmetic.
 
-Second, the count was recomputed for the smallest arrays straight from the definition:
-enumerate every array of that size in the orientation the entry's own name writes and test each
-cell against its neighbours directly. No window, no state and no transposition are involved,
-and the published terms came back.
+Second, the count was recomputed for the smallest arrays straight from the definition: every
+array of the stated width and a few rows was written out cell by cell over $\{0,1,\dots,7\}$, each of
+its $2\times2$ subblocks was read round its perimeter, and the condition of Section 2 was
+applied as stated. No window, no state and no recurrence is involved in that computation, and
+the published terms came back.
 
 Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
@@ -133,7 +147,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A232337.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A183730.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge

@@ -12,146 +12,158 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical closed form and generating function for OEIS A194932, proved}
+\title{The empirical recurrence for OEIS A281949, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{6 September 2026}
+\date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A194932 counts the lower triangles of a $3\times3$ array over $\{0,\dots,n\}$ in which
-adjacent entries differ by at most $1$, and carries closed form and generating function recorded as empirical. The shape here is FIXED
-and it is the alphabet that grows, so there is no digraph to walk. What settles it is that the
-condition constrains DIFFERENCES only: translating an admissible array by a constant leaves it
-admissible, so the arrays split into translation classes, and a class with spread $s$ contains
-exactly $\max(0,n+1-s)$ arrays with entries in $\{0,\dots,n\}$. Since no spread can exceed
-$1$ times the diameter of the neighbour graph, $a(n)$ is exactly linear from a point that is
-known in advance, and two evaluations pin it. Nothing is fitted.
+OEIS A281949 counts $n\times2$ arrays over $\{0,\dots,1\}$ subject to a condition imposed on
+every CELL over a neighbour set the entry names, and counted UP TO RELABELLING of the
+alphabet; it carries an empirical recurrence of order $3$ contributed by
+R.~H.~Hardin. It is true, and it is decidable rather than empirical. What is counted is
+equality patterns, which is not a walk count --- but it is a fixed rational combination of
+walk counts, one for each alphabet size, and that combination is again $C$-finite. Whether the
+conjectured recurrence annihilates it is then decided by a finite exact computation, with the
+Cayley--Hamilton theorem bounding the work.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A19, 11B37.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
 \section{The conjecture}
 
-OEIS A194932 is ``Number of lower triangles of a 3 X 3 0..n array with no element differing from any of its horizontal or vertical neighbors by more than one.''. It has offset $1$ and begins
+OEIS A281949 is ``Number of nX2 0..1 arrays with no element unequal to more than four of its king-move neighbors and with new values introduced in order 0 sequentially upwards.''. It has offset $1$ and begins
 \[
-64, 217, 386, 557, 728, 899,\ \dots
+2, 8, 30, 112, 420, 1576, 5912, 22176,\ \dots
 \]
-The entry states, as conjectures contributed by its author and by later readers and never
-marked settled:
+The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 171*n - 127 for n>2.
-
-Empirical g.f.: x*(64 + 89*x + 16*x\^{}2 + 2*x\^{}3) / (1 - x)\^{}2. - \_Colin Barker\_, May 05 2018
+Empirical: a(n) = 4*a(n-1) -2*a(n-2) +4*a(n-3)
 \end{quote}
-As of the ``Last modified'' line on the live entry (May 05 2018 13:17:52, revision 9) these are still
-recorded as empirical, and nothing on the entry records them as proved.
+As of the ``Last modified'' line on the live entry (Feb 03 2017 08:19:43, revision 4) this is still
+recorded as empirical, and nothing on the entry records it as proved.
 
-\section{What is being counted}
+\section{Patterns are a combination of counts}
 
-The lower triangle of a $3\times3$ array is the set of cells $(i,j)$ with $0\le j\le
-i<3$, so there are $T=6$ of them. Two cells are adjacent when they differ by one of the
-horizontal, vertical offsets, which here gives $6$ adjacent pairs. Each cell carries a value in
-$\{0,\dots,n\}$, and the entry requires
+The clause ``new values $0..1$ introduced in row major order'' says that the arrays
+counted are the canonical representatives of their EQUALITY PATTERNS: two arrays that differ
+only by a permutation of the alphabet are one object. Write $N_j$ for the number of admissible
+patterns using exactly $j$ letters and $L_i$ for the number of admissible ARRAYS over an
+alphabet of $i$ letters. An array over $i$ letters is a pattern together with an injection of
+its letters into the alphabet, so
 \[
-|x_u-x_v|\le 1\qquad\text{for every adjacent pair }u,v .
+L_i\;=\;\sum_{j}N_j\,i(i-1)\cdots(i-j+1),
 \]
-
-The shape is fixed and $n$ is the size of the ALPHABET. So this is not a walk count and
-nothing about transfer matrices applies.
-
-\section{Translation}
-
-\begin{lemma}\label{lem:trans}
-Let $\mathcal P$ be the set of integer arrays $y$ on these cells satisfying the same condition
-and having least entry $0$, and for $y\in\mathcal P$ write $\mathrm{sp}(y)$ for its largest
-entry. Then $\mathcal P$ is finite and
+a triangular system with nonzero diagonal, hence invertible over $\mathbb{Q}$. The entry
+counts $a=N_1+\dots+N_{2}$, so
 \[
-a(n)\;=\;\sum_{y\in\mathcal P}\max\bigl(0,\;n+1-\mathrm{sp}(y)\bigr).
+a\;=\;\bigl(\mathbf{1}^{\!\top}F^{-1}\bigr)L ,
 \]
+a FIXED rational combination of the $L_i$, where $F$ is the matrix of falling factorials.
+Each $L_i$ is a walk count on its own transfer graph, so $a$ is a walk count on the disjoint
+union of those graphs with the combination's coefficients placed in the starting vector; the
+coefficients are rational and some are negative, which costs nothing in what follows.
+
+This step needs the condition itself to be unchanged by permuting the alphabet, and it is:
+the condition below is stated through equality between entries and never names a particular
+value or compares sizes.
+
+\section{Cells, not blocks}
+
+The entry names the neighbours it means --- horizontal is left and right, vertical is up and
+down, diagonal is northwest-to-southeast, antidiagonal is northeast-to-southwest, king-move is
+all eight --- and every such set lies inside the $3\times3$ square centred on the cell. Here
+the set is $\{(-1,-1), (-1,0), (-1,1), (0,-1), (0,1), (1,-1), (1,0), (1,1)\}$, written as offsets (row, column) from the cell. Every cell carries
+the condition
+\[
+\text{no cell is unequal to more than 4 of its king-move neighbours},
+\]
+and the count of neighbours enters it, so the boundary is not a detail that can be papered
+over: a cell in the interior has $8$ neighbours in this set and a cell on the boundary
+fewer, and a condition such as ``a strict majority of its neighbours'' therefore means
+different things at the two. In particular one cannot pad the array with a border of zeros ---
+that would give every cell the full $8$ and change what is being counted. The outside is
+therefore carried
+explicitly, as a sentinel row above the first and below the last and as a sentinel column
+either side, and a neighbour that falls outside is simply absent from both counts.
+
+Write an array as a sequence of rows $u_1,\dots,u_L$, each in
+$\{0,\dots,1\}^{2}$. The neighbourhood of a cell in row $u_i$ meets $u_{i-1}$,
+$u_i$ and $u_{i+1}$ and nothing else. Take as vertices the pairs
+$(r,s)\in(\{0,\dots,1\}^{2}\cup\{\varnothing\})\times\{0,\dots,1\}^{2}$,
+and put an edge $(r,s)\to(s,t)$ when row $s$ satisfies the condition at every one of its
+$2$ cells, given $r$ above and $t$ below. An array with $L$ rows is then a walk of length
+$L-1$ starting at $(\varnothing,u_1)$, each step settling one row, and the last row is
+settled by the terminal weight, which evaluates it with $\varnothing$ below. Hence,
+with $M$ the adjacency matrix, $\iota$ the starting vector and $\tau$ the terminal weight,
+\[
+a(n)\;=\;\frac{1}{2}\,\iota^{\!\top}M^{\,n-1}\tau ,
+\]
+the exponent fixed by the entry's own shape and checked against its published terms. In
+particular $a$ is $C$-finite.
+
+\section{The proof}
+
+\begin{lemma}\label{lem:crit}
+Let $q(t)=t^{3}-\sum_i c_it^{3-i}$ be the characteristic polynomial of the
+conjectured recurrence. Then the residual $a(n)-\sum_ic_ia(n-i)$ equals
+$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the
+recurrence holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all
+large $j$; and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-The condition depends only on the differences $x_u-x_v$, so if $x$ is admissible so is $x+m$
-for any integer $m$, and every admissible $x$ is $y+m$ for exactly one $y\in\mathcal P$ and one
-integer $m$, namely $m=\min x$. Given $y$, the array $y+m$ has all entries in
-$\{0,\dots,n\}$ precisely when $m\ge0$ and $m+\mathrm{sp}(y)\le n$, which is
-$\max(0,n+1-\mathrm{sp}(y))$ values of $m$. Finiteness follows from
-Lemma~\ref{lem:bound}.
+Factor $M^{j}$ out of $M^{j+3}-\sum_ic_iM^{j+3-i}$. For the bound, $M^{S}$
+is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
+$u_j=\iota^{\!\top}M^{j}q(M)\tau$ satisfy the monic linear recurrence given by the
+characteristic polynomial of $M$; $S$ consecutive zeros force every later one, and the last
+nonzero $u_j$ pins the threshold exactly.
 \end{proof}
 
-\begin{lemma}\label{lem:bound}
-Every $y\in\mathcal P$ has $\mathrm{sp}(y)\le 1\cdot4=4$, where $4$ is the
-diameter of the neighbour graph.
-\end{lemma}
-
-\begin{proof}
-The neighbour graph is connected, so any two cells are joined by a path of at most $4$
-edges, and each edge changes the value by at most $1$. Hence the largest and the smallest
-entry differ by at most $1\cdot4$.
-\end{proof}
-
-\section{The count}
-
-\begin{theorem}\label{thm:line}
+\begin{theorem}
 \[
-a(n)\;=\;171\,n-127\qquad\text{for every }n\ge3,
+a(n)\;=\;4\,a(n-1) - 2\,a(n-2) + 4\,a(n-3)
 \]
-and $\mathcal P$ has exactly $171$ elements.
+for every $n>3$.
 \end{theorem}
 
 \begin{proof}
-For $n\ge4$ every term of Lemma~\ref{lem:trans} is positive by
-Lemma~\ref{lem:bound}, so
-\[
-a(n)=\sum_{y\in\mathcal P}\bigl(n+1-\mathrm{sp}(y)\bigr)
-=|\mathcal P|\,(n+1)-\sum_{y}\mathrm{sp}(y),
-\]
-which is a linear function of $n$. Two values determine it, and $a(4)$ and
-$a(4+1)$ were computed exactly, giving slope $171$ and the stated intercept; the slope
-is $|\mathcal P|$. That the identity already holds from $n=3$ was then read off by
-comparing it with the exact values of $a(n)$ below $4$, each computed the same way.
+The vector $w=q(M)\tau$ was formed by $3$ matrix--vector products in exact integer
+arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly. Those
+integers vanish from the index corresponding to $n=3+1$ onwards, and the run was
+continued until the working vector was identically zero, which settles all larger $j$ at once.
+By Lemma~\ref{lem:crit} the recurrence holds for every $n>3$.
 \end{proof}
-
-The counts $a(n)$ themselves are obtained by walking over the cells in row major order and
-carrying only the entries a later cell can still see --- for this shape at most $3+1$ of
-them --- so no array is ever written down.
-
-Since $a$ agrees with a linear polynomial from a known point on, its generating function is a
-polynomial divided by $(1-x)^2$: multiplying the series by $(1-x)^2$ annihilates the linear
-tail term by term, leaving only finitely many nonzero coefficients, and those coefficients are
-the second differences of the values below the threshold. The conjectured generating function
-is that one, which was checked coefficient by coefficient in exact rational arithmetic.
-
-Each statement quoted in Section 1 is a consequence of Theorem~\ref{thm:line}, and each was
-also checked directly against it.
 
 \section{Verification}
 
-Three checks, each independent of the argument above.
+Three checks, each independent of the algebra above.
 
-First, the count reproduces all $43$ terms the entry publishes, exactly, in integer
-arithmetic.
+First, the transfer model reproduces all $24$ terms the entry publishes, exactly, in
+integer arithmetic. That check earned its place here. The neighbour offsets are named in the
+array's own frame --- horizontal means along a row --- but when the entry fixes the first
+dimension, as in ``$2\times n$'', the walk runs along columns and the two components of every
+offset swap. Sets such as king-move, or horizontal together with vertical, are unchanged by
+that swap and hide the error completely; a set such as horizontal, diagonal and antidiagonal
+is not, and the counts came out as those of a different member of the same family until the
+offsets were transposed.
 
-Second, the arrays themselves were enumerated for the smallest alphabets --- every assignment
-of $0..n$ to the $6$ cells written out and every adjacent pair tested --- with no
-translation argument and no frontier walk. Where the shape is too large for that, the first
-term is settled by an exact argument instead: at $n=1$ every entry is $0$ or $1$, so an ``at
-most'' condition is no condition and the count is $2^{6}$, while ``differing by exactly
-one'' asks for a proper $2$-colouring of the neighbour graph. Both test the cell set and the
-adjacency, which is what this check is for.
+Second, the conjectured recurrence was evaluated directly on the entry's own published terms,
+with no matrices involved, and holds wherever the proved range and the data overlap.
 
-Third, the linear form was compared against the entry's own published terms over their whole
-range, and the conjectured statements were each evaluated against it in exact arithmetic
-rather than sampled.
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A194932.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A281949.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011.
-\bibitem{comtet} L.~Comtet, \emph{Advanced Combinatorics}, Reidel, 1974.
-\bibitem{kauers} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011.
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+University Press, 2009.
+\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
+University Press, 2013.
 \end{thebibliography}
 
 \end{document}

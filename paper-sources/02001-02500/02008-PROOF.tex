@@ -12,149 +12,139 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical closed form for OEIS A238808, proved}
+\title{The empirical recurrence for OEIS A205316, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{1 September 2026}
+\date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A238808 carries an empirical closed form for $a(n)$ --- not a recurrence relating
-consecutive terms but an explicit formula. It is true, and it is decidable rather than
-empirical. The entry counts arrays subject to a condition on a bounded window of consecutive lines, so the lines of an array are the
-vertices of a finite digraph, an array is a walk in it, and $a(n)$ is a walk count on
-$S=81$ vertices. Any function of the form $\sum_j p_j(n)\lambda_j^{\,n}$ satisfies the
-monic linear recurrence whose characteristic polynomial is
-$\prod_j(x-\lambda_j)^{\deg p_j+1}$; here that polynomial is $q(x)=(x-1)^{11}$, of degree
-$11$. Two things are then checked exactly: that the walk count satisfies the same
-recurrence from some index on, which the Cayley--Hamilton theorem reduces to a finite
-computation, and that the two sequences agree at $11$ consecutive indices past that
-point. A monic recurrence determines every later term from its predecessors, so agreement
-there is agreement for good.
+OEIS A205316 counts, up to renaming the letters, the arrays of width $7$ over at most $2$
+letters in which all the $2\times2$ subblocks of one array have the SAME number of equal edges, an equal edge being one of the four perimeter edges whose two cells agree; the common value is not named, so the count splits by it. It carries an empirical recurrence of order $14$ contributed by
+R.~H.~Hardin. It is true, and it is decidable rather than empirical. Counting up to renaming is
+a fixed rational combination of ordinary array counts, each of those is a walk count, and the
+conjectured recurrence is then settled by a finite exact computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A18, 05B45.\normalsize
 
 \section{The conjecture}
 
-OEIS A238808 is ``Number of n X 4 0..2 arrays with no element equal to one plus the sum of elements to its left or one plus the sum of the sum of elements above it, modulo 3.''. It has offset $1$ and begins
+OEIS A205316 is ``Number of (n+1)X7 0..1 arrays with every 2X2 subblock having the same number of equal edges, and new values 0..1 introduced in row major order.''. It has offset $1$ and begins
 \[
-5, 25, 118, 468, 1501, 4167, 10423, 24115,\ \dots
+1460, 35500, 882182, 22091516, 554916092, 13956665238, 351210375464, 8839958693704,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = (1/302400)*n\^{}10 - (13/90720)*n\^{}9 + (37/6720)*n\^{}8 - (451/3780)*n\^{}7 + (29063/14400)*n\^{}6 - (100891/4320)*n\^{}5 + (11871787/60480)*n\^{}4 - (25402589/22680)*n\^{}3 + (35075741/8400)*n\^{}2 - (2861612/315)*n + 8719 for n>4.
+Empirical: a(n) = 56*a(n-1) -1164*a(n-2) +12439*a(n-3) -78536*a(n-4) +314610*a(n-5) -829844*a(n-6) +1464316*a(n-7) -1728640*a(n-8) +1345964*a(n-9) -671600*a(n-10) +205552*a(n-11) -36416*a(n-12) +3392*a(n-13) -128*a(n-14)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 01 2021 16:45:41, revision 6) this is still
-recorded as empirical, and nothing on the entry records it as proved. Write
+As of the ``Last modified'' line on the live entry (Oct 03 2025 12:00:22, revision 9) this is still
+recorded as empirical, and nothing on the entry records it as proved.
+
+\section{What is being counted}
+
+The condition is that all the $2\times2$ subblocks of one array have the SAME number of equal edges, an equal edge being one of the four perimeter edges whose two cells agree; the common value is not named, so the count splits by it.
+
+The clause ``new values $0..1$ introduced in row major order'' says the array is the
+canonical representative of its EQUALITY PATTERN, so what is counted is patterns, not arrays.
+Write $N_j$ for the number of admissible patterns using exactly $j$ letters and $L_i$ for the
+number of admissible arrays over an alphabet of $i$ letters. An array over $i$ letters is a
+pattern together with an injection of its letters into the alphabet, so
 \[
-f(n)\;=\;\frac{n^{10}}{302400} - \frac{13 n^{9}}{90720} + \frac{37 n^{8}}{6720} - \frac{451 n^{7}}{3780} + \frac{29063 n^{6}}{14400} - \frac{100891 n^{5}}{4320} + \frac{11871787 n^{4}}{60480} - \frac{25402589 n^{3}}{22680} + \frac{35075741 n^{2}}{8400} - \frac{2861612 n}{315} + 8719.
+L_i\;=\;\sum_j N_j\,i(i-1)\cdots(i-j+1),
 \]
-
-\section{The count is a walk count}
-
-The entry's defining condition is local: it is a condition on a bounded window of consecutive lines. Take as vertices the
-admissible configurations of such a window and put an edge from $u$ to $v$ when $v$ may
-follow $u$, which the condition decides by inspection. An admissible array is then exactly a
-walk, so with $M$ the adjacency matrix of that digraph on $S=81$ vertices, and $u,w$ the
-vectors recording which windows may start and end an array,
+a triangular system with unit diagonal, hence invertible over $\mathbf{Q}$. The entry counts
+$a=N_1+\dots+N_{2}$, so
 \[
-a(n)\;=\;u^{\!\top}M^{\,g(n)}w
+a\;=\;\sum_{i=1}^{2}w_i\,L_i
 \]
-for the linear function $g$ that the entry's shape supplies. In particular $a$ is
-$C$-finite: it satisfies some monic integer linear recurrence, though not necessarily a short
-one.
+for one fixed rational vector $w=\mathbf{1}^{\!\top}F^{-1}$, $F$ the matrix of falling
+factorials.
 
-\section{A closed form is a recurrence}
+\section{Why the reduction is allowed here}
 
-\begin{lemma}\label{lem:ann}
-Let $f(m)=\sum_{j}p_j(m)\lambda_j^{\,m}$ with the $\lambda_j$ distinct and the $p_j$
-polynomials, and put $q(x)=\prod_j(x-\lambda_j)^{\deg p_j+1}$. Then $q$ applied to the shift
-operator annihilates $f$: writing $q(x)=x^{r}-\sum_{i=1}^{r}c_ix^{r-i}$,
+The step above is legitimate only if the condition is invariant under permuting the alphabet,
+and in this family that is a real restriction rather than a formality. An \emph{equal edge}
+is an edge of a subblock whose two cells carry the same letter; whether two cells agree is
+untouched by any renaming, so every condition built from counting equal edges is invariant and
+the reduction applies.
+
+The neighbouring conditions of the same family that count \emph{increases} --- how many steps
+of a subblock's perimeter cycle go UP in value --- are not invariant: they compare letters by
+size, and a permutation of the alphabet changes the count. Those entries are therefore excluded
+here rather than reduced, and are settled, when they are settled, over their own alphabet
+without the pattern step.
+
+\section{Each $L_i$ is a walk count}
+
+For a fixed alphabet the condition is local: a $2\times2$ subblock is built from two
+consecutive array rows, a $2\times3$ or $3\times2$ window from two or three of them, and every
+comparison the entry makes is between subblocks that meet in the grid. Taking as state a single
+row where the condition looks at one subblock at a time, and the pair of consecutive rows where
+it compares neighbours, each $L_i$ is a walk count on its own digraph. Assembling,
 \[
-f(m)\;=\;\sum_{i=1}^{r}c_i\,f(m-i)\qquad\text{for every }m.
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau
 \]
-\end{lemma}
-
-\begin{proof}
-The shift operator $E$ acts on $m\mapsto\lambda^{m}p(m)$ as
-$(E-\lambda)\bigl(\lambda^{m}p(m)\bigr)=\lambda^{m+1}\bigl(p(m+1)-p(m)\bigr)$, and
-$p(m+1)-p(m)$ has degree one less than $p$. So $(E-\lambda)^{\deg p+1}$ kills
-$\lambda^{m}p(m)$, and the factors of $q$ commute.
-\end{proof}
-
-Here $q(x)=(x-1)^{11}$, of degree $11$; the closed form is a polynomial in $n$, so this is $(x-1)^{11}$, and the recurrence it encodes is
-\begin{equation}\label{eq:rec}
-a(n)\;=\;11\,a(n-1) - 55\,a(n-2) + 165\,a(n-3) - 330\,a(n-4) + 462\,a(n-5) - 462\,a(n-6) + 330\,a(n-7) - 165\,a(n-8) + 55\,a(n-9) - 11\,a(n-10) + a(n-11).
-\end{equation}
+on the disjoint union of those digraphs for $i=1,\dots,2$, with $\iota$ carrying the weights
+$w_i$ cleared of denominators and $S=133$ states in all. The walk index $j$ and the entry's own
+$n$ differ by a constant, read off by matching the published terms rather than assumed. In
+particular $a$ is $C$-finite.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-With $q$ as above, $a$ satisfies \eqref{eq:rec} for all large $n$ if and only if
-$u^{\!\top}M^{\,j}q(M)w=0$ for every $j\ge0$, and it is enough to check $j<S$.
+Let $q(t)=t^{14}-\sum_i c_it^{14-i}$ be the characteristic polynomial of the
+conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
+$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
+holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
+and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Substituting the walk expression, the residual $a(n)-\sum_ic_ia(n-i)$ equals
-$u^{\!\top}M^{\,g(n)-r}q(M)w$ up to the fixed linear reparametrisation $g$. For the bound,
-$M^{S}$ is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the values
-$u^{\!\top}M^{j}q(M)w$ satisfy the monic recurrence given by the characteristic polynomial of
-$M$; $S$ consecutive zeros therefore force all later ones, and the last nonzero value pins the
-threshold exactly.
+Factor $M^{j}$ out of $M^{j+14}-\sum_ic_iM^{j+14-i}$. For the bound, $M^{S}$
+is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
+$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
+polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
+pins the threshold exactly.
 \end{proof}
 
 \begin{theorem}
-$a(n)=f(n)$ for every $n\ge5$.
+\[
+a(n)\;=\;56\,a(n-1) - 1164\,a(n-2) + 12439\,a(n-3) - 78536\,a(n-4) + 314610\,a(n-5) - 829844\,a(n-6) + 1464316\,a(n-7) - 1728640\,a(n-8) + 1345964\,a(n-9) - 671600\,a(n-10) + 205552\,a(n-11) - 36416\,a(n-12) + 3392\,a(n-13) - 128\,a(n-14)
+\]
+for every $n>13$.
 \end{theorem}
 
 \begin{proof}
-The vector $w'=q(M)w$ was formed by $11$ matrix--vector products in exact integer
-arithmetic, and $u^{\!\top}M^{j}w'$ evaluated for $j=0,1,\dots$, again exactly. Those integers
-vanish from the point corresponding to $n=16$ onwards, and the run was continued until the
-working vector was identically zero, which settles every larger $j$ at once. So $a$ satisfies
-\eqref{eq:rec} for every $n>15$. By Lemma~\ref{lem:ann} $f$ satisfies \eqref{eq:rec}
-identically. Both were then evaluated in exact arithmetic at the $11$ consecutive indices
-$n=16,\dots,26$ and agree at each. A monic recurrence of order $11$
-determines $a(m)$ from $a(m-1),\dots,a(m-11)$, and for every $m\ge27$ both
-$m>15$ and $m-11\ge16$ hold, so induction on $m$ gives $a(m)=f(m)$ for every
-$m\ge16$.
-Below $n=16$ the recurrence argument gives nothing, since \eqref{eq:rec} is only
-established for $a$ from $n=16$ on. The remaining indices $n=5,\dots,15$ were
-therefore checked one at a time, directly against the walk count in exact integer arithmetic,
-and agree.
+The vector $w=q(M)\tau$ was formed by $14$ matrix--vector products in exact integer
+arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
+integers vanish from the index corresponding to $n=13+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once. The
+rational weights are cleared by a common denominator first, so the whole computation is over
+the integers.
 \end{proof}
-
-The range is tight in the sense that was checked: at $n=4$ the closed form and the sequence differ, so no larger range is available.
 
 \section{Verification}
 
-Four checks, each independent of the algebra above.
+Three checks, each independent of the algebra above.
 
-First, the walk model reproduces every one of the $28$ terms the entry publishes,
-exactly, in integer arithmetic. This is what ties the model to the entry: the model is built
-by reading the entry's English, and a misreading gives a different digraph and different
-counts.
+First, the model reproduces all $14$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry: the digraph is built by reading the
+entry's English, and a misreading gives different counts.
 
-Second, the closed form was evaluated in exact rational arithmetic --- not floating point ---
-at every published term from $n=5$ on, and agrees with the entry's own DATA at each.
+Second, the conjectured recurrence was evaluated directly on those published terms, with no
+matrices involved, and holds wherever the proved range and the data overlap.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried out exactly, and the model
-and the closed form were then compared directly at sixty consecutive indices beyond
-$n=5$, far past where the proof already settles the matter.
-
-Fourth, the closed form was deliberately perturbed --- by a constant and by a term linear in
-$n$ --- and each perturbed form was rejected by the same comparison, so the test is not one
-that anything would pass.
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A238808.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A205316.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; $C$-finite sequences,
-Section 4.1.)
-\bibitem{kp} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011.
-(Closed forms and linear recurrences with constant coefficients.)
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{comtet} L.~Comtet, \emph{Advanced Combinatorics}, Reidel, 1974. (Set partitions
+and falling factorials.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

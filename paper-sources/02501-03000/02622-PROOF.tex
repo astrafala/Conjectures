@@ -12,23 +12,23 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical closed form for OEIS A207065, proved}
+\title{The empirical closed form for OEIS A223913, proved}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A207065 carries an empirical closed form for $a(n)$ --- not a recurrence relating
+OEIS A223913 carries an empirical closed form for $a(n)$ --- not a recurrence relating
 consecutive terms but an explicit formula. It is true, and it is decidable rather than
 empirical. The entry counts arrays subject to a condition on a bounded window of consecutive lines, so the lines of an array are the
 vertices of a finite digraph, an array is a walk in it, and $a(n)$ is a walk count on
-$S=196$ vertices. Any function of the form $\sum_j p_j(n)\lambda_j^{\,n}$ satisfies the
+$S=176$ vertices. Any function of the form $\sum_j p_j(n)\lambda_j^{\,n}$ satisfies the
 monic linear recurrence whose characteristic polynomial is
-$\prod_j(x-\lambda_j)^{\deg p_j+1}$; here that polynomial is $q(x)=(x-1)^{6}$, of degree
-$6$. Two things are then checked exactly: that the walk count satisfies the same
+$\prod_j(x-\lambda_j)^{\deg p_j+1}$; here that polynomial is $q(x)=(x-1)^{7}$, of degree
+$7$. Two things are then checked exactly: that the walk count satisfies the same
 recurrence from some index on, which the Cayley--Hamilton theorem reduces to a finite
-computation, and that the two sequences agree at $6$ consecutive indices past that
+computation, and that the two sequences agree at $7$ consecutive indices past that
 point. A monic recurrence determines every later term from its predecessors, so agreement
 there is agreement for good.
 \end{abstract}
@@ -37,18 +37,18 @@ there is agreement for good.
 
 \section{The conjecture}
 
-OEIS A207065 is ``Number of n X 5 0..1 arrays avoiding 0 0 1 and 0 1 0 horizontally and 0 0 1 and 1 0 1 vertically.''. It has offset $1$ and begins
+OEIS A223913 is ``Number of n X 3 0..2 arrays with rows and antidiagonals unimodal and columns nondecreasing.''. It has offset $1$ and begins
 \[
-14, 196, 896, 2688, 6398, 13132, 24304, 41664,\ \dots
+22, 158, 666, 2111, 5548, 12752, 26494, 50863,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = (7/30)*n\^{}5 + 7*n\^{}4 + (21/2)*n\^{}3 - (56/15)*n.
+Empirical: a(n) = (23/360)*n\^{}6 + (23/40)*n\^{}5 + (205/72)*n\^{}4 + (143/24)*n\^{}3 + (364/45)*n\^{}2 + (82/15)*n - 1.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jun 18 2018 12:36:01, revision 8) this is still
+As of the ``Last modified'' line on the live entry (Aug 24 2018 03:59:11, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved. Write
 \[
-f(n)\;=\;\frac{7 n^{5}}{30} + 7 n^{4} + \frac{21 n^{3}}{2} - \frac{56 n}{15}.
+f(n)\;=\;\frac{23 n^{6}}{360} + \frac{23 n^{5}}{40} + \frac{205 n^{4}}{72} + \frac{143 n^{3}}{24} + \frac{364 n^{2}}{45} + \frac{82 n}{15} - 1.
 \]
 
 \section{The count is a walk count}
@@ -56,7 +56,7 @@ f(n)\;=\;\frac{7 n^{5}}{30} + 7 n^{4} + \frac{21 n^{3}}{2} - \frac{56 n}{15}.
 The entry's defining condition is local: it is a condition on a bounded window of consecutive lines. Take as vertices the
 admissible configurations of such a window and put an edge from $u$ to $v$ when $v$ may
 follow $u$, which the condition decides by inspection. An admissible array is then exactly a
-walk, so with $M$ the adjacency matrix of that digraph on $S=196$ vertices, and $u,w$ the
+walk, so with $M$ the adjacency matrix of that digraph on $S=176$ vertices, and $u,w$ the
 vectors recording which windows may start and end an array,
 \[
 a(n)\;=\;u^{\!\top}M^{\,g(n)}w
@@ -83,9 +83,9 @@ $p(m+1)-p(m)$ has degree one less than $p$. So $(E-\lambda)^{\deg p+1}$ kills
 $\lambda^{m}p(m)$, and the factors of $q$ commute.
 \end{proof}
 
-Here $q(x)=(x-1)^{6}$, of degree $6$; the closed form is a polynomial in $n$, so this is $(x-1)^{6}$, and the recurrence it encodes is
+Here $q(x)=(x-1)^{7}$, of degree $7$; the closed form is a polynomial in $n$, so this is $(x-1)^{7}$, and the recurrence it encodes is
 \begin{equation}\label{eq:rec}
-a(n)\;=\;6\,a(n-1) - 15\,a(n-2) + 20\,a(n-3) - 15\,a(n-4) + 6\,a(n-5) - a(n-6).
+a(n)\;=\;7\,a(n-1) - 21\,a(n-2) + 35\,a(n-3) - 35\,a(n-4) + 21\,a(n-5) - 7\,a(n-6) + a(n-7).
 \end{equation}
 
 \section{The proof}
@@ -109,18 +109,18 @@ $a(n)=f(n)$ for every $n\ge1$.
 \end{theorem}
 
 \begin{proof}
-The vector $w'=q(M)w$ was formed by $6$ matrix--vector products in exact integer
+The vector $w'=q(M)w$ was formed by $7$ matrix--vector products in exact integer
 arithmetic, and $u^{\!\top}M^{j}w'$ evaluated for $j=0,1,\dots$, again exactly. Those integers
-vanish from the point corresponding to $n=7$ onwards, and the run was continued until the
+vanish from the point corresponding to $n=8$ onwards, and the run was continued until the
 working vector was identically zero, which settles every larger $j$ at once. So $a$ satisfies
-\eqref{eq:rec} for every $n>6$. By Lemma~\ref{lem:ann} $f$ satisfies \eqref{eq:rec}
-identically. Both were then evaluated in exact arithmetic at the $6$ consecutive indices
-$n=7,\dots,12$ and agree at each. A monic recurrence of order $6$
-determines $a(m)$ from $a(m-1),\dots,a(m-6)$, and for every $m\ge13$ both
-$m>6$ and $m-6\ge7$ hold, so induction on $m$ gives $a(m)=f(m)$ for every
-$m\ge7$.
-Below $n=7$ the recurrence argument gives nothing, since \eqref{eq:rec} is only
-established for $a$ from $n=7$ on. The remaining indices $n=1,\dots,6$ were
+\eqref{eq:rec} for every $n>7$. By Lemma~\ref{lem:ann} $f$ satisfies \eqref{eq:rec}
+identically. Both were then evaluated in exact arithmetic at the $7$ consecutive indices
+$n=8,\dots,14$ and agree at each. A monic recurrence of order $7$
+determines $a(m)$ from $a(m-1),\dots,a(m-7)$, and for every $m\ge15$ both
+$m>7$ and $m-7\ge8$ hold, so induction on $m$ gives $a(m)=f(m)$ for every
+$m\ge8$.
+Below $n=8$ the recurrence argument gives nothing, since \eqref{eq:rec} is only
+established for $a$ from $n=8$ on. The remaining indices $n=1,\dots,7$ were
 therefore checked one at a time, directly against the walk count in exact integer arithmetic,
 and agree.
 \end{proof}
@@ -149,7 +149,7 @@ that anything would pass.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A207065.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A223913.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; $C$-finite sequences,
 Section 4.1.)

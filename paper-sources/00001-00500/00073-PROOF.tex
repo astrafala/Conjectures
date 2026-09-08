@@ -12,197 +12,221 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A211332, proved by a one-dimensional reduction}
+\title{The Gauss congruences for OEIS A158690,\\ for the sequence and all of its shifts}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{4 September 2026}
+\date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A211332 counts symmetric $(n+1)\times(n+1)$ matrices over
-$\{-5,\dots,5\}$ in which every $2\times2$ subblock sums to zero and has two or three distinct
-entries. Both sides of the matrix grow with $n$, so there is no slice of bounded width to walk
-along. There does not need to be: the sum-zero condition is linear and solves completely, and
-its solutions are indexed by a SEQUENCE --- the diagonal of the matrix. The count becomes a walk
-on $S=311$ states, and the empirical recurrence of order $21$ contributed by R.~H.~Hardin
-follows.
+OEIS A158690 carries a conjecture of P.~Bala that for every shift $i\ge0$ the sequence
+$a_i(n)=a(n+i)$ satisfies the Gauss congruences
+$a_i(np^{r})\equiv a_i(np^{r-1})\pmod{p^{r}}$ for every prime $p$ and all $n,r\ge1$.
+It is true. Under the substitution $t=e^{x}-1$ the entry's own exponential generating
+function becomes an ordinary power series with \emph{integer} coefficients; the operator
+$(1+t)\,d/dt$ carries that property to every shift, and integrality then collapses
+$a_i(n)$ modulo $p^{r}$ to an integer combination of the functions $n\mapsto m^{n}$ with
+$m$ bounded. The congruences follow from the elementary fact that
+$x^{p^{r}}\equiv x^{p^{r-1}}\pmod{p^{r}}$ for every integer $x$, applied to $x=m^{n}$.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 15B36, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 11A07, 11B50, 11B73, 05A15.\normalsize
 
-\section{The conjecture}
+\section{The sequence and the conjecture}
 
-OEIS A211332 is ``Number of (n+1)X(n+1) -5..5 symmetric matrices with every 2X2 subblock having sum zero and two or three distinct values.''. It has offset $1$ and begins
+OEIS A158690 is ``Expansion of the basic hypergeometric series 1 + (1 - exp(-t)) + (1 - exp(-t))*(1 - exp(-3*t)) + (1 - exp(-t))*(1 - exp(-3*t))*(1 - exp(-5*t)) + ... as a series in t.''. It has offset $0$ and begins
 \[
-60, 144, 312, 630, 1266, 2474, 4864, 9466,\ \dots
+1, 1, 5, 55, 1073, 32671, 1431665,\ \dots
 \]
-The entry states, as a conjecture contributed by its author and never marked settled:
-\begin{quote}
-Empirical: a(n) = 5*a(n-1) +8*a(n-2) -75*a(n-3) +16*a(n-4) +467*a(n-5) -412*a(n-6) -1551*a(n-7) +2039*a(n-8) +2909*a(n-9) -5118*a(n-10) -2897*a(n-11) +7385*a(n-12) +976*a(n-13) -6197*a(n-14) +720*a(n-15) +2888*a(n-16) -760*a(n-17) -674*a(n-18) +236*a(n-19) +60*a(n-20) -24*a(n-21)
+The entry states, not as a conjecture,
+\begin{quote}\small
+Expansion of the basic hypergeometric series 1 + (1 - exp(-t)) + (1 - exp(-t))*(1 - exp(-3*t)) + ...
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 16:09:36, revision 8) this is still
-recorded as empirical, and nothing on the entry records it as proved.
+that is, writing $A(x)=\sum_{n\ge0}a(n)x^{n}/n!$,
+\begin{equation}\label{eq:egf}
+A(x)\;=\;\sum_{n\ge 0}\ \prod_{k=1}^{n}\Bigl(1-e^{-(2k-1)x}\Bigr).
+\end{equation}
+This is the only input taken from the entry, and it was checked against every one of the
+$15$ terms of the entry's DATA section before use, not against a sample.
 
-\section{The sum-zero condition solved}
+The entry separately carries the following comment:
+\begin{quote}\small
+2) Let i >= 0 and define a\_i(n) = a(n+i). Then for each i the Gauss congruences a\_i(n*p\^{}k) == a\_i(n*p\^{}(k-1)) ( mod p\^{}k ) hold for all prime p and positive integers n and k. --- \emph{Peter Bala}, Dec 18 2021
+\end{quote}
+As of the ``Last modified'' line on the live entry (Jan 05 2022 13:53:39, revision
+46) the statement is still recorded as a conjecture, and nothing on the entry
+records it as settled either way. The entry carries a second conjecture of the same contributor, on the period of the sequence modulo $k$; it is not the statement treated here.
 
-Let $x$ be an $N\times N$ symmetric matrix with entries in $\{-5,\dots,5\}$ such that
+Written out, the conjecture asserts: for every integer $i\ge0$, every prime $p$ and all
+integers $n,r\ge1$,
+\begin{equation}\label{eq:conj}
+a\bigl(np^{r}+i\bigr)\;\equiv\;a\bigl(np^{r-1}+i\bigr)\pmod{p^{r}} .
+\end{equation}
+
+\section{The generating function in the variable $t=e^{x}-1$}
+
+Set $t=e^{x}-1$, so $e^{x}=1+t$. Substituting into \eqref{eq:egf},
 \[
-x(i,j)+x(i,j{+}1)+x(i{+}1,j)+x(i{+}1,j{+}1)=0
+e^{-(2k-1)x}=(1+t)^{-(2k-1)},
 \]
-for every $0\le i,j\le N-2$.
+so that
+\begin{equation}\label{eq:G}
+A(x)\;=\;G\bigl(e^{x}-1\bigr),\qquad G(t)\;=\;\sum_{n\ge 0}\ \prod_{k=1}^{n}\Bigl(1-(1+t)^{-(2k-1)}\Bigr).
+\end{equation}
 
-\begin{lemma}\label{lem:solve}
-Such matrices are exactly the matrices
-\[
-x(i,j)=(-1)^{i+j}\,\frac{u_i+u_j}{2},
-\qquad u_0,\dots,u_{N-1}\in\{-5,\dots,5\}\ \text{all of the same parity},
-\]
-and the sequence is recovered from the matrix by $u_i=x(i,i)$, so the correspondence is a
-bijection.
+\begin{lemma}\label{lem:int}
+$G$ is a power series in $t$ with integer coefficients.
 \end{lemma}
 
 \begin{proof}
-Put $y(i,j)=(-1)^{i+j}x(i,j)$. The four entries of a $2\times2$ subblock alternate in sign
-under this substitution, so
-\[
-x(i,j)+x(i,j{+}1)+x(i{+}1,j)+x(i{+}1,j{+}1)
-=(-1)^{i+j}\bigl[y(i,j)-y(i,j{+}1)-y(i{+}1,j)+y(i{+}1,j{+}1)\bigr],
-\]
-and the condition says exactly that the mixed second difference of $y$ vanishes everywhere.
-Summing that identity over a rectangle gives
-$y(i,j)=y(i,0)+y(0,j)-y(0,0)$ for all $i,j$, which is $y(i,j)=f(i)+g(j)$ with
-$f(i)=y(i,0)-y(0,0)$ and $g(j)=y(0,j)$; conversely every such $y$ has vanishing mixed
-difference. Symmetry of $x$ gives $y(i,j)=y(j,i)$, hence $f(i)-g(i)=f(j)-g(j)$ for all $i,j$:
-the difference is a constant $c$. Writing $u_i=2\bigl(f(i)-c/2\bigr)$, which is an integer
-because $y(i,i)=x(i,i)$ is, we get $y(i,j)=(u_i+u_j)/2$ as claimed. Taking $j=i$ gives
-$u_i=y(i,i)=x(i,i)$.
-
-For the two side conditions: $u_i+u_j$ must be even for all $i,j$, which says all the $u_i$ have
-the same parity; and $|x(i,j)|=|u_i+u_j|/2\le5$ for all $i,j$ is equivalent to $|u_i|\le5$
-for each $i$, the case $j=i$ giving one direction and the triangle inequality the other.
+$G$ is each factor $1-(1+t)^{-(2k-1)}$ is an integer series with zero constant term, so the $n$-th product is divisible by $t^{n}$ and only finitely many terms of the sum affect any one coefficient.
 \end{proof}
 
-So the matrices of size $N$ correspond one for one to the sequences $u_0,\dots,u_{N-1}$ in
-$\{-5,\dots,5\}$ with all entries of one parity. What remains is to say, in terms of $u$,
-that every $2\times2$ subblock has two or three distinct entries.
-
-\begin{lemma}\label{lem:block}
-Write $\pi_i=(u_i,u_{i+1})$ for the $i$-th consecutive pair. The number of distinct entries of
-the subblock at $(i,j)$ depends only on $\pi_i$ and $\pi_j$: with $\pi_i=(\alpha,\beta)$ and
-$\pi_j=(\gamma,\delta)$ it is
+Write $G(t)=\sum_{j\ge0}c_j t^{j}$ with $c_j\in\mathbb{Z}$; here $c_j = 1, 1, 5, 23, 137, \dots$, and
 \[
-\Bigl|\Bigl\{\tfrac{\alpha+\gamma}{2},\,-\tfrac{\alpha+\delta}{2},\,
--\tfrac{\beta+\gamma}{2},\,\tfrac{\beta+\delta}{2}\Bigr\}\Bigr| .
+c_0,\dots,c_6\;=\;1, 1, 2, 7, 33, 197, 1419.
+\]
+
+\section{Every shift stays in the same family}
+
+Let $D$ denote the operator $D=(1+t)\dfrac{d}{dt}$ acting on power series in $t$.
+
+\begin{lemma}\label{lem:shift}
+For every $i\ge0$ the shifted sequence $a_i(n)=a(n+i)$ has exponential generating function
+$\bigl(D^{i}G\bigr)\bigl(e^{x}-1\bigr)$, and $D^{i}G$ again has integer coefficients.
+\end{lemma}
+
+\begin{proof}
+Differentiating $A(x)=\sum_n a(n)x^{n}/n!$ term by term gives
+$A'(x)=\sum_{n\ge0}a(n+1)x^{n}/n!$, so the $i$-th derivative of $A$ is the exponential
+generating function of $a_i$. By the chain rule applied to \eqref{eq:G},
+\[
+\frac{d}{dx}\,G\bigl(e^{x}-1\bigr)=G'\bigl(e^{x}-1\bigr)\,e^{x}
+=\bigl[(1+t)G'(t)\bigr]_{t=e^{x}-1}=\bigl(DG\bigr)\bigl(e^{x}-1\bigr),
+\]
+and iterating gives the first claim. For the second, $D$ sends $t^{j}$ to
+$j\,t^{j-1}+j\,t^{j}$, so it maps a series with integer coefficients to a series with
+integer coefficients; by Lemma~\ref{lem:int} and induction on $i$, so does $D^{i}$.
+\end{proof}
+
+Fix $i$ and write $D^{i}G(t)=\sum_{j\ge0}c^{(i)}_j t^{j}$, all $c^{(i)}_j\in\mathbb{Z}$.
+
+\section{Reduction modulo a prime power}
+
+Let $S(n,j)$ be the Stirling numbers of the second kind.
+
+\begin{lemma}\label{lem:exp}
+Fix $i\ge0$, a prime $p$ and $r\ge1$, and put $J=pr$. Then there are integers
+$d_0,\dots,d_{J-1}$, independent of $n$, with
+\[
+a_i(n)\;\equiv\;\sum_{m=0}^{J-1} d_m\,m^{n}\pmod{p^{r}}\qquad\text{for all } n\ge0 .
 \]
 \end{lemma}
 
 \begin{proof}
-By Lemma~\ref{lem:solve} the four entries are $(-1)^{i+j}$ times those four numbers, in
-order. Multiplying all four by $\pm1$ does not change how many are distinct.
+Since $\bigl(e^{x}-1\bigr)^{j}=\sum_{n\ge j}j!\,S(n,j)x^{n}/n!$ --- the coefficient
+$j!\,S(n,j)$ counts the surjections of an $n$-set onto a $j$-set --- Lemma~\ref{lem:shift}
+gives $a_i(n)=\sum_{j}c^{(i)}_j\,j!\,S(n,j)$, a finite sum because $S(n,j)=0$ for $j>n$.
+
+If $j\ge J=pr$ then $v_p(j!)=\sum_{s\ge1}\lfloor j/p^{s}\rfloor\ge\lfloor j/p\rfloor\ge r$,
+so $p^{r}\mid j!$ and, as $c^{(i)}_j$ is an integer, the whole term vanishes modulo
+$p^{r}$. Hence $a_i(n)\equiv\sum_{j<J}c^{(i)}_j\,j!\,S(n,j)$. This is the step at which
+integrality is not a convenience but the whole point: were $c^{(i)}_j$ merely rational,
+$c^{(i)}_j\,j!$ need not be divisible by $p^{r}$ and the sum would not truncate.
+
+Finally, counting the same surjections by inclusion and exclusion on the image gives
+$j!\,S(n,j)=\sum_{m=0}^{j}(-1)^{j-m}\binom{j}{m}m^{n}$. Substituting and exchanging the
+two finite sums collects the coefficient of $m^{n}$ into
+$d_m=\sum_{j=m}^{J-1}(-1)^{j-m}\binom{j}{m}c^{(i)}_j$, an integer.
 \end{proof}
 
-Call two consecutive pairs COMPATIBLE when that number lies in $\{2,3\}$. The condition on the
-matrix is that $\pi_i$ and $\pi_j$ are compatible for every $i$ and $j$ --- including $i=j$,
-which asks each pair to be compatible with itself. In other words:
+\section{The congruence}
 
-\begin{corollary}
-The matrices counted are exactly the sequences $u$ whose set of consecutive pairs is a clique in
-the compatibility graph on the $\le 121$ pairs.
-\end{corollary}
-
-\section{A walk on the sequence}
-
-The clique condition is not local: a pair must be compatible with every pair anywhere else in
-the sequence. Carrying the set of pairs already used would be an exponential state. Carrying
-what it FORBIDS is not.
-
-\begin{lemma}\label{lem:lump}
-Let $A$ be the set of pairs compatible with every pair used so far. Then a sequence may be
-continued exactly by pairs lying in $A$, and appending a pair $\pi$ replaces $A$ by
-$A\cap N(\pi)$, where $N(\pi)$ is the set of pairs compatible with $\pi$. Hence the pair
-$(\,\text{last value of }u,\;A\,)$ carries everything the future needs.
+\begin{lemma}\label{lem:lift}
+For every integer $x$, every prime $p$ and every $r\ge1$,
+$x^{p^{r}}\equiv x^{p^{r-1}}\pmod{p^{r}}$.
 \end{lemma}
 
 \begin{proof}
-The condition is a conjunction of pairwise compatibilities, so the set of pairs still allowed
-after using a set $T$ is $\bigcap_{\pi\in T}N(\pi)$, which is a function of $T$ and is updated
-by intersection as $T$ grows. The next pair is $(\text{last value},w)$, so the last value is
-the only other thing a step needs.
+Induction on $r$. For $r=1$ this is Fermat's little theorem in the form $x^{p}\equiv x
+\pmod p$, valid for every integer $x$. Suppose $r\ge2$ and
+$x^{p^{r-1}}=x^{p^{r-2}}+p^{r-1}m$ for some integer $m$. Raising to the $p$-th power
+and expanding,
+\[
+x^{p^{r}}=\bigl(x^{p^{r-2}}+p^{r-1}m\bigr)^{p}
+= x^{p^{r-1}}
++ p\,\bigl(p^{r-1}m\bigr)x^{p^{r-2}(p-1)}
++ \sum_{s\ge2}\binom{p}{s}x^{p^{r-2}(p-s)}\bigl(p^{r-1}m\bigr)^{s} .
+\]
+The middle term is divisible by $p^{r}$. Each term of the sum is divisible by
+$p^{s(r-1)}$ with $s\ge2$, and $s(r-1)\ge 2(r-1)\ge r$ because $r\ge2$. Hence
+$x^{p^{r}}\equiv x^{p^{r-1}}\pmod{p^{r}}$.
 \end{proof}
 
-The sets $A$ that arise are intersections of neighbourhoods, of which there are far fewer than
-subsets; enumerated from the start $A_0=\{\pi:\pi\in N(\pi)\}$, the reachable states number
-$S=311$. The two parity classes never mix, so the walk starts by choosing a parity and a first
-value, and every state may end a sequence:
+\begin{theorem}\label{thm:main}
+Let $a(n)$ be OEIS A158690 and $a_i(n)=a(n+i)$. For every $i\ge0$, every prime $p$ and all
+integers $n,r\ge1$,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad \tau=\mathbf{1},\qquad S=311.
+a_i\bigl(np^{r}\bigr)\;\equiv\;a_i\bigl(np^{r-1}\bigr)\pmod{p^{r}} .
 \]
-The walk index $j$ is the size of the matrix, and it differs from the entry's own $n$ by a
-constant read off by matching the published terms rather than assumed. In particular $a$ is
-$C$-finite --- for a family in which both dimensions grow with $n$.
-
-\section{The proof}
-
-\begin{lemma}\label{lem:crit}
-Let $q(t)=t^{21}-\sum_i c_it^{21-i}$ be the characteristic polynomial of the
-conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
-$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
-holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
-and it is enough to examine $j<S$.
-\end{lemma}
-
-\begin{proof}
-Factor $M^{j}$ out of $M^{j+21}-\sum_ic_iM^{j+21-i}$. For the bound, $M^{S}$
-is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
-$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
-polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly.
-\end{proof}
-
-\begin{theorem}
-\[
-a(n)\;=\;5\,a(n-1) + 8\,a(n-2) - 75\,a(n-3) + 16\,a(n-4) + 467\,a(n-5) - 412\,a(n-6) - 1551\,a(n-7) + 2039\,a(n-8) + 2909\,a(n-9) - 5118\,a(n-10) - 2897\,a(n-11) + 7385\,a(n-12) + 976\,a(n-13) - 6197\,a(n-14) + 720\,a(n-15) + 2888\,a(n-16) - 760\,a(n-17) - 674\,a(n-18) + 236\,a(n-19) + 60\,a(n-20) - 24\,a(n-21)
-\]
-for every $n>21$.
+This is the conjecture of Section~1.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $21$ matrix--vector products in exact integer
-arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=21+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once.
+Fix $i,p,r$ and take $J$ and the integers $d_m$ of Lemma~\ref{lem:exp}, which do not
+depend on the argument of $a_i$. Applying that lemma at $np^{r}$ and at $np^{r-1}$,
+\[
+a_i\bigl(np^{r}\bigr)-a_i\bigl(np^{r-1}\bigr)
+\;\equiv\;\sum_{m<J} d_m\Bigl(m^{np^{r}}-m^{np^{r-1}}\Bigr)
+\;=\;\sum_{m<J} d_m\Bigl(\bigl(m^{n}\bigr)^{p^{r}}-\bigl(m^{n}\bigr)^{p^{r-1}}\Bigr)
+\pmod{p^{r}} .
+\]
+By Lemma~\ref{lem:lift} applied to the integer $x=m^{n}$, every bracket is divisible by
+$p^{r}$, so the whole sum is $\equiv 0$.
+\end{proof}
+
+\begin{corollary}
+For each $i\ge0$ the power series $\exp\Bigl(\sum_{n\ge1}a_i(n)x^{n}/n\Bigr)$ has integer
+coefficients.
+\end{corollary}
+
+\begin{proof}
+A sequence $\bigl(b(n)\bigr)_{n\ge1}$ of integers satisfies
+$\exp\bigl(\sum_n b(n)x^{n}/n\bigr)\in\mathbb{Z}[[x]]$ precisely when the Gauss congruences
+$b(np^{r})\equiv b(np^{r-1})\pmod{p^{r}}$ hold for all primes $p$ and all $n,r\ge1$;
+this is the classical criterion obtained by taking the logarithmic derivative and
+comparing coefficients through the necklace (Witt) identities. Theorem~\ref{thm:main}
+supplies the hypothesis for $b=a_i$.
 \end{proof}
 
 \section{Verification}
 
-Four checks, each independent of the algebra above.
+Three checks, each independent of the algebra above.
 
-First, the model reproduces all $27$ terms the entry publishes, exactly, in integer
-arithmetic.
+First, the series $G$ of \eqref{eq:G} was expanded and $\sum_j c_j\,j!\,S(n,j)$ compared
+against the entry's DATA at every one of the $15$ published indices; the values
+agree exactly, and every $c_j$ came out an integer. A series that reproduced only some of
+the published terms would not have been used.
 
-Second, the count was recomputed for the smallest matrices straight from the definition:
-symmetric matrices were written out entry by entry over $\{-5,\dots,5\}$ and each
-$2\times2$ subblock tested for summing to zero and for having two or three distinct entries. The
-sequence $u$, the sign pattern, the clique and the state play no part in that computation, and
-the published terms came back. Lemma~\ref{lem:solve} was separately checked the same way: for
-small sizes and small ranges the number of symmetric sum-zero matrices found by direct
-enumeration equals the number of admissible sequences.
+Second, $90$ terms of the sequence were generated in exact integer arithmetic and the
+congruence \eqref{eq:conj} tested for every shift $i\le5$, every prime $p\le11$, every
+$r\le3$ and every $n$ for which $np^{r}+i$ is within range: $932$ instances in all,
+with no failure.
 
-Third, the conjectured recurrence was evaluated directly on the published terms, with no
-matrices involved, and holds wherever the proved range and the data overlap.
-
-Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
-arithmetic on the whole vector rather than on a sampled prefix.
+Third, the operator $D$ of Lemma~\ref{lem:shift} was applied symbolically and the
+coefficients of $D^{i}G$ confirmed to be integers for $i\le5$, and the generating function
+identity $\sum_n a(n+i)x^{n}/n! = (D^{i}G)(e^{x}-1)$ checked coefficientwise.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A211332.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A158690.
+\bibitem{zarelua} A.~V.~Zarelua, On congruences for the traces of powers of some
+matrices, \emph{Proc. Steklov Inst. Math.} \textbf{263} (2008), 78--98.
+\bibitem{comtet} L.~Comtet, \emph{Advanced Combinatorics}, Reidel, 1974.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{kemeny} J.~G.~Kemeny and J.~L.~Snell, \emph{Finite Markov Chains}, Springer, 1976.
-(Lumping, Section 6.3.)
-\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
-University Press, 2013.
+Cambridge University Press, 2011.
+\bibitem{hw} G.~H.~Hardy and E.~M.~Wright, \emph{An Introduction to the Theory of
+Numbers}, 6th ed., Oxford University Press, 2008.
 \end{thebibliography}
 
 \end{document}

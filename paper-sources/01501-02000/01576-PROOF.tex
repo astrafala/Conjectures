@@ -12,14 +12,14 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A198529, proved by a two-line transfer matrix}
+\title{The empirical recurrence for OEIS A198475, proved by a two-line transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A198529 counts arrays in which every cell is constrained by its neighbours on \emph{both}
+OEIS A198475 counts arrays in which every cell is constrained by its neighbours on \emph{both}
 sides, and which are moreover written in canonical form (``values introduced in row major
 order''). Neither feature is visible to a one-line transfer matrix: the cell condition
 reaches the row above and the row below, and the canonical-form clause is not local at
@@ -28,29 +28,29 @@ $3!\,a(n)=\sum_i\binom{3}{i}D_{3-i}L_i(n)$ with $D_m$ the derangement numbers an
 $L_i$ the count over an $i$-letter alphabet; and each $L_i$ is a walk count whose vertices
 are ordered pairs of consecutive rows. Relabelling-invariance makes the chain strongly
 lumpable, cutting $6818$ pairs down to $S=1223$ states. The entry's empirical recurrence of
-order $20$, contributed by R.~H.~Hardin, then follows from a finite exact computation.
+order $27$, contributed by R.~H.~Hardin, then follows from a finite exact computation.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 05A18, 15B36.\normalsize
 
 \section{The sequence and the conjecture}
 
-OEIS A198529 is ``Number of 2nX4 0..2 arrays with values 0..2 introduced in row major order and each element equal to exactly one horizontal or vertical neighbor.''. It has offset $1$ and begins
+OEIS A198475 is ``Number of 2nX4 0..2 arrays with values 0..2 introduced in row major order and each element equal to an odd number of horizontal and vertical neighbors.''. It has offset $1$ and begins
 \[
-12, 206, 3838, 74582, 1481214, 29737425, 600187403, 12144602583,\ \dots
+12, 252, 6104, 153222, 3935188, 101884208, 2646874462, 68861880812,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 42*a(n-1) -599*a(n-2) +3637*a(n-3) -8567*a(n-4) -1138*a(n-5) +28475*a(n-6) -23674*a(n-7) -2916*a(n-8) +112776*a(n-9) -163480*a(n-10) -147783*a(n-11) -101412*a(n-12) -148912*a(n-13) +747248*a(n-14) +967680*a(n-15) -1452032*a(n-16) -4042752*a(n-17) -7405568*a(n-18) -7340032*a(n-19) -4194304*a(n-20)
+Empirical: a(n) = 45*a(n-1) -520*a(n-2) -74*a(n-3) +16486*a(n-4) +129736*a(n-5) -1095201*a(n-6) -2191939*a(n-7) +10377776*a(n-8) +9527308*a(n-9) +306527440*a(n-10) +393254288*a(n-11) -3528330816*a(n-12) -16775802368*a(n-13) -71215672320*a(n-14) +113359953920*a(n-15) +1277760061440*a(n-16) +1211880046592*a(n-17) +3312362192896*a(n-18) -7949471711232*a(n-19) -128862239326208*a(n-20) -76892799500288*a(n-21) -597198022639616*a(n-22) +1365043685883904*a(n-23) +15832967439974400*a(n-24) -12508044277579776*a(n-25) -66428094503714816*a(n-26) +72057594037927936*a(n-27)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 07:54:47, revision 10) the statement is
+As of the ``Last modified'' line on the live entry (Oct 03 2025 07:53:04, revision 9) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;42\,a(n-1) - 599\,a(n-2) + 3637\,a(n-3) - 8567\,a(n-4) - 1138\,a(n-5) + 28475\,a(n-6) - 23674\,a(n-7) - 2916\,a(n-8) + 112776\,a(n-9) - 163480\,a(n-10) - 147783\,a(n-11) - 101412\,a(n-12) - 148912\,a(n-13) + 747248\,a(n-14) + 967680\,a(n-15) - 1452032\,a(n-16) - 4042752\,a(n-17) - 7405568\,a(n-18) - 7340032\,a(n-19) - 4194304\,a(n-20)
+a(n)\;=\;45\,a(n-1) - 520\,a(n-2) - 74\,a(n-3) + 16486\,a(n-4) + 129736\,a(n-5) - 1095201\,a(n-6) - 2191939\,a(n-7) + 10377776\,a(n-8) + 9527308\,a(n-9) + 306527440\,a(n-10) + 393254288\,a(n-11) - 3528330816\,a(n-12) - 16775802368\,a(n-13) - 71215672320\,a(n-14) + 113359953920\,a(n-15) + 1277760061440\,a(n-16) + 1211880046592\,a(n-17) + 3312362192896\,a(n-18) - 7949471711232\,a(n-19) - 128862239326208\,a(n-20) - 76892799500288\,a(n-21) - 597198022639616\,a(n-22) + 1365043685883904\,a(n-23) + 15832967439974400\,a(n-24) - 12508044277579776\,a(n-25) - 66428094503714816\,a(n-26) + 72057594037927936\,a(n-27)
 \end{equation}
-for all $n>20$.
+for all $n>27$.
 
 \section{The condition, and what the canonical-form clause counts}
 
@@ -62,7 +62,7 @@ row $t$ and column $u$. with the neighbour offsets
 written as (row shift, column shift), the requirement is
 \begin{equation}\label{eq:loc}
 \#\bigl\{(d_1,d_2)\in\mathcal N:\ (t+d_1,u+d_2)\ \text{lies in the array and its entry is }
-equal to x_{t,u}\bigr\}\ =1
+equal to x_{t,u}\bigr\}\ \ \text{is odd}
 \end{equation}
 for every cell $(t,u)$.
 
@@ -149,7 +149,7 @@ end-of-array indicator into $\mathbf{u}$,
 
 \section{The criterion, and the computation}
 
-Let $q(t)=t^{20}-\sum_i c_i\,t^{20-i}$ be the characteristic polynomial of
+Let $q(t)=t^{27}-\sum_i c_i\,t^{27-i}$ be the characteristic polynomial of
 \eqref{eq:conj} and put $G=N^{2}$, so that consecutive values of $n$ advance the
 walk by $2$ rows.
 
@@ -157,12 +157,12 @@ walk by $2$ rows.
 With $h_j=G^{j}N^{o}\mathbf{u}$ for the offset $o$ that aligns the first admissible
 index,
 \[
-3!\Bigl(a(n)-\sum_i c_i\,a(n-i)\Bigr)\;=\;\mathbf{v}^{\!\top}G^{\,j-20}\,
-\Bigl(h_{20}-\sum_i c_i h_{20-i}\Bigr)
+3!\Bigl(a(n)-\sum_i c_i\,a(n-i)\Bigr)\;=\;\mathbf{v}^{\!\top}G^{\,j-27}\,
+\Bigl(h_{27}-\sum_i c_i h_{27-i}\Bigr)
 \]
 for the corresponding $j$. Hence \eqref{eq:conj} holds from that point on if and only if
 $\mathbf{v}^{\!\top}G^{m}w=0$ for every $m\ge0$, where
-$w=h_{20}-\sum_i c_ih_{20-i}$; and it is enough to check $m=0,1,\dots,S-1$.
+$w=h_{27}-\sum_i c_ih_{27-i}$; and it is enough to check $m=0,1,\dots,S-1$.
 \end{lemma}
 
 \begin{proof}
@@ -173,7 +173,7 @@ $m\ge S$ is the same combination of the earlier values; if those vanish, so do a
 \end{proof}
 
 \begin{theorem}
-The recurrence \eqref{eq:conj} holds for every $n>20$, which is the statement of
+The recurrence \eqref{eq:conj} holds for every $n>27$, which is the statement of
 Section~1.
 \end{theorem}
 
@@ -181,9 +181,9 @@ Section~1.
 The lumped transition counts were built by taking one representative pair for each pattern,
 enumerating every row $x$ over the alphabet, testing \eqref{eq:loc} on the middle
 row, and sorting the results by the pattern of the new pair. The vector $w$ was formed by
-$20$ applications of $G$ in exact integer arithmetic and $\mathbf{v}^{\!\top}G^{m}w$
+$27$ applications of $G$ in exact integer arithmetic and $\mathbf{v}^{\!\top}G^{m}w$
 evaluated for $m=0,1,\dots$, again exactly. Every one of those integers vanishes from the
-index corresponding to $n=20+1$ onwards, and the run was continued until $S+1$
+index corresponding to $n=27+1$ onwards, and the run was continued until $S+1$
 consecutive zeros had been seen, which by Lemma~\ref{lem:crit} settles every larger $m$.
 \end{proof}
 
@@ -192,7 +192,7 @@ consecutive zeros had been seen, which by Lemma~\ref{lem:crit} settles every lar
 Three checks, each independent of the algebra above.
 
 First, the whole construction was compared against the entry's DATA: the right-hand side of
-\eqref{eq:walk2}, divided by $3!$, was evaluated at every one of the $16$
+\eqref{eq:walk2}, divided by $3!$, was evaluated at every one of the $15$
 published indices and agrees exactly, the quotient coming out an integer each time. This
 tests the modelling and not only the arithmetic --- the inversion of Lemma~\ref{lem:inv},
 the reading of \eqref{eq:loc}, the treatment of the first and last rows, and the
@@ -207,7 +207,7 @@ carried to the full Cayley--Hamilton bound rather than to a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A198529.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A198475.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; falling-factorial
 inversion, Section 1.9.)

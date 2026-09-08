@@ -12,154 +12,160 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A269057, proved by a counting transfer matrix}
+\title{The empirical recurrence for OEIS A229666, proved by counting defective colourings}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A269057 counts arrays over $\{0,\dots,2\}$ subject to a condition on the array as a
-whole rather than cell by cell: the number of adjacent pairs with a stated property must be
-at most one. A transfer matrix still applies once the running count is carried in the state; and
-because a count of two or more can never come back, those states may be dropped outright,
-which is what keeps the digraph sparse. That makes $a(n)$ a walk count on $S=1458$ vertices,
-and the empirical recurrence of order $46$ contributed by R.~H.~Hardin then follows from
-a finite exact computation.
+OEIS A229666 counts the colourings of an array with $K=4$ colours that are proper except at
+exactly two adjacent pairs, the colours being introduced in row
+major order. Neither feature is local: the number of monochromatic adjacent pairs is a
+property of the whole array, and the row major clause fixes a representative of each
+relabelling class. Both are removed by machinery already in hand --- the running count of
+mistakes goes into the state, capped at $2$, and the colour clause disappears into the
+identity $4!\,a(n)=\sum_i\binom{4}{i}D_{4-i}L_i(n)$ with $D_m$ the derangement
+numbers. What is left is a walk count on $S=90$ vertices, and the empirical recurrence of
+order $3$ contributed by R.~H.~Hardin follows from a finite exact computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05C15, 15B36.\normalsize
 
 \section{The sequence and the conjecture}
 
-OEIS A269057 is ``Number of 6Xn 0..2 arrays with some element plus some horizontally, diagonally or antidiagonally adjacent neighbor totalling two not more than once.''. It has offset $1$ and begins
+OEIS A229666 is ``Number of defective 4-colorings of an n X 2 0..3 array connected horizontally, antidiagonally and vertically with exactly two mistakes, and colors introduced in row-major 0..3 order.''. It has offset $1$ and begins
 \[
-729, 8586, 90450, 1350672, 17696520, 242861616, 3193266318, 42102137568,\ \dots
+0, 4, 61, 652, 5048, 33152, 197248, 1098752,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 12*a(n-1) +182*a(n-2) -1820*a(n-3) -15113*a(n-4) +101664*a(n-5) +646022*a(n-6) -3003324*a(n-7) -15725808*a(n-8) +55305760*a(n-9) +234926070*a(n-10) -698528578*a(n-11) -2270736611*a(n-12) +6320752450*a(n-13) +14600825558*a(n-14) -41434331996*a(n-15) -62768577651*a(n-16) +196263429930*a(n-17) +176943063476*a(n-18) -669462409316*a(n-19) -305019512324*a(n-20) +1647405492614*a(n-21) +230358934675*a(n-22) -2942270801898*a(n-23) +243588718325*a(n-24) +3841770422896*a(n-25) -923967990222*a(n-26) -3689384232910*a(n-27) +1300617284437*a(n-28) +2614259101122*a(n-29) -1127033659748*a(n-30) -1366254718948*a(n-31) +660843537364*a(n-32) +524090586634*a(n-33) -269727615782*a(n-34) -146010681184*a(n-35) +76928224259*a(n-36) +28983533038*a(n-37) -15160113967*a(n-38) -3964319226*a(n-39) +2009807783*a(n-40) +352152984*a(n-41) -170267256*a(n-42) -18138336*a(n-43) +8296524*a(n-44) +408240*a(n-45) -176400*a(n-46) for n>48
+Empirical: a(n) = 12*a(n-1) - 48*a(n-2) + 64*a(n-3) for n>6.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Feb 18 2016 11:42:33, revision 4) the statement is
+As of the ``Last modified'' line on the live entry (Sep 20 2018 09:10:32, revision 8) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;12\,a(n-1) + 182\,a(n-2) - 1820\,a(n-3) - 15113\,a(n-4) + 101664\,a(n-5) + 646022\,a(n-6) - 3003324\,a(n-7) - 15725808\,a(n-8) + 55305760\,a(n-9) + 234926070\,a(n-10) - 698528578\,a(n-11) - 2270736611\,a(n-12) + 6320752450\,a(n-13) + 14600825558\,a(n-14) - 41434331996\,a(n-15) - 62768577651\,a(n-16) + 196263429930\,a(n-17) + 176943063476\,a(n-18) - 669462409316\,a(n-19) - 305019512324\,a(n-20) + 1647405492614\,a(n-21) + 230358934675\,a(n-22) - 2942270801898\,a(n-23) + 243588718325\,a(n-24) + 3841770422896\,a(n-25) - 923967990222\,a(n-26) - 3689384232910\,a(n-27) + 1300617284437\,a(n-28) + 2614259101122\,a(n-29) - 1127033659748\,a(n-30) - 1366254718948\,a(n-31) + 660843537364\,a(n-32) + 524090586634\,a(n-33) - 269727615782\,a(n-34) - 146010681184\,a(n-35) + 76928224259\,a(n-36) + 28983533038\,a(n-37) - 15160113967\,a(n-38) - 3964319226\,a(n-39) + 2009807783\,a(n-40) + 352152984\,a(n-41) - 170267256\,a(n-42) - 18138336\,a(n-43) + 8296524\,a(n-44) + 408240\,a(n-45) - 176400\,a(n-46)
+a(n)\;=\;12\,a(n-1) - 48\,a(n-2) + 64\,a(n-3)
 \end{equation}
-for all $n>48$.
+for all $n>6$.
 
-\section{A global count, and how to carry it}
+\section{Mistakes, and the colour clause}
 
-The arrays have $6$ rows and $L=n$ columns; write $x_{t,u}$ for the entry in
-column $t$ and row $u$. Call two cells \emph{adjacent} when they differ by one of the
-offsets
+The arrays have $2$ columns and $L=n$ rows, entries in $\{0,\dots,4-1\}$.
+Two cells are adjacent when they differ by one of
 \[
-\mathcal N=\{(1,0),\ (1,1),\ (1,-1)\},
+\mathcal N=\{(0,1),\ (1,-1),\ (1,0)\}
 \]
-written as (column shift, row shift), and call an adjacent pair $\{p,q\}$
-\emph{marked} when
-\[
-x_{p}+x_{q}=2 .
-\]
-Each unordered adjacency is represented by exactly one offset, all with a nonnegative column
-shift, so every pair is named once and only once: the pairs inside a column are seen when
-that column is laid down, and the pairs joining two columns when the later of the two is. The
-entry's requirement is
-\begin{equation}\label{eq:glob}
-\#\{\text{marked pairs in the whole array}\}\;\le1.
-\end{equation}
+(as (row shift, column shift)); each unordered adjacency is represented by exactly one
+offset, and every offset has a nonnegative row shift, so the pairs inside a row are
+counted when that row is laid down and the pairs joining two rows when the later one
+is. Call an adjacent pair a \emph{mistake} when $x_{t,u}=x_{t+d_1,\,u+d_2}$. The entry asks for exactly
+$E=2$ mistakes.
 
-This is not a condition on any bounded window, so no transfer matrix over columns alone can
-express it. It becomes one as soon as the running total is part of the state. Let
-\[
-\mathcal V=\bigl\{(r,c):\ r\in\{0,\dots,2\}^{6},\ c\in\{0,1\}\bigr\},
-\qquad |\mathcal V|=S=1458,
-\]
-and for columns $r,s$ write $\beta(r,s)$ for the number of marked pairs joining them plus the
-number of marked pairs inside $s$. Declare $(r,c)\to(s,c+\beta(r,s))$ an edge whenever
-$c+\beta(r,s)\le1$, and no edge otherwise.
+That is a statement about the whole array, so no bounded window sees it; but the running
+number of mistakes can be carried in the state, capped at $2$, the states past $2$ being
+absent because a count that has passed the budget can never come back.
 
-\begin{remark}
-Dropping the states with $c\ge2$ is not an approximation. Once the total has reached two it
-can only grow, so no array satisfying \eqref{eq:glob} passes through such a state. Keeping
-them --- as a third, absorbing value of $c$ --- would make every pair of columns an edge and
-the digraph dense, with $(2+1)^{2\cdot6}$ edges instead of the sparse set used here.
-\end{remark}
+The condition is stated in equalities, so it is invariant under relabelling the colours, and
+so is the number of mistakes. ``Colors introduced in row-major order'' keeps exactly one
+colouring from each relabelling class, so the entry counts equality PATTERNS with at most
+$K=4$ classes.
 
-\begin{lemma}\label{lem:walk}
-Let $\mathbf{v}$ mark the vertices $(r,c)$ whose count $c$ equals the number of marked pairs
-inside $r$ alone, and $\mathbf{u}$ the vertices with $c\le1$. Then for $L\ge1$ the arrays
-of $L$ columns satisfying \eqref{eq:glob} are exactly the walks of length $L-1$ from a
-vertex marked by $\mathbf{v}$ to one marked by $\mathbf{u}$, so
+\begin{lemma}\label{lem:inv}
+Let $L_i(n)$ count the colourings over $i$ colours with exactly $2$ mistakes, and $N_j(n)$
+the admissible patterns with exactly $j$ classes. Then
+$L_i=\sum_j N_j\,i(i-1)\cdots(i-j+1)$ and
 \[
-a(n)\;=\;\,\mathbf{v}^{\!\top}N^{\,L-1}\mathbf{u},\qquad L=n .
+4!\,\sum_{j\le4}N_j(n)=\sum_{i=0}^{4}\binom{4}{i}D_{4-i}L_i(n),
+\qquad D_m=m!\sum_{t=0}^{m}\frac{(-1)^t}{t!} .
 \]
 \end{lemma}
 
 \begin{proof}
-A walk $(r^{(1)},c_1)\to\cdots\to(r^{(L)},c_L)$ determines the array
-$r^{(1)},\dots,r^{(L)}$, and conversely each array determines at most one walk, since the
-starting count is fixed by $\mathbf{v}$ and each step's count is determined. By induction
-$c_t$ is the number of marked pairs in the first $t$ columns: it holds at $t=1$ by the
-definition of $\mathbf{v}$, and the step from $t$ to $t+1$ adds exactly the pairs joining
-columns $t$ and $t+1$ together with those inside column $t+1$, which are precisely the marked
-pairs of the first $t+1$ columns not already counted --- each unordered pair being named by
-exactly one offset. The walk exists (no edge is missing) if and only if the running total
-never exceeds $1$, which for a nondecreasing total is the same as $c_L\le1$; and
-$\mathbf{u}$ imposes the entry's requirement on $c_L$. Note the state already carries one
-column, so $L$ columns correspond to a walk of length $L-1$.
+A colouring is a pattern together with an injection of its classes into the palette, and a
+pattern with $j$ classes admits $i(i-1)\cdots(i-j+1)$ of them, which is the first identity.
+Writing the falling factorial as $j!\binom{i}{j}$ and inverting binomially gives
+$j!N_j=\sum_i(-1)^{j-i}\binom{j}{i}L_i$; summing over $j\le4$ and exchanging the order
+of summation makes the coefficient of $L_i$ equal to $\sum_{t\le4-i}(-1)^t/(i!\,t!)$,
+which multiplied by $4!$ is $\binom{4}{i}D_{4-i}$, an integer.
 \end{proof}
+
+\section{Each $L_i$ is a walk count}
+
+Fix $i$ and take as vertices the pairs $(r,c)$ with $r\in\{0,\dots,i-1\}^{2}$ a row
+and $0\le c\le2$ a running count. Write $\beta(r,s)$ for the number of mistakes joining
+rows $r$ and $s$ plus the number of mistakes inside $s$. Declare $(r,c)\to(s,c+\beta(r,s))$
+an edge when $c+\beta(r,s)\le2$, let $\mathbf{s}_i$ mark the vertices whose count is the
+number of mistakes inside $r$ alone, and $\mathbf{e}_i$ those with $c=2$.
+
+\begin{lemma}\label{lem:walk}
+$L_i(n)=\mathbf{s}_i^{\!\top}P_i^{\,L-1}\mathbf{e}_i$ for $L\ge1$, where $P_i$ is the
+adjacency matrix of that digraph.
+\end{lemma}
+
+\begin{proof}
+A walk of length $L-1$ determines the sequence of $L$ rows, and conversely; by induction
+the count component after $t$ rows is the number of mistakes among the first $t$ rows,
+since each step adds exactly the mistakes joining rows $t$ and $t+1$ together with those
+inside row $t+1$, and each unordered pair is named by exactly one offset. The walk exists
+precisely when the running count never exceeds $2$, which for a nondecreasing count follows
+from its final value being $2$, and $\mathbf{e}_i$ imposes that final value. The state
+carries a row, not a boundary, so $L$ rows make a walk of length $L-1$.
+\end{proof}
+
+Assembling the $4$ chains block-diagonally into $N$ of size $S=90$ with the weights of
+Lemma~\ref{lem:inv} in the start vector $\mathbf{v}$ and the end markers in
+$\mathbf{u}$,
+\begin{equation}\label{eq:walk2}
+4!\;a(n)\;=\;\mathbf{v}^{\!\top}N^{\,L-1}\mathbf{u},\qquad L=n .
+\end{equation}
 
 \section{The criterion, and the computation}
 
-Let $q(t)=t^{46}-\sum_i c_i\,t^{46-i}$ be the characteristic polynomial of
+Let $q(t)=t^{3}-\sum_i c_i\,t^{3-i}$ be the characteristic polynomial of
 \eqref{eq:conj} and $G=N$.
 
 \begin{lemma}\label{lem:crit}
-With $n_0$ the least index for which $L\ge1$ and $h_j=G^{j}N^{o}\mathbf{u}$,
-$o=1n_0+0-1$,
+With $n_0$ the least index for which $L\ge1$, $o=1n_0+0-1$ and
+$h_j=G^{j}N^{o}\mathbf{u}$, we have for $j\ge3$
 \[
-a(n_0+j)-\sum_i c_i\,a(n_0+j-i)\;=\;\,\mathbf{v}^{\!\top}G^{\,j-46}w,
-\qquad w=h_{46}-\sum_i c_i h_{46-i},
+4!\Bigl(a(n_0+j)-\sum_i c_i\,a(n_0+j-i)\Bigr)=\mathbf{v}^{\!\top}G^{\,j-3}w,
+\qquad w=h_{3}-\sum_i c_ih_{3-i} .
 \]
-for $j\ge46$. Hence \eqref{eq:conj} holds from that point on if and only if
-$\mathbf{v}^{\!\top}G^{m}w=0$ for every $m\ge0$, and it is enough to check
-$m=0,1,\dots,S-1$.
+Hence \eqref{eq:conj} holds from that point on if and only if
+$\mathbf{v}^{\!\top}G^{m}w=0$ for all $m\ge0$, and $m<S$ suffices.
 \end{lemma}
 
 \begin{proof}
-Substitute Lemma~\ref{lem:walk} and factor. By Cayley--Hamilton $G^{S}$ is an integer
-combination of $I,G,\dots,G^{S-1}$, so every later value is the same combination of earlier
-ones.
+Substitute \eqref{eq:walk2} and factor; $4!$ is a nonzero scalar. Cayley--Hamilton
+makes $G^{S}$ an integer combination of $I,G,\dots,G^{S-1}$, so every later value repeats
+that combination of earlier ones.
 \end{proof}
 
 \begin{theorem}
-The recurrence \eqref{eq:conj} holds for every $n>48$, which is the statement of
+The recurrence \eqref{eq:conj} holds for every $n>6$, which is the statement of
 Section~1.
 \end{theorem}
 
 \begin{proof}
-The digraph was built directly from the definition of a marked pair. The vector $w$ was
-formed by $46$ applications of $G$ in exact integer arithmetic and
-$\mathbf{v}^{\!\top}G^{m}w$ evaluated for $m=0,1,\dots$, again exactly. Every one of
-those integers vanishes from the index corresponding to $n=48+1$ onwards, and the run
-continued until $S+1$ consecutive zeros had been seen, which by Lemma~\ref{lem:crit}
-settles every larger $m$.
+The digraph was built directly from the definitions above. The vector $w$ was formed by
+$3$ applications of $G$ in exact integer arithmetic and $\mathbf{v}^{\!\top}G^{m}w$
+evaluated for $m=0,1,\dots$, again exactly. Every one of those integers vanishes from the
+index corresponding to $n=6+1$ onwards, and the run continued until $S+1$ consecutive
+zeros had been seen.
 \end{proof}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the walk counts of Lemma~\ref{lem:walk} were compared against the entry's DATA at
-every one of the $15$ published indices, with no shift fitted: the number of columns is
-$L=n$, read off the entry's own name, and the offset says which index the first
-published term carries. The values agree exactly. This is where an error in the pair
-bookkeeping would show: counting an unordered pair twice, or missing the pairs inside the
-first column, changes the counts immediately. Indeed a first version of the computation
-placed the walk at length $L-2$ rather than $L-1$ --- the state carries a column, not a
-boundary --- and every value came out one index late, which the DATA comparison rejected.
+First, the right-hand side of \eqref{eq:walk2}, divided by $4!$, was evaluated at every
+one of the $21$ published indices and agrees with the entry's DATA exactly, the quotient
+coming out an integer each time; no shift was fitted, the number of rows being $L=n$
+from the entry's own name and the offset saying which index carries the first published term.
+Double-counting an unordered pair, or mistaking the budget, changes the counts at once.
 
 Second, the recurrence \eqref{eq:conj} was evaluated on those published terms in exact
 integer arithmetic, with no matrices involved, and vanishes wherever it applies.
@@ -169,9 +175,10 @@ Cayley--Hamilton bound in exact integer arithmetic rather than to a sampled pref
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A269057.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A229666.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; falling-factorial
+inversion, Section 1.9.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
 University Press, 2009.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge

@@ -12,144 +12,121 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A277769: recovering a conjecture that is not written down}
+\title{The empirical recurrence for OEIS A258959, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{2 September 2026}
+\date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A277769 records ``Empirical recurrence of order $98$'', with the recurrence itself in a
-linked file rather than in the entry. The conjecture can nevertheless be settled, and the
-recurrence recovered, without reading that file. The entry counts arrays under a condition
-local to a bounded window of lines, so the count is a walk count on a finite digraph and
-satisfies some monic recurrence of order at most the number of its states with distinct
-futures, here $S'=134$; Berlekamp--Massey applied to $2S'$ exact
-terms therefore returns the MINIMAL such recurrence. Its order is exactly $98$, the order
-the entry states, and the same is true of every tail of the sequence. Any recurrence of order
-$98$ that the sequence satisfies from any point on must then have a characteristic
-polynomial that is a multiple of the minimal one and of the same degree, hence equal to it. So
-the entry's recurrence is the one displayed here, whatever its file contains, and it is
-proved.
+OEIS A258959 counts $(n+2)\times3$ arrays over $\{0,\dots,1\}$ subject to a condition imposed on
+every $3\times3$ subblock, and it carries an empirical recurrence of order $3$
+contributed by R.~H.~Hardin. It is true, and it is not an empirical matter. A $3\times3$
+subblock spans three consecutive rows, so the state of a transfer matrix is a PAIR of
+consecutive rows and appending one more row is a step; an array is then a walk, and
+$a(n)$ is a walk count on $S=64$ vertices. Such a sequence is $C$-finite, so whether a given
+recurrence annihilates it is decided by a finite exact computation, with the Cayley--Hamilton
+theorem bounding the work.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
-\section{A conjecture one cannot read}
+\section{The conjecture}
 
-OEIS A277769 is ``Number of 4Xn 0..2 arrays with every element equal to some element at offset (-1,-1) (-1,0) (-1,1) (0,-1) (0,1) or (1,0) both plus 1 mod 3 and minus 1 mod 3, with new values introduced in order 0..2.''. It has offset $1$ and begins
+OEIS A258959 is ``Number of (n+2) X (1+2) 0..1 arrays with no 3 X 3 subblock diagonal sum 0 and no antidiagonal sum 3 and no row sum 0 or 3 and no column sum 0 or 3.''. It has offset $1$ and begins
 \[
-0, 14, 330, 9741, 275018, 7824415, 221983169, 6298326387,\ \dots
+66, 158, 214, 462, 676, 1374, 2040, 4104,\ \dots
 \]
-The entry states:
+The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical recurrence of order 98 (see link above)
+Empirical: a(n) = -a(n-1) + 3*a(n-2) + 3*a(n-3) for n>9.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 29 2016 07:32:40, revision 4) this is still
-recorded as empirical. The recurrence's coefficients are not in the entry text.
+As of the ``Last modified'' line on the live entry (Dec 23 2018 08:56:15, revision 8) this is still
+recorded as empirical, and nothing on the entry records it as proved.
 
-\section{The count is a walk count}
+\section{Three consecutive lines}
 
-The entry's condition is local: it constrains a bounded window of consecutive lines of the
-array and nothing further. The admissible configurations of one such window are the vertices
-of a finite digraph, an edge joining $u$ to $v$ when $v$ may follow $u$, and an admissible
-array is exactly a walk. Hence, with $M$ the adjacency matrix on $S=134$ vertices,
-$a(n)=\iota^{\!\top}M^{\,j(n)}\tau$ for a linear reindexing $j$ fixed by the entry's shape
-and checked against its published terms. By the Cayley--Hamilton theorem $M^{S}$ is an
-integer combination of $I,M,\dots,M^{S-1}$, so:
-
-\begin{lemma}\label{lem:cf}
-$a$ satisfies a monic linear recurrence with integer coefficients of order at most
-$S'=134$.
-\end{lemma}
-
-\section{Recovering the recurrence}
-
-\begin{lemma}\label{lem:bm}
-A sequence known to satisfy some linear recurrence of order at most $S$ is determined, together
-with its minimal recurrence, by its first $2S$ terms: Berlekamp--Massey applied to them returns
-that minimal recurrence exactly.
-\end{lemma}
-
-Running it on $2S'=268$ exact terms of the model returns order $98$ --- the order the
-entry states --- with the integer coefficients
+Write an admissible array as a sequence of rows $u_1,u_2,\dots$, each an element of
+$\{0,\dots,1\}^{3}$. A $3\times3$ subblock occupies three consecutive rows and
+three consecutive columns, so with $r,s,t$ three consecutive rows the blocks it
+contributes are
 \[
-a(n)\;=\;\sum_{i=1}^{98}c_i\,a(n-i),
+g=\begin{pmatrix}r_j&r_{j+1}&r_{j+2}\\ s_j&s_{j+1}&s_{j+2}\\ t_j&t_{j+1}&t_{j+2}\end{pmatrix}
 \]
-\begin{center}\small
-\begin{tabular}{cccccccc}
-$c_{1}$ & $29$ & $c_{26}$ & $-1035437875193547539$ & $c_{51}$ & $897502215710441873981$ & $c_{76}$ & $694241038045487866$ \\
-$c_{2}$ & $39$ & $c_{27}$ & $2093027498779176207$ & $c_{52}$ & $844075578025670186319$ & $c_{77}$ & $-251685943039510231$ \\
-$c_{3}$ & $-338$ & $c_{28}$ & $-5056425154521149491$ & $c_{53}$ & $-1958751446712713439454$ & $c_{78}$ & $-759050935543126917$ \\
-$c_{4}$ & $-38872$ & $c_{29}$ & $10050838076250006577$ & $c_{54}$ & $3037330425072980423793$ & $c_{79}$ & $269706656694252162$ \\
-$c_{5}$ & $14183$ & $c_{30}$ & $-19194891713877055722$ & $c_{55}$ & $-3563519167393715392762$ & $c_{80}$ & $-36063956093704326$ \\
-$c_{6}$ & $1292572$ & $c_{31}$ & $36598861831513059630$ & $c_{56}$ & $3847824360567607093747$ & $c_{81}$ & $62960497261299173$ \\
-$c_{7}$ & $17923186$ & $c_{32}$ & $-68134069823052811722$ & $c_{57}$ & $-4748301350199262878344$ & $c_{82}$ & $-44030818684024096$ \\
-$c_{8}$ & $-43150484$ & $c_{33}$ & $116584983780648698618$ & $c_{58}$ & $4001535737541730603969$ & $c_{83}$ & $15563875915464678$ \\
-$c_{9}$ & $-540346910$ & $c_{34}$ & $-191239964128297455999$ & $c_{59}$ & $-3215719980856614347251$ & $c_{84}$ & $-2312933482331336$ \\
-$c_{10}$ & $-3501463942$ & $c_{35}$ & $321386238836827998998$ & $c_{60}$ & $3713268352773232483270$ & $c_{85}$ & $1437113407341702$ \\
-$c_{11}$ & $15166603708$ & $c_{36}$ & $-499656386714429100525$ & $c_{61}$ & $-2691958591260098474529$ & $c_{86}$ & $-1266902579387685$ \\
-$c_{12}$ & $76455111243$ & $c_{37}$ & $720080721918713439256$ & $c_{62}$ & $1532116980054811688188$ & $c_{87}$ & $-264460535987190$ \\
-$c_{13}$ & $334637207006$ & $c_{38}$ & $-1065922519428335996475$ & $c_{63}$ & $-1767096470318537125731$ & $c_{88}$ & $188485301839731$ \\
-$c_{14}$ & $-1859521801781$ & $c_{39}$ & $1538061984853459373663$ & $c_{64}$ & $1235022024289208338249$ & $c_{89}$ & $-14654869766076$ \\
-$c_{15}$ & $-3090361845866$ & $c_{40}$ & $-1919380134402065672144$ & $c_{65}$ & $-420347788967071462648$ & $c_{90}$ & $2501356639083$ \\
-$c_{16}$ & $-24852237063288$ & $c_{41}$ & $2497381177310941467003$ & $c_{66}$ & $521840844907278593357$ & $c_{91}$ & $-8098896184517$ \\
-$c_{17}$ & $100817482803800$ & $c_{42}$ & $-3337816590659106451124$ & $c_{67}$ & $-418360723176360695455$ & $c_{92}$ & $-175157236297$ \\
-$c_{18}$ & $-7014175734417$ & $c_{43}$ & $3528079372270821719265$ & $c_{68}$ & $64168714975072092944$ & $c_{93}$ & $614582118464$ \\
-$c_{19}$ & $1166166985188053$ & $c_{44}$ & $-4011967102148614152896$ & $c_{69}$ & $-84822635503573088019$ & $c_{94}$ & $18220245399$ \\
-$c_{20}$ & $-3453635016649445$ & $c_{45}$ & $4876982021268174743894$ & $c_{70}$ & $105462967951299630936$ & $c_{95}$ & $-13423361908$ \\
-$c_{21}$ & $4351146909422436$ & $c_{46}$ & $-4195809233522677513261$ & $c_{71}$ & $-6578280825999003829$ & $c_{96}$ & $609834384$ \\
-$c_{22}$ & $-30458720798281225$ & $c_{47}$ & $4002222766248328387177$ & $c_{72}$ & $-592125380572110356$ & $c_{97}$ & $-284254884$ \\
-$c_{23}$ & $73635533140762924$ & $c_{48}$ & $-4251514821611735049920$ & $c_{73}$ & $-16493465173638871578$ & $c_{98}$ & $-59514264$ \\
-$c_{24}$ & $-137070463474432206$ & $c_{49}$ & $2529355636185779869266$ & $c_{74}$ & $1116965187132769931$ &  &  \\
-$c_{25}$ & $485288581225450537$ & $c_{50}$ & $-1528287652132014723092$ & $c_{75}$ & $3779496022249733441$ &  &  \\
-\end{tabular}
-\end{center}
+for each admissible index, and the entry's condition is the requirement that
+\[
+\text{every diagonal sum} \notin \{0\}\ \text{ and }\ \text{every antidiagonal sum} \notin \{3\}\ \text{ and }\ \text{every row sum} \notin \{0,3\}\ \text{ and }\ \text{every column sum} \notin \{0,3\}
+\]
+holds for every such $g$. This involves $r$, $s$ and $t$ only: it is a condition on
+three consecutive rows and on nothing else.
+
+Take as vertices of a digraph $G$ the ordered PAIRS $(r,s)$ of rows, of which there are
+$S=(1+1)^{2\cdot3}=64$, and put an edge $(r,s)\to(s,t)$ exactly when the condition
+holds for the triple $(r,s,t)$ at every admissible index. An array with $L$ rows is then a
+walk of length $L-2$ in $G$: its first two rows name the starting vertex and each further
+row is one step. Hence, with $M$ the adjacency matrix of $G$,
+\[
+a(n)\;=\;\,\mathbf{1}^{\!\top}M^{\,n-1+1}\mathbf{1},
+\]
+the exponent being fixed by the entry's own shape and checked against its published terms.
+In particular $a$ is $C$-finite.
+
+\section{The proof}
+
+\begin{lemma}\label{lem:crit}
+Let $q(t)=t^{3}-\sum_i c_it^{3-i}$ be the characteristic polynomial of the
+conjectured recurrence. Then the residual $a(n)-\sum_ic_ia(n-i)$ equals
+$\mathbf{1}^{\!\top}M^{\,j}q(M)\mathbf{1}$ for the corresponding walk index
+$j$, so the recurrence holds from some point on if and only if
+$\mathbf{1}^{\!\top}M^{j}q(M)\mathbf{1}=0$ for all large $j$; and by the
+Cayley--Hamilton theorem it is enough to examine $j<S$.
+\end{lemma}
+
+\begin{proof}
+Factor $M^{j}$ out of $M^{j+3}-\sum_ic_iM^{j+3-i}$. For the bound, $M^{S}$
+is an integer combination of $I,M,\dots,M^{S-1}$, so the numbers
+$u_j=\mathbf{1}^{\!\top}M^{j}q(M)\mathbf{1}$ satisfy the monic linear recurrence given by
+the characteristic polynomial of $M$; $S$ consecutive zeros therefore force every later one,
+and the last nonzero $u_j$ pins the threshold exactly.
+\end{proof}
 
 \begin{theorem}
-The recurrence above holds for every $n$, and it is the recurrence the entry records.
+\[
+a(n)\;=\;-a(n-1) + 3\,a(n-2) + 3\,a(n-3)
+\]
+for every $n>9$.
 \end{theorem}
 
 \begin{proof}
-It holds by Lemma~\ref{lem:bm}, which returns a recurrence the sequence satisfies from its
-first term. For the identification: the entry asserts that the sequence satisfies SOME
-recurrence of order $98$, possibly only from some index on. Let $q$ be that recurrence's
-characteristic polynomial and $q_{\min}$ the minimal polynomial of the tail of the sequence.
-Then $q_{\min}\mid q$. Berlekamp--Massey run on the sequence with its first $98+4$ terms
-removed returns order $98$ as well, so $\deg q_{\min}=98=\deg q$; both are monic, so
-$q=q_{\min}$, which is the polynomial computed above.
+The vector $w=q(M)\mathbf{1}$ was formed by $3$ matrix--vector products in exact
+integer arithmetic and $\mathbf{1}^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again
+exactly. Those integers vanish from the index corresponding to $n=9+1$ onwards, and the
+run was continued until the working vector was identically zero, which settles all larger $j$
+at once. By Lemma~\ref{lem:crit} the recurrence holds for every $n>9$. The bound is exact: at $n=9$ the recurrence fails on the entry's own published terms, so no larger range holds.
 \end{proof}
 
 \section{Verification}
 
-Three checks.
+Three checks, each independent of the algebra above.
 
-First, the walk model reproduces all $16$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry, and it is the only place where reading
-the entry's English enters.
+First, the transfer model reproduces all $30$ terms the entry publishes, exactly, in
+integer arithmetic. This is what ties the model to the entry: the digraph is built by reading
+the entry's English, and a misreading gives different counts.
 
-Second, the recovered recurrence was evaluated directly on those published terms, with no
-matrices and no Berlekamp--Massey involved, and holds at every index where the entry gives
-enough earlier terms to test it.
+Second, the conjectured recurrence was evaluated directly on the entry's own published terms,
+with no matrices involved, and holds wherever the proved range and the data overlap.
 
-Third, the order was computed twice by independent routes: once modulo a $61$-bit prime, where
-every intermediate is a machine word, and once in exact rational arithmetic; and once more on
-the sequence with its first $98+4$ terms removed, which is what the identification above
-requires. All three agree.
-
-\begin{remark}
-What is unusual here is that the conjecture's statement was never read. The entry pins it down
-to a one-parameter family --- the recurrences of order $98$ that this sequence satisfies
---- and that family turns out to have exactly one member.
-\end{remark}
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+arithmetic on the whole vector rather than on a sampled prefix, so no rounding or sampling
+enters anywhere.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A277769.
-\bibitem{massey} J.~L.~Massey, Shift-register synthesis and BCH decoding, \emph{IEEE
-Trans. Inform. Theory} \textbf{15} (1969), 122--127.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A258959.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+University Press, 2009.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

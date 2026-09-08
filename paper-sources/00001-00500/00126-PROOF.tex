@@ -12,206 +12,197 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{Every odd-indexed term of OEIS A389472 after the first is even}
+\title{The empirical recurrence for OEIS A211330, proved by a one-dimensional reduction}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{31 August 2026}
+\date{4 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A389472 is defined by the functional equation $A(x)=A(x^{2}+x^{3})/x^{2}-1$ for its
-ordinary generating function, and carries a conjecture of P.~D.~Hanna that $a(2n-1)$ is
-even for every $n>1$. It is true. The equation determines the coefficients one at a time,
-so it determines them modulo $2$; and over $\mathbb{F}_{2}$ it turns out to be
-\emph{parity-preserving}: the series $x+C(x^{2})$ satisfies it exactly, for $C$ the
-solution of the companion equation $y\,C(y)=C(y^{2}+y^{3})$, because
-$(x^{2}+x^{3})^{2}=x^{4}+x^{6}$ in characteristic $2$. Uniqueness then forces the
-reduction of $A$ to be supported, apart from the term $x$, on even exponents only --- which
-is the conjecture. The entry's second conjecture, modulo $3$, is \emph{not} settled here;
-Section~5 says where the argument fails to carry over.
+OEIS A211330 counts symmetric $(n+1)\times(n+1)$ matrices over
+$\{-5,\dots,5\}$ in which every $2\times2$ subblock sums to zero and has three distinct
+entries. Both sides of the matrix grow with $n$, so there is no slice of bounded width to walk
+along. There does not need to be: the sum-zero condition is linear and solves completely, and
+its solutions are indexed by a SEQUENCE --- the diagonal of the matrix. The count becomes a walk
+on $S=154$ states, and the empirical recurrence of order $11$ contributed by R.~H.~Hardin
+follows.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 11B50, 05A15, 13F35.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 15B36, 15A18.\normalsize
 
-\section{The sequence and the conjecture}
+\section{The conjecture}
 
-OEIS A389472 is ``G.f. satisfies A(x) = A(x\^{}2 + x\^{}3)/x\^{}2 - 1.''. It has offset $1$ and begins
+OEIS A211330 is ``Number of (n+1) X (n+1) -5..5 symmetric matrices with every 2 X 2 subblock having sum zero and three distinct values.''. It has offset $1$ and begins
 \[
-1, 1, 2, 3, 6, 9, 14, 24, 42, 72,\ \dots
+46, 90, 172, 316, 588, 1070, 1974, 3608,\ \dots
 \]
-The entry gives the expansion
-\begin{quote}\small
-G.f.: A(x) = x + x\^{}2 + 2*x\^{}3 + 3*x\^{}4 + 6*x\^{}5 + 9*x\^{}6 + 14*x\^{}7 + 24*x\^{}8 + \dots
+The entry states, as a conjecture contributed by its author and never marked settled:
+\begin{quote}
+Empirical: a(n) = 5*a(n-1) - a(n-2) - 31*a(n-3) + 39*a(n-4) +  56*a(n-5) - 116*a(n-6) - 14*a(n-7) + 115*a(n-8) - 34*a(n-9) - 30*a(n-10) + 12*a(n-11).
 \end{quote}
-so, writing $A(x)=\sum_{n\ge1}a(n)x^{n}$, the entry fixes
-\begin{equation}\label{eq:init}
-a(1)=1,\qquad a(2)=1,
-\end{equation}
-and defines the remaining coefficients by $A(x)=A(x^{2}+x^{3})/x^{2}-1$, which we clear
-of the division and write as
-\begin{equation}\label{eq:fe}
-x^{2}\bigl(A(x)+1\bigr)\;=\;A\bigl(x^{2}+x^{3}\bigr).
-\end{equation}
-This is the only input taken from the entry.
+As of the ``Last modified'' line on the live entry (Jul 17 2018 08:39:37, revision 7) this is still
+recorded as empirical, and nothing on the entry records it as proved.
 
-The entry separately carries the following comment:
-\begin{quote}\small
-Conjecture: a(2*n-1) = 0 (mod 2) for n > 1. --- \emph{Paul D. Hanna}
-\end{quote}
-As of the ``Last modified'' line on the live entry (Oct 17 2025 00:08:59, revision 7) the statement is
-still recorded as a conjecture, and nothing on the entry records it as settled either way.
-The entry carries a second conjecture of the same contributor, that $a(3n-1)\equiv0$
-modulo $3$ for $n>1$. It is not proved below and it is not claimed.
+\section{The sum-zero condition solved}
 
-\section{The equation determines the sequence}
+Let $x$ be an $N\times N$ symmetric matrix with entries in $\{-5,\dots,5\}$ such that
+\[
+x(i,j)+x(i,j{+}1)+x(i{+}1,j)+x(i{+}1,j{+}1)=0
+\]
+for every $0\le i,j\le N-2$.
 
-Because $(x^{2}+x^{3})^{n}=x^{2n}(1+x)^{n}$, comparing coefficients of $x^{N}$ in
-\eqref{eq:fe} gives, for every $N\ge2$,
-\begin{equation}\label{eq:rec}
-a(N-2)\;=\;\sum_{n\ge1}a(n)\binom{n}{N-2n},
-\end{equation}
-with $a(0):=0$ and the convention $\binom{n}{j}=0$ unless $0\le j\le n$.
-
-\begin{lemma}\label{lem:unique}
-The coefficient $a(1)=1$ is forced by \eqref{eq:fe}. Given also $a(2)$, equation
-\eqref{eq:rec} determines $a(m)$ for every $m\ge3$ as a polynomial with integer
-coefficients in $a(1),\dots,a(m-1)$; so \eqref{eq:init} and \eqref{eq:fe} together have
-exactly one integer solution.
+\begin{lemma}\label{lem:solve}
+Such matrices are exactly the matrices
+\[
+x(i,j)=(-1)^{i+j}\,\frac{u_i+u_j}{2},
+\qquad u_0,\dots,u_{N-1}\in\{-5,\dots,5\}\ \text{all of the same parity},
+\]
+and the sequence is recovered from the matrix by $u_i=x(i,i)$, so the correspondence is a
+bijection.
 \end{lemma}
 
 \begin{proof}
-At $N=2$, \eqref{eq:rec} reads $a(0)=a(1)\binom{1}{0}$ --- reading the left side of
-\eqref{eq:fe} instead, the coefficient of $x^{2}$ there is $1$, so $a(1)=1$.
-
-Now take $N\ge5$ and put $m=N-2\ge3$. On the right of \eqref{eq:rec} the binomial
-$\binom{n}{N-2n}$ vanishes unless $2n\le N$, so only $a(n)$ with
-$n\le\lfloor N/2\rfloor$ occur. Since $N\ge5$,
+Put $y(i,j)=(-1)^{i+j}x(i,j)$. The four entries of a $2\times2$ subblock alternate in sign
+under this substitution, so
 \[
-\Bigl\lfloor \tfrac{N}{2}\Bigr\rfloor\;\le\;N-3\;=\;m-1,
+x(i,j)+x(i,j{+}1)+x(i{+}1,j)+x(i{+}1,j{+}1)
+=(-1)^{i+j}\bigl[y(i,j)-y(i,j{+}1)-y(i{+}1,j)+y(i{+}1,j{+}1)\bigr],
 \]
-so the right side involves only $a(1),\dots,a(m-1)$ and \eqref{eq:rec} expresses $a(m)$
-through them. (At $N=3$ and $N=4$ the relation reads $a(1)=a(1)$ and $a(2)=a(2)$, giving no
-information; that is why $a(2)$ is part of the data.) Induction finishes the proof.
+and the condition says exactly that the mixed second difference of $y$ vanishes everywhere.
+Summing that identity over a rectangle gives
+$y(i,j)=y(i,0)+y(0,j)-y(0,0)$ for all $i,j$, which is $y(i,j)=f(i)+g(j)$ with
+$f(i)=y(i,0)-y(0,0)$ and $g(j)=y(0,j)$; conversely every such $y$ has vanishing mixed
+difference. Symmetry of $x$ gives $y(i,j)=y(j,i)$, hence $f(i)-g(i)=f(j)-g(j)$ for all $i,j$:
+the difference is a constant $c$. Writing $u_i=2\bigl(f(i)-c/2\bigr)$, which is an integer
+because $y(i,i)=x(i,i)$ is, we get $y(i,j)=(u_i+u_j)/2$ as claimed. Taking $j=i$ gives
+$u_i=y(i,i)=x(i,i)$.
+
+For the two side conditions: $u_i+u_j$ must be even for all $i,j$, which says all the $u_i$ have
+the same parity; and $|x(i,j)|=|u_i+u_j|/2\le5$ for all $i,j$ is equivalent to $|u_i|\le5$
+for each $i$, the case $j=i$ giving one direction and the triangle inequality the other.
 \end{proof}
 
-\begin{corollary}\label{cor:mod}
-Let $k\ge2$. If $\bar A\in(\mathbb{Z}/k\mathbb{Z})[[x]]$ has
-$\bigl[x^{1}\bigr]\bar A=\bigl[x^{2}\bigr]\bar A=1$, no constant term, and satisfies
-\eqref{eq:fe} with all coefficients read modulo $k$, then
-$a(n)\equiv\bigl[x^{n}\bigr]\bar A\pmod k$ for every $n$.
+So the matrices of size $N$ correspond one for one to the sequences $u_0,\dots,u_{N-1}$ in
+$\{-5,\dots,5\}$ with all entries of one parity. What remains is to say, in terms of $u$,
+that every $2\times2$ subblock has three distinct entries.
+
+\begin{lemma}\label{lem:block}
+Write $\pi_i=(u_i,u_{i+1})$ for the $i$-th consecutive pair. The number of distinct entries of
+the subblock at $(i,j)$ depends only on $\pi_i$ and $\pi_j$: with $\pi_i=(\alpha,\beta)$ and
+$\pi_j=(\gamma,\delta)$ it is
+\[
+\Bigl|\Bigl\{\tfrac{\alpha+\gamma}{2},\,-\tfrac{\alpha+\delta}{2},\,
+-\tfrac{\beta+\gamma}{2},\,\tfrac{\beta+\delta}{2}\Bigr\}\Bigr| .
+\]
+\end{lemma}
+
+\begin{proof}
+By Lemma~\ref{lem:solve} the four entries are $(-1)^{i+j}$ times those four numbers, in
+order. Multiplying all four by $\pm1$ does not change how many are distinct.
+\end{proof}
+
+Call two consecutive pairs COMPATIBLE when that number lies in $\{3\}$. The condition on the
+matrix is that $\pi_i$ and $\pi_j$ are compatible for every $i$ and $j$ --- including $i=j$,
+which asks each pair to be compatible with itself. In other words:
+
+\begin{corollary}
+The matrices counted are exactly the sequences $u$ whose set of consecutive pairs is a clique in
+the compatibility graph on the $\le 121$ pairs.
 \end{corollary}
 
-\begin{proof}
-Reduction modulo $k$ is a ring homomorphism, so it carries \eqref{eq:rec} to the same
-relation over $\mathbb{Z}/k\mathbb{Z}$; by Lemma~\ref{lem:unique} that relation, together
-with the two initial values, has a unique solution, and both $a\bmod k$ and the
-coefficients of $\bar A$ solve it.
-\end{proof}
+\section{A walk on the sequence}
 
-\section{The companion equation}
+The clique condition is not local: a pair must be compatible with every pair anywhere else in
+the sequence. Carrying the set of pairs already used would be an exponential state. Carrying
+what it FORBIDS is not.
 
-Work in $\mathbb{F}_{2}[[y]]$.
-
-\begin{lemma}\label{lem:C}
-There is exactly one $C(y)=\sum_{m\ge1}c_m y^{m}\in\mathbb{F}_{2}[[y]]$ with $c_1=1$ and
-\begin{equation}\label{eq:C}
-y\,C(y)\;=\;C\bigl(y^{2}+y^{3}\bigr).
-\end{equation}
+\begin{lemma}\label{lem:lump}
+Let $A$ be the set of pairs compatible with every pair used so far. Then a sequence may be
+continued exactly by pairs lying in $A$, and appending a pair $\pi$ replaces $A$ by
+$A\cap N(\pi)$, where $N(\pi)$ is the set of pairs compatible with $\pi$. Hence the pair
+$(\,\text{last value of }u,\;A\,)$ carries everything the future needs.
 \end{lemma}
 
 \begin{proof}
-Comparing coefficients of $y^{m}$ in \eqref{eq:C} and using
-$(y^{2}+y^{3})^{n}=y^{2n}(1+y)^{n}$ gives
-$c_{m-1}=\sum_{n\ge1}c_n\binom{n}{m-2n}$, where again only $n\le\lfloor m/2\rfloor$
-occur. For $m\ge3$ we have $\lfloor m/2\rfloor\le m-2$, so this expresses $c_{m-1}$
-through $c_1,\dots,c_{m-2}$; at $m=2$ it reads $c_1=c_1$. Hence $c_1$ may be prescribed
-and everything after it is determined.
+The condition is a conjunction of pairwise compatibilities, so the set of pairs still allowed
+after using a set $T$ is $\bigcap_{\pi\in T}N(\pi)$, which is a function of $T$ and is updated
+by intersection as $T$ grows. The next pair is $(\text{last value},w)$, so the last value is
+the only other thing a step needs.
 \end{proof}
 
-\begin{lemma}\label{lem:sat}
-Let $C$ be as in Lemma~\ref{lem:C} and put $\bar A(x)=x+C(x^{2})$. Then $\bar A$ satisfies
-\eqref{eq:fe} over $\mathbb{F}_{2}$, and $\bigl[x^{1}\bigr]\bar A=\bigl[x^{2}\bigr]\bar A=1$.
+The sets $A$ that arise are intersections of neighbourhoods, of which there are far fewer than
+subsets; enumerated from the start $A_0=\{\pi:\pi\in N(\pi)\}$, the reachable states number
+$S=154$. The two parity classes never mix, so the walk starts by choosing a parity and a first
+value, and every state may end a sequence:
+\[
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad \tau=\mathbf{1},\qquad S=154.
+\]
+The walk index $j$ is the size of the matrix, and it differs from the entry's own $n$ by a
+constant read off by matching the published terms rather than assumed. In particular $a$ is
+$C$-finite --- for a family in which both dimensions grow with $n$.
+
+\section{The proof}
+
+\begin{lemma}\label{lem:crit}
+Let $q(t)=t^{11}-\sum_i c_it^{11-i}$ be the characteristic polynomial of the
+conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
+$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
+holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
+and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-In characteristic $2$ squaring is additive, so
-\begin{equation}\label{eq:frob}
-\bigl(x^{2}+x^{3}\bigr)^{2}\;=\;x^{4}+x^{6} .
-\end{equation}
-Substituting $u=x^{2}+x^{3}$ into $\bar A(u)=u+C(u^{2})$ and using \eqref{eq:frob},
-\[
-\bar A\bigl(x^{2}+x^{3}\bigr)\;=\;x^{2}+x^{3}+C\bigl(x^{4}+x^{6}\bigr),
-\]
-while
-\[
-x^{2}\bigl(\bar A(x)+1\bigr)\;=\;x^{2}\bigl(x+C(x^{2})+1\bigr)
-\;=\;x^{2}+x^{3}+x^{2}C\bigl(x^{2}\bigr).
-\]
-The two agree exactly when $x^{2}C(x^{2})=C(x^{4}+x^{6})$, which is \eqref{eq:C} read
-at $y=x^{2}$. Finally $\bigl[x^{1}\bigr]\bar A=1$ and
-$\bigl[x^{2}\bigr]\bar A=c_1=1$.
+Factor $M^{j}$ out of $M^{j+11}-\sum_ic_iM^{j+11-i}$. For the bound, $M^{S}$
+is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
+$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
+polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
+pins the threshold exactly.
 \end{proof}
-
-\section{The reduction modulo $2$}
 
 \begin{theorem}
-$a(2n-1)\equiv0\pmod 2$ for every $n>1$. This is the conjecture of Section~1.
+\[
+a(n)\;=\;5\,a(n-1) - a(n-2) - 31\,a(n-3) + 39\,a(n-4) + 56\,a(n-5) - 116\,a(n-6) - 14\,a(n-7) + 115\,a(n-8) - 34\,a(n-9) - 30\,a(n-10) + 12\,a(n-11)
+\]
+for every $n>11$.
 \end{theorem}
 
 \begin{proof}
-By Lemma~\ref{lem:sat} the series $\bar A(x)=x+C(x^{2})$ satisfies \eqref{eq:fe} over
-$\mathbb{F}_{2}$ and matches \eqref{eq:init}. By Corollary~\ref{cor:mod} with $k=2$ it is
-therefore the reduction of $A$ modulo $2$.
-
-Every exponent occurring in $C(x^{2})$ is even, so the only odd exponent occurring in
-$\bar A$ is $1$. Hence $\bigl[x^{m}\bigr]\bar A=0$ for every odd $m\ge3$, that is,
-$a(m)\equiv0\pmod2$ for every odd $m\ge3$. Writing $m=2n-1$ with $n>1$ gives the statement.
+The vector $w=q(M)\tau$ was formed by $11$ matrix--vector products in exact integer
+arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
+integers vanish from the index corresponding to $n=11+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
-
-\begin{remark}
-The mechanism is worth isolating: \eqref{eq:fe} substitutes $x^{2}+x^{3}$, and in
-characteristic $2$ the square of that is again a polynomial in $x^{2}$, by \eqref{eq:frob}.
-So the substitution cannot manufacture new odd exponents beyond the ones already present,
-and the single odd exponent $1$ forced by $a(1)=1$ is all there is.
-\end{remark}
-
-\section{Where the argument stops}
-
-The entry's other conjecture is that $a(3n-1)\equiv0$ modulo $3$ for $n>1$, that is, that
-the reduction of $A$ modulo $3$ is supported off the exponents $\equiv2\pmod 3$ apart from
-$x^{2}$ itself. That is not proved here, and the proof above does not adapt: it turns on
-the Frobenius identity \eqref{eq:frob}, which in characteristic $3$ becomes
-$(x^{2}+x^{3})^{3}=x^{6}+x^{9}$ --- but \eqref{eq:fe} substitutes the \emph{first}
-power of $x^{2}+x^{3}$, not the third, so the Frobenius map is not available where it
-would be needed. The residues modulo $3$ were computed for every $n\le60$ and the
-conjecture holds throughout that range; no proof is offered.
 
 \section{Verification}
 
-Three checks, each independent of the algebra above.
+Four checks, each independent of the algebra above.
 
-First, the recursion \eqref{eq:rec} was run in exact integer arithmetic from
-\eqref{eq:init} and compared against the entry's DATA at every one of the $41$
-published indices; the values agree exactly. A recursion that reproduced only some of them
-would mean the functional equation had been transcribed wrongly.
+First, the model reproduces all $29$ terms the entry publishes, exactly, in integer
+arithmetic.
 
-Second, the series $C$ of Lemma~\ref{lem:C} was generated from its own recursion over
-$\mathbb{F}_{2}$ and $x+C(x^{2})$ compared, coefficient by coefficient, against
-$a(n)\bmod2$ for every $n\le60$; the two agree at every index, with no mismatch. Equation
-\eqref{eq:C} was checked directly over $\mathbb{F}_{2}$ to order $60$.
+Second, the count was recomputed for the smallest matrices straight from the definition:
+symmetric matrices were written out entry by entry over $\{-5,\dots,5\}$ and each
+$2\times2$ subblock tested for summing to zero and for having three distinct entries. The
+sequence $u$, the sign pattern, the clique and the state play no part in that computation, and
+the published terms came back. Lemma~\ref{lem:solve} was separately checked the same way: for
+small sizes and small ranges the number of symmetric sum-zero matrices found by direct
+enumeration equals the number of admissible sequences.
 
-Third, $a(2n-1)\bmod2$ was evaluated for every $n$ with $2n-1\le60$: all zero, as the
-theorem requires.
+Third, the conjectured recurrence was evaluated directly on the published terms, with no
+matrices involved, and holds wherever the proved range and the data overlap.
+
+Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A389472.
-\bibitem{lidl} R.~Lidl and H.~Niederreiter, \emph{Finite Fields}, 2nd ed., Cambridge
-University Press, 1997.
-\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 2, Cambridge
-University Press, 1999.
-\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
-University Press, 2009.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A211330.
+\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{kemeny} J.~G.~Kemeny and J.~L.~Snell, \emph{Finite Markov Chains}, Springer, 1976.
+(Lumping, Section 6.3.)
+\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
+University Press, 2013.
 \end{thebibliography}
 
 \end{document}

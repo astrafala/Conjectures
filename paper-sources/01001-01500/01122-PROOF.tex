@@ -12,92 +12,80 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A210092, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A221088, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A210092 counts arrays of width $6$ whose every $2\times2$ subblock holds a
-prescribed number of DISTINCT values, which use ALL of the $3$ available letters, and which
-are counted up to renaming. The entry carries an empirical recurrence of order $52$
-contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical. The
-condition counts distinct values and so survives renaming, which lets the count of patterns be
-recovered from counts over fixed alphabets by inverting a triangular system of falling
-factorials; the words ``containing all values'' change which row of that inverse is used and
-nothing else. Each fixed-alphabet count is a walk count on $S=794$ states in all.
+OEIS A221088 counts the distinct OCCUPANCY arrays obtained when every cell of an $n\times2$ grid
+holds one token and each token moves to a neighbouring cell, and carries an empirical
+recurrence of order $4$ contributed by R.~H.~Hardin. It is true, and it is decidable
+rather than empirical. What is counted is the size of an IMAGE --- two different assignments of
+moves with the same occupancy count once --- so it is not a walk count in the obvious graph;
+determinising the machine that emits the occupancy row by row turns it into one, on $S=50$
+states, after which the conjectured recurrence is settled by a finite exact computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A18, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 68Q45, 60C05.\normalsize
 
 \section{The conjecture}
 
-OEIS A210092 is ``Number of (n+1)X6 0..2 arrays containing all values 0..2 with every 2X2 subblock having one or two distinct values, and new values 0..2 introduced in row major order.''. It has offset $1$ and begins
+OEIS A221088 is ``Number of 2 X n arrays of occupancy after each element moves to some horizontal or antidiagonal neighbor.''. It has offset $1$ and begins
 \[
-4230, 348621, 29356228, 2488428258, 209465946364, 17494242506253, 1451091848955678, 119700187465721716,\ \dots
+0, 4, 24, 169, 1155, 7921, 54288, 372100,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 202*a(n-1) -14123*a(n-2) +380572*a(n-3) -1438616*a(n-4) -99274709*a(n-5) +1155724795*a(n-6) +8643300216*a(n-7) -166589849398*a(n-8) -274497031426*a(n-9) +11515136131550*a(n-10) -1832292455645*a(n-11) -457188662253503*a(n-12) +336001687563753*a(n-13) +11327503957451248*a(n-14) -9113460943291491*a(n-15) -183665203305943843*a(n-16) +123571425473428963*a(n-17) +2003525661152721986*a(n-18) -990601469663807369*a(n-19) -14981189128638351022*a(n-20) +5154521066328382780*a(n-21) +78057653461845959313*a(n-22) -19250224843040180931*a(n-23) -287532733033011400278*a(n-24) +58417217021953987815*a(n-25) +757126134053256036905*a(n-26) -155693459113620706806*a(n-27) -1433722830312214278540*a(n-28) +348602065891707730366*a(n-29) +1950547820706182800257*a(n-30) -595414185159687071974*a(n-31) -1887300745304252275773*a(n-32) +725686784875169133118*a(n-33) +1269686648151447607271*a(n-34) -608745622735310244088*a(n-35) -568946968704783843248*a(n-36) +341945871757434843792*a(n-37) +155435605971618737334*a(n-38) -124110444593762302930*a(n-39) -19948113914003483822*a(n-40) +27435918496367785268*a(n-41) -714926210446370056*a(n-42) -3322485605775126312*a(n-43) +498971087766745072*a(n-44) +180395158795278272*a(n-45) -44929945871997536*a(n-46) -3093399295952128*a(n-47) +1451280469739136*a(n-48) -24128771207680*a(n-49) -15867004438528*a(n-50) +437469315072*a(n-51) +60523806720*a(n-52)
+Empirical: a(n) = 7*a(n-1) - 7*a(n-3) + a(n-4).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 15:42:57, revision 9) this is still
+As of the ``Last modified'' line on the live entry (Aug 03 2018 08:22:28, revision 8) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The array has $6$ cells across and entries in $\{0,1,\dots,2\}$. In every
-$2\times2$ window of it, the number of DISTINCT entries must be one of $1, 2$. Two
-further clauses come with it:
-
-\begin{itemize}
-\item ``new values $0..2$ introduced in row major order'' --- reading the cells in row major
-order, a letter may appear for the first time only when every smaller letter already has, so
-the array counted is the canonical representative of its EQUALITY PATTERN;
-\item ``containing all values $0..2$'' --- every one of the $3$ letters must actually
-occur.
-\end{itemize}
-
-
-\section{From patterns to fixed alphabets}
-
-Write $N_j$ for the number of admissible patterns using exactly $j$ letters and $L_i$ for the
-number of admissible arrays over an alphabet of $i$ letters. An array over $i$ letters is a
-pattern together with an injection of its letters into the alphabet, so
+Every cell of an $n\times2$ grid holds one token. Each token moves by one of the offsets
 \[
-L_i\;=\;\sum_{j} N_j\,i(i-1)\cdots(i-j+1)\;=\;\sum_j F_{ij}N_j ,
+(-1,0), (-1,1), (1,-1), (1,0),
 \]
-a triangular system with unit diagonal, hence invertible over $\mathbf{Q}$.
+a move being available only when it lands inside the grid. The offset $(0,0)$ is NOT among them: every token must move. The entry writes the array with $n$ as the number of COLUMNS; transposing it exchanges the two coordinates of every offset, which is done once so that the walk always runs down the rows. The OCCUPANCY array
+records, for each cell, how many tokens land on it; the entry counts how many different
+occupancy arrays occur as the assignment of moves runs over all its possibilities.
 
-Here is the whole difference between this entry and its neighbours. Without the words
-``containing all values'' the quantity counted is $N_1+\dots+N_{3}$, and the weights are
-the row vector $\mathbf{1}^{\!\top}F^{-1}$. With them, the pattern must use every letter,
-so the quantity counted is $N_{3}$ alone and the weights are the single row
-$e_{3}^{\!\top}F^{-1}$ of the same inverse:
+That is the size of an IMAGE, and it is the whole difficulty: two assignments with the same
+occupancy must be counted once, and a walk count over the assignments would count them twice.
+
+\section{The image is a walk count after determinisation}
+
+Every offset moves the row index by at most one, so the occupancy of row $i$ is decided by the
+moves chosen in rows $i-1$, $i$ and $i+1$. Writing $\beta(p,c,x)$ for that occupancy row, with
+$p$ or $x$ allowed to be the symbol $\bot$ for ``outside'', the whole occupancy array is
 \[
-a\;=\;N_{3}\;=\;\sum_{i=1}^{3}\bigl(F^{-1}\bigr)_{3i}\,L_i .
+\bigl(\beta(\bot,c_1,c_2),\ \beta(c_1,c_2,c_3),\ \dots,\ \beta(c_{n-1},c_n,\bot)\bigr)
 \]
+for an assignment $c_1,\dots,c_n$ of move-rows. The symbol $\bot$ is not decoration: whether
+``up'' or ``down'' is a legal move for a cell depends on it, and $\beta$ returns nothing at all
+when the row it is given cannot occur in that position.
 
-The step is legitimate only if the condition survives renaming the alphabet, and it does: the
-condition counts how many DISTINCT values a window holds, and whether two cells agree is
-untouched by any renaming. No clause compares letters by size or does arithmetic on them.
-
-\section{Each $L_i$ is a walk count}
-
-A $2\times2$ window lies in $2$ consecutive array rows, so the window of the last
-$1$ rows is a state and a step appends a row, settling every subblock it completes.
-Assembling the pieces for $i=1,\dots,3$ as a disjoint union, with $\iota$ carrying the
-weights above cleared of denominators and $\tau=\mathbf{1}$,
+Determinise. For a set $D$ of pairs $(p,c)$ and an occupancy row $b$ put
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=794.
+\delta(D,b)=\{(c,x):(p,c)\in D,\ \beta(p,c,x)=b\},\qquad
+f(D)=\bigl|\{\beta(p,c,\bot):(p,c)\in D,\ \beta(p,c,\bot)\ \text{defined}\}\bigr| ,
 \]
-The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
-published terms rather than assumed. In particular $a$ is $C$-finite.
+and let $D_0=\{(\bot,c):c\}$. An induction on the number of rows shows $D_t$ is exactly the
+set of pairs of consecutive move-rows completing a prefix with the emitted occupancy rows, so
+that with $M$ the adjacency matrix of the digraph on the reachable nonempty sets, one edge per
+occupancy row it admits,
+\[
+a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,\qquad \iota=e_{D_0},\quad \tau=f .
+\]
+There are $S=50$ reachable sets. In particular $a$ is $C$-finite.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{52}-\sum_i c_it^{52-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{4}-\sum_i c_it^{4-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -105,7 +93,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+52}-\sum_ic_iM^{j+52-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+4}-\sum_ic_iM^{j+4-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -114,45 +102,42 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;202\,a(n-1) - 14123\,a(n-2) + 380572\,a(n-3) - 1438616\,a(n-4) - 99274709\,a(n-5) + 1155724795\,a(n-6) + 8643300216\,a(n-7) - 166589849398\,a(n-8) - 274497031426\,a(n-9) + 11515136131550\,a(n-10) - 1832292455645\,a(n-11) - 457188662253503\,a(n-12) + 336001687563753\,a(n-13) + 11327503957451248\,a(n-14) - 9113460943291491\,a(n-15) - 183665203305943843\,a(n-16) + 123571425473428963\,a(n-17) + 2003525661152721986\,a(n-18) - 990601469663807369\,a(n-19) - 14981189128638351022\,a(n-20) + 5154521066328382780\,a(n-21) + 78057653461845959313\,a(n-22) - 19250224843040180931\,a(n-23) - 287532733033011400278\,a(n-24) + 58417217021953987815\,a(n-25) + 757126134053256036905\,a(n-26) - 155693459113620706806\,a(n-27) - 1433722830312214278540\,a(n-28) + 348602065891707730366\,a(n-29) + 1950547820706182800257\,a(n-30) - 595414185159687071974\,a(n-31) - 1887300745304252275773\,a(n-32) + 725686784875169133118\,a(n-33) + 1269686648151447607271\,a(n-34) - 608745622735310244088\,a(n-35) - 568946968704783843248\,a(n-36) + 341945871757434843792\,a(n-37) + 155435605971618737334\,a(n-38) - 124110444593762302930\,a(n-39) - 19948113914003483822\,a(n-40) + 27435918496367785268\,a(n-41) - 714926210446370056\,a(n-42) - 3322485605775126312\,a(n-43) + 498971087766745072\,a(n-44) + 180395158795278272\,a(n-45) - 44929945871997536\,a(n-46) - 3093399295952128\,a(n-47) + 1451280469739136\,a(n-48) - 24128771207680\,a(n-49) - 15867004438528\,a(n-50) + 437469315072\,a(n-51) + 60523806720\,a(n-52)
+a(n)\;=\;7\,a(n-1) - 7\,a(n-3) + a(n-4)
 \]
-for every $n>51$.
+for every $n>4$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $52$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $4$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=51+1$ onwards and the run continued
-until the working vector was identically zero. The rational weights are carried as one common
-denominator throughout, so no division is performed until the final term.
+integers vanish from the index corresponding to $n=4+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
-Four checks, each independent of the algebra above.
+Three checks, each independent of the algebra above.
 
-First, the model reproduces all $12$ terms the entry publishes, exactly, in integer
-arithmetic.
+First, the model reproduces all $21$ terms the entry publishes, exactly, in integer
+arithmetic. The entry's first term is $0$, and it is a sharp test of the boundary: a
+one-row grid offers only the moves that stay within one row, so a neighbour set with no
+horizontal offset gives no legal assignment at all and the count is zero, which is what the
+entries of that shape publish.
 
-Second, the count was recomputed for the smallest arrays straight from the definition:
-enumerate every array over $\{0,\dots,2\}$, keep those that are canonical, that use every
-letter, and whose every subblock passes, and count them. Neither the transfer matrix nor the
-falling-factorial inversion is involved, and the published terms came back --- including the
-initial zeros, which are a sharp test of the ``containing all values'' clause: a small array
-cannot show $3$ letters at all.
-
-Third, the conjectured recurrence was evaluated directly on the published terms, with no
+Second, the conjectured recurrence was evaluated directly on those published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
 
-Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
 arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A210092.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A221088.
+\bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata
+Theory, Languages, and Computation}, 3rd ed., Addison--Wesley, 2006. (The subset
+construction, Section 2.3.)
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; Stirling numbers and
-falling factorials, Section 1.9.)
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

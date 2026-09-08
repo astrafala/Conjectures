@@ -12,215 +12,197 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{Every term of OEIS A397241 is odd}
+\title{The empirical recurrence for OEIS A211328, proved by a one-dimensional reduction}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{31 August 2026}
+\date{4 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A397241 is defined by the coefficient condition
-$n\,[x^{n}]A(x)^{n}=(n-1)\,[x^{n}]A(x)^{n+1}$ for $n>1$, and carries a conjecture of
-P.~D.~Hanna that every term is odd. It is true. The condition determines the coefficients
-one at a time --- $a(N)$ enters with coefficient $N^{2}-(N^{2}-1)=1$ --- so it determines
-them modulo $2$ as well. Modulo $2$ the series $1/(1-x)$, all of whose coefficients are
-$1$, satisfies the condition, because $\binom{2N}{N}=2\binom{2N-1}{N}$ kills the right
-side while Kummer's theorem makes $N\binom{2N-1}{N}$ even on the left. Uniqueness then
-forces $A(x)\equiv1/(1-x)$, which is the conjecture. The entry's two further conjectures,
-modulo $3$ and modulo $4$, are \emph{not} settled here; Section~5 says exactly where the
-argument stops.
+OEIS A211328 counts symmetric $(n+1)\times(n+1)$ matrices over
+$\{-3,\dots,3\}$ in which every $2\times2$ subblock sums to zero and has two, three or four distinct
+entries. Both sides of the matrix grow with $n$, so there is no slice of bounded width to walk
+along. There does not need to be: the sum-zero condition is linear and solves completely, and
+its solutions are indexed by a SEQUENCE --- the diagonal of the matrix. The count becomes a walk
+on $S=46$ states, and the empirical recurrence of order $8$ contributed by R.~H.~Hardin
+follows.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 11B50, 11B65, 05A15.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 15B36, 15A18.\normalsize
 
-\section{The sequence and the conjecture}
+\section{The conjecture}
 
-OEIS A397241 is ``G.f. A(x) satisfies n * [x\^{}n] A(x)\^{}n = (n-1) * [x\^{}n] A(x)\^{}(n+1) for n > 1.''. It has offset $0$ and begins
+OEIS A211328 is ``Number of (n+1) X (n+1) -3..3 symmetric matrices with every 2 X 2 subblock having sum zero and two, three or four distinct values.''. It has offset $1$ and begins
 \[
-1, 1, 1, 11, 191, 5279, 205739, 10703027,\ \dots
+24, 86, 310, 1134, 4190, 15582, 58130, 217014,\ \dots
 \]
-The entry gives the expansion
-\begin{quote}\small
-G.f.: A(x) = 1 + x + x\^{}2 + 11*x\^{}3 + 191*x\^{}4 + 5279*x\^{}5 + 205739*x\^{}6 + \dots
+The entry states, as a conjecture contributed by its author and never marked settled:
+\begin{quote}
+Empirical: a(n) = 13*a(n-1) - 63*a(n-2) + 130*a(n-3) - 65*a(n-4) - 115*a(n-5) + 69*a(n-6) + 68*a(n-7) + 12*a(n-8).
 \end{quote}
-so, writing $A(x)=\sum_{n\ge0}a(n)x^{n}$, the entry fixes
-\begin{equation}\label{eq:init}
-a(0)=1,\qquad a(1)=1,
-\end{equation}
-and defines the remaining coefficients by
-\begin{equation}\label{eq:fe}
-n\,\bigl[x^{n}\bigr]A(x)^{n}\;=\;(n-1)\,\bigl[x^{n}\bigr]A(x)^{n+1}
-\qquad\text{for } n>1 .
-\end{equation}
-This is the only input taken from the entry.
+As of the ``Last modified'' line on the live entry (Jul 17 2018 06:36:14, revision 7) this is still
+recorded as empirical, and nothing on the entry records it as proved.
 
-The entry separately carries the following comment:
-\begin{quote}\small
-Conjecture: all terms are odd. --- \emph{Paul D. Hanna}
-\end{quote}
-As of the ``Last modified'' line on the live entry (Jun 20 2026 05:53:17, revision 12) the statement is
-still recorded as a conjecture, and nothing on the entry records it as settled either way.
-The entry carries two further conjectures of the same contributor, that $a(n)\equiv2$
-modulo $3$ and $a(n)\equiv3$ modulo $4$ for $n>2$. Those are stronger, they are not proved
-below, and they are not claimed.
+\section{The sum-zero condition solved}
 
-\section{The condition determines the sequence}
-
-\begin{lemma}\label{lem:MaN}
-Let $A(x)=\sum_{n\ge0}a(n)x^{n}$ with $a(0)=1$. Then for every $M\ge1$ and every $N\ge1$,
+Let $x$ be an $N\times N$ symmetric matrix with entries in $\{-3,\dots,3\}$ such that
 \[
-\bigl[x^{N}\bigr]A^{M}=M\,a(N)+\bigl(\text{a polynomial with integer coefficients in }
-a(1),\dots,a(N-1)\bigr).
+x(i,j)+x(i,j{+}1)+x(i{+}1,j)+x(i{+}1,j{+}1)=0
+\]
+for every $0\le i,j\le N-2$.
+
+\begin{lemma}\label{lem:solve}
+Such matrices are exactly the matrices
+\[
+x(i,j)=(-1)^{i+j}\,\frac{u_i+u_j}{2},
+\qquad u_0,\dots,u_{N-1}\in\{-3,\dots,3\}\ \text{all of the same parity},
+\]
+and the sequence is recovered from the matrix by $u_i=x(i,i)$, so the correspondence is a
+bijection.
+\end{lemma}
+
+\begin{proof}
+Put $y(i,j)=(-1)^{i+j}x(i,j)$. The four entries of a $2\times2$ subblock alternate in sign
+under this substitution, so
+\[
+x(i,j)+x(i,j{+}1)+x(i{+}1,j)+x(i{+}1,j{+}1)
+=(-1)^{i+j}\bigl[y(i,j)-y(i,j{+}1)-y(i{+}1,j)+y(i{+}1,j{+}1)\bigr],
+\]
+and the condition says exactly that the mixed second difference of $y$ vanishes everywhere.
+Summing that identity over a rectangle gives
+$y(i,j)=y(i,0)+y(0,j)-y(0,0)$ for all $i,j$, which is $y(i,j)=f(i)+g(j)$ with
+$f(i)=y(i,0)-y(0,0)$ and $g(j)=y(0,j)$; conversely every such $y$ has vanishing mixed
+difference. Symmetry of $x$ gives $y(i,j)=y(j,i)$, hence $f(i)-g(i)=f(j)-g(j)$ for all $i,j$:
+the difference is a constant $c$. Writing $u_i=2\bigl(f(i)-c/2\bigr)$, which is an integer
+because $y(i,i)=x(i,i)$ is, we get $y(i,j)=(u_i+u_j)/2$ as claimed. Taking $j=i$ gives
+$u_i=y(i,i)=x(i,i)$.
+
+For the two side conditions: $u_i+u_j$ must be even for all $i,j$, which says all the $u_i$ have
+the same parity; and $|x(i,j)|=|u_i+u_j|/2\le3$ for all $i,j$ is equivalent to $|u_i|\le3$
+for each $i$, the case $j=i$ giving one direction and the triangle inequality the other.
+\end{proof}
+
+So the matrices of size $N$ correspond one for one to the sequences $u_0,\dots,u_{N-1}$ in
+$\{-3,\dots,3\}$ with all entries of one parity. What remains is to say, in terms of $u$,
+that every $2\times2$ subblock has two, three or four distinct entries.
+
+\begin{lemma}\label{lem:block}
+Write $\pi_i=(u_i,u_{i+1})$ for the $i$-th consecutive pair. The number of distinct entries of
+the subblock at $(i,j)$ depends only on $\pi_i$ and $\pi_j$: with $\pi_i=(\alpha,\beta)$ and
+$\pi_j=(\gamma,\delta)$ it is
+\[
+\Bigl|\Bigl\{\tfrac{\alpha+\gamma}{2},\,-\tfrac{\alpha+\delta}{2},\,
+-\tfrac{\beta+\gamma}{2},\,\tfrac{\beta+\delta}{2}\Bigr\}\Bigr| .
 \]
 \end{lemma}
 
 \begin{proof}
-Write $A=1+U$ with $U=\sum_{n\ge1}a(n)x^{n}$, so
-$A^{M}=\sum_{r\ge0}\binom{M}{r}U^{r}$. The coefficient of $x^{N}$ in $U^{r}$ is a sum
-of products of $r$ coefficients $a(i_1)\cdots a(i_r)$ with all $i_s\ge1$ and
-$i_1+\dots+i_r=N$. Such a product involves $a(N)$ only when $r=1$, and then it is $a(N)$
-itself; for $r\ge2$ every index is at most $N-1$. Hence
-$\bigl[x^{N}\bigr]A^{M}=\binom{M}{1}a(N)+\cdots=M\,a(N)+\cdots$ as claimed.
+By Lemma~\ref{lem:solve} the four entries are $(-1)^{i+j}$ times those four numbers, in
+order. Multiplying all four by $\pm1$ does not change how many are distinct.
 \end{proof}
 
-\begin{lemma}\label{lem:unique}
-Given \eqref{eq:init}, there is exactly one sequence of integers $a(2),a(3),\dots$
-satisfying \eqref{eq:fe}, and for each $N\ge2$ the condition at $n=N$ has the form
-$a(N)=(\text{a polynomial with integer coefficients in }a(0),\dots,a(N-1))$.
-\end{lemma}
+Call two consecutive pairs COMPATIBLE when that number lies in $\{2,3,4\}$. The condition on the
+matrix is that $\pi_i$ and $\pi_j$ are compatible for every $i$ and $j$ --- including $i=j$,
+which asks each pair to be compatible with itself. In other words:
 
-\begin{proof}
-Fix $N\ge2$ and collect the coefficient of $a(N)$ on the two sides of \eqref{eq:fe} at
-$n=N$, using Lemma~\ref{lem:MaN} with $M=N$ and $M=N+1$. The left side gives $N\cdot N$ and
-the right side $(N-1)(N+1)$, so the net coefficient of $a(N)$ is
-\[
-N^{2}-(N^{2}-1)\;=\;1 .
-\]
-Everything else in the condition involves only $a(0),\dots,a(N-1)$. So the condition at
-$n=N$ solves for $a(N)$ over $\mathbb{Z}$, and induction from \eqref{eq:init} gives
-existence and uniqueness. (At $n=2$ it gives $a(2)=1$, matching the entry.)
-\end{proof}
-
-\begin{corollary}\label{cor:mod}
-Let $m\ge2$. If $\bar A\in(\mathbb{Z}/m\mathbb{Z})[[x]]$ has
-$\bigl[x^{0}\bigr]\bar A=\bigl[x^{1}\bigr]\bar A=1$ and satisfies \eqref{eq:fe} with all
-coefficients read modulo $m$, then $a(n)\equiv\bigl[x^{n}\bigr]\bar A\pmod m$ for every $n$.
+\begin{corollary}
+The matrices counted are exactly the sequences $u$ whose set of consecutive pairs is a clique in
+the compatibility graph on the $\le 49$ pairs.
 \end{corollary}
 
-\begin{proof}
-Reduction modulo $m$ is a ring homomorphism, so it carries the integer recursion of
-Lemma~\ref{lem:unique} to the same recursion over $\mathbb{Z}/m\mathbb{Z}$, in which the
-coefficient of $a(N)$ is still $1$ and hence still invertible. That recursion, started from
-the same two initial values, has a unique solution, and both $a\bmod m$ and the
-coefficients of $\bar A$ solve it.
-\end{proof}
+\section{A walk on the sequence}
 
-\section{Two facts about binomial coefficients}
+The clique condition is not local: a pair must be compatible with every pair anywhere else in
+the sequence. Carrying the set of pairs already used would be an exponential state. Carrying
+what it FORBIDS is not.
 
-\begin{lemma}\label{lem:half}
-$\binom{2N}{N}=2\binom{2N-1}{N}$ for every $N\ge1$.
+\begin{lemma}\label{lem:lump}
+Let $A$ be the set of pairs compatible with every pair used so far. Then a sequence may be
+continued exactly by pairs lying in $A$, and appending a pair $\pi$ replaces $A$ by
+$A\cap N(\pi)$, where $N(\pi)$ is the set of pairs compatible with $\pi$. Hence the pair
+$(\,\text{last value of }u,\;A\,)$ carries everything the future needs.
 \end{lemma}
 
 \begin{proof}
-Pascal's rule gives
-$\binom{2N}{N}=\binom{2N-1}{N-1}+\binom{2N-1}{N}$, and
-$\binom{2N-1}{N-1}=\binom{2N-1}{(2N-1)-(N-1)}=\binom{2N-1}{N}$.
+The condition is a conjunction of pairwise compatibilities, so the set of pairs still allowed
+after using a set $T$ is $\bigcap_{\pi\in T}N(\pi)$, which is a function of $T$ and is updated
+by intersection as $T$ grows. The next pair is $(\text{last value},w)$, so the last value is
+the only other thing a step needs.
 \end{proof}
 
-\begin{lemma}\label{lem:kummer}
-Let $s(N)$ be the number of $1$s in the binary expansion of $N$. Then the exponent of $2$
-in $\binom{2N}{N}$ is exactly $s(N)$. Consequently $\binom{2N-1}{N}$ is even whenever
-$s(N)\ge2$, in particular whenever $N$ is odd and $N\ge3$.
-\end{lemma}
-
-\begin{proof}
-By Kummer's theorem the exponent of $2$ in $\binom{2N}{N}$ is the number of carries when
-$N$ is added to $N$ in base $2$; each $1$ of $N$ produces exactly one carry, so that number
-is $s(N)$. By Lemma~\ref{lem:half} the exponent of $2$ in $\binom{2N-1}{N}$ is $s(N)-1$,
-which is at least $1$ as soon as $s(N)\ge2$. Finally, an odd $N\ge3$ has its last binary
-digit $1$ and at least one further $1$, so $s(N)\ge2$.
-\end{proof}
-
-\section{The reduction modulo $2$}
-
-\begin{lemma}\label{lem:sat}
-Over $\mathbb{Z}/2\mathbb{Z}$ the series $\bar A(x)=\dfrac{1}{1-x}$ satisfies
-\eqref{eq:init} and \eqref{eq:fe}.
-\end{lemma}
-
-\begin{proof}
-All coefficients of $1/(1-x)$ equal $1$, so \eqref{eq:init} holds. For $M\ge1$,
-$\bar A^{M}=(1-x)^{-M}$ and
-$\bigl[x^{N}\bigr](1-x)^{-M}=\binom{N+M-1}{N}$, so
+The sets $A$ that arise are intersections of neighbourhoods, of which there are far fewer than
+subsets; enumerated from the start $A_0=\{\pi:\pi\in N(\pi)\}$, the reachable states number
+$S=46$. The two parity classes never mix, so the walk starts by choosing a parity and a first
+value, and every state may end a sequence:
 \[
-\bigl[x^{N}\bigr]\bar A^{N}=\binom{2N-1}{N},\qquad
-\bigl[x^{N}\bigr]\bar A^{N+1}=\binom{2N}{N} .
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad \tau=\mathbf{1},\qquad S=46.
 \]
-Take $N\ge2$. By Lemma~\ref{lem:half} the right-hand side of \eqref{eq:fe} is
-$(N-1)\binom{2N}{N}=2(N-1)\binom{2N-1}{N}\equiv0\pmod2$. For the left-hand side
-$N\binom{2N-1}{N}$: if $N$ is even the factor $N$ is even; if $N$ is odd then $N\ge3$, so
-$\binom{2N-1}{N}$ is even by Lemma~\ref{lem:kummer}. Either way the left-hand side is
-$\equiv0\pmod2$ as well, and \eqref{eq:fe} holds modulo $2$.
+The walk index $j$ is the size of the matrix, and it differs from the entry's own $n$ by a
+constant read off by matching the published terms rather than assumed. In particular $a$ is
+$C$-finite --- for a family in which both dimensions grow with $n$.
+
+\section{The proof}
+
+\begin{lemma}\label{lem:crit}
+Let $q(t)=t^{8}-\sum_i c_it^{8-i}$ be the characteristic polynomial of the
+conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
+$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
+holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
+and it is enough to examine $j<S$.
+\end{lemma}
+
+\begin{proof}
+Factor $M^{j}$ out of $M^{j+8}-\sum_ic_iM^{j+8-i}$. For the bound, $M^{S}$
+is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
+$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
+polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
+pins the threshold exactly.
 \end{proof}
 
 \begin{theorem}
-Every term of OEIS A397241 is odd. This is the conjecture of Section~1.
+\[
+a(n)\;=\;13\,a(n-1) - 63\,a(n-2) + 130\,a(n-3) - 65\,a(n-4) - 115\,a(n-5) + 69\,a(n-6) + 68\,a(n-7) + 12\,a(n-8)
+\]
+for every $n>7$.
 \end{theorem}
 
 \begin{proof}
-By Lemma~\ref{lem:sat} the series $1/(1-x)$ satisfies \eqref{eq:init} and \eqref{eq:fe}
-over $\mathbb{Z}/2\mathbb{Z}$. By Corollary~\ref{cor:mod} it is the reduction of $A$ modulo
-$2$, so $a(n)\equiv1\pmod2$ for every $n\ge0$.
+The vector $w=q(M)\tau$ was formed by $8$ matrix--vector products in exact integer
+arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
+integers vanish from the index corresponding to $n=7+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
-
-\section{Where the argument stops}
-
-The same scheme would settle the entry's other two conjectures if one could exhibit the
-corresponding reductions. Those reductions are visible in the data:
-\[
-\bar A_{3}(x)=\frac{1+x^{3}}{1-x}\ \ \text{over }\mathbb{Z}/3\mathbb{Z},
-\qquad
-\bar A_{4}(x)=\frac{1+2x^{3}}{1-x}\ \ \text{over }\mathbb{Z}/4\mathbb{Z},
-\]
-whose coefficients are $1,1,1,2,2,2,\dots$ and $1,1,1,3,3,3,\dots$ respectively. Both were
-checked to satisfy \eqref{eq:fe} for every $n\le34$. What is missing is a proof that they
-satisfy it for \emph{all} $n$. Writing $\bar A_{4}=f+2h$ with $f=1/(1-x)$ and
-$h=x^{3}/(1-x)$, and using $(2h)^{2}\equiv0$, the condition modulo $4$ reduces to
-\[
-(2-N)\binom{2N-1}{N}\;\equiv\;
-2\left[N^{2}\binom{2N-4}{N-1}-(N^{2}-1)\binom{2N-3}{N}\right]\pmod4 ,
-\]
-and the two sides do agree at every $N\le33$ --- both vanish unless $N$ or $N-1$ is a power
-of $2$, where both equal $2$ --- but a proof of that congruence for all $N$ is not given
-here. The modulo $3$ case reduces similarly to a Lucas-type identity. Neither is claimed.
 
 \section{Verification}
 
-Three checks, each independent of the algebra above.
+Four checks, each independent of the algebra above.
 
-First, the recursion of Lemma~\ref{lem:unique} was run in exact rational arithmetic from
-$a(0)=a(1)=1$ and compared against the entry's DATA at every one of the $19$ published
-indices; the values agree exactly, and every one is an integer. In particular the condition
-at $n=2$ returns $a(2)=1$.
+First, the model reproduces all $23$ terms the entry publishes, exactly, in integer
+arithmetic.
 
-Second, at every step the coefficient of $a(N)$ was computed rather than assumed, by
-evaluating the condition at $a(N)=0$ and at $a(N)=1$ and subtracting; it came out $1$ at
-every $N$ up to $16$, as Lemma~\ref{lem:unique} requires.
+Second, the count was recomputed for the smallest matrices straight from the definition:
+symmetric matrices were written out entry by entry over $\{-3,\dots,3\}$ and each
+$2\times2$ subblock tested for summing to zero and for having two, three or four distinct entries. The
+sequence $u$, the sign pattern, the clique and the state play no part in that computation, and
+the published terms came back. Lemma~\ref{lem:solve} was separately checked the same way: for
+small sizes and small ranges the number of symmetric sum-zero matrices found by direct
+enumeration equals the number of admissible sequences.
 
-Third, the identity $v_2\bigl(\binom{2N}{N}\bigr)=s(N)$ of Lemma~\ref{lem:kummer} was
-checked directly for every $N\le299$, and the reduced condition of Lemma~\ref{lem:sat} was
-verified over $\mathbb{Z}/2\mathbb{Z}$ by expanding $(1-x)^{-N}$ and $(1-x)^{-(N+1)}$ for
-every $n\le34$.
+Third, the conjectured recurrence was evaluated directly on the published terms, with no
+matrices involved, and holds wherever the proved range and the data overlap.
+
+Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A397241.
-\bibitem{kummer} E.~E.~Kummer, \"Uber die Erg\"anzungss\"atze zu den allgemeinen
-Reciprocit\"atsgesetzen, \emph{J. Reine Angew. Math.} \textbf{44} (1852), 93--146.
-\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 2, Cambridge
-University Press, 1999.
-\bibitem{hw} G.~H.~Hardy and E.~M.~Wright, \emph{An Introduction to the Theory of
-Numbers}, 6th ed., Oxford University Press, 2008.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A211328.
+\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{kemeny} J.~G.~Kemeny and J.~L.~Snell, \emph{Finite Markov Chains}, Springer, 1976.
+(Lumping, Section 6.3.)
+\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
+University Press, 2013.
 \end{thebibliography}
 
 \end{document}

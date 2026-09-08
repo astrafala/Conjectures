@@ -7,187 +7,119 @@
 \theoremstyle{plain}
 \newtheorem{theorem}{Theorem}
 \newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
-\title{A proof of the conjectured recurrence for OEIS A243764}
+
+\title{A condition on the multiset of every subblock: OEIS A183596}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{25 August 2026}
+\date{7 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A243764 carries a conjectured linear recurrence with polynomial coefficients, of
-order 6, contributed by R.~J.~Mathar. We prove it. The generating function of the
-entry is algebraic, and the recurrence is equivalent to the vanishing of an explicit
-differential operator applied to it: writing $\theta=x\,\frac{d}{dx}$, the sequence
-$b(n)=\sum_{i}p_{i}(n)a(n-i)$ has generating function
-$B(x)=\sum_{i}x^{i}\,(p_{i}(\theta+i)A)(x)$, so the conjecture holds for all $n>d$ exactly
-when $B$ is a polynomial of degree $d$. Since $A$ is algebraic over $\mathbb{Q}(x)$, and every simple
-algebraic extension of $\mathbb{Q}(x)$ is closed under $\theta$, the residual $B$ can be
-computed in closed form. Here it equals $24576 x^{6} - 49152 x^{5} + 16224 x^{4} - 1260 x^{3}$, a polynomial of degree $6$, which proves
-the recurrence for every $n>6$.
+OEIS A183596 carries an empirical recurrence of order $4$ contributed by R.~H.~Hardin. It is
+true, and it is decidable rather than empirical. The entry's condition on a subblock depends
+only on which values the block holds and how many times, not on where they sit, so it is
+decided by the few consecutive lines the block spans. The admissible windows are the vertices
+of a finite digraph and the arrays counted are exactly its walks; hence $a(n)$ is a walk count
+on $S=4$ vertices and is $C$-finite, and whether the conjectured recurrence annihilates it
+is settled by a finite exact computation, with the Cayley--Hamilton theorem bounding the
+work. The entry does not count the arrays themselves but $1/6$ of them, so every count below is divided by $6$.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 11B37, 05A15, 33F10.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
-\section{The sequence and the conjecture}
+\section{The conjecture}
 
-OEIS A243764 is ``Expansion of -((2*sqrt(1-4*x)-2)*x)/(sqrt(8*x+4*sqrt(1-4*x)-3)-1)''. It has offset $0$ and begins
+OEIS A183596 is ``1/6 the number of (n+1) X 3 0..2 arrays with every 2 X 2 subblock containing all three values.''. It has offset $1$ and begins
 \[
-a(0),\dots,a(7)\;=\;-1, 1, 3, 4, 13, 36, 122, 408,\ \dots
+27, 204, 1479, 10797, 78729, 574185, 4187499, 30539367,\ \dots
 \]
-The entry gives the generating function
-\begin{equation}\label{eq:gf}
-A(x)\;=\;\sum_{n\ge 0} a(n)\,x^{n}\;=\;\frac{2 x \left(1 - \sqrt{1 - 4 x}\right)}{\sqrt{8 x + 4 \sqrt{1 - 4 x} - 3} - 1} ,
-\end{equation}
-and it carries the following comment:
-\begin{quote}\small
-\textbf{Conjecture:} 245*n*(n-1)*(n-2)*a(n) -140*(n-1)*(n-2)*(28*n-81)*a(n-1) +4*(n-2)*(5812*n\^{}2-41488*n+72261)*a(n-2) +16*(-3368*n\^{}3+45144*n\^{}2-191968*n+260859)*a(n-3) +128*(-152*n\^{}3-768*n\^{}2+16748*n-45483)*a(n-4) +2048*(2*n-11)*(74*n\^{}2-715*n+1629)*a(n-5) -98304*(n-7)*(2*n-11)*(2*n-13)*a(n-6)=0. - \emph{R. J. Mathar}, Jun 07 2016
+The entry states, as a conjecture contributed by its author and never marked settled:
+\begin{quote}
+Empirical: a(n) = 8*a(n-1) - 3*a(n-2) - 16*a(n-3) + 2*a(n-4).
 \end{quote}
-As of the ``Last modified'' line on the live entry (2024-11-09, revision 28) the
-statement is still recorded as a conjecture, and no proof appears among the entry's links,
-formulas or programs.
+As of the ``Last modified'' line on the live entry (Mar 30 2018 09:11:12, revision 9) this is still
+recorded as empirical, and nothing on the entry records it as proved.
 
-Writing the conjectured relation in the form $\sum_{i=0}^{6}p_{i}(n)\,a(n-i)=0$,
-the coefficient polynomials are
+\section{The count is a walk count}
+
+The entry counts arrays with $3$ columns over the alphabet $\{0,1,2\}$, growing one row at a time, and asks that every $2\times2$ subblock holds exactly $3$ distinct values.
+
+That condition does not depend on where in the block a value sits, only on which values the block holds and how many times --- it is a function of the block's multiset of entries. In particular it is decided by $2$ consecutive rows, the ones the block spans, so carrying the previous $1$ row as the state is enough: each new row completes every block that ends on it, and no judgement is left over at the end of the array.
+
+The entry counts not the arrays themselves but $1/6$ of them, so every count below is divided by $6$; the division comes out exact at every term the entry publishes, which is itself a check on the model.
+
+Merging vertices with identical futures leaves $S=4$. An admissible array is exactly a walk, so with $M$ the adjacency matrix and $\iota,\tau$ the vectors recording which states may begin and end an array,
 \[
-p_{0}(n)=245 n \left(n - 2\right) \left(n - 1\right),\qquad p_{1}(n)=- 140 \left(n - 2\right) \left(n - 1\right) \left(28 n - 81\right),\qquad p_{2}(n)=4 \left(n - 2\right) \left(5812 n^{2} - 41488 n + 72261\right),\qquad p_{3}(n)=- 16 \left(3368 n^{3} - 45144 n^{2} + 191968 n - 260859\right),\qquad p_{4}(n)=- 128 \left(152 n^{3} + 768 n^{2} - 16748 n + 45483\right),\qquad p_{5}(n)=2048 \left(2 n - 11\right) \left(74 n^{2} - 715 n + 1629\right),\qquad p_{6}(n)=- 98304 \left(n - 7\right) \left(2 n - 13\right) \left(2 n - 11\right)
+a(n)\;=\;\tfrac{1}{6}\,\iota^{\!\top}M^{\,n}\tau ,
 \]
+the exponent fixed by the entry's own shape and checked against its published terms. In
+particular $a$ is $C$-finite.
 
-\section{Recurrences as differential operators}
+\section{The proof}
 
-Let $A(x)=\sum_{n\ge0}a(n)x^{n}$ be the generating function of a sequence, and let
-$\theta=x\,\dfrac{d}{dx}$, so that $\theta$ acts on $x^{m}$ as multiplication by $m$. For a
-polynomial $p$ we write $p(\theta)$ for the corresponding differential operator, so that
-$p(\theta)A=\sum_{m}p(m)a(m)x^{m}$.
-
-\begin{lemma}\label{lem:transfer}
-Let $p_{0},\dots,p_{r}$ be polynomials and put $b(n)=\sum_{i=0}^{r}p_{i}(n)\,a(n-i)$, with
-the convention $a(m)=0$ for $m<0$. Then
-\[
-B(x):=\sum_{n\ge0}b(n)x^{n}=\sum_{i=0}^{r}x^{i}\,\bigl(p_{i}(\theta+i)A\bigr)(x).
-\]
+\begin{lemma}\label{lem:crit}
+Let $q(t)=t^{4}-\sum_i c_it^{4-i}$ be the characteristic polynomial of the
+conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
+$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
+holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
+and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Fix $i$ and substitute $m=n-i$:
-\[
-\sum_{n\ge0}p_{i}(n)a(n-i)x^{n}=\sum_{m\ge0}p_{i}(m+i)a(m)x^{m+i}
-=x^{i}\sum_{m\ge0}p_{i}(m+i)a(m)x^{m}=x^{i}\bigl(p_{i}(\theta+i)A\bigr)(x),
-\]
-the last step because $p_{i}(\theta+i)$ multiplies the coefficient of $x^{m}$ by
-$p_{i}(m+i)$. Summing over $i$ gives the claim.
+Factor $M^{j}$ out of $M^{j+4}-\sum_ic_iM^{j+4-i}$. For the bound, $M^{S}$
+is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
+$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
+polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
+pins the threshold exactly. A constant factor in front of $a$ divides out of the residual and
+changes nothing here.
 \end{proof}
-
-\begin{corollary}\label{cor:criterion}
-With the notation of Lemma~\ref{lem:transfer}, the recurrence
-$\sum_{i}p_{i}(n)a(n-i)=0$ holds for every $n>d$ if and only if $B$ is a polynomial of
-degree at most $d$.
-\end{corollary}
-
-\begin{proof}
-$b(n)$ is the coefficient of $x^{n}$ in $B$, so $b(n)=0$ for all $n>d$ says exactly that
-$B$ has no terms above $x^{d}$.
-\end{proof}
-
-This turns the conjecture into a closed-form identity. The point is that it can then be
-decided exactly, with no truncation: $A$ is algebraic, so $B$ lies in the same field as
-$A$, and one only has to recognise it.
-
-\begin{lemma}\label{lem:field}
-Let $P(x,y)\in\mathbb{Q}(x)[y]$ be squarefree of degree $m\ge1$ in $y$, let
-$K=\mathbb{Q}(x)[y]/(P)$, and write $\alpha$ for the class of $y$ in $K$. Then $K$ is
-closed under $\theta$. Explicitly,
-\[
-\alpha'=-\frac{P_{x}(x,\alpha)}{P_{y}(x,\alpha)},
-\]
-the quotient taken inside $K$, and for $u=\sum_{i<m}c_{i}(x)\,\alpha^{i}$ with
-$c_{i}\in\mathbb{Q}(x)$,
-\[
-\theta(u)=x\Bigl(\sum_{i<m}c_{i}'(x)\,\alpha^{i}
- +\alpha'\sum_{i<m}i\,c_{i}(x)\,\alpha^{i-1}\Bigr),
-\]
-reduced modulo $P$.
-\end{lemma}
-
-\begin{proof}
-$P(x,\alpha)=0$ holds identically in $x$, so differentiating gives
-$P_{x}(x,\alpha)+P_{y}(x,\alpha)\,\alpha'=0$. Because $P$ is squarefree,
-$\gcd(P,P_{y})=1$ in $\mathbb{Q}(x)[y]$, so $P_{y}(x,\alpha)$ is a unit of $K$ and the
-displayed quotient is defined there; its inverse is produced by the extended Euclidean
-algorithm. The formula for $\theta(u)$ is the chain rule, and reduction modulo $P$ returns
-the value to the basis $1,\alpha,\dots,\alpha^{m-1}$. Every operation stays inside $K$.
-\end{proof}
-
-Consequently, if $A\in K$ then every $p_{i}(\theta+i)A$ is in $K$, and so is $B$. Writing
-$B=\sum_{i<m}b_{i}(x)\,\alpha^{i}$ with $b_{i}\in\mathbb{Q}(x)$, the test of
-Corollary~\ref{cor:criterion} becomes: $B$ is a polynomial precisely when $b_{i}=0$ for
-every $i\ge1$ and $b_{0}$ has constant denominator. Both are decided by exact
-cancellation of rational functions.
-
-\section{The computation for A243764}
-
-The generating function \eqref{eq:gf} is algebraic over $\mathbb{Q}(x)$;
-its minimal polynomial is
-\[
-P(x,y) \;=\; 4 x^{4} + 4 x^{2} y^{2} + 2 x^{2} y + x y^{2} + y^{4} + y^{3} ,
-\]
-so \eqref{eq:gf} lies in $K=\mathbb{Q}(x)[y]/\bigl(P(x,y)\bigr)$ and is the root of that polynomial with the right
-expansion at the origin. Applying Lemma~\ref{lem:transfer} to the coefficient polynomials
-of Section~1 and reducing in $K$ by Lemma~\ref{lem:field}, every component $b_{i}$ of $B$
-with $i\ge1$ cancels identically and the remaining rational part collapses to
-\[
-B(x)\;=\;24576 x^{6} - 49152 x^{5} + 16224 x^{4} - 1260 x^{3} ,
-\]
-a polynomial of degree $6$.
 
 \begin{theorem}
-The conjectured recurrence
 \[
-245 n \left(n - 2\right) \left(n - 1\right)\,a(n) -  140 \left(n - 2\right) \left(n - 1\right) \left(28 n - 81\right)\,a(n-1) + 4 \left(n - 2\right) \left(5812 n^{2} - 41488 n + 72261\right)\,a(n-2) -  16 \left(3368 n^{3} - 45144 n^{2} + 191968 n - 260859\right)\,a(n-3) -  128 \left(152 n^{3} + 768 n^{2} - 16748 n + 45483\right)\,a(n-4) + 2048 \left(2 n - 11\right) \left(74 n^{2} - 715 n + 1629\right)\,a(n-5) -  98304 \left(n - 7\right) \left(2 n - 13\right) \left(2 n - 11\right)\,a(n-6) \;=\;0
+a(n)\;=\;8\,a(n-1) - 3\,a(n-2) - 16\,a(n-3) + 2\,a(n-4)
 \]
-holds for every $n>6$.
+for every $n>3$.
 \end{theorem}
 
 \begin{proof}
-Immediate from Corollary~\ref{cor:criterion} and the displayed value of $B$.
+The vector $w=q(M)\tau$ was formed by $4$ matrix--vector products in exact integer
+arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
+integers vanish from the index corresponding to $n=3+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
-
-\begin{remark}
-The polynomial $B$ is not an error term: it records the boundary of the recurrence. For
-$n\le6$ some of the shifted terms $a(n-i)$ fall outside the range of the sequence,
-and $B$ collects exactly those contributions. Above that range the relation is exact.
-\end{remark}
 
 \section{Verification}
 
-Every number above is an output of a script written separately from this note, and two
-independent checks were run.
+Four checks, each independent of the algebra above.
 
-First, the generating function was checked against the entry rather than assumed: the
-Taylor coefficients of \eqref{eq:gf} were expanded and compared term by term with the DATA
-section of A243764, agreeing on all 13 terms compared.
+First, the model reproduces all $19$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry: the digraph is built by reading the
+entry's English, and a misreading gives different counts.
 
-Second, the recurrence itself was evaluated directly on the published terms, in exact
-integer arithmetic and without reference to the generating function: for each $n$ in range
-the sum $\sum_{i}p_{i}(n)a(n-i)$ was formed from the entry's own values and found to
-vanish, for all 21 values of $n$ from $n=7$ upward. This is what
-Corollary~\ref{cor:criterion} predicts from the degree of $B$, and it is a genuinely
-different computation from the symbolic one: it never forms $B$, never differentiates, and
-uses only integers.
+Second, the reading was pinned before the digraph was written, by a program that enumerates
+every array of the given shape one by one, forms each subblock directly and tests the entry's
+condition on it. That program shares no code with the transfer matrix, so an error in one does
+not hide an error in the other.
 
-The symbolic step is exact throughout. The residual is obtained by rational-function
-cancellation in $K$, not by series truncation, so the identity $B=24576 x^{6} - 49152 x^{5} + 16224 x^{4} - 1260 x^{3}$ is an
-identity of functions and the theorem holds for all $n>6$ simultaneously.
+Third, the conjectured recurrence was evaluated directly on the published terms, with no
+matrices involved, and holds wherever the proved range and the data overlap.
+
+Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
-\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer Sequences},
-\url{https://oeis.org}, 2026. Sequence A243764.
-\bibitem{kp} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011,
-Chapter 7 (holonomic closure properties and the translation between recurrences and
-differential equations).
-\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 2, Cambridge
-University Press, 1999, Chapter 6 (algebraic and D-finite generating functions).
+\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
+Sequences}, \url{https://oeis.org}, 2026. Sequence A183596.
+\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+University Press, 2009.
+\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
+University Press, 2013.
 \end{thebibliography}
+
 \end{document}

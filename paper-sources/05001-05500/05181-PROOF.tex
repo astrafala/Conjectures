@@ -12,118 +12,148 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A237309, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A235234, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{2 September 2026}
+\date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A237309 counts arrays over $\{0,\dots,3\}$ subject to a condition on the order
-statistics of every $2\times2$ subblock, and carries an empirical recurrence of order
-$37$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical.
-The condition is local to two consecutive rows, so the count is a walk count on $S=58$
-states and is $C$-finite; whether the conjectured recurrence annihilates it is then settled by
-a finite exact computation, with the Cayley--Hamilton theorem bounding the work.
+OEIS A235234 counts $4$-column arrays over $\{0,\dots,6\}$ in which every
+$2\times2$ subblock has its diagonal sum differing from its antidiagonal sum by
+exactly $6$, and in which no two adjacent entries are equal, and it
+carries an empirical recurrence of order $40$ contributed by R.~H.~Hardin. It is true,
+and it is not an empirical matter: the condition constrains only consecutive pairs of rows,
+so the rows are the vertices of a finite digraph and an $(n+1)$-row array is a walk of
+length $n$. Hence $a(n)=\mathbf{1}^{\!\top}M^{n}\mathbf{1}$ on $S=1512$ vertices, which
+is $C$-finite. Writing $q$ for the characteristic polynomial of the conjectured recurrence,
+the residual is $\mathbf{1}^{\!\top}M^{\,n-40}q(M)\mathbf{1}$, so the recurrence
+holds beyond a threshold exactly when that vanishes from then on --- and since the sequence
+of those values obeys the monic recurrence given by the characteristic polynomial of $M$,
+$S$ consecutive zeros settle every later one. The whole test is finite and exact.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 62G30.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 15B36.\normalsize
 
-\section{The conjecture}
+\section{The sequence and the conjecture}
 
-OEIS A237309 is ``Number of (n+1)X(1+1) 0..3 arrays with the maximum plus the lower median minus the minimum of every 2X2 subblock equal.''. It has offset $1$ and begins
+OEIS A235234 is ``Number of (n+1) X (3+1) 0..6 arrays with every 2 X 2 subblock having its diagonal sum differing from its antidiagonal sum by 6, with no adjacent elements equal (constant-stress tilted 1 X 1 tilings).''. It has offset
+$1$ and begins
 \[
-256, 1352, 7398, 42474, 246644, 1457838, 8652288, 51729960,\ \dots
+1328, 3688, 9656, 28400, 78824, 241456, 698304,\ \dots
 \]
-The entry states, as a conjecture contributed by its author and never marked settled:
-\begin{quote}
-Empirical: a(n) = 16*a(n-1) -1222*a(n-3) +4306*a(n-4) +37240*a(n-5) -215317*a(n-6) -540094*a(n-7) +5203112*a(n-8) +2292844*a(n-9) -76124580*a(n-10) +48925344*a(n-11) +731455664*a(n-12) -1009008048*a(n-13) -4767540048*a(n-14) +9634148480*a(n-15) +21068679040*a(n-16) -58279824064*a(n-17) -60171290304*a(n-18) +241589450496*a(n-19) +89789142784*a(n-20) -704484707584*a(n-21) +42074520064*a(n-22) +1448865873408*a(n-23) -538005643264*a(n-24) -2069440729088*a(n-25) +1288382918656*a(n-26) +1977460977664*a(n-27) -1703477510144*a(n-28) -1169175658496*a(n-29) +1362600230912*a(n-30) +349325819904*a(n-31) -643081306112*a(n-32) -6231949312*a(n-33) +161110032384*a(n-34) -21835546624*a(n-35) -16116613120*a(n-36) +3464495104*a(n-37)
+The entry carries the following comment:
+\begin{quote}\small
+Empirical: a(n) = 6*a(n-1) +75*a(n-2) -499*a(n-3) -2477*a(n-4) +18893*a(n-5) +46844*a(n-6) -431641*a(n-7) -544644*a(n-8) +6650508*a(n-9) +3692164*a(n-10) -73169776*a(n-11) -7965360*a(n-12) +593911464*a(n-13) -108754278*a(n-14) -3624939268*a(n-15) +1348847209*a(n-16) +16812874388*a(n-17) -8151710835*a(n-18) -59533275997*a(n-19) +31896084725*a(n-20) +160970283883*a(n-21) -85813326662*a(n-22) -331183400635*a(n-23) +159993289668*a(n-24) +514651400122*a(n-25) -202610873932*a(n-26) -596529887736*a(n-27) +165384664128*a(n-28) +505501523616*a(n-29) -76023552288*a(n-30) -303948460656*a(n-31) +8914601088*a(n-32) +124404317856*a(n-33) +9463220928*a(n-34) -32567277312*a(n-35) -5301282816*a(n-36) +4869517824*a(n-37) +1128950784*a(n-38) -313528320*a(n-39) -89579520*a(n-40).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 10:03:16, revision 7) this is still
-recorded as empirical, and nothing on the entry records it as proved.
+As of the ``Last modified'' line on the live entry (Jun 19 2022 00:04:40, revision 7) the statement is
+still recorded as empirical, and nothing on the entry records it as settled either way.
 
-\section{What is being counted}
+Written out, the claim is
+\begin{equation}\label{eq:conj}
+a(n)\;=\;6\,a(n-1) + 75\,a(n-2) - 499\,a(n-3) - 2477\,a(n-4) + 18893\,a(n-5) + 46844\,a(n-6) - 431641\,a(n-7) - 544644\,a(n-8) + 6650508\,a(n-9) + 3692164\,a(n-10) - 73169776\,a(n-11) - 7965360\,a(n-12) + 593911464\,a(n-13) - 108754278\,a(n-14) - 3624939268\,a(n-15) + 1348847209\,a(n-16) + 16812874388\,a(n-17) - 8151710835\,a(n-18) - 59533275997\,a(n-19) + 31896084725\,a(n-20) + 160970283883\,a(n-21) - 85813326662\,a(n-22) - 331183400635\,a(n-23) + 159993289668\,a(n-24) + 514651400122\,a(n-25) - 202610873932\,a(n-26) - 596529887736\,a(n-27) + 165384664128\,a(n-28) + 505501523616\,a(n-29) - 76023552288\,a(n-30) - 303948460656\,a(n-31) + 8914601088\,a(n-32) + 124404317856\,a(n-33) + 9463220928\,a(n-34) - 32567277312\,a(n-35) - 5301282816\,a(n-36) + 4869517824\,a(n-37) + 1128950784\,a(n-38) - 313528320\,a(n-39) - 89579520\,a(n-40)
+\end{equation}
+for all $n>40$, which is every $n$ at which a recurrence of order $40$ can be
+stated.
 
-Sort the four entries of a $2\times2$ subblock as $a\le b\le c\le d$: they
-are its minimum, lower median, upper median and maximum. The entry fixes the signed sum
+\section{The rows form a digraph}
+
+In a $2\times2$ subblock with top row $(r_j,r_{j+1})$ and bottom row $(s_j,s_{j+1})$ the
+diagonal sum is $r_j+s_{j+1}$ and the antidiagonal sum is $r_{j+1}+s_j$, so the entry's
+condition on that subblock reads
 \[
-\sigma\;=\;-a+b+d,
+\bigl|\,r_j+s_{j+1}-r_{j+1}-s_j\,\bigr|\;=\;6.
 \]
-and asks that $\sigma$ take the SAME value on every $2\times2$ subblock of an
-$(n+1)\times2$ array over $\{0,\dots,3\}$.
+Every such condition involves two consecutive rows only. The condition ``no adjacent elements equal'' splits into a horizontal
+part, which constrains a single row and so selects the vertex set, and a vertical part,
+which constrains a consecutive pair of rows and so belongs to the edge relation.
 
-The common value is not named, so the count splits by it. For a fixed $v$ let $a_v(n)$ count
-the arrays all of whose subblocks give $\sigma=v$. An array determines its common value, so
-the sets belonging to different $v$ are disjoint and $a(n)=\sum_v a_v(n)$, a finite sum.
+Let $V$ consist of those $r\in\{0,\dots,6\}^{4}$ with $r_j\ne r_{j+1}$ for every
+$j$ --- the rows in which no two horizontally adjacent entries are equal, and put $S=|V|=1512$. For $r,s\in V$ declare $r\to s$ an edge
+when $\bigl|r_j+s_{j+1}-r_{j+1}-s_j\bigr|=6$ for every $j$ with
+$1\le j\le4-1$, and $r_j\ne s_j$ for every $j$. Let $M\in\{0,1\}^{S\times S}$ be the adjacency matrix and $\mathbf{1}$
+the all-ones vector.
 
-
-\section{The count is a walk count}
-
-For a fixed $v$ the condition involves two consecutive rows and nothing
-else: rows $r$ and $s$ may follow one another exactly when $\sigma$ equals $v$ on each of the
-$1$ subblocks they form. So a row is a state, an $(n+1)$-row array is a walk of $n$
-steps, and with $M$ the adjacency matrix on the disjoint union over $v$,
-\[
-a(n)\;=\;\iota^{\!\top}M^{\,n}\tau,\qquad\iota=\tau=(1,\dots,1)^{\!\top} .
-\]
-Rows carrying no edge at all are dropped: such a row can only be the whole of a one-row
-array, which is not among the objects counted. There are $S=58$ states left.
-The alignment of the walk index with the entry's own $n$ was checked against its published
-terms rather than assumed. In particular $a$ is $C$-finite.
-
-\section{The proof}
-
-\begin{lemma}\label{lem:crit}
-Let $q(t)=t^{37}-\sum_i c_it^{37-i}$ be the characteristic polynomial of the
-conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
-$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
-holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
-and it is enough to examine $j<S$.
+\begin{lemma}\label{lem:walk}
+The arrays counted by the entry with $n+1$ rows are exactly the walks
+$r^{(0)}\to\cdots\to r^{(n)}$ of length $n$ in this digraph, so
+$a(n)=\mathbf{1}^{\!\top}M^{n}\mathbf{1}$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+37}-\sum_ic_iM^{j+37-i}$. For the bound, $M^{S}$
-is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
-$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
-polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly.
+An array with $n+1$ rows and $4$ columns is a sequence $r^{(0)},\dots,r^{(n)}$ of
+rows. Each of its $2\times2$ subblocks lies in two vertically adjacent rows
+$r^{(i)},r^{(i+1)}$ and two horizontally adjacent columns $j,j+1$, so the array satisfies
+the entry's condition on all subblocks precisely when every consecutive pair of rows is an
+edge; and the row-internal condition, where present, is exactly membership of $V$. Summing
+the walk counts $\bigl(M^{n}\bigr)_{r,s}$ over all $r$ and $s$ gives
+$\mathbf{1}^{\!\top}M^{n}\mathbf{1}$.
 \end{proof}
 
+\section{The criterion}
+
+Let $q(t)=t^{40}-\sum_i c_i t^{40-i}$ be the characteristic polynomial of
+\eqref{eq:conj}.
+
+\begin{lemma}\label{lem:crit}
+For $n\ge40$,
+$a(n)-\sum_i c_i a(n-i)=\mathbf{1}^{\!\top}M^{\,n-40}q(M)\mathbf{1}$. Writing
+$u_j=\mathbf{1}^{\!\top}M^{j}q(M)\mathbf{1}$, the recurrence therefore holds for every
+$n>t$ exactly when $u_j=0$ for every $j>t-40$. Moreover $(u_j)_{j\ge0}$ satisfies the
+monic linear recurrence whose characteristic polynomial is that of $M$, of degree $S$; so
+if $u_j$ vanishes for $S$ consecutive indices it vanishes for every larger index, and the
+last nonzero $u_j$ determines $t$ exactly.
+\end{lemma}
+
+\begin{proof}
+By Lemma~\ref{lem:walk}, $a(n-i)=\mathbf{1}^{\!\top}M^{n-i}\mathbf{1}$, so
+$a(n)-\sum_i c_i a(n-i)
+=\mathbf{1}^{\!\top}M^{\,n-40}\bigl(M^{40}-\sum_i c_i M^{40-i}\bigr)
+\mathbf{1}$, which is the identity. Putting $j=n-40$ gives the equivalence. For the
+last claim, let $\chi$ be the characteristic polynomial of $M$; by Cayley--Hamilton
+$\chi(M)=0$, so applying $\chi$ to the shift operator annihilates $(u_j)$, and $\chi$ is
+monic of degree $S$, which is exactly the statement that $S$ consecutive zeros propagate
+forward.
+\end{proof}
+
+\section{The computation}
+
 \begin{theorem}
-\[
-a(n)\;=\;16\,a(n-1) - 1222\,a(n-3) + 4306\,a(n-4) + 37240\,a(n-5) - 215317\,a(n-6) - 540094\,a(n-7) + 5203112\,a(n-8) + 2292844\,a(n-9) - 76124580\,a(n-10) + 48925344\,a(n-11) + 731455664\,a(n-12) - 1009008048\,a(n-13) - 4767540048\,a(n-14) + 9634148480\,a(n-15) + 21068679040\,a(n-16) - 58279824064\,a(n-17) - 60171290304\,a(n-18) + 241589450496\,a(n-19) + 89789142784\,a(n-20) - 704484707584\,a(n-21) + 42074520064\,a(n-22) + 1448865873408\,a(n-23) - 538005643264\,a(n-24) - 2069440729088\,a(n-25) + 1288382918656\,a(n-26) + 1977460977664\,a(n-27) - 1703477510144\,a(n-28) - 1169175658496\,a(n-29) + 1362600230912\,a(n-30) + 349325819904\,a(n-31) - 643081306112\,a(n-32) - 6231949312\,a(n-33) + 161110032384\,a(n-34) - 21835546624\,a(n-35) - 16116613120\,a(n-36) + 3464495104\,a(n-37)
-\]
-for every $n>36$.
+The recurrence \eqref{eq:conj} holds for every $n>40$. This is the statement of
+Section~1.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $37$ matrix--vector products in exact integer
-arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=36+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once.
+The vector $q(M)\mathbf{1}\in\mathbb{Z}^{S}$ was formed by $40$ matrix--vector
+products in exact integer arithmetic and the values $u_j$ evaluated for
+$j=0,1,\dots$. They vanish from $j=40-40+1$ onwards, and the run was continued past
+$S$ consecutive zeros, which by Lemma~\ref{lem:crit} settles every larger $j$. Hence the
+recurrence holds for every $n>40$.
 \end{proof}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $18$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry: the digraph is built by reading the
-entry's English, and a misreading gives different counts.
+First, the digraph was built directly from the entry's stated condition and the walk counts
+$\mathbf{1}^{\!\top}M^{n}\mathbf{1}$ compared against the entry's DATA at every one of
+the $21$ published indices; the values agree exactly. That is what ties the digraph to
+the sequence: a model reproducing only some published terms would be the wrong model and
+was rejected wherever it occurred.
 
-Second, the conjectured recurrence was evaluated directly on those published terms, with no
-matrices involved, and holds wherever the proved range and the data overlap.
+Second, the recurrence \eqref{eq:conj} was evaluated on those published terms in exact
+integer arithmetic, with no matrices involved, and vanishes wherever it applies.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
-arithmetic on the whole vector rather than on a sampled prefix.
+Third, the vanishing test of Lemma~\ref{lem:crit} was carried past $S=1512$ consecutive
+zeros rather than to a sampled prefix, in exact integer arithmetic.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A237309.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A235234.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{david} H.~A.~David and H.~N.~Nagaraja, \emph{Order Statistics}, 3rd ed., Wiley,
-2003.
+\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+University Press, 2009.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

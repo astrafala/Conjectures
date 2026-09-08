@@ -8,127 +8,114 @@
 \newtheorem{theorem}{Theorem}
 \newtheorem{lemma}[theorem]{Lemma}
 \newtheorem{proposition}[theorem]{Proposition}
-\newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
-
-\title{Recovering the unwritten recurrences of the table OEIS A236875}
+\title{A proof of the conjectured closed form for OEIS A032098}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{2 September 2026}
+\date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A236875 is a two-dimensional table $T(n,k)$ whose empirical recurrences are, for several of
-its lines, given only as an ORDER --- ``k=2: [order 37]'' and the like --- with the
-coefficients in a linked file rather than in the entry. Those conjectures can still be settled,
-and the recurrences recovered. A line of the table is a fixed-width or fixed-height array
-count, hence a walk count on finitely many vertices, hence satisfies some monic recurrence of
-order at most that number; Berlekamp--Massey on twice as many exact terms returns the MINIMAL
-one. Where its order equals the order the entry states --- and where the same holds after the
-first few terms are dropped --- any recurrence of that order the line satisfies has a
-characteristic polynomial that is a multiple of the minimal one and of equal degree, hence is
-that polynomial. This note settles column 2, column 3.
+OEIS A032098 carries a conjectured closed form. We prove it. The entry states, as fact,
+a generating function, and from that a linear recurrence with polynomial coefficients satisfied by
+the sequence is derived exactly. The conjectured closed form is then shown to satisfy the
+same recurrence, and to agree with the sequence at enough consecutive indices. A recurrence
+of order $5$ whose leading coefficient does not vanish, together with $5$
+consecutive values, determines a sequence completely, so the two agree everywhere. Nothing
+is checked numerically and then assumed: the recurrence is derived symbolically, the
+verification is an exact identity, and the finitely many indices where the leading
+coefficient vanishes are computed rather than waved at.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 33F10.\normalsize
 
-\section{The table and the unwritten conjectures}
+\section{The sequence, what is known, and what is conjectured}
 
-OEIS A236875 is ``T(n,k)=Number of (n+1)X(k+1) 0..2 arrays with the maximum plus the upper median minus the lower median of every 2X2 subblock equal.''. It is read by antidiagonals and begins
+OEIS A032098 is ``"BHK" (reversible, identity, unlabeled) transform of 3,3,3,3,''. It has offset $1$ and begins
 \[
-81, 287, 287, 1069, 1503, 1069, 4131, 8117,\ \dots
+a(1),\dots,a(8)\;=\;3, 6, 21, 87, 363, 1491, 6051, 24387,\ \dots
 \]
-The entry carries, among its empirical claims:
+The entry states, not as a conjecture,
 \begin{quote}\small
-k=2: [order 37]\\
-k=3: [order 96]
+3*x*(1-5*x+7*x\textasciicircum{}2)/((1-x)*(1-2*x)*(1-4*x)). (End)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 09:37:38, revision 8) these are still
-recorded as empirical, and the recurrences themselves are not in the entry text.
+and separately carries the comment
+\begin{quote}\small
+\textbf{Conjecture:} a(n) = 3 * (2\textasciicircum{}(2*n-3) - 2\textasciicircum{}(n-2) + 1). - \emph{Ralf Stephan}, Sep 11 2003
+\end{quote}
+As of the ``Last modified'' line on the live entry (2024-05-25, revision 37) the second
+statement is still recorded as a conjecture, and no proof appears among the entry's links,
+formulas or programs.
 
-\section{Why a line of the table is a walk count}
+\section{A recurrence from what is known}
 
-Fix the index that the line fixes. The entry defines $T(n,k)$ as a number of arrays of a shape
-determined by $n$ and $k$, subject to a condition local to a bounded window of consecutive
-lines. Substituting the fixed index into the entry's own wording turns the definition into an
-ordinary one-parameter array count, and for such a count the admissible windows are the
-vertices of a finite digraph and an array is a walk. So the line is a walk count on $S$
-vertices, and by the Cayley--Hamilton theorem it satisfies a monic integer recurrence of order
-at most $S$.
+The generating function the entry posts is algebraic over $\mathbb{Q}(x)$, hence $D$-finite: it satisfies a linear differential equation with polynomial coefficients, obtained by differentiating its defining equation inside the field it generates and taking a linear dependence among the derivatives. Reading off the coefficient of each power of $x$ turns that differential equation into a recurrence for the coefficients, which is
 
-\section{Recovering the recurrences}
+\begin{equation}\label{eq:rec}
+\left(- 168 n - 168\right)\,a(n) + \left(414 n + 654\right)\,a(n+1) + \left(- 381 n - 897\right)\,a(n+2) + \left(168 n + 546\right)\,a(n+3) + \left(- 36 n - 150\right)\,a(n+4) + \left(3 n + 15\right)\,a(n+5) \;=\; 0
+\end{equation}
 
-\begin{lemma}\label{lem:bm}
-A sequence known to satisfy some linear recurrence of order at most $S$ is determined, with its
-minimal recurrence, by its first $2S$ terms; Berlekamp--Massey applied to them returns that
-minimal recurrence exactly.
+The leading coefficient of \eqref{eq:rec} is $3 \left(n + 5\right)$. Its only integer zeros are $n\in\{-5\}$, all below the range claimed here.
+
+\section{The conjectured description satisfies it}
+
+The conjectured closed form is a sum of hypergeometric terms. Substituting it into \eqref{eq:rec} and grouping the summands into similarity classes -- two terms being similar when their quotient is a rational function of $n$ -- every class contributes a rational function of $n$, and each of those cancels to zero identically. Since pairwise dissimilar hypergeometric terms are linearly independent over $\mathbb{Q}(n)$, that is exactly the statement that the closed form satisfies \eqref{eq:rec}.
+
+\section{Uniqueness}
+
+\begin{lemma}\label{lem:unique}
+Let $\sum_{j=0}^{r}q_{j}(n)\,b(n+j)=0$ be a linear recurrence whose leading coefficient
+$q_{r}$ has no zero at any integer $n\ge n_{0}$. If two sequences both satisfy it for all
+$n\ge n_{0}$ and agree at the $r$ consecutive indices $n_{0},\dots,n_{0}+r-1$, they agree
+at every $n\ge n_{0}$.
 \end{lemma}
 
-\subsection*{Column $k=2$}
-Substituting the fixed index into the entry's wording gives an ordinary one-parameter array
-count, a walk on $S=71$ vertices. Berlekamp--Massey on $2S=142$ exact terms
-returns a minimal recurrence of order $37$ --- the order the entry states --- with
-integer coefficients
-\[
-(c_1,\dots,c_{37})=(18,\ -53,\ -861,\ 5994,\ 8378,\ -171443,\ 217564,\ 2248566,\ -6318196,\ -14387480,\ 70781836,\ 27546487,\ -442719094,\ 222432397,\ 1682236000,\ -1852244993,\ -3906324240,\ 6571952825,\ 5149052575,\ -13516632533,\ -2596394214,\ 17089934474,\ -2269172690,\ -13345269664,\ 4414344468,\ 6340102352,\ -2938960424,\ -1781618752,\ 1013753840,\ 278602304,\ -190307328,\ -20951424,\ 18611712,\ 456704,\ -837632,\ 10240,\ 12288).
-\]
-so that $a(m)=\sum_{i=1}^{37}c_i\,a(m-i)$ for every $m$. Removing the first
-$37+4$ terms and repeating gives order $37$ again, which is what the
-identification below needs.
-
-\subsection*{Column $k=3$}
-Substituting the fixed index into the entry's wording gives an ordinary one-parameter array
-count, a walk on $S=194$ vertices. Berlekamp--Massey on $2S=388$ exact terms
-returns a minimal recurrence of order $96$ --- the order the entry states --- with
-integer coefficients
-\[
-(c_1,\dots,c_{96})=(19,\ 179,\ -5366,\ -6069,\ 693450,\ -1264696,\ -54524871,\ 191832602,\ 2924685962,\ -14038833585,\ -113630371984,\ 681860222066,\ 3307909182537,\ -24292660628095,\ -73371877560757,\ 667570845627245,\ 1239608742783699,\ -14593691152712584,\ -15490068790141455,\ 259210984432489364,\ 127074381261634881,\ -3798991329550340787,\ -250593646522391882,\ 46485935999979431626,\ -11929587209451815850,\ -479311753414849674706,\ 242363890328464570827,\ 4195185206650405538410,\ -2934171017645251633005,\ -31353991653878047470691,\ 26660329045787043681579,\ 201058394404767351452521,\ -194412101381675457769897,\ -1110489563134351145071516,\ 1172150834578325104967168,\ 5299128713493462951680983,\ -5938190978233033603223486,\ -21899389319201902049359031,\ 25525879372541095304445464,\ 78518930600782646236031519,\ -93689878412462547949010759,\ -244550793217826382074474250,\ 294836777353247894451861044,\ 662108477889477389745682914,\ -797627857547491245305673901,\ -1558664914938474646724347645,\ 1857929079355027454490139487,\ 3189540524441175594911924372,\ -3728841139500694304497002777,\ -5669366808446416644823628609,\ 6447975419480613724704879024,\ 8742588260720148614538931347,\ -9600247542538326675768958099,\ -11676032227899387211668359180,\ 12291021351092751058774244348,\ 13474862827994520928636401203,\ -13505556658440022209157487500,\ -13400187344736059180460909890,\ 12704490713950766193145320586,\ 11444050142103585321610246209,\ -10198504967620131990296720935,\ -8359369101473248576966645645,\ 6959098958719805065725486811,\ 5197837159739211526269554292,\ -4017584950889768517169278837,\ -2735962582454230710321264820,\ 1951391083445293954247325989,\ 1211237551060113133260842929,\ -792178164216400210851110478,\ -447647553001953017257666667,\ 266702415602707888000296470,\ 136929102081098854174625540,\ -73788987909473288094319268,\ -34325803278021431496454200,\ 16597626161759161587184232,\ 6972636594626994080153608,\ -2996763462412993560656168,\ -1132866031984549511662396,\ 427728856854720362749296,\ 145014228260884386291416,\ -47368320930022798282544,\ -14364860471873467457536,\ 3976430103939694808608,\ 1076938387480406539776,\ -245591927334522410112,\ -59339523591005166080,\ 10727356840533211648,\ 2304925874232107008,\ -313864089781585920,\ -59188017434664960,\ 5685537886142464,\ 901847991386112,\ -56216300224512,\ -6602008166400,\ 228545003520,\ 12004098048).
-\]
-so that $a(m)=\sum_{i=1}^{96}c_i\,a(m-i)$ for every $m$. Removing the first
-$96+4$ terms and repeating gives order $96$ again, which is what the
-identification below needs.
+\begin{proof}
+Induction. Suppose the two agree at $n_{0},\dots,m+r-1$ for some $m\ge n_{0}$. The
+recurrence at $n=m$ determines $b(m+r)$ from the preceding $r$ values, because $q_{r}(m)$
+is nonzero and may be divided by; both sequences therefore take the same value at $m+r$.
+\end{proof}
 
 \begin{theorem}
-For each line above, the displayed recurrence holds for every index, and it is the recurrence
-the entry records.
+For all $n\ge 1$,
+\[
+a(n) \;=\; - 3 \cdot 2^{n - 2} + 3 \cdot 2^{2 n - 3} + 3
+\]
 \end{theorem}
 
 \begin{proof}
-It holds by Lemma~\ref{lem:bm}. For the identification, the entry asserts that the line
-satisfies SOME recurrence of the stated order, possibly only from some index on. Let $q$ be its
-characteristic polynomial and $q_{\min}$ the minimal polynomial of the tail. Then
-$q_{\min}\mid q$, and the second Berlekamp--Massey run --- on the line with its first few
-terms removed --- shows $\deg q_{\min}$ equals the stated order, which is $\deg q$. Both are
-monic, so $q=q_{\min}$.
+Both sides satisfy \eqref{eq:rec}: the sequence because the recurrence was derived from
+the entry's own a generating function, and the conjectured closed form by the computation of the
+previous section. They agree at the $5$ consecutive indices beginning
+$n=1$, which was checked against the entry's DATA in exact integer arithmetic.
+The leading coefficient has no zero at any integer $n\ge1$, so
+Lemma~\ref{lem:unique} applies.
 \end{proof}
 
 \section{Verification}
 
-Three checks.
+Three checks, independent of one another.
 
-First, each line's model was compared against the entry's own published values for that line,
-taken from the antidiagonal DATA read in either orientation and from the ``Table starts''
-block, and agrees at every available term. This is the only point at which reading the entry's
-English enters, and a misreading gives different counts.
+First, the description the entry states as fact was itself confirmed against the entry's
+DATA before any recurrence was derived from it; a statement that did not reproduce the
+entry's own terms would not have been used as the basis of anything.
 
-Second, each recovered recurrence was evaluated directly on the model's values, with no
-Berlekamp--Massey involved, and holds at every index tested.
+Second, the derived recurrence \eqref{eq:rec} was evaluated on the published terms in
+exact integer arithmetic and vanishes at every index where it applies.
 
-Third, each order was computed twice by independent routes --- modulo a $61$-bit prime, where
-every intermediate is a machine word, and again in exact rational arithmetic --- and once more
-on the line with its first few terms dropped, which is what the identification requires. All
-agree.
+Third, the conjectured closed form was evaluated at the first $13$ indices and
+compared term by term with the DATA; the values agree exactly. This is not part of the
+proof, which is symbolic, but it would catch a transcription error in either statement.
 
 \begin{thebibliography}{9}
-\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A236875.
-\bibitem{massey} J.~L.~Massey, Shift-register synthesis and BCH decoding, \emph{IEEE
-Trans. Inform. Theory} \textbf{15} (1969), 122--127.
-\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
-University Press, 2013.
+\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer Sequences},
+\url{https://oeis.org}, 2026. Sequence A032098.
+\bibitem{aeqb} M.~Petkov\v{s}ek, H.~S.~Wilf and D.~Zeilberger, \emph{A=B}, A K Peters,
+1996.
+\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+University Press, 2009.
+\bibitem{kauers} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011.
 \end{thebibliography}
 
 \end{document}

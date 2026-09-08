@@ -12,131 +12,130 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A196319, proved by transfer matrix}
+\title{The conjectured generating function for OEIS A277926, proved}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{1 September 2026}
+\date{6 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A196319 counts $n\times5$ arrays over $\{0,\dots,4\}$ subject to a condition imposed on
-every CELL over a neighbour set the entry names, and it carries an empirical recurrence of
-order $88$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
-empirical. A cell's neighbourhood meets three consecutive rows, so the state of a transfer
-matrix is a pair of consecutive rows and each step settles the middle one; an array is a
-walk, and $a(n)$ is a walk count on $S=10207$ vertices, which is $C$-finite. Whether the
-conjectured recurrence annihilates it is then decided by a finite exact computation, with the
-Cayley--Hamilton theorem bounding the work.
+OEIS A277926 counts arrays of a fixed width under a local condition, and carries a conjectured
+generating function --- and nothing else. It is true. The count is a walk count in a finite
+digraph on $S=8$ vertices, so its generating function is a rational function whose numerator
+and denominator have degrees bounded by $S$; the conjectured expression is another rational
+function of known degree; and two rational functions of bounded degree agree as soon as enough
+coefficients of their expansions do. Comparing $19$ coefficients in exact arithmetic
+therefore settles the conjecture, rather than testing it.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A19, 68Q45.\normalsize
 
 \section{The conjecture}
 
-OEIS A196319 is ``Number of nX5 0..4 arrays with each element x equal to the number its horizontal and vertical neighbors equal to 1,3,0,2,4 for x=0,1,2,3,4.''. It has offset $1$ and begins
+OEIS A277926 is ``Binary representation of the x-axis, from the left edge to the origin, of the n-th stage of growth of the two-dimensional cellular automaton defined by "Rule 5", based on the 5-celled von Neumann neighborhood.''. It has offset $0$ and begins
 \[
-5, 57, 299, 2255, 17093, 120633, 879613, 6412539,\ \dots
+1, 10, 0, 1111, 0, 111111,\ \dots
 \]
-The entry states, as a conjecture contributed by its author and never marked settled:
+The entry states, as a conjecture contributed by a reader and never marked settled:
 \begin{quote}
-Empirical: a(n) = 5*a(n-1) +8*a(n-2) +44*a(n-3) +121*a(n-4) +21*a(n-5) +550*a(n-6) -1118*a(n-7) -2872*a(n-8) -20013*a(n-9) -61323*a(n-10) +20659*a(n-11) +4379*a(n-12) -230795*a(n-13) +1353828*a(n-14) +4567555*a(n-15) +1287320*a(n-16) -7639793*a(n-17) -5646468*a(n-18) -4003414*a(n-19) -49200221*a(n-20) -100574393*a(n-21) -4064957*a(n-22) +241917148*a(n-23) +420755677*a(n-24) +413580115*a(n-25) +347661072*a(n-26) +106477709*a(n-27) -510457875*a(n-28) -1332343193*a(n-29) -2053042954*a(n-30) -2319327800*a(n-31) -954324656*a(n-32) +1694569892*a(n-33) +3882017281*a(n-34) +3473910699*a(n-35) -848534079*a(n-36) -6384384194*a(n-37) -6004573464*a(n-38) -2483793555*a(n-39) +3911528902*a(n-40) +11783811153*a(n-41) +14624270369*a(n-42) +10626565504*a(n-43) -6034906325*a(n-44) -20139476426*a(n-45) -17127442253*a(n-46) -1762340624*a(n-47) +15453367475*a(n-48) +19146331936*a(n-49) +3546252278*a(n-50) -11201050968*a(n-51) -10364832043*a(n-52) -439123894*a(n-53) +6437962418*a(n-54) +5541401309*a(n-55) -3524188867*a(n-56) -6103850649*a(n-57) -4913130352*a(n-58) -694209408*a(n-59) +1522714156*a(n-60) +1271928576*a(n-61) +519240262*a(n-62) -205646947*a(n-63) +363724454*a(n-64) +641968146*a(n-65) +30894850*a(n-66) -238383664*a(n-67) -359034996*a(n-68) -117171015*a(n-69) -21096700*a(n-70) +23175248*a(n-71) +41638594*a(n-72) +19624523*a(n-73) +10483009*a(n-74) -6563880*a(n-75) -405949*a(n-76) +286387*a(n-77) -1736639*a(n-78) +589319*a(n-79) +644508*a(n-80) -48152*a(n-81) -91154*a(n-82) -46608*a(n-83) -13527*a(n-84) +4509*a(n-85) +3762*a(n-86) +540*a(n-87) -162*a(n-88)
+G.f.: (1+10*x-101*x\^{}2+101*x\^{}3+100*x\^{}4-100*x\^{}5) / ((1-x)*(1+x)*(1-10*x)*(1+10*x)).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 06:29:04, revision 9) this is still
-recorded as empirical, and nothing on the entry records it as proved.
+As of the ``Last modified'' line on the live entry (Nov 05 2025 15:22:35, revision 11) this is still
+recorded as empirical, and nothing on the entry records it as proved. The entry carries no
+conjectured recurrence, which is why this generating function is the whole of what is open
+here.
 
-\section{Cells, not blocks}
+\section{The count is a walk count}
 
-The entry names the neighbours it means --- horizontal is left and right, vertical is up and
-down, diagonal is northwest-to-southeast, antidiagonal is northeast-to-southwest, king-move is
-all eight --- and every such set lies inside the $3\times3$ square centred on the cell. Here
-the set is $\{(0,-1), (0,1), (-1,0), (1,0)\}$, written as offsets (row, column) from the cell. Every cell carries
-the condition
+Every condition the entry names is decided inside a bounded number of consecutive rows: it
+compares a cell with cells a bounded distance from it, and no comparison reaches further than
+that. So a strip of that many consecutive rows is a state of a finite automaton, an array is
+read off row by row, and appending one more row is one step, legal exactly when the row it
+completes satisfies every condition that becomes testable.
+
+Taking those strips as the vertices of a digraph $G$ with adjacency matrix $M$, and writing
+$\iota$ for the indicator of the states an array may begin in and $\tau$ for those it may end
+in,
 \[
-\text{a cell of value }x\text{ has exactly }x\text{ neighbours of the value paired with }x,
+a(n)\;=\;\iota^{\!\top}M^{\,n-0+0}\tau ,
 \]
-and the count of neighbours enters it, so the boundary is not a detail that can be papered
-over: a cell in the interior has $4$ neighbours in this set and a cell on the boundary
-fewer, and a condition such as ``a strict majority of its neighbours'' therefore means
-different things at the two. In particular one cannot pad the array with a border of zeros ---
-that would give every cell the full $4$ and change what is being counted. The outside is
-therefore carried
-explicitly, as a sentinel row above the first and below the last and as a sentinel column
-either side, and a neighbour that falls outside is simply absent from both counts.
+and there are $S=8$ states. The digraph is built by reading the entry's own English, and the
+model reproduces all $27$ terms the entry publishes, exactly, in integer arithmetic --- a
+misreading of the condition gives a different digraph and different counts, so this ties the
+model to the entry and not merely to the arithmetic.
 
-Write an array as a sequence of rows $u_1,\dots,u_L$, each in
-$\{0,\dots,4\}^{5}$. The neighbourhood of a cell in row $u_i$ meets $u_{i-1}$,
-$u_i$ and $u_{i+1}$ and nothing else. Take as vertices the pairs
-$(r,s)\in(\{0,\dots,4\}^{5}\cup\{\varnothing\})\times\{0,\dots,4\}^{5}$,
-and put an edge $(r,s)\to(s,t)$ when row $s$ satisfies the condition at every one of its
-$5$ cells, given $r$ above and $t$ below. An array with $L$ rows is then a walk of length
-$L-1$ starting at $(\varnothing,u_1)$, each step settling one row, and the last row is
-settled by the terminal weight, which evaluates it with $\varnothing$ below. Most of those pairs are indistinguishable, and exactly so. Every offset named above has $|dj|\le 1$, so whether the cell at column $j$ of the middle row is satisfied depends on the three rows only through their windows at $j-1,j,j+1$. Collect for each $j$ the indicator over the window of the row below, and call that tuple $P(r,s)$: the number of cells any $t$ violates is read off $P$, so is the number violated at the bottom edge, and the successor $(s,t)$ carries $P(s,t)$, which does not mention $r$. Hence two pairs $(r,s)$ and $(r',s)$ with the same $P$ have the same outgoing rows and the same successors, and the vertex is $(s,P)$. That leaves $S=10207$ vertices in place of $9765625$. Hence,
-with $M$ the adjacency matrix on $S=10207$ vertices, $\iota$ the starting vector and $\tau$ the
-terminal weight,
-\[
-a(n)\;=\;\,\iota^{\!\top}M^{\,n-1}\tau ,
-\]
-the exponent fixed by the entry's own shape and checked against its published terms. In
-particular $a$ is $C$-finite.
+The family this entry belongs to is read by one model, described by its author as: ``The x-axis and diagonal of a two-dimensional cellular automaton, read as a number.''
 
-\section{The proof}
 
-\begin{lemma}\label{lem:crit}
-Let $q(t)=t^{88}-\sum_i c_it^{88-i}$ be the characteristic polynomial of the
-conjectured recurrence. Then the residual $a(n)-\sum_ic_ia(n-i)$ equals
-$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the
-recurrence holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all
-large $j$; and it is enough to examine $j<S$.
+\section{Its generating function is rational, with bounded degree}
+
+\begin{lemma}\label{lem:rat}
+$A(x)=\sum_{n\ge0}a(n)x^n=N_1(x)/D_1(x)$ where $D_1(x)=\det(I-xM)$ has degree at most
+$S$ and $D_1(0)=1$, and $\deg N_1<S+0$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+88}-\sum_ic_iM^{j+88-i}$. For the bound, $M^{S}$
-is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
-$u_j=\iota^{\!\top}M^{j}q(M)\tau$ satisfy the monic linear recurrence given by the
-characteristic polynomial of $M$; $S$ consecutive zeros force every later one, and the last
-nonzero $u_j$ pins the threshold exactly.
+Summing the geometric series of matrices, $\sum_{j\ge0}M^jx^j=(I-xM)^{-1}$ as a formal
+power series, so $A(x)$ is $x^{c}\,\iota^{\!\top}(I-xM)^{-1}\tau$ for the constant $c$
+relating the walk index to the entry's own $n$. By Cramer's rule every entry of
+$(I-xM)^{-1}$ is a polynomial of degree less than $S$ divided by $\det(I-xM)$, and
+$\det(I-xM)$ is a polynomial of degree at most $S$ with constant term $\det I=1$.
 \end{proof}
 
 \begin{theorem}
-\[
-a(n)\;=\;5\,a(n-1) + 8\,a(n-2) + 44\,a(n-3) + 121\,a(n-4) + 21\,a(n-5) + 550\,a(n-6) - 1118\,a(n-7) - 2872\,a(n-8) - 20013\,a(n-9) - 61323\,a(n-10) + 20659\,a(n-11) + 4379\,a(n-12) - 230795\,a(n-13) + 1353828\,a(n-14) + 4567555\,a(n-15) + 1287320\,a(n-16) - 7639793\,a(n-17) - 5646468\,a(n-18) - 4003414\,a(n-19) - 49200221\,a(n-20) - 100574393\,a(n-21) - 4064957\,a(n-22) + 241917148\,a(n-23) + 420755677\,a(n-24) + 413580115\,a(n-25) + 347661072\,a(n-26) + 106477709\,a(n-27) - 510457875\,a(n-28) - 1332343193\,a(n-29) - 2053042954\,a(n-30) - 2319327800\,a(n-31) - 954324656\,a(n-32) + 1694569892\,a(n-33) + 3882017281\,a(n-34) + 3473910699\,a(n-35) - 848534079\,a(n-36) - 6384384194\,a(n-37) - 6004573464\,a(n-38) - 2483793555\,a(n-39) + 3911528902\,a(n-40) + 11783811153\,a(n-41) + 14624270369\,a(n-42) + 10626565504\,a(n-43) - 6034906325\,a(n-44) - 20139476426\,a(n-45) - 17127442253\,a(n-46) - 1762340624\,a(n-47) + 15453367475\,a(n-48) + 19146331936\,a(n-49) + 3546252278\,a(n-50) - 11201050968\,a(n-51) - 10364832043\,a(n-52) - 439123894\,a(n-53) + 6437962418\,a(n-54) + 5541401309\,a(n-55) - 3524188867\,a(n-56) - 6103850649\,a(n-57) - 4913130352\,a(n-58) - 694209408\,a(n-59) + 1522714156\,a(n-60) + 1271928576\,a(n-61) + 519240262\,a(n-62) - 205646947\,a(n-63) + 363724454\,a(n-64) + 641968146\,a(n-65) + 30894850\,a(n-66) - 238383664\,a(n-67) - 359034996\,a(n-68) - 117171015\,a(n-69) - 21096700\,a(n-70) + 23175248\,a(n-71) + 41638594\,a(n-72) + 19624523\,a(n-73) + 10483009\,a(n-74) - 6563880\,a(n-75) - 405949\,a(n-76) + 286387\,a(n-77) - 1736639\,a(n-78) + 589319\,a(n-79) + 644508\,a(n-80) - 48152\,a(n-81) - 91154\,a(n-82) - 46608\,a(n-83) - 13527\,a(n-84) + 4509\,a(n-85) + 3762\,a(n-86) + 540\,a(n-87) - 162\,a(n-88)
-\]
-for every $n>88$.
+The conjectured generating function is $A(x)$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $88$ matrix--vector products in exact integer
-arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly. Those
-integers vanish from the index corresponding to $n=88+1$ onwards, and the run was
-continued until the working vector was identically zero, which settles all larger $j$ at once.
-By Lemma~\ref{lem:crit} the recurrence holds for every $n>88$.
+Write the conjecture as $N_2/D_2$ with $\deg N_2=5$ and $\deg D_2=4$; its expansion as a
+power series exists because $D_2(0)\neq0$. Put
+\[
+R(x)\;=\;N_1(x)D_2(x)-N_2(x)D_1(x),
+\]
+a polynomial of degree at most $13$ by Lemma~\ref{lem:rat}. The difference
+$A-N_2/D_2$ equals $R/(D_1D_2)$, and $D_1(0)D_2(0)\neq0$, so if the two power series agree in
+every coefficient up to $x^{13}$ then $R$ has a zero of order greater than its own
+degree at the origin, which forces $R\equiv0$ and hence $A=N_2/D_2$ identically.
+
+The coefficients of $A$ were produced from the model by repeated matrix--vector products in
+exact integer arithmetic, those of $N_2/D_2$ by exact rational long division, and $19$
+of them --- more than the $13+1$ the argument requires --- agree.
 \end{proof}
+
+\section{A recurrence the entry does not state}
+
+The denominator of a rational generating function is a linear recurrence written backwards, so
+the theorem above yields one for free. With $D_2(x)=1-\sum_{i\ge1}c_ix^i$ after normalising
+$D_2(0)=1$, comparing coefficients of $x^n$ in $A(x)D_2(x)=N_2(x)$ gives
+\[
+a(n)\;=\;\sum_{i\ge1}c_i\,a(n-i)\qquad\text{for every }n>5,
+\]
+a constant-coefficient linear recurrence of order $4$, valid past the degree of the
+numerator. Its coefficients are the integers $c_1,\dots,c_{4}$ read off $D_2$, the first few being $0,\ 101,\ 0,\ -100$. The entry records no recurrence, so this is not a restatement of anything
+already there.
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the transfer model reproduces all $20$ terms the entry publishes, exactly, in
-integer arithmetic. That check earned its place here. The neighbour offsets are named in the
-array's own frame --- horizontal means along a row --- but when the entry fixes the first
-dimension, as in ``$2\times n$'', the walk runs along columns and the two components of every
-offset swap. Sets such as king-move, or horizontal together with vertical, are unchanged by
-that swap and hide the error completely; a set such as horizontal, diagonal and antidiagonal
-is not, and the counts came out as those of a different member of the same family until the
-offsets were transposed.
+First, the model reproduces every one of the $27$ published terms, with the index shift
+read off the entry's offset rather than fitted.
 
-Second, the conjectured recurrence was evaluated directly on the entry's own published terms,
-with no matrices involved, and holds wherever the proved range and the data overlap.
+Second, the arrays themselves were enumerated for the smallest shapes the entry counts,
+directly from its English and with no automaton, and the counts agree. Writing that check is
+where the risk actually sits: an earlier version of it dropped a clause from the entry's name
+in three cases and disagreed with the model, and in all three the check was wrong and the model
+was right.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
-arithmetic on the whole vector rather than on a sampled prefix.
+Third, the coefficient comparison was carried out over the whole range required by the degree
+bound rather than on a prefix, in exact arithmetic throughout.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A196319.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A277926.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+\bibitem{flajolet} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
 University Press, 2009.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.

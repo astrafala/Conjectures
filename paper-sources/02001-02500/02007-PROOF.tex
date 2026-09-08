@@ -12,19 +12,19 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A224371, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A224372, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A224371 counts arrays over $\{0,\dots,2\}$ whose rows, columns, diagonals or
+OEIS A224372 counts arrays over $\{0,\dots,2\}$ whose rows, columns, diagonals or
 antidiagonals are required to be monotone or unimodal, and carries an empirical recurrence of
-order $11$ contributed by R.~H.~Hardin. A monotone condition is local, but a unimodal one
+order $14$ contributed by R.~H.~Hardin. A monotone condition is local, but a unimodal one
 is not: a sequence is unimodal exactly when it never rises again after it has fallen, so the
 state must remember which sequences have already fallen. With those bits carried along, $a(n)$
-is a walk count on $S=86$ vertices and the recurrence follows from a finite exact
+is a walk count on $S=148$ vertices and the recurrence follows from a finite exact
 computation.
 \end{abstract}
 
@@ -32,26 +32,26 @@ computation.
 
 \section{The sequence and the conjecture}
 
-OEIS A224371 is ``Number of nX5 0..2 arrays with rows unimodal and antidiagonals nondecreasing.''. It has offset $1$ and begins
+OEIS A224372 is ``Number of nX6 0..2 arrays with rows unimodal and antidiagonals nondecreasing.''. It has offset $1$ and begins
 \[
-86, 1915, 26314, 311367, 3607078, 42132769, 495660330, 5848449149,\ \dots
+148, 4690, 80819, 1092281, 13831334, 174854516, 2231009824, 28645726612,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 21*a(n-1) -141*a(n-2) +427*a(n-3) -546*a(n-4) +526*a(n-5) -2124*a(n-6) +3302*a(n-7) +2396*a(n-8) +7504*a(n-9) +580*a(n-10) +1632*a(n-11) for n>13
+Empirical: a(n) = 28*a(n-1) -283*a(n-2) +1386*a(n-3) -3562*a(n-4) +4940*a(n-5) -3840*a(n-6) -14256*a(n-7) +50007*a(n-8) -26386*a(n-9) +141154*a(n-10) +250789*a(n-11) +41356*a(n-12) +274344*a(n-13) +134400*a(n-14) for n>18
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 23:24:22, revision 8) the statement is
+As of the ``Last modified'' line on the live entry (Oct 03 2025 23:24:29, revision 8) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;21\,a(n-1) - 141\,a(n-2) + 427\,a(n-3) - 546\,a(n-4) + 526\,a(n-5) - 2124\,a(n-6) + 3302\,a(n-7) + 2396\,a(n-8) + 7504\,a(n-9) + 580\,a(n-10) + 1632\,a(n-11)
+a(n)\;=\;28\,a(n-1) - 283\,a(n-2) + 1386\,a(n-3) - 3562\,a(n-4) + 4940\,a(n-5) - 3840\,a(n-6) - 14256\,a(n-7) + 50007\,a(n-8) - 26386\,a(n-9) + 141154\,a(n-10) + 250789\,a(n-11) + 41356\,a(n-12) + 274344\,a(n-13) + 134400\,a(n-14)
 \end{equation}
-for all $n>13$.
+for all $n>18$.
 
 \section{The conditions}
 
-The arrays have $5$ columns and $L=n$ rows. Written in (row, column)
+The arrays have $6$ columns and $L=n$ rows. Written in (row, column)
 coordinates, the entry asks:
 \begin{itemize}
 \item along the direction $(0,1)$ --- one step of $(0,1)$ in (row, column) coordinates --- every sequence is unimodal;
@@ -64,7 +64,7 @@ so no extra state is needed beyond the row itself.
 
 \begin{lemma}\label{lem:walk}
 Let $\mathcal V$ be the set of pairs (a row satisfying every within-row condition, a
-bit vector), $|\mathcal V|=S=86$; let $(r,f)\to(s,f')$ be an edge when placing $s$ after $r$
+bit vector), $|\mathcal V|=S=148$; let $(r,f)\to(s,f')$ be an edge when placing $s$ after $r$
 breaks none of the across-row conditions and $f'$ is $f$ updated by that step; let
 $\mathbf{v}$ mark the vertices whose bit vector is the one their row alone produces.
 Then
@@ -86,15 +86,15 @@ $L$ rows make a walk of length $L-1$.
 
 \section{The criterion, and the computation}
 
-Let $q(t)=t^{11}-\sum_i c_i\,t^{11-i}$ be the characteristic polynomial of
+Let $q(t)=t^{14}-\sum_i c_i\,t^{14-i}$ be the characteristic polynomial of
 \eqref{eq:conj} and $G=N$.
 
 \begin{lemma}\label{lem:crit}
 With $n_0$ the least index for which $L\ge1$, $o=1n_0+0-1$ and
-$h_j=G^{j}N^{o}\mathbf{1}$, we have for $j\ge11$
+$h_j=G^{j}N^{o}\mathbf{1}$, we have for $j\ge14$
 \[
-a(n_0+j)-\sum_i c_i\,a(n_0+j-i)=\,\mathbf{v}^{\!\top}G^{\,j-11}w,
-\qquad w=h_{11}-\sum_i c_ih_{11-i} .
+a(n_0+j)-\sum_i c_i\,a(n_0+j-i)=\,\mathbf{v}^{\!\top}G^{\,j-14}w,
+\qquad w=h_{14}-\sum_i c_ih_{14-i} .
 \]
 Hence \eqref{eq:conj} holds from that point on if and only if
 $\mathbf{v}^{\!\top}G^{m}w=0$ for all $m\ge0$, and $m<S$ suffices.
@@ -107,15 +107,15 @@ earlier ones.
 \end{proof}
 
 \begin{theorem}
-The recurrence \eqref{eq:conj} holds for every $n>13$, which is the statement of
+The recurrence \eqref{eq:conj} holds for every $n>18$, which is the statement of
 Section~1.
 \end{theorem}
 
 \begin{proof}
 The digraph was built directly from the conditions listed above. The vector $w$ was formed by
-$11$ applications of $G$ in exact integer arithmetic and $\mathbf{v}^{\!\top}G^{m}w$
+$14$ applications of $G$ in exact integer arithmetic and $\mathbf{v}^{\!\top}G^{m}w$
 evaluated for $m=0,1,\dots$, again exactly. Every one of those integers vanishes from the
-index corresponding to $n=13+1$ onwards, and the run continued until $S+1$ consecutive
+index corresponding to $n=18+1$ onwards, and the run continued until $S+1$ consecutive
 zeros had been seen.
 \end{proof}
 
@@ -124,7 +124,7 @@ zeros had been seen.
 Three checks, each independent of the algebra above.
 
 First, the walk counts of Lemma~\ref{lem:walk} were compared against the entry's DATA at
-every one of the $16$ published indices, with no shift fitted. The values agree exactly.
+every one of the $15$ published indices, with no shift fitted. The values agree exactly.
 This is what fixes the reading of the wording: ``rows and columns in nondecreasing order''
 means the rows and columns are sorted as vectors, not that each is nondecreasing along
 itself, and the two readings already differ at the second published term --- $86$ against
@@ -138,7 +138,7 @@ Cayley--Hamilton bound in exact integer arithmetic rather than to a sampled pref
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A224371.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A224372.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

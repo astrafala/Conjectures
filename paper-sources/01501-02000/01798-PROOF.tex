@@ -12,131 +12,149 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A203710, proved by transfer matrix}
+\title{The empirical closed form for OEIS A185473, proved}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{3 September 2026}
+\date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A203710 counts arrays of width $2$ over $\{0,1,\dots,5\}$ through two derived arrays of PAIR SUMS ---
-each cell added to its left neighbour, and each cell added to the one above it --- on which the
-entry imposes an order condition. The entry carries an empirical recurrence of order $15$
-contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical: the count is
-a walk count on $S=72$ states.
+OEIS A185473 carries an empirical closed form for $a(n)$ --- not a recurrence relating
+consecutive terms but an explicit formula. It is true, and it is decidable rather than
+empirical. The entry counts arrays subject to a condition on a bounded window of consecutive lines, so the lines of an array are the
+vertices of a finite digraph, an array is a walk in it, and $a(n)$ is a walk count on
+$S=58036$ vertices. Any function of the form $\sum_j p_j(n)\lambda_j^{\,n}$ satisfies the
+monic linear recurrence whose characteristic polynomial is
+$\prod_j(x-\lambda_j)^{\deg p_j+1}$; here that polynomial is $q(x)=(x-1)^{18}$, of degree
+$18$. Two things are then checked exactly: that the walk count satisfies the same
+recurrence from some index on, which the Cayley--Hamilton theorem reduces to a finite
+computation, and that the two sequences agree at $18$ consecutive indices past that
+point. A monic recurrence determines every later term from its predecessors, so agreement
+there is agreement for good.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 06A07, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A203710 is ``Number of (n+1)X2 0..5 arrays with column and row pair sums b(i,j)=a(i,j)+a(i,j-1) and c(i,j)=a(i,j)+a(i-1,j) such that rows of b(i,j) and columns of c(i,j) are lexicographically nondecreasing.''. It has offset $1$ and begins
+OEIS A185473 is ``Number of (n+2)X7 0..2 arrays with each 3X3 subblock having rows and columns in lexicographically nondecreasing order.''. It has offset $1$ and begins
 \[
-406, 5411, 64568, 680400, 6489940, 57269565, 475164554, 3751457500,\ \dots
+79743, 594798, 3097348, 12990375, 46410729, 146203201, 416227164, 1090826214,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 40*a(n-1) -725*a(n-2) +7890*a(n-3) -57598*a(n-4) +298496*a(n-5) -1133650*a(n-6) +3211340*a(n-7) -6839701*a(n-8) +10954608*a(n-9) -13092665*a(n-10) +11477170*a(n-11) -7151500*a(n-12) +2994456*a(n-13) -754560*a(n-14) +86400*a(n-15)
+Empirical: a(n) = (1/2155681382400)*n\^{}17 + (47/697426329600)*n\^{}16 + (611/134120448000)*n\^{}15 + (33559/174356582400)*n\^{}14 + (189341/33210777600)*n\^{}13 + (178309/1277337600)*n\^{}12 + (147904279/44706816000)*n\^{}11 + (87015563/1219276800)*n\^{}10 + (11642696389/9754214400)*n\^{}9 + (69578815777/4877107200)*n\^{}8 + (3848584871/32256000)*n\^{}7 + (44384094767/63866880)*n\^{}6 + (247986427893683/87178291200)*n\^{}5 + (124742663704661/14529715200)*n\^{}4 + (1115145293971/58212000)*n\^{}3 + (2731472131849/100900800)*n\^{}2 + (9965552297/510510)*n + 1735
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 10:39:41, revision 10) this is still
-recorded as empirical, and nothing on the entry records it as proved.
-
-\section{What is being counted}
-
-The array $a$ has $2$ cells across, with entries in $\{0,1,\dots,5\}$. Two derived arrays are formed,
+As of the ``Last modified'' line on the live entry (Oct 03 2025 03:00:37, revision 9) this is still
+recorded as empirical, and nothing on the entry records it as proved. Write
 \[
-b(i,j)=a(i,j)+a(i,j-1)\quad(j\ge1),\qquad c(i,j)=a(i,j)+a(i-1,j)\quad(i\ge1),
+f(n)\;=\;\frac{n^{17}}{2155681382400} + \frac{47 n^{16}}{697426329600} + \frac{611 n^{15}}{134120448000} + \frac{33559 n^{14}}{174356582400} + \frac{189341 n^{13}}{33210777600} + \frac{178309 n^{12}}{1277337600} + \frac{147904279 n^{11}}{44706816000} + \frac{87015563 n^{10}}{1219276800} + \frac{11642696389 n^{9}}{9754214400} + \frac{69578815777 n^{8}}{4877107200} + \frac{3848584871 n^{7}}{32256000} + \frac{44384094767 n^{6}}{63866880} + \frac{247986427893683 n^{5}}{87178291200} + \frac{124742663704661 n^{4}}{14529715200} + \frac{1115145293971 n^{3}}{58212000} + \frac{2731472131849 n^{2}}{100900800} + \frac{9965552297 n}{510510} + 1735.
 \]
-so $b$ adds each cell to its LEFT neighbour and $c$ adds each cell to the one ABOVE it. The
-entry asks
 
-that the ROWS of $b$ and the COLUMNS of $c$ are each in lexicographic nondecreasing order. Row $i$ of $b$
-is $\bigl(b(i,1),\dots,b(i,1)\bigr)$ and column $j$ of $c$ is
-$\bigl(c(1,j),c(2,j),\dots\bigr)$.
+\section{The count is a walk count}
 
+The entry's defining condition is local: it is a condition on a bounded window of consecutive lines. Take as vertices the
+admissible configurations of such a window and put an edge from $u$ to $v$ when $v$ may
+follow $u$, which the condition decides by inspection. An admissible array is then exactly a
+walk, so with $M$ the adjacency matrix of that digraph on $S=58036$ vertices, and $u,w$ the
+vectors recording which windows may start and end an array,
+\[
+a(n)\;=\;u^{\!\top}M^{\,g(n)}w
+\]
+for the linear function $g$ that the entry's shape supplies. In particular $a$ is
+$C$-finite: it satisfies some monic integer linear recurrence, though not necessarily a short
+one.
 
-\section{Two rows decide it}
+\section{A closed form is a recurrence}
 
-\begin{lemma}\label{lem:win}
-The row comparison is a condition on two consecutive rows of $a$. The column comparison is
-settled by the FIRST row in which the two columns of $c$ differ.
+\begin{lemma}\label{lem:ann}
+Let $f(m)=\sum_{j}p_j(m)\lambda_j^{\,m}$ with the $\lambda_j$ distinct and the $p_j$
+polynomials, and put $q(x)=\prod_j(x-\lambda_j)^{\deg p_j+1}$. Then $q$ applied to the shift
+operator annihilates $f$: writing $q(x)=x^{r}-\sum_{i=1}^{r}c_ix^{r-i}$,
+\[
+f(m)\;=\;\sum_{i=1}^{r}c_i\,f(m-i)\qquad\text{for every }m.
+\]
 \end{lemma}
 
 \begin{proof}
-Row $i$ of $b$ is built from row $i$ of $a$ alone, so comparing rows $i$ and $i+1$ of $b$ reads
-rows $i$ and $i+1$ of $a$. Two sequences are compared lexicographically by their first
-difference; entry $i$ of column $j$ of $c$ is built from rows $i-1$ and $i$ of $a$, so scanning
-the array downwards reveals the entries of every column of $c$ in order.
+The shift operator $E$ acts on $m\mapsto\lambda^{m}p(m)$ as
+$(E-\lambda)\bigl(\lambda^{m}p(m)\bigr)=\lambda^{m+1}\bigl(p(m+1)-p(m)\bigr)$, and
+$p(m+1)-p(m)$ has degree one less than $p$. So $(E-\lambda)^{\deg p+1}$ kills
+$\lambda^{m}p(m)$, and the factors of $q$ commute.
 \end{proof}
 
-So the state is the last row of $a$ together with one bit for each adjacent pair of columns,
-recording whether that pair of columns of $c$ has been equal in every row so far. A row that
-would put a pair in the wrong order is rejected at once, and a pair still equal at the end is
-in order, equality being allowed.
-
-With $M$ the adjacency matrix of the digraph on those states, $\iota$ the indicator of the
-starting state and $\tau=\mathbf{1}$,
-\[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=72.
-\]
-The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
-published terms rather than assumed. In particular $a$ is $C$-finite.
+Here $q(x)=(x-1)^{18}$, of degree $18$; the closed form is a polynomial in $n$, so this is $(x-1)^{18}$, and the recurrence it encodes is
+\begin{equation}\label{eq:rec}
+a(n)\;=\;18\,a(n-1) - 153\,a(n-2) + 816\,a(n-3) - 3060\,a(n-4) + 8568\,a(n-5) - 18564\,a(n-6) + 31824\,a(n-7) - 43758\,a(n-8) + 48620\,a(n-9) - 43758\,a(n-10) + 31824\,a(n-11) - 18564\,a(n-12) + 8568\,a(n-13) - 3060\,a(n-14) + 816\,a(n-15) - 153\,a(n-16) + 18\,a(n-17) - a(n-18).
+\end{equation}
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{15}-\sum_i c_it^{15-i}$ be the characteristic polynomial of the
-conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
-$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
-holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
-and it is enough to examine $j<S$.
+With $q$ as above, $a$ satisfies \eqref{eq:rec} for all large $n$ if and only if
+$u^{\!\top}M^{\,j}q(M)w=0$ for every $j\ge0$, and it is enough to check $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+15}-\sum_ic_iM^{j+15-i}$. For the bound, $M^{S}$
-is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
-$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
-polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly.
+Substituting the walk expression, the residual $a(n)-\sum_ic_ia(n-i)$ equals
+$u^{\!\top}M^{\,g(n)-r}q(M)w$ up to the fixed linear reparametrisation $g$. For the bound,
+$M^{S}$ is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the values
+$u^{\!\top}M^{j}q(M)w$ satisfy the monic recurrence given by the characteristic polynomial of
+$M$; $S$ consecutive zeros therefore force all later ones, and the last nonzero value pins the
+threshold exactly.
 \end{proof}
 
 \begin{theorem}
-\[
-a(n)\;=\;40\,a(n-1) - 725\,a(n-2) + 7890\,a(n-3) - 57598\,a(n-4) + 298496\,a(n-5) - 1133650\,a(n-6) + 3211340\,a(n-7) - 6839701\,a(n-8) + 10954608\,a(n-9) - 13092665\,a(n-10) + 11477170\,a(n-11) - 7151500\,a(n-12) + 2994456\,a(n-13) - 754560\,a(n-14) + 86400\,a(n-15)
-\]
-for every $n>14$.
+$a(n)=f(n)$ for every $n\ge1$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $15$ matrix--vector products in exact integer
-arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=14+1$ onwards and the run continued
-until the working vector was identically zero.
+The vector $w'=q(M)w$ was formed by $18$ matrix--vector products in exact integer
+arithmetic, and $u^{\!\top}M^{j}w'$ evaluated for $j=0,1,\dots$, again exactly. Those integers
+vanish from the point corresponding to $n=19$ onwards, and the run was continued until the
+working vector was identically zero, which settles every larger $j$ at once. So $a$ satisfies
+\eqref{eq:rec} for every $n>18$. By Lemma~\ref{lem:ann} $f$ satisfies \eqref{eq:rec}
+identically. Both were then evaluated in exact arithmetic at the $18$ consecutive indices
+$n=19,\dots,36$ and agree at each. A monic recurrence of order $18$
+determines $a(m)$ from $a(m-1),\dots,a(m-18)$, and for every $m\ge37$ both
+$m>18$ and $m-18\ge19$ hold, so induction on $m$ gives $a(m)=f(m)$ for every
+$m\ge19$.
+Below $n=19$ the recurrence argument gives nothing, since \eqref{eq:rec} is only
+established for $a$ from $n=19$ on. The remaining indices $n=1,\dots,18$ were
+therefore checked one at a time, directly against the walk count in exact integer arithmetic,
+and agree.
 \end{proof}
+
+The range is tight in the sense that was checked: the closed form holds from the entry's first term onwards.
 
 \section{Verification}
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $17$ terms the entry publishes, exactly, in integer
-arithmetic.
+First, the walk model reproduces every one of the $19$ terms the entry publishes,
+exactly, in integer arithmetic. This is what ties the model to the entry: the model is built
+by reading the entry's English, and a misreading gives a different digraph and different
+counts.
 
-Second, the count was recomputed for the smallest arrays straight from the definition:
-enumerate every array of that size, form the two derived arrays in full, and test the condition
-on them directly. No window, no state and no incremental bookkeeping are involved, and the
-published terms came back.
+Second, the closed form was evaluated in exact rational arithmetic --- not floating point ---
+at every published term from $n=1$ on, and agrees with the entry's own DATA at each.
 
-Third, the conjectured recurrence was evaluated directly on the published terms, with no
-matrices involved, and holds wherever the proved range and the data overlap.
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried out exactly, and the model
+and the closed form were then compared directly at sixty consecutive indices beyond
+$n=1$, far past where the proof already settles the matter.
 
-Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
-arithmetic on the whole vector rather than on a sampled prefix.
+Fourth, the closed form was deliberately perturbed --- by a constant and by a term linear in
+$n$ --- and each perturbed form was rejected by the same comparison, so the test is not one
+that anything would pass.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A203710.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A185473.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; $C$-finite sequences,
+Section 4.1.)
+\bibitem{kp} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011.
+(Closed forms and linear recurrences with constant coefficients.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

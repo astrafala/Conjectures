@@ -12,80 +12,113 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A230827, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A221397, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A230827 counts arrays of width $4$ over $\{0,1,2,3\}$ in which every cell must see, among its
-neighbours in named directions, a stated number carrying the value one MORE than its own
-modulo $4$, and in some of the family a stated number carrying the value one less. The entry
-carries an empirical recurrence of order $46$ contributed by R.~H.~Hardin. It is true, and
-it is decidable rather than empirical: a cell's neighbours lie in three consecutive rows, so
-the count is a walk count on $S=2657$ states.
+OEIS A221397 counts the distinct OCCUPANCY arrays obtained when every cell of an $n\times3$ grid
+holds one token, each token moves to a neighbouring cell, and the direction a token leaves a
+cell in is restricted by the direction in which another token arrives there. The entry carries
+an empirical recurrence of order $3$ contributed by R.~H.~Hardin. It is true, and it is
+decidable rather than empirical. What is counted is the size of an IMAGE --- two different
+assignments of moves with the same occupancy count once --- so it is not a walk count in the
+obvious graph; determinising the machine that emits the occupancy row by row turns it into
+one, on $S=153$ states, after which the conjectured recurrence is settled by a finite exact
+computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05C15, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 68Q45, 60C05.\normalsize
 
 \section{The conjecture}
 
-OEIS A230827 is ``Number of nX4 0..3 arrays x(i,j) with each element horizontally, vertically or antidiagonally next to at least one element with value (x(i,j)+1) mod 4 and at least one element with value (x(i,j)-1) mod 4, no adjacent elements equal, and upper left element zero.''. It has offset $1$ and begins
+OEIS A221397 is ``Number of n X 3 arrays of occupancy after each element moves to some horizontal, diagonal or antidiagonal neighbor, with no 2-loops and with no occupancy greater than 2.''. It has offset $1$ and begins
 \[
-0, 6, 10, 62, 176, 734, 3034, 12962,\ \dots
+0, 6, 30, 144, 672, 3108, 14328, 65976,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 20*a(n-1) -174*a(n-2) +856*a(n-3) -2543*a(n-4) +4242*a(n-5) -1758*a(n-6) -8383*a(n-7) +18429*a(n-8) -9998*a(n-9) -19479*a(n-10) +35858*a(n-11) -3796*a(n-12) -44630*a(n-13) +26155*a(n-14) +46885*a(n-15) -36285*a(n-16) -52603*a(n-17) +27731*a(n-18) +62520*a(n-19) -8480*a(n-20) -68927*a(n-21) +7432*a(n-22) +63362*a(n-23) -4203*a(n-24) -57711*a(n-25) -41467*a(n-26) +16827*a(n-27) +61539*a(n-28) +68672*a(n-29) +13282*a(n-30) -105380*a(n-31) -115207*a(n-32) +42704*a(n-33) +133454*a(n-34) +42704*a(n-35) -68204*a(n-36) -61800*a(n-37) +6457*a(n-38) +32367*a(n-39) +12804*a(n-40) -4313*a(n-41) -5391*a(n-42) -1966*a(n-43) -339*a(n-44) -26*a(n-45) -a(n-46) for n>51
+Empirical: a(n) = 6*a(n-1) - 6*a(n-2)  -2*a(n-3).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 06:03:29, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Aug 05 2018 08:21:13, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The array has $4$ cells across, with entries in $\{0,1,2,3\}$. The NEIGHBOURS of a cell are the
-cells reached from it by the offsets
+Every cell of an $n\times3$ grid holds one token. Each token moves by one of the offsets
 \[
-(-1,0), (-1,1), (0,-1), (0,1), (1,-1), (1,0),
+(-1,-1), (-1,1), (0,-1), (0,1), (1,-1), (1,1),
 \]
-those lying inside the array. Writing $v$ for the value of a cell, the condition is that among
-its neighbours there be at least $1$ carrying $v+1 \bmod 4$ and at least $1$ carrying $v-1 \bmod 4$. The entry also forbids two neighbouring cells from carrying equal values. The top left
-cell is fixed at $0$.
+a move being available only when it lands inside the grid. The offset $(0,0)$ is NOT among them: every token must move. The OCCUPANCY array
+records, for each cell, how many tokens land on it, and the entry counts how many different
+occupancy arrays occur as the assignment of moves runs over all its possibilities.
 
-Note that the values and the modulus agree: the alphabet has $4$ letters and the arithmetic
-is modulo $4$, so ``one more than $v$'' wraps from $3$ round to $0$.
+The moves are not free of one another. Suppose the token at a cell $A$ moves by $d$ to the
+cell $B$, and the token standing at $B$ moves by $d'$. The entry forbids the ordered pair
+$(d,d')$ when
+\begin{itemize}
+\item $d'=-d$, that is, the two tokens exchange places --- a $2$-LOOP;
+\end{itemize}
+and imposes nothing else. A token that stays put neither arrives anywhere nor leaves, so a
+zero offset on either side of the pair carries no condition at all. The entry asks in addition that no occupancy exceed $2$, a condition on the array recorded rather than on the moves.
 
-\section{Three rows decide one}
+That the count is the size of an IMAGE is the whole difficulty: two assignments with the same
+occupancy must be counted once, and a walk count over the assignments would count them twice.
+
+\section{One window decides everything}
+
+Write $c_i\in\Delta^{3}$ for the row of offsets chosen by the cells of row $i$, where
+$\Delta$ is the offset set above.
 
 \begin{lemma}\label{lem:win}
-Every offset above changes the row index by $-1$, $0$ or $+1$, so all the neighbours of a cell
-of row $i$ lie in rows $i-1$, $i$ and $i+1$, and the condition for the whole of row $i$ is
-decided by those three rows. A neighbour outside the array is not a neighbour and contributes
-nothing to any of the counts.
+Both the occupancy of row $i$ and every instance of the forbidden pair whose FIRST member is a
+move made in row $i$ are determined by $c_{i-1},c_i,c_{i+1}$, with the convention that an
+absent row is the symbol $\bot$.
 \end{lemma}
 
 \begin{proof}
-Immediate from the offsets listed.
+Every offset changes the row index by at most one, so a token landing on a cell of row $i$
+started in row $i-1$, $i$ or $i+1$; that is the occupancy. For the pairs, a move made by the
+cell $(i,j)$ with offset $d$ lands on the cell $(i+d_1,j+d_2)$, whose row is $i-1$, $i$ or
+$i+1$, so the offset $d'$ of that cell is a coordinate of $c_{i-1}$, $c_i$ or $c_{i+1}$.
+Reading a row of the array as $\bot$ makes ``up'' or ``down'' unavailable, which is exactly
+the boundary rule.
 \end{proof}
 
-So the state is the pair (row above, current row), the row above allowed to be the symbol
-$\bot$, and a step appends a row and settles the condition for the middle row of the window it
-completes. Two boundaries are decided rather than assumed. The rows that may BEGIN an array are
-exactly those whose first entry is $0$, which is the top-left clause. And the condition for the
-LAST row is settled by the end vector, with nothing below it: the end vector is therefore not
-the all-ones vector, and a row that sees enough neighbours only when a further row is written
-below it does not finish an array. With $M$ the adjacency matrix,
+Each ordered pair is therefore tested exactly once, from the row of the token that makes the
+first move of the pair; every row plays that part exactly once along the array.
+
+Let $\beta(p,c,x)$ be the occupancy row of $c$ in the context $(p,x)$, undefined when some
+cell of $c$ has no room to move or when some forbidden pair occurs. The occupancy array of an
+assignment $c_1,\dots,c_n$ is
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=2657.
+\bigl(\beta(\bot,c_1,c_2),\ \beta(c_1,c_2,c_3),\ \dots,\ \beta(c_{n-1},c_n,\bot)\bigr).
 \]
-The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
-published terms rather than assumed. In particular $a$ is $C$-finite.
+
+\section{The image is a walk count after determinisation}
+
+Determinise. For a set $D$ of pairs $(p,c)$ and an occupancy row $b$ put
+\[
+\delta(D,b)=\{(c,x):(p,c)\in D,\ \beta(p,c,x)=b\},\qquad
+f(D)=\bigl|\{\beta(p,c,\bot):(p,c)\in D,\ \beta(p,c,\bot)\ \text{defined}\}\bigr| ,
+\]
+and let $D_0=\{(\bot,c):c\}$. An induction on the number of rows shows $D_t$ is exactly the
+set of pairs of consecutive move-rows completing a prefix with the emitted occupancy rows, so
+that with $M$ the adjacency matrix of the digraph on the reachable nonempty sets, one edge per
+occupancy row it admits,
+\[
+a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,\qquad \iota=e_{D_0},\quad \tau=f .
+\]
+The last row is counted by $f$ and not by an edge: it is emitted with nothing below it, so it
+is a property of the state the walk stops in and $\tau$ is not the all-ones vector. There are
+$S=153$ reachable sets. In particular $a$ is $C$-finite.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{46}-\sum_i c_it^{46-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{3}-\sum_i c_it^{3-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -93,7 +126,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+46}-\sum_ic_iM^{j+46-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+3}-\sum_ic_iM^{j+3-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -102,15 +135,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;20\,a(n-1) - 174\,a(n-2) + 856\,a(n-3) - 2543\,a(n-4) + 4242\,a(n-5) - 1758\,a(n-6) - 8383\,a(n-7) + 18429\,a(n-8) - 9998\,a(n-9) - 19479\,a(n-10) + 35858\,a(n-11) - 3796\,a(n-12) - 44630\,a(n-13) + 26155\,a(n-14) + 46885\,a(n-15) - 36285\,a(n-16) - 52603\,a(n-17) + 27731\,a(n-18) + 62520\,a(n-19) - 8480\,a(n-20) - 68927\,a(n-21) + 7432\,a(n-22) + 63362\,a(n-23) - 4203\,a(n-24) - 57711\,a(n-25) - 41467\,a(n-26) + 16827\,a(n-27) + 61539\,a(n-28) + 68672\,a(n-29) + 13282\,a(n-30) - 105380\,a(n-31) - 115207\,a(n-32) + 42704\,a(n-33) + 133454\,a(n-34) + 42704\,a(n-35) - 68204\,a(n-36) - 61800\,a(n-37) + 6457\,a(n-38) + 32367\,a(n-39) + 12804\,a(n-40) - 4313\,a(n-41) - 5391\,a(n-42) - 1966\,a(n-43) - 339\,a(n-44) - 26\,a(n-45) - a(n-46)
+a(n)\;=\;6\,a(n-1) - 6\,a(n-2) - 2\,a(n-3)
 \]
-for every $n>51$.
+for every $n>3$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $46$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $3$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=51+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=3+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -118,14 +151,14 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $23$ terms the entry publishes, exactly, in integer
-arithmetic. The leading zeros the entry publishes are a sharp test of the boundary: a small
-array has too few neighbours for any cell to see what the condition demands.
+First, the model reproduces all $22$ terms the entry publishes, exactly, in integer
+arithmetic.
 
-Second, the count was recomputed for the smallest arrays straight from the definition:
-enumerate every array of that size in the orientation the entry's own name writes, count each
-cell's neighbours of each kind, and keep the array when every cell is satisfied. No window, no
-transfer matrix and no transposition are involved, and the published terms came back.
+Second, the count was recomputed for the smallest grids straight from the definition ---
+enumerate every assignment of offsets to cells, discard the assignments containing a forbidden
+pair, form the occupancy array, and count the distinct arrays --- with the forbidden-pair test
+written out from the entry's wording rather than taken from the model. The published terms
+came back.
 
 Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
@@ -135,7 +168,10 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A230827.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A221397.
+\bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata
+Theory, Languages, and Computation}, 3rd ed., Addison--Wesley, 2006. (The subset
+construction, Section 2.3.)
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge

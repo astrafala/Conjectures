@@ -12,139 +12,137 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A295414: recovering a conjecture that is not written down}
+\title{The empirical recurrence for OEIS A208502, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{2 September 2026}
+\date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A295414 records ``Empirical recurrence of order $78$'', with the recurrence itself in a
-linked file rather than in the entry. The conjecture can nevertheless be settled, and the
-recurrence recovered, without reading that file. The entry counts arrays under a condition
-local to a bounded window of lines, so the count is a walk count on a finite digraph and
-satisfies some monic recurrence of order at most the number of its states with distinct
-futures, here $S'=120$; Berlekamp--Massey applied to $2S'$ exact
-terms therefore returns the MINIMAL such recurrence. Its order is exactly $78$, the order
-the entry states, and the same is true of every tail of the sequence. Any recurrence of order
-$78$ that the sequence satisfies from any point on must then have a characteristic
-polynomial that is a multiple of the minimal one and of the same degree, hence equal to it. So
-the entry's recurrence is the one displayed here, whatever its file contains, and it is
-proved.
+OEIS A208502 counts arrays over $\{0,\dots,1\}$ of width $4$ that avoid the patterns
+$(0,1,0), (1,1,1)$ along one axis and $(0,0,0), (0,0,1)$ along the other, and carries an empirical recurrence of
+order $2$ contributed by R.~H.~Hardin. It is true. The patterns have length $3$, so
+the constraint across the growing direction ties together $3$ consecutive columns: taking a
+window of $2$ consecutive columns as a state makes the array a walk in a finite digraph
+on $S=81$ vertices, and $a(n)=\mathbf{1}^{\!\top}P^{\,n-2}\mathbf{1}$. Writing $q$
+for the characteristic polynomial of the conjectured recurrence, the residual is
+$\mathbf{1}^{\!\top}P^{\,n-2-2}q(P)\mathbf{1}$, which vanishes identically
+beyond a threshold that the computation pins down exactly. Finite, exact, integer.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 68R15, 15B36.\normalsize
 
-\section{A conjecture one cannot read}
+\section{The sequence and the conjecture}
 
-OEIS A295414 is ``Number of nX6 0..1 arrays with each 1 horizontally or vertically adjacent to 1, 2 or 3 1s.''. It has offset $1$ and begins
+OEIS A208502 is ``Number of 4 X n 0..1 arrays avoiding 0 0 0 and 0 0 1 horizontally and 0 1 0 and 1 1 1 vertically.''. It has offset
+$1$ and begins
 \[
-21, 1632, 68613, 3019079, 136204120, 6093564449, 272714953724, 12210363190599,\ \dots
+9, 81, 126, 324, 828, 2124, 5436,\ \dots
 \]
-The entry states:
-\begin{quote}
-Empirical recurrence of order 78 (see link above)
+The entry carries the following comment:
+\begin{quote}\small
+Empirical: a(n) = a(n-1) + 4*a(n-2) for n>4.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Nov 22 2017 10:38:35, revision 4) this is still
-recorded as empirical. The recurrence's coefficients are not in the entry text.
+As of the ``Last modified'' line on the live entry (Jul 03 2018 12:40:35, revision
+8) the statement is still recorded as empirical, and nothing on the entry
+records it as settled either way.
 
-\section{The count is a walk count}
+Written out, the claim is
+\begin{equation}\label{eq:conj}
+a(n)\;=\;a(n-1) + 4\,a(n-2)
+\end{equation}
+for all $n>4$. The entry's array has a fixed number of rows and a growing number of
+columns, so the roles of the two directions are exchanged: what the entry calls the
+horizontal direction runs along the growing side. The transfer below is written in the
+growing direction throughout.
 
-The entry's condition is local: it constrains a bounded window of consecutive lines of the
-array and nothing further. The admissible configurations of one such window are the vertices
-of a finite digraph, an edge joining $u$ to $v$ when $v$ may follow $u$, and an admissible
-array is exactly a walk. Hence, with $M$ the adjacency matrix on $S=4096$ vertices,
-$a(n)=\iota^{\!\top}M^{\,j(n)}\tau$ for a linear reindexing $j$ fixed by the entry's shape
-and checked against its published terms. States with the same future contribute identically to $\iota^{\!\top}M^n\tau$, so they may be merged without changing any count; merging leaves $S'=120$ of the $4096$, and it is that smaller bound the computation below uses. By the Cayley--Hamilton theorem $M^{S}$ is an
-integer combination of $I,M,\dots,M^{S-1}$, so:
+\section{The array as a walk}
 
-\begin{lemma}\label{lem:cf}
-$a$ satisfies a monic linear recurrence with integer coefficients of order at most
-$S'=120$.
+Call a column \emph{admissible} if the word it forms contains none of the patterns
+$(0,1,0), (1,1,1)$ as $3$ consecutive entries. There are $9$ admissible columns; that condition
+involves a single column only.
+
+The remaining patterns $(0,0,0), (0,0,1)$ are forbidden along the other axis, so each of them
+constrains $3$ consecutive columns at a fixed position of the row. Take as state a
+window $w=\bigl(w^{(1)},\dots,w^{(2)}\bigr)$ of $2$ consecutive admissible
+columns, so $S=81$, and declare $w\to w'$ an edge when $w'$ is $w$ with its first entry
+dropped and one further admissible column $t$ appended, subject to: for every position
+$j$, the $3$-tuple read down the row $j$ across $w^{(1)},\dots,w^{(2)},t$
+is none of $(0,0,0), (0,0,1)$. Let $P$ be the adjacency matrix.
+
+\begin{lemma}\label{lem:walk}
+$a(n)=\mathbf{1}^{\!\top}P^{\,n-2}\mathbf{1}$ for every $n\ge2$.
 \end{lemma}
 
-\section{Recovering the recurrence}
+\begin{proof}
+An array of the entry's kind with $n$ columns is a sequence of $n$ admissible columns in
+which no forbidden pattern appears along the other axis. Reading it as the sequence of its
+overlapping windows of length $2$ turns it into a walk: consecutive windows overlap in
+$1$ columns by construction, and the edge condition is exactly the requirement on the one
+new $3$-tuple that each step creates. Conversely a walk reassembles into such an array,
+and the two constructions are mutually inverse. A walk of length $n-2$ visits $n-1$
+windows, that is $n$ columns; summing over all starting and ending states gives
+$\mathbf{1}^{\!\top}P^{\,n-2}\mathbf{1}$.
+\end{proof}
 
-\begin{lemma}\label{lem:bm}
-A sequence known to satisfy some linear recurrence of order at most $S$ is determined, together
-with its minimal recurrence, by its first $2S$ terms: Berlekamp--Massey applied to them returns
-that minimal recurrence exactly.
+\section{The criterion}
+
+Let $q(t)=t^{2}-\sum_i c_i t^{2-i}$ be the characteristic polynomial of
+\eqref{eq:conj} and $u_j=\mathbf{1}^{\!\top}P^{j}q(P)\mathbf{1}$.
+
+\begin{lemma}\label{lem:crit}
+$a(n)-\sum_i c_i a(n-i)=u_{\,n-2-2}$ whenever $n-2\ge2$. Hence
+\eqref{eq:conj} holds for every $n>t$ exactly when $u_j=0$ for every
+$j>t-2-2$. Moreover $(u_j)$ satisfies the monic linear recurrence whose
+characteristic polynomial is that of $P$, of degree $S$, so $S$ consecutive zeros force all
+later ones and the last nonzero $u_j$ pins $t$ down exactly.
 \end{lemma}
 
-Running it on $2S'=240$ exact terms of the model returns order $78$ --- the order the
-entry states --- with the integer coefficients
-\[
-a(n)\;=\;\sum_{i=1}^{78}c_i\,a(n-i),
-\]
-\begin{center}\small
-\begin{tabular}{cccccccc}
-$c_{1}$ & $33$ & $c_{21}$ & $-355241724761337898$ & $c_{41}$ & $212169608866106214564303$ & $c_{61}$ & $-1454807815847750979794246656$ \\
-$c_{2}$ & $195$ & $c_{22}$ & $-4044643810164990236$ & $c_{42}$ & $869472908888472358058663$ & $c_{62}$ & $927874819838594695351820288$ \\
-$c_{3}$ & $12104$ & $c_{23}$ & $1576227415995162856$ & $c_{43}$ & $-39483906591467654442908454$ & $c_{63}$ & $-580658769804798050220800000$ \\
-$c_{4}$ & $91315$ & $c_{24}$ & $30913337712075143165$ & $c_{44}$ & $73331519148699318059562379$ & $c_{64}$ & $256251609075162323995166720$ \\
-$c_{5}$ & $1283839$ & $c_{25}$ & $-379193490000339829$ & $c_{45}$ & $-210321111424696044985468671$ & $c_{65}$ & $-94973894883690432719953920$ \\
-$c_{6}$ & $6860268$ & $c_{26}$ & $-163218197458492383414$ & $c_{46}$ & $332584615334197791873769418$ & $c_{66}$ & $-20192174614648086039519232$ \\
-$c_{7}$ & $2025546$ & $c_{27}$ & $-40461742197911107051$ & $c_{47}$ & $-640244554930770086785313811$ & $c_{67}$ & $48062124266239771891204096$ \\
-$c_{8}$ & $-368994850$ & $c_{28}$ & $414645482552702099234$ & $c_{48}$ & $892553479087729493051169887$ & $c_{68}$ & $-49979687541021680815177728$ \\
-$c_{9}$ & $-8137833375$ & $c_{29}$ & $111149301660782995559$ & $c_{49}$ & $-1385913280893643951542751564$ & $c_{69}$ & $35529253780262785343553536$ \\
-$c_{10}$ & $-17408676417$ & $c_{30}$ & $1333301410360151092247$ & $c_{50}$ & $1735422807831040595876156064$ & $c_{70}$ & $-16444663777051418105479168$ \\
-$c_{11}$ & $485203788676$ & $c_{31}$ & $1447052896725811492039$ & $c_{51}$ & $-2321935649715691351623185636$ & $c_{71}$ & $7050889767275088758964224$ \\
-$c_{12}$ & $1827561272199$ & $c_{32}$ & $-14485574160834509629440$ & $c_{52}$ & $2645594006322222790483232612$ & $c_{72}$ & $-46087895127105703247872$ \\
-$c_{13}$ & $-15092543151738$ & $c_{33}$ & $-6967094588923566879937$ & $c_{53}$ & $-3148724619756536180611865728$ & $c_{73}$ & $-1168245274254616245043200$ \\
-$c_{14}$ & $-71178528345874$ & $c_{34}$ & $17859924135794627796619$ & $c_{54}$ & $3289180774209246274523544512$ & $c_{74}$ & $877173054433542411386880$ \\
-$c_{15}$ & $308453709010693$ & $c_{35}$ & $-51855688407059047768727$ & $c_{55}$ & $-3534322502531773960034431516$ & $c_{75}$ & $-496224824985238982623232$ \\
-$c_{16}$ & $1735652939651345$ & $c_{36}$ & $231192269908656001346840$ & $c_{56}$ & $3384713286854656015438254160$ & $c_{76}$ & $28054567909259135156224$ \\
-$c_{17}$ & $-4490056937388994$ & $c_{37}$ & $213585475578748708674347$ & $c_{57}$ & $-3291025040743864070403815968$ & $c_{77}$ & $49594709511855472115712$ \\
-$c_{18}$ & $-30265205884253295$ & $c_{38}$ & $-465210995898982831891369$ & $c_{58}$ & $2857927688008817513283462912$ & $c_{78}$ & $-9157340263516316106752$ \\
-$c_{19}$ & $47596555622318145$ & $c_{39}$ & $1862443917105262984830897$ & $c_{59}$ & $-2490723106360912697602437312$ &  &  \\
-$c_{20}$ & $398933455151564449$ & $c_{40}$ & $-4126469973874636546888887$ & $c_{60}$ & $1909102871239511284819545536$ &  &  \\
-\end{tabular}
-\end{center}
+\begin{proof}
+Substituting Lemma~\ref{lem:walk} into the left side and factoring out
+$P^{\,n-2-2}$ gives the identity. The equivalence follows by letting the exponent
+run. For the last claim, Cayley--Hamilton gives $\chi(P)=0$ for the characteristic
+polynomial $\chi$ of $P$, so $\chi$ applied to the shift annihilates $(u_j)$; being monic of
+degree $S$, it propagates $S$ consecutive zeros forward.
+\end{proof}
+
+\section{The computation}
 
 \begin{theorem}
-The recurrence above holds for every $n$, and it is the recurrence the entry records.
+The recurrence \eqref{eq:conj} holds for every $n>4$. This is the statement of
+Section~1.
 \end{theorem}
 
 \begin{proof}
-It holds by Lemma~\ref{lem:bm}, which returns a recurrence the sequence satisfies from its
-first term. For the identification: the entry asserts that the sequence satisfies SOME
-recurrence of order $78$, possibly only from some index on. Let $q$ be that recurrence's
-characteristic polynomial and $q_{\min}$ the minimal polynomial of the tail of the sequence.
-Then $q_{\min}\mid q$. Berlekamp--Massey run on the sequence with its first $78+4$ terms
-removed returns order $78$ as well, so $\deg q_{\min}=78=\deg q$; both are monic, so
-$q=q_{\min}$, which is the polynomial computed above.
+The vector $q(P)\mathbf{1}\in\mathbb{Z}^{S}$ was formed by $2$ matrix--vector
+products in exact integer arithmetic and the $u_j$ evaluated in turn. They vanish from the
+index corresponding to $n=4+1$ onwards, and the run was continued past $S$ consecutive
+zeros, which by Lemma~\ref{lem:crit} settles every larger index.
 \end{proof}
 
 \section{Verification}
 
-Three checks.
+Three checks, each independent of the algebra above.
 
-First, the walk model reproduces all $14$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry, and it is the only place where reading
-the entry's English enters.
+First, the digraph was built directly from the entry's stated patterns and the walk counts
+compared against the entry's DATA at every one of the $26$ published indices; the
+values agree exactly, including the initial count of $9$ admissible columns. That is
+what ties the digraph to the sequence, and a model reproducing only part of the published
+data was rejected wherever it occurred.
 
-Second, the recovered recurrence was evaluated directly on those published terms, with no
-matrices and no Berlekamp--Massey involved, and holds at every index where the entry gives
-enough earlier terms to test it.
+Second, the recurrence \eqref{eq:conj} was evaluated on those published terms in exact
+integer arithmetic, with no matrices involved, and vanishes at every index the entry claims.
 
-Third, the order was computed twice by independent routes: once modulo a $61$-bit prime, where
-every intermediate is a machine word, and once in exact rational arithmetic; and once more on
-the sequence with its first $78+4$ terms removed, which is what the identification above
-requires. All three agree.
-
-\begin{remark}
-What is unusual here is that the conjecture's statement was never read. The entry pins it down
-to a one-parameter family --- the recurrences of order $78$ that this sequence satisfies
---- and that family turns out to have exactly one member.
-\end{remark}
+Third, the vanishing test of Lemma~\ref{lem:crit} was carried past $S=81$ consecutive
+zeros rather than to a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A295414.
-\bibitem{massey} J.~L.~Massey, Shift-register synthesis and BCH decoding, \emph{IEEE
-Trans. Inform. Theory} \textbf{15} (1969), 122--127.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A208502.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+University Press, 2009.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

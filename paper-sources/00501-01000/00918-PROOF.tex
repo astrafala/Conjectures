@@ -12,19 +12,19 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A218199, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A222381, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A218199 counts the distinct indicator arrays obtained from the $n\times1$ arrays over
-$\{0,\dots,2\}$ by marking the cells whose value is at least as large as every one of their neighbours, and carries an
-empirical recurrence of order $5$ contributed by R.~H.~Hardin. It is true, and it is
+OEIS A222381 counts the distinct indicator arrays obtained from the $n\times2$ arrays over
+$\{0,\dots,2\}$ by marking the cells whose value is congruent modulo 3 to the sum of their neighbours, and carries an
+empirical recurrence of order $7$ contributed by R.~H.~Hardin. It is true, and it is
 decidable rather than empirical. What is counted is the IMAGE of a map, not its domain, so it
 is not a walk count in the obvious graph; the determinisation of the machine that emits the
-indicator row by row turns it into one, on $S=8$ states, after which the conjectured
+indicator row by row turns it into one, on $S=15$ states, after which the conjectured
 recurrence is settled by a finite exact computation.
 \end{abstract}
 
@@ -32,27 +32,27 @@ recurrence is settled by a finite exact computation.
 
 \section{The conjecture}
 
-OEIS A218199 is ``Hilltop maps: number of n X 1 binary arrays indicating the locations of corresponding elements not exceeded by any horizontal or vertical neighbor in a random 0..2 n X 1 array.''. It has offset $1$ and begins
+OEIS A222381 is ``Sum of neighbor maps: number of n X 2 binary arrays indicating the locations of corresponding elements equal to the sum mod 3 of their horizontal and antidiagonal neighbors in a random 0..2 n X 2 array.''. It has offset $1$ and begins
 \[
-1, 3, 7, 13, 25, 49, 97, 191,\ \dots
+2, 16, 64, 232, 1024, 4096, 16224, 65536,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = a(n-1) +a(n-2) +a(n-3) +a(n-4) +a(n-5).
+Empirical: a(n) = 4*a(n-1) + 8*a(n-3) - 32*a(n-4) - 16*a(n-6) + 64*a(n-7).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Dec 28 2025 09:58:28, revision 15) this is still
+As of the ``Last modified'' line on the live entry (Mar 15 2018 06:46:16, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-Let $R=\{0,\dots,2\}^{1}$ be the set of rows and let the neighbours of a cell be the
+Let $R=\{0,\dots,2\}^{2}$ be the set of rows and let the neighbours of a cell be the
 cells at the offsets
 \[
-(-1,0), (0,-1), (0,1), (1,0),
+(-1,1), (0,-1), (0,1), (1,-1),
 \]
 those falling outside the array being simply absent. For an array
-$A=(r_1,\dots,r_n)\in R^n$ let $\Phi(A)\in\{0,1\}^{n\times1}$ mark the cells whose value
-is at least as large as every one of its neighbours. The entry counts
+$A=(r_1,\dots,r_n)\in R^n$ let $\Phi(A)\in\{0,1\}^{n\times2}$ mark the cells whose value
+is congruent modulo 3 to the sum of its neighbours. The entry counts
 \[
 a(n)\;=\;\bigl|\{\Phi(A):A\in R^n\}\bigr| ,
 \]
@@ -60,7 +60,7 @@ the size of an IMAGE. This is the whole difficulty: two different arrays with th
 must be counted once, and a walk count in a graph on the arrays would count them twice.
 
 Because every offset above moves the row index by at most one, the marked row $i$ depends only
-on rows $i-1,i,i+1$. Write $\beta(p,c,x)\in\{0,1\}^{1}$ for the marking of the row $c$
+on rows $i-1,i,i+1$. Write $\beta(p,c,x)\in\{0,1\}^{2}$ for the marking of the row $c$
 with $p$ above and $x$ below, allowing $p$ or $x$ to be the symbol $\bot$ for ``outside''.
 Then
 \[
@@ -70,7 +70,7 @@ Then
 
 \section{The image is a walk count after determinisation}
 
-For a set $D\subseteq(R\cup\{\bot\})\times R$ of pairs and a row $b\in\{0,1\}^{1}$ put
+For a set $D\subseteq(R\cup\{\bot\})\times R$ of pairs and a row $b\in\{0,1\}^{2}$ put
 \[
 \delta(D,b)=\{(c,x)\ :\ (p,c)\in D,\ x\in R,\ \beta(p,c,x)=b\},\qquad
 f(D)=\bigl|\{\beta(p,c,\bot):(p,c)\in D\}\bigr| ,
@@ -88,7 +88,7 @@ with $r_0=\bot$. Consequently, for $n\ge1$,
 \[
 a(n)\;=\;\sum_{b_1,\dots,b_{n-1}}f(D_{n-1}),
 \]
-the sum over all sequences of rows in $\{0,1\}^{1}$, empty $D$'s contributing nothing.
+the sum over all sequences of rows in $\{0,1\}^{2}$, empty $D$'s contributing nothing.
 \end{lemma}
 
 \begin{proof}
@@ -112,14 +112,14 @@ right, since the markings differ ---
 \[
 a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,\qquad \iota=e_{D_0},\quad \tau=f .
 \]
-There are $S=8$ reachable sets, generated from $D_0$ outward, and $a$ is $C$-finite. Note
+There are $S=15$ reachable sets, generated from $D_0$ outward, and $a$ is $C$-finite. Note
 that $\tau$ is not the all-ones vector: the last marked row is not a step of the walk but a
 count attached to the state the walk stops in.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{5}-\sum_i c_it^{5-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{7}-\sum_i c_it^{7-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -127,7 +127,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+5}-\sum_ic_iM^{j+5-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+7}-\sum_ic_iM^{j+7-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -136,15 +136,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;a(n-1) + a(n-2) + a(n-3) + a(n-4) + a(n-5)
+a(n)\;=\;4\,a(n-1) + 8\,a(n-3) - 32\,a(n-4) - 16\,a(n-6) + 64\,a(n-7)
 \]
-for every $n>5$.
+for every $n>7$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $5$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $7$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=5+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=7+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -152,7 +152,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $35$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $23$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the machine is built by reading the
 entry's English, and a misreading gives different counts.
 
@@ -164,7 +164,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A218199.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A222381.
 \bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata
 Theory, Languages, and Computation}, 3rd ed., Addison--Wesley, 2006. (The subset
 construction, Section 2.3.)

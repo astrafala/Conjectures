@@ -12,149 +12,133 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical closed form for OEIS A224005, proved}
+\title{The empirical recurrence for OEIS A224742, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{1 September 2026}
+\date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A224005 carries an empirical closed form for $a(n)$ --- not a recurrence relating
-consecutive terms but an explicit formula. It is true, and it is decidable rather than
-empirical. The entry counts arrays subject to a condition on a bounded window of consecutive lines, so the lines of an array are the
-vertices of a finite digraph, an array is a walk in it, and $a(n)$ is a walk count on
-$S=279936$ vertices. Any function of the form $\sum_j p_j(n)\lambda_j^{\,n}$ satisfies the
-monic linear recurrence whose characteristic polynomial is
-$\prod_j(x-\lambda_j)^{\deg p_j+1}$; here that polynomial is $q(x)=(x-1)^{15}$, of degree
-$15$. Two things are then checked exactly: that the walk count satisfies the same
-recurrence from some index on, which the Cayley--Hamilton theorem reduces to a finite
-computation, and that the two sequences agree at $15$ consecutive indices past that
-point. A monic recurrence determines every later term from its predecessors, so agreement
-there is agreement for good.
+OEIS A224742 counts the $(n+1)\times6$ matrices over $\{0,\dots,1\}$ all of whose
+$2\times2$ contiguous subblocks are of equal permanent, and carries an empirical recurrence of order
+$20$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical.
+The condition ties together $2$ consecutive rows and $2$ consecutive columns at once, so a
+single row is not a state; the strip of the last $1$ rows is, and the admissible strips
+are read off the overlap graph of the admissible windows instead of being enumerated. That
+makes $a(n)$ a walk count on $S=86$ vertices, hence $C$-finite, and whether the conjectured
+recurrence annihilates it is settled by a finite exact computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
 \section{The conjecture}
 
-OEIS A224005 is ``Number of 7 X n 0..2 arrays with antidiagonals unimodal and rows and diagonals nondecreasing.''. It has offset $1$ and begins
+OEIS A224742 is ``Number of (n+1) X 6 0..1 matrices with each 2 X 2 permanent equal.''. It has offset $1$ and begins
 \[
-2187, 102069, 739672, 2743444, 7400832, 16795265, 34534687, 67029572,\ \dots
+538, 9554, 107665, 1644874, 21910274, 316084673, 4390392346, 62260133978,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = (1/203212800)*n\^{}14 + (1/29030400)*n\^{}13 + (817/319334400)*n\^{}12 + (2627/63866880)*n\^{}11 + (8279/9676800)*n\^{}10 + (408523/29030400)*n\^{}9 + (46918247/203212800)*n\^{}8 + (17877667/5806080)*n\^{}7 + (73580257/1814400)*n\^{}6 + (1465470497/3628800)*n\^{}5 + (385797089/100800)*n\^{}4 + (7741678111/362880)*n\^{}3 + (387997970341/3880800)*n\^{}2 - (400735465/1386)*n - 1233287 for n>10
+Empirical: a(n) = 19*a(n-1) +7*a(n-2) -1516*a(n-3) +4721*a(n-4) +32621*a(n-5) -149676*a(n-6) -264873*a(n-7) +1850099*a(n-8) +416492*a(n-9) -11177731*a(n-10) +5573265*a(n-11) +33910965*a(n-12) -31589024*a(n-13) -47422880*a(n-14) +62438904*a(n-15) +21268656*a(n-16) -49177152*a(n-17) +6728832*a(n-18) +10917504*a(n-19) -3359232*a(n-20).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Sep 18 2025 04:31:36, revision 10) this is still
-recorded as empirical, and nothing on the entry records it as proved. Write
-\[
-f(n)\;=\;\frac{n^{14}}{203212800} + \frac{n^{13}}{29030400} + \frac{817 n^{12}}{319334400} + \frac{2627 n^{11}}{63866880} + \frac{8279 n^{10}}{9676800} + \frac{408523 n^{9}}{29030400} + \frac{46918247 n^{8}}{203212800} + \frac{17877667 n^{7}}{5806080} + \frac{73580257 n^{6}}{1814400} + \frac{1465470497 n^{5}}{3628800} + \frac{385797089 n^{4}}{100800} + \frac{7741678111 n^{3}}{362880} + \frac{387997970341 n^{2}}{3880800} - \frac{400735465 n}{1386} - 1233287.
-\]
+As of the ``Last modified'' line on the live entry (Oct 03 2025 23:36:12, revision 8) this is still
+recorded as empirical, and nothing on the entry records it as proved.
 
 \section{The count is a walk count}
 
-The entry's defining condition is local: it is a condition on a bounded window of consecutive lines. Take as vertices the
-admissible configurations of such a window and put an edge from $u$ to $v$ when $v$ may
-follow $u$, which the condition decides by inspection. An admissible array is then exactly a
-walk, so with $M$ the adjacency matrix of that digraph on $S=279936$ vertices, and $u,w$ the
-vectors recording which windows may start and end an array,
+Call a $2\times2$ matrix over $\{0,\dots,1\}$ a \emph{window} when it is of equal permanent, and
+call a $2\times6$ matrix a \emph{band} when every one of its $5$ contiguous
+$2\times2$ subblocks is a window. What the entry counts is the matrices of $6$ columns
+whose every $2$ consecutive rows form a band.
+
+Take as states the $1\times6$ strips that occur as the top $1$ rows of a band,
+together with those that occur as its bottom $1$ rows, and put an edge from $u$ to $v$
+when the band whose first $1$ rows are $u$ and whose last $1$ rows are $v$ exists.
+A band is determined by that pair, so the edge is unique when it exists. Reading a counted
+matrix from the top, its rows $1..1$, then $2..2$, and so on, form a walk, and every
+walk arises from exactly one matrix; a matrix with $n+1$ rows gives a walk of $n$ edges.
+Since the first $1$ rows of a counted matrix with at least $2$ rows are the top of a
+band, and since no further condition falls on where a walk starts or ends,
 \[
-a(n)\;=\;u^{\!\top}M^{\,g(n)}w
+a(n)\;=\;\iota^{\!\top}M^{\,n}\tau ,\qquad \iota=\tau=(1,1,\dots,1)^{\!\top},
 \]
-for the linear function $g$ that the entry's shape supplies. In particular $a$ is
-$C$-finite: it satisfies some monic integer linear recurrence, though not necessarily a short
-one.
+with $M$ the adjacency matrix on $S=86$ states. In particular $a$ is $C$-finite. The
+alignment was checked against the entry's published terms rather than assumed.
 
-\section{A closed form is a recurrence}
+There are $(1 + 1)^{6}$ strips of $1$ rows and $6$ columns, far too
+many to test one by one, and they are not tested one by one. Two consecutive windows of a band
+overlap in $2\times1$ entries, so a band is exactly a walk of $5$ windows in
+the graph that joins a window to those whose first $1$ columns are its last $1$
+columns. Enumerating those walks produces the bands, and with them the states and the edges,
+directly.
 
-\begin{lemma}\label{lem:ann}
-Let $f(m)=\sum_{j}p_j(m)\lambda_j^{\,m}$ with the $\lambda_j$ distinct and the $p_j$
-polynomials, and put $q(x)=\prod_j(x-\lambda_j)^{\deg p_j+1}$. Then $q$ applied to the shift
-operator annihilates $f$: writing $q(x)=x^{r}-\sum_{i=1}^{r}c_ix^{r-i}$,
+\section{The admissible windows}
+
+The entry does not name the common value; it only asks that all the windows of one matrix agree.
+So fix a value $v$ and let $W_v$ be the set of $2\times2$ matrices over
+$\{0,\dots,1\}$ whose permanent, $b_{11}b_{22}+b_{12}b_{21}$, equals $v$. A matrix counted by the entry has all of
+its windows in a single $W_v$, and the value of $v$ is determined by the matrix, so the sets of
+matrices belonging to different $v$ are disjoint and
 \[
-f(m)\;=\;\sum_{i=1}^{r}c_i\,f(m-i)\qquad\text{for every }m.
+a(n)\;=\;\sum_v a_v(n),
 \]
-\end{lemma}
-
-\begin{proof}
-The shift operator $E$ acts on $m\mapsto\lambda^{m}p(m)$ as
-$(E-\lambda)\bigl(\lambda^{m}p(m)\bigr)=\lambda^{m+1}\bigl(p(m+1)-p(m)\bigr)$, and
-$p(m+1)-p(m)$ has degree one less than $p$. So $(E-\lambda)^{\deg p+1}$ kills
-$\lambda^{m}p(m)$, and the factors of $q$ commute.
-\end{proof}
-
-Here $q(x)=(x-1)^{15}$, of degree $15$; the closed form is a polynomial in $n$, so this is $(x-1)^{15}$, and the recurrence it encodes is
-\begin{equation}\label{eq:rec}
-a(n)\;=\;15\,a(n-1) - 105\,a(n-2) + 455\,a(n-3) - 1365\,a(n-4) + 3003\,a(n-5) - 5005\,a(n-6) + 6435\,a(n-7) - 6435\,a(n-8) + 5005\,a(n-9) - 3003\,a(n-10) + 1365\,a(n-11) - 455\,a(n-12) + 105\,a(n-13) - 15\,a(n-14) + a(n-15).
-\end{equation}
+each $a_v$ being the walk count of Section~2 built from $W_v$ alone. A disjoint union of the
+$3$ digraphs, one per value of $v$, therefore counts the whole of $a(n)$ with the same
+all-ones vectors, and the $2\times2$ windows in play number $16$ in total.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-With $q$ as above, $a$ satisfies \eqref{eq:rec} for all large $n$ if and only if
-$u^{\!\top}M^{\,j}q(M)w=0$ for every $j\ge0$, and it is enough to check $j<S$.
+Let $q(t)=t^{20}-\sum_i c_it^{20-i}$ be the characteristic polynomial of the
+conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
+$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
+holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
+and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Substituting the walk expression, the residual $a(n)-\sum_ic_ia(n-i)$ equals
-$u^{\!\top}M^{\,g(n)-r}q(M)w$ up to the fixed linear reparametrisation $g$. For the bound,
-$M^{S}$ is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the values
-$u^{\!\top}M^{j}q(M)w$ satisfy the monic recurrence given by the characteristic polynomial of
-$M$; $S$ consecutive zeros therefore force all later ones, and the last nonzero value pins the
-threshold exactly.
+Factor $M^{j}$ out of $M^{j+20}-\sum_ic_iM^{j+20-i}$. For the bound, $M^{S}$
+is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
+$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
+polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
+pins the threshold exactly.
 \end{proof}
 
 \begin{theorem}
-$a(n)=f(n)$ for every $n\ge11$.
+\[
+a(n)\;=\;19\,a(n-1) + 7\,a(n-2) - 1516\,a(n-3) + 4721\,a(n-4) + 32621\,a(n-5) - 149676\,a(n-6) - 264873\,a(n-7) + 1850099\,a(n-8) + 416492\,a(n-9) - 11177731\,a(n-10) + 5573265\,a(n-11) + 33910965\,a(n-12) - 31589024\,a(n-13) - 47422880\,a(n-14) + 62438904\,a(n-15) + 21268656\,a(n-16) - 49177152\,a(n-17) + 6728832\,a(n-18) + 10917504\,a(n-19) - 3359232\,a(n-20)
+\]
+for every $n>20$.
 \end{theorem}
 
 \begin{proof}
-The vector $w'=q(M)w$ was formed by $15$ matrix--vector products in exact integer
-arithmetic, and $u^{\!\top}M^{j}w'$ evaluated for $j=0,1,\dots$, again exactly. Those integers
-vanish from the point corresponding to $n=26$ onwards, and the run was continued until the
-working vector was identically zero, which settles every larger $j$ at once. So $a$ satisfies
-\eqref{eq:rec} for every $n>25$. By Lemma~\ref{lem:ann} $f$ satisfies \eqref{eq:rec}
-identically. Both were then evaluated in exact arithmetic at the $15$ consecutive indices
-$n=26,\dots,40$ and agree at each. A monic recurrence of order $15$
-determines $a(m)$ from $a(m-1),\dots,a(m-15)$, and for every $m\ge41$ both
-$m>25$ and $m-15\ge26$ hold, so induction on $m$ gives $a(m)=f(m)$ for every
-$m\ge26$.
-Below $n=26$ the recurrence argument gives nothing, since \eqref{eq:rec} is only
-established for $a$ from $n=26$ on. The remaining indices $n=11,\dots,25$ were
-therefore checked one at a time, directly against the walk count in exact integer arithmetic,
-and agree.
+The vector $w=q(M)\tau$ was formed by $20$ matrix--vector products in exact integer
+arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
+integers vanish from the index corresponding to $n=20+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
-
-The range is tight in the sense that was checked: at $n=10$ the closed form and the sequence differ, so no larger range is available.
 
 \section{Verification}
 
-Four checks, each independent of the algebra above.
+Three checks, each independent of the algebra above.
 
-First, the walk model reproduces every one of the $21$ terms the entry publishes,
-exactly, in integer arithmetic. This is what ties the model to the entry: the model is built
-by reading the entry's English, and a misreading gives a different digraph and different
-counts.
+First, the model reproduces all $15$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry: the digraph is built by reading the
+entry's English, and a misreading gives different counts.
 
-Second, the closed form was evaluated in exact rational arithmetic --- not floating point ---
-at every published term from $n=11$ on, and agrees with the entry's own DATA at each.
+Second, the conjectured recurrence was evaluated directly on those published terms, with no
+matrices involved, and holds wherever the proved range and the data overlap.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried out exactly, and the model
-and the closed form were then compared directly at sixty consecutive indices beyond
-$n=11$, far past where the proof already settles the matter.
-
-Fourth, the closed form was deliberately perturbed --- by a constant and by a term linear in
-$n$ --- and each perturbed form was rejected by the same comparison, so the test is not one
-that anything would pass.
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A224005.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A224742.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; $C$-finite sequences,
-Section 4.1.)
-\bibitem{kp} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011.
-(Closed forms and linear recurrences with constant coefficients.)
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{kim} K.~H.~Kim, \emph{Boolean Matrix Theory and Applications}, Marcel Dekker,
+1982.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

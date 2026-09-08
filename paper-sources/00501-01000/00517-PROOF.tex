@@ -12,19 +12,19 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A218839, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A219423, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A218839 counts the distinct indicator arrays obtained from the $n\times5$ arrays over
-$\{0,\dots,1\}$ by marking the cells whose value differs from every one of their neighbours, and carries an
-empirical recurrence of order $17$ contributed by R.~H.~Hardin. It is true, and it is
+OEIS A219423 counts the distinct indicator arrays obtained from the $n\times3$ arrays over
+$\{0,\dots,2\}$ by marking the cells whose value is equal to every one of their neighbours, and carries an
+empirical recurrence of order $24$ contributed by R.~H.~Hardin. It is true, and it is
 decidable rather than empirical. What is counted is the IMAGE of a map, not its domain, so it
 is not a walk count in the obvious graph; the determinisation of the machine that emits the
-indicator row by row turns it into one, on $S=213$ states, after which the conjectured
+indicator row by row turns it into one, on $S=65$ states, after which the conjectured
 recurrence is settled by a finite exact computation.
 \end{abstract}
 
@@ -32,27 +32,27 @@ recurrence is settled by a finite exact computation.
 
 \section{The conjecture}
 
-OEIS A218839 is ``Unmatched value maps: number of nX5 binary arrays indicating the locations of corresponding elements not equal to any horizontal or antidiagonal neighbor in a random 0..1 nX5 array.''. It has offset $1$ and begins
+OEIS A219423 is ``Unchanging value maps: number of 3 X n binary arrays indicating the locations of corresponding elements unequal to no horizontal or antidiagonal neighbor in a random 0..2 3 X n array.''. It has offset $1$ and begins
 \[
-12, 156, 2050, 26635, 346501, 4507281, 58634265, 762745363,\ \dots
+1, 21, 93, 453, 2121, 9926, 46776, 220655,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 12*a(n-1) +6*a(n-2) +103*a(n-3) -128*a(n-4) -41*a(n-5) -630*a(n-6) -523*a(n-7) +1154*a(n-8) -93*a(n-9) +762*a(n-10) -787*a(n-11) -416*a(n-12) +549*a(n-13) -178*a(n-14) +35*a(n-15) +11*a(n-16) -7*a(n-17) for n>18
+Empirical: a(n) = 4*a(n-1) +a(n-2) +7*a(n-3) +36*a(n-4) -62*a(n-5) -78*a(n-6) +88*a(n-7) -121*a(n-8) -110*a(n-9) +325*a(n-10) -31*a(n-11) -175*a(n-12) +320*a(n-13) -17*a(n-14) -193*a(n-15) +107*a(n-16) -108*a(n-17) +7*a(n-18) +a(n-19) -46*a(n-20) +22*a(n-21) +10*a(n-22) +6*a(n-23) +8*a(n-24) for n>26.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 17:47:49, revision 8) this is still
+As of the ``Last modified'' line on the live entry (Nov 20 2014 19:38:08, revision 7) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-Let $R=\{0,\dots,1\}^{5}$ be the set of rows and let the neighbours of a cell be the
+Let $R=\{0,\dots,2\}^{3}$ be the set of rows and let the neighbours of a cell be the
 cells at the offsets
 \[
-(-1,1), (0,-1), (0,1), (1,-1),
+(-1,0), (-1,1), (1,-1), (1,0),
 \]
-those falling outside the array being simply absent. For an array
-$A=(r_1,\dots,r_n)\in R^n$ let $\Phi(A)\in\{0,1\}^{n\times5}$ mark the cells whose value
-differs from every one of its neighbours. The entry counts
+those falling outside the array being simply absent. The entry writes the array with $n$ as the number of COLUMNS; transposing it exchanges the two coordinates of every neighbour offset, which is done once so that the walk always runs down the rows. For an array
+$A=(r_1,\dots,r_n)\in R^n$ let $\Phi(A)\in\{0,1\}^{n\times3}$ mark the cells whose value
+is equal to every one of its neighbours. The entry counts
 \[
 a(n)\;=\;\bigl|\{\Phi(A):A\in R^n\}\bigr| ,
 \]
@@ -60,7 +60,7 @@ the size of an IMAGE. This is the whole difficulty: two different arrays with th
 must be counted once, and a walk count in a graph on the arrays would count them twice.
 
 Because every offset above moves the row index by at most one, the marked row $i$ depends only
-on rows $i-1,i,i+1$. Write $\beta(p,c,x)\in\{0,1\}^{5}$ for the marking of the row $c$
+on rows $i-1,i,i+1$. Write $\beta(p,c,x)\in\{0,1\}^{3}$ for the marking of the row $c$
 with $p$ above and $x$ below, allowing $p$ or $x$ to be the symbol $\bot$ for ``outside''.
 Then
 \[
@@ -70,7 +70,7 @@ Then
 
 \section{The image is a walk count after determinisation}
 
-For a set $D\subseteq(R\cup\{\bot\})\times R$ of pairs and a row $b\in\{0,1\}^{5}$ put
+For a set $D\subseteq(R\cup\{\bot\})\times R$ of pairs and a row $b\in\{0,1\}^{3}$ put
 \[
 \delta(D,b)=\{(c,x)\ :\ (p,c)\in D,\ x\in R,\ \beta(p,c,x)=b\},\qquad
 f(D)=\bigl|\{\beta(p,c,\bot):(p,c)\in D\}\bigr| ,
@@ -88,7 +88,7 @@ with $r_0=\bot$. Consequently, for $n\ge1$,
 \[
 a(n)\;=\;\sum_{b_1,\dots,b_{n-1}}f(D_{n-1}),
 \]
-the sum over all sequences of rows in $\{0,1\}^{5}$, empty $D$'s contributing nothing.
+the sum over all sequences of rows in $\{0,1\}^{3}$, empty $D$'s contributing nothing.
 \end{lemma}
 
 \begin{proof}
@@ -112,14 +112,14 @@ right, since the markings differ ---
 \[
 a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,\qquad \iota=e_{D_0},\quad \tau=f .
 \]
-There are $S=213$ reachable sets, generated from $D_0$ outward, and $a$ is $C$-finite. Note
+There are $S=65$ reachable sets, generated from $D_0$ outward, and $a$ is $C$-finite. Note
 that $\tau$ is not the all-ones vector: the last marked row is not a step of the walk but a
 count attached to the state the walk stops in.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{17}-\sum_i c_it^{17-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{24}-\sum_i c_it^{24-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -127,7 +127,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+17}-\sum_ic_iM^{j+17-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+24}-\sum_ic_iM^{j+24-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -136,15 +136,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;12\,a(n-1) + 6\,a(n-2) + 103\,a(n-3) - 128\,a(n-4) - 41\,a(n-5) - 630\,a(n-6) - 523\,a(n-7) + 1154\,a(n-8) - 93\,a(n-9) + 762\,a(n-10) - 787\,a(n-11) - 416\,a(n-12) + 549\,a(n-13) - 178\,a(n-14) + 35\,a(n-15) + 11\,a(n-16) - 7\,a(n-17)
+a(n)\;=\;4\,a(n-1) + a(n-2) + 7\,a(n-3) + 36\,a(n-4) - 62\,a(n-5) - 78\,a(n-6) + 88\,a(n-7) - 121\,a(n-8) - 110\,a(n-9) + 325\,a(n-10) - 31\,a(n-11) - 175\,a(n-12) + 320\,a(n-13) - 17\,a(n-14) - 193\,a(n-15) + 107\,a(n-16) - 108\,a(n-17) + 7\,a(n-18) + a(n-19) - 46\,a(n-20) + 22\,a(n-21) + 10\,a(n-22) + 6\,a(n-23) + 8\,a(n-24)
 \]
-for every $n>18$.
+for every $n>26$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $17$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $24$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=18+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=26+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -152,7 +152,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $16$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $22$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the machine is built by reading the
 entry's English, and a misreading gives different counts.
 
@@ -164,7 +164,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A218839.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A219423.
 \bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata
 Theory, Languages, and Computation}, 3rd ed., Addison--Wesley, 2006. (The subset
 construction, Section 2.3.)

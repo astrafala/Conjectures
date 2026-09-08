@@ -7,182 +7,180 @@
 \theoremstyle{plain}
 \newtheorem{theorem}{Theorem}
 \newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
-\title{A proof of the conjectured recurrence for OEIS A066052}
+
+\title{The empirical recurrence for OEIS A203730, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{25 August 2026}
+\date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A066052 carries a conjectured linear recurrence with polynomial coefficients, of
-order 4. We prove it. The entry's exponential generating function is
-transcendental, so the usual algebraic arguments do not apply; instead we observe that it
-lies in a finitely generated module over $\mathbb{Q}(x)$ spanned by monomials
-$\log(u)^{a}\exp(g)^{k}$, and that this module is closed under differentiation, because
-$(\log u)'=u'/u$ and $(\exp g)'=g'\exp g$ lower the log power and fix the exponential
-respectively. Re-indexing the recurrence forward turns shifts into derivatives, so the
-sequence $b(m)=\sum_{j}q_{j}(m)a(m+j)$ has exponential generating function
-$B=\sum_{j}q_{j}(\theta)A^{(j)}$, computed exactly inside that module. Here $B$ collapses
-to the polynomial $0$, of degree $0$, which proves the recurrence for every
-$n>0$.
+OEIS A203730 counts $(n+1)\times4$ arrays over $\{0,\dots,7\}$ subject to a condition imposed on
+every $2\times2$ subblock, and carries an empirical recurrence of order $3$ contributed
+by R.~H.~Hardin. It is true, and it is not an empirical matter at all. The condition is local
+to each subblock, so the rows of an admissible array are the vertices of a finite digraph
+on $S=4096$ vertices whose edges are the admissible consecutive pairs, and the count is a
+number of walks: $a(n)=\mathbf{1}^{\!\top}M^{n}\mathbf{1}$. Writing $q$
+for the characteristic polynomial of the conjectured recurrence, the recurrence holds for all
+$n$ exactly when $\mathbf{1}^{\!\top}M^{j}q(M)\mathbf{1}=0$ for every $j\ge0$, and the
+Cayley--Hamilton theorem bounds that to $j<S$. It is therefore a finite computation in exact
+integer arithmetic, and it comes out zero.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 11B37, 05A15, 12H05, 33F10.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
 \section{The sequence and the conjecture}
 
-OEIS A066052 is ``Number of permutations in the symmetric group S\_n with order >= 3''. It has offset $1$ and begins
+OEIS A203730 is ``Number of (n+1) X 4 0..7 arrays with every 2 X 2 subblock having equal diagonal elements or equal antidiagonal elements.''. It has offset $1$ and begins
 \[
-a(1),\dots,a(8)\;=\;0, 0, 2, 14, 94, 644, 4808, 39556,\ \dots
+216000, 19071424, 1754118528, 161916229056, 14950234495680, 1380434809882752, 127463146627838400, 11769375979053945792,\ \dots
 \]
-The entry gives the exponential generating function
-\begin{equation}\label{eq:gf}
-A(x)\;=\;\sum_{n\ge 1} a(n)\,\frac{x^{n}}{n!}\;=\;\frac{\left(1 - x\right) e^{\frac{x \left(x + 2\right)}{2}} - 1}{x - 1} ,
-\end{equation}
-and it carries the following comment:
+The entry carries the following comment:
 \begin{quote}\small
-\textbf{Conjecture:} a(n) +(-n-3)*a(n-1) +(2*n-1)*a(n-2) +n*(n-2)*a(n-3) -2*(n-2)*(n-3)*a(n- 4)=0.
+Empirical: a(n) = 99*a(n-1) -609*a(n-2) -588*a(n-3).
 \end{quote}
-As of the ``Last modified'' line on the live entry (2020-07-07, revision 25) the
-statement is still recorded as a conjecture, and no proof appears among the entry's links,
-formulas or programs.
+As of the ``Last modified'' line on the live entry (Jun 04 2018 14:44:48, revision 8) the statement is
+still recorded as empirical, and nothing on the entry records it as settled either way.
 
-Writing the conjectured relation in the form $\sum_{i=0}^{4}p_{i}(n)\,a(n-i)=0$,
-the coefficient polynomials are
+Written out, the claim is
+\begin{equation}\label{eq:conj}
+a(n)\;=\;99\,a(n-1) - 609\,a(n-2) - 588\,a(n-3)
+\end{equation}
+for all $n>2$.
+
+\section{The condition is local, so the rows form a digraph}
+
+Write an array of the shape in question as its list of rows
+$r^{(1)},r^{(2)},\dots$, each an element of
+$V=\{0,1,\dots,7\}^{4}$, so $|V|=S=4096$. A $2\times2$ subblock of the array
+occupies two consecutive rows and two consecutive columns; if the two rows are $r$
+and $s$ (in that order) and the two columns are numbered $j,j+1$,
+the subblock is
 \[
-p_{0}(n)=1,\qquad p_{1}(n)=- n - 3,\qquad p_{2}(n)=2 n - 1,\qquad p_{3}(n)=n \left(n - 2\right),\qquad p_{4}(n)=- 2 \left(n - 3\right) \left(n - 2\right)
+\begin{pmatrix}\alpha&\beta\\\gamma&\delta\end{pmatrix}=\begin{pmatrix}r_j&r_{j+1}\\s_j&s_{j+1}\end{pmatrix}.
 \]
+The entry's requirement on that subblock is
+\begin{equation}\label{eq:loc}
+\alpha=\delta\ \text{ or }\ \beta=\gamma,
+\end{equation}
+a condition on the four entries alone.
 
-\section{Recurrences as differential operators}
+For $r,s\in V$ declare $r\to s$ an edge of a digraph $G$ when, for every
+$1\le j\le 4-1$,
+\begin{itemize}
+\item the four entries above satisfy \eqref{eq:loc};
 
-Let $A(x)=\sum_{n\ge0}a(n)x^{n}/n!$ be the exponential generating function of a sequence, and let
-$\theta=x\,\dfrac{d}{dx}$, so that $\theta$ acts on $x^{m}$ as multiplication by $m$. For a
-polynomial $p$ we write $p(\theta)$ for the corresponding differential operator, so that
-$p(\theta)A=\sum_{m}p(m)a(m)x^{m}/m!$.
+\end{itemize}
+Let $M\in\{0,1\}^{S\times S}$ be the adjacency matrix of $G$ and $\mathbf{1}$ the
+all-ones vector.
 
-\begin{lemma}\label{lem:transfer}
-Let $p_{0},\dots,p_{r}$ be polynomials and suppose the conjecture asserts
-$\sum_{i=0}^{r}p_{i}(n)a(n-i)=0$. Re-index by $n=m+r$ and $j=r-i$, and write
-$q_{j}(m)=p_{r-j}(m+r)$, so the claim reads $\sum_{j=0}^{r}q_{j}(m)\,a(m+j)=0$. Put
-$b(m)=\sum_{j}q_{j}(m)a(m+j)$. Then
+\begin{lemma}\label{lem:walk}
+The arrays counted by the entry with $L$ rows are exactly the walks
+$r^{(1)}\to r^{(2)}\to\cdots\to r^{(L)}$ of length $L-1$ in $G$. Consequently
 \[
-B(x):=\sum_{m\ge0}b(m)\frac{x^{m}}{m!}=\sum_{j=0}^{r}\bigl(q_{j}(\theta)A^{(j)}\bigr)(x),
-\]
-where $A^{(j)}$ denotes the $j$-th derivative of $A$.
-\end{lemma}
-
-\begin{proof}
-For an exponential generating function an upward shift is differentiation:
-$\sum_{m\ge0}a(m+j)x^{m}/m!=A^{(j)}(x)$. Multiplying the coefficient of $x^{m}/m!$ by
-$q_{j}(m)$ is exactly the action of $q_{j}(\theta)$, and summing over $j$ gives the
-statement. The re-indexing is what makes this work: a downward shift $a(n-i)$ would
-correspond to repeated integration, whereas an upward shift is a derivative, and the
-field used below is closed under differentiation.
-\end{proof}
-
-\begin{corollary}\label{cor:criterion}
-With the notation of Lemma~\ref{lem:transfer}, the recurrence
-$\sum_{i}p_{i}(n)a(n-i)=0$ holds for every $n>d+r$ if and only if $B$ is a polynomial of
-degree at most $d$.
-\end{corollary}
-
-\begin{proof}
-$b(m)$ is $m!$ times the coefficient of $x^{m}$ in $B$, so $b(m)=0$ for all $m>d$ says
-exactly that $B$ has no terms above $x^{d}$.
-\end{proof}
-
-This turns the conjecture into a closed-form identity. The point is that it can then be
-decided exactly, with no truncation: $A$ is algebraic, so $B$ lies in the same field as
-$A$, and one only has to recognise it.
-
-\begin{lemma}\label{lem:field}
-Let $u,g\in\mathbb{Q}(x)$ and let $M$ be the $\mathbb{Q}(x)$-module spanned by the
-monomials $\log(u)^{a}\exp(g)^{k}$ for $a\ge0$ and $k\in\mathbb{Z}$. Then $M$ is closed
-under $d/dx$, and hence under $\theta=x\,d/dx$; explicitly,
-\[
-\frac{d}{dx}\Bigl(c\,\log(u)^{a}\exp(g)^{k}\Bigr)
-=\Bigl(c'+c\,k\,g'\Bigr)\log(u)^{a}\exp(g)^{k}
-\;+\;c\,a\,\frac{u'}{u}\,\log(u)^{a-1}\exp(g)^{k},
-\qquad c\in\mathbb{Q}(x).
+a(n)\;=\;\mathbf{1}^{\!\top}M^{n}\mathbf{1} .
 \]
 \end{lemma}
 
 \begin{proof}
-Differentiate the product. The factor $\exp(g)^{k}=\exp(kg)$ contributes $kg'$ and does
-not change the monomial; the factor $\log(u)^{a}$ contributes $a(u'/u)\log(u)^{a-1}$,
-lowering the log exponent by one. Both new coefficients lie in $\mathbb{Q}(x)$, so the
-result is again a finite combination of the same monomials.
+An array with $L$ rows and $4$ columns is precisely a sequence
+$r^{(1)},\dots,r^{(L)}$ of elements of $V$; conversely any such sequence is an array.
+Every $2\times2$ subblock lies in two consecutive rows $r^{(t)},r^{(t+1)}$ and two
+consecutive columns, so the array satisfies the entry's condition on all of its subblocks
+if and only if each consecutive pair $\bigl(r^{(t)},r^{(t+1)}\bigr)$ satisfies it for
+every column pair --- which is exactly the edge relation of $G$. The number of walks of
+length $L-1$, summed over all starting and ending vertices, is
+$\mathbf{1}^{\!\top}M^{L-1}\mathbf{1}$, since $(M^{k})_{r,s}$ counts the walks of
+length $k$ from $r$ to $s$. The entry's index $n$ corresponds to $L=n+1$ rows.
 \end{proof}
 
-Two features make this usable. The exponential part never mixes monomials at all, and the
-logarithmic part only ever moves \emph{downwards}, so the module generated by any single
-element is finite dimensional and every computation terminates. Writing $B$ in this basis,
-the test of Corollary~\ref{cor:criterion} becomes: $B$ is a polynomial precisely when every
-coefficient outside the monomial $\log(u)^{0}\exp(g)^{0}$ vanishes and the remaining
-coefficient has constant denominator. Both are decided by exact cancellation of rational
-functions, so no series truncation enters anywhere.
+\section{The criterion}
 
-\section{The computation for A066052}
+Let $q(t)=t^{3}-\sum_i c_i\,t^{3-i}$ be the characteristic polynomial of
+\eqref{eq:conj}, with the $c_i$ read off that equation.
 
-The generating function \eqref{eq:gf} lies in the module $M$ of
-Lemma~\ref{lem:field}.
-Applying Lemma~\ref{lem:transfer} to the coefficient polynomials of Section~1 and reducing
-in $K$ by Lemma~\ref{lem:field}, the $\sqrt{D}$ component of $B$ cancels identically and
-the rational part collapses to
+\begin{lemma}\label{lem:crit}
+For every $n$ with $n+1-1\ge3$,
 \[
-B(x)\;=\;0 ,
+a(n)-\sum_i c_i\,a(n-i)\;=\;\mathbf{1}^{\!\top}M^{\,n+1-1-3}\,q(M)\,\mathbf{1} .
 \]
-a polynomial of degree $0$.
+Hence \eqref{eq:conj} holds from that point on if and only if
+$\mathbf{1}^{\!\top}M^{j}q(M)\mathbf{1}=0$ for every $j\ge0$; and it is enough to check
+$j=0,1,\dots,S-1$.
+\end{lemma}
+
+\begin{proof}
+By Lemma~\ref{lem:walk}, $a(n-i)=\mathbf{1}^{\!\top}M^{\,n+1-1-i}\mathbf{1}$, so
+\[
+a(n)-\sum_i c_i a(n-i)
+=\mathbf{1}^{\!\top}\Bigl(M^{m}-\sum_i c_i M^{m-i}\Bigr)\mathbf{1}
+=\mathbf{1}^{\!\top}M^{\,m-3}\,q(M)\,\mathbf{1}
+\]
+with $m=n+1-1$, which is the stated identity; the equivalence follows by letting
+$m-3=j$ run over $\ge0$. For the last clause put $w=q(M)\mathbf{1}$. By the
+Cayley--Hamilton theorem $M^{S}$ is an integer combination of $I,M,\dots,M^{S-1}$, so
+$\mathbf{1}^{\!\top}M^{j}w$ for $j\ge S$ is the corresponding combination of the earlier
+values; if those all vanish, so do all the rest.
+\end{proof}
+
+\section{The computation}
 
 \begin{theorem}
-The conjectured recurrence
-\[
-1\,a(n) + (- n - 3)\,a(n-1) + (2 n - 1)\,a(n-2) + n \left(n - 2\right)\,a(n-3) -  2 \left(n - 3\right) \left(n - 2\right)\,a(n-4) \;=\;0
-\]
-holds for every $n>4$.
+The recurrence \eqref{eq:conj} holds for every $n>2$, which is the statement of
+Section~1.
 \end{theorem}
 
 \begin{proof}
-Immediate from Corollary~\ref{cor:criterion} and the displayed value of $B$.
+The digraph was constructed from \eqref{eq:loc} by a depth-first scan across the $4$
+columns: the edge condition is a conjunction of one constraint per consecutive column
+pair, so the successors of a row $r$ are enumerated column by column without testing all
+$S^2$ pairs. The vector $w=q(M)\mathbf{1}\in\mathbb{Z}^{S}$ was then formed by $3$
+matrix--vector products in exact integer arithmetic, and $\mathbf{1}^{\!\top}M^{j}w$ was
+evaluated for $j=0,1,\dots$, again exactly. Every one of those integers vanishes from the
+index corresponding to $n=2+1$ onwards, and the run continued until $w$ itself was the
+zero vector, which settles every larger $j$ at once. By Lemma~\ref{lem:crit} the recurrence
+holds for every $n>2$.
 \end{proof}
 
 \begin{remark}
-The polynomial $B$ is not an error term: it records the boundary of the recurrence. For
-$n\le0$ some of the shifted terms $a(n-i)$ fall outside the range of the sequence,
-and $B$ collects exactly those contributions. Above that range the relation is exact.
+The argument gives more than the recurrence: it shows the sequence is $C$-finite with
+characteristic polynomial dividing that of $M$, so it has a rational generating function
+whose denominator divides $\det(I-xM)$. The conjectured recurrence is one consequence; the
+minimal one is a divisor of $q$.
 \end{remark}
 
 \section{Verification}
 
-Every number above is an output of a script written separately from this note, and two
-independent checks were run.
+Three checks, each independent of the algebra above.
 
-First, the generating function was checked against the entry rather than assumed: the
-Taylor coefficients of \eqref{eq:gf} were expanded and compared term by term with the DATA
-section of A066052, agreeing on all 13 terms compared.
+First, the digraph was built directly from the entry's stated condition and the walk counts
+$\mathbf{1}^{\!\top}M^{L-1}\mathbf{1}$ compared against the entry's DATA at
+every one of the $11$ published indices; the values agree exactly. That is what ties
+the digraph to the sequence: a model that reproduced only some of the published terms would
+be the wrong model, and would have been rejected. In particular it is what rules out a
+misreading of the entry's wording, since a different reading of the condition gives a
+different digraph and different counts.
 
-Second, the recurrence itself was evaluated directly on the published terms, in exact
-integer arithmetic and without reference to the generating function: for each $n$ in range
-the sum $\sum_{i}p_{i}(n)a(n-i)$ was formed from the entry's own values and found to
-vanish, for all 18 values of $n$ from $n=6$ upward. This is what
-Corollary~\ref{cor:criterion} predicts from the degree of $B$, and it is a genuinely
-different computation from the symbolic one: it never forms $B$, never differentiates, and
-uses only integers.
+Second, the recurrence \eqref{eq:conj} was evaluated on those published terms in exact
+integer arithmetic, with no matrices involved, and vanishes wherever it applies.
 
-The symbolic step is exact throughout. The residual is obtained by rational-function
-cancellation in $K$, not by series truncation, so the identity $B=0$ is an
-identity of functions and the theorem holds for all $n>4$ simultaneously.
+Third, the annihilation test of Lemma~\ref{lem:crit} was run in exact integer arithmetic
+until the working vector was identically zero, not to a sampled prefix, and returned zero
+throughout.
 
 \begin{thebibliography}{9}
-\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer Sequences},
-\url{https://oeis.org}, 2026. Sequence A066052.
-\bibitem{kp} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011,
-Chapter 7 (holonomic closure properties and the translation between recurrences and
-differential equations).
-\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 2, Cambridge
-University Press, 1999, Chapter 6 (algebraic and D-finite generating functions).
+\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
+Sequences}, \url{https://oeis.org}, 2026. Sequence A203730.
+\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+University Press, 2009.
+\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
+University Press, 2013.
 \end{thebibliography}
+
 \end{document}

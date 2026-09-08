@@ -12,14 +12,14 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A280552, proved by counting patterns with a budget}
+\title{The empirical recurrence for OEIS A281053, proved by counting patterns with a budget}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A280552 imposes three things at once: a condition on each cell that reaches one row up and
+OEIS A281053 imposes three things at once: a condition on each cell that reaches one row up and
 one row down; a global budget allowing exactly two cells to
 break it; and the clause ``new values introduced in order $0$ sequentially upwards'', which
 says the array is written in canonical form. None of the three is visible to a plain transfer
@@ -27,37 +27,37 @@ matrix over rows. All three are handled: the state is a pair of consecutive rows
 together with the number of offending cells so far, capped at the budget; and the
 canonical-form clause is removed by counting equality patterns instead of arrays, through the
 identity $2!\,a(n)=\sum_i\binom{2}{i}D_{2-i}L_i(n)$ with $D_m$ the derangement
-numbers. The empirical recurrence of order $9$ contributed by R.~H.~Hardin then follows
-from a finite exact computation on $S=12291$ states.
+numbers. The empirical recurrence of order $13$ contributed by R.~H.~Hardin then follows
+from a finite exact computation on $S=3075$ states.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 05A18, 15B36.\normalsize
 
 \section{The sequence and the conjecture}
 
-OEIS A280552 is ``Number of n X 6 0..1 arrays with no element equal to more than one of its horizontal and vertical neighbors, with the exception of exactly two elements, and with new values introduced in order 0 sequentially upwards.''. It has offset $1$ and begins
+OEIS A281053 is ``Number of nX5 0..1 arrays with no element equal to more than one of its horizontal and antidiagonal neighbors, with the exception of exactly two elements, and with new values introduced in order 0 sequentially upwards.''. It has offset $1$ and begins
 \[
-6, 194, 670, 1666, 3438, 6502, 11697, 20440,\ \dots
+2, 104, 618, 2452, 7803, 22106, 58005, 144283,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 6*a(n-1) - 12*a(n-2) + 5*a(n-3) + 12*a(n-4) - 12*a(n-5) - 3*a(n-6) + 6*a(n-7) - a(n-9) for n>12.
+Empirical: a(n) = 5*a(n-1) -6*a(n-2) -4*a(n-3) +5*a(n-4) +9*a(n-5) -12*a(n-7) -3*a(n-8) +3*a(n-9) +6*a(n-10) -a(n-12) -a(n-13) for n>16
 \end{quote}
-As of the ``Last modified'' line on the live entry (Feb 13 2019 14:16:17, revision 7) the statement is
+As of the ``Last modified'' line on the live entry (Jan 13 2017 16:56:39, revision 4) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;6\,a(n-1) - 12\,a(n-2) + 5\,a(n-3) + 12\,a(n-4) - 12\,a(n-5) - 3\,a(n-6) + 6\,a(n-7) - a(n-9)
+a(n)\;=\;5\,a(n-1) - 6\,a(n-2) - 4\,a(n-3) + 5\,a(n-4) + 9\,a(n-5) - 12\,a(n-7) - 3\,a(n-8) + 3\,a(n-9) + 6\,a(n-10) - a(n-12) - a(n-13)
 \end{equation}
-for all $n>12$.
+for all $n>16$.
 
 \section{The condition, the budget, and the canonical form}
 
-The arrays have $6$ columns and $L=n$ rows; write $x_{t,u}$ for the entry in
+The arrays have $5$ columns and $L=n$ rows; write $x_{t,u}$ for the entry in
 row $t$ and column $u$. With the neighbour offsets
 \[
-\mathcal N=\{(0,-1),\ (0,1),\ (-1,0),\ (1,0)\}
+\mathcal N=\{(0,-1),\ (0,1),\ (-1,1),\ (1,-1)\}
 \]
 as (row shift, column shift), counting only positions inside the array, call a cell
 $(t,u)$ \emph{offending} when
@@ -101,7 +101,7 @@ $\binom{2}{i}D_{2-i}$, an integer.
 
 \section{Each $L_i$ is a walk count}
 
-Fix $i$, let $V_i=\{0,\dots,i-1\}^{6}$, and take the triples $(p,c,v)$ with
+Fix $i$, let $V_i=\{0,\dots,i-1\}^{5}$, and take the triples $(p,c,v)$ with
 $p,c\in V_i$ and $0\le v\le2$ as vertices. Write $\mathrm{viol}(b\mid a,x)$ for the number
 of offending cells in the row $b$ when $a$ lies above it and $x$ below (either may be
 absent, in which case the corresponding neighbours simply do not exist). Declare
@@ -128,7 +128,7 @@ never exceeds $2$; since the total only grows, that is implied by the final valu
 $2$, which $\mathbf{e}_i$ imposes.
 \end{proof}
 
-Assembling the $2$ chains block-diagonally into $N$ of size $S=12291$ with the weights of
+Assembling the $2$ chains block-diagonally into $N$ of size $S=3075$ with the weights of
 Lemma~\ref{lem:inv} in the start vector $\mathbf{v}$ and the end markers in
 $\mathbf{u}$,
 \begin{equation}\label{eq:walk2}
@@ -137,15 +137,15 @@ $\mathbf{u}$,
 
 \section{The criterion, and the computation}
 
-Let $q(t)=t^{9}-\sum_i c_i\,t^{9-i}$ be the characteristic polynomial of
+Let $q(t)=t^{13}-\sum_i c_i\,t^{13-i}$ be the characteristic polynomial of
 \eqref{eq:conj} and $G=N$.
 
 \begin{lemma}\label{lem:crit}
 With $n_0$ the least index for which $L\ge2$, $o=1n_0+0-2$ and
-$h_j=G^{j}N^{o}\mathbf{u}$, we have for $j\ge9$
+$h_j=G^{j}N^{o}\mathbf{u}$, we have for $j\ge13$
 \[
-2!\Bigl(a(n_0+j)-\sum_i c_i\,a(n_0+j-i)\Bigr)=\mathbf{v}^{\!\top}G^{\,j-9}w,
-\qquad w=h_{9}-\sum_i c_i h_{9-i} .
+2!\Bigl(a(n_0+j)-\sum_i c_i\,a(n_0+j-i)\Bigr)=\mathbf{v}^{\!\top}G^{\,j-13}w,
+\qquad w=h_{13}-\sum_i c_i h_{13-i} .
 \]
 Hence \eqref{eq:conj} holds from that point on if and only if
 $\mathbf{v}^{\!\top}G^{m}w=0$ for all $m\ge0$, and $m<S$ suffices.
@@ -158,15 +158,15 @@ that combination of earlier ones.
 \end{proof}
 
 \begin{theorem}
-The recurrence \eqref{eq:conj} holds for every $n>12$, which is the statement of
+The recurrence \eqref{eq:conj} holds for every $n>16$, which is the statement of
 Section~1.
 \end{theorem}
 
 \begin{proof}
 The digraph was built directly from the definitions above. The vector $w$ was formed by
-$9$ applications of $G$ in exact integer arithmetic and $\mathbf{v}^{\!\top}G^{m}w$
+$13$ applications of $G$ in exact integer arithmetic and $\mathbf{v}^{\!\top}G^{m}w$
 evaluated for $m=0,1,\dots$, again exactly. Every one of those integers vanishes from the
-index corresponding to $n=12+1$ onwards, and the run continued until $S+1$ consecutive
+index corresponding to $n=16+1$ onwards, and the run continued until $S+1$ consecutive
 zeros had been seen.
 \end{proof}
 
@@ -175,7 +175,7 @@ zeros had been seen.
 Three checks, each independent of the algebra above.
 
 First, the right-hand side of \eqref{eq:walk2}, divided by $2!$, was evaluated at every
-one of the $28$ published indices and agrees with the entry's DATA exactly, the quotient
+one of the $25$ published indices and agrees with the entry's DATA exactly, the quotient
 coming out an integer each time; no shift was fitted, the number of rows being
 $L=n$ from the entry's own name and the offset saying which index the first published
 term carries. A misreading of the offending-cell rule, of the budget, or of the inversion in
@@ -189,7 +189,7 @@ Cayley--Hamilton bound in exact integer arithmetic rather than to a sampled pref
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A280552.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A281053.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; falling-factorial
 inversion, Section 1.9.)

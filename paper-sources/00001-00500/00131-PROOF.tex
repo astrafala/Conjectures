@@ -12,195 +12,197 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{Every term of OEIS A395833 after the second is divisible by $3$}
+\title{The empirical recurrence for OEIS A211492, proved by a one-dimensional reduction}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{31 August 2026}
+\date{4 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A395833 is defined by the vanishing condition
-$\bigl[x^{n}\bigr]A\bigl(x/A(x)^{2n-1}\bigr)=0$ for $n>1$, and carries a conjecture of
-P.~D.~Hanna that $a(n)\equiv0\pmod3$ for $n\ge2$. It is true, and the proof reduces the
-whole statement to a single divisibility of binomial coefficients. The condition determines
-the coefficients one at a time, with $a(n)$ entering with coefficient $1$, so it determines
-them modulo $3$; and modulo $3$ the \emph{polynomial} $1+x$ satisfies the condition,
-because substituting it turns the $n$-th condition into
-$(-1)^{n-1}\binom{3n-3}{n-1}\equiv0\pmod3$, which Legendre's formula gives outright:
-$v_3\bigl(\binom{3m}{m}\bigr)=\tfrac12 s_3(2m)\ge1$ for every $m\ge1$. Uniqueness then
-forces $A(x)\equiv1+x$, which is the conjecture. The entry's other conjecture, that $2n-1$
-divides $a(n)$, is \emph{not} settled here.
+OEIS A211492 counts symmetric $(n+1)\times(n+1)$ matrices over
+$\{-4,\dots,4\}$ in which every $2\times2$ subblock sums to zero and has one or three distinct
+entries. Both sides of the matrix grow with $n$, so there is no slice of bounded width to walk
+along. There does not need to be: the sum-zero condition is linear and solves completely, and
+its solutions are indexed by a SEQUENCE --- the diagonal of the matrix. The count becomes a walk
+on $S=108$ states, and the empirical recurrence of order $9$ contributed by R.~H.~Hardin
+follows.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 11B50, 11B65, 05A15.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 15B36, 15A18.\normalsize
 
-\section{The sequence and the conjecture}
+\section{The conjecture}
 
-OEIS A395833 is ``G.f. A(x) satisfies [x\^{}n] A( x/A(x)\^{}(2*n-1) ) = 0 for n > 1.''. It has offset $0$ and begins
+OEIS A211492 is ``Number of (n+1) X (n+1) -4..4 symmetric matrices with every 2 X 2 subblock having sum zero and one or three distinct values.''. It has offset $1$ and begins
 \[
-1, 1, 3, 30, 567, 16452, 663894, 35188218,\ \dots
+29, 65, 139, 287, 593, 1189, 2397, 4755,\ \dots
 \]
-The entry gives the expansion
-\begin{quote}\small
-G.f.: A(x) = 1 + x + 3*x\^{}2 + 30*x\^{}3 + 567*x\^{}4 + 16452*x\^{}5 + 663894*x\^{}6 + \dots
+The entry states, as a conjecture contributed by its author and never marked settled:
+\begin{quote}
+Empirical: a(n) = 3*a(n-1) + 5*a(n-2) - 20*a(n-3) - 5*a(n-4) + 45*a(n-5) - 5*a(n-6) - 40*a(n-7) + 6*a(n-8) + 12*a(n-9).
 \end{quote}
-so, writing $A(x)=\sum_{n\ge0}a(n)x^{n}$, the entry fixes
-\begin{equation}\label{eq:init}
-a(0)=1,\qquad a(1)=1,
-\end{equation}
-and defines the remaining coefficients by
-\begin{equation}\label{eq:fe}
-\bigl[x^{n}\bigr]\,A\!\left(\frac{x}{A(x)^{2n-1}}\right)\;=\;0
-\qquad\text{for } n>1 .
-\end{equation}
-Since $a(0)=1$, the series $A$ is invertible and $A^{-(2n-1)}$ is a well-defined element of
-$\mathbb{Z}[[x]]$, so the composition in \eqref{eq:fe} makes sense: the inner series
-$x\,A(x)^{-(2n-1)}$ has zero constant term. This is the only input taken from the entry.
+As of the ``Last modified'' line on the live entry (Jul 18 2018 08:22:28, revision 7) this is still
+recorded as empirical, and nothing on the entry records it as proved.
 
-The entry separately carries the following comment:
-\begin{quote}\small
-Conjecture: a(n) == 0 (mod 3) for n >= 2. --- \emph{Paul D. Hanna}
-\end{quote}
-As of the ``Last modified'' line on the live entry (May 09 2026 00:29:02, revision 7) the statement is
-still recorded as a conjecture, and nothing on the entry records it as settled either way.
-The entry carries a second conjecture of the same contributor, that $2n-1$ divides $a(n)$
-for $n\ge1$. It is not proved below and it is not claimed.
+\section{The sum-zero condition solved}
 
-\section{The condition determines the sequence}
+Let $x$ be an $N\times N$ symmetric matrix with entries in $\{-4,\dots,4\}$ such that
+\[
+x(i,j)+x(i,j{+}1)+x(i{+}1,j)+x(i{+}1,j{+}1)=0
+\]
+for every $0\le i,j\le N-2$.
 
-\begin{lemma}\label{lem:unique}
-Given \eqref{eq:init}, there is exactly one sequence of integers $a(2),a(3),\dots$
-satisfying \eqref{eq:fe}, and for each $N\ge2$ the condition at $n=N$ has the form
-$a(N)=(\text{a polynomial with integer coefficients in }a(0),\dots,a(N-1))$.
+\begin{lemma}\label{lem:solve}
+Such matrices are exactly the matrices
+\[
+x(i,j)=(-1)^{i+j}\,\frac{u_i+u_j}{2},
+\qquad u_0,\dots,u_{N-1}\in\{-4,\dots,4\}\ \text{all of the same parity},
+\]
+and the sequence is recovered from the matrix by $u_i=x(i,i)$, so the correspondence is a
+bijection.
 \end{lemma}
 
 \begin{proof}
-Fix $N\ge2$ and write $u=x\,A(x)^{-(2N-1)}$, so $u=x+O(x^{2})$ and
-$\bigl[x^{m}\bigr]u^{j}=0$ for $m<j$, while $\bigl[x^{j}\bigr]u^{j}=1$. Expanding,
+Put $y(i,j)=(-1)^{i+j}x(i,j)$. The four entries of a $2\times2$ subblock alternate in sign
+under this substitution, so
 \[
-\bigl[x^{N}\bigr]A(u)\;=\;\sum_{j\ge0}a(j)\,\bigl[x^{N}\bigr]u^{j}
-\;=\;\sum_{j=0}^{N}a(j)\,\bigl[x^{N}\bigr]u^{j} .
+x(i,j)+x(i,j{+}1)+x(i{+}1,j)+x(i{+}1,j{+}1)
+=(-1)^{i+j}\bigl[y(i,j)-y(i,j{+}1)-y(i{+}1,j)+y(i{+}1,j{+}1)\bigr],
 \]
-The term $j=N$ contributes $a(N)\cdot1$. For $j<N$ the factor
-$\bigl[x^{N}\bigr]u^{j}=\bigl[x^{N-j}\bigr]A^{-j(2N-1)}$ is a polynomial in
-$a(1),\dots,a(N-j)$ with $N-j\le N-1$, and it is multiplied by $a(j)$ with $j\le N-1$; so
-no $a(N)$ occurs there. Hence the coefficient of $a(N)$ in \eqref{eq:fe} is exactly $1$,
-the condition solves for $a(N)$ over $\mathbb{Z}$, and induction from \eqref{eq:init}
-gives existence and uniqueness.
+and the condition says exactly that the mixed second difference of $y$ vanishes everywhere.
+Summing that identity over a rectangle gives
+$y(i,j)=y(i,0)+y(0,j)-y(0,0)$ for all $i,j$, which is $y(i,j)=f(i)+g(j)$ with
+$f(i)=y(i,0)-y(0,0)$ and $g(j)=y(0,j)$; conversely every such $y$ has vanishing mixed
+difference. Symmetry of $x$ gives $y(i,j)=y(j,i)$, hence $f(i)-g(i)=f(j)-g(j)$ for all $i,j$:
+the difference is a constant $c$. Writing $u_i=2\bigl(f(i)-c/2\bigr)$, which is an integer
+because $y(i,i)=x(i,i)$ is, we get $y(i,j)=(u_i+u_j)/2$ as claimed. Taking $j=i$ gives
+$u_i=y(i,i)=x(i,i)$.
+
+For the two side conditions: $u_i+u_j$ must be even for all $i,j$, which says all the $u_i$ have
+the same parity; and $|x(i,j)|=|u_i+u_j|/2\le4$ for all $i,j$ is equivalent to $|u_i|\le4$
+for each $i$, the case $j=i$ giving one direction and the triangle inequality the other.
 \end{proof}
 
-\begin{corollary}\label{cor:mod}
-Let $k\ge2$. If $\bar A\in(\mathbb{Z}/k\mathbb{Z})[[x]]$ has
-$\bigl[x^{0}\bigr]\bar A=\bigl[x^{1}\bigr]\bar A=1$ and satisfies \eqref{eq:fe} with all
-coefficients read modulo $k$, then $a(n)\equiv\bigl[x^{n}\bigr]\bar A\pmod k$ for every $n$.
+So the matrices of size $N$ correspond one for one to the sequences $u_0,\dots,u_{N-1}$ in
+$\{-4,\dots,4\}$ with all entries of one parity. What remains is to say, in terms of $u$,
+that every $2\times2$ subblock has one or three distinct entries.
+
+\begin{lemma}\label{lem:block}
+Write $\pi_i=(u_i,u_{i+1})$ for the $i$-th consecutive pair. The number of distinct entries of
+the subblock at $(i,j)$ depends only on $\pi_i$ and $\pi_j$: with $\pi_i=(\alpha,\beta)$ and
+$\pi_j=(\gamma,\delta)$ it is
+\[
+\Bigl|\Bigl\{\tfrac{\alpha+\gamma}{2},\,-\tfrac{\alpha+\delta}{2},\,
+-\tfrac{\beta+\gamma}{2},\,\tfrac{\beta+\delta}{2}\Bigr\}\Bigr| .
+\]
+\end{lemma}
+
+\begin{proof}
+By Lemma~\ref{lem:solve} the four entries are $(-1)^{i+j}$ times those four numbers, in
+order. Multiplying all four by $\pm1$ does not change how many are distinct.
+\end{proof}
+
+Call two consecutive pairs COMPATIBLE when that number lies in $\{1,3\}$. The condition on the
+matrix is that $\pi_i$ and $\pi_j$ are compatible for every $i$ and $j$ --- including $i=j$,
+which asks each pair to be compatible with itself. In other words:
+
+\begin{corollary}
+The matrices counted are exactly the sequences $u$ whose set of consecutive pairs is a clique in
+the compatibility graph on the $\le 81$ pairs.
 \end{corollary}
 
-\begin{proof}
-Reduction modulo $k$ is a ring homomorphism and carries the recursion of
-Lemma~\ref{lem:unique} to the same recursion over $\mathbb{Z}/k\mathbb{Z}$, where the
-coefficient of $a(N)$ is still $1$ and hence invertible. (The inverse $A^{-(2N-1)}$ is
-carried to the inverse of the reduction, which exists because the constant term $1$ is a
-unit.) That recursion, started from the same two initial values, has a unique solution, and
-both $a\bmod k$ and the coefficients of $\bar A$ solve it.
-\end{proof}
+\section{A walk on the sequence}
 
-\section{A divisibility of binomial coefficients}
+The clique condition is not local: a pair must be compatible with every pair anywhere else in
+the sequence. Carrying the set of pairs already used would be an exponential state. Carrying
+what it FORBIDS is not.
 
-For a prime $p$ let $s_p(m)$ denote the sum of the base-$p$ digits of $m$, and $v_p$ the
-$p$-adic valuation.
-
-\begin{lemma}\label{lem:val}
-$v_3\!\left(\dbinom{3m}{m}\right)=\dfrac{s_3(2m)}{2}$ for every $m\ge0$. In
-particular $3$ divides $\dbinom{3m}{m}$ for every $m\ge1$.
+\begin{lemma}\label{lem:lump}
+Let $A$ be the set of pairs compatible with every pair used so far. Then a sequence may be
+continued exactly by pairs lying in $A$, and appending a pair $\pi$ replaces $A$ by
+$A\cap N(\pi)$, where $N(\pi)$ is the set of pairs compatible with $\pi$. Hence the pair
+$(\,\text{last value of }u,\;A\,)$ carries everything the future needs.
 \end{lemma}
 
 \begin{proof}
-Legendre's formula gives $v_3(j!)=\bigl(j-s_3(j)\bigr)/2$. Hence
-\[
-v_3\!\left(\binom{3m}{m}\right)
-=v_3\bigl((3m)!\bigr)-v_3\bigl(m!\bigr)-v_3\bigl((2m)!\bigr)
-=\frac{\bigl(3m-s_3(3m)\bigr)-\bigl(m-s_3(m)\bigr)-\bigl(2m-s_3(2m)\bigr)}{2},
-\]
-which simplifies to $\bigl(s_3(m)+s_3(2m)-s_3(3m)\bigr)/2$. Multiplying by $3$ shifts the
-base-$3$ digits and appends a zero, so $s_3(3m)=s_3(m)$ and the expression collapses to
-$s_3(2m)/2$.
-
-For $m\ge1$ we have $2m\ge2$, so $s_3(2m)\ge1$; since the valuation is an integer,
-$s_3(2m)/2\ge1$, that is $3\mid\binom{3m}{m}$.
+The condition is a conjunction of pairwise compatibilities, so the set of pairs still allowed
+after using a set $T$ is $\bigcap_{\pi\in T}N(\pi)$, which is a function of $T$ and is updated
+by intersection as $T$ grows. The next pair is $(\text{last value},w)$, so the last value is
+the only other thing a step needs.
 \end{proof}
 
-\section{The reduction modulo $3$}
+The sets $A$ that arise are intersections of neighbourhoods, of which there are far fewer than
+subsets; enumerated from the start $A_0=\{\pi:\pi\in N(\pi)\}$, the reachable states number
+$S=108$. The two parity classes never mix, so the walk starts by choosing a parity and a first
+value, and every state may end a sequence:
+\[
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad \tau=\mathbf{1},\qquad S=108.
+\]
+The walk index $j$ is the size of the matrix, and it differs from the entry's own $n$ by a
+constant read off by matching the published terms rather than assumed. In particular $a$ is
+$C$-finite --- for a family in which both dimensions grow with $n$.
 
-\begin{lemma}\label{lem:sat}
-Over $\mathbb{Z}/3\mathbb{Z}$ the polynomial $\bar A(x)=1+x$ satisfies \eqref{eq:init} and
-\eqref{eq:fe}.
+\section{The proof}
+
+\begin{lemma}\label{lem:crit}
+Let $q(t)=t^{9}-\sum_i c_it^{9-i}$ be the characteristic polynomial of the
+conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
+$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
+holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
+and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Clearly $\bigl[x^{0}\bigr]\bar A=\bigl[x^{1}\bigr]\bar A=1$. Fix $n>1$ and put
-$u=x\,(1+x)^{-(2n-1)}$. Since $\bar A(u)=1+u$,
-\[
-\bigl[x^{n}\bigr]\bar A(u)\;=\;\bigl[x^{n}\bigr]u
-\;=\;\bigl[x^{\,n-1}\bigr](1+x)^{-(2n-1)} .
-\]
-By the binomial series, $\bigl[x^{m}\bigr](1+x)^{-k}=(-1)^{m}\binom{k+m-1}{m}$, so with
-$k=2n-1$ and $m=n-1$,
-\[
-\bigl[x^{n}\bigr]\bar A(u)\;=\;(-1)^{n-1}\binom{(2n-1)+(n-1)-1}{n-1}
-\;=\;(-1)^{n-1}\binom{3n-3}{n-1}
-\;=\;(-1)^{n-1}\binom{3m'}{m'},\quad m'=n-1 .
-\]
-Since $n>1$ we have $m'\ge1$, so Lemma~\ref{lem:val} makes this $\equiv0\pmod3$. Hence
-\eqref{eq:fe} holds modulo $3$.
+Factor $M^{j}$ out of $M^{j+9}-\sum_ic_iM^{j+9-i}$. For the bound, $M^{S}$
+is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
+$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
+polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
+pins the threshold exactly.
 \end{proof}
 
 \begin{theorem}
-$a(n)\equiv0\pmod3$ for every $n\ge2$. This is the conjecture of Section~1.
+\[
+a(n)\;=\;3\,a(n-1) + 5\,a(n-2) - 20\,a(n-3) - 5\,a(n-4) + 45\,a(n-5) - 5\,a(n-6) - 40\,a(n-7) + 6\,a(n-8) + 12\,a(n-9)
+\]
+for every $n>9$.
 \end{theorem}
 
 \begin{proof}
-By Lemma~\ref{lem:sat} the polynomial $1+x$ satisfies \eqref{eq:init} and \eqref{eq:fe}
-over $\mathbb{Z}/3\mathbb{Z}$, so by Corollary~\ref{cor:mod} it is the reduction of $A$
-modulo $3$. Its coefficients are $1,1,0,0,\dots$, so $a(n)\equiv0\pmod3$ for every $n\ge2$.
+The vector $w=q(M)\tau$ was formed by $9$ matrix--vector products in exact integer
+arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
+integers vanish from the index corresponding to $n=9+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
-
-\begin{remark}
-The proof is short because the reduction is a polynomial rather than an infinite series:
-the whole content is that the substitution $x\mapsto x(1+x)^{-(2n-1)}$ makes the $n$-th
-coefficient a single central-type binomial, and that binomial is always divisible by $3$.
-The same computation modulo $2$ gives $\binom{3n-3}{n-1}$ modulo $2$, which is
-\emph{not} always even --- for instance $\binom{6}{2}=15$ --- so $1+x$ is not the
-reduction modulo $2$ and the argument is specific to the prime $3$.
-\end{remark}
 
 \section{Verification}
 
-Three checks, each independent of the algebra above.
+Four checks, each independent of the algebra above.
 
-First, the recursion of Lemma~\ref{lem:unique} was run in exact rational arithmetic from
-\eqref{eq:init}, inverting $A$ by the usual convolution, and its output compared against
-the entry's DATA at every published index within reach; the values agree exactly and are
-integers. At every step the coefficient of $a(N)$ was computed rather than assumed, by
-evaluating the condition at $a(N)=0$ and at $a(N)=1$ and subtracting; it came out $1$ every
-time.
+First, the model reproduces all $28$ terms the entry publishes, exactly, in integer
+arithmetic.
 
-Second, Lemma~\ref{lem:val} was checked directly: $3\mid\binom{3m}{m}$ for every
-$m\le400$, and $v_3\bigl(\binom{3m}{m}\bigr)=s_3(2m)/2$ over the same range, together
-with the identity $s_3(3m)=s_3(m)$ used in its proof.
+Second, the count was recomputed for the smallest matrices straight from the definition:
+symmetric matrices were written out entry by entry over $\{-4,\dots,4\}$ and each
+$2\times2$ subblock tested for summing to zero and for having one or three distinct entries. The
+sequence $u$, the sign pattern, the clique and the state play no part in that computation, and
+the published terms came back. Lemma~\ref{lem:solve} was separately checked the same way: for
+small sizes and small ranges the number of symmetric sum-zero matrices found by direct
+enumeration equals the number of admissible sequences.
 
-Third, the reduced condition of Lemma~\ref{lem:sat} was evaluated for every $n$ from $2$
-to $119$: the value $(-1)^{n-1}\binom{3n-3}{n-1}$ is divisible by $3$ in every case,
-with no exception.
+Third, the conjectured recurrence was evaluated directly on the published terms, with no
+matrices involved, and holds wherever the proved range and the data overlap.
+
+Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A395833.
-\bibitem{legendre} A.-M.~Legendre, \emph{Essai sur la th\'eorie des nombres}, 2nd ed.,
-Courcier, Paris, 1808.
-\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 2, Cambridge
-University Press, 1999.
-\bibitem{hw} G.~H.~Hardy and E.~M.~Wright, \emph{An Introduction to the Theory of
-Numbers}, 6th ed., Oxford University Press, 2008.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A211492.
+\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{kemeny} J.~G.~Kemeny and J.~L.~Snell, \emph{Finite Markov Chains}, Springer, 1976.
+(Lumping, Section 6.3.)
+\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
+University Press, 2013.
 \end{thebibliography}
 
 \end{document}

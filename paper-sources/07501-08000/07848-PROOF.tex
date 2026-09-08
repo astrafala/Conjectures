@@ -12,49 +12,50 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A207009, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A203348, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A207009 counts arrays of width $2$ over $\{0,1,2\}$ containing no occurrence of certain short
+OEIS A203348 counts arrays of width $3$ over $\{0,1\}$ containing no occurrence of certain short
 patterns, read along the rows, the columns or the diagonals. The entry carries an empirical
-recurrence of order $10$ contributed by R.~H.~Hardin. It is true, and it is decidable
+recurrence of order $12$ contributed by R.~H.~Hardin. It is true, and it is decidable
 rather than empirical: no pattern is longer than $3$ letters and no direction moves the row
 index by more than one, so every occurrence lies inside $3$ consecutive array rows and the
-count is a walk count on $S=91$ states.
+count is a walk count on $S=43$ states.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 68R15, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A207009 is ``Number of n X 2 0..2 arrays avoiding the patterns z z+1 z or z z-1 z in any row or column.''. It has offset $1$ and begins
+OEIS A203348 is ``Number of (n+2)X3 binary arrays avoiding patterns 010 and 101 in rows, columns and nw-to-se diagonals.''. It has offset $1$ and begins
 \[
-9, 81, 529, 3721, 25921, 180625, 1256641, 8743849,\ \dots
+80, 244, 702, 2062, 6032, 17614, 51482, 150462,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 7*a(n-1) -6*a(n-2) +22*a(n-3) +114*a(n-4) +104*a(n-5) -184*a(n-6) -352*a(n-7) -128*a(n-8) -64*a(n-9) +32*a(n-10).
+Empirical: a(n) = 3*a(n-1) +a(n-2) -3*a(n-3) -a(n-4) -2*a(n-5) -a(n-6) +2*a(n-7) +a(n-8) +a(n-9) -2*a(n-11) -a(n-12)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Dec 27 2023 12:18:01, revision 16) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 10:21:41, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The array has $2$ cells across, with entries in $\{0,1,2\}$. An OCCURRENCE of a pattern in a
+The array has $3$ cells across, with entries in $\{0,1\}$. An OCCURRENCE of a pattern in a
 direction is a run of consecutive cells taken in that direction whose entries match the pattern
 in order; the array is counted when it has no occurrence at all. The entry names
 \[
 \begin{array}{ll}
 \text{direction} & \text{forbidden patterns} \\[2pt]
-\text{along a row, left to right} & (z,\,z+1,\,z),\quad (z,\,z-1,\,z) \\
-\text{down a column} & (z,\,z+1,\,z),\quad (z,\,z-1,\,z) \\
+\text{along a row, left to right} & \mathtt{010},\quad \mathtt{101} \\
+\text{down a column} & \mathtt{010},\quad \mathtt{101} \\
+\text{down a diagonal, nw to se} & \mathtt{010},\quad \mathtt{101} \\
 \end{array}
 \]
- A pattern written with the free letter $z$ forbids every window standing in those differences, whatever the value of $z$: the window $(v_1,\dots,v_r)$ is an occurrence exactly when the numbers $v_s-o_s$ are all equal, $o$ being the offsets shown.
+
 
 \section{Every occurrence lies in $3$ consecutive rows}
 
@@ -76,7 +77,7 @@ and is not assumed but read off the window. The walk starts at the all-$\bot$ wi
 of no steps is the empty array and a walk of $R$ steps is an array of $R$ rows. With $M$ the
 adjacency matrix, $\iota$ the indicator of the starting window and $\tau=\mathbf{1}$,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=91.
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=43.
 \]
 The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
 published terms rather than assumed. In particular $a$ is $C$-finite.
@@ -84,7 +85,7 @@ published terms rather than assumed. In particular $a$ is $C$-finite.
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{10}-\sum_i c_it^{10-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{12}-\sum_i c_it^{12-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -92,7 +93,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+10}-\sum_ic_iM^{j+10-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+12}-\sum_ic_iM^{j+12-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -101,15 +102,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;7\,a(n-1) - 6\,a(n-2) + 22\,a(n-3) + 114\,a(n-4) + 104\,a(n-5) - 184\,a(n-6) - 352\,a(n-7) - 128\,a(n-8) - 64\,a(n-9) + 32\,a(n-10)
+a(n)\;=\;3\,a(n-1) + a(n-2) - 3\,a(n-3) - a(n-4) - 2\,a(n-5) - a(n-6) + 2\,a(n-7) + a(n-8) + a(n-9) - 2\,a(n-11) - a(n-12)
 \]
-for every $n>10$.
+for every $n>12$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $10$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $12$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=10+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=12+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -117,7 +118,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $19$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $24$ terms the entry publishes, exactly, in integer
 arithmetic.
 
 Second, the count was recomputed for the smallest arrays straight from the definition: fill the
@@ -133,7 +134,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A207009.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A203348.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata

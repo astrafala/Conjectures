@@ -12,78 +12,72 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A266126, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A231077, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A266126 counts arrays of width $3$ in which every entry is equal to the NUMBER of its own
-neighbours, in named directions, that stand in a stated relation to it. The entry carries an
-empirical recurrence of order $26$ contributed by R.~H.~Hardin. It is true, and it is
-decidable rather than empirical. The condition is self-referential but local: a cell's
-neighbours lie in the row above, its own row and the row below, so a window of three
-consecutive rows decides the condition for the middle one, and the count is a walk count on
-$S=5382$ states.
+OEIS A231077 counts arrays of width $4$ over $\{0,1,2,3\}$ in which every cell must see, among its
+neighbours in named directions, a stated number carrying the value one MORE than its own
+modulo $4$, and in some of the family a stated number carrying the value one less. The entry
+carries an empirical recurrence of order $36$ contributed by R.~H.~Hardin. It is true, and
+it is decidable rather than empirical: a cell's neighbours lie in three consecutive rows, so
+the count is a walk count on $S=35617$ states.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05C30, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05C15, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A266126 is ``Number of n X 3 integer arrays with each element equal to the number of horizontal, diagonal and antidiagonal neighbors exactly one smaller than itself.''. It has offset $1$ and begins
+OEIS A231077 is ``Number of n X 4 0..3 arrays x(i,j) with each element horizontally, diagonally or antidiagonally next to at least one element with value (x(i,j)+1) mod 4 and at least one element with value (x(i,j)-1) mod 4, and upper left element zero.''. It has offset $1$ and begins
 \[
-4, 25, 77, 385, 2099, 9083, 48188, 249446,\ \dots
+0, 40, 136, 6400, 71944, 1866192, 32292680, 679262904,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = a(n-1) +2*a(n-2) +205*a(n-3) -120*a(n-4) -258*a(n-5) -10662*a(n-6) -1620*a(n-7) +5336*a(n-8) +88936*a(n-9) +201296*a(n-10) +58144*a(n-11) +86672*a(n-12) -1097792*a(n-13) -831920*a(n-14) -2968704*a(n-15) -782336*a(n-16) -723152*a(n-17) +635968*a(n-18) +3427456*a(n-19) +337216*a(n-20) -204224*a(n-21) -289664*a(n-22) -453120*a(n-23) +20992*a(n-24) -1536*a(n-25) -12288*a(n-26) for n>27.
+Empirical: a(n) = 19*a(n-1) +101*a(n-2) -1584*a(n-3) -1954*a(n-4) -301*a(n-5) +64545*a(n-6) +333008*a(n-7) +1088515*a(n-8) -6873022*a(n-9) +6122504*a(n-10) -31836070*a(n-11) +269756531*a(n-12) -1031985683*a(n-13) -1969070017*a(n-14) +13183670776*a(n-15) -7804506767*a(n-16) -34501283784*a(n-17) +28415803783*a(n-18) +71061102200*a(n-19) -40339615785*a(n-20) -126321136798*a(n-21) +20350941417*a(n-22) +164969153543*a(n-23) +22060201296*a(n-24) -152405464476*a(n-25) -46608742972*a(n-26) +113641646544*a(n-27) +23731810624*a(n-28) -58758074368*a(n-29) -811932672*a(n-30) +17051844608*a(n-31) -2394341376*a(n-32) -2392915968*a(n-33) +480509952*a(n-34) +232783872*a(n-35) -62914560*a(n-36).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jan 01 2024 18:24:08, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Mar 22 2025 02:33:46, revision 8) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The array has $3$ cells across. The NEIGHBOURS of a cell are the cells reached from it by the
-offsets
+The array has $4$ cells across, with entries in $\{0,1,2,3\}$. The NEIGHBOURS of a cell are the
+cells reached from it by the offsets
 \[
 (-1,-1), (-1,1), (0,-1), (0,1), (1,-1), (1,1),
 \]
-those that lie inside the array. The condition is that every entry counts its own neighbours
-that are exactly one smaller than it: writing $v=x(i,j)$,
-\[
-v\;=\;\#\{\text{neighbours } y \text{ of } (i,j)\ :\ y=v-1\} .
-\]
+those lying inside the array. Writing $v$ for the value of a cell, the condition is that among
+its neighbours there be at least $1$ carrying $v+1 \bmod 4$ and at least $1$ carrying $v-1 \bmod 4$. The top left
+cell is fixed at $0$.
 
-The entry says ``integer arrays'' and names no alphabet, but one is forced. An entry counts
-neighbours in the named directions, of which there are $6$, so every entry of the array
-lies in $\{0,1,\dots,6\}$ and the count is finite. That bound is used below and
-nothing wider is needed.
+Note that the values and the modulus agree: the alphabet has $4$ letters and the arithmetic
+is modulo $4$, so ``one more than $v$'' wraps from $3$ round to $0$.
 
 \section{Three rows decide one}
 
 \begin{lemma}\label{lem:win}
 Every offset above changes the row index by $-1$, $0$ or $+1$, so all the neighbours of a cell
-of row $i$ lie in rows $i-1$, $i$ and $i+1$. The condition for the whole of row $i$ is
-therefore decided by those three rows, an absent row contributing no neighbours.
+of row $i$ lie in rows $i-1$, $i$ and $i+1$, and the condition for the whole of row $i$ is
+decided by those three rows. A neighbour outside the array is not a neighbour and contributes
+nothing to any of the counts.
 \end{lemma}
 
 \begin{proof}
-Immediate from the offsets, together with the rule that a neighbour outside the array is not a
-neighbour.
+Immediate from the offsets listed.
 \end{proof}
 
 So the state is the pair (row above, current row), the row above allowed to be the symbol
-$\bot$; a step appends a row and settles the condition for the middle row of the window it
-completes. Two boundaries have to be right and neither is assumed. The walk starts at the state
-$(\bot,\bot)$, which stands for the empty array, so a walk of no steps is the empty array and
-one step is a one-row array. And the condition for the LAST row is settled by the end vector,
-which asks whether that row satisfies its condition with nothing written below it: the end
-vector is therefore NOT the all-ones vector, and a row that counts correctly only when
-something is written below it does not finish an array. With $M$ the adjacency matrix,
+$\bot$, and a step appends a row and settles the condition for the middle row of the window it
+completes. Two boundaries are decided rather than assumed. The rows that may BEGIN an array are
+exactly those whose first entry is $0$, which is the top-left clause. And the condition for the
+LAST row is settled by the end vector, with nothing below it: the end vector is therefore not
+the all-ones vector, and a row that sees enough neighbours only when a further row is written
+below it does not finish an array. With $M$ the adjacency matrix,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=5382.
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=35617.
 \]
 The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
 published terms rather than assumed. In particular $a$ is $C$-finite.
@@ -91,7 +85,7 @@ published terms rather than assumed. In particular $a$ is $C$-finite.
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{26}-\sum_i c_it^{26-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{36}-\sum_i c_it^{36-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -99,7 +93,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+26}-\sum_ic_iM^{j+26-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+36}-\sum_ic_iM^{j+36-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -108,15 +102,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;a(n-1) + 2\,a(n-2) + 205\,a(n-3) - 120\,a(n-4) - 258\,a(n-5) - 10662\,a(n-6) - 1620\,a(n-7) + 5336\,a(n-8) + 88936\,a(n-9) + 201296\,a(n-10) + 58144\,a(n-11) + 86672\,a(n-12) - 1097792\,a(n-13) - 831920\,a(n-14) - 2968704\,a(n-15) - 782336\,a(n-16) - 723152\,a(n-17) + 635968\,a(n-18) + 3427456\,a(n-19) + 337216\,a(n-20) - 204224\,a(n-21) - 289664\,a(n-22) - 453120\,a(n-23) + 20992\,a(n-24) - 1536\,a(n-25) - 12288\,a(n-26)
+a(n)\;=\;19\,a(n-1) + 101\,a(n-2) - 1584\,a(n-3) - 1954\,a(n-4) - 301\,a(n-5) + 64545\,a(n-6) + 333008\,a(n-7) + 1088515\,a(n-8) - 6873022\,a(n-9) + 6122504\,a(n-10) - 31836070\,a(n-11) + 269756531\,a(n-12) - 1031985683\,a(n-13) - 1969070017\,a(n-14) + 13183670776\,a(n-15) - 7804506767\,a(n-16) - 34501283784\,a(n-17) + 28415803783\,a(n-18) + 71061102200\,a(n-19) - 40339615785\,a(n-20) - 126321136798\,a(n-21) + 20350941417\,a(n-22) + 164969153543\,a(n-23) + 22060201296\,a(n-24) - 152405464476\,a(n-25) - 46608742972\,a(n-26) + 113641646544\,a(n-27) + 23731810624\,a(n-28) - 58758074368\,a(n-29) - 811932672\,a(n-30) + 17051844608\,a(n-31) - 2394341376\,a(n-32) - 2392915968\,a(n-33) + 480509952\,a(n-34) + 232783872\,a(n-35) - 62914560\,a(n-36)
 \]
-for every $n>27$.
+for every $n>36$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $26$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $36$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=27+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=36+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -124,13 +118,14 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $21$ terms the entry publishes, exactly, in integer
-arithmetic.
+First, the model reproduces all $17$ terms the entry publishes, exactly, in integer
+arithmetic. The leading zeros the entry publishes are a sharp test of the boundary: a small
+array has too few neighbours for any cell to see what the condition demands.
 
 Second, the count was recomputed for the smallest arrays straight from the definition:
-enumerate every array of that size, count each cell's neighbours satisfying the relation, and
-keep the array when every cell equals its own count. No window, no transfer matrix and no
-transposition are involved, and the published terms came back.
+enumerate every array of that size in the orientation the entry's own name writes, count each
+cell's neighbours of each kind, and keep the array when every cell is satisfied. No window, no
+transfer matrix and no transposition are involved, and the published terms came back.
 
 Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
@@ -140,11 +135,9 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A266126.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A231077.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata
-Theory, Languages, and Computation}, 3rd ed., Addison--Wesley, 2006.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

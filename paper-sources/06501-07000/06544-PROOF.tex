@@ -12,17 +12,17 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A237891, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A236090, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A237891 counts arrays over $\{0,\dots,3\}$ subject to a condition on the order
+OEIS A236090 counts arrays over $\{0,\dots,2\}$ subject to a condition on the order
 statistics of every $2\times2$ subblock, and carries an empirical recurrence of order
-$19$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical.
-The condition is local to two consecutive rows, so the count is a walk count on $S=44$
+$20$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical.
+The condition is local to two consecutive rows, so the count is a walk count on $S=344$
 states and is $C$-finite; whether the conjectured recurrence annihilates it is then settled by
 a finite exact computation, with the Cayley--Hamilton theorem bounding the work.
 \end{abstract}
@@ -31,50 +31,50 @@ a finite exact computation, with the Cayley--Hamilton theorem bounding the work.
 
 \section{The conjecture}
 
-OEIS A237891 is ``Number of (n+1)X(1+1) 0..3 arrays with the maximum minus the upper median of every 2X2 subblock equal.''. It has offset $1$ and begins
+OEIS A236090 is ``Number of (n+1)X(2+1) 0..2 arrays colored with the difference of the maximum and the upper median in each 2X2 subblock.''. It has offset $1$ and begins
 \[
-256, 1848, 13600, 103536, 789664, 6082368, 46779520, 361265248,\ \dots
+344, 1960, 10912, 59398, 321368, 1787690, 9900936, 54118764,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 16*a(n-1) -1056*a(n-3) +3004*a(n-4) +23416*a(n-5) -88096*a(n-6) -240560*a(n-7) +1022032*a(n-8) +1305632*a(n-9) -5841664*a(n-10) -4008768*a(n-11) +17716928*a(n-12) +6995840*a(n-13) -28273408*a(n-14) -6652672*a(n-15) +21161472*a(n-16) +3426816*a(n-17) -4948992*a(n-18) -1188864*a(n-19)
+Empirical: a(n) = 28*a(n-3) +591*a(n-4) +642*a(n-5) +1360*a(n-6) +3146*a(n-7) -10200*a(n-8) -7734*a(n-9) +9306*a(n-10) -5336*a(n-11) +14804*a(n-12) +19462*a(n-13) -6478*a(n-14) -2372*a(n-15) +3016*a(n-16) +2772*a(n-17) +24*a(n-18) -582*a(n-19) -53*a(n-20) for n>22
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 10:32:42, revision 7) this is still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 09:05:33, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-Sort the four entries of a $2\times2$ subblock as $a\le b\le c\le d$: they
-are its minimum, lower median, upper median and maximum. The entry fixes the signed sum
-\[
-\sigma\;=\;-c+d,
-\]
-and asks that $\sigma$ take the SAME value on every $2\times2$ subblock of an
-$(n+1)\times2$ array over $\{0,\dots,3\}$.
+The $2\times2$ subblocks of an $(n+1)\times3$ array form an
+$n\times2$ grid. Colour each of them by $\sigma=-c+d$, where $a\le b\le c\le d$ are its four entries sorted --- its minimum, lower median, upper median and maximum. ``Coloured with'' is the entry's way of
+asking for a PROPER colouring of that grid: subblocks that are neighbours, horizontally or
+vertically, must receive different colours.
 
-The common value is not named, so the count splits by it. For a fixed $v$ let $a_v(n)$ count
-the arrays all of whose subblocks give $\sigma=v$. An array determines its common value, so
-the sets belonging to different $v$ are disjoint and $a(n)=\sum_v a_v(n)$, a finite sum.
-
+That reading is fixed by the entries themselves rather than guessed. Take the upper median
+over $0..2$. A $2\times2$ array has one subblock and no neighbouring pair, so every one of the
+$3^4=81$ arrays qualifies; a $2\times3$ array has one horizontal pair and $294$ of its $729$
+arrays qualify; a $3\times3$ array has two horizontal and two vertical pairs and $722$
+qualify. Those are the three numbers the corresponding entries publish. Imposing no condition
+would give $729$ at $2\times3$, and counting the two diagonal pairs as neighbours as well
+would give $0$ at $3\times3$, so neither is what is meant.
 
 \section{The count is a walk count}
 
-For a fixed $v$ the condition involves two consecutive rows and nothing
-else: rows $r$ and $s$ may follow one another exactly when $\sigma$ equals $v$ on each of the
-$1$ subblocks they form. So a row is a state, an $(n+1)$-row array is a walk of $n$
-steps, and with $M$ the adjacency matrix on the disjoint union over $v$,
+A subblock's colour is decided by two consecutive rows of the array, and
+the vertical condition compares two consecutive rows of the subblock grid, so the state is the
+PAIR of consecutive array rows. A step appends a row: that fixes a new subblock row, which
+must be properly coloured along itself and must differ from the previous subblock row in every
+position. An $(n+1)$-row array is a walk of $n-1$ steps, so
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n}\tau,\qquad\iota=\tau=(1,\dots,1)^{\!\top} .
+a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,\qquad\iota=\tau=(1,\dots,1)^{\!\top},
 \]
-Rows carrying no edge at all are dropped: such a row can only be the whole of a one-row
-array, which is not among the objects counted. There are $S=44$ states left.
+over the $S=344$ pairs whose own subblock row is properly coloured.
 The alignment of the walk index with the entry's own $n$ was checked against its published
 terms rather than assumed. In particular $a$ is $C$-finite.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{19}-\sum_i c_it^{19-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{20}-\sum_i c_it^{20-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -82,7 +82,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+19}-\sum_ic_iM^{j+19-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+20}-\sum_ic_iM^{j+20-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -91,15 +91,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;16\,a(n-1) - 1056\,a(n-3) + 3004\,a(n-4) + 23416\,a(n-5) - 88096\,a(n-6) - 240560\,a(n-7) + 1022032\,a(n-8) + 1305632\,a(n-9) - 5841664\,a(n-10) - 4008768\,a(n-11) + 17716928\,a(n-12) + 6995840\,a(n-13) - 28273408\,a(n-14) - 6652672\,a(n-15) + 21161472\,a(n-16) + 3426816\,a(n-17) - 4948992\,a(n-18) - 1188864\,a(n-19)
+a(n)\;=\;28\,a(n-3) + 591\,a(n-4) + 642\,a(n-5) + 1360\,a(n-6) + 3146\,a(n-7) - 10200\,a(n-8) - 7734\,a(n-9) + 9306\,a(n-10) - 5336\,a(n-11) + 14804\,a(n-12) + 19462\,a(n-13) - 6478\,a(n-14) - 2372\,a(n-15) + 3016\,a(n-16) + 2772\,a(n-17) + 24\,a(n-18) - 582\,a(n-19) - 53\,a(n-20)
 \]
-for every $n>19$.
+for every $n>22$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $19$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $20$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=19+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=22+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -119,7 +119,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A237891.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A236090.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{david} H.~A.~David and H.~N.~Nagaraja, \emph{Order Statistics}, 3rd ed., Wiley,
