@@ -836,3 +836,15 @@ read wrongly.
 Also this hour: **wake-ups scheduled every twenty to forty minutes across the next three
 hours**, so the work continues without being prompted; and a harness-tracked background loop
 that re-invokes on completion, which fired and returned control immediately.
+
+### `ca2dcount` registered: 30 proved in the first window, and a free independence check
+
+The 168-entry active-cell family now has its engine in `uniform`, its sweep running and its
+shard files ignored at creation rather than after the stop hook catches them.
+
+A 300-paper regression sample caught one existing paper: **A270013**, already in the roster as
+`gf-implies-rec` — proved from the generating function the entry states as fact, a route that
+shares no code with a cellular automaton simulation. That is not a theft of a name, it is an
+overlap, and a useful one: **the simulation reproduces all 43 of that entry's published terms.**
+Two independent methods, same sequence. This project has had very little independence checking
+of that kind and it is worth taking where it falls out for free.
