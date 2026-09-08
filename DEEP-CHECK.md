@@ -519,7 +519,7 @@ A stratified sample, one paper from each of the 105 families, drawn with a fixed
 is reproducible and not cherry-picked (`engine/deep-check/phase12-sample.json`). Read the way
 a hostile referee reads: find the weakest step and attack it.
 
-Forty-six read so far; the ones below are those where the attack found something or where the
+Fifty-one read so far; the ones below are those where the attack found something or where the
 step most likely to fail was checked by hand.
 
 * **A223181** (`gf-implies-rec`) **passes.** Its proof is conditional on a generating function
@@ -610,6 +610,14 @@ local.
   derived independently for the lexicographic family.
 * **A235021** proves its recurrence minimal *and says the same holds on every tail*, which is
   the strengthening `ordtails.py` was written around today.
+
+**A214104 was attacked and survived.** Its data begins `81, 16, 4913, 6480` — falling, then
+leaping — and its abstract claims *proper* colourings while the entry's name only says
+*"0..2 colorings"*, so `81 = 3^4` looked like a count with no properness in it. Brute force
+settles it the other way: a 5 X 1 array over three values has **41** canonical colourings and
+**8** of them proper, and 8 is exactly the model's own first term. The reading is proper
+colourings in canonical form, and the fall from 81 to 16 is real — the wrap makes an odd
+number of columns an odd cycle, which is far more restrictive. Four others pass.
 
 **15 papers write "the strip of the last $1$ rows".** The count is interpolated into a fixed
 plural in `transfer23build.py` and `transfer46build.py`; both take it from a helper that agrees
