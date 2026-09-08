@@ -317,3 +317,42 @@ defective and that the reading was settled by the entry's published terms rather
 first paper whose source is missing. 263 papers have no stored source, and a re-ranking moves
 every path. A missing source now only means that paper's abstract cannot be read to choose a
 template; it is not a reason to abandon a redraft of ten thousand comments.
+
+## 8 September 2026 — transfer96: the family that was invisible because it has one dimension
+
+Every one of the eighty-odd array engines parses a shape like "n X 4". A name that reads
+
+> Number of length n+3 0..2 arrays with no four elements in a row with pattern abba (possibly
+> a=b) and new values 0..2 introduced in 0..2 order.
+
+has no second dimension to find, so **not one of them read a single entry of this family** —
+359 of them, and the object is easier than most of what the project already handles. The count
+is a walk count on the windows: the same argument as everywhere else, one dimension down.
+
+`engine/src/transfer96.py` reads them. **101 reproduce their entry's published terms exactly,
+0 mismatch**, and a 300-paper regression sample confirms it takes no name from an existing
+engine.
+
+Four clause types, all local:
+
+* **a forbidden pattern.** "pattern abba" names a shape, not letters: a window matches when
+  positions carrying the same pattern letter carry the same value. "(with a!=b)" also requires
+  positions carrying different letters to differ; "(possibly a=b)" does not — so "possibly
+  a=b" forbids strictly more words, since aaaa matches abba there and not in the strict
+  reading.
+* **"new values 0..m introduced in 0..m order"** — the first occurrences must be 0, 1, 2, …, so
+  a word may use v only once v-1 has appeared. One extra number in the state.
+* **"at most one downstep in every 3 consecutive neighbour pairs"** — a sliding window over the
+  neighbour PAIRS, so it spans four elements. Two other readings suggested themselves (a global
+  bound, and a window of n pairs) and **both disagree with the entry's own terms**: 66, 147,
+  294 and 81, 216, 441 against the entry's 66, 168, 441. The data picked the reading.
+* **"no consecutive three elements summing to more than S"**.
+
+### An indexing bug the sweep caught before any paper was written
+
+The engine indexes by word LENGTH; the entry indexes by its own n, and a name reading "length
+n+4" puts a(1) at length 5. Left as it was, 32 of the 101 came back from the recurrence sweep
+as "model does not match DATA" — a model that matches every published term, reported as
+wrong, because the shift search window is deliberately only a few steps wide (a wide one can
+fit a wrong model). `uniform.terms` now drops the leading terms for this engine, and all 101
+align inside the usual window. **The first sweep after the fix returned 25 proofs.**

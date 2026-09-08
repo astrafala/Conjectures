@@ -16,7 +16,7 @@ import importlib
 from fractions import Fraction
 from math import factorial
 
-ENG = ['transfer95', 'transfer94', 'transfer93', 'transfer92', 'transfer91', 'denumerant', 'transfer89', 'transfer87', 'transfer86', 'transfer85', 'transfer84', 'transfer83', 'transfer82', 'transfer81', 'transfer47', 'transfer77', 'transfer3', 'transfer46', 'transfer45', 'transfer44', 'transfer43', 'transfer42', 'transfer41', 'transfer40', 'transfer38', 'transfer37', 'transfer36', 'transfer35', 'transfer34', 'transfer33', 'transfer32', 'transfer31', 'transfer30', 'transfer29', 'transfer28', 'transfer27', 'transfer26', 'transfer25', 'transfer24', 'transfer23', 'transfer17', 'transfer22', 'transfer21', 'transfer20', 'transfer19', 'transfer18', 'transfer9', 'transfer6', 'transfer16', 'transfer12', 'transfer10', 'transfer8', 'transfer14', 'transfer11', 'transfer15', 'transfer13', 'transfer7', 'transfer48', 'transfer49', 'transfer50', 'transfer51', 'transfer52', 'transfer53', 'transfer54', 'transfer55', 'transfer56', 'transfer57', 'transfer58', 'transfer59', 'transfer60', 'transfer61', 'transfer62', 'transfer63', 'transfer64', 'transfer65', 'transfer66', 'transfer67', 'transfer68', 'transfer69', 'transfer70', 'transfer71', 'transfer72', 'transfer73', 'transfer74', 'transfer75']
+ENG = ['transfer96', 'transfer95', 'transfer94', 'transfer93', 'transfer92', 'transfer91', 'denumerant', 'transfer89', 'transfer87', 'transfer86', 'transfer85', 'transfer84', 'transfer83', 'transfer82', 'transfer81', 'transfer47', 'transfer77', 'transfer3', 'transfer46', 'transfer45', 'transfer44', 'transfer43', 'transfer42', 'transfer41', 'transfer40', 'transfer38', 'transfer37', 'transfer36', 'transfer35', 'transfer34', 'transfer33', 'transfer32', 'transfer31', 'transfer30', 'transfer29', 'transfer28', 'transfer27', 'transfer26', 'transfer25', 'transfer24', 'transfer23', 'transfer17', 'transfer22', 'transfer21', 'transfer20', 'transfer19', 'transfer18', 'transfer9', 'transfer6', 'transfer16', 'transfer12', 'transfer10', 'transfer8', 'transfer14', 'transfer11', 'transfer15', 'transfer13', 'transfer7', 'transfer48', 'transfer49', 'transfer50', 'transfer51', 'transfer52', 'transfer53', 'transfer54', 'transfer55', 'transfer56', 'transfer57', 'transfer58', 'transfer59', 'transfer60', 'transfer61', 'transfer62', 'transfer63', 'transfer64', 'transfer65', 'transfer66', 'transfer67', 'transfer68', 'transfer69', 'transfer70', 'transfer71', 'transfer72', 'transfer73', 'transfer74', 'transfer75']
 M = {e: importlib.import_module(e) for e in ENG}
 T2 = importlib.import_module('transfer2')
 T19 = M['transfer19']
@@ -51,7 +51,7 @@ def read(nm):
     return None
 
 
-IMAGE = ('transfer95',)   # build returns a dict, terms are the engine's own
+IMAGE = ('transfer95', 'transfer96')   # build returns a dict, terms are the engine's own
 
 
 def build(en, p, cap):
@@ -120,7 +120,13 @@ def size(en, p, b):
 def terms(en, p, b, N):
     """model counts by walk step, scaling divided out; None where not an integer."""
     if en in IMAGE:
-        return [Fraction(v) for v in M[en].terms(b, N)]
+        t = M[en].terms(b, N + p.get('base', 0) + 2)
+        # transfer96 indexes by WORD LENGTH; the entry indexes by its own n, and a name reading
+        # "length n+4" puts a(1) at length 5. Leaving the offset for the caller's shift search
+        # to find made 32 of these look like "model does not match DATA" -- the search window
+        # is only a few steps wide by design, because a wide one can fit a wrong model.
+        b0 = p.get('base', 0) if en == 'transfer96' else 0
+        return [Fraction(v) for v in t[b0:]]
     if en == 'transfer3':
         st, adj = b
         return [Fraction(v) for v in T2.terms(adj, len(st), N)]
