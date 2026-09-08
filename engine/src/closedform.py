@@ -68,7 +68,9 @@ def parse_line(L, bare=False):
         expr = sympy.sympify(body, locals={'n': n}, rational=True)
     except Exception:
         return None
-    if not expr.has(n):
+    # sympify returns a TUPLE when the body contains a comma -- "a(n) = 1, 2, 3" and the like
+    # -- and a tuple has no .has, which killed the sweep on the first such entry
+    if not isinstance(expr, sympy.Expr) or not expr.has(n):
         return None
     return expr, claimed
 

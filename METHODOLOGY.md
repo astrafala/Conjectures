@@ -348,3 +348,38 @@ point of the independence rule. To check one:
 
 Step 3 is the one worth doing. If the model is right, everything after it is mechanical; if it is
 wrong, step 3 says so at once.
+
+## 7b. Where to look next, without being asked
+
+Every large vein this project has found was reachable by machinery it already had, and was
+hidden by how a sweep chose what to look at. That is a standing instruction, not an anecdote:
+**before writing a new engine, ask what the existing ones are not being pointed at.**
+
+The questions to run through, in order of what they have actually paid:
+
+1. **What does a sweep refuse, and why?** Read the refusal counters, not the hit counts. A
+   sweep reporting a small clean number is not evidence that the pool is small. Seven stale
+   pools and four blind parsers were found this way.
+2. **What does the project already know that it is not using as a premise?** A recurrence
+   proved here makes every FURTHER conjecture on that sequence decidable. That single question
+   opened 6,150 claims on ground already secured.
+3. **What is stated as fact on the entry?** A generating function, a closed form or a
+   recurrence the entry records without hedging is a premise, and the conjecture beside it is
+   then algebra. This is the largest vein in the database (3,520 entries).
+4. **What claim types are never attempted at all?** Of 32,629 entries carrying a conjecture,
+   only the 15,978 recurrence-shaped ones were ever tried. Congruences and asymptotics were
+   built after this question was asked.
+5. **Is the pool measured with the parser the sweep actually uses?** A rough string test
+   over-counts (1,190 that were 0) and a parser built for a different purpose under-counts
+   (0 that were 189). Test any instrument on a case whose answer is known before trusting it.
+6. **Which name shapes does no engine read?** Cluster the unread names by their CONDITION, not
+   their full text. Five engines came from this in one day.
+
+Ideas measured and found genuinely small, recorded so they are not re-run:
+
+| idea | result |
+| --- | --- |
+| closure under transforms — partial sums, differences, bisections of a proved sequence | 2,074 such entries exist but only **43** carry an open conjecture, and **12** have a source with a known recurrence |
+| congruence conjectures | **17** sit on sequences that are C-finite |
+| ratio-limit asymptotics | 47 entries, **0** with a linear recurrence |
+| entries with a known recurrence AND a conjecture | 558, mostly already covered |

@@ -58,8 +58,17 @@ done = set(json.load(open(DONE))) if os.path.exists(DONE) else set()
 res = collections.Counter()
 
 # the recurrence this project proved for each entry, from the sweeps' own records
+# EVERY vein's records, not four of them. Loading only four left 1,605 roster entries
+# refused with "no proved recurrence on record" when the proof is on file under a different
+# sweep's name -- the tables, the min-filter images, the one-dimensional words, the cusp-form
+# dimensions and the cellular automaton rows all keep their own.
 PROVED = {}
-for f in ('uniall_hits.json', 'gfdef_hits.json', 'gf_hits.json', 'ordwhole_hits.json'):
+import glob as _glob
+_files = ['uniall_hits.json', 'gfdef_hits.json', 'gf_hits.json', 'ordwhole_hits.json',
+          'cfnew_hits.json', 'lexcf_hits.json', 'mfcf_hits.json', 'wordcf_hits.json',
+          'cuspcf_hits.json', 'ecacf_hits.json', 'fcf_hits.json']
+_files += _glob.glob('shard_hits_*.json') + _glob.glob('tabnew_hits*.json')
+for f in _files:
     try:
         for h in json.load(open(f)):
             if isinstance(h, dict) and h.get('anum') and h.get('coeffs') and not h.get('FAILS'):
