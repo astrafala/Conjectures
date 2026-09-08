@@ -61,3 +61,47 @@ the fourth item of the Verification section, and **refuses to write a paper wher
 * **paperdates re-read all 10,665 PDFs after every ranking**, because its cache was keyed by
   file path and a ranking moves every paper. It now also keeps a cache keyed by A-number, which
   a ranking does not touch.
+
+### 8 September 2026, later — what is actually left, measured honestly
+
+The check being over, the question is where the next results come from. The clone was
+re-measured rather than guessed at.
+
+**37,991 entries carry conjectural wording. 10,582 of them are in the roster. Of the 27,409
+that are not, only 5,511 carry a conjecture worth a sweep** — a recurrence, a generating
+function, or an order line. The other 21,898 were removed by a new filter,
+`engine/src/pooltrim.py`, and it says why: 19,069 have conjectural wording on something that
+is not a settleable claim, **1,046 link a published proof**, and 537 say on the entry itself
+that the conjecture is settled.
+
+Of the 5,511, an engine reads the name of 1,246 and reads none of the rest. So the wall is
+name coverage, not method.
+
+### A family of 229 that I did not write papers for
+
+The largest single cluster of unread names was 229 entries reading "Number of base b circular
+n-digit numbers with adjacent digits differing by d or less". The model is exact and easy —
+a(0)=1 and a(n) is the trace of the n-th power of the banded 0/1 matrix — and it reproduced
+**all 229 entries' published terms with no mismatch**.
+
+**It is still a dead end, and here is why.** Every one of those 229 entries links a 2026 paper
+proving exactly the recurrences and generating functions a sweep would have gone after, and
+not one of them carries a conjectured recurrence or generating function any more. The
+"[Empirical]" line they do carry is a cross-family identity that, for a fixed base, covers only
+finitely many n and is checkable from the published data. **Elementary where it is not already
+proved by someone else.** Checking that before writing cost minutes; not checking it would have
+cost 229 papers that were not mine to write. The pool filter now looks for a proof link, so
+this cannot happen quietly again.
+
+### One clause, 91 entries
+
+`transfer17` reads "every 3X3 subblock <predicate>" names and has 510 papers. 37 entries state
+the predicate "having rows and columns in lexicographically nondecreasing order", and the
+shape, the quantifier and the block size all parsed — only that phrase was missing from the
+vocabulary. Adding it, with the three related orderings, made **91 entries readable**, the
+model matched the published terms of all 21 tried so far with **0 mismatches** (6 more want a
+cap above 400,000), and the existing engine's 400 sampled papers all still parse. The
+closed-form sweep has already returned **18 proofs from the first 22** of them.
+
+That is the shape of what is left: not one huge chunk, but a long tail of clusters of 30 to 90
+that each need one phrase added to a parser that can already do the mathematics.

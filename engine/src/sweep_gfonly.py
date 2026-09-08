@@ -1,11 +1,26 @@
-import json, os, collections, signal
+import json, os, collections, signal, sys, zlib
 import sympy
 import localentry as LE, uniform, openness, gfonly
 
-HITS, DONE = 'gfonly_hits.json', 'gfonly_done.json'
+# sharded, and each shard writes its own files: one entry can take minutes of sympy, so a
+# single process asks about 1,328 entries far too slowly, and two processes on one hits file
+# destroy each other's results.
+SHARD = int(sys.argv[1]) if len(sys.argv) > 1 else 0
+NSHARD = int(sys.argv[2]) if len(sys.argv) > 2 else 1
+SFX = '' if NSHARD == 1 else f'_{SHARD}'
+HITS, DONE = f'gfonly_hits{SFX}.json', f'gfonly_done{SFX}.json'
 P = '/tmp/claude-0/-home-user-Conjectures/a6c6c48d-a8e1-5e03-bfd7-16e8d9d94539/scratchpad/'
 names = json.load(open(P + 'all_names.json'))
-pool = json.load(open(P + 'gfonly.json'))
+# The pool used to be a 135-entry list built by hand from a snapshot, and only 2 of the
+# 1,328 entries that actually carry a conjectured generating function were in it. That is the
+# eighth stale filter found in this project, and they all hide the same way: the sweep runs,
+# reports a small clean number, and never asks about the rest. The pool is now read from a
+# file rebuilt from the clone, and the old list is only the fallback.
+POOL = os.environ.get('GFPOOL', 'deep-check/gfpool.txt')
+if os.path.exists(POOL):
+    pool = [a for a in open(POOL).read().split() if a.startswith('A')]
+else:
+    pool = json.load(open(P + 'gfonly.json'))
 roster = {r['anum'] for r in json.load(open('rank-map.json'))}
 hits = json.load(open(HITS)) if os.path.exists(HITS) else []
 done = set(json.load(open(DONE))) if os.path.exists(DONE) else set()
@@ -20,9 +35,26 @@ class Timeout(Exception):
 
 signal.signal(signal.SIGALRM, lambda *a: (_ for _ in ()).throw(Timeout()))
 
+def save():
+    json.dump(hits, open(HITS, 'w'), indent=1)
+    json.dump(sorted(done), open(DONE, 'w'))
+    # the reasons were printed only after the whole pool, which a timeout never reaches, so a
+    # run that refused everything looked the same as a run that had not started. They are
+    # stored now, and a refusal that is only a setting says which setting.
+    json.dump(dict(res), open(f'gfonly_why{SFX}.json', 'w'), indent=1, sort_keys=True)
+
+
+# The sweep used to write its files only after a PROVED hit, so a run that was killed -- and
+# these runs are killed by a timeout every time -- threw away every refusal it had recorded
+# and the next run asked all the same questions again. Saving on the way out of every entry
+# costs nothing against a sympy check that can take minutes.
+import atexit
+atexit.register(save)
+
 for a in sorted(pool):
-    if a in done or a in roster:
+    if a in done or a in roster or zlib.crc32(a.encode()) % NSHARD != SHARD:
         continue
+    save()
     e = LE.get(a)
     if not openness.status(a)[0]:
         res['not open'] += 1; done.add(a); continue

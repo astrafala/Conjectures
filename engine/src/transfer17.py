@@ -95,6 +95,50 @@ def _clause(t):
     t = t.strip().rstrip('.').strip()
     low = re.sub(r'\s+', ' ', t.lower())
 
+    # "each 3X3 subblock having rows and columns in lexicographically nondecreasing order":
+    # the three rows of the block, read left to right as 3-tuples, are nondecreasing under the
+    # lexicographic order, and so are the three columns read top to bottom. 37 entries state
+    # this and no engine read any of them -- the shape, the quantifier and the block size all
+    # parsed, and only this predicate was missing from the vocabulary.
+    m = re.fullmatch(r'having (rows|columns|rows and columns|columns and rows) in '
+                     r'lexicographically (nondecreasing|nonincreasing|increasing|decreasing) '
+                     r'order', low)
+    if m:
+        want, how = m.group(1), m.group(2)
+        rows = 'row' in want
+        cols = 'column' in want
+
+        def fn(g, rows=rows, cols=cols, how=how):
+            seqs = []
+            if rows:
+                seqs += [tuple(g[i]) for i in range(3)]
+            if cols:
+                if rows:
+                    seqs.append(None)                      # rows and columns are separate lists
+                seqs += [tuple(g[i][j] for i in range(3)) for j in range(3)]
+            groups, cur = [], []
+            for x in seqs:
+                if x is None:
+                    groups.append(cur); cur = []
+                else:
+                    cur.append(x)
+            groups.append(cur)
+            for grp in groups:
+                for a, b in zip(grp, grp[1:]):
+                    if how == 'nondecreasing' and not a <= b:
+                        return False
+                    if how == 'nonincreasing' and not a >= b:
+                        return False
+                    if how == 'increasing' and not a < b:
+                        return False
+                    if how == 'decreasing' and not a > b:
+                        return False
+            return True
+        which = {'rows': r'\text{rows}', 'columns': r'\text{columns}'}.get(
+            want, r'\text{rows and the columns}')
+        return fn, (r'\text{the %s of }g\text{ are in lexicographically %s order}'
+                    % (which.replace(r'\text{', '').replace('}', ''), how))
+
     m = re.fullmatch(r'(?:having )?clockwise perimeter pattern ((?:[01]{8}[ ,]*|or )+)', low)
     if m:
         pats = re.findall(r'[01]{8}', m.group(1))
