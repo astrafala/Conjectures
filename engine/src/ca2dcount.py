@@ -65,11 +65,36 @@ def raw(rule, steps):
     return out
 
 
+# WITHDRAWN AS A PROOF ENGINE.
+#
+# `raw' simulates the automaton and counts. That produces terms; it does not produce an
+# argument. Every other engine in this project hands the residual test a bound S on the degree
+# of the model's own generating function, and that bound is what makes "the residual vanishes
+# for S + deg N + deg D + 1 coefficients" a proof rather than a check. Here S was set to 24,
+# which is not derived from anything: the number of active cells of a two-dimensional
+# outer-totalistic automaton has no known rational generating function, and no finite amount of
+# agreement settles a claim about every n without one.
+#
+# `ca2d' is different and stands: there the certificate w(n+p) = L_r + w(n) + R_r is forced by
+# the automaton's locality, and the annihilator is read off it. Nothing of that kind is
+# available for a whole-configuration count, so this engine refuses. The 118 results that had
+# been taken from it were dropped, none of them installed.
+#
+# `terms' is left in place: reading these names and generating their terms is still useful for
+# DISPROVING a claim, which needs no bound at all -- one published term that the model
+# contradicts is enough.
+REFUSE = ('the active-cell count of a two-dimensional automaton has no proved generating '
+          'function, so no bound on its degree exists and the residual test cannot certify')
+
+
 def build(p, cap=200000):
-    # stage 2^n-1 needs the automaton run to 2^K, and a 2000-square grid for 512 steps is
-    # hopeless; K = 6 reaches every published prefix these entries have
+    return None
+
+
+def build_terms_only(p, cap=200000):
+    """the model, for generating terms only -- never for a proof. See REFUSE."""
     steps = (2 ** 6) if p['kind'] == 'pow' else 60
-    return {'rule': p['rule'], 'kind': p['kind'], 'raw': raw(p['rule'], steps), 'S': 24}
+    return {'rule': p['rule'], 'kind': p['kind'], 'raw': raw(p['rule'], steps), 'S': None}
 
 
 def terms(b, N):
