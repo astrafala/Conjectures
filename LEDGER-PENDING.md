@@ -516,3 +516,19 @@ There is a second lesson in how long this took to see. The fix was in the file a
 kept coming, because a background copy of the checker had been started before the edit and was
 still running the old code inside a 1,700-second window. A source fix does not reach a process
 that is already running.
+
+## 8 September 2026 — 701 installed from the generating-function vein: the roster reaches 11,601
+
+Every one live-confirmed before a paper was written: `build_gfdef.py` refuses to build for an
+entry the live re-check has not returned as still open, so the gate is enforced by the builder
+and not only by a report I read.
+
+**The roster goes from 10,900 to 11,601 — 11,595 proofs and 6 disproofs over 11,574 entries.**
+The rest of the vein's 2,151 proofs are waiting on the live re-check, which is still running.
+
+**One result withheld.** A164735's live entry links a file by Kauers and Koutschan whose title
+reads "Conjectured closed form for a(n), a quasi-polynomial of period 18 and degree 5". The
+title says conjectured, and my result concerns the recurrence rather than that closed form, so
+it is probably fine — but "probably fine" is not the standard here. One entry, genuinely
+ambiguous, and a wrong claim costs far more than a withheld one. Dropped, with the reason
+recorded next to it.

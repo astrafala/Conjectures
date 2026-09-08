@@ -11,12 +11,12 @@ cd /home/user/Conjectures/engine
 # every runner belongs here: a container restart wipes /tmp, and a sweep that is
 # not in this list simply never comes back -- which is how two veins sat idle for
 # a whole day earlier in this project.
-for f in forever.sh tails3.sh gfrun.sh readable.sh lexrun.sh lexcf.sh mfrun.sh tabrun.sh wordrun.sh cusprun.sh ecarun.sh gfdefrun.sh; do
+for f in forever.sh tails3.sh gfrun.sh readable.sh lexrun.sh lexcf.sh mfrun.sh tabrun.sh wordrun.sh cusprun.sh ecarun.sh gfdefrun.sh gdrun.sh; do
   [ -f "/tmp/$f" ] || cp "src/$f" "/tmp/$f"
 done
 running() { ps -eo args | grep -q "[/]tmp/$1"; }
 start() { running "$1" || { nohup /bin/sh "/tmp/$1" >/dev/null 2>&1 & echo "started $1"; }; }
-for f in forever.sh tails3.sh gfrun.sh readable.sh lexrun.sh lexcf.sh mfrun.sh tabrun.sh wordrun.sh cusprun.sh ecarun.sh gfdefrun.sh; do
+for f in forever.sh tails3.sh gfrun.sh readable.sh lexrun.sh lexcf.sh mfrun.sh tabrun.sh wordrun.sh cusprun.sh ecarun.sh gfdefrun.sh gdrun.sh; do
   start "$f"
 done
 ps -eo args | grep -oE "src/[a-z_0-9]+\.py" | sort | uniq -c | sort -rn
