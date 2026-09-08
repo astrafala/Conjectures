@@ -51,6 +51,11 @@ signal.signal(signal.SIGALRM, lambda *a: (_ for _ in ()).throw(Timeout()))
 SHARD = int(sys.argv[1]) if len(sys.argv) > 1 else 0
 NSHARD = int(sys.argv[2]) if len(sys.argv) > 2 else 1
 BUDGET = int(sys.argv[3]) if len(sys.argv) > 3 else 120
+# 73 entries could not be rebuilt at 2,000,000 -- and every one of them records a state count
+# BELOW that, the largest 1,849,046. The engines refuse on an estimate made before the states
+# are built, not on the count itself, so the cap has to clear the estimate rather than the
+# answer. It is settable so those 73 can be re-reached without re-running the other 3,790.
+CAP = int(os.environ.get('P5CAP', '2000000'))
 OUT = os.path.join(repopaths.DEEPCHECK, f'phase5-{SHARD}.json')
 state = json.load(open(OUT)) if os.path.exists(OUT) else {'ok': [], 'bad': [], 'skip': {}}
 
@@ -112,7 +117,7 @@ for h in sorted(hits, key=lambda x: x['anum']):
         en = h['engine']
     try:
         signal.alarm(BUDGET)
-        b = uniform.build(en, p, 2000000)
+        b = uniform.build(en, p, CAP)
         signal.alarm(0)
     except Timeout:
         signal.alarm(0); skip(a, 'rebuild timed out'); save(); continue
