@@ -603,3 +603,63 @@ The pattern I have been reporting all day — a sweep whose refusal is really a 
 it asks — turned up this time in code I had written an hour earlier. It is not a legacy
 problem. **A clean zero deserves the same suspicion as a surprising success**, and I now check
 an instrument on a case I know the answer to before trusting a number it produces.
+
+## 8 September 2026 — the criticism is right, and here is the measurement behind it
+
+Challenged that the proof rate is low and only one easy kind of claim is ever attempted, I
+measured the whole database rather than argue.
+
+**32,629 OEIS entries carry a conjecture of a recognisable kind. This project has only ever
+attempted one of them.**
+
+| kind of conjecture | entries | attempted |
+| --- | ---: | --- |
+| linear recurrence / generating function | 15,978 | yes |
+| inequality or bound | 5,726 | **no** |
+| closed form | 4,943 | partly |
+| congruence or divisibility | 4,130 | **no** |
+| asymptotic or limit | 3,978 | **no** |
+| primality or factorisation | 1,618 | **no** |
+| always / never / infinitely many | 541 | **no** |
+
+"Decidable" had quietly come to mean "reduces to linear algebra over Q". So I built the next
+class properly.
+
+### Congruences are decidable, by a theorem rather than by arithmetic
+
+If a satisfies a monic integer linear recurrence of order r, the state vector
+(a(n),…,a(n+r-1)) mod m evolves under a fixed matrix over Z/mZ. There are m^r states, so the
+state must recur: **a mod m is eventually periodic, and the pre-period and period are computed
+exactly.** Every claim of the form "a(n) ≡ c (mod m) for n > k", including one restricted to a
+residue class of n, is then settled by checking one period past the pre-period — decided, not
+sampled, and a failure inside that window is a genuine counterexample.
+
+`engine/src/congruence.py` does this and `sweep_cong.py` applies it, taking the recurrence only
+from a line the entry states as fact or from a result already proved here — a congruence proved
+from a *conjectured* recurrence would be a conditional result dressed as an unconditional one.
+
+### And the honest size of the vein: 17, not 4,130
+
+The measurement that matters is not how many congruence conjectures exist but how many sit on
+sequences the method can reach. Of 4,000 entries sampled, 294 carry a congruence-shaped
+conjectural line and **only 4 also carry a recurrence stated as fact**. Of the 11,985 entries
+whose recurrence this project has itself proved, **15** carry a congruence conjecture.
+
+**The congruence conjectures in the OEIS overwhelmingly sit on sequences that are not linear
+recurrences at all** — primes, divisor functions, digit sequences — where eventual periodicity
+does not apply and the claim is genuinely hard. That is a structural limit of the method, not a
+lack of effort, and it is worth stating plainly rather than leaving as an unexplained gap.
+
+### The third false disproof of the day, again from my own parser
+
+The sweep's first output was `DISPROVED? A237930`. The entry says
+
+> a(n) == 10 (mod 84) for **odd** n. a(n) == 31 (mod 84) for **even** n > 0.
+
+My parser dropped both qualifiers and tested each congruence at every index, where of course
+both fail. With "odd n", "even n" and the "> 0" all read, **both claims are PROVED** — the
+sequence mod 84 has pre-period 1 and period 2, so the two residues alternate forever.
+
+Three times today a batch of apparent disproofs has been a defect in how I read the claim, not
+in the claim. The mathematics in this project is not the hard part; **reading the sentence
+correctly is**, and that is where every error of the day has been.
