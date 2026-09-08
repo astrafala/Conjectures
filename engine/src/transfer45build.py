@@ -74,7 +74,7 @@ def build(h):
 
 \begin{{abstract}}
 OEIS {a} counts arrays of width ${W}$ over an alphabet of ${K}$ letters in which every three
-consecutive entries taken along a row, a column or a diagonal hold a prescribed number of
+consecutive entries taken along any of the directions the entry names hold a prescribed number of
 DISTINCT values, the arrays being counted up to renaming of the letters. The entry carries an
 empirical recurrence of order ${order}$ contributed by R.~H.~Hardin. It is true, and it is
 decidable rather than empirical. Nothing in the condition compares letters by size, so the

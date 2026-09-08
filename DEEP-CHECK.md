@@ -519,7 +519,7 @@ A stratified sample, one paper from each of the 105 families, drawn with a fixed
 is reproducible and not cherry-picked (`engine/deep-check/phase12-sample.json`). Read the way
 a hostile referee reads: find the weakest step and attack it.
 
-Thirty-three read so far; the ones below are those where the attack found something or where the
+Thirty-seven read so far; the ones below are those where the attack found something or where the
 step most likely to fail was checked by hand.
 
 * **A223181** (`gf-implies-rec`) **passes.** Its proof is conditional on a generating function
@@ -610,6 +610,13 @@ local.
   derived independently for the lexicographic family.
 * **A235021** proves its recurrence minimal *and says the same holds on every tail*, which is
   the strengthening `ordtails.py` was written around today.
+
+**54 more abstracts name three directions where the entry names four.** `transfer45build.py`
+said every three consecutive entries *"taken along a row, a column or a diagonal"*; 54 of the
+60 papers carrying that sentence have entries that also constrain the **antidiagonal**. The
+parse knows the directions — it has them in a list — so the sentence now says *"along any of
+the directions the entry names"* rather than naming three of four. Same class as the 39 below,
+found the same way, and the bodies are right in both.
 
 **39 abstracts state a condition the entry does not.** Found by reading A256768 (rank 4222).
 Its abstract says every 3 X 3 window *"has constrained SUMS along its rows, its columns and
