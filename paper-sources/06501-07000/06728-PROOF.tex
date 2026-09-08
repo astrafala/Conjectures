@@ -12,118 +12,142 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A237891, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A298765, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{2 September 2026}
+\date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A237891 counts arrays over $\{0,\dots,3\}$ subject to a condition on the order
-statistics of every $2\times2$ subblock, and carries an empirical recurrence of order
-$19$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical.
-The condition is local to two consecutive rows, so the count is a walk count on $S=44$
-states and is $C$-finite; whether the conjectured recurrence annihilates it is then settled by
-a finite exact computation, with the Cayley--Hamilton theorem bounding the work.
+OEIS A298765 counts $3$-column arrays over $\{0,\dots,1\}$ in which every entry has,
+among the eight king-move neighbours, a number $equal to$ itself lying in $\{1,2,3,5,8\}$, and it carries an empirical
+recurrence of order $19$ contributed by R.~H.~Hardin. It is true. The neighbourhood
+reaches one row up and one row down, so the condition on a row involves three consecutive
+rows and a window of two rows is a sufficient state; the array is then a walk in a digraph
+on $S=64$ vertices. Unlike a plain walk count the boundary rows matter here --- the first
+row has nothing above it and the last nothing below --- so the count is
+$\mathbf{s}^{\!\top}P^{\,n-2}\mathbf{e}$ for genuine start and end vectors rather than
+all-ones. The conjectured recurrence is then annihilated exactly, in integer arithmetic.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 62G30.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B50, 15B36.\normalsize
 
-\section{The conjecture}
+\section{The sequence and the conjecture}
 
-OEIS A237891 is ``Number of (n+1)X(1+1) 0..3 arrays with the maximum minus the upper median of every 2X2 subblock equal.''. It has offset $1$ and begins
+OEIS A298765 is ``Number of nX3 0..1 arrays with every element equal to 1, 2, 3, 5 or 8 king-move adjacent elements, with upper left element zero.''. It has offset
+$1$ and begins
 \[
-256, 1848, 13600, 103536, 789664, 6082368, 46779520, 361265248,\ \dots
+1, 18, 57, 222, 808, 3124, 11807, 44846,\ \dots
 \]
-The entry states, as a conjecture contributed by its author and never marked settled:
-\begin{quote}
-Empirical: a(n) = 16*a(n-1) -1056*a(n-3) +3004*a(n-4) +23416*a(n-5) -88096*a(n-6) -240560*a(n-7) +1022032*a(n-8) +1305632*a(n-9) -5841664*a(n-10) -4008768*a(n-11) +17716928*a(n-12) +6995840*a(n-13) -28273408*a(n-14) -6652672*a(n-15) +21161472*a(n-16) +3426816*a(n-17) -4948992*a(n-18) -1188864*a(n-19)
+The entry carries the following comment:
+\begin{quote}\small
+Empirical: a(n) = 5*a(n-1) -4*a(n-2) -a(n-3) -3*a(n-4) -12*a(n-5) +33*a(n-6) -17*a(n-7) +3*a(n-8) -81*a(n-9) -4*a(n-10) +86*a(n-11) +127*a(n-12) +13*a(n-13) -95*a(n-14) -56*a(n-15) +8*a(n-16) +8*a(n-17) -16*a(n-18) -8*a(n-19) for n>20
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 10:32:42, revision 7) this is still
-recorded as empirical, and nothing on the entry records it as proved.
+As of the ``Last modified'' line on the live entry (Jan 26 2018 08:27:12, revision
+4) the statement is still recorded as empirical, and nothing on the entry
+records it as settled either way.
 
-\section{What is being counted}
+Written out, the claim is
+\begin{equation}\label{eq:conj}
+a(n)\;=\;5\,a(n-1) - 4\,a(n-2) - a(n-3) - 3\,a(n-4) - 12\,a(n-5) + 33\,a(n-6) - 17\,a(n-7) + 3\,a(n-8) - 81\,a(n-9) - 4\,a(n-10) + 86\,a(n-11) + 127\,a(n-12) + 13\,a(n-13) - 95\,a(n-14) - 56\,a(n-15) + 8\,a(n-16) + 8\,a(n-17) - 16\,a(n-18) - 8\,a(n-19)
+\end{equation}
+for all $n>20$.
 
-Sort the four entries of a $2\times2$ subblock as $a\le b\le c\le d$: they
-are its minimum, lower median, upper median and maximum. The entry fixes the signed sum
-\[
-\sigma\;=\;-c+d,
-\]
-and asks that $\sigma$ take the SAME value on every $2\times2$ subblock of an
-$(n+1)\times2$ array over $\{0,\dots,3\}$.
+\section{The array as a walk, with boundary}
 
-The common value is not named, so the count splits by it. For a fixed $v$ let $a_v(n)$ count
-the arrays all of whose subblocks give $\sigma=v$. An array determines its common value, so
-the sets belonging to different $v$ are disjoint and $a(n)=\sum_v a_v(n)$, a finite sum.
+For a cell of the array let its \emph{score} be the number of the eight king-move neighbours that lie inside
+the array and carry a value $equal to$ the cell's own. The entry's condition is that every cell
+has score in $\{1,2,3,5,8\}$. The entry also fixes the top-left entry to be $0$; that is a condition on the first row alone, so it restricts the start vector and nothing else.
 
+A cell's neighbourhood reaches at most one row up and one row down, so the scores of the
+cells of a row $s$ are determined by $s$ together with the row above and the row below.
+Take as state an ordered pair $(r,s)$ of rows, so $S=64$, and set
+\begin{itemize}
+\item $\mathbf{s}(r,s)=1$ when every cell of $r$ has score in $\{1,2,3,5,8\}$ \emph{with no row
+above $r$} and $r_1=0$, and $0$ otherwise;
+\item an edge $(r,s)\to(s,t)$ when every cell of $s$ has score in $\{1,2,3,5,8\}$ computed from
+$r$, $s$ and $t$;
+\item $\mathbf{e}(r,s)=1$ when every cell of $s$ has score in $\{1,2,3,5,8\}$ \emph{with no row
+below $s$}, and $0$ otherwise.
+\end{itemize}
+Let $P$ be the adjacency matrix of that edge relation.
 
-\section{The count is a walk count}
-
-For a fixed $v$ the condition involves two consecutive rows and nothing
-else: rows $r$ and $s$ may follow one another exactly when $\sigma$ equals $v$ on each of the
-$1$ subblocks they form. So a row is a state, an $(n+1)$-row array is a walk of $n$
-steps, and with $M$ the adjacency matrix on the disjoint union over $v$,
-\[
-a(n)\;=\;\iota^{\!\top}M^{\,n}\tau,\qquad\iota=\tau=(1,\dots,1)^{\!\top} .
-\]
-Rows carrying no edge at all are dropped: such a row can only be the whole of a one-row
-array, which is not among the objects counted. There are $S=44$ states left.
-The alignment of the walk index with the entry's own $n$ was checked against its published
-terms rather than assumed. In particular $a$ is $C$-finite.
-
-\section{The proof}
-
-\begin{lemma}\label{lem:crit}
-Let $q(t)=t^{19}-\sum_i c_it^{19-i}$ be the characteristic polynomial of the
-conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
-$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
-holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
-and it is enough to examine $j<S$.
+\begin{lemma}\label{lem:walk}
+$a(n)=\mathbf{s}^{\!\top}P^{\,n-2}\mathbf{e}$ for every $n\ge2$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+19}-\sum_ic_iM^{j+19-i}$. For the bound, $M^{S}$
-is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
-$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
-polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly.
+An array with $n$ rows is a sequence $r^{(1)},\dots,r^{(n)}$ of rows, and it is counted
+exactly when every one of its $n$ rows has all scores in $\{1,2,3,5,8\}$. Read the sequence as the
+walk $\bigl(r^{(1)},r^{(2)}\bigr)\to\bigl(r^{(2)},r^{(3)}\bigr)\to\cdots\to
+\bigl(r^{(n-1)},r^{(n)}\bigr)$, of length $n-2$. The condition on the first row is
+checked by $\mathbf{s}$ at the initial state, because a first row has no row above it; the
+condition on row $i$ for $2\le i\le n-1$ is checked by the edge entering
+$\bigl(r^{(i)},r^{(i+1)}\bigr)$, which sees exactly $r^{(i-1)}$, $r^{(i)}$ and
+$r^{(i+1)}$; and the condition on the last row is checked by $\mathbf{e}$ at the final
+state. Each row's condition is therefore tested once and with the correct neighbours, and
+summing over all walks gives $\mathbf{s}^{\!\top}P^{\,n-2}\mathbf{e}$.
 \end{proof}
 
+\section{The criterion}
+
+Let $q(t)=t^{19}-\sum_i c_i t^{19-i}$ be the characteristic polynomial of
+\eqref{eq:conj} and $u_j=\mathbf{s}^{\!\top}P^{j}q(P)\mathbf{e}$.
+
+\begin{lemma}\label{lem:crit}
+$a(n)-\sum_i c_i a(n-i)=u_{\,n-2-19}$ whenever $n-19\ge2$. So \eqref{eq:conj}
+holds for every $n>t$ exactly when $u_j=0$ for all $j>t-2-19$. Moreover $(u_j)$
+satisfies the monic linear recurrence given by the characteristic polynomial of $P$, of
+degree $S$, so $S$ consecutive zeros force every later one and the last nonzero $u_j$ pins
+$t$ down exactly.
+\end{lemma}
+
+\begin{proof}
+Substituting Lemma~\ref{lem:walk} and factoring $P^{\,n-2-19}$ out of
+$P^{n-2}-\sum_i c_i P^{n-i-2}$ gives the identity, and letting the exponent run gives the
+equivalence. For the last part, Cayley--Hamilton gives $\chi(P)=0$ for the characteristic
+polynomial $\chi$, so $\chi$ applied to the shift annihilates $(u_j)$; $\chi$ is monic of
+degree $S$, which propagates $S$ consecutive zeros forward.
+\end{proof}
+
+\section{The computation}
+
 \begin{theorem}
-\[
-a(n)\;=\;16\,a(n-1) - 1056\,a(n-3) + 3004\,a(n-4) + 23416\,a(n-5) - 88096\,a(n-6) - 240560\,a(n-7) + 1022032\,a(n-8) + 1305632\,a(n-9) - 5841664\,a(n-10) - 4008768\,a(n-11) + 17716928\,a(n-12) + 6995840\,a(n-13) - 28273408\,a(n-14) - 6652672\,a(n-15) + 21161472\,a(n-16) + 3426816\,a(n-17) - 4948992\,a(n-18) - 1188864\,a(n-19)
-\]
-for every $n>19$.
+The recurrence \eqref{eq:conj} holds for every $n>20$. This is the statement of
+Section~1.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $19$ matrix--vector products in exact integer
-arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=19+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once.
+The vector $q(P)\mathbf{e}\in\mathbb{Z}^{S}$ was formed by $19$ matrix--vector
+products in exact integer arithmetic and the $u_j$ evaluated against $\mathbf{s}$ in turn.
+They vanish from the index corresponding to $n=20+1$ onwards, and the run was continued
+past $S$ consecutive zeros, which by Lemma~\ref{lem:crit} settles every larger index.
 \end{proof}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $18$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry: the digraph is built by reading the
-entry's English, and a misreading gives different counts.
+First, the digraph, the start vector and the end vector were built directly from the
+entry's stated condition, the one-row count computed separately, and the resulting values
+compared against the entry's DATA at every one of the $24$ published indices; they
+agree exactly. This is the check that ties the model to the sequence, and it is a sharp one:
+getting the boundary rows wrong, or treating them as interior rows, changes the early terms
+immediately.
 
-Second, the conjectured recurrence was evaluated directly on those published terms, with no
-matrices involved, and holds wherever the proved range and the data overlap.
+Second, the recurrence \eqref{eq:conj} was evaluated on those published terms in exact
+integer arithmetic, with no matrices involved, and vanishes at every index the entry claims.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
-arithmetic on the whole vector rather than on a sampled prefix.
+Third, the vanishing test of Lemma~\ref{lem:crit} was carried past $S=64$ consecutive
+zeros rather than to a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A237891.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A298765.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{david} H.~A.~David and H.~N.~Nagaraja, \emph{Order Statistics}, 3rd ed., Wiley,
-2003.
+\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+University Press, 2009.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

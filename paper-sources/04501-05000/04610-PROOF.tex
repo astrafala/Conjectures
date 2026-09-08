@@ -12,14 +12,14 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A297604, proved by a two-line transfer matrix}
+\title{The empirical recurrence for OEIS A296036, proved by a two-line transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A297604 counts arrays over $\{0,\dots,1\}$ in which every cell is constrained by the
+OEIS A296036 counts arrays over $\{0,\dots,1\}$ in which every cell is constrained by the
 values of its neighbours, and carries an empirical recurrence of order $55$ contributed
 by R.~H.~Hardin. It is true, and it is not an empirical matter. The neighbourhood reaches one
 row up and one row down, so a single row is not enough state and a plain walk count
@@ -34,20 +34,20 @@ computation.
 
 \section{The sequence and the conjecture}
 
-OEIS A297604 is ``Number of nX5 0..1 arrays with every 1 horizontally, diagonally or antidiagonally adjacent to 0, 1 or 3 neighboring 1s.''. It has offset $1$ and begins
+OEIS A296036 is ``Number of nX5 0..1 arrays with each 1 adjacent to 2 or 4 king-move neighboring 1s.''. It has offset $1$ and begins
 \[
-24, 281, 3691, 49198, 654033, 8689859, 115571432, 1536728161,\ \dots
+1, 55, 251, 997, 8472, 51941, 285366, 1853852,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 19*a(n-1) -86*a(n-2) +277*a(n-3) -2444*a(n-4) +7889*a(n-5) -10501*a(n-6) +67825*a(n-7) -118096*a(n-8) -191619*a(n-9) +454875*a(n-10) -2424164*a(n-11) +8506002*a(n-12) -10748538*a(n-13) +30094691*a(n-14) -71813745*a(n-15) +53430042*a(n-16) -162252114*a(n-17) +309388356*a(n-18) +144422066*a(n-19) -120191438*a(n-20) -317678328*a(n-21) -1099840767*a(n-22) +1378474487*a(n-23) +296117076*a(n-24) +549925862*a(n-25) -495674752*a(n-26) -1761519287*a(n-27) +1044252887*a(n-28) +74805115*a(n-29) +132193274*a(n-30) +789388255*a(n-31) -428012851*a(n-32) -573548670*a(n-33) +103649961*a(n-34) -148928369*a(n-35) +76402109*a(n-36) +557112218*a(n-37) -349839460*a(n-38) -144598033*a(n-39) +223736643*a(n-40) -49999429*a(n-41) -78422685*a(n-42) +69052084*a(n-43) -25599017*a(n-44) +27084687*a(n-45) -6645610*a(n-46) -13408248*a(n-47) +7762192*a(n-48) -3582796*a(n-49) +1418468*a(n-50) -231520*a(n-51) +54160*a(n-52) -13576*a(n-53) +2404*a(n-54) +256*a(n-55)
+Empirical: a(n) = 6*a(n-1) +3*a(n-2) +128*a(n-3) -746*a(n-4) -909*a(n-5) -6293*a(n-6) +35992*a(n-7) +63809*a(n-8) +166157*a(n-9) -891020*a(n-10) -1956676*a(n-11) -2686453*a(n-12) +12746724*a(n-13) +31345389*a(n-14) +26894726*a(n-15) -113974303*a(n-16) -281739414*a(n-17) -159264823*a(n-18) +678651173*a(n-19) +1471594058*a(n-20) +509265958*a(n-21) -2717695409*a(n-22) -4589755680*a(n-23) -595020447*a(n-24) +7006602342*a(n-25) +8634960336*a(n-26) -808150288*a(n-27) -11482781948*a(n-28) -10635854486*a(n-29) +2283999533*a(n-30) +11527331115*a(n-31) +8928622654*a(n-32) -1005541095*a(n-33) -7339656323*a(n-34) -6846449601*a(n-35) -2726209070*a(n-36) +1733362716*a(n-37) +4812513079*a(n-38) +4571448221*a(n-39) +899172633*a(n-40) -2356681935*a(n-41) -2570302359*a(n-42) -563881339*a(n-43) +839247925*a(n-44) +582273648*a(n-45) +58080097*a(n-46) -147874991*a(n-47) +43560783*a(n-48) +44608156*a(n-49) -46862788*a(n-50) +5026592*a(n-51) +3110928*a(n-52) -4741248*a(n-53) +431936*a(n-54) -15360*a(n-55)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jan 01 2018 14:51:20, revision 4) the statement is
+As of the ``Last modified'' line on the live entry (Dec 03 2017 07:11:16, revision 4) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;19\,a(n-1) - 86\,a(n-2) + 277\,a(n-3) - 2444\,a(n-4) + 7889\,a(n-5) - 10501\,a(n-6) + 67825\,a(n-7) - 118096\,a(n-8) - 191619\,a(n-9) + 454875\,a(n-10) - 2424164\,a(n-11) + 8506002\,a(n-12) - 10748538\,a(n-13) + 30094691\,a(n-14) - 71813745\,a(n-15) + 53430042\,a(n-16) - 162252114\,a(n-17) + 309388356\,a(n-18) + 144422066\,a(n-19) - 120191438\,a(n-20) - 317678328\,a(n-21) - 1099840767\,a(n-22) + 1378474487\,a(n-23) + 296117076\,a(n-24) + 549925862\,a(n-25) - 495674752\,a(n-26) - 1761519287\,a(n-27) + 1044252887\,a(n-28) + 74805115\,a(n-29) + 132193274\,a(n-30) + 789388255\,a(n-31) - 428012851\,a(n-32) - 573548670\,a(n-33) + 103649961\,a(n-34) - 148928369\,a(n-35) + 76402109\,a(n-36) + 557112218\,a(n-37) - 349839460\,a(n-38) - 144598033\,a(n-39) + 223736643\,a(n-40) - 49999429\,a(n-41) - 78422685\,a(n-42) + 69052084\,a(n-43) - 25599017\,a(n-44) + 27084687\,a(n-45) - 6645610\,a(n-46) - 13408248\,a(n-47) + 7762192\,a(n-48) - 3582796\,a(n-49) + 1418468\,a(n-50) - 231520\,a(n-51) + 54160\,a(n-52) - 13576\,a(n-53) + 2404\,a(n-54) + 256\,a(n-55)
+a(n)\;=\;6\,a(n-1) + 3\,a(n-2) + 128\,a(n-3) - 746\,a(n-4) - 909\,a(n-5) - 6293\,a(n-6) + 35992\,a(n-7) + 63809\,a(n-8) + 166157\,a(n-9) - 891020\,a(n-10) - 1956676\,a(n-11) - 2686453\,a(n-12) + 12746724\,a(n-13) + 31345389\,a(n-14) + 26894726\,a(n-15) - 113974303\,a(n-16) - 281739414\,a(n-17) - 159264823\,a(n-18) + 678651173\,a(n-19) + 1471594058\,a(n-20) + 509265958\,a(n-21) - 2717695409\,a(n-22) - 4589755680\,a(n-23) - 595020447\,a(n-24) + 7006602342\,a(n-25) + 8634960336\,a(n-26) - 808150288\,a(n-27) - 11482781948\,a(n-28) - 10635854486\,a(n-29) + 2283999533\,a(n-30) + 11527331115\,a(n-31) + 8928622654\,a(n-32) - 1005541095\,a(n-33) - 7339656323\,a(n-34) - 6846449601\,a(n-35) - 2726209070\,a(n-36) + 1733362716\,a(n-37) + 4812513079\,a(n-38) + 4571448221\,a(n-39) + 899172633\,a(n-40) - 2356681935\,a(n-41) - 2570302359\,a(n-42) - 563881339\,a(n-43) + 839247925\,a(n-44) + 582273648\,a(n-45) + 58080097\,a(n-46) - 147874991\,a(n-47) + 43560783\,a(n-48) + 44608156\,a(n-49) - 46862788\,a(n-50) + 5026592\,a(n-51) + 3110928\,a(n-52) - 4741248\,a(n-53) + 431936\,a(n-54) - 15360\,a(n-55)
 \end{equation}
 for all $n>56$.
 
@@ -56,12 +56,12 @@ for all $n>56$.
 The arrays have $5$ columns and $L=n$ rows; write $x_{t,u}$ for the entry in
 row $t$ and column $u$, each in $\{0,\dots,1\}$. With the neighbour offsets
 \[
-\mathcal N=\{(0,-1),\ (0,1),\ (-1,-1),\ (1,1),\ (-1,1),\ (1,-1)\},
+\mathcal N=\{(0,-1),\ (0,1),\ (-1,0),\ (1,0),\ (-1,-1),\ (1,1),\ (-1,1),\ (1,-1)\},
 \]
 written as (row shift, column shift) and counting only positions inside the array, the
 entry's requirement is
 \begin{equation}\label{eq:loc}
-x_{t,u}=1\ \Rightarrow\ \#\{\text{neighbours equal to }1\}\in\{0,1,3\}
+x_{t,u}=1\ \Rightarrow\ \#\{\text{neighbours equal to }1\}\in\{2,4\}
 \end{equation}
 for every cell $(t,u)$.
 
@@ -112,8 +112,8 @@ $V\times V$, of size $32^2=1024$. That is the whole of the state: two consecutiv
 rows and nothing else about the array's history.
 
 It is worth saying why this is not done by enumeration. At the largest index the entry
-publishes, $n=16$, the arrays have $5\cdot16$ cells over
-$2$ values, so there are about $10^{24}$ of them to sift. The
+publishes, $n=20$, the arrays have $5\cdot20$ cells over
+$2$ values, so there are about $10^{30}$ of them to sift. The
 walk count replaces that by $1024$ states and one matrix--vector product per row.
 \section{The criterion}
 
@@ -168,7 +168,7 @@ divisor of $q$.
 Three checks, each independent of the algebra above.
 
 First, the walk counts of Lemma~\ref{lem:walk} were compared against the entry's DATA at
-every one of the $16$ published indices, with no shift fitted: the number of rows is
+every one of the $20$ published indices, with no shift fitted: the number of rows is
 read off the entry's own name as $L=n$ and the entry's offset says which index the first
 published term carries. The values agree exactly. A misreading of \eqref{eq:loc}, of the
 neighbour set, or of the boundary treatment would give a different digraph and different
@@ -183,7 +183,7 @@ returned zero throughout.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A297604.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A296036.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

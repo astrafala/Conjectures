@@ -12,14 +12,14 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A301844, proved by a two-line transfer matrix}
+\title{The empirical recurrence for OEIS A188853, proved by a two-line transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A301844 counts arrays over $\{0,\dots,1\}$ in which every cell is constrained by the
+OEIS A188853 counts arrays over $\{0,\dots,1\}$ in which every cell is constrained by the
 values of its neighbours, and carries an empirical recurrence of order $35$ contributed
 by R.~H.~Hardin. It is true, and it is not an empirical matter. The neighbourhood reaches one
 column up and one column down, so a single column is not enough state and a plain walk count
@@ -34,20 +34,20 @@ computation.
 
 \section{The sequence and the conjecture}
 
-OEIS A301844 is ``Number of 4Xn 0..1 arrays with every element equal to 0, 1 or 2 horizontally or antidiagonally adjacent elements, with upper left element zero.''. It has offset $1$ and begins
+OEIS A188853 is ``Number of 4Xn binary arrays without the pattern 0 0 1 vertically, antidiagonally or horizontally.''. It has offset $1$ and begins
 \[
-8, 128, 773, 5748, 39703, 281758, 1986213, 14047365,\ \dots
+12, 144, 958, 5711, 33037, 185351, 1020454, 5541360,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 9*a(n-1) -11*a(n-2) -20*a(n-3) +4*a(n-4) +32*a(n-5) +164*a(n-6) -188*a(n-7) -490*a(n-8) +464*a(n-9) +542*a(n-10) -986*a(n-11) +3968*a(n-12) -8*a(n-13) -16968*a(n-14) +4086*a(n-15) +30368*a(n-16) -12378*a(n-17) -23854*a(n-18) +14224*a(n-19) +14464*a(n-20) -9340*a(n-21) -18074*a(n-22) +8682*a(n-23) +3861*a(n-24) +4655*a(n-25) -3137*a(n-26) +194*a(n-27) -1156*a(n-28) +662*a(n-29) -174*a(n-30) +60*a(n-31) -70*a(n-32) +8*a(n-33) +4*a(n-34) +4*a(n-35) for n>38
+Empirical: a(n) = 8*a(n-1) +15*a(n-2) -217*a(n-3) -65*a(n-4) +2637*a(n-5) +75*a(n-6) -18789*a(n-7) -1526*a(n-8) +86316*a(n-9) +19704*a(n-10) -266659*a(n-11) -102052*a(n-12) +565680*a(n-13) +288503*a(n-14) -834249*a(n-15) -499808*a(n-16) +863607*a(n-17) +561084*a(n-18) -631388*a(n-19) -421898*a(n-20) +323752*a(n-21) +217120*a(n-22) -111753*a(n-23) -77769*a(n-24) +22421*a(n-25) +19774*a(n-26) -747*a(n-27) -3667*a(n-28) -883*a(n-29) +501*a(n-30) +234*a(n-31) -46*a(n-32) -25*a(n-33) +2*a(n-34) +a(n-35) for n>38
 \end{quote}
-As of the ``Last modified'' line on the live entry (Mar 27 2018 14:33:35, revision 4) the statement is
+As of the ``Last modified'' line on the live entry (Oct 03 2025 04:53:40, revision 9) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;9\,a(n-1) - 11\,a(n-2) - 20\,a(n-3) + 4\,a(n-4) + 32\,a(n-5) + 164\,a(n-6) - 188\,a(n-7) - 490\,a(n-8) + 464\,a(n-9) + 542\,a(n-10) - 986\,a(n-11) + 3968\,a(n-12) - 8\,a(n-13) - 16968\,a(n-14) + 4086\,a(n-15) + 30368\,a(n-16) - 12378\,a(n-17) - 23854\,a(n-18) + 14224\,a(n-19) + 14464\,a(n-20) - 9340\,a(n-21) - 18074\,a(n-22) + 8682\,a(n-23) + 3861\,a(n-24) + 4655\,a(n-25) - 3137\,a(n-26) + 194\,a(n-27) - 1156\,a(n-28) + 662\,a(n-29) - 174\,a(n-30) + 60\,a(n-31) - 70\,a(n-32) + 8\,a(n-33) + 4\,a(n-34) + 4\,a(n-35)
+a(n)\;=\;8\,a(n-1) + 15\,a(n-2) - 217\,a(n-3) - 65\,a(n-4) + 2637\,a(n-5) + 75\,a(n-6) - 18789\,a(n-7) - 1526\,a(n-8) + 86316\,a(n-9) + 19704\,a(n-10) - 266659\,a(n-11) - 102052\,a(n-12) + 565680\,a(n-13) + 288503\,a(n-14) - 834249\,a(n-15) - 499808\,a(n-16) + 863607\,a(n-17) + 561084\,a(n-18) - 631388\,a(n-19) - 421898\,a(n-20) + 323752\,a(n-21) + 217120\,a(n-22) - 111753\,a(n-23) - 77769\,a(n-24) + 22421\,a(n-25) + 19774\,a(n-26) - 747\,a(n-27) - 3667\,a(n-28) - 883\,a(n-29) + 501\,a(n-30) + 234\,a(n-31) - 46\,a(n-32) - 25\,a(n-33) + 2\,a(n-34) + a(n-35)
 \end{equation}
 for all $n>38$.
 
@@ -56,14 +56,14 @@ for all $n>38$.
 The arrays have $4$ rows and $L=n$ columns; write $x_{t,u}$ for the entry in
 column $t$ and row $u$, each in $\{0,\dots,1\}$. With the neighbour offsets
 \[
-\mathcal N=\{(-1,0),\ (1,0),\ (1,-1),\ (-1,1)\},
+\mathcal N=\{(0,1),\ (-1,1),\ (1,0)\},
 \]
 written as (column shift, row shift) and counting only positions inside the array, the
 entry's requirement is
 \begin{equation}\label{eq:loc}
-\#\{\text{neighbours with a value }equal to\ x_{t,u}\}\in\{0,1,2\}
+\text{no }0,0,1\text{ occurs consecutively along any direction in }\mathcal N
 \end{equation}
-for every cell $(t,u)$. A further clause fixes the upper-left entry of the array to be $0$; it removes nothing but a relabelling, and enters the construction as a restriction on which columns may begin a walk.
+for every cell $(t,u)$.
 
 Some offsets in $\mathcal N$ have a positive column shift and some a negative one, so the
 condition at a cell of column $t$ involves columns $t-1$, $t$ and $t+1$ together. A transfer
@@ -78,7 +78,7 @@ $\mathcal V=V\times V$, of size $S=256$, as the vertex set. Declare $(p,c)\to(c,
 when every cell of the middle column $c$ satisfies \eqref{eq:loc} with $p$ above it and $x$
 below it; there is no edge between pairs that do not overlap in this way. Let $N$ be the
 adjacency matrix, $\mathbf{v}$ the indicator of the pairs $(p,c)$ whose first column $p$
-satisfies \eqref{eq:loc} with no column above and, where the entry demands it, whose first entry is $0$, and $\mathbf{u}$ the indicator of
+satisfies \eqref{eq:loc} with no column above, and $\mathbf{u}$ the indicator of
 the pairs $(p,c)$ whose second column $c$ satisfies it with no column below.
 
 \begin{lemma}\label{lem:walk}
@@ -178,7 +178,7 @@ returned zero throughout.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A301844.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A188853.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

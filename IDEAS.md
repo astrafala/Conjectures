@@ -42,6 +42,9 @@ counted twice.
 | B8 | two-dimensional CA active-cell counts | 168 | **untried** |
 | B9 | CA x-axis and diagonal representations | 294 | **untried**; same shape-certificate idea as B5 |
 | B10 | permutations with bounded displacement | 35 | **untried**; a transfer matrix on window states |
+| B11 | arrays constrained through their REPEATED VALUES (`repval`) | 156 | **92 of the 96 length-varying ones proved.** The other 60 fix the length and vary the alphabet: a different argument, untried |
+| B12 | length FIXED, alphabet varying -- `Number of length-5 0..n arrays with ...` | 187 | **untried.** For conditions using only =, < and >, the count is exactly a sum over ordered set partitions of C(n+1, m) and is a polynomial in n, proved rather than fitted. Conditions naming an actual difference or a modulus are not reachable that way |
+| B13 | coordination sequences Gal.u.t.v | 379 | **untried**, and the largest single unreadable family. The name alone does not give the tiling; the Galebach data would have to be read |
 
 ## C. Claim types, not name shapes
 

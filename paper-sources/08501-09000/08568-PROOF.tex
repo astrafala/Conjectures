@@ -12,75 +12,94 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A253757, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A253361, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{2 September 2026}
+\date{5 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A253757 counts the arrays over $\{0,\dots,1\}$ whose $3\times3$ subblocks carry a
-statistic that is monotone along named directions of the subblock grid, and carries an
+OEIS A253361 counts arrays of width $4$ over $\{0,1\}$ in which the largest entry on the main diagonal minus the smallest on the antidiagonal of every $2\times2$ and $3\times3$ subblock differs from the same number at the neighbouring subblock. The entry carries an
 empirical recurrence of order $8$ contributed by R.~H.~Hardin. It is true, and it is
-decidable rather than empirical. Every direction named moves the subblock row by at most one,
-so the count is a walk count on $S=128$ states --- the last two array rows together with the
-subblock row just completed --- and the conjectured recurrence is then settled by a finite
-exact computation.
+decidable rather than empirical: a block of $k$ rows and the block one row lower together
+occupy $k+1$ consecutive rows, so every comparison the condition makes is settled inside
+$4$ consecutive rows and the count is a walk count on $S=386$ states.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 06A07.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B20, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A253757 is ``Number of (n+2)X(1+2) 0..1 arrays with every 3X3 subblock diagonal median minus antidiagonal median nondecreasing horizontally and vertically.''. It has offset $1$ and begins
+OEIS A253361 is ``Number of (n+2) X (2+2) 0..1 arrays with every 2 X 2 and 3 X 3 subblock diagonal maximum minus antidiagonal minimum unequal to its neighbors horizontally and vertically.''. It has offset $1$ and begins
 \[
-512, 2992, 16544, 82064, 423232, 2154496, 11244672, 58351744,\ \dots
+272, 424, 960, 1536, 3136, 5664, 10496, 20000,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 6*a(n-1) +12*a(n-2) -96*a(n-3) +384*a(n-5) -192*a(n-6) -384*a(n-7) +256*a(n-8) for n>15
+Empirical: a(n) = 5*a(n-2) - 8*a(n-4) + 8*a(n-6) + 4*a(n-8).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 14:13:35, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Dec 11 2018 09:00:12, revision 8) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-A $3\times3$ subblock has four distinguished lines of three cells: its diagonal, its
-antidiagonal, its central row and its central column. The entry's statistic is a signed sum of
-aggregates --- sums, maxima, minima, medians --- taken over those lines, and $\sigma(i,j)$
-denotes its value on the subblock in position $(i,j)$ of the subblock grid, which has $n$ rows
-and $1$ column for an $(n+2)\times3$ array over $\{0,\dots,1\}$. The condition is
+The arrays have $4$ columns and a growing number of rows, with entries in $\{0,1\}$.
+
+For a $k\times k$ block $B$ of cells of the array, let
 \[
-\sigma(i,j)\le\sigma(i,j+1),\qquad \sigma(i,j)\le\sigma(i+1,j)
+f(B)=\max_{1\le t\le k}B_{t,t}\;-\;\min_{1\le t\le k}B_{t,k+1-t} ,
 \]
-whenever both positions exist.
-
-``ne-to-sw antidiagonally'' is the offset $(+1,-1)$ on the subblock grid; that reading, and
-the reading of every statistic name here, was checked by counting the small arrays directly
-against what the entries publish.
-
-\section{The count is a walk count}
-
-A subblock spans three array rows and the vertical comparison spans four, so the obvious state
-is three consecutive rows. It is larger than it needs to be. What a step actually consults is
-the last TWO array rows --- enough to build the next subblock row once one more row arrives ---
-and the PREVIOUS SUBBLOCK ROW, to compare against. So take as state the triple
+which in words is the largest entry on the main diagonal minus the smallest on the antidiagonal. The condition is that $f$ takes different values on any two blocks that
+are neighbours in one of the directions the entry names: writing $B(i,j)$ for the block whose
+top-left cell is $(i,j)$,
 \[
-\bigl(r_{i+1},\ r_{i+2},\ \sigma\text{-row }i\bigr),
+f\bigl(B(i,j)\bigr)\;\neq\;f\bigl(B(i+\delta_1,\,j+\delta_2)\bigr)
+\qquad\text{for }(\delta_1,\delta_2)\in\Delta,
 \]
-and let a step append an array row $r_{i+3}$: that fixes $\sigma$-row $i+1$ from
-$r_{i+1},r_{i+2},r_{i+3}$, and every comparison between the two $\sigma$-rows is settled
-there. All the third rows that produce the same $\sigma$-row collapse into one state, which is
-what makes the wider arrays reachable.
-
-The starting vector is therefore weighted rather than all-ones: a state is entered by as many
-first rows as produce it, and $\iota$ records that count. With $\tau$ all-ones, an
-$(n+2)$-row array is a walk of $n-1$ steps and
+whenever both blocks lie wholly inside the array, where
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau
+\Delta=\{\,(0,1),\ (1,0)\,\}
 \]
-on the $S=128$ reachable states. In particular $a$ is $C$-finite. The alignment of the walk
-index with the entry's own $n$ was checked against its published terms rather than assumed.
+collects the steps for the directions the entry names, namely horizontal and vertical. The
+requirement is imposed for each of the two sizes of block, $2\times2$ and $3\times3$.
+
+Two remarks fix the reading. A neighbouring block is the block one step over, overlapping the
+first, not the next disjoint block: the entry says ``its neighbors'', and the counts below
+confirm it. And a comparison is imposed only when both blocks lie wholly inside the array, so a
+block near an edge is compared in fewer directions and a block whose named neighbour falls off
+the array is under no condition in that direction.
+
+\section{A window of 4 rows}
+
+A $k\times k$ block occupies $k$ consecutive rows, and each of its neighbours occupies either
+the same $k$ rows or the $k$ rows one lower. So both blocks of any comparison lie inside $k+1$
+consecutive rows, hence inside $4$ consecutive rows for every size the entry names. No
+comparison reaches further than that, in either direction.
+
+Take the array one row at a time and let the state be the last 3 rows written so far, with a
+distinguished start standing for the array before its first row, so that a walk of $n$ steps is
+an array of $n$ rows. Appending a row produces a window of $4$ rows, and the step is
+allowed exactly when every comparison whose two blocks both lie inside that window holds.
+
+Every comparison of the finished array is tested this way. Each one lies inside $4$
+consecutive rows, and every $4$ consecutive rows of the array form the window of some
+step. A comparison lying inside more than one window is tested more than once, which costs
+nothing. Conversely no step imposes anything not asked by the definition, since a step tests
+only comparisons whose two blocks lie inside the array.
+
+Every state may end an array, so $\tau=\mathbf{1}$. A block sitting in the final rows whose
+neighbour would lie below the last row is not compared in that direction at all --- the
+neighbour is not part of the array --- so stopping never leaves a condition unchecked. For the
+same reason the array of exactly $3$ rows is handled by the walks of length $3$ with no
+further test: all of its comparisons already lie inside the windows of those steps.
+
+Thus
+\[
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=386,
+\]
+for the transfer matrix $M$ on those $S$ states. The walk index $j$ and the entry's own $n$
+differ by a constant, read off by matching the published terms rather than assumed. In
+particular $a$ is $C$-finite.
 
 \section{The proof}
 
@@ -102,39 +121,42 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;6\,a(n-1) + 12\,a(n-2) - 96\,a(n-3) + 384\,a(n-5) - 192\,a(n-6) - 384\,a(n-7) + 256\,a(n-8)
+a(n)\;=\;5\,a(n-2) - 8\,a(n-4) + 8\,a(n-6) + 4\,a(n-8)
 \]
-for every $n>15$.
+for every $n>8$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $8$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=15+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once. The bound is exact: at $n=15$ the recurrence fails on the entry's own published terms, so no larger range holds.
+integers vanish from the index corresponding to $n=8+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
-Three checks, each independent of the algebra above.
+Four checks, each independent of the algebra above.
 
-First, the model reproduces all $18$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry: the digraph is built by reading the
-entry's English, and a misreading gives different counts.
+First, the model reproduces all $27$ terms the entry publishes, exactly, in integer
+arithmetic.
 
-Second, the conjectured recurrence was evaluated directly on those published terms, with no
+Second, the count was recomputed for the smallest arrays straight from the definition: every
+array of width $4$ over $\{0,1\}$ with a few rows was written out cell by cell, every block of
+each of the two sizes was located, its number computed, and the comparison made with each neighbouring block
+that lies inside the array. No window, no state and no end vector are involved in that
+computation, and the published terms came back.
+
+Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
 arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A253757.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A253361.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{davey} B.~A.~Davey and H.~A.~Priestley, \emph{Introduction to Lattices and
-Order}, 2nd ed., Cambridge University Press, 2002.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

@@ -12,46 +12,46 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A251869, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A251814, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{3 September 2026}
+\date{6 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A251869 counts arrays of width $3$ over $\{0,1,2,3\}$ in which every $3\times3$ window has
+OEIS A251814 counts arrays of width $5$ over $\{0,1,2\}$ in which every $3\times3$ window has
 constrained SUMS along its rows, its columns and its two diagonals. The entry carries an
 empirical recurrence of order $18$ contributed by R.~H.~Hardin. It is true, and it is
 decidable rather than empirical: a $3\times3$ window lies in $3$ consecutive array rows,
-so the count is a walk count on $S=4161$ states.
+so the count is a walk count on $S=59293$ states.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 05B20, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A251869 is ``Number of (n+2)X(1+2) 0..3 arrays with every 3X3 subblock row and column sum not 2 4 5 or 7 and every diagonal and antidiagonal sum 2 4 5 or 7.''. It has offset $1$ and begins
+OEIS A251814 is ``Number of (n+2)X(3+2) 0..2 arrays with every row, column, diagonal or antidiagonal in each 3X3 subblock summing to a prime.''. It has offset $1$ and begins
 \[
-1038, 2146, 3092, 5756, 11008, 18400, 32372, 60292,\ \dots
+738, 771, 1754, 5401, 18227, 62457, 213857, 735191,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 11*a(n-3) +6*a(n-5) -38*a(n-6) -58*a(n-8) +18*a(n-9) +208*a(n-11) +160*a(n-12) -328*a(n-14) -328*a(n-15) +192*a(n-17) +192*a(n-18) for n>23
+Empirical: a(n) = a(n-1) +a(n-2) +13*a(n-3) +31*a(n-4) +43*a(n-5) +25*a(n-6) -64*a(n-7) -125*a(n-8) -49*a(n-9) +79*a(n-10) +119*a(n-11) +20*a(n-12) -53*a(n-13) -42*a(n-14) -12*a(n-15) +6*a(n-16) +4*a(n-17) +4*a(n-18) for n>21
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jun 02 2025 10:34:46, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 13:29:07, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The array has $3$ cells across, with entries in $\{0,1,2,3\}$. A WINDOW is a $3\times3$ block
+The array has $5$ cells across, with entries in $\{0,1,2\}$. A WINDOW is a $3\times3$ block
 of consecutive cells lying inside the array. Every window must satisfy
 \[
 \begin{array}{ll}
 \text{the sum along} & \text{} \\[2pt]
-\text{each row} & \text{must NOT be 2 or 4 or 5 or 7} \\
-\text{each column} & \text{must NOT be 2 or 4 or 5 or 7} \\
-\text{the main diagonal} & \text{must be 2 or 4 or 5 or 7} \\
-\text{the antidiagonal} & \text{must be 2 or 4 or 5 or 7} \\
+\text{each row} & \text{must be prime} \\
+\text{each column} & \text{must be prime} \\
+\text{the main diagonal} & \text{must be prime} \\
+\text{the antidiagonal} & \text{must be prime} \\
 \end{array}
 \]
 where the main diagonal of a window runs from its top left corner to its bottom right, and its
@@ -74,7 +74,7 @@ window needing a row that is $\bot$ does not exist, which is the boundary rule; 
 at the all-$\bot$ state, so a walk of $R$ steps is an array of $R$ rows. With $M$ the adjacency
 matrix and $\tau=\mathbf{1}$,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=4161.
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=59293.
 \]
 The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
 published terms rather than assumed. In particular $a$ is $C$-finite.
@@ -99,15 +99,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;11\,a(n-3) + 6\,a(n-5) - 38\,a(n-6) - 58\,a(n-8) + 18\,a(n-9) + 208\,a(n-11) + 160\,a(n-12) - 328\,a(n-14) - 328\,a(n-15) + 192\,a(n-17) + 192\,a(n-18)
+a(n)\;=\;a(n-1) + a(n-2) + 13\,a(n-3) + 31\,a(n-4) + 43\,a(n-5) + 25\,a(n-6) - 64\,a(n-7) - 125\,a(n-8) - 49\,a(n-9) + 79\,a(n-10) + 119\,a(n-11) + 20\,a(n-12) - 53\,a(n-13) - 42\,a(n-14) - 12\,a(n-15) + 6\,a(n-16) + 4\,a(n-17) + 4\,a(n-18)
 \]
-for every $n>23$.
+for every $n>21$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $18$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=23+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=21+1$ onwards and the run continued
 until the working vector was identically zero.
 \end{proof}
 
@@ -115,7 +115,7 @@ until the working vector was identically zero.
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $27$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $22$ terms the entry publishes, exactly, in integer
 arithmetic.
 
 Second, the count was recomputed for the smallest arrays straight from the definition: fill the
@@ -131,7 +131,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A251869.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A251814.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge

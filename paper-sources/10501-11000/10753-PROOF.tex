@@ -12,22 +12,22 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A263552: recovering a conjecture that is not written down}
+\title{The empirical recurrence for OEIS A297510: recovering a conjecture that is not written down}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A263552 records ``Empirical recurrence of order $47$'', with the recurrence itself in a
+OEIS A297510 records ``Empirical recurrence of order $59$'', with the recurrence itself in a
 linked file rather than in the entry. The conjecture can nevertheless be settled, and the
 recurrence recovered, without reading that file. The entry counts arrays under a condition
 local to a bounded window of lines, so the count is a walk count on a finite digraph and
 satisfies some monic recurrence of order at most the number of its states with distinct
-futures, here $S'=49$; Berlekamp--Massey applied to $2S'$ exact
-terms therefore returns the MINIMAL such recurrence. Its order is exactly $47$, the order
+futures, here $S'=121$; Berlekamp--Massey applied to $2S'$ exact
+terms therefore returns the MINIMAL such recurrence. Its order is exactly $59$, the order
 the entry states, and the same is true of every tail of the sequence. Any recurrence of order
-$47$ that the sequence satisfies from any point on must then have a characteristic
+$59$ that the sequence satisfies from any point on must then have a characteristic
 polynomial that is a multiple of the minimal one and of the same degree, hence equal to it. So
 the entry's recurrence is the one displayed here, whatever its file contains, and it is
 proved.
@@ -37,15 +37,15 @@ proved.
 
 \section{A conjecture one cannot read}
 
-OEIS A263552 is ``Number of (n+1)X(2+1) 0..4 arrays with each row and column divisible by 7, read as a base-5 number with top and left being the most significant digits.''. It has offset $1$ and begins
+OEIS A297510 is ``Number of 5Xn 0..1 arrays with every 1 horizontally, diagonally or antidiagonally adjacent to 1 or 2 neighboring 1s.''. It has offset $1$ and begins
 \[
-10, 123, 2210, 38765, 695964, 12496675, 224917356, 4048173635,\ \dots
+1, 280, 2534, 14201, 270845, 3624914, 35049871, 431068698,\ \dots
 \]
 The entry states:
 \begin{quote}
-Empirical recurrence of order 47 (see link above)
+Empirical recurrence of order 59 (see link above)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 21 2015 06:57:02, revision 4) this is still
+As of the ``Last modified'' line on the live entry (Dec 31 2017 07:34:54, revision 6) this is still
 recorded as empirical. The recurrence's coefficients are not in the entry text.
 
 \section{The count is a walk count}
@@ -53,14 +53,14 @@ recorded as empirical. The recurrence's coefficients are not in the entry text.
 The entry's condition is local: it constrains a bounded window of consecutive lines of the
 array and nothing further. The admissible configurations of one such window are the vertices
 of a finite digraph, an edge joining $u$ to $v$ when $v$ may follow $u$, and an admissible
-array is exactly a walk. Hence, with $M$ the adjacency matrix on $S=49$ vertices,
+array is exactly a walk. Hence, with $M$ the adjacency matrix on $S=121$ vertices,
 $a(n)=\iota^{\!\top}M^{\,j(n)}\tau$ for a linear reindexing $j$ fixed by the entry's shape
 and checked against its published terms. By the Cayley--Hamilton theorem $M^{S}$ is an
 integer combination of $I,M,\dots,M^{S-1}$, so:
 
 \begin{lemma}\label{lem:cf}
 $a$ satisfies a monic linear recurrence with integer coefficients of order at most
-$S'=49$.
+$S'=121$.
 \end{lemma}
 
 \section{Recovering the recurrence}
@@ -71,25 +71,28 @@ with its minimal recurrence, by its first $2S$ terms: Berlekamp--Massey applied 
 that minimal recurrence exactly.
 \end{lemma}
 
-Running it on $2S'=98$ exact terms of the model returns order $47$ --- the order the
+Running it on $2S'=242$ exact terms of the model returns order $59$ --- the order the
 entry states --- with the integer coefficients
 \[
-a(n)\;=\;\sum_{i=1}^{47}c_i\,a(n-i),
+a(n)\;=\;\sum_{i=1}^{59}c_i\,a(n-i),
 \]
 \begin{center}\small
 \begin{tabular}{cccccccc}
-$c_{1}$ & $17$ & $c_{13}$ & $984866253$ & $c_{25}$ & $252798281637363$ & $c_{37}$ & $1210656264402437167$ \\
-$c_{2}$ & $18$ & $c_{14}$ & $1042799562$ & $c_{26}$ & $267668768792502$ & $c_{38}$ & $1281871338779051118$ \\
-$c_{3}$ & $1$ & $c_{15}$ & $57933309$ & $c_{27}$ & $14870487155139$ & $c_{39}$ & $71215074376613951$ \\
-$c_{4}$ & $-17$ & $c_{16}$ & $-984866253$ & $c_{28}$ & $-252798281637363$ & $c_{40}$ & $-1210656264402437167$ \\
-$c_{5}$ & $-18$ & $c_{17}$ & $-1042799562$ & $c_{29}$ & $-267668768792502$ & $c_{41}$ & $-1281871338779051118$ \\
-$c_{6}$ & $15001$ & $c_{18}$ & $51600433269$ & $c_{30}$ & $1670604864126219$ & $c_{42}$ & $987618144413607911$ \\
-$c_{7}$ & $-255017$ & $c_{19}$ & $-877207365573$ & $c_{31}$ & $-28400282690145723$ & $c_{43}$ & $-16789508455031334487$ \\
-$c_{8}$ & $-270018$ & $c_{20}$ & $-928807798842$ & $c_{32}$ & $-30070887554271942$ & $c_{44}$ & $-17777126599444942398$ \\
-$c_{9}$ & $-15001$ & $c_{21}$ & $-51600433269$ & $c_{33}$ & $-1670604864126219$ & $c_{45}$ & $-987618144413607911$ \\
-$c_{10}$ & $255017$ & $c_{22}$ & $877207365573$ & $c_{34}$ & $28400282690145723$ & $c_{46}$ & $16789508455031334487$ \\
-$c_{11}$ & $270018$ & $c_{23}$ & $928807798842$ & $c_{35}$ & $30070887554271942$ & $c_{47}$ & $17777126599444942398$ \\
-$c_{12}$ & $-57933309$ & $c_{24}$ & $-14870487155139$ & $c_{36}$ & $-71215074376613951$ &  &  \\
+$c_{1}$ & $10$ & $c_{16}$ & $-2286449979$ & $c_{31}$ & $-970456252641$ & $c_{46}$ & $5334531006$ \\
+$c_{2}$ & $-11$ & $c_{17}$ & $2567960855$ & $c_{32}$ & $-1497909244460$ & $c_{47}$ & $4933049500$ \\
+$c_{3}$ & $675$ & $c_{18}$ & $-1326686900$ & $c_{33}$ & $831028205921$ & $c_{48}$ & $-3016035914$ \\
+$c_{4}$ & $-2373$ & $c_{19}$ & $-4640037118$ & $c_{34}$ & $706271486776$ & $c_{49}$ & $-972434046$ \\
+$c_{5}$ & $-7532$ & $c_{20}$ & $1622392936$ & $c_{35}$ & $2722884653546$ & $c_{50}$ & $-2170574167$ \\
+$c_{6}$ & $-48225$ & $c_{21}$ & $-68824994187$ & $c_{36}$ & $-165696659281$ & $c_{51}$ & $-1208984889$ \\
+$c_{7}$ & $134847$ & $c_{22}$ & $140052456013$ & $c_{37}$ & $439896396353$ & $c_{52}$ & $117380707$ \\
+$c_{8}$ & $329795$ & $c_{23}$ & $-39663860745$ & $c_{38}$ & $-1692212524120$ & $c_{53}$ & $50628701$ \\
+$c_{9}$ & $4372582$ & $c_{24}$ & $156889381325$ & $c_{39}$ & $-429248037763$ & $c_{54}$ & $58880609$ \\
+$c_{10}$ & $-10376509$ & $c_{25}$ & $-426122618325$ & $c_{40}$ & $-522065809017$ & $c_{55}$ & $7811214$ \\
+$c_{11}$ & $-1124188$ & $c_{26}$ & $-102267184803$ & $c_{41}$ & $470668052525$ & $c_{56}$ & $-330576$ \\
+$c_{12}$ & $-96135888$ & $c_{27}$ & $493271071079$ & $c_{42}$ & $117772002063$ & $c_{57}$ & $33244$ \\
+$c_{13}$ & $154853204$ & $c_{28}$ & $795315988800$ & $c_{43}$ & $198127344463$ & $c_{58}$ & $15036$ \\
+$c_{14}$ & $-45939875$ & $c_{29}$ & $561716733756$ & $c_{44}$ & $-21750297955$ & $c_{59}$ & $-120$ \\
+$c_{15}$ & $1270767149$ & $c_{30}$ & $-1668813686887$ & $c_{45}$ & $2288444685$ &  &  \\
 \end{tabular}
 \end{center}
 
@@ -100,10 +103,10 @@ The recurrence above holds for every $n$, and it is the recurrence the entry rec
 \begin{proof}
 It holds by Lemma~\ref{lem:bm}, which returns a recurrence the sequence satisfies from its
 first term. For the identification: the entry asserts that the sequence satisfies SOME
-recurrence of order $47$, possibly only from some index on. Let $q$ be that recurrence's
+recurrence of order $59$, possibly only from some index on. Let $q$ be that recurrence's
 characteristic polynomial and $q_{\min}$ the minimal polynomial of the tail of the sequence.
-Then $q_{\min}\mid q$. Berlekamp--Massey run on the sequence with its first $47+4$ terms
-removed returns order $47$ as well, so $\deg q_{\min}=47=\deg q$; both are monic, so
+Then $q_{\min}\mid q$. Berlekamp--Massey run on the sequence with its first $59+4$ terms
+removed returns order $59$ as well, so $\deg q_{\min}=59=\deg q$; both are monic, so
 $q=q_{\min}$, which is the polynomial computed above.
 \end{proof}
 
@@ -111,7 +114,7 @@ $q=q_{\min}$, which is the polynomial computed above.
 
 Three checks.
 
-First, the walk model reproduces all $16$ terms the entry publishes, exactly, in integer
+First, the walk model reproduces all $17$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry, and it is the only place where reading
 the entry's English enters.
 
@@ -121,18 +124,18 @@ enough earlier terms to test it.
 
 Third, the order was computed twice by independent routes: once modulo a $61$-bit prime, where
 every intermediate is a machine word, and once in exact rational arithmetic; and once more on
-the sequence with its first $47+4$ terms removed, which is what the identification above
+the sequence with its first $59+4$ terms removed, which is what the identification above
 requires. All three agree.
 
 \begin{remark}
 What is unusual here is that the conjecture's statement was never read. The entry pins it down
-to a one-parameter family --- the recurrences of order $47$ that this sequence satisfies
+to a one-parameter family --- the recurrences of order $59$ that this sequence satisfies
 --- and that family turns out to have exactly one member.
 \end{remark}
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A263552.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A297510.
 \bibitem{massey} J.~L.~Massey, Shift-register synthesis and BCH decoding, \emph{IEEE
 Trans. Inform. Theory} \textbf{15} (1969), 122--127.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,

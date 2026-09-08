@@ -10,14 +10,14 @@
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
-\title{A proof of the conjectured recurrence for OEIS A191790}
+\title{A proof of the conjectured recurrence for OEIS A026030}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{25 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A191790 carries a conjectured linear recurrence with polynomial coefficients, of
+OEIS A026030 carries a conjectured linear recurrence with polynomial coefficients, of
 order 4, contributed by R.~J.~Mathar. We prove it. The generating function of the
 entry is algebraic, and the recurrence is equivalent to the vanishing of an explicit
 differential operator applied to it: writing $\theta=x\,\frac{d}{dx}$, the sequence
@@ -25,34 +25,34 @@ $b(n)=\sum_{i}p_{i}(n)a(n-i)$ has generating function
 $B(x)=\sum_{i}x^{i}\,(p_{i}(\theta+i)A)(x)$, so the conjecture holds for all $n>d$ exactly
 when $B$ is a polynomial of degree $d$. Since $A$ lies in a quadratic extension of
 $\mathbb{Q}(x)$, which is closed under $\theta$, the residual $B$ can be computed in
-closed form. Here it equals $0$, a polynomial of degree $-1$, which proves
-the recurrence for every $n>-1$.
+closed form. Here it equals $24 x^{3} - 24 x^{2} + 6 x$, a polynomial of degree $3$, which proves
+the recurrence for every $n>3$.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 11B37, 05A15, 33F10.\normalsize
 
 \section{The sequence and the conjecture}
 
-OEIS A191790 is ``Number of base pyramids in all length n left factors of Dyck paths''. It has offset $0$ and begins
+OEIS A026030 is ``a(n) = T(2n,n-1), where T is defined in A026022''. It has offset $1$ and begins
 \[
-a(0),\dots,a(7)\;=\;0, 0, 1, 1, 4, 5, 14, 20,\ \dots
+a(1),\dots,a(8)\;=\;1, 4, 15, 56, 209, 780, 2912, 10880,\ \dots
 \]
 The entry gives the generating function
 \begin{equation}\label{eq:gf}
-A(x)\;=\;\sum_{n\ge 0} a(n)\,x^{n}\;=\;- \frac{\left(\sqrt{1 - 4 x^{2}} - 1\right)^{2}}{2 x \left(x^{2} - 1\right) \left(2 x + \sqrt{1 - 4 x^{2}} - 1\right)} ,
+A(x)\;=\;\sum_{n\ge 1} a(n)\,x^{n}\;=\;- \frac{2 x \left(2 x - 1\right)}{\sqrt{1 - 4 x} \left(x - 1\right) \left(3 x - 1\right) - \left(2 x - 1\right) \left(x^{2} - 4 x + 1\right)} ,
 \end{equation}
 and it carries the following comment:
 \begin{quote}\small
-\textbf{Conjecture:} -(n+1)*(n-2)*a(n) +2*(n-1)*a(n-1) +(5*n-3)*(n-2)*a(n-2) +2*(-n+1)*a(n-3) -4*(n-1)*(n-2)*a(n-4)=0. - \emph{R. J. Mathar}, Jun 14 2016
+\textbf{Conjecture:} (n+5)*a(n) -2*(5*n+16)*a(n-1) +(35*n+47)*a(n-2) +2*(-25*n+14)*a(n-3) + 12*(2*n-5)*a(n-4) = 0. - \emph{R. J. Mathar}, Jun 15 2014
 \end{quote}
-As of the ``Last modified'' line on the live entry (2017-03-28, revision 18) the
+As of the ``Last modified'' line on the live entry (2026-01-21, revision 42) the
 statement is still recorded as a conjecture, and no proof appears among the entry's links,
 formulas or programs.
 
 Writing the conjectured relation in the form $\sum_{i=0}^{4}p_{i}(n)\,a(n-i)=0$,
 the coefficient polynomials are
 \[
-p_{0}(n)=- \left(n - 2\right) \left(n + 1\right),\qquad p_{1}(n)=2 \left(n - 1\right),\qquad p_{2}(n)=\left(n - 2\right) \left(5 n - 3\right),\qquad p_{3}(n)=- 2 \left(n - 1\right),\qquad p_{4}(n)=- 4 \left(n - 2\right) \left(n - 1\right)
+p_{0}(n)=n + 5,\qquad p_{1}(n)=- 2 \left(5 n + 16\right),\qquad p_{2}(n)=35 n + 47,\qquad p_{3}(n)=- 2 \left(25 n - 14\right),\qquad p_{4}(n)=12 \left(2 n - 5\right)
 \]
 
 \section{Recurrences as differential operators}
@@ -114,26 +114,26 @@ $B=P+Q\sqrt{D}$ with $P,Q\in\mathbb{Q}(x)$, the test of Corollary~\ref{cor:crite
 becomes: $B$ is a polynomial precisely when $Q=0$ and $P$ has constant denominator. Both
 are decided by exact cancellation of rational functions.
 
-\section{The computation for A191790}
+\section{The computation for A026030}
 
 The generating function \eqref{eq:gf} lies in $K=\mathbb{Q}(x)[\sqrt{D}]$ with
 \[
-D \;=\; - \left(2 x - 1\right) \left(2 x + 1\right) .
+D \;=\; 1 - 4 x .
 \]
 Applying Lemma~\ref{lem:transfer} to the coefficient polynomials of Section~1 and reducing
 in $K$ by Lemma~\ref{lem:field}, the $\sqrt{D}$ component of $B$ cancels identically and
 the rational part collapses to
 \[
-B(x)\;=\;0 ,
+B(x)\;=\;24 x^{3} - 24 x^{2} + 6 x ,
 \]
-a polynomial of degree $-1$.
+a polynomial of degree $3$.
 
 \begin{theorem}
 The conjectured recurrence
 \[
-- \left(n - 2\right) \left(n + 1\right)\,a(n) + 2 \left(n - 1\right)\,a(n-1) + \left(n - 2\right) \left(5 n - 3\right)\,a(n-2) -  2 \left(n - 1\right)\,a(n-3) -  4 \left(n - 2\right) \left(n - 1\right)\,a(n-4) \;=\;0
+(n + 5)\,a(n) -  2 \left(5 n + 16\right)\,a(n-1) + (35 n + 47)\,a(n-2) -  2 \left(25 n - 14\right)\,a(n-3) + 12 \left(2 n - 5\right)\,a(n-4) \;=\;0
 \]
-holds for every $n>-1$.
+holds for every $n>3$.
 \end{theorem}
 
 \begin{proof}
@@ -142,7 +142,7 @@ Immediate from Corollary~\ref{cor:criterion} and the displayed value of $B$.
 
 \begin{remark}
 The polynomial $B$ is not an error term: it records the boundary of the recurrence. For
-$n\le-1$ some of the shifted terms $a(n-i)$ fall outside the range of the sequence,
+$n\le3$ some of the shifted terms $a(n-i)$ fall outside the range of the sequence,
 and $B$ collects exactly those contributions. Above that range the relation is exact.
 \end{remark}
 
@@ -153,23 +153,23 @@ independent checks were run.
 
 First, the generating function was checked against the entry rather than assumed: the
 Taylor coefficients of \eqref{eq:gf} were expanded and compared term by term with the DATA
-section of A191790, agreeing on all 13 terms compared.
+section of A026030, agreeing on all 13 terms compared.
 
 Second, the recurrence itself was evaluated directly on the published terms, in exact
 integer arithmetic and without reference to the generating function: for each $n$ in range
 the sum $\sum_{i}p_{i}(n)a(n-i)$ was formed from the entry's own values and found to
-vanish, for all 34 values of $n$ from $n=4$ upward. This is what
+vanish, for all 23 values of $n$ from $n=5$ upward. This is what
 Corollary~\ref{cor:criterion} predicts from the degree of $B$, and it is a genuinely
 different computation from the symbolic one: it never forms $B$, never differentiates, and
 uses only integers.
 
 The symbolic step is exact throughout. The residual is obtained by rational-function
-cancellation in $K$, not by series truncation, so the identity $B=0$ is an
-identity of functions and the theorem holds for all $n>-1$ simultaneously.
+cancellation in $K$, not by series truncation, so the identity $B=24 x^{3} - 24 x^{2} + 6 x$ is an
+identity of functions and the theorem holds for all $n>3$ simultaneously.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer Sequences},
-\url{https://oeis.org}, 2026. Sequence A191790.
+\url{https://oeis.org}, 2026. Sequence A026030.
 \bibitem{kp} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011,
 Chapter 7 (holonomic closure properties and the translation between recurrences and
 differential equations).

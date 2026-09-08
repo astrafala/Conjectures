@@ -12,17 +12,17 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A206321, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A206059, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{2 September 2026}
+\date{7 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A206321 counts arrays over $\{0,\dots,3\}$ under a condition on the perimeter cycle of
+OEIS A206059 counts arrays over $\{0,\dots,3\}$ under a condition on the perimeter cycle of
 every $2\times3$ and $3\times2$ subblock, and carries an empirical recurrence of order $7$ contributed by
 R.~H.~Hardin. It is true, and it is decidable rather than empirical. The condition is local to
-a bounded window of consecutive rows, so the count is a walk count on $S=1344$ states and is
+a bounded window of consecutive rows, so the count is a walk count on $S=170688$ states and is
 $C$-finite; whether the conjectured recurrence annihilates it is then settled by a finite exact
 computation, with the Cayley--Hamilton theorem bounding the work.
 \end{abstract}
@@ -31,15 +31,15 @@ computation, with the Cayley--Hamilton theorem bounding the work.
 
 \section{The conjecture}
 
-OEIS A206321 is ``Number of (n+1) X 3 0..3 arrays with every 2 X 3 or 3 X 2 subblock having exactly three clockwise edge increases.''. It has offset $1$ and begins
+OEIS A206059 is ``Number of (n+1)X5 0..3 arrays with every 2X3 or 3X2 subblock having exactly two clockwise edge increases.''. It has offset $1$ and begins
 \[
-1344, 16892, 282996, 4796092, 81302880, 1377662868, 23340152044, 395403752128,\ \dots
+170688, 1390488, 11155584, 111242648, 1198231144, 12877680064, 144759802024, 1569116858248,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 24*a(n-1) -131*a(n-2) +200*a(n-3) -116*a(n-4) +35*a(n-5) -13*a(n-6) +2*a(n-7) for n>10.
+Empirical: a(n) = 1307*a(n-3) +24*a(n-4) +677*a(n-5) +44*a(n-6) +256*a(n-7) for n>16
 \end{quote}
-As of the ``Last modified'' line on the live entry (Feb 08 2026 21:44:54, revision 11) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 12:25:44, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
@@ -51,7 +51,7 @@ $p\to q\to s\to u\to t\to r\to p$; for
 $\begin{pmatrix}p&q&t\\r&s&u\end{pmatrix}$ it is
 $p\to q\to t\to u\to s\to r\to p$. An edge increase is a step of the cycle that goes up in
 value, and counterclockwise counts the same cycle traversed the other way. The entry requires
-of every window of either shape that its number of clockwise edge increases is exactly $3$.
+of every window of either shape that its number of clockwise edge increases is exactly $2$.
 
 The readings were pinned by direct enumeration before anything was built: over
 $\{0,1,2\}$ the $3\times2$ arrays of clockwise count $2$ number $423$ and those of count
@@ -70,11 +70,11 @@ array is a walk of $n-1$ steps and
 \[
 a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,\qquad\iota=\tau=(1,\dots,1)^{\!\top},
 \]
-on the $S=1344$ admissible pairs.
+on the $S=170688$ admissible pairs.
 
 At $n=1$ the array has two rows, so no $3\times2$ window fits and only the
 $2\times3$ windows apply; the entry's first term is
-$1344$, which the model reproduces along with every later term.
+$170688$, which the model reproduces along with every later term.
 In particular $a$ is $C$-finite. The alignment of the walk index with the entry's own $n$ was
 checked against its published terms rather than assumed.
 
@@ -98,23 +98,23 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;24\,a(n-1) - 131\,a(n-2) + 200\,a(n-3) - 116\,a(n-4) + 35\,a(n-5) - 13\,a(n-6) + 2\,a(n-7)
+a(n)\;=\;1307\,a(n-3) + 24\,a(n-4) + 677\,a(n-5) + 44\,a(n-6) + 256\,a(n-7)
 \]
-for every $n>10$.
+for every $n>16$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $7$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=10+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once. The bound is exact: at $n=10$ the recurrence fails on the entry's own published terms, so no larger range holds.
+integers vanish from the index corresponding to $n=16+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $15$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $14$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
@@ -126,7 +126,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A206321.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A206059.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{bona} M.~B\'ona, \emph{Combinatorics of Permutations}, 2nd ed., CRC

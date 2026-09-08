@@ -12,19 +12,19 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A283540, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A283546, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A283540 counts $n\times5$ arrays over $\{0,\dots,1\}$ subject to a condition imposed on
+OEIS A283546 counts $5\times n$ arrays over $\{0,\dots,1\}$ subject to a condition imposed on
 every CELL over a neighbour set the entry names, and it carries an empirical recurrence of
 order $21$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
-empirical. A cell's neighbourhood meets three consecutive rows, so the state of a transfer
-matrix is a pair of consecutive rows and each step settles the middle one; an array is a
-walk, and $a(n)$ is a walk count on $S=225$ vertices, which is $C$-finite. Whether the
+empirical. A cell's neighbourhood meets three consecutive columns, so the state of a transfer
+matrix is a pair of consecutive columns and each step settles the middle one; an array is a
+walk, and $a(n)$ is a walk count on $S=323$ vertices, which is $C$-finite. Whether the
 conjectured recurrence annihilates it is then decided by a finite exact computation, with the
 Cayley--Hamilton theorem bounding the work.
 \end{abstract}
@@ -33,15 +33,15 @@ Cayley--Hamilton theorem bounding the work.
 
 \section{The conjecture}
 
-OEIS A283540 is ``Number of n X 5 0..1 arrays with no 1 equal to more than one of its horizontal, diagonal and antidiagonal neighbors.''. It has offset $1$ and begins
+OEIS A283546 is ``Number of 5Xn 0..1 arrays with no 1 equal to more than one of its horizontal, diagonal and antidiagonal neighbors.''. It has offset $1$ and begins
 \[
-24, 201, 2369, 25532, 282773, 3109801, 34266804, 377393657,\ \dots
+32, 291, 2615, 29558, 282773, 2905717, 29377334, 295789859,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 13*a(n-1) -15*a(n-2) -129*a(n-3) +568*a(n-4) +430*a(n-5) -2325*a(n-6) -175*a(n-7) -2127*a(n-8) +3919*a(n-9) +438*a(n-10) -262*a(n-11) -1743*a(n-12) +309*a(n-13) +1745*a(n-14) -463*a(n-15) -462*a(n-16) +152*a(n-17) +53*a(n-18) -19*a(n-19) -3*a(n-20) +a(n-21).
+Empirical: a(n) = 4*a(n-1) +42*a(n-2) +198*a(n-3) -64*a(n-4) +925*a(n-5) -1855*a(n-6) +7735*a(n-7) -27083*a(n-8) +45326*a(n-9) -73559*a(n-10) +51145*a(n-11) +19879*a(n-12) +10890*a(n-13) +32935*a(n-14) -24368*a(n-15) +328*a(n-16) +7803*a(n-17) -32113*a(n-18) -558*a(n-19) +29*a(n-20) +30*a(n-21)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Feb 20 2025 17:03:24, revision 8) this is still
+As of the ``Last modified'' line on the live entry (Mar 10 2017 09:33:35, revision 4) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{Cells, not blocks}
@@ -49,7 +49,7 @@ recorded as empirical, and nothing on the entry records it as proved.
 The entry names the neighbours it means --- horizontal is left and right, vertical is up and
 down, diagonal is northwest-to-southeast, antidiagonal is northeast-to-southwest, king-move is
 all eight --- and every such set lies inside the $3\times3$ square centred on the cell. Here
-the set is $\{(0,-1), (0,1), (-1,-1), (1,1), (-1,1), (1,-1)\}$, written as offsets (row, column) from the cell. Every cell carries
+the set is $\{(-1,0), (1,0), (-1,-1), (1,1), (1,-1), (-1,1)\}$, written as offsets (row, column) from the cell. Every cell carries
 the condition
 \[
 \text{every 1 has at most 1 neighbouring 1s},
@@ -60,16 +60,16 @@ fewer, and a condition such as ``a strict majority of its neighbours'' therefore
 different things at the two. In particular one cannot pad the array with a border of zeros ---
 that would give every cell the full $6$ and change what is being counted. The outside is
 therefore carried
-explicitly, as a sentinel row above the first and below the last and as a sentinel column
+explicitly, as a sentinel column above the first and below the last and as a sentinel column
 either side, and a neighbour that falls outside is simply absent from both counts.
 
-Write an array as a sequence of rows $u_1,\dots,u_L$, each in
-$\{0,\dots,1\}^{5}$. The neighbourhood of a cell in row $u_i$ meets $u_{i-1}$,
+Write an array as a sequence of columns $u_1,\dots,u_L$, each in
+$\{0,\dots,1\}^{5}$. The neighbourhood of a cell in column $u_i$ meets $u_{i-1}$,
 $u_i$ and $u_{i+1}$ and nothing else. Take as vertices the pairs
 $(r,s)\in(\{0,\dots,1\}^{5}\cup\{\varnothing\})\times\{0,\dots,1\}^{5}$,
-and put an edge $(r,s)\to(s,t)$ when row $s$ satisfies the condition at every one of its
-$5$ cells, given $r$ above and $t$ below. An array with $L$ rows is then a walk of length
-$L-1$ starting at $(\varnothing,u_1)$, each step settling one row, and the last row is
+and put an edge $(r,s)\to(s,t)$ when column $s$ satisfies the condition at every one of its
+$5$ cells, given $r$ above and $t$ below. An array with $L$ columns is then a walk of length
+$L-1$ starting at $(\varnothing,u_1)$, each step settling one column, and the last column is
 settled by the terminal weight, which evaluates it with $\varnothing$ below. Hence,
 with $M$ the adjacency matrix, $\iota$ the starting vector and $\tau$ the terminal weight,
 \[
@@ -98,7 +98,7 @@ nonzero $u_j$ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;13\,a(n-1) - 15\,a(n-2) - 129\,a(n-3) + 568\,a(n-4) + 430\,a(n-5) - 2325\,a(n-6) - 175\,a(n-7) - 2127\,a(n-8) + 3919\,a(n-9) + 438\,a(n-10) - 262\,a(n-11) - 1743\,a(n-12) + 309\,a(n-13) + 1745\,a(n-14) - 463\,a(n-15) - 462\,a(n-16) + 152\,a(n-17) + 53\,a(n-18) - 19\,a(n-19) - 3\,a(n-20) + a(n-21)
+a(n)\;=\;4\,a(n-1) + 42\,a(n-2) + 198\,a(n-3) - 64\,a(n-4) + 925\,a(n-5) - 1855\,a(n-6) + 7735\,a(n-7) - 27083\,a(n-8) + 45326\,a(n-9) - 73559\,a(n-10) + 51145\,a(n-11) + 19879\,a(n-12) + 10890\,a(n-13) + 32935\,a(n-14) - 24368\,a(n-15) + 328\,a(n-16) + 7803\,a(n-17) - 32113\,a(n-18) - 558\,a(n-19) + 29\,a(n-20) + 30\,a(n-21)
 \]
 for every $n>21$.
 \end{theorem}
@@ -115,7 +115,7 @@ By Lemma~\ref{lem:crit} the recurrence holds for every $n>21$.
 
 Three checks, each independent of the algebra above.
 
-First, the transfer model reproduces all $20$ terms the entry publishes, exactly, in
+First, the transfer model reproduces all $17$ terms the entry publishes, exactly, in
 integer arithmetic. That check earned its place here. The neighbour offsets are named in the
 array's own frame --- horizontal means along a row --- but when the entry fixes the first
 dimension, as in ``$2\times n$'', the walk runs along columns and the two components of every
@@ -132,7 +132,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A283540.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A283546.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

@@ -12,78 +12,67 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A250800, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A186457, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{3 September 2026}
+\date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A250800 counts arrays over $\{0,1\}$ in which a statistic taken over short runs
-of cells produces a derived array that is monotone in a named direction. The entry carries an
-empirical recurrence of order $5$ contributed by R.~H.~Hardin. It is true, and it is
-decidable rather than empirical: every comparison the condition makes lies inside a bounded
-window of consecutive rows, so the count is a walk count on $S=16$ states, and the
-conjectured recurrence is then settled by a finite exact computation.
+OEIS A186457 counts the $(n+1)\times5$ arrays over $\{0,\dots,1\}$ in which
+neighbouring $2\times2$ subblocks commute as matrices, and carries an empirical recurrence
+of order $5$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
+empirical. The condition ties together $2+1$ consecutive rows, so $2$ consecutive rows are
+a state, the count is a walk count on $S=61$ of them, and the conjectured recurrence is then
+settled by a finite exact computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 15A27, 15B36.\normalsize
 
 \section{The conjecture}
 
-OEIS A250800 is ``Number of (3+1) X (n+1) 0..1 arrays with nondecreasing min(x(i,j),x(i,j-1)) in the i direction and nondecreasing absolute value of x(i,j)-x(i-1,j) in the j direction.''. It has offset $1$ and begins
+OEIS A186457 is ``Number of (n+1) X 5 binary arrays with every 2 X 2 subblock commuting with each of its horizontal and vertical 2 X 2 subblock neighbors.''. It has offset $1$ and begins
 \[
-58, 180, 482, 1190, 2776, 6230, 13598, 29084,\ \dots
+61, 88, 162, 309, 449, 673, 945, 1493,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 5*a(n-1) - 8*a(n-2) + 3*a(n-3) + 3*a(n-4) - 2*a(n-5).
+Empirical: a(n) = 2*a(n-1) - 2*a(n-3) + 2*a(n-4) - a(n-5) for n>10.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Nov 20 2018 11:41:11, revision 7) this is still
+As of the ``Last modified'' line on the live entry (Apr 17 2018 14:10:02, revision 8) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The array has $4$ cells across and entries $x(i,j)\in\{0,1\}$.
+The contiguous $2\times2$ subblocks of an $(n+1)\times5$ array form a grid of $n$
+rows and $4$ columns. Two subblocks that are neighbours in that
+grid OVERLAP: horizontally they share $2\times1$ entries, vertically
+$1\times2$. Nevertheless each is a $2\times2$ integer matrix in its own right, and
+the entry requires that every neighbouring pair, horizontal or vertical, commute --- that is,
+$AB=BA$ as matrices over $\mathbf{Z}$.
 
-Two derived arrays are formed. The first reads the horizontal statistic across each
-neighbouring pair of a row,
+At $n=1$ the array has $2$ rows and the grid is a single row of $4$
+subblocks, with only the horizontal pairs to test; the entry's first term is
+$61$, which the model reproduces along with every later term.
+
+\section{The count is a walk count}
+
+A subblock row is fixed by $2$ consecutive array rows, and the vertical condition compares
+two consecutive subblock rows, hence $2+1$ consecutive array rows. So take as state the
+$2$-tuple of consecutive rows whose subblock row has just been completed. A step appends one
+array row: that fixes the next subblock row, and the horizontal pairs inside it and the
+vertical pairs against the previous one are all settled there. An array of $n+1$ rows is
+a walk of $n-1$ steps and every walk comes from exactly one array, so
 \[
-b(i,j)\;=\;\bigl[\,\lvert a-b\rvert\,\bigr]_{a=x(i,j),\,b=x(i,j-1)}\qquad (j\ge1),
+a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,\qquad\iota=\tau=(1,\dots,1)^{\!\top},
 \]
-and must not decrease DOWN a column: $b(i,j)\le b(i{+}1,j)$. The second reads the vertical
-statistic down each neighbouring pair of a column,
-\[
-c(i,j)\;=\;\bigl[\,\min(a,b)\,\bigr]_{a=x(i,j),\,b=x(i{-}1,j)}\qquad (i\ge1),
-\]
-and must not decrease ALONG a row: $c(i,j)\le c(i,j{+}1)$. In words, the horizontal statistic
-is the absolute difference of a cell and its left neighbour, and the vertical one is
-the smaller of a cell and the cell above it. The entry writes the array with $n$ as the number of COLUMNS. The walk is run down the transpose, which exchanges the roles of the two directions once and for all; the arguments of each statistic keep their order under that exchange, the later cell staying the first argument.
+on the $S=61$ admissible $2$-tuples. In particular $a$ is $C$-finite.
 
-Nothing in the condition is invariant under renaming the letters --- each statistic either does
-arithmetic on them or compares them by size --- so no reduction to equality patterns is
-available, and the walk is run over the alphabet the entry names.
-
-\section{A bounded window}
-
-\begin{lemma}\label{lem:win}
-Both conditions are conditions on TWO consecutive array rows and nothing more.
-\end{lemma}
-
-\begin{proof}
-$b(i,j)\le b(i{+}1,j)$ names four cells, all in rows $i$ and $i+1$. $c(i,j)\le c(i,j{+}1)$
-names four cells, all in rows $i-1$ and $i$. No comparison reaches further.
-\end{proof}
-
-So a single row is a state. Let $M$ be the matrix on the $2^{4}=16$ rows with
-$M[r,s]=1$ when the pair $(r,s)$ passes both tests and $0$ otherwise. An array of $R$ rows is a
-walk of $R-1$ steps and every row may begin or end one, so with $\iota=\tau=\mathbf{1}$,
-\[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=16.
-\]
-
-The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
-published terms rather than assumed. In particular $a$ is $C$-finite.
+This state does not compress. What a step needs of the past is the previous subblock row, and
+for $5\ge2$ that row already determines the $2$ array rows it was built from, so nothing
+is lost by carrying the rows and nothing would be gained by carrying the matrices instead. The
+size of the construction is therefore $2^{2\cdot5}$ before the condition prunes
+it, which is what puts the wider members of this family out of reach rather than settling them.
 
 \section{The proof}
 
@@ -105,41 +94,39 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;5\,a(n-1) - 8\,a(n-2) + 3\,a(n-3) + 3\,a(n-4) - 2\,a(n-5)
+a(n)\;=\;2\,a(n-1) - 2\,a(n-3) + 2\,a(n-4) - a(n-5)
 \]
-for every $n>4$.
+for every $n>10$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $5$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=4+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=10+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
-Four checks, each independent of the algebra above.
+Three checks, each independent of the algebra above.
 
-First, the model reproduces all $26$ terms the entry publishes, exactly, in integer
-arithmetic.
+First, the model reproduces all $33$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry: the digraph is built by reading the
+entry's English, and a misreading gives different counts.
 
-Second, the count was recomputed for the smallest arrays straight from the definition: fill the
-cells in row major order and test each comparison the moment both of its runs are complete,
-in the orientation the entry's own name writes. No transfer matrix and no transposition are
-involved, and the published terms came back.
-
-Third, the conjectured recurrence was evaluated directly on the published terms, with no
+Second, the conjectured recurrence was evaluated directly on those published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
 
-Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
 arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A250800.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A186457.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{suprunenko} D.~A.~Suprunenko and R.~I.~Tyshkevich, \emph{Commutative Matrices},
+Academic Press, 1968.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

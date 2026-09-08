@@ -12,66 +12,55 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A184379, proved by transfer matrix}
+\title{An element and the cells around it: OEIS A208429}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{6 September 2026}
+\date{7 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A184379 counts arrays of width $4$ over $\{0,1,2\}$ in which every $3\times3$ subblock
-satisfies a condition on its nine entries. The entry carries an empirical recurrence of order
-$25$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical: a
-$3\times3$ block lies in three consecutive rows, so the state is the last two rows and the
-count is a walk count on $S=6643$ states.
+OEIS A208429 carries an empirical recurrence of order $26$ contributed by R.~H.~Hardin. It is
+true, and it is decidable rather than empirical. The entry's condition is decided by a bounded amount of state carried down the array; the
+admissible windows are the vertices of a finite digraph and the arrays counted are exactly the
+walks in it. Hence $a(n)$ is a walk count on $S=38$ vertices and is $C$-finite, and whether the
+conjectured recurrence annihilates it is settled by a finite exact computation, with the
+Cayley--Hamilton theorem bounding the work.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B20, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
 \section{The conjecture}
 
-OEIS A184379 is ``1/12 the number of (n+2) X 4 0..2 arrays with each 3 X 3 subblock containing three of each value.''. It has offset $1$ and begins
+OEIS A208429 is ``Number of nX3 0..2 arrays with new values 0..2 introduced in row major order and no element equal to any knight-move neighbor (colorings ignoring permutations of colors).''. It has offset $1$ and begins
 \[
-545, 1494, 4281, 13616, 55386, 242370, 1165496, 6248040,\ \dots
+5, 54, 129, 339, 1123, 4155, 15273, 55715,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 12*a(n-1)-47*a(n-2)+184*a(n-3)-1380*a(n-4)+5264*a(n-5)-12447*a(n-6)+56628*a(n-7)-206001*a(n-8)+396180*a(n-9)-1125036*a(n-10)+3788388*a(n-11)-6578172*a(n-12)+12197952*a(n-13)-36410148*a(n-14)+59740416*a(n-15)-75446640*a(n-16)+186268896*a(n-17)-295472448*a(n-18)+264166272*a(n-19)-475844544*a(n-20)+739031040*a(n-21)-485409024*a(n-22)+473651712*a(n-23)-725594112*a(n-24)+362797056*a(n-25).
+Empirical: a(n) = 3*a(n-1) +8*a(n-2) -18*a(n-3) -17*a(n-5) -116*a(n-6) +256*a(n-7) +184*a(n-8) -335*a(n-9) +260*a(n-10) -644*a(n-11) -368*a(n-12) +2013*a(n-13) -564*a(n-14) -1664*a(n-15) -1063*a(n-16) +1284*a(n-17) +3156*a(n-18) -1962*a(n-19) -256*a(n-20) +1020*a(n-21) -1448*a(n-22) -96*a(n-23) +144*a(n-24) +352*a(n-25) -128*a(n-26) for n>28
 \end{quote}
-As of the ``Last modified'' line on the live entry (Sep 01 2025 04:29:26, revision 12) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 14:51:21, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
-\section{What is being counted}
+\section{The count is a walk count}
 
-The arrays have $4$ columns and a growing number of rows, with entries in $\{0,1,2\}$. The
-condition is imposed on every $3\times3$ block of the array --- every choice of three
-consecutive rows and three consecutive columns --- and asks that each of the $3$ values occurs exactly $3$ times among the nine entries. The entry publishes $1/12$ of that count; the division is by a constant and changes nothing about the recurrence.
+The entry counts arrays with $3$ columns over the alphabet $\{0,1,2\}$, growing one row at a time, and asks that no element may equal any of the eight cells a knight's move away.
 
-The entry's phrasing names the multiplicities without saying which value takes which, so what is fixed is the sorted list; this reading is pinned against the entry's own published terms.
+The furthest that condition reaches is $2$ rows, so a window of $5$ consecutive rows decides it for the row in the middle. Carry $4$ rows as the state; a row is judged when the row $2$ beyond it arrives, and the last $2$ rows --- the ones with nothing far enough beyond them --- are judged by the end vector. A neighbour off the edge of the array is not a neighbour, which is what the entry means and what keeps the first few terms small.
 
-\section{Three rows}
+The entry also asks that new values be introduced in row major order. That is not a condition on any window --- whether a value may appear here depends on the whole prefix --- but it enters through a single integer, how many values have been introduced so far, and the effect is that each array is counted once for the whole class of arrays differing from it only by renaming the values.
 
-A $3\times3$ block occupies three consecutive rows, so everything the condition asks is decided
-by three consecutive rows and nothing wider. Take the array one row at a time and let the state
-be the last two rows written, with a distinguished start standing for the array before its
-first row. Appending a row completes the blocks whose bottom row is the new one, and the step
-is allowed exactly when each of those blocks passes.
-
-Every block of the finished array is tested exactly once, at the step that writes its bottom
-row, and no step imposes anything the definition does not ask. The first two rows complete no
-block at all, which is why they are laid down without a test. Every state may end an array, so
-$\tau=\mathbf{1}$. Thus
+Merging vertices with identical futures leaves $S=38$. An admissible array is exactly a walk, so with $M$ the adjacency matrix and $\iota,\tau$ the vectors recording which states may begin and end an array,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=6643,
+a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau ,
 \]
-for the transfer matrix $M$ on those $S$ states. The walk index $j$ and the entry's own $n$
-differ by a constant, read off by matching the published terms rather than assumed. In
+the exponent fixed by the entry's own shape and checked against its published terms. In
 particular $a$ is $C$-finite.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{25}-\sum_i c_it^{25-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{26}-\sum_i c_it^{26-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -79,24 +68,25 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+25}-\sum_ic_iM^{j+25-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+26}-\sum_ic_iM^{j+26-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly.
+pins the threshold exactly. A constant factor in front of $a$ divides out of the residual and
+changes nothing here.
 \end{proof}
 
 \begin{theorem}
 \[
-a(n)\;=\;12\,a(n-1) - 47\,a(n-2) + 184\,a(n-3) - 1380\,a(n-4) + 5264\,a(n-5) - 12447\,a(n-6) + 56628\,a(n-7) - 206001\,a(n-8) + 396180\,a(n-9) - 1125036\,a(n-10) + 3788388\,a(n-11) - 6578172\,a(n-12) + 12197952\,a(n-13) - 36410148\,a(n-14) + 59740416\,a(n-15) - 75446640\,a(n-16) + 186268896\,a(n-17) - 295472448\,a(n-18) + 264166272\,a(n-19) - 475844544\,a(n-20) + 739031040\,a(n-21) - 485409024\,a(n-22) + 473651712\,a(n-23) - 725594112\,a(n-24) + 362797056\,a(n-25)
+a(n)\;=\;3\,a(n-1) + 8\,a(n-2) - 18\,a(n-3) - 17\,a(n-5) - 116\,a(n-6) + 256\,a(n-7) + 184\,a(n-8) - 335\,a(n-9) + 260\,a(n-10) - 644\,a(n-11) - 368\,a(n-12) + 2013\,a(n-13) - 564\,a(n-14) - 1664\,a(n-15) - 1063\,a(n-16) + 1284\,a(n-17) + 3156\,a(n-18) - 1962\,a(n-19) - 256\,a(n-20) + 1020\,a(n-21) - 1448\,a(n-22) - 96\,a(n-23) + 144\,a(n-24) + 352\,a(n-25) - 128\,a(n-26)
 \]
-for every $n>25$.
+for every $n>28$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $25$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $26$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=25+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=28+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -104,13 +94,14 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $22$ terms the entry publishes, exactly, in integer
-arithmetic.
+First, the model reproduces all $23$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry: the digraph is built by reading the
+entry's English, and a misreading gives different counts.
 
-Second, the count was recomputed for the smallest arrays straight from the definition: every
-array was written out cell by cell and each $3\times3$ block tested directly on its nine
-entries. No rows, no window, no state and no transfer matrix are involved in that computation,
-and the published terms came back.
+Second, the reading was pinned before the digraph was written, by a program that enumerates
+every array of the given shape one by one and tests the entry's condition at each cell
+directly. That program shares no code with the transfer matrix, so an error in one does not
+hide an error in the other.
 
 Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
@@ -120,9 +111,11 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A184379.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A208429.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+University Press, 2009.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}
