@@ -2,7 +2,19 @@
 import json, re, os, sys, collections, importlib
 from fractions import Fraction
 from math import factorial
+import signal
 import localentry as LE, openness, closedform as CF, uniform
+
+
+class _T(Exception):
+    pass
+
+
+# Without a per-entry alarm one slow build eats the whole run: this sweep sat at 26 entries
+# across four separate windows, processing nothing, because it was inside a single build the
+# whole time. Every other sweep here already has this.
+signal.signal(signal.SIGALRM, lambda *a: (_ for _ in ()).throw(_T()))
+BUDGET = int(os.environ.get('BUDGET', '45'))
 
 # No engine list here. It named twelve, which was all of them when this was written and is
 # twelve of eighty-three now, so every closed-form entry whose model needs a later engine was
@@ -55,19 +67,42 @@ for a in sorted(targets):
     if not got_eng:
         res['no engine reads the name'] += 1; done.add(a); continue
     eng, p = got_eng
+    # A per-entry alarm cannot save a build that spends its whole time inside one C-level
+    # call: signals are delivered at bytecode boundaries, so materialising 4^8 rows and their
+    # pairs blocks it completely. This sweep sat at 26 entries across five windows for exactly
+    # that reason. The estimate below is made from the parse, before anything is built.
+    W = p.get('W') or p.get('fixed') or p.get('cols')
+    A = p.get('alpha')
+    if isinstance(W, int) and isinstance(A, int) and W > 0:
+        try:
+            rows = (A + 1) ** W
+        except Exception:
+            rows = None
+        if rows is not None and rows * rows > 64 * CAP:
+            res[f'too big to be worth starting: {rows} rows at cap {CAP}'] += 1
+            done.add(a); json.dump(sorted(done), open(DONE, 'w')); continue
     try:
+        signal.alarm(BUDGET)
         b = uniform.build(eng, p, CAP)
+        signal.alarm(0)
+    except _T:
+        signal.alarm(0); res['build timed out'] += 1; done.add(a)
+        json.dump(sorted(done), open(DONE, 'w')); continue
     except Exception:
-        res['build failed'] += 1; done.add(a); continue
+        signal.alarm(0); res['build failed'] += 1; done.add(a)
+        json.dump(sorted(done), open(DONE, 'w')); continue
     if b is None:
         res['state space > cap'] += 1; done.add(a); continue
     d = [int(v) for v in e['data'].split(',') if v.strip()]
     off = int(e['offset'].split(',')[0])
     N = off + len(d) + order + 12
     try:
+        signal.alarm(BUDGET)
         vals, parts = model_values(eng, p, b, N)
+        signal.alarm(0)
     except Exception:
-        res['model evaluation failed'] += 1; done.add(a); continue
+        signal.alarm(0); res['model evaluation failed'] += 1; done.add(a)
+        json.dump(sorted(done), open(DONE, 'w')); continue
     # tie the model to the entry: it must reproduce every published term exactly
     shifts = [0, 1, 2]
     base = None
