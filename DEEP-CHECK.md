@@ -519,7 +519,7 @@ A stratified sample, one paper from each of the 105 families, drawn with a fixed
 is reproducible and not cherry-picked (`engine/deep-check/phase12-sample.json`). Read the way
 a hostile referee reads: find the weakest step and attack it.
 
-Sixty-five read so far; the ones below are those where the attack found something or where the
+**All 105 read** — one paper from every argument family, drawn with a fixed seed; the ones below are those where the attack found something or where the
 step most likely to fail was checked by hand.
 
 * **A223181** (`gf-implies-rec`) **passes.** Its proof is conditional on a generating function
@@ -610,6 +610,20 @@ local.
   derived independently for the lexicographic family.
 * **A235021** proves its recurrence minimal *and says the same holds on every tail*, which is
   the strengthening `ordtails.py` was written around today.
+
+**The reading is finished. No paper was found whose mathematics is wrong.** Every defect the
+reading turned up is in what a paper *says*, never in what it *proves*: an axis named wrongly,
+a clause quoted and not explained, an abstract stating a weaker or a different condition than
+the body settles, a number dropped into a fixed plural. Those are listed below and every one
+is fixed at its generator.
+
+Four papers deserve naming for the opposite reason. **A076217** does not disprove its
+conjecture by exhibiting a counterexample — it proves the recurrence fails at `n = 3k`,
+`3k+1` and `3k+2` for every `k >= 2`, so it fails at every `n >= 6`. **A236195** excludes its
+rival readings against the entry's own published numbers. **A237532** meets an elliptical
+condition — *"equal"*, with no second side — by splitting the count over the unnamed common
+value and noting the parts are disjoint. **A211253** breaks the `n x n` wall by solving a
+linear condition instead of walking it. Those are not template output.
 
 **15 abstracts state a weaker condition than the one proved.** A207146's entry asks that every
 2 X 2 subblock have *nonzero determinant* **and** commute with its neighbours; the abstract
