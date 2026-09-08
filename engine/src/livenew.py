@@ -10,16 +10,34 @@ any settlement wording it finds so it can be judged rather than guessed at.
 """
 import json
 import os
+import zlib
 import re
 import sys
 import time
 
 from verify_open import PROOF, fetch
 
-targets = [a for a in open(sys.argv[1]).read().split() if a.startswith('A')]
-OUT = 'deep-check/livenew.json'
+# Sharded: the check is one HTTP fetch per entry with a courtesy pause, so it is the slowest
+# step in the whole pipeline and nothing about it needs to be sequential. Each shard keeps its
+# own file; `merge` folds them into the one the builders read.
+SHARD = int(os.environ.get('LSHARD', '0'))
+NSHARD = int(os.environ.get('LNSHARD', '1'))
+targets = [a for a in open(sys.argv[1]).read().split()
+           if a.startswith('A') and zlib.crc32(a.encode()) % NSHARD == SHARD]
+OUT = 'deep-check/livenew.json' if NSHARD == 1 else f'deep-check/livenew_{SHARD}.json'
 state = json.load(open(OUT)) if os.path.exists(OUT) else {'kept': {}, 'dropped': {},
                                                           'flagged': {}}
+if NSHARD > 1:
+    # a shard starts from what the merged file already knows, or it re-fetches every entry
+    # the earlier unsharded runs had already confirmed -- which is what six shards spent
+    # their first windows doing
+    try:
+        base = json.load(open('deep-check/livenew.json'))
+        for k in ('kept', 'dropped', 'flagged'):
+            for a, v in base.get(k, {}).items():
+                state[k].setdefault(a, v)
+    except Exception:
+        pass
 for a in targets:
     if a in state['kept'] or a in state['dropped'] or a in state['flagged']:
         continue
