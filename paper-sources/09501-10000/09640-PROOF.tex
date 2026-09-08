@@ -12,14 +12,14 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A262482, derived from the entry's generating function}
+\title{The empirical recurrence for OEIS A071288, derived from the entry's generating function}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A262482 carries an empirical recurrence of order $8$. The entry separately records a
+OEIS A071288 carries an empirical recurrence of order $21$. The entry separately records a
 generating function, not as a conjecture but as a statement of fact, and the recurrence is a
 consequence of it: multiplying the generating function by the polynomial the recurrence
 supplies gives a POLYNOMIAL, and the recurrence then holds at every index past that
@@ -33,30 +33,30 @@ checked here against every published term.
 
 \section{The two statements}
 
-OEIS A262482 is ``Number of (n+3)X(1+3) 0..1 arrays with each row and column divisible by 13, read as a binary number with top and left being the most significant bits.''. It has offset $1$ and begins
+OEIS A071288 is ``Denominators of Peirce sequence of order 6.''. It has offset $0$ and begins
 \[
-2, 3, 5, 10, 20, 40, 79, 158,\ \dots
+2, 4, 6, 5, 3, 1, 6, 5,\ \dots
 \]
 The entry states, as a conjecture and never marked settled:
 \begin{quote}
-Empirical: a(n) = 3*a(n-1) -2*a(n-2) -a(n-6) +3*a(n-7) -2*a(n-8).
+a(n) = a(n-21) for n>20.
 \end{quote}
 and, separately and NOT as a conjecture:
 \begin{quote}
-G.f.: (2*x-3*x\^{}2+x\^{}4+x\^{}7-2*x\^{}8)/(1-3*x+2*x\^{}2+x\^{}6-3*x\^{}7+2*x\^{}8).
+G.f.: (6*x\^{}20 + 5*x\^{}19 + 4*x\^{}18 + 3*x\^{}17 + 6*x\^{}16 + 5*x\^{}15 + 2*x\^{}14 + 6*x\^{}13 + 4*x\^{}12 + 5*x\^{}11 + 3*x\^{}10 + 6*x\^{}9 + 4*x\^{}8 + 5*x\^{}7 + 6*x\^{}6 + x\^{}5 + 3*x\^{}4 + 5*x\^{}3 + 6*x\^{}2 + 4*x + 2)/(1 - x\^{}21).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Nov 16 2024 06:30:43, revision 13) the first is still
+As of the ``Last modified'' line on the live entry (Oct 30 2022 18:19:59, revision 8) the first is still
 recorded as empirical. This note derives it from the second.
 
 \section{A rational generating function decides every linear recurrence}
 
 Write
 \[
-G(x)\;=\;\sum_{n}a(n)\,x^{n}\;=\;\frac{- 2 x^{8} + x^{7} + x^{4} - 3 x^{2} + 2 x}{2 x^{8} - 3 x^{7} + x^{6} + 2 x^{2} - 3 x + 1},
+G(x)\;=\;\sum_{n}a(n)\,x^{n}\;=\;\frac{- 6 x^{20} - 5 x^{19} - 4 x^{18} - 3 x^{17} - 6 x^{16} - 5 x^{15} - 2 x^{14} - 6 x^{13} - 4 x^{12} - 5 x^{11} - 3 x^{10} - 6 x^{9} - 4 x^{8} - 5 x^{7} - 6 x^{6} - x^{5} - 3 x^{4} - 5 x^{3} - 6 x^{2} - 4 x - 2}{x^{21} - 1},
 \]
 the entry's own generating function, and let
 \[
-D(x)\;=\;1-\sum_i c_i x^{i}\;=\;2 x^{8} - 3 x^{7} + x^{6} + 2 x^{2} - 3 x + 1
+D(x)\;=\;1-\sum_i c_i x^{i}\;=\;1 - x^{21}
 \]
 be the polynomial attached to the conjectured recurrence.
 
@@ -73,33 +73,33 @@ negative index being zero.
 
 \begin{theorem}
 \[
-a(n)\;=\;3\,a(n-1) - 2\,a(n-2) - a(n-6) + 3\,a(n-7) - 2\,a(n-8)
+a(n)\;=\;a(n-21)
 \]
-for every $n>8$.
+for every $n>20$.
 \end{theorem}
 
 \begin{proof}
 In exact arithmetic,
 \[
-D(x)\,G(x)\;=\;- 2 x^{8} + x^{7} + x^{4} - 3 x^{2} + 2 x,
+D(x)\,G(x)\;=\;6 x^{20} + 5 x^{19} + 4 x^{18} + 3 x^{17} + 6 x^{16} + 5 x^{15} + 2 x^{14} + 6 x^{13} + 4 x^{12} + 5 x^{11} + 3 x^{10} + 6 x^{9} + 4 x^{8} + 5 x^{7} + 6 x^{6} + x^{5} + 3 x^{4} + 5 x^{3} + 6 x^{2} + 4 x + 2,
 \]
-a POLYNOMIAL of degree $8$ --- the denominator of $G$ divides $D(x)$ times its numerator,
+a POLYNOMIAL of degree $20$ --- the denominator of $G$ divides $D(x)$ times its numerator,
 which is precisely the condition for the conjectured recurrence to be implied by the
-generating function. Its coefficients vanish beyond degree $8$, so by
+generating function. Its coefficients vanish beyond degree $20$, so by
 Lemma~\ref{lem:key} the residual $a(n)-\sum_ic_ia(n-i)$ vanishes for every
-$n>8$.
+$n>20$.
 \end{proof}
 
 \section{Is the conjectured recurrence the shortest one?}
 
 Cancelling common factors, $G$ has reduced denominator
 \[
-2 x^{8} - 3 x^{7} + x^{6} + 2 x^{2} - 3 x + 1,
+x^{21} - 1,
 \]
-of degree $8$, and that degree is the order of the SHORTEST linear recurrence with
+of degree $21$, and that degree is the order of the SHORTEST linear recurrence with
 constant coefficients the sequence obeys: any shorter one would give a polynomial multiple of
 $G$ with a smaller denominator, contradicting the cancellation. The conjectured recurrence has
-order $8$.
+order $21$.
 
 So the conjecture is the minimal recurrence.
 
@@ -111,14 +111,14 @@ generating function involved at all. Doing that:
 \begin{center}
 \begin{tabular}{cc}
 index & residual \\ \hline
-$n=9$ & $0$ \\
-$n=10$ & $0$ \\
-$n=11$ & $0$ \\
-$n=12$ & $0$
+$n=21$ & $0$ \\
+$n=22$ & $0$ \\
+$n=23$ & $0$ \\
+$n=24$ & $0$
 \end{tabular}
 \end{center}
 The residuals are exactly the coefficients of the polynomial displayed above, in order, and
-they stop at index $8$ because that polynomial has degree $8$. A reader who trusts
+they stop at index $20$ because that polynomial has degree $20$. A reader who trusts
 neither the generating function nor the algebra can check the table against the entry's DATA
 by hand; what the generating function adds is the guarantee that the pattern continues, which
 no amount of checking terms could establish on its own.
@@ -128,14 +128,14 @@ no amount of checking terms could establish on its own.
 Three checks.
 
 First, the generating function was expanded as a power series in exact rational arithmetic and
-compared against all $33$ terms the entry publishes: it reproduces every one. This is
+compared against all $80$ terms the entry publishes: it reproduces every one. This is
 what ties the recorded generating function to the sequence the recurrence is about.
 
 Second, the polynomial division above was carried out symbolically, not numerically, so the
 statement that $D(x)G(x)$ is a polynomial is exact rather than approximate.
 
 Third, the recurrence was evaluated directly on the series coefficients for sixty consecutive
-indices beyond $n=8$ and holds at every one, and at $n=8$ itself it fails --- the
+indices beyond $n=20$ and holds at every one, and at $n=20$ itself it fails --- the
 degree bound is attained, so the range stated is the true one and not merely a safe one.
 
 \begin{remark}
@@ -147,7 +147,7 @@ entry already contains.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A262482.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A071288.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Rational generating functions, Section 4.1.)
 \bibitem{kp} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011.

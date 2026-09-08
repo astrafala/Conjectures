@@ -12,139 +12,147 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A295603: recovering a conjecture that is not written down}
+\title{The empirical recurrence for OEIS A208089, derived from the entry's generating function}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A295603 records ``Empirical recurrence of order $69$'', with the recurrence itself in a
-linked file rather than in the entry. The conjecture can nevertheless be settled, and the
-recurrence recovered, without reading that file. The entry counts arrays under a condition
-local to a bounded window of lines, so the count is a walk count on a finite digraph and
-satisfies some monic recurrence of order at most the number of its states with distinct
-futures, here $S'=87$; Berlekamp--Massey applied to $2S'$ exact
-terms therefore returns the MINIMAL such recurrence. Its order is exactly $69$, the order
-the entry states, and the same is true of every tail of the sequence. Any recurrence of order
-$69$ that the sequence satisfies from any point on must then have a characteristic
-polynomial that is a multiple of the minimal one and of the same degree, hence equal to it. So
-the entry's recurrence is the one displayed here, whatever its file contains, and it is
-proved.
+OEIS A208089 carries an empirical recurrence of order $4$. The entry separately records a
+generating function, not as a conjecture but as a statement of fact, and the recurrence is a
+consequence of it: multiplying the generating function by the polynomial the recurrence
+supplies gives a POLYNOMIAL, and the recurrence then holds at every index past that
+polynomial's degree. No model of the objects being counted is needed, and no search: the
+whole argument is one polynomial division, carried out in exact arithmetic. The result is
+conditional on the recorded generating function, which is what the entry asserts and what is
+checked here against every published term.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 30B10.\normalsize
 
-\section{A conjecture one cannot read}
+\section{The two statements}
 
-OEIS A295603 is ``Number of nX5 0..1 arrays with each 1 horizontally or vertically adjacent to 0, 2, 3 or 4 1s.''. It has offset $1$ and begins
+OEIS A208089 is ``Number of 8 X (n+1) 0..1 arrays with every 2 X 2 subblock having the same number of equal edges as its horizontal neighbors and a different number from its vertical neighbors, and new values 0..1 introduced in row major order.''. It has offset $1$ and begins
 \[
-13, 132, 1425, 16340, 201602, 2594128, 34416318, 465449155,\ \dots
+216, 504, 1206, 3096, 7992, 20862, 54504, 142632,\ \dots
 \]
-The entry states:
+The entry states, as a conjecture and never marked settled:
 \begin{quote}
-Empirical recurrence of order 69 (see link above)
+Empirical: a(n) = 3*a(n-1) - 3*a(n-3) + a(n-4).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Nov 24 2017 07:22:56, revision 4) this is still
-recorded as empirical. The recurrence's coefficients are not in the entry text.
+and, separately and NOT as a conjecture:
+\begin{quote}
+G.f.: 18*x*(12 - 8*x - 17*x\^{}2 + 7*x\^{}3) / ((1 - x)*(1 + x)*(1 - 3*x + x\^{}2)).
+\end{quote}
+As of the ``Last modified'' line on the live entry (Jun 28 2018 08:25:52, revision 11) the first is still
+recorded as empirical. This note derives it from the second.
 
-\section{The count is a walk count}
+\section{A rational generating function decides every linear recurrence}
 
-The entry's condition is local: it constrains a bounded window of consecutive lines of the
-array and nothing further. The admissible configurations of one such window are the vertices
-of a finite digraph, an edge joining $u$ to $v$ when $v$ may follow $u$, and an admissible
-array is exactly a walk. Hence, with $M$ the adjacency matrix on $S=87$ vertices,
-$a(n)=\iota^{\!\top}M^{\,j(n)}\tau$ for a linear reindexing $j$ fixed by the entry's shape
-and checked against its published terms. By the Cayley--Hamilton theorem $M^{S}$ is an
-integer combination of $I,M,\dots,M^{S-1}$, so:
-
-\begin{lemma}\label{lem:cf}
-$a$ satisfies a monic linear recurrence with integer coefficients of order at most
-$S'=87$.
-\end{lemma}
-
-\section{Recovering the recurrence}
-
-\begin{lemma}\label{lem:bm}
-A sequence known to satisfy some linear recurrence of order at most $S$ is determined, together
-with its minimal recurrence, by its first $2S$ terms: Berlekamp--Massey applied to them returns
-that minimal recurrence exactly.
-\end{lemma}
-
-Running it on $2S'=174$ exact terms of the model returns order $69$ --- the order the
-entry states --- with the integer coefficients
+Write
 \[
-a(n)\;=\;\sum_{i=1}^{69}c_i\,a(n-i),
+G(x)\;=\;\sum_{n}a(n)\,x^{n}\;=\;\frac{- 126 x^{4} + 306 x^{3} + 144 x^{2} - 216 x}{x^{4} - 3 x^{3} + 3 x - 1},
 \]
-\begin{center}\small
-\begin{tabular}{cccccccc}
-$c_{1}$ & $25$ & $c_{19}$ & $-7886921638$ & $c_{37}$ & $81970633315717$ & $c_{55}$ & $-8734403068$ \\
-$c_{2}$ & $-189$ & $c_{20}$ & $-36841106669$ & $c_{38}$ & $-7226792089710$ & $c_{56}$ & $46434758513$ \\
-$c_{3}$ & $552$ & $c_{21}$ & $2422562862$ & $c_{39}$ & $-75135968920622$ & $c_{57}$ & $-56196157359$ \\
-$c_{4}$ & $-828$ & $c_{22}$ & $82688421593$ & $c_{40}$ & $-113189552856111$ & $c_{58}$ & $-45203338640$ \\
-$c_{5}$ & $-2840$ & $c_{23}$ & $-83999035915$ & $c_{41}$ & $-71941530219386$ & $c_{59}$ & $5229800236$ \\
-$c_{6}$ & $21532$ & $c_{24}$ & $-476389636416$ & $c_{42}$ & $57149495139141$ & $c_{60}$ & $380764820$ \\
-$c_{7}$ & $-153905$ & $c_{25}$ & $292999377630$ & $c_{43}$ & $114382261699368$ & $c_{61}$ & $-149269586$ \\
-$c_{8}$ & $577671$ & $c_{26}$ & $2815301304752$ & $c_{44}$ & $12351407047260$ & $c_{62}$ & $-443541094$ \\
-$c_{9}$ & $-351666$ & $c_{27}$ & $1331559553407$ & $c_{45}$ & $-78387333440373$ & $c_{63}$ & $71870881$ \\
-$c_{10}$ & $964915$ & $c_{28}$ & $-8413193820408$ & $c_{46}$ & $-23580161756243$ & $c_{64}$ & $196075026$ \\
-$c_{11}$ & $14584019$ & $c_{29}$ & $-8409203834148$ & $c_{47}$ & $36517103469373$ & $c_{65}$ & $-56029578$ \\
-$c_{12}$ & $-17623398$ & $c_{30}$ & $19398667130664$ & $c_{48}$ & $24504040945996$ & $c_{66}$ & $-27458105$ \\
-$c_{13}$ & $135032297$ & $c_{31}$ & $36785891003893$ & $c_{49}$ & $-6450106132995$ & $c_{67}$ & $5867106$ \\
-$c_{14}$ & $74467308$ & $c_{32}$ & $-15493739630398$ & $c_{50}$ & $-11805304904918$ & $c_{68}$ & $867728$ \\
-$c_{15}$ & $-30681619$ & $c_{33}$ & $-90959573280138$ & $c_{51}$ & $-1372295231716$ & $c_{69}$ & $-147286$ \\
-$c_{16}$ & $736518965$ & $c_{34}$ & $-61316169651664$ & $c_{52}$ & $1629978307992$ &  &  \\
-$c_{17}$ & $-783634971$ & $c_{35}$ & $60201903129158$ & $c_{53}$ & $288610677492$ &  &  \\
-$c_{18}$ & $1594318543$ & $c_{36}$ & $125759226479263$ & $c_{54}$ & $108152476152$ &  &  \\
-\end{tabular}
-\end{center}
+the entry's own generating function, and let
+\[
+D(x)\;=\;1-\sum_i c_i x^{i}\;=\;- x^{4} + 3 x^{3} - 3 x + 1
+\]
+be the polynomial attached to the conjectured recurrence.
+
+\begin{lemma}\label{lem:key}
+For every $n$ in range, $a(n)-\sum_i c_i\,a(n-i)$ is the coefficient of $x^{n}$ in
+$D(x)G(x)$.
+\end{lemma}
+
+\begin{proof}
+Multiplying power series, the coefficient of $x^{m}$ in $D(x)G(x)$ is
+$a_m-\sum_i c_i a_{m-i}$ where $a_m$ denotes the coefficient of $x^{m}$ in $G$, terms with
+negative index being zero.
+\end{proof}
 
 \begin{theorem}
-The recurrence above holds for every $n$, and it is the recurrence the entry records.
+\[
+a(n)\;=\;3\,a(n-1) - 3\,a(n-3) + a(n-4)
+\]
+for every $n>4$.
 \end{theorem}
 
 \begin{proof}
-It holds by Lemma~\ref{lem:bm}, which returns a recurrence the sequence satisfies from its
-first term. For the identification: the entry asserts that the sequence satisfies SOME
-recurrence of order $69$, possibly only from some index on. Let $q$ be that recurrence's
-characteristic polynomial and $q_{\min}$ the minimal polynomial of the tail of the sequence.
-Then $q_{\min}\mid q$. Berlekamp--Massey run on the sequence with its first $69+4$ terms
-removed returns order $69$ as well, so $\deg q_{\min}=69=\deg q$; both are monic, so
-$q=q_{\min}$, which is the polynomial computed above.
+In exact arithmetic,
+\[
+D(x)\,G(x)\;=\;126 x^{4} - 306 x^{3} - 144 x^{2} + 216 x,
+\]
+a POLYNOMIAL of degree $4$ --- the denominator of $G$ divides $D(x)$ times its numerator,
+which is precisely the condition for the conjectured recurrence to be implied by the
+generating function. Its coefficients vanish beyond degree $4$, so by
+Lemma~\ref{lem:key} the residual $a(n)-\sum_ic_ia(n-i)$ vanishes for every
+$n>4$.
 \end{proof}
+
+\section{Is the conjectured recurrence the shortest one?}
+
+Cancelling common factors, $G$ has reduced denominator
+\[
+x^{4} - 3 x^{3} + 3 x - 1,
+\]
+of degree $4$, and that degree is the order of the SHORTEST linear recurrence with
+constant coefficients the sequence obeys: any shorter one would give a polynomial multiple of
+$G$ with a smaller denominator, contradicting the cancellation. The conjectured recurrence has
+order $4$.
+
+So the conjecture is the minimal recurrence.
+
+\section{The residuals, explicitly}
+
+Lemma~\ref{lem:key} says the residual $a(n)-\sum_ic_ia(n-i)$ is a coefficient of the
+polynomial $D(x)G(x)$, so it can be read off the entry's own published terms with no
+generating function involved at all. Doing that:
+\begin{center}
+\begin{tabular}{cc}
+index & residual \\ \hline
+$n=5$ & $0$ \\
+$n=6$ & $0$ \\
+$n=7$ & $0$ \\
+$n=8$ & $0$
+\end{tabular}
+\end{center}
+The residuals are exactly the coefficients of the polynomial displayed above, in order, and
+they stop at index $4$ because that polynomial has degree $4$. A reader who trusts
+neither the generating function nor the algebra can check the table against the entry's DATA
+by hand; what the generating function adds is the guarantee that the pattern continues, which
+no amount of checking terms could establish on its own.
 
 \section{Verification}
 
 Three checks.
 
-First, the walk model reproduces all $16$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry, and it is the only place where reading
-the entry's English enters.
+First, the generating function was expanded as a power series in exact rational arithmetic and
+compared against all $24$ terms the entry publishes: it reproduces every one. This is
+what ties the recorded generating function to the sequence the recurrence is about.
 
-Second, the recovered recurrence was evaluated directly on those published terms, with no
-matrices and no Berlekamp--Massey involved, and holds at every index where the entry gives
-enough earlier terms to test it.
+Second, the polynomial division above was carried out symbolically, not numerically, so the
+statement that $D(x)G(x)$ is a polynomial is exact rather than approximate.
 
-Third, the order was computed twice by independent routes: once modulo a $61$-bit prime, where
-every intermediate is a machine word, and once in exact rational arithmetic; and once more on
-the sequence with its first $69+4$ terms removed, which is what the identification above
-requires. All three agree.
+Third, the recurrence was evaluated directly on the series coefficients for sixty consecutive
+indices beyond $n=4$ and holds at every one, and at $n=4$ itself it fails --- the
+degree bound is attained, so the range stated is the true one and not merely a safe one.
 
 \begin{remark}
-What is unusual here is that the conjecture's statement was never read. The entry pins it down
-to a one-parameter family --- the recurrences of order $69$ that this sequence satisfies
---- and that family turns out to have exactly one member.
+The argument is conditional on the generating function, which the entry records as a fact and
+attributes to a contributor rather than offering as a conjecture. What is shown here is that
+the empirical recurrence is not an independent guess: it is equivalent to information the
+entry already contains.
 \end{remark}
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A295603.
-\bibitem{massey} J.~L.~Massey, Shift-register synthesis and BCH decoding, \emph{IEEE
-Trans. Inform. Theory} \textbf{15} (1969), 122--127.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A208089.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
-University Press, 2013.
+Cambridge University Press, 2011. (Rational generating functions, Section 4.1.)
+\bibitem{kp} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011.
+\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+University Press, 2009.
 \end{thebibliography}
 
 \end{document}

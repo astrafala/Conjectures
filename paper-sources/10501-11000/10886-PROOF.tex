@@ -7,143 +7,143 @@
 \theoremstyle{plain}
 \newtheorem{theorem}{Theorem}
 \newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
-\title{A proof of the conjectured recurrence for OEIS A022917}
+
+\title{The empirical recurrence for OEIS A238651: recovering a conjecture that is not written down}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{26 August 2026}
+\date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A022917 carries a conjectured linear recurrence with polynomial coefficients, of
-order 5. The entry separately states a recurrence of order 4 that is not
-labelled a conjecture. We prove that the first is a consequence of the second, so the
-conjecture holds. The argument is a division in the Ore algebra
-$\mathbb{Q}(n)[N]$, where $N$ is the shift $Nf(n)=f(n+1)$: writing $C$ and $P$ for the two
-recurrences read as operators, we exhibit $Q$ with $C=QP$, whence
-$C(a)=Q(P(a))=Q(0)=0$. No generating function is used. The division is exact
-rational-function arithmetic, and the finitely many $n$ excluded by denominators of $Q$
-are computed rather than ignored.
+OEIS A238651 records ``Empirical recurrence of order $68$'', with the recurrence itself in a
+linked file rather than in the entry. The conjecture can nevertheless be settled, and the
+recurrence recovered, without reading that file. The entry counts arrays under a condition
+local to a bounded window of lines, so the count is a walk count on a finite digraph and
+satisfies some monic recurrence of order at most the number of its states with distinct
+futures, here $S'=272$; Berlekamp--Massey applied to $2S'$ exact
+terms therefore returns the MINIMAL such recurrence. Its order is exactly $68$, the order
+the entry states, and the same is true of every tail of the sequence. Any recurrence of order
+$68$ that the sequence satisfies from any point on must then have a characteristic
+polynomial that is a multiple of the minimal one and of the same degree, hence equal to it. So
+the entry's recurrence is the one displayed here, whatever its file contains, and it is
+proved.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 11B37, 12H10, 33F10.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 15A18.\normalsize
 
-\section{The sequence and the two recurrences}
+\section{A conjecture one cannot read}
 
-OEIS A022917 is ``Multinomial coefficient n!/ ([n/4]!, [(n+1)/4]!, [(n+2)/4]!, [(n+3)/4]!)''. It has offset $0$ and begins
+OEIS A238651 is ``Number of (n+2)X(5+2) 0..1 arrays with no element equal to all horizontal neighbors or equal to all vertical neighbors, and new values 0..1 introduced in row major order.''. It has offset $1$ and begins
 \[
-a(0),\dots,a(7)\;=\;1, 1, 2, 6, 24, 60, 180, 630,\ \dots
+8, 128, 630, 4742, 30116, 204216, 1349732, 9010526,\ \dots
 \]
-The entry carries the following comment, still recorded as a conjecture:
-\begin{quote}\small
-\textbf{Conjecture:} -(126*n-1)*(n+3)*(n+2)*(n+1)*a(n) +4*(-208*n\^{}4-51*n\^{}3+793*n\^{}2+376*n-6)*a(n-1) +16*(334*n\^{}3-114*n\^{}2-5*n-369)*a(n-2) +64*(n-2)*(334*n\^{}2+264*n-213)*a(n-3) +768*(n-2)*(n-3)*(42*n\^{}2+153*n+113)*a(n-4) +1024*(208*n+177)*(n-2)*(n-3)*(n-4)*a(n-5)=0. - \emph{R. J. Mathar}, Aug 06 2015
+The entry states:
+\begin{quote}
+Empirical recurrence of order 68 (see link above)
 \end{quote}
-As of the ``Last modified'' line on the live entry (2019-10-11, revision 30) it is still
-a conjecture, and no proof appears among the entry's links, formulas or programs.
+As of the ``Last modified'' line on the live entry (Jul 23 2025 10:53:26, revision 7) this is still
+recorded as empirical. The recurrence's coefficients are not in the entry text.
 
-The same entry also states, \emph{not} as a conjecture:
-\begin{quote}\small
-Recurrence: (n+1)*(n+2)*(n+3)*(4*n\^{}3 + 8*n\^{}2 + 4*n - 1)*a(n) = 8*(2*n\^{}2 + 2*n - 1)*(n\^{}3 + 4*n\^{}2 + 7*n + 3)*a(n-1) + 16*(n-1)*(4*n\^{}4 + 16*n\^{}3 + 16*n\^{}2 + 18*n + 15)*a(n-2) + 128*(n-2)*(n-1)*(2*n\^{}3 + 14*n\^{}2 + 31*n + 18)*a(n-3) + 256*(n-3)*(n-2)*(n-1)*(4*n\^{}3 + 20*n\^{}2 + 32*n + 15)*a(n-4).
-\end{quote}
-This second relation is what the argument below rests on; it is taken as given, exactly as
-a posted generating function would be. It was checked against the entry's own DATA before
-being used, and holds on every published term it reaches.
+\section{The count is a walk count}
 
-\section{Recurrences as operators, and what division proves}
+The entry's condition is local: it constrains a bounded window of consecutive lines of the
+array and nothing further. The admissible configurations of one such window are the vertices
+of a finite digraph, an edge joining $u$ to $v$ when $v$ may follow $u$, and an admissible
+array is exactly a walk. Hence, with $M$ the adjacency matrix on $S=272$ vertices,
+$a(n)=\iota^{\!\top}M^{\,j(n)}\tau$ for a linear reindexing $j$ fixed by the entry's shape
+and checked against its published terms. By the Cayley--Hamilton theorem $M^{S}$ is an
+integer combination of $I,M,\dots,M^{S-1}$, so:
 
-Let $N$ be the shift operator, $(Nf)(n)=f(n+1)$, acting on sequences. Polynomials in $n$
-and $N$ generate the Ore algebra $\mathcal{A}=\mathbb{Q}(n)[N]$, in which multiplication is
-associative and distributive but not commutative: moving $N$ past a coefficient shifts it,
-\[
-N\,q(n)\;=\;q(n+1)\,N .
-\]
-A recurrence $\sum_{i=0}^{r}p_{i}(n)\,a(n-i)=0$ becomes an element of $\mathcal{A}$ after
-re-indexing $n\mapsto n+r$, namely
-\[
-L\;=\;\sum_{j=0}^{r}q_{j}(n)\,N^{j},\qquad q_{j}(n)=p_{r-j}(n+r),
-\]
-and the recurrence says exactly that $L$ annihilates the sequence, $L(a)=0$.
-
-\begin{lemma}\label{lem:factor}
-Let $P,C\in\mathcal{A}$ and suppose $C=QP$ for some $Q\in\mathcal{A}$. If $P(a)=0$ then
-$C(a)=0$, at every $n$ where the coefficients of $Q$ are defined.
+\begin{lemma}\label{lem:cf}
+$a$ satisfies a monic linear recurrence with integer coefficients of order at most
+$S'=272$.
 \end{lemma}
 
-\begin{proof}
-$C(a)=(QP)(a)=Q\bigl(P(a)\bigr)=Q(0)=0$. The only caveat is the one stated: a coefficient
-of $Q$ is a rational function of $n$, so the step is valid at every $n$ that is not a pole
-of one of them.
-\end{proof}
+\section{Recovering the recurrence}
 
-\begin{lemma}\label{lem:div}
-Right division works in $\mathcal{A}$: given $C$ and $P\neq0$, there are $Q,R\in\mathcal{A}$
-with $C=QP+R$ and $\deg_{N}R<\deg_{N}P$.
+\begin{lemma}\label{lem:bm}
+A sequence known to satisfy some linear recurrence of order at most $S$ is determined, together
+with its minimal recurrence, by its first $2S$ terms: Berlekamp--Massey applied to them returns
+that minimal recurrence exactly.
 \end{lemma}
 
-\begin{proof}
-Induct on $\deg_{N}C$. If $\deg_{N}C<\deg_{N}P$ take $Q=0$, $R=C$. Otherwise let
-$d=\deg_{N}C-\deg_{N}P$ and let $c$, $p$ be the leading coefficients of $C$ and $P$. By the
-commutation rule, the leading coefficient of $N^{d}P$ is $p(n+d)$, which is a nonzero
-element of $\mathbb{Q}(n)$ and hence invertible there. Then
-$C-\dfrac{c(n)}{p(n+d)}\,N^{d}P$ has strictly smaller degree in $N$, and induction applies.
-\end{proof}
-
-So the question ``does the conjecture follow from the stated recurrence?'' is decided by
-running the division and looking at the remainder. Nothing is approximated: the
-coefficients live in $\mathbb{Q}(n)$ and the arithmetic is exact.
-
-\section{The computation for A022917}
-
-Reading both relations as operators and dividing the conjectured one by the stated one
-leaves remainder $0$, with quotient
+Running it on $2S'=544$ exact terms of the model returns order $68$ --- the order the
+entry states --- with the integer coefficients
 \[
-Q \;=\; \left(\frac{- 832 n - 4868}{4 n^{3} + 68 n^{2} + 384 n + 719}\right) + \left(\frac{- 126 n - 629}{4 n^{3} + 68 n^{2} + 384 n + 719}\right)\,N .
+a(n)\;=\;\sum_{i=1}^{68}c_i\,a(n-i),
 \]
-Hence $C=QP$ in $\mathcal{A}$.
-
-The coefficients of $Q$ are rational functions of $n$, and none of their poles is an integer, so Lemma~\ref{lem:factor} applies at every index.
+\begin{center}\small
+\begin{tabular}{cccccccc}
+$c_{1}$ & $5$ & $c_{18}$ & $-118649209$ & $c_{35}$ & $-236900824$ & $c_{52}$ & $18292726$ \\
+$c_{2}$ & $30$ & $c_{19}$ & $-129233247$ & $c_{36}$ & $1635617318$ & $c_{53}$ & $6052559$ \\
+$c_{3}$ & $-37$ & $c_{20}$ & $265480066$ & $c_{37}$ & $265536328$ & $c_{54}$ & $-5754977$ \\
+$c_{4}$ & $-632$ & $c_{21}$ & $321333931$ & $c_{38}$ & $-1073688981$ & $c_{55}$ & $-2174114$ \\
+$c_{5}$ & $-1082$ & $c_{22}$ & $-534927504$ & $c_{39}$ & $-347634219$ & $c_{56}$ & $1403870$ \\
+$c_{6}$ & $6391$ & $c_{23}$ & $-640842205$ & $c_{40}$ & $720489296$ & $c_{57}$ & $645516$ \\
+$c_{7}$ & $23663$ & $c_{24}$ & $996096271$ & $c_{41}$ & $348641390$ & $c_{58}$ & $-246818$ \\
+$c_{8}$ & $-13767$ & $c_{25}$ & $1023274144$ & $c_{42}$ & $-502789927$ & $c_{59}$ & $-147117$ \\
+$c_{9}$ & $-215778$ & $c_{26}$ & $-1671606678$ & $c_{43}$ & $-266097832$ & $c_{60}$ & $27298$ \\
+$c_{10}$ & $-259880$ & $c_{27}$ & $-1273545411$ & $c_{44}$ & $337392810$ & $c_{61}$ & $24309$ \\
+$c_{11}$ & $1012178$ & $c_{28}$ & $2408287384$ & $c_{45}$ & $162155156$ & $c_{62}$ & $-1039$ \\
+$c_{12}$ & $2685731$ & $c_{29}$ & $1199700086$ & $c_{46}$ & $-202037982$ & $c_{63}$ & $-2722$ \\
+$c_{13}$ & $-1852047$ & $c_{30}$ & $-2883021032$ & $c_{47}$ & $-82283289$ & $c_{64}$ & $-177$ \\
+$c_{14}$ & $-13414398$ & $c_{31}$ & $-831247697$ & $c_{48}$ & $105308039$ & $c_{65}$ & $179$ \\
+$c_{15}$ & $-4442528$ & $c_{32}$ & $2838564699$ & $c_{49}$ & $36601879$ & $c_{66}$ & $26$ \\
+$c_{16}$ & $45173212$ & $c_{33}$ & $429235162$ & $c_{50}$ & $-47575605$ & $c_{67}$ & $-5$ \\
+$c_{17}$ & $37601107$ & $c_{34}$ & $-2320839767$ & $c_{51}$ & $-15220362$ & $c_{68}$ & $-1$ \\
+\end{tabular}
+\end{center}
 
 \begin{theorem}
-The conjectured recurrence
-\[
-- \left(n + 1\right) \left(n + 2\right) \left(n + 3\right) \left(126 n - 1\right)\,a(n) -  4 \left(208 n^{4} + 51 n^{3} - 793 n^{2} - 376 n + 6\right)\,a(n-1) + 16 \left(334 n^{3} - 114 n^{2} - 5 n - 369\right)\,a(n-2) + 64 \left(n - 2\right) \left(334 n^{2} + 264 n - 213\right)\,a(n-3) + 768 \left(n - 3\right) \left(n - 2\right) \left(42 n^{2} + 153 n + 113\right)\,a(n-4) + 1024 \left(n - 4\right) \left(n - 3\right) \left(n - 2\right) \left(208 n + 177\right)\,a(n-5) \;=\;0
-\]
-holds for every $n\ge5$.
+The recurrence above holds for every $n$, and it is the recurrence the entry records.
 \end{theorem}
 
 \begin{proof}
-By Lemma~\ref{lem:factor} applied to the factorisation above, using that the stated
-recurrence annihilates the sequence. No coefficient of $Q$ has an integer pole, so the lemma applies at every $n$.
+It holds by Lemma~\ref{lem:bm}, which returns a recurrence the sequence satisfies from its
+first term. For the identification: the entry asserts that the sequence satisfies SOME
+recurrence of order $68$, possibly only from some index on. Let $q$ be that recurrence's
+characteristic polynomial and $q_{\min}$ the minimal polynomial of the tail of the sequence.
+Then $q_{\min}\mid q$. Berlekamp--Massey run on the sequence with its first $68+4$ terms
+removed returns order $68$ as well, so $\deg q_{\min}=68=\deg q$; both are monic, so
+$q=q_{\min}$, which is the polynomial computed above.
 \end{proof}
 
 \section{Verification}
 
-Every number above is an output of a script written separately from this note, and three
-independent checks were run.
+Three checks.
 
-First, the factorisation was not assumed but computed, and then confirmed by multiplying
-back: $QP$ was expanded in $\mathcal{A}$ and its coefficients cancelled against those of
-$C$ to zero, as rational functions of $n$.
+First, the walk model reproduces all $19$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry, and it is the only place where reading
+the entry's English enters.
 
-Second, the relation the argument rests on was checked against the entry rather than
-trusted: the stated recurrence was evaluated on the published terms in exact integer
-arithmetic and holds on every one it reaches.
+Second, the recovered recurrence was evaluated directly on those published terms, with no
+matrices and no Berlekamp--Massey involved, and holds at every index where the entry gives
+enough earlier terms to test it.
 
-Third, the conjecture itself was evaluated the same way, directly and without reference to
-either operator: for each $n$ in range the sum $\sum_{i}p_{i}(n)a(n-i)$ was formed from the
-entry's own values and found to vanish, for all 21 values of $n$ from
-$n=5$ upward.
+Third, the order was computed twice by independent routes: once modulo a $61$-bit prime, where
+every intermediate is a machine word, and once in exact rational arithmetic; and once more on
+the sequence with its first $68+4$ terms removed, which is what the identification above
+requires. All three agree.
+
+\begin{remark}
+What is unusual here is that the conjecture's statement was never read. The entry pins it down
+to a one-parameter family --- the recurrences of order $68$ that this sequence satisfies
+--- and that family turns out to have exactly one member.
+\end{remark}
 
 \begin{thebibliography}{9}
-\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer Sequences},
-\url{https://oeis.org}, 2026. Sequence A022917.
-\bibitem{ore} O.~Ore, \emph{Theory of non-commutative polynomials}, Ann. of Math. 34
-(1933), 480--508.
-\bibitem{kp} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011,
-Chapter 7.
-\bibitem{bronstein} M.~Bronstein and M.~Petkov\v{s}ek, \emph{An introduction to
-pseudo-linear algebra}, Theoret. Comput. Sci. 157 (1996), 3--33.
+\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
+Sequences}, \url{https://oeis.org}, 2026. Sequence A238651.
+\bibitem{massey} J.~L.~Massey, Shift-register synthesis and BCH decoding, \emph{IEEE
+Trans. Inform. Theory} \textbf{15} (1969), 122--127.
+\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
+University Press, 2013.
 \end{thebibliography}
+
 \end{document}

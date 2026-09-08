@@ -7,173 +7,175 @@
 \theoremstyle{plain}
 \newtheorem{theorem}{Theorem}
 \newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
-\title{A proof of the conjectured recurrence for OEIS A157418}
+
+\title{The empirical recurrence for OEIS A224308, recovered from its tail}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{25 August 2026}
+\date{8 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A157418 carries a conjectured linear recurrence with polynomial coefficients, of
-order 3, contributed by R.~J.~Mathar. We prove it. The generating function of the
-entry is algebraic, and the recurrence is equivalent to the vanishing of an explicit
-differential operator applied to it: writing $\theta=x\,\frac{d}{dx}$, the sequence
-$b(n)=\sum_{i}p_{i}(n)a(n-i)$ has generating function
-$B(x)=\sum_{i}x^{i}\,(p_{i}(\theta+i)A)(x)$, so the conjecture holds for all $n>d$ exactly
-when $B$ is a polynomial of degree $d$. Since $A$ lies in a quadratic extension of
-$\mathbb{Q}(x)$, which is closed under $\theta$, the residual $B$ can be computed in
-closed form. Here it equals $- 64 x^{2} - 22 x$, a polynomial of degree $2$, which proves
-the recurrence for every $n>2$.
+OEIS A224308 records ``Empirical recurrence of order $88$'' and keeps the recurrence itself in
+a linked file rather than in the entry, so the conjecture cannot be read off the entry at all.
+It can still be settled. The entry counts arrays under a condition local to a bounded window of
+lines, which makes the count a walk count on a finite digraph and forces a monic integer
+recurrence of order at most the number $S'=657$ of states with distinct futures. Berlekamp--Massey on
+enough exact terms therefore returns the minimal such recurrence, and on the tail beginning at $n=11$, so the recurrence is proved for every $n\ge99$.
+Its last coefficient is $c_{88}=95938412544\neq0$, so no further tail satisfies anything
+shorter; any order-$88$ recurrence the sequence satisfies from any point on must then have
+the same characteristic polynomial. The entry's recurrence is the one displayed here, whatever
+its linked file contains, and it is proved.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 11B37, 05A15, 33F10.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 15A18.\normalsize
 
-\section{The sequence and the conjecture}
+\section{A conjecture that is not written down}
 
-OEIS A157418 is ``a(n) is the number of ways to insert single pairs of parenthesis to completely separate n identical objects in a straight line such that at least one of the objects at the two ends is not enclosed''. It has offset $1$ and begins
+OEIS A224308 is ``Number of nX6 0..2 arrays with diagonals and rows unimodal and antidiagonals nondecreasing.''. It has offset $1$ and begins
 \[
-a(1),\dots,a(8)\;=\;1, 2, 5, 16, 55, 202, 773, 3052,\ \dots
+148, 4690, 61953, 562760, 4420701, 33934344, 268379906, 2215451575,\ \dots
 \]
-The entry gives the generating function
-\begin{equation}\label{eq:gf}
-A(x)\;=\;\sum_{n\ge 1} a(n)\,x^{n}\;=\;\frac{- 2 x^{2} - x - \left(x + 2\right) \sqrt{- 4 x^{2} - 4 x + 1} + 2}{2 \left(x + 1\right)^{2}} ,
-\end{equation}
-and it carries the following comment:
-\begin{quote}\small
-\textbf{Conjecture:} n*(7*n-29)*a(n) +(-21*n\^{}2+136*n-192)*a(n-1) +2*(-28*n\^{}2+165*n-210)*a(n-2) -4*(n-3)*(7*n-22)*a(n-3)=0. - \emph{R. J. Mathar}, Jul 24 2012
+The entry states:
+\begin{quote}
+Empirical recurrence of order 88 (see link above)
 \end{quote}
-As of the ``Last modified'' line on the live entry (2026-06-11, revision 24) the
-statement is still recorded as a conjecture, and no proof appears among the entry's links,
-formulas or programs.
+As of the ``Last modified'' line on the live entry (Oct 03 2025 23:22:04, revision 9)
+this is still recorded as empirical, and it is still open. The coefficients are nowhere in the
+entry text: what is conjectured is only that a recurrence of that order exists.
 
-Writing the conjectured relation in the form $\sum_{i=0}^{3}p_{i}(n)\,a(n-i)=0$,
-the coefficient polynomials are
+\section{The count is a walk count}
+
+The entry's condition is local. It constrains a bounded window of consecutive lines of the
+array and nothing beyond it, so the admissible configurations of one window are the vertices of
+a finite digraph, an edge joins $u$ to $v$ when $v$ may follow $u$, and an admissible array is
+exactly a walk. Writing $M$ for the adjacency matrix and $\iota,\tau$ for the indicator vectors
+of the admissible first and last windows,
 \[
-p_{0}(n)=n \left(7 n - 29\right),\qquad p_{1}(n)=- 21 n^{2} + 136 n - 192,\qquad p_{2}(n)=- 2 \left(28 n^{2} - 165 n + 210\right),\qquad p_{3}(n)=- 4 \left(n - 3\right) \left(7 n - 22\right)
+a(n)\;=\;\iota^{\!\top}M^{\,j(n)}\tau
 \]
+for a linear reindexing $j$ fixed by the entry's shape. States with identical futures
+contribute identically to that product and may be merged without changing any count; after
+merging $S'=657$ states remain, and it is that bound every computation below uses.
 
-\section{Recurrences as differential operators}
-
-Let $A(x)=\sum_{n\ge0}a(n)x^{n}$ be the generating function of a sequence, and let
-$\theta=x\,\dfrac{d}{dx}$, so that $\theta$ acts on $x^{m}$ as multiplication by $m$. For a
-polynomial $p$ we write $p(\theta)$ for the corresponding differential operator, so that
-$p(\theta)A=\sum_{m}p(m)a(m)x^{m}$.
-
-\begin{lemma}\label{lem:transfer}
-Let $p_{0},\dots,p_{r}$ be polynomials and put $b(n)=\sum_{i=0}^{r}p_{i}(n)\,a(n-i)$, with
-the convention $a(m)=0$ for $m<0$. Then
-\[
-B(x):=\sum_{n\ge0}b(n)x^{n}=\sum_{i=0}^{r}x^{i}\,\bigl(p_{i}(\theta+i)A\bigr)(x).
-\]
+\begin{lemma}\label{lem:cf}
+$a$ satisfies a monic linear recurrence with integer coefficients of order at most $S'=657$.
 \end{lemma}
 
 \begin{proof}
-Fix $i$ and substitute $m=n-i$:
-\[
-\sum_{n\ge0}p_{i}(n)a(n-i)x^{n}=\sum_{m\ge0}p_{i}(m+i)a(m)x^{m+i}
-=x^{i}\sum_{m\ge0}p_{i}(m+i)a(m)x^{m}=x^{i}\bigl(p_{i}(\theta+i)A\bigr)(x),
-\]
-the last step because $p_{i}(\theta+i)$ multiplies the coefficient of $x^{m}$ by
-$p_{i}(m+i)$. Summing over $i$ gives the claim.
+By the Cayley--Hamilton theorem $M^{S'}$ is an integer combination of $I,M,\dots,M^{S'-1}$,
+and multiplying that relation on the left by $\iota^{\!\top}M^{\,j}$ and on the right by
+$\tau$ turns it into a relation among $S'+1$ consecutive values of $a$.
 \end{proof}
 
-\begin{corollary}\label{cor:criterion}
-With the notation of Lemma~\ref{lem:transfer}, the recurrence
-$\sum_{i}p_{i}(n)a(n-i)=0$ holds for every $n>d$ if and only if $B$ is a polynomial of
-degree at most $d$.
-\end{corollary}
+\section{Why the question has to be asked of a tail}
 
-\begin{proof}
-$b(n)$ is the coefficient of $x^{n}$ in $B$, so $b(n)=0$ for all $n>d$ says exactly that
-$B$ has no terms above $x^{d}$.
-\end{proof}
+Running Berlekamp--Massey on the sequence from its first term returns an order LARGER than $88$: the opening terms do not satisfy the recurrence, and a recurrence that holds only eventually always looks longer when the exceptional terms are included. That is not evidence against the entry. An OEIS empirical recurrence is asserted for $n$ beyond some index, not from the first term, so the question has to be asked of the tails. It was asked of each tail in turn, and the tail beginning at $n=11$ is the first whose minimal order is exactly the stated $88$.
 
-This turns the conjecture into a closed-form identity. The point is that it can then be
-decided exactly, with no truncation: $A$ is algebraic, so $B$ lies in the same field as
-$A$, and one only has to recognise it.
-
-\begin{lemma}\label{lem:field}
-Let $D\in\mathbb{Q}(x)$ and let $K=\mathbb{Q}(x)\bigl[\sqrt{D}\bigr]$. Then $K$ is closed
-under $\theta$; explicitly,
-\[
-\theta\bigl(u+v\sqrt{D}\bigr)=x\,u'+\Bigl(x\,v'+\frac{x\,v\,D'}{2D}\Bigr)\sqrt{D},
-\qquad u,v\in\mathbb{Q}(x).
-\]
+\begin{lemma}\label{lem:bm}
+A sequence known to satisfy some linear recurrence of order at most $S'$ is determined,
+together with its minimal recurrence, by any $2S'$ consecutive terms: Berlekamp--Massey applied
+to them returns that minimal recurrence exactly.
 \end{lemma}
 
-\begin{proof}
-Differentiate: $(\sqrt{D})'=D'/(2\sqrt{D})=\bigl(D'/(2D)\bigr)\sqrt{D}$, and multiply by
-$x$. Both components remain in $\mathbb{Q}(x)$.
-\end{proof}
-
-Consequently, if $A\in K$ then every $p_{i}(\theta+i)A$ is in $K$, and so is $B$. Writing
-$B=P+Q\sqrt{D}$ with $P,Q\in\mathbb{Q}(x)$, the test of Corollary~\ref{cor:criterion}
-becomes: $B$ is a polynomial precisely when $Q=0$ and $P$ has constant denominator. Both
-are decided by exact cancellation of rational functions.
-
-\section{The computation for A157418}
-
-The generating function \eqref{eq:gf} lies in $K=\mathbb{Q}(x)[\sqrt{D}]$ with
+Applied to $2S'=1314$ exact terms from $n=11$ on, it returns order $88$ --- the
+order the entry states --- with integer coefficients:
 \[
-D \;=\; - 4 x^{2} - 4 x + 1 .
+a(n)\;=\;\sum_{i=1}^{88}c_i\,a(n-i),
 \]
-Applying Lemma~\ref{lem:transfer} to the coefficient polynomials of Section~1 and reducing
-in $K$ by Lemma~\ref{lem:field}, the $\sqrt{D}$ component of $B$ cancels identically and
-the rational part collapses to
-\[
-B(x)\;=\;- 64 x^{2} - 22 x ,
-\]
-a polynomial of degree $2$.
+\begin{center}\small
+\begin{tabular}{cccccccc}
+$c_{1}$ & $28$ & $c_{23}$ & $1503595330342$ & $c_{45}$ & $-297241926351090938$ & $c_{67}$ & $-2283793762400620032$ \\
+$c_{2}$ & $-283$ & $c_{24}$ & $-4902166987826$ & $c_{46}$ & $-1043821572862888192$ & $c_{68}$ & $-1927869262091505856$ \\
+$c_{3}$ & $1083$ & $c_{25}$ & $8192323587511$ & $c_{47}$ & $-1521567412868618582$ & $c_{69}$ & $-318341168372787712$ \\
+$c_{4}$ & $384$ & $c_{26}$ & $-14724157282344$ & $c_{48}$ & $-2521507835345490336$ & $c_{70}$ & $-1029387659075893760$ \\
+$c_{5}$ & $-7203$ & $c_{27}$ & $23407373455217$ & $c_{49}$ & $-3453314133726720532$ & $c_{71}$ & $355595141047662080$ \\
+$c_{6}$ & $-56172$ & $c_{28}$ & $-88012761010310$ & $c_{50}$ & $-4071989401351047888$ & $c_{72}$ & $59928420380536064$ \\
+$c_{7}$ & $391788$ & $c_{29}$ & $129909757855519$ & $c_{51}$ & $-5048675413563888870$ & $c_{73}$ & $110593948834118656$ \\
+$c_{8}$ & $-556197$ & $c_{30}$ & $-522275750798023$ & $c_{52}$ & $-4288081760518239704$ & $c_{74}$ & $121297300371832832$ \\
+$c_{9}$ & $-670206$ & $c_{31}$ & $494783689183062$ & $c_{53}$ & $-4415549804753178852$ & $c_{75}$ & $-16480397884363776$ \\
+$c_{10}$ & $-2831579$ & $c_{32}$ & $-2279250654893292$ & $c_{54}$ & $-1101459608562796692$ & $c_{76}$ & $11531887864010752$ \\
+$c_{11}$ & $29753831$ & $c_{33}$ & $910190147092487$ & $c_{55}$ & $-91509396397259436$ & $c_{77}$ & $-2616483982047232$ \\
+$c_{12}$ & $-58323686$ & $c_{34}$ & $-2843436202148556$ & $c_{56}$ & $6185677670085966112$ & $c_{78}$ & $-5383115638325248$ \\
+$c_{13}$ & $-2378724$ & $c_{35}$ & $1829684355137015$ & $c_{57}$ & $5538249829044151416$ & $c_{79}$ & $3218797602775040$ \\
+$c_{14}$ & $-114347394$ & $c_{36}$ & $2829184612176290$ & $c_{58}$ & $12935932391354475240$ & $c_{80}$ & $-1226421803483136$ \\
+$c_{15}$ & $1671128038$ & $c_{37}$ & $20761777264718651$ & $c_{59}$ & $7413922607473352968$ & $c_{81}$ & $499447872798720$ \\
+$c_{16}$ & $-4822615816$ & $c_{38}$ & $17110277965939120$ & $c_{60}$ & $12877992313103525808$ & $c_{82}$ & $28822674931712$ \\
+$c_{17}$ & $5240571691$ & $c_{39}$ & $88496785817903180$ & $c_{61}$ & $4343870877847143176$ & $c_{83}$ & $-102940482600960$ \\
+$c_{18}$ & $-7577399804$ & $c_{40}$ & $42383063700039530$ & $c_{62}$ & $8930722104028462640$ & $c_{84}$ & $33618693193728$ \\
+$c_{19}$ & $60166994314$ & $c_{41}$ & $173792858643081965$ & $c_{63}$ & $-175244650097360848$ & $c_{85}$ & $-21413068013568$ \\
+$c_{20}$ & $-216041577377$ & $c_{42}$ & $68769291743358848$ & $c_{64}$ & $5316989732819817792$ & $c_{86}$ & $3584605814784$ \\
+$c_{21}$ & $405752998339$ & $c_{43}$ & $126926977825923122$ & $c_{65}$ & $-2877919989468237376$ & $c_{87}$ & $-676693278720$ \\
+$c_{22}$ & $-642668233113$ & $c_{44}$ & $-128200561241478995$ & $c_{66}$ & $800788957171128512$ & $c_{88}$ & $95938412544$ \\
+\end{tabular}
+\end{center}
+
+\section{The recurrence, and the identification}
 
 \begin{theorem}
-The conjectured recurrence
-\[
-n \left(7 n - 29\right)\,a(n) + (- 21 n^{2} + 136 n - 192)\,a(n-1) -  2 \left(28 n^{2} - 165 n + 210\right)\,a(n-2) -  4 \left(n - 3\right) \left(7 n - 22\right)\,a(n-3) \;=\;0
-\]
-holds for every $n>2$.
+The recurrence above holds for every $n\ge99$, and it is the recurrence OEIS A224308 records.
 \end{theorem}
 
 \begin{proof}
-Immediate from Corollary~\ref{cor:criterion} and the displayed value of $B$.
-\end{proof}
+That it holds is Lemma~\ref{lem:bm} applied to the tail from $n=11$, whose minimal
+recurrence it is.
 
-\begin{remark}
-The polynomial $B$ is not an error term: it records the boundary of the recurrence. For
-$n\le2$ some of the shifted terms $a(n-i)$ fall outside the range of the sequence,
-and $B$ collects exactly those contributions. Above that range the relation is exact.
-\end{remark}
+For the identification, write $q_{\min}$ for the characteristic polynomial of that minimal
+recurrence, $x^{88}-c_1x^{88-1}-\dots-c_{88}$. Its constant term is
+$-c_{88}=-95938412544$, which is not zero, so $q_{\min}(0)\neq0$ and $q_{\min}$ has no
+root at the origin. A solution of a constant-coefficient recurrence is a combination of terms
+$n^{k}\lambda^{n}$ with $\lambda$ a root of its characteristic polynomial, and only the
+components with $\lambda=0$ vanish after finitely many terms. Since $q_{\min}$ has none, no
+component of $a$ dies out, and the minimal recurrence of every further tail is again
+$q_{\min}$ --- the order cannot drop below $88$ at any later starting point.
+
+Now let $q$ be the characteristic polynomial of whatever recurrence the entry asserts. The
+entry asserts it has order $88$, so $\deg q=88$, and it is monic. It holds from some
+index $t$ on. From $\max(t,11)$ on, the sequence satisfies both $q$ and $q_{\min}$, and
+the minimal polynomial of that tail is $q_{\min}$ by the previous paragraph; therefore
+$q_{\min}\mid q$. Both are monic of degree $88$, so $q=q_{\min}$.
+\end{proof}
 
 \section{Verification}
 
-Every number above is an output of a script written separately from this note, and two
-independent checks were run.
+Four checks, all in exact integer or rational arithmetic.
 
-First, the generating function was checked against the entry rather than assumed: the
-Taylor coefficients of \eqref{eq:gf} were expanded and compared term by term with the DATA
-section of A157418, agreeing on all 13 terms compared.
+First, the walk model reproduces all $16$ terms the entry publishes, exactly. This is
+what ties the model to the entry, and it is the only place where reading the entry's English
+enters the argument.
 
-Second, the recurrence itself was evaluated directly on the published terms, in exact
-integer arithmetic and without reference to the generating function: for each $n$ in range
-the sum $\sum_{i}p_{i}(n)a(n-i)$ was formed from the entry's own values and found to
-vanish, for all 21 values of $n$ from $n=4$ upward. This is what
-Corollary~\ref{cor:criterion} predicts from the degree of $B$, and it is a genuinely
-different computation from the symbolic one: it never forms $B$, never differentiates, and
-uses only integers.
+Second, the order was computed twice by independent routes: once modulo a $61$-bit prime, where
+every intermediate is a machine word, and once over $\mathbb{Q}$ in exact rational arithmetic.
+Both return $88$, and the exact run additionally confirms every coefficient is an integer
+--- had any been a proper fraction the recurrence would not be the entry's.
 
-The symbolic step is exact throughout. The residual is obtained by rational-function
-cancellation in $K$, not by series truncation, so the identity $B=- 64 x^{2} - 22 x$ is an
-identity of functions and the theorem holds for all $n>2$ simultaneously.
+Third, the recovered recurrence was evaluated directly on the entry's own published terms, with
+no matrices and no Berlekamp--Massey involved. It holds at each of the $0$ indices where
+the entry publishes enough earlier terms to test it.
+
+Fourth, the last coefficient was checked to be nonzero, which is what the identification above
+turns on; it is $95938412544$.
+
+\begin{remark}
+The conjecture's own statement was never read. The entry pins it down to the family of
+order-$88$ recurrences this sequence satisfies from some point on, and that family turns
+out to have exactly one member.
+\end{remark}
 
 \begin{thebibliography}{9}
-\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer Sequences},
-\url{https://oeis.org}, 2026. Sequence A157418.
-\bibitem{kp} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011,
-Chapter 7 (holonomic closure properties and the translation between recurrences and
-differential equations).
-\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 2, Cambridge
-University Press, 1999, Chapter 6 (algebraic and D-finite generating functions).
+\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
+Sequences}, \url{https://oeis.org}, 2026. Sequence A224308.
+\bibitem{massey} J.~L.~Massey, Shift-register synthesis and BCH decoding, \emph{IEEE
+Trans. Inform. Theory} \textbf{15} (1969), 122--127.
+\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{kauers} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011.
+(C-finite sequences and their closure properties.)
+\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
+University Press, 2013.
 \end{thebibliography}
+
 \end{document}

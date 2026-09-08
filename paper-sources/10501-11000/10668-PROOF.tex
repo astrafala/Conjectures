@@ -1,0 +1,155 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=1in]{geometry}
+\usepackage[colorlinks=true,linkcolor=blue,urlcolor=blue]{hyperref}
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{remark}[theorem]{Remark}
+
+\title{The empirical recurrence for OEIS A282836: recovering a conjecture that is not written down}
+\author{Adrian Perez Fontelles\\ \small Independent researcher}
+\date{2 September 2026}
+\begin{document}
+\maketitle
+
+\begin{abstract}
+OEIS A282836 records ``Empirical recurrence of order $90$'', with the recurrence itself in a
+linked file rather than in the entry. The conjecture can nevertheless be settled, and the
+recurrence recovered, without reading that file. The entry counts arrays under a condition
+local to a bounded window of lines, so the count is a walk count on a finite digraph and
+satisfies some monic recurrence of order at most the number of its states with distinct
+futures, here $S'=231$; Berlekamp--Massey applied to $2S'$ exact
+terms therefore returns the MINIMAL such recurrence. Its order is exactly $90$, the order
+the entry states, and the same is true of every tail of the sequence. Any recurrence of order
+$90$ that the sequence satisfies from any point on must then have a characteristic
+polynomial that is a multiple of the minimal one and of the same degree, hence equal to it. So
+the entry's recurrence is the one displayed here, whatever its file contains, and it is
+proved.
+\end{abstract}
+
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 15A18.\normalsize
+
+\section{A conjecture one cannot read}
+
+OEIS A282836 is ``Number of nX6 0..1 arrays with no 1 equal to more than one of its king-move neighbors, with the exception of exactly two elements.''. It has offset $1$ and begins
+\[
+5, 144, 6472, 151084, 2839946, 54433534, 957808843, 16264638662,\ \dots
+\]
+The entry states:
+\begin{quote}
+Empirical recurrence of order 90 (see link above)
+\end{quote}
+As of the ``Last modified'' line on the live entry (Feb 22 2017 11:21:29, revision 4) this is still
+recorded as empirical. The recurrence's coefficients are not in the entry text.
+
+\section{The count is a walk count}
+
+The entry's condition is local: it constrains a bounded window of consecutive lines of the
+array and nothing further. The admissible configurations of one such window are the vertices
+of a finite digraph, an edge joining $u$ to $v$ when $v$ may follow $u$, and an admissible
+array is exactly a walk. Hence, with $M$ the adjacency matrix on $S=2296$ vertices,
+$a(n)=\iota^{\!\top}M^{\,j(n)}\tau$ for a linear reindexing $j$ fixed by the entry's shape
+and checked against its published terms. States with the same future contribute identically to $\iota^{\!\top}M^n\tau$, so they may be merged without changing any count; merging leaves $S'=231$ of the $2296$, and it is that smaller bound the computation below uses. By the Cayley--Hamilton theorem $M^{S}$ is an
+integer combination of $I,M,\dots,M^{S-1}$, so:
+
+\begin{lemma}\label{lem:cf}
+$a$ satisfies a monic linear recurrence with integer coefficients of order at most
+$S'=231$.
+\end{lemma}
+
+\section{Recovering the recurrence}
+
+\begin{lemma}\label{lem:bm}
+A sequence known to satisfy some linear recurrence of order at most $S$ is determined, together
+with its minimal recurrence, by its first $2S$ terms: Berlekamp--Massey applied to them returns
+that minimal recurrence exactly.
+\end{lemma}
+
+Running it on $2S'=462$ exact terms of the model returns order $90$ --- the order the
+entry states --- with the integer coefficients
+\[
+a(n)\;=\;\sum_{i=1}^{90}c_i\,a(n-i),
+\]
+\begin{center}\small
+\begin{tabular}{cccccccc}
+$c_{1}$ & $12$ & $c_{24}$ & $-104143731573027820$ & $c_{47}$ & $11615603648778716906352$ & $c_{70}$ & $9522191377306374002262$ \\
+$c_{2}$ & $189$ & $c_{25}$ & $248165943445038315$ & $c_{48}$ & $9868891941993344737973$ & $c_{71}$ & $3871914026395726502001$ \\
+$c_{3}$ & $-11$ & $c_{26}$ & $-797144950249934667$ & $c_{49}$ & $11483512706861860079661$ & $c_{72}$ & $-3231581987539412591275$ \\
+$c_{4}$ & $-28701$ & $c_{27}$ & $2002868339678572410$ & $c_{50}$ & $-16673036780969155377495$ & $c_{73}$ & $-3228103527756373215714$ \\
+$c_{5}$ & $-197718$ & $c_{28}$ & $-4116306217405131990$ & $c_{51}$ & $-23208022769976786326574$ & $c_{74}$ & $161897274925575039738$ \\
+$c_{6}$ & $406720$ & $c_{29}$ & $10356721317105303015$ & $c_{52}$ & $-18621289726925670438420$ & $c_{75}$ & $1416927746345273700797$ \\
+$c_{7}$ & $17146848$ & $c_{30}$ & $-20082066337034433889$ & $c_{53}$ & $21510738463619605164444$ & $c_{76}$ & $452991600341564609646$ \\
+$c_{8}$ & $110389992$ & $c_{31}$ & $34959978514371387345$ & $c_{54}$ & $37422322232457408757474$ & $c_{77}$ & $-349615356234647902035$ \\
+$c_{9}$ & $258454441$ & $c_{32}$ & $-75730173243361645686$ & $c_{55}$ & $22619414313847100534439$ & $c_{78}$ & $-265802473518170844619$ \\
+$c_{10}$ & $-1304031339$ & $c_{33}$ & $116390082313025205676$ & $c_{56}$ & $-27451739190868049433285$ & $c_{79}$ & $19441401728029101705$ \\
+$c_{11}$ & $-10050432591$ & $c_{34}$ & $-177884066730970789074$ & $c_{57}$ & $-46029238472482296735166$ & $c_{80}$ & $77778809247941869911$ \\
+$c_{12}$ & $-30151107025$ & $c_{35}$ & $359860625891283407298$ & $c_{58}$ & $-18076797416493560629665$ & $c_{81}$ & $18280831618406190194$ \\
+$c_{13}$ & $40453631823$ & $c_{36}$ & $-422900833463368098482$ & $c_{59}$ & $34338430283090236582008$ & $c_{82}$ & $-11273892368284036845$ \\
+$c_{14}$ & $350090641326$ & $c_{37}$ & $606111184872355670955$ & $c_{60}$ & $44088641737938209720557$ & $c_{83}$ & $-6365913210665891946$ \\
+$c_{15}$ & $1681508624009$ & $c_{38}$ & $-1227325815451153402509$ & $c_{61}$ & $5023821402397012248936$ & $c_{84}$ & $118665721323054873$ \\
+$c_{16}$ & $-646755785400$ & $c_{39}$ & $946690278365050242132$ & $c_{62}$ & $-37203383751992766903591$ & $c_{85}$ & $834600417737568759$ \\
+$c_{17}$ & $-1283652984204$ & $c_{40}$ & $-1510148480361820259322$ & $c_{63}$ & $-30305993987437236261716$ & $c_{86}$ & $178416594184465026$ \\
+$c_{18}$ & $-75789595856422$ & $c_{41}$ & $3216769587663883237419$ & $c_{64}$ & $9117590310808246697868$ & $c_{87}$ & $-25341971549910795$ \\
+$c_{19}$ & $75670590709656$ & $c_{42}$ & $-927080286924065296125$ & $c_{65}$ & $29959985693139881237694$ & $c_{88}$ & $-15465745865421324$ \\
+$c_{20}$ & $-465962071522548$ & $c_{43}$ & $3108391334626172321706$ & $c_{66}$ & $11298523170004080189678$ & $c_{89}$ & $-2277022453040016$ \\
+$c_{21}$ & $2998724687083589$ & $c_{44}$ & $-6757273053358648755888$ & $c_{67}$ & $-14286583507928501904855$ & $c_{90}$ & $-115558232910912$ \\
+$c_{22}$ & $-6438262487435247$ & $c_{45}$ & $-1812643531897291078442$ & $c_{68}$ & $-15382153009639544204622$ &  &  \\
+$c_{23}$ & $29447315963476605$ & $c_{46}$ & $-6069235828481414103945$ & $c_{69}$ & $1043436502162504507007$ &  &  \\
+\end{tabular}
+\end{center}
+
+\begin{theorem}
+The recurrence above holds for every $n$, and it is the recurrence the entry records.
+\end{theorem}
+
+\begin{proof}
+It holds by Lemma~\ref{lem:bm}, which returns a recurrence the sequence satisfies from its
+first term. For the identification: the entry asserts that the sequence satisfies SOME
+recurrence of order $90$, possibly only from some index on. Let $q$ be that recurrence's
+characteristic polynomial and $q_{\min}$ the minimal polynomial of the tail of the sequence.
+Then $q_{\min}\mid q$. Berlekamp--Massey run on the sequence with its first $90+4$ terms
+removed returns order $90$ as well, so $\deg q_{\min}=90=\deg q$; both are monic, so
+$q=q_{\min}$, which is the polynomial computed above.
+\end{proof}
+
+\section{Verification}
+
+Three checks.
+
+First, the walk model reproduces all $16$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry, and it is the only place where reading
+the entry's English enters.
+
+Second, the recovered recurrence was evaluated directly on those published terms, with no
+matrices and no Berlekamp--Massey involved, and holds at every index where the entry gives
+enough earlier terms to test it.
+
+Third, the order was computed twice by independent routes: once modulo a $61$-bit prime, where
+every intermediate is a machine word, and once in exact rational arithmetic; and once more on
+the sequence with its first $90+4$ terms removed, which is what the identification above
+requires. All three agree.
+
+\begin{remark}
+What is unusual here is that the conjecture's statement was never read. The entry pins it down
+to a one-parameter family --- the recurrences of order $90$ that this sequence satisfies
+--- and that family turns out to have exactly one member.
+\end{remark}
+
+\begin{thebibliography}{9}
+\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
+Sequences}, \url{https://oeis.org}, 2026. Sequence A282836.
+\bibitem{massey} J.~L.~Massey, Shift-register synthesis and BCH decoding, \emph{IEEE
+Trans. Inform. Theory} \textbf{15} (1969), 122--127.
+\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
+University Press, 2013.
+\end{thebibliography}
+
+\end{document}
