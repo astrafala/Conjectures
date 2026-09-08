@@ -8,5 +8,6 @@ start() { running "$1" || { nohup /bin/sh "/tmp/$1" >/dev/null 2>&1 & echo "star
 [ -f /tmp/forever.sh ] || cp src/forever.sh /tmp/forever.sh
 start forever.sh
 start p5cap.sh
+start tails2.sh
 start p12run.sh
 ps -eo args | grep -oE "src/[a-z_0-9]+\.py" | sort | uniq -c | sort -rn

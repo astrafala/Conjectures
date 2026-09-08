@@ -98,7 +98,10 @@ for a in sorted(targets):
             S = min(S, Sm)
     except Exception:
         pass
-    if S > 4000:
+    # settable: 45 entries were refused here at 4,000, and the cost is linear in S for the
+    # terms and roughly S^2 for Berlekamp-Massey, so a larger cut is affordable one entry at a
+    # time even where it is not affordable for a whole sweep
+    if S > int(os.environ.get('SCUT', '4000')):
         state['why'][a] = 'merged state count too large'; save(); continue
     d = [int(v) for v in e['data'].split(',') if v.strip()]
     off = int(e['offset'].split(',')[0])
