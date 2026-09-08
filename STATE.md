@@ -2,6 +2,15 @@
 
 ## RULE 1 — NEVER STOP
 
+**Every turn MUST end by scheduling the next one.** Before finishing any reply, call
+`send_later` with `delay_minutes: 1` and a message telling yourself to continue. That is what
+makes the work self-sustaining: the container suspends background jobs between turns, so
+without a scheduled wake-up the project simply pauses until someone prompts it.
+
+Stop scheduling only when you are certain no further conjecture can be settled by any means —
+and that has never once been true. Every time this project looked exhausted, the next
+measurement found thousands more. If IDEAS.md is empty, the job is to fill it, not to stop.
+
 Never stop finding more. Finish an idea and start the next one in the same breath, without
 being asked and without reporting-and-halting. When the ideas run out, think outside the box:
 look for new veins, look at kinds of conjecture never attempted, re-measure what was called
