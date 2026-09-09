@@ -85,7 +85,9 @@ Recurring defects, all found this way:
   conjecture AND a readable name that the cached candidate list had never heard of. 1,017
   asked, about 190 proved. **811 are refused with `state space > cap` at CAP = 2,000,000**
   (`deep-check/capped.txt`); a trial at 6,000,000 built two models in five minutes and proved
-  neither. The 429 still unasked are worth asking at the standing cap.
+  neither, and re-asking them at the standing cap was **killed by the kernel for memory** --
+  `uniform.build` allocates toward the cap before it can refuse. Do not brute-force them; they
+  are marked done deliberately. The 429 still unasked are worth asking.
 * **Every engine's degree bound S must be derived, not assumed.** `ca2dcount` set S = 24 from
   nothing and could certify nothing; it now refuses. `ca2d`'s bound was the one-dimensional
   figure and was too small; it is computed from the certificate's roots.
