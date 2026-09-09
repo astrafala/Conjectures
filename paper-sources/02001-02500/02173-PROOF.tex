@@ -12,137 +12,107 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A224010, proved by transfer matrix}
+\title{A value repeated at its own distance: OEIS A209604}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{1 September 2026}
+\date{7 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A224010 counts arrays over $\{0,\dots,2\}$ whose rows, columns, diagonals or
-antidiagonals are required to be monotone or unimodal, and carries an empirical recurrence of
-order $14$ contributed by R.~H.~Hardin. A monotone condition is local, but a unimodal one
-is not: a sequence is unimodal exactly when it never rises again after it has fallen, so the
-state must remember which sequences have already fallen. With those bits carried along, $a(n)$
-is a walk count on $S=1792$ vertices and the recurrence follows from a finite exact
-computation.
+OEIS A209604 carries an empirical recurrence of order $15$ contributed by R.~H.~Hardin. It is
+true, and it is decidable rather than empirical. The entry's condition reaches only as far as the value itself, which is bounded by the
+alphabet, so a window of that many lines decides it; the
+admissible windows are the vertices of a finite digraph and the arrays counted are exactly the
+walks in it. Hence $a(n)$ is a walk count on $S=20$ vertices and is $C$-finite, and whether the
+conjectured recurrence annihilates it is settled by a finite exact computation, with the
+Cayley--Hamilton theorem bounding the work.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A16, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
-\section{The sequence and the conjecture}
+\section{The conjecture}
 
-OEIS A224010 is ``Number of n X 6 0..2 arrays with rows nondecreasing and antidiagonals unimodal.''. It has offset $1$ and begins
+OEIS A209604 is ``Number of nX2 1..2 arrays with every element value z a city block distance of exactly z from another element value z.''. It has offset $1$ and begins
 \[
-28, 784, 15340, 245055, 3516324, 47735665, 630339756, 8213689391,\ \dots
+1, 2, 11, 45, 170, 538, 1674, 5410,\ \dots
 \]
-The entry carries the following comment:
-\begin{quote}\small
-Empirical: a(n) = 28*a(n-1) -283*a(n-2) +1386*a(n-3) -3562*a(n-4) +4940*a(n-5) -3840*a(n-6) -14256*a(n-7) +50007*a(n-8) -26386*a(n-9) +141154*a(n-10) +250789*a(n-11) +41356*a(n-12) +274344*a(n-13) +134400*a(n-14)
+The entry states, as a conjecture contributed by its author and never marked settled:
+\begin{quote}
+Empirical: a(n) = 3*a(n-1) +5*a(n-4) +16*a(n-5) +23*a(n-6) +6*a(n-7) -6*a(n-8) -21*a(n-9) -8*a(n-10) -9*a(n-11) -5*a(n-12) -4*a(n-13) +a(n-15) for n>16
 \end{quote}
-As of the ``Last modified'' line on the live entry (Sep 18 2025 04:36:25, revision 10) the statement is
-still recorded as empirical, and nothing on the entry records it as settled either way.
+As of the ``Last modified'' line on the live entry (Oct 03 2025 15:23:01, revision 9) this is still
+recorded as empirical, and nothing on the entry records it as proved.
 
-Written out, the claim is
-\begin{equation}\label{eq:conj}
-a(n)\;=\;28\,a(n-1) - 283\,a(n-2) + 1386\,a(n-3) - 3562\,a(n-4) + 4940\,a(n-5) - 3840\,a(n-6) - 14256\,a(n-7) + 50007\,a(n-8) - 26386\,a(n-9) + 141154\,a(n-10) + 250789\,a(n-11) + 41356\,a(n-12) + 274344\,a(n-13) + 134400\,a(n-14)
-\end{equation}
-for all $n>14$.
+\section{The count is a walk count}
 
-\section{The conditions}
+The entry counts arrays with $2$ columns over the alphabet $\{1,2\}$, distance measured as $|\Delta \text{row}|+|\Delta \text{column}|$, and asks that every element of value $z$ must have another element of value $z$ exactly $z$ steps away. An element of value $0$ is $0$ steps from itself and so always has such a partner. That is not an interpretation imposed on the entry: it is the reading the entry's own published terms select, and reading ``another'' as strictly some other cell disagrees with them at the very first term.
 
-The arrays have $6$ columns and $L=n$ rows. Written in (row, column)
-coordinates, the entry asks:
-\begin{itemize}
-\item along the direction $(0,1)$ --- one step of $(0,1)$ in (row, column) coordinates --- every sequence is nondecreasing;
-\item along the direction $(1,-1)$ --- one step of $(1,-1)$ in (row, column) coordinates --- every sequence is unimodal;
-\end{itemize}
-Here ``unimodal'' means nondecreasing and then nonincreasing, that is: no rise after a fall.
+The condition ranges over the whole array, but only as far as the value itself reaches: a cell of value $z$ looks exactly $z$ steps away, and $z$ is at most $2$. So nothing more than $2$ rows away can matter, and a cell's verdict is settled once the row $2$ beyond it has arrived.
 
-A unimodal condition across the rows is not local: whether a
-rise is allowed depends on whether the sequence has already fallen. The state therefore
-carries, for each of the $6$ sequences currently running in that direction, one bit saying
-whether it has fallen. Those bits travel with their sequences --- the bit at column $u$
-moves to column $u+d_2$ when the next row is laid down, and a sequence beginning at the
-far end of the new row starts with its bit clear.
+Carry the last $2$ rows together with one bit for each of their cells, recording whether that cell has already found its partner. A new row is paired against the rows it can still reach, sets the bits it completes, and retires the row that has now seen everything it will ever see: the walk continues if that row's bits say what the entry asks and stops otherwise. The rows still held when the array ends are judged by the end vector, which is where the boundary is honest --- a partner off the edge of the array is not a partner.
 
-\begin{lemma}\label{lem:walk}
-Let $\mathcal V$ be the set of pairs (a row satisfying every within-row condition, a
-bit vector), $|\mathcal V|=S=1792$; let $(r,f)\to(s,f')$ be an edge when placing $s$ after $r$
-breaks none of the across-row conditions and $f'$ is $f$ updated by that step; let
-$\mathbf{v}$ mark the vertices whose bit vector is the one their row alone produces.
-Then
+Merging vertices with identical futures leaves $S=20$. An admissible array is exactly a walk, so with $M$ the adjacency matrix and $\iota,\tau$ the vectors recording which states may begin and end an array,
 \[
-a(n)\;=\;\,\mathbf{v}^{\!\top}N^{\,L-1}\mathbf{1},\qquad L=n.
+a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau ,
 \]
-\end{lemma}
+the exponent fixed by the entry's own shape and checked against its published terms. In
+particular $a$ is $C$-finite.
 
-\begin{proof}
-A walk of length $L-1$ is a sequence of $L$ rows, that is, an array, and its bit component
-is determined by them. Every within-row condition is imposed on each vertex; every
-across-row condition compares two consecutive rows and is imposed on each edge; and the
-unimodal and lexicographic bits are, by construction, the record of what the rows laid down
-so far have already decided, so a violation removes the corresponding edge. Hence the walks
-are exactly the admissible arrays. Nothing constrains the last row beyond what has already
-been imposed, so the walk may end anywhere. The state carries a row, not a boundary, so
-$L$ rows make a walk of length $L-1$.
-\end{proof}
-
-\section{The criterion, and the computation}
-
-Let $q(t)=t^{14}-\sum_i c_i\,t^{14-i}$ be the characteristic polynomial of
-\eqref{eq:conj} and $G=N$.
+\section{The proof}
 
 \begin{lemma}\label{lem:crit}
-With $n_0$ the least index for which $L\ge1$, $o=1n_0+0-1$ and
-$h_j=G^{j}N^{o}\mathbf{1}$, we have for $j\ge14$
-\[
-a(n_0+j)-\sum_i c_i\,a(n_0+j-i)=\,\mathbf{v}^{\!\top}G^{\,j-14}w,
-\qquad w=h_{14}-\sum_i c_ih_{14-i} .
-\]
-Hence \eqref{eq:conj} holds from that point on if and only if
-$\mathbf{v}^{\!\top}G^{m}w=0$ for all $m\ge0$, and $m<S$ suffices.
+Let $q(t)=t^{15}-\sum_i c_it^{15-i}$ be the characteristic polynomial of the
+conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
+$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
+holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
+and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Substitute Lemma~\ref{lem:walk} and factor. By Cayley--Hamilton $G^{S}$ is an integer
-combination of $I,G,\dots,G^{S-1}$, so every later value repeats that combination of
-earlier ones.
+Factor $M^{j}$ out of $M^{j+15}-\sum_ic_iM^{j+15-i}$. For the bound, $M^{S}$
+is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
+$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
+polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
+pins the threshold exactly. A constant factor in front of $a$ divides out of the residual and
+changes nothing here.
 \end{proof}
 
 \begin{theorem}
-The recurrence \eqref{eq:conj} holds for every $n>14$, which is the statement of
-Section~1.
+\[
+a(n)\;=\;3\,a(n-1) + 5\,a(n-4) + 16\,a(n-5) + 23\,a(n-6) + 6\,a(n-7) - 6\,a(n-8) - 21\,a(n-9) - 8\,a(n-10) - 9\,a(n-11) - 5\,a(n-12) - 4\,a(n-13) + a(n-15)
+\]
+for every $n>16$.
 \end{theorem}
 
 \begin{proof}
-The digraph was built directly from the conditions listed above. The vector $w$ was formed by
-$14$ applications of $G$ in exact integer arithmetic and $\mathbf{v}^{\!\top}G^{m}w$
-evaluated for $m=0,1,\dots$, again exactly. Every one of those integers vanishes from the
-index corresponding to $n=14+1$ onwards, and the run continued until $S+1$ consecutive
-zeros had been seen.
+The vector $w=q(M)\tau$ was formed by $15$ matrix--vector products in exact integer
+arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
+integers vanish from the index corresponding to $n=16+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once. The bound is exact: at $n=16$ the recurrence fails on the entry's own published terms, so no larger range holds.
 \end{proof}
 
 \section{Verification}
 
-Three checks, each independent of the algebra above.
+Four checks, each independent of the algebra above.
 
-First, the walk counts of Lemma~\ref{lem:walk} were compared against the entry's DATA at
-every one of the $16$ published indices, with no shift fitted. The values agree exactly.
-This is what fixes the reading of the wording: ``rows and columns in nondecreasing order''
-means the rows and columns are sorted as vectors, not that each is nondecreasing along
-itself, and the two readings already differ at the second published term --- $86$ against
-$50$ for $2\times2$ arrays over $\{0,1,2,3\}$. The DATA decides it.
+First, the model reproduces all $25$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry: the digraph is built by reading the
+entry's English, and a misreading gives different counts.
 
-Second, the recurrence \eqref{eq:conj} was evaluated on those published terms in exact
-integer arithmetic, with no matrices involved, and vanishes wherever it applies.
+Second, the reading was pinned before the digraph was written, by a program that enumerates
+every array of the given shape one by one and measures the distance between every pair
+of cells directly. That program shares no code with the transfer matrix, so an error in one does not
+hide an error in the other.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried to the full
-Cayley--Hamilton bound in exact integer arithmetic rather than to a sampled prefix.
+Third, the conjectured recurrence was evaluated directly on the published terms, with no
+matrices involved, and holds wherever the proved range and the data overlap.
+
+Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A224010.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A209604.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

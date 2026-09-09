@@ -12,79 +12,69 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A224740, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A183963, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{2 September 2026}
+\date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A224740 counts the $(n+1)\times4$ matrices over $\{0,\dots,1\}$ all of whose
-$2\times2$ contiguous subblocks are of equal permanent, and carries an empirical recurrence of order
-$9$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical.
-The condition ties together $2$ consecutive rows and $2$ consecutive columns at once, so a
-single row is not a state; the strip of the last $1$ rows is, and the admissible strips
-are read off the overlap graph of the admissible windows instead of being enumerated. That
-makes $a(n)$ a walk count on $S=25$ vertices, hence $C$-finite, and whether the conjectured
-recurrence annihilates it is settled by a finite exact computation.
+OEIS A183963 counts arrays over $\{0,\dots,2\}$ under a condition comparing a statistic of
+every $2\times2$ subblock with those of its neighbours, and carries an empirical recurrence
+of order $9$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
+empirical. The count is a walk count on $S=81$ states and is $C$-finite; whether the
+conjectured recurrence annihilates it is then settled by a finite exact computation.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
 \section{The conjecture}
 
-OEIS A224740 is ``Number of (n+1) X 4 0..1 matrices with each 2 X 2 permanent equal.''. It has offset $1$ and begins
+OEIS A183963 is ``Number of (n+1)X2 0..2 arrays with no 2X2 subblock sum differing from a horizontal or vertical neighbor subblock sum by more than one.''. It has offset $1$ and begins
 \[
-89, 565, 2961, 18257, 107665, 661569, 4028161, 24772161,\ \dots
+81, 459, 2601, 15759, 95481, 586791, 3606201, 22235391,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 9*a(n-1) -8*a(n-2) -88*a(n-3) +176*a(n-4) +88*a(n-5) -352*a(n-6) +80*a(n-7) +160*a(n-8) -64*a(n-9).
+Empirical: a(n)=6*a(n-1)+6*a(n-3)+81*a(n-4)-468*a(n-5)-72*a(n-6)-432*a(n-8)+1728*a(n-9)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jun 22 2022 01:41:36, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 02:13:24, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved.
+
+\section{What is being counted}
+
+Write $\sigma$ for the sum of all its entries, taken on a $2\times2$ subblock. The contiguous $2\times2$
+subblocks of an $(n+1)\times2$ array over $\{0,\dots,2\}$ form a grid of $n$ rows
+and $1$ column, and $\sigma$ labels that grid. The entry
+requires that no two subblocks that are neighbours horizontally or vertically have values of $\sigma$ differing by more than $1$.
 
 \section{The count is a walk count}
 
-Call a $2\times2$ matrix over $\{0,\dots,1\}$ a \emph{window} when it is of equal permanent, and
-call a $2\times4$ matrix a \emph{band} when every one of its $3$ contiguous
-$2\times2$ subblocks is a window. What the entry counts is the matrices of $4$ columns
-whose every $2$ consecutive rows form a band.
-
-Take as states the $1\times4$ strips that occur as the top $1$ rows of a band,
-together with those that occur as its bottom $1$ rows, and put an edge from $u$ to $v$
-when the band whose first $1$ rows are $u$ and whose last $1$ rows are $v$ exists.
-A band is determined by that pair, so the edge is unique when it exists. Reading a counted
-matrix from the top, its rows $1..1$, then $2..2$, and so on, form a walk, and every
-walk arises from exactly one matrix; a matrix with $n+1$ rows gives a walk of $n$ edges.
-Since the first $1$ rows of a counted matrix with at least $2$ rows are the top of a
-band, and since no further condition falls on where a walk starts or ends,
+The condition is on a PAIR of neighbouring subblocks, so nothing beyond the
+rows themselves has to be remembered. Take as state the $2$-tuple of consecutive array rows
+whose subblock row has just been completed: the horizontal pairs inside that row decide which
+tuples are admissible at all, and the vertical pairs decide which tuple may follow which. A
+step appends one array row. An array of $n+1$ rows is a walk of $n-1$ steps and
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n}\tau ,\qquad \iota=\tau=(1,1,\dots,1)^{\!\top},
+a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,\qquad\iota=\tau=(1,\dots,1)^{\!\top},
 \]
-with $M$ the adjacency matrix on $S=25$ states. In particular $a$ is $C$-finite. The
-alignment was checked against the entry's published terms rather than assumed.
+on the $S=81$ admissible tuples.
 
-There are $(1 + 1)^{4}$ strips of $1$ rows and $4$ columns, far too
-many to test one by one, and they are not tested one by one. Two consecutive windows of a band
-overlap in $2\times1$ entries, so a band is exactly a walk of $3$ windows in
-the graph that joins a window to those whose first $1$ columns are its last $1$
-columns. Enumerating those walks produces the bands, and with them the states and the edges,
-directly.
+The state does not compress. What a step needs of the past is the previous subblock row, and
+for $2\ge2$ that row already determines the $2$ array rows it came from, so carrying the
+rows costs nothing and carrying anything smaller loses information. Of the $3^{2\cdot
+2}=81$ tuples of $2$ rows, $S=81$ survive the condition inside a single subblock row;
+the rest could not occur in a counted array at all.
 
-\section{The admissible windows}
+Over the alphabet $\{0,\dots,2\}$ the statistic takes values in $[0,8]$, so the
+grid it labels carries at most $9$ different labels. At $n=1$ the array has $2$
+rows and the grid is a single row of $1$
+subblock, which has no neighbour of any kind; the entry's first term is
+$81$, which the model reproduces along with every later term, and that is the cheapest
+check that the grid has been read with the right shape.
 
-The entry does not name the common value; it only asks that all the windows of one matrix agree.
-So fix a value $v$ and let $W_v$ be the set of $2\times2$ matrices over
-$\{0,\dots,1\}$ whose permanent, $b_{11}b_{22}+b_{12}b_{21}$, equals $v$. A matrix counted by the entry has all of
-its windows in a single $W_v$, and the value of $v$ is determined by the matrix, so the sets of
-matrices belonging to different $v$ are disjoint and
-\[
-a(n)\;=\;\sum_v a_v(n),
-\]
-each $a_v$ being the walk count of Section~2 built from $W_v$ alone. A disjoint union of the
-$3$ digraphs, one per value of $v$, therefore counts the whole of $a(n)$ with the same
-all-ones vectors, and the $2\times2$ windows in play number $16$ in total.
+In particular $a$ is $C$-finite. The alignment of the walk index with the entry's own $n$ was
+checked against its published terms rather than assumed.
 
 \section{The proof}
 
@@ -106,15 +96,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;9\,a(n-1) - 8\,a(n-2) - 88\,a(n-3) + 176\,a(n-4) + 88\,a(n-5) - 352\,a(n-6) + 80\,a(n-7) + 160\,a(n-8) - 64\,a(n-9)
+a(n)\;=\;6\,a(n-1) + 6\,a(n-3) + 81\,a(n-4) - 468\,a(n-5) - 72\,a(n-6) - 432\,a(n-8) + 1728\,a(n-9)
 \]
-for every $n>8$.
+for every $n>9$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $9$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=8+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=9+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -134,11 +124,11 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A224740.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A183963.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{kim} K.~H.~Kim, \emph{Boolean Matrix Theory and Applications}, Marcel Dekker,
-1982.
+\bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata
+Theory, Languages, and Computation}, 3rd ed., Addison--Wesley, 2006.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

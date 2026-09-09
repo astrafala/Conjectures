@@ -12,70 +12,84 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A203736, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A275271, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A203736 counts arrays of width $4$ over $\{0,1,2,3\}$ through two derived arrays of PAIR SUMS ---
-each cell added to its left neighbour, and each cell added to the one above it --- on which the
-entry imposes an order condition. The entry carries an empirical recurrence of order $43$
-contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical: the count is
-a walk count on $S=257$ states.
+OEIS A275271 counts arrays in which no entry may equal the entries at a short list of fixed offsets
+from it, the arrays being counted up to renaming the letters. The entry carries an empirical
+recurrence of order $43$ contributed by R.~H.~Hardin. It is true, and it is decidable
+rather than empirical. The condition tests only whether two cells are equal, so it survives
+renaming; the count of classes is recovered from counts over fixed alphabets by inverting a
+triangular system of falling factorials, and each of those is a walk count on a window of
+$1$ consecutive columns, $S=2319$ states in all.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 06A07, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A18, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A203736 is ``Number of (n+1)X4 0..3 arrays with column and row pair sums b(i,j)=a(i,j)+a(i,j-1) and c(i,j)=a(i,j)+a(i-1,j) nondecreasing in column and row directions, respectively.''. It has offset $1$ and begins
+OEIS A275271 is ``Number of 7Xn 0..2 arrays with no element equal to any value at offset (-2,-1) (-2,1) or (-1,-1) and new values introduced in order 0..2.''. It has offset $1$ and begins
 \[
-2166, 23442, 178836, 1091807, 5538127, 24571387, 97540896, 354255616,\ \dots
+365, 1320, 22844, 409728, 8391716, 161725644, 3224773976, 63143699424,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 14*a(n-1) -73*a(n-2) +118*a(n-3) +407*a(n-4) -2055*a(n-5) +1565*a(n-6) +8911*a(n-7) -21167*a(n-8) -8804*a(n-9) +86841*a(n-10) -62994*a(n-11) -184764*a(n-12) +314891*a(n-13) +169876*a(n-14) -753741*a(n-15) +181774*a(n-16) +1126595*a(n-17) -893258*a(n-18) -1059445*a(n-19) +1597514*a(n-20) +470449*a(n-21) -1810698*a(n-22) +265493*a(n-23) +1419722*a(n-24) -680853*a(n-25) -765358*a(n-26) +652727*a(n-27) +252612*a(n-28) -399543*a(n-29) -18972*a(n-30) +169393*a(n-31) -29245*a(n-32) -49701*a(n-33) +17795*a(n-34) +9499*a(n-35) -5481*a(n-36) -958*a(n-37) +1013*a(n-38) -8*a(n-39) -107*a(n-40) +13*a(n-41) +5*a(n-42) -a(n-43) for n>48
+Empirical: a(n) = 21*a(n-1) +48*a(n-2) -1991*a(n-3) +11659*a(n-4) -14171*a(n-5) -128662*a(n-6) +689002*a(n-7) -706983*a(n-8) -4268873*a(n-9) +10877433*a(n-10) -17644881*a(n-11) +81344927*a(n-12) -130013786*a(n-13) +156595402*a(n-14) +113088522*a(n-15) -2082695943*a(n-16) +2912724245*a(n-17) -8721718373*a(n-18) +9200100358*a(n-19) +2338527368*a(n-20) +31879719935*a(n-21) +58651417388*a(n-22) +9088289076*a(n-23) +12623664585*a(n-24) -121551613750*a(n-25) -89132646098*a(n-26) -109279416317*a(n-27) -24885539062*a(n-28) +43358373330*a(n-29) +77540289847*a(n-30) +74999417020*a(n-31) +32061565379*a(n-32) +7553640937*a(n-33) -6937228733*a(n-34) -7608254513*a(n-35) -6975958381*a(n-36) -3411225596*a(n-37) -1881561696*a(n-38) -603608528*a(n-39) -219594032*a(n-40) -68268736*a(n-41) -9248000*a(n-42) -5030912*a(n-43) for n>45
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 10:41:55, revision 9) this is still
+As of the ``Last modified'' line on the live entry (Jul 21 2016 11:38:46, revision 4) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The array $a$ has $4$ cells across, with entries in $\{0,1,2,3\}$. Two derived arrays are formed,
+Entries lie in $\{0,1,\dots,2\}$ and the condition is that
 \[
-b(i,j)=a(i,j)+a(i,j-1)\quad(j\ge1),\qquad c(i,j)=a(i,j)+a(i-1,j)\quad(i\ge1),
+x(i,j)\ \ne\ x(i+d_1,\,j+d_2)\qquad\text{for each offset }(d_1,d_2)\in\{(-2,-1), (-2,1), (-1,-1)\}
 \]
-so $b$ adds each cell to its LEFT neighbour and $c$ adds each cell to the one ABOVE it. The
-entry asks
+whenever the second cell lies inside the array. The entry writes the array with $n$ as the number of COLUMNS, so the array grows one COLUMN at a time and an offset is read with its two coordinates exchanged. The closing clause ``new values
+introduced in order $0..2$'' says the array is the canonical representative of its equality
+pattern.
 
-\[
-b(i,j)\le b(i{+}1,j)\qquad\text{and}\qquad c(i,j)\le c(i,j{+}1)
-\]
-wherever both sides are defined: the array $b$ must not decrease DOWN a column and the array
-$c$ must not decrease ALONG a row. The two directions are crossed, which is the only subtle
-part of the reading --- $b$ is built across a row and tested down a column, and $c$ the other
-way about.
-
-
-\section{Two rows decide it}
-
-\begin{lemma}\label{lem:win}
-Both conditions are conditions on two consecutive rows of $a$ and nothing more.
+\begin{lemma}\label{lem:order}
+The number counted does not depend on the order in which the array is read.
 \end{lemma}
 
 \begin{proof}
-$b(i,j)\le b(i{+}1,j)$ names four cells of $a$, all in rows $i$ and $i+1$. $c(i,j)\le
-c(i,j{+}1)$ names four cells, all in rows $i-1$ and $i$.
+The condition tests only whether two cells carry equal values, so it is unchanged by permuting
+the alphabet, and the admissible arrays fall into classes under renaming. Fix any reading order
+of the cells. Each class contains exactly one array whose distinct values, in order of first
+appearance in that reading, are $0,1,2,\dots$: take any member and rename its values by their
+rank of first appearance. So the count is the number of CLASSES, whatever reading order is
+meant.
 \end{proof}
 
-So a single row of $a$ is a state and one step appends a row.
+\section{From classes to fixed alphabets}
 
-With $M$ the adjacency matrix of the digraph on those states, $\iota$ the indicator of the
-starting state and $\tau=\mathbf{1}$,
+Write $N_j$ for the number of classes on exactly $j$ letters and $L_i$ for the number of
+admissible arrays over an alphabet of $i$ letters. An array over $i$ letters is a class together
+with an injection of its letters into the alphabet, so
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=257.
+L_i\;=\;\sum_j N_j\,i(i-1)\cdots(i-j+1),
+\]
+a triangular system with unit diagonal. By Lemma~\ref{lem:order} the entry counts
+$N_1+\dots+N_{3}$, so $a=\sum_i w_iL_i$ with $w=\mathbf{1}^{\!\top}F^{-1}$, $F$ the
+matrix of falling factorials.
+
+\section{Each $L_i$ is a walk count}
+
+Equality is symmetric, so an offset and its negative forbid exactly the same pairs; replacing
+each offset by whichever of the two points BACKWARDS along the direction in which the array
+grows makes every pair tested once, from the later of its two cells. After that replacement no
+offset reaches more than $1$ columns back, so the window of the last $1$
+columns is a state and one step appends a column. A column not yet written is
+carried as a symbol, so the walk starts at the empty array and a walk of $t$ steps is an array
+of $t$ columns. Assembling $i=1,\dots,3$ as a disjoint union with $\iota$ carrying the
+weights cleared of denominators and $\tau=\mathbf{1}$,
+\[
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=2319.
 \]
 The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
 published terms rather than assumed. In particular $a$ is $C$-finite.
@@ -100,29 +114,31 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;14\,a(n-1) - 73\,a(n-2) + 118\,a(n-3) + 407\,a(n-4) - 2055\,a(n-5) + 1565\,a(n-6) + 8911\,a(n-7) - 21167\,a(n-8) - 8804\,a(n-9) + 86841\,a(n-10) - 62994\,a(n-11) - 184764\,a(n-12) + 314891\,a(n-13) + 169876\,a(n-14) - 753741\,a(n-15) + 181774\,a(n-16) + 1126595\,a(n-17) - 893258\,a(n-18) - 1059445\,a(n-19) + 1597514\,a(n-20) + 470449\,a(n-21) - 1810698\,a(n-22) + 265493\,a(n-23) + 1419722\,a(n-24) - 680853\,a(n-25) - 765358\,a(n-26) + 652727\,a(n-27) + 252612\,a(n-28) - 399543\,a(n-29) - 18972\,a(n-30) + 169393\,a(n-31) - 29245\,a(n-32) - 49701\,a(n-33) + 17795\,a(n-34) + 9499\,a(n-35) - 5481\,a(n-36) - 958\,a(n-37) + 1013\,a(n-38) - 8\,a(n-39) - 107\,a(n-40) + 13\,a(n-41) + 5\,a(n-42) - a(n-43)
+a(n)\;=\;21\,a(n-1) + 48\,a(n-2) - 1991\,a(n-3) + 11659\,a(n-4) - 14171\,a(n-5) - 128662\,a(n-6) + 689002\,a(n-7) - 706983\,a(n-8) - 4268873\,a(n-9) + 10877433\,a(n-10) - 17644881\,a(n-11) + 81344927\,a(n-12) - 130013786\,a(n-13) + 156595402\,a(n-14) + 113088522\,a(n-15) - 2082695943\,a(n-16) + 2912724245\,a(n-17) - 8721718373\,a(n-18) + 9200100358\,a(n-19) + 2338527368\,a(n-20) + 31879719935\,a(n-21) + 58651417388\,a(n-22) + 9088289076\,a(n-23) + 12623664585\,a(n-24) - 121551613750\,a(n-25) - 89132646098\,a(n-26) - 109279416317\,a(n-27) - 24885539062\,a(n-28) + 43358373330\,a(n-29) + 77540289847\,a(n-30) + 74999417020\,a(n-31) + 32061565379\,a(n-32) + 7553640937\,a(n-33) - 6937228733\,a(n-34) - 7608254513\,a(n-35) - 6975958381\,a(n-36) - 3411225596\,a(n-37) - 1881561696\,a(n-38) - 603608528\,a(n-39) - 219594032\,a(n-40) - 68268736\,a(n-41) - 9248000\,a(n-42) - 5030912\,a(n-43)
 \]
-for every $n>48$.
+for every $n>45$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $43$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=48+1$ onwards and the run continued
-until the working vector was identically zero.
+integers vanish from the index corresponding to $n=45+1$ onwards and the run continued
+until the working vector was identically zero. The rational weights are carried as one common
+denominator, so no division is performed until the final term.
 \end{proof}
 
 \section{Verification}
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $19$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $15$ terms the entry publishes, exactly, in integer
 arithmetic.
 
 Second, the count was recomputed for the smallest arrays straight from the definition:
-enumerate every array of that size, form the two derived arrays in full, and test the condition
-on them directly. No window, no state and no incremental bookkeeping are involved, and the
-published terms came back.
+enumerate every array over $\{0,\dots,2\}$, keep those whose values are introduced in the
+order $0,1,2,\dots$ reading row by row, and test each offset directly. Neither the window, nor
+the backward normalisation of the offsets, nor the falling-factorial inversion is involved, and
+the published terms came back.
 
 Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
@@ -132,9 +148,10 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A203736.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A275271.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; falling factorials,
+Section 1.9.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

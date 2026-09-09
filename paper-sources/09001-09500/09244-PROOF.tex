@@ -12,17 +12,17 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A269614, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A267230, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{8 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A269614 carries an empirical recurrence of order $7$ contributed by R.~H.~Hardin. It is
+OEIS A267230 carries an empirical recurrence of order $7$ contributed by R.~H.~Hardin. It is
 true, and it is decidable rather than empirical. The entry's condition is local to a bounded window of consecutive lines, so
 the admissible configurations of such a window are the vertices of a finite digraph and the
-arrays counted are exactly the walks in it; hence $a(n)$ is a walk count on $S=20$ vertices
+arrays counted are exactly the walks in it; hence $a(n)$ is a walk count on $S=35$ vertices
 and is $C$-finite. Whether the conjectured recurrence annihilates it is then settled by a
 finite exact computation, with the Cayley--Hamilton theorem bounding the work.
 \end{abstract}
@@ -31,15 +31,15 @@ finite exact computation, with the Cayley--Hamilton theorem bounding the work.
 
 \section{The conjecture}
 
-OEIS A269614 is ``Number of length-n 0..3 arrays with no repeated value differing from the previous repeated value by other than plus two, zero or minus 1.''. It has offset $1$ and begins
+OEIS A267230 is ``Number of length-n 0..6 arrays with no following elements greater than or equal to the first repeated value.''. It has offset $1$ and begins
 \[
-4, 16, 64, 249, 954, 3611, 13544, 50442,\ \dots
+7, 49, 315, 1981, 12327, 76237, 469623, 2884909,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 12*a(n-1) - 51*a(n-2) + 81*a(n-3) - 3*a(n-4) - 63*a(n-5) - 24*a(n-6) - 9*a(n-7).
+Empirical: a(n) = 27*a(n-1) - 301*a(n-2) + 1785*a(n-3) - 6034*a(n-4) + 11508*a(n-5) - 11304*a(n-6) + 4320*a(n-7) for n > 8.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jan 25 2019 08:28:36, revision 8) this is still
+As of the ``Last modified'' line on the live entry (Feb 06 2018 04:16:47, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{The count is a walk count}
@@ -47,7 +47,7 @@ recorded as empirical, and nothing on the entry records it as proved.
 The condition the entry imposes is local: it constrains a bounded window of consecutive lines and nothing beyond. Take as
 vertices the admissible configurations of one such window and put an edge from $u$ to $v$
 whenever $v$ may follow $u$, which the condition decides by inspection of the two. An
-admissible array is then exactly a walk, so with $M$ the adjacency matrix on $S=20$ vertices
+admissible array is then exactly a walk, so with $M$ the adjacency matrix on $S=35$ vertices
 and $\iota,\tau$ the vectors recording which windows may begin and end an array,
 \[
 a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau ,
@@ -75,23 +75,23 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;12\,a(n-1) - 51\,a(n-2) + 81\,a(n-3) - 3\,a(n-4) - 63\,a(n-5) - 24\,a(n-6) - 9\,a(n-7)
+a(n)\;=\;27\,a(n-1) - 301\,a(n-2) + 1785\,a(n-3) - 6034\,a(n-4) + 11508\,a(n-5) - 11304\,a(n-6) + 4320\,a(n-7)
 \]
-for every $n>1$.
+for every $n>8$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $7$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=1+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once.
+integers vanish from the index corresponding to $n=8+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once. The bound is exact: at $n=8$ the recurrence fails on the entry's own published terms, so no larger range holds.
 \end{proof}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $24$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $20$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
@@ -103,7 +103,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A269614.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A267230.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

@@ -12,48 +12,70 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A234789, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A183683, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{9 September 2026}
+\date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A234789 carries an empirical recurrence of order $3$ contributed by R.~H.~Hardin. It is
-true, and it is decidable rather than empirical. The entry's condition is local to a bounded window of consecutive lines, so
-the admissible configurations of such a window are the vertices of a finite digraph and the
-arrays counted are exactly the walks in it; hence $a(n)$ is a walk count on $S=17$ vertices
-and is $C$-finite. Whether the conjectured recurrence annihilates it is then settled by a
-finite exact computation, with the Cayley--Hamilton theorem bounding the work.
+OEIS A183683 counts arrays over $\{0,\dots,1\}$ under a condition on the determinant of every
+$2\times2$ subblock, and carries an empirical recurrence of order $3$ contributed by
+R.~H.~Hardin. It is true, and it is decidable rather than empirical. The condition is local to
+a bounded window of consecutive rows, so the count is a walk count on $S=32$ states and is
+$C$-finite; whether the conjectured recurrence annihilates it is then settled by a finite exact
+computation, with the Cayley--Hamilton theorem bounding the work.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
 \section{The conjecture}
 
-OEIS A234789 is ``Number of (n+1) X (1+1) 0..3 arrays with each 2 X 2 subblock having the number of clockwise edge increases less than or equal to the number of counterclockwise edge increases.''. It has offset $1$ and begins
+OEIS A183683 is ``Number of (n+1) X 5 binary arrays with every 2 X 2 subblock nonsingular.''. It has offset $1$ and begins
 \[
-204, 2504, 30536, 371976, 4530424, 55175944, 671983416, 8184025736,\ \dots
+48, 208, 832, 3472, 14144, 58448, 239424, 986128,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 15*a(n-1) - 36*a(n-2) + 20*a(n-3).
+Empirical: a(n) = 13*a(n-2) + 16*a(n-3).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 16 2018 05:42:15, revision 9) this is still
+As of the ``Last modified'' line on the live entry (Apr 04 2018 12:04:20, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved.
+
+\section{What is being counted}
+
+Write $\sigma$ for the determinant of a $2\times2$ subblock
+$\begin{pmatrix}p&q\\r&s\end{pmatrix}$, that is $\sigma=ps-qr$. The subblocks of an
+$(n+1)\times5$ array over $\{0,\dots,1\}$ form a grid of $n$ rows and $4$
+columns, and $\sigma$ colours that grid.
+
+The condition is on each subblock separately: every $\sigma$ must not vanish, which is what
+``nonsingular'' says of a $2\times2$ matrix. Nothing
+relates one subblock to another.
 
 \section{The count is a walk count}
 
-The condition the entry imposes is local: it constrains a bounded window of consecutive lines and nothing beyond. Take as
-vertices the admissible configurations of one such window and put an edge from $u$ to $v$
-whenever $v$ may follow $u$, which the condition decides by inspection of the two. An
-admissible array is then exactly a walk, so with $M$ the adjacency matrix on $S=17$ vertices
-and $\iota,\tau$ the vectors recording which windows may begin and end an array,
+Because the condition looks at one subblock at a time and a subblock is
+built from two consecutive array rows, a single row is a state: rows $r$ and $s$ may follow one
+another exactly when all $4$ of the subblocks they form pass. An $(n+1)$-row array is then a
+walk of $n$ steps and
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n+1}\tau ,
+a(n)\;=\;\iota^{\!\top}M^{\,n}\tau,\qquad\iota=\tau=(1,\dots,1)^{\!\top},
 \]
-the exponent fixed by the entry's own shape and checked against its published terms. In
-particular $a$ is $C$-finite.
+on the $S=32$ rows.
+
+At $n=1$ the array has two rows and the grid is a single row of $4$
+subblocks, each tested on its own, so $a(1)$ counts the
+$2\times5$ arrays over $\{0,\dots,1\}$ all of whose subblocks pass. The entry's
+first term is $48$, and the model reproduces it along with every later term; that is the
+cheapest check that the grid has been read with the right shape.
+
+Over the alphabet $\{0,\dots,1\}$ the determinant of a $2\times2$ subblock takes values in
+$[-1,1]$, so the colouring of the grid it induces has at most $3$ values.
+That bound is what keeps the construction below finite in the only place where the value of
+$\sigma$, rather than a comparison between two of them, has to be carried.
+In particular $a$ is $C$-finite. The alignment of the walk index with the entry's own $n$ was
+checked against its published terms rather than assumed.
 
 \section{The proof}
 
@@ -75,15 +97,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;15\,a(n-1) - 36\,a(n-2) + 20\,a(n-3)
+a(n)\;=\;13\,a(n-2) + 16\,a(n-3)
 \]
-for every $n>1$.
+for every $n>3$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $3$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=1+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=3+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -91,7 +113,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $16$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $21$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
@@ -103,11 +125,10 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A234789.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A183683.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
-University Press, 2009.
+\bibitem{minc} H.~Minc, \emph{Permanents}, Addison--Wesley, 1978.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

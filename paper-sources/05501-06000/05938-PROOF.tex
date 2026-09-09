@@ -12,17 +12,17 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A246888, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A185862, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{8 September 2026}
+\date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A246888 carries an empirical recurrence of order $31$ contributed by R.~H.~Hardin. It is
+OEIS A185862 carries an empirical recurrence of order $31$ contributed by R.~H.~Hardin. It is
 true, and it is decidable rather than empirical. The entry's condition is local to a bounded window of consecutive lines, so
 the admissible configurations of such a window are the vertices of a finite digraph and the
-arrays counted are exactly the walks in it; hence $a(n)$ is a walk count on $S=625$ vertices
+arrays counted are exactly the walks in it; hence $a(n)$ is a walk count on $S=498176$ vertices
 and is $C$-finite. Whether the conjectured recurrence annihilates it is then settled by a
 finite exact computation, with the Cayley--Hamilton theorem bounding the work.
 \end{abstract}
@@ -31,15 +31,15 @@ finite exact computation, with the Cayley--Hamilton theorem bounding the work.
 
 \section{The conjecture}
 
-OEIS A246888 is ``Number of length n+4 0..4 arrays with some pair in every consecutive five terms totalling exactly 4.''. It has offset $1$ and begins
+OEIS A185862 is ``1/128 the number of (n+2)X7 binary arrays with no 3X3 subblock trace equal to any horizontal or vertical neighbor 3X3 subblock trace.''. It has offset $1$ and begins
 \[
-2701, 12481, 57585, 264981, 1216081, 5592169, 25710385, 118192273,\ \dots
+3892, 73542, 1625738, 35696805, 791291609, 17619474017, 392747944918, 8751459810146,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 3*a(n-1) +6*a(n-2) +5*a(n-3) +17*a(n-4) -16*a(n-5) -117*a(n-6) -174*a(n-7) -295*a(n-8) -478*a(n-9) +437*a(n-10) +1237*a(n-11) +663*a(n-12) +1581*a(n-13) +2542*a(n-14) -1551*a(n-15) -2164*a(n-16) -1754*a(n-17) -1473*a(n-18) +623*a(n-19) +1190*a(n-20) +651*a(n-21) +184*a(n-22) -263*a(n-23) -141*a(n-24) -109*a(n-25) -11*a(n-26) +46*a(n-27) +9*a(n-28) +10*a(n-29) +2*a(n-30) -3*a(n-31)
+Empirical: a(n)=19*a(n-1)+195*a(n-2)-2615*a(n-3)-5853*a(n-4)+83248*a(n-5)-11174*a(n-6)-545700*a(n-7)+121263*a(n-8)+547276*a(n-9)+862758*a(n-10)-1627813*a(n-11)-1917833*a(n-12)+455414*a(n-13)+8272871*a(n-14)+5835621*a(n-15)-3848078*a(n-16)-1643802*a(n-17)-18285389*a(n-18)+23460427*a(n-19)+5580203*a(n-20)-28665318*a(n-21)+12504271*a(n-22)-1375133*a(n-23)-12596640*a(n-24)+1080741*a(n-25)-47385*a(n-26)-825181*a(n-27)+198061*a(n-28)+39780*a(n-29)-2300*a(n-30)-500*a(n-31) for n>34
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jun 02 2025 10:14:25, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 03:16:22, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{The count is a walk count}
@@ -47,10 +47,10 @@ recorded as empirical, and nothing on the entry records it as proved.
 The condition the entry imposes is local: it constrains a bounded window of consecutive lines and nothing beyond. Take as
 vertices the admissible configurations of one such window and put an edge from $u$ to $v$
 whenever $v$ may follow $u$, which the condition decides by inspection of the two. An
-admissible array is then exactly a walk, so with $M$ the adjacency matrix on $S=625$ vertices
+admissible array is then exactly a walk, so with $M$ the adjacency matrix on $S=498176$ vertices
 and $\iota,\tau$ the vectors recording which windows may begin and end an array,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n+3}\tau ,
+a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau ,
 \]
 the exponent fixed by the entry's own shape and checked against its published terms. In
 particular $a$ is $C$-finite.
@@ -75,15 +75,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;3\,a(n-1) + 6\,a(n-2) + 5\,a(n-3) + 17\,a(n-4) - 16\,a(n-5) - 117\,a(n-6) - 174\,a(n-7) - 295\,a(n-8) - 478\,a(n-9) + 437\,a(n-10) + 1237\,a(n-11) + 663\,a(n-12) + 1581\,a(n-13) + 2542\,a(n-14) - 1551\,a(n-15) - 2164\,a(n-16) - 1754\,a(n-17) - 1473\,a(n-18) + 623\,a(n-19) + 1190\,a(n-20) + 651\,a(n-21) + 184\,a(n-22) - 263\,a(n-23) - 141\,a(n-24) - 109\,a(n-25) - 11\,a(n-26) + 46\,a(n-27) + 9\,a(n-28) + 10\,a(n-29) + 2\,a(n-30) - 3\,a(n-31)
+a(n)\;=\;19\,a(n-1) + 195\,a(n-2) - 2615\,a(n-3) - 5853\,a(n-4) + 83248\,a(n-5) - 11174\,a(n-6) - 545700\,a(n-7) + 121263\,a(n-8) + 547276\,a(n-9) + 862758\,a(n-10) - 1627813\,a(n-11) - 1917833\,a(n-12) + 455414\,a(n-13) + 8272871\,a(n-14) + 5835621\,a(n-15) - 3848078\,a(n-16) - 1643802\,a(n-17) - 18285389\,a(n-18) + 23460427\,a(n-19) + 5580203\,a(n-20) - 28665318\,a(n-21) + 12504271\,a(n-22) - 1375133\,a(n-23) - 12596640\,a(n-24) + 1080741\,a(n-25) - 47385\,a(n-26) - 825181\,a(n-27) + 198061\,a(n-28) + 39780\,a(n-29) - 2300\,a(n-30) - 500\,a(n-31)
 \]
-for every $n>-3$.
+for every $n>34$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $31$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=-3+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=34+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -91,7 +91,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $18$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $14$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
@@ -103,7 +103,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A246888.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A185862.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

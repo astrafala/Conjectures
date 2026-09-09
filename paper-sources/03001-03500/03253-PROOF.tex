@@ -12,49 +12,49 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A231050, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A230920, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A231050 counts arrays of width $2$ over $\{0,1,2,3\}$ in which every cell must see, among its
+OEIS A230920 counts arrays of width $2$ over $\{0,1,2\}$ in which every cell must see, among its
 neighbours in named directions, a stated number carrying the value one MORE than its own
-modulo $4$, and in some of the family a stated number carrying the value one less. The entry
+modulo $3$, and in some of the family a stated number carrying the value one less. The entry
 carries an empirical recurrence of order $5$ contributed by R.~H.~Hardin. It is true, and
 it is decidable rather than empirical: a cell's neighbours lie in three consecutive rows, so
-the count is a walk count on $S=57$ states.
+the count is a walk count on $S=85$ states.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 05C15, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A231050 is ``Number of 2 X n 0..3 arrays x(i,j) with each element horizontally, diagonally or antidiagonally next to at least one element with value (x(i,j)+1) mod 4 and at least one element with value (x(i,j)-1) mod 4, no adjacent elements equal, and upper left element zero.''. It has offset $1$ and begins
+OEIS A230920 is ``Number of n X 2 0..2 arrays x(i,j) with each element horizontally, vertically, diagonally or antidiagonally next to at least one element with value (x(i,j)+1) mod 3 and at least one element with value (x(i,j)-1) mod 3, and upper left element zero.''. It has offset $1$ and begins
 \[
-0, 2, 14, 32, 100, 428, 1616, 5784,\ \dots
+0, 12, 54, 432, 3108, 22428, 162504, 1175592,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 3*a(n-1) + 8*a(n-3) + 6*a(n-4) - 4*a(n-5) for n>6.
+Empirical: a(n) = 5*a(n-1) + 14*a(n-2) + 16*a(n-3) - 2*a(n-4) + 4*a(n-5).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Sep 26 2018 06:20:51, revision 7) this is still
+As of the ``Last modified'' line on the live entry (Sep 23 2018 09:07:00, revision 8) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The array has $2$ cells across, with entries in $\{0,1,2,3\}$. The NEIGHBOURS of a cell are the
+The array has $2$ cells across, with entries in $\{0,1,2\}$. The NEIGHBOURS of a cell are the
 cells reached from it by the offsets
 \[
-(-1,-1), (-1,0), (-1,1), (1,-1), (1,0), (1,1),
+(-1,-1), (-1,0), (-1,1), (0,-1), (0,1), (1,-1), (1,0), (1,1),
 \]
 those lying inside the array. Writing $v$ for the value of a cell, the condition is that among
-its neighbours there be at least $1$ carrying $v+1 \bmod 4$ and at least $1$ carrying $v-1 \bmod 4$. The entry also forbids two neighbouring cells from carrying equal values. The top left
-cell is fixed at $0$. The entry writes the array with $n$ as the number of COLUMNS; the walk is run down the transpose, so the offsets above are already the transposed ones. Each direction is taken with both signs, so transposing cannot lose one, and the top left cell is the top left cell of the transpose as well.
+its neighbours there be at least $1$ carrying $v+1 \bmod 3$ and at least $1$ carrying $v-1 \bmod 3$. The top left
+cell is fixed at $0$.
 
-Note that the values and the modulus agree: the alphabet has $4$ letters and the arithmetic
-is modulo $4$, so ``one more than $v$'' wraps from $3$ round to $0$.
+Note that the values and the modulus agree: the alphabet has $3$ letters and the arithmetic
+is modulo $3$, so ``one more than $v$'' wraps from $2$ round to $0$.
 
 \section{Three rows decide one}
 
@@ -77,7 +77,7 @@ LAST row is settled by the end vector, with nothing below it: the end vector is 
 the all-ones vector, and a row that sees enough neighbours only when a further row is written
 below it does not finish an array. With $M$ the adjacency matrix,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=57.
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=85.
 \]
 The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
 published terms rather than assumed. In particular $a$ is $C$-finite.
@@ -102,15 +102,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;3\,a(n-1) + 8\,a(n-3) + 6\,a(n-4) - 4\,a(n-5)
+a(n)\;=\;5\,a(n-1) + 14\,a(n-2) + 16\,a(n-3) - 2\,a(n-4) + 4\,a(n-5)
 \]
-for every $n>6$.
+for every $n>4$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $5$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=6+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=4+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -118,7 +118,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $25$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $20$ terms the entry publishes, exactly, in integer
 arithmetic. The leading zeros the entry publishes are a sharp test of the boundary: a small
 array has too few neighbours for any cell to see what the condition demands.
 
@@ -135,7 +135,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A231050.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A230920.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge

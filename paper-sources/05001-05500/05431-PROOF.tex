@@ -12,70 +12,61 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A204303, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A187373, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{2 September 2026}
+\date{6 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A204303 counts arrays over $\{0,\dots,3\}$ under a condition on the sum of every
-$2\times2$ subblock, and carries an empirical recurrence of order $40$ contributed by
-R.~H.~Hardin. It is true, and it is decidable rather than empirical. The condition is local to
-a bounded window of consecutive rows, so the count is a walk count on $S=256$ states and is
-$C$-finite; whether the conjectured recurrence annihilates it is then settled by a finite exact
-computation, with the Cayley--Hamilton theorem bounding the work.
+OEIS A187373 counts arrays of width $3$ over $\{0,1,2,3\}$ in which every $3\times3$ subblock
+satisfies a condition on its nine entries. The entry carries an empirical recurrence of order
+$40$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical: a
+$3\times3$ block lies in three consecutive rows, so the state is the last two rows and the
+count is a walk count on $S=4161$ states.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B20, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A204303 is ``Number of (n+1)X2 0..3 arrays with the sums of 2X2 subblocks nondecreasing rightwards and downwards.''. It has offset $1$ and begins
+OEIS A187373 is ``Half the number of (n+2)X3 0..3 arrays with each 3X3 subblock having sum 13 or 14.''. It has offset $1$ and begins
 \[
-256, 2400, 22500, 162000, 1166400, 7157160, 43917129, 242230104,\ \dots
+30276, 578832, 11193852, 222367896, 4615930512, 96136061832, 2017081911744, 42927291866736,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 14*a(n-1) +13*a(n-2) -1054*a(n-3) +2967*a(n-4) +33454*a(n-5) -169867*a(n-6) -541454*a(n-7) +4625257*a(n-8) +3190194*a(n-9) -78493077*a(n-10) +50028366*a(n-11) +904821757*a(n-12) -1449642566*a(n-13) -7279434457*a(n-14) +18543686566*a(n-15) +40055458932*a(n-16) -154964187016*a(n-17) -132496651172*a(n-18) +924200999576*a(n-19) +64551084752*a(n-20) -4047700697376*a(n-21) +2012370535248*a(n-22) +13035697049376*a(n-23) -12864352408128*a(n-24) -30133463273856*a(n-25) +45839946627648*a(n-26) +46455381657216*a(n-27) -109440136032768*a(n-28) -36176200943616*a(n-29) +180504791635968*a(n-30) -19331562000384*a(n-31) -200887543922688*a(n-32) +88689386225664*a(n-33) +138934646489088*a(n-34) -107005889839104*a(n-35) -46480161374208*a(n-36) +62959639855104*a(n-37) -2043273019392*a(n-38) -15231671599104*a(n-39) +4458050224128*a(n-40)
+Empirical: a(n)=12*a(n-1)+144*a(n-2)+8364*a(n-3)-85968*a(n-4)-1025856*a(n-5)-22540932*a(n-6)+175623984*a(n-7)+2326114368*a(n-8)+23022501696*a(n-9)-124292765952*a(n-10)-2240639656704*a(n-11)-6241406088960*a(n-12)+3951551070720*a(n-13)+929936095649280*a(n-14)-2199121049454336*a(n-15)+27388235408044032*a(n-16)-126009950324438016*a(n-17)+1363797544592636928*a(n-18)-10200775372373569536*a(n-19)-9861110258169065472*a(n-20)-200171738877536047104*a(n-21)+1251463466276954062848*a(n-22)+2567465691549838442496*a(n-23)+4989615573505839759360*a(n-24)-39261875389490334597120*a(n-25)-112864472074442185113600*a(n-26)+850401008516066652979200*a(n-27)-1287421175527968905625600*a(n-28)-3120464501194565615616000*a(n-29)-63180604151805785407488000*a(n-30)+42574222265676925501440000*a(n-31)+166130233406853532876800000*a(n-32)+1270747183358845491609600000*a(n-33)+425660202835763842252800000*a(n-34)+2189044430502025494528000000*a(n-35)-2240376895000509677568000000*a(n-36)+16131556022908260188160000000*a(n-37)-65768732975904042516480000000*a(n-38)+34116345635915641651200000000*a(n-39)+227442304239437611008000000000*a(n-40)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 11:05:10, revision 9) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 03:55:22, revision 10) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-Write $\sigma$ for the sum of a $2\times2$ subblock
-$\begin{pmatrix}p&q\\r&s\end{pmatrix}$, that is $\sigma=p+q+r+s$. The subblocks of an
-$(n+1)\times2$ array over $\{0,\dots,3\}$ form a grid of $n$ rows and $1$
-column, and $\sigma$ colours that grid.
+The arrays have $3$ columns and a growing number of rows, with entries in $\{0,1,2,3\}$. The
+condition is imposed on every $3\times3$ block of the array --- every choice of three
+consecutive rows and three consecutive columns --- and asks that the nine entries sum to one of $13,\,14$. The entry publishes $1/2$ of that count; the division is by a constant and changes nothing about the recurrence.
 
-The condition relates NEIGHBOURING subblocks: the values of two subblocks adjacent in the grid,
-horizontally or vertically, must not decrease. Rightwards and downwards are the two directions named.
 
-\section{The count is a walk count}
 
-A subblock's value needs two consecutive array rows, and the vertical
-comparison needs the two subblock rows that three consecutive array rows produce. So the state
-is the PAIR of consecutive array rows: the horizontal comparisons decide which pairs are
-admissible at all, and the vertical ones decide which pair may follow which. A step appends one
-array row, turning $(r,s)$ into $(s,t)$ and settling every comparison between the two subblock
-rows at once. An $(n+1)$-row array is a walk of $n-1$ steps, so
+\section{Three rows}
+
+A $3\times3$ block occupies three consecutive rows, so everything the condition asks is decided
+by three consecutive rows and nothing wider. Take the array one row at a time and let the state
+be the last two rows written, with a distinguished start standing for the array before its
+first row. Appending a row completes the blocks whose bottom row is the new one, and the step
+is allowed exactly when each of those blocks passes.
+
+Every block of the finished array is tested exactly once, at the step that writes its bottom
+row, and no step imposes anything the definition does not ask. The first two rows complete no
+block at all, which is why they are laid down without a test. Every state may end an array, so
+$\tau=\mathbf{1}$. Thus
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,\qquad\iota=\tau=(1,\dots,1)^{\!\top},
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=4161,
 \]
-on the $S=256$ admissible pairs.
-
-At $n=1$ the array has two rows, so the grid is a single row of $1$
-subblock, which has no neighbour at all and so is unconstrained. The
-entry's first term is $256$, and the model reproduces it along with every later term; that
-is the cheapest check that the grid has been read with the right shape.
-
-Over the alphabet $\{0,\dots,3\}$ the sum of a $2\times2$ subblock takes values in
-$[0,12]$, so the colouring of the grid it induces has at most $13$ values.
-That bound is what keeps the construction below finite in the only place where the value of
-$\sigma$, rather than a comparison between two of them, has to be carried.
-In particular $a$ is $C$-finite. The alignment of the walk index with the entry's own $n$ was
-checked against its published terms rather than assumed.
+for the transfer matrix $M$ on those $S$ states. The walk index $j$ and the entry's own $n$
+differ by a constant, read off by matching the published terms rather than assumed. In
+particular $a$ is $C$-finite.
 
 \section{The proof}
 
@@ -97,7 +88,7 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;14\,a(n-1) + 13\,a(n-2) - 1054\,a(n-3) + 2967\,a(n-4) + 33454\,a(n-5) - 169867\,a(n-6) - 541454\,a(n-7) + 4625257\,a(n-8) + 3190194\,a(n-9) - 78493077\,a(n-10) + 50028366\,a(n-11) + 904821757\,a(n-12) - 1449642566\,a(n-13) - 7279434457\,a(n-14) + 18543686566\,a(n-15) + 40055458932\,a(n-16) - 154964187016\,a(n-17) - 132496651172\,a(n-18) + 924200999576\,a(n-19) + 64551084752\,a(n-20) - 4047700697376\,a(n-21) + 2012370535248\,a(n-22) + 13035697049376\,a(n-23) - 12864352408128\,a(n-24) - 30133463273856\,a(n-25) + 45839946627648\,a(n-26) + 46455381657216\,a(n-27) - 109440136032768\,a(n-28) - 36176200943616\,a(n-29) + 180504791635968\,a(n-30) - 19331562000384\,a(n-31) - 200887543922688\,a(n-32) + 88689386225664\,a(n-33) + 138934646489088\,a(n-34) - 107005889839104\,a(n-35) - 46480161374208\,a(n-36) + 62959639855104\,a(n-37) - 2043273019392\,a(n-38) - 15231671599104\,a(n-39) + 4458050224128\,a(n-40)
+a(n)\;=\;12\,a(n-1) + 144\,a(n-2) + 8364\,a(n-3) - 85968\,a(n-4) - 1025856\,a(n-5) - 22540932\,a(n-6) + 175623984\,a(n-7) + 2326114368\,a(n-8) + 23022501696\,a(n-9) - 124292765952\,a(n-10) - 2240639656704\,a(n-11) - 6241406088960\,a(n-12) + 3951551070720\,a(n-13) + 929936095649280\,a(n-14) - 2199121049454336\,a(n-15) + 27388235408044032\,a(n-16) - 126009950324438016\,a(n-17) + 1363797544592636928\,a(n-18) - 10200775372373569536\,a(n-19) - 9861110258169065472\,a(n-20) - 200171738877536047104\,a(n-21) + 1251463466276954062848\,a(n-22) + 2567465691549838442496\,a(n-23) + 4989615573505839759360\,a(n-24) - 39261875389490334597120\,a(n-25) - 112864472074442185113600\,a(n-26) + 850401008516066652979200\,a(n-27) - 1287421175527968905625600\,a(n-28) - 3120464501194565615616000\,a(n-29) - 63180604151805785407488000\,a(n-30) + 42574222265676925501440000\,a(n-31) + 166130233406853532876800000\,a(n-32) + 1270747183358845491609600000\,a(n-33) + 425660202835763842252800000\,a(n-34) + 2189044430502025494528000000\,a(n-35) - 2240376895000509677568000000\,a(n-36) + 16131556022908260188160000000\,a(n-37) - 65768732975904042516480000000\,a(n-38) + 34116345635915641651200000000\,a(n-39) + 227442304239437611008000000000\,a(n-40)
 \]
 for every $n>40$.
 \end{theorem}
@@ -111,24 +102,27 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 \section{Verification}
 
-Three checks, each independent of the algebra above.
+Four checks, each independent of the algebra above.
 
-First, the model reproduces all $18$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry: the digraph is built by reading the
-entry's English, and a misreading gives different counts.
+First, the model reproduces all $14$ terms the entry publishes, exactly, in integer
+arithmetic.
 
-Second, the conjectured recurrence was evaluated directly on those published terms, with no
+Second, the count was recomputed for the smallest arrays straight from the definition: every
+array was written out cell by cell and each $3\times3$ block tested directly on its nine
+entries. No rows, no window, no state and no transfer matrix are involved in that computation,
+and the published terms came back.
+
+Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
 arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A204303.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A187373.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{minc} H.~Minc, \emph{Permanents}, Addison--Wesley, 1978.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

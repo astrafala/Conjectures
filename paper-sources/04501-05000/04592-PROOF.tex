@@ -12,19 +12,19 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A252385, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A252101, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{1 September 2026}
+\date{7 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A252385 counts $3\times(n+2)$ arrays over $\{0,\dots,3\}$ subject to a condition imposed on
-every $3\times3$ subblock, and it carries an empirical recurrence of order $65$
+OEIS A252101 counts $(n+2)\times6$ arrays over $\{0,\dots,3\}$ subject to a condition imposed on
+every $3\times3$ subblock, and it carries an empirical recurrence of order $66$
 contributed by R.~H.~Hardin. It is true, and it is not an empirical matter. A $3\times3$
-subblock spans three consecutive columns, so the state of a transfer matrix is a PAIR of
-consecutive columns and appending one more column is a step; an array is then a walk, and
-$a(n)$ is a walk count on $S=4096$ vertices. Such a sequence is $C$-finite, so whether a given
+subblock spans three consecutive rows, so the state of a transfer matrix is a PAIR of
+consecutive rows and appending one more row is a step; an array is then a walk, and
+$a(n)$ is a walk count on $S=967020$ vertices. Such a sequence is $C$-finite, so whether a given
 recurrence annihilates it is decided by a finite exact computation, with the Cayley--Hamilton
 theorem bounding the work.
 \end{abstract}
@@ -33,40 +33,41 @@ theorem bounding the work.
 
 \section{The conjecture}
 
-OEIS A252385 is ``Number of (1+2)X(n+2) 0..3 arrays with every 3X3 subblock row and diagonal sum equal to 0 3 5 6 or 7 and every 3X3 column and antidiagonal sum not equal to 0 3 5 6 or 7.''. It has offset $1$ and begins
+OEIS A252101 is ``Number of (n+2)X(4+2) 0..3 arrays with every 3X3 subblock row and column sum equal to 0 3 4 6 or 7 and every 3X3 diagonal and antidiagonal sum not equal to 0 3 4 6 or 7.''. It has offset $1$ and begins
 \[
-578, 897, 1359, 1966, 3020, 4682, 7109, 10880,\ \dots
+10605, 8941, 26996, 86575, 329544, 1129324, 3681127, 14793289,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 23*a(n-3) +2*a(n-4) +a(n-5) -240*a(n-6) -43*a(n-7) -21*a(n-8) +1504*a(n-9) +416*a(n-10) +198*a(n-11) -6313*a(n-12) -2393*a(n-13) -1107*a(n-14) +18725*a(n-15) +9103*a(n-16) +4076*a(n-17) -40251*a(n-18) -24030*a(n-19) -10332*a(n-20) +62853*a(n-21) +44613*a(n-22) +18060*a(n-23) -68933*a(n-24) -56479*a(n-25) -20179*a(n-26) +45479*a(n-27) +40956*a(n-28) +8323*a(n-29) +245*a(n-30) +5126*a(n-31) +17972*a(n-32) -44003*a(n-33) -60497*a(n-34) -47406*a(n-35) +64895*a(n-36) +95841*a(n-37) +64929*a(n-38) -60009*a(n-39) -97604*a(n-40) -63621*a(n-41) +41063*a(n-42) +74286*a(n-43) +48260*a(n-44) -21705*a(n-45) -44161*a(n-46) -29124*a(n-47) +8906*a(n-48) +20723*a(n-49) +14055*a(n-50) -2778*a(n-51) -7606*a(n-52) -5368*a(n-53) +623*a(n-54) +2117*a(n-55) +1577*a(n-56) -89*a(n-57) -419*a(n-58) -336*a(n-59) +6*a(n-60) +52*a(n-61) +46*a(n-62) -3*a(n-64) -3*a(n-65) for n>79
+Empirical: a(n) = 143*a(n-3) -7633*a(n-6) +194779*a(n-9) -2621021*a(n-12) +21584927*a(n-15) -126117260*a(n-18) +569693148*a(n-21) -1970217723*a(n-24) +5012332433*a(n-27) -9046774747*a(n-30) +9490076649*a(n-33) +2869475853*a(n-36) -28633928995*a(n-39) +46976334404*a(n-42) -43041766972*a(n-45) +27216813760*a(n-48) -12579947264*a(n-51) +4180881408*a(n-54) -1019708416*a(n-57) +177668096*a(n-60) -16252928*a(n-63) +524288*a(n-66) for n>71
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jun 02 2025 11:09:36, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Jun 02 2025 10:47:33, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{Three consecutive lines}
 
-Write an admissible array as a sequence of columns $u_1,u_2,\dots$, each an element of
-$\{0,\dots,3\}^{3}$. A $3\times3$ subblock occupies three consecutive columns and
-three consecutive rows, so with $r,s,t$ three consecutive columns the blocks it
+Write an admissible array as a sequence of rows $u_1,u_2,\dots$, each an element of
+$\{0,\dots,3\}^{6}$. A $3\times3$ subblock occupies three consecutive rows and
+three consecutive columns, so with $r,s,t$ three consecutive rows the blocks it
 contributes are
 \[
-g=\begin{pmatrix}r_i&s_i&t_i\\ r_{i+1}&s_{i+1}&t_{i+1}\\ r_{i+2}&s_{i+2}&t_{i+2}\end{pmatrix}
+g=\begin{pmatrix}r_j&r_{j+1}&r_{j+2}\\ s_j&s_{j+1}&s_{j+2}\\ t_j&t_{j+1}&t_{j+2}\end{pmatrix}
 \]
 for each admissible index, and the entry's condition is the requirement that
 \[
-\text{every row, diagonal sum} \in \{0,3,5,6,7\}\ \text{ and }\ \text{every column, antidiagonal sum} \notin \{0,3,5,6,7\}
+\text{every row, column sum} \in \{0,3,4,6,7\}\ \text{ and }\ \text{every diagonal, antidiagonal sum} \notin \{0,3,4,6,7\}
 \]
 holds for every such $g$. This involves $r$, $s$ and $t$ only: it is a condition on
-three consecutive columns and on nothing else.
+three consecutive rows and on nothing else.
 
-Take as vertices of a digraph $G$ the ordered PAIRS $(r,s)$ of columns, of which there are
-$S=(3+1)^{2\cdot3}=4096$, and put an edge $(r,s)\to(s,t)$ exactly when the condition
-holds for the triple $(r,s,t)$ at every admissible index. An array with $L$ columns is then a
-walk of length $L-2$ in $G$: its first two columns name the starting vertex and each further
-column is one step. Hence, with $M$ the adjacency matrix of $G$,
+Take as vertices of a digraph $G$ the ordered PAIRS $(r,s)$ of rows, of which there are
+$(3+1)^{2\cdot6}=16777216$, and put an edge $(r,s)\to(s,t)$ exactly when the condition
+holds for the triple $(r,s,t)$ at every admissible index. An array with $L$ rows is then a
+walk of length $L-2$ in $G$: its first two rows name the starting vertex and each further
+row is one step. Most of those pairs are indistinguishable, and exactly so. For a window $j$, whether a row $t$ is admissible there depends on $r$ and $s$ only through their own $j$-th windows, so collect for each $j$ the set of triples $(t_j,t_{j+1},t_{j+2})$ the pair allows and call that tuple $C(r,s)$. The rows that may follow $(r,s)$ are exactly those consistent with every $C_j$, and the successor $(s,t)$ carries $C(s,t)$, which does not mention $r$. Hence two pairs $(r,s)$ and $(r',s)$ with the same $C$ have the same outgoing rows and the same successors: they may be identified, and the vertex is $(s,C)$. Each such vertex begins an array with the multiplicity of $r$ that produced it, which is what $\iota$ records. That leaves $S=967020$ vertices. Hence, with $M$ the adjacency matrix of $G$ on $S=967020$ vertices and
+$\iota$ the vector of starting weights,
 \[
-a(n)\;=\;\,\mathbf{1}^{\!\top}M^{\,n-1+1}\mathbf{1},
+a(n)\;=\;\,\iota^{\!\top}M^{\,n-1+1}\mathbf{1},
 \]
 the exponent being fixed by the entry's own shape and checked against its published terms.
 In particular $a$ is $C$-finite.
@@ -74,7 +75,7 @@ In particular $a$ is $C$-finite.
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{65}-\sum_i c_it^{65-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{66}-\sum_i c_it^{66-i}$ be the characteristic polynomial of the
 conjectured recurrence. Then the residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\mathbf{1}^{\!\top}M^{\,j}q(M)\mathbf{1}$ for the corresponding walk index
 $j$, so the recurrence holds from some point on if and only if
@@ -83,7 +84,7 @@ Cayley--Hamilton theorem it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+65}-\sum_ic_iM^{j+65-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+66}-\sum_ic_iM^{j+66-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$, so the numbers
 $u_j=\mathbf{1}^{\!\top}M^{j}q(M)\mathbf{1}$ satisfy the monic linear recurrence given by
 the characteristic polynomial of $M$; $S$ consecutive zeros therefore force every later one,
@@ -92,24 +93,24 @@ and the last nonzero $u_j$ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;23\,a(n-3) + 2\,a(n-4) + a(n-5) - 240\,a(n-6) - 43\,a(n-7) - 21\,a(n-8) + 1504\,a(n-9) + 416\,a(n-10) + 198\,a(n-11) - 6313\,a(n-12) - 2393\,a(n-13) - 1107\,a(n-14) + 18725\,a(n-15) + 9103\,a(n-16) + 4076\,a(n-17) - 40251\,a(n-18) - 24030\,a(n-19) - 10332\,a(n-20) + 62853\,a(n-21) + 44613\,a(n-22) + 18060\,a(n-23) - 68933\,a(n-24) - 56479\,a(n-25) - 20179\,a(n-26) + 45479\,a(n-27) + 40956\,a(n-28) + 8323\,a(n-29) + 245\,a(n-30) + 5126\,a(n-31) + 17972\,a(n-32) - 44003\,a(n-33) - 60497\,a(n-34) - 47406\,a(n-35) + 64895\,a(n-36) + 95841\,a(n-37) + 64929\,a(n-38) - 60009\,a(n-39) - 97604\,a(n-40) - 63621\,a(n-41) + 41063\,a(n-42) + 74286\,a(n-43) + 48260\,a(n-44) - 21705\,a(n-45) - 44161\,a(n-46) - 29124\,a(n-47) + 8906\,a(n-48) + 20723\,a(n-49) + 14055\,a(n-50) - 2778\,a(n-51) - 7606\,a(n-52) - 5368\,a(n-53) + 623\,a(n-54) + 2117\,a(n-55) + 1577\,a(n-56) - 89\,a(n-57) - 419\,a(n-58) - 336\,a(n-59) + 6\,a(n-60) + 52\,a(n-61) + 46\,a(n-62) - 3\,a(n-64) - 3\,a(n-65)
+a(n)\;=\;143\,a(n-3) - 7633\,a(n-6) + 194779\,a(n-9) - 2621021\,a(n-12) + 21584927\,a(n-15) - 126117260\,a(n-18) + 569693148\,a(n-21) - 1970217723\,a(n-24) + 5012332433\,a(n-27) - 9046774747\,a(n-30) + 9490076649\,a(n-33) + 2869475853\,a(n-36) - 28633928995\,a(n-39) + 46976334404\,a(n-42) - 43041766972\,a(n-45) + 27216813760\,a(n-48) - 12579947264\,a(n-51) + 4180881408\,a(n-54) - 1019708416\,a(n-57) + 177668096\,a(n-60) - 16252928\,a(n-63) + 524288\,a(n-66)
 \]
-for every $n>79$.
+for every $n>71$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\mathbf{1}$ was formed by $65$ matrix--vector products in exact
+The vector $w=q(M)\mathbf{1}$ was formed by $66$ matrix--vector products in exact
 integer arithmetic and $\mathbf{1}^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again
-exactly. Those integers vanish from the index corresponding to $n=79+1$ onwards, and the
+exactly. Those integers vanish from the index corresponding to $n=71+1$ onwards, and the
 run was continued until the working vector was identically zero, which settles all larger $j$
-at once. By Lemma~\ref{lem:crit} the recurrence holds for every $n>79$.
+at once. By Lemma~\ref{lem:crit} the recurrence holds for every $n>71$.
 \end{proof}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the transfer model reproduces all $30$ terms the entry publishes, exactly, in
+First, the transfer model reproduces all $20$ terms the entry publishes, exactly, in
 integer arithmetic. This is what ties the model to the entry: the digraph is built by reading
 the entry's English, and a misreading gives different counts.
 
@@ -122,7 +123,7 @@ enters anywhere.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A252385.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A252101.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

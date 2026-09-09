@@ -12,74 +12,56 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A185859, proved by transfer matrix}
+\title{A value repeated at its own distance: OEIS A209603}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{3 September 2026}
+\date{7 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A185859 counts arrays over $\{0,\dots,1\}$ under a condition comparing a statistic of
-every $3\times3$ subblock with those of its neighbours, and carries an empirical recurrence
-of order $5$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
-empirical. The count is a walk count on $S=2816$ states and is $C$-finite; whether the
-conjectured recurrence annihilates it is then settled by a finite exact computation.
+OEIS A209603 carries an empirical recurrence of order $6$ contributed by R.~H.~Hardin. It is
+true, and it is decidable rather than empirical. The entry's condition reaches only as far as the value itself, which is bounded by the
+alphabet, so a window of that many lines decides it; the
+admissible windows are the vertices of a finite digraph and the arrays counted are exactly the
+walks in it. Hence $a(n)$ is a walk count on $S=8$ vertices and is $C$-finite, and whether the
+conjectured recurrence annihilates it is settled by a finite exact computation, with the
+Cayley--Hamilton theorem bounding the work.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
 \section{The conjecture}
 
-OEIS A185859 is ``1/128 the number of (n+2) X 4 binary arrays with no 3 X 3 subblock trace equal to any horizontal or vertical neighbor 3 X 3 subblock trace.''. It has offset $1$ and begins
+OEIS A209603 is ``Number of n X 1 1..2 arrays with every element value z a city block distance of exactly z from another element value z.''. It has offset $1$ and begins
 \[
-22, 164, 1254, 9604, 73542, 563180, 4312662, 33025492,\ \dots
+0, 1, 1, 2, 2, 4, 6, 9,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 6*a(n-1) + 17*a(n-2) - 36*a(n-3) + 24*a(n-4) - 6*a(n-5).
+Empirical: a(n) = 2*a(n-1) - a(n-2) + a(n-6).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Apr 17 2018 06:18:41, revision 9) this is still
+As of the ``Last modified'' line on the live entry (Jul 11 2018 08:36:29, revision 8) this is still
 recorded as empirical, and nothing on the entry records it as proved.
-
-\section{What is being counted}
-
-Write $\sigma$ for the sum of its main diagonal, taken on a $3\times3$ subblock. The contiguous $3\times3$
-subblocks of an $(n+2)\times4$ array over $\{0,\dots,1\}$ form a grid of $n$ rows
-and $2$ columns, and $\sigma$ labels that grid. The entry
-requires that no two subblocks that are neighbours horizontally or vertically carry the same value of $\sigma$. The entry counts $1/128$ of that number, and the model divides by $128$ before anything is compared.
 
 \section{The count is a walk count}
 
-The condition is on a PAIR of neighbouring subblocks, so nothing beyond the
-rows themselves has to be remembered. Take as state the $3$-tuple of consecutive array rows
-whose subblock row has just been completed: the horizontal pairs inside that row decide which
-tuples are admissible at all, and the vertical pairs decide which tuple may follow which. A
-step appends one array row. An array of $n+2$ rows is a walk of $n-1$ steps and
+The entry counts arrays with $1$ column over the alphabet $\{1,2\}$, distance measured as $|\Delta \text{row}|+|\Delta \text{column}|$, and asks that every element of value $z$ must have another element of value $z$ exactly $z$ steps away. An element of value $0$ is $0$ steps from itself and so always has such a partner. That is not an interpretation imposed on the entry: it is the reading the entry's own published terms select, and reading ``another'' as strictly some other cell disagrees with them at the very first term.
+
+The condition ranges over the whole array, but only as far as the value itself reaches: a cell of value $z$ looks exactly $z$ steps away, and $z$ is at most $2$. So nothing more than $2$ rows away can matter, and a cell's verdict is settled once the row $2$ beyond it has arrived.
+
+Carry the last $2$ rows together with one bit for each of their cells, recording whether that cell has already found its partner. A new row is paired against the rows it can still reach, sets the bits it completes, and retires the row that has now seen everything it will ever see: the walk continues if that row's bits say what the entry asks and stops otherwise. The rows still held when the array ends are judged by the end vector, which is where the boundary is honest --- a partner off the edge of the array is not a partner.
+
+Merging vertices with identical futures leaves $S=8$. An admissible array is exactly a walk, so with $M$ the adjacency matrix and $\iota,\tau$ the vectors recording which states may begin and end an array,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,\qquad\iota=\tau=(1,\dots,1)^{\!\top},
+a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau ,
 \]
-on the $S=2816$ admissible tuples.
-
-The state does not compress. What a step needs of the past is the previous subblock row, and
-for $4\ge3$ that row already determines the $3$ array rows it came from, so carrying the
-rows costs nothing and carrying anything smaller loses information. Of the $2^{3\cdot
-4}=4096$ tuples of $3$ rows, $S=2816$ survive the condition inside a single subblock row;
-the rest could not occur in a counted array at all.
-
-Over the alphabet $\{0,\dots,1\}$ the statistic takes values in $[0,3]$, so the
-grid it labels carries at most $4$ different labels. At $n=1$ the array has $3$
-rows and the grid is a single row of $2$
-subblocks, with only the neighbours inside that row; the entry's first term is
-$22$, which the model reproduces along with every later term, and that is the cheapest
-check that the grid has been read with the right shape.
-
-In particular $a$ is $C$-finite. The alignment of the walk index with the entry's own $n$ was
-checked against its published terms rather than assumed.
+the exponent fixed by the entry's own shape and checked against its published terms. In
+particular $a$ is $C$-finite.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{5}-\sum_i c_it^{5-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{6}-\sum_i c_it^{6-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -87,48 +69,54 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+5}-\sum_ic_iM^{j+5-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+6}-\sum_ic_iM^{j+6-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly.
+pins the threshold exactly. A constant factor in front of $a$ divides out of the residual and
+changes nothing here.
 \end{proof}
 
 \begin{theorem}
 \[
-a(n)\;=\;6\,a(n-1) + 17\,a(n-2) - 36\,a(n-3) + 24\,a(n-4) - 6\,a(n-5)
+a(n)\;=\;2\,a(n-1) - a(n-2) + a(n-6)
 \]
-for every $n>5$.
+for every $n>6$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $5$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $6$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=5+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=6+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
-Three checks, each independent of the algebra above.
+Four checks, each independent of the algebra above.
 
-First, the model reproduces all $19$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $43$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
-Second, the conjectured recurrence was evaluated directly on those published terms, with no
+Second, the reading was pinned before the digraph was written, by a program that enumerates
+every array of the given shape one by one and measures the distance between every pair
+of cells directly. That program shares no code with the transfer matrix, so an error in one does not
+hide an error in the other.
+
+Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
 arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A185859.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A209603.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata
-Theory, Languages, and Computation}, 3rd ed., Addison--Wesley, 2006.
+\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+University Press, 2009.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

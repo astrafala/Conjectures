@@ -12,42 +12,37 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical column recurrences for the table OEIS A229637}
+\title{The empirical column recurrences for the table OEIS A234233}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A229637 is a two-dimensional table $T(n,k)$, and it carries a block of empirical
+OEIS A234233 is a two-dimensional table $T(n,k)$, and it carries a block of empirical
 recurrences contributed by R.~H.~Hardin --- one for each of its first few columns. They are
 true. Column $k$ of the table is an ordinary fixed-width array count, so its rows are the
 vertices of a finite digraph and $T(n,k)$ is a number of walks in it; being a walk count the
 column is $C$-finite, and whether a given recurrence annihilates it is decided by a finite
-exact computation, with the Cayley--Hamilton theorem bounding the work. This note settles the rows $n=1, 2$.
+exact computation, with the Cayley--Hamilton theorem bounding the work. This note settles the columns $k=1$.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
 \section{The table and the conjectures}
 
-OEIS A229637 is ``T(n,k) = number of defective 3-colorings of an n X k 0..2 array connected horizontally, diagonally and antidiagonally with exactly two mistakes, and colors introduced in row-major 0..2 order.''. It has offset $1$, is
+OEIS A234233 is ``T(n,k) is the number of (n+1) X (k+1) 0..7 arrays with every 2 X 2 subblock having its diagonal sum differing from its antidiagonal sum by 3 (constant-stress 1 X 1 tilings).''. It has offset $1$, is
 read by antidiagonals, and begins
 \[
-0, 0, 0, 1, 6, 0, 3, 40,\ \dots
+568, 5260, 5260, 48592, 57912, 48592, 449880, 635904,\ \dots
 \]
 The entry carries the following block:
 \begin{quote}\small
 Empirical for column k:\\
-k=1: a(n) = a(n-1)\\
-k=2: a(n) = 9*a(n-1) - 27*a(n-2) + 27*a(n-3) for n > 5\\
-k=3: a(n) = 15*a(n-1) - 81*a(n-2) + 185*a(n-3) - 162*a(n-4) + 60*a(n-5) - 8*a(n-6) for n > 7.\\
-k=4: [order 6] for n > 9.\\
-k=5: [order 18] for n > 20.\\
-k=6: [order 27] for n > 30.\\
-k=7: [order 57] for n > 60.\\
+k=1: a(n) = 182*a(n-2) -9024*a(n-4) +66960*a(n-6).\\
+k=2: [order 40].\\
 \end{quote}
-As of the ``Last modified'' line on the live entry (Apr 27 2021 22:20:40, revision 8) these are still
+As of the ``Last modified'' line on the live entry (Jun 20 2022 20:57:31, revision 6) these are still
 recorded as empirical, and nothing on the entry records any of them as settled.
 
 \section{A column of the table is a walk count}
@@ -90,8 +85,7 @@ $j\ge S_k$ repeats that combination of earlier values.
 \begin{center}
 \begin{tabular}{ccccc}
 line & order & vertices $S$ & proved for & terms checked \\ \hline
-row $n$$=1$ & $3$ & $18$ & $>6$ & $10$ \\
-row $n$$=2$ & $6$ & $42$ & $>6$ & $9$ \\
+column $k$$=1$ & $6$ & $64$ & $>6$ & $10$ \\
 \end{tabular}
 \end{center}
 
@@ -100,25 +94,37 @@ exact integer arithmetic and $\mathbf{1}^{\!\top}M_k^{j}w$ evaluated for $j=0,1,
 again exactly; every one of those integers vanishes from the stated point onwards and the run
 continued until the working vector was identically zero, which settles all larger $j$ at once.
 
-\subsection*{Row $n$$=1$}
-The sequence is ``Number of defective 3-colorings of an 1 X n 0..2 array connected horizontally, diagonally and antidiagonally with exactly two mistakes, and colors introduced in row-major 0..2 order.''. Its rows are the vertices of a digraph on
-$S=18$ vertices, edges being the admissible consecutive pairs, and the count is
+\subsection*{Column $k$$=1$}
+The sequence is ``Number of (n+1) X (2) 0..7 arrays with every 2 X 2 subblock having its diagonal sum differing from its antidiagonal sum by 3 (constant-stress 1 X 1 tilings).''. Its rows are the vertices of a digraph on
+$S=64$ vertices, edges being the admissible consecutive pairs, and the count is
 $\mathbf{1}^{\!\top}M^{n}\mathbf{1}$ up to the constant factor in the entry's name.
 The conjectured recurrence
 \[
-a(n)\;=\;6\,a(n-1) - 12\,a(n-2) + 8\,a(n-3)
+a(n)\;=\;182\,a(n-2) - 9024\,a(n-4) + 66960\,a(n-6)
 \]
 holds from index $6+1$ on.
 
-\subsection*{Row $n$$=2$}
-The sequence is ``Number of defective 3-colorings of an 2 X n 0..2 array connected horizontally, diagonally and antidiagonally with exactly two mistakes, and colors introduced in row-major 0..2 order.''. Its rows are the vertices of a digraph on
-$S=42$ vertices, edges being the admissible consecutive pairs, and the count is
-$\mathbf{1}^{\!\top}M^{n}\mathbf{1}$ up to the constant factor in the entry's name.
-The conjectured recurrence
+
+\section{Lines whose recurrence the entry does not print}
+
+For the lines below the entry records only an order, the coefficients being in a linked file.
+They can still be settled, and the recurrences recovered. A line is a walk count on $S$
+vertices, so it satisfies some monic recurrence of order at most $S$ and Berlekamp--Massey on
+$2S$ exact terms returns the MINIMAL one. Where that order equals the stated order --- and
+where the same holds after the first few terms are dropped, since the entry's recurrence may
+begin only partway along --- any recurrence of that order the line satisfies has a
+characteristic polynomial that is a multiple of the minimal one and of equal degree, hence is
+that polynomial. So the entry's recurrence is the one displayed, whatever its file contains.
+
+\subsection*{Column $k=2$, recovered}
+The entry gives only the order for this line: ``k=2: [order 40].''. Its model is a walk on
+$S=512$ vertices, so it satisfies a monic recurrence of order at most $S$;
+Berlekamp--Massey on $2S=1024$ exact terms returns the minimal one, of order
+$40$ --- the stated order --- with integer coefficients
 \[
-a(n)\;=\;6\,a(n-1) - 6\,a(n-2) - 16\,a(n-3) + 12\,a(n-4) + 24\,a(n-5) + 8\,a(n-6)
+(c_1,\dots,c_{40})=(35,\ 297,\ -23436,\ 87922,\ 6354341,\ -57467833,\ -868697509,\ 12179862085,\ 56717124080,\ -1376288977822,\ -389142955323,\ 91724981611836,\ -197800137133940,\ -3712235714726180,\ 14345603246285440,\ 91658915774466240,\ -507226585917587320,\ -1321387528802707232,\ 10762321399020285120,\ 8733841242134807264,\ -145846761811958300832,\ 32785662669701112192,\ 1289945293647306361152,\ -1184349201595312850304,\ -7442731504916052238080,\ 10968787647661156327680,\ 27228854162118940992000,\ -56237696679658175631360,\ -57389962891214459289600,\ 176042457898795709798400,\ 44044366814188644556800,\ -336060660197981758464000,\ 78003673835928625152000,\ 365671160950013706240000,\ -216849659254292643840000,\ -184973172583801651200000,\ 186159917779078348800000,\ 9747586176417792000000,\ -53138008274632704000000,\ 14213870526136320000000).
 \]
-holds from index $6+1$ on.
+Repeating with the first $40+4$ terms removed gives order $40$ again.
 
 \section{Verification}
 
@@ -129,7 +135,7 @@ both from the antidiagonal DATA read in either orientation and from the ``Table 
 block, and agrees at every available term. This is what ties a model to the table:
 substituting the fixed index into the entry's wording is a reading of English, and a wrong
 reading gives a different digraph and different counts. Across the lines settled here the
-model reproduces $19$ published values, $49$ decimal digits in all, every one of
+model reproduces $10$ published values, $75$ decimal digits in all, every one of
 them exactly; a misreading of the entry would have to reproduce all of them by accident.
 
 Second, each conjectured recurrence was evaluated on those published values in exact
@@ -149,7 +155,7 @@ claimed.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A229637.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A234233.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

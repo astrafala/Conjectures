@@ -12,41 +12,41 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A232304, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A232455, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A232304 counts arrays of width $3$ over $\{0,1,2\}$ in which every cell carrying one stated
+OEIS A232455 counts arrays of width $4$ over $\{0,1,2\}$ in which every cell carrying one stated
 value must have a neighbour carrying another. The entry carries an empirical recurrence of
 order $15$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
 empirical: a cell's neighbours lie in three consecutive rows, so the count is a walk count on
-$S=757$ states.
+$S=6643$ states.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 05C15, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A232304 is ``Number of nX3 0..2 arrays with every 0 next to a 1 and every 1 next to a 2 horizontally, vertically or antidiagonally.''. It has offset $1$ and begins
+OEIS A232455 is ``Number of nX4 0..2 arrays with every 0 next to a 1 and every 1 next to a 2 horizontally, vertically, diagonally or antidiagonally.''. It has offset $1$ and begins
 \[
-7, 257, 5149, 107047, 2245709, 46996227, 983668985, 20589521605,\ \dots
+15, 3015, 187989, 12521603, 865692227, 59192688269, 4047993038079, 276984506979883,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 17*a(n-1) +66*a(n-2) +338*a(n-3) +35*a(n-4) +706*a(n-5) -4131*a(n-6) +6628*a(n-7) -20192*a(n-8) +4632*a(n-9) -22908*a(n-10) +92304*a(n-11) -22608*a(n-12) -9536*a(n-13) -7616*a(n-14) +4096*a(n-15)
+Empirical: a(n) = 51*a(n-1) +885*a(n-2) +20314*a(n-3) +51242*a(n-4) -287165*a(n-5) -7238521*a(n-6) -20969007*a(n-7) -20079258*a(n-8) +379758092*a(n-9) +987349124*a(n-10) +1940213292*a(n-11) -3615001480*a(n-12) -3551344432*a(n-13) +653913792*a(n-14) +2673844992*a(n-15)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 07:17:05, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 07:27:11, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The array has $3$ cells across, with entries in $\{0,1,2\}$. The NEIGHBOURS of a cell are the
+The array has $4$ cells across, with entries in $\{0,1,2\}$. The NEIGHBOURS of a cell are the
 cells reached from it by the offsets
 \[
-(-1,0), (-1,1), (0,-1), (0,1), (1,-1), (1,0),
+(-1,-1), (-1,0), (-1,1), (0,-1), (0,1), (1,-1), (1,0), (1,1),
 \]
 those lying inside the array. The entry asks that
 \begin{itemize}
@@ -76,7 +76,7 @@ the end vector is therefore not the all-ones vector, and a row whose cells find 
 only because a further row is written below them does not finish an array. With $M$ the
 adjacency matrix,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=757.
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=6643.
 \]
 The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
 published terms rather than assumed. In particular $a$ is $C$-finite.
@@ -101,7 +101,7 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;17\,a(n-1) + 66\,a(n-2) + 338\,a(n-3) + 35\,a(n-4) + 706\,a(n-5) - 4131\,a(n-6) + 6628\,a(n-7) - 20192\,a(n-8) + 4632\,a(n-9) - 22908\,a(n-10) + 92304\,a(n-11) - 22608\,a(n-12) - 9536\,a(n-13) - 7616\,a(n-14) + 4096\,a(n-15)
+a(n)\;=\;51\,a(n-1) + 885\,a(n-2) + 20314\,a(n-3) + 51242\,a(n-4) - 287165\,a(n-5) - 7238521\,a(n-6) - 20969007\,a(n-7) - 20079258\,a(n-8) + 379758092\,a(n-9) + 987349124\,a(n-10) + 1940213292\,a(n-11) - 3615001480\,a(n-12) - 3551344432\,a(n-13) + 653913792\,a(n-14) + 2673844992\,a(n-15)
 \]
 for every $n>14$.
 \end{theorem}
@@ -117,7 +117,7 @@ until the working vector was identically zero.
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $16$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $13$ terms the entry publishes, exactly, in integer
 arithmetic.
 
 Second, the count was recomputed for the smallest arrays straight from the definition:
@@ -133,7 +133,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A232304.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A232455.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge

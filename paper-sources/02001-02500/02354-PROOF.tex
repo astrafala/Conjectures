@@ -12,38 +12,38 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A197436, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A231139, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{4 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A197436 counts arrays of width $2$ over $\{0,1,2\}$ in which no cell is the average of its neighbours. The entry carries an
+OEIS A231139 counts arrays of width $3$ over $\{0,1,2\}$ in which no cell matches a strict majority of its neighbours. The entry carries an
 empirical recurrence of order $11$ contributed by R.~H.~Hardin. It is true, and it is
 decidable rather than empirical: what a cell asks reaches one row above
 it and one row below, so the condition on a whole row is settled by
-$3$ consecutive rows and the count is a walk count on $S=91$ states.
+$3$ consecutive rows and the count is a walk count on $S=574$ states.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 05B20, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A197436 is ``Number of nX2 0..2 arrays with no element equal to the average of its horizontal and vertical neighbors.''. It has offset $1$ and begins
+OEIS A231139 is ``Number of (n+1) X (2+1) 0..2 arrays with no element equal to a strict majority of its horizontal and vertical neighbors, with upper left element zero.''. It has offset $1$ and begins
 \[
-6, 34, 246, 1736, 12450, 89528, 644328, 4638654,\ \dots
+100, 1470, 22870, 352444, 5441634, 83985430, 1296319964, 20008457170,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 7*a(n-1) +6*a(n-2) -25*a(n-3) -57*a(n-4) -7*a(n-5) +78*a(n-6) +71*a(n-7) +6*a(n-8) -18*a(n-9) -10*a(n-10) -8*a(n-11)
+Empirical: a(n) = 14*a(n-1) +28*a(n-2) -83*a(n-3) -92*a(n-4) -342*a(n-5) +134*a(n-6) +890*a(n-7) +432*a(n-8) -32*a(n-9) +80*a(n-10) -320*a(n-11).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 07:13:05, revision 9) this is still
+As of the ``Last modified'' line on the live entry (Jun 07 2021 15:18:09, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The arrays have $2$ columns and a growing number of rows, with entries in $\{0,1,2\}$. Fix the
+The arrays have $3$ columns and a growing number of rows, with entries in $\{0,1,2\}$. Fix the
 list of offsets the entry names,
 \[
 \Delta=\{\,(-1,0), (0,-1), (0,1), (1,0)\,\},
@@ -56,11 +56,11 @@ S(i,j)=\{\,(i+\delta_1,\,j+\delta_2) : (\delta_1,\delta_2)\in\Delta\,\}\cap
 for the neighbours it actually has. Only offsets landing inside the array count, so a cell on
 the border simply has fewer neighbours.
 
-The condition is that no cell equals the average of the neighbours it has:
+The condition is that no cell is equal to a strict majority of its neighbours:
 \[
-x(i,j)\;\neq\;\frac{1}{|S(i,j)|}\sum_{(a,b)\in S(i,j)}x(a,b)
+2\cdot\#\{(a,b)\in S(i,j) : x(a,b)=x(i,j)\}\;\le\;|S(i,j)| .
 \]
-whenever $S(i,j)$ is not empty. A cell with no neighbour at all is under no condition, and that is what the entry's first published term says.
+Strict means more than half, so a tie is allowed and a cell with no neighbours is under no condition. The entry adds that the top-left cell is $0$.
 
 \section{A window of 3 rows}
 
@@ -81,7 +81,7 @@ with absent rows appended --- the same rule that governs a cell at the bottom ed
 Section 2.
 Thus
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=91,
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=574,
 \]
 for the transfer matrix $M$ on those $S$ states. The walk index $j$ and the entry's own $n$
 differ by a constant, read off by matching the published terms rather than assumed. In
@@ -107,15 +107,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;7\,a(n-1) + 6\,a(n-2) - 25\,a(n-3) - 57\,a(n-4) - 7\,a(n-5) + 78\,a(n-6) + 71\,a(n-7) + 6\,a(n-8) - 18\,a(n-9) - 10\,a(n-10) - 8\,a(n-11)
+a(n)\;=\;14\,a(n-1) + 28\,a(n-2) - 83\,a(n-3) - 92\,a(n-4) - 342\,a(n-5) + 134\,a(n-6) + 890\,a(n-7) + 432\,a(n-8) - 32\,a(n-9) + 80\,a(n-10) - 320\,a(n-11)
 \]
-for every $n>11$.
+for every $n>10$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $11$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=11+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=10+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -123,11 +123,11 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $20$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $15$ terms the entry publishes, exactly, in integer
 arithmetic.
 
 Second, the count was recomputed for the smallest arrays straight from the definition: every
-array of width $2$ over $\{0,1,2\}$ with a few rows was written out cell by cell and each cell
+array of width $3$ over $\{0,1,2\}$ with a few rows was written out cell by cell and each cell
 tested against the neighbours it has. No window, no state and no end vector are involved in that
 computation, and the published terms came back.
 
@@ -139,7 +139,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A197436.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A231139.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge

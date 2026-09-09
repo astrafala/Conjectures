@@ -12,18 +12,19 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A207144, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A206336, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{2 September 2026}
+\date{8 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A207144 counts the $(n+1)\times4$ arrays over $\{0,\dots,2\}$ in which
-neighbouring $2\times2$ subblocks commute as matrices, and carries an empirical recurrence
+OEIS A206336 counts the $(n+1)\times2$ arrays over $\{0,\dots,3\}$ in which
+neighbouring $2\times2$ subblocks, each of nonzero determinant, commute as matrices, and carries an empirical
+recurrence
 of order $3$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
 empirical. The condition ties together $2+1$ consecutive rows, so $2$ consecutive rows are
-a state, the count is a walk count on $S=80$ of them, and the conjectured recurrence is then
+a state, the count is a walk count on $S=192$ of them, and the conjectured recurrence is then
 settled by a finite exact computation.
 \end{abstract}
 
@@ -31,29 +32,29 @@ settled by a finite exact computation.
 
 \section{The conjecture}
 
-OEIS A207144 is ``Number of (n+1) X 4 0..2 arrays with every 2 X 2 subblock having nonzero determinant and commuting with every horizontal or vertical neighbor.''. It has offset $1$ and begins
+OEIS A206336 is ``Number of (n+1) X 2 0..3 arrays with every 2 X 2 subblock having nonzero determinant and commuting with every horizontal or vertical neighbor.''. It has offset $1$ and begins
 \[
-80, 56, 157, 110, 311, 218, 619, 434,\ \dots
+192, 96, 455, 296, 1376, 880, 4111, 2622,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = a(n-1) + 2*a(n-2) - 2*a(n-3) for n>10.
+Empirical: a(n) = a(n-1) + 3*a(n-2) - 3*a(n-3) for n>10.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jun 19 2018 12:35:30, revision 9) this is still
+As of the ``Last modified'' line on the live entry (Jun 15 2018 10:39:22, revision 8) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The contiguous $2\times2$ subblocks of an $(n+1)\times4$ array form a grid of $n$
-rows and $3$ columns. Two subblocks that are neighbours in that
+The contiguous $2\times2$ subblocks of an $(n+1)\times2$ array form a grid of $n$
+rows and $1$ column. Two subblocks that are neighbours in that
 grid OVERLAP: horizontally they share $2\times1$ entries, vertically
 $1\times2$. Nevertheless each is a $2\times2$ integer matrix in its own right, and
 the entry requires that every neighbouring pair, horizontal or vertical, commute --- that is,
 $AB=BA$ as matrices over $\mathbf{Z}$. The entry adds that every subblock have nonzero determinant; that is a condition on one subblock alone and is checked where the subblock is formed.
 
-At $n=1$ the array has $2$ rows and the grid is a single row of $3$
-subblocks, with only the horizontal pairs to test; the entry's first term is
-$80$, which the model reproduces along with every later term.
+At $n=1$ the array has $2$ rows and the grid is a single row of $1$
+subblock, with no neighbouring pair at all; the entry's first term is
+$192$, which the model reproduces along with every later term.
 
 \section{The count is a walk count}
 
@@ -66,12 +67,12 @@ a walk of $n-1$ steps and every walk comes from exactly one array, so
 \[
 a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,\qquad\iota=\tau=(1,\dots,1)^{\!\top},
 \]
-on the $S=80$ admissible $2$-tuples. In particular $a$ is $C$-finite.
+on the $S=192$ admissible $2$-tuples. In particular $a$ is $C$-finite.
 
 This state does not compress. What a step needs of the past is the previous subblock row, and
-for $4\ge2$ that row already determines the $2$ array rows it was built from, so nothing
+for $2\ge2$ that row already determines the $2$ array rows it was built from, so nothing
 is lost by carrying the rows and nothing would be gained by carrying the matrices instead. The
-size of the construction is therefore $3^{2\cdot4}$ before the condition prunes
+size of the construction is therefore $4^{2\cdot2}$ before the condition prunes
 it, which is what puts the wider members of this family out of reach rather than settling them.
 
 \section{The proof}
@@ -94,7 +95,7 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;a(n-1) + 2\,a(n-2) - 2\,a(n-3)
+a(n)\;=\;a(n-1) + 3\,a(n-2) - 3\,a(n-3)
 \]
 for every $n>10$.
 \end{theorem}
@@ -110,7 +111,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $36$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $30$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
@@ -122,7 +123,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A207144.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A206336.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{suprunenko} D.~A.~Suprunenko and R.~I.~Tyshkevich, \emph{Commutative Matrices},

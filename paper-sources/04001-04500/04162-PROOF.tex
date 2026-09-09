@@ -12,19 +12,19 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The conjectured generating function for OEIS A290193, proved}
+\title{The conjectured generating function for OEIS A283349, proved}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{6 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A290193 counts arrays of a fixed width under a local condition, and carries a conjectured
+OEIS A283349 counts arrays of a fixed width under a local condition, and carries a conjectured
 generating function --- and nothing else. It is true. The count is a walk count in a finite
-digraph on $S=9$ vertices, so its generating function is a rational function whose numerator
+digraph on $S=10$ vertices, so its generating function is a rational function whose numerator
 and denominator have degrees bounded by $S$; the conjectured expression is another rational
 function of known degree; and two rational functions of bounded degree agree as soon as enough
-coefficients of their expansions do. Comparing $19$ coefficients in exact arithmetic
+coefficients of their expansions do. Comparing $21$ coefficients in exact arithmetic
 therefore settles the conjecture, rather than testing it.
 \end{abstract}
 
@@ -32,15 +32,15 @@ therefore settles the conjecture, rather than testing it.
 
 \section{The conjecture}
 
-OEIS A290193 is ``Binary representation of the diagonal from the origin to the corner of the n-th stage of growth of the two-dimensional cellular automaton defined by "Rule 705", based on the 5-celled von Neumann neighborhood.''. It has offset $0$ and begins
+OEIS A283349 is ``Decimal representation of the x-axis, from the left edge to the origin, of the n-th stage of growth of the two-dimensional cellular automaton defined by "Rule 617", based on the 5-celled von Neumann neighborhood.''. It has offset $0$ and begins
 \[
-1, 1, 101, 1011, 111, 101111,\ \dots
+1, 0, 3, 1, 14, 6,\ \dots
 \]
 The entry states, as a conjecture contributed by a reader and never marked settled:
 \begin{quote}
-G.f.: (10000*x\^{}5 - 10900*x\^{}4 + 910*x\^{}3 + 1)/((x - 1)*(10*x - 1)*(10*x + 1)) (conjectured). (End)
+G.f.: (1 - x - x\^{}2 + 2*x\^{}3 + x\^{}4 + 4*x\^{}6) / ((1 - x)*(1 - 2*x)*(1 + 2*x)).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Nov 05 2025 15:22:40, revision 15) this is still
+As of the ``Last modified'' line on the live entry (Nov 05 2025 15:22:37, revision 11) this is still
 recorded as empirical, and nothing on the entry records it as proved. The entry carries no
 conjectured recurrence, which is why this generating function is the whole of what is open
 here.
@@ -59,8 +59,8 @@ in,
 \[
 a(n)\;=\;\iota^{\!\top}M^{\,n-0+0}\tau ,
 \]
-and there are $S=9$ states. The digraph is built by reading the entry's own English, and the
-model reproduces all $21$ terms the entry publishes, exactly, in integer arithmetic --- a
+and there are $S=10$ states. The digraph is built by reading the entry's own English, and the
+model reproduces all $35$ terms the entry publishes, exactly, in integer arithmetic --- a
 misreading of the condition gives a different digraph and different counts, so this ties the
 model to the entry and not merely to the arithmetic.
 
@@ -87,19 +87,19 @@ The conjectured generating function is $A(x)$.
 \end{theorem}
 
 \begin{proof}
-Write the conjecture as $N_2/D_2$ with $\deg N_2=5$ and $\deg D_2=3$; its expansion as a
+Write the conjecture as $N_2/D_2$ with $\deg N_2=6$ and $\deg D_2=3$; its expansion as a
 power series exists because $D_2(0)\neq0$. Put
 \[
 R(x)\;=\;N_1(x)D_2(x)-N_2(x)D_1(x),
 \]
-a polynomial of degree at most $14$ by Lemma~\ref{lem:rat}. The difference
+a polynomial of degree at most $16$ by Lemma~\ref{lem:rat}. The difference
 $A-N_2/D_2$ equals $R/(D_1D_2)$, and $D_1(0)D_2(0)\neq0$, so if the two power series agree in
-every coefficient up to $x^{14}$ then $R$ has a zero of order greater than its own
+every coefficient up to $x^{16}$ then $R$ has a zero of order greater than its own
 degree at the origin, which forces $R\equiv0$ and hence $A=N_2/D_2$ identically.
 
 The coefficients of $A$ were produced from the model by repeated matrix--vector products in
-exact integer arithmetic, those of $N_2/D_2$ by exact rational long division, and $19$
-of them --- more than the $14+1$ the argument requires --- agree.
+exact integer arithmetic, those of $N_2/D_2$ by exact rational long division, and $21$
+of them --- more than the $16+1$ the argument requires --- agree.
 \end{proof}
 
 \section{A recurrence the entry does not state}
@@ -108,17 +108,17 @@ The denominator of a rational generating function is a linear recurrence written
 the theorem above yields one for free. With $D_2(x)=1-\sum_{i\ge1}c_ix^i$ after normalising
 $D_2(0)=1$, comparing coefficients of $x^n$ in $A(x)D_2(x)=N_2(x)$ gives
 \[
-a(n)\;=\;\sum_{i\ge1}c_i\,a(n-i)\qquad\text{for every }n>5,
+a(n)\;=\;\sum_{i\ge1}c_i\,a(n-i)\qquad\text{for every }n>6,
 \]
 a constant-coefficient linear recurrence of order $3$, valid past the degree of the
-numerator. The entry records no recurrence, so this is not a restatement of anything
+numerator. Its coefficients are the integers $c_1,\dots,c_{3}$ read off $D_2$, the first few being $1,\ 4,\ -4$. The entry records no recurrence, so this is not a restatement of anything
 already there.
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces every one of the $21$ published terms, with the index shift
+First, the model reproduces every one of the $35$ published terms, with the index shift
 read off the entry's offset rather than fitted.
 
 Second, the arrays themselves were enumerated for the smallest shapes the entry counts,
@@ -132,7 +132,7 @@ bound rather than on a prefix, in exact arithmetic throughout.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A290193.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A283349.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{flajolet} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

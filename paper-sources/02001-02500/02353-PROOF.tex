@@ -12,124 +12,84 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A214103, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A268420, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{2 September 2026}
+\date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A214103 counts the proper colourings of a grid $4\times(n+1)$, wrapped in the growing direction, with at most $3$ colours and
-counted up to renaming the colours, and carries an empirical recurrence of order $11$
-contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical. Counting
-up to renaming is a fixed rational combination of ordinary colouring counts; each of those is
-a walk count; and because permuting the colours preserves everything in sight, the walk may be
-run on the colour-patterns rather than on the colourings, which is what brings the state count
-down to $S=98$ and makes the exact residual test affordable.
+OEIS A268420 counts arrays in which the REPEATED VALUES of each row, and of each column, stand in a
+prescribed relation to one another in the order they occur. The entry carries an empirical
+recurrence of order $11$ contributed by R.~H.~Hardin. It is true, and it is decidable
+rather than empirical: one of the two scans runs inside a slice of the array and the other
+across slices, and the second needs only the previous slice together with the last repeated
+value so far in each column of the scan, so the count is a walk count on $S=586$ states.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05C15, 05C30.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A18, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A214103 is ``Number of 0..2 colorings of a 4X(n+1) array circular in the n+1 direction with new values 0..2 introduced in row major order.''. It has offset $1$ and begins
+OEIS A268420 is ``Number of nX2 0..3 arrays with every repeated value in every row unequal to the previous repeated value, and in every column equal to the previous repeated value, and new values introduced in row-major sequential order.''. It has offset $1$ and begins
 \[
-27, 8, 771, 1080, 29540, 79968, 1241355, 4807928,\ \dots
+2, 15, 187, 2530, 34195, 448667, 5720450, 71224847,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 8*a(n-1) +26*a(n-2) -304*a(n-3) +304*a(n-4) +2016*a(n-5) -3991*a(n-6) -2616*a(n-7) +9702*a(n-8) -2064*a(n-9) -6120*a(n-10) +2880*a(n-11)
+Empirical: a(n) = 33*a(n-1) -389*a(n-2) +1865*a(n-3) -2461*a(n-4) -3639*a(n-5) +7361*a(n-6) +2407*a(n-7) -5491*a(n-8) -585*a(n-9) +981*a(n-10) -81*a(n-11)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 16:51:20, revision 8) this is still
+As of the ``Last modified'' line on the live entry (Feb 04 2016 09:51:17, revision 4) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-A \emph{colouring} here is proper: cells adjacent horizontally or vertically carry different
-values, and ``circular in one direction'' means the two ends of that direction are adjacent as
-well. The check that this is the right reading is the entry's own first term for the
-one-row case: a cycle of $W$ cells has $(i-1)^W+(-1)^W(i-1)$ proper colourings over $i$
-colours, which at $W=6$, $i=3$ is $66$, and $66/3!=11$ is what the corresponding entry of this
-family publishes.
+Read a row of the array from left to right. A REPEATED VALUE is an entry equal to the entry
+immediately before it; the row thus produces the sequence of values at the places where two
+equal entries stand side by side. The entry asks that each repeated value of a row be
+different from the previous repeated value of that row, and that each repeated value of a column,
+read downwards, be equal to the previous repeated value of that column. The FIRST repeated
+value of a scan has no predecessor and is unconstrained; a scan with no two equal neighbours
+imposes nothing at all.
 
-The clause ``new values $0..2$ introduced in row major order'' says the array is the
-canonical representative of its equality pattern, so what is counted is patterns, not arrays.
-Write $N_j$ for the number of admissible patterns using exactly $j$ colours and $L_i$ for the
-number of admissible colourings over an alphabet of $i$ colours. A colouring over $i$ colours
-is a pattern together with an injection of its colours into the alphabet, so
+The entry closes with ``new values introduced in row-major sequential order'', so what is
+counted is arrays up to renaming the letters. Both relations here are built from equality
+alone, so the condition survives renaming and the usual inversion applies: with $N_j$ the
+classes on exactly $j$ letters and $L_i$ the admissible arrays over an alphabet of $i$ letters,
 \[
-L_i\;=\;\sum_j N_j\,i(i-1)\cdots(i-j+1),
+L_i=\sum_j N_j\,i(i-1)\cdots(i-j+1),\qquad
+a=N_1+\dots+N_{4}=\bigl(\mathbf{1}^{\!\top}F^{-1}\bigr)L .
 \]
-a triangular system with unit diagonal, hence invertible over $\mathbf{Q}$. The entry counts
-$a=N_1+\dots+N_{3}$, so
-\[
-a\;=\;\sum_{i=1}^{3}w_i\,L_i
-\]
-for one fixed rational vector $w=\mathbf{1}^{\!\top}F^{-1}$, $F$ the matrix of falling
-factorials. Being properly coloured is a statement about equalities alone, so it is invariant
-under permuting the colours and the reduction is legitimate.
+An entry of this family whose relation compares letters by size, or does arithmetic on them,
+carries no such clause and is counted over its own alphabet instead; the two cases are not
+mixed.
 
-\section{Each $L_i$ is a walk count}
+\section{One scan inside a slice, one across}
 
-A column of the array is a proper colouring of the path $P_{4}$ and two consecutive
-columns must differ in every one of the $4$ positions; the wrapping makes the last column
-adjacent to the first. A colouring of the array is therefore a CLOSED walk of $m=n+1$ steps
-in the digraph $T_i$ whose vertices are the proper colourings of $P_{4}$ over $i$ colours
-and whose edges join colourings differing everywhere, so
-\[
-L_i(n)\;=\;\operatorname{tr}\,T_i^{\,m},\qquad m=n+1.
-\]
-A trace is not $\iota^{\!\top}M^m\tau$ for fixed vectors, and computing it as a sum over all
-starting vertices is far too expensive. Lemma~\ref{lem:trace} replaces it by a handful of
-walks with fixed ends.
+Take the array a $row$ at a time, the direction in which it grows.
 
-\begin{lemma}\label{lem:trace}
-Let $G$ be a group acting on the vertex set of a digraph and preserving its edges, and let $M$
-be the adjacency matrix. Then $(M^m)_{ss}=(M^m)_{\sigma s,\sigma s}$ for every
-$\sigma\in G$, and hence
-\[
-\operatorname{tr} M^m\;=\;\sum_{\text{orbits }O}|O|\;(M^m)_{s_O s_O} ,
-\]
-one representative $s_O$ per orbit. For $T_i$ with $G=S_i$ permuting the colours, the orbits
-are the equality patterns and the orbit of a colouring using $j$ colours has
-$i(i-1)\cdots(i-j+1)$ members.
+\begin{lemma}\label{lem:state}
+The $row$ scans are settled as each $row$ is written. The $column$ scans are
+settled by the previous $row$ together with, for each position, the last repeated value
+so far in that $column$.
 \end{lemma}
 
 \begin{proof}
-$\sigma$ permutes the vertices and carries walks to walks bijectively, so the closed walks of
-length $m$ at $s$ correspond to those at $\sigma s$. Summing the diagonal over each orbit
-gives the displayed identity. Permuting colours preserves ``differ in every position'', so
-$S_i$ acts on the colourings of $P_{4}$ preserving $T_i$; two colourings lie in one orbit
-exactly when they have the same equality pattern, and a pattern using $j$ colours is realised
-in $i(i-1)\cdots(i-j+1)$ ways.
+A $row$ scan compares neighbours inside one $row$, so writing the
+$row$ left to right and carrying the last repeated value seen decides it. In a
+$column$ scan a repeat happens at the new $row$ exactly when the new entry equals the
+entry in the same position of the previous $row$, and the only thing the relation needs
+besides that entry is the previous repeated value of that $column$.
 \end{proof}
 
-\begin{lemma}\label{lem:lump}
-Let a group $G$ act on the vertices of a digraph preserving its edges, and let $v$ be constant
-on the $G$-orbits. Then $Mv$ is constant on the $G$-orbits, and for a representative $s$ of
-the orbit $O$,
+So the state is the pair (previous $row$, vector of last repeated values), the second
+component taking $3+2$ values at each position --- the letters together with a symbol for
+``none yet''. Assembling the pieces for $i=1,\dots,4$ as a disjoint union, with $\iota$ carrying the weights above cleared of denominators,
 \[
-(Mv)(O)\;=\;\sum_{O'}A_{OO'}\,v(O'),\qquad
-A_{OO'}=\#\{t\in O':\ s\to t\} .
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=586,\quad\tau=\mathbf{1} .
 \]
-So an iteration started at a $G$-invariant vector may be carried out on the orbits.
-\end{lemma}
-
-\begin{proof}
-$\sigma\in G$ is an edge-preserving bijection, so it carries the out-neighbours of $s$ onto
-those of $\sigma s$; with $v$ constant on orbits, $(Mv)(s)$ and $(Mv)(\sigma s)$ are the same
-sum. The count $A_{OO'}$ is likewise independent of which representative of $O$ is used.
-\end{proof}
-
-Both endpoint vectors above are invariant under the relevant group --- the all-ones vectors
-under all of $S_i$, and, for a diagonal entry $(T_i^m)_{ss}$, the vector $e_s$ under the
-subgroup fixing $s$ --- so the whole computation runs on orbits. That is the entire reason the
-state count is $S=98$ rather than the number of colourings.
-
-Assembling the pieces, $a(n)$ is $\iota^{\!\top}M^{\,j}\tau$ on the disjoint union of the
-orbit digraphs for $i=1,\dots,3$, with $\iota$ carrying the weights $w_i$ cleared of
-denominators; the walk index $j$ and the entry's $n$ differ by a constant, read off by
-matching the entry's published terms rather than assumed. In particular $a$ is $C$-finite.
+The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
+published terms rather than assumed. In particular $a$ is $C$-finite.
 
 \section{The proof}
 
@@ -151,41 +111,41 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;8\,a(n-1) + 26\,a(n-2) - 304\,a(n-3) + 304\,a(n-4) + 2016\,a(n-5) - 3991\,a(n-6) - 2616\,a(n-7) + 9702\,a(n-8) - 2064\,a(n-9) - 6120\,a(n-10) + 2880\,a(n-11)
+a(n)\;=\;33\,a(n-1) - 389\,a(n-2) + 1865\,a(n-3) - 2461\,a(n-4) - 3639\,a(n-5) + 7361\,a(n-6) + 2407\,a(n-7) - 5491\,a(n-8) - 585\,a(n-9) + 981\,a(n-10) - 81\,a(n-11)
 \]
-for every $n>10$.
+for every $n>11$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $11$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=10+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once. The
-rational weights $w_i$ are cleared by a common denominator before any of this, so the whole
-computation is over the integers.
+integers vanish from the index corresponding to $n=11+1$ onwards and the run continued
+until the working vector was identically zero.
 \end{proof}
 
 \section{Verification}
 
-Three checks, each independent of the algebra above.
+Four checks, each independent of the algebra above.
 
-First, the model reproduces all $20$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry: the digraph is built by reading the
-entry's English, and a misreading gives different counts.
+First, the model reproduces all $17$ terms the entry publishes, exactly, in integer
+arithmetic.
 
-Second, the conjectured recurrence was evaluated directly on those published terms, with no
+Second, the count was recomputed for the smallest arrays straight from the definition:
+enumerate every array of that size, form each row's and each column's list of repeated values
+by scanning it, and test consecutive members of those lists against the relation. No state, no
+window and no transfer matrix are involved, and the published terms came back.
+
+Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
 arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A214103.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A268420.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{biggs} N.~Biggs, \emph{Algebraic Graph Theory}, 2nd ed., Cambridge University
-Press, 1993. (Chromatic polynomials and transfer matrices.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

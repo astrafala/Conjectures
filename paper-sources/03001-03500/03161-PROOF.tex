@@ -12,41 +12,42 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical column recurrences for the table OEIS A203878}
+\title{The empirical column recurrences for the table OEIS A206206}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A203878 is a two-dimensional table $T(n,k)$, and it carries a block of empirical
+OEIS A206206 is a two-dimensional table $T(n,k)$, and it carries a block of empirical
 recurrences contributed by R.~H.~Hardin --- one for each of its first few columns. They are
 true. Column $k$ of the table is an ordinary fixed-width array count, so its rows are the
 vertices of a finite digraph and $T(n,k)$ is a number of walks in it; being a walk count the
 column is $C$-finite, and whether a given recurrence annihilates it is decided by a finite
-exact computation, with the Cayley--Hamilton theorem bounding the work. This note settles the columns $k=4$.
+exact computation, with the Cayley--Hamilton theorem bounding the work. This note settles the columns $k=1, 5$.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
 \section{The table and the conjectures}
 
-OEIS A203878 is ``T(n,k)=Number of (n+1)X(k+1) 0..3 arrays with no 2X2 subblock having equal diagonal elements or equal antidiagonal elements, and new values 0..3 introduced in row major order.''. It has offset $1$, is
+OEIS A206206 is ``T(n,k)=Number of (n+1)X(k+1) 0..3 arrays with every 2X3 or 3X2 subblock having exactly one clockwise edge increases.''. It has offset $1$, is
 read by antidiagonals, and begins
 \[
-7, 55, 55, 487, 1135, 487, 4375, 23815,\ \dots
+256, 480, 480, 1768, 1060, 1768, 7388, 3008,\ \dots
 \]
 The entry carries the following block:
 \begin{quote}\small
 Empirical for column k:\\
-k=1: a(n) = 6*9\^{}(n-1) +1\\
-k=2: a(n) = 54*21\^{}(n-1) +1\\
-k=3: a(n) = 486*49\^{}(n-1) +1\\
-k=4: a(n) = 118*a(n-1) -117*a(n-2) -34398*a(n-3) +120834*a(n-4) -86436*a(n-5)\\
-k=5: a(n) = 304*a(n-1) -8430*a(n-2) -386764*a(n-3) +4486195*a(n-4) +17085516*a(n-5) -113413636*a(n-6) +92236816*a(n-7)\\
-k=6: (order 17 recurrence)\\
+k=1: a(n) = 3*a(n-1) +17*a(n-3) -5*a(n-4) +2*a(n-5) for n>6\\
+k=2: a(n) = 3*a(n-2) +14*a(n-3) -3*a(n-4) +a(n-5) +a(n-6) +a(n-7) for n>9\\
+k=3: a(n) = 10*a(n-3) +5*a(n-4) +a(n-5) +2*a(n-8) +2*a(n-10) for n>18\\
+k=4: a(n) = 10*a(n-3) +a(n-9) for n>18\\
+k=5: a(n) = 10*a(n-3) for n>15\\
+k=6: a(n) = 10*a(n-3) for n>16\\
+k=7: a(n) = 10*a(n-3) for n>17\\
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 10:48:34, revision 9) these are still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 12:47:20, revision 9) these are still
 recorded as empirical, and nothing on the entry records any of them as settled.
 
 \section{A column of the table is a walk count}
@@ -89,7 +90,8 @@ $j\ge S_k$ repeats that combination of earlier values.
 \begin{center}
 \begin{tabular}{ccccc}
 line & order & vertices $S$ & proved for & terms checked \\ \hline
-column $k$$=4$ & $5$ & $1300$ & $>5$ & $8$ \\
+column $k$$=1$ & $5$ & $256$ & $>6$ & $8$ \\
+column $k$$=5$ & $3$ & $29724$ & $>15$ & $8$ \\
 \end{tabular}
 \end{center}
 
@@ -98,15 +100,25 @@ exact integer arithmetic and $\mathbf{1}^{\!\top}M_k^{j}w$ evaluated for $j=0,1,
 again exactly; every one of those integers vanishes from the stated point onwards and the run
 continued until the working vector was identically zero, which settles all larger $j$ at once.
 
-\subsection*{Column $k$$=4$}
-The sequence is ``Number of (n+1)X(5) 0..3 arrays with no 2X2 subblock having equal diagonal elements or equal antidiagonal elements, and new values 0..3 introduced in row major order.''. Its rows are the vertices of a digraph on
-$S=1300$ vertices, edges being the admissible consecutive pairs, and the count is
+\subsection*{Column $k$$=1$}
+The sequence is ``Number of (n+1)X2 0..3 arrays with every 2X3 or 3X2 subblock having exactly one clockwise edge increases.''. Its rows are the vertices of a digraph on
+$S=256$ vertices, edges being the admissible consecutive pairs, and the count is
 $\mathbf{1}^{\!\top}M^{n}\mathbf{1}$ up to the constant factor in the entry's name.
 The conjectured recurrence
 \[
-a(n)\;=\;118\,a(n-1) - 117\,a(n-2) - 34398\,a(n-3) + 120834\,a(n-4) - 86436\,a(n-5)
+a(n)\;=\;3\,a(n-1) + 17\,a(n-3) - 5\,a(n-4) + 2\,a(n-5)
 \]
-holds from index $5+1$ on.
+holds from index $6+1$ on.
+
+\subsection*{Column $k$$=5$}
+The sequence is ``Number of (n+1)X6 0..3 arrays with every 2X3 or 3X2 subblock having exactly one clockwise edge increases.''. Its rows are the vertices of a digraph on
+$S=29724$ vertices, edges being the admissible consecutive pairs, and the count is
+$\mathbf{1}^{\!\top}M^{n}\mathbf{1}$ up to the constant factor in the entry's name.
+The conjectured recurrence
+\[
+a(n)\;=\;10\,a(n-3)
+\]
+holds from index $15+1$ on.
 
 \section{Verification}
 
@@ -117,7 +129,7 @@ both from the antidiagonal DATA read in either orientation and from the ``Table 
 block, and agrees at every available term. This is what ties a model to the table:
 substituting the fixed index into the entry's wording is a reading of English, and a wrong
 reading gives a different digraph and different counts. Across the lines settled here the
-model reproduces $8$ published values, $89$ decimal digits in all, every one of
+model reproduces $16$ published values, $83$ decimal digits in all, every one of
 them exactly; a misreading of the entry would have to reproduce all of them by accident.
 
 Second, each conjectured recurrence was evaluated on those published values in exact
@@ -137,7 +149,7 @@ claimed.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A203878.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A206206.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

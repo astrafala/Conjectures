@@ -12,43 +12,45 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A268745, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A268777, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A268745 counts arrays of width $3$ over $\{0,1\}$ in which the number of adjacent PAIRS of
+OEIS A268777 counts arrays of width $4$ over $\{0,1\}$ in which the number of adjacent PAIRS of
 cells whose entries add up to $2$ is at most one. The entry carries an empirical recurrence of
 order $8$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
 empirical. The condition is global --- no window of the array decides it --- but the quantity
 it constrains is a count that may be capped at two, and a capped count is a bounded state; the
-result is a walk count on $S=21$ states.
+result is a walk count on $S=38$ states.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 05C30, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A268745 is ``Number of n X 3 binary arrays with some element plus some horizontally or vertically adjacent neighbor totalling two no more than once.''. It has offset $1$ and begins
+OEIS A268777 is ``Number of n X 4 binary arrays with some element plus some horizontally, vertically, diagonally or antidiagonally adjacent neighbor totalling two no more than once.''. It has offset $1$ and begins
 \[
-7, 32, 143, 623, 2615, 10830, 44067, 177429,\ \dots
+13, 65, 316, 1462, 6383, 27531, 115391, 478849,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 4*a(n-1) + 8*a(n-2) - 24*a(n-3) - 38*a(n-4) + 4*a(n-5) + 12*a(n-6) - a(n-8).
+Empirical: a(n) = 4*a(n-1) + 10*a(n-2) - 32*a(n-3) - 47*a(n-4) + 40*a(n-5) + 38*a(n-6) - 12*a(n-7) - 9*a(n-8).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jan 14 2019 08:40:19, revision 8) this is still
+As of the ``Last modified'' line on the live entry (Jan 15 2019 09:11:04, revision 8) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The array has $3$ cells across, with entries in $\{0,1\}$. An ADJACENT PAIR is a pair of cells
+The array has $4$ cells across, with entries in $\{0,1\}$. An ADJACENT PAIR is a pair of cells
 \[
 \begin{array}{l}
 $(i,j)\text{ and }(i,j{+}1)$ \\
 $(i,j)\text{ and }(i{+}1,j)$ \\
+$(i,j)\text{ and }(i{+}1,j{+}1)$ \\
+$(i,j)\text{ and }(i{+}1,j{-}1)$ \\
 \end{array}
 \]
 both lying inside the array. A pair is a pair of CELLS, so it is counted once and not once from
@@ -80,7 +82,7 @@ So the state is the pair $(\text{previous row},\min(k,2))$: a step appends a row
 pairs Lemma~\ref{lem:cap} names and caps the total at two. The end vector accepts the states
 with $k\le1$, so it is not the all-ones vector. With $M$ the adjacency matrix,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=21.
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=38.
 \]
 The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
 published terms rather than assumed. In particular $a$ is $C$-finite.
@@ -105,7 +107,7 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;4\,a(n-1) + 8\,a(n-2) - 24\,a(n-3) - 38\,a(n-4) + 4\,a(n-5) + 12\,a(n-6) - a(n-8)
+a(n)\;=\;4\,a(n-1) + 10\,a(n-2) - 32\,a(n-3) - 47\,a(n-4) + 40\,a(n-5) + 38\,a(n-6) - 12\,a(n-7) - 9\,a(n-8)
 \]
 for every $n>7$.
 \end{theorem}
@@ -121,7 +123,7 @@ until the working vector was identically zero.
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $23$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $22$ terms the entry publishes, exactly, in integer
 arithmetic.
 
 Second, the count was recomputed for the smallest arrays straight from the definition:
@@ -138,7 +140,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A268745.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A268777.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge

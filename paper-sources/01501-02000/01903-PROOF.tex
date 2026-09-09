@@ -12,70 +12,73 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A203724, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A267929, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A203724 counts arrays of width $5$ over $\{0,1,2\}$ through two derived arrays of PAIR SUMS ---
-each cell added to its left neighbour, and each cell added to the one above it --- on which the
-entry imposes an order condition. The entry carries an empirical recurrence of order $21$
-contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical: the count is
-a walk count on $S=244$ states.
+OEIS A267929 counts arrays in which the REPEATED VALUES of each row, and of each column, stand in a
+prescribed relation to one another in the order they occur. The entry carries an empirical
+recurrence of order $21$ contributed by R.~H.~Hardin. It is true, and it is decidable
+rather than empirical: one of the two scans runs inside a slice of the array and the other
+across slices, and the second needs only the previous slice together with the last repeated
+value so far in each column of the scan, so the count is a walk count on $S=401$ states.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 06A07, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A18, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A203724 is ``Number of (n+1)X5 0..2 arrays with column and row pair sums b(i,j)=a(i,j)+a(i,j-1) and c(i,j)=a(i,j)+a(i-1,j) nondecreasing in column and row directions, respectively.''. It has offset $1$ and begins
+OEIS A267929 is ``Number of nX2 0..3 arrays with every repeated value in every row and column greater than the previous repeated value.''. It has offset $1$ and begins
 \[
-888, 4737, 20290, 72777, 230014, 656441, 1728140, 4246268,\ \dots
+16, 256, 3600, 49284, 646416, 8248384, 102657424, 1251956689,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 9*a(n-1) -30*a(n-2) +30*a(n-3) +75*a(n-4) -243*a(n-5) +152*a(n-6) +360*a(n-7) -690*a(n-8) +130*a(n-9) +780*a(n-10) -780*a(n-11) -130*a(n-12) +690*a(n-13) -360*a(n-14) -152*a(n-15) +243*a(n-16) -75*a(n-17) -30*a(n-18) +30*a(n-19) -9*a(n-20) +a(n-21) for n>26
+Empirical: a(n) = 65*a(n-1) -1714*a(n-2) +21994*a(n-3) -104609*a(n-4) -629015*a(n-5) +9424776*a(n-6) -16529832*a(n-7) -255376098*a(n-8) +1037637378*a(n-9) +3611188980*a(n-10) -20939962212*a(n-11) -32646831786*a(n-12) +213582240666*a(n-13) +202683094344*a(n-14) -1065454174440*a(n-15) -388324470141*a(n-16) +2871948084957*a(n-17) -843801825042*a(n-18) -3200868080118*a(n-19) +3106724901291*a(n-20) -847288609443*a(n-21)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 10:40:40, revision 9) this is still
+As of the ``Last modified'' line on the live entry (Jan 22 2016 10:06:55, revision 4) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The array $a$ has $5$ cells across, with entries in $\{0,1,2\}$. Two derived arrays are formed,
-\[
-b(i,j)=a(i,j)+a(i,j-1)\quad(j\ge1),\qquad c(i,j)=a(i,j)+a(i-1,j)\quad(i\ge1),
-\]
-so $b$ adds each cell to its LEFT neighbour and $c$ adds each cell to the one ABOVE it. The
-entry asks
+Read a row of the array from left to right. A REPEATED VALUE is an entry equal to the entry
+immediately before it; the row thus produces the sequence of values at the places where two
+equal entries stand side by side. The entry asks that each repeated value of a row be
+greater than the previous repeated value of that row, and that each repeated value of a column,
+read downwards, be greater than the previous repeated value of that column. The FIRST repeated
+value of a scan has no predecessor and is unconstrained; a scan with no two equal neighbours
+imposes nothing at all.
 
-\[
-b(i,j)\le b(i{+}1,j)\qquad\text{and}\qquad c(i,j)\le c(i,j{+}1)
-\]
-wherever both sides are defined: the array $b$ must not decrease DOWN a column and the array
-$c$ must not decrease ALONG a row. The two directions are crossed, which is the only subtle
-part of the reading --- $b$ is built across a row and tested down a column, and $c$ the other
-way about.
+The entry carries no renaming clause, and it could not: the relations here compare letters by
+size or do arithmetic on them, so they are not invariant under permuting the alphabet. The
+count is therefore taken over the alphabet the entry names, with no reduction to patterns.
 
+\section{One scan inside a slice, one across}
 
-\section{Two rows decide it}
+Take the array a $row$ at a time, the direction in which it grows.
 
-\begin{lemma}\label{lem:win}
-Both conditions are conditions on two consecutive rows of $a$ and nothing more.
+\begin{lemma}\label{lem:state}
+The $row$ scans are settled as each $row$ is written. The $column$ scans are
+settled by the previous $row$ together with, for each position, the last repeated value
+so far in that $column$.
 \end{lemma}
 
 \begin{proof}
-$b(i,j)\le b(i{+}1,j)$ names four cells of $a$, all in rows $i$ and $i+1$. $c(i,j)\le
-c(i,j{+}1)$ names four cells, all in rows $i-1$ and $i$.
+A $row$ scan compares neighbours inside one $row$, so writing the
+$row$ left to right and carrying the last repeated value seen decides it. In a
+$column$ scan a repeat happens at the new $row$ exactly when the new entry equals the
+entry in the same position of the previous $row$, and the only thing the relation needs
+besides that entry is the previous repeated value of that $column$.
 \end{proof}
 
-So a single row of $a$ is a state and one step appends a row.
-
-With $M$ the adjacency matrix of the digraph on those states, $\iota$ the indicator of the
-starting state and $\tau=\mathbf{1}$,
+So the state is the pair (previous $row$, vector of last repeated values), the second
+component taking $3+2$ values at each position --- the letters together with a symbol for
+``none yet''. With $M$ the adjacency matrix of that digraph,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=244.
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=401,\quad\tau=\mathbf{1} .
 \]
 The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
 published terms rather than assumed. In particular $a$ is $C$-finite.
@@ -100,15 +103,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;9\,a(n-1) - 30\,a(n-2) + 30\,a(n-3) + 75\,a(n-4) - 243\,a(n-5) + 152\,a(n-6) + 360\,a(n-7) - 690\,a(n-8) + 130\,a(n-9) + 780\,a(n-10) - 780\,a(n-11) - 130\,a(n-12) + 690\,a(n-13) - 360\,a(n-14) - 152\,a(n-15) + 243\,a(n-16) - 75\,a(n-17) - 30\,a(n-18) + 30\,a(n-19) - 9\,a(n-20) + a(n-21)
+a(n)\;=\;65\,a(n-1) - 1714\,a(n-2) + 21994\,a(n-3) - 104609\,a(n-4) - 629015\,a(n-5) + 9424776\,a(n-6) - 16529832\,a(n-7) - 255376098\,a(n-8) + 1037637378\,a(n-9) + 3611188980\,a(n-10) - 20939962212\,a(n-11) - 32646831786\,a(n-12) + 213582240666\,a(n-13) + 202683094344\,a(n-14) - 1065454174440\,a(n-15) - 388324470141\,a(n-16) + 2871948084957\,a(n-17) - 843801825042\,a(n-18) - 3200868080118\,a(n-19) + 3106724901291\,a(n-20) - 847288609443\,a(n-21)
 \]
-for every $n>26$.
+for every $n>21$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $21$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=26+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=21+1$ onwards and the run continued
 until the working vector was identically zero.
 \end{proof}
 
@@ -116,13 +119,13 @@ until the working vector was identically zero.
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $23$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $16$ terms the entry publishes, exactly, in integer
 arithmetic.
 
 Second, the count was recomputed for the smallest arrays straight from the definition:
-enumerate every array of that size, form the two derived arrays in full, and test the condition
-on them directly. No window, no state and no incremental bookkeeping are involved, and the
-published terms came back.
+enumerate every array of that size, form each row's and each column's list of repeated values
+by scanning it, and test consecutive members of those lists against the relation. No state, no
+window and no transfer matrix are involved, and the published terms came back.
 
 Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
@@ -132,7 +135,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A203724.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A267929.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge

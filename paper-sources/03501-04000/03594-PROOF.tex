@@ -12,17 +12,17 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A184606, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A185742, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A184606 counts arrays over $\{0,\dots,1\}$ under a condition comparing a statistic of
+OEIS A185742 counts arrays over $\{0,\dots,1\}$ under a condition comparing a statistic of
 every $2\times2$ subblock with those of its neighbours, and carries an empirical recurrence
 of order $4$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
-empirical. The count is a walk count on $S=16$ states and is $C$-finite; whether the
+empirical. The count is a walk count on $S=28$ states and is $C$-finite; whether the
 conjectured recurrence annihilates it is then settled by a finite exact computation.
 \end{abstract}
 
@@ -30,47 +30,56 @@ conjectured recurrence annihilates it is then settled by a finite exact computat
 
 \section{The conjecture}
 
-OEIS A184606 is ``Half the number of (n+1) X 2 binary arrays with no 2 X 2 subblock sum differing from a horizontal or vertical neighbor subblock sum by more than one.''. It has offset $1$ and begins
+OEIS A185742 is ``Number of (n+1) X 2 binary arrays with every 2 X 2 subblock trace equal to some horizontal or vertical neighbor 2 X 2 subblock trace.''. It has offset $1$ and begins
 \[
-8, 28, 98, 350, 1250, 4450, 15842, 56426,\ \dots
+0, 24, 40, 144, 344, 1000, 2688, 7528,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 3*a(n-1) + 6*a(n-3) + 4*a(n-4).
+Empirical: a(n) = 3*a(n-1) - a(n-2) - 2*a(n-3) + 8*a(n-4).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Apr 14 2018 07:33:45, revision 11) this is still
+As of the ``Last modified'' line on the live entry (Feb 28 2018 06:51:51, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-Write $\sigma$ for the sum of all its entries, taken on a $2\times2$ subblock. The contiguous $2\times2$
+Write $\sigma$ for the sum of its main diagonal, taken on a $2\times2$ subblock. The contiguous $2\times2$
 subblocks of an $(n+1)\times2$ array over $\{0,\dots,1\}$ form a grid of $n$ rows
 and $1$ column, and $\sigma$ labels that grid. The entry
-requires that no two subblocks that are neighbours horizontally or vertically have values of $\sigma$ differing by more than $1$. The entry counts $1/2$ of that number, and the model divides by $2$ before anything is compared.
+requires that every subblock carries the same value of $\sigma$ as at least ONE of its neighbours horizontally or vertically.
 
 \section{The count is a walk count}
 
-The condition is on a PAIR of neighbouring subblocks, so nothing beyond the
-rows themselves has to be remembered. Take as state the $2$-tuple of consecutive array rows
-whose subblock row has just been completed: the horizontal pairs inside that row decide which
-tuples are admissible at all, and the vertical pairs decide which tuple may follow which. A
-step appends one array row. An array of $n+1$ rows is a walk of $n-1$ steps and
+This condition is NOT a condition on a pair. Whether a subblock has a
+matching neighbour cannot be decided when its own row is placed: the row BELOW it may yet
+supply the match. So the state carries, besides the $2$ consecutive array rows, a tally for
+each of the $1$ subblocks of the row just completed --- a single bit saying whether it has already been matched --- counting its matches
+among its own row and the row above.
+
+A step appends an array row. It fixes the next subblock row, adds the matches between the two
+rows to the OLD row's tallies, and requires those totals to be acceptable, the old row being
+final at that moment; the new row's tallies start from its own horizontal matches plus the
+matches just made. A state is ACCEPTING when its own tally is already acceptable, which is
+exactly the right condition for the last subblock row, the one with nothing below it. Only the
+states whose tally came from their own row may BEGIN an array, since the first row has nothing
+above it.
+
+An array of $n+1$ rows is then a walk of $n-1$ steps and
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,\qquad\iota=\tau=(1,\dots,1)^{\!\top},
+a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau
 \]
-on the $S=16$ admissible tuples.
+with $\iota$ the indicator of the starting states and $\tau$ of the accepting ones, on
+$S=28$ states in all. Getting the two vectors right is the whole of the argument: with
+$\iota$ taken as all-ones the first row would be allowed a match from a row above it that does
+not exist, and the count would be too large. The entry's own first terms settle it --- for
+a width where the subblock row is a single subblock
+the count must be zero, since a lone subblock has no neighbour at all, and the entry indeed opens with zero.
 
-The state does not compress. What a step needs of the past is the previous subblock row, and
-for $2\ge2$ that row already determines the $2$ array rows it came from, so carrying the
-rows costs nothing and carrying anything smaller loses information. Of the $2^{2\cdot
-2}=16$ tuples of $2$ rows, $S=16$ survive the condition inside a single subblock row;
-the rest could not occur in a counted array at all.
-
-Over the alphabet $\{0,\dots,1\}$ the statistic takes values in $[0,4]$, so the
-grid it labels carries at most $5$ different labels. At $n=1$ the array has $2$
+Over the alphabet $\{0,\dots,1\}$ the statistic takes values in $[0,2]$, so the
+grid it labels carries at most $3$ different labels. At $n=1$ the array has $2$
 rows and the grid is a single row of $1$
 subblock, which has no neighbour of any kind; the entry's first term is
-$8$, which the model reproduces along with every later term, and that is the cheapest
+$0$, which the model reproduces along with every later term, and that is the cheapest
 check that the grid has been read with the right shape.
 
 In particular $a$ is $C$-finite. The alignment of the walk index with the entry's own $n$ was
@@ -96,7 +105,7 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;3\,a(n-1) + 6\,a(n-3) + 4\,a(n-4)
+a(n)\;=\;3\,a(n-1) - a(n-2) - 2\,a(n-3) + 8\,a(n-4)
 \]
 for every $n>4$.
 \end{theorem}
@@ -112,7 +121,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $23$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $25$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
@@ -124,7 +133,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A184606.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A185742.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata
