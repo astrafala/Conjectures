@@ -58,12 +58,12 @@ def _comm(A, B, K):
 
 def build(p, cap=40000):
     K, W, A, every, det = p['K'], p['W'], p['alpha'] + 1, p['every'], p['det']
-    # The refusal used to read `A ** (K * W) > 2_000_000', which is not a cost at all: the
-    # states are the A^W rows and the work is the A^(2W) pairs of them. For K = 2 the two
-    # happen to agree; for K >= 3 the old figure overstates the work by orders of magnitude --
-    # A = 3, K = 4, W = 4 claimed 43 million and really costs 6,561 -- and 29 entries were
-    # refused for a number that described nothing.
-    if A ** W > cap or A ** (2 * W) > 40_000_000:
+    # A ** (K * W) is exactly right and I briefly replaced it with something worse. The
+    # states are K-tuples of rows -- `product(rows, repeat=K)' below -- so there are
+    # (A^W)^K = A^(K*W) of them, not A^W. Reading the refusal as though the rows were the
+    # states turned a fast refusal into a slow one: the loop still walks the whole product
+    # and only gives up once `len(states) > cap' fires, after minutes rather than instantly.
+    if A ** (K * W) > 2_000_000:
         return None
     rows = list(product(range(A), repeat=W))
     nb = W - K + 1                                  # subblocks across

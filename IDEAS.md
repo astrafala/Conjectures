@@ -95,6 +95,20 @@ sweep chose what to look at. Not one was hidden by mathematics.
 | E8 | an instrument that cannot see what it is asked about returns a confident zero | nearly cost the whole closed-form vein |
 | E9 | **a new sweep reading a block conjecture as a premise** | 774 false proofs, caught before a single paper was built. E2 again, in code written the same day the defect was written down. A line carrying no conjectural word is NOT a fact: an entry writes `Conjectures from X: (Start)' and then bare formula lines. Any sweep that looks for a premise must exclude everything `conjlines` returns, not merely lines with the word on them. |
 
+## E10. A refusal I read wrongly, and the cost of that
+
+`transfer35` refuses a name when `A ** (K * W) > 2,000,000`. I decided that figure described
+nothing -- the rows are A^W, so surely the states were too -- and replaced it with a bound on
+rows and row pairs. It is the states that are K-tuples of rows: `product(rows, repeat=K)`, so
+there really are A^(K*W) of them. The "fix" let the build start and walk the whole product,
+giving up only when `len(states) > cap` fired, minutes later instead of instantly. It is
+reverted.
+
+Reading a refusal is the habit that has found every large vein here. Reading it WRONG turns a
+fast no into a slow one, and the difference is only visible if you check the claim against the
+code that does the work rather than against the shape of the constant. Check what the states
+actually are before deciding a bound is wrong.
+
 ## F1. What no engine reads, measured fresh on 9 September 2026
 
 2,791 entries outside the roster carry a readable conjectured recurrence and a name no engine
