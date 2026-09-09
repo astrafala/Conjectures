@@ -12,121 +12,130 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{A lattice count, not a walk count: OEIS A225312}
+\title{The empirical recurrence for OEIS A264631, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{7 September 2026}
+\date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A225312 carries an empirical recurrence of order $18$ contributed by R.~H.~Hardin. It is
-true, and it is decidable rather than empirical. A nondecreasing row of $-1$s and $1$s is
-determined by one number --- how many $-1$s it holds --- so the entry's condition collapses to
-a single linear equation on a box of lattice points, and the arrays disappear entirely. The
-count is then the number of lattice points in a dilate of a fixed rational polytope, hence a
-quasi-polynomial in $n$; its degree and its period can both be named, which bounds by
-$S=600$ the order of a linear recurrence it must satisfy. Whether the conjectured recurrence
-is that recurrence is then a finite exact computation. There is no digraph and no matrix
-anywhere in this argument.
+OEIS A264631 counts the arrangements of $0,1,\dots,LW-1$ in a grid of $W=5$ columns in which
+every value moves from its home cell by an index change on a short list, and it carries an
+empirical recurrence of order $18$ contributed by R.~H.~Hardin. It is true, and it is
+decidable rather than empirical. Such an arrangement is a perfect matching between cells and
+values, and because a value's row moves by at most $R=1$, the matching splits into
+independent decisions column by column: after the cells of columns $0,\dots,i$ are filled,
+every value whose home column is at most $i-R$ has been used, and only $2R$ home columns are
+partly used. Carrying those as bitmasks makes the count a walk on $S=1024$ vertices, so it is
+$C$-finite and the conjectured recurrence is decided by a finite exact computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A05, 05A15, 15A15.\normalsize
 
 \section{The conjecture}
 
-OEIS A225312 is ``Number of 5 X n -1,1 arrays such that the sum over i=1..5,j=1..n of i*x(i,j) is zero and rows are nondecreasing (ways to put n thrusters pointing east or west at each of 5 positions 1..n distance from the hinge of a south-pointing gate without turning the gate).''. It has offset $1$ and begins
+OEIS A264631 is ``Number of (4+1)X(n+1) arrays of permutations of 0..n*5+4 with each element having directed index change -2,0 -1,0 0,-1 or 1,1.''. It has offset $1$ and begins
 \[
-0, 15, 0, 113, 0, 427, 0, 1165,\ \dots
+1, 8, 22, 108, 684, 2736, 13556, 68972,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 3*a(n-2) - 2*a(n-4) - 2*a(n-6) + 4*a(n-8) - 4*a(n-10) + 2*a(n-12) + 2*a(n-14) - 3*a(n-16) + a(n-18).
+Empirical: a(n) = 3*a(n-1) +36*a(n-3) -18*a(n-4) +186*a(n-5) +83*a(n-6) +144*a(n-7) +684*a(n-8) -1872*a(n-9) +508*a(n-10) -5048*a(n-11) -3240*a(n-12) +720*a(n-13) -95040*a(n-14) +3072*a(n-15) +3456*a(n-16) +13824*a(n-18) for n>21
 \end{quote}
-As of the ``Last modified'' line on the live entry (Sep 05 2018 08:12:24, revision 8) this is still
+As of the ``Last modified'' line on the live entry (Nov 19 2015 06:59:26, revision 4) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
-\section{The array disappears}
+\section{The object is a matching}
 
-A row of $-1$s and $1$s that is nondecreasing is a block of $-1$s followed by a block of $1$s, so it is determined by a single number: how many $-1$s it holds. Write $k_i\in\{0,1,\dots,n\}$ for that number in row $i$. Then row $i$ sums to $(n-k_i)-k_i = n-2k_i$, and the entry's condition
-\[ \sum_{i=1}^{H}\sum_{j=1}^{n} i\,x(i,j) \;=\; \sum_{i=1}^{H} i\,(n-2k_i) \;=\; 0 \]
-becomes $\sum_{i=1}^{5} i\,k_i = T(n)$ with $T(n)=\tfrac{15}{2}n$. The arrays are gone: what is left is the lattice points of the box $\{0,\dots,n\}^{5}$ on one hyperplane.
+The grid has $W=5$ columns across and holds each of $0,1,\dots,LW-1$ exactly once. The value
+$v$ has a HOME cell, namely its place in the plain row-major filling, and putting $v$ in cell
+$(i,j)$ changes its index by $(i-h_i,\,j-h_j)$ where $(h_i,h_j)$ is that home cell. The entry
+allows the index changes
+\[
+(i-h_i,\,j-h_j)\;\in\;\{(-1,0),\ (0,-2),\ (0,-1),\ (1,1)\},
+\]
+the list being the entry's own, read with the sign convention its wording uses. An admissible
+arrangement is therefore exactly a perfect matching in the bipartite graph joining each cell to
+the values it may hold.
 
-\section{Why that is enough}
+\section{The matching is a walk}
 
-Those lattice points are the ones in the $n$-th dilate of a fixed rational polytope, so the count is a quasi-polynomial in $n$. That is the whole reason a linear recurrence can be proved here rather than observed: a quasi-polynomial of degree $d$ and period $P$ satisfies the recurrence whose characteristic polynomial is $(x^{P}-1)^{d+1}$, so it is $C$-finite of order at most $P(d+1)$.
+Let $R=1$ be the largest $|i-h_i|$ on the list. A value whose home column is $h$ can only be
+placed in columns $h-R,\dots,h+R$. So once the cells of columns $0,\dots,i$ are filled, every
+value with home column at most $i-R$ has been used up, and the only home columns that can be
+partly used are $i-R+1,\dots,i+R$ --- exactly $2R$ of them. Take as the state the tuple of
+$2R$ bitmasks recording which values of those home columns are already placed. One step fills
+the cells of one further column, drawing each of its $W$ values from a home column within $R$
+and at an allowed column offset, and the home column that closes at that step must come out
+full. Nonexistent home columns --- before the first and after the last --- are carried as
+full, which makes the starting and accepting states the same one.
 
-Both numbers can be named. By inclusion-exclusion over which coordinates exceed $n$,
-\[ a(n)\;=\;\sum_{S\subseteq\{1,\dots,H\}}(-1)^{|S|}\,D\bigl(T(n)-(n+1)\sigma(S)\bigr), \]
-where $\sigma(S)$ is the sum of $S$ and $D(m)$ counts the solutions of $\sum i\,k_i=m$ in non-negative integers with no upper bound --- the classical denumerant for the parts $1,\dots,5$. $D$ is a quasi-polynomial in $m$ of degree $4$ with period dividing $\mathrm{lcm}(1,\dots,5)=60$; each argument above is an integer-linear function of $n$, which preserves the degree and can only shrink the period, and the parity case at worst doubles it. So $a$ is a quasi-polynomial of degree at most $4$ and period dividing $120$, hence satisfies a linear recurrence of order at most $S=600$.
-
-That bound is the certificate. It is also what makes the computation cheap: $D$ is one table, so thousands of exact terms of $a$ cost almost nothing.
-so $a$ is $C$-finite of order at most $S=600$, and the alignment between the model and the
-entry's own $n$ is fixed by matching against every published term.
+Hence $a$ is a walk count on $S=1024$ vertices,
+\[
+a(n)\;=\;\iota^{\!\top}M^{\,n+1}\tau ,
+\]
+the exponent fixed by the entry's own shape and checked against its published terms; in
+particular $a$ is $C$-finite.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q$ be the characteristic polynomial of the conjectured recurrence, of order $18$,
-and let $u_j=a(j+18)-\sum_i c_i\,a(j+18-i)$ be its residual. Then $u$ satisfies the
-same linear recurrence of order $S=600$ that $a$ does, so if $u_j=0$ for $S$ consecutive
-indices then $u_j=0$ for every larger $j$, and the last nonzero $u_j$ pins the threshold
-exactly.
+Let $q(t)=t^{18}-\sum_i c_it^{18-i}$ be the characteristic polynomial of the
+conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
+$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
+holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$;
+and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-A sequence annihilated by a linear operator with constant coefficients has every linear
-combination of its shifts annihilated by the same operator, and $u$ is such a combination of
-shifts of $a$. A sequence satisfying a linear recurrence of order $S$ and vanishing at $S$
-consecutive indices vanishes from the first of them onwards, since every later value is a
-fixed combination of the $S$ before it.
+Factor $M^{j}$ out of $M^{j+18}-\sum_ic_iM^{j+18-i}$. For the bound, $M^{S}$
+is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
+$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
+polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
+pins the threshold exactly.
 \end{proof}
 
 \begin{theorem}
 \[
-a(n)\;=\;3\,a(n-2) - 2\,a(n-4) - 2\,a(n-6) + 4\,a(n-8) - 4\,a(n-10) + 2\,a(n-12) + 2\,a(n-14) - 3\,a(n-16) + a(n-18)
+a(n)\;=\;3\,a(n-1) + 36\,a(n-3) - 18\,a(n-4) + 186\,a(n-5) + 83\,a(n-6) + 144\,a(n-7) + 684\,a(n-8) - 1872\,a(n-9) + 508\,a(n-10) - 5048\,a(n-11) - 3240\,a(n-12) + 720\,a(n-13) - 95040\,a(n-14) + 3072\,a(n-15) + 3456\,a(n-16) + 13824\,a(n-18)
 \]
-for every $n>17$.
+for every $n>21$.
 \end{theorem}
 
 \begin{proof}
-The terms $a(n)$ were computed exactly from the lattice-point formula, far enough to cover
-$S=600$ consecutive residuals, and the residuals were formed in exact integer arithmetic.
-They vanish from the index corresponding to $n=17+1$ onwards and go on vanishing for more
-than $S$ consecutive indices, which by Lemma~\ref{lem:crit} settles every larger $n$ at
-once.
+The vector $w=q(M)\tau$ was formed by $18$ matrix--vector products in exact integer
+arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
+integers vanish from the index corresponding to $n=21+1$ onwards and the run continued
+until the working vector was identically zero, settling every larger $j$ at once. The bound is exact: at $n=21$ the recurrence fails on the entry's own published terms, so no larger range holds.
 \end{proof}
 
 \section{Verification}
 
-Four checks, each independent of the algebra above.
+Three checks, each independent of the algebra above.
 
-First, the model reproduces all $51$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the reduction to the entry: the lattice count is derived by reading the
-entry's English, and a misreading gives different counts.
+First, the reading of the entry's wording was tested against the entries themselves by brute
+force before any of this was built, and separately for each of the three sign conventions the
+family uses: ``$(\pm,\pm)$ $a,b$'' signs each coordinate independently, ``$\pm(.,.)$ $a,b$''
+signs the PAIR and may write the second coordinate negative, and ``directed $a,b$'' is taken
+literally. Enumerating all $720$ arrangements of a $2\times3$ grid reproduces the first term
+of an entry of each convention. Testing only one of them would have proved only that one:
+reading the second convention as the first silently drops displacements, and thirty-eight
+entries disagreed with their own published data until the conventions were separated.
 
-Second, the reading was pinned before the reduction was trusted, by a program that enumerates
-the arrays themselves, one by one, from the entry's own words --- every nondecreasing
-row of plus and minus ones, the weighted sum computed directly --- and compares the count
-with the lattice-point formula. That program shares no code with the lattice-point formula, so an error in one does not
-hide an error in the other.
+Second, the transfer model reproduces all $22$ terms this entry publishes, exactly, in
+integer arithmetic.
 
-Third, the conjectured recurrence was evaluated directly on the published terms, with
-nothing from the argument above involved, and holds wherever the proved range and the data
-overlap.
-
-Fourth, the residual test of Lemma~\ref{lem:crit} was carried out in exact integer
-arithmetic over every index up to the certified bound, not on a sampled prefix.
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A225312.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A264631.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Quasi-polynomials and denumerants, Sections 4.4 and 4.6;
-lattice points in dilates of rational polytopes, Section 4.6.)
-\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
-University Press, 2009.
-\bibitem{beck} M.~Beck and S.~Robins, \emph{Computing the Continuous Discretely}, 2nd
-ed., Springer, 2015. (Ehrhart quasi-polynomials; the denumerant.)
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{lp} L.~Lov\'asz and M.~D.~Plummer, \emph{Matching Theory}, AMS Chelsea, 2009.
+\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
+University Press, 2013.
 \end{thebibliography}
 
 \end{document}

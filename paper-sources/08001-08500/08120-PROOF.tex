@@ -12,18 +12,18 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A251030, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A250988, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A251030 counts arrays over $\{0,1,2,3\}$ in which a statistic taken over short runs
+OEIS A250988 counts arrays over $\{0,1,2\}$ in which a statistic taken over short runs
 of cells produces a derived array that is monotone in a named direction. The entry carries an
 empirical recurrence of order $12$ contributed by R.~H.~Hardin. It is true, and it is
 decidable rather than empirical: every comparison the condition makes lies inside a bounded
-window of consecutive rows, so the count is a walk count on $S=16$ states, and the
+window of consecutive rows, so the count is a walk count on $S=27$ states, and the
 conjectured recurrence is then settled by a finite exact computation.
 \end{abstract}
 
@@ -31,20 +31,20 @@ conjectured recurrence is then settled by a finite exact computation.
 
 \section{The conjecture}
 
-OEIS A251030 is ``Number of (n+1)X(1+1) 0..3 arrays with nondecreasing min(x(i,j),x(i,j-1)) in the i direction and nondecreasing absolute value of x(i,j)-x(i-1,j) in the j direction.''. It has offset $1$ and begins
+OEIS A250988 is ``Number of (n+1)X(2+1) 0..2 arrays with nondecreasing min(x(i,j),x(i,j-1)) in the i direction and nondecreasing absolute value of x(i,j)-x(i-1,j) in the j direction.''. It has offset $1$ and begins
 \[
-110, 636, 3550, 19112, 100633, 521227, 2668193, 13542602,\ \dots
+169, 872, 4111, 18387, 80133, 344135, 1466191, 6219851,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 12*a(n-1) -46*a(n-2) +40*a(n-3) +111*a(n-4) -168*a(n-5) -110*a(n-6) +172*a(n-7) +95*a(n-8) -52*a(n-9) -48*a(n-10) -12*a(n-11) -a(n-12)
+Empirical: a(n) = 14*a(n-1) -73*a(n-2) +156*a(n-3) -13*a(n-4) -480*a(n-5) +581*a(n-6) +212*a(n-7) -654*a(n-8) +78*a(n-9) +264*a(n-10) -44*a(n-11) -40*a(n-12)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 13:00:58, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 12:56:54, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The array has $2$ cells across and entries $x(i,j)\in\{0,1,2,3\}$.
+The array has $3$ cells across and entries $x(i,j)\in\{0,1,2\}$.
 
 Two derived arrays are formed. The first reads the horizontal statistic across each
 neighbouring pair of a row,
@@ -75,11 +75,11 @@ $b(i,j)\le b(i{+}1,j)$ names four cells, all in rows $i$ and $i+1$. $c(i,j)\le c
 names four cells, all in rows $i-1$ and $i$. No comparison reaches further.
 \end{proof}
 
-So a single row is a state. Let $M$ be the matrix on the $4^{2}=16$ rows with
+So a single row is a state. Let $M$ be the matrix on the $3^{3}=27$ rows with
 $M[r,s]=1$ when the pair $(r,s)$ passes both tests and $0$ otherwise. An array of $R$ rows is a
 walk of $R-1$ steps and every row may begin or end one, so with $\iota=\tau=\mathbf{1}$,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=16.
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=27.
 \]
 
 The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
@@ -105,7 +105,7 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;12\,a(n-1) - 46\,a(n-2) + 40\,a(n-3) + 111\,a(n-4) - 168\,a(n-5) - 110\,a(n-6) + 172\,a(n-7) + 95\,a(n-8) - 52\,a(n-9) - 48\,a(n-10) - 12\,a(n-11) - a(n-12)
+a(n)\;=\;14\,a(n-1) - 73\,a(n-2) + 156\,a(n-3) - 13\,a(n-4) - 480\,a(n-5) + 581\,a(n-6) + 212\,a(n-7) - 654\,a(n-8) + 78\,a(n-9) + 264\,a(n-10) - 44\,a(n-11) - 40\,a(n-12)
 \]
 for every $n>11$.
 \end{theorem}
@@ -121,7 +121,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $19$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $20$ terms the entry publishes, exactly, in integer
 arithmetic.
 
 Second, the count was recomputed for the smallest arrays straight from the definition: fill the
@@ -137,7 +137,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A251030.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A250988.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge

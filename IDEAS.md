@@ -120,6 +120,7 @@ reads. Measured against the clone, not against a cached list -- the earlier cens
 | 379 | coordination sequences `Gal.u.t.v` | the name does not give the tiling; the Galebach data would have to be read |
 | 199 | two-dimensional arrays growing in BOTH directions (`n X n`, `(n+1) X (n+1)`, `n X 4`) | a transfer matrix along one side has a state space that grows with the other |
 | 130 | `-n..n arrays x(i) of n+2 elements ...` | fixed length, alphabet growing, but the conditions are arithmetic rather than order-only |
+| 35 | `the diagonal from the corner to the origin` of a two-dimensional automaton | reversing the digit string is what the name says and it fixes 4 of the 39; the other 35 match neither the word nor its reversal, so the traversal really is a different set of cells and the geometry has to be worked out |
 | 105 | ON/OFF cell counts of two-dimensional automata | no proved generating function; see `refused.py` |
 | 38 | necklaces and bracelets over `-n..n` | **the seven plain sum-zero ones are proved** (`necklace.py`); the other 31 carry pattern conditions naming an actual difference, which Burnside does not reach |
 | 39 | `n X n` binary arrays | same as the two-dimensional case |

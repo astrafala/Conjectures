@@ -12,14 +12,14 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A209810, proved by counting patterns}
+\title{The empirical recurrence for OEIS A198714, proved by counting patterns}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A209810 counts arrays subject to a local condition \emph{and} to the clause ``new values
+OEIS A198714 counts arrays subject to a local condition \emph{and} to the clause ``new values
 $0..3$ introduced in row major order'', which says the array is written in canonical
 form. That clause is not local, so a transfer matrix over the alphabet does not see it. It
 does not have to: what is being counted is not arrays but equality patterns, and the number
@@ -28,7 +28,7 @@ inverting a falling factorial. The result is the clean identity
 $4!\,a(n)=\sum_i\binom{4}{i}D_{4-i}L_i(n)$ with $D_m$ the derangement numbers,
 and each $L_i$ is an ordinary walk count. A second reduction --- the chain is strongly
 lumpable over the patterns, because the condition is relabelling-invariant --- brings the
-state space down from $1300$ to $S=109$. The entry's empirical recurrence of order
+state space down from $18700$ to $S=1145$. The entry's empirical recurrence of order
 $33$, contributed by R.~H.~Hardin, then follows from a finite exact computation.
 \end{abstract}
 
@@ -36,40 +36,44 @@ $33$, contributed by R.~H.~Hardin, then follows from a finite exact computation.
 
 \section{The sequence and the conjecture}
 
-OEIS A209810 is ``Number of (n+1)X5 0..3 arrays with every 2X2 subblock having two distinct values, and new values 0..3 introduced in row major order.''. It has offset $1$ and begins
+OEIS A198714 is ``Number of nX7 0..3 arrays with values 0..3 introduced in row major order and no element equal to any horizontal or vertical neighbor.''. It has offset $1$ and begins
 \[
-930, 25505, 712829, 20873080, 617966001, 18479672376, 555404234236, 16753667272666,\ \dots
+122, 58825, 28609241, 13925032958, 6778819400772, 3300094936852775, 1606578861528554441, 782129027546108478208,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 66*a(n-1) -1211*a(n-2) -3327*a(n-3) +287711*a(n-4) -1650227*a(n-5) -18911756*a(n-6) +200787144*a(n-7) +249811709*a(n-8) -8470618231*a(n-9) +12934099929*a(n-10) +169407260904*a(n-11) -526263544629*a(n-12) -1680919496686*a(n-13) +8328865779706*a(n-14) +6270909877563*a(n-15) -70313845544213*a(n-16) +27029214503869*a(n-17) +333056045453117*a(n-18) -377395472742367*a(n-19) -825772616226370*a(n-20) +1585680300164445*a(n-21) +703085339056680*a(n-22) -3069417122224407*a(n-23) +900452612086569*a(n-24) +2425264270015320*a(n-25) -1808654163691437*a(n-26) -347830308417366*a(n-27) +652709084826024*a(n-28) -96050625683220*a(n-29) -59518267835508*a(n-30) +14239281350520*a(n-31) +1128398046480*a(n-32) -309936391200*a(n-33)
+Empirical: a(n) = 820*a(n-1) -205689*a(n-2) +23977335*a(n-3) -1448890080*a(n-4) +40681354716*a(n-5) +113470351405*a(n-6) -45083135350759*a(n-7) +1384281526165416*a(n-8) -16268081626571563*a(n-9) -63890727017432669*a(n-10) +4141584863538946248*a(n-11) -41819886892303325457*a(n-12) -30483804619910407683*a(n-13) +3863177257558021068078*a(n-14) -27574675558592643871665*a(n-15) -5974253069771812381395*a(n-16) +994204560645628682891988*a(n-17) -4133294712546191129276631*a(n-18) -5200219344858789634094007*a(n-19) +79782056692975632581941806*a(n-20) -145976694071885459756226729*a(n-21) -381423099164490179830401489*a(n-22) +1687752294947845021038392100*a(n-23) -947863788801858331624770840*a(n-24) -4416578720165084280803867511*a(n-25) +7519754083669273956859949007*a(n-26) -393515001351016977961508328*a(n-27) -8318760918675594342013626309*a(n-28) +7729370069736269915861360652*a(n-29) -2679235928159828068047490236*a(n-30) +224133015493782945421410924*a(n-31) +60130490872795258151715444*a(n-32) -9198797534128825159826898*a(n-33)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 15:30:34, revision 9) the statement is
+As of the ``Last modified'' line on the live entry (Oct 03 2025 08:00:40, revision 9) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;66\,a(n-1) - 1211\,a(n-2) - 3327\,a(n-3) + 287711\,a(n-4) - 1650227\,a(n-5) - 18911756\,a(n-6) + 200787144\,a(n-7) + 249811709\,a(n-8) - 8470618231\,a(n-9) + 12934099929\,a(n-10) + 169407260904\,a(n-11) - 526263544629\,a(n-12) - 1680919496686\,a(n-13) + 8328865779706\,a(n-14) + 6270909877563\,a(n-15) - 70313845544213\,a(n-16) + 27029214503869\,a(n-17) + 333056045453117\,a(n-18) - 377395472742367\,a(n-19) - 825772616226370\,a(n-20) + 1585680300164445\,a(n-21) + 703085339056680\,a(n-22) - 3069417122224407\,a(n-23) + 900452612086569\,a(n-24) + 2425264270015320\,a(n-25) - 1808654163691437\,a(n-26) - 347830308417366\,a(n-27) + 652709084826024\,a(n-28) - 96050625683220\,a(n-29) - 59518267835508\,a(n-30) + 14239281350520\,a(n-31) + 1128398046480\,a(n-32) - 309936391200\,a(n-33)
+a(n)\;=\;820\,a(n-1) - 205689\,a(n-2) + 23977335\,a(n-3) - 1448890080\,a(n-4) + 40681354716\,a(n-5) + 113470351405\,a(n-6) - 45083135350759\,a(n-7) + 1384281526165416\,a(n-8) - 16268081626571563\,a(n-9) - 63890727017432669\,a(n-10) + 4141584863538946248\,a(n-11) - 41819886892303325457\,a(n-12) - 30483804619910407683\,a(n-13) + 3863177257558021068078\,a(n-14) - 27574675558592643871665\,a(n-15) - 5974253069771812381395\,a(n-16) + 994204560645628682891988\,a(n-17) - 4133294712546191129276631\,a(n-18) - 5200219344858789634094007\,a(n-19) + 79782056692975632581941806\,a(n-20) - 145976694071885459756226729\,a(n-21) - 381423099164490179830401489\,a(n-22) + 1687752294947845021038392100\,a(n-23) - 947863788801858331624770840\,a(n-24) - 4416578720165084280803867511\,a(n-25) + 7519754083669273956859949007\,a(n-26) - 393515001351016977961508328\,a(n-27) - 8318760918675594342013626309\,a(n-28) + 7729370069736269915861360652\,a(n-29) - 2679235928159828068047490236\,a(n-30) + 224133015493782945421410924\,a(n-31) + 60130490872795258151715444\,a(n-32) - 9198797534128825159826898\,a(n-33)
 \end{equation}
 for all $n>33$.
 
 \section{What the canonical-form clause counts}
 
-Fix the shape: $5$ columns and $L=n+1$ rows, so $L\cdot5$ cells. Call a
+Fix the shape: $7$ columns and $L=n+0$ rows, so $L\cdot7$ cells. Call a
 partition of the cells into nonempty classes a \emph{pattern}; an array over an alphabet
 determines a pattern, two cells lying in the same class exactly when they carry the same
 value.
 
-Every $2\times2$ subblock of the array occupies two consecutive
-rows and two consecutive columns; writing those two rows as $r$ and $s$ the
-subblock is
+Write $x_{t,u}$ for the entry in row $t$ and column $u$. The
+entry's requirement is that no cell equals more than $0$ of its neighbours at the
+offsets
 \[
-\begin{pmatrix}\alpha&\beta\\\gamma&\delta\end{pmatrix}=\begin{pmatrix}r_j&r_{j+1}\\s_j&s_{j+1}\end{pmatrix},
+\mathcal N=\{(0,-1),\ (-1,0)\}
 \]
-and the entry's requirement on it is
+(offsets given as (row shift, column shift), and only cells inside the array count),
+that is
 \begin{equation}\label{eq:loc}
-\#\{\alpha,\beta,\gamma,\delta\}\in\{2\}.
+\#\bigl\{(d_1,d_2)\in\mathcal N:\ x_{t+d_1,\,u+d_2}=x_{t,u}\bigr\}\;\le\;0
+\qquad\text{for every cell }(t,u).
 \end{equation}
+Every offset in $\mathcal N$ points backwards in the walk, so the condition at a cell of
+row $t$ is settled by row $t$ itself together with row $t-1$.
 
 The condition is stated purely in terms of equalities between entries, so it is invariant
 under any relabelling of the values and is therefore a property of the pattern alone. Call a
@@ -114,16 +118,17 @@ $\frac{4!}{i!}\sum_{t\le 4-i}(-1)^t/t!=\binom{4}{i}(4-i)!\sum_{t\le 4-i}(-1)^t/t
 
 \section{Each $L_i$ is a walk count, and the chain lumps}
 
-Fix $i$ and let $V_i=\{0,\dots,i-1\}^{5}$ be the possible rows. For $r,s\in V_i$
+Fix $i$ and let $V_i=\{0,\dots,i-1\}^{7}$ be the possible rows. For $r,s\in V_i$
 declare $r\to s$ an edge when placing $s$ directly after $r$ satisfies \eqref{eq:loc} at
 every column, and let $M_i$ be the adjacency matrix. An array is exactly a sequence of
 rows, and its condition is exactly the conjunction of the edge conditions along that
 sequence, so
 \[
-L_i(n)\;=\;\mathbf{s}_i^{\!\top}M_i^{\,n}\mathbf{1} .
+L_i(n)\;=\;\mathbf{s}_i^{\!\top}M_i^{\,n+0-1}\mathbf{1} .
 \]
-Because the condition involves no row before the first, every
-row may start a walk, and $\mathbf{s}_i=\mathbf{1}$.
+The first row has no row before it, so its cells are tested
+against their within-row neighbours only; $\mathbf{s}_i$ is the indicator vector of the
+rows that pass that test.
 
 \begin{lemma}\label{lem:lump}
 Let $\pi(r)$ be the equality pattern of the row $r$. For all $r,r'$ with
@@ -153,13 +158,13 @@ gives the displayed identity, the number of rows of pattern $P$ being the number
 injections of its $|P|$ classes into the alphabet.
 \end{proof}
 
-Assembling the $4$ lumped chains into one block-diagonal matrix $N$ of size $S=109$ and
+Assembling the $4$ lumped chains into one block-diagonal matrix $N$ of size $S=1145$ and
 putting the weights of Lemma~\ref{lem:inv} into the start vector,
 $\mathbf{v}=\bigl(\binom{4}{i}D_{4-i}\varepsilon_P\bigr)_{i,P}$, gives
 \begin{equation}\label{eq:walk}
-4!\;a(n)\;=\;\mathbf{v}^{\!\top}N^{\,n}\mathbf{1} .
+4!\;a(n)\;=\;\mathbf{v}^{\!\top}N^{\,n+0-1}\mathbf{1} .
 \end{equation}
-The unlumped alphabet had $1300$ rows in all; the lumped chain has $S=109$ states.
+The unlumped alphabet had $18700$ rows in all; the lumped chain has $S=1145$ states.
 
 \section{The criterion, and the computation}
 
@@ -167,7 +172,7 @@ Let $q(t)=t^{33}-\sum_i c_i\,t^{33-i}$ be the characteristic polynomial of
 \eqref{eq:conj}.
 
 \begin{lemma}\label{lem:crit}
-For every $n$ with $m=n+1-1\ge33$,
+For every $n$ with $m=n+0-1\ge33$,
 \[
 4!\Bigl(a(n)-\sum_i c_i\,a(n-i)\Bigr)\;=\;\mathbf{v}^{\!\top}N^{\,m-33}q(N)\mathbf{1} .
 \]
@@ -206,7 +211,7 @@ which settles all larger $j$ at once. Lemma~\ref{lem:crit} gives the theorem.
 Three checks, each independent of the algebra above.
 
 First, the whole construction was compared against the entry's DATA: the right-hand side of
-\eqref{eq:walk}, divided by $4!$, was evaluated at every one of the $14$
+\eqref{eq:walk}, divided by $4!$, was evaluated at every one of the $11$
 published indices and agrees exactly. This is a strong test of the modelling and not only of
 the arithmetic --- the inversion of Lemma~\ref{lem:inv}, the reading of the local
 condition, and the alignment of the entry's index with the number of rows would each
@@ -222,7 +227,7 @@ run until the working vector was identically zero rather than to a sampled prefi
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A209810.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A198714.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; Stirling and
 falling-factorial inversion, Section 1.9.)

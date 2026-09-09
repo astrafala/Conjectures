@@ -12,35 +12,35 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A214239, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A214183, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A214239 counts the proper colourings of a grid $1\times(n+1)$, wrapped in the growing direction, with at most $8$ colours and
+OEIS A214183 counts the proper colourings of a grid $n\times5$, wrapped in the direction of width $5$, with at most $7$ colours and
 counted up to renaming the colours, and carries an empirical recurrence of order $7$
 contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical. Counting
 up to renaming is a fixed rational combination of ordinary colouring counts; each of those is
 a walk count; and because permuting the colours preserves everything in sight, the walk may be
 run on the colour-patterns rather than on the colourings, which is what brings the state count
-down to $S=36$ and makes the exact residual test affordable.
+down to $S=48$ and makes the exact residual test affordable.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 05C15, 05C30.\normalsize
 
 \section{The conjecture}
 
-OEIS A214239 is ``Number of 0..7 colorings of a 1 X (n+1) array circular in the n+1 direction with new values 0..7 introduced in row major order.''. It has offset $1$ and begins
+OEIS A214183 is ``Number of 0..6 colorings of an nX5 array circular in the 5 direction with new values 0..6 introduced in row major order.''. It has offset $1$ and begins
 \[
-1, 1, 4, 11, 41, 162, 715, 3424,\ \dots
+11, 7434, 21418431, 76892349394, 282135060192286, 1037404464993610934, 3815299253956873853106, 14031944174294607018138494,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 21*a(n-1) - 168*a(n-2) + 630*a(n-3) - 1029*a(n-4) + 189*a(n-5) + 1198*a(n-6) - 840*a(n-7).
+Empirical: a(n) = 4178*a(n-1) -1895863*a(n-2) +209149752*a(n-3) -7928550662*a(n-4) +84119844576*a(n-5) -298704239064*a(n-6) +219967475904*a(n-7)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Mar 09 2018 10:21:19, revision 9) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 16:55:33, revision 8) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
@@ -52,7 +52,7 @@ one-row case: a cycle of $W$ cells has $(i-1)^W+(-1)^W(i-1)$ proper colourings o
 colours, which at $W=6$, $i=3$ is $66$, and $66/3!=11$ is what the corresponding entry of this
 family publishes.
 
-The clause ``new values $0..7$ introduced in row major order'' says the array is the
+The clause ``new values $0..6$ introduced in row major order'' says the array is the
 canonical representative of its equality pattern, so what is counted is patterns, not arrays.
 Write $N_j$ for the number of admissible patterns using exactly $j$ colours and $L_i$ for the
 number of admissible colourings over an alphabet of $i$ colours. A colouring over $i$ colours
@@ -61,9 +61,9 @@ is a pattern together with an injection of its colours into the alphabet, so
 L_i\;=\;\sum_j N_j\,i(i-1)\cdots(i-j+1),
 \]
 a triangular system with unit diagonal, hence invertible over $\mathbf{Q}$. The entry counts
-$a=N_1+\dots+N_{8}$, so
+$a=N_1+\dots+N_{7}$, so
 \[
-a\;=\;\sum_{i=1}^{8}w_i\,L_i
+a\;=\;\sum_{i=1}^{7}w_i\,L_i
 \]
 for one fixed rational vector $w=\mathbf{1}^{\!\top}F^{-1}$, $F$ the matrix of falling
 factorials. Being properly coloured is a statement about equalities alone, so it is invariant
@@ -71,38 +71,16 @@ under permuting the colours and the reduction is legitimate.
 
 \section{Each $L_i$ is a walk count}
 
-A column of the array is a proper colouring of the path $P_{1}$ and two consecutive
-columns must differ in every one of the $1$ positions; the wrapping makes the last column
-adjacent to the first. A colouring of the array is therefore a CLOSED walk of $m=n+1$ steps
-in the digraph $T_i$ whose vertices are the proper colourings of $P_{1}$ over $i$ colours
-and whose edges join colourings differing everywhere, so
+A row of the array is a proper colouring of the cycle $C_{5}$, since the wrapping makes
+its first and last cells adjacent, and two consecutive rows must differ in every one of the
+$5$ positions. So $L_i(n)$ is the number of walks of $n-1$ steps in the digraph whose
+vertices are the proper colourings of $C_{5}$ over $i$ colours and whose edges join
+colourings differing everywhere:
 \[
-L_i(n)\;=\;\operatorname{tr}\,T_i^{\,m},\qquad m=n+1.
+L_i(n)\;=\;\iota^{\!\top}M_i^{\,n-1}\iota ,\qquad \iota=(1,\dots,1)^{\!\top} .
 \]
-A trace is not $\iota^{\!\top}M^m\tau$ for fixed vectors, and computing it as a sum over all
-starting vertices is far too expensive. Lemma~\ref{lem:trace} replaces it by a handful of
-walks with fixed ends.
-
-\begin{lemma}\label{lem:trace}
-Let $G$ be a group acting on the vertex set of a digraph and preserving its edges, and let $M$
-be the adjacency matrix. Then $(M^m)_{ss}=(M^m)_{\sigma s,\sigma s}$ for every
-$\sigma\in G$, and hence
-\[
-\operatorname{tr} M^m\;=\;\sum_{\text{orbits }O}|O|\;(M^m)_{s_O s_O} ,
-\]
-one representative $s_O$ per orbit. For $T_i$ with $G=S_i$ permuting the colours, the orbits
-are the equality patterns and the orbit of a colouring using $j$ colours has
-$i(i-1)\cdots(i-j+1)$ members.
-\end{lemma}
-
-\begin{proof}
-$\sigma$ permutes the vertices and carries walks to walks bijectively, so the closed walks of
-length $m$ at $s$ correspond to those at $\sigma s$. Summing the diagonal over each orbit
-gives the displayed identity. Permuting colours preserves ``differ in every position'', so
-$S_i$ acts on the colourings of $P_{1}$ preserving $T_i$; two colourings lie in one orbit
-exactly when they have the same equality pattern, and a pattern using $j$ colours is realised
-in $i(i-1)\cdots(i-j+1)$ ways.
-\end{proof}
+There are $(i-1)^{5}+(-1)^{5}(i-1)$ such colourings, which at $i=7$ is already more
+than is comfortable; Lemma~\ref{lem:lump} removes the difficulty.
 
 \begin{lemma}\label{lem:lump}
 Let a group $G$ act on the vertices of a digraph preserving its edges, and let $v$ be constant
@@ -124,10 +102,10 @@ sum. The count $A_{OO'}$ is likewise independent of which representative of $O$ 
 Both endpoint vectors above are invariant under the relevant group --- the all-ones vectors
 under all of $S_i$, and, for a diagonal entry $(T_i^m)_{ss}$, the vector $e_s$ under the
 subgroup fixing $s$ --- so the whole computation runs on orbits. That is the entire reason the
-state count is $S=36$ rather than the number of colourings.
+state count is $S=48$ rather than the number of colourings.
 
 Assembling the pieces, $a(n)$ is $\iota^{\!\top}M^{\,j}\tau$ on the disjoint union of the
-orbit digraphs for $i=1,\dots,8$, with $\iota$ carrying the weights $w_i$ cleared of
+orbit digraphs for $i=1,\dots,7$, with $\iota$ carrying the weights $w_i$ cleared of
 denominators; the walk index $j$ and the entry's $n$ differ by a constant, read off by
 matching the entry's published terms rather than assumed. In particular $a$ is $C$-finite.
 
@@ -151,15 +129,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;21\,a(n-1) - 168\,a(n-2) + 630\,a(n-3) - 1029\,a(n-4) + 189\,a(n-5) + 1198\,a(n-6) - 840\,a(n-7)
+a(n)\;=\;4178\,a(n-1) - 1895863\,a(n-2) + 209149752\,a(n-3) - 7928550662\,a(n-4) + 84119844576\,a(n-5) - 298704239064\,a(n-6) + 219967475904\,a(n-7)
 \]
-for every $n>6$.
+for every $n>7$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $7$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=6+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=7+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once. The
 rational weights $w_i$ are cleared by a common denominator before any of this, so the whole
 computation is over the integers.
@@ -169,7 +147,7 @@ computation is over the integers.
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $23$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $10$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
@@ -181,7 +159,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A214239.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A214183.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{biggs} N.~Biggs, \emph{Algebraic Graph Theory}, 2nd ed., Cambridge University

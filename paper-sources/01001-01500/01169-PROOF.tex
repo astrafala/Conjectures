@@ -12,109 +12,75 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A218587, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A221270, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{2 September 2026}
+\date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A218587 counts the distinct indicator arrays obtained from the $n\times3$ arrays over
-$\{0,\dots,2\}$ by marking the cells whose value is at least as large as every one of their neighbours, and carries an
-empirical recurrence of order $5$ contributed by R.~H.~Hardin. It is true, and it is
-decidable rather than empirical. What is counted is the IMAGE of a map, not its domain, so it
-is not a walk count in the obvious graph; the determinisation of the machine that emits the
-indicator row by row turns it into one, on $S=37$ states, after which the conjectured
-recurrence is settled by a finite exact computation.
+OEIS A221270 counts the distinct OCCUPANCY arrays obtained when every cell of an $n\times2$ grid
+holds one token and each token moves to a neighbouring cell, and carries an empirical
+recurrence of order $5$ contributed by R.~H.~Hardin. It is true, and it is decidable
+rather than empirical. What is counted is the size of an IMAGE --- two different assignments of
+moves with the same occupancy count once --- so it is not a walk count in the obvious graph;
+determinising the machine that emits the occupancy row by row turns it into one, on $S=39$
+states, after which the conjectured recurrence is settled by a finite exact computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 68Q45, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 68Q45, 60C05.\normalsize
 
 \section{The conjecture}
 
-OEIS A218587 is ``Hilltop maps: number of n X 3 binary arrays indicating the locations of corresponding elements not exceeded by any horizontal or antidiagonal neighbor in a random 0..2 n X 3 array.''. It has offset $1$ and begins
+OEIS A221270 is ``Number of n X 2 arrays of occupancy after each element moves to some king-move neighbor, with every occupancy equal to zero or two.''. It has offset $1$ and begins
 \[
-7, 57, 449, 3567, 28305, 224643, 1782855, 14149449,\ \dots
+0, 6, 16, 52, 174, 588, 1984, 6688,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 7*a(n-1) + 7*a(n-2) + 3*a(n-3) + 3*a(n-4) + 3*a(n-5).
+Empirical: a(n) = 6*a(n-1) - 10*a(n-2) + 4*a(n-3) - 2*a(n-5).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 24 2018 09:40:10, revision 7) this is still
+As of the ``Last modified'' line on the live entry (Mar 14 2018 11:20:22, revision 10) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-Let $R=\{0,\dots,2\}^{3}$ be the set of rows and let the neighbours of a cell be the
-cells at the offsets
+Every cell of an $n\times2$ grid holds one token. Each token moves by one of the offsets
 \[
-(-1,1), (0,-1), (0,1), (1,-1),
+(-1,-1), (-1,0), (-1,1), (0,-1), (0,1), (1,-1), (1,0), (1,1),
 \]
-those falling outside the array being simply absent. For an array
-$A=(r_1,\dots,r_n)\in R^n$ let $\Phi(A)\in\{0,1\}^{n\times3}$ mark the cells whose value
-is at least as large as every one of its neighbours. The entry counts
-\[
-a(n)\;=\;\bigl|\{\Phi(A):A\in R^n\}\bigr| ,
-\]
-the size of an IMAGE. This is the whole difficulty: two different arrays with the same marking
-must be counted once, and a walk count in a graph on the arrays would count them twice.
+a move being available only when it lands inside the grid. The offset $(0,0)$ is NOT among them: every token must move. The OCCUPANCY array
+records, for each cell, how many tokens land on it; the entry counts how many different
+occupancy arrays occur as the assignment of moves runs over all its possibilities. The entry also asks that every occupancy be $0 or 2$.
 
-Because every offset above moves the row index by at most one, the marked row $i$ depends only
-on rows $i-1,i,i+1$. Write $\beta(p,c,x)\in\{0,1\}^{3}$ for the marking of the row $c$
-with $p$ above and $x$ below, allowing $p$ or $x$ to be the symbol $\bot$ for ``outside''.
-Then
-\[
-\Phi(r_1,\dots,r_n)=\bigl(\beta(\bot,r_1,r_2),\ \beta(r_1,r_2,r_3),\ \dots,\
-\beta(r_{n-1},r_n,\bot)\bigr).
-\]
+That is the size of an IMAGE, and it is the whole difficulty: two assignments with the same
+occupancy must be counted once, and a walk count over the assignments would count them twice.
 
 \section{The image is a walk count after determinisation}
 
-For a set $D\subseteq(R\cup\{\bot\})\times R$ of pairs and a row $b\in\{0,1\}^{3}$ put
+Every offset moves the row index by at most one, so the occupancy of row $i$ is decided by the
+moves chosen in rows $i-1$, $i$ and $i+1$. Writing $\beta(p,c,x)$ for that occupancy row, with
+$p$ or $x$ allowed to be the symbol $\bot$ for ``outside'', the whole occupancy array is
 \[
-\delta(D,b)=\{(c,x)\ :\ (p,c)\in D,\ x\in R,\ \beta(p,c,x)=b\},\qquad
-f(D)=\bigl|\{\beta(p,c,\bot):(p,c)\in D\}\bigr| ,
+\bigl(\beta(\bot,c_1,c_2),\ \beta(c_1,c_2,c_3),\ \dots,\ \beta(c_{n-1},c_n,\bot)\bigr)
 \]
-and let $D_0=\{(\bot,r):r\in R\}$.
+for an assignment $c_1,\dots,c_n$ of move-rows. The symbol $\bot$ is not decoration: whether
+``up'' or ``down'' is a legal move for a cell depends on it, and $\beta$ returns nothing at all
+when the row it is given cannot occur in that position.
 
-\begin{lemma}\label{lem:det}
-For every $t\ge0$ and every $b_1,\dots,b_t$, the set
-$D_t=\delta(\dots\delta(D_0,b_1)\dots,b_t)$ is exactly
+Determinise. For a set $D$ of pairs $(p,c)$ and an occupancy row $b$ put
 \[
-\{(r_t,r_{t+1})\ :\ (r_1,\dots,r_{t+1})\in R^{t+1},\ \beta(\bot,r_1,r_2)=b_1,\ \dots,\
-\beta(r_{t-1},r_t,r_{t+1})=b_t\} ,
+\delta(D,b)=\{(c,x):(p,c)\in D,\ \beta(p,c,x)=b\},\qquad
+f(D)=\bigl|\{\beta(p,c,\bot):(p,c)\in D,\ \beta(p,c,\bot)\ \text{defined}\}\bigr| ,
 \]
-with $r_0=\bot$. Consequently, for $n\ge1$,
-\[
-a(n)\;=\;\sum_{b_1,\dots,b_{n-1}}f(D_{n-1}),
-\]
-the sum over all sequences of rows in $\{0,1\}^{3}$, empty $D$'s contributing nothing.
-\end{lemma}
-
-\begin{proof}
-Induction on $t$. For $t=0$ the set is $\{(\bot,r_1)\}$, which is $D_0$. If the description
-holds for $D_t$, then $\delta(D_t,b)$ collects the pairs $(r_{t+1},r_{t+2})$ for which
-$(r_t,r_{t+1})$ already extends a consistent prefix and
-$\beta(r_t,r_{t+1},r_{t+2})=b$, which is the description for $t+1$.
-
-An element of the image is a full marking $(b_1,\dots,b_n)$. By the description, a prefix
-$(b_1,\dots,b_{n-1})$ is realised by some $r_1,\dots,r_n$ exactly when $D_{n-1}\neq
-\emptyset$, and then the possible last rows are precisely
-$\{\beta(p,c,\bot):(p,c)\in D_{n-1}\}$, of which there are $f(D_{n-1})$. Distinct
-sequences $(b_1,\dots,b_n)$ are distinct markings, so summing $f$ over the prefixes counts the
-image exactly once each.
-\end{proof}
-
-So with $M$ the adjacency matrix of the digraph whose vertices are the reachable nonempty sets
-$D$ and which carries one edge $D\to\delta(D,b)$ for each $b$ with $\delta(D,b)\neq\emptyset$
---- several $b$ may lead to the same set, and then the edge is repeated, which is exactly
-right, since the markings differ ---
+and let $D_0=\{(\bot,c):c\}$. An induction on the number of rows shows $D_t$ is exactly the
+set of pairs of consecutive move-rows completing a prefix with the emitted occupancy rows, so
+that with $M$ the adjacency matrix of the digraph on the reachable nonempty sets, one edge per
+occupancy row it admits,
 \[
 a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,\qquad \iota=e_{D_0},\quad \tau=f .
 \]
-There are $S=37$ reachable sets, generated from $D_0$ outward, and $a$ is $C$-finite. Note
-that $\tau$ is not the all-ones vector: the last marked row is not a step of the walk but a
-count attached to the state the walk stops in.
+There are $S=39$ reachable sets. In particular $a$ is $C$-finite.
 
 \section{The proof}
 
@@ -136,7 +102,7 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;7\,a(n-1) + 7\,a(n-2) + 3\,a(n-3) + 3\,a(n-4) + 3\,a(n-5)
+a(n)\;=\;6\,a(n-1) - 10\,a(n-2) + 4\,a(n-3) - 2\,a(n-5)
 \]
 for every $n>5$.
 \end{theorem}
@@ -152,9 +118,11 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $19$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry: the machine is built by reading the
-entry's English, and a misreading gives different counts.
+First, the model reproduces all $25$ terms the entry publishes, exactly, in integer
+arithmetic. The entry's first term is $0$, and it is a sharp test of the boundary: a
+one-row grid offers only the moves that stay within one row, so a neighbour set with no
+horizontal offset gives no legal assignment at all and the count is zero, which is what the
+entries of that shape publish.
 
 Second, the conjectured recurrence was evaluated directly on those published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
@@ -164,7 +132,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A218587.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A221270.
 \bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata
 Theory, Languages, and Computation}, 3rd ed., Addison--Wesley, 2006. (The subset
 construction, Section 2.3.)

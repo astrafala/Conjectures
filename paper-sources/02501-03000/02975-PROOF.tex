@@ -12,41 +12,41 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A203536, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A231822, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{4 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A203536 counts arrays of width $2$ over $\{0,1,2\}$ in which every cell has neighbours equal to each of two named values. The entry carries an
+OEIS A231822 counts arrays of width $2$ over $\{0,1,2\}$ in which no cell is beaten by a strict majority of its neighbours. The entry carries an
 empirical recurrence of order $6$ contributed by R.~H.~Hardin. It is true, and it is
-decidable rather than empirical: what a cell asks reaches one row above it and one row below, so the
-condition on a whole row is settled by $3$ consecutive rows and the count is a walk
-count on $S=74$ states.
+decidable rather than empirical: what a cell asks reaches one row above
+it and one row below, so the condition on a whole row is settled by
+$3$ consecutive rows and the count is a walk count on $S=82$ states.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 05B20, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A203536 is ``Number of nX2 0..2 arrays with every element neighboring horizontally or vertically both a 0 and a 1.''. It has offset $1$ and begins
+OEIS A231822 is ``Number of n X 2 0..2 arrays with no element having a strict majority of its horizontal, vertical and antidiagonal neighbors equal to itself plus one mod 3, with upper left element zero (rock paper and scissors drawn positions).''. It has offset $1$ and begins
 \[
-0, 4, 4, 16, 64, 196, 676, 2304,\ \dots
+1, 9, 64, 439, 2992, 20382, 138852, 945923,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 2*a(n-1) +3*a(n-2) +6*a(n-3) -a(n-4) -a(n-6)
+Empirical: a(n) = 9*a(n-1) - 16*a(n-2) + 11*a(n-3) - 27*a(n-4) + 21*a(n-5) - 4*a(n-6).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 10:32:14, revision 13) this is still
+As of the ``Last modified'' line on the live entry (Oct 01 2018 06:28:00, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
 The arrays have $2$ columns and a growing number of rows, with entries in $\{0,1,2\}$. Fix the
-offsets the entry names,
+list of offsets the entry names,
 \[
-\Delta=\{\,(-1,0), (0,-1), (0,1), (1,0)\,\},
+\Delta=\{\,(-1,0), (-1,1), (0,-1), (0,1), (1,-1), (1,0)\,\},
 \]
 and for a cell $(i,j)$ write
 \[
@@ -56,22 +56,23 @@ S(i,j)=\{\,(i+\delta_1,\,j+\delta_2) : (\delta_1,\delta_2)\in\Delta\,\}\cap
 for the neighbours it actually has. Only offsets landing inside the array count, so a cell on
 the border simply has fewer neighbours.
 
-The condition is that every cell has a neighbour equal to $0$ and a neighbour equal to $1$:
+The condition is that no cell has a strict majority of its neighbours one greater than itself modulo $3$:
 \[
-0\in\{x(a,b):(a,b)\in S(i,j)\}\quad\text{and}\quad1\in\{x(a,b):(a,b)\in S(i,j)\}.
+2\cdot\#\{(a,b)\in S(i,j) : x(a,b)\equiv x(i,j)+1 \bmod 3\}\;\le\;|S(i,j)| .
 \]
-
+With three values this is the drawn position of rock, paper and scissors: each value beats the one below it modulo $3$, and no cell is to be beaten by a strict majority of its neighbours. The entry adds that the top-left cell is $0$.
 
 \section{A window of 3 rows}
 
 The offsets reach one row up and one row down, so everything the condition asks of one row is
 decided by that row together with one row above it and one row below --- a window of
-$3$ consecutive rows, and nothing wider. Take the array one row at a time and
-let the state be the last 2 of them, with a distinguished start standing for the array before its
-first row, so that a walk of $n$ steps is an array of $n$ rows.
+$3$ consecutive rows, and nothing wider. Take the array one row at a time
+and let the state be the last 2 of them, with a distinguished start standing for the
+array before its first row, so that a walk of $n$ steps is an array of $n$ rows.
 
 Appending a row completes exactly one window, and the row it settles is the one just above the bottom of that window; a step is
-allowed when that row passes. Each row of the finished array is therefore tested exactly once.
+allowed when that row passes. Each row of the finished
+array is therefore tested exactly once.
 
 When the array stops, the last row of it has never been tested, because the
 conditions reach one row below. So the end vector is NOT all ones: a state is accepted exactly when
@@ -80,7 +81,7 @@ with absent rows appended --- the same rule that governs a cell at the bottom ed
 Section 2.
 Thus
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=74,
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=82,
 \]
 for the transfer matrix $M$ on those $S$ states. The walk index $j$ and the entry's own $n$
 differ by a constant, read off by matching the published terms rather than assumed. In
@@ -106,15 +107,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;2\,a(n-1) + 3\,a(n-2) + 6\,a(n-3) - a(n-4) - a(n-6)
+a(n)\;=\;9\,a(n-1) - 16\,a(n-2) + 11\,a(n-3) - 27\,a(n-4) + 21\,a(n-5) - 4\,a(n-6)
 \]
-for every $n>6$.
+for every $n>5$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $6$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=6+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=5+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -122,7 +123,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $26$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $20$ terms the entry publishes, exactly, in integer
 arithmetic.
 
 Second, the count was recomputed for the smallest arrays straight from the definition: every
@@ -138,7 +139,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A203536.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A231822.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge

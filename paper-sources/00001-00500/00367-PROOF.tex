@@ -12,19 +12,19 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A220920, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A220792, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A220920 counts the distinct indicator arrays obtained from the $n\times3$ arrays over
-$\{0,\dots,2\}$ by marking the cells whose value is equal to at least half of their neighbours, and carries an
-empirical recurrence of order $57$ contributed by R.~H.~Hardin. It is true, and it is
+OEIS A220792 counts the distinct indicator arrays obtained from the $n\times3$ arrays over
+$\{0,\dots,2\}$ by marking the cells whose value is equal to exactly two of their neighbours, and carries an
+empirical recurrence of order $59$ contributed by R.~H.~Hardin. It is true, and it is
 decidable rather than empirical. What is counted is the IMAGE of a map, not its domain, so it
 is not a walk count in the obvious graph; the determinisation of the machine that emits the
-indicator row by row turns it into one, on $S=134$ states, after which the conjectured
+indicator row by row turns it into one, on $S=275$ states, after which the conjectured
 recurrence is settled by a finite exact computation.
 \end{abstract}
 
@@ -32,15 +32,15 @@ recurrence is settled by a finite exact computation.
 
 \section{The conjecture}
 
-OEIS A220920 is ``Majority value maps: number of nX3 binary arrays indicating the locations of corresponding elements equal to at least half of their horizontal, diagonal and antidiagonal neighbors in a random 0..2 nX3 array.''. It has offset $1$ and begins
+OEIS A220792 is ``Equals two maps: number of nX3 binary arrays indicating the locations of corresponding elements equal to exactly two of their horizontal, diagonal and antidiagonal neighbors in a random 0..2 nX3 array.''. It has offset $1$ and begins
 \[
-4, 44, 324, 2456, 18606, 141464, 1073265, 8150889,\ \dots
+2, 19, 142, 1224, 9500, 74581, 568257, 4365491,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 8*a(n-1) +14*a(n-2) -145*a(n-3) +48*a(n-4) +580*a(n-5) -267*a(n-6) -2093*a(n-7) -2375*a(n-8) +30972*a(n-9) -40352*a(n-10) +17794*a(n-11) -141683*a(n-12) +166879*a(n-13) +98030*a(n-14) +26735*a(n-15) +351625*a(n-16) -438167*a(n-17) +195640*a(n-18) -492669*a(n-19) +1885780*a(n-20) -600628*a(n-21) +421889*a(n-22) -4956450*a(n-23) -927523*a(n-24) -1385571*a(n-25) +5331813*a(n-26) +21644183*a(n-27) -4396766*a(n-28) +9144012*a(n-29) -43483240*a(n-30) -729132*a(n-31) -10928792*a(n-32) +25775668*a(n-33) +27487564*a(n-34) -12117948*a(n-35) +28466280*a(n-36) -44360880*a(n-37) +52937600*a(n-38) -51521136*a(n-39) +67747840*a(n-40) -50661984*a(n-41) +25715072*a(n-42) -69526208*a(n-43) +8598016*a(n-44) -8316800*a(n-45) +24131328*a(n-46) -7541504*a(n-47) -11153408*a(n-48) -11290624*a(n-49) -264192*a(n-50) +1933312*a(n-51) +1409024*a(n-52) +753664*a(n-53) +458752*a(n-54) +327680*a(n-55) -131072*a(n-56) -262144*a(n-57) for n>59
+Empirical: a(n) = 13*a(n-1) -35*a(n-2) -145*a(n-3) +1022*a(n-4) -2050*a(n-5) -1549*a(n-6) +20179*a(n-7) -46292*a(n-8) +8272*a(n-9) +136479*a(n-10) -173216*a(n-11) -176296*a(n-12) +577186*a(n-13) +196578*a(n-14) -1945384*a(n-15) -548006*a(n-16) +8956828*a(n-17) -6927166*a(n-18) -16006326*a(n-19) +21244020*a(n-20) +31075832*a(n-21) -58929004*a(n-22) -71519712*a(n-23) +196957164*a(n-24) +72480220*a(n-25) -502328348*a(n-26) +113405724*a(n-27) +1032120188*a(n-28) -811288620*a(n-29) -1661363372*a(n-30) +2677972432*a(n-31) +1713915028*a(n-32) -6330143248*a(n-33) +725771184*a(n-34) +10612288116*a(n-35) -8206721280*a(n-36) -12118399464*a(n-37) +20654768280*a(n-38) +5122649968*a(n-39) -30045429504*a(n-40) +11631946112*a(n-41) +27880775680*a(n-42) -30641487616*a(n-43) -8057629056*a(n-44) +31841667840*a(n-45) -15245578240*a(n-46) -11794712064*a(n-47) +14747738112*a(n-48) +126064640*a(n-49) -4460855296*a(n-50) -1594695680*a(n-51) +4442669056*a(n-52) -766705664*a(n-53) -3195207680*a(n-54) +2537422848*a(n-55) -472907776*a(n-56) -295698432*a(n-57) +85983232*a(n-58) +29360128*a(n-59) for n>62
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 19:07:03, revision 9) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 19:04:08, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
@@ -52,7 +52,7 @@ cells at the offsets
 \]
 those falling outside the array being simply absent. For an array
 $A=(r_1,\dots,r_n)\in R^n$ let $\Phi(A)\in\{0,1\}^{n\times3}$ mark the cells whose value
-is equal to at least half of its neighbours. The entry counts
+is equal to exactly two of its neighbours. The entry counts
 \[
 a(n)\;=\;\bigl|\{\Phi(A):A\in R^n\}\bigr| ,
 \]
@@ -112,14 +112,14 @@ right, since the markings differ ---
 \[
 a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,\qquad \iota=e_{D_0},\quad \tau=f .
 \]
-There are $S=134$ reachable sets, generated from $D_0$ outward, and $a$ is $C$-finite. Note
+There are $S=275$ reachable sets, generated from $D_0$ outward, and $a$ is $C$-finite. Note
 that $\tau$ is not the all-ones vector: the last marked row is not a step of the walk but a
 count attached to the state the walk stops in.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{57}-\sum_i c_it^{57-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{59}-\sum_i c_it^{59-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -127,7 +127,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+57}-\sum_ic_iM^{j+57-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+59}-\sum_ic_iM^{j+59-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -136,15 +136,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;8\,a(n-1) + 14\,a(n-2) - 145\,a(n-3) + 48\,a(n-4) + 580\,a(n-5) - 267\,a(n-6) - 2093\,a(n-7) - 2375\,a(n-8) + 30972\,a(n-9) - 40352\,a(n-10) + 17794\,a(n-11) - 141683\,a(n-12) + 166879\,a(n-13) + 98030\,a(n-14) + 26735\,a(n-15) + 351625\,a(n-16) - 438167\,a(n-17) + 195640\,a(n-18) - 492669\,a(n-19) + 1885780\,a(n-20) - 600628\,a(n-21) + 421889\,a(n-22) - 4956450\,a(n-23) - 927523\,a(n-24) - 1385571\,a(n-25) + 5331813\,a(n-26) + 21644183\,a(n-27) - 4396766\,a(n-28) + 9144012\,a(n-29) - 43483240\,a(n-30) - 729132\,a(n-31) - 10928792\,a(n-32) + 25775668\,a(n-33) + 27487564\,a(n-34) - 12117948\,a(n-35) + 28466280\,a(n-36) - 44360880\,a(n-37) + 52937600\,a(n-38) - 51521136\,a(n-39) + 67747840\,a(n-40) - 50661984\,a(n-41) + 25715072\,a(n-42) - 69526208\,a(n-43) + 8598016\,a(n-44) - 8316800\,a(n-45) + 24131328\,a(n-46) - 7541504\,a(n-47) - 11153408\,a(n-48) - 11290624\,a(n-49) - 264192\,a(n-50) + 1933312\,a(n-51) + 1409024\,a(n-52) + 753664\,a(n-53) + 458752\,a(n-54) + 327680\,a(n-55) - 131072\,a(n-56) - 262144\,a(n-57)
+a(n)\;=\;13\,a(n-1) - 35\,a(n-2) - 145\,a(n-3) + 1022\,a(n-4) - 2050\,a(n-5) - 1549\,a(n-6) + 20179\,a(n-7) - 46292\,a(n-8) + 8272\,a(n-9) + 136479\,a(n-10) - 173216\,a(n-11) - 176296\,a(n-12) + 577186\,a(n-13) + 196578\,a(n-14) - 1945384\,a(n-15) - 548006\,a(n-16) + 8956828\,a(n-17) - 6927166\,a(n-18) - 16006326\,a(n-19) + 21244020\,a(n-20) + 31075832\,a(n-21) - 58929004\,a(n-22) - 71519712\,a(n-23) + 196957164\,a(n-24) + 72480220\,a(n-25) - 502328348\,a(n-26) + 113405724\,a(n-27) + 1032120188\,a(n-28) - 811288620\,a(n-29) - 1661363372\,a(n-30) + 2677972432\,a(n-31) + 1713915028\,a(n-32) - 6330143248\,a(n-33) + 725771184\,a(n-34) + 10612288116\,a(n-35) - 8206721280\,a(n-36) - 12118399464\,a(n-37) + 20654768280\,a(n-38) + 5122649968\,a(n-39) - 30045429504\,a(n-40) + 11631946112\,a(n-41) + 27880775680\,a(n-42) - 30641487616\,a(n-43) - 8057629056\,a(n-44) + 31841667840\,a(n-45) - 15245578240\,a(n-46) - 11794712064\,a(n-47) + 14747738112\,a(n-48) + 126064640\,a(n-49) - 4460855296\,a(n-50) - 1594695680\,a(n-51) + 4442669056\,a(n-52) - 766705664\,a(n-53) - 3195207680\,a(n-54) + 2537422848\,a(n-55) - 472907776\,a(n-56) - 295698432\,a(n-57) + 85983232\,a(n-58) + 29360128\,a(n-59)
 \]
-for every $n>59$.
+for every $n>62$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $57$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $59$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=59+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=62+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -152,7 +152,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $19$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $20$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the machine is built by reading the
 entry's English, and a misreading gives different counts.
 
@@ -164,7 +164,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A220920.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A220792.
 \bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata
 Theory, Languages, and Computation}, 3rd ed., Addison--Wesley, 2006. (The subset
 construction, Section 2.3.)

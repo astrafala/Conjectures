@@ -43,8 +43,14 @@ def parse_name(nm):
         dirs = ('left',)
     else:
         dirs = ('right',)
+    # A diagonal named "from the corner to the origin" is the same cells read the other way
+    # round, and nothing was honouring that: the direction words above only cover the x-axis,
+    # so every such name fell through to `right' and produced the word backwards. Reversing
+    # the digit string is what the name says; it is not a fit, and the model still has to
+    # reproduce every published term before anything is proved from it.
+    rev = 'diagonal' in m.group(2).lower() and 'to the origin' in mid
     return {'rule': rule, 'base': 10 if m.group(1).lower() == 'binary' else 2,
-            'axis': m.group(2).lower(), 'dirs': dirs, 'frac': 1}
+            'axis': m.group(2).lower(), 'dirs': dirs, 'frac': 1, 'rev': rev}
 
 
 def words(rule, steps, direction, axis='x-axis'):
@@ -155,13 +161,15 @@ def build(p, cap=200000):
         if sh is None:
             continue
         return {'rule': p['rule'], 'B': p['base'], 'axis': p['axis'], 'dir': dr,
-                'n0': sh[0], 'p': sh[1], 'per': sh[2], 'ws': ws,
+                'n0': sh[0], 'p': sh[1], 'per': sh[2], 'ws': ws, 'rev': p.get('rev', False),
                 'S': bound(p['base'], sh[0], sh[1], sh[2])}
     return None
 
 
 def terms(b, N):
     ws = b['ws'] if N < len(b['ws']) else words(b['rule'], N + 1, b['dir'], b['axis'])
+    if b.get('rev'):
+        return [value(w[::-1], b['B']) for w in ws[:N + 1]]
     return [value(w, b['B']) for w in ws[:N + 1]]
 
 

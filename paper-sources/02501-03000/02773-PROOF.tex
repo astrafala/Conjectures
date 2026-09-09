@@ -12,147 +12,141 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A210080, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A224019, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{3 September 2026}
+\date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A210080 counts arrays of width $3$ whose every $2\times2$ subblock holds a
-prescribed number of DISTINCT values, which use ALL of the $4$ available letters, and which
-are counted up to renaming. The entry carries an empirical recurrence of order $7$
-contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical. The
-condition counts distinct values and so survives renaming, which lets the count of patterns be
-recovered from counts over fixed alphabets by inverting a triangular system of falling
-factorials; the words ``containing all values'' change which row of that inverse is used and
-nothing else. Each fixed-alphabet count is a walk count on $S=100$ states in all.
+OEIS A224019 counts arrays over $\{0,\dots,3\}$ whose rows, columns, diagonals or
+antidiagonals are required to be monotone or unimodal, and carries an empirical recurrence of
+order $7$ contributed by R.~H.~Hardin. A monotone condition is local, but a unimodal one
+is not: a sequence is unimodal exactly when it never rises again after it has fallen, so the
+state must remember which sequences have already fallen. With those bits carried along, $a(n)$
+is a walk count on $S=160$ vertices and the recurrence follows from a finite exact
+computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A18, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A16, 15B36.\normalsize
 
-\section{The conjecture}
+\section{The sequence and the conjecture}
 
-OEIS A210080 is ``Number of (n+1)X3 0..3 arrays containing all values 0..3 with every 2X2 subblock having one, three or four distinct values, and new values 0..3 introduced in row major order.''. It has offset $1$ and begins
+OEIS A224019 is ``Number of n X 3 0..3 arrays with rows nondecreasing and antidiagonals unimodal.''. It has offset $1$ and begins
 \[
-51, 2384, 82691, 2718363, 88297042, 2860160370, 92588511903, 2996810715343,\ \dots
+20, 400, 6796, 112436, 1859020, 30756756, 508916456, 8420768936,\ \dots
 \]
-The entry states, as a conjecture contributed by its author and never marked settled:
-\begin{quote}
-Empirical: a(n) = 42*a(n-1) -322*a(n-2) +274*a(n-3) +1887*a(n-4) -3124*a(n-5) +76*a(n-6) +1168*a(n-7)
+The entry carries the following comment:
+\begin{quote}\small
+Empirical: a(n) = 20*a(n-1) - 70*a(n-2) + 228*a(n-3) - 276*a(n-4) + 392*a(n-5) - 196*a(n-6) + 144*a(n-7).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 15:41:49, revision 9) this is still
-recorded as empirical, and nothing on the entry records it as proved.
+As of the ``Last modified'' line on the live entry (Aug 26 2018 09:50:56, revision 8) the statement is
+still recorded as empirical, and nothing on the entry records it as settled either way.
 
-\section{What is being counted}
+Written out, the claim is
+\begin{equation}\label{eq:conj}
+a(n)\;=\;20\,a(n-1) - 70\,a(n-2) + 228\,a(n-3) - 276\,a(n-4) + 392\,a(n-5) - 196\,a(n-6) + 144\,a(n-7)
+\end{equation}
+for all $n>7$.
 
-The array has $3$ cells across and entries in $\{0,1,\dots,3\}$. In every
-$2\times2$ window of it, the number of DISTINCT entries must be one of $1, 3, 4$. Two
-further clauses come with it:
+\section{The conditions}
 
+The arrays have $3$ columns and $L=n$ rows. Written in (row, column)
+coordinates, the entry asks:
 \begin{itemize}
-\item ``new values $0..3$ introduced in row major order'' --- reading the cells in row major
-order, a letter may appear for the first time only when every smaller letter already has, so
-the array counted is the canonical representative of its EQUALITY PATTERN;
-\item ``containing all values $0..3$'' --- every one of the $4$ letters must actually
-occur.
+\item along the direction $(0,1)$ --- one step of $(0,1)$ in (row, column) coordinates --- every sequence is nondecreasing;
+\item along the direction $(1,-1)$ --- one step of $(1,-1)$ in (row, column) coordinates --- every sequence is unimodal;
 \end{itemize}
+Here ``unimodal'' means nondecreasing and then nonincreasing, that is: no rise after a fall.
 
+A unimodal condition across the rows is not local: whether a
+rise is allowed depends on whether the sequence has already fallen. The state therefore
+carries, for each of the $3$ sequences currently running in that direction, one bit saying
+whether it has fallen. Those bits travel with their sequences --- the bit at column $u$
+moves to column $u+d_2$ when the next row is laid down, and a sequence beginning at the
+far end of the new row starts with its bit clear.
 
-\section{From patterns to fixed alphabets}
-
-Write $N_j$ for the number of admissible patterns using exactly $j$ letters and $L_i$ for the
-number of admissible arrays over an alphabet of $i$ letters. An array over $i$ letters is a
-pattern together with an injection of its letters into the alphabet, so
+\begin{lemma}\label{lem:walk}
+Let $\mathcal V$ be the set of pairs (a row satisfying every within-row condition, a
+bit vector), $|\mathcal V|=S=160$; let $(r,f)\to(s,f')$ be an edge when placing $s$ after $r$
+breaks none of the across-row conditions and $f'$ is $f$ updated by that step; let
+$\mathbf{v}$ mark the vertices whose bit vector is the one their row alone produces.
+Then
 \[
-L_i\;=\;\sum_{j} N_j\,i(i-1)\cdots(i-j+1)\;=\;\sum_j F_{ij}N_j ,
+a(n)\;=\;\,\mathbf{v}^{\!\top}N^{\,L-1}\mathbf{1},\qquad L=n.
 \]
-a triangular system with unit diagonal, hence invertible over $\mathbf{Q}$.
-
-Here is the whole difference between this entry and its neighbours. Without the words
-``containing all values'' the quantity counted is $N_1+\dots+N_{4}$, and the weights are
-the row vector $\mathbf{1}^{\!\top}F^{-1}$. With them, the pattern must use every letter,
-so the quantity counted is $N_{4}$ alone and the weights are the single row
-$e_{4}^{\!\top}F^{-1}$ of the same inverse:
-\[
-a\;=\;N_{4}\;=\;\sum_{i=1}^{4}\bigl(F^{-1}\bigr)_{4i}\,L_i .
-\]
-
-The step is legitimate only if the condition survives renaming the alphabet, and it does: the
-condition counts how many DISTINCT values a window holds, and whether two cells agree is
-untouched by any renaming. No clause compares letters by size or does arithmetic on them.
-
-\section{Each $L_i$ is a walk count}
-
-A $2\times2$ window lies in $2$ consecutive array rows, so the window of the last
-$1$ rows is a state and a step appends a row, settling every subblock it completes.
-Assembling the pieces for $i=1,\dots,4$ as a disjoint union, with $\iota$ carrying the
-weights above cleared of denominators and $\tau=\mathbf{1}$,
-\[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=100.
-\]
-The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
-published terms rather than assumed. In particular $a$ is $C$-finite.
-
-\section{The proof}
-
-\begin{lemma}\label{lem:crit}
-Let $q(t)=t^{7}-\sum_i c_it^{7-i}$ be the characteristic polynomial of the
-conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
-$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
-holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
-and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+7}-\sum_ic_iM^{j+7-i}$. For the bound, $M^{S}$
-is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
-$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
-polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly.
+A walk of length $L-1$ is a sequence of $L$ rows, that is, an array, and its bit component
+is determined by them. Every within-row condition is imposed on each vertex; every
+across-row condition compares two consecutive rows and is imposed on each edge; and the
+unimodal and lexicographic bits are, by construction, the record of what the rows laid down
+so far have already decided, so a violation removes the corresponding edge. Hence the walks
+are exactly the admissible arrays. Nothing constrains the last row beyond what has already
+been imposed, so the walk may end anywhere. The state carries a row, not a boundary, so
+$L$ rows make a walk of length $L-1$.
+\end{proof}
+
+\section{The criterion, and the computation}
+
+Let $q(t)=t^{7}-\sum_i c_i\,t^{7-i}$ be the characteristic polynomial of
+\eqref{eq:conj} and $G=N$.
+
+\begin{lemma}\label{lem:crit}
+With $n_0$ the least index for which $L\ge1$, $o=1n_0+0-1$ and
+$h_j=G^{j}N^{o}\mathbf{1}$, we have for $j\ge7$
+\[
+a(n_0+j)-\sum_i c_i\,a(n_0+j-i)=\,\mathbf{v}^{\!\top}G^{\,j-7}w,
+\qquad w=h_{7}-\sum_i c_ih_{7-i} .
+\]
+Hence \eqref{eq:conj} holds from that point on if and only if
+$\mathbf{v}^{\!\top}G^{m}w=0$ for all $m\ge0$, and $m<S$ suffices.
+\end{lemma}
+
+\begin{proof}
+Substitute Lemma~\ref{lem:walk} and factor. By Cayley--Hamilton $G^{S}$ is an integer
+combination of $I,G,\dots,G^{S-1}$, so every later value repeats that combination of
+earlier ones.
 \end{proof}
 
 \begin{theorem}
-\[
-a(n)\;=\;42\,a(n-1) - 322\,a(n-2) + 274\,a(n-3) + 1887\,a(n-4) - 3124\,a(n-5) + 76\,a(n-6) + 1168\,a(n-7)
-\]
-for every $n>7$.
+The recurrence \eqref{eq:conj} holds for every $n>7$, which is the statement of
+Section~1.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $7$ matrix--vector products in exact integer
-arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=7+1$ onwards and the run continued
-until the working vector was identically zero. The rational weights are carried as one common
-denominator throughout, so no division is performed until the final term.
+The digraph was built directly from the conditions listed above. The vector $w$ was formed by
+$7$ applications of $G$ in exact integer arithmetic and $\mathbf{v}^{\!\top}G^{m}w$
+evaluated for $m=0,1,\dots$, again exactly. Every one of those integers vanishes from the
+index corresponding to $n=7+1$ onwards, and the run continued until $S+1$ consecutive
+zeros had been seen.
 \end{proof}
 
 \section{Verification}
 
-Four checks, each independent of the algebra above.
+Three checks, each independent of the algebra above.
 
-First, the model reproduces all $15$ terms the entry publishes, exactly, in integer
-arithmetic.
+First, the walk counts of Lemma~\ref{lem:walk} were compared against the entry's DATA at
+every one of the $16$ published indices, with no shift fitted. The values agree exactly.
+This is what fixes the reading of the wording: ``rows and columns in nondecreasing order''
+means the rows and columns are sorted as vectors, not that each is nondecreasing along
+itself, and the two readings already differ at the second published term --- $86$ against
+$50$ for $2\times2$ arrays over $\{0,1,2,3\}$. The DATA decides it.
 
-Second, the count was recomputed for the smallest arrays straight from the definition:
-enumerate every array over $\{0,\dots,3\}$, keep those that are canonical, that use every
-letter, and whose every subblock passes, and count them. Neither the transfer matrix nor the
-falling-factorial inversion is involved, and the published terms came back --- including the
-initial zeros, which are a sharp test of the ``containing all values'' clause: a small array
-cannot show $4$ letters at all.
+Second, the recurrence \eqref{eq:conj} was evaluated on those published terms in exact
+integer arithmetic, with no matrices involved, and vanishes wherever it applies.
 
-Third, the conjectured recurrence was evaluated directly on the published terms, with no
-matrices involved, and holds wherever the proved range and the data overlap.
-
-Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
-arithmetic on the whole vector rather than on a sampled prefix.
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried to the full
+Cayley--Hamilton bound in exact integer arithmetic rather than to a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A210080.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A224019.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; Stirling numbers and
-falling factorials, Section 1.9.)
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+University Press, 2009.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

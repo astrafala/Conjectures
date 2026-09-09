@@ -8,174 +8,114 @@
 \newtheorem{theorem}{Theorem}
 \newtheorem{lemma}[theorem]{Lemma}
 \newtheorem{proposition}[theorem]{Proposition}
-\newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
-
-\title{Every term of OEIS A393856 is congruent to $1$ modulo $5$}
+\title{A proof of the conjectured closed form for OEIS A227161}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A393856 is defined by the functional equation $A\bigl(x-xA(4x)/4\bigr)=x$ for its
-ordinary generating function, and carries a conjecture of P.~D.~Hanna that every term is
-congruent to $1$ modulo $5$. It is true, and the reason is that $4\equiv-1$ modulo
-$5$. The functional equation determines the coefficients one at a time, so it determines
-them modulo $5$ as well; and modulo $5$ the series $x/(1-x)$, all of whose coefficients
-are $1$, satisfies the equation exactly. Uniqueness then forces $A(x)\equiv x/(1-x)$, which
-is the conjecture. The argument is an identity between rational functions over
-$\mathbb{Z}/5\mathbb{Z}$ and involves no estimation and no truncation.
+OEIS A227161 carries a conjectured closed form. We prove it. The entry states, as fact,
+a generating function, and from that a linear recurrence with polynomial coefficients satisfied by
+the sequence is derived exactly. The conjectured closed form is then shown to satisfy the
+same recurrence, and to agree with the sequence at enough consecutive indices. A recurrence
+of order $3$ whose leading coefficient does not vanish, together with $3$
+consecutive values, determines a sequence completely, so the two agree everywhere. Nothing
+is checked numerically and then assumed: the recurrence is derived symbolically, the
+verification is an exact identity, and the finitely many indices where the leading
+coefficient vanishes are computed rather than waved at.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 11B50, 05A15, 13F25.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 33F10.\normalsize
 
-\section{The sequence and the conjecture}
+\section{The sequence, what is known, and what is conjectured}
 
-OEIS A393856 is ``G.f. A(x) satisfies: A( x - x*A(4*x)/4 ) = x.''. It has offset $1$ and begins
+OEIS A227161 is ``Number of n X 2 0,1 arrays indicating 2 X 2 subblocks of some larger (n+1) X 3 binary array having a sum of one or less, with rows and columns of the latter in lexicographically nondecreasing order''. It has offset $0$ and begins
 \[
-1, 1, 6, 121, 8466, 2227706,\ \dots
+a(0),\dots,a(7)\;=\;1, 3, 8, 18, 36, 66, 113, 183,\ \dots
 \]
-So, writing $A(x)=\sum_{n\ge1}a(n)x^{n}$, the entry defines $A$ by
-\begin{equation}\label{eq:fe}
-A\!\left(x-\frac{x\,A(4x)}{4}\right)\;=\;x .
-\end{equation}
-This is the only input taken from the entry.
-
-The entry separately carries the following comment:
+The entry states, not as a conjecture,
 \begin{quote}\small
-Conjecture: a(n) == 1 (mod 5) for n >= 1.
+-(1-x+x\textasciicircum{}2)\textasciicircum{}2/(x-1)\textasciicircum{}5. - \emph{Alois P. Heinz}, Jul 18 2013
 \end{quote}
-As of the ``Last modified'' line on the live entry (Mar 12 2026 10:39:38, revision 14) the statement is
-still recorded as a conjecture, and nothing on the entry records it as settled either way.
+and separately carries the comment
+\begin{quote}\small
+a(n) = (1/24)*n\textasciicircum{}4 + (1/12)*n\textasciicircum{}3 + (23/24)*n\textasciicircum{}2 + (11/12)*n + 1.
+\end{quote}
+As of the ``Last modified'' line on the live entry (2017-01-24, revision 23) the second
+statement is still recorded as a conjecture, and no proof appears among the entry's links,
+formulas or programs.
 
-Written out, the conjecture asserts
-\begin{equation}\label{eq:conj}
-a(n)\;\equiv\;1 \pmod{5}\qquad\text{for every } n\ge1 .
+\section{A recurrence from what is known}
+
+The generating function the entry posts is algebraic over $\mathbb{Q}(x)$, hence $D$-finite: it satisfies a linear differential equation with polynomial coefficients, obtained by differentiating its defining equation inside the field it generates and taking a linear dependence among the derivatives. Reading off the coefficient of each power of $x$ turns that differential equation into a recurrence for the coefficients, which is
+
+\begin{equation}\label{eq:rec}
+\left(- n - 1\right)\,a(n) + \left(2 n + 1\right)\,a(n+1) + \left(- 2 n - 7\right)\,a(n+2) + \left(n + 3\right)\,a(n+3) \;=\; 0
 \end{equation}
 
-\section{The equation determines the sequence}
+The leading coefficient of \eqref{eq:rec} is $n + 3$. Its only integer zeros are $n\in\{-3\}$, all below the range claimed here.
 
-It is convenient to clear the division. Since $A$ has no constant term,
-\begin{equation}\label{eq:B}
-B(x)\;:=\;x-\frac{x\,A(4x)}{4}\;=\;x-\sum_{n\ge1}a(n)\,4^{\,n-1}x^{n+1},
-\end{equation}
-so $B$ has integer coefficients even though \eqref{eq:fe} appears to divide by $4$.
+\section{The conjectured description satisfies it}
+
+The conjectured closed form is a sum of hypergeometric terms. Substituting it into \eqref{eq:rec} and grouping the summands into similarity classes -- two terms being similar when their quotient is a rational function of $n$ -- every class contributes a rational function of $n$, and each of those cancels to zero identically. Since pairwise dissimilar hypergeometric terms are linearly independent over $\mathbb{Q}(n)$, that is exactly the statement that the closed form satisfies \eqref{eq:rec}.
+
+\section{Uniqueness}
 
 \begin{lemma}\label{lem:unique}
-There is exactly one sequence of integers $a(1),a(2),\dots$ satisfying \eqref{eq:fe}, and
-it is given by $a(1)=1$ together with
-\begin{equation}\label{eq:rec}
-a(N)\;=\;-\sum_{j=1}^{N-1}a(j)\,\bigl[x^{N}\bigr]B(x)^{j}\qquad(N\ge2),
-\end{equation}
-in which the right-hand side depends only on $a(1),\dots,a(N-1)$.
+Let $\sum_{j=0}^{r}q_{j}(n)\,b(n+j)=0$ be a linear recurrence whose leading coefficient
+$q_{r}$ has no zero at any integer $n\ge n_{0}$. If two sequences both satisfy it for all
+$n\ge n_{0}$ and agree at the $r$ consecutive indices $n_{0},\dots,n_{0}+r-1$, they agree
+at every $n\ge n_{0}$.
 \end{lemma}
 
 \begin{proof}
-$B(x)=x+O(x^{2})$, so $B$ has a compositional inverse and $\bigl[x^{j}\bigr]B^{j}=1$
-while $\bigl[x^{N}\bigr]B^{j}=0$ for $N<j$. Expanding \eqref{eq:fe},
-\[
-x\;=\;A\bigl(B(x)\bigr)\;=\;\sum_{j\ge1}a(j)\,B(x)^{j} .
-\]
-Comparing coefficients of $x^{1}$ gives $a(1)=1$. For $N\ge2$, comparing coefficients of
-$x^{N}$ gives
-\[
-0\;=\;\sum_{j=1}^{N}a(j)\,\bigl[x^{N}\bigr]B^{j}
-\;=\;a(N)+\sum_{j=1}^{N-1}a(j)\,\bigl[x^{N}\bigr]B^{j},
-\]
-since the $j=N$ term contributes $a(N)\cdot1$. This is \eqref{eq:rec}. For the dependence
-claim: by \eqref{eq:B}, $\bigl[x^{i}\bigr]B$ involves only $a(i-1)$, so
-$\bigl[x^{N}\bigr]B^{j}$ involves only $a(1),\dots,a(N-1)$ for every $j\ge1$. Hence
-\eqref{eq:rec} determines $a(N)$ from its predecessors, and induction gives both existence
-and uniqueness.
+Induction. Suppose the two agree at $n_{0},\dots,m+r-1$ for some $m\ge n_{0}$. The
+recurrence at $n=m$ determines $b(m+r)$ from the preceding $r$ values, because $q_{r}(m)$
+is nonzero and may be divided by; both sequences therefore take the same value at $m+r$.
 \end{proof}
 
-\begin{corollary}\label{cor:mod}
-For any integer $k\ge2$, the reductions $a(n)\bmod k$ are determined by the same recursion
-read in $\mathbb{Z}/k\mathbb{Z}$. Consequently, if $\bar A(x)\in(\mathbb{Z}/k\mathbb{Z})[[x]]$ has
-$\bar A(x)=x+O(x^{2})$ and satisfies \eqref{eq:fe} with coefficients read modulo $k$, then
-$a(n)\equiv\bigl[x^{n}\bigr]\bar A(x) \pmod k$ for every $n$.
-\end{corollary}
-
-\begin{proof}
-Every operation in \eqref{eq:B} and \eqref{eq:rec} is a sum or product of integers, so
-reduction modulo $k$ is a ring homomorphism carrying the integer recursion to the same
-recursion over $\mathbb{Z}/k\mathbb{Z}$. That recursion has a unique solution, by the argument of
-Lemma~\ref{lem:unique} verbatim; both $a\bmod k$ and $\bar A$ solve it.
-\end{proof}
-
-\section{The reduction modulo $5$}
-
-Everything now happens in $(\mathbb{Z}/5\mathbb{Z})[[x]]$. The one fact that drives the proof is
-\begin{equation}\label{eq:minus}
-4\;\equiv\;-1 \pmod{5} .
-\end{equation}
-
-\begin{theorem}\label{thm:main}
-$a(n)\equiv1\pmod{5}$ for every $n\ge1$. This is the conjecture of Section~1.
+\begin{theorem}
+For all $n\ge 1$,
+\[
+a(n) \;=\; \frac{n^{4}}{24} + \frac{n^{3}}{12} + \frac{23 n^{2}}{24} + \frac{11 n}{12} + 1
+\]
 \end{theorem}
 
 \begin{proof}
-Let $\bar A(x)=\dfrac{x}{1-x}=\sum_{n\ge1}x^{n}$ in $(\mathbb{Z}/5\mathbb{Z})[[x]]$, so all its
-coefficients are $1$ and $\bar A(x)=x+O(x^{2})$. By Corollary~\ref{cor:mod} it suffices to
-check that $\bar A$ satisfies \eqref{eq:fe} modulo $5$.
-
-Form $\bar B$ from $\bar A$ by \eqref{eq:B}. Its coefficients are
-$\bigl[x^{n+1}\bigr]\bar B=-4^{\,n-1}$, and by \eqref{eq:minus}
-$4^{\,n-1}\equiv(-1)^{n-1}$, so
-\[
-\bar B(x)\;=\;x-\sum_{n\ge1}(-1)^{n-1}x^{n+1}
-\;=\;x-x\sum_{n\ge1}(-1)^{n-1}x^{n}
-\;=\;x-x\cdot\frac{x}{1+x}
-\;=\;\frac{x}{1+x} .
-\]
-Composing,
-\[
-\bar A\bigl(\bar B(x)\bigr)\;=\;\frac{\dfrac{x}{1+x}}{1-\dfrac{x}{1+x}}
-\;=\;\frac{\dfrac{x}{1+x}}{\dfrac{(1+x)-x}{1+x}}
-\;=\;\frac{x}{1+x}\cdot\frac{1+x}{1}\;=\;x .
-\]
-Both compositions are legitimate because $\bar B(x)=x+O(x^{2})$ has zero constant term.
-So $\bar A$ satisfies \eqref{eq:fe} modulo $5$, and Corollary~\ref{cor:mod} gives
-$a(n)\equiv\bigl[x^{n}\bigr]\bar A=1\pmod{5}$ for every $n\ge1$.
+Both sides satisfy \eqref{eq:rec}: the sequence because the recurrence was derived from
+the entry's own a generating function, and the conjectured closed form by the computation of the
+previous section. They agree at the $3$ consecutive indices beginning
+$n=1$, which was checked against the entry's DATA in exact integer arithmetic.
+The leading coefficient has no zero at any integer $n\ge1$, so
+Lemma~\ref{lem:unique} applies.
 \end{proof}
-
-\begin{remark}
-The proof used nothing about $4$ beyond \eqref{eq:minus}. The same argument shows that
-for every integer $m\ge2$, the sequence defined by $A\bigl(x-xA(mx)/m\bigr)=x$ has all of
-its terms congruent to $1$ modulo $m+1$. Note also where the hypothesis bites: modulo $k$
-the quantity $4^{\,n-1}$ must be $(-1)^{n-1}$ for the telescoping above, and that is
-exactly \eqref{eq:minus}.
-\end{remark}
 
 \section{Verification}
 
-Three checks, each independent of the algebra above.
+Three checks, independent of one another.
 
-First, the recursion \eqref{eq:rec} was run in exact integer arithmetic and its output
-compared against the entry's DATA at every one of the $15$ published indices; the
-values agree exactly. A recursion that reproduced only some of them would mean the
-functional equation had been transcribed wrongly.
+First, the description the entry states as fact was itself confirmed against the entry's
+DATA before any recurrence was derived from it; a statement that did not reproduce the
+entry's own terms would not have been used as the basis of anything.
 
-Second, the same run was continued to $n=24$ and every term reduced modulo $5$; all
-$24$ residues are $1$, as Theorem~\ref{thm:main} requires.
+Second, the derived recurrence \eqref{eq:rec} was evaluated on the published terms in
+exact integer arithmetic and vanishes at every index where it applies.
 
-Third, the composition $\bar A\bigl(\bar B(x)\bigr)$ of the proof was carried out
-independently as a formal power series over $\mathbb{Z}/5\mathbb{Z}$, coefficient by
-coefficient to order $30$, starting from $\bar a(n)=1$ rather than from the closed form;
-the result is $x$ exactly, and the computed $\bar B$ agrees with $x/(1+x)$ at every one of
-those orders.
+Third, the conjectured closed form was evaluated at the first $13$ indices and
+compared term by term with the DATA; the values agree exactly. This is not part of the
+proof, which is symbolic, but it would catch a transcription error in either statement.
 
 \begin{thebibliography}{9}
-\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A393856.
-\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 2, Cambridge
-University Press, 1999.
+\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer Sequences},
+\url{https://oeis.org}, 2026. Sequence A227161.
+\bibitem{aeqb} M.~Petkov\v{s}ek, H.~S.~Wilf and D.~Zeilberger, \emph{A=B}, A K Peters,
+1996.
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
 University Press, 2009.
-\bibitem{hw} G.~H.~Hardy and E.~M.~Wright, \emph{An Introduction to the Theory of
-Numbers}, 6th ed., Oxford University Press, 2008.
+\bibitem{kauers} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011.
 \end{thebibliography}
 
 \end{document}

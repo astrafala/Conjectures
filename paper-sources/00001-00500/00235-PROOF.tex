@@ -8,114 +8,151 @@
 \newtheorem{theorem}{Theorem}
 \newtheorem{lemma}[theorem]{Lemma}
 \newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
-\title{A proof of the conjectured closed form for OEIS A227161}
+
+\title{A bisection identity between OEIS A111403 and OEIS A002716}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A227161 carries a conjectured closed form. We prove it. The entry states, as fact,
-a generating function, and from that a linear recurrence with polynomial coefficients satisfied by
-the sequence is derived exactly. The conjectured closed form is then shown to satisfy the
-same recurrence, and to agree with the sequence at enough consecutive indices. A recurrence
-of order $3$ whose leading coefficient does not vanish, together with $3$
-consecutive values, determines a sequence completely, so the two agree everywhere. Nothing
-is checked numerically and then assumed: the recurrence is derived symbolically, the
-verification is an exact identity, and the finitely many indices where the leading
-coefficient vanishes are computed rather than waved at.
+OEIS A111403 carries a conjecture of R.~J.~Mathar that its $n$-th term is one less than
+the $(2n)$-th term of OEIS A002716, Somos's infinite coprime sequence. It is true. The
+recurrence A002716 states as fact splits into two closed forms, one for each parity of the
+index, and a short induction proves both at once: the odd-indexed terms are exactly the
+Fermat numbers $2^{2^{n+1}}+1$, and the even-indexed terms are $2^{2^{n+1}}-2^{2^{n}}+1$,
+which is one more than the defining expression for A111403.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 33F10.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 11B37, 11B83, 11A41.\normalsize
 
-\section{The sequence, what is known, and what is conjectured}
+\section{The two sequences and the conjecture}
 
-OEIS A227161 is ``Number of n X 2 0,1 arrays indicating 2 X 2 subblocks of some larger (n+1) X 3 binary array having a sum of one or less, with rows and columns of the latter in lexicographically nondecreasing order''. It has offset $0$ and begins
+OEIS A111403 is ``a(n) = f(f(n+1)) - f(f(n)), where f(m) = 2\^{}m.''. It has offset $0$ and begins
 \[
-a(0),\dots,a(7)\;=\;1, 3, 8, 18, 36, 66, 113, 183,\ \dots
+2, 12, 240, 65280, 4294901760, 18446744069414584320, 340282366920938463444927863358058659840,\ \dots
 \]
-The entry states, not as a conjecture,
+OEIS A002716 is ``An infinite coprime sequence defined by recursion.''. It has offset $0$ and begins
+\[
+3, 5, 13, 17, 241, 257, 65281, 65537,\ \dots
+\]
+
+The entry A111403 carries the following comment:
 \begin{quote}\small
--(1-x+x\textasciicircum{}2)\textasciicircum{}2/(x-1)\textasciicircum{}5. - \emph{Alois P. Heinz}, Jul 18 2013
+Conjecture: a(n) = A002716(2*n)-1. --- \emph{R. J. Mathar}, May 15 2007
 \end{quote}
-and separately carries the comment
-\begin{quote}\small
-a(n) = (1/24)*n\textasciicircum{}4 + (1/12)*n\textasciicircum{}3 + (23/24)*n\textasciicircum{}2 + (11/12)*n + 1.
-\end{quote}
-As of the ``Last modified'' line on the live entry (2017-01-24, revision 23) the second
-statement is still recorded as a conjecture, and no proof appears among the entry's links,
-formulas or programs.
+As of the ``Last modified'' line on the live entry (Oct 06 2024 09:17:07, revision 29) the
+statement is still recorded as unproved, and nothing on either entry records it as settled
+either way. (A002716 carries a separate conjecture of the same contributor, on its odd-indexed terms; it is not the statement treated here, and it is not used below.)
 
-\section{A recurrence from what is known}
-
-The generating function the entry posts is algebraic over $\mathbb{Q}(x)$, hence $D$-finite: it satisfies a linear differential equation with polynomial coefficients, obtained by differentiating its defining equation inside the field it generates and taking a linear dependence among the derivatives. Reading off the coefficient of each power of $x$ turns that differential equation into a recurrence for the coefficients, which is
-
-\begin{equation}\label{eq:rec}
-\left(- n - 1\right)\,a(n) + \left(2 n + 1\right)\,a(n+1) + \left(- 2 n - 7\right)\,a(n+2) + \left(n + 3\right)\,a(n+3) \;=\; 0
+Write $f(m)=2^{m}$. The name of A111403 defines
+\begin{equation}\label{eq:a}
+a(n)\;=\;f\bigl(f(n+1)\bigr)-f\bigl(f(n)\bigr)\;=\;2^{2^{n+1}}-2^{2^{n}},
 \end{equation}
+and the statement to be proved is
+\begin{equation}\label{eq:conj}
+a(n)\;=\;b(2n)-1\qquad\text{for all } n\ge0,
+\end{equation}
+where $b$ is A002716.
 
-The leading coefficient of \eqref{eq:rec} is $n + 3$. Its only integer zeros are $n\in\{-3\}$, all below the range claimed here.
+\section{What A002716 states as fact}
 
-\section{The conjectured description satisfies it}
+A002716 states, not as a conjecture,
+\begin{quote}\small
+a(2*n + 1) = a(2*n) + a(2*n - 1) - 1, a(2*n) = a(2*n - 1)\^{}2 - 3 * a(2*n - 1) + 3,
+a(0) = 3, a(1) = 5.
+\end{quote}
+that is, with $b$ for the sequence,
+\begin{equation}\label{eq:rec}
+b(0)=3,\quad b(1)=5,\qquad
+b(2n)=b(2n-1)^{2}-3\,b(2n-1)+3,\qquad
+b(2n+1)=b(2n)+b(2n-1)-1
+\end{equation}
+for $n\ge1$. This determines $b$ completely, and it is the only input taken from that
+entry; it was checked against all $13$ of its published terms before use.
 
-The conjectured closed form is a sum of hypergeometric terms. Substituting it into \eqref{eq:rec} and grouping the summands into similarity classes -- two terms being similar when their quotient is a rational function of $n$ -- every class contributes a rational function of $n$, and each of those cancels to zero identically. Since pairwise dissimilar hypergeometric terms are linearly independent over $\mathbb{Q}(n)$, that is exactly the statement that the closed form satisfies \eqref{eq:rec}.
+\section{The proof}
 
-\section{Uniqueness}
-
-\begin{lemma}\label{lem:unique}
-Let $\sum_{j=0}^{r}q_{j}(n)\,b(n+j)=0$ be a linear recurrence whose leading coefficient
-$q_{r}$ has no zero at any integer $n\ge n_{0}$. If two sequences both satisfy it for all
-$n\ge n_{0}$ and agree at the $r$ consecutive indices $n_{0},\dots,n_{0}+r-1$, they agree
-at every $n\ge n_{0}$.
+\begin{lemma}\label{lem:cf}
+For every $n\ge0$,
+\[
+b(2n+1)\;=\;2^{2^{n+1}}+1 ,
+\]
+and for every $n\ge1$,
+\[
+b(2n)\;=\;2^{2^{n+1}}-2^{2^{n}}+1 .
+\]
 \end{lemma}
 
 \begin{proof}
-Induction. Suppose the two agree at $n_{0},\dots,m+r-1$ for some $m\ge n_{0}$. The
-recurrence at $n=m$ determines $b(m+r)$ from the preceding $r$ values, because $q_{r}(m)$
-is nonzero and may be divided by; both sequences therefore take the same value at $m+r$.
+Induction on $n$, proving the odd-index statement and using it to get the next
+even-index one.
+
+For $n=0$ the first claim reads $b(1)=2^{2}+1=5$, which is the initial condition in
+\eqref{eq:rec}.
+
+Let $n\ge1$ and suppose $b(2n-1)=2^{2^{n}}+1$, which is the first claim at $n-1$. Write
+$u=2^{2^{n}}$, so $b(2n-1)=u+1$ and $u^{2}=2^{2^{n+1}}$. By \eqref{eq:rec},
+\[
+b(2n)=(u+1)^{2}-3(u+1)+3=u^{2}+2u+1-3u-3+3=u^{2}-u+1
+=2^{2^{n+1}}-2^{2^{n}}+1,
+\]
+which is the second claim at $n$. Then, again by \eqref{eq:rec},
+\[
+b(2n+1)=b(2n)+b(2n-1)-1=\bigl(u^{2}-u+1\bigr)+\bigl(u+1\bigr)-1=u^{2}+1
+=2^{2^{n+1}}+1,
+\]
+which is the first claim at $n$. The induction is complete.
 \end{proof}
 
 \begin{theorem}
-For all $n\ge 1$,
-\[
-a(n) \;=\; \frac{n^{4}}{24} + \frac{n^{3}}{12} + \frac{23 n^{2}}{24} + \frac{11 n}{12} + 1
-\]
+For every integer $n\ge0$, $a(n)=b(2n)-1$, where $a$ is OEIS A111403 and $b$ is OEIS
+A002716. This is the statement of Section~1.
 \end{theorem}
 
 \begin{proof}
-Both sides satisfy \eqref{eq:rec}: the sequence because the recurrence was derived from
-the entry's own a generating function, and the conjectured closed form by the computation of the
-previous section. They agree at the $3$ consecutive indices beginning
-$n=1$, which was checked against the entry's DATA in exact integer arithmetic.
-The leading coefficient has no zero at any integer $n\ge1$, so
-Lemma~\ref{lem:unique} applies.
+For $n\ge1$, Lemma~\ref{lem:cf} gives
+$b(2n)-1=2^{2^{n+1}}-2^{2^{n}}$, which is $a(n)$ by \eqref{eq:a}.
+
+For $n=0$ we have $b(0)=3$ from \eqref{eq:rec}, so $b(0)-1=2$, while \eqref{eq:a} gives
+$a(0)=2^{2}-2^{1}=2$. The two agree.
+\end{proof}
+
+\begin{corollary}
+The odd-indexed terms of A002716 are the Fermat numbers: $b(2n+1)=F_{n+1}$, where
+$F_m=2^{2^{m}}+1$.
+\end{corollary}
+
+\begin{proof}
+This is the first statement of Lemma~\ref{lem:cf}.
 \end{proof}
 
 \section{Verification}
 
-Three checks, independent of one another.
+Three checks, each independent of the algebra above.
 
-First, the description the entry states as fact was itself confirmed against the entry's
-DATA before any recurrence was derived from it; a statement that did not reproduce the
-entry's own terms would not have been used as the basis of anything.
+First, \eqref{eq:a} was evaluated in exact integer arithmetic and compared against every
+one of the $8$ published terms of A111403; the values agree exactly.
 
-Second, the derived recurrence \eqref{eq:rec} was evaluated on the published terms in
-exact integer arithmetic and vanishes at every index where it applies.
+Second, the recurrence \eqref{eq:rec} was iterated in exact integer arithmetic and
+compared against every one of the $13$ published terms of A002716; the values agree
+exactly. The two closed forms of Lemma~\ref{lem:cf} were then evaluated independently and
+matched against the same terms at every index of each parity.
 
-Third, the conjectured closed form was evaluated at the first $13$ indices and
-compared term by term with the DATA; the values agree exactly. This is not part of the
-proof, which is symbolic, but it would catch a transcription error in either statement.
+Third, the identity \eqref{eq:conj} was checked directly on the published terms, without
+any closed form: for every $n$ with $0\le n\le5$ --- the range for which both $a(n)$ and
+$b(2n)$ are published --- the two integers agree.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer Sequences},
-\url{https://oeis.org}, 2026. Sequence A227161.
-\bibitem{aeqb} M.~Petkov\v{s}ek, H.~S.~Wilf and D.~Zeilberger, \emph{A=B}, A K Peters,
-1996.
-\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
-University Press, 2009.
-\bibitem{kauers} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011.
+\url{https://oeis.org}, 2026.
+\bibitem{hw} G.~H.~Hardy and E.~M.~Wright, \emph{An Introduction to the Theory of
+Numbers}, 6th ed., Oxford University Press, 2008.
+\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
+Cambridge University Press, 2011.
 \end{thebibliography}
 
 \end{document}

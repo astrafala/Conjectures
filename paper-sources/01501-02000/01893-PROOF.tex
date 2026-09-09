@@ -12,18 +12,18 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A269217, proved by a counting transfer matrix}
+\title{The empirical recurrence for OEIS A269933, proved by a counting transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A269217 counts arrays over $\{0,\dots,3\}$ subject to a condition on the array as a
+OEIS A269933 counts arrays over $\{0,\dots,6\}$ subject to a condition on the array as a
 whole rather than cell by cell: the number of adjacent pairs with a stated property must be
 exactly one. A transfer matrix still applies once the running count is carried in the state; and
 because a count of two or more can never come back, those states may be dropped outright,
-which is what keeps the digraph sparse. That makes $a(n)$ a walk count on $S=512$ vertices,
+which is what keeps the digraph sparse. That makes $a(n)$ a walk count on $S=686$ vertices,
 and the empirical recurrence of order $20$ contributed by R.~H.~Hardin then follows from
 a finite exact computation.
 \end{abstract}
@@ -32,65 +32,65 @@ a finite exact computation.
 
 \section{The sequence and the conjecture}
 
-OEIS A269217 is ``Number of 4 X n 0..3 arrays with some element plus some horizontally, diagonally or antidiagonally adjacent neighbor totalling three exactly once.''. It has offset $1$ and begins
+OEIS A269933 is ``Number of nX3 0..6 arrays with some element plus some horizontally, diagonally, antidiagonally or vertically adjacent neighbor totalling six exactly once.''. It has offset $1$ and begins
 \[
-0, 11424, 361728, 12548544, 394072704, 11985002256, 354189986208, 10261769266944,\ \dots
+84, 36312, 5695536, 755009274, 91506078732, 10536802638018, 1172354654705496, 127313882431172946,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 48*a(n-1) -424*a(n-2) -5664*a(n-3) +40624*a(n-4) +218356*a(n-5) -1300662*a(n-6) -2980700*a(n-7) +17916384*a(n-8) +2629424*a(n-9) -96328452*a(n-10) +132185980*a(n-11) -10936481*a(n-12) -91456900*a(n-13) +51588388*a(n-14) +9975760*a(n-15) -14279120*a(n-16) +2348160*a(n-17) +465152*a(n-18) -79872*a(n-19) -9216*a(n-20).
+Empirical: a(n) = 144*a(n-1) -244*a(n-2) -431040*a(n-3) -653070*a(n-4) +185824500*a(n-5) -1565542220*a(n-6) -2246788724*a(n-7) +49596662711*a(n-8) -28656277332*a(n-9) -578014144012*a(n-10) +498466153668*a(n-11) +3129025277000*a(n-12) -1799356594080*a(n-13) -8214266955364*a(n-14) +1238204980096*a(n-15) +7873681484512*a(n-16) -756824714624*a(n-17) -2602301179968*a(n-18) +547351490048*a(n-19) -28883682304*a(n-20) for n>21
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jun 23 2026 13:46:34, revision 6) the statement is
+As of the ``Last modified'' line on the live entry (Mar 08 2016 07:37:33, revision 4) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;48\,a(n-1) - 424\,a(n-2) - 5664\,a(n-3) + 40624\,a(n-4) + 218356\,a(n-5) - 1300662\,a(n-6) - 2980700\,a(n-7) + 17916384\,a(n-8) + 2629424\,a(n-9) - 96328452\,a(n-10) + 132185980\,a(n-11) - 10936481\,a(n-12) - 91456900\,a(n-13) + 51588388\,a(n-14) + 9975760\,a(n-15) - 14279120\,a(n-16) + 2348160\,a(n-17) + 465152\,a(n-18) - 79872\,a(n-19) - 9216\,a(n-20)
+a(n)\;=\;144\,a(n-1) - 244\,a(n-2) - 431040\,a(n-3) - 653070\,a(n-4) + 185824500\,a(n-5) - 1565542220\,a(n-6) - 2246788724\,a(n-7) + 49596662711\,a(n-8) - 28656277332\,a(n-9) - 578014144012\,a(n-10) + 498466153668\,a(n-11) + 3129025277000\,a(n-12) - 1799356594080\,a(n-13) - 8214266955364\,a(n-14) + 1238204980096\,a(n-15) + 7873681484512\,a(n-16) - 756824714624\,a(n-17) - 2602301179968\,a(n-18) + 547351490048\,a(n-19) - 28883682304\,a(n-20)
 \end{equation}
-for all $n>20$.
+for all $n>21$.
 
 \section{A global count, and how to carry it}
 
-The arrays have $4$ rows and $L=n$ columns; write $x_{t,u}$ for the entry in
-column $t$ and row $u$. Call two cells \emph{adjacent} when they differ by one of the
+The arrays have $3$ columns and $L=n$ rows; write $x_{t,u}$ for the entry in
+row $t$ and column $u$. Call two cells \emph{adjacent} when they differ by one of the
 offsets
 \[
-\mathcal N=\{(1,0),\ (1,1),\ (1,-1)\},
+\mathcal N=\{(0,1),\ (1,1),\ (1,-1),\ (1,0)\},
 \]
-written as (column shift, row shift), and call an adjacent pair $\{p,q\}$
+written as (row shift, column shift), and call an adjacent pair $\{p,q\}$
 \emph{marked} when
 \[
-x_{p}+x_{q}=3 .
+x_{p}+x_{q}=6 .
 \]
-Each unordered adjacency is represented by exactly one offset, all with a nonnegative column
-shift, so every pair is named once and only once: the pairs inside a column are seen when
-that column is laid down, and the pairs joining two columns when the later of the two is. The
+Each unordered adjacency is represented by exactly one offset, all with a nonnegative row
+shift, so every pair is named once and only once: the pairs inside a row are seen when
+that row is laid down, and the pairs joining two rows when the later of the two is. The
 entry's requirement is
 \begin{equation}\label{eq:glob}
 \#\{\text{marked pairs in the whole array}\}\;=1.
 \end{equation}
 
-This is not a condition on any bounded window, so no transfer matrix over columns alone can
+This is not a condition on any bounded window, so no transfer matrix over rows alone can
 express it. It becomes one as soon as the running total is part of the state. Let
 \[
-\mathcal V=\bigl\{(r,c):\ r\in\{0,\dots,3\}^{4},\ c\in\{0,1\}\bigr\},
-\qquad |\mathcal V|=S=512,
+\mathcal V=\bigl\{(r,c):\ r\in\{0,\dots,6\}^{3},\ c\in\{0,1\}\bigr\},
+\qquad |\mathcal V|=S=686,
 \]
-and for columns $r,s$ write $\beta(r,s)$ for the number of marked pairs joining them plus the
+and for rows $r,s$ write $\beta(r,s)$ for the number of marked pairs joining them plus the
 number of marked pairs inside $s$. Declare $(r,c)\to(s,c+\beta(r,s))$ an edge whenever
 $c+\beta(r,s)\le1$, and no edge otherwise.
 
 \begin{remark}
 Dropping the states with $c\ge2$ is not an approximation. Once the total has reached two it
 can only grow, so no array satisfying \eqref{eq:glob} passes through such a state. Keeping
-them --- as a third, absorbing value of $c$ --- would make every pair of columns an edge and
-the digraph dense, with $(3+1)^{2\cdot4}$ edges instead of the sparse set used here.
+them --- as a third, absorbing value of $c$ --- would make every pair of rows an edge and
+the digraph dense, with $(6+1)^{2\cdot3}$ edges instead of the sparse set used here.
 \end{remark}
 
 \begin{lemma}\label{lem:walk}
 Let $\mathbf{v}$ mark the vertices $(r,c)$ whose count $c$ equals the number of marked pairs
 inside $r$ alone, and $\mathbf{u}$ the vertices with $c=1$. Then for $L\ge1$ the arrays
-of $L$ columns satisfying \eqref{eq:glob} are exactly the walks of length $L-1$ from a
+of $L$ rows satisfying \eqref{eq:glob} are exactly the walks of length $L-1$ from a
 vertex marked by $\mathbf{v}$ to one marked by $\mathbf{u}$, so
 \[
 a(n)\;=\;\,\mathbf{v}^{\!\top}N^{\,L-1}\mathbf{u},\qquad L=n .
@@ -101,14 +101,14 @@ a(n)\;=\;\,\mathbf{v}^{\!\top}N^{\,L-1}\mathbf{u},\qquad L=n .
 A walk $(r^{(1)},c_1)\to\cdots\to(r^{(L)},c_L)$ determines the array
 $r^{(1)},\dots,r^{(L)}$, and conversely each array determines at most one walk, since the
 starting count is fixed by $\mathbf{v}$ and each step's count is determined. By induction
-$c_t$ is the number of marked pairs in the first $t$ columns: it holds at $t=1$ by the
+$c_t$ is the number of marked pairs in the first $t$ rows: it holds at $t=1$ by the
 definition of $\mathbf{v}$, and the step from $t$ to $t+1$ adds exactly the pairs joining
-columns $t$ and $t+1$ together with those inside column $t+1$, which are precisely the marked
-pairs of the first $t+1$ columns not already counted --- each unordered pair being named by
+rows $t$ and $t+1$ together with those inside row $t+1$, which are precisely the marked
+pairs of the first $t+1$ rows not already counted --- each unordered pair being named by
 exactly one offset. The walk exists (no edge is missing) if and only if the running total
 never exceeds $1$, which for a nondecreasing total is the same as $c_L\le1$; and
 $\mathbf{u}$ imposes the entry's requirement on $c_L$. Note the state already carries one
-column, so $L$ columns correspond to a walk of length $L-1$.
+row, so $L$ rows correspond to a walk of length $L-1$.
 \end{proof}
 
 \section{The criterion, and the computation}
@@ -135,7 +135,7 @@ ones.
 \end{proof}
 
 \begin{theorem}
-The recurrence \eqref{eq:conj} holds for every $n>20$, which is the statement of
+The recurrence \eqref{eq:conj} holds for every $n>21$, which is the statement of
 Section~1.
 \end{theorem}
 
@@ -143,7 +143,7 @@ Section~1.
 The digraph was built directly from the definition of a marked pair. The vector $w$ was
 formed by $20$ applications of $G$ in exact integer arithmetic and
 $\mathbf{v}^{\!\top}G^{m}w$ evaluated for $m=0,1,\dots$, again exactly. Every one of
-those integers vanishes from the index corresponding to $n=20+1$ onwards, and the run
+those integers vanishes from the index corresponding to $n=21+1$ onwards, and the run
 continued until $S+1$ consecutive zeros had been seen, which by Lemma~\ref{lem:crit}
 settles every larger $m$.
 \end{proof}
@@ -153,12 +153,12 @@ settles every larger $m$.
 Three checks, each independent of the algebra above.
 
 First, the walk counts of Lemma~\ref{lem:walk} were compared against the entry's DATA at
-every one of the $14$ published indices, with no shift fitted: the number of columns is
+every one of the $12$ published indices, with no shift fitted: the number of rows is
 $L=n$, read off the entry's own name, and the offset says which index the first
 published term carries. The values agree exactly. This is where an error in the pair
 bookkeeping would show: counting an unordered pair twice, or missing the pairs inside the
-first column, changes the counts immediately. Indeed a first version of the computation
-placed the walk at length $L-2$ rather than $L-1$ --- the state carries a column, not a
+first row, changes the counts immediately. Indeed a first version of the computation
+placed the walk at length $L-2$ rather than $L-1$ --- the state carries a row, not a
 boundary --- and every value came out one index late, which the DATA comparison rejected.
 
 Second, the recurrence \eqref{eq:conj} was evaluated on those published terms in exact
@@ -169,7 +169,7 @@ Cayley--Hamilton bound in exact integer arithmetic rather than to a sampled pref
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A269217.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A269933.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

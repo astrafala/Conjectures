@@ -12,21 +12,21 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A234892: recovering a conjecture that is not written down}
+\title{The empirical recurrence for OEIS A234407: recovering a conjecture that is not written down}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A234892 records ``Empirical recurrence of order $51$'', with the recurrence itself in a
+OEIS A234407 records ``Empirical recurrence of order $52$'', with the recurrence itself in a
 linked file rather than in the entry. The conjecture can nevertheless be settled, and the
 recurrence recovered, without reading that file. The entry counts arrays under a condition
-local to a bounded window of lines, so the count is a walk count on $S=252$ vertices and
+local to a bounded window of lines, so the count is a walk count on $S=343$ vertices and
 satisfies some monic recurrence of order at most $S$; Berlekamp--Massey applied to $2S$ exact
-terms therefore returns the MINIMAL such recurrence. Its order is exactly $51$, the order
+terms therefore returns the MINIMAL such recurrence. Its order is exactly $52$, the order
 the entry states, and the same is true of every tail of the sequence. Any recurrence of order
-$51$ that the sequence satisfies from any point on must then have a characteristic
+$52$ that the sequence satisfies from any point on must then have a characteristic
 polynomial that is a multiple of the minimal one and of the same degree, hence equal to it. So
 the entry's recurrence is the one displayed here, whatever its file contains, and it is
 proved.
@@ -36,15 +36,15 @@ proved.
 
 \section{A conjecture one cannot read}
 
-OEIS A234892 is ``Number of (n+1) X (2+1) 0..6 arrays with every 2 X 2 subblock having its diagonal sum differing from its antidiagonal sum by 1, with no adjacent elements equal (constant-stress tilted 1 X 1 tilings).''. It has offset $1$ and begins
+OEIS A234407 is ``Number of (n+1)X(2+1) 0..6 arrays with every 2X2 subblock having the sum of the absolute values of the edge differences equal to 12 and no adjacent elements equal.''. It has offset $1$ and begins
 \[
-760, 4024, 20404, 115924, 625480, 3640580, 19965444, 117487100,\ \dots
+2540, 38236, 578080, 9552088, 160156724, 2732474648, 46838063500, 805631496848,\ \dots
 \]
 The entry states:
 \begin{quote}
-Empirical recurrence of order 51 (see link above).
+Empirical recurrence of order 52 (see link above)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jun 20 2022 01:56:04, revision 7) this is still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 08:22:48, revision 7) this is still
 recorded as empirical. The recurrence's coefficients are not in the entry text.
 
 \section{The count is a walk count}
@@ -52,13 +52,13 @@ recorded as empirical. The recurrence's coefficients are not in the entry text.
 The entry's condition is local: it constrains a bounded window of consecutive lines of the
 array and nothing further. The admissible configurations of one such window are the vertices
 of a finite digraph, an edge joining $u$ to $v$ when $v$ may follow $u$, and an admissible
-array is exactly a walk. Hence, with $M$ the adjacency matrix on $S=252$ vertices,
+array is exactly a walk. Hence, with $M$ the adjacency matrix on $S=343$ vertices,
 $a(n)=\iota^{\!\top}M^{\,j(n)}\tau$ for a linear reindexing $j$ fixed by the entry's shape
 and checked against its published terms. By the Cayley--Hamilton theorem $M^{S}$ is an
 integer combination of $I,M,\dots,M^{S-1}$, so:
 
 \begin{lemma}\label{lem:cf}
-$a$ satisfies a monic linear recurrence with integer coefficients of order at most $S=252$.
+$a$ satisfies a monic linear recurrence with integer coefficients of order at most $S=343$.
 \end{lemma}
 
 \section{Recovering the recurrence}
@@ -69,26 +69,26 @@ with its minimal recurrence, by its first $2S$ terms: Berlekamp--Massey applied 
 that minimal recurrence exactly.
 \end{lemma}
 
-Running it on $2S=504$ exact terms of the model returns order $51$ --- the order the
+Running it on $2S=686$ exact terms of the model returns order $52$ --- the order the
 entry states --- with the integer coefficients
 \[
-a(n)\;=\;\sum_{i=1}^{51}c_i\,a(n-i),
+a(n)\;=\;\sum_{i=1}^{52}c_i\,a(n-i),
 \]
 \begin{center}\small
 \begin{tabular}{cccccccc}
-$c_{1}$ & $4$ & $c_{14}$ & $4498389253$ & $c_{27}$ & $-33116019498798$ & $c_{40}$ & $3987806160592$ \\
-$c_{2}$ & $123$ & $c_{15}$ & $-18768892850$ & $c_{28}$ & $-1490305382094$ & $c_{41}$ & $6051932417256$ \\
-$c_{3}$ & $-483$ & $c_{16}$ & $-26297853312$ & $c_{29}$ & $52810649104079$ & $c_{42}$ & $-1425570357572$ \\
-$c_{4}$ & $-6531$ & $c_{17}$ & $116335244492$ & $c_{30}$ & $-2363703417987$ & $c_{43}$ & $-1588839760344$ \\
-$c_{5}$ & $25275$ & $c_{18}$ & $117932927606$ & $c_{31}$ & $-67448269920756$ & $c_{44}$ & $347288324768$ \\
-$c_{6}$ & $200925$ & $c_{19}$ & $-566371038157$ & $c_{32}$ & $7715763511555$ & $c_{45}$ & $288115053744$ \\
-$c_{7}$ & $-772150$ & $c_{20}$ & $-405904133091$ & $c_{33}$ & $68635991346730$ & $c_{46}$ & $-53678726048$ \\
-$c_{8}$ & $-4045683$ & $c_{21}$ & $2187138687608$ & $c_{34}$ & $-11455498172200$ & $c_{47}$ & $-33399316384$ \\
-$c_{9}$ & $15587027$ & $c_{22}$ & $1061356877539$ & $c_{35}$ & $-55199111713794$ & $c_{48}$ & $4603347312$ \\
-$c_{10}$ & $56995150$ & $c_{23}$ & $-6744275519606$ & $c_{36}$ & $11279581805386$ & $c_{49}$ & $2152678752$ \\
-$c_{11}$ & $-222557768$ & $c_{24}$ & $-2044558418304$ & $c_{37}$ & $34670307025860$ & $c_{50}$ & $-159862848$ \\
-$c_{12}$ & $-585318095$ & $c_{25}$ & $16674705188002$ & $c_{38}$ & $-7904850175210$ & $c_{51}$ & $-55125120$ \\
-$c_{13}$ & $2345380349$ & $c_{26}$ & $2652227331231$ & $c_{39}$ & $-16724353625432$ &  &  \\
+$c_{1}$ & $16$ & $c_{14}$ & $1541912922843$ & $c_{27}$ & $-10094140918145782178$ & $c_{40}$ & $-85077115428166604124$ \\
+$c_{2}$ & $343$ & $c_{15}$ & $-51407941504309$ & $c_{28}$ & $-29832471445631807$ & $c_{41}$ & $84841723561569968442$ \\
+$c_{3}$ & $-5407$ & $c_{16}$ & $-15942622484437$ & $c_{29}$ & $32243153152175357541$ & $c_{42}$ & $53782802526282457108$ \\
+$c_{4}$ & $-46193$ & $c_{17}$ & $737978911236175$ & $c_{30}$ & $1865095390289233426$ & $c_{43}$ & $-26360096701631253048$ \\
+$c_{5}$ & $756458$ & $c_{18}$ & $105379206422301$ & $c_{31}$ & $-79671301010916536540$ & $c_{44}$ & $-21907925782469404952$ \\
+$c_{6}$ & $3398105$ & $c_{19}$ & $-8155423255985012$ & $c_{32}$ & $-10270789071172665814$ & $c_{45}$ & $3927435154261656032$ \\
+$c_{7}$ & $-59804847$ & $c_{20}$ & $-311647172223557$ & $c_{33}$ & $150653796660308997038$ & $c_{46}$ & $5391531414607092160$ \\
+$c_{8}$ & $-156279725$ & $c_{21}$ & $70008759690721462$ & $c_{34}$ & $31909867555002590345$ & $c_{47}$ & $108401158942182752$ \\
+$c_{9}$ & $3043046950$ & $c_{22}$ & $-1370629770032941$ & $c_{35}$ & $-214585166031441219611$ & $c_{48}$ & $-708154814934092992$ \\
+$c_{10}$ & $4813601223$ & $c_{23}$ & $-469286539060437243$ & $c_{36}$ & $-64982797218772957110$ & $c_{49}$ & $-113176559199023616$ \\
+$c_{11}$ & $-107016666546$ & $c_{24}$ & $19020944311183363$ & $c_{37}$ & $225037672779300815485$ & $c_{50}$ & $34315095492559872$ \\
+$c_{12}$ & $-102861688571$ & $c_{25}$ & $2461488830432656799$ & $c_{38}$ & $90052205664729619283$ & $c_{51}$ & $10330268020577280$ \\
+$c_{13}$ & $2719081101472$ & $c_{26}$ & $-77120431959995216$ & $c_{39}$ & $-168053234017955875873$ & $c_{52}$ & $647234300805120$ \\
 \end{tabular}
 \end{center}
 
@@ -99,10 +99,10 @@ The recurrence above holds for every $n$, and it is the recurrence the entry rec
 \begin{proof}
 It holds by Lemma~\ref{lem:bm}, which returns a recurrence the sequence satisfies from its
 first term. For the identification: the entry asserts that the sequence satisfies SOME
-recurrence of order $51$, possibly only from some index on. Let $q$ be that recurrence's
+recurrence of order $52$, possibly only from some index on. Let $q$ be that recurrence's
 characteristic polynomial and $q_{\min}$ the minimal polynomial of the tail of the sequence.
-Then $q_{\min}\mid q$. Berlekamp--Massey run on the sequence with its first $51+4$ terms
-removed returns order $51$ as well, so $\deg q_{\min}=51=\deg q$; both are monic, so
+Then $q_{\min}\mid q$. Berlekamp--Massey run on the sequence with its first $52+4$ terms
+removed returns order $52$ as well, so $\deg q_{\min}=52=\deg q$; both are monic, so
 $q=q_{\min}$, which is the polynomial computed above.
 \end{proof}
 
@@ -110,7 +110,7 @@ $q=q_{\min}$, which is the polynomial computed above.
 
 Three checks.
 
-First, the walk model reproduces all $18$ terms the entry publishes, exactly, in integer
+First, the walk model reproduces all $15$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry, and it is the only place where reading
 the entry's English enters.
 
@@ -120,18 +120,18 @@ enough earlier terms to test it.
 
 Third, the order was computed twice by independent routes: once modulo a $61$-bit prime, where
 every intermediate is a machine word, and once in exact rational arithmetic; and once more on
-the sequence with its first $51+4$ terms removed, which is what the identification above
+the sequence with its first $52+4$ terms removed, which is what the identification above
 requires. All three agree.
 
 \begin{remark}
 What is unusual here is that the conjecture's statement was never read. The entry pins it down
-to a one-parameter family --- the recurrences of order $51$ that this sequence satisfies
+to a one-parameter family --- the recurrences of order $52$ that this sequence satisfies
 --- and that family turns out to have exactly one member.
 \end{remark}
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A234892.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A234407.
 \bibitem{massey} J.~L.~Massey, Shift-register synthesis and BCH decoding, \emph{IEEE
 Trans. Inform. Theory} \textbf{15} (1969), 122--127.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,

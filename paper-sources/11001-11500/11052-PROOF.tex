@@ -12,19 +12,19 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A251316, recovered from its tail}
+\title{The empirical recurrence for OEIS A268797, recovered from its tail}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{8 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A251316 records ``Empirical recurrence of order $68$'' and keeps the recurrence itself in
+OEIS A268797 records ``Empirical recurrence of order $68$'' and keeps the recurrence itself in
 a linked file rather than in the entry, so the conjecture cannot be read off the entry at all.
 It can still be settled. The entry counts arrays under a condition local to a bounded window of
 lines, which makes the count a walk count on a finite digraph and forces a monic integer
-recurrence of order at most the number $S'=256$ of states with distinct futures. Berlekamp--Massey on
-enough exact terms therefore returns the minimal such recurrence, and on the tail beginning at $n=3$, so the recurrence is proved for every $n\ge71$.
+recurrence of order at most the number $S'=719$ of states with distinct futures. Berlekamp--Massey on
+enough exact terms therefore returns the minimal such recurrence, and on the tail beginning at $n=4$, so the recurrence is proved for every $n\ge72$.
 Its last coefficient is $c_{68}=-1\neq0$, so no further tail satisfies anything
 shorter; any order-$68$ recurrence the sequence satisfies from any point on must then have
 the same characteristic polynomial. The entry's recurrence is the one displayed here, whatever
@@ -35,15 +35,15 @@ its linked file contains, and it is proved.
 
 \section{A conjecture that is not written down}
 
-OEIS A251316 is ``Number of (n+1)X(7+1) 0..1 arrays with no 2X2 subblock having the maximum of its diagonal elements greater than the absolute difference of its antidiagonal elements.''. It has offset $1$ and begins
+OEIS A268797 is ``Number of nX7 0..2 arrays with some element plus some horizontally, vertically or antidiagonally adjacent neighbor totalling two exactly once.''. It has offset $1$ and begins
 \[
-2189, 20484, 186162, 1720147, 16024915, 149982413, 1401489913, 13088358653,\ \dots
+576, 4360, 41248, 561116, 7801688, 104971262, 1384570516, 17967375416,\ \dots
 \]
 The entry states:
 \begin{quote}
 Empirical recurrence of order 68 (see link above)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 13:16:18, revision 6)
+As of the ``Last modified'' line on the live entry (Feb 13 2016 13:45:04, revision 4)
 this is still recorded as empirical, and it is still open. The coefficients are nowhere in the
 entry text: what is conjectured is only that a recurrence of that order exists.
 
@@ -59,10 +59,10 @@ a(n)\;=\;\iota^{\!\top}M^{\,j(n)}\tau
 \]
 for a linear reindexing $j$ fixed by the entry's shape. States with identical futures
 contribute identically to that product and may be merged without changing any count; after
-merging $S'=256$ states remain, and it is that bound every computation below uses.
+merging $S'=719$ states remain, and it is that bound every computation below uses.
 
 \begin{lemma}\label{lem:cf}
-$a$ satisfies a monic linear recurrence with integer coefficients of order at most $S'=256$.
+$a$ satisfies a monic linear recurrence with integer coefficients of order at most $S'=719$.
 \end{lemma}
 
 \begin{proof}
@@ -73,7 +73,7 @@ $\tau$ turns it into a relation among $S'+1$ consecutive values of $a$.
 
 \section{Why the question has to be asked of a tail}
 
-Running Berlekamp--Massey on the sequence from its first term returns an order LARGER than $68$: the opening terms do not satisfy the recurrence, and a recurrence that holds only eventually always looks longer when the exceptional terms are included. That is not evidence against the entry. An OEIS empirical recurrence is asserted for $n$ beyond some index, not from the first term, so the question has to be asked of the tails. It was asked of each tail in turn, and the tail beginning at $n=3$ is the first whose minimal order is exactly the stated $68$.
+Running Berlekamp--Massey on the sequence from its first term returns an order LARGER than $68$: the opening terms do not satisfy the recurrence, and a recurrence that holds only eventually always looks longer when the exceptional terms are included. That is not evidence against the entry. An OEIS empirical recurrence is asserted for $n$ beyond some index, not from the first term, so the question has to be asked of the tails. It was asked of each tail in turn, and the tail beginning at $n=4$ is the first whose minimal order is exactly the stated $68$.
 
 \begin{lemma}\label{lem:bm}
 A sequence known to satisfy some linear recurrence of order at most $S'$ is determined,
@@ -81,41 +81,41 @@ together with its minimal recurrence, by any $2S'$ consecutive terms: Berlekamp-
 to them returns that minimal recurrence exactly.
 \end{lemma}
 
-Applied to $2S'=512$ exact terms from $n=3$ on, it returns order $68$ --- the
+Applied to $2S'=1438$ exact terms from $n=4$ on, it returns order $68$ --- the
 order the entry states --- with integer coefficients:
 \[
 a(n)\;=\;\sum_{i=1}^{68}c_i\,a(n-i),
 \]
 \begin{center}\small
 \begin{tabular}{cccccccc}
-$c_{1}$ & $55$ & $c_{18}$ & $2345914154391$ & $c_{35}$ & $-82945659049826$ & $c_{52}$ & $-21523856774$ \\
-$c_{2}$ & $-1484$ & $c_{19}$ & $-36393244272833$ & $c_{36}$ & $133357516999083$ & $c_{53}$ & $6464679339$ \\
-$c_{3}$ & $26436$ & $c_{20}$ & $90793197110565$ & $c_{37}$ & $-142304018148496$ & $c_{54}$ & $-754241109$ \\
-$c_{4}$ & $-350306$ & $c_{21}$ & $-130258862788934$ & $c_{38}$ & $98528405139757$ & $c_{55}$ & $-424177285$ \\
-$c_{5}$ & $3669575$ & $c_{22}$ & $68078094561719$ & $c_{39}$ & $-25084135140443$ & $c_{56}$ & $353742788$ \\
-$c_{6}$ & $-31470216$ & $c_{23}$ & $220573310606298$ & $c_{40}$ & $-31347931335171$ & $c_{57}$ & $-136666853$ \\
-$c_{7}$ & $225856057$ & $c_{24}$ & $-835072847225614$ & $c_{41}$ & $45790618297342$ & $c_{58}$ & $30945793$ \\
-$c_{8}$ & $-1376259499$ & $c_{25}$ & $1755037814704498$ & $c_{42}$ & $-30145667873293$ & $c_{59}$ & $-5084963$ \\
-$c_{9}$ & $7188941360$ & $c_{26}$ & $-2781677996473068$ & $c_{43}$ & $9754319501408$ & $c_{60}$ & $688361$ \\
-$c_{10}$ & $-32380787866$ & $c_{27}$ & $3584783829535471$ & $c_{44}$ & $1251919530524$ & $c_{61}$ & $-18361$ \\
-$c_{11}$ & $126105980501$ & $c_{28}$ & $-3857806964849776$ & $c_{45}$ & $-3248178260506$ & $c_{62}$ & $-19148$ \\
-$c_{12}$ & $-424338702825$ & $c_{29}$ & $3490435790043326$ & $c_{46}$ & $1773299359901$ & $c_{63}$ & $-65$ \\
-$c_{13}$ & $1227510310292$ & $c_{30}$ & $-2637355061734583$ & $c_{47}$ & $-420451860028$ & $c_{64}$ & $29$ \\
-$c_{14}$ & $-3016165525429$ & $c_{31}$ & $1629911678881276$ & $c_{48}$ & $-79424162249$ & $c_{65}$ & $183$ \\
-$c_{15}$ & $6134778129742$ & $c_{32}$ & $-789089601860925$ & $c_{49}$ & $132373209214$ & $c_{66}$ & $-24$ \\
-$c_{16}$ & $-9713731730378$ & $c_{33}$ & $266885913092610$ & $c_{50}$ & $-87658922174$ & $c_{67}$ & $0$ \\
-$c_{17}$ & $9733602408261$ & $c_{34}$ & $-20189915591987$ & $c_{51}$ & $48210211166$ & $c_{68}$ & $-1$ \\
+$c_{1}$ & $2$ & $c_{18}$ & $-40352987546$ & $c_{35}$ & $-2516449266318$ & $c_{52}$ & $392403435$ \\
+$c_{2}$ & $169$ & $c_{19}$ & $-1731681754$ & $c_{36}$ & $-5299006856467$ & $c_{53}$ & $121804600$ \\
+$c_{3}$ & $694$ & $c_{20}$ & $169766303246$ & $c_{37}$ & $4612288755692$ & $c_{54}$ & $-56942553$ \\
+$c_{4}$ & $-7705$ & $c_{21}$ & $-172083944226$ & $c_{38}$ & $-370411564193$ & $c_{55}$ & $-45190096$ \\
+$c_{5}$ & $-81246$ & $c_{22}$ & $-432283697779$ & $c_{39}$ & $-1670643254910$ & $c_{56}$ & $-2736961$ \\
+$c_{6}$ & $-222034$ & $c_{23}$ & $1174345160584$ & $c_{40}$ & $881083365721$ & $c_{57}$ & $8047064$ \\
+$c_{7}$ & $517502$ & $c_{24}$ & $-213727795318$ & $c_{41}$ & $254923161724$ & $c_{58}$ & $3525933$ \\
+$c_{8}$ & $4048112$ & $c_{25}$ & $-3410566119732$ & $c_{42}$ & $-375390897947$ & $c_{59}$ & $53154$ \\
+$c_{9}$ & $1950100$ & $c_{26}$ & $6248797331497$ & $c_{43}$ & $18817875590$ & $c_{60}$ & $-513311$ \\
+$c_{10}$ & $-34597333$ & $c_{27}$ & $-1297199940236$ & $c_{44}$ & $107541892314$ & $c_{61}$ & $-229598$ \\
+$c_{11}$ & $-49390138$ & $c_{28}$ & $-14252531123312$ & $c_{45}$ & $-21340705994$ & $c_{62}$ & $-42389$ \\
+$c_{12}$ & $222391082$ & $c_{29}$ & $31972773053846$ & $c_{46}$ & $-26802863398$ & $c_{63}$ & $1728$ \\
+$c_{13}$ & $411980164$ & $c_{30}$ & $-36845671545670$ & $c_{47}$ & $6427885660$ & $c_{64}$ & $2624$ \\
+$c_{14}$ & $-1316829914$ & $c_{31}$ & $22145471845712$ & $c_{48}$ & $6733400845$ & $c_{65}$ & $486$ \\
+$c_{15}$ & $-2225642966$ & $c_{32}$ & $1754955549210$ & $c_{49}$ & $-1016537708$ & $c_{66}$ & $3$ \\
+$c_{16}$ & $7627596454$ & $c_{33}$ & $-16611707402840$ & $c_{50}$ & $-1726204662$ & $c_{67}$ & $-10$ \\
+$c_{17}$ & $7520225330$ & $c_{34}$ & $14194215422343$ & $c_{51}$ & $-78736390$ & $c_{68}$ & $-1$ \\
 \end{tabular}
 \end{center}
 
 \section{The recurrence, and the identification}
 
 \begin{theorem}
-The recurrence above holds for every $n\ge71$, and it is the recurrence OEIS A251316 records.
+The recurrence above holds for every $n\ge72$, and it is the recurrence OEIS A268797 records.
 \end{theorem}
 
 \begin{proof}
-That it holds is Lemma~\ref{lem:bm} applied to the tail from $n=3$, whose minimal
+That it holds is Lemma~\ref{lem:bm} applied to the tail from $n=4$, whose minimal
 recurrence it is.
 
 For the identification, write $q_{\min}$ for the characteristic polynomial of that minimal
@@ -129,7 +129,7 @@ $q_{\min}$ --- the order cannot drop below $68$ at any later starting point.
 
 Now let $q$ be the characteristic polynomial of whatever recurrence the entry asserts. The
 entry asserts it has order $68$, so $\deg q=68$, and it is monic. It holds from some
-index $t$ on. From $\max(t,3)$ on, the sequence satisfies both $q$ and $q_{\min}$, and
+index $t$ on. From $\max(t,4)$ on, the sequence satisfies both $q$ and $q_{\min}$, and
 the minimal polynomial of that tail is $q_{\min}$ by the previous paragraph; therefore
 $q_{\min}\mid q$. Both are monic of degree $68$, so $q=q_{\min}$.
 \end{proof}
@@ -138,7 +138,7 @@ $q_{\min}\mid q$. Both are monic of degree $68$, so $q=q_{\min}$.
 
 Four checks, all in exact integer or rational arithmetic.
 
-First, the walk model reproduces all $16$ terms the entry publishes, exactly. This is
+First, the walk model reproduces all $15$ terms the entry publishes, exactly. This is
 what ties the model to the entry, and it is the only place where reading the entry's English
 enters the argument.
 
@@ -162,7 +162,7 @@ out to have exactly one member.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A251316.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A268797.
 \bibitem{massey} J.~L.~Massey, Shift-register synthesis and BCH decoding, \emph{IEEE
 Trans. Inform. Theory} \textbf{15} (1969), 122--127.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,

@@ -12,75 +12,48 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A254257, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A232511, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{8 September 2026}
+\date{7 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A254257 counts the arrays over $\{0,\dots,1\}$ whose $3\times3$ subblocks carry a
-statistic that is monotone along named directions of the subblock grid, and carries an
-empirical recurrence of order $14$ contributed by R.~H.~Hardin. It is true, and it is
-decidable rather than empirical. Every direction named moves the subblock row by at most one,
-so the count is a walk count on $S=17892$ states --- the last two array rows together with the
-subblock row just completed --- and the conjectured recurrence is then settled by a finite
-exact computation.
+OEIS A232511 carries an empirical recurrence of order $14$ contributed by R.~H.~Hardin. It is
+true, and it is decidable rather than empirical. The entry's condition is local to a bounded window of consecutive lines, so
+the admissible configurations of such a window are the vertices of a finite digraph and the
+arrays counted are exactly the walks in it; hence $a(n)$ is a walk count on $S=59292$ vertices
+and is $C$-finite. Whether the conjectured recurrence annihilates it is then settled by a
+finite exact computation, with the Cayley--Hamilton theorem bounding the work.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 06A07.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
 \section{The conjecture}
 
-OEIS A254257 is ``Number of (n+2)X(5+2) 0..1 arrays with every 3X3 subblock sum of the two maximums of the diagonal and antidiagonal minus the sum of the minimums of the central row and column nondecreasing horizontally, vertically and ne-to-sw antidiagonally.''. It has offset $1$ and begins
+OEIS A232511 is ``Number of (n+1)X(4+1) 0..2 arrays with every element next to itself plus and minus one within the range 0..2 horizontally, diagonally or antidiagonally, with no adjacent elements equal.''. It has offset $1$ and begins
 \[
-236024, 1989857, 7815717, 12249828, 35691048, 87535036, 214982444, 718305580,\ \dots
+54, 326, 2516, 19138, 145682, 1110752, 8470018, 64594290,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 3*a(n-1) +2*a(n-2) +12*a(n-3) -32*a(n-4) -16*a(n-5) +96*a(n-6) -1600*a(n-7) +512*a(n-8) +29696*a(n-10) -20480*a(n-11) -8192*a(n-12) -131072*a(n-13) +131072*a(n-14) for n>21
+Empirical: a(n) = 8*a(n-1) +a(n-2) -23*a(n-3) -48*a(n-4) -9*a(n-5) +40*a(n-6) +44*a(n-7) +5*a(n-8) -20*a(n-9) +3*a(n-10) +9*a(n-11) +6*a(n-12) -a(n-13) -2*a(n-14)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 14:35:18, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 07:28:09, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
-
-\section{What is being counted}
-
-A $3\times3$ subblock has four distinguished lines of three cells: its diagonal, its
-antidiagonal, its central row and its central column. The entry's statistic is a signed sum of
-aggregates --- sums, maxima, minima, medians --- taken over those lines, and $\sigma(i,j)$
-denotes its value on the subblock in position $(i,j)$ of the subblock grid, which has $n$ rows
-and $5$ columns for an $(n+2)\times7$ array over $\{0,\dots,1\}$. The condition is
-\[
-\sigma(i,j)\le\sigma(i,j+1),\qquad \sigma(i,j)\le\sigma(i+1,j),\qquad \sigma(i,j)\le\sigma(i+1,j-1)
-\]
-whenever both positions exist.
-
-``ne-to-sw antidiagonally'' is the offset $(+1,-1)$ on the subblock grid; that reading, and
-the reading of every statistic name here, was checked by counting the small arrays directly
-against what the entries publish.
 
 \section{The count is a walk count}
 
-A subblock spans three array rows and the vertical comparison spans four, so the obvious state
-is three consecutive rows. It is larger than it needs to be. What a step actually consults is
-the last TWO array rows --- enough to build the next subblock row once one more row arrives ---
-and the PREVIOUS SUBBLOCK ROW, to compare against. So take as state the triple
+The condition the entry imposes is local: it constrains a bounded window of consecutive lines and nothing beyond. Take as
+vertices the admissible configurations of one such window and put an edge from $u$ to $v$
+whenever $v$ may follow $u$, which the condition decides by inspection of the two. An
+admissible array is then exactly a walk, so with $M$ the adjacency matrix on $S=59292$ vertices
+and $\iota,\tau$ the vectors recording which windows may begin and end an array,
 \[
-\bigl(r_{i+1},\ r_{i+2},\ \sigma\text{-row }i\bigr),
+a(n)\;=\;\iota^{\!\top}M^{\,n}\tau ,
 \]
-and let a step append an array row $r_{i+3}$: that fixes $\sigma$-row $i+1$ from
-$r_{i+1},r_{i+2},r_{i+3}$, and every comparison between the two $\sigma$-rows is settled
-there. All the third rows that produce the same $\sigma$-row collapse into one state, which is
-what makes the wider arrays reachable.
-
-The starting vector is therefore weighted rather than all-ones: a state is entered by as many
-first rows as produce it, and $\iota$ records that count. With $\tau$ all-ones, an
-$(n+2)$-row array is a walk of $n-1$ steps and
-\[
-a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau
-\]
-on the $S=17892$ reachable states. In particular $a$ is $C$-finite. The alignment of the walk
-index with the entry's own $n$ was checked against its published terms rather than assumed.
+the exponent fixed by the entry's own shape and checked against its published terms. In
+particular $a$ is $C$-finite.
 
 \section{The proof}
 
@@ -102,15 +75,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;3\,a(n-1) + 2\,a(n-2) + 12\,a(n-3) - 32\,a(n-4) - 16\,a(n-5) + 96\,a(n-6) - 1600\,a(n-7) + 512\,a(n-8) + 29696\,a(n-10) - 20480\,a(n-11) - 8192\,a(n-12) - 131072\,a(n-13) + 131072\,a(n-14)
+a(n)\;=\;8\,a(n-1) + a(n-2) - 23\,a(n-3) - 48\,a(n-4) - 9\,a(n-5) + 40\,a(n-6) + 44\,a(n-7) + 5\,a(n-8) - 20\,a(n-9) + 3\,a(n-10) + 9\,a(n-11) + 6\,a(n-12) - a(n-13) - 2\,a(n-14)
 \]
-for every $n>21$.
+for every $n>13$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $14$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=21+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=13+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -130,11 +103,11 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A254257.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A232511.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{davey} B.~A.~Davey and H.~A.~Priestley, \emph{Introduction to Lattices and
-Order}, 2nd ed., Cambridge University Press, 2002.
+\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+University Press, 2009.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

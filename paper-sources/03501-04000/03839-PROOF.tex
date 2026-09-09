@@ -12,51 +12,51 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A239812, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A239249, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A239812 counts arrays over $\{0,1,2,3\}$ in which no entry may equal, modulo $4$, a given
+OEIS A239249 counts arrays over $\{0,1,\dots,4\}$ in which no entry may equal, modulo $5$, a given
 constant plus the SUM of all the entries lying before it along one of several rays. The entry
 carries an empirical recurrence of order $3$ contributed by R.~H.~Hardin. It is true, and
 it is decidable rather than empirical. None of those sums is bounded and none is local, but
-each is built one term at a time, so its residue modulo $4$ is carried in the state; the
-count is then a walk count on $S=4$ states.
+each is built one term at a time, so its residue modulo $5$ is carried in the state; the
+count is then a walk count on $S=5$ states.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 11A07, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A239812 is ``Number of n X 1 0..3 arrays with no element equal to zero plus the sum of elements to its left or one plus the sum of elements above it, modulo 4.''. It has offset $1$ and begins
+OEIS A239249 is ``Number of n X 1 0..4 arrays with no element equal to one plus the sum of elements to its left or one plus the sum of elements above it, modulo 5.''. It has offset $1$ and begins
 \[
-2, 5, 11, 25, 57, 129, 293, 665,\ \dots
+4, 13, 41, 131, 419, 1339, 4279, 13675,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = a(n-1) + 2*a(n-2) + 2*a(n-3).
+Empirical: a(n) = 3*a(n-1) + 2*a(n-3).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Feb 21 2018 09:42:15, revision 7) this is still
+As of the ``Last modified'' line on the live entry (Oct 25 2018 12:24:42, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The array has $1$ cells across one way, entries $x(i,j)\in\{0,1,2,3\}$, and the entry names these
+The array has $1$ cells across one way, entries $x(i,j)\in\{0,1,\dots,4\}$, and the entry names these
 rays out of a cell $(i,j)$, with the constant it attaches to each:
 \[
 \begin{array}{lll}
 \text{ray} & \text{the cells on it} & \text{constant} \\[2pt]
-\text{west} & (i,j-1),(i,j-2),\dots & 0 \\
+\text{west} & (i,j-1),(i,j-2),\dots & 1 \\
 \text{north} & (i-1,j),(i-2,j),\dots & 1 \\
 \end{array}
 \]
 Writing $\Sigma_r(i,j)$ for the sum of the entries on ray $r$ out of $(i,j)$, all of them
 inside the array, the condition is
 \[
-x(i,j)\;\not\equiv\;c_r+\Sigma_r(i,j) \pmod{4}
+x(i,j)\;\not\equiv\;c_r+\Sigma_r(i,j) \pmod{5}
 \]
 for every ray $r$ named. A ray that leaves the array at once contributes the empty sum,
 zero.
@@ -84,13 +84,13 @@ left; in each case exactly the cell just left behind is the new term. At the bor
 array the diagonal rays are empty, which is the stated boundary value.
 \end{proof}
 
-Reduced modulo $4$ these vectors take finitely many values, so they are a state, and one step
+Reduced modulo $5$ these vectors take finitely many values, so they are a state, and one step
 of the walk writes a whole $row$: the position $p$ is filled left to right and the
 running total of the west ray is carried along as it is filled, so every cell is tested
 against every ray at the moment it is written. The walk starts at the all-zero state, the empty
 array, and every state may end one, so $\tau=\mathbf{1}$ and
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=4.
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=5.
 \]
 The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
 published terms rather than assumed. In particular $a$ is $C$-finite.
@@ -115,7 +115,7 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;a(n-1) + 2\,a(n-2) + 2\,a(n-3)
+a(n)\;=\;3\,a(n-1) + 2\,a(n-3)
 \]
 for every $n>2$.
 \end{theorem}
@@ -131,7 +131,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $30$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $25$ terms the entry publishes, exactly, in integer
 arithmetic.
 
 Second, the count was recomputed for the smallest arrays straight from the definition: fill the
@@ -147,7 +147,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A239812.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A239249.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge

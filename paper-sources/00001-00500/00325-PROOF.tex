@@ -12,128 +12,135 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A264571, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A235003: recovering a conjecture that is not written down}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{1 September 2026}
+\date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A264571 counts the arrangements of $0,1,\dots,LW-1$ in a grid of $W=4$ columns in which
-every value moves from its home cell by an index change on a short list, and it carries an
-empirical recurrence of order $70$ contributed by R.~H.~Hardin. It is true, and it is
-decidable rather than empirical. Such an arrangement is a perfect matching between cells and
-values, and because a value's row moves by at most $R=1$, the matching splits into
-independent decisions column by column: after the cells of columns $0,\dots,i$ are filled,
-every value whose home column is at most $i-R$ has been used, and only $2R$ home columns are
-partly used. Carrying those as bitmasks makes the count a walk on $S=256$ vertices, so it is
-$C$-finite and the conjectured recurrence is decided by a finite exact computation.
+OEIS A235003 records ``Empirical recurrence of order $70$'', with the recurrence itself in a
+linked file rather than in the entry. The conjecture can nevertheless be settled, and the
+recurrence recovered, without reading that file. The entry counts arrays under a condition
+local to a bounded window of lines, so the count is a walk count on $S=392$ vertices and
+satisfies some monic recurrence of order at most $S$; Berlekamp--Massey applied to $2S$ exact
+terms therefore returns the MINIMAL such recurrence. Its order is exactly $70$, the order
+the entry states, and the same is true of every tail of the sequence. Any recurrence of order
+$70$ that the sequence satisfies from any point on must then have a characteristic
+polynomial that is a multiple of the minimal one and of the same degree, hence equal to it. So
+the entry's recurrence is the one displayed here, whatever its file contains, and it is
+proved.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A05, 05A15, 15A15.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 15A18.\normalsize
 
-\section{The conjecture}
+\section{A conjecture one cannot read}
 
-OEIS A264571 is ``Number of (3+1)X(n+1) arrays of permutations of 0..n*4+3 with each element having directed index change 1,0 1,1 0,-1 or -1,1.''. It has offset $1$ and begins
+OEIS A235003 is ``Number of (n+1) X (2+1) 0..7 arrays with every 2 X 2 subblock having its diagonal sum differing from its antidiagonal sum by 2, with no adjacent elements equal (constant-stress tilted 1 X 1 tilings).''. It has offset $1$ and begins
 \[
-1, 4, 10, 44, 143, 633, 2172, 8409,\ \dots
+1946, 14182, 114796, 1049470, 10000516, 98790336, 988422984, 9992949442,\ \dots
 \]
-The entry states, as a conjecture contributed by its author and never marked settled:
+The entry states:
 \begin{quote}
-Empirical: a(n) = 3*a(n-1) +a(n-2) +4*a(n-3) +41*a(n-4) -104*a(n-5) +14*a(n-6) +167*a(n-7) -715*a(n-8) +1169*a(n-9) -1018*a(n-10) -3680*a(n-11) +8691*a(n-12) -10335*a(n-13) +2525*a(n-14) +35277*a(n-15) -50582*a(n-16) +64373*a(n-17) +11060*a(n-18) -207508*a(n-19) +200293*a(n-20) -204582*a(n-21) -124748*a(n-22) +704108*a(n-23) -499827*a(n-24) +365700*a(n-25) +473743*a(n-26) -1541579*a(n-27) +729138*a(n-28) -331526*a(n-29) -929717*a(n-30) +2313138*a(n-31) -591289*a(n-32) +10149*a(n-33) +1058138*a(n-34) -2448606*a(n-35) +225766*a(n-36) +341725*a(n-37) -740229*a(n-38) +1867654*a(n-39) -9921*a(n-40) -441602*a(n-41) +343946*a(n-42) -1047499*a(n-43) -9489*a(n-44) +322880*a(n-45) -125643*a(n-46) +431100*a(n-47) -8968*a(n-48) -160742*a(n-49) +44437*a(n-50) -124400*a(n-51) +6980*a(n-52) +54449*a(n-53) -13758*a(n-54) +23185*a(n-55) -1859*a(n-56) -11695*a(n-57) +2887*a(n-58) -2532*a(n-59) +298*a(n-60) +1457*a(n-61) -383*a(n-62) +155*a(n-63) -26*a(n-64) -100*a(n-65) +29*a(n-66) -4*a(n-67) +a(n-68) +3*a(n-69) -a(n-70)
+Empirical recurrence of order 70 (see link above).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Nov 17 2015 19:14:08, revision 4) this is still
-recorded as empirical, and nothing on the entry records it as proved.
+As of the ``Last modified'' line on the live entry (Jun 20 2022 00:49:52, revision 7) this is still
+recorded as empirical. The recurrence's coefficients are not in the entry text.
 
-\section{The object is a matching}
+\section{The count is a walk count}
 
-The grid has $W=4$ columns across and holds each of $0,1,\dots,LW-1$ exactly once. The value
-$v$ has a HOME cell, namely its place in the plain row-major filling, and putting $v$ in cell
-$(i,j)$ changes its index by $(i-h_i,\,j-h_j)$ where $(h_i,h_j)$ is that home cell. The entry
-allows the index changes
-\[
-(i-h_i,\,j-h_j)\;\in\;\{(-1,0),\ (0,1),\ (1,-1),\ (1,1)\},
-\]
-the list being the entry's own, read with the sign convention its wording uses. An admissible
-arrangement is therefore exactly a perfect matching in the bipartite graph joining each cell to
-the values it may hold.
+The entry's condition is local: it constrains a bounded window of consecutive lines of the
+array and nothing further. The admissible configurations of one such window are the vertices
+of a finite digraph, an edge joining $u$ to $v$ when $v$ may follow $u$, and an admissible
+array is exactly a walk. Hence, with $M$ the adjacency matrix on $S=392$ vertices,
+$a(n)=\iota^{\!\top}M^{\,j(n)}\tau$ for a linear reindexing $j$ fixed by the entry's shape
+and checked against its published terms. By the Cayley--Hamilton theorem $M^{S}$ is an
+integer combination of $I,M,\dots,M^{S-1}$, so:
 
-\section{The matching is a walk}
-
-Let $R=1$ be the largest $|i-h_i|$ on the list. A value whose home column is $h$ can only be
-placed in columns $h-R,\dots,h+R$. So once the cells of columns $0,\dots,i$ are filled, every
-value with home column at most $i-R$ has been used up, and the only home columns that can be
-partly used are $i-R+1,\dots,i+R$ --- exactly $2R$ of them. Take as the state the tuple of
-$2R$ bitmasks recording which values of those home columns are already placed. One step fills
-the cells of one further column, drawing each of its $W$ values from a home column within $R$
-and at an allowed column offset, and the home column that closes at that step must come out
-full. Nonexistent home columns --- before the first and after the last --- are carried as
-full, which makes the starting and accepting states the same one.
-
-Hence $a$ is a walk count on $S=256$ vertices,
-\[
-a(n)\;=\;\iota^{\!\top}M^{\,n+1}\tau ,
-\]
-the exponent fixed by the entry's own shape and checked against its published terms; in
-particular $a$ is $C$-finite.
-
-\section{The proof}
-
-\begin{lemma}\label{lem:crit}
-Let $q(t)=t^{70}-\sum_i c_it^{70-i}$ be the characteristic polynomial of the
-conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
-$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
-holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$;
-and it is enough to examine $j<S$.
+\begin{lemma}\label{lem:cf}
+$a$ satisfies a monic linear recurrence with integer coefficients of order at most $S=392$.
 \end{lemma}
 
-\begin{proof}
-Factor $M^{j}$ out of $M^{j+70}-\sum_ic_iM^{j+70-i}$. For the bound, $M^{S}$
-is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
-$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
-polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly.
-\end{proof}
+\section{Recovering the recurrence}
+
+\begin{lemma}\label{lem:bm}
+A sequence known to satisfy some linear recurrence of order at most $S$ is determined, together
+with its minimal recurrence, by its first $2S$ terms: Berlekamp--Massey applied to them returns
+that minimal recurrence exactly.
+\end{lemma}
+
+Running it on $2S=784$ exact terms of the model returns order $70$ --- the order the
+entry states --- with the integer coefficients
+\[
+a(n)\;=\;\sum_{i=1}^{70}c_i\,a(n-i),
+\]
+\begin{center}\small
+\begin{tabular}{cccccccc}
+$c_{1}$ & $17$ & $c_{19}$ & $-1849037535858108$ & $c_{37}$ & $231177171578558305262$ & $c_{55}$ & $56638285570293220412$ \\
+$c_{2}$ & $161$ & $c_{20}$ & $4305240577836871$ & $c_{38}$ & $-1567652028613041455173$ & $c_{56}$ & $41672940675754951920$ \\
+$c_{3}$ & $-3753$ & $c_{21}$ & $16322557046437122$ & $c_{39}$ & $-218376899842097867014$ & $c_{57}$ & $-15320669330253153638$ \\
+$c_{4}$ & $-9776$ & $c_{22}$ & $-40434532170880778$ & $c_{40}$ & $2439978288324980164592$ & $c_{58}$ & $-8145557907892216460$ \\
+$c_{5}$ & $379286$ & $c_{23}$ & $-116057027438396084$ & $c_{41}$ & $60464137997297910976$ & $c_{59}$ & $3003011759879289157$ \\
+$c_{6}$ & $161862$ & $c_{24}$ & $305787939425981877$ & $c_{42}$ & $-3120595502419467662814$ & $c_{60}$ & $1151783075158753822$ \\
+$c_{7}$ & $-23325770$ & $c_{25}$ & $667056191170626911$ & $c_{43}$ & $216933397513372560316$ & $c_{61}$ & $-410129755555884037$ \\
+$c_{8}$ & $13984213$ & $c_{26}$ & $-1876553356190194768$ & $c_{44}$ & $3267604542555923801377$ & $c_{62}$ & $-113024686464726860$ \\
+$c_{9}$ & $978902121$ & $c_{27}$ & $-3103982798290107303$ & $c_{45}$ & $-480704736453599455390$ & $c_{63}$ & $36702483637337516$ \\
+$c_{10}$ & $-1155605882$ & $c_{28}$ & $9398543533969386347$ & $c_{46}$ & $-2786914114996958625329$ & $c_{64}$ & $7287385554127364$ \\
+$c_{11}$ & $-29801110650$ & $c_{29}$ & $11683344693281143710$ & $c_{47}$ & $587112218701432304006$ & $c_{65}$ & $-1940410578266052$ \\
+$c_{12}$ & $46222106468$ & $c_{30}$ & $-38579972117677996163$ & $c_{48}$ & $1922658598908236649308$ & $c_{66}$ & $-285658951448328$ \\
+$c_{13}$ & $683134927671$ & $c_{31}$ & $-35427003193926815536$ & $c_{49}$ & $-504042531359578663966$ & $c_{67}$ & $49344456970224$ \\
+$c_{14}$ & $-1237214004952$ & $c_{32}$ & $130192903654288856027$ & $c_{50}$ & $-1063197124415984566060$ & $c_{68}$ & $5829883228800$ \\
+$c_{15}$ & $-12083759329066$ & $c_{33}$ & $85745718425349406223$ & $c_{51}$ & $322140471169118779966$ & $c_{69}$ & $-320784157440$ \\
+$c_{16}$ & $24294030642460$ & $c_{34}$ & $-361909541130650529567$ & $c_{52}$ & $465761584784964398621$ & $c_{70}$ & $-34867843200$ \\
+$c_{17}$ & $167738139484976$ & $c_{35}$ & $-162522811166523815225$ & $c_{53}$ & $-155589433732881793736$ &  &  \\
+$c_{18}$ & $-365173907355114$ & $c_{36}$ & $829518730435188059390$ & $c_{54}$ & $-159230820266097953359$ &  &  \\
+\end{tabular}
+\end{center}
 
 \begin{theorem}
-\[
-a(n)\;=\;3\,a(n-1) + a(n-2) + 4\,a(n-3) + 41\,a(n-4) - 104\,a(n-5) + 14\,a(n-6) + 167\,a(n-7) - 715\,a(n-8) + 1169\,a(n-9) - 1018\,a(n-10) - 3680\,a(n-11) + 8691\,a(n-12) - 10335\,a(n-13) + 2525\,a(n-14) + 35277\,a(n-15) - 50582\,a(n-16) + 64373\,a(n-17) + 11060\,a(n-18) - 207508\,a(n-19) + 200293\,a(n-20) - 204582\,a(n-21) - 124748\,a(n-22) + 704108\,a(n-23) - 499827\,a(n-24) + 365700\,a(n-25) + 473743\,a(n-26) - 1541579\,a(n-27) + 729138\,a(n-28) - 331526\,a(n-29) - 929717\,a(n-30) + 2313138\,a(n-31) - 591289\,a(n-32) + 10149\,a(n-33) + 1058138\,a(n-34) - 2448606\,a(n-35) + 225766\,a(n-36) + 341725\,a(n-37) - 740229\,a(n-38) + 1867654\,a(n-39) - 9921\,a(n-40) - 441602\,a(n-41) + 343946\,a(n-42) - 1047499\,a(n-43) - 9489\,a(n-44) + 322880\,a(n-45) - 125643\,a(n-46) + 431100\,a(n-47) - 8968\,a(n-48) - 160742\,a(n-49) + 44437\,a(n-50) - 124400\,a(n-51) + 6980\,a(n-52) + 54449\,a(n-53) - 13758\,a(n-54) + 23185\,a(n-55) - 1859\,a(n-56) - 11695\,a(n-57) + 2887\,a(n-58) - 2532\,a(n-59) + 298\,a(n-60) + 1457\,a(n-61) - 383\,a(n-62) + 155\,a(n-63) - 26\,a(n-64) - 100\,a(n-65) + 29\,a(n-66) - 4\,a(n-67) + a(n-68) + 3\,a(n-69) - a(n-70)
-\]
-for every $n>68$.
+The recurrence above holds for every $n$, and it is the recurrence the entry records.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $70$ matrix--vector products in exact integer
-arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=68+1$ onwards and the run continued
-until the working vector was identically zero, settling every larger $j$ at once.
+It holds by Lemma~\ref{lem:bm}, which returns a recurrence the sequence satisfies from its
+first term. For the identification: the entry asserts that the sequence satisfies SOME
+recurrence of order $70$, possibly only from some index on. Let $q$ be that recurrence's
+characteristic polynomial and $q_{\min}$ the minimal polynomial of the tail of the sequence.
+Then $q_{\min}\mid q$. Berlekamp--Massey run on the sequence with its first $70+4$ terms
+removed returns order $70$ as well, so $\deg q_{\min}=70=\deg q$; both are monic, so
+$q=q_{\min}$, which is the polynomial computed above.
 \end{proof}
 
 \section{Verification}
 
-Three checks, each independent of the algebra above.
+Three checks.
 
-First, the reading of the entry's wording was tested against the entries themselves by brute
-force before any of this was built, and separately for each of the three sign conventions the
-family uses: ``$(\pm,\pm)$ $a,b$'' signs each coordinate independently, ``$\pm(.,.)$ $a,b$''
-signs the PAIR and may write the second coordinate negative, and ``directed $a,b$'' is taken
-literally. Enumerating all $720$ arrangements of a $2\times3$ grid reproduces the first term
-of an entry of each convention. Testing only one of them would have proved only that one:
-reading the second convention as the first silently drops displacements, and thirty-eight
-entries disagreed with their own published data until the conventions were separated.
+First, the walk model reproduces all $15$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry, and it is the only place where reading
+the entry's English enters.
 
-Second, the transfer model reproduces all $24$ terms this entry publishes, exactly, in
-integer arithmetic.
+Second, the recovered recurrence was evaluated directly on those published terms, with no
+matrices and no Berlekamp--Massey involved, and holds at every index where the entry gives
+enough earlier terms to test it.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
-arithmetic on the whole vector rather than on a sampled prefix.
+Third, the order was computed twice by independent routes: once modulo a $61$-bit prime, where
+every intermediate is a machine word, and once in exact rational arithmetic; and once more on
+the sequence with its first $70+4$ terms removed, which is what the identification above
+requires. All three agree.
+
+\begin{remark}
+What is unusual here is that the conjecture's statement was never read. The entry pins it down
+to a one-parameter family --- the recurrences of order $70$ that this sequence satisfies
+--- and that family turns out to have exactly one member.
+\end{remark}
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A264571.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A235003.
+\bibitem{massey} J.~L.~Massey, Shift-register synthesis and BCH decoding, \emph{IEEE
+Trans. Inform. Theory} \textbf{15} (1969), 122--127.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{lp} L.~Lov\'asz and M.~D.~Plummer, \emph{Matching Theory}, AMS Chelsea, 2009.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

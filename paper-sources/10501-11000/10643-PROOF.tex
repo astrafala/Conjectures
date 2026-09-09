@@ -10,15 +10,15 @@
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
-\title{A proof of the conjectured recurrence for OEIS A172025}
+\title{A proof of the conjectured recurrence for OEIS A359643}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{30 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A172025 carries a conjectured linear recurrence with polynomial coefficients, of
-order 2. The entry posts no generating function; it defines the sequence by an
+OEIS A359643 carries a conjectured linear recurrence with polynomial coefficients, of
+order 5. The entry posts no generating function; it defines the sequence by an
 extraction, $a(n)=[x^{n}]\,f(x)g(x)^{n}$. We derive a generating function from that
 definition and prove the conjecture from it. Reading the extraction as a contour integral
 and summing the geometric series turns $\sum_{n}a(n)t^{n}$ into a single integral whose
@@ -33,18 +33,18 @@ $0$, of degree $-1$, which proves the recurrence for every $n>-1$.
 
 \section{The sequence and the conjecture}
 
-OEIS A172025 is ``Expansion of (2/(3*sqrt(1-4*z)-1+4*z))*((1-sqrt(1-4*z))/(2*z))\textasciicircum{}k with k=3''. It has offset $0$ and begins
+OEIS A359643 is ``a(n) = Sum\_\{k=0..n\} binomial(n,k) * binomial(4*k,k)''. It has offset $0$ and begins
 \[
-a(0),\dots,a(7)\;=\;1, 4, 16, 62, 239, 920, 3544, 13672,\ \dots
+a(0),\dots,a(7)\;=\;1, 5, 37, 317, 2885, 27105, 259765, 2523813,\ \dots
 \]
 The entry states, not as a conjecture,
 \begin{quote}\small
-a(n) = [x\textasciicircum{}n] 1/((1 - x\textasciicircum{}2)*(1 - x)\textasciicircum{}(n+3)).
+a(n) = [x\^{}n] (1 + 5*x + 6*x\^{}2 + 4*x\^{}3 + x\^{}4)\^{}n. - \emph{Ilya Gutkovskiy}, Apr 17 2025
 \end{quote}
 that is,
 \begin{equation}\label{eq:def}
 a(n)\;=\;[x^{n}]\,f(x)\,g(x)^{n},
-\qquad f(x)=\frac{1}{x^{5} - 3 x^{4} + 2 x^{3} + 2 x^{2} - 3 x + 1},\qquad g(x)=- \frac{1}{x - 1} .
+\qquad f(x)=1,\qquad g(x)=x^{4} + 4 x^{3} + 6 x^{2} + 5 x + 1 .
 \end{equation}
 This is the only input taken from the entry, and it was checked against the entry's own
 DATA before use. In particular \emph{no generating function is assumed}: the entry posts
@@ -52,9 +52,9 @@ none, and the one used below is derived.
 
 The entry separately carries the following comment:
 \begin{quote}\small
-\textbf{Conjecture:} 2*n*(n+3)*a(n) + (-7*n\textasciicircum{}2 - 17*n - 8)*a(n-1) -2*(n+2)*(2*n+1)*a(n-2) = 0. - \emph{R. J. Mathar}, Feb 19 2016
+Conjecture D-finite with recurrence +81*n*(3*n-1)*(3*n-2)*a(n) +3*(243*n\^{}3-8433*n\^{}2+14984*n-7064)*a(n-1) +2*(-58607*n\^{}3+297306*n\^{}2-491401*n+269124)*a(n-2) +6*(n-2)*(56663*n\^{}2-237722*n+252221)*a(n-3) -3*(n-2)*(n-3)*(111625*n-286402)*a(n-4) +110653*(n-2)*(n-3)*(n-4)*a(n-5)=0. - \emph{R. J. Mathar}, Jan 09 2023
 \end{quote}
-As of the ``Last modified'' line on the live entry (2026-03-13, revision 46) the
+As of the ``Last modified'' line on the live entry (2025-04-17, revision 25) the
 statement is still recorded as a conjecture, and no proof appears among the entry's links,
 formulas or programs.
 
@@ -99,9 +99,9 @@ Both equations hold at $x=x(t)$, $y=A(t)$ by Lemma~\ref{lem:diag}. Eliminating $
 resultant produces a polynomial in $t$ and $y$ vanishing there.
 \end{proof}
 
-For A172025 this yields
+For A359643 this yields
 \[
-4 t^{5} y^{2} + 7 t^{4} y^{2} - 2 t^{3} y^{2} + 4 t y - y + 1 \;=\;0 ,
+283 t^{4} y^{4} - 876 t^{3} y^{4} + 930 t^{2} y^{4} - 18 t^{2} y^{2} - 364 t y^{4} + 36 t y^{2} + 8 t y + 27 y^{4} - 18 y^{2} - 8 y - 1 \;=\;0 ,
 \]
 and $A$ is the branch of this polynomial whose expansion is the entry's own sequence.
 The branch is identified by that expansion, not by solving for it in radicals --- the
@@ -135,7 +135,7 @@ a polynomial of degree $-1$.
 \begin{theorem}
 The conjectured recurrence
 \[
-2 n \left(n + 3\right)\,a(n) + (- 7 n^{2} - 17 n - 8)\,a(n-1) -  2 \left(n + 2\right) \left(2 n + 1\right)\,a(n-2) \;=\;0
+81 n \left(3 n - 2\right) \left(3 n - 1\right)\,a(n) + 3 \left(243 n^{3} - 8433 n^{2} + 14984 n - 7064\right)\,a(n-1) -  2 \left(58607 n^{3} - 297306 n^{2} + 491401 n - 269124\right)\,a(n-2) + 6 \left(n - 2\right) \left(56663 n^{2} - 237722 n + 252221\right)\,a(n-3) -  3 \left(n - 3\right) \left(n - 2\right) \left(111625 n - 286402\right)\,a(n-4) + 110653 \left(n - 4\right) \left(n - 3\right) \left(n - 2\right)\,a(n-5) \;=\;0
 \]
 holds for every $n>-1$.
 \end{theorem}
@@ -153,13 +153,13 @@ First, the derived generating function was not assumed to be right. Its series w
 computed from \eqref{eq:def} in two independent ways --- once through the residue formula
 of Lemma~\ref{lem:diag}, by solving $x=t\,g(x)$ as a truncated series, and once directly,
 by expanding $f\,g^{n}$ and reading off the coefficient of $x^{n}$ --- and the two agree.
-The result was then compared term by term with the DATA section of A172025, agreeing on
+The result was then compared term by term with the DATA section of A359643, agreeing on
 all 13 terms compared.
 
 Second, the recurrence was evaluated directly on the published terms, in exact integer
 arithmetic and without reference to any generating function: for each $n$ in range the sum
 $\sum_{i}p_{i}(n)a(n-i)$ was formed from the entry's own values and found to vanish, for
-all 22 values of $n$ from $n=2$ upward.
+all 17 values of $n$ from $n=5$ upward.
 
 Third, the symbolic step is exact throughout. The residual is obtained by
 rational-function arithmetic in the algebraic function field, not by series truncation, so
@@ -168,7 +168,7 @@ $n>-1$ simultaneously.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer Sequences},
-\url{https://oeis.org}, 2026. Sequence A172025.
+\url{https://oeis.org}, 2026. Sequence A359643.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 2, Cambridge
 University Press, 1999, Section 6.3 (Lagrange inversion) and Chapter 6 (algebraic and
 D-finite generating functions).

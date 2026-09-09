@@ -8,114 +8,180 @@
 \newtheorem{theorem}{Theorem}
 \newtheorem{lemma}[theorem]{Lemma}
 \newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
-\title{A proof of the conjectured closed form for OEIS A208545}
+
+\title{The reduction of OEIS A091713 modulo $2$}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A208545 carries a conjectured closed form. We prove it. The entry states, as fact,
-a generating function, and from that a linear recurrence with polynomial coefficients satisfied by
-the sequence is derived exactly. The conjectured closed form is then shown to satisfy the
-same recurrence, and to agree with the sequence at enough consecutive indices. A recurrence
-of order $5$ whose leading coefficient does not vanish, together with $5$
-consecutive values, determines a sequence completely, so the two agree everywhere. Nothing
-is checked numerically and then assumed: the recurrence is derived symbolically, the
-verification is an exact identity, and the finitely many indices where the leading
-coefficient vanishes are computed rather than waved at.
+OEIS A091713 is defined by the functional equation $A(x)=x+x\,A^{3}(x)$, where
+$A^{3}$ is the $3$-th compositional iterate, and carries a conjecture of
+P.~D.~Hanna that every term is odd. It is true. The equation determines the coefficients one at a
+time, with $a(N)$ entering with coefficient $1$, so it determines them modulo $2$ as
+well. Modulo $2$ the series $x/(1-x)$ satisfies the equation exactly, because its
+iterates are $x/(1-jx)$ and $3\equiv1$ modulo $2$. Uniqueness then identifies the
+reduction. The argument is an identity between rational functions over
+$\mathbb{Z}/2\mathbb{Z}$; nothing is truncated or estimated.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 33F10.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 11B50, 05A15, 13F25.\normalsize
 
-\section{The sequence, what is known, and what is conjectured}
+\section{The sequence and the conjecture}
 
-OEIS A208545 is ``Number of 7-bead necklaces of n colors allowing reversal, with no adjacent beads having the same color''. It has offset $1$ and begins
+OEIS A091713 is ``G.f. A(x) satisfies A(x) = x + x*A(A(A(x))).''. It has offset $1$ and begins
 \[
-a(1),\dots,a(8)\;=\;0, 0, 9, 156, 1170, 5580, 19995, 58824,\ \dots
+1, 1, 3, 15, 99, 781, 7001,\ \dots
 \]
-The entry states, not as a conjecture,
-\begin{quote}\small
-3*x\textasciicircum{}3*(3 + 28*x + 58*x\textasciicircum{}2 + 28*x\textasciicircum{}3 + 3*x\textasciicircum{}4) / (1 - x)\textasciicircum{}8
-\end{quote}
-and separately carries the comment
-\begin{quote}\small
-a(n) = (1/14)*n\textasciicircum{}7 - (1/2)*n\textasciicircum{}6 + (3/2)*n\textasciicircum{}5 - (5/2)*n\textasciicircum{}4 + (5/2)*n\textasciicircum{}3 - (3/2)*n\textasciicircum{}2 + (3/7)*n.
-\end{quote}
-As of the ``Last modified'' line on the live entry (2017-11-11, revision 10) the second
-statement is still recorded as a conjecture, and no proof appears among the entry's links,
-formulas or programs.
-
-\section{A recurrence from what is known}
-
-The generating function the entry posts is algebraic over $\mathbb{Q}(x)$, hence $D$-finite: it satisfies a linear differential equation with polynomial coefficients, obtained by differentiating its defining equation inside the field it generates and taking a linear dependence among the derivatives. Reading off the coefficient of each power of $x$ turns that differential equation into a recurrence for the coefficients, which is
-
-\begin{equation}\label{eq:rec}
-\left(9 n + 9\right)\,a(n) + \left(75 n + 306\right)\,a(n+1) + \left(90 n + 1206\right)\,a(n+2) + \left(936 - 90 n\right)\,a(n+3) + \left(81 - 75 n\right)\,a(n+4) + \left(- 9 n - 18\right)\,a(n+5) \;=\; 0
+Writing $A(x)=\sum_{n\ge1}a(n)x^{n}$ and $A^{\,i}$ for the $i$-th compositional
+iterate of $A$, the entry defines $A$ by
+\begin{equation}\label{eq:fe}
+A(x)\;=\;x+x\,A^{3}(x).
 \end{equation}
+This is the only input taken from the entry.
 
-The leading coefficient of \eqref{eq:rec} is $- 9 \left(n + 2\right)$. Its only integer zeros are $n\in\{-2\}$, all below the range claimed here.
+The entry separately carries the following comment:
+\begin{quote}\small
+Conjecture: all terms are odd. --- \emph{Paul D. Hanna}
+\end{quote}
+As of the ``Last modified'' line on the live entry (Jun 13 2026 09:32:47, revision 32) the statement is
+still recorded as a conjecture, and nothing on the entry records it as settled either way.
 
-\section{The conjectured description satisfies it}
+\section{The equation determines the sequence}
 
-The conjectured closed form is a sum of hypergeometric terms. Substituting it into \eqref{eq:rec} and grouping the summands into similarity classes -- two terms being similar when their quotient is a rational function of $n$ -- every class contributes a rational function of $n$, and each of those cancels to zero identically. Since pairwise dissimilar hypergeometric terms are linearly independent over $\mathbb{Q}(n)$, that is exactly the statement that the closed form satisfies \eqref{eq:rec}.
-
-\section{Uniqueness}
-
-\begin{lemma}\label{lem:unique}
-Let $\sum_{j=0}^{r}q_{j}(n)\,b(n+j)=0$ be a linear recurrence whose leading coefficient
-$q_{r}$ has no zero at any integer $n\ge n_{0}$. If two sequences both satisfy it for all
-$n\ge n_{0}$ and agree at the $r$ consecutive indices $n_{0},\dots,n_{0}+r-1$, they agree
-at every $n\ge n_{0}$.
+\begin{lemma}\label{lem:jaN}
+Let $A(x)=\sum_{n\ge1}a(n)x^{n}$ with $a(1)=1$. Then for every $i\ge1$ and every $N\ge1$,
+\[
+\bigl[x^{N}\bigr]A^{\,i}=i\,a(N)+\bigl(\text{a polynomial in }a(1),\dots,a(N-1)\bigr).
+\]
 \end{lemma}
 
 \begin{proof}
-Induction. Suppose the two agree at $n_{0},\dots,m+r-1$ for some $m\ge n_{0}$. The
-recurrence at $n=m$ determines $b(m+r)$ from the preceding $r$ values, because $q_{r}(m)$
-is nonzero and may be divided by; both sequences therefore take the same value at $m+r$.
+Induction on $i$. For $i=1$ the statement is $\bigl[x^{N}\bigr]A=a(N)$. Suppose it holds
+for $i$ and put $B=A^{\,i}$, so $\bigl[x^{1}\bigr]B=1$ and
+$\bigl[x^{N}\bigr]B=i\,a(N)+\cdots$. Then
+$A^{\,i+1}=A\circ B=\sum_{m\ge1}a(m)B^{m}$, so
+\[
+\bigl[x^{N}\bigr]A^{\,i+1}=\sum_{m=1}^{N}a(m)\,\bigl[x^{N}\bigr]B^{m} .
+\]
+The term $m=N$ contributes $a(N)\bigl(\bigl[x^{1}\bigr]B\bigr)^{N}=a(N)$; the term $m=1$
+contributes $\bigl[x^{N}\bigr]B=i\,a(N)+\cdots$; and for $2\le m\le N-1$ every monomial of
+$\bigl[x^{N}\bigr]B^{m}$ is a product of $m\ge2$ coefficients of $B$ whose indices sum to
+$N$, so each index is at most $N-1$ and no $a(N)$ occurs. Adding up gives $(i+1)a(N)$ plus
+terms in $a(1),\dots,a(N-1)$.
 \end{proof}
 
-\begin{theorem}
-For all $n\ge 6$,
+\begin{lemma}\label{lem:unique}
+There is exactly one sequence of integers $a(1),a(2),\dots$ satisfying \eqref{eq:fe}, and
+for each $N\ge2$ the equation read at order $x^{N}$ has the form
+$a(N)=(\text{a polynomial with integer coefficients in }a(1),\dots,a(N-1))$.
+\end{lemma}
+
+\begin{proof}
+Comparing coefficients of $x$ in \eqref{eq:fe} gives $a(1)=1$, since $x\,A^{3}(x)$ has
+no linear term. Let $N\ge2$. The left side contributes $a(N)$. On the right,
+$\bigl[x^{N}\bigr]\bigl(x\,A^{3}\bigr)=\bigl[x^{N-1}\bigr]A^{3}$, which by
+Lemma~\ref{lem:jaN} involves only $a(1),\dots,a(N-1)$. So the coefficient of $a(N)$ in the
+order-$x^{N}$ equation is $1$, the equation solves for $a(N)$ over $\mathbb{Z}$, and
+induction gives existence and uniqueness.
+\end{proof}
+
+\begin{corollary}\label{cor:mod}
+Let $m\ge2$. If $\bar A\in(\mathbb{Z}/m\mathbb{Z})[[x]]$ satisfies $\bar A=x+O(x^{2})$ and
+\eqref{eq:fe} with all coefficients read modulo $m$, then
+$a(n)\equiv\bigl[x^{n}\bigr]\bar A\pmod m$ for every $n$.
+\end{corollary}
+
+\begin{proof}
+Reduction modulo $m$ is a ring homomorphism, so it carries the integer recursion of
+Lemma~\ref{lem:unique} to the same recursion over $\mathbb{Z}/m\mathbb{Z}$, in which the
+coefficient of $a(N)$ is still $1$ and hence still invertible. That recursion has a unique
+solution, and both $a\bmod m$ and the coefficients of $\bar A$ solve it.
+\end{proof}
+
+\section{The reduction modulo $2$}
+
+Write $f(x)=\dfrac{x}{1-x}$ over $\mathbb{Z}/2\mathbb{Z}$.
+
+\begin{lemma}\label{lem:iter}
+$f^{\,i}(x)=\dfrac{x}{1-ix}$ for every $i\ge1$.
+\end{lemma}
+
+\begin{proof}
+True for $i=1$. If $f^{\,i}(x)=x/(1-ix)$ then
 \[
-a(n) \;=\; \frac{n^{7}}{14} - \frac{n^{6}}{2} + \frac{3 n^{5}}{2} - \frac{5 n^{4}}{2} + \frac{5 n^{3}}{2} - \frac{3 n^{2}}{2} + \frac{3 n}{7}
+f^{\,i+1}(x)=f\bigl(f^{\,i}(x)\bigr)
+=\frac{\dfrac{x}{1-ix}}{1-\dfrac{x}{1-ix}}
+=\frac{x}{(1-ix)-x}=\frac{x}{1-(i+1)x} .
 \]
+\end{proof}
+
+\begin{lemma}\label{lem:sat}
+Over $\mathbb{Z}/2\mathbb{Z}$, $f$ satisfies $f(x)=x+x\,f^{3}(x)$.
+\end{lemma}
+
+\begin{proof}
+By Lemma~\ref{lem:iter}, $f^{3}(x)=\dfrac{x}{1-3x}$. Since $3\equiv1$ modulo
+$2$ --- this is the whole content of the choice of modulus, as $2=3-1$ --- we have
+$1-3x=1-x$ in $(\mathbb{Z}/2\mathbb{Z})[x]$, so $f^{3}(x)=\dfrac{x}{1-x}$.
+Therefore
+\[
+x+x\,f^{3}(x)=x+\frac{x^{2}}{1-x}
+=\frac{x(1-x)+x^{2}}{1-x}=\frac{x}{1-x}=f(x).
+\]
+\end{proof}
+
+\begin{theorem}\label{thm:main}
+Over $\mathbb{Z}/2\mathbb{Z}$ the reduction of $A$ is $x/(1-x)$; equivalently
+$a(n)\equiv1\pmod{2}$ for every $n\ge1$. This is the conjecture of Section~1.
 \end{theorem}
 
 \begin{proof}
-Both sides satisfy \eqref{eq:rec}: the sequence because the recurrence was derived from
-the entry's own a generating function, and the conjectured closed form by the computation of the
-previous section. They agree at the $5$ consecutive indices beginning
-$n=6$, which was checked against the entry's DATA in exact integer arithmetic.
-The leading coefficient has no zero at any integer $n\ge6$, so
-Lemma~\ref{lem:unique} applies.
+By Lemma~\ref{lem:sat} the series $f=x/(1-x)$ satisfies the reduced equation, and
+$f=x+O(x^{2})$. By Corollary~\ref{cor:mod} the reduction of $A$ equals $f$, every
+coefficient of which is $1$.
 \end{proof}
+
+\begin{remark}
+The proof used only $3\equiv1$ modulo $2$. The same argument shows that for every
+$i\ge2$ the sequence defined by $A(x)=x+x\,A^{\,i}(x)$ has all of its terms congruent to
+$1$ modulo $i-1$. It also shows where the argument stops: if $m\nmid i-1$ then $1-ix$ and
+$1-x$ differ in $(\mathbb{Z}/m\mathbb{Z})[x]$, so $x/(1-x)$ is not a solution of the
+reduced equation and this route says nothing modulo $m$.
+\end{remark}
 
 \section{Verification}
 
-Three checks, independent of one another.
+Three checks, each independent of the algebra above.
 
-First, the description the entry states as fact was itself confirmed against the entry's
-DATA before any recurrence was derived from it; a statement that did not reproduce the
-entry's own terms would not have been used as the basis of anything.
+First, the recursion of Lemma~\ref{lem:unique} was run in exact rational arithmetic and
+its output compared against the entry's DATA at every one of the $22$ published
+indices; the values agree exactly, and every one is an integer. A recursion that reproduced
+only some of them would mean the functional equation had been transcribed wrongly.
 
-Second, the derived recurrence \eqref{eq:rec} was evaluated on the published terms in
-exact integer arithmetic and vanishes at every index where it applies.
+Second, at every step the coefficient of $a(N)$ was computed rather than assumed, by
+evaluating the order-$x^{N}$ equation at $a(N)=0$ and at $a(N)=1$ and subtracting; it came
+out $1$ at every $N$ up to $25$, as Lemma~\ref{lem:unique} requires. The run was continued
+to $n=25$ and every term reduced modulo $2$; all residues are $1$.
 
-Third, the conjectured closed form was evaluated at the first $13$ indices and
-compared term by term with the DATA; the values agree exactly. This is not part of the
-proof, which is symbolic, but it would catch a transcription error in either statement.
+Third, both sides of \eqref{eq:fe} were expanded independently as formal power series over
+$\mathbb{Z}/2\mathbb{Z}$ to order $30$, starting from the coefficients of $x/(1-x)$
+rather than from the closed form, and they agree at every order; the iterates $f^{\,i}$
+were confirmed to have coefficients $i^{\,n-1}$ for $i\le6$.
 
 \begin{thebibliography}{9}
-\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer Sequences},
-\url{https://oeis.org}, 2026. Sequence A208545.
-\bibitem{aeqb} M.~Petkov\v{s}ek, H.~S.~Wilf and D.~Zeilberger, \emph{A=B}, A K Peters,
-1996.
+\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
+Sequences}, \url{https://oeis.org}, 2026. Sequence A091713.
+\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 2, Cambridge
+University Press, 1999.
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
 University Press, 2009.
-\bibitem{kauers} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011.
+\bibitem{hw} G.~H.~Hardy and E.~M.~Wright, \emph{An Introduction to the Theory of
+Numbers}, 6th ed., Oxford University Press, 2008.
 \end{thebibliography}
 
 \end{document}

@@ -12,47 +12,44 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{A condition on the multiset of every subblock: OEIS A184203}
+\title{A condition on every subblock: the empirical recurrence for OEIS A183807}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{7 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A184203 carries an empirical recurrence of order $36$ contributed by R.~H.~Hardin. It is
-true, and it is decidable rather than empirical. The entry's condition on a subblock depends
-only on which values the block holds and how many times, not on where they sit, so it is
-decided by the few consecutive lines the block spans. The admissible windows are the vertices
-of a finite digraph and the arrays counted are exactly its walks; hence $a(n)$ is a walk count
-on $S=36$ vertices and is $C$-finite, and whether the conjectured recurrence annihilates it
-is settled by a finite exact computation, with the Cayley--Hamilton theorem bounding the
-work.
+OEIS A183807 carries an empirical recurrence of order $36$ contributed by R.~H.~Hardin. It is
+true, and it is decidable rather than empirical. The entry's condition is a condition on every
+subblock of a fixed size, so it is decided by a bounded window of consecutive lines; the
+admissible windows are the vertices of a finite digraph and the arrays counted are exactly the
+walks in it. Hence $a(n)$ is a walk count on $S=55$ vertices and is $C$-finite, and whether the
+conjectured recurrence annihilates it is settled by a finite exact computation, with the
+Cayley--Hamilton theorem bounding the work. The entry does not count the arrays themselves but $1/16$ of them, so every count below is divided by $16$; the division is exact at every term, which is itself a check on the model.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
 \section{The conjecture}
 
-OEIS A184203 is ``Number of (n+1) X 6 binary arrays with no 2 X 2 subblock containing fewer than two 1's.''. It has offset $1$ and begins
+OEIS A183807 is ``1/16 the number of (n+1)X6 binary arrays with no 2X2 subblock being a reflection across the shared element pair of any horizontal or vertical neighbor.''. It has offset $1$ and begins
 \[
-1049, 29593, 721939, 18588589, 471487297, 12021784217, 306055720601, 7795714368919,\ \dots
+81, 1011, 11619, 143191, 1701473, 20745787, 249227639, 3023598287,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 26*a(n-1)+103*a(n-2)-3175*a(n-3)+843*a(n-4)+124668*a(n-5)-241004*a(n-6)-1741528*a(n-7)+4512428*a(n-8)+11666399*a(n-9)-36429185*a(n-10)-41916935*a(n-11)+161955426*a(n-12)+79119202*a(n-13)-435611222*a(n-14)-51541960*a(n-15)+738522868*a(n-16)-83869087*a(n-17)-800207178*a(n-18)+216307031*a(n-19)+552396475*a(n-20)-212199576*a(n-21)-239220431*a(n-22)+114209818*a(n-23)+63085385*a(n-24)-36259721*a(n-25)-9488703*a(n-26)+6873528*a(n-27)+671231*a(n-28)-762566*a(n-29)+22*a(n-30)+47026*a(n-31)-2787*a(n-32)-1453*a(n-33)+139*a(n-34)+17*a(n-35)-2*a(n-36).
+Empirical: a(n)=15*a(n-1)+110*a(n-2)-2305*a(n-3)-891*a(n-4)+125083*a(n-5)-243502*a(n-6)-2877148*a(n-7)+8795527*a(n-8)+27727447*a(n-9)-101226891*a(n-10)-43240980*a(n-11)-79975763*a(n-12)-680699282*a(n-13)+10953583229*a(n-14)-3221230812*a(n-15)-82978052876*a(n-16)+72785470699*a(n-17)+134369376084*a(n-18)-124679575504*a(n-19)+843000278192*a(n-20)-1580151635606*a(n-21)-2695042718660*a(n-22)+5684097111755*a(n-23)-3975339670937*a(n-24)+6858358660190*a(n-25)+17395248113157*a(n-26)-46405408055301*a(n-27)+3240133345994*a(n-28)+21004315650603*a(n-29)-16124690699477*a(n-30)+66278718366899*a(n-31)-35683008630253*a(n-32)-22465044442773*a(n-33)+2356096909734*a(n-34)-17220973586580*a(n-35)+22524996368520*a(n-36)
 \end{quote}
-As of the ``Last modified'' line on the live entry (May 08 2022 22:55:20, revision 7) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 02:02:59, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{The count is a walk count}
 
-The entry counts arrays with $6$ columns over the alphabet $\{0,1\}$, growing one row at a time, and asks that every $2\times2$ subblock holds at least $2$ entries equal to $1$.
+The entry counts arrays with $6$ columns over the alphabet $\{0,1\}$, growing one row at a time, and the condition it imposes is that no $2\times2$ subblock may be the mirror image of the subblock beside it or the subblock below it, reflected in the line the two share.
 
-That condition does not depend on where in the block a value sits, only on which values the block holds and how many times --- it is a function of the block's multiset of entries. In particular it is decided by $2$ consecutive rows, the ones the block spans, so carrying the previous $1$ row as the state is enough: each new row completes every block that ends on it, and no judgement is left over at the end of the array.
-
-Merging vertices with identical futures leaves $S=36$. An admissible array is exactly a walk, so with $M$ the adjacency matrix and $\iota,\tau$ the vectors recording which states may begin and end an array,
+That condition is decided by a bounded window. A $2\times2$ subblock occupies $2$ consecutive rows, and a condition relating one subblock to the next needs one more, so a window of $3$ consecutive rows decides everything that the arrival of a new row settles; nothing outside the window is consulted. Take those windows as the vertices of a digraph, with an edge from $u$ to $v$ when $v$'s new row may follow $u$, and merge vertices with identical futures; that leaves $S=55$. An admissible array is exactly a walk, so with $M$ the adjacency matrix and $\iota,\tau$ the vectors recording which windows may begin and end an array,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n}\tau ,
+a(n)\;=\;\tfrac{1}{16}\,\iota^{\!\top}M^{\,n}\tau ,
 \]
 the exponent fixed by the entry's own shape and checked against its published terms. In
 particular $a$ is $C$-finite.
@@ -78,15 +75,15 @@ changes nothing here.
 
 \begin{theorem}
 \[
-a(n)\;=\;26\,a(n-1) + 103\,a(n-2) - 3175\,a(n-3) + 843\,a(n-4) + 124668\,a(n-5) - 241004\,a(n-6) - 1741528\,a(n-7) + 4512428\,a(n-8) + 11666399\,a(n-9) - 36429185\,a(n-10) - 41916935\,a(n-11) + 161955426\,a(n-12) + 79119202\,a(n-13) - 435611222\,a(n-14) - 51541960\,a(n-15) + 738522868\,a(n-16) - 83869087\,a(n-17) - 800207178\,a(n-18) + 216307031\,a(n-19) + 552396475\,a(n-20) - 212199576\,a(n-21) - 239220431\,a(n-22) + 114209818\,a(n-23) + 63085385\,a(n-24) - 36259721\,a(n-25) - 9488703\,a(n-26) + 6873528\,a(n-27) + 671231\,a(n-28) - 762566\,a(n-29) + 22\,a(n-30) + 47026\,a(n-31) - 2787\,a(n-32) - 1453\,a(n-33) + 139\,a(n-34) + 17\,a(n-35) - 2\,a(n-36)
+a(n)\;=\;15\,a(n-1) + 110\,a(n-2) - 2305\,a(n-3) - 891\,a(n-4) + 125083\,a(n-5) - 243502\,a(n-6) - 2877148\,a(n-7) + 8795527\,a(n-8) + 27727447\,a(n-9) - 101226891\,a(n-10) - 43240980\,a(n-11) - 79975763\,a(n-12) - 680699282\,a(n-13) + 10953583229\,a(n-14) - 3221230812\,a(n-15) - 82978052876\,a(n-16) + 72785470699\,a(n-17) + 134369376084\,a(n-18) - 124679575504\,a(n-19) + 843000278192\,a(n-20) - 1580151635606\,a(n-21) - 2695042718660\,a(n-22) + 5684097111755\,a(n-23) - 3975339670937\,a(n-24) + 6858358660190\,a(n-25) + 17395248113157\,a(n-26) - 46405408055301\,a(n-27) + 3240133345994\,a(n-28) + 21004315650603\,a(n-29) - 16124690699477\,a(n-30) + 66278718366899\,a(n-31) - 35683008630253\,a(n-32) - 22465044442773\,a(n-33) + 2356096909734\,a(n-34) - 17220973586580\,a(n-35) + 22524996368520\,a(n-36)
 \]
-for every $n>35$.
+for every $n>36$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $36$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=35+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=36+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -94,14 +91,14 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $14$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $16$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
 Second, the reading was pinned before the digraph was written, by a program that enumerates
-every array of the given shape one by one, forms each subblock directly and tests the entry's
-condition on it. That program shares no code with the transfer matrix, so an error in one does
-not hide an error in the other.
+every array of the given shape one by one and tests the entry's condition on each subblock
+directly. That program shares no code with the transfer matrix, so an error in one does not
+hide an error in the other.
 
 Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
@@ -111,7 +108,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A184203.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A183807.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

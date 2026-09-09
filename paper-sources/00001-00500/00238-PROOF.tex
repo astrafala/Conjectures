@@ -8,210 +8,114 @@
 \newtheorem{theorem}{Theorem}
 \newtheorem{lemma}[theorem]{Lemma}
 \newtheorem{proposition}[theorem]{Proposition}
-\newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
-
-\title{Every odd-indexed term of OEIS A389472 after the first is even}
+\title{A proof of the conjectured closed form for OEIS A208545}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A389472 is defined by the functional equation $A(x)=A(x^{2}+x^{3})/x^{2}-1$ for its
-ordinary generating function, and carries a conjecture of P.~D.~Hanna that $a(2n-1)$ is
-even for every $n>1$. It is true. The equation determines the coefficients one at a time,
-so it determines them modulo $2$; and over $\mathbb{F}_{2}$ it turns out to be
-\emph{parity-preserving}: the series $x+C(x^{2})$ satisfies it exactly, for $C$ the
-solution of the companion equation $y\,C(y)=C(y^{2}+y^{3})$, because
-$(x^{2}+x^{3})^{2}=x^{4}+x^{6}$ in characteristic $2$. Uniqueness then forces the
-reduction of $A$ to be supported, apart from the term $x$, on even exponents only --- which
-is the conjecture. The entry's second conjecture, modulo $3$, is \emph{not} settled here;
-Section~5 says where the argument fails to carry over.
+OEIS A208545 carries a conjectured closed form. We prove it. The entry states, as fact,
+a generating function, and from that a linear recurrence with polynomial coefficients satisfied by
+the sequence is derived exactly. The conjectured closed form is then shown to satisfy the
+same recurrence, and to agree with the sequence at enough consecutive indices. A recurrence
+of order $5$ whose leading coefficient does not vanish, together with $5$
+consecutive values, determines a sequence completely, so the two agree everywhere. Nothing
+is checked numerically and then assumed: the recurrence is derived symbolically, the
+verification is an exact identity, and the finitely many indices where the leading
+coefficient vanishes are computed rather than waved at.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 11B50, 05A15, 13F35.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 33F10.\normalsize
 
-\section{The sequence and the conjecture}
+\section{The sequence, what is known, and what is conjectured}
 
-OEIS A389472 is ``G.f. satisfies A(x) = A(x\^{}2 + x\^{}3)/x\^{}2 - 1.''. It has offset $1$ and begins
+OEIS A208545 is ``Number of 7-bead necklaces of n colors allowing reversal, with no adjacent beads having the same color''. It has offset $1$ and begins
 \[
-1, 1, 2, 3, 6, 9, 14, 24, 42, 72,\ \dots
+a(1),\dots,a(8)\;=\;0, 0, 9, 156, 1170, 5580, 19995, 58824,\ \dots
 \]
-The entry gives the expansion
+The entry states, not as a conjecture,
 \begin{quote}\small
-G.f.: A(x) = x + x\^{}2 + 2*x\^{}3 + 3*x\^{}4 + 6*x\^{}5 + 9*x\^{}6 + 14*x\^{}7 + 24*x\^{}8 + \dots
+3*x\textasciicircum{}3*(3 + 28*x + 58*x\textasciicircum{}2 + 28*x\textasciicircum{}3 + 3*x\textasciicircum{}4) / (1 - x)\textasciicircum{}8
 \end{quote}
-so, writing $A(x)=\sum_{n\ge1}a(n)x^{n}$, the entry fixes
-\begin{equation}\label{eq:init}
-a(1)=1,\qquad a(2)=1,
-\end{equation}
-and defines the remaining coefficients by $A(x)=A(x^{2}+x^{3})/x^{2}-1$, which we clear
-of the division and write as
-\begin{equation}\label{eq:fe}
-x^{2}\bigl(A(x)+1\bigr)\;=\;A\bigl(x^{2}+x^{3}\bigr).
-\end{equation}
-This is the only input taken from the entry.
-
-The entry separately carries the following comment:
+and separately carries the comment
 \begin{quote}\small
-Conjecture: a(2*n-1) = 0 (mod 2) for n > 1. --- \emph{Paul D. Hanna}
+a(n) = (1/14)*n\textasciicircum{}7 - (1/2)*n\textasciicircum{}6 + (3/2)*n\textasciicircum{}5 - (5/2)*n\textasciicircum{}4 + (5/2)*n\textasciicircum{}3 - (3/2)*n\textasciicircum{}2 + (3/7)*n.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 17 2025 00:08:59, revision 7) the statement is
-still recorded as a conjecture, and nothing on the entry records it as settled either way.
-The entry carries a second conjecture of the same contributor, that $a(3n-1)\equiv0$
-modulo $3$ for $n>1$. It is not proved below and it is not claimed.
+As of the ``Last modified'' line on the live entry (2017-11-11, revision 10) the second
+statement is still recorded as a conjecture, and no proof appears among the entry's links,
+formulas or programs.
 
-\section{The equation determines the sequence}
+\section{A recurrence from what is known}
 
-Because $(x^{2}+x^{3})^{n}=x^{2n}(1+x)^{n}$, comparing coefficients of $x^{N}$ in
-\eqref{eq:fe} gives, for every $N\ge2$,
+The generating function the entry posts is algebraic over $\mathbb{Q}(x)$, hence $D$-finite: it satisfies a linear differential equation with polynomial coefficients, obtained by differentiating its defining equation inside the field it generates and taking a linear dependence among the derivatives. Reading off the coefficient of each power of $x$ turns that differential equation into a recurrence for the coefficients, which is
+
 \begin{equation}\label{eq:rec}
-a(N-2)\;=\;\sum_{n\ge1}a(n)\binom{n}{N-2n},
+\left(9 n + 9\right)\,a(n) + \left(75 n + 306\right)\,a(n+1) + \left(90 n + 1206\right)\,a(n+2) + \left(936 - 90 n\right)\,a(n+3) + \left(81 - 75 n\right)\,a(n+4) + \left(- 9 n - 18\right)\,a(n+5) \;=\; 0
 \end{equation}
-with $a(0):=0$ and the convention $\binom{n}{j}=0$ unless $0\le j\le n$.
+
+The leading coefficient of \eqref{eq:rec} is $- 9 \left(n + 2\right)$. Its only integer zeros are $n\in\{-2\}$, all below the range claimed here.
+
+\section{The conjectured description satisfies it}
+
+The conjectured closed form is a sum of hypergeometric terms. Substituting it into \eqref{eq:rec} and grouping the summands into similarity classes -- two terms being similar when their quotient is a rational function of $n$ -- every class contributes a rational function of $n$, and each of those cancels to zero identically. Since pairwise dissimilar hypergeometric terms are linearly independent over $\mathbb{Q}(n)$, that is exactly the statement that the closed form satisfies \eqref{eq:rec}.
+
+\section{Uniqueness}
 
 \begin{lemma}\label{lem:unique}
-The coefficient $a(1)=1$ is forced by \eqref{eq:fe}. Given also $a(2)$, equation
-\eqref{eq:rec} determines $a(m)$ for every $m\ge3$ as a polynomial with integer
-coefficients in $a(1),\dots,a(m-1)$; so \eqref{eq:init} and \eqref{eq:fe} together have
-exactly one integer solution.
+Let $\sum_{j=0}^{r}q_{j}(n)\,b(n+j)=0$ be a linear recurrence whose leading coefficient
+$q_{r}$ has no zero at any integer $n\ge n_{0}$. If two sequences both satisfy it for all
+$n\ge n_{0}$ and agree at the $r$ consecutive indices $n_{0},\dots,n_{0}+r-1$, they agree
+at every $n\ge n_{0}$.
 \end{lemma}
 
 \begin{proof}
-At $N=2$, \eqref{eq:rec} reads $a(0)=a(1)\binom{1}{0}$ --- reading the left side of
-\eqref{eq:fe} instead, the coefficient of $x^{2}$ there is $1$, so $a(1)=1$.
-
-Now take $N\ge5$ and put $m=N-2\ge3$. On the right of \eqref{eq:rec} the binomial
-$\binom{n}{N-2n}$ vanishes unless $2n\le N$, so only $a(n)$ with
-$n\le\lfloor N/2\rfloor$ occur. Since $N\ge5$,
-\[
-\Bigl\lfloor \tfrac{N}{2}\Bigr\rfloor\;\le\;N-3\;=\;m-1,
-\]
-so the right side involves only $a(1),\dots,a(m-1)$ and \eqref{eq:rec} expresses $a(m)$
-through them. (At $N=3$ and $N=4$ the relation reads $a(1)=a(1)$ and $a(2)=a(2)$, giving no
-information; that is why $a(2)$ is part of the data.) Induction finishes the proof.
+Induction. Suppose the two agree at $n_{0},\dots,m+r-1$ for some $m\ge n_{0}$. The
+recurrence at $n=m$ determines $b(m+r)$ from the preceding $r$ values, because $q_{r}(m)$
+is nonzero and may be divided by; both sequences therefore take the same value at $m+r$.
 \end{proof}
-
-\begin{corollary}\label{cor:mod}
-Let $k\ge2$. If $\bar A\in(\mathbb{Z}/k\mathbb{Z})[[x]]$ has
-$\bigl[x^{1}\bigr]\bar A=\bigl[x^{2}\bigr]\bar A=1$, no constant term, and satisfies
-\eqref{eq:fe} with all coefficients read modulo $k$, then
-$a(n)\equiv\bigl[x^{n}\bigr]\bar A\pmod k$ for every $n$.
-\end{corollary}
-
-\begin{proof}
-Reduction modulo $k$ is a ring homomorphism, so it carries \eqref{eq:rec} to the same
-relation over $\mathbb{Z}/k\mathbb{Z}$; by Lemma~\ref{lem:unique} that relation, together
-with the two initial values, has a unique solution, and both $a\bmod k$ and the
-coefficients of $\bar A$ solve it.
-\end{proof}
-
-\section{The companion equation}
-
-Work in $\mathbb{F}_{2}[[y]]$.
-
-\begin{lemma}\label{lem:C}
-There is exactly one $C(y)=\sum_{m\ge1}c_m y^{m}\in\mathbb{F}_{2}[[y]]$ with $c_1=1$ and
-\begin{equation}\label{eq:C}
-y\,C(y)\;=\;C\bigl(y^{2}+y^{3}\bigr).
-\end{equation}
-\end{lemma}
-
-\begin{proof}
-Comparing coefficients of $y^{m}$ in \eqref{eq:C} and using
-$(y^{2}+y^{3})^{n}=y^{2n}(1+y)^{n}$ gives
-$c_{m-1}=\sum_{n\ge1}c_n\binom{n}{m-2n}$, where again only $n\le\lfloor m/2\rfloor$
-occur. For $m\ge3$ we have $\lfloor m/2\rfloor\le m-2$, so this expresses $c_{m-1}$
-through $c_1,\dots,c_{m-2}$; at $m=2$ it reads $c_1=c_1$. Hence $c_1$ may be prescribed
-and everything after it is determined.
-\end{proof}
-
-\begin{lemma}\label{lem:sat}
-Let $C$ be as in Lemma~\ref{lem:C} and put $\bar A(x)=x+C(x^{2})$. Then $\bar A$ satisfies
-\eqref{eq:fe} over $\mathbb{F}_{2}$, and $\bigl[x^{1}\bigr]\bar A=\bigl[x^{2}\bigr]\bar A=1$.
-\end{lemma}
-
-\begin{proof}
-In characteristic $2$ squaring is additive, so
-\begin{equation}\label{eq:frob}
-\bigl(x^{2}+x^{3}\bigr)^{2}\;=\;x^{4}+x^{6} .
-\end{equation}
-Substituting $u=x^{2}+x^{3}$ into $\bar A(u)=u+C(u^{2})$ and using \eqref{eq:frob},
-\[
-\bar A\bigl(x^{2}+x^{3}\bigr)\;=\;x^{2}+x^{3}+C\bigl(x^{4}+x^{6}\bigr),
-\]
-while
-\[
-x^{2}\bigl(\bar A(x)+1\bigr)\;=\;x^{2}\bigl(x+C(x^{2})+1\bigr)
-\;=\;x^{2}+x^{3}+x^{2}C\bigl(x^{2}\bigr).
-\]
-The two agree exactly when $x^{2}C(x^{2})=C(x^{4}+x^{6})$, which is \eqref{eq:C} read
-at $y=x^{2}$. Finally $\bigl[x^{1}\bigr]\bar A=1$ and
-$\bigl[x^{2}\bigr]\bar A=c_1=1$.
-\end{proof}
-
-\section{The reduction modulo $2$}
 
 \begin{theorem}
-$a(2n-1)\equiv0\pmod 2$ for every $n>1$. This is the conjecture of Section~1.
+For all $n\ge 6$,
+\[
+a(n) \;=\; \frac{n^{7}}{14} - \frac{n^{6}}{2} + \frac{3 n^{5}}{2} - \frac{5 n^{4}}{2} + \frac{5 n^{3}}{2} - \frac{3 n^{2}}{2} + \frac{3 n}{7}
+\]
 \end{theorem}
 
 \begin{proof}
-By Lemma~\ref{lem:sat} the series $\bar A(x)=x+C(x^{2})$ satisfies \eqref{eq:fe} over
-$\mathbb{F}_{2}$ and matches \eqref{eq:init}. By Corollary~\ref{cor:mod} with $k=2$ it is
-therefore the reduction of $A$ modulo $2$.
-
-Every exponent occurring in $C(x^{2})$ is even, so the only odd exponent occurring in
-$\bar A$ is $1$. Hence $\bigl[x^{m}\bigr]\bar A=0$ for every odd $m\ge3$, that is,
-$a(m)\equiv0\pmod2$ for every odd $m\ge3$. Writing $m=2n-1$ with $n>1$ gives the statement.
+Both sides satisfy \eqref{eq:rec}: the sequence because the recurrence was derived from
+the entry's own a generating function, and the conjectured closed form by the computation of the
+previous section. They agree at the $5$ consecutive indices beginning
+$n=6$, which was checked against the entry's DATA in exact integer arithmetic.
+The leading coefficient has no zero at any integer $n\ge6$, so
+Lemma~\ref{lem:unique} applies.
 \end{proof}
-
-\begin{remark}
-The mechanism is worth isolating: \eqref{eq:fe} substitutes $x^{2}+x^{3}$, and in
-characteristic $2$ the square of that is again a polynomial in $x^{2}$, by \eqref{eq:frob}.
-So the substitution cannot manufacture new odd exponents beyond the ones already present,
-and the single odd exponent $1$ forced by $a(1)=1$ is all there is.
-\end{remark}
-
-\section{Where the argument stops}
-
-The entry's other conjecture is that $a(3n-1)\equiv0$ modulo $3$ for $n>1$, that is, that
-the reduction of $A$ modulo $3$ is supported off the exponents $\equiv2\pmod 3$ apart from
-$x^{2}$ itself. That is not proved here, and the proof above does not adapt: it turns on
-the Frobenius identity \eqref{eq:frob}, which in characteristic $3$ becomes
-$(x^{2}+x^{3})^{3}=x^{6}+x^{9}$ --- but \eqref{eq:fe} substitutes the \emph{first}
-power of $x^{2}+x^{3}$, not the third, so the Frobenius map is not available where it
-would be needed. The residues modulo $3$ were computed for every $n\le60$ and the
-conjecture holds throughout that range; no proof is offered.
 
 \section{Verification}
 
-Three checks, each independent of the algebra above.
+Three checks, independent of one another.
 
-First, the recursion \eqref{eq:rec} was run in exact integer arithmetic from
-\eqref{eq:init} and compared against the entry's DATA at every one of the $41$
-published indices; the values agree exactly. A recursion that reproduced only some of them
-would mean the functional equation had been transcribed wrongly.
+First, the description the entry states as fact was itself confirmed against the entry's
+DATA before any recurrence was derived from it; a statement that did not reproduce the
+entry's own terms would not have been used as the basis of anything.
 
-Second, the series $C$ of Lemma~\ref{lem:C} was generated from its own recursion over
-$\mathbb{F}_{2}$ and $x+C(x^{2})$ compared, coefficient by coefficient, against
-$a(n)\bmod2$ for every $n\le60$; the two agree at every index, with no mismatch. Equation
-\eqref{eq:C} was checked directly over $\mathbb{F}_{2}$ to order $60$.
+Second, the derived recurrence \eqref{eq:rec} was evaluated on the published terms in
+exact integer arithmetic and vanishes at every index where it applies.
 
-Third, $a(2n-1)\bmod2$ was evaluated for every $n$ with $2n-1\le60$: all zero, as the
-theorem requires.
+Third, the conjectured closed form was evaluated at the first $13$ indices and
+compared term by term with the DATA; the values agree exactly. This is not part of the
+proof, which is symbolic, but it would catch a transcription error in either statement.
 
 \begin{thebibliography}{9}
-\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A389472.
-\bibitem{lidl} R.~Lidl and H.~Niederreiter, \emph{Finite Fields}, 2nd ed., Cambridge
-University Press, 1997.
-\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 2, Cambridge
-University Press, 1999.
+\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer Sequences},
+\url{https://oeis.org}, 2026. Sequence A208545.
+\bibitem{aeqb} M.~Petkov\v{s}ek, H.~S.~Wilf and D.~Zeilberger, \emph{A=B}, A K Peters,
+1996.
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
 University Press, 2009.
+\bibitem{kauers} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011.
 \end{thebibliography}
 
 \end{document}

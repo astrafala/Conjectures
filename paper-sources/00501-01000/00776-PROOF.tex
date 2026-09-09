@@ -12,20 +12,20 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical closed form for OEIS A219847, proved}
+\title{The empirical closed form for OEIS A219878, proved}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{8 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A219847 states an explicit closed form for $a(n)$ and records it as empirical. It is true, and
+OEIS A219878 states an explicit closed form for $a(n)$ and records it as empirical. It is true, and
 it is decidable. What the entry counts is not a set of arrays but the SIZE OF AN IMAGE: each
-admissible array is replaced by the array of minima of its cells and their antidiagonal, horizontal neighbours,
+admissible array is replaced by the array of minima of its cells and their antidiagonal, diagonal, horizontal neighbours,
 and $a(n)$ counts how many different arrays come out. Two arrays with the same image count
 once, so the usual graph over arrays overcounts. Determinising a machine whose state is a pair
 of consecutive rows and whose output is the filtered array turns the count into a walk count on
-$S=65$ vertices, exact and finite. The closed form is a polynomial in $n$, so it satisfies the
+$S=82$ vertices, exact and finite. The closed form is a polynomial in $n$, so it satisfies the
 monic recurrence with characteristic polynomial $(x-1)^{12}$; that the walk count
 satisfies the same recurrence, and that the two agree on enough initial terms, are both checked
 in exact integer arithmetic, and together they prove the formula.
@@ -35,15 +35,15 @@ in exact integer arithmetic, and together they prove the formula.
 
 \section{The entry}
 
-OEIS A219847 is ``Number of nX3 arrays of the minimum value of corresponding elements and their horizontal or antidiagonal neighbors in a random, but sorted with lexicographically nondecreasing rows and nonincreasing columns, 0..2 nX3 array.''. It has offset $1$ and begins
+OEIS A219878 is ``Number of nX3 arrays of the minimum value of corresponding elements and their horizontal, diagonal or antidiagonal neighbors in a random, but sorted with lexicographically nondecreasing rows and nonincreasing columns, 0..2 nX3 array.''. It has offset $1$ and begins
 \[
-6, 17, 65, 225, 669, 1815, 4617, 11125,\ \dots
+6, 11, 47, 146, 410, 1069, 2701, 6645,\ \dots
 \]
 and states:
 \begin{quote}
-Empirical: a(n) = (1/39916800)*n\^{}11 + (1/1209600)*n\^{}10 + (1/120960)*n\^{}9 + (1/10080)*n\^{}8 + (1481/1209600)*n\^{}7 + (131/19200)*n\^{}6 + (14807/181440)*n\^{}5 - (49747/120960)*n\^{}4 + (78101/16800)*n\^{}3 - (136007/16800)*n\^{}2 + (44059/9240)*n + 2 for n>3
+Empirical: a(n) = (1/19958400)*n\^{}11 + (1/907200)*n\^{}10 - (1/72576)*n\^{}9 + (29/120960)*n\^{}8 + (31/28800)*n\^{}7 - (263/10800)*n\^{}6 + (175169/362880)*n\^{}5 - (1469677/362880)*n\^{}4 + (901433/56700)*n\^{}3 + (759737/50400)*n\^{}2 - (837073/3960)*n + 342 for n>4
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 18:21:28, revision 8)
+As of the ``Last modified'' line on the live entry (Oct 03 2025 18:22:48, revision 8)
 this is still recorded as empirical, and it is still open.
 
 \section{What is being counted}
@@ -52,7 +52,7 @@ Fix the width $W=3$ and the value range $0..2$. The underlying arrays are the
 $n\times3$ arrays over that range whose rows are lexicographically nondecreasing read downwards
 and whose columns are lexicographically nonincreasing read left to right. Each such array $g$
 is mapped to $F(g)$, the array whose $(i,j)$ entry is the minimum of $g(i,j)$ and the entries
-of its antidiagonal, horizontal neighbours that lie inside the array. The entry counts
+of its antidiagonal, diagonal, horizontal neighbours that lie inside the array. The entry counts
 \[
 a(n)\;=\;\bigl|\{\,F(g)\;:\;g\text{ admissible with }n\text{ rows}\,\}\bigr|,
 \]
@@ -78,7 +78,7 @@ still agreeing, its two entries either agree again or differ in the permitted di
 \end{proof}
 
 \begin{lemma}\label{lem:det}
-$a(n)$ is a walk count: there are a matrix $M$ with non-negative integer entries on $S=65$
+$a(n)$ is a walk count: there are a matrix $M$ with non-negative integer entries on $S=82$
 vertices and vectors $\iota,\tau$ with $a(n)=\iota^{\!\top}M^{\,n-2}\tau$ for $n\ge2$.
 \end{lemma}
 
@@ -89,7 +89,7 @@ emit $F(g)$ one row at a time. It is nondeterministic --- several continuations 
 same row --- and the images of $g$ are exactly the words it can emit. Determinising it gives a
 machine in which each emitted row leads to exactly one state, so distinct words of length $n$
 correspond to distinct paths, and counting them is counting walks. The reachable determinised
-states number $S=65$. The last filtered row is emitted with no row below it, so it is not a
+states number $S=82$. The last filtered row is emitted with no row below it, so it is not a
 step of the walk but a count attached to the state the walk stops in; that is $\tau$.
 \end{proof}
 
@@ -102,15 +102,15 @@ q(x)=(x-1)^{12},\qquad\text{that is}\qquad a(n)=12\,a(n-1) - 66\,a(n-2) + 220\,a
 \]
 
 \begin{theorem}
-The closed form OEIS A219847 records is correct for all $n>3$.
+The closed form OEIS A219878 records is correct for all $n>4$.
 \end{theorem}
 
 \begin{proof}
 Two exact computations. First, the walk count of Lemma~\ref{lem:det} satisfies $q$: the
 residual $u_j=\iota^{\!\top}M^{\,j}q(M)\tau$ vanishes for $S$ consecutive indices, and
 since the residual vector lives in the $S$-dimensional space spanned by the iterates of $M$,
-$S$ consecutive zeros force every later one. The last index at which it fails is $15$.
-Second, the polynomial and the walk count agree at every index from $4$ up to
+$S$ consecutive zeros force every later one. The last index at which it fails is $16$.
+Second, the polynomial and the walk count agree at every index from $5$ up to
 $1 + 29 - 1$, which is more than the $12$ consecutive agreements a
 common recurrence of order $12$ needs. Two sequences satisfying the same monic recurrence
 of order $12$ and agreeing at $12$ consecutive indices past both their thresholds are
@@ -134,7 +134,7 @@ fixed horizon, which is what makes it a proof and not a check of finitely many t
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A219847.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A219878.
 \bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata
 Theory, Languages, and Computation}, 3rd ed., Addison--Wesley, 2006. (The subset
 construction, Section 2.3.)
