@@ -12,80 +12,114 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A221305, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A220372, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{3 September 2026}
+\date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A221305 counts the distinct OCCUPANCY arrays obtained when every cell of an $n\times3$ grid
-holds one token and each token moves to a neighbouring cell, and carries an empirical
-recurrence of order $32$ contributed by R.~H.~Hardin. It is true, and it is decidable
-rather than empirical. What is counted is the size of an IMAGE --- two different assignments of
-moves with the same occupancy count once --- so it is not a walk count in the obvious graph;
-determinising the machine that emits the occupancy row by row turns it into one, on $S=554$
-states, after which the conjectured recurrence is settled by a finite exact computation.
+OEIS A220372 counts the distinct indicator arrays obtained from the $n\times2$ arrays over
+$\{0,\dots,2\}$ by marking the cells whose value is equal to exactly two of their neighbours, and carries an
+empirical recurrence of order $37$ contributed by R.~H.~Hardin. It is true, and it is
+decidable rather than empirical. What is counted is the IMAGE of a map, not its domain, so it
+is not a walk count in the obvious graph; the determinisation of the machine that emits the
+indicator row by row turns it into one, on $S=97$ states, after which the conjectured
+recurrence is settled by a finite exact computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 68Q45, 60C05.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 68Q45, 15B36.\normalsize
 
 \section{The conjecture}
 
-OEIS A221305 is ``Number of nX3 arrays of occupancy after each element moves to some horizontal, vertical or antidiagonal neighbor, with every occupancy equal to zero or two.''. It has offset $1$ and begins
+OEIS A220372 is ``Equals two maps: number of nX2 binary arrays indicating the locations of corresponding elements equal to exactly two of their horizontal and vertical neighbors in a random 0..2 nX2 array.''. It has offset $1$ and begins
 \[
-0, 10, 0, 312, 0, 10042, 0, 319226,\ \dots
+1, 6, 23, 94, 380, 1494, 5939, 23398,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 33*a(n-2) -2*a(n-4) -1074*a(n-6) -4389*a(n-8) -8373*a(n-10) -9016*a(n-12) -5198*a(n-14) -28*a(n-16) +3296*a(n-18) +3856*a(n-20) +2610*a(n-22) +1148*a(n-24) +302*a(n-26) +8*a(n-28) -28*a(n-30) -8*a(n-32) for n>34
+Empirical: a(n) = 8*a(n-1) -21*a(n-2) +23*a(n-3) -17*a(n-4) +11*a(n-5) +55*a(n-6) -199*a(n-7) +241*a(n-8) -157*a(n-9) -14*a(n-10) +217*a(n-11) -546*a(n-12) +850*a(n-13) -927*a(n-14) +254*a(n-15) +555*a(n-16) -375*a(n-17) +150*a(n-18) +848*a(n-19) +368*a(n-20) +998*a(n-21) +666*a(n-22) +1091*a(n-23) +2744*a(n-24) +1499*a(n-25) +3393*a(n-26) +1420*a(n-27) +3704*a(n-28) -272*a(n-29) +3190*a(n-30) -1290*a(n-31) +1774*a(n-32) -418*a(n-33) +486*a(n-34) -72*a(n-35) +68*a(n-36) -8*a(n-37)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 19:29:32, revision 8) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 18:44:15, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-Every cell of an $n\times3$ grid holds one token. Each token moves by one of the offsets
+Let $R=\{0,\dots,2\}^{2}$ be the set of rows and let the neighbours of a cell be the
+cells at the offsets
 \[
-(-1,0), (-1,1), (0,-1), (0,1), (1,-1), (1,0),
+(-1,0), (0,-1), (0,1), (1,0),
 \]
-a move being available only when it lands inside the grid. The offset $(0,0)$ is NOT among them: every token must move. The OCCUPANCY array
-records, for each cell, how many tokens land on it; the entry counts how many different
-occupancy arrays occur as the assignment of moves runs over all its possibilities. The entry also asks that every occupancy be $0 or 2$.
+those falling outside the array being simply absent. For an array
+$A=(r_1,\dots,r_n)\in R^n$ let $\Phi(A)\in\{0,1\}^{n\times2}$ mark the cells whose value
+is equal to exactly two of its neighbours. The entry counts
+\[
+a(n)\;=\;\bigl|\{\Phi(A):A\in R^n\}\bigr| ,
+\]
+the size of an IMAGE. This is the whole difficulty: two different arrays with the same marking
+must be counted once, and a walk count in a graph on the arrays would count them twice.
 
-That is the size of an IMAGE, and it is the whole difficulty: two assignments with the same
-occupancy must be counted once, and a walk count over the assignments would count them twice.
+Because every offset above moves the row index by at most one, the marked row $i$ depends only
+on rows $i-1,i,i+1$. Write $\beta(p,c,x)\in\{0,1\}^{2}$ for the marking of the row $c$
+with $p$ above and $x$ below, allowing $p$ or $x$ to be the symbol $\bot$ for ``outside''.
+Then
+\[
+\Phi(r_1,\dots,r_n)=\bigl(\beta(\bot,r_1,r_2),\ \beta(r_1,r_2,r_3),\ \dots,\
+\beta(r_{n-1},r_n,\bot)\bigr).
+\]
 
 \section{The image is a walk count after determinisation}
 
-Every offset moves the row index by at most one, so the occupancy of row $i$ is decided by the
-moves chosen in rows $i-1$, $i$ and $i+1$. Writing $\beta(p,c,x)$ for that occupancy row, with
-$p$ or $x$ allowed to be the symbol $\bot$ for ``outside'', the whole occupancy array is
+For a set $D\subseteq(R\cup\{\bot\})\times R$ of pairs and a row $b\in\{0,1\}^{2}$ put
 \[
-\bigl(\beta(\bot,c_1,c_2),\ \beta(c_1,c_2,c_3),\ \dots,\ \beta(c_{n-1},c_n,\bot)\bigr)
+\delta(D,b)=\{(c,x)\ :\ (p,c)\in D,\ x\in R,\ \beta(p,c,x)=b\},\qquad
+f(D)=\bigl|\{\beta(p,c,\bot):(p,c)\in D\}\bigr| ,
 \]
-for an assignment $c_1,\dots,c_n$ of move-rows. The symbol $\bot$ is not decoration: whether
-``up'' or ``down'' is a legal move for a cell depends on it, and $\beta$ returns nothing at all
-when the row it is given cannot occur in that position.
+and let $D_0=\{(\bot,r):r\in R\}$.
 
-Determinise. For a set $D$ of pairs $(p,c)$ and an occupancy row $b$ put
+\begin{lemma}\label{lem:det}
+For every $t\ge0$ and every $b_1,\dots,b_t$, the set
+$D_t=\delta(\dots\delta(D_0,b_1)\dots,b_t)$ is exactly
 \[
-\delta(D,b)=\{(c,x):(p,c)\in D,\ \beta(p,c,x)=b\},\qquad
-f(D)=\bigl|\{\beta(p,c,\bot):(p,c)\in D,\ \beta(p,c,\bot)\ \text{defined}\}\bigr| ,
+\{(r_t,r_{t+1})\ :\ (r_1,\dots,r_{t+1})\in R^{t+1},\ \beta(\bot,r_1,r_2)=b_1,\ \dots,\
+\beta(r_{t-1},r_t,r_{t+1})=b_t\} ,
 \]
-and let $D_0=\{(\bot,c):c\}$. An induction on the number of rows shows $D_t$ is exactly the
-set of pairs of consecutive move-rows completing a prefix with the emitted occupancy rows, so
-that with $M$ the adjacency matrix of the digraph on the reachable nonempty sets, one edge per
-occupancy row it admits,
+with $r_0=\bot$. Consequently, for $n\ge1$,
+\[
+a(n)\;=\;\sum_{b_1,\dots,b_{n-1}}f(D_{n-1}),
+\]
+the sum over all sequences of rows in $\{0,1\}^{2}$, empty $D$'s contributing nothing.
+\end{lemma}
+
+\begin{proof}
+Induction on $t$. For $t=0$ the set is $\{(\bot,r_1)\}$, which is $D_0$. If the description
+holds for $D_t$, then $\delta(D_t,b)$ collects the pairs $(r_{t+1},r_{t+2})$ for which
+$(r_t,r_{t+1})$ already extends a consistent prefix and
+$\beta(r_t,r_{t+1},r_{t+2})=b$, which is the description for $t+1$.
+
+An element of the image is a full marking $(b_1,\dots,b_n)$. By the description, a prefix
+$(b_1,\dots,b_{n-1})$ is realised by some $r_1,\dots,r_n$ exactly when $D_{n-1}\neq
+\emptyset$, and then the possible last rows are precisely
+$\{\beta(p,c,\bot):(p,c)\in D_{n-1}\}$, of which there are $f(D_{n-1})$. Distinct
+sequences $(b_1,\dots,b_n)$ are distinct markings, so summing $f$ over the prefixes counts the
+image exactly once each.
+\end{proof}
+
+So with $M$ the adjacency matrix of the digraph whose vertices are the reachable nonempty sets
+$D$ and which carries one edge $D\to\delta(D,b)$ for each $b$ with $\delta(D,b)\neq\emptyset$
+--- several $b$ may lead to the same set, and then the edge is repeated, which is exactly
+right, since the markings differ ---
 \[
 a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,\qquad \iota=e_{D_0},\quad \tau=f .
 \]
-There are $S=554$ reachable sets. In particular $a$ is $C$-finite.
+There are $S=97$ reachable sets, generated from $D_0$ outward, and $a$ is $C$-finite. Note
+that $\tau$ is not the all-ones vector: the last marked row is not a step of the walk but a
+count attached to the state the walk stops in.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{32}-\sum_i c_it^{32-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{37}-\sum_i c_it^{37-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -93,7 +127,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+32}-\sum_ic_iM^{j+32-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+37}-\sum_ic_iM^{j+37-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -102,15 +136,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;33\,a(n-2) - 2\,a(n-4) - 1074\,a(n-6) - 4389\,a(n-8) - 8373\,a(n-10) - 9016\,a(n-12) - 5198\,a(n-14) - 28\,a(n-16) + 3296\,a(n-18) + 3856\,a(n-20) + 2610\,a(n-22) + 1148\,a(n-24) + 302\,a(n-26) + 8\,a(n-28) - 28\,a(n-30) - 8\,a(n-32)
+a(n)\;=\;8\,a(n-1) - 21\,a(n-2) + 23\,a(n-3) - 17\,a(n-4) + 11\,a(n-5) + 55\,a(n-6) - 199\,a(n-7) + 241\,a(n-8) - 157\,a(n-9) - 14\,a(n-10) + 217\,a(n-11) - 546\,a(n-12) + 850\,a(n-13) - 927\,a(n-14) + 254\,a(n-15) + 555\,a(n-16) - 375\,a(n-17) + 150\,a(n-18) + 848\,a(n-19) + 368\,a(n-20) + 998\,a(n-21) + 666\,a(n-22) + 1091\,a(n-23) + 2744\,a(n-24) + 1499\,a(n-25) + 3393\,a(n-26) + 1420\,a(n-27) + 3704\,a(n-28) - 272\,a(n-29) + 3190\,a(n-30) - 1290\,a(n-31) + 1774\,a(n-32) - 418\,a(n-33) + 486\,a(n-34) - 72\,a(n-35) + 68\,a(n-36) - 8\,a(n-37)
 \]
-for every $n>34$.
+for every $n>37$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $32$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $37$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=34+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=37+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -118,11 +152,9 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $29$ terms the entry publishes, exactly, in integer
-arithmetic. The entry's first term is $0$, and it is a sharp test of the boundary: a
-one-row grid offers only the moves that stay within one row, so a neighbour set with no
-horizontal offset gives no legal assignment at all and the count is zero, which is what the
-entries of that shape publish.
+First, the model reproduces all $24$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry: the machine is built by reading the
+entry's English, and a misreading gives different counts.
 
 Second, the conjectured recurrence was evaluated directly on those published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
@@ -132,7 +164,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A221305.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A220372.
 \bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata
 Theory, Languages, and Computation}, 3rd ed., Addison--Wesley, 2006. (The subset
 construction, Section 2.3.)

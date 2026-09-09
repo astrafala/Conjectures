@@ -12,88 +12,84 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A209540, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A224654, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{6 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A209540 counts the permutations of the cells of an $n\times5$ array in which every cell
-moves by one of a fixed short list of offsets. The entry carries an empirical recurrence of
-order $22$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
-empirical. The count is the permanent of the incidence matrix of the offset graph; read the
-cells in row-major order and let each choose its image, and the only thing that has to be
-carried is which images inside a window of $23$ consecutive positions are already taken.
-That makes $a$ a walk count on $S=4860$ states, hence $C$-finite, and whether the published
-recurrence is one of its recurrences is then a finite exact computation.
+OEIS A224654 counts the $(n+2)\times3$ matrices over $\{0,\dots,2\}$ all of whose
+$3\times3$ contiguous subblocks are of equal population, and carries an empirical recurrence of order
+$24$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical.
+The condition ties together $3$ consecutive rows and $3$ consecutive columns at once, so a
+single row is not a state; the strip of the last $2$ rows is, and the admissible strips
+are read off the overlap graph of the admissible windows instead of being enumerated. That
+makes $a(n)$ a walk count on $S=7290$ vertices, hence $C$-finite, and whether the conjectured
+recurrence annihilates it is settled by a finite exact computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A05, 05A15, 15A15.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
 \section{The conjecture}
 
-OEIS A209540 is ``Number of nX5 array permutations with every element making zero or one right-handed knight moves (out 2, right 1).''. It has offset $1$ and begins
+OEIS A224654 is ``Number of (n+2)X3 0..2 matrices with each 3X3 subblock having the same population.''. It has offset $1$ and begins
 \[
-1, 8, 243, 6480, 103680, 2080800, 42166080, 833285376,\ \dots
+19683, 67797, 233523, 804357, 3295269, 13499973, 55306341, 259112385,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 19*a(n-1) +16*a(n-2) -119472*a(n-5) +2269968*a(n-6) +1911552*a(n-7) +606867456*a(n-10) -11530481664*a(n-11) -9709879296*a(n-12) +125275471872*a(n-15) -2380233965568*a(n-16) -2004407549952*a(n-17) -1099511627776*a(n-20) +20890720927744*a(n-21) +17592186044416*a(n-22) for n>24
+Empirical: a(n) = 10*a(n-1) -27*a(n-2) +252*a(n-3) -2340*a(n-4) +6318*a(n-5) -23427*a(n-6) +192150*a(n-7) -518805*a(n-8) +1061424*a(n-9) -7155540*a(n-10) +19319958*a(n-11) -25759944*a(n-12) +128799720*a(n-13) -347759244*a(n-14) +343901376*a(n-15) -1120618800*a(n-16) +3025670760*a(n-17) -2459272752*a(n-18) +4421589120*a(n-19) -11938290624*a(n-20) +8571080448*a(n-21) -6122200320*a(n-22) +16529940864*a(n-23) -11019960576*a(n-24)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 15:19:49, revision 9) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 23:34:10, revision 11) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
-\section{What is being counted}
+\section{The count is a walk count}
 
-Write the cells of the array as pairs $(i,j)$ with $0\le i<n$ and $0\le j<5$. An
-\emph{array permutation} of the kind the entry counts is a bijection $\pi$ from the cells to
-the cells such that for every cell,
+Call a $3\times3$ matrix over $\{0,\dots,2\}$ a \emph{window} when it is of equal population, and
+call a $3\times3$ matrix a \emph{band} when every one of its $1$ contiguous
+$3\times3$ subblocks is a window. What the entry counts is the matrices of $3$ columns
+whose every $3$ consecutive rows form a band.
+
+Take as states the $2\times3$ strips that occur as the top $2$ rows of a band,
+together with those that occur as its bottom $2$ rows, and put an edge from $u$ to $v$
+when the band whose first $2$ rows are $u$ and whose last $2$ rows are $v$ exists.
+A band is determined by that pair, so the edge is unique when it exists. Reading a counted
+matrix from the top, its rows $1..2$, then $2..3$, and so on, form a walk, and every
+walk arises from exactly one matrix; a matrix with $n+2$ rows gives a walk of $n$ edges.
+Since the first $2$ rows of a counted matrix with at least $3$ rows are the top of a
+band, and since no further condition falls on where a walk starts or ends,
 \[
-\pi(i,j)-(i,j)\;\in\;\Delta,\qquad
-\Delta=\{\,(-2,-1),\ (-1,2),\ (0,0),\ (1,-2),\ (2,1)\,\}.
+a(n)\;=\;\iota^{\!\top}M^{\,n}\tau ,\qquad \iota=\tau=(1,1,\dots,1)^{\!\top},
 \]
-The offsets are what the name's words say: the four knight moves that go two squares out and one to the right of that direction. A cell is allowed to stay where it is, and $(0,0)$ is one of the offsets.
+with $M$ the adjacency matrix on $S=7290$ states. In particular $a$ is $C$-finite. The
+alignment was checked against the entry's published terms rather than assumed.
 
-A move is only allowed when its target is a cell of the array, so cells near an
-edge have fewer choices. The reading is pinned against the entry's own published terms rather
-than assumed: taking ``diagonally, horizontally or vertically'' to mean all eight king moves
-gives $24$ where A189305 publishes $14$.
+There are $(2 + 1)^{6}$ strips of $2$ rows and $3$ columns, far too
+many to test one by one, and they are not tested one by one. Two consecutive windows of a band
+overlap in $3\times2$ entries, so a band is exactly a walk of $1$ windows in
+the graph that joins a window to those whose first $2$ columns are its last $2$
+columns. Enumerating those walks produces the bands, and with them the states and the edges,
+directly.
 
-Equivalently, $a(n)$ is the permanent of the $n5\times n5$ matrix whose $(c,c')$ entry is
-$1$ exactly when $c'-c\in\Delta$.
+\section{The admissible windows}
 
-\section{A window of 23 positions}
-
-Number the cells in row-major order, $k=i\cdot5+j$. An offset $(\delta_1,\delta_2)$ moves a
-cell by $\delta_15+\delta_2$ places in that order, so every image lies between $lo=-11$ and
-$hi=11$ places from its source. Process the cells in order and let each one choose its image.
-Once the cell at position $k$ has been dealt with, the position $k+-11$ can never be chosen
-again by anybody, so it must already be taken; and no position beyond $k+11$ can have been
-taken yet. What has to be remembered is therefore exactly which of the $23$ positions
-$k+-11,\dots,k+11$ are taken --- a subset of a set of size $23$, and nothing else.
-
-That is the state. One step of the walk is one row, that is $5$ cell choices, and the
-condition ``the position leaving the window is taken'' is what makes the walk count permutations
-rather than partial injections: every position is taken exactly once, once at the moment it
-leaves the window.
-
-The two boundaries are the same condition. Images above the first row do not exist, so the walk
-starts with exactly the window positions lying above the array marked as taken. Images below the
-last row do not exist either, so the walk must end with exactly those positions marked and
-nothing beyond. In the window's own coordinates those two masks are equal, so the start state is
-also the only accepting state and
+The entry does not name the common value; it only asks that all the windows of one matrix agree.
+So fix a value $v$ and let $W_v$ be the set of $3\times3$ matrices over
+$\{0,\dots,2\}$ whose population, the list of how many times each of the values $0,\dots,2$ occurs in it, equals $v$. A matrix counted by the entry has all of
+its windows in a single $W_v$, and the value of $v$ is determined by the matrix, so the sets of
+matrices belonging to different $v$ are disjoint and
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=4860,
+a(n)\;=\;\sum_v a_v(n),
 \]
-for the transfer matrix $M$ on those $S$ states. The walk index $j$ and the entry's own $n$
-differ by a constant, read off by matching the published terms rather than assumed. In
-particular $a$ is $C$-finite.
+each $a_v$ being the walk count of Section~2 built from $W_v$ alone. A disjoint union of the
+$55$ digraphs, one per value of $v$, therefore counts the whole of $a(n)$ with the same
+all-ones vectors, and the $3\times3$ windows in play number $19683$ in total.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{22}-\sum_i c_it^{22-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{24}-\sum_i c_it^{24-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -101,7 +97,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+22}-\sum_ic_iM^{j+22-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+24}-\sum_ic_iM^{j+24-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -110,43 +106,41 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;19\,a(n-1) + 16\,a(n-2) - 119472\,a(n-5) + 2269968\,a(n-6) + 1911552\,a(n-7) + 606867456\,a(n-10) - 11530481664\,a(n-11) - 9709879296\,a(n-12) + 125275471872\,a(n-15) - 2380233965568\,a(n-16) - 2004407549952\,a(n-17) - 1099511627776\,a(n-20) + 20890720927744\,a(n-21) + 17592186044416\,a(n-22)
+a(n)\;=\;10\,a(n-1) - 27\,a(n-2) + 252\,a(n-3) - 2340\,a(n-4) + 6318\,a(n-5) - 23427\,a(n-6) + 192150\,a(n-7) - 518805\,a(n-8) + 1061424\,a(n-9) - 7155540\,a(n-10) + 19319958\,a(n-11) - 25759944\,a(n-12) + 128799720\,a(n-13) - 347759244\,a(n-14) + 343901376\,a(n-15) - 1120618800\,a(n-16) + 3025670760\,a(n-17) - 2459272752\,a(n-18) + 4421589120\,a(n-19) - 11938290624\,a(n-20) + 8571080448\,a(n-21) - 6122200320\,a(n-22) + 16529940864\,a(n-23) - 11019960576\,a(n-24)
 \]
-for every $n>24$.
+for every $n>23$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $22$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $24$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=24+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=23+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
-Four checks, each independent of the algebra above.
+Three checks, each independent of the algebra above.
 
 First, the model reproduces all $17$ terms the entry publishes, exactly, in integer
-arithmetic.
+arithmetic. This is what ties the model to the entry: the digraph is built by reading the
+entry's English, and a misreading gives different counts.
 
-Second, the count was recomputed for the smallest arrays straight from the definition: the
-cells of the array were matched to their images one at a time, over the whole grid, with no
-window, no mask over a sliding frame and no transfer matrix, and the published terms came back.
-That computation shares nothing with the construction of Section~3 beyond the offset list.
-
-Third, the conjectured recurrence was evaluated directly on the published terms, with no
+Second, the conjectured recurrence was evaluated directly on those published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
 
-Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
 arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A209540.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A224654.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{minc} H.~Minc, \emph{Permanents}, Encyclopedia of Mathematics and its
-Applications 6, Addison--Wesley, 1978.
+\bibitem{kim} K.~H.~Kim, \emph{Boolean Matrix Theory and Applications}, Marcel Dekker,
+1982.
+\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
+University Press, 2013.
 \end{thebibliography}
 
 \end{document}

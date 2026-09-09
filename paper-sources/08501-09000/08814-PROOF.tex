@@ -12,17 +12,17 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A206264, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A183704, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{8 September 2026}
+\date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A206264 counts arrays over $\{0,\dots,1\}$ under a condition on the number of rightwards and downwards edge increases
-in every $2\times2$ subblock, and carries an empirical recurrence of order $8$ contributed by
+OEIS A183704 counts arrays over $\{0,\dots,3\}$ under a condition on the determinant of every
+$2\times2$ subblock, and carries an empirical recurrence of order $8$ contributed by
 R.~H.~Hardin. It is true, and it is decidable rather than empirical. The condition is local to
-a bounded window of consecutive rows, so the count is a walk count on $S=72$ states and is
+a bounded window of consecutive rows, so the count is a walk count on $S=256$ states and is
 $C$-finite; whether the conjectured recurrence annihilates it is then settled by a finite exact
 computation, with the Cayley--Hamilton theorem bounding the work.
 \end{abstract}
@@ -31,50 +31,49 @@ computation, with the Cayley--Hamilton theorem bounding the work.
 
 \section{The conjecture}
 
-OEIS A206264 is ``Number of (n+1) X 6 0..1 arrays with the number of rightwards and downwards edge increases in each 2 X 2 subblock equal to the number in all its horizontal and vertical neighbors.''. It has offset $1$ and begins
+OEIS A183704 is ``Number of (n+1)X4 0..3 arrays with every 2X2 subblock nonsingular.''. It has offset $1$ and begins
 \[
-72, 93, 218, 471, 932, 1725, 3011, 5014,\ \dots
+31800, 4760784, 710460576, 106093597920, 15840740585184, 2365244332190880, 353161421431958880, 52731638795200916256,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 6*a(n-1) - 14*a(n-2) + 14*a(n-3) - 14*a(n-5) + 14*a(n-6) - 6*a(n-7) + a(n-8) for n>9.
+Empirical: a(n)=86*a(n-1)+8599*a(n-2)+136224*a(n-3)-1175256*a(n-4)-18016864*a(n-5)+130578912*a(n-6)-84468528*a(n-7)-318225024*a(n-8)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jun 15 2018 07:59:34, revision 8) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 02:00:16, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-For a $2\times2$ subblock $\begin{pmatrix}p&q\\r&s\end{pmatrix}$ the
-entry's quantity, the number of rightwards and downwards edge increases, counts how many of the four steps of the cycle $p\to q,\ r\to s,\ p\to r,\ q\to s$ go up in value. Write $\sigma$ for it. The subblocks of an
-$(n+1)\times6$ array over $\{0,\dots,1\}$ form a grid of $n$ rows and $5$
-columns and $\sigma$ labels that grid.
+Write $\sigma$ for the determinant of a $2\times2$ subblock
+$\begin{pmatrix}p&q\\r&s\end{pmatrix}$, that is $\sigma=ps-qr$. The subblocks of an
+$(n+1)\times4$ array over $\{0,\dots,3\}$ form a grid of $n$ rows and $3$
+columns, and $\sigma$ colours that grid.
 
-The reading is not a guess. Over $0..1$ the $2\times3$ arrays whose two subblocks have equal
-clockwise counts number $40$; over $0..2$ the $2\times2$ arrays of clockwise count $2$ number
-$30$; the $3\times2$ binary arrays whose two subblocks have unequal rightwards-and-downwards
-counts number $40$. Those are the first terms the corresponding entries publish, and each was
-computed by direct enumeration before any transfer matrix was built.
-
-The condition relates NEIGHBOURING subblocks: two subblocks adjacent in the grid, horizontally
-or vertically, must carry equal values of $\sigma$.
+The condition is on each subblock separately: every $\sigma$ must not vanish, which is what
+``nonsingular'' says of a $2\times2$ matrix. Nothing
+relates one subblock to another.
 
 \section{The count is a walk count}
 
-A subblock's value needs two consecutive array rows, and the vertical
-comparison needs the two subblock rows that three consecutive rows produce. So the state is the
-PAIR of consecutive array rows: the horizontal comparisons decide which pairs are admissible at
-all, the vertical ones decide which pair may follow which. A step appends one array row,
-turning $(r,s)$ into $(s,t)$ and settling every comparison between the two subblock rows at
-once. An $(n+1)$-row array is a walk of $n-1$ steps, so
+Because the condition looks at one subblock at a time and a subblock is
+built from two consecutive array rows, a single row is a state: rows $r$ and $s$ may follow one
+another exactly when all $3$ of the subblocks they form pass. An $(n+1)$-row array is then a
+walk of $n$ steps and
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,\qquad\iota=\tau=(1,\dots,1)^{\!\top},
+a(n)\;=\;\iota^{\!\top}M^{\,n}\tau,\qquad\iota=\tau=(1,\dots,1)^{\!\top},
 \]
-on the $S=72$ admissible pairs.
+on the $S=256$ rows.
 
-At $n=1$ the array has two rows, so the grid is a single row of $5$
-subblocks; the entry's first term is $72$, which the model
-reproduces along with every later term. That is the cheapest check that the grid has been read
-with the right shape.
+At $n=1$ the array has two rows and the grid is a single row of $3$
+subblocks, each tested on its own, so $a(1)$ counts the
+$2\times4$ arrays over $\{0,\dots,3\}$ all of whose subblocks pass. The entry's
+first term is $31800$, and the model reproduces it along with every later term; that is the
+cheapest check that the grid has been read with the right shape.
+
+Over the alphabet $\{0,\dots,3\}$ the determinant of a $2\times2$ subblock takes values in
+$[-9,9]$, so the colouring of the grid it induces has at most $19$ values.
+That bound is what keeps the construction below finite in the only place where the value of
+$\sigma$, rather than a comparison between two of them, has to be carried.
 In particular $a$ is $C$-finite. The alignment of the walk index with the entry's own $n$ was
 checked against its published terms rather than assumed.
 
@@ -98,23 +97,23 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;6\,a(n-1) - 14\,a(n-2) + 14\,a(n-3) - 14\,a(n-5) + 14\,a(n-6) - 6\,a(n-7) + a(n-8)
+a(n)\;=\;86\,a(n-1) + 8599\,a(n-2) + 136224\,a(n-3) - 1175256\,a(n-4) - 18016864\,a(n-5) + 130578912\,a(n-6) - 84468528\,a(n-7) - 318225024\,a(n-8)
 \]
-for every $n>9$.
+for every $n>8$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $8$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=9+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once. The bound is exact: at $n=9$ the recurrence fails on the entry's own published terms, so no larger range holds.
+integers vanish from the index corresponding to $n=8+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $33$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $11$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
@@ -126,11 +125,10 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A206264.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A183704.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{bona} M.~B\'ona, \emph{Combinatorics of Permutations}, 2nd ed., CRC
-Press, 2012.
+\bibitem{minc} H.~Minc, \emph{Permanents}, Addison--Wesley, 1978.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

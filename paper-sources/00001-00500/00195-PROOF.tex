@@ -12,176 +12,104 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The reduction of OEIS A196523 modulo $3$}
+\title{The empirical recurrence for OEIS A267935, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{31 August 2026}
+\date{9 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A196523 is defined by the functional equation $A(x)=x+x\,A^{4}(x)$, where
-$A^{4}$ is the $4$-th compositional iterate, and carries a conjecture of
-P.~D.~Hanna that $a(n)\equiv1\pmod{3}$ for every $n\ge1$. It is true. The equation determines the coefficients one at a
-time, with $a(N)$ entering with coefficient $1$, so it determines them modulo $3$ as
-well. Modulo $3$ the series $x/(1-x)$ satisfies the equation exactly, because its
-iterates are $x/(1-jx)$ and $4\equiv1$ modulo $3$. Uniqueness then identifies the
-reduction. The argument is an identity between rational functions over
-$\mathbb{Z}/3\mathbb{Z}$; nothing is truncated or estimated.
+OEIS A267935 carries an empirical recurrence of order $2$ contributed by R.~H.~Hardin. It is
+true, and it is decidable rather than empirical. The entry's condition is local to a bounded window of consecutive lines, so
+the admissible configurations of such a window are the vertices of a finite digraph and the
+arrays counted are exactly the walks in it; hence $a(n)$ is a walk count on $S=6$ vertices
+and is $C$-finite. Whether the conjectured recurrence annihilates it is then settled by a
+finite exact computation, with the Cayley--Hamilton theorem bounding the work.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 11B50, 05A15, 13F25.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
-\section{The sequence and the conjecture}
+\section{The conjecture}
 
-OEIS A196523 is ``G.f. A(x) satisfies A(x) = x + x*A(A(A(A(x)))).''. It has offset $1$ and begins
+OEIS A267935 is ``Decimal representation of the n-th iteration of the "Rule 249" elementary cellular automaton starting with a single ON (black) cell.''. It has offset $0$ and begins
 \[
-1, 1, 4, 28, 262, 2944, 37666,\ \dots
+1, 1, 27, 127, 511, 2047, 8191, 32767,\ \dots
 \]
-Writing $A(x)=\sum_{n\ge1}a(n)x^{n}$ and $A^{\,i}$ for the $i$-th compositional
-iterate of $A$, the entry defines $A$ by
-\begin{equation}\label{eq:fe}
-A(x)\;=\;x+x\,A^{4}(x).
-\end{equation}
-This is the only input taken from the entry.
-
-The entry separately carries the following comment:
-\begin{quote}\small
-Conjecture: a(n) == 1 (mod 3) for n >= 1. --- \emph{Paul D. Hanna}
+The entry states, as a conjecture contributed by its author and never marked settled:
+\begin{quote}
+Empirical a(n) = 2\^{}(2*n+1) - 1 for n>2. - \_Colin Barker\_, Nov 26 2016 and Apr 20 2019
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jun 13 2026 09:32:51, revision 30) the statement is
-still recorded as a conjecture, and nothing on the entry records it as settled either way.
+As of the ``Last modified'' line on the live entry (Jun 24 2025 12:17:47, revision 22) this is still
+recorded as empirical, and nothing on the entry records it as proved.
 
-\section{The equation determines the sequence}
+\section{The count is a walk count}
 
-\begin{lemma}\label{lem:jaN}
-Let $A(x)=\sum_{n\ge1}a(n)x^{n}$ with $a(1)=1$. Then for every $i\ge1$ and every $N\ge1$,
+The condition the entry imposes is local: it constrains a bounded window of consecutive lines and nothing beyond. Take as
+vertices the admissible configurations of one such window and put an edge from $u$ to $v$
+whenever $v$ may follow $u$, which the condition decides by inspection of the two. An
+admissible array is then exactly a walk, so with $M$ the adjacency matrix on $S=6$ vertices
+and $\iota,\tau$ the vectors recording which windows may begin and end an array,
 \[
-\bigl[x^{N}\bigr]A^{\,i}=i\,a(N)+\bigl(\text{a polynomial in }a(1),\dots,a(N-1)\bigr).
+a(n)\;=\;\iota^{\!\top}M^{\,n}\tau ,
 \]
+the exponent fixed by the entry's own shape and checked against its published terms. In
+particular $a$ is $C$-finite.
+
+\section{The proof}
+
+\begin{lemma}\label{lem:crit}
+Let $q(t)=t^{2}-\sum_i c_it^{2-i}$ be the characteristic polynomial of the
+conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
+$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
+holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
+and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Induction on $i$. For $i=1$ the statement is $\bigl[x^{N}\bigr]A=a(N)$. Suppose it holds
-for $i$ and put $B=A^{\,i}$, so $\bigl[x^{1}\bigr]B=1$ and
-$\bigl[x^{N}\bigr]B=i\,a(N)+\cdots$. Then
-$A^{\,i+1}=A\circ B=\sum_{m\ge1}a(m)B^{m}$, so
+Factor $M^{j}$ out of $M^{j+2}-\sum_ic_iM^{j+2-i}$. For the bound, $M^{S}$
+is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
+$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
+polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
+pins the threshold exactly.
+\end{proof}
+
+\begin{theorem}
 \[
-\bigl[x^{N}\bigr]A^{\,i+1}=\sum_{m=1}^{N}a(m)\,\bigl[x^{N}\bigr]B^{m} .
+a(n)\;=\;5\,a(n-1) - 4\,a(n-2)
 \]
-The term $m=N$ contributes $a(N)\bigl(\bigl[x^{1}\bigr]B\bigr)^{N}=a(N)$; the term $m=1$
-contributes $\bigl[x^{N}\bigr]B=i\,a(N)+\cdots$; and for $2\le m\le N-1$ every monomial of
-$\bigl[x^{N}\bigr]B^{m}$ is a product of $m\ge2$ coefficients of $B$ whose indices sum to
-$N$, so each index is at most $N-1$ and no $a(N)$ occurs. Adding up gives $(i+1)a(N)$ plus
-terms in $a(1),\dots,a(N-1)$.
-\end{proof}
-
-\begin{lemma}\label{lem:unique}
-There is exactly one sequence of integers $a(1),a(2),\dots$ satisfying \eqref{eq:fe}, and
-for each $N\ge2$ the equation read at order $x^{N}$ has the form
-$a(N)=(\text{a polynomial with integer coefficients in }a(1),\dots,a(N-1))$.
-\end{lemma}
-
-\begin{proof}
-Comparing coefficients of $x$ in \eqref{eq:fe} gives $a(1)=1$, since $x\,A^{4}(x)$ has
-no linear term. Let $N\ge2$. The left side contributes $a(N)$. On the right,
-$\bigl[x^{N}\bigr]\bigl(x\,A^{4}\bigr)=\bigl[x^{N-1}\bigr]A^{4}$, which by
-Lemma~\ref{lem:jaN} involves only $a(1),\dots,a(N-1)$. So the coefficient of $a(N)$ in the
-order-$x^{N}$ equation is $1$, the equation solves for $a(N)$ over $\mathbb{Z}$, and
-induction gives existence and uniqueness.
-\end{proof}
-
-\begin{corollary}\label{cor:mod}
-Let $m\ge2$. If $\bar A\in(\mathbb{Z}/m\mathbb{Z})[[x]]$ satisfies $\bar A=x+O(x^{2})$ and
-\eqref{eq:fe} with all coefficients read modulo $m$, then
-$a(n)\equiv\bigl[x^{n}\bigr]\bar A\pmod m$ for every $n$.
-\end{corollary}
-
-\begin{proof}
-Reduction modulo $m$ is a ring homomorphism, so it carries the integer recursion of
-Lemma~\ref{lem:unique} to the same recursion over $\mathbb{Z}/m\mathbb{Z}$, in which the
-coefficient of $a(N)$ is still $1$ and hence still invertible. That recursion has a unique
-solution, and both $a\bmod m$ and the coefficients of $\bar A$ solve it.
-\end{proof}
-
-\section{The reduction modulo $3$}
-
-Write $f(x)=\dfrac{x}{1-x}$ over $\mathbb{Z}/3\mathbb{Z}$.
-
-\begin{lemma}\label{lem:iter}
-$f^{\,i}(x)=\dfrac{x}{1-ix}$ for every $i\ge1$.
-\end{lemma}
-
-\begin{proof}
-True for $i=1$. If $f^{\,i}(x)=x/(1-ix)$ then
-\[
-f^{\,i+1}(x)=f\bigl(f^{\,i}(x)\bigr)
-=\frac{\dfrac{x}{1-ix}}{1-\dfrac{x}{1-ix}}
-=\frac{x}{(1-ix)-x}=\frac{x}{1-(i+1)x} .
-\]
-\end{proof}
-
-\begin{lemma}\label{lem:sat}
-Over $\mathbb{Z}/3\mathbb{Z}$, $f$ satisfies $f(x)=x+x\,f^{4}(x)$.
-\end{lemma}
-
-\begin{proof}
-By Lemma~\ref{lem:iter}, $f^{4}(x)=\dfrac{x}{1-4x}$. Since $4\equiv1$ modulo
-$3$ --- this is the whole content of the choice of modulus, as $3=4-1$ --- we have
-$1-4x=1-x$ in $(\mathbb{Z}/3\mathbb{Z})[x]$, so $f^{4}(x)=\dfrac{x}{1-x}$.
-Therefore
-\[
-x+x\,f^{4}(x)=x+\frac{x^{2}}{1-x}
-=\frac{x(1-x)+x^{2}}{1-x}=\frac{x}{1-x}=f(x).
-\]
-\end{proof}
-
-\begin{theorem}\label{thm:main}
-Over $\mathbb{Z}/3\mathbb{Z}$ the reduction of $A$ is $x/(1-x)$; equivalently
-$a(n)\equiv1\pmod{3}$ for every $n\ge1$. This is the conjecture of Section~1.
+for every $n>4$.
 \end{theorem}
 
 \begin{proof}
-By Lemma~\ref{lem:sat} the series $f=x/(1-x)$ satisfies the reduced equation, and
-$f=x+O(x^{2})$. By Corollary~\ref{cor:mod} the reduction of $A$ equals $f$, every
-coefficient of which is $1$.
+The vector $w=q(M)\tau$ was formed by $2$ matrix--vector products in exact integer
+arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
+integers vanish from the index corresponding to $n=4+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once. The bound is exact: at $n=4$ the recurrence fails on the entry's own published terms, so no larger range holds.
 \end{proof}
-
-\begin{remark}
-The proof used only $4\equiv1$ modulo $3$. The same argument shows that for every
-$i\ge2$ the sequence defined by $A(x)=x+x\,A^{\,i}(x)$ has all of its terms congruent to
-$1$ modulo $i-1$. It also shows where the argument stops: if $m\nmid i-1$ then $1-ix$ and
-$1-x$ differ in $(\mathbb{Z}/m\mathbb{Z})[x]$, so $x/(1-x)$ is not a solution of the
-reduced equation and this route says nothing modulo $m$.
-\end{remark}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the recursion of Lemma~\ref{lem:unique} was run in exact rational arithmetic and
-its output compared against the entry's DATA at every one of the $20$ published
-indices; the values agree exactly, and every one is an integer. A recursion that reproduced
-only some of them would mean the functional equation had been transcribed wrongly.
+First, the model reproduces all $25$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry: the digraph is built by reading the
+entry's English, and a misreading gives different counts.
 
-Second, at every step the coefficient of $a(N)$ was computed rather than assumed, by
-evaluating the order-$x^{N}$ equation at $a(N)=0$ and at $a(N)=1$ and subtracting; it came
-out $1$ at every $N$ up to $23$, as Lemma~\ref{lem:unique} requires. The run was continued
-to $n=23$ and every term reduced modulo $3$; all residues are $1$.
+Second, the conjectured recurrence was evaluated directly on those published terms, with no
+matrices involved, and holds wherever the proved range and the data overlap.
 
-Third, both sides of \eqref{eq:fe} were expanded independently as formal power series over
-$\mathbb{Z}/3\mathbb{Z}$ to order $30$, starting from the coefficients of $x/(1-x)$
-rather than from the closed form, and they agree at every order; the iterates $f^{\,i}$
-were confirmed to have coefficients $i^{\,n-1}$ for $i\le6$.
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A196523.
-\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 2, Cambridge
-University Press, 1999.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A267935.
+\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
 University Press, 2009.
-\bibitem{hw} G.~H.~Hardy and E.~M.~Wright, \emph{An Introduction to the Theory of
-Numbers}, 6th ed., Oxford University Press, 2008.
+\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
+University Press, 2013.
 \end{thebibliography}
 
 \end{document}

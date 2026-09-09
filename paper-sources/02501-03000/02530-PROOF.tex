@@ -12,142 +12,133 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical column recurrences for the table OEIS A258894}
+\title{The empirical recurrence for OEIS A224740, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{1 September 2026}
+\date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A258894 is a two-dimensional table $T(n,k)$, and it carries a block of empirical
-recurrences contributed by R.~H.~Hardin --- one for each of its first few columns. They are
-true. Column $k$ of the table is an ordinary fixed-width array count, so its rows are the
-vertices of a finite digraph and $T(n,k)$ is a number of walks in it; being a walk count the
-column is $C$-finite, and whether a given recurrence annihilates it is decided by a finite
-exact computation, with the Cayley--Hamilton theorem bounding the work. This note settles the columns $k=4$.
+OEIS A224740 counts the $(n+1)\times4$ matrices over $\{0,\dots,1\}$ all of whose
+$2\times2$ contiguous subblocks are of equal permanent, and carries an empirical recurrence of order
+$9$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical.
+The condition ties together $2$ consecutive rows and $2$ consecutive columns at once, so a
+single row is not a state; the strip of the last $1$ rows is, and the admissible strips
+are read off the overlap graph of the admissible windows instead of being enumerated. That
+makes $a(n)$ a walk count on $S=25$ vertices, hence $C$-finite, and whether the conjectured
+recurrence annihilates it is settled by a finite exact computation.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
-\section{The table and the conjectures}
+\section{The conjecture}
 
-OEIS A258894 is ``T(n,k)=Number of (n+2)X(k+2) 0..1 arrays with no 3x3 subblock diagonal sum less than the antidiagonal sum or central row sum less than the central column sum.''. It has offset $1$, is
-read by antidiagonals, and begins
+OEIS A224740 is ``Number of (n+1) X 4 0..1 matrices with each 2 X 2 permanent equal.''. It has offset $1$ and begins
 \[
-242, 900, 900, 3036, 2304, 3036, 10201, 4489,\ \dots
+89, 565, 2961, 18257, 107665, 661569, 4028161, 24772161,\ \dots
 \]
-The entry carries the following block:
-\begin{quote}\small
-Empirical for column k:\\
-k=1: [linear recurrence of order 34]\\
-k=2: [order 24] for n>27\\
-k=3: [order 24] for n>27\\
-k=4: a(n) = 2*a(n-1) +2*a(n-2) -6*a(n-3) +6*a(n-5) -2*a(n-6) -2*a(n-7) +a(n-8) for n>11\\
-k=5: a(n) = 2*a(n-1) +2*a(n-2) -6*a(n-3) +6*a(n-5) -2*a(n-6) -2*a(n-7) +a(n-8) for n>11\\
-k=6: a(n) = 2*a(n-1) +2*a(n-2) -6*a(n-3) +6*a(n-5) -2*a(n-6) -2*a(n-7) +a(n-8) for n>11\\
-k=7: a(n) = 2*a(n-1) +2*a(n-2) -6*a(n-3) +6*a(n-5) -2*a(n-6) -2*a(n-7) +a(n-8) for n>11\\
-Empirical quasipolynomials for column k:\\
-k=4: polynomial of degree 4 plus a quasipolynomial of degree 2 with period 2 for n>3\\
-k=5: polynomial of degree 4 plus a quasipolynomial of degree 2 with period 2 for n>3\\
-k=6: polynomial of degree 4 plus a quasipolynomial of degree 2 with period 2 for n>3\\
-k=7: polynomial of degree 4 plus a quasipolynomial of degree 2 with period 2 for n>3\\
+The entry states, as a conjecture contributed by its author and never marked settled:
+\begin{quote}
+Empirical: a(n) = 9*a(n-1) -8*a(n-2) -88*a(n-3) +176*a(n-4) +88*a(n-5) -352*a(n-6) +80*a(n-7) +160*a(n-8) -64*a(n-9).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 15:32:05, revision 6) these are still
-recorded as empirical, and nothing on the entry records any of them as settled.
+As of the ``Last modified'' line on the live entry (Jun 22 2022 01:41:36, revision 6) this is still
+recorded as empirical, and nothing on the entry records it as proved.
 
-\section{A column of the table is a walk count}
+\section{The count is a walk count}
 
-Fix $k$. The entry defines $T(n,k)$ as the number of arrays of a shape in which one dimension
-is $n$ and the other is determined by $k$, subject to a condition imposed on every
-$2\times2$ subblock --- a condition local to two consecutive rows and two consecutive columns.
-Substituting the fixed value of $k$ into the entry's own wording turns the definition into an
-ordinary one-parameter array count, and for such a count the rows are the vertices of a finite
-digraph $G_k$: $r\to s$ is an edge exactly when placing $s$ under $r$ satisfies the condition
-in every column pair. An admissible array is then a walk, so with $M_k$ the adjacency matrix
-of $G_k$,
+Call a $2\times2$ matrix over $\{0,\dots,1\}$ a \emph{window} when it is of equal permanent, and
+call a $2\times4$ matrix a \emph{band} when every one of its $3$ contiguous
+$2\times2$ subblocks is a window. What the entry counts is the matrices of $4$ columns
+whose every $2$ consecutive rows form a band.
+
+Take as states the $1\times4$ strips that occur as the top $1$ rows of a band,
+together with those that occur as its bottom $1$ rows, and put an edge from $u$ to $v$
+when the band whose first $1$ rows are $u$ and whose last $1$ rows are $v$ exists.
+A band is determined by that pair, so the edge is unique when it exists. Reading a counted
+matrix from the top, its rows $1..1$, then $2..2$, and so on, form a walk, and every
+walk arises from exactly one matrix; a matrix with $n+1$ rows gives a walk of $n$ edges.
+Since the first $1$ rows of a counted matrix with at least $2$ rows are the top of a
+band, and since no further condition falls on where a walk starts or ends,
 \[
-T(n,k)\;=\;c_k\,\mathbf{1}^{\!\top}M_k^{\,n}\mathbf{1}
+a(n)\;=\;\iota^{\!\top}M^{\,n}\tau ,\qquad \iota=\tau=(1,1,\dots,1)^{\!\top},
 \]
-for the constant $c_k$ that the entry's name supplies (a factor such as $\tfrac12$ or
-$\tfrac14$ where the name says so, and $1$ otherwise).
+with $M$ the adjacency matrix on $S=25$ states. In particular $a$ is $C$-finite. The
+alignment was checked against the entry's published terms rather than assumed.
+
+There are $(1 + 1)^{4}$ strips of $1$ rows and $4$ columns, far too
+many to test one by one, and they are not tested one by one. Two consecutive windows of a band
+overlap in $2\times1$ entries, so a band is exactly a walk of $3$ windows in
+the graph that joins a window to those whose first $1$ columns are its last $1$
+columns. Enumerating those walks produces the bands, and with them the states and the edges,
+directly.
+
+\section{The admissible windows}
+
+The entry does not name the common value; it only asks that all the windows of one matrix agree.
+So fix a value $v$ and let $W_v$ be the set of $2\times2$ matrices over
+$\{0,\dots,1\}$ whose permanent, $b_{11}b_{22}+b_{12}b_{21}$, equals $v$. A matrix counted by the entry has all of
+its windows in a single $W_v$, and the value of $v$ is determined by the matrix, so the sets of
+matrices belonging to different $v$ are disjoint and
+\[
+a(n)\;=\;\sum_v a_v(n),
+\]
+each $a_v$ being the walk count of Section~2 built from $W_v$ alone. A disjoint union of the
+$3$ digraphs, one per value of $v$, therefore counts the whole of $a(n)$ with the same
+all-ones vectors, and the $2\times2$ windows in play number $16$ in total.
+
+\section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{r}-\sum_i c_it^{r-i}$ be the characteristic polynomial of a conjectured
-recurrence of order $r$ for column $k$. Then for every $n\ge r$,
-\[
-T(n,k)-\sum_i c_i\,T(n-i,k)\;=\;c_k\,\mathbf{1}^{\!\top}M_k^{\,n-r}q(M_k)\mathbf{1},
-\]
-so the recurrence holds from some point on if and only if
-$\mathbf{1}^{\!\top}M_k^{j}q(M_k)\mathbf{1}=0$ for every $j\ge0$; and by the
-Cayley--Hamilton theorem it is enough to check $j<S_k$, where $S_k$ is the number of vertices
-of $G_k$.
+Let $q(t)=t^{9}-\sum_i c_it^{9-i}$ be the characteristic polynomial of the
+conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
+$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
+holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
+and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Substitute the walk expression and factor $M_k^{n-r}$ out of $M_k^{n}-\sum_ic_iM_k^{n-i}$;
-the scalar $c_k$ is nonzero. For the bound, $M_k^{S_k}$ is an integer combination of
-$I,M_k,\dots,M_k^{S_k-1}$, so each $\mathbf{1}^{\!\top}M_k^{j}q(M_k)\mathbf{1}$ with
-$j\ge S_k$ repeats that combination of earlier values.
+Factor $M^{j}$ out of $M^{j+9}-\sum_ic_iM^{j+9-i}$. For the bound, $M^{S}$
+is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
+$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
+polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
+pins the threshold exactly.
 \end{proof}
 
-\section{The computation, column by column}
-
-\begin{center}
-\begin{tabular}{ccccc}
-line & order & vertices $S$ & proved for & terms checked \\ \hline
-column $k$$=4$ & $8$ & $4161$ & $>11$ & $10$ \\
-\end{tabular}
-\end{center}
-
-In each case the vector $w=q(M_k)\mathbf{1}$ was formed by $r$ matrix--vector products in
-exact integer arithmetic and $\mathbf{1}^{\!\top}M_k^{j}w$ evaluated for $j=0,1,\dots$,
-again exactly; every one of those integers vanishes from the stated point onwards and the run
-continued until the working vector was identically zero, which settles all larger $j$ at once.
-
-\subsection*{Column $k$$=4$}
-The sequence is ``Number of (n+2)X6 0..1 arrays with no 3x3 subblock diagonal sum less than the antidiagonal sum or central row sum less than the central column sum.''. Its rows are the vertices of a digraph on
-$S=4161$ vertices, edges being the admissible consecutive pairs, and the count is
-$\mathbf{1}^{\!\top}M^{n}\mathbf{1}$ up to the constant factor in the entry's name.
-The conjectured recurrence
+\begin{theorem}
 \[
-a(n)\;=\;2\,a(n-1) + 2\,a(n-2) - 6\,a(n-3) + 6\,a(n-5) - 2\,a(n-6) - 2\,a(n-7) + a(n-8)
+a(n)\;=\;9\,a(n-1) - 8\,a(n-2) - 88\,a(n-3) + 176\,a(n-4) + 88\,a(n-5) - 352\,a(n-6) + 80\,a(n-7) + 160\,a(n-8) - 64\,a(n-9)
 \]
-holds from index $11+1$ on.
+for every $n>8$.
+\end{theorem}
+
+\begin{proof}
+The vector $w=q(M)\tau$ was formed by $9$ matrix--vector products in exact integer
+arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
+integers vanish from the index corresponding to $n=8+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once.
+\end{proof}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, each model was compared against the entry's own published values for its line, taken
-both from the antidiagonal DATA read in either orientation and from the ``Table starts''
-block, and agrees at every available term. This is what ties a model to the table:
-substituting the fixed index into the entry's wording is a reading of English, and a wrong
-reading gives a different digraph and different counts. Across the lines settled here the
-model reproduces $10$ published values, $47$ decimal digits in all, every one of
-them exactly; a misreading of the entry would have to reproduce all of them by accident.
+First, the model reproduces all $19$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry: the digraph is built by reading the
+entry's English, and a misreading gives different counts.
 
-Second, each conjectured recurrence was evaluated on those published values in exact
-integer arithmetic, with no matrices involved, and holds wherever the proved range and the
-data overlap.
+Second, the conjectured recurrence was evaluated directly on those published terms, with no
+matrices involved, and holds wherever the proved range and the data overlap.
 
 Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
-arithmetic rather than on a sampled prefix.
-
-\begin{remark}
-A row of the table is a column of the transposed table: fixing $n$ and letting $k$ vary gives a
-count of arrays of fixed height, which is the same kind of object with the two dimensions
-exchanged. Both are settled here by the same argument. Only the lines the entry states
-explicitly, and for which enough published values exist to run the first check above, are
-claimed.
-\end{remark}
+arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A258894.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A224740.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
-University Press, 2009.
+\bibitem{kim} K.~H.~Kim, \emph{Boolean Matrix Theory and Applications}, Marcel Dekker,
+1982.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

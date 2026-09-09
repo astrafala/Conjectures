@@ -12,201 +12,164 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A223201, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A219101, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{4 September 2026}
+\date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A223201 counts the ways of writing the vertices of a fixed graph $G$ into an array of width
-$7$ so that any two cells adjacent in one of the named directions carry vertices joined by an
-edge of $G$; here $G$ is octahedron graph. The entry carries an empirical recurrence of order $13$
-contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical. A slice of
-the array would be a state, but there are $24576$ legal slices here and that is too many to
-carry one by one. The condition names only the edge relation, so the automorphism group of $G$
---- of order $48$ --- acts on the arrays and commutes with the transfer matrix; the walk may
-then be run on the ORBITS of slices instead of on the slices, and $S=528$ of those suffice.
+OEIS A219101 counts the distinct indicator arrays obtained from the $n\times3$ arrays over
+$\{0,\dots,2\}$ by marking the cells whose value differs from every one of their neighbours, and carries an
+empirical recurrence of order $15$ contributed by R.~H.~Hardin. It is true, and it is
+decidable rather than empirical. What is counted is the IMAGE of a map, not its domain, so it
+is not a walk count in the obvious graph; the determinisation of the machine that emits the
+indicator row by row turns it into one, on $S=89$ states, after which the conjectured
+recurrence is settled by a finite exact computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05C15, 05A15, 05C25, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 68Q45, 15B36.\normalsize
 
 \section{The conjecture}
 
-OEIS A223201 is ``Rolling cube footprints: number of nX7 0..5 arrays starting with 0 where 0..5 label faces of a cube and every array movement to a horizontal or vertical neighbor moves across a corresponding cube edge.''. It has offset $1$ and begins
+OEIS A219101 is ``Unmatched value maps: number of nX3 binary arrays indicating the locations of corresponding elements not equal to any horizontal, vertical or antidiagonal neighbor in a random 0..2 nX3 array.''. It has offset $1$ and begins
 \[
-4096, 11943936, 37222350848, 118404195287040, 379529320596504576, 1220273386789986631680, 3928452022261522225954816, 12653687328474521535529353216,\ \dots
+4, 42, 288, 1971, 13674, 95146, 660556, 4584620,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 7040*a(n-1) -18169856*a(n-2) +23760732160*a(n-3) -18040473255936*a(n-4) +8500736711196672*a(n-5) -2561598209927413760*a(n-6) +496452053123372941312*a(n-7) -61015776557932010799104*a(n-8) +4604307320797904083353600*a(n-9) -203533995411681708710297600*a(n-10) +5009788596483023299982393344*a(n-11) -63134942003554394019855335424*a(n-12) +316912650057057350374175801344*a(n-13)
+Empirical: a(n) = 8*a(n-1) -11*a(n-2) +25*a(n-3) +7*a(n-4) -46*a(n-5) +115*a(n-6) -75*a(n-7) -10*a(n-8) +180*a(n-9) -264*a(n-10) +268*a(n-11) -132*a(n-12) +28*a(n-13) +16*a(n-14) -8*a(n-15) for n>21
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 21:20:40, revision 8) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 17:52:58, revision 8) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-Let $G$ be the graph on the label set $\{0,1,\dots,5\}$ whose vertices are the six faces of a cube, two of them adjacent unless they are opposite. That is the octahedron graph $K_{2,2,2}$: $6$ vertices, $4$-regular, $12$ edges.
-
-An array $x$ is a map from the cells of a rectangle to the vertices of $G$. The entry names the
-directions horizontal and vertical, that is the cell offsets
+Let $R=\{0,\dots,2\}^{3}$ be the set of rows and let the neighbours of a cell be the
+cells at the offsets
 \[
-(0,1), (1,0),
+(-1,0), (-1,1), (0,-1), (0,1), (1,-1), (1,0),
 \]
-and asks that whenever two cells of the array differ by one of those offsets, the two vertices
-they carry are joined by an edge of $G$.
+those falling outside the array being simply absent. For an array
+$A=(r_1,\dots,r_n)\in R^n$ let $\Phi(A)\in\{0,1\}^{n\times3}$ mark the cells whose value
+differs from every one of its neighbours. The entry counts
+\[
+a(n)\;=\;\bigl|\{\Phi(A):A\in R^n\}\bigr| ,
+\]
+the size of an IMAGE. This is the whole difficulty: two different arrays with the same marking
+must be counted once, and a walk count in a graph on the arrays would count them twice.
 
-Write $\Gamma=\operatorname{Aut}(G)$ for the group of adjacency-preserving bijections of the
-vertex set. It was computed by backtracking over the vertices in breadth-first order, assigning
-each an image consistent with every vertex already placed, and has order $|\Gamma|=48$.
+Because every offset above moves the row index by at most one, the marked row $i$ depends only
+on rows $i-1,i,i+1$. Write $\beta(p,c,x)\in\{0,1\}^{3}$ for the marking of the row $c$
+with $p$ above and $x$ below, allowing $p$ or $x$ to be the symbol $\bot$ for ``outside''.
+Then
+\[
+\Phi(r_1,\dots,r_n)=\bigl(\beta(\bot,r_1,r_2),\ \beta(r_1,r_2,r_3),\ \dots,\
+\beta(r_{n-1},r_n,\bot)\bigr).
+\]
 
-\begin{lemma}\label{lem:act}
-For $\sigma\in\Gamma$ the array $\sigma\circ x$ is valid whenever $x$ is, and this is an action
-of $\Gamma$ on the set of valid arrays. In particular the count does not depend on how the
-vertices of $G$ are labelled.
+\section{The image is a walk count after determinisation}
+
+For a set $D\subseteq(R\cup\{\bot\})\times R$ of pairs and a row $b\in\{0,1\}^{3}$ put
+\[
+\delta(D,b)=\{(c,x)\ :\ (p,c)\in D,\ x\in R,\ \beta(p,c,x)=b\},\qquad
+f(D)=\bigl|\{\beta(p,c,\bot):(p,c)\in D\}\bigr| ,
+\]
+and let $D_0=\{(\bot,r):r\in R\}$.
+
+\begin{lemma}\label{lem:det}
+For every $t\ge0$ and every $b_1,\dots,b_t$, the set
+$D_t=\delta(\dots\delta(D_0,b_1)\dots,b_t)$ is exactly
+\[
+\{(r_t,r_{t+1})\ :\ (r_1,\dots,r_{t+1})\in R^{t+1},\ \beta(\bot,r_1,r_2)=b_1,\ \dots,\
+\beta(r_{t-1},r_t,r_{t+1})=b_t\} ,
+\]
+with $r_0=\bot$. Consequently, for $n\ge1$,
+\[
+a(n)\;=\;\sum_{b_1,\dots,b_{n-1}}f(D_{n-1}),
+\]
+the sum over all sequences of rows in $\{0,1\}^{3}$, empty $D$'s contributing nothing.
 \end{lemma}
 
 \begin{proof}
-The condition mentions the vertices only through the relation ``joined by an edge'', which
-$\sigma$ preserves in both directions. The same argument with an isomorphism between two
-labelled copies of $G$ gives the second statement.
+Induction on $t$. For $t=0$ the set is $\{(\bot,r_1)\}$, which is $D_0$. If the description
+holds for $D_t$, then $\delta(D_t,b)$ collects the pairs $(r_{t+1},r_{t+2})$ for which
+$(r_t,r_{t+1})$ already extends a consistent prefix and
+$\beta(r_t,r_{t+1},r_{t+2})=b$, which is the description for $t+1$.
+
+An element of the image is a full marking $(b_1,\dots,b_n)$. By the description, a prefix
+$(b_1,\dots,b_{n-1})$ is realised by some $r_1,\dots,r_n$ exactly when $D_{n-1}\neq
+\emptyset$, and then the possible last rows are precisely
+$\{\beta(p,c,\bot):(p,c)\in D_{n-1}\}$, of which there are $f(D_{n-1})$. Distinct
+sequences $(b_1,\dots,b_n)$ are distinct markings, so summing $f$ over the prefixes counts the
+image exactly once each.
 \end{proof}
 
-\section{The cell the entry fixes}
-
-The entry asks for $x(0,0)=0$. That condition is removed here, and paid for once at the end.
-
-\begin{lemma}\label{lem:fibre}
-$\Gamma$ is transitive on the vertices of $G$. Consequently the valid arrays with $x(0,0)=v$
-are equinumerous for every vertex $v$, and the number with $x(0,0)=0$ is the number of valid
-arrays with no condition on any cell, divided by $6$.
-\end{lemma}
-
-\begin{proof}
-Transitivity was checked directly on the group computed above: the orbit of one vertex is the
-whole vertex set. Given vertices $v,w$ pick $\sigma\in\Gamma$ with $\sigma v=w$; then
-$x\mapsto\sigma\circ x$ is a bijection from the valid arrays with $x(0,0)=v$ onto the valid
-arrays with $x(0,0)=w$, with inverse given by $\sigma^{-1}$. The $6$ fibres of
-$x\mapsto x(0,0)$ therefore all have the same size and partition the unrestricted count.
-\end{proof}
-
-\section{Orbits of slices}
-
-Take the array one $row$ at a time, in the direction in which it grows.
-Every offset the entry names has its two cells either in the same $row$ or in two
-consecutive ones, so a $row$ is a state: let $M$ be the $0/1$ matrix indexed by the
-legal $row$s with $M_{uv}=1$ when $v$ may follow $u$, and let $\tau=\mathbf{1}$.
-The number of valid arrays of $m$ $row$s is $\mathbf{1}^{\!\top}M^{m-1}\tau$.
-
-There are $24576$ legal $row$s, which is more than can be carried one at a time. They
-need not be.
-
-\begin{lemma}\label{lem:lump}
-$\Gamma$ acts on the $row$s coordinatewise; $M_{uv}=M_{\sigma u\,\sigma v}$ for
-every $\sigma\in\Gamma$, and $\tau$ is fixed by $\Gamma$. Consequently $M^{m}\tau$ is constant
-on each $\Gamma$-orbit of $row$s, for every $m\ge0$.
-\end{lemma}
-
-\begin{proof}
-That $v$ may follow $u$ is again a conjunction of statements ``these two vertices are joined by
-an edge'', so $\sigma$ preserves it; and $\tau$ is the all-ones vector. Induct on $m$: if
-$w=M^{m}\tau$ satisfies $w_{\sigma u}=w_u$ then
-$(Mw)_{\sigma u}=\sum_v M_{\sigma u\,v}w_v=\sum_v M_{u\,\sigma^{-1}v}w_v
-=\sum_{v'}M_{uv'}w_{\sigma v'}=(Mw)_u$.
-\end{proof}
-
-Let $\mathcal{O}$ be the set of orbits, $r_O$ a representative of $O$, and
+So with $M$ the adjacency matrix of the digraph whose vertices are the reachable nonempty sets
+$D$ and which carries one edge $D\to\delta(D,b)$ for each $b$ with $\delta(D,b)\neq\emptyset$
+--- several $b$ may lead to the same set, and then the edge is repeated, which is exactly
+right, since the markings differ ---
 \[
-\widehat{M}_{O,O'}=\#\{\,v\in O' : M_{r_O v}=1\,\} .
+a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,\qquad \iota=e_{D_0},\quad \tau=f .
 \]
-By Lemma~\ref{lem:lump} the value $(M^{m}\tau)_{r_O}$ is what $M^m\tau$ takes on all of
-$O$, and one step reads
-\[
-(M w)_{r_O}=\sum_{O'}\widehat{M}_{O,O'}\,w_{r_{O'}} ,
-\]
-so the whole walk may be run on $\mathcal{O}$. Summing over $row$s and grouping,
-\[
-\mathbf{1}^{\!\top}M^{m}\tau=\sum_{O\in\mathcal{O}}|O|\,(M^{m}\tau)_{r_O}
-=\iota^{\!\top}\widehat{M}^{\,m}\mathbf{1},\qquad \iota_O=|O| ,
-\]
-and the count the entry publishes is that divided by $6$, by Lemma~\ref{lem:fibre}. Here $S=|\mathcal{O}|=528$, down from $24576$.
-
-The orbit representatives are generated directly rather than by listing the $row$s and
-grouping them. A $row$ is built one cell at a time, carrying the set of $\sigma$ that
-have so far written exactly the same prefix; a choice is abandoned as soon as one of them would
-write a smaller letter. What reaches the last cell is the lexicographically least member of its
-orbit, one per orbit, and the set still tied there is its stabiliser, so
-$|O|=|\Gamma|/|\Gamma_{r_O}|$ falls out of the same walk.
-
-The walk index and the entry's own $n$ differ by a constant, read off by matching the published
-terms rather than assumed. In particular $a$ is $C$-finite.
+There are $S=89$ reachable sets, generated from $D_0$ outward, and $a$ is $C$-finite. Note
+that $\tau$ is not the all-ones vector: the last marked row is not a step of the walk but a
+count attached to the state the walk stops in.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{13}-\sum_i c_it^{13-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{15}-\sum_i c_it^{15-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
-$\iota^{\!\top}\widehat{M}^{\,j}q(\widehat{M})\mathbf{1}$ for the corresponding walk
-index $j$, so the recurrence holds from some point on if and only if that vanishes for all large
-$j$, and it is enough to examine $j<S$.
+$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
+holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
+and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $\widehat{M}^{j}$ out of
-$\widehat{M}^{j+13}-\sum_ic_i\widehat{M}^{j+13-i}$. For the bound,
-$\widehat{M}^{S}$ is an integer combination of
-$I,\widehat{M},\dots,\widehat{M}^{S-1}$ by Cayley--Hamilton, so the numbers
-$u_j=\iota^{\!\top}\widehat{M}^{j}q(\widehat{M})\mathbf{1}$ obey the monic recurrence
-given by its characteristic polynomial; $S$ consecutive zeros force every later one, and the
-last nonzero $u_j$ pins the threshold exactly.
+Factor $M^{j}$ out of $M^{j+15}-\sum_ic_iM^{j+15-i}$. For the bound, $M^{S}$
+is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
+$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
+polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
+pins the threshold exactly.
 \end{proof}
 
 \begin{theorem}
 \[
-a(n)\;=\;7040\,a(n-1) - 18169856\,a(n-2) + 23760732160\,a(n-3) - 18040473255936\,a(n-4) + 8500736711196672\,a(n-5) - 2561598209927413760\,a(n-6) + 496452053123372941312\,a(n-7) - 61015776557932010799104\,a(n-8) + 4604307320797904083353600\,a(n-9) - 203533995411681708710297600\,a(n-10) + 5009788596483023299982393344\,a(n-11) - 63134942003554394019855335424\,a(n-12) + 316912650057057350374175801344\,a(n-13)
+a(n)\;=\;8\,a(n-1) - 11\,a(n-2) + 25\,a(n-3) + 7\,a(n-4) - 46\,a(n-5) + 115\,a(n-6) - 75\,a(n-7) - 10\,a(n-8) + 180\,a(n-9) - 264\,a(n-10) + 268\,a(n-11) - 132\,a(n-12) + 28\,a(n-13) + 16\,a(n-14) - 8\,a(n-15)
 \]
-for every $n>13$.
+for every $n>21$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(\widehat{M})\mathbf{1}$ was formed by $13$ matrix--vector products in
-exact integer arithmetic and $\iota^{\!\top}\widehat{M}^{j}w$ evaluated for
-$j=0,1,\dots$, again exactly; those integers vanish from the index corresponding to
-$n=13+1$ onwards and the run continued until the working vector was identically zero, which
-settles every larger $j$ at once.
+The vector $w=q(M)\tau$ was formed by $15$ matrix--vector products in exact integer
+arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
+integers vanish from the index corresponding to $n=21+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
-Five checks, each independent of the algebra above.
+Three checks, each independent of the algebra above.
 
-First, the model reproduces all $9$ terms the entry publishes, exactly, in integer
-arithmetic.
+First, the model reproduces all $20$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry: the machine is built by reading the
+entry's English, and a misreading gives different counts.
 
-Second, the count was recomputed for the smallest arrays straight from the definition, with the
-graph rebuilt by a different route---the cube from its corner points and face normals in space,
-the icosahedron as a pentagonal antiprism capped at both poles---and the arrays written out cell
-by cell, each cell tested against the cells it must be joined to. That recount applies the
-entry's own condition on the top-left cell directly, so it tests Lemma~\ref{lem:fibre} as well:
-no orbit, no lumping and no division is involved in it, and the published terms came back.
-
-Third, the automorphism group was checked to be a group---closed under composition and
-inverses---and every one of its $48$ elements verified to preserve the edge set.
-
-Fourth, the conjectured recurrence was evaluated directly on the published terms, with no
+Second, the conjectured recurrence was evaluated directly on those published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
 
-Fifth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
 arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A223201.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A219101.
+\bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata
+Theory, Languages, and Computation}, 3rd ed., Addison--Wesley, 2006. (The subset
+construction, Section 2.3.)
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{kemeny} J.~G.~Kemeny and J.~L.~Snell, \emph{Finite Markov Chains}, Springer, 1976.
-(Lumping, Section 6.3.)
-\bibitem{cox} H.~S.~M.~Coxeter, \emph{Regular Polytopes}, 3rd ed., Dover, 1973.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

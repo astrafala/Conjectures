@@ -11,180 +11,151 @@
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
-\title{A proof of the conjectured recurrence for OEIS A129833}
+
+\title{The empirical recurrence for OEIS A241301, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{30 August 2026}
+\date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A129833 carries a conjectured linear recurrence with polynomial coefficients, of
-order 5. The entry gives no generating function, but it does give the sequence as
-a hypergeometric sum. Creative telescoping produces, from the summand alone, a certificate
-identity that is checked exactly rather than trusted. What it does not produce here is a
-homogeneous recurrence: the summand does not vanish at the ends of the range, and the range
-itself moves with $n$, so summing the certificate leaves boundary and range-correction
-terms. We keep them. They are a finite, explicit expression $h(n)$, and the result is an
-inhomogeneous recurrence $\sum_{i}\sigma_{i}(n)a(n+i)=h(n)$. Since $h$ is a hypergeometric term, the first-order operator $M=N-h(n+1)/h(n)$ annihilates it, and $ML$ annihilates $a$. The conjectured
-operator is then shown to be a left multiple of the resulting annihilator by division in
-the Ore algebra $\mathbb{Q}(n)[N]$.
+OEIS A241301 counts arrays over $\{0,1,2,3\}$ in which no entry may equal, modulo $4$, a given
+constant plus the SUM of all the entries lying before it along one of several rays. The entry
+carries an empirical recurrence of order $5$ contributed by R.~H.~Hardin. It is true, and
+it is decidable rather than empirical. None of those sums is bounded and none is local, but
+each is built one term at a time, so its residue modulo $4$ is carried in the state; the
+count is then a walk count on $S=11$ states.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 33F10, 11B37, 68W30.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 11A07, 15A18.\normalsize
 
-\section{The sequence and the conjecture}
+\section{The conjecture}
 
-OEIS A129833 is ``a(n) = Sum\_\{k = 0..n \} binomial(n + 1, k + 1)*binomial(n, k)*k!''. It has offset $0$ and begins
+OEIS A241301 is ``Number of n X 2 0..3 arrays with no element equal to zero plus the sum of elements to its left or one plus the sum of elements above it or zero plus the sum of the elements diagonally to its northwest or zero plus the sum of the elements antidiagonally to its northeast, modulo 4.''. It has offset $1$ and begins
 \[
-a(0),\dots,a(7)\;=\;1, 3, 11, 52, 309, 2221, 18703, 180216,\ \dots
+2, 6, 6, 12, 16, 28, 38, 66,\ \dots
 \]
-The entry states, not as a conjecture,
-\begin{quote}\small
-a(n) = Sum\_\{k=0..n\} binomial(n,k)\textasciicircum{}2 * ((n+1)*k!/(k+1)).
+The entry states, as a conjecture contributed by its author and never marked settled:
+\begin{quote}
+Empirical: a(n) = 2*a(n-2) + a(n-3) - a(n-5).
 \end{quote}
-so that, writing $F(n,k)$ for the summand,
-\begin{equation}\label{eq:sum}
-a(n)\;=\;\sum_{k=0}^{n}F(n,k),
-\qquad F(n,k)=\frac{\left(n + 1\right) {\binom{n}{k}}^{2} k!}{k + 1} .
-\end{equation}
-This is the only input the proof takes from the entry, and it was checked against the
-entry's own DATA before use.
+As of the ``Last modified'' line on the live entry (Oct 29 2018 20:16:12, revision 9) this is still
+recorded as empirical, and nothing on the entry records it as proved.
 
-The entry separately carries the following comment:
-\begin{quote}\small
-\textbf{Conjecture:} +(n+1)*a(n) -n*(2*n+5)*a(n-1) +(n-1)*(n\textasciicircum{}2+6*n+3)*a(n-2) -(n-2)*(3*n\textasciicircum{}2-2)*a(n-3) +(n-2)*(n-3)*(3*n-4)*a(n-4) -(n-4)*(n-3)\textasciicircum{}2*a(n-5) = 0. - \emph{R. J. Mathar}, Feb 28 2015
-\end{quote}
-As of the ``Last modified'' line on the live entry (2025-09-22, revision 28) the
-statement is still recorded as a conjecture, and no proof appears among the entry's links,
-formulas or programs.
+\section{What is being counted}
 
-\section{Telescoping over a range that does not cooperate}
-
-Let $N$ denote the shift in $n$, $(Nf)(n)=f(n+1)$, and $\Delta_{k}$ the forward difference
-in $k$. Creative telescoping looks for rational functions
-$\sigma_{0},\dots,\sigma_{r}$ of $n$, not all zero, and a rational $R(n,k)$ with
-\begin{equation}\label{eq:cert}
-\sum_{i=0}^{r}\sigma_{i}(n)\,F(n+i,k)\;=\;\Delta_{k}\bigl[R(n,k)F(n,k)\bigr].
-\end{equation}
-Divided through by $F(n,k)$ this is an identity between rational functions, because the
-quotients $F(n+i,k)/F(n,k)$ and $F(n,k+1)/F(n,k)$ are rational; so a proposed pair
-$(\sigma,R)$ can be \emph{checked}, exactly, whatever produced it. For A129833 such a pair
-exists with $r=2$:
+The array has $2$ cells across one way, entries $x(i,j)\in\{0,1,2,3\}$, and the entry names these
+rays out of a cell $(i,j)$, with the constant it attaches to each:
 \[
-\sigma_{0}(n)=1,\qquad \sigma_{1}(n)=\frac{- 2 n - 6}{n^{2} + 3 n + 2},\qquad \sigma_{2}(n)=\frac{n + 3}{n^{3} + 5 n^{2} + 8 n + 4},
-\qquad
-R(n,k)\;=\;\frac{k^{3} - 2 k^{2} n - 2 k^{2} + k n^{2} - 4 k + n^{2} + 2 n - 1}{k^{4} - 4 k^{3} n - 6 k^{3} + 6 k^{2} n^{2} + 18 k^{2} n + 13 k^{2} - 4 k n^{3} - 18 k n^{2} - 26 k n - 12 k + n^{4} + 6 n^{3} + 13 n^{2} + 12 n + 4} .
+\begin{array}{lll}
+\text{ray} & \text{the cells on it} & \text{constant} \\[2pt]
+\text{west} & (i,j-1),(i,j-2),\dots & 0 \\
+\text{north} & (i-1,j),(i-2,j),\dots & 1 \\
+\text{northwest} & (i-1,j-1),(i-2,j-2),\dots & 0 \\
+\text{northeast} & (i-1,j+1),(i-2,j+2),\dots & 0 \\
+\end{array}
 \]
-
-The usual next step sums \eqref{eq:cert} over all $k$ and concludes
-$\sum_{i}\sigma_{i}(n)a(n+i)=0$. That step needs $F(n,k)$ to vanish for every $k$ outside
-the range in \eqref{eq:sum}, and here it does not. Summing over a finite window therefore
-leaves something behind, and the point of this note is that what it leaves behind is
-computable.
-
-\begin{proposition}\label{prop:inhom}
-Let $L_{0}$ and $H_{0}$ be the lower and upper summation limits in \eqref{eq:sum}, each
-non-decreasing in $n$, and put $L=L_{0}(n)$ and $H=H_{0}(n+r)$, so that the window
-$L\le k\le H$ contains the range of every $a(n+i)$, $0\le i\le r$. Write
-$G(n,k)=R(n,k)F(n,k)$ and suppose $G$ is finite at every integer $k$ in $[L,H+1]$. Then
+Writing $\Sigma_r(i,j)$ for the sum of the entries on ray $r$ out of $(i,j)$, all of them
+inside the array, the condition is
 \[
-\sum_{i=0}^{r}\sigma_{i}(n)\,a(n+i)\;=\;h(n),
-\qquad
-h(n)\;=\;G(n,H+1)-G(n,L)\;-\;\sum_{i=0}^{r}\sigma_{i}(n)\!\!\!
-\sum_{\substack{L\le k\le H\\ k\notin[L_{0}(n+i),\,H_{0}(n+i)]}}\!\!\! F(n+i,k).
+x(i,j)\;\not\equiv\;c_r+\Sigma_r(i,j) \pmod{4}
 \]
-\end{proposition}
+for every ray $r$ named. A ray that leaves the array at once contributes the empty sum,
+zero.
 
-\begin{proof}
-Sum \eqref{eq:cert} over $k=L,\dots,H$. The right-hand side telescopes to
-$G(n,H+1)-G(n,L)$, every intermediate value being finite by hypothesis. On the left,
-$\sum_{k=L}^{H}F(n+i,k)$ differs from $a(n+i)=\sum_{k=L_{0}(n+i)}^{H_{0}(n+i)}F(n+i,k)$
-exactly by the terms of the window that lie outside that sequence's own range, which is the
-inner sum above. Rearranging gives the statement; both correction ranges are finite because
-$L_{0}$ and $H_{0}$ are non-decreasing and $i\le r$.
-\end{proof}
+\section{The rays as a bounded state}
 
-For A129833 this gives
-\begin{equation}\label{eq:h}
-h(n)\;=\;\frac{- n^{2} - 2 n + 1}{\left(n + 1\right) \left(n + 2\right)^{2}} .
-\end{equation}
+Take the array one $row$ at a time, in the direction in which it grows, and index the
+positions of a $row $ by $p$. Let $x$ be the $row$ just written.
 
-\section{Clearing the inhomogeneity, and dividing}
-
-The inhomogeneity \eqref{eq:h} is a hypergeometric term: its shift quotient is
+\begin{lemma}\label{lem:rays}
+Along the $row$s, the 4 ray sums named by this entry satisfy
 \[
-\frac{h(n+1)}{h(n)}\;=\;\frac{n^{4} + 7 n^{3} + 16 n^{2} + 14 n + 4}{n^{4} + 8 n^{3} + 20 n^{2} + 12 n - 9},
+\begin{aligned}
+\Sigma_{\mathrm{west}}\ &\text{is the running total inside the current row},\\
+U'[p]&=U[p]+x[p], &&\text{the north ray, per position},\\
+NW'[p]&=NW[p-1]+x[p-1], && NW'[0]=0,\\
+NE'[p]&=NE[p+1]+x[p+1], && NE'[W-1]=0 .
+\end{aligned}
 \]
-a rational function of $n$. Hence $M=N-h(n+1)/h(n)$ satisfies $M(h)=0$, and writing $L_{0}=\sum_{i}\sigma_{i}(n)N^{i}$ for the telescoped operator, Proposition~\ref{prop:inhom} reads $L_{0}(a)=h$, so
-\[
-L\;=\;ML_{0}\quad\text{satisfies}\quad L(a)=M\bigl(L_{0}(a)\bigr)=M(h)=0 .
-\]
-One extra order buys the homogeneity. Explicitly, $L=\left(\frac{- n^{4} - 7 n^{3} - 16 n^{2} - 14 n - 4}{n^{4} + 8 n^{3} + 20 n^{2} + 12 n - 9}\right) + \left(\frac{n^{3} + 7 n^{2} + 13 n + 1}{n^{3} + 5 n^{2} + 5 n - 3}\right)\,N + \left(\frac{- 2 n^{3} - 13 n^{2} - 18 n + 6}{n^{4} + 7 n^{3} + 15 n^{2} + 7 n - 6}\right)\,N^{2} + \left(\frac{n + 4}{n^{3} + 8 n^{2} + 21 n + 18}\right)\,N^{3}$.
-
-\begin{lemma}\label{lem:factor}
-If $C=QL$ in $\mathcal{A}=\mathbb{Q}(n)[N]$, where $N\,q(n)=q(n+1)\,N$, and $L(a)=0$, then
-$C(a)=0$ at every $n$ where the coefficients of $Q$ are defined.
 \end{lemma}
 
 \begin{proof}
-$C(a)=(QL)(a)=Q\bigl(L(a)\bigr)=Q(0)=0$, and the coefficients of $Q$ are rational functions
-of $n$, so the step is valid away from their poles.
+Each ray is a set of cells at a fixed step from $(i,j)$ repeated. Advancing one $row$
+moves a cell one step along the north ray, one step along the northwest ray together with one
+position to the right, and one step along the northeast ray together with one position to the
+left; in each case exactly the cell just left behind is the new term. At the border of the
+array the diagonal rays are empty, which is the stated boundary value.
 \end{proof}
 
-Writing the conjectured recurrence as an operator $C$ and dividing by $L$ on the right
-leaves remainder $0$, with quotient
+Reduced modulo $4$ these vectors take finitely many values, so they are a state, and one step
+of the walk writes a whole $row$: the position $p$ is filled left to right and the
+running total of the west ray is carried along as it is filled, so every cell is tested
+against every ray at the moment it is written. The walk starts at the all-zero state, the empty
+array, and every state may end one, so $\tau=\mathbf{1}$ and
 \[
-Q\;=\;\left(\frac{n^{5} + 10 n^{4} + 36 n^{3} + 52 n^{2} + 15 n - 18}{n^{2} + 4 n + 2}\right) + \left(\frac{- 2 n^{5} - 32 n^{4} - 197 n^{3} - 573 n^{2} - 760 n - 336}{n^{2} + 6 n + 7}\right)\,N + \left(n^{3} + 14 n^{2} + 65 n + 100\right)\,N^{2} .
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=11.
 \]
-No coefficient of $Q$ has an integer pole, so Lemma~\ref{lem:factor} applies at every index.
+The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
+published terms rather than assumed. In particular $a$ is $C$-finite.
+
+\section{The proof}
+
+\begin{lemma}\label{lem:crit}
+Let $q(t)=t^{5}-\sum_i c_it^{5-i}$ be the characteristic polynomial of the
+conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
+$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
+holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
+and it is enough to examine $j<S$.
+\end{lemma}
+
+\begin{proof}
+Factor $M^{j}$ out of $M^{j+5}-\sum_ic_iM^{j+5-i}$. For the bound, $M^{S}$
+is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
+$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
+polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
+pins the threshold exactly.
+\end{proof}
 
 \begin{theorem}
-The conjectured recurrence
 \[
-(n + 1)\,a(n) -  n \left(2 n + 5\right)\,a(n-1) + \left(n - 1\right) \left(n^{2} + 6 n + 3\right)\,a(n-2) -  \left(n - 2\right) \left(3 n^{2} - 2\right)\,a(n-3) + \left(n - 3\right) \left(n - 2\right) \left(3 n - 4\right)\,a(n-4) -  \left(n - 4\right) \left(n - 3\right)^{2}\,a(n-5) \;=\;0
+a(n)\;=\;2\,a(n-2) + a(n-3) - a(n-5)
 \]
-holds for every $n\ge5$.
+for every $n>5$.
 \end{theorem}
 
 \begin{proof}
-Proposition~\ref{prop:inhom} gives the inhomogeneous recurrence, the operator $L$ of the
-previous section annihilates $a$, and Lemma~\ref{lem:factor} applied to $C=QL$ carries that
-to the conjectured operator. No coefficient of $Q$ has an integer pole.
+The vector $w=q(M)\tau$ was formed by $5$ matrix--vector products in exact integer
+arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
+integers vanish from the index corresponding to $n=5+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
-Every number above is an output of a script written separately from this note, and four
-independent checks were run.
+Four checks, each independent of the algebra above.
 
-First, the certificate was verified rather than trusted: \eqref{eq:cert} was divided by
-$F(n,k)$ and the difference of the two sides cancelled to $0$ as a rational function of $n$
-and $k$.
+First, the model reproduces all $38$ terms the entry publishes, exactly, in integer
+arithmetic.
 
-Second --- and this is the check that matters most here, because the boundary bookkeeping
-is where such an argument goes wrong --- the inhomogeneous recurrence of
-Proposition~\ref{prop:inhom} was evaluated on the entry's own terms: for each $n$ in range
-the left side was formed from the published values and compared against \eqref{eq:h}, and
-the two agreed exactly. An error in the correction terms would not survive this.
+Second, the count was recomputed for the smallest arrays straight from the definition: fill the
+cells one at a time in the orientation the entry's own name writes and, for each candidate
+value, walk each ray to the edge of the array and add the entries up. No residue, no state and
+no recurrence of Lemma~\ref{lem:rays} is involved, and the published terms came back.
 
-Third, the factorisation was confirmed by multiplying back: $QL$ was expanded in
-$\mathcal{A}$ and its coefficients cancelled against those of $C$ to zero.
+Third, the conjectured recurrence was evaluated directly on the published terms, with no
+matrices involved, and holds wherever the proved range and the data overlap.
 
-Fourth, the conjecture itself was evaluated on the published terms, in exact integer
-arithmetic and without reference to any operator: for each $n$ in range the sum
-$\sum_{i}p_{i}(n)a(n-i)$ was formed from the entry's own values and found to vanish, for
-all 18 values of $n$ from $n=5$ upward. The formula \eqref{eq:sum} was
-likewise checked term by term against the DATA section before being used.
+Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
-\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer Sequences},
-\url{https://oeis.org}, 2026. Sequence A129833.
-\bibitem{aeqb} M.~Petkov\v{s}ek, H.~S.~Wilf and D.~Zeilberger, \emph{A=B}, A K Peters,
-1996.
-\bibitem{zeil} D.~Zeilberger, \emph{The method of creative telescoping}, J. Symbolic
-Comput. 11 (1991), 195--204.
-\bibitem{ore} O.~Ore, \emph{Theory of non-commutative polynomials}, Ann. of Math. 34
-(1933), 480--508.
+\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
+Sequences}, \url{https://oeis.org}, 2026. Sequence A241301.
+\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
+University Press, 2013.
 \end{thebibliography}
 
 \end{document}

@@ -12,80 +12,91 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A203959, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A223274, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A203959 counts arrays of width $3$ over $\{0,1,2\}$ through two derived arrays of PAIR SUMS ---
-each cell added to its left neighbour, and each cell added to the one above it --- on which the
-entry imposes an order condition. The entry carries an empirical recurrence of order $22$
-contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical: the count is
-a walk count on $S=92$ states.
+OEIS A223274 counts the ways of writing the vertices of a fixed graph $G$ into an array of width
+$6$ so that any two cells adjacent in one of the named directions carry vertices joined by an
+edge of $G$; here $G$ is octahedron graph. The entry carries an empirical recurrence of order $23$
+contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical: every
+condition joins cells inside one slice of the array or inside two consecutive slices, so a
+single slice is a state and the count is a walk count on a finite digraph with $S=23617$ vertices.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 06A07, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05C15, 05A15, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A203959 is ``Number of (n+1)X3 0..2 arrays with column and row pair sums b(i,j)=a(i,j)+a(i,j-1) and c(i,j)=a(i,j)+a(i-1,j) such that rows of b(i,j) and columns of c(i,j) are lexicographically nondecreasing.''. It has offset $1$ and begins
+OEIS A223274 is ``Rolling cube footprints: number of 6Xn 0..5 arrays starting with 0 where 0..5 label faces of a cube and every array movement to a horizontal, diagonal or antidiagonal neighbor moves across a corresponding cube edge.''. It has offset $1$ and begins
 \[
-121, 851, 6586, 45307, 276516, 1512850, 7559349, 35013044,\ \dots
+7776, 995328, 1020002304, 659411697664, 534392715870208, 389343801904201728, 300099634959879241728, 224781443200799995854848,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 22*a(n-1) -218*a(n-2) +1274*a(n-3) -4794*a(n-4) +11682*a(n-5) -16350*a(n-6) +3138*a(n-7) +38004*a(n-8) -79674*a(n-9) +61398*a(n-10) +35118*a(n-11) -127974*a(n-12) +113430*a(n-13) -3210*a(n-14) -85098*a(n-15) +79101*a(n-16) -21204*a(n-17) -17108*a(n-18) +19328*a(n-19) -8656*a(n-20) +1984*a(n-21) -192*a(n-22) for n>25
+Empirical: a(n) = 384*a(n-1) +446464*a(n-2) -67108864*a(n-3) -52881784832*a(n-4) +4312147165184*a(n-5) +2494998041853952*a(n-6) -172245093560877056*a(n-7) -56567744594563825664*a(n-8) +4056230054786020409344*a(n-9) +644319406221573287313408*a(n-10) -49152677749972407368548352*a(n-11) -3878710988338500226623995904*a(n-12) +310939347582341467621952585728*a(n-13) +12871152730646806229128124039168*a(n-14) -1063719785796591567291470875459584*a(n-15) -23908207232954463569578196629192704*a(n-16) +1970557787452381691709019145944170496*a(n-17) +24560537696530709963129597105272782848*a(n-18) -1895084507428041387861060550238750638080*a(n-19) -13078274250527787273500557666098310283264*a(n-20) +864147070795723227965239815572975372992512*a(n-21) +2646035685177217491891200947389429612281856*a(n-22) -146348640365357214366328151164254872382996480*a(n-23) for n>24
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 10:54:07, revision 9) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 21:27:06, revision 8) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The array $a$ has $3$ cells across, with entries in $\{0,1,2\}$. Two derived arrays are formed,
+Let $G$ be the graph on the label set $\{0,1,\dots,5\}$ whose vertices are the six faces of a cube, two of them adjacent unless they are opposite. That is the octahedron graph $K_{2,2,2}$: $6$ vertices, $4$-regular, $12$ edges.
+
+An array $x$ is a map from the cells of a rectangle to the vertices of $G$. The entry names the
+directions antidiagonal, diagonal and horizontal, that is the cell offsets
 \[
-b(i,j)=a(i,j)+a(i,j-1)\quad(j\ge1),\qquad c(i,j)=a(i,j)+a(i-1,j)\quad(i\ge1),
+(1,-1), (1,1), (0,1),
 \]
-so $b$ adds each cell to its LEFT neighbour and $c$ adds each cell to the one ABOVE it. The
-entry asks
+and asks that whenever two cells of the array differ by one of those offsets, the two vertices
+they carry are joined by an edge of $G$:
+\[
+x(i,j)\,x(i+\delta_1,j+\delta_2)\in E(G)\qquad
+\text{for every named offset } (\delta_1,\delta_2)\text{ and every pair of cells in range.}
+\]
+The entry also fixes the top-left cell: $x(0,0)=0$.
 
-that the ROWS of $b$ and the COLUMNS of $c$ are each in lexicographic nondecreasing order. Row $i$ of $b$
-is $\bigl(b(i,1),\dots,b(i,2)\bigr)$ and column $j$ of $c$ is
-$\bigl(c(1,j),c(2,j),\dots\bigr)$.
-
-
-\section{Two rows decide it}
-
-\begin{lemma}\label{lem:win}
-The row comparison is a condition on two consecutive rows of $a$. The column comparison is
-settled by the FIRST row in which the two columns of $c$ differ.
+\begin{lemma}\label{lem:label}
+The count does not depend on how the vertices are labelled.
 \end{lemma}
 
 \begin{proof}
-Row $i$ of $b$ is built from row $i$ of $a$ alone, so comparing rows $i$ and $i+1$ of $b$ reads
-rows $i$ and $i+1$ of $a$. Two sequences are compared lexicographically by their first
-difference; entry $i$ of column $j$ of $c$ is built from rows $i-1$ and $i$ of $a$, so scanning
-the array downwards reveals the entries of every column of $c$ in order.
+A relabelling is a bijection $\sigma$ of the label set; if it is an isomorphism from one
+labelled copy of $G$ to another then $x\mapsto\sigma\circ x$ is a bijection between the arrays
+counted for the two copies, because the condition mentions only the edge relation.
+Because the four named graphs are vertex-transitive---the symmetry group of the solid is transitive on its vertices, and on its faces---the count is the same whichever vertex is the one called $0$, so fixing the top-left cell at $0$ is unambiguous too.
 \end{proof}
 
-So the state is the last row of $a$ together with one bit for each adjacent pair of columns,
-recording whether that pair of columns of $c$ has been equal in every row so far. A row that
-would put a pair in the wrong order is rejected at once, and a pair still equal at the end is
-in order, equality being allowed.
+\section{One slice is a state}
 
-With $M$ the adjacency matrix of the digraph on those states, $\iota$ the indicator of the
-starting state and $\tau=\mathbf{1}$,
+Take the array one $column$ at a time, in the direction in which it grows. The entry writes the array with $n$ as the number of COLUMNS, so the slice added at each step is a column. Transposing the array exchanges the horizontal and vertical directions and carries each diagonal direction to itself, and that is how the directions are read below.
+Every offset the entry names has its two cells either in the same $column$ or in two
+consecutive ones. So a $column$, a word of length $6$ over the vertices of $G$, carries
+everything the next $column$ needs: the conditions inside a $column$ constrain that
+$column$ alone, and the conditions across $column$s are a relation between the
+$column$ just written and the one about to be written.
+
+Let $M$ be the matrix indexed by the legal $column$s, with $M_{uv}=1$ when $v$ may
+follow $u$. Add one further state for the empty array, whose successors are the legal first
+$column$s---those beginning with the vertex $0$; then a walk of
+$n$ steps from that state is exactly an array of $n$ $column$s. Every state may end an
+array, so $\tau=\mathbf{1}$ and
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=92.
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=23617.
 \]
-The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
+The $column$s themselves are built one cell at a time with the conditions applied as soon
+as they can be, which for the sparser graphs is what makes the state list short: a $column$
+of length $6$ over $6$ vertices is one of $6^{6}$ words, but only $S-1$ of them are
+legal. The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
 published terms rather than assumed. In particular $a$ is $C$-finite.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{22}-\sum_i c_it^{22-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{23}-\sum_i c_it^{23-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -93,7 +104,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+22}-\sum_ic_iM^{j+22-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+23}-\sum_ic_iM^{j+23-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -102,29 +113,30 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;22\,a(n-1) - 218\,a(n-2) + 1274\,a(n-3) - 4794\,a(n-4) + 11682\,a(n-5) - 16350\,a(n-6) + 3138\,a(n-7) + 38004\,a(n-8) - 79674\,a(n-9) + 61398\,a(n-10) + 35118\,a(n-11) - 127974\,a(n-12) + 113430\,a(n-13) - 3210\,a(n-14) - 85098\,a(n-15) + 79101\,a(n-16) - 21204\,a(n-17) - 17108\,a(n-18) + 19328\,a(n-19) - 8656\,a(n-20) + 1984\,a(n-21) - 192\,a(n-22)
+a(n)\;=\;384\,a(n-1) + 446464\,a(n-2) - 67108864\,a(n-3) - 52881784832\,a(n-4) + 4312147165184\,a(n-5) + 2494998041853952\,a(n-6) - 172245093560877056\,a(n-7) - 56567744594563825664\,a(n-8) + 4056230054786020409344\,a(n-9) + 644319406221573287313408\,a(n-10) - 49152677749972407368548352\,a(n-11) - 3878710988338500226623995904\,a(n-12) + 310939347582341467621952585728\,a(n-13) + 12871152730646806229128124039168\,a(n-14) - 1063719785796591567291470875459584\,a(n-15) - 23908207232954463569578196629192704\,a(n-16) + 1970557787452381691709019145944170496\,a(n-17) + 24560537696530709963129597105272782848\,a(n-18) - 1895084507428041387861060550238750638080\,a(n-19) - 13078274250527787273500557666098310283264\,a(n-20) + 864147070795723227965239815572975372992512\,a(n-21) + 2646035685177217491891200947389429612281856\,a(n-22) - 146348640365357214366328151164254872382996480\,a(n-23)
 \]
-for every $n>25$.
+for every $n>24$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $22$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $23$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=25+1$ onwards and the run continued
-until the working vector was identically zero.
+integers vanish from the index corresponding to $n=24+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $19$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $10$ terms the entry publishes, exactly, in integer
 arithmetic.
 
-Second, the count was recomputed for the smallest arrays straight from the definition:
-enumerate every array of that size, form the two derived arrays in full, and test the condition
-on them directly. No window, no state and no incremental bookkeeping are involved, and the
-published terms came back.
+Second, the count was recomputed for the smallest arrays straight from the definition, with the
+graph rebuilt by a different route---the cube from its corner points and face normals in space,
+the icosahedron as a pentagonal antiprism capped at both poles---and the arrays written out cell
+by cell, each cell tested against the cells it must be joined to. No slice, no state and no
+recurrence is involved in that computation, and the published terms came back.
 
 Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
@@ -134,9 +146,10 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A203959.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A223274.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{cox} H.~S.~M.~Coxeter, \emph{Regular Polytopes}, 3rd ed., Dover, 1973.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

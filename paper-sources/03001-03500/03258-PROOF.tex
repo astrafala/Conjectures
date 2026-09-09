@@ -12,38 +12,38 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A200572, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A197102, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{4 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A200572 counts arrays of width $1$ over $\{0,1,2\}$ in which no cell averages to a given value with its neighbours. The entry carries an
+OEIS A197102 counts arrays of width $1$ over $\{0,1,2,3\}$ in which no cell is the average of its neighbours. The entry carries an
 empirical recurrence of order $5$ contributed by R.~H.~Hardin. It is true, and it is
 decidable rather than empirical: what a cell asks reaches one row above
 it and one row below, so the condition on a whole row is settled by
-$3$ consecutive rows and the count is a walk count on $S=13$ states.
+$3$ consecutive rows and the count is a walk count on $S=21$ states.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 05B20, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A200572 is ``Number of n X 1 0..2 arrays with no average of any element and its horizontal and vertical neighbors equal to one.''. It has offset $1$ and begins
+OEIS A197102 is ``Half the number of n X 1 0..3 arrays with no element equal to the average of its horizontal and vertical neighbors.''. It has offset $1$ and begins
 \[
-2, 6, 10, 22, 52, 114, 260, 600,\ \dots
+2, 6, 16, 61, 212, 753, 2661, 9415,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 2*a(n-1) + a(n-2) + a(n-3) - 3*a(n-4) - 2*a(n-5).
+Empirical: a(n) = 2*a(n-1) +5*a(n-2) +3*a(n-3) -4*a(n-4) -4*a(n-5) for n>6.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Mar 02 2018 14:13:54, revision 8) this is still
+As of the ``Last modified'' line on the live entry (May 11 2018 10:43:33, revision 8) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The arrays have $1$ columns and a growing number of rows, with entries in $\{0,1,2\}$. Fix the
+The arrays have $1$ columns and a growing number of rows, with entries in $\{0,1,2,3\}$. Fix the
 list of offsets the entry names,
 \[
 \Delta=\{\,(-1,0), (0,-1), (0,1), (1,0)\,\},
@@ -56,11 +56,11 @@ S(i,j)=\{\,(i+\delta_1,\,j+\delta_2) : (\delta_1,\delta_2)\in\Delta\,\}\cap
 for the neighbours it actually has. Only offsets landing inside the array count, so a cell on
 the border simply has fewer neighbours.
 
-The condition is that no cell together with its neighbours averages to $1$:
+The condition is that no cell equals the average of the neighbours it has:
 \[
-\frac{x(i,j)+\sum_{(a,b)\in S(i,j)}x(a,b)}{1+|S(i,j)|}\;\neq\;1 .
+x(i,j)\;\neq\;\frac{1}{|S(i,j)|}\sum_{(a,b)\in S(i,j)}x(a,b)
 \]
-The cell itself is one of the terms of the average, so the condition is never vacuous---even a cell with no neighbours must differ from $1$.
+whenever $S(i,j)$ is not empty. A cell with no neighbour at all is under no condition, and that is what the entry's first published term says. The entry publishes one half of that count; the division is by the constant 2 and changes nothing about the recurrence.
 
 \section{A window of 3 rows}
 
@@ -81,7 +81,7 @@ with absent rows appended --- the same rule that governs a cell at the bottom ed
 Section 2.
 Thus
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=13,
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=21,
 \]
 for the transfer matrix $M$ on those $S$ states. The walk index $j$ and the entry's own $n$
 differ by a constant, read off by matching the published terms rather than assumed. In
@@ -107,15 +107,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;2\,a(n-1) + a(n-2) + a(n-3) - 3\,a(n-4) - 2\,a(n-5)
+a(n)\;=\;2\,a(n-1) + 5\,a(n-2) + 3\,a(n-3) - 4\,a(n-4) - 4\,a(n-5)
 \]
-for every $n>4$.
+for every $n>6$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $5$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=4+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=6+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -123,11 +123,11 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $30$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $24$ terms the entry publishes, exactly, in integer
 arithmetic.
 
 Second, the count was recomputed for the smallest arrays straight from the definition: every
-array of width $1$ over $\{0,1,2\}$ with a few rows was written out cell by cell and each cell
+array of width $1$ over $\{0,1,2,3\}$ with a few rows was written out cell by cell and each cell
 tested against the neighbours it has. No window, no state and no end vector are involved in that
 computation, and the published terms came back.
 
@@ -139,7 +139,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A200572.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A197102.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge

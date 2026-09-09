@@ -1,6 +1,6 @@
 # Proposed OEIS comments
 
-A proposed comment for each of the **10995** settled entries, written to be posted on the OEIS entry it belongs to. They are kept here rather than in the papers: a paper is a proof and stays a proof.
+A proposed comment for each of the **11096** settled entries, written to be posted on the OEIS entry it belongs to. They are kept here rather than in the papers: a paper is a proof and stays a proof.
 
 Each section names the entry, **the date the result was obtained**, the paper that proves it, and what the entry still records as unsettled. The date is the point: an OEIS comment is stamped with the day it is posted, so the date here is what shows when the work was actually done.
 
@@ -23,21 +23,22 @@ If a conjecture is settled by somebody else after the date recorded here, nothin
 | [A210128 – A220206](A210128-A220206.md) | 400 |
 | [A220213 – A223373](A220213-A223373.md) | 400 |
 | [A223374 – A229457](A223374-A229457.md) | 400 |
-| [A229460 – A232048](A229460-A232048.md) | 400 |
-| [A232049 – A234208](A232049-A234208.md) | 400 |
-| [A234210 – A236004](A234210-A236004.md) | 400 |
-| [A236005 – A238066](A236005-A238066.md) | 400 |
-| [A238067 – A249838](A238067-A249838.md) | 400 |
-| [A249845 – A251113](A249845-A251113.md) | 400 |
-| [A251114 – A252402](A251114-A252402.md) | 400 |
-| [A252403 – A254485](A252403-A254485.md) | 400 |
-| [A254486 – A260138](A254486-A260138.md) | 400 |
-| [A260170 – A264507](A260170-A264507.md) | 400 |
-| [A264508 – A269280](A264508-A269280.md) | 400 |
-| [A269286 – A279875](A269286-A279875.md) | 400 |
-| [A279876 – A283216](A279876-A283216.md) | 400 |
-| [A283217 – A297372](A283217-A297372.md) | 400 |
-| [A297373 – A299563](A297373-A299563.md) | 400 |
-| [A299569 – A302678](A299569-A302678.md) | 400 |
-| [A302679 – A306139](A302679-A306139.md) | 400 |
-| [A306161 – A397241](A306161-A397241.md) | 283 |
+| [A229460 – A232046](A229460-A232046.md) | 400 |
+| [A232048 – A234154](A232048-A234154.md) | 400 |
+| [A234155 – A235908](A234155-A235908.md) | 400 |
+| [A235909 – A237923](A235909-A237923.md) | 400 |
+| [A237927 – A248484](A237927-A248484.md) | 400 |
+| [A248485 – A251019](A248485-A251019.md) | 400 |
+| [A251021 – A252273](A251021-A252273.md) | 400 |
+| [A252274 – A253750](A252274-A253750.md) | 400 |
+| [A253751 – A259521](A253751-A259521.md) | 400 |
+| [A259522 – A264196](A259522-A264196.md) | 400 |
+| [A264197 – A268901](A264197-A268901.md) | 400 |
+| [A268902 – A277797](A268902-A277797.md) | 400 |
+| [A277798 – A281952](A277798-A281952.md) | 400 |
+| [A281982 – A295845](A281982-A295845.md) | 400 |
+| [A295913 – A298333](A295913-A298333.md) | 400 |
+| [A298377 – A301966](A298377-A301966.md) | 400 |
+| [A301967 – A304547](A301967-A304547.md) | 400 |
+| [A304592 – A326102](A304592-A326102.md) | 400 |
+| [A326160 – A397241](A326160-A397241.md) | 31 |

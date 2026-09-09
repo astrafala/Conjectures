@@ -12,85 +12,78 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A231637, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A203737, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{4 September 2026}
+\date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A231637 counts arrays of width $3$ over $\{0,1,2\}$ in which no cell is beaten by a strict majority of its neighbours. The entry carries an
-empirical recurrence of order $38$ contributed by R.~H.~Hardin. It is true, and it is
-decidable rather than empirical: what a cell asks reaches one row above
-it and one row below, so the condition on a whole row is settled by
-$3$ consecutive rows and the count is a walk count on $S=685$ states.
+OEIS A203737 counts arrays of width $5$ over $\{0,1,2,3\}$ through two derived arrays of PAIR SUMS ---
+each cell added to its left neighbour, and each cell added to the one above it --- on which the
+entry imposes an order condition. The entry carries an empirical recurrence of order $42$
+contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical: the count is
+a walk count on $S=1025$ states.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B20, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 06A07, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A231637 is ``Number of n X 3 0..2 arrays with no element having a strict majority of its horizontal, vertical, diagonal and antidiagonal neighbors equal to itself plus one mod 3, with upper left element zero (rock paper and scissors drawn positions).''. It has offset $1$ and begins
+OEIS A203737 is ``Number of (n+1)X5 0..3 arrays with column and row pair sums b(i,j)=a(i,j)+a(i,j-1) and c(i,j)=a(i,j)+a(i-1,j) nondecreasing in column and row directions, respectively.''. It has offset $1$ and begins
 \[
-3, 25, 362, 5110, 69671, 953726, 13036446, 178192422,\ \dots
+8667, 114276, 1091807, 7927078, 47229554, 240425612, 1082255416, 4391206320,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 21*a(n-1) -107*a(n-2) +63*a(n-3) +327*a(n-4) +1807*a(n-5) -11022*a(n-6) +22286*a(n-7) -29911*a(n-8) +38148*a(n-9) -14430*a(n-10) -114794*a(n-11) +310088*a(n-12) -391497*a(n-13) +122088*a(n-14) +685315*a(n-15) -1613102*a(n-16) +1227640*a(n-17) +817156*a(n-18) -2507835*a(n-19) +2085116*a(n-20) +424904*a(n-21) -3237743*a(n-22) +2923285*a(n-23) -121269*a(n-24) -692469*a(n-25) -329220*a(n-26) +486184*a(n-27) +200957*a(n-28) -63170*a(n-29) -17085*a(n-30) -56817*a(n-31) -12152*a(n-32) +25012*a(n-33) +9826*a(n-34) -5584*a(n-35) -844*a(n-36) +436*a(n-37) +8*a(n-38) for n>39.
+Empirical: a(n) = 14*a(n-1) -76*a(n-2) +156*a(n-3) +233*a(n-4) -1860*a(n-5) +2703*a(n-6) +4692*a(n-7) -20008*a(n-8) +11166*a(n-9) +53273*a(n-10) -96656*a(n-11) -36908*a(n-12) +265616*a(n-13) -164452*a(n-14) -369008*a(n-15) +575730*a(n-16) +153244*a(n-17) -924820*a(n-18) +404040*a(n-19) +840190*a(n-20) -920920*a(n-21) -313950*a(n-22) +983320*a(n-23) -233740*a(n-24) -614484*a(n-25) +433486*a(n-26) +187056*a(n-27) -315356*a(n-28) +30992*a(n-29) +129260*a(n-30) -58928*a(n-31) -25817*a(n-32) +27158*a(n-33) -1416*a(n-34) -6148*a(n-35) +2081*a(n-36) +508*a(n-37) -441*a(n-38) +52*a(n-39) +28*a(n-40) -10*a(n-41) +a(n-42) for n>50
 \end{quote}
-As of the ``Last modified'' line on the live entry (Dec 28 2023 23:18:59, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 10:42:03, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The arrays have $3$ columns and a growing number of rows, with entries in $\{0,1,2\}$. Fix the
-list of offsets the entry names,
+The array $a$ has $5$ cells across, with entries in $\{0,1,2,3\}$. Two derived arrays are formed,
 \[
-\Delta=\{\,(-1,-1), (-1,0), (-1,1), (0,-1), (0,1), (1,-1), (1,0), (1,1)\,\},
+b(i,j)=a(i,j)+a(i,j-1)\quad(j\ge1),\qquad c(i,j)=a(i,j)+a(i-1,j)\quad(i\ge1),
 \]
-and for a cell $(i,j)$ write
+so $b$ adds each cell to its LEFT neighbour and $c$ adds each cell to the one ABOVE it. The
+entry asks
+
 \[
-S(i,j)=\{\,(i+\delta_1,\,j+\delta_2) : (\delta_1,\delta_2)\in\Delta\,\}\cap
-\text{(the cells of the array)}
+b(i,j)\le b(i{+}1,j)\qquad\text{and}\qquad c(i,j)\le c(i,j{+}1)
 \]
-for the neighbours it actually has. Only offsets landing inside the array count, so a cell on
-the border simply has fewer neighbours.
+wherever both sides are defined: the array $b$ must not decrease DOWN a column and the array
+$c$ must not decrease ALONG a row. The two directions are crossed, which is the only subtle
+part of the reading --- $b$ is built across a row and tested down a column, and $c$ the other
+way about.
 
-The condition is that no cell has a strict majority of its neighbours one greater than itself modulo $3$:
+
+\section{Two rows decide it}
+
+\begin{lemma}\label{lem:win}
+Both conditions are conditions on two consecutive rows of $a$ and nothing more.
+\end{lemma}
+
+\begin{proof}
+$b(i,j)\le b(i{+}1,j)$ names four cells of $a$, all in rows $i$ and $i+1$. $c(i,j)\le
+c(i,j{+}1)$ names four cells, all in rows $i-1$ and $i$.
+\end{proof}
+
+So a single row of $a$ is a state and one step appends a row.
+
+With $M$ the adjacency matrix of the digraph on those states, $\iota$ the indicator of the
+starting state and $\tau=\mathbf{1}$,
 \[
-2\cdot\#\{(a,b)\in S(i,j) : x(a,b)\equiv x(i,j)+1 \bmod 3\}\;\le\;|S(i,j)| .
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=1025.
 \]
-With three values this is the drawn position of rock, paper and scissors: each value beats the one below it modulo $3$, and no cell is to be beaten by a strict majority of its neighbours. The entry adds that the top-left cell is $0$.
-
-\section{A window of 3 rows}
-
-The offsets reach one row up and one row down, so everything the condition asks of one row is
-decided by that row together with one row above it and one row below --- a window of
-$3$ consecutive rows, and nothing wider. Take the array one row at a time
-and let the state be the last 2 of them, with a distinguished start standing for the
-array before its first row, so that a walk of $n$ steps is an array of $n$ rows.
-
-Appending a row completes exactly one window, and the row it settles is the one just above the bottom of that window; a step is
-allowed when that row passes. Each row of the finished
-array is therefore tested exactly once.
-
-When the array stops, the last row of it has never been tested, because the
-conditions reach one row below. So the end vector is NOT all ones: a state is accepted exactly when
-those rows pass with nothing below them, which is decided by running the same test on the window
-with absent rows appended --- the same rule that governs a cell at the bottom edge in
-Section 2.
-Thus
-\[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=685,
-\]
-for the transfer matrix $M$ on those $S$ states. The walk index $j$ and the entry's own $n$
-differ by a constant, read off by matching the published terms rather than assumed. In
-particular $a$ is $C$-finite.
+The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
+published terms rather than assumed. In particular $a$ is $C$-finite.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{38}-\sum_i c_it^{38-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{42}-\sum_i c_it^{42-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -98,7 +91,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+38}-\sum_ic_iM^{j+38-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+42}-\sum_ic_iM^{j+42-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -107,16 +100,16 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;21\,a(n-1) - 107\,a(n-2) + 63\,a(n-3) + 327\,a(n-4) + 1807\,a(n-5) - 11022\,a(n-6) + 22286\,a(n-7) - 29911\,a(n-8) + 38148\,a(n-9) - 14430\,a(n-10) - 114794\,a(n-11) + 310088\,a(n-12) - 391497\,a(n-13) + 122088\,a(n-14) + 685315\,a(n-15) - 1613102\,a(n-16) + 1227640\,a(n-17) + 817156\,a(n-18) - 2507835\,a(n-19) + 2085116\,a(n-20) + 424904\,a(n-21) - 3237743\,a(n-22) + 2923285\,a(n-23) - 121269\,a(n-24) - 692469\,a(n-25) - 329220\,a(n-26) + 486184\,a(n-27) + 200957\,a(n-28) - 63170\,a(n-29) - 17085\,a(n-30) - 56817\,a(n-31) - 12152\,a(n-32) + 25012\,a(n-33) + 9826\,a(n-34) - 5584\,a(n-35) - 844\,a(n-36) + 436\,a(n-37) + 8\,a(n-38)
+a(n)\;=\;14\,a(n-1) - 76\,a(n-2) + 156\,a(n-3) + 233\,a(n-4) - 1860\,a(n-5) + 2703\,a(n-6) + 4692\,a(n-7) - 20008\,a(n-8) + 11166\,a(n-9) + 53273\,a(n-10) - 96656\,a(n-11) - 36908\,a(n-12) + 265616\,a(n-13) - 164452\,a(n-14) - 369008\,a(n-15) + 575730\,a(n-16) + 153244\,a(n-17) - 924820\,a(n-18) + 404040\,a(n-19) + 840190\,a(n-20) - 920920\,a(n-21) - 313950\,a(n-22) + 983320\,a(n-23) - 233740\,a(n-24) - 614484\,a(n-25) + 433486\,a(n-26) + 187056\,a(n-27) - 315356\,a(n-28) + 30992\,a(n-29) + 129260\,a(n-30) - 58928\,a(n-31) - 25817\,a(n-32) + 27158\,a(n-33) - 1416\,a(n-34) - 6148\,a(n-35) + 2081\,a(n-36) + 508\,a(n-37) - 441\,a(n-38) + 52\,a(n-39) + 28\,a(n-40) - 10\,a(n-41) + a(n-42)
 \]
-for every $n>39$.
+for every $n>50$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $38$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $42$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=39+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once.
+integers vanish from the index corresponding to $n=50+1$ onwards and the run continued
+until the working vector was identically zero.
 \end{proof}
 
 \section{Verification}
@@ -126,10 +119,10 @@ Four checks, each independent of the algebra above.
 First, the model reproduces all $17$ terms the entry publishes, exactly, in integer
 arithmetic.
 
-Second, the count was recomputed for the smallest arrays straight from the definition: every
-array of width $3$ over $\{0,1,2\}$ with a few rows was written out cell by cell and each cell
-tested against the neighbours it has. No window, no state and no end vector are involved in that
-computation, and the published terms came back.
+Second, the count was recomputed for the smallest arrays straight from the definition:
+enumerate every array of that size, form the two derived arrays in full, and test the condition
+on them directly. No window, no state and no incremental bookkeeping are involved, and the
+published terms came back.
 
 Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
@@ -139,7 +132,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A231637.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A203737.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge

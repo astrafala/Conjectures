@@ -12,19 +12,19 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A197346, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A197557, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A197346 counts $n\times4$ arrays over $\{0,\dots,4\}$ subject to a condition imposed on
+OEIS A197557 counts $n\times4$ arrays over $\{0,\dots,4\}$ subject to a condition imposed on
 every CELL over a neighbour set the entry names, and it carries an empirical recurrence of
-order $45$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
+order $46$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
 empirical. A cell's neighbourhood meets three consecutive rows, so the state of a transfer
 matrix is a pair of consecutive rows and each step settles the middle one; an array is a
-walk, and $a(n)$ is a walk count on $S=2265$ vertices, which is $C$-finite. Whether the
+walk, and $a(n)$ is a walk count on $S=1582$ vertices, which is $C$-finite. Whether the
 conjectured recurrence annihilates it is then decided by a finite exact computation, with the
 Cayley--Hamilton theorem bounding the work.
 \end{abstract}
@@ -33,15 +33,15 @@ Cayley--Hamilton theorem bounding the work.
 
 \section{The conjecture}
 
-OEIS A197346 is ``Number of nX4 0..4 arrays with each element x equal to the number its horizontal and vertical neighbors equal to 3,3,1,1,0 for x=0,1,2,3,4.''. It has offset $1$ and begins
+OEIS A197557 is ``Number of nX4 0..4 arrays with each element x equal to the number its horizontal and vertical neighbors equal to 4,3,0,2,2 for x=0,1,2,3,4.''. It has offset $1$ and begins
 \[
-1, 17, 83, 441, 2289, 12399, 71411, 387651,\ \dots
+3, 23, 106, 927, 4055, 23710, 139477, 791905,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 2*a(n-1) +17*a(n-2) +51*a(n-3) +116*a(n-4) -1173*a(n-5) -4317*a(n-6) -2422*a(n-7) +14592*a(n-8) +119209*a(n-9) +264265*a(n-10) -221880*a(n-11) -1447910*a(n-12) -4035783*a(n-13) -7712675*a(n-14) +11905429*a(n-15) +52724270*a(n-16) +55553686*a(n-17) +111373104*a(n-18) -149159569*a(n-19) -967541103*a(n-20) -292339605*a(n-21) -714338479*a(n-22) -752792361*a(n-23) +9858752342*a(n-24) +1954128572*a(n-25) +1809533199*a(n-26) +24179073120*a(n-27) -66790076576*a(n-28) -24201485912*a(n-29) +11589593240*a(n-30) -167312714112*a(n-31) +273578008400*a(n-32) +149893236208*a(n-33) -15833303632*a(n-34) +447963794496*a(n-35) -654166650816*a(n-36) -405019304448*a(n-37) -108774022144*a(n-38) -67371539456*a(n-39) +217477283840*a(n-40) +393793961984*a(n-41) +183423074304*a(n-42) -46152155136*a(n-43) -33077329920*a(n-44) -3397386240*a(n-45)
+Empirical: a(n) = 2*a(n-1) +11*a(n-2) +30*a(n-3) +99*a(n-4) +337*a(n-5) +247*a(n-6) -8*a(n-7) +687*a(n-8) -1525*a(n-9) -6711*a(n-10) -9212*a(n-11) -7726*a(n-12) -2004*a(n-13) +3907*a(n-14) +17248*a(n-15) +12376*a(n-16) +3805*a(n-17) +42013*a(n-18) +26907*a(n-19) +7443*a(n-20) +6529*a(n-21) -40829*a(n-22) -23857*a(n-23) -22159*a(n-24) +7851*a(n-25) +1395*a(n-26) -23643*a(n-27) +30926*a(n-28) +1501*a(n-29) -46607*a(n-30) -17463*a(n-31) +3072*a(n-32) +1311*a(n-33) +9717*a(n-34) +10645*a(n-35) +3739*a(n-36) -864*a(n-37) -1824*a(n-38) +234*a(n-39) +558*a(n-40) -422*a(n-41) +94*a(n-42) +118*a(n-43) -72*a(n-44) -16*a(n-45) +5*a(n-46)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 07:08:35, revision 9) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 07:19:31, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{Cells, not blocks}
@@ -70,8 +70,8 @@ $(r,s)\in(\{0,\dots,4\}^{4}\cup\{\varnothing\})\times\{0,\dots,4\}^{4}$,
 and put an edge $(r,s)\to(s,t)$ when row $s$ satisfies the condition at every one of its
 $4$ cells, given $r$ above and $t$ below. An array with $L$ rows is then a walk of length
 $L-1$ starting at $(\varnothing,u_1)$, each step settling one row, and the last row is
-settled by the terminal weight, which evaluates it with $\varnothing$ below. Most of those pairs are indistinguishable, and exactly so. Every offset named above has $|dj|\le 1$, so whether the cell at column $j$ of the middle row is satisfied depends on the three rows only through their windows at $j-1,j,j+1$. Collect for each $j$ the indicator over the window of the row below, and call that tuple $P(r,s)$: the number of cells any $t$ violates is read off $P$, so is the number violated at the bottom edge, and the successor $(s,t)$ carries $P(s,t)$, which does not mention $r$. Hence two pairs $(r,s)$ and $(r',s)$ with the same $P$ have the same outgoing rows and the same successors, and the vertex is $(s,P)$. That leaves $S=2265$ vertices in place of $390625$. Hence,
-with $M$ the adjacency matrix on $S=2265$ vertices, $\iota$ the starting vector and $\tau$ the
+settled by the terminal weight, which evaluates it with $\varnothing$ below. Most of those pairs are indistinguishable, and exactly so. Every offset named above has $|dj|\le 1$, so whether the cell at column $j$ of the middle row is satisfied depends on the three rows only through their windows at $j-1,j,j+1$. Collect for each $j$ the indicator over the window of the row below, and call that tuple $P(r,s)$: the number of cells any $t$ violates is read off $P$, so is the number violated at the bottom edge, and the successor $(s,t)$ carries $P(s,t)$, which does not mention $r$. Hence two pairs $(r,s)$ and $(r',s)$ with the same $P$ have the same outgoing rows and the same successors, and the vertex is $(s,P)$. That leaves $S=1582$ vertices in place of $390625$. Hence,
+with $M$ the adjacency matrix on $S=1582$ vertices, $\iota$ the starting vector and $\tau$ the
 terminal weight,
 \[
 a(n)\;=\;\,\iota^{\!\top}M^{\,n-1}\tau ,
@@ -82,7 +82,7 @@ particular $a$ is $C$-finite.
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{45}-\sum_i c_it^{45-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{46}-\sum_i c_it^{46-i}$ be the characteristic polynomial of the
 conjectured recurrence. Then the residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the
 recurrence holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all
@@ -90,7 +90,7 @@ large $j$; and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+45}-\sum_ic_iM^{j+45-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+46}-\sum_ic_iM^{j+46-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ satisfy the monic linear recurrence given by the
 characteristic polynomial of $M$; $S$ consecutive zeros force every later one, and the last
@@ -99,24 +99,24 @@ nonzero $u_j$ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;2\,a(n-1) + 17\,a(n-2) + 51\,a(n-3) + 116\,a(n-4) - 1173\,a(n-5) - 4317\,a(n-6) - 2422\,a(n-7) + 14592\,a(n-8) + 119209\,a(n-9) + 264265\,a(n-10) - 221880\,a(n-11) - 1447910\,a(n-12) - 4035783\,a(n-13) - 7712675\,a(n-14) + 11905429\,a(n-15) + 52724270\,a(n-16) + 55553686\,a(n-17) + 111373104\,a(n-18) - 149159569\,a(n-19) - 967541103\,a(n-20) - 292339605\,a(n-21) - 714338479\,a(n-22) - 752792361\,a(n-23) + 9858752342\,a(n-24) + 1954128572\,a(n-25) + 1809533199\,a(n-26) + 24179073120\,a(n-27) - 66790076576\,a(n-28) - 24201485912\,a(n-29) + 11589593240\,a(n-30) - 167312714112\,a(n-31) + 273578008400\,a(n-32) + 149893236208\,a(n-33) - 15833303632\,a(n-34) + 447963794496\,a(n-35) - 654166650816\,a(n-36) - 405019304448\,a(n-37) - 108774022144\,a(n-38) - 67371539456\,a(n-39) + 217477283840\,a(n-40) + 393793961984\,a(n-41) + 183423074304\,a(n-42) - 46152155136\,a(n-43) - 33077329920\,a(n-44) - 3397386240\,a(n-45)
+a(n)\;=\;2\,a(n-1) + 11\,a(n-2) + 30\,a(n-3) + 99\,a(n-4) + 337\,a(n-5) + 247\,a(n-6) - 8\,a(n-7) + 687\,a(n-8) - 1525\,a(n-9) - 6711\,a(n-10) - 9212\,a(n-11) - 7726\,a(n-12) - 2004\,a(n-13) + 3907\,a(n-14) + 17248\,a(n-15) + 12376\,a(n-16) + 3805\,a(n-17) + 42013\,a(n-18) + 26907\,a(n-19) + 7443\,a(n-20) + 6529\,a(n-21) - 40829\,a(n-22) - 23857\,a(n-23) - 22159\,a(n-24) + 7851\,a(n-25) + 1395\,a(n-26) - 23643\,a(n-27) + 30926\,a(n-28) + 1501\,a(n-29) - 46607\,a(n-30) - 17463\,a(n-31) + 3072\,a(n-32) + 1311\,a(n-33) + 9717\,a(n-34) + 10645\,a(n-35) + 3739\,a(n-36) - 864\,a(n-37) - 1824\,a(n-38) + 234\,a(n-39) + 558\,a(n-40) - 422\,a(n-41) + 94\,a(n-42) + 118\,a(n-43) - 72\,a(n-44) - 16\,a(n-45) + 5\,a(n-46)
 \]
-for every $n>45$.
+for every $n>46$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $45$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $46$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly. Those
-integers vanish from the index corresponding to $n=45+1$ onwards, and the run was
+integers vanish from the index corresponding to $n=46+1$ onwards, and the run was
 continued until the working vector was identically zero, which settles all larger $j$ at once.
-By Lemma~\ref{lem:crit} the recurrence holds for every $n>45$.
+By Lemma~\ref{lem:crit} the recurrence holds for every $n>46$.
 \end{proof}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the transfer model reproduces all $21$ terms the entry publishes, exactly, in
+First, the transfer model reproduces all $20$ terms the entry publishes, exactly, in
 integer arithmetic. That check earned its place here. The neighbour offsets are named in the
 array's own frame --- horizontal means along a row --- but when the entry fixes the first
 dimension, as in ``$2\times n$'', the walk runs along columns and the two components of every
@@ -133,7 +133,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A197346.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A197557.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

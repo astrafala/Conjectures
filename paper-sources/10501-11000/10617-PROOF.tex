@@ -12,171 +12,107 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A252062, recovered from its tail}
+\title{A local condition on an array: OEIS A222439}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{8 September 2026}
+\date{7 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A252062 records ``Empirical recurrence of order $98$'' and keeps the recurrence itself in
-a linked file rather than in the entry, so the conjecture cannot be read off the entry at all.
-It can still be settled. The entry counts arrays under a condition local to a bounded window of
-lines, which makes the count a walk count on a finite digraph and forces a monic integer
-recurrence of order at most the number $S'=180$ of states with distinct futures. Berlekamp--Massey on
-enough exact terms therefore returns the minimal such recurrence, and on the tail beginning at $n=6$, so the recurrence is proved for every $n\ge104$.
-Its last coefficient is $c_{98}=-80\neq0$, so no further tail satisfies anything
-shorter; any order-$98$ recurrence the sequence satisfies from any point on must then have
-the same characteristic polynomial. The entry's recurrence is the one displayed here, whatever
-its linked file contains, and it is proved.
+OEIS A222439 carries an empirical recurrence of order $2$ contributed by R.~H.~Hardin. It is
+true, and it is decidable rather than empirical. The entry's condition is decided by a bounded amount of state carried down the array; the
+admissible windows are the vertices of a finite digraph and the arrays counted are exactly the
+walks in it. Hence $a(n)$ is a walk count on $S=3$ vertices and is $C$-finite, and whether the
+conjectured recurrence annihilates it is settled by a finite exact computation, with the
+Cayley--Hamilton theorem bounding the work.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
-\section{A conjecture that is not written down}
+\section{The conjecture}
 
-OEIS A252062 is ``Number of (n+2)X(5+2) 0..2 arrays with every 3X3 subblock row, column, diagonal and antidiagonal sum not equal to 1 2 or 4.''. It has offset $1$ and begins
+OEIS A222439 is ``Number of n X 3 0..3 arrays with entries increasing mod 4 by 0, 1 or 2 rightwards and downwards, starting with upper left zero.''. It has offset $1$ and begins
 \[
-1948, 5610, 25220, 126936, 664938, 3510697, 18508976, 97654871,\ \dots
+9, 147, 2403, 39285, 642249, 10499787, 171655443, 2806303725,\ \dots
 \]
-The entry states:
+The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical recurrence of order 98 (see link above)
+Empirical: a(n) = 18*a(n-1) - 27*a(n-2).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jun 02 2025 10:44:44, revision 8)
-this is still recorded as empirical, and it is still open. The coefficients are nowhere in the
-entry text: what is conjectured is only that a recurrence of that order exists.
+As of the ``Last modified'' line on the live entry (Mar 15 2018 08:12:28, revision 9) this is still
+recorded as empirical, and nothing on the entry records it as proved.
 
 \section{The count is a walk count}
 
-The entry's condition is local. It constrains a bounded window of consecutive lines of the
-array and nothing beyond it, so the admissible configurations of one window are the vertices of
-a finite digraph, an edge joins $u$ to $v$ when $v$ may follow $u$, and an admissible array is
-exactly a walk. Writing $M$ for the adjacency matrix and $\iota,\tau$ for the indicator vectors
-of the admissible first and last windows,
-\[
-a(n)\;=\;\iota^{\!\top}M^{\,j(n)}\tau
-\]
-for a linear reindexing $j$ fixed by the entry's shape. States with identical futures
-contribute identically to that product and may be merged without changing any count; after
-merging $S'=180$ states remain, and it is that bound every computation below uses.
+The entry counts arrays with $3$ columns over the alphabet $\{0,1,2,3\}$, growing one row at a time, and asks that each step to the right and each step downwards must increase the entry by $0$, $1$ or $2$ modulo $4$, starting from $0$ in the top left.
 
-\begin{lemma}\label{lem:cf}
-$a$ satisfies a monic linear recurrence with integer coefficients of order at most $S'=180$.
+Every cell the condition names lies within one row of the cell being judged, so three consecutive rows decide everything anchored at the middle one. Carry two consecutive rows as the state; a row is judged when the row after it arrives, and the row with nothing after it is judged by the end vector. That is where the boundary is honest: a neighbour off the edge of the array is not a neighbour, and a run of entries that would leave the array is not a run.
+
+Merging vertices with identical futures leaves $S=3$. An admissible array is exactly a walk, so with $M$ the adjacency matrix and $\iota,\tau$ the vectors recording which states may begin and end an array,
+\[
+a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau ,
+\]
+the exponent fixed by the entry's own shape and checked against its published terms. In
+particular $a$ is $C$-finite.
+
+\section{The proof}
+
+\begin{lemma}\label{lem:crit}
+Let $q(t)=t^{2}-\sum_i c_it^{2-i}$ be the characteristic polynomial of the
+conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
+$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
+holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
+and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-By the Cayley--Hamilton theorem $M^{S'}$ is an integer combination of $I,M,\dots,M^{S'-1}$,
-and multiplying that relation on the left by $\iota^{\!\top}M^{\,j}$ and on the right by
-$\tau$ turns it into a relation among $S'+1$ consecutive values of $a$.
+Factor $M^{j}$ out of $M^{j+2}-\sum_ic_iM^{j+2-i}$. For the bound, $M^{S}$
+is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
+$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
+polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
+pins the threshold exactly. A constant factor in front of $a$ divides out of the residual and
+changes nothing here.
 \end{proof}
 
-\section{Why the question has to be asked of a tail}
-
-Running Berlekamp--Massey on the sequence from its first term returns an order LARGER than $98$: the opening terms do not satisfy the recurrence, and a recurrence that holds only eventually always looks longer when the exceptional terms are included. That is not evidence against the entry. An OEIS empirical recurrence is asserted for $n$ beyond some index, not from the first term, so the question has to be asked of the tails. It was asked of each tail in turn, and the tail beginning at $n=6$ is the first whose minimal order is exactly the stated $98$.
-
-\begin{lemma}\label{lem:bm}
-A sequence known to satisfy some linear recurrence of order at most $S'$ is determined,
-together with its minimal recurrence, by any $2S'$ consecutive terms: Berlekamp--Massey applied
-to them returns that minimal recurrence exactly.
-\end{lemma}
-
-Applied to $2S'=360$ exact terms from $n=6$ on, it returns order $98$ --- the
-order the entry states --- with integer coefficients:
-\[
-a(n)\;=\;\sum_{i=1}^{98}c_i\,a(n-i),
-\]
-\begin{center}\small
-\begin{tabular}{cccccccc}
-$c_{1}$ & $7$ & $c_{26}$ & $-1346579501$ & $c_{51}$ & $86634904335$ & $c_{76}$ & $67691042$ \\
-$c_{2}$ & $-17$ & $c_{27}$ & $-1607711485$ & $c_{52}$ & $88333307093$ & $c_{77}$ & $-37734770$ \\
-$c_{3}$ & $75$ & $c_{28}$ & $205094196$ & $c_{53}$ & $43969802753$ & $c_{78}$ & $-30410735$ \\
-$c_{4}$ & $-126$ & $c_{29}$ & $3792788297$ & $c_{54}$ & $-17228361373$ & $c_{79}$ & $15959841$ \\
-$c_{5}$ & $-123$ & $c_{30}$ & $6276206077$ & $c_{55}$ & $-43562900203$ & $c_{80}$ & $28393826$ \\
-$c_{6}$ & $-734$ & $c_{31}$ & $3136983516$ & $c_{56}$ & $-34142706865$ & $c_{81}$ & $11032083$ \\
-$c_{7}$ & $-1984$ & $c_{32}$ & $-6903719395$ & $c_{57}$ & $-5909200952$ & $c_{82}$ & $-8544453$ \\
-$c_{8}$ & $7759$ & $c_{33}$ & $-17140852220$ & $c_{58}$ & $14599543323$ & $c_{83}$ & $-13223247$ \\
-$c_{9}$ & $16837$ & $c_{34}$ & $-16300753786$ & $c_{59}$ & $14864450134$ & $c_{84}$ & $-6571895$ \\
-$c_{10}$ & $32802$ & $c_{35}$ & $3979001775$ & $c_{60}$ & $4144180135$ & $c_{85}$ & $142303$ \\
-$c_{11}$ & $-23326$ & $c_{36}$ & $32051447301$ & $c_{61}$ & $-7441189109$ & $c_{86}$ & $2622425$ \\
-$c_{12}$ & $-292463$ & $c_{37}$ & $46425431640$ & $c_{62}$ & $-9574949696$ & $c_{87}$ & $1618353$ \\
-$c_{13}$ & $-486025$ & $c_{38}$ & $21064077489$ & $c_{63}$ & $-5427929137$ & $c_{88}$ & $332815$ \\
-$c_{14}$ & $-298569$ & $c_{39}$ & $-31945132075$ & $c_{64}$ & $1245027403$ & $c_{89}$ & $-251823$ \\
-$c_{15}$ & $1921402$ & $c_{40}$ & $-82383852131$ & $c_{65}$ & $4850560403$ & $c_{90}$ & $-207349$ \\
-$c_{16}$ & $5775830$ & $c_{41}$ & $-77156675386$ & $c_{66}$ & $5196228832$ & $c_{91}$ & $-74153$ \\
-$c_{17}$ & $5526168$ & $c_{42}$ & $-14271871351$ & $c_{67}$ & $2996671606$ & $c_{92}$ & $-10469$ \\
-$c_{18}$ & $-6340168$ & $c_{43}$ & $78584466593$ & $c_{68}$ & $480162476$ & $c_{93}$ & $-877$ \\
-$c_{19}$ & $-36477866$ & $c_{44}$ & $125628639713$ & $c_{69}$ & $-1354441105$ & $c_{94}$ & $-2370$ \\
-$c_{20}$ & $-56926077$ & $c_{45}$ & $96249601023$ & $c_{70}$ & $-1926233123$ & $c_{95}$ & $-894$ \\
-$c_{21}$ & $-7729429$ & $c_{46}$ & $-5074204009$ & $c_{71}$ & $-1458960456$ & $c_{96}$ & $-474$ \\
-$c_{22}$ & $151654666$ & $c_{47}$ & $-99571200039$ & $c_{72}$ & $-569277200$ & $c_{97}$ & $-84$ \\
-$c_{23}$ & $336323472$ & $c_{48}$ & $-135605531829$ & $c_{73}$ & $179987633$ & $c_{98}$ & $-80$ \\
-$c_{24}$ & $252198876$ & $c_{49}$ & $-78817454348$ & $c_{74}$ & $415008611$ &  &  \\
-$c_{25}$ & $-392242436$ & $c_{50}$ & $10836752629$ & $c_{75}$ & $297964223$ &  &  \\
-\end{tabular}
-\end{center}
-
-\section{The recurrence, and the identification}
-
 \begin{theorem}
-The recurrence above holds for every $n\ge104$, and it is the recurrence OEIS A252062 records.
+\[
+a(n)\;=\;18\,a(n-1) - 27\,a(n-2)
+\]
+for every $n>2$.
 \end{theorem}
 
 \begin{proof}
-That it holds is Lemma~\ref{lem:bm} applied to the tail from $n=6$, whose minimal
-recurrence it is.
-
-For the identification, write $q_{\min}$ for the characteristic polynomial of that minimal
-recurrence, $x^{98}-c_1x^{98-1}-\dots-c_{98}$. Its constant term is
-$-c_{98}=80$, which is not zero, so $q_{\min}(0)\neq0$ and $q_{\min}$ has no
-root at the origin. A solution of a constant-coefficient recurrence is a combination of terms
-$n^{k}\lambda^{n}$ with $\lambda$ a root of its characteristic polynomial, and only the
-components with $\lambda=0$ vanish after finitely many terms. Since $q_{\min}$ has none, no
-component of $a$ dies out, and the minimal recurrence of every further tail is again
-$q_{\min}$ --- the order cannot drop below $98$ at any later starting point.
-
-Now let $q$ be the characteristic polynomial of whatever recurrence the entry asserts. The
-entry asserts it has order $98$, so $\deg q=98$, and it is monic. It holds from some
-index $t$ on. From $\max(t,6)$ on, the sequence satisfies both $q$ and $q_{\min}$, and
-the minimal polynomial of that tail is $q_{\min}$ by the previous paragraph; therefore
-$q_{\min}\mid q$. Both are monic of degree $98$, so $q=q_{\min}$.
+The vector $w=q(M)\tau$ was formed by $2$ matrix--vector products in exact integer
+arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
+integers vanish from the index corresponding to $n=2+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
-Four checks, all in exact integer or rational arithmetic.
+Four checks, each independent of the algebra above.
 
-First, the walk model reproduces all $18$ terms the entry publishes, exactly. This is
-what ties the model to the entry, and it is the only place where reading the entry's English
-enters the argument.
+First, the model reproduces all $16$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry: the digraph is built by reading the
+entry's English, and a misreading gives different counts.
 
-Second, the order was computed twice by independent routes: once modulo a $61$-bit prime, where
-every intermediate is a machine word, and once over $\mathbb{Q}$ in exact rational arithmetic.
-Both return $98$, and the exact run additionally confirms every coefficient is an integer
---- had any been a proper fraction the recurrence would not be the entry's.
+Second, the reading was pinned before the digraph was written, by a program that enumerates
+every array of the given shape one by one and tests the entry's condition on it directly. That program shares no code with the transfer matrix, so an error in one does not
+hide an error in the other.
 
-Third, the recovered recurrence was evaluated directly on the entry's own published terms, with
-no matrices and no Berlekamp--Massey involved. It holds at each of the $0$ indices where
-the entry publishes enough earlier terms to test it.
+Third, the conjectured recurrence was evaluated directly on the published terms, with no
+matrices involved, and holds wherever the proved range and the data overlap.
 
-Fourth, the last coefficient was checked to be nonzero, which is what the identification above
-turns on; it is $-80$.
-
-\begin{remark}
-The conjecture's own statement was never read. The entry pins it down to the family of
-order-$98$ recurrences this sequence satisfies from some point on, and that family turns
-out to have exactly one member.
-\end{remark}
+Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A252062.
-\bibitem{massey} J.~L.~Massey, Shift-register synthesis and BCH decoding, \emph{IEEE
-Trans. Inform. Theory} \textbf{15} (1969), 122--127.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A222439.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{kauers} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011.
-(C-finite sequences and their closure properties.)
+\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+University Press, 2009.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

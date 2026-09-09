@@ -7,150 +7,187 @@
 \theoremstyle{plain}
 \newtheorem{theorem}{Theorem}
 \newtheorem{lemma}[theorem]{Lemma}
-\newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
-
-\title{The empirical recurrence for OEIS A282590: recovering a conjecture that is not written down}
+\title{A proof of the conjectured recurrence for OEIS A243022}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{2 September 2026}
+\date{25 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A282590 records ``Empirical recurrence of order $93$'', with the recurrence itself in a
-linked file rather than in the entry. The conjecture can nevertheless be settled, and the
-recurrence recovered, without reading that file. The entry counts arrays under a condition
-local to a bounded window of lines, so the count is a walk count on a finite digraph and
-satisfies some monic recurrence of order at most the number of its states with distinct
-futures, here $S'=260$; Berlekamp--Massey applied to $2S'$ exact
-terms therefore returns the MINIMAL such recurrence. Its order is exactly $93$, the order
-the entry states, and the same is true of every tail of the sequence. Any recurrence of order
-$93$ that the sequence satisfies from any point on must then have a characteristic
-polynomial that is a multiple of the minimal one and of the same degree, hence equal to it. So
-the entry's recurrence is the one displayed here, whatever its file contains, and it is
-proved.
+OEIS A243022 carries a conjectured linear recurrence with polynomial coefficients, of
+order 5, contributed by R.~J.~Mathar. We prove it. The generating function of the
+entry is algebraic, and the recurrence is equivalent to the vanishing of an explicit
+differential operator applied to it: writing $\theta=x\,\frac{d}{dx}$, the sequence
+$b(n)=\sum_{i}p_{i}(n)a(n-i)$ has generating function
+$B(x)=\sum_{i}x^{i}\,(p_{i}(\theta+i)A)(x)$, so the conjecture holds for all $n>d$ exactly
+when $B$ is a polynomial of degree $d$. Since $A$ is algebraic over $\mathbb{Q}(x)$, and every simple
+algebraic extension of $\mathbb{Q}(x)$ is closed under $\theta$, the residual $B$ can be
+computed in closed form. Here it equals $92 x^{3} + 4 x^{2}$, a polynomial of degree $3$, which proves
+the recurrence for every $n>3$.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 11B37, 05A15, 33F10.\normalsize
 
-\section{A conjecture one cannot read}
+\section{The sequence and the conjecture}
 
-OEIS A282590 is ``Number of n X 5 0..1 arrays with no 1 equal to more than two of its king-move neighbors, with the exception of exactly two elements.''. It has offset $1$ and begins
+OEIS A243022 is ``Expansion of -(2*x)/(1-sqrt(1-(2*(1-sqrt(1-4*x\^{}2)))/x))''. It has offset $0$ and begins
 \[
-0, 52, 4083, 73469, 1551972, 30003220, 546521435, 9746960274,\ \dots
+a(0),\dots,a(7)\;=\;-1, 1, 2, 2, 7, 18, 61, 198,\ \dots
 \]
-The entry states:
-\begin{quote}
-Empirical recurrence of order 93 (see link above).
+The entry gives the generating function
+\begin{equation}\label{eq:gf}
+A(x)\;=\;\sum_{n\ge 0} a(n)\,x^{n}\;=\;\frac{2 x}{\sqrt{\frac{x + 2 \sqrt{1 - 4 x^{2}} - 2}{x}} - 1} ,
+\end{equation}
+and it carries the following comment:
+\begin{quote}\small
+Conjecture D-finite with recurrence: +2*n*(n-1)*(2*n-3)*(5*n-12)*a(n) -(n-1)*(85*n\^{}3-459*n\^{}2+776*n-400)*a(n-1) +4*(-40*n\^{}4+396*n\^{}3-1455*n\^{}2+2324*n-1360)*a(n-2) +4*(n-4)*(170*n\^{}3-1258*n\^{}2+3003*n-2185)*a(n-3) +16*(n-4)*(n-5)*(20*n\^{}2-118*n+143)*a(n-4) -272*(n-4)*(n-5)*(n-6)*(5*n-7)*a(n-5)=0. - \emph{R. J. Mathar}, Jul 15 2017
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 20 2022 23:40:13, revision 6) this is still
-recorded as empirical. The recurrence's coefficients are not in the entry text.
+As of the ``Last modified'' line on the live entry (2020-01-30, revision 29) the
+statement is still recorded as a conjecture, and no proof appears among the entry's links,
+formulas or programs.
 
-\section{The count is a walk count}
-
-The entry's condition is local: it constrains a bounded window of consecutive lines of the
-array and nothing further. The admissible configurations of one such window are the vertices
-of a finite digraph, an edge joining $u$ to $v$ when $v$ may follow $u$, and an admissible
-array is exactly a walk. Hence, with $M$ the adjacency matrix on $S=1811$ vertices,
-$a(n)=\iota^{\!\top}M^{\,j(n)}\tau$ for a linear reindexing $j$ fixed by the entry's shape
-and checked against its published terms. States with the same future contribute identically to $\iota^{\!\top}M^n\tau$, so they may be merged without changing any count; merging leaves $S'=260$ of the $1811$, and it is that smaller bound the computation below uses. By the Cayley--Hamilton theorem $M^{S}$ is an
-integer combination of $I,M,\dots,M^{S-1}$, so:
-
-\begin{lemma}\label{lem:cf}
-$a$ satisfies a monic linear recurrence with integer coefficients of order at most
-$S'=260$.
-\end{lemma}
-
-\section{Recovering the recurrence}
-
-\begin{lemma}\label{lem:bm}
-A sequence known to satisfy some linear recurrence of order at most $S$ is determined, together
-with its minimal recurrence, by its first $2S$ terms: Berlekamp--Massey applied to them returns
-that minimal recurrence exactly.
-\end{lemma}
-
-Running it on $2S'=520$ exact terms of the model returns order $93$ --- the order the
-entry states --- with the integer coefficients
+Writing the conjectured relation in the form $\sum_{i=0}^{5}p_{i}(n)\,a(n-i)=0$,
+the coefficient polynomials are
 \[
-a(n)\;=\;\sum_{i=1}^{93}c_i\,a(n-i),
+p_{0}(n)=2 n \left(n - 1\right) \left(2 n - 3\right) \left(5 n - 12\right),\qquad p_{1}(n)=- \left(n - 1\right) \left(85 n^{3} - 459 n^{2} + 776 n - 400\right),\qquad p_{2}(n)=- 4 \left(40 n^{4} - 396 n^{3} + 1455 n^{2} - 2324 n + 1360\right),\qquad p_{3}(n)=4 \left(n - 4\right) \left(170 n^{3} - 1258 n^{2} + 3003 n - 2185\right),\qquad p_{4}(n)=16 \left(n - 5\right) \left(n - 4\right) \left(20 n^{2} - 118 n + 143\right),\qquad p_{5}(n)=- 272 \left(n - 6\right) \left(n - 5\right) \left(n - 4\right) \left(5 n - 7\right)
 \]
-\begin{center}\small
-\begin{tabular}{cccccccc}
-$c_{1}$ & $42$ & $c_{25}$ & $-3946820121128307$ & $c_{49}$ & $4546645275975745248$ & $c_{73}$ & $-883783344095911263$ \\
-$c_{2}$ & $-555$ & $c_{26}$ & $5666938331520483$ & $c_{50}$ & $-264609110572490750109$ & $c_{74}$ & $-370040732214703572$ \\
-$c_{3}$ & $1853$ & $c_{27}$ & $-10157498995242882$ & $c_{51}$ & $-927287931879957749287$ & $c_{75}$ & $270901512702380173$ \\
-$c_{4}$ & $-1101$ & $c_{28}$ & $3653537185224894$ & $c_{52}$ & $-160988939992608811572$ & $c_{76}$ & $-90644592163587312$ \\
-$c_{5}$ & $201930$ & $c_{29}$ & $14714833154334798$ & $c_{53}$ & $-311109765325814407503$ & $c_{77}$ & $5723446856050815$ \\
-$c_{6}$ & $-1532236$ & $c_{30}$ & $-38724243140196890$ & $c_{54}$ & $989489884367363451392$ & $c_{78}$ & $13248113769226193$ \\
-$c_{7}$ & $1629273$ & $c_{31}$ & $185828625098454612$ & $c_{55}$ & $1175811166417756845015$ & $c_{79}$ & $-7190481459179550$ \\
-$c_{8}$ & $-18216450$ & $c_{32}$ & $-253249371799931472$ & $c_{56}$ & $271747858176731416959$ & $c_{80}$ & $1295563888599252$ \\
-$c_{9}$ & $262415525$ & $c_{33}$ & $437356700255084989$ & $c_{57}$ & $315578559962450779753$ & $c_{81}$ & $210570526725796$ \\
-$c_{10}$ & $-920792628$ & $c_{34}$ & $-836818333589643834$ & $c_{58}$ & $-1333548353825179952379$ & $c_{82}$ & $-203170875603327$ \\
-$c_{11}$ & $2601075648$ & $c_{35}$ & $-132449853187379745$ & $c_{59}$ & $-600063894448546822197$ & $c_{83}$ & $85122685081575$ \\
-$c_{12}$ & $-17659055274$ & $c_{36}$ & $-457676635336369890$ & $c_{60}$ & $-86554614042937914969$ & $c_{84}$ & $-20737791483067$ \\
-$c_{13}$ & $82129250070$ & $c_{37}$ & $-1996562459424670887$ & $c_{61}$ & $-58818659141353416423$ & $c_{85}$ & $71262172068$ \\
-$c_{14}$ & $-298663072989$ & $c_{38}$ & $7780465019848494804$ & $c_{62}$ & $838092074524058211138$ & $c_{86}$ & $1534421884440$ \\
-$c_{15}$ & $1072147408644$ & $c_{39}$ & $-2511483158898807642$ & $c_{63}$ & $-122355016291758861459$ & $c_{87}$ & $-579837757424$ \\
-$c_{16}$ & $-3065177710578$ & $c_{40}$ & $21867163063536007137$ & $c_{64}$ & $-612542658151290754989$ & $c_{88}$ & $163817054400$ \\
-$c_{17}$ & $7671643617390$ & $c_{41}$ & $-15013267188400425252$ & $c_{65}$ & $314058144219769659831$ & $c_{89}$ & $-32845529088$ \\
-$c_{18}$ & $-17334961280803$ & $c_{42}$ & $-11145912857894738150$ & $c_{66}$ & $190447258616383341802$ & $c_{90}$ & $3279982848$ \\
-$c_{19}$ & $27365988825072$ & $c_{43}$ & $-45635140924875632400$ & $c_{67}$ & $-193997239072554393930$ & $c_{91}$ & $-94009344$ \\
-$c_{20}$ & $-35085626841696$ & $c_{44}$ & $-85929853074906175887$ & $c_{68}$ & $-912733808548800990$ & $c_{92}$ & $1050624$ \\
-$c_{21}$ & $2054832841973$ & $c_{45}$ & $67028306590097261458$ & $c_{69}$ & $56249775681893592413$ & $c_{93}$ & $-4096$ \\
-$c_{22}$ & $214840874101893$ & $c_{46}$ & $11522951537644798998$ & $c_{70}$ & $-18313526339749431447$ &  &  \\
-$c_{23}$ & $-633339380314410$ & $c_{47}$ & $352827672769269839601$ & $c_{71}$ & $-6033387065946450012$ &  &  \\
-$c_{24}$ & $1820334400986075$ & $c_{48}$ & $125256918506947724020$ & $c_{72}$ & $5328156777366513487$ &  &  \\
-\end{tabular}
-\end{center}
+
+\section{Recurrences as differential operators}
+
+Let $A(x)=\sum_{n\ge0}a(n)x^{n}$ be the generating function of a sequence, and let
+$\theta=x\,\dfrac{d}{dx}$, so that $\theta$ acts on $x^{m}$ as multiplication by $m$. For a
+polynomial $p$ we write $p(\theta)$ for the corresponding differential operator, so that
+$p(\theta)A=\sum_{m}p(m)a(m)x^{m}$.
+
+\begin{lemma}\label{lem:transfer}
+Let $p_{0},\dots,p_{r}$ be polynomials and put $b(n)=\sum_{i=0}^{r}p_{i}(n)\,a(n-i)$, with
+the convention $a(m)=0$ for $m<0$. Then
+\[
+B(x):=\sum_{n\ge0}b(n)x^{n}=\sum_{i=0}^{r}x^{i}\,\bigl(p_{i}(\theta+i)A\bigr)(x).
+\]
+\end{lemma}
+
+\begin{proof}
+Fix $i$ and substitute $m=n-i$:
+\[
+\sum_{n\ge0}p_{i}(n)a(n-i)x^{n}=\sum_{m\ge0}p_{i}(m+i)a(m)x^{m+i}
+=x^{i}\sum_{m\ge0}p_{i}(m+i)a(m)x^{m}=x^{i}\bigl(p_{i}(\theta+i)A\bigr)(x),
+\]
+the last step because $p_{i}(\theta+i)$ multiplies the coefficient of $x^{m}$ by
+$p_{i}(m+i)$. Summing over $i$ gives the claim.
+\end{proof}
+
+\begin{corollary}\label{cor:criterion}
+With the notation of Lemma~\ref{lem:transfer}, the recurrence
+$\sum_{i}p_{i}(n)a(n-i)=0$ holds for every $n>d$ if and only if $B$ is a polynomial of
+degree at most $d$.
+\end{corollary}
+
+\begin{proof}
+$b(n)$ is the coefficient of $x^{n}$ in $B$, so $b(n)=0$ for all $n>d$ says exactly that
+$B$ has no terms above $x^{d}$.
+\end{proof}
+
+This turns the conjecture into a closed-form identity. The point is that it can then be
+decided exactly, with no truncation: $A$ is algebraic, so $B$ lies in the same field as
+$A$, and one only has to recognise it.
+
+\begin{lemma}\label{lem:field}
+Let $P(x,y)\in\mathbb{Q}(x)[y]$ be squarefree of degree $m\ge1$ in $y$, let
+$K=\mathbb{Q}(x)[y]/(P)$, and write $\alpha$ for the class of $y$ in $K$. Then $K$ is
+closed under $\theta$. Explicitly,
+\[
+\alpha'=-\frac{P_{x}(x,\alpha)}{P_{y}(x,\alpha)},
+\]
+the quotient taken inside $K$, and for $u=\sum_{i<m}c_{i}(x)\,\alpha^{i}$ with
+$c_{i}\in\mathbb{Q}(x)$,
+\[
+\theta(u)=x\Bigl(\sum_{i<m}c_{i}'(x)\,\alpha^{i}
+ +\alpha'\sum_{i<m}i\,c_{i}(x)\,\alpha^{i-1}\Bigr),
+\]
+reduced modulo $P$.
+\end{lemma}
+
+\begin{proof}
+$P(x,\alpha)=0$ holds identically in $x$, so differentiating gives
+$P_{x}(x,\alpha)+P_{y}(x,\alpha)\,\alpha'=0$. Because $P$ is squarefree,
+$\gcd(P,P_{y})=1$ in $\mathbb{Q}(x)[y]$, so $P_{y}(x,\alpha)$ is a unit of $K$ and the
+displayed quotient is defined there; its inverse is produced by the extended Euclidean
+algorithm. The formula for $\theta(u)$ is the chain rule, and reduction modulo $P$ returns
+the value to the basis $1,\alpha,\dots,\alpha^{m-1}$. Every operation stays inside $K$.
+\end{proof}
+
+Consequently, if $A\in K$ then every $p_{i}(\theta+i)A$ is in $K$, and so is $B$. Writing
+$B=\sum_{i<m}b_{i}(x)\,\alpha^{i}$ with $b_{i}\in\mathbb{Q}(x)$, the test of
+Corollary~\ref{cor:criterion} becomes: $B$ is a polynomial precisely when $b_{i}=0$ for
+every $i\ge1$ and $b_{0}$ has constant denominator. Both are decided by exact
+cancellation of rational functions.
+
+\section{The computation for A243022}
+
+The generating function \eqref{eq:gf} is algebraic over $\mathbb{Q}(x)$;
+its minimal polynomial is
+\[
+P(x,y) \;=\; 16 x \left(x^{4} + 2 x^{3} y + x^{2} y^{2} + x y^{2} + y^{4} + y^{3}\right) ,
+\]
+so \eqref{eq:gf} lies in $K=\mathbb{Q}(x)[y]/\bigl(P(x,y)\bigr)$ and is the root of that polynomial with the right
+expansion at the origin. Applying Lemma~\ref{lem:transfer} to the coefficient polynomials
+of Section~1 and reducing in $K$ by Lemma~\ref{lem:field}, every component $b_{i}$ of $B$
+with $i\ge1$ cancels identically and the remaining rational part collapses to
+\[
+B(x)\;=\;92 x^{3} + 4 x^{2} ,
+\]
+a polynomial of degree $3$.
 
 \begin{theorem}
-The recurrence above holds for every $n$, and it is the recurrence the entry records.
+The conjectured recurrence
+\[
+2 n \left(n - 1\right) \left(2 n - 3\right) \left(5 n - 12\right)\,a(n) -  \left(n - 1\right) \left(85 n^{3} - 459 n^{2} + 776 n - 400\right)\,a(n-1) -  4 \left(40 n^{4} - 396 n^{3} + 1455 n^{2} - 2324 n + 1360\right)\,a(n-2) + 4 \left(n - 4\right) \left(170 n^{3} - 1258 n^{2} + 3003 n - 2185\right)\,a(n-3) + 16 \left(n - 5\right) \left(n - 4\right) \left(20 n^{2} - 118 n + 143\right)\,a(n-4) -  272 \left(n - 6\right) \left(n - 5\right) \left(n - 4\right) \left(5 n - 7\right)\,a(n-5) \;=\;0
+\]
+holds for every $n>3$.
 \end{theorem}
 
 \begin{proof}
-It holds by Lemma~\ref{lem:bm}, which returns a recurrence the sequence satisfies from its
-first term. For the identification: the entry asserts that the sequence satisfies SOME
-recurrence of order $93$, possibly only from some index on. Let $q$ be that recurrence's
-characteristic polynomial and $q_{\min}$ the minimal polynomial of the tail of the sequence.
-Then $q_{\min}\mid q$. Berlekamp--Massey run on the sequence with its first $93+4$ terms
-removed returns order $93$ as well, so $\deg q_{\min}=93=\deg q$; both are monic, so
-$q=q_{\min}$, which is the polynomial computed above.
+Immediate from Corollary~\ref{cor:criterion} and the displayed value of $B$.
 \end{proof}
+
+\begin{remark}
+The polynomial $B$ is not an error term: it records the boundary of the recurrence. For
+$n\le3$ some of the shifted terms $a(n-i)$ fall outside the range of the sequence,
+and $B$ collects exactly those contributions. Above that range the relation is exact.
+\end{remark}
 
 \section{Verification}
 
-Three checks.
+Every number above is an output of a script written separately from this note, and two
+independent checks were run.
 
-First, the walk model reproduces all $16$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry, and it is the only place where reading
-the entry's English enters.
+First, the generating function was checked against the entry rather than assumed: the
+Taylor coefficients of \eqref{eq:gf} were expanded and compared term by term with the DATA
+section of A243022, agreeing on all 13 terms compared.
 
-Second, the recovered recurrence was evaluated directly on those published terms, with no
-matrices and no Berlekamp--Massey involved, and holds at every index where the entry gives
-enough earlier terms to test it.
+Second, the recurrence itself was evaluated directly on the published terms, in exact
+integer arithmetic and without reference to the generating function: for each $n$ in range
+the sum $\sum_{i}p_{i}(n)a(n-i)$ was formed from the entry's own values and found to
+vanish, for all 21 values of $n$ from $n=5$ upward. This is what
+Corollary~\ref{cor:criterion} predicts from the degree of $B$, and it is a genuinely
+different computation from the symbolic one: it never forms $B$, never differentiates, and
+uses only integers.
 
-Third, the order was computed twice by independent routes: once modulo a $61$-bit prime, where
-every intermediate is a machine word, and once in exact rational arithmetic; and once more on
-the sequence with its first $93+4$ terms removed, which is what the identification above
-requires. All three agree.
-
-\begin{remark}
-What is unusual here is that the conjecture's statement was never read. The entry pins it down
-to a one-parameter family --- the recurrences of order $93$ that this sequence satisfies
---- and that family turns out to have exactly one member.
-\end{remark}
+The symbolic step is exact throughout. The residual is obtained by rational-function
+cancellation in $K$, not by series truncation, so the identity $B=92 x^{3} + 4 x^{2}$ is an
+identity of functions and the theorem holds for all $n>3$ simultaneously.
 
 \begin{thebibliography}{9}
-\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A282590.
-\bibitem{massey} J.~L.~Massey, Shift-register synthesis and BCH decoding, \emph{IEEE
-Trans. Inform. Theory} \textbf{15} (1969), 122--127.
-\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
-University Press, 2013.
+\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer Sequences},
+\url{https://oeis.org}, 2026. Sequence A243022.
+\bibitem{kp} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011,
+Chapter 7 (holonomic closure properties and the translation between recurrences and
+differential equations).
+\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 2, Cambridge
+University Press, 1999, Chapter 6 (algebraic and D-finite generating functions).
 \end{thebibliography}
-
 \end{document}

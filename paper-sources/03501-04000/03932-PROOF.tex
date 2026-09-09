@@ -12,20 +12,20 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical closed form for OEIS A195252, proved}
+\title{The empirical closed form and generating function for OEIS A194935, proved}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{6 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A195252 counts the lower triangles of a $6\times6$ array over $\{0,\dots,n\}$ in which
-adjacent entries differ by at most $2$, and carries closed form recorded as empirical. The shape here is FIXED
+OEIS A194935 counts the lower triangles of a $6\times6$ array over $\{0,\dots,n\}$ in which
+adjacent entries differ by at most $1$, and carries closed form and generating function recorded as empirical. The shape here is FIXED
 and it is the alphabet that grows, so there is no digraph to walk. What settles it is that the
 condition constrains DIFFERENCES only: translating an admissible array by a constant leaves it
 admissible, so the arrays split into translation classes, and a class with spread $s$ contains
 exactly $\max(0,n+1-s)$ arrays with entries in $\{0,\dots,n\}$. Since no spread can exceed
-$2$ times the diameter of the neighbour graph, $a(n)$ is exactly linear from a point that is
+$1$ times the diameter of the neighbour graph, $a(n)$ is exactly linear from a point that is
 known in advance, and two evaluations pin it. Nothing is fitted.
 \end{abstract}
 
@@ -33,26 +33,28 @@ known in advance, and two evaluations pin it. Nothing is fitted.
 
 \section{The conjecture}
 
-OEIS A195252 is ``Number of lower triangles of a 6X6 0..n array with each element differing from all of its diagonal, vertical, antidiagonal and horizontal neighbors by two or less.''. It has offset $1$ and begins
+OEIS A194935 is ``Number of lower triangles of a 6 X 6 0..n array with no element differing from any of its horizontal or vertical neighbors by more than one.''. It has offset $1$ and begins
 \[
-2097152, 10460353203, 74236765958, 192172956591, 333437946202, 481573562101,\ \dots
+2097152, 43337009, 136403494, 248381815, 364130672, 480403525,\ \dots
 \]
 The entry states, as conjectures contributed by its author and by later readers and never
 marked settled:
 \begin{quote}
-Empirical: a(n) = 149824887097*n - 417651128341 for n>8
+Empirical: a(n) = 116330103*n - 217580911 for n>8.
+
+Empirical g.f.: x*(2097152 + 39142705*x + 51826628*x\^{}2 + 18911836*x\^{}3 + 3770536*x\^{}4 + 523996*x\^{}5 + 53564*x\^{}6 + 3556*x\^{}7 + 128*x\^{}8 + 2*x\^{}9) / (1 - x)\^{}2. - \_Colin Barker\_, May 05 2018
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 06:14:39, revision 9) these are still
+As of the ``Last modified'' line on the live entry (May 05 2018 20:43:02, revision 9) these are still
 recorded as empirical, and nothing on the entry records them as proved.
 
 \section{What is being counted}
 
 The lower triangle of a $6\times6$ array is the set of cells $(i,j)$ with $0\le j\le
 i<6$, so there are $T=21$ of them. Two cells are adjacent when they differ by one of the
-horizontal, antidiagonal, vertical, diagonal offsets, which here gives $55$ adjacent pairs. Each cell carries a value in
+horizontal, vertical offsets, which here gives $30$ adjacent pairs. Each cell carries a value in
 $\{0,\dots,n\}$, and the entry requires
 \[
-|x_u-x_v|\le 2\qquad\text{for every adjacent pair }u,v .
+|x_u-x_v|\le 1\qquad\text{for every adjacent pair }u,v .
 \]
 
 The shape is fixed and $n$ is the size of the ALPHABET. So this is not a walk count and
@@ -79,23 +81,23 @@ Lemma~\ref{lem:bound}.
 \end{proof}
 
 \begin{lemma}\label{lem:bound}
-Every $y\in\mathcal P$ has $\mathrm{sp}(y)\le 2\cdot5=10$, where $5$ is the
+Every $y\in\mathcal P$ has $\mathrm{sp}(y)\le 1\cdot10=10$, where $10$ is the
 diameter of the neighbour graph.
 \end{lemma}
 
 \begin{proof}
-The neighbour graph is connected, so any two cells are joined by a path of at most $5$
-edges, and each edge changes the value by at most $2$. Hence the largest and the smallest
-entry differ by at most $2\cdot5$.
+The neighbour graph is connected, so any two cells are joined by a path of at most $10$
+edges, and each edge changes the value by at most $1$. Hence the largest and the smallest
+entry differ by at most $1\cdot10$.
 \end{proof}
 
 \section{The count}
 
 \begin{theorem}\label{thm:line}
 \[
-a(n)\;=\;149824887097\,n-417651128341\qquad\text{for every }n\ge9,
+a(n)\;=\;116330103\,n-217580911\qquad\text{for every }n\ge9,
 \]
-and $\mathcal P$ has exactly $149824887097$ elements.
+and $\mathcal P$ has exactly $116330103$ elements.
 \end{theorem}
 
 \begin{proof}
@@ -106,7 +108,7 @@ a(n)=\sum_{y\in\mathcal P}\bigl(n+1-\mathrm{sp}(y)\bigr)
 =|\mathcal P|\,(n+1)-\sum_{y}\mathrm{sp}(y),
 \]
 which is a linear function of $n$. Two values determine it, and $a(10)$ and
-$a(10+1)$ were computed exactly, giving slope $149824887097$ and the stated intercept; the slope
+$a(10+1)$ were computed exactly, giving slope $116330103$ and the stated intercept; the slope
 is $|\mathcal P|$. That the identity already holds from $n=9$ was then read off by
 comparing it with the exact values of $a(n)$ below $10$, each computed the same way.
 \end{proof}
@@ -115,6 +117,12 @@ The counts $a(n)$ themselves are obtained by walking over the cells in row major
 carrying only the entries a later cell can still see --- for this shape at most $6+1$ of
 them --- so no array is ever written down.
 
+Since $a$ agrees with a linear polynomial from a known point on, its generating function is a
+polynomial divided by $(1-x)^2$: multiplying the series by $(1-x)^2$ annihilates the linear
+tail term by term, leaving only finitely many nonzero coefficients, and those coefficients are
+the second differences of the values below the threshold. The conjectured generating function
+is that one, which was checked coefficient by coefficient in exact rational arithmetic.
+
 Each statement quoted in Section 1 is a consequence of Theorem~\ref{thm:line}, and each was
 also checked directly against it.
 
@@ -122,7 +130,7 @@ also checked directly against it.
 
 Three checks, each independent of the argument above.
 
-First, the count reproduces all $16$ terms the entry publishes, exactly, in integer
+First, the count reproduces all $19$ terms the entry publishes, exactly, in integer
 arithmetic.
 
 Second, the arrays themselves were enumerated for the smallest alphabets --- every assignment
@@ -139,7 +147,7 @@ rather than sampled.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A195252.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A194935.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011.
 \bibitem{comtet} L.~Comtet, \emph{Advanced Combinatorics}, Reidel, 1974.

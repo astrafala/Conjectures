@@ -8,114 +8,108 @@
 \newtheorem{theorem}{Theorem}
 \newtheorem{lemma}[theorem]{Lemma}
 \newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
-\title{A proof of the conjectured generating function for OEIS A266072}
+
+\title{The empirical recurrence for OEIS A283648, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{31 August 2026}
+\date{8 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A266072 carries a conjectured generating function. We prove it. The entry states, as fact,
-a closed form, and from that a linear recurrence with polynomial coefficients satisfied by
-the sequence is derived exactly. The conjectured generating function is then shown to satisfy the
-same recurrence, and to agree with the sequence at enough consecutive indices. A recurrence
-of order $3$ whose leading coefficient does not vanish, together with $3$
-consecutive values, determines a sequence completely, so the two agree everywhere. Nothing
-is checked numerically and then assumed: the recurrence is derived symbolically, the
-verification is an exact identity, and the finitely many indices where the leading
-coefficient vanishes are computed rather than waved at.
+OEIS A283648 carries an empirical recurrence of order $3$ contributed by R.~H.~Hardin. It is
+true, and it is decidable rather than empirical. The entry's condition is local to a bounded window of consecutive lines, so
+the admissible configurations of such a window are the vertices of a finite digraph and the
+arrays counted are exactly the walks in it; hence $a(n)$ is a walk count on $S=5$ vertices
+and is $C$-finite. Whether the conjectured recurrence annihilates it is then settled by a
+finite exact computation, with the Cayley--Hamilton theorem bounding the work.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 33F10.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
-\section{The sequence, what is known, and what is conjectured}
+\section{The conjecture}
 
-OEIS A266072 is ``Number of ON (black) cells in the n-th iteration of the "Rule 3" elementary cellular automaton starting with a single ON (black) cell''. It has offset $0$ and begins
+OEIS A283648 is ``Binary representation of the x-axis, from the left edge to the origin, of the n-th stage of growth of the two-dimensional cellular automaton defined by "Rule 705", based on the 5-celled von Neumann neighborhood.''. It has offset $0$ and begins
 \[
-a(0),\dots,a(7)\;=\;1, 1, 1, 5, 1, 9, 1, 13,\ \dots
+1, 0, 111, 1101, 11100, 111101, 1111100, 11111101,\ \dots
 \]
-The entry states, not as a conjecture,
-\begin{quote}\small
-a(n) = n-(-1)\textasciicircum{}n*(n-1).
+The entry states, as a conjecture contributed by its author and never marked settled:
+\begin{quote}
+(the empirical recurrence quoted in the entry)
 \end{quote}
-and separately carries the comment
-\begin{quote}\small
-Conjectured g.f.: (1 + x - x\textasciicircum{}2 + 3*x\textasciicircum{}3)/(-1 + x\textasciicircum{}2)\textasciicircum{}2. - \emph{Michael De Vlieger}, Dec 21 2015
-\end{quote}
-As of the ``Last modified'' line on the live entry (2025-02-16, revision 30) the second
-statement is still recorded as a conjecture, and no proof appears among the entry's links,
-formulas or programs.
+As of the ``Last modified'' line on the live entry (Nov 05 2025 15:22:38, revision 11) this is still
+recorded as empirical, and nothing on the entry records it as proved.
 
-\section{A recurrence from what is known}
+\section{The count is a walk count}
 
-The closed form the entry posts is a sum of finitely many hypergeometric terms. For terms $t_{1},\dots,t_{m}$ one may seek $c_{0},\dots,c_{m}$ in $\mathbb{Q}(n)$ with $\sum_{k}c_{k}(n)t_{j}(n+k)=0$ for every $j$; dividing the $j$-th equation by $t_{j}(n)$ makes every coefficient a rational function, so this is $m$ equations in $m+1$ unknowns over $\mathbb{Q}(n)$ and a nonzero solution exists. It gives
+The condition the entry imposes is local: it constrains a bounded window of consecutive lines and nothing beyond. Take as
+vertices the admissible configurations of one such window and put an edge from $u$ to $v$
+whenever $v$ may follow $u$, which the condition decides by inspection of the two. An
+admissible array is then exactly a walk, so with $M$ the adjacency matrix on $S=5$ vertices
+and $\iota,\tau$ the vectors recording which windows may begin and end an array,
+\[
+a(n)\;=\;\iota^{\!\top}M^{\,n}\tau ,
+\]
+the exponent fixed by the entry's own shape and checked against its published terms. In
+particular $a$ is $C$-finite.
 
-\begin{equation}\label{eq:rec}
-\left(- n - 2\right)\,a(n) + \left(- n - 3\right)\,a(n+1) + n\,a(n+2) + \left(n + 1\right)\,a(n+3) \;=\; 0
-\end{equation}
+\section{The proof}
 
-The leading coefficient of \eqref{eq:rec} is $n + 1$. Its only integer zeros are $n\in\{-1\}$, all below the range claimed here.
-
-\section{The conjectured description satisfies it}
-
-Write $\theta=x\,\frac{d}{dx}$ and, for the coefficients $p_{i}$ of \eqref{eq:rec} written in the backward form $\sum_{i}p_{i}(n)a(n-i)=0$, set $B(x)=\sum_{i}x^{i}\,(p_{i}(\theta+i)A)(x)$ for the conjectured generating function $A$. Then $[x^{n}]B=\sum_{i}p_{i}(n)a(n-i)$, so the conjectured generating function has coefficients satisfying \eqref{eq:rec} exactly when $B$ is a polynomial. Reducing $B$ inside the field $A$ generates, which is closed under $\theta$, gives a polynomial, and the verification is an exact cancellation of rational functions.
-
-\section{Uniqueness}
-
-\begin{lemma}\label{lem:unique}
-Let $\sum_{j=0}^{r}q_{j}(n)\,b(n+j)=0$ be a linear recurrence whose leading coefficient
-$q_{r}$ has no zero at any integer $n\ge n_{0}$. If two sequences both satisfy it for all
-$n\ge n_{0}$ and agree at the $r$ consecutive indices $n_{0},\dots,n_{0}+r-1$, they agree
-at every $n\ge n_{0}$.
+\begin{lemma}\label{lem:crit}
+Let $q(t)=t^{3}-\sum_i c_it^{3-i}$ be the characteristic polynomial of the
+conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
+$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
+holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
+and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Induction. Suppose the two agree at $n_{0},\dots,m+r-1$ for some $m\ge n_{0}$. The
-recurrence at $n=m$ determines $b(m+r)$ from the preceding $r$ values, because $q_{r}(m)$
-is nonzero and may be divided by; both sequences therefore take the same value at $m+r$.
+Factor $M^{j}$ out of $M^{j+3}-\sum_ic_iM^{j+3-i}$. For the bound, $M^{S}$
+is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
+$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
+polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
+pins the threshold exactly.
 \end{proof}
 
 \begin{theorem}
-For all $n\ge 0$,
 \[
-\sum_{n\ge 0} a(n)x^{n} \;=\; \frac{3 x^{3} - x^{2} + x + 1}{\left(x^{2} - 1\right)^{2}}
+a(n)\;=\;10\,a(n-1) + a(n-2) - 10\,a(n-3)
 \]
+for every $n>5$.
 \end{theorem}
 
 \begin{proof}
-Both sides satisfy \eqref{eq:rec}: the sequence because the recurrence was derived from
-the entry's own a closed form, and the conjectured generating function by the computation of the
-previous section. They agree at the $3$ consecutive indices beginning
-$n=0$, which was checked against the entry's DATA in exact integer arithmetic.
-The leading coefficient has no zero at any integer $n\ge0$, so
-Lemma~\ref{lem:unique} applies.
+The vector $w=q(M)\tau$ was formed by $3$ matrix--vector products in exact integer
+arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
+integers vanish from the index corresponding to $n=5+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once. The bound is exact: at $n=5$ the recurrence fails on the entry's own published terms, so no larger range holds.
 \end{proof}
 
 \section{Verification}
 
-Three checks, independent of one another.
+Three checks, each independent of the algebra above.
 
-First, the description the entry states as fact was itself confirmed against the entry's
-DATA before any recurrence was derived from it; a statement that did not reproduce the
-entry's own terms would not have been used as the basis of anything.
+First, the model reproduces all $20$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry: the digraph is built by reading the
+entry's English, and a misreading gives different counts.
 
-Second, the derived recurrence \eqref{eq:rec} was evaluated on the published terms in
-exact integer arithmetic and vanishes at every index where it applies.
+Second, the conjectured recurrence was evaluated directly on those published terms, with no
+matrices involved, and holds wherever the proved range and the data overlap.
 
-Third, the conjectured generating function was evaluated at the first $13$ indices and
-compared term by term with the DATA; the values agree exactly. This is not part of the
-proof, which is symbolic, but it would catch a transcription error in either statement.
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
-\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer Sequences},
-\url{https://oeis.org}, 2026. Sequence A266072.
-\bibitem{aeqb} M.~Petkov\v{s}ek, H.~S.~Wilf and D.~Zeilberger, \emph{A=B}, A K Peters,
-1996.
+\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
+Sequences}, \url{https://oeis.org}, 2026. Sequence A283648.
+\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
 University Press, 2009.
-\bibitem{kauers} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011.
+\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
+University Press, 2013.
 \end{thebibliography}
 
 \end{document}

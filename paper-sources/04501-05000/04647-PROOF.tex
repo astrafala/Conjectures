@@ -12,15 +12,15 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A326102, proved by a two-line transfer matrix}
+\title{The empirical recurrence for OEIS A318013, proved by a two-line transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A326102 counts arrays over $\{0,\dots,1\}$ in which every cell is constrained by the
-values of its neighbours, and carries an empirical recurrence of order $59$ contributed
+OEIS A318013 counts arrays over $\{0,\dots,1\}$ in which every cell is constrained by the
+values of its neighbours, and carries an empirical recurrence of order $61$ contributed
 by R.~H.~Hardin. It is true, and it is not an empirical matter. The neighbourhood reaches one
 row up and one row down, so a single row is not enough state and a plain walk count
 is wrong; the right object is a walk on ordered \emph{pairs} of consecutive rows, where
@@ -34,22 +34,22 @@ computation.
 
 \section{The sequence and the conjecture}
 
-OEIS A326102 is ``Number of nX5 0..1 arrays with every element equal to 0, 1, 2, 3 or 6 horizontally, vertically or antidiagonally adjacent elements, with upper left element zero.''. It has offset $1$ and begins
+OEIS A318013 is ``Number of nX5 0..1 arrays with every element unequal to 0, 1, 2 or 3 horizontally, vertically or antidiagonally adjacent elements, with upper left element zero.''. It has offset $1$ and begins
 \[
-16, 401, 5383, 81088, 1233763, 18773244, 285501774, 4342306378,\ \dots
+16, 338, 2130, 17703, 133136, 1033121, 7960400, 61442813,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 17*a(n-1) -25*a(n-2) -81*a(n-3) +812*a(n-4) -1312*a(n-5) -2865*a(n-6) +8714*a(n-7) -66*a(n-8) -43033*a(n-9) -125505*a(n-10) +484471*a(n-11) -255789*a(n-12) -1486727*a(n-13) +3227987*a(n-14) -2598295*a(n-15) -5412191*a(n-16) -47680568*a(n-17) +79979948*a(n-18) +86671801*a(n-19) -262784969*a(n-20) +154305396*a(n-21) -466723959*a(n-22) +959658755*a(n-23) -507585219*a(n-24) +701844263*a(n-25) -889593201*a(n-26) +1536321229*a(n-27) +420363180*a(n-28) +210081684*a(n-29) +253587140*a(n-30) -170890206*a(n-31) +868138535*a(n-32) -51102373*a(n-33) -290450507*a(n-34) -269814180*a(n-35) -497784439*a(n-36) +681316694*a(n-37) -486030089*a(n-38) -192346791*a(n-39) +276312944*a(n-40) -120006865*a(n-41) +66180671*a(n-42) +10458443*a(n-43) -18480207*a(n-44) +38629305*a(n-45) -20808715*a(n-46) -2771235*a(n-47) +11529381*a(n-48) -9539660*a(n-49) +3061661*a(n-50) -307556*a(n-51) -440685*a(n-52) +503602*a(n-53) -278717*a(n-54) +105571*a(n-55) -32382*a(n-56) +9813*a(n-57) -1664*a(n-58) +44*a(n-59) for n>60
+Empirical: a(n) = 8*a(n-1) +20*a(n-2) -178*a(n-3) -133*a(n-4) +1457*a(n-5) +229*a(n-6) -3767*a(n-7) +1604*a(n-8) -17083*a(n-9) -20904*a(n-10) +173201*a(n-11) +202212*a(n-12) -831126*a(n-13) -1256182*a(n-14) +3403061*a(n-15) +4253774*a(n-16) -11699625*a(n-17) -6680097*a(n-18) +28322072*a(n-19) -2645665*a(n-20) -40790067*a(n-21) +36479997*a(n-22) +11280476*a(n-23) -84094546*a(n-24) +101624162*a(n-25) +93470289*a(n-26) -282983523*a(n-27) -12820853*a(n-28) +436883259*a(n-29) -136772424*a(n-30) -458227773*a(n-31) +261645068*a(n-32) +329222395*a(n-33) -281524971*a(n-34) -137294396*a(n-35) +208179168*a(n-36) -13787843*a(n-37) -110888096*a(n-38) +82675746*a(n-39) +35123902*a(n-40) -80847975*a(n-41) +4683984*a(n-42) +47836163*a(n-43) -13649560*a(n-44) -19626484*a(n-45) +9320839*a(n-46) +5634785*a(n-47) -3908759*a(n-48) -924491*a(n-49) +943722*a(n-50) +32289*a(n-51) -77166*a(n-52) +7151*a(n-53) -17074*a(n-54) -886*a(n-55) +5570*a(n-56) +391*a(n-57) -465*a(n-58) -5*a(n-59) +6*a(n-60) -2*a(n-61) for n>65
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jun 06 2019 07:54:02, revision 4) the statement is
+As of the ``Last modified'' line on the live entry (Aug 12 2018 19:35:18, revision 4) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;17\,a(n-1) - 25\,a(n-2) - 81\,a(n-3) + 812\,a(n-4) - 1312\,a(n-5) - 2865\,a(n-6) + 8714\,a(n-7) - 66\,a(n-8) - 43033\,a(n-9) - 125505\,a(n-10) + 484471\,a(n-11) - 255789\,a(n-12) - 1486727\,a(n-13) + 3227987\,a(n-14) - 2598295\,a(n-15) - 5412191\,a(n-16) - 47680568\,a(n-17) + 79979948\,a(n-18) + 86671801\,a(n-19) - 262784969\,a(n-20) + 154305396\,a(n-21) - 466723959\,a(n-22) + 959658755\,a(n-23) - 507585219\,a(n-24) + 701844263\,a(n-25) - 889593201\,a(n-26) + 1536321229\,a(n-27) + 420363180\,a(n-28) + 210081684\,a(n-29) + 253587140\,a(n-30) - 170890206\,a(n-31) + 868138535\,a(n-32) - 51102373\,a(n-33) - 290450507\,a(n-34) - 269814180\,a(n-35) - 497784439\,a(n-36) + 681316694\,a(n-37) - 486030089\,a(n-38) - 192346791\,a(n-39) + 276312944\,a(n-40) - 120006865\,a(n-41) + 66180671\,a(n-42) + 10458443\,a(n-43) - 18480207\,a(n-44) + 38629305\,a(n-45) - 20808715\,a(n-46) - 2771235\,a(n-47) + 11529381\,a(n-48) - 9539660\,a(n-49) + 3061661\,a(n-50) - 307556\,a(n-51) - 440685\,a(n-52) + 503602\,a(n-53) - 278717\,a(n-54) + 105571\,a(n-55) - 32382\,a(n-56) + 9813\,a(n-57) - 1664\,a(n-58) + 44\,a(n-59)
+a(n)\;=\;8\,a(n-1) + 20\,a(n-2) - 178\,a(n-3) - 133\,a(n-4) + 1457\,a(n-5) + 229\,a(n-6) - 3767\,a(n-7) + 1604\,a(n-8) - 17083\,a(n-9) - 20904\,a(n-10) + 173201\,a(n-11) + 202212\,a(n-12) - 831126\,a(n-13) - 1256182\,a(n-14) + 3403061\,a(n-15) + 4253774\,a(n-16) - 11699625\,a(n-17) - 6680097\,a(n-18) + 28322072\,a(n-19) - 2645665\,a(n-20) - 40790067\,a(n-21) + 36479997\,a(n-22) + 11280476\,a(n-23) - 84094546\,a(n-24) + 101624162\,a(n-25) + 93470289\,a(n-26) - 282983523\,a(n-27) - 12820853\,a(n-28) + 436883259\,a(n-29) - 136772424\,a(n-30) - 458227773\,a(n-31) + 261645068\,a(n-32) + 329222395\,a(n-33) - 281524971\,a(n-34) - 137294396\,a(n-35) + 208179168\,a(n-36) - 13787843\,a(n-37) - 110888096\,a(n-38) + 82675746\,a(n-39) + 35123902\,a(n-40) - 80847975\,a(n-41) + 4683984\,a(n-42) + 47836163\,a(n-43) - 13649560\,a(n-44) - 19626484\,a(n-45) + 9320839\,a(n-46) + 5634785\,a(n-47) - 3908759\,a(n-48) - 924491\,a(n-49) + 943722\,a(n-50) + 32289\,a(n-51) - 77166\,a(n-52) + 7151\,a(n-53) - 17074\,a(n-54) - 886\,a(n-55) + 5570\,a(n-56) + 391\,a(n-57) - 465\,a(n-58) - 5\,a(n-59) + 6\,a(n-60) - 2\,a(n-61)
 \end{equation}
-for all $n>60$.
+for all $n>65$.
 
 \section{The condition, and why one row is not enough}
 
@@ -61,7 +61,7 @@ row $t$ and column $u$, each in $\{0,\dots,1\}$. With the neighbour offsets
 written as (row shift, column shift) and counting only positions inside the array, the
 entry's requirement is
 \begin{equation}\label{eq:loc}
-\#\{\text{neighbours with a value }equal to\ x_{t,u}\}\in\{0,1,2,3,6\}
+\#\{\text{neighbours with a value }different from\ x_{t,u}\}\in\{0,1,2,3\}
 \end{equation}
 for every cell $(t,u)$. A further clause fixes the upper-left entry of the array to be $0$; it removes nothing but a relabelling, and enters the construction as a restriction on which rows may begin a walk.
 
@@ -112,21 +112,21 @@ $V\times V$, of size $32^2=1024$. That is the whole of the state: two consecutiv
 rows and nothing else about the array's history.
 
 It is worth saying why this is not done by enumeration. At the largest index the entry
-publishes, $n=16$, the arrays have $5\cdot16$ cells over
-$2$ values, so there are about $10^{24}$ of them to sift. The
+publishes, $n=19$, the arrays have $5\cdot19$ cells over
+$2$ values, so there are about $10^{28}$ of them to sift. The
 walk count replaces that by $1024$ states and one matrix--vector product per row.
 \section{The criterion}
 
-Let $q(t)=t^{59}-\sum_i c_i\,t^{59-i}$ be the characteristic polynomial of
+Let $q(t)=t^{61}-\sum_i c_i\,t^{61-i}$ be the characteristic polynomial of
 \eqref{eq:conj} and put $G=N$, so that a unit step in $n$ advances the walk by
 $1$ row.
 
 \begin{lemma}\label{lem:crit}
 Let $n_0$ be the least index with $L\ge2$ and $h_j=G^{j}N^{o}\mathbf{u}$, where
-$o=1n_0+0-2$. Then for $j\ge59$,
+$o=1n_0+0-2$. Then for $j\ge61$,
 \[
-a(n_0+j)-\sum_i c_i\,a(n_0+j-i)\;=\;\,\mathbf{v}^{\!\top}G^{\,j-59}w,
-\qquad w=h_{59}-\sum_i c_i\,h_{59-i} .
+a(n_0+j)-\sum_i c_i\,a(n_0+j-i)\;=\;\,\mathbf{v}^{\!\top}G^{\,j-61}w,
+\qquad w=h_{61}-\sum_i c_i\,h_{61-i} .
 \]
 Hence \eqref{eq:conj} holds from that point on if and only if
 $\mathbf{v}^{\!\top}G^{m}w=0$ for every $m\ge0$, and it is enough to check
@@ -134,7 +134,7 @@ $m=0,1,\dots,S-1$.
 \end{lemma}
 
 \begin{proof}
-Substitute Lemma~\ref{lem:walk} and factor $G^{j-59}$ out of
+Substitute Lemma~\ref{lem:walk} and factor $G^{j-61}$ out of
 $G^{j}-\sum_ic_iG^{j-i}$; the nonzero scalar $1$ does not affect
 vanishing. For the last clause, Cayley--Hamilton makes $G^{S}$ an integer combination of
 $I,G,\dots,G^{S-1}$, so $\mathbf{v}^{\!\top}G^{m}w$ for $m\ge S$ is the corresponding
@@ -142,16 +142,16 @@ combination of the earlier values; if those vanish, so do all the rest.
 \end{proof}
 
 \begin{theorem}
-The recurrence \eqref{eq:conj} holds for every $n>60$, which is the statement of
+The recurrence \eqref{eq:conj} holds for every $n>65$, which is the statement of
 Section~1.
 \end{theorem}
 
 \begin{proof}
 The digraph was built directly from \eqref{eq:loc}: for each of the $S=1024$ pairs and each
 of the $(1+1)^{5}$ possible next rows, the condition was tested on every cell of
-the middle row. The vector $w$ was formed by $59$ applications of $G$ in exact integer
+the middle row. The vector $w$ was formed by $61$ applications of $G$ in exact integer
 arithmetic and $\mathbf{v}^{\!\top}G^{m}w$ evaluated for $m=0,1,\dots$, again exactly.
-Every one of those integers vanishes from the index corresponding to $n=60+1$ onwards,
+Every one of those integers vanishes from the index corresponding to $n=65+1$ onwards,
 and the run was continued until $S+1$ consecutive zeros had been seen, which by
 Lemma~\ref{lem:crit} settles every larger $m$ at once.
 \end{proof}
@@ -168,7 +168,7 @@ divisor of $q$.
 Three checks, each independent of the algebra above.
 
 First, the walk counts of Lemma~\ref{lem:walk} were compared against the entry's DATA at
-every one of the $16$ published indices, with no shift fitted: the number of rows is
+every one of the $19$ published indices, with no shift fitted: the number of rows is
 read off the entry's own name as $L=n$ and the entry's offset says which index the first
 published term carries. The values agree exactly. A misreading of \eqref{eq:loc}, of the
 neighbour set, or of the boundary treatment would give a different digraph and different
@@ -183,7 +183,7 @@ returned zero throughout.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A326102.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A318013.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

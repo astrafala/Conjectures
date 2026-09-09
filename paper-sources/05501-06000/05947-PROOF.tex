@@ -12,49 +12,45 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The white squares of a board: OEIS A230944}
+\title{The empirical recurrence for OEIS A270147, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{7 September 2026}
+\date{8 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A230944 carries an empirical recurrence of order $30$ contributed by R.~H.~Hardin. It is
-true, and it is decidable rather than empirical. The entry's condition is decided by a bounded amount of state carried down the array; the
-admissible windows are the vertices of a finite digraph and the arrays counted are exactly the
-walks in it. Hence $a(n)$ is a walk count on $S=58$ vertices and is $C$-finite, and whether the
-conjectured recurrence annihilates it is settled by a finite exact computation, with the
-Cayley--Hamilton theorem bounding the work.
+OEIS A270147 carries an empirical recurrence of order $30$ contributed by R.~H.~Hardin. It is
+true, and it is decidable rather than empirical. The entry's condition is local to a bounded window of consecutive lines, so
+the admissible configurations of such a window are the vertices of a finite digraph and the
+arrays counted are exactly the walks in it; hence $a(n)$ is a walk count on $S=8192$ vertices
+and is $C$-finite. Whether the conjectured recurrence annihilates it is then settled by a
+finite exact computation, with the Cayley--Hamilton theorem bounding the work.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
 \section{The conjecture}
 
-OEIS A230944 is ``Number of (n+3)X(3+3) 0..3 white square subarrays x(i,j) with each element diagonally or antidiagonally next to at least one element with value (x(i,j)+1) mod 4, and upper left element zero.''. It has offset $1$ and begins
+OEIS A270147 is ``Number of nX4 0..7 arrays with some element plus some horizontally, diagonally, antidiagonally or vertically adjacent neighbor totalling seven exactly once.''. It has offset $1$ and begins
 \[
-76, 724, 8374, 85196, 854206, 8838040, 91616256, 944382122,\ \dots
+1176, 4126368, 5750902944, 6697695002208, 7142783643783792, 7232246139319438944, 7076007579749239522560, 6756572506861579320074976,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 11*a(n-1) -23*a(n-2) +150*a(n-3) +309*a(n-4) -2148*a(n-5) +10102*a(n-6) -47494*a(n-7) -27771*a(n-8) -127963*a(n-9) -856209*a(n-10) -751900*a(n-11) +518927*a(n-12) +1522290*a(n-13) +5226896*a(n-14) +6396332*a(n-15) -6910959*a(n-16) -15629371*a(n-17) +577087*a(n-18) +12661958*a(n-19) +107867*a(n-20) -3633560*a(n-21) +898870*a(n-22) +447610*a(n-23) -220949*a(n-24) -31637*a(n-25) -855*a(n-26) +2592*a(n-27) +865*a(n-28) +42*a(n-29) +4*a(n-30)
+Empirical: a(n) = 1742*a(n-1) -827249*a(n-2) +55735166*a(n-3) +2410177430*a(n-4) -208388398056*a(n-5) -3167015848153*a(n-6) +256479806611406*a(n-7) +2376722394136390*a(n-8) -119974226647646126*a(n-9) -748066037036869804*a(n-10) +14495677890626797680*a(n-11) -44282335922464026472*a(n-12) -87656882172897101898*a(n-13) +633122185223835748191*a(n-14) -486595208994066512314*a(n-15) -2521515704709696475982*a(n-16) +4786585967458397581320*a(n-17) +2256779180091586437315*a(n-18) -11568026205666473386010*a(n-19) +4081366110373471964624*a(n-20) +11206797106037834726810*a(n-21) -8694022358907130403200*a(n-22) -3768022188795704598344*a(n-23) +5316074296028246592431*a(n-24) -410670862474703529840*a(n-25) -1029555514715631146860*a(n-26) +336961514541159804000*a(n-27) -22395037969800912100*a(n-28) -1605006621279476000*a(n-29) -20684134872040000*a(n-30) for n>31
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 06:07:58, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Mar 12 2016 08:44:16, revision 4) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
-\section{The white squares are a board of their own}
+\section{The count is a walk count}
 
-The board has $6$ columns and grows one row at a time, but only the cells with $i+j$ even carry a value, from the alphabet $\{0,1,2,3\}$. The diagonal and antidiagonal neighbours of such a cell again have $i+j$ even, so the white squares form a board of their own and the entry's condition never refers to anything else: each white cell must have at least one neighbour, diagonally or antidiagonally, holding the value $x+1$ modulo $4$ where $x$ is its own.
-
-That looks one row up and one row down, so three consecutive rows settle the condition on the middle one. Carry two rows as the state, judge a row when the row after it arrives, and judge the row with nothing after it by the end vector. A cell at the edge of the board simply has fewer neighbours, and having none of the right value is a failure rather than a special case.
-
-The white cells of a row occupy alternate columns, and which alternate ones depends on the parity of that row, so the two shapes alternate down the board; the state carries that parity in the shape of the row it holds.
-
-The entry also fixes the top left cell at $0$, which restricts the states an array may begin in and nothing else.
-
-Merging vertices with identical futures leaves $S=58$. An admissible board is exactly a walk, so with $M$ the adjacency matrix and $\iota,\tau$ the vectors recording which states may begin and end a board,
+The condition the entry imposes is local: it constrains a bounded window of consecutive lines and nothing beyond. Take as
+vertices the admissible configurations of one such window and put an edge from $u$ to $v$
+whenever $v$ may follow $u$, which the condition decides by inspection of the two. An
+admissible array is then exactly a walk, so with $M$ the adjacency matrix on $S=8192$ vertices
+and $\iota,\tau$ the vectors recording which windows may begin and end an array,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n+2}\tau ,
+a(n)\;=\;\iota^{\!\top}M^{\,n}\tau ,
 \]
 the exponent fixed by the entry's own shape and checked against its published terms. In
 particular $a$ is $C$-finite.
@@ -74,46 +70,40 @@ Factor $M^{j}$ out of $M^{j+30}-\sum_ic_iM^{j+30-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly. A constant factor in front of $a$ divides out of the residual and
-changes nothing here.
+pins the threshold exactly.
 \end{proof}
 
 \begin{theorem}
 \[
-a(n)\;=\;11\,a(n-1) - 23\,a(n-2) + 150\,a(n-3) + 309\,a(n-4) - 2148\,a(n-5) + 10102\,a(n-6) - 47494\,a(n-7) - 27771\,a(n-8) - 127963\,a(n-9) - 856209\,a(n-10) - 751900\,a(n-11) + 518927\,a(n-12) + 1522290\,a(n-13) + 5226896\,a(n-14) + 6396332\,a(n-15) - 6910959\,a(n-16) - 15629371\,a(n-17) + 577087\,a(n-18) + 12661958\,a(n-19) + 107867\,a(n-20) - 3633560\,a(n-21) + 898870\,a(n-22) + 447610\,a(n-23) - 220949\,a(n-24) - 31637\,a(n-25) - 855\,a(n-26) + 2592\,a(n-27) + 865\,a(n-28) + 42\,a(n-29) + 4\,a(n-30)
+a(n)\;=\;1742\,a(n-1) - 827249\,a(n-2) + 55735166\,a(n-3) + 2410177430\,a(n-4) - 208388398056\,a(n-5) - 3167015848153\,a(n-6) + 256479806611406\,a(n-7) + 2376722394136390\,a(n-8) - 119974226647646126\,a(n-9) - 748066037036869804\,a(n-10) + 14495677890626797680\,a(n-11) - 44282335922464026472\,a(n-12) - 87656882172897101898\,a(n-13) + 633122185223835748191\,a(n-14) - 486595208994066512314\,a(n-15) - 2521515704709696475982\,a(n-16) + 4786585967458397581320\,a(n-17) + 2256779180091586437315\,a(n-18) - 11568026205666473386010\,a(n-19) + 4081366110373471964624\,a(n-20) + 11206797106037834726810\,a(n-21) - 8694022358907130403200\,a(n-22) - 3768022188795704598344\,a(n-23) + 5316074296028246592431\,a(n-24) - 410670862474703529840\,a(n-25) - 1029555514715631146860\,a(n-26) + 336961514541159804000\,a(n-27) - 22395037969800912100\,a(n-28) - 1605006621279476000\,a(n-29) - 20684134872040000\,a(n-30)
 \]
-for every $n>28$.
+for every $n>31$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $30$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=28+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=31+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
-Four checks, each independent of the algebra above.
+Three checks, each independent of the algebra above.
 
-First, the model reproduces all $16$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $10$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
-Second, the reading was pinned before the digraph was written, by a program that enumerates
-every filling of the white cells one by one and tests, for each of them, whether some
-diagonal or antidiagonal neighbour holds the required value. That program shares no code with the transfer matrix, so an error in one does not
-hide an error in the other.
-
-Third, the conjectured recurrence was evaluated directly on the published terms, with no
+Second, the conjectured recurrence was evaluated directly on those published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
 
-Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
 arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A230944.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A270147.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

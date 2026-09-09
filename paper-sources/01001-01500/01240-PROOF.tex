@@ -12,21 +12,21 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A229472, proved by counting defective colourings}
+\title{The empirical recurrence for OEIS A229530, proved by counting defective colourings}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A229472 counts the colourings of an array with $K=4$ colours that are proper except at
+OEIS A229530 counts the colourings of an array with $K=3$ colours that are proper except at
 exactly one adjacent pair, the colours being introduced in row
 major order. Neither feature is local: the number of monochromatic adjacent pairs is a
 property of the whole array, and the row major clause fixes a representative of each
 relabelling class. Both are removed by machinery already in hand --- the running count of
 mistakes goes into the state, capped at $1$, and the colour clause disappears into the
-identity $4!\,a(n)=\sum_i\binom{4}{i}D_{4-i}L_i(n)$ with $D_m$ the derangement
-numbers. What is left is a walk count on $S=20$ vertices, and the empirical recurrence of
+identity $3!\,a(n)=\sum_i\binom{3}{i}D_{3-i}L_i(n)$ with $D_m$ the derangement
+numbers. What is left is a walk count on $S=196$ vertices, and the empirical recurrence of
 order $4$ contributed by R.~H.~Hardin follows from a finite exact computation.
 \end{abstract}
 
@@ -34,29 +34,29 @@ order $4$ contributed by R.~H.~Hardin follows from a finite exact computation.
 
 \section{The sequence and the conjecture}
 
-OEIS A229472 is ``Number of defective 4-colorings of an n X 1 0..3 array connected horizontally, antidiagonally and vertically with exactly one mistake, and colors introduced in row-major 0..3 order.''. It has offset $1$ and begins
+OEIS A229530 is ``Number of defective 3-colorings of an n X 4 0..2 array connected horizontally, diagonally and antidiagonally with exactly one mistake, and colors introduced in row-major 0..2 order.''. It has offset $1$ and begins
 \[
-0, 1, 2, 6, 20, 70, 246, 854,\ \dots
+6, 36, 361, 3064, 24344, 185808, 1379512, 10036352,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 8*a(n-1) - 22*a(n-2) + 24*a(n-3) - 9*a(n-4) for n>6.
+Empirical: a(n) = 14*a(n-1) - 57*a(n-2) + 56*a(n-3) - 16*a(n-4) for n>5.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Mar 17 2018 05:45:42, revision 10) the statement is
+As of the ``Last modified'' line on the live entry (Sep 18 2018 12:14:40, revision 8) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;8\,a(n-1) - 22\,a(n-2) + 24\,a(n-3) - 9\,a(n-4)
+a(n)\;=\;14\,a(n-1) - 57\,a(n-2) + 56\,a(n-3) - 16\,a(n-4)
 \end{equation}
-for all $n>6$.
+for all $n>5$.
 
 \section{Mistakes, and the colour clause}
 
-The arrays have $1$ columns and $L=n$ rows, entries in $\{0,\dots,4-1\}$.
+The arrays have $4$ columns and $L=n$ rows, entries in $\{0,\dots,3-1\}$.
 Two cells are adjacent when they differ by one of
 \[
-\mathcal N=\{(0,1),\ (1,-1),\ (1,0)\}
+\mathcal N=\{(0,1),\ (1,1),\ (1,-1)\}
 \]
 (as (row shift, column shift)); each unordered adjacency is represented by exactly one
 offset, and every offset has a nonnegative row shift, so the pairs inside a row are
@@ -71,14 +71,14 @@ absent because a count that has passed the budget can never come back.
 The condition is stated in equalities, so it is invariant under relabelling the colours, and
 so is the number of mistakes. ``Colors introduced in row-major order'' keeps exactly one
 colouring from each relabelling class, so the entry counts equality PATTERNS with at most
-$K=4$ classes.
+$K=3$ classes.
 
 \begin{lemma}\label{lem:inv}
 Let $L_i(n)$ count the colourings over $i$ colours with exactly $1$ mistakes, and $N_j(n)$
 the admissible patterns with exactly $j$ classes. Then
 $L_i=\sum_j N_j\,i(i-1)\cdots(i-j+1)$ and
 \[
-4!\,\sum_{j\le4}N_j(n)=\sum_{i=0}^{4}\binom{4}{i}D_{4-i}L_i(n),
+3!\,\sum_{j\le3}N_j(n)=\sum_{i=0}^{3}\binom{3}{i}D_{3-i}L_i(n),
 \qquad D_m=m!\sum_{t=0}^{m}\frac{(-1)^t}{t!} .
 \]
 \end{lemma}
@@ -87,14 +87,14 @@ $L_i=\sum_j N_j\,i(i-1)\cdots(i-j+1)$ and
 A colouring is a pattern together with an injection of its classes into the palette, and a
 pattern with $j$ classes admits $i(i-1)\cdots(i-j+1)$ of them, which is the first identity.
 Writing the falling factorial as $j!\binom{i}{j}$ and inverting binomially gives
-$j!N_j=\sum_i(-1)^{j-i}\binom{j}{i}L_i$; summing over $j\le4$ and exchanging the order
-of summation makes the coefficient of $L_i$ equal to $\sum_{t\le4-i}(-1)^t/(i!\,t!)$,
-which multiplied by $4!$ is $\binom{4}{i}D_{4-i}$, an integer.
+$j!N_j=\sum_i(-1)^{j-i}\binom{j}{i}L_i$; summing over $j\le3$ and exchanging the order
+of summation makes the coefficient of $L_i$ equal to $\sum_{t\le3-i}(-1)^t/(i!\,t!)$,
+which multiplied by $3!$ is $\binom{3}{i}D_{3-i}$, an integer.
 \end{proof}
 
 \section{Each $L_i$ is a walk count}
 
-Fix $i$ and take as vertices the pairs $(r,c)$ with $r\in\{0,\dots,i-1\}^{1}$ a row
+Fix $i$ and take as vertices the pairs $(r,c)$ with $r\in\{0,\dots,i-1\}^{4}$ a row
 and $0\le c\le1$ a running count. Write $\beta(r,s)$ for the number of mistakes joining
 rows $r$ and $s$ plus the number of mistakes inside $s$. Declare $(r,c)\to(s,c+\beta(r,s))$
 an edge when $c+\beta(r,s)\le1$, let $\mathbf{s}_i$ mark the vertices whose count is the
@@ -115,11 +115,11 @@ from its final value being $1$, and $\mathbf{e}_i$ imposes that final value. The
 carries a row, not a boundary, so $L$ rows make a walk of length $L-1$.
 \end{proof}
 
-Assembling the $4$ chains block-diagonally into $N$ of size $S=20$ with the weights of
+Assembling the $3$ chains block-diagonally into $N$ of size $S=196$ with the weights of
 Lemma~\ref{lem:inv} in the start vector $\mathbf{v}$ and the end markers in
 $\mathbf{u}$,
 \begin{equation}\label{eq:walk2}
-4!\;a(n)\;=\;\mathbf{v}^{\!\top}N^{\,L-1}\mathbf{u},\qquad L=n .
+3!\;a(n)\;=\;\mathbf{v}^{\!\top}N^{\,L-1}\mathbf{u},\qquad L=n .
 \end{equation}
 
 \section{The criterion, and the computation}
@@ -131,7 +131,7 @@ Let $q(t)=t^{4}-\sum_i c_i\,t^{4-i}$ be the characteristic polynomial of
 With $n_0$ the least index for which $L\ge1$, $o=1n_0+0-1$ and
 $h_j=G^{j}N^{o}\mathbf{u}$, we have for $j\ge4$
 \[
-4!\Bigl(a(n_0+j)-\sum_i c_i\,a(n_0+j-i)\Bigr)=\mathbf{v}^{\!\top}G^{\,j-4}w,
+3!\Bigl(a(n_0+j)-\sum_i c_i\,a(n_0+j-i)\Bigr)=\mathbf{v}^{\!\top}G^{\,j-4}w,
 \qquad w=h_{4}-\sum_i c_ih_{4-i} .
 \]
 Hence \eqref{eq:conj} holds from that point on if and only if
@@ -139,13 +139,13 @@ $\mathbf{v}^{\!\top}G^{m}w=0$ for all $m\ge0$, and $m<S$ suffices.
 \end{lemma}
 
 \begin{proof}
-Substitute \eqref{eq:walk2} and factor; $4!$ is a nonzero scalar. Cayley--Hamilton
+Substitute \eqref{eq:walk2} and factor; $3!$ is a nonzero scalar. Cayley--Hamilton
 makes $G^{S}$ an integer combination of $I,G,\dots,G^{S-1}$, so every later value repeats
 that combination of earlier ones.
 \end{proof}
 
 \begin{theorem}
-The recurrence \eqref{eq:conj} holds for every $n>6$, which is the statement of
+The recurrence \eqref{eq:conj} holds for every $n>5$, which is the statement of
 Section~1.
 \end{theorem}
 
@@ -153,7 +153,7 @@ Section~1.
 The digraph was built directly from the definitions above. The vector $w$ was formed by
 $4$ applications of $G$ in exact integer arithmetic and $\mathbf{v}^{\!\top}G^{m}w$
 evaluated for $m=0,1,\dots$, again exactly. Every one of those integers vanishes from the
-index corresponding to $n=6+1$ onwards, and the run continued until $S+1$ consecutive
+index corresponding to $n=5+1$ onwards, and the run continued until $S+1$ consecutive
 zeros had been seen.
 \end{proof}
 
@@ -161,8 +161,8 @@ zeros had been seen.
 
 Three checks, each independent of the algebra above.
 
-First, the right-hand side of \eqref{eq:walk2}, divided by $4!$, was evaluated at every
-one of the $27$ published indices and agrees with the entry's DATA exactly, the quotient
+First, the right-hand side of \eqref{eq:walk2}, divided by $3!$, was evaluated at every
+one of the $19$ published indices and agrees with the entry's DATA exactly, the quotient
 coming out an integer each time; no shift was fitted, the number of rows being $L=n$
 from the entry's own name and the offset saying which index carries the first published term.
 Double-counting an unordered pair, or mistaking the budget, changes the counts at once.
@@ -175,7 +175,7 @@ Cayley--Hamilton bound in exact integer arithmetic rather than to a sampled pref
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A229472.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A229530.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; falling-factorial
 inversion, Section 1.9.)

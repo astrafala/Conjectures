@@ -12,84 +12,83 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A224803, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A268638, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{6 September 2026}
+\date{7 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A224803 counts the $(n+2)\times3$ matrices over $\{0,\dots,3\}$ all of whose
-$3\times3$ contiguous subblocks are of equal population, and carries an empirical recurrence of order
-$24$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical.
-The condition ties together $3$ consecutive rows and $3$ consecutive columns at once, so a
-single row is not a state; the strip of the last $2$ rows is, and the admissible strips
-are read off the overlap graph of the admissible windows instead of being enumerated. That
-makes $a(n)$ a walk count on $S=81920$ vertices, hence $C$-finite, and whether the conjectured
-recurrence annihilates it is settled by a finite exact computation.
+OEIS A268638 counts arrays of width $7$ over $\{0,1,2\}$ in which the number of adjacent PAIRS of
+cells whose entries add up to $2$ is exactly one. The entry carries an empirical recurrence of
+order $26$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
+empirical. The condition is global --- no window of the array decides it --- but the quantity
+it constrains is a count that may be capped at two, and a capped count is a bounded state; the
+result is a walk count on $S=3148$ states.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05C30, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A224803 is ``Number of (n+2)X3 0..3 matrices with each 3X3 subblock having the same population.''. It has offset $1$ and begins
+OEIS A268638 is ``Number of n X 7 0..2 arrays with some element plus some horizontally or vertically adjacent neighbor totaling two exactly once.''. It has offset $1$ and begins
 \[
-262144, 1048576, 4194304, 16777216, 78118912, 363741184, 1693669888, 8752522240,\ \dots
+576, 25272, 875592, 27906474, 849572724, 25093766490, 725187096504, 20612084839848,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 10*a(n-1) -27*a(n-2) +252*a(n-3) -2340*a(n-4) +6318*a(n-5) -23427*a(n-6) +192150*a(n-7) -518805*a(n-8) +1061424*a(n-9) -7155540*a(n-10) +19319958*a(n-11) -25759944*a(n-12) +128799720*a(n-13) -347759244*a(n-14) +343901376*a(n-15) -1120618800*a(n-16) +3025670760*a(n-17) -2459272752*a(n-18) +4421589120*a(n-19) -11938290624*a(n-20) +8571080448*a(n-21) -6122200320*a(n-22) +16529940864*a(n-23) -11019960576*a(n-24)
+Empirical: a(n) = 110*a(n-1) -5243*a(n-2) +144650*a(n-3) -2610593*a(n-4) +33017408*a(n-5) -305811128*a(n-6) +2137462184*a(n-7) -11513372884*a(n-8) +48502300256*a(n-9) -161412354008*a(n-10) +427044616576*a(n-11) -901108804624*a(n-12) +1517344261024*a(n-13) -2035022988048*a(n-14) +2164824966496*a(n-15) -1815145078160*a(n-16) +1189730382208*a(n-17) -603502277248*a(n-18) +234173991424*a(n-19) -68574152448*a(n-20) +14906358784*a(n-21) -2352277504*a(n-22) +260550656*a(n-23) -19140608*a(n-24) +835584*a(n-25) -16384*a(n-26).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 23:36:32, revision 9) this is still
+As of the ``Last modified'' line on the live entry (Aug 31 2019 15:50:00, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
-\section{The count is a walk count}
+\section{What is being counted}
 
-Call a $3\times3$ matrix over $\{0,\dots,3\}$ a \emph{window} when it is of equal population, and
-call a $3\times3$ matrix a \emph{band} when every one of its $1$ contiguous
-$3\times3$ subblocks is a window. What the entry counts is the matrices of $3$ columns
-whose every $3$ consecutive rows form a band.
-
-Take as states the $2\times3$ strips that occur as the top $2$ rows of a band,
-together with those that occur as its bottom $2$ rows, and put an edge from $u$ to $v$
-when the band whose first $2$ rows are $u$ and whose last $2$ rows are $v$ exists.
-A band is determined by that pair, so the edge is unique when it exists. Reading a counted
-matrix from the top, its rows $1..2$, then $2..3$, and so on, form a walk, and every
-walk arises from exactly one matrix; a matrix with $n+2$ rows gives a walk of $n$ edges.
-Since the first $2$ rows of a counted matrix with at least $3$ rows are the top of a
-band, and since no further condition falls on where a walk starts or ends,
+The array has $7$ cells across, with entries in $\{0,1,2\}$. An ADJACENT PAIR is a pair of cells
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n}\tau ,\qquad \iota=\tau=(1,1,\dots,1)^{\!\top},
+\begin{array}{l}
+$(i,j)\text{ and }(i,j{+}1)$ \\
+$(i,j)\text{ and }(i{+}1,j)$ \\
+\end{array}
 \]
-with $M$ the adjacency matrix on $S=81920$ states. In particular $a$ is $C$-finite. The
-alignment was checked against the entry's published terms rather than assumed.
+both lying inside the array. A pair is a pair of CELLS, so it is counted once and not once from
+each end. Writing $k$ for the number of adjacent pairs whose two entries add up to $2$, the
+entry counts the arrays with $k$ exactly one.
 
-There are $(3 + 1)^{6}$ strips of $2$ rows and $3$ columns, far too
-many to test one by one, and they are not tested one by one. Two consecutive windows of a band
-overlap in $3\times2$ entries, so a band is exactly a walk of $1$ windows in
-the graph that joins a window to those whose first $2$ columns are its last $2$
-columns. Enumerating those walks produces the bands, and with them the states and the edges,
-directly.
+\section{A capped count is a state}
 
-\section{The admissible windows}
+No window of the array decides the condition: $k$ is a total over the whole array. But the
+condition distinguishes only $k=0$, $k=1$ and $k\ge2$, so the count may be carried capped at
+two and stays bounded.
 
-The entry does not name the common value; it only asks that all the windows of one matrix agree.
-So fix a value $v$ and let $W_v$ be the set of $3\times3$ matrices over
-$\{0,\dots,3\}$ whose population, the list of how many times each of the values $0,\dots,3$ occurs in it, equals $v$. A matrix counted by the entry has all of
-its windows in a single $W_v$, and the value of $v$ is determined by the matrix, so the sets of
-matrices belonging to different $v$ are disjoint and
+\begin{lemma}\label{lem:cap}
+Let $k_t$ be the number of qualifying pairs lying inside the first $t$ rows. Then
 \[
-a(n)\;=\;\sum_v a_v(n),
+k_{t}\;=\;k_{t-1}+\bigl(\text{pairs inside row } t\bigr)
++\bigl(\text{pairs joining rows } t-1 \text{ and } t\bigr),
 \]
-each $a_v$ being the walk count of Section~2 built from $W_v$ alone. A disjoint union of the
-$220$ digraphs, one per value of $v$, therefore counts the whole of $a(n)$ with the same
-all-ones vectors, and the $3\times3$ windows in play number $262144$ in total.
+and both added terms are determined by rows $t-1$ and $t$ alone.
+\end{lemma}
+
+\begin{proof}
+Every adjacent pair lies either inside one row or across two consecutive rows, by the list
+above; a pair inside rows $1..t$ that is not inside rows $1..t-1$ must meet row $t$, so it is
+one of the two kinds counted.
+\end{proof}
+
+So the state is the pair $(\text{previous row},\min(k,2))$: a step appends a row, adds the
+pairs Lemma~\ref{lem:cap} names and caps the total at two. The end vector accepts the states
+with $k=1$, so it is not the all-ones vector. With $M$ the adjacency matrix,
+\[
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=3148.
+\]
+The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
+published terms rather than assumed. In particular $a$ is $C$-finite.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{24}-\sum_i c_it^{24-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{26}-\sum_i c_it^{26-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -97,7 +96,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+24}-\sum_ic_iM^{j+24-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+26}-\sum_ic_iM^{j+26-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -106,39 +105,42 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;10\,a(n-1) - 27\,a(n-2) + 252\,a(n-3) - 2340\,a(n-4) + 6318\,a(n-5) - 23427\,a(n-6) + 192150\,a(n-7) - 518805\,a(n-8) + 1061424\,a(n-9) - 7155540\,a(n-10) + 19319958\,a(n-11) - 25759944\,a(n-12) + 128799720\,a(n-13) - 347759244\,a(n-14) + 343901376\,a(n-15) - 1120618800\,a(n-16) + 3025670760\,a(n-17) - 2459272752\,a(n-18) + 4421589120\,a(n-19) - 11938290624\,a(n-20) + 8571080448\,a(n-21) - 6122200320\,a(n-22) + 16529940864\,a(n-23) - 11019960576\,a(n-24)
+a(n)\;=\;110\,a(n-1) - 5243\,a(n-2) + 144650\,a(n-3) - 2610593\,a(n-4) + 33017408\,a(n-5) - 305811128\,a(n-6) + 2137462184\,a(n-7) - 11513372884\,a(n-8) + 48502300256\,a(n-9) - 161412354008\,a(n-10) + 427044616576\,a(n-11) - 901108804624\,a(n-12) + 1517344261024\,a(n-13) - 2035022988048\,a(n-14) + 2164824966496\,a(n-15) - 1815145078160\,a(n-16) + 1189730382208\,a(n-17) - 603502277248\,a(n-18) + 234173991424\,a(n-19) - 68574152448\,a(n-20) + 14906358784\,a(n-21) - 2352277504\,a(n-22) + 260550656\,a(n-23) - 19140608\,a(n-24) + 835584\,a(n-25) - 16384\,a(n-26)
 \]
-for every $n>23$.
+for every $n>26$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $24$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $26$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=23+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once.
+integers vanish from the index corresponding to $n=26+1$ onwards and the run continued
+until the working vector was identically zero.
 \end{proof}
 
 \section{Verification}
 
-Three checks, each independent of the algebra above.
+Four checks, each independent of the algebra above.
 
-First, the model reproduces all $16$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry: the digraph is built by reading the
-entry's English, and a misreading gives different counts.
+First, the model reproduces all $14$ terms the entry publishes, exactly, in integer
+arithmetic.
 
-Second, the conjectured recurrence was evaluated directly on those published terms, with no
+Second, the count was recomputed for the smallest arrays straight from the definition:
+enumerate every array of that size in the orientation the entry's own name writes, count the
+adjacent pairs summing to $2$ by running over the array once for each kind of pair, and keep
+the array when that count is exactly one. No cap, no state and no transfer matrix are involved, and
+the published terms came back.
+
+Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
 arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A224803.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A268638.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{kim} K.~H.~Kim, \emph{Boolean Matrix Theory and Applications}, Marcel Dekker,
-1982.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

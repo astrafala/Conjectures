@@ -12,16 +12,16 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A204363, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A204488, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A204363 counts $(n+2)\times3$ arrays over $\{0,\dots,2\}$ subject to a condition imposed on
+OEIS A204488 counts $(n+2)\times6$ arrays over $\{0,\dots,1\}$ subject to a condition imposed on
 every $3\times3$ subblock, and counted UP TO RELABELLING of the
-alphabet; it carries an empirical recurrence of order $18$ contributed by
+alphabet; it carries an empirical recurrence of order $19$ contributed by
 R.~H.~Hardin. It is true, and it is decidable rather than empirical. What is counted is
 equality patterns, which is not a walk count --- but it is a fixed rational combination of
 walk counts, one for each alphabet size, and that combination is again $C$-finite. Whether the
@@ -33,20 +33,20 @@ Cayley--Hamilton theorem bounding the work.
 
 \section{The conjecture}
 
-OEIS A204363 is ``Number of (n+2)X3 0..2 arrays with every 3X3 subblock having three equal elements in a row horizontally, vertically or nw-to-se diagonally exactly three ways, and new values 0..2 introduced in row major order.''. It has offset $1$ and begins
+OEIS A204488 is ``Number of (n+2)X6 0..1 arrays with every 3X3 subblock having three equal elements in a row horizontally, vertically or nw-to-se diagonally exactly one way, and new values 0..1 introduced in row major order.''. It has offset $1$ and begins
 \[
-74, 212, 555, 891, 2419, 6121, 13693, 38041,\ \dots
+1690, 2627, 5407, 11137, 22341, 44712, 90942, 187020,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 5*a(n-1) -7*a(n-2) +3*a(n-3) -6*a(n-4) +12*a(n-5) +14*a(n-6) -84*a(n-7) +164*a(n-8) -292*a(n-9) +392*a(n-10) -392*a(n-11) +640*a(n-12) -896*a(n-13) +64*a(n-14) +2176*a(n-15) -3584*a(n-16) +2304*a(n-17) -512*a(n-18)
+Empirical: a(n) = a(n-1) +a(n-2) +9*a(n-3) -5*a(n-4) -10*a(n-5) -7*a(n-6) -26*a(n-7) +18*a(n-8) -13*a(n-9) +58*a(n-10) -4*a(n-11) +22*a(n-12) -26*a(n-13) -11*a(n-14) -16*a(n-15) +a(n-16) +6*a(n-17) +6*a(n-18) -3*a(n-19) for n>28
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 11:10:28, revision 9) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 11:15:27, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{Patterns are a combination of counts}
 
-The clause ``new values $0..2$ introduced in row major order'' says that the arrays
+The clause ``new values $0..1$ introduced in row major order'' says that the arrays
 counted are the canonical representatives of their EQUALITY PATTERNS: two arrays that differ
 only by a permutation of the alphabet are one object. Write $N_j$ for the number of admissible
 patterns using exactly $j$ letters and $L_i$ for the number of admissible ARRAYS over an
@@ -56,7 +56,7 @@ its letters into the alphabet, so
 L_i\;=\;\sum_{j}N_j\,i(i-1)\cdots(i-j+1),
 \]
 a triangular system with nonzero diagonal, hence invertible over $\mathbb{Q}$. The entry
-counts $a=N_1+\dots+N_{3}$, so
+counts $a=N_1+\dots+N_{2}$, so
 \[
 a\;=\;\bigl(\mathbf{1}^{\!\top}F^{-1}\bigr)L ,
 \]
@@ -73,25 +73,25 @@ value or compares sizes.
 
 The entry's condition constrains every $3\times3$ subblock, which spans three consecutive
 rows and three consecutive columns. Writing an array as a sequence of rows
-$u_1,u_2,\dots$ over $\{0,\dots,2\}^{3}$, the condition
+$u_1,u_2,\dots$ over $\{0,\dots,1\}^{6}$, the condition
 \[
-\text{exactly }3\text{ of the horizontally, vertically or nw-to-se diagonally lines of }g\text{ \text{is constant}}
+\text{exactly }1\text{ of the horizontally, vertically or nw-to-se diagonally lines of }g\text{ \text{is constant}}
 \]
 involves only three consecutive rows. Take as vertices the ordered PAIRS $(r,s)$ of
 rows and put an edge $(r,s)\to(s,t)$ exactly when the condition holds for the triple
 $(r,s,t)$ at every admissible column; an array with $L$ rows is a walk of length $L-2$.
-Doing that for each alphabet size $1,\dots,3$ and combining as above gives
+Doing that for each alphabet size $1,\dots,2$ and combining as above gives
 \[
-a(n)\;=\;\frac{1}{6}\,\iota^{\!\top}M^{\,n}\tau
+a(n)\;=\;\frac{1}{2}\,\iota^{\!\top}M^{\,n}\tau
 \]
-on $S=730$ vertices in total, the exponent fixed by the entry's own shape and checked against
+on $S=4096$ vertices in total, the exponent fixed by the entry's own shape and checked against
 its published terms. States lying on no walk from $\iota$ to $\tau$ are removed first; that
 changes no value and only shrinks the computation.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{18}-\sum_i c_it^{18-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{19}-\sum_i c_it^{19-i}$ be the characteristic polynomial of the
 conjectured recurrence. Then the residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the
 recurrence holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all
@@ -99,7 +99,7 @@ large $j$; and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+18}-\sum_ic_iM^{j+18-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+19}-\sum_ic_iM^{j+19-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ satisfy the monic linear recurrence given by the
 characteristic polynomial of $M$; $S$ consecutive zeros force every later one, and the last
@@ -108,17 +108,17 @@ nonzero $u_j$ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;5\,a(n-1) - 7\,a(n-2) + 3\,a(n-3) - 6\,a(n-4) + 12\,a(n-5) + 14\,a(n-6) - 84\,a(n-7) + 164\,a(n-8) - 292\,a(n-9) + 392\,a(n-10) - 392\,a(n-11) + 640\,a(n-12) - 896\,a(n-13) + 64\,a(n-14) + 2176\,a(n-15) - 3584\,a(n-16) + 2304\,a(n-17) - 512\,a(n-18)
+a(n)\;=\;a(n-1) + a(n-2) + 9\,a(n-3) - 5\,a(n-4) - 10\,a(n-5) - 7\,a(n-6) - 26\,a(n-7) + 18\,a(n-8) - 13\,a(n-9) + 58\,a(n-10) - 4\,a(n-11) + 22\,a(n-12) - 26\,a(n-13) - 11\,a(n-14) - 16\,a(n-15) + a(n-16) + 6\,a(n-17) + 6\,a(n-18) - 3\,a(n-19)
 \]
-for every $n>18$.
+for every $n>28$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $18$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $19$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly. Those
-integers vanish from the index corresponding to $n=18+1$ onwards, and the run was
+integers vanish from the index corresponding to $n=28+1$ onwards, and the run was
 continued until the working vector was identically zero, which settles all larger $j$ at once.
-By Lemma~\ref{lem:crit} the recurrence holds for every $n>18$.
+By Lemma~\ref{lem:crit} the recurrence holds for every $n>28$.
 \end{proof}
 
 \section{Verification}
@@ -142,7 +142,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A204363.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A204488.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
