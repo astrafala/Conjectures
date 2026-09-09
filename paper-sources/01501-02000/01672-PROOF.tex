@@ -12,56 +12,93 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{A value repeated at its own distance: OEIS A209470}
+\title{The empirical recurrence for OEIS A238992, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{7 September 2026}
+\date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A209470 carries an empirical recurrence of order $33$ contributed by R.~H.~Hardin. It is
-true, and it is decidable rather than empirical. The entry's condition reaches only as far as the value itself, which is bounded by the
-alphabet, so a window of that many lines decides it; the
-admissible windows are the vertices of a finite digraph and the arrays counted are exactly the
-walks in it. Hence $a(n)$ is a walk count on $S=40$ vertices and is $C$-finite, and whether the
-conjectured recurrence annihilates it is settled by a finite exact computation, with the
-Cayley--Hamilton theorem bounding the work.
+OEIS A238992 counts arrays over $\{0,1,2,3\}$ in which no entry may equal, modulo $4$, a given
+constant plus the SUM of all the entries lying before it along one of several rays. The entry
+carries an empirical recurrence of order $35$ contributed by R.~H.~Hardin. It is true, and
+it is decidable rather than empirical. None of those sums is bounded and none is local, but
+each is built one term at a time, so its residue modulo $4$ is carried in the state; the
+count is then a walk count on $S=64$ states.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 11A07, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A209470 is ``Number of nX2 0..2 arrays with every element value z a city block distance of exactly z from another element value z.''. It has offset $1$ and begins
+OEIS A238992 is ``Number of nX3 0..3 arrays with no element equal to two plus the sum of elements to its left or two plus the sum of the sum of elements above it, modulo 4.''. It has offset $1$ and begins
 \[
-2, 13, 93, 635, 4357, 27989, 175599, 1097149,\ \dots
+15, 203, 2365, 25601, 270671, 2827709, 29422487, 305525459,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 7*a(n-1) -7*a(n-2) -4*a(n-3) +66*a(n-4) +304*a(n-5) +718*a(n-6) +1784*a(n-7) -1409*a(n-8) -3322*a(n-9) -13020*a(n-10) -15966*a(n-11) -18299*a(n-12) -14110*a(n-13) -25099*a(n-14) -14477*a(n-15) -28326*a(n-16) +8287*a(n-17) -13319*a(n-18) +13953*a(n-19) -8803*a(n-20) +22525*a(n-21) +4118*a(n-22) +2705*a(n-23) +3161*a(n-24) +4528*a(n-25) -280*a(n-26) -1198*a(n-27) -384*a(n-28) -1636*a(n-29) -200*a(n-30) +80*a(n-31) +32*a(n-32) +128*a(n-33)
+Empirical: a(n) = 13*a(n-1) +40*a(n-2) -914*a(n-3) +683*a(n-4) +21799*a(n-5) -40268*a(n-6) -255576*a(n-7) +617879*a(n-8) +1651695*a(n-9) -4744854*a(n-10) -5850014*a(n-11) +20400821*a(n-12) +9443201*a(n-13) -49172224*a(n-14) +1794964*a(n-15) +63874690*a(n-16) -34792348*a(n-17) -46269446*a(n-18) +85331340*a(n-19) +19168016*a(n-20) -137730200*a(n-21) +2475600*a(n-22) +191881992*a(n-23) -35419208*a(n-24) -200659312*a(n-25) +29452144*a(n-26) +50974176*a(n-27) -43973440*a(n-28) +100095104*a(n-29) +81128448*a(n-30) -69032960*a(n-31) -38481920*a(n-32) +7651328*a(n-33) +983040*a(n-34) -524288*a(n-35)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 15:15:52, revision 9) this is still
+As of the ``Last modified'' line on the live entry (Jun 02 2025 09:21:57, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
-\section{The count is a walk count}
+\section{What is being counted}
 
-The entry counts arrays with $2$ columns over the alphabet $\{0,1,2\}$, distance measured as $|\Delta \text{row}|+|\Delta \text{column}|$, and asks that every element of value $z$ must have another element of value $z$ exactly $z$ steps away. An element of value $0$ is $0$ steps from itself and so always has such a partner. That is not an interpretation imposed on the entry: it is the reading the entry's own published terms select, and reading ``another'' as strictly some other cell disagrees with them at the very first term.
-
-The condition ranges over the whole array, but only as far as the value itself reaches: a cell of value $z$ looks exactly $z$ steps away, and $z$ is at most $2$. So nothing more than $2$ rows away can matter, and a cell's verdict is settled once the row $2$ beyond it has arrived.
-
-Carry the last $2$ rows together with one bit for each of their cells, recording whether that cell has already found its partner. A new row is paired against the rows it can still reach, sets the bits it completes, and retires the row that has now seen everything it will ever see: the walk continues if that row's bits say what the entry asks and stops otherwise. The rows still held when the array ends are judged by the end vector, which is where the boundary is honest --- a partner off the edge of the array is not a partner.
-
-Merging vertices with identical futures leaves $S=40$. An admissible array is exactly a walk, so with $M$ the adjacency matrix and $\iota,\tau$ the vectors recording which states may begin and end an array,
+The array has $3$ cells across one way, entries $x(i,j)\in\{0,1,2,3\}$, and the entry names these
+rays out of a cell $(i,j)$, with the constant it attaches to each:
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau ,
+\begin{array}{lll}
+\text{ray} & \text{the cells on it} & \text{constant} \\[2pt]
+\text{west} & (i,j-1),(i,j-2),\dots & 2 \\
+\text{north} & (i-1,j),(i-2,j),\dots & 2 \\
+\end{array}
 \]
-the exponent fixed by the entry's own shape and checked against its published terms. In
-particular $a$ is $C$-finite.
+Writing $\Sigma_r(i,j)$ for the sum of the entries on ray $r$ out of $(i,j)$, all of them
+inside the array, the condition is
+\[
+x(i,j)\;\not\equiv\;c_r+\Sigma_r(i,j) \pmod{4}
+\]
+for every ray $r$ named. A ray that leaves the array at once contributes the empty sum,
+zero.
+
+\section{The rays as a bounded state}
+
+Take the array one $row$ at a time, in the direction in which it grows, and index the
+positions of a $row $ by $p$. Let $x$ be the $row$ just written.
+
+\begin{lemma}\label{lem:rays}
+Along the $row$s, the 2 ray sums named by this entry satisfy
+\[
+\begin{aligned}
+\Sigma_{\mathrm{west}}\ &\text{is the running total inside the current row},\\
+U'[p]&=U[p]+x[p], &&\text{the north ray, per position} .
+\end{aligned}
+\]
+\end{lemma}
+
+\begin{proof}
+Each ray is a set of cells at a fixed step from $(i,j)$ repeated. Advancing one $row$
+moves a cell one step along the north ray, one step along the northwest ray together with one
+position to the right, and one step along the northeast ray together with one position to the
+left; in each case exactly the cell just left behind is the new term. At the border of the
+array the diagonal rays are empty, which is the stated boundary value.
+\end{proof}
+
+Reduced modulo $4$ these vectors take finitely many values, so they are a state, and one step
+of the walk writes a whole $row$: the position $p$ is filled left to right and the
+running total of the west ray is carried along as it is filled, so every cell is tested
+against every ray at the moment it is written. The walk starts at the all-zero state, the empty
+array, and every state may end one, so $\tau=\mathbf{1}$ and
+\[
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=64.
+\]
+The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
+published terms rather than assumed. In particular $a$ is $C$-finite.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{33}-\sum_i c_it^{33-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{35}-\sum_i c_it^{35-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -69,25 +106,24 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+33}-\sum_ic_iM^{j+33-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+35}-\sum_ic_iM^{j+35-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly. A constant factor in front of $a$ divides out of the residual and
-changes nothing here.
+pins the threshold exactly.
 \end{proof}
 
 \begin{theorem}
 \[
-a(n)\;=\;7\,a(n-1) - 7\,a(n-2) - 4\,a(n-3) + 66\,a(n-4) + 304\,a(n-5) + 718\,a(n-6) + 1784\,a(n-7) - 1409\,a(n-8) - 3322\,a(n-9) - 13020\,a(n-10) - 15966\,a(n-11) - 18299\,a(n-12) - 14110\,a(n-13) - 25099\,a(n-14) - 14477\,a(n-15) - 28326\,a(n-16) + 8287\,a(n-17) - 13319\,a(n-18) + 13953\,a(n-19) - 8803\,a(n-20) + 22525\,a(n-21) + 4118\,a(n-22) + 2705\,a(n-23) + 3161\,a(n-24) + 4528\,a(n-25) - 280\,a(n-26) - 1198\,a(n-27) - 384\,a(n-28) - 1636\,a(n-29) - 200\,a(n-30) + 80\,a(n-31) + 32\,a(n-32) + 128\,a(n-33)
+a(n)\;=\;13\,a(n-1) + 40\,a(n-2) - 914\,a(n-3) + 683\,a(n-4) + 21799\,a(n-5) - 40268\,a(n-6) - 255576\,a(n-7) + 617879\,a(n-8) + 1651695\,a(n-9) - 4744854\,a(n-10) - 5850014\,a(n-11) + 20400821\,a(n-12) + 9443201\,a(n-13) - 49172224\,a(n-14) + 1794964\,a(n-15) + 63874690\,a(n-16) - 34792348\,a(n-17) - 46269446\,a(n-18) + 85331340\,a(n-19) + 19168016\,a(n-20) - 137730200\,a(n-21) + 2475600\,a(n-22) + 191881992\,a(n-23) - 35419208\,a(n-24) - 200659312\,a(n-25) + 29452144\,a(n-26) + 50974176\,a(n-27) - 43973440\,a(n-28) + 100095104\,a(n-29) + 81128448\,a(n-30) - 69032960\,a(n-31) - 38481920\,a(n-32) + 7651328\,a(n-33) + 983040\,a(n-34) - 524288\,a(n-35)
 \]
-for every $n>33$.
+for every $n>34$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $33$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $35$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=33+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=34+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -95,14 +131,13 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $20$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry: the digraph is built by reading the
-entry's English, and a misreading gives different counts.
+First, the model reproduces all $17$ terms the entry publishes, exactly, in integer
+arithmetic.
 
-Second, the reading was pinned before the digraph was written, by a program that enumerates
-every array of the given shape one by one and measures the distance between every pair
-of cells directly. That program shares no code with the transfer matrix, so an error in one does not
-hide an error in the other.
+Second, the count was recomputed for the smallest arrays straight from the definition: fill the
+cells one at a time in the orientation the entry's own name writes and, for each candidate
+value, walk each ray to the edge of the array and add the entries up. No residue, no state and
+no recurrence of Lemma~\ref{lem:rays} is involved, and the published terms came back.
 
 Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
@@ -112,11 +147,9 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A209470.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A238992.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
-University Press, 2009.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

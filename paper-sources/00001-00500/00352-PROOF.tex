@@ -12,15 +12,15 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{Recovering the unwritten recurrences of the table OEIS A235078}
+\title{Recovering the unwritten recurrences of the table OEIS A236789}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A235078 is a two-dimensional table $T(n,k)$ whose empirical recurrences are, for several of
-its lines, given only as an ORDER --- ``k=2: [order 73].'' and the like --- with the
+OEIS A236789 is a two-dimensional table $T(n,k)$ whose empirical recurrences are, for several of
+its lines, given only as an ORDER --- ``k=2: [order 35]'' and the like --- with the
 coefficients in a linked file rather than in the entry. Those conjectures can still be settled,
 and the recurrences recovered. A line of the table is a fixed-width or fixed-height array
 count, hence a walk count on finitely many vertices, hence satisfies some monic recurrence of
@@ -28,22 +28,23 @@ order at most that number; Berlekamp--Massey on twice as many exact terms return
 one. Where its order equals the order the entry states --- and where the same holds after the
 first few terms are dropped --- any recurrence of that order the line satisfies has a
 characteristic polynomial that is a multiple of the minimal one and of equal degree, hence is
-that polynomial. This note settles column 2.
+that polynomial. This note settles column 2, column 3.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 15A18.\normalsize
 
 \section{The table and the unwritten conjectures}
 
-OEIS A235078 is ``T(n,k) is the number of (n+1) X (k+1) 0..7 arrays with every 2 X 2 subblock having its diagonal sum differing from its antidiagonal sum by 3, with no adjacent elements equal (constant-stress tilted 1 X 1 tilings).''. It is read by antidiagonals and begins
+OEIS A236789 is ``T(n,k)=Number of (n+1)X(k+1) 0..2 arrays with the upper median plus the lower median minus the minimum of every 2X2 subblock equal.''. It is read by antidiagonals and begins
 \[
-288, 1828, 1828, 11976, 12228, 11976, 79848, 86704,\ \dots
+81, 255, 255, 770, 1097, 770, 2475, 4452,\ \dots
 \]
 The entry carries, among its empirical claims:
 \begin{quote}\small
-k=2: [order 73].
+k=2: [order 35]\\
+k=3: [order 83]
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jun 20 2022 20:40:55, revision 6) these are still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 09:33:04, revision 6) these are still
 recorded as empirical, and the recurrences themselves are not in the entry text.
 
 \section{Why a line of the table is a walk count}
@@ -66,14 +67,26 @@ minimal recurrence exactly.
 
 \subsection*{Column $k=2$}
 Substituting the fixed index into the entry's wording gives an ordinary one-parameter array
-count, a walk on $S=392$ vertices. Berlekamp--Massey on $2S=784$ exact terms
-returns a minimal recurrence of order $73$ --- the order the entry states --- with
+count, a walk on $S=82$ vertices. Berlekamp--Massey on $2S=164$ exact terms
+returns a minimal recurrence of order $35$ --- the order the entry states --- with
 integer coefficients
 \[
-(c_1,\dots,c_{73})=(9,\ 253,\ -2296,\ -28151,\ 255768,\ 1859886,\ -16727287,\ -83009548,\ 729387541,\ 2685919408,\ -22793267893,\ -65779647686,\ 534767403988,\ 1254116051910,\ -9727483891431,\ -18975638746037,\ 140416341968064,\ 230976261260999,\ -1636592446458350,\ -2283632847474963,\ 15605178960194553,\ 18458905148435130,\ -122955462773333188,\ -122446251676533541,\ 806629225402213328,\ 667182131877191467,\ -4430940721105867228,\ -2978297375229876665,\ 20462103965419263597,\ 10806687134235708830,\ -79643524358625973344,\ -31319886445936922252,\ 261603403683159192127,\ 69680882992309107234,\ -725171880256128246186,\ -106357306795746363554,\ 1694461108573024804395,\ 56813379667179363992,\ -3329463683883615540161,\ 245300716516507608409,\ 5481194002809115052659,\ -963122871609885453735,\ -7522195683906434951171,\ 2058458454461970952639,\ 8549214399966799766011,\ -3155362747161882170284,\ -7979548285655389768333,\ 3706593864463403134970,\ 6051487249587236761280,\ -3413453559203876872794,\ -3677271288867846726924,\ 2482175229170949527036,\ 1756318505495499297736,\ -1424899389632322832824,\ -640058920803422146240,\ 642618504247472447952,\ 168478657601714799584,\ -225744944363277584384,\ -27782235168095305216,\ 60993903838538744960,\ 1049703177590787840,\ -12447468817924823040,\ 809905598671752192,\ 1868440798647906304,\ -243675660737126400,\ -198087460296695808,\ 36380602069581824,\ 13874843854700544,\ -3171143747371008,\ -566931184680960,\ 152226383265792,\ 9975631970304,\ -3069425221632).
+(c_1,\dots,c_{35})=(22,\ -145,\ -234,\ 6880,\ -19940,\ -92792,\ 593404,\ 66753,\ -7105820,\ 10259982,\ 44201366,\ -120008970,\ -136396696,\ 699300702,\ 46313296,\ -2478218108,\ 1244671494,\ 5661814333,\ -5050034688,\ -8465863134,\ 10417098396,\ 8197726584,\ -13227353752,\ -4935036828,\ 10838034848,\ 1645800008,\ -5758739808,\ -170986944,\ 1942394944,\ -64872256,\ -395392512,\ 22059776,\ 43732480,\ -1955840,\ -1996800).
 \]
-so that $a(m)=\sum_{i=1}^{73}c_i\,a(m-i)$ for every $m$. Removing the first
-$73+4$ terms and repeating gives order $73$ again, which is what the
+so that $a(m)=\sum_{i=1}^{35}c_i\,a(m-i)$ for every $m$. Removing the first
+$35+4$ terms and repeating gives order $35$ again, which is what the
+identification below needs.
+
+\subsection*{Column $k=3$}
+Substituting the fixed index into the entry's wording gives an ordinary one-parameter array
+count, a walk on $S=207$ vertices. Berlekamp--Massey on $2S=414$ exact terms
+returns a minimal recurrence of order $83$ --- the order the entry states --- with
+integer coefficients
+\[
+(c_1,\dots,c_{83})=(28,\ -138,\ -3131,\ 35138,\ 98877,\ -2800396,\ 3228326,\ 125292435,\ -409487545,\ -3658343046,\ 18570209996,\ 73890433500,\ -537953433565,\ -1036914148304,\ 11353606846264,\ 9262834011851,\ -185372213922877,\ -25208328378633,\ 2425698908549131,\ -730637245299426,\ -26048490590020008,\ 15143385673379179,\ 233451188720055518,\ -174825791573522016,\ -1767652157336689202,\ 1467431964468868485,\ 11407789258412574883,\ -9623770890253871944,\ -63127434706444524945,\ 50770128670992361147,\ 300650993083797005380,\ -218117763864362502635,\ -1234668756586394898319,\ 764888665201445819942,\ 4373980839183196365696,\ -2173683372325258383932,\ -13359164252517494081969,\ 4896179587664924611430,\ 35129294952621730751682,\ -8242478561670752859501,\ -79382846980586487706211,\ 8389524523571666152049,\ 153797473431616303838547,\ 2755242749977941205912,\ -254779186886689729303186,\ -34481742380708237124529,\ 359745868383003112593830,\ 88890095748878826722233,\ -431313002884093671200740,\ -153049379398767957994553,\ 437009949663734140734854,\ 201687752489851679515320,\ -371871546416467790083348,\ -212599809044824918936599,\ 263490591654515798611976,\ 182559643848927772206706,\ -153490862386214424053150,\ -128660670405546124340154,\ 72006378868591688783024,\ 74532873527896704989144,\ -26172691324997580887576,\ -35393400947227810195624,\ 6719942631127418614072,\ 13685459502332757231440,\ -821383510292776426168,\ -4260328525115035551824,\ -209934595568546184240,\ 1048937671203428433024,\ 154128775566146657024,\ -198531253345325931008,\ -48204448855190652608,\ 27487303581507030144,\ 9727879220036788864,\ -2505044070247747584,\ -1330974243904608768,\ 103215506373133312,\ 118974579224262656,\ 5363680562884608,\ -6098940012625920,\ -894945553465344,\ 110765149716480,\ 34345987080192,\ 2192984506368).
+\]
+so that $a(m)=\sum_{i=1}^{83}c_i\,a(m-i)$ for every $m$. Removing the first
+$83+4$ terms and repeating gives order $83$ again, which is what the
 identification below needs.
 
 \begin{theorem}
@@ -109,7 +122,7 @@ agree.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A235078.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A236789.
 \bibitem{massey} J.~L.~Massey, Shift-register synthesis and BCH decoding, \emph{IEEE
 Trans. Inform. Theory} \textbf{15} (1969), 122--127.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,

@@ -12,145 +12,110 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A231127, proved by transfer matrix}
+\title{Recovering the unwritten recurrences of the table OEIS A232038}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{4 September 2026}
+\date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A231127 counts the white-square subarrays of arrays of width $5$ over $\{0,1,2\}$ in which
-no cell matches a strict majority of its diagonal neighbours. The entry carries an empirical recurrence of order $18$ contributed by
-R.~H.~Hardin. It is true, and it is decidable rather than empirical. A diagonal step changes
-both coordinates by one and so never changes the colour of a cell, which makes the two colours
-of the chessboard independent of one another; the count is then a walk over the cells of one
-colour, on $S=556$ states.
+OEIS A232038 is a two-dimensional table $T(n,k)$ whose empirical recurrences are, for several of
+its lines, given only as an ORDER --- ``k=3: [order 20]'' and the like --- with the
+coefficients in a linked file rather than in the entry. Those conjectures can still be settled,
+and the recurrences recovered. A line of the table is a fixed-width or fixed-height array
+count, hence a walk count on finitely many vertices, hence satisfies some monic recurrence of
+order at most that number; Berlekamp--Massey on twice as many exact terms returns the MINIMAL
+one. Where its order equals the order the entry states --- and where the same holds after the
+first few terms are dropped --- any recurrence of that order the line satisfies has a
+characteristic polynomial that is a multiple of the minimal one and of equal degree, hence is
+that polynomial. This note settles column 3.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B20, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 15A18.\normalsize
 
-\section{The conjecture}
+\section{The table and the unwritten conjectures}
 
-OEIS A231127 is ``Number of (n+1)X(4+1) white-square subarrays of 0..2 arrays with no element equal to a strict majority of its diagonal and antidiagonal neighbors, with values 0..2 introduced in row major order.''. It has offset $1$ and begins
+OEIS A232038 is ``T(n,k)=Number of (n+1)X(k+1) 0..1 arrays with every element equal to some horizontal, vertical or antidiagonal neighbor, with top left element zero.''. It is read by antidiagonals and begins
 \[
-16, 176, 2260, 27664, 336004, 4150352, 50257244, 621150768,\ \dots
+3, 11, 11, 37, 76, 37, 129, 521,\ \dots
 \]
-The entry states, as a conjecture contributed by its author and never marked settled:
-\begin{quote}
-Empirical: a(n) = 175*a(n-2) -4017*a(n-4) +34311*a(n-6) -146236*a(n-8) +322472*a(n-10) -291040*a(n-12) +116032*a(n-14) -24064*a(n-16) +1024*a(n-18)
+The entry carries, among its empirical claims:
+\begin{quote}\small
+k=3: [order 20]
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 06:15:58, revision 6) this is still
-recorded as empirical, and nothing on the entry records it as proved.
+As of the ``Last modified'' line on the live entry (Jul 23 2025 06:49:39, revision 6) these are still
+recorded as empirical, and the recurrences themselves are not in the entry text.
 
-\section{What is being counted}
+\section{Why a line of the table is a walk count}
 
-Colour the cells of the array like a chessboard: $(i,j)$ is white when $i+j$ is even. The
-condition is stated in terms of the DIAGONAL and ANTIDIAGONAL neighbours of a cell, that is the
-four offsets
-\[
-(-1,-1),\ (1,1),\ (-1,1),\ (1,-1),
-\]
-and for a cell $(i,j)$ we write $S(i,j)$ for those of them that land inside the array. The
-condition is that no cell equals a strict majority of its neighbours:
-\[
-2\cdot\#\{(a,b)\in S(i,j) : x(a,b)=x(i,j)\}\;\le\;|S(i,j)| .
-\]
-Strict means more than half, so a tie is allowed and a cell with no neighbours is under no condition.
+Fix the index that the line fixes. The entry defines $T(n,k)$ as a number of arrays of a shape
+determined by $n$ and $k$, subject to a condition local to a bounded window of consecutive
+lines. Substituting the fixed index into the entry's own wording turns the definition into an
+ordinary one-parameter array count, and for such a count the admissible windows are the
+vertices of a finite digraph and an array is a walk. So the line is a walk count on $S$
+vertices, and by the Cayley--Hamilton theorem it satisfies a monic integer recurrence of order
+at most $S$.
 
-The entry adds that the values $0..2$ are introduced in reading order: reading the cells of the subarray row by row, a value may appear for the first time only after every smaller value has appeared.
+\section{Recovering the recurrences}
 
-\begin{lemma}\label{lem:split}
-Each of the four offsets changes $i$ and $j$ each by one, so it changes $i+j$ by $0$ or $\pm2$
-and never changes its parity. Every neighbour of a white cell is therefore white. The condition
-above splits into two systems that share no cell: one on the white cells and one on the black
-cells.
+\begin{lemma}\label{lem:bm}
+A sequence known to satisfy some linear recurrence of order at most $S$ is determined, with its
+minimal recurrence, by its first $2S$ terms; Berlekamp--Massey applied to them returns that
+minimal recurrence exactly.
 \end{lemma}
 
-So what the entry counts is the assignments of values to the white cells alone that satisfy the
-white system; the black cells never enter. That this is the entry's own reading, and not
-merely a convenient one, is settled by its ``upper left element zero'': for a white subarray the
-first cell in reading order is the cell $(0,0)$ of the array, and it is that cell the
-clause fixes, as the published terms confirm and as Section~5 records.
-
-\section{A walk on one colour}
-
-Take the array one row at a time. In a row of even index the white cells sit at every other
-column starting from column $0$, and in a row of odd index they sit at the columns in
-between; the two shapes alternate, so a state must record which of them the next row has.
-
-All four offsets move exactly one row, so the neighbours of the white cells of a row are the
-white cells of the rows immediately above and below it. A row's conditions are therefore settled
-by three consecutive rows, and the state is the last two of them together with the parity of the
-next.
-The reading-order clause is carried as one more number in the state: how many distinct values
-have been introduced so far. A cell may then take any value already used, or the next one up,
-and nothing else; writing a row updates the count as the row is filled, left to right, so a
-value first used early in a row makes a larger value legal later in the same row.
-
-
-Appending a row completes one such window and settles the row in the middle of it. Because the
-condition looks one row DOWN as well as up, the last row of a finished array has not been tested
-when the walk stops, so the end vector is not all ones: a state is accepted exactly when its
-last row passes with nothing below it. Thus
-\[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=556.
-\]
-The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
-published terms rather than assumed. In particular $a$ is $C$-finite.
-
-\section{The proof}
-
-\begin{lemma}\label{lem:crit}
-Let $q(t)=t^{18}-\sum_i c_it^{18-i}$ be the characteristic polynomial of the
-conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
-$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
-holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
-and it is enough to examine $j<S$.
-\end{lemma}
-
-\begin{proof}
-Factor $M^{j}$ out of $M^{j+18}-\sum_ic_iM^{j+18-i}$. For the bound, $M^{S}$
-is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
-$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
-polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly.
-\end{proof}
+\subsection*{Column $k=3$}
+Substituting the fixed index into the entry's wording gives an ordinary one-parameter array
+count, a walk on $S=272$ vertices. Berlekamp--Massey on $2S=544$ exact terms
+returns a minimal recurrence of order $20$ --- the order the entry states --- with
+integer coefficients
+\begin{center}\small\begin{tabular}{cccccccc}
+$c_{1}$ & $16$ & $c_{6}$ & $160$ & $c_{11}$ & $316$ & $c_{16}$ & $-21$ \\
+$c_{2}$ & $-32$ & $c_{7}$ & $-163$ & $c_{12}$ & $-147$ & $c_{17}$ & $-28$ \\
+$c_{3}$ & $-23$ & $c_{8}$ & $-304$ & $c_{13}$ & $-255$ & $c_{18}$ & $2$ \\
+$c_{4}$ & $30$ & $c_{9}$ & $146$ & $c_{14}$ & $70$ & $c_{19}$ & $5$ \\
+$c_{5}$ & $49$ & $c_{10}$ & $59$ & $c_{15}$ & $122$ & $c_{20}$ & $-1$ \\
+\end{tabular}\end{center}
+so that $a(m)=\sum_{i=1}^{20}c_i\,a(m-i)$ for every $m$. Removing the first
+$20+4$ terms and repeating gives order $20$ again, which is what the
+identification below needs.
 
 \begin{theorem}
-\[
-a(n)\;=\;175\,a(n-2) - 4017\,a(n-4) + 34311\,a(n-6) - 146236\,a(n-8) + 322472\,a(n-10) - 291040\,a(n-12) + 116032\,a(n-14) - 24064\,a(n-16) + 1024\,a(n-18)
-\]
-for every $n>18$.
+For each line above, the displayed recurrence holds for every index, and it is the recurrence
+the entry records.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $18$ matrix--vector products in exact integer
-arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=18+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once.
+It holds by Lemma~\ref{lem:bm}. For the identification, the entry asserts that the line
+satisfies SOME recurrence of the stated order, possibly only from some index on. Let $q$ be its
+characteristic polynomial and $q_{\min}$ the minimal polynomial of the tail. Then
+$q_{\min}\mid q$, and the second Berlekamp--Massey run --- on the line with its first few
+terms removed --- shows $\deg q_{\min}$ equals the stated order, which is $\deg q$. Both are
+monic, so $q=q_{\min}$.
 \end{proof}
 
 \section{Verification}
 
-Four checks, each independent of the algebra above.
+Three checks.
 
-First, the model reproduces all $16$ terms the entry publishes, exactly, in integer
-arithmetic.
+First, each line's model was compared against the entry's own published values for that line,
+taken from the antidiagonal DATA read in either orientation and from the ``Table starts''
+block, and agrees at every available term. This is the only point at which reading the entry's
+English enters, and a misreading gives different counts.
 
-Second, the count was recomputed for the smallest arrays straight from the definition: the cells
-of the white colour were listed from $i+j$ directly, every assignment of values to them
-enumerated, and each tested by the entry's own words. No rows, no window, no state and no end
-vector are involved in that computation, and the published terms came back.
+Second, each recovered recurrence was evaluated directly on the model's values, with no
+Berlekamp--Massey involved, and holds at every index tested.
 
-Third, the conjectured recurrence was evaluated directly on the published terms, with no
-matrices involved, and holds wherever the proved range and the data overlap.
-
-Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
-arithmetic on the whole vector rather than on a sampled prefix.
+Third, each order was computed twice by independent routes --- modulo a $61$-bit prime, where
+every intermediate is a machine word, and again in exact rational arithmetic --- and once more
+on the line with its first few terms dropped, which is what the identification requires. All
+agree.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A231127.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A232038.
+\bibitem{massey} J.~L.~Massey, Shift-register synthesis and BCH decoding, \emph{IEEE
+Trans. Inform. Theory} \textbf{15} (1969), 122--127.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge

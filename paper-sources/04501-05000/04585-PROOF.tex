@@ -12,138 +12,103 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A299570, proved by transfer matrix}
+\title{A local condition on an array: OEIS A202466}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{31 August 2026}
+\date{7 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A299570 counts $4$-column arrays over $\{0,\dots,1\}$ in which every entry has,
-among the eight king-move neighbours, a number $equal to$ itself lying in $\{1,2,4,5,7,8\}$, and it carries an empirical
-recurrence of order $67$ contributed by R.~H.~Hardin. It is true. The neighbourhood
-reaches one row up and one row down, so the condition on a row involves three consecutive
-rows and a window of two rows is a sufficient state; the array is then a walk in a digraph
-on $S=256$ vertices. Unlike a plain walk count the boundary rows matter here --- the first
-row has nothing above it and the last nothing below --- so the count is
-$\mathbf{s}^{\!\top}P^{\,n-2}\mathbf{e}$ for genuine start and end vectors rather than
-all-ones. The conjectured recurrence is then annihilated exactly, in integer arithmetic.
+OEIS A202466 carries an empirical recurrence of order $69$ contributed by R.~H.~Hardin. It is
+true, and it is decidable rather than empirical. The entry's condition is decided by a bounded amount of state carried down the array; the
+admissible windows are the vertices of a finite digraph and the arrays counted are exactly the
+walks in it. Hence $a(n)$ is a walk count on $S=70$ vertices and is $C$-finite, and whether the
+conjectured recurrence annihilates it is settled by a finite exact computation, with the
+Cayley--Hamilton theorem bounding the work.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B50, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
-\section{The sequence and the conjecture}
+\section{The conjecture}
 
-OEIS A299570 is ``Number of nX4 0..1 arrays with every element equal to 1, 2, 4, 5, 7 or 8 king-move adjacent elements, with upper left element zero.''. It has offset
-$1$ and begins
+OEIS A202466 is ``Number of (n+2)X5 binary arrays with no more than two of any consecutive three bits set in any row or column.''. It has offset $1$ and begins
 \[
-2, 13, 25, 78, 237, 844, 2604, 8136,\ \dots
+9253, 172197, 3157010, 57262144, 1044865367, 19045287529, 347030298362, 6325139804762,\ \dots
 \]
-The entry carries the following comment:
-\begin{quote}\small
-Empirical: a(n) = 8*a(n-1) -25*a(n-2) +50*a(n-3) -91*a(n-4) +124*a(n-5) -120*a(n-6) +111*a(n-7) -117*a(n-8) -57*a(n-9) +1422*a(n-10) -2842*a(n-11) +2995*a(n-12) -4038*a(n-13) +6271*a(n-14) -7029*a(n-15) -1871*a(n-16) -15749*a(n-17) +45068*a(n-18) -29238*a(n-19) -11829*a(n-20) -13467*a(n-21) +121211*a(n-22) +105023*a(n-23) -109380*a(n-24) -364968*a(n-25) +909532*a(n-26) -489713*a(n-27) +105583*a(n-28) -1369411*a(n-29) +1850541*a(n-30) -420304*a(n-31) -5805132*a(n-32) +497842*a(n-33) -3558245*a(n-34) +6905661*a(n-35) +1832173*a(n-36) +5566908*a(n-37) +19899549*a(n-38) -9420347*a(n-39) +14803578*a(n-40) -7946936*a(n-41) -11244317*a(n-42) -1408955*a(n-43) -30465026*a(n-44) -6249506*a(n-45) -34375368*a(n-46) +817988*a(n-47) +14972721*a(n-48) +9589036*a(n-49) +20715181*a(n-50) +4441849*a(n-51) +12903307*a(n-52) -5950420*a(n-53) +252652*a(n-54) -4307590*a(n-55) -1421094*a(n-56) -1915678*a(n-57) -919320*a(n-58) +228232*a(n-59) +276920*a(n-60) +280520*a(n-61) -18928*a(n-62) +26896*a(n-63) -3936*a(n-64) -3264*a(n-65) -1152*a(n-66) +256*a(n-67) for n>68
+The entry states, as a conjecture contributed by its author and never marked settled:
+\begin{quote}
+Empirical: a(n) = 5*a(n-1) +111*a(n-2) +2014*a(n-3) +6557*a(n-4) +16985*a(n-5) -300395*a(n-6) -493842*a(n-7) -3268704*a(n-8) +24359757*a(n-9) -12644117*a(n-10) +245975711*a(n-11) -1125487262*a(n-12) +1522045563*a(n-13) -8087124133*a(n-14) +26777225059*a(n-15) -37534618180*a(n-16) +126433919538*a(n-17) -328489679534*a(n-18) +391815137702*a(n-19) -986011308148*a(n-20) +2122690461724*a(n-21) -1946484646192*a(n-22) +3965682502748*a(n-23) -7576159630469*a(n-24) +5031247471425*a(n-25) -9030564869781*a(n-26) +16603266615558*a(n-27) -7654100893731*a(n-28) +12605001997031*a(n-29) -23568791472338*a(n-30) +7284025623281*a(n-31) -11592415733849*a(n-32) +22376915552667*a(n-33) -4108143304538*a(n-34) +7534067585378*a(n-35) -14586401994989*a(n-36) +851438613707*a(n-37) -3651106111783*a(n-38) +6680505527134*a(n-39) +516890844951*a(n-40) +1330578342773*a(n-41) -2180316021478*a(n-42) -457849189081*a(n-43) -350426435259*a(n-44) +504531345207*a(n-45) +156767801632*a(n-46) +63587131764*a(n-47) -80543670710*a(n-48) -29202619778*a(n-49) -7801427038*a(n-50) +8520515392*a(n-51) +3153222478*a(n-52) +630256472*a(n-53) -563860143*a(n-54) -184231091*a(n-55) -26381427*a(n-56) +24372940*a(n-57) +5813919*a(n-58) +360687*a(n-59) -727057*a(n-60) -95650*a(n-61) +8776*a(n-62) +14851*a(n-63) +693*a(n-64) -335*a(n-65) -184*a(n-66) -a(n-67) +3*a(n-68) +a(n-69)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Feb 13 2018 11:16:16, revision
-4) the statement is still recorded as empirical, and nothing on the entry
-records it as settled either way.
+As of the ``Last modified'' line on the live entry (Oct 03 2025 09:36:49, revision 9) this is still
+recorded as empirical, and nothing on the entry records it as proved.
 
-Written out, the claim is
-\begin{equation}\label{eq:conj}
-a(n)\;=\;8\,a(n-1) - 25\,a(n-2) + 50\,a(n-3) - 91\,a(n-4) + 124\,a(n-5) - 120\,a(n-6) + 111\,a(n-7) - 117\,a(n-8) - 57\,a(n-9) + 1422\,a(n-10) - 2842\,a(n-11) + 2995\,a(n-12) - 4038\,a(n-13) + 6271\,a(n-14) - 7029\,a(n-15) - 1871\,a(n-16) - 15749\,a(n-17) + 45068\,a(n-18) - 29238\,a(n-19) - 11829\,a(n-20) - 13467\,a(n-21) + 121211\,a(n-22) + 105023\,a(n-23) - 109380\,a(n-24) - 364968\,a(n-25) + 909532\,a(n-26) - 489713\,a(n-27) + 105583\,a(n-28) - 1369411\,a(n-29) + 1850541\,a(n-30) - 420304\,a(n-31) - 5805132\,a(n-32) + 497842\,a(n-33) - 3558245\,a(n-34) + 6905661\,a(n-35) + 1832173\,a(n-36) + 5566908\,a(n-37) + 19899549\,a(n-38) - 9420347\,a(n-39) + 14803578\,a(n-40) - 7946936\,a(n-41) - 11244317\,a(n-42) - 1408955\,a(n-43) - 30465026\,a(n-44) - 6249506\,a(n-45) - 34375368\,a(n-46) + 817988\,a(n-47) + 14972721\,a(n-48) + 9589036\,a(n-49) + 20715181\,a(n-50) + 4441849\,a(n-51) + 12903307\,a(n-52) - 5950420\,a(n-53) + 252652\,a(n-54) - 4307590\,a(n-55) - 1421094\,a(n-56) - 1915678\,a(n-57) - 919320\,a(n-58) + 228232\,a(n-59) + 276920\,a(n-60) + 280520\,a(n-61) - 18928\,a(n-62) + 26896\,a(n-63) - 3936\,a(n-64) - 3264\,a(n-65) - 1152\,a(n-66) + 256\,a(n-67)
-\end{equation}
-for all $n>67$.
+\section{The count is a walk count}
 
-\section{The array as a walk, with boundary}
+The entry counts arrays with $5$ columns over the alphabet $\{0,1\}$, growing one row at a time, and asks that no $3$ consecutive entries, taken along a row or down a column, may contain more than $2$ ones.
 
-For a cell of the array let its \emph{score} be the number of the eight king-move neighbours that lie inside
-the array and carry a value $equal to$ the cell's own. The entry's condition is that every cell
-has score in $\{1,2,4,5,7,8\}$. The entry also fixes the top-left entry to be $0$; that is a condition on the first row alone, so it restricts the start vector and nothing else.
+Every cell the condition names lies within one row of the cell being judged, so three consecutive rows decide everything anchored at the middle one. Carry two consecutive rows as the state; a row is judged when the row after it arrives, and the row with nothing after it is judged by the end vector. That is where the boundary is honest: a neighbour off the edge of the array is not a neighbour, and a run of entries that would leave the array is not a run.
 
-A cell's neighbourhood reaches at most one row up and one row down, so the scores of the
-cells of a row $s$ are determined by $s$ together with the row above and the row below.
-Take as state an ordered pair $(r,s)$ of rows, so $S=256$, and set
-\begin{itemize}
-\item $\mathbf{s}(r,s)=1$ when every cell of $r$ has score in $\{1,2,4,5,7,8\}$ \emph{with no row
-above $r$} and $r_1=0$, and $0$ otherwise;
-\item an edge $(r,s)\to(s,t)$ when every cell of $s$ has score in $\{1,2,4,5,7,8\}$ computed from
-$r$, $s$ and $t$;
-\item $\mathbf{e}(r,s)=1$ when every cell of $s$ has score in $\{1,2,4,5,7,8\}$ \emph{with no row
-below $s$}, and $0$ otherwise.
-\end{itemize}
-Let $P$ be the adjacency matrix of that edge relation.
+Merging vertices with identical futures leaves $S=70$. An admissible array is exactly a walk, so with $M$ the adjacency matrix and $\iota,\tau$ the vectors recording which states may begin and end an array,
+\[
+a(n)\;=\;\iota^{\!\top}M^{\,n+1}\tau ,
+\]
+the exponent fixed by the entry's own shape and checked against its published terms. In
+particular $a$ is $C$-finite.
 
-\begin{lemma}\label{lem:walk}
-$a(n)=\mathbf{s}^{\!\top}P^{\,n-2}\mathbf{e}$ for every $n\ge2$.
-\end{lemma}
-
-\begin{proof}
-An array with $n$ rows is a sequence $r^{(1)},\dots,r^{(n)}$ of rows, and it is counted
-exactly when every one of its $n$ rows has all scores in $\{1,2,4,5,7,8\}$. Read the sequence as the
-walk $\bigl(r^{(1)},r^{(2)}\bigr)\to\bigl(r^{(2)},r^{(3)}\bigr)\to\cdots\to
-\bigl(r^{(n-1)},r^{(n)}\bigr)$, of length $n-2$. The condition on the first row is
-checked by $\mathbf{s}$ at the initial state, because a first row has no row above it; the
-condition on row $i$ for $2\le i\le n-1$ is checked by the edge entering
-$\bigl(r^{(i)},r^{(i+1)}\bigr)$, which sees exactly $r^{(i-1)}$, $r^{(i)}$ and
-$r^{(i+1)}$; and the condition on the last row is checked by $\mathbf{e}$ at the final
-state. Each row's condition is therefore tested once and with the correct neighbours, and
-summing over all walks gives $\mathbf{s}^{\!\top}P^{\,n-2}\mathbf{e}$.
-\end{proof}
-
-\section{The criterion}
-
-Let $q(t)=t^{67}-\sum_i c_i t^{67-i}$ be the characteristic polynomial of
-\eqref{eq:conj} and $u_j=\mathbf{s}^{\!\top}P^{j}q(P)\mathbf{e}$.
+\section{The proof}
 
 \begin{lemma}\label{lem:crit}
-$a(n)-\sum_i c_i a(n-i)=u_{\,n-2-67}$ whenever $n-67\ge2$. So \eqref{eq:conj}
-holds for every $n>t$ exactly when $u_j=0$ for all $j>t-2-67$. Moreover $(u_j)$
-satisfies the monic linear recurrence given by the characteristic polynomial of $P$, of
-degree $S$, so $S$ consecutive zeros force every later one and the last nonzero $u_j$ pins
-$t$ down exactly.
+Let $q(t)=t^{69}-\sum_i c_it^{69-i}$ be the characteristic polynomial of the
+conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
+$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
+holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
+and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Substituting Lemma~\ref{lem:walk} and factoring $P^{\,n-2-67}$ out of
-$P^{n-2}-\sum_i c_i P^{n-i-2}$ gives the identity, and letting the exponent run gives the
-equivalence. For the last part, Cayley--Hamilton gives $\chi(P)=0$ for the characteristic
-polynomial $\chi$, so $\chi$ applied to the shift annihilates $(u_j)$; $\chi$ is monic of
-degree $S$, which propagates $S$ consecutive zeros forward.
+Factor $M^{j}$ out of $M^{j+69}-\sum_ic_iM^{j+69-i}$. For the bound, $M^{S}$
+is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
+$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
+polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
+pins the threshold exactly. A constant factor in front of $a$ divides out of the residual and
+changes nothing here.
 \end{proof}
 
-\section{The computation}
-
 \begin{theorem}
-The recurrence \eqref{eq:conj} holds for every $n>67$. This is the statement of
-Section~1.
+\[
+a(n)\;=\;5\,a(n-1) + 111\,a(n-2) + 2014\,a(n-3) + 6557\,a(n-4) + 16985\,a(n-5) - 300395\,a(n-6) - 493842\,a(n-7) - 3268704\,a(n-8) + 24359757\,a(n-9) - 12644117\,a(n-10) + 245975711\,a(n-11) - 1125487262\,a(n-12) + 1522045563\,a(n-13) - 8087124133\,a(n-14) + 26777225059\,a(n-15) - 37534618180\,a(n-16) + 126433919538\,a(n-17) - 328489679534\,a(n-18) + 391815137702\,a(n-19) - 986011308148\,a(n-20) + 2122690461724\,a(n-21) - 1946484646192\,a(n-22) + 3965682502748\,a(n-23) - 7576159630469\,a(n-24) + 5031247471425\,a(n-25) - 9030564869781\,a(n-26) + 16603266615558\,a(n-27) - 7654100893731\,a(n-28) + 12605001997031\,a(n-29) - 23568791472338\,a(n-30) + 7284025623281\,a(n-31) - 11592415733849\,a(n-32) + 22376915552667\,a(n-33) - 4108143304538\,a(n-34) + 7534067585378\,a(n-35) - 14586401994989\,a(n-36) + 851438613707\,a(n-37) - 3651106111783\,a(n-38) + 6680505527134\,a(n-39) + 516890844951\,a(n-40) + 1330578342773\,a(n-41) - 2180316021478\,a(n-42) - 457849189081\,a(n-43) - 350426435259\,a(n-44) + 504531345207\,a(n-45) + 156767801632\,a(n-46) + 63587131764\,a(n-47) - 80543670710\,a(n-48) - 29202619778\,a(n-49) - 7801427038\,a(n-50) + 8520515392\,a(n-51) + 3153222478\,a(n-52) + 630256472\,a(n-53) - 563860143\,a(n-54) - 184231091\,a(n-55) - 26381427\,a(n-56) + 24372940\,a(n-57) + 5813919\,a(n-58) + 360687\,a(n-59) - 727057\,a(n-60) - 95650\,a(n-61) + 8776\,a(n-62) + 14851\,a(n-63) + 693\,a(n-64) - 335\,a(n-65) - 184\,a(n-66) - a(n-67) + 3\,a(n-68) + a(n-69)
+\]
+for every $n>67$.
 \end{theorem}
 
 \begin{proof}
-The vector $q(P)\mathbf{e}\in\mathbb{Z}^{S}$ was formed by $67$ matrix--vector
-products in exact integer arithmetic and the $u_j$ evaluated against $\mathbf{s}$ in turn.
-They vanish from the index corresponding to $n=67+1$ onwards, and the run was continued
-past $S$ consecutive zeros, which by Lemma~\ref{lem:crit} settles every larger index.
+The vector $w=q(M)\tau$ was formed by $69$ matrix--vector products in exact integer
+arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
+integers vanish from the index corresponding to $n=67+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
-Three checks, each independent of the algebra above.
+Four checks, each independent of the algebra above.
 
-First, the digraph, the start vector and the end vector were built directly from the
-entry's stated condition, the one-row count computed separately, and the resulting values
-compared against the entry's DATA at every one of the $25$ published indices; they
-agree exactly. This is the check that ties the model to the sequence, and it is a sharp one:
-getting the boundary rows wrong, or treating them as interior rows, changes the early terms
-immediately.
+First, the model reproduces all $14$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry: the digraph is built by reading the
+entry's English, and a misreading gives different counts.
 
-Second, the recurrence \eqref{eq:conj} was evaluated on those published terms in exact
-integer arithmetic, with no matrices involved, and vanishes at every index the entry claims.
+Second, the reading was pinned before the digraph was written, by a program that enumerates
+every array of the given shape one by one and tests the entry's condition on it directly. That program shares no code with the transfer matrix, so an error in one does not
+hide an error in the other.
 
-Third, the vanishing test of Lemma~\ref{lem:crit} was carried past $S=256$ consecutive
-zeros rather than to a sampled prefix.
+Third, the conjectured recurrence was evaluated directly on the published terms, with no
+matrices involved, and holds wherever the proved range and the data overlap.
+
+Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A299570.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A202466.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

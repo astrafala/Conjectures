@@ -12,132 +12,175 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A185499, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A229504, proved by counting defective colourings}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{3 September 2026}
+\date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A185499 counts arrays over $\{0,\dots,2\}$ under a condition comparing a statistic of
-every $2\times2$ subblock with those of its neighbours, and carries an empirical recurrence
-of order $73$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
-empirical. The count is a walk count on $S=1944$ states and is $C$-finite; whether the
-conjectured recurrence annihilates it is then settled by a finite exact computation.
+OEIS A229504 counts the colourings of an array with $K=3$ colours that are proper except at
+exactly one adjacent pair, the colours being introduced in row
+major order. Neither feature is local: the number of monochromatic adjacent pairs is a
+property of the whole array, and the row major clause fixes a representative of each
+relabelling class. Both are removed by machinery already in hand --- the running count of
+mistakes goes into the state, capped at $1$, and the colour clause disappears into the
+identity $3!\,a(n)=\sum_i\binom{3}{i}D_{3-i}L_i(n)$ with $D_m$ the derangement
+numbers. What is left is a walk count on $S=28$ vertices, and the empirical recurrence of
+order $2$ contributed by R.~H.~Hardin follows from a finite exact computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05C15, 15B36.\normalsize
 
-\section{The conjecture}
+\section{The sequence and the conjecture}
 
-OEIS A185499 is ``Number of (n+1)X3 0..2 arrays with every 2X2 subblock diagonal sum less antidiagonal sum equal to some horizontal or vertical neighbor 2X2 subblock diagonal sum less antidiagonal sum.''. It has offset $1$ and begins
+OEIS A229504 is ``Number of defective 3-colorings of an n X 2 0..2 array connected diagonally and antidiagonally with exactly one mistake, and colors introduced in row-major 0..2 order.''. It has offset $1$ and begins
 \[
-99, 697, 4451, 30775, 207705, 1418183, 9658679, 65903901,\ \dots
+0, 6, 48, 288, 1536, 7680, 36864, 172032,\ \dots
 \]
-The entry states, as a conjecture contributed by its author and never marked settled:
-\begin{quote}
-Empirical: a(n)=16*a(n-1)-66*a(n-2)-134*a(n-3)+1443*a(n-4)-2944*a(n-5)+4970*a(n-6)-14851*a(n-7)-11571*a(n-8)+61044*a(n-9)+159738*a(n-10)+413413*a(n-11)-2914428*a(n-12)-2469514*a(n-13)+6557377*a(n-14)+39589072*a(n-15)+22764483*a(n-16)-206879740*a(n-17)-346733427*a(n-18)+278776495*a(n-19)+1495676084*a(n-20)+2695509571*a(n-21)-4686678083*a(n-22)-7299225497*a(n-23)+6056115083*a(n-24)-16127233866*a(n-25)-88281813514*a(n-26)-7261550680*a(n-27)+1088424262105*a(n-28)+899731654396*a(n-29)-3245433499238*a(n-30)-7815484803768*a(n-31)-406652905248*a(n-32)+22811862007908*a(n-33)+22421132651472*a(n-34)-15498436106752*a(n-35)-12123613528560*a(n-36)-10766636743176*a(n-37)-5067935559232*a(n-38)-408175178563744*a(n-39)-32063168173376*a(n-40)+11604755392032*a(n-41)+674372049197920*a(n-42)+1660897630461888*a(n-43)+3566535713014464*a(n-44)-377394253895680*a(n-45)-1288439207533312*a(n-46)-10038152022954496*a(n-47)-16065995298211328*a(n-48)-17310921165163520*a(n-49)-7179507436965888*a(n-50)+9381015453671424*a(n-51)+65340992207912960*a(n-52)+65285348845109248*a(n-53)+92246407919616000*a(n-54)+129518737725161472*a(n-55)-10289528873484288*a(n-56)-278577260634832896*a(n-57)-222025407375605760*a(n-58)-108195623685586944*a(n-59)-215332645430624256*a(n-60)-241001042326585344*a(n-61)+66507208516435968*a(n-62)+264107131416870912*a(n-63)+164236535305076736*a(n-64)+145690315255185408*a(n-65)+161037241144049664*a(n-66)+51643863923687424*a(n-67)-99781853552050176*a(n-68)-113923742849040384*a(n-69)-40634522378698752*a(n-70)+14258715897102336*a(n-71)+17583870987730944*a(n-72)+5072270477230080*a(n-73)
+The entry carries the following comment:
+\begin{quote}\small
+Empirical: a(n) = 8*a(n-1) -16*a(n-2).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 03:03:05, revision 11) this is still
-recorded as empirical, and nothing on the entry records it as proved.
+As of the ``Last modified'' line on the live entry (Jun 16 2017 07:54:44, revision 28) the statement is
+still recorded as empirical, and nothing on the entry records it as settled either way.
 
-\section{What is being counted}
+Written out, the claim is
+\begin{equation}\label{eq:conj}
+a(n)\;=\;8\,a(n-1) - 16\,a(n-2)
+\end{equation}
+for all $n>2$.
 
-Write $\sigma$ for its diagonal sum minus its antidiagonal sum, taken on a $2\times2$ subblock. The contiguous $2\times2$
-subblocks of an $(n+1)\times3$ array over $\{0,\dots,2\}$ form a grid of $n$ rows
-and $2$ columns, and $\sigma$ labels that grid. The entry
-requires that every subblock carries the same value of $\sigma$ as at least ONE of its neighbours horizontally or vertically.
+\section{Mistakes, and the colour clause}
 
-\section{The count is a walk count}
-
-This condition is NOT a condition on a pair. Whether a subblock has a
-matching neighbour cannot be decided when its own row is placed: the row BELOW it may yet
-supply the match. So the state carries, besides the $2$ consecutive array rows, a tally for
-each of the $2$ subblocks of the row just completed --- a single bit saying whether it has already been matched --- counting its matches
-among its own row and the row above.
-
-A step appends an array row. It fixes the next subblock row, adds the matches between the two
-rows to the OLD row's tallies, and requires those totals to be acceptable, the old row being
-final at that moment; the new row's tallies start from its own horizontal matches plus the
-matches just made. A state is ACCEPTING when its own tally is already acceptable, which is
-exactly the right condition for the last subblock row, the one with nothing below it. Only the
-states whose tally came from their own row may BEGIN an array, since the first row has nothing
-above it.
-
-An array of $n+1$ rows is then a walk of $n-1$ steps and
+The arrays have $2$ columns and $L=n$ rows, entries in $\{0,\dots,3-1\}$.
+Two cells are adjacent when they differ by one of
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau
+\mathcal N=\{(1,1),\ (1,-1)\}
 \]
-with $\iota$ the indicator of the starting states and $\tau$ of the accepting ones, on
-$S=1944$ states in all. Getting the two vectors right is the whole of the argument: with
-$\iota$ taken as all-ones the first row would be allowed a match from a row above it that does
-not exist, and the count would be too large. The entry's own first terms settle it --- for
-the smallest cases
-the model reproduces every published term.
+(as (row shift, column shift)); each unordered adjacency is represented by exactly one
+offset, and every offset has a nonnegative row shift, so the pairs inside a row are
+counted when that row is laid down and the pairs joining two rows when the later one
+is. Call an adjacent pair a \emph{mistake} when $x_{t,u}=x_{t+d_1,\,u+d_2}$. The entry asks for exactly
+$E=1$ mistakes.
 
-Over the alphabet $\{0,\dots,2\}$ the statistic takes values in $[-4,4]$, so the
-grid it labels carries at most $9$ different labels. At $n=1$ the array has $2$
-rows and the grid is a single row of $2$
-subblocks, with only the neighbours inside that row; the entry's first term is
-$99$, which the model reproduces along with every later term, and that is the cheapest
-check that the grid has been read with the right shape.
+That is a statement about the whole array, so no bounded window sees it; but the running
+number of mistakes can be carried in the state, capped at $1$, the states past $1$ being
+absent because a count that has passed the budget can never come back.
 
-In particular $a$ is $C$-finite. The alignment of the walk index with the entry's own $n$ was
-checked against its published terms rather than assumed.
+The condition is stated in equalities, so it is invariant under relabelling the colours, and
+so is the number of mistakes. ``Colors introduced in row-major order'' keeps exactly one
+colouring from each relabelling class, so the entry counts equality PATTERNS with at most
+$K=3$ classes.
 
-\section{The proof}
-
-\begin{lemma}\label{lem:crit}
-Let $q(t)=t^{73}-\sum_i c_it^{73-i}$ be the characteristic polynomial of the
-conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
-$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
-holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
-and it is enough to examine $j<S$.
+\begin{lemma}\label{lem:inv}
+Let $L_i(n)$ count the colourings over $i$ colours with exactly $1$ mistakes, and $N_j(n)$
+the admissible patterns with exactly $j$ classes. Then
+$L_i=\sum_j N_j\,i(i-1)\cdots(i-j+1)$ and
+\[
+3!\,\sum_{j\le3}N_j(n)=\sum_{i=0}^{3}\binom{3}{i}D_{3-i}L_i(n),
+\qquad D_m=m!\sum_{t=0}^{m}\frac{(-1)^t}{t!} .
+\]
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+73}-\sum_ic_iM^{j+73-i}$. For the bound, $M^{S}$
-is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
-$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
-polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly.
+A colouring is a pattern together with an injection of its classes into the palette, and a
+pattern with $j$ classes admits $i(i-1)\cdots(i-j+1)$ of them, which is the first identity.
+Writing the falling factorial as $j!\binom{i}{j}$ and inverting binomially gives
+$j!N_j=\sum_i(-1)^{j-i}\binom{j}{i}L_i$; summing over $j\le3$ and exchanging the order
+of summation makes the coefficient of $L_i$ equal to $\sum_{t\le3-i}(-1)^t/(i!\,t!)$,
+which multiplied by $3!$ is $\binom{3}{i}D_{3-i}$, an integer.
+\end{proof}
+
+\section{Each $L_i$ is a walk count}
+
+Fix $i$ and take as vertices the pairs $(r,c)$ with $r\in\{0,\dots,i-1\}^{2}$ a row
+and $0\le c\le1$ a running count. Write $\beta(r,s)$ for the number of mistakes joining
+rows $r$ and $s$ plus the number of mistakes inside $s$. Declare $(r,c)\to(s,c+\beta(r,s))$
+an edge when $c+\beta(r,s)\le1$, let $\mathbf{s}_i$ mark the vertices whose count is the
+number of mistakes inside $r$ alone, and $\mathbf{e}_i$ those with $c=1$.
+
+\begin{lemma}\label{lem:walk}
+$L_i(n)=\mathbf{s}_i^{\!\top}P_i^{\,L-1}\mathbf{e}_i$ for $L\ge1$, where $P_i$ is the
+adjacency matrix of that digraph.
+\end{lemma}
+
+\begin{proof}
+A walk of length $L-1$ determines the sequence of $L$ rows, and conversely; by induction
+the count component after $t$ rows is the number of mistakes among the first $t$ rows,
+since each step adds exactly the mistakes joining rows $t$ and $t+1$ together with those
+inside row $t+1$, and each unordered pair is named by exactly one offset. The walk exists
+precisely when the running count never exceeds $1$, which for a nondecreasing count follows
+from its final value being $1$, and $\mathbf{e}_i$ imposes that final value. The state
+carries a row, not a boundary, so $L$ rows make a walk of length $L-1$.
+\end{proof}
+
+Assembling the $3$ chains block-diagonally into $N$ of size $S=28$ with the weights of
+Lemma~\ref{lem:inv} in the start vector $\mathbf{v}$ and the end markers in
+$\mathbf{u}$,
+\begin{equation}\label{eq:walk2}
+3!\;a(n)\;=\;\mathbf{v}^{\!\top}N^{\,L-1}\mathbf{u},\qquad L=n .
+\end{equation}
+
+\section{The criterion, and the computation}
+
+Let $q(t)=t^{2}-\sum_i c_i\,t^{2-i}$ be the characteristic polynomial of
+\eqref{eq:conj} and $G=N$.
+
+\begin{lemma}\label{lem:crit}
+With $n_0$ the least index for which $L\ge1$, $o=1n_0+0-1$ and
+$h_j=G^{j}N^{o}\mathbf{u}$, we have for $j\ge2$
+\[
+3!\Bigl(a(n_0+j)-\sum_i c_i\,a(n_0+j-i)\Bigr)=\mathbf{v}^{\!\top}G^{\,j-2}w,
+\qquad w=h_{2}-\sum_i c_ih_{2-i} .
+\]
+Hence \eqref{eq:conj} holds from that point on if and only if
+$\mathbf{v}^{\!\top}G^{m}w=0$ for all $m\ge0$, and $m<S$ suffices.
+\end{lemma}
+
+\begin{proof}
+Substitute \eqref{eq:walk2} and factor; $3!$ is a nonzero scalar. Cayley--Hamilton
+makes $G^{S}$ an integer combination of $I,G,\dots,G^{S-1}$, so every later value repeats
+that combination of earlier ones.
 \end{proof}
 
 \begin{theorem}
-\[
-a(n)\;=\;16\,a(n-1) - 66\,a(n-2) - 134\,a(n-3) + 1443\,a(n-4) - 2944\,a(n-5) + 4970\,a(n-6) - 14851\,a(n-7) - 11571\,a(n-8) + 61044\,a(n-9) + 159738\,a(n-10) + 413413\,a(n-11) - 2914428\,a(n-12) - 2469514\,a(n-13) + 6557377\,a(n-14) + 39589072\,a(n-15) + 22764483\,a(n-16) - 206879740\,a(n-17) - 346733427\,a(n-18) + 278776495\,a(n-19) + 1495676084\,a(n-20) + 2695509571\,a(n-21) - 4686678083\,a(n-22) - 7299225497\,a(n-23) + 6056115083\,a(n-24) - 16127233866\,a(n-25) - 88281813514\,a(n-26) - 7261550680\,a(n-27) + 1088424262105\,a(n-28) + 899731654396\,a(n-29) - 3245433499238\,a(n-30) - 7815484803768\,a(n-31) - 406652905248\,a(n-32) + 22811862007908\,a(n-33) + 22421132651472\,a(n-34) - 15498436106752\,a(n-35) - 12123613528560\,a(n-36) - 10766636743176\,a(n-37) - 5067935559232\,a(n-38) - 408175178563744\,a(n-39) - 32063168173376\,a(n-40) + 11604755392032\,a(n-41) + 674372049197920\,a(n-42) + 1660897630461888\,a(n-43) + 3566535713014464\,a(n-44) - 377394253895680\,a(n-45) - 1288439207533312\,a(n-46) - 10038152022954496\,a(n-47) - 16065995298211328\,a(n-48) - 17310921165163520\,a(n-49) - 7179507436965888\,a(n-50) + 9381015453671424\,a(n-51) + 65340992207912960\,a(n-52) + 65285348845109248\,a(n-53) + 92246407919616000\,a(n-54) + 129518737725161472\,a(n-55) - 10289528873484288\,a(n-56) - 278577260634832896\,a(n-57) - 222025407375605760\,a(n-58) - 108195623685586944\,a(n-59) - 215332645430624256\,a(n-60) - 241001042326585344\,a(n-61) + 66507208516435968\,a(n-62) + 264107131416870912\,a(n-63) + 164236535305076736\,a(n-64) + 145690315255185408\,a(n-65) + 161037241144049664\,a(n-66) + 51643863923687424\,a(n-67) - 99781853552050176\,a(n-68) - 113923742849040384\,a(n-69) - 40634522378698752\,a(n-70) + 14258715897102336\,a(n-71) + 17583870987730944\,a(n-72) + 5072270477230080\,a(n-73)
-\]
-for every $n>73$.
+The recurrence \eqref{eq:conj} holds for every $n>2$, which is the statement of
+Section~1.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $73$ matrix--vector products in exact integer
-arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=73+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once.
+The digraph was built directly from the definitions above. The vector $w$ was formed by
+$2$ applications of $G$ in exact integer arithmetic and $\mathbf{v}^{\!\top}G^{m}w$
+evaluated for $m=0,1,\dots$, again exactly. Every one of those integers vanishes from the
+index corresponding to $n=2+1$ onwards, and the run continued until $S+1$ consecutive
+zeros had been seen.
 \end{proof}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $19$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry: the digraph is built by reading the
-entry's English, and a misreading gives different counts.
+First, the right-hand side of \eqref{eq:walk2}, divided by $3!$, was evaluated at every
+one of the $22$ published indices and agrees with the entry's DATA exactly, the quotient
+coming out an integer each time; no shift was fitted, the number of rows being $L=n$
+from the entry's own name and the offset saying which index carries the first published term.
+Double-counting an unordered pair, or mistaking the budget, changes the counts at once.
 
-Second, the conjectured recurrence was evaluated directly on those published terms, with no
-matrices involved, and holds wherever the proved range and the data overlap.
+Second, the recurrence \eqref{eq:conj} was evaluated on those published terms in exact
+integer arithmetic, with no matrices involved, and vanishes wherever it applies.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
-arithmetic on the whole vector rather than on a sampled prefix.
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried to the full
+Cayley--Hamilton bound in exact integer arithmetic rather than to a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A185499.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A229504.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata
-Theory, Languages, and Computation}, 3rd ed., Addison--Wesley, 2006.
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; falling-factorial
+inversion, Section 1.9.)
+\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+University Press, 2009.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

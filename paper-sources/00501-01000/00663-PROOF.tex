@@ -12,135 +12,164 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical closed form for OEIS A219770, proved}
+\title{The empirical recurrence for OEIS A220917, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{8 September 2026}
+\date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A219770 states an explicit closed form for $a(n)$ and records it as empirical. It is true, and
-it is decidable. What the entry counts is not a set of arrays but the SIZE OF AN IMAGE: each
-admissible array is replaced by the array of minima of its cells and their antidiagonal, horizontal neighbours,
-and $a(n)$ counts how many different arrays come out. Two arrays with the same image count
-once, so the usual graph over arrays overcounts. Determinising a machine whose state is a pair
-of consecutive rows and whose output is the filtered array turns the count into a walk count on
-$S=1107$ vertices, exact and finite. The closed form is a polynomial in $n$, so it satisfies the
-monic recurrence with characteristic polynomial $(x-1)^{18}$; that the walk count
-satisfies the same recurrence, and that the two agree on enough initial terms, are both checked
-in exact integer arithmetic, and together they prove the formula.
+OEIS A220917 counts the distinct indicator arrays obtained from the $n\times2$ arrays over
+$\{0,\dots,2\}$ by marking the cells whose value is equal to exactly one of their neighbours, and carries an
+empirical recurrence of order $21$ contributed by R.~H.~Hardin. It is true, and it is
+decidable rather than empirical. What is counted is the IMAGE of a map, not its domain, so it
+is not a walk count in the obvious graph; the determinisation of the machine that emits the
+indicator row by row turns it into one, on $S=53$ states, after which the conjectured
+recurrence is settled by a finite exact computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 68Q45, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 68Q45, 15B36.\normalsize
 
-\section{The entry}
+\section{The conjecture}
 
-OEIS A219770 is ``Number of nX5 arrays of the minimum value of corresponding elements and their horizontal or antidiagonal neighbors in a random, but sorted with lexicographically nondecreasing rows and columns, 0..1 nX5 array.''. It has offset $1$ and begins
+OEIS A220917 is ``Equals one maps: number of 2Xn binary arrays indicating the locations of corresponding elements equal to exactly one of their horizontal, diagonal and antidiagonal neighbors in a random 0..2 2Xn array.''. It has offset $1$ and begins
 \[
-5, 12, 65, 291, 1229, 4795, 17186, 57060,\ \dots
+1, 8, 37, 165, 749, 3279, 13865, 57374,\ \dots
 \]
-and states:
+The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = (1/11115232128000)*n\^{}17 - (1/326918592000)*n\^{}16 + (1/40864824000)*n\^{}15 + (493/65383718400)*n\^{}14 - (9683/23351328000)*n\^{}13 + (89521/7185024000)*n\^{}12 - (4429/25872000)*n\^{}11 - (1645507/914457600)*n\^{}10 + (728164123/4572288000)*n\^{}9 - (20102513087/4572288000)*n\^{}8 + (17194555969/224532000)*n\^{}7 - (1333369888691/1437004800)*n\^{}6 + (2585848906270391/326918592000)*n\^{}5 - (2492152164682039/54486432000)*n\^{}4 + (1458815480632777/9081072000)*n\^{}3 - (33613023582311/151351200)*n\^{}2 - (38919626189/85085)*n + 1608736 for n>10
+Empirical: a(n) = 4*a(n-1) +4*a(n-2) -14*a(n-3) -6*a(n-4) -16*a(n-5) +47*a(n-6) -40*a(n-7) -60*a(n-8) -92*a(n-9) +8*a(n-10) -28*a(n-11) -54*a(n-12) +22*a(n-13) +62*a(n-14) -38*a(n-15) -108*a(n-16) -32*a(n-17) +54*a(n-18) +18*a(n-19) -22*a(n-20) -10*a(n-21) for n>22
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 18:16:09, revision 8)
-this is still recorded as empirical, and it is still open.
+As of the ``Last modified'' line on the live entry (Oct 03 2025 19:06:42, revision 8) this is still
+recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-Fix the width $W=5$ and the value range $0..1$. The underlying arrays are the
-$n\times5$ arrays over that range whose rows are lexicographically nondecreasing read downwards
-and whose columns are lexicographically nondecreasing read left to right. Each such array $g$
-is mapped to $F(g)$, the array whose $(i,j)$ entry is the minimum of $g(i,j)$ and the entries
-of its antidiagonal, horizontal neighbours that lie inside the array. The entry counts
+Let $R=\{0,\dots,2\}^{2}$ be the set of rows and let the neighbours of a cell be the
+cells at the offsets
 \[
-a(n)\;=\;\bigl|\{\,F(g)\;:\;g\text{ admissible with }n\text{ rows}\,\}\bigr|,
+(-1,-1), (-1,0), (-1,1), (1,-1), (1,0), (1,1),
 \]
-the number of DISTINCT images --- not the number of admissible $g$. This is what makes the
-problem different in kind from a walk count: two admissible arrays can have the same image, and
-the graph whose walks are the arrays would count such a pair twice.
+those falling outside the array being simply absent. The entry writes the array with $n$ as the number of COLUMNS; transposing it exchanges the two coordinates of every neighbour offset, which is done once so that the walk always runs down the rows. For an array
+$A=(r_1,\dots,r_n)\in R^n$ let $\Phi(A)\in\{0,1\}^{n\times2}$ mark the cells whose value
+is equal to exactly one of its neighbours. The entry counts
+\[
+a(n)\;=\;\bigl|\{\Phi(A):A\in R^n\}\bigr| ,
+\]
+the size of an IMAGE. This is the whole difficulty: two different arrays with the same marking
+must be counted once, and a walk count in a graph on the arrays would count them twice.
 
-\section{Two constraints, both made local}
+Because every offset above moves the row index by at most one, the marked row $i$ depends only
+on rows $i-1,i,i+1$. Write $\beta(p,c,x)\in\{0,1\}^{2}$ for the marking of the row $c$
+with $p$ above and $x$ below, allowing $p$ or $x$ to be the symbol $\bot$ for ``outside''.
+Then
+\[
+\Phi(r_1,\dots,r_n)=\bigl(\beta(\bot,r_1,r_2),\ \beta(r_1,r_2,r_3),\ \dots,\
+\beta(r_{n-1},r_n,\bot)\bigr).
+\]
 
-\begin{lemma}\label{lem:local}
-Whether a sequence of rows is admissible is decided by the previous row together with
-$4$ bits.
-\end{lemma}
+\section{The image is a walk count after determinisation}
 
-\begin{proof}
-The row order compares consecutive rows and needs only the previous one. The column order
-compares whole columns read downwards, left to right, which is not a condition on consecutive
-rows --- but for each of the $4$ adjacent column pairs there are only two possibilities:
-either the two columns agree in every row read so far, or they first differed at some earlier
-row, and there the required inequality was already decided and no later row can affect it. One
-bit per adjacent pair records which, and a new row is admissible exactly when, for every pair
-still agreeing, its two entries either agree again or differ in the permitted direction.
-\end{proof}
+For a set $D\subseteq(R\cup\{\bot\})\times R$ of pairs and a row $b\in\{0,1\}^{2}$ put
+\[
+\delta(D,b)=\{(c,x)\ :\ (p,c)\in D,\ x\in R,\ \beta(p,c,x)=b\},\qquad
+f(D)=\bigl|\{\beta(p,c,\bot):(p,c)\in D\}\bigr| ,
+\]
+and let $D_0=\{(\bot,r):r\in R\}$.
 
 \begin{lemma}\label{lem:det}
-$a(n)$ is a walk count: there are a matrix $M$ with non-negative integer entries on $S=1107$
-vertices and vectors $\iota,\tau$ with $a(n)=\iota^{\!\top}M^{\,n-2}\tau$ for $n\ge2$.
+For every $t\ge0$ and every $b_1,\dots,b_t$, the set
+$D_t=\delta(\dots\delta(D_0,b_1)\dots,b_t)$ is exactly
+\[
+\{(r_t,r_{t+1})\ :\ (r_1,\dots,r_{t+1})\in R^{t+1},\ \beta(\bot,r_1,r_2)=b_1,\ \dots,\
+\beta(r_{t-1},r_t,r_{t+1})=b_t\} ,
+\]
+with $r_0=\bot$. Consequently, for $n\ge1$,
+\[
+a(n)\;=\;\sum_{b_1,\dots,b_{n-1}}f(D_{n-1}),
+\]
+the sum over all sequences of rows in $\{0,1\}^{2}$, empty $D$'s contributing nothing.
 \end{lemma}
 
 \begin{proof}
-Row $i$ of $F(g)$ depends only on rows $i-1$, $i$ and $i+1$ of $g$, so a machine reading $g$ a
-row at a time, holding the last two rows and the $4$ bits of Lemma~\ref{lem:local}, can
-emit $F(g)$ one row at a time. It is nondeterministic --- several continuations may emit the
-same row --- and the images of $g$ are exactly the words it can emit. Determinising it gives a
-machine in which each emitted row leads to exactly one state, so distinct words of length $n$
-correspond to distinct paths, and counting them is counting walks. The reachable determinised
-states number $S=1107$. The last filtered row is emitted with no row below it, so it is not a
-step of the walk but a count attached to the state the walk stops in; that is $\tau$.
+Induction on $t$. For $t=0$ the set is $\{(\bot,r_1)\}$, which is $D_0$. If the description
+holds for $D_t$, then $\delta(D_t,b)$ collects the pairs $(r_{t+1},r_{t+2})$ for which
+$(r_t,r_{t+1})$ already extends a consistent prefix and
+$\beta(r_t,r_{t+1},r_{t+2})=b$, which is the description for $t+1$.
+
+An element of the image is a full marking $(b_1,\dots,b_n)$. By the description, a prefix
+$(b_1,\dots,b_{n-1})$ is realised by some $r_1,\dots,r_n$ exactly when $D_{n-1}\neq
+\emptyset$, and then the possible last rows are precisely
+$\{\beta(p,c,\bot):(p,c)\in D_{n-1}\}$, of which there are $f(D_{n-1})$. Distinct
+sequences $(b_1,\dots,b_n)$ are distinct markings, so summing $f$ over the prefixes counts the
+image exactly once each.
 \end{proof}
 
-\section{The closed form}
-
-The entry's formula is a polynomial in $n$. Any polynomial of degree $m$ satisfies the monic
-recurrence whose characteristic polynomial is $(x-1)^{m+1}$, here
+So with $M$ the adjacency matrix of the digraph whose vertices are the reachable nonempty sets
+$D$ and which carries one edge $D\to\delta(D,b)$ for each $b$ with $\delta(D,b)\neq\emptyset$
+--- several $b$ may lead to the same set, and then the edge is repeated, which is exactly
+right, since the markings differ ---
 \[
-q(x)=(x-1)^{18},\qquad\text{that is}\qquad a(n)=18\,a(n-1) - 153\,a(n-2) + 816\,a(n-3) - 3060\,a(n-4) + 8568\,a(n-5) - 18564\,a(n-6) + 31824\,a(n-7) - 43758\,a(n-8) + 48620\,a(n-9) - 43758\,a(n-10) + 31824\,a(n-11) - 18564\,a(n-12) + 8568\,a(n-13) - 3060\,a(n-14) + 816\,a(n-15) - 153\,a(n-16) + 18\,a(n-17) - a(n-18).
+a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,\qquad \iota=e_{D_0},\quad \tau=f .
 \]
+There are $S=53$ reachable sets, generated from $D_0$ outward, and $a$ is $C$-finite. Note
+that $\tau$ is not the all-ones vector: the last marked row is not a step of the walk but a
+count attached to the state the walk stops in.
+
+\section{The proof}
+
+\begin{lemma}\label{lem:crit}
+Let $q(t)=t^{21}-\sum_i c_it^{21-i}$ be the characteristic polynomial of the
+conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
+$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
+holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
+and it is enough to examine $j<S$.
+\end{lemma}
+
+\begin{proof}
+Factor $M^{j}$ out of $M^{j+21}-\sum_ic_iM^{j+21-i}$. For the bound, $M^{S}$
+is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
+$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
+polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
+pins the threshold exactly.
+\end{proof}
 
 \begin{theorem}
-The closed form OEIS A219770 records is correct for all $n>10$.
+\[
+a(n)\;=\;4\,a(n-1) + 4\,a(n-2) - 14\,a(n-3) - 6\,a(n-4) - 16\,a(n-5) + 47\,a(n-6) - 40\,a(n-7) - 60\,a(n-8) - 92\,a(n-9) + 8\,a(n-10) - 28\,a(n-11) - 54\,a(n-12) + 22\,a(n-13) + 62\,a(n-14) - 38\,a(n-15) - 108\,a(n-16) - 32\,a(n-17) + 54\,a(n-18) + 18\,a(n-19) - 22\,a(n-20) - 10\,a(n-21)
+\]
+for every $n>22$.
 \end{theorem}
 
 \begin{proof}
-Two exact computations. First, the walk count of Lemma~\ref{lem:det} satisfies $q$: the
-residual $u_j=\iota^{\!\top}M^{\,j}q(M)\tau$ vanishes for $S$ consecutive indices, and
-since the residual vector lives in the $S$-dimensional space spanned by the iterates of $M$,
-$S$ consecutive zeros force every later one. The last index at which it fails is $28$.
-Second, the polynomial and the walk count agree at every index from $11$ up to
-$1 + 26 - 1$, which is more than the $18$ consecutive agreements a
-common recurrence of order $18$ needs. Two sequences satisfying the same monic recurrence
-of order $18$ and agreeing at $18$ consecutive indices past both their thresholds are
-equal from there on.
+The vector $w=q(M)\tau$ was formed by $21$ matrix--vector products in exact integer
+arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
+integers vanish from the index corresponding to $n=22+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once. The bound is exact: at $n=22$ the recurrence fails on the entry's own published terms, so no larger range holds.
 \end{proof}
 
 \section{Verification}
 
-Everything above is integer or exact rational arithmetic; no floating point is used anywhere.
+Three checks, each independent of the algebra above.
 
-First, the model reproduces all $26$ terms the entry publishes, exactly. This is what
-ties the construction to the entry, and it is the only point at which the entry's English is
-read.
+First, the model reproduces all $23$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry: the machine is built by reading the
+entry's English, and a misreading gives different counts.
 
-Second, the reading was pinned by direct enumeration before the model was written: for the
-one-row case the admissible arrays and their images were listed outright and counted, and the
-count is the entry's own first term.
+Second, the conjectured recurrence was evaluated directly on those published terms, with no
+matrices involved, and holds wherever the proved range and the data overlap.
 
-Third, the annihilation test was run to $S$ consecutive vanishing residuals rather than to a
-fixed horizon, which is what makes it a proof and not a check of finitely many terms.
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A219770.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A220917.
 \bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata
 Theory, Languages, and Computation}, 3rd ed., Addison--Wesley, 2006. (The subset
 construction, Section 2.3.)
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{kauers} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

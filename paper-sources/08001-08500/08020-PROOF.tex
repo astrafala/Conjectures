@@ -12,68 +12,55 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A236993, proved by transfer matrix}
+\title{A condition on the multiset of every subblock: OEIS A235851}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{2 September 2026}
+\date{7 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A236993 counts arrays over $\{0,\dots,2\}$ subject to a condition on the order
-statistics of every $2\times2$ subblock, and carries an empirical recurrence of order
-$12$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical.
-The condition is local to two consecutive rows, so the count is a walk count on $S=7200$
-states and is $C$-finite; whether the conjectured recurrence annihilates it is then settled by
-a finite exact computation, with the Cayley--Hamilton theorem bounding the work.
+OEIS A235851 carries an empirical recurrence of order $13$ contributed by R.~H.~Hardin. It is
+true, and it is decidable rather than empirical. The entry's condition on a subblock depends
+only on which values the block holds and how many times, not on where they sit, so it is
+decided by the few consecutive lines the block spans. The admissible windows are the vertices
+of a finite digraph and the arrays counted are exactly its walks; hence $a(n)$ is a walk count
+on $S=18$ vertices and is $C$-finite, and whether the conjectured recurrence annihilates it
+is settled by a finite exact computation, with the Cayley--Hamilton theorem bounding the
+work.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 62G30.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
 \section{The conjecture}
 
-OEIS A236993 is ``Number of (n+1)X(4+1) 0..2 arrays with the maximum plus the lower median minus the upper median minus the minimum of every 2X2 subblock differing from its horizontal and vertical neighbors by exactly one.''. It has offset $1$ and begins
+OEIS A235851 is ``Number of (n+1) X (2+1) 0..3 arrays with the upper median equal to the lower median in every 2 X 2 subblock.''. It has offset $1$ and begins
 \[
-7200, 104976, 1513728, 23825664, 363916800, 5454273024, 80675315712, 1304215105536,\ \dots
+688, 9600, 121244, 1629216, 21301696, 283036828, 3731137160, 49409402632,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 158112*a(n-4) -7941224448*a(n-8) +124128835928064*a(n-12)
+Empirical: a(n) = 15*a(n-1) +63*a(n-2) -1386*a(n-3) +1099*a(n-4) +35227*a(n-5) -85405*a(n-6) -221384*a(n-7) +716768*a(n-8) +332972*a(n-9) -1748080*a(n-10) +329248*a(n-11) +1044480*a(n-12) -421888*a(n-13).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 09:43:58, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Jun 26 2022 20:23:50, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
-
-\section{What is being counted}
-
-The $2\times2$ subblocks of an $(n+1)\times5$ array form an
-$n\times4$ grid, and each carries the value $\sigma=-a+b-c+d$, where $a\le b\le c\le d$ are its four entries sorted --- its minimum, lower median, upper median and maximum. The entry asks that the values of
-subblocks that are neighbours --- horizontally or vertically --- differ by exactly $1$.
-That is sharper than merely differing, and it is a condition on a pair of adjacent subblocks,
-so it is local to the grid.
-
-At $n=1$ the array has two rows, so its subblock grid is a single row of $4$ subblocks with
-no vertical neighbours; the condition there is exactly that consecutive values along that row
-differ by $1$. The entry's first term $7200$ counts those, and the model was made to
-reproduce it along with every later term.
 
 \section{The count is a walk count}
 
-A subblock's value is decided by two consecutive rows of the array, and the
-vertical condition compares two consecutive rows of the subblock grid, so the state is the
-PAIR of consecutive array rows. A step appends a row: that fixes a new subblock row, whose own
-neighbouring values must differ by exactly $1$ along it, and which must differ by exactly
-$1$ from the previous subblock row in every position. An $(n+1)$-row array is a walk of
-$n-1$ steps, so
+The entry counts arrays with $3$ columns over the alphabet $\{0,1,2,3\}$, growing one row at a time, and asks that in every $2\times2$ subblock the two middle order statistics are equal: writing the $4$ entries of the block in nondecreasing order $v_1\le\cdots\le v_{4}$, the lower median is $v_{2}$ and the upper median $v_{3}$, and these must be equal.
+
+That condition does not depend on where in the block a value sits, only on which values the block holds and how many times --- it is a function of the block's multiset of entries. In particular it is decided by $2$ consecutive rows, the ones the block spans, so carrying the previous $1$ row as the state is enough: each new row completes every block that ends on it, and no judgement is left over at the end of the array.
+
+Merging vertices with identical futures leaves $S=18$. An admissible array is exactly a walk, so with $M$ the adjacency matrix and $\iota,\tau$ the vectors recording which states may begin and end an array,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,\qquad\iota=\tau=(1,\dots,1)^{\!\top},
+a(n)\;=\;\iota^{\!\top}M^{\,n}\tau ,
 \]
-over the $S=7200$ pairs whose own subblock row already satisfies the condition along itself.
-The alignment of the walk index with the entry's own $n$ was checked against its published
-terms rather than assumed. In particular $a$ is $C$-finite.
+the exponent fixed by the entry's own shape and checked against its published terms. In
+particular $a$ is $C$-finite.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{12}-\sum_i c_it^{12-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{13}-\sum_i c_it^{13-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -81,22 +68,23 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+12}-\sum_ic_iM^{j+12-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+13}-\sum_ic_iM^{j+13-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly.
+pins the threshold exactly. A constant factor in front of $a$ divides out of the residual and
+changes nothing here.
 \end{proof}
 
 \begin{theorem}
 \[
-a(n)\;=\;158112\,a(n-4) - 7941224448\,a(n-8) + 124128835928064\,a(n-12)
+a(n)\;=\;15\,a(n-1) + 63\,a(n-2) - 1386\,a(n-3) + 1099\,a(n-4) + 35227\,a(n-5) - 85405\,a(n-6) - 221384\,a(n-7) + 716768\,a(n-8) + 332972\,a(n-9) - 1748080\,a(n-10) + 329248\,a(n-11) + 1044480\,a(n-12) - 421888\,a(n-13)
 \]
 for every $n>12$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $12$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $13$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
 integers vanish from the index corresponding to $n=12+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
@@ -104,25 +92,30 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 \section{Verification}
 
-Three checks, each independent of the algebra above.
+Four checks, each independent of the algebra above.
 
-First, the model reproduces all $14$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $15$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
-Second, the conjectured recurrence was evaluated directly on those published terms, with no
+Second, the reading was pinned before the digraph was written, by a program that enumerates
+every array of the given shape one by one, forms each subblock directly and tests the entry's
+condition on it. That program shares no code with the transfer matrix, so an error in one does
+not hide an error in the other.
+
+Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
 arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A236993.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A235851.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{david} H.~A.~David and H.~N.~Nagaraja, \emph{Order Statistics}, 3rd ed., Wiley,
-2003.
+\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+University Press, 2009.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

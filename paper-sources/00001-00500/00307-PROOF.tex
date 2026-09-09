@@ -12,142 +12,170 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A300212: recovering a conjecture that is not written down}
+\title{Every term of OEIS A393856 is congruent to $1$ modulo $5$}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{2 September 2026}
+\date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A300212 records ``Empirical recurrence of order $89$'', with the recurrence itself in a
-linked file rather than in the entry. The conjecture can nevertheless be settled, and the
-recurrence recovered, without reading that file. The entry counts arrays under a condition
-local to a bounded window of lines, so the count is a walk count on $S=1024$ vertices and
-satisfies some monic recurrence of order at most $S$; Berlekamp--Massey applied to $2S$ exact
-terms therefore returns the MINIMAL such recurrence. Its order is exactly $89$, the order
-the entry states, and the same is true of every tail of the sequence. Any recurrence of order
-$89$ that the sequence satisfies from any point on must then have a characteristic
-polynomial that is a multiple of the minimal one and of the same degree, hence equal to it. So
-the entry's recurrence is the one displayed here, whatever its file contains, and it is
-proved.
+OEIS A393856 is defined by the functional equation $A\bigl(x-xA(4x)/4\bigr)=x$ for its
+ordinary generating function, and carries a conjecture of P.~D.~Hanna that every term is
+congruent to $1$ modulo $5$. It is true, and the reason is that $4\equiv-1$ modulo
+$5$. The functional equation determines the coefficients one at a time, so it determines
+them modulo $5$ as well; and modulo $5$ the series $x/(1-x)$, all of whose coefficients
+are $1$, satisfies the equation exactly. Uniqueness then forces $A(x)\equiv x/(1-x)$, which
+is the conjecture. The argument is an identity between rational functions over
+$\mathbb{Z}/5\mathbb{Z}$ and involves no estimation and no truncation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 11B50, 05A15, 13F25.\normalsize
 
-\section{A conjecture one cannot read}
+\section{The sequence and the conjecture}
 
-OEIS A300212 is ``Number of n X 5 0..1 arrays with every element equal to 0, 1, 2, 3, 4, 5, 7 or 8 king-move adjacent elements, with upper left element zero.''. It has offset $1$ and begins
+OEIS A393856 is ``G.f. A(x) satisfies: A( x - x*A(4*x)/4 ) = x.''. It has offset $1$ and begins
 \[
-16, 512, 11965, 298600, 7452385, 186427449, 4666136435, 116802113451,\ \dots
+1, 1, 6, 121, 8466, 2227706,\ \dots
 \]
-The entry states:
-\begin{quote}
-Empirical recurrence of order 89 (see link above).
+So, writing $A(x)=\sum_{n\ge1}a(n)x^{n}$, the entry defines $A$ by
+\begin{equation}\label{eq:fe}
+A\!\left(x-\frac{x\,A(4x)}{4}\right)\;=\;x .
+\end{equation}
+This is the only input taken from the entry.
+
+The entry separately carries the following comment:
+\begin{quote}\small
+Conjecture: a(n) == 1 (mod 5) for n >= 1.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Dec 27 2023 21:09:46, revision 6) this is still
-recorded as empirical. The recurrence's coefficients are not in the entry text.
+As of the ``Last modified'' line on the live entry (Mar 12 2026 10:39:38, revision 14) the statement is
+still recorded as a conjecture, and nothing on the entry records it as settled either way.
 
-\section{The count is a walk count}
+Written out, the conjecture asserts
+\begin{equation}\label{eq:conj}
+a(n)\;\equiv\;1 \pmod{5}\qquad\text{for every } n\ge1 .
+\end{equation}
 
-The entry's condition is local: it constrains a bounded window of consecutive lines of the
-array and nothing further. The admissible configurations of one such window are the vertices
-of a finite digraph, an edge joining $u$ to $v$ when $v$ may follow $u$, and an admissible
-array is exactly a walk. Hence, with $M$ the adjacency matrix on $S=1024$ vertices,
-$a(n)=\iota^{\!\top}M^{\,j(n)}\tau$ for a linear reindexing $j$ fixed by the entry's shape
-and checked against its published terms. By the Cayley--Hamilton theorem $M^{S}$ is an
-integer combination of $I,M,\dots,M^{S-1}$, so:
+\section{The equation determines the sequence}
 
-\begin{lemma}\label{lem:cf}
-$a$ satisfies a monic linear recurrence with integer coefficients of order at most $S=1024$.
+It is convenient to clear the division. Since $A$ has no constant term,
+\begin{equation}\label{eq:B}
+B(x)\;:=\;x-\frac{x\,A(4x)}{4}\;=\;x-\sum_{n\ge1}a(n)\,4^{\,n-1}x^{n+1},
+\end{equation}
+so $B$ has integer coefficients even though \eqref{eq:fe} appears to divide by $4$.
+
+\begin{lemma}\label{lem:unique}
+There is exactly one sequence of integers $a(1),a(2),\dots$ satisfying \eqref{eq:fe}, and
+it is given by $a(1)=1$ together with
+\begin{equation}\label{eq:rec}
+a(N)\;=\;-\sum_{j=1}^{N-1}a(j)\,\bigl[x^{N}\bigr]B(x)^{j}\qquad(N\ge2),
+\end{equation}
+in which the right-hand side depends only on $a(1),\dots,a(N-1)$.
 \end{lemma}
 
-\section{Recovering the recurrence}
-
-\begin{lemma}\label{lem:bm}
-A sequence known to satisfy some linear recurrence of order at most $S$ is determined, together
-with its minimal recurrence, by its first $2S$ terms: Berlekamp--Massey applied to them returns
-that minimal recurrence exactly.
-\end{lemma}
-
-Running it on $2S=2048$ exact terms of the model returns order $89$ --- the order the
-entry states --- with the integer coefficients
+\begin{proof}
+$B(x)=x+O(x^{2})$, so $B$ has a compositional inverse and $\bigl[x^{j}\bigr]B^{j}=1$
+while $\bigl[x^{N}\bigr]B^{j}=0$ for $N<j$. Expanding \eqref{eq:fe},
 \[
-a(n)\;=\;\sum_{i=1}^{89}c_i\,a(n-i),
+x\;=\;A\bigl(B(x)\bigr)\;=\;\sum_{j\ge1}a(j)\,B(x)^{j} .
 \]
-\begin{center}\small
-\begin{tabular}{cccccccc}
-$c_{1}$ & $28$ & $c_{24}$ & $219186730623284$ & $c_{47}$ & $1856199584570583$ & $c_{70}$ & $-112498395158512200$ \\
-$c_{2}$ & $-45$ & $c_{25}$ & $279714431374639$ & $c_{48}$ & $15599535129557728$ & $c_{71}$ & $-87786579733391139$ \\
-$c_{3}$ & $-539$ & $c_{26}$ & $-456943921700101$ & $c_{49}$ & $-58990789953403560$ & $c_{72}$ & $-61830687238141749$ \\
-$c_{4}$ & $-5727$ & $c_{27}$ & $-2037988131019345$ & $c_{50}$ & $-213637267629605718$ & $c_{73}$ & $-42597175062109567$ \\
-$c_{5}$ & $17612$ & $c_{28}$ & $-2144062503860278$ & $c_{51}$ & $-326724158151554380$ & $c_{74}$ & $-30626563990568297$ \\
-$c_{6}$ & $107931$ & $c_{29}$ & $2881665746954329$ & $c_{52}$ & $-190289423965888208$ & $c_{75}$ & $-22688961809118377$ \\
-$c_{7}$ & $98450$ & $c_{30}$ & $10871966028596660$ & $c_{53}$ & $245085644636661070$ & $c_{76}$ & $-13632604370769026$ \\
-$c_{8}$ & $-1233830$ & $c_{31}$ & $9571915503884741$ & $c_{54}$ & $606796817198249956$ & $c_{77}$ & $-5544943544294921$ \\
-$c_{9}$ & $97107$ & $c_{32}$ & $-10188045423486889$ & $c_{55}$ & $514487267440408529$ & $c_{78}$ & $-955955997162154$ \\
-$c_{10}$ & $19699825$ & $c_{33}$ & $-32431780266021529$ & $c_{56}$ & $-91900330673284523$ & $c_{79}$ & $547885666733060$ \\
-$c_{11}$ & $-25571306$ & $c_{34}$ & $-24359136369854826$ & $c_{57}$ & $-816914800972198759$ & $c_{80}$ & $486452182452806$ \\
-$c_{12}$ & $-422400144$ & $c_{35}$ & $15143157788069771$ & $c_{58}$ & $-974432394219237855$ & $c_{81}$ & $171126295603554$ \\
-$c_{13}$ & $-825313677$ & $c_{36}$ & $44049150186563090$ & $c_{59}$ & $-362350125674436035$ & $c_{82}$ & $21066338746732$ \\
-$c_{14}$ & $3096169879$ & $c_{37}$ & $36985968064372038$ & $c_{60}$ & $442932390954453991$ & $c_{83}$ & $-7780505205944$ \\
-$c_{15}$ & $10721092002$ & $c_{38}$ & $23854115225444654$ & $c_{61}$ & $803281588286135066$ & $c_{84}$ & $-3612283597668$ \\
-$c_{16}$ & $-4441090770$ & $c_{39}$ & $11629508067902933$ & $c_{62}$ & $619708665743035237$ & $c_{85}$ & $-376217041156$ \\
-$c_{17}$ & $-37150843169$ & $c_{40}$ & $-46974844098783720$ & $c_{63}$ & $133842339674672917$ & $c_{86}$ & $66370731696$ \\
-$c_{18}$ & $207479768960$ & $c_{41}$ & $-134568745073659908$ & $c_{64}$ & $-124770235729814417$ & $c_{87}$ & $18368847424$ \\
-$c_{19}$ & $847356185047$ & $c_{42}$ & $-117069966571638622$ & $c_{65}$ & $-24853844986192025$ & $c_{88}$ & $1309845504$ \\
-$c_{20}$ & $-1246443458558$ & $c_{43}$ & $49643135720133134$ & $c_{66}$ & $82736831691617119$ & $c_{89}$ & $21659136$ \\
-$c_{21}$ & $-12350649455577$ & $c_{44}$ & $179029307719103428$ & $c_{67}$ & $30246151187339881$ &  &  \\
-$c_{22}$ & $-21378455531454$ & $c_{45}$ & $142206020041161488$ & $c_{68}$ & $-53216719747644389$ &  &  \\
-$c_{23}$ & $39036807287787$ & $c_{46}$ & $31577742415503271$ & $c_{69}$ & $-103221773085248235$ &  &  \\
-\end{tabular}
-\end{center}
+Comparing coefficients of $x^{1}$ gives $a(1)=1$. For $N\ge2$, comparing coefficients of
+$x^{N}$ gives
+\[
+0\;=\;\sum_{j=1}^{N}a(j)\,\bigl[x^{N}\bigr]B^{j}
+\;=\;a(N)+\sum_{j=1}^{N-1}a(j)\,\bigl[x^{N}\bigr]B^{j},
+\]
+since the $j=N$ term contributes $a(N)\cdot1$. This is \eqref{eq:rec}. For the dependence
+claim: by \eqref{eq:B}, $\bigl[x^{i}\bigr]B$ involves only $a(i-1)$, so
+$\bigl[x^{N}\bigr]B^{j}$ involves only $a(1),\dots,a(N-1)$ for every $j\ge1$. Hence
+\eqref{eq:rec} determines $a(N)$ from its predecessors, and induction gives both existence
+and uniqueness.
+\end{proof}
 
-\begin{theorem}
-The recurrence above holds for every $n$, and it is the recurrence the entry records.
+\begin{corollary}\label{cor:mod}
+For any integer $k\ge2$, the reductions $a(n)\bmod k$ are determined by the same recursion
+read in $\mathbb{Z}/k\mathbb{Z}$. Consequently, if $\bar A(x)\in(\mathbb{Z}/k\mathbb{Z})[[x]]$ has
+$\bar A(x)=x+O(x^{2})$ and satisfies \eqref{eq:fe} with coefficients read modulo $k$, then
+$a(n)\equiv\bigl[x^{n}\bigr]\bar A(x) \pmod k$ for every $n$.
+\end{corollary}
+
+\begin{proof}
+Every operation in \eqref{eq:B} and \eqref{eq:rec} is a sum or product of integers, so
+reduction modulo $k$ is a ring homomorphism carrying the integer recursion to the same
+recursion over $\mathbb{Z}/k\mathbb{Z}$. That recursion has a unique solution, by the argument of
+Lemma~\ref{lem:unique} verbatim; both $a\bmod k$ and $\bar A$ solve it.
+\end{proof}
+
+\section{The reduction modulo $5$}
+
+Everything now happens in $(\mathbb{Z}/5\mathbb{Z})[[x]]$. The one fact that drives the proof is
+\begin{equation}\label{eq:minus}
+4\;\equiv\;-1 \pmod{5} .
+\end{equation}
+
+\begin{theorem}\label{thm:main}
+$a(n)\equiv1\pmod{5}$ for every $n\ge1$. This is the conjecture of Section~1.
 \end{theorem}
 
 \begin{proof}
-It holds by Lemma~\ref{lem:bm}, which returns a recurrence the sequence satisfies from its
-first term. For the identification: the entry asserts that the sequence satisfies SOME
-recurrence of order $89$, possibly only from some index on. Let $q$ be that recurrence's
-characteristic polynomial and $q_{\min}$ the minimal polynomial of the tail of the sequence.
-Then $q_{\min}\mid q$. Berlekamp--Massey run on the sequence with its first $89+4$ terms
-removed returns order $89$ as well, so $\deg q_{\min}=89=\deg q$; both are monic, so
-$q=q_{\min}$, which is the polynomial computed above.
+Let $\bar A(x)=\dfrac{x}{1-x}=\sum_{n\ge1}x^{n}$ in $(\mathbb{Z}/5\mathbb{Z})[[x]]$, so all its
+coefficients are $1$ and $\bar A(x)=x+O(x^{2})$. By Corollary~\ref{cor:mod} it suffices to
+check that $\bar A$ satisfies \eqref{eq:fe} modulo $5$.
+
+Form $\bar B$ from $\bar A$ by \eqref{eq:B}. Its coefficients are
+$\bigl[x^{n+1}\bigr]\bar B=-4^{\,n-1}$, and by \eqref{eq:minus}
+$4^{\,n-1}\equiv(-1)^{n-1}$, so
+\[
+\bar B(x)\;=\;x-\sum_{n\ge1}(-1)^{n-1}x^{n+1}
+\;=\;x-x\sum_{n\ge1}(-1)^{n-1}x^{n}
+\;=\;x-x\cdot\frac{x}{1+x}
+\;=\;\frac{x}{1+x} .
+\]
+Composing,
+\[
+\bar A\bigl(\bar B(x)\bigr)\;=\;\frac{\dfrac{x}{1+x}}{1-\dfrac{x}{1+x}}
+\;=\;\frac{\dfrac{x}{1+x}}{\dfrac{(1+x)-x}{1+x}}
+\;=\;\frac{x}{1+x}\cdot\frac{1+x}{1}\;=\;x .
+\]
+Both compositions are legitimate because $\bar B(x)=x+O(x^{2})$ has zero constant term.
+So $\bar A$ satisfies \eqref{eq:fe} modulo $5$, and Corollary~\ref{cor:mod} gives
+$a(n)\equiv\bigl[x^{n}\bigr]\bar A=1\pmod{5}$ for every $n\ge1$.
 \end{proof}
+
+\begin{remark}
+The proof used nothing about $4$ beyond \eqref{eq:minus}. The same argument shows that
+for every integer $m\ge2$, the sequence defined by $A\bigl(x-xA(mx)/m\bigr)=x$ has all of
+its terms congruent to $1$ modulo $m+1$. Note also where the hypothesis bites: modulo $k$
+the quantity $4^{\,n-1}$ must be $(-1)^{n-1}$ for the telescoping above, and that is
+exactly \eqref{eq:minus}.
+\end{remark}
 
 \section{Verification}
 
-Three checks.
+Three checks, each independent of the algebra above.
 
-First, the walk model reproduces all $15$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry, and it is the only place where reading
-the entry's English enters.
+First, the recursion \eqref{eq:rec} was run in exact integer arithmetic and its output
+compared against the entry's DATA at every one of the $15$ published indices; the
+values agree exactly. A recursion that reproduced only some of them would mean the
+functional equation had been transcribed wrongly.
 
-Second, the recovered recurrence was evaluated directly on those published terms, with no
-matrices and no Berlekamp--Massey involved, and holds at every index where the entry gives
-enough earlier terms to test it.
+Second, the same run was continued to $n=24$ and every term reduced modulo $5$; all
+$24$ residues are $1$, as Theorem~\ref{thm:main} requires.
 
-Third, the order was computed twice by independent routes: once modulo a $61$-bit prime, where
-every intermediate is a machine word, and once in exact rational arithmetic; and once more on
-the sequence with its first $89+4$ terms removed, which is what the identification above
-requires. All three agree.
-
-\begin{remark}
-What is unusual here is that the conjecture's statement was never read. The entry pins it down
-to a one-parameter family --- the recurrences of order $89$ that this sequence satisfies
---- and that family turns out to have exactly one member.
-\end{remark}
+Third, the composition $\bar A\bigl(\bar B(x)\bigr)$ of the proof was carried out
+independently as a formal power series over $\mathbb{Z}/5\mathbb{Z}$, coefficient by
+coefficient to order $30$, starting from $\bar a(n)=1$ rather than from the closed form;
+the result is $x$ exactly, and the computed $\bar B$ agrees with $x/(1+x)$ at every one of
+those orders.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A300212.
-\bibitem{massey} J.~L.~Massey, Shift-register synthesis and BCH decoding, \emph{IEEE
-Trans. Inform. Theory} \textbf{15} (1969), 122--127.
-\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
-University Press, 2013.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A393856.
+\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 2, Cambridge
+University Press, 1999.
+\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+University Press, 2009.
+\bibitem{hw} G.~H.~Hardy and E.~M.~Wright, \emph{An Introduction to the Theory of
+Numbers}, 6th ed., Oxford University Press, 2008.
 \end{thebibliography}
 
 \end{document}

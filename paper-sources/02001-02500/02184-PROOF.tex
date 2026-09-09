@@ -12,88 +12,91 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A205610, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A262467, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{7 September 2026}
+\date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A205610 counts, up to renaming the letters, the arrays of width $3$ over at most $4$
-letters in which horizontally neighbouring $2\times2$ subblocks have the same number of equal edges and vertically neighbouring ones have different numbers. It carries an empirical recurrence of order $14$ contributed by
-R.~H.~Hardin. It is true, and it is decidable rather than empirical. Counting up to renaming is
-a fixed rational combination of ordinary array counts, each of those is a walk count, and the
-conjectured recurrence is then settled by a finite exact computation.
+OEIS A262467 counts arrays of width $4$ over $\{0,1\}$ whose rows, read as base-$2$
+numbers, are divisible by $3$ and whose columns, read the same way, are divisible by
+$5$. The entry carries an empirical recurrence of order $15$ contributed by
+R.~H.~Hardin. It is true, and it is decidable rather than empirical. A column's value depends on
+every row of the array, so the condition is not local; but its RESIDUE is built one row at a
+time by Horner's rule, and the vector of column residues is a state of bounded size. The count
+is then a walk count on $S=125$ states.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A18, 05B45.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 11A63, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A205610 is ``Number of 3 X (n+1) 0..3 arrays with every 2 X 2 subblock having the same number of equal edges as its horizontal neighbors and a different number from its vertical neighbors, and new values 0..3 introduced in row major order.''. It has offset $1$ and begins
+OEIS A262467 is ``Number of (n+1)X(3+1) 0..1 arrays with each row divisible by 3 and each column divisible by 5, read as a binary number with top and left being the most significant bits.''. It has offset $1$ and begins
 \[
-110, 1030, 9688, 95564, 946066, 9502090, 96151010, 982430426,\ \dots
+1, 6, 36, 115, 469, 2622, 15732, 85723,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 17*a(n-1) +31*a(n-2) -1380*a(n-3) +24*a(n-4) +37716*a(n-5) +28069*a(n-6) -327857*a(n-7) -359875*a(n-8) +1111408*a(n-9) +1460528*a(n-10) -1281648*a(n-11) -2003792*a(n-12) +11264*a(n-13) +365568*a(n-14).
+Empirical: a(n) = 11*a(n-1) -49*a(n-2) +179*a(n-3) -382*a(n-4) -478*a(n-5) +4682*a(n-6) -20542*a(n-7) +61367*a(n-8) -104077*a(n-9) +152183*a(n-10) -136453*a(n-11) -60984*a(n-12) +104544*a(n-13) -156816*a(n-14) +156816*a(n-15)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Mar 20 2022 23:39:17, revision 7) this is still
+As of the ``Last modified'' line on the live entry (Sep 23 2015 18:48:15, revision 4) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The condition is that horizontally neighbouring $2\times2$ subblocks have the same number of equal edges and vertically neighbouring ones have different numbers.
-
-The clause ``new values $0..3$ introduced in row major order'' says the array is the
-canonical representative of its EQUALITY PATTERN, so what is counted is patterns, not arrays.
-Write $N_j$ for the number of admissible patterns using exactly $j$ letters and $L_i$ for the
-number of admissible arrays over an alphabet of $i$ letters. An array over $i$ letters is a
-pattern together with an injection of its letters into the alphabet, so
+The array has $4$ cells across and entries $x(i,j)\in\{0,1\}$, the digits of
+base $2$. Row $i$ of an array with $R$ rows is the number
 \[
-L_i\;=\;\sum_j N_j\,i(i-1)\cdots(i-j+1),
+\rho_i\;=\;\sum_{j=1}^{4}x(i,j)\,2^{4-j} ,
 \]
-a triangular system with unit diagonal, hence invertible over $\mathbf{Q}$. The entry counts
-$a=N_1+\dots+N_{4}$, so
+the LEFT digit being the most significant, and column $j$ is
 \[
-a\;=\;\sum_{i=1}^{4}w_i\,L_i
+\gamma_j\;=\;\sum_{i=1}^{R}x(i,j)\,2^{R-i} ,
 \]
-for one fixed rational vector $w=\mathbf{1}^{\!\top}F^{-1}$, $F$ the matrix of falling
-factorials.
+the TOP digit being the most significant. The entry asks that every $\rho_i$ be divisible by
+$3$ and every $\gamma_j$ be divisible by $5$.
 
-\section{Why the reduction is allowed here}
 
-The step above is legitimate only if the condition is invariant under permuting the alphabet,
-and in this family that is a real restriction rather than a formality. An \emph{equal edge}
-is an edge of a subblock whose two cells carry the same letter; whether two cells agree is
-untouched by any renaming, so every condition built from counting equal edges is invariant and
-the reduction applies.
+\section{Column residues by Horner's rule}
 
-The neighbouring conditions of the same family that count \emph{increases} --- how many steps
-of a subblock's perimeter cycle go UP in value --- are not invariant: they compare letters by
-size, and a permutation of the alphabet changes the count. Those entries are therefore excluded
-here rather than reduced, and are settled, when they are settled, over their own alphabet
-without the pattern step.
+The row condition is a condition on one row and is imposed as each row is chosen. The column
+condition is not local: $\gamma_j$ depends on every row. What is local is its residue.
 
-\section{Each $L_i$ is a walk count}
-
-For a fixed alphabet the condition is local: a $2\times2$ subblock is built from two
-consecutive array rows, a $2\times3$ or $3\times2$ window from two or three of them, and every
-comparison the entry makes is between subblocks that meet in the grid. Taking as state a single
-row where the condition looks at one subblock at a time, and the pair of consecutive rows where
-it compares neighbours, each $L_i$ is a walk count on its own digraph. Assembling,
+\begin{lemma}\label{lem:horner}
+Let $\gamma_j^{(i)}$ be the value of column $j$ of the first $i$ rows, read the same way.
+Then $\gamma_j^{(0)}=0$ and
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau
+\gamma_j^{(i)}\;=\;2\,\gamma_j^{(i-1)}+x(i,j),
+\qquad\text{hence}\qquad
+\gamma_j^{(i)}\bmod 5\;=\;
+\bigl(2\,(\gamma_j^{(i-1)}\bmod 5)+x(i,j)\bigr)\bmod 5 .
 \]
-on the disjoint union of those digraphs for $i=1,\dots,4$, with $\iota$ carrying the weights
-$w_i$ cleared of denominators and $S=2964$ states in all. The walk index $j$ and the entry's own
-$n$ differ by a constant, read off by matching the published terms rather than assumed. In
-particular $a$ is $C$-finite.
+\end{lemma}
+
+\begin{proof}
+Adding a row at the BOTTOM shifts every earlier digit one place up in significance, which is
+multiplication by $2$, and puts the new digit in the units place. Reduction modulo
+$5$ commutes with both operations.
+\end{proof}
+
+So the vector $\bigl(\gamma_1\bmod 5,\dots,\gamma_{4}\bmod
+5\bigr)$ is a state: at most $5^{4}$ of them, and each array row
+that satisfies the row condition carries one such vector to another. The walk starts at the
+all-zero vector, which is the empty array, and the END vector picks out the residue vectors in
+which every entry is divisible by $5$ --- so the end vector is not the all-ones
+vector, and the column condition is imposed once, at the end, exactly as the entry states it.
+With $M$ the adjacency matrix,
+\[
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=125.
+\]
+The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
+published terms rather than assumed. In particular $a$ is $C$-finite.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{14}-\sum_i c_it^{14-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{15}-\sum_i c_it^{15-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -101,7 +104,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+14}-\sum_ic_iM^{j+14-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+15}-\sum_ic_iM^{j+15-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -110,41 +113,43 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;17\,a(n-1) + 31\,a(n-2) - 1380\,a(n-3) + 24\,a(n-4) + 37716\,a(n-5) + 28069\,a(n-6) - 327857\,a(n-7) - 359875\,a(n-8) + 1111408\,a(n-9) + 1460528\,a(n-10) - 1281648\,a(n-11) - 2003792\,a(n-12) + 11264\,a(n-13) + 365568\,a(n-14)
+a(n)\;=\;11\,a(n-1) - 49\,a(n-2) + 179\,a(n-3) - 382\,a(n-4) - 478\,a(n-5) + 4682\,a(n-6) - 20542\,a(n-7) + 61367\,a(n-8) - 104077\,a(n-9) + 152183\,a(n-10) - 136453\,a(n-11) - 60984\,a(n-12) + 104544\,a(n-13) - 156816\,a(n-14) + 156816\,a(n-15)
 \]
-for every $n>14$.
+for every $n>13$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $14$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $15$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=14+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once. The
-rational weights are cleared by a common denominator first, so the whole computation is over
-the integers.
+integers vanish from the index corresponding to $n=13+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
-Three checks, each independent of the algebra above.
+Four checks, each independent of the algebra above.
 
-First, the model reproduces all $16$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry: the digraph is built by reading the
-entry's English, and a misreading gives different counts.
+First, the model reproduces all $21$ terms the entry publishes, exactly, in integer
+arithmetic.
 
-Second, the conjectured recurrence was evaluated directly on those published terms, with no
+Second, the count was recomputed for the smallest arrays straight from the definition:
+enumerate every array of that size, turn each row and each column into a base-$2$ number with
+the first digit most significant, and test the divisibility directly. Neither Horner's rule nor
+any residue state is involved, and the published terms came back.
+
+Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
 arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A205610.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A262467.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{comtet} L.~Comtet, \emph{Advanced Combinatorics}, Reidel, 1974. (Set partitions
-and falling factorials.)
+\bibitem{knuth} D.~E.~Knuth, \emph{The Art of Computer Programming}, Volume 2, 3rd ed.,
+Addison--Wesley, 1997. (Evaluation of polynomials, Section 4.6.4.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

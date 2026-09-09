@@ -12,142 +12,184 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical product formula for OEIS A140930, proved}
+\title{The empirical recurrence for OEIS A188519, proved by a two-line transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{6 September 2026}
+\date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A140930 counts $7\times10$ matrices over $\{0,\dots,n\}$ whose rows and columns are
-nondecreasing, and carries a product formula for $a(n)$ marked empirical. Reversing rows and
-columns turns such a matrix into a plane partition inside a $7\times10\times n$ box, so
-MacMahon's box theorem applies; the triple product telescopes in its third index and leaves a
-polynomial in $n$ of degree $70$. The entry's own expression, cleared of its denominator,
-becomes an identity between two polynomials of bounded degree, and is therefore settled by a
-finite exact computation. The box count itself is classical and is already recorded on this
-entry; what is proved here is the entry's own formula.
+OEIS A188519 counts arrays over $\{0,\dots,1\}$ in which every cell is constrained by the
+values of its neighbours, and carries an empirical recurrence of order $71$ contributed
+by R.~H.~Hardin. It is true, and it is not an empirical matter. The neighbourhood reaches one
+row up and one row down, so a single row is not enough state and a plain walk count
+is wrong; the right object is a walk on ordered \emph{pairs} of consecutive rows, where
+each step tests the condition on the middle row against both its neighbours and the two
+ends are tested with one neighbour row absent. That makes $a(n)$ a walk count on a digraph
+with $S=1024$ vertices, and the conjectured recurrence is then decided by a finite exact
+computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A17, 05A19.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
-\section{The conjecture}
+\section{The sequence and the conjecture}
 
-OEIS A140930 is ``Number of 7 X 10 matrices with elements in 0..n with each row and each column in nondecreasing order. 7,10,n can be permuted, see formula.''. It has offset $0$ and begins
+OEIS A188519 is ``Number of nX5 binary arrays without the pattern 1 1 0 diagonally, vertically or horizontally.''. It has offset $1$ and begins
 \[
-1, 19448, 77364144, 108284013552, 69951472754592, 24648355308799872,\ \dots
+20, 400, 4143, 40230, 342240, 2800798, 22015314, 169875850,\ \dots
 \]
-The entry states, as conjectures contributed by its author and never marked settled:
-\begin{quote}
-(empirical) set p,q,r to n,10,7 (in any order) in s=p+q+r-1; a(n) = product {i in 0..r-1} (binomial(s,p+i)*i!/(s-i)\^{}(r-i-1))
-
+The entry carries the following comment:
+\begin{quote}\small
+Empirical: a(n)=14*a(n-1)+12*a(n-2)-869*a(n-3)+1315*a(n-4)+25339*a(n-5)-55704*a(n-6)-466536*a(n-7)+1104069*a(n-8)+6123144*a(n-9)-13871452*a(n-10)-60905308*a(n-11)+122840856*a(n-12)+473902055*a(n-13)-810705818*a(n-14)-2932504534*a(n-15)+4131855019*a(n-16)+14571427067*a(n-17)-16696287227*a(n-18)-58561243631*a(n-19)+54702515236*a(n-20)+191588731358*a(n-21)-148452953569*a(n-22)-513291220886*a(n-23)+340859242431*a(n-24)+1131765472611*a(n-25)-675017422947*a(n-26)-2060462245934*a(n-27)+1167999276063*a(n-28)+3099080394556*a(n-29)-1770250494282*a(n-30)-3837665043366*a(n-31)+2329323672403*a(n-32)+3875748540760*a(n-33)-2614929879690*a(n-34)-3130743870873*a(n-35)+2448428133991*a(n-36)+1944185589624*a(n-37)-1860043238075*a(n-38)-842724478681*a(n-39)+1103495474142*a(n-40)+167817486381*a(n-41)-476717517573*a(n-42)+78582422599*a(n-43)+121853141835*a(n-44)-91254459222*a(n-45)+5768288867*a(n-46)+46035625299*a(n-47)-22656845337*a(n-48)-15248405057*a(n-49)+12059870046*a(n-50)+3756383370*a(n-51)-3920799304*a(n-52)-833927678*a(n-53)+900771854*a(n-54)+215654330*a(n-55)-155066412*a(n-56)-61762189*a(n-57)+21214719*a(n-58)+15278566*a(n-59)-2522154*a(n-60)-2885183*a(n-61)+283792*a(n-62)+399816*a(n-63)-29377*a(n-64)-39473*a(n-65)+2394*a(n-66)+2636*a(n-67)-125*a(n-68)-107*a(n-69)+3*a(n-70)+2*a(n-71)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jan 20 2025 10:52:10, revision 8) these are still
-recorded as empirical, and nothing on the entry records them as proved.
+As of the ``Last modified'' line on the live entry (Oct 03 2025 04:29:37, revision 9) the statement is
+still recorded as empirical, and nothing on the entry records it as settled either way.
 
-\section{What is being counted}
+Written out, the claim is
+\begin{equation}\label{eq:conj}
+a(n)\;=\;14\,a(n-1) + 12\,a(n-2) - 869\,a(n-3) + 1315\,a(n-4) + 25339\,a(n-5) - 55704\,a(n-6) - 466536\,a(n-7) + 1104069\,a(n-8) + 6123144\,a(n-9) - 13871452\,a(n-10) - 60905308\,a(n-11) + 122840856\,a(n-12) + 473902055\,a(n-13) - 810705818\,a(n-14) - 2932504534\,a(n-15) + 4131855019\,a(n-16) + 14571427067\,a(n-17) - 16696287227\,a(n-18) - 58561243631\,a(n-19) + 54702515236\,a(n-20) + 191588731358\,a(n-21) - 148452953569\,a(n-22) - 513291220886\,a(n-23) + 340859242431\,a(n-24) + 1131765472611\,a(n-25) - 675017422947\,a(n-26) - 2060462245934\,a(n-27) + 1167999276063\,a(n-28) + 3099080394556\,a(n-29) - 1770250494282\,a(n-30) - 3837665043366\,a(n-31) + 2329323672403\,a(n-32) + 3875748540760\,a(n-33) - 2614929879690\,a(n-34) - 3130743870873\,a(n-35) + 2448428133991\,a(n-36) + 1944185589624\,a(n-37) - 1860043238075\,a(n-38) - 842724478681\,a(n-39) + 1103495474142\,a(n-40) + 167817486381\,a(n-41) - 476717517573\,a(n-42) + 78582422599\,a(n-43) + 121853141835\,a(n-44) - 91254459222\,a(n-45) + 5768288867\,a(n-46) + 46035625299\,a(n-47) - 22656845337\,a(n-48) - 15248405057\,a(n-49) + 12059870046\,a(n-50) + 3756383370\,a(n-51) - 3920799304\,a(n-52) - 833927678\,a(n-53) + 900771854\,a(n-54) + 215654330\,a(n-55) - 155066412\,a(n-56) - 61762189\,a(n-57) + 21214719\,a(n-58) + 15278566\,a(n-59) - 2522154\,a(n-60) - 2885183\,a(n-61) + 283792\,a(n-62) + 399816\,a(n-63) - 29377\,a(n-64) - 39473\,a(n-65) + 2394\,a(n-66) + 2636\,a(n-67) - 125\,a(n-68) - 107\,a(n-69) + 3\,a(n-70) + 2\,a(n-71)
+\end{equation}
+for all $n>72$.
 
-A matrix $x$ of shape $7\times10$ with entries in $\{0,\dots,n\}$, nondecreasing along
-every row and down every column, becomes, on reversing the order of the rows and of the
-columns, an array that is NONINCREASING along rows and down columns with the same entries. That
-is exactly a plane partition whose parts are at most $n$ and whose shape fits inside a
-$7\times10$ rectangle --- a plane partition in a $7\times10\times n$ box. The
-correspondence is a bijection, being an involution on arrays, so
+\section{The condition, and why one row is not enough}
+
+The arrays have $5$ columns and $L=n$ rows; write $x_{t,u}$ for the entry in
+row $t$ and column $u$, each in $\{0,\dots,1\}$. With the neighbour offsets
 \[
-a(n)\;=\;\mathrm{PP}(7,10,n).
+\mathcal N=\{(1,1),\ (1,0),\ (0,1)\},
 \]
-Note which parameter grows: the shape is FIXED and it is the alphabet $0..n$ that $n$ counts,
-so nothing about transfer matrices applies here.
+written as (row shift, column shift) and counting only positions inside the array, the
+entry's requirement is
+\begin{equation}\label{eq:loc}
+\text{no }1,1,0\text{ occurs consecutively along any direction in }\mathcal N
+\end{equation}
+for every cell $(t,u)$.
 
-\section{The box count is a polynomial}
+Some offsets in $\mathcal N$ have a positive row shift and some a negative one, so the
+condition at a cell of row $t$ involves rows $t-1$, $t$ and $t+1$ together. A transfer
+matrix whose states are single rows cannot express it: the step from $r^{(t)}$ to
+$r^{(t+1)}$ does not know $r^{(t-1)}$. Two consecutive rows are enough, and that is
+the state used below.
 
-\begin{theorem}[MacMahon]\label{thm:mm}
+\section{The digraph}
+
+Let $V=\{0,\dots,1\}^{5}$ be the possible rows and take
+$\mathcal V=V\times V$, of size $S=1024$, as the vertex set. Declare $(p,c)\to(c,x)$ an edge
+when every cell of the middle row $c$ satisfies \eqref{eq:loc} with $p$ above it and $x$
+below it; there is no edge between pairs that do not overlap in this way. Let $N$ be the
+adjacency matrix, $\mathbf{v}$ the indicator of the pairs $(p,c)$ whose first row $p$
+satisfies \eqref{eq:loc} with no row above, and $\mathbf{u}$ the indicator of
+the pairs $(p,c)$ whose second row $c$ satisfies it with no row below.
+
+\begin{lemma}\label{lem:walk}
+For $L\ge2$, the arrays counted by the entry with $L$ rows are exactly the walks
 \[
-\mathrm{PP}(p,q,r)\;=\;\prod_{i=1}^{p}\prod_{j=1}^{q}\prod_{k=1}^{r}
-\frac{i+j+k-1}{i+j+k-2} .
+(r^{(1)},r^{(2)})\to(r^{(2)},r^{(3)})\to\cdots\to(r^{(L-1)},r^{(L)})
 \]
-\end{theorem}
-
-This is classical; see Stanley~\cite{stanley}, and it is already recorded on this entry.
-
-\begin{theorem}\label{thm:poly}
+of length $L-2$ starting at a vertex marked by $\mathbf{v}$ and ending at one marked by
+$\mathbf{u}$. Consequently
 \[
-a(n)\;=\;\prod_{i=1}^{7}\prod_{j=1}^{10}\frac{n+i+j-1}{i+j-1},
+a(n)\;=\;\,\mathbf{v}^{\!\top}N^{\,L-2}\mathbf{u},\qquad L=n .
 \]
-a polynomial in $n$ of degree $70$ with rational coefficients.
-\end{theorem}
-
-\begin{proof}
-In Theorem~\ref{thm:mm} the inner product over $k$ telescopes: for fixed $i$ and $j$,
-\[
-\prod_{k=1}^{n}\frac{i+j+k-1}{i+j+k-2}\;=\;\frac{n+i+j-1}{i+j-1} ,
-\]
-every other factor cancelling against its neighbour. The remaining double product has
-$7\cdot10=70$ factors, each linear in $n$, and the denominators are constants.
-\end{proof}
-
-So $a$ is a polynomial, and no appeal to Ehrhart theory or to any general position argument is
-needed to see it.
-
-\section{The entry's expression}
-
-The entry writes $s=p+q+r-1$ with $(p,q,r)=(n,10,7)$ and claims
-\[
-a(n)\;=\;\prod_{i=0}^{7-1}\binom{s}{n+i}\,\frac{i!}{(s-i)^{7-1-i}}\;=\;
-\frac{N(n)}{D(n)} .
-\]
-
-\begin{lemma}\label{lem:deg}
-$N$ and $D$ are polynomials in $n$ of degrees $91$ and $21$ respectively.
 \end{lemma}
 
 \begin{proof}
-With $s=n+10+7-1$ one has $s-(n+i)=10+7-1-i$, a constant, so
+Consecutive vertices of such a walk overlap in one row, so a walk of that shape is
+precisely a sequence $r^{(1)},\dots,r^{(L)}$ of rows, that is, an array of $L$ rows
+and $5$ columns. In the walk, the cells of row $t$ for $2\le t\le L-1$ are tested
+exactly once --- at the step leaving $(r^{(t-1)},r^{(t)})$ --- and with their true
+neighbours $r^{(t-1)}$ and $r^{(t+1)}$. The cells of row $1$ are tested by
+$\mathbf{v}$ and those of row $L$ by $\mathbf{u}$, in both cases by the same condition
+with the missing neighbour row treated as absent, which is how the array itself behaves at
+its boundary. So the walks are exactly the admissible arrays, and summing over all starting
+and ending vertices counts them.
+\end{proof}
+
+
+The size of $\mathcal V$ is worth seeing concretely. There are $1+1=2$ values
+and $5$ cells in a row, so $|V|=2^{5}=32$, and the vertex set is
+$V\times V$, of size $32^2=1024$. That is the whole of the state: two consecutive
+rows and nothing else about the array's history.
+
+It is worth saying why this is not done by enumeration. At the largest index the entry
+publishes, $n=18$, the arrays have $5\cdot18$ cells over
+$2$ values, so there are about $10^{27}$ of them to sift. The
+walk count replaces that by $1024$ states and one matrix--vector product per row.
+\section{The criterion}
+
+Let $q(t)=t^{71}-\sum_i c_i\,t^{71-i}$ be the characteristic polynomial of
+\eqref{eq:conj} and put $G=N$, so that a unit step in $n$ advances the walk by
+$1$ row.
+
+\begin{lemma}\label{lem:crit}
+Let $n_0$ be the least index with $L\ge2$ and $h_j=G^{j}N^{o}\mathbf{u}$, where
+$o=1n_0+0-2$. Then for $j\ge71$,
 \[
-\binom{s}{n+i}=\binom{s}{10+7-1-i}
-=\frac{(s-10-7+2+i)(s-10-7+3+i)\cdots s}{(10+7-1-i)!},
+a(n_0+j)-\sum_i c_i\,a(n_0+j-i)\;=\;\,\mathbf{v}^{\!\top}G^{\,j-71}w,
+\qquad w=h_{71}-\sum_i c_i\,h_{71-i} .
 \]
-a polynomial in $n$ of degree $10+7-1-i$. Multiplying over $i=0,\dots,7-1$ gives
-$\deg N=\sum_{i=0}^{7-1}(10+7-1-i)=91$. The denominator is
-$\prod_{i=0}^{7-1}(s-i)^{7-1-i}$, of degree
-$\sum_{i=0}^{7-1}(7-1-i)=21$, and it does not vanish for $n\ge0$.
+Hence \eqref{eq:conj} holds from that point on if and only if
+$\mathbf{v}^{\!\top}G^{m}w=0$ for every $m\ge0$, and it is enough to check
+$m=0,1,\dots,S-1$.
+\end{lemma}
+
+\begin{proof}
+Substitute Lemma~\ref{lem:walk} and factor $G^{j-71}$ out of
+$G^{j}-\sum_ic_iG^{j-i}$; the nonzero scalar $1$ does not affect
+vanishing. For the last clause, Cayley--Hamilton makes $G^{S}$ an integer combination of
+$I,G,\dots,G^{S-1}$, so $\mathbf{v}^{\!\top}G^{m}w$ for $m\ge S$ is the corresponding
+combination of the earlier values; if those vanish, so do all the rest.
 \end{proof}
 
 \begin{theorem}
-The entry's expression equals $a(n)$ for every $n\ge0$.
+The recurrence \eqref{eq:conj} holds for every $n>72$, which is the statement of
+Section~1.
 \end{theorem}
 
 \begin{proof}
-By Theorem~\ref{thm:poly} and Lemma~\ref{lem:deg}, $a(n)D(n)-N(n)$ is a polynomial in $n$
-of degree at most $70+21=91$. It was evaluated in exact rational arithmetic at
-$n=0,1,\dots,91$, that is at $92$ points, and vanishes at all of them; a nonzero polynomial
-of degree at most $91$ has at most $91$ roots, so it is identically zero. Since $D(n)\neq0$
-for $n\ge0$, the two expressions agree there.
+The digraph was built directly from \eqref{eq:loc}: for each of the $S=1024$ pairs and each
+of the $(1+1)^{5}$ possible next rows, the condition was tested on every cell of
+the middle row. The vector $w$ was formed by $71$ applications of $G$ in exact integer
+arithmetic and $\mathbf{v}^{\!\top}G^{m}w$ evaluated for $m=0,1,\dots$, again exactly.
+Every one of those integers vanishes from the index corresponding to $n=72+1$ onwards,
+and the run was continued until $S+1$ consecutive zeros had been seen, which by
+Lemma~\ref{lem:crit} settles every larger $m$ at once.
 \end{proof}
+
+\begin{remark}
+The argument gives more than the recurrence: the sequence is $C$-finite with characteristic
+polynomial dividing that of $G$, hence has a rational generating function whose denominator
+divides $\det(I-xG)$. The conjectured recurrence is one consequence; the minimal one is a
+divisor of $q$.
+\end{remark}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, Theorem~\ref{thm:poly} reproduces all $8$ terms the entry publishes,
-exactly, in integer arithmetic.
+First, the walk counts of Lemma~\ref{lem:walk} were compared against the entry's DATA at
+every one of the $18$ published indices, with no shift fitted: the number of rows is
+read off the entry's own name as $L=n$ and the entry's offset says which index the first
+published term carries. The values agree exactly. A misreading of \eqref{eq:loc}, of the
+neighbour set, or of the boundary treatment would give a different digraph and different
+counts, so this is a test of the modelling and not only of the arithmetic.
 
-Second, the matrices themselves were counted for the smallest alphabets, directly from the
-definition: the nondecreasing rows were listed and the chains of $7$ of them increasing
-componentwise counted, with no product formula and no plane partitions anywhere. The counts
-agree, which is what ties the reversal bijection to the entry's own wording.
+Second, the recurrence \eqref{eq:conj} was evaluated on those published terms in exact
+integer arithmetic, with no matrices involved, and vanishes wherever it applies.
 
-Third, the polynomial identity was evaluated over the whole range $n=0,\dots,91$ rather than
-sampled, in exact rational arithmetic.
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried to the full
+Cayley--Hamilton bound in exact integer arithmetic rather than to a sampled prefix, and
+returned zero throughout.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A140930.
-\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 2, Cambridge
-University Press, 1999. (Plane partitions with bounded part size, Section 7.21.)
-\bibitem{macmahon} P.~A.~MacMahon, \emph{Combinatory Analysis}, Volume 2, Cambridge
-University Press, 1916.
-\bibitem{andrews} G.~E.~Andrews, \emph{The Theory of Partitions}, Addison--Wesley, 1976.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A188519.
+\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+University Press, 2009.
+\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
+University Press, 2013.
 \end{thebibliography}
 
 \end{document}

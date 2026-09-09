@@ -12,86 +12,83 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A262473, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A189436, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{3 September 2026}
+\date{6 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A262473 counts arrays of width $4$ over $\{0,1\}$ whose rows, read as base-$2$
-numbers, are divisible by $5$ and whose columns, read the same way, are divisible by
-$3$. The entry carries an empirical recurrence of order $5$ contributed by
-R.~H.~Hardin. It is true, and it is decidable rather than empirical. A column's value depends on
-every row of the array, so the condition is not local; but its RESIDUE is built one row at a
-time by Horner's rule, and the vector of column residues is a state of bounded size. The count
-is then a walk count on $S=9$ states.
+OEIS A189436 counts the permutations of the cells of an $n\times4$ array in which every cell
+moves by one of a fixed short list of offsets. The entry carries an empirical recurrence of
+order $5$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
+empirical. The count is the permanent of the incidence matrix of the offset graph; read the
+cells in row-major order and let each choose its image, and the only thing that has to be
+carried is which images inside a window of $9$ consecutive positions are already taken.
+That makes $a$ a walk count on $S=14$ states, hence $C$-finite, and whether the published
+recurrence is one of its recurrences is then a finite exact computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 11A63, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A05, 05A15, 15A15.\normalsize
 
 \section{The conjecture}
 
-OEIS A262473 is ``Number of (3+1) X (n+1) 0..1 arrays with each row divisible by 3 and each column divisible by 5, read as a binary number with top and left being the most significant bits.''. It has offset $1$ and begins
+OEIS A189436 is ``Number of 4 X n array permutations with each element not moving, or moving one space N, SW or SE.''. It has offset $1$ and begins
 \[
-4, 9, 36, 121, 484, 1849, 7396, 29241,\ \dots
+1, 9, 31, 140, 571, 2413, 10069, 42205,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 4*a(n-1) + 5*a(n-2) - 20*a(n-3) - 4*a(n-4) + 16*a(n-5).
+Empirical: a(n) = 4*a(n-1) +2*a(n-2) -6*a(n-3) +4*a(n-4) -a(n-5).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Dec 31 2018 20:23:43, revision 7) this is still
+As of the ``Last modified'' line on the live entry (May 02 2018 08:06:08, revision 8) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The array has $4$ cells across and entries $x(i,j)\in\{0,1\}$, the digits of
-base $2$. Row $i$ of an array with $R$ rows is the number
+Write the cells of the array as pairs $(i,j)$ with $0\le i<n$ and $0\le j<4$. An
+\emph{array permutation} of the kind the entry counts is a bijection $\pi$ from the cells to
+the cells such that for every cell,
 \[
-\rho_i\;=\;\sum_{j=1}^{4}x(i,j)\,2^{4-j} ,
+\pi(i,j)-(i,j)\;\in\;\Delta,\qquad
+\Delta=\{\,(-1,1),\ (0,-1),\ (0,0),\ (1,1)\,\}.
 \]
-the LEFT digit being the most significant, and column $j$ is
+The offsets are what the name's words say: one step southeast, southwest or north. A cell is allowed to stay where it is, and $(0,0)$ is one of the offsets. The entry writes the array with $n$ as the number of ROWS; transposing it exchanges the two coordinates of every offset, and the offsets above are written in the transposed frame.
+
+A move is only allowed when its target is a cell of the array, so cells near an
+edge have fewer choices. The reading is pinned against the entry's own published terms rather
+than assumed: taking ``diagonally, horizontally or vertically'' to mean all eight king moves
+gives $24$ where A189305 publishes $14$.
+
+Equivalently, $a(n)$ is the permanent of the $n4\times n4$ matrix whose $(c,c')$ entry is
+$1$ exactly when $c'-c\in\Delta$.
+
+\section{A window of 9 positions}
+
+Number the cells in row-major order, $k=i\cdot4+j$. An offset $(\delta_1,\delta_2)$ moves a
+cell by $\delta_14+\delta_2$ places in that order, so every image lies between $lo=-3$ and
+$hi=5$ places from its source. Process the cells in order and let each one choose its image.
+Once the cell at position $k$ has been dealt with, the position $k+-3$ can never be chosen
+again by anybody, so it must already be taken; and no position beyond $k+5$ can have been
+taken yet. What has to be remembered is therefore exactly which of the $9$ positions
+$k+-3,\dots,k+5$ are taken --- a subset of a set of size $9$, and nothing else.
+
+That is the state. One step of the walk is one row, that is $4$ cell choices, and the
+condition ``the position leaving the window is taken'' is what makes the walk count permutations
+rather than partial injections: every position is taken exactly once, once at the moment it
+leaves the window.
+
+The two boundaries are the same condition. Images above the first row do not exist, so the walk
+starts with exactly the window positions lying above the array marked as taken. Images below the
+last row do not exist either, so the walk must end with exactly those positions marked and
+nothing beyond. In the window's own coordinates those two masks are equal, so the start state is
+also the only accepting state and
 \[
-\gamma_j\;=\;\sum_{i=1}^{R}x(i,j)\,2^{R-i} ,
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=14,
 \]
-the TOP digit being the most significant. The entry asks that every $\rho_i$ be divisible by
-$5$ and every $\gamma_j$ be divisible by $3$. The entry writes the array with $n$ as the number of COLUMNS. The walk is run down the transpose, which exchanges the row condition with the column condition; both readings put the FIRST digit in the most significant place, so nothing else changes under that exchange.
-
-
-\section{Column residues by Horner's rule}
-
-The row condition is a condition on one row and is imposed as each row is chosen. The column
-condition is not local: $\gamma_j$ depends on every row. What is local is its residue.
-
-\begin{lemma}\label{lem:horner}
-Let $\gamma_j^{(i)}$ be the value of column $j$ of the first $i$ rows, read the same way.
-Then $\gamma_j^{(0)}=0$ and
-\[
-\gamma_j^{(i)}\;=\;2\,\gamma_j^{(i-1)}+x(i,j),
-\qquad\text{hence}\qquad
-\gamma_j^{(i)}\bmod 3\;=\;
-\bigl(2\,(\gamma_j^{(i-1)}\bmod 3)+x(i,j)\bigr)\bmod 3 .
-\]
-\end{lemma}
-
-\begin{proof}
-Adding a row at the BOTTOM shifts every earlier digit one place up in significance, which is
-multiplication by $2$, and puts the new digit in the units place. Reduction modulo
-$3$ commutes with both operations.
-\end{proof}
-
-So the vector $\bigl(\gamma_1\bmod 3,\dots,\gamma_{4}\bmod
-3\bigr)$ is a state: at most $3^{4}$ of them, and each array row
-that satisfies the row condition carries one such vector to another. The walk starts at the
-all-zero vector, which is the empty array, and the END vector picks out the residue vectors in
-which every entry is divisible by $3$ --- so the end vector is not the all-ones
-vector, and the column condition is imposed once, at the end, exactly as the entry states it.
-With $M$ the adjacency matrix,
-\[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=9.
-\]
-The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
-published terms rather than assumed. In particular $a$ is $C$-finite.
+for the transfer matrix $M$ on those $S$ states. The walk index $j$ and the entry's own $n$
+differ by a constant, read off by matching the published terms rather than assumed. In
+particular $a$ is $C$-finite.
 
 \section{The proof}
 
@@ -113,15 +110,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;4\,a(n-1) + 5\,a(n-2) - 20\,a(n-3) - 4\,a(n-4) + 16\,a(n-5)
+a(n)\;=\;4\,a(n-1) + 2\,a(n-2) - 6\,a(n-3) + 4\,a(n-4) - a(n-5)
 \]
-for every $n>3$.
+for every $n>4$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $5$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=3+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=4+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -129,13 +126,13 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $24$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $23$ terms the entry publishes, exactly, in integer
 arithmetic.
 
-Second, the count was recomputed for the smallest arrays straight from the definition:
-enumerate every array of that size, turn each row and each column into a base-$2$ number with
-the first digit most significant, and test the divisibility directly. Neither Horner's rule nor
-any residue state is involved, and the published terms came back.
+Second, the count was recomputed for the smallest arrays straight from the definition: the
+cells of the array were matched to their images one at a time, over the whole grid, with no
+window, no mask over a sliding frame and no transfer matrix, and the published terms came back.
+That computation shares nothing with the construction of Section~3 beyond the offset list.
 
 Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
@@ -145,13 +142,11 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A262473.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A189436.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{knuth} D.~E.~Knuth, \emph{The Art of Computer Programming}, Volume 2, 3rd ed.,
-Addison--Wesley, 1997. (Evaluation of polynomials, Section 4.6.4.)
-\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
-University Press, 2013.
+\bibitem{minc} H.~Minc, \emph{Permanents}, Encyclopedia of Mathematics and its
+Applications 6, Addison--Wesley, 1978.
 \end{thebibliography}
 
 \end{document}

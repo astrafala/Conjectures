@@ -12,21 +12,21 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A264294, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A264138, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A264294 counts the arrangements of $0,1,\dots,LW-1$ in a grid of $W=3$ rows in which
+OEIS A264138 counts the arrangements of $0,1,\dots,LW-1$ in a grid of $W=5$ rows in which
 every value moves from its home cell by an index change on a short list, and it carries an
 empirical recurrence of order $8$ contributed by R.~H.~Hardin. It is true, and it is
 decidable rather than empirical. Such an arrangement is a perfect matching between cells and
 values, and because a value's row moves by at most $R=1$, the matching splits into
 independent decisions row by row: after the cells of rows $0,\dots,i$ are filled,
 every value whose home row is at most $i-R$ has been used, and only $2R$ home rows are
-partly used. Carrying those as bitmasks makes the count a walk on $S=64$ vertices, so it is
+partly used. Carrying those as bitmasks makes the count a walk on $S=1024$ vertices, so it is
 $C$-finite and the conjectured recurrence is decided by a finite exact computation.
 \end{abstract}
 
@@ -34,25 +34,25 @@ $C$-finite and the conjectured recurrence is decided by a finite exact computati
 
 \section{The conjecture}
 
-OEIS A264294 is ``Number of (n+1) X (2+1) arrays of permutations of 0..n*3+2 with each element having directed index change 0,1 0,-2 1,0 or -1,0.''. It has offset $1$ and begins
+OEIS A264138 is ``Number of (n+1)X(4+1) arrays of permutations of 0..n*5+4 with each element having index change +-(.,.) 0,0 1,-2 or 1,1.''. It has offset $1$ and begins
 \[
-2, 9, 20, 56, 169, 441, 1258, 3520,\ \dots
+45, 720, 15488, 297920, 5953600, 117534144, 2330885440, 46152976320,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = a(n-1) + 4*a(n-2) + 5*a(n-3) - 5*a(n-4) - 5*a(n-5) + 4*a(n-6) - a(n-7) - a(n-8).
+Empirical: a(n) = 19*a(n-1) +16*a(n-2) -304*a(n-3) +5776*a(n-4) +4864*a(n-5) +4096*a(n-6) -77824*a(n-7) -65536*a(n-8)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jan 07 2019 11:17:03, revision 9) this is still
+As of the ``Last modified'' line on the live entry (Nov 10 2015 11:15:06, revision 7) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{The object is a matching}
 
-The grid has $W=3$ rows across and holds each of $0,1,\dots,LW-1$ exactly once. The value
+The grid has $W=5$ rows across and holds each of $0,1,\dots,LW-1$ exactly once. The value
 $v$ has a HOME cell, namely its place in the plain row-major filling, and putting $v$ in cell
 $(i,j)$ changes its index by $(i-h_i,\,j-h_j)$ where $(h_i,h_j)$ is that home cell. The entry
 allows the index changes
 \[
-(i-h_i,\,j-h_j)\;\in\;\{(-1,0),\ (0,-2),\ (0,1),\ (1,0)\},
+(i-h_i,\,j-h_j)\;\in\;\{(-1,-1),\ (-1,2),\ (0,0),\ (1,-2),\ (1,1)\},
 \]
 the list being the entry's own, read with the sign convention its wording uses. An admissible
 arrangement is therefore exactly a perfect matching in the bipartite graph joining each cell to
@@ -70,7 +70,7 @@ and at an allowed column offset, and the home row that closes at that step must 
 full. Nonexistent home rows --- before the first and after the last --- are carried as
 full, which makes the starting and accepting states the same one.
 
-Hence $a$ is a walk count on $S=64$ vertices,
+Hence $a$ is a walk count on $S=1024$ vertices,
 \[
 a(n)\;=\;\iota^{\!\top}M^{\,n+1}\tau ,
 \]
@@ -97,15 +97,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;a(n-1) + 4\,a(n-2) + 5\,a(n-3) - 5\,a(n-4) - 5\,a(n-5) + 4\,a(n-6) - a(n-7) - a(n-8)
+a(n)\;=\;19\,a(n-1) + 16\,a(n-2) - 304\,a(n-3) + 5776\,a(n-4) + 4864\,a(n-5) + 4096\,a(n-6) - 77824\,a(n-7) - 65536\,a(n-8)
 \]
-for every $n>6$.
+for every $n>7$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $8$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=6+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=7+1$ onwards and the run continued
 until the working vector was identically zero, settling every larger $j$ at once.
 \end{proof}
 
@@ -122,7 +122,7 @@ of an entry of each convention. Testing only one of them would have proved only 
 reading the second convention as the first silently drops displacements, and thirty-eight
 entries disagreed with their own published data until the conventions were separated.
 
-Second, the transfer model reproduces all $26$ terms this entry publishes, exactly, in
+Second, the transfer model reproduces all $15$ terms this entry publishes, exactly, in
 integer arithmetic.
 
 Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
@@ -130,7 +130,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A264294.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A264138.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{lp} L.~Lov\'asz and M.~D.~Plummer, \emph{Matching Theory}, AMS Chelsea, 2009.

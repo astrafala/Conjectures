@@ -12,121 +12,177 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{A lattice count, not a walk count: OEIS A225313}
+\title{The empirical recurrence for OEIS A229539, proved by counting defective colourings}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{7 September 2026}
+\date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A225313 carries an empirical recurrence of order $42$ contributed by R.~H.~Hardin. It is
-true, and it is decidable rather than empirical. A nondecreasing row of $-1$s and $1$s is
-determined by one number --- how many $-1$s it holds --- so the entry's condition collapses to
-a single linear equation on a box of lattice points, and the arrays disappear entirely. The
-count is then the number of lattice points in a dilate of a fixed rational polytope, hence a
-quasi-polynomial in $n$; its degree and its period can both be named, which bounds by
-$S=720$ the order of a linear recurrence it must satisfy. Whether the conjectured recurrence
-is that recurrence is then a finite exact computation. There is no digraph and no matrix
-anywhere in this argument.
+OEIS A229539 counts the colourings of an array with $K=3$ colours that are proper except at
+exactly one adjacent pair, the colours being introduced in row
+major order. Neither feature is local: the number of monochromatic adjacent pairs is a
+property of the whole array, and the row major clause fixes a representative of each
+relabelling class. Both are removed by machinery already in hand --- the running count of
+mistakes goes into the state, capped at $1$, and the colour clause disappears into the
+identity $3!\,a(n)=\sum_i\binom{3}{i}D_{3-i}L_i(n)$ with $D_m$ the derangement
+numbers. What is left is a walk count on $S=1588$ vertices, and the empirical recurrence of
+order $46$ contributed by R.~H.~Hardin follows from a finite exact computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05C15, 15B36.\normalsize
 
-\section{The conjecture}
+\section{The sequence and the conjecture}
 
-OEIS A225313 is ``Number of 6Xn -1,1 arrays such that the sum over i=1..6,j=1..n of i*x(i,j) is zero and rows are nondecreasing (ways to put n thrusters pointing east or west at each of 6 positions 1..n distance from the hinge of a south-pointing gate without turning the gate).''. It has offset $1$ and begins
+OEIS A229539 is ``Number of defective 3-colorings of a 6 X n 0..2 array connected horizontally, diagonally and antidiagonally with exactly one mistake, and colors introduced in row-major 0..2 order.''. It has offset $1$ and begins
 \[
-0, 35, 0, 443, 0, 2341, 0, 8221,\ \dots
+0, 1188, 11184, 185808, 2451728, 34811238, 463976296, 6218438820,\ \dots
 \]
-The entry states, as a conjecture contributed by its author and never marked settled:
-\begin{quote}
-Empirical: a(n) = a(n-2) +a(n-4) -a(n-10) -2*a(n-14) +a(n-18) +a(n-20) +a(n-22) +a(n-24) -2*a(n-28) -a(n-32) +a(n-38) +a(n-40) -a(n-42)
+The entry carries the following comment:
+\begin{quote}\small
+Empirical: a(n) = 12*a(n-1) + 182*a(n-2) - 1820*a(n-3) - 15113*a(n-4) + 101664*a(n-5) + 646022*a(n-6) - 3003324*a(n-7) -1 5725808*a(n-8) + 55305760*a(n-9) + 234926070*a(n-10) - 698528578*a(n-11) - 2270736611*a(n-12) + 6320752450*a(n-13) + 14600825558*a(n-14) - 41434331996*a(n-15) - 62768577651*a(n-16) + 196263429930*a(n-17) + 176943063476*a(n-18) - 669462409316*a(n-19) - 305019512324*a(n-20) + 1647405492614*a(n-21) + 230358934675*a(n-22) - 2942270801898*a(n-23) + 243588718325*a(n-24) + 3841770422896*a(n-25) - 923967990222*a(n-26) - 3689384232910*a(n-27) + 1300617284437*a(n-28) + 2614259101122*a(n-29) - 1127033659748*a(n-30) - 1366254718948*a(n-31) + 660843537364*a(n-32) + 524090586634*a(n-33) - 269727615782*a(n-34) - 146010681184*a(n-35) + 76928224259*a(n-36) + 28983533038*a(n-37) - 15160113967*a(n-38) - 3964319226*a(n-39) + 2009807783*a(n-40) + 352152984*a(n-41) -1 70267256*a(n-42) - 18138336*a(n-43) + 8296524*a(n-44) + 408240*a(n-45) - 176400*a(n-46) for n > 48.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 23:42:57, revision 8) this is still
-recorded as empirical, and nothing on the entry records it as proved.
+As of the ``Last modified'' line on the live entry (Apr 27 2021 21:09:10, revision 8) the statement is
+still recorded as empirical, and nothing on the entry records it as settled either way.
 
-\section{The array disappears}
+Written out, the claim is
+\begin{equation}\label{eq:conj}
+a(n)\;=\;12\,a(n-1) + 182\,a(n-2) - 1820\,a(n-3) - 15113\,a(n-4) + 101664\,a(n-5) + 646022\,a(n-6) - 3003324\,a(n-7) - 15725808\,a(n-8) + 55305760\,a(n-9) + 234926070\,a(n-10) - 698528578\,a(n-11) - 2270736611\,a(n-12) + 6320752450\,a(n-13) + 14600825558\,a(n-14) - 41434331996\,a(n-15) - 62768577651\,a(n-16) + 196263429930\,a(n-17) + 176943063476\,a(n-18) - 669462409316\,a(n-19) - 305019512324\,a(n-20) + 1647405492614\,a(n-21) + 230358934675\,a(n-22) - 2942270801898\,a(n-23) + 243588718325\,a(n-24) + 3841770422896\,a(n-25) - 923967990222\,a(n-26) - 3689384232910\,a(n-27) + 1300617284437\,a(n-28) + 2614259101122\,a(n-29) - 1127033659748\,a(n-30) - 1366254718948\,a(n-31) + 660843537364\,a(n-32) + 524090586634\,a(n-33) - 269727615782\,a(n-34) - 146010681184\,a(n-35) + 76928224259\,a(n-36) + 28983533038\,a(n-37) - 15160113967\,a(n-38) - 3964319226\,a(n-39) + 2009807783\,a(n-40) + 352152984\,a(n-41) - 170267256\,a(n-42) - 18138336\,a(n-43) + 8296524\,a(n-44) + 408240\,a(n-45) - 176400\,a(n-46)
+\end{equation}
+for all $n>48$.
 
-A row of $-1$s and $1$s that is nondecreasing is a block of $-1$s followed by a block of $1$s, so it is determined by a single number: how many $-1$s it holds. Write $k_i\in\{0,1,\dots,n\}$ for that number in row $i$. Then row $i$ sums to $(n-k_i)-k_i = n-2k_i$, and the entry's condition
-\[ \sum_{i=1}^{H}\sum_{j=1}^{n} i\,x(i,j) \;=\; \sum_{i=1}^{H} i\,(n-2k_i) \;=\; 0 \]
-becomes $\sum_{i=1}^{6} i\,k_i = T(n)$ with $T(n)=\tfrac{21}{2}n$. The arrays are gone: what is left is the lattice points of the box $\{0,\dots,n\}^{6}$ on one hyperplane.
+\section{Mistakes, and the colour clause}
 
-\section{Why that is enough}
+The arrays have $6$ rows and $L=n$ columns, entries in $\{0,\dots,3-1\}$.
+Two cells are adjacent when they differ by one of
+\[
+\mathcal N=\{(1,0),\ (1,1),\ (1,-1)\}
+\]
+(as (column shift, row shift)); each unordered adjacency is represented by exactly one
+offset, and every offset has a nonnegative column shift, so the pairs inside a column are
+counted when that column is laid down and the pairs joining two columns when the later one
+is. Call an adjacent pair a \emph{mistake} when $x_{t,u}=x_{t+d_1,\,u+d_2}$. The entry asks for exactly
+$E=1$ mistakes.
 
-Those lattice points are the ones in the $n$-th dilate of a fixed rational polytope, so the count is a quasi-polynomial in $n$. That is the whole reason a linear recurrence can be proved here rather than observed: a quasi-polynomial of degree $d$ and period $P$ satisfies the recurrence whose characteristic polynomial is $(x^{P}-1)^{d+1}$, so it is $C$-finite of order at most $P(d+1)$.
+That is a statement about the whole array, so no bounded window sees it; but the running
+number of mistakes can be carried in the state, capped at $1$, the states past $1$ being
+absent because a count that has passed the budget can never come back.
 
-Both numbers can be named. By inclusion-exclusion over which coordinates exceed $n$,
-\[ a(n)\;=\;\sum_{S\subseteq\{1,\dots,H\}}(-1)^{|S|}\,D\bigl(T(n)-(n+1)\sigma(S)\bigr), \]
-where $\sigma(S)$ is the sum of $S$ and $D(m)$ counts the solutions of $\sum i\,k_i=m$ in non-negative integers with no upper bound --- the classical denumerant for the parts $1,\dots,6$. $D$ is a quasi-polynomial in $m$ of degree $5$ with period dividing $\mathrm{lcm}(1,\dots,6)=60$; each argument above is an integer-linear function of $n$, which preserves the degree and can only shrink the period, and the parity case at worst doubles it. So $a$ is a quasi-polynomial of degree at most $5$ and period dividing $120$, hence satisfies a linear recurrence of order at most $S=720$.
+The condition is stated in equalities, so it is invariant under relabelling the colours, and
+so is the number of mistakes. ``Colors introduced in row-major order'' keeps exactly one
+colouring from each relabelling class, so the entry counts equality PATTERNS with at most
+$K=3$ classes.
 
-That bound is the certificate. It is also what makes the computation cheap: $D$ is one table, so thousands of exact terms of $a$ cost almost nothing.
-so $a$ is $C$-finite of order at most $S=720$, and the alignment between the model and the
-entry's own $n$ is fixed by matching against every published term.
-
-\section{The proof}
-
-\begin{lemma}\label{lem:crit}
-Let $q$ be the characteristic polynomial of the conjectured recurrence, of order $42$,
-and let $u_j=a(j+42)-\sum_i c_i\,a(j+42-i)$ be its residual. Then $u$ satisfies the
-same linear recurrence of order $S=720$ that $a$ does, so if $u_j=0$ for $S$ consecutive
-indices then $u_j=0$ for every larger $j$, and the last nonzero $u_j$ pins the threshold
-exactly.
+\begin{lemma}\label{lem:inv}
+Let $L_i(n)$ count the colourings over $i$ colours with exactly $1$ mistakes, and $N_j(n)$
+the admissible patterns with exactly $j$ classes. Then
+$L_i=\sum_j N_j\,i(i-1)\cdots(i-j+1)$ and
+\[
+3!\,\sum_{j\le3}N_j(n)=\sum_{i=0}^{3}\binom{3}{i}D_{3-i}L_i(n),
+\qquad D_m=m!\sum_{t=0}^{m}\frac{(-1)^t}{t!} .
+\]
 \end{lemma}
 
 \begin{proof}
-A sequence annihilated by a linear operator with constant coefficients has every linear
-combination of its shifts annihilated by the same operator, and $u$ is such a combination of
-shifts of $a$. A sequence satisfying a linear recurrence of order $S$ and vanishing at $S$
-consecutive indices vanishes from the first of them onwards, since every later value is a
-fixed combination of the $S$ before it.
+A colouring is a pattern together with an injection of its classes into the palette, and a
+pattern with $j$ classes admits $i(i-1)\cdots(i-j+1)$ of them, which is the first identity.
+Writing the falling factorial as $j!\binom{i}{j}$ and inverting binomially gives
+$j!N_j=\sum_i(-1)^{j-i}\binom{j}{i}L_i$; summing over $j\le3$ and exchanging the order
+of summation makes the coefficient of $L_i$ equal to $\sum_{t\le3-i}(-1)^t/(i!\,t!)$,
+which multiplied by $3!$ is $\binom{3}{i}D_{3-i}$, an integer.
+\end{proof}
+
+\section{Each $L_i$ is a walk count}
+
+Fix $i$ and take as vertices the pairs $(r,c)$ with $r\in\{0,\dots,i-1\}^{6}$ a column
+and $0\le c\le1$ a running count. Write $\beta(r,s)$ for the number of mistakes joining
+columns $r$ and $s$ plus the number of mistakes inside $s$. Declare $(r,c)\to(s,c+\beta(r,s))$
+an edge when $c+\beta(r,s)\le1$, let $\mathbf{s}_i$ mark the vertices whose count is the
+number of mistakes inside $r$ alone, and $\mathbf{e}_i$ those with $c=1$.
+
+\begin{lemma}\label{lem:walk}
+$L_i(n)=\mathbf{s}_i^{\!\top}P_i^{\,L-1}\mathbf{e}_i$ for $L\ge1$, where $P_i$ is the
+adjacency matrix of that digraph.
+\end{lemma}
+
+\begin{proof}
+A walk of length $L-1$ determines the sequence of $L$ columns, and conversely; by induction
+the count component after $t$ columns is the number of mistakes among the first $t$ columns,
+since each step adds exactly the mistakes joining columns $t$ and $t+1$ together with those
+inside column $t+1$, and each unordered pair is named by exactly one offset. The walk exists
+precisely when the running count never exceeds $1$, which for a nondecreasing count follows
+from its final value being $1$, and $\mathbf{e}_i$ imposes that final value. The state
+carries a column, not a boundary, so $L$ columns make a walk of length $L-1$.
+\end{proof}
+
+Assembling the $3$ chains block-diagonally into $N$ of size $S=1588$ with the weights of
+Lemma~\ref{lem:inv} in the start vector $\mathbf{v}$ and the end markers in
+$\mathbf{u}$,
+\begin{equation}\label{eq:walk2}
+3!\;a(n)\;=\;\mathbf{v}^{\!\top}N^{\,L-1}\mathbf{u},\qquad L=n .
+\end{equation}
+
+\section{The criterion, and the computation}
+
+Let $q(t)=t^{46}-\sum_i c_i\,t^{46-i}$ be the characteristic polynomial of
+\eqref{eq:conj} and $G=N$.
+
+\begin{lemma}\label{lem:crit}
+With $n_0$ the least index for which $L\ge1$, $o=1n_0+0-1$ and
+$h_j=G^{j}N^{o}\mathbf{u}$, we have for $j\ge46$
+\[
+3!\Bigl(a(n_0+j)-\sum_i c_i\,a(n_0+j-i)\Bigr)=\mathbf{v}^{\!\top}G^{\,j-46}w,
+\qquad w=h_{46}-\sum_i c_ih_{46-i} .
+\]
+Hence \eqref{eq:conj} holds from that point on if and only if
+$\mathbf{v}^{\!\top}G^{m}w=0$ for all $m\ge0$, and $m<S$ suffices.
+\end{lemma}
+
+\begin{proof}
+Substitute \eqref{eq:walk2} and factor; $3!$ is a nonzero scalar. Cayley--Hamilton
+makes $G^{S}$ an integer combination of $I,G,\dots,G^{S-1}$, so every later value repeats
+that combination of earlier ones.
 \end{proof}
 
 \begin{theorem}
-\[
-a(n)\;=\;a(n-2) + a(n-4) - a(n-10) - 2\,a(n-14) + a(n-18) + a(n-20) + a(n-22) + a(n-24) - 2\,a(n-28) - a(n-32) + a(n-38) + a(n-40) - a(n-42)
-\]
-for every $n>41$.
+The recurrence \eqref{eq:conj} holds for every $n>48$, which is the statement of
+Section~1.
 \end{theorem}
 
 \begin{proof}
-The terms $a(n)$ were computed exactly from the lattice-point formula, far enough to cover
-$S=720$ consecutive residuals, and the residuals were formed in exact integer arithmetic.
-They vanish from the index corresponding to $n=41+1$ onwards and go on vanishing for more
-than $S$ consecutive indices, which by Lemma~\ref{lem:crit} settles every larger $n$ at
-once.
+The digraph was built directly from the definitions above. The vector $w$ was formed by
+$46$ applications of $G$ in exact integer arithmetic and $\mathbf{v}^{\!\top}G^{m}w$
+evaluated for $m=0,1,\dots$, again exactly. Every one of those integers vanishes from the
+index corresponding to $n=48+1$ onwards, and the run continued until $S+1$ consecutive
+zeros had been seen.
 \end{proof}
 
 \section{Verification}
 
-Four checks, each independent of the algebra above.
+Three checks, each independent of the algebra above.
 
-First, the model reproduces all $45$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the reduction to the entry: the lattice count is derived by reading the
-entry's English, and a misreading gives different counts.
+First, the right-hand side of \eqref{eq:walk2}, divided by $3!$, was evaluated at every
+one of the $16$ published indices and agrees with the entry's DATA exactly, the quotient
+coming out an integer each time; no shift was fitted, the number of columns being $L=n$
+from the entry's own name and the offset saying which index carries the first published term.
+Double-counting an unordered pair, or mistaking the budget, changes the counts at once.
 
-Second, the reading was pinned before the reduction was trusted, by a program that enumerates
-the arrays themselves, one by one, from the entry's own words --- every nondecreasing
-row of plus and minus ones, the weighted sum computed directly --- and compares the count
-with the lattice-point formula. That program shares no code with the lattice-point formula, so an error in one does not
-hide an error in the other.
+Second, the recurrence \eqref{eq:conj} was evaluated on those published terms in exact
+integer arithmetic, with no matrices involved, and vanishes wherever it applies.
 
-Third, the conjectured recurrence was evaluated directly on the published terms, with
-nothing from the argument above involved, and holds wherever the proved range and the data
-overlap.
-
-Fourth, the residual test of Lemma~\ref{lem:crit} was carried out in exact integer
-arithmetic over every index up to the certified bound, not on a sampled prefix.
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried to the full
+Cayley--Hamilton bound in exact integer arithmetic rather than to a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A225313.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A229539.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Quasi-polynomials and denumerants, Sections 4.4 and 4.6;
-lattice points in dilates of rational polytopes, Section 4.6.)
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; falling-factorial
+inversion, Section 1.9.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
 University Press, 2009.
-\bibitem{beck} M.~Beck and S.~Robins, \emph{Computing the Continuous Discretely}, 2nd
-ed., Springer, 2015. (Ehrhart quasi-polynomials; the denumerant.)
+\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
+University Press, 2013.
 \end{thebibliography}
 
 \end{document}

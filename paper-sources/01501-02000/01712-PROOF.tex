@@ -12,166 +12,224 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A236486, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A210130, proved by counting patterns}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{3 September 2026}
+\date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A236486 counts arrays of width $3$ over $\{0,1,2\}$ by reducing every $2\times2$ subblock to a
-single number---here the largest entry minus the smallest---and requiring the resulting derived array to have its rows
-lexicographically nonincreasing and its columns lexicographically nondecreasing. The entry carries an
-empirical recurrence of order $30$ contributed by R.~H.~Hardin. It is true, and it is
-decidable rather than empirical. The row comparison is settled by three consecutive rows of the
-array; the column comparison is not settled by any bounded window, but what is still outstanding
-about it is one bit per adjacent pair of columns, so the count is a walk count on $S=138$
-states.
+OEIS A210130 counts arrays subject to a local condition \emph{and} to the clause ``new values
+$0..3$ introduced in row major order'', which says the array is written in canonical
+form. That clause is not local, so a transfer matrix over the alphabet does not see it. It
+does not have to: what is being counted is not arrays but equality patterns, and the number
+of patterns is recovered from the numbers $L_i$ of arrays over an $i$-letter alphabet by
+inverting a falling factorial. The result is the clean identity
+$4!\,a(n)=\sum_i\binom{4}{i}D_{4-i}L_i(n)$ with $D_m$ the derangement numbers,
+and each $L_i$ is an ordinary walk count. A second reduction --- the chain is strongly
+lumpable over the patterns, because the condition is relabelling-invariant --- brings the
+state space down from $1300$ to $S=109$. The entry's empirical recurrence of order
+$32$, contributed by R.~H.~Hardin, then follows from a finite exact computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 06A05, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A18, 15B36.\normalsize
 
-\section{The conjecture}
+\section{The sequence and the conjecture}
 
-OEIS A236486 is ``Number of (n+1)X(2+1) 0..2 arrays with the difference between each 2X2 subblock maximum and minimum lexicographically nondecreasing columnwise and nonincreasing rowwise.''. It has offset $1$ and begins
+OEIS A210130 is ``Number of (n+1)X5 0..3 arrays with every 2X2 subblock having one, three or four distinct values, and new values 0..3 introduced in row major order.''. It has offset $1$ and begins
 \[
-583, 9839, 155757, 2330087, 33951181, 486130993, 6894201989, 97206875033,\ \dots
+10019, 2731088, 735336694, 198219480450, 53426898480029, 14400523684710903, 3881469298371686670, 1046198452246381246181,\ \dots
 \]
-The entry states, as a conjecture contributed by its author and never marked settled:
-\begin{quote}
-Empirical: a(n) = 25*a(n-1) -121*a(n-2) -1053*a(n-3) +8090*a(n-4) +14880*a(n-5) -181311*a(n-6) -23343*a(n-7) +2042880*a(n-8) -1467204*a(n-9) -12807271*a(n-10) +16480275*a(n-11) +45595086*a(n-12) -82190480*a(n-13) -90492369*a(n-14) +228270235*a(n-15) +90529737*a(n-16) -386567665*a(n-17) -14775664*a(n-18) +416825766*a(n-19) -67519824*a(n-20) -289624516*a(n-21) +80051920*a(n-22) +127462216*a(n-23) -43061200*a(n-24) -33607808*a(n-25) +12259456*a(n-26) +4677504*a(n-27) -1741568*a(n-28) -248832*a(n-29) +92160*a(n-30)
+The entry carries the following comment:
+\begin{quote}\small
+Empirical: a(n) = 319*a(n-1) -12448*a(n-2) -307770*a(n-3) +19003857*a(n-4) -47940781*a(n-5) -8062797435*a(n-6) +95630724963*a(n-7) +949633978540*a(n-8) -23587913597875*a(n-9) +72618564306781*a(n-10) +1459146419334837*a(n-11) -13658086185029599*a(n-12) +17603864407218421*a(n-13) +283502331705919989*a(n-14) -1303129591973246857*a(n-15) -279014374825669271*a(n-16) +13815024039103815024*a(n-17) -22992880145677918265*a(n-18) -44182446460842415541*a(n-19) +152128697073903743642*a(n-20) -14505606850313450236*a(n-21) -344933214811274872678*a(n-22) +261141694209971459720*a(n-23) +296779187097877685464*a(n-24) -389773691540956876144*a(n-25) -44632888312447155024*a(n-26) +204261362669091285120*a(n-27) -46639179100779322176*a(n-28) -30753710235878999040*a(n-29) +11357654705402941440*a(n-30) +637302851625194496*a(n-31) -414118546177001472*a(n-32)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 09:16:30, revision 7) this is still
-recorded as empirical, and nothing on the entry records it as proved.
+As of the ``Last modified'' line on the live entry (Oct 03 2025 15:45:02, revision 9) the statement is
+still recorded as empirical, and nothing on the entry records it as settled either way.
 
-\section{What is being counted}
+Written out, the claim is
+\begin{equation}\label{eq:conj}
+a(n)\;=\;319\,a(n-1) - 12448\,a(n-2) - 307770\,a(n-3) + 19003857\,a(n-4) - 47940781\,a(n-5) - 8062797435\,a(n-6) + 95630724963\,a(n-7) + 949633978540\,a(n-8) - 23587913597875\,a(n-9) + 72618564306781\,a(n-10) + 1459146419334837\,a(n-11) - 13658086185029599\,a(n-12) + 17603864407218421\,a(n-13) + 283502331705919989\,a(n-14) - 1303129591973246857\,a(n-15) - 279014374825669271\,a(n-16) + 13815024039103815024\,a(n-17) - 22992880145677918265\,a(n-18) - 44182446460842415541\,a(n-19) + 152128697073903743642\,a(n-20) - 14505606850313450236\,a(n-21) - 344933214811274872678\,a(n-22) + 261141694209971459720\,a(n-23) + 296779187097877685464\,a(n-24) - 389773691540956876144\,a(n-25) - 44632888312447155024\,a(n-26) + 204261362669091285120\,a(n-27) - 46639179100779322176\,a(n-28) - 30753710235878999040\,a(n-29) + 11357654705402941440\,a(n-30) + 637302851625194496\,a(n-31) - 414118546177001472\,a(n-32)
+\end{equation}
+for all $n>32$.
 
-The arrays have $3$ columns and a growing number of rows, with entries in $\{0,1,2\}$. A
-$2\times2$ subblock of such an array is
-\[
-B=\begin{pmatrix} p & q \\ r & s \end{pmatrix},
-\qquad p=x(i,j),\; q=x(i,j+1),\; r=x(i+1,j),\; s=x(i+1,j+1).
-\]
-Write $v_1\le v_2\le v_3\le v_4$ for the four entries of $B$ sorted into order. The entry attaches to $B$ the single number
-\[
-f(B)\;=\;v_4-v_1,
-\]
-the largest entry minus the smallest. An array with $R$ rows and $3$ columns has $(R-1)\times2$ subblocks, and they
-form a derived array
-\[
-D(i,j)=f\!\left(\begin{pmatrix} x(i,j) & x(i,j+1) \\ x(i+1,j) & x(i+1,j+1)\end{pmatrix}
-\right),\qquad 0\le i<R-1,\;\; 0\le j<2 .
-\]
-Write $\preceq$ for the lexicographic order on finite sequences of integers: $u\preceq w$ when
-$u=w$, or when $u_k<w_k$ at the first index $k$ where they differ. The condition is that the
-rows of $D$, read left to right and compared in this order, are nonincreasing from top to bottom,
-\[
-D_{i}\;\succeq\;D_{i+1}\qquad\text{for every } i,
-\]
-and that the columns of $D$, read top to bottom and compared in the same order, are nondecreasing
-from left to right,
-\[
-D^{j}\;\preceq\;D^{j+1}\qquad\text{for every } j .
-\]
+\section{What the canonical-form clause counts}
 
-\section{A bounded state}
+Fix the shape: $5$ columns and $L=n+1$ rows, so $L\cdot5$ cells. Call a
+partition of the cells into nonempty classes a \emph{pattern}; an array over an alphabet
+determines a pattern, two cells lying in the same class exactly when they carry the same
+value.
 
-Grow the array one row at a time. A row of $D$ is built from two consecutive rows of the array,
-so the row condition is decided three array rows at a time and needs no memory beyond the
-derived row just formed. The column condition is different: which of two columns of $D$ is the
-smaller is decided by the first derived row in which they differ, and that row can be
-arbitrarily far down. What is bounded is not the comparison but what remains open about it.
+Every $2\times2$ subblock of the array occupies two consecutive
+rows and two consecutive columns; writing those two rows as $r$ and $s$ the
+subblock is
+\[
+\begin{pmatrix}\alpha&\beta\\\gamma&\delta\end{pmatrix}=\begin{pmatrix}r_j&r_{j+1}\\s_j&s_{j+1}\end{pmatrix},
+\]
+and the entry's requirement on it is
+\begin{equation}\label{eq:loc}
+\#\{\alpha,\beta,\gamma,\delta\}\in\{1,3,4\}.
+\end{equation}
 
-\begin{lemma}\label{lem:bits}
-Fix $j$ and suppose the derived rows $D_0,\dots,D_i$ have been written. If $D_t(j)=D_t(j+1)$ for
-every $t\le i$, then $D^{j}\;\preceq\;D^{j+1}$ holds for the finished array if and only if,
-at the first later row $t$ with $D_t(j)\neq D_t(j+1)$, the inequality $D_t(j)<D_t(j+1)$
-holds; and if no such row occurs the two columns are equal and the condition holds. If instead
-$D_t(j)\neq D_t(j+1)$ for some $t\le i$, then the comparison is already settled by the earliest
-such $t$ and no later row can change it.
+The condition is stated purely in terms of equalities between entries, so it is invariant
+under any relabelling of the values and is therefore a property of the pattern alone. Call a
+pattern \emph{admissible} when it has the property.
+
+The clause ``new values $0..3$ introduced in row major order'' selects, from each class
+of arrays that differ only by a relabelling, exactly one representative: reading the cells in
+row major order, the first occurrence of the value $v$ must precede the first occurrence of
+$v+1$. Every pattern with at most $K=4$ classes has exactly one such representative, and
+every array in canonical form is the representative of its own pattern. Hence, writing
+$N_j(n)$ for the number of admissible patterns with exactly $j$ classes,
+\begin{equation}\label{eq:apat}
+a(n)\;=\;\sum_{j=0}^{4}N_j(n).
+\end{equation}
+
+\begin{lemma}\label{lem:inv}
+Let $L_i(n)$ be the number of arrays over an alphabet of $i$ letters satisfying the local
+condition, with no canonical-form clause. Then
+\[
+L_i(n)=\sum_j N_j(n)\,i(i-1)\cdots(i-j+1),
+\qquad
+4!\,\sum_{j=0}^{4}N_j(n)=\sum_{i=0}^{4}\binom{4}{i}D_{4-i}\,L_i(n),
+\]
+where $D_m=m!\sum_{t=0}^{m}(-1)^t/t!$ is the number of derangements of $m$ letters.
 \end{lemma}
 
 \begin{proof}
-Immediate from the definition of the lexicographic order: it looks only at the first index at
-which the two sequences differ, and prefixes that agree contribute nothing.
+An array over $i$ letters satisfying the condition determines an admissible pattern together
+with an injection of its classes into the alphabet, and conversely; a pattern with $j$
+classes admits $i(i-1)\cdots(i-j+1)$ injections. That is the first identity. Writing
+$i(i-1)\cdots(i-j+1)=j!\binom{i}{j}$ it reads $L_i=\sum_j (j!N_j)\binom{i}{j}$, so by
+binomial inversion $j!N_j=\sum_{i}(-1)^{j-i}\binom{j}{i}L_i$. Summing over
+$j\le 4$ and exchanging the order of summation,
+\[
+\sum_{j=0}^{4}N_j=\sum_{i=0}^{4}L_i\sum_{j=i}^{4}\frac{(-1)^{j-i}}{i!\,(j-i)!}
+=\sum_{i=0}^{4}\frac{L_i}{i!}\sum_{t=0}^{4-i}\frac{(-1)^t}{t!} ,
+\]
+and multiplying by $4!$ turns the coefficient of $L_i$ into
+$\frac{4!}{i!}\sum_{t\le 4-i}(-1)^t/t!=\binom{4}{i}(4-i)!\sum_{t\le 4-i}(-1)^t/t!
+=\binom{4}{i}D_{4-i}$, an integer.
 \end{proof}
 
-So a single bit per adjacent pair of columns---``this pair has agreed in every derived row so
-far''---carries everything the future needs to know, and there are $1$ such pairs. The state
-is therefore
-\[
-\bigl(\text{the array row just written},\; \text{the derived row just formed},\;
-\text{the 1 bits}\bigr),
-\]
-with a distinguished start standing for the empty array, so that a walk of $n$ steps is an array
-of $n$ rows. A step appends a row, forms the new derived row, checks it against the previous one
-for the row condition, and for each pair still flagged either leaves the flag set (the pair
-agreed again) or clears it after checking the required inequality once. Every state may end an
-array, so $\tau=\mathbf{1}$ and
-\[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=138.
-\]
-The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
-published terms rather than assumed. In particular $a$ is $C$-finite.
+\section{Each $L_i$ is a walk count, and the chain lumps}
 
-\section{The proof}
+Fix $i$ and let $V_i=\{0,\dots,i-1\}^{5}$ be the possible rows. For $r,s\in V_i$
+declare $r\to s$ an edge when placing $s$ directly after $r$ satisfies \eqref{eq:loc} at
+every column, and let $M_i$ be the adjacency matrix. An array is exactly a sequence of
+rows, and its condition is exactly the conjunction of the edge conditions along that
+sequence, so
+\[
+L_i(n)\;=\;\mathbf{s}_i^{\!\top}M_i^{\,n}\mathbf{1} .
+\]
+Because the condition involves no row before the first, every
+row may start a walk, and $\mathbf{s}_i=\mathbf{1}$.
 
-\begin{lemma}\label{lem:crit}
-Let $q(t)=t^{30}-\sum_i c_it^{30-i}$ be the characteristic polynomial of the
-conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
-$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
-holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
-and it is enough to examine $j<S$.
+\begin{lemma}\label{lem:lump}
+Let $\pi(r)$ be the equality pattern of the row $r$. For all $r,r'$ with
+$\pi(r)=\pi(r')$ and every pattern $Q$,
+\[
+\#\{s:\ r\to s,\ \pi(s)=Q\}\;=\;\#\{s:\ r'\to s,\ \pi(s)=Q\}\, .
+\]
+Consequently the numbers $\widehat M_i[P][Q]$ obtained by taking any representative of $P$
+are well defined, and with $e_P=i(i-1)\cdots(i-|P|+1)$ the number of rows of pattern $P$,
+\[
+\mathbf{s}_i^{\!\top}M_i^{\,m}\mathbf{1}\;=\;\sum_P \varepsilon_P\,f_m(P),
+\qquad f_0\equiv1,\quad f_{m+1}(P)=\sum_Q\widehat M_i[P][Q]f_m(Q),
+\]
+where $\varepsilon_P=e_P$ if rows of pattern $P$ may start a walk and $0$ otherwise.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+30}-\sum_ic_iM^{j+30-i}$. For the bound, $M^{S}$
-is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
-$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
-polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly.
+If $\pi(r)=\pi(r')$ then the map sending the value of $r$ at a column to the value of $r'$
+at that column is a well-defined injection between the letters used, and extends to a
+permutation $\sigma$ of the alphabet with $r'=\sigma(r)$. The edge condition is a statement
+about equalities among entries, so $r\to s$ if and only if $\sigma(r)\to\sigma(s)$; and
+$\pi(\sigma(s))=\pi(s)$. Hence $s\mapsto\sigma(s)$ is a bijection between the two successor
+sets preserving patterns, which is the first claim. It says the chain is strongly lumpable
+over $\pi$, so $\bigl(M_i^{m}\mathbf{1}\bigr)(r)$ depends on $r$ only through $\pi(r)$;
+calling that value $f_m(\pi(r))$ gives the recursion, and summing over $r$ in each class
+gives the displayed identity, the number of rows of pattern $P$ being the number of
+injections of its $|P|$ classes into the alphabet.
+\end{proof}
+
+Assembling the $4$ lumped chains into one block-diagonal matrix $N$ of size $S=109$ and
+putting the weights of Lemma~\ref{lem:inv} into the start vector,
+$\mathbf{v}=\bigl(\binom{4}{i}D_{4-i}\varepsilon_P\bigr)_{i,P}$, gives
+\begin{equation}\label{eq:walk}
+4!\;a(n)\;=\;\mathbf{v}^{\!\top}N^{\,n}\mathbf{1} .
+\end{equation}
+The unlumped alphabet had $1300$ rows in all; the lumped chain has $S=109$ states.
+
+\section{The criterion, and the computation}
+
+Let $q(t)=t^{32}-\sum_i c_i\,t^{32-i}$ be the characteristic polynomial of
+\eqref{eq:conj}.
+
+\begin{lemma}\label{lem:crit}
+For every $n$ with $m=n+1-1\ge32$,
+\[
+4!\Bigl(a(n)-\sum_i c_i\,a(n-i)\Bigr)\;=\;\mathbf{v}^{\!\top}N^{\,m-32}q(N)\mathbf{1} .
+\]
+Hence \eqref{eq:conj} holds from that point on if and only if
+$\mathbf{v}^{\!\top}N^{j}q(N)\mathbf{1}=0$ for every $j\ge0$, and it is enough to check
+$j=0,1,\dots,S-1$.
+\end{lemma}
+
+\begin{proof}
+Substitute \eqref{eq:walk} into the left side and factor $N^{m-32}$ out of
+$N^{m}-\sum_i c_iN^{m-i}$. The scalar $4!$ is nonzero, so it does not affect whether
+the left side vanishes. For the last clause put $w=q(N)\mathbf{1}$: by Cayley--Hamilton
+$N^{S}$ is an integer combination of $I,N,\dots,N^{S-1}$, so each
+$\mathbf{v}^{\!\top}N^{j}w$ with $j\ge S$ is the corresponding combination of earlier
+values.
 \end{proof}
 
 \begin{theorem}
-\[
-a(n)\;=\;25\,a(n-1) - 121\,a(n-2) - 1053\,a(n-3) + 8090\,a(n-4) + 14880\,a(n-5) - 181311\,a(n-6) - 23343\,a(n-7) + 2042880\,a(n-8) - 1467204\,a(n-9) - 12807271\,a(n-10) + 16480275\,a(n-11) + 45595086\,a(n-12) - 82190480\,a(n-13) - 90492369\,a(n-14) + 228270235\,a(n-15) + 90529737\,a(n-16) - 386567665\,a(n-17) - 14775664\,a(n-18) + 416825766\,a(n-19) - 67519824\,a(n-20) - 289624516\,a(n-21) + 80051920\,a(n-22) + 127462216\,a(n-23) - 43061200\,a(n-24) - 33607808\,a(n-25) + 12259456\,a(n-26) + 4677504\,a(n-27) - 1741568\,a(n-28) - 248832\,a(n-29) + 92160\,a(n-30)
-\]
-for every $n>28$.
+The recurrence \eqref{eq:conj} holds for every $n>32$, which is the statement of
+Section~1.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $30$ matrix--vector products in exact integer
-arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=28+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once.
+The lumped transition counts were obtained by enumerating, for one representative row of
+each pattern, all admissible successors and sorting them by pattern --- the successors being
+generated column by column, since the edge condition is a conjunction of one constraint per
+column. The vector $w=q(N)\mathbf{1}$ was then formed by $32$ matrix--vector products
+in exact integer arithmetic and $\mathbf{v}^{\!\top}N^{j}w$ evaluated for
+$j=0,1,\dots$, again exactly. Every one of those integers vanishes from the index
+corresponding to $n=32+1$ onwards, and the run continued until $w$ was the zero vector,
+which settles all larger $j$ at once. Lemma~\ref{lem:crit} gives the theorem.
 \end{proof}
 
 \section{Verification}
 
-Four checks, each independent of the algebra above.
+Three checks, each independent of the algebra above.
 
-First, the model reproduces all $15$ terms the entry publishes, exactly, in integer
-arithmetic.
+First, the whole construction was compared against the entry's DATA: the right-hand side of
+\eqref{eq:walk}, divided by $4!$, was evaluated at every one of the $11$
+published indices and agrees exactly. This is a strong test of the modelling and not only of
+the arithmetic --- the inversion of Lemma~\ref{lem:inv}, the reading of the local
+condition, and the alignment of the entry's index with the number of rows would each
+show up as a mismatch, and the quotient by $4!$ came out an integer at every index.
 
-Second, the count was recomputed for the smallest arrays straight from the definition: every
-array of width $3$ over $\{0,1,2\}$ with two and with three rows was written out cell by cell,
-the derived array formed, and its rows and its columns compared as whole words. No state, no
-bits of Lemma~\ref{lem:bits} and no recurrence are involved in that computation, and the
-published terms came back.
+Second, the lumped chain was checked against the unlumped one: for the small shapes the walk
+counts $\mathbf{s}_i^{\!\top}M_i^{m}\mathbf{1}$ were computed directly over the full
+alphabet as well and agree with $\sum_P\varepsilon_Pf_m(P)$ term by term.
 
-Third, the conjectured recurrence was evaluated directly on the published terms, with no
-matrices involved, and holds wherever the proved range and the data overlap.
-
-Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
-arithmetic on the whole vector rather than on a sampled prefix.
+Third, the recurrence \eqref{eq:conj} was evaluated on the published terms in exact integer
+arithmetic with no matrices involved, and the annihilation test of Lemma~\ref{lem:crit} was
+run until the working vector was identically zero rather than to a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A236486.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A210130.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
-University Press, 2013.
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; Stirling and
+falling-factorial inversion, Section 1.9.)
+\bibitem{kemeny} J.~G.~Kemeny and J.~L.~Snell, \emph{Finite Markov Chains}, Springer,
+1976. (Strong lumpability, Section 6.3.)
+\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+University Press, 2009.
 \end{thebibliography}
 
 \end{document}

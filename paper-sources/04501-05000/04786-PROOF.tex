@@ -12,17 +12,17 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A207353, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A185987, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{8 September 2026}
+\date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A207353 carries an empirical recurrence of order $58$ contributed by R.~H.~Hardin. It is
+OEIS A185987 carries an empirical recurrence of order $59$ contributed by R.~H.~Hardin. It is
 true, and it is decidable rather than empirical. The entry's condition is local to a bounded window of consecutive lines, so
 the admissible configurations of such a window are the vertices of a finite digraph and the
-arrays counted are exactly the walks in it; hence $a(n)$ is a walk count on $S=651$ vertices
+arrays counted are exactly the walks in it; hence $a(n)$ is a walk count on $S=120112$ vertices
 and is $C$-finite. Whether the conjectured recurrence annihilates it is then settled by a
 finite exact computation, with the Cayley--Hamilton theorem bounding the work.
 \end{abstract}
@@ -31,15 +31,15 @@ finite exact computation, with the Cayley--Hamilton theorem bounding the work.
 
 \section{The conjecture}
 
-OEIS A207353 is ``Number of nX3 0..2 arrays avoiding the pattern z+1 z+1 z horizontally and z-1 z-1 z vertically.''. It has offset $1$ and begins
+OEIS A185987 is ``1/128 the number of (n+2)X5 binary arrays with each 3X3 subblock trace equal to some horizontal or vertical neighbor 3X3 subblock trace.''. It has offset $1$ and begins
 \[
-25, 625, 12468, 244134, 4752484, 92438519, 1799496100, 35036066712,\ \dots
+28, 722, 8948, 126739, 1739442, 24122605, 333538097, 4615215875,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 25*a(n-1) -51*a(n-2) -1449*a(n-3) +4497*a(n-4) +56080*a(n-5) -195326*a(n-6) -1092458*a(n-7) +3792966*a(n-8) +14909978*a(n-9) -46825819*a(n-10) -56152375*a(n-11) +266436042*a(n-12) +12699008*a(n-13) -903512455*a(n-14) +68308437*a(n-15) +2829180642*a(n-16) +31615026*a(n-17) -8360870820*a(n-18) +2894963886*a(n-19) +17815106543*a(n-20) -9225942481*a(n-21) -31018293245*a(n-22) +10847234792*a(n-23) +55730103228*a(n-24) -28827979155*a(n-25) -79354744925*a(n-26) +61335560568*a(n-27) +78792129575*a(n-28) -46870664050*a(n-29) -80119327238*a(n-30) +52702395760*a(n-31) +74040744475*a(n-32) -101289126740*a(n-33) -28552713320*a(n-34) +69913137070*a(n-35) -7705787663*a(n-36) -13281937110*a(n-37) +6536331914*a(n-38) -4000594404*a(n-39) -1669071040*a(n-40) +3633531679*a(n-41) -368116652*a(n-42) -525682843*a(n-43) +175019201*a(n-44) -35415944*a(n-45) -23068825*a(n-46) +38059786*a(n-47) -2122737*a(n-48) -4308110*a(n-49) +1225952*a(n-50) +223268*a(n-51) -98608*a(n-52) +45718*a(n-53) +2988*a(n-54) -1920*a(n-55) +1232*a(n-56) -272*a(n-57) +32*a(n-58)
+Empirical: a(n)=17*a(n-1)-39*a(n-2)-158*a(n-3)+1567*a(n-4)-3928*a(n-5)-5958*a(n-6)+47922*a(n-7)-46802*a(n-8)-202583*a(n-9)+246113*a(n-10)-128185*a(n-11)+4114302*a(n-12)-1483927*a(n-13)-29625981*a(n-14)+13511171*a(n-15)+76029112*a(n-16)-7956342*a(n-17)+85229343*a(n-18)-481211069*a(n-19)-392947650*a(n-20)+1047461959*a(n-21)+1637233339*a(n-22)-978115420*a(n-23)-1982953964*a(n-24)-4158305193*a(n-25)-241488383*a(n-26)+13538130519*a(n-27)+5855596973*a(n-28)-11895093120*a(n-29)-20096457463*a(n-30)-2029592944*a(n-31)+26990431520*a(n-32)+16764566364*a(n-33)-8597636550*a(n-34)-25031867349*a(n-35)-11357359031*a(n-36)+11024845806*a(n-37)+15253304835*a(n-38)+8697899279*a(n-39)-5252620183*a(n-40)-9350069199*a(n-41)-8911883410*a(n-42)+2611952389*a(n-43)+7288771313*a(n-44)+3325978952*a(n-45)-263839229*a(n-46)-3173918417*a(n-47)-1346057329*a(n-48)-272675965*a(n-49)+638497765*a(n-50)+789245994*a(n-51)+137404640*a(n-52)-139120928*a(n-53)-231809952*a(n-54)+1679360*a(n-55)+16108288*a(n-56)+19115648*a(n-57)+285952*a(n-58)-1990656*a(n-59)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 13:48:42, revision 9) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 03:20:05, revision 10) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{The count is a walk count}
@@ -47,10 +47,10 @@ recorded as empirical, and nothing on the entry records it as proved.
 The condition the entry imposes is local: it constrains a bounded window of consecutive lines and nothing beyond. Take as
 vertices the admissible configurations of one such window and put an edge from $u$ to $v$
 whenever $v$ may follow $u$, which the condition decides by inspection of the two. An
-admissible array is then exactly a walk, so with $M$ the adjacency matrix on $S=651$ vertices
+admissible array is then exactly a walk, so with $M$ the adjacency matrix on $S=120112$ vertices
 and $\iota,\tau$ the vectors recording which windows may begin and end an array,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n}\tau ,
+a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau ,
 \]
 the exponent fixed by the entry's own shape and checked against its published terms. In
 particular $a$ is $C$-finite.
@@ -58,7 +58,7 @@ particular $a$ is $C$-finite.
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{58}-\sum_i c_it^{58-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{59}-\sum_i c_it^{59-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -66,7 +66,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+58}-\sum_ic_iM^{j+58-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+59}-\sum_ic_iM^{j+59-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -75,15 +75,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;25\,a(n-1) - 51\,a(n-2) - 1449\,a(n-3) + 4497\,a(n-4) + 56080\,a(n-5) - 195326\,a(n-6) - 1092458\,a(n-7) + 3792966\,a(n-8) + 14909978\,a(n-9) - 46825819\,a(n-10) - 56152375\,a(n-11) + 266436042\,a(n-12) + 12699008\,a(n-13) - 903512455\,a(n-14) + 68308437\,a(n-15) + 2829180642\,a(n-16) + 31615026\,a(n-17) - 8360870820\,a(n-18) + 2894963886\,a(n-19) + 17815106543\,a(n-20) - 9225942481\,a(n-21) - 31018293245\,a(n-22) + 10847234792\,a(n-23) + 55730103228\,a(n-24) - 28827979155\,a(n-25) - 79354744925\,a(n-26) + 61335560568\,a(n-27) + 78792129575\,a(n-28) - 46870664050\,a(n-29) - 80119327238\,a(n-30) + 52702395760\,a(n-31) + 74040744475\,a(n-32) - 101289126740\,a(n-33) - 28552713320\,a(n-34) + 69913137070\,a(n-35) - 7705787663\,a(n-36) - 13281937110\,a(n-37) + 6536331914\,a(n-38) - 4000594404\,a(n-39) - 1669071040\,a(n-40) + 3633531679\,a(n-41) - 368116652\,a(n-42) - 525682843\,a(n-43) + 175019201\,a(n-44) - 35415944\,a(n-45) - 23068825\,a(n-46) + 38059786\,a(n-47) - 2122737\,a(n-48) - 4308110\,a(n-49) + 1225952\,a(n-50) + 223268\,a(n-51) - 98608\,a(n-52) + 45718\,a(n-53) + 2988\,a(n-54) - 1920\,a(n-55) + 1232\,a(n-56) - 272\,a(n-57) + 32\,a(n-58)
+a(n)\;=\;17\,a(n-1) - 39\,a(n-2) - 158\,a(n-3) + 1567\,a(n-4) - 3928\,a(n-5) - 5958\,a(n-6) + 47922\,a(n-7) - 46802\,a(n-8) - 202583\,a(n-9) + 246113\,a(n-10) - 128185\,a(n-11) + 4114302\,a(n-12) - 1483927\,a(n-13) - 29625981\,a(n-14) + 13511171\,a(n-15) + 76029112\,a(n-16) - 7956342\,a(n-17) + 85229343\,a(n-18) - 481211069\,a(n-19) - 392947650\,a(n-20) + 1047461959\,a(n-21) + 1637233339\,a(n-22) - 978115420\,a(n-23) - 1982953964\,a(n-24) - 4158305193\,a(n-25) - 241488383\,a(n-26) + 13538130519\,a(n-27) + 5855596973\,a(n-28) - 11895093120\,a(n-29) - 20096457463\,a(n-30) - 2029592944\,a(n-31) + 26990431520\,a(n-32) + 16764566364\,a(n-33) - 8597636550\,a(n-34) - 25031867349\,a(n-35) - 11357359031\,a(n-36) + 11024845806\,a(n-37) + 15253304835\,a(n-38) + 8697899279\,a(n-39) - 5252620183\,a(n-40) - 9350069199\,a(n-41) - 8911883410\,a(n-42) + 2611952389\,a(n-43) + 7288771313\,a(n-44) + 3325978952\,a(n-45) - 263839229\,a(n-46) - 3173918417\,a(n-47) - 1346057329\,a(n-48) - 272675965\,a(n-49) + 638497765\,a(n-50) + 789245994\,a(n-51) + 137404640\,a(n-52) - 139120928\,a(n-53) - 231809952\,a(n-54) + 1679360\,a(n-55) + 16108288\,a(n-56) + 19115648\,a(n-57) + 285952\,a(n-58) - 1990656\,a(n-59)
 \]
-for every $n>57$.
+for every $n>59$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $58$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $59$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=57+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=59+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -91,7 +91,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $15$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $16$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
@@ -103,7 +103,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A207353.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A185987.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

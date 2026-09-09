@@ -12,75 +12,52 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A183687, proved by transfer matrix}
+\title{A condition on every subblock: the empirical recurrence for OEIS A181250}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{2 September 2026}
+\date{7 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A183687 counts arrays over $\{0,\dots,1\}$ under a condition on the determinant of every
-$2\times2$ subblock, and carries an empirical recurrence of order $17$ contributed by
-R.~H.~Hardin. It is true, and it is decidable rather than empirical. The condition is local to
-a bounded window of consecutive rows, so the count is a walk count on $S=512$ states and is
-$C$-finite; whether the conjectured recurrence annihilates it is then settled by a finite exact
-computation, with the Cayley--Hamilton theorem bounding the work.
+OEIS A181250 carries an empirical recurrence of order $18$ contributed by R.~H.~Hardin. It is
+true, and it is decidable rather than empirical. The entry's condition is a condition on every
+subblock of a fixed size, so it is decided by a bounded window of consecutive lines; the
+admissible windows are the vertices of a finite digraph and the arrays counted are exactly the
+walks in it. Hence $a(n)$ is a walk count on $S=22$ vertices and is $C$-finite, and whether the
+conjectured recurrence annihilates it is settled by a finite exact computation, with the
+Cayley--Hamilton theorem bounding the work.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
 \section{The conjecture}
 
-OEIS A183687 is ``Number of (n+1)X9 binary arrays with every 2X2 subblock nonsingular.''. It has offset $1$ and begins
+OEIS A181250 is ``Number of n X 7 binary matrices with no 2 X 2 block having four 1's.''. It has offset $1$ and begins
 \[
-768, 8912, 91136, 986128, 10382976, 110871040, 1174759296, 12503757968,\ \dots
+128, 11772, 1169792, 114142368, 11185495872, 1095020802848, 107224417436160, 10498818149889952,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n)=7*a(n-1)+162*a(n-2)-935*a(n-3)-10301*a(n-4)+50843*a(n-5)+343104*a(n-6)-1473463*a(n-7)-6611678*a(n-8)+24960936*a(n-9)+75737800*a(n-10)-253751744*a(n-11)-503746592*a(n-12)+1513486656*a(n-13)+1775133568*a(n-14)-4833383936*a(n-15)-2525235200*a(n-16)+6285426688*a(n-17)
+Empirical: a(n)=68*a(n-1)+3106*a(n-2)-10300*a(n-3)-731184*a(n-4)+3930848*a(n-5)+47046600*a(n-6)-471525808*a(n-7)+1012118640*a(n-8)+2396096576*a(n-9)-9445394304*a(n-10)-4382776896*a(n-11)+29415041536*a(n-12)+8676097024*a(n-13)-36065068032*a(n-14)-14871987200*a(n-15)+10138337280*a(n-16)+2907136000*a(n-17)-1119682560*a(n-18).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 01:59:07, revision 9) this is still
+As of the ``Last modified'' line on the live entry (May 25 2024 21:36:35, revision 5) this is still
 recorded as empirical, and nothing on the entry records it as proved.
-
-\section{What is being counted}
-
-Write $\sigma$ for the determinant of a $2\times2$ subblock
-$\begin{pmatrix}p&q\\r&s\end{pmatrix}$, that is $\sigma=ps-qr$. The subblocks of an
-$(n+1)\times9$ array over $\{0,\dots,1\}$ form a grid of $n$ rows and $8$
-columns, and $\sigma$ colours that grid.
-
-The condition is on each subblock separately: every $\sigma$ must not vanish, which is what
-``nonsingular'' says of a $2\times2$ matrix. Nothing
-relates one subblock to another.
 
 \section{The count is a walk count}
 
-Because the condition looks at one subblock at a time and a subblock is
-built from two consecutive array rows, a single row is a state: rows $r$ and $s$ may follow one
-another exactly when all $8$ of the subblocks they form pass. An $(n+1)$-row array is then a
-walk of $n$ steps and
+The entry counts arrays with $7$ columns over the alphabet $\{0,1\}$, growing one row at a time, and the condition it imposes is that no $2\times2$ subblock may contain $4$ ones.
+
+That condition is decided by a bounded window. A $2\times2$ subblock occupies $2$ consecutive rows, so a window of $2$ consecutive rows decides everything that the arrival of a new row settles; nothing outside the window is consulted. Take those windows as the vertices of a digraph, with an edge from $u$ to $v$ when $v$'s new row may follow $u$, and merge vertices with identical futures; that leaves $S=22$. An admissible array is exactly a walk, so with $M$ the adjacency matrix and $\iota,\tau$ the vectors recording which windows may begin and end an array,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n}\tau,\qquad\iota=\tau=(1,\dots,1)^{\!\top},
+a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau ,
 \]
-on the $S=512$ rows.
-
-At $n=1$ the array has two rows and the grid is a single row of $8$
-subblocks, each tested on its own, so $a(1)$ counts the
-$2\times9$ arrays over $\{0,\dots,1\}$ all of whose subblocks pass. The entry's
-first term is $768$, and the model reproduces it along with every later term; that is the
-cheapest check that the grid has been read with the right shape.
-
-Over the alphabet $\{0,\dots,1\}$ the determinant of a $2\times2$ subblock takes values in
-$[-1,1]$, so the colouring of the grid it induces has at most $3$ values.
-That bound is what keeps the construction below finite in the only place where the value of
-$\sigma$, rather than a comparison between two of them, has to be carried.
-In particular $a$ is $C$-finite. The alignment of the walk index with the entry's own $n$ was
-checked against its published terms rather than assumed.
+the exponent fixed by the entry's own shape and checked against its published terms. In
+particular $a$ is $C$-finite.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{17}-\sum_i c_it^{17-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{18}-\sum_i c_it^{18-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -88,47 +65,54 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+17}-\sum_ic_iM^{j+17-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+18}-\sum_ic_iM^{j+18-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly.
+pins the threshold exactly. A constant factor in front of $a$ divides out of the residual and
+changes nothing here.
 \end{proof}
 
 \begin{theorem}
 \[
-a(n)\;=\;7\,a(n-1) + 162\,a(n-2) - 935\,a(n-3) - 10301\,a(n-4) + 50843\,a(n-5) + 343104\,a(n-6) - 1473463\,a(n-7) - 6611678\,a(n-8) + 24960936\,a(n-9) + 75737800\,a(n-10) - 253751744\,a(n-11) - 503746592\,a(n-12) + 1513486656\,a(n-13) + 1775133568\,a(n-14) - 4833383936\,a(n-15) - 2525235200\,a(n-16) + 6285426688\,a(n-17)
+a(n)\;=\;68\,a(n-1) + 3106\,a(n-2) - 10300\,a(n-3) - 731184\,a(n-4) + 3930848\,a(n-5) + 47046600\,a(n-6) - 471525808\,a(n-7) + 1012118640\,a(n-8) + 2396096576\,a(n-9) - 9445394304\,a(n-10) - 4382776896\,a(n-11) + 29415041536\,a(n-12) + 8676097024\,a(n-13) - 36065068032\,a(n-14) - 14871987200\,a(n-15) + 10138337280\,a(n-16) + 2907136000\,a(n-17) - 1119682560\,a(n-18)
 \]
-for every $n>17$.
+for every $n>18$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $17$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $18$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=17+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=18+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
-Three checks, each independent of the algebra above.
+Four checks, each independent of the algebra above.
 
-First, the model reproduces all $15$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $12$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
-Second, the conjectured recurrence was evaluated directly on those published terms, with no
+Second, the reading was pinned before the digraph was written, by a program that enumerates
+every array of the given shape one by one and tests the entry's condition on each subblock
+directly. That program shares no code with the transfer matrix, so an error in one does not
+hide an error in the other.
+
+Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
 arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A183687.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A181250.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{minc} H.~Minc, \emph{Permanents}, Addison--Wesley, 1978.
+\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+University Press, 2009.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

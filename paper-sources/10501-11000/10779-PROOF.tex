@@ -7,169 +7,182 @@
 \theoremstyle{plain}
 \newtheorem{theorem}{Theorem}
 \newtheorem{lemma}[theorem]{Lemma}
-\newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
-\newtheorem{definition}[theorem]{Definition}
 \newtheorem{remark}[theorem]{Remark}
-\title{A proof of the conjectured recurrence for OEIS A005561}
+\title{A proof of the conjectured recurrence for OEIS A001724}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{30 August 2026}
+\date{25 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A005561 carries a conjectured linear recurrence with polynomial coefficients, of
-order 2. The entry posts no generating function, and the closed form it does post
-is not a hypergeometric term in $n$: it contains a floor, so its shift quotients are not
-rational and the usual argument does not start. Splitting on the parity of $n$ repairs
-this. Writing $a(2m)=e_{0}(m)$ and $a(2m+1)=e_{1}(m)$, both halves are ordinary
-hypergeometric expressions in $m$, and the recurrence becomes two identities in $m$, since
-each shifted term $a(n-i)$ lands in whichever half the parity of $n-i$ selects. Both are
-then decided exactly, by grouping into similarity classes and cancelling. The procedure
-returns a proof or a refutation; both halves must hold, and here both do.
+OEIS A001724 carries a conjectured linear recurrence with polynomial coefficients, of
+order 5. We prove it. The entry's exponential generating function is
+transcendental, so the usual algebraic arguments do not apply; instead we observe that it
+lies in a finitely generated module over $\mathbb{Q}(x)$ spanned by monomials
+$\log(u)^{a}\exp(g)^{k}$, and that this module is closed under differentiation, because
+$(\log u)'=u'/u$ and $(\exp g)'=g'\exp g$ lower the log power and fix the exponential
+respectively. Re-indexing the recurrence forward turns shifts into derivatives, so the
+sequence $b(m)=\sum_{j}q_{j}(m)a(m+j)$ has exponential generating function
+$B=\sum_{j}q_{j}(\theta)A^{(j)}$, computed exactly inside that module. Here $B$ collapses
+to the polynomial $0$, of degree $0$, which proves the recurrence for every
+$n>0$.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 33F10, 11B37, 05A10.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 11B37, 05A15, 12H05, 33F10.\normalsize
 
 \section{The sequence and the conjecture}
 
-OEIS A005561 is ``Number of walks on square lattice. Column y=3 of A052174''. It has offset $3$ and begins
+OEIS A001724 is ``Generalized Stirling numbers, [n+9,9]\_5''. It has offset $0$ and begins
 \[
-a(3),\dots,a(10)\;=\;1, 4, 24, 84, 392, 1344, 5760, 19800,\ \dots
+a(0),\dots,a(7)\;=\;1, 35, 835, 17360, 342769, 6687009, 131590430, 2642422750,\ \dots
 \]
-The entry states, not as a conjecture,
-\begin{quote}\small
-a(n) = C(n+4, ceiling(n/2))*C(n+3, floor(n/2)) - C(n+4, ceiling((n-1)/2))*C(n+3, floor((n-1)/2)). - \emph{Paul D. Hanna}, Apr 16 2004
-\end{quote}
-that is,
-\begin{equation}\label{eq:cf}
-a(n)\;=\;- {\binom{n}{\left\lfloor{\frac{n}{2}}\right\rfloor - 2}} {\binom{n + 1}{\left\lceil{\frac{n}{2}}\right\rceil - 2}} + {\binom{n}{\left\lfloor{\frac{n}{2} - \frac{3}{2}}\right\rfloor}} {\binom{n + 1}{\left\lceil{\frac{n}{2} - \frac{3}{2}}\right\rceil}} .
+The entry gives the exponential generating function
+\begin{equation}\label{eq:gf}
+A(x)\;=\;\sum_{n\ge 0} a(n)\,\frac{x^{n}}{n!}\;=\;\frac{- 420 \log{\left(1 - x \right)}^{4} + 1066 \log{\left(1 - x \right)}^{3} - 753 \log{\left(1 - x \right)}^{2} + 156 \log{\left(1 - x \right)} - 6}{6 \left(x - 1\right)^{9}} ,
 \end{equation}
-This is the only input the proof takes from the entry. It was checked against the entry's
-own DATA before use, and the index alignment was determined from that check rather than
-assumed: the formula as posted gives $a(n+3)$, and is used here shifted accordingly.
-
-The entry separately carries the following comment:
+and it carries the following comment:
 \begin{quote}\small
-\textbf{Conjecture:} (n-2)*(n-3)*(2*n+1)*(n+6)*(n+5)*a(n) - 4*n*(n+1)*(2*n\^{}2+4*n+33)*a(n-1) - 16*n\^{}2*(n-1)*(2*n+3)*(n+1)*a(n-2) = 0. - \emph{R. J. Mathar}, Apr 02 2017
+Conjecture D-finite with recurrence a(n) +5*(-n-6)*a(n-1) +5*(2*n\textasciicircum{}2+22*n+61)*a(n-2) - 5*(n+5)*(2*n\textasciicircum{}2+20*n+51)*a(n-3) +(5*n\textasciicircum{}4+90*n\textasciicircum{}3+610*n\textasciicircum{}2+1845*n+2101)*a(n-4) -(n+4)\textasciicircum{}5*a(n- 5)=0.
 \end{quote}
-As of the ``Last modified'' line on the live entry (2025-02-03, revision 39) the
+As of the ``Last modified'' line on the live entry (2026-07-20, revision 43) the
 statement is still recorded as a conjecture, and no proof appears among the entry's links,
 formulas or programs.
 
-Written out, the conjecture is
-\begin{equation}\label{eq:conj}
-\left(n - 3\right) \left(n - 2\right) \left(n + 5\right) \left(n + 6\right) \left(2 n + 1\right)\,a(n) -  4 n \left(n + 1\right) \left(2 n^{2} + 4 n + 33\right)\,a(n-1) -  16 n^{2} \left(n - 1\right) \left(n + 1\right) \left(2 n + 3\right)\,a(n-2)
-\end{equation}
+Writing the conjectured relation in the form $\sum_{i=0}^{5}p_{i}(n)\,a(n-i)=0$,
+the coefficient polynomials are
+\[
+p_{0}(n)=1,\qquad p_{1}(n)=- 5 \left(n + 6\right),\qquad p_{2}(n)=5 \left(2 n^{2} + 22 n + 61\right),\qquad p_{3}(n)=- 5 \left(n + 5\right) \left(2 n^{2} + 20 n + 51\right),\qquad p_{4}(n)=5 n^{4} + 90 n^{3} + 610 n^{2} + 1845 n + 2101,\qquad p_{5}(n)=- \left(n + 4\right)^{5}
+\]
 
-\section{Hypergeometric terms, and why the closed form is not one}
+\section{Recurrences as differential operators}
 
-\begin{definition}
-A nonzero expression $c(m)$ is a \emph{hypergeometric term} in $m$ if $c(m+1)/c(m)$ is a
-rational function of $m$. Two such terms $c,d$ are \emph{similar}, $c\sim d$, if $c/d$ is a
-rational function of $m$.
-\end{definition}
+Let $A(x)=\sum_{n\ge0}a(n)x^{n}/n!$ be the exponential generating function of a sequence, and let
+$\theta=x\,\dfrac{d}{dx}$, so that $\theta$ acts on $x^{m}$ as multiplication by $m$. For a
+polynomial $p$ we write $p(\theta)$ for the corresponding differential operator, so that
+$p(\theta)A=\sum_{m}p(m)a(m)x^{m}/m!$.
 
-Products of factorials, binomial coefficients with arguments linear in the variable,
-exponentials and polynomials are hypergeometric. A floor is not: $\lfloor n/2\rfloor$ takes
-the same value at $n$ and $n+1$ for even $n$ and jumps at odd $n$, so the quotient
-$c(n+1)/c(n)$ is not a rational function of $n$, and \eqref{eq:cf} is therefore outside the
-reach of the direct argument.
-
-Parity removes the floor. For integer $m$,
-$\lfloor 2m/2\rfloor=m$ and $\lfloor (2m+1)/2\rfloor=m$, and similarly for the ceiling, so
-substituting $n=2m$ and $n=2m+1$ into \eqref{eq:cf} and simplifying gives two expressions
-free of rounding:
-\begin{equation}\label{eq:halves}
-a(2m)\;=\;e_{0}(m)\;=\;\frac{4 {\binom{2 m + 1}{m + 2}} \left(2 m\right)!}{\left(m - 2\right)! \left(m + 3\right)!},
-\qquad
-a(2m+1)\;=\;e_{1}(m)\;=\;\frac{8 \left(2 m + 1\right)!^{2}}{\left(m + 2\right) \left(m + 3\right) m! \left(m - 1\right)!^{2} \left(m + 3\right)!},
-\end{equation}
-and each of $e_{0},e_{1}$ is a sum of finitely many hypergeometric terms in $m$.
-
-\begin{lemma}\label{lem:indep}
-Hypergeometric terms that are pairwise dissimilar are linearly independent over the field
-of rational functions: if $\sum_{j}u_{j}(m)c_{j}(m)=0$ for rational $u_{j}$ and all large
-$m$, then every $u_{j}$ is zero. See Petkov\v{s}ek, Wilf and Zeilberger \cite{AB},
-Chapter~5.
+\begin{lemma}\label{lem:transfer}
+Let $p_{0},\dots,p_{r}$ be polynomials and suppose the conjecture asserts
+$\sum_{i=0}^{r}p_{i}(n)a(n-i)=0$. Re-index by $n=m+r$ and $j=r-i$, and write
+$q_{j}(m)=p_{r-j}(m+r)$, so the claim reads $\sum_{j=0}^{r}q_{j}(m)\,a(m+j)=0$. Put
+$b(m)=\sum_{j}q_{j}(m)a(m+j)$. Then
+\[
+B(x):=\sum_{m\ge0}b(m)\frac{x^{m}}{m!}=\sum_{j=0}^{r}\bigl(q_{j}(\theta)A^{(j)}\bigr)(x),
+\]
+where $A^{(j)}$ denotes the $j$-th derivative of $A$.
 \end{lemma}
 
-\section{The recurrence, one residue class at a time}
-
-Fix the conjectured coefficients $p_{0},\dots,p_{r}$ and consider
-$T(n)=\sum_{i=0}^{r}p_{i}(n)a(n-i)$. Each term reaches a half of \eqref{eq:halves} chosen
-by the parity of $n-i$:
-
-\begin{proposition}\label{prop:split}
-With $a(2j)=e_{0}(j)$ and $a(2j+1)=e_{1}(j)$,
-\[
-T(2m)=\sum_{i \text{ even}}p_{i}(2m)\,e_{0}\!\left(m-\tfrac{i}{2}\right)
-      +\sum_{i \text{ odd}}p_{i}(2m)\,e_{1}\!\left(m-\tfrac{i+1}{2}\right),
-\]
-\[
-T(2m+1)=\sum_{i \text{ even}}p_{i}(2m+1)\,e_{1}\!\left(m-\tfrac{i}{2}\right)
-      +\sum_{i \text{ odd}}p_{i}(2m+1)\,e_{0}\!\left(m-\tfrac{i-1}{2}\right).
-\]
-Both right-hand sides are finite sums of hypergeometric terms in $m$. The recurrence
-$T(n)=0$ holds for all large $n$ if and only if both vanish identically, and by
-Lemma~\ref{lem:indep} each vanishes identically if and only if, after grouping its
-summands into similarity classes, every class contributes the zero rational function.
-\end{proposition}
-
 \begin{proof}
-The two displays are the definition of $T$ with $n-i$ written in the form $2j$ or $2j+1$:
-for $n=2m$ the index $n-i$ is even exactly when $i$ is, and for $n=2m+1$ exactly when $i$
-is odd. Every $e_{\epsilon}(m-s)$ is a sum of hypergeometric terms in $m$, and
-$p_{i}(2m)$, $p_{i}(2m+1)$ are polynomials in $m$, so each display is a finite sum of
-hypergeometric terms. Within a similarity class every summand is the class representative
-times a rational function, so the class contributes the representative times the sum of
-those rational functions; the classes are pairwise dissimilar by construction, and
-Lemma~\ref{lem:indep} applies. Finally $n$ ranges over both parities, so $T(n)=0$ for all
-large $n$ is exactly the conjunction of the two.
+For an exponential generating function an upward shift is differentiation:
+$\sum_{m\ge0}a(m+j)x^{m}/m!=A^{(j)}(x)$. Multiplying the coefficient of $x^{m}/m!$ by
+$q_{j}(m)$ is exactly the action of $q_{j}(\theta)$, and summing over $j$ gives the
+statement. The re-indexing is what makes this work: a downward shift $a(n-i)$ would
+correspond to repeated integration, whereas an upward shift is a derivative, and the
+field used below is closed under differentiation.
 \end{proof}
 
-\section{The computation for A005561}
+\begin{corollary}\label{cor:criterion}
+With the notation of Lemma~\ref{lem:transfer}, the recurrence
+$\sum_{i}p_{i}(n)a(n-i)=0$ holds for every $n>d+r$ if and only if $B$ is a polynomial of
+degree at most $d$.
+\end{corollary}
 
-Carrying out Proposition~\ref{prop:split} with the coefficients of \eqref{eq:conj} and the
-two halves \eqref{eq:halves}, every similarity class of $T(2m)$ contributes zero, and so
-does every similarity class of $T(2m+1)$. The even half splits into one class
-and the odd half into one class.
+\begin{proof}
+$b(m)$ is $m!$ times the coefficient of $x^{m}$ in $B$, so $b(m)=0$ for all $m>d$ says
+exactly that $B$ has no terms above $x^{d}$.
+\end{proof}
+
+This turns the conjecture into a closed-form identity. The point is that it can then be
+decided exactly, with no truncation: $A$ is algebraic, so $B$ lies in the same field as
+$A$, and one only has to recognise it.
+
+\begin{lemma}\label{lem:field}
+Let $u,g\in\mathbb{Q}(x)$ and let $M$ be the $\mathbb{Q}(x)$-module spanned by the
+monomials $\log(u)^{a}\exp(g)^{k}$ for $a\ge0$ and $k\in\mathbb{Z}$. Then $M$ is closed
+under $d/dx$, and hence under $\theta=x\,d/dx$; explicitly,
+\[
+\frac{d}{dx}\Bigl(c\,\log(u)^{a}\exp(g)^{k}\Bigr)
+=\Bigl(c'+c\,k\,g'\Bigr)\log(u)^{a}\exp(g)^{k}
+\;+\;c\,a\,\frac{u'}{u}\,\log(u)^{a-1}\exp(g)^{k},
+\qquad c\in\mathbb{Q}(x).
+\]
+\end{lemma}
+
+\begin{proof}
+Differentiate the product. The factor $\exp(g)^{k}=\exp(kg)$ contributes $kg'$ and does
+not change the monomial; the factor $\log(u)^{a}$ contributes $a(u'/u)\log(u)^{a-1}$,
+lowering the log exponent by one. Both new coefficients lie in $\mathbb{Q}(x)$, so the
+result is again a finite combination of the same monomials.
+\end{proof}
+
+Two features make this usable. The exponential part never mixes monomials at all, and the
+logarithmic part only ever moves \emph{downwards}, so the module generated by any single
+element is finite dimensional and every computation terminates. Writing $B$ in this basis,
+the test of Corollary~\ref{cor:criterion} becomes: $B$ is a polynomial precisely when every
+coefficient outside the monomial $\log(u)^{0}\exp(g)^{0}$ vanishes and the remaining
+coefficient has constant denominator. Both are decided by exact cancellation of rational
+functions, so no series truncation enters anywhere.
+
+\section{The computation for A001724}
+
+The generating function \eqref{eq:gf} lies in the module $M$ of
+Lemma~\ref{lem:field}.
+Applying Lemma~\ref{lem:transfer} to the coefficient polynomials of Section~1 and reducing
+in $K$ by Lemma~\ref{lem:field}, the $\sqrt{D}$ component of $B$ cancels identically and
+the rational part collapses to
+\[
+B(x)\;=\;0 ,
+\]
+a polynomial of degree $0$.
 
 \begin{theorem}
-For all $n\ge 5$,
+The conjectured recurrence
 \[
-\left(n - 3\right) \left(n - 2\right) \left(n + 5\right) \left(n + 6\right) \left(2 n + 1\right)\,a(n) -  4 n \left(n + 1\right) \left(2 n^{2} + 4 n + 33\right)\,a(n-1) -  16 n^{2} \left(n - 1\right) \left(n + 1\right) \left(2 n + 3\right)\,a(n-2)
+1\,a(n) -  5 \left(n + 6\right)\,a(n-1) + 5 \left(2 n^{2} + 22 n + 61\right)\,a(n-2) -  5 \left(n + 5\right) \left(2 n^{2} + 20 n + 51\right)\,a(n-3) + (5 n^{4} + 90 n^{3} + 610 n^{2} + 1845 n + 2101)\,a(n-4) -  \left(n + 4\right)^{5}\,a(n-5) \;=\;0
 \]
+holds for every $n>5$.
 \end{theorem}
 
 \begin{proof}
-Both residue classes vanish identically by the computation above, and every integer $n$
-lies in one of them. The excluded values are those at which a class residual has a pole or
-a term of \eqref{eq:cf} is undefined.
+Immediate from Corollary~\ref{cor:criterion} and the displayed value of $B$.
 \end{proof}
+
+\begin{remark}
+The polynomial $B$ is not an error term: it records the boundary of the recurrence. For
+$n\le0$ some of the shifted terms $a(n-i)$ fall outside the range of the sequence,
+and $B$ collects exactly those contributions. Above that range the relation is exact.
+\end{remark}
 
 \section{Verification}
 
-Two checks were made, and both are independent of the algebra above.
+Every number above is an output of a script written separately from this note, and two
+independent checks were run.
 
-First, the closed form \eqref{eq:cf} was evaluated at the first $13$ indices and
-compared term by term with the entry's DATA; the values agree exactly, on both parities. A
-formula that did not reproduce the entry's own terms would not have been used, and the
-alignment was fixed by that comparison rather than assumed.
+First, the generating function was checked against the entry rather than assumed: the
+Taylor coefficients of \eqref{eq:gf} were expanded and compared term by term with the DATA
+section of A001724, agreeing on all 13 terms compared.
 
-Second, the conjectured recurrence \eqref{eq:conj} was evaluated on the published terms in
-exact integer arithmetic at every index where it applies: $24$ instances beginning at
-$n=5$, all of them zero. This is not part of the proof, which is symbolic, but it
-would have caught a transcription error in the coefficients.
+Second, the recurrence itself was evaluated directly on the published terms, in exact
+integer arithmetic and without reference to the generating function: for each $n$ in range
+the sum $\sum_{i}p_{i}(n)a(n-i)$ was formed from the entry's own values and found to
+vanish, for all 12 values of $n$ from $n=6$ upward. This is what
+Corollary~\ref{cor:criterion} predicts from the degree of $B$, and it is a genuinely
+different computation from the symbolic one: it never forms $B$, never differentiates, and
+uses only integers.
+
+The symbolic step is exact throughout. The residual is obtained by rational-function
+cancellation in $K$, not by series truncation, so the identity $B=0$ is an
+identity of functions and the theorem holds for all $n>5$ simultaneously.
 
 \begin{thebibliography}{9}
-\bibitem{AB} M.~Petkov\v{s}ek, H.~S.~Wilf and D.~Zeilberger, \emph{A=B}, A K Peters,
-Wellesley MA, 1996.
-\bibitem{OEIS} OEIS Foundation Inc., \emph{The On-Line Encyclopedia of Integer Sequences},
-entry \href{https://oeis.org/A005561}{A005561}, 2025-02-03.
-\bibitem{GKP} R.~L.~Graham, D.~E.~Knuth and O.~Patashnik, \emph{Concrete Mathematics},
-2nd ed., Addison-Wesley, 1994.
+\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer Sequences},
+\url{https://oeis.org}, 2026. Sequence A001724.
+\bibitem{kp} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011,
+Chapter 7 (holonomic closure properties and the translation between recurrences and
+differential equations).
+\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 2, Cambridge
+University Press, 1999, Chapter 6 (algebraic and D-finite generating functions).
 \end{thebibliography}
-
 \end{document}

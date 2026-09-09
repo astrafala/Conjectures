@@ -12,67 +12,87 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A253517, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A183721, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{2 September 2026}
+\date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A253517 counts the arrays over $\{0,\dots,2\}$ whose $2\times2$ subblocks carry a
-statistic that is monotone along named directions of the subblock grid, and carries an
-empirical recurrence of order $6$ contributed by R.~H.~Hardin. It is true, and it is
-decidable rather than empirical. Every direction named moves the subblock row by at most one,
-so a pair of consecutive array rows is a state, the count is a walk count on $S=81$ of them,
-and the conjectured recurrence is then settled by a finite exact computation.
+OEIS A183721 counts arrays of width $2$ over $\{0,1,\dots,5\}$ subject to a condition read round the
+perimeter of every $2\times2$ subblock: every subblock turns strictly one way with a single decrease, and some two adjacent subblocks turn the same way. The entry carries an empirical recurrence of
+order $6$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
+empirical: the condition is settled inside a bounded window of consecutive rows, so the
+count is a walk count on a finite digraph with $S=109$ vertices, and whether a linear
+recurrence holds for such a count is a finite computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 06A07.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A16, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A253517 is ``Number of (n+1) X (1+1) 0..2 arrays with every 2 X 2 subblock diagonal minimum minus antidiagonal minimum nondecreasing horizontally and diagonal maximum minus antidiagonal maximum nondecreasing vertically.''. It has offset $1$ and begins
+OEIS A183721 is ``1/12 the number of (n+1) X 2 0..5 arrays with every 2 X 2 subblock strictly increasing clockwise or counterclockwise with one decrease, and at least two adjacent blocks having the same increasing direction.''. It has offset $1$ and begins
 \[
-81, 470, 2180, 9623, 42669, 192393, 876277, 4010555,\ \dots
+0, 1, 12, 87, 537, 3070, 16731, 88331,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 8*a(n-1) - 15*a(n-2) - 12*a(n-3) + 44*a(n-4) - 8*a(n-5) - 16*a(n-6) for n>13.
+Empirical: a(n) = 8*a(n-1) - 11*a(n-2) - 23*a(n-3) + 6*a(n-4) + 7*a(n-5) - 2*a(n-6).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Mar 20 2018 10:17:33, revision 7) this is still
+As of the ``Last modified'' line on the live entry (Apr 04 2018 10:48:01, revision 11) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The $2\times2$ subblocks of an $(n+1)\times2$ array over $\{0,\dots,2\}$ form a grid
-of $n$ rows and $1$ column; write $\sigma(i,j)$ for the value the entry's statistic takes on
-the subblock in position $(i,j)$, a function of its four entries
-$\begin{pmatrix}p&q\\r&s\end{pmatrix}$ alone. The condition is
+The arrays have $2$ columns and a growing number of rows, with entries in $\{0,1,\dots,5\}$. A
+$2\times2$ subblock is a set of four cells
 \[
-\sigma(i,j)\le\sigma(i,j+1),\qquad \sigma(i,j)\le\sigma(i+1,j)
+B=\begin{pmatrix} p & q \\ r & s \end{pmatrix},
+\qquad p=x(i,j),\; q=x(i,j+1),\; r=x(i+1,j),\; s=x(i+1,j+1).
 \]
-whenever both positions exist. The entry names two statistics, one governing the horizontal direction and one the vertical; both are functions of the same subblock, so both are read off the same pair of rows and no extra state is needed.
-
-Three points of the English are fixed by the entries' own terms rather than guessed:
-``ne-to-sw antidiagonally'' is the offset $(+1,-1)$ on the subblock grid, since the offset
-$(+1,+1)$ gives $164$ where the corresponding entry publishes $126$; ``diagonal minus
-antidiagonal sum'' is $(p+s)-(q+r)$; and ``ne-sw antidiagonal difference'' is $q-r$. Each was
-checked by counting the small arrays directly and comparing with the entry.
-
-\section{The count is a walk count}
-
-A pair of consecutive array rows determines one whole row of the subblock grid. Take those
-pairs as states. The comparisons with offset $(0,\pm1)$ live inside a single subblock row, so
-they decide which pairs are admissible at all; the comparisons with offset $(\pm1,\cdot)$
-relate two consecutive subblock rows, so they decide which pair may follow which. A step of the
-walk appends one array row, turning the pair $(r,s)$ into $(s,t)$, and settles every comparison
-between the two subblock rows at once. An $(n+1)$-row array is therefore a walk of $n-1$ steps
-and every walk comes from exactly one array, so
+Its perimeter is a cycle of four cells, walked clockwise as $p\to q\to s\to r\to p$ and
+counterclockwise as $p\to r\to s\to q\to p$. Write
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,\qquad \iota=\tau=(1,\dots,1)^{\!\top},
+\mathrm{cw}(B)=[p<q]+[q<s]+[s<r]+[r<p],\qquad
+\mathrm{ccw}(B)=[p<r]+[r<s]+[s<q]+[q<p]
 \]
-on the $S=81$ admissible pairs. In particular $a$ is $C$-finite. The alignment of the walk
-index with the entry's own $n$ was checked against its published terms rather than assumed.
+for the number of steps at which the value rises, going each way round.
+
+\begin{lemma}\label{lem:sum}
+$\mathrm{cw}(B)+\mathrm{ccw}(B)=4-\#\{\text{edges of the cycle with equal ends}\}$.
+\end{lemma}
+
+\begin{proof}
+Each of the four edges of the square is walked once by each cycle, and in opposite directions.
+An edge with distinct ends therefore contributes exactly one rise, to one of the two counts;
+an edge with equal ends contributes to neither.
+\end{proof}
+
+The condition the entry imposes is this: every subblock $B$ has its four corners pairwise unequal along the cycle ($p\ne q$, $q\ne s$, $s\ne r$, $r\ne p$) and
+\[
+\mathrm{cw}(B)\in\{1,3\}.
+\]
+Going round clockwise there are then four strict steps, of which either three rise and one falls ($\mathrm{cw}(B)=3$: strictly increasing clockwise with one decrease) or one rises and three fall ($\mathrm{cw}(B)=1$, which is the same statement read counterclockwise). Call the subblock \emph{clockwise} in the first case and \emph{counterclockwise} in the second; this is its increasing direction.
+
+The entry asks in addition that at least two adjacent subblocks ---adjacent meaning one step right or one step down in the grid of subblocks---have the same increasing direction. That is a condition on the array as a whole, not on any one subblock. The entry publishes $1/12$ of that count; the division is by the constant 12 and changes nothing about the recurrence.
+
+\section{A bounded window}
+
+Two consecutive rows decide every subblock lying between them, and their increasing directions. The extra requirement is an EXISTENCE statement about the whole array, and an existence statement needs only one bit: the state carries the row just written, the increasing direction of each subblock of the pair just closed---which is what a subblock in the next pair must be compared against---and a single flag, set the first time two adjacent subblocks are seen to agree and never cleared.
+
+One step of the walk writes a whole row. The row is filled left to right, and the subblock
+closed by positions $j-1,j$ is tested the moment position $j$ is written, so a partial row that
+cannot be completed is abandoned rather than enumerated. The walk starts at the state standing
+for the empty array, so that a walk of $n$ steps is an array of $n$ rows.
+
+The end vector is the indicator of the states in which the required pair of adjacent subblocks has already been witnessed; every other state is rejected. Thus
+\[
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=109,
+\]
+for the transfer matrix $M$ on those $S$ states. The walk index $j$ and the entry's own $n$
+differ by a constant, read off by matching the published terms rather than assumed. In
+particular $a$ is $C$-finite, and every question about linear recurrences it satisfies is
+decidable.
 
 \section{The proof}
 
@@ -94,39 +114,42 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;8\,a(n-1) - 15\,a(n-2) - 12\,a(n-3) + 44\,a(n-4) - 8\,a(n-5) - 16\,a(n-6)
+a(n)\;=\;8\,a(n-1) - 11\,a(n-2) - 23\,a(n-3) + 6\,a(n-4) + 7\,a(n-5) - 2\,a(n-6)
 \]
-for every $n>13$.
+for every $n>6$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $6$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=13+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once. The bound is exact: at $n=13$ the recurrence fails on the entry's own published terms, so no larger range holds.
+integers vanish from the index corresponding to $n=6+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
-Three checks, each independent of the algebra above.
+Four checks, each independent of the algebra above.
 
-First, the model reproduces all $20$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry: the digraph is built by reading the
-entry's English, and a misreading gives different counts.
+First, the model reproduces all $22$ terms the entry publishes, exactly, in integer
+arithmetic.
 
-Second, the conjectured recurrence was evaluated directly on those published terms, with no
+Second, the count was recomputed for the smallest arrays straight from the definition: every
+array of the stated width and a few rows was written out cell by cell over $\{0,1,\dots,5\}$, each of
+its $2\times2$ subblocks was read round its perimeter, and the condition of Section 2 was
+applied as stated. No window, no state and no recurrence is involved in that computation, and
+the published terms came back.
+
+Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
 arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A253517.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A183721.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{davey} B.~A.~Davey and H.~A.~Priestley, \emph{Introduction to Lattices and
-Order}, 2nd ed., Cambridge University Press, 2002.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

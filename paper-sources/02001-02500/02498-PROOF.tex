@@ -12,23 +12,23 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical closed form for OEIS A223840, proved}
+\title{The empirical closed form for OEIS A185469, proved}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A223840 carries an empirical closed form for $a(n)$ --- not a recurrence relating
+OEIS A185469 carries an empirical closed form for $a(n)$ --- not a recurrence relating
 consecutive terms but an explicit formula. It is true, and it is decidable rather than
 empirical. The entry counts arrays subject to a condition on a bounded window of consecutive lines, so the lines of an array are the
 vertices of a finite digraph, an array is a walk in it, and $a(n)$ is a walk count on
-$S=20480$ vertices. Any function of the form $\sum_j p_j(n)\lambda_j^{\,n}$ satisfies the
+$S=65$ vertices. Any function of the form $\sum_j p_j(n)\lambda_j^{\,n}$ satisfies the
 monic linear recurrence whose characteristic polynomial is
-$\prod_j(x-\lambda_j)^{\deg p_j+1}$; here that polynomial is $q(x)=(x-1)^{9}$, of degree
-$9$. Two things are then checked exactly: that the walk count satisfies the same
+$\prod_j(x-\lambda_j)^{\deg p_j+1}$; here that polynomial is $q(x)=(x-1)^{10}$, of degree
+$10$. Two things are then checked exactly: that the walk count satisfies the same
 recurrence from some index on, which the Cayley--Hamilton theorem reduces to a finite
-computation, and that the two sequences agree at $9$ consecutive indices past that
+computation, and that the two sequences agree at $10$ consecutive indices past that
 point. A monic recurrence determines every later term from its predecessors, so agreement
 there is agreement for good.
 \end{abstract}
@@ -37,18 +37,18 @@ there is agreement for good.
 
 \section{The conjecture}
 
-OEIS A223840 is ``Number of 4 X n 0..1 arrays with rows, diagonals and antidiagonals unimodal and columns nondecreasing.''. It has offset $1$ and begins
+OEIS A185469 is ``Number of (n+2)X3 0..2 arrays with each 3X3 subblock having rows and columns in lexicographically nondecreasing order.''. It has offset $1$ and begins
 \[
-5, 25, 89, 249, 596, 1286, 2578, 4886,\ \dots
+1169, 4594, 13659, 34779, 79743, 169052, 336690, 636698,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = (1/40320)*n\^{}8 - (1/10080)*n\^{}7 + (19/2880)*n\^{}6 + (7/180)*n\^{}5 + (527/5760)*n\^{}4 + (3683/1440)*n\^{}3 + (4051/10080)*n\^{}2 - (1707/280)*n + 13 for n>2.
+Empirical: a(n) = (1/362880)*n\^{}9 + (1/1008)*n\^{}8 + (431/12096)*n\^{}7 + (373/720)*n\^{}6 + (82453/17280)*n\^{}5 + (637/18)*n\^{}4 + (2819461/18144)*n\^{}3 + (119729/315)*n\^{}2 + (605807/1260)*n + 112
 \end{quote}
-As of the ``Last modified'' line on the live entry (Mar 20 2025 14:53:31, revision 14) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 03:00:05, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved. Write
 \[
-f(n)\;=\;\frac{n^{8}}{40320} - \frac{n^{7}}{10080} + \frac{19 n^{6}}{2880} + \frac{7 n^{5}}{180} + \frac{527 n^{4}}{5760} + \frac{3683 n^{3}}{1440} + \frac{4051 n^{2}}{10080} - \frac{1707 n}{280} + 13.
+f(n)\;=\;\frac{n^{9}}{362880} + \frac{n^{8}}{1008} + \frac{431 n^{7}}{12096} + \frac{373 n^{6}}{720} + \frac{82453 n^{5}}{17280} + \frac{637 n^{4}}{18} + \frac{2819461 n^{3}}{18144} + \frac{119729 n^{2}}{315} + \frac{605807 n}{1260} + 112.
 \]
 
 \section{The count is a walk count}
@@ -56,7 +56,7 @@ f(n)\;=\;\frac{n^{8}}{40320} - \frac{n^{7}}{10080} + \frac{19 n^{6}}{2880} + \fr
 The entry's defining condition is local: it is a condition on a bounded window of consecutive lines. Take as vertices the
 admissible configurations of such a window and put an edge from $u$ to $v$ when $v$ may
 follow $u$, which the condition decides by inspection. An admissible array is then exactly a
-walk, so with $M$ the adjacency matrix of that digraph on $S=20480$ vertices, and $u,w$ the
+walk, so with $M$ the adjacency matrix of that digraph on $S=65$ vertices, and $u,w$ the
 vectors recording which windows may start and end an array,
 \[
 a(n)\;=\;u^{\!\top}M^{\,g(n)}w
@@ -83,9 +83,9 @@ $p(m+1)-p(m)$ has degree one less than $p$. So $(E-\lambda)^{\deg p+1}$ kills
 $\lambda^{m}p(m)$, and the factors of $q$ commute.
 \end{proof}
 
-Here $q(x)=(x-1)^{9}$, of degree $9$; the closed form is a polynomial in $n$, so this is $(x-1)^{9}$, and the recurrence it encodes is
+Here $q(x)=(x-1)^{10}$, of degree $10$; the closed form is a polynomial in $n$, so this is $(x-1)^{10}$, and the recurrence it encodes is
 \begin{equation}\label{eq:rec}
-a(n)\;=\;9\,a(n-1) - 36\,a(n-2) + 84\,a(n-3) - 126\,a(n-4) + 126\,a(n-5) - 84\,a(n-6) + 36\,a(n-7) - 9\,a(n-8) + a(n-9).
+a(n)\;=\;10\,a(n-1) - 45\,a(n-2) + 120\,a(n-3) - 210\,a(n-4) + 252\,a(n-5) - 210\,a(n-6) + 120\,a(n-7) - 45\,a(n-8) + 10\,a(n-9) - a(n-10).
 \end{equation}
 
 \section{The proof}
@@ -105,43 +105,43 @@ threshold exactly.
 \end{proof}
 
 \begin{theorem}
-$a(n)=f(n)$ for every $n\ge3$.
+$a(n)=f(n)$ for every $n\ge1$.
 \end{theorem}
 
 \begin{proof}
-The vector $w'=q(M)w$ was formed by $9$ matrix--vector products in exact integer
+The vector $w'=q(M)w$ was formed by $10$ matrix--vector products in exact integer
 arithmetic, and $u^{\!\top}M^{j}w'$ evaluated for $j=0,1,\dots$, again exactly. Those integers
-vanish from the point corresponding to $n=12$ onwards, and the run was continued until the
+vanish from the point corresponding to $n=11$ onwards, and the run was continued until the
 working vector was identically zero, which settles every larger $j$ at once. So $a$ satisfies
-\eqref{eq:rec} for every $n>11$. By Lemma~\ref{lem:ann} $f$ satisfies \eqref{eq:rec}
-identically. Both were then evaluated in exact arithmetic at the $9$ consecutive indices
-$n=12,\dots,20$ and agree at each. A monic recurrence of order $9$
-determines $a(m)$ from $a(m-1),\dots,a(m-9)$, and for every $m\ge21$ both
-$m>11$ and $m-9\ge12$ hold, so induction on $m$ gives $a(m)=f(m)$ for every
-$m\ge12$.
-Below $n=12$ the recurrence argument gives nothing, since \eqref{eq:rec} is only
-established for $a$ from $n=12$ on. The remaining indices $n=3,\dots,11$ were
+\eqref{eq:rec} for every $n>10$. By Lemma~\ref{lem:ann} $f$ satisfies \eqref{eq:rec}
+identically. Both were then evaluated in exact arithmetic at the $10$ consecutive indices
+$n=11,\dots,20$ and agree at each. A monic recurrence of order $10$
+determines $a(m)$ from $a(m-1),\dots,a(m-10)$, and for every $m\ge21$ both
+$m>10$ and $m-10\ge11$ hold, so induction on $m$ gives $a(m)=f(m)$ for every
+$m\ge11$.
+Below $n=11$ the recurrence argument gives nothing, since \eqref{eq:rec} is only
+established for $a$ from $n=11$ on. The remaining indices $n=1,\dots,10$ were
 therefore checked one at a time, directly against the walk count in exact integer arithmetic,
 and agree.
 \end{proof}
 
-The range is tight in the sense that was checked: at $n=2$ the closed form and the sequence differ, so no larger range is available.
+The range is tight in the sense that was checked: the closed form holds from the entry's first term onwards.
 
 \section{Verification}
 
 Four checks, each independent of the algebra above.
 
-First, the walk model reproduces every one of the $34$ terms the entry publishes,
+First, the walk model reproduces every one of the $25$ terms the entry publishes,
 exactly, in integer arithmetic. This is what ties the model to the entry: the model is built
 by reading the entry's English, and a misreading gives a different digraph and different
 counts.
 
 Second, the closed form was evaluated in exact rational arithmetic --- not floating point ---
-at every published term from $n=3$ on, and agrees with the entry's own DATA at each.
+at every published term from $n=1$ on, and agrees with the entry's own DATA at each.
 
 Third, the annihilation test of Lemma~\ref{lem:crit} was carried out exactly, and the model
 and the closed form were then compared directly at sixty consecutive indices beyond
-$n=3$, far past where the proof already settles the matter.
+$n=1$, far past where the proof already settles the matter.
 
 Fourth, the closed form was deliberately perturbed --- by a constant and by a term linear in
 $n$ --- and each perturbed form was rejected by the same comparison, so the test is not one
@@ -149,7 +149,7 @@ that anything would pass.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A223840.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A185469.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; $C$-finite sequences,
 Section 4.1.)

@@ -12,134 +12,121 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A221134, proved by transfer matrix}
+\title{A lattice count, not a walk count: OEIS A225311}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{3 September 2026}
+\date{7 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A221134 counts the distinct OCCUPANCY arrays obtained when every cell of an $n\times3$ grid
-holds one token and each token moves to a neighbouring cell, and carries an empirical
-recurrence of order $9$ contributed by R.~H.~Hardin. It is true, and it is decidable
-rather than empirical. What is counted is the size of an IMAGE --- two different assignments of
-moves with the same occupancy count once --- so it is not a walk count in the obvious graph;
-determinising the machine that emits the occupancy row by row turns it into one, on $S=581$
-states, after which the conjectured recurrence is settled by a finite exact computation.
+OEIS A225311 carries an empirical recurrence of order $10$ contributed by R.~H.~Hardin. It is
+true, and it is decidable rather than empirical. A nondecreasing row of $-1$s and $1$s is
+determined by one number --- how many $-1$s it holds --- so the entry's condition collapses to
+a single linear equation on a box of lattice points, and the arrays disappear entirely. The
+count is then the number of lattice points in a dilate of a fixed rational polytope, hence a
+quasi-polynomial in $n$; its degree and its period can both be named, which bounds by
+$S=96$ the order of a linear recurrence it must satisfy. Whether the conjectured recurrence
+is that recurrence is then a finite exact computation. There is no digraph and no matrix
+anywhere in this argument.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 68Q45, 60C05.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
 \section{The conjecture}
 
-OEIS A221134 is ``Number of nX3 arrays of occupancy after each element moves to some horizontal or vertical neighbor, with no occupancy greater than 2.''. It has offset $1$ and begins
+OEIS A225311 is ``Number of 4 X n -1,1 arrays such that the sum over i=1..4,j=1..n of i*x(i,j) is zero and rows are nondecreasing (ways to put n thrusters pointing east or west at each of 4 positions 1..n distance from the hinge of a south-pointing gate without turning the gate).''. It has offset $1$ and begins
 \[
-2, 49, 656, 12544, 200072, 3485689, 58132316, 990486784,\ \dots
+2, 7, 16, 31, 52, 83, 122, 175,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 21*a(n-1) -1450*a(n-3) +4782*a(n-4) -372*a(n-5) +1450*a(n-6) +69*a(n-8) +a(n-9)
+Empirical: a(n) = a(n-1) + a(n-2) - 2*a(n-5) + a(n-8) + a(n-9) - a(n-10).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 19:21:13, revision 8) this is still
+As of the ``Last modified'' line on the live entry (Sep 05 2018 06:13:39, revision 7) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
-\section{What is being counted}
+\section{The array disappears}
 
-Every cell of an $n\times3$ grid holds one token. Each token moves by one of the offsets
-\[
-(-1,0), (0,-1), (0,1), (1,0),
-\]
-a move being available only when it lands inside the grid. The offset $(0,0)$ is NOT among them: every token must move. The OCCUPANCY array
-records, for each cell, how many tokens land on it; the entry counts how many different
-occupancy arrays occur as the assignment of moves runs over all its possibilities. The entry also asks that no occupancy exceed $2$.
+A row of $-1$s and $1$s that is nondecreasing is a block of $-1$s followed by a block of $1$s, so it is determined by a single number: how many $-1$s it holds. Write $k_i\in\{0,1,\dots,n\}$ for that number in row $i$. Then row $i$ sums to $(n-k_i)-k_i = n-2k_i$, and the entry's condition
+\[ \sum_{i=1}^{H}\sum_{j=1}^{n} i\,x(i,j) \;=\; \sum_{i=1}^{H} i\,(n-2k_i) \;=\; 0 \]
+becomes $\sum_{i=1}^{4} i\,k_i = T(n)$ with $T(n)=5n$. The arrays are gone: what is left is the lattice points of the box $\{0,\dots,n\}^{4}$ on one hyperplane.
 
-That is the size of an IMAGE, and it is the whole difficulty: two assignments with the same
-occupancy must be counted once, and a walk count over the assignments would count them twice.
+\section{Why that is enough}
 
-\section{The image is a walk count after determinisation}
+Those lattice points are the ones in the $n$-th dilate of a fixed rational polytope, so the count is a quasi-polynomial in $n$. That is the whole reason a linear recurrence can be proved here rather than observed: a quasi-polynomial of degree $d$ and period $P$ satisfies the recurrence whose characteristic polynomial is $(x^{P}-1)^{d+1}$, so it is $C$-finite of order at most $P(d+1)$.
 
-Every offset moves the row index by at most one, so the occupancy of row $i$ is decided by the
-moves chosen in rows $i-1$, $i$ and $i+1$. Writing $\beta(p,c,x)$ for that occupancy row, with
-$p$ or $x$ allowed to be the symbol $\bot$ for ``outside'', the whole occupancy array is
-\[
-\bigl(\beta(\bot,c_1,c_2),\ \beta(c_1,c_2,c_3),\ \dots,\ \beta(c_{n-1},c_n,\bot)\bigr)
-\]
-for an assignment $c_1,\dots,c_n$ of move-rows. The symbol $\bot$ is not decoration: whether
-``up'' or ``down'' is a legal move for a cell depends on it, and $\beta$ returns nothing at all
-when the row it is given cannot occur in that position.
+Both numbers can be named. By inclusion-exclusion over which coordinates exceed $n$,
+\[ a(n)\;=\;\sum_{S\subseteq\{1,\dots,H\}}(-1)^{|S|}\,D\bigl(T(n)-(n+1)\sigma(S)\bigr), \]
+where $\sigma(S)$ is the sum of $S$ and $D(m)$ counts the solutions of $\sum i\,k_i=m$ in non-negative integers with no upper bound --- the classical denumerant for the parts $1,\dots,4$. $D$ is a quasi-polynomial in $m$ of degree $3$ with period dividing $\mathrm{lcm}(1,\dots,4)=12$; each argument above is an integer-linear function of $n$, which preserves the degree and can only shrink the period, and the parity case at worst doubles it. So $a$ is a quasi-polynomial of degree at most $3$ and period dividing $24$, hence satisfies a linear recurrence of order at most $S=96$.
 
-Determinise. For a set $D$ of pairs $(p,c)$ and an occupancy row $b$ put
-\[
-\delta(D,b)=\{(c,x):(p,c)\in D,\ \beta(p,c,x)=b\},\qquad
-f(D)=\bigl|\{\beta(p,c,\bot):(p,c)\in D,\ \beta(p,c,\bot)\ \text{defined}\}\bigr| ,
-\]
-and let $D_0=\{(\bot,c):c\}$. An induction on the number of rows shows $D_t$ is exactly the
-set of pairs of consecutive move-rows completing a prefix with the emitted occupancy rows, so
-that with $M$ the adjacency matrix of the digraph on the reachable nonempty sets, one edge per
-occupancy row it admits,
-\[
-a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,\qquad \iota=e_{D_0},\quad \tau=f .
-\]
-There are $S=581$ reachable sets. In particular $a$ is $C$-finite.
+That bound is the certificate. It is also what makes the computation cheap: $D$ is one table, so thousands of exact terms of $a$ cost almost nothing.
+so $a$ is $C$-finite of order at most $S=96$, and the alignment between the model and the
+entry's own $n$ is fixed by matching against every published term.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{9}-\sum_i c_it^{9-i}$ be the characteristic polynomial of the
-conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
-$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
-holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
-and it is enough to examine $j<S$.
+Let $q$ be the characteristic polynomial of the conjectured recurrence, of order $10$,
+and let $u_j=a(j+10)-\sum_i c_i\,a(j+10-i)$ be its residual. Then $u$ satisfies the
+same linear recurrence of order $S=96$ that $a$ does, so if $u_j=0$ for $S$ consecutive
+indices then $u_j=0$ for every larger $j$, and the last nonzero $u_j$ pins the threshold
+exactly.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+9}-\sum_ic_iM^{j+9-i}$. For the bound, $M^{S}$
-is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
-$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
-polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly.
+A sequence annihilated by a linear operator with constant coefficients has every linear
+combination of its shifts annihilated by the same operator, and $u$ is such a combination of
+shifts of $a$. A sequence satisfying a linear recurrence of order $S$ and vanishing at $S$
+consecutive indices vanishes from the first of them onwards, since every later value is a
+fixed combination of the $S$ before it.
 \end{proof}
 
 \begin{theorem}
 \[
-a(n)\;=\;21\,a(n-1) - 1450\,a(n-3) + 4782\,a(n-4) - 372\,a(n-5) + 1450\,a(n-6) + 69\,a(n-8) + a(n-9)
+a(n)\;=\;a(n-1) + a(n-2) - 2\,a(n-5) + a(n-8) + a(n-9) - a(n-10)
 \]
 for every $n>9$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $9$ matrix--vector products in exact integer
-arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=9+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once.
+The terms $a(n)$ were computed exactly from the lattice-point formula, far enough to cover
+$S=96$ consecutive residuals, and the residuals were formed in exact integer arithmetic.
+They vanish from the index corresponding to $n=9+1$ onwards and go on vanishing for more
+than $S$ consecutive indices, which by Lemma~\ref{lem:crit} settles every larger $n$ at
+once.
 \end{proof}
 
 \section{Verification}
 
-Three checks, each independent of the algebra above.
+Four checks, each independent of the algebra above.
 
-First, the model reproduces all $16$ terms the entry publishes, exactly, in integer
-arithmetic. The entry's first term is $2$, and it is a sharp test of the boundary: a
-one-row grid offers only the moves that stay within one row, so a neighbour set with no
-horizontal offset gives no legal assignment at all and the count is zero, which is what the
-entries of that shape publish.
+First, the model reproduces all $45$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the reduction to the entry: the lattice count is derived by reading the
+entry's English, and a misreading gives different counts.
 
-Second, the conjectured recurrence was evaluated directly on those published terms, with no
-matrices involved, and holds wherever the proved range and the data overlap.
+Second, the reading was pinned before the reduction was trusted, by a program that enumerates
+the arrays themselves, one by one, from the entry's own words --- every nondecreasing
+row of plus and minus ones, the weighted sum computed directly --- and compares the count
+with the lattice-point formula. That program shares no code with the lattice-point formula, so an error in one does not
+hide an error in the other.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
-arithmetic on the whole vector rather than on a sampled prefix.
+Third, the conjectured recurrence was evaluated directly on the published terms, with
+nothing from the argument above involved, and holds wherever the proved range and the data
+overlap.
+
+Fourth, the residual test of Lemma~\ref{lem:crit} was carried out in exact integer
+arithmetic over every index up to the certified bound, not on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A221134.
-\bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata
-Theory, Languages, and Computation}, 3rd ed., Addison--Wesley, 2006. (The subset
-construction, Section 2.3.)
+Sequences}, \url{https://oeis.org}, 2026. Sequence A225311.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
-University Press, 2013.
+Cambridge University Press, 2011. (Quasi-polynomials and denumerants, Sections 4.4 and 4.6;
+lattice points in dilates of rational polytopes, Section 4.6.)
+\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+University Press, 2009.
+\bibitem{beck} M.~Beck and S.~Robins, \emph{Computing the Continuous Discretely}, 2nd
+ed., Springer, 2015. (Ehrhart quasi-polynomials; the denumerant.)
 \end{thebibliography}
 
 \end{document}

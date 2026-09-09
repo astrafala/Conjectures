@@ -12,83 +12,80 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A187933, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A221414, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A187933 counts arrays over $\{0,\dots,1\}$ under a condition comparing a statistic of
-every $2\times2$ subblock with those of its neighbours, and carries an empirical recurrence
-of order $75$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
-empirical. The count is a walk count on $S=1422$ states and is $C$-finite; whether the
-conjectured recurrence annihilates it is then settled by a finite exact computation.
+OEIS A221414 counts the distinct OCCUPANCY arrays obtained when every cell of an $n\times3$ grid
+holds one token and each token moves to a neighbouring cell, and carries an empirical
+recurrence of order $2$ contributed by R.~H.~Hardin. It is true, and it is decidable
+rather than empirical. What is counted is the size of an IMAGE --- two different assignments of
+moves with the same occupancy count once --- so it is not a walk count in the obvious graph;
+determinising the machine that emits the occupancy row by row turns it into one, on $S=37$
+states, after which the conjectured recurrence is settled by a finite exact computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 68Q45, 60C05.\normalsize
 
 \section{The conjecture}
 
-OEIS A187933 is ``Number of (n+2)X4 binary arrays with every 2X2 subblock sum equal to some diagonal or antidiagonal neighbor 2X2 subblock sum.''. It has offset $1$ and begins
+OEIS A221414 is ``Number of nX3 arrays of occupancy after each element stays put or moves to some horizontal or antidiagonal neighbor, with every occupancy equal to zero or two.''. It has offset $1$ and begins
 \[
-44, 104, 704, 2532, 14308, 64024, 328116, 1509288,\ \dots
+0, 10, 0, 150, 0, 2250, 0, 33750,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n)=8*a(n-1)-18*a(n-2)+6*a(n-3)+304*a(n-4)-2033*a(n-5)+4034*a(n-6)-580*a(n-7)-28763*a(n-8)+151699*a(n-9)-282467*a(n-10)+50276*a(n-11)+1173373*a(n-12)-4810771*a(n-13)+8448909*a(n-14)-3832537*a(n-15)-19145259*a(n-16)+77277253*a(n-17)-139216499*a(n-18)+106280857*a(n-19)+128969780*a(n-20)-686066310*a(n-21)+1332354155*a(n-22)-1320546548*a(n-23)-134214361*a(n-24)+3430781392*a(n-25)-7447681464*a(n-26)+8649852375*a(n-27)-3263437890*a(n-28)-8740672240*a(n-29)+23870214560*a(n-30)-32193286295*a(n-31)+21921745920*a(n-32)+3625661685*a(n-33)-39628520857*a(n-34)+67737879788*a(n-35)-62712514658*a(n-36)+35408423577*a(n-37)+20487107016*a(n-38)-71671379796*a(n-39)+83259647444*a(n-40)-82639430156*a(n-41)+25055626404*a(n-42)+26357815576*a(n-43)-46896528420*a(n-44)+76959675332*a(n-45)-26100705884*a(n-46)+4069895120*a(n-47)+20658712264*a(n-48)-52895629880*a(n-49)-4230213968*a(n-50)-4064870912*a(n-51)-37012235712*a(n-52)+52432794368*a(n-53)+4199264480*a(n-54)+11271623520*a(n-55)+34228002752*a(n-56)-30018029504*a(n-57)+2026068352*a(n-58)-6677852672*a(n-59)-13614194432*a(n-60)+3580450816*a(n-61)-2653281024*a(n-62)-4018797568*a(n-63)+6763790336*a(n-64)-1936586240*a(n-65)+197451776*a(n-66)+1509737472*a(n-67)-927522816*a(n-68)+739151872*a(n-69)-182849536*a(n-70)+103931904*a(n-71)+10715136*a(n-72)+27918336*a(n-73)-8323072*a(n-74)+3670016*a(n-75)
+Empirical: a(n) = 15*a(n-2)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 04:09:49, revision 9) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 19:38:01, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-Write $\sigma$ for the sum of all its entries, taken on a $2\times2$ subblock. The contiguous $2\times2$
-subblocks of an $(n+1)\times4$ array over $\{0,\dots,1\}$ form a grid of $n$ rows
-and $3$ columns, and $\sigma$ labels that grid. The entry
-requires that every subblock carries the same value of $\sigma$ as at least ONE of its neighbours diagonally or antidiagonally.
-
-\section{The count is a walk count}
-
-This condition is NOT a condition on a pair. Whether a subblock has a
-matching neighbour cannot be decided when its own row is placed: the row BELOW it may yet
-supply the match. So the state carries, besides the $2$ consecutive array rows, a tally for
-each of the $3$ subblocks of the row just completed --- a single bit saying whether it has already been matched --- counting its matches
-among its own row and the row above.
-
-A step appends an array row. It fixes the next subblock row, adds the matches between the two
-rows to the OLD row's tallies, and requires those totals to be acceptable, the old row being
-final at that moment; the new row's tallies start from its own horizontal matches plus the
-matches just made. A state is ACCEPTING when its own tally is already acceptable, which is
-exactly the right condition for the last subblock row, the one with nothing below it. Only the
-states whose tally came from their own row may BEGIN an array, since the first row has nothing
-above it.
-
-An array of $n+1$ rows is then a walk of $n-1$ steps and
+Every cell of an $n\times3$ grid holds one token. Each token moves by one of the offsets
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau
+(-1,1), (0,-1), (0,0), (0,1), (1,-1),
 \]
-with $\iota$ the indicator of the starting states and $\tau$ of the accepting ones, on
-$S=1422$ states in all. Getting the two vectors right is the whole of the argument: with
-$\iota$ taken as all-ones the first row would be allowed a match from a row above it that does
-not exist, and the count would be too large. The entry's own first terms settle it --- for
-the smallest cases
-the model reproduces every published term.
+a move being available only when it lands inside the grid. The offset $(0,0)$ is among them: the entry lets a token stay put. The OCCUPANCY array
+records, for each cell, how many tokens land on it; the entry counts how many different
+occupancy arrays occur as the assignment of moves runs over all its possibilities. The entry also asks that every occupancy be $0 or 2$.
 
-Over the alphabet $\{0,\dots,1\}$ the statistic takes values in $[0,4]$, so the
-grid it labels carries at most $5$ different labels. At $n=1$ the array has $2$
-rows and the grid is a single row of $3$
-subblocks, with only the neighbours inside that row; the entry's first term is
-$44$, which the model reproduces along with every later term, and that is the cheapest
-check that the grid has been read with the right shape.
+That is the size of an IMAGE, and it is the whole difficulty: two assignments with the same
+occupancy must be counted once, and a walk count over the assignments would count them twice.
 
-In particular $a$ is $C$-finite. The alignment of the walk index with the entry's own $n$ was
-checked against its published terms rather than assumed.
+\section{The image is a walk count after determinisation}
+
+Every offset moves the row index by at most one, so the occupancy of row $i$ is decided by the
+moves chosen in rows $i-1$, $i$ and $i+1$. Writing $\beta(p,c,x)$ for that occupancy row, with
+$p$ or $x$ allowed to be the symbol $\bot$ for ``outside'', the whole occupancy array is
+\[
+\bigl(\beta(\bot,c_1,c_2),\ \beta(c_1,c_2,c_3),\ \dots,\ \beta(c_{n-1},c_n,\bot)\bigr)
+\]
+for an assignment $c_1,\dots,c_n$ of move-rows. The symbol $\bot$ is not decoration: whether
+``up'' or ``down'' is a legal move for a cell depends on it, and $\beta$ returns nothing at all
+when the row it is given cannot occur in that position.
+
+Determinise. For a set $D$ of pairs $(p,c)$ and an occupancy row $b$ put
+\[
+\delta(D,b)=\{(c,x):(p,c)\in D,\ \beta(p,c,x)=b\},\qquad
+f(D)=\bigl|\{\beta(p,c,\bot):(p,c)\in D,\ \beta(p,c,\bot)\ \text{defined}\}\bigr| ,
+\]
+and let $D_0=\{(\bot,c):c\}$. An induction on the number of rows shows $D_t$ is exactly the
+set of pairs of consecutive move-rows completing a prefix with the emitted occupancy rows, so
+that with $M$ the adjacency matrix of the digraph on the reachable nonempty sets, one edge per
+occupancy row it admits,
+\[
+a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,\qquad \iota=e_{D_0},\quad \tau=f .
+\]
+There are $S=37$ reachable sets. In particular $a$ is $C$-finite.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{75}-\sum_i c_it^{75-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{2}-\sum_i c_it^{2-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -96,7 +93,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+75}-\sum_ic_iM^{j+75-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+2}-\sum_ic_iM^{j+2-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -105,15 +102,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;8\,a(n-1) - 18\,a(n-2) + 6\,a(n-3) + 304\,a(n-4) - 2033\,a(n-5) + 4034\,a(n-6) - 580\,a(n-7) - 28763\,a(n-8) + 151699\,a(n-9) - 282467\,a(n-10) + 50276\,a(n-11) + 1173373\,a(n-12) - 4810771\,a(n-13) + 8448909\,a(n-14) - 3832537\,a(n-15) - 19145259\,a(n-16) + 77277253\,a(n-17) - 139216499\,a(n-18) + 106280857\,a(n-19) + 128969780\,a(n-20) - 686066310\,a(n-21) + 1332354155\,a(n-22) - 1320546548\,a(n-23) - 134214361\,a(n-24) + 3430781392\,a(n-25) - 7447681464\,a(n-26) + 8649852375\,a(n-27) - 3263437890\,a(n-28) - 8740672240\,a(n-29) + 23870214560\,a(n-30) - 32193286295\,a(n-31) + 21921745920\,a(n-32) + 3625661685\,a(n-33) - 39628520857\,a(n-34) + 67737879788\,a(n-35) - 62712514658\,a(n-36) + 35408423577\,a(n-37) + 20487107016\,a(n-38) - 71671379796\,a(n-39) + 83259647444\,a(n-40) - 82639430156\,a(n-41) + 25055626404\,a(n-42) + 26357815576\,a(n-43) - 46896528420\,a(n-44) + 76959675332\,a(n-45) - 26100705884\,a(n-46) + 4069895120\,a(n-47) + 20658712264\,a(n-48) - 52895629880\,a(n-49) - 4230213968\,a(n-50) - 4064870912\,a(n-51) - 37012235712\,a(n-52) + 52432794368\,a(n-53) + 4199264480\,a(n-54) + 11271623520\,a(n-55) + 34228002752\,a(n-56) - 30018029504\,a(n-57) + 2026068352\,a(n-58) - 6677852672\,a(n-59) - 13614194432\,a(n-60) + 3580450816\,a(n-61) - 2653281024\,a(n-62) - 4018797568\,a(n-63) + 6763790336\,a(n-64) - 1936586240\,a(n-65) + 197451776\,a(n-66) + 1509737472\,a(n-67) - 927522816\,a(n-68) + 739151872\,a(n-69) - 182849536\,a(n-70) + 103931904\,a(n-71) + 10715136\,a(n-72) + 27918336\,a(n-73) - 8323072\,a(n-74) + 3670016\,a(n-75)
+a(n)\;=\;15\,a(n-2)
 \]
-for every $n>75$.
+for every $n>2$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $75$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $2$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=75+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=2+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -121,9 +118,11 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $20$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry: the digraph is built by reading the
-entry's English, and a misreading gives different counts.
+First, the model reproduces all $31$ terms the entry publishes, exactly, in integer
+arithmetic. The entry's first term is $0$, and it is a sharp test of the boundary: a
+one-row grid offers only the moves that stay within one row, so a neighbour set with no
+horizontal offset gives no legal assignment at all and the count is zero, which is what the
+entries of that shape publish.
 
 Second, the conjectured recurrence was evaluated directly on those published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
@@ -133,11 +132,12 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A187933.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A221414.
+\bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata
+Theory, Languages, and Computation}, 3rd ed., Addison--Wesley, 2006. (The subset
+construction, Section 2.3.)
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata
-Theory, Languages, and Computation}, 3rd ed., Addison--Wesley, 2006.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

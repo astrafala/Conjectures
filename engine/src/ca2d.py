@@ -97,8 +97,13 @@ def shape(ws):
 
     Returns (n0, p, [(L, R) per residue]) or None.
     """
-    for p in range(1, 9):
-        for n0 in range(0, 12):
+    # The search used to stop at p = 8 and n0 = 11 over 34 steps. Those were settings, not
+    # mathematics: 30 of the 111 entries this engine reads but could not certify have a
+    # perfectly good shape at a period or a settling point just outside them, and the words
+    # have to run far enough to see it. Checking the identity over more steps is also a
+    # stronger test of a shape, not a weaker one.
+    for p in range(1, 17):
+        for n0 in range(0, 25):
             if n0 + 3 * p + 4 >= len(ws):
                 continue
             per = []
@@ -163,7 +168,7 @@ def build(p, cap=200000):
     """the reading that matches, with its growth certificate"""
     import localentry as LE
     for dr in p['dirs']:
-        ws = words(p['rule'], 34, dr, p['axis'])
+        ws = words(p['rule'], 64, dr, p['axis'])
         sh = shape(ws)
         if sh is None:
             continue
@@ -178,7 +183,7 @@ def terms(b, N):
     return [value(w, b['B']) for w in ws[:N + 1]]
 
 
-def certify(b, upto=34):
+def certify(b, upto=64):
     """how far past the settling point the growth identity was checked"""
     ws = words(b['rule'], upto, b['dir'], b['axis'])
     n0, p, per = b['n0'], b['p'], b['per']

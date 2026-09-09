@@ -12,87 +12,114 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A275133, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A224686, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{3 September 2026}
+\date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A275133 counts arrays in which no entry may equal the entries at a short list of fixed offsets
-from it, the arrays being counted up to renaming the letters. The entry carries an empirical
-recurrence of order $9$ contributed by R.~H.~Hardin. It is true, and it is decidable
-rather than empirical. The condition tests only whether two cells are equal, so it survives
-renaming; the count of classes is recovered from counts over fixed alphabets by inverting a
-triangular system of falling factorials, and each of those is a walk count on a window of
-$2$ consecutive columns, $S=247$ states in all.
+OEIS A224686 counts the $(n+4)\times8$ matrices over $\{0,\dots,1\}$ all of whose
+$5\times5$ contiguous subblocks are idempotent, and carries an empirical recurrence of order
+$9$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical.
+The condition ties together $5$ consecutive rows and $5$ consecutive columns at once, so a
+single row is not a state; the strip of the last $4$ rows is, and the admissible strips
+are read off the overlap graph of the admissible windows instead of being enumerated. That
+makes $a(n)$ a walk count on $S=3847$ vertices, hence $C$-finite, and whether the conjectured
+recurrence annihilates it is settled by a finite exact computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A18, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
 \section{The conjecture}
 
-OEIS A275133 is ``Number of 4 X n 0..2 arrays with no element equal to any value at offset (-2,-2) (-1,0) or (-1,1) and new values introduced in order 0..2.''. It has offset $1$ and begins
+OEIS A224686 is ``Number of (n+4) X 8 0..1 matrices with each 5 X 5 subblock idempotent.''. It has offset $1$ and begins
 \[
-4, 36, 129, 568, 2545, 11092, 48451, 212897,\ \dots
+3465, 1720, 1896, 2166, 2429, 2646, 3214, 4122,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = a(n-1) + 8*a(n-2) + 22*a(n-3) + 36*a(n-4) + 7*a(n-5) - 48*a(n-6) - 4*a(n-7) + 15*a(n-8) - 18*a(n-9) for n>11.
+Empirical: a(n) = 3*a(n-1) - 2*a(n-2) - 2*a(n-3) + 3*a(n-4) - 2*a(n-6) + 2*a(n-8) - a(n-9) for n>13.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jan 31 2019 19:36:36, revision 8) this is still
+As of the ``Last modified'' line on the live entry (Sep 03 2018 03:49:56, revision 7) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
-\section{What is being counted}
+\section{The count is a walk count}
 
-Entries lie in $\{0,1,\dots,2\}$ and the condition is that
+Call a $5\times5$ matrix over $\{0,\dots,1\}$ a \emph{window} when it is idempotent, and
+call a $5\times8$ matrix a \emph{band} when every one of its $4$ contiguous
+$5\times5$ subblocks is a window. What the entry counts is the matrices of $8$ columns
+whose every $5$ consecutive rows form a band.
+
+Take as states the $4\times8$ strips that occur as the top $4$ rows of a band,
+together with those that occur as its bottom $4$ rows, and put an edge from $u$ to $v$
+when the band whose first $4$ rows are $u$ and whose last $4$ rows are $v$ exists.
+A band is determined by that pair, so the edge is unique when it exists. Reading a counted
+matrix from the top, its rows $1..4$, then $2..5$, and so on, form a walk, and every
+walk arises from exactly one matrix; a matrix with $n+4$ rows gives a walk of $n$ edges.
+Since the first $4$ rows of a counted matrix with at least $5$ rows are the top of a
+band, and since no further condition falls on where a walk starts or ends,
 \[
-x(i,j)\ \ne\ x(i+d_1,\,j+d_2)\qquad\text{for each offset }(d_1,d_2)\in\{(-2,-2), (-1,0), (-1,1)\}
+a(n)\;=\;\iota^{\!\top}M^{\,n}\tau ,\qquad \iota=\tau=(1,1,\dots,1)^{\!\top},
 \]
-whenever the second cell lies inside the array. The entry writes the array with $n$ as the number of COLUMNS, so the array grows one COLUMN at a time and an offset is read with its two coordinates exchanged. The closing clause ``new values
-introduced in order $0..2$'' says the array is the canonical representative of its equality
-pattern.
+with $M$ the adjacency matrix on $S=3847$ states. In particular $a$ is $C$-finite. The
+alignment was checked against the entry's published terms rather than assumed.
 
-\begin{lemma}\label{lem:order}
-The number counted does not depend on the order in which the array is read.
+There are $(1 + 1)^{32}$ strips of $4$ rows and $8$ columns, far too
+many to test one by one, and they are not tested one by one. Two consecutive windows of a band
+overlap in $5\times4$ entries, so a band is exactly a walk of $4$ windows in
+the graph that joins a window to those whose first $4$ columns are its last $4$
+columns. Enumerating those walks produces the bands, and with them the states and the edges,
+directly.
+
+\section{The admissible windows}
+
+The vertices of the overlap graph are the $0/1$ matrices $B$ of size $5\times5$ with
+$B^2=B$. There are $2^{25}$ matrices to sift, which is already awkward at $5=5$ and
+hopeless a little beyond it, so they are not sifted; they are generated from the following
+description, which also makes the count itself transparent.
+
+\begin{lemma}\label{lem:idem}
+Let $B$ be a $k\times k$ matrix with entries in $\{0,1\}$, let $r_i$ denote its $i$th row and
+$S_i=\{j:B_{ij}=1\}$ the support of that row. Then $B^2=B$ if and only if
+\[
+r_i=\sum_{t\in S_i}r_t \qquad (1\le i\le k),
+\]
+the rows on the right necessarily having pairwise disjoint supports. Writing
+$Z=\{i:r_i=0\}$ and $U=\{1,\dots,k\}\setminus Z$, and calling $i\in U$ \emph{primitive}
+when $S_i\cap U=\{i\}$, the idempotent $0/1$ matrices are exactly those obtained as follows:
+choose $Z$; choose the set $B^{\ast}\subseteq U$ of primitive indices and for each
+$b\in B^{\ast}$ a set $Z_b\subseteq Z$, putting $r_b=e_b+\sum_{j\in Z_b}e_j$; and for each
+$i\in U\setminus B^{\ast}$ choose a nonempty $B_i\subseteq B^{\ast}$ whose rows have
+pairwise disjoint supports, putting $r_i=\sum_{b\in B_i}r_b$. Distinct data give distinct
+matrices.
 \end{lemma}
 
 \begin{proof}
-The condition tests only whether two cells carry equal values, so it is unchanged by permuting
-the alphabet, and the admissible arrays fall into classes under renaming. Fix any reading order
-of the cells. Each class contains exactly one array whose distinct values, in order of first
-appearance in that reading, are $0,1,2,\dots$: take any member and rename its values by their
-rank of first appearance. So the count is the number of CLASSES, whatever reading order is
-meant.
+The $i$th row of $B^2$ is $\sum_t B_{it}r_t=\sum_{t\in S_i}r_t$, so $B^2=B$ is precisely the
+displayed system. Its entries lie in $\{0,1\}$, so for each $i$ the supports $S_t$,
+$t\in S_i$, are pairwise disjoint with union $S_i$.
+
+Assume $B^2=B$. Rows indexed by $Z$ vanish, so for $i\in U$ we may write
+$r_i=\sum_{t\in S_i\cap U}r_t$ with $S_i\cap U\neq\emptyset$. If $i$ is primitive this says
+$S_i\subseteq\{i\}\cup Z$, which is the stated shape with $Z_i=S_i\cap Z$. For the rest argue
+by induction on $|S_i|$. The supports $S_t$, $t\in S_i\cap U$, are disjoint, nonempty and
+cover $S_i$; if one of them has $|S_t|=|S_i|$ it is the only one, whence $r_t=r_i$,
+$S_t\cap U=S_i\cap U=\{t\}$ and $t$ is primitive. Otherwise every such $t$ has
+$|S_t|<|S_i|$, and each $r_t$ is by induction a sum of primitive rows with disjoint supports.
+Either way $r_i=\sum_{b\in B_i}r_b$ with $B_i\subseteq B^{\ast}$, and intersecting
+$S_i=\bigsqcup_{b\in B_i}(\{b\}\cup Z_b)$ with $U$ returns $B_i$, so the data is recovered
+from $B$ and distinct data give distinct matrices.
+
+Conversely, given data of the stated shape, the disjointness makes every entry $0$ or $1$, and
+$\sum_{t\in S_i}r_t$ equals $0$, $r_b$, $\sum_{b\in B_i}r_b$ in the three cases, which is
+$r_i$ each time. Hence $B^2=B$.
 \end{proof}
 
-\section{From classes to fixed alphabets}
-
-Write $N_j$ for the number of classes on exactly $j$ letters and $L_i$ for the number of
-admissible arrays over an alphabet of $i$ letters. An array over $i$ letters is a class together
-with an injection of its letters into the alphabet, so
-\[
-L_i\;=\;\sum_j N_j\,i(i-1)\cdots(i-j+1),
-\]
-a triangular system with unit diagonal. By Lemma~\ref{lem:order} the entry counts
-$N_1+\dots+N_{3}$, so $a=\sum_i w_iL_i$ with $w=\mathbf{1}^{\!\top}F^{-1}$, $F$ the
-matrix of falling factorials.
-
-\section{Each $L_i$ is a walk count}
-
-Equality is symmetric, so an offset and its negative forbid exactly the same pairs; replacing
-each offset by whichever of the two points BACKWARDS along the direction in which the array
-grows makes every pair tested once, from the later of its two cells. After that replacement no
-offset reaches more than $2$ columns back, so the window of the last $2$
-columns is a state and one step appends a column. A column not yet written is
-carried as a symbol, so the walk starts at the empty array and a walk of $t$ steps is an array
-of $t$ columns. Assembling $i=1,\dots,3$ as a disjoint union with $\iota$ carrying the
-weights cleared of denominators and $\tau=\mathbf{1}$,
-\[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=247.
-\]
-The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
-published terms rather than assumed. In particular $a$ is $C$-finite.
+Generating from Lemma~\ref{lem:idem} gives $5682$ admissible $5\times5$ windows. For
+$k=2,3,4$ the same generation gives $8$, $50$ and $452$, which agree with exhaustion over all
+$2^{k^2}$ matrices; that is the check that the description above is neither too wide nor too
+narrow.
 
 \section{The proof}
 
@@ -114,44 +141,39 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;a(n-1) + 8\,a(n-2) + 22\,a(n-3) + 36\,a(n-4) + 7\,a(n-5) - 48\,a(n-6) - 4\,a(n-7) + 15\,a(n-8) - 18\,a(n-9)
+a(n)\;=\;3\,a(n-1) - 2\,a(n-2) - 2\,a(n-3) + 3\,a(n-4) - 2\,a(n-6) + 2\,a(n-8) - a(n-9)
 \]
-for every $n>11$.
+for every $n>13$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $9$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=11+1$ onwards and the run continued
-until the working vector was identically zero. The rational weights are carried as one common
-denominator, so no division is performed until the final term.
+integers vanish from the index corresponding to $n=13+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once. The bound is exact: at $n=13$ the recurrence fails on the entry's own published terms, so no larger range holds.
 \end{proof}
 
 \section{Verification}
 
-Four checks, each independent of the algebra above.
+Three checks, each independent of the algebra above.
 
-First, the model reproduces all $22$ terms the entry publishes, exactly, in integer
-arithmetic.
+First, the model reproduces all $33$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry: the digraph is built by reading the
+entry's English, and a misreading gives different counts.
 
-Second, the count was recomputed for the smallest arrays straight from the definition:
-enumerate every array over $\{0,\dots,2\}$, keep those whose values are introduced in the
-order $0,1,2,\dots$ reading row by row, and test each offset directly. Neither the window, nor
-the backward normalisation of the offsets, nor the falling-factorial inversion is involved, and
-the published terms came back.
-
-Third, the conjectured recurrence was evaluated directly on the published terms, with no
+Second, the conjectured recurrence was evaluated directly on those published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
 
-Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
 arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A275133.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A224686.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; falling factorials,
-Section 1.9.)
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{kim} K.~H.~Kim, \emph{Boolean Matrix Theory and Applications}, Marcel Dekker,
+1982.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

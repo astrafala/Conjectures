@@ -12,169 +12,138 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A251096, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A298722, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A251096 counts $(n+1)\times5$ arrays over $\{0,\dots,1\}$ subject to a condition imposed on
-every $2\times2$ subblock, and carries an empirical recurrence of order $17$ contributed
-by R.~H.~Hardin. It is true, and it is not an empirical matter at all. The condition is local
-to each subblock, so the rows of an admissible array are the vertices of a finite digraph
-on $S=32$ vertices whose edges are the admissible consecutive pairs, and the count is a
-number of walks: $a(n)=\mathbf{1}^{\!\top}M^{n}\mathbf{1}$. Writing $q$
-for the characteristic polynomial of the conjectured recurrence, the recurrence holds for all
-$n$ exactly when $\mathbf{1}^{\!\top}M^{j}q(M)\mathbf{1}=0$ for every $j\ge0$, and the
-Cayley--Hamilton theorem bounds that to $j<S$. It is therefore a finite computation in exact
-integer arithmetic, and it comes out zero.
+OEIS A298722 counts $3$-column arrays over $\{0,\dots,1\}$ in which every entry has,
+among the eight king-move neighbours, a number $equal to$ itself lying in $\{0,2,3,5,8\}$, and it carries an empirical
+recurrence of order $17$ contributed by R.~H.~Hardin. It is true. The neighbourhood
+reaches one row up and one row down, so the condition on a row involves three consecutive
+rows and a window of two rows is a sufficient state; the array is then a walk in a digraph
+on $S=64$ vertices. Unlike a plain walk count the boundary rows matter here --- the first
+row has nothing above it and the last nothing below --- so the count is
+$\mathbf{s}^{\!\top}P^{\,n-2}\mathbf{e}$ for genuine start and end vectors rather than
+all-ones. The conjectured recurrence is then annihilated exactly, in integer arithmetic.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B50, 15B36.\normalsize
 
 \section{The sequence and the conjecture}
 
-OEIS A251096 is ``Number of (n+1)X(4+1) 0..1 arrays with no 2X2 subblock having its minimum diagonal element less than its minimum antidiagonal element.''. It has offset $1$ and begins
+OEIS A298722 is ``Number of nX3 0..1 arrays with every element equal to 0, 2, 3, 5 or 8 king-move adjacent elements, with upper left element zero.''. It has offset
+$1$ and begins
 \[
-406, 5817, 82814, 1175519, 16697127, 237288487, 3372537762, 47933018061,\ \dots
+1, 7, 5, 15, 21, 57, 119, 285,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 32*a(n-1) -408*a(n-2) +3073*a(n-3) -15730*a(n-4) +58157*a(n-5) -160070*a(n-6) +333703*a(n-7) -532992*a(n-8) +656691*a(n-9) -625063*a(n-10) +457960*a(n-11) -256393*a(n-12) +108609*a(n-13) -34260*a(n-14) +7752*a(n-15) -1136*a(n-16) +80*a(n-17)
+Empirical: a(n) = 5*a(n-1) -5*a(n-2) -5*a(n-3) -2*a(n-4) +18*a(n-5) +14*a(n-6) -30*a(n-7) -8*a(n-8) -22*a(n-9) +4*a(n-10) +84*a(n-11) +3*a(n-12) -33*a(n-13) -9*a(n-14) -21*a(n-15) +4*a(n-16) +4*a(n-17) for n>18
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 13:03:50, revision 6) the statement is
-still recorded as empirical, and nothing on the entry records it as settled either way.
+As of the ``Last modified'' line on the live entry (Jan 25 2018 08:54:39, revision
+4) the statement is still recorded as empirical, and nothing on the entry
+records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;32\,a(n-1) - 408\,a(n-2) + 3073\,a(n-3) - 15730\,a(n-4) + 58157\,a(n-5) - 160070\,a(n-6) + 333703\,a(n-7) - 532992\,a(n-8) + 656691\,a(n-9) - 625063\,a(n-10) + 457960\,a(n-11) - 256393\,a(n-12) + 108609\,a(n-13) - 34260\,a(n-14) + 7752\,a(n-15) - 1136\,a(n-16) + 80\,a(n-17)
+a(n)\;=\;5\,a(n-1) - 5\,a(n-2) - 5\,a(n-3) - 2\,a(n-4) + 18\,a(n-5) + 14\,a(n-6) - 30\,a(n-7) - 8\,a(n-8) - 22\,a(n-9) + 4\,a(n-10) + 84\,a(n-11) + 3\,a(n-12) - 33\,a(n-13) - 9\,a(n-14) - 21\,a(n-15) + 4\,a(n-16) + 4\,a(n-17)
 \end{equation}
-for all $n>17$.
+for all $n>18$.
 
-\section{The condition is local, so the rows form a digraph}
+\section{The array as a walk, with boundary}
 
-Write an array of the shape in question as its list of rows
-$r^{(1)},r^{(2)},\dots$, each an element of
-$V=\{0,1,\dots,1\}^{5}$, so $|V|=S=32$. A $2\times2$ subblock of the array
-occupies two consecutive rows and two consecutive columns; if the two rows are $r$
-and $s$ (in that order) and the two columns are numbered $j,j+1$,
-the subblock is
-\[
-\begin{pmatrix}\alpha&\beta\\\gamma&\delta\end{pmatrix}=\begin{pmatrix}r_j&r_{j+1}\\s_j&s_{j+1}\end{pmatrix}.
-\]
-The entry's requirement on that subblock is
-\begin{equation}\label{eq:loc}
-\text{not }\bigl(\min(\alpha,\delta)<\min(\beta,\gamma)\bigr),
-\end{equation}
-a condition on the four entries alone.
+For a cell of the array let its \emph{score} be the number of the eight king-move neighbours that lie inside
+the array and carry a value $equal to$ the cell's own. The entry's condition is that every cell
+has score in $\{0,2,3,5,8\}$. The entry also fixes the top-left entry to be $0$; that is a condition on the first row alone, so it restricts the start vector and nothing else.
 
-For $r,s\in V$ declare $r\to s$ an edge of a digraph $G$ when, for every
-$1\le j\le 5-1$,
+A cell's neighbourhood reaches at most one row up and one row down, so the scores of the
+cells of a row $s$ are determined by $s$ together with the row above and the row below.
+Take as state an ordered pair $(r,s)$ of rows, so $S=64$, and set
 \begin{itemize}
-\item the four entries above satisfy \eqref{eq:loc};
-
+\item $\mathbf{s}(r,s)=1$ when every cell of $r$ has score in $\{0,2,3,5,8\}$ \emph{with no row
+above $r$} and $r_1=0$, and $0$ otherwise;
+\item an edge $(r,s)\to(s,t)$ when every cell of $s$ has score in $\{0,2,3,5,8\}$ computed from
+$r$, $s$ and $t$;
+\item $\mathbf{e}(r,s)=1$ when every cell of $s$ has score in $\{0,2,3,5,8\}$ \emph{with no row
+below $s$}, and $0$ otherwise.
 \end{itemize}
-Let $M\in\{0,1\}^{S\times S}$ be the adjacency matrix of $G$ and $\mathbf{1}$ the
-all-ones vector.
+Let $P$ be the adjacency matrix of that edge relation.
 
 \begin{lemma}\label{lem:walk}
-The arrays counted by the entry with $L$ rows are exactly the walks
-$r^{(1)}\to r^{(2)}\to\cdots\to r^{(L)}$ of length $L-1$ in $G$. Consequently
-\[
-a(n)\;=\;\mathbf{1}^{\!\top}M^{n}\mathbf{1} .
-\]
+$a(n)=\mathbf{s}^{\!\top}P^{\,n-2}\mathbf{e}$ for every $n\ge2$.
 \end{lemma}
 
 \begin{proof}
-An array with $L$ rows and $5$ columns is precisely a sequence
-$r^{(1)},\dots,r^{(L)}$ of elements of $V$; conversely any such sequence is an array.
-Every $2\times2$ subblock lies in two consecutive rows $r^{(t)},r^{(t+1)}$ and two
-consecutive columns, so the array satisfies the entry's condition on all of its subblocks
-if and only if each consecutive pair $\bigl(r^{(t)},r^{(t+1)}\bigr)$ satisfies it for
-every column pair --- which is exactly the edge relation of $G$. The number of walks of
-length $L-1$, summed over all starting and ending vertices, is
-$\mathbf{1}^{\!\top}M^{L-1}\mathbf{1}$, since $(M^{k})_{r,s}$ counts the walks of
-length $k$ from $r$ to $s$. The entry's index $n$ corresponds to $L=n+1$ rows.
+An array with $n$ rows is a sequence $r^{(1)},\dots,r^{(n)}$ of rows, and it is counted
+exactly when every one of its $n$ rows has all scores in $\{0,2,3,5,8\}$. Read the sequence as the
+walk $\bigl(r^{(1)},r^{(2)}\bigr)\to\bigl(r^{(2)},r^{(3)}\bigr)\to\cdots\to
+\bigl(r^{(n-1)},r^{(n)}\bigr)$, of length $n-2$. The condition on the first row is
+checked by $\mathbf{s}$ at the initial state, because a first row has no row above it; the
+condition on row $i$ for $2\le i\le n-1$ is checked by the edge entering
+$\bigl(r^{(i)},r^{(i+1)}\bigr)$, which sees exactly $r^{(i-1)}$, $r^{(i)}$ and
+$r^{(i+1)}$; and the condition on the last row is checked by $\mathbf{e}$ at the final
+state. Each row's condition is therefore tested once and with the correct neighbours, and
+summing over all walks gives $\mathbf{s}^{\!\top}P^{\,n-2}\mathbf{e}$.
 \end{proof}
 
 \section{The criterion}
 
-Let $q(t)=t^{17}-\sum_i c_i\,t^{17-i}$ be the characteristic polynomial of
-\eqref{eq:conj}, with the $c_i$ read off that equation.
+Let $q(t)=t^{17}-\sum_i c_i t^{17-i}$ be the characteristic polynomial of
+\eqref{eq:conj} and $u_j=\mathbf{s}^{\!\top}P^{j}q(P)\mathbf{e}$.
 
 \begin{lemma}\label{lem:crit}
-For every $n$ with $n+1-1\ge17$,
-\[
-a(n)-\sum_i c_i\,a(n-i)\;=\;\mathbf{1}^{\!\top}M^{\,n+1-1-17}\,q(M)\,\mathbf{1} .
-\]
-Hence \eqref{eq:conj} holds from that point on if and only if
-$\mathbf{1}^{\!\top}M^{j}q(M)\mathbf{1}=0$ for every $j\ge0$; and it is enough to check
-$j=0,1,\dots,S-1$.
+$a(n)-\sum_i c_i a(n-i)=u_{\,n-2-17}$ whenever $n-17\ge2$. So \eqref{eq:conj}
+holds for every $n>t$ exactly when $u_j=0$ for all $j>t-2-17$. Moreover $(u_j)$
+satisfies the monic linear recurrence given by the characteristic polynomial of $P$, of
+degree $S$, so $S$ consecutive zeros force every later one and the last nonzero $u_j$ pins
+$t$ down exactly.
 \end{lemma}
 
 \begin{proof}
-By Lemma~\ref{lem:walk}, $a(n-i)=\mathbf{1}^{\!\top}M^{\,n+1-1-i}\mathbf{1}$, so
-\[
-a(n)-\sum_i c_i a(n-i)
-=\mathbf{1}^{\!\top}\Bigl(M^{m}-\sum_i c_i M^{m-i}\Bigr)\mathbf{1}
-=\mathbf{1}^{\!\top}M^{\,m-17}\,q(M)\,\mathbf{1}
-\]
-with $m=n+1-1$, which is the stated identity; the equivalence follows by letting
-$m-17=j$ run over $\ge0$. For the last clause put $w=q(M)\mathbf{1}$. By the
-Cayley--Hamilton theorem $M^{S}$ is an integer combination of $I,M,\dots,M^{S-1}$, so
-$\mathbf{1}^{\!\top}M^{j}w$ for $j\ge S$ is the corresponding combination of the earlier
-values; if those all vanish, so do all the rest.
+Substituting Lemma~\ref{lem:walk} and factoring $P^{\,n-2-17}$ out of
+$P^{n-2}-\sum_i c_i P^{n-i-2}$ gives the identity, and letting the exponent run gives the
+equivalence. For the last part, Cayley--Hamilton gives $\chi(P)=0$ for the characteristic
+polynomial $\chi$, so $\chi$ applied to the shift annihilates $(u_j)$; $\chi$ is monic of
+degree $S$, which propagates $S$ consecutive zeros forward.
 \end{proof}
 
 \section{The computation}
 
 \begin{theorem}
-The recurrence \eqref{eq:conj} holds for every $n>17$, which is the statement of
+The recurrence \eqref{eq:conj} holds for every $n>18$. This is the statement of
 Section~1.
 \end{theorem}
 
 \begin{proof}
-The digraph was constructed from \eqref{eq:loc} by a depth-first scan across the $5$
-columns: the edge condition is a conjunction of one constraint per consecutive column
-pair, so the successors of a row $r$ are enumerated column by column without testing all
-$S^2$ pairs. The vector $w=q(M)\mathbf{1}\in\mathbb{Z}^{S}$ was then formed by $17$
-matrix--vector products in exact integer arithmetic, and $\mathbf{1}^{\!\top}M^{j}w$ was
-evaluated for $j=0,1,\dots$, again exactly. Every one of those integers vanishes from the
-index corresponding to $n=17+1$ onwards, and the run continued until $w$ itself was the
-zero vector, which settles every larger $j$ at once. By Lemma~\ref{lem:crit} the recurrence
-holds for every $n>17$.
+The vector $q(P)\mathbf{e}\in\mathbb{Z}^{S}$ was formed by $17$ matrix--vector
+products in exact integer arithmetic and the $u_j$ evaluated against $\mathbf{s}$ in turn.
+They vanish from the index corresponding to $n=18+1$ onwards, and the run was continued
+past $S$ consecutive zeros, which by Lemma~\ref{lem:crit} settles every larger index.
 \end{proof}
-
-\begin{remark}
-The argument gives more than the recurrence: it shows the sequence is $C$-finite with
-characteristic polynomial dividing that of $M$, so it has a rational generating function
-whose denominator divides $\det(I-xM)$. The conjectured recurrence is one consequence; the
-minimal one is a divisor of $q$.
-\end{remark}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the digraph was built directly from the entry's stated condition and the walk counts
-$\mathbf{1}^{\!\top}M^{L-1}\mathbf{1}$ compared against the entry's DATA at
-every one of the $15$ published indices; the values agree exactly. That is what ties
-the digraph to the sequence: a model that reproduced only some of the published terms would
-be the wrong model, and would have been rejected. In particular it is what rules out a
-misreading of the entry's wording, since a different reading of the condition gives a
-different digraph and different counts.
+First, the digraph, the start vector and the end vector were built directly from the
+entry's stated condition, the one-row count computed separately, and the resulting values
+compared against the entry's DATA at every one of the $29$ published indices; they
+agree exactly. This is the check that ties the model to the sequence, and it is a sharp one:
+getting the boundary rows wrong, or treating them as interior rows, changes the early terms
+immediately.
 
 Second, the recurrence \eqref{eq:conj} was evaluated on those published terms in exact
-integer arithmetic, with no matrices involved, and vanishes wherever it applies.
+integer arithmetic, with no matrices involved, and vanishes at every index the entry claims.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was run in exact integer arithmetic
-until the working vector was identically zero, not to a sampled prefix, and returned zero
-throughout.
+Third, the vanishing test of Lemma~\ref{lem:crit} was carried past $S=64$ consecutive
+zeros rather than to a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A251096.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A298722.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

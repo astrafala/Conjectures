@@ -12,78 +12,88 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A203864, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A206596, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{3 September 2026}
+\date{7 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A203864 counts arrays of width $3$ over $\{0,1,\dots,4\}$ through two derived arrays of PAIR SUMS ---
-each cell added to its left neighbour, and each cell added to the one above it --- on which the
-entry imposes an order condition. The entry carries an empirical recurrence of order $54$
-contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical: the count is
-a walk count on $S=126$ states.
+OEIS A206596 counts, up to renaming the letters, the arrays of width $4$ over at most $4$
+letters in which every $2\times3$ and $3\times2$ subblock has at most $3$ equal edges, an edge of such a window being one of the six steps of its perimeter cycle and an equal edge one whose two cells agree. It carries an empirical recurrence of order $61$ contributed by
+R.~H.~Hardin. It is true, and it is decidable rather than empirical. Counting up to renaming is
+a fixed rational combination of ordinary array counts, each of those is a walk count, and the
+conjectured recurrence is then settled by a finite exact computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 06A07, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A18, 05B45.\normalsize
 
 \section{The conjecture}
 
-OEIS A203864 is ``Number of (n+1) X 3 0..4 arrays with column and row pair sums b(i,j) = a(i,j)+a(i,j-1) and c(i,j) = a(i,j)+a(i-1,j) nondecreasing in column and row directions, respectively.''. It has offset $1$ and begins
+OEIS A206596 is ``Number of (n+1)X4 0..3 arrays with every 2X3 or 3X2 subblock having no more than three equal edges, and new values 0..3 introduced in row major order.''. It has offset $1$ and begins
 \[
-1648, 21635, 210190, 1605552, 10500903, 59962757, 309154358, 1459797487,\ \dots
+2532, 551631, 122794254, 27327609576, 6080435385822, 1352952771405899, 301044368378558620, 66985084734298135608,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 24*a(n-1) -245*a(n-2) +1304*a(n-3) -3072*a(n-4) -4062*a(n-5) +47872*a(n-6) -106234*a(n-7) -95560*a(n-8) +910050*a(n-9) -1212323*a(n-10) -2512006*a(n-11) +9247443*a(n-12) -2655670*a(n-13) -29744182*a(n-14) +41816738*a(n-15) +43950572*a(n-16) -151060270*a(n-17) +22766647*a(n-18) +312572526*a(n-19) -268708090*a(n-20) -394548406*a(n-21) +688387549*a(n-22) +221758570*a(n-23) -1083905449*a(n-24) +227614160*a(n-25) +1188977774*a(n-26) -729855744*a(n-27) -921456902*a(n-28) +991229158*a(n-29) +466040322*a(n-30) -908030702*a(n-31) -87892667*a(n-32) +616001236*a(n-33) -87488176*a(n-34) -319063060*a(n-35) +104460481*a(n-36) +127050816*a(n-37) -63202323*a(n-38) -38574760*a(n-39) +26334347*a(n-40) +8712758*a(n-41) -8075877*a(n-42) -1388146*a(n-43) +1850933*a(n-44) +136584*a(n-45) -314594*a(n-46) -4188*a(n-47) +38598*a(n-48) -774*a(n-49) -3240*a(n-50) +102*a(n-51) +167*a(n-52) -4*a(n-53) -4*a(n-54) for n>57.
+Empirical: a(n) = 188*a(n-1) +5085*a(n-2) +538751*a(n-3) +7174168*a(n-4) +309429501*a(n-5) -1776082861*a(n-6) +28860632622*a(n-7) -359905728716*a(n-8) +2039075800421*a(n-9) -30459708500750*a(n-10) +174833793541111*a(n-11) -300293278143460*a(n-12) +4397179164685237*a(n-13) -34740353481829802*a(n-14) +252667207257063994*a(n-15) -1645737625781051525*a(n-16) +1494012905253706127*a(n-17) +7016560070067623526*a(n-18) +76250636913060634529*a(n-19) -91849233058660955961*a(n-20) -1313192270191739627435*a(n-21) +110708258209131272471*a(n-22) +6718782413596456239963*a(n-23) +17904054079780786238767*a(n-24) -19902748358486171917513*a(n-25) -90357037433300662770181*a(n-26) +46445505350553130768753*a(n-27) +2950156262169635403534*a(n-28) -351925328123940183340218*a(n-29) -1348773524441031306148778*a(n-30) +2320289764328887257556801*a(n-31) +5733881048375328976796963*a(n-32) +5705524487130220925381403*a(n-33) -4129763663354078121051878*a(n-34) -18824081542065485079480298*a(n-35) +6402061306263428361825365*a(n-36) -54648418465750083611143023*a(n-37) -34434863494730946433733616*a(n-38) +22875457596940403374259854*a(n-39) +168456136430463440566163050*a(n-40) +139329212119922460690166592*a(n-41) -210280867557016349286124992*a(n-42) -296620803307808911202487632*a(n-43) +197423562204775399833111400*a(n-44) +251880332423559645695653264*a(n-45) -22547688796924630026808928*a(n-46) -146149271363944797492462064*a(n-47) -94236527107917217827615488*a(n-48) +40465618821670955035582624*a(n-49) +31296678085789580806505728*a(n-50) +6191401187448994669092416*a(n-51) +24322993368343515722244352*a(n-52) -6447094900744642882702336*a(n-53) -12288897625302578809983488*a(n-54) +1920325887930781347131904*a(n-55) +736797463288573273427968*a(n-56) -133791108142820240271360*a(n-57) +65265035929730453483520*a(n-58) -11359380823472091340800*a(n-59) +3186497759104032768000*a(n-60) +102245622896443392000*a(n-61)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Mar 07 2022 14:21:48, revision 7) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 13:00:58, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The array $a$ has $3$ cells across, with entries in $\{0,1,\dots,4\}$. Two derived arrays are formed,
+The condition is that every $2\times3$ and $3\times2$ subblock has at most $3$ equal edges, an edge of such a window being one of the six steps of its perimeter cycle and an equal edge one whose two cells agree.
+
+The clause ``new values $0..3$ introduced in row major order'' says the array is the
+canonical representative of its EQUALITY PATTERN, so what is counted is patterns, not arrays.
+Write $N_j$ for the number of admissible patterns using exactly $j$ letters and $L_i$ for the
+number of admissible arrays over an alphabet of $i$ letters. An array over $i$ letters is a
+pattern together with an injection of its letters into the alphabet, so
 \[
-b(i,j)=a(i,j)+a(i,j-1)\quad(j\ge1),\qquad c(i,j)=a(i,j)+a(i-1,j)\quad(i\ge1),
+L_i\;=\;\sum_j N_j\,i(i-1)\cdots(i-j+1),
 \]
-so $b$ adds each cell to its LEFT neighbour and $c$ adds each cell to the one ABOVE it. The
-entry asks
-
+a triangular system with unit diagonal, hence invertible over $\mathbf{Q}$. The entry counts
+$a=N_1+\dots+N_{4}$, so
 \[
-b(i,j)\le b(i{+}1,j)\qquad\text{and}\qquad c(i,j)\le c(i,j{+}1)
+a\;=\;\sum_{i=1}^{4}w_i\,L_i
 \]
-wherever both sides are defined: the array $b$ must not decrease DOWN a column and the array
-$c$ must not decrease ALONG a row. The two directions are crossed, which is the only subtle
-part of the reading --- $b$ is built across a row and tested down a column, and $c$ the other
-way about.
+for one fixed rational vector $w=\mathbf{1}^{\!\top}F^{-1}$, $F$ the matrix of falling
+factorials.
 
+\section{Why the reduction is allowed here}
 
-\section{Two rows decide it}
+The step above is legitimate only if the condition is invariant under permuting the alphabet,
+and in this family that is a real restriction rather than a formality. An \emph{equal edge}
+is an edge of a subblock whose two cells carry the same letter; whether two cells agree is
+untouched by any renaming, so every condition built from counting equal edges is invariant and
+the reduction applies.
 
-\begin{lemma}\label{lem:win}
-Both conditions are conditions on two consecutive rows of $a$ and nothing more.
-\end{lemma}
+The neighbouring conditions of the same family that count \emph{increases} --- how many steps
+of a subblock's perimeter cycle go UP in value --- are not invariant: they compare letters by
+size, and a permutation of the alphabet changes the count. Those entries are therefore excluded
+here rather than reduced, and are settled, when they are settled, over their own alphabet
+without the pattern step.
 
-\begin{proof}
-$b(i,j)\le b(i{+}1,j)$ names four cells of $a$, all in rows $i$ and $i+1$. $c(i,j)\le
-c(i,j{+}1)$ names four cells, all in rows $i-1$ and $i$.
-\end{proof}
+\section{Each $L_i$ is a walk count}
 
-So a single row of $a$ is a state and one step appends a row.
-
-With $M$ the adjacency matrix of the digraph on those states, $\iota$ the indicator of the
-starting state and $\tau=\mathbf{1}$,
+For a fixed alphabet the condition is local: a $2\times2$ subblock is built from two
+consecutive array rows, a $2\times3$ or $3\times2$ window from two or three of them, and every
+comparison the entry makes is between subblocks that meet in the grid. Taking as state a single
+row where the condition looks at one subblock at a time, and the pair of consecutive rows where
+it compares neighbours, each $L_i$ is a walk count on its own digraph. Assembling,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=126.
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau
 \]
-The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
-published terms rather than assumed. In particular $a$ is $C$-finite.
+on the disjoint union of those digraphs for $i=1,\dots,4$, with $\iota$ carrying the weights
+$w_i$ cleared of denominators and $S=65554$ states in all. The walk index $j$ and the entry's own
+$n$ differ by a constant, read off by matching the published terms rather than assumed. In
+particular $a$ is $C$-finite.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{54}-\sum_i c_it^{54-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{61}-\sum_i c_it^{61-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -91,7 +101,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+54}-\sum_ic_iM^{j+54-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+61}-\sum_ic_iM^{j+61-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -100,41 +110,41 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;24\,a(n-1) - 245\,a(n-2) + 1304\,a(n-3) - 3072\,a(n-4) - 4062\,a(n-5) + 47872\,a(n-6) - 106234\,a(n-7) - 95560\,a(n-8) + 910050\,a(n-9) - 1212323\,a(n-10) - 2512006\,a(n-11) + 9247443\,a(n-12) - 2655670\,a(n-13) - 29744182\,a(n-14) + 41816738\,a(n-15) + 43950572\,a(n-16) - 151060270\,a(n-17) + 22766647\,a(n-18) + 312572526\,a(n-19) - 268708090\,a(n-20) - 394548406\,a(n-21) + 688387549\,a(n-22) + 221758570\,a(n-23) - 1083905449\,a(n-24) + 227614160\,a(n-25) + 1188977774\,a(n-26) - 729855744\,a(n-27) - 921456902\,a(n-28) + 991229158\,a(n-29) + 466040322\,a(n-30) - 908030702\,a(n-31) - 87892667\,a(n-32) + 616001236\,a(n-33) - 87488176\,a(n-34) - 319063060\,a(n-35) + 104460481\,a(n-36) + 127050816\,a(n-37) - 63202323\,a(n-38) - 38574760\,a(n-39) + 26334347\,a(n-40) + 8712758\,a(n-41) - 8075877\,a(n-42) - 1388146\,a(n-43) + 1850933\,a(n-44) + 136584\,a(n-45) - 314594\,a(n-46) - 4188\,a(n-47) + 38598\,a(n-48) - 774\,a(n-49) - 3240\,a(n-50) + 102\,a(n-51) + 167\,a(n-52) - 4\,a(n-53) - 4\,a(n-54)
+a(n)\;=\;188\,a(n-1) + 5085\,a(n-2) + 538751\,a(n-3) + 7174168\,a(n-4) + 309429501\,a(n-5) - 1776082861\,a(n-6) + 28860632622\,a(n-7) - 359905728716\,a(n-8) + 2039075800421\,a(n-9) - 30459708500750\,a(n-10) + 174833793541111\,a(n-11) - 300293278143460\,a(n-12) + 4397179164685237\,a(n-13) - 34740353481829802\,a(n-14) + 252667207257063994\,a(n-15) - 1645737625781051525\,a(n-16) + 1494012905253706127\,a(n-17) + 7016560070067623526\,a(n-18) + 76250636913060634529\,a(n-19) - 91849233058660955961\,a(n-20) - 1313192270191739627435\,a(n-21) + 110708258209131272471\,a(n-22) + 6718782413596456239963\,a(n-23) + 17904054079780786238767\,a(n-24) - 19902748358486171917513\,a(n-25) - 90357037433300662770181\,a(n-26) + 46445505350553130768753\,a(n-27) + 2950156262169635403534\,a(n-28) - 351925328123940183340218\,a(n-29) - 1348773524441031306148778\,a(n-30) + 2320289764328887257556801\,a(n-31) + 5733881048375328976796963\,a(n-32) + 5705524487130220925381403\,a(n-33) - 4129763663354078121051878\,a(n-34) - 18824081542065485079480298\,a(n-35) + 6402061306263428361825365\,a(n-36) - 54648418465750083611143023\,a(n-37) - 34434863494730946433733616\,a(n-38) + 22875457596940403374259854\,a(n-39) + 168456136430463440566163050\,a(n-40) + 139329212119922460690166592\,a(n-41) - 210280867557016349286124992\,a(n-42) - 296620803307808911202487632\,a(n-43) + 197423562204775399833111400\,a(n-44) + 251880332423559645695653264\,a(n-45) - 22547688796924630026808928\,a(n-46) - 146149271363944797492462064\,a(n-47) - 94236527107917217827615488\,a(n-48) + 40465618821670955035582624\,a(n-49) + 31296678085789580806505728\,a(n-50) + 6191401187448994669092416\,a(n-51) + 24322993368343515722244352\,a(n-52) - 6447094900744642882702336\,a(n-53) - 12288897625302578809983488\,a(n-54) + 1920325887930781347131904\,a(n-55) + 736797463288573273427968\,a(n-56) - 133791108142820240271360\,a(n-57) + 65265035929730453483520\,a(n-58) - 11359380823472091340800\,a(n-59) + 3186497759104032768000\,a(n-60) + 102245622896443392000\,a(n-61)
 \]
-for every $n>57$.
+for every $n>61$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $54$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $61$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=57+1$ onwards and the run continued
-until the working vector was identically zero.
+integers vanish from the index corresponding to $n=61+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once. The
+rational weights are cleared by a common denominator first, so the whole computation is over
+the integers.
 \end{proof}
 
 \section{Verification}
 
-Four checks, each independent of the algebra above.
+Three checks, each independent of the algebra above.
 
-First, the model reproduces all $17$ terms the entry publishes, exactly, in integer
-arithmetic.
+First, the model reproduces all $11$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry: the digraph is built by reading the
+entry's English, and a misreading gives different counts.
 
-Second, the count was recomputed for the smallest arrays straight from the definition:
-enumerate every array of that size, form the two derived arrays in full, and test the condition
-on them directly. No window, no state and no incremental bookkeeping are involved, and the
-published terms came back.
-
-Third, the conjectured recurrence was evaluated directly on the published terms, with no
+Second, the conjectured recurrence was evaluated directly on those published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
 
-Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
 arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A203864.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A206596.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{comtet} L.~Comtet, \emph{Advanced Combinatorics}, Reidel, 1974. (Set partitions
+and falling factorials.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

@@ -12,38 +12,39 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical column recurrences for the table OEIS A234702}
+\title{The empirical column recurrences for the table OEIS A282056}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A234702 is a two-dimensional table $T(n,k)$, and it carries a block of empirical
+OEIS A282056 is a two-dimensional table $T(n,k)$, and it carries a block of empirical
 recurrences contributed by R.~H.~Hardin --- one for each of its first few columns. They are
 true. Column $k$ of the table is an ordinary fixed-width array count, so its rows are the
 vertices of a finite digraph and $T(n,k)$ is a number of walks in it; being a walk count the
 column is $C$-finite, and whether a given recurrence annihilates it is decided by a finite
-exact computation, with the Cayley--Hamilton theorem bounding the work. This note settles the columns $k=1$.
+exact computation, with the Cayley--Hamilton theorem bounding the work. This note settles the columns $k=1, 2$.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
 \section{The table and the conjectures}
 
-OEIS A234702 is ``T(n,k) is the number of (n+1) X (k+1) 0..7 arrays with every 2 X 2 subblock having its diagonal sum differing from its antidiagonal sum by 5 (constant-stress 1 X 1 tilings).''. It has offset $1$, is
+OEIS A282056 is ``T(n,k) = Number of n X k 0..2 arrays with no element unequal to more than four of its king-move neighbors and with new values introduced in order 0 sequentially upwards.''. It has offset $1$, is
 read by antidiagonals, and begins
 \[
-408, 2628, 2628, 16848, 13952, 16848, 109224, 74308,\ \dots
+1, 2, 2, 5, 14, 5, 14, 91,\ \dots
 \]
 The entry carries the following block:
 \begin{quote}\small
 Empirical for column k:\\
-k=1: a(n) = 6*a(n-1) +90*a(n-2) -540*a(n-3) -2016*a(n-4) +12096*a(n-5).\\
-k=2: [order 15].\\
-k=3: [order 31].\\
+k=1: a(n) = 4*a(n-1) -3*a(n-2).\\
+k=2: a(n) = 8*a(n-1) -11*a(n-2) +20*a(n-3) -24*a(n-4) +8*a(n-5).\\
+k=3: [order 16] for n > 18.\\
+k=4: [order 41] for n > 45.\\
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jun 20 2022 20:35:23, revision 6) these are still
+As of the ``Last modified'' line on the live entry (May 03 2021 12:59:42, revision 6) these are still
 recorded as empirical, and nothing on the entry records any of them as settled.
 
 \section{A column of the table is a walk count}
@@ -86,7 +87,8 @@ $j\ge S_k$ repeats that combination of earlier values.
 \begin{center}
 \begin{tabular}{ccccc}
 line & order & vertices $S$ & proved for & terms checked \\ \hline
-column $k$$=1$ & $5$ & $64$ & $>4$ & $8$ \\
+column $k$$=1$ & $2$ & $20$ & $>2$ & $9$ \\
+column $k$$=2$ & $5$ & $112$ & $>5$ & $8$ \\
 \end{tabular}
 \end{center}
 
@@ -96,39 +98,24 @@ again exactly; every one of those integers vanishes from the stated point onward
 continued until the working vector was identically zero, which settles all larger $j$ at once.
 
 \subsection*{Column $k$$=1$}
-The sequence is ``Number of (n+1) X (2) 0..7 arrays with every 2 X 2 subblock having its diagonal sum differing from its antidiagonal sum by 5 (constant-stress 1 X 1 tilings).''. Its rows are the vertices of a digraph on
-$S=64$ vertices, edges being the admissible consecutive pairs, and the count is
+The sequence is ``Number of n X 1 0..2 arrays with no element unequal to more than four of its king-move neighbors and with new values introduced in order 0 sequentially upwards.''. Its rows are the vertices of a digraph on
+$S=20$ vertices, edges being the admissible consecutive pairs, and the count is
 $\mathbf{1}^{\!\top}M^{n}\mathbf{1}$ up to the constant factor in the entry's name.
 The conjectured recurrence
 \[
-a(n)\;=\;6\,a(n-1) + 90\,a(n-2) - 540\,a(n-3) - 2016\,a(n-4) + 12096\,a(n-5)
+a(n)\;=\;4\,a(n-1) - 3\,a(n-2)
 \]
-holds from index $4+1$ on.
+holds from index $2+1$ on.
 
-
-\section{Lines whose recurrence the entry does not print}
-
-For the lines below the entry records only an order, the coefficients being in a linked file.
-They can still be settled, and the recurrences recovered. A line is a walk count on $S$
-vertices, so it satisfies some monic recurrence of order at most $S$ and Berlekamp--Massey on
-$2S$ exact terms returns the MINIMAL one. Where that order equals the stated order --- and
-where the same holds after the first few terms are dropped, since the entry's recurrence may
-begin only partway along --- any recurrence of that order the line satisfies has a
-characteristic polynomial that is a multiple of the minimal one and of equal degree, hence is
-that polynomial. So the entry's recurrence is the one displayed, whatever its file contains.
-
-\subsection*{Column $k=2$, recovered}
-The entry gives only the order for this line: ``k=2: [order 15].''. Its model is a walk on
-$S=512$ vertices, so it satisfies a monic recurrence of order at most $S$;
-Berlekamp--Massey on $2S=1024$ exact terms returns the minimal one, of order
-$15$ --- the stated order --- with integer coefficients
-\begin{center}\small\begin{tabular}{cccccccc}
-$c_{1}$ & $15$ & $c_{5}$ & $219360$ & $c_{9}$ & $161734320$ & $c_{13}$ & $-8926848000$ \\
-$c_{2}$ & $125$ & $c_{6}$ & $-507740$ & $c_{10}$ & $-1006299360$ & $c_{14}$ & $-75188736000$ \\
-$c_{3}$ & $-2865$ & $c_{7}$ & $-8437740$ & $c_{11}$ & $-1062547200$ & $c_{15}$ & $121927680000$ \\
-$c_{4}$ & $-1490$ & $c_{8}$ & $34905816$ & $c_{12}$ & $13887417600$ &  &  \\
-\end{tabular}\end{center}
-Repeating with the first $15+4$ terms removed gives order $15$ again.
+\subsection*{Column $k$$=2$}
+The sequence is ``Number of n X 2 0..2 arrays with no element unequal to more than four of its king-move neighbors and with new values introduced in order 0 sequentially upwards.''. Its rows are the vertices of a digraph on
+$S=112$ vertices, edges being the admissible consecutive pairs, and the count is
+$\mathbf{1}^{\!\top}M^{n}\mathbf{1}$ up to the constant factor in the entry's name.
+The conjectured recurrence
+\[
+a(n)\;=\;8\,a(n-1) - 11\,a(n-2) + 20\,a(n-3) - 24\,a(n-4) + 8\,a(n-5)
+\]
+holds from index $5+1$ on.
 
 \section{Verification}
 
@@ -139,7 +126,7 @@ both from the antidiagonal DATA read in either orientation and from the ``Table 
 block, and agrees at every available term. This is what ties a model to the table:
 substituting the fixed index into the entry's wording is a reading of English, and a wrong
 reading gives a different digraph and different counts. Across the lines settled here the
-model reproduces $8$ published values, $48$ decimal digits in all, every one of
+model reproduces $17$ published values, $51$ decimal digits in all, every one of
 them exactly; a misreading of the entry would have to reproduce all of them by accident.
 
 Second, each conjectured recurrence was evaluated on those published values in exact
@@ -159,7 +146,7 @@ claimed.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A234702.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A282056.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

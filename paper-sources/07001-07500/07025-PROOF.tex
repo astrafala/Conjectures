@@ -12,52 +12,78 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{A condition on the multiset of every subblock: OEIS A183598}
+\title{The empirical recurrence for OEIS A250513, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{7 September 2026}
+\date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A183598 carries an empirical recurrence of order $19$ contributed by R.~H.~Hardin. It is
-true, and it is decidable rather than empirical. The entry's condition on a subblock depends
-only on which values the block holds and how many times, not on where they sit, so it is
-decided by the few consecutive lines the block spans. The admissible windows are the vertices
-of a finite digraph and the arrays counted are exactly its walks; hence $a(n)$ is a walk count
-on $S=25$ vertices and is $C$-finite, and whether the conjectured recurrence annihilates it
-is settled by a finite exact computation, with the Cayley--Hamilton theorem bounding the
-work. The entry does not count the arrays themselves but $1/6$ of them, so every count below is divided by $6$.
+OEIS A250513 counts arrays over $\{0,1,2,3\}$ in which a statistic taken over short runs
+of cells produces a derived array that is monotone in a named direction. The entry carries an
+empirical recurrence of order $19$ contributed by R.~H.~Hardin. It is true, and it is
+decidable rather than empirical: every comparison the condition makes lies inside a bounded
+window of consecutive rows, so the count is a walk count on $S=64$ states, and the
+conjectured recurrence is then settled by a finite exact computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A183598 is ``1/6 the number of (n+1)X5 0..2 arrays with every 2X2 subblock containing all three values.''. It has offset $1$ and begins
+OEIS A250513 is ``Number of (n+1)X(2+1) 0..3 arrays with nondecreasing min(x(i,j),x(i,j-1)) in the i direction and nondecreasing min(x(i,j),x(i-1,j)) in the j direction.''. It has offset $1$ and begins
 \[
-534, 10797, 201770, 3831324, 72592860, 1376627608, 26108240340, 495215814566,\ \dots
+889, 14660, 205022, 2817780, 36999777, 480626844, 6146257386, 78207667892,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n)=29*a(n-1)-116*a(n-2)-2075*a(n-3)+10702*a(n-4)+51511*a(n-5)-261497*a(n-6)-510094*a(n-7)+2707193*a(n-8)+1565260*a(n-9)-12569843*a(n-10)+2644843*a(n-11)+22771798*a(n-12)-13641330*a(n-13)-14269732*a(n-14)+12528656*a(n-15)+1720808*a(n-16)-3240288*a(n-17)+392640*a(n-18)+109056*a(n-19)
+Empirical: a(n) = 20*a(n-1) -25*a(n-2) -1400*a(n-3) +5769*a(n-4) +23616*a(n-5) -132975*a(n-6) -127632*a(n-7) +1074132*a(n-8) +385732*a(n-9) -4202228*a(n-10) -1161728*a(n-11) +8517056*a(n-12) +2583408*a(n-13) -9166944*a(n-14) -3219264*a(n-15) +4980096*a(n-16) +2018304*a(n-17) -1078272*a(n-18) -497664*a(n-19)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 01:54:35, revision 9) this is still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 12:29:05, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
-\section{The count is a walk count}
+\section{What is being counted}
 
-The entry counts arrays with $5$ columns over the alphabet $\{0,1,2\}$, growing one row at a time, and asks that every $2\times2$ subblock holds exactly $3$ distinct values.
+The array has $3$ cells across and entries $x(i,j)\in\{0,1,2,3\}$.
 
-That condition does not depend on where in the block a value sits, only on which values the block holds and how many times --- it is a function of the block's multiset of entries. In particular it is decided by $2$ consecutive rows, the ones the block spans, so carrying the previous $1$ row as the state is enough: each new row completes every block that ends on it, and no judgement is left over at the end of the array.
-
-The entry counts not the arrays themselves but $1/6$ of them, so every count below is divided by $6$; the division comes out exact at every term the entry publishes, which is itself a check on the model.
-
-Merging vertices with identical futures leaves $S=25$. An admissible array is exactly a walk, so with $M$ the adjacency matrix and $\iota,\tau$ the vectors recording which states may begin and end an array,
+Two derived arrays are formed. The first reads the horizontal statistic across each
+neighbouring pair of a row,
 \[
-a(n)\;=\;\tfrac{1}{6}\,\iota^{\!\top}M^{\,n}\tau ,
+b(i,j)\;=\;\bigl[\,\min(a,b)\,\bigr]_{a=x(i,j),\,b=x(i,j-1)}\qquad (j\ge1),
 \]
-the exponent fixed by the entry's own shape and checked against its published terms. In
-particular $a$ is $C$-finite.
+and must not decrease DOWN a column: $b(i,j)\le b(i{+}1,j)$. The second reads the vertical
+statistic down each neighbouring pair of a column,
+\[
+c(i,j)\;=\;\bigl[\,\min(a,b)\,\bigr]_{a=x(i,j),\,b=x(i{-}1,j)}\qquad (i\ge1),
+\]
+and must not decrease ALONG a row: $c(i,j)\le c(i,j{+}1)$. In words, the horizontal statistic
+is the smaller of a cell and its left neighbour, and the vertical one is
+the smaller of a cell and the cell above it.
+
+Nothing in the condition is invariant under renaming the letters --- each statistic either does
+arithmetic on them or compares them by size --- so no reduction to equality patterns is
+available, and the walk is run over the alphabet the entry names.
+
+\section{A bounded window}
+
+\begin{lemma}\label{lem:win}
+Both conditions are conditions on TWO consecutive array rows and nothing more.
+\end{lemma}
+
+\begin{proof}
+$b(i,j)\le b(i{+}1,j)$ names four cells, all in rows $i$ and $i+1$. $c(i,j)\le c(i,j{+}1)$
+names four cells, all in rows $i-1$ and $i$. No comparison reaches further.
+\end{proof}
+
+So a single row is a state. Let $M$ be the matrix on the $4^{3}=64$ rows with
+$M[r,s]=1$ when the pair $(r,s)$ passes both tests and $0$ otherwise. An array of $R$ rows is a
+walk of $R-1$ steps and every row may begin or end one, so with $\iota=\tau=\mathbf{1}$,
+\[
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=64.
+\]
+
+The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
+published terms rather than assumed. In particular $a$ is $C$-finite.
 
 \section{The proof}
 
@@ -74,13 +100,12 @@ Factor $M^{j}$ out of $M^{j+19}-\sum_ic_iM^{j+19-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly. A constant factor in front of $a$ divides out of the residual and
-changes nothing here.
+pins the threshold exactly.
 \end{proof}
 
 \begin{theorem}
 \[
-a(n)\;=\;29\,a(n-1) - 116\,a(n-2) - 2075\,a(n-3) + 10702\,a(n-4) + 51511\,a(n-5) - 261497\,a(n-6) - 510094\,a(n-7) + 2707193\,a(n-8) + 1565260\,a(n-9) - 12569843\,a(n-10) + 2644843\,a(n-11) + 22771798\,a(n-12) - 13641330\,a(n-13) - 14269732\,a(n-14) + 12528656\,a(n-15) + 1720808\,a(n-16) - 3240288\,a(n-17) + 392640\,a(n-18) + 109056\,a(n-19)
+a(n)\;=\;20\,a(n-1) - 25\,a(n-2) - 1400\,a(n-3) + 5769\,a(n-4) + 23616\,a(n-5) - 132975\,a(n-6) - 127632\,a(n-7) + 1074132\,a(n-8) + 385732\,a(n-9) - 4202228\,a(n-10) - 1161728\,a(n-11) + 8517056\,a(n-12) + 2583408\,a(n-13) - 9166944\,a(n-14) - 3219264\,a(n-15) + 4980096\,a(n-16) + 2018304\,a(n-17) - 1078272\,a(n-18) - 497664\,a(n-19)
 \]
 for every $n>18$.
 \end{theorem}
@@ -97,13 +122,12 @@ until the working vector was identically zero, which settles every larger $j$ at
 Four checks, each independent of the algebra above.
 
 First, the model reproduces all $15$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry: the digraph is built by reading the
-entry's English, and a misreading gives different counts.
+arithmetic.
 
-Second, the reading was pinned before the digraph was written, by a program that enumerates
-every array of the given shape one by one, forms each subblock directly and tests the entry's
-condition on it. That program shares no code with the transfer matrix, so an error in one does
-not hide an error in the other.
+Second, the count was recomputed for the smallest arrays straight from the definition: fill the
+cells in row major order and test each comparison the moment both of its runs are complete,
+in the orientation the entry's own name writes. No transfer matrix and no transposition are
+involved, and the published terms came back.
 
 Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
@@ -113,11 +137,9 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A183598.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A250513.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
-University Press, 2009.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}
