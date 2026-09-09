@@ -12,34 +12,34 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A202373, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A203350, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A202373 counts arrays of width $5$ over $\{0,1\}$ containing no occurrence of certain short
+OEIS A203350 counts arrays of width $5$ over $\{0,1\}$ containing no occurrence of certain short
 patterns, read along the rows, the columns or the diagonals. The entry carries an empirical
 recurrence of order $64$ contributed by R.~H.~Hardin. It is true, and it is decidable
 rather than empirical: no pattern is longer than $3$ letters and no direction moves the row
 index by more than one, so every occurrence lies inside $3$ consecutive array rows and the
-count is a walk count on $S=183$ states.
+count is a walk count on $S=273$ states.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 68R15, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A202373 is ``Number of (n+2)X5 binary arrays avoiding patterns 001 and 111 in rows and columns.''. It has offset $1$ and begins
+OEIS A203350 is ``Number of (n+2)X5 binary arrays avoiding patterns 010 and 101 in rows, columns and nw-to-se diagonals.''. It has offset $1$ and begins
 \[
-611, 2293, 7349, 20247, 54611, 136304, 327679, 763588,\ \dots
+702, 3716, 17676, 84322, 403624, 1933250, 9252084, 44314952,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 4*a(n-1) +6*a(n-2) -27*a(n-3) -58*a(n-4) +123*a(n-5) +317*a(n-6) -210*a(n-7) -1221*a(n-8) -292*a(n-9) +2673*a(n-10) +2865*a(n-11) -2824*a(n-12) -6786*a(n-13) -1929*a(n-14) +7083*a(n-15) +8031*a(n-16) +1548*a(n-17) -6345*a(n-18) -7798*a(n-19) -5052*a(n-20) +2589*a(n-21) +4899*a(n-22) +5997*a(n-23) +2472*a(n-24) +3139*a(n-25) -3481*a(n-26) -3858*a(n-27) -7252*a(n-28) -570*a(n-29) -2112*a(n-30) +5334*a(n-31) +1212*a(n-32) +5048*a(n-33) -2659*a(n-34) +2670*a(n-35) -2841*a(n-36) +3203*a(n-37) -2780*a(n-38) +2044*a(n-39) -4190*a(n-40) +641*a(n-41) -3147*a(n-42) +2045*a(n-43) -992*a(n-44) +2429*a(n-45) -588*a(n-46) +1430*a(n-47) -717*a(n-48) +793*a(n-49) -543*a(n-50) +320*a(n-51) -513*a(n-52) +16*a(n-53) -325*a(n-54) +59*a(n-55) -47*a(n-56) +114*a(n-57) +23*a(n-58) +48*a(n-59) -5*a(n-60) +a(n-61) -9*a(n-62) -2*a(n-63) -2*a(n-64)
+Empirical: a(n) = 8*a(n-1) -12*a(n-2) -24*a(n-3) +17*a(n-4) +88*a(n-5) +102*a(n-6) -243*a(n-7) +99*a(n-8) -772*a(n-9) -1701*a(n-10) +4240*a(n-11) +5897*a(n-12) -4277*a(n-13) -8679*a(n-14) -15973*a(n-15) -19012*a(n-16) +96695*a(n-17) +119498*a(n-18) -305186*a(n-19) -345693*a(n-20) +635898*a(n-21) +828058*a(n-22) -887645*a(n-23) -1637071*a(n-24) +656825*a(n-25) +2571635*a(n-26) +552766*a(n-27) -2937429*a(n-28) -2698824*a(n-29) +1771258*a(n-30) +4613722*a(n-31) +1104975*a(n-32) -4477496*a(n-33) -4207415*a(n-34) +1266663*a(n-35) +4309165*a(n-36) +2221082*a(n-37) -1120602*a(n-38) -2287492*a(n-39) -1232173*a(n-40) +270494*a(n-41) +860200*a(n-42) +589509*a(n-43) +109566*a(n-44) -180687*a(n-45) -220729*a(n-46) -109731*a(n-47) +10788*a(n-48) +55399*a(n-49) +34551*a(n-50) +4495*a(n-51) -8678*a(n-52) -6347*a(n-53) -1159*a(n-54) +1095*a(n-55) +910*a(n-56) +169*a(n-57) -108*a(n-58) -109*a(n-59) -11*a(n-60) +9*a(n-61) +7*a(n-62) +a(n-63) -a(n-64)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 09:33:01, revision 9) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 10:21:56, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
@@ -50,8 +50,9 @@ in order; the array is counted when it has no occurrence at all. The entry names
 \[
 \begin{array}{ll}
 \text{direction} & \text{forbidden patterns} \\[2pt]
-\text{along a row, left to right} & \mathtt{001},\quad \mathtt{111} \\
-\text{down a column} & \mathtt{001},\quad \mathtt{111} \\
+\text{along a row, left to right} & \mathtt{010},\quad \mathtt{101} \\
+\text{down a column} & \mathtt{010},\quad \mathtt{101} \\
+\text{down a diagonal, nw to se} & \mathtt{010},\quad \mathtt{101} \\
 \end{array}
 \]
 
@@ -76,7 +77,7 @@ and is not assumed but read off the window. The walk starts at the all-$\bot$ wi
 of no steps is the empty array and a walk of $R$ steps is an array of $R$ rows. With $M$ the
 adjacency matrix, $\iota$ the indicator of the starting window and $\tau=\mathbf{1}$,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=183.
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=273.
 \]
 The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
 published terms rather than assumed. In particular $a$ is $C$-finite.
@@ -101,15 +102,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;4\,a(n-1) + 6\,a(n-2) - 27\,a(n-3) - 58\,a(n-4) + 123\,a(n-5) + 317\,a(n-6) - 210\,a(n-7) - 1221\,a(n-8) - 292\,a(n-9) + 2673\,a(n-10) + 2865\,a(n-11) - 2824\,a(n-12) - 6786\,a(n-13) - 1929\,a(n-14) + 7083\,a(n-15) + 8031\,a(n-16) + 1548\,a(n-17) - 6345\,a(n-18) - 7798\,a(n-19) - 5052\,a(n-20) + 2589\,a(n-21) + 4899\,a(n-22) + 5997\,a(n-23) + 2472\,a(n-24) + 3139\,a(n-25) - 3481\,a(n-26) - 3858\,a(n-27) - 7252\,a(n-28) - 570\,a(n-29) - 2112\,a(n-30) + 5334\,a(n-31) + 1212\,a(n-32) + 5048\,a(n-33) - 2659\,a(n-34) + 2670\,a(n-35) - 2841\,a(n-36) + 3203\,a(n-37) - 2780\,a(n-38) + 2044\,a(n-39) - 4190\,a(n-40) + 641\,a(n-41) - 3147\,a(n-42) + 2045\,a(n-43) - 992\,a(n-44) + 2429\,a(n-45) - 588\,a(n-46) + 1430\,a(n-47) - 717\,a(n-48) + 793\,a(n-49) - 543\,a(n-50) + 320\,a(n-51) - 513\,a(n-52) + 16\,a(n-53) - 325\,a(n-54) + 59\,a(n-55) - 47\,a(n-56) + 114\,a(n-57) + 23\,a(n-58) + 48\,a(n-59) - 5\,a(n-60) + a(n-61) - 9\,a(n-62) - 2\,a(n-63) - 2\,a(n-64)
+a(n)\;=\;8\,a(n-1) - 12\,a(n-2) - 24\,a(n-3) + 17\,a(n-4) + 88\,a(n-5) + 102\,a(n-6) - 243\,a(n-7) + 99\,a(n-8) - 772\,a(n-9) - 1701\,a(n-10) + 4240\,a(n-11) + 5897\,a(n-12) - 4277\,a(n-13) - 8679\,a(n-14) - 15973\,a(n-15) - 19012\,a(n-16) + 96695\,a(n-17) + 119498\,a(n-18) - 305186\,a(n-19) - 345693\,a(n-20) + 635898\,a(n-21) + 828058\,a(n-22) - 887645\,a(n-23) - 1637071\,a(n-24) + 656825\,a(n-25) + 2571635\,a(n-26) + 552766\,a(n-27) - 2937429\,a(n-28) - 2698824\,a(n-29) + 1771258\,a(n-30) + 4613722\,a(n-31) + 1104975\,a(n-32) - 4477496\,a(n-33) - 4207415\,a(n-34) + 1266663\,a(n-35) + 4309165\,a(n-36) + 2221082\,a(n-37) - 1120602\,a(n-38) - 2287492\,a(n-39) - 1232173\,a(n-40) + 270494\,a(n-41) + 860200\,a(n-42) + 589509\,a(n-43) + 109566\,a(n-44) - 180687\,a(n-45) - 220729\,a(n-46) - 109731\,a(n-47) + 10788\,a(n-48) + 55399\,a(n-49) + 34551\,a(n-50) + 4495\,a(n-51) - 8678\,a(n-52) - 6347\,a(n-53) - 1159\,a(n-54) + 1095\,a(n-55) + 910\,a(n-56) + 169\,a(n-57) - 108\,a(n-58) - 109\,a(n-59) - 11\,a(n-60) + 9\,a(n-61) + 7\,a(n-62) + a(n-63) - a(n-64)
 \]
-for every $n>63$.
+for every $n>64$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $64$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=63+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=64+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -117,7 +118,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $24$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $18$ terms the entry publishes, exactly, in integer
 arithmetic.
 
 Second, the count was recomputed for the smallest arrays straight from the definition: fill the
@@ -133,7 +134,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A202373.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A203350.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata

@@ -12,88 +12,69 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A206516, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A232925, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{7 September 2026}
+\date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A206516 counts, up to renaming the letters, the arrays of width $4$ over at most $4$
-letters in which every $2\times3$ and $3\times2$ subblock has at most $4$ equal edges, an edge of such a window being one of the six steps of its perimeter cycle and an equal edge one whose two cells agree. It carries an empirical recurrence of order $22$ contributed by
-R.~H.~Hardin. It is true, and it is decidable rather than empirical. Counting up to renaming is
-a fixed rational combination of ordinary array counts, each of those is a walk count, and the
-conjectured recurrence is then settled by a finite exact computation.
+OEIS A232925 counts arrays over $\{0,\dots,2\}$ in which no two entries that are neighbours in
+a named set of directions may sum to $2$, together with clauses that pick one array out of
+each class of arrays differing by a renaming. The entry carries an empirical recurrence of
+order $23$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
+empirical: the clash condition is local to two consecutive rows and the renaming clauses are
+carried by one bounded piece of extra state, so the count is a walk count on $S=25$ states.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A18, 05B45.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05C15, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A206516 is ``Number of (n+1)X4 0..3 arrays with every 2X3 or 3X2 subblock having no more than four equal edges, and new values 0..3 introduced in row major order.''. It has offset $1$ and begins
+OEIS A232925 is ``Number of 6Xn 0..2 arrays with no element x(i,j) adjacent to value 2-x(i,j) horizontally, diagonally or antidiagonally.''. It has offset $1$ and begins
 \[
-2786, 695541, 177097738, 45142367398, 11507555684346, 2933481908580803, 747797195466172046, 190626930556386514119,\ \dots
+729, 1458, 23346, 235824, 2986152, 33994188, 409408542, 4791504648,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 238*a(n-1) +4150*a(n-2) +44332*a(n-3) -679650*a(n-4) -12043680*a(n-5) -129978174*a(n-6) -183422200*a(n-7) -661869709*a(n-8) +1822894708*a(n-9) +3929447237*a(n-10) +24688694694*a(n-11) +16930214447*a(n-12) +31521818926*a(n-13) -66759146931*a(n-14) +41508795870*a(n-15) -100230885135*a(n-16) +89003825784*a(n-17) -52703068122*a(n-18) +46958310468*a(n-19) -22966596792*a(n-20) +7564885488*a(n-21) -2550916800*a(n-22)
+Empirical: a(n) = 6*a(n-1) +109*a(n-2) -256*a(n-3) -3152*a(n-4) +4016*a(n-5) +36307*a(n-6) -39164*a(n-7) -200969*a(n-8) +225166*a(n-9) +558858*a(n-10) -666143*a(n-11) -821349*a(n-12) +1028812*a(n-13) +665423*a(n-14) -859266*a(n-15) -301764*a(n-16) +388624*a(n-17) +75683*a(n-18) -91245*a(n-19) -9839*a(n-20) +10158*a(n-21) +486*a(n-22) -420*a(n-23) for n>24
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 12:58:59, revision 9) this is still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 07:44:00, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The condition is that every $2\times3$ and $3\times2$ subblock has at most $4$ equal edges, an edge of such a window being one of the six steps of its perimeter cycle and an equal edge one whose two cells agree.
-
-The clause ``new values $0..3$ introduced in row major order'' says the array is the
-canonical representative of its EQUALITY PATTERN, so what is counted is patterns, not arrays.
-Write $N_j$ for the number of admissible patterns using exactly $j$ letters and $L_i$ for the
-number of admissible arrays over an alphabet of $i$ letters. An array over $i$ letters is a
-pattern together with an injection of its letters into the alphabet, so
+The array is $6$ cells across with entries $x(i,j)\in\{0,1,2\}$. Call two values $u,v$ CLASHING
+when $u+v=2$. Two cells are neighbours when one is obtained from the other by one of
+the offsets
 \[
-L_i\;=\;\sum_j N_j\,i(i-1)\cdots(i-j+1),
+(1,-1), (1,0), (1,1),
 \]
-a triangular system with unit diagonal, hence invertible over $\mathbf{Q}$. The entry counts
-$a=N_1+\dots+N_{4}$, so
+that is, in the antidiagonal (ne--sw), vertical and diagonal (nw--se) directions, and the condition is that no two neighbouring cells carry
+clashing values. The entry writes the array with $n$ as the number of COLUMNS. The walk is run down the transpose, so the offsets above are already the transposed ones: transposing exchanges the horizontal and vertical directions and fixes each diagonal one. The clash relation is symmetric, so an offset and its negative name the
+same pairs and only one of each is listed.
+
+\section{The walk}
+
+Every offset above moves the row index by at most one, so a clash is a condition on two
+consecutive array rows and on nothing else.
+
+So a single array row is a state. A step appends a row, which settles every clash between it
+and the row above and every clash inside it. Two states from which, for every remaining length,
+the same number of arrays can be completed contribute identically to the count, so they are
+identified; after that identification there are $S=25$ of them.
+
+With $\iota$ the indicator of the states that may begin an array and $\tau=\mathbf{1}$,
 \[
-a\;=\;\sum_{i=1}^{4}w_i\,L_i
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau .
 \]
-for one fixed rational vector $w=\mathbf{1}^{\!\top}F^{-1}$, $F$ the matrix of falling
-factorials.
-
-\section{Why the reduction is allowed here}
-
-The step above is legitimate only if the condition is invariant under permuting the alphabet,
-and in this family that is a real restriction rather than a formality. An \emph{equal edge}
-is an edge of a subblock whose two cells carry the same letter; whether two cells agree is
-untouched by any renaming, so every condition built from counting equal edges is invariant and
-the reduction applies.
-
-The neighbouring conditions of the same family that count \emph{increases} --- how many steps
-of a subblock's perimeter cycle go UP in value --- are not invariant: they compare letters by
-size, and a permutation of the alphabet changes the count. Those entries are therefore excluded
-here rather than reduced, and are settled, when they are settled, over their own alphabet
-without the pattern step.
-
-\section{Each $L_i$ is a walk count}
-
-For a fixed alphabet the condition is local: a $2\times2$ subblock is built from two
-consecutive array rows, a $2\times3$ or $3\times2$ window from two or three of them, and every
-comparison the entry makes is between subblocks that meet in the grid. Taking as state a single
-row where the condition looks at one subblock at a time, and the pair of consecutive rows where
-it compares neighbours, each $L_i$ is a walk count on its own digraph. Assembling,
-\[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau
-\]
-on the disjoint union of those digraphs for $i=1,\dots,4$, with $\iota$ carrying the weights
-$w_i$ cleared of denominators and $S=72164$ states in all. The walk index $j$ and the entry's own
-$n$ differ by a constant, read off by matching the published terms rather than assumed. In
-particular $a$ is $C$-finite.
+The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
+published terms rather than assumed. In particular $a$ is $C$-finite.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{22}-\sum_i c_it^{22-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{23}-\sum_i c_it^{23-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -101,7 +82,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+22}-\sum_ic_iM^{j+22-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+23}-\sum_ic_iM^{j+23-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -110,41 +91,43 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;238\,a(n-1) + 4150\,a(n-2) + 44332\,a(n-3) - 679650\,a(n-4) - 12043680\,a(n-5) - 129978174\,a(n-6) - 183422200\,a(n-7) - 661869709\,a(n-8) + 1822894708\,a(n-9) + 3929447237\,a(n-10) + 24688694694\,a(n-11) + 16930214447\,a(n-12) + 31521818926\,a(n-13) - 66759146931\,a(n-14) + 41508795870\,a(n-15) - 100230885135\,a(n-16) + 89003825784\,a(n-17) - 52703068122\,a(n-18) + 46958310468\,a(n-19) - 22966596792\,a(n-20) + 7564885488\,a(n-21) - 2550916800\,a(n-22)
+a(n)\;=\;6\,a(n-1) + 109\,a(n-2) - 256\,a(n-3) - 3152\,a(n-4) + 4016\,a(n-5) + 36307\,a(n-6) - 39164\,a(n-7) - 200969\,a(n-8) + 225166\,a(n-9) + 558858\,a(n-10) - 666143\,a(n-11) - 821349\,a(n-12) + 1028812\,a(n-13) + 665423\,a(n-14) - 859266\,a(n-15) - 301764\,a(n-16) + 388624\,a(n-17) + 75683\,a(n-18) - 91245\,a(n-19) - 9839\,a(n-20) + 10158\,a(n-21) + 486\,a(n-22) - 420\,a(n-23)
 \]
-for every $n>22$.
+for every $n>24$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $22$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $23$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=22+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once. The
-rational weights are cleared by a common denominator first, so the whole computation is over
-the integers.
+integers vanish from the index corresponding to $n=24+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
-Three checks, each independent of the algebra above.
+Four checks, each independent of the algebra above.
 
-First, the model reproduces all $11$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry: the digraph is built by reading the
-entry's English, and a misreading gives different counts.
+First, the model reproduces all $16$ terms the entry publishes, exactly, in integer
+arithmetic.
 
-Second, the conjectured recurrence was evaluated directly on those published terms, with no
+Second, the count was recomputed for the smallest arrays straight from the definition: fill the
+cells in row major order, in the orientation the entry's own name writes, and test each clause
+the moment it can be tested. No transfer matrix, no transposition and no state are involved,
+and the published terms came back.
+
+Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
 arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A206516.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A232925.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{comtet} L.~Comtet, \emph{Advanced Combinatorics}, Reidel, 1974. (Set partitions
-and falling factorials.)
+\bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata
+Theory, Languages, and Computation}, 3rd ed., Addison--Wesley, 2006.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

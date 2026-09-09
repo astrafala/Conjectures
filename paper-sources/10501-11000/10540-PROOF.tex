@@ -10,15 +10,15 @@
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
-\title{A proof of the conjectured recurrence for OEIS A051560}
+\title{A proof of the conjectured recurrence for OEIS A000276}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{25 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A051560 carries a conjectured linear recurrence with polynomial coefficients, of
-order 2. We prove it. The entry's exponential generating function is
+OEIS A000276 carries a conjectured linear recurrence with polynomial coefficients, of
+order 3. We prove it. The entry's exponential generating function is
 transcendental, so the usual algebraic arguments do not apply; instead we observe that it
 lies in a finitely generated module over $\mathbb{Q}(x)$ spanned by monomials
 $\log(u)^{a}\exp(g)^{k}$, and that this module is closed under differentiation, because
@@ -26,34 +26,34 @@ $(\log u)'=u'/u$ and $(\exp g)'=g'\exp g$ lower the log power and fix the expone
 respectively. Re-indexing the recurrence forward turns shifts into derivatives, so the
 sequence $b(m)=\sum_{j}q_{j}(m)a(m+j)$ has exponential generating function
 $B=\sum_{j}q_{j}(\theta)A^{(j)}$, computed exactly inside that module. Here $B$ collapses
-to the polynomial $0$, of degree $0$, which proves the recurrence for every
-$n>0$.
+to the polynomial $x^{2} + 3 x$, of degree $2$, which proves the recurrence for every
+$n>2$.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 11B37, 05A15, 12H05, 33F10.\normalsize
 
 \section{The sequence and the conjecture}
 
-OEIS A051560 is ``Second unsigned column of triangle A051379''. It has offset $0$ and begins
+OEIS A000276 is ``Associated Stirling numbers''. It has offset $4$ and begins
 \[
-a(0),\dots,a(7)\;=\;0, 1, 17, 242, 3382, 48504, 725592, 11393808,\ \dots
+a(4),\dots,a(11)\;=\;3, 20, 130, 924, 7308, 64224, 623376, 6636960,\ \dots
 \]
 The entry gives the exponential generating function
 \begin{equation}\label{eq:gf}
-A(x)\;=\;\sum_{n\ge 0} a(n)\,\frac{x^{n}}{n!}\;=\;- \frac{\log{\left(1 - x \right)}}{\left(x - 1\right)^{8}} ,
+A(x)\;=\;\sum_{n\ge 4} a(n)\,\frac{x^{n}}{n!}\;=\;\frac{\left(x + \log{\left(1 - x \right)}\right)^{2}}{2} ,
 \end{equation}
 and it carries the following comment:
 \begin{quote}\small
-\textbf{Conjecture:} a(n) +(-2*n-13)*a(n-1) +(n+6)\textasciicircum{}2*a(n-2)=0.
+\textbf{Conjecture:} a(n) +2*(-n+2)*a(n-1) +(n\textasciicircum{}2-6*n+10)*a(n-2) +(n-3)*(n-4)*a(n-3)=0.
 \end{quote}
-As of the ``Last modified'' line on the live entry (2023-01-25, revision 38) the
+As of the ``Last modified'' line on the live entry (2026-07-11, revision 60) the
 statement is still recorded as a conjecture, and no proof appears among the entry's links,
 formulas or programs.
 
-Writing the conjectured relation in the form $\sum_{i=0}^{2}p_{i}(n)\,a(n-i)=0$,
+Writing the conjectured relation in the form $\sum_{i=0}^{3}p_{i}(n)\,a(n-i)=0$,
 the coefficient polynomials are
 \[
-p_{0}(n)=1,\qquad p_{1}(n)=- 2 n - 13,\qquad p_{2}(n)=\left(n + 6\right)^{2}
+p_{0}(n)=1,\qquad p_{1}(n)=- 2 \left(n - 2\right),\qquad p_{2}(n)=n^{2} - 6 n + 10,\qquad p_{3}(n)=\left(n - 4\right) \left(n - 3\right)
 \]
 
 \section{Recurrences as differential operators}
@@ -125,7 +125,7 @@ coefficient outside the monomial $\log(u)^{0}\exp(g)^{0}$ vanishes and the remai
 coefficient has constant denominator. Both are decided by exact cancellation of rational
 functions, so no series truncation enters anywhere.
 
-\section{The computation for A051560}
+\section{The computation for A000276}
 
 The generating function \eqref{eq:gf} lies in the module $M$ of
 Lemma~\ref{lem:field}.
@@ -133,16 +133,16 @@ Applying Lemma~\ref{lem:transfer} to the coefficient polynomials of Section~1 an
 in $K$ by Lemma~\ref{lem:field}, the $\sqrt{D}$ component of $B$ cancels identically and
 the rational part collapses to
 \[
-B(x)\;=\;0 ,
+B(x)\;=\;x^{2} + 3 x ,
 \]
-a polynomial of degree $0$.
+a polynomial of degree $2$.
 
 \begin{theorem}
 The conjectured recurrence
 \[
-1\,a(n) + (- 2 n - 13)\,a(n-1) + (n^{2} + 12 n + 36)\,a(n-2) \;=\;0
+1\,a(n) -  2 \left(n - 2\right)\,a(n-1) + (n^{2} - 6 n + 10)\,a(n-2) + \left(n - 4\right) \left(n - 3\right)\,a(n-3) \;=\;0
 \]
-holds for every $n>2$.
+holds for every $n>5$.
 \end{theorem}
 
 \begin{proof}
@@ -151,7 +151,7 @@ Immediate from Corollary~\ref{cor:criterion} and the displayed value of $B$.
 
 \begin{remark}
 The polynomial $B$ is not an error term: it records the boundary of the recurrence. For
-$n\le0$ some of the shifted terms $a(n-i)$ fall outside the range of the sequence,
+$n\le2$ some of the shifted terms $a(n-i)$ fall outside the range of the sequence,
 and $B$ collects exactly those contributions. Above that range the relation is exact.
 \end{remark}
 
@@ -162,23 +162,23 @@ independent checks were run.
 
 First, the generating function was checked against the entry rather than assumed: the
 Taylor coefficients of \eqref{eq:gf} were expanded and compared term by term with the DATA
-section of A051560, agreeing on all 13 terms compared.
+section of A000276, agreeing on all 13 terms compared.
 
 Second, the recurrence itself was evaluated directly on the published terms, in exact
 integer arithmetic and without reference to the generating function: for each $n$ in range
 the sum $\sum_{i}p_{i}(n)a(n-i)$ was formed from the entry's own values and found to
-vanish, for all 14 values of $n$ from $n=3$ upward. This is what
+vanish, for all 14 values of $n$ from $n=10$ upward. This is what
 Corollary~\ref{cor:criterion} predicts from the degree of $B$, and it is a genuinely
 different computation from the symbolic one: it never forms $B$, never differentiates, and
 uses only integers.
 
 The symbolic step is exact throughout. The residual is obtained by rational-function
-cancellation in $K$, not by series truncation, so the identity $B=0$ is an
-identity of functions and the theorem holds for all $n>2$ simultaneously.
+cancellation in $K$, not by series truncation, so the identity $B=x^{2} + 3 x$ is an
+identity of functions and the theorem holds for all $n>5$ simultaneously.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer Sequences},
-\url{https://oeis.org}, 2026. Sequence A051560.
+\url{https://oeis.org}, 2026. Sequence A000276.
 \bibitem{kp} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011,
 Chapter 7 (holonomic closure properties and the translation between recurrences and
 differential equations).

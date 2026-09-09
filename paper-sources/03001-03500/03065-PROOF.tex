@@ -12,15 +12,15 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A233235, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A233198, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A233235 counts arrays over $\{0,\dots,5\}$ in which no two entries that are neighbours in
-a named set of directions may sum to $5$, together with clauses that pick one array out of
+OEIS A233198 counts arrays over $\{0,\dots,7\}$ in which no two entries that are neighbours in
+a named set of directions may sum to $7$, together with clauses that pick one array out of
 each class of arrays differing by a renaming. The entry carries an empirical recurrence of
 order $5$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
 empirical: the clash condition is local to two consecutive rows and the renaming clauses are
@@ -31,33 +31,33 @@ carried by one bounded piece of extra state, so the count is a walk count on $S=
 
 \section{The conjecture}
 
-OEIS A233235 is ``Number of nX4 0..5 arrays with no element x(i,j) adjacent to value 5-x(i,j) horizontally, diagonally or antidiagonally, top left element zero, and 1 appearing before 2 3 and 4, and 2 appearing before 3 in row major order.''. It has offset $1$ and begins
+OEIS A233198 is ``Number of n X 4 0..7 arrays with no element x(i,j) adjacent to itself or value 7-x(i,j) horizontally, antidiagonally or vertically, top left element zero, and 1 appearing before 2 3 4 5 and 6, 2 appearing before 3 4 and 5, and 3 appearing before 4 in row major order (unlabelled 8-colorings with no clashing color pairs).''. It has offset $1$ and begins
 \[
-23, 4504, 1212549, 338046654, 94601758339, 26484848685044, 7415057313896849, 2076029517168733114,\ \dots
+11, 528, 62720, 7802880, 981532672, 123833679872, 15635845218304, 1974688792182784,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 311*a(n-1) -8722*a(n-2) +10022*a(n-3) -1645*a(n-4) +35*a(n-5)
+Empirical: a(n) = 208*a(n-1) - 13312*a(n-2) + 442368*a(n-3) - 8650752*a(n-4) + 67108864*a(n-5) for n>6.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 07:57:30, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Oct 10 2018 08:36:09, revision 7) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The array is $4$ cells across with entries $x(i,j)\in\{0,1,\dots,5\}$. Call two values $u,v$ CLASHING
-when $u+v=5$. Two cells are neighbours when one is obtained from the other by one of
+The array is $4$ cells across with entries $x(i,j)\in\{0,1,\dots,7\}$. Call two values $u,v$ CLASHING
+when $u+v=7$ and, the entry saying ``adjacent to itself or'', also when $u=v$. Two cells are neighbours when one is obtained from the other by one of
 the offsets
 \[
-(0,1), (1,-1), (1,1),
+(0,1), (1,-1), (1,0),
 \]
-that is, in the horizontal, antidiagonal (ne--sw) and diagonal (nw--se) directions, and the condition is that no two neighbouring cells carry
+that is, in the horizontal, antidiagonal (ne--sw) and vertical directions, and the condition is that no two neighbouring cells carry
 clashing values. The clash relation is symmetric, so an offset and its negative name the
 same pairs and only one of each is listed. The entry also fixes the top left entry: $x(1,1)=0$.
 
 Finally the entry asks that, reading the cells in ROW MAJOR order, certain values make their
 first appearance before certain others:
 \[
-1\prec 2,\qquad 1\prec 3,\qquad 1\prec 4,\qquad 2\prec 3 ,
+1\prec 2,\qquad 1\prec 3,\qquad 1\prec 4,\qquad 1\prec 5,\qquad 1\prec 6,\qquad 2\prec 3,\qquad 2\prec 4,\qquad 2\prec 5,\qquad 3\prec 4 ,
 \]
 writing $u\prec v$ for ``the first cell carrying $u$ comes before the first cell carrying
 $v$''. The entry's own name glosses the effect of this clause together with $x(1,1)=0$ as
@@ -80,7 +80,7 @@ a first appearance and imposes nothing.
 
 The walk of this paper runs DOWN THE ROWS and visits the cells of each row from left to right,
 which is exactly row major order, so the set $T$ can be carried in the state. It takes at most
-$2^{4}$ values, and the state of the walk is a pair (array row, set $T$).
+$2^{6}$ values, and the state of the walk is a pair (array row, set $T$).
 
 \section{The walk}
 
@@ -120,15 +120,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;311\,a(n-1) - 8722\,a(n-2) + 10022\,a(n-3) - 1645\,a(n-4) + 35\,a(n-5)
+a(n)\;=\;208\,a(n-1) - 13312\,a(n-2) + 442368\,a(n-3) - 8650752\,a(n-4) + 67108864\,a(n-5)
 \]
-for every $n>5$.
+for every $n>6$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $5$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=5+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=6+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -152,7 +152,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A233235.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A233198.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata

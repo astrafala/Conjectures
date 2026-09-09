@@ -12,19 +12,19 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A223796, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A224348, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A223796 counts arrays over $\{0,\dots,3\}$ whose rows, columns, diagonals or
+OEIS A224348 counts arrays over $\{0,\dots,2\}$ whose rows, columns, diagonals or
 antidiagonals are required to be monotone or unimodal, and carries an empirical recurrence of
 order $10$ contributed by R.~H.~Hardin. A monotone condition is local, but a unimodal one
 is not: a sequence is unimodal exactly when it never rises again after it has fallen, so the
 state must remember which sequences have already fallen. With those bits carried along, $a(n)$
-is a walk count on $S=400$ vertices and the recurrence follows from a finite exact
+is a walk count on $S=640$ vertices and the recurrence follows from a finite exact
 computation.
 \end{abstract}
 
@@ -32,20 +32,20 @@ computation.
 
 \section{The sequence and the conjecture}
 
-OEIS A223796 is ``Number of nX3 0..3 arrays with rows and antidiagonals unimodal.''. It has offset $1$ and begins
+OEIS A224348 is ``Number of nX3 0..2 arrays with diagonals and antidiagonals unimodal and rows nondecreasing.''. It has offset $1$ and begins
 \[
-50, 2500, 110116, 4816168, 210163664, 9169032476, 400006582368, 17450517286804,\ \dots
+10, 100, 788, 5880, 45064, 349280, 2710892, 21021916,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 50*a(n-1) -253*a(n-2) -1283*a(n-3) +8456*a(n-4) -10020*a(n-5) -12064*a(n-6) +27360*a(n-7) -6656*a(n-8) -9728*a(n-9) +4096*a(n-10)
+Empirical: a(n) = 10*a(n-1) -16*a(n-2) -24*a(n-3) +164*a(n-4) -516*a(n-5) +140*a(n-6) +956*a(n-7) -1500*a(n-8) +3180*a(n-9) +60*a(n-10)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 22:30:14, revision 8) the statement is
+As of the ``Last modified'' line on the live entry (Oct 03 2025 23:23:13, revision 8) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;50\,a(n-1) - 253\,a(n-2) - 1283\,a(n-3) + 8456\,a(n-4) - 10020\,a(n-5) - 12064\,a(n-6) + 27360\,a(n-7) - 6656\,a(n-8) - 9728\,a(n-9) + 4096\,a(n-10)
+a(n)\;=\;10\,a(n-1) - 16\,a(n-2) - 24\,a(n-3) + 164\,a(n-4) - 516\,a(n-5) + 140\,a(n-6) + 956\,a(n-7) - 1500\,a(n-8) + 3180\,a(n-9) + 60\,a(n-10)
 \end{equation}
 for all $n>10$.
 
@@ -54,8 +54,9 @@ for all $n>10$.
 The arrays have $3$ columns and $L=n$ rows. Written in (row, column)
 coordinates, the entry asks:
 \begin{itemize}
-\item along the direction $(0,1)$ --- one step of $(0,1)$ in (row, column) coordinates --- every sequence is unimodal;
+\item along the direction $(1,1)$ --- one step of $(1,1)$ in (row, column) coordinates --- every sequence is unimodal;
 \item along the direction $(1,-1)$ --- one step of $(1,-1)$ in (row, column) coordinates --- every sequence is unimodal;
+\item along the direction $(0,1)$ --- one step of $(0,1)$ in (row, column) coordinates --- every sequence is nondecreasing;
 \end{itemize}
 Here ``unimodal'' means nondecreasing and then nonincreasing, that is: no rise after a fall.
 
@@ -68,7 +69,7 @@ far end of the new row starts with its bit clear.
 
 \begin{lemma}\label{lem:walk}
 Let $\mathcal V$ be the set of pairs (a row satisfying every within-row condition, a
-bit vector), $|\mathcal V|=S=400$; let $(r,f)\to(s,f')$ be an edge when placing $s$ after $r$
+bit vector), $|\mathcal V|=S=640$; let $(r,f)\to(s,f')$ be an edge when placing $s$ after $r$
 breaks none of the across-row conditions and $f'$ is $f$ updated by that step; let
 $\mathbf{v}$ mark the vertices whose bit vector is the one their row alone produces.
 Then
@@ -128,7 +129,7 @@ zeros had been seen.
 Three checks, each independent of the algebra above.
 
 First, the walk counts of Lemma~\ref{lem:walk} were compared against the entry's DATA at
-every one of the $14$ published indices, with no shift fitted. The values agree exactly.
+every one of the $19$ published indices, with no shift fitted. The values agree exactly.
 This is what fixes the reading of the wording: ``rows and columns in nondecreasing order''
 means the rows and columns are sorted as vectors, not that each is nondecreasing along
 itself, and the two readings already differ at the second published term --- $86$ against
@@ -142,7 +143,7 @@ Cayley--Hamilton bound in exact integer arithmetic rather than to a sampled pref
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A223796.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A224348.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

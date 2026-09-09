@@ -12,18 +12,18 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A269087, proved by a counting transfer matrix}
+\title{The empirical recurrence for OEIS A269149, proved by a counting transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A269087 counts arrays over $\{0,\dots,1\}$ subject to a condition on the array as a
+OEIS A269149 counts arrays over $\{0,\dots,3\}$ subject to a condition on the array as a
 whole rather than cell by cell: the number of adjacent pairs with a stated property must be
-at most one. A transfer matrix still applies once the running count is carried in the state; and
+exactly one. A transfer matrix still applies once the running count is carried in the state; and
 because a count of two or more can never come back, those states may be dropped outright,
-which is what keeps the digraph sparse. That makes $a(n)$ a walk count on $S=128$ vertices,
+which is what keeps the digraph sparse. That makes $a(n)$ a walk count on $S=2048$ vertices,
 and the empirical recurrence of order $42$ contributed by R.~H.~Hardin then follows from
 a finite exact computation.
 \end{abstract}
@@ -32,49 +32,49 @@ a finite exact computation.
 
 \section{The sequence and the conjecture}
 
-OEIS A269087 is ``Number of nX6 binary arrays with some element plus some horizontally, vertically or antidiagonally adjacent neighbor totalling two not more than once.''. It has offset $1$ and begins
+OEIS A269149 is ``Number of nX5 0..3 arrays with some element plus some horizontally, antidiagonally or vertically adjacent neighbor totalling three exactly once.''. It has offset $1$ and begins
 \[
-41, 467, 5387, 55620, 555789, 5372270, 50865307, 473602013,\ \dots
+432, 46464, 3277728, 208984848, 12637025328, 738478504448, 42119837369168, 2359047063894464,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 2*a(n-1) +83*a(n-2) +210*a(n-3) -1918*a(n-4) -13444*a(n-5) -27431*a(n-6) +22868*a(n-7) +172414*a(n-8) +91292*a(n-9) -572846*a(n-10) -576908*a(n-11) +1569339*a(n-12) +1662464*a(n-13) -4129647*a(n-14) -2739590*a(n-15) +10005684*a(n-16) +128072*a(n-17) -18820309*a(n-18) +14239344*a(n-19) +18275195*a(n-20) -39512592*a(n-21) +16595129*a(n-22) +32600294*a(n-23) -63035320*a(n-24) +55225574*a(n-25) -27556538*a(n-26) +5959238*a(n-27) +1367780*a(n-28) -935764*a(n-29) -205936*a(n-30) +253428*a(n-31) -6946*a(n-32) -44268*a(n-33) +5192*a(n-34) +6896*a(n-35) -1085*a(n-36) -848*a(n-37) +74*a(n-38) +94*a(n-39) +3*a(n-40) -6*a(n-41) -a(n-42)
+Empirical: a(n) = 134*a(n-1) -6403*a(n-2) +137212*a(n-3) -1537987*a(n-4) +10006762*a(n-5) -41364815*a(n-6) +107588656*a(n-7) -111196320*a(n-8) -399050332*a(n-9) +2108507944*a(n-10) -4098003684*a(n-11) +445179883*a(n-12) +18009896226*a(n-13) -42207232033*a(n-14) +12581717548*a(n-15) +122544940860*a(n-16) -203283873760*a(n-17) -79843687188*a(n-18) +508551706160*a(n-19) -240288894385*a(n-20) -648319426210*a(n-21) +662670918703*a(n-22) +480938145704*a(n-23) -858808887300*a(n-24) -176689259732*a(n-25) +734283407564*a(n-26) -39751157620*a(n-27) -450104705459*a(n-28) +101139044518*a(n-29) +200718146529*a(n-30) -72282159428*a(n-31) -63674380919*a(n-32) +31546829386*a(n-33) +13183985923*a(n-34) -9057688788*a(n-35) -1275648164*a(n-36) +1571020336*a(n-37) -67398016*a(n-38) -125671104*a(n-39) +17151168*a(n-40) +3564288*a(n-41) -665856*a(n-42) for n>45
 \end{quote}
-As of the ``Last modified'' line on the live entry (Feb 19 2016 09:22:31, revision 4) the statement is
+As of the ``Last modified'' line on the live entry (Feb 20 2016 07:17:23, revision 4) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;2\,a(n-1) + 83\,a(n-2) + 210\,a(n-3) - 1918\,a(n-4) - 13444\,a(n-5) - 27431\,a(n-6) + 22868\,a(n-7) + 172414\,a(n-8) + 91292\,a(n-9) - 572846\,a(n-10) - 576908\,a(n-11) + 1569339\,a(n-12) + 1662464\,a(n-13) - 4129647\,a(n-14) - 2739590\,a(n-15) + 10005684\,a(n-16) + 128072\,a(n-17) - 18820309\,a(n-18) + 14239344\,a(n-19) + 18275195\,a(n-20) - 39512592\,a(n-21) + 16595129\,a(n-22) + 32600294\,a(n-23) - 63035320\,a(n-24) + 55225574\,a(n-25) - 27556538\,a(n-26) + 5959238\,a(n-27) + 1367780\,a(n-28) - 935764\,a(n-29) - 205936\,a(n-30) + 253428\,a(n-31) - 6946\,a(n-32) - 44268\,a(n-33) + 5192\,a(n-34) + 6896\,a(n-35) - 1085\,a(n-36) - 848\,a(n-37) + 74\,a(n-38) + 94\,a(n-39) + 3\,a(n-40) - 6\,a(n-41) - a(n-42)
+a(n)\;=\;134\,a(n-1) - 6403\,a(n-2) + 137212\,a(n-3) - 1537987\,a(n-4) + 10006762\,a(n-5) - 41364815\,a(n-6) + 107588656\,a(n-7) - 111196320\,a(n-8) - 399050332\,a(n-9) + 2108507944\,a(n-10) - 4098003684\,a(n-11) + 445179883\,a(n-12) + 18009896226\,a(n-13) - 42207232033\,a(n-14) + 12581717548\,a(n-15) + 122544940860\,a(n-16) - 203283873760\,a(n-17) - 79843687188\,a(n-18) + 508551706160\,a(n-19) - 240288894385\,a(n-20) - 648319426210\,a(n-21) + 662670918703\,a(n-22) + 480938145704\,a(n-23) - 858808887300\,a(n-24) - 176689259732\,a(n-25) + 734283407564\,a(n-26) - 39751157620\,a(n-27) - 450104705459\,a(n-28) + 101139044518\,a(n-29) + 200718146529\,a(n-30) - 72282159428\,a(n-31) - 63674380919\,a(n-32) + 31546829386\,a(n-33) + 13183985923\,a(n-34) - 9057688788\,a(n-35) - 1275648164\,a(n-36) + 1571020336\,a(n-37) - 67398016\,a(n-38) - 125671104\,a(n-39) + 17151168\,a(n-40) + 3564288\,a(n-41) - 665856\,a(n-42)
 \end{equation}
-for all $n>42$.
+for all $n>45$.
 
 \section{A global count, and how to carry it}
 
-The arrays have $6$ columns and $L=n$ rows; write $x_{t,u}$ for the entry in
+The arrays have $5$ columns and $L=n$ rows; write $x_{t,u}$ for the entry in
 row $t$ and column $u$. Call two cells \emph{adjacent} when they differ by one of the
 offsets
 \[
-\mathcal N=\{(0,1),\ (1,0),\ (1,-1)\},
+\mathcal N=\{(0,1),\ (1,-1),\ (1,0)\},
 \]
 written as (row shift, column shift), and call an adjacent pair $\{p,q\}$
 \emph{marked} when
 \[
-x_{p}+x_{q}=2 .
+x_{p}+x_{q}=3 .
 \]
 Each unordered adjacency is represented by exactly one offset, all with a nonnegative row
 shift, so every pair is named once and only once: the pairs inside a row are seen when
 that row is laid down, and the pairs joining two rows when the later of the two is. The
 entry's requirement is
 \begin{equation}\label{eq:glob}
-\#\{\text{marked pairs in the whole array}\}\;\le1.
+\#\{\text{marked pairs in the whole array}\}\;=1.
 \end{equation}
 
 This is not a condition on any bounded window, so no transfer matrix over rows alone can
 express it. It becomes one as soon as the running total is part of the state. Let
 \[
-\mathcal V=\bigl\{(r,c):\ r\in\{0,\dots,1\}^{6},\ c\in\{0,1\}\bigr\},
-\qquad |\mathcal V|=S=128,
+\mathcal V=\bigl\{(r,c):\ r\in\{0,\dots,3\}^{5},\ c\in\{0,1\}\bigr\},
+\qquad |\mathcal V|=S=2048,
 \]
 and for rows $r,s$ write $\beta(r,s)$ for the number of marked pairs joining them plus the
 number of marked pairs inside $s$. Declare $(r,c)\to(s,c+\beta(r,s))$ an edge whenever
@@ -84,12 +84,12 @@ $c+\beta(r,s)\le1$, and no edge otherwise.
 Dropping the states with $c\ge2$ is not an approximation. Once the total has reached two it
 can only grow, so no array satisfying \eqref{eq:glob} passes through such a state. Keeping
 them --- as a third, absorbing value of $c$ --- would make every pair of rows an edge and
-the digraph dense, with $(1+1)^{2\cdot6}$ edges instead of the sparse set used here.
+the digraph dense, with $(3+1)^{2\cdot5}$ edges instead of the sparse set used here.
 \end{remark}
 
 \begin{lemma}\label{lem:walk}
 Let $\mathbf{v}$ mark the vertices $(r,c)$ whose count $c$ equals the number of marked pairs
-inside $r$ alone, and $\mathbf{u}$ the vertices with $c\le1$. Then for $L\ge1$ the arrays
+inside $r$ alone, and $\mathbf{u}$ the vertices with $c=1$. Then for $L\ge1$ the arrays
 of $L$ rows satisfying \eqref{eq:glob} are exactly the walks of length $L-1$ from a
 vertex marked by $\mathbf{v}$ to one marked by $\mathbf{u}$, so
 \[
@@ -135,7 +135,7 @@ ones.
 \end{proof}
 
 \begin{theorem}
-The recurrence \eqref{eq:conj} holds for every $n>42$, which is the statement of
+The recurrence \eqref{eq:conj} holds for every $n>45$, which is the statement of
 Section~1.
 \end{theorem}
 
@@ -143,7 +143,7 @@ Section~1.
 The digraph was built directly from the definition of a marked pair. The vector $w$ was
 formed by $42$ applications of $G$ in exact integer arithmetic and
 $\mathbf{v}^{\!\top}G^{m}w$ evaluated for $m=0,1,\dots$, again exactly. Every one of
-those integers vanishes from the index corresponding to $n=42+1$ onwards, and the run
+those integers vanishes from the index corresponding to $n=45+1$ onwards, and the run
 continued until $S+1$ consecutive zeros had been seen, which by Lemma~\ref{lem:crit}
 settles every larger $m$.
 \end{proof}
@@ -153,7 +153,7 @@ settles every larger $m$.
 Three checks, each independent of the algebra above.
 
 First, the walk counts of Lemma~\ref{lem:walk} were compared against the entry's DATA at
-every one of the $17$ published indices, with no shift fitted: the number of rows is
+every one of the $13$ published indices, with no shift fitted: the number of rows is
 $L=n$, read off the entry's own name, and the offset says which index the first
 published term carries. The values agree exactly. This is where an error in the pair
 bookkeeping would show: counting an unordered pair twice, or missing the pairs inside the
@@ -169,7 +169,7 @@ Cayley--Hamilton bound in exact integer arithmetic rather than to a sampled pref
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A269087.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A269149.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

@@ -10,15 +10,15 @@
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
-\title{A proof of the conjectured recurrence for OEIS A392976}
+\title{A proof of the conjectured recurrence for OEIS A212696}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{25 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A392976 carries a conjectured linear recurrence with polynomial coefficients, of
-order 5, contributed by R.~J.~Mathar. We prove it. The generating function of the
+OEIS A212696 carries a conjectured linear recurrence with polynomial coefficients, of
+order 3, contributed by R.~J.~Mathar. We prove it. The generating function of the
 entry is algebraic, and the recurrence is equivalent to the vanishing of an explicit
 differential operator applied to it: writing $\theta=x\,\frac{d}{dx}$, the sequence
 $b(n)=\sum_{i}p_{i}(n)a(n-i)$ has generating function
@@ -33,29 +33,26 @@ the recurrence for every $n>-1$.
 
 \section{The sequence and the conjecture}
 
-OEIS A392976 is ``Expansion of (1/x) * Series\_Reversion( x * ((1-x\textasciicircum{}2)\textasciicircum{}2 - x) )''. It has offset $0$ and begins
+OEIS A212696 is ``Central coefficient of the triangle A097609''. It has offset $0$ and begins
 \[
-a(0),\dots,a(7)\;=\;1, 1, 4, 15, 67, 315, 1556, 7938,\ \dots
+a(0),\dots,a(7)\;=\;1, 0, 3, 4, 25, 66, 287, 960,\ \dots
 \]
-The entry posts no generating function of its own. Its NAME states the
-relation \texttt{the entry states that the generating function satisfies G.f. A(x) satisfies A(x) = 1/((1 - (x*A(x))\textasciicircum{}2)\textasciicircum{}2 - x*A(x))} to another entry, and that entry's exponential generating
-function is known, so the relation supplies one here (a constant $c$ contributes
-$c\,e^{x}$ to an exponential generating function):
+The entry gives the generating function
 \begin{equation}\label{eq:gf}
-A(x)\;=\;\sum_{n\ge 0} a(n)\,x^{n}\;=\;\text{the branch of } P(x,y)=0 \text{ with } y(0)=1 ,
+A(x)\;=\;\sum_{n\ge 0} a(n)\,x^{n}\;=\;\frac{\sqrt{2} \left(3 \sqrt{1 - 4 x} - 1\right) + 2 \sqrt{6 x + \sqrt{1 - 4 x} + 1}}{4 \sqrt{1 - 4 x} \sqrt{6 x + \sqrt{1 - 4 x} + 1}} ,
 \end{equation}
 and it carries the following comment:
 \begin{quote}\small
-Conjecture D-finite with recurrence 283*n*(n-1)*(n-2)*(83022305213*n -178385058984)*(n+1) *a(n) -6*n*(n-1)*(n-2)*(12196786904129*n\textasciicircum{}2 -45110300936020*n +52641391340361)*a(n-1) -6*(n-1)*(n-2)*(67790996421377*n\textasciicircum{}3 -248299346995054*n\textasciicircum{}2 +202497447227007*n +3061418504418)*a(n-2) -2*(n-2)*(192167357944360*n\textasciicircum{}4 -559010679688491*n\textasciicircum{}3 -2120668219560541*n\textasciicircum{}2 +9123363136130610*n -8342981628089220)*a(n-3) +5*(15640122296875*n\textasciicircum{}5 -565964885220500*n\textasciicircum{}4 +4989857715427325*n\textasciicircum{}3 -18667678380008380*n\textasciicircum{}2 +32085126156301848*n -20925325629575136)*a(n-4) +10*(5*n-17)*(5*n-18) *(5*n-21)*(5*n-19)*(22509687685*n-60308240636)*a(n-5)=0. - \emph{R. J. Mathar}, Jan 29 2026
+\textbf{Conjecture:} 2*n*(n-1)*(2*n+1)*(5*n-8)*a(n) -(n-1)*(115*n\^{}3-344*n\^{}2+299*n-82) *a(n-1) -4*(2*n-3)*(5*n\^{}3+27*n\^{}2-74*n+30)*a(n-2) +36*(n-1)*(5*n-3)*(2*n-3)*(2*n-5) *a(n-3)=0. - \emph{R. J. Mathar}, Oct 08 2016
 \end{quote}
-As of the ``Last modified'' line on the live entry (2026-01-31, revision 19) the
+As of the ``Last modified'' line on the live entry (2024-07-16, revision 44) the
 statement is still recorded as a conjecture, and no proof appears among the entry's links,
 formulas or programs.
 
-Writing the conjectured relation in the form $\sum_{i=0}^{5}p_{i}(n)\,a(n-i)=0$,
+Writing the conjectured relation in the form $\sum_{i=0}^{3}p_{i}(n)\,a(n-i)=0$,
 the coefficient polynomials are
 \[
-p_{0}(n)=283 n \left(n - 2\right) \left(n - 1\right) \left(n + 1\right) \left(83022305213 n - 178385058984\right),\qquad p_{1}(n)=- 6 n \left(n - 2\right) \left(n - 1\right) \left(12196786904129 n^{2} - 45110300936020 n + 52641391340361\right),\qquad p_{2}(n)=- 6 \left(n - 2\right) \left(n - 1\right) \left(67790996421377 n^{3} - 248299346995054 n^{2} + 202497447227007 n + 3061418504418\right),\qquad p_{3}(n)=- 2 \left(n - 2\right) \left(192167357944360 n^{4} - 559010679688491 n^{3} - 2120668219560541 n^{2} + 9123363136130610 n - 8342981628089220\right),\qquad p_{4}(n)=5 \left(15640122296875 n^{5} - 565964885220500 n^{4} + 4989857715427325 n^{3} - 18667678380008380 n^{2} + 32085126156301848 n - 20925325629575136\right),\qquad p_{5}(n)=10 \left(5 n - 21\right) \left(5 n - 19\right) \left(5 n - 18\right) \left(5 n - 17\right) \left(22509687685 n - 60308240636\right)
+p_{0}(n)=2 n \left(n - 1\right) \left(2 n + 1\right) \left(5 n - 8\right),\qquad p_{1}(n)=- \left(n - 1\right) \left(115 n^{3} - 344 n^{2} + 299 n - 82\right),\qquad p_{2}(n)=- 4 \left(2 n - 3\right) \left(5 n^{3} + 27 n^{2} - 74 n + 30\right),\qquad p_{3}(n)=36 \left(n - 1\right) \left(2 n - 5\right) \left(2 n - 3\right) \left(5 n - 3\right)
 \]
 
 \section{Recurrences as differential operators}
@@ -129,12 +126,12 @@ Corollary~\ref{cor:criterion} becomes: $B$ is a polynomial precisely when $b_{i}
 every $i\ge1$ and $b_{0}$ has constant denominator. Both are decided by exact
 cancellation of rational functions.
 
-\section{The computation for A392976}
+\section{The computation for A212696}
 
 The generating function \eqref{eq:gf} is algebraic over $\mathbb{Q}(x)$;
 its minimal polynomial is
 \[
-P(x,y) \;=\; x^{4} y^{5} - 2 x^{2} y^{3} - x y^{2} + y - 1 ,
+P(x,y) \;=\; 144 x^{4} y^{4} - 8 x^{3} y^{4} - 36 x^{3} y^{2} - 23 x^{2} y^{4} + 17 x^{2} y^{2} + 9 x^{2} + 4 x y^{4} + 2 x y^{2} - 4 x y - 2 x - y^{2} + y ,
 \]
 so \eqref{eq:gf} lies in $K=\mathbb{Q}(x)[y]/\bigl(P(x,y)\bigr)$ and is the root of that polynomial with the right
 expansion at the origin. Applying Lemma~\ref{lem:transfer} to the coefficient polynomials
@@ -148,7 +145,7 @@ a polynomial of degree $-1$.
 \begin{theorem}
 The conjectured recurrence
 \[
-283 n \left(n - 2\right) \left(n - 1\right) \left(n + 1\right) \left(83022305213 n - 178385058984\right)\,a(n) -  6 n \left(n - 2\right) \left(n - 1\right) \left(12196786904129 n^{2} - 45110300936020 n + 52641391340361\right)\,a(n-1) -  6 \left(n - 2\right) \left(n - 1\right) \left(67790996421377 n^{3} - 248299346995054 n^{2} + 202497447227007 n + 3061418504418\right)\,a(n-2) -  2 \left(n - 2\right) \left(192167357944360 n^{4} - 559010679688491 n^{3} - 2120668219560541 n^{2} + 9123363136130610 n - 8342981628089220\right)\,a(n-3) + 5 \left(15640122296875 n^{5} - 565964885220500 n^{4} + 4989857715427325 n^{3} - 18667678380008380 n^{2} + 32085126156301848 n - 20925325629575136\right)\,a(n-4) + 10 \left(5 n - 21\right) \left(5 n - 19\right) \left(5 n - 18\right) \left(5 n - 17\right) \left(22509687685 n - 60308240636\right)\,a(n-5) \;=\;0
+2 n \left(n - 1\right) \left(2 n + 1\right) \left(5 n - 8\right)\,a(n) -  \left(n - 1\right) \left(115 n^{3} - 344 n^{2} + 299 n - 82\right)\,a(n-1) -  4 \left(2 n - 3\right) \left(5 n^{3} + 27 n^{2} - 74 n + 30\right)\,a(n-2) + 36 \left(n - 1\right) \left(2 n - 5\right) \left(2 n - 3\right) \left(5 n - 3\right)\,a(n-3) \;=\;0
 \]
 holds for every $n>-1$.
 \end{theorem}
@@ -170,12 +167,12 @@ independent checks were run.
 
 First, the generating function was checked against the entry rather than assumed: the
 Taylor coefficients of \eqref{eq:gf} were expanded and compared term by term with the DATA
-section of A392976, agreeing on all 13 terms compared.
+section of A212696, agreeing on all 13 terms compared.
 
 Second, the recurrence itself was evaluated directly on the published terms, in exact
 integer arithmetic and without reference to the generating function: for each $n$ in range
 the sum $\sum_{i}p_{i}(n)a(n-i)$ was formed from the entry's own values and found to
-vanish, for all 20 values of $n$ from $n=5$ upward. This is what
+vanish, for all 25 values of $n$ from $n=3$ upward. This is what
 Corollary~\ref{cor:criterion} predicts from the degree of $B$, and it is a genuinely
 different computation from the symbolic one: it never forms $B$, never differentiates, and
 uses only integers.
@@ -186,7 +183,7 @@ identity of functions and the theorem holds for all $n>-1$ simultaneously.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer Sequences},
-\url{https://oeis.org}, 2026. Sequence A392976.
+\url{https://oeis.org}, 2026. Sequence A212696.
 \bibitem{kp} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011,
 Chapter 7 (holonomic closure properties and the translation between recurrences and
 differential equations).

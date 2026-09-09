@@ -12,17 +12,17 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A237301, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A236886, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A237301 counts arrays over $\{0,\dots,2\}$ subject to a condition on the order
+OEIS A236886 counts arrays over $\{0,\dots,2\}$ subject to a condition on the order
 statistics of every $2\times2$ subblock, and carries an empirical recurrence of order
 $9$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical.
-The condition is local to two consecutive rows, so the count is a walk count on $S=22$
+The condition is local to two consecutive rows, so the count is a walk count on $S=31$
 states and is $C$-finite; whether the conjectured recurrence annihilates it is then settled by
 a finite exact computation, with the Cayley--Hamilton theorem bounding the work.
 \end{abstract}
@@ -31,15 +31,15 @@ a finite exact computation, with the Cayley--Hamilton theorem bounding the work.
 
 \section{The conjecture}
 
-OEIS A237301 is ``Number of (n+1)X(1+1) 0..2 arrays with the upper median of every 2X2 subblock equal.''. It has offset $1$ and begins
+OEIS A236886 is ``Number of (n+1) X (1+1) 0..2 arrays with the maximum plus the upper median minus the lower median minus the minimum of every 2 X 2 subblock equal.''. It has offset $1$ and begins
 \[
-81, 435, 2174, 11545, 61055, 326262, 1745153, 9357963,\ \dots
+81, 245, 781, 2605, 8901, 31253, 111685, 406949,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 9*a(n-1) -143*a(n-3) +79*a(n-4) +796*a(n-5) -292*a(n-6) -1760*a(n-7) +256*a(n-8) +1280*a(n-9)
+Empirical: a(n) = 9*a(n-1) - 8*a(n-2) - 136*a(n-3) + 364*a(n-4) + 380*a(n-5) - 2080*a(n-6) + 992*a(n-7) + 2400*a(n-8) - 1920*a(n-9).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 10:02:27, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Oct 21 2018 08:27:44, revision 7) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
@@ -47,7 +47,7 @@ recorded as empirical, and nothing on the entry records it as proved.
 Sort the four entries of a $2\times2$ subblock as $a\le b\le c\le d$: they
 are its minimum, lower median, upper median and maximum. The entry fixes the signed sum
 \[
-\sigma\;=\;c,
+\sigma\;=\;-a-b+c+d,
 \]
 and asks that $\sigma$ take the SAME value on every $2\times2$ subblock of an
 $(n+1)\times2$ array over $\{0,\dots,2\}$.
@@ -67,7 +67,7 @@ steps, and with $M$ the adjacency matrix on the disjoint union over $v$,
 a(n)\;=\;\iota^{\!\top}M^{\,n}\tau,\qquad\iota=\tau=(1,\dots,1)^{\!\top} .
 \]
 Rows carrying no edge at all are dropped: such a row can only be the whole of a one-row
-array, which is not among the objects counted. There are $S=22$ states left.
+array, which is not among the objects counted. There are $S=31$ states left.
 The alignment of the walk index with the entry's own $n$ was checked against its published
 terms rather than assumed. In particular $a$ is $C$-finite.
 
@@ -91,15 +91,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;9\,a(n-1) - 143\,a(n-3) + 79\,a(n-4) + 796\,a(n-5) - 292\,a(n-6) - 1760\,a(n-7) + 256\,a(n-8) + 1280\,a(n-9)
+a(n)\;=\;9\,a(n-1) - 8\,a(n-2) - 136\,a(n-3) + 364\,a(n-4) + 380\,a(n-5) - 2080\,a(n-6) + 992\,a(n-7) + 2400\,a(n-8) - 1920\,a(n-9)
 \]
-for every $n>8$.
+for every $n>9$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $9$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=8+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=9+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -107,7 +107,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $19$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $22$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
@@ -119,7 +119,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A237301.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A236886.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{david} H.~A.~David and H.~N.~Nagaraja, \emph{Order Statistics}, 3rd ed., Wiley,
