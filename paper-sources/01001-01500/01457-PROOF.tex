@@ -12,19 +12,19 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A269183, proved by a counting transfer matrix}
+\title{The empirical recurrence for OEIS A268787, proved by a counting transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A269183 counts arrays over $\{0,\dots,3\}$ subject to a condition on the array as a
+OEIS A268787 counts arrays over $\{0,\dots,1\}$ subject to a condition on the array as a
 whole rather than cell by cell: the number of adjacent pairs with a stated property must be
 exactly one. A transfer matrix still applies once the running count is carried in the state; and
 because a count of two or more can never come back, those states may be dropped outright,
-which is what keeps the digraph sparse. That makes $a(n)$ a walk count on $S=2048$ vertices,
-and the empirical recurrence of order $40$ contributed by R.~H.~Hardin then follows from
+which is what keeps the digraph sparse. That makes $a(n)$ a walk count on $S=128$ vertices,
+and the empirical recurrence of order $42$ contributed by R.~H.~Hardin then follows from
 a finite exact computation.
 \end{abstract}
 
@@ -32,35 +32,35 @@ a finite exact computation.
 
 \section{The sequence and the conjecture}
 
-OEIS A269183 is ``Number of nX5 0..3 arrays with some element plus some horizontally, diagonally, antidiagonally or vertically adjacent neighbor totalling three exactly once.''. It has offset $1$ and begins
+OEIS A268787 is ``Number of nX6 binary arrays with some element plus some horizontally, vertically or antidiagonally adjacent neighbor totalling two exactly once.''. It has offset $1$ and begins
 \[
-432, 18336, 1031344, 52394312, 2563440512, 121792778352, 5665397992608, 259306140235672,\ \dots
+20, 338, 4207, 46195, 477128, 4725018, 45515227, 429442918,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 118*a(n-1) -5041*a(n-2) +93278*a(n-3) -616456*a(n-4) -3048560*a(n-5) +60109885*a(n-6) -129687930*a(n-7) -1739169369*a(n-8) +8259890048*a(n-9) +20240706091*a(n-10) -173579758748*a(n-11) -34263378926*a(n-12) +1854959811756*a(n-13) -1352133363698*a(n-14) -11158815731728*a(n-15) +13195242387667*a(n-16) +40081045519402*a(n-17) -56960114535700*a(n-18) -88448187207398*a(n-19) +137934077935370*a(n-20) +119462198991804*a(n-21) -202996386004581*a(n-22) -94913498792266*a(n-23) +187975033925075*a(n-24) +38342927037264*a(n-25) -110576189373568*a(n-26) -1510870946200*a(n-27) +40619114535308*a(n-28) -5466962964240*a(n-29) -8777770697408*a(n-30) +2325318442944*a(n-31) +946747193728*a(n-32) -404404766528*a(n-33) -21593127872*a(n-34) +28030228480*a(n-35) -2948913408*a(n-36) -308060672*a(n-37) +51977984*a(n-38) +752640*a(n-39) -230400*a(n-40) for n>41
+Empirical: a(n) = 2*a(n-1) +83*a(n-2) +210*a(n-3) -1918*a(n-4) -13444*a(n-5) -27431*a(n-6) +22868*a(n-7) +172414*a(n-8) +91292*a(n-9) -572846*a(n-10) -576908*a(n-11) +1569339*a(n-12) +1662464*a(n-13) -4129647*a(n-14) -2739590*a(n-15) +10005684*a(n-16) +128072*a(n-17) -18820309*a(n-18) +14239344*a(n-19) +18275195*a(n-20) -39512592*a(n-21) +16595129*a(n-22) +32600294*a(n-23) -63035320*a(n-24) +55225574*a(n-25) -27556538*a(n-26) +5959238*a(n-27) +1367780*a(n-28) -935764*a(n-29) -205936*a(n-30) +253428*a(n-31) -6946*a(n-32) -44268*a(n-33) +5192*a(n-34) +6896*a(n-35) -1085*a(n-36) -848*a(n-37) +74*a(n-38) +94*a(n-39) +3*a(n-40) -6*a(n-41) -a(n-42)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Feb 20 2016 09:12:44, revision 4) the statement is
+As of the ``Last modified'' line on the live entry (Feb 13 2016 12:24:50, revision 4) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;118\,a(n-1) - 5041\,a(n-2) + 93278\,a(n-3) - 616456\,a(n-4) - 3048560\,a(n-5) + 60109885\,a(n-6) - 129687930\,a(n-7) - 1739169369\,a(n-8) + 8259890048\,a(n-9) + 20240706091\,a(n-10) - 173579758748\,a(n-11) - 34263378926\,a(n-12) + 1854959811756\,a(n-13) - 1352133363698\,a(n-14) - 11158815731728\,a(n-15) + 13195242387667\,a(n-16) + 40081045519402\,a(n-17) - 56960114535700\,a(n-18) - 88448187207398\,a(n-19) + 137934077935370\,a(n-20) + 119462198991804\,a(n-21) - 202996386004581\,a(n-22) - 94913498792266\,a(n-23) + 187975033925075\,a(n-24) + 38342927037264\,a(n-25) - 110576189373568\,a(n-26) - 1510870946200\,a(n-27) + 40619114535308\,a(n-28) - 5466962964240\,a(n-29) - 8777770697408\,a(n-30) + 2325318442944\,a(n-31) + 946747193728\,a(n-32) - 404404766528\,a(n-33) - 21593127872\,a(n-34) + 28030228480\,a(n-35) - 2948913408\,a(n-36) - 308060672\,a(n-37) + 51977984\,a(n-38) + 752640\,a(n-39) - 230400\,a(n-40)
+a(n)\;=\;2\,a(n-1) + 83\,a(n-2) + 210\,a(n-3) - 1918\,a(n-4) - 13444\,a(n-5) - 27431\,a(n-6) + 22868\,a(n-7) + 172414\,a(n-8) + 91292\,a(n-9) - 572846\,a(n-10) - 576908\,a(n-11) + 1569339\,a(n-12) + 1662464\,a(n-13) - 4129647\,a(n-14) - 2739590\,a(n-15) + 10005684\,a(n-16) + 128072\,a(n-17) - 18820309\,a(n-18) + 14239344\,a(n-19) + 18275195\,a(n-20) - 39512592\,a(n-21) + 16595129\,a(n-22) + 32600294\,a(n-23) - 63035320\,a(n-24) + 55225574\,a(n-25) - 27556538\,a(n-26) + 5959238\,a(n-27) + 1367780\,a(n-28) - 935764\,a(n-29) - 205936\,a(n-30) + 253428\,a(n-31) - 6946\,a(n-32) - 44268\,a(n-33) + 5192\,a(n-34) + 6896\,a(n-35) - 1085\,a(n-36) - 848\,a(n-37) + 74\,a(n-38) + 94\,a(n-39) + 3\,a(n-40) - 6\,a(n-41) - a(n-42)
 \end{equation}
-for all $n>41$.
+for all $n>42$.
 
 \section{A global count, and how to carry it}
 
-The arrays have $5$ columns and $L=n$ rows; write $x_{t,u}$ for the entry in
+The arrays have $6$ columns and $L=n$ rows; write $x_{t,u}$ for the entry in
 row $t$ and column $u$. Call two cells \emph{adjacent} when they differ by one of the
 offsets
 \[
-\mathcal N=\{(0,1),\ (1,1),\ (1,-1),\ (1,0)\},
+\mathcal N=\{(0,1),\ (1,0),\ (1,-1)\},
 \]
 written as (row shift, column shift), and call an adjacent pair $\{p,q\}$
 \emph{marked} when
 \[
-x_{p}+x_{q}=3 .
+x_{p}+x_{q}=2 .
 \]
 Each unordered adjacency is represented by exactly one offset, all with a nonnegative row
 shift, so every pair is named once and only once: the pairs inside a row are seen when
@@ -73,8 +73,8 @@ entry's requirement is
 This is not a condition on any bounded window, so no transfer matrix over rows alone can
 express it. It becomes one as soon as the running total is part of the state. Let
 \[
-\mathcal V=\bigl\{(r,c):\ r\in\{0,\dots,3\}^{5},\ c\in\{0,1\}\bigr\},
-\qquad |\mathcal V|=S=2048,
+\mathcal V=\bigl\{(r,c):\ r\in\{0,\dots,1\}^{6},\ c\in\{0,1\}\bigr\},
+\qquad |\mathcal V|=S=128,
 \]
 and for rows $r,s$ write $\beta(r,s)$ for the number of marked pairs joining them plus the
 number of marked pairs inside $s$. Declare $(r,c)\to(s,c+\beta(r,s))$ an edge whenever
@@ -84,7 +84,7 @@ $c+\beta(r,s)\le1$, and no edge otherwise.
 Dropping the states with $c\ge2$ is not an approximation. Once the total has reached two it
 can only grow, so no array satisfying \eqref{eq:glob} passes through such a state. Keeping
 them --- as a third, absorbing value of $c$ --- would make every pair of rows an edge and
-the digraph dense, with $(3+1)^{2\cdot5}$ edges instead of the sparse set used here.
+the digraph dense, with $(1+1)^{2\cdot6}$ edges instead of the sparse set used here.
 \end{remark}
 
 \begin{lemma}\label{lem:walk}
@@ -113,17 +113,17 @@ row, so $L$ rows correspond to a walk of length $L-1$.
 
 \section{The criterion, and the computation}
 
-Let $q(t)=t^{40}-\sum_i c_i\,t^{40-i}$ be the characteristic polynomial of
+Let $q(t)=t^{42}-\sum_i c_i\,t^{42-i}$ be the characteristic polynomial of
 \eqref{eq:conj} and $G=N$.
 
 \begin{lemma}\label{lem:crit}
 With $n_0$ the least index for which $L\ge1$ and $h_j=G^{j}N^{o}\mathbf{u}$,
 $o=1n_0+0-1$,
 \[
-a(n_0+j)-\sum_i c_i\,a(n_0+j-i)\;=\;\,\mathbf{v}^{\!\top}G^{\,j-40}w,
-\qquad w=h_{40}-\sum_i c_i h_{40-i},
+a(n_0+j)-\sum_i c_i\,a(n_0+j-i)\;=\;\,\mathbf{v}^{\!\top}G^{\,j-42}w,
+\qquad w=h_{42}-\sum_i c_i h_{42-i},
 \]
-for $j\ge40$. Hence \eqref{eq:conj} holds from that point on if and only if
+for $j\ge42$. Hence \eqref{eq:conj} holds from that point on if and only if
 $\mathbf{v}^{\!\top}G^{m}w=0$ for every $m\ge0$, and it is enough to check
 $m=0,1,\dots,S-1$.
 \end{lemma}
@@ -135,15 +135,15 @@ ones.
 \end{proof}
 
 \begin{theorem}
-The recurrence \eqref{eq:conj} holds for every $n>41$, which is the statement of
+The recurrence \eqref{eq:conj} holds for every $n>42$, which is the statement of
 Section~1.
 \end{theorem}
 
 \begin{proof}
 The digraph was built directly from the definition of a marked pair. The vector $w$ was
-formed by $40$ applications of $G$ in exact integer arithmetic and
+formed by $42$ applications of $G$ in exact integer arithmetic and
 $\mathbf{v}^{\!\top}G^{m}w$ evaluated for $m=0,1,\dots$, again exactly. Every one of
-those integers vanishes from the index corresponding to $n=41+1$ onwards, and the run
+those integers vanishes from the index corresponding to $n=42+1$ onwards, and the run
 continued until $S+1$ consecutive zeros had been seen, which by Lemma~\ref{lem:crit}
 settles every larger $m$.
 \end{proof}
@@ -153,7 +153,7 @@ settles every larger $m$.
 Three checks, each independent of the algebra above.
 
 First, the walk counts of Lemma~\ref{lem:walk} were compared against the entry's DATA at
-every one of the $13$ published indices, with no shift fitted: the number of rows is
+every one of the $17$ published indices, with no shift fitted: the number of rows is
 $L=n$, read off the entry's own name, and the offset says which index the first
 published term carries. The values agree exactly. This is where an error in the pair
 bookkeeping would show: counting an unordered pair twice, or missing the pairs inside the
@@ -169,7 +169,7 @@ Cayley--Hamilton bound in exact integer arithmetic rather than to a sampled pref
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A269183.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A268787.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

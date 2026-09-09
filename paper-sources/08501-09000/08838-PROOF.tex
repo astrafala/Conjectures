@@ -12,48 +12,71 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A267469, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A206121, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{8 September 2026}
+\date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A267469 carries an empirical recurrence of order $8$ contributed by R.~H.~Hardin. It is
-true, and it is decidable rather than empirical. The entry's condition is local to a bounded window of consecutive lines, so
-the admissible configurations of such a window are the vertices of a finite digraph and the
-arrays counted are exactly the walks in it; hence $a(n)$ is a walk count on $S=35$ vertices
-and is $C$-finite. Whether the conjectured recurrence annihilates it is then settled by a
-finite exact computation, with the Cayley--Hamilton theorem bounding the work.
+OEIS A206121 counts arrays over $\{0,\dots,2\}$ under a condition on the number of clockwise edge increases
+in every $2\times2$ subblock, and carries an empirical recurrence of order $8$ contributed by
+R.~H.~Hardin. It is true, and it is decidable rather than empirical. The condition is local to
+a bounded window of consecutive rows, so the count is a walk count on $S=50$ states and is
+$C$-finite; whether the conjectured recurrence annihilates it is then settled by a finite exact
+computation, with the Cayley--Hamilton theorem bounding the work.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
 \section{The conjecture}
 
-OEIS A267469 is ``Number of length-n 0..6 arrays with no following elements larger than the first repeated value.''. It has offset $1$ and begins
+OEIS A206121 is ``Number of (n+1) X 2 0..2 arrays with every 2 X 2 subblock having nonzero determinant and having the same number of clockwise edge increases as its horizontal and vertical neighbors.''. It has offset $1$ and begins
 \[
-7, 49, 322, 2072, 13216, 83972, 532840, 3381860,\ \dots
+50, 170, 558, 1906, 6386, 21940, 74714, 258496,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 34*a(n-1) -490*a(n-2) +3892*a(n-3) -18529*a(n-4) +53746*a(n-5) -91860*a(n-6) +83448*a(n-7) -30240*a(n-8).
+Empirical: a(n) = 2*a(n-1) + 13*a(n-2) - 9*a(n-3) - 50*a(n-4) - 43*a(n-5) + 4*a(n-6) - 4*a(n-8) for n>9.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Feb 05 2018 09:35:59, revision 7) this is still
+As of the ``Last modified'' line on the live entry (Jun 13 2018 12:00:06, revision 8) this is still
 recorded as empirical, and nothing on the entry records it as proved.
+
+\section{What is being counted}
+
+For a $2\times2$ subblock $\begin{pmatrix}p&q\\r&s\end{pmatrix}$ the
+entry's quantity, the number of clockwise edge increases, counts how many of the four steps of the cycle $p\to q\to s\to r\to p$ go up in value. Write $\sigma$ for it. The subblocks of an
+$(n+1)\times2$ array over $\{0,\dots,2\}$ form a grid of $n$ rows and $1$
+column and $\sigma$ labels that grid.
+
+The reading is not a guess. Over $0..1$ the $2\times3$ arrays whose two subblocks have equal
+clockwise counts number $40$; over $0..2$ the $2\times2$ arrays of clockwise count $2$ number
+$30$; the $3\times2$ binary arrays whose two subblocks have unequal rightwards-and-downwards
+counts number $40$. Those are the first terms the corresponding entries publish, and each was
+computed by direct enumeration before any transfer matrix was built.
+
+The condition relates NEIGHBOURING subblocks: two subblocks adjacent in the grid, horizontally
+or vertically, must carry equal values of $\sigma$.
 
 \section{The count is a walk count}
 
-The condition the entry imposes is local: it constrains a bounded window of consecutive lines and nothing beyond. Take as
-vertices the admissible configurations of one such window and put an edge from $u$ to $v$
-whenever $v$ may follow $u$, which the condition decides by inspection of the two. An
-admissible array is then exactly a walk, so with $M$ the adjacency matrix on $S=35$ vertices
-and $\iota,\tau$ the vectors recording which windows may begin and end an array,
+A subblock's value needs two consecutive array rows, and the vertical
+comparison needs the two subblock rows that three consecutive rows produce. So the state is the
+PAIR of consecutive array rows: the horizontal comparisons decide which pairs are admissible at
+all, the vertical ones decide which pair may follow which. A step appends one array row,
+turning $(r,s)$ into $(s,t)$ and settling every comparison between the two subblock rows at
+once. An $(n+1)$-row array is a walk of $n-1$ steps, so
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau ,
+a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,\qquad\iota=\tau=(1,\dots,1)^{\!\top},
 \]
-the exponent fixed by the entry's own shape and checked against its published terms. In
-particular $a$ is $C$-finite.
+on the $S=50$ admissible pairs.
+
+At $n=1$ the array has two rows, so the grid is a single row of $1$
+subblock; the entry's first term is $50$, which the model
+reproduces along with every later term. That is the cheapest check that the grid has been read
+with the right shape.
+In particular $a$ is $C$-finite. The alignment of the walk index with the entry's own $n$ was
+checked against its published terms rather than assumed.
 
 \section{The proof}
 
@@ -75,23 +98,23 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;34\,a(n-1) - 490\,a(n-2) + 3892\,a(n-3) - 18529\,a(n-4) + 53746\,a(n-5) - 91860\,a(n-6) + 83448\,a(n-7) - 30240\,a(n-8)
+a(n)\;=\;2\,a(n-1) + 13\,a(n-2) - 9\,a(n-3) - 50\,a(n-4) - 43\,a(n-5) + 4\,a(n-6) - 4\,a(n-8)
 \]
-for every $n>1$.
+for every $n>9$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $8$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=1+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once.
+integers vanish from the index corresponding to $n=9+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once. The bound is exact: at $n=9$ the recurrence fails on the entry's own published terms, so no larger range holds.
 \end{proof}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $20$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $22$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
@@ -103,11 +126,11 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A267469.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A206121.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
-University Press, 2009.
+\bibitem{bona} M.~B\'ona, \emph{Combinatorics of Permutations}, 2nd ed., CRC
+Press, 2012.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

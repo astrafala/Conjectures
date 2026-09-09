@@ -12,112 +12,173 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{Arrays counted up to renaming: the empirical recurrence for OEIS A204507}
+\title{The empirical recurrence for OEIS A229580, proved by counting defective colourings}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{6 September 2026}
+\date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A204507 carries an empirical recurrence of order $85$ contributed by R.~H.~Hardin. It is
-true, and it is decidable rather than empirical. The entry imposes two conditions of different
-kinds: a condition on every subblock, which is local, and ``new values introduced in row major
-order'', which is not --- it makes the count a count of colourings up to renaming. The first is
-handled by a window of consecutive rows; the second by one extra integer, the number of values
-introduced so far, which is an exact summary of everything the whole prefix contributes. With
-both in the state the arrays are exactly the walks in a digraph on $S=185$ vertices, so $a(n)$
-is $C$-finite and whether the conjectured recurrence annihilates it is settled by a finite
-exact computation.
+OEIS A229580 counts the colourings of an array with $K=3$ colours that are proper except at
+exactly one adjacent pair, the colours being introduced in row
+major order. Neither feature is local: the number of monochromatic adjacent pairs is a
+property of the whole array, and the row major clause fixes a representative of each
+relabelling class. Both are removed by machinery already in hand --- the running count of
+mistakes goes into the state, capped at $1$, and the colour clause disappears into the
+identity $3!\,a(n)=\sum_i\binom{3}{i}D_{3-i}L_i(n)$ with $D_m$ the derangement
+numbers. What is left is a walk count on $S=28$ vertices, and the empirical recurrence of
+order $2$ contributed by R.~H.~Hardin follows from a finite exact computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05C15, 15B36.\normalsize
 
-\section{The conjecture}
+\section{The sequence and the conjecture}
 
-OEIS A204507 is ``Number of (n+2)X4 0..2 arrays with every 3X3 subblock having three equal elements in a row horizontally, vertically, diagonally or antidiagonally at least two different ways, and new values 0..2 introduced in row major order.''. It has offset $1$ and begins
+OEIS A229580 is ``Number of defective 3-colorings of an n X 2 0..2 array connected horizontally and antidiagonally with exactly one mistake, and colors introduced in row-major 0..2 order.''. It has offset $1$ and begins
 \[
-7344, 164248, 3673007, 65497615, 1294406290, 25704476586, 497453566167, 9731482764611,\ \dots
+1, 6, 40, 224, 1152, 5632, 26624, 122880,\ \dots
 \]
-Because of the relabelling condition each array is counted once for the whole class of arrays that differ from it only by renaming the values, so these are colourings counted up to permutation of the colours.
-The entry states, as a conjecture contributed by its author and never marked settled:
-\begin{quote}
-Empirical: a(n) = 23*a(n-1) -70*a(n-2) +1025*a(n-3) -22749*a(n-4) +67673*a(n-5) -92732*a(n-6) +3887718*a(n-7) -11975930*a(n-8) +16132162*a(n-9) -257543528*a(n-10) +648850791*a(n-11) -3912022704*a(n-12) +5466580086*a(n-13) +18250666658*a(n-14) +380686684950*a(n-15) +301898128801*a(n-16) -3264960826326*a(n-17) -21312465202375*a(n-18) -19513775439964*a(n-19) +144744720549548*a(n-20) +713556552919995*a(n-21) +680104927574175*a(n-22) -3856186817089130*a(n-23) -16827495551027698*a(n-24) -16644010463789350*a(n-25) +72234757623251237*a(n-26) +310436500350515571*a(n-27) +342200960973248678*a(n-28) -976831244243615468*a(n-29) -4365088254799620145*a(n-30) -5313780781894597056*a(n-31) +8664179562649322036*a(n-32) +43149463878458463519*a(n-33) +55199406842456469134*a(n-34) -55581614522788391149*a(n-35) -312952994008222236107*a(n-36) -405140164155329935126*a(n-37) +301519641818529400482*a(n-38) +1911799536889676703994*a(n-39) +2675071985466621681494*a(n-40) -730164304684024949344*a(n-41) -9123500667547360846460*a(n-42) -15443809790065351221202*a(n-43) -6107889334657453880040*a(n-44) +25085656943872118493476*a(n-45) +59562574776921773497072*a(n-46) +57731657729889178327188*a(n-47) -5410639210530237319768*a(n-48) -104852599734913907890104*a(n-49) -177030224002293934347600*a(n-50) -175992562953810211971152*a(n-51) -102490652950750764479200*a(n-52) +48586294323093685094176*a(n-53) +335536163779286123097008*a(n-54) +754080893938501876971616*a(n-55) +1020797808646937896907488*a(n-56) +615189230613220682198688*a(n-57) -707896357683558511457472*a(n-58) -2323553334171470241882112*a(n-59) -2893760884572960447840064*a(n-60) -1518960350852591322521216*a(n-61) +1176342601246923689720448*a(n-62) +3336970889915025755304448*a(n-63) +3469872235155027158972160*a(n-64) +1723067308781581829166080*a(n-65) -481416345144464338399744*a(n-66) -1878038075672456252540928*a(n-67) -2155164456699447612258304*a(n-68) -1609965913217021415993344*a(n-69) -626467444078270643109888*a(n-70) +385633183578860519636992*a(n-71) +968786514216627931815936*a(n-72) +901131021844228737712128*a(n-73) +417026435867321160040448*a(n-74) -38679369366710044852224*a(n-75) -223454775421789338337280*a(n-76) -188443969451705208406016*a(n-77) -84165065883642002145280*a(n-78) -8632493190259767508992*a(n-79) +16472522302309894455296*a(n-80) +13152627635966164598784*a(n-81) +5254619833935373271040*a(n-82) +1181521624297918955520*a(n-83) +113224281118212096000*a(n-84) -5871460382303846400*a(n-85) for n>86
+The entry carries the following comment:
+\begin{quote}\small
+Empirical: a(n) = 8*a(n-1) - 16*a(n-2) for n>3.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 11:17:17, revision 9) this is still
-recorded as empirical, and nothing on the entry records it as proved.
+As of the ``Last modified'' line on the live entry (Mar 06 2024 04:46:49, revision 51) the statement is
+still recorded as empirical, and nothing on the entry records it as settled either way.
 
-\section{The count is a walk count}
+Written out, the claim is
+\begin{equation}\label{eq:conj}
+a(n)\;=\;8\,a(n-1) - 16\,a(n-2)
+\end{equation}
+for all $n>3$.
 
-The entry counts arrays of 4 columns over the alphabet $\{0,1,2\}$, and asks two different kinds of thing of them at once.
+\section{Mistakes, and the colour clause}
 
-\textbf{The subblock condition is local.} It says that every $3\times3$ subblock must contain three equal elements in a line --- along one of its three rows, one of its three columns, or one of its two diagonals --- in at least two of those eight ways. A $ 3\times3$ subblock spans $3$ consecutive rows, so a window of $3$ consecutive rows decides every subblock it closes, and nothing outside that window is consulted.
-
-\textbf{The relabelling condition is not local.} ``New values introduced in row major order'' says that, reading the array one row at a time and each row left to right, a value may appear for the first time only once every smaller value already has. Whether a given entry is allowed here therefore depends on the whole prefix of the array, not on any bounded window of it, and no amount of widening the window captures it. What saves it is that the prefix matters only through one number: let $m$ be how many values have been introduced so far. A row $r_1r_2\cdots r_4$ may follow precisely when each $r_i\le m$ at the moment it is read and each $r_i=m$ raises $m$ by one. So $m$, an integer in $\{0,1,\dots,3\}$, is an exact summary of everything the condition needs, and it joins the state.
-
-The vertices of the digraph are therefore the triples (the last $2$ rows, the count $m$, what the last band scored), an edge $u\to v$ meaning that $v$'s new row may follow $u$. Of the $81$ possible rows only those admissible from the current $m$ appear, and states with identical futures are merged, which leaves $S=185$. An admissible array is exactly a walk, so with $M$ the adjacency matrix and $\iota,\tau$ the vectors recording which states may begin and end an array,
+The arrays have $2$ columns and $L=n$ rows, entries in $\{0,\dots,3-1\}$.
+Two cells are adjacent when they differ by one of
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n+1}\tau ,
+\mathcal N=\{(0,1),\ (1,-1)\}
 \]
-the exponent fixed by the entry's own shape and checked against its published terms. In
-particular $a$ is $C$-finite.
+(as (row shift, column shift)); each unordered adjacency is represented by exactly one
+offset, and every offset has a nonnegative row shift, so the pairs inside a row are
+counted when that row is laid down and the pairs joining two rows when the later one
+is. Call an adjacent pair a \emph{mistake} when $x_{t,u}=x_{t+d_1,\,u+d_2}$. The entry asks for exactly
+$E=1$ mistakes.
 
-\section{The proof}
+That is a statement about the whole array, so no bounded window sees it; but the running
+number of mistakes can be carried in the state, capped at $1$, the states past $1$ being
+absent because a count that has passed the budget can never come back.
 
-\begin{lemma}\label{lem:crit}
-Let $q(t)=t^{85}-\sum_i c_it^{85-i}$ be the characteristic polynomial of the
-conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
-$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
-holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
-and it is enough to examine $j<S$.
+The condition is stated in equalities, so it is invariant under relabelling the colours, and
+so is the number of mistakes. ``Colors introduced in row-major order'' keeps exactly one
+colouring from each relabelling class, so the entry counts equality PATTERNS with at most
+$K=3$ classes.
+
+\begin{lemma}\label{lem:inv}
+Let $L_i(n)$ count the colourings over $i$ colours with exactly $1$ mistakes, and $N_j(n)$
+the admissible patterns with exactly $j$ classes. Then
+$L_i=\sum_j N_j\,i(i-1)\cdots(i-j+1)$ and
+\[
+3!\,\sum_{j\le3}N_j(n)=\sum_{i=0}^{3}\binom{3}{i}D_{3-i}L_i(n),
+\qquad D_m=m!\sum_{t=0}^{m}\frac{(-1)^t}{t!} .
+\]
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+85}-\sum_ic_iM^{j+85-i}$. For the bound, $M^{S}$
-is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
-$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
-polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly.
+A colouring is a pattern together with an injection of its classes into the palette, and a
+pattern with $j$ classes admits $i(i-1)\cdots(i-j+1)$ of them, which is the first identity.
+Writing the falling factorial as $j!\binom{i}{j}$ and inverting binomially gives
+$j!N_j=\sum_i(-1)^{j-i}\binom{j}{i}L_i$; summing over $j\le3$ and exchanging the order
+of summation makes the coefficient of $L_i$ equal to $\sum_{t\le3-i}(-1)^t/(i!\,t!)$,
+which multiplied by $3!$ is $\binom{3}{i}D_{3-i}$, an integer.
+\end{proof}
+
+\section{Each $L_i$ is a walk count}
+
+Fix $i$ and take as vertices the pairs $(r,c)$ with $r\in\{0,\dots,i-1\}^{2}$ a row
+and $0\le c\le1$ a running count. Write $\beta(r,s)$ for the number of mistakes joining
+rows $r$ and $s$ plus the number of mistakes inside $s$. Declare $(r,c)\to(s,c+\beta(r,s))$
+an edge when $c+\beta(r,s)\le1$, let $\mathbf{s}_i$ mark the vertices whose count is the
+number of mistakes inside $r$ alone, and $\mathbf{e}_i$ those with $c=1$.
+
+\begin{lemma}\label{lem:walk}
+$L_i(n)=\mathbf{s}_i^{\!\top}P_i^{\,L-1}\mathbf{e}_i$ for $L\ge1$, where $P_i$ is the
+adjacency matrix of that digraph.
+\end{lemma}
+
+\begin{proof}
+A walk of length $L-1$ determines the sequence of $L$ rows, and conversely; by induction
+the count component after $t$ rows is the number of mistakes among the first $t$ rows,
+since each step adds exactly the mistakes joining rows $t$ and $t+1$ together with those
+inside row $t+1$, and each unordered pair is named by exactly one offset. The walk exists
+precisely when the running count never exceeds $1$, which for a nondecreasing count follows
+from its final value being $1$, and $\mathbf{e}_i$ imposes that final value. The state
+carries a row, not a boundary, so $L$ rows make a walk of length $L-1$.
+\end{proof}
+
+Assembling the $3$ chains block-diagonally into $N$ of size $S=28$ with the weights of
+Lemma~\ref{lem:inv} in the start vector $\mathbf{v}$ and the end markers in
+$\mathbf{u}$,
+\begin{equation}\label{eq:walk2}
+3!\;a(n)\;=\;\mathbf{v}^{\!\top}N^{\,L-1}\mathbf{u},\qquad L=n .
+\end{equation}
+
+\section{The criterion, and the computation}
+
+Let $q(t)=t^{2}-\sum_i c_i\,t^{2-i}$ be the characteristic polynomial of
+\eqref{eq:conj} and $G=N$.
+
+\begin{lemma}\label{lem:crit}
+With $n_0$ the least index for which $L\ge1$, $o=1n_0+0-1$ and
+$h_j=G^{j}N^{o}\mathbf{u}$, we have for $j\ge2$
+\[
+3!\Bigl(a(n_0+j)-\sum_i c_i\,a(n_0+j-i)\Bigr)=\mathbf{v}^{\!\top}G^{\,j-2}w,
+\qquad w=h_{2}-\sum_i c_ih_{2-i} .
+\]
+Hence \eqref{eq:conj} holds from that point on if and only if
+$\mathbf{v}^{\!\top}G^{m}w=0$ for all $m\ge0$, and $m<S$ suffices.
+\end{lemma}
+
+\begin{proof}
+Substitute \eqref{eq:walk2} and factor; $3!$ is a nonzero scalar. Cayley--Hamilton
+makes $G^{S}$ an integer combination of $I,G,\dots,G^{S-1}$, so every later value repeats
+that combination of earlier ones.
 \end{proof}
 
 \begin{theorem}
-\[
-a(n)\;=\;23\,a(n-1) - 70\,a(n-2) + 1025\,a(n-3) - 22749\,a(n-4) + 67673\,a(n-5) - 92732\,a(n-6) + 3887718\,a(n-7) - 11975930\,a(n-8) + 16132162\,a(n-9) - 257543528\,a(n-10) + 648850791\,a(n-11) - 3912022704\,a(n-12) + 5466580086\,a(n-13) + 18250666658\,a(n-14) + 380686684950\,a(n-15) + 301898128801\,a(n-16) - 3264960826326\,a(n-17) - 21312465202375\,a(n-18) - 19513775439964\,a(n-19) + 144744720549548\,a(n-20) + 713556552919995\,a(n-21) + 680104927574175\,a(n-22) - 3856186817089130\,a(n-23) - 16827495551027698\,a(n-24) - 16644010463789350\,a(n-25) + 72234757623251237\,a(n-26) + 310436500350515571\,a(n-27) + 342200960973248678\,a(n-28) - 976831244243615468\,a(n-29) - 4365088254799620145\,a(n-30) - 5313780781894597056\,a(n-31) + 8664179562649322036\,a(n-32) + 43149463878458463519\,a(n-33) + 55199406842456469134\,a(n-34) - 55581614522788391149\,a(n-35) - 312952994008222236107\,a(n-36) - 405140164155329935126\,a(n-37) + 301519641818529400482\,a(n-38) + 1911799536889676703994\,a(n-39) + 2675071985466621681494\,a(n-40) - 730164304684024949344\,a(n-41) - 9123500667547360846460\,a(n-42) - 15443809790065351221202\,a(n-43) - 6107889334657453880040\,a(n-44) + 25085656943872118493476\,a(n-45) + 59562574776921773497072\,a(n-46) + 57731657729889178327188\,a(n-47) - 5410639210530237319768\,a(n-48) - 104852599734913907890104\,a(n-49) - 177030224002293934347600\,a(n-50) - 175992562953810211971152\,a(n-51) - 102490652950750764479200\,a(n-52) + 48586294323093685094176\,a(n-53) + 335536163779286123097008\,a(n-54) + 754080893938501876971616\,a(n-55) + 1020797808646937896907488\,a(n-56) + 615189230613220682198688\,a(n-57) - 707896357683558511457472\,a(n-58) - 2323553334171470241882112\,a(n-59) - 2893760884572960447840064\,a(n-60) - 1518960350852591322521216\,a(n-61) + 1176342601246923689720448\,a(n-62) + 3336970889915025755304448\,a(n-63) + 3469872235155027158972160\,a(n-64) + 1723067308781581829166080\,a(n-65) - 481416345144464338399744\,a(n-66) - 1878038075672456252540928\,a(n-67) - 2155164456699447612258304\,a(n-68) - 1609965913217021415993344\,a(n-69) - 626467444078270643109888\,a(n-70) + 385633183578860519636992\,a(n-71) + 968786514216627931815936\,a(n-72) + 901131021844228737712128\,a(n-73) + 417026435867321160040448\,a(n-74) - 38679369366710044852224\,a(n-75) - 223454775421789338337280\,a(n-76) - 188443969451705208406016\,a(n-77) - 84165065883642002145280\,a(n-78) - 8632493190259767508992\,a(n-79) + 16472522302309894455296\,a(n-80) + 13152627635966164598784\,a(n-81) + 5254619833935373271040\,a(n-82) + 1181521624297918955520\,a(n-83) + 113224281118212096000\,a(n-84) - 5871460382303846400\,a(n-85)
-\]
-for every $n>86$.
+The recurrence \eqref{eq:conj} holds for every $n>3$, which is the statement of
+Section~1.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $85$ matrix--vector products in exact integer
-arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=86+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once.
+The digraph was built directly from the definitions above. The vector $w$ was formed by
+$2$ applications of $G$ in exact integer arithmetic and $\mathbf{v}^{\!\top}G^{m}w$
+evaluated for $m=0,1,\dots$, again exactly. Every one of those integers vanishes from the
+index corresponding to $n=3+1$ onwards, and the run continued until $S+1$ consecutive
+zeros had been seen.
 \end{proof}
 
 \section{Verification}
 
-Four checks, each independent of the algebra above.
+Three checks, each independent of the algebra above.
 
-First, the model reproduces all $14$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry: the digraph is built by reading the
-entry's English, and a misreading gives different counts.
+First, the right-hand side of \eqref{eq:walk2}, divided by $3!$, was evaluated at every
+one of the $22$ published indices and agrees with the entry's DATA exactly, the quotient
+coming out an integer each time; no shift was fitted, the number of rows being $L=n$
+from the entry's own name and the offset saying which index carries the first published term.
+Double-counting an unordered pair, or mistaking the budget, changes the counts at once.
 
-Second, the reading was pinned before the digraph was written, by a program that enumerates
-the arrays one by one from the entry's own words --- generating every array over the
-alphabet, discarding those that fail the relabelling condition, then testing each subblock
-directly --- and compares the count with the published terms. That program shares no code
-with the transfer matrix, so an error in one does not hide an error in the other.
+Second, the recurrence \eqref{eq:conj} was evaluated on those published terms in exact
+integer arithmetic, with no matrices involved, and vanishes wherever it applies.
 
-Third, the conjectured recurrence was evaluated directly on those published terms, with no
-matrices involved, and holds wherever the proved range and the data overlap.
-
-Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
-arithmetic on the whole vector rather than on a sampled prefix.
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried to the full
+Cayley--Hamilton bound in exact integer arithmetic rather than to a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A204507.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A229580.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; falling-factorial
+inversion, Section 1.9.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
 University Press, 2009.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge

@@ -12,83 +12,72 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A263058, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A203909, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A263058 counts arrays of width $7$ over $\{0,1\}$ whose rows, read as base-$2$
-numbers, are not divisible by $3$ and whose columns, read the same way, are not divisible by
-$3$. The entry carries an empirical recurrence of order $17$ contributed by
-R.~H.~Hardin. It is true, and it is decidable rather than empirical. A column's value depends on
-every row of the array, so the condition is not local; but its RESIDUE is built one row at a
-time by Horner's rule, and the vector of column residues is a state of bounded size. The count
-is then a walk count on $S=2187$ states.
+OEIS A203909 counts arrays of width $2$ over $\{0,1,\dots,6\}$ through two derived arrays of PAIR SUMS ---
+each cell added to its left neighbour, and each cell added to the one above it --- on which the
+entry imposes an order condition. The entry carries an empirical recurrence of order $18$
+contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical: the count is
+a walk count on $S=98$ states.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 11A63, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 06A07, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A263058 is ``Number of (n+1)X(6+1) 0..1 arrays with each row and column not divisible by 3, read as a binary number with top and left being the most significant bits.''. It has offset $1$ and begins
+OEIS A203909 is ``Number of (n+1)X2 0..6 arrays with column and row pair sums b(i,j)=a(i,j)+a(i,j-1) and c(i,j)=a(i,j)+a(i-1,j) such that rows of b(i,j) and columns of c(i,j) are lexicographically nondecreasing.''. It has offset $1$ and begins
 \[
-42, 22921, 1941702, 232738767, 19763462754, 1825928130193, 155157177242886, 13464303796343791,\ \dots
+728, 13006, 203994, 2788842, 34183816, 384541867, 4038515481, 40101448387,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 85*a(n-1) +3026*a(n-2) -257210*a(n-3) -2725780*a(n-4) +231691300*a(n-5) +1042604066*a(n-6) -88621345610*a(n-7) -184834243867*a(n-8) +15710910728695*a(n-9) +16148556399500*a(n-10) -1372627293957500*a(n-11) -690707626945552*a(n-12) +58710148290371920*a(n-13) +13366198928883008*a(n-14) -1136126908955055680*a(n-15) -92117546962355200*a(n-16) +7829991491800192000*a(n-17)
+Empirical: a(n) = 54*a(n-1) -1340*a(n-2) +20282*a(n-3) -209613*a(n-4) +1569268*a(n-5) -8811864*a(n-6) +37918836*a(n-7) -126686043*a(n-8) +330947422*a(n-9) -677517012*a(n-10) +1084545362*a(n-11) -1348021991*a(n-12) +1284251736*a(n-13) -918050584*a(n-14) +475708320*a(n-15) -168477552*a(n-16) +36443520*a(n-17) -3628800*a(n-18)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 08 2015 15:00:32, revision 4) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 10:50:33, revision 10) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The array has $7$ cells across and entries $x(i,j)\in\{0,1\}$, the digits of
-base $2$. Row $i$ of an array with $R$ rows is the number
+The array $a$ has $2$ cells across, with entries in $\{0,1,\dots,6\}$. Two derived arrays are formed,
 \[
-\rho_i\;=\;\sum_{j=1}^{7}x(i,j)\,2^{7-j} ,
+b(i,j)=a(i,j)+a(i,j-1)\quad(j\ge1),\qquad c(i,j)=a(i,j)+a(i-1,j)\quad(i\ge1),
 \]
-the LEFT digit being the most significant, and column $j$ is
-\[
-\gamma_j\;=\;\sum_{i=1}^{R}x(i,j)\,2^{R-i} ,
-\]
-the TOP digit being the most significant. The entry asks that every $\rho_i$ be not divisible by
-$3$ and every $\gamma_j$ be not divisible by $3$.
+so $b$ adds each cell to its LEFT neighbour and $c$ adds each cell to the one ABOVE it. The
+entry asks
+
+that the ROWS of $b$ and the COLUMNS of $c$ are each in lexicographic nondecreasing order. Row $i$ of $b$
+is $\bigl(b(i,1),\dots,b(i,1)\bigr)$ and column $j$ of $c$ is
+$\bigl(c(1,j),c(2,j),\dots\bigr)$.
 
 
-\section{Column residues by Horner's rule}
+\section{Two rows decide it}
 
-The row condition is a condition on one row and is imposed as each row is chosen. The column
-condition is not local: $\gamma_j$ depends on every row. What is local is its residue.
-
-\begin{lemma}\label{lem:horner}
-Let $\gamma_j^{(i)}$ be the value of column $j$ of the first $i$ rows, read the same way.
-Then $\gamma_j^{(0)}=0$ and
-\[
-\gamma_j^{(i)}\;=\;2\,\gamma_j^{(i-1)}+x(i,j),
-\qquad\text{hence}\qquad
-\gamma_j^{(i)}\bmod 3\;=\;
-\bigl(2\,(\gamma_j^{(i-1)}\bmod 3)+x(i,j)\bigr)\bmod 3 .
-\]
+\begin{lemma}\label{lem:win}
+The row comparison is a condition on two consecutive rows of $a$. The column comparison is
+settled by the FIRST row in which the two columns of $c$ differ.
 \end{lemma}
 
 \begin{proof}
-Adding a row at the BOTTOM shifts every earlier digit one place up in significance, which is
-multiplication by $2$, and puts the new digit in the units place. Reduction modulo
-$3$ commutes with both operations.
+Row $i$ of $b$ is built from row $i$ of $a$ alone, so comparing rows $i$ and $i+1$ of $b$ reads
+rows $i$ and $i+1$ of $a$. Two sequences are compared lexicographically by their first
+difference; entry $i$ of column $j$ of $c$ is built from rows $i-1$ and $i$ of $a$, so scanning
+the array downwards reveals the entries of every column of $c$ in order.
 \end{proof}
 
-So the vector $\bigl(\gamma_1\bmod 3,\dots,\gamma_{7}\bmod
-3\bigr)$ is a state: at most $3^{7}$ of them, and each array row
-that satisfies the row condition carries one such vector to another. The walk starts at the
-all-zero vector, which is the empty array, and the END vector picks out the residue vectors in
-which every entry is not divisible by $3$ --- so the end vector is not the all-ones
-vector, and the column condition is imposed once, at the end, exactly as the entry states it.
-With $M$ the adjacency matrix,
+So the state is the last row of $a$ together with one bit for each adjacent pair of columns,
+recording whether that pair of columns of $c$ has been equal in every row so far. A row that
+would put a pair in the wrong order is rejected at once, and a pair still equal at the end is
+in order, equality being allowed.
+
+With $M$ the adjacency matrix of the digraph on those states, $\iota$ the indicator of the
+starting state and $\tau=\mathbf{1}$,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=2187.
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=98.
 \]
 The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
 published terms rather than assumed. In particular $a$ is $C$-finite.
@@ -96,7 +85,7 @@ published terms rather than assumed. In particular $a$ is $C$-finite.
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{17}-\sum_i c_it^{17-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{18}-\sum_i c_it^{18-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -104,7 +93,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+17}-\sum_ic_iM^{j+17-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+18}-\sum_ic_iM^{j+18-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -113,29 +102,29 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;85\,a(n-1) + 3026\,a(n-2) - 257210\,a(n-3) - 2725780\,a(n-4) + 231691300\,a(n-5) + 1042604066\,a(n-6) - 88621345610\,a(n-7) - 184834243867\,a(n-8) + 15710910728695\,a(n-9) + 16148556399500\,a(n-10) - 1372627293957500\,a(n-11) - 690707626945552\,a(n-12) + 58710148290371920\,a(n-13) + 13366198928883008\,a(n-14) - 1136126908955055680\,a(n-15) - 92117546962355200\,a(n-16) + 7829991491800192000\,a(n-17)
+a(n)\;=\;54\,a(n-1) - 1340\,a(n-2) + 20282\,a(n-3) - 209613\,a(n-4) + 1569268\,a(n-5) - 8811864\,a(n-6) + 37918836\,a(n-7) - 126686043\,a(n-8) + 330947422\,a(n-9) - 677517012\,a(n-10) + 1084545362\,a(n-11) - 1348021991\,a(n-12) + 1284251736\,a(n-13) - 918050584\,a(n-14) + 475708320\,a(n-15) - 168477552\,a(n-16) + 36443520\,a(n-17) - 3628800\,a(n-18)
 \]
-for every $n>15$.
+for every $n>17$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $17$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $18$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=15+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once.
+integers vanish from the index corresponding to $n=17+1$ onwards and the run continued
+until the working vector was identically zero.
 \end{proof}
 
 \section{Verification}
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $12$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $15$ terms the entry publishes, exactly, in integer
 arithmetic.
 
 Second, the count was recomputed for the smallest arrays straight from the definition:
-enumerate every array of that size, turn each row and each column into a base-$2$ number with
-the first digit most significant, and test the divisibility directly. Neither Horner's rule nor
-any residue state is involved, and the published terms came back.
+enumerate every array of that size, form the two derived arrays in full, and test the condition
+on them directly. No window, no state and no incremental bookkeeping are involved, and the
+published terms came back.
 
 Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
@@ -145,11 +134,9 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A263058.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A203909.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{knuth} D.~E.~Knuth, \emph{The Art of Computer Programming}, Volume 2, 3rd ed.,
-Addison--Wesley, 1997. (Evaluation of polynomials, Section 4.6.4.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

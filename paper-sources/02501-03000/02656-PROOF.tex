@@ -12,39 +12,39 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A223206, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A223200, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A223206 counts the ways of writing the vertices of a fixed graph $G$ into an array of width
-$5$ so that any two cells adjacent in one of the named directions carry vertices joined by an
-edge of $G$; here $G$ is dodecahedron graph. The entry carries an empirical recurrence of order $7$
+OEIS A223200 counts the ways of writing the vertices of a fixed graph $G$ into an array of width
+$6$ so that any two cells adjacent in one of the named directions carry vertices joined by an
+edge of $G$; here $G$ is octahedron graph. The entry carries an empirical recurrence of order $7$
 contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical: every
 condition joins cells inside one slice of the array or inside two consecutive slices, so a
-single slice is a state and the count is a walk count on a finite digraph with $S=1621$ vertices.
+single slice is a state and the count is a walk count on a finite digraph with $S=6145$ vertices.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05C15, 05A15, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A223206 is ``Rolling icosahedron face footprints: number of nX5 0..19 arrays starting with 0 where 0..19 label faces of an icosahedron and every array movement to a horizontal or vertical neighbor moves across an icosahedral edge.''. It has offset $1$ and begins
+OEIS A223200 is ``Rolling cube footprints: number of nX6 0..5 arrays starting with 0 where 0..5 label faces of a cube and every array movement to a horizontal or vertical neighbor moves across a corresponding cube edge.''. It has offset $1$ and begins
 \[
-81, 1875, 50553, 1412907, 39868737, 1127761923, 31921015497, 903661481115,\ \dots
+1024, 995328, 1020002304, 1061444124672, 1110327429169152, 1163614255186968576, 1220273386789986631680, 1280001086812985197854720,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 31*a(n-1) -24*a(n-2) -1612*a(n-3) +3816*a(n-4) +1152*a(n-5) -2784*a(n-6) +256*a(n-7)
+Empirical: a(n) = 1920*a(n-1) -1191936*a(n-2) +335020032*a(n-3) -48670703616*a(n-4) +3778497478656*a(n-5) -147884313935872*a(n-6) +2269391999729664*a(n-7)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 21:21:01, revision 8) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 21:20:32, revision 8) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-Let $G$ be the graph on the label set $\{0,1,\dots,19\}$ whose vertices are the twenty faces of a regular icosahedron, two of them adjacent when they share an edge. That is the dodecahedron graph: $20$ vertices, $3$-regular, $30$ edges.
+Let $G$ be the graph on the label set $\{0,1,\dots,5\}$ whose vertices are the six faces of a cube, two of them adjacent unless they are opposite. That is the octahedron graph $K_{2,2,2}$: $6$ vertices, $4$-regular, $12$ edges.
 
 An array $x$ is a map from the cells of a rectangle to the vertices of $G$. The entry names the
 directions horizontal and vertical, that is the cell offsets
@@ -74,7 +74,7 @@ Because the four named graphs are vertex-transitive---the symmetry group of the 
 
 Take the array one $row$ at a time, in the direction in which it grows.
 Every offset the entry names has its two cells either in the same $row$ or in two
-consecutive ones. So a $row$, a word of length $5$ over the vertices of $G$, carries
+consecutive ones. So a $row$, a word of length $6$ over the vertices of $G$, carries
 everything the next $row$ needs: the conditions inside a $row$ constrain that
 $row$ alone, and the conditions across $row$s are a relation between the
 $row$ just written and the one about to be written.
@@ -85,11 +85,11 @@ $row$s---those beginning with the vertex $0$; then a walk of
 $n$ steps from that state is exactly an array of $n$ $row$s. Every state may end an
 array, so $\tau=\mathbf{1}$ and
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=1621.
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=6145.
 \]
 The $row$s themselves are built one cell at a time with the conditions applied as soon
 as they can be, which for the sparser graphs is what makes the state list short: a $row$
-of length $5$ over $20$ vertices is one of $20^{5}$ words, but only $S-1$ of them are
+of length $6$ over $6$ vertices is one of $6^{6}$ words, but only $S-1$ of them are
 legal. The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
 published terms rather than assumed. In particular $a$ is $C$-finite.
 
@@ -113,7 +113,7 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;31\,a(n-1) - 24\,a(n-2) - 1612\,a(n-3) + 3816\,a(n-4) + 1152\,a(n-5) - 2784\,a(n-6) + 256\,a(n-7)
+a(n)\;=\;1920\,a(n-1) - 1191936\,a(n-2) + 335020032\,a(n-3) - 48670703616\,a(n-4) + 3778497478656\,a(n-5) - 147884313935872\,a(n-6) + 2269391999729664\,a(n-7)
 \]
 for every $n>7$.
 \end{theorem}
@@ -129,7 +129,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $15$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $10$ terms the entry publishes, exactly, in integer
 arithmetic.
 
 Second, the count was recomputed for the smallest arrays straight from the definition, with the
@@ -146,7 +146,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A223206.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A223200.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{cox} H.~S.~M.~Coxeter, \emph{Regular Polytopes}, 3rd ed., Dover, 1973.

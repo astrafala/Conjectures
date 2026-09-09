@@ -12,81 +12,83 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A185564, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A185610, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{4 September 2026}
+\date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A185564 counts arrays of width $6$ over $\{0,1,2,3\}$ in which no cell equals both the cell above it and the cell to its left. The entry carries an
-empirical recurrence of order $17$ contributed by R.~H.~Hardin. It is true, and it is
-decidable rather than empirical: what a cell asks reaches one row above
-it and none below, so the condition on a whole row is settled by
-$2$ consecutive rows and the count is a walk count on $S=4097$ states.
+OEIS A185610 counts arrays over $\{0,\dots,2\}$ under a condition comparing a statistic of
+every $2\times2$ subblock with those of its neighbours, and carries an empirical recurrence
+of order $18$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
+empirical. The count is a walk count on $S=162$ states and is $C$-finite; whether the
+conjectured recurrence annihilates it is then settled by a finite exact computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B20, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
 \section{The conjecture}
 
-OEIS A185564 is ``1/4 the number of nX6 0..3 arrays with no element equal both to the element above and to the element to its left.''. It has offset $1$ and begins
+OEIS A185610 is ``Number of (n+1)X2 0..2 arrays with every 2X2 subblock sum equal to some horizontal or vertical neighbor 2X2 subblock sum.''. It has offset $1$ and begins
 \[
-1024, 3037500, 8977824540, 26533211918040, 78416544382742160, 231753101877188629380, 684925618712729136913980, 2024236566241727245692157080,\ \dots
+0, 171, 361, 3645, 13365, 94905, 424845, 2682129,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n)=3176*a(n-1)-673550*a(n-2)+65136330*a(n-3)-3727689126*a(n-4)+139845804688*a(n-5)-3603160371660*a(n-6)+64834978133874*a(n-7)-810096692648238*a(n-8)+6824155175157060*a(n-9)-36345608355460626*a(n-10)+107463532615201134*a(n-11)-134880780658290660*a(n-12)+77768725332170250*a(n-13)-12154766339477250*a(n-14)-11593534218480000*a(n-15)+6932136333037500*a(n-16)-1023032228765625*a(n-17)
+Empirical: a(n)=6*a(n-1)+18*a(n-2)-159*a(n-3)+338*a(n-4)-48*a(n-5)-3888*a(n-6)+11346*a(n-7)-26856*a(n-8)+39504*a(n-9)+24264*a(n-10)-101520*a(n-11)+746208*a(n-12)-1142208*a(n-13)+3229632*a(n-14)-3297024*a(n-15)+5474304*a(n-16)-2985984*a(n-17)+2985984*a(n-18)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 03:06:58, revision 9) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 03:07:48, revision 10) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The arrays have $6$ columns and a growing number of rows, with entries in $\{0,1,2,3\}$. Fix the
-list of offsets the entry names,
+Write $\sigma$ for the sum of all its entries, taken on a $2\times2$ subblock. The contiguous $2\times2$
+subblocks of an $(n+1)\times2$ array over $\{0,\dots,2\}$ form a grid of $n$ rows
+and $1$ column, and $\sigma$ labels that grid. The entry
+requires that every subblock carries the same value of $\sigma$ as at least ONE of its neighbours horizontally or vertically.
+
+\section{The count is a walk count}
+
+This condition is NOT a condition on a pair. Whether a subblock has a
+matching neighbour cannot be decided when its own row is placed: the row BELOW it may yet
+supply the match. So the state carries, besides the $2$ consecutive array rows, a tally for
+each of the $1$ subblocks of the row just completed --- a single bit saying whether it has already been matched --- counting its matches
+among its own row and the row above.
+
+A step appends an array row. It fixes the next subblock row, adds the matches between the two
+rows to the OLD row's tallies, and requires those totals to be acceptable, the old row being
+final at that moment; the new row's tallies start from its own horizontal matches plus the
+matches just made. A state is ACCEPTING when its own tally is already acceptable, which is
+exactly the right condition for the last subblock row, the one with nothing below it. Only the
+states whose tally came from their own row may BEGIN an array, since the first row has nothing
+above it.
+
+An array of $n+1$ rows is then a walk of $n-1$ steps and
 \[
-\Delta=\{\,(-1,0), (0,-1)\,\},
+a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau
 \]
-and for a cell $(i,j)$ write
-\[
-S(i,j)=\{\,(i+\delta_1,\,j+\delta_2) : (\delta_1,\delta_2)\in\Delta\,\}\cap
-\text{(the cells of the array)}
-\]
-for the neighbours it actually has. Only offsets landing inside the array count, so a cell on
-the border simply has fewer neighbours.
+with $\iota$ the indicator of the starting states and $\tau$ of the accepting ones, on
+$S=162$ states in all. Getting the two vectors right is the whole of the argument: with
+$\iota$ taken as all-ones the first row would be allowed a match from a row above it that does
+not exist, and the count would be too large. The entry's own first terms settle it --- for
+a width where the subblock row is a single subblock
+the count must be zero, since a lone subblock has no neighbour at all, and the entry indeed opens with zero.
 
-The condition is that no cell equals BOTH the cell above it and the cell to its left:
-\[
-\neg\bigl(x(i,j)=x(i-1,j)\ \wedge\ x(i,j)=x(i,j-1)\bigr).
-\]
-A cell in the first row or the first column is missing one of the two and so cannot equal both; it is under no condition. The entry publishes one quarter of that count; the division is by the constant 4 and changes nothing about the recurrence.
+Over the alphabet $\{0,\dots,2\}$ the statistic takes values in $[0,8]$, so the
+grid it labels carries at most $9$ different labels. At $n=1$ the array has $2$
+rows and the grid is a single row of $1$
+subblock, which has no neighbour of any kind; the entry's first term is
+$0$, which the model reproduces along with every later term, and that is the cheapest
+check that the grid has been read with the right shape.
 
-\section{A window of 2 rows}
-
-The offsets reach one row up and none down, so everything the condition asks of one row is
-decided by that row together with one row above it and none below --- a window of
-$2$ consecutive rows, and nothing wider. Take the array one row at a time
-and let the state be the last row, with a distinguished start standing for the
-array before its first row, so that a walk of $n$ steps is an array of $n$ rows.
-
-Appending a row completes exactly one window, and the row it settles is the bottom row of that window; a step is
-allowed when that row passes. Each row of the finished
-array is therefore tested exactly once.
-
-Every state may end an array, so $\tau=\mathbf{1}$.
-Thus
-\[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=4097,
-\]
-for the transfer matrix $M$ on those $S$ states. The walk index $j$ and the entry's own $n$
-differ by a constant, read off by matching the published terms rather than assumed. In
-particular $a$ is $C$-finite.
+In particular $a$ is $C$-finite. The alignment of the walk index with the entry's own $n$ was
+checked against its published terms rather than assumed.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{17}-\sum_i c_it^{17-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{18}-\sum_i c_it^{18-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -94,7 +96,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+17}-\sum_ic_iM^{j+17-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+18}-\sum_ic_iM^{j+18-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -103,41 +105,39 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;3176\,a(n-1) - 673550\,a(n-2) + 65136330\,a(n-3) - 3727689126\,a(n-4) + 139845804688\,a(n-5) - 3603160371660\,a(n-6) + 64834978133874\,a(n-7) - 810096692648238\,a(n-8) + 6824155175157060\,a(n-9) - 36345608355460626\,a(n-10) + 107463532615201134\,a(n-11) - 134880780658290660\,a(n-12) + 77768725332170250\,a(n-13) - 12154766339477250\,a(n-14) - 11593534218480000\,a(n-15) + 6932136333037500\,a(n-16) - 1023032228765625\,a(n-17)
+a(n)\;=\;6\,a(n-1) + 18\,a(n-2) - 159\,a(n-3) + 338\,a(n-4) - 48\,a(n-5) - 3888\,a(n-6) + 11346\,a(n-7) - 26856\,a(n-8) + 39504\,a(n-9) + 24264\,a(n-10) - 101520\,a(n-11) + 746208\,a(n-12) - 1142208\,a(n-13) + 3229632\,a(n-14) - 3297024\,a(n-15) + 5474304\,a(n-16) - 2985984\,a(n-17) + 2985984\,a(n-18)
 \]
-for every $n>17$.
+for every $n>18$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $17$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $18$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=17+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=18+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
-Four checks, each independent of the algebra above.
+Three checks, each independent of the algebra above.
 
-First, the model reproduces all $9$ terms the entry publishes, exactly, in integer
-arithmetic.
+First, the model reproduces all $20$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry: the digraph is built by reading the
+entry's English, and a misreading gives different counts.
 
-Second, the count was recomputed for the smallest arrays straight from the definition: every
-array of width $6$ over $\{0,1,2,3\}$ with a few rows was written out cell by cell and each cell
-tested against the neighbours it has. No window, no state and no end vector are involved in that
-computation, and the published terms came back.
-
-Third, the conjectured recurrence was evaluated directly on the published terms, with no
+Second, the conjectured recurrence was evaluated directly on those published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
 
-Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
 arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A185564.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A185610.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata
+Theory, Languages, and Computation}, 3rd ed., Addison--Wesley, 2006.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

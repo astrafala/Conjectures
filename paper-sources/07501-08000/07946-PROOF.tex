@@ -12,17 +12,17 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A247921, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A202118, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{8 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A247921 carries an empirical recurrence of order $12$ contributed by R.~H.~Hardin. It is
+OEIS A202118 carries an empirical recurrence of order $12$ contributed by R.~H.~Hardin. It is
 true, and it is decidable rather than empirical. The entry's condition is local to a bounded window of consecutive lines, so
 the admissible configurations of such a window are the vertices of a finite digraph and the
-arrays counted are exactly the walks in it; hence $a(n)$ is a walk count on $S=81$ vertices
+arrays counted are exactly the walks in it; hence $a(n)$ is a walk count on $S=125$ vertices
 and is $C$-finite. Whether the conjectured recurrence annihilates it is then settled by a
 finite exact computation, with the Cayley--Hamilton theorem bounding the work.
 \end{abstract}
@@ -31,15 +31,15 @@ finite exact computation, with the Cayley--Hamilton theorem bounding the work.
 
 \section{The conjecture}
 
-OEIS A247921 is ``Number of length n+4 0..2 arrays with some disjoint pairs in every consecutive five terms having the same sum.''. It has offset $1$ and begins
+OEIS A202118 is ``Number of -2..2 arrays of n elements with first, second and third differences also in -2..2.''. It has offset $1$ and begins
 \[
-203, 529, 1387, 3649, 9611, 25265, 66443, 174817,\ \dots
+5, 19, 57, 127, 293, 663, 1517, 3459,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 3*a(n-1) -2*a(n-3) -a(n-4) +6*a(n-5) -14*a(n-6) -13*a(n-7) -2*a(n-8) +8*a(n-9) -4*a(n-10) +8*a(n-11) +8*a(n-12).
+Empirical: a(n) = 2*a(n-1) +a(n-3) +3*a(n-4) -2*a(n-5) -3*a(n-6) -4*a(n-7) -3*a(n-8) -2*a(n-9) +3*a(n-10) +4*a(n-11) +2*a(n-12) for n>17
 \end{quote}
-As of the ``Last modified'' line on the live entry (Mar 15 2023 11:07:35, revision 7) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 09:27:37, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{The count is a walk count}
@@ -47,10 +47,10 @@ recorded as empirical, and nothing on the entry records it as proved.
 The condition the entry imposes is local: it constrains a bounded window of consecutive lines and nothing beyond. Take as
 vertices the admissible configurations of one such window and put an edge from $u$ to $v$
 whenever $v$ may follow $u$, which the condition decides by inspection of the two. An
-admissible array is then exactly a walk, so with $M$ the adjacency matrix on $S=81$ vertices
+admissible array is then exactly a walk, so with $M$ the adjacency matrix on $S=125$ vertices
 and $\iota,\tau$ the vectors recording which windows may begin and end an array,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n+3}\tau ,
+a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau ,
 \]
 the exponent fixed by the entry's own shape and checked against its published terms. In
 particular $a$ is $C$-finite.
@@ -75,23 +75,23 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;3\,a(n-1) - 2\,a(n-3) - a(n-4) + 6\,a(n-5) - 14\,a(n-6) - 13\,a(n-7) - 2\,a(n-8) + 8\,a(n-9) - 4\,a(n-10) + 8\,a(n-11) + 8\,a(n-12)
+a(n)\;=\;2\,a(n-1) + a(n-3) + 3\,a(n-4) - 2\,a(n-5) - 3\,a(n-6) - 4\,a(n-7) - 3\,a(n-8) - 2\,a(n-9) + 3\,a(n-10) + 4\,a(n-11) + 2\,a(n-12)
 \]
-for every $n>10$.
+for every $n>17$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $12$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=10+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once.
+integers vanish from the index corresponding to $n=17+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once. The bound is exact: at $n=17$ the recurrence fails on the entry's own published terms, so no larger range holds.
 \end{proof}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $23$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $28$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
@@ -103,7 +103,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A247921.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A202118.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

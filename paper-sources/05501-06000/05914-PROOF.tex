@@ -12,47 +12,47 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A202485, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A202586, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A202485 counts arrays of width $3$ over $\{0,1\}$ containing no occurrence of certain short
+OEIS A202586 counts arrays of width $5$ over $\{0,1\}$ containing no occurrence of certain short
 patterns, read along the rows, the columns or the diagonals. The entry carries an empirical
 recurrence of order $30$ contributed by R.~H.~Hardin. It is true, and it is decidable
 rather than empirical: no pattern is longer than $3$ letters and no direction moves the row
 index by more than one, so every occurrence lies inside $3$ consecutive array rows and the
-count is a walk count on $S=43$ states.
+count is a walk count on $S=211$ states.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 68R15, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A202485 is ``Number of (n+2) X 3 binary arrays avoiding patterns 000 and 010 in rows, columns and nw-to-se diagonals.''. It has offset $1$ and begins
+OEIS A202586 is ``Number of (n+2)X5 binary arrays avoiding patterns 001 and 100 in rows, columns and nw-to-se diagonals.''. It has offset $1$ and begins
 \[
-108, 324, 1170, 4225, 14560, 50176, 174720, 608400,\ \dots
+804, 3906, 22018, 127405, 755743, 4512712, 27083790, 162834668,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = a(n-1) -2*a(n-2) +15*a(n-3) +40*a(n-4) +74*a(n-5) +164*a(n-6) +96*a(n-7) -36*a(n-8) -255*a(n-9) -789*a(n-10) -474*a(n-11) +720*a(n-12) +975*a(n-13) +672*a(n-14) +474*a(n-15) -159*a(n-16) -564*a(n-17) -522*a(n-18) -627*a(n-19) -354*a(n-20) -183*a(n-21) -162*a(n-22) +24*a(n-23) -47*a(n-24) +35*a(n-25) -10*a(n-26) +6*a(n-27) -a(n-28) -2*a(n-29) +a(n-30).
+Empirical: a(n) = 8*a(n-1) +5*a(n-2) -119*a(n-3) -33*a(n-4) +836*a(n-5) +541*a(n-6) -3476*a(n-7) -3205*a(n-8) +8025*a(n-9) +9061*a(n-10) -10518*a(n-11) -10948*a(n-12) +8562*a(n-13) -1477*a(n-14) -3794*a(n-15) +16795*a(n-16) +767*a(n-17) -20117*a(n-18) +1608*a(n-19) +13413*a(n-20) -3578*a(n-21) -5053*a(n-22) +2527*a(n-23) +1063*a(n-24) -1072*a(n-25) +8*a(n-26) +236*a(n-27) -56*a(n-28) -12*a(n-29) +4*a(n-30) for n>31
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jun 27 2026 09:15:33, revision 11) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 09:43:06, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The array has $3$ cells across, with entries in $\{0,1\}$. An OCCURRENCE of a pattern in a
+The array has $5$ cells across, with entries in $\{0,1\}$. An OCCURRENCE of a pattern in a
 direction is a run of consecutive cells taken in that direction whose entries match the pattern
 in order; the array is counted when it has no occurrence at all. The entry names
 \[
 \begin{array}{ll}
 \text{direction} & \text{forbidden patterns} \\[2pt]
-\text{along a row, left to right} & \mathtt{000},\quad \mathtt{010} \\
-\text{down a column} & \mathtt{000},\quad \mathtt{010} \\
-\text{down a diagonal, nw to se} & \mathtt{000},\quad \mathtt{010} \\
+\text{along a row, left to right} & \mathtt{001},\quad \mathtt{100} \\
+\text{down a column} & \mathtt{001},\quad \mathtt{100} \\
+\text{down a diagonal, nw to se} & \mathtt{001},\quad \mathtt{100} \\
 \end{array}
 \]
 
@@ -77,7 +77,7 @@ and is not assumed but read off the window. The walk starts at the all-$\bot$ wi
 of no steps is the empty array and a walk of $R$ steps is an array of $R$ rows. With $M$ the
 adjacency matrix, $\iota$ the indicator of the starting window and $\tau=\mathbf{1}$,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=43.
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=211.
 \]
 The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
 published terms rather than assumed. In particular $a$ is $C$-finite.
@@ -102,15 +102,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;a(n-1) - 2\,a(n-2) + 15\,a(n-3) + 40\,a(n-4) + 74\,a(n-5) + 164\,a(n-6) + 96\,a(n-7) - 36\,a(n-8) - 255\,a(n-9) - 789\,a(n-10) - 474\,a(n-11) + 720\,a(n-12) + 975\,a(n-13) + 672\,a(n-14) + 474\,a(n-15) - 159\,a(n-16) - 564\,a(n-17) - 522\,a(n-18) - 627\,a(n-19) - 354\,a(n-20) - 183\,a(n-21) - 162\,a(n-22) + 24\,a(n-23) - 47\,a(n-24) + 35\,a(n-25) - 10\,a(n-26) + 6\,a(n-27) - a(n-28) - 2\,a(n-29) + a(n-30)
+a(n)\;=\;8\,a(n-1) + 5\,a(n-2) - 119\,a(n-3) - 33\,a(n-4) + 836\,a(n-5) + 541\,a(n-6) - 3476\,a(n-7) - 3205\,a(n-8) + 8025\,a(n-9) + 9061\,a(n-10) - 10518\,a(n-11) - 10948\,a(n-12) + 8562\,a(n-13) - 1477\,a(n-14) - 3794\,a(n-15) + 16795\,a(n-16) + 767\,a(n-17) - 20117\,a(n-18) + 1608\,a(n-19) + 13413\,a(n-20) - 3578\,a(n-21) - 5053\,a(n-22) + 2527\,a(n-23) + 1063\,a(n-24) - 1072\,a(n-25) + 8\,a(n-26) + 236\,a(n-27) - 56\,a(n-28) - 12\,a(n-29) + 4\,a(n-30)
 \]
-for every $n>27$.
+for every $n>31$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $30$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=27+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=31+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -118,7 +118,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $22$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $18$ terms the entry publishes, exactly, in integer
 arithmetic.
 
 Second, the count was recomputed for the smallest arrays straight from the definition: fill the
@@ -134,7 +134,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A202485.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A202586.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata

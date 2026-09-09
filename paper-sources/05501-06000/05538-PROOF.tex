@@ -12,18 +12,18 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A251323, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A209956, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A251323 counts $(n+1)\times6$ arrays over $\{0,\dots,1\}$ subject to a condition imposed on
+OEIS A209956 counts $(n+1)\times5$ arrays over $\{0,\dots,2\}$ subject to a condition imposed on
 every $2\times2$ subblock, and carries an empirical recurrence of order $36$ contributed
 by R.~H.~Hardin. It is true, and it is not an empirical matter at all. The condition is local
 to each subblock, so the rows of an admissible array are the vertices of a finite digraph
-on $S=64$ vertices whose edges are the admissible consecutive pairs, and the count is a
+on $S=243$ vertices whose edges are the admissible consecutive pairs, and the count is a
 number of walks: $a(n)=\mathbf{1}^{\!\top}M^{n}\mathbf{1}$. Writing $q$
 for the characteristic polynomial of the conjectured recurrence, the recurrence holds for all
 $n$ exactly when $\mathbf{1}^{\!\top}M^{j}q(M)\mathbf{1}=0$ for every $j\ge0$, and the
@@ -35,20 +35,20 @@ integer arithmetic, and it comes out zero.
 
 \section{The sequence and the conjecture}
 
-OEIS A251323 is ``Number of (n+1)X(5+1) 0..1 arrays with every 2X2 subblock having one or two 1s.''. It has offset $1$ and begins
+OEIS A209956 is ``Number of (n+1)X5 0..2 arrays with every 2X2 subblock having one, three or four distinct clockwise edge differences.''. It has offset $1$ and begins
 \[
-618, 8218, 104058, 1405454, 18415674, 246926340, 3265612528, 43595364706,\ \dots
+36057, 5569307, 856216289, 131724081683, 20262771645033, 3117032354510683, 479493044479186433, 73760462168440328563,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 10*a(n-1) +170*a(n-2) -1489*a(n-3) -8511*a(n-4) +78743*a(n-5) +147223*a(n-6) -1793473*a(n-7) -909507*a(n-8) +21389764*a(n-9) -1766361*a(n-10) -147265613*a(n-11) +55639283*a(n-12) +613951735*a(n-13) -340166865*a(n-14) -1582274681*a(n-15) +1085372756*a(n-16) +2516622952*a(n-17) -2042203758*a(n-18) -2401750473*a(n-19) +2319699490*a(n-20) +1276676483*a(n-21) -1574484075*a(n-22) -300315227*a(n-23) +622148186*a(n-24) -14501288*a(n-25) -136996062*a(n-26) +21688068*a(n-27) +15485396*a(n-28) -3992911*a(n-29) -751071*a(n-30) +287595*a(n-31) +6184*a(n-32) -7774*a(n-33) +298*a(n-34) +55*a(n-35) -2*a(n-36)
+Empirical: a(n) = 188*a(n-1) -2606*a(n-2) -449432*a(n-3) +4278439*a(n-4) +344696470*a(n-5) -1695340318*a(n-6) -106831277262*a(n-7) +260315668742*a(n-8) +14665133182628*a(n-9) -32541316090784*a(n-10) -1037044125842224*a(n-11) +3010738321041520*a(n-12) +39283976226587808*a(n-13) -157080544206380960*a(n-14) -734266820477791744*a(n-15) +4221150804291177792*a(n-16) +4462953823466462848*a(n-17) -55438390445568782720*a(n-18) +33810272263704976640*a(n-19) +347725953909047112192*a(n-20) -562768188874634440704*a(n-21) -933791709840933227520*a(n-22) +2653805933866673033216*a(n-23) +418755395615456186368*a(n-24) -5521527001945241739264*a(n-25) +2418407310629868339200*a(n-26) +5278645092513311916032*a(n-27) -4226822592850201149440*a(n-28) -2085348951772738617344*a(n-29) +2615796490878429691904*a(n-30) +190791165053952327680*a(n-31) -696828367550619320320*a(n-32) +49927158958133346304*a(n-33) +76557678286106263552*a(n-34) -6934923112613937152*a(n-35) -2692851001743900672*a(n-36)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 13:16:51, revision 6) the statement is
+As of the ``Last modified'' line on the live entry (Oct 03 2025 15:36:53, revision 9) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;10\,a(n-1) + 170\,a(n-2) - 1489\,a(n-3) - 8511\,a(n-4) + 78743\,a(n-5) + 147223\,a(n-6) - 1793473\,a(n-7) - 909507\,a(n-8) + 21389764\,a(n-9) - 1766361\,a(n-10) - 147265613\,a(n-11) + 55639283\,a(n-12) + 613951735\,a(n-13) - 340166865\,a(n-14) - 1582274681\,a(n-15) + 1085372756\,a(n-16) + 2516622952\,a(n-17) - 2042203758\,a(n-18) - 2401750473\,a(n-19) + 2319699490\,a(n-20) + 1276676483\,a(n-21) - 1574484075\,a(n-22) - 300315227\,a(n-23) + 622148186\,a(n-24) - 14501288\,a(n-25) - 136996062\,a(n-26) + 21688068\,a(n-27) + 15485396\,a(n-28) - 3992911\,a(n-29) - 751071\,a(n-30) + 287595\,a(n-31) + 6184\,a(n-32) - 7774\,a(n-33) + 298\,a(n-34) + 55\,a(n-35) - 2\,a(n-36)
+a(n)\;=\;188\,a(n-1) - 2606\,a(n-2) - 449432\,a(n-3) + 4278439\,a(n-4) + 344696470\,a(n-5) - 1695340318\,a(n-6) - 106831277262\,a(n-7) + 260315668742\,a(n-8) + 14665133182628\,a(n-9) - 32541316090784\,a(n-10) - 1037044125842224\,a(n-11) + 3010738321041520\,a(n-12) + 39283976226587808\,a(n-13) - 157080544206380960\,a(n-14) - 734266820477791744\,a(n-15) + 4221150804291177792\,a(n-16) + 4462953823466462848\,a(n-17) - 55438390445568782720\,a(n-18) + 33810272263704976640\,a(n-19) + 347725953909047112192\,a(n-20) - 562768188874634440704\,a(n-21) - 933791709840933227520\,a(n-22) + 2653805933866673033216\,a(n-23) + 418755395615456186368\,a(n-24) - 5521527001945241739264\,a(n-25) + 2418407310629868339200\,a(n-26) + 5278645092513311916032\,a(n-27) - 4226822592850201149440\,a(n-28) - 2085348951772738617344\,a(n-29) + 2615796490878429691904\,a(n-30) + 190791165053952327680\,a(n-31) - 696828367550619320320\,a(n-32) + 49927158958133346304\,a(n-33) + 76557678286106263552\,a(n-34) - 6934923112613937152\,a(n-35) - 2692851001743900672\,a(n-36)
 \end{equation}
 for all $n>35$.
 
@@ -56,7 +56,7 @@ for all $n>35$.
 
 Write an array of the shape in question as its list of rows
 $r^{(1)},r^{(2)},\dots$, each an element of
-$V=\{0,1,\dots,1\}^{6}$, so $|V|=S=64$. A $2\times2$ subblock of the array
+$V=\{0,1,\dots,2\}^{5}$, so $|V|=S=243$. A $2\times2$ subblock of the array
 occupies two consecutive rows and two consecutive columns; if the two rows are $r$
 and $s$ (in that order) and the two columns are numbered $j,j+1$,
 the subblock is
@@ -65,12 +65,12 @@ the subblock is
 \]
 The entry's requirement on that subblock is
 \begin{equation}\label{eq:loc}
-\#\{x\in(\alpha,\beta,\gamma,\delta):x=1\}\in\{1,2\},
+\#\{\beta-\alpha,\ \delta-\beta,\ \gamma-\delta,\ \alpha-\gamma\}\in\{1,3,4\},
 \end{equation}
 a condition on the four entries alone.
 
 For $r,s\in V$ declare $r\to s$ an edge of a digraph $G$ when, for every
-$1\le j\le 6-1$,
+$1\le j\le 5-1$,
 \begin{itemize}
 \item the four entries above satisfy \eqref{eq:loc};
 
@@ -87,7 +87,7 @@ a(n)\;=\;\mathbf{1}^{\!\top}M^{n}\mathbf{1} .
 \end{lemma}
 
 \begin{proof}
-An array with $L$ rows and $6$ columns is precisely a sequence
+An array with $L$ rows and $5$ columns is precisely a sequence
 $r^{(1)},\dots,r^{(L)}$ of elements of $V$; conversely any such sequence is an array.
 Every $2\times2$ subblock lies in two consecutive rows $r^{(t)},r^{(t+1)}$ and two
 consecutive columns, so the array satisfies the entry's condition on all of its subblocks
@@ -135,7 +135,7 @@ Section~1.
 \end{theorem}
 
 \begin{proof}
-The digraph was constructed from \eqref{eq:loc} by a depth-first scan across the $6$
+The digraph was constructed from \eqref{eq:loc} by a depth-first scan across the $5$
 columns: the edge condition is a conjunction of one constraint per consecutive column
 pair, so the successors of a row $r$ are enumerated column by column without testing all
 $S^2$ pairs. The vector $w=q(M)\mathbf{1}\in\mathbb{Z}^{S}$ was then formed by $36$
@@ -159,7 +159,7 @@ Three checks, each independent of the algebra above.
 
 First, the digraph was built directly from the entry's stated condition and the walk counts
 $\mathbf{1}^{\!\top}M^{L-1}\mathbf{1}$ compared against the entry's DATA at
-every one of the $15$ published indices; the values agree exactly. That is what ties
+every one of the $11$ published indices; the values agree exactly. That is what ties
 the digraph to the sequence: a model that reproduced only some of the published terms would
 be the wrong model, and would have been rejected. In particular it is what rules out a
 misreading of the entry's wording, since a different reading of the condition gives a
@@ -174,7 +174,7 @@ throughout.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A251323.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A209956.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
