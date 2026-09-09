@@ -112,6 +112,15 @@ python3 src/status.py                                         # one line, where 
 Background jobs only get CPU while a foreground command runs, so keep a useful foreground
 command going. A source fix does NOT reach a process already running — restart it.
 
+## Two merge scripts, and they do different things
+
+`merge_shards.py` folds a sharded run into `uniall_hits.json`, which is what `build_new.py`
+reads and therefore the only path to a paper. `merge_sharded.py` folds a sweep's own shards
+into that sweep's own merged file. A TAG'd run of `sweep_shard` writes `shard<TAG>_hits_*.json`,
+and whichever script runs first consumes them -- so results merged by `merge_sharded` land in
+`shard<TAG>_hits.json` and reach nothing. Fold that file into `uniall_hits.json` by hand when
+it happens; 21 results sat there this morning.
+
 ## Installing a batch
 
 `newlist.py` → `livenew.py` (live re-check) → the vein's builder → `install_vein.py` →

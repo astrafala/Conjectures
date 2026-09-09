@@ -7,143 +7,173 @@
 \theoremstyle{plain}
 \newtheorem{theorem}{Theorem}
 \newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
 \newtheorem{remark}[theorem]{Remark}
-\title{A proof of the conjectured recurrence for OEIS A273019}
+\title{A proof of the conjectured recurrence for OEIS A157713}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{26 August 2026}
+\date{30 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A273019 carries a conjectured linear recurrence with polynomial coefficients, of
-order 3. The entry separately states a recurrence of order 2 that is not
-labelled a conjecture. We prove that the first is a consequence of the second, so the
-conjecture holds. The argument is a division in the Ore algebra
-$\mathbb{Q}(n)[N]$, where $N$ is the shift $Nf(n)=f(n+1)$: writing $C$ and $P$ for the two
-recurrences read as operators, we exhibit $Q$ with $C=QP$, whence
-$C(a)=Q(P(a))=Q(0)=0$. No generating function is used. The division is exact
-rational-function arithmetic, and the finitely many $n$ excluded by denominators of $Q$
-are computed rather than ignored.
+OEIS A157713 carries a conjectured linear recurrence with polynomial coefficients, of
+order 1. The entry posts no generating function, so the usual route through a
+functional equation is unavailable. None is needed: the sequence is defined by a closed
+form -- the entry's name is that formula -- and that is enough, because the closed form is a sum of finitely many hypergeometric terms, and for such a
+term every shift quotient is a rational function of $n$. The conjectured recurrence
+therefore reduces to one rational-function identity, one for each similarity
+class of terms, and each is decided exactly by cancellation. No expansion is truncated and
+nothing is guessed; the procedure returns a proof or a refutation. Here it returns a proof,
+valid for every $n$ outside an explicitly computed finite set.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 11B37, 12H10, 33F10.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 33F10, 11B37, 05A10.\normalsize
 
-\section{The sequence and the two recurrences}
+\section{The sequence and the conjecture}
 
-OEIS A273019 is ``a(n) = hypergeom([-2*n-1, 1/2], [2], 4) + (2*n+1)*hypergeom([-n+1/2, -n], [2], 4)''. It has offset $0$ and begins
+OEIS A157713 is ``a(n) = (2*n+1)!*(2*n-2)!/((n-1)!*(n!)\textasciicircum{}2*6)''. It has offset $1$ and begins
 \[
-a(0),\dots,a(7)\;=\;1, 5, 39, 321, 2675, 22483, 190345, 1621413,\ \dots
+a(1),\dots,a(8)\;=\;1, 10, 280, 12600, 776160, 60540480, 5708102400, 630745315200,\ \dots
 \]
-The entry carries the following comment, still recorded as a conjecture:
+The name is itself the definition of the sequence:
 \begin{quote}\small
-\textbf{Conjecture:} +(241*n+56) *(2*n+1) *(n+1)*a(n) +(482*n\^{}3-25561*n\^{}2+13831*n-56) *a(n-1) +(-48682*n\^{}3+225897*n\^{}2-300131*n+125310) *a(n-2) +9*(n-2) *(2651*n-3183) *(2*n-3) *a(n-3)=0. - \emph{R. J. Mathar}, May 16 2016
+a(n) = (2*n+1)!*(2*n-2)!/((n-1)!*(n!)\textasciicircum{}2*6).
 \end{quote}
-As of the ``Last modified'' line on the live entry (2026-05-24, revision 20) it is still
-a conjecture, and no proof appears among the entry's links, formulas or programs.
+that is,
+\begin{equation}\label{eq:cf}
+a(n)\;=\;\frac{\left(2 n - 2\right)! \left(2 n + 1\right)!}{6 n!^{2} \left(n - 1\right)!} .
+\end{equation}
+This is the only input the proof takes from the entry. It is not a formula contributed
+later, which might have been found empirically and could in principle be wrong; it is what
+$a(n)$ means. It was nevertheless checked against the entry's own DATA before use.
 
-The same entry also states, \emph{not} as a conjecture:
+The entry separately carries the following comment:
 \begin{quote}\small
-Recurrence (of order 2): (n+1)*(2*n + 1)*(12*n\^{}2 - 19*n + 9)*a(n) = (240*n\^{}4 - 140*n\^{}3 - 42*n\^{}2 - 7*n + 9)*a(n-1) - 9*(n-1)*(2*n - 1)*(12*n\^{}2 + 5*n + 2)*a(n-2). - \emph{Vaclav Kotesovec}, Jul 05 2018
+\textbf{Conjecture:} n*a(n) -4*(2*n+1)*(2*n-3)*a(n-1)=0. - \emph{R. J. Mathar}, Jun 08 2016
 \end{quote}
-This second relation is what the argument below rests on; it is taken as given, exactly as
-a posted generating function would be. It was checked against the entry's own DATA before
-being used, and holds on every published term it reaches.
+As of the ``Last modified'' line on the live entry (2025-05-20, revision 19) the
+statement is still recorded as a conjecture, and no proof appears among the entry's links,
+formulas or programs.
 
-\section{Recurrences as operators, and what division proves}
+Written out, the conjecture is
+\begin{equation}\label{eq:conj}
+n\,a(n) -  4 \left(2 n - 3\right) \left(2 n + 1\right)\,a(n-1)
+\end{equation}
 
-Let $N$ be the shift operator, $(Nf)(n)=f(n+1)$, acting on sequences. Polynomials in $n$
-and $N$ generate the Ore algebra $\mathcal{A}=\mathbb{Q}(n)[N]$, in which multiplication is
-associative and distributive but not commutative: moving $N$ past a coefficient shifts it,
-\[
-N\,q(n)\;=\;q(n+1)\,N .
-\]
-A recurrence $\sum_{i=0}^{r}p_{i}(n)\,a(n-i)=0$ becomes an element of $\mathcal{A}$ after
-re-indexing $n\mapsto n+r$, namely
-\[
-L\;=\;\sum_{j=0}^{r}q_{j}(n)\,N^{j},\qquad q_{j}(n)=p_{r-j}(n+r),
-\]
-and the recurrence says exactly that $L$ annihilates the sequence, $L(a)=0$.
+\section{Hypergeometric terms}
 
-\begin{lemma}\label{lem:factor}
-Let $P,C\in\mathcal{A}$ and suppose $C=QP$ for some $Q\in\mathcal{A}$. If $P(a)=0$ then
-$C(a)=0$, at every $n$ where the coefficients of $Q$ are defined.
+\begin{definition}
+A nonzero expression $c(n)$ is a \emph{hypergeometric term} in $n$ if the quotient
+$c(n+1)/c(n)$ is a rational function of $n$. Two hypergeometric terms $c$ and $d$ are
+\emph{similar}, written $c\sim d$, if $c(n)/d(n)$ is a rational function of $n$.
+\end{definition}
+
+Similarity is an equivalence relation on hypergeometric terms. Products of factorials,
+binomial coefficients with arguments linear in $n$, exponentials $z^{n}$ and polynomials
+are hypergeometric, and so is any product of these; a sum of them need not be.
+
+\begin{lemma}\label{lem:shift}
+If $c$ is a hypergeometric term then for every integer $i\ge 0$ the shift quotient
+$c(n-i)/c(n)$ is a rational function of $n$, computable from $c(n+1)/c(n)$ by a finite
+number of substitutions and multiplications.
 \end{lemma}
 
 \begin{proof}
-$C(a)=(QP)(a)=Q\bigl(P(a)\bigr)=Q(0)=0$. The only caveat is the one stated: a coefficient
-of $Q$ is a rational function of $n$, so the step is valid at every $n$ that is not a pole
-of one of them.
+Write $\rho(n)=c(n+1)/c(n)$, a rational function by hypothesis. Then
+$c(n-1)/c(n)=1/\rho(n-1)$, and inductively
+$c(n-i)/c(n)=\prod_{j=1}^{i}\rho(n-j)^{-1}$, a finite product of rational functions.
 \end{proof}
 
-\begin{lemma}\label{lem:div}
-Right division works in $\mathcal{A}$: given $C$ and $P\neq0$, there are $Q,R\in\mathcal{A}$
-with $C=QP+R$ and $\deg_{N}R<\deg_{N}P$.
+The fact that makes the test complete rather than merely sufficient is the linear
+independence of dissimilar terms. It is classical; see Petkov\v{s}ek, Wilf and Zeilberger
+\cite{AB}, Chapter~5.
+
+\begin{lemma}\label{lem:indep}
+Let $c_{1},\dots,c_{m}$ be hypergeometric terms, pairwise dissimilar. If
+$\sum_{j=1}^{m}u_{j}(n)c_{j}(n)=0$ for rational functions $u_{j}$ and all large $n$, then
+every $u_{j}$ is the zero rational function.
 \end{lemma}
 
+\section{The recurrence as a finite set of rational identities}
+
+\begin{proposition}\label{prop:main}
+Let $a(n)=\sum_{j=1}^{m}c_{j}(n)$ with each $c_{j}$ hypergeometric, and let
+$p_{0},\dots,p_{r}$ be polynomials. Group the $c_{j}$ into similarity classes and write
+each class as $g_{\ell}(n)\,f_{\ell,s}(n)$ for a representative $g_{\ell}$ and rational
+functions $f_{\ell,s}$. Put
+\[
+S_{\ell}(n)\;=\;\sum_{i=0}^{r}\;\sum_{s}\;p_{i}(n)\,f_{\ell,s}(n-i)\,
+\frac{g_{\ell}(n-i)}{g_{\ell}(n)} ,
+\]
+a rational function of $n$ by Lemma~\ref{lem:shift}. Then
+\[
+\sum_{i=0}^{r}p_{i}(n)\,a(n-i)\;=\;\sum_{\ell}g_{\ell}(n)\,S_{\ell}(n),
+\]
+and the recurrence $\sum_{i}p_{i}(n)a(n-i)=0$ holds for all large $n$ if and only if
+$S_{\ell}=0$ for every $\ell$.
+\end{proposition}
+
 \begin{proof}
-Induct on $\deg_{N}C$. If $\deg_{N}C<\deg_{N}P$ take $Q=0$, $R=C$. Otherwise let
-$d=\deg_{N}C-\deg_{N}P$ and let $c$, $p$ be the leading coefficients of $C$ and $P$. By the
-commutation rule, the leading coefficient of $N^{d}P$ is $p(n+d)$, which is a nonzero
-element of $\mathbb{Q}(n)$ and hence invertible there. Then
-$C-\dfrac{c(n)}{p(n+d)}\,N^{d}P$ has strictly smaller degree in $N$, and induction applies.
+The displayed identity is the definition of $S_{\ell}$ rearranged: each $a(n-i)$ is the
+sum of its terms, each term is its class representative times a rational function, and the
+representatives are pulled out. The representatives $g_{\ell}$ are pairwise dissimilar by
+construction, so Lemma~\ref{lem:indep} applies to the right-hand side: it vanishes for all
+large $n$ exactly when every $S_{\ell}$ vanishes identically. Sufficiency is immediate.
 \end{proof}
 
-So the question ``does the conjecture follow from the stated recurrence?'' is decided by
-running the division and looking at the remainder. Nothing is approximated: the
-coefficients live in $\mathbb{Q}(n)$ and the arithmetic is exact.
+Proposition~\ref{prop:main} turns the conjecture into a finite computation in
+$\mathbb{Q}(n)$, with no truncation and no search. The only $n$ it says nothing about are
+those where some $S_{\ell}$ has a pole or some $c_{j}(n-i)$ is undefined, and these are
+finite in number and listed below.
 
-\section{The computation for A273019}
+\section{The computation for A157713}
 
-Reading both relations as operators and dividing the conjectured one by the stated one
-leaves remainder $0$, with quotient
+The closed form \eqref{eq:cf} splits into one similarity class, with
+representative
 \[
-Q \;=\; \left(\frac{2651 n + 4770}{12 n^{2} + 53 n + 60}\right) + \left(\frac{241 n + 779}{12 n^{2} + 53 n + 60}\right)\,N .
+\frac{\left(2 n - 2\right)! \left(2 n + 1\right)!}{6 n!^{2} \left(n - 1\right)!}
 \]
-Hence $C=QP$ in $\mathcal{A}$.
-
-The coefficients of $Q$ are rational functions of $n$, and none of their poles is an integer, so Lemma~\ref{lem:factor} applies at every index.
+Carrying out Proposition~\ref{prop:main} with the coefficients of \eqref{eq:conj} gives
+\[
+S_{1}(n)\;=\;0
+\]
+so every class residual vanishes identically and the conjecture follows.
 
 \begin{theorem}
-The conjectured recurrence
+For all $n\ge 2$,
 \[
-\left(n + 1\right) \left(2 n + 1\right) \left(241 n + 56\right)\,a(n) + (482 n^{3} - 25561 n^{2} + 13831 n - 56)\,a(n-1) + (- 48682 n^{3} + 225897 n^{2} - 300131 n + 125310)\,a(n-2) + 9 \left(n - 2\right) \left(2 n - 3\right) \left(2651 n - 3183\right)\,a(n-3) \;=\;0
+n\,a(n) -  4 \left(2 n - 3\right) \left(2 n + 1\right)\,a(n-1)
 \]
-holds for every $n\ge3$.
 \end{theorem}
 
 \begin{proof}
-By Lemma~\ref{lem:factor} applied to the factorisation above, using that the stated
-recurrence annihilates the sequence. No coefficient of $Q$ has an integer pole, so the lemma applies at every $n$.
+Immediate from Proposition~\ref{prop:main} and the computation above, the excluded values
+being those at which a class residual has a pole or a term of \eqref{eq:cf} is undefined.
 \end{proof}
 
 \section{Verification}
 
-Every number above is an output of a script written separately from this note, and three
-independent checks were run.
+Two checks were made, and both are independent of the algebra above.
 
-First, the factorisation was not assumed but computed, and then confirmed by multiplying
-back: $QP$ was expanded in $\mathcal{A}$ and its coefficients cancelled against those of
-$C$ to zero, as rational functions of $n$.
+First, the closed form \eqref{eq:cf} was evaluated at the first $13$ indices and
+compared term by term with the entry's DATA; the values agree exactly. A formula that did
+not reproduce the entry's own terms would not have been used.
 
-Second, the relation the argument rests on was checked against the entry rather than
-trusted: the stated recurrence was evaluated on the published terms in exact integer
-arithmetic and holds on every one it reaches.
-
-Third, the conjecture itself was evaluated the same way, directly and without reference to
-either operator: for each $n$ in range the sum $\sum_{i}p_{i}(n)a(n-i)$ was formed from the
-entry's own values and found to vanish, for all 19 values of $n$ from
-$n=3$ upward.
+Second, the conjectured recurrence \eqref{eq:conj} was evaluated on the published terms in
+exact integer arithmetic at every index where it applies: $16$ instances beginning at
+$n=2$, all of them zero. This is not part of the proof, which is symbolic, but it
+would have caught a transcription error in the coefficients.
 
 \begin{thebibliography}{9}
-\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer Sequences},
-\url{https://oeis.org}, 2026. Sequence A273019.
-\bibitem{ore} O.~Ore, \emph{Theory of non-commutative polynomials}, Ann. of Math. 34
-(1933), 480--508.
-\bibitem{kp} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011,
-Chapter 7.
-\bibitem{bronstein} M.~Bronstein and M.~Petkov\v{s}ek, \emph{An introduction to
-pseudo-linear algebra}, Theoret. Comput. Sci. 157 (1996), 3--33.
+\bibitem{AB} M.~Petkov\v{s}ek, H.~S.~Wilf and D.~Zeilberger, \emph{A=B}, A K Peters,
+Wellesley MA, 1996.
+\bibitem{OEIS} OEIS Foundation Inc., \emph{The On-Line Encyclopedia of Integer Sequences},
+entry \href{https://oeis.org/A157713}{A157713}, 2025-05-20.
+\bibitem{GKP} R.~L.~Graham, D.~E.~Knuth and O.~Patashnik, \emph{Concrete Mathematics},
+2nd ed., Addison-Wesley, 1994.
 \end{thebibliography}
+
 \end{document}

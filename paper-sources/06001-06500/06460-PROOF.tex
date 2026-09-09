@@ -12,18 +12,18 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A251396, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A233922, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A251396 counts $(n+1)\times3$ arrays over $\{0,\dots,3\}$ subject to a condition imposed on
+OEIS A233922 counts $(n+1)\times3$ arrays over $\{0,\dots,4\}$ subject to a condition imposed on
 every $2\times2$ subblock, and carries an empirical recurrence of order $25$ contributed
 by R.~H.~Hardin. It is true, and it is not an empirical matter at all. The condition is local
 to each subblock, so the rows of an admissible array are the vertices of a finite digraph
-on $S=64$ vertices whose edges are the admissible consecutive pairs, and the count is a
+on $S=125$ vertices whose edges are the admissible consecutive pairs, and the count is a
 number of walks: $a(n)=\mathbf{1}^{\!\top}M^{n}\mathbf{1}$. Writing $q$
 for the characteristic polynomial of the conjectured recurrence, the recurrence holds for all
 $n$ exactly when $\mathbf{1}^{\!\top}M^{j}q(M)\mathbf{1}=0$ for every $j\ge0$, and the
@@ -35,28 +35,28 @@ integer arithmetic, and it comes out zero.
 
 \section{The sequence and the conjecture}
 
-OEIS A251396 is ``Number of (n+1)X(2+1) 0..3 arrays with no 2X2 subblock having the sum of its diagonal elements less than the absolute difference of its antidiagonal elements.''. It has offset $1$ and begins
+OEIS A233922 is ``Number of (n+1)X(2+1) 0..4 arrays with every 2X2 subblock having the sum of the absolute values of the edge differences equal to 8 and no adjacent elements equal.''. It has offset $1$ and begins
 \[
-3205, 165498, 8558283, 442476530, 22875877611, 1182680672547, 61144538351375, 3161169623507538,\ \dots
+518, 4010, 32496, 273318, 2325194, 19931860, 171250610, 1473829746,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 64*a(n-1) -765*a(n-2) +7612*a(n-3) -52441*a(n-4) +214718*a(n-5) -593810*a(n-6) +1025324*a(n-7) -199793*a(n-8) -5621360*a(n-9) +22779258*a(n-10) -54455283*a(n-11) +92144141*a(n-12) -114989494*a(n-13) +108478582*a(n-14) -77963792*a(n-15) +41298509*a(n-16) -14996935*a(n-17) +2763273*a(n-18) +672602*a(n-19) -778511*a(n-20) +318339*a(n-21) -73291*a(n-22) +9681*a(n-23) -693*a(n-24) +25*a(n-25)
+Empirical: a(n) = 6*a(n-1) +90*a(n-2) -457*a(n-3) -2820*a(n-4) +12576*a(n-5) +44887*a(n-6) -174476*a(n-7) -413814*a(n-8) +1377015*a(n-9) +2340346*a(n-10) -6484142*a(n-11) -8332941*a(n-12) +18412719*a(n-13) +18808062*a(n-14) -31000755*a(n-15) -26671104*a(n-16) +29467485*a(n-17) +23060177*a(n-18) -14245792*a(n-19) -11289280*a(n-20) +2644752*a(n-21) +2672572*a(n-22) +58840*a(n-23) -200640*a(n-24) -28672*a(n-25)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 13:18:15, revision 6) the statement is
+As of the ``Last modified'' line on the live entry (Jul 23 2025 08:15:49, revision 6) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;64\,a(n-1) - 765\,a(n-2) + 7612\,a(n-3) - 52441\,a(n-4) + 214718\,a(n-5) - 593810\,a(n-6) + 1025324\,a(n-7) - 199793\,a(n-8) - 5621360\,a(n-9) + 22779258\,a(n-10) - 54455283\,a(n-11) + 92144141\,a(n-12) - 114989494\,a(n-13) + 108478582\,a(n-14) - 77963792\,a(n-15) + 41298509\,a(n-16) - 14996935\,a(n-17) + 2763273\,a(n-18) + 672602\,a(n-19) - 778511\,a(n-20) + 318339\,a(n-21) - 73291\,a(n-22) + 9681\,a(n-23) - 693\,a(n-24) + 25\,a(n-25)
+a(n)\;=\;6\,a(n-1) + 90\,a(n-2) - 457\,a(n-3) - 2820\,a(n-4) + 12576\,a(n-5) + 44887\,a(n-6) - 174476\,a(n-7) - 413814\,a(n-8) + 1377015\,a(n-9) + 2340346\,a(n-10) - 6484142\,a(n-11) - 8332941\,a(n-12) + 18412719\,a(n-13) + 18808062\,a(n-14) - 31000755\,a(n-15) - 26671104\,a(n-16) + 29467485\,a(n-17) + 23060177\,a(n-18) - 14245792\,a(n-19) - 11289280\,a(n-20) + 2644752\,a(n-21) + 2672572\,a(n-22) + 58840\,a(n-23) - 200640\,a(n-24) - 28672\,a(n-25)
 \end{equation}
-for all $n>24$.
+for all $n>25$.
 
 \section{The condition is local, so the rows form a digraph}
 
 Write an array of the shape in question as its list of rows
 $r^{(1)},r^{(2)},\dots$, each an element of
-$V=\{0,1,\dots,3\}^{3}$, so $|V|=S=64$. A $2\times2$ subblock of the array
+$V=\{0,1,\dots,4\}^{3}$, so $|V|=S=125$. A $2\times2$ subblock of the array
 occupies two consecutive rows and two consecutive columns; if the two rows are $r$
 and $s$ (in that order) and the two columns are numbered $j,j+1$,
 the subblock is
@@ -65,15 +65,15 @@ the subblock is
 \]
 The entry's requirement on that subblock is
 \begin{equation}\label{eq:loc}
-\text{not }\bigl((\alpha+\delta)<|\beta-\gamma|\bigr),
+|\beta-\alpha|+|\delta-\beta|+|\gamma-\delta|+|\alpha-\gamma|=8,
 \end{equation}
-a condition on the four entries alone.
+a condition on the four entries alone and in which no two adjacent entries are equal.
 
 For $r,s\in V$ declare $r\to s$ an edge of a digraph $G$ when, for every
 $1\le j\le 3-1$,
 \begin{itemize}
 \item the four entries above satisfy \eqref{eq:loc};
-
+\item no two of those four entries that are horizontally or vertically adjacent are equal, that is $\alpha\ne\beta$, $\gamma\ne\delta$, $\alpha\ne\gamma$ and $\beta\ne\delta$;
 \end{itemize}
 Let $M\in\{0,1\}^{S\times S}$ be the adjacency matrix of $G$ and $\mathbf{1}$ the
 all-ones vector.
@@ -130,7 +130,7 @@ values; if those all vanish, so do all the rest.
 \section{The computation}
 
 \begin{theorem}
-The recurrence \eqref{eq:conj} holds for every $n>24$, which is the statement of
+The recurrence \eqref{eq:conj} holds for every $n>25$, which is the statement of
 Section~1.
 \end{theorem}
 
@@ -141,9 +141,9 @@ pair, so the successors of a row $r$ are enumerated column by column without tes
 $S^2$ pairs. The vector $w=q(M)\mathbf{1}\in\mathbb{Z}^{S}$ was then formed by $25$
 matrix--vector products in exact integer arithmetic, and $\mathbf{1}^{\!\top}M^{j}w$ was
 evaluated for $j=0,1,\dots$, again exactly. Every one of those integers vanishes from the
-index corresponding to $n=24+1$ onwards, and the run continued until $w$ itself was the
+index corresponding to $n=25+1$ onwards, and the run continued until $w$ itself was the
 zero vector, which settles every larger $j$ at once. By Lemma~\ref{lem:crit} the recurrence
-holds for every $n>24$.
+holds for every $n>25$.
 \end{proof}
 
 \begin{remark}
@@ -159,7 +159,7 @@ Three checks, each independent of the algebra above.
 
 First, the digraph was built directly from the entry's stated condition and the walk counts
 $\mathbf{1}^{\!\top}M^{L-1}\mathbf{1}$ compared against the entry's DATA at
-every one of the $13$ published indices; the values agree exactly. That is what ties
+every one of the $17$ published indices; the values agree exactly. That is what ties
 the digraph to the sequence: a model that reproduced only some of the published terms would
 be the wrong model, and would have been rejected. In particular it is what rules out a
 misreading of the entry's wording, since a different reading of the condition gives a
@@ -174,7 +174,7 @@ throughout.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A251396.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A233922.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

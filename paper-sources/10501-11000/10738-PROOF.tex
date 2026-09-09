@@ -7,174 +7,109 @@
 \theoremstyle{plain}
 \newtheorem{theorem}{Theorem}
 \newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
-\title{A proof of the conjectured recurrence for OEIS A386830}
+
+\title{The empirical recurrence for OEIS A232921, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{30 August 2026}
+\date{9 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A386830 carries a conjectured linear recurrence with polynomial coefficients, of
-order 2. The entry posts no generating function; it defines the sequence by an
-extraction, $a(n)=[x^{n}]\,f(x)g(x)^{n}$. We derive a generating function from that
-definition and prove the conjecture from it. Reading the extraction as a contour integral
-and summing the geometric series turns $\sum_{n}a(n)t^{n}$ into a single integral whose
-only pole inside a small circle is the branch of $x=t\,g(x)$ through the origin; the
-residue there gives $A(t)=f(x(t))/\bigl(1-t\,g'(x(t))\bigr)$. So $A$ is algebraic, with
-minimal polynomial obtained by eliminating $x$, and the recurrence follows from the
-residual test in the field that polynomial generates. Here the residual is
-$- 30 x$, of degree $1$, which proves the recurrence for every $n>1$.
+OEIS A232921 carries an empirical recurrence of order $2$ contributed by R.~H.~Hardin. It is
+true, and it is decidable rather than empirical. The entry's condition is local to a bounded window of consecutive lines, so
+the admissible configurations of such a window are the vertices of a finite digraph and the
+arrays counted are exactly the walks in it; hence $a(n)$ is a walk count on $S=2$ vertices
+and is $C$-finite. Whether the conjectured recurrence annihilates it is then settled by a
+finite exact computation, with the Cayley--Hamilton theorem bounding the work.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 30B10, 33F10.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
-\section{The sequence and the conjecture}
+\section{The conjecture}
 
-OEIS A386830 is ``a(n) = Sum\_\{k=0..n\} 3\^{}k * 2\^{}(n-k) * binomial(3*n+1,k) * binomial(3*n-k,n-k)''. It has offset $0$ and begins
+OEIS A232921 is ``Number of 2 X n 0..2 arrays with no element x(i,j) adjacent to value 2-x(i,j) horizontally, diagonally or antidiagonally.''. It has offset $1$ and begins
 \[
-a(0),\dots,a(7)\;=\;1, 18, 459, 12942, 382671, 11632248, 360048924, 11287595862,\ \dots
+9, 18, 54, 144, 396, 1080, 2952, 8064,\ \dots
 \]
-The entry states, not as a conjecture,
-\begin{quote}\small
-a(n) = [x\^{}n] (1+3*x)\^{}(3*n+1)/(1-2*x)\^{}(2*n+1).
+The entry states, as a conjecture contributed by its author and never marked settled:
+\begin{quote}
+Empirical: a(n) = 2*a(n-1) + 2*a(n-2).
 \end{quote}
-that is,
-\begin{equation}\label{eq:def}
-a(n)\;=\;[x^{n}]\,f(x)\,g(x)^{n},
-\qquad f(x)=\frac{- 3 x - 1}{2 x - 1},\qquad g(x)=\frac{27 x^{3} + 27 x^{2} + 9 x + 1}{4 x^{2} - 4 x + 1} .
-\end{equation}
-This is the only input taken from the entry, and it was checked against the entry's own
-DATA before use. In particular \emph{no generating function is assumed}: the entry posts
-none, and the one used below is derived.
+As of the ``Last modified'' line on the live entry (Oct 06 2018 05:30:24, revision 8) this is still
+recorded as empirical, and nothing on the entry records it as proved.
 
-The entry separately carries the following comment:
-\begin{quote}\small
-Conjecture D-finite with recurrence +8*n*(2*n-3)*a(n) +6*(-108*n\^{}2+207*n-80)*a(n-1) +405*(3*n-2)*(3*n-4)*a(n-2)=0. - \emph{R. J. Mathar}, Aug 19 2025
-\end{quote}
-As of the ``Last modified'' line on the live entry (2025-08-19, revision 10) the
-statement is still recorded as a conjecture, and no proof appears among the entry's links,
-formulas or programs.
+\section{The count is a walk count}
 
-\section{A generating function from the extraction}
-
-\begin{lemma}\label{lem:diag}
-Let $f,g$ be rational functions regular at $0$ with $g(0)\neq0$, and let
-$a(n)=[x^{n}]f(x)g(x)^{n}$. Then $A(t)=\sum_{n\ge0}a(n)t^{n}$ satisfies
+The condition the entry imposes is local: it constrains a bounded window of consecutive lines and nothing beyond. Take as
+vertices the admissible configurations of one such window and put an edge from $u$ to $v$
+whenever $v$ may follow $u$, which the condition decides by inspection of the two. An
+admissible array is then exactly a walk, so with $M$ the adjacency matrix on $S=2$ vertices
+and $\iota,\tau$ the vectors recording which windows may begin and end an array,
 \[
-A(t)\;=\;\frac{f\bigl(x(t)\bigr)}{1-t\,g'\bigl(x(t)\bigr)},
+a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau ,
 \]
-where $x(t)$ is the unique power series with $x(0)=0$ solving $x=t\,g(x)$. In particular
-$A$ is algebraic over $\mathbb{Q}(t)$.
+the exponent fixed by the entry's own shape and checked against its published terms. In
+particular $a$ is $C$-finite.
+
+\section{The proof}
+
+\begin{lemma}\label{lem:crit}
+Let $q(t)=t^{2}-\sum_i c_it^{2-i}$ be the characteristic polynomial of the
+conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
+$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
+holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
+and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Write the extraction as a contour integral on a circle $|x|=\rho$ small enough that $f$
-and $g$ are regular on and inside it:
-\[
-a(n)=\frac{1}{2\pi i}\oint \frac{f(x)g(x)^{n}}{x^{n+1}}\,dx .
-\]
-For $|t|$ small, $|t\,g(x)/x|<1$ on the circle, so the geometric series may be summed
-under the integral:
-\[
-A(t)=\frac{1}{2\pi i}\oint\frac{f(x)}{x}\sum_{n\ge0}\Bigl(\frac{t\,g(x)}{x}\Bigr)^{n}dx
-     =\frac{1}{2\pi i}\oint\frac{f(x)}{x-t\,g(x)}\,dx .
-\]
-Since $g(0)\neq0$, the equation $x=t\,g(x)$ has, for small $t$, exactly one root in the
-disc, namely the branch $x(t)$ with $x(0)=0$ furnished by Lagrange inversion; it is a
-simple zero of $x-t\,g(x)$ because the derivative $1-t\,g'(x)$ is $1$ at $t=0$. The
-residue theorem gives the stated value. Both $x(t)$ and hence $A(t)$ are algebraic,
-being defined by polynomial equations over $\mathbb{Q}(t)$.
+Factor $M^{j}$ out of $M^{j+2}-\sum_ic_iM^{j+2-i}$. For the bound, $M^{S}$
+is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
+$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
+polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
+pins the threshold exactly.
 \end{proof}
-
-\begin{corollary}\label{cor:minpoly}
-$A$ satisfies the polynomial obtained by eliminating $x$ between
-$x-t\,g(x)=0$ and $y\bigl(1-t\,g'(x)\bigr)-f(x)=0$.
-\end{corollary}
-
-\begin{proof}
-Both equations hold at $x=x(t)$, $y=A(t)$ by Lemma~\ref{lem:diag}. Eliminating $x$ by a
-resultant produces a polynomial in $t$ and $y$ vanishing there.
-\end{proof}
-
-For A386830 this yields
-\[
-3645 t^{2} y^{3} - 648 t y^{3} - 810 t y^{2} + 16 y^{3} + 24 y^{2} - 15 y - 25 \;=\;0 ,
-\]
-and $A$ is the branch of this polynomial whose expansion is the entry's own sequence.
-The branch is identified by that expansion, not by solving for it in radicals --- the
-polynomial can have degree beyond four, where no such expression exists.
-
-\section{The recurrence}
-
-Let $\theta=x\,\dfrac{d}{dx}$, acting on $x^{m}$ as multiplication by $m$.
-
-\begin{lemma}\label{lem:transfer}
-Let $p_{0},\dots,p_{r}$ be polynomials and put $b(n)=\sum_{i}p_{i}(n)a(n-i)$, with
-$a(m)=0$ for $m<0$. Then $B(x)=\sum_{n}b(n)x^{n}=\sum_{i}x^{i}(p_{i}(\theta+i)A)(x)$, so
-the recurrence $\sum_{i}p_{i}(n)a(n-i)=0$ holds for every $n>d$ if and only if $B$ is a
-polynomial of degree at most $d$.
-\end{lemma}
-
-\begin{proof}
-Substituting $m=n-i$ gives $\sum_{n}p_{i}(n)a(n-i)x^{n}=x^{i}(p_{i}(\theta+i)A)(x)$, and
-$b(n)$ is the coefficient of $x^{n}$ in $B$.
-\end{proof}
-
-Since $A$ lies in the algebraic function field generated by the polynomial of
-Corollary~\ref{cor:minpoly}, and such a field is closed under $\theta$ --- differentiating
-its defining relation expresses the derivative of the generator inside the field ---
-every $p_{i}(\theta+i)A$ lies there too, and so does $B$. Computing it exactly gives
-\[
-B(x)\;=\;- 30 x ,
-\]
-a polynomial of degree $1$.
 
 \begin{theorem}
-The conjectured recurrence
 \[
-8 n \left(2 n - 3\right)\,a(n) -  6 \left(108 n^{2} - 207 n + 80\right)\,a(n-1) + 405 \left(3 n - 4\right) \left(3 n - 2\right)\,a(n-2) \;=\;0
+a(n)\;=\;2\,a(n-1) + 2\,a(n-2)
 \]
-holds for every $n>1$.
+for every $n>2$.
 \end{theorem}
 
 \begin{proof}
-Immediate from Lemma~\ref{lem:transfer} and the displayed value of $B$.
+The vector $w=q(M)\tau$ was formed by $2$ matrix--vector products in exact integer
+arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
+integers vanish from the index corresponding to $n=2+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
-Every number above is an output of a script written separately from this note, and three
-independent checks were run.
+Three checks, each independent of the algebra above.
 
-First, the derived generating function was not assumed to be right. Its series was
-computed from \eqref{eq:def} in two independent ways --- once through the residue formula
-of Lemma~\ref{lem:diag}, by solving $x=t\,g(x)$ as a truncated series, and once directly,
-by expanding $f\,g^{n}$ and reading off the coefficient of $x^{n}$ --- and the two agree.
-The result was then compared term by term with the DATA section of A386830, agreeing on
-all 13 terms compared.
+First, the model reproduces all $25$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry: the digraph is built by reading the
+entry's English, and a misreading gives different counts.
 
-Second, the recurrence was evaluated directly on the published terms, in exact integer
-arithmetic and without reference to any generating function: for each $n$ in range the sum
-$\sum_{i}p_{i}(n)a(n-i)$ was formed from the entry's own values and found to vanish, for
-all 15 values of $n$ from $n=2$ upward.
+Second, the conjectured recurrence was evaluated directly on those published terms, with no
+matrices involved, and holds wherever the proved range and the data overlap.
 
-Third, the symbolic step is exact throughout. The residual is obtained by
-rational-function arithmetic in the algebraic function field, not by series truncation, so
-the identity $B=- 30 x$ is an identity of functions and the theorem holds for all
-$n>1$ simultaneously.
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
-\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer Sequences},
-\url{https://oeis.org}, 2026. Sequence A386830.
-\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 2, Cambridge
-University Press, 1999, Section 6.3 (Lagrange inversion) and Chapter 6 (algebraic and
-D-finite generating functions).
-\bibitem{flajolet} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
-University Press, 2009, Chapter VII.
-\bibitem{kp} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011,
-Chapter 7.
+\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
+Sequences}, \url{https://oeis.org}, 2026. Sequence A232921.
+\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+University Press, 2009.
+\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
+University Press, 2013.
 \end{thebibliography}
+
 \end{document}

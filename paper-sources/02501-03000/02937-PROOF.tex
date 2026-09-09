@@ -12,42 +12,39 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical column recurrences for the table OEIS A252544}
+\title{The empirical column recurrences for the table OEIS A251113}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A252544 is a two-dimensional table $T(n,k)$, and it carries a block of empirical
+OEIS A251113 is a two-dimensional table $T(n,k)$, and it carries a block of empirical
 recurrences contributed by R.~H.~Hardin --- one for each of its first few columns. They are
 true. Column $k$ of the table is an ordinary fixed-width array count, so its rows are the
 vertices of a finite digraph and $T(n,k)$ is a number of walks in it; being a walk count the
 column is $C$-finite, and whether a given recurrence annihilates it is decided by a finite
-exact computation, with the Cayley--Hamilton theorem bounding the work. This note settles the columns $k=1, 4$.
+exact computation, with the Cayley--Hamilton theorem bounding the work. This note settles the columns $k=1$.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
 \section{The table and the conjectures}
 
-OEIS A252544 is ``T(n,k)=Number of (n+2)X(k+2) 0..3 arrays with every 3X3 subblock row and diagonal sum equal to 1 3 4 6 or 7 and every 3X3 column and antidiagonal sum not equal to 1 3 4 6 or 7.''. It has offset $1$, is
+OEIS A251113 is ``T(n,k)=Number of (n+1)X(k+1) 0..2 arrays with no 2X2 subblock having the maximum of its diagonal elements greater than the absolute difference of its antidiagonal elements.''. It has offset $1$, is
 read by antidiagonals, and begins
 \[
-478, 1048, 850, 2532, 3880, 2142, 5608, 15480,\ \dots
+37, 147, 147, 526, 810, 526, 1844, 3616,\ \dots
 \]
 The entry carries the following block:
 \begin{quote}\small
 Empirical for column k:\\
-k=1: a(n) = 18*a(n-3) -32*a(n-6) for n>8\\
-k=2: a(n) = 118*a(n-3) -4264*a(n-6) +55168*a(n-9) -225280*a(n-12) +262144*a(n-15) for n>16\\
-k=3: a(n) = 454*a(n-3) -60040*a(n-6) +2444800*a(n-9) -13041664*a(n-12) +16777216*a(n-15) for n>16\\
-k=4: a(n) = 260*a(n-3) -1024*a(n-6) for n>7\\
-k=5: a(n) = 1804*a(n-3) -939040*a(n-6) +145285120*a(n-9) -1639972864*a(n-12) +4294967296*a(n-15) for n>16\\
-k=6: a(n) = 7180*a(n-3) -14766112*a(n-6) +8766324736*a(n-9) -103548977152*a(n-12) +274877906944*a(n-15) for n>16\\
-k=7: a(n) = 4104*a(n-3) -32768*a(n-6) for n>7\\
+k=1: a(n) = 5*a(n-1) -8*a(n-2) +13*a(n-3) -12*a(n-4) +9*a(n-5) -5*a(n-6) +a(n-7)\\
+k=2: [order 14]\\
+k=3: [order 26] for n>27\\
+k=4: [order 52] for n>54\\
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jun 02 2025 11:20:27, revision 7) these are still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 13:05:12, revision 6) these are still
 recorded as empirical, and nothing on the entry records any of them as settled.
 
 \section{A column of the table is a walk count}
@@ -90,8 +87,7 @@ $j\ge S_k$ repeats that combination of earlier values.
 \begin{center}
 \begin{tabular}{ccccc}
 line & order & vertices $S$ & proved for & terms checked \\ \hline
-column $k$$=1$ & $6$ & $209$ & $>8$ & $10$ \\
-column $k$$=4$ & $6$ & $88249$ & $>7$ & $10$ \\
+column $k$$=1$ & $7$ & $9$ & $>7$ & $10$ \\
 \end{tabular}
 \end{center}
 
@@ -101,24 +97,39 @@ again exactly; every one of those integers vanishes from the stated point onward
 continued until the working vector was identically zero, which settles all larger $j$ at once.
 
 \subsection*{Column $k$$=1$}
-The sequence is ``Number of (n+2)X(3) 0..3 arrays with every 3X3 subblock row and diagonal sum equal to 1 3 4 6 or 7 and every 3X3 column and antidiagonal sum not equal to 1 3 4 6 or 7.''. Its rows are the vertices of a digraph on
-$S=209$ vertices, edges being the admissible consecutive pairs, and the count is
+The sequence is ``Number of (n+1)X(2) 0..2 arrays with no 2X2 subblock having the maximum of its diagonal elements greater than the absolute difference of its antidiagonal elements.''. Its rows are the vertices of a digraph on
+$S=9$ vertices, edges being the admissible consecutive pairs, and the count is
 $\mathbf{1}^{\!\top}M^{n}\mathbf{1}$ up to the constant factor in the entry's name.
 The conjectured recurrence
 \[
-a(n)\;=\;18\,a(n-3) - 32\,a(n-6)
-\]
-holds from index $8+1$ on.
-
-\subsection*{Column $k$$=4$}
-The sequence is ``Number of (n+2)X(6) 0..3 arrays with every 3X3 subblock row and diagonal sum equal to 1 3 4 6 or 7 and every 3X3 column and antidiagonal sum not equal to 1 3 4 6 or 7.''. Its rows are the vertices of a digraph on
-$S=88249$ vertices, edges being the admissible consecutive pairs, and the count is
-$\mathbf{1}^{\!\top}M^{n}\mathbf{1}$ up to the constant factor in the entry's name.
-The conjectured recurrence
-\[
-a(n)\;=\;260\,a(n-3) - 1024\,a(n-6)
+a(n)\;=\;5\,a(n-1) - 8\,a(n-2) + 13\,a(n-3) - 12\,a(n-4) + 9\,a(n-5) - 5\,a(n-6) + a(n-7)
 \]
 holds from index $7+1$ on.
+
+
+\section{Lines whose recurrence the entry does not print}
+
+For the lines below the entry records only an order, the coefficients being in a linked file.
+They can still be settled, and the recurrences recovered. A line is a walk count on $S$
+vertices, so it satisfies some monic recurrence of order at most $S$ and Berlekamp--Massey on
+$2S$ exact terms returns the MINIMAL one. Where that order equals the stated order --- and
+where the same holds after the first few terms are dropped, since the entry's recurrence may
+begin only partway along --- any recurrence of that order the line satisfies has a
+characteristic polynomial that is a multiple of the minimal one and of equal degree, hence is
+that polynomial. So the entry's recurrence is the one displayed, whatever its file contains.
+
+\subsection*{Column $k=2$, recovered}
+The entry gives only the order for this line: ``k=2: [order 14]''. Its model is a walk on
+$S=27$ vertices, so it satisfies a monic recurrence of order at most $S$;
+Berlekamp--Massey on $2S=54$ exact terms returns the minimal one, of order
+$14$ --- the stated order --- with integer coefficients
+\begin{center}\small\begin{tabular}{cccccccc}
+$c_{1}$ & $11$ & $c_{5}$ & $717$ & $c_{9}$ & $543$ & $c_{13}$ & $9$ \\
+$c_{2}$ & $-53$ & $c_{6}$ & $-999$ & $c_{10}$ & $-268$ & $c_{14}$ & $-1$ \\
+$c_{3}$ & $169$ & $c_{7}$ & $1063$ & $c_{11}$ & $115$ &  &  \\
+$c_{4}$ & $-400$ & $c_{8}$ & $-860$ & $c_{12}$ & $-40$ &  &  \\
+\end{tabular}\end{center}
+Repeating with the first $14+4$ terms removed gives order $14$ again.
 
 \section{Verification}
 
@@ -129,7 +140,7 @@ both from the antidiagonal DATA read in either orientation and from the ``Table 
 block, and agrees at every available term. This is what ties a model to the table:
 substituting the fixed index into the entry's wording is a reading of English, and a wrong
 reading gives a different digraph and different counts. Across the lines settled here the
-model reproduces $20$ published values, $127$ decimal digits in all, every one of
+model reproduces $10$ published values, $46$ decimal digits in all, every one of
 them exactly; a misreading of the entry would have to reproduce all of them by accident.
 
 Second, each conjectured recurrence was evaluated on those published values in exact
@@ -149,7 +160,7 @@ claimed.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A252544.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A251113.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

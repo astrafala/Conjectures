@@ -12,43 +12,44 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A185861, proved by transfer matrix}
+\title{A condition on each element and its neighbours: OEIS A202903}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{2 September 2026}
+\date{6 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A185861 carries an empirical recurrence of order $19$ contributed by R.~H.~Hardin. It is
-true, and it is decidable rather than empirical. The entry's condition is local to a bounded window of consecutive lines, so
-the admissible configurations of such a window are the vertices of a finite digraph and the
-arrays counted are exactly the walks in it; hence $a(n)$ is a walk count on $S=88832$ vertices
-and is $C$-finite. Whether the conjectured recurrence annihilates it is then settled by a
-finite exact computation, with the Cayley--Hamilton theorem bounding the work.
+OEIS A202903 carries an empirical recurrence of order $20$ contributed by R.~H.~Hardin. It is
+true, and it is decidable rather than empirical. The entry's condition names only cells one step apart, so it is decided by a window of
+three consecutive lines; the
+admissible windows are the vertices of a finite digraph and the arrays counted are exactly the
+walks in it. Hence $a(n)$ is a walk count on $S=46$ vertices and is $C$-finite, and whether the
+conjectured recurrence annihilates it is settled by a finite exact computation, with the
+Cayley--Hamilton theorem bounding the work.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
 \section{The conjecture}
 
-OEIS A185861 is ``1/128 the number of (n+2)X6 binary arrays with no 3X3 subblock trace equal to any horizontal or vertical neighbor 3X3 subblock trace.''. It has offset $1$ and begins
+OEIS A202903 is ``Number of nX5 0..1 arrays with every one equal to some NW, E or S neighbor.''. It has offset $1$ and begins
 \[
-694, 9604, 148747, 2306566, 35696805, 552341314, 8546141676, 132241750157,\ \dots
+1, 116, 2801, 51068, 993219, 19675348, 387217701, 7615580812,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n)=13*a(n-1)+86*a(n-2)-729*a(n-3)-588*a(n-4)+7148*a(n-5)-4926*a(n-6)-832*a(n-7)-7418*a(n-8)+5675*a(n-9)-4618*a(n-10)+5644*a(n-11)-1871*a(n-12)+4193*a(n-13)-1693*a(n-14)+70*a(n-15)-954*a(n-16)-206*a(n-17)+152*a(n-18)+28*a(n-19) for n>21
+Empirical: a(n) = 32*a(n-1) -333*a(n-2) +2560*a(n-3) -19872*a(n-4) +109088*a(n-5) -473140*a(n-6) +2025472*a(n-7) -6139616*a(n-8) +12558976*a(n-9) -24536512*a(n-10) +33814016*a(n-11) -9896448*a(n-12) -28295168*a(n-13) +78471168*a(n-14) -164626432*a(n-15) +119472128*a(n-16) +89653248*a(n-17) -176947200*a(n-18) +94371840*a(n-19) -18874368*a(n-20) for n>21.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 03:16:16, revision 9) this is still
+As of the ``Last modified'' line on the live entry (Jul 19 2023 14:47:42, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{The count is a walk count}
 
-The condition the entry imposes is local: it constrains a bounded window of consecutive lines and nothing beyond. Take as
-vertices the admissible configurations of one such window and put an edge from $u$ to $v$
-whenever $v$ may follow $u$, which the condition decides by inspection of the two. An
-admissible array is then exactly a walk, so with $M$ the adjacency matrix on $S=88832$ vertices
-and $\iota,\tau$ the vectors recording which windows may begin and end an array,
+The entry counts arrays with $5$ columns over the alphabet $\{0,1\}$, growing one row at a time. Its condition is that every entry equal to $1$ must have at least one of its neighbours to the NW, E, S equal to it.
+
+Every cell named there lies at most one step away, so three consecutive rows decide the condition on the middle one completely. Carry two consecutive rows as the state; when a new row arrives, the row it follows has all its neighbours present and is tested then, and the row with nothing after it is tested by the end vector. That is also where the boundary is honest: a cell in the first row has nothing before it and a cell in the last has nothing after it, and a missing neighbour is not a neighbour rather than a wrapped-round one.
+
+Vertices with identical futures are merged, which leaves $S=46$. An admissible array is exactly a walk, so with $M$ the adjacency matrix and $\iota,\tau$ the vectors recording which states may begin and end an array,
 \[
 a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau ,
 \]
@@ -58,7 +59,7 @@ particular $a$ is $C$-finite.
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{19}-\sum_i c_it^{19-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{20}-\sum_i c_it^{20-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -66,22 +67,23 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+19}-\sum_ic_iM^{j+19-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+20}-\sum_ic_iM^{j+20-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly.
+pins the threshold exactly. A constant factor in front of $a$ divides out of the residual and
+changes nothing here.
 \end{proof}
 
 \begin{theorem}
 \[
-a(n)\;=\;13\,a(n-1) + 86\,a(n-2) - 729\,a(n-3) - 588\,a(n-4) + 7148\,a(n-5) - 4926\,a(n-6) - 832\,a(n-7) - 7418\,a(n-8) + 5675\,a(n-9) - 4618\,a(n-10) + 5644\,a(n-11) - 1871\,a(n-12) + 4193\,a(n-13) - 1693\,a(n-14) + 70\,a(n-15) - 954\,a(n-16) - 206\,a(n-17) + 152\,a(n-18) + 28\,a(n-19)
+a(n)\;=\;32\,a(n-1) - 333\,a(n-2) + 2560\,a(n-3) - 19872\,a(n-4) + 109088\,a(n-5) - 473140\,a(n-6) + 2025472\,a(n-7) - 6139616\,a(n-8) + 12558976\,a(n-9) - 24536512\,a(n-10) + 33814016\,a(n-11) - 9896448\,a(n-12) - 28295168\,a(n-13) + 78471168\,a(n-14) - 164626432\,a(n-15) + 119472128\,a(n-16) + 89653248\,a(n-17) - 176947200\,a(n-18) + 94371840\,a(n-19) - 18874368\,a(n-20)
 \]
 for every $n>21$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $19$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $20$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
 integers vanish from the index corresponding to $n=21+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
@@ -89,21 +91,26 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 \section{Verification}
 
-Three checks, each independent of the algebra above.
+Four checks, each independent of the algebra above.
 
-First, the model reproduces all $15$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $16$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
-Second, the conjectured recurrence was evaluated directly on those published terms, with no
+Second, the reading was pinned before the digraph was written, by a program that enumerates
+every array of the given shape one by one and tests the entry's condition at each cell
+directly. That program shares no code with the transfer matrix, so an error in one does not
+hide an error in the other.
+
+Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
 arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A185861.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A202903.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

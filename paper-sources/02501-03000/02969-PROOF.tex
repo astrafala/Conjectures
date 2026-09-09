@@ -12,18 +12,18 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical closed form for OEIS A188556, proved}
+\title{The empirical closed form for OEIS A209649, proved}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A188556 carries an empirical closed form for $a(n)$ --- not a recurrence relating
+OEIS A209649 carries an empirical closed form for $a(n)$ --- not a recurrence relating
 consecutive terms but an explicit formula. It is true, and it is decidable rather than
 empirical. The entry counts arrays subject to a condition on a bounded window of consecutive lines, so the lines of an array are the
 vertices of a finite digraph, an array is a walk in it, and $a(n)$ is a walk count on
-$S=1024$ vertices. Any function of the form $\sum_j p_j(n)\lambda_j^{\,n}$ satisfies the
+$S=1225$ vertices. Any function of the form $\sum_j p_j(n)\lambda_j^{\,n}$ satisfies the
 monic linear recurrence whose characteristic polynomial is
 $\prod_j(x-\lambda_j)^{\deg p_j+1}$; here that polynomial is $q(x)=(x-1)^{6}$, of degree
 $6$. Two things are then checked exactly: that the walk count satisfies the same
@@ -37,18 +37,18 @@ there is agreement for good.
 
 \section{The conjecture}
 
-OEIS A188556 is ``Number of 5 X n binary arrays without the pattern 0 1 diagonally, vertically, antidiagonally or horizontally.''. It has offset $1$ and begins
+OEIS A209649 is ``Number of n X 7 0..1 arrays avoiding 0 0 1 and 1 0 0 horizontally and 0 0 1 and 1 0 1 vertically.''. It has offset $1$ and begins
 \[
-6, 11, 20, 36, 64, 112, 192, 321,\ \dots
+35, 1225, 7210, 24990, 65765, 145775, 287140, 518700,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = (1/120)*n\^{}5 - (1/24)*n\^{}4 + (3/8)*n\^{}3 + (1/24)*n\^{}2 + (157/60)*n + 3.
+Empirical: a(n) = 7*n\^{}5 + 70*n\^{}4 + (35/3)*n\^{}3 - (105/2)*n\^{}2 - (7/6)*n.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Apr 27 2018 11:01:31, revision 8) this is still
+As of the ``Last modified'' line on the live entry (Mar 09 2018 10:54:46, revision 12) this is still
 recorded as empirical, and nothing on the entry records it as proved. Write
 \[
-f(n)\;=\;\frac{n^{5}}{120} - \frac{n^{4}}{24} + \frac{3 n^{3}}{8} + \frac{n^{2}}{24} + \frac{157 n}{60} + 3.
+f(n)\;=\;7 n^{5} + 70 n^{4} + \frac{35 n^{3}}{3} - \frac{105 n^{2}}{2} - \frac{7 n}{6}.
 \]
 
 \section{The count is a walk count}
@@ -56,7 +56,7 @@ f(n)\;=\;\frac{n^{5}}{120} - \frac{n^{4}}{24} + \frac{3 n^{3}}{8} + \frac{n^{2}}
 The entry's defining condition is local: it is a condition on a bounded window of consecutive lines. Take as vertices the
 admissible configurations of such a window and put an edge from $u$ to $v$ when $v$ may
 follow $u$, which the condition decides by inspection. An admissible array is then exactly a
-walk, so with $M$ the adjacency matrix of that digraph on $S=1024$ vertices, and $u,w$ the
+walk, so with $M$ the adjacency matrix of that digraph on $S=1225$ vertices, and $u,w$ the
 vectors recording which windows may start and end an array,
 \[
 a(n)\;=\;u^{\!\top}M^{\,g(n)}w
@@ -111,16 +111,16 @@ $a(n)=f(n)$ for every $n\ge1$.
 \begin{proof}
 The vector $w'=q(M)w$ was formed by $6$ matrix--vector products in exact integer
 arithmetic, and $u^{\!\top}M^{j}w'$ evaluated for $j=0,1,\dots$, again exactly. Those integers
-vanish from the point corresponding to $n=8$ onwards, and the run was continued until the
+vanish from the point corresponding to $n=7$ onwards, and the run was continued until the
 working vector was identically zero, which settles every larger $j$ at once. So $a$ satisfies
-\eqref{eq:rec} for every $n>7$. By Lemma~\ref{lem:ann} $f$ satisfies \eqref{eq:rec}
+\eqref{eq:rec} for every $n>6$. By Lemma~\ref{lem:ann} $f$ satisfies \eqref{eq:rec}
 identically. Both were then evaluated in exact arithmetic at the $6$ consecutive indices
-$n=8,\dots,13$ and agree at each. A monic recurrence of order $6$
-determines $a(m)$ from $a(m-1),\dots,a(m-6)$, and for every $m\ge14$ both
-$m>7$ and $m-6\ge8$ hold, so induction on $m$ gives $a(m)=f(m)$ for every
-$m\ge8$.
-Below $n=8$ the recurrence argument gives nothing, since \eqref{eq:rec} is only
-established for $a$ from $n=8$ on. The remaining indices $n=1,\dots,7$ were
+$n=7,\dots,12$ and agree at each. A monic recurrence of order $6$
+determines $a(m)$ from $a(m-1),\dots,a(m-6)$, and for every $m\ge13$ both
+$m>6$ and $m-6\ge7$ hold, so induction on $m$ gives $a(m)=f(m)$ for every
+$m\ge7$.
+Below $n=7$ the recurrence argument gives nothing, since \eqref{eq:rec} is only
+established for $a$ from $n=7$ on. The remaining indices $n=1,\dots,6$ were
 therefore checked one at a time, directly against the walk count in exact integer arithmetic,
 and agree.
 \end{proof}
@@ -131,7 +131,7 @@ The range is tight in the sense that was checked: the closed form holds from the
 
 Four checks, each independent of the algebra above.
 
-First, the walk model reproduces every one of the $38$ terms the entry publishes,
+First, the walk model reproduces every one of the $26$ terms the entry publishes,
 exactly, in integer arithmetic. This is what ties the model to the entry: the model is built
 by reading the entry's English, and a misreading gives a different digraph and different
 counts.
@@ -149,7 +149,7 @@ that anything would pass.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A188556.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A209649.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; $C$-finite sequences,
 Section 4.1.)
