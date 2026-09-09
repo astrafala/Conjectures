@@ -12,14 +12,14 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A253930, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A253843, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A253930 counts the arrays over $\{0,\dots,1\}$ whose $3\times3$ subblocks carry a
+OEIS A253843 counts the arrays over $\{0,\dots,1\}$ whose $3\times3$ subblocks carry a
 statistic that is monotone along named directions of the subblock grid, and carries an
 empirical recurrence of order $53$ contributed by R.~H.~Hardin. It is true, and it is
 decidable rather than empirical. Every direction named moves the subblock row by at most one,
@@ -32,15 +32,15 @@ exact computation.
 
 \section{The conjecture}
 
-OEIS A253930 is ``Number of (n+2)X(3+2) 0..1 arrays with every 3X3 subblock diagonal sum plus antidiagonal sum nondecreasing horizontally and vertically.''. It has offset $1$ and begins
+OEIS A253843 is ``Number of (3+2)X(n+2) 0..1 arrays with every 3X3 subblock diagonal sum plus antidiagonal sum nondecreasing horizontally, vertically and ne-to-sw antidiagonally.''. It has offset $1$ and begins
 \[
-8392, 30184, 124496, 451721, 992616, 2326216, 4928792, 8796936,\ \dots
+8392, 19970, 52014, 135011, 294870, 654021, 1364704, 2573789,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
 Empirical: a(n) = 5*a(n-1) -12*a(n-2) +20*a(n-3) -20*a(n-4) -4*a(n-5) +54*a(n-6) -118*a(n-7) +161*a(n-8) -125*a(n-9) -8*a(n-10) +216*a(n-11) -425*a(n-12) +509*a(n-13) -398*a(n-14) +78*a(n-15) +370*a(n-16) -770*a(n-17) +972*a(n-18) -852*a(n-19) +417*a(n-20) +195*a(n-21) -804*a(n-22) +1188*a(n-23) -1230*a(n-24) +918*a(n-25) -336*a(n-26) -336*a(n-27) +918*a(n-28) -1230*a(n-29) +1188*a(n-30) -804*a(n-31) +195*a(n-32) +417*a(n-33) -852*a(n-34) +972*a(n-35) -770*a(n-36) +370*a(n-37) +78*a(n-38) -398*a(n-39) +509*a(n-40) -425*a(n-41) +216*a(n-42) -8*a(n-43) -125*a(n-44) +161*a(n-45) -118*a(n-46) +54*a(n-47) -4*a(n-48) -20*a(n-49) +20*a(n-50) -12*a(n-51) +5*a(n-52) -a(n-53) for n>83
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 14:20:33, revision 8) this is still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 14:17:37, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
@@ -51,9 +51,9 @@ aggregates --- sums, maxima, minima, medians --- taken over those lines, and $\s
 denotes its value on the subblock in position $(i,j)$ of the subblock grid, which has $n$ rows
 and $3$ columns for an $(n+2)\times5$ array over $\{0,\dots,1\}$. The condition is
 \[
-\sigma(i,j)\le\sigma(i,j+1),\qquad \sigma(i,j)\le\sigma(i+1,j)
+\sigma(i,j)\le\sigma(i+1,j),\qquad \sigma(i,j)\le\sigma(i,j+1),\qquad \sigma(i,j)\ge\sigma(i+1,j-1)
 \]
-whenever both positions exist.
+whenever both positions exist. The entry writes the array with $n$ as the number of COLUMNS; transposing it exchanges the two coordinates of every direction, which is done once, and a direction that then points upward is turned round by reversing its inequality.
 
 ``ne-to-sw antidiagonally'' is the offset $(+1,-1)$ on the subblock grid; that reading, and
 the reading of every statistic name here, was checked by counting the small arrays directly
@@ -118,7 +118,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $22$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $23$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
@@ -130,7 +130,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A253930.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A253843.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{davey} B.~A.~Davey and H.~A.~Priestley, \emph{Introduction to Lattices and

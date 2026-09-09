@@ -12,15 +12,15 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A303250, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A302468, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A303250 counts $4$-column arrays over $\{0,\dots,1\}$ in which every entry has,
-among the six horizontal, diagonal and antidiagonal neighbours, a number $equal to$ itself lying in $\{1,2,3,5,6\}$, and it carries an empirical
+OEIS A302468 counts $4$-column arrays over $\{0,\dots,1\}$ in which every entry has,
+among the six horizontal, diagonal and antidiagonal neighbours, a number $equal to$ itself lying in $\{1,2,3,5\}$, and it carries an empirical
 recurrence of order $43$ contributed by R.~H.~Hardin. It is true. The neighbourhood
 reaches one row up and one row down, so the condition on a row involves three consecutive
 rows and a window of two rows is a sufficient state; the array is then a walk in a digraph
@@ -34,22 +34,22 @@ all-ones. The conjectured recurrence is then annihilated exactly, in integer ari
 
 \section{The sequence and the conjecture}
 
-OEIS A303250 is ``Number of nX4 0..1 arrays with every element equal to 1, 2, 3, 5 or 6 horizontally, diagonally or antidiagonally adjacent elements, with upper left element zero.''. It has offset
+OEIS A302468 is ``Number of nX4 0..1 arrays with every element equal to 1, 2, 3 or 5 horizontally, diagonally or antidiagonally adjacent elements, with upper left element zero.''. It has offset
 $1$ and begins
 \[
-2, 45, 203, 1401, 8664, 55624, 349273, 2229806,\ \dots
+2, 45, 203, 1401, 8493, 53575, 331044, 2075845,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 7*a(n-1) +7*a(n-2) -27*a(n-3) -321*a(n-4) -213*a(n-5) +2807*a(n-6) +3899*a(n-7) -8015*a(n-8) -27255*a(n-9) +12353*a(n-10) +71558*a(n-11) +3162*a(n-12) -120371*a(n-13) +8354*a(n-14) +167215*a(n-15) -138930*a(n-16) -372344*a(n-17) +512518*a(n-18) +604644*a(n-19) -441639*a(n-20) -211921*a(n-21) -765287*a(n-22) +90464*a(n-23) +299277*a(n-24) +209820*a(n-25) +1367674*a(n-26) -1121671*a(n-27) -267827*a(n-28) -130972*a(n-29) -223517*a(n-30) +827606*a(n-31) -782370*a(n-32) -82371*a(n-33) +124045*a(n-34) +68912*a(n-35) +98182*a(n-36) -75028*a(n-37) +2868*a(n-38) +4232*a(n-39) +5296*a(n-40) -864*a(n-41) -1488*a(n-42) +576*a(n-43) for n>44
+Empirical: a(n) = 6*a(n-1) +12*a(n-2) -10*a(n-3) -350*a(n-4) -463*a(n-5) +2158*a(n-6) +6008*a(n-7) +995*a(n-8) -30299*a(n-9) -33211*a(n-10) +23109*a(n-11) +127114*a(n-12) +59583*a(n-13) -65641*a(n-14) -141390*a(n-15) -153776*a(n-16) -125078*a(n-17) +237435*a(n-18) +444475*a(n-19) +30983*a(n-20) -39246*a(n-21) -417333*a(n-22) -168134*a(n-23) -48749*a(n-24) -49299*a(n-25) +488245*a(n-26) -184701*a(n-27) +52666*a(n-28) +43362*a(n-29) -164218*a(n-30) +175669*a(n-31) -96181*a(n-32) -14426*a(n-33) +1645*a(n-34) -17110*a(n-35) +18717*a(n-36) -8816*a(n-37) +738*a(n-38) +18*a(n-39) +434*a(n-40) +306*a(n-41) -156*a(n-42) +144*a(n-43) for n>44
 \end{quote}
-As of the ``Last modified'' line on the live entry (Apr 20 2018 11:06:55, revision
+As of the ``Last modified'' line on the live entry (Apr 08 2018 10:13:45, revision
 4) the statement is still recorded as empirical, and nothing on the entry
 records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;7\,a(n-1) + 7\,a(n-2) - 27\,a(n-3) - 321\,a(n-4) - 213\,a(n-5) + 2807\,a(n-6) + 3899\,a(n-7) - 8015\,a(n-8) - 27255\,a(n-9) + 12353\,a(n-10) + 71558\,a(n-11) + 3162\,a(n-12) - 120371\,a(n-13) + 8354\,a(n-14) + 167215\,a(n-15) - 138930\,a(n-16) - 372344\,a(n-17) + 512518\,a(n-18) + 604644\,a(n-19) - 441639\,a(n-20) - 211921\,a(n-21) - 765287\,a(n-22) + 90464\,a(n-23) + 299277\,a(n-24) + 209820\,a(n-25) + 1367674\,a(n-26) - 1121671\,a(n-27) - 267827\,a(n-28) - 130972\,a(n-29) - 223517\,a(n-30) + 827606\,a(n-31) - 782370\,a(n-32) - 82371\,a(n-33) + 124045\,a(n-34) + 68912\,a(n-35) + 98182\,a(n-36) - 75028\,a(n-37) + 2868\,a(n-38) + 4232\,a(n-39) + 5296\,a(n-40) - 864\,a(n-41) - 1488\,a(n-42) + 576\,a(n-43)
+a(n)\;=\;6\,a(n-1) + 12\,a(n-2) - 10\,a(n-3) - 350\,a(n-4) - 463\,a(n-5) + 2158\,a(n-6) + 6008\,a(n-7) + 995\,a(n-8) - 30299\,a(n-9) - 33211\,a(n-10) + 23109\,a(n-11) + 127114\,a(n-12) + 59583\,a(n-13) - 65641\,a(n-14) - 141390\,a(n-15) - 153776\,a(n-16) - 125078\,a(n-17) + 237435\,a(n-18) + 444475\,a(n-19) + 30983\,a(n-20) - 39246\,a(n-21) - 417333\,a(n-22) - 168134\,a(n-23) - 48749\,a(n-24) - 49299\,a(n-25) + 488245\,a(n-26) - 184701\,a(n-27) + 52666\,a(n-28) + 43362\,a(n-29) - 164218\,a(n-30) + 175669\,a(n-31) - 96181\,a(n-32) - 14426\,a(n-33) + 1645\,a(n-34) - 17110\,a(n-35) + 18717\,a(n-36) - 8816\,a(n-37) + 738\,a(n-38) + 18\,a(n-39) + 434\,a(n-40) + 306\,a(n-41) - 156\,a(n-42) + 144\,a(n-43)
 \end{equation}
 for all $n>44$.
 
@@ -57,17 +57,17 @@ for all $n>44$.
 
 For a cell of the array let its \emph{score} be the number of the six horizontal, diagonal and antidiagonal neighbours that lie inside
 the array and carry a value $equal to$ the cell's own. The entry's condition is that every cell
-has score in $\{1,2,3,5,6\}$. The entry also fixes the top-left entry to be $0$; that is a condition on the first row alone, so it restricts the start vector and nothing else.
+has score in $\{1,2,3,5\}$. The entry also fixes the top-left entry to be $0$; that is a condition on the first row alone, so it restricts the start vector and nothing else.
 
 A cell's neighbourhood reaches at most one row up and one row down, so the scores of the
 cells of a row $s$ are determined by $s$ together with the row above and the row below.
 Take as state an ordered pair $(r,s)$ of rows, so $S=256$, and set
 \begin{itemize}
-\item $\mathbf{s}(r,s)=1$ when every cell of $r$ has score in $\{1,2,3,5,6\}$ \emph{with no row
+\item $\mathbf{s}(r,s)=1$ when every cell of $r$ has score in $\{1,2,3,5\}$ \emph{with no row
 above $r$} and $r_1=0$, and $0$ otherwise;
-\item an edge $(r,s)\to(s,t)$ when every cell of $s$ has score in $\{1,2,3,5,6\}$ computed from
+\item an edge $(r,s)\to(s,t)$ when every cell of $s$ has score in $\{1,2,3,5\}$ computed from
 $r$, $s$ and $t$;
-\item $\mathbf{e}(r,s)=1$ when every cell of $s$ has score in $\{1,2,3,5,6\}$ \emph{with no row
+\item $\mathbf{e}(r,s)=1$ when every cell of $s$ has score in $\{1,2,3,5\}$ \emph{with no row
 below $s$}, and $0$ otherwise.
 \end{itemize}
 Let $P$ be the adjacency matrix of that edge relation.
@@ -78,7 +78,7 @@ $a(n)=\mathbf{s}^{\!\top}P^{\,n-2}\mathbf{e}$ for every $n\ge2$.
 
 \begin{proof}
 An array with $n$ rows is a sequence $r^{(1)},\dots,r^{(n)}$ of rows, and it is counted
-exactly when every one of its $n$ rows has all scores in $\{1,2,3,5,6\}$. Read the sequence as the
+exactly when every one of its $n$ rows has all scores in $\{1,2,3,5\}$. Read the sequence as the
 walk $\bigl(r^{(1)},r^{(2)}\bigr)\to\bigl(r^{(2)},r^{(3)}\bigr)\to\cdots\to
 \bigl(r^{(n-1)},r^{(n)}\bigr)$, of length $n-2$. The condition on the first row is
 checked by $\mathbf{s}$ at the initial state, because a first row has no row above it; the
@@ -143,7 +143,7 @@ zeros rather than to a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A303250.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A302468.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

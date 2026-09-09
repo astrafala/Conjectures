@@ -12,19 +12,19 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A283199, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A282437, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A283199 counts $n\times4$ arrays over $\{0,\dots,1\}$ subject to a condition imposed on
-every CELL over a neighbour set the entry names, and it carries an empirical recurrence of
+OEIS A282437 counts $n\times4$ arrays over $\{0,\dots,1\}$ subject to a condition imposed on
+every CELL through its king-move neighbourhood, and it carries an empirical recurrence of
 order $34$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
 empirical. A cell's neighbourhood meets three consecutive rows, so the state of a transfer
 matrix is a pair of consecutive rows and each step settles the middle one; an array is a
-walk, and $a(n)$ is a walk count on $S=470$ vertices, which is $C$-finite. Whether the
+walk, and $a(n)$ is a walk count on $S=544$ vertices, which is $C$-finite. Whether the
 conjectured recurrence annihilates it is then decided by a finite exact computation, with the
 Cayley--Hamilton theorem bounding the work.
 \end{abstract}
@@ -33,33 +33,29 @@ Cayley--Hamilton theorem bounding the work.
 
 \section{The conjecture}
 
-OEIS A283199 is ``Number of nX4 0..1 arrays with no 1 equal to more than two of its horizontal and vertical neighbors, with the exception of exactly one element.''. It has offset $1$ and begins
+OEIS A282437 is ``Number of n X 4 0..1 arrays with no 1 equal to more than three of its king-move neighbors, with the exception of exactly one element.''. It has offset $1$ and begins
 \[
-0, 36, 868, 16048, 263232, 4024168, 59065412, 842673912,\ \dots
+0, 12, 784, 10232, 152726, 2129756, 28043694, 363894560,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 18*a(n-1) -29*a(n-2) -174*a(n-3) -2976*a(n-4) -10280*a(n-5) -36327*a(n-6) -51166*a(n-7) -56733*a(n-8) +136728*a(n-9) +273529*a(n-10) +380780*a(n-11) -354170*a(n-12) -439798*a(n-13) +535820*a(n-14) -171074*a(n-15) -742999*a(n-16) +341418*a(n-17) +261472*a(n-18) -563536*a(n-19) -56145*a(n-20) +338242*a(n-21) -109804*a(n-22) -133254*a(n-23) +120176*a(n-24) +33588*a(n-25) -61637*a(n-26) +4672*a(n-27) +25732*a(n-28) -4460*a(n-29) -7460*a(n-30) +728*a(n-31) +1116*a(n-32) -32*a(n-33) -64*a(n-34)
+Empirical: a(n) = 16*a(n-1) -16*a(n-2) -74*a(n-3) -3558*a(n-4) -3034*a(n-5) -20251*a(n-6) +110356*a(n-7) -14615*a(n-8) +956252*a(n-9) -1210441*a(n-10) +2656776*a(n-11) -9054893*a(n-12) +3984404*a(n-13) -24433439*a(n-14) +2427526*a(n-15) -26966146*a(n-16) -9962078*a(n-17) -7925618*a(n-18) -20750296*a(n-19) +2245238*a(n-20) -7882436*a(n-21) +958326*a(n-22) +832918*a(n-23) -117605*a(n-24) +2408230*a(n-25) +356709*a(n-26) +695126*a(n-27) +29361*a(n-28) -62742*a(n-29) -46566*a(n-30) -47548*a(n-31) -13193*a(n-32) -4556*a(n-33) -1156*a(n-34).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Mar 02 2017 20:41:38, revision 4) this is still
+As of the ``Last modified'' line on the live entry (Feb 13 2026 13:06:21, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{Cells, not blocks}
 
-The entry names the neighbours it means --- horizontal is left and right, vertical is up and
-down, diagonal is northwest-to-southeast, antidiagonal is northeast-to-southwest, king-move is
-all eight --- and every such set lies inside the $3\times3$ square centred on the cell. Here
-the set is $\{(0,-1), (0,1), (-1,0), (1,0)\}$, written as offsets (row, column) from the cell. Every cell carries
-the condition
+The king-move neighbours of a cell are the (at most) eight cells surrounding it. Every cell
+carries the condition
 \[
-\text{every 1 has at most 2 neighbouring 1s},
+\text{every }1\text{ has at most }3\text{ neighbouring }1\text{s},
 \]
 and the count of neighbours enters it, so the boundary is not a detail that can be papered
-over: a cell in the interior has $4$ neighbours in this set and a cell on the boundary
-fewer, and a condition such as ``a strict majority of its neighbours'' therefore means
-different things at the two. In particular one cannot pad the array with a border of zeros ---
-that would give every cell the full $4$ and change what is being counted. The outside is
-therefore carried
+over: a corner cell has three neighbours, an edge cell five, an interior cell eight, and a
+condition such as ``a strict majority of its neighbours'' means different things at each. In
+particular one cannot pad the array with a border of zeros --- that would give boundary cells
+eight neighbours and change what is being counted. The outside is therefore carried
 explicitly, as a sentinel row above the first and below the last and as a sentinel column
 either side, and a neighbour that falls outside is simply absent from both counts.
 
@@ -100,7 +96,7 @@ nonzero $u_j$ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;18\,a(n-1) - 29\,a(n-2) - 174\,a(n-3) - 2976\,a(n-4) - 10280\,a(n-5) - 36327\,a(n-6) - 51166\,a(n-7) - 56733\,a(n-8) + 136728\,a(n-9) + 273529\,a(n-10) + 380780\,a(n-11) - 354170\,a(n-12) - 439798\,a(n-13) + 535820\,a(n-14) - 171074\,a(n-15) - 742999\,a(n-16) + 341418\,a(n-17) + 261472\,a(n-18) - 563536\,a(n-19) - 56145\,a(n-20) + 338242\,a(n-21) - 109804\,a(n-22) - 133254\,a(n-23) + 120176\,a(n-24) + 33588\,a(n-25) - 61637\,a(n-26) + 4672\,a(n-27) + 25732\,a(n-28) - 4460\,a(n-29) - 7460\,a(n-30) + 728\,a(n-31) + 1116\,a(n-32) - 32\,a(n-33) - 64\,a(n-34)
+a(n)\;=\;16\,a(n-1) - 16\,a(n-2) - 74\,a(n-3) - 3558\,a(n-4) - 3034\,a(n-5) - 20251\,a(n-6) + 110356\,a(n-7) - 14615\,a(n-8) + 956252\,a(n-9) - 1210441\,a(n-10) + 2656776\,a(n-11) - 9054893\,a(n-12) + 3984404\,a(n-13) - 24433439\,a(n-14) + 2427526\,a(n-15) - 26966146\,a(n-16) - 9962078\,a(n-17) - 7925618\,a(n-18) - 20750296\,a(n-19) + 2245238\,a(n-20) - 7882436\,a(n-21) + 958326\,a(n-22) + 832918\,a(n-23) - 117605\,a(n-24) + 2408230\,a(n-25) + 356709\,a(n-26) + 695126\,a(n-27) + 29361\,a(n-28) - 62742\,a(n-29) - 46566\,a(n-30) - 47548\,a(n-31) - 13193\,a(n-32) - 4556\,a(n-33) - 1156\,a(n-34)
 \]
 for every $n>34$.
 \end{theorem}
@@ -117,14 +113,13 @@ By Lemma~\ref{lem:crit} the recurrence holds for every $n>34$.
 
 Three checks, each independent of the algebra above.
 
-First, the transfer model reproduces all $16$ terms the entry publishes, exactly, in
-integer arithmetic. That check earned its place here. The neighbour offsets are named in the
-array's own frame --- horizontal means along a row --- but when the entry fixes the first
-dimension, as in ``$2\times n$'', the walk runs along columns and the two components of every
-offset swap. Sets such as king-move, or horizontal together with vertical, are unchanged by
-that swap and hide the error completely; a set such as horizontal, diagonal and antidiagonal
-is not, and the counts came out as those of a different member of the same family until the
-offsets were transposed.
+First, the transfer model reproduces all $17$ terms the entry publishes, exactly, in
+integer arithmetic. That check earned its place here. An early version of the construction
+tested whether a neighbour lay in the current row by comparing the row objects rather
+than their positions; when the row above happened to be identical to the current one, the
+cell directly above was then skipped as though it were the cell itself. The counts agreed with
+the entry for arrays of up to three rows and diverged at four, which is exactly the sort of
+error that a check on a handful of small cases would have missed.
 
 Second, the conjectured recurrence was evaluated directly on the entry's own published terms,
 with no matrices involved, and holds wherever the proved range and the data overlap.
@@ -134,7 +129,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A283199.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A282437.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

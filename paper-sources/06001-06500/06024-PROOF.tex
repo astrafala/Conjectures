@@ -12,144 +12,138 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A235233, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A317218, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A235233 counts $3$-column arrays over $\{0,\dots,6\}$ in which every
-$2\times2$ subblock has its diagonal sum differing from its antidiagonal sum by
-exactly $6$, and in which no two adjacent entries are equal, and it
-carries an empirical recurrence of order $28$ contributed by R.~H.~Hardin. It is true,
-and it is not an empirical matter: the condition constrains only consecutive pairs of rows,
-so the rows are the vertices of a finite digraph and an $(n+1)$-row array is a walk of
-length $n$. Hence $a(n)=\mathbf{1}^{\!\top}M^{n}\mathbf{1}$ on $S=252$ vertices, which
-is $C$-finite. Writing $q$ for the characteristic polynomial of the conjectured recurrence,
-the residual is $\mathbf{1}^{\!\top}M^{\,n-28}q(M)\mathbf{1}$, so the recurrence
-holds beyond a threshold exactly when that vanishes from then on --- and since the sequence
-of those values obeys the monic recurrence given by the characteristic polynomial of $M$,
-$S$ consecutive zeros settle every later one. The whole test is finite and exact.
+OEIS A317218 counts $4$-column arrays over $\{0,\dots,1\}$ in which every entry has,
+among the eight king-move neighbours, a number $different from$ itself lying in $\{1,2,3,4,5,7,8\}$, and it carries an empirical
+recurrence of order $28$ contributed by R.~H.~Hardin. It is true. The neighbourhood
+reaches one row up and one row down, so the condition on a row involves three consecutive
+rows and a window of two rows is a sufficient state; the array is then a walk in a digraph
+on $S=256$ vertices. Unlike a plain walk count the boundary rows matter here --- the first
+row has nothing above it and the last nothing below --- so the count is
+$\mathbf{s}^{\!\top}P^{\,n-2}\mathbf{e}$ for genuine start and end vectors rather than
+all-ones. The conjectured recurrence is then annihilated exactly, in integer arithmetic.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B50, 15B36.\normalsize
 
 \section{The sequence and the conjecture}
 
-OEIS A235233 is ``Number of (n+1) X (2+1) 0..6 arrays with every 2 X 2 subblock having its diagonal sum differing from its antidiagonal sum by 6, with no adjacent elements equal (constant-stress tilted 1 X 1 tilings).''. It has offset
+OEIS A317218 is ``Number of nX4 0..1 arrays with every element unequal to 1, 2, 3, 4, 5, 7 or 8 king-move adjacent elements, with upper left element zero.''. It has offset
 $1$ and begins
 \[
-420, 1288, 3688, 11728, 34916, 113940, 348876,\ \dots
+2, 98, 929, 11378, 133874, 1580822, 18667993, 220464927,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 6*a(n-1) +47*a(n-2) -331*a(n-3) -846*a(n-4) +7735*a(n-5) +6531*a(n-6) -99876*a(n-7) -4062*a(n-8) +780931*a(n-9) -294777*a(n-10) -3829232*a(n-11) +2187642*a(n-12) +11922251*a(n-13) -7106223*a(n-14) -23840076*a(n-15) +11482195*a(n-16) +31200479*a(n-17) -9197246*a(n-18) -26295345*a(n-19) +2967600*a(n-20) +13895070*a(n-21) +468804*a(n-22) -4403844*a(n-23) -634896*a(n-24) +759672*a(n-25) +171504*a(n-26) -54432*a(n-27) -15552*a(n-28).
+Empirical: a(n) = 8*a(n-1) +55*a(n-2) -7*a(n-3) -1058*a(n-4) -2985*a(n-5) -1279*a(n-6) +9793*a(n-7) +17520*a(n-8) +5330*a(n-9) -19566*a(n-10) -25908*a(n-11) -7185*a(n-12) -564*a(n-13) -9536*a(n-14) -19332*a(n-15) +6487*a(n-16) +21190*a(n-17) +30134*a(n-18) +16147*a(n-19) +12181*a(n-20) +12100*a(n-21) +16204*a(n-22) +6817*a(n-23) -6982*a(n-24) -3114*a(n-25) -1986*a(n-26) +275*a(n-27) +44*a(n-28) for n>29
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jun 19 2022 00:04:35, revision 7) the statement is
-still recorded as empirical, and nothing on the entry records it as settled either way.
+As of the ``Last modified'' line on the live entry (Jul 23 2018 19:47:38, revision
+4) the statement is still recorded as empirical, and nothing on the entry
+records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;6\,a(n-1) + 47\,a(n-2) - 331\,a(n-3) - 846\,a(n-4) + 7735\,a(n-5) + 6531\,a(n-6) - 99876\,a(n-7) - 4062\,a(n-8) + 780931\,a(n-9) - 294777\,a(n-10) - 3829232\,a(n-11) + 2187642\,a(n-12) + 11922251\,a(n-13) - 7106223\,a(n-14) - 23840076\,a(n-15) + 11482195\,a(n-16) + 31200479\,a(n-17) - 9197246\,a(n-18) - 26295345\,a(n-19) + 2967600\,a(n-20) + 13895070\,a(n-21) + 468804\,a(n-22) - 4403844\,a(n-23) - 634896\,a(n-24) + 759672\,a(n-25) + 171504\,a(n-26) - 54432\,a(n-27) - 15552\,a(n-28)
+a(n)\;=\;8\,a(n-1) + 55\,a(n-2) - 7\,a(n-3) - 1058\,a(n-4) - 2985\,a(n-5) - 1279\,a(n-6) + 9793\,a(n-7) + 17520\,a(n-8) + 5330\,a(n-9) - 19566\,a(n-10) - 25908\,a(n-11) - 7185\,a(n-12) - 564\,a(n-13) - 9536\,a(n-14) - 19332\,a(n-15) + 6487\,a(n-16) + 21190\,a(n-17) + 30134\,a(n-18) + 16147\,a(n-19) + 12181\,a(n-20) + 12100\,a(n-21) + 16204\,a(n-22) + 6817\,a(n-23) - 6982\,a(n-24) - 3114\,a(n-25) - 1986\,a(n-26) + 275\,a(n-27) + 44\,a(n-28)
 \end{equation}
-for all $n>28$, which is every $n$ at which a recurrence of order $28$ can be
-stated.
+for all $n>29$.
 
-\section{The rows form a digraph}
+\section{The array as a walk, with boundary}
 
-In a $2\times2$ subblock with top row $(r_j,r_{j+1})$ and bottom row $(s_j,s_{j+1})$ the
-diagonal sum is $r_j+s_{j+1}$ and the antidiagonal sum is $r_{j+1}+s_j$, so the entry's
-condition on that subblock reads
-\[
-\bigl|\,r_j+s_{j+1}-r_{j+1}-s_j\,\bigr|\;=\;6.
-\]
-Every such condition involves two consecutive rows only. The condition ``no adjacent elements equal'' splits into a horizontal
-part, which constrains a single row and so selects the vertex set, and a vertical part,
-which constrains a consecutive pair of rows and so belongs to the edge relation.
+For a cell of the array let its \emph{score} be the number of the eight king-move neighbours that lie inside
+the array and carry a value $different from$ the cell's own. The entry's condition is that every cell
+has score in $\{1,2,3,4,5,7,8\}$. The entry also fixes the top-left entry to be $0$; that is a condition on the first row alone, so it restricts the start vector and nothing else.
 
-Let $V$ consist of those $r\in\{0,\dots,6\}^{3}$ with $r_j\ne r_{j+1}$ for every
-$j$ --- the rows in which no two horizontally adjacent entries are equal, and put $S=|V|=252$. For $r,s\in V$ declare $r\to s$ an edge
-when $\bigl|r_j+s_{j+1}-r_{j+1}-s_j\bigr|=6$ for every $j$ with
-$1\le j\le3-1$, and $r_j\ne s_j$ for every $j$. Let $M\in\{0,1\}^{S\times S}$ be the adjacency matrix and $\mathbf{1}$
-the all-ones vector.
+A cell's neighbourhood reaches at most one row up and one row down, so the scores of the
+cells of a row $s$ are determined by $s$ together with the row above and the row below.
+Take as state an ordered pair $(r,s)$ of rows, so $S=256$, and set
+\begin{itemize}
+\item $\mathbf{s}(r,s)=1$ when every cell of $r$ has score in $\{1,2,3,4,5,7,8\}$ \emph{with no row
+above $r$} and $r_1=0$, and $0$ otherwise;
+\item an edge $(r,s)\to(s,t)$ when every cell of $s$ has score in $\{1,2,3,4,5,7,8\}$ computed from
+$r$, $s$ and $t$;
+\item $\mathbf{e}(r,s)=1$ when every cell of $s$ has score in $\{1,2,3,4,5,7,8\}$ \emph{with no row
+below $s$}, and $0$ otherwise.
+\end{itemize}
+Let $P$ be the adjacency matrix of that edge relation.
 
 \begin{lemma}\label{lem:walk}
-The arrays counted by the entry with $n+1$ rows are exactly the walks
-$r^{(0)}\to\cdots\to r^{(n)}$ of length $n$ in this digraph, so
-$a(n)=\mathbf{1}^{\!\top}M^{n}\mathbf{1}$.
+$a(n)=\mathbf{s}^{\!\top}P^{\,n-2}\mathbf{e}$ for every $n\ge2$.
 \end{lemma}
 
 \begin{proof}
-An array with $n+1$ rows and $3$ columns is a sequence $r^{(0)},\dots,r^{(n)}$ of
-rows. Each of its $2\times2$ subblocks lies in two vertically adjacent rows
-$r^{(i)},r^{(i+1)}$ and two horizontally adjacent columns $j,j+1$, so the array satisfies
-the entry's condition on all subblocks precisely when every consecutive pair of rows is an
-edge; and the row-internal condition, where present, is exactly membership of $V$. Summing
-the walk counts $\bigl(M^{n}\bigr)_{r,s}$ over all $r$ and $s$ gives
-$\mathbf{1}^{\!\top}M^{n}\mathbf{1}$.
+An array with $n$ rows is a sequence $r^{(1)},\dots,r^{(n)}$ of rows, and it is counted
+exactly when every one of its $n$ rows has all scores in $\{1,2,3,4,5,7,8\}$. Read the sequence as the
+walk $\bigl(r^{(1)},r^{(2)}\bigr)\to\bigl(r^{(2)},r^{(3)}\bigr)\to\cdots\to
+\bigl(r^{(n-1)},r^{(n)}\bigr)$, of length $n-2$. The condition on the first row is
+checked by $\mathbf{s}$ at the initial state, because a first row has no row above it; the
+condition on row $i$ for $2\le i\le n-1$ is checked by the edge entering
+$\bigl(r^{(i)},r^{(i+1)}\bigr)$, which sees exactly $r^{(i-1)}$, $r^{(i)}$ and
+$r^{(i+1)}$; and the condition on the last row is checked by $\mathbf{e}$ at the final
+state. Each row's condition is therefore tested once and with the correct neighbours, and
+summing over all walks gives $\mathbf{s}^{\!\top}P^{\,n-2}\mathbf{e}$.
 \end{proof}
 
 \section{The criterion}
 
 Let $q(t)=t^{28}-\sum_i c_i t^{28-i}$ be the characteristic polynomial of
-\eqref{eq:conj}.
+\eqref{eq:conj} and $u_j=\mathbf{s}^{\!\top}P^{j}q(P)\mathbf{e}$.
 
 \begin{lemma}\label{lem:crit}
-For $n\ge28$,
-$a(n)-\sum_i c_i a(n-i)=\mathbf{1}^{\!\top}M^{\,n-28}q(M)\mathbf{1}$. Writing
-$u_j=\mathbf{1}^{\!\top}M^{j}q(M)\mathbf{1}$, the recurrence therefore holds for every
-$n>t$ exactly when $u_j=0$ for every $j>t-28$. Moreover $(u_j)_{j\ge0}$ satisfies the
-monic linear recurrence whose characteristic polynomial is that of $M$, of degree $S$; so
-if $u_j$ vanishes for $S$ consecutive indices it vanishes for every larger index, and the
-last nonzero $u_j$ determines $t$ exactly.
+$a(n)-\sum_i c_i a(n-i)=u_{\,n-2-28}$ whenever $n-28\ge2$. So \eqref{eq:conj}
+holds for every $n>t$ exactly when $u_j=0$ for all $j>t-2-28$. Moreover $(u_j)$
+satisfies the monic linear recurrence given by the characteristic polynomial of $P$, of
+degree $S$, so $S$ consecutive zeros force every later one and the last nonzero $u_j$ pins
+$t$ down exactly.
 \end{lemma}
 
 \begin{proof}
-By Lemma~\ref{lem:walk}, $a(n-i)=\mathbf{1}^{\!\top}M^{n-i}\mathbf{1}$, so
-$a(n)-\sum_i c_i a(n-i)
-=\mathbf{1}^{\!\top}M^{\,n-28}\bigl(M^{28}-\sum_i c_i M^{28-i}\bigr)
-\mathbf{1}$, which is the identity. Putting $j=n-28$ gives the equivalence. For the
-last claim, let $\chi$ be the characteristic polynomial of $M$; by Cayley--Hamilton
-$\chi(M)=0$, so applying $\chi$ to the shift operator annihilates $(u_j)$, and $\chi$ is
-monic of degree $S$, which is exactly the statement that $S$ consecutive zeros propagate
-forward.
+Substituting Lemma~\ref{lem:walk} and factoring $P^{\,n-2-28}$ out of
+$P^{n-2}-\sum_i c_i P^{n-i-2}$ gives the identity, and letting the exponent run gives the
+equivalence. For the last part, Cayley--Hamilton gives $\chi(P)=0$ for the characteristic
+polynomial $\chi$, so $\chi$ applied to the shift annihilates $(u_j)$; $\chi$ is monic of
+degree $S$, which propagates $S$ consecutive zeros forward.
 \end{proof}
 
 \section{The computation}
 
 \begin{theorem}
-The recurrence \eqref{eq:conj} holds for every $n>28$. This is the statement of
+The recurrence \eqref{eq:conj} holds for every $n>29$. This is the statement of
 Section~1.
 \end{theorem}
 
 \begin{proof}
-The vector $q(M)\mathbf{1}\in\mathbb{Z}^{S}$ was formed by $28$ matrix--vector
-products in exact integer arithmetic and the values $u_j$ evaluated for
-$j=0,1,\dots$. They vanish from $j=28-28+1$ onwards, and the run was continued past
-$S$ consecutive zeros, which by Lemma~\ref{lem:crit} settles every larger $j$. Hence the
-recurrence holds for every $n>28$.
+The vector $q(P)\mathbf{e}\in\mathbb{Z}^{S}$ was formed by $28$ matrix--vector
+products in exact integer arithmetic and the $u_j$ evaluated against $\mathbf{s}$ in turn.
+They vanish from the index corresponding to $n=29+1$ onwards, and the run was continued
+past $S$ consecutive zeros, which by Lemma~\ref{lem:crit} settles every larger index.
 \end{proof}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the digraph was built directly from the entry's stated condition and the walk counts
-$\mathbf{1}^{\!\top}M^{n}\mathbf{1}$ compared against the entry's DATA at every one of
-the $21$ published indices; the values agree exactly. That is what ties the digraph to
-the sequence: a model reproducing only some published terms would be the wrong model and
-was rejected wherever it occurred.
+First, the digraph, the start vector and the end vector were built directly from the
+entry's stated condition, the one-row count computed separately, and the resulting values
+compared against the entry's DATA at every one of the $17$ published indices; they
+agree exactly. This is the check that ties the model to the sequence, and it is a sharp one:
+getting the boundary rows wrong, or treating them as interior rows, changes the early terms
+immediately.
 
 Second, the recurrence \eqref{eq:conj} was evaluated on those published terms in exact
-integer arithmetic, with no matrices involved, and vanishes wherever it applies.
+integer arithmetic, with no matrices involved, and vanishes at every index the entry claims.
 
-Third, the vanishing test of Lemma~\ref{lem:crit} was carried past $S=252$ consecutive
-zeros rather than to a sampled prefix, in exact integer arithmetic.
+Third, the vanishing test of Lemma~\ref{lem:crit} was carried past $S=256$ consecutive
+zeros rather than to a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A235233.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A317218.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

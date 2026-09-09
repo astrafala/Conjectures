@@ -12,14 +12,14 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A264874, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A264623, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{7 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A264874 carries an empirical recurrence of order $45$ contributed by R.~H.~Hardin. It is
+OEIS A264623 carries an empirical recurrence of order $45$ contributed by R.~H.~Hardin. It is
 true, and it is decidable rather than empirical. The entry's condition is local to a bounded window of consecutive lines, so
 the admissible configurations of such a window are the vertices of a finite digraph and the
 arrays counted are exactly the walks in it; hence $a(n)$ is a walk count on $S=65536$ vertices
@@ -31,15 +31,15 @@ finite exact computation, with the Cayley--Hamilton theorem bounding the work.
 
 \section{The conjecture}
 
-OEIS A264874 is ``Number of (n+1)X(3+1) arrays of permutations of 0..n*4+3 with each element having directed index change 0,1 0,-1 -2,0 or 1,1.''. It has offset $1$ and begins
+OEIS A264623 is ``Number of (n+1)X(3+1) arrays of permutations of 0..n*4+3 with each element having directed index change -2,0 -1,0 0,-1 or 1,1.''. It has offset $1$ and begins
 \[
-1, 1, 5, 20, 56, 137, 295, 709,\ \dots
+0, 4, 13, 22, 61, 280, 832, 2373,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = a(n-1) +5*a(n-3) +4*a(n-4) +21*a(n-5) +21*a(n-6) +13*a(n-7) -58*a(n-8) -70*a(n-9) -157*a(n-10) -198*a(n-11) -102*a(n-12) +209*a(n-13) +273*a(n-14) +553*a(n-15) +594*a(n-16) +289*a(n-17) -359*a(n-18) -430*a(n-19) -917*a(n-20) -765*a(n-21) -338*a(n-22) +401*a(n-23) +387*a(n-24) +812*a(n-25) +551*a(n-26) +167*a(n-27) -301*a(n-28) -174*a(n-29) -444*a(n-30) -208*a(n-31) -21*a(n-32) +107*a(n-33) +37*a(n-34) +134*a(n-35) +34*a(n-36) -17*a(n-38) -3*a(n-39) -19*a(n-40) -2*a(n-41) +a(n-43) +a(n-45)
+Empirical: a(n) = 6*a(n-2) +10*a(n-3) +33*a(n-4) -5*a(n-5) -175*a(n-6) -235*a(n-7) -281*a(n-8) +137*a(n-9) +1360*a(n-10) +1709*a(n-11) +923*a(n-12) -602*a(n-13) -3180*a(n-14) -4831*a(n-15) -3269*a(n-16) +499*a(n-17) +3130*a(n-18) +4030*a(n-19) +4286*a(n-20) +2250*a(n-21) -653*a(n-22) -816*a(n-23) -617*a(n-24) -1339*a(n-25) -1262*a(n-26) -109*a(n-27) +234*a(n-28) -419*a(n-29) -307*a(n-30) +265*a(n-31) +234*a(n-32) +80*a(n-33) -114*a(n-34) +69*a(n-35) +143*a(n-36) -99*a(n-37) -22*a(n-38) +28*a(n-39) +11*a(n-40) -9*a(n-41) -14*a(n-42) +15*a(n-43) -6*a(n-44) +a(n-45)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Nov 27 2015 07:31:10, revision 4) this is still
+As of the ``Last modified'' line on the live entry (Nov 19 2015 06:51:33, revision 4) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{The count is a walk count}
@@ -75,7 +75,7 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;a(n-1) + 5\,a(n-3) + 4\,a(n-4) + 21\,a(n-5) + 21\,a(n-6) + 13\,a(n-7) - 58\,a(n-8) - 70\,a(n-9) - 157\,a(n-10) - 198\,a(n-11) - 102\,a(n-12) + 209\,a(n-13) + 273\,a(n-14) + 553\,a(n-15) + 594\,a(n-16) + 289\,a(n-17) - 359\,a(n-18) - 430\,a(n-19) - 917\,a(n-20) - 765\,a(n-21) - 338\,a(n-22) + 401\,a(n-23) + 387\,a(n-24) + 812\,a(n-25) + 551\,a(n-26) + 167\,a(n-27) - 301\,a(n-28) - 174\,a(n-29) - 444\,a(n-30) - 208\,a(n-31) - 21\,a(n-32) + 107\,a(n-33) + 37\,a(n-34) + 134\,a(n-35) + 34\,a(n-36) - 17\,a(n-38) - 3\,a(n-39) - 19\,a(n-40) - 2\,a(n-41) + a(n-43) + a(n-45)
+a(n)\;=\;6\,a(n-2) + 10\,a(n-3) + 33\,a(n-4) - 5\,a(n-5) - 175\,a(n-6) - 235\,a(n-7) - 281\,a(n-8) + 137\,a(n-9) + 1360\,a(n-10) + 1709\,a(n-11) + 923\,a(n-12) - 602\,a(n-13) - 3180\,a(n-14) - 4831\,a(n-15) - 3269\,a(n-16) + 499\,a(n-17) + 3130\,a(n-18) + 4030\,a(n-19) + 4286\,a(n-20) + 2250\,a(n-21) - 653\,a(n-22) - 816\,a(n-23) - 617\,a(n-24) - 1339\,a(n-25) - 1262\,a(n-26) - 109\,a(n-27) + 234\,a(n-28) - 419\,a(n-29) - 307\,a(n-30) + 265\,a(n-31) + 234\,a(n-32) + 80\,a(n-33) - 114\,a(n-34) + 69\,a(n-35) + 143\,a(n-36) - 99\,a(n-37) - 22\,a(n-38) + 28\,a(n-39) + 11\,a(n-40) - 9\,a(n-41) - 14\,a(n-42) + 15\,a(n-43) - 6\,a(n-44) + a(n-45)
 \]
 for every $n>43$.
 \end{theorem}
@@ -91,7 +91,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $28$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $26$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
@@ -103,7 +103,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A264874.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A264623.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

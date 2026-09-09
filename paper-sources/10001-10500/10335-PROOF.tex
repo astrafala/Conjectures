@@ -10,48 +10,48 @@
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
-\title{A proof of the conjectured recurrence for OEIS A045742}
+\title{A proof of the conjectured recurrence for OEIS A127905}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{26 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A045742 carries a conjectured linear recurrence with polynomial coefficients, of
+OEIS A127905 carries a conjectured linear recurrence with polynomial coefficients, of
 order 3. The entry gives no generating function, but it does give the sequence as
 a single hypergeometric sum. We prove the conjecture without assuming any generating
 function: creative telescoping produces, from the summand alone, an operator of order
-2 that annihilates the sequence, together with a rational certificate that is
+3 that annihilates the sequence, together with a rational certificate that is
 checked as an exact identity rather than trusted. The conjectured operator is then shown
 to be a left multiple of it by division in the Ore algebra $\mathbb{Q}(n)[N]$. That last
-step is what the conjecture needs: the conjectured recurrence has order $3$ while the summand only needs order $2$, so it is not itself a telescoper and cannot be produced directly.
+step is what the conjecture needs: the two operators have the same order but are not proportional, so the conjecture still has to be derived from what telescoping gives.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 33F10, 11B37, 68W30.\normalsize
 
 \section{The sequence and the conjecture}
 
-OEIS A045742 is ``Number of interior faces in all noncrossing connected graphs on n nodes on a circle''. It has offset $2$ and begins
+OEIS A127905 is ``Construct triangle in which n-th row is obtained by expanding (1+x+x\^{}3)\^{}n and take the next-to-central column''. It has offset $0$ and begins
 \[
-a(2),\dots,a(9)\;=\;0, 1, 13, 141, 1456, 14778, 149031, 1499773,\ \dots
+a(0),\dots,a(7)\;=\;0, 1, 2, 3, 8, 25, 66, 168,\ \dots
 \]
 The entry states, not as a conjecture,
 \begin{quote}\small
-a(n) = Sum\_\{k=1..n-2\} k*binomial(n+k-2, k)*binomial(3*n-3, n-2-k)/(n-1).
+a(n) = Sum\_\{k=0..floor((n-1)/3)\} (3*k+1)*C(n,3*k+1)*C(3*k,k)/(2k+1).
 \end{quote}
 so that, writing $F(n,k)$ for the summand,
 \begin{equation}\label{eq:sum}
-a(n)\;=\;\sum_{k=1}^{n - 2}F(n,k),
-\qquad F(n,k)=\frac{k {\binom{3 n - 3}{- k + n - 2}} {\binom{k + n - 2}{k}}}{n - 1} .
+a(n)\;=\;\sum_{k=0}^{\left\lfloor{\frac{n}{3} - \frac{1}{3}}\right\rfloor}F(n,k),
+\qquad F(n,k)=\frac{\left(3 k + 1\right) {\binom{3 k}{k}} {\binom{n}{3 k + 1}}}{2 k + 1} .
 \end{equation}
 This is the only input the proof takes from the entry, and it was checked against the
 entry's own DATA before use.
 
 The entry separately carries the following comment:
 \begin{quote}\small
-Conjecture D-finite with recurrence n*(n-1)*(523*n-1993)*a(n) -6*(n-1)*(759*n\^{}2-6019*n+12790)*a(n-1) -12*(n-2)*(4707*n\^{}2-17937*n+6260)*a(n-2) +72*(3*n-10)*(759*n-2224)*(3*n-11)*a(n-3)=0. - \emph{R. J. Mathar}, Jul 26 2022
+\textbf{Conjecture:} 2*(2*n+1)*(n-1)\^{}2*a(n) -2*n*(6*n\^{}2-12*n+5)*a(n-1) +6*n*(n-1)*(2*n-3)*a(n-2) -31*n*(n-1)*(n-2)*a(n-3)=0. - \emph{R. J. Mathar}, Feb 23 2015
 \end{quote}
-As of the ``Last modified'' line on the live entry (2022-07-26, revision 20) the
+As of the ``Last modified'' line on the live entry (2022-09-08, revision 17) the
 statement is still recorded as a conjecture, and no proof appears among the entry's links,
 formulas or programs.
 
@@ -84,24 +84,24 @@ functions once both sides are divided by $F(n,k)$: the quotients $F(n+i,k)/F(n,k
 $F(n,k+1)/F(n,k)$ are rational because $F$ is hypergeometric in both variables. So a
 proposed $(\sigma,R)$ can be \emph{checked}, exactly, whatever produced it.
 
-For A045742 such a pair exists with $r=2$:
+For A127905 such a pair exists with $r=3$:
 \[
-\sigma_{0}(n)=-2,\qquad \sigma_{1}(n)=\frac{- 9 n^{3} - 33 n^{2} + 8 n + 32}{54 n^{5} + 9 n^{4} - 114 n^{3} + 77 n^{2} - 14 n},\qquad \sigma_{2}(n)=\frac{6 n^{5} + 7 n^{4} - 24 n^{3} - 23 n^{2} + 18 n + 16}{324 n^{5} + 54 n^{4} - 684 n^{3} + 462 n^{2} - 84 n}
+\sigma_{0}(n)=- \frac{31}{108},\qquad \sigma_{1}(n)=\frac{2 n + 3}{18 n + 18},\qquad \sigma_{2}(n)=\frac{- 6 n^{2} - 24 n - 23}{54 n^{2} + 162 n + 108},\qquad \sigma_{3}(n)=\frac{2 n^{2} + 11 n + 14}{54 n^{2} + 216 n + 162}
 \]
 and certificate
 \[
-R(n,k)\;=\;\frac{12 k^{5} n^{3} + 14 k^{5} n^{2} - 14 k^{5} n + 60 k^{4} n^{4} + 112 k^{4} n^{3} - 21 k^{4} n^{2} - 49 k^{4} n + 54 k^{3} n^{5} + 207 k^{3} n^{4} + 126 k^{3} n^{3} - 211 k^{3} n^{2} - 32 k^{3} n + 96 k^{3} - 120 k^{2} n^{6} - 134 k^{2} n^{5} + 171 k^{2} n^{4} - 180 k^{2} n^{3} - 150 k^{2} n^{2} + 275 k^{2} n + 144 k^{2} - 222 k n^{7} - 565 k n^{6} - 5 k n^{5} + 767 k n^{4} + 529 k n^{3} - 140 k n^{2} - 484 k n - 240 k + 222 n^{7} + 685 n^{6} + 85 n^{5} - 1205 n^{4} - 599 n^{3} + 508 n^{2} + 304 n}{12 k^{5} n^{3} + 14 k^{5} n^{2} - 14 k^{5} n + 48 k^{4} n^{4} + 104 k^{4} n^{3} - 56 k^{4} n + 12 k^{3} n^{5} + 146 k^{3} n^{4} + 200 k^{3} n^{3} - 84 k^{3} n^{2} - 70 k^{3} n - 120 k^{2} n^{6} - 176 k^{2} n^{5} + 206 k^{2} n^{4} + 192 k^{2} n^{3} - 98 k^{2} n^{2} - 28 k^{2} n - 48 k n^{7} - 248 k n^{6} - 240 k n^{5} + 164 k n^{4} + 112 k n^{3} - 28 k n^{2} + 96 n^{8} + 160 n^{7} - 152 n^{6} - 216 n^{5} + 56 n^{4} + 56 n^{3}} .
+R(n,k)\;=\;\frac{2 k^{3} + k^{2}}{54 k^{3} - 54 k^{2} n - 54 k^{2} + 18 k n^{2} + 36 k n + 12 k - 2 n^{3} - 6 n^{2} - 4 n} .
 \]
 Dividing \eqref{eq:cert} by $F(n,k)$ and cancelling gives $0$ identically, so
 Lemma~\ref{lem:tel} applies and
 \begin{equation}\label{eq:L}
-L\;=\;\sum_{i=0}^{2}\sigma_{i}(n)N^{i}
+L\;=\;\sum_{i=0}^{3}\sigma_{i}(n)N^{i}
 \end{equation}
 annihilates $a$.
 
 \section{From the derived recurrence to the conjectured one}
 
-The operator \eqref{eq:L} is not the conjectured one. It has order $2$, below the conjectured order $3$: the conjecture is a consequence of a shorter relation, not the shortest relation itself. The two are connected by
+The operator \eqref{eq:L} is not the conjectured one. It has the same order as the conjectured one but is not a multiple of it by a constant. The two are connected by
 division in the Ore algebra $\mathcal{A}=\mathbb{Q}(n)[N]$, where multiplication obeys
 $N\,q(n)=q(n+1)\,N$.
 
@@ -118,21 +118,21 @@ $n$, so the step is valid away from their poles.
 Writing the conjectured recurrence as an operator $C$ and dividing by $L$ leaves remainder
 $0$, with quotient
 \[
-Q\;=\;\left(- 245916 n^{3} + 228744 n^{2} - 37476 n - 3816\right) + \left(\frac{169452 n^{6} + 738126 n^{5} + 739980 n^{4} - 142926 n^{3} - 510624 n^{2} - 226920 n - 30528}{6 n^{3} + 7 n^{2} - 7 n}\right)\,N .
+Q\;=\;\left(108 n^{3} + 648 n^{2} + 1188 n + 648\right) .
 \]
-The coefficients of $Q$ are rational functions of $n$; their only integer poles are $n\in\{0\}$, below the range claimed here.
+No coefficient of $Q$ has an integer pole, so Lemma~\ref{lem:factor} applies at every index.
 
 \begin{theorem}
 The conjectured recurrence
 \[
-n \left(n - 1\right) \left(523 n - 1993\right)\,a(n) -  6 \left(n - 1\right) \left(759 n^{2} - 6019 n + 12790\right)\,a(n-1) -  12 \left(n - 2\right) \left(4707 n^{2} - 17937 n + 6260\right)\,a(n-2) + 72 \left(3 n - 11\right) \left(3 n - 10\right) \left(759 n - 2224\right)\,a(n-3) \;=\;0
+2 \left(n - 1\right)^{2} \left(2 n + 1\right)\,a(n) -  2 n \left(6 n^{2} - 12 n + 5\right)\,a(n-1) + 6 n \left(n - 1\right) \left(2 n - 3\right)\,a(n-2) -  31 n \left(n - 2\right) \left(n - 1\right)\,a(n-3) \;=\;0
 \]
-holds for every $n\ge5$.
+holds for every $n\ge3$.
 \end{theorem}
 
 \begin{proof}
 By Lemma~\ref{lem:tel} the operator \eqref{eq:L} annihilates $a$, and by
-Lemma~\ref{lem:factor} applied to $C=QL$ so does the conjectured operator. The integer poles of $Q$ all lie below $n=5$.
+Lemma~\ref{lem:factor} applied to $C=QL$ so does the conjectured operator. No coefficient of $Q$ has an integer pole.
 \end{proof}
 
 \section{Verification}
@@ -154,12 +154,12 @@ $\mathcal{A}$ and its coefficients cancelled against those of $C$ to zero.
 Fourth, the conjecture itself was evaluated on the published terms, in exact integer
 arithmetic and without reference to any operator: for each $n$ in range the sum
 $\sum_{i}p_{i}(n)a(n-i)$ was formed from the entry's own values and found to vanish, for
-all 16 values of $n$ from $n=5$ upward. The formula \eqref{eq:sum} was
+all 24 values of $n$ from $n=3$ upward. The formula \eqref{eq:sum} was
 likewise checked term by term against the DATA section before being used.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer Sequences},
-\url{https://oeis.org}, 2026. Sequence A045742.
+\url{https://oeis.org}, 2026. Sequence A127905.
 \bibitem{aeqb} M.~Petkov\v{s}ek, H.~S.~Wilf and D.~Zeilberger, \emph{A=B}, A K Peters,
 1996.
 \bibitem{zeil} D.~Zeilberger, \emph{The method of creative telescoping}, J. Symbolic

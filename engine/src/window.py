@@ -43,7 +43,7 @@ def _num(s):
 
 
 def _pairsum(body):
-    m = re.match(r'(no|some) pairs? in (any|every) consecutive (\w+) terms totalling exactly '
+    m = re.match(r'(no|some) pairs? in (any|every) consecutive (\w+) terms total+ing exactly '
                  r'(\d+)$', body)
     if not m:
         return None
@@ -210,7 +210,43 @@ def _partitions(items, size):
             yield [block] + tail
 
 
-READERS = (_pairsum, _maxmin, _sumtimes, _linear, _samesum, _disjoint, _median, _downstep)
+def _timeselem(body):
+    """`every five consecutive terms having four times some element equal to the sum of the
+    remaining four'."""
+    m = re.match(r'(no|every) (\w+) consecutive terms having '
+                 r'(twice|two times|three times|four times|five times|six times) '
+                 r'(any|some) element equal to the sum of the remaining (\w+)$', body)
+    if not m:
+        return None
+    w, r = _num(m.group(2)), _num(m.group(5))
+    if not (w and r) or r + 1 != w:
+        return None
+    c = MULT[m.group(3)]
+    want = m.group(1) == 'every'
+
+    def pred(v):
+        tot = sum(v)
+        return any(c * x == tot - x for x in v)
+    return w, (pred if want else (lambda v: not pred(v)))
+
+
+def _summing(body):
+    """`no consecutive three elements summing to more than 10'."""
+    m = re.match(r'no consecutive (\w+) elements summing to more than ([0-9*]+)$', body)
+    if not m:
+        return None
+    w = _num(m.group(1))
+    try:
+        lim = eval(m.group(2), {'__builtins__': {}})
+    except Exception:
+        return None
+    if not w or not isinstance(lim, int):
+        return None
+    return w, (lambda v: sum(v) <= lim)
+
+
+READERS = (_pairsum, _maxmin, _sumtimes, _linear, _timeselem, _summing, _samesum, _disjoint,
+           _median, _downstep)
 
 
 def parse_name(nm):

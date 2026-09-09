@@ -95,6 +95,28 @@ sweep chose what to look at. Not one was hidden by mathematics.
 | E8 | an instrument that cannot see what it is asked about returns a confident zero | nearly cost the whole closed-form vein |
 | E9 | **a new sweep reading a block conjecture as a premise** | 774 false proofs, caught before a single paper was built. E2 again, in code written the same day the defect was written down. A line carrying no conjectural word is NOT a fact: an entry writes `Conjectures from X: (Start)' and then bare formula lines. Any sweep that looks for a premise must exclude everything `conjlines` returns, not merely lines with the word on them. |
 
+## F1. What no engine reads, measured fresh on 9 September 2026
+
+2,791 entries outside the roster carry a readable conjectured recurrence and a name no engine
+reads. Measured against the clone, not against a cached list -- the earlier census predates
+`window`, `repval` and `ordpoly` and is stale by construction.
+
+| how many | family | why it is not read |
+| ---: | --- | --- |
+| 379 | coordination sequences `Gal.u.t.v` | the name does not give the tiling; the Galebach data would have to be read |
+| 199 | two-dimensional arrays growing in BOTH directions (`n X n`, `(n+1) X (n+1)`, `n X 4`) | a transfer matrix along one side has a state space that grows with the other |
+| 130 | `-n..n arrays x(i) of n+2 elements ...` | fixed length, alphabet growing, but the conditions are arithmetic rather than order-only |
+| 105 | ON/OFF cell counts of two-dimensional automata | no proved generating function; see `refused.py` |
+| 38 | necklaces and bracelets over `-n..n` | Burnside gives an exact polynomial for the seven plain sum-zero ones; the rest carry pattern conditions |
+| 39 | `n X n` binary arrays | same as the two-dimensional case |
+| 34 | arrays of permutations | a walk on W! vertices is only feasible for small W |
+| 20 | self-avoiding walks | no finite-state model |
+| 18 | `the sum of ... multiplied by some arrangement of +-1 equal to zero` | whether zero is reachable depends on a set of partial sums that grows with n |
+| ~1,800 | a long tail of one-off phrasings | each would need its own reading |
+
+The reachable part of this database has largely been taken. What is left is dominated by
+families that are hard for a reason, not by families nobody has read.
+
 ## F. Not yet attempted at all
 
 * C4 inequalities, C5 primality, C6 always/never, C7 algebraic g.f.s, C8 e.g.f.s

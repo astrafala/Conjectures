@@ -12,64 +12,71 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A237392, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A204869, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A237392 counts arrays over $\{0,\dots,3\}$ subject to a condition on the order
-statistics of every $2\times2$ subblock, and carries an empirical recurrence of order
-$38$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical.
-The condition is local to two consecutive rows, so the count is a walk count on $S=63$
-states and is $C$-finite; whether the conjectured recurrence annihilates it is then settled by
-a finite exact computation, with the Cayley--Hamilton theorem bounding the work.
+OEIS A204869 counts arrays over $\{0,\dots,3\}$ under a condition on the permanent of every
+$2\times2$ subblock, and carries an empirical recurrence of order $38$ contributed by
+R.~H.~Hardin. It is true, and it is decidable rather than empirical. The condition is local to
+a bounded window of consecutive rows, so the count is a walk count on $S=104$ states and is
+$C$-finite; whether the conjectured recurrence annihilates it is then settled by a finite exact
+computation, with the Cayley--Hamilton theorem bounding the work.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 62G30.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
 \section{The conjecture}
 
-OEIS A237392 is ``Number of (n+1)X(1+1) 0..3 arrays with the maximum plus the upper median minus the lower median of every 2X2 subblock equal.''. It has offset $1$ and begins
+OEIS A204869 is ``Number of (n+1)X2 0..3 arrays with the permanents of all 2X2 subblocks equal and nonzero.''. It has offset $1$ and begins
 \[
-256, 1314, 7172, 41062, 239176, 1413864, 8412540, 50339772,\ \dots
+207, 551, 1467, 4245, 12241, 36285, 107397, 321317,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 16*a(n-1) -a(n-2) -1192*a(n-3) +4094*a(n-4) +36112*a(n-5) -198360*a(n-6) -545444*a(n-7) +4685891*a(n-8) +3321208*a(n-9) -67390781*a(n-10) +22829928*a(n-11) +639650148*a(n-12) -651316000*a(n-13) -4142764754*a(n-14) +6470375444*a(n-15) +18376040396*a(n-16) -38949652408*a(n-17) -54036290680*a(n-18) +157297776560*a(n-19) +92738689520*a(n-20) -438302540448*a(n-21) -34343558400*a(n-22) +839286075392*a(n-23) -244016746496*a(n-24) -1069165264896*a(n-25) +639661955072*a(n-26) +836754953216*a(n-27) -778903263232*a(n-28) -321097089024*a(n-29) +509360603136*a(n-30) -5457870848*a(n-31) -162308947968*a(n-32) +40198209536*a(n-33) +17667063808*a(n-34) -6990594048*a(n-35) -343932928*a(n-36) +320864256*a(n-37) -25165824*a(n-38)
+Empirical: a(n) = 9*a(n-1) +21*a(n-2) -394*a(n-3) +151*a(n-4) +7966*a(n-5) -10808*a(n-6) -98823*a(n-7) +187286*a(n-8) +843135*a(n-9) -1900516*a(n-10) -5256667*a(n-11) +13199115*a(n-12) +24843520*a(n-13) -66813566*a(n-14) -91104356*a(n-15) +254330777*a(n-16) +263015193*a(n-17) -739407216*a(n-18) -602162617*a(n-19) +1650910282*a(n-20) +1093598055*a(n-21) -2824649042*a(n-22) -1563655353*a(n-23) +3668977540*a(n-24) +1731053069*a(n-25) -3556804939*a(n-26) -1443011892*a(n-27) +2506362226*a(n-28) +868301913*a(n-29) -1234756694*a(n-30) -354185298*a(n-31) +401490128*a(n-32) +88923284*a(n-33) -78797720*a(n-34) -11650360*a(n-35) +7965216*a(n-36) +539616*a(n-37) -282240*a(n-38)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 10:09:12, revision 7) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 11:34:31, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-Sort the four entries of a $2\times2$ subblock as $a\le b\le c\le d$: they
-are its minimum, lower median, upper median and maximum. The entry fixes the signed sum
-\[
-\sigma\;=\;-b+c+d,
-\]
-and asks that $\sigma$ take the SAME value on every $2\times2$ subblock of an
-$(n+1)\times2$ array over $\{0,\dots,3\}$.
+Write $\sigma$ for the permanent of a $2\times2$ subblock
+$\begin{pmatrix}p&q\\r&s\end{pmatrix}$, that is $\sigma=ps+qr$. The subblocks of an
+$(n+1)\times2$ array over $\{0,\dots,3\}$ form a grid of $n$ rows and $1$
+column, and $\sigma$ colours that grid.
 
-The common value is not named, so the count splits by it. For a fixed $v$ let $a_v(n)$ count
-the arrays all of whose subblocks give $\sigma=v$. An array determines its common value, so
+The condition is that all the subblocks of one array share a single value of $\sigma$. That
+value is not named, so the count splits by it and the value $0$ is excluded by the entry: for a fixed $v$ let $a_v(n)$ count the
+arrays all of whose subblocks give $\sigma=v$. An array determines its own common value, so
 the sets belonging to different $v$ are disjoint and $a(n)=\sum_v a_v(n)$, a finite sum.
-
 
 \section{The count is a walk count}
 
-For a fixed $v$ the condition involves two consecutive rows and nothing
-else: rows $r$ and $s$ may follow one another exactly when $\sigma$ equals $v$ on each of the
-$1$ subblocks they form. So a row is a state, an $(n+1)$-row array is a walk of $n$
-steps, and with $M$ the adjacency matrix on the disjoint union over $v$,
+For a fixed $v$ the condition again looks at one subblock at a time, so a
+row is a state and rows $r,s$ may follow one another when all $1$ of their subblocks give
+$v$. Taking the disjoint union over $v$ and with $M$ its adjacency matrix,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n}\tau,\qquad\iota=\tau=(1,\dots,1)^{\!\top} .
+a(n)\;=\;\iota^{\!\top}M^{\,n}\tau,\qquad\iota=\tau=(1,\dots,1)^{\!\top},
 \]
-Rows carrying no edge at all are dropped: such a row can only be the whole of a one-row
-array, which is not among the objects counted. There are $S=63$ states left.
-The alignment of the walk index with the entry's own $n$ was checked against its published
-terms rather than assumed. In particular $a$ is $C$-finite.
+on the $S=104$ states that survive. Rows carrying no edge at all are dropped: such a row could
+only be the whole of a one-row array, which is not among the objects counted.
+
+At $n=1$ the array has two rows and the grid is a single row of $1$
+subblock, each tested on its own, so $a(1)$ counts the
+$2\times2$ arrays over $\{0,\dots,3\}$ all of whose subblocks pass. The entry's
+first term is $207$, and the model reproduces it along with every later term; that is the
+cheapest check that the grid has been read with the right shape.
+
+Over the alphabet $\{0,\dots,3\}$ the permanent of a $2\times2$ subblock takes values in
+$[0,18]$, so the colouring of the grid it induces has at most $19$ values.
+That bound is what keeps the construction below finite in the only place where the value of
+$\sigma$, rather than a comparison between two of them, has to be carried.
+In particular $a$ is $C$-finite. The alignment of the walk index with the entry's own $n$ was
+checked against its published terms rather than assumed.
 
 \section{The proof}
 
@@ -91,15 +98,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;16\,a(n-1) - a(n-2) - 1192\,a(n-3) + 4094\,a(n-4) + 36112\,a(n-5) - 198360\,a(n-6) - 545444\,a(n-7) + 4685891\,a(n-8) + 3321208\,a(n-9) - 67390781\,a(n-10) + 22829928\,a(n-11) + 639650148\,a(n-12) - 651316000\,a(n-13) - 4142764754\,a(n-14) + 6470375444\,a(n-15) + 18376040396\,a(n-16) - 38949652408\,a(n-17) - 54036290680\,a(n-18) + 157297776560\,a(n-19) + 92738689520\,a(n-20) - 438302540448\,a(n-21) - 34343558400\,a(n-22) + 839286075392\,a(n-23) - 244016746496\,a(n-24) - 1069165264896\,a(n-25) + 639661955072\,a(n-26) + 836754953216\,a(n-27) - 778903263232\,a(n-28) - 321097089024\,a(n-29) + 509360603136\,a(n-30) - 5457870848\,a(n-31) - 162308947968\,a(n-32) + 40198209536\,a(n-33) + 17667063808\,a(n-34) - 6990594048\,a(n-35) - 343932928\,a(n-36) + 320864256\,a(n-37) - 25165824\,a(n-38)
+a(n)\;=\;9\,a(n-1) + 21\,a(n-2) - 394\,a(n-3) + 151\,a(n-4) + 7966\,a(n-5) - 10808\,a(n-6) - 98823\,a(n-7) + 187286\,a(n-8) + 843135\,a(n-9) - 1900516\,a(n-10) - 5256667\,a(n-11) + 13199115\,a(n-12) + 24843520\,a(n-13) - 66813566\,a(n-14) - 91104356\,a(n-15) + 254330777\,a(n-16) + 263015193\,a(n-17) - 739407216\,a(n-18) - 602162617\,a(n-19) + 1650910282\,a(n-20) + 1093598055\,a(n-21) - 2824649042\,a(n-22) - 1563655353\,a(n-23) + 3668977540\,a(n-24) + 1731053069\,a(n-25) - 3556804939\,a(n-26) - 1443011892\,a(n-27) + 2506362226\,a(n-28) + 868301913\,a(n-29) - 1234756694\,a(n-30) - 354185298\,a(n-31) + 401490128\,a(n-32) + 88923284\,a(n-33) - 78797720\,a(n-34) - 11650360\,a(n-35) + 7965216\,a(n-36) + 539616\,a(n-37) - 282240\,a(n-38)
 \]
-for every $n>37$.
+for every $n>38$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $38$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=37+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=38+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -107,7 +114,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $18$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $23$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
@@ -119,11 +126,10 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A237392.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A204869.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{david} H.~A.~David and H.~N.~Nagaraja, \emph{Order Statistics}, 3rd ed., Wiley,
-2003.
+\bibitem{minc} H.~Minc, \emph{Permanents}, Addison--Wesley, 1978.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}
