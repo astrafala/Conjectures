@@ -12,135 +12,135 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A268626, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A184023, proved by splitting on the common sum}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{3 September 2026}
+\date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A268626 counts arrays of width $6$ over $\{0,1,2\}$ in which the number of adjacent PAIRS of
-cells whose entries add up to $2$ is at most one. The entry carries an empirical recurrence of
-order $14$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
-empirical. The condition is global --- no window of the array decides it --- but the quantity
-it constrains is a count that may be capped at two, and a capped count is a bounded state; the
-result is a walk count on $S=1162$ states.
+OEIS A184023 counts arrays over $\{0,\dots,3\}$ in which all $2\times2$ subblock sums are
+EQUAL --- the common value not being named --- and carries an empirical recurrence of order
+$15$ contributed by R.~H.~Hardin. The unnamed value is what stops a transfer matrix from
+applying directly, and it costs nothing to remove: an array with at least one $2\times2$
+subblock determines its own common sum, so the count splits as a sum over the $12+1$
+possible values with nothing counted twice, and each summand is an ordinary walk count. On
+the block-diagonal matrix over those values the recurrence is decided by a finite exact
+computation on $S=3328$ vertices.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05C30, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
-\section{The conjecture}
+\section{The sequence and the conjecture}
 
-OEIS A268626 is ``Number of nX6 0..2 arrays with some element plus some horizontally or vertically adjacent neighbor totalling two no more than once.''. It has offset $1$ and begins
+OEIS A184023 is ``1/8 the number of (n+1)X4 0..3 arrays with all 2X2 subblock sums the same.''. It has offset $1$ and begins
 \[
-336, 8586, 187224, 3819654, 74914554, 1430057208, 26758514760, 493042858032,\ \dots
+242, 491, 1052, 2597, 6650, 18701, 53948, 165929,\ \dots
 \]
-The entry states, as a conjecture contributed by its author and never marked settled:
-\begin{quote}
-Empirical: a(n) = 60*a(n-1) -1482*a(n-2) +20016*a(n-3) -167163*a(n-4) +924894*a(n-5) -3537110*a(n-6) +9593166*a(n-7) -18693789*a(n-8) +26218062*a(n-9) -26188161*a(n-10) +18139608*a(n-11) -8262712*a(n-12) +2220864*a(n-13) -266256*a(n-14) for n>15
+The entry carries the following comment:
+\begin{quote}\small
+Empirical: a(n)=8*a(n-1)+16*a(n-2)-268*a(n-3)+189*a(n-4)+3388*a(n-5)-5824*a(n-6)-20048*a(n-7)+49756*a(n-8)+52752*a(n-9)-196896*a(n-10)-24192*a(n-11)+369216*a(n-12)-131328*a(n-13)-262656*a(n-14)+165888*a(n-15)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Feb 09 2016 09:23:16, revision 4) this is still
-recorded as empirical, and nothing on the entry records it as proved.
+As of the ``Last modified'' line on the live entry (Oct 03 2025 02:15:16, revision 9) the statement is
+still recorded as empirical, and nothing on the entry records it as settled either way.
 
-\section{What is being counted}
+Written out, the claim is
+\begin{equation}\label{eq:conj}
+a(n)\;=\;8\,a(n-1) + 16\,a(n-2) - 268\,a(n-3) + 189\,a(n-4) + 3388\,a(n-5) - 5824\,a(n-6) - 20048\,a(n-7) + 49756\,a(n-8) + 52752\,a(n-9) - 196896\,a(n-10) - 24192\,a(n-11) + 369216\,a(n-12) - 131328\,a(n-13) - 262656\,a(n-14) + 165888\,a(n-15)
+\end{equation}
+for all $n>15$.
 
-The array has $6$ cells across, with entries in $\{0,1,2\}$. An ADJACENT PAIR is a pair of cells
+\section{Splitting on the common sum}
+
+The arrays have $4$ columns and $L=n+1$ rows, entries in
+$\{0,\dots,3\}$, and every $2\times2$ subblock has the same sum. Since $L\ge2$ and
+$4\ge2$, every such array contains at least one $2\times2$ subblock, and that subblock's
+sum is the common value; so each array belongs to exactly one of the classes
 \[
-\begin{array}{l}
-$(i,j)\text{ and }(i,j{+}1)$ \\
-$(i,j)\text{ and }(i{+}1,j)$ \\
-\end{array}
+A_c=\{\text{arrays all of whose }2\times2\text{ subblock sums equal }c\},
+\qquad 0\le c\le 12,
 \]
-both lying inside the array. A pair is a pair of CELLS, so it is counted once and not once from
-each end. Writing $k$ for the number of adjacent pairs whose two entries add up to $2$, the
-entry counts the arrays with $k$ at most one.
+and $\#\{\text{admissible arrays}\}=\sum_c |A_c|$ with no array counted twice. The bound
+$12=4\cdot3$ is the largest possible subblock sum.
 
-\section{A capped count is a state}
+For a fixed $c$ the condition is local, so $|A_c|$ is a walk count. Let
+$V=\{0,\dots,3\}^{4}$ be the possible rows and let $M_c$ be the adjacency
+matrix of the digraph in which $r\to s$ when
+$r_j+r_{j+1}+s_j+s_{j+1}=c$ for every $j$ with $1\le j\le 4-1$. Then
+$|A_c|=\mathbf{1}^{\!\top}M_c^{\,L-1}\mathbf{1}$, since an array of $L$ rows is a
+sequence of $L$ elements of $V$ and each of its $2\times2$ subblocks lies in two consecutive
+rows and two consecutive columns.
 
-No window of the array decides the condition: $k$ is a total over the whole array. But the
-condition distinguishes only $k=0$, $k=1$ and $k\ge2$, so the count may be carried capped at
-two and stays bounded.
+Writing $N=\bigoplus_{c=0}^{12}M_c$, of size $S=3328$, and $\mathbf{v}$ for the
+all-ones vector on it,
+\begin{equation}\label{eq:walk}
+a(n)\;=\;\tfrac1{8}\,\mathbf{v}^{\!\top}N^{\,L-1}\mathbf{1},\qquad L=n+1.
+\end{equation}
 
-\begin{lemma}\label{lem:cap}
-Let $k_t$ be the number of qualifying pairs lying inside the first $t$ rows. Then
-\[
-k_{t}\;=\;k_{t-1}+\bigl(\text{pairs inside row } t\bigr)
-+\bigl(\text{pairs joining rows } t-1 \text{ and } t\bigr),
-\]
-and both added terms are determined by rows $t-1$ and $t$ alone.
-\end{lemma}
+\section{The criterion, and the computation}
 
-\begin{proof}
-Every adjacent pair lies either inside one row or across two consecutive rows, by the list
-above; a pair inside rows $1..t$ that is not inside rows $1..t-1$ must meet row $t$, so it is
-one of the two kinds counted.
-\end{proof}
-
-So the state is the pair $(\text{previous row},\min(k,2))$: a step appends a row, adds the
-pairs Lemma~\ref{lem:cap} names and caps the total at two. The end vector accepts the states
-with $k\le1$, so it is not the all-ones vector. With $M$ the adjacency matrix,
-\[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=1162.
-\]
-The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
-published terms rather than assumed. In particular $a$ is $C$-finite.
-
-\section{The proof}
+Let $q(t)=t^{15}-\sum_i c_i\,t^{15-i}$ be the characteristic polynomial of
+\eqref{eq:conj} and $G=N$.
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{14}-\sum_i c_it^{14-i}$ be the characteristic polynomial of the
-conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
-$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
-holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
-and it is enough to examine $j<S$.
+With $n_0$ the least index for which $L\ge1$, $o=1n_0+1-1$ and
+$h_j=G^{j}N^{o}\mathbf{1}$, we have for $j\ge15$
+\[
+a(n_0+j)-\sum_i c_i\,a(n_0+j-i)=\tfrac1{8}\,\mathbf{v}^{\!\top}G^{\,j-15}w,
+\qquad w=h_{15}-\sum_i c_ih_{15-i} .
+\]
+Hence \eqref{eq:conj} holds from that point on if and only if
+$\mathbf{v}^{\!\top}G^{m}w=0$ for all $m\ge0$, and $m<S$ suffices.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+14}-\sum_ic_iM^{j+14-i}$. For the bound, $M^{S}$
-is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
-$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
-polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly.
+Substitute \eqref{eq:walk} and factor. By Cayley--Hamilton $G^{S}$ is an integer
+combination of $I,G,\dots,G^{S-1}$, so every later value repeats that combination of
+earlier ones.
 \end{proof}
 
 \begin{theorem}
-\[
-a(n)\;=\;60\,a(n-1) - 1482\,a(n-2) + 20016\,a(n-3) - 167163\,a(n-4) + 924894\,a(n-5) - 3537110\,a(n-6) + 9593166\,a(n-7) - 18693789\,a(n-8) + 26218062\,a(n-9) - 26188161\,a(n-10) + 18139608\,a(n-11) - 8262712\,a(n-12) + 2220864\,a(n-13) - 266256\,a(n-14)
-\]
-for every $n>15$.
+The recurrence \eqref{eq:conj} holds for every $n>15$, which is the statement of
+Section~1.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $14$ matrix--vector products in exact integer
-arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=15+1$ onwards and the run continued
-until the working vector was identically zero.
+Each $M_c$ was built directly from its defining condition. The vector $w$ was formed by
+$15$ applications of $G$ in exact integer arithmetic and $\mathbf{v}^{\!\top}G^{m}w$
+evaluated for $m=0,1,\dots$, again exactly. Every one of those integers vanishes from the
+index corresponding to $n=15+1$ onwards, and the run continued until $S+1$ consecutive
+zeros had been seen.
 \end{proof}
+
+\begin{remark}
+The splitting is what makes the argument finite, and it is exact rather than an
+over-count only because every array here has a subblock. For a one-column or one-row
+shape there is no subblock at all, every value of $c$ would be vacuously admissible, and the
+sum would count each array $12+1$ times; those shapes are excluded by $L\ge2$ and
+$4\ge2$.
+\end{remark}
 
 \section{Verification}
 
-Four checks, each independent of the algebra above.
+Three checks, each independent of the algebra above.
 
-First, the model reproduces all $15$ terms the entry publishes, exactly, in integer
-arithmetic.
+First, the right-hand side of \eqref{eq:walk} was evaluated at every one of the $22$
+published indices and agrees with the entry's DATA exactly, with no shift fitted. A double
+count in the splitting, or a wrong bound on $c$, would show up here immediately.
 
-Second, the count was recomputed for the smallest arrays straight from the definition:
-enumerate every array of that size in the orientation the entry's own name writes, count the
-adjacent pairs summing to $2$ by running over the array once for each kind of pair, and keep
-the array when that count is at most one. No cap, no state and no transfer matrix are involved, and
-the published terms came back.
+Second, the recurrence \eqref{eq:conj} was evaluated on those published terms in exact
+integer arithmetic, with no matrices involved, and vanishes wherever it applies.
 
-Third, the conjectured recurrence was evaluated directly on the published terms, with no
-matrices involved, and holds wherever the proved range and the data overlap.
-
-Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
-arithmetic on the whole vector rather than on a sampled prefix.
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried to the full
+Cayley--Hamilton bound in exact integer arithmetic rather than to a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A268626.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A184023.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+University Press, 2009.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

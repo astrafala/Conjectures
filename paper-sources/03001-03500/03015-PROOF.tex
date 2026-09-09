@@ -12,111 +12,83 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A233219, proved by carrying a row major clause across
-columns}
+\title{A global condition that is really a local one: OEIS A223057}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{6 September 2026}
+\date{7 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A233219 counts $3\times n$ arrays over $\{0,\dots,5\}$ with a forbidden-pair
-condition and a clause on the order in which values first appear, read in ROW MAJOR order, and
-it carries an empirical recurrence of order $5$ contributed by R.~H.~Hardin. It is true.
-The obstacle is that the array grows in $n$, so the walk runs across COLUMNS and does not visit
-the cells in row major order; the running set of ``values seen so far'' that settles the clause
-for a column-fixed entry is simply the wrong set here. What the walk can carry instead is, for
-each value the clause names, the least ROW in which it has yet been seen, together with the
-order in which those least rows were attained. That is enough, and it is bounded, so the count
-is a walk count and the recurrence is settled by a finite exact computation.
+OEIS A223057 carries an empirical recurrence of order $6$ contributed by R.~H.~Hardin. It is
+true, and it is decidable rather than empirical. The entry asks that every connected set of
+equal values lie in a straight line, which is a condition on components and so on the array as
+a whole. It is shown here to be equivalent to a condition on single pairs of adjacent rows:
+the array is admissible exactly when no cell has an equal neighbour beside it and an equal
+neighbour above or below it, and that in turn is decided one row at a time. The counted arrays
+are then the walks in a finite digraph on $S=8$ vertices, $a(n)$ is $C$-finite, and whether
+the conjectured recurrence annihilates it is a finite exact computation with Cayley--Hamilton
+bounding the work.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 68Q45.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
 \section{The conjecture}
 
-OEIS A233219 is ``Number of 3Xn 0..5 arrays with no element x(i,j) adjacent to value 5-x(i,j) horizontally or antidiagonally, top left element zero, and 1 appearing before 2 3 and 4, and 2 appearing before 3 in row major order.''. It has offset $1$ and begins
+OEIS A223057 is ``Number of n X 3 0..3 arrays with all horizontally or vertically connected equal values in a straight line, and new values 0..3 introduced in row major order.''. It has offset $1$ and begins
 \[
-11, 452, 35446, 3054973, 268289572, 23644611625,\ \dots
+5, 114, 4865, 213469, 9383963, 412602889, 18142309235, 797728639489,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 111*a(n-1) -2128*a(n-2) +10532*a(n-3) -17559*a(n-4) +9045*a(n-5) for n>7
+Empirical: a(n) = 55*a(n-1) - 515*a(n-2) + 1337*a(n-3) - 696*a(n-4) - 1188*a(n-5) + 1008*a(n-6) for n>7.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 07:56:16, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Aug 17 2018 09:21:39, revision 8) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
-\section{What is being counted}
+\section{The condition is not global}
 
-The array has $3$ rows and $n$ columns. Two cells are adjacent when they differ by one of the
-offsets
-\[
-(0,1), (1,-1),
-\]
-and the entry forbids any adjacent pair $u,v$ with $u+v=5$. It fixes the top left cell to
-zero. Finally it asks that, reading the cells in ROW MAJOR order --- along the first row, then
-along the second, and so on --- the first occurrences of the values $1$, $2$, $3$, $4$ come in a
-prescribed order: $1$ before $2$, $1$ before $3$, $1$ before $4$, $2$ before $3$. A precedence involving a value that never occurs is satisfied
-vacuously; one whose later value occurs while its earlier value does not is broken.
+The entry counts arrays with $3$ columns over the alphabet $\{0,1,2,3\}$, and asks that every set of equal values joined horizontally or vertically lie in a straight line. As stated this is a condition on connected components, and a component can run the length of the array; nothing about it is confined to a few rows. The first lemma replaces it by a condition on single cells, and the second by a condition on pairs of consecutive rows.
 
-\section{Why the obvious state does not work}
+Call two cells \emph{joined} when they are horizontally or vertically adjacent and hold the same value, and let a \emph{component} be a connected set of cells under that relation. A \emph{turn} is a cell with a joined neighbour to its left or right \emph{and} a joined neighbour above or below.
 
-Since $n$ grows, the walk must run across the columns: a state is one column, and the
-forbidden-pair condition is settled between two consecutive columns, because every offset above
-moves the column index by at most one.
-
-The clause is the difficulty. For an entry whose WIDTH is fixed the walk runs down the rows and
-therefore visits the cells in row major order, so it is enough to carry the set of named values
-already written and to refuse a column that introduces a value out of turn. Here the walk
-visits the cells in COLUMN major order, and that set is the wrong one: a value first written
-low down in an early column may be written again higher up in a later column, and it is the
-later, higher cell that comes first in row major order.
-
-\section{What the walk can carry}
-
-\begin{lemma}\label{lem:key}
-For a value $v$ occurring in the array, let $r_v$ be the least row in which $v$ occurs and
-$c_v$ the least column with $x_{r_v,c_v}=v$. Then the first occurrence of $v$ in row major
-order is the cell $(r_v,c_v)$, and $u$ precedes $v$ in row major order exactly when
-$(r_u,c_u)<(r_v,c_v)$ lexicographically.
+\begin{lemma}\label{lem:turn}
+Every component lies in a single row or a single column if and only if the array has no turn.
 \end{lemma}
 
 \begin{proof}
-Row major order is the lexicographic order on $(\text{row},\text{column})$, and the least
-element of the set of cells carrying $v$ under a lexicographic order is obtained by minimising
-the first coordinate and then the second.
+A turn lies in a component containing a cell to its side and a cell above or below it, so that component meets two rows and two columns and lies in neither a single row nor a single column.
+
+Conversely, suppose some component $C$ lies in no single row and no single column. $C$ is connected, so it has at least two cells and hence at least one joining edge; if every edge of $C$ were horizontal then all of $C$ would lie in one row, and if every edge were vertical it would lie in one column. So $C$ has a horizontal edge $e$ and a vertical edge $f$. Take a path of edges of $C$ from $e$ to $f$; along it the type changes somewhere, so two consecutive edges of the path have different types. Consecutive edges of a path share a cell, and that shared cell has a joined neighbour beside it and one above or below it. It is a turn.
 \end{proof}
 
-\begin{lemma}\label{lem:tie}
-Two distinct values with the same least row attain it in different columns.
+The point of Lemma~\ref{lem:turn} is that a turn is visible in one cell and its four neighbours. That already bounds the condition, but it bounds it to three rows. It can be brought down to two.
+
+For a row $r$ write $B(r)\subseteq\{1,\dots,3\}$ for the set of positions $j$ with $r_{j-1}=r_j$ or $r_j=r_{j+1}$ --- the cells of that row with a joined neighbour beside them. $B(r)$ depends on $r$ alone.
+
+\begin{lemma}\label{lem:pair}
+An array has no turn if and only if every pair of consecutive rows $r,s$ satisfies
+\[ r_j \neq s_j \qquad\text{for every } j \in B(r)\cup B(s). \]
 \end{lemma}
 
 \begin{proof}
-If $r_u=r_v=r$ and $c_u=c_v=c$ then the cell $(r,c)$ carries both $u$ and $v$.
+A cell in row $i$ at position $j$ is a turn exactly when $j\in B(r^{(i)})$ and it equals the cell directly above or directly below it. If some pair of consecutive rows $r=r^{(i)}$, $s=r^{(i+1)}$ has $r_j=s_j$ with $j\in B(r)$, that cell of row $i$ is a turn; with $j\in B(s)$, that cell of row $i+1$ is a turn. Conversely a turn at row $i$, position $j$, has $j\in B(r^{(i)})$ and agrees with row $i-1$ or row $i+1$ at $j$, and the corresponding consecutive pair violates the displayed condition.
 \end{proof}
 
-So the walk carries, for each named value, the least row in which it has been seen so far ---
-or the fact that it has not been seen --- and, for values sharing a least row, which of them
-attained it first. By Lemma~\ref{lem:tie} those attainments happen in different columns, and
-the walk meets the columns in order, so ``which attained it first'' is decided as the walk
-goes. Nothing else about the past matters: a later column can only LOWER a value's least row,
-and Lemma~\ref{lem:key} says the comparison depends on nothing else.
+So the array is admissible precisely when consecutive rows are compatible in the sense of Lemma~\ref{lem:pair}, and compatibility is decided by the two rows and nothing else. The state is one row. There is no window to carry, no judgement deferred to a later row, and no special treatment of the last row: a one-row array has no vertical neighbours at all and is always admissible, which is where these sequences start.
 
-One thing must not be done, and is not done here. The clause cannot be enforced along the way,
-because a least row can still drop and reorder the first occurrences retroactively. It is a
-property of the finished array, so it is tested in the ACCEPTING states and nowhere else.
+The entry also asks that new values be introduced in row major order. That is not a condition on any pair of rows --- whether a value may appear here depends on the whole array so far --- but the whole prefix enters only through one integer, how many values have been introduced already, so the state is a row together with a number in $\{0,\dots,4\}$. The effect is that each array is counted once for the whole class of arrays differing from it only by renaming values, which is what the entry counts.
 
-The state is therefore a column together with an ordered partition of the named values by least
-row, and there are $S=324$ of them after states with identical futures are merged. Hence
+Make those states the vertices of a digraph, with an edge from $r$ to $s$ when the pair is compatible and the counter advances legally. Merging vertices with identical futures leaves $S=8$. An admissible array is exactly a walk, so with $M$ the adjacency matrix and $\iota,\tau$ the vectors recording which states may begin and end an array,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,
+a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau ,
 \]
-and $a$ is $C$-finite.
+the exponent fixed by the entry's own shape and checked against its published terms. In
+particular $a$ is $C$-finite.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{5}-\sum_i c_it^{5-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{6}-\sum_i c_it^{6-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -124,22 +96,23 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+5}-\sum_ic_iM^{j+5-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+6}-\sum_ic_iM^{j+6-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly.
+pins the threshold exactly. A constant factor in front of $a$ divides out of the residual and
+changes nothing here.
 \end{proof}
 
 \begin{theorem}
 \[
-a(n)\;=\;111\,a(n-1) - 2128\,a(n-2) + 10532\,a(n-3) - 17559\,a(n-4) + 9045\,a(n-5)
+a(n)\;=\;55\,a(n-1) - 515\,a(n-2) + 1337\,a(n-3) - 696\,a(n-4) - 1188\,a(n-5) + 1008\,a(n-6)
 \]
 for every $n>7$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $5$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $6$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
 integers vanish from the index corresponding to $n=7+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once. The bound is exact: at $n=7$ the recurrence fails on the entry's own published terms, so no larger range holds.
@@ -149,15 +122,16 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $13$ terms the entry publishes, exactly, in integer
-arithmetic, with no shift fitted.
+First, the model reproduces all $15$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry: the digraph is built by reading the
+entry's English, and a misreading gives different counts.
 
-Second --- and this is the check the whole paper turns on --- the arrays were enumerated
-directly for the smallest shapes the entry counts, in the orientation the name writes, with the
-cells listed in true row major order and each precedence tested on that list. No transposing
-and no walk. The counts agree. Reading the clause in the walk's own order instead gives
-different numbers for several entries of this family, so this check is what separates the two
-readings.
+Second, the reduction of Lemmas~\ref{lem:turn} and~\ref{lem:pair} was checked against the
+thing it replaces. A separate program enumerates every array of the given shape one by one,
+finds the connected sets of equal values by an ordinary graph search, and tests whether each
+lies in a single row or a single column --- the entry's condition as written, with no
+reduction at all. Its counts agree with the model's. That program shares no code with the
+transfer matrix, so an error in one does not hide an error in the other.
 
 Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
@@ -167,11 +141,11 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A233219.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A223057.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{hopcroft} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to
-Automata Theory, Languages, and Computation}, 3rd ed., Addison--Wesley, 2006.
+\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+University Press, 2009.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

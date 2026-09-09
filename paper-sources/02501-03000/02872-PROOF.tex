@@ -12,34 +12,34 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A268069, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A267947, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A268069 counts arrays in which the REPEATED VALUES of each row, and of each column, stand in a
+OEIS A267947 counts arrays in which the REPEATED VALUES of each row, and of each column, stand in a
 prescribed relation to one another in the order they occur. The entry carries an empirical
 recurrence of order $6$ contributed by R.~H.~Hardin. It is true, and it is decidable
 rather than empirical: one of the two scans runs inside a slice of the array and the other
 across slices, and the second needs only the previous slice together with the last repeated
-value so far in each column of the scan, so the count is a walk count on $S=44$ states.
+value so far in each column of the scan, so the count is a walk count on $S=145$ states.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 05A18, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A268069 is ``Number of n X 1 0..3 arrays with every repeated value in every row and column unequal to the previous repeated value, and new values introduced in row-major sequential order.''. It has offset $1$ and begins
+OEIS A267947 is ``Number of n X 2 0..2 arrays with every repeated value in every row and column one larger mod 3 than the previous repeated value, and upper left element zero.''. It has offset $1$ and begins
 \[
-1, 2, 4, 12, 39, 138, 499, 1830,\ \dots
+3, 27, 192, 1323, 8427, 52272, 312987, 1839267,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 6*a(n-1) - 3*a(n-2) - 30*a(n-3) + 28*a(n-4) + 36*a(n-5) - 36*a(n-6) for n>8.
+Empirical: a(n) = 10*a(n-1) - 8*a(n-2) - 163*a(n-3) + 306*a(n-4) + 684*a(n-5) - 1296*a(n-6).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Feb 26 2018 08:21:57, revision 9) this is still
+As of the ``Last modified'' line on the live entry (Mar 21 2018 09:39:34, revision 7) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
@@ -47,22 +47,14 @@ recorded as empirical, and nothing on the entry records it as proved.
 Read a row of the array from left to right. A REPEATED VALUE is an entry equal to the entry
 immediately before it; the row thus produces the sequence of values at the places where two
 equal entries stand side by side. The entry asks that each repeated value of a row be
-different from the previous repeated value of that row, and that each repeated value of a column,
-read downwards, be different from the previous repeated value of that column. The FIRST repeated
+one larger modulo 3 than the previous repeated value of that row, and that each repeated value of a column,
+read downwards, be one larger modulo 3 than the previous repeated value of that column. The FIRST repeated
 value of a scan has no predecessor and is unconstrained; a scan with no two equal neighbours
-imposes nothing at all.
+imposes nothing at all. The entry also fixes the top left entry at $0$, which restricts which slices may begin an array and nothing else.
 
-The entry closes with ``new values introduced in row-major sequential order'', so what is
-counted is arrays up to renaming the letters. Both relations here are built from equality
-alone, so the condition survives renaming and the usual inversion applies: with $N_j$ the
-classes on exactly $j$ letters and $L_i$ the admissible arrays over an alphabet of $i$ letters,
-\[
-L_i=\sum_j N_j\,i(i-1)\cdots(i-j+1),\qquad
-a=N_1+\dots+N_{4}=\bigl(\mathbf{1}^{\!\top}F^{-1}\bigr)L .
-\]
-An entry of this family whose relation compares letters by size, or does arithmetic on them,
-carries no such clause and is counted over its own alphabet instead; the two cases are not
-mixed.
+The entry carries no renaming clause, and it could not: the relations here compare letters by
+size or do arithmetic on them, so they are not invariant under permuting the alphabet. The
+count is therefore taken over the alphabet the entry names, with no reduction to patterns.
 
 \section{One scan inside a slice, one across}
 
@@ -83,10 +75,10 @@ besides that entry is the previous repeated value of that $column$.
 \end{proof}
 
 So the state is the pair (previous $row$, vector of last repeated values), the second
-component taking $3+2$ values at each position --- the letters together with a symbol for
-``none yet''. Assembling the pieces for $i=1,\dots,4$ as a disjoint union, with $\iota$ carrying the weights above cleared of denominators,
+component taking $2+2$ values at each position --- the letters together with a symbol for
+``none yet''. With $M$ the adjacency matrix of that digraph,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=44,\quad\tau=\mathbf{1} .
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=145,\quad\tau=\mathbf{1} .
 \]
 The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
 published terms rather than assumed. In particular $a$ is $C$-finite.
@@ -111,15 +103,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;6\,a(n-1) - 3\,a(n-2) - 30\,a(n-3) + 28\,a(n-4) + 36\,a(n-5) - 36\,a(n-6)
+a(n)\;=\;10\,a(n-1) - 8\,a(n-2) - 163\,a(n-3) + 306\,a(n-4) + 684\,a(n-5) - 1296\,a(n-6)
 \]
-for every $n>8$.
+for every $n>6$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $6$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=8+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=6+1$ onwards and the run continued
 until the working vector was identically zero.
 \end{proof}
 
@@ -127,7 +119,7 @@ until the working vector was identically zero.
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $25$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $20$ terms the entry publishes, exactly, in integer
 arithmetic.
 
 Second, the count was recomputed for the smallest arrays straight from the definition:
@@ -143,7 +135,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A268069.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A267947.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge

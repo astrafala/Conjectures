@@ -12,38 +12,36 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical column recurrences for the table OEIS A235660}
+\title{The empirical column recurrences for the table OEIS A235280}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A235660 is a two-dimensional table $T(n,k)$, and it carries a block of empirical
+OEIS A235280 is a two-dimensional table $T(n,k)$, and it carries a block of empirical
 recurrences contributed by R.~H.~Hardin --- one for each of its first few columns. They are
 true. Column $k$ of the table is an ordinary fixed-width array count, so its rows are the
 vertices of a finite digraph and $T(n,k)$ is a number of walks in it; being a walk count the
 column is $C$-finite, and whether a given recurrence annihilates it is decided by a finite
-exact computation, with the Cayley--Hamilton theorem bounding the work. This note settles the columns $k=1$.
+exact computation, with the Cayley--Hamilton theorem bounding the work. This note settles the
+columns $k=1$.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
 \section{The table and the conjectures}
 
-OEIS A235660 is ``T(n,k)=Number of (n+1)X(k+1) 0..1 arrays with the difference of the upper median and minimum value of each 2X2 subblock in lexicographically nondecreasing order rowwise and columnwise.''. It has offset $1$, is
+OEIS A235280 is ``T(n,k) is the number of (n+1) X (k+1) 0..4 arrays with every 2 X 2 subblock having its diagonal sum differing from its antidiagonal sum by 5 (constant-stress 1 X 1 tilings).''. It has offset $1$, is
 read by antidiagonals, and begins
 \[
-16, 52, 52, 160, 276, 160, 476, 1368,\ \dots
+40, 100, 100, 208, 208, 208, 520, 380,\ \dots
 \]
 The entry carries the following block:
 \begin{quote}\small
-Empirical for column k:\\
-k=1: a(n) = 4*a(n-1) -a(n-2) -8*a(n-3) +4*a(n-4)\\
-k=2: [order 21]\\
-k=3: [order 69]\\
+Empirical for column k (the k=2..9 recurrence also works for k=1; apparently all rows and columns satisfy the same order 9 recurrence):\\
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 08:42:49, revision 6) these are still
+As of the ``Last modified'' line on the live entry (Jun 18 2022 23:37:36, revision 9) these are still
 recorded as empirical, and nothing on the entry records any of them as settled.
 
 \section{A column of the table is a walk count}
@@ -85,8 +83,8 @@ $j\ge S_k$ repeats that combination of earlier values.
 
 \begin{center}
 \begin{tabular}{ccccc}
-line & order & vertices $S$ & proved for & terms checked \\ \hline
-column $k$$=1$ & $4$ & $13$ & $>3$ & $9$ \\
+column $k$ & order & vertices $S_k$ & proved for & terms checked \\ \hline
+$1$ & $4$ & $25$ & $n>4$ & $9$ \\
 \end{tabular}
 \end{center}
 
@@ -95,29 +93,29 @@ exact integer arithmetic and $\mathbf{1}^{\!\top}M_k^{j}w$ evaluated for $j=0,1,
 again exactly; every one of those integers vanishes from the stated point onwards and the run
 continued until the working vector was identically zero, which settles all larger $j$ at once.
 
-\subsection*{Column $k$$=1$}
-The sequence is ``Number of (n+1)X2 0..1 arrays with the difference of the upper median and minimum value of each 2X2 subblock in lexicographically nondecreasing order rowwise and columnwise.''. Its rows are the vertices of a digraph on
-$S=13$ vertices, edges being the admissible consecutive pairs, and the count is
+\subsection*{Column $k=1$}
+The sequence is ``Number of (n+1) X (2) 0..4 arrays with every 2 X 2 subblock having its diagonal sum differing from its antidiagonal sum by 5 (constant-stress 1 X 1 tilings).''. Its rows are the vertices of a digraph on
+$S=25$ vertices, edges being the admissible consecutive pairs, and the count is
 $\mathbf{1}^{\!\top}M^{n}\mathbf{1}$ up to the constant factor in the entry's name.
 The conjectured recurrence
 \[
-a(n)\;=\;4\,a(n-1) - a(n-2) - 8\,a(n-3) + 4\,a(n-4)
+a(n)\;=\;10\,a(n-2) - 24\,a(n-4)
 \]
-holds from index $3+1$ on.
+holds for every $n>4$.
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, each model was compared against the entry's own published values for its line, taken
-both from the antidiagonal DATA read in either orientation and from the ``Table starts''
-block, and agrees at every available term. This is what ties a model to the table:
-substituting the fixed index into the entry's wording is a reading of English, and a wrong
-reading gives a different digraph and different counts. Across the lines settled here the
-model reproduces $9$ published values, $33$ decimal digits in all, every one of
-them exactly; a misreading of the entry would have to reproduce all of them by accident.
+First, each column model was compared against the entry's own published values for that
+column, taken both from the antidiagonal DATA and from the ``Table starts'' block, and agrees
+at every available term. This is what ties a model to the table: substituting $k$ into the
+entry's wording is a reading of English, and a wrong reading gives a different digraph and
+different counts. Across the columns settled here the model reproduces $9$ published
+values, $33$ decimal digits in all, every one of them exactly; a misreading of the entry
+would have to reproduce all of them by accident.
 
-Second, each conjectured recurrence was evaluated on those published values in exact
+Second, each conjectured recurrence was evaluated on those published column values in exact
 integer arithmetic, with no matrices involved, and holds wherever the proved range and the
 data overlap.
 
@@ -125,16 +123,15 @@ Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact in
 arithmetic rather than on a sampled prefix.
 
 \begin{remark}
-A row of the table is a column of the transposed table: fixing $n$ and letting $k$ vary gives a
-count of arrays of fixed height, which is the same kind of object with the two dimensions
-exchanged. Both are settled here by the same argument. Only the lines the entry states
-explicitly, and for which enough published values exist to run the first check above, are
-claimed.
+A table row is a column of the transposed table, so the same argument settles the entry's row
+conjectures whenever the transposed shape is itself of the form treated here. Only the columns
+the entry states explicitly, and for which enough published terms exist to run the first check
+above, are claimed.
 \end{remark}
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A235660.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A235280.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

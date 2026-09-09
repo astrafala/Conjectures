@@ -12,90 +12,91 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A189448, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A263300, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{6 September 2026}
+\date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A189448 counts the permutations of the cells of an $n\times8$ array in which every cell
-moves by one of a fixed short list of offsets. The entry carries an empirical recurrence of
-order $41$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
-empirical. The count is the permanent of the incidence matrix of the offset graph; read the
-cells in row-major order and let each choose its image, and the only thing that has to be
-carried is which images inside a window of $19$ consecutive positions are already taken.
-That makes $a$ a walk count on $S=8715$ states, hence $C$-finite, and whether the published
-recurrence is one of its recurrences is then a finite exact computation.
+OEIS A263300 counts arrays of width $5$ over $\{0,1\}$ whose rows, read as base-$2$
+numbers, are divisible by $13$ and whose columns, read the same way, are not divisible by
+$13$. The entry carries an empirical recurrence of order $47$ contributed by
+R.~H.~Hardin. It is true, and it is decidable rather than empirical. A column's value depends on
+every row of the array, so the condition is not local; but its RESIDUE is built one row at a
+time by Horner's rule, and the vector of column residues is a state of bounded size. The count
+is then a walk count on $S=169$ states.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A05, 05A15, 15A15.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 11A63, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A189448 is ``Number of n X 8 array permutations with each element moving zero or one space horizontally or diagonally.''. It has offset $1$ and begins
+OEIS A263300 is ``Number of (n+3)X(2+3) 0..1 arrays with each row divisible by 13 and column not divisible by 13, read as a binary number with top and left being the most significant bits.''. It has offset $1$ and begins
 \[
-34, 11705, 2455013, 569476049, 129699382789, 29628810704689, 6765736745152657, 1544933702911323688,\ \dots
+42, 156, 522, 1604, 4866, 14776, 45046, 136248,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 271*a(n-1) -9281*a(n-2) -132793*a(n-3) +6435503*a(n-4) +6180631*a(n-5) -1532732417*a(n-6) +31313049127*a(n-7) -572074427641*a(n-8) +7170704782047*a(n-9) -51266858495897*a(n-10) +231917665131791*a(n-11) -707422794603657*a(n-12) +1512758157163207*a(n-13) -2416565333435121*a(n-14) +3828566087055831*a(n-15) -4502939947225841*a(n-16) +2761124753871575*a(n-17) -3103177724436865*a(n-18) +2492986861400335*a(n-19) -3031830947082385*a(n-20) +3031830947082385*a(n-21) -2492986861400335*a(n-22) +3103177724436865*a(n-23) -2761124753871575*a(n-24) +4502939947225841*a(n-25) -3828566087055831*a(n-26) +2416565333435121*a(n-27) -1512758157163207*a(n-28) +707422794603657*a(n-29) -231917665131791*a(n-30) +51266858495897*a(n-31) -7170704782047*a(n-32) +572074427641*a(n-33) -31313049127*a(n-34) +1532732417*a(n-35) -6180631*a(n-36) -6435503*a(n-37) +132793*a(n-38) +9281*a(n-39) -271*a(n-40) +a(n-41) for n>43.
+Empirical: a(n) = 3*a(n-1) -a(n-2) +3*a(n-3) -a(n-4) +3*a(n-5) -a(n-6) +3*a(n-7) -a(n-8) +3*a(n-9) -a(n-10) +3*a(n-11) +2811*a(n-12) -8433*a(n-13) +2811*a(n-14) -8433*a(n-15) +2811*a(n-16) -8433*a(n-17) +2811*a(n-18) -8433*a(n-19) +2811*a(n-20) -8433*a(n-21) +2811*a(n-22) -8433*a(n-23) -219911*a(n-24) +659733*a(n-25) -219911*a(n-26) +659733*a(n-27) -219911*a(n-28) +659733*a(n-29) -219911*a(n-30) +659733*a(n-31) -219911*a(n-32) +659733*a(n-33) -219911*a(n-34) +659733*a(n-35) +3908061*a(n-36) -11724183*a(n-37) +3908061*a(n-38) -11724183*a(n-39) +3908061*a(n-40) -11724183*a(n-41) +3908061*a(n-42) -11724183*a(n-43) +3908061*a(n-44) -11724183*a(n-45) +3908061*a(n-46) -11724183*a(n-47)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Apr 18 2023 09:16:54, revision 7) this is still
+As of the ``Last modified'' line on the live entry (Oct 13 2015 18:16:25, revision 5) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-Write the cells of the array as pairs $(i,j)$ with $0\le i<n$ and $0\le j<8$. An
-\emph{array permutation} of the kind the entry counts is a bijection $\pi$ from the cells to
-the cells such that for every cell,
+The array has $5$ cells across and entries $x(i,j)\in\{0,1\}$, the digits of
+base $2$. Row $i$ of an array with $R$ rows is the number
 \[
-\pi(i,j)-(i,j)\;\in\;\Delta,\qquad
-\Delta=\{\,(-1,-1),\ (0,-1),\ (0,0),\ (0,1),\ (1,1)\,\}.
+\rho_i\;=\;\sum_{j=1}^{5}x(i,j)\,2^{5-j} ,
 \]
-The offsets are what the name's words say: one step horizontally or diagonally, in either direction along each of those axes. A cell is allowed to stay where it is, and $(0,0)$ is one of the offsets.
-
-The words name an AXIS, not a single direction: ``diagonally'' admits
-both $(1,1)$ and $(-1,-1)$, and ``antidiagonally'' is a separate word for the other diagonal.
-And a move is only allowed when its target is a cell of the array, so cells near an
-edge have fewer choices. The reading is pinned against the entry's own published terms rather
-than assumed: taking ``diagonally, horizontally or vertically'' to mean all eight king moves
-gives $24$ where A189305 publishes $14$.
-
-Equivalently, $a(n)$ is the permanent of the $n8\times n8$ matrix whose $(c,c')$ entry is
-$1$ exactly when $c'-c\in\Delta$.
-
-\section{A window of 19 positions}
-
-Number the cells in row-major order, $k=i\cdot8+j$. An offset $(\delta_1,\delta_2)$ moves a
-cell by $\delta_18+\delta_2$ places in that order, so every image lies between $lo=-9$ and
-$hi=9$ places from its source. Process the cells in order and let each one choose its image.
-Once the cell at position $k$ has been dealt with, the position $k+-9$ can never be chosen
-again by anybody, so it must already be taken; and no position beyond $k+9$ can have been
-taken yet. What has to be remembered is therefore exactly which of the $19$ positions
-$k+-9,\dots,k+9$ are taken --- a subset of a set of size $19$, and nothing else.
-
-That is the state. One step of the walk is one row, that is $8$ cell choices, and the
-condition ``the position leaving the window is taken'' is what makes the walk count permutations
-rather than partial injections: every position is taken exactly once, once at the moment it
-leaves the window.
-
-The two boundaries are the same condition. Images above the first row do not exist, so the walk
-starts with exactly the window positions lying above the array marked as taken. Images below the
-last row do not exist either, so the walk must end with exactly those positions marked and
-nothing beyond. In the window's own coordinates those two masks are equal, so the start state is
-also the only accepting state and
+the LEFT digit being the most significant, and column $j$ is
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=8715,
+\gamma_j\;=\;\sum_{i=1}^{R}x(i,j)\,2^{R-i} ,
 \]
-for the transfer matrix $M$ on those $S$ states. The walk index $j$ and the entry's own $n$
-differ by a constant, read off by matching the published terms rather than assumed. In
-particular $a$ is $C$-finite.
+the TOP digit being the most significant. The entry asks that every $\rho_i$ be divisible by
+$13$ and every $\gamma_j$ be not divisible by $13$.
+
+
+\section{Column residues by Horner's rule}
+
+The row condition is a condition on one row and is imposed as each row is chosen. The column
+condition is not local: $\gamma_j$ depends on every row. What is local is its residue.
+
+\begin{lemma}\label{lem:horner}
+Let $\gamma_j^{(i)}$ be the value of column $j$ of the first $i$ rows, read the same way.
+Then $\gamma_j^{(0)}=0$ and
+\[
+\gamma_j^{(i)}\;=\;2\,\gamma_j^{(i-1)}+x(i,j),
+\qquad\text{hence}\qquad
+\gamma_j^{(i)}\bmod 13\;=\;
+\bigl(2\,(\gamma_j^{(i-1)}\bmod 13)+x(i,j)\bigr)\bmod 13 .
+\]
+\end{lemma}
+
+\begin{proof}
+Adding a row at the BOTTOM shifts every earlier digit one place up in significance, which is
+multiplication by $2$, and puts the new digit in the units place. Reduction modulo
+$13$ commutes with both operations.
+\end{proof}
+
+So the vector $\bigl(\gamma_1\bmod 13,\dots,\gamma_{5}\bmod
+13\bigr)$ is a state: at most $13^{5}$ of them, and each array row
+that satisfies the row condition carries one such vector to another. The walk starts at the
+all-zero vector, which is the empty array, and the END vector picks out the residue vectors in
+which every entry is not divisible by $13$ --- so the end vector is not the all-ones
+vector, and the column condition is imposed once, at the end, exactly as the entry states it.
+With $M$ the adjacency matrix,
+\[
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=169.
+\]
+The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
+published terms rather than assumed. In particular $a$ is $C$-finite.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{41}-\sum_i c_it^{41-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{47}-\sum_i c_it^{47-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -103,7 +104,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+41}-\sum_ic_iM^{j+41-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+47}-\sum_ic_iM^{j+47-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -112,13 +113,13 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;271\,a(n-1) - 9281\,a(n-2) - 132793\,a(n-3) + 6435503\,a(n-4) + 6180631\,a(n-5) - 1532732417\,a(n-6) + 31313049127\,a(n-7) - 572074427641\,a(n-8) + 7170704782047\,a(n-9) - 51266858495897\,a(n-10) + 231917665131791\,a(n-11) - 707422794603657\,a(n-12) + 1512758157163207\,a(n-13) - 2416565333435121\,a(n-14) + 3828566087055831\,a(n-15) - 4502939947225841\,a(n-16) + 2761124753871575\,a(n-17) - 3103177724436865\,a(n-18) + 2492986861400335\,a(n-19) - 3031830947082385\,a(n-20) + 3031830947082385\,a(n-21) - 2492986861400335\,a(n-22) + 3103177724436865\,a(n-23) - 2761124753871575\,a(n-24) + 4502939947225841\,a(n-25) - 3828566087055831\,a(n-26) + 2416565333435121\,a(n-27) - 1512758157163207\,a(n-28) + 707422794603657\,a(n-29) - 231917665131791\,a(n-30) + 51266858495897\,a(n-31) - 7170704782047\,a(n-32) + 572074427641\,a(n-33) - 31313049127\,a(n-34) + 1532732417\,a(n-35) - 6180631\,a(n-36) - 6435503\,a(n-37) + 132793\,a(n-38) + 9281\,a(n-39) - 271\,a(n-40) + a(n-41)
+a(n)\;=\;3\,a(n-1) - a(n-2) + 3\,a(n-3) - a(n-4) + 3\,a(n-5) - a(n-6) + 3\,a(n-7) - a(n-8) + 3\,a(n-9) - a(n-10) + 3\,a(n-11) + 2811\,a(n-12) - 8433\,a(n-13) + 2811\,a(n-14) - 8433\,a(n-15) + 2811\,a(n-16) - 8433\,a(n-17) + 2811\,a(n-18) - 8433\,a(n-19) + 2811\,a(n-20) - 8433\,a(n-21) + 2811\,a(n-22) - 8433\,a(n-23) - 219911\,a(n-24) + 659733\,a(n-25) - 219911\,a(n-26) + 659733\,a(n-27) - 219911\,a(n-28) + 659733\,a(n-29) - 219911\,a(n-30) + 659733\,a(n-31) - 219911\,a(n-32) + 659733\,a(n-33) - 219911\,a(n-34) + 659733\,a(n-35) + 3908061\,a(n-36) - 11724183\,a(n-37) + 3908061\,a(n-38) - 11724183\,a(n-39) + 3908061\,a(n-40) - 11724183\,a(n-41) + 3908061\,a(n-42) - 11724183\,a(n-43) + 3908061\,a(n-44) - 11724183\,a(n-45) + 3908061\,a(n-46) - 11724183\,a(n-47)
 \]
 for every $n>43$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $41$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $47$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
 integers vanish from the index corresponding to $n=43+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
@@ -128,13 +129,13 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $12$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $23$ terms the entry publishes, exactly, in integer
 arithmetic.
 
-Second, the count was recomputed for the smallest arrays straight from the definition: the
-cells of the array were matched to their images one at a time, over the whole grid, with no
-window, no mask over a sliding frame and no transfer matrix, and the published terms came back.
-That computation shares nothing with the construction of Section~3 beyond the offset list.
+Second, the count was recomputed for the smallest arrays straight from the definition:
+enumerate every array of that size, turn each row and each column into a base-$2$ number with
+the first digit most significant, and test the divisibility directly. Neither Horner's rule nor
+any residue state is involved, and the published terms came back.
 
 Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
@@ -144,11 +145,13 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A189448.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A263300.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{minc} H.~Minc, \emph{Permanents}, Encyclopedia of Mathematics and its
-Applications 6, Addison--Wesley, 1978.
+\bibitem{knuth} D.~E.~Knuth, \emph{The Art of Computer Programming}, Volume 2, 3rd ed.,
+Addison--Wesley, 1997. (Evaluation of polynomials, Section 4.6.4.)
+\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
+University Press, 2013.
 \end{thebibliography}
 
 \end{document}

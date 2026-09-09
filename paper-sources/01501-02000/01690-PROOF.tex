@@ -12,78 +12,88 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A203725, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A204296, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{3 September 2026}
+\date{4 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A203725 counts arrays of width $6$ over $\{0,1,2\}$ through two derived arrays of PAIR SUMS ---
-each cell added to its left neighbour, and each cell added to the one above it --- on which the
-entry imposes an order condition. The entry carries an empirical recurrence of order $22$
-contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical: the count is
-a walk count on $S=730$ states.
+OEIS A204296 counts arrays of width $3$ over $\{0,1,2,3\}$ in which every cell has neighbours equal to each of two named values. The entry carries an
+empirical recurrence of order $25$ contributed by R.~H.~Hardin. It is true, and it is
+decidable rather than empirical: what a cell asks reaches one row above it and one row below, so the
+condition on a whole row is settled by $3$ consecutive rows and the count is a walk
+count on $S=2341$ states.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 06A07, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B20, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A203725 is ``Number of (n+1)X6 0..2 arrays with column and row pair sums b(i,j)=a(i,j)+a(i,j-1) and c(i,j)=a(i,j)+a(i-1,j) nondecreasing in column and row directions, respectively.''. It has offset $1$ and begins
+OEIS A204296 is ``Number of nX3 0..3 arrays with every element neighboring horizontally or vertically both a 0 and a 1, and 2 introduced before 3 in row major order.''. It has offset $1$ and begins
 \[
-2278, 12470, 58048, 230014, 808455, 2572189, 7508980, 20395251,\ \dots
+0, 4, 80, 160, 2816, 19540, 164112, 1490212,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 8*a(n-1) -21*a(n-2) +105*a(n-4) -168*a(n-5) -91*a(n-6) +512*a(n-7) -330*a(n-8) -560*a(n-9) +910*a(n-10) -910*a(n-12) +560*a(n-13) +330*a(n-14) -512*a(n-15) +91*a(n-16) +168*a(n-17) -105*a(n-18) +21*a(n-20) -8*a(n-21) +a(n-22) for n>30
+Empirical: a(n) = 14*a(n-1) -45*a(n-2) -16*a(n-3) +78*a(n-4) +114*a(n-5) +6697*a(n-6) -85640*a(n-7) +279283*a(n-8) -16480*a(n-9) +28340*a(n-10) -2602296*a(n-11) +1904440*a(n-12) +9632160*a(n-13) -17494992*a(n-14) -22563776*a(n-15) +18380928*a(n-16) +183274752*a(n-17) -152036992*a(n-18) -324779008*a(n-19) -146074432*a(n-20) +1486973440*a(n-21) -836087552*a(n-22) -31606272*a(n-23) +421416960*a(n-24) -266897408*a(n-25) for n>28
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 10:40:48, revision 9) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 11:04:18, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The array $a$ has $6$ cells across, with entries in $\{0,1,2\}$. Two derived arrays are formed,
+The arrays have $3$ columns and a growing number of rows, with entries in $\{0,1,2,3\}$. Fix the
+offsets the entry names,
 \[
-b(i,j)=a(i,j)+a(i,j-1)\quad(j\ge1),\qquad c(i,j)=a(i,j)+a(i-1,j)\quad(i\ge1),
+\Delta=\{\,(-1,0), (0,-1), (0,1), (1,0)\,\},
 \]
-so $b$ adds each cell to its LEFT neighbour and $c$ adds each cell to the one ABOVE it. The
-entry asks
-
+and for a cell $(i,j)$ write
 \[
-b(i,j)\le b(i{+}1,j)\qquad\text{and}\qquad c(i,j)\le c(i,j{+}1)
+S(i,j)=\{\,(i+\delta_1,\,j+\delta_2) : (\delta_1,\delta_2)\in\Delta\,\}\cap
+\text{(the cells of the array)}
 \]
-wherever both sides are defined: the array $b$ must not decrease DOWN a column and the array
-$c$ must not decrease ALONG a row. The two directions are crossed, which is the only subtle
-part of the reading --- $b$ is built across a row and tested down a column, and $c$ the other
-way about.
+for the neighbours it actually has. Only offsets landing inside the array count, so a cell on
+the border simply has fewer neighbours.
 
-
-\section{Two rows decide it}
-
-\begin{lemma}\label{lem:win}
-Both conditions are conditions on two consecutive rows of $a$ and nothing more.
-\end{lemma}
-
-\begin{proof}
-$b(i,j)\le b(i{+}1,j)$ names four cells of $a$, all in rows $i$ and $i+1$. $c(i,j)\le
-c(i,j{+}1)$ names four cells, all in rows $i-1$ and $i$.
-\end{proof}
-
-So a single row of $a$ is a state and one step appends a row.
-
-With $M$ the adjacency matrix of the digraph on those states, $\iota$ the indicator of the
-starting state and $\tau=\mathbf{1}$,
+The condition is that every cell has a neighbour equal to $0$ and a neighbour equal to $1$:
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=730.
+0\in\{x(a,b):(a,b)\in S(i,j)\}\quad\text{and}\quad1\in\{x(a,b):(a,b)\in S(i,j)\}.
 \]
-The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
-published terms rather than assumed. In particular $a$ is $C$-finite.
+The entry adds that $2$ is introduced before $3$ in reading order: going through the cells row by row, the first one carrying either value carries $2$.
+
+\section{A window of 3 rows}
+
+The offsets reach one row up and one row down, so everything the condition asks of one row is
+decided by that row together with one row above it and one row below --- a window of
+$3$ consecutive rows, and nothing wider. Take the array one row at a time and
+let the state be the last 2 of them, with a distinguished start standing for the array before its
+first row, so that a walk of $n$ steps is an array of $n$ rows.
+
+Appending a row completes exactly one window, and the row it settles is the one just above the bottom of that window; a step is
+allowed when that row passes. Each row of the finished array is therefore tested exactly once.
+
+The reading-order clause is one more symbol in the state: neither value seen yet, or the earlier
+one seen first. It never goes back, and a row that would introduce the later value first is
+simply not taken.
+
+When the array stops, the last row of it has never been tested, because the
+conditions reach one row below. So the end vector is NOT all ones: a state is accepted exactly when
+those rows pass with nothing below them, which is decided by running the same test on the window
+with absent rows appended --- the same rule that governs a cell at the bottom edge in
+Section 2.
+Thus
+\[
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=2341,
+\]
+for the transfer matrix $M$ on those $S$ states. The walk index $j$ and the entry's own $n$
+differ by a constant, read off by matching the published terms rather than assumed. In
+particular $a$ is $C$-finite.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{22}-\sum_i c_it^{22-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{25}-\sum_i c_it^{25-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -91,7 +101,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+22}-\sum_ic_iM^{j+22-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+25}-\sum_ic_iM^{j+25-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -100,16 +110,16 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;8\,a(n-1) - 21\,a(n-2) + 105\,a(n-4) - 168\,a(n-5) - 91\,a(n-6) + 512\,a(n-7) - 330\,a(n-8) - 560\,a(n-9) + 910\,a(n-10) - 910\,a(n-12) + 560\,a(n-13) + 330\,a(n-14) - 512\,a(n-15) + 91\,a(n-16) + 168\,a(n-17) - 105\,a(n-18) + 21\,a(n-20) - 8\,a(n-21) + a(n-22)
+a(n)\;=\;14\,a(n-1) - 45\,a(n-2) - 16\,a(n-3) + 78\,a(n-4) + 114\,a(n-5) + 6697\,a(n-6) - 85640\,a(n-7) + 279283\,a(n-8) - 16480\,a(n-9) + 28340\,a(n-10) - 2602296\,a(n-11) + 1904440\,a(n-12) + 9632160\,a(n-13) - 17494992\,a(n-14) - 22563776\,a(n-15) + 18380928\,a(n-16) + 183274752\,a(n-17) - 152036992\,a(n-18) - 324779008\,a(n-19) - 146074432\,a(n-20) + 1486973440\,a(n-21) - 836087552\,a(n-22) - 31606272\,a(n-23) + 421416960\,a(n-24) - 266897408\,a(n-25)
 \]
-for every $n>30$.
+for every $n>28$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $22$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $25$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=30+1$ onwards and the run continued
-until the working vector was identically zero.
+integers vanish from the index corresponding to $n=28+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
@@ -119,10 +129,10 @@ Four checks, each independent of the algebra above.
 First, the model reproduces all $20$ terms the entry publishes, exactly, in integer
 arithmetic.
 
-Second, the count was recomputed for the smallest arrays straight from the definition:
-enumerate every array of that size, form the two derived arrays in full, and test the condition
-on them directly. No window, no state and no incremental bookkeeping are involved, and the
-published terms came back.
+Second, the count was recomputed for the smallest arrays straight from the definition: every
+array of width $3$ over $\{0,1,2,3\}$ with a few rows was written out cell by cell and each cell
+tested against the neighbours it has. No window, no state and no end vector are involved in that
+computation, and the published terms came back.
 
 Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
@@ -132,7 +142,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A203725.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A204296.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge

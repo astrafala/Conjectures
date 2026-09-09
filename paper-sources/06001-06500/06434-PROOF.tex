@@ -12,79 +12,90 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A233619, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A234771, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A233619 counts arrays of width $3$ over $\{0,1,2\}$ containing no run of $3$ consecutive
-cells, taken along a named direction of the grid, whose entries are strictly increasing. The entry carries
-an empirical recurrence of order $22$ contributed by R.~H.~Hardin. It is true, and it is
-decidable rather than empirical: every such run lies inside $3$ consecutive array rows, so
-the count is a walk count on $S=757$ states.
+OEIS A234771 counts arrays of width $3$ over $\{0,1,2,3,4\}$ subject to a condition read round the
+perimeter of every $2\times2$ subblock: the steps round each subblock rise by at most one in one of the two directions. The entry carries an empirical recurrence of
+order $23$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
+empirical: the condition is settled inside a bounded window of consecutive rows, so the
+count is a walk count on a finite digraph with $S=126$ vertices, and whether a linear
+recurrence holds for such a count is a finite computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 68R15, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A16, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A233619 is ``Number of (1+2)X(n+2) 0..2 arrays with no increasing sequence of length 3 horizontally or diagonally downwards.''. It has offset $1$ and begins
+OEIS A234771 is ``Number of (n+1)X(2+1) 0..4 arrays with 2X2 edge jumps all no more than +1 in one of the clockwise or counterclockwise directions but not both.''. It has offset $1$ and begins
 \[
-17064, 395955, 9120456, 209902869, 4828862487, 111082137228, 2555252447715, 58778922784197,\ \dots
+454, 3980, 28840, 247394, 1912554, 16146124, 127371542, 1063565190,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 29*a(n-1) -84*a(n-2) -1570*a(n-3) +6618*a(n-4) +28026*a(n-5) -136815*a(n-6) -145173*a(n-7) +1005714*a(n-8) -486446*a(n-9) -1842056*a(n-10) +1805556*a(n-11) +1069186*a(n-12) -1763040*a(n-13) +27675*a(n-14) +626313*a(n-15) -148782*a(n-16) -66294*a(n-17) +19454*a(n-18) +2708*a(n-19) -849*a(n-20) -37*a(n-21) +12*a(n-22)
+Empirical: a(n) = 9*a(n-1) +60*a(n-2) -657*a(n-3) -510*a(n-4) +14451*a(n-5) -9878*a(n-6) -143349*a(n-7) +195967*a(n-8) +711924*a(n-9) -1328829*a(n-10) -1738223*a(n-11) +4362370*a(n-12) +1713737*a(n-13) -7406892*a(n-14) +154943*a(n-15) +6781020*a(n-16) -1542017*a(n-17) -3326149*a(n-18) +1109694*a(n-19) +807890*a(n-20) -310656*a(n-21) -75048*a(n-22) +30144*a(n-23)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 08:07:43, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 08:25:35, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-A RUN is $3$ consecutive cells taken along one of the directions
+The arrays have $3$ columns and a growing number of rows, with entries in $\{0,1,2,3,4\}$. A
+$2\times2$ subblock is a set of four cells
 \[
-\begin{array}{l}
-\text{down a column} \\
-\text{down a diagonal, nw to se} \\
-\end{array}
+B=\begin{pmatrix} p & q \\ r & s \end{pmatrix},
+\qquad p=x(i,j),\; q=x(i,j+1),\; r=x(i+1,j),\; s=x(i+1,j+1).
 \]
-all of them inside the array. The array is counted when no run has its entries strictly increasing. The entry writes the array with $n$ as the number of COLUMNS; the walk is run down the transpose, so the directions above are already the transposed ones.
+Its perimeter is a cycle of four cells, walked clockwise as $p\to q\to s\to r\to p$ and
+counterclockwise as $p\to r\to s\to q\to p$. Write
+\[
+\mathrm{cw}(B)=[p<q]+[q<s]+[s<r]+[r<p],\qquad
+\mathrm{ccw}(B)=[p<r]+[r<s]+[s<q]+[q<p]
+\]
+for the number of steps at which the value rises, going each way round.
 
-
-The entry carries no renaming clause, and it could not: ``strictly increasing'' compares
-letters by size, so it is not preserved by a permutation of the alphabet. The count is taken
-over the alphabet the entry names.
-
-\section{Every run lies in $3$ consecutive rows}
-
-\begin{lemma}\label{lem:win}
-Each direction above changes the row index by $0$ or $1$ from one cell of a run to the next, so
-a run of $3$ cells lies inside $3$ consecutive array rows, and a run whose last cell is in
-row $i$ lies inside rows $i-2,\dots,i$.
+\begin{lemma}\label{lem:sum}
+$\mathrm{cw}(B)+\mathrm{ccw}(B)=4-\#\{\text{edges of the cycle with equal ends}\}$.
 \end{lemma}
 
 \begin{proof}
-Immediate from the row steps of the four directions, which are $0$ for a row and $1$ for the
-other three.
+Each of the four edges of the square is walked once by each cycle, and in opposite directions.
+An edge with distinct ends therefore contributes exactly one rise, to one of the two counts;
+an edge with equal ends contributes to neither.
 \end{proof}
 
-So the state is the window of the last $2$ array rows, a row not yet written carried as
-$\bot$; a step appends a row and rejects it exactly when some run ends in it or lies inside it.
-A run needing a row that is $\bot$ does not exist, which is the boundary rule and is read off
-the window rather than assumed. The walk starts at the all-$\bot$ window, so a walk of $R$ steps
-is an array of $R$ rows. With $M$ the adjacency matrix of that digraph,
+The condition the entry imposes is this: write
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=757,\quad\tau=\mathbf{1} .
+J_{\mathrm{cw}}(B)=\max(q-p,\;s-q,\;r-s,\;p-r),\qquad J_{\mathrm{ccw}}(B)=\max(r-p,\;s-r,\;q-s,\;p-q)
 \]
-The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
-published terms rather than assumed. In particular $a$ is $C$-finite.
+for the largest step taken going round the subblock in each of the two directions. The condition is that for every subblock $B$, exactly one of $J_{\mathrm{cw}}(B)\le 1$, $J_{\mathrm{ccw}}(B)\le 1$ holds.
+
+\section{A bounded window}
+
+Two consecutive rows decide every subblock lying between them, and the condition of Section 2 is a condition on single subblocks only. So the state is the row just written, and nothing else.
+
+One step of the walk writes a whole row. The row is filled left to right, and the subblock
+closed by positions $j-1,j$ is tested the moment position $j$ is written, so a partial row that
+cannot be completed is abandoned rather than enumerated. The walk starts at the state standing
+for the empty array, so that a walk of $n$ steps is an array of $n$ rows.
+
+The end vector is all ones: an array may stop after any row. Thus
+\[
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=126,
+\]
+for the transfer matrix $M$ on those $S$ states. The walk index $j$ and the entry's own $n$
+differ by a constant, read off by matching the published terms rather than assumed. In
+particular $a$ is $C$-finite, and every question about linear recurrences it satisfies is
+decidable.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{22}-\sum_i c_it^{22-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{23}-\sum_i c_it^{23-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -92,7 +103,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+22}-\sum_ic_iM^{j+22-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+23}-\sum_ic_iM^{j+23-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -101,28 +112,29 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;29\,a(n-1) - 84\,a(n-2) - 1570\,a(n-3) + 6618\,a(n-4) + 28026\,a(n-5) - 136815\,a(n-6) - 145173\,a(n-7) + 1005714\,a(n-8) - 486446\,a(n-9) - 1842056\,a(n-10) + 1805556\,a(n-11) + 1069186\,a(n-12) - 1763040\,a(n-13) + 27675\,a(n-14) + 626313\,a(n-15) - 148782\,a(n-16) - 66294\,a(n-17) + 19454\,a(n-18) + 2708\,a(n-19) - 849\,a(n-20) - 37\,a(n-21) + 12\,a(n-22)
+a(n)\;=\;9\,a(n-1) + 60\,a(n-2) - 657\,a(n-3) - 510\,a(n-4) + 14451\,a(n-5) - 9878\,a(n-6) - 143349\,a(n-7) + 195967\,a(n-8) + 711924\,a(n-9) - 1328829\,a(n-10) - 1738223\,a(n-11) + 4362370\,a(n-12) + 1713737\,a(n-13) - 7406892\,a(n-14) + 154943\,a(n-15) + 6781020\,a(n-16) - 1542017\,a(n-17) - 3326149\,a(n-18) + 1109694\,a(n-19) + 807890\,a(n-20) - 310656\,a(n-21) - 75048\,a(n-22) + 30144\,a(n-23)
 \]
-for every $n>19$.
+for every $n>23$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $22$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $23$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=19+1$ onwards and the run continued
-until the working vector was identically zero.
+integers vanish from the index corresponding to $n=23+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $14$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $17$ terms the entry publishes, exactly, in integer
 arithmetic.
 
-Second, the count was recomputed for the smallest arrays straight from the definition: fill the
-cells in row major order, in the orientation the entry's own name writes, and reject as soon as
-a completed run is strictly increasing. No window, no transposition and no transfer matrix are involved, and
+Second, the count was recomputed for the smallest arrays straight from the definition: every
+array of the stated width and a few rows was written out cell by cell over $\{0,1,2,3,4\}$, each of
+its $2\times2$ subblocks was read round its perimeter, and the condition of Section 2 was
+applied as stated. No window, no state and no recurrence is involved in that computation, and
 the published terms came back.
 
 Third, the conjectured recurrence was evaluated directly on the published terms, with no
@@ -133,7 +145,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A233619.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A234771.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge

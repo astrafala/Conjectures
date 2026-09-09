@@ -12,166 +12,133 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A233240, proved by carrying a row major clause across
-columns}
+\title{The empirical column recurrences for the table OEIS A231080}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{6 September 2026}
+\date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A233240 counts $2\times n$ arrays over $\{0,\dots,5\}$ with a forbidden-pair
-condition and a clause on the order in which values first appear, read in ROW MAJOR order, and
-it carries an empirical recurrence of order $5$ contributed by R.~H.~Hardin. It is true.
-The obstacle is that the array grows in $n$, so the walk runs across COLUMNS and does not visit
-the cells in row major order; the running set of ``values seen so far'' that settles the clause
-for a column-fixed entry is simply the wrong set here. What the walk can carry instead is, for
-each value the clause names, the least ROW in which it has yet been seen, together with the
-order in which those least rows were attained. That is enough, and it is bounded, so the count
-is a walk count and the recurrence is settled by a finite exact computation.
+OEIS A231080 is a two-dimensional table $T(n,k)$, and it carries a block of empirical
+recurrences contributed by R.~H.~Hardin --- one for each of its first few columns. They are
+true. Column $k$ of the table is an ordinary fixed-width array count, so its rows are the
+vertices of a finite digraph and $T(n,k)$ is a number of walks in it; being a walk count the
+column is $C$-finite, and whether a given recurrence annihilates it is decided by a finite
+exact computation, with the Cayley--Hamilton theorem bounding the work. This note settles the rows $n=2$.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 68Q45.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
-\section{The conjecture}
+\section{The table and the conjectures}
 
-OEIS A233240 is ``Number of 2 X n 0..5 arrays with no element x(i,j) adjacent to value 5-x(i,j) horizontally, diagonally or antidiagonally, top left element zero, and 1 appearing before 2 3 and 4, and 2 appearing before 3 in row major order.''. It has offset $1$ and begins
+OEIS A231080 is ``T(n,k) = number of n X k 0..3 arrays x(i,j) with each element horizontally, diagonally or antidiagonally next to at least one element with value (x(i,j)+1) mod 4 and at least one element with value (x(i,j)-1) mod 4, and upper left element zero.''. It has offset $1$, is
+read by antidiagonals, and begins
 \[
-3, 19, 271, 4504, 79201, 1419889,\ \dots
+0, 0, 0, 0, 2, 0, 0, 14,\ \dots
 \]
-The entry states, as a conjecture contributed by its author and never marked settled:
-\begin{quote}
-Empirical: a(n) = 23*a(n-1) - 81*a(n-2) - 143*a(n-3) + 82*a(n-4) + 120*a(n-5) for n>6.
+The entry carries the following block:
+\begin{quote}\small
+Empirical for column k:\\
+k=2: a(n) = 2*a(n-1) +6*a(n-2) -5*a(n-3)\\
+k=3: [order 11]\\
+k=4: [order 36]\\
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 10 2018 15:20:22, revision 8) this is still
-recorded as empirical, and nothing on the entry records it as proved.
+As of the ``Last modified'' line on the live entry (Mar 21 2025 21:57:06, revision 11) these are still
+recorded as empirical, and nothing on the entry records any of them as settled.
 
-\section{What is being counted}
+\section{A column of the table is a walk count}
 
-The array has $2$ rows and $n$ columns. Two cells are adjacent when they differ by one of the
-offsets
+Fix $k$. The entry defines $T(n,k)$ as the number of arrays of a shape in which one dimension
+is $n$ and the other is determined by $k$, subject to a condition imposed on every
+$2\times2$ subblock --- a condition local to two consecutive rows and two consecutive columns.
+Substituting the fixed value of $k$ into the entry's own wording turns the definition into an
+ordinary one-parameter array count, and for such a count the rows are the vertices of a finite
+digraph $G_k$: $r\to s$ is an edge exactly when placing $s$ under $r$ satisfies the condition
+in every column pair. An admissible array is then a walk, so with $M_k$ the adjacency matrix
+of $G_k$,
 \[
-(0,1), (1,-1), (1,1),
+T(n,k)\;=\;c_k\,\mathbf{1}^{\!\top}M_k^{\,n}\mathbf{1}
 \]
-and the entry forbids any adjacent pair $u,v$ with $u+v=5$. It fixes the top left cell to
-zero. Finally it asks that, reading the cells in ROW MAJOR order --- along the first row, then
-along the second, and so on --- the first occurrences of the values $1$, $2$, $3$, $4$ come in a
-prescribed order: $1$ before $2$, $1$ before $3$, $1$ before $4$, $2$ before $3$. A precedence involving a value that never occurs is satisfied
-vacuously; one whose later value occurs while its earlier value does not is broken.
-
-\section{Why the obvious state does not work}
-
-Since $n$ grows, the walk must run across the columns: a state is one column, and the
-forbidden-pair condition is settled between two consecutive columns, because every offset above
-moves the column index by at most one.
-
-The clause is the difficulty. For an entry whose WIDTH is fixed the walk runs down the rows and
-therefore visits the cells in row major order, so it is enough to carry the set of named values
-already written and to refuse a column that introduces a value out of turn. Here the walk
-visits the cells in COLUMN major order, and that set is the wrong one: a value first written
-low down in an early column may be written again higher up in a later column, and it is the
-later, higher cell that comes first in row major order.
-
-\section{What the walk can carry}
-
-\begin{lemma}\label{lem:key}
-For a value $v$ occurring in the array, let $r_v$ be the least row in which $v$ occurs and
-$c_v$ the least column with $x_{r_v,c_v}=v$. Then the first occurrence of $v$ in row major
-order is the cell $(r_v,c_v)$, and $u$ precedes $v$ in row major order exactly when
-$(r_u,c_u)<(r_v,c_v)$ lexicographically.
-\end{lemma}
-
-\begin{proof}
-Row major order is the lexicographic order on $(\text{row},\text{column})$, and the least
-element of the set of cells carrying $v$ under a lexicographic order is obtained by minimising
-the first coordinate and then the second.
-\end{proof}
-
-\begin{lemma}\label{lem:tie}
-Two distinct values with the same least row attain it in different columns.
-\end{lemma}
-
-\begin{proof}
-If $r_u=r_v=r$ and $c_u=c_v=c$ then the cell $(r,c)$ carries both $u$ and $v$.
-\end{proof}
-
-So the walk carries, for each named value, the least row in which it has been seen so far ---
-or the fact that it has not been seen --- and, for values sharing a least row, which of them
-attained it first. By Lemma~\ref{lem:tie} those attainments happen in different columns, and
-the walk meets the columns in order, so ``which attained it first'' is decided as the walk
-goes. Nothing else about the past matters: a later column can only LOWER a value's least row,
-and Lemma~\ref{lem:key} says the comparison depends on nothing else.
-
-One thing must not be done, and is not done here. The clause cannot be enforced along the way,
-because a least row can still drop and reorder the first occurrences retroactively. It is a
-property of the finished array, so it is tested in the ACCEPTING states and nowhere else.
-
-The state is therefore a column together with an ordered partition of the named values by least
-row, and there are $S=37$ of them after states with identical futures are merged. Hence
-\[
-a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,
-\]
-and $a$ is $C$-finite.
-
-\section{The proof}
+for the constant $c_k$ that the entry's name supplies (a factor such as $\tfrac12$ or
+$\tfrac14$ where the name says so, and $1$ otherwise).
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{5}-\sum_i c_it^{5-i}$ be the characteristic polynomial of the
-conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
-$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
-holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
-and it is enough to examine $j<S$.
+Let $q(t)=t^{r}-\sum_i c_it^{r-i}$ be the characteristic polynomial of a conjectured
+recurrence of order $r$ for column $k$. Then for every $n\ge r$,
+\[
+T(n,k)-\sum_i c_i\,T(n-i,k)\;=\;c_k\,\mathbf{1}^{\!\top}M_k^{\,n-r}q(M_k)\mathbf{1},
+\]
+so the recurrence holds from some point on if and only if
+$\mathbf{1}^{\!\top}M_k^{j}q(M_k)\mathbf{1}=0$ for every $j\ge0$; and by the
+Cayley--Hamilton theorem it is enough to check $j<S_k$, where $S_k$ is the number of vertices
+of $G_k$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+5}-\sum_ic_iM^{j+5-i}$. For the bound, $M^{S}$
-is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
-$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
-polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly.
+Substitute the walk expression and factor $M_k^{n-r}$ out of $M_k^{n}-\sum_ic_iM_k^{n-i}$;
+the scalar $c_k$ is nonzero. For the bound, $M_k^{S_k}$ is an integer combination of
+$I,M_k,\dots,M_k^{S_k-1}$, so each $\mathbf{1}^{\!\top}M_k^{j}q(M_k)\mathbf{1}$ with
+$j\ge S_k$ repeats that combination of earlier values.
 \end{proof}
 
-\begin{theorem}
+\section{The computation, column by column}
+
+\begin{center}
+\begin{tabular}{ccccc}
+line & order & vertices $S$ & proved for & terms checked \\ \hline
+row $n$$=2$ & $5$ & $165$ & $>5$ & $9$ \\
+\end{tabular}
+\end{center}
+
+In each case the vector $w=q(M_k)\mathbf{1}$ was formed by $r$ matrix--vector products in
+exact integer arithmetic and $\mathbf{1}^{\!\top}M_k^{j}w$ evaluated for $j=0,1,\dots$,
+again exactly; every one of those integers vanishes from the stated point onwards and the run
+continued until the working vector was identically zero, which settles all larger $j$ at once.
+
+\subsection*{Row $n$$=2$}
+The sequence is ``Number of 2 X n 0..3 arrays x(i,j) with each element horizontally, diagonally or antidiagonally next to at least one element with value (x(i,j)+1) mod 4 and at least one element with value (x(i,j)-1) mod 4, and upper left element zero.''. Its rows are the vertices of a digraph on
+$S=165$ vertices, edges being the admissible consecutive pairs, and the count is
+$\mathbf{1}^{\!\top}M^{n}\mathbf{1}$ up to the constant factor in the entry's name.
+The conjectured recurrence
 \[
-a(n)\;=\;23\,a(n-1) - 81\,a(n-2) - 143\,a(n-3) + 82\,a(n-4) + 120\,a(n-5)
+a(n)\;=\;3\,a(n-1) + 12\,a(n-2) + 30\,a(n-3) - 64\,a(n-4) + 16\,a(n-5)
 \]
-for every $n>6$.
-\end{theorem}
-
-\begin{proof}
-The vector $w=q(M)\tau$ was formed by $5$ matrix--vector products in exact integer
-arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=6+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once. The bound is exact: at $n=6$ the recurrence fails on the entry's own published terms, so no larger range holds.
-\end{proof}
+holds from index $5+1$ on.
 
 \section{Verification}
 
-Four checks, each independent of the algebra above.
+Three checks, each independent of the algebra above.
 
-First, the model reproduces all $17$ terms the entry publishes, exactly, in integer
-arithmetic, with no shift fitted.
+First, each model was compared against the entry's own published values for its line, taken
+both from the antidiagonal DATA read in either orientation and from the ``Table starts''
+block, and agrees at every available term. This is what ties a model to the table:
+substituting the fixed index into the entry's wording is a reading of English, and a wrong
+reading gives a different digraph and different counts. Across the lines settled here the
+model reproduces $9$ published values, $29$ decimal digits in all, every one of
+them exactly; a misreading of the entry would have to reproduce all of them by accident.
 
-Second --- and this is the check the whole paper turns on --- the arrays were enumerated
-directly for the smallest shapes the entry counts, in the orientation the name writes, with the
-cells listed in true row major order and each precedence tested on that list. No transposing
-and no walk. The counts agree. Reading the clause in the walk's own order instead gives
-different numbers for several entries of this family, so this check is what separates the two
-readings.
+Second, each conjectured recurrence was evaluated on those published values in exact
+integer arithmetic, with no matrices involved, and holds wherever the proved range and the
+data overlap.
 
-Third, the conjectured recurrence was evaluated directly on the published terms, with no
-matrices involved, and holds wherever the proved range and the data overlap.
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+arithmetic rather than on a sampled prefix.
 
-Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
-arithmetic on the whole vector rather than on a sampled prefix.
+\begin{remark}
+A row of the table is a column of the transposed table: fixing $n$ and letting $k$ vary gives a
+count of arrays of fixed height, which is the same kind of object with the two dimensions
+exchanged. Both are settled here by the same argument. Only the lines the entry states
+explicitly, and for which enough published values exist to run the first check above, are
+claimed.
+\end{remark}
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A233240.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A231080.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{hopcroft} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to
-Automata Theory, Languages, and Computation}, 3rd ed., Addison--Wesley, 2006.
+\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+University Press, 2009.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

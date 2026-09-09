@@ -12,84 +12,81 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A225022, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A267994, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{2 September 2026}
+\date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A225022 counts the $(n+1)\times4$ matrices over $\{0,\dots,2\}$ all of whose
-$2\times2$ contiguous subblocks are of equal permanent, and carries an empirical recurrence of order
-$36$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical.
-The condition ties together $2$ consecutive rows and $2$ consecutive columns at once, so a
-single row is not a state; the strip of the last $1$ rows is, and the admissible strips
-are read off the overlap graph of the admissible windows instead of being enumerated. That
-makes $a(n)$ a walk count on $S=196$ vertices, hence $C$-finite, and whether the conjectured
-recurrence annihilates it is settled by a finite exact computation.
+OEIS A267994 counts arrays in which the REPEATED VALUES of each row, and of each column, stand in a
+prescribed relation to one another in the order they occur. The entry carries an empirical
+recurrence of order $40$ contributed by R.~H.~Hardin. It is true, and it is decidable
+rather than empirical: one of the two scans runs inside a slice of the array and the other
+across slices, and the second needs only the previous slice together with the last repeated
+value so far in each column of the scan, so the count is a walk count on $S=8001$ states.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A18, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A225022 is ``Number of (n+1)X4 0..2 matrices with each 2X2 permanent equal.''. It has offset $1$ and begins
+OEIS A267994 is ``Number of n X 3 0..3 arrays with every repeated value in every row and column greater than or equal to the previous repeated value.''. It has offset $1$ and begins
 \[
-759, 12641, 117959, 1930229, 23865033, 356942157, 4807268289, 69047521033,\ \dots
+64, 4096, 262144, 15625000, 895841344, 49592666024, 2667113508032, 139935778112213,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 23*a(n-1) -20*a(n-2) -2701*a(n-3) +14290*a(n-4) +96871*a(n-5) -821769*a(n-6) -1334756*a(n-7) +22205174*a(n-8) -2051485*a(n-9) -358415097*a(n-10) +335076413*a(n-11) +3816085706*a(n-12) -5474841848*a(n-13) -28179606956*a(n-14) +49887962008*a(n-15) +147948120520*a(n-16) -299147271265*a(n-17) -556239083509*a(n-18) +1245031259726*a(n-19) +1483266239823*a(n-20) -3658543581308*a(n-21) -2715597972088*a(n-22) +7566683853367*a(n-23) +3153572640112*a(n-24) -10789182805002*a(n-25) -1812615431409*a(n-26) +10165463452563*a(n-27) -275438311116*a(n-28) -5857653280734*a(n-29) +1036380387492*a(n-30) +1787112576576*a(n-31) -499228796880*a(n-32) -216471126240*a(n-33) +72471573504*a(n-34) +3769058304*a(n-35) -1625868288*a(n-36)
+Empirical: a(n) = 330*a(n-1) -47905*a(n-2) +3985410*a(n-3) -206365510*a(n-4) +6672680586*a(n-5) -122373303195*a(n-6) +709491272490*a(n-7) +15464097908610*a(n-8) -236876565993210*a(n-9) -1206133937807799*a(n-10) +27079181195038830*a(n-11) +171391641827053440*a(n-12) -1253840968846296270*a(n-13) -18429459866602517535*a(n-14) -90975948325330554486*a(n-15) -221637111204593414265*a(n-16) -212469703253098253820*a(n-17) +162642616721395317650*a(n-18) +441153094911335071980*a(n-19) -61384992726492316804*a(n-20) -441153094911335071980*a(n-21) +162642616721395317650*a(n-22) +212469703253098253820*a(n-23) -221637111204593414265*a(n-24) +90975948325330554486*a(n-25) -18429459866602517535*a(n-26) +1253840968846296270*a(n-27) +171391641827053440*a(n-28) -27079181195038830*a(n-29) -1206133937807799*a(n-30) +236876565993210*a(n-31) +15464097908610*a(n-32) -709491272490*a(n-33) -122373303195*a(n-34) -6672680586*a(n-35) -206365510*a(n-36) -3985410*a(n-37) -47905*a(n-38) -330*a(n-39) -a(n-40).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 23:38:24, revision 8) this is still
+As of the ``Last modified'' line on the live entry (Mar 21 2025 22:07:15, revision 8) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
-\section{The count is a walk count}
+\section{What is being counted}
 
-Call a $2\times2$ matrix over $\{0,\dots,2\}$ a \emph{window} when it is of equal permanent, and
-call a $2\times4$ matrix a \emph{band} when every one of its $3$ contiguous
-$2\times2$ subblocks is a window. What the entry counts is the matrices of $4$ columns
-whose every $2$ consecutive rows form a band.
+Read a row of the array from left to right. A REPEATED VALUE is an entry equal to the entry
+immediately before it; the row thus produces the sequence of values at the places where two
+equal entries stand side by side. The entry asks that each repeated value of a row be
+greater than or equal to the previous repeated value of that row, and that each repeated value of a column,
+read downwards, be greater than or equal to the previous repeated value of that column. The FIRST repeated
+value of a scan has no predecessor and is unconstrained; a scan with no two equal neighbours
+imposes nothing at all.
 
-Take as states the $1\times4$ strips that occur as the top $1$ rows of a band,
-together with those that occur as its bottom $1$ rows, and put an edge from $u$ to $v$
-when the band whose first $1$ rows are $u$ and whose last $1$ rows are $v$ exists.
-A band is determined by that pair, so the edge is unique when it exists. Reading a counted
-matrix from the top, its rows $1..1$, then $2..2$, and so on, form a walk, and every
-walk arises from exactly one matrix; a matrix with $n+1$ rows gives a walk of $n$ edges.
-Since the first $1$ rows of a counted matrix with at least $2$ rows are the top of a
-band, and since no further condition falls on where a walk starts or ends,
+The entry carries no renaming clause, and it could not: the relations here compare letters by
+size or do arithmetic on them, so they are not invariant under permuting the alphabet. The
+count is therefore taken over the alphabet the entry names, with no reduction to patterns.
+
+\section{One scan inside a slice, one across}
+
+Take the array a $row$ at a time, the direction in which it grows.
+
+\begin{lemma}\label{lem:state}
+The $row$ scans are settled as each $row$ is written. The $column$ scans are
+settled by the previous $row$ together with, for each position, the last repeated value
+so far in that $column$.
+\end{lemma}
+
+\begin{proof}
+A $row$ scan compares neighbours inside one $row$, so writing the
+$row$ left to right and carrying the last repeated value seen decides it. In a
+$column$ scan a repeat happens at the new $row$ exactly when the new entry equals the
+entry in the same position of the previous $row$, and the only thing the relation needs
+besides that entry is the previous repeated value of that $column$.
+\end{proof}
+
+So the state is the pair (previous $row$, vector of last repeated values), the second
+component taking $3+2$ values at each position --- the letters together with a symbol for
+``none yet''. With $M$ the adjacency matrix of that digraph,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n}\tau ,\qquad \iota=\tau=(1,1,\dots,1)^{\!\top},
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=8001,\quad\tau=\mathbf{1} .
 \]
-with $M$ the adjacency matrix on $S=196$ states. In particular $a$ is $C$-finite. The
-alignment was checked against the entry's published terms rather than assumed.
-
-There are $(2 + 1)^{4}$ strips of $1$ rows and $4$ columns, far too
-many to test one by one, and they are not tested one by one. Two consecutive windows of a band
-overlap in $2\times1$ entries, so a band is exactly a walk of $3$ windows in
-the graph that joins a window to those whose first $1$ columns are its last $1$
-columns. Enumerating those walks produces the bands, and with them the states and the edges,
-directly.
-
-\section{The admissible windows}
-
-The entry does not name the common value; it only asks that all the windows of one matrix agree.
-So fix a value $v$ and let $W_v$ be the set of $2\times2$ matrices over
-$\{0,\dots,2\}$ whose permanent, $b_{11}b_{22}+b_{12}b_{21}$, equals $v$. A matrix counted by the entry has all of
-its windows in a single $W_v$, and the value of $v$ is determined by the matrix, so the sets of
-matrices belonging to different $v$ are disjoint and
-\[
-a(n)\;=\;\sum_v a_v(n),
-\]
-each $a_v$ being the walk count of Section~2 built from $W_v$ alone. A disjoint union of the
-$8$ digraphs, one per value of $v$, therefore counts the whole of $a(n)$ with the same
-all-ones vectors, and the $2\times2$ windows in play number $81$ in total.
+The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
+published terms rather than assumed. In particular $a$ is $C$-finite.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{36}-\sum_i c_it^{36-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{40}-\sum_i c_it^{40-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -97,7 +94,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+36}-\sum_ic_iM^{j+36-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+40}-\sum_ic_iM^{j+40-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -106,39 +103,41 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;23\,a(n-1) - 20\,a(n-2) - 2701\,a(n-3) + 14290\,a(n-4) + 96871\,a(n-5) - 821769\,a(n-6) - 1334756\,a(n-7) + 22205174\,a(n-8) - 2051485\,a(n-9) - 358415097\,a(n-10) + 335076413\,a(n-11) + 3816085706\,a(n-12) - 5474841848\,a(n-13) - 28179606956\,a(n-14) + 49887962008\,a(n-15) + 147948120520\,a(n-16) - 299147271265\,a(n-17) - 556239083509\,a(n-18) + 1245031259726\,a(n-19) + 1483266239823\,a(n-20) - 3658543581308\,a(n-21) - 2715597972088\,a(n-22) + 7566683853367\,a(n-23) + 3153572640112\,a(n-24) - 10789182805002\,a(n-25) - 1812615431409\,a(n-26) + 10165463452563\,a(n-27) - 275438311116\,a(n-28) - 5857653280734\,a(n-29) + 1036380387492\,a(n-30) + 1787112576576\,a(n-31) - 499228796880\,a(n-32) - 216471126240\,a(n-33) + 72471573504\,a(n-34) + 3769058304\,a(n-35) - 1625868288\,a(n-36)
+a(n)\;=\;330\,a(n-1) - 47905\,a(n-2) + 3985410\,a(n-3) - 206365510\,a(n-4) + 6672680586\,a(n-5) - 122373303195\,a(n-6) + 709491272490\,a(n-7) + 15464097908610\,a(n-8) - 236876565993210\,a(n-9) - 1206133937807799\,a(n-10) + 27079181195038830\,a(n-11) + 171391641827053440\,a(n-12) - 1253840968846296270\,a(n-13) - 18429459866602517535\,a(n-14) - 90975948325330554486\,a(n-15) - 221637111204593414265\,a(n-16) - 212469703253098253820\,a(n-17) + 162642616721395317650\,a(n-18) + 441153094911335071980\,a(n-19) - 61384992726492316804\,a(n-20) - 441153094911335071980\,a(n-21) + 162642616721395317650\,a(n-22) + 212469703253098253820\,a(n-23) - 221637111204593414265\,a(n-24) + 90975948325330554486\,a(n-25) - 18429459866602517535\,a(n-26) + 1253840968846296270\,a(n-27) + 171391641827053440\,a(n-28) - 27079181195038830\,a(n-29) - 1206133937807799\,a(n-30) + 236876565993210\,a(n-31) + 15464097908610\,a(n-32) - 709491272490\,a(n-33) - 122373303195\,a(n-34) - 6672680586\,a(n-35) - 206365510\,a(n-36) - 3985410\,a(n-37) - 47905\,a(n-38) - 330\,a(n-39) - a(n-40)
 \]
-for every $n>36$.
+for every $n>39$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $36$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $40$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=36+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once.
+integers vanish from the index corresponding to $n=39+1$ onwards and the run continued
+until the working vector was identically zero.
 \end{proof}
 
 \section{Verification}
 
-Three checks, each independent of the algebra above.
+Four checks, each independent of the algebra above.
 
-First, the model reproduces all $15$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry: the digraph is built by reading the
-entry's English, and a misreading gives different counts.
+First, the model reproduces all $16$ terms the entry publishes, exactly, in integer
+arithmetic.
 
-Second, the conjectured recurrence was evaluated directly on those published terms, with no
+Second, the count was recomputed for the smallest arrays straight from the definition:
+enumerate every array of that size, form each row's and each column's list of repeated values
+by scanning it, and test consecutive members of those lists against the relation. No state, no
+window and no transfer matrix are involved, and the published terms came back.
+
+Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
 arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A225022.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A267994.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{kim} K.~H.~Kim, \emph{Boolean Matrix Theory and Applications}, Marcel Dekker,
-1982.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

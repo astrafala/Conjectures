@@ -12,83 +12,72 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A262790, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A203960, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A262790 counts arrays of width $5$ over $\{0,1\}$ whose rows, read as base-$2$
-numbers, are divisible by $5$ and whose columns, read the same way, are not divisible by
-$5$. The entry carries an empirical recurrence of order $53$ contributed by
-R.~H.~Hardin. It is true, and it is decidable rather than empirical. A column's value depends on
-every row of the array, so the condition is not local; but its RESIDUE is built one row at a
-time by Horner's rule, and the vector of column residues is a state of bounded size. The count
-is then a walk count on $S=625$ states.
+OEIS A203960 counts arrays of width $4$ over $\{0,1,2\}$ through two derived arrays of PAIR SUMS ---
+each cell added to its left neighbour, and each cell added to the one above it --- on which the
+entry imposes an order condition. The entry carries an empirical recurrence of order $70$
+contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical: the count is
+a walk count on $S=504$ states.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 11A63, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 06A07, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A262790 is ``Number of (n+2)X(3+2) 0..1 arrays with each row divisible by 5 and column not divisible by 5, read as a binary number with top and left being the most significant bits.''. It has offset $1$ and begins
+OEIS A203960 is ``Number of (n+1)X4 0..2 arrays with column and row pair sums b(i,j)=a(i,j)+a(i,j-1) and c(i,j)=a(i,j)+a(i-1,j) such that rows of b(i,j) and columns of c(i,j) are lexicographically nondecreasing.''. It has offset $1$ and begins
 \[
-76, 528, 4898, 38688, 269638, 1873728, 13349904, 94039306,\ \dots
+447, 6586, 144184, 2774984, 45390107, 632607409, 7690733410, 83135996535,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 7*a(n-1) +2438*a(n-4) -17066*a(n-5) -2193828*a(n-8) +15356796*a(n-9) +1012143986*a(n-12) -7085007902*a(n-13) -274571219965*a(n-16) +1921998539755*a(n-17) +46824231026412*a(n-20) -327769617184884*a(n-21) -5180403909036816*a(n-24) +36262827363257712*a(n-25) +375348133713055716*a(n-28) -2627436935991390012*a(n-29) -17669998041050990187*a(n-32) +123689986287356931309*a(n-33) +526338150774349790590*a(n-36) -3684367055420448534130*a(n-37) -9412502562578384921036*a(n-40) +65887517938048694447252*a(n-41) +91478334812736629058378*a(n-44) -640348343689156403408646*a(n-45) -389202483948737967210263*a(n-48) +2724417387641165770471841*a(n-49) +306627613331565950494576*a(n-52) -2146393293320961653462032*a(n-53)
+Empirical: a(n) = 70*a(n-1) -2390*a(n-2) +53026*a(n-3) -859280*a(n-4) +10837486*a(n-5) -110689678*a(n-6) +940467534*a(n-7) -6775582821*a(n-8) +41975896416*a(n-9) -225945601128*a(n-10) +1064739771036*a(n-11) -4415619896328*a(n-12) +16165513660116*a(n-13) -52288711297332*a(n-14) +149160295747764*a(n-15) -373162375580709*a(n-16) +809119940631882*a(n-17) -1484223951053770*a(n-18) +2178963883075318*a(n-19) -2146560280535480*a(n-20) -39085438231766*a(n-21) +6024585300469078*a(n-22) -16111370788098326*a(n-23) +26799852258923207*a(n-24) -29210326010513316*a(n-25) +11504776740632844*a(n-26) +32600593598129128*a(n-27) -92110560248711488*a(n-28) +133407867113598392*a(n-29) -112515294835778680*a(n-30) +6161615044794680*a(n-31) +156112517978995805*a(n-32) -288784683826825574*a(n-33) +293693764907358870*a(n-34) -130895641732610322*a(n-35) -134974860855522688*a(n-36) +358965293492784994*a(n-37) -405877274016750338*a(n-38) +243936796446407746*a(n-39) +30720051124321969*a(n-40) -259761347702652728*a(n-41) +328048339099510784*a(n-42) -229573881432089796*a(n-43) +52077364009364856*a(n-44) +95462224098943732*a(n-45) -151426903228240084*a(n-46) +121968628140188372*a(n-47) -54270113113921399*a(n-48) -4686638262187882*a(n-49) +32942542265444042*a(n-50) -33614401931263814*a(n-51) +21094772073143112*a(n-52) -8016780378010938*a(n-53) +41021215954938*a(n-54) +2818476851537094*a(n-55) -2765176161007827*a(n-56) +1790718345039036*a(n-57) -910785954481380*a(n-58) +383581455732864*a(n-59) -136587085998000*a(n-60) +41434143634752*a(n-61) -10708969866816*a(n-62) +2345491881472*a(n-63) -430737604864*a(n-64) +65228628992*a(n-65) -7943769088*a(n-66) +748765184*a(n-67) -51318784*a(n-68) +2277376*a(n-69) -49152*a(n-70) for n>83
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 02 2015 07:44:14, revision 4) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 10:54:15, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The array has $5$ cells across and entries $x(i,j)\in\{0,1\}$, the digits of
-base $2$. Row $i$ of an array with $R$ rows is the number
+The array $a$ has $4$ cells across, with entries in $\{0,1,2\}$. Two derived arrays are formed,
 \[
-\rho_i\;=\;\sum_{j=1}^{5}x(i,j)\,2^{5-j} ,
+b(i,j)=a(i,j)+a(i,j-1)\quad(j\ge1),\qquad c(i,j)=a(i,j)+a(i-1,j)\quad(i\ge1),
 \]
-the LEFT digit being the most significant, and column $j$ is
-\[
-\gamma_j\;=\;\sum_{i=1}^{R}x(i,j)\,2^{R-i} ,
-\]
-the TOP digit being the most significant. The entry asks that every $\rho_i$ be divisible by
-$5$ and every $\gamma_j$ be not divisible by $5$.
+so $b$ adds each cell to its LEFT neighbour and $c$ adds each cell to the one ABOVE it. The
+entry asks
+
+that the ROWS of $b$ and the COLUMNS of $c$ are each in lexicographic nondecreasing order. Row $i$ of $b$
+is $\bigl(b(i,1),\dots,b(i,3)\bigr)$ and column $j$ of $c$ is
+$\bigl(c(1,j),c(2,j),\dots\bigr)$.
 
 
-\section{Column residues by Horner's rule}
+\section{Two rows decide it}
 
-The row condition is a condition on one row and is imposed as each row is chosen. The column
-condition is not local: $\gamma_j$ depends on every row. What is local is its residue.
-
-\begin{lemma}\label{lem:horner}
-Let $\gamma_j^{(i)}$ be the value of column $j$ of the first $i$ rows, read the same way.
-Then $\gamma_j^{(0)}=0$ and
-\[
-\gamma_j^{(i)}\;=\;2\,\gamma_j^{(i-1)}+x(i,j),
-\qquad\text{hence}\qquad
-\gamma_j^{(i)}\bmod 5\;=\;
-\bigl(2\,(\gamma_j^{(i-1)}\bmod 5)+x(i,j)\bigr)\bmod 5 .
-\]
+\begin{lemma}\label{lem:win}
+The row comparison is a condition on two consecutive rows of $a$. The column comparison is
+settled by the FIRST row in which the two columns of $c$ differ.
 \end{lemma}
 
 \begin{proof}
-Adding a row at the BOTTOM shifts every earlier digit one place up in significance, which is
-multiplication by $2$, and puts the new digit in the units place. Reduction modulo
-$5$ commutes with both operations.
+Row $i$ of $b$ is built from row $i$ of $a$ alone, so comparing rows $i$ and $i+1$ of $b$ reads
+rows $i$ and $i+1$ of $a$. Two sequences are compared lexicographically by their first
+difference; entry $i$ of column $j$ of $c$ is built from rows $i-1$ and $i$ of $a$, so scanning
+the array downwards reveals the entries of every column of $c$ in order.
 \end{proof}
 
-So the vector $\bigl(\gamma_1\bmod 5,\dots,\gamma_{5}\bmod
-5\bigr)$ is a state: at most $5^{5}$ of them, and each array row
-that satisfies the row condition carries one such vector to another. The walk starts at the
-all-zero vector, which is the empty array, and the END vector picks out the residue vectors in
-which every entry is not divisible by $5$ --- so the end vector is not the all-ones
-vector, and the column condition is imposed once, at the end, exactly as the entry states it.
-With $M$ the adjacency matrix,
+So the state is the last row of $a$ together with one bit for each adjacent pair of columns,
+recording whether that pair of columns of $c$ has been equal in every row so far. A row that
+would put a pair in the wrong order is rejected at once, and a pair still equal at the end is
+in order, equality being allowed.
+
+With $M$ the adjacency matrix of the digraph on those states, $\iota$ the indicator of the
+starting state and $\tau=\mathbf{1}$,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=625.
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=504.
 \]
 The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
 published terms rather than assumed. In particular $a$ is $C$-finite.
@@ -96,7 +85,7 @@ published terms rather than assumed. In particular $a$ is $C$-finite.
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{53}-\sum_i c_it^{53-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{70}-\sum_i c_it^{70-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -104,7 +93,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+53}-\sum_ic_iM^{j+53-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+70}-\sum_ic_iM^{j+70-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -113,29 +102,29 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;7\,a(n-1) + 2438\,a(n-4) - 17066\,a(n-5) - 2193828\,a(n-8) + 15356796\,a(n-9) + 1012143986\,a(n-12) - 7085007902\,a(n-13) - 274571219965\,a(n-16) + 1921998539755\,a(n-17) + 46824231026412\,a(n-20) - 327769617184884\,a(n-21) - 5180403909036816\,a(n-24) + 36262827363257712\,a(n-25) + 375348133713055716\,a(n-28) - 2627436935991390012\,a(n-29) - 17669998041050990187\,a(n-32) + 123689986287356931309\,a(n-33) + 526338150774349790590\,a(n-36) - 3684367055420448534130\,a(n-37) - 9412502562578384921036\,a(n-40) + 65887517938048694447252\,a(n-41) + 91478334812736629058378\,a(n-44) - 640348343689156403408646\,a(n-45) - 389202483948737967210263\,a(n-48) + 2724417387641165770471841\,a(n-49) + 306627613331565950494576\,a(n-52) - 2146393293320961653462032\,a(n-53)
+a(n)\;=\;70\,a(n-1) - 2390\,a(n-2) + 53026\,a(n-3) - 859280\,a(n-4) + 10837486\,a(n-5) - 110689678\,a(n-6) + 940467534\,a(n-7) - 6775582821\,a(n-8) + 41975896416\,a(n-9) - 225945601128\,a(n-10) + 1064739771036\,a(n-11) - 4415619896328\,a(n-12) + 16165513660116\,a(n-13) - 52288711297332\,a(n-14) + 149160295747764\,a(n-15) - 373162375580709\,a(n-16) + 809119940631882\,a(n-17) - 1484223951053770\,a(n-18) + 2178963883075318\,a(n-19) - 2146560280535480\,a(n-20) - 39085438231766\,a(n-21) + 6024585300469078\,a(n-22) - 16111370788098326\,a(n-23) + 26799852258923207\,a(n-24) - 29210326010513316\,a(n-25) + 11504776740632844\,a(n-26) + 32600593598129128\,a(n-27) - 92110560248711488\,a(n-28) + 133407867113598392\,a(n-29) - 112515294835778680\,a(n-30) + 6161615044794680\,a(n-31) + 156112517978995805\,a(n-32) - 288784683826825574\,a(n-33) + 293693764907358870\,a(n-34) - 130895641732610322\,a(n-35) - 134974860855522688\,a(n-36) + 358965293492784994\,a(n-37) - 405877274016750338\,a(n-38) + 243936796446407746\,a(n-39) + 30720051124321969\,a(n-40) - 259761347702652728\,a(n-41) + 328048339099510784\,a(n-42) - 229573881432089796\,a(n-43) + 52077364009364856\,a(n-44) + 95462224098943732\,a(n-45) - 151426903228240084\,a(n-46) + 121968628140188372\,a(n-47) - 54270113113921399\,a(n-48) - 4686638262187882\,a(n-49) + 32942542265444042\,a(n-50) - 33614401931263814\,a(n-51) + 21094772073143112\,a(n-52) - 8016780378010938\,a(n-53) + 41021215954938\,a(n-54) + 2818476851537094\,a(n-55) - 2765176161007827\,a(n-56) + 1790718345039036\,a(n-57) - 910785954481380\,a(n-58) + 383581455732864\,a(n-59) - 136587085998000\,a(n-60) + 41434143634752\,a(n-61) - 10708969866816\,a(n-62) + 2345491881472\,a(n-63) - 430737604864\,a(n-64) + 65228628992\,a(n-65) - 7943769088\,a(n-66) + 748765184\,a(n-67) - 51318784\,a(n-68) + 2277376\,a(n-69) - 49152\,a(n-70)
 \]
-for every $n>50$.
+for every $n>83$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $53$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $70$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=50+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once.
+integers vanish from the index corresponding to $n=83+1$ onwards and the run continued
+until the working vector was identically zero.
 \end{proof}
 
 \section{Verification}
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $19$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $15$ terms the entry publishes, exactly, in integer
 arithmetic.
 
 Second, the count was recomputed for the smallest arrays straight from the definition:
-enumerate every array of that size, turn each row and each column into a base-$2$ number with
-the first digit most significant, and test the divisibility directly. Neither Horner's rule nor
-any residue state is involved, and the published terms came back.
+enumerate every array of that size, form the two derived arrays in full, and test the condition
+on them directly. No window, no state and no incremental bookkeeping are involved, and the
+published terms came back.
 
 Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
@@ -145,11 +134,9 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A262790.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A203960.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{knuth} D.~E.~Knuth, \emph{The Art of Computer Programming}, Volume 2, 3rd ed.,
-Addison--Wesley, 1997. (Evaluation of polynomials, Section 4.6.4.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

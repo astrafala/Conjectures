@@ -12,14 +12,14 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical column recurrences for the table OEIS A263303}
+\title{The empirical column recurrences for the table OEIS A251283}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A263303 is a two-dimensional table $T(n,k)$, and it carries a block of empirical
+OEIS A251283 is a two-dimensional table $T(n,k)$, and it carries a block of empirical
 recurrences contributed by R.~H.~Hardin --- one for each of its first few columns. They are
 true. Column $k$ of the table is an ordinary fixed-width array count, so its rows are the
 vertices of a finite digraph and $T(n,k)$ is a number of walks in it; being a walk count the
@@ -31,18 +31,20 @@ exact computation, with the Cayley--Hamilton theorem bounding the work. This not
 
 \section{The table and the conjectures}
 
-OEIS A263303 is ``T(n,k)=Number of (n+3)X(k+3) 0..1 arrays with each row divisible by 13 and column not divisible by 13, read as a binary number with top and left being the most significant bits.''. It has offset $1$, is
+OEIS A251283 is ``T(n,k)=Number of (n+1)X(k+1) 0..3 arrays with no 2X2 subblock having its maximum diagonal element less than its minimum antidiagonal element.''. It has offset $1$, is
 read by antidiagonals, and begins
 \[
-0, 42, 0, 228, 156, 0, 3516, 1504,\ \dots
+230, 3264, 3264, 46244, 164800, 46244, 655040, 8320896,\ \dots
 \]
 The entry carries the following block:
 \begin{quote}\small
 Empirical for column k:\\
-k=1: a(n) = a(n-1)\\
-k=2: [order 47]\\
+k=1: a(n) = 16*a(n-1) -26*a(n-2)\\
+k=2: a(n) = 54*a(n-1) -182*a(n-2) +228*a(n-3) +1152*a(n-4)\\
+k=3: [order 9]\\
+k=4: [order 23]\\
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 13 2015 18:18:12, revision 4) these are still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 13:14:11, revision 6) these are still
 recorded as empirical, and nothing on the entry records any of them as settled.
 
 \section{A column of the table is a walk count}
@@ -85,7 +87,7 @@ $j\ge S_k$ repeats that combination of earlier values.
 \begin{center}
 \begin{tabular}{ccccc}
 line & order & vertices $S$ & proved for & terms checked \\ \hline
-column $k$$=1$ & $1$ & $13$ & $>1$ & $8$ \\
+column $k$$=1$ & $2$ & $16$ & $>1$ & $7$ \\
 \end{tabular}
 \end{center}
 
@@ -95,14 +97,38 @@ again exactly; every one of those integers vanishes from the stated point onward
 continued until the working vector was identically zero, which settles all larger $j$ at once.
 
 \subsection*{Column $k$$=1$}
-The sequence is ``Number of (n+3)X4 0..1 arrays with each row divisible by 13 and column not divisible by 13, read as a binary number with top and left being the most significant bits.''. Its rows are the vertices of a digraph on
-$S=13$ vertices, edges being the admissible consecutive pairs, and the count is
+The sequence is ``Number of (n+1)X(2) 0..3 arrays with no 2X2 subblock having its maximum diagonal element less than its minimum antidiagonal element.''. Its rows are the vertices of a digraph on
+$S=16$ vertices, edges being the admissible consecutive pairs, and the count is
 $\mathbf{1}^{\!\top}M^{n}\mathbf{1}$ up to the constant factor in the entry's name.
 The conjectured recurrence
 \[
-a(n)\;=\;a(n-1)
+a(n)\;=\;16\,a(n-1) - 26\,a(n-2)
 \]
 holds from index $1+1$ on.
+
+
+\section{Lines whose recurrence the entry does not print}
+
+For the lines below the entry records only an order, the coefficients being in a linked file.
+They can still be settled, and the recurrences recovered. A line is a walk count on $S$
+vertices, so it satisfies some monic recurrence of order at most $S$ and Berlekamp--Massey on
+$2S$ exact terms returns the MINIMAL one. Where that order equals the stated order --- and
+where the same holds after the first few terms are dropped, since the entry's recurrence may
+begin only partway along --- any recurrence of that order the line satisfies has a
+characteristic polynomial that is a multiple of the minimal one and of equal degree, hence is
+that polynomial. So the entry's recurrence is the one displayed, whatever its file contains.
+
+\subsection*{Column $k=3$, recovered}
+The entry gives only the order for this line: ``k=3: [order 9]''. Its model is a walk on
+$S=256$ vertices, so it satisfies a monic recurrence of order at most $S$;
+Berlekamp--Massey on $2S=512$ exact terms returns the minimal one, of order
+$9$ --- the stated order --- with integer coefficients
+\begin{center}\small\begin{tabular}{cccccccc}
+$c_{1}$ & $230$ & $c_{4}$ & $-428619$ & $c_{7}$ & $-44328410$ &  &  \\
+$c_{2}$ & $-9371$ & $c_{5}$ & $-3386398$ & $c_{8}$ & $-221985864$ &  &  \\
+$c_{3}$ & $68562$ & $c_{6}$ & $50923111$ & $c_{9}$ & $-608157648$ &  &  \\
+\end{tabular}\end{center}
+Repeating with the first $9+4$ terms removed gives order $9$ again.
 
 \section{Verification}
 
@@ -113,7 +139,7 @@ both from the antidiagonal DATA read in either orientation and from the ``Table 
 block, and agrees at every available term. This is what ties a model to the table:
 substituting the fixed index into the entry's wording is a reading of English, and a wrong
 reading gives a different digraph and different counts. Across the lines settled here the
-model reproduces $8$ published values, $8$ decimal digits in all, every one of
+model reproduces $7$ published values, $44$ decimal digits in all, every one of
 them exactly; a misreading of the entry would have to reproduce all of them by accident.
 
 Second, each conjectured recurrence was evaluated on those published values in exact
@@ -133,7 +159,7 @@ claimed.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A263303.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A251283.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

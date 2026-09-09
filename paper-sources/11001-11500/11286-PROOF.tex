@@ -10,22 +10,22 @@
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
-\title{A proof of the conjectured recurrence for OEIS A158196}
+\title{A proof of the conjectured recurrence for OEIS A121725}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{25 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A158196 carries a conjectured linear recurrence with polynomial coefficients, of
-order 2, contributed by R.~J.~Mathar. We prove it. The generating function of the
+OEIS A121725 carries a conjectured linear recurrence with polynomial coefficients, of
+order 3, contributed by R.~J.~Mathar. We prove it. The generating function of the
 entry is algebraic, and the recurrence is equivalent to the vanishing of an explicit
 differential operator applied to it: writing $\theta=x\,\frac{d}{dx}$, the sequence
 $b(n)=\sum_{i}p_{i}(n)a(n-i)$ has generating function
 $B(x)=\sum_{i}x^{i}\,(p_{i}(\theta+i)A)(x)$, so the conjecture holds for all $n>d$ exactly
 when $B$ is a polynomial of degree $d$. Since $A$ lies in a quadratic extension of
 $\mathbb{Q}(x)$, which is closed under $\theta$, the residual $B$ can be computed in
-closed form. Here it equals $9 - 28 x$, a polynomial of degree $1$, which proves
+closed form. Here it equals $1 - 18 x$, a polynomial of degree $1$, which proves
 the recurrence for every $n>1$.
 \end{abstract}
 
@@ -33,28 +33,26 @@ the recurrence for every $n>1$.
 
 \section{The sequence and the conjecture}
 
-OEIS A158196 is ``Expansion of (1-x\^{}2*c(x)\^{}4)/(1-3*x*c(x)\^{}2), c(x) the g.f. of A000108''. It has offset $0$ and begins
+OEIS A121725 is ``Generalized central coefficients for k=3''. It has offset $0$ and begins
 \[
-a(0),\dots,a(7)\;=\;1, 3, 14, 71, 370, 1950, 10332, 54895,\ \dots
+a(0),\dots,a(7)\;=\;1, 1, 10, 19, 190, 442, 4420, 11395,\ \dots
 \]
-The entry does not list a generating function separately: it is defined as the
-expansion of one, so the identity below is the definition of the sequence rather than a
-claim about it,
+The entry gives the generating function
 \begin{equation}\label{eq:gf}
-A(x)\;=\;\sum_{n\ge 0} a(n)\,x^{n}\;=\;\frac{16 x^{2} - \left(\sqrt{1 - 4 x} - 1\right)^{4}}{4 x \left(4 x - 3 \left(\sqrt{1 - 4 x} - 1\right)^{2}\right)} ,
+A(x)\;=\;\sum_{n\ge 0} a(n)\,x^{n}\;=\;\frac{1 - \sqrt{1 - 36 x^{2}}}{x \left(18 x + \sqrt{1 - 36 x^{2}} - 1\right)} ,
 \end{equation}
 and it carries the following comment:
 \begin{quote}\small
-\textbf{Conjecture:} 3*(2*n+3)*(n+1)*a(n) +2*(-28*n\^{}2-52*n+21)*a(n-1) +32*(2*n+5)*(2*n-3)*a(n-2)=0. - \emph{R. J. Mathar}, Feb 05 2015
+\textbf{Conjecture:} (n+1)*a(n) = 10*(n+1)*a(n-1) + 36*(n-2)*a(n-2) - 360*(n-2)*a(n-3). - \emph{R. J. Mathar}, Nov 26 2012
 \end{quote}
-As of the ``Last modified'' line on the live entry (2015-02-05, revision 4) the
+As of the ``Last modified'' line on the live entry (2026-07-16, revision 27) the
 statement is still recorded as a conjecture, and no proof appears among the entry's links,
 formulas or programs.
 
-Writing the conjectured relation in the form $\sum_{i=0}^{2}p_{i}(n)\,a(n-i)=0$,
+Writing the conjectured relation in the form $\sum_{i=0}^{3}p_{i}(n)\,a(n-i)=0$,
 the coefficient polynomials are
 \[
-p_{0}(n)=3 \left(n + 1\right) \left(2 n + 3\right),\qquad p_{1}(n)=- 2 \left(28 n^{2} + 52 n - 21\right),\qquad p_{2}(n)=32 \left(2 n - 3\right) \left(2 n + 5\right)
+p_{0}(n)=n + 1,\qquad p_{1}(n)=- 10 \left(n + 1\right),\qquad p_{2}(n)=- 36 \left(n - 2\right),\qquad p_{3}(n)=360 \left(n - 2\right)
 \]
 
 \section{Recurrences as differential operators}
@@ -116,24 +114,24 @@ $B=P+Q\sqrt{D}$ with $P,Q\in\mathbb{Q}(x)$, the test of Corollary~\ref{cor:crite
 becomes: $B$ is a polynomial precisely when $Q=0$ and $P$ has constant denominator. Both
 are decided by exact cancellation of rational functions.
 
-\section{The computation for A158196}
+\section{The computation for A121725}
 
 The generating function \eqref{eq:gf} lies in $K=\mathbb{Q}(x)[\sqrt{D}]$ with
 \[
-D \;=\; 1 - 4 x .
+D \;=\; - \left(6 x - 1\right) \left(6 x + 1\right) .
 \]
 Applying Lemma~\ref{lem:transfer} to the coefficient polynomials of Section~1 and reducing
 in $K$ by Lemma~\ref{lem:field}, the $\sqrt{D}$ component of $B$ cancels identically and
 the rational part collapses to
 \[
-B(x)\;=\;9 - 28 x ,
+B(x)\;=\;1 - 18 x ,
 \]
 a polynomial of degree $1$.
 
 \begin{theorem}
 The conjectured recurrence
 \[
-3 \left(n + 1\right) \left(2 n + 3\right)\,a(n) -  2 \left(28 n^{2} + 52 n - 21\right)\,a(n-1) + 32 \left(2 n - 3\right) \left(2 n + 5\right)\,a(n-2) \;=\;0
+(n + 1)\,a(n) -  10 \left(n + 1\right)\,a(n-1) -  36 \left(n - 2\right)\,a(n-2) + 360 \left(n - 2\right)\,a(n-3) \;=\;0
 \]
 holds for every $n>1$.
 \end{theorem}
@@ -155,23 +153,23 @@ independent checks were run.
 
 First, the generating function was checked against the entry rather than assumed: the
 Taylor coefficients of \eqref{eq:gf} were expanded and compared term by term with the DATA
-section of A158196, agreeing on all 13 terms compared.
+section of A121725, agreeing on all 13 terms compared.
 
 Second, the recurrence itself was evaluated directly on the published terms, in exact
 integer arithmetic and without reference to the generating function: for each $n$ in range
 the sum $\sum_{i}p_{i}(n)a(n-i)$ was formed from the entry's own values and found to
-vanish, for all 19 values of $n$ from $n=2$ upward. This is what
+vanish, for all 21 values of $n$ from $n=3$ upward. This is what
 Corollary~\ref{cor:criterion} predicts from the degree of $B$, and it is a genuinely
 different computation from the symbolic one: it never forms $B$, never differentiates, and
 uses only integers.
 
 The symbolic step is exact throughout. The residual is obtained by rational-function
-cancellation in $K$, not by series truncation, so the identity $B=9 - 28 x$ is an
+cancellation in $K$, not by series truncation, so the identity $B=1 - 18 x$ is an
 identity of functions and the theorem holds for all $n>1$ simultaneously.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer Sequences},
-\url{https://oeis.org}, 2026. Sequence A158196.
+\url{https://oeis.org}, 2026. Sequence A121725.
 \bibitem{kp} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011,
 Chapter 7 (holonomic closure properties and the translation between recurrences and
 differential equations).

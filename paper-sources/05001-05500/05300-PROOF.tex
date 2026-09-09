@@ -12,21 +12,21 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A207658, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A207751, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A207658 counts arrays over $\{0,\dots,1\}$ of width $5$ that avoid the patterns
-$(0,0,0), (1,1,1)$ along one axis and $(0,0,1), (1,0,0)$ along the other, and carries an empirical recurrence of
-order $39$ contributed by R.~H.~Hardin. It is true. The patterns have length $3$, so
+OEIS A207751 counts arrays over $\{0,\dots,1\}$ of width $7$ that avoid the patterns
+$(0,0,1), (0,1,1)$ along one axis and $(0,0,1), (1,0,0)$ along the other, and carries an empirical recurrence of
+order $40$ contributed by R.~H.~Hardin. It is true. The patterns have length $3$, so
 the constraint across the growing direction ties together $3$ consecutive rows: taking a
 window of $2$ consecutive rows as a state makes the array a walk in a finite digraph
-on $S=256$ vertices, and $a(n)=\mathbf{1}^{\!\top}P^{\,n-2}\mathbf{1}$. Writing $q$
+on $S=400$ vertices, and $a(n)=\mathbf{1}^{\!\top}P^{\,n-2}\mathbf{1}$. Writing $q$
 for the characteristic polynomial of the conjectured recurrence, the residual is
-$\mathbf{1}^{\!\top}P^{\,n-2-39}q(P)\mathbf{1}$, which vanishes identically
+$\mathbf{1}^{\!\top}P^{\,n-2-40}q(P)\mathbf{1}$, which vanishes identically
 beyond a threshold that the computation pins down exactly. Finite, exact, integer.
 \end{abstract}
 
@@ -34,35 +34,35 @@ beyond a threshold that the computation pins down exactly. Finite, exact, intege
 
 \section{The sequence and the conjecture}
 
-OEIS A207658 is ``Number of nX5 0..1 arrays avoiding 0 0 0 and 1 1 1 horizontally and 0 0 1 and 1 0 0 vertically.''. It has offset
+OEIS A207751 is ``Number of nX7 0..1 arrays avoiding 0 0 1 and 0 1 1 horizontally and 0 0 1 and 1 0 0 vertically.''. It has offset
 $1$ and begins
 \[
-16, 256, 912, 3358, 13902, 60762, 284108,\ \dots
+20, 400, 2340, 9450, 51590, 247860, 1341606,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 12*a(n-1) -483*a(n-3) +1058*a(n-4) +8368*a(n-5) -26505*a(n-6) -83508*a(n-7) +326091*a(n-8) +541945*a(n-9) -2475399*a(n-10) -2452693*a(n-11) +12617956*a(n-12) +8107855*a(n-13) -44950291*a(n-14) -20120524*a(n-15) +114179696*a(n-16) +37708979*a(n-17) -208886844*a(n-18) -52673306*a(n-19) +276493256*a(n-20) +53543352*a(n-21) -265039809*a(n-22) -38452576*a(n-23) +183550029*a(n-24) +18679017*a(n-25) -91256473*a(n-26) -5579615*a(n-27) +32186410*a(n-28) +695121*a(n-29) -7890803*a(n-30) +140162*a(n-31) +1299113*a(n-32) -73905*a(n-33) -135188*a(n-34) +12785*a(n-35) +7896*a(n-36) -1016*a(n-37) -192*a(n-38) +30*a(n-39) for n>40
+Empirical: a(n) = 20*a(n-1) -51*a(n-2) -1431*a(n-3) +8935*a(n-4) +40417*a(n-5) -426101*a(n-6) -444083*a(n-7) +11365411*a(n-8) -4300391*a(n-9) -200417737*a(n-10) +232239905*a(n-11) +2518061713*a(n-12) -4164580427*a(n-13) -23481745867*a(n-14) +46800489827*a(n-15) +166445441485*a(n-16) -371915483333*a(n-17) -908779936543*a(n-18) +2189295925439*a(n-19) +3843112261849*a(n-20) -9750570404117*a(n-21) -12570760837627*a(n-22) +33142320325571*a(n-23) +31531972919492*a(n-24) -86008842255253*a(n-25) -59570349515902*a(n-26) +169294932682160*a(n-27) +82010381942544*a(n-28) -249200831975424*a(n-29) -77175689855936*a(n-30) +267826679018944*a(n-31) +42326080275840*a(n-32) -202109312236032*a(n-33) -4792436637696*a(n-34) +100229451300864*a(n-35) -9564035088384*a(n-36) -28820239810560*a(n-37) +5715890012160*a(n-38) +3536169467904*a(n-39) -990677827584*a(n-40) for n>41
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 14:08:10, revision
+As of the ``Last modified'' line on the live entry (Oct 03 2025 14:15:45, revision
 9) the statement is still recorded as empirical, and nothing on the entry
 records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;12\,a(n-1) - 483\,a(n-3) + 1058\,a(n-4) + 8368\,a(n-5) - 26505\,a(n-6) - 83508\,a(n-7) + 326091\,a(n-8) + 541945\,a(n-9) - 2475399\,a(n-10) - 2452693\,a(n-11) + 12617956\,a(n-12) + 8107855\,a(n-13) - 44950291\,a(n-14) - 20120524\,a(n-15) + 114179696\,a(n-16) + 37708979\,a(n-17) - 208886844\,a(n-18) - 52673306\,a(n-19) + 276493256\,a(n-20) + 53543352\,a(n-21) - 265039809\,a(n-22) - 38452576\,a(n-23) + 183550029\,a(n-24) + 18679017\,a(n-25) - 91256473\,a(n-26) - 5579615\,a(n-27) + 32186410\,a(n-28) + 695121\,a(n-29) - 7890803\,a(n-30) + 140162\,a(n-31) + 1299113\,a(n-32) - 73905\,a(n-33) - 135188\,a(n-34) + 12785\,a(n-35) + 7896\,a(n-36) - 1016\,a(n-37) - 192\,a(n-38) + 30\,a(n-39)
+a(n)\;=\;20\,a(n-1) - 51\,a(n-2) - 1431\,a(n-3) + 8935\,a(n-4) + 40417\,a(n-5) - 426101\,a(n-6) - 444083\,a(n-7) + 11365411\,a(n-8) - 4300391\,a(n-9) - 200417737\,a(n-10) + 232239905\,a(n-11) + 2518061713\,a(n-12) - 4164580427\,a(n-13) - 23481745867\,a(n-14) + 46800489827\,a(n-15) + 166445441485\,a(n-16) - 371915483333\,a(n-17) - 908779936543\,a(n-18) + 2189295925439\,a(n-19) + 3843112261849\,a(n-20) - 9750570404117\,a(n-21) - 12570760837627\,a(n-22) + 33142320325571\,a(n-23) + 31531972919492\,a(n-24) - 86008842255253\,a(n-25) - 59570349515902\,a(n-26) + 169294932682160\,a(n-27) + 82010381942544\,a(n-28) - 249200831975424\,a(n-29) - 77175689855936\,a(n-30) + 267826679018944\,a(n-31) + 42326080275840\,a(n-32) - 202109312236032\,a(n-33) - 4792436637696\,a(n-34) + 100229451300864\,a(n-35) - 9564035088384\,a(n-36) - 28820239810560\,a(n-37) + 5715890012160\,a(n-38) + 3536169467904\,a(n-39) - 990677827584\,a(n-40)
 \end{equation}
-for all $n>40$. 
+for all $n>41$. 
 
 \section{The array as a walk}
 
 Call a row \emph{admissible} if the word it forms contains none of the patterns
-$(0,0,0), (1,1,1)$ as $3$ consecutive entries. There are $16$ admissible rows; that condition
+$(0,0,1), (0,1,1)$ as $3$ consecutive entries. There are $20$ admissible rows; that condition
 involves a single row only.
 
 The remaining patterns $(0,0,1), (1,0,0)$ are forbidden along the other axis, so each of them
 constrains $3$ consecutive rows at a fixed position of the column. Take as state a
 window $w=\bigl(w^{(1)},\dots,w^{(2)}\bigr)$ of $2$ consecutive admissible
-rows, so $S=256$, and declare $w\to w'$ an edge when $w'$ is $w$ with its first entry
+rows, so $S=400$, and declare $w\to w'$ an edge when $w'$ is $w$ with its first entry
 dropped and one further admissible row $t$ appended, subject to: for every position
 $j$, the $3$-tuple read down the column $j$ across $w^{(1)},\dots,w^{(2)},t$
 is none of $(0,0,1), (1,0,0)$. Let $P$ be the adjacency matrix.
@@ -84,20 +84,20 @@ $\mathbf{1}^{\!\top}P^{\,n-2}\mathbf{1}$.
 
 \section{The criterion}
 
-Let $q(t)=t^{39}-\sum_i c_i t^{39-i}$ be the characteristic polynomial of
+Let $q(t)=t^{40}-\sum_i c_i t^{40-i}$ be the characteristic polynomial of
 \eqref{eq:conj} and $u_j=\mathbf{1}^{\!\top}P^{j}q(P)\mathbf{1}$.
 
 \begin{lemma}\label{lem:crit}
-$a(n)-\sum_i c_i a(n-i)=u_{\,n-2-39}$ whenever $n-39\ge2$. Hence
+$a(n)-\sum_i c_i a(n-i)=u_{\,n-2-40}$ whenever $n-40\ge2$. Hence
 \eqref{eq:conj} holds for every $n>t$ exactly when $u_j=0$ for every
-$j>t-2-39$. Moreover $(u_j)$ satisfies the monic linear recurrence whose
+$j>t-2-40$. Moreover $(u_j)$ satisfies the monic linear recurrence whose
 characteristic polynomial is that of $P$, of degree $S$, so $S$ consecutive zeros force all
 later ones and the last nonzero $u_j$ pins $t$ down exactly.
 \end{lemma}
 
 \begin{proof}
 Substituting Lemma~\ref{lem:walk} into the left side and factoring out
-$P^{\,n-2-39}$ gives the identity. The equivalence follows by letting the exponent
+$P^{\,n-2-40}$ gives the identity. The equivalence follows by letting the exponent
 run. For the last claim, Cayley--Hamilton gives $\chi(P)=0$ for the characteristic
 polynomial $\chi$ of $P$, so $\chi$ applied to the shift annihilates $(u_j)$; being monic of
 degree $S$, it propagates $S$ consecutive zeros forward.
@@ -106,14 +106,14 @@ degree $S$, it propagates $S$ consecutive zeros forward.
 \section{The computation}
 
 \begin{theorem}
-The recurrence \eqref{eq:conj} holds for every $n>40$. This is the statement of
+The recurrence \eqref{eq:conj} holds for every $n>41$. This is the statement of
 Section~1.
 \end{theorem}
 
 \begin{proof}
-The vector $q(P)\mathbf{1}\in\mathbb{Z}^{S}$ was formed by $39$ matrix--vector
+The vector $q(P)\mathbf{1}\in\mathbb{Z}^{S}$ was formed by $40$ matrix--vector
 products in exact integer arithmetic and the $u_j$ evaluated in turn. They vanish from the
-index corresponding to $n=40+1$ onwards, and the run was continued past $S$ consecutive
+index corresponding to $n=41+1$ onwards, and the run was continued past $S$ consecutive
 zeros, which by Lemma~\ref{lem:crit} settles every larger index.
 \end{proof}
 
@@ -122,20 +122,20 @@ zeros, which by Lemma~\ref{lem:crit} settles every larger index.
 Three checks, each independent of the algebra above.
 
 First, the digraph was built directly from the entry's stated patterns and the walk counts
-compared against the entry's DATA at every one of the $20$ published indices; the
-values agree exactly, including the initial count of $16$ admissible rows. That is
+compared against the entry's DATA at every one of the $19$ published indices; the
+values agree exactly, including the initial count of $20$ admissible rows. That is
 what ties the digraph to the sequence, and a model reproducing only part of the published
 data was rejected wherever it occurred.
 
 Second, the recurrence \eqref{eq:conj} was evaluated on those published terms in exact
 integer arithmetic, with no matrices involved, and vanishes at every index the entry claims.
 
-Third, the vanishing test of Lemma~\ref{lem:crit} was carried past $S=256$ consecutive
+Third, the vanishing test of Lemma~\ref{lem:crit} was carried past $S=400$ consecutive
 zeros rather than to a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A207658.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A207751.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

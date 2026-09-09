@@ -12,61 +12,84 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{Arrays counted up to renaming: the empirical recurrence for OEIS A206173}
+\title{The empirical recurrence for OEIS A225022, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{6 September 2026}
+\date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A206173 carries an empirical recurrence of order $32$ contributed by R.~H.~Hardin. It is
-true, and it is decidable rather than empirical. The entry imposes two conditions of different
-kinds: a condition on every subblock, which is local, and ``new values introduced in row major
-order'', which is not --- it makes the count a count of colourings up to renaming. The first is
-handled by a window of consecutive rows; the second by one extra integer, the number of values
-introduced so far, which is an exact summary of everything the whole prefix contributes. With
-both in the state the arrays are exactly the walks in a digraph on $S=76$ vertices, so $a(n)$
-is $C$-finite and whether the conjectured recurrence annihilates it is settled by a finite
-exact computation.
+OEIS A225022 counts the $(n+1)\times4$ matrices over $\{0,\dots,2\}$ all of whose
+$2\times2$ contiguous subblocks are of equal permanent, and carries an empirical recurrence of order
+$36$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical.
+The condition ties together $2$ consecutive rows and $2$ consecutive columns at once, so a
+single row is not a state; the strip of the last $1$ rows is, and the admissible strips
+are read off the overlap graph of the admissible windows instead of being enumerated. That
+makes $a(n)$ a walk count on $S=196$ vertices, hence $C$-finite, and whether the conjectured
+recurrence annihilates it is settled by a finite exact computation.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
 \section{The conjecture}
 
-OEIS A206173 is ``Number of 5X(n+1) 0..3 arrays with every 2X2 subblock in a row having an equal number of equal diagonal or equal antidiagonal elements, adjacent rows differing in this number, and new values 0..3 introduced in row major order.''. It has offset $1$ and begins
+OEIS A225022 is ``Number of (n+1)X4 0..2 matrices with each 2X2 permanent equal.''. It has offset $1$ and begins
 \[
-7566, 238182, 10599630, 526154358, 26687737998, 1361622567126, 69556988274126, 3554493803008374,\ \dots
+759, 12641, 117959, 1930229, 23865033, 356942157, 4807268289, 69047521033,\ \dots
 \]
-Because of the relabelling condition each array is counted once for the whole class of arrays that differ from it only by renaming the values, so these are colourings counted up to permutation of the colours.
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 56*a(n-1) +456*a(n-2) -39352*a(n-3) -34802*a(n-4) +11171648*a(n-5) -13122200*a(n-6) -1683933432*a(n-7) +3150972781*a(n-8) +150157165048*a(n-9) -306037231512*a(n-10) -8315004801408*a(n-11) +16418689080408*a(n-12) +290940321892032*a(n-13) -530173145158992*a(n-14) -6430873844504880*a(n-15) +10691431333128297*a(n-16) +89212552369342056*a(n-17) -137284826957648712*a(n-18) -772840127333187576*a(n-19) +1119417831060679350*a(n-20) +4169317975104649536*a(n-21) -5734329723412512984*a(n-22) -14005155678216709464*a(n-23) +18392800450061228427*a(n-24) +28975458499899160680*a(n-25) -36522779580082867752*a(n-26) -35550691451531386704*a(n-27) +43238482722793040004*a(n-28) +23504910388393904064*a(n-29) -27737731642915897344*a(n-30) -6398289766745501184*a(n-31) +7365473103579123456*a(n-32)
+Empirical: a(n) = 23*a(n-1) -20*a(n-2) -2701*a(n-3) +14290*a(n-4) +96871*a(n-5) -821769*a(n-6) -1334756*a(n-7) +22205174*a(n-8) -2051485*a(n-9) -358415097*a(n-10) +335076413*a(n-11) +3816085706*a(n-12) -5474841848*a(n-13) -28179606956*a(n-14) +49887962008*a(n-15) +147948120520*a(n-16) -299147271265*a(n-17) -556239083509*a(n-18) +1245031259726*a(n-19) +1483266239823*a(n-20) -3658543581308*a(n-21) -2715597972088*a(n-22) +7566683853367*a(n-23) +3153572640112*a(n-24) -10789182805002*a(n-25) -1812615431409*a(n-26) +10165463452563*a(n-27) -275438311116*a(n-28) -5857653280734*a(n-29) +1036380387492*a(n-30) +1787112576576*a(n-31) -499228796880*a(n-32) -216471126240*a(n-33) +72471573504*a(n-34) +3769058304*a(n-35) -1625868288*a(n-36)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 12:45:04, revision 9) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 23:38:24, revision 8) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{The count is a walk count}
 
-The entry counts arrays of 5 columns over the alphabet $\{0,1,2,3\}$, and asks two different kinds of thing of them at once.
+Call a $2\times2$ matrix over $\{0,\dots,2\}$ a \emph{window} when it is of equal permanent, and
+call a $2\times4$ matrix a \emph{band} when every one of its $3$ contiguous
+$2\times2$ subblocks is a window. What the entry counts is the matrices of $4$ columns
+whose every $2$ consecutive rows form a band.
 
-\textbf{The subblock condition is local.} It says that every $2\times2$ subblock scores the number of its equal diagonal pairs plus the number of its equal antidiagonal pairs, all subblocks lying in one band must score the same, and consecutive bands must score differently. A $ 2\times2$ subblock spans $2$ consecutive rows, so a window of $2$ consecutive rows decides every subblock it closes, and nothing outside that window is consulted.
-
-What is compared \emph{across} windows is carried too: the state holds the single number the last band scored, since a band is constant and only that one number is compared with the next. With $4$ subblocks to a band that is a bounded amount of bookkeeping and no more.
-
-\textbf{The relabelling condition is not local.} ``New values introduced in row major order'' says that, reading the array one row at a time and each row left to right, a value may appear for the first time only once every smaller value already has. Whether a given entry is allowed here therefore depends on the whole prefix of the array, not on any bounded window of it, and no amount of widening the window captures it. What saves it is that the prefix matters only through one number: let $m$ be how many values have been introduced so far. A row $r_1r_2\cdots r_5$ may follow precisely when each $r_i\le m$ at the moment it is read and each $r_i=m$ raises $m$ by one. So $m$, an integer in $\{0,1,\dots,4\}$, is an exact summary of everything the condition needs, and it joins the state.
-
-The vertices of the digraph are therefore the triples (the last $1$ row, the count $m$, what the last band scored), an edge $u\to v$ meaning that $v$'s new row may follow $u$. Of the $1024$ possible rows only those admissible from the current $m$ appear, and states with identical futures are merged, which leaves $S=76$. An admissible array is exactly a walk, so with $M$ the adjacency matrix and $\iota,\tau$ the vectors recording which states may begin and end an array,
+Take as states the $1\times4$ strips that occur as the top $1$ rows of a band,
+together with those that occur as its bottom $1$ rows, and put an edge from $u$ to $v$
+when the band whose first $1$ rows are $u$ and whose last $1$ rows are $v$ exists.
+A band is determined by that pair, so the edge is unique when it exists. Reading a counted
+matrix from the top, its rows $1..1$, then $2..2$, and so on, form a walk, and every
+walk arises from exactly one matrix; a matrix with $n+1$ rows gives a walk of $n$ edges.
+Since the first $1$ rows of a counted matrix with at least $2$ rows are the top of a
+band, and since no further condition falls on where a walk starts or ends,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n}\tau ,
+a(n)\;=\;\iota^{\!\top}M^{\,n}\tau ,\qquad \iota=\tau=(1,1,\dots,1)^{\!\top},
 \]
-the exponent fixed by the entry's own shape and checked against its published terms. In
-particular $a$ is $C$-finite.
+with $M$ the adjacency matrix on $S=196$ states. In particular $a$ is $C$-finite. The
+alignment was checked against the entry's published terms rather than assumed.
+
+There are $(2 + 1)^{4}$ strips of $1$ rows and $4$ columns, far too
+many to test one by one, and they are not tested one by one. Two consecutive windows of a band
+overlap in $2\times1$ entries, so a band is exactly a walk of $3$ windows in
+the graph that joins a window to those whose first $1$ columns are its last $1$
+columns. Enumerating those walks produces the bands, and with them the states and the edges,
+directly.
+
+\section{The admissible windows}
+
+The entry does not name the common value; it only asks that all the windows of one matrix agree.
+So fix a value $v$ and let $W_v$ be the set of $2\times2$ matrices over
+$\{0,\dots,2\}$ whose permanent, $b_{11}b_{22}+b_{12}b_{21}$, equals $v$. A matrix counted by the entry has all of
+its windows in a single $W_v$, and the value of $v$ is determined by the matrix, so the sets of
+matrices belonging to different $v$ are disjoint and
+\[
+a(n)\;=\;\sum_v a_v(n),
+\]
+each $a_v$ being the walk count of Section~2 built from $W_v$ alone. A disjoint union of the
+$8$ digraphs, one per value of $v$, therefore counts the whole of $a(n)$ with the same
+all-ones vectors, and the $2\times2$ windows in play number $81$ in total.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{32}-\sum_i c_it^{32-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{36}-\sum_i c_it^{36-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -74,7 +97,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+32}-\sum_ic_iM^{j+32-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+36}-\sum_ic_iM^{j+36-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -83,45 +106,39 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;56\,a(n-1) + 456\,a(n-2) - 39352\,a(n-3) - 34802\,a(n-4) + 11171648\,a(n-5) - 13122200\,a(n-6) - 1683933432\,a(n-7) + 3150972781\,a(n-8) + 150157165048\,a(n-9) - 306037231512\,a(n-10) - 8315004801408\,a(n-11) + 16418689080408\,a(n-12) + 290940321892032\,a(n-13) - 530173145158992\,a(n-14) - 6430873844504880\,a(n-15) + 10691431333128297\,a(n-16) + 89212552369342056\,a(n-17) - 137284826957648712\,a(n-18) - 772840127333187576\,a(n-19) + 1119417831060679350\,a(n-20) + 4169317975104649536\,a(n-21) - 5734329723412512984\,a(n-22) - 14005155678216709464\,a(n-23) + 18392800450061228427\,a(n-24) + 28975458499899160680\,a(n-25) - 36522779580082867752\,a(n-26) - 35550691451531386704\,a(n-27) + 43238482722793040004\,a(n-28) + 23504910388393904064\,a(n-29) - 27737731642915897344\,a(n-30) - 6398289766745501184\,a(n-31) + 7365473103579123456\,a(n-32)
+a(n)\;=\;23\,a(n-1) - 20\,a(n-2) - 2701\,a(n-3) + 14290\,a(n-4) + 96871\,a(n-5) - 821769\,a(n-6) - 1334756\,a(n-7) + 22205174\,a(n-8) - 2051485\,a(n-9) - 358415097\,a(n-10) + 335076413\,a(n-11) + 3816085706\,a(n-12) - 5474841848\,a(n-13) - 28179606956\,a(n-14) + 49887962008\,a(n-15) + 147948120520\,a(n-16) - 299147271265\,a(n-17) - 556239083509\,a(n-18) + 1245031259726\,a(n-19) + 1483266239823\,a(n-20) - 3658543581308\,a(n-21) - 2715597972088\,a(n-22) + 7566683853367\,a(n-23) + 3153572640112\,a(n-24) - 10789182805002\,a(n-25) - 1812615431409\,a(n-26) + 10165463452563\,a(n-27) - 275438311116\,a(n-28) - 5857653280734\,a(n-29) + 1036380387492\,a(n-30) + 1787112576576\,a(n-31) - 499228796880\,a(n-32) - 216471126240\,a(n-33) + 72471573504\,a(n-34) + 3769058304\,a(n-35) - 1625868288\,a(n-36)
 \]
-for every $n>32$.
+for every $n>36$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $32$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $36$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=32+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=36+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
-Four checks, each independent of the algebra above.
+Three checks, each independent of the algebra above.
 
-First, the model reproduces all $13$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $15$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
-Second, the reading was pinned before the digraph was written, by a program that enumerates
-the arrays one by one from the entry's own words --- generating every array over the
-alphabet, discarding those that fail the relabelling condition, then testing each subblock
-directly --- and compares the count with the published terms. That program shares no code
-with the transfer matrix, so an error in one does not hide an error in the other.
-
-Third, the conjectured recurrence was evaluated directly on those published terms, with no
+Second, the conjectured recurrence was evaluated directly on those published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
 
-Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
 arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A206173.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A225022.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
-University Press, 2009.
+\bibitem{kim} K.~H.~Kim, \emph{Boolean Matrix Theory and Applications}, Marcel Dekker,
+1982.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

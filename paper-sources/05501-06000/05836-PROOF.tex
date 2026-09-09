@@ -12,18 +12,18 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A251206, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A250970, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A251206 counts $(n+1)\times5$ arrays over $\{0,\dots,2\}$ subject to a condition imposed on
-every $2\times2$ subblock, and carries an empirical recurrence of order $30$ contributed
+OEIS A250970 counts $(n+1)\times6$ arrays over $\{0,\dots,1\}$ subject to a condition imposed on
+every $2\times2$ subblock, and carries an empirical recurrence of order $31$ contributed
 by R.~H.~Hardin. It is true, and it is not an empirical matter at all. The condition is local
 to each subblock, so the rows of an admissible array are the vertices of a finite digraph
-on $S=243$ vertices whose edges are the admissible consecutive pairs, and the count is a
+on $S=64$ vertices whose edges are the admissible consecutive pairs, and the count is a
 number of walks: $a(n)=\mathbf{1}^{\!\top}M^{n}\mathbf{1}$. Writing $q$
 for the characteristic polynomial of the conjectured recurrence, the recurrence holds for all
 $n$ exactly when $\mathbf{1}^{\!\top}M^{j}q(M)\mathbf{1}=0$ for every $j\ge0$, and the
@@ -35,28 +35,28 @@ integer arithmetic, and it comes out zero.
 
 \section{The sequence and the conjecture}
 
-OEIS A251206 is ``Number of (n+1)X(4+1) 0..2 arrays with every 2X2 subblock summing to a nonzero multiple of 2.''. It has offset $1$ and begins
+OEIS A250970 is ``Number of (n+1)X(5+1) 0..1 arrays with no 2X2 subblock having the sum of its diagonal elements less than the absolute difference of its antidiagonal elements.''. It has offset $1$ and begins
 \[
-3728, 65040, 1273440, 27920380, 667858580, 16965787428, 447556857260, 12076357468990,\ \dots
+2121, 77537, 2833397, 103684186, 3794909318, 138900769559, 5084110136919, 186091438754901,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 111*a(n-1) -4967*a(n-2) +109599*a(n-3) -1025248*a(n-4) -3485048*a(n-5) +149483818*a(n-6) -634279418*a(n-7) -7493101806*a(n-8) +52970555254*a(n-9) +244632286944*a(n-10) -1824484685872*a(n-11) -7138179533341*a(n-12) +28283475913415*a(n-13) +147078256032837*a(n-14) -29006700811005*a(n-15) -947046164348600*a(n-16) -737019679290744*a(n-17) +2727653845346764*a(n-18) +3394186814611740*a(n-19) -4178378678092432*a(n-20) -6479623724195056*a(n-21) +3912298894327776*a(n-22) +6489330981253248*a(n-23) -2565340219580544*a(n-24) -3482996175613440*a(n-25) +1206172902583296*a(n-26) +890714637803520*a(n-27) -323069633740800*a(n-28) -69344103628800*a(n-29) +26486872473600*a(n-30)
+Empirical: a(n) = 64*a(n-1) -1446*a(n-2) +21783*a(n-3) -257090*a(n-4) +2364533*a(n-5) -17301630*a(n-6) +102437299*a(n-7) -484439145*a(n-8) +1808535109*a(n-9) -5311996643*a(n-10) +12229385847*a(n-11) -21849236431*a(n-12) +29285048520*a(n-13) -26153502129*a(n-14) +7239648236*a(n-15) +20967448076*a(n-16) -41791947829*a(n-17) +41249669536*a(n-18) -19653544893*a(n-19) -9216125179*a(n-20) +29489025257*a(n-21) -33624035531*a(n-22) +25340528985*a(n-23) -13860558578*a(n-24) +5642370770*a(n-25) -1727464741*a(n-26) +397748431*a(n-27) -68146076*a(n-28) +8635216*a(n-29) -707328*a(n-30) +35280*a(n-31)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jun 02 2025 10:18:54, revision 6) the statement is
+As of the ``Last modified'' line on the live entry (Jul 23 2025 12:55:30, revision 6) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;111\,a(n-1) - 4967\,a(n-2) + 109599\,a(n-3) - 1025248\,a(n-4) - 3485048\,a(n-5) + 149483818\,a(n-6) - 634279418\,a(n-7) - 7493101806\,a(n-8) + 52970555254\,a(n-9) + 244632286944\,a(n-10) - 1824484685872\,a(n-11) - 7138179533341\,a(n-12) + 28283475913415\,a(n-13) + 147078256032837\,a(n-14) - 29006700811005\,a(n-15) - 947046164348600\,a(n-16) - 737019679290744\,a(n-17) + 2727653845346764\,a(n-18) + 3394186814611740\,a(n-19) - 4178378678092432\,a(n-20) - 6479623724195056\,a(n-21) + 3912298894327776\,a(n-22) + 6489330981253248\,a(n-23) - 2565340219580544\,a(n-24) - 3482996175613440\,a(n-25) + 1206172902583296\,a(n-26) + 890714637803520\,a(n-27) - 323069633740800\,a(n-28) - 69344103628800\,a(n-29) + 26486872473600\,a(n-30)
+a(n)\;=\;64\,a(n-1) - 1446\,a(n-2) + 21783\,a(n-3) - 257090\,a(n-4) + 2364533\,a(n-5) - 17301630\,a(n-6) + 102437299\,a(n-7) - 484439145\,a(n-8) + 1808535109\,a(n-9) - 5311996643\,a(n-10) + 12229385847\,a(n-11) - 21849236431\,a(n-12) + 29285048520\,a(n-13) - 26153502129\,a(n-14) + 7239648236\,a(n-15) + 20967448076\,a(n-16) - 41791947829\,a(n-17) + 41249669536\,a(n-18) - 19653544893\,a(n-19) - 9216125179\,a(n-20) + 29489025257\,a(n-21) - 33624035531\,a(n-22) + 25340528985\,a(n-23) - 13860558578\,a(n-24) + 5642370770\,a(n-25) - 1727464741\,a(n-26) + 397748431\,a(n-27) - 68146076\,a(n-28) + 8635216\,a(n-29) - 707328\,a(n-30) + 35280\,a(n-31)
 \end{equation}
-for all $n>29$.
+for all $n>31$.
 
 \section{The condition is local, so the rows form a digraph}
 
 Write an array of the shape in question as its list of rows
 $r^{(1)},r^{(2)},\dots$, each an element of
-$V=\{0,1,\dots,2\}^{5}$, so $|V|=S=243$. A $2\times2$ subblock of the array
+$V=\{0,1,\dots,1\}^{6}$, so $|V|=S=64$. A $2\times2$ subblock of the array
 occupies two consecutive rows and two consecutive columns; if the two rows are $r$
 and $s$ (in that order) and the two columns are numbered $j,j+1$,
 the subblock is
@@ -65,12 +65,12 @@ the subblock is
 \]
 The entry's requirement on that subblock is
 \begin{equation}\label{eq:loc}
-\alpha+\beta+\gamma+\delta\ \text{is a nonzero multiple of }2,
+\text{not }\bigl((\alpha+\delta)<|\beta-\gamma|\bigr),
 \end{equation}
 a condition on the four entries alone.
 
 For $r,s\in V$ declare $r\to s$ an edge of a digraph $G$ when, for every
-$1\le j\le 5-1$,
+$1\le j\le 6-1$,
 \begin{itemize}
 \item the four entries above satisfy \eqref{eq:loc};
 
@@ -87,7 +87,7 @@ a(n)\;=\;\mathbf{1}^{\!\top}M^{n}\mathbf{1} .
 \end{lemma}
 
 \begin{proof}
-An array with $L$ rows and $5$ columns is precisely a sequence
+An array with $L$ rows and $6$ columns is precisely a sequence
 $r^{(1)},\dots,r^{(L)}$ of elements of $V$; conversely any such sequence is an array.
 Every $2\times2$ subblock lies in two consecutive rows $r^{(t)},r^{(t+1)}$ and two
 consecutive columns, so the array satisfies the entry's condition on all of its subblocks
@@ -100,13 +100,13 @@ length $k$ from $r$ to $s$. The entry's index $n$ corresponds to $L=n+1$ rows.
 
 \section{The criterion}
 
-Let $q(t)=t^{30}-\sum_i c_i\,t^{30-i}$ be the characteristic polynomial of
+Let $q(t)=t^{31}-\sum_i c_i\,t^{31-i}$ be the characteristic polynomial of
 \eqref{eq:conj}, with the $c_i$ read off that equation.
 
 \begin{lemma}\label{lem:crit}
-For every $n$ with $n+1-1\ge30$,
+For every $n$ with $n+1-1\ge31$,
 \[
-a(n)-\sum_i c_i\,a(n-i)\;=\;\mathbf{1}^{\!\top}M^{\,n+1-1-30}\,q(M)\,\mathbf{1} .
+a(n)-\sum_i c_i\,a(n-i)\;=\;\mathbf{1}^{\!\top}M^{\,n+1-1-31}\,q(M)\,\mathbf{1} .
 \]
 Hence \eqref{eq:conj} holds from that point on if and only if
 $\mathbf{1}^{\!\top}M^{j}q(M)\mathbf{1}=0$ for every $j\ge0$; and it is enough to check
@@ -118,10 +118,10 @@ By Lemma~\ref{lem:walk}, $a(n-i)=\mathbf{1}^{\!\top}M^{\,n+1-1-i}\mathbf{1}$, so
 \[
 a(n)-\sum_i c_i a(n-i)
 =\mathbf{1}^{\!\top}\Bigl(M^{m}-\sum_i c_i M^{m-i}\Bigr)\mathbf{1}
-=\mathbf{1}^{\!\top}M^{\,m-30}\,q(M)\,\mathbf{1}
+=\mathbf{1}^{\!\top}M^{\,m-31}\,q(M)\,\mathbf{1}
 \]
 with $m=n+1-1$, which is the stated identity; the equivalence follows by letting
-$m-30=j$ run over $\ge0$. For the last clause put $w=q(M)\mathbf{1}$. By the
+$m-31=j$ run over $\ge0$. For the last clause put $w=q(M)\mathbf{1}$. By the
 Cayley--Hamilton theorem $M^{S}$ is an integer combination of $I,M,\dots,M^{S-1}$, so
 $\mathbf{1}^{\!\top}M^{j}w$ for $j\ge S$ is the corresponding combination of the earlier
 values; if those all vanish, so do all the rest.
@@ -130,20 +130,20 @@ values; if those all vanish, so do all the rest.
 \section{The computation}
 
 \begin{theorem}
-The recurrence \eqref{eq:conj} holds for every $n>29$, which is the statement of
+The recurrence \eqref{eq:conj} holds for every $n>31$, which is the statement of
 Section~1.
 \end{theorem}
 
 \begin{proof}
-The digraph was constructed from \eqref{eq:loc} by a depth-first scan across the $5$
+The digraph was constructed from \eqref{eq:loc} by a depth-first scan across the $6$
 columns: the edge condition is a conjunction of one constraint per consecutive column
 pair, so the successors of a row $r$ are enumerated column by column without testing all
-$S^2$ pairs. The vector $w=q(M)\mathbf{1}\in\mathbb{Z}^{S}$ was then formed by $30$
+$S^2$ pairs. The vector $w=q(M)\mathbf{1}\in\mathbb{Z}^{S}$ was then formed by $31$
 matrix--vector products in exact integer arithmetic, and $\mathbf{1}^{\!\top}M^{j}w$ was
 evaluated for $j=0,1,\dots$, again exactly. Every one of those integers vanishes from the
-index corresponding to $n=29+1$ onwards, and the run continued until $w$ itself was the
+index corresponding to $n=31+1$ onwards, and the run continued until $w$ itself was the
 zero vector, which settles every larger $j$ at once. By Lemma~\ref{lem:crit} the recurrence
-holds for every $n>29$.
+holds for every $n>31$.
 \end{proof}
 
 \begin{remark}
@@ -174,7 +174,7 @@ throughout.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A251206.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A250970.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

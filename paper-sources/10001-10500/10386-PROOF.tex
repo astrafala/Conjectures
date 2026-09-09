@@ -7,164 +7,144 @@
 \theoremstyle{plain}
 \newtheorem{theorem}{Theorem}
 \newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
-\title{A proof of the conjectured recurrence for OEIS A026005}
+
+\title{The empirical recurrence for OEIS A208502, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{26 August 2026}
+\date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A026005 carries a conjectured linear recurrence with polynomial coefficients, of
-order 2. The entry gives no generating function, but it does give the sequence as
-a single hypergeometric sum. We prove the conjecture without assuming any generating
-function: creative telescoping produces, from the summand alone, an operator of order
-1 that annihilates the sequence, together with a rational certificate that is
-checked as an exact identity rather than trusted. The conjectured operator is then shown
-to be a left multiple of it by division in the Ore algebra $\mathbb{Q}(n)[N]$. That last
-step is what the conjecture needs: the conjectured recurrence has order $2$ while the summand only needs order $1$, so it is not itself a telescoper and cannot be produced directly.
+OEIS A208502 counts arrays over $\{0,\dots,1\}$ of width $4$ that avoid the patterns
+$(0,1,0), (1,1,1)$ along one axis and $(0,0,0), (0,0,1)$ along the other, and carries an empirical recurrence of
+order $2$ contributed by R.~H.~Hardin. It is true. The patterns have length $3$, so
+the constraint across the growing direction ties together $3$ consecutive columns: taking a
+window of $2$ consecutive columns as a state makes the array a walk in a finite digraph
+on $S=81$ vertices, and $a(n)=\mathbf{1}^{\!\top}P^{\,n-2}\mathbf{1}$. Writing $q$
+for the characteristic polynomial of the conjectured recurrence, the residual is
+$\mathbf{1}^{\!\top}P^{\,n-2-2}q(P)\mathbf{1}$, which vanishes identically
+beyond a threshold that the computation pins down exactly. Finite, exact, integer.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 33F10, 11B37, 68W30.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 68R15, 15B36.\normalsize
 
 \section{The sequence and the conjecture}
 
-OEIS A026005 is ``a(n) = T(4*n,n), where T = Catalan triangle (A008315)''. It has offset $0$ and begins
+OEIS A208502 is ``Number of 4 X n 0..1 arrays avoiding 0 0 0 and 0 0 1 horizontally and 0 1 0 and 1 1 1 vertically.''. It has offset
+$1$ and begins
 \[
-a(0),\dots,a(7)\;=\;1, 4, 27, 208, 1700, 14364, 123970, 1085760,\ \dots
+9, 81, 126, 324, 828, 2124, 5436,\ \dots
 \]
-The entry states, not as a conjecture,
+The entry carries the following comment:
 \begin{quote}\small
-a(n) = Sum\emph{\{k=0..n\}((n+k+1)*binomial(n+k,k)*binomial(3*n-k,n-k))/(2*n+1). - }Vladimir Kruchinin\_, Dec 02 2016
+Empirical: a(n) = a(n-1) + 4*a(n-2) for n>4.
 \end{quote}
-so that, writing $F(n,k)$ for the summand,
-\begin{equation}\label{eq:sum}
-a(n)\;=\;\sum_{k=0}^{n}F(n,k),
-\qquad F(n,k)=\frac{\left(k + n + 1\right) {\binom{- k + 3 n}{- k + n}} {\binom{k + n}{k}}}{2 n + 1} .
+As of the ``Last modified'' line on the live entry (Jul 03 2018 12:40:35, revision
+8) the statement is still recorded as empirical, and nothing on the entry
+records it as settled either way.
+
+Written out, the claim is
+\begin{equation}\label{eq:conj}
+a(n)\;=\;a(n-1) + 4\,a(n-2)
 \end{equation}
-This is the only input the proof takes from the entry, and it was checked against the
-entry's own DATA before use.
+for all $n>4$. The entry's array has a fixed number of rows and a growing number of
+columns, so the roles of the two directions are exchanged: what the entry calls the
+horizontal direction runs along the growing side. The transfer below is written in the
+growing direction throughout.
 
-The entry separately carries the following comment:
-\begin{quote}\small
-\textbf{Conjecture:} 9*n*(3*n+2)*(3*n+1)*a(n) +12*(-55*n\^{}3-59*n\^{}2+65*n-11)*a(n-1) -32*(4*n-5)*(4*n-3)*(2*n-3)*a(n-2)=0. - \emph{R. J. Mathar}, May 22 2013
-\end{quote}
-As of the ``Last modified'' line on the live entry (2017-05-24, revision 28) the
-statement is still recorded as a conjecture, and no proof appears among the entry's links,
-formulas or programs.
+\section{The array as a walk}
 
-\section{Telescoping the summand}
+Call a column \emph{admissible} if the word it forms contains none of the patterns
+$(0,1,0), (1,1,1)$ as $3$ consecutive entries. There are $9$ admissible columns; that condition
+involves a single column only.
 
-Let $N$ denote the shift in $n$, $(Nf)(n)=f(n+1)$, and $\Delta_{k}$ the forward difference
-in $k$, $(\Delta_{k}g)(k)=g(k+1)-g(k)$.
+The remaining patterns $(0,0,0), (0,0,1)$ are forbidden along the other axis, so each of them
+constrains $3$ consecutive columns at a fixed position of the row. Take as state a
+window $w=\bigl(w^{(1)},\dots,w^{(2)}\bigr)$ of $2$ consecutive admissible
+columns, so $S=81$, and declare $w\to w'$ an edge when $w'$ is $w$ with its first entry
+dropped and one further admissible column $t$ appended, subject to: for every position
+$j$, the $3$-tuple read down the row $j$ across $w^{(1)},\dots,w^{(2)},t$
+is none of $(0,0,0), (0,0,1)$. Let $P$ be the adjacency matrix.
 
-\begin{lemma}\label{lem:tel}
-Suppose there are rational functions $\sigma_{0},\dots,\sigma_{r}$ of $n$, not all zero,
-and a rational function $R(n,k)$ such that
-\begin{equation}\label{eq:cert}
-\sum_{i=0}^{r}\sigma_{i}(n)\,F(n+i,k)\;=\;\Delta_{k}\bigl[R(n,k)F(n,k)\bigr].
-\end{equation}
-Suppose further that $F(n,k)=0$ for every $k$ outside the range of summation in
-\eqref{eq:sum}. Then $\sum_{i}\sigma_{i}(n)a(n+i)=0$.
+\begin{lemma}\label{lem:walk}
+$a(n)=\mathbf{1}^{\!\top}P^{\,n-2}\mathbf{1}$ for every $n\ge2$.
 \end{lemma}
 
 \begin{proof}
-Because $F(n,k)$ vanishes off the stated range, the sum in \eqref{eq:sum} may be taken
-over all $k\in\mathbb{Z}$ without changing it, and the same holds for each $F(n+i,k)$.
-Summing \eqref{eq:cert} over all $k$, the left side becomes
-$\sum_{i}\sigma_{i}(n)a(n+i)$ and the right side telescopes: the partial sums of a forward
-difference collapse to the boundary values, which are $0$ because $R(n,k)F(n,k)$ vanishes
-for $|k|$ large. Hence the left side is $0$.
+An array of the entry's kind with $n$ columns is a sequence of $n$ admissible columns in
+which no forbidden pattern appears along the other axis. Reading it as the sequence of its
+overlapping windows of length $2$ turns it into a walk: consecutive windows overlap in
+$1$ columns by construction, and the edge condition is exactly the requirement on the one
+new $3$-tuple that each step creates. Conversely a walk reassembles into such an array,
+and the two constructions are mutually inverse. A walk of length $n-2$ visits $n-1$
+windows, that is $n$ columns; summing over all starting and ending states gives
+$\mathbf{1}^{\!\top}P^{\,n-2}\mathbf{1}$.
 \end{proof}
 
-The point of Lemma~\ref{lem:tel} is that \eqref{eq:cert} is an identity between rational
-functions once both sides are divided by $F(n,k)$: the quotients $F(n+i,k)/F(n,k)$ and
-$F(n,k+1)/F(n,k)$ are rational because $F$ is hypergeometric in both variables. So a
-proposed $(\sigma,R)$ can be \emph{checked}, exactly, whatever produced it.
+\section{The criterion}
 
-For A026005 such a pair exists with $r=1$:
-\[
-\sigma_{0}(n)=\frac{- 256 n^{4} - 1152 n^{3} - 1776 n^{2} - 1112 n - 240}{9 n^{3} + 30 n^{2} + 33 n + 12},\qquad \sigma_{1}(n)=3 n + 5
-\]
-and certificate
-\[
-R(n,k)\;=\;\frac{9 k^{5} n + 12 k^{5} - 96 k^{4} n^{2} - 192 k^{4} n - 84 k^{4} + 346 k^{3} n^{3} + 856 k^{3} n^{2} + 583 k^{3} n + 84 k^{3} - 712 k^{2} n^{4} - 2496 k^{2} n^{3} - 3138 k^{2} n^{2} - 1688 k^{2} n - 324 k^{2} + 885 k n^{5} + 4252 k n^{4} + 7715 k n^{3} + 6428 k n^{2} + 2368 k n + 312 k}{36 k n^{4} + 174 k n^{3} + 312 k n^{2} + 246 k n + 72 k - 36 n^{5} - 210 n^{4} - 486 n^{3} - 558 n^{2} - 318 n - 72} .
-\]
-Dividing \eqref{eq:cert} by $F(n,k)$ and cancelling gives $0$ identically, so
-Lemma~\ref{lem:tel} applies and
-\begin{equation}\label{eq:L}
-L\;=\;\sum_{i=0}^{1}\sigma_{i}(n)N^{i}
-\end{equation}
-annihilates $a$.
+Let $q(t)=t^{2}-\sum_i c_i t^{2-i}$ be the characteristic polynomial of
+\eqref{eq:conj} and $u_j=\mathbf{1}^{\!\top}P^{j}q(P)\mathbf{1}$.
 
-\section{From the derived recurrence to the conjectured one}
-
-The operator \eqref{eq:L} is not the conjectured one. It has order $1$, below the conjectured order $2$: the conjecture is a consequence of a shorter relation, not the shortest relation itself. The two are connected by
-division in the Ore algebra $\mathcal{A}=\mathbb{Q}(n)[N]$, where multiplication obeys
-$N\,q(n)=q(n+1)\,N$.
-
-\begin{lemma}\label{lem:factor}
-If $C=QL$ in $\mathcal{A}$ and $L(a)=0$, then $C(a)=0$ at every $n$ where the coefficients
-of $Q$ are defined.
+\begin{lemma}\label{lem:crit}
+$a(n)-\sum_i c_i a(n-i)=u_{\,n-2-2}$ whenever $n-2\ge2$. Hence
+\eqref{eq:conj} holds for every $n>t$ exactly when $u_j=0$ for every
+$j>t-2-2$. Moreover $(u_j)$ satisfies the monic linear recurrence whose
+characteristic polynomial is that of $P$, of degree $S$, so $S$ consecutive zeros force all
+later ones and the last nonzero $u_j$ pins $t$ down exactly.
 \end{lemma}
 
 \begin{proof}
-$C(a)=(QL)(a)=Q\bigl(L(a)\bigr)=Q(0)=0$. The coefficients of $Q$ are rational functions of
-$n$, so the step is valid away from their poles.
+Substituting Lemma~\ref{lem:walk} into the left side and factoring out
+$P^{\,n-2-2}$ gives the identity. The equivalence follows by letting the exponent
+run. For the last claim, Cayley--Hamilton gives $\chi(P)=0$ for the characteristic
+polynomial $\chi$ of $P$, so $\chi$ applied to the shift annihilates $(u_j)$; being monic of
+degree $S$, it propagates $S$ consecutive zeros forward.
 \end{proof}
 
-Writing the conjectured recurrence as an operator $C$ and dividing by $L$ leaves remainder
-$0$, with quotient
-\[
-Q\;=\;\left(\frac{36 n^{3} + 120 n^{2} + 132 n + 48}{n + 2}\right) + \left(27 n^{2} + 117 n + 126\right)\,N .
-\]
-The coefficients of $Q$ are rational functions of $n$; their only integer poles are $n\in\{-2\}$, below the range claimed here.
+\section{The computation}
 
 \begin{theorem}
-The conjectured recurrence
-\[
-9 n \left(3 n + 1\right) \left(3 n + 2\right)\,a(n) -  12 \left(55 n^{3} + 59 n^{2} - 65 n + 11\right)\,a(n-1) -  32 \left(2 n - 3\right) \left(4 n - 5\right) \left(4 n - 3\right)\,a(n-2) \;=\;0
-\]
-holds for every $n\ge2$.
+The recurrence \eqref{eq:conj} holds for every $n>4$. This is the statement of
+Section~1.
 \end{theorem}
 
 \begin{proof}
-By Lemma~\ref{lem:tel} the operator \eqref{eq:L} annihilates $a$, and by
-Lemma~\ref{lem:factor} applied to $C=QL$ so does the conjectured operator. The integer poles of $Q$ all lie below $n=2$.
+The vector $q(P)\mathbf{1}\in\mathbb{Z}^{S}$ was formed by $2$ matrix--vector
+products in exact integer arithmetic and the $u_j$ evaluated in turn. They vanish from the
+index corresponding to $n=4+1$ onwards, and the run was continued past $S$ consecutive
+zeros, which by Lemma~\ref{lem:crit} settles every larger index.
 \end{proof}
 
 \section{Verification}
 
-Every number above is an output of a script written separately from this note, and four
-independent checks were run.
+Three checks, each independent of the algebra above.
 
-First, the certificate was verified, not trusted: \eqref{eq:cert} was divided by $F(n,k)$
-and the difference of the two sides cancelled to $0$ as a rational function of $n$ and
-$k$.
+First, the digraph was built directly from the entry's stated patterns and the walk counts
+compared against the entry's DATA at every one of the $26$ published indices; the
+values agree exactly, including the initial count of $9$ admissible columns. That is
+what ties the digraph to the sequence, and a model reproducing only part of the published
+data was rejected wherever it occurred.
 
-Second, the vanishing of $F(n,k)$ off the range of summation --- the hypothesis
-Lemma~\ref{lem:tel} needs, and the one that is easy to assume without looking --- was
-checked directly, on concrete integers on both sides of the range.
+Second, the recurrence \eqref{eq:conj} was evaluated on those published terms in exact
+integer arithmetic, with no matrices involved, and vanishes at every index the entry claims.
 
-Third, the factorisation was confirmed by multiplying back: $QL$ was expanded in
-$\mathcal{A}$ and its coefficients cancelled against those of $C$ to zero.
-
-Fourth, the conjecture itself was evaluated on the published terms, in exact integer
-arithmetic and without reference to any operator: for each $n$ in range the sum
-$\sum_{i}p_{i}(n)a(n-i)$ was formed from the entry's own values and found to vanish, for
-all 17 values of $n$ from $n=2$ upward. The formula \eqref{eq:sum} was
-likewise checked term by term against the DATA section before being used.
+Third, the vanishing test of Lemma~\ref{lem:crit} was carried past $S=81$ consecutive
+zeros rather than to a sampled prefix.
 
 \begin{thebibliography}{9}
-\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer Sequences},
-\url{https://oeis.org}, 2026. Sequence A026005.
-\bibitem{aeqb} M.~Petkov\v{s}ek, H.~S.~Wilf and D.~Zeilberger, \emph{A=B}, A K Peters,
-1996.
-\bibitem{zeil} D.~Zeilberger, \emph{The method of creative telescoping}, J. Symbolic
-Comput. 11 (1991), 195--204.
-\bibitem{ore} O.~Ore, \emph{Theory of non-commutative polynomials}, Ann. of Math. 34
-(1933), 480--508.
+\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
+Sequences}, \url{https://oeis.org}, 2026. Sequence A208502.
+\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+University Press, 2009.
+\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
+University Press, 2013.
 \end{thebibliography}
+
 \end{document}

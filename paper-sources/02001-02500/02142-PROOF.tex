@@ -12,20 +12,20 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A225020, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A224741, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A225020 counts the $(n+1)\times2$ matrices over $\{0,\dots,2\}$ all of whose
+OEIS A224741 counts the $(n+1)\times5$ matrices over $\{0,\dots,1\}$ all of whose
 $2\times2$ contiguous subblocks are of equal permanent, and carries an empirical recurrence of order
-$12$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical.
+$13$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical.
 The condition ties together $2$ consecutive rows and $2$ consecutive columns at once, so a
 single row is not a state; the strip of the last $1$ rows is, and the admissible strips
 are read off the overlap graph of the admissible windows instead of being enumerated. That
-makes $a(n)$ a walk count on $S=37$ vertices, hence $C$-finite, and whether the conjectured
+makes $a(n)$ a walk count on $S=46$ vertices, hence $C$-finite, and whether the conjectured
 recurrence annihilates it is settled by a finite exact computation.
 \end{abstract}
 
@@ -33,25 +33,25 @@ recurrence annihilates it is settled by a finite exact computation.
 
 \section{The conjecture}
 
-OEIS A225020 is ``Number of (n+1)X2 0..2 matrices with each 2X2 permanent equal.''. It has offset $1$ and begins
+OEIS A224741 is ``Number of (n+1)X5 0..1 matrices with each 2X2 permanent equal.''. It has offset $1$ and begins
 \[
-81, 253, 759, 2653, 9273, 34545, 130067, 502563,\ \dots
+218, 2326, 18257, 180546, 1644874, 15845297, 149592266, 1430571502,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 6*a(n-1) +8*a(n-2) -89*a(n-3) -3*a(n-4) +522*a(n-5) -118*a(n-6) -1489*a(n-7) +342*a(n-8) +2002*a(n-9) -380*a(n-10) -992*a(n-11) +192*a(n-12)
+Empirical: a(n) = 13*a(n-1) +a(n-2) -436*a(n-3) +747*a(n-4) +3955*a(n-5) -7874*a(n-6) -12461*a(n-7) +25451*a(n-8) +13120*a(n-9) -30315*a(n-10) -175*a(n-11) +9975*a(n-12) -2000*a(n-13)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 23:38:12, revision 8) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 23:36:05, revision 8) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{The count is a walk count}
 
-Call a $2\times2$ matrix over $\{0,\dots,2\}$ a \emph{window} when it is of equal permanent, and
-call a $2\times2$ matrix a \emph{band} when every one of its $1$ contiguous
-$2\times2$ subblocks is a window. What the entry counts is the matrices of $2$ columns
+Call a $2\times2$ matrix over $\{0,\dots,1\}$ a \emph{window} when it is of equal permanent, and
+call a $2\times5$ matrix a \emph{band} when every one of its $4$ contiguous
+$2\times2$ subblocks is a window. What the entry counts is the matrices of $5$ columns
 whose every $2$ consecutive rows form a band.
 
-Take as states the $1\times2$ strips that occur as the top $1$ rows of a band,
+Take as states the $1\times5$ strips that occur as the top $1$ rows of a band,
 together with those that occur as its bottom $1$ rows, and put an edge from $u$ to $v$
 when the band whose first $1$ rows are $u$ and whose last $1$ rows are $v$ exists.
 A band is determined by that pair, so the edge is unique when it exists. Reading a counted
@@ -62,12 +62,12 @@ band, and since no further condition falls on where a walk starts or ends,
 \[
 a(n)\;=\;\iota^{\!\top}M^{\,n}\tau ,\qquad \iota=\tau=(1,1,\dots,1)^{\!\top},
 \]
-with $M$ the adjacency matrix on $S=37$ states. In particular $a$ is $C$-finite. The
+with $M$ the adjacency matrix on $S=46$ states. In particular $a$ is $C$-finite. The
 alignment was checked against the entry's published terms rather than assumed.
 
-There are $(2 + 1)^{2}$ strips of $1$ rows and $2$ columns, far too
+There are $(1 + 1)^{5}$ strips of $1$ rows and $5$ columns, far too
 many to test one by one, and they are not tested one by one. Two consecutive windows of a band
-overlap in $2\times1$ entries, so a band is exactly a walk of $1$ windows in
+overlap in $2\times1$ entries, so a band is exactly a walk of $4$ windows in
 the graph that joins a window to those whose first $1$ columns are its last $1$
 columns. Enumerating those walks produces the bands, and with them the states and the edges,
 directly.
@@ -76,20 +76,20 @@ directly.
 
 The entry does not name the common value; it only asks that all the windows of one matrix agree.
 So fix a value $v$ and let $W_v$ be the set of $2\times2$ matrices over
-$\{0,\dots,2\}$ whose permanent, $b_{11}b_{22}+b_{12}b_{21}$, equals $v$. A matrix counted by the entry has all of
+$\{0,\dots,1\}$ whose permanent, $b_{11}b_{22}+b_{12}b_{21}$, equals $v$. A matrix counted by the entry has all of
 its windows in a single $W_v$, and the value of $v$ is determined by the matrix, so the sets of
 matrices belonging to different $v$ are disjoint and
 \[
 a(n)\;=\;\sum_v a_v(n),
 \]
 each $a_v$ being the walk count of Section~2 built from $W_v$ alone. A disjoint union of the
-$8$ digraphs, one per value of $v$, therefore counts the whole of $a(n)$ with the same
-all-ones vectors, and the $2\times2$ windows in play number $81$ in total.
+$3$ digraphs, one per value of $v$, therefore counts the whole of $a(n)$ with the same
+all-ones vectors, and the $2\times2$ windows in play number $16$ in total.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{12}-\sum_i c_it^{12-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{13}-\sum_i c_it^{13-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -97,7 +97,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+12}-\sum_ic_iM^{j+12-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+13}-\sum_ic_iM^{j+13-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -106,13 +106,13 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;6\,a(n-1) + 8\,a(n-2) - 89\,a(n-3) - 3\,a(n-4) + 522\,a(n-5) - 118\,a(n-6) - 1489\,a(n-7) + 342\,a(n-8) + 2002\,a(n-9) - 380\,a(n-10) - 992\,a(n-11) + 192\,a(n-12)
+a(n)\;=\;13\,a(n-1) + a(n-2) - 436\,a(n-3) + 747\,a(n-4) + 3955\,a(n-5) - 7874\,a(n-6) - 12461\,a(n-7) + 25451\,a(n-8) + 13120\,a(n-9) - 30315\,a(n-10) - 175\,a(n-11) + 9975\,a(n-12) - 2000\,a(n-13)
 \]
 for every $n>12$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $12$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $13$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
 integers vanish from the index corresponding to $n=12+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
@@ -122,7 +122,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $22$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $17$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
@@ -134,7 +134,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A225020.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A224741.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{kim} K.~H.~Kim, \emph{Boolean Matrix Theory and Applications}, Marcel Dekker,

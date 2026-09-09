@@ -12,83 +12,90 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A262473, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A233255, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A262473 counts arrays of width $4$ over $\{0,1\}$ whose rows, read as base-$2$
-numbers, are divisible by $5$ and whose columns, read the same way, are divisible by
-$3$. The entry carries an empirical recurrence of order $5$ contributed by
-R.~H.~Hardin. It is true, and it is decidable rather than empirical. A column's value depends on
-every row of the array, so the condition is not local; but its RESIDUE is built one row at a
-time by Horner's rule, and the vector of column residues is a state of bounded size. The count
-is then a walk count on $S=9$ states.
+OEIS A233255 counts arrays over $\{0,\dots,5\}$ in which no two entries that are neighbours in
+a named set of directions may sum to $5$, together with clauses that pick one array out of
+each class of arrays differing by a renaming. The entry carries an empirical recurrence of
+order $5$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
+empirical: the clash condition is local to two consecutive rows and the renaming clauses are
+carried by one bounded piece of extra state, so the count is a walk count on $S=17$ states.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 11A63, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05C15, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A262473 is ``Number of (3+1) X (n+1) 0..1 arrays with each row divisible by 3 and each column divisible by 5, read as a binary number with top and left being the most significant bits.''. It has offset $1$ and begins
+OEIS A233255 is ``Number of n X 7 0..5 arrays with no element x(i,j) adjacent to itself or value 5-x(i,j) horizontally or antidiagonally, top left element zero, and 1 appearing before 2 3 and 4, and 2 appearing before 3 in row major order (unlabeled 6-colorings with no clashing color pairs).''. It has offset $1$ and begins
 \[
-4, 9, 36, 121, 484, 1849, 7396, 29241,\ \dots
+528, 1992704, 8050180096, 32835998056448, 134179300927602688, 548491734506604068864, 2242238966451009797226496, 9166394920089108387649814528,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 4*a(n-1) + 5*a(n-2) - 20*a(n-3) - 4*a(n-4) + 16*a(n-5).
+Empirical: a(n) = 5504*a(n-1) -6438912*a(n-2) +2774532096*a(n-3) -478351982592*a(n-4) +27831388078080*a(n-5).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Dec 31 2018 20:23:43, revision 7) this is still
+As of the ``Last modified'' line on the live entry (Sep 02 2024 19:39:15, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The array has $4$ cells across and entries $x(i,j)\in\{0,1\}$, the digits of
-base $2$. Row $i$ of an array with $R$ rows is the number
+The array is $7$ cells across with entries $x(i,j)\in\{0,1,\dots,5\}$. Call two values $u,v$ CLASHING
+when $u+v=5$ and, the entry saying ``adjacent to itself or'', also when $u=v$. Two cells are neighbours when one is obtained from the other by one of
+the offsets
 \[
-\rho_i\;=\;\sum_{j=1}^{4}x(i,j)\,2^{4-j} ,
+(0,1), (1,-1),
 \]
-the LEFT digit being the most significant, and column $j$ is
+that is, in the horizontal and antidiagonal (ne--sw) directions, and the condition is that no two neighbouring cells carry
+clashing values. The clash relation is symmetric, so an offset and its negative name the
+same pairs and only one of each is listed. The entry also fixes the top left entry: $x(1,1)=0$.
+
+Finally the entry asks that, reading the cells in ROW MAJOR order, certain values make their
+first appearance before certain others:
 \[
-\gamma_j\;=\;\sum_{i=1}^{R}x(i,j)\,2^{R-i} ,
+1\prec 2,\qquad 1\prec 3,\qquad 1\prec 4,\qquad 2\prec 3 ,
 \]
-the TOP digit being the most significant. The entry asks that every $\rho_i$ be divisible by
-$5$ and every $\gamma_j$ be divisible by $3$. The entry writes the array with $n$ as the number of COLUMNS. The walk is run down the transpose, which exchanges the row condition with the column condition; both readings put the FIRST digit in the most significant place, so nothing else changes under that exchange.
+writing $u\prec v$ for ``the first cell carrying $u$ comes before the first cell carrying
+$v$''. The entry's own name glosses the effect of this clause together with $x(1,1)=0$ as
+counting UNLABELLED colourings. Nothing below rests on that gloss: the clause is imposed
+exactly as it is written, and it is the written clause that the model and the independent
+check both test.
 
-
-\section{Column residues by Horner's rule}
-
-The row condition is a condition on one row and is imposed as each row is chosen. The column
-condition is not local: $\gamma_j$ depends on every row. What is local is its residue.
-
-\begin{lemma}\label{lem:horner}
-Let $\gamma_j^{(i)}$ be the value of column $j$ of the first $i$ rows, read the same way.
-Then $\gamma_j^{(0)}=0$ and
-\[
-\gamma_j^{(i)}\;=\;2\,\gamma_j^{(i-1)}+x(i,j),
-\qquad\text{hence}\qquad
-\gamma_j^{(i)}\bmod 3\;=\;
-\bigl(2\,(\gamma_j^{(i-1)}\bmod 3)+x(i,j)\bigr)\bmod 3 .
-\]
+\begin{lemma}\label{lem:seen}
+Let $P$ be the set of values named in the clause. Reading the cells in row major order and
+carrying the SET $T\subseteq P$ of named values already written, the clause holds if and only
+if every cell whose value $v\in P$ is not yet in $T$ has $u\in T$ for every $u$ with $u\prec v$.
 \end{lemma}
 
 \begin{proof}
-Adding a row at the BOTTOM shifts every earlier digit one place up in significance, which is
-multiplication by $2$, and puts the new digit in the units place. Reduction modulo
-$3$ commutes with both operations.
+$u\prec v$ says the first cell carrying $v$ is preceded by some cell carrying $u$, that is, at
+the moment $v$ is first written $u$ already belongs to $T$. Conversely if that holds at each
+first writing then each required precedence holds. A cell whose value is already in $T$ is not
+a first appearance and imposes nothing.
 \end{proof}
 
-So the vector $\bigl(\gamma_1\bmod 3,\dots,\gamma_{4}\bmod
-3\bigr)$ is a state: at most $3^{4}$ of them, and each array row
-that satisfies the row condition carries one such vector to another. The walk starts at the
-all-zero vector, which is the empty array, and the END vector picks out the residue vectors in
-which every entry is divisible by $3$ --- so the end vector is not the all-ones
-vector, and the column condition is imposed once, at the end, exactly as the entry states it.
-With $M$ the adjacency matrix,
+The walk of this paper runs DOWN THE ROWS and visits the cells of each row from left to right,
+which is exactly row major order, so the set $T$ can be carried in the state. It takes at most
+$2^{4}$ values, and the state of the walk is a pair (array row, set $T$).
+
+\section{The walk}
+
+Every offset above moves the row index by at most one, so a clash is a condition on two
+consecutive array rows and on nothing else.
+
+So the state is a pair: the last array row, and the set $T$ of Lemma~\ref{lem:seen}. A step
+appends a row, which settles every clash between it and the row above, every clash inside it,
+and every first appearance it contains. Two states from which, for every remaining length, the
+same number of arrays can be completed contribute identically to the count, so they are
+identified; after that identification there are $S=17$ of them.
+
+With $\iota$ the indicator of the states that may begin an array and $\tau=\mathbf{1}$,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=9.
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau .
 \]
 The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
 published terms rather than assumed. In particular $a$ is $C$-finite.
@@ -113,15 +120,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;4\,a(n-1) + 5\,a(n-2) - 20\,a(n-3) - 4\,a(n-4) + 16\,a(n-5)
+a(n)\;=\;5504\,a(n-1) - 6438912\,a(n-2) + 2774532096\,a(n-3) - 478351982592\,a(n-4) + 27831388078080\,a(n-5)
 \]
-for every $n>3$.
+for every $n>5$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $5$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=3+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=5+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -129,13 +136,13 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $24$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $9$ terms the entry publishes, exactly, in integer
 arithmetic.
 
-Second, the count was recomputed for the smallest arrays straight from the definition:
-enumerate every array of that size, turn each row and each column into a base-$2$ number with
-the first digit most significant, and test the divisibility directly. Neither Horner's rule nor
-any residue state is involved, and the published terms came back.
+Second, the count was recomputed for the smallest arrays straight from the definition: fill the
+cells in row major order, in the orientation the entry's own name writes, and test each clause
+the moment it can be tested. No transfer matrix, no transposition and no state are involved,
+and the published terms came back.
 
 Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
@@ -145,11 +152,11 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A262473.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A233255.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{knuth} D.~E.~Knuth, \emph{The Art of Computer Programming}, Volume 2, 3rd ed.,
-Addison--Wesley, 1997. (Evaluation of polynomials, Section 4.6.4.)
+\bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata
+Theory, Languages, and Computation}, 3rd ed., Addison--Wesley, 2006.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

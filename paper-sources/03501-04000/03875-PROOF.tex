@@ -11,134 +11,180 @@
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
-
-\title{The conjectured generating function for OEIS A284246, proved}
+\title{A proof of the conjectured recurrence for OEIS A000180}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{6 September 2026}
+\date{30 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A284246 counts arrays of a fixed width under a local condition, and carries a conjectured
-generating function --- and nothing else. It is true. The count is a walk count in a finite
-digraph on $S=23$ vertices, so its generating function is a rational function whose numerator
-and denominator have degrees bounded by $S$; the conjectured expression is another rational
-function of known degree; and two rational functions of bounded degree agree as soon as enough
-coefficients of their expansions do. Comparing $47$ coefficients in exact arithmetic
-therefore settles the conjecture, rather than testing it.
+OEIS A000180 carries a conjectured linear recurrence with polynomial coefficients, of
+order 2. The entry gives no generating function, but it does give the sequence as
+a hypergeometric sum. Creative telescoping produces, from the summand alone, a certificate
+identity that is checked exactly rather than trusted. What it does not produce here is a
+homogeneous recurrence: the summand does not vanish at the ends of the range, and the range
+itself moves with $n$, so summing the certificate leaves boundary and range-correction
+terms. We keep them. They are a finite, explicit expression $h(n)$, and the result is an
+inhomogeneous recurrence $\sum_{i}\sigma_{i}(n)a(n+i)=h(n)$. Since $h$ is a hypergeometric term, the first-order operator $M=N-h(n+1)/h(n)$ annihilates it, and $ML$ annihilates $a$. The conjectured
+operator is then shown to be a left multiple of the resulting annihilator by division in
+the Ore algebra $\mathbb{Q}(n)[N]$.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A19, 68Q45.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 33F10, 11B37, 68W30.\normalsize
 
-\section{The conjecture}
+\section{The sequence and the conjecture}
 
-OEIS A284246 is ``Decimal representation of the x-axis, from the origin to the right edge, of the n-th stage of growth of the two-dimensional cellular automaton defined by "Rule 841", based on the 5-celled von Neumann neighborhood.''. It has offset $0$ and begins
+OEIS A000180 is ``Expansion of E.g.f. exp(-x)/(1-3x)''. It has offset $0$ and begins
 \[
-1, 0, 6, 14, 30, 46,\ \dots
+a(0),\dots,a(7)\;=\;1, 2, 13, 116, 1393, 20894, 376093, 7897952,\ \dots
 \]
-The entry states, as a conjecture contributed by a reader and never marked settled:
-\begin{quote}
-G.f.: (4096*x\^{}16 - 1024*x\^{}14 - 4096*x\^{}12 - 1024*x\^{}11 + 768*x\^{}10 + 192*x\^{}9 + 64*x\^{}8 - 8*x\^{}7 - 76*x\^{}6 - 10*x\^{}5 + 5*x\^{}4 + 14*x\^{}3 + 2*x\^{}2 + 1)/(4*x\^{}6 - x\^{}4 - 4*x\^{}2 + 1). (End)
+The entry states, not as a conjecture,
+\begin{quote}\small
+a(n) = Sum\emph{\{k=0..n\} (-1)\^{}(n+k)*binomial(n,k)*k!*3\^{}k. - }Benoit Cloitre\_, Nov 02 2003
 \end{quote}
-As of the ``Last modified'' line on the live entry (Nov 05 2025 15:22:38, revision 12) this is still
-recorded as empirical, and nothing on the entry records it as proved. The entry carries no
-conjectured recurrence, which is why this generating function is the whole of what is open
-here.
+so that, writing $F(n,k)$ for the summand,
+\begin{equation}\label{eq:sum}
+a(n)\;=\;\sum_{k=0}^{n}F(n,k),
+\qquad F(n,k)=\left(-1\right)^{k + n} 3^{k} {\binom{n}{k}} k! .
+\end{equation}
+This is the only input the proof takes from the entry, and it was checked against the
+entry's own DATA before use.
 
-\section{The count is a walk count}
+The entry separately carries the following comment:
+\begin{quote}\small
+\textbf{Conjecture:} (n+1)*a(n) -(n+1)*(3*n-1)*a(n-1) -3*(n-1)*(n+1)*a(n-2) = 0. - \emph{R. J. Mathar}, Jul 24 2012
+\end{quote}
+As of the ``Last modified'' line on the live entry (2026-07-11, revision 69) the
+statement is still recorded as a conjecture, and no proof appears among the entry's links,
+formulas or programs.
 
-Every condition the entry names is decided inside a bounded number of consecutive rows: it
-compares a cell with cells a bounded distance from it, and no comparison reaches further than
-that. So a strip of that many consecutive rows is a state of a finite automaton, an array is
-read off row by row, and appending one more row is one step, legal exactly when the row it
-completes satisfies every condition that becomes testable.
+\section{Telescoping over a range that does not cooperate}
 
-Taking those strips as the vertices of a digraph $G$ with adjacency matrix $M$, and writing
-$\iota$ for the indicator of the states an array may begin in and $\tau$ for those it may end
-in,
+Let $N$ denote the shift in $n$, $(Nf)(n)=f(n+1)$, and $\Delta_{k}$ the forward difference
+in $k$. Creative telescoping looks for rational functions
+$\sigma_{0},\dots,\sigma_{r}$ of $n$, not all zero, and a rational $R(n,k)$ with
+\begin{equation}\label{eq:cert}
+\sum_{i=0}^{r}\sigma_{i}(n)\,F(n+i,k)\;=\;\Delta_{k}\bigl[R(n,k)F(n,k)\bigr].
+\end{equation}
+Divided through by $F(n,k)$ this is an identity between rational functions, because the
+quotients $F(n+i,k)/F(n,k)$ and $F(n,k+1)/F(n,k)$ are rational; so a proposed pair
+$(\sigma,R)$ can be \emph{checked}, exactly, whatever produced it. For A000180 such a pair
+exists with $r=1$:
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n-0+0}\tau ,
+\sigma_{0}(n)=3,\qquad \sigma_{1}(n)=- \frac{1}{n + 1},
+\qquad
+R(n,k)\;=\;\frac{1}{k - n - 1} .
 \]
-and there are $S=23$ states. The digraph is built by reading the entry's own English, and the
-model reproduces all $34$ terms the entry publishes, exactly, in integer arithmetic --- a
-misreading of the condition gives a different digraph and different counts, so this ties the
-model to the entry and not merely to the arithmetic.
 
-The family this entry belongs to is read by one model, described by its author as: ``The x-axis and diagonal of a two-dimensional cellular automaton, read as a number.''
+The usual next step sums \eqref{eq:cert} over all $k$ and concludes
+$\sum_{i}\sigma_{i}(n)a(n+i)=0$. That step needs $F(n,k)$ to vanish for every $k$ outside
+the range in \eqref{eq:sum}, and here it does not. Summing over a finite window therefore
+leaves something behind, and the point of this note is that what it leaves behind is
+computable.
 
+\begin{proposition}\label{prop:inhom}
+Let $L_{0}$ and $H_{0}$ be the lower and upper summation limits in \eqref{eq:sum}, each
+non-decreasing in $n$, and put $L=L_{0}(n)$ and $H=H_{0}(n+r)$, so that the window
+$L\le k\le H$ contains the range of every $a(n+i)$, $0\le i\le r$. Write
+$G(n,k)=R(n,k)F(n,k)$ and suppose $G$ is finite at every integer $k$ in $[L,H+1]$. Then
+\[
+\sum_{i=0}^{r}\sigma_{i}(n)\,a(n+i)\;=\;h(n),
+\qquad
+h(n)\;=\;G(n,H+1)-G(n,L)\;-\;\sum_{i=0}^{r}\sigma_{i}(n)\!\!\!
+\sum_{\substack{L\le k\le H\\ k\notin[L_{0}(n+i),\,H_{0}(n+i)]}}\!\!\! F(n+i,k).
+\]
+\end{proposition}
 
-\section{Its generating function is rational, with bounded degree}
+\begin{proof}
+Sum \eqref{eq:cert} over $k=L,\dots,H$. The right-hand side telescopes to
+$G(n,H+1)-G(n,L)$, every intermediate value being finite by hypothesis. On the left,
+$\sum_{k=L}^{H}F(n+i,k)$ differs from $a(n+i)=\sum_{k=L_{0}(n+i)}^{H_{0}(n+i)}F(n+i,k)$
+exactly by the terms of the window that lie outside that sequence's own range, which is the
+inner sum above. Rearranging gives the statement; both correction ranges are finite because
+$L_{0}$ and $H_{0}$ are non-decreasing and $i\le r$.
+\end{proof}
 
-\begin{lemma}\label{lem:rat}
-$A(x)=\sum_{n\ge0}a(n)x^n=N_1(x)/D_1(x)$ where $D_1(x)=\det(I-xM)$ has degree at most
-$S$ and $D_1(0)=1$, and $\deg N_1<S+0$.
+For A000180 this gives
+\begin{equation}\label{eq:h}
+h(n)\;=\;\frac{\left(-1\right)^{n}}{n + 1} .
+\end{equation}
+
+\section{Clearing the inhomogeneity, and dividing}
+
+The inhomogeneity \eqref{eq:h} is a hypergeometric term: its shift quotient is
+\[
+\frac{h(n+1)}{h(n)}\;=\;\frac{- n - 1}{n + 2},
+\]
+a rational function of $n$. Hence $M=N-h(n+1)/h(n)$ satisfies $M(h)=0$, and writing $L_{0}=\sum_{i}\sigma_{i}(n)N^{i}$ for the telescoped operator, Proposition~\ref{prop:inhom} reads $L_{0}(a)=h$, so
+\[
+L\;=\;ML_{0}\quad\text{satisfies}\quad L(a)=M\bigl(L_{0}(a)\bigr)=M(h)=0 .
+\]
+One extra order buys the homogeneity. Explicitly, $L=\left(\frac{3 n + 3}{n + 2}\right) + \left(\frac{3 n + 5}{n + 2}\right)\,N + \left(- \frac{1}{n + 2}\right)\,N^{2}$.
+
+\begin{lemma}\label{lem:factor}
+If $C=QL$ in $\mathcal{A}=\mathbb{Q}(n)[N]$, where $N\,q(n)=q(n+1)\,N$, and $L(a)=0$, then
+$C(a)=0$ at every $n$ where the coefficients of $Q$ are defined.
 \end{lemma}
 
 \begin{proof}
-Summing the geometric series of matrices, $\sum_{j\ge0}M^jx^j=(I-xM)^{-1}$ as a formal
-power series, so $A(x)$ is $x^{c}\,\iota^{\!\top}(I-xM)^{-1}\tau$ for the constant $c$
-relating the walk index to the entry's own $n$. By Cramer's rule every entry of
-$(I-xM)^{-1}$ is a polynomial of degree less than $S$ divided by $\det(I-xM)$, and
-$\det(I-xM)$ is a polynomial of degree at most $S$ with constant term $\det I=1$.
+$C(a)=(QL)(a)=Q\bigl(L(a)\bigr)=Q(0)=0$, and the coefficients of $Q$ are rational functions
+of $n$, so the step is valid away from their poles.
 \end{proof}
 
+Writing the conjectured recurrence as an operator $C$ and dividing by $L$ on the right
+leaves remainder $0$, with quotient
+\[
+Q\;=\;\left(- n^{2} - 5 n - 6\right) .
+\]
+No coefficient of $Q$ has an integer pole, so Lemma~\ref{lem:factor} applies at every index.
+
 \begin{theorem}
-The conjectured generating function is $A(x)$.
+The conjectured recurrence
+\[
+(n + 1)\,a(n) -  \left(n + 1\right) \left(3 n - 1\right)\,a(n-1) -  3 \left(n - 1\right) \left(n + 1\right)\,a(n-2) \;=\;0
+\]
+holds for every $n\ge2$.
 \end{theorem}
 
 \begin{proof}
-Write the conjecture as $N_2/D_2$ with $\deg N_2=16$ and $\deg D_2=6$; its expansion as a
-power series exists because $D_2(0)\neq0$. Put
-\[
-R(x)\;=\;N_1(x)D_2(x)-N_2(x)D_1(x),
-\]
-a polynomial of degree at most $39$ by Lemma~\ref{lem:rat}. The difference
-$A-N_2/D_2$ equals $R/(D_1D_2)$, and $D_1(0)D_2(0)\neq0$, so if the two power series agree in
-every coefficient up to $x^{39}$ then $R$ has a zero of order greater than its own
-degree at the origin, which forces $R\equiv0$ and hence $A=N_2/D_2$ identically.
-
-The coefficients of $A$ were produced from the model by repeated matrix--vector products in
-exact integer arithmetic, those of $N_2/D_2$ by exact rational long division, and $47$
-of them --- more than the $39+1$ the argument requires --- agree.
+Proposition~\ref{prop:inhom} gives the inhomogeneous recurrence, the operator $L$ of the
+previous section annihilates $a$, and Lemma~\ref{lem:factor} applied to $C=QL$ carries that
+to the conjectured operator. No coefficient of $Q$ has an integer pole.
 \end{proof}
-
-\section{A recurrence the entry does not state}
-
-The denominator of a rational generating function is a linear recurrence written backwards, so
-the theorem above yields one for free. With $D_2(x)=1-\sum_{i\ge1}c_ix^i$ after normalising
-$D_2(0)=1$, comparing coefficients of $x^n$ in $A(x)D_2(x)=N_2(x)$ gives
-\[
-a(n)\;=\;\sum_{i\ge1}c_i\,a(n-i)\qquad\text{for every }n>16,
-\]
-a constant-coefficient linear recurrence of order $6$, valid past the degree of the
-numerator. Its coefficients are the integers $c_1,\dots,c_{6}$ read off $D_2$, the first few being $0,\ 4,\ 0,\ 1,\ 0,\ -4$. The entry records no recurrence, so this is not a restatement of anything
-already there.
 
 \section{Verification}
 
-Three checks, each independent of the algebra above.
+Every number above is an output of a script written separately from this note, and four
+independent checks were run.
 
-First, the model reproduces every one of the $34$ published terms, with the index shift
-read off the entry's offset rather than fitted.
+First, the certificate was verified rather than trusted: \eqref{eq:cert} was divided by
+$F(n,k)$ and the difference of the two sides cancelled to $0$ as a rational function of $n$
+and $k$.
 
-Second, the arrays themselves were enumerated for the smallest shapes the entry counts,
-directly from its English and with no automaton, and the counts agree. Writing that check is
-where the risk actually sits: an earlier version of it dropped a clause from the entry's name
-in three cases and disagreed with the model, and in all three the check was wrong and the model
-was right.
+Second --- and this is the check that matters most here, because the boundary bookkeeping
+is where such an argument goes wrong --- the inhomogeneous recurrence of
+Proposition~\ref{prop:inhom} was evaluated on the entry's own terms: for each $n$ in range
+the left side was formed from the published values and compared against \eqref{eq:h}, and
+the two agreed exactly. An error in the correction terms would not survive this.
 
-Third, the coefficient comparison was carried out over the whole range required by the degree
-bound rather than on a prefix, in exact arithmetic throughout.
+Third, the factorisation was confirmed by multiplying back: $QL$ was expanded in
+$\mathcal{A}$ and its coefficients cancelled against those of $C$ to zero.
+
+Fourth, the conjecture itself was evaluated on the published terms, in exact integer
+arithmetic and without reference to any operator: for each $n$ in range the sum
+$\sum_{i}p_{i}(n)a(n-i)$ was formed from the entry's own values and found to vanish, for
+all 16 values of $n$ from $n=2$ upward. The formula \eqref{eq:sum} was
+likewise checked term by term against the DATA section before being used.
 
 \begin{thebibliography}{9}
-\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A284246.
-\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{flajolet} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
-University Press, 2009.
-\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
-University Press, 2013.
+\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer Sequences},
+\url{https://oeis.org}, 2026. Sequence A000180.
+\bibitem{aeqb} M.~Petkov\v{s}ek, H.~S.~Wilf and D.~Zeilberger, \emph{A=B}, A K Peters,
+1996.
+\bibitem{zeil} D.~Zeilberger, \emph{The method of creative telescoping}, J. Symbolic
+Comput. 11 (1991), 195--204.
+\bibitem{ore} O.~Ore, \emph{Theory of non-commutative polynomials}, Ann. of Math. 34
+(1933), 480--508.
 \end{thebibliography}
 
 \end{document}

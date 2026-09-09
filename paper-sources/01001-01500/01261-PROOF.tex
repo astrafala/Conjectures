@@ -12,84 +12,114 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A202794, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A220932, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{6 September 2026}
+\date{8 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A202794 counts arrays of width $7$ over $\{0,1\}$ in which every cell of a named value has a neighbour of that same value. The entry carries an
-empirical recurrence of order $61$ contributed by R.~H.~Hardin. It is true, and it is
-decidable rather than empirical: what a cell asks reaches one row above it and one row below, so the
-condition on a whole row is settled by $3$ consecutive rows and the count is a walk
-count on $S=16513$ states.
+OEIS A220932 counts the distinct indicator arrays obtained from the $n\times3$ arrays over
+$\{0,\dots,2\}$ by marking the cells whose value is equal to exactly two of their neighbours, and carries an
+empirical recurrence of order $2$ contributed by R.~H.~Hardin. It is true, and it is
+decidable rather than empirical. What is counted is the IMAGE of a map, not its domain, so it
+is not a walk count in the obvious graph; the determinisation of the machine that emits the
+indicator row by row turns it into one, on $S=23$ states, after which the conjectured
+recurrence is settled by a finite exact computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B20, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 68Q45, 15B36.\normalsize
 
 \section{The conjecture}
 
-OEIS A202794 is ``Number of nX7 binary arrays with every one adjacent to another one horizontally, diagonally, antidiagonally or vertically.''. It has offset $1$ and begins
+OEIS A220932 is ``Equals two maps: number of n X 3 binary arrays indicating the locations of corresponding elements equal to exactly two of their horizontal and antidiagonal neighbors in a random 0..2 n X 3 array.''. It has offset $1$ and begins
 \[
-37, 10960, 1417772, 168585867, 20696263392, 2552520578945, 314293683119573, 38688895320766945,\ \dots
+2, 16, 92, 556, 3332, 19996, 119972, 719836,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 116*a(n-1) -296*a(n-2) +134529*a(n-3) +910448*a(n-4) +32002645*a(n-5) +303792182*a(n-6) -274352367*a(n-7) -4553032481*a(n-8) -255464462439*a(n-9) -2564370181498*a(n-10) +3644407163485*a(n-11) +79890586561000*a(n-12) +692867879459014*a(n-13) +5340037410632238*a(n-14) -27697667859465447*a(n-15) -350399052874916127*a(n-16) +220849398095860794*a(n-17) +7638409455780774294*a(n-18) +4866818035419949332*a(n-19) -72337785204533265225*a(n-20) -96987081597388772030*a(n-21) +182924266571367258073*a(n-22) +455507949722882174117*a(n-23) +1577927042339412020867*a(n-24) +1466816734937249906401*a(n-25) -9210879986368819971180*a(n-26) -14710061453528888004978*a(n-27) -10266615283727697297035*a(n-28) -5426733751946837588438*a(n-29) +128856230391754102340524*a(n-30) +190968829483790799607694*a(n-31) +18153867338155588036077*a(n-32) +35132143370512533053490*a(n-33) -814633095069822582376942*a(n-34) -1311231354512138456570860*a(n-35) -240281889644749772219856*a(n-36) -944241848508844773234577*a(n-37) +1984444138948153039215217*a(n-38) +3702125192328894859997033*a(n-39) +2150017385587368309459975*a(n-40) +6214820433967172033813092*a(n-41) +715295954577709319019156*a(n-42) +2377107132309172520279758*a(n-43) +355996505560192583614994*a(n-44) -1440267118184540161588288*a(n-45) +358634102872409242797644*a(n-46) -1316771241754607915926988*a(n-47) -21781176900509558851560*a(n-48) -157752158322616242657120*a(n-49) -176405863142160452197176*a(n-50) +118483196392227220082928*a(n-51) -68731346642077739519568*a(n-52) +31758624172313831595600*a(n-53) -3050873407387199742336*a(n-54) -1303075403234971813440*a(n-55) +1558199142139361630400*a(n-56) -627861169109993184000*a(n-57) -5309406999953308800*a(n-58) +42814277346859632000*a(n-59) -6919998916194720000*a(n-60) +330257844734400000*a(n-61)
+Empirical: a(n) = 5*a(n-1) + 6*a(n-2).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 09:55:15, revision 9) this is still
+As of the ``Last modified'' line on the live entry (Mar 13 2018 16:33:46, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The arrays have $7$ columns and a growing number of rows, with entries in $\{0,1\}$. Fix the
-offsets the entry names,
+Let $R=\{0,\dots,2\}^{3}$ be the set of rows and let the neighbours of a cell be the
+cells at the offsets
 \[
-\Delta=\{\,(-1,-1), (-1,0), (-1,1), (0,-1), (0,1), (1,-1), (1,0), (1,1)\,\},
+(-1,1), (0,-1), (0,1), (1,-1),
 \]
-and for a cell $(i,j)$ write
+those falling outside the array being simply absent. For an array
+$A=(r_1,\dots,r_n)\in R^n$ let $\Phi(A)\in\{0,1\}^{n\times3}$ mark the cells whose value
+is equal to exactly two of its neighbours. The entry counts
 \[
-S(i,j)=\{\,(i+\delta_1,\,j+\delta_2) : (\delta_1,\delta_2)\in\Delta\,\}\cap
-\text{(the cells of the array)}
+a(n)\;=\;\bigl|\{\Phi(A):A\in R^n\}\bigr| ,
 \]
-for the neighbours it actually has. Only offsets landing inside the array count, so a cell on
-the border simply has fewer neighbours.
+the size of an IMAGE. This is the whole difficulty: two different arrays with the same marking
+must be counted once, and a walk count in a graph on the arrays would count them twice.
 
-The condition is that every cell equal to $1$ has a neighbour equal to $1$:
+Because every offset above moves the row index by at most one, the marked row $i$ depends only
+on rows $i-1,i,i+1$. Write $\beta(p,c,x)\in\{0,1\}^{3}$ for the marking of the row $c$
+with $p$ above and $x$ below, allowing $p$ or $x$ to be the symbol $\bot$ for ``outside''.
+Then
 \[
-x(i,j)=1\ \Longrightarrow\ \exists\,(a,b)\in S(i,j)\ \ x(a,b)=1 .
+\Phi(r_1,\dots,r_n)=\bigl(\beta(\bot,r_1,r_2),\ \beta(r_1,r_2,r_3),\ \dots,\
+\beta(r_{n-1},r_n,\bot)\bigr).
 \]
-Cells of any other value are under no condition.
 
-\section{A window of 3 rows}
+\section{The image is a walk count after determinisation}
 
-The offsets reach one row up and one row down, so everything the condition asks of one row is
-decided by that row together with one row above it and one row below --- a window of
-$3$ consecutive rows, and nothing wider. Take the array one row at a time and
-let the state be the last 2 of them, with a distinguished start standing for the array before its
-first row, so that a walk of $n$ steps is an array of $n$ rows.
-
-Appending a row completes exactly one window, and the row it settles is the one just above the bottom of that window; a step is
-allowed when that row passes. Each row of the finished array is therefore tested exactly once.
-
-When the array stops, the last row of it has never been tested, because the
-conditions reach one row below. So the end vector is NOT all ones: a state is accepted exactly when
-those rows pass with nothing below them, which is decided by running the same test on the window
-with absent rows appended --- the same rule that governs a cell at the bottom edge in
-Section 2.
-Thus
+For a set $D\subseteq(R\cup\{\bot\})\times R$ of pairs and a row $b\in\{0,1\}^{3}$ put
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=16513,
+\delta(D,b)=\{(c,x)\ :\ (p,c)\in D,\ x\in R,\ \beta(p,c,x)=b\},\qquad
+f(D)=\bigl|\{\beta(p,c,\bot):(p,c)\in D\}\bigr| ,
 \]
-for the transfer matrix $M$ on those $S$ states. The walk index $j$ and the entry's own $n$
-differ by a constant, read off by matching the published terms rather than assumed. In
-particular $a$ is $C$-finite.
+and let $D_0=\{(\bot,r):r\in R\}$.
+
+\begin{lemma}\label{lem:det}
+For every $t\ge0$ and every $b_1,\dots,b_t$, the set
+$D_t=\delta(\dots\delta(D_0,b_1)\dots,b_t)$ is exactly
+\[
+\{(r_t,r_{t+1})\ :\ (r_1,\dots,r_{t+1})\in R^{t+1},\ \beta(\bot,r_1,r_2)=b_1,\ \dots,\
+\beta(r_{t-1},r_t,r_{t+1})=b_t\} ,
+\]
+with $r_0=\bot$. Consequently, for $n\ge1$,
+\[
+a(n)\;=\;\sum_{b_1,\dots,b_{n-1}}f(D_{n-1}),
+\]
+the sum over all sequences of rows in $\{0,1\}^{3}$, empty $D$'s contributing nothing.
+\end{lemma}
+
+\begin{proof}
+Induction on $t$. For $t=0$ the set is $\{(\bot,r_1)\}$, which is $D_0$. If the description
+holds for $D_t$, then $\delta(D_t,b)$ collects the pairs $(r_{t+1},r_{t+2})$ for which
+$(r_t,r_{t+1})$ already extends a consistent prefix and
+$\beta(r_t,r_{t+1},r_{t+2})=b$, which is the description for $t+1$.
+
+An element of the image is a full marking $(b_1,\dots,b_n)$. By the description, a prefix
+$(b_1,\dots,b_{n-1})$ is realised by some $r_1,\dots,r_n$ exactly when $D_{n-1}\neq
+\emptyset$, and then the possible last rows are precisely
+$\{\beta(p,c,\bot):(p,c)\in D_{n-1}\}$, of which there are $f(D_{n-1})$. Distinct
+sequences $(b_1,\dots,b_n)$ are distinct markings, so summing $f$ over the prefixes counts the
+image exactly once each.
+\end{proof}
+
+So with $M$ the adjacency matrix of the digraph whose vertices are the reachable nonempty sets
+$D$ and which carries one edge $D\to\delta(D,b)$ for each $b$ with $\delta(D,b)\neq\emptyset$
+--- several $b$ may lead to the same set, and then the edge is repeated, which is exactly
+right, since the markings differ ---
+\[
+a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,\qquad \iota=e_{D_0},\quad \tau=f .
+\]
+There are $S=23$ reachable sets, generated from $D_0$ outward, and $a$ is $C$-finite. Note
+that $\tau$ is not the all-ones vector: the last marked row is not a step of the walk but a
+count attached to the state the walk stops in.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{61}-\sum_i c_it^{61-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{2}-\sum_i c_it^{2-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -97,7 +127,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+61}-\sum_ic_iM^{j+61-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+2}-\sum_ic_iM^{j+2-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -106,39 +136,38 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;116\,a(n-1) - 296\,a(n-2) + 134529\,a(n-3) + 910448\,a(n-4) + 32002645\,a(n-5) + 303792182\,a(n-6) - 274352367\,a(n-7) - 4553032481\,a(n-8) - 255464462439\,a(n-9) - 2564370181498\,a(n-10) + 3644407163485\,a(n-11) + 79890586561000\,a(n-12) + 692867879459014\,a(n-13) + 5340037410632238\,a(n-14) - 27697667859465447\,a(n-15) - 350399052874916127\,a(n-16) + 220849398095860794\,a(n-17) + 7638409455780774294\,a(n-18) + 4866818035419949332\,a(n-19) - 72337785204533265225\,a(n-20) - 96987081597388772030\,a(n-21) + 182924266571367258073\,a(n-22) + 455507949722882174117\,a(n-23) + 1577927042339412020867\,a(n-24) + 1466816734937249906401\,a(n-25) - 9210879986368819971180\,a(n-26) - 14710061453528888004978\,a(n-27) - 10266615283727697297035\,a(n-28) - 5426733751946837588438\,a(n-29) + 128856230391754102340524\,a(n-30) + 190968829483790799607694\,a(n-31) + 18153867338155588036077\,a(n-32) + 35132143370512533053490\,a(n-33) - 814633095069822582376942\,a(n-34) - 1311231354512138456570860\,a(n-35) - 240281889644749772219856\,a(n-36) - 944241848508844773234577\,a(n-37) + 1984444138948153039215217\,a(n-38) + 3702125192328894859997033\,a(n-39) + 2150017385587368309459975\,a(n-40) + 6214820433967172033813092\,a(n-41) + 715295954577709319019156\,a(n-42) + 2377107132309172520279758\,a(n-43) + 355996505560192583614994\,a(n-44) - 1440267118184540161588288\,a(n-45) + 358634102872409242797644\,a(n-46) - 1316771241754607915926988\,a(n-47) - 21781176900509558851560\,a(n-48) - 157752158322616242657120\,a(n-49) - 176405863142160452197176\,a(n-50) + 118483196392227220082928\,a(n-51) - 68731346642077739519568\,a(n-52) + 31758624172313831595600\,a(n-53) - 3050873407387199742336\,a(n-54) - 1303075403234971813440\,a(n-55) + 1558199142139361630400\,a(n-56) - 627861169109993184000\,a(n-57) - 5309406999953308800\,a(n-58) + 42814277346859632000\,a(n-59) - 6919998916194720000\,a(n-60) + 330257844734400000\,a(n-61)
+a(n)\;=\;5\,a(n-1) + 6\,a(n-2)
 \]
-for every $n>60$.
+for every $n>2$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $61$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $2$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=60+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=2+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
-Four checks, each independent of the algebra above.
+Three checks, each independent of the algebra above.
 
-First, the model reproduces all $12$ terms the entry publishes, exactly, in integer
-arithmetic.
+First, the model reproduces all $20$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry: the machine is built by reading the
+entry's English, and a misreading gives different counts.
 
-Second, the count was recomputed for the smallest arrays straight from the definition: every
-array of width $7$ over $\{0,1\}$ with a few rows was written out cell by cell and each cell
-tested against the neighbours it has. No window, no state and no end vector are involved in that
-computation, and the published terms came back.
-
-Third, the conjectured recurrence was evaluated directly on the published terms, with no
+Second, the conjectured recurrence was evaluated directly on those published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
 
-Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
 arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A202794.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A220932.
+\bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata
+Theory, Languages, and Computation}, 3rd ed., Addison--Wesley, 2006. (The subset
+construction, Section 2.3.)
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge

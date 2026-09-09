@@ -12,164 +12,177 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A268965, proved by a counting transfer matrix}
+\title{The empirical column recurrences for the table OEIS A264071}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A268965 counts arrays over $\{0,\dots,2\}$ subject to a condition on the array as a
-whole rather than cell by cell: the number of adjacent pairs with a stated property must be
-at most one. A transfer matrix still applies once the running count is carried in the state; and
-because a count of two or more can never come back, those states may be dropped outright,
-which is what keeps the digraph sparse. That makes $a(n)$ a walk count on $S=18$ vertices,
-and the empirical recurrence of order $2$ contributed by R.~H.~Hardin then follows from
-a finite exact computation.
+OEIS A264071 is a two-dimensional table $T(n,k)$, and it carries a block of empirical
+recurrences contributed by R.~H.~Hardin --- one for each of its first few columns. They are
+true. Column $k$ of the table is an ordinary fixed-width array count, so its rows are the
+vertices of a finite digraph and $T(n,k)$ is a number of walks in it; being a walk count the
+column is $C$-finite, and whether a given recurrence annihilates it is decided by a finite
+exact computation, with the Cayley--Hamilton theorem bounding the work. This note settles the columns $k=1, 2, 3, 4$ and the rows $n=1$.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
-\section{The sequence and the conjecture}
+\section{The table and the conjectures}
 
-OEIS A268965 is ``Number of n X 2 0..2 arrays with some element plus some horizontally or antidiagonally adjacent neighbor totalling two not more than once.''. It has offset $1$ and begins
+OEIS A264071 is ``T(n,k) = number of (n+1) X (k+1) arrays of permutations of 0..(n+1)*(k+1)-1 with each element having index change +-(.,.) 0,0 1,1 or 1,2.''. It has offset $1$, is
+read by antidiagonals, and begins
 \[
-9, 60, 336, 1728, 8448, 39936, 184320, 835584,\ \dots
+2, 5, 4, 13, 21, 8, 34, 121,\ \dots
 \]
-The entry carries the following comment:
+The entry carries the following block:
 \begin{quote}\small
-Empirical: a(n) = 8*a(n-1) - 16*a(n-2).
+Empirical for column k:\\
+k=1: a(n) = 2*a(n-1)\\
+k=2: a(n) = 4*a(n-1) +a(n-2)\\
+k=3: a(n) = 10*a(n-1) for n>2\\
+k=4: a(n) = 19*a(n-1) +16*a(n-2) for n>3\\
+k=5: a(n) = 43*a(n-1) -43*a(n-3) +a(n-4) for n>5\\
+k=6: a(n) = 87*a(n-1) +374*a(n-2) -470*a(n-3) +207*a(n-4) +3*a(n-5) for n>7\\
+k=7: a(n) = 191*a(n-1) +1102*a(n-2) -7594*a(n-3) -38349*a(n-4) +38507*a(n-5) for n>8\\
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jan 17 2019 09:20:34, revision 8) the statement is
-still recorded as empirical, and nothing on the entry records it as settled either way.
+As of the ``Last modified'' line on the live entry (Mar 25 2025 21:55:20, revision 14) these are still
+recorded as empirical, and nothing on the entry records any of them as settled.
 
-Written out, the claim is
-\begin{equation}\label{eq:conj}
-a(n)\;=\;8\,a(n-1) - 16\,a(n-2)
-\end{equation}
-for all $n>2$.
+\section{A column of the table is a walk count}
 
-\section{A global count, and how to carry it}
-
-The arrays have $2$ columns and $L=n$ rows; write $x_{t,u}$ for the entry in
-row $t$ and column $u$. Call two cells \emph{adjacent} when they differ by one of the
-offsets
+Fix $k$. The entry defines $T(n,k)$ as the number of arrays of a shape in which one dimension
+is $n$ and the other is determined by $k$, subject to a condition imposed on every
+$2\times2$ subblock --- a condition local to two consecutive rows and two consecutive columns.
+Substituting the fixed value of $k$ into the entry's own wording turns the definition into an
+ordinary one-parameter array count, and for such a count the rows are the vertices of a finite
+digraph $G_k$: $r\to s$ is an edge exactly when placing $s$ under $r$ satisfies the condition
+in every column pair. An admissible array is then a walk, so with $M_k$ the adjacency matrix
+of $G_k$,
 \[
-\mathcal N=\{(0,1),\ (1,-1)\},
+T(n,k)\;=\;c_k\,\mathbf{1}^{\!\top}M_k^{\,n}\mathbf{1}
 \]
-written as (row shift, column shift), and call an adjacent pair $\{p,q\}$
-\emph{marked} when
-\[
-x_{p}+x_{q}=2 .
-\]
-Each unordered adjacency is represented by exactly one offset, all with a nonnegative row
-shift, so every pair is named once and only once: the pairs inside a row are seen when
-that row is laid down, and the pairs joining two rows when the later of the two is. The
-entry's requirement is
-\begin{equation}\label{eq:glob}
-\#\{\text{marked pairs in the whole array}\}\;\le1.
-\end{equation}
-
-This is not a condition on any bounded window, so no transfer matrix over rows alone can
-express it. It becomes one as soon as the running total is part of the state. Let
-\[
-\mathcal V=\bigl\{(r,c):\ r\in\{0,\dots,2\}^{2},\ c\in\{0,1\}\bigr\},
-\qquad |\mathcal V|=S=18,
-\]
-and for rows $r,s$ write $\beta(r,s)$ for the number of marked pairs joining them plus the
-number of marked pairs inside $s$. Declare $(r,c)\to(s,c+\beta(r,s))$ an edge whenever
-$c+\beta(r,s)\le1$, and no edge otherwise.
-
-\begin{remark}
-Dropping the states with $c\ge2$ is not an approximation. Once the total has reached two it
-can only grow, so no array satisfying \eqref{eq:glob} passes through such a state. Keeping
-them --- as a third, absorbing value of $c$ --- would make every pair of rows an edge and
-the digraph dense, with $(2+1)^{2\cdot2}$ edges instead of the sparse set used here.
-\end{remark}
-
-\begin{lemma}\label{lem:walk}
-Let $\mathbf{v}$ mark the vertices $(r,c)$ whose count $c$ equals the number of marked pairs
-inside $r$ alone, and $\mathbf{u}$ the vertices with $c\le1$. Then for $L\ge1$ the arrays
-of $L$ rows satisfying \eqref{eq:glob} are exactly the walks of length $L-1$ from a
-vertex marked by $\mathbf{v}$ to one marked by $\mathbf{u}$, so
-\[
-a(n)\;=\;\,\mathbf{v}^{\!\top}N^{\,L-1}\mathbf{u},\qquad L=n .
-\]
-\end{lemma}
-
-\begin{proof}
-A walk $(r^{(1)},c_1)\to\cdots\to(r^{(L)},c_L)$ determines the array
-$r^{(1)},\dots,r^{(L)}$, and conversely each array determines at most one walk, since the
-starting count is fixed by $\mathbf{v}$ and each step's count is determined. By induction
-$c_t$ is the number of marked pairs in the first $t$ rows: it holds at $t=1$ by the
-definition of $\mathbf{v}$, and the step from $t$ to $t+1$ adds exactly the pairs joining
-rows $t$ and $t+1$ together with those inside row $t+1$, which are precisely the marked
-pairs of the first $t+1$ rows not already counted --- each unordered pair being named by
-exactly one offset. The walk exists (no edge is missing) if and only if the running total
-never exceeds $1$, which for a nondecreasing total is the same as $c_L\le1$; and
-$\mathbf{u}$ imposes the entry's requirement on $c_L$. Note the state already carries one
-row, so $L$ rows correspond to a walk of length $L-1$.
-\end{proof}
-
-\section{The criterion, and the computation}
-
-Let $q(t)=t^{2}-\sum_i c_i\,t^{2-i}$ be the characteristic polynomial of
-\eqref{eq:conj} and $G=N$.
+for the constant $c_k$ that the entry's name supplies (a factor such as $\tfrac12$ or
+$\tfrac14$ where the name says so, and $1$ otherwise).
 
 \begin{lemma}\label{lem:crit}
-With $n_0$ the least index for which $L\ge1$ and $h_j=G^{j}N^{o}\mathbf{u}$,
-$o=1n_0+0-1$,
+Let $q(t)=t^{r}-\sum_i c_it^{r-i}$ be the characteristic polynomial of a conjectured
+recurrence of order $r$ for column $k$. Then for every $n\ge r$,
 \[
-a(n_0+j)-\sum_i c_i\,a(n_0+j-i)\;=\;\,\mathbf{v}^{\!\top}G^{\,j-2}w,
-\qquad w=h_{2}-\sum_i c_i h_{2-i},
+T(n,k)-\sum_i c_i\,T(n-i,k)\;=\;c_k\,\mathbf{1}^{\!\top}M_k^{\,n-r}q(M_k)\mathbf{1},
 \]
-for $j\ge2$. Hence \eqref{eq:conj} holds from that point on if and only if
-$\mathbf{v}^{\!\top}G^{m}w=0$ for every $m\ge0$, and it is enough to check
-$m=0,1,\dots,S-1$.
+so the recurrence holds from some point on if and only if
+$\mathbf{1}^{\!\top}M_k^{j}q(M_k)\mathbf{1}=0$ for every $j\ge0$; and by the
+Cayley--Hamilton theorem it is enough to check $j<S_k$, where $S_k$ is the number of vertices
+of $G_k$.
 \end{lemma}
 
 \begin{proof}
-Substitute Lemma~\ref{lem:walk} and factor. By Cayley--Hamilton $G^{S}$ is an integer
-combination of $I,G,\dots,G^{S-1}$, so every later value is the same combination of earlier
-ones.
+Substitute the walk expression and factor $M_k^{n-r}$ out of $M_k^{n}-\sum_ic_iM_k^{n-i}$;
+the scalar $c_k$ is nonzero. For the bound, $M_k^{S_k}$ is an integer combination of
+$I,M_k,\dots,M_k^{S_k-1}$, so each $\mathbf{1}^{\!\top}M_k^{j}q(M_k)\mathbf{1}$ with
+$j\ge S_k$ repeats that combination of earlier values.
 \end{proof}
 
-\begin{theorem}
-The recurrence \eqref{eq:conj} holds for every $n>2$, which is the statement of
-Section~1.
-\end{theorem}
+\section{The computation, column by column}
 
-\begin{proof}
-The digraph was built directly from the definition of a marked pair. The vector $w$ was
-formed by $2$ applications of $G$ in exact integer arithmetic and
-$\mathbf{v}^{\!\top}G^{m}w$ evaluated for $m=0,1,\dots$, again exactly. Every one of
-those integers vanishes from the index corresponding to $n=2+1$ onwards, and the run
-continued until $S+1$ consecutive zeros had been seen, which by Lemma~\ref{lem:crit}
-settles every larger $m$.
-\end{proof}
+\begin{center}
+\begin{tabular}{ccccc}
+line & order & vertices $S$ & proved for & terms checked \\ \hline
+column $k$$=1$ & $1$ & $16$ & $>0$ & $9$ \\
+column $k$$=2$ & $2$ & $64$ & $>0$ & $8$ \\
+column $k$$=3$ & $1$ & $256$ & $>2$ & $7$ \\
+column $k$$=4$ & $2$ & $1024$ & $>3$ & $6$ \\
+row $n$$=1$ & $2$ & $256$ & $>0$ & $9$ \\
+\end{tabular}
+\end{center}
+
+In each case the vector $w=q(M_k)\mathbf{1}$ was formed by $r$ matrix--vector products in
+exact integer arithmetic and $\mathbf{1}^{\!\top}M_k^{j}w$ evaluated for $j=0,1,\dots$,
+again exactly; every one of those integers vanishes from the stated point onwards and the run
+continued until the working vector was identically zero, which settles all larger $j$ at once.
+
+\subsection*{Column $k$$=1$}
+The sequence is ``Number of (n+1) X (2) arrays of permutations of 0..(n+1)*(2)-1 with each element having index change +-(.,.) 0,0 1,1 or 1,2.''. Its rows are the vertices of a digraph on
+$S=16$ vertices, edges being the admissible consecutive pairs, and the count is
+$\mathbf{1}^{\!\top}M^{n}\mathbf{1}$ up to the constant factor in the entry's name.
+The conjectured recurrence
+\[
+a(n)\;=\;2\,a(n-1)
+\]
+holds from index $0+1$ on.
+
+\subsection*{Column $k$$=2$}
+The sequence is ``Number of (n+1) X (3) arrays of permutations of 0..(n+1)*(3)-1 with each element having index change +-(.,.) 0,0 1,1 or 1,2.''. Its rows are the vertices of a digraph on
+$S=64$ vertices, edges being the admissible consecutive pairs, and the count is
+$\mathbf{1}^{\!\top}M^{n}\mathbf{1}$ up to the constant factor in the entry's name.
+The conjectured recurrence
+\[
+a(n)\;=\;4\,a(n-1) + a(n-2)
+\]
+holds from index $0+1$ on.
+
+\subsection*{Column $k$$=3$}
+The sequence is ``Number of (n+1) X (4) arrays of permutations of 0..(n+1)*(4)-1 with each element having index change +-(.,.) 0,0 1,1 or 1,2.''. Its rows are the vertices of a digraph on
+$S=256$ vertices, edges being the admissible consecutive pairs, and the count is
+$\mathbf{1}^{\!\top}M^{n}\mathbf{1}$ up to the constant factor in the entry's name.
+The conjectured recurrence
+\[
+a(n)\;=\;10\,a(n-1)
+\]
+holds from index $2+1$ on.
+
+\subsection*{Column $k$$=4$}
+The sequence is ``Number of (n+1) X (5) arrays of permutations of 0..(n+1)*(5)-1 with each element having index change +-(.,.) 0,0 1,1 or 1,2.''. Its rows are the vertices of a digraph on
+$S=1024$ vertices, edges being the admissible consecutive pairs, and the count is
+$\mathbf{1}^{\!\top}M^{n}\mathbf{1}$ up to the constant factor in the entry's name.
+The conjectured recurrence
+\[
+a(n)\;=\;19\,a(n-1) + 16\,a(n-2)
+\]
+holds from index $3+1$ on.
+
+\subsection*{Row $n$$=1$}
+The sequence is ``Number of (2) X (n+1) arrays of permutations of 0..(2)*(n+1)-1 with each element having index change +-(.,.) 0,0 1,1 or 1,2.''. Its rows are the vertices of a digraph on
+$S=256$ vertices, edges being the admissible consecutive pairs, and the count is
+$\mathbf{1}^{\!\top}M^{n}\mathbf{1}$ up to the constant factor in the entry's name.
+The conjectured recurrence
+\[
+a(n)\;=\;3\,a(n-1) - a(n-2)
+\]
+holds from index $0+1$ on.
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the walk counts of Lemma~\ref{lem:walk} were compared against the entry's DATA at
-every one of the $21$ published indices, with no shift fitted: the number of rows is
-$L=n$, read off the entry's own name, and the offset says which index the first
-published term carries. The values agree exactly. This is where an error in the pair
-bookkeeping would show: counting an unordered pair twice, or missing the pairs inside the
-first row, changes the counts immediately. Indeed a first version of the computation
-placed the walk at length $L-2$ rather than $L-1$ --- the state carries a row, not a
-boundary --- and every value came out one index late, which the DATA comparison rejected.
+First, each model was compared against the entry's own published values for its line, taken
+both from the antidiagonal DATA read in either orientation and from the ``Table starts''
+block, and agrees at every available term. This is what ties a model to the table:
+substituting the fixed index into the entry's wording is a reading of English, and a wrong
+reading gives a different digraph and different counts. Across the lines settled here the
+model reproduces $39$ published values, $133$ decimal digits in all, every one of
+them exactly; a misreading of the entry would have to reproduce all of them by accident.
 
-Second, the recurrence \eqref{eq:conj} was evaluated on those published terms in exact
-integer arithmetic, with no matrices involved, and vanishes wherever it applies.
+Second, each conjectured recurrence was evaluated on those published values in exact
+integer arithmetic, with no matrices involved, and holds wherever the proved range and the
+data overlap.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried to the full
-Cayley--Hamilton bound in exact integer arithmetic rather than to a sampled prefix.
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+arithmetic rather than on a sampled prefix.
+
+\begin{remark}
+A row of the table is a column of the transposed table: fixing $n$ and letting $k$ vary gives a
+count of arrays of fixed height, which is the same kind of object with the two dimensions
+exchanged. Both are settled here by the same argument. Only the lines the entry states
+explicitly, and for which enough published values exist to run the first check above, are
+claimed.
+\end{remark}
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A268965.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A264071.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
