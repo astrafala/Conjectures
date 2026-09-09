@@ -109,6 +109,27 @@ fast no into a slow one, and the difference is only visible if you check the cla
 code that does the work rather than against the shape of the constant. Check what the states
 actually are before deciding a bound is wrong.
 
+## F0. What an engine DOES read and still is not proved -- the whole of it, 9 September 2026
+
+1,127 entries outside the roster carry a readable conjecture AND a name an engine reads.
+`deep-check/unproved-by-engine.json` lists them. Every one is blocked by a reason already
+written down, and they account for each other almost exactly:
+
+| how many | engine | why it is not proved |
+| ---: | --- | --- |
+| 144 | `ca2dcount` | refused on purpose: an active-cell count has no proved generating function, so no bound exists and the residual test cannot certify |
+| 811 | mostly `transfer35`, `transfer9`, `transfer26`, `transfer23`, `transfer17` | `state space > cap` at 2,000,000, and re-asking runs the container out of memory before the build can refuse |
+| 82 | `ca2d` | no growth certificate even at period 16, settling point 24, 64 steps |
+| 71 | `ecarow` | genuinely fractal; the same widening finds nothing and neither does dropping the grow-by-2p rule |
+
+**There is no hidden mass left in the reachable pool.** Everything an engine can read and has
+not proved is one of those four, and three of the four are a hard wall rather than a setting.
+The one that is not is the cap, and the way through it is lumping equivalent states BEFORE the
+build rather than after: `permdisp` turned 31,187 states into 1,159 by lumping afterwards, and
+`transfer17`'s pair-free construction already merges before the states exist. Doing that
+generally is the single piece of work that would open 811 entries, and it is engine-by-engine
+research rather than a setting to widen.
+
 ## F1. What no engine reads, measured fresh on 9 September 2026
 
 2,791 entries outside the roster carry a readable conjectured recurrence and a name no engine
