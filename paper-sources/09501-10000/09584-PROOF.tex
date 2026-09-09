@@ -12,14 +12,14 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A232017, proved by a two-line transfer matrix}
+\title{The empirical recurrence for OEIS A202883, proved by a two-line transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A232017 counts arrays over $\{0,\dots,2\}$ in which every cell is constrained by the
+OEIS A202883 counts arrays over $\{0,\dots,2\}$ in which every cell is constrained by the
 values of its neighbours, and carries an empirical recurrence of order $5$ contributed
 by R.~H.~Hardin. It is true, and it is not an empirical matter. The neighbourhood reaches one
 row up and one row down, so a single row is not enough state and a plain walk count
@@ -34,20 +34,20 @@ computation.
 
 \section{The sequence and the conjecture}
 
-OEIS A232017 is ``Number of n X 2 0..2 arrays with no element less than a strict majority of its horizontal and antidiagonal neighbors.''. It has offset $1$ and begins
+OEIS A202883 is ``Number of n X 2 0..2 arrays with every nonzero element less than or equal to some horizontal or vertical neighbor.''. It has offset $1$ and begins
 \[
-3, 22, 121, 704, 4059, 23422, 135166, 779977,\ \dots
+3, 35, 265, 1849, 13345, 96941, 701275, 5071167,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 3*a(n-1) + 13*a(n-2) + 16*a(n-3) + 7*a(n-4) + a(n-5).
+Empirical: a(n) = 6*a(n-1) +2*a(n-2) +46*a(n-3) +25*a(n-4) +36*a(n-5).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 01 2018 21:10:12, revision 7) the statement is
+As of the ``Last modified'' line on the live entry (Jun 02 2018 10:35:06, revision 11) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;3\,a(n-1) + 13\,a(n-2) + 16\,a(n-3) + 7\,a(n-4) + a(n-5)
+a(n)\;=\;6\,a(n-1) + 2\,a(n-2) + 46\,a(n-3) + 25\,a(n-4) + 36\,a(n-5)
 \end{equation}
 for all $n>6$.
 
@@ -56,12 +56,12 @@ for all $n>6$.
 The arrays have $2$ columns and $L=n$ rows; write $x_{t,u}$ for the entry in
 row $t$ and column $u$, each in $\{0,\dots,2\}$. With the neighbour offsets
 \[
-\mathcal N=\{(0,-1),\ (0,1),\ (-1,1),\ (1,-1)\},
+\mathcal N=\{(0,-1),\ (0,1),\ (-1,0),\ (1,0)\},
 \]
 written as (row shift, column shift) and counting only positions inside the array, the
 entry's requirement is
 \begin{equation}\label{eq:loc}
-2\,\#\{\text{neighbours }y\text{ with }y>x_{t,u}\}\le\#\{\text{neighbours}\}
+x_{t,u}\ne0\ \Rightarrow\ \exists\ \text{a neighbour }y:\ x_{t,u}\le y
 \end{equation}
 for every cell $(t,u)$.
 
@@ -178,7 +178,7 @@ returned zero throughout.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A232017.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A202883.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

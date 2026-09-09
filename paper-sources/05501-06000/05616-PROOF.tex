@@ -12,128 +12,137 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A264284, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A207444, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{7 September 2026}
+\date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A264284 counts the arrangements of $0,1,\dots,LW-1$ in a grid of $W=8$ rows in which
-every value moves from its home cell by an index change on a short list, and it carries an
-empirical recurrence of order $34$ contributed by R.~H.~Hardin. It is true, and it is
-decidable rather than empirical. Such an arrangement is a perfect matching between cells and
-values, and because a value's row moves by at most $R=1$, the matching splits into
-independent decisions row by row: after the cells of rows $0,\dots,i$ are filled,
-every value whose home row is at most $i-R$ has been used, and only $2R$ home rows are
-partly used. Carrying those as bitmasks makes the count a walk on $S=65536$ vertices, so it is
-$C$-finite and the conjectured recurrence is decided by a finite exact computation.
+OEIS A207444 counts arrays over $\{0,\dots,1\}$ of width $4$ that avoid the patterns
+$(0,0,1), (1,0,0)$ along one axis and $(0,0,1), (0,1,0)$ along the other, and carries an empirical recurrence of
+order $35$ contributed by R.~H.~Hardin. It is true. The patterns have length $3$, so
+the constraint across the growing direction ties together $3$ consecutive columns: taking a
+window of $2$ consecutive columns as a state makes the array a walk in a finite digraph
+on $S=81$ vertices, and $a(n)=\mathbf{1}^{\!\top}P^{\,n-2}\mathbf{1}$. Writing $q$
+for the characteristic polynomial of the conjectured recurrence, the residual is
+$\mathbf{1}^{\!\top}P^{\,n-2-35}q(P)\mathbf{1}$, which vanishes identically
+beyond a threshold that the computation pins down exactly. Finite, exact, integer.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A05, 05A15, 15A15.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 68R15, 15B36.\normalsize
 
-\section{The conjecture}
+\section{The sequence and the conjecture}
 
-OEIS A264284 is ``Number of (n+1)X(7+1) arrays of permutations of 0..n*8+7 with each element having directed index change 0,0 0,1 1,0 or -1,-2.''. It has offset $1$ and begins
+OEIS A207444 is ``Number of 4Xn 0..1 arrays avoiding 0 0 1 and 0 1 0 horizontally and 0 0 1 and 1 0 0 vertically.''. It has offset
+$1$ and begins
 \[
-145, 4156, 134432, 4227024, 131452948, 4076914388, 126311779972, 3911932445892,\ \dots
+9, 81, 333, 1360, 6092, 25689, 105690,\ \dots
 \]
-The entry states, as a conjecture contributed by its author and never marked settled:
-\begin{quote}
-Empirical: a(n) = 37*a(n-1) -148*a(n-2) -648*a(n-3) -18812*a(n-4) +33720*a(n-5) +341320*a(n-6) +3490528*a(n-7) +2721200*a(n-8) -13811392*a(n-9) -95460256*a(n-10) -173488256*a(n-11) -318028224*a(n-12) -1470212608*a(n-13) +840492032*a(n-14) +14620982784*a(n-15) +49650196480*a(n-16) +50819317760*a(n-17) +88642775040*a(n-18) +235467870208*a(n-19) -222393663488*a(n-20) -1393025925120*a(n-21) -2983768571904*a(n-22) -30476926976*a(n-23) +5734697598976*a(n-24) +5710659846144*a(n-25) -2268499279872*a(n-26) -7922359730176*a(n-27) -3287065559040*a(n-28) +6731216191488*a(n-29) +5292339232768*a(n-30) -5224022409216*a(n-31) -6274678784000*a(n-32) -950261514240*a(n-33) +676457349120*a(n-34)
+The entry carries the following comment:
+\begin{quote}\small
+Empirical: a(n) = 5*a(n-1) -4*a(n-2) +21*a(n-3) -78*a(n-4) -31*a(n-5) -41*a(n-6) +475*a(n-7) +568*a(n-8) -94*a(n-9) -2370*a(n-10) -2473*a(n-11) +670*a(n-12) +6654*a(n-13) +6859*a(n-14) -1652*a(n-15) -11383*a(n-16) -11186*a(n-17) +818*a(n-18) +11923*a(n-19) +11553*a(n-20) +1019*a(n-21) -6760*a(n-22) -7392*a(n-23) -1944*a(n-24) +1915*a(n-25) +2670*a(n-26) +1090*a(n-27) -64*a(n-28) -529*a(n-29) -259*a(n-30) -53*a(n-31) +46*a(n-32) +24*a(n-33) +8*a(n-34) -4*a(n-35)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Nov 10 2015 14:55:35, revision 4) this is still
-recorded as empirical, and nothing on the entry records it as proved.
+As of the ``Last modified'' line on the live entry (Oct 03 2025 13:55:14, revision
+9) the statement is still recorded as empirical, and nothing on the entry
+records it as settled either way.
 
-\section{The object is a matching}
+Written out, the claim is
+\begin{equation}\label{eq:conj}
+a(n)\;=\;5\,a(n-1) - 4\,a(n-2) + 21\,a(n-3) - 78\,a(n-4) - 31\,a(n-5) - 41\,a(n-6) + 475\,a(n-7) + 568\,a(n-8) - 94\,a(n-9) - 2370\,a(n-10) - 2473\,a(n-11) + 670\,a(n-12) + 6654\,a(n-13) + 6859\,a(n-14) - 1652\,a(n-15) - 11383\,a(n-16) - 11186\,a(n-17) + 818\,a(n-18) + 11923\,a(n-19) + 11553\,a(n-20) + 1019\,a(n-21) - 6760\,a(n-22) - 7392\,a(n-23) - 1944\,a(n-24) + 1915\,a(n-25) + 2670\,a(n-26) + 1090\,a(n-27) - 64\,a(n-28) - 529\,a(n-29) - 259\,a(n-30) - 53\,a(n-31) + 46\,a(n-32) + 24\,a(n-33) + 8\,a(n-34) - 4\,a(n-35)
+\end{equation}
+for all $n>35$. The entry's array has a fixed number of rows and a growing number of
+columns, so the roles of the two directions are exchanged: what the entry calls the
+horizontal direction runs along the growing side. The transfer below is written in the
+growing direction throughout.
 
-The grid has $W=8$ rows across and holds each of $0,1,\dots,LW-1$ exactly once. The value
-$v$ has a HOME cell, namely its place in the plain row-major filling, and putting $v$ in cell
-$(i,j)$ changes its index by $(i-h_i,\,j-h_j)$ where $(h_i,h_j)$ is that home cell. The entry
-allows the index changes
-\[
-(i-h_i,\,j-h_j)\;\in\;\{(-1,-2),\ (0,0),\ (0,1),\ (1,0)\},
-\]
-the list being the entry's own, read with the sign convention its wording uses. An admissible
-arrangement is therefore exactly a perfect matching in the bipartite graph joining each cell to
-the values it may hold.
+\section{The array as a walk}
 
-\section{The matching is a walk}
+Call a column \emph{admissible} if the word it forms contains none of the patterns
+$(0,0,1), (1,0,0)$ as $3$ consecutive entries. There are $9$ admissible columns; that condition
+involves a single column only.
 
-Let $R=1$ be the largest $|i-h_i|$ on the list. A value whose home row is $h$ can only be
-placed in rows $h-R,\dots,h+R$. So once the cells of rows $0,\dots,i$ are filled, every
-value with home row at most $i-R$ has been used up, and the only home rows that can be
-partly used are $i-R+1,\dots,i+R$ --- exactly $2R$ of them. Take as the state the tuple of
-$2R$ bitmasks recording which values of those home rows are already placed. One step fills
-the cells of one further row, drawing each of its $W$ values from a home row within $R$
-and at an allowed column offset, and the home row that closes at that step must come out
-full. Nonexistent home rows --- before the first and after the last --- are carried as
-full, which makes the starting and accepting states the same one.
+The remaining patterns $(0,0,1), (0,1,0)$ are forbidden along the other axis, so each of them
+constrains $3$ consecutive columns at a fixed position of the row. Take as state a
+window $w=\bigl(w^{(1)},\dots,w^{(2)}\bigr)$ of $2$ consecutive admissible
+columns, so $S=81$, and declare $w\to w'$ an edge when $w'$ is $w$ with its first entry
+dropped and one further admissible column $t$ appended, subject to: for every position
+$j$, the $3$-tuple read down the row $j$ across $w^{(1)},\dots,w^{(2)},t$
+is none of $(0,0,1), (0,1,0)$. Let $P$ be the adjacency matrix.
 
-Hence $a$ is a walk count on $S=65536$ vertices,
-\[
-a(n)\;=\;\iota^{\!\top}M^{\,n+1}\tau ,
-\]
-the exponent fixed by the entry's own shape and checked against its published terms; in
-particular $a$ is $C$-finite.
-
-\section{The proof}
-
-\begin{lemma}\label{lem:crit}
-Let $q(t)=t^{34}-\sum_i c_it^{34-i}$ be the characteristic polynomial of the
-conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
-$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
-holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$;
-and it is enough to examine $j<S$.
+\begin{lemma}\label{lem:walk}
+$a(n)=\mathbf{1}^{\!\top}P^{\,n-2}\mathbf{1}$ for every $n\ge2$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+34}-\sum_ic_iM^{j+34-i}$. For the bound, $M^{S}$
-is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
-$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
-polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly.
+An array of the entry's kind with $n$ columns is a sequence of $n$ admissible columns in
+which no forbidden pattern appears along the other axis. Reading it as the sequence of its
+overlapping windows of length $2$ turns it into a walk: consecutive windows overlap in
+$1$ columns by construction, and the edge condition is exactly the requirement on the one
+new $3$-tuple that each step creates. Conversely a walk reassembles into such an array,
+and the two constructions are mutually inverse. A walk of length $n-2$ visits $n-1$
+windows, that is $n$ columns; summing over all starting and ending states gives
+$\mathbf{1}^{\!\top}P^{\,n-2}\mathbf{1}$.
 \end{proof}
 
+\section{The criterion}
+
+Let $q(t)=t^{35}-\sum_i c_i t^{35-i}$ be the characteristic polynomial of
+\eqref{eq:conj} and $u_j=\mathbf{1}^{\!\top}P^{j}q(P)\mathbf{1}$.
+
+\begin{lemma}\label{lem:crit}
+$a(n)-\sum_i c_i a(n-i)=u_{\,n-2-35}$ whenever $n-35\ge2$. Hence
+\eqref{eq:conj} holds for every $n>t$ exactly when $u_j=0$ for every
+$j>t-2-35$. Moreover $(u_j)$ satisfies the monic linear recurrence whose
+characteristic polynomial is that of $P$, of degree $S$, so $S$ consecutive zeros force all
+later ones and the last nonzero $u_j$ pins $t$ down exactly.
+\end{lemma}
+
+\begin{proof}
+Substituting Lemma~\ref{lem:walk} into the left side and factoring out
+$P^{\,n-2-35}$ gives the identity. The equivalence follows by letting the exponent
+run. For the last claim, Cayley--Hamilton gives $\chi(P)=0$ for the characteristic
+polynomial $\chi$ of $P$, so $\chi$ applied to the shift annihilates $(u_j)$; being monic of
+degree $S$, it propagates $S$ consecutive zeros forward.
+\end{proof}
+
+\section{The computation}
+
 \begin{theorem}
-\[
-a(n)\;=\;37\,a(n-1) - 148\,a(n-2) - 648\,a(n-3) - 18812\,a(n-4) + 33720\,a(n-5) + 341320\,a(n-6) + 3490528\,a(n-7) + 2721200\,a(n-8) - 13811392\,a(n-9) - 95460256\,a(n-10) - 173488256\,a(n-11) - 318028224\,a(n-12) - 1470212608\,a(n-13) + 840492032\,a(n-14) + 14620982784\,a(n-15) + 49650196480\,a(n-16) + 50819317760\,a(n-17) + 88642775040\,a(n-18) + 235467870208\,a(n-19) - 222393663488\,a(n-20) - 1393025925120\,a(n-21) - 2983768571904\,a(n-22) - 30476926976\,a(n-23) + 5734697598976\,a(n-24) + 5710659846144\,a(n-25) - 2268499279872\,a(n-26) - 7922359730176\,a(n-27) - 3287065559040\,a(n-28) + 6731216191488\,a(n-29) + 5292339232768\,a(n-30) - 5224022409216\,a(n-31) - 6274678784000\,a(n-32) - 950261514240\,a(n-33) + 676457349120\,a(n-34)
-\]
-for every $n>34$.
+The recurrence \eqref{eq:conj} holds for every $n>35$. This is the statement of
+Section~1.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $34$ matrix--vector products in exact integer
-arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=34+1$ onwards and the run continued
-until the working vector was identically zero, settling every larger $j$ at once.
+The vector $q(P)\mathbf{1}\in\mathbb{Z}^{S}$ was formed by $35$ matrix--vector
+products in exact integer arithmetic and the $u_j$ evaluated in turn. They vanish from the
+index corresponding to $n=35+1$ onwards, and the run was continued past $S$ consecutive
+zeros, which by Lemma~\ref{lem:crit} settles every larger index.
 \end{proof}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the reading of the entry's wording was tested against the entries themselves by brute
-force before any of this was built, and separately for each of the three sign conventions the
-family uses: ``$(\pm,\pm)$ $a,b$'' signs each coordinate independently, ``$\pm(.,.)$ $a,b$''
-signs the PAIR and may write the second coordinate negative, and ``directed $a,b$'' is taken
-literally. Enumerating all $720$ arrangements of a $2\times3$ grid reproduces the first term
-of an entry of each convention. Testing only one of them would have proved only that one:
-reading the second convention as the first silently drops displacements, and thirty-eight
-entries disagreed with their own published data until the conventions were separated.
+First, the digraph was built directly from the entry's stated patterns and the walk counts
+compared against the entry's DATA at every one of the $21$ published indices; the
+values agree exactly, including the initial count of $9$ admissible columns. That is
+what ties the digraph to the sequence, and a model reproducing only part of the published
+data was rejected wherever it occurred.
 
-Second, the transfer model reproduces all $15$ terms this entry publishes, exactly, in
-integer arithmetic.
+Second, the recurrence \eqref{eq:conj} was evaluated on those published terms in exact
+integer arithmetic, with no matrices involved, and vanishes at every index the entry claims.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
-arithmetic on the whole vector rather than on a sampled prefix.
+Third, the vanishing test of Lemma~\ref{lem:crit} was carried past $S=81$ consecutive
+zeros rather than to a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A264284.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A207444.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{lp} L.~Lov\'asz and M.~D.~Plummer, \emph{Matching Theory}, AMS Chelsea, 2009.
+\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+University Press, 2009.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

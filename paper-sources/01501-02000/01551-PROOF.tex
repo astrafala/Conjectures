@@ -12,14 +12,14 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A253037, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A252860, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{3 September 2026}
+\date{7 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A253037 counts arrays of width $3$ over an alphabet of $4$ letters in which every three
+OEIS A252860 counts arrays of width $9$ over an alphabet of $3$ letters in which every three
 consecutive entries taken along a row, a column or a diagonal hold a prescribed number of
 DISTINCT values, the arrays being counted up to renaming of the letters. The entry carries an
 empirical recurrence of order $34$ contributed by R.~H.~Hardin. It is true, and it is
@@ -27,27 +27,27 @@ decidable rather than empirical. Nothing in the condition compares letters by si
 count up to renaming is recovered from counts over fixed alphabets by inverting a triangular
 system of falling factorials; each of those is a walk count on pairs of consecutive rows, and
 the same symmetry is used a second time to run the walk on ORBITS of pairs, which is what
-brings the state count down to $S=135$.
+brings the state count down to $S=227234$.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 05A18, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A253037 is ``Number of (n+2)X(1+2) 0..3 arrays with every consecutive three elements in every row, column, diagonal and antidiagonal having exactly two distinct values, and new values 0 upwards introduced in row major order.''. It has offset $1$ and begins
+OEIS A252860 is ``Number of (n+2)X(7+2) 0..2 arrays with every consecutive three elements in every row, column, diagonal and antidiagonal having exactly two distinct values, and new values 0 upwards introduced in row major order.''. It has offset $1$ and begins
 \[
-130, 341, 928, 2638, 7608, 22304, 65765, 195277,\ \dots
+29241, 9936, 12762, 26766, 58644, 126306, 275598, 596250,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 4*a(n-1) +8*a(n-2) -32*a(n-3) -49*a(n-4) +35*a(n-5) +388*a(n-6) +333*a(n-7) -1470*a(n-8) -2015*a(n-9) +1827*a(n-10) +7705*a(n-11) +2724*a(n-12) -22079*a(n-13) -17133*a(n-14) +43082*a(n-15) +66963*a(n-16) -35868*a(n-17) -207245*a(n-18) -79740*a(n-19) +352817*a(n-20) +377343*a(n-21) -206023*a(n-22) -735286*a(n-23) -244312*a(n-24) +744588*a(n-25) +589880*a(n-26) -341664*a(n-27) -577644*a(n-28) +32392*a(n-29) +309128*a(n-30) +20704*a(n-31) -83712*a(n-32) -4480*a(n-33) +8832*a(n-34) for n>35
+Empirical: a(n) = a(n-1) +4*a(n-2) -2*a(n-3) +4*a(n-4) -4*a(n-5) -29*a(n-6) +5*a(n-7) +4*a(n-8) +75*a(n-10) +79*a(n-11) -11*a(n-12) -163*a(n-13) -167*a(n-14) +3*a(n-15) +123*a(n-16) +135*a(n-17) +58*a(n-18) +4*a(n-19) -32*a(n-20) -39*a(n-21) -84*a(n-22) -61*a(n-23) +26*a(n-24) +47*a(n-25) +62*a(n-26) -3*a(n-27) -17*a(n-28) -21*a(n-29) -4*a(n-30) +6*a(n-31) +a(n-32) +2*a(n-33) -a(n-34) for n>36
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 13:52:49, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 13:42:22, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The array has width $3$ and entries in $\{0,1,\dots,3\}$. Four families of triples
+The array has width $9$ and entries in $\{0,1,\dots,2\}$. Four families of triples
 run through it, and each carries its own condition on how many distinct values the three
 entries may hold:
 \[
@@ -75,9 +75,9 @@ pattern together with an injection of its letters into the alphabet, so
 L_i\;=\;\sum_j N_j\,i(i-1)\cdots(i-j+1),
 \]
 a triangular system with unit diagonal, hence invertible over $\mathbf{Q}$. The entry counts
-$a=N_1+\dots+N_{4}$, so
+$a=N_1+\dots+N_{3}$, so
 \[
-a\;=\;\sum_{i=1}^{4}w_i\,L_i ,\qquad w=\mathbf{1}^{\!\top}F^{-1},
+a\;=\;\sum_{i=1}^{3}w_i\,L_i ,\qquad w=\mathbf{1}^{\!\top}F^{-1},
 \]
 $F$ being the matrix of falling factorials.
 
@@ -94,7 +94,7 @@ with the row test on each $c_t$ separately. A pair of consecutive admissible row
 a state, and $L_i$ counts walks in the digraph on those pairs, one edge $(c_t,c_{t+1})\to
 (c_{t+1},c_{t+2})$ for each admissible window.
 
-That digraph has up to $i^{2\cdot3}$ vertices, which is more than can be written down for
+That digraph has up to $i^{2\cdot9}$ vertices, which is more than can be written down for
 the wider arrays. The symmetry is used again to cut it. Let $G=S_i$ act on states by renaming
 letters. Every test is invariant, so the adjacency matrix $M$ commutes with the action, and the
 all-ones vector $\tau$ is invariant; hence $M^{t}\tau$ is invariant, that is, constant on
@@ -109,12 +109,12 @@ and if that pattern uses $p$ letters its orbit has $i(i-1)\cdots(i-p+1)$ members
 is fixed only by permutations fixing every letter it shows. So the start vector is the falling
 factorial and the end vector is all ones.
 
-Assembling the $i=1,\dots,4$ pieces as a disjoint union, with $\iota$ carrying the weights
+Assembling the $i=1,\dots,3$ pieces as a disjoint union, with $\iota$ carrying the weights
 $w_i$ cleared of denominators,
 \[
 a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,
 \]
-with $S=135$ states in all. The walk index $j$ and the entry's own $n$ differ by a constant,
+with $S=227234$ states in all. The walk index $j$ and the entry's own $n$ differ by a constant,
 read off by matching the published terms rather than assumed. In particular $a$ is $C$-finite.
 
 \section{The proof}
@@ -137,15 +137,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;4\,a(n-1) + 8\,a(n-2) - 32\,a(n-3) - 49\,a(n-4) + 35\,a(n-5) + 388\,a(n-6) + 333\,a(n-7) - 1470\,a(n-8) - 2015\,a(n-9) + 1827\,a(n-10) + 7705\,a(n-11) + 2724\,a(n-12) - 22079\,a(n-13) - 17133\,a(n-14) + 43082\,a(n-15) + 66963\,a(n-16) - 35868\,a(n-17) - 207245\,a(n-18) - 79740\,a(n-19) + 352817\,a(n-20) + 377343\,a(n-21) - 206023\,a(n-22) - 735286\,a(n-23) - 244312\,a(n-24) + 744588\,a(n-25) + 589880\,a(n-26) - 341664\,a(n-27) - 577644\,a(n-28) + 32392\,a(n-29) + 309128\,a(n-30) + 20704\,a(n-31) - 83712\,a(n-32) - 4480\,a(n-33) + 8832\,a(n-34)
+a(n)\;=\;a(n-1) + 4\,a(n-2) - 2\,a(n-3) + 4\,a(n-4) - 4\,a(n-5) - 29\,a(n-6) + 5\,a(n-7) + 4\,a(n-8) + 75\,a(n-10) + 79\,a(n-11) - 11\,a(n-12) - 163\,a(n-13) - 167\,a(n-14) + 3\,a(n-15) + 123\,a(n-16) + 135\,a(n-17) + 58\,a(n-18) + 4\,a(n-19) - 32\,a(n-20) - 39\,a(n-21) - 84\,a(n-22) - 61\,a(n-23) + 26\,a(n-24) + 47\,a(n-25) + 62\,a(n-26) - 3\,a(n-27) - 17\,a(n-28) - 21\,a(n-29) - 4\,a(n-30) + 6\,a(n-31) + a(n-32) + 2\,a(n-33) - a(n-34)
 \]
-for every $n>35$.
+for every $n>36$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $34$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=35+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=36+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once. The
 rational weights $w_i$ are carried as one common denominator throughout, so no division is
 performed until the final term.
@@ -172,7 +172,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A253037.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A252860.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; Stirling numbers and
 falling factorials, Section 1.9.)

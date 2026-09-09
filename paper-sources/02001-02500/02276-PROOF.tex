@@ -12,50 +12,92 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{No column above the one before it in every row: OEIS A212941}
+\title{The empirical recurrence for OEIS A241050, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{7 September 2026}
+\date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A212941 carries an empirical recurrence of order $11$ contributed by R.~H.~Hardin. It is
-true, and it is decidable rather than empirical. The entry's condition quantifies over all rows at once, so it is not decided by any
-bounded window; but it is a conjunction of independent per-row facts, and one bit per
-adjacent column pair carries it; the
-admissible windows are the vertices of a finite digraph and the arrays counted are exactly the
-walks in it. Hence $a(n)$ is a walk count on $S=11$ vertices and is $C$-finite, and whether the
-conjectured recurrence annihilates it is settled by a finite exact computation, with the
-Cayley--Hamilton theorem bounding the work.
+OEIS A241050 counts arrays over $\{0,1,2,3\}$ in which no entry may equal, modulo $4$, a given
+constant plus the SUM of all the entries lying before it along one of several rays. The entry
+carries an empirical recurrence of order $11$ contributed by R.~H.~Hardin. It is true, and
+it is decidable rather than empirical. None of those sums is bounded and none is local, but
+each is built one term at a time, so its residue modulo $4$ is carried in the state; the
+count is then a walk count on $S=25$ states.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 11A07, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A212941 is ``Number of n X 6 0..5 arrays with no column j greater than or equal to than column j-1 in all rows.''. It has offset $1$ and begins
+OEIS A241050 is ``Number of n X 2 0..3 arrays with no element equal to one plus the sum of elements to its left or zero plus the sum of elements above it or zero plus the sum of the elements diagonally to its northwest or one plus the sum of the elements antidiagonally to its northeast, modulo 4.''. It has offset $1$ and begins
 \[
-1, 152747323, 28744943858947, 2438624218076957695, 153322267564381742818531, 8389667096561737605103329223, 427593510370812774462812710051387, 20973117493971065058428815227499445215,\ \dots
+3, 3, 4, 6, 8, 12, 13, 20,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 130453*a(n-1) -6763333836*a(n-2) +185208872760324*a(n-3) -2991440828618168976*a(n-4) +29966228467174160130816*a(n-5) -189618846625740940674481152*a(n-6) +754213725094693350993932353536*a(n-7) -1831929539263722316502211827073024*a(n-8) +2545588680910314328406052486644760576*a(n-9) -1758206800538810904218951296840095498240*a(n-10) +418951577236630476027552063815969641857024*a(n-11).
+Empirical: a(n) = 2*a(n-2) - a(n-4) + a(n-5) - a(n-7) + a(n-8) + a(n-11) for n>15.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Apr 17 2022 21:53:33, revision 8) this is still
+As of the ``Last modified'' line on the live entry (Oct 29 2018 07:16:57, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
-\section{The count is a walk count}
+\section{What is being counted}
 
-The entry counts arrays of $6$ columns whose rows are arbitrary over the alphabet $\{0,1,\dots,5\}$, and asks that no column $j$ be greater than or equal to column $j-1$ \emph{in all rows}.
-
-That is not a condition on any bounded window: ``in all rows'' quantifies over the whole array, and a row arriving at the very end can still decide it. What makes it a walk anyway is that it is a conjunction of independent facts about single rows. For each of the $5$ adjacent column pairs keep one bit, recording whether every row so far has had column $j$ greater than or equal to column $j-1$. A new row can only clear bits, never set one, and the array is admissible exactly when every bit has been cleared by the time the array ends.
-
-So the state is that bit mask and nothing else --- at most $2^{5}$ of them, however large the alphabet is, which is why entries whose terms run to twenty digits have models this small. Rows with the same bit pattern act identically, so each row contributes one edge and the multiplicity does the counting. Merging vertices with identical futures leaves $S=11$, and with $M$ the adjacency matrix and $\iota,\tau$ the vectors recording which masks may begin and end an array,
+The array has $2$ cells across one way, entries $x(i,j)\in\{0,1,2,3\}$, and the entry names these
+rays out of a cell $(i,j)$, with the constant it attaches to each:
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau ,
+\begin{array}{lll}
+\text{ray} & \text{the cells on it} & \text{constant} \\[2pt]
+\text{west} & (i,j-1),(i,j-2),\dots & 1 \\
+\text{north} & (i-1,j),(i-2,j),\dots & 0 \\
+\text{northwest} & (i-1,j-1),(i-2,j-2),\dots & 0 \\
+\text{northeast} & (i-1,j+1),(i-2,j+2),\dots & 1 \\
+\end{array}
 \]
-the exponent fixed by the entry's own shape and checked against its published terms. In
-particular $a$ is $C$-finite.
+Writing $\Sigma_r(i,j)$ for the sum of the entries on ray $r$ out of $(i,j)$, all of them
+inside the array, the condition is
+\[
+x(i,j)\;\not\equiv\;c_r+\Sigma_r(i,j) \pmod{4}
+\]
+for every ray $r$ named. A ray that leaves the array at once contributes the empty sum,
+zero.
+
+\section{The rays as a bounded state}
+
+Take the array one $row$ at a time, in the direction in which it grows, and index the
+positions of a $row $ by $p$. Let $x$ be the $row$ just written.
+
+\begin{lemma}\label{lem:rays}
+Along the $row$s, the 4 ray sums named by this entry satisfy
+\[
+\begin{aligned}
+\Sigma_{\mathrm{west}}\ &\text{is the running total inside the current row},\\
+U'[p]&=U[p]+x[p], &&\text{the north ray, per position},\\
+NW'[p]&=NW[p-1]+x[p-1], && NW'[0]=0,\\
+NE'[p]&=NE[p+1]+x[p+1], && NE'[W-1]=0 .
+\end{aligned}
+\]
+\end{lemma}
+
+\begin{proof}
+Each ray is a set of cells at a fixed step from $(i,j)$ repeated. Advancing one $row$
+moves a cell one step along the north ray, one step along the northwest ray together with one
+position to the right, and one step along the northeast ray together with one position to the
+left; in each case exactly the cell just left behind is the new term. At the border of the
+array the diagonal rays are empty, which is the stated boundary value.
+\end{proof}
+
+Reduced modulo $4$ these vectors take finitely many values, so they are a state, and one step
+of the walk writes a whole $row$: the position $p$ is filled left to right and the
+running total of the west ray is carried along as it is filled, so every cell is tested
+against every ray at the moment it is written. The walk starts at the all-zero state, the empty
+array, and every state may end one, so $\tau=\mathbf{1}$ and
+\[
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=25.
+\]
+The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
+published terms rather than assumed. In particular $a$ is $C$-finite.
 
 \section{The proof}
 
@@ -72,21 +114,20 @@ Factor $M^{j}$ out of $M^{j+11}-\sum_ic_iM^{j+11-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly. A constant factor in front of $a$ divides out of the residual and
-changes nothing here.
+pins the threshold exactly.
 \end{proof}
 
 \begin{theorem}
 \[
-a(n)\;=\;130453\,a(n-1) - 6763333836\,a(n-2) + 185208872760324\,a(n-3) - 2991440828618168976\,a(n-4) + 29966228467174160130816\,a(n-5) - 189618846625740940674481152\,a(n-6) + 754213725094693350993932353536\,a(n-7) - 1831929539263722316502211827073024\,a(n-8) + 2545588680910314328406052486644760576\,a(n-9) - 1758206800538810904218951296840095498240\,a(n-10) + 418951577236630476027552063815969641857024\,a(n-11)
+a(n)\;=\;2\,a(n-2) - a(n-4) + a(n-5) - a(n-7) + a(n-8) + a(n-11)
 \]
-for every $n>11$.
+for every $n>15$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $11$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=11+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=15+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -94,14 +135,13 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $8$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry: the digraph is built by reading the
-entry's English, and a misreading gives different counts.
+First, the model reproduces all $44$ terms the entry publishes, exactly, in integer
+arithmetic.
 
-Second, the reading was pinned before the digraph was written, by a program that enumerates
-every array of the given shape one by one and tests, for each adjacent column pair,
-whether every row really does put one above the other. That program shares no code with the transfer matrix, so an error in one does not
-hide an error in the other.
+Second, the count was recomputed for the smallest arrays straight from the definition: fill the
+cells one at a time in the orientation the entry's own name writes and, for each candidate
+value, walk each ray to the edge of the array and add the entries up. No residue, no state and
+no recurrence of Lemma~\ref{lem:rays} is involved, and the published terms came back.
 
 Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
@@ -111,11 +151,9 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A212941.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A241050.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
-University Press, 2009.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

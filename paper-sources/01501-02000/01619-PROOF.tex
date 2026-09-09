@@ -12,50 +12,50 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A262846, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A263033, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A262846 counts arrays of width $6$ over $\{0,1\}$ whose rows, read as base-$2$
-numbers, are divisible by $7$ and whose columns, read the same way, are not divisible by
-$7$. The entry carries an empirical recurrence of order $29$ contributed by
+OEIS A263033 counts arrays of width $3$ over $\{0,1\}$ whose rows, read as base-$2$
+numbers, are not divisible by $5$ and whose columns, read the same way, are not divisible by
+$5$. The entry carries an empirical recurrence of order $30$ contributed by
 R.~H.~Hardin. It is true, and it is decidable rather than empirical. A column's value depends on
 every row of the array, so the condition is not local; but its RESIDUE is built one row at a
 time by Horner's rule, and the vector of column residues is a state of bounded size. The count
-is then a walk count on $S=2401$ states.
+is then a walk count on $S=125$ states.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 11A63, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A262846 is ``Number of (n+2)X(4+2) 0..1 arrays with each row divisible by 7 and column not divisible by 7, read as a binary number with top and left being the most significant bits.''. It has offset $1$ and begins
+OEIS A263033 is ``Number of (n+2)X(1+2) 0..1 arrays with each row and column not divisible by 5, read as a binary number with top and left being the most significant bits.''. It has offset $1$ and begins
 \[
-318, 3181, 37635, 420654, 3896365, 39348387, 417279054, 3999504445,\ \dots
+98, 512, 3711, 24013, 142344, 839216, 5128489, 31001921,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 13*a(n-1) -30*a(n-2) +775*a(n-3) -10075*a(n-4) +23250*a(n-5) -187265*a(n-6) +2434445*a(n-7) -5617950*a(n-8) +18375455*a(n-9) -238880915*a(n-10) +551263650*a(n-11) -585288123*a(n-12) +7608745599*a(n-13) -17558643690*a(n-14) -12851058675*a(n-15) +167063762775*a(n-16) -385531760250*a(n-17) +757921180765*a(n-18) -9852975349945*a(n-19) +22737635422950*a(n-20) -1115961555955*a(n-21) +14507500227415*a(n-22) -33478846678650*a(n-23) -69403913471776*a(n-24) +902250875133088*a(n-25) -2082117404153280*a(n-26) -67517783528000*a(n-27) +877731185864000*a(n-28) -2025533505840000*a(n-29)
+Empirical: a(n) = 9*a(n-1) -31*a(n-2) +117*a(n-3) +111*a(n-4) -3105*a(n-5) +11163*a(n-6) -44577*a(n-7) +54480*a(n-8) +312066*a(n-9) -1253202*a(n-10) +5661630*a(n-11) -10623030*a(n-12) -6302070*a(n-13) +44353650*a(n-14) -285745590*a(n-15) +608932635*a(n-16) -336973095*a(n-17) +17702745*a(n-18) +5906191005*a(n-19) -13283846169*a(n-20) +13243177431*a(n-21) -21990624909*a(n-22) -40461569577*a(n-23) +93075113494*a(n-24) -109367769060*a(n-25) +214864926232*a(n-26) +34835506992*a(n-27) -80389631520*a(n-28) +96467557824*a(n-29) -192935115648*a(n-30)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2015 16:09:01, revision 4) this is still
+As of the ``Last modified'' line on the live entry (Oct 08 2015 07:51:57, revision 4) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The array has $6$ cells across and entries $x(i,j)\in\{0,1\}$, the digits of
+The array has $3$ cells across and entries $x(i,j)\in\{0,1\}$, the digits of
 base $2$. Row $i$ of an array with $R$ rows is the number
 \[
-\rho_i\;=\;\sum_{j=1}^{6}x(i,j)\,2^{6-j} ,
+\rho_i\;=\;\sum_{j=1}^{3}x(i,j)\,2^{3-j} ,
 \]
 the LEFT digit being the most significant, and column $j$ is
 \[
 \gamma_j\;=\;\sum_{i=1}^{R}x(i,j)\,2^{R-i} ,
 \]
-the TOP digit being the most significant. The entry asks that every $\rho_i$ be divisible by
-$7$ and every $\gamma_j$ be not divisible by $7$.
+the TOP digit being the most significant. The entry asks that every $\rho_i$ be not divisible by
+$5$ and every $\gamma_j$ be not divisible by $5$.
 
 
 \section{Column residues by Horner's rule}
@@ -69,26 +69,26 @@ Then $\gamma_j^{(0)}=0$ and
 \[
 \gamma_j^{(i)}\;=\;2\,\gamma_j^{(i-1)}+x(i,j),
 \qquad\text{hence}\qquad
-\gamma_j^{(i)}\bmod 7\;=\;
-\bigl(2\,(\gamma_j^{(i-1)}\bmod 7)+x(i,j)\bigr)\bmod 7 .
+\gamma_j^{(i)}\bmod 5\;=\;
+\bigl(2\,(\gamma_j^{(i-1)}\bmod 5)+x(i,j)\bigr)\bmod 5 .
 \]
 \end{lemma}
 
 \begin{proof}
 Adding a row at the BOTTOM shifts every earlier digit one place up in significance, which is
 multiplication by $2$, and puts the new digit in the units place. Reduction modulo
-$7$ commutes with both operations.
+$5$ commutes with both operations.
 \end{proof}
 
-So the vector $\bigl(\gamma_1\bmod 7,\dots,\gamma_{6}\bmod
-7\bigr)$ is a state: at most $7^{6}$ of them, and each array row
+So the vector $\bigl(\gamma_1\bmod 5,\dots,\gamma_{3}\bmod
+5\bigr)$ is a state: at most $5^{3}$ of them, and each array row
 that satisfies the row condition carries one such vector to another. The walk starts at the
 all-zero vector, which is the empty array, and the END vector picks out the residue vectors in
-which every entry is not divisible by $7$ --- so the end vector is not the all-ones
+which every entry is not divisible by $5$ --- so the end vector is not the all-ones
 vector, and the column condition is imposed once, at the end, exactly as the entry states it.
 With $M$ the adjacency matrix,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=2401.
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=125.
 \]
 The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
 published terms rather than assumed. In particular $a$ is $C$-finite.
@@ -96,7 +96,7 @@ published terms rather than assumed. In particular $a$ is $C$-finite.
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{29}-\sum_i c_it^{29-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{30}-\sum_i c_it^{30-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -104,7 +104,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+29}-\sum_ic_iM^{j+29-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+30}-\sum_ic_iM^{j+30-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -113,15 +113,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;13\,a(n-1) - 30\,a(n-2) + 775\,a(n-3) - 10075\,a(n-4) + 23250\,a(n-5) - 187265\,a(n-6) + 2434445\,a(n-7) - 5617950\,a(n-8) + 18375455\,a(n-9) - 238880915\,a(n-10) + 551263650\,a(n-11) - 585288123\,a(n-12) + 7608745599\,a(n-13) - 17558643690\,a(n-14) - 12851058675\,a(n-15) + 167063762775\,a(n-16) - 385531760250\,a(n-17) + 757921180765\,a(n-18) - 9852975349945\,a(n-19) + 22737635422950\,a(n-20) - 1115961555955\,a(n-21) + 14507500227415\,a(n-22) - 33478846678650\,a(n-23) - 69403913471776\,a(n-24) + 902250875133088\,a(n-25) - 2082117404153280\,a(n-26) - 67517783528000\,a(n-27) + 877731185864000\,a(n-28) - 2025533505840000\,a(n-29)
+a(n)\;=\;9\,a(n-1) - 31\,a(n-2) + 117\,a(n-3) + 111\,a(n-4) - 3105\,a(n-5) + 11163\,a(n-6) - 44577\,a(n-7) + 54480\,a(n-8) + 312066\,a(n-9) - 1253202\,a(n-10) + 5661630\,a(n-11) - 10623030\,a(n-12) - 6302070\,a(n-13) + 44353650\,a(n-14) - 285745590\,a(n-15) + 608932635\,a(n-16) - 336973095\,a(n-17) + 17702745\,a(n-18) + 5906191005\,a(n-19) - 13283846169\,a(n-20) + 13243177431\,a(n-21) - 21990624909\,a(n-22) - 40461569577\,a(n-23) + 93075113494\,a(n-24) - 109367769060\,a(n-25) + 214864926232\,a(n-26) + 34835506992\,a(n-27) - 80389631520\,a(n-28) + 96467557824\,a(n-29) - 192935115648\,a(n-30)
 \]
-for every $n>26$.
+for every $n>27$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $29$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $30$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=26+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=27+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -129,7 +129,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $16$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $19$ terms the entry publishes, exactly, in integer
 arithmetic.
 
 Second, the count was recomputed for the smallest arrays straight from the definition:
@@ -145,7 +145,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A262846.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A263033.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{knuth} D.~E.~Knuth, \emph{The Art of Computer Programming}, Volume 2, 3rd ed.,

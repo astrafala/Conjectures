@@ -10,22 +10,22 @@
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
-\title{A proof of the conjectured recurrence for OEIS A165537}
+\title{A proof of the conjectured recurrence for OEIS A190171}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{25 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A165537 carries a conjectured linear recurrence with polynomial coefficients, of
-order 7, contributed by R.~J.~Mathar. We prove it. The generating function of the
+OEIS A190171 carries a conjectured linear recurrence with polynomial coefficients, of
+order 8, contributed by R.~J.~Mathar. We prove it. The generating function of the
 entry is algebraic, and the recurrence is equivalent to the vanishing of an explicit
 differential operator applied to it: writing $\theta=x\,\frac{d}{dx}$, the sequence
 $b(n)=\sum_{i}p_{i}(n)a(n-i)$ has generating function
 $B(x)=\sum_{i}x^{i}\,(p_{i}(\theta+i)A)(x)$, so the conjecture holds for all $n>d$ exactly
 when $B$ is a polynomial of degree $d$. Since $A$ lies in a quadratic extension of
 $\mathbb{Q}(x)$, which is closed under $\theta$, the residual $B$ can be computed in
-closed form. Here it equals $- 14 x^{5} + 40 x^{4} - 43 x^{3} + 20 x^{2} - 3 x$, a polynomial of degree $5$, which proves
+closed form. Here it equals $x^{5} - 3 x^{4} - 2 x^{3} - 7 x^{2} + 3 x + 2$, a polynomial of degree $5$, which proves
 the recurrence for every $n>5$.
 \end{abstract}
 
@@ -33,26 +33,26 @@ the recurrence for every $n>5$.
 
 \section{The sequence and the conjecture}
 
-OEIS A165537 is ``Number of permutations of length n which avoid the patterns 4213 and 2143''. It has offset $0$ and begins
+OEIS A190171 is ``Number of peakless Motzkin paths of length n having no UHD's starting at level 0; here U=(1,1), H=(1,0), and D=(1,-1)''. It has offset $0$ and begins
 \[
-a(0),\dots,a(7)\;=\;1, 1, 2, 6, 22, 88, 366, 1556,\ \dots
+a(0),\dots,a(7)\;=\;1, 1, 1, 1, 2, 5, 12, 27,\ \dots
 \]
 The entry gives the generating function
 \begin{equation}\label{eq:gf}
-A(x)\;=\;\sum_{n\ge 0} a(n)\,x^{n}\;=\;\frac{4 x^{4} - 20 x^{3} + 24 x^{2} - 10 x + \left(2 x - 1\right) \left(- 2 x^{3} + 7 x^{2} - 5 x + \left(x - 1\right) \sqrt{5 x^{2} - 6 x + 1} + 1\right) + 1}{4 x^{4} - 20 x^{3} + 24 x^{2} - 10 x + 1} ,
+A(x)\;=\;\sum_{n\ge 0} a(n)\,x^{n}\;=\;\frac{2}{x \left(2 x^{2} + x - 1\right) + \sqrt{\left(x \left(x - 3\right) + 1\right) \left(x^{2} + x + 1\right)} + 1} ,
 \end{equation}
 and it carries the following comment:
 \begin{quote}\small
-\textbf{Conjecture:} n*a(n) + 2*(-9*n+7)*a(n-1) + (121*n-204)*a(n-2) + 28*(-14*n+37)*a(n-3) + 16*(42*n-151)*a(n-4) + 4*(-153*n+694)*a(n-5) + 4*(67*n-364)*a(n-6) + 40*(-n+6)*a(n-7) = 0. - \emph{R. J. Mathar}, Jun 14 2016
+Conjecture D-finite with recurrence (n+2)*a(n) +(-n+1)*a(n-1) +2*(-2*n-1)*a(n-2) +9*a(n-3) +(-n+1)*a(n-4) -9*a(n-5) +2*(-2*n+5)*a(n-6) +(-n+1)*a(n-7) +(n-4)*a(n-8)=0. - \emph{R. J. Mathar}, Jul 22 2022
 \end{quote}
-As of the ``Last modified'' line on the live entry (2026-06-28, revision 36) the
+As of the ``Last modified'' line on the live entry (2022-07-22, revision 10) the
 statement is still recorded as a conjecture, and no proof appears among the entry's links,
 formulas or programs.
 
-Writing the conjectured relation in the form $\sum_{i=0}^{7}p_{i}(n)\,a(n-i)=0$,
+Writing the conjectured relation in the form $\sum_{i=0}^{8}p_{i}(n)\,a(n-i)=0$,
 the coefficient polynomials are
 \[
-p_{0}(n)=n,\qquad p_{1}(n)=- 2 \left(9 n - 7\right),\qquad p_{2}(n)=121 n - 204,\qquad p_{3}(n)=- 28 \left(14 n - 37\right),\qquad p_{4}(n)=16 \left(42 n - 151\right),\qquad p_{5}(n)=- 4 \left(153 n - 694\right),\qquad p_{6}(n)=4 \left(67 n - 364\right),\qquad p_{7}(n)=- 40 \left(n - 6\right)
+p_{0}(n)=n + 2,\qquad p_{1}(n)=1 - n,\qquad p_{2}(n)=- 2 \left(2 n + 1\right),\qquad p_{3}(n)=9,\qquad p_{4}(n)=1 - n,\qquad p_{5}(n)=-9,\qquad p_{6}(n)=- 2 \left(2 n - 5\right),\qquad p_{7}(n)=1 - n,\qquad p_{8}(n)=n - 4
 \]
 
 \section{Recurrences as differential operators}
@@ -114,24 +114,24 @@ $B=P+Q\sqrt{D}$ with $P,Q\in\mathbb{Q}(x)$, the test of Corollary~\ref{cor:crite
 becomes: $B$ is a polynomial precisely when $Q=0$ and $P$ has constant denominator. Both
 are decided by exact cancellation of rational functions.
 
-\section{The computation for A165537}
+\section{The computation for A190171}
 
 The generating function \eqref{eq:gf} lies in $K=\mathbb{Q}(x)[\sqrt{D}]$ with
 \[
-D \;=\; \left(x - 1\right) \left(5 x - 1\right) .
+D \;=\; \left(x^{2} - 3 x + 1\right) \left(x^{2} + x + 1\right) .
 \]
 Applying Lemma~\ref{lem:transfer} to the coefficient polynomials of Section~1 and reducing
 in $K$ by Lemma~\ref{lem:field}, the $\sqrt{D}$ component of $B$ cancels identically and
 the rational part collapses to
 \[
-B(x)\;=\;- 14 x^{5} + 40 x^{4} - 43 x^{3} + 20 x^{2} - 3 x ,
+B(x)\;=\;x^{5} - 3 x^{4} - 2 x^{3} - 7 x^{2} + 3 x + 2 ,
 \]
 a polynomial of degree $5$.
 
 \begin{theorem}
 The conjectured recurrence
 \[
-n\,a(n) -  2 \left(9 n - 7\right)\,a(n-1) + (121 n - 204)\,a(n-2) -  28 \left(14 n - 37\right)\,a(n-3) + 16 \left(42 n - 151\right)\,a(n-4) -  4 \left(153 n - 694\right)\,a(n-5) + 4 \left(67 n - 364\right)\,a(n-6) -  40 \left(n - 6\right)\,a(n-7) \;=\;0
+(n + 2)\,a(n) + (1 - n)\,a(n-1) -  2 \left(2 n + 1\right)\,a(n-2) + 9\,a(n-3) + (1 - n)\,a(n-4) - 9\,a(n-5) -  2 \left(2 n - 5\right)\,a(n-6) + (1 - n)\,a(n-7) + (n - 4)\,a(n-8) \;=\;0
 \]
 holds for every $n>5$.
 \end{theorem}
@@ -153,23 +153,23 @@ independent checks were run.
 
 First, the generating function was checked against the entry rather than assumed: the
 Taylor coefficients of \eqref{eq:gf} were expanded and compared term by term with the DATA
-section of A165537, agreeing on all 13 terms compared.
+section of A190171, agreeing on all 13 terms compared.
 
 Second, the recurrence itself was evaluated directly on the published terms, in exact
 integer arithmetic and without reference to the generating function: for each $n$ in range
 the sum $\sum_{i}p_{i}(n)a(n-i)$ was formed from the entry's own values and found to
-vanish, for all 21 values of $n$ from $n=7$ upward. This is what
+vanish, for all 26 values of $n$ from $n=8$ upward. This is what
 Corollary~\ref{cor:criterion} predicts from the degree of $B$, and it is a genuinely
 different computation from the symbolic one: it never forms $B$, never differentiates, and
 uses only integers.
 
 The symbolic step is exact throughout. The residual is obtained by rational-function
-cancellation in $K$, not by series truncation, so the identity $B=- 14 x^{5} + 40 x^{4} - 43 x^{3} + 20 x^{2} - 3 x$ is an
+cancellation in $K$, not by series truncation, so the identity $B=x^{5} - 3 x^{4} - 2 x^{3} - 7 x^{2} + 3 x + 2$ is an
 identity of functions and the theorem holds for all $n>5$ simultaneously.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer Sequences},
-\url{https://oeis.org}, 2026. Sequence A165537.
+\url{https://oeis.org}, 2026. Sequence A190171.
 \bibitem{kp} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011,
 Chapter 7 (holonomic closure properties and the translation between recurrences and
 differential equations).

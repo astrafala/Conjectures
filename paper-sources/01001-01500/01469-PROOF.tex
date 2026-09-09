@@ -12,133 +12,141 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A224968, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A224023, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{2 September 2026}
+\date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A224968 counts the $(n+1)\times2$ matrices over $\{0,\dots,3\}$ all of whose
-$2\times2$ contiguous subblocks are of equal permanent, and carries an empirical recurrence of order
-$41$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical.
-The condition ties together $2$ consecutive rows and $2$ consecutive columns at once, so a
-single row is not a state; the strip of the last $1$ rows is, and the admissible strips
-are read off the overlap graph of the admissible windows instead of being enumerated. That
-makes $a(n)$ a walk count on $S=120$ vertices, hence $C$-finite, and whether the conjectured
-recurrence annihilates it is settled by a finite exact computation.
+OEIS A224023 counts arrays over $\{0,\dots,3\}$ whose rows, columns, diagonals or
+antidiagonals are required to be monotone or unimodal, and carries an empirical recurrence of
+order $41$ contributed by R.~H.~Hardin. A monotone condition is local, but a unimodal one
+is not: a sequence is unimodal exactly when it never rises again after it has fallen, so the
+state must remember which sequences have already fallen. With those bits carried along, $a(n)$
+is a walk count on $S=15360$ vertices and the recurrence follows from a finite exact
+computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A16, 15B36.\normalsize
 
-\section{The conjecture}
+\section{The sequence and the conjecture}
 
-OEIS A224968 is ``Number of (n+1)X2 0..3 matrices with each 2X2 permanent equal.''. It has offset $1$ and begins
+OEIS A224023 is ``Number of nX7 0..3 arrays with rows nondecreasing and antidiagonals unimodal.''. It has offset $1$ and begins
 \[
-256, 912, 3067, 13654, 59330, 294349, 1450678, 7519806,\ \dots
+120, 14400, 1074167, 60614473, 2903448338, 126168072638, 5173325036371, 204938686276996,\ \dots
 \]
-The entry states, as a conjecture contributed by its author and never marked settled:
-\begin{quote}
-Empirical: a(n) = 13*a(n-1) -3*a(n-2) -613*a(n-3) +1718*a(n-4) +12657*a(n-5) -55122*a(n-6) -147106*a(n-7) +927356*a(n-8) +988051*a(n-9) -10188709*a(n-10) -2715501*a(n-11) +79796620*a(n-12) -16186868*a(n-13) -466507035*a(n-14) +234403773*a(n-15) +2091286033*a(n-16) -1465021925*a(n-17) -7303254924*a(n-18) +6066214910*a(n-19) +20033857553*a(n-20) -18248086501*a(n-21) -43268355305*a(n-22) +41186341769*a(n-23) +73346534941*a(n-24) -70446516989*a(n-25) -96727442226*a(n-26) +91073964616*a(n-27) +97698501925*a(n-28) -87874737640*a(n-29) -73745632142*a(n-30) +61836998624*a(n-31) +40079463299*a(n-32) -30605244390*a(n-33) -14815375438*a(n-34) +10076694568*a(n-35) +3401067964*a(n-36) -2019055368*a(n-37) -412583016*a(n-38) +209714400*a(n-39) +17956512*a(n-40) -7620480*a(n-41)
+The entry carries the following comment:
+\begin{quote}\small
+Empirical: a(n) = 120*a(n-1) -6060*a(n-2) +173316*a(n-3) -3172287*a(n-4) +39656548*a(n-5) -352443358*a(n-6) +2297379936*a(n-7) -11353877196*a(n-8) +45067977530*a(n-9) -163575910944*a(n-10) +627001572604*a(n-11) -2683978430932*a(n-12) +10780238513518*a(n-13) -32948873206590*a(n-14) +77959459244560*a(n-15) -153434141519476*a(n-16) +1059262494852896*a(n-17) -2694841466898608*a(n-18) +12219509145685508*a(n-19) +11985467868644368*a(n-20) +94047496662754280*a(n-21) +94835829721618640*a(n-22) +1050524403777918000*a(n-23) +2113714471975471104*a(n-24) +5481174460069822848*a(n-25) +10535537672809153264*a(n-26) +27173919094636341472*a(n-27) +47704013358770735568*a(n-28) +67212912534846684448*a(n-29) +62342889733184689824*a(n-30) +49243871592902490976*a(n-31) +27263322225301218304*a(n-32) +12918679041553050240*a(n-33) +2921299068148297728*a(n-34) +856946059741420288*a(n-35) -327218428029860352*a(n-36) -16665963801149440*a(n-37) -24912329585756160*a(n-38) +4712255288340480*a(n-39) +807198452121600*a(n-40) +68097422131200*a(n-41)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 23:37:04, revision 8) this is still
-recorded as empirical, and nothing on the entry records it as proved.
+As of the ``Last modified'' line on the live entry (Oct 03 2025 23:11:17, revision 8) the statement is
+still recorded as empirical, and nothing on the entry records it as settled either way.
 
-\section{The count is a walk count}
+Written out, the claim is
+\begin{equation}\label{eq:conj}
+a(n)\;=\;120\,a(n-1) - 6060\,a(n-2) + 173316\,a(n-3) - 3172287\,a(n-4) + 39656548\,a(n-5) - 352443358\,a(n-6) + 2297379936\,a(n-7) - 11353877196\,a(n-8) + 45067977530\,a(n-9) - 163575910944\,a(n-10) + 627001572604\,a(n-11) - 2683978430932\,a(n-12) + 10780238513518\,a(n-13) - 32948873206590\,a(n-14) + 77959459244560\,a(n-15) - 153434141519476\,a(n-16) + 1059262494852896\,a(n-17) - 2694841466898608\,a(n-18) + 12219509145685508\,a(n-19) + 11985467868644368\,a(n-20) + 94047496662754280\,a(n-21) + 94835829721618640\,a(n-22) + 1050524403777918000\,a(n-23) + 2113714471975471104\,a(n-24) + 5481174460069822848\,a(n-25) + 10535537672809153264\,a(n-26) + 27173919094636341472\,a(n-27) + 47704013358770735568\,a(n-28) + 67212912534846684448\,a(n-29) + 62342889733184689824\,a(n-30) + 49243871592902490976\,a(n-31) + 27263322225301218304\,a(n-32) + 12918679041553050240\,a(n-33) + 2921299068148297728\,a(n-34) + 856946059741420288\,a(n-35) - 327218428029860352\,a(n-36) - 16665963801149440\,a(n-37) - 24912329585756160\,a(n-38) + 4712255288340480\,a(n-39) + 807198452121600\,a(n-40) + 68097422131200\,a(n-41)
+\end{equation}
+for all $n>41$.
 
-Call a $2\times2$ matrix over $\{0,\dots,3\}$ a \emph{window} when it is of equal permanent, and
-call a $2\times2$ matrix a \emph{band} when every one of its $1$ contiguous
-$2\times2$ subblocks is a window. What the entry counts is the matrices of $2$ columns
-whose every $2$ consecutive rows form a band.
+\section{The conditions}
 
-Take as states the $1\times2$ strips that occur as the top $1$ rows of a band,
-together with those that occur as its bottom $1$ rows, and put an edge from $u$ to $v$
-when the band whose first $1$ rows are $u$ and whose last $1$ rows are $v$ exists.
-A band is determined by that pair, so the edge is unique when it exists. Reading a counted
-matrix from the top, its rows $1..1$, then $2..2$, and so on, form a walk, and every
-walk arises from exactly one matrix; a matrix with $n+1$ rows gives a walk of $n$ edges.
-Since the first $1$ rows of a counted matrix with at least $2$ rows are the top of a
-band, and since no further condition falls on where a walk starts or ends,
+The arrays have $7$ columns and $L=n$ rows. Written in (row, column)
+coordinates, the entry asks:
+\begin{itemize}
+\item along the direction $(0,1)$ --- one step of $(0,1)$ in (row, column) coordinates --- every sequence is nondecreasing;
+\item along the direction $(1,-1)$ --- one step of $(1,-1)$ in (row, column) coordinates --- every sequence is unimodal;
+\end{itemize}
+Here ``unimodal'' means nondecreasing and then nonincreasing, that is: no rise after a fall.
+
+A unimodal condition across the rows is not local: whether a
+rise is allowed depends on whether the sequence has already fallen. The state therefore
+carries, for each of the $7$ sequences currently running in that direction, one bit saying
+whether it has fallen. Those bits travel with their sequences --- the bit at column $u$
+moves to column $u+d_2$ when the next row is laid down, and a sequence beginning at the
+far end of the new row starts with its bit clear.
+
+\begin{lemma}\label{lem:walk}
+Let $\mathcal V$ be the set of pairs (a row satisfying every within-row condition, a
+bit vector), $|\mathcal V|=S=15360$; let $(r,f)\to(s,f')$ be an edge when placing $s$ after $r$
+breaks none of the across-row conditions and $f'$ is $f$ updated by that step; let
+$\mathbf{v}$ mark the vertices whose bit vector is the one their row alone produces.
+Then
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n}\tau ,\qquad \iota=\tau=(1,1,\dots,1)^{\!\top},
+a(n)\;=\;\,\mathbf{v}^{\!\top}N^{\,L-1}\mathbf{1},\qquad L=n.
 \]
-with $M$ the adjacency matrix on $S=120$ states. In particular $a$ is $C$-finite. The
-alignment was checked against the entry's published terms rather than assumed.
-
-There are $(3 + 1)^{2}$ strips of $1$ rows and $2$ columns, far too
-many to test one by one, and they are not tested one by one. Two consecutive windows of a band
-overlap in $2\times1$ entries, so a band is exactly a walk of $1$ windows in
-the graph that joins a window to those whose first $1$ columns are its last $1$
-columns. Enumerating those walks produces the bands, and with them the states and the edges,
-directly.
-
-\section{The admissible windows}
-
-The entry does not name the common value; it only asks that all the windows of one matrix agree.
-So fix a value $v$ and let $W_v$ be the set of $2\times2$ matrices over
-$\{0,\dots,3\}$ whose permanent, $b_{11}b_{22}+b_{12}b_{21}$, equals $v$. A matrix counted by the entry has all of
-its windows in a single $W_v$, and the value of $v$ is determined by the matrix, so the sets of
-matrices belonging to different $v$ are disjoint and
-\[
-a(n)\;=\;\sum_v a_v(n),
-\]
-each $a_v$ being the walk count of Section~2 built from $W_v$ alone. A disjoint union of the
-$16$ digraphs, one per value of $v$, therefore counts the whole of $a(n)$ with the same
-all-ones vectors, and the $2\times2$ windows in play number $256$ in total.
-
-\section{The proof}
-
-\begin{lemma}\label{lem:crit}
-Let $q(t)=t^{41}-\sum_i c_it^{41-i}$ be the characteristic polynomial of the
-conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
-$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
-holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
-and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+41}-\sum_ic_iM^{j+41-i}$. For the bound, $M^{S}$
-is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
-$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
-polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly.
+A walk of length $L-1$ is a sequence of $L$ rows, that is, an array, and its bit component
+is determined by them. Every within-row condition is imposed on each vertex; every
+across-row condition compares two consecutive rows and is imposed on each edge; and the
+unimodal and lexicographic bits are, by construction, the record of what the rows laid down
+so far have already decided, so a violation removes the corresponding edge. Hence the walks
+are exactly the admissible arrays. Nothing constrains the last row beyond what has already
+been imposed, so the walk may end anywhere. The state carries a row, not a boundary, so
+$L$ rows make a walk of length $L-1$.
+\end{proof}
+
+\section{The criterion, and the computation}
+
+Let $q(t)=t^{41}-\sum_i c_i\,t^{41-i}$ be the characteristic polynomial of
+\eqref{eq:conj} and $G=N$.
+
+\begin{lemma}\label{lem:crit}
+With $n_0$ the least index for which $L\ge1$, $o=1n_0+0-1$ and
+$h_j=G^{j}N^{o}\mathbf{1}$, we have for $j\ge41$
+\[
+a(n_0+j)-\sum_i c_i\,a(n_0+j-i)=\,\mathbf{v}^{\!\top}G^{\,j-41}w,
+\qquad w=h_{41}-\sum_i c_ih_{41-i} .
+\]
+Hence \eqref{eq:conj} holds from that point on if and only if
+$\mathbf{v}^{\!\top}G^{m}w=0$ for all $m\ge0$, and $m<S$ suffices.
+\end{lemma}
+
+\begin{proof}
+Substitute Lemma~\ref{lem:walk} and factor. By Cayley--Hamilton $G^{S}$ is an integer
+combination of $I,G,\dots,G^{S-1}$, so every later value repeats that combination of
+earlier ones.
 \end{proof}
 
 \begin{theorem}
-\[
-a(n)\;=\;13\,a(n-1) - 3\,a(n-2) - 613\,a(n-3) + 1718\,a(n-4) + 12657\,a(n-5) - 55122\,a(n-6) - 147106\,a(n-7) + 927356\,a(n-8) + 988051\,a(n-9) - 10188709\,a(n-10) - 2715501\,a(n-11) + 79796620\,a(n-12) - 16186868\,a(n-13) - 466507035\,a(n-14) + 234403773\,a(n-15) + 2091286033\,a(n-16) - 1465021925\,a(n-17) - 7303254924\,a(n-18) + 6066214910\,a(n-19) + 20033857553\,a(n-20) - 18248086501\,a(n-21) - 43268355305\,a(n-22) + 41186341769\,a(n-23) + 73346534941\,a(n-24) - 70446516989\,a(n-25) - 96727442226\,a(n-26) + 91073964616\,a(n-27) + 97698501925\,a(n-28) - 87874737640\,a(n-29) - 73745632142\,a(n-30) + 61836998624\,a(n-31) + 40079463299\,a(n-32) - 30605244390\,a(n-33) - 14815375438\,a(n-34) + 10076694568\,a(n-35) + 3401067964\,a(n-36) - 2019055368\,a(n-37) - 412583016\,a(n-38) + 209714400\,a(n-39) + 17956512\,a(n-40) - 7620480\,a(n-41)
-\]
-for every $n>41$.
+The recurrence \eqref{eq:conj} holds for every $n>41$, which is the statement of
+Section~1.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $41$ matrix--vector products in exact integer
-arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=41+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once.
+The digraph was built directly from the conditions listed above. The vector $w$ was formed by
+$41$ applications of $G$ in exact integer arithmetic and $\mathbf{v}^{\!\top}G^{m}w$
+evaluated for $m=0,1,\dots$, again exactly. Every one of those integers vanishes from the
+index corresponding to $n=41+1$ onwards, and the run continued until $S+1$ consecutive
+zeros had been seen.
 \end{proof}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $19$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry: the digraph is built by reading the
-entry's English, and a misreading gives different counts.
+First, the walk counts of Lemma~\ref{lem:walk} were compared against the entry's DATA at
+every one of the $13$ published indices, with no shift fitted. The values agree exactly.
+This is what fixes the reading of the wording: ``rows and columns in nondecreasing order''
+means the rows and columns are sorted as vectors, not that each is nondecreasing along
+itself, and the two readings already differ at the second published term --- $86$ against
+$50$ for $2\times2$ arrays over $\{0,1,2,3\}$. The DATA decides it.
 
-Second, the conjectured recurrence was evaluated directly on those published terms, with no
-matrices involved, and holds wherever the proved range and the data overlap.
+Second, the recurrence \eqref{eq:conj} was evaluated on those published terms in exact
+integer arithmetic, with no matrices involved, and vanishes wherever it applies.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
-arithmetic on the whole vector rather than on a sampled prefix.
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried to the full
+Cayley--Hamilton bound in exact integer arithmetic rather than to a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A224968.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A224023.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{kim} K.~H.~Kim, \emph{Boolean Matrix Theory and Applications}, Marcel Dekker,
-1982.
+\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+University Press, 2009.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

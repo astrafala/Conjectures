@@ -12,18 +12,18 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A268637, proved by a counting transfer matrix}
+\title{The empirical recurrence for OEIS A270055, proved by a counting transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A268637 counts arrays over $\{0,\dots,2\}$ subject to a condition on the array as a
+OEIS A270055 counts arrays over $\{0,\dots,4\}$ subject to a condition on the array as a
 whole rather than cell by cell: the number of adjacent pairs with a stated property must be
 exactly one. A transfer matrix still applies once the running count is carried in the state; and
 because a count of two or more can never come back, those states may be dropped outright,
-which is what keeps the digraph sparse. That makes $a(n)$ a walk count on $S=1458$ vertices,
+which is what keeps the digraph sparse. That makes $a(n)$ a walk count on $S=6250$ vertices,
 and the empirical recurrence of order $14$ contributed by R.~H.~Hardin then follows from
 a finite exact computation.
 \end{abstract}
@@ -32,26 +32,26 @@ a finite exact computation.
 
 \section{The sequence and the conjecture}
 
-OEIS A268637 is ``Number of nX6 0..2 arrays with some element plus some horizontally or vertically adjacent neighbor totalling two exactly once.''. It has offset $1$ and begins
+OEIS A270055 is ``Number of nX5 0..4 arrays with some element plus some horizontally or vertically adjacent neighbor totalling four exactly once.''. It has offset $1$ and begins
 \[
-240, 7128, 163878, 3440052, 68710116, 1328460312, 25093766490, 465757993812,\ \dots
+1280, 1683240, 1248460920, 779206497960, 446901694424400, 243724207420143600, 128543872461556329960, 66197363387248271149080,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 60*a(n-1) -1482*a(n-2) +20016*a(n-3) -167163*a(n-4) +924894*a(n-5) -3537110*a(n-6) +9593166*a(n-7) -18693789*a(n-8) +26218062*a(n-9) -26188161*a(n-10) +18139608*a(n-11) -8262712*a(n-12) +2220864*a(n-13) -266256*a(n-14) for n>15
+Empirical: a(n) = 1084*a(n-1) -385060*a(n-2) +52207996*a(n-3) -3589359662*a(n-4) +139769030980*a(n-5) -3139297428484*a(n-6) +36970790802932*a(n-7) -109715789190473*a(n-8) -2264908466581072*a(n-9) +23041106193014144*a(n-10) -28405594469259904*a(n-11) -483359700838242304*a(n-12) +2011366933590159360*a(n-13) -2236659513127833600*a(n-14) for n>15
 \end{quote}
-As of the ``Last modified'' line on the live entry (Feb 09 2016 12:22:18, revision 4) the statement is
+As of the ``Last modified'' line on the live entry (Mar 09 2016 07:12:29, revision 4) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;60\,a(n-1) - 1482\,a(n-2) + 20016\,a(n-3) - 167163\,a(n-4) + 924894\,a(n-5) - 3537110\,a(n-6) + 9593166\,a(n-7) - 18693789\,a(n-8) + 26218062\,a(n-9) - 26188161\,a(n-10) + 18139608\,a(n-11) - 8262712\,a(n-12) + 2220864\,a(n-13) - 266256\,a(n-14)
+a(n)\;=\;1084\,a(n-1) - 385060\,a(n-2) + 52207996\,a(n-3) - 3589359662\,a(n-4) + 139769030980\,a(n-5) - 3139297428484\,a(n-6) + 36970790802932\,a(n-7) - 109715789190473\,a(n-8) - 2264908466581072\,a(n-9) + 23041106193014144\,a(n-10) - 28405594469259904\,a(n-11) - 483359700838242304\,a(n-12) + 2011366933590159360\,a(n-13) - 2236659513127833600\,a(n-14)
 \end{equation}
 for all $n>15$.
 
 \section{A global count, and how to carry it}
 
-The arrays have $6$ columns and $L=n$ rows; write $x_{t,u}$ for the entry in
+The arrays have $5$ columns and $L=n$ rows; write $x_{t,u}$ for the entry in
 row $t$ and column $u$. Call two cells \emph{adjacent} when they differ by one of the
 offsets
 \[
@@ -60,7 +60,7 @@ offsets
 written as (row shift, column shift), and call an adjacent pair $\{p,q\}$
 \emph{marked} when
 \[
-x_{p}+x_{q}=2 .
+x_{p}+x_{q}=4 .
 \]
 Each unordered adjacency is represented by exactly one offset, all with a nonnegative row
 shift, so every pair is named once and only once: the pairs inside a row are seen when
@@ -73,8 +73,8 @@ entry's requirement is
 This is not a condition on any bounded window, so no transfer matrix over rows alone can
 express it. It becomes one as soon as the running total is part of the state. Let
 \[
-\mathcal V=\bigl\{(r,c):\ r\in\{0,\dots,2\}^{6},\ c\in\{0,1\}\bigr\},
-\qquad |\mathcal V|=S=1458,
+\mathcal V=\bigl\{(r,c):\ r\in\{0,\dots,4\}^{5},\ c\in\{0,1\}\bigr\},
+\qquad |\mathcal V|=S=6250,
 \]
 and for rows $r,s$ write $\beta(r,s)$ for the number of marked pairs joining them plus the
 number of marked pairs inside $s$. Declare $(r,c)\to(s,c+\beta(r,s))$ an edge whenever
@@ -84,7 +84,7 @@ $c+\beta(r,s)\le1$, and no edge otherwise.
 Dropping the states with $c\ge2$ is not an approximation. Once the total has reached two it
 can only grow, so no array satisfying \eqref{eq:glob} passes through such a state. Keeping
 them --- as a third, absorbing value of $c$ --- would make every pair of rows an edge and
-the digraph dense, with $(2+1)^{2\cdot6}$ edges instead of the sparse set used here.
+the digraph dense, with $(4+1)^{2\cdot5}$ edges instead of the sparse set used here.
 \end{remark}
 
 \begin{lemma}\label{lem:walk}
@@ -153,7 +153,7 @@ settles every larger $m$.
 Three checks, each independent of the algebra above.
 
 First, the walk counts of Lemma~\ref{lem:walk} were compared against the entry's DATA at
-every one of the $15$ published indices, with no shift fitted: the number of rows is
+every one of the $10$ published indices, with no shift fitted: the number of rows is
 $L=n$, read off the entry's own name, and the offset says which index the first
 published term carries. The values agree exactly. This is where an error in the pair
 bookkeeping would show: counting an unordered pair twice, or missing the pairs inside the
@@ -169,7 +169,7 @@ Cayley--Hamilton bound in exact integer arithmetic rather than to a sampled pref
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A268637.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A270055.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

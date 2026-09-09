@@ -12,38 +12,42 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical column recurrences for the table OEIS A234333}
+\title{The empirical column recurrences for the table OEIS A259250}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A234333 is a two-dimensional table $T(n,k)$, and it carries a block of empirical
+OEIS A259250 is a two-dimensional table $T(n,k)$, and it carries a block of empirical
 recurrences contributed by R.~H.~Hardin --- one for each of its first few columns. They are
 true. Column $k$ of the table is an ordinary fixed-width array count, so its rows are the
 vertices of a finite digraph and $T(n,k)$ is a number of walks in it; being a walk count the
 column is $C$-finite, and whether a given recurrence annihilates it is decided by a finite
-exact computation, with the Cayley--Hamilton theorem bounding the work. This note settles the columns $k=1$.
+exact computation, with the Cayley--Hamilton theorem bounding the work. This note settles the columns $k=1, 2, 3$.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
 \section{The table and the conjectures}
 
-OEIS A234333 is ``T(n,k) is the number of (n+1) X (k+1) 0..3 arrays with every 2 X 2 subblock having its diagonal sum differing from its antidiagonal sum by 1 (constant-stress 1 X 1 tilings).''. It has offset $1$, is
+OEIS A259250 is ``T(n,k)=Number of (n+1)X(k+1) 0..1 arrays with each 2X2 subblock having clockwise pattern 0000 0011 or 0111.''. It has offset $1$, is
 read by antidiagonals, and begins
 \[
-80, 432, 432, 2368, 3296, 2368, 13056, 25728,\ \dots
+9, 21, 21, 48, 65, 48, 111, 192,\ \dots
 \]
 The entry carries the following block:
 \begin{quote}\small
 Empirical for column k:\\
-k=1: a(n) = 32*a(n-2) -48*a(n-4).\\
-k=2: [order 11].\\
-k=3: [order 48].\\
+k=1: a(n) = a(n-1) +3*a(n-2)\\
+k=2: a(n) = 3*a(n-1) +4*a(n-2) -11*a(n-3) -3*a(n-4)\\
+k=3: a(n) = 2*a(n-1) +12*a(n-2) -11*a(n-3) -30*a(n-4)\\
+k=4: [order 11]\\
+k=5: [order 17]\\
+k=6: [order 31]\\
+k=7: [order 54]\\
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jun 20 2022 20:31:01, revision 6) these are still
+As of the ``Last modified'' line on the live entry (Jun 02 2025 11:50:01, revision 6) these are still
 recorded as empirical, and nothing on the entry records any of them as settled.
 
 \section{A column of the table is a walk count}
@@ -86,7 +90,9 @@ $j\ge S_k$ repeats that combination of earlier values.
 \begin{center}
 \begin{tabular}{ccccc}
 line & order & vertices $S$ & proved for & terms checked \\ \hline
-column $k$$=1$ & $4$ & $16$ & $>3$ & $8$ \\
+column $k$$=1$ & $2$ & $5$ & $>1$ & $9$ \\
+column $k$$=2$ & $4$ & $9$ & $>3$ & $8$ \\
+column $k$$=3$ & $4$ & $17$ & $>4$ & $7$ \\
 \end{tabular}
 \end{center}
 
@@ -96,48 +102,34 @@ again exactly; every one of those integers vanishes from the stated point onward
 continued until the working vector was identically zero, which settles all larger $j$ at once.
 
 \subsection*{Column $k$$=1$}
-The sequence is ``Number of (n+1) X (2) 0..3 arrays with every 2 X 2 subblock having its diagonal sum differing from its antidiagonal sum by 1 (constant-stress 1 X 1 tilings).''. Its rows are the vertices of a digraph on
-$S=16$ vertices, edges being the admissible consecutive pairs, and the count is
+The sequence is ``Number of (n+1)X2 0..1 arrays with each 2X2 subblock having clockwise pattern 0000 0011 or 0111.''. Its rows are the vertices of a digraph on
+$S=5$ vertices, edges being the admissible consecutive pairs, and the count is
 $\mathbf{1}^{\!\top}M^{n}\mathbf{1}$ up to the constant factor in the entry's name.
 The conjectured recurrence
 \[
-a(n)\;=\;32\,a(n-2) - 48\,a(n-4)
+a(n)\;=\;a(n-1) + 3\,a(n-2)
+\]
+holds from index $1+1$ on.
+
+\subsection*{Column $k$$=2$}
+The sequence is ``Number of (n+1)X3 0..1 arrays with each 2X2 subblock having clockwise pattern 0000 0011 or 0111.''. Its rows are the vertices of a digraph on
+$S=9$ vertices, edges being the admissible consecutive pairs, and the count is
+$\mathbf{1}^{\!\top}M^{n}\mathbf{1}$ up to the constant factor in the entry's name.
+The conjectured recurrence
+\[
+a(n)\;=\;3\,a(n-1) + 4\,a(n-2) - 11\,a(n-3) - 3\,a(n-4)
 \]
 holds from index $3+1$ on.
 
-
-\section{Lines whose recurrence the entry does not print}
-
-For the lines below the entry records only an order, the coefficients being in a linked file.
-They can still be settled, and the recurrences recovered. A line is a walk count on $S$
-vertices, so it satisfies some monic recurrence of order at most $S$ and Berlekamp--Massey on
-$2S$ exact terms returns the MINIMAL one. Where that order equals the stated order --- and
-where the same holds after the first few terms are dropped, since the entry's recurrence may
-begin only partway along --- any recurrence of that order the line satisfies has a
-characteristic polynomial that is a multiple of the minimal one and of equal degree, hence is
-that polynomial. So the entry's recurrence is the one displayed, whatever its file contains.
-
-\subsection*{Column $k=2$, recovered}
-The entry gives only the order for this line: ``k=2: [order 11].''. Its model is a walk on
-$S=64$ vertices, so it satisfies a monic recurrence of order at most $S$;
-Berlekamp--Massey on $2S=128$ exact terms returns the minimal one, of order
-$11$ --- the stated order --- with integer coefficients
-\begin{center}\small\begin{tabular}{cccccccc}
-$c_{1}$ & $10$ & $c_{4}$ & $608$ & $c_{7}$ & $-18088$ & $c_{10}$ & $-17600$ \\
-$c_{2}$ & $59$ & $c_{5}$ & $7580$ & $c_{8}$ & $32880$ & $c_{11}$ & $4224$ \\
-$c_{3}$ & $-768$ & $c_{6}$ & $-11628$ & $c_{9}$ & $3232$ &  &  \\
-\end{tabular}\end{center}
-Repeating with the first $11+4$ terms removed gives order $11$ again.
-
-\subsection*{Column $k=3$, recovered}
-The entry gives only the order for this line: ``k=3: [order 48].''. Its model is a walk on
-$S=256$ vertices, so it satisfies a monic recurrence of order at most $S$;
-Berlekamp--Massey on $2S=512$ exact terms returns the minimal one, of order
-$48$ --- the stated order --- with integer coefficients
+\subsection*{Column $k$$=3$}
+The sequence is ``Number of (n+1)X4 0..1 arrays with each 2X2 subblock having clockwise pattern 0000 0011 or 0111.''. Its rows are the vertices of a digraph on
+$S=17$ vertices, edges being the admissible consecutive pairs, and the count is
+$\mathbf{1}^{\!\top}M^{n}\mathbf{1}$ up to the constant factor in the entry's name.
+The conjectured recurrence
 \[
-(c_1,\dots,c_{48})=(0,\ 507,\ 0,\ -102295,\ 0,\ 10646830,\ 0,\ -635915377,\ 0,\ 23832852746,\ 0,\ -596280829182,\ 0,\ 10371633339873,\ 0,\ -128744093807520,\ 0,\ 1159671655063068,\ 0,\ -7660667577596808,\ 0,\ 37368059037902308,\ 0,\ -135219186772494408,\ 0,\ 364034788822163472,\ 0,\ -730004249849579520,\ 0,\ 1089413122161376064,\ 0,\ -1205481757762071168,\ 0,\ 981742220067000064,\ 0,\ -581000394777277440,\ 0,\ 244895745327540224,\ 0,\ -71316845470162944,\ 0,\ 13706205520330752,\ 0,\ -1618885433491456,\ 0,\ 103796813856768,\ 0,\ -2721872609280).
+a(n)\;=\;2\,a(n-1) + 12\,a(n-2) - 11\,a(n-3) - 30\,a(n-4)
 \]
-Repeating with the first $48+4$ terms removed gives order $48$ again.
+holds from index $4+1$ on.
 
 \section{Verification}
 
@@ -148,7 +140,7 @@ both from the antidiagonal DATA read in either orientation and from the ``Table 
 block, and agrees at every available term. This is what ties a model to the table:
 substituting the fixed index into the entry's wording is a reading of English, and a wrong
 reading gives a different digraph and different counts. Across the lines settled here the
-model reproduces $8$ published values, $40$ decimal digits in all, every one of
+model reproduces $24$ published values, $82$ decimal digits in all, every one of
 them exactly; a misreading of the entry would have to reproduce all of them by accident.
 
 Second, each conjectured recurrence was evaluated on those published values in exact
@@ -168,7 +160,7 @@ claimed.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A234333.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A259250.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

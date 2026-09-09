@@ -12,19 +12,19 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A185819, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A185536, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A185819 counts $n\times3$ arrays over $\{0,\dots,4\}$ subject to a condition imposed on
+OEIS A185536 counts $n\times3$ arrays over $\{0,\dots,5\}$ subject to a condition imposed on
 every CELL over a neighbour set the entry names, and it carries an empirical recurrence of
 order $23$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
 empirical. A cell's neighbourhood meets three consecutive rows, so the state of a transfer
 matrix is a pair of consecutive rows and each step settles the middle one; an array is a
-walk, and $a(n)$ is a walk count on $S=15750$ vertices, which is $C$-finite. Whether the
+walk, and $a(n)$ is a walk count on $S=46872$ vertices, which is $C$-finite. Whether the
 conjectured recurrence annihilates it is then decided by a finite exact computation, with the
 Cayley--Hamilton theorem bounding the work.
 \end{abstract}
@@ -33,15 +33,15 @@ Cayley--Hamilton theorem bounding the work.
 
 \section{The conjecture}
 
-OEIS A185819 is ``1/5 the number of nX3 0..4 arrays with every element equal to exactly one or two of its horizontal and vertical neighbors.''. It has offset $1$ and begins
+OEIS A185536 is ``1/6 the number of nX3 0..5 arrays with every element equal to exactly one or two of its horizontal and vertical neighbors.''. It has offset $1$ and begins
 \[
-1, 76, 1584, 49036, 1266624, 35446376, 956312244, 26231137608,\ \dots
+1, 110, 2990, 127570, 4403225, 167398110, 6079401960, 225574291125,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n)=17*a(n-1)+327*a(n-2)-1020*a(n-3)-6773*a(n-4)+2794*a(n-5)+32525*a(n-6)+131655*a(n-7)-337771*a(n-8)+33788*a(n-9)+517885*a(n-10)-1145646*a(n-11)-5007180*a(n-12)+7715688*a(n-13)+39324336*a(n-14)-82942336*a(n-15)-35554304*a(n-16)+265939200*a(n-17)+170422272*a(n-18)-172261376*a(n-19)-774750208*a(n-20)-958660608*a(n-21)-1396703232*a(n-22)-1811939328*a(n-23)
+Empirical: a(n)=22*a(n-1)+638*a(n-2)-2567*a(n-3)-29583*a(n-4)+27088*a(n-5)+209637*a(n-6)+620796*a(n-7)-1634411*a(n-8)-4083145*a(n-9)+17086070*a(n-10)-21827225*a(n-11)-42404829*a(n-12)-73933685*a(n-13)+687497360*a(n-14)-669370750*a(n-15)-1844490625*a(n-16)+8145764375*a(n-17)+6297734375*a(n-18)-14443984375*a(n-19)-34831953125*a(n-20)-42570312500*a(n-21)-47656250000*a(n-22)-78125000000*a(n-23)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 03:12:35, revision 11) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 03:05:31, revision 11) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{Cells, not blocks}
@@ -64,16 +64,16 @@ explicitly, as a sentinel row above the first and below the last and as a sentin
 either side, and a neighbour that falls outside is simply absent from both counts.
 
 Write an array as a sequence of rows $u_1,\dots,u_L$, each in
-$\{0,\dots,4\}^{3}$. The neighbourhood of a cell in row $u_i$ meets $u_{i-1}$,
+$\{0,\dots,5\}^{3}$. The neighbourhood of a cell in row $u_i$ meets $u_{i-1}$,
 $u_i$ and $u_{i+1}$ and nothing else. Take as vertices the pairs
-$(r,s)\in(\{0,\dots,4\}^{3}\cup\{\varnothing\})\times\{0,\dots,4\}^{3}$,
+$(r,s)\in(\{0,\dots,5\}^{3}\cup\{\varnothing\})\times\{0,\dots,5\}^{3}$,
 and put an edge $(r,s)\to(s,t)$ when row $s$ satisfies the condition at every one of its
 $3$ cells, given $r$ above and $t$ below. An array with $L$ rows is then a walk of length
 $L-1$ starting at $(\varnothing,u_1)$, each step settling one row, and the last row is
 settled by the terminal weight, which evaluates it with $\varnothing$ below. Hence,
 with $M$ the adjacency matrix, $\iota$ the starting vector and $\tau$ the terminal weight,
 \[
-a(n)\;=\;\tfrac1{5}\,\iota^{\!\top}M^{\,n-1}\tau ,
+a(n)\;=\;\tfrac1{6}\,\iota^{\!\top}M^{\,n-1}\tau ,
 \]
 the exponent fixed by the entry's own shape and checked against its published terms. In
 particular $a$ is $C$-finite.
@@ -83,7 +83,7 @@ particular $a$ is $C$-finite.
 \begin{lemma}\label{lem:crit}
 Let $q(t)=t^{23}-\sum_i c_it^{23-i}$ be the characteristic polynomial of the
 conjectured recurrence. Then the residual $a(n)-\sum_ic_ia(n-i)$ equals
-$\tfrac1{5}\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the
+$\tfrac1{6}\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the
 recurrence holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all
 large $j$; and it is enough to examine $j<S$.
 \end{lemma}
@@ -98,7 +98,7 @@ nonzero $u_j$ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;17\,a(n-1) + 327\,a(n-2) - 1020\,a(n-3) - 6773\,a(n-4) + 2794\,a(n-5) + 32525\,a(n-6) + 131655\,a(n-7) - 337771\,a(n-8) + 33788\,a(n-9) + 517885\,a(n-10) - 1145646\,a(n-11) - 5007180\,a(n-12) + 7715688\,a(n-13) + 39324336\,a(n-14) - 82942336\,a(n-15) - 35554304\,a(n-16) + 265939200\,a(n-17) + 170422272\,a(n-18) - 172261376\,a(n-19) - 774750208\,a(n-20) - 958660608\,a(n-21) - 1396703232\,a(n-22) - 1811939328\,a(n-23)
+a(n)\;=\;22\,a(n-1) + 638\,a(n-2) - 2567\,a(n-3) - 29583\,a(n-4) + 27088\,a(n-5) + 209637\,a(n-6) + 620796\,a(n-7) - 1634411\,a(n-8) - 4083145\,a(n-9) + 17086070\,a(n-10) - 21827225\,a(n-11) - 42404829\,a(n-12) - 73933685\,a(n-13) + 687497360\,a(n-14) - 669370750\,a(n-15) - 1844490625\,a(n-16) + 8145764375\,a(n-17) + 6297734375\,a(n-18) - 14443984375\,a(n-19) - 34831953125\,a(n-20) - 42570312500\,a(n-21) - 47656250000\,a(n-22) - 78125000000\,a(n-23)
 \]
 for every $n>23$.
 \end{theorem}
@@ -115,7 +115,7 @@ By Lemma~\ref{lem:crit} the recurrence holds for every $n>23$.
 
 Three checks, each independent of the algebra above.
 
-First, the transfer model reproduces all $16$ terms the entry publishes, exactly, in
+First, the transfer model reproduces all $15$ terms the entry publishes, exactly, in
 integer arithmetic. That check earned its place here. The neighbour offsets are named in the
 array's own frame --- horizontal means along a row --- but when the entry fixes the first
 dimension, as in ``$2\times n$'', the walk runs along columns and the two components of every
@@ -132,7 +132,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A185819.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A185536.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

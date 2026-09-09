@@ -121,7 +121,7 @@ reads. Measured against the clone, not against a cached list -- the earlier cens
 | 199 | two-dimensional arrays growing in BOTH directions (`n X n`, `(n+1) X (n+1)`, `n X 4`) | a transfer matrix along one side has a state space that grows with the other |
 | 130 | `-n..n arrays x(i) of n+2 elements ...` | fixed length, alphabet growing, but the conditions are arithmetic rather than order-only |
 | 105 | ON/OFF cell counts of two-dimensional automata | no proved generating function; see `refused.py` |
-| 38 | necklaces and bracelets over `-n..n` | Burnside gives an exact polynomial for the seven plain sum-zero ones; the rest carry pattern conditions |
+| 38 | necklaces and bracelets over `-n..n` | **the seven plain sum-zero ones are proved** (`necklace.py`); the other 31 carry pattern conditions naming an actual difference, which Burnside does not reach |
 | 39 | `n X n` binary arrays | same as the two-dimensional case |
 | 34 | arrays of permutations | a walk on W! vertices is only feasible for small W |
 | 20 | self-avoiding walks | no finite-state model |

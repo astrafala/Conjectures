@@ -12,53 +12,111 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A241105, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A233102, proved by carrying a row major clause across
+columns}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{8 September 2026}
+\date{6 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A241105 carries an empirical recurrence of order $26$ contributed by R.~H.~Hardin. It is
-true, and it is decidable rather than empirical. The entry's condition is local to a bounded window of consecutive lines, so
-the admissible configurations of such a window are the vertices of a finite digraph and the
-arrays counted are exactly the walks in it; hence $a(n)$ is a walk count on $S=60350$ vertices
-and is $C$-finite. Whether the conjectured recurrence annihilates it is then settled by a
-finite exact computation, with the Cayley--Hamilton theorem bounding the work.
+OEIS A233102 counts $5\times n$ arrays over $\{0,\dots,3\}$ with a forbidden-pair
+condition and a clause on the order in which values first appear, read in ROW MAJOR order, and
+it carries an empirical recurrence of order $27$ contributed by R.~H.~Hardin. It is true.
+The obstacle is that the array grows in $n$, so the walk runs across COLUMNS and does not visit
+the cells in row major order; the running set of ``values seen so far'' that settles the clause
+for a column-fixed entry is simply the wrong set here. What the walk can carry instead is, for
+each value the clause names, the least ROW in which it has yet been seen, together with the
+order in which those least rows were attained. That is enough, and it is bounded, so the count
+is a walk count and the recurrence is settled by a finite exact computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 68Q45.\normalsize
 
 \section{The conjecture}
 
-OEIS A241105 is ``Number of nX5 0..2 arrays with no element equal to one or three horizontal or vertical neighbors, with new values 0..2 introduced in row major order.''. It has offset $1$ and begins
+OEIS A233102 is ``Number of 5 X n 0..3 arrays with no element x(i,j) adjacent to value 3-x(i,j) horizontally, diagonally or antidiagonally, top left element zero, and 1 appearing before 2 in row major order.''. It has offset $1$ and begins
 \[
-8, 116, 1522, 19814, 259388, 3374086, 44030862, 574246744,\ \dots
+136, 3602, 200165, 10221326, 537122150, 28141137872,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 14*a(n-1) +2*a(n-2) -175*a(n-3) -54*a(n-4) +1648*a(n-5) -42588*a(n-6) -24344*a(n-7) +167248*a(n-8) +247904*a(n-9) -88832*a(n-10) +33429248*a(n-11) +48635904*a(n-12) +27281408*a(n-13) -32276480*a(n-14) -600080384*a(n-15) -9134145536*a(n-16) -11089739776*a(n-17) -2071986176*a(n-18) +11282677760*a(n-19) +94019518464*a(n-20) +716320014336*a(n-21) +518617300992*a(n-22) +438086664192*a(n-23) +618475290624*a(n-24) -6597069766656*a(n-25) -17592186044416*a(n-26)
+Empirical: a(n) = 68*a(n-1) -600*a(n-2) -15127*a(n-3) +198891*a(n-4) +474114*a(n-5) -15054666*a(n-6) +40876796*a(n-7) +282247277*a(n-8) -1702957346*a(n-9) +1300734258*a(n-10) +10660506741*a(n-11) -25827798163*a(n-12) -5523934284*a(n-13) +82235055992*a(n-14) -73298596738*a(n-15) -60422455252*a(n-16) +120987324040*a(n-17) -24800038680*a(n-18) -50712556504*a(n-19) +26785354528*a(n-20) +4082561568*a(n-21) -4463628544*a(n-22) +203254656*a(n-23) +207891200*a(n-24) -17481216*a(n-25) -2073600*a(n-26) +110592*a(n-27) for n>28.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 11:09:16, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Jun 08 2014 09:11:54, revision 8) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
-\section{The count is a walk count}
+\section{What is being counted}
 
-The condition the entry imposes is local: it constrains a bounded window of consecutive lines and nothing beyond. Take as
-vertices the admissible configurations of one such window and put an edge from $u$ to $v$
-whenever $v$ may follow $u$, which the condition decides by inspection of the two. An
-admissible array is then exactly a walk, so with $M$ the adjacency matrix on $S=60350$ vertices
-and $\iota,\tau$ the vectors recording which windows may begin and end an array,
+The array has $5$ rows and $n$ columns. Two cells are adjacent when they differ by one of the
+offsets
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau ,
+(0,1), (1,-1), (1,1),
 \]
-the exponent fixed by the entry's own shape and checked against its published terms. In
-particular $a$ is $C$-finite.
+and the entry forbids any adjacent pair $u,v$ with $u+v=3$. It fixes the top left cell to
+zero. Finally it asks that, reading the cells in ROW MAJOR order --- along the first row, then
+along the second, and so on --- the first occurrences of the values $1$, $2$ come in a
+prescribed order: $1$ before $2$. A precedence involving a value that never occurs is satisfied
+vacuously; one whose later value occurs while its earlier value does not is broken.
+
+\section{Why the obvious state does not work}
+
+Since $n$ grows, the walk must run across the columns: a state is one column, and the
+forbidden-pair condition is settled between two consecutive columns, because every offset above
+moves the column index by at most one.
+
+The clause is the difficulty. For an entry whose WIDTH is fixed the walk runs down the rows and
+therefore visits the cells in row major order, so it is enough to carry the set of named values
+already written and to refuse a column that introduces a value out of turn. Here the walk
+visits the cells in COLUMN major order, and that set is the wrong one: a value first written
+low down in an early column may be written again higher up in a later column, and it is the
+later, higher cell that comes first in row major order.
+
+\section{What the walk can carry}
+
+\begin{lemma}\label{lem:key}
+For a value $v$ occurring in the array, let $r_v$ be the least row in which $v$ occurs and
+$c_v$ the least column with $x_{r_v,c_v}=v$. Then the first occurrence of $v$ in row major
+order is the cell $(r_v,c_v)$, and $u$ precedes $v$ in row major order exactly when
+$(r_u,c_u)<(r_v,c_v)$ lexicographically.
+\end{lemma}
+
+\begin{proof}
+Row major order is the lexicographic order on $(\text{row},\text{column})$, and the least
+element of the set of cells carrying $v$ under a lexicographic order is obtained by minimising
+the first coordinate and then the second.
+\end{proof}
+
+\begin{lemma}\label{lem:tie}
+Two distinct values with the same least row attain it in different columns.
+\end{lemma}
+
+\begin{proof}
+If $r_u=r_v=r$ and $c_u=c_v=c$ then the cell $(r,c)$ carries both $u$ and $v$.
+\end{proof}
+
+So the walk carries, for each named value, the least row in which it has been seen so far ---
+or the fact that it has not been seen --- and, for values sharing a least row, which of them
+attained it first. By Lemma~\ref{lem:tie} those attainments happen in different columns, and
+the walk meets the columns in order, so ``which attained it first'' is decided as the walk
+goes. Nothing else about the past matters: a later column can only LOWER a value's least row,
+and Lemma~\ref{lem:key} says the comparison depends on nothing else.
+
+One thing must not be done, and is not done here. The clause cannot be enforced along the way,
+because a least row can still drop and reorder the first occurrences retroactively. It is a
+property of the finished array, so it is tested in the ACCEPTING states and nowhere else.
+
+The state is therefore a column together with an ordered partition of the named values by least
+row, and there are $S=618$ of them after states with identical futures are merged. Hence
+\[
+a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,
+\]
+and $a$ is $C$-finite.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{26}-\sum_i c_it^{26-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{27}-\sum_i c_it^{27-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -66,7 +124,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+26}-\sum_ic_iM^{j+26-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+27}-\sum_ic_iM^{j+27-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -75,39 +133,45 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;14\,a(n-1) + 2\,a(n-2) - 175\,a(n-3) - 54\,a(n-4) + 1648\,a(n-5) - 42588\,a(n-6) - 24344\,a(n-7) + 167248\,a(n-8) + 247904\,a(n-9) - 88832\,a(n-10) + 33429248\,a(n-11) + 48635904\,a(n-12) + 27281408\,a(n-13) - 32276480\,a(n-14) - 600080384\,a(n-15) - 9134145536\,a(n-16) - 11089739776\,a(n-17) - 2071986176\,a(n-18) + 11282677760\,a(n-19) + 94019518464\,a(n-20) + 716320014336\,a(n-21) + 518617300992\,a(n-22) + 438086664192\,a(n-23) + 618475290624\,a(n-24) - 6597069766656\,a(n-25) - 17592186044416\,a(n-26)
+a(n)\;=\;68\,a(n-1) - 600\,a(n-2) - 15127\,a(n-3) + 198891\,a(n-4) + 474114\,a(n-5) - 15054666\,a(n-6) + 40876796\,a(n-7) + 282247277\,a(n-8) - 1702957346\,a(n-9) + 1300734258\,a(n-10) + 10660506741\,a(n-11) - 25827798163\,a(n-12) - 5523934284\,a(n-13) + 82235055992\,a(n-14) - 73298596738\,a(n-15) - 60422455252\,a(n-16) + 120987324040\,a(n-17) - 24800038680\,a(n-18) - 50712556504\,a(n-19) + 26785354528\,a(n-20) + 4082561568\,a(n-21) - 4463628544\,a(n-22) + 203254656\,a(n-23) + 207891200\,a(n-24) - 17481216\,a(n-25) - 2073600\,a(n-26) + 110592\,a(n-27)
 \]
-for every $n>26$.
+for every $n>28$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $26$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $27$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=26+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=28+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
-Three checks, each independent of the algebra above.
+Four checks, each independent of the algebra above.
 
-First, the model reproduces all $16$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry: the digraph is built by reading the
-entry's English, and a misreading gives different counts.
+First, the model reproduces all $14$ terms the entry publishes, exactly, in integer
+arithmetic, with no shift fitted.
 
-Second, the conjectured recurrence was evaluated directly on those published terms, with no
+Second --- and this is the check the whole paper turns on --- the arrays were enumerated
+directly for the smallest shapes the entry counts, in the orientation the name writes, with the
+cells listed in true row major order and each precedence tested on that list. No transposing
+and no walk. The counts agree. Reading the clause in the walk's own order instead gives
+different numbers for several entries of this family, so this check is what separates the two
+readings.
+
+Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
 arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A241105.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A233102.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
-University Press, 2009.
+\bibitem{hopcroft} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to
+Automata Theory, Languages, and Computation}, 3rd ed., Addison--Wesley, 2006.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}
