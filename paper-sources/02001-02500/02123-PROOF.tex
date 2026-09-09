@@ -12,51 +12,81 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{A value repeated at its own distance: OEIS A209604}
+\title{The empirical recurrence for OEIS A266013, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{7 September 2026}
+\date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A209604 carries an empirical recurrence of order $15$ contributed by R.~H.~Hardin. It is
-true, and it is decidable rather than empirical. The entry's condition reaches only as far as the value itself, which is bounded by the
-alphabet, so a window of that many lines decides it; the
-admissible windows are the vertices of a finite digraph and the arrays counted are exactly the
-walks in it. Hence $a(n)$ is a walk count on $S=20$ vertices and is $C$-finite, and whether the
-conjectured recurrence annihilates it is settled by a finite exact computation, with the
-Cayley--Hamilton theorem bounding the work.
+OEIS A266013 counts arrays of width $3$ in which every entry is equal to the NUMBER of its own
+neighbours, in named directions, that stand in a stated relation to it. The entry carries an
+empirical recurrence of order $15$ contributed by R.~H.~Hardin. It is true, and it is
+decidable rather than empirical. The condition is self-referential but local: a cell's
+neighbours lie in the row above, its own row and the row below, so a window of three
+consecutive rows decides the condition for the middle one, and the count is a walk count on
+$S=881$ states.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05C30, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A209604 is ``Number of nX2 1..2 arrays with every element value z a city block distance of exactly z from another element value z.''. It has offset $1$ and begins
+OEIS A266013 is ``Number of 3Xn integer arrays with each element equal to the number of horizontal and antidiagonal neighbors equal to itself.''. It has offset $1$ and begins
 \[
-1, 2, 11, 45, 170, 538, 1674, 5410,\ \dots
+1, 2, 6, 4, 11, 18, 27, 43,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 3*a(n-1) +5*a(n-4) +16*a(n-5) +23*a(n-6) +6*a(n-7) -6*a(n-8) -21*a(n-9) -8*a(n-10) -9*a(n-11) -5*a(n-12) -4*a(n-13) +a(n-15) for n>16
+Empirical: a(n) = 3*a(n-3) +2*a(n-4) +2*a(n-5) +a(n-6) -2*a(n-7) -2*a(n-8) -3*a(n-9) +2*a(n-10) +2*a(n-11) +5*a(n-12) -a(n-15) for n>19
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 15:23:01, revision 9) this is still
+As of the ``Last modified'' line on the live entry (Dec 20 2015 06:59:40, revision 4) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
-\section{The count is a walk count}
+\section{What is being counted}
 
-The entry counts arrays with $2$ columns over the alphabet $\{1,2\}$, distance measured as $|\Delta \text{row}|+|\Delta \text{column}|$, and asks that every element of value $z$ must have another element of value $z$ exactly $z$ steps away. An element of value $0$ is $0$ steps from itself and so always has such a partner. That is not an interpretation imposed on the entry: it is the reading the entry's own published terms select, and reading ``another'' as strictly some other cell disagrees with them at the very first term.
-
-The condition ranges over the whole array, but only as far as the value itself reaches: a cell of value $z$ looks exactly $z$ steps away, and $z$ is at most $2$. So nothing more than $2$ rows away can matter, and a cell's verdict is settled once the row $2$ beyond it has arrived.
-
-Carry the last $2$ rows together with one bit for each of their cells, recording whether that cell has already found its partner. A new row is paired against the rows it can still reach, sets the bits it completes, and retires the row that has now seen everything it will ever see: the walk continues if that row's bits say what the entry asks and stops otherwise. The rows still held when the array ends are judged by the end vector, which is where the boundary is honest --- a partner off the edge of the array is not a partner.
-
-Merging vertices with identical futures leaves $S=20$. An admissible array is exactly a walk, so with $M$ the adjacency matrix and $\iota,\tau$ the vectors recording which states may begin and end an array,
+The array has $3$ cells across. The NEIGHBOURS of a cell are the cells reached from it by the
+offsets
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau ,
+(-1,0), (-1,1), (1,-1), (1,0),
 \]
-the exponent fixed by the entry's own shape and checked against its published terms. In
-particular $a$ is $C$-finite.
+those that lie inside the array. The condition is that every entry counts its own neighbours
+that are equal to it: writing $v=x(i,j)$,
+\[
+v\;=\;\#\{\text{neighbours } y \text{ of } (i,j)\ :\ y=v\} .
+\]
+
+The entry says ``integer arrays'' and names no alphabet, but one is forced. An entry counts
+neighbours in the named directions, of which there are $4$, so every entry of the array
+lies in $\{0,1,\dots,4\}$ and the count is finite. That bound is used below and
+nothing wider is needed. The entry writes the array with $n$ as the number of COLUMNS; the walk is run down the transpose, so the offsets above are already the transposed ones. Each direction is taken with both signs, so transposing cannot lose one.
+
+\section{Three rows decide one}
+
+\begin{lemma}\label{lem:win}
+Every offset above changes the row index by $-1$, $0$ or $+1$, so all the neighbours of a cell
+of row $i$ lie in rows $i-1$, $i$ and $i+1$. The condition for the whole of row $i$ is
+therefore decided by those three rows, an absent row contributing no neighbours.
+\end{lemma}
+
+\begin{proof}
+Immediate from the offsets, together with the rule that a neighbour outside the array is not a
+neighbour.
+\end{proof}
+
+So the state is the pair (row above, current row), the row above allowed to be the symbol
+$\bot$; a step appends a row and settles the condition for the middle row of the window it
+completes. Two boundaries have to be right and neither is assumed. The walk starts at the state
+$(\bot,\bot)$, which stands for the empty array, so a walk of no steps is the empty array and
+one step is a one-row array. And the condition for the LAST row is settled by the end vector,
+which asks whether that row satisfies its condition with nothing written below it: the end
+vector is therefore NOT the all-ones vector, and a row that counts correctly only when
+something is written below it does not finish an array. With $M$ the adjacency matrix,
+\[
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=881.
+\]
+The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
+published terms rather than assumed. In particular $a$ is $C$-finite.
 
 \section{The proof}
 
@@ -73,36 +103,34 @@ Factor $M^{j}$ out of $M^{j+15}-\sum_ic_iM^{j+15-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly. A constant factor in front of $a$ divides out of the residual and
-changes nothing here.
+pins the threshold exactly.
 \end{proof}
 
 \begin{theorem}
 \[
-a(n)\;=\;3\,a(n-1) + 5\,a(n-4) + 16\,a(n-5) + 23\,a(n-6) + 6\,a(n-7) - 6\,a(n-8) - 21\,a(n-9) - 8\,a(n-10) - 9\,a(n-11) - 5\,a(n-12) - 4\,a(n-13) + a(n-15)
+a(n)\;=\;3\,a(n-3) + 2\,a(n-4) + 2\,a(n-5) + a(n-6) - 2\,a(n-7) - 2\,a(n-8) - 3\,a(n-9) + 2\,a(n-10) + 2\,a(n-11) + 5\,a(n-12) - a(n-15)
 \]
-for every $n>16$.
+for every $n>19$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $15$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=16+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once. The bound is exact: at $n=16$ the recurrence fails on the entry's own published terms, so no larger range holds.
+integers vanish from the index corresponding to $n=19+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $25$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry: the digraph is built by reading the
-entry's English, and a misreading gives different counts.
+First, the model reproduces all $37$ terms the entry publishes, exactly, in integer
+arithmetic.
 
-Second, the reading was pinned before the digraph was written, by a program that enumerates
-every array of the given shape one by one and measures the distance between every pair
-of cells directly. That program shares no code with the transfer matrix, so an error in one does not
-hide an error in the other.
+Second, the count was recomputed for the smallest arrays straight from the definition:
+enumerate every array of that size, count each cell's neighbours satisfying the relation, and
+keep the array when every cell equals its own count. No window, no transfer matrix and no
+transposition are involved, and the published terms came back.
 
 Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
@@ -112,11 +140,11 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A209604.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A266013.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
-University Press, 2009.
+\bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata
+Theory, Languages, and Computation}, 3rd ed., Addison--Wesley, 2006.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

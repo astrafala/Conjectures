@@ -12,40 +12,38 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical column recurrences for the table OEIS A251210}
+\title{The empirical column recurrences for the table OEIS A235107}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A251210 is a two-dimensional table $T(n,k)$, and it carries a block of empirical
+OEIS A235107 is a two-dimensional table $T(n,k)$, and it carries a block of empirical
 recurrences contributed by R.~H.~Hardin --- one for each of its first few columns. They are
 true. Column $k$ of the table is an ordinary fixed-width array count, so its rows are the
 vertices of a finite digraph and $T(n,k)$ is a number of walks in it; being a walk count the
 column is $C$-finite, and whether a given recurrence annihilates it is decided by a finite
-exact computation, with the Cayley--Hamilton theorem bounding the work. This note settles the columns $k=1, 2$.
+exact computation, with the Cayley--Hamilton theorem bounding the work. This note settles the columns $k=1$.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
 \section{The table and the conjectures}
 
-OEIS A251210 is ``T(n,k)=Number of (n+1)X(k+1) 0..2 arrays with every 2X2 subblock summing to a nonzero multiple of 2.''. It has offset $1$, is
+OEIS A235107 is ``T(n,k) is the number of (n+1) X (k+1) 0..6 arrays with every 2 X 2 subblock having its diagonal sum differing from its antidiagonal sum by 4, with no adjacent elements equal (constant-stress tilted 1 X 1 tilings).''. It has offset $1$, is
 read by antidiagonals, and begins
 \[
-40, 180, 180, 816, 1246, 816, 3728, 8870,\ \dots
+154, 670, 670, 2900, 2498, 2900, 12578, 9328,\ \dots
 \]
 The entry carries the following block:
 \begin{quote}\small
 Empirical for column k:\\
-k=1: a(n) = 8*a(n-1) -12*a(n-2) -16*a(n-3)\\
-k=2: a(n) = 18*a(n-1) -90*a(n-2) +7*a(n-3) +576*a(n-4) +210*a(n-5) -180*a(n-6)\\
-k=3: [order 14]\\
-k=4: [order 30]\\
-k=5: [order 65]\\
+k=1: a(n) = 7*a(n-1) -2*a(n-2) -47*a(n-3) +3*a(n-4) +84*a(n-5) +36*a(n-6).\\
+k=2: [order 19].\\
+k=3: [order 62].\\
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jun 02 2025 10:19:22, revision 6) these are still
+As of the ``Last modified'' line on the live entry (Jun 20 2022 21:08:17, revision 6) these are still
 recorded as empirical, and nothing on the entry records any of them as settled.
 
 \section{A column of the table is a walk count}
@@ -88,8 +86,7 @@ $j\ge S_k$ repeats that combination of earlier values.
 \begin{center}
 \begin{tabular}{ccccc}
 line & order & vertices $S$ & proved for & terms checked \\ \hline
-column $k$$=1$ & $3$ & $9$ & $>2$ & $8$ \\
-column $k$$=2$ & $6$ & $27$ & $>5$ & $10$ \\
+column $k$$=1$ & $6$ & $42$ & $>6$ & $8$ \\
 \end{tabular}
 \end{center}
 
@@ -99,24 +96,14 @@ again exactly; every one of those integers vanishes from the stated point onward
 continued until the working vector was identically zero, which settles all larger $j$ at once.
 
 \subsection*{Column $k$$=1$}
-The sequence is ``Number of (n+1)X(2) 0..2 arrays with every 2X2 subblock summing to a nonzero multiple of 2.''. Its rows are the vertices of a digraph on
-$S=9$ vertices, edges being the admissible consecutive pairs, and the count is
+The sequence is ``Number of (n+1) X (2) 0..6 arrays with every 2 X 2 subblock having its diagonal sum differing from its antidiagonal sum by 4, with no adjacent elements equal (constant-stress tilted 1 X 1 tilings).''. Its rows are the vertices of a digraph on
+$S=42$ vertices, edges being the admissible consecutive pairs, and the count is
 $\mathbf{1}^{\!\top}M^{n}\mathbf{1}$ up to the constant factor in the entry's name.
 The conjectured recurrence
 \[
-a(n)\;=\;8\,a(n-1) - 12\,a(n-2) - 16\,a(n-3)
+a(n)\;=\;7\,a(n-1) - 2\,a(n-2) - 47\,a(n-3) + 3\,a(n-4) + 84\,a(n-5) + 36\,a(n-6)
 \]
-holds from index $2+1$ on.
-
-\subsection*{Column $k$$=2$}
-The sequence is ``Number of (n+1)X(3) 0..2 arrays with every 2X2 subblock summing to a nonzero multiple of 2.''. Its rows are the vertices of a digraph on
-$S=27$ vertices, edges being the admissible consecutive pairs, and the count is
-$\mathbf{1}^{\!\top}M^{n}\mathbf{1}$ up to the constant factor in the entry's name.
-The conjectured recurrence
-\[
-a(n)\;=\;18\,a(n-1) - 90\,a(n-2) + 7\,a(n-3) + 576\,a(n-4) + 210\,a(n-5) - 180\,a(n-6)
-\]
-holds from index $5+1$ on.
+holds from index $6+1$ on.
 
 
 \section{Lines whose recurrence the entry does not print}
@@ -130,38 +117,19 @@ begin only partway along --- any recurrence of that order the line satisfies has
 characteristic polynomial that is a multiple of the minimal one and of equal degree, hence is
 that polynomial. So the entry's recurrence is the one displayed, whatever its file contains.
 
-\subsection*{Column $k=3$, recovered}
-The entry gives only the order for this line: ``k=3: [order 14]''. Its model is a walk on
-$S=81$ vertices, so it satisfies a monic recurrence of order at most $S$;
-Berlekamp--Massey on $2S=162$ exact terms returns the minimal one, of order
-$14$ --- the stated order --- with integer coefficients
+\subsection*{Column $k=2$, recovered}
+The entry gives only the order for this line: ``k=2: [order 19].''. Its model is a walk on
+$S=252$ vertices, so it satisfies a monic recurrence of order at most $S$;
+Berlekamp--Massey on $2S=504$ exact terms returns the minimal one, of order
+$19$ --- the stated order --- with integer coefficients
 \begin{center}\small\begin{tabular}{cccccccc}
-$c_{1}$ & $49$ & $c_{5}$ & $-183750$ & $c_{9}$ & $-19139302$ & $c_{13}$ & $-790272$ \\
-$c_{2}$ & $-892$ & $c_{6}$ & $483153$ & $c_{10}$ & $-11705564$ & $c_{14}$ & $-2709504$ \\
-$c_{3}$ & $6678$ & $c_{7}$ & $2260797$ & $c_{11}$ & $15064560$ &  &  \\
-$c_{4}$ & $-4674$ & $c_{8}$ & $-4216766$ & $c_{12}$ & $15309504$ &  &  \\
+$c_{1}$ & $12$ & $c_{6}$ & $-12901$ & $c_{11}$ & $-412538$ & $c_{16}$ & $-247248$ \\
+$c_{2}$ & $-14$ & $c_{7}$ & $-21740$ & $c_{12}$ & $641088$ & $c_{17}$ & $584736$ \\
+$c_{3}$ & $-322$ & $c_{8}$ & $86236$ & $c_{13}$ & $1018740$ & $c_{18}$ & $372096$ \\
+$c_{4}$ & $949$ & $c_{9}$ & $107744$ & $c_{14}$ & $-478292$ & $c_{19}$ & $65664$ \\
+$c_{5}$ & $3384$ & $c_{10}$ & $-322761$ & $c_{15}$ & $-1306432$ &  &  \\
 \end{tabular}\end{center}
-Repeating with the first $14+4$ terms removed gives order $14$ again.
-
-\subsection*{Column $k=4$, recovered}
-The entry gives only the order for this line: ``k=4: [order 30]''. Its model is a walk on
-$S=243$ vertices, so it satisfies a monic recurrence of order at most $S$;
-Berlekamp--Massey on $2S=486$ exact terms returns the minimal one, of order
-$30$ --- the stated order --- with integer coefficients
-\[
-(c_1,\dots,c_{30})=(111,\ -4967,\ 109599,\ -1025248,\ -3485048,\ 149483818,\ -634279418,\ -7493101806,\ 52970555254,\ 244632286944,\ -1824484685872,\ -7138179533341,\ 28283475913415,\ 147078256032837,\ -29006700811005,\ -947046164348600,\ -737019679290744,\ 2727653845346764,\ 3394186814611740,\ -4178378678092432,\ -6479623724195056,\ 3912298894327776,\ 6489330981253248,\ -2565340219580544,\ -3482996175613440,\ 1206172902583296,\ 890714637803520,\ -323069633740800,\ -69344103628800,\ 26486872473600).
-\]
-Repeating with the first $30+4$ terms removed gives order $30$ again.
-
-\subsection*{Column $k=5$, recovered}
-The entry gives only the order for this line: ``k=5: [order 65]''. Its model is a walk on
-$S=729$ vertices, so it satisfies a monic recurrence of order at most $S$;
-Berlekamp--Massey on $2S=1458$ exact terms returns the minimal one, of order
-$65$ --- the stated order --- with integer coefficients
-\[
-(c_1,\dots,c_{65})=(273,\ -32440,\ 2167876,\ -86178771,\ 1844874419,\ -5709338891,\ -761918202035,\ 17417648289022,\ -23432647399802,\ -4602791226949621,\ 53241364175527235,\ 506628998962979276,\ -12767555616818403360,\ -13570028070430547896,\ 1766421856827314592268,\ -3196252377527632419766,\ -175614890310493347465730,\ 455126111895453909520786,\ 13692473127312526248503306,\ -26279249097966239592018876,\ -843349788226007356516959436,\ 238428411905434740536518246,\ 38270481965624391945666501374,\ 67110337011434704735499838575,\ -1102698597084666043679818341407,\ -4375480920808827044378901919648,\ 14947668551883907739398761141092,\ 113186277972913466253191002833537,\ -16734107033809346323696257761545,\ -1533679530125684140613700176350455,\ -2217894822104145573004063600120327,\ 11824626216667273588089526892080302,\ 33469903650508713295291472449189814,\ -49151442162250867520284950674690977,\ -261486558621286662897604326920799073,\ 46291562980183520498773583203772326,\ 1311621534865625969421475157687657886,\ 680780400911428415846890308108450848,\ -4551336275607146746443884400586442148,\ -4576833877266203056688879813872409800,\ 11333479297168193259061164712082360184,\ 16103091913637702617511738662612314768,\ -20686544867076029496996565969510438848,\ -37966323783638126482789877682281346048,\ 28106789807414621233541587758251854464,\ 64358161491121822245690837219690913536,\ -28950786228914803818082538776562351616,\ -80618844857088629318262689222398264320,\ 23344337977042075736069780882717257728,\ 75235042718903487656801540357868773376,\ -15529062998969017762122869981512900608,\ -52033694190285610928915701003430608896,\ 8936746279299344190071314921228664832,\ 26200859739969409426953017974020243456,\ -4373574338173133320310629592600150016,\ -9301840371713320021689173257633136640,\ 1655400466541609953896021468936929280,\ 2213030210812029656403748430819622912,\ -428340069361601839012100831057018880,\ -326470937449748433492493094690488320,\ 66745953426188472353511572924006400,\ 26389570009282474387070966877388800,\ -5414003904125678224924861267968000,\ -883056715325146102247265927168000,\ 170800541428324339933532651520000).
-\]
-Repeating with the first $65+4$ terms removed gives order $65$ again.
+Repeating with the first $19+4$ terms removed gives order $19$ again.
 
 \section{Verification}
 
@@ -172,7 +140,7 @@ both from the antidiagonal DATA read in either orientation and from the ``Table 
 block, and agrees at every available term. This is what ties a model to the table:
 substituting the fixed index into the entry's wording is a reading of English, and a wrong
 reading gives a different digraph and different counts. Across the lines settled here the
-model reproduces $18$ published values, $102$ decimal digits in all, every one of
+model reproduces $8$ published values, $40$ decimal digits in all, every one of
 them exactly; a misreading of the entry would have to reproduce all of them by accident.
 
 Second, each conjectured recurrence was evaluated on those published values in exact
@@ -192,7 +160,7 @@ claimed.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A251210.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A235107.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

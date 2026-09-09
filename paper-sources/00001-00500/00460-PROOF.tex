@@ -12,175 +12,127 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A222016, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A234242: recovering a conjecture that is not written down}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{3 September 2026}
+\date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A222016 counts the distinct OCCUPANCY arrays obtained when every cell of an $n\times3$ grid
-holds one token, each token moves to a neighbouring cell, and the direction a token leaves a
-cell in is restricted by the direction in which another token arrives there. The entry carries
-an empirical recurrence of order $37$ contributed by R.~H.~Hardin. It is true, and it is
-decidable rather than empirical. What is counted is the size of an IMAGE --- two different
-assignments of moves with the same occupancy count once --- so it is not a walk count in the
-obvious graph; determinising the machine that emits the occupancy row by row turns it into
-one, on $S=1645$ states, after which the conjectured recurrence is settled by a finite exact
-computation.
+OEIS A234242 records ``Empirical recurrence of order $45$'', with the recurrence itself in a
+linked file rather than in the entry. The conjecture can nevertheless be settled, and the
+recurrence recovered, without reading that file. The entry counts arrays under a condition
+local to a bounded window of lines, so the count is a walk count on $S=512$ vertices and
+satisfies some monic recurrence of order at most $S$; Berlekamp--Massey applied to $2S$ exact
+terms therefore returns the MINIMAL such recurrence. Its order is exactly $45$, the order
+the entry states, and the same is true of every tail of the sequence. Any recurrence of order
+$45$ that the sequence satisfies from any point on must then have a characteristic
+polynomial that is a multiple of the minimal one and of the same degree, hence equal to it. So
+the entry's recurrence is the one displayed here, whatever its file contains, and it is
+proved.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 68Q45, 60C05.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 15A18.\normalsize
 
-\section{The conjecture}
+\section{A conjecture one cannot read}
 
-OEIS A222016 is ``Number of nX3 arrays of occupancy after each element stays put or moves to some horizontal or vertical neighbor, without move-in move-out straight through or left turns.''. It has offset $1$ and begins
+OEIS A234242 is ``Number of (n+1) X (2+1) 0..7 arrays with every 2 X 2 subblock having its diagonal sum differing from its antidiagonal sum by 2 (constant-stress 1 X 1 tilings).''. It has offset $1$ and begins
 \[
-6, 188, 3875, 86088, 1892859, 41636522, 916164266, 20156123913,\ \dots
+6706, 99630, 1520024, 23428586, 361889580, 5604275160, 86776363660, 1346057282610,\ \dots
 \]
-The entry states, as a conjecture contributed by its author and never marked settled:
+The entry states:
 \begin{quote}
-Empirical: a(n) = 6*a(n-1) +286*a(n-2) +1731*a(n-3) -3366*a(n-4) -58755*a(n-5) -73158*a(n-6) +744580*a(n-7) +1606773*a(n-8) -5847271*a(n-9) -13299665*a(n-10) +35585397*a(n-11) +56858689*a(n-12) -168213873*a(n-13) -99886051*a(n-14) +532060381*a(n-15) -127805646*a(n-16) -951724652*a(n-17) +874261131*a(n-18) +729065885*a(n-19) -1511277493*a(n-20) +275583551*a(n-21) +992093720*a(n-22) -708567632*a(n-23) -119679569*a(n-24) +310913349*a(n-25) -92576435*a(n-26) -25624476*a(n-27) +17876348*a(n-28) -1254086*a(n-29) -1085212*a(n-30) +391330*a(n-31) -46391*a(n-32) -25190*a(n-33) +7306*a(n-34) +873*a(n-35) -236*a(n-36) -12*a(n-37)
+Empirical recurrence of order 45 (see link above).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 20:08:29, revision 8) this is still
-recorded as empirical, and nothing on the entry records it as proved.
+As of the ``Last modified'' line on the live entry (Jun 20 2022 19:09:47, revision 7) this is still
+recorded as empirical. The recurrence's coefficients are not in the entry text.
 
-\section{What is being counted}
+\section{The count is a walk count}
 
-Every cell of an $n\times3$ grid holds one token. Each token moves by one of the offsets
-\[
-(-1,0), (0,-1), (0,0), (0,1), (1,0),
-\]
-a move being available only when it lands inside the grid. The offset $(0,0)$ is among them: the entry lets a token stay put. The OCCUPANCY array
-records, for each cell, how many tokens land on it, and the entry counts how many different
-occupancy arrays occur as the assignment of moves runs over all its possibilities.
+The entry's condition is local: it constrains a bounded window of consecutive lines of the
+array and nothing further. The admissible configurations of one such window are the vertices
+of a finite digraph, an edge joining $u$ to $v$ when $v$ may follow $u$, and an admissible
+array is exactly a walk. Hence, with $M$ the adjacency matrix on $S=512$ vertices,
+$a(n)=\iota^{\!\top}M^{\,j(n)}\tau$ for a linear reindexing $j$ fixed by the entry's shape
+and checked against its published terms. By the Cayley--Hamilton theorem $M^{S}$ is an
+integer combination of $I,M,\dots,M^{S-1}$, so:
 
-The moves are not free of one another. Suppose the token at a cell $A$ moves by $d$ to the
-cell $B$, and the token standing at $B$ moves by $d'$. The entry forbids the ordered pair
-$(d,d')$ when
-\begin{itemize}
-\item $d\wedge d'>0$, that is, the outgoing direction lies to the LEFT of the incoming one, the wedge being the cross product of the two offsets read as plane vectors;
-\item $d'=d$, that is, the token arriving at a cell and the token leaving it move in the same direction --- the move goes STRAIGHT THROUGH;
-\end{itemize}
-and imposes nothing else. A token that stays put neither arrives anywhere nor leaves, so a
-zero offset on either side of the pair carries no condition at all.
-
-The sense of ``left'' is fixed once and for all. Rows are numbered downwards, so the offset
-$(d_1,d_2)$ is the plane vector $(d_2,-d_1)$, and $d\wedge d'$ denotes
-$d_2(-d'_1)-(-d_1)d'_2$. A positive value says $d'$ is obtained from $d$ by a rotation through
-an angle strictly between $0$ and $\pi$ counterclockwise, which is what a turn to the left is.
-The condition is not a $90^\circ$ test: for a neighbour set containing diagonal offsets the
-turns of $45^\circ$ and $135^\circ$ are left turns too, and the entry's data distinguishes the
-two readings.
-
-That the count is the size of an IMAGE is the whole difficulty: two assignments with the same
-occupancy must be counted once, and a walk count over the assignments would count them twice.
-
-\section{One window decides everything}
-
-Write $c_i\in\Delta^{3}$ for the row of offsets chosen by the cells of row $i$, where
-$\Delta$ is the offset set above.
-
-\begin{lemma}\label{lem:win}
-Both the occupancy of row $i$ and every instance of the forbidden pair whose FIRST member is a
-move made in row $i$ are determined by $c_{i-1},c_i,c_{i+1}$, with the convention that an
-absent row is the symbol $\bot$.
+\begin{lemma}\label{lem:cf}
+$a$ satisfies a monic linear recurrence with integer coefficients of order at most $S=512$.
 \end{lemma}
 
-\begin{proof}
-Every offset changes the row index by at most one, so a token landing on a cell of row $i$
-started in row $i-1$, $i$ or $i+1$; that is the occupancy. For the pairs, a move made by the
-cell $(i,j)$ with offset $d$ lands on the cell $(i+d_1,j+d_2)$, whose row is $i-1$, $i$ or
-$i+1$, so the offset $d'$ of that cell is a coordinate of $c_{i-1}$, $c_i$ or $c_{i+1}$.
-Reading a row of the array as $\bot$ makes ``up'' or ``down'' unavailable, which is exactly
-the boundary rule.
-\end{proof}
+\section{Recovering the recurrence}
 
-Each ordered pair is therefore tested exactly once, from the row of the token that makes the
-first move of the pair; every row plays that part exactly once along the array.
-
-Let $\beta(p,c,x)$ be the occupancy row of $c$ in the context $(p,x)$, undefined when some
-cell of $c$ has no room to move or when some forbidden pair occurs. The occupancy array of an
-assignment $c_1,\dots,c_n$ is
-\[
-\bigl(\beta(\bot,c_1,c_2),\ \beta(c_1,c_2,c_3),\ \dots,\ \beta(c_{n-1},c_n,\bot)\bigr).
-\]
-
-\section{The image is a walk count after determinisation}
-
-Determinise. For a set $D$ of pairs $(p,c)$ and an occupancy row $b$ put
-\[
-\delta(D,b)=\{(c,x):(p,c)\in D,\ \beta(p,c,x)=b\},\qquad
-f(D)=\bigl|\{\beta(p,c,\bot):(p,c)\in D,\ \beta(p,c,\bot)\ \text{defined}\}\bigr| ,
-\]
-and let $D_0=\{(\bot,c):c\}$. An induction on the number of rows shows $D_t$ is exactly the
-set of pairs of consecutive move-rows completing a prefix with the emitted occupancy rows, so
-that with $M$ the adjacency matrix of the digraph on the reachable nonempty sets, one edge per
-occupancy row it admits,
-\[
-a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,\qquad \iota=e_{D_0},\quad \tau=f .
-\]
-The last row is counted by $f$ and not by an edge: it is emitted with nothing below it, so it
-is a property of the state the walk stops in and $\tau$ is not the all-ones vector. There are
-$S=1645$ reachable sets. In particular $a$ is $C$-finite.
-
-\section{The proof}
-
-\begin{lemma}\label{lem:crit}
-Let $q(t)=t^{37}-\sum_i c_it^{37-i}$ be the characteristic polynomial of the
-conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
-$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
-holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
-and it is enough to examine $j<S$.
+\begin{lemma}\label{lem:bm}
+A sequence known to satisfy some linear recurrence of order at most $S$ is determined, together
+with its minimal recurrence, by its first $2S$ terms: Berlekamp--Massey applied to them returns
+that minimal recurrence exactly.
 \end{lemma}
 
-\begin{proof}
-Factor $M^{j}$ out of $M^{j+37}-\sum_ic_iM^{j+37-i}$. For the bound, $M^{S}$
-is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
-$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
-polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly.
-\end{proof}
+Running it on $2S=1024$ exact terms of the model returns order $45$ --- the order the
+entry states --- with the integer coefficients
+\[
+a(n)\;=\;\sum_{i=1}^{45}c_i\,a(n-i),
+\]
+\begin{center}\small
+\begin{tabular}{cccccccc}
+$c_{1}$ & $46$ & $c_{13}$ & $-1075341235831351$ & $c_{25}$ & $-49698971791013793780127$ & $c_{37}$ & $6731574510215276310233088$ \\
+$c_{2}$ & $134$ & $c_{14}$ & $-9712651178468259$ & $c_{26}$ & $141332682505381310893989$ & $c_{38}$ & $2023442562075755966889984$ \\
+$c_{3}$ & $-35276$ & $c_{15}$ & $64089609807225875$ & $c_{27}$ & $183123165803850090714818$ & $c_{39}$ & $-3622018897377210336804864$ \\
+$c_{4}$ & $323233$ & $c_{16}$ & $235935953639737470$ & $c_{28}$ & $-780626390348928587846808$ & $c_{40}$ & $-249427028442759749959680$ \\
+$c_{5}$ & $9930899$ & $c_{17}$ & $-2293634297261234632$ & $c_{29}$ & $-270395567855776777543560$ & $c_{41}$ & $1051812294311127011033088$ \\
+$c_{6}$ & $-157313817$ & $c_{18}$ & $-2725332118925920409$ & $c_{30}$ & $2714801171351407674882096$ & $c_{42}$ & $-29183355035127801446400$ \\
+$c_{7}$ & $-1188548411$ & $c_{19}$ & $52743969089997044624$ & $c_{31}$ & $-595246179658172059475072$ & $c_{43}$ & $-154724729918968981094400$ \\
+$c_{8}$ & $31938720142$ & $c_{20}$ & $-13241802902862635215$ & $c_{32}$ & $-5866168797635701662698496$ & $c_{44}$ & $6813525454104821760000$ \\
+$c_{9}$ & $27717326256$ & $c_{21}$ & $-796374230173916497493$ & $c_{33}$ & $3500666468919287746553856$ & $c_{45}$ & $9084700605473095680000$ \\
+$c_{10}$ & $-3554975670842$ & $c_{22}$ & $971308268134472771020$ & $c_{34}$ & $7599389065184082704108544$ &  &  \\
+$c_{11}$ & $8435049174150$ & $c_{23}$ & $7880760194879554361386$ & $c_{35}$ & $-6789152380252503977717760$ &  &  \\
+$c_{12}$ & $237054281056177$ & $c_{24}$ & $-15782086324909378071518$ & $c_{36}$ & $-5547706382650765698514944$ &  &  \\
+\end{tabular}
+\end{center}
 
 \begin{theorem}
-\[
-a(n)\;=\;6\,a(n-1) + 286\,a(n-2) + 1731\,a(n-3) - 3366\,a(n-4) - 58755\,a(n-5) - 73158\,a(n-6) + 744580\,a(n-7) + 1606773\,a(n-8) - 5847271\,a(n-9) - 13299665\,a(n-10) + 35585397\,a(n-11) + 56858689\,a(n-12) - 168213873\,a(n-13) - 99886051\,a(n-14) + 532060381\,a(n-15) - 127805646\,a(n-16) - 951724652\,a(n-17) + 874261131\,a(n-18) + 729065885\,a(n-19) - 1511277493\,a(n-20) + 275583551\,a(n-21) + 992093720\,a(n-22) - 708567632\,a(n-23) - 119679569\,a(n-24) + 310913349\,a(n-25) - 92576435\,a(n-26) - 25624476\,a(n-27) + 17876348\,a(n-28) - 1254086\,a(n-29) - 1085212\,a(n-30) + 391330\,a(n-31) - 46391\,a(n-32) - 25190\,a(n-33) + 7306\,a(n-34) + 873\,a(n-35) - 236\,a(n-36) - 12\,a(n-37)
-\]
-for every $n>37$.
+The recurrence above holds for every $n$, and it is the recurrence the entry records.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $37$ matrix--vector products in exact integer
-arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=37+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once.
+It holds by Lemma~\ref{lem:bm}, which returns a recurrence the sequence satisfies from its
+first term. For the identification: the entry asserts that the sequence satisfies SOME
+recurrence of order $45$, possibly only from some index on. Let $q$ be that recurrence's
+characteristic polynomial and $q_{\min}$ the minimal polynomial of the tail of the sequence.
+Then $q_{\min}\mid q$. Berlekamp--Massey run on the sequence with its first $45+4$ terms
+removed returns order $45$ as well, so $\deg q_{\min}=45=\deg q$; both are monic, so
+$q=q_{\min}$, which is the polynomial computed above.
 \end{proof}
 
 \section{Verification}
 
-Four checks, each independent of the algebra above.
+Three checks.
 
-First, the model reproduces all $16$ terms the entry publishes, exactly, in integer
-arithmetic.
+First, the walk model reproduces all $14$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry, and it is the only place where reading
+the entry's English enters.
 
-Second, the count was recomputed for the smallest grids straight from the definition ---
-enumerate every assignment of offsets to cells, discard the assignments containing a forbidden
-pair, form the occupancy array, and count the distinct arrays --- with the forbidden-pair test
-written out from the entry's wording rather than taken from the model. The published terms
-came back.
+Second, the recovered recurrence was evaluated directly on those published terms, with no
+matrices and no Berlekamp--Massey involved, and holds at every index where the entry gives
+enough earlier terms to test it.
 
-Third, the conjectured recurrence was evaluated directly on the published terms, with no
-matrices involved, and holds wherever the proved range and the data overlap.
+Third, the order was computed twice by independent routes: once modulo a $61$-bit prime, where
+every intermediate is a machine word, and once in exact rational arithmetic; and once more on
+the sequence with its first $45+4$ terms removed, which is what the identification above
+requires. All three agree.
 
-Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
-arithmetic on the whole vector rather than on a sampled prefix.
+\begin{remark}
+What is unusual here is that the conjecture's statement was never read. The entry pins it down
+to a one-parameter family --- the recurrences of order $45$ that this sequence satisfies
+--- and that family turns out to have exactly one member.
+\end{remark}
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A222016.
-\bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata
-Theory, Languages, and Computation}, 3rd ed., Addison--Wesley, 2006. (The subset
-construction, Section 2.3.)
+Sequences}, \url{https://oeis.org}, 2026. Sequence A234242.
+\bibitem{massey} J.~L.~Massey, Shift-register synthesis and BCH decoding, \emph{IEEE
+Trans. Inform. Theory} \textbf{15} (1969), 122--127.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge

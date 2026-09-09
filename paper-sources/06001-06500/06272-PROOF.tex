@@ -12,70 +12,61 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A184683, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A184470, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{2 September 2026}
+\date{6 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A184683 counts arrays over $\{0,\dots,1\}$ under a condition on the determinant of every
-$2\times2$ subblock, and carries an empirical recurrence of order $26$ contributed by
-R.~H.~Hardin. It is true, and it is decidable rather than empirical. The condition is local to
-a bounded window of consecutive rows, so the count is a walk count on $S=128$ states and is
-$C$-finite; whether the conjectured recurrence annihilates it is then settled by a finite exact
-computation, with the Cayley--Hamilton theorem bounding the work.
+OEIS A184470 counts arrays of width $4$ over $\{0,1,2\}$ in which every $3\times3$ subblock
+satisfies a condition on its nine entries. The entry carries an empirical recurrence of order
+$26$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical: a
+$3\times3$ block lies in three consecutive rows, so the state is the last two rows and the
+count is a walk count on $S=6643$ states.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B20, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A184683 is ``Number of (n+1)X7 binary arrays with every 2X2 subblock singular.''. It has offset $1$ and begins
+OEIS A184470 is ``1/6 the number of (n+2)X4 0..2 arrays with each 3X3 subblock containing one of one value, four of another, and four of the last.''. It has offset $1$ and begins
 \[
-1552, 45392, 909520, 21547024, 476660624, 10876933264, 245133874960, 5556396815504,\ \dots
+1095, 2755, 7085, 19119, 62213, 200215, 645837, 2386807,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n)=56*a(n-1)-1052*a(n-2)+4920*a(n-3)+87215*a(n-4)-1275080*a(n-5)+4248374*a(n-6)+28043568*a(n-7)-257190864*a(n-8)+336187440*a(n-9)+3401007808*a(n-10)-13508494272*a(n-11)-5065367296*a(n-12)+118586597376*a(n-13)-155918166016*a(n-14)-382474903552*a(n-15)+1052692692992*a(n-16)+138988113920*a(n-17)-2622368481280*a(n-18)+1618343657472*a(n-19)+2637273628672*a(n-20)-2971728347136*a(n-21)-751046754304*a(n-22)+1836551503872*a(n-23)-237498269696*a(n-24)-373930590208*a(n-25)+107911053312*a(n-26)
+Empirical: a(n)=5*a(n-1)-6*a(n-2)+123*a(n-3)-615*a(n-4)+738*a(n-5)-5552*a(n-6)+27760*a(n-7)-33312*a(n-8)+122328*a(n-9)-611640*a(n-10)+733968*a(n-11)-1443600*a(n-12)+7218000*a(n-13)-8661600*a(n-14)+9366192*a(n-15)-46830960*a(n-16)+56197152*a(n-17)-32980608*a(n-18)+164903040*a(n-19)-197883648*a(n-20)+58413312*a(n-21)-292066560*a(n-22)+350479872*a(n-23)-40310784*a(n-24)+201553920*a(n-25)-241864704*a(n-26)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 02:50:11, revision 9) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 02:40:27, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-Write $\sigma$ for the determinant of a $2\times2$ subblock
-$\begin{pmatrix}p&q\\r&s\end{pmatrix}$, that is $\sigma=ps-qr$. The subblocks of an
-$(n+1)\times7$ array over $\{0,\dots,1\}$ form a grid of $n$ rows and $6$
-columns, and $\sigma$ colours that grid.
+The arrays have $4$ columns and a growing number of rows, with entries in $\{0,1,2\}$. The
+condition is imposed on every $3\times3$ block of the array --- every choice of three
+consecutive rows and three consecutive columns --- and asks that the numbers of times the values occur are $1,\,4,\,4$ in some order. The entry publishes $1/6$ of that count; the division is by a constant and changes nothing about the recurrence.
 
-The condition is on each subblock separately: every $\sigma$ must vanish, which is what
-``singular'' says of a $2\times2$ matrix. Nothing
-relates one subblock to another.
+The entry's phrasing names the multiplicities without saying which value takes which, so what is fixed is the sorted list; this reading is pinned against the entry's own published terms.
 
-\section{The count is a walk count}
+\section{Three rows}
 
-Because the condition looks at one subblock at a time and a subblock is
-built from two consecutive array rows, a single row is a state: rows $r$ and $s$ may follow one
-another exactly when all $6$ of the subblocks they form pass. An $(n+1)$-row array is then a
-walk of $n$ steps and
+A $3\times3$ block occupies three consecutive rows, so everything the condition asks is decided
+by three consecutive rows and nothing wider. Take the array one row at a time and let the state
+be the last two rows written, with a distinguished start standing for the array before its
+first row. Appending a row completes the blocks whose bottom row is the new one, and the step
+is allowed exactly when each of those blocks passes.
+
+Every block of the finished array is tested exactly once, at the step that writes its bottom
+row, and no step imposes anything the definition does not ask. The first two rows complete no
+block at all, which is why they are laid down without a test. Every state may end an array, so
+$\tau=\mathbf{1}$. Thus
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n}\tau,\qquad\iota=\tau=(1,\dots,1)^{\!\top},
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=6643,
 \]
-on the $S=128$ rows.
-
-At $n=1$ the array has two rows and the grid is a single row of $6$
-subblocks, each tested on its own, so $a(1)$ counts the
-$2\times7$ arrays over $\{0,\dots,1\}$ all of whose subblocks pass. The entry's
-first term is $1552$, and the model reproduces it along with every later term; that is the
-cheapest check that the grid has been read with the right shape.
-
-Over the alphabet $\{0,\dots,1\}$ the determinant of a $2\times2$ subblock takes values in
-$[-1,1]$, so the colouring of the grid it induces has at most $3$ values.
-That bound is what keeps the construction below finite in the only place where the value of
-$\sigma$, rather than a comparison between two of them, has to be carried.
-In particular $a$ is $C$-finite. The alignment of the walk index with the entry's own $n$ was
-checked against its published terms rather than assumed.
+for the transfer matrix $M$ on those $S$ states. The walk index $j$ and the entry's own $n$
+differ by a constant, read off by matching the published terms rather than assumed. In
+particular $a$ is $C$-finite.
 
 \section{The proof}
 
@@ -97,38 +88,41 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;56\,a(n-1) - 1052\,a(n-2) + 4920\,a(n-3) + 87215\,a(n-4) - 1275080\,a(n-5) + 4248374\,a(n-6) + 28043568\,a(n-7) - 257190864\,a(n-8) + 336187440\,a(n-9) + 3401007808\,a(n-10) - 13508494272\,a(n-11) - 5065367296\,a(n-12) + 118586597376\,a(n-13) - 155918166016\,a(n-14) - 382474903552\,a(n-15) + 1052692692992\,a(n-16) + 138988113920\,a(n-17) - 2622368481280\,a(n-18) + 1618343657472\,a(n-19) + 2637273628672\,a(n-20) - 2971728347136\,a(n-21) - 751046754304\,a(n-22) + 1836551503872\,a(n-23) - 237498269696\,a(n-24) - 373930590208\,a(n-25) + 107911053312\,a(n-26)
+a(n)\;=\;5\,a(n-1) - 6\,a(n-2) + 123\,a(n-3) - 615\,a(n-4) + 738\,a(n-5) - 5552\,a(n-6) + 27760\,a(n-7) - 33312\,a(n-8) + 122328\,a(n-9) - 611640\,a(n-10) + 733968\,a(n-11) - 1443600\,a(n-12) + 7218000\,a(n-13) - 8661600\,a(n-14) + 9366192\,a(n-15) - 46830960\,a(n-16) + 56197152\,a(n-17) - 32980608\,a(n-18) + 164903040\,a(n-19) - 197883648\,a(n-20) + 58413312\,a(n-21) - 292066560\,a(n-22) + 350479872\,a(n-23) - 40310784\,a(n-24) + 201553920\,a(n-25) - 241864704\,a(n-26)
 \]
-for every $n>25$.
+for every $n>26$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $26$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=25+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=26+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
-Three checks, each independent of the algebra above.
+Four checks, each independent of the algebra above.
 
-First, the model reproduces all $14$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry: the digraph is built by reading the
-entry's English, and a misreading gives different counts.
+First, the model reproduces all $21$ terms the entry publishes, exactly, in integer
+arithmetic.
 
-Second, the conjectured recurrence was evaluated directly on those published terms, with no
+Second, the count was recomputed for the smallest arrays straight from the definition: every
+array was written out cell by cell and each $3\times3$ block tested directly on its nine
+entries. No rows, no window, no state and no transfer matrix are involved in that computation,
+and the published terms came back.
+
+Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
 arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A184683.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A184470.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{minc} H.~Minc, \emph{Permanents}, Addison--Wesley, 1978.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

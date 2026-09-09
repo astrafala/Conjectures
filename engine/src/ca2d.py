@@ -43,14 +43,17 @@ def parse_name(nm):
         dirs = ('left',)
     else:
         dirs = ('right',)
-    # A diagonal named "from the corner to the origin" is the same cells read the other way
-    # round, and nothing was honouring that: the direction words above only cover the x-axis,
-    # so every such name fell through to `right' and produced the word backwards. Reversing
-    # the digit string is what the name says; it is not a fit, and the model still has to
-    # reproduce every published term before anything is proved from it.
-    rev = 'diagonal' in m.group(2).lower() and 'to the origin' in mid
+    # A diagonal named "from the corner to the origin" is the same cells in the opposite
+    # order, and nothing honoured that: the direction words above only cover the x-axis, so
+    # every such name fell through to `right' and built the word from the origin outwards.
+    # It is NOT enough to reverse the finished word. Leading zeros are stripped after the row
+    # is laid out, and the zeros sit at the CORNER end; reversing afterwards strips the wrong
+    # end. Reading the cells in corner-to-origin order and stripping then matches 11 of these
+    # entries against every published term, where reversing the string matched 4.
+    if 'diagonal' in m.group(2).lower() and 'to the origin' in mid:
+        dirs = ('corner',)
     return {'rule': rule, 'base': 10 if m.group(1).lower() == 'binary' else 2,
-            'axis': m.group(2).lower(), 'dirs': dirs, 'frac': 1, 'rev': rev}
+            'axis': m.group(2).lower(), 'dirs': dirs, 'frac': 1}
 
 
 def words(rule, steps, direction, axis='x-axis'):
@@ -65,8 +68,12 @@ def words(rule, steps, direction, axis='x-axis'):
         if axis == 'x-axis':
             row = g[C][C:C + n + 1] if direction == 'right' else g[C][C - n:C + 1]
         else:
-            row = ([g[C + k][C + k] for k in range(n + 1)] if direction == 'right'
-                   else [g[C - k][C - k] for k in range(n + 1)][::-1])
+            if direction == 'corner':
+                row = [g[C + k][C + k] for k in range(n, -1, -1)]
+            elif direction == 'right':
+                row = [g[C + k][C + k] for k in range(n + 1)]
+            else:
+                row = [g[C - k][C - k] for k in range(n + 1)][::-1]
         s = ''.join(map(str, row)).lstrip('0')
         out.append(s if s else '0')
         ng = [[0] * N for _ in range(N)]
@@ -161,15 +168,13 @@ def build(p, cap=200000):
         if sh is None:
             continue
         return {'rule': p['rule'], 'B': p['base'], 'axis': p['axis'], 'dir': dr,
-                'n0': sh[0], 'p': sh[1], 'per': sh[2], 'ws': ws, 'rev': p.get('rev', False),
+                'n0': sh[0], 'p': sh[1], 'per': sh[2], 'ws': ws,
                 'S': bound(p['base'], sh[0], sh[1], sh[2])}
     return None
 
 
 def terms(b, N):
     ws = b['ws'] if N < len(b['ws']) else words(b['rule'], N + 1, b['dir'], b['axis'])
-    if b.get('rev'):
-        return [value(w[::-1], b['B']) for w in ws[:N + 1]]
     return [value(w, b['B']) for w in ws[:N + 1]]
 
 

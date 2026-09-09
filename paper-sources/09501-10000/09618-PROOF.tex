@@ -12,156 +12,128 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A251146, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A264073, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{31 August 2026}
+\date{7 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A251146 counts $6$-column arrays over $\{0,\dots,2\}$ in which every
-$2\times2$ subblock sums to one of $\{4\}$, and in which no $2\times2$ subblock has exactly two nonzero entries, and carries an empirical
-recurrence of order $5$ contributed by R.~H.~Hardin. It is true, and it is not an
-empirical matter at all: the rows of such an array are the vertices of a finite digraph in
-which the admissible row-to-row steps are the edges, so $a(n)=\mathbf{1}^{\!\top}M^{n}
-\mathbf{1}$ for the adjacency matrix $M$ of that digraph, on $S=729$ vertices. Writing
-$q$ for the characteristic polynomial of the conjectured recurrence, the recurrence holds
-for every $n$ exactly when $\mathbf{1}^{\!\top}M^{j}q(M)\mathbf{1}=0$ for all
-$j\ge0$, and the Cayley--Hamilton theorem bounds that to $j<S$. It is therefore a finite
-computation in exact integer arithmetic, and it comes out zero.
+OEIS A264073 counts the arrangements of $0,1,\dots,LW-1$ in a grid of $W=5$ columns in which
+every value moves from its home cell by an index change on a short list, and it carries an
+empirical recurrence of order $5$ contributed by R.~H.~Hardin. It is true, and it is
+decidable rather than empirical. Such an arrangement is a perfect matching between cells and
+values, and because a value's row moves by at most $R=2$, the matching splits into
+independent decisions column by column: after the cells of columns $0,\dots,i$ are filled,
+every value whose home column is at most $i-R$ has been used, and only $2R$ home columns are
+partly used. Carrying those as bitmasks makes the count a walk on $S=1048576$ vertices, so it is
+$C$-finite and the conjectured recurrence is decided by a finite exact computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A05, 05A15, 15A15.\normalsize
 
-\section{The sequence and the conjecture}
+\section{The conjecture}
 
-OEIS A251146 is ``Number of (n+1) X (5+1) 0..2 arrays with every 2 X 2 subblock summing to 4 and no 2 X 2 subblock having exactly two nonzero entries.''. It has offset $1$
-and begins
+OEIS A264073 is ``Number of (4+1) X (n+1) arrays of permutations of 0..n*5+4 with each element having index change +-(.,.) 0,0 1,1 or 1,2.''. It has offset $1$ and begins
 \[
-213, 299, 433, 667, 1061, 1743, 2925, 5003,\ \dots
+16, 377, 12100, 239580, 5645376, 130697424, 3057071776, 70815364224,\ \dots
 \]
-The entry carries the following comment:
-\begin{quote}\small
-Empirical: a(n) = 3*a(n-1) - 5*a(n-3) + a(n-4) + 2*a(n-5).
+The entry states, as a conjecture contributed by its author and never marked settled:
+\begin{quote}
+Empirical: a(n) = 24*a(n-1) -19*a(n-2) -11*a(n-3) +36*a(n-4) +3*a(n-5) for n > 9.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Nov 26 2018 16:27:47, revision 17) the statement is
-still recorded as empirical, and nothing on the entry records it as settled either way.
+As of the ``Last modified'' line on the live entry (Mar 26 2025 19:12:44, revision 11) this is still
+recorded as empirical, and nothing on the entry records it as proved.
 
-Written out, the claim is
-\begin{equation}\label{eq:conj}
-a(n)\;=\;3\,a(n-1) - 5\,a(n-3) + a(n-4) + 2\,a(n-5)
-\end{equation}
-for all $n>5$, which is every $n$ at which a recurrence of order $5$ can be
-stated.
+\section{The object is a matching}
 
-\section{The rows form a digraph}
-
-Let $V=\{0,1,\dots,2\}^{6}$, the set of possible rows, so $|V|=S=729$. For
-$r,s\in V$ declare $r\to s$ an edge when, for every $j$ with $1\le j\le 6-1$,
-\begin{itemize}
-\item $r_j+r_{j+1}+s_j+s_{j+1}\in\{4\}$;
-\item the four entries $r_j,r_{j+1},s_j,s_{j+1}$ do not include exactly two nonzero ones, that is $\#\bigl\{v\in\{r_j,r_{j+1},s_j,s_{j+1}\}: v\ne0\bigr\}\ne2$;
-\end{itemize}
-that is, when placing the row $s$ directly under the row $r$ satisfies the entry's
-condition on every $2\times2$ subblock formed by those two rows. Let $M\in\{0,1\}^{S\times
-S}$ be the adjacency matrix of this digraph and $\mathbf{1}$ the all-ones vector.
-
-\begin{lemma}\label{lem:walk}
-The arrays counted by the entry with $n+1$ rows are exactly the walks
-$r^{(0)}\to r^{(1)}\to\cdots\to r^{(n)}$ of length $n$ in this digraph. Consequently
+The grid has $W=5$ columns across and holds each of $0,1,\dots,LW-1$ exactly once. The value
+$v$ has a HOME cell, namely its place in the plain row-major filling, and putting $v$ in cell
+$(i,j)$ changes its index by $(i-h_i,\,j-h_j)$ where $(h_i,h_j)$ is that home cell. The entry
+allows the index changes
 \[
-a(n)\;=\;\mathbf{1}^{\!\top}M^{n}\mathbf{1} .
+(i-h_i,\,j-h_j)\;\in\;\{(-2,-1),\ (-1,-1),\ (0,0),\ (1,1),\ (2,1)\},
 \]
-\end{lemma}
+the list being the entry's own, read with the sign convention its wording uses. An admissible
+arrangement is therefore exactly a perfect matching in the bipartite graph joining each cell to
+the values it may hold.
 
-\begin{proof}
-An array with $n+1$ rows and $6$ columns is precisely a sequence
-$r^{(0)},\dots,r^{(n)}$ of elements of $V$. Every $2\times2$ subblock of the array lies
-in two vertically adjacent rows $r^{(i)},r^{(i+1)}$ and in two horizontally adjacent
-columns $j,j+1$; so the array satisfies the entry's condition on all of its $2\times2$
-subblocks if and only if each consecutive pair $\bigl(r^{(i)},r^{(i+1)}\bigr)$ satisfies
-it on all column pairs, which is exactly the edge relation. Counting walks of length $n$ by
-summing over all starting and ending vertices gives
-$\mathbf{1}^{\!\top}M^{n}\mathbf{1}$, since
-$\bigl(M^{n}\bigr)_{r,s}$ is the number of walks of length $n$ from $r$ to $s$.
-\end{proof}
+\section{The matching is a walk}
 
-\section{The criterion}
+Let $R=2$ be the largest $|i-h_i|$ on the list. A value whose home column is $h$ can only be
+placed in columns $h-R,\dots,h+R$. So once the cells of columns $0,\dots,i$ are filled, every
+value with home column at most $i-R$ has been used up, and the only home columns that can be
+partly used are $i-R+1,\dots,i+R$ --- exactly $2R$ of them. Take as the state the tuple of
+$2R$ bitmasks recording which values of those home columns are already placed. One step fills
+the cells of one further column, drawing each of its $W$ values from a home column within $R$
+and at an allowed column offset, and the home column that closes at that step must come out
+full. Nonexistent home columns --- before the first and after the last --- are carried as
+full, which makes the starting and accepting states the same one.
 
-Let $q(t)=t^{5}-\sum_{i}c_i\,t^{5-i}$ be the characteristic polynomial of
-\eqref{eq:conj}, with the $c_i$ read off that equation.
+Hence $a$ is a walk count on $S=1048576$ vertices,
+\[
+a(n)\;=\;\iota^{\!\top}M^{\,n+1}\tau ,
+\]
+the exponent fixed by the entry's own shape and checked against its published terms; in
+particular $a$ is $C$-finite.
+
+\section{The proof}
 
 \begin{lemma}\label{lem:crit}
-For every $n\ge5$,
-\[
-a(n)-\sum_i c_i\,a(n-i)\;=\;\mathbf{1}^{\!\top}M^{\,n-5}\,q(M)\,\mathbf{1} .
-\]
-Hence \eqref{eq:conj} holds for every $n\ge5$ if and only if
-$\mathbf{1}^{\!\top}M^{j}q(M)\mathbf{1}=0$ for every $j\ge0$; and it is enough to
-check $j=0,1,\dots,S-1$.
+Let $q(t)=t^{5}-\sum_i c_it^{5-i}$ be the characteristic polynomial of the
+conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
+$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
+holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$;
+and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-By Lemma~\ref{lem:walk}, $a(n-i)=\mathbf{1}^{\!\top}M^{n-i}\mathbf{1}$, so
-\[
-a(n)-\sum_i c_i a(n-i)
-=\mathbf{1}^{\!\top}\Bigl(M^{n}-\sum_i c_i M^{n-i}\Bigr)\mathbf{1}
-=\mathbf{1}^{\!\top}M^{\,n-5}\Bigl(M^{5}-\sum_i c_i M^{5-i}\Bigr)\mathbf{1},
-\]
-which is the stated identity. The equivalence follows by letting $n-5=j$ run over
-$\ge0$. For the last clause put $w=q(M)\mathbf{1}$. By the Cayley--Hamilton theorem
-$M^{S}$ is an integer combination of $I,M,\dots,M^{S-1}$, so
-$\mathbf{1}^{\!\top}M^{j}w$ for $j\ge S$ is the corresponding combination of the
-earlier values; if those all vanish, so do all the rest.
+Factor $M^{j}$ out of $M^{j+5}-\sum_ic_iM^{j+5-i}$. For the bound, $M^{S}$
+is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
+$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
+polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
+pins the threshold exactly.
 \end{proof}
 
-\section{The computation}
-
 \begin{theorem}
-The recurrence \eqref{eq:conj} holds for every $n>5$. This is the statement of
-Section~1.
+\[
+a(n)\;=\;24\,a(n-1) - 19\,a(n-2) - 11\,a(n-3) + 36\,a(n-4) + 3\,a(n-5)
+\]
+for every $n>9$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\mathbf{1}\in\mathbb{Z}^{S}$ was formed by $5$ matrix--vector
-products in exact integer arithmetic, and $\mathbf{1}^{\!\top}M^{j}w$ was evaluated for
-$j=0,1,\dots$ in exact integer arithmetic. Every one of those integers is $0$ from
-$j=5-5+1$ onwards, and the run was continued past $S$ consecutive zeros, which by
-Lemma~\ref{lem:crit} settles every larger $j$ as well. Hence the recurrence holds for
-every $n>5$.
+The vector $w=q(M)\tau$ was formed by $5$ matrix--vector products in exact integer
+arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
+integers vanish from the index corresponding to $n=9+1$ onwards and the run continued
+until the working vector was identically zero, settling every larger $j$ at once. The bound is exact: at $n=9$ the recurrence fails on the entry's own published terms, so no larger range holds.
 \end{proof}
-
-\begin{remark}
-The argument gives more than the recurrence: it shows the sequence is $C$-finite with
-characteristic polynomial dividing that of $M$, so it has a rational generating function
-whose denominator divides $\det(I-xM)$. The conjectured recurrence is one consequence; the
-minimal one is a divisor of $q$.
-\end{remark}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the digraph was built directly from the entry's stated condition and the walk counts
-$\mathbf{1}^{\!\top}M^{n}\mathbf{1}$ compared against the entry's DATA at every one of
-the $29$ published indices; the values agree exactly. That is what ties the digraph to
-the sequence: a model that reproduced only some of the published terms would be the wrong
-model, and would have been rejected.
+First, the reading of the entry's wording was tested against the entries themselves by brute
+force before any of this was built, and separately for each of the three sign conventions the
+family uses: ``$(\pm,\pm)$ $a,b$'' signs each coordinate independently, ``$\pm(.,.)$ $a,b$''
+signs the PAIR and may write the second coordinate negative, and ``directed $a,b$'' is taken
+literally. Enumerating all $720$ arrangements of a $2\times3$ grid reproduces the first term
+of an entry of each convention. Testing only one of them would have proved only that one:
+reading the second convention as the first silently drops displacements, and thirty-eight
+entries disagreed with their own published data until the conventions were separated.
 
-Second, the recurrence \eqref{eq:conj} was evaluated on those published terms in exact
-integer arithmetic, with no matrices involved, and vanishes wherever it applies.
+Second, the transfer model reproduces all $17$ terms this entry publishes, exactly, in
+integer arithmetic.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was run to the full Cayley--Hamilton
-bound $j<S=729$ rather than to a sampled prefix, in exact integer arithmetic, and returned
-zero throughout.
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A251146.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A264073.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
-University Press, 2009.
+\bibitem{lp} L.~Lov\'asz and M.~D.~Plummer, \emph{Matching Theory}, AMS Chelsea, 2009.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

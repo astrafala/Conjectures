@@ -12,22 +12,22 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A296318: recovering a conjecture that is not written down}
+\title{The empirical recurrence for OEIS A299652: recovering a conjecture that is not written down}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A296318 records ``Empirical recurrence of order $85$'', with the recurrence itself in a
+OEIS A299652 records ``Empirical recurrence of order $89$'', with the recurrence itself in a
 linked file rather than in the entry. The conjecture can nevertheless be settled, and the
 recurrence recovered, without reading that file. The entry counts arrays under a condition
 local to a bounded window of lines, so the count is a walk count on a finite digraph and
 satisfies some monic recurrence of order at most the number of its states with distinct
-futures, here $S'=104$; Berlekamp--Massey applied to $2S'$ exact
-terms therefore returns the MINIMAL such recurrence. Its order is exactly $85$, the order
+futures, here $S'=139$; Berlekamp--Massey applied to $2S'$ exact
+terms therefore returns the MINIMAL such recurrence. Its order is exactly $89$, the order
 the entry states, and the same is true of every tail of the sequence. Any recurrence of order
-$85$ that the sequence satisfies from any point on must then have a characteristic
+$89$ that the sequence satisfies from any point on must then have a characteristic
 polynomial that is a multiple of the minimal one and of the same degree, hence equal to it. So
 the entry's recurrence is the one displayed here, whatever its file contains, and it is
 proved.
@@ -37,15 +37,15 @@ proved.
 
 \section{A conjecture one cannot read}
 
-OEIS A296318 is ``Number of nX6 0..1 arrays with each 1 horizontally, vertically or antidiagonally adjacent to 1 neighboring 1.''. It has offset $1$ and begins
+OEIS A299652 is ``Number of nX6 0..1 arrays with every element equal to 0, 1, 2, 3, 4, 5 or 6 king-move adjacent elements, with upper left element zero.''. It has offset $1$ and begins
 \[
-9, 132, 902, 8470, 77426, 676269, 6069953, 54182821,\ \dots
+32, 2048, 116654, 6856789, 401989538, 23582064542, 1383316377321, 81146123707386,\ \dots
 \]
 The entry states:
 \begin{quote}
-Empirical recurrence of order 85 (see link above)
+Empirical recurrence of order 89 (see link above)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Dec 10 2017 11:30:57, revision 4) this is still
+As of the ``Last modified'' line on the live entry (Feb 15 2018 14:41:35, revision 4) this is still
 recorded as empirical. The recurrence's coefficients are not in the entry text.
 
 \section{The count is a walk count}
@@ -55,12 +55,12 @@ array and nothing further. The admissible configurations of one such window are 
 of a finite digraph, an edge joining $u$ to $v$ when $v$ may follow $u$, and an admissible
 array is exactly a walk. Hence, with $M$ the adjacency matrix on $S=4096$ vertices,
 $a(n)=\iota^{\!\top}M^{\,j(n)}\tau$ for a linear reindexing $j$ fixed by the entry's shape
-and checked against its published terms. States with the same future contribute identically to $\iota^{\!\top}M^n\tau$, so they may be merged without changing any count; merging leaves $S'=104$ of the $4096$, and it is that smaller bound the computation below uses. By the Cayley--Hamilton theorem $M^{S}$ is an
+and checked against its published terms. States with the same future contribute identically to $\iota^{\!\top}M^n\tau$, so they may be merged without changing any count; merging leaves $S'=139$ of the $4096$, and it is that smaller bound the computation below uses. By the Cayley--Hamilton theorem $M^{S}$ is an
 integer combination of $I,M,\dots,M^{S-1}$, so:
 
 \begin{lemma}\label{lem:cf}
 $a$ satisfies a monic linear recurrence with integer coefficients of order at most
-$S'=104$.
+$S'=139$.
 \end{lemma}
 
 \section{Recovering the recurrence}
@@ -71,35 +71,36 @@ with its minimal recurrence, by its first $2S$ terms: Berlekamp--Massey applied 
 that minimal recurrence exactly.
 \end{lemma}
 
-Running it on $2S'=208$ exact terms of the model returns order $85$ --- the order the
+Running it on $2S'=278$ exact terms of the model returns order $89$ --- the order the
 entry states --- with the integer coefficients
 \[
-a(n)\;=\;\sum_{i=1}^{85}c_i\,a(n-i),
+a(n)\;=\;\sum_{i=1}^{89}c_i\,a(n-i),
 \]
 \begin{center}\small
 \begin{tabular}{cccccccc}
-$c_{1}$ & $1$ & $c_{23}$ & $-170172411$ & $c_{45}$ & $-19632194809$ & $c_{67}$ & $-4595507$ \\
-$c_{2}$ & $34$ & $c_{24}$ & $-138246120$ & $c_{46}$ & $57069098674$ & $c_{68}$ & $15044368$ \\
-$c_{3}$ & $254$ & $c_{25}$ & $548376965$ & $c_{47}$ & $-16644741108$ & $c_{69}$ & $1671757$ \\
-$c_{4}$ & $541$ & $c_{26}$ & $363310138$ & $c_{48}$ & $-25230516411$ & $c_{70}$ & $-3035412$ \\
-$c_{5}$ & $1147$ & $c_{27}$ & $-3722832580$ & $c_{49}$ & $34759355221$ & $c_{71}$ & $9043$ \\
-$c_{6}$ & $-1356$ & $c_{28}$ & $4613086816$ & $c_{50}$ & $5648048196$ & $c_{72}$ & $478984$ \\
-$c_{7}$ & $3203$ & $c_{29}$ & $14547300989$ & $c_{51}$ & $-29577153262$ & $c_{73}$ & $84081$ \\
-$c_{8}$ & $-28096$ & $c_{30}$ & $-23498786767$ & $c_{52}$ & $7807264301$ & $c_{74}$ & $-82419$ \\
-$c_{9}$ & $36458$ & $c_{31}$ & $-33010084429$ & $c_{53}$ & $20745674108$ & $c_{75}$ & $18613$ \\
-$c_{10}$ & $-226969$ & $c_{32}$ & $58287129343$ & $c_{54}$ & $-9429113950$ & $c_{76}$ & $-2237$ \\
-$c_{11}$ & $566326$ & $c_{33}$ & $40270296962$ & $c_{55}$ & $-10974952360$ & $c_{77}$ & $3925$ \\
-$c_{12}$ & $-1750033$ & $c_{34}$ & $-86490524723$ & $c_{56}$ & $6537286062$ & $c_{78}$ & $-801$ \\
-$c_{13}$ & $6453422$ & $c_{35}$ & $-12776345613$ & $c_{57}$ & $4261990865$ & $c_{79}$ & $822$ \\
-$c_{14}$ & $-12737480$ & $c_{36}$ & $76349189039$ & $c_{58}$ & $-3805409336$ & $c_{80}$ & $-255$ \\
-$c_{15}$ & $17922681$ & $c_{37}$ & $-45674551190$ & $c_{59}$ & $-1487739230$ & $c_{81}$ & $51$ \\
-$c_{16}$ & $-22286052$ & $c_{38}$ & $-26300961979$ & $c_{60}$ & $1611274364$ & $c_{82}$ & $-11$ \\
-$c_{17}$ & $44435546$ & $c_{39}$ & $96523771268$ & $c_{61}$ & $430396530$ & $c_{83}$ & $12$ \\
-$c_{18}$ & $-79080791$ & $c_{40}$ & $-32684483322$ & $c_{62}$ & $-621121749$ & $c_{84}$ & $-1$ \\
-$c_{19}$ & $-22286470$ & $c_{41}$ & $-100650521911$ & $c_{63}$ & $-119779838$ & $c_{85}$ & $1$ \\
-$c_{20}$ & $85939463$ & $c_{42}$ & $73095558107$ & $c_{64}$ & $201376982$ &  &  \\
-$c_{21}$ & $303807920$ & $c_{43}$ & $63962995516$ & $c_{65}$ & $34583191$ &  &  \\
-$c_{22}$ & $-371846206$ & $c_{44}$ & $-81425595328$ & $c_{66}$ & $-57768396$ &  &  \\
+$c_{1}$ & $45$ & $c_{24}$ & $-160241288129692710$ & $c_{47}$ & $-37074847921775609017664$ & $c_{70}$ & $148606556596783736397$ \\
+$c_{2}$ & $685$ & $c_{25}$ & $703597124967186412$ & $c_{48}$ & $37574858190677741649486$ & $c_{71}$ & $1739698649382486799$ \\
+$c_{3}$ & $6896$ & $c_{26}$ & $2358379438036629620$ & $c_{49}$ & $98415317451825207321024$ & $c_{72}$ & $37231588170678902265$ \\
+$c_{4}$ & $7388$ & $c_{27}$ & $748126339532418538$ & $c_{50}$ & $59712939215567419834835$ & $c_{73}$ & $-14036585723959473661$ \\
+$c_{5}$ & $-587642$ & $c_{28}$ & $-12005769150289406372$ & $c_{51}$ & $-17610836782760742044873$ & $c_{74}$ & $1748841162738329934$ \\
+$c_{6}$ & $-5137785$ & $c_{29}$ & $-24709124643214372990$ & $c_{52}$ & $-88898327540238688236011$ & $c_{75}$ & $-4092742387796047626$ \\
+$c_{7}$ & $-22488936$ & $c_{30}$ & $8174126914712582666$ & $c_{53}$ & $-68788681658031817262905$ & $c_{76}$ & $959397241599869456$ \\
+$c_{8}$ & $121035777$ & $c_{31}$ & $128452456556491090997$ & $c_{54}$ & $-16146290869081949184463$ & $c_{77}$ & $-210504176684641741$ \\
+$c_{9}$ & $1388353946$ & $c_{32}$ & $172670027085128805342$ & $c_{55}$ & $46626562124286795518096$ & $c_{78}$ & $337895753939227255$ \\
+$c_{10}$ & $4641703813$ & $c_{33}$ & $-160786530127593364449$ & $c_{56}$ & $50375215779377890146301$ & $c_{79}$ & $-46248800891661243$ \\
+$c_{11}$ & $-18962560598$ & $c_{34}$ & $-911167696715097227186$ & $c_{57}$ & $31755716379107646206876$ & $c_{80}$ & $15218975935868918$ \\
+$c_{12}$ & $-180728750867$ & $c_{35}$ & $-827758896029194702936$ & $c_{58}$ & $-7255797950091347413407$ & $c_{81}$ & $-26640041547105348$ \\
+$c_{13}$ & $-358448598872$ & $c_{36}$ & $1249252657625433882401$ & $c_{59}$ & $-19737116223750379998995$ & $c_{82}$ & $-1305462836572066$ \\
+$c_{14}$ & $2113145698980$ & $c_{37}$ & $4453682835085866219314$ & $c_{60}$ & $-20988934504762543670006$ & $c_{83}$ & $-1635594896350490$ \\
+$c_{15}$ & $12806201225242$ & $c_{38}$ & $2864852340451596432962$ & $c_{61}$ & $-5709878614657499013897$ & $c_{84}$ & $1040327050729556$ \\
+$c_{16}$ & $9666729162413$ & $c_{39}$ & $-5710915084408300163693$ & $c_{62}$ & $2438886660983004204831$ & $c_{85}$ & $167226924919836$ \\
+$c_{17}$ & $-143151426513450$ & $c_{40}$ & $-15503464004664200419602$ & $c_{63}$ & $5923382807754865173092$ & $c_{86}$ & $70057555024376$ \\
+$c_{18}$ & $-522113640252669$ & $c_{41}$ & $-7819565736280809835220$ & $c_{64}$ & $3736715786220558800007$ & $c_{87}$ & $-6172127716640$ \\
+$c_{19}$ & $223134548673155$ & $c_{42}$ & $16812398458851664741486$ & $c_{65}$ & $480309484321399849164$ & $c_{88}$ & $-183968914432$ \\
+$c_{20}$ & $5826877662001538$ & $c_{43}$ & $39384229407458282457264$ & $c_{66}$ & $-352528524902534518402$ & $c_{89}$ & $15336896512$ \\
+$c_{21}$ & $12378923897166837$ & $c_{44}$ & $18332524477142358567420$ & $c_{67}$ & $-978952633528360932019$ &  &  \\
+$c_{22}$ & $-22847934809531269$ & $c_{45}$ & $-32280502610597189398486$ & $c_{68}$ & $-119033511438587420340$ &  &  \\
+$c_{23}$ & $-146873940773101905$ & $c_{46}$ & $-73463367865884694523636$ & $c_{69}$ & $-149411965596135500156$ &  &  \\
 \end{tabular}
 \end{center}
 
@@ -110,10 +111,10 @@ The recurrence above holds for every $n$, and it is the recurrence the entry rec
 \begin{proof}
 It holds by Lemma~\ref{lem:bm}, which returns a recurrence the sequence satisfies from its
 first term. For the identification: the entry asserts that the sequence satisfies SOME
-recurrence of order $85$, possibly only from some index on. Let $q$ be that recurrence's
+recurrence of order $89$, possibly only from some index on. Let $q$ be that recurrence's
 characteristic polynomial and $q_{\min}$ the minimal polynomial of the tail of the sequence.
-Then $q_{\min}\mid q$. Berlekamp--Massey run on the sequence with its first $85+4$ terms
-removed returns order $85$ as well, so $\deg q_{\min}=85=\deg q$; both are monic, so
+Then $q_{\min}\mid q$. Berlekamp--Massey run on the sequence with its first $89+4$ terms
+removed returns order $89$ as well, so $\deg q_{\min}=89=\deg q$; both are monic, so
 $q=q_{\min}$, which is the polynomial computed above.
 \end{proof}
 
@@ -121,7 +122,7 @@ $q=q_{\min}$, which is the polynomial computed above.
 
 Three checks.
 
-First, the walk model reproduces all $18$ terms the entry publishes, exactly, in integer
+First, the walk model reproduces all $14$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry, and it is the only place where reading
 the entry's English enters.
 
@@ -131,18 +132,18 @@ enough earlier terms to test it.
 
 Third, the order was computed twice by independent routes: once modulo a $61$-bit prime, where
 every intermediate is a machine word, and once in exact rational arithmetic; and once more on
-the sequence with its first $85+4$ terms removed, which is what the identification above
+the sequence with its first $89+4$ terms removed, which is what the identification above
 requires. All three agree.
 
 \begin{remark}
 What is unusual here is that the conjecture's statement was never read. The entry pins it down
-to a one-parameter family --- the recurrences of order $85$ that this sequence satisfies
+to a one-parameter family --- the recurrences of order $89$ that this sequence satisfies
 --- and that family turns out to have exactly one member.
 \end{remark}
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A296318.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A299652.
 \bibitem{massey} J.~L.~Massey, Shift-register synthesis and BCH decoding, \emph{IEEE
 Trans. Inform. Theory} \textbf{15} (1969), 122--127.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,

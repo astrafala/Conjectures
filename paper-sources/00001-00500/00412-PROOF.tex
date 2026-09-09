@@ -12,148 +12,161 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A229539, proved by counting defective colourings}
+\title{The empirical recurrence for OEIS A279154, proved by counting patterns with a budget}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A229539 counts the colourings of an array with $K=3$ colours that are proper except at
-exactly one adjacent pair, the colours being introduced in row
-major order. Neither feature is local: the number of monochromatic adjacent pairs is a
-property of the whole array, and the row major clause fixes a representative of each
-relabelling class. Both are removed by machinery already in hand --- the running count of
-mistakes goes into the state, capped at $1$, and the colour clause disappears into the
-identity $3!\,a(n)=\sum_i\binom{3}{i}D_{3-i}L_i(n)$ with $D_m$ the derangement
-numbers. What is left is a walk count on $S=1588$ vertices, and the empirical recurrence of
-order $46$ contributed by R.~H.~Hardin follows from a finite exact computation.
+OEIS A279154 imposes three things at once: a condition on each cell that reaches one row up and
+one row down; a global budget allowing exactly one cell to
+break it; and the clause ``new values introduced in order $0$ sequentially upwards'', which
+says the array is written in canonical form. None of the three is visible to a plain transfer
+matrix over rows. All three are handled: the state is a pair of consecutive rows
+together with the number of offending cells so far, capped at the budget; and the
+canonical-form clause is removed by counting equality patterns instead of arrays, through the
+identity $2!\,a(n)=\sum_i\binom{2}{i}D_{2-i}L_i(n)$ with $D_m$ the derangement
+numbers. The empirical recurrence of order $56$ contributed by R.~H.~Hardin then follows
+from a finite exact computation on $S=514$ states.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05C15, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A18, 15B36.\normalsize
 
 \section{The sequence and the conjecture}
 
-OEIS A229539 is ``Number of defective 3-colorings of a 6 X n 0..2 array connected horizontally, diagonally and antidiagonally with exactly one mistake, and colors introduced in row-major 0..2 order.''. It has offset $1$ and begins
+OEIS A279154 is ``Number of nX4 0..1 arrays with no element equal to a strict majority of its king-move neighbors, with the exception of exactly one element, and with new values introduced in order 0 sequentially upwards.''. It has offset $1$ and begins
 \[
-0, 1188, 11184, 185808, 2451728, 34811238, 463976296, 6218438820,\ \dots
+2, 12, 72, 428, 2294, 11932, 60304, 297092,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 12*a(n-1) + 182*a(n-2) - 1820*a(n-3) - 15113*a(n-4) + 101664*a(n-5) + 646022*a(n-6) - 3003324*a(n-7) -1 5725808*a(n-8) + 55305760*a(n-9) + 234926070*a(n-10) - 698528578*a(n-11) - 2270736611*a(n-12) + 6320752450*a(n-13) + 14600825558*a(n-14) - 41434331996*a(n-15) - 62768577651*a(n-16) + 196263429930*a(n-17) + 176943063476*a(n-18) - 669462409316*a(n-19) - 305019512324*a(n-20) + 1647405492614*a(n-21) + 230358934675*a(n-22) - 2942270801898*a(n-23) + 243588718325*a(n-24) + 3841770422896*a(n-25) - 923967990222*a(n-26) - 3689384232910*a(n-27) + 1300617284437*a(n-28) + 2614259101122*a(n-29) - 1127033659748*a(n-30) - 1366254718948*a(n-31) + 660843537364*a(n-32) + 524090586634*a(n-33) - 269727615782*a(n-34) - 146010681184*a(n-35) + 76928224259*a(n-36) + 28983533038*a(n-37) - 15160113967*a(n-38) - 3964319226*a(n-39) + 2009807783*a(n-40) + 352152984*a(n-41) -1 70267256*a(n-42) - 18138336*a(n-43) + 8296524*a(n-44) + 408240*a(n-45) - 176400*a(n-46) for n > 48.
+Empirical: a(n) = 14*a(n-1) -79*a(n-2) +296*a(n-3) -1137*a(n-4) +3786*a(n-5) -9491*a(n-6) +25574*a(n-7) -66007*a(n-8) +125068*a(n-9) -286655*a(n-10) +644352*a(n-11) -935651*a(n-12) +2106274*a(n-13) -4254326*a(n-14) +4407958*a(n-15) -11660139*a(n-16) +20200812*a(n-17) -12942101*a(n-18) +52398124*a(n-19) -69889240*a(n-20) +21188756*a(n-21) -190043003*a(n-22) +177570770*a(n-23) -9931732*a(n-24) +525736690*a(n-25) -354049840*a(n-26) -26853854*a(n-27) -1062956470*a(n-28) +606320574*a(n-29) +18947687*a(n-30) +1546195654*a(n-31) -882316499*a(n-32) +192000088*a(n-33) -1655999570*a(n-34) +946806094*a(n-35) -559625950*a(n-36) +1454800834*a(n-37) -725310313*a(n-38) +650909536*a(n-39) -1073036990*a(n-40) +514311888*a(n-41) -448474953*a(n-42) +540383844*a(n-43) -298642984*a(n-44) +247525328*a(n-45) -191218312*a(n-46) +91813964*a(n-47) -69588676*a(n-48) +52628912*a(n-49) -21603676*a(n-50) +3806952*a(n-51) -2143540*a(n-52) +961488*a(n-53) -183280*a(n-54) -15808*a(n-55) -23104*a(n-56) for n>57
 \end{quote}
-As of the ``Last modified'' line on the live entry (Apr 27 2021 21:09:10, revision 8) the statement is
+As of the ``Last modified'' line on the live entry (Dec 06 2016 22:54:22, revision 4) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;12\,a(n-1) + 182\,a(n-2) - 1820\,a(n-3) - 15113\,a(n-4) + 101664\,a(n-5) + 646022\,a(n-6) - 3003324\,a(n-7) - 15725808\,a(n-8) + 55305760\,a(n-9) + 234926070\,a(n-10) - 698528578\,a(n-11) - 2270736611\,a(n-12) + 6320752450\,a(n-13) + 14600825558\,a(n-14) - 41434331996\,a(n-15) - 62768577651\,a(n-16) + 196263429930\,a(n-17) + 176943063476\,a(n-18) - 669462409316\,a(n-19) - 305019512324\,a(n-20) + 1647405492614\,a(n-21) + 230358934675\,a(n-22) - 2942270801898\,a(n-23) + 243588718325\,a(n-24) + 3841770422896\,a(n-25) - 923967990222\,a(n-26) - 3689384232910\,a(n-27) + 1300617284437\,a(n-28) + 2614259101122\,a(n-29) - 1127033659748\,a(n-30) - 1366254718948\,a(n-31) + 660843537364\,a(n-32) + 524090586634\,a(n-33) - 269727615782\,a(n-34) - 146010681184\,a(n-35) + 76928224259\,a(n-36) + 28983533038\,a(n-37) - 15160113967\,a(n-38) - 3964319226\,a(n-39) + 2009807783\,a(n-40) + 352152984\,a(n-41) - 170267256\,a(n-42) - 18138336\,a(n-43) + 8296524\,a(n-44) + 408240\,a(n-45) - 176400\,a(n-46)
+a(n)\;=\;14\,a(n-1) - 79\,a(n-2) + 296\,a(n-3) - 1137\,a(n-4) + 3786\,a(n-5) - 9491\,a(n-6) + 25574\,a(n-7) - 66007\,a(n-8) + 125068\,a(n-9) - 286655\,a(n-10) + 644352\,a(n-11) - 935651\,a(n-12) + 2106274\,a(n-13) - 4254326\,a(n-14) + 4407958\,a(n-15) - 11660139\,a(n-16) + 20200812\,a(n-17) - 12942101\,a(n-18) + 52398124\,a(n-19) - 69889240\,a(n-20) + 21188756\,a(n-21) - 190043003\,a(n-22) + 177570770\,a(n-23) - 9931732\,a(n-24) + 525736690\,a(n-25) - 354049840\,a(n-26) - 26853854\,a(n-27) - 1062956470\,a(n-28) + 606320574\,a(n-29) + 18947687\,a(n-30) + 1546195654\,a(n-31) - 882316499\,a(n-32) + 192000088\,a(n-33) - 1655999570\,a(n-34) + 946806094\,a(n-35) - 559625950\,a(n-36) + 1454800834\,a(n-37) - 725310313\,a(n-38) + 650909536\,a(n-39) - 1073036990\,a(n-40) + 514311888\,a(n-41) - 448474953\,a(n-42) + 540383844\,a(n-43) - 298642984\,a(n-44) + 247525328\,a(n-45) - 191218312\,a(n-46) + 91813964\,a(n-47) - 69588676\,a(n-48) + 52628912\,a(n-49) - 21603676\,a(n-50) + 3806952\,a(n-51) - 2143540\,a(n-52) + 961488\,a(n-53) - 183280\,a(n-54) - 15808\,a(n-55) - 23104\,a(n-56)
 \end{equation}
-for all $n>48$.
+for all $n>57$.
 
-\section{Mistakes, and the colour clause}
+\section{The condition, the budget, and the canonical form}
 
-The arrays have $6$ rows and $L=n$ columns, entries in $\{0,\dots,3-1\}$.
-Two cells are adjacent when they differ by one of
+The arrays have $4$ columns and $L=n$ rows; write $x_{t,u}$ for the entry in
+row $t$ and column $u$. With the neighbour offsets
 \[
-\mathcal N=\{(1,0),\ (1,1),\ (1,-1)\}
+\mathcal N=\{(0,-1),\ (0,1),\ (-1,0),\ (1,0),\ (-1,-1),\ (1,1),\ (-1,1),\ (1,-1)\}
 \]
-(as (column shift, row shift)); each unordered adjacency is represented by exactly one
-offset, and every offset has a nonnegative column shift, so the pairs inside a column are
-counted when that column is laid down and the pairs joining two columns when the later one
-is. Call an adjacent pair a \emph{mistake} when $x_{t,u}=x_{t+d_1,\,u+d_2}$. The entry asks for exactly
-$E=1$ mistakes.
+as (row shift, column shift), counting only positions inside the array, call a cell
+$(t,u)$ \emph{offending} when
+\[
+2\,\#\{\text{neighbours equal to }x_{t,u}\}>\#\{\text{neighbours}\} .
+\]
+The entry asks for arrays in which exactly $E=1$ cells offend.
 
-That is a statement about the whole array, so no bounded window sees it; but the running
-number of mistakes can be carried in the state, capped at $1$, the states past $1$ being
-absent because a count that has passed the budget can never come back.
+Since $\mathcal N$ contains offsets of both signs in the row direction, a cell of row
+$t$ is judged by rows $t-1$, $t$ and $t+1$ together, so a state carrying one row is not
+enough; and the number of offending cells is a property of the whole array, so no bounded
+window sees it either. Both are fixed by the same device: states are ordered pairs of
+consecutive rows together with a running count $v\in\{0,1,\dots,1\}$, and a count that
+would exceed $1$ is simply not represented --- an array that passes it can never come back
+under it.
 
-The condition is stated in equalities, so it is invariant under relabelling the colours, and
-so is the number of mistakes. ``Colors introduced in row-major order'' keeps exactly one
-colouring from each relabelling class, so the entry counts equality PATTERNS with at most
-$K=3$ classes.
+The condition is stated in equalities between entries, so it is invariant under relabelling
+the values, and so is the number of offending cells. The clause ``new values introduced in
+order $0$ sequentially upwards'' keeps exactly one array from each relabelling class, so what
+the entry counts is admissible equality PATTERNS with at most $K=2$ classes.
 
 \begin{lemma}\label{lem:inv}
-Let $L_i(n)$ count the colourings over $i$ colours with exactly $1$ mistakes, and $N_j(n)$
-the admissible patterns with exactly $j$ classes. Then
+Let $L_i(n)$ count the arrays over an alphabet of $i$ letters with exactly $1$ offending
+cells, and $N_j(n)$ the admissible patterns with exactly $j$ classes. Then
 $L_i=\sum_j N_j\,i(i-1)\cdots(i-j+1)$ and
 \[
-3!\,\sum_{j\le3}N_j(n)=\sum_{i=0}^{3}\binom{3}{i}D_{3-i}L_i(n),
+2!\,\sum_{j\le2}N_j(n)=\sum_{i=0}^{2}\binom{2}{i}D_{2-i}L_i(n),
 \qquad D_m=m!\sum_{t=0}^{m}\frac{(-1)^t}{t!} .
 \]
 \end{lemma}
 
 \begin{proof}
-A colouring is a pattern together with an injection of its classes into the palette, and a
-pattern with $j$ classes admits $i(i-1)\cdots(i-j+1)$ of them, which is the first identity.
-Writing the falling factorial as $j!\binom{i}{j}$ and inverting binomially gives
-$j!N_j=\sum_i(-1)^{j-i}\binom{j}{i}L_i$; summing over $j\le3$ and exchanging the order
-of summation makes the coefficient of $L_i$ equal to $\sum_{t\le3-i}(-1)^t/(i!\,t!)$,
-which multiplied by $3!$ is $\binom{3}{i}D_{3-i}$, an integer.
+A labelled array is a pattern together with an injection of its classes into the alphabet,
+and a pattern with $j$ classes admits $i(i-1)\cdots(i-j+1)$ of them, which gives the first
+identity. Writing the falling factorial as $j!\binom{i}{j}$ and inverting binomially,
+$j!N_j=\sum_i(-1)^{j-i}\binom{j}{i}L_i$; summing over $j\le2$ and exchanging the
+order of summation makes the coefficient of $L_i$ equal to
+$\sum_{t\le2-i}(-1)^t/(i!\,t!)$, which multiplied by $2!$ is
+$\binom{2}{i}D_{2-i}$, an integer.
 \end{proof}
 
 \section{Each $L_i$ is a walk count}
 
-Fix $i$ and take as vertices the pairs $(r,c)$ with $r\in\{0,\dots,i-1\}^{6}$ a column
-and $0\le c\le1$ a running count. Write $\beta(r,s)$ for the number of mistakes joining
-columns $r$ and $s$ plus the number of mistakes inside $s$. Declare $(r,c)\to(s,c+\beta(r,s))$
-an edge when $c+\beta(r,s)\le1$, let $\mathbf{s}_i$ mark the vertices whose count is the
-number of mistakes inside $r$ alone, and $\mathbf{e}_i$ those with $c=1$.
+Fix $i$, let $V_i=\{0,\dots,i-1\}^{4}$, and take the triples $(p,c,v)$ with
+$p,c\in V_i$ and $0\le v\le1$ as vertices. Write $\mathrm{viol}(b\mid a,x)$ for the number
+of offending cells in the row $b$ when $a$ lies above it and $x$ below (either may be
+absent, in which case the corresponding neighbours simply do not exist). Declare
+\[
+(p,c,v)\ \longrightarrow\ (c,x,\,v+\mathrm{viol}(c\mid p,x))
+\]
+an edge whenever the new count is at most $1$. Let $\mathbf{s}_i$ mark the vertices with
+$v=\mathrm{viol}(p\mid\text{--},c)$ and $\mathbf{e}_i$ those with
+$v+\mathrm{viol}(c\mid p,\text{--})=1$.
 
 \begin{lemma}\label{lem:walk}
-$L_i(n)=\mathbf{s}_i^{\!\top}P_i^{\,L-1}\mathbf{e}_i$ for $L\ge1$, where $P_i$ is the
+For $L\ge2$, $L_i=\mathbf{s}_i^{\!\top}P_i^{\,L-2}\mathbf{e}_i$, where $P_i$ is the
 adjacency matrix of that digraph.
 \end{lemma}
 
 \begin{proof}
-A walk of length $L-1$ determines the sequence of $L$ columns, and conversely; by induction
-the count component after $t$ columns is the number of mistakes among the first $t$ columns,
-since each step adds exactly the mistakes joining columns $t$ and $t+1$ together with those
-inside column $t+1$, and each unordered pair is named by exactly one offset. The walk exists
-precisely when the running count never exceeds $1$, which for a nondecreasing count follows
-from its final value being $1$, and $\mathbf{e}_i$ imposes that final value. The state
-carries a column, not a boundary, so $L$ columns make a walk of length $L-1$.
+Consecutive vertices overlap in one row, so a walk of length $L-2$ is exactly a sequence
+of $L$ rows, that is, an array. Along it, the cells of row $t$ for $2\le t\le L-1$ are
+judged once, at the step leaving $(r^{(t-1)},r^{(t)},\cdot)$, with their true neighbours;
+those of row $1$ are judged by $\mathbf{s}_i$ with no row above, and those of row
+$L$ by $\mathbf{e}_i$ with no row below. Hence the running count is the number of
+offending cells among the rows judged so far, and the walk exists exactly when that total
+never exceeds $1$; since the total only grows, that is implied by the final value being
+$1$, which $\mathbf{e}_i$ imposes.
 \end{proof}
 
-Assembling the $3$ chains block-diagonally into $N$ of size $S=1588$ with the weights of
+Assembling the $2$ chains block-diagonally into $N$ of size $S=514$ with the weights of
 Lemma~\ref{lem:inv} in the start vector $\mathbf{v}$ and the end markers in
 $\mathbf{u}$,
 \begin{equation}\label{eq:walk2}
-3!\;a(n)\;=\;\mathbf{v}^{\!\top}N^{\,L-1}\mathbf{u},\qquad L=n .
+2!\;a(n)\;=\;\mathbf{v}^{\!\top}N^{\,L-2}\mathbf{u},\qquad L=n .
 \end{equation}
 
 \section{The criterion, and the computation}
 
-Let $q(t)=t^{46}-\sum_i c_i\,t^{46-i}$ be the characteristic polynomial of
+Let $q(t)=t^{56}-\sum_i c_i\,t^{56-i}$ be the characteristic polynomial of
 \eqref{eq:conj} and $G=N$.
 
 \begin{lemma}\label{lem:crit}
-With $n_0$ the least index for which $L\ge1$, $o=1n_0+0-1$ and
-$h_j=G^{j}N^{o}\mathbf{u}$, we have for $j\ge46$
+With $n_0$ the least index for which $L\ge2$, $o=1n_0+0-2$ and
+$h_j=G^{j}N^{o}\mathbf{u}$, we have for $j\ge56$
 \[
-3!\Bigl(a(n_0+j)-\sum_i c_i\,a(n_0+j-i)\Bigr)=\mathbf{v}^{\!\top}G^{\,j-46}w,
-\qquad w=h_{46}-\sum_i c_ih_{46-i} .
+2!\Bigl(a(n_0+j)-\sum_i c_i\,a(n_0+j-i)\Bigr)=\mathbf{v}^{\!\top}G^{\,j-56}w,
+\qquad w=h_{56}-\sum_i c_i h_{56-i} .
 \]
 Hence \eqref{eq:conj} holds from that point on if and only if
 $\mathbf{v}^{\!\top}G^{m}w=0$ for all $m\ge0$, and $m<S$ suffices.
 \end{lemma}
 
 \begin{proof}
-Substitute \eqref{eq:walk2} and factor; $3!$ is a nonzero scalar. Cayley--Hamilton
+Substitute \eqref{eq:walk2} and factor; $2!$ is a nonzero scalar. Cayley--Hamilton
 makes $G^{S}$ an integer combination of $I,G,\dots,G^{S-1}$, so every later value repeats
 that combination of earlier ones.
 \end{proof}
 
 \begin{theorem}
-The recurrence \eqref{eq:conj} holds for every $n>48$, which is the statement of
+The recurrence \eqref{eq:conj} holds for every $n>57$, which is the statement of
 Section~1.
 \end{theorem}
 
 \begin{proof}
 The digraph was built directly from the definitions above. The vector $w$ was formed by
-$46$ applications of $G$ in exact integer arithmetic and $\mathbf{v}^{\!\top}G^{m}w$
+$56$ applications of $G$ in exact integer arithmetic and $\mathbf{v}^{\!\top}G^{m}w$
 evaluated for $m=0,1,\dots$, again exactly. Every one of those integers vanishes from the
-index corresponding to $n=48+1$ onwards, and the run continued until $S+1$ consecutive
+index corresponding to $n=57+1$ onwards, and the run continued until $S+1$ consecutive
 zeros had been seen.
 \end{proof}
 
@@ -161,11 +174,12 @@ zeros had been seen.
 
 Three checks, each independent of the algebra above.
 
-First, the right-hand side of \eqref{eq:walk2}, divided by $3!$, was evaluated at every
-one of the $16$ published indices and agrees with the entry's DATA exactly, the quotient
-coming out an integer each time; no shift was fitted, the number of columns being $L=n$
-from the entry's own name and the offset saying which index carries the first published term.
-Double-counting an unordered pair, or mistaking the budget, changes the counts at once.
+First, the right-hand side of \eqref{eq:walk2}, divided by $2!$, was evaluated at every
+one of the $22$ published indices and agrees with the entry's DATA exactly, the quotient
+coming out an integer each time; no shift was fitted, the number of rows being
+$L=n$ from the entry's own name and the offset saying which index the first published
+term carries. A misreading of the offending-cell rule, of the budget, or of the inversion in
+Lemma~\ref{lem:inv} would change the counts and be rejected here.
 
 Second, the recurrence \eqref{eq:conj} was evaluated on those published terms in exact
 integer arithmetic, with no matrices involved, and vanishes wherever it applies.
@@ -175,7 +189,7 @@ Cayley--Hamilton bound in exact integer arithmetic rather than to a sampled pref
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A229539.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A279154.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; falling-factorial
 inversion, Section 1.9.)

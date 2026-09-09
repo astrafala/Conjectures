@@ -12,65 +12,65 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A280399, proved by counting patterns with a budget}
+\title{The empirical recurrence for OEIS A279574, proved by counting patterns with a budget}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A280399 imposes three things at once: a condition on each cell that reaches one column up and
-one column down; a global budget allowing exactly one cell to
+OEIS A279574 imposes three things at once: a condition on each cell that reaches one row up and
+one row down; a global budget allowing exactly one cell to
 break it; and the clause ``new values introduced in order $0$ sequentially upwards'', which
 says the array is written in canonical form. None of the three is visible to a plain transfer
-matrix over columns. All three are handled: the state is a pair of consecutive columns
+matrix over rows. All three are handled: the state is a pair of consecutive rows
 together with the number of offending cells so far, capped at the budget; and the
 canonical-form clause is removed by counting equality patterns instead of arrays, through the
 identity $3!\,a(n)=\sum_i\binom{3}{i}D_{3-i}L_i(n)$ with $D_m$ the derangement
 numbers. The empirical recurrence of order $4$ contributed by R.~H.~Hardin then follows
-from a finite exact computation on $S=28$ states.
+from a finite exact computation on $S=196$ states.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 05A18, 15B36.\normalsize
 
 \section{The sequence and the conjecture}
 
-OEIS A280399 is ``Number of 1 X n 0..2 arrays with no element unequal to a strict majority of its horizontal and antidiagonal neighbors, with the exception of exactly one element, and with new values introduced in order 0 sequentially upwards.''. It has offset $1$ and begins
+OEIS A279574 is ``Number of n X 2 0..2 arrays with no element equal to a strict majority of its horizontal and antidiagonal neighbors, with the exception of exactly one element, and with new values introduced in order 0 sequentially upwards.''. It has offset $1$ and begins
 \[
-0, 0, 2, 2, 8, 14, 36, 74,\ \dots
+0, 4, 40, 352, 3008, 25280, 209792, 1723392,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 2*a(n-1) + 3*a(n-2) - 4*a(n-3) - 4*a(n-4) for n>5.
+Empirical: a(n) = 16*a(n-1) - 72*a(n-2) + 64*a(n-3) - 16*a(n-4).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Feb 13 2019 10:16:48, revision 8) the statement is
+As of the ``Last modified'' line on the live entry (Feb 11 2019 05:20:16, revision 8) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;2\,a(n-1) + 3\,a(n-2) - 4\,a(n-3) - 4\,a(n-4)
+a(n)\;=\;16\,a(n-1) - 72\,a(n-2) + 64\,a(n-3) - 16\,a(n-4)
 \end{equation}
 for all $n>5$.
 
 \section{The condition, the budget, and the canonical form}
 
-The arrays have $1$ rows and $L=n$ columns; write $x_{t,u}$ for the entry in
-column $t$ and row $u$. With the neighbour offsets
+The arrays have $2$ columns and $L=n$ rows; write $x_{t,u}$ for the entry in
+row $t$ and column $u$. With the neighbour offsets
 \[
-\mathcal N=\{(-1,0),\ (1,0),\ (1,-1),\ (-1,1)\}
+\mathcal N=\{(0,-1),\ (0,1),\ (-1,1),\ (1,-1)\}
 \]
-as (column shift, row shift), counting only positions inside the array, call a cell
+as (row shift, column shift), counting only positions inside the array, call a cell
 $(t,u)$ \emph{offending} when
 \[
-2\,\#\{\text{neighbours different from }x_{t,u}\}>\#\{\text{neighbours}\} .
+2\,\#\{\text{neighbours equal to }x_{t,u}\}>\#\{\text{neighbours}\} .
 \]
 The entry asks for arrays in which exactly $E=1$ cells offend.
 
-Since $\mathcal N$ contains offsets of both signs in the column direction, a cell of column
-$t$ is judged by columns $t-1$, $t$ and $t+1$ together, so a state carrying one column is not
+Since $\mathcal N$ contains offsets of both signs in the row direction, a cell of row
+$t$ is judged by rows $t-1$, $t$ and $t+1$ together, so a state carrying one row is not
 enough; and the number of offending cells is a property of the whole array, so no bounded
 window sees it either. Both are fixed by the same device: states are ordered pairs of
-consecutive columns together with a running count $v\in\{0,1,\dots,1\}$, and a count that
+consecutive rows together with a running count $v\in\{0,1,\dots,1\}$, and a count that
 would exceed $1$ is simply not represented --- an array that passes it can never come back
 under it.
 
@@ -101,9 +101,9 @@ $\binom{3}{i}D_{3-i}$, an integer.
 
 \section{Each $L_i$ is a walk count}
 
-Fix $i$, let $V_i=\{0,\dots,i-1\}^{1}$, and take the triples $(p,c,v)$ with
+Fix $i$, let $V_i=\{0,\dots,i-1\}^{2}$, and take the triples $(p,c,v)$ with
 $p,c\in V_i$ and $0\le v\le1$ as vertices. Write $\mathrm{viol}(b\mid a,x)$ for the number
-of offending cells in the column $b$ when $a$ lies above it and $x$ below (either may be
+of offending cells in the row $b$ when $a$ lies above it and $x$ below (either may be
 absent, in which case the corresponding neighbours simply do not exist). Declare
 \[
 (p,c,v)\ \longrightarrow\ (c,x,\,v+\mathrm{viol}(c\mid p,x))
@@ -118,17 +118,17 @@ adjacency matrix of that digraph.
 \end{lemma}
 
 \begin{proof}
-Consecutive vertices overlap in one column, so a walk of length $L-2$ is exactly a sequence
-of $L$ columns, that is, an array. Along it, the cells of column $t$ for $2\le t\le L-1$ are
+Consecutive vertices overlap in one row, so a walk of length $L-2$ is exactly a sequence
+of $L$ rows, that is, an array. Along it, the cells of row $t$ for $2\le t\le L-1$ are
 judged once, at the step leaving $(r^{(t-1)},r^{(t)},\cdot)$, with their true neighbours;
-those of column $1$ are judged by $\mathbf{s}_i$ with no column above, and those of column
-$L$ by $\mathbf{e}_i$ with no column below. Hence the running count is the number of
-offending cells among the columns judged so far, and the walk exists exactly when that total
+those of row $1$ are judged by $\mathbf{s}_i$ with no row above, and those of row
+$L$ by $\mathbf{e}_i$ with no row below. Hence the running count is the number of
+offending cells among the rows judged so far, and the walk exists exactly when that total
 never exceeds $1$; since the total only grows, that is implied by the final value being
 $1$, which $\mathbf{e}_i$ imposes.
 \end{proof}
 
-Assembling the $3$ chains block-diagonally into $N$ of size $S=28$ with the weights of
+Assembling the $3$ chains block-diagonally into $N$ of size $S=196$ with the weights of
 Lemma~\ref{lem:inv} in the start vector $\mathbf{v}$ and the end markers in
 $\mathbf{u}$,
 \begin{equation}\label{eq:walk2}
@@ -175,8 +175,8 @@ zeros had been seen.
 Three checks, each independent of the algebra above.
 
 First, the right-hand side of \eqref{eq:walk2}, divided by $3!$, was evaluated at every
-one of the $32$ published indices and agrees with the entry's DATA exactly, the quotient
-coming out an integer each time; no shift was fitted, the number of columns being
+one of the $20$ published indices and agrees with the entry's DATA exactly, the quotient
+coming out an integer each time; no shift was fitted, the number of rows being
 $L=n$ from the entry's own name and the offset saying which index the first published
 term carries. A misreading of the offending-cell rule, of the budget, or of the inversion in
 Lemma~\ref{lem:inv} would change the counts and be rejected here.
@@ -189,7 +189,7 @@ Cayley--Hamilton bound in exact integer arithmetic rather than to a sampled pref
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A280399.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A279574.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; falling-factorial
 inversion, Section 1.9.)

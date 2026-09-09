@@ -12,91 +12,86 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A223560, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A266014, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A223560 counts the ways of writing the vertices of a fixed graph $G$ into an array of width
-$5$ so that any two cells adjacent in one of the named directions carry vertices joined by an
-edge of $G$; here $G$ is graph named in the entry. The entry carries an empirical recurrence of order $41$
-contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical: every
-condition joins cells inside one slice of the array or inside two consecutive slices, so a
-single slice is a state and the count is a walk count on a finite digraph with $S=4422$ vertices.
+OEIS A266014 counts arrays of width $4$ in which every entry is equal to the NUMBER of its own
+neighbours, in named directions, that stand in a stated relation to it. The entry carries an
+empirical recurrence of order $44$ contributed by R.~H.~Hardin. It is true, and it is
+decidable rather than empirical. The condition is self-referential but local: a cell's
+neighbours lie in the row above, its own row and the row below, so a window of three
+consecutive rows decides the condition for the middle one, and the count is a walk count on
+$S=6948$ states.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05C15, 05A15, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05C30, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A223560 is ``Petersen graph (3,1) coloring a rectangular array: number of 5Xn 0..5 arrays where 0..5 label nodes of a graph with edges 0,1 0,3 3,5 3,4 1,2 1,4 4,5 2,0 2,5 and every array movement to a horizontal or antidiagonal neighbor moves along an edge of this graph, with the array starting at 0.''. It has offset $1$ and begins
+OEIS A266014 is ``Number of 4Xn integer arrays with each element equal to the number of horizontal and antidiagonal neighbors equal to itself.''. It has offset $1$ and begins
 \[
-1296, 19683, 1172889, 72906921, 4715559621, 308267930115, 20248676896077, 1332349841732589,\ \dots
+1, 1, 14, 9, 27, 61, 75, 281,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 138*a(n-1) -6973*a(n-2) +184648*a(n-3) -2923158*a(n-4) +28742148*a(n-5) -164862328*a(n-6) +323303482*a(n-7) +2664572505*a(n-8) -23705019366*a(n-9) +69355645652*a(n-10) +70054378686*a(n-11) -1192186614062*a(n-12) +3436488705480*a(n-13) -144865949345*a(n-14) -25285605346206*a(n-15) +67796388682571*a(n-16) -36846019769990*a(n-17) -198206747323771*a(n-18) +539872407671898*a(n-19) -524423165469667*a(n-20) -173098284258962*a(n-21) +1095810256049880*a(n-22) -1391226239663130*a(n-23) +883819140137974*a(n-24) -205123488401360*a(n-25) -109599889287411*a(n-26) +100027213354804*a(n-27) -24361114004738*a(n-28) -4709924309874*a(n-29) +4076735604787*a(n-30) -668752166416*a(n-31) -125749417451*a(n-32) +60592095948*a(n-33) -5244227851*a(n-34) -1102919206*a(n-35) +264396239*a(n-36) -12021054*a(n-37) -1712600*a(n-38) +222192*a(n-39) -8748*a(n-40) +108*a(n-41) for n>45
+Empirical: a(n) = 7*a(n-3) +a(n-4) +14*a(n-5) +31*a(n-6) +28*a(n-7) +17*a(n-8) -69*a(n-9) +124*a(n-10) -41*a(n-11) -174*a(n-12) -347*a(n-13) -293*a(n-14) +611*a(n-15) -1613*a(n-16) -496*a(n-17) -15*a(n-18) +1102*a(n-19) +2041*a(n-20) -4267*a(n-21) +7710*a(n-22) +4851*a(n-23) +741*a(n-24) +945*a(n-25) -5239*a(n-26) +16978*a(n-27) -16478*a(n-28) -21208*a(n-29) +4426*a(n-30) -7104*a(n-31) +466*a(n-32) -37612*a(n-33) +11472*a(n-34) +49808*a(n-35) -12912*a(n-36) +1664*a(n-37) +14944*a(n-38) +28288*a(n-39) +1536*a(n-40) -45056*a(n-41) +20480*a(n-42) +12288*a(n-43) -22528*a(n-44) for n>53
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 21:47:40, revision 8) this is still
+As of the ``Last modified'' line on the live entry (Dec 20 2015 07:00:25, revision 4) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-Let $G$ be the graph on the label set $\{0,1,\dots,5\}$ whose vertices are the $6$ nodes $0,\dots,5$ with the edges the entry lists, namely \{0,1\}, \{0,2\}, \{0,3\}, \{1,2\}, \{1,4\}, \{2,5\}, \{3,4\}, \{3,5\}, \{4,5\}.
-
-An array $x$ is a map from the cells of a rectangle to the vertices of $G$. The entry names the
-directions antidiagonal and horizontal, that is the cell offsets
+The array has $4$ cells across. The NEIGHBOURS of a cell are the cells reached from it by the
+offsets
 \[
-(1,-1), (0,1),
+(-1,0), (-1,1), (1,-1), (1,0),
 \]
-and asks that whenever two cells of the array differ by one of those offsets, the two vertices
-they carry are joined by an edge of $G$:
+those that lie inside the array. The condition is that every entry counts its own neighbours
+that are equal to it: writing $v=x(i,j)$,
 \[
-x(i,j)\,x(i+\delta_1,j+\delta_2)\in E(G)\qquad
-\text{for every named offset } (\delta_1,\delta_2)\text{ and every pair of cells in range.}
+v\;=\;\#\{\text{neighbours } y \text{ of } (i,j)\ :\ y=v\} .
 \]
-The entry also fixes the top-left cell: $x(0,0)=0$.
 
-\begin{lemma}\label{lem:label}
-The count does not depend on how the vertices are labelled.
+The entry says ``integer arrays'' and names no alphabet, but one is forced. An entry counts
+neighbours in the named directions, of which there are $4$, so every entry of the array
+lies in $\{0,1,\dots,4\}$ and the count is finite. That bound is used below and
+nothing wider is needed. The entry writes the array with $n$ as the number of COLUMNS; the walk is run down the transpose, so the offsets above are already the transposed ones. Each direction is taken with both signs, so transposing cannot lose one.
+
+\section{Three rows decide one}
+
+\begin{lemma}\label{lem:win}
+Every offset above changes the row index by $-1$, $0$ or $+1$, so all the neighbours of a cell
+of row $i$ lie in rows $i-1$, $i$ and $i+1$. The condition for the whole of row $i$ is
+therefore decided by those three rows, an absent row contributing no neighbours.
 \end{lemma}
 
 \begin{proof}
-A relabelling is a bijection $\sigma$ of the label set; if it is an isomorphism from one
-labelled copy of $G$ to another then $x\mapsto\sigma\circ x$ is a bijection between the arrays
-counted for the two copies, because the condition mentions only the edge relation.
-Here the labelling is written out in the entry itself, so nothing is left to choose.
+Immediate from the offsets, together with the rule that a neighbour outside the array is not a
+neighbour.
 \end{proof}
 
-\section{One slice is a state}
-
-Take the array one $column$ at a time, in the direction in which it grows. The entry writes the array with $n$ as the number of COLUMNS, so the slice added at each step is a column. Transposing the array exchanges the horizontal and vertical directions and carries each diagonal direction to itself, and that is how the directions are read below.
-Every offset the entry names has its two cells either in the same $column$ or in two
-consecutive ones. So a $column$, a word of length $5$ over the vertices of $G$, carries
-everything the next $column$ needs: the conditions inside a $column$ constrain that
-$column$ alone, and the conditions across $column$s are a relation between the
-$column$ just written and the one about to be written.
-
-Let $M$ be the matrix indexed by the legal $column$s, with $M_{uv}=1$ when $v$ may
-follow $u$. Add one further state for the empty array, whose successors are the legal first
-$column$s---those beginning with the vertex $0$; then a walk of
-$n$ steps from that state is exactly an array of $n$ $column$s. Every state may end an
-array, so $\tau=\mathbf{1}$ and
+So the state is the pair (row above, current row), the row above allowed to be the symbol
+$\bot$; a step appends a row and settles the condition for the middle row of the window it
+completes. Two boundaries have to be right and neither is assumed. The walk starts at the state
+$(\bot,\bot)$, which stands for the empty array, so a walk of no steps is the empty array and
+one step is a one-row array. And the condition for the LAST row is settled by the end vector,
+which asks whether that row satisfies its condition with nothing written below it: the end
+vector is therefore NOT the all-ones vector, and a row that counts correctly only when
+something is written below it does not finish an array. With $M$ the adjacency matrix,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=4422.
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=6948.
 \]
-The $column$s themselves are built one cell at a time with the conditions applied as soon
-as they can be, which for the sparser graphs is what makes the state list short: a $column$
-of length $5$ over $6$ vertices is one of $6^{5}$ words, but only $S-1$ of them are
-legal. The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
+The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
 published terms rather than assumed. In particular $a$ is $C$-finite.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{41}-\sum_i c_it^{41-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{44}-\sum_i c_it^{44-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -104,7 +99,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+41}-\sum_ic_iM^{j+41-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+44}-\sum_ic_iM^{j+44-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -113,15 +108,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;138\,a(n-1) - 6973\,a(n-2) + 184648\,a(n-3) - 2923158\,a(n-4) + 28742148\,a(n-5) - 164862328\,a(n-6) + 323303482\,a(n-7) + 2664572505\,a(n-8) - 23705019366\,a(n-9) + 69355645652\,a(n-10) + 70054378686\,a(n-11) - 1192186614062\,a(n-12) + 3436488705480\,a(n-13) - 144865949345\,a(n-14) - 25285605346206\,a(n-15) + 67796388682571\,a(n-16) - 36846019769990\,a(n-17) - 198206747323771\,a(n-18) + 539872407671898\,a(n-19) - 524423165469667\,a(n-20) - 173098284258962\,a(n-21) + 1095810256049880\,a(n-22) - 1391226239663130\,a(n-23) + 883819140137974\,a(n-24) - 205123488401360\,a(n-25) - 109599889287411\,a(n-26) + 100027213354804\,a(n-27) - 24361114004738\,a(n-28) - 4709924309874\,a(n-29) + 4076735604787\,a(n-30) - 668752166416\,a(n-31) - 125749417451\,a(n-32) + 60592095948\,a(n-33) - 5244227851\,a(n-34) - 1102919206\,a(n-35) + 264396239\,a(n-36) - 12021054\,a(n-37) - 1712600\,a(n-38) + 222192\,a(n-39) - 8748\,a(n-40) + 108\,a(n-41)
+a(n)\;=\;7\,a(n-3) + a(n-4) + 14\,a(n-5) + 31\,a(n-6) + 28\,a(n-7) + 17\,a(n-8) - 69\,a(n-9) + 124\,a(n-10) - 41\,a(n-11) - 174\,a(n-12) - 347\,a(n-13) - 293\,a(n-14) + 611\,a(n-15) - 1613\,a(n-16) - 496\,a(n-17) - 15\,a(n-18) + 1102\,a(n-19) + 2041\,a(n-20) - 4267\,a(n-21) + 7710\,a(n-22) + 4851\,a(n-23) + 741\,a(n-24) + 945\,a(n-25) - 5239\,a(n-26) + 16978\,a(n-27) - 16478\,a(n-28) - 21208\,a(n-29) + 4426\,a(n-30) - 7104\,a(n-31) + 466\,a(n-32) - 37612\,a(n-33) + 11472\,a(n-34) + 49808\,a(n-35) - 12912\,a(n-36) + 1664\,a(n-37) + 14944\,a(n-38) + 28288\,a(n-39) + 1536\,a(n-40) - 45056\,a(n-41) + 20480\,a(n-42) + 12288\,a(n-43) - 22528\,a(n-44)
 \]
-for every $n>45$.
+for every $n>53$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $41$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $44$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=45+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=53+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -129,14 +124,13 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $13$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $30$ terms the entry publishes, exactly, in integer
 arithmetic.
 
-Second, the count was recomputed for the smallest arrays straight from the definition, with the
-graph rebuilt by a different route---the cube from its corner points and face normals in space,
-the icosahedron as a pentagonal antiprism capped at both poles---and the arrays written out cell
-by cell, each cell tested against the cells it must be joined to. No slice, no state and no
-recurrence is involved in that computation, and the published terms came back.
+Second, the count was recomputed for the smallest arrays straight from the definition:
+enumerate every array of that size, count each cell's neighbours satisfying the relation, and
+keep the array when every cell equals its own count. No window, no transfer matrix and no
+transposition are involved, and the published terms came back.
 
 Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
@@ -146,10 +140,11 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A223560.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A266014.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{cox} H.~S.~M.~Coxeter, \emph{Regular Polytopes}, 3rd ed., Dover, 1973.
+\bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata
+Theory, Languages, and Computation}, 3rd ed., Addison--Wesley, 2006.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

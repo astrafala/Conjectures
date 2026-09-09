@@ -12,17 +12,17 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A236604, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A236134, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A236604 counts arrays over $\{0,\dots,2\}$ subject to a condition on the order
+OEIS A236134 counts arrays over $\{0,\dots,3\}$ subject to a condition on the order
 statistics of every $2\times2$ subblock, and carries an empirical recurrence of order
 $17$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical.
-The condition is local to two consecutive rows, so the count is a walk count on $S=81$
+The condition is local to two consecutive rows, so the count is a walk count on $S=256$
 states and is $C$-finite; whether the conjectured recurrence annihilates it is then settled by
 a finite exact computation, with the Cayley--Hamilton theorem bounding the work.
 \end{abstract}
@@ -31,21 +31,21 @@ a finite exact computation, with the Cayley--Hamilton theorem bounding the work.
 
 \section{The conjecture}
 
-OEIS A236604 is ``Number of (n+1) X (1+1) 0..2 arrays colored with the maximum plus the lower median minus the minimum of every 2 X 2 subblock.''. It has offset $1$ and begins
+OEIS A236134 is ``Number of (n+1)X(1+1) 0..3 arrays colored with the maximum plus the lower median minus the upper median minus the minimum of every 2X2 subblock.''. It has offset $1$ and begins
 \[
-81, 426, 2269, 12004, 63945, 339684, 1806104, 9590924,\ \dots
+256, 2816, 31552, 351872, 3932416, 43917824, 490505216, 5477885952,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 28*a(n-3) +336*a(n-4) +744*a(n-5) +3360*a(n-6) +6176*a(n-7) +8308*a(n-8) +14576*a(n-9) -20528*a(n-10) -34304*a(n-11) -86784*a(n-12) -144128*a(n-13) +1536*a(n-14) +8192*a(n-15) +147456*a(n-16) +229376*a(n-17).
+Empirical: a(n) = 2*a(n-1) +12*a(n-2) +328*a(n-3) +5216*a(n-4) +18624*a(n-5) +87168*a(n-6) +194304*a(n-7) -1173760*a(n-8) -4189696*a(n-9) -15864832*a(n-10) -40843264*a(n-11) +123420672*a(n-12) +390070272*a(n-13) +424673280*a(n-14) +1104150528*a(n-15) -2717908992*a(n-16) -8153726976*a(n-17)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jan 20 2024 16:19:27, revision 7) this is still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 09:08:08, revision 7) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
 The $2\times2$ subblocks of an $(n+1)\times2$ array form an
-$n\times1$ grid. Colour each of them by $\sigma=-a+b+d$, where $a\le b\le c\le d$ are its four entries sorted --- its minimum, lower median, upper median and maximum. ``Coloured with'' is the entry's way of
+$n\times1$ grid. Colour each of them by $\sigma=-a+b-c+d$, where $a\le b\le c\le d$ are its four entries sorted --- its minimum, lower median, upper median and maximum. ``Coloured with'' is the entry's way of
 asking for a PROPER colouring of that grid: subblocks that are neighbours, horizontally or
 vertically, must receive different colours.
 
@@ -67,7 +67,7 @@ position. An $(n+1)$-row array is a walk of $n-1$ steps, so
 \[
 a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,\qquad\iota=\tau=(1,\dots,1)^{\!\top},
 \]
-over the $S=81$ pairs whose own subblock row is properly coloured.
+over the $S=256$ pairs whose own subblock row is properly coloured.
 The alignment of the walk index with the entry's own $n$ was checked against its published
 terms rather than assumed. In particular $a$ is $C$-finite.
 
@@ -91,7 +91,7 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;28\,a(n-3) + 336\,a(n-4) + 744\,a(n-5) + 3360\,a(n-6) + 6176\,a(n-7) + 8308\,a(n-8) + 14576\,a(n-9) - 20528\,a(n-10) - 34304\,a(n-11) - 86784\,a(n-12) - 144128\,a(n-13) + 1536\,a(n-14) + 8192\,a(n-15) + 147456\,a(n-16) + 229376\,a(n-17)
+a(n)\;=\;2\,a(n-1) + 12\,a(n-2) + 328\,a(n-3) + 5216\,a(n-4) + 18624\,a(n-5) + 87168\,a(n-6) + 194304\,a(n-7) - 1173760\,a(n-8) - 4189696\,a(n-9) - 15864832\,a(n-10) - 40843264\,a(n-11) + 123420672\,a(n-12) + 390070272\,a(n-13) + 424673280\,a(n-14) + 1104150528\,a(n-15) - 2717908992\,a(n-16) - 8153726976\,a(n-17)
 \]
 for every $n>17$.
 \end{theorem}
@@ -107,7 +107,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $19$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $16$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
@@ -119,7 +119,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A236604.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A236134.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{david} H.~A.~David and H.~N.~Nagaraja, \emph{Order Statistics}, 3rd ed., Wiley,

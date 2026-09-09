@@ -12,18 +12,18 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A251031, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A250430, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A251031 counts arrays over $\{0,1,2,3\}$ in which a statistic taken over short runs
+OEIS A250430 counts arrays over $\{0,1\}$ in which a statistic taken over short runs
 of cells produces a derived array that is monotone in a named direction. The entry carries an
 empirical recurrence of order $28$ contributed by R.~H.~Hardin. It is true, and it is
 decidable rather than empirical: every comparison the condition makes lies inside a bounded
-window of consecutive rows, so the count is a walk count on $S=64$ states, and the
+window of consecutive rows, so the count is a walk count on $S=400$ states, and the
 conjectured recurrence is then settled by a finite exact computation.
 \end{abstract}
 
@@ -31,34 +31,35 @@ conjectured recurrence is then settled by a finite exact computation.
 
 \section{The conjecture}
 
-OEIS A251031 is ``Number of (n+1)X(2+1) 0..3 arrays with nondecreasing min(x(i,j),x(i,j-1)) in the i direction and nondecreasing absolute value of x(i,j)-x(i-1,j) in the j direction.''. It has offset $1$ and begins
+OEIS A250430 is ``Number of (n+1)X(6+1) 0..1 arrays with nondecreasing sum of every two consecutive values in every row and column.''. It has offset $1$ and begins
 \[
-711, 6089, 45150, 304421, 1946207, 12029009, 72779934, 434254685,\ \dots
+400, 3000, 22500, 105000, 490000, 1715000, 6002500, 17287200,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 38*a(n-1) -640*a(n-2) +6224*a(n-3) -37777*a(n-4) +140106*a(n-5) -246243*a(n-6) -311318*a(n-7) +2866723*a(n-8) -6221140*a(n-9) +1267287*a(n-10) +20418382*a(n-11) -36000935*a(n-12) -3163420*a(n-13) +76544079*a(n-14) -62345650*a(n-15) -62658186*a(n-16) +109336358*a(n-17) +10886761*a(n-18) -92320878*a(n-19) +17077256*a(n-20) +47426642*a(n-21) -13020476*a(n-22) -16187272*a(n-23) +3593112*a(n-24) +3641608*a(n-25) -208432*a(n-26) -421728*a(n-27) -60480*a(n-28)
+Empirical: a(n) = 2*a(n-1) +12*a(n-2) -26*a(n-3) -65*a(n-4) +156*a(n-5) +208*a(n-6) -572*a(n-7) -429*a(n-8) +1430*a(n-9) +572*a(n-10) -2574*a(n-11) -429*a(n-12) +3432*a(n-13) -3432*a(n-15) +429*a(n-16) +2574*a(n-17) -572*a(n-18) -1430*a(n-19) +429*a(n-20) +572*a(n-21) -208*a(n-22) -156*a(n-23) +65*a(n-24) +26*a(n-25) -12*a(n-26) -2*a(n-27) +a(n-28)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 13:01:04, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 12:24:13, revision 10) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The array has $3$ cells across and entries $x(i,j)\in\{0,1,2,3\}$.
+The array has $7$ cells across and entries $x(i,j)\in\{0,1\}$.
 
-Two derived arrays are formed. The first reads the horizontal statistic across each
-neighbouring pair of a row,
+Fix the statistic $\sigma(v)=\sum_{t} v_t$ of a run $v$ of $2$ consecutive cells --- in words,
+the sum of the $2$ values. Two derived arrays are formed and both must be
+nondecreasing in their own direction: reading along a row,
 \[
-b(i,j)\;=\;\bigl[\,\min(a,b)\,\bigr]_{a=x(i,j),\,b=x(i,j-1)}\qquad (j\ge1),
+\sigma\bigl(x(i,j),\dots,x(i,j{+}1)\bigr)\ \le\
+\sigma\bigl(x(i,j{+}1),\dots,x(i,j{+}2)\bigr),
 \]
-and must not decrease DOWN a column: $b(i,j)\le b(i{+}1,j)$. The second reads the vertical
-statistic down each neighbouring pair of a column,
+and reading down a column,
 \[
-c(i,j)\;=\;\bigl[\,\lvert a-b\rvert\,\bigr]_{a=x(i,j),\,b=x(i{-}1,j)}\qquad (i\ge1),
+\sigma\bigl(x(i,j),\dots,x(i{+}1,j)\bigr)\ \le\
+\sigma\bigl(x(i{+}1,j),\dots,x(i{+}2,j)\bigr).
 \]
-and must not decrease ALONG a row: $c(i,j)\le c(i,j{+}1)$. In words, the horizontal statistic
-is the smaller of a cell and its left neighbour, and the vertical one is
-the absolute difference of a cell and the cell above it.
+The same statistic and the same run length serve both directions, so the condition is
+unchanged by transposing the array.
 
 Nothing in the condition is invariant under renaming the letters --- each statistic either does
 arithmetic on them or compares them by size --- so no reduction to equality patterns is
@@ -67,20 +68,22 @@ available, and the walk is run over the alphabet the entry names.
 \section{A bounded window}
 
 \begin{lemma}\label{lem:win}
-Both conditions are conditions on TWO consecutive array rows and nothing more.
+The row comparisons involve one array row each. A column comparison involves the
+$2+1=3$ consecutive rows $i,\dots,i{+}2$ and no others.
 \end{lemma}
 
 \begin{proof}
-$b(i,j)\le b(i{+}1,j)$ names four cells, all in rows $i$ and $i+1$. $c(i,j)\le c(i,j{+}1)$
-names four cells, all in rows $i-1$ and $i$. No comparison reaches further.
+The two runs compared start at rows $i$ and $i+1$ and have length $2$, so together they
+occupy rows $i$ through $i+2$.
 \end{proof}
 
-So a single row is a state. Let $M$ be the matrix on the $4^{3}=64$ rows with
-$M[r,s]=1$ when the pair $(r,s)$ passes both tests and $0$ otherwise. An array of $R$ rows is a
-walk of $R-1$ steps and every row may begin or end one, so with $\iota=\tau=\mathbf{1}$,
+So the window of the last $2$ rows is a state, each row of it already satisfying its own row
+comparisons, and one step appends a row and settles the column comparisons that the new row
+completes. With $M$ the adjacency matrix of that digraph and $\iota=\tau=\mathbf{1}$,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=64.
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=400,
 \]
+a walk of no steps being an array of exactly $2$ rows.
 
 The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
 published terms rather than assumed. In particular $a$ is $C$-finite.
@@ -105,7 +108,7 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;38\,a(n-1) - 640\,a(n-2) + 6224\,a(n-3) - 37777\,a(n-4) + 140106\,a(n-5) - 246243\,a(n-6) - 311318\,a(n-7) + 2866723\,a(n-8) - 6221140\,a(n-9) + 1267287\,a(n-10) + 20418382\,a(n-11) - 36000935\,a(n-12) - 3163420\,a(n-13) + 76544079\,a(n-14) - 62345650\,a(n-15) - 62658186\,a(n-16) + 109336358\,a(n-17) + 10886761\,a(n-18) - 92320878\,a(n-19) + 17077256\,a(n-20) + 47426642\,a(n-21) - 13020476\,a(n-22) - 16187272\,a(n-23) + 3593112\,a(n-24) + 3641608\,a(n-25) - 208432\,a(n-26) - 421728\,a(n-27) - 60480\,a(n-28)
+a(n)\;=\;2\,a(n-1) + 12\,a(n-2) - 26\,a(n-3) - 65\,a(n-4) + 156\,a(n-5) + 208\,a(n-6) - 572\,a(n-7) - 429\,a(n-8) + 1430\,a(n-9) + 572\,a(n-10) - 2574\,a(n-11) - 429\,a(n-12) + 3432\,a(n-13) - 3432\,a(n-15) + 429\,a(n-16) + 2574\,a(n-17) - 572\,a(n-18) - 1430\,a(n-19) + 429\,a(n-20) + 572\,a(n-21) - 208\,a(n-22) - 156\,a(n-23) + 65\,a(n-24) + 26\,a(n-25) - 12\,a(n-26) - 2\,a(n-27) + a(n-28)
 \]
 for every $n>28$.
 \end{theorem}
@@ -121,7 +124,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $18$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $20$ terms the entry publishes, exactly, in integer
 arithmetic.
 
 Second, the count was recomputed for the smallest arrays straight from the definition: fill the
@@ -137,7 +140,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A251031.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A250430.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge

@@ -12,72 +12,89 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A203449, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A241351, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A203449 counts arrays of width $6$ over $\{0,1\}$ through two derived arrays of PAIR SUMS ---
-each cell added to its left neighbour, and each cell added to the one above it --- on which the
-entry imposes an order condition. The entry carries an empirical recurrence of order $56$
-contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical: the count is
-a walk count on $S=843$ states.
+OEIS A241351 counts arrays over $\{0,1,2,3\}$ in which no entry may equal, modulo $4$, a given
+constant plus the SUM of all the entries lying before it along one of several rays. The entry
+carries an empirical recurrence of order $68$ contributed by R.~H.~Hardin. It is true, and
+it is decidable rather than empirical. None of those sums is bounded and none is local, but
+each is built one term at a time, so its residue modulo $4$ is carried in the state; the
+count is then a walk count on $S=361$ states.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 06A07, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 11A07, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A203449 is ``Number of (n+1)X6 0..1 arrays with column and row pair sums b(i,j)=a(i,j)+a(i,j-1) and c(i,j)=a(i,j)+a(i-1,j) such that rows of b(i,j) and columns of c(i,j) are lexicographically nondecreasing.''. It has offset $1$ and begins
+OEIS A241351 is ``Number of n X 3 0..3 arrays with no element equal to zero plus the sum of elements to its left or one plus the sum of elements above it or one plus the sum of the elements diagonally to its northwest or zero plus the sum of the elements antidiagonally to its northeast, modulo 4.''. It has offset $1$ and begins
 \[
-128, 376, 4200, 46853, 554620, 5972476, 58336803, 513856445,\ \dots
+4, 9, 19, 55, 72, 124, 243, 370,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 55*a(n-1) -1483*a(n-2) +26127*a(n-3) -338193*a(n-4) +3429153*a(n-5) -28357173*a(n-6) +196602705*a(n-7) -1165912020*a(n-8) +6004200930*a(n-9) -27167717850*a(n-10) +109017693330*a(n-11) -390868315110*a(n-12) +1259737285590*a(n-13) -3667535195310*a(n-14) +9683348321430*a(n-15) -23258505573135*a(n-16) +50939627117085*a(n-17) -101889860027865*a(n-18) +186269554665285*a(n-19) -311184592804995*a(n-20) +474428969358435*a(n-21) -658078892981055*a(n-22) +825759258027795*a(n-23) -927565193949030*a(n-24) +913991069159532*a(n-25) -755278225466940*a(n-26) +457962352584716*a(n-27) -69533550916004*a(n-28) -333281502666364*a(n-29) +668960713985004*a(n-30) -877793403054204*a(n-31) +938876964606945*a(n-32) -871006340659455*a(n-33) +719295534188595*a(n-34) -535645610565975*a(n-35) +362198460477945*a(n-36) -223220139898665*a(n-37) +125604414729885*a(n-38) -64557466221465*a(n-39) +30290146792920*a(n-40) -12955106337390*a(n-41) +5039562750390*a(n-42) -1777622462910*a(n-43) +566360211690*a(n-44) -162197055930*a(n-45) +41503024290*a(n-46) -9418306170*a(n-47) +1878003855*a(n-48) -325211445*a(n-49) +48175569*a(n-50) -5983965*a(n-51) +606267*a(n-52) -48123*a(n-53) +2807*a(n-54) -107*a(n-55) +2*a(n-56) for n>79
+Empirical: a(n) = 3*a(n-5) +4*a(n-6) +5*a(n-8) +2*a(n-9) +16*a(n-11) +3*a(n-13) +6*a(n-14) -10*a(n-15) -22*a(n-16) -2*a(n-17) -13*a(n-18) +26*a(n-19) -18*a(n-20) +18*a(n-21) -49*a(n-22) -2*a(n-23) -21*a(n-24) +18*a(n-25) +22*a(n-26) +61*a(n-27) -62*a(n-28) -13*a(n-29) -102*a(n-30) -32*a(n-31) +71*a(n-32) +43*a(n-33) +30*a(n-34) +53*a(n-35) -34*a(n-36) -204*a(n-37) +137*a(n-38) -22*a(n-39) +80*a(n-40) +108*a(n-41) +118*a(n-42) -242*a(n-43) +150*a(n-44) -100*a(n-45) +49*a(n-46) -3*a(n-47) +176*a(n-48) -162*a(n-49) +87*a(n-50) -118*a(n-51) +40*a(n-52) -89*a(n-53) +74*a(n-54) -11*a(n-55) +4*a(n-56) -65*a(n-57) +62*a(n-58) -91*a(n-59) +20*a(n-60) -22*a(n-61) +38*a(n-62) -20*a(n-63) +21*a(n-64) -19*a(n-65) +7*a(n-66) -5*a(n-67) +2*a(n-68) for n>85.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 10:28:47, revision 9) this is still
+As of the ``Last modified'' line on the live entry (Jun 26 2022 19:59:55, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The array $a$ has $6$ cells across, with entries in $\{0,1\}$. Two derived arrays are formed,
+The array has $3$ cells across one way, entries $x(i,j)\in\{0,1,2,3\}$, and the entry names these
+rays out of a cell $(i,j)$, with the constant it attaches to each:
 \[
-b(i,j)=a(i,j)+a(i,j-1)\quad(j\ge1),\qquad c(i,j)=a(i,j)+a(i-1,j)\quad(i\ge1),
+\begin{array}{lll}
+\text{ray} & \text{the cells on it} & \text{constant} \\[2pt]
+\text{west} & (i,j-1),(i,j-2),\dots & 0 \\
+\text{north} & (i-1,j),(i-2,j),\dots & 1 \\
+\text{northwest} & (i-1,j-1),(i-2,j-2),\dots & 1 \\
+\text{northeast} & (i-1,j+1),(i-2,j+2),\dots & 0 \\
+\end{array}
 \]
-so $b$ adds each cell to its LEFT neighbour and $c$ adds each cell to the one ABOVE it. The
-entry asks
+Writing $\Sigma_r(i,j)$ for the sum of the entries on ray $r$ out of $(i,j)$, all of them
+inside the array, the condition is
+\[
+x(i,j)\;\not\equiv\;c_r+\Sigma_r(i,j) \pmod{4}
+\]
+for every ray $r$ named. A ray that leaves the array at once contributes the empty sum,
+zero.
 
-that the ROWS of $b$ and the COLUMNS of $c$ are each in lexicographic nondecreasing order. Row $i$ of $b$
-is $\bigl(b(i,1),\dots,b(i,5)\bigr)$ and column $j$ of $c$ is
-$\bigl(c(1,j),c(2,j),\dots\bigr)$.
+\section{The rays as a bounded state}
 
+Take the array one $row$ at a time, in the direction in which it grows, and index the
+positions of a $row $ by $p$. Let $x$ be the $row$ just written.
 
-\section{Two rows decide it}
-
-\begin{lemma}\label{lem:win}
-The row comparison is a condition on two consecutive rows of $a$. The column comparison is
-settled by the FIRST row in which the two columns of $c$ differ.
+\begin{lemma}\label{lem:rays}
+Along the $row$s, the 4 ray sums named by this entry satisfy
+\[
+\begin{aligned}
+\Sigma_{\mathrm{west}}\ &\text{is the running total inside the current row},\\
+U'[p]&=U[p]+x[p], &&\text{the north ray, per position},\\
+NW'[p]&=NW[p-1]+x[p-1], && NW'[0]=0,\\
+NE'[p]&=NE[p+1]+x[p+1], && NE'[W-1]=0 .
+\end{aligned}
+\]
 \end{lemma}
 
 \begin{proof}
-Row $i$ of $b$ is built from row $i$ of $a$ alone, so comparing rows $i$ and $i+1$ of $b$ reads
-rows $i$ and $i+1$ of $a$. Two sequences are compared lexicographically by their first
-difference; entry $i$ of column $j$ of $c$ is built from rows $i-1$ and $i$ of $a$, so scanning
-the array downwards reveals the entries of every column of $c$ in order.
+Each ray is a set of cells at a fixed step from $(i,j)$ repeated. Advancing one $row$
+moves a cell one step along the north ray, one step along the northwest ray together with one
+position to the right, and one step along the northeast ray together with one position to the
+left; in each case exactly the cell just left behind is the new term. At the border of the
+array the diagonal rays are empty, which is the stated boundary value.
 \end{proof}
 
-So the state is the last row of $a$ together with one bit for each adjacent pair of columns,
-recording whether that pair of columns of $c$ has been equal in every row so far. A row that
-would put a pair in the wrong order is rejected at once, and a pair still equal at the end is
-in order, equality being allowed.
-
-With $M$ the adjacency matrix of the digraph on those states, $\iota$ the indicator of the
-starting state and $\tau=\mathbf{1}$,
+Reduced modulo $4$ these vectors take finitely many values, so they are a state, and one step
+of the walk writes a whole $row$: the position $p$ is filled left to right and the
+running total of the west ray is carried along as it is filled, so every cell is tested
+against every ray at the moment it is written. The walk starts at the all-zero state, the empty
+array, and every state may end one, so $\tau=\mathbf{1}$ and
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=843.
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=361.
 \]
 The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
 published terms rather than assumed. In particular $a$ is $C$-finite.
@@ -85,7 +102,7 @@ published terms rather than assumed. In particular $a$ is $C$-finite.
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{56}-\sum_i c_it^{56-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{68}-\sum_i c_it^{68-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -93,7 +110,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+56}-\sum_ic_iM^{j+56-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+68}-\sum_ic_iM^{j+68-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -102,29 +119,29 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;55\,a(n-1) - 1483\,a(n-2) + 26127\,a(n-3) - 338193\,a(n-4) + 3429153\,a(n-5) - 28357173\,a(n-6) + 196602705\,a(n-7) - 1165912020\,a(n-8) + 6004200930\,a(n-9) - 27167717850\,a(n-10) + 109017693330\,a(n-11) - 390868315110\,a(n-12) + 1259737285590\,a(n-13) - 3667535195310\,a(n-14) + 9683348321430\,a(n-15) - 23258505573135\,a(n-16) + 50939627117085\,a(n-17) - 101889860027865\,a(n-18) + 186269554665285\,a(n-19) - 311184592804995\,a(n-20) + 474428969358435\,a(n-21) - 658078892981055\,a(n-22) + 825759258027795\,a(n-23) - 927565193949030\,a(n-24) + 913991069159532\,a(n-25) - 755278225466940\,a(n-26) + 457962352584716\,a(n-27) - 69533550916004\,a(n-28) - 333281502666364\,a(n-29) + 668960713985004\,a(n-30) - 877793403054204\,a(n-31) + 938876964606945\,a(n-32) - 871006340659455\,a(n-33) + 719295534188595\,a(n-34) - 535645610565975\,a(n-35) + 362198460477945\,a(n-36) - 223220139898665\,a(n-37) + 125604414729885\,a(n-38) - 64557466221465\,a(n-39) + 30290146792920\,a(n-40) - 12955106337390\,a(n-41) + 5039562750390\,a(n-42) - 1777622462910\,a(n-43) + 566360211690\,a(n-44) - 162197055930\,a(n-45) + 41503024290\,a(n-46) - 9418306170\,a(n-47) + 1878003855\,a(n-48) - 325211445\,a(n-49) + 48175569\,a(n-50) - 5983965\,a(n-51) + 606267\,a(n-52) - 48123\,a(n-53) + 2807\,a(n-54) - 107\,a(n-55) + 2\,a(n-56)
+a(n)\;=\;3\,a(n-5) + 4\,a(n-6) + 5\,a(n-8) + 2\,a(n-9) + 16\,a(n-11) + 3\,a(n-13) + 6\,a(n-14) - 10\,a(n-15) - 22\,a(n-16) - 2\,a(n-17) - 13\,a(n-18) + 26\,a(n-19) - 18\,a(n-20) + 18\,a(n-21) - 49\,a(n-22) - 2\,a(n-23) - 21\,a(n-24) + 18\,a(n-25) + 22\,a(n-26) + 61\,a(n-27) - 62\,a(n-28) - 13\,a(n-29) - 102\,a(n-30) - 32\,a(n-31) + 71\,a(n-32) + 43\,a(n-33) + 30\,a(n-34) + 53\,a(n-35) - 34\,a(n-36) - 204\,a(n-37) + 137\,a(n-38) - 22\,a(n-39) + 80\,a(n-40) + 108\,a(n-41) + 118\,a(n-42) - 242\,a(n-43) + 150\,a(n-44) - 100\,a(n-45) + 49\,a(n-46) - 3\,a(n-47) + 176\,a(n-48) - 162\,a(n-49) + 87\,a(n-50) - 118\,a(n-51) + 40\,a(n-52) - 89\,a(n-53) + 74\,a(n-54) - 11\,a(n-55) + 4\,a(n-56) - 65\,a(n-57) + 62\,a(n-58) - 91\,a(n-59) + 20\,a(n-60) - 22\,a(n-61) + 38\,a(n-62) - 20\,a(n-63) + 21\,a(n-64) - 19\,a(n-65) + 7\,a(n-66) - 5\,a(n-67) + 2\,a(n-68)
 \]
-for every $n>79$.
+for every $n>85$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $56$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $68$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=79+1$ onwards and the run continued
-until the working vector was identically zero.
+integers vanish from the index corresponding to $n=85+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $18$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $35$ terms the entry publishes, exactly, in integer
 arithmetic.
 
-Second, the count was recomputed for the smallest arrays straight from the definition:
-enumerate every array of that size, form the two derived arrays in full, and test the condition
-on them directly. No window, no state and no incremental bookkeeping are involved, and the
-published terms came back.
+Second, the count was recomputed for the smallest arrays straight from the definition: fill the
+cells one at a time in the orientation the entry's own name writes and, for each candidate
+value, walk each ray to the edge of the array and add the entries up. No residue, no state and
+no recurrence of Lemma~\ref{lem:rays} is involved, and the published terms came back.
 
 Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
@@ -134,7 +151,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A203449.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A241351.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge

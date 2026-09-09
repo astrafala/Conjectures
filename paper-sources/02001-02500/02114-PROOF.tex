@@ -12,83 +12,78 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A262844, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A266097, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A262844 counts arrays of width $4$ over $\{0,1\}$ whose rows, read as base-$2$
-numbers, are divisible by $7$ and whose columns, read the same way, are not divisible by
-$7$. The entry carries an empirical recurrence of order $15$ contributed by
-R.~H.~Hardin. It is true, and it is decidable rather than empirical. A column's value depends on
-every row of the array, so the condition is not local; but its RESIDUE is built one row at a
-time by Horner's rule, and the vector of column residues is a state of bounded size. The count
-is then a walk count on $S=49$ states.
+OEIS A266097 counts arrays of width $4$ in which every entry is equal to the NUMBER of its own
+neighbours, in named directions, that stand in a stated relation to it. The entry carries an
+empirical recurrence of order $15$ contributed by R.~H.~Hardin. It is true, and it is
+decidable rather than empirical. The condition is self-referential but local: a cell's
+neighbours lie in the row above, its own row and the row below, so a window of three
+consecutive rows decides the condition for the middle one, and the count is a walk count on
+$S=11861$ states.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 11A63, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05C30, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A262844 is ``Number of (n+2) X (2+2) 0..1 arrays with each row divisible by 7 and column not divisible by 7, read as a binary number with top and left being the most significant bits.''. It has offset $1$ and begins
+OEIS A266097 is ``Number of nX4 integer arrays with each element equal to the number of horizontal and antidiagonal neighbors exactly one smaller than itself.''. It has offset $1$ and begins
 \[
-6, 34, 132, 396, 1264, 3962, 11886, 35914,\ \dots
+5, 36, 161, 929, 4893, 26948, 145274, 790986,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 4*a(n-1) -4*a(n-2) +20*a(n-3) -68*a(n-4) +68*a(n-5) -162*a(n-6) +444*a(n-7) -444*a(n-8) +644*a(n-9) -1244*a(n-10) +1244*a(n-11) -1277*a(n-12) +1376*a(n-13) -1376*a(n-14) +1032*a(n-15).
+Empirical: a(n) = a(n-1) +24*a(n-2) +17*a(n-3) -89*a(n-4) -40*a(n-5) +146*a(n-6) +18*a(n-7) -82*a(n-8) -6*a(n-9) -8*a(n-10) +36*a(n-11) -13*a(n-12) +a(n-13) -2*a(n-14) +a(n-15) for n>16
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jun 11 2024 09:44:46, revision 10) this is still
+As of the ``Last modified'' line on the live entry (Dec 21 2015 08:16:51, revision 4) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The array has $4$ cells across and entries $x(i,j)\in\{0,1\}$, the digits of
-base $2$. Row $i$ of an array with $R$ rows is the number
+The array has $4$ cells across. The NEIGHBOURS of a cell are the cells reached from it by the
+offsets
 \[
-\rho_i\;=\;\sum_{j=1}^{4}x(i,j)\,2^{4-j} ,
+(-1,1), (0,-1), (0,1), (1,-1),
 \]
-the LEFT digit being the most significant, and column $j$ is
+those that lie inside the array. The condition is that every entry counts its own neighbours
+that are exactly one smaller than it: writing $v=x(i,j)$,
 \[
-\gamma_j\;=\;\sum_{i=1}^{R}x(i,j)\,2^{R-i} ,
+v\;=\;\#\{\text{neighbours } y \text{ of } (i,j)\ :\ y=v-1\} .
 \]
-the TOP digit being the most significant. The entry asks that every $\rho_i$ be divisible by
-$7$ and every $\gamma_j$ be not divisible by $7$.
 
+The entry says ``integer arrays'' and names no alphabet, but one is forced. An entry counts
+neighbours in the named directions, of which there are $4$, so every entry of the array
+lies in $\{0,1,\dots,4\}$ and the count is finite. That bound is used below and
+nothing wider is needed.
 
-\section{Column residues by Horner's rule}
+\section{Three rows decide one}
 
-The row condition is a condition on one row and is imposed as each row is chosen. The column
-condition is not local: $\gamma_j$ depends on every row. What is local is its residue.
-
-\begin{lemma}\label{lem:horner}
-Let $\gamma_j^{(i)}$ be the value of column $j$ of the first $i$ rows, read the same way.
-Then $\gamma_j^{(0)}=0$ and
-\[
-\gamma_j^{(i)}\;=\;2\,\gamma_j^{(i-1)}+x(i,j),
-\qquad\text{hence}\qquad
-\gamma_j^{(i)}\bmod 7\;=\;
-\bigl(2\,(\gamma_j^{(i-1)}\bmod 7)+x(i,j)\bigr)\bmod 7 .
-\]
+\begin{lemma}\label{lem:win}
+Every offset above changes the row index by $-1$, $0$ or $+1$, so all the neighbours of a cell
+of row $i$ lie in rows $i-1$, $i$ and $i+1$. The condition for the whole of row $i$ is
+therefore decided by those three rows, an absent row contributing no neighbours.
 \end{lemma}
 
 \begin{proof}
-Adding a row at the BOTTOM shifts every earlier digit one place up in significance, which is
-multiplication by $2$, and puts the new digit in the units place. Reduction modulo
-$7$ commutes with both operations.
+Immediate from the offsets, together with the rule that a neighbour outside the array is not a
+neighbour.
 \end{proof}
 
-So the vector $\bigl(\gamma_1\bmod 7,\dots,\gamma_{4}\bmod
-7\bigr)$ is a state: at most $7^{4}$ of them, and each array row
-that satisfies the row condition carries one such vector to another. The walk starts at the
-all-zero vector, which is the empty array, and the END vector picks out the residue vectors in
-which every entry is not divisible by $7$ --- so the end vector is not the all-ones
-vector, and the column condition is imposed once, at the end, exactly as the entry states it.
-With $M$ the adjacency matrix,
+So the state is the pair (row above, current row), the row above allowed to be the symbol
+$\bot$; a step appends a row and settles the condition for the middle row of the window it
+completes. Two boundaries have to be right and neither is assumed. The walk starts at the state
+$(\bot,\bot)$, which stands for the empty array, so a walk of no steps is the empty array and
+one step is a one-row array. And the condition for the LAST row is settled by the end vector,
+which asks whether that row satisfies its condition with nothing written below it: the end
+vector is therefore NOT the all-ones vector, and a row that counts correctly only when
+something is written below it does not finish an array. With $M$ the adjacency matrix,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=49.
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=11861.
 \]
 The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
 published terms rather than assumed. In particular $a$ is $C$-finite.
@@ -113,15 +108,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;4\,a(n-1) - 4\,a(n-2) + 20\,a(n-3) - 68\,a(n-4) + 68\,a(n-5) - 162\,a(n-6) + 444\,a(n-7) - 444\,a(n-8) + 644\,a(n-9) - 1244\,a(n-10) + 1244\,a(n-11) - 1277\,a(n-12) + 1376\,a(n-13) - 1376\,a(n-14) + 1032\,a(n-15)
+a(n)\;=\;a(n-1) + 24\,a(n-2) + 17\,a(n-3) - 89\,a(n-4) - 40\,a(n-5) + 146\,a(n-6) + 18\,a(n-7) - 82\,a(n-8) - 6\,a(n-9) - 8\,a(n-10) + 36\,a(n-11) - 13\,a(n-12) + a(n-13) - 2\,a(n-14) + a(n-15)
 \]
-for every $n>12$.
+for every $n>16$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $15$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=12+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=16+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -129,13 +124,13 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $25$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $20$ terms the entry publishes, exactly, in integer
 arithmetic.
 
 Second, the count was recomputed for the smallest arrays straight from the definition:
-enumerate every array of that size, turn each row and each column into a base-$2$ number with
-the first digit most significant, and test the divisibility directly. Neither Horner's rule nor
-any residue state is involved, and the published terms came back.
+enumerate every array of that size, count each cell's neighbours satisfying the relation, and
+keep the array when every cell equals its own count. No window, no transfer matrix and no
+transposition are involved, and the published terms came back.
 
 Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
@@ -145,11 +140,11 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A262844.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A266097.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{knuth} D.~E.~Knuth, \emph{The Art of Computer Programming}, Volume 2, 3rd ed.,
-Addison--Wesley, 1997. (Evaluation of polynomials, Section 4.6.4.)
+\bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata
+Theory, Languages, and Computation}, 3rd ed., Addison--Wesley, 2006.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

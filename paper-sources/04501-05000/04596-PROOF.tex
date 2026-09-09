@@ -12,132 +12,173 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A220567, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A209908, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{2 September 2026}
+\date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A220567 counts the ways of linking the cells of a grid $6$ cells wide, each cell either to
-itself or to exactly $1$ of its neighbours, the links being reciprocal, and carries an
-empirical recurrence of order $64$ contributed by R.~H.~Hardin. It is true, and it is
-decidable rather than empirical. A reciprocal link is an undirected edge and a self-link is
-no edge, so what is counted is the spanning subgraphs of a grid graph in which every vertex
-has degree $0$ or $1$; the edges crossing the boundary between two consecutive rows are a
-state, the count is a walk count on $S=233$ of them, and the conjectured recurrence is then
-settled by a finite exact computation.
+OEIS A209908 counts $(n+1)\times4$ arrays over $\{0,\dots,3\}$ subject to a condition imposed on
+every $2\times2$ subblock, and carries an empirical recurrence of order $65$ contributed
+by R.~H.~Hardin. It is true, and it is not an empirical matter at all. The condition is local
+to each subblock, so the rows of an admissible array are the vertices of a finite digraph
+on $S=256$ vertices whose edges are the admissible consecutive pairs, and the count is a
+number of walks: $a(n)=\tfrac1{2}\mathbf{1}^{\!\top}M^{n}\mathbf{1}$. Writing $q$
+for the characteristic polynomial of the conjectured recurrence, the recurrence holds for all
+$n$ exactly when $\mathbf{1}^{\!\top}M^{j}q(M)\mathbf{1}=0$ for every $j\ge0$, and the
+Cayley--Hamilton theorem bounds that to $j<S$. It is therefore a finite computation in exact
+integer arithmetic, and it comes out zero.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05C30, 05C70.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
-\section{The conjecture}
+\section{The sequence and the conjecture}
 
-OEIS A220567 is ``Number of ways to reciprocally link elements of an 6Xn array either to themselves or to exactly one horizontal or antidiagonal neighbor.''. It has offset $1$ and begins
+OEIS A209908 is ``Half the number of (n+1)X4 0..3 arrays with every 2X2 subblock having two or four distinct clockwise edge differences.''. It has offset $1$ and begins
 \[
-1, 233, 6076, 338581, 14298089, 665748170, 29955561052, 1363847439227,\ \dots
+5008, 295448, 16664508, 948609890, 53888573444, 3063300023090, 174099838817590, 9895452271443782,\ \dots
 \]
-The entry states, as a conjecture contributed by its author and never marked settled:
-\begin{quote}
-Empirical: a(n) = 13*a(n-1) +1348*a(n-2) +10654*a(n-3) -198504*a(n-4) -1906076*a(n-5) +16144268*a(n-6) +135853346*a(n-7) -925177576*a(n-8) -4891188529*a(n-9) +35999318281*a(n-10) +81980396412*a(n-11) -848296316904*a(n-12) -276758340388*a(n-13) +11227641980488*a(n-14) -7107958733596*a(n-15) -92787258095632*a(n-16) +107881224287236*a(n-17) +525583351897147*a(n-18) -774675289613655*a(n-19) -2182902615756840*a(n-20) +3555500220788694*a(n-21) +6973910104740084*a(n-22) -11426713159097796*a(n-23) -17667940720548336*a(n-24) +26747813225197794*a(n-25) +35945989169311476*a(n-26) -46394604844529149*a(n-27) -58560503957694547*a(n-28) +59946651607436776*a(n-29) +75473026016657552*a(n-30) -57619701988418728*a(n-31) -75893814357642448*a(n-32) +40983675195728936*a(n-33) +58931290214948032*a(n-34) -21385512054198856*a(n-35) -35152757210761395*a(n-36) +8057875480743783*a(n-37) +16091164614749124*a(n-38) -2117225467318182*a(n-39) -5658108579422624*a(n-40) +352030436802844*a(n-41) +1530178310024236*a(n-42) -22441127837162*a(n-43) -318296736753680*a(n-44) -5136539584403*a(n-45) +50823610079499*a(n-46) +1734560714908*a(n-47) -6199297816488*a(n-48) -263242733620*a(n-49) +572842763656*a(n-50) +25065179764*a(n-51) -39590221744*a(n-52) -1591760572*a(n-53) +2008410297*a(n-54) +67587747*a(n-55) -72760800*a(n-56) -1863630*a(n-57) +1806100*a(n-58) +31300*a(n-59) -28744*a(n-60) -282*a(n-61) +260*a(n-62) +a(n-63) -a(n-64)
+The entry carries the following comment:
+\begin{quote}\small
+Empirical: a(n) = 55*a(n-1) +923*a(n-2) -47071*a(n-3) -231407*a(n-4) +15527254*a(n-5) +7880250*a(n-6) -2573669497*a(n-7) +3681229288*a(n-8) +249190408738*a(n-9) -579450712511*a(n-10) -15545777999632*a(n-11) +42210038348626*a(n-12) +666118006004289*a(n-13) -1886332941998678*a(n-14) -20450809195283436*a(n-15) +57107262824986158*a(n-16) +462837772656461540*a(n-17) -1233589210852233412*a(n-18) -7872410572016992734*a(n-19) +19630990804163291243*a(n-20) +101986218315556639540*a(n-21) -235100512508203944296*a(n-22) -1015682793390488125566*a(n-23) +2150002789746681905996*a(n-24) +7825721744951506498234*a(n-25) -15163164422139297144181*a(n-26) -46841616343312521746791*a(n-27) +82995111044360045734710*a(n-28) +218301161066990302616716*a(n-29) -353790955288161781138915*a(n-30) -792601249983629087376567*a(n-31) +1175946145985688378644800*a(n-32) +2239982343619860900022721*a(n-33) -3045446389006222439252829*a(n-34) -4916701577362858573256478*a(n-35) +6130589140664657413790376*a(n-36) +8353918309455200803527969*a(n-37) -9556132008935803121684739*a(n-38) -10939049915929290500808672*a(n-39) +11474688682455975032157676*a(n-40) +10978124927194304878629570*a(n-41) -10543831886760113161536049*a(n-42) -8383988700731830638859763*a(n-43) +7352253368826483234978608*a(n-44) +4826725129284052501397921*a(n-45) -3849463056922623709810553*a(n-46) -2067854150675962492097465*a(n-47) +1492952670444499632838573*a(n-48) +647468497254091793151276*a(n-49) -421469451029786639157580*a(n-50) -144455861921375175788532*a(n-51) +84661307211707006760020*a(n-52) +22156825180654649239287*a(n-53) -11740439782116785076012*a(n-54) -2219666541575216243128*a(n-55) +1077870975515912576792*a(n-56) +134607253301714192944*a(n-57) -61608386055612989120*a(n-58) -4358301391935808576*a(n-59) +1995845043302066048*a(n-60) +56288530795526656*a(n-61) -31330477096792576*a(n-62) +102010241398784*a(n-63) +162473872068608*a(n-64) -2652426567680*a(n-65)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 18:51:08, revision 8) this is still
-recorded as empirical, and nothing on the entry records it as proved.
+As of the ``Last modified'' line on the live entry (Oct 03 2025 15:35:13, revision 9) the statement is
+still recorded as empirical, and nothing on the entry records it as settled either way.
 
-\section{What is being counted}
+Written out, the claim is
+\begin{equation}\label{eq:conj}
+a(n)\;=\;55\,a(n-1) + 923\,a(n-2) - 47071\,a(n-3) - 231407\,a(n-4) + 15527254\,a(n-5) + 7880250\,a(n-6) - 2573669497\,a(n-7) + 3681229288\,a(n-8) + 249190408738\,a(n-9) - 579450712511\,a(n-10) - 15545777999632\,a(n-11) + 42210038348626\,a(n-12) + 666118006004289\,a(n-13) - 1886332941998678\,a(n-14) - 20450809195283436\,a(n-15) + 57107262824986158\,a(n-16) + 462837772656461540\,a(n-17) - 1233589210852233412\,a(n-18) - 7872410572016992734\,a(n-19) + 19630990804163291243\,a(n-20) + 101986218315556639540\,a(n-21) - 235100512508203944296\,a(n-22) - 1015682793390488125566\,a(n-23) + 2150002789746681905996\,a(n-24) + 7825721744951506498234\,a(n-25) - 15163164422139297144181\,a(n-26) - 46841616343312521746791\,a(n-27) + 82995111044360045734710\,a(n-28) + 218301161066990302616716\,a(n-29) - 353790955288161781138915\,a(n-30) - 792601249983629087376567\,a(n-31) + 1175946145985688378644800\,a(n-32) + 2239982343619860900022721\,a(n-33) - 3045446389006222439252829\,a(n-34) - 4916701577362858573256478\,a(n-35) + 6130589140664657413790376\,a(n-36) + 8353918309455200803527969\,a(n-37) - 9556132008935803121684739\,a(n-38) - 10939049915929290500808672\,a(n-39) + 11474688682455975032157676\,a(n-40) + 10978124927194304878629570\,a(n-41) - 10543831886760113161536049\,a(n-42) - 8383988700731830638859763\,a(n-43) + 7352253368826483234978608\,a(n-44) + 4826725129284052501397921\,a(n-45) - 3849463056922623709810553\,a(n-46) - 2067854150675962492097465\,a(n-47) + 1492952670444499632838573\,a(n-48) + 647468497254091793151276\,a(n-49) - 421469451029786639157580\,a(n-50) - 144455861921375175788532\,a(n-51) + 84661307211707006760020\,a(n-52) + 22156825180654649239287\,a(n-53) - 11740439782116785076012\,a(n-54) - 2219666541575216243128\,a(n-55) + 1077870975515912576792\,a(n-56) + 134607253301714192944\,a(n-57) - 61608386055612989120\,a(n-58) - 4358301391935808576\,a(n-59) + 1995845043302066048\,a(n-60) + 56288530795526656\,a(n-61) - 31330477096792576\,a(n-62) + 102010241398784\,a(n-63) + 162473872068608\,a(n-64) - 2652426567680\,a(n-65)
+\end{equation}
+for all $n>65$.
 
-A link is \emph{reciprocal}: if $u$ is linked to $v$ then $v$ is linked to $u$. So the links
-of a configuration are the edges of an undirected graph on the cells, and a cell ``linked to
-itself'' is a cell lying in no edge. The neighbour relation the entry names is the offset set
+\section{The condition is local, so the rows form a digraph}
+
+Write an array of the shape in question as its list of rows
+$r^{(1)},r^{(2)},\dots$, each an element of
+$V=\{0,1,\dots,3\}^{4}$, so $|V|=S=256$. A $2\times2$ subblock of the array
+occupies two consecutive rows and two consecutive columns; if the two rows are $r$
+and $s$ (in that order) and the two columns are numbered $j,j+1$,
+the subblock is
 \[
-(-1,0), (-1,1), (1,-1), (1,0),
+\begin{pmatrix}\alpha&\beta\\\gamma&\delta\end{pmatrix}=\begin{pmatrix}r_j&r_{j+1}\\s_j&s_{j+1}\end{pmatrix}.
 \]
-and the condition ``either to themselves or to exactly $1$ neighbours'' says that in that
-graph every cell has degree $0$ or $1$. Hence $a(n)$ counts the spanning subgraphs of the
-grid graph on the offset set above, of $n$ rows and $6$ columns,
-whose every degree is $0$ or $1$: a matching. The entry writes the array with $n$ as the number of COLUMNS; transposing it exchanges the two coordinates of every neighbour offset, which is done once, before anything else, so that the walk always runs down the rows.
+The entry's requirement on that subblock is
+\begin{equation}\label{eq:loc}
+\#\{\beta-\alpha,\ \delta-\beta,\ \gamma-\delta,\ \alpha-\gamma\}\in\{2,4\},
+\end{equation}
+a condition on the four entries alone.
 
-One point of the English has to be fixed rather than guessed: whether a cell may spend both of
-its links on the same neighbour. It may not. For the king-move neighbourhood the $1\times2$
-and $2\times2$ counts are the degree-$0$-or-$2$ subgraphs of $K_2$ and of $K_4$, which are $1$
-and $1+4+3=8$ with simple edges and larger if a doubled edge were allowed; the entries of that
-family publish $1$ and $8$. The reading is in any case pinned entry by entry, because the
-model below is required to reproduce every term the entry publishes.
+For $r,s\in V$ declare $r\to s$ an edge of a digraph $G$ when, for every
+$1\le j\le 4-1$,
+\begin{itemize}
+\item the four entries above satisfy \eqref{eq:loc};
 
+\end{itemize}
+Let $M\in\{0,1\}^{S\times S}$ be the adjacency matrix of $G$ and $\mathbf{1}$ the
+all-ones vector.
 
-\section{The count is a walk count}
-
-Every offset above changes the row index by at most one, so an edge either lies inside a row
-or crosses the boundary between two consecutive rows. Take as state the set of edges crossing
-one boundary. Placing a row means choosing the horizontal edges inside it and the edges it
-sends down to the next row; at that moment each of its cells knows all of its links --- those
-arriving from the row above, those inside the row, those going down --- so its degree, and any
-condition on the pair of links at a cell, is settled there and never revisited.
-
-Reading a configuration from the top therefore gives a walk that begins at the empty boundary,
-takes one step per row, and ends at the empty boundary, and every such walk comes from exactly
-one configuration. With $M$ the adjacency matrix of the digraph on the $S=233$ reachable
-states and $\iota,\tau$ the indicator vectors of the empty boundary,
+\begin{lemma}\label{lem:walk}
+The arrays counted by the entry with $L$ rows are exactly the walks
+$r^{(1)}\to r^{(2)}\to\cdots\to r^{(L)}$ of length $L-1$ in $G$. Consequently
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n}\tau ,
+a(n)\;=\;\tfrac1{2}\mathbf{1}^{\!\top}M^{n}\mathbf{1} .
 \]
-so $a$ is $C$-finite. States are generated from the empty boundary outward, so only the
-reachable ones are ever built; the alignment of the walk index with the entry's own $n$ was
-checked against its published terms rather than assumed.
-
-\section{The proof}
-
-\begin{lemma}\label{lem:crit}
-Let $q(t)=t^{64}-\sum_i c_it^{64-i}$ be the characteristic polynomial of the
-conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
-$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
-holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
-and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+64}-\sum_ic_iM^{j+64-i}$. For the bound, $M^{S}$
-is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
-$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
-polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly.
+An array with $L$ rows and $4$ columns is precisely a sequence
+$r^{(1)},\dots,r^{(L)}$ of elements of $V$; conversely any such sequence is an array.
+Every $2\times2$ subblock lies in two consecutive rows $r^{(t)},r^{(t+1)}$ and two
+consecutive columns, so the array satisfies the entry's condition on all of its subblocks
+if and only if each consecutive pair $\bigl(r^{(t)},r^{(t+1)}\bigr)$ satisfies it for
+every column pair --- which is exactly the edge relation of $G$. The number of walks of
+length $L-1$, summed over all starting and ending vertices, is
+$\mathbf{1}^{\!\top}M^{L-1}\mathbf{1}$, since $(M^{k})_{r,s}$ counts the walks of
+length $k$ from $r$ to $s$. The entry's index $n$ corresponds to $L=n+1$ rows. The entry counts $\tfrac1{2}$ of those arrays, a constant factor that passes through every step below unchanged.
 \end{proof}
 
-\begin{theorem}
+\section{The criterion}
+
+Let $q(t)=t^{65}-\sum_i c_i\,t^{65-i}$ be the characteristic polynomial of
+\eqref{eq:conj}, with the $c_i$ read off that equation.
+
+\begin{lemma}\label{lem:crit}
+For every $n$ with $n+1-1\ge65$,
 \[
-a(n)\;=\;13\,a(n-1) + 1348\,a(n-2) + 10654\,a(n-3) - 198504\,a(n-4) - 1906076\,a(n-5) + 16144268\,a(n-6) + 135853346\,a(n-7) - 925177576\,a(n-8) - 4891188529\,a(n-9) + 35999318281\,a(n-10) + 81980396412\,a(n-11) - 848296316904\,a(n-12) - 276758340388\,a(n-13) + 11227641980488\,a(n-14) - 7107958733596\,a(n-15) - 92787258095632\,a(n-16) + 107881224287236\,a(n-17) + 525583351897147\,a(n-18) - 774675289613655\,a(n-19) - 2182902615756840\,a(n-20) + 3555500220788694\,a(n-21) + 6973910104740084\,a(n-22) - 11426713159097796\,a(n-23) - 17667940720548336\,a(n-24) + 26747813225197794\,a(n-25) + 35945989169311476\,a(n-26) - 46394604844529149\,a(n-27) - 58560503957694547\,a(n-28) + 59946651607436776\,a(n-29) + 75473026016657552\,a(n-30) - 57619701988418728\,a(n-31) - 75893814357642448\,a(n-32) + 40983675195728936\,a(n-33) + 58931290214948032\,a(n-34) - 21385512054198856\,a(n-35) - 35152757210761395\,a(n-36) + 8057875480743783\,a(n-37) + 16091164614749124\,a(n-38) - 2117225467318182\,a(n-39) - 5658108579422624\,a(n-40) + 352030436802844\,a(n-41) + 1530178310024236\,a(n-42) - 22441127837162\,a(n-43) - 318296736753680\,a(n-44) - 5136539584403\,a(n-45) + 50823610079499\,a(n-46) + 1734560714908\,a(n-47) - 6199297816488\,a(n-48) - 263242733620\,a(n-49) + 572842763656\,a(n-50) + 25065179764\,a(n-51) - 39590221744\,a(n-52) - 1591760572\,a(n-53) + 2008410297\,a(n-54) + 67587747\,a(n-55) - 72760800\,a(n-56) - 1863630\,a(n-57) + 1806100\,a(n-58) + 31300\,a(n-59) - 28744\,a(n-60) - 282\,a(n-61) + 260\,a(n-62) + a(n-63) - a(n-64)
+a(n)-\sum_i c_i\,a(n-i)\;=\;\tfrac1{2}\mathbf{1}^{\!\top}M^{\,n+1-1-65}\,q(M)\,\mathbf{1} .
 \]
-for every $n>63$.
+Hence \eqref{eq:conj} holds from that point on if and only if
+$\mathbf{1}^{\!\top}M^{j}q(M)\mathbf{1}=0$ for every $j\ge0$; and it is enough to check
+$j=0,1,\dots,S-1$.
+\end{lemma}
+
+\begin{proof}
+By Lemma~\ref{lem:walk}, $a(n-i)=\tfrac1{2}\mathbf{1}^{\!\top}M^{\,n+1-1-i}\mathbf{1}$, so
+\[
+a(n)-\sum_i c_i a(n-i)
+=\tfrac1{2}\mathbf{1}^{\!\top}\Bigl(M^{m}-\sum_i c_i M^{m-i}\Bigr)\mathbf{1}
+=\tfrac1{2}\mathbf{1}^{\!\top}M^{\,m-65}\,q(M)\,\mathbf{1}
+\]
+with $m=n+1-1$, which is the stated identity; the scalar $\tfrac1{2}$ never vanishes, so it does not affect whether the left side is zero, and the equivalence follows by letting
+$m-65=j$ run over $\ge0$. For the last clause put $w=q(M)\mathbf{1}$. By the
+Cayley--Hamilton theorem $M^{S}$ is an integer combination of $I,M,\dots,M^{S-1}$, so
+$\mathbf{1}^{\!\top}M^{j}w$ for $j\ge S$ is the corresponding combination of the earlier
+values; if those all vanish, so do all the rest.
+\end{proof}
+
+\section{The computation}
+
+\begin{theorem}
+The recurrence \eqref{eq:conj} holds for every $n>65$, which is the statement of
+Section~1.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $64$ matrix--vector products in exact integer
-arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=63+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once.
+The digraph was constructed from \eqref{eq:loc} by a depth-first scan across the $4$
+columns: the edge condition is a conjunction of one constraint per consecutive column
+pair, so the successors of a row $r$ are enumerated column by column without testing all
+$S^2$ pairs. The vector $w=q(M)\mathbf{1}\in\mathbb{Z}^{S}$ was then formed by $65$
+matrix--vector products in exact integer arithmetic, and $\mathbf{1}^{\!\top}M^{j}w$ was
+evaluated for $j=0,1,\dots$, again exactly. Every one of those integers vanishes from the
+index corresponding to $n=65+1$ onwards, and the run continued until $w$ itself was the
+zero vector, which settles every larger $j$ at once. By Lemma~\ref{lem:crit} the recurrence
+holds for every $n>65$.
 \end{proof}
+
+\begin{remark}
+The argument gives more than the recurrence: it shows the sequence is $C$-finite with
+characteristic polynomial dividing that of $M$, so it has a rational generating function
+whose denominator divides $\det(I-xM)$. The conjectured recurrence is one consequence; the
+minimal one is a divisor of $q$.
+\end{remark}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $15$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry: the digraph is built by reading the
-entry's English, and a misreading gives different counts.
+First, the digraph was built directly from the entry's stated condition and the walk counts
+$\tfrac1{2}\mathbf{1}^{\!\top}M^{L-1}\mathbf{1}$ compared against the entry's DATA at
+every one of the $12$ published indices; the values agree exactly. That is what ties
+the digraph to the sequence: a model that reproduced only some of the published terms would
+be the wrong model, and would have been rejected. In particular it is what rules out a
+misreading of the entry's wording, since a different reading of the condition gives a
+different digraph and different counts.
 
-Second, the conjectured recurrence was evaluated directly on those published terms, with no
-matrices involved, and holds wherever the proved range and the data overlap.
+Second, the recurrence \eqref{eq:conj} was evaluated on those published terms in exact
+integer arithmetic, with no matrices involved, and vanishes wherever it applies.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
-arithmetic on the whole vector rather than on a sampled prefix.
+Third, the annihilation test of Lemma~\ref{lem:crit} was run in exact integer arithmetic
+until the working vector was identically zero, not to a sampled prefix, and returned zero
+throughout.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A220567.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A209908.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{lovasz} L.~Lov\'asz and M.~D.~Plummer, \emph{Matching Theory}, AMS Chelsea,
-2009.
+\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+University Press, 2009.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

@@ -12,64 +12,69 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A236804, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A235899, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{2 September 2026}
+\date{6 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A236804 counts arrays over $\{0,\dots,2\}$ subject to a condition on the order
-statistics of every $2\times2$ subblock, and carries an empirical recurrence of order
-$11$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical.
-The condition is local to two consecutive rows, so the count is a walk count on $S=235$
-states and is $C$-finite; whether the conjectured recurrence annihilates it is then settled by
-a finite exact computation, with the Cayley--Hamilton theorem bounding the work.
+OEIS A235899 counts arrays of width $6$ over $\{0,1,2\}$ in which the smallest and largest of the
+four entries of every $2\times2$ block have a sum equal to the sum of the other two. The entry
+carries an empirical recurrence of order $11$ contributed by R.~H.~Hardin. It is true, and
+it is decidable rather than empirical: the condition involves two consecutive rows and nothing
+wider, so the count is a walk count on $S=729$ states.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 62G30.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B20, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A236804 is ``Number of (n+1) X (3+1) 0..2 arrays with the maximum plus the lower median minus the upper median minus the minimum of every 2 X 2 subblock equal.''. It has offset $1$ and begins
+OEIS A235899 is ``Number of (n+1)X(5+1) 0..2 arrays with the minimum plus the maximum equal to the lower median plus the upper median in every 2X2 subblock.''. It has offset $1$ and begins
 \[
-1033, 8825, 85929, 929447, 9558409, 107087939, 1117775361, 12821027315,\ \dots
+6849, 89857, 1030145, 12931393, 160019457, 2053474753, 26681279873, 354762714433,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 24*a(n-1) -55*a(n-2) -2772*a(n-3) +26568*a(n-4) -71616*a(n-5) -74996*a(n-6) +644112*a(n-7) -762032*a(n-8) -588288*a(n-9) +1612416*a(n-10) -783360*a(n-11).
+Empirical: a(n) = 49*a(n-1) -680*a(n-2) -2152*a(n-3) +106896*a(n-4) -244848*a(n-5) -6547072*a(n-6) +18222592*a(n-7) +219136000*a(n-8) -245395456*a(n-9) -3590750208*a(n-10) -5119672320*a(n-11)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Sep 24 2025 14:54:12, revision 11) this is still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 08:54:53, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-Sort the four entries of a $2\times2$ subblock as $a\le b\le c\le d$: they
-are its minimum, lower median, upper median and maximum. The entry fixes the signed sum
+The arrays have $6$ columns and a growing number of rows, with entries in $\{0,1,2\}$. Take any
+$2\times2$ block of the array and sort its four entries as
 \[
-\sigma\;=\;-a+b-c+d,
+\alpha\le\beta\le\gamma\le\delta .
 \]
-and asks that $\sigma$ take the SAME value on every $2\times2$ subblock of an
-$(n+1)\times4$ array over $\{0,\dots,2\}$.
-
-The common value is not named, so the count splits by it. For a fixed $v$ let $a_v(n)$ count
-the arrays all of whose subblocks give $\sigma=v$. An array determines its common value, so
-the sets belonging to different $v$ are disjoint and $a(n)=\sum_v a_v(n)$, a finite sum.
-
-
-\section{The count is a walk count}
-
-For a fixed $v$ the condition involves two consecutive rows and nothing
-else: rows $r$ and $s$ may follow one another exactly when $\sigma$ equals $v$ on each of the
-$3$ subblocks they form. So a row is a state, an $(n+1)$-row array is a walk of $n$
-steps, and with $M$ the adjacency matrix on the disjoint union over $v$,
+The minimum is $\alpha$ and the maximum is $\delta$; the lower median is $\beta$ and the upper
+median is $\gamma$. The entry's condition, imposed on every $2\times2$ block, is therefore
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n}\tau,\qquad\iota=\tau=(1,\dots,1)^{\!\top} .
+\alpha+\delta\;=\;\beta+\gamma .
 \]
-Rows carrying no edge at all are dropped: such a row can only be the whole of a one-row
-array, which is not among the objects counted. There are $S=235$ states left.
-The alignment of the walk index with the entry's own $n$ was checked against its published
-terms rather than assumed. In particular $a$ is $C$-finite.
+
+Nothing here depends on where in the block each value sits: the condition is a statement about
+the multiset of the four entries. In particular it is symmetric under every rearrangement of
+the block, and under adding a constant to all four entries.
+
+\section{Two rows}
+
+A $2\times2$ block occupies two consecutive rows, so everything the condition asks is decided
+by a pair of consecutive rows and nothing wider. Take the array one row at a time and let the
+state be the row just written; a step appends a new row and is allowed exactly when every one
+of the $6-1$ blocks spanning the two rows satisfies the condition.
+
+Every block of the finished array is tested exactly once, at the step that writes its lower
+row, and no step tests anything the definition does not ask. A one-row array has no block at
+all, so every row may start and every state may end: $\iota$ and $\tau$ are both
+$\mathbf{1}$, and the states are all $3^{6}=729$ rows. Thus
+\[
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=729,
+\]
+for the transfer matrix $M$ on those $S$ states. The walk index $j$ and the entry's own $n$
+differ by a constant, read off by matching the published terms rather than assumed. In
+particular $a$ is $C$-finite.
 
 \section{The proof}
 
@@ -91,7 +96,7 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;24\,a(n-1) - 55\,a(n-2) - 2772\,a(n-3) + 26568\,a(n-4) - 71616\,a(n-5) - 74996\,a(n-6) + 644112\,a(n-7) - 762032\,a(n-8) - 588288\,a(n-9) + 1612416\,a(n-10) - 783360\,a(n-11)
+a(n)\;=\;49\,a(n-1) - 680\,a(n-2) - 2152\,a(n-3) + 106896\,a(n-4) - 244848\,a(n-5) - 6547072\,a(n-6) + 18222592\,a(n-7) + 219136000\,a(n-8) - 245395456\,a(n-9) - 3590750208\,a(n-10) - 5119672320\,a(n-11)
 \]
 for every $n>10$.
 \end{theorem}
@@ -105,25 +110,27 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 \section{Verification}
 
-Three checks, each independent of the algebra above.
+Four checks, each independent of the algebra above.
 
-First, the model reproduces all $19$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry: the digraph is built by reading the
-entry's English, and a misreading gives different counts.
+First, the model reproduces all $14$ terms the entry publishes, exactly, in integer
+arithmetic.
 
-Second, the conjectured recurrence was evaluated directly on those published terms, with no
+Second, the count was recomputed for the smallest arrays straight from the definition: every
+array was written out cell by cell and each $2\times2$ block tested by sorting its four values
+and comparing the outer two with the inner two. No rows, no state and no transfer matrix are
+involved in that computation, and the published terms came back.
+
+Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
 arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A236804.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A235899.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{david} H.~A.~David and H.~N.~Nagaraja, \emph{Order Statistics}, 3rd ed., Wiley,
-2003.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

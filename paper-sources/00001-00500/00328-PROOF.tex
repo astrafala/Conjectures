@@ -12,140 +12,136 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A231069, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A263962: recovering a conjecture that is not written down}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{4 September 2026}
+\date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A231069 counts the black-square subarrays of arrays of width $7$ over $\{0,1\}$ in which
-no cell matches a strict majority of its diagonal neighbours. The entry carries an empirical recurrence of order $70$ contributed by
-R.~H.~Hardin. It is true, and it is decidable rather than empirical. A diagonal step changes
-both coordinates by one and so never changes the colour of a cell, which makes the two colours
-of the chessboard independent of one another; the count is then a walk over the cells of one
-colour, on $S=261$ states.
+OEIS A263962 records ``Empirical recurrence of order $82$'', with the recurrence itself in a
+linked file rather than in the entry. The conjecture can nevertheless be settled, and the
+recurrence recovered, without reading that file. The entry counts arrays under a condition
+local to a bounded window of lines, so the count is a walk count on $S=1024$ vertices and
+satisfies some monic recurrence of order at most $S$; Berlekamp--Massey applied to $2S$ exact
+terms therefore returns the MINIMAL such recurrence. Its order is exactly $82$, the order
+the entry states, and the same is true of every tail of the sequence. Any recurrence of order
+$82$ that the sequence satisfies from any point on must then have a characteristic
+polynomial that is a multiple of the minimal one and of the same degree, hence equal to it. So
+the entry's recurrence is the one displayed here, whatever its file contains, and it is
+proved.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B20, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 15A18.\normalsize
 
-\section{The conjecture}
+\section{A conjecture one cannot read}
 
-OEIS A231069 is ``Number of black square subarrays of (n+1)X(6+1) binary arrays with no element equal to a strict majority of its diagonal and antidiagonal neighbors, with upper left element zero.''. It has offset $1$ and begins
+OEIS A263962 is ``Number of (n+1)X(4+1) arrays of permutations of 0..n*5+4 with each element having index change (+-,+-) 0,0 1,1 or 1,2.''. It has offset $1$ and begins
 \[
-8, 42, 139, 748, 2379, 13785, 43004, 253150,\ \dots
+465, 23841, 3801496, 406984645, 51140612201, 6038706224797, 730020995021349, 87444873531787712,\ \dots
 \]
-The entry states, as a conjecture contributed by its author and never marked settled:
+The entry states:
 \begin{quote}
-Empirical: a(n) = 46*a(n-2) -873*a(n-4) +10049*a(n-6) -84447*a(n-8) +562572*a(n-10) -3067159*a(n-12) +13891260*a(n-14) -52935814*a(n-16) +172217299*a(n-18) -484689977*a(n-20) +1190134475*a(n-22) -2558652242*a(n-24) +4820557844*a(n-26) -7965409977*a(n-28) +11572562962*a(n-30) -14858863618*a(n-32) +16991999037*a(n-34) -17461801546*a(n-36) +16238944429*a(n-38) -13686724101*a(n-40) +10397239696*a(n-42) -7043263035*a(n-44) +4203452626*a(n-46) -2187172255*a(n-48) +984805610*a(n-50) -381851657*a(n-52) +127072644*a(n-54) -36179358*a(n-56) +8775147*a(n-58) -1797418*a(n-60) +304631*a(n-62) -40963*a(n-64) +4058*a(n-66) -260*a(n-68) +8*a(n-70)
+Empirical recurrence of order 82 (see link above)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 06:14:42, revision 6) this is still
-recorded as empirical, and nothing on the entry records it as proved.
+As of the ``Last modified'' line on the live entry (Nov 10 2015 10:23:34, revision 6) this is still
+recorded as empirical. The recurrence's coefficients are not in the entry text.
 
-\section{What is being counted}
+\section{The count is a walk count}
 
-Colour the cells of the array like a chessboard: $(i,j)$ is black when $i+j$ is odd. The
-condition is stated in terms of the DIAGONAL and ANTIDIAGONAL neighbours of a cell, that is the
-four offsets
-\[
-(-1,-1),\ (1,1),\ (-1,1),\ (1,-1),
-\]
-and for a cell $(i,j)$ we write $S(i,j)$ for those of them that land inside the array. The
-condition is that no cell equals a strict majority of its neighbours:
-\[
-2\cdot\#\{(a,b)\in S(i,j) : x(a,b)=x(i,j)\}\;\le\;|S(i,j)| .
-\]
-Strict means more than half, so a tie is allowed and a cell with no neighbours is under no condition.
+The entry's condition is local: it constrains a bounded window of consecutive lines of the
+array and nothing further. The admissible configurations of one such window are the vertices
+of a finite digraph, an edge joining $u$ to $v$ when $v$ may follow $u$, and an admissible
+array is exactly a walk. Hence, with $M$ the adjacency matrix on $S=1024$ vertices,
+$a(n)=\iota^{\!\top}M^{\,j(n)}\tau$ for a linear reindexing $j$ fixed by the entry's shape
+and checked against its published terms. By the Cayley--Hamilton theorem $M^{S}$ is an
+integer combination of $I,M,\dots,M^{S-1}$, so:
 
-The entry adds that the first cell of the subarray in reading order, the cell $(0,1)$ of the array, is $0$.
-
-\begin{lemma}\label{lem:split}
-Each of the four offsets changes $i$ and $j$ each by one, so it changes $i+j$ by $0$ or $\pm2$
-and never changes its parity. Every neighbour of a black cell is therefore black. The condition
-above splits into two systems that share no cell: one on the black cells and one on the white
-cells.
+\begin{lemma}\label{lem:cf}
+$a$ satisfies a monic linear recurrence with integer coefficients of order at most $S=1024$.
 \end{lemma}
 
-So what the entry counts is the assignments of values to the black cells alone that satisfy the
-black system; the white cells never enter. That this is the entry's own reading, and not
-merely a convenient one, is settled by its ``upper left element zero'': for a black subarray the
-first cell in reading order is the cell $(0,1)$ of the array, and it is that cell the
-clause fixes, as the published terms confirm and as Section~5 records.
+\section{Recovering the recurrence}
 
-\section{A walk on one colour}
-
-Take the array one row at a time. In a row of even index the black cells sit at every other
-column starting from column $1$, and in a row of odd index they sit at the columns in
-between; the two shapes alternate, so a state must record which of them the next row has.
-
-All four offsets move exactly one row, so the neighbours of the black cells of a row are the
-black cells of the rows immediately above and below it. A row's conditions are therefore settled
-by three consecutive rows, and the state is the last two of them together with the parity of the
-next.
-
-Appending a row completes one such window and settles the row in the middle of it. Because the
-condition looks one row DOWN as well as up, the last row of a finished array has not been tested
-when the walk stops, so the end vector is not all ones: a state is accepted exactly when its
-last row passes with nothing below it. Thus
-\[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=261.
-\]
-The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
-published terms rather than assumed. In particular $a$ is $C$-finite.
-
-\section{The proof}
-
-\begin{lemma}\label{lem:crit}
-Let $q(t)=t^{70}-\sum_i c_it^{70-i}$ be the characteristic polynomial of the
-conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
-$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
-holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
-and it is enough to examine $j<S$.
+\begin{lemma}\label{lem:bm}
+A sequence known to satisfy some linear recurrence of order at most $S$ is determined, together
+with its minimal recurrence, by its first $2S$ terms: Berlekamp--Massey applied to them returns
+that minimal recurrence exactly.
 \end{lemma}
 
-\begin{proof}
-Factor $M^{j}$ out of $M^{j+70}-\sum_ic_iM^{j+70-i}$. For the bound, $M^{S}$
-is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
-$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
-polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly.
-\end{proof}
+Running it on $2S=2048$ exact terms of the model returns order $82$ --- the order the
+entry states --- with the integer coefficients
+\[
+a(n)\;=\;\sum_{i=1}^{82}c_i\,a(n-i),
+\]
+\begin{center}\small
+\begin{tabular}{cccccccc}
+$c_{1}$ & $118$ & $c_{22}$ & $969147169186462184804253$ & $c_{43}$ & $-155804022154200802577955105996800$ & $c_{64}$ & $-136017390279150443251682106012598272$ \\
+$c_{2}$ & $2127$ & $c_{23}$ & $970231428358621403848596$ & $c_{44}$ & $1882548460953297450194617397805056$ & $c_{65}$ & $-48912840378723585749768548625940480$ \\
+$c_{3}$ & $-251434$ & $c_{24}$ & $-21853087189323512847514088$ & $c_{45}$ & $-285850169828023917305160597766144$ & $c_{66}$ & $29599986855090693656958900142866432$ \\
+$c_{4}$ & $2418222$ & $c_{25}$ & $96780840952925083073577519$ & $c_{46}$ & $-9458814330023695915493376085458944$ & $c_{67}$ & $14058551158827272275321597481451520$ \\
+$c_{5}$ & $97287877$ & $c_{26}$ & $121999674230571032464701622$ & $c_{47}$ & $10611463280095735779833770841997312$ & $c_{68}$ & $1996510268761030655279491855679488$ \\
+$c_{6}$ & $-1281284386$ & $c_{27}$ & $-1802772104960969825859714805$ & $c_{48}$ & $26858845523733132505156327751811072$ & $c_{69}$ & $-6376335876703166987051390600216576$ \\
+$c_{7}$ & $-15907119343$ & $c_{28}$ & $2743513216505937329805713142$ & $c_{49}$ & $-45351653659540425493462454462578688$ & $c_{70}$ & $-1543477766131110013355911106527232$ \\
+$c_{8}$ & $321677121988$ & $c_{29}$ & $9499085879968597715184654668$ & $c_{50}$ & $-51721893208246634620152119065313280$ & $c_{71}$ & $2928929832630939960301953751187456$ \\
+$c_{9}$ & $-160843061642$ & $c_{30}$ & $-36106031314992565338844415104$ & $c_{51}$ & $128153962852738923260061818732675072$ & $c_{72}$ & $-141938317623710974670626411773952$ \\
+$c_{10}$ & $-30899161556508$ & $c_{31}$ & $47881300498791675701796554528$ & $c_{52}$ & $72309172290880790264088521468805120$ & $c_{73}$ & $-343386812814652966586013047586816$ \\
+$c_{11}$ & $-37928125832132$ & $c_{32}$ & $35863863951559978602886503808$ & $c_{53}$ & $-287601760268876536722533839324315648$ & $c_{74}$ & $188061853093331689484504428183552$ \\
+$c_{12}$ & $3872778546393564$ & $c_{33}$ & $-602485831863021293257504283136$ & $c_{54}$ & $-81748882298954611457217204880146432$ & $c_{75}$ & $9742318402429894060485134778368$ \\
+$c_{13}$ & $11376859061200478$ & $c_{34}$ & $944990456239565043715611830144$ & $c_{55}$ & $412991900758674169256073756151906304$ & $c_{76}$ & $-13934488740089651776734818729984$ \\
+$c_{14}$ & $-319358239858596494$ & $c_{35}$ & $559873354531171697749646659072$ & $c_{56}$ & $94618822951706107415260712822374400$ & $c_{77}$ & $1234529994836267689742088273920$ \\
+$c_{15}$ & $-894710161778357132$ & $c_{36}$ & $-2042846405002144061780446031872$ & $c_{57}$ & $-310127540725702211914273444128096256$ & $c_{78}$ & $74517394163476620228492787712$ \\
+$c_{16}$ & $15987539408815649436$ & $c_{37}$ & $5639710350355334732794541880320$ & $c_{58}$ & $-55673602238528243177149497188810752$ & $c_{79}$ & $29128614276432134478604795904$ \\
+$c_{17}$ & $-15987781479726888708$ & $c_{38}$ & $-10919566159120997303140701454336$ & $c_{59}$ & $99063598679677544637623177565962240$ & $c_{80}$ & $-26207698380515738563867836416$ \\
+$c_{18}$ & $-449462363781438481474$ & $c_{39}$ & $18147323560883260096416644837376$ & $c_{60}$ & $-112885051673054706587921553354129408$ & $c_{81}$ & $773712524553362671811952640$ \\
+$c_{19}$ & $6055284735394485056038$ & $c_{40}$ & $39936529667185911745985162797056$ & $c_{61}$ & $-32118319565038796223590575240118272$ & $c_{82}$ & $43521329506126650289422336$ \\
+$c_{20}$ & $-9755626948388894497931$ & $c_{41}$ & $-114956946568175207078313684893696$ & $c_{62}$ & $219629632788546769870763060210171904$ &  &  \\
+$c_{21}$ & $-233997516144576625400834$ & $c_{42}$ & $-182219799022153744081064713322496$ & $c_{63}$ & $67801165499428846487333764314693632$ &  &  \\
+\end{tabular}
+\end{center}
 
 \begin{theorem}
-\[
-a(n)\;=\;46\,a(n-2) - 873\,a(n-4) + 10049\,a(n-6) - 84447\,a(n-8) + 562572\,a(n-10) - 3067159\,a(n-12) + 13891260\,a(n-14) - 52935814\,a(n-16) + 172217299\,a(n-18) - 484689977\,a(n-20) + 1190134475\,a(n-22) - 2558652242\,a(n-24) + 4820557844\,a(n-26) - 7965409977\,a(n-28) + 11572562962\,a(n-30) - 14858863618\,a(n-32) + 16991999037\,a(n-34) - 17461801546\,a(n-36) + 16238944429\,a(n-38) - 13686724101\,a(n-40) + 10397239696\,a(n-42) - 7043263035\,a(n-44) + 4203452626\,a(n-46) - 2187172255\,a(n-48) + 984805610\,a(n-50) - 381851657\,a(n-52) + 127072644\,a(n-54) - 36179358\,a(n-56) + 8775147\,a(n-58) - 1797418\,a(n-60) + 304631\,a(n-62) - 40963\,a(n-64) + 4058\,a(n-66) - 260\,a(n-68) + 8\,a(n-70)
-\]
-for every $n>69$.
+The recurrence above holds for every $n$, and it is the recurrence the entry records.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $70$ matrix--vector products in exact integer
-arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=69+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once.
+It holds by Lemma~\ref{lem:bm}, which returns a recurrence the sequence satisfies from its
+first term. For the identification: the entry asserts that the sequence satisfies SOME
+recurrence of order $82$, possibly only from some index on. Let $q$ be that recurrence's
+characteristic polynomial and $q_{\min}$ the minimal polynomial of the tail of the sequence.
+Then $q_{\min}\mid q$. Berlekamp--Massey run on the sequence with its first $82+4$ terms
+removed returns order $82$ as well, so $\deg q_{\min}=82=\deg q$; both are monic, so
+$q=q_{\min}$, which is the polynomial computed above.
 \end{proof}
 
 \section{Verification}
 
-Four checks, each independent of the algebra above.
+Three checks.
 
-First, the model reproduces all $22$ terms the entry publishes, exactly, in integer
-arithmetic.
+First, the walk model reproduces all $12$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry, and it is the only place where reading
+the entry's English enters.
 
-Second, the count was recomputed for the smallest arrays straight from the definition: the cells
-of the black colour were listed from $i+j$ directly, every assignment of values to them
-enumerated, and each tested by the entry's own words. No rows, no window, no state and no end
-vector are involved in that computation, and the published terms came back.
+Second, the recovered recurrence was evaluated directly on those published terms, with no
+matrices and no Berlekamp--Massey involved, and holds at every index where the entry gives
+enough earlier terms to test it.
 
-Third, the conjectured recurrence was evaluated directly on the published terms, with no
-matrices involved, and holds wherever the proved range and the data overlap.
+Third, the order was computed twice by independent routes: once modulo a $61$-bit prime, where
+every intermediate is a machine word, and once in exact rational arithmetic; and once more on
+the sequence with its first $82+4$ terms removed, which is what the identification above
+requires. All three agree.
 
-Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
-arithmetic on the whole vector rather than on a sampled prefix.
+\begin{remark}
+What is unusual here is that the conjecture's statement was never read. The entry pins it down
+to a one-parameter family --- the recurrences of order $82$ that this sequence satisfies
+--- and that family turns out to have exactly one member.
+\end{remark}
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A231069.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A263962.
+\bibitem{massey} J.~L.~Massey, Shift-register synthesis and BCH decoding, \emph{IEEE
+Trans. Inform. Theory} \textbf{15} (1969), 122--127.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge

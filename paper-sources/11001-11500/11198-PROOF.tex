@@ -12,22 +12,22 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A267953: recovering a conjecture that is not written down}
+\title{The empirical recurrence for OEIS A282789: recovering a conjecture that is not written down}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A267953 records ``Empirical recurrence of order $56$'', with the recurrence itself in a
+OEIS A282789 records ``Empirical recurrence of order $60$'', with the recurrence itself in a
 linked file rather than in the entry. The conjecture can nevertheless be settled, and the
 recurrence recovered, without reading that file. The entry counts arrays under a condition
 local to a bounded window of lines, so the count is a walk count on a finite digraph and
 satisfies some monic recurrence of order at most the number of its states with distinct
-futures, here $S'=1688$; Berlekamp--Massey applied to $2S'$ exact
-terms therefore returns the MINIMAL such recurrence. Its order is exactly $56$, the order
+futures, here $S'=125$; Berlekamp--Massey applied to $2S'$ exact
+terms therefore returns the MINIMAL such recurrence. Its order is exactly $60$, the order
 the entry states, and the same is true of every tail of the sequence. Any recurrence of order
-$56$ that the sequence satisfies from any point on must then have a characteristic
+$60$ that the sequence satisfies from any point on must then have a characteristic
 polynomial that is a multiple of the minimal one and of the same degree, hence equal to it. So
 the entry's recurrence is the one displayed here, whatever its file contains, and it is
 proved.
@@ -37,15 +37,15 @@ proved.
 
 \section{A conjecture one cannot read}
 
-OEIS A267953 is ``Number of nX3 0..2 arrays with every repeated value in every row and column unequal to the previous repeated value, and new values introduced in row-major sequential order.''. It has offset $1$ and begins
+OEIS A282789 is ``Number of nX6 0..1 arrays with no 1 equal to more than one of its king-move neighbors, with the exception of exactly one element.''. It has offset $1$ and begins
 \[
-4, 96, 1625, 30145, 493087, 8239879, 130870815, 2082478515,\ \dots
+12, 240, 8216, 119176, 2207352, 34974844, 545174028, 8385651160,\ \dots
 \]
 The entry states:
 \begin{quote}
-Empirical recurrence of order 56 (see link above)
+Empirical recurrence of order 60 (see link above)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jan 22 2016 13:21:15, revision 5) this is still
+As of the ``Last modified'' line on the live entry (Feb 21 2017 08:44:13, revision 4) this is still
 recorded as empirical. The recurrence's coefficients are not in the entry text.
 
 \section{The count is a walk count}
@@ -53,14 +53,14 @@ recorded as empirical. The recurrence's coefficients are not in the entry text.
 The entry's condition is local: it constrains a bounded window of consecutive lines of the
 array and nothing further. The admissible configurations of one such window are the vertices
 of a finite digraph, an edge joining $u$ to $v$ when $v$ may follow $u$, and an admissible
-array is exactly a walk. Hence, with $M$ the adjacency matrix on $S=1688$ vertices,
+array is exactly a walk. Hence, with $M$ the adjacency matrix on $S=1370$ vertices,
 $a(n)=\iota^{\!\top}M^{\,j(n)}\tau$ for a linear reindexing $j$ fixed by the entry's shape
-and checked against its published terms. By the Cayley--Hamilton theorem $M^{S}$ is an
+and checked against its published terms. States with the same future contribute identically to $\iota^{\!\top}M^n\tau$, so they may be merged without changing any count; merging leaves $S'=125$ of the $1370$, and it is that smaller bound the computation below uses. By the Cayley--Hamilton theorem $M^{S}$ is an
 integer combination of $I,M,\dots,M^{S-1}$, so:
 
 \begin{lemma}\label{lem:cf}
 $a$ satisfies a monic linear recurrence with integer coefficients of order at most
-$S'=1688$.
+$S'=125$.
 \end{lemma}
 
 \section{Recovering the recurrence}
@@ -71,27 +71,28 @@ with its minimal recurrence, by its first $2S$ terms: Berlekamp--Massey applied 
 that minimal recurrence exactly.
 \end{lemma}
 
-Running it on $2S'=3376$ exact terms of the model returns order $56$ --- the order the
+Running it on $2S'=250$ exact terms of the model returns order $60$ --- the order the
 entry states --- with the integer coefficients
 \[
-a(n)\;=\;\sum_{i=1}^{56}c_i\,a(n-i),
+a(n)\;=\;\sum_{i=1}^{60}c_i\,a(n-i),
 \]
 \begin{center}\small
 \begin{tabular}{cccccccc}
-$c_{1}$ & $35$ & $c_{15}$ & $33445913870844$ & $c_{29}$ & $-11554382972344784249$ & $c_{43}$ & $-10070669916530478080$ \\
-$c_{2}$ & $-143$ & $c_{16}$ & $148180243845746$ & $c_{30}$ & $-14863777269036320891$ & $c_{44}$ & $9428162736073166848$ \\
-$c_{3}$ & $-7496$ & $c_{17}$ & $-496003283868334$ & $c_{31}$ & $23721092883469874076$ & $c_{45}$ & $4589799406811348992$ \\
-$c_{4}$ & $76011$ & $c_{18}$ & $-1526892423404558$ & $c_{32}$ & $34094382910914395591$ & $c_{46}$ & $-1270189944652955648$ \\
-$c_{5}$ & $561151$ & $c_{19}$ & $5339924068786266$ & $c_{33}$ & $-36577499314452940369$ & $c_{47}$ & $-1017836314041516032$ \\
-$c_{6}$ & $-9393361$ & $c_{20}$ & $12156625948621473$ & $c_{34}$ & $-61934983827257414243$ & $c_{48}$ & $-122176327607386112$ \\
-$c_{7}$ & $-13619720$ & $c_{21}$ & $-42871193998474663$ & $c_{35}$ & $41072519786263254918$ & $c_{49}$ & $166147448069160960$ \\
-$c_{8}$ & $590391968$ & $c_{22}$ & $-76141903191772771$ & $c_{36}$ & $85696921223372524488$ & $c_{50}$ & $5513757732110336$ \\
-$c_{9}$ & $-471639190$ & $c_{23}$ & $260497041134418352$ & $c_{37}$ & $-30383040879710454936$ & $c_{51}$ & $-3606605304168448$ \\
-$c_{10}$ & $-22763207864$ & $c_{24}$ & $382045402455563560$ & $c_{38}$ & $-86919104393144410624$ & $c_{52}$ & $1192657925701632$ \\
-$c_{11}$ & $44405467170$ & $c_{25}$ & $-1206961388631076238$ & $c_{39}$ & $9050157257649034016$ & $c_{53}$ & $-165068478087168$ \\
-$c_{12}$ & $590378494527$ & $c_{26}$ & $-1563670944138241224$ & $c_{40}$ & $62453958118927153152$ & $c_{54}$ & $9225589751808$ \\
-$c_{13}$ & $-1555888734407$ & $c_{27}$ & $4274488418554635494$ & $c_{41}$ & $7718297200369446784$ & $c_{55}$ & $-377957122048$ \\
-$c_{14}$ & $-10889130839761$ & $c_{28}$ & $5294046962662408813$ & $c_{42}$ & $-30636755235873672960$ & $c_{56}$ & $-137438953472$ \\
+$c_{1}$ & $8$ & $c_{16}$ & $-95790529305$ & $c_{31}$ & $-41809888481640$ & $c_{46}$ & $349943558874556$ \\
+$c_{2}$ & $142$ & $c_{17}$ & $368960698772$ & $c_{32}$ & $-502023438595345$ & $c_{47}$ & $81711212718806$ \\
+$c_{3}$ & $582$ & $c_{18}$ & $-1049801919266$ & $c_{33}$ & $-101454283839846$ & $c_{48}$ & $-156816034830829$ \\
+$c_{4}$ & $-10565$ & $c_{19}$ & $1644502273816$ & $c_{34}$ & $150774816700059$ & $c_{49}$ & $-101712923683384$ \\
+$c_{5}$ & $-103130$ & $c_{20}$ & $-4558155871905$ & $c_{35}$ & $760821910317746$ & $c_{50}$ & $30291062186053$ \\
+$c_{6}$ & $-443213$ & $c_{21}$ & $8520110236862$ & $c_{36}$ & $314780075186914$ & $c_{51}$ & $52205768281808$ \\
+$c_{7}$ & $360238$ & $c_{22}$ & $-9561859464170$ & $c_{37}$ & $-267918248360742$ & $c_{52}$ & $6534399479889$ \\
+$c_{8}$ & $6598770$ & $c_{23}$ & $25852310503990$ & $c_{38}$ & $-873695827469142$ & $c_{53}$ & $-14259846313340$ \\
+$c_{9}$ & $31037506$ & $c_{24}$ & $-33740178456168$ & $c_{39}$ & $-346826400229822$ & $c_{54}$ & $-6143201890015$ \\
+$c_{10}$ & $-13042102$ & $c_{25}$ & $24677542365950$ & $c_{40}$ & $436961419196245$ & $c_{55}$ & $1448181627582$ \\
+$c_{11}$ & $-46887694$ & $c_{26}$ & $-93912178515770$ & $c_{41}$ & $774042761721252$ & $c_{56}$ & $1480604897034$ \\
+$c_{12}$ & $-1239673350$ & $c_{27}$ & $72745528782022$ & $c_{42}$ & $97246232739434$ & $c_{57}$ & $147151141020$ \\
+$c_{13}$ & $962146338$ & $c_{28}$ & $-20184641617835$ & $c_{43}$ & $-532421135483670$ & $c_{58}$ & $-109329023673$ \\
+$c_{14}$ & $-8075207667$ & $c_{29}$ & $246905186644856$ & $c_{44}$ & $-430915259409782$ & $c_{59}$ & $-31165618968$ \\
+$c_{15}$ & $50842109548$ & $c_{30}$ & $-57352992694403$ & $c_{45}$ & $156400988011084$ & $c_{60}$ & $-2372469264$ \\
 \end{tabular}
 \end{center}
 
@@ -102,10 +103,10 @@ The recurrence above holds for every $n$, and it is the recurrence the entry rec
 \begin{proof}
 It holds by Lemma~\ref{lem:bm}, which returns a recurrence the sequence satisfies from its
 first term. For the identification: the entry asserts that the sequence satisfies SOME
-recurrence of order $56$, possibly only from some index on. Let $q$ be that recurrence's
+recurrence of order $60$, possibly only from some index on. Let $q$ be that recurrence's
 characteristic polynomial and $q_{\min}$ the minimal polynomial of the tail of the sequence.
-Then $q_{\min}\mid q$. Berlekamp--Massey run on the sequence with its first $56+4$ terms
-removed returns order $56$ as well, so $\deg q_{\min}=56=\deg q$; both are monic, so
+Then $q_{\min}\mid q$. Berlekamp--Massey run on the sequence with its first $60+4$ terms
+removed returns order $60$ as well, so $\deg q_{\min}=60=\deg q$; both are monic, so
 $q=q_{\min}$, which is the polynomial computed above.
 \end{proof}
 
@@ -123,18 +124,18 @@ enough earlier terms to test it.
 
 Third, the order was computed twice by independent routes: once modulo a $61$-bit prime, where
 every intermediate is a machine word, and once in exact rational arithmetic; and once more on
-the sequence with its first $56+4$ terms removed, which is what the identification above
+the sequence with its first $60+4$ terms removed, which is what the identification above
 requires. All three agree.
 
 \begin{remark}
 What is unusual here is that the conjecture's statement was never read. The entry pins it down
-to a one-parameter family --- the recurrences of order $56$ that this sequence satisfies
+to a one-parameter family --- the recurrences of order $60$ that this sequence satisfies
 --- and that family turns out to have exactly one member.
 \end{remark}
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A267953.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A282789.
 \bibitem{massey} J.~L.~Massey, Shift-register synthesis and BCH decoding, \emph{IEEE
 Trans. Inform. Theory} \textbf{15} (1969), 122--127.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,

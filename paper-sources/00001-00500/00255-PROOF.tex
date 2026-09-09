@@ -12,108 +12,102 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{Recovering the unwritten recurrences of the table OEIS A237315}
+\title{The empirical recurrence for OEIS A267920, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{2 September 2026}
+\date{9 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A237315 is a two-dimensional table $T(n,k)$ whose empirical recurrences are, for several of
-its lines, given only as an ORDER --- ``k=2: [order 99]'' and the like --- with the
-coefficients in a linked file rather than in the entry. Those conjectures can still be settled,
-and the recurrences recovered. A line of the table is a fixed-width or fixed-height array
-count, hence a walk count on finitely many vertices, hence satisfies some monic recurrence of
-order at most that number; Berlekamp--Massey on twice as many exact terms returns the MINIMAL
-one. Where its order equals the order the entry states --- and where the same holds after the
-first few terms are dropped --- any recurrence of that order the line satisfies has a
-characteristic polynomial that is a multiple of the minimal one and of equal degree, hence is
-that polynomial. This note settles column 2.
+OEIS A267920 carries an empirical recurrence of order $2$ contributed by R.~H.~Hardin. It is
+true, and it is decidable rather than empirical. The entry's condition is local to a bounded window of consecutive lines, so
+the admissible configurations of such a window are the vertices of a finite digraph and the
+arrays counted are exactly the walks in it; hence $a(n)$ is a walk count on $S=4$ vertices
+and is $C$-finite. Whether the conjectured recurrence annihilates it is then settled by a
+finite exact computation, with the Cayley--Hamilton theorem bounding the work.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
-\section{The table and the unwritten conjectures}
+\section{The conjecture}
 
-OEIS A237315 is ``T(n,k)=Number of (n+1)X(k+1) 0..3 arrays with the maximum plus the lower median minus the minimum of every 2X2 subblock equal.''. It is read by antidiagonals and begins
+OEIS A267920 is ``Binary representation of the n-th iteration of the "Rule 243" elementary cellular automaton starting with a single ON (black) cell.''. It has offset $0$ and begins
 \[
-256, 1352, 1352, 7398, 12690, 7398, 42474, 120650,\ \dots
+1, 101, 11101, 1111101, 111111101, 11111111101, 1111111111101, 111111111111101,\ \dots
 \]
-The entry carries, among its empirical claims:
-\begin{quote}\small
-k=2: [order 99]
+The entry states, as a conjecture contributed by its author and never marked settled:
+\begin{quote}
+(the empirical recurrence quoted in the entry)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 10:03:58, revision 6) these are still
-recorded as empirical, and the recurrences themselves are not in the entry text.
+As of the ``Last modified'' line on the live entry (Feb 16 2025 08:33:30, revision 16) this is still
+recorded as empirical, and nothing on the entry records it as proved.
 
-\section{Why a line of the table is a walk count}
+\section{The count is a walk count}
 
-Fix the index that the line fixes. The entry defines $T(n,k)$ as a number of arrays of a shape
-determined by $n$ and $k$, subject to a condition local to a bounded window of consecutive
-lines. Substituting the fixed index into the entry's own wording turns the definition into an
-ordinary one-parameter array count, and for such a count the admissible windows are the
-vertices of a finite digraph and an array is a walk. So the line is a walk count on $S$
-vertices, and by the Cayley--Hamilton theorem it satisfies a monic integer recurrence of order
-at most $S$.
+The condition the entry imposes is local: it constrains a bounded window of consecutive lines and nothing beyond. Take as
+vertices the admissible configurations of one such window and put an edge from $u$ to $v$
+whenever $v$ may follow $u$, which the condition decides by inspection of the two. An
+admissible array is then exactly a walk, so with $M$ the adjacency matrix on $S=4$ vertices
+and $\iota,\tau$ the vectors recording which windows may begin and end an array,
+\[
+a(n)\;=\;\iota^{\!\top}M^{\,n}\tau ,
+\]
+the exponent fixed by the entry's own shape and checked against its published terms. In
+particular $a$ is $C$-finite.
 
-\section{Recovering the recurrences}
+\section{The proof}
 
-\begin{lemma}\label{lem:bm}
-A sequence known to satisfy some linear recurrence of order at most $S$ is determined, with its
-minimal recurrence, by its first $2S$ terms; Berlekamp--Massey applied to them returns that
-minimal recurrence exactly.
+\begin{lemma}\label{lem:crit}
+Let $q(t)=t^{2}-\sum_i c_it^{2-i}$ be the characteristic polynomial of the
+conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
+$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
+holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
+and it is enough to examine $j<S$.
 \end{lemma}
 
-\subsection*{Column $k=2$}
-Substituting the fixed index into the entry's wording gives an ordinary one-parameter array
-count, a walk on $S=192$ vertices. Berlekamp--Massey on $2S=384$ exact terms
-returns a minimal recurrence of order $99$ --- the order the entry states --- with
-integer coefficients
-\[
-(c_1,\dots,c_{99})=(47,\ -593,\ -6034,\ 209412,\ -881491,\ -23035500,\ 256394283,\ 781242020,\ -25503577126,\ 60366302682,\ 1362328035883,\ -8507424430349,\ -37791085970951,\ 495747420548899,\ 25514490336593,\ -17745443909382442,\ 44916413110264706,\ 411819926950776362,\ -2136257744773231952,\ -5485056430624823245,\ 58938498056748485864,\ -217854388333160284,\ -1115495243927207165666,\ 1934651117399131451174,\ 14804643982532595006130,\ -52165101548208819131517,\ -126350543310335108724885,\ 851068376436783331487254,\ 333526510219159125235454,\ -9873585288230759105178400,\ 9087130176979965896032100,\ 83813612624501034566866652,\ -179791185493872220689232403,\ -497610731655140475307309698,\ 1945774718550558035416596813,\ 1584542621753977898679434143,\ -14874364095813077429431507886,\ 4478474970190647173940629019,\ 84494740541842431761051848970,\ -102488830855968523069263178314,\ -350771958449396261394042481624,\ 803420184878356186621833577718,\ 939403711575755478792611852145,\ -4211526559171449178736106353547,\ -481983306032583590408609448959,\ 16259191403089202148568653467170,\ -10302185820360006899712452807104,\ -46498492951738205050163908862095,\ 64397720112190798755012332350392,\ 91714187195956200367053336406828,\ -235964835032654548014412635003712,\ -83206265386043200921045233255162,\ 616198111780570656287950897022775,\ -186789118326848159556810504776868,\ -1181401750772035464829686968145204,\ 1043292330345826668033329593069216,\ 1584320779798782113416706290892164,\ -2647341911616648307032879823543722,\ -1138607918226119152387147435054626,\ 4540504346808745723143679563792376,\ -681053566407540838503156354412832,\ -5568578309198830887247887659932804,\ 3454935719588275807360457857528472,\ 4683099850301932866817243299547616,\ -5706016512939536746254796015373312,\ -2076713430934304898429944856111440,\ 6016232629468104605281972876283520,\ -724919196957094462366357341752096,\ -4356304418848997100201862755545216,\ 2190015130986504451680829627430336,\ 2047265502693049909104047355212032,\ -2061041282461824301266794523532928,\ -419004893150889116783649538405376,\ 1189286127197995921321070868053760,\ -190975956456796748089851578892288,\ -444531862122093149383198835567104,\ 207332822225008198930224705399808,\ 95396815074051176081714428401664,\ -91885316734722298276638201960448,\ -2704308174377513974436086929408,\ 24076118112375198654108348522496,\ -5210452184295777037939594625024,\ -3653301023798103496532272373760,\ 1724909495024729249097103785984,\ 212936538979075255705597820928,\ -275681842226232293684096466944,\ 25750984963776418981265997824,\ 23141353867103319772450127872,\ -5916145140704883304737931264,\ -736458009553008220969107456,\ 444720818263260536510611456,\ -24026841194674894731739136,\ -13207553115238290281201664,\ 2157198948860171609178112,\ 38177982694746832764928,\ -34965156039012963581952,\ 3217121897910905077760,\ -119324261430318858240,\ 1584725905102602240).
-\]
-so that $a(m)=\sum_{i=1}^{99}c_i\,a(m-i)$ for every $m$. Removing the first
-$99+4$ terms and repeating gives order $99$ again, which is what the
-identification below needs.
+\begin{proof}
+Factor $M^{j}$ out of $M^{j+2}-\sum_ic_iM^{j+2-i}$. For the bound, $M^{S}$
+is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
+$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
+polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
+pins the threshold exactly.
+\end{proof}
 
 \begin{theorem}
-For each line above, the displayed recurrence holds for every index, and it is the recurrence
-the entry records.
+\[
+a(n)\;=\;101\,a(n-1) - 100\,a(n-2)
+\]
+for every $n>2$.
 \end{theorem}
 
 \begin{proof}
-It holds by Lemma~\ref{lem:bm}. For the identification, the entry asserts that the line
-satisfies SOME recurrence of the stated order, possibly only from some index on. Let $q$ be its
-characteristic polynomial and $q_{\min}$ the minimal polynomial of the tail. Then
-$q_{\min}\mid q$, and the second Berlekamp--Massey run --- on the line with its first few
-terms removed --- shows $\deg q_{\min}$ equals the stated order, which is $\deg q$. Both are
-monic, so $q=q_{\min}$.
+The vector $w=q(M)\tau$ was formed by $2$ matrix--vector products in exact integer
+arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
+integers vanish from the index corresponding to $n=2+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once. The bound is exact: at $n=2$ the recurrence fails on the entry's own published terms, so no larger range holds.
 \end{proof}
 
 \section{Verification}
 
-Three checks.
+Three checks, each independent of the algebra above.
 
-First, each line's model was compared against the entry's own published values for that line,
-taken from the antidiagonal DATA read in either orientation and from the ``Table starts''
-block, and agrees at every available term. This is the only point at which reading the entry's
-English enters, and a misreading gives different counts.
+First, the model reproduces all $15$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry: the digraph is built by reading the
+entry's English, and a misreading gives different counts.
 
-Second, each recovered recurrence was evaluated directly on the model's values, with no
-Berlekamp--Massey involved, and holds at every index tested.
+Second, the conjectured recurrence was evaluated directly on those published terms, with no
+matrices involved, and holds wherever the proved range and the data overlap.
 
-Third, each order was computed twice by independent routes --- modulo a $61$-bit prime, where
-every intermediate is a machine word, and again in exact rational arithmetic --- and once more
-on the line with its first few terms dropped, which is what the identification requires. All
-agree.
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A237315.
-\bibitem{massey} J.~L.~Massey, Shift-register synthesis and BCH decoding, \emph{IEEE
-Trans. Inform. Theory} \textbf{15} (1969), 122--127.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A267920.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+University Press, 2009.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

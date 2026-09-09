@@ -12,14 +12,14 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A204623, proved by counting patterns}
+\title{The empirical recurrence for OEIS A209890, proved by counting patterns}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A204623 counts arrays subject to a local condition \emph{and} to the clause ``new values
+OEIS A209890 counts arrays subject to a local condition \emph{and} to the clause ``new values
 $0..2$ introduced in row major order'', which says the array is written in canonical
 form. That clause is not local, so a transfer matrix over the alphabet does not see it. It
 does not have to: what is being counted is not arrays but equality patterns, and the number
@@ -29,29 +29,29 @@ $3!\,a(n)=\sum_i\binom{3}{i}D_{3-i}L_i(n)$ with $D_m$ the derangement numbers,
 and each $L_i$ is an ordinary walk count. A second reduction --- the chain is strongly
 lumpable over the patterns, because the condition is relabelling-invariant --- brings the
 state space down from $14$ to $S=5$. The entry's empirical recurrence of order
-$1$, contributed by R.~H.~Hardin, then follows from a finite exact computation.
+$2$, contributed by R.~H.~Hardin, then follows from a finite exact computation.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 05A18, 15B36.\normalsize
 
 \section{The sequence and the conjecture}
 
-OEIS A204623 is ``Number of (n+1)X2 0..2 arrays with every 2X2 subblock having unequal diagonal elements or unequal antidiagonal elements, and new values 0..2 introduced in row major order.''. It has offset $1$ and begins
+OEIS A209890 is ``Number of (n+1) X 2 0..2 arrays with every 2 X 2 subblock having two distinct values, and new values 0..2 introduced in row major order.''. It has offset $1$ and begins
 \[
-12, 96, 768, 6144, 49152, 393216, 3145728, 25165824,\ \dots
+7, 34, 164, 792, 3824, 18464, 89152, 430464,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 8*a(n-1)
+Empirical: a(n) = 4*a(n-1) +4*a(n-2).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 11:22:06, revision 14) the statement is
+As of the ``Last modified'' line on the live entry (Oct 10 2014 13:27:18, revision 12) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;8\,a(n-1)
+a(n)\;=\;4\,a(n-1) + 4\,a(n-2)
 \end{equation}
-for all $n>1$.
+for all $n>2$.
 
 \section{What the canonical-form clause counts}
 
@@ -68,7 +68,7 @@ subblock is
 \]
 and the entry's requirement on it is
 \begin{equation}\label{eq:loc}
-\alpha\ne\delta\ \text{ or }\ \beta\ne\gamma.
+\#\{\alpha,\beta,\gamma,\delta\}\in\{2\}.
 \end{equation}
 
 The condition is stated purely in terms of equalities between entries, so it is invariant
@@ -163,13 +163,13 @@ The unlumped alphabet had $14$ rows in all; the lumped chain has $S=5$ states.
 
 \section{The criterion, and the computation}
 
-Let $q(t)=t^{1}-\sum_i c_i\,t^{1-i}$ be the characteristic polynomial of
+Let $q(t)=t^{2}-\sum_i c_i\,t^{2-i}$ be the characteristic polynomial of
 \eqref{eq:conj}.
 
 \begin{lemma}\label{lem:crit}
-For every $n$ with $m=n+1-1\ge1$,
+For every $n$ with $m=n+1-1\ge2$,
 \[
-3!\Bigl(a(n)-\sum_i c_i\,a(n-i)\Bigr)\;=\;\mathbf{v}^{\!\top}N^{\,m-1}q(N)\mathbf{1} .
+3!\Bigl(a(n)-\sum_i c_i\,a(n-i)\Bigr)\;=\;\mathbf{v}^{\!\top}N^{\,m-2}q(N)\mathbf{1} .
 \]
 Hence \eqref{eq:conj} holds from that point on if and only if
 $\mathbf{v}^{\!\top}N^{j}q(N)\mathbf{1}=0$ for every $j\ge0$, and it is enough to check
@@ -177,7 +177,7 @@ $j=0,1,\dots,S-1$.
 \end{lemma}
 
 \begin{proof}
-Substitute \eqref{eq:walk} into the left side and factor $N^{m-1}$ out of
+Substitute \eqref{eq:walk} into the left side and factor $N^{m-2}$ out of
 $N^{m}-\sum_i c_iN^{m-i}$. The scalar $3!$ is nonzero, so it does not affect whether
 the left side vanishes. For the last clause put $w=q(N)\mathbf{1}$: by Cayley--Hamilton
 $N^{S}$ is an integer combination of $I,N,\dots,N^{S-1}$, so each
@@ -186,7 +186,7 @@ values.
 \end{proof}
 
 \begin{theorem}
-The recurrence \eqref{eq:conj} holds for every $n>1$, which is the statement of
+The recurrence \eqref{eq:conj} holds for every $n>2$, which is the statement of
 Section~1.
 \end{theorem}
 
@@ -194,10 +194,10 @@ Section~1.
 The lumped transition counts were obtained by enumerating, for one representative row of
 each pattern, all admissible successors and sorting them by pattern --- the successors being
 generated column by column, since the edge condition is a conjunction of one constraint per
-column. The vector $w=q(N)\mathbf{1}$ was then formed by $1$ matrix--vector products
+column. The vector $w=q(N)\mathbf{1}$ was then formed by $2$ matrix--vector products
 in exact integer arithmetic and $\mathbf{v}^{\!\top}N^{j}w$ evaluated for
 $j=0,1,\dots$, again exactly. Every one of those integers vanishes from the index
-corresponding to $n=1+1$ onwards, and the run continued until $w$ was the zero vector,
+corresponding to $n=2+1$ onwards, and the run continued until $w$ was the zero vector,
 which settles all larger $j$ at once. Lemma~\ref{lem:crit} gives the theorem.
 \end{proof}
 
@@ -206,7 +206,7 @@ which settles all larger $j$ at once. Lemma~\ref{lem:crit} gives the theorem.
 Three checks, each independent of the algebra above.
 
 First, the whole construction was compared against the entry's DATA: the right-hand side of
-\eqref{eq:walk}, divided by $3!$, was evaluated at every one of the $19$
+\eqref{eq:walk}, divided by $3!$, was evaluated at every one of the $21$
 published indices and agrees exactly. This is a strong test of the modelling and not only of
 the arithmetic --- the inversion of Lemma~\ref{lem:inv}, the reading of the local
 condition, and the alignment of the entry's index with the number of rows would each
@@ -222,7 +222,7 @@ run until the working vector was identically zero rather than to a sampled prefi
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A204623.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A209890.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; Stirling and
 falling-factorial inversion, Section 1.9.)

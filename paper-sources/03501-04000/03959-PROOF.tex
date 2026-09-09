@@ -12,146 +12,170 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical closed form and generating function for OEIS A194932, proved}
+\title{The empirical recurrence for OEIS A268972, proved by a counting transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{6 September 2026}
+\date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A194932 counts the lower triangles of a $3\times3$ array over $\{0,\dots,n\}$ in which
-adjacent entries differ by at most $1$, and carries closed form and generating function recorded as empirical. The shape here is FIXED
-and it is the alphabet that grows, so there is no digraph to walk. What settles it is that the
-condition constrains DIFFERENCES only: translating an admissible array by a constant leaves it
-admissible, so the arrays split into translation classes, and a class with spread $s$ contains
-exactly $\max(0,n+1-s)$ arrays with entries in $\{0,\dots,n\}$. Since no spread can exceed
-$1$ times the diameter of the neighbour graph, $a(n)$ is exactly linear from a point that is
-known in advance, and two evaluations pin it. Nothing is fitted.
+OEIS A268972 counts arrays over $\{0,\dots,2\}$ subject to a condition on the array as a
+whole rather than cell by cell: the number of adjacent pairs with a stated property must be
+at most one. A transfer matrix still applies once the running count is carried in the state; and
+because a count of two or more can never come back, those states may be dropped outright,
+which is what keeps the digraph sparse. That makes $a(n)$ a walk count on $S=18$ vertices,
+and the empirical recurrence of order $2$ contributed by R.~H.~Hardin then follows from
+a finite exact computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A19, 11B37.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
-\section{The conjecture}
+\section{The sequence and the conjecture}
 
-OEIS A194932 is ``Number of lower triangles of a 3 X 3 0..n array with no element differing from any of its horizontal or vertical neighbors by more than one.''. It has offset $1$ and begins
+OEIS A268972 is ``Number of 2 X n 0..2 arrays with some element plus some horizontally or antidiagonally adjacent neighbor totalling two not more than once.''. It has offset $1$ and begins
 \[
-64, 217, 386, 557, 728, 899,\ \dots
+9, 60, 240, 912, 3312, 11664, 40176, 136080,\ \dots
 \]
-The entry states, as conjectures contributed by its author and by later readers and never
-marked settled:
-\begin{quote}
-Empirical: a(n) = 171*n - 127 for n>2.
-
-Empirical g.f.: x*(64 + 89*x + 16*x\^{}2 + 2*x\^{}3) / (1 - x)\^{}2. - \_Colin Barker\_, May 05 2018
+The entry carries the following comment:
+\begin{quote}\small
+Empirical: a(n) = 6*a(n-1) - 9*a(n-2) for n>4.
 \end{quote}
-As of the ``Last modified'' line on the live entry (May 05 2018 13:17:52, revision 9) these are still
-recorded as empirical, and nothing on the entry records them as proved.
+As of the ``Last modified'' line on the live entry (Jan 17 2019 17:20:28, revision 8) the statement is
+still recorded as empirical, and nothing on the entry records it as settled either way.
 
-\section{What is being counted}
+Written out, the claim is
+\begin{equation}\label{eq:conj}
+a(n)\;=\;6\,a(n-1) - 9\,a(n-2)
+\end{equation}
+for all $n>4$.
 
-The lower triangle of a $3\times3$ array is the set of cells $(i,j)$ with $0\le j\le
-i<3$, so there are $T=6$ of them. Two cells are adjacent when they differ by one of the
-horizontal, vertical offsets, which here gives $6$ adjacent pairs. Each cell carries a value in
-$\{0,\dots,n\}$, and the entry requires
+\section{A global count, and how to carry it}
+
+The arrays have $2$ rows and $L=n$ columns; write $x_{t,u}$ for the entry in
+column $t$ and row $u$. Call two cells \emph{adjacent} when they differ by one of the
+offsets
 \[
-|x_u-x_v|\le 1\qquad\text{for every adjacent pair }u,v .
+\mathcal N=\{(1,0),\ (1,-1)\},
 \]
-
-The shape is fixed and $n$ is the size of the ALPHABET. So this is not a walk count and
-nothing about transfer matrices applies.
-
-\section{Translation}
-
-\begin{lemma}\label{lem:trans}
-Let $\mathcal P$ be the set of integer arrays $y$ on these cells satisfying the same condition
-and having least entry $0$, and for $y\in\mathcal P$ write $\mathrm{sp}(y)$ for its largest
-entry. Then $\mathcal P$ is finite and
+written as (column shift, row shift), and call an adjacent pair $\{p,q\}$
+\emph{marked} when
 \[
-a(n)\;=\;\sum_{y\in\mathcal P}\max\bigl(0,\;n+1-\mathrm{sp}(y)\bigr).
+x_{p}+x_{q}=2 .
+\]
+Each unordered adjacency is represented by exactly one offset, all with a nonnegative column
+shift, so every pair is named once and only once: the pairs inside a column are seen when
+that column is laid down, and the pairs joining two columns when the later of the two is. The
+entry's requirement is
+\begin{equation}\label{eq:glob}
+\#\{\text{marked pairs in the whole array}\}\;\le1.
+\end{equation}
+
+This is not a condition on any bounded window, so no transfer matrix over columns alone can
+express it. It becomes one as soon as the running total is part of the state. Let
+\[
+\mathcal V=\bigl\{(r,c):\ r\in\{0,\dots,2\}^{2},\ c\in\{0,1\}\bigr\},
+\qquad |\mathcal V|=S=18,
+\]
+and for columns $r,s$ write $\beta(r,s)$ for the number of marked pairs joining them plus the
+number of marked pairs inside $s$. Declare $(r,c)\to(s,c+\beta(r,s))$ an edge whenever
+$c+\beta(r,s)\le1$, and no edge otherwise.
+
+\begin{remark}
+Dropping the states with $c\ge2$ is not an approximation. Once the total has reached two it
+can only grow, so no array satisfying \eqref{eq:glob} passes through such a state. Keeping
+them --- as a third, absorbing value of $c$ --- would make every pair of columns an edge and
+the digraph dense, with $(2+1)^{2\cdot2}$ edges instead of the sparse set used here.
+\end{remark}
+
+\begin{lemma}\label{lem:walk}
+Let $\mathbf{v}$ mark the vertices $(r,c)$ whose count $c$ equals the number of marked pairs
+inside $r$ alone, and $\mathbf{u}$ the vertices with $c\le1$. Then for $L\ge1$ the arrays
+of $L$ columns satisfying \eqref{eq:glob} are exactly the walks of length $L-1$ from a
+vertex marked by $\mathbf{v}$ to one marked by $\mathbf{u}$, so
+\[
+a(n)\;=\;\,\mathbf{v}^{\!\top}N^{\,L-1}\mathbf{u},\qquad L=n .
 \]
 \end{lemma}
 
 \begin{proof}
-The condition depends only on the differences $x_u-x_v$, so if $x$ is admissible so is $x+m$
-for any integer $m$, and every admissible $x$ is $y+m$ for exactly one $y\in\mathcal P$ and one
-integer $m$, namely $m=\min x$. Given $y$, the array $y+m$ has all entries in
-$\{0,\dots,n\}$ precisely when $m\ge0$ and $m+\mathrm{sp}(y)\le n$, which is
-$\max(0,n+1-\mathrm{sp}(y))$ values of $m$. Finiteness follows from
-Lemma~\ref{lem:bound}.
+A walk $(r^{(1)},c_1)\to\cdots\to(r^{(L)},c_L)$ determines the array
+$r^{(1)},\dots,r^{(L)}$, and conversely each array determines at most one walk, since the
+starting count is fixed by $\mathbf{v}$ and each step's count is determined. By induction
+$c_t$ is the number of marked pairs in the first $t$ columns: it holds at $t=1$ by the
+definition of $\mathbf{v}$, and the step from $t$ to $t+1$ adds exactly the pairs joining
+columns $t$ and $t+1$ together with those inside column $t+1$, which are precisely the marked
+pairs of the first $t+1$ columns not already counted --- each unordered pair being named by
+exactly one offset. The walk exists (no edge is missing) if and only if the running total
+never exceeds $1$, which for a nondecreasing total is the same as $c_L\le1$; and
+$\mathbf{u}$ imposes the entry's requirement on $c_L$. Note the state already carries one
+column, so $L$ columns correspond to a walk of length $L-1$.
 \end{proof}
 
-\begin{lemma}\label{lem:bound}
-Every $y\in\mathcal P$ has $\mathrm{sp}(y)\le 1\cdot4=4$, where $4$ is the
-diameter of the neighbour graph.
+\section{The criterion, and the computation}
+
+Let $q(t)=t^{2}-\sum_i c_i\,t^{2-i}$ be the characteristic polynomial of
+\eqref{eq:conj} and $G=N$.
+
+\begin{lemma}\label{lem:crit}
+With $n_0$ the least index for which $L\ge1$ and $h_j=G^{j}N^{o}\mathbf{u}$,
+$o=1n_0+0-1$,
+\[
+a(n_0+j)-\sum_i c_i\,a(n_0+j-i)\;=\;\,\mathbf{v}^{\!\top}G^{\,j-2}w,
+\qquad w=h_{2}-\sum_i c_i h_{2-i},
+\]
+for $j\ge2$. Hence \eqref{eq:conj} holds from that point on if and only if
+$\mathbf{v}^{\!\top}G^{m}w=0$ for every $m\ge0$, and it is enough to check
+$m=0,1,\dots,S-1$.
 \end{lemma}
 
 \begin{proof}
-The neighbour graph is connected, so any two cells are joined by a path of at most $4$
-edges, and each edge changes the value by at most $1$. Hence the largest and the smallest
-entry differ by at most $1\cdot4$.
+Substitute Lemma~\ref{lem:walk} and factor. By Cayley--Hamilton $G^{S}$ is an integer
+combination of $I,G,\dots,G^{S-1}$, so every later value is the same combination of earlier
+ones.
 \end{proof}
 
-\section{The count}
-
-\begin{theorem}\label{thm:line}
-\[
-a(n)\;=\;171\,n-127\qquad\text{for every }n\ge3,
-\]
-and $\mathcal P$ has exactly $171$ elements.
+\begin{theorem}
+The recurrence \eqref{eq:conj} holds for every $n>4$, which is the statement of
+Section~1.
 \end{theorem}
 
 \begin{proof}
-For $n\ge4$ every term of Lemma~\ref{lem:trans} is positive by
-Lemma~\ref{lem:bound}, so
-\[
-a(n)=\sum_{y\in\mathcal P}\bigl(n+1-\mathrm{sp}(y)\bigr)
-=|\mathcal P|\,(n+1)-\sum_{y}\mathrm{sp}(y),
-\]
-which is a linear function of $n$. Two values determine it, and $a(4)$ and
-$a(4+1)$ were computed exactly, giving slope $171$ and the stated intercept; the slope
-is $|\mathcal P|$. That the identity already holds from $n=3$ was then read off by
-comparing it with the exact values of $a(n)$ below $4$, each computed the same way.
+The digraph was built directly from the definition of a marked pair. The vector $w$ was
+formed by $2$ applications of $G$ in exact integer arithmetic and
+$\mathbf{v}^{\!\top}G^{m}w$ evaluated for $m=0,1,\dots$, again exactly. Every one of
+those integers vanishes from the index corresponding to $n=4+1$ onwards, and the run
+continued until $S+1$ consecutive zeros had been seen, which by Lemma~\ref{lem:crit}
+settles every larger $m$.
 \end{proof}
-
-The counts $a(n)$ themselves are obtained by walking over the cells in row major order and
-carrying only the entries a later cell can still see --- for this shape at most $3+1$ of
-them --- so no array is ever written down.
-
-Since $a$ agrees with a linear polynomial from a known point on, its generating function is a
-polynomial divided by $(1-x)^2$: multiplying the series by $(1-x)^2$ annihilates the linear
-tail term by term, leaving only finitely many nonzero coefficients, and those coefficients are
-the second differences of the values below the threshold. The conjectured generating function
-is that one, which was checked coefficient by coefficient in exact rational arithmetic.
-
-Each statement quoted in Section 1 is a consequence of Theorem~\ref{thm:line}, and each was
-also checked directly against it.
 
 \section{Verification}
 
-Three checks, each independent of the argument above.
+Three checks, each independent of the algebra above.
 
-First, the count reproduces all $43$ terms the entry publishes, exactly, in integer
-arithmetic.
+First, the walk counts of Lemma~\ref{lem:walk} were compared against the entry's DATA at
+every one of the $23$ published indices, with no shift fitted: the number of columns is
+$L=n$, read off the entry's own name, and the offset says which index the first
+published term carries. The values agree exactly. This is where an error in the pair
+bookkeeping would show: counting an unordered pair twice, or missing the pairs inside the
+first column, changes the counts immediately. Indeed a first version of the computation
+placed the walk at length $L-2$ rather than $L-1$ --- the state carries a column, not a
+boundary --- and every value came out one index late, which the DATA comparison rejected.
 
-Second, the arrays themselves were enumerated for the smallest alphabets --- every assignment
-of $0..n$ to the $6$ cells written out and every adjacent pair tested --- with no
-translation argument and no frontier walk. Where the shape is too large for that, the first
-term is settled by an exact argument instead: at $n=1$ every entry is $0$ or $1$, so an ``at
-most'' condition is no condition and the count is $2^{6}$, while ``differing by exactly
-one'' asks for a proper $2$-colouring of the neighbour graph. Both test the cell set and the
-adjacency, which is what this check is for.
+Second, the recurrence \eqref{eq:conj} was evaluated on those published terms in exact
+integer arithmetic, with no matrices involved, and vanishes wherever it applies.
 
-Third, the linear form was compared against the entry's own published terms over their whole
-range, and the conjectured statements were each evaluated against it in exact arithmetic
-rather than sampled.
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried to the full
+Cayley--Hamilton bound in exact integer arithmetic rather than to a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A194932.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A268972.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011.
-\bibitem{comtet} L.~Comtet, \emph{Advanced Combinatorics}, Reidel, 1974.
-\bibitem{kauers} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011.
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+University Press, 2009.
+\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
+University Press, 2013.
 \end{thebibliography}
 
 \end{document}

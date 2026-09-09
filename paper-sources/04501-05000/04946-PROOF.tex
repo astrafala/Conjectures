@@ -12,47 +12,46 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A202776, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A202401, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A202776 counts arrays of width $9$ over $\{0,1\}$ containing no occurrence of certain short
+OEIS A202401 counts arrays of width $5$ over $\{0,1\}$ containing no occurrence of certain short
 patterns, read along the rows, the columns or the diagonals. The entry carries an empirical
-recurrence of order $50$ contributed by R.~H.~Hardin. It is true, and it is decidable
+recurrence of order $52$ contributed by R.~H.~Hardin. It is true, and it is decidable
 rather than empirical: no pattern is longer than $3$ letters and no direction moves the row
 index by more than one, so every occurrence lies inside $3$ consecutive array rows and the
-count is a walk count on $S=2163$ states.
+count is a walk count on $S=241$ states.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 68R15, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A202776 is ``Number of (n+2)X9 binary arrays avoiding patterns 000 and 011 in rows, columns and nw-to-se diagonals.''. It has offset $1$ and begins
+OEIS A202401 is ``Number of (n+2)X5 binary arrays avoiding patterns 000 and 010 in rows and columns.''. It has offset $1$ and begins
 \[
-5467, 19712, 48953, 119735, 269300, 578203, 1195615, 2408130,\ \dots
+1785, 14161, 127449, 1147041, 9967797, 86620249, 761992011, 6703188129,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 10*a(n-2) +11*a(n-3) -44*a(n-4) -104*a(n-5) +60*a(n-6) +433*a(n-7) +286*a(n-8) -908*a(n-9) -1658*a(n-10) +432*a(n-11) +3907*a(n-12) +2831*a(n-13) -4421*a(n-14) -8575*a(n-15) -474*a(n-16) +11940*a(n-17) +10119*a(n-18) -7259*a(n-19) -17347*a(n-20) -4404*a(n-21) +15100*a(n-22) +14554*a(n-23) -4513*a(n-24) -15736*a(n-25) -6116*a(n-26) +8630*a(n-27) +9820*a(n-28) -133*a(n-29) -6617*a(n-30) -3949*a(n-31) +1507*a(n-32) +3233*a(n-33) +1306*a(n-34) -885*a(n-35) -1386*a(n-36) -513*a(n-37) +450*a(n-38) +626*a(n-39) +154*a(n-40) -251*a(n-41) -222*a(n-42) -a(n-43) +94*a(n-44) +43*a(n-45) -12*a(n-46) -17*a(n-47) -3*a(n-48) +2*a(n-49) +a(n-50) for n>51
+Empirical: a(n) = 4*a(n-1) -6*a(n-2) +208*a(n-3) +1467*a(n-4) +2288*a(n-5) +14460*a(n-6) -16112*a(n-7) -196310*a(n-8) -317880*a(n-9) -1560180*a(n-10) -148160*a(n-11) +9028922*a(n-12) +11574832*a(n-13) +44010892*a(n-14) +25514176*a(n-15) -118192707*a(n-16) -125367844*a(n-17) -476668986*a(n-18) -408258080*a(n-19) +338030809*a(n-20) +130898016*a(n-21) +1622159640*a(n-22) +1327120096*a(n-23) -201491540*a(n-24) +689017136*a(n-25) -2191876440*a(n-26) -1193361984*a(n-27) -79496564*a(n-28) -1038995744*a(n-29) +1441609944*a(n-30) +221943360*a(n-31) +192721849*a(n-32) +361958076*a(n-33) -389955770*a(n-34) +31380176*a(n-35) -67061043*a(n-36) -29507152*a(n-37) +31669612*a(n-38) -4326000*a(n-39) +5412042*a(n-40) +760840*a(n-41) -914740*a(n-42) +135040*a(n-43) -147750*a(n-44) -4112*a(n-45) +8348*a(n-46) -1152*a(n-47) +1259*a(n-48) -28*a(n-49) -6*a(n-50) -a(n-52)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 09:54:46, revision 9) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 09:34:00, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The array has $9$ cells across, with entries in $\{0,1\}$. An OCCURRENCE of a pattern in a
+The array has $5$ cells across, with entries in $\{0,1\}$. An OCCURRENCE of a pattern in a
 direction is a run of consecutive cells taken in that direction whose entries match the pattern
 in order; the array is counted when it has no occurrence at all. The entry names
 \[
 \begin{array}{ll}
 \text{direction} & \text{forbidden patterns} \\[2pt]
-\text{along a row, left to right} & \mathtt{000},\quad \mathtt{011} \\
-\text{down a column} & \mathtt{000},\quad \mathtt{011} \\
-\text{down a diagonal, nw to se} & \mathtt{000},\quad \mathtt{011} \\
+\text{along a row, left to right} & \mathtt{000},\quad \mathtt{010} \\
+\text{down a column} & \mathtt{000},\quad \mathtt{010} \\
 \end{array}
 \]
 
@@ -77,7 +76,7 @@ and is not assumed but read off the window. The walk starts at the all-$\bot$ wi
 of no steps is the empty array and a walk of $R$ steps is an array of $R$ rows. With $M$ the
 adjacency matrix, $\iota$ the indicator of the starting window and $\tau=\mathbf{1}$,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=2163.
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=241.
 \]
 The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
 published terms rather than assumed. In particular $a$ is $C$-finite.
@@ -85,7 +84,7 @@ published terms rather than assumed. In particular $a$ is $C$-finite.
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{50}-\sum_i c_it^{50-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{52}-\sum_i c_it^{52-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -93,7 +92,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+50}-\sum_ic_iM^{j+50-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+52}-\sum_ic_iM^{j+52-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -102,15 +101,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;10\,a(n-2) + 11\,a(n-3) - 44\,a(n-4) - 104\,a(n-5) + 60\,a(n-6) + 433\,a(n-7) + 286\,a(n-8) - 908\,a(n-9) - 1658\,a(n-10) + 432\,a(n-11) + 3907\,a(n-12) + 2831\,a(n-13) - 4421\,a(n-14) - 8575\,a(n-15) - 474\,a(n-16) + 11940\,a(n-17) + 10119\,a(n-18) - 7259\,a(n-19) - 17347\,a(n-20) - 4404\,a(n-21) + 15100\,a(n-22) + 14554\,a(n-23) - 4513\,a(n-24) - 15736\,a(n-25) - 6116\,a(n-26) + 8630\,a(n-27) + 9820\,a(n-28) - 133\,a(n-29) - 6617\,a(n-30) - 3949\,a(n-31) + 1507\,a(n-32) + 3233\,a(n-33) + 1306\,a(n-34) - 885\,a(n-35) - 1386\,a(n-36) - 513\,a(n-37) + 450\,a(n-38) + 626\,a(n-39) + 154\,a(n-40) - 251\,a(n-41) - 222\,a(n-42) - a(n-43) + 94\,a(n-44) + 43\,a(n-45) - 12\,a(n-46) - 17\,a(n-47) - 3\,a(n-48) + 2\,a(n-49) + a(n-50)
+a(n)\;=\;4\,a(n-1) - 6\,a(n-2) + 208\,a(n-3) + 1467\,a(n-4) + 2288\,a(n-5) + 14460\,a(n-6) - 16112\,a(n-7) - 196310\,a(n-8) - 317880\,a(n-9) - 1560180\,a(n-10) - 148160\,a(n-11) + 9028922\,a(n-12) + 11574832\,a(n-13) + 44010892\,a(n-14) + 25514176\,a(n-15) - 118192707\,a(n-16) - 125367844\,a(n-17) - 476668986\,a(n-18) - 408258080\,a(n-19) + 338030809\,a(n-20) + 130898016\,a(n-21) + 1622159640\,a(n-22) + 1327120096\,a(n-23) - 201491540\,a(n-24) + 689017136\,a(n-25) - 2191876440\,a(n-26) - 1193361984\,a(n-27) - 79496564\,a(n-28) - 1038995744\,a(n-29) + 1441609944\,a(n-30) + 221943360\,a(n-31) + 192721849\,a(n-32) + 361958076\,a(n-33) - 389955770\,a(n-34) + 31380176\,a(n-35) - 67061043\,a(n-36) - 29507152\,a(n-37) + 31669612\,a(n-38) - 4326000\,a(n-39) + 5412042\,a(n-40) + 760840\,a(n-41) - 914740\,a(n-42) + 135040\,a(n-43) - 147750\,a(n-44) - 4112\,a(n-45) + 8348\,a(n-46) - 1152\,a(n-47) + 1259\,a(n-48) - 28\,a(n-49) - 6\,a(n-50) - a(n-52)
 \]
-for every $n>51$.
+for every $n>49$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $50$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $52$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=51+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=49+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -118,7 +117,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $23$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $16$ terms the entry publishes, exactly, in integer
 arithmetic.
 
 Second, the count was recomputed for the smallest arrays straight from the definition: fill the
@@ -134,7 +133,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A202776.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A202401.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata

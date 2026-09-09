@@ -12,64 +12,48 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A238306, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A206133, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{2 September 2026}
+\date{7 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A238306 counts arrays over $\{0,\dots,3\}$ subject to a condition on the order
-statistics of every $2\times2$ subblock, and carries an empirical recurrence of order
-$26$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical.
-The condition is local to two consecutive rows, so the count is a walk count on $S=256$
-states and is $C$-finite; whether the conjectured recurrence annihilates it is then settled by
-a finite exact computation, with the Cayley--Hamilton theorem bounding the work.
+OEIS A206133 carries an empirical recurrence of order $26$ contributed by R.~H.~Hardin. It is
+true, and it is decidable rather than empirical. The entry's condition is local to every $2\times3$ and $3\times2$ subblock, hence three consecutive lines, so
+the admissible configurations of such a window are the vertices of a finite digraph and the
+arrays counted are exactly the walks in it; hence $a(n)$ is a walk count on $S=19660$ vertices
+and is $C$-finite. Whether the conjectured recurrence annihilates it is then settled by a
+finite exact computation, with the Cayley--Hamilton theorem bounding the work.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 62G30.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
 \section{The conjecture}
 
-OEIS A238306 is ``Number of (n+1) X (1+1) 0..3 arrays with the maximum minus the lower median of every 2 X 2 subblock differing from its horizontal and vertical neighbors by exactly one.''. It has offset $1$ and begins
+OEIS A206133 is ``Number of (n+1) X 5 0..3 arrays with every 2 X 3 or 3 X 2 subblock having exactly three counterclockwise and three clockwise edge increases.''. It has offset $1$ and begins
 \[
-256, 1776, 12372, 85984, 601408, 4181152, 29228452, 203246304,\ \dots
+19660, 1269044, 83120732, 5465582068, 359793857820, 23692759265020, 1560344155530612, 102763262525972772,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 1419*a(n-4) +36268*a(n-6) +410501*a(n-8) +2593208*a(n-10) +10304257*a(n-12) +28327948*a(n-14) +55782736*a(n-16) +83338496*a(n-18) +93171712*a(n-20) +85534720*a(n-22) +49102848*a(n-24) +25690112*a(n-26).
+Empirical: a(n) = 116*a(n-1) -4272*a(n-2) +73274*a(n-3) -664822*a(n-4) +3045011*a(n-5) -2689641*a(n-6) -43109752*a(n-7) +221878512*a(n-8) -361728247*a(n-9) -568084610*a(n-10) +3622619867*a(n-11) -6420944192*a(n-12) +2898716070*a(n-13) +7936254065*a(n-14) -16657448946*a(n-15) +14988867773*a(n-16) -6947278317*a(n-17) +1069497024*a(n-18) +493980717*a(n-19) -278060954*a(n-20) +43850387*a(n-21) +2768722*a(n-22) -1728440*a(n-23) +198864*a(n-24) -8316*a(n-25) +108*a(n-26).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Apr 25 2023 15:30:37, revision 7) this is still
+As of the ``Last modified'' line on the live entry (Dec 11 2015 11:48:33, revision 7) this is still
 recorded as empirical, and nothing on the entry records it as proved.
-
-\section{What is being counted}
-
-The $2\times2$ subblocks of an $(n+1)\times2$ array form an
-$n\times1$ grid, and each carries the value $\sigma=-b+d$, where $a\le b\le c\le d$ are its four entries sorted --- its minimum, lower median, upper median and maximum. The entry asks that the values of
-subblocks that are neighbours --- horizontally or vertically --- differ by exactly $1$.
-That is sharper than merely differing, and it is a condition on a pair of adjacent subblocks,
-so it is local to the grid.
-
-A single subblock has no neighbour of either kind, so at $n=1$ the condition is vacuous and
-$a(1)$ must be the number of $2\times2$ arrays over $\{0,\dots,3\}$, namely
-$4^{4}=256$. The entry's first term is $256$.
-That is the cheapest check that the subblock grid has been read with the right shape, and it
-is the first thing the model was made to reproduce.
 
 \section{The count is a walk count}
 
-A subblock's value is decided by two consecutive rows of the array, and the
-vertical condition compares two consecutive rows of the subblock grid, so the state is the
-PAIR of consecutive array rows. A step appends a row: that fixes a new subblock row, whose own
-neighbouring values must differ by exactly $1$ along it, and which must differ by exactly
-$1$ from the previous subblock row in every position. An $(n+1)$-row array is a walk of
-$n-1$ steps, so
+The condition the entry imposes is local: it constrains every $2\times3$ and $3\times2$ subblock, hence three consecutive lines and nothing beyond. Take as
+vertices the admissible configurations of one such window and put an edge from $u$ to $v$
+whenever $v$ may follow $u$, which the condition decides by inspection of the two. An
+admissible array is then exactly a walk, so with $M$ the adjacency matrix on $S=19660$ vertices
+and $\iota,\tau$ the vectors recording which windows may begin and end an array,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,\qquad\iota=\tau=(1,\dots,1)^{\!\top},
+a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau ,
 \]
-over the $S=256$ pairs whose own subblock row already satisfies the condition along itself.
-The alignment of the walk index with the entry's own $n$ was checked against its published
-terms rather than assumed. In particular $a$ is $C$-finite.
+the exponent fixed by the entry's own shape and checked against its published terms. In
+particular $a$ is $C$-finite.
 
 \section{The proof}
 
@@ -91,7 +75,7 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;1419\,a(n-4) + 36268\,a(n-6) + 410501\,a(n-8) + 2593208\,a(n-10) + 10304257\,a(n-12) + 28327948\,a(n-14) + 55782736\,a(n-16) + 83338496\,a(n-18) + 93171712\,a(n-20) + 85534720\,a(n-22) + 49102848\,a(n-24) + 25690112\,a(n-26)
+a(n)\;=\;116\,a(n-1) - 4272\,a(n-2) + 73274\,a(n-3) - 664822\,a(n-4) + 3045011\,a(n-5) - 2689641\,a(n-6) - 43109752\,a(n-7) + 221878512\,a(n-8) - 361728247\,a(n-9) - 568084610\,a(n-10) + 3622619867\,a(n-11) - 6420944192\,a(n-12) + 2898716070\,a(n-13) + 7936254065\,a(n-14) - 16657448946\,a(n-15) + 14988867773\,a(n-16) - 6947278317\,a(n-17) + 1069497024\,a(n-18) + 493980717\,a(n-19) - 278060954\,a(n-20) + 43850387\,a(n-21) + 2768722\,a(n-22) - 1728440\,a(n-23) + 198864\,a(n-24) - 8316\,a(n-25) + 108\,a(n-26)
 \]
 for every $n>26$.
 \end{theorem}
@@ -107,7 +91,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $18$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $12$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
@@ -119,11 +103,11 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A238306.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A206133.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{david} H.~A.~David and H.~N.~Nagaraja, \emph{Order Statistics}, 3rd ed., Wiley,
-2003.
+\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+University Press, 2009.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

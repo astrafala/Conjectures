@@ -12,121 +12,166 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{A lattice count, not a walk count: OEIS A225312}
+\title{The empirical recurrence for OEIS A220917, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{7 September 2026}
+\date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A225312 carries an empirical recurrence of order $18$ contributed by R.~H.~Hardin. It is
-true, and it is decidable rather than empirical. A nondecreasing row of $-1$s and $1$s is
-determined by one number --- how many $-1$s it holds --- so the entry's condition collapses to
-a single linear equation on a box of lattice points, and the arrays disappear entirely. The
-count is then the number of lattice points in a dilate of a fixed rational polytope, hence a
-quasi-polynomial in $n$; its degree and its period can both be named, which bounds by
-$S=600$ the order of a linear recurrence it must satisfy. Whether the conjectured recurrence
-is that recurrence is then a finite exact computation. There is no digraph and no matrix
-anywhere in this argument.
+OEIS A220917 counts the distinct indicator arrays obtained from the $n\times2$ arrays over
+$\{0,\dots,2\}$ by marking the cells whose value is equal to exactly one of their neighbours, and carries an
+empirical recurrence of order $21$ contributed by R.~H.~Hardin. It is true, and it is
+decidable rather than empirical. What is counted is the IMAGE of a map, not its domain, so it
+is not a walk count in the obvious graph; the determinisation of the machine that emits the
+indicator row by row turns it into one, on $S=53$ states, after which the conjectured
+recurrence is settled by a finite exact computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 68Q45, 15B36.\normalsize
 
 \section{The conjecture}
 
-OEIS A225312 is ``Number of 5 X n -1,1 arrays such that the sum over i=1..5,j=1..n of i*x(i,j) is zero and rows are nondecreasing (ways to put n thrusters pointing east or west at each of 5 positions 1..n distance from the hinge of a south-pointing gate without turning the gate).''. It has offset $1$ and begins
+OEIS A220917 is ``Equals one maps: number of 2Xn binary arrays indicating the locations of corresponding elements equal to exactly one of their horizontal, diagonal and antidiagonal neighbors in a random 0..2 2Xn array.''. It has offset $1$ and begins
 \[
-0, 15, 0, 113, 0, 427, 0, 1165,\ \dots
+1, 8, 37, 165, 749, 3279, 13865, 57374,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 3*a(n-2) - 2*a(n-4) - 2*a(n-6) + 4*a(n-8) - 4*a(n-10) + 2*a(n-12) + 2*a(n-14) - 3*a(n-16) + a(n-18).
+Empirical: a(n) = 4*a(n-1) +4*a(n-2) -14*a(n-3) -6*a(n-4) -16*a(n-5) +47*a(n-6) -40*a(n-7) -60*a(n-8) -92*a(n-9) +8*a(n-10) -28*a(n-11) -54*a(n-12) +22*a(n-13) +62*a(n-14) -38*a(n-15) -108*a(n-16) -32*a(n-17) +54*a(n-18) +18*a(n-19) -22*a(n-20) -10*a(n-21) for n>22
 \end{quote}
-As of the ``Last modified'' line on the live entry (Sep 05 2018 08:12:24, revision 8) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 19:06:42, revision 8) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
-\section{The array disappears}
+\section{What is being counted}
 
-A row of $-1$s and $1$s that is nondecreasing is a block of $-1$s followed by a block of $1$s, so it is determined by a single number: how many $-1$s it holds. Write $k_i\in\{0,1,\dots,n\}$ for that number in row $i$. Then row $i$ sums to $(n-k_i)-k_i = n-2k_i$, and the entry's condition
-\[ \sum_{i=1}^{H}\sum_{j=1}^{n} i\,x(i,j) \;=\; \sum_{i=1}^{H} i\,(n-2k_i) \;=\; 0 \]
-becomes $\sum_{i=1}^{5} i\,k_i = T(n)$ with $T(n)=\tfrac{15}{2}n$. The arrays are gone: what is left is the lattice points of the box $\{0,\dots,n\}^{5}$ on one hyperplane.
+Let $R=\{0,\dots,2\}^{2}$ be the set of rows and let the neighbours of a cell be the
+cells at the offsets
+\[
+(-1,-1), (-1,0), (-1,1), (1,-1), (1,0), (1,1),
+\]
+those falling outside the array being simply absent. The entry writes the array with $n$ as the number of COLUMNS; transposing it exchanges the two coordinates of every neighbour offset, which is done once so that the walk always runs down the rows. For an array
+$A=(r_1,\dots,r_n)\in R^n$ let $\Phi(A)\in\{0,1\}^{n\times2}$ mark the cells whose value
+is equal to exactly one of its neighbours. The entry counts
+\[
+a(n)\;=\;\bigl|\{\Phi(A):A\in R^n\}\bigr| ,
+\]
+the size of an IMAGE. This is the whole difficulty: two different arrays with the same marking
+must be counted once, and a walk count in a graph on the arrays would count them twice.
 
-\section{Why that is enough}
+Because every offset above moves the row index by at most one, the marked row $i$ depends only
+on rows $i-1,i,i+1$. Write $\beta(p,c,x)\in\{0,1\}^{2}$ for the marking of the row $c$
+with $p$ above and $x$ below, allowing $p$ or $x$ to be the symbol $\bot$ for ``outside''.
+Then
+\[
+\Phi(r_1,\dots,r_n)=\bigl(\beta(\bot,r_1,r_2),\ \beta(r_1,r_2,r_3),\ \dots,\
+\beta(r_{n-1},r_n,\bot)\bigr).
+\]
 
-Those lattice points are the ones in the $n$-th dilate of a fixed rational polytope, so the count is a quasi-polynomial in $n$. That is the whole reason a linear recurrence can be proved here rather than observed: a quasi-polynomial of degree $d$ and period $P$ satisfies the recurrence whose characteristic polynomial is $(x^{P}-1)^{d+1}$, so it is $C$-finite of order at most $P(d+1)$.
+\section{The image is a walk count after determinisation}
 
-Both numbers can be named. By inclusion-exclusion over which coordinates exceed $n$,
-\[ a(n)\;=\;\sum_{S\subseteq\{1,\dots,H\}}(-1)^{|S|}\,D\bigl(T(n)-(n+1)\sigma(S)\bigr), \]
-where $\sigma(S)$ is the sum of $S$ and $D(m)$ counts the solutions of $\sum i\,k_i=m$ in non-negative integers with no upper bound --- the classical denumerant for the parts $1,\dots,5$. $D$ is a quasi-polynomial in $m$ of degree $4$ with period dividing $\mathrm{lcm}(1,\dots,5)=60$; each argument above is an integer-linear function of $n$, which preserves the degree and can only shrink the period, and the parity case at worst doubles it. So $a$ is a quasi-polynomial of degree at most $4$ and period dividing $120$, hence satisfies a linear recurrence of order at most $S=600$.
+For a set $D\subseteq(R\cup\{\bot\})\times R$ of pairs and a row $b\in\{0,1\}^{2}$ put
+\[
+\delta(D,b)=\{(c,x)\ :\ (p,c)\in D,\ x\in R,\ \beta(p,c,x)=b\},\qquad
+f(D)=\bigl|\{\beta(p,c,\bot):(p,c)\in D\}\bigr| ,
+\]
+and let $D_0=\{(\bot,r):r\in R\}$.
 
-That bound is the certificate. It is also what makes the computation cheap: $D$ is one table, so thousands of exact terms of $a$ cost almost nothing.
-so $a$ is $C$-finite of order at most $S=600$, and the alignment between the model and the
-entry's own $n$ is fixed by matching against every published term.
+\begin{lemma}\label{lem:det}
+For every $t\ge0$ and every $b_1,\dots,b_t$, the set
+$D_t=\delta(\dots\delta(D_0,b_1)\dots,b_t)$ is exactly
+\[
+\{(r_t,r_{t+1})\ :\ (r_1,\dots,r_{t+1})\in R^{t+1},\ \beta(\bot,r_1,r_2)=b_1,\ \dots,\
+\beta(r_{t-1},r_t,r_{t+1})=b_t\} ,
+\]
+with $r_0=\bot$. Consequently, for $n\ge1$,
+\[
+a(n)\;=\;\sum_{b_1,\dots,b_{n-1}}f(D_{n-1}),
+\]
+the sum over all sequences of rows in $\{0,1\}^{2}$, empty $D$'s contributing nothing.
+\end{lemma}
+
+\begin{proof}
+Induction on $t$. For $t=0$ the set is $\{(\bot,r_1)\}$, which is $D_0$. If the description
+holds for $D_t$, then $\delta(D_t,b)$ collects the pairs $(r_{t+1},r_{t+2})$ for which
+$(r_t,r_{t+1})$ already extends a consistent prefix and
+$\beta(r_t,r_{t+1},r_{t+2})=b$, which is the description for $t+1$.
+
+An element of the image is a full marking $(b_1,\dots,b_n)$. By the description, a prefix
+$(b_1,\dots,b_{n-1})$ is realised by some $r_1,\dots,r_n$ exactly when $D_{n-1}\neq
+\emptyset$, and then the possible last rows are precisely
+$\{\beta(p,c,\bot):(p,c)\in D_{n-1}\}$, of which there are $f(D_{n-1})$. Distinct
+sequences $(b_1,\dots,b_n)$ are distinct markings, so summing $f$ over the prefixes counts the
+image exactly once each.
+\end{proof}
+
+So with $M$ the adjacency matrix of the digraph whose vertices are the reachable nonempty sets
+$D$ and which carries one edge $D\to\delta(D,b)$ for each $b$ with $\delta(D,b)\neq\emptyset$
+--- several $b$ may lead to the same set, and then the edge is repeated, which is exactly
+right, since the markings differ ---
+\[
+a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,\qquad \iota=e_{D_0},\quad \tau=f .
+\]
+There are $S=53$ reachable sets, generated from $D_0$ outward, and $a$ is $C$-finite. Note
+that $\tau$ is not the all-ones vector: the last marked row is not a step of the walk but a
+count attached to the state the walk stops in.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q$ be the characteristic polynomial of the conjectured recurrence, of order $18$,
-and let $u_j=a(j+18)-\sum_i c_i\,a(j+18-i)$ be its residual. Then $u$ satisfies the
-same linear recurrence of order $S=600$ that $a$ does, so if $u_j=0$ for $S$ consecutive
-indices then $u_j=0$ for every larger $j$, and the last nonzero $u_j$ pins the threshold
-exactly.
+Let $q(t)=t^{21}-\sum_i c_it^{21-i}$ be the characteristic polynomial of the
+conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
+$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
+holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
+and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-A sequence annihilated by a linear operator with constant coefficients has every linear
-combination of its shifts annihilated by the same operator, and $u$ is such a combination of
-shifts of $a$. A sequence satisfying a linear recurrence of order $S$ and vanishing at $S$
-consecutive indices vanishes from the first of them onwards, since every later value is a
-fixed combination of the $S$ before it.
+Factor $M^{j}$ out of $M^{j+21}-\sum_ic_iM^{j+21-i}$. For the bound, $M^{S}$
+is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
+$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
+polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
+pins the threshold exactly.
 \end{proof}
 
 \begin{theorem}
 \[
-a(n)\;=\;3\,a(n-2) - 2\,a(n-4) - 2\,a(n-6) + 4\,a(n-8) - 4\,a(n-10) + 2\,a(n-12) + 2\,a(n-14) - 3\,a(n-16) + a(n-18)
+a(n)\;=\;4\,a(n-1) + 4\,a(n-2) - 14\,a(n-3) - 6\,a(n-4) - 16\,a(n-5) + 47\,a(n-6) - 40\,a(n-7) - 60\,a(n-8) - 92\,a(n-9) + 8\,a(n-10) - 28\,a(n-11) - 54\,a(n-12) + 22\,a(n-13) + 62\,a(n-14) - 38\,a(n-15) - 108\,a(n-16) - 32\,a(n-17) + 54\,a(n-18) + 18\,a(n-19) - 22\,a(n-20) - 10\,a(n-21)
 \]
-for every $n>17$.
+for every $n>22$.
 \end{theorem}
 
 \begin{proof}
-The terms $a(n)$ were computed exactly from the lattice-point formula, far enough to cover
-$S=600$ consecutive residuals, and the residuals were formed in exact integer arithmetic.
-They vanish from the index corresponding to $n=17+1$ onwards and go on vanishing for more
-than $S$ consecutive indices, which by Lemma~\ref{lem:crit} settles every larger $n$ at
-once.
+The vector $w=q(M)\tau$ was formed by $21$ matrix--vector products in exact integer
+arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
+integers vanish from the index corresponding to $n=22+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once. The bound is exact: at $n=22$ the recurrence fails on the entry's own published terms, so no larger range holds.
 \end{proof}
 
 \section{Verification}
 
-Four checks, each independent of the algebra above.
+Three checks, each independent of the algebra above.
 
-First, the model reproduces all $51$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the reduction to the entry: the lattice count is derived by reading the
+First, the model reproduces all $23$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry: the machine is built by reading the
 entry's English, and a misreading gives different counts.
 
-Second, the reading was pinned before the reduction was trusted, by a program that enumerates
-the arrays themselves, one by one, from the entry's own words --- every nondecreasing
-row of plus and minus ones, the weighted sum computed directly --- and compares the count
-with the lattice-point formula. That program shares no code with the lattice-point formula, so an error in one does not
-hide an error in the other.
+Second, the conjectured recurrence was evaluated directly on those published terms, with no
+matrices involved, and holds wherever the proved range and the data overlap.
 
-Third, the conjectured recurrence was evaluated directly on the published terms, with
-nothing from the argument above involved, and holds wherever the proved range and the data
-overlap.
-
-Fourth, the residual test of Lemma~\ref{lem:crit} was carried out in exact integer
-arithmetic over every index up to the certified bound, not on a sampled prefix.
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A225312.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A220917.
+\bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata
+Theory, Languages, and Computation}, 3rd ed., Addison--Wesley, 2006. (The subset
+construction, Section 2.3.)
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Quasi-polynomials and denumerants, Sections 4.4 and 4.6;
-lattice points in dilates of rational polytopes, Section 4.6.)
-\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
-University Press, 2009.
-\bibitem{beck} M.~Beck and S.~Robins, \emph{Computing the Continuous Discretely}, 2nd
-ed., Springer, 2015. (Ehrhart quasi-polynomials; the denumerant.)
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
+University Press, 2013.
 \end{thebibliography}
 
 \end{document}

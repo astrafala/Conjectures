@@ -12,91 +12,92 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A223502, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A275568, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A223502 counts the ways of writing the vertices of a fixed graph $G$ into an array of width
-$6$ so that any two cells adjacent in one of the named directions carry vertices joined by an
-edge of $G$; here $G$ is graph named in the entry. The entry carries an empirical recurrence of order $53$
-contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical: every
-condition joins cells inside one slice of the array or inside two consecutive slices, so a
-single slice is a state and the count is a walk count on a finite digraph with $S=1459$ vertices.
+OEIS A275568 counts arrays in which no entry may equal the entries at a short list of fixed offsets
+from it, the arrays being counted up to renaming the letters. The entry carries an empirical
+recurrence of order $63$ contributed by R.~H.~Hardin. It is true, and it is decidable
+rather than empirical. The condition tests only whether two cells are equal, so it survives
+renaming; the count of classes is recovered from counts over fixed alphabets by inverting a
+triangular system of falling factorials, and each of those is a walk count on a window of
+$2$ consecutive columns, $S=5279$ states in all.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05C15, 05A15, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A18, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A223502 is ``Petersen graph (3,1) coloring a rectangular array: number of nX6 0..5 arrays where 0..5 label nodes of a graph with edges 0,1 0,3 3,5 3,4 1,2 1,4 4,5 2,0 2,5 and every array movement to a horizontal, diagonal or antidiagonal neighbor moves along an edge of this graph, with the array starting at 0.''. It has offset $1$ and begins
+OEIS A275568 is ``Number of 5Xn 0..2 arrays with no element equal to any value at offset (-2,0) (-1,2) or (0,-2) and new values introduced in order 0..2.''. It has offset $1$ and begins
 \[
-243, 19759, 2030665, 216562815, 23328902821, 2519813048575, 272386213374733, 29451199763005655,\ \dots
+12, 864, 1872, 4056, 13104, 42336, 138600, 453750,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 171*a(n-1) -7597*a(n-2) +66978*a(n-3) +2583824*a(n-4) -51950940*a(n-5) -114768696*a(n-6) +9054636698*a(n-7) -36718682736*a(n-8) -634109162555*a(n-9) +4922415752542*a(n-10) +17684952456223*a(n-11) -257017179787974*a(n-12) +44697122178759*a(n-13) +6813950647173658*a(n-14) -14214676649780235*a(n-15) -95256883925367556*a(n-16) +349764223086150739*a(n-17) +638075361803414056*a(n-18) -4132669977915280075*a(n-19) -655758716192007656*a(n-20) +27891199596575003557*a(n-21) -19946115396154900446*a(n-22) -113398578310551386143*a(n-23) +153863761785049382215*a(n-24) +275337771685131610985*a(n-25) -574115913592410065960*a(n-26) -351972189331006256045*a(n-27) +1287605861871487083865*a(n-28) +49832950543007059662*a(n-29) -1835218083346443858712*a(n-30) +584632105931636070627*a(n-31) +1673748635702117796496*a(n-32) -1004898866351611047643*a(n-33) -943485141803302660797*a(n-34) +864920595743414931962*a(n-35) +287374596274394425107*a(n-36) -446718459459833923638*a(n-37) -15289668350134708829*a(n-38) +143310897427441778213*a(n-39) -21277189785541190392*a(n-40) -28130375346377645531*a(n-41) +8130899172562042318*a(n-42) +3152590800552865603*a(n-43) -1415161150801970578*a(n-44) -157323743807361158*a(n-45) +132817713592064303*a(n-46) -2466246093921598*a(n-47) -6544805823376510*a(n-48) +605341636474744*a(n-49) +143100794076816*a(n-50) -20407671803168*a(n-51) -733454285952*a(n-52) +152009496576*a(n-53)
+Empirical: a(n) = 7*a(n-1) +7*a(n-2) -153*a(n-3) +128*a(n-4) +1661*a(n-5) -2987*a(n-6) -11147*a(n-7) +31265*a(n-8) +44933*a(n-9) -209769*a(n-10) -65464*a(n-11) +988481*a(n-12) -428751*a(n-13) -3404950*a(n-14) +3691505*a(n-15) +8623905*a(n-16) -16041975*a(n-17) -15201775*a(n-18) +49315575*a(n-19) +13559611*a(n-20) -116797842*a(n-21) +18028343*a(n-22) +220372013*a(n-23) -106427533*a(n-24) -335355156*a(n-25) +260460612*a(n-26) +411365412*a(n-27) -446068765*a(n-28) -401412528*a(n-29) +590037487*a(n-30) +301637628*a(n-31) -624695552*a(n-32) -161284890*a(n-33) +539917211*a(n-34) +45168922*a(n-35) -388786164*a(n-36) +14654711*a(n-37) +240717215*a(n-38) -29174529*a(n-39) -133749307*a(n-40) +24747125*a(n-41) +68598600*a(n-42) -17271849*a(n-43) -31876238*a(n-44) +10697884*a(n-45) +12697117*a(n-46) -5593463*a(n-47) -4068750*a(n-48) +2346552*a(n-49) +972250*a(n-50) -764373*a(n-51) -148698*a(n-52) +187979*a(n-53) +5357*a(n-54) -33466*a(n-55) +3817*a(n-56) +3912*a(n-57) -1040*a(n-58) -228*a(n-59) +129*a(n-60) -6*a(n-61) -6*a(n-62) +a(n-63) for n>66
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 21:46:11, revision 8) this is still
+As of the ``Last modified'' line on the live entry (Aug 01 2016 21:30:48, revision 4) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-Let $G$ be the graph on the label set $\{0,1,\dots,5\}$ whose vertices are the $6$ nodes $0,\dots,5$ with the edges the entry lists, namely \{0,1\}, \{0,2\}, \{0,3\}, \{1,2\}, \{1,4\}, \{2,5\}, \{3,4\}, \{3,5\}, \{4,5\}.
-
-An array $x$ is a map from the cells of a rectangle to the vertices of $G$. The entry names the
-directions antidiagonal, diagonal and horizontal, that is the cell offsets
+Entries lie in $\{0,1,\dots,2\}$ and the condition is that
 \[
-(1,-1), (1,1), (0,1),
+x(i,j)\ \ne\ x(i+d_1,\,j+d_2)\qquad\text{for each offset }(d_1,d_2)\in\{(-2,0), (-1,2), (0,-2)\}
 \]
-and asks that whenever two cells of the array differ by one of those offsets, the two vertices
-they carry are joined by an edge of $G$:
-\[
-x(i,j)\,x(i+\delta_1,j+\delta_2)\in E(G)\qquad
-\text{for every named offset } (\delta_1,\delta_2)\text{ and every pair of cells in range.}
-\]
-The entry also fixes the top-left cell: $x(0,0)=0$.
+whenever the second cell lies inside the array. The entry writes the array with $n$ as the number of COLUMNS, so the array grows one COLUMN at a time and an offset is read with its two coordinates exchanged. The closing clause ``new values
+introduced in order $0..2$'' says the array is the canonical representative of its equality
+pattern.
 
-\begin{lemma}\label{lem:label}
-The count does not depend on how the vertices are labelled.
+\begin{lemma}\label{lem:order}
+The number counted does not depend on the order in which the array is read.
 \end{lemma}
 
 \begin{proof}
-A relabelling is a bijection $\sigma$ of the label set; if it is an isomorphism from one
-labelled copy of $G$ to another then $x\mapsto\sigma\circ x$ is a bijection between the arrays
-counted for the two copies, because the condition mentions only the edge relation.
-Here the labelling is written out in the entry itself, so nothing is left to choose.
+The condition tests only whether two cells carry equal values, so it is unchanged by permuting
+the alphabet, and the admissible arrays fall into classes under renaming. Fix any reading order
+of the cells. Each class contains exactly one array whose distinct values, in order of first
+appearance in that reading, are $0,1,2,\dots$: take any member and rename its values by their
+rank of first appearance. So the count is the number of CLASSES, whatever reading order is
+meant.
 \end{proof}
 
-\section{One slice is a state}
+\section{From classes to fixed alphabets}
 
-Take the array one $row$ at a time, in the direction in which it grows.
-Every offset the entry names has its two cells either in the same $row$ or in two
-consecutive ones. So a $row$, a word of length $6$ over the vertices of $G$, carries
-everything the next $row$ needs: the conditions inside a $row$ constrain that
-$row$ alone, and the conditions across $row$s are a relation between the
-$row$ just written and the one about to be written.
-
-Let $M$ be the matrix indexed by the legal $row$s, with $M_{uv}=1$ when $v$ may
-follow $u$. Add one further state for the empty array, whose successors are the legal first
-$row$s---those beginning with the vertex $0$; then a walk of
-$n$ steps from that state is exactly an array of $n$ $row$s. Every state may end an
-array, so $\tau=\mathbf{1}$ and
+Write $N_j$ for the number of classes on exactly $j$ letters and $L_i$ for the number of
+admissible arrays over an alphabet of $i$ letters. An array over $i$ letters is a class together
+with an injection of its letters into the alphabet, so
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=1459.
+L_i\;=\;\sum_j N_j\,i(i-1)\cdots(i-j+1),
 \]
-The $row$s themselves are built one cell at a time with the conditions applied as soon
-as they can be, which for the sparser graphs is what makes the state list short: a $row$
-of length $6$ over $6$ vertices is one of $6^{6}$ words, but only $S-1$ of them are
-legal. The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
+a triangular system with unit diagonal. By Lemma~\ref{lem:order} the entry counts
+$N_1+\dots+N_{3}$, so $a=\sum_i w_iL_i$ with $w=\mathbf{1}^{\!\top}F^{-1}$, $F$ the
+matrix of falling factorials.
+
+\section{Each $L_i$ is a walk count}
+
+Equality is symmetric, so an offset and its negative forbid exactly the same pairs; replacing
+each offset by whichever of the two points BACKWARDS along the direction in which the array
+grows makes every pair tested once, from the later of its two cells. After that replacement no
+offset reaches more than $2$ columns back, so the window of the last $2$
+columns is a state and one step appends a column. A column not yet written is
+carried as a symbol, so the walk starts at the empty array and a walk of $t$ steps is an array
+of $t$ columns. Assembling $i=1,\dots,3$ as a disjoint union with $\iota$ carrying the
+weights cleared of denominators and $\tau=\mathbf{1}$,
+\[
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=5279.
+\]
+The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
 published terms rather than assumed. In particular $a$ is $C$-finite.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{53}-\sum_i c_it^{53-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{63}-\sum_i c_it^{63-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -104,7 +105,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+53}-\sum_ic_iM^{j+53-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+63}-\sum_ic_iM^{j+63-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -113,30 +114,31 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;171\,a(n-1) - 7597\,a(n-2) + 66978\,a(n-3) + 2583824\,a(n-4) - 51950940\,a(n-5) - 114768696\,a(n-6) + 9054636698\,a(n-7) - 36718682736\,a(n-8) - 634109162555\,a(n-9) + 4922415752542\,a(n-10) + 17684952456223\,a(n-11) - 257017179787974\,a(n-12) + 44697122178759\,a(n-13) + 6813950647173658\,a(n-14) - 14214676649780235\,a(n-15) - 95256883925367556\,a(n-16) + 349764223086150739\,a(n-17) + 638075361803414056\,a(n-18) - 4132669977915280075\,a(n-19) - 655758716192007656\,a(n-20) + 27891199596575003557\,a(n-21) - 19946115396154900446\,a(n-22) - 113398578310551386143\,a(n-23) + 153863761785049382215\,a(n-24) + 275337771685131610985\,a(n-25) - 574115913592410065960\,a(n-26) - 351972189331006256045\,a(n-27) + 1287605861871487083865\,a(n-28) + 49832950543007059662\,a(n-29) - 1835218083346443858712\,a(n-30) + 584632105931636070627\,a(n-31) + 1673748635702117796496\,a(n-32) - 1004898866351611047643\,a(n-33) - 943485141803302660797\,a(n-34) + 864920595743414931962\,a(n-35) + 287374596274394425107\,a(n-36) - 446718459459833923638\,a(n-37) - 15289668350134708829\,a(n-38) + 143310897427441778213\,a(n-39) - 21277189785541190392\,a(n-40) - 28130375346377645531\,a(n-41) + 8130899172562042318\,a(n-42) + 3152590800552865603\,a(n-43) - 1415161150801970578\,a(n-44) - 157323743807361158\,a(n-45) + 132817713592064303\,a(n-46) - 2466246093921598\,a(n-47) - 6544805823376510\,a(n-48) + 605341636474744\,a(n-49) + 143100794076816\,a(n-50) - 20407671803168\,a(n-51) - 733454285952\,a(n-52) + 152009496576\,a(n-53)
+a(n)\;=\;7\,a(n-1) + 7\,a(n-2) - 153\,a(n-3) + 128\,a(n-4) + 1661\,a(n-5) - 2987\,a(n-6) - 11147\,a(n-7) + 31265\,a(n-8) + 44933\,a(n-9) - 209769\,a(n-10) - 65464\,a(n-11) + 988481\,a(n-12) - 428751\,a(n-13) - 3404950\,a(n-14) + 3691505\,a(n-15) + 8623905\,a(n-16) - 16041975\,a(n-17) - 15201775\,a(n-18) + 49315575\,a(n-19) + 13559611\,a(n-20) - 116797842\,a(n-21) + 18028343\,a(n-22) + 220372013\,a(n-23) - 106427533\,a(n-24) - 335355156\,a(n-25) + 260460612\,a(n-26) + 411365412\,a(n-27) - 446068765\,a(n-28) - 401412528\,a(n-29) + 590037487\,a(n-30) + 301637628\,a(n-31) - 624695552\,a(n-32) - 161284890\,a(n-33) + 539917211\,a(n-34) + 45168922\,a(n-35) - 388786164\,a(n-36) + 14654711\,a(n-37) + 240717215\,a(n-38) - 29174529\,a(n-39) - 133749307\,a(n-40) + 24747125\,a(n-41) + 68598600\,a(n-42) - 17271849\,a(n-43) - 31876238\,a(n-44) + 10697884\,a(n-45) + 12697117\,a(n-46) - 5593463\,a(n-47) - 4068750\,a(n-48) + 2346552\,a(n-49) + 972250\,a(n-50) - 764373\,a(n-51) - 148698\,a(n-52) + 187979\,a(n-53) + 5357\,a(n-54) - 33466\,a(n-55) + 3817\,a(n-56) + 3912\,a(n-57) - 1040\,a(n-58) - 228\,a(n-59) + 129\,a(n-60) - 6\,a(n-61) - 6\,a(n-62) + a(n-63)
 \]
-for every $n>53$.
+for every $n>66$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $53$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $63$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=53+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once.
+integers vanish from the index corresponding to $n=66+1$ onwards and the run continued
+until the working vector was identically zero. The rational weights are carried as one common
+denominator, so no division is performed until the final term.
 \end{proof}
 
 \section{Verification}
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $12$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $22$ terms the entry publishes, exactly, in integer
 arithmetic.
 
-Second, the count was recomputed for the smallest arrays straight from the definition, with the
-graph rebuilt by a different route---the cube from its corner points and face normals in space,
-the icosahedron as a pentagonal antiprism capped at both poles---and the arrays written out cell
-by cell, each cell tested against the cells it must be joined to. No slice, no state and no
-recurrence is involved in that computation, and the published terms came back.
+Second, the count was recomputed for the smallest arrays straight from the definition:
+enumerate every array over $\{0,\dots,2\}$, keep those whose values are introduced in the
+order $0,1,2,\dots$ reading row by row, and test each offset directly. Neither the window, nor
+the backward normalisation of the offsets, nor the falling-factorial inversion is involved, and
+the published terms came back.
 
 Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
@@ -146,10 +148,10 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A223502.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A275568.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{cox} H.~S.~M.~Coxeter, \emph{Regular Polytopes}, 3rd ed., Dover, 1973.
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; falling factorials,
+Section 1.9.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

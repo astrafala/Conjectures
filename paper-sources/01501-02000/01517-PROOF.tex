@@ -12,75 +12,72 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A268749, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A203781, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A268749 counts arrays of width $7$ over $\{0,1\}$ in which the number of adjacent PAIRS of
-cells whose entries add up to $2$ is at most one. The entry carries an empirical recurrence of
-order $42$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
-empirical. The condition is global --- no window of the array decides it --- but the quantity
-it constrains is a count that may be capped at two, and a capped count is a bounded state; the
-result is a walk count on $S=235$ states.
+OEIS A203781 counts arrays of width $3$ over $\{0,1,2,3\}$ through two derived arrays of PAIR SUMS ---
+each cell added to its left neighbour, and each cell added to the one above it --- on which the
+entry imposes an order condition. The entry carries an empirical recurrence of order $46$
+contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical: the count is
+a walk count on $S=230$ states.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05C30, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 06A07, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A268749 is ``Number of nX7 binary arrays with some element plus some horizontally or vertically adjacent neighbor totalling two no more than once.''. It has offset $1$ and begins
+OEIS A203781 is ``Number of (n+1)X3 0..3 arrays with column and row pair sums b(i,j)=a(i,j)+a(i,j-1) and c(i,j)=a(i,j)+a(i-1,j) such that rows of b(i,j) and columns of c(i,j) are lexicographically nondecreasing.''. It has offset $1$ and begins
 \[
-72, 1760, 44067, 1016807, 22577073, 487682438, 10319681062, 215027310572,\ \dots
+565, 10109, 187118, 2903185, 38244007, 439011778, 4495376717, 41798687510,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 18*a(n-1) +325*a(n-2) -4074*a(n-3) -48747*a(n-4) +201072*a(n-5) +2225020*a(n-6) -6248320*a(n-7) -47573325*a(n-8) +135873052*a(n-9) +512366407*a(n-10) -1794441336*a(n-11) -2517416282*a(n-12) +13453431136*a(n-13) +1270823811*a(n-14) -55187301646*a(n-15) +38695555999*a(n-16) +115237077158*a(n-17) -158181613013*a(n-18) -96178246900*a(n-19) +263575852534*a(n-20) -18739881048*a(n-21) -224653932202*a(n-22) +90835575680*a(n-23) +105290165907*a(n-24) -69076575582*a(n-25) -27720217521*a(n-26) +26811874806*a(n-27) +3877126783*a(n-28) -6197138172*a(n-29) -207452034*a(n-30) +895782500*a(n-31) -10034133*a(n-32) -81777708*a(n-33) +1520627*a(n-34) +4630616*a(n-35) -28132*a(n-36) -153828*a(n-37) -2195*a(n-38) +2658*a(n-39) +93*a(n-40) -18*a(n-41) -a(n-42)
+Empirical: a(n) = 55*a(n-1) -1440*a(n-2) +23852*a(n-3) -280076*a(n-4) +2474460*a(n-5) -17024052*a(n-6) +92995860*a(n-7) -406626336*a(n-8) +1417827048*a(n-9) -3856529652*a(n-10) +7670112516*a(n-11) -8738530620*a(n-12) -5208244788*a(n-13) +50153902524*a(n-14) -118298746716*a(n-15) +134937662118*a(n-16) +33490877310*a(n-17) -429636601924*a(n-18) +772811055052*a(n-19) -484068870036*a(n-20) -717113206876*a(n-21) +2049391909540*a(n-22) -1905937835076*a(n-23) -429232892712*a(n-24) +3256097340336*a(n-25) -3579343666524*a(n-26) +467095009260*a(n-27) +3310697961996*a(n-28) -4022945360028*a(n-29) +1162694578452*a(n-30) +2130146612364*a(n-31) -2827734318045*a(n-32) +1080655080243*a(n-33) +783566461236*a(n-34) -1212250161384*a(n-35) +557760264272*a(n-36) +105098522320*a(n-37) -283726633536*a(n-38) +158118019328*a(n-39) -22871890688*a(n-40) -23641277184*a(n-41) +18825661440*a(n-42) -7095085056*a(n-43) +1593520128*a(n-44) -206032896*a(n-45) +11943936*a(n-46) for n>51
 \end{quote}
-As of the ``Last modified'' line on the live entry (Feb 12 2016 12:33:35, revision 4) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 10:42:47, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The array has $7$ cells across, with entries in $\{0,1\}$. An ADJACENT PAIR is a pair of cells
+The array $a$ has $3$ cells across, with entries in $\{0,1,2,3\}$. Two derived arrays are formed,
 \[
-\begin{array}{l}
-$(i,j)\text{ and }(i,j{+}1)$ \\
-$(i,j)\text{ and }(i{+}1,j)$ \\
-\end{array}
+b(i,j)=a(i,j)+a(i,j-1)\quad(j\ge1),\qquad c(i,j)=a(i,j)+a(i-1,j)\quad(i\ge1),
 \]
-both lying inside the array. A pair is a pair of CELLS, so it is counted once and not once from
-each end. Writing $k$ for the number of adjacent pairs whose two entries add up to $2$, the
-entry counts the arrays with $k$ at most one.
+so $b$ adds each cell to its LEFT neighbour and $c$ adds each cell to the one ABOVE it. The
+entry asks
 
-\section{A capped count is a state}
+that the ROWS of $b$ and the COLUMNS of $c$ are each in lexicographic nondecreasing order. Row $i$ of $b$
+is $\bigl(b(i,1),\dots,b(i,2)\bigr)$ and column $j$ of $c$ is
+$\bigl(c(1,j),c(2,j),\dots\bigr)$.
 
-No window of the array decides the condition: $k$ is a total over the whole array. But the
-condition distinguishes only $k=0$, $k=1$ and $k\ge2$, so the count may be carried capped at
-two and stays bounded.
 
-\begin{lemma}\label{lem:cap}
-Let $k_t$ be the number of qualifying pairs lying inside the first $t$ rows. Then
-\[
-k_{t}\;=\;k_{t-1}+\bigl(\text{pairs inside row } t\bigr)
-+\bigl(\text{pairs joining rows } t-1 \text{ and } t\bigr),
-\]
-and both added terms are determined by rows $t-1$ and $t$ alone.
+\section{Two rows decide it}
+
+\begin{lemma}\label{lem:win}
+The row comparison is a condition on two consecutive rows of $a$. The column comparison is
+settled by the FIRST row in which the two columns of $c$ differ.
 \end{lemma}
 
 \begin{proof}
-Every adjacent pair lies either inside one row or across two consecutive rows, by the list
-above; a pair inside rows $1..t$ that is not inside rows $1..t-1$ must meet row $t$, so it is
-one of the two kinds counted.
+Row $i$ of $b$ is built from row $i$ of $a$ alone, so comparing rows $i$ and $i+1$ of $b$ reads
+rows $i$ and $i+1$ of $a$. Two sequences are compared lexicographically by their first
+difference; entry $i$ of column $j$ of $c$ is built from rows $i-1$ and $i$ of $a$, so scanning
+the array downwards reveals the entries of every column of $c$ in order.
 \end{proof}
 
-So the state is the pair $(\text{previous row},\min(k,2))$: a step appends a row, adds the
-pairs Lemma~\ref{lem:cap} names and caps the total at two. The end vector accepts the states
-with $k\le1$, so it is not the all-ones vector. With $M$ the adjacency matrix,
+So the state is the last row of $a$ together with one bit for each adjacent pair of columns,
+recording whether that pair of columns of $c$ has been equal in every row so far. A row that
+would put a pair in the wrong order is rejected at once, and a pair still equal at the end is
+in order, equality being allowed.
+
+With $M$ the adjacency matrix of the digraph on those states, $\iota$ the indicator of the
+starting state and $\tau=\mathbf{1}$,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=235.
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=230.
 \]
 The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
 published terms rather than assumed. In particular $a$ is $C$-finite.
@@ -88,7 +85,7 @@ published terms rather than assumed. In particular $a$ is $C$-finite.
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{42}-\sum_i c_it^{42-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{46}-\sum_i c_it^{46-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -96,7 +93,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+42}-\sum_ic_iM^{j+42-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+46}-\sum_ic_iM^{j+46-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -105,15 +102,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;18\,a(n-1) + 325\,a(n-2) - 4074\,a(n-3) - 48747\,a(n-4) + 201072\,a(n-5) + 2225020\,a(n-6) - 6248320\,a(n-7) - 47573325\,a(n-8) + 135873052\,a(n-9) + 512366407\,a(n-10) - 1794441336\,a(n-11) - 2517416282\,a(n-12) + 13453431136\,a(n-13) + 1270823811\,a(n-14) - 55187301646\,a(n-15) + 38695555999\,a(n-16) + 115237077158\,a(n-17) - 158181613013\,a(n-18) - 96178246900\,a(n-19) + 263575852534\,a(n-20) - 18739881048\,a(n-21) - 224653932202\,a(n-22) + 90835575680\,a(n-23) + 105290165907\,a(n-24) - 69076575582\,a(n-25) - 27720217521\,a(n-26) + 26811874806\,a(n-27) + 3877126783\,a(n-28) - 6197138172\,a(n-29) - 207452034\,a(n-30) + 895782500\,a(n-31) - 10034133\,a(n-32) - 81777708\,a(n-33) + 1520627\,a(n-34) + 4630616\,a(n-35) - 28132\,a(n-36) - 153828\,a(n-37) - 2195\,a(n-38) + 2658\,a(n-39) + 93\,a(n-40) - 18\,a(n-41) - a(n-42)
+a(n)\;=\;55\,a(n-1) - 1440\,a(n-2) + 23852\,a(n-3) - 280076\,a(n-4) + 2474460\,a(n-5) - 17024052\,a(n-6) + 92995860\,a(n-7) - 406626336\,a(n-8) + 1417827048\,a(n-9) - 3856529652\,a(n-10) + 7670112516\,a(n-11) - 8738530620\,a(n-12) - 5208244788\,a(n-13) + 50153902524\,a(n-14) - 118298746716\,a(n-15) + 134937662118\,a(n-16) + 33490877310\,a(n-17) - 429636601924\,a(n-18) + 772811055052\,a(n-19) - 484068870036\,a(n-20) - 717113206876\,a(n-21) + 2049391909540\,a(n-22) - 1905937835076\,a(n-23) - 429232892712\,a(n-24) + 3256097340336\,a(n-25) - 3579343666524\,a(n-26) + 467095009260\,a(n-27) + 3310697961996\,a(n-28) - 4022945360028\,a(n-29) + 1162694578452\,a(n-30) + 2130146612364\,a(n-31) - 2827734318045\,a(n-32) + 1080655080243\,a(n-33) + 783566461236\,a(n-34) - 1212250161384\,a(n-35) + 557760264272\,a(n-36) + 105098522320\,a(n-37) - 283726633536\,a(n-38) + 158118019328\,a(n-39) - 22871890688\,a(n-40) - 23641277184\,a(n-41) + 18825661440\,a(n-42) - 7095085056\,a(n-43) + 1593520128\,a(n-44) - 206032896\,a(n-45) + 11943936\,a(n-46)
 \]
-for every $n>41$.
+for every $n>51$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $42$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $46$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=41+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=51+1$ onwards and the run continued
 until the working vector was identically zero.
 \end{proof}
 
@@ -121,14 +118,13 @@ until the working vector was identically zero.
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $15$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $16$ terms the entry publishes, exactly, in integer
 arithmetic.
 
 Second, the count was recomputed for the smallest arrays straight from the definition:
-enumerate every array of that size in the orientation the entry's own name writes, count the
-adjacent pairs summing to $2$ by running over the array once for each kind of pair, and keep
-the array when that count is at most one. No cap, no state and no transfer matrix are involved, and
-the published terms came back.
+enumerate every array of that size, form the two derived arrays in full, and test the condition
+on them directly. No window, no state and no incremental bookkeeping are involved, and the
+published terms came back.
 
 Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
@@ -138,7 +134,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A268749.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A203781.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge

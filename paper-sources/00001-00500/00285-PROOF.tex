@@ -12,123 +12,197 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{Recovering the unwritten recurrences of the table OEIS A236828}
+\title{The reduction of OEIS A396797 modulo $6$}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{2 September 2026}
+\date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A236828 is a two-dimensional table $T(n,k)$ whose empirical recurrences are, for several of
-its lines, given only as an ORDER --- ``k=2: [order 30]'' and the like --- with the
-coefficients in a linked file rather than in the entry. Those conjectures can still be settled,
-and the recurrences recovered. A line of the table is a fixed-width or fixed-height array
-count, hence a walk count on finitely many vertices, hence satisfies some monic recurrence of
-order at most that number; Berlekamp--Massey on twice as many exact terms returns the MINIMAL
-one. Where its order equals the order the entry states --- and where the same holds after the
-first few terms are dropped --- any recurrence of that order the line satisfies has a
-characteristic polynomial that is a multiple of the minimal one and of equal degree, hence is
-that polynomial. This note settles column 2, column 3.
+OEIS A396797 is defined by a functional equation for its ordinary generating function and
+carries a congruence conjectures of P.~D.~Hanna. It is true. The equation determines the
+coefficients one at a time, with $a(N)$ entering with coefficient $1$, so it determines
+them modulo $6$ as well; and modulo $6$ the series $x/(1-x)$ satisfies the equation
+exactly, because its compositional iterates are $x/(1-jx)$ and the relevant product of
+denominators collapses. Uniqueness then identifies the reduction, which is the conjectures.
+The whole argument is an identity between rational functions over
+$\mathbb{Z}/6\mathbb{Z}$; nothing is truncated or estimated.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 11B50, 05A15, 13F25.\normalsize
 
-\section{The table and the unwritten conjectures}
+\section{The sequence and the conjecture}
 
-OEIS A236828 is ``T(n,k)=Number of (n+1)X(k+1) 0..2 arrays with the maximum plus the minimum minus the lower median of every 2X2 subblock equal.''. It is read by antidiagonals and begins
+OEIS A396797 is ``G.f. satisfies A(x) = x + A\^{}3(x)*A\^{}4(x).''. It has offset $1$ and begins
 \[
-81, 327, 327, 1386, 2211, 1386, 6093, 15254,\ \dots
+1, 1, 7, 79, 1135, 18985,\ \dots
 \]
-The entry carries, among its empirical claims:
+Writing $A(x)=\sum_{n\ge1}a(n)x^{n}$ and $A^{\,j}$ for the $j$-th compositional
+iterate of $A$, the entry defines $A$ by
+\begin{equation}\label{eq:fe}
+A(x)\;=\;x+A^{3}(x)\,A^{4}(x) .
+\end{equation}
+This is the only input taken from the entry.
+
+The entry separately carries the following comments:
 \begin{quote}\small
-k=2: [order 30]\\
-k=3: [order 84]
+Conjecture: a(n) = 1 (mod 6) for n >= 1.
+
+Conjecture: [x\^{}n] A\^{}k(x) == k\^{}(n-1) (mod 6) for n >= 1 and all integer k. --- \emph{Paul D. Hanna}
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 09:36:36, revision 6) these are still
-recorded as empirical, and the recurrences themselves are not in the entry text.
+As of the ``Last modified'' line on the live entry (Jun 17 2026 00:54:04, revision 22) they are
+still recorded as conjectures, and nothing on the entry records
+them as settled either way. 
 
-\section{Why a line of the table is a walk count}
+\section{The equation determines the sequence}
 
-Fix the index that the line fixes. The entry defines $T(n,k)$ as a number of arrays of a shape
-determined by $n$ and $k$, subject to a condition local to a bounded window of consecutive
-lines. Substituting the fixed index into the entry's own wording turns the definition into an
-ordinary one-parameter array count, and for such a count the admissible windows are the
-vertices of a finite digraph and an array is a walk. So the line is a walk count on $S$
-vertices, and by the Cayley--Hamilton theorem it satisfies a monic integer recurrence of order
-at most $S$.
-
-\section{Recovering the recurrences}
-
-\begin{lemma}\label{lem:bm}
-A sequence known to satisfy some linear recurrence of order at most $S$ is determined, with its
-minimal recurrence, by its first $2S$ terms; Berlekamp--Massey applied to them returns that
-minimal recurrence exactly.
+\begin{lemma}\label{lem:jaN}
+Let $A(x)=\sum_{n\ge1}a(n)x^{n}$ with $a(1)=1$. Then for every $j\ge1$ and every
+$N\ge1$,
+\[
+\bigl[x^{N}\bigr]A^{\,j}=j\,a(N)+\bigl(\text{a polynomial in }a(1),\dots,a(N-1)\bigr).
+\]
 \end{lemma}
 
-\subsection*{Column $k=2$}
-Substituting the fixed index into the entry's wording gives an ordinary one-parameter array
-count, a walk on $S=65$ vertices. Berlekamp--Massey on $2S=130$ exact terms
-returns a minimal recurrence of order $30$ --- the order the entry states --- with
-integer coefficients
+\begin{proof}
+Induction on $j$. For $j=1$ the statement is $\bigl[x^{N}\bigr]A=a(N)$. Suppose it holds
+for $j$, and write $B=A^{\,j}$, so $\bigl[x^{1}\bigr]B=1$ and
+$\bigl[x^{N}\bigr]B=j\,a(N)+\cdots$. Then $A^{\,j+1}=A\circ B=\sum_{m\ge1}a(m)B^{m}$
+and
 \[
-(c_1,\dots,c_{30})=(20,\ -74,\ -950,\ 7675,\ 5902,\ -208583,\ 358712,\ 2437168,\ -8245218,\ -11507689,\ 77981588,\ -13353740,\ -390127858,\ 398463912,\ 1060576100,\ -1911844548,\ -1338399672,\ 4592202520,\ -205399632,\ -6115028512,\ 2874814400,\ 4321062784,\ -3582260416,\ -1253904064,\ 1886965760,\ -92450688,\ -394737408,\ 90316800,\ 17190912,\ -4915200).
+\bigl[x^{N}\bigr]A^{\,j+1}=\sum_{m=1}^{N}a(m)\,\bigl[x^{N}\bigr]B^{m} .
 \]
-so that $a(m)=\sum_{i=1}^{30}c_i\,a(m-i)$ for every $m$. Removing the first
-$30+4$ terms and repeating gives order $30$ again, which is what the
-identification below needs.
+The term $m=N$ contributes $a(N)\bigl(\bigl[x^{1}\bigr]B\bigr)^{N}=a(N)$. The term $m=1$
+contributes $\bigl[x^{N}\bigr]B=j\,a(N)+\cdots$. For $2\le m\le N-1$, every monomial of
+$\bigl[x^{N}\bigr]B^{m}$ is a product of $m\ge2$ coefficients of $B$ with indices summing
+to $N$, hence each index is at most $N-1$, so no $a(N)$ occurs. Adding up gives
+$(j+1)a(N)$ plus terms in $a(1),\dots,a(N-1)$.
+\end{proof}
 
-\subsection*{Column $k=3$}
-Substituting the fixed index into the entry's wording gives an ordinary one-parameter array
-count, a walk on $S=177$ vertices. Berlekamp--Massey on $2S=354$ exact terms
-returns a minimal recurrence of order $84$ --- the order the entry states --- with
-integer coefficients
+\begin{lemma}\label{lem:unique}
+There is exactly one sequence of integers $a(1),a(2),\dots$ satisfying \eqref{eq:fe}, and
+for each $N\ge2$ the equation read at order $x^{N}$ has the form
+$a(N)=(\text{a polynomial with integer coefficients in }a(1),\dots,a(N-1))$.
+\end{lemma}
+
+\begin{proof}
+Comparing coefficients of $x$ in \eqref{eq:fe} gives $a(1)=1$. Let $N\ge2$ and collect the
+coefficient of $a(N)$ on each side of \eqref{eq:fe} at order $x^{N}$, using
+Lemma~\ref{lem:jaN}. On the left the coefficient is $1$. On the right, $x$ contributes nothing and the product $A^{\,3}A^{\,4}$ contributes nothing either: every monomial of $\bigl[x^{N}\bigr]\bigl(A^{\,3}A^{\,4}\bigr)$ is a product of one coefficient of $A^{\,3}$ and one of $A^{\,4}$ with indices $i,j\ge1$ and $i+j=N$, so both indices are at most $N-1$. Hence the net coefficient of $a(N)$ is $1$.
+Since that coefficient is $1$, the order-$x^{N}$ equation solves for $a(N)$ over
+$\mathbb{Z}$, and induction gives existence and uniqueness.
+\end{proof}
+
+\begin{corollary}\label{cor:mod}
+Let $m\ge2$. If $\bar A\in(\mathbb{Z}/m\mathbb{Z})[[x]]$ satisfies $\bar A=x+O(x^{2})$ and
+\eqref{eq:fe} with all coefficients read modulo $m$, then
+$a(n)\equiv\bigl[x^{n}\bigr]\bar A\pmod m$ for every $n$.
+\end{corollary}
+
+\begin{proof}
+Reduction modulo $m$ is a ring homomorphism, so it carries the integer recursion of
+Lemma~\ref{lem:unique} to the same recursion over $\mathbb{Z}/m\mathbb{Z}$, where the
+coefficient of $a(N)$ is still $1$ and hence still invertible. That recursion therefore has
+a unique solution, and both $a\bmod m$ and the coefficient sequence of $\bar A$ solve it.
+\end{proof}
+
+\section{The reduction modulo $6$}
+
+Write $f(x)=\dfrac{x}{1-x}$ over $\mathbb{Z}/6\mathbb{Z}$.
+
+\begin{lemma}\label{lem:iter}
+$f^{\,j}(x)=\dfrac{x}{1-jx}$ for every $j\ge1$, and more generally for every integer
+$j$, where $f^{-1}$ denotes the compositional inverse.
+\end{lemma}
+
+\begin{proof}
+For $j=1$ this is the definition. If $f^{\,j}(x)=x/(1-jx)$ then
 \[
-(c_1,\dots,c_{84})=(34,\ -103,\ -8609,\ 86068,\ 815732,\ -14273082,\ -24567497,\ 1251171982,\ -1875641980,\ -69522659097,\ 249574494114,\ 2625415958883,\ -14468110723020,\ -68553067413666,\ 548598961086380,\ 1178093762057447,\ -15111156938897402,\ -9582286535795279,\ 317027396438864059,\ -127453639005475181,\ -5198854880988239696,\ 6275038104321831719,\ 67616368951230545663,\ -129431066864674607728,\ -701885751998689690459,\ 1842199134597224285642,\ 5801780141253202951792,\ -20054507455432337004236,\ -37601075510334374354200,\ 173932539447048628858141,\ 182538383691400067475697,\ -1226846636654254036771934,\ -567712890836324465562644,\ 7119362338017644807732667,\ 109954859821876993999127,\ -34206718762168298395052287,\ 11871611698282821585516871,\ 136475735578962630940528860,\ -89989965590268956276346092,\ -452117035051680658878125212,\ 428378600420008851928975785,\ 1239808949588555451386976377,\ -1532064723870954677241380965,\ -2794698260754004365219828925,\ 4343288680528276372010008728,\ 5111013132962890267097372151,\ -9975030255471260423264760749,\ -7397017882009904019127916844,\ 18732818479438897085795246300,\ 8023879209490931262215825145,\ -28849302286856350040028381383,\ -5530805383617929263067292405,\ 36388937924928835098410575334,\ 221725134779149859604178876,\ -37424801669105702649176257410,\ 5402968858666800746190790160,\ 31149570381553597701315637640,\ -8422526761908424852590529656,\ -20758607923252364513095002272,\ 7889504633887572729985666816,\ 10916876213474827562358616928,\ -5245783428164741652135846976,\ -4443466584131892538570682656,\ 2575681338339155831098233792,\ 1363372746279185265494661120,\ -939143177729691102888496512,\ -303676603839791812929813248,\ 251929018675842663856442368,\ 46216933214277486436701184,\ -48808912885993272525679616,\ -4229499584030724694052864,\ 6654586152502283628118016,\ 131720903693170559156224,\ -616902042733386425237504,\ 15847028806391244947456,\ 37069230207576249729024,\ -2066803679487850708992,\ -1343393611976609103872,\ 99672213407032410112,\ 26133429260614893568,\ -2126018797931331584,\ -222129049537871872,\ 15884173650690048,\ 482990547271680).
+f^{\,j+1}(x)=f\bigl(f^{\,j}(x)\bigr)
+=\frac{\dfrac{x}{1-jx}}{1-\dfrac{x}{1-jx}}
+=\frac{x}{(1-jx)-x}=\frac{x}{1-(j+1)x} .
 \]
-so that $a(m)=\sum_{i=1}^{84}c_i\,a(m-i)$ for every $m$. Removing the first
-$84+4$ terms and repeating gives order $84$ again, which is what the
-identification below needs.
+The maps $x\mapsto x/(1-jx)$ therefore form a group isomorphic to $(\mathbb{Z},+)$ under
+composition, which also gives the statement for $j\le0$; in particular
+$f^{-1}(x)=x/(1+x)$.
+\end{proof}
 
-\begin{theorem}
-For each line above, the displayed recurrence holds for every index, and it is the recurrence
-the entry records.
+\begin{lemma}\label{lem:sat}
+Over $\mathbb{Z}/6\mathbb{Z}$, $f$ satisfies $f=x+f^{\,3}f^{\,4}$.
+\end{lemma}
+
+\begin{proof}
+By Lemma~\ref{lem:iter}, $f^{\,3}f^{\,4}
+=\dfrac{x^{2}}{(1-3x)\bigl(1-4x\bigr)}$, while
+$f-x=\dfrac{x}{1-x}-x=\dfrac{x^{2}}{1-x}$. So the claim is that
+$(1-3x)(1-4x)$ and $1-x$ agree in $(\mathbb{Z}/6\mathbb{Z})[x]$. Expanding,
+\[
+(1-3x)\bigl(1-4x\bigr)=1-7x+12x^{2} ,
+\]
+and modulo $6$ we have $7\equiv1$ and $12\equiv0$. Hence both sides equal
+$1-x$, and the two rational functions agree.
+\end{proof}
+
+
+\begin{theorem}\label{thm:main}
+Over $\mathbb{Z}/6\mathbb{Z}$ the reduction of $A$ is $x/(1-x)$. Equivalently
+$a(n)\equiv1\pmod{6}$ for every $n\ge1$, and more generally
+\[
+\bigl[x^{n}\bigr]A^{\,j}(x)\;\equiv\;j^{\,n-1}\pmod{6}
+\]
+for every $n\ge1$ and every integer $j$. This is the conjectures of Section~1.
 \end{theorem}
 
 \begin{proof}
-It holds by Lemma~\ref{lem:bm}. For the identification, the entry asserts that the line
-satisfies SOME recurrence of the stated order, possibly only from some index on. Let $q$ be its
-characteristic polynomial and $q_{\min}$ the minimal polynomial of the tail. Then
-$q_{\min}\mid q$, and the second Berlekamp--Massey run --- on the line with its first few
-terms removed --- shows $\deg q_{\min}$ equals the stated order, which is $\deg q$. Both are
-monic, so $q=q_{\min}$.
+By Lemma~\ref{lem:sat}, $f=x/(1-x)$ satisfies the reduced equation, and $f=x+O(x^{2})$.
+By Corollary~\ref{cor:mod} the reduction of $A$ equals $f$, so
+$a(n)\equiv\bigl[x^{n}\bigr]f=1$.
+
+Reduction modulo $6$ carries composition of power series with unit linear coefficient to
+composition, so $A^{\,j}$ reduces to $f^{\,j}$ for every integer $j$ --- for $j<0$
+because $A$ has linear coefficient $1$, hence is invertible under composition, and the
+reduction map is a homomorphism of the composition group. By Lemma~\ref{lem:iter},
+$f^{\,j}(x)=x/(1-jx)=\sum_{n\ge1}j^{\,n-1}x^{n}$, which gives the second statement.
 \end{proof}
+
+\begin{remark}
+The proof used only that $(1-3x)(1-4x)\equiv1-x$ modulo $6$, that is, that
+$6$ divides both $2\cdot3$ and $3\cdot4$. The largest modulus with that property
+is $\gcd\bigl(2p,\,p(p+1)\bigr)$, which is $2p$ for odd $p$ and $p$ for even $p$; here
+$p=3$ gives $6$. This is exactly why the statement is made modulo $6$ and not modulo
+a larger number.
+\end{remark}
+
 
 \section{Verification}
 
-Three checks.
+Three checks, each independent of the algebra above.
 
-First, each line's model was compared against the entry's own published values for that line,
-taken from the antidiagonal DATA read in either orientation and from the ``Table starts''
-block, and agrees at every available term. This is the only point at which reading the entry's
-English enters, and a misreading gives different counts.
+First, the recursion of Lemma~\ref{lem:unique} was run in exact rational arithmetic and
+its output compared against the entry's DATA at every one of the $21$ published
+indices; the values agree exactly, and every one is an integer. A recursion that reproduced
+only some of them would mean the functional equation had been transcribed wrongly.
 
-Second, each recovered recurrence was evaluated directly on the model's values, with no
-Berlekamp--Massey involved, and holds at every index tested.
+Second, at every step the coefficient of $a(N)$ was computed rather than assumed, by
+evaluating the order-$x^{N}$ equation at $a(N)=0$ and at $a(N)=1$ and subtracting; it came
+out $1$ at every $N$ up to $24$, as Lemma~\ref{lem:unique} requires. The same run was
+continued to $n=24$ and every term reduced modulo $6$; all residues are
+$1$.
 
-Third, each order was computed twice by independent routes --- modulo a $61$-bit prime, where
-every intermediate is a machine word, and again in exact rational arithmetic --- and once more
-on the line with its first few terms dropped, which is what the identification requires. All
-agree.
+Third, the composition of the proof was carried out independently as a formal power series
+over $\mathbb{Z}/6\mathbb{Z}$ to order $30$, starting from the coefficients of $x/(1-x)$
+rather than from the closed form; both sides of \eqref{eq:fe} agree at every order, and the
+iterates $f^{\,j}$ were confirmed to have coefficients $j^{\,n-1}$ for $j\le6$.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A236828.
-\bibitem{massey} J.~L.~Massey, Shift-register synthesis and BCH decoding, \emph{IEEE
-Trans. Inform. Theory} \textbf{15} (1969), 122--127.
-\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
-University Press, 2013.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A396797.
+\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 2, Cambridge
+University Press, 1999.
+\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+University Press, 2009.
+\bibitem{hw} G.~H.~Hardy and E.~M.~Wright, \emph{An Introduction to the Theory of
+Numbers}, 6th ed., Oxford University Press, 2008.
 \end{thebibliography}
 
 \end{document}

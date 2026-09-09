@@ -12,56 +12,64 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{Arrays counted up to renaming: the empirical recurrence for OEIS A206165}
+\title{The empirical recurrence for OEIS A232958, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{6 September 2026}
+\date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A206165 carries an empirical recurrence of order $10$ contributed by R.~H.~Hardin. It is
-true, and it is decidable rather than empirical. The entry imposes two conditions of different
-kinds: a condition on every subblock, which is local, and ``new values introduced in row major
-order'', which is not --- it makes the count a count of colourings up to renaming. The first is
-handled by a window of consecutive rows; the second by one extra integer, the number of values
-introduced so far, which is an exact summary of everything the whole prefix contributes. With
-both in the state the arrays are exactly the walks in a digraph on $S=39$ vertices, so $a(n)$
-is $C$-finite and whether the conjectured recurrence annihilates it is settled by a finite
-exact computation.
+OEIS A232958 counts arrays over $\{0,\dots,3\}$ in which no two entries that are neighbours in
+a named set of directions may sum to $3$, together with clauses that pick one array out of
+each class of arrays differing by a renaming. The entry carries an empirical recurrence of
+order $10$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
+empirical: the clash condition is local to two consecutive rows and the renaming clauses are
+carried by one bounded piece of extra state, so the count is a walk count on $S=10$ states.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05C15, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A206165 is ``Number of (n+1)X5 0..3 arrays with every 2X2 subblock in a row having an equal number of equal diagonal or equal antidiagonal elements, adjacent rows differing in this number, and new values 0..3 introduced in row major order.''. It has offset $1$ and begins
+OEIS A232958 is ``Number of 4Xn 0..3 arrays with no element x(i,j) adjacent to value 3-x(i,j) horizontally, diagonally or antidiagonally, and top left element zero.''. It has offset $1$ and begins
 \[
-5257, 196078, 13899222, 526154358, 37242588902, 1412613762182, 99795262195942, 3792559398258150,\ \dots
+64, 1029, 27441, 685251, 17429409, 442227825, 11228712351, 285082486341,\ \dots
 \]
-Because of the relabelling condition each array is counted once for the whole class of arrays that differ from it only by renaming the values, so these are colourings counted up to permutation of the colours.
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = a(n-1) +2697*a(n-2) -2261*a(n-3) -62984*a(n-4) +18588*a(n-5) +148188*a(n-6) +441756*a(n-7) -1398384*a(n-8) +632448*a(n-9) +6137856*a(n-10) for n>11
+Empirical: a(n) = 24*a(n-1) +76*a(n-2) -1008*a(n-3) -992*a(n-4) +8762*a(n-5) -7403*a(n-6) -2174*a(n-7) +3324*a(n-8) -416*a(n-9) -96*a(n-10)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 12:29:19, revision 9) this is still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 07:46:05, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
-\section{The count is a walk count}
+\section{What is being counted}
 
-The entry counts arrays of 5 columns over the alphabet $\{0,1,2,3\}$, and asks two different kinds of thing of them at once.
-
-\textbf{The subblock condition is local.} It says that every $2\times2$ subblock scores the number of its equal diagonal pairs plus the number of its equal antidiagonal pairs, all subblocks lying in one band must score the same, and consecutive bands must score differently. A $ 2\times2$ subblock spans $2$ consecutive rows, so a window of $2$ consecutive rows decides every subblock it closes, and nothing outside that window is consulted.
-
-What is compared \emph{across} windows is carried too: the state holds the single number the last band scored, since a band is constant and only that one number is compared with the next. With $4$ subblocks to a band that is a bounded amount of bookkeeping and no more.
-
-\textbf{The relabelling condition is not local.} ``New values introduced in row major order'' says that, reading the array one row at a time and each row left to right, a value may appear for the first time only once every smaller value already has. Whether a given entry is allowed here therefore depends on the whole prefix of the array, not on any bounded window of it, and no amount of widening the window captures it. What saves it is that the prefix matters only through one number: let $m$ be how many values have been introduced so far. A row $r_1r_2\cdots r_5$ may follow precisely when each $r_i\le m$ at the moment it is read and each $r_i=m$ raises $m$ by one. So $m$, an integer in $\{0,1,\dots,4\}$, is an exact summary of everything the condition needs, and it joins the state.
-
-The vertices of the digraph are therefore the triples (the last $1$ row, the count $m$, what the last band scored), an edge $u\to v$ meaning that $v$'s new row may follow $u$. Of the $1024$ possible rows only those admissible from the current $m$ appear, and states with identical futures are merged, which leaves $S=39$. An admissible array is exactly a walk, so with $M$ the adjacency matrix and $\iota,\tau$ the vectors recording which states may begin and end an array,
+The array is $4$ cells across with entries $x(i,j)\in\{0,1,2,3\}$. Call two values $u,v$ CLASHING
+when $u+v=3$. Two cells are neighbours when one is obtained from the other by one of
+the offsets
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n}\tau ,
+(1,-1), (1,0), (1,1),
 \]
-the exponent fixed by the entry's own shape and checked against its published terms. In
-particular $a$ is $C$-finite.
+that is, in the antidiagonal (ne--sw), vertical and diagonal (nw--se) directions, and the condition is that no two neighbouring cells carry
+clashing values. The entry writes the array with $n$ as the number of COLUMNS. The walk is run down the transpose, so the offsets above are already the transposed ones: transposing exchanges the horizontal and vertical directions and fixes each diagonal one. The clash relation is symmetric, so an offset and its negative name the
+same pairs and only one of each is listed. The entry also fixes the top left entry: $x(1,1)=0$.
+
+\section{The walk}
+
+Every offset above moves the row index by at most one, so a clash is a condition on two
+consecutive array rows and on nothing else.
+
+So a single array row is a state. A step appends a row, which settles every clash between it
+and the row above and every clash inside it. Two states from which, for every remaining length,
+the same number of arrays can be completed contribute identically to the count, so they are
+identified; after that identification there are $S=10$ of them.
+
+With $\iota$ the indicator of the states that may begin an array and $\tau=\mathbf{1}$,
+\[
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau .
+\]
+The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
+published terms rather than assumed. In particular $a$ is $C$-finite.
 
 \section{The proof}
 
@@ -83,33 +91,31 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;a(n-1) + 2697\,a(n-2) - 2261\,a(n-3) - 62984\,a(n-4) + 18588\,a(n-5) + 148188\,a(n-6) + 441756\,a(n-7) - 1398384\,a(n-8) + 632448\,a(n-9) + 6137856\,a(n-10)
+a(n)\;=\;24\,a(n-1) + 76\,a(n-2) - 1008\,a(n-3) - 992\,a(n-4) + 8762\,a(n-5) - 7403\,a(n-6) - 2174\,a(n-7) + 3324\,a(n-8) - 416\,a(n-9) - 96\,a(n-10)
 \]
-for every $n>11$.
+for every $n>10$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $10$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=11+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once. The bound is exact: at $n=11$ the recurrence fails on the entry's own published terms, so no larger range holds.
+integers vanish from the index corresponding to $n=10+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $13$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry: the digraph is built by reading the
-entry's English, and a misreading gives different counts.
+First, the model reproduces all $15$ terms the entry publishes, exactly, in integer
+arithmetic.
 
-Second, the reading was pinned before the digraph was written, by a program that enumerates
-the arrays one by one from the entry's own words --- generating every array over the
-alphabet, discarding those that fail the relabelling condition, then testing each subblock
-directly --- and compares the count with the published terms. That program shares no code
-with the transfer matrix, so an error in one does not hide an error in the other.
+Second, the count was recomputed for the smallest arrays straight from the definition: fill the
+cells in row major order, in the orientation the entry's own name writes, and test each clause
+the moment it can be tested. No transfer matrix, no transposition and no state are involved,
+and the published terms came back.
 
-Third, the conjectured recurrence was evaluated directly on those published terms, with no
+Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
 
 Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
@@ -117,11 +123,11 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A206165.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A232958.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
-University Press, 2009.
+\bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata
+Theory, Languages, and Computation}, 3rd ed., Addison--Wesley, 2006.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

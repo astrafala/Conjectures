@@ -12,46 +12,46 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A203086, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A202598, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A203086 counts arrays of width $5$ over $\{0,1\}$ containing no occurrence of certain short
+OEIS A202598 counts arrays of width $7$ over $\{0,1\}$ containing no occurrence of certain short
 patterns, read along the rows, the columns or the diagonals. The entry carries an empirical
 recurrence of order $22$ contributed by R.~H.~Hardin. It is true, and it is decidable
 rather than empirical: no pattern is longer than $3$ letters and no direction moves the row
 index by more than one, so every occurrence lies inside $3$ consecutive array rows and the
-count is a walk count on $S=183$ states.
+count is a walk count on $S=1807$ states.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 68R15, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A203086 is ``Number of (n+2)X5 binary arrays avoiding patterns 000 and 101 in rows and columns.''. It has offset $1$ and begins
+OEIS A202598 is ``Number of (n+2)X7 binary arrays avoiding patterns 001 and 000 in rows and columns.''. It has offset $1$ and begins
 \[
-621, 2237, 7558, 26528, 92748, 319956, 1110338, 3857116,\ \dots
+30114, 629790, 12360432, 248094210, 4938195402, 98603761284, 1966507686990, 39237140832414,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = a(n-1) +2*a(n-2) +19*a(n-3) +17*a(n-4) +5*a(n-5) -57*a(n-6) -51*a(n-7) +48*a(n-8) +197*a(n-9) -63*a(n-10) -429*a(n-11) -144*a(n-12) +443*a(n-13) +246*a(n-14) -220*a(n-15) -81*a(n-16) +58*a(n-17) -65*a(n-18) +10*a(n-19) +49*a(n-20) +20*a(n-21) +20*a(n-22) for n>24
+Empirical: a(n) = 8*a(n-1) +250*a(n-2) +184*a(n-3) -8341*a(n-4) -3864*a(n-5) +101382*a(n-6) -13547*a(n-7) -478599*a(n-8) +220430*a(n-9) +899746*a(n-10) -500871*a(n-11) -729610*a(n-12) +374846*a(n-13) +291331*a(n-14) -107013*a(n-15) -59556*a(n-16) +9986*a(n-17) +5219*a(n-18) -224*a(n-19) -160*a(n-20) -2*a(n-21) +a(n-22)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 10:06:51, revision 9) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 09:44:13, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The array has $5$ cells across, with entries in $\{0,1\}$. An OCCURRENCE of a pattern in a
+The array has $7$ cells across, with entries in $\{0,1\}$. An OCCURRENCE of a pattern in a
 direction is a run of consecutive cells taken in that direction whose entries match the pattern
 in order; the array is counted when it has no occurrence at all. The entry names
 \[
 \begin{array}{ll}
 \text{direction} & \text{forbidden patterns} \\[2pt]
-\text{along a row, left to right} & \mathtt{000},\quad \mathtt{101} \\
-\text{down a column} & \mathtt{000},\quad \mathtt{101} \\
+\text{along a row, left to right} & \mathtt{001},\quad \mathtt{000} \\
+\text{down a column} & \mathtt{001},\quad \mathtt{000} \\
 \end{array}
 \]
 
@@ -76,7 +76,7 @@ and is not assumed but read off the window. The walk starts at the all-$\bot$ wi
 of no steps is the empty array and a walk of $R$ steps is an array of $R$ rows. With $M$ the
 adjacency matrix, $\iota$ the indicator of the starting window and $\tau=\mathbf{1}$,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=183.
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=1807.
 \]
 The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
 published terms rather than assumed. In particular $a$ is $C$-finite.
@@ -101,15 +101,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;a(n-1) + 2\,a(n-2) + 19\,a(n-3) + 17\,a(n-4) + 5\,a(n-5) - 57\,a(n-6) - 51\,a(n-7) + 48\,a(n-8) + 197\,a(n-9) - 63\,a(n-10) - 429\,a(n-11) - 144\,a(n-12) + 443\,a(n-13) + 246\,a(n-14) - 220\,a(n-15) - 81\,a(n-16) + 58\,a(n-17) - 65\,a(n-18) + 10\,a(n-19) + 49\,a(n-20) + 20\,a(n-21) + 20\,a(n-22)
+a(n)\;=\;8\,a(n-1) + 250\,a(n-2) + 184\,a(n-3) - 8341\,a(n-4) - 3864\,a(n-5) + 101382\,a(n-6) - 13547\,a(n-7) - 478599\,a(n-8) + 220430\,a(n-9) + 899746\,a(n-10) - 500871\,a(n-11) - 729610\,a(n-12) + 374846\,a(n-13) + 291331\,a(n-14) - 107013\,a(n-15) - 59556\,a(n-16) + 9986\,a(n-17) + 5219\,a(n-18) - 224\,a(n-19) - 160\,a(n-20) - 2\,a(n-21) + a(n-22)
 \]
-for every $n>24$.
+for every $n>20$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $22$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=24+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=20+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -117,7 +117,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $21$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $14$ terms the entry publishes, exactly, in integer
 arithmetic.
 
 Second, the count was recomputed for the smallest arrays straight from the definition: fill the
@@ -133,7 +133,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A203086.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A202598.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata

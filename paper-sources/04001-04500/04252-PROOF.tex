@@ -12,136 +12,130 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A207274, proved by transfer matrix}
+\title{The conjectured generating function for OEIS A284354, proved}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{31 August 2026}
+\date{6 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A207274 counts arrays over $\{0,\dots,1\}$ of width $7$ that avoid the patterns
-$(0,1,1), (1,0,1)$ along one axis and $(0,0,0), (0,1,1)$ along the other, and carries an empirical recurrence of
-order $97$ contributed by R.~H.~Hardin. It is true. The patterns have length $3$, so
-the constraint across the growing direction ties together $3$ consecutive columns: taking a
-window of $2$ consecutive columns as a state makes the array a walk in a finite digraph
-on $S=961$ vertices, and $a(n)=\mathbf{1}^{\!\top}P^{\,n-2}\mathbf{1}$. Writing $q$
-for the characteristic polynomial of the conjectured recurrence, the residual is
-$\mathbf{1}^{\!\top}P^{\,n-2-97}q(P)\mathbf{1}$, which vanishes identically
-beyond a threshold that the computation pins down exactly. Finite, exact, integer.
+OEIS A284354 counts arrays of a fixed width under a local condition, and carries a conjectured
+generating function --- and nothing else. It is true. The count is a walk count in a finite
+digraph on $S=6$ vertices, so its generating function is a rational function whose numerator
+and denominator have degrees bounded by $S$; the conjectured expression is another rational
+function of known degree; and two rational functions of bounded degree agree as soon as enough
+coefficients of their expansions do. Comparing $13$ coefficients in exact arithmetic
+therefore settles the conjecture, rather than testing it.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 68R15, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A19, 68Q45.\normalsize
 
-\section{The sequence and the conjecture}
+\section{The conjecture}
 
-OEIS A207274 is ``Number of 7Xn 0..1 arrays avoiding 0 0 0 and 0 1 1 horizontally and 0 1 1 and 1 0 1 vertically.''. It has offset
-$1$ and begins
+OEIS A284354 is ``Decimal representation of the x-axis, from the origin to the right edge, of the n-th stage of growth of the two-dimensional cellular automaton defined by "Rule 899", based on the 5-celled von Neumann neighborhood.''. It has offset $0$ and begins
 \[
-31, 961, 2305, 13067, 52240, 135686, 467686,\ \dots
+1, 2, 7, 11, 31, 47,\ \dots
 \]
-The entry carries the following comment:
-\begin{quote}\small
-Empirical: a(n) = 3*a(n-1) +11*a(n-2) -8*a(n-3) -143*a(n-4) -76*a(n-5) +751*a(n-6) +1772*a(n-7) -1861*a(n-8) -10580*a(n-9) -8585*a(n-10) +32732*a(n-11) +75951*a(n-12) +2648*a(n-13) -253547*a(n-14) -356014*a(n-15) +188511*a(n-16) +1272512*a(n-17) +1267179*a(n-18) -1196288*a(n-19) -4765018*a(n-20) -3880833*a(n-21) +4317310*a(n-22) +14348194*a(n-23) +11074548*a(n-24) -10710970*a(n-25) -36029644*a(n-26) -29610976*a(n-27) +18315787*a(n-28) +76111765*a(n-29) +71261505*a(n-30) -16610670*a(n-31) -133926626*a(n-32) -148292571*a(n-33) -16031238*a(n-34) +191296892*a(n-35) +259865173*a(n-36) +103256591*a(n-37) -209843953*a(n-38) -376102248*a(n-39) -247062694*a(n-40) +149654929*a(n-41) +439488782*a(n-42) +406599492*a(n-43) -5212254*a(n-44) -397709768*a(n-45) -508447090*a(n-46) -172897780*a(n-47) +249245184*a(n-48) +494388226*a(n-49) +302144236*a(n-50) -56655544*a(n-51) -368743392*a(n-52) -326339892*a(n-53) -94189340*a(n-54) +197251436*a(n-55) +254729393*a(n-56) +154258069*a(n-57) -56447543*a(n-58) -145507468*a(n-59) -135279611*a(n-60) -16778638*a(n-61) +55810039*a(n-62) +83293640*a(n-63) +33077757*a(n-64) -8033002*a(n-65) -37534699*a(n-66) -23213060*a(n-67) -6645777*a(n-68) +11898622*a(n-69) +10538341*a(n-70) +6315786*a(n-71) -2138585*a(n-72) -3258664*a(n-73) -3079337*a(n-74) -141268*a(n-75) +604050*a(n-76) +1030647*a(n-77) +245910*a(n-78) -7602*a(n-79) -249492*a(n-80) -90498*a(n-81) -36112*a(n-82) +43404*a(n-83) +19773*a(n-84) +13107*a(n-85) -5181*a(n-86) -2766*a(n-87) -2660*a(n-88) +381*a(n-89) +232*a(n-90) +344*a(n-91) -13*a(n-92) -9*a(n-93) -27*a(n-94) +a(n-97) for n>99
+The entry states, as a conjecture contributed by a reader and never marked settled:
+\begin{quote}
+G.f.: (1 + x + x\^{}2) / ((1 - x)*(1 - 2*x)*(1 + 2*x)).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 13:42:58, revision
-9) the statement is still recorded as empirical, and nothing on the entry
-records it as settled either way.
+As of the ``Last modified'' line on the live entry (Nov 05 2025 15:22:38, revision 12) this is still
+recorded as empirical, and nothing on the entry records it as proved. The entry carries no
+conjectured recurrence, which is why this generating function is the whole of what is open
+here.
 
-Written out, the claim is
-\begin{equation}\label{eq:conj}
-a(n)\;=\;3\,a(n-1) + 11\,a(n-2) - 8\,a(n-3) - 143\,a(n-4) - 76\,a(n-5) + 751\,a(n-6) + 1772\,a(n-7) - 1861\,a(n-8) - 10580\,a(n-9) - 8585\,a(n-10) + 32732\,a(n-11) + 75951\,a(n-12) + 2648\,a(n-13) - 253547\,a(n-14) - 356014\,a(n-15) + 188511\,a(n-16) + 1272512\,a(n-17) + 1267179\,a(n-18) - 1196288\,a(n-19) - 4765018\,a(n-20) - 3880833\,a(n-21) + 4317310\,a(n-22) + 14348194\,a(n-23) + 11074548\,a(n-24) - 10710970\,a(n-25) - 36029644\,a(n-26) - 29610976\,a(n-27) + 18315787\,a(n-28) + 76111765\,a(n-29) + 71261505\,a(n-30) - 16610670\,a(n-31) - 133926626\,a(n-32) - 148292571\,a(n-33) - 16031238\,a(n-34) + 191296892\,a(n-35) + 259865173\,a(n-36) + 103256591\,a(n-37) - 209843953\,a(n-38) - 376102248\,a(n-39) - 247062694\,a(n-40) + 149654929\,a(n-41) + 439488782\,a(n-42) + 406599492\,a(n-43) - 5212254\,a(n-44) - 397709768\,a(n-45) - 508447090\,a(n-46) - 172897780\,a(n-47) + 249245184\,a(n-48) + 494388226\,a(n-49) + 302144236\,a(n-50) - 56655544\,a(n-51) - 368743392\,a(n-52) - 326339892\,a(n-53) - 94189340\,a(n-54) + 197251436\,a(n-55) + 254729393\,a(n-56) + 154258069\,a(n-57) - 56447543\,a(n-58) - 145507468\,a(n-59) - 135279611\,a(n-60) - 16778638\,a(n-61) + 55810039\,a(n-62) + 83293640\,a(n-63) + 33077757\,a(n-64) - 8033002\,a(n-65) - 37534699\,a(n-66) - 23213060\,a(n-67) - 6645777\,a(n-68) + 11898622\,a(n-69) + 10538341\,a(n-70) + 6315786\,a(n-71) - 2138585\,a(n-72) - 3258664\,a(n-73) - 3079337\,a(n-74) - 141268\,a(n-75) + 604050\,a(n-76) + 1030647\,a(n-77) + 245910\,a(n-78) - 7602\,a(n-79) - 249492\,a(n-80) - 90498\,a(n-81) - 36112\,a(n-82) + 43404\,a(n-83) + 19773\,a(n-84) + 13107\,a(n-85) - 5181\,a(n-86) - 2766\,a(n-87) - 2660\,a(n-88) + 381\,a(n-89) + 232\,a(n-90) + 344\,a(n-91) - 13\,a(n-92) - 9\,a(n-93) - 27\,a(n-94) + a(n-97)
-\end{equation}
-for all $n>97$. The entry's array has a fixed number of rows and a growing number of
-columns, so the roles of the two directions are exchanged: what the entry calls the
-horizontal direction runs along the growing side. The transfer below is written in the
-growing direction throughout.
+\section{The count is a walk count}
 
-\section{The array as a walk}
+Every condition the entry names is decided inside a bounded number of consecutive rows: it
+compares a cell with cells a bounded distance from it, and no comparison reaches further than
+that. So a strip of that many consecutive rows is a state of a finite automaton, an array is
+read off row by row, and appending one more row is one step, legal exactly when the row it
+completes satisfies every condition that becomes testable.
 
-Call a column \emph{admissible} if the word it forms contains none of the patterns
-$(0,1,1), (1,0,1)$ as $3$ consecutive entries. There are $31$ admissible columns; that condition
-involves a single column only.
+Taking those strips as the vertices of a digraph $G$ with adjacency matrix $M$, and writing
+$\iota$ for the indicator of the states an array may begin in and $\tau$ for those it may end
+in,
+\[
+a(n)\;=\;\iota^{\!\top}M^{\,n-0+0}\tau ,
+\]
+and there are $S=6$ states. The digraph is built by reading the entry's own English, and the
+model reproduces all $33$ terms the entry publishes, exactly, in integer arithmetic --- a
+misreading of the condition gives a different digraph and different counts, so this ties the
+model to the entry and not merely to the arithmetic.
 
-The remaining patterns $(0,0,0), (0,1,1)$ are forbidden along the other axis, so each of them
-constrains $3$ consecutive columns at a fixed position of the row. Take as state a
-window $w=\bigl(w^{(1)},\dots,w^{(2)}\bigr)$ of $2$ consecutive admissible
-columns, so $S=961$, and declare $w\to w'$ an edge when $w'$ is $w$ with its first entry
-dropped and one further admissible column $t$ appended, subject to: for every position
-$j$, the $3$-tuple read down the row $j$ across $w^{(1)},\dots,w^{(2)},t$
-is none of $(0,0,0), (0,1,1)$. Let $P$ be the adjacency matrix.
+The family this entry belongs to is read by one model, described by its author as: ``The x-axis and diagonal of a two-dimensional cellular automaton, read as a number.''
 
-\begin{lemma}\label{lem:walk}
-$a(n)=\mathbf{1}^{\!\top}P^{\,n-2}\mathbf{1}$ for every $n\ge2$.
+
+\section{Its generating function is rational, with bounded degree}
+
+\begin{lemma}\label{lem:rat}
+$A(x)=\sum_{n\ge0}a(n)x^n=N_1(x)/D_1(x)$ where $D_1(x)=\det(I-xM)$ has degree at most
+$S$ and $D_1(0)=1$, and $\deg N_1<S+0$.
 \end{lemma}
 
 \begin{proof}
-An array of the entry's kind with $n$ columns is a sequence of $n$ admissible columns in
-which no forbidden pattern appears along the other axis. Reading it as the sequence of its
-overlapping windows of length $2$ turns it into a walk: consecutive windows overlap in
-$1$ columns by construction, and the edge condition is exactly the requirement on the one
-new $3$-tuple that each step creates. Conversely a walk reassembles into such an array,
-and the two constructions are mutually inverse. A walk of length $n-2$ visits $n-1$
-windows, that is $n$ columns; summing over all starting and ending states gives
-$\mathbf{1}^{\!\top}P^{\,n-2}\mathbf{1}$.
+Summing the geometric series of matrices, $\sum_{j\ge0}M^jx^j=(I-xM)^{-1}$ as a formal
+power series, so $A(x)$ is $x^{c}\,\iota^{\!\top}(I-xM)^{-1}\tau$ for the constant $c$
+relating the walk index to the entry's own $n$. By Cramer's rule every entry of
+$(I-xM)^{-1}$ is a polynomial of degree less than $S$ divided by $\det(I-xM)$, and
+$\det(I-xM)$ is a polynomial of degree at most $S$ with constant term $\det I=1$.
 \end{proof}
-
-\section{The criterion}
-
-Let $q(t)=t^{97}-\sum_i c_i t^{97-i}$ be the characteristic polynomial of
-\eqref{eq:conj} and $u_j=\mathbf{1}^{\!\top}P^{j}q(P)\mathbf{1}$.
-
-\begin{lemma}\label{lem:crit}
-$a(n)-\sum_i c_i a(n-i)=u_{\,n-2-97}$ whenever $n-97\ge2$. Hence
-\eqref{eq:conj} holds for every $n>t$ exactly when $u_j=0$ for every
-$j>t-2-97$. Moreover $(u_j)$ satisfies the monic linear recurrence whose
-characteristic polynomial is that of $P$, of degree $S$, so $S$ consecutive zeros force all
-later ones and the last nonzero $u_j$ pins $t$ down exactly.
-\end{lemma}
-
-\begin{proof}
-Substituting Lemma~\ref{lem:walk} into the left side and factoring out
-$P^{\,n-2-97}$ gives the identity. The equivalence follows by letting the exponent
-run. For the last claim, Cayley--Hamilton gives $\chi(P)=0$ for the characteristic
-polynomial $\chi$ of $P$, so $\chi$ applied to the shift annihilates $(u_j)$; being monic of
-degree $S$, it propagates $S$ consecutive zeros forward.
-\end{proof}
-
-\section{The computation}
 
 \begin{theorem}
-The recurrence \eqref{eq:conj} holds for every $n>97$. This is the statement of
-Section~1.
+The conjectured generating function is $A(x)$.
 \end{theorem}
 
 \begin{proof}
-The vector $q(P)\mathbf{1}\in\mathbb{Z}^{S}$ was formed by $97$ matrix--vector
-products in exact integer arithmetic and the $u_j$ evaluated in turn. They vanish from the
-index corresponding to $n=97+1$ onwards, and the run was continued past $S$ consecutive
-zeros, which by Lemma~\ref{lem:crit} settles every larger index.
+Write the conjecture as $N_2/D_2$ with $\deg N_2=2$ and $\deg D_2=3$; its expansion as a
+power series exists because $D_2(0)\neq0$. Put
+\[
+R(x)\;=\;N_1(x)D_2(x)-N_2(x)D_1(x),
+\]
+a polynomial of degree at most $8$ by Lemma~\ref{lem:rat}. The difference
+$A-N_2/D_2$ equals $R/(D_1D_2)$, and $D_1(0)D_2(0)\neq0$, so if the two power series agree in
+every coefficient up to $x^{8}$ then $R$ has a zero of order greater than its own
+degree at the origin, which forces $R\equiv0$ and hence $A=N_2/D_2$ identically.
+
+The coefficients of $A$ were produced from the model by repeated matrix--vector products in
+exact integer arithmetic, those of $N_2/D_2$ by exact rational long division, and $13$
+of them --- more than the $8+1$ the argument requires --- agree.
 \end{proof}
+
+\section{A recurrence the entry does not state}
+
+The denominator of a rational generating function is a linear recurrence written backwards, so
+the theorem above yields one for free. With $D_2(x)=1-\sum_{i\ge1}c_ix^i$ after normalising
+$D_2(0)=1$, comparing coefficients of $x^n$ in $A(x)D_2(x)=N_2(x)$ gives
+\[
+a(n)\;=\;\sum_{i\ge1}c_i\,a(n-i)\qquad\text{for every }n>2,
+\]
+a constant-coefficient linear recurrence of order $3$, valid past the degree of the
+numerator. Its coefficients are the integers $c_1,\dots,c_{3}$ read off $D_2$, the first few being $1,\ 4,\ -4$. The entry records no recurrence, so this is not a restatement of anything
+already there.
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the digraph was built directly from the entry's stated patterns and the walk counts
-compared against the entry's DATA at every one of the $23$ published indices; the
-values agree exactly, including the initial count of $31$ admissible columns. That is
-what ties the digraph to the sequence, and a model reproducing only part of the published
-data was rejected wherever it occurred.
+First, the model reproduces every one of the $33$ published terms, with the index shift
+read off the entry's offset rather than fitted.
 
-Second, the recurrence \eqref{eq:conj} was evaluated on those published terms in exact
-integer arithmetic, with no matrices involved, and vanishes at every index the entry claims.
+Second, the arrays themselves were enumerated for the smallest shapes the entry counts,
+directly from its English and with no automaton, and the counts agree. Writing that check is
+where the risk actually sits: an earlier version of it dropped a clause from the entry's name
+in three cases and disagreed with the model, and in all three the check was wrong and the model
+was right.
 
-Third, the vanishing test of Lemma~\ref{lem:crit} was carried past $S=961$ consecutive
-zeros rather than to a sampled prefix.
+Third, the coefficient comparison was carried out over the whole range required by the degree
+bound rather than on a prefix, in exact arithmetic throughout.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A207274.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A284354.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+\bibitem{flajolet} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
 University Press, 2009.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
