@@ -57,8 +57,12 @@ def rows(rule, steps):
 
 def shape(ws):
     """(n0, p, L, R) with w(n+p) = L + w(n) + R for every n >= n0, or None"""
-    for p in range(1, 9):
-        for n0 in range(1, 16):
+    # The same settings that hid 30 of the two-dimensional automata: a period capped at 8 and
+    # a settling point capped at 15, over 46 steps. Both are widened and the rows run further,
+    # which also makes every accepted shape a stronger claim, since the identity is then
+    # checked over more steps.
+    for p in range(1, 17):
+        for n0 in range(1, 28):
             if n0 + 2 * p + 6 >= len(ws):
                 continue
             a, b = ws[n0], ws[n0 + p]
@@ -84,7 +88,7 @@ def parse_name(nm):
 
 
 def build(p, cap=200000):
-    ws = rows(p['rule'], 46)
+    ws = rows(p['rule'], 80)
     s = shape(ws)
     if s is None:
         return None
@@ -111,7 +115,7 @@ def terms(b, N):
     return out
 
 
-def certify(b, upto=46):
+def certify(b, upto=80):
     """how far past the settling point the shape identity was checked"""
     ws = rows(b['rule'], upto)
     n0, p, L, R = b['n0'], b['p'], b['L'], b['R']

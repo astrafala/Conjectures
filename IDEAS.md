@@ -36,7 +36,7 @@ counted twice.
 | B2 | min-filter images of sorted arrays (`transfer95`) | 134 | **97 proved** |
 | B3 | one-dimensional words under a window condition (`transfer96`) | 101 | **done** |
 | B4 | cusp-form dimensions from the classical formula (`cuspdim`) | 51 | **46 proved** |
-| B5 | elementary cellular automaton rows (`ecarow`) | 51 | **done**; 87 more are fractal and out of reach |
+| B5 | elementary cellular automaton rows (`ecarow`) | 51 | **done**; the other 71 are genuinely fractal. Confirmed twice on 9 September: widening the shape search from period 8 / settling point 15 / 46 steps to period 16 / settling point 27 / 80 steps finds **nothing**, and dropping the requirement that the row grow by exactly 2p -- searching every cut, as the two-dimensional engine does -- also finds **nothing**. Unlike the 2-D case, where the same widening found 30, here the bound was never the obstacle. The widening is kept because checking over more steps makes every accepted shape a stronger claim; all 51 installed papers still certify under it |
 | B6 | derived arrays — indicators of a larger array's subblocks | 54 | **next engine**; `transfer26` has the right machinery |
 | B7 | coordination sequences of tilings | 414 | **already harvested** — 384 were proved by the generating-function vein (A6) before this family was ever looked at as one. Listing it as untried was wrong. |
 | B8 | two-dimensional CA active-cell counts | 168 | **untried** |
