@@ -64,6 +64,9 @@ HEAD4 = re.compile(
 HEAD5 = re.compile(
     r'^\s*Number of strings of numbers x\(i\s*=\s*1\.\.(\d+)\) in 0\.\.n with '
     r'(?:sum|Sum_\{i=1\.\.\d+\})\s+(.*?)\s*(?:equal to|=)\s*(.*?)\s*\.?\s*$', re.I)
+HEAD6 = re.compile(
+    r'^\s*Number of nondecreasing arrangements of (\d+) (nonzero )?numbers in '
+    r'(?:-\(n\+(\d+)\)\.\.\(n\+(\d+)\)|(0)\.\.n) with (.*?)\s*\.?\s*$', re.I)
 HEAD3 = re.compile(
     r'^\s*Number of length[- ]\(?(\d+(?:\s*\+\s*\d+)?)\)? (-n|0)\.\.n arrays? with(out)? '
     r'(.*?)\s*\.?\s*$', re.I)
@@ -312,6 +315,36 @@ def _read_clause(c, L, out):
         return True
     if _read_window_clause(c, L, out):
         return True
+    if c == 'not more than two numbers equal':
+        d1 = _dforms(L, 1)
+        for i in range(L - 2):
+            out['nand'].append(((d1[i], 'eq0'), (d1[i + 1], 'eq0')))
+        out['tex'].append(r'\text{no three equal}')
+        return True
+    if c == 'the last equal to n':
+        out['cl'].append((((_unit(L, L - 1), -1, 'eq'),),))
+        out['tex'].append(r'x_{L-1} = n')
+        return True
+    m = re.fullmatch(r'each after the second equal to the sum of one or two of the '
+                     r'(?:preceding|previous) (%s)' % _NW, c)
+    if m:
+        j = _num(m.group(1))
+        if not j or j > L:
+            return False
+        for i in range(2, L):
+            prev = list(range(max(0, i - j), i))
+            conj = []
+            for a in prev:
+                conj.append(((tuple((1 if q == i else 0) - (1 if q == a else 0)
+                                    for q in range(L)), 0, 'eq'),))
+            for ai in range(len(prev)):
+                for bi in range(ai + 1, len(prev)):
+                    a, b = prev[ai], prev[bi]
+                    conj.append(((tuple((1 if q == i else 0) - (1 if q == a else 0)
+                                        - (1 if q == b else 0) for q in range(L)), 0, 'eq'),))
+            out['cl'].append(tuple(conj))
+        out['tex'].append(r'x_i\text{ is one of the preceding %d or a sum of two of them}' % j)
+        return True
     m = re.fullmatch(r'each no smaller than the sum of its '
                      r'(?:(two|three|four|five|six|seven) )?previous '
                      r'(?:elements|neighbors|neighbours) modulo \(n\+1\)', c)
@@ -454,11 +487,40 @@ def _read_clause(c, L, out):
 
 
 def _blank(L, sym):
-    return {'L': L, 'sym': sym, 'ne': [], 'eq': [], 'nand': [], 'ncong': [], 'alt': False,
+    return {'L': L, 'shift': 0, 'sym': sym, 'ne': [], 'eq': [], 'nand': [], 'ncong': [], 'alt': False,
             'cl': [], 'acc': [], 'modge': False, 'tex': [],
             'box': [_unit(L, i) for i in range(L)] if sym else [],
             'lo': [] if sym else [_unit(L, i) for i in range(L)],
             'hi': [] if sym else [_unit(L, i) for i in range(L)]}
+
+
+def _nondec(m, frac):
+    """`Number of nondecreasing arrangements of K numbers in -(n+6)..(n+6) with ...'
+
+    The alphabet is a SHIFT of n, so the count is homogeneous in (x, n+c) rather than in
+    (x, n). A quasi-polynomial in n+c is one in n with the same annihilator, so only the
+    bound the walk uses moves; the derived S does not.
+    """
+    L = int(m.group(1))
+    if not 2 <= L <= 10:
+        return None
+    c1, c2 = m.group(3), m.group(4)
+    if c1 is not None and c1 != c2:
+        return None
+    sym = c1 is not None
+    p = _blank(L, sym)
+    p['shift'] = int(c1) if sym else 0
+    for f in _dforms(L, 1):
+        p['cl'].append((((f, 0, 'ge'),),))
+    p['tex'].append(r'x_0 \le x_1 \le \cdots')
+    if m.group(2):
+        p['ne'] += [_unit(L, i) for i in range(L)]
+        p['tex'].append(r'x_i \ne 0')
+    if not _split_read(m.group(6), L, p):
+        return None
+    p['body'] = ' '.join(m.group(6).split())
+    p['frac'] = frac
+    return p
 
 
 def _arrays(m, frac):
@@ -515,6 +577,9 @@ def parse_name(nm):
     m5 = HEAD5.match(nm)
     if m5:
         return _strings(m5, frac)
+    m6 = HEAD6.match(nm)
+    if m6:
+        return _nondec(m6, frac)
     m4 = HEAD4.match(nm)
     if m4:
         return _arrays(m4, frac)
@@ -563,6 +628,7 @@ def parse_name(nm):
         return None
     p['body'] = ' '.join(body.split())
     p['frac'] = frac
+    p.setdefault('shift', 0)
     return p
 
 
@@ -1055,6 +1121,7 @@ def _count(p, n, cap=4_000_000):
 
 def _count1(p, n, phase, cap=4_000_000):
     L = p['L']
+    n = n + p.get('shift', 0)
     accs = _accs(p, n)
     if accs is None:
         return None
@@ -1185,6 +1252,7 @@ def _brute1(p, n, phase):
     """the same count by direct enumeration --- the instrument checked against itself."""
     from itertools import product
     L = p['L']
+    n = n + p.get('shift', 0)
     accs = _accs(p, n)
     if accs is None:
         return None
