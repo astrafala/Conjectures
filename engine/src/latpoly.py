@@ -58,6 +58,12 @@ HEAD = re.compile(
 HEAD2 = re.compile(
     r'^\s*Number of (zero-sum )?(-n|0)\.\.n arrays of length (\d+) with(out)? (.*?)'
     r'\s*\.?\s*$', re.I)
+HEAD4 = re.compile(
+    r'^\s*Number of arrays of (\d+) (nondecreasing )?integers in -n\.\.n with (.*?)\s*\.?\s*$',
+    re.I)
+HEAD5 = re.compile(
+    r'^\s*Number of strings of numbers x\(i\s*=\s*1\.\.(\d+)\) in 0\.\.n with '
+    r'(?:sum|Sum_\{i=1\.\.\d+\})\s+(.*?)\s*(?:equal to|=)\s*(.*?)\s*\.?\s*$', re.I)
 HEAD3 = re.compile(
     r'^\s*Number of length[- ]\(?(\d+(?:\s*\+\s*\d+)?)\)? (-n|0)\.\.n arrays? with(out)? '
     r'(.*?)\s*\.?\s*$', re.I)
@@ -306,6 +312,21 @@ def _read_clause(c, L, out):
         return True
     if _read_window_clause(c, L, out):
         return True
+    if c in ('equal numbers of elements greater than zero and less than zero',
+             'equal numbers greater than zero and less than zero'):
+        out['acc'].append({'kind': 'sign', 'rel': 'eq', 'tc': 0})
+        out['tex'].append(r'\#\{i: x_i>0\} = \#\{i: x_i<0\}')
+        return True
+    if c == 'the sum of every adjacent pair being odd':
+        out['ncong'] += [(tuple(1 if j in (i, i + 1) else 0 for j in range(L)), 2)
+                         for i in range(L - 1)]
+        out['tex'].append(r'x_i + x_{i+1}\text{ odd}')
+        return True
+    if c == 'adjacent elements differing in absolute value':
+        out['ne'] += _dforms(L, 1)
+        out['ne'] += [tuple(1 if j in (i, i + 1) else 0 for j in range(L)) for i in range(L - 1)]
+        out['tex'].append(r'|x_i| \ne |x_{i+1}|')
+        return True
     m = re.fullmatch(r'without any two consecutive (increases|decreases)'
                      r'(?: or two consecutive (increases|decreases))?', c)
     if m:
@@ -422,6 +443,58 @@ def _read_clause(c, L, out):
     return False
 
 
+def _blank(L, sym):
+    return {'L': L, 'sym': sym, 'ne': [], 'eq': [], 'nand': [], 'ncong': [], 'alt': False,
+            'cl': [], 'acc': [], 'tex': [],
+            'box': [_unit(L, i) for i in range(L)] if sym else [],
+            'lo': [] if sym else [_unit(L, i) for i in range(L)],
+            'hi': [] if sym else [_unit(L, i) for i in range(L)]}
+
+
+def _arrays(m, frac):
+    """`Number of arrays of K integers in -n..n with ...' --- the same objects, another
+    wording, and one no engine read."""
+    L = int(m.group(1))
+    if not 2 <= L <= 10:
+        return None
+    p = _blank(L, True)
+    if m.group(2):
+        for f in _dforms(L, 1):
+            p['cl'].append((((f, 0, 'ge'),),))
+        p['tex'].append(r'x_0 \le x_1 \le \cdots')
+    if not _split_read(m.group(3), L, p):
+        return None
+    p['body'] = ' '.join(m.group(3).split())
+    p['frac'] = frac
+    return p
+
+
+POW = re.compile(r'^i(?:\^(\d+))?\s*\*?\s*x\(i\)$')
+
+
+def _strings(m, frac):
+    """`Number of strings of numbers x(i=1..K) in 0..n with sum i^2*x(i) equal to n*16'."""
+    L = int(m.group(1))
+    if not 2 <= L <= 12:
+        return None
+    pm = POW.match(m.group(2).replace(' ', ''))
+    if not pm:
+        return None
+    e = int(pm.group(1) or 1)
+    rhs = m.group(3).replace(' ', '')
+    rm = re.fullmatch(r'n\*(\d+)|(\d+)\*n|n', rhs)
+    if not rm:
+        return None
+    c = int(rm.group(1) or rm.group(2) or 1)
+    p = _blank(L, False)
+    w = tuple((i + 1) ** e for i in range(L))
+    p['acc'].append({'kind': 'linear', 'w': w, 'tc': -c, 'rel': 'eq'})
+    p['tex'].append(r'\sum_i i^{%d}x_i = %dn' % (e, c))
+    p['body'] = 'sum i^%d*x(i) equal to %d*n' % (e, c)
+    p['frac'] = frac
+    return p
+
+
 def parse_name(nm):
     nm = ' '.join(nm.split())
     frac = 1
@@ -429,6 +502,12 @@ def parse_name(nm):
     if fm:
         frac = 2 if fm.group(1) else 4 if fm.group(2) else int(fm.group(3))
         nm = 'Number of ' + nm[fm.end():]
+    m5 = HEAD5.match(nm)
+    if m5:
+        return _strings(m5, frac)
+    m4 = HEAD4.match(nm)
+    if m4:
+        return _arrays(m4, frac)
     m = HEAD.match(nm)
     if m:
         zs, alph, xr, Ls, neg, body = m.groups()
@@ -522,6 +601,9 @@ def _hyperplane_forms(p):
                 H.append((f, tc))
     for f, _m in p['ncong']:
         H.append((f, 0))
+    for a in p.get('acc', ()):
+        if a['kind'] == 'linear':
+            H.append((a['w'], a['tc']))
     if p['alt']:
         for f in _dforms(p['L'], 1):
             H.append((f, 0))
@@ -541,7 +623,6 @@ def _rays(H, L, boxes, eqs):
     The determinant is computed first and the ray only when it exceeds one, because a ray of
     height one changes nothing and most subsets give one.
     """
-    from fractions import Fraction
     T = set()
     for S in combinations(H, L):
         Mx = [list(v[:L]) for v in S]
@@ -551,29 +632,23 @@ def _rays(H, L, boxes, eqs):
         if abs(D) == 1:
             T.add(1)
             continue
-        # dx solves Mx.dx = -D * (t-column); dt = D
-        rhs = [-v[L] for v in S]
-        A = [[Fraction(x) for x in Mx[i]] + [Fraction(rhs[i])] for i in range(L)]
-        ok = True
-        for c in range(L):
-            piv = next((r for r in range(c, L) if A[r][c]), None)
-            if piv is None:
-                ok = False
+        # dx solves Mx.dx = -D * (t-column), by integer Cramer: replacing column j of Mx
+        # by the right-hand side and taking determinants keeps everything in Z, where the
+        # Fraction elimination this replaced spent most of the run.
+        rhs = [-v[L] * D for v in S]
+        dx = []
+        for j in range(L):
+            Mj = [row[:] for row in Mx]
+            for i in range(L):
+                Mj[i][j] = rhs[i]
+            q, r = divmod(_det(Mj), D)
+            if r:
                 break
-            A[c], A[piv] = A[piv], A[c]
-            pv = A[c][c]
-            A[c] = [x / pv for x in A[c]]
-            for r in range(L):
-                if r != c and A[r][c]:
-                    f = A[r][c]
-                    A[r] = [x - f * y for x, y in zip(A[r], A[c])]
-        if not ok:
+            dx.append(q)
+        else:
+            pass
+        if len(dx) < L:
             continue
-        u = [A[i][L] for i in range(L)]
-        dx = [x * D for x in u]
-        if any(x.denominator != 1 for x in dx):
-            continue
-        dx = [int(x) for x in dx]
         dt = D
         if dt < 0:
             dx = [-x for x in dx]
@@ -600,7 +675,7 @@ def _rays(H, L, boxes, eqs):
     return T
 
 
-def _heights(p, budget=1_200_000):
+def _heights(p, budget=250000):
     """T, the possible heights of a ray of the arrangement inside the region."""
     L = p['L']
     H = _hyperplane_forms(p)
@@ -698,7 +773,7 @@ def _annihilator(T, M, L):
 TOT = None
 
 
-def _local(p):
+def _local(p, skip=()):
     """every condition as a window constraint, with the window width it needs.
 
     The all-ones form is the one exception: it reaches the whole array and is carried by a
@@ -733,10 +808,10 @@ def _local(p):
             return None
         add('hi', (f,))
     for f in p['ne']:
-        if f != tot:
+        if f not in skip:
             add('ne', (f,))
     for f in p['eq']:
-        if f != tot:
+        if f not in skip:
             add('eq', (f,))
     for atoms in p['nand']:
         add('nand:' + ','.join(r for _, r in atoms), tuple(f for f, _ in atoms))
@@ -754,13 +829,77 @@ def _local(p):
     return k, loc
 
 
-def _sumkind(p):
-    tot = tuple([1] * p['L'])
-    if tot in p['eq']:
-        return 'zero'
-    if tot in p['ne']:
-        return 'nonzero'
-    return None
+def _accs(p, n, acap=400000):
+    """which conditions are carried as a running accumulator rather than a window.
+
+    `sum x_i = 0' reaches the whole array, so no window of bounded width decides it; the walk
+    carries the running sum instead and reads it off at the end. Nothing about that is special
+    to the all-ones form: `zero 6th difference' and `sum i^2 x(i) = 16n' are the same shape,
+    and carrying them the same way is what brings them into range. A form is promoted when it
+    reaches further than a window can afford, and only while the product of the accumulators'
+    ranges stays small.
+    """
+    L = p['L']
+    cand = []
+    for f, rel in [(f, 'eq') for f in p['eq']] + [(f, 'ne') for f in p['ne']]:
+        nz = [q for q, c in enumerate(f) if c]
+        span = nz[-1] - nz[0]
+        if span >= 4 or span == L - 1:
+            cand.append((span, f, rel))
+    cand.sort(key=lambda t: -t[0])
+    out, prod = [], 1
+    for span, f, rel in cand:
+        half = sum(abs(c) for c in f) * n
+        if len(out) >= 2 or prod * (2 * half + 1) > acap:
+            continue
+        out.append({'kind': 'linear', 'w': f, 'tc': 0, 'rel': rel, 'half': half})
+        prod *= 2 * half + 1
+    for a in p.get('acc', ()):
+        half = L if a['kind'] == 'sign' else sum(abs(c) for c in a['w']) * n
+        if prod * (2 * half + 1) > acap:
+            return None
+        out.append(dict(a, half=half))
+        prod *= 2 * half + 1
+    return out
+
+
+def _axis(accs):
+    lens = [2 * a['half'] + 1 for a in accs]
+    strides, s = [], 1
+    for ln in reversed(lens):
+        strides.insert(0, s)
+        s *= ln
+    return lens, strides, s
+
+
+def _inc(accs, i, x):
+    out = []
+    for a in accs:
+        if a['kind'] == 'sign':
+            out.append(1 if x > 0 else -1 if x < 0 else 0)
+        else:
+            out.append(a['w'][i] * x)
+    return out
+
+
+def _accepted(accs, lens, strides, n):
+    """the flat indices whose accumulator values satisfy every final condition."""
+    tgt = []
+    for a in accs:
+        tgt.append(-a['tc'] * n + a['half'])
+    idx = [0]
+    for j, a in enumerate(accs):
+        nxt = []
+        for base in idx:
+            if a['rel'] == 'eq':
+                if 0 <= tgt[j] < lens[j]:
+                    nxt.append(base + tgt[j] * strides[j])
+            else:
+                for v in range(lens[j]):
+                    if v != tgt[j]:
+                        nxt.append(base + v * strides[j])
+        idx = nxt
+    return idx
 
 
 def _closing(loc, i):
@@ -854,21 +993,25 @@ def _count(p, n, cap=4_000_000):
 
 def _count1(p, n, phase, cap=4_000_000):
     L = p['L']
-    got = _local(p)
+    accs = _accs(p, n)
+    if accs is None:
+        return None
+    skip = {a['w'] for a in accs if a['kind'] == 'linear'}
+    got = _local(p, skip)
     if got is None:
         return None
     k, loc = got
     w = min(k, L - 1)
     V = 2 * n + 1
-    sk = _sumkind(p)
     vals = list(range(-n, n + 1))
     _ok_window.n = n
     _ok_window.phase = phase
-    if V ** (w + 1) > cap:
+    lens, strides, alen = _axis(accs)
+    if V ** (w + 1) > cap or V ** w * alen > cap:
         return None
 
-    # --- the first w positions, laid out directly
     seeds = []
+
     def grow(pref):
         i = len(pref)
         if i == w:
@@ -883,38 +1026,32 @@ def _count1(p, n, phase, cap=4_000_000):
     if w == 0:
         seeds = [()]
 
-    def slen(m):
-        return 2 * m * n + 1 if sk else 1
-
     layer = {}
-    for s in seeds:
-        j = sum(vals[a] for a in s) + w * n if sk else 0
-        row = layer.get(s)
+    for st in seeds:
+        j = 0
+        for jj, a in enumerate(accs):
+            v = a['half']
+            for i, q in enumerate(st):
+                v += _inc([a], i, vals[q])[0]
+            j += v * strides[jj]
+        row = layer.get(st)
         if row is None:
-            row = layer[s] = [0] * slen(max(w, 1))
+            row = layer[st] = [0] * alen
         row[j] += 1
-    if not sk:
-        for s in seeds:
-            layer[s] = [1]
 
     for i in range(w, L):
         cons = _closing(loc, i)
         nxt = {}
-        # group by the tail that survives the step
         bytail = {}
         for st, row in layer.items():
             bytail.setdefault(st[1:] if w else (), {})[st[0] if w else 0] = row
-        oldlen = slen(max(i, 1)) if sk else 1
-        newlen = slen(i + 1) if sk else 1
         for tail, byfirst in bytail.items():
             if w:
-                cs = [[0] * oldlen]
+                cs_ = [[0] * alen]
                 for a in range(V):
                     r = byfirst.get(a)
-                    prev = cs[-1]
-                    cs.append([x + y for x, y in zip(prev, r)] if r else prev[:])
-            else:
-                cs = None
+                    prev = cs_[-1]
+                    cs_.append([x + y for x, y in zip(prev, r)] if r else prev[:])
             for b in range(V):
                 if w:
                     allowed = [a for a in range(V)
@@ -929,7 +1066,7 @@ def _count1(p, n, phase, cap=4_000_000):
                         while a1 + 1 < len(allowed) and allowed[a1 + 1] == allowed[a1] + 1:
                             a1 += 1
                         lo, hi = allowed[a0], allowed[a1] + 1
-                        seg = [x - y for x, y in zip(cs[hi], cs[lo])]
+                        seg = [x - y for x, y in zip(cs_[hi], cs_[lo])]
                         acc = seg if acc is None else [x + y for x, y in zip(acc, seg)]
                         a0 = a1 + 1
                 else:
@@ -939,23 +1076,30 @@ def _count1(p, n, phase, cap=4_000_000):
                 st = (tail + (b,))[-w:] if w else ()
                 row = nxt.get(st)
                 if row is None:
-                    row = nxt[st] = [0] * newlen
-                if sk:
-                    sh = vals[b] + n                     # (i+1)*n - i*n + vals[b]
-                    for q, x in enumerate(acc):
+                    row = nxt[st] = [0] * alen
+                sh = 0
+                for jj, d in enumerate(_inc(accs, i, vals[b])):
+                    sh += d * strides[jj]
+                if sh > 0:
+                    for q in range(alen - sh):
+                        x = acc[q]
+                        if x:
+                            row[q + sh] += x
+                elif sh < 0:
+                    for q in range(-sh, alen):
+                        x = acc[q]
                         if x:
                             row[q + sh] += x
                 else:
-                    row[0] += acc[0]
+                    for q in range(alen):
+                        x = acc[q]
+                        if x:
+                            row[q] += x
         layer = nxt
         if not layer:
             return 0
-    if not sk:
-        return sum(r[0] for r in layer.values())
-    off = L * n
-    if sk == 'zero':
-        return sum(r[off] for r in layer.values() if len(r) > off)
-    return sum(sum(r) - (r[off] if len(r) > off else 0) for r in layer.values())
+    keep = _accepted(accs, lens, strides, n)
+    return sum(r[j] for r in layer.values() for j in keep)
 
 
 def _brute(p, n):
@@ -966,12 +1110,16 @@ def _brute(p, n):
 
 
 def _brute1(p, n, phase):
+    """the same count by direct enumeration --- the instrument checked against itself."""
     from itertools import product
     L = p['L']
-    k, loc = _local(p)
+    accs = _accs(p, n)
+    if accs is None:
+        return None
+    skip = {a['w'] for a in accs if a['kind'] == 'linear'}
+    k, loc = _local(p, skip)
     _ok_window.n = n
     _ok_window.phase = phase
-    sk = _sumkind(p)
     c = 0
     for x in product(range(-n, n + 1), repeat=L):
         ok = True
@@ -981,11 +1129,16 @@ def _brute1(p, n, phase):
                 break
         if not ok:
             continue
-        if sk == 'zero' and sum(x) != 0:
-            continue
-        if sk == 'nonzero' and sum(x) == 0:
-            continue
-        c += 1
+        for a in accs:
+            if a['kind'] == 'sign':
+                v = sum(1 if q > 0 else -1 if q < 0 else 0 for q in x)
+            else:
+                v = sum(w * q for w, q in zip(a['w'], x)) + a['tc'] * n
+            if (v != 0) if a['rel'] == 'eq' else (v == 0):
+                ok = False
+                break
+        if ok:
+            c += 1
     return c
 
 

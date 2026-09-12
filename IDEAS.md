@@ -130,6 +130,59 @@ build rather than after: `permdisp` turned 31,187 states into 1,159 by lumping a
 generally is the single piece of work that would open 811 entries, and it is engine-by-engine
 research rather than a setting to widen.
 
+## G. `latpoly`: fixed length, growing alphabet, ARITHMETIC conditions (12 September 2026)
+
+`ordpoly` reads fixed-length arrays over `0..n` whose condition is decided by the ORDER of the
+terms. Its arithmetic twin was the 130 entries F1 recorded as "fixed length, alphabet growing,
+but the conditions are arithmetic rather than order-only", and measuring it properly found far
+more: **414 names in the clone, of which every one that has been checked reproduces the
+entry's published data exactly.**
+
+The argument. Every condition in the family is a boolean combination of statements
+`sum c_i x_i + c n <> 0` --- the box `|x_i| <= n` or `0 <= x_i <= n`, a vanishing sum, a
+difference that must not vanish, a pair totalling exactly `n`, a window sum bounded by `2n`.
+Each is HOMOGENEOUS in `(x, n)` jointly, so the admissible `x` at a given `n` are the integer
+points at height `n` of a finite union of relatively open rational cones in R^(L+1), and
+`a(n)` is the Ehrhart quasi-polynomial of that union.
+
+The period was what stopped this family before, and it is derived. Each ray of each cell is
+cut out by `L` of the arrangement's hyperplanes; by Cramer its primitive generator's height
+divides the determinant of their x-parts, and a ray leaving the box bounds no cell of the
+region. With `T` the surviving heights,
+`A(z) = prod_{d | some t in T} Phi_d^(L+1)` annihilates `a` and `S = deg A`. Two things make
+this usable where the obvious version is not:
+
+* the CYCLOTOMIC form, not `(z^P - 1)^(L+1)` with `P = lcm T`. Seven elements with no two
+  neighbours equal: `P = 420` would ask for 3360 exact terms, the product of cyclotomics asks
+  for 96.
+* dropping the rays that leave the region. On the same family that is 420 down to 60 before
+  the cyclotomic saving is even applied.
+
+The numerator over `A` has degree below `S`, so `a(0..S-1)` determine every later term: no
+threshold is fitted, and the derived annihilator is tested on terms the model was not asked
+for before anything is claimed.
+
+What it does NOT reach, and why:
+
+* 12 names whose condition is INHOMOGENEOUS -- "no element more than one greater than the
+  previous", "adjacent elements differing by more than one". The region is then a shifted
+  polyhedron; its counting function is quasi-polynomial only beyond some `n_0`, and there is
+  no proof without a bound on `n_0`. **The way in is the two-parameter cone:** count
+  `f(n, c) = #{|x_i| <= n, x_{i+1} - x_i <= c, ...}`, which IS homogeneous in `(x, n, c)`, and
+  bound where the line `c = 1` leaves the last chamber of its parameter space. The walls are
+  ratios of determinants and can be enumerated the same way the ray heights are.
+* the entries whose `S` comes out above 260, or whose arrangement has more than 250,000
+  `L`-subsets to test. Both are compute limits, not mathematical ones.
+* "nondecreasing average value" (6) and "the sum ahead of each element differing from the sum
+  following by n or less" (3): both are conditions on PREFIX sums, which the walk already
+  carries as an accumulator but does not yet let a window predicate read.
+* "each no smaller than the sum of its previous elements modulo (n+1)" (10). `a mod (n+1)` is
+  piecewise linear in `(a, n)` with breakpoints at multiples of `n+1`, which ARE homogeneous
+  hyperplanes, so this is reachable and simply not written yet.
+* the fixed-shape two-dimensional families -- `3 X 3 0..n arrays` (5), `4X4X4 triangular 0..n
+  arrays` (18). A fixed number of cells over a growing alphabet is exactly this engine's
+  shape; only the name reader is missing.
+
 ## F1. What no engine reads, measured fresh on 9 September 2026
 
 2,791 entries outside the roster carry a readable conjectured recurrence and a name no engine
