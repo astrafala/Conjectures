@@ -87,10 +87,54 @@ def _group(k, reversal):
     return els
 
 
+def _bound(orbits):
+    """S, derived from the orbit weights rather than assumed.
+
+    A group element with orbits of sizes w_1..w_m contributes the number of integer points at
+    height n of the cone {|x_i| <= t, sum w_i x_i = 0} in R^(m+1). Every ray of that cone is
+    cut out by m of the defining hyperplanes, so its height divides the determinant of their
+    x-parts, and those determinants are the w_i (replace one e_i by w) together with 1. Each
+    simplicial cone in a triangulation has at most m+1 rays, so
+
+        A(z) = prod_{d | some w_i} Phi_d(z)^(m+1)
+
+    annihilates that term, and the lcm over the group's elements annihilates a.
+
+    A ROTATION has all its orbits the same size, so the equation reduces to sum x_i = 0 and
+    every determinant is 1: the term is a polynomial of degree below m, and S = k is right.
+    A REFLECTION of an odd-length bracelet fixes one bead and pairs the rest, so its weights
+    are 1 and 2, x_0 = -2(x_1 + ... ) is forced even, and the term has PERIOD TWO. S = k was
+    assumed for both and is false for the bracelets: the fifth difference of A208826 is
+    -36, 48, -60, ... and never vanishes. The bound is computed here instead.
+    """
+    from math import gcd
+    D = set()
+    for ws in orbits:
+        for w in ws:
+            d = 1
+            while d <= w:
+                if w % d == 0:
+                    D.add(d)
+                d += 1
+    deg = 0
+    for d in sorted(D):
+        t, kk, mm = d, 2, d
+        while kk * kk <= mm:
+            if mm % kk == 0:
+                while mm % kk == 0:
+                    mm //= kk
+                t -= t // kk
+            kk += 1
+        if mm > 1:
+            t -= t // mm
+        deg += t
+    return deg * (max(len(ws) for ws in orbits) + 1)
+
+
 def build(p, cap=200000):
     k = p['k']
     els = [_orbit_sizes(e) for e in _group(k, p['reversal'])]
-    return {'k': k, 'orbits': els, 'S': k}
+    return {'k': k, 'orbits': els, 'S': _bound(els)}
 
 
 def terms(b, N):

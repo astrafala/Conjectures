@@ -38,6 +38,17 @@ def conj_line(anum):
     return None
 
 
+def _author(e, conj):
+    """who contributed the conjecture: the name on the conjecture line if there is one.
+
+    This said "contributed by R. H. Hardin" on every paper. All but one of these entries are
+    Hardin's and carry his own "Empirical:" line, so it was right there; on A175298 the
+    recurrence is Vaclav Kotesovec's and the sentence credited the wrong person.
+    """
+    m = re.search(r'_([^_]+)_', conj or '') or re.search(r'_([^_]+)_', e.get('author') or '')
+    return esc(m.group(1).strip()) if m else 'its author'
+
+
 def build(h):
     a = h["anum"]
     S, order, nterms, nthr = h["S"], h["order"], h["nterms"], h["nthr"]
@@ -73,7 +84,7 @@ def build(h):
 \maketitle
 
 \begin{{abstract}}
-OEIS {a} carries an empirical recurrence of order ${order}$ contributed by R.~H.~Hardin. It is
+OEIS {a} carries an empirical recurrence of order ${order}$ contributed by {_author(e, conj)}. It is
 true, and it is decidable rather than empirical. The entry's condition is local to {win}, so
 the admissible configurations of such a window are the vertices of a finite digraph and the
 arrays counted are exactly the walks in it; hence $a(n)$ is a walk count on $S={S}$ vertices
