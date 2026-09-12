@@ -312,6 +312,16 @@ def _read_clause(c, L, out):
         return True
     if _read_window_clause(c, L, out):
         return True
+    m = re.fullmatch(r'each no smaller than the sum of its '
+                     r'(?:(two|three|four|five|six|seven) )?previous '
+                     r'(?:elements|neighbors|neighbours) modulo \(n\+1\)', c)
+    if m:
+        kk = WORDNUM.get(m.group(1)) if m.group(1) else None
+        if kk is not None and not 1 <= kk <= L - 1:
+            return False
+        out['modge'] = kk                                 # None means the whole prefix
+        out['tex'].append(r'x_i \ge \Big(\sum_{j} x_j\Big) \bmod (n+1)')
+        return True
     if c in ('equal numbers of elements greater than zero and less than zero',
              'equal numbers greater than zero and less than zero'):
         out['acc'].append({'kind': 'sign', 'rel': 'eq', 'tc': 0})
@@ -445,7 +455,7 @@ def _read_clause(c, L, out):
 
 def _blank(L, sym):
     return {'L': L, 'sym': sym, 'ne': [], 'eq': [], 'nand': [], 'ncong': [], 'alt': False,
-            'cl': [], 'acc': [], 'tex': [],
+            'cl': [], 'acc': [], 'modge': False, 'tex': [],
             'box': [_unit(L, i) for i in range(L)] if sym else [],
             'lo': [] if sym else [_unit(L, i) for i in range(L)],
             'hi': [] if sym else [_unit(L, i) for i in range(L)]}
@@ -531,7 +541,7 @@ def parse_name(nm):
         return None
     sym = alph == '-n'
     p = {'L': L, 'sym': sym, 'ne': [], 'eq': [], 'nand': [], 'ncong': [], 'alt': False,
-         'cl': [],
+         'cl': [], 'acc': [], 'modge': False,
          'tex': [], 'box': [_unit(L, i) for i in range(L)] if sym else [],
          'lo': [] if sym else [_unit(L, i) for i in range(L)],
          'hi': [] if sym else [_unit(L, i) for i in range(L)]}
@@ -542,7 +552,13 @@ def parse_name(nm):
         p['tex'].append(r'\sum_i x_i = 0')
     if not _split_read(body, L, p):
         return None
+    if p['modge'] is not False and (p['sym'] or p['cl'] or p['nand'] or p['ncong']
+                                    or p['eq'] or p['ne'] or p['alt']):
+        # the mod condition is homogeneous in (x, n+1), not in (x, n), so it may not be
+        # mixed with a clause that names n itself
+        return None
     if not (p['eq'] or p['ne'] or p['nand'] or p['ncong'] or p['alt'] or p['cl']
+            or p['modge'] is not False
             or len(p['box']) > L or len(p['hi']) > L):
         return None
     p['body'] = ' '.join(body.split())
@@ -604,6 +620,22 @@ def _hyperplane_forms(p):
     for a in p.get('acc', ()):
         if a['kind'] == 'linear':
             H.append((a['w'], a['tc']))
+    if p.get('modge', False) is not False:
+        # x_i >= s mod (n+1) with s the sum of the named previous entries. Write m = n+1:
+        # the box is 0 <= x_i < m, s lies in [0, k(m-1)], and s mod m is s - jm on the piece
+        # where jm <= s < (j+1)m. Both the breakpoints and the comparison are homogeneous in
+        # (x, m) -- they are NOT in (x, n), which is why this family needed its own parameter.
+        L = p['L']
+        kk = p['modge']
+        for i in range(L):
+            st = 0 if kk is None else max(0, i - kk)
+            if st >= i:
+                continue
+            sform = tuple(1 if st <= q < i else 0 for q in range(L))
+            dform = tuple((1 if q == i else 0) - (1 if st <= q < i else 0) for q in range(L))
+            for j in range(0, i - st + 1):
+                H.append((sform, -j))
+                H.append((dform, j))
     if p['alt']:
         for f in _dforms(p['L'], 1):
             H.append((f, 0))
@@ -826,6 +858,21 @@ def _local(p, skip=()):
     if p['alt']:
         for f in _dforms(L, 1):
             add('alt', (f,))
+    if p.get('modge', False) is not False:
+        kk = p['modge']
+        for i in range(L):
+            st = 0 if kk is None else max(0, i - kk)
+            if st >= i:
+                continue
+            if kk is None:
+                # the whole prefix reaches further than a window can, so the walk carries the
+                # running sum and the condition READS it -- the first predicate here that
+                # depends on an accumulator rather than on the window alone
+                loc.append(('modgeacc', (i,), i, i))
+                continue
+            f = tuple(1 if st <= q <= i else 0 for q in range(L))
+            k = max(k, i - st)
+            loc.append(('modge', (f,), st, i))
     return k, loc
 
 
@@ -860,6 +907,12 @@ def _accs(p, n, acap=400000):
             return None
         out.append(dict(a, half=half))
         prod *= 2 * half + 1
+    if p.get('modge', False) is None:
+        half = L * n
+        if prod * (2 * half + 1) > acap:
+            return None
+        out.append({'kind': 'linear', 'w': tuple([1] * L), 'tc': 0, 'rel': 'any',
+                    'half': half})
     return out
 
 
@@ -891,7 +944,9 @@ def _accepted(accs, lens, strides, n):
     for j, a in enumerate(accs):
         nxt = []
         for base in idx:
-            if a['rel'] == 'eq':
+            if a['rel'] == 'any':
+                nxt += [base + v * strides[j] for v in range(lens[j])]
+            elif a['rel'] == 'eq':
                 if 0 <= tgt[j] < lens[j]:
                     nxt.append(base + tgt[j] * strides[j])
             else:
@@ -910,6 +965,8 @@ def _closing(loc, i):
 def _ok_window(cons, win, first_pos):
     """cons closing at the newest position; win holds the values at first_pos .. newest."""
     for kind, forms, start, lastpos in cons:
+        if kind == 'modgeacc':
+            continue
         if start < first_pos:
             continue
         if kind == 'cl':
@@ -933,6 +990,11 @@ def _ok_window(cons, win, first_pos):
         def lin(g):
             return sum(g[q] * win[q - first_pos] for q in range(start, lastpos + 1) if g[q])
         v = lin(forms[0])
+        if kind == 'modge':
+            sm = sum(win[q - first_pos] for q in range(start, lastpos))
+            if win[lastpos - first_pos] < sm % (_ok_window.n + 1):
+                return False
+            continue
         if kind == 'box':
             if abs(v) > _ok_window.n:
                 return False
@@ -1007,6 +1069,7 @@ def _count1(p, n, phase, cap=4_000_000):
     _ok_window.n = n
     _ok_window.phase = phase
     lens, strides, alen = _axis(accs)
+    apos = {c[2] for c in loc if c[0] == 'modgeacc'}
     if V ** (w + 1) > cap or V ** w * alen > cap:
         return None
 
@@ -1073,6 +1136,15 @@ def _count1(p, n, phase, cap=4_000_000):
                     if not _ok_window(cons, [vals[b]], i):
                         continue
                     acc = byfirst[0]
+                if apos and i in apos:
+                    ah = accs[-1]['half']
+                    astr = strides[-1]
+                    alensj = lens[-1]
+                    xv = vals[b]
+                    acc = list(acc)
+                    for q in range(alen):
+                        if acc[q] and xv < ((q // astr) % alensj - ah) % (n + 1):
+                            acc[q] = 0
                 st = (tail + (b,))[-w:] if w else ()
                 row = nxt.get(st)
                 if row is None:
@@ -1129,7 +1201,16 @@ def _brute1(p, n, phase):
                 break
         if not ok:
             continue
+        if p.get('modge', False) is None:
+            for i in range(L):
+                if x[i] < sum(x[:i]) % (n + 1):
+                    ok = False
+                    break
+            if not ok:
+                continue
         for a in accs:
+            if a['rel'] == 'any':
+                continue
             if a['kind'] == 'sign':
                 v = sum(1 if q > 0 else -1 if q < 0 else 0 for q in x)
             else:
