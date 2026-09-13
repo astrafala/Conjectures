@@ -12,16 +12,16 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A208601, proved from an exact model}
+\title{The empirical recurrence for OEIS A254703, proved from an exact model}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{12 September 2026}
+\date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A208601 carries an empirical recurrence of order $7$. It is true, and it is
-decidable rather than empirical. The entry's sequence is given exactly by a Burnside sum over the necklace group, from
-which $a$ provably satisfies a MONIC linear recurrence of order $S=56$, derived below and not
+OEIS A254703 carries an empirical recurrence of order $8$. It is true, and it is
+decidable rather than empirical. The entry's sequence is given exactly by an exact polynomial in $n$, from
+which $a$ provably satisfies a MONIC linear recurrence of order $S=10$, derived below and not
 assumed. The residual of the conjectured recurrence satisfies the same one, so whether it
 annihilates $a$ is settled by a finite exact computation. No transfer matrix is involved and
 the count is not a walk.
@@ -31,50 +31,41 @@ the count is not a walk.
 
 \section{The conjecture}
 
-OEIS A208601 is ``Number of 7-bead necklaces labeled with numbers -n..n not allowing reversal, with sum zero.''. It has offset $1$ and begins
+OEIS A254703 is ``Number of length 5+4 0..n arrays with every five consecutive terms having the maximum of some two terms equal to the minimum of the remaining three terms.''. It has offset $1$ and begins
 \[
-57, 1163, 8671, 39019, 129823, 353333, 833253, 1764925,\ \dots
+136, 2310, 16276, 72271, 242076, 670372, 1618264, 3520845,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = (841/180)*n\^{}6 + (841/60)*n\^{}5 + (325/18)*n\^{}4 + (51/4)*n\^{}3 + (949/180)*n\^{}2 + (37/30)*n + 1.
+Empirical: a(n) = (13/35)*n\^{}7 + (13/2)*n\^{}6 + 26*n\^{}5 + 41*n\^{}4 + (327/10)*n\^{}3 + (39/2)*n\^{}2 + (125/14)*n + 1.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Mar 18 2018 17:29:06, revision 11)
+As of the ``Last modified'' line on the live entry (Dec 18 2018 09:24:41, revision 8)
 this is still recorded as empirical, and nothing on the entry records it as proved.
 
-\section{The count is a Burnside sum}
+\section{The count is a polynomial}
 
-A necklace is an orbit of labellings under the rotation group, a bracelet an orbit under the
-dihedral group, so by Burnside's lemma $a(n)$ is the average over the group of the number of
-labellings a single element fixes. A labelling fixed by $g$ is constant on each orbit of $g$,
-so writing $x_j$ for the common value on the $j$-th orbit and $w_j$ for its size, the fixed
-labellings with sum zero are the integer solutions of
+The array has a FIXED length $L$ and an alphabet $0..n$ that grows. The condition is decided by
+the ORDER of the terms alone --- by which are equal and which is larger --- so an admissible
+array is described completely by its weak ordering: the ordered set partition of the $L$
+positions into $m$ blocks of equal value, blocks listed in increasing order. Every assignment
+of $m$ distinct values from $\{0,\dots,n\}$ to those blocks, in increasing order, gives one
+array, and there are $\binom{n+1}{m}$ of them. Hence
 \[
-\sum_j w_jx_j = 0,\qquad |x_j|\le n,
+a(n)\;=\;\sum_{m=1}^{L} N_m\binom{n+1}{m},
 \]
-counted exactly by convolution. Summing over the group and dividing by its order gives $a(n)$.
+with $N_m$ the number of admissible weak orderings into $m$ blocks, computed exactly.
 
 \section{The bound}
 
-Each term counts the integer points at height $n$ of the cone
-$\{|x_j|\le t,\ \sum_j w_jx_j=0\}$, whose rays are cut out by $m$ of the defining
-hyperplanes; by Cramer the height of a primitive generator divides the determinant of their
-$x$-parts, which is $1$ or one of the $w_j$. With at most $m+1$ rays in a simplicial cone,
-$\prod_{d\mid w_j\ \text{some}\ j}\Phi_d(z)^{m+1}$ annihilates that term, and the product
-over the group's elements annihilates $a$: $S=56$.
-
-A rotation has all its orbits of one size, so its equation reduces to $\sum_jx_j=0$ and every
-determinant is $1$. A reflection of an odd bracelet fixes one bead and pairs the rest, giving
-weights $1$ and $2$, and forces $x_0=-2(x_1+\cdots)$ to be even; that term has period two, not
-one. An earlier version of this bound took $S$ to be the number of beads for both, which is
-right for the necklaces and false for the bracelets --- the fifth difference of A208826 is
-$-36, 48, -60, \dots$ and never vanishes. The bound above is computed from the orbit sizes.
+That expression is a polynomial in $n$ of degree at most $L$, so $(z-1)^{L+1}$ annihilates
+$a$ and $S=10$. Nothing is fitted and no threshold is guessed: the $N_m$ are counted, not
+estimated.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
 Let $A(z)=z^S-\sum_{j<S}\alpha_jz^{j}$ be the monic annihilator derived above and
-$q(z)=z^{7}-\sum_ic_iz^{7-i}$ the characteristic polynomial of the conjectured
+$q(z)=z^{8}-\sum_ic_iz^{8-i}$ the characteristic polynomial of the conjectured
 recurrence. The residual $r(n)=a(n)-\sum_ic_ia(n-i)$ is a linear combination of shifts of $a$,
 so $A$ annihilates $r$ as well. Since $A(0)\ne0$ the recurrence it gives runs in both
 directions, and $S$ consecutive zeros of $r$ force $r$ to vanish at every later index.
@@ -88,7 +79,7 @@ and each from the $S$ after it, so a run of $S$ zeros propagates.
 
 \begin{theorem}
 \[
-a(n)\;=\;7\,a(n-1) - 21\,a(n-2) + 35\,a(n-3) - 35\,a(n-4) + 21\,a(n-5) - 7\,a(n-6) + a(n-7)
+a(n)\;=\;8\,a(n-1) - 28\,a(n-2) + 56\,a(n-3) - 70\,a(n-4) + 56\,a(n-5) - 28\,a(n-6) + 8\,a(n-7) - a(n-8)
 \]
 for every $n>0$.
 \end{theorem}
@@ -96,7 +87,7 @@ for every $n>0$.
 \begin{proof}
 The terms $a(0),\dots$ were computed exactly in integer arithmetic from the model, extended by
 $A$ where the model itself was not evaluated, and $r(n)$ formed for each index. Those integers
-vanish from $n=0+1$ onwards, and the run exceeds $S+7$, which by
+vanish from $n=0+1$ onwards, and the run exceeds $S+8$, which by
 Lemma~\ref{lem:crit} settles every larger index at once.
 \end{proof}
 
@@ -104,7 +95,7 @@ Lemma~\ref{lem:crit} settles every larger index at once.
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $24$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $23$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: it is built by reading the entry's
 English, and a misreading gives different counts.
 
@@ -117,7 +108,7 @@ too small fails this test, which is why it is run.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A208601.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A254703.
 \bibitem{beckrobins} M.~Beck and S.~Robins, \emph{Computing the Continuous Discretely},
 2nd ed., Springer, 2015. (Ehrhart quasi-polynomials and their periods.)
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,

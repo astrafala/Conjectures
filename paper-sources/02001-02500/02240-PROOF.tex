@@ -12,53 +12,85 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A263638, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A269190, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{9 September 2026}
+\date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A263638 carries an empirical recurrence of order $14$ contributed by R.~H.~Hardin. It is
-true, and it is decidable rather than empirical. The entry's condition is local to a bounded window of consecutive lines, so
-the admissible configurations of such a window are the vertices of a finite digraph and the
-arrays counted are exactly the walks in it; hence $a(n)$ is a walk count on $S=120$ vertices
-and is $C$-finite. Whether the conjectured recurrence annihilates it is then settled by a
-finite exact computation, with the Cayley--Hamilton theorem bounding the work.
+OEIS A269190 counts arrays of width $4$ over $\{0,1,2,3\}$ in which the number of adjacent PAIRS of
+cells whose entries add up to $3$ is at most one. The entry carries an empirical recurrence of
+order $16$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
+empirical. The condition is global --- no window of the array decides it --- but the quantity
+it constrains is a count that may be capped at two, and a capped count is a bounded state; the
+result is a walk count on $S=581$ states.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05C30, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A263638 is ``Number of length n arrays of permutations of 0..n-1 with each element moved by -3 to 3 places and with no two consecutive increases.''. It has offset $1$ and begins
+OEIS A269190 is ``Number of nX4 0..3 arrays with some element plus some horizontally, diagonally, antidiagonally or vertically adjacent neighbor totalling three no more than once.''. It has offset $1$ and begins
 \[
-1, 2, 5, 17, 41, 75, 156, 340,\ \dots
+216, 4476, 115452, 2817548, 67134380, 1567933676, 36068275268, 819789099172,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 3*a(n-2) +2*a(n-3) +3*a(n-4) +2*a(n-5) -2*a(n-6) -6*a(n-7) +2*a(n-8) -4*a(n-9) -2*a(n-10) +3*a(n-11) -2*a(n-12) +a(n-14) for n>19
+Empirical: a(n) = 46*a(n-1) -607*a(n-2) +1264*a(n-3) +11029*a(n-4) -27640*a(n-5) -86627*a(n-6) +153412*a(n-7) +308464*a(n-8) -329306*a(n-9) -438615*a(n-10) +260680*a(n-11) +134834*a(n-12) -65824*a(n-13) -9889*a(n-14) +5080*a(n-15) -400*a(n-16) for n>17
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 22 2015 14:45:13, revision 4) this is still
+As of the ``Last modified'' line on the live entry (Feb 20 2016 09:42:59, revision 4) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
-\section{The count is a walk count}
+\section{What is being counted}
 
-The condition the entry imposes is local: it constrains a bounded window of consecutive lines and nothing beyond. Take as
-vertices the admissible configurations of one such window and put an edge from $u$ to $v$
-whenever $v$ may follow $u$, which the condition decides by inspection of the two. An
-admissible array is then exactly a walk, so with $M$ the adjacency matrix on $S=120$ vertices
-and $\iota,\tau$ the vectors recording which windows may begin and end an array,
+The array has $4$ cells across, with entries in $\{0,1,2,3\}$. An ADJACENT PAIR is a pair of cells
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n}\tau ,
+\begin{array}{l}
+$(i,j)\text{ and }(i,j{+}1)$ \\
+$(i,j)\text{ and }(i{+}1,j)$ \\
+$(i,j)\text{ and }(i{+}1,j{+}1)$ \\
+$(i,j)\text{ and }(i{+}1,j{-}1)$ \\
+\end{array}
 \]
-the exponent fixed by the entry's own shape and checked against its published terms. In
-particular $a$ is $C$-finite.
+both lying inside the array. A pair is a pair of CELLS, so it is counted once and not once from
+each end. Writing $k$ for the number of adjacent pairs whose two entries add up to $3$, the
+entry counts the arrays with $k$ at most one.
+
+\section{A capped count is a state}
+
+No window of the array decides the condition: $k$ is a total over the whole array. But the
+condition distinguishes only $k=0$, $k=1$ and $k\ge2$, so the count may be carried capped at
+two and stays bounded.
+
+\begin{lemma}\label{lem:cap}
+Let $k_t$ be the number of qualifying pairs lying inside the first $t$ rows. Then
+\[
+k_{t}\;=\;k_{t-1}+\bigl(\text{pairs inside row } t\bigr)
++\bigl(\text{pairs joining rows } t-1 \text{ and } t\bigr),
+\]
+and both added terms are determined by rows $t-1$ and $t$ alone.
+\end{lemma}
+
+\begin{proof}
+Every adjacent pair lies either inside one row or across two consecutive rows, by the list
+above; a pair inside rows $1..t$ that is not inside rows $1..t-1$ must meet row $t$, so it is
+one of the two kinds counted.
+\end{proof}
+
+So the state is the pair $(\text{previous row},\min(k,2))$: a step appends a row, adds the
+pairs Lemma~\ref{lem:cap} names and caps the total at two. The end vector accepts the states
+with $k\le1$, so it is not the all-ones vector. With $M$ the adjacency matrix,
+\[
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=581.
+\]
+The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
+published terms rather than assumed. In particular $a$ is $C$-finite.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{14}-\sum_i c_it^{14-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{16}-\sum_i c_it^{16-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -66,7 +98,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+14}-\sum_ic_iM^{j+14-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+16}-\sum_ic_iM^{j+16-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -75,39 +107,42 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;3\,a(n-2) + 2\,a(n-3) + 3\,a(n-4) + 2\,a(n-5) - 2\,a(n-6) - 6\,a(n-7) + 2\,a(n-8) - 4\,a(n-9) - 2\,a(n-10) + 3\,a(n-11) - 2\,a(n-12) + a(n-14)
+a(n)\;=\;46\,a(n-1) - 607\,a(n-2) + 1264\,a(n-3) + 11029\,a(n-4) - 27640\,a(n-5) - 86627\,a(n-6) + 153412\,a(n-7) + 308464\,a(n-8) - 329306\,a(n-9) - 438615\,a(n-10) + 260680\,a(n-11) + 134834\,a(n-12) - 65824\,a(n-13) - 9889\,a(n-14) + 5080\,a(n-15) - 400\,a(n-16)
 \]
-for every $n>19$.
+for every $n>17$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $14$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $16$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=19+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once. The bound is exact: at $n=19$ the recurrence fails on the entry's own published terms, so no larger range holds.
+integers vanish from the index corresponding to $n=17+1$ onwards and the run continued
+until the working vector was identically zero.
 \end{proof}
 
 \section{Verification}
 
-Three checks, each independent of the algebra above.
+Four checks, each independent of the algebra above.
 
-First, the model reproduces all $30$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry: the digraph is built by reading the
-entry's English, and a misreading gives different counts.
+First, the model reproduces all $15$ terms the entry publishes, exactly, in integer
+arithmetic.
 
-Second, the conjectured recurrence was evaluated directly on those published terms, with no
+Second, the count was recomputed for the smallest arrays straight from the definition:
+enumerate every array of that size in the orientation the entry's own name writes, count the
+adjacent pairs summing to $3$ by running over the array once for each kind of pair, and keep
+the array when that count is at most one. No cap, no state and no transfer matrix are involved, and
+the published terms came back.
+
+Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
 arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A263638.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A269190.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
-University Press, 2009.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

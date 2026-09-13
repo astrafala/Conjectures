@@ -12,18 +12,18 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A281328, proved by counting patterns with a budget}
+\title{The empirical recurrence for OEIS A279802, proved by counting patterns with a budget}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A281328 imposes three things at once: a condition on each cell that reaches one column up and
-one column down; a global budget allowing exactly one cell to
+OEIS A279802 imposes three things at once: a condition on each cell that reaches one row up and
+one row down; a global budget allowing exactly one cell to
 break it; and the clause ``new values introduced in order $0$ sequentially upwards'', which
 says the array is written in canonical form. None of the three is visible to a plain transfer
-matrix over columns. All three are handled: the state is a pair of consecutive columns
+matrix over rows. All three are handled: the state is a pair of consecutive rows
 together with the number of offending cells so far, capped at the budget; and the
 canonical-form clause is removed by counting equality patterns instead of arrays, through the
 identity $3!\,a(n)=\sum_i\binom{3}{i}D_{3-i}L_i(n)$ with $D_m$ the derangement
@@ -35,42 +35,42 @@ from a finite exact computation on $S=1588$ states.
 
 \section{The sequence and the conjecture}
 
-OEIS A281328 is ``Number of 3 X n 0..2 arrays with no element equal to more than one of its horizontal and antidiagonal neighbors, with the exception of exactly one element, and with new values introduced in order 0 sequentially upwards.''. It has offset $1$ and begins
+OEIS A279802 is ``Number of nX3 0..2 arrays with no element equal to a strict majority of its horizontal, vertical and antidiagonal neighbors, with the exception of exactly one element, and with new values introduced in order 0 sequentially upwards.''. It has offset $1$ and begins
 \[
-0, 28, 1266, 21734, 350818, 5192104, 73653131, 1013236400,\ \dots
+2, 22, 740, 19376, 507986, 12910722, 323712032, 8013623436,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 22*a(n-1) -75*a(n-2) -826*a(n-3) +2647*a(n-4) +12524*a(n-5) -31666*a(n-6) -101028*a(n-7) +172228*a(n-8) +478380*a(n-9) -327766*a(n-10) -1371744*a(n-11) -848245*a(n-12) +2223326*a(n-13) +5363769*a(n-14) -723658*a(n-15) -9633470*a(n-16) -5756578*a(n-17) +5497899*a(n-18) +13633286*a(n-19) +3670518*a(n-20) -13409438*a(n-21) -7736445*a(n-22) +6852658*a(n-23) +5255219*a(n-24) -1543628*a(n-25) -2237348*a(n-26) -373776*a(n-27) +751904*a(n-28) +458560*a(n-29) -160320*a(n-30) -151296*a(n-31) +4608*a(n-32) +23552*a(n-33) +11264*a(n-34) -4096*a(n-35) -4096*a(n-36) for n>39.
+Empirical: a(n) = 44*a(n-1) -470*a(n-2) -356*a(n-3) +1443*a(n-4) -12204*a(n-5) +52388*a(n-6) +227364*a(n-7) -92500*a(n-8) +359704*a(n-9) -214436*a(n-10) -18541144*a(n-11) -27097896*a(n-12) +15057488*a(n-13) +4532384*a(n-14) +367526928*a(n-15) +1632126768*a(n-16) +1355405664*a(n-17) -2409646448*a(n-18) -8100510688*a(n-19) -22633097488*a(n-20) -40981890944*a(n-21) -7027056768*a(n-22) +151340134016*a(n-23) +338905381312*a(n-24) +195055954944*a(n-25) -390453793792*a(n-26) -857307838464*a(n-27) -533793509376*a(n-28) +337493164032*a(n-29) +725394309120*a(n-30) +310395666432*a(n-31) -190193598464*a(n-32) -188853780480*a(n-33) -15603859456*a(n-34) +30324817920*a(n-35) -3774873600*a(n-36) for n>37
 \end{quote}
-As of the ``Last modified'' line on the live entry (Feb 21 2026 19:41:06, revision 6) the statement is
+As of the ``Last modified'' line on the live entry (Dec 19 2016 09:11:07, revision 4) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;22\,a(n-1) - 75\,a(n-2) - 826\,a(n-3) + 2647\,a(n-4) + 12524\,a(n-5) - 31666\,a(n-6) - 101028\,a(n-7) + 172228\,a(n-8) + 478380\,a(n-9) - 327766\,a(n-10) - 1371744\,a(n-11) - 848245\,a(n-12) + 2223326\,a(n-13) + 5363769\,a(n-14) - 723658\,a(n-15) - 9633470\,a(n-16) - 5756578\,a(n-17) + 5497899\,a(n-18) + 13633286\,a(n-19) + 3670518\,a(n-20) - 13409438\,a(n-21) - 7736445\,a(n-22) + 6852658\,a(n-23) + 5255219\,a(n-24) - 1543628\,a(n-25) - 2237348\,a(n-26) - 373776\,a(n-27) + 751904\,a(n-28) + 458560\,a(n-29) - 160320\,a(n-30) - 151296\,a(n-31) + 4608\,a(n-32) + 23552\,a(n-33) + 11264\,a(n-34) - 4096\,a(n-35) - 4096\,a(n-36)
+a(n)\;=\;44\,a(n-1) - 470\,a(n-2) - 356\,a(n-3) + 1443\,a(n-4) - 12204\,a(n-5) + 52388\,a(n-6) + 227364\,a(n-7) - 92500\,a(n-8) + 359704\,a(n-9) - 214436\,a(n-10) - 18541144\,a(n-11) - 27097896\,a(n-12) + 15057488\,a(n-13) + 4532384\,a(n-14) + 367526928\,a(n-15) + 1632126768\,a(n-16) + 1355405664\,a(n-17) - 2409646448\,a(n-18) - 8100510688\,a(n-19) - 22633097488\,a(n-20) - 40981890944\,a(n-21) - 7027056768\,a(n-22) + 151340134016\,a(n-23) + 338905381312\,a(n-24) + 195055954944\,a(n-25) - 390453793792\,a(n-26) - 857307838464\,a(n-27) - 533793509376\,a(n-28) + 337493164032\,a(n-29) + 725394309120\,a(n-30) + 310395666432\,a(n-31) - 190193598464\,a(n-32) - 188853780480\,a(n-33) - 15603859456\,a(n-34) + 30324817920\,a(n-35) - 3774873600\,a(n-36)
 \end{equation}
-for all $n>39$.
+for all $n>37$.
 
 \section{The condition, the budget, and the canonical form}
 
-The arrays have $3$ rows and $L=n$ columns; write $x_{t,u}$ for the entry in
-column $t$ and row $u$. With the neighbour offsets
+The arrays have $3$ columns and $L=n$ rows; write $x_{t,u}$ for the entry in
+row $t$ and column $u$. With the neighbour offsets
 \[
-\mathcal N=\{(-1,0),\ (1,0),\ (1,-1),\ (-1,1)\}
+\mathcal N=\{(0,-1),\ (0,1),\ (-1,0),\ (1,0),\ (-1,1),\ (1,-1)\}
 \]
-as (column shift, row shift), counting only positions inside the array, call a cell
+as (row shift, column shift), counting only positions inside the array, call a cell
 $(t,u)$ \emph{offending} when
 \[
-\#\{\text{neighbours equal to }x_{t,u}\}>1 .
+2\,\#\{\text{neighbours equal to }x_{t,u}\}>\#\{\text{neighbours}\} .
 \]
 The entry asks for arrays in which exactly $E=1$ cells offend.
 
-Since $\mathcal N$ contains offsets of both signs in the column direction, a cell of column
-$t$ is judged by columns $t-1$, $t$ and $t+1$ together, so a state carrying one column is not
+Since $\mathcal N$ contains offsets of both signs in the row direction, a cell of row
+$t$ is judged by rows $t-1$, $t$ and $t+1$ together, so a state carrying one row is not
 enough; and the number of offending cells is a property of the whole array, so no bounded
 window sees it either. Both are fixed by the same device: states are ordered pairs of
-consecutive columns together with a running count $v\in\{0,1,\dots,1\}$, and a count that
+consecutive rows together with a running count $v\in\{0,1,\dots,1\}$, and a count that
 would exceed $1$ is simply not represented --- an array that passes it can never come back
 under it.
 
@@ -103,7 +103,7 @@ $\binom{3}{i}D_{3-i}$, an integer.
 
 Fix $i$, let $V_i=\{0,\dots,i-1\}^{3}$, and take the triples $(p,c,v)$ with
 $p,c\in V_i$ and $0\le v\le1$ as vertices. Write $\mathrm{viol}(b\mid a,x)$ for the number
-of offending cells in the column $b$ when $a$ lies above it and $x$ below (either may be
+of offending cells in the row $b$ when $a$ lies above it and $x$ below (either may be
 absent, in which case the corresponding neighbours simply do not exist). Declare
 \[
 (p,c,v)\ \longrightarrow\ (c,x,\,v+\mathrm{viol}(c\mid p,x))
@@ -118,12 +118,12 @@ adjacency matrix of that digraph.
 \end{lemma}
 
 \begin{proof}
-Consecutive vertices overlap in one column, so a walk of length $L-2$ is exactly a sequence
-of $L$ columns, that is, an array. Along it, the cells of column $t$ for $2\le t\le L-1$ are
+Consecutive vertices overlap in one row, so a walk of length $L-2$ is exactly a sequence
+of $L$ rows, that is, an array. Along it, the cells of row $t$ for $2\le t\le L-1$ are
 judged once, at the step leaving $(r^{(t-1)},r^{(t)},\cdot)$, with their true neighbours;
-those of column $1$ are judged by $\mathbf{s}_i$ with no column above, and those of column
-$L$ by $\mathbf{e}_i$ with no column below. Hence the running count is the number of
-offending cells among the columns judged so far, and the walk exists exactly when that total
+those of row $1$ are judged by $\mathbf{s}_i$ with no row above, and those of row
+$L$ by $\mathbf{e}_i$ with no row below. Hence the running count is the number of
+offending cells among the rows judged so far, and the walk exists exactly when that total
 never exceeds $1$; since the total only grows, that is implied by the final value being
 $1$, which $\mathbf{e}_i$ imposes.
 \end{proof}
@@ -158,7 +158,7 @@ that combination of earlier ones.
 \end{proof}
 
 \begin{theorem}
-The recurrence \eqref{eq:conj} holds for every $n>39$, which is the statement of
+The recurrence \eqref{eq:conj} holds for every $n>37$, which is the statement of
 Section~1.
 \end{theorem}
 
@@ -166,7 +166,7 @@ Section~1.
 The digraph was built directly from the definitions above. The vector $w$ was formed by
 $36$ applications of $G$ in exact integer arithmetic and $\mathbf{v}^{\!\top}G^{m}w$
 evaluated for $m=0,1,\dots$, again exactly. Every one of those integers vanishes from the
-index corresponding to $n=39+1$ onwards, and the run continued until $S+1$ consecutive
+index corresponding to $n=37+1$ onwards, and the run continued until $S+1$ consecutive
 zeros had been seen.
 \end{proof}
 
@@ -176,7 +176,7 @@ Three checks, each independent of the algebra above.
 
 First, the right-hand side of \eqref{eq:walk2}, divided by $3!$, was evaluated at every
 one of the $16$ published indices and agrees with the entry's DATA exactly, the quotient
-coming out an integer each time; no shift was fitted, the number of columns being
+coming out an integer each time; no shift was fitted, the number of rows being
 $L=n$ from the entry's own name and the offset saying which index the first published
 term carries. A misreading of the offending-cell rule, of the budget, or of the inversion in
 Lemma~\ref{lem:inv} would change the counts and be rejected here.
@@ -189,7 +189,7 @@ Cayley--Hamilton bound in exact integer arithmetic rather than to a sampled pref
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A281328.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A279802.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; falling-factorial
 inversion, Section 1.9.)

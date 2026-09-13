@@ -12,78 +12,79 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{A global condition that is really a local one: OEIS A223056}
+\title{The empirical recurrence for OEIS A269137, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{7 September 2026}
+\date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A223056 carries an empirical recurrence of order $4$ contributed by R.~H.~Hardin. It is
-true, and it is decidable rather than empirical. The entry asks that every connected set of
-equal values lie in a straight line, which is a condition on components and so on the array as
-a whole. It is shown here to be equivalent to a condition on single pairs of adjacent rows:
-the array is admissible exactly when no cell has an equal neighbour beside it and an equal
-neighbour above or below it, and that in turn is decided one row at a time. The counted arrays
-are then the walks in a finite digraph on $S=5$ vertices, $a(n)$ is $C$-finite, and whether
-the conjectured recurrence annihilates it is a finite exact computation with Cayley--Hamilton
-bounding the work.
+OEIS A269137 counts arrays of width $2$ over $\{0,1,2,3\}$ in which the number of adjacent PAIRS of
+cells whose entries add up to $3$ is at most one. The entry carries an empirical recurrence of
+order $4$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
+empirical. The condition is global --- no window of the array decides it --- but the quantity
+it constrains is a count that may be capped at two, and a capped count is a bounded state; the
+result is a walk count on $S=45$ states.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05C30, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A223056 is ``Number of n X 2 0..3 arrays with all horizontally or vertically connected equal values in a straight line, and new values 0..3 introduced in row major order.''. It has offset $1$ and begins
+OEIS A269137 is ``Number of n X 2 0..3 arrays with some element plus some horizontally, antidiagonally or vertically adjacent neighbor totalling three no more than once.''. It has offset $1$ and begins
 \[
-2, 10, 114, 1473, 19360, 255045, 3361024, 44294253,\ \dots
+16, 148, 1164, 8532, 59916, 408596, 2727564, 17914580,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 18*a(n-1) - 71*a(n-2) + 102*a(n-3) - 48*a(n-4) for n>5.
+Empirical: a(n) = 12*a(n-1) - 38*a(n-2) + 12*a(n-3) - a(n-4) for n>5.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Aug 16 2018 16:06:49, revision 8) this is still
+As of the ``Last modified'' line on the live entry (Jan 19 2019 08:44:39, revision 10) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
-\section{The condition is not global}
+\section{What is being counted}
 
-The entry counts arrays with $2$ columns over the alphabet $\{0,1,2,3\}$, and asks that every set of equal values joined horizontally or vertically lie in a straight line. As stated this is a condition on connected components, and a component can run the length of the array; nothing about it is confined to a few rows. The first lemma replaces it by a condition on single cells, and the second by a condition on pairs of consecutive rows.
-
-Call two cells \emph{joined} when they are horizontally or vertically adjacent and hold the same value, and let a \emph{component} be a connected set of cells under that relation. A \emph{turn} is a cell with a joined neighbour to its left or right \emph{and} a joined neighbour above or below.
-
-\begin{lemma}\label{lem:turn}
-Every component lies in a single row or a single column if and only if the array has no turn.
-\end{lemma}
-
-\begin{proof}
-A turn lies in a component containing a cell to its side and a cell above or below it, so that component meets two rows and two columns and lies in neither a single row nor a single column.
-
-Conversely, suppose some component $C$ lies in no single row and no single column. $C$ is connected, so it has at least two cells and hence at least one joining edge; if every edge of $C$ were horizontal then all of $C$ would lie in one row, and if every edge were vertical it would lie in one column. So $C$ has a horizontal edge $e$ and a vertical edge $f$. Take a path of edges of $C$ from $e$ to $f$; along it the type changes somewhere, so two consecutive edges of the path have different types. Consecutive edges of a path share a cell, and that shared cell has a joined neighbour beside it and one above or below it. It is a turn.
-\end{proof}
-
-The point of Lemma~\ref{lem:turn} is that a turn is visible in one cell and its four neighbours. That already bounds the condition, but it bounds it to three rows. It can be brought down to two.
-
-For a row $r$ write $B(r)\subseteq\{1,\dots,2\}$ for the set of positions $j$ with $r_{j-1}=r_j$ or $r_j=r_{j+1}$ --- the cells of that row with a joined neighbour beside them. $B(r)$ depends on $r$ alone.
-
-\begin{lemma}\label{lem:pair}
-An array has no turn if and only if every pair of consecutive rows $r,s$ satisfies
-\[ r_j \neq s_j \qquad\text{for every } j \in B(r)\cup B(s). \]
-\end{lemma}
-
-\begin{proof}
-A cell in row $i$ at position $j$ is a turn exactly when $j\in B(r^{(i)})$ and it equals the cell directly above or directly below it. If some pair of consecutive rows $r=r^{(i)}$, $s=r^{(i+1)}$ has $r_j=s_j$ with $j\in B(r)$, that cell of row $i$ is a turn; with $j\in B(s)$, that cell of row $i+1$ is a turn. Conversely a turn at row $i$, position $j$, has $j\in B(r^{(i)})$ and agrees with row $i-1$ or row $i+1$ at $j$, and the corresponding consecutive pair violates the displayed condition.
-\end{proof}
-
-So the array is admissible precisely when consecutive rows are compatible in the sense of Lemma~\ref{lem:pair}, and compatibility is decided by the two rows and nothing else. The state is one row. There is no window to carry, no judgement deferred to a later row, and no special treatment of the last row: a one-row array has no vertical neighbours at all and is always admissible, which is where these sequences start.
-
-The entry also asks that new values be introduced in row major order. That is not a condition on any pair of rows --- whether a value may appear here depends on the whole array so far --- but the whole prefix enters only through one integer, how many values have been introduced already, so the state is a row together with a number in $\{0,\dots,4\}$. The effect is that each array is counted once for the whole class of arrays differing from it only by renaming values, which is what the entry counts.
-
-Make those states the vertices of a digraph, with an edge from $r$ to $s$ when the pair is compatible and the counter advances legally. Merging vertices with identical futures leaves $S=5$. An admissible array is exactly a walk, so with $M$ the adjacency matrix and $\iota,\tau$ the vectors recording which states may begin and end an array,
+The array has $2$ cells across, with entries in $\{0,1,2,3\}$. An ADJACENT PAIR is a pair of cells
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau ,
+\begin{array}{l}
+$(i,j)\text{ and }(i,j{+}1)$ \\
+$(i,j)\text{ and }(i{+}1,j)$ \\
+$(i,j)\text{ and }(i{+}1,j{-}1)$ \\
+\end{array}
 \]
-the exponent fixed by the entry's own shape and checked against its published terms. In
-particular $a$ is $C$-finite.
+both lying inside the array. A pair is a pair of CELLS, so it is counted once and not once from
+each end. Writing $k$ for the number of adjacent pairs whose two entries add up to $3$, the
+entry counts the arrays with $k$ at most one.
+
+\section{A capped count is a state}
+
+No window of the array decides the condition: $k$ is a total over the whole array. But the
+condition distinguishes only $k=0$, $k=1$ and $k\ge2$, so the count may be carried capped at
+two and stays bounded.
+
+\begin{lemma}\label{lem:cap}
+Let $k_t$ be the number of qualifying pairs lying inside the first $t$ rows. Then
+\[
+k_{t}\;=\;k_{t-1}+\bigl(\text{pairs inside row } t\bigr)
++\bigl(\text{pairs joining rows } t-1 \text{ and } t\bigr),
+\]
+and both added terms are determined by rows $t-1$ and $t$ alone.
+\end{lemma}
+
+\begin{proof}
+Every adjacent pair lies either inside one row or across two consecutive rows, by the list
+above; a pair inside rows $1..t$ that is not inside rows $1..t-1$ must meet row $t$, so it is
+one of the two kinds counted.
+\end{proof}
+
+So the state is the pair $(\text{previous row},\min(k,2))$: a step appends a row, adds the
+pairs Lemma~\ref{lem:cap} names and caps the total at two. The end vector accepts the states
+with $k\le1$, so it is not the all-ones vector. With $M$ the adjacency matrix,
+\[
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=45.
+\]
+The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
+published terms rather than assumed. In particular $a$ is $C$-finite.
 
 \section{The proof}
 
@@ -100,13 +101,12 @@ Factor $M^{j}$ out of $M^{j+4}-\sum_ic_iM^{j+4-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly. A constant factor in front of $a$ divides out of the residual and
-changes nothing here.
+pins the threshold exactly.
 \end{proof}
 
 \begin{theorem}
 \[
-a(n)\;=\;18\,a(n-1) - 71\,a(n-2) + 102\,a(n-3) - 48\,a(n-4)
+a(n)\;=\;12\,a(n-1) - 38\,a(n-2) + 12\,a(n-3) - a(n-4)
 \]
 for every $n>5$.
 \end{theorem}
@@ -115,23 +115,21 @@ for every $n>5$.
 The vector $w=q(M)\tau$ was formed by $4$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
 integers vanish from the index corresponding to $n=5+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once. The bound is exact: at $n=5$ the recurrence fails on the entry's own published terms, so no larger range holds.
+until the working vector was identically zero.
 \end{proof}
 
 \section{Verification}
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $17$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry: the digraph is built by reading the
-entry's English, and a misreading gives different counts.
+First, the model reproduces all $19$ terms the entry publishes, exactly, in integer
+arithmetic.
 
-Second, the reduction of Lemmas~\ref{lem:turn} and~\ref{lem:pair} was checked against the
-thing it replaces. A separate program enumerates every array of the given shape one by one,
-finds the connected sets of equal values by an ordinary graph search, and tests whether each
-lies in a single row or a single column --- the entry's condition as written, with no
-reduction at all. Its counts agree with the model's. That program shares no code with the
-transfer matrix, so an error in one does not hide an error in the other.
+Second, the count was recomputed for the smallest arrays straight from the definition:
+enumerate every array of that size in the orientation the entry's own name writes, count the
+adjacent pairs summing to $3$ by running over the array once for each kind of pair, and keep
+the array when that count is at most one. No cap, no state and no transfer matrix are involved, and
+the published terms came back.
 
 Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
@@ -141,11 +139,9 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A223056.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A269137.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
-University Press, 2009.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

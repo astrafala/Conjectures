@@ -12,15 +12,15 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A209907, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A209781, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A209907 counts $(n+1)\times3$ arrays over $\{0,\dots,3\}$ subject to a condition imposed on
-every $2\times2$ subblock, and carries an empirical recurrence of order $19$ contributed
+OEIS A209781 counts $(n+1)\times3$ arrays over $\{0,\dots,3\}$ subject to a condition imposed on
+every $2\times2$ subblock, and carries an empirical recurrence of order $20$ contributed
 by R.~H.~Hardin. It is true, and it is not an empirical matter at all. The condition is local
 to each subblock, so the rows of an admissible array are the vertices of a finite digraph
 on $S=64$ vertices whose edges are the admissible consecutive pairs, and the count is a
@@ -35,22 +35,22 @@ integer arithmetic, and it comes out zero.
 
 \section{The sequence and the conjecture}
 
-OEIS A209907 is ``Half the number of (n+1)X3 0..3 arrays with every 2X2 subblock having two or four distinct clockwise edge differences.''. It has offset $1$ and begins
+OEIS A209781 is ``Half the number of (n+1)X3 0..3 arrays with every 2X2 subblock having exactly one duplicate clockwise edge difference.''. It has offset $1$ and begins
 \[
-562, 13098, 295448, 6711168, 152153160, 3452051294, 78298719958, 1776153151954,\ \dots
+576, 12492, 266126, 5719838, 122871278, 2641341716, 56780957220, 1220714555712,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 16*a(n-1) +227*a(n-2) -1440*a(n-3) -8244*a(n-4) +46409*a(n-5) +53926*a(n-6) -406100*a(n-7) -117231*a(n-8) +1484559*a(n-9) +166049*a(n-10) -2587430*a(n-11) -386782*a(n-12) +2096907*a(n-13) +472125*a(n-14) -660956*a(n-15) -166954*a(n-16) +44616*a(n-17) +4488*a(n-18) -192*a(n-19)
+Empirical: a(n) = 32*a(n-1) -181*a(n-2) -1612*a(n-3) +14245*a(n-4) +3934*a(n-5) -228072*a(n-6) +286957*a(n-7) +1135539*a(n-8) -2087315*a(n-9) -2118396*a(n-10) +5249880*a(n-11) +1194011*a(n-12) -5705343*a(n-13) +530140*a(n-14) +2648017*a(n-15) -619565*a(n-16) -439672*a(n-17) +116050*a(n-18) +17928*a(n-19) -3952*a(n-20)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 15:35:05, revision 9) the statement is
+As of the ``Last modified'' line on the live entry (Oct 03 2025 15:28:35, revision 9) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;16\,a(n-1) + 227\,a(n-2) - 1440\,a(n-3) - 8244\,a(n-4) + 46409\,a(n-5) + 53926\,a(n-6) - 406100\,a(n-7) - 117231\,a(n-8) + 1484559\,a(n-9) + 166049\,a(n-10) - 2587430\,a(n-11) - 386782\,a(n-12) + 2096907\,a(n-13) + 472125\,a(n-14) - 660956\,a(n-15) - 166954\,a(n-16) + 44616\,a(n-17) + 4488\,a(n-18) - 192\,a(n-19)
+a(n)\;=\;32\,a(n-1) - 181\,a(n-2) - 1612\,a(n-3) + 14245\,a(n-4) + 3934\,a(n-5) - 228072\,a(n-6) + 286957\,a(n-7) + 1135539\,a(n-8) - 2087315\,a(n-9) - 2118396\,a(n-10) + 5249880\,a(n-11) + 1194011\,a(n-12) - 5705343\,a(n-13) + 530140\,a(n-14) + 2648017\,a(n-15) - 619565\,a(n-16) - 439672\,a(n-17) + 116050\,a(n-18) + 17928\,a(n-19) - 3952\,a(n-20)
 \end{equation}
-for all $n>18$.
+for all $n>19$.
 
 \section{The condition is local, so the rows form a digraph}
 
@@ -65,7 +65,7 @@ the subblock is
 \]
 The entry's requirement on that subblock is
 \begin{equation}\label{eq:loc}
-\#\{\beta-\alpha,\ \delta-\beta,\ \gamma-\delta,\ \alpha-\gamma\}\in\{2,4\},
+4-\#\{\beta-\alpha,\ \delta-\beta,\ \gamma-\delta,\ \alpha-\gamma\}\;=\;1,
 \end{equation}
 a condition on the four entries alone.
 
@@ -100,13 +100,13 @@ length $k$ from $r$ to $s$. The entry's index $n$ corresponds to $L=n+1$ rows. T
 
 \section{The criterion}
 
-Let $q(t)=t^{19}-\sum_i c_i\,t^{19-i}$ be the characteristic polynomial of
+Let $q(t)=t^{20}-\sum_i c_i\,t^{20-i}$ be the characteristic polynomial of
 \eqref{eq:conj}, with the $c_i$ read off that equation.
 
 \begin{lemma}\label{lem:crit}
-For every $n$ with $n+1-1\ge19$,
+For every $n$ with $n+1-1\ge20$,
 \[
-a(n)-\sum_i c_i\,a(n-i)\;=\;\tfrac1{2}\mathbf{1}^{\!\top}M^{\,n+1-1-19}\,q(M)\,\mathbf{1} .
+a(n)-\sum_i c_i\,a(n-i)\;=\;\tfrac1{2}\mathbf{1}^{\!\top}M^{\,n+1-1-20}\,q(M)\,\mathbf{1} .
 \]
 Hence \eqref{eq:conj} holds from that point on if and only if
 $\mathbf{1}^{\!\top}M^{j}q(M)\mathbf{1}=0$ for every $j\ge0$; and it is enough to check
@@ -118,10 +118,10 @@ By Lemma~\ref{lem:walk}, $a(n-i)=\tfrac1{2}\mathbf{1}^{\!\top}M^{\,n+1-1-i}\math
 \[
 a(n)-\sum_i c_i a(n-i)
 =\tfrac1{2}\mathbf{1}^{\!\top}\Bigl(M^{m}-\sum_i c_i M^{m-i}\Bigr)\mathbf{1}
-=\tfrac1{2}\mathbf{1}^{\!\top}M^{\,m-19}\,q(M)\,\mathbf{1}
+=\tfrac1{2}\mathbf{1}^{\!\top}M^{\,m-20}\,q(M)\,\mathbf{1}
 \]
 with $m=n+1-1$, which is the stated identity; the scalar $\tfrac1{2}$ never vanishes, so it does not affect whether the left side is zero, and the equivalence follows by letting
-$m-19=j$ run over $\ge0$. For the last clause put $w=q(M)\mathbf{1}$. By the
+$m-20=j$ run over $\ge0$. For the last clause put $w=q(M)\mathbf{1}$. By the
 Cayley--Hamilton theorem $M^{S}$ is an integer combination of $I,M,\dots,M^{S-1}$, so
 $\mathbf{1}^{\!\top}M^{j}w$ for $j\ge S$ is the corresponding combination of the earlier
 values; if those all vanish, so do all the rest.
@@ -130,7 +130,7 @@ values; if those all vanish, so do all the rest.
 \section{The computation}
 
 \begin{theorem}
-The recurrence \eqref{eq:conj} holds for every $n>18$, which is the statement of
+The recurrence \eqref{eq:conj} holds for every $n>19$, which is the statement of
 Section~1.
 \end{theorem}
 
@@ -138,12 +138,12 @@ Section~1.
 The digraph was constructed from \eqref{eq:loc} by a depth-first scan across the $3$
 columns: the edge condition is a conjunction of one constraint per consecutive column
 pair, so the successors of a row $r$ are enumerated column by column without testing all
-$S^2$ pairs. The vector $w=q(M)\mathbf{1}\in\mathbb{Z}^{S}$ was then formed by $19$
+$S^2$ pairs. The vector $w=q(M)\mathbf{1}\in\mathbb{Z}^{S}$ was then formed by $20$
 matrix--vector products in exact integer arithmetic, and $\mathbf{1}^{\!\top}M^{j}w$ was
 evaluated for $j=0,1,\dots$, again exactly. Every one of those integers vanishes from the
-index corresponding to $n=18+1$ onwards, and the run continued until $w$ itself was the
+index corresponding to $n=19+1$ onwards, and the run continued until $w$ itself was the
 zero vector, which settles every larger $j$ at once. By Lemma~\ref{lem:crit} the recurrence
-holds for every $n>18$.
+holds for every $n>19$.
 \end{proof}
 
 \begin{remark}
@@ -174,7 +174,7 @@ throughout.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A209907.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A209781.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

@@ -15,7 +15,14 @@ ENGNAME = {'transfer81': 'canonical-subblock', 'transfer82': 'subblock-condition
            'transfer33': 'subblock-difference', 'transfer41': 'cell-condition',
            'transfer42': 'cell-condition-pattern', 'transfer45': 'consecutive-triple',
            'transfer53': 'modular-neighbour', 'transfer32': 'monotone-subblock',
-           'transfer55': 'repeated-value', 'transfer60': 'capped-pair-count'}
+           'transfer55': 'repeated-value', 'transfer60': 'capped-pair-count',
+           # the engines whose model is not a walk: without these the default
+           # 'transfer-matrix' label would be as false as unibuild's digraph was
+           'latpoly': 'lattice-quasipolynomial', 'ordpoly': 'fixed-length-polynomial',
+           'necklace': 'necklace-burnside', 'multiset': 'multiset-profile',
+           'cuspdim': 'cusp-form-dimension', 'ca2d': 'automaton-axis',
+           'ecarow': 'automaton-row', 'permdisp': 'bounded-displacement',
+           'window': 'window-condition', 'repval': 'repeated-value-chain'}
 eng = {int(k): v for k, v in json.load(open('paper-engines.json')).items()}
 have = {v['anum'] for v in eng.values()}
 nxt = max(eng) + 1

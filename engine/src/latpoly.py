@@ -790,9 +790,26 @@ def _heights(p, budget=250000):
     tot = 1
     for i in range(L):
         tot = tot * (len(H) - i) // (i + 1)
-    if tot > budget:
+    if tot <= budget:
+        return _rays([tuple(list(f) + [c]) for f, c in H], L, boxes, eqs)
+    # The arrangement carries two hyperplanes for every box form, so C(|H|, L) grows fast: for
+    # nine elements it is 4.7 million where the forms alone give 49 thousand. Falling back to
+    # the CRUDER bound is still rigorous -- t* divides the determinant of the x-parts whether
+    # or not the ray meets the region, and dropping the ones outside only sharpens it -- and
+    # it is what these entries were proved with before the sharper version existed. Refusing
+    # instead lost them.
+    F = sorted({f for f, _c in H})
+    tot = 1
+    for i in range(L):
+        tot = tot * (len(F) - i) // (i + 1)
+    if tot > 4 * budget:
         return None
-    return _rays([tuple(list(f) + [c]) for f, c in H], L, boxes, eqs)
+    T = set()
+    for S in combinations(F, L):
+        d = _det([list(v) for v in S])
+        if d:
+            T.add(abs(d))
+    return T
 
 
 def _totient(m):

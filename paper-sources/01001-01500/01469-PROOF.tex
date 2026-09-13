@@ -12,93 +12,95 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A206393, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A229386, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{7 September 2026}
+\date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A206393 counts arrays in which no entry may equal the entries at a short list of fixed offsets
-from it, the arrays being counted up to renaming the letters. The entry carries an empirical
-recurrence of order $59$ contributed by R.~H.~Hardin. It is true, and it is decidable
-rather than empirical. The condition tests only whether two cells are equal, so it survives
-renaming; the count of classes is recovered from counts over fixed alphabets by inverting a
-triangular system of falling factorials, and each of those is a walk count on a window of
-$2$ consecutive rows, $S=129312$ states in all.
+OEIS A229386 counts the distinct arrays obtained by applying a fixed local operation to every cell
+of an array over a bounded alphabet, and carries an empirical recurrence of order $4$
+contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical. What is
+counted is the IMAGE of a map, not its domain, so it is not a walk count in the obvious graph;
+determinising the machine that emits the derived array row by row turns it into one, on
+$S=11$ states, after which the conjectured recurrence is settled by a finite exact
+computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A18, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 68Q45, 15B36.\normalsize
 
 \section{The conjecture}
 
-OEIS A206393 is ``Number of nX5 0..5 arrays with no element equal to another within a city block distance of two, and new values 0..5 introduced in row major order.''. It has offset $1$ and begins
+OEIS A229386 is ``Number of n X 2 0..3 arrays of the sum of the corresponding element, the element to the east and the element to the south in a larger (n+1) X 3 0..1 array.''. It has offset $1$ and begins
 \[
-5, 172, 1592, 16784, 170796, 1787258, 18574298, 193499878,\ \dots
+14, 128, 1064, 8592, 68672, 546752, 4346752, 34537984,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 19*a(n-1) -28*a(n-2) -1368*a(n-3) +6837*a(n-4) +30894*a(n-5) -259715*a(n-6) -158240*a(n-7) +4305294*a(n-8) -2907345*a(n-9) -36456187*a(n-10) +17700441*a(n-11) +264833772*a(n-12) +359253348*a(n-13) -3077852142*a(n-14) -4085375360*a(n-15) +29632825925*a(n-16) +13040334064*a(n-17) -175557464522*a(n-18) -60798023894*a(n-19) +1054573134761*a(n-20) +156059590354*a(n-21) -7365833614192*a(n-22) +9642172417687*a(n-23) +18919359102713*a(n-24) -74981349795094*a(n-25) +77760958965261*a(n-26) +59754494935940*a(n-27) -287857949600101*a(n-28) +691064089663409*a(n-29) -956324740445126*a(n-30) -738343162745785*a(n-31) +3909998344750953*a(n-32) -3355221285631341*a(n-33) -1701316400605256*a(n-34) +3179682162276913*a(n-35) -270478484532986*a(n-36) -5293044447668192*a(n-37) +25344266042370966*a(n-38) -28784566717360175*a(n-39) -17947836174493735*a(n-40) +67609956522748602*a(n-41) -101102908627491482*a(n-42) +104803692847485310*a(n-43) -57693328594689530*a(n-44) -10870560756068936*a(n-45) +69553561235094500*a(n-46) -80973326026485056*a(n-47) +47246917468719560*a(n-48) -11386765181702208*a(n-49) -2931176567684912*a(n-50) +4099580409184672*a(n-51) -2335307914381056*a(n-52) +605917226114688*a(n-53) +41498237271040*a(n-54) -93505834844160*a(n-55) +25819492058112*a(n-56) +690971830272*a(n-57) -51588218880*a(n-58) +2691366912*a(n-59) for n>63
+Empirical: a(n) = 12*a(n-1) - 36*a(n-2) + 32*a(n-3) - 16*a(n-4).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 12:55:46, revision 9) this is still
+As of the ``Last modified'' line on the live entry (Sep 14 2018 16:12:13, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-Entries lie in $\{0,1,\dots,5\}$ and the condition is that
+Let $R$ be the set of rows of length $3$ over $\{0,\dots,1\}$.
+For a larger array $A=(r_1,\dots,r_{n+1})$ of $n+1$ such rows let $\Phi(A)$ be the
+$n\times2$ array with
 \[
-x(i,j)\ \ne\ x(i+d_1,\,j+d_2)\qquad\text{for each offset }(d_1,d_2)\in\{(-2,0), (-1,-1), (-1,0), (-1,1), (0,-2), (0,-1), (0,1), (0,2), (1,-1), (1,0), (1,1), (2,0)\}
+\Phi(A)(i,j)\;=\;\operatorname{sum}\bigl(A(i,j),\,A(i,j+1),\,A(i+1,j)\bigr),
 \]
-whenever the second cell lies inside the array. The offsets are not written out in the entry: they are named by a
-DISTANCE rule --- so many positions along a row or column, or a city block distance --- and the
-list above is that rule read out. The closing clause ``new values $0..5$ introduced in row
-major order'' says the array is the canonical representative of its equality pattern.
+the element, the one to its east and the one to its south. The entry counts
+\[
+a(n)\;=\;\bigl|\{\Phi(A)\}\bigr| ,
+\]
+the size of an IMAGE. That is the whole difficulty: two different larger arrays with the same
+derived array must be counted once, and a walk count on the larger arrays would count them
+twice.
 
-\begin{lemma}\label{lem:order}
-The number counted does not depend on the order in which the array is read.
+Row $i$ of $\Phi(A)$ reads rows $i$ and $i+1$ of $A$ and nothing else, so
+writing $\beta(r,x)$ for the derived row produced by two consecutive rows,
+\[
+\Phi(r_1,\dots,r_{n+1})=\bigl(\beta(r_1,r_2),\ \dots,\ \beta(r_n,r_{n+1})\bigr),
+\]
+and there is no row emitted with nothing below it.
+
+\section{The image is a walk count after determinisation}
+
+For a set $D$ of rows and a derived row $b$ put
+\[
+\delta(D,b)=\{x\in R:\ r\in D,\ \beta(r,x)=b\},
+\]
+and let $D_0=R$.
+
+\begin{lemma}\label{lem:det}
+For every $t\ge0$, $D_t=\delta(\dots\delta(D_0,b_1)\dots,b_t)$ is exactly the set of rows
+$r_{t+1}$ completing a prefix $r_1,\dots,r_{t+1}$ whose derived rows are $b_1,\dots,b_t$.
+Consequently $a(n)$ is the number of sequences $(b_1,\dots,b_n)$ with $D_n\neq\emptyset$.
 \end{lemma}
 
 \begin{proof}
-The condition tests only whether two cells carry equal values, so it is unchanged by permuting
-the alphabet, and the admissible arrays fall into classes under renaming. Fix any reading order
-of the cells. Each class contains exactly one array whose distinct values, in order of first
-appearance in that reading, are $0,1,2,\dots$: take any member and rename its values by their
-rank of first appearance. So the count is the number of CLASSES, whatever reading order is
-meant.
+Induction on $t$: $D_0=R$ is the set of possible first rows, and $\delta(D_t,b)$ collects the
+rows $r_{t+2}$ for which some consistent prefix ends in a row $r_{t+1}$ with
+$\beta(r_{t+1},r_{t+2})=b$. A derived array of $n$ rows is realisable exactly when the
+corresponding $D_n$ is nonempty, and distinct sequences are distinct derived arrays.
 \end{proof}
 
-\section{From classes to fixed alphabets}
-
-Write $N_j$ for the number of classes on exactly $j$ letters and $L_i$ for the number of
-admissible arrays over an alphabet of $i$ letters. An array over $i$ letters is a class together
-with an injection of its letters into the alphabet, so
+So with $M$ the adjacency matrix of the digraph whose vertices are the reachable nonempty sets
+and which carries one edge $D\to\delta(D,b)$ for each $b$ with $\delta(D,b)\neq\emptyset$ ---
+several $b$ may lead to the same set, and then the edge is repeated, which is exactly right,
+since the derived arrays differ ---
 \[
-L_i\;=\;\sum_j N_j\,i(i-1)\cdots(i-j+1),
+a(n)\;=\;\iota^{\!\top}M^{\,n}\tau,\qquad \iota=e_{D_0},\quad \tau=(1,\dots,1)^{\!\top} .
 \]
-a triangular system with unit diagonal. By Lemma~\ref{lem:order} the entry counts
-$N_1+\dots+N_{6}$, so $a=\sum_i w_iL_i$ with $w=\mathbf{1}^{\!\top}F^{-1}$, $F$ the
-matrix of falling factorials.
+There are $S=11$ reachable sets, generated from $D_0$ outward, and $a$ is $C$-finite.
 
-\section{Each $L_i$ is a walk count}
-
-Equality is symmetric, so an offset and its negative forbid exactly the same pairs; replacing
-each offset by whichever of the two points BACKWARDS along the direction in which the array
-grows makes every pair tested once, from the later of its two cells. After that replacement no
-offset reaches more than $2$ rows back, so the window of the last $2$
-rows is a state and one step appends a row. A row not yet written is
-carried as a symbol, so the walk starts at the empty array and a walk of $t$ steps is an array
-of $t$ rows. Assembling $i=1,\dots,6$ as a disjoint union with $\iota$ carrying the
-weights cleared of denominators and $\tau=\mathbf{1}$,
-\[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=129312.
-\]
-The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
-published terms rather than assumed. In particular $a$ is $C$-finite.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{59}-\sum_i c_it^{59-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{4}-\sum_i c_it^{4-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -106,7 +108,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+59}-\sum_ic_iM^{j+59-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+4}-\sum_ic_iM^{j+4-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -115,44 +117,40 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;19\,a(n-1) - 28\,a(n-2) - 1368\,a(n-3) + 6837\,a(n-4) + 30894\,a(n-5) - 259715\,a(n-6) - 158240\,a(n-7) + 4305294\,a(n-8) - 2907345\,a(n-9) - 36456187\,a(n-10) + 17700441\,a(n-11) + 264833772\,a(n-12) + 359253348\,a(n-13) - 3077852142\,a(n-14) - 4085375360\,a(n-15) + 29632825925\,a(n-16) + 13040334064\,a(n-17) - 175557464522\,a(n-18) - 60798023894\,a(n-19) + 1054573134761\,a(n-20) + 156059590354\,a(n-21) - 7365833614192\,a(n-22) + 9642172417687\,a(n-23) + 18919359102713\,a(n-24) - 74981349795094\,a(n-25) + 77760958965261\,a(n-26) + 59754494935940\,a(n-27) - 287857949600101\,a(n-28) + 691064089663409\,a(n-29) - 956324740445126\,a(n-30) - 738343162745785\,a(n-31) + 3909998344750953\,a(n-32) - 3355221285631341\,a(n-33) - 1701316400605256\,a(n-34) + 3179682162276913\,a(n-35) - 270478484532986\,a(n-36) - 5293044447668192\,a(n-37) + 25344266042370966\,a(n-38) - 28784566717360175\,a(n-39) - 17947836174493735\,a(n-40) + 67609956522748602\,a(n-41) - 101102908627491482\,a(n-42) + 104803692847485310\,a(n-43) - 57693328594689530\,a(n-44) - 10870560756068936\,a(n-45) + 69553561235094500\,a(n-46) - 80973326026485056\,a(n-47) + 47246917468719560\,a(n-48) - 11386765181702208\,a(n-49) - 2931176567684912\,a(n-50) + 4099580409184672\,a(n-51) - 2335307914381056\,a(n-52) + 605917226114688\,a(n-53) + 41498237271040\,a(n-54) - 93505834844160\,a(n-55) + 25819492058112\,a(n-56) + 690971830272\,a(n-57) - 51588218880\,a(n-58) + 2691366912\,a(n-59)
+a(n)\;=\;12\,a(n-1) - 36\,a(n-2) + 32\,a(n-3) - 16\,a(n-4)
 \]
-for every $n>63$.
+for every $n>3$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $59$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $4$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=63+1$ onwards and the run continued
-until the working vector was identically zero. The rational weights are carried as one common
-denominator, so no division is performed until the final term.
+integers vanish from the index corresponding to $n=3+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
-Four checks, each independent of the algebra above.
+Three checks, each independent of the algebra above.
 
-First, the model reproduces all $17$ terms the entry publishes, exactly, in integer
-arithmetic.
+First, the model reproduces all $19$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry: the machine is built by reading the
+entry's English, and a misreading gives different counts.
 
-Second, the count was recomputed for the smallest arrays straight from the definition:
-enumerate every array over $\{0,\dots,5\}$, keep those whose values are introduced in the
-order $0,1,2,\dots$ reading row by row, and test each offset directly. Neither the window, nor
-the backward normalisation of the offsets, nor the falling-factorial inversion is involved, and
-the published terms came back.
-
-Third, the conjectured recurrence was evaluated directly on the published terms, with no
+Second, the conjectured recurrence was evaluated directly on those published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
 
-Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
 arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A206393.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A229386.
+\bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata
+Theory, Languages, and Computation}, 3rd ed., Addison--Wesley, 2006. (The subset
+construction, Section 2.3.)
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; falling factorials,
-Section 1.9.)
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

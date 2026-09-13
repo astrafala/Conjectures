@@ -12,23 +12,23 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical closed form for OEIS A224137, proved}
+\title{The empirical closed form for OEIS A207110, proved}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A224137 carries an empirical closed form for $a(n)$ --- not a recurrence relating
+OEIS A207110 carries an empirical closed form for $a(n)$ --- not a recurrence relating
 consecutive terms but an explicit formula. It is true, and it is decidable rather than
 empirical. The entry counts arrays subject to a condition on a bounded window of consecutive lines, so the lines of an array are the
 vertices of a finite digraph, an array is a walk in it, and $a(n)$ is a walk count on
-$S=4096$ vertices. Any function of the form $\sum_j p_j(n)\lambda_j^{\,n}$ satisfies the
+$S=625$ vertices. Any function of the form $\sum_j p_j(n)\lambda_j^{\,n}$ satisfies the
 monic linear recurrence whose characteristic polynomial is
-$\prod_j(x-\lambda_j)^{\deg p_j+1}$; here that polynomial is $q(x)=(x-1)^{7}$, of degree
-$7$. Two things are then checked exactly: that the walk count satisfies the same
+$\prod_j(x-\lambda_j)^{\deg p_j+1}$; here that polynomial is $q(x)=(x-1)^{8}$, of degree
+$8$. Two things are then checked exactly: that the walk count satisfies the same
 recurrence from some index on, which the Cayley--Hamilton theorem reduces to a finite
-computation, and that the two sequences agree at $7$ consecutive indices past that
+computation, and that the two sequences agree at $8$ consecutive indices past that
 point. A monic recurrence determines every later term from its predecessors, so agreement
 there is agreement for good.
 \end{abstract}
@@ -37,18 +37,18 @@ there is agreement for good.
 
 \section{The conjecture}
 
-OEIS A224137 is ``Number of 6 X n 0..1 arrays with rows nondecreasing and antidiagonals unimodal.''. It has offset $1$ and begins
+OEIS A207110 is ``Number of n X 7 0..1 arrays avoiding 0 0 0 and 0 1 1 horizontally and 0 0 1 and 1 1 0 vertically.''. It has offset $1$ and begins
 \[
-64, 729, 2692, 6392, 12874, 24095, 42832, 72888,\ \dots
+25, 625, 3399, 11511, 30415, 68737, 139341, 260597,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = (2/45)*n\^{}6 + (8/15)*n\^{}5 + (181/36)*n\^{}4 + 28*n\^{}3 + (19247/180)*n\^{}2 + (3952/15)*n - 120 for n>4.
+Empirical: a(n) = (1/280)*n\^{}7 + (7/45)*n\^{}6 + (47/15)*n\^{}5 + (206/9)*n\^{}4 + (4111/120)*n\^{}3 - (1037/45)*n\^{}2 - (4493/210)*n + 9.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Aug 27 2018 08:14:31, revision 9) this is still
+As of the ``Last modified'' line on the live entry (Jul 22 2025 20:01:44, revision 11) this is still
 recorded as empirical, and nothing on the entry records it as proved. Write
 \[
-f(n)\;=\;\frac{2 n^{6}}{45} + \frac{8 n^{5}}{15} + \frac{181 n^{4}}{36} + 28 n^{3} + \frac{19247 n^{2}}{180} + \frac{3952 n}{15} - 120.
+f(n)\;=\;\frac{n^{7}}{280} + \frac{7 n^{6}}{45} + \frac{47 n^{5}}{15} + \frac{206 n^{4}}{9} + \frac{4111 n^{3}}{120} - \frac{1037 n^{2}}{45} - \frac{4493 n}{210} + 9.
 \]
 
 \section{The count is a walk count}
@@ -56,7 +56,7 @@ f(n)\;=\;\frac{2 n^{6}}{45} + \frac{8 n^{5}}{15} + \frac{181 n^{4}}{36} + 28 n^{
 The entry's defining condition is local: it is a condition on a bounded window of consecutive lines. Take as vertices the
 admissible configurations of such a window and put an edge from $u$ to $v$ when $v$ may
 follow $u$, which the condition decides by inspection. An admissible array is then exactly a
-walk, so with $M$ the adjacency matrix of that digraph on $S=4096$ vertices, and $u,w$ the
+walk, so with $M$ the adjacency matrix of that digraph on $S=625$ vertices, and $u,w$ the
 vectors recording which windows may start and end an array,
 \[
 a(n)\;=\;u^{\!\top}M^{\,g(n)}w
@@ -83,9 +83,9 @@ $p(m+1)-p(m)$ has degree one less than $p$. So $(E-\lambda)^{\deg p+1}$ kills
 $\lambda^{m}p(m)$, and the factors of $q$ commute.
 \end{proof}
 
-Here $q(x)=(x-1)^{7}$, of degree $7$; the closed form is a polynomial in $n$, so this is $(x-1)^{7}$, and the recurrence it encodes is
+Here $q(x)=(x-1)^{8}$, of degree $8$; the closed form is a polynomial in $n$, so this is $(x-1)^{8}$, and the recurrence it encodes is
 \begin{equation}\label{eq:rec}
-a(n)\;=\;7\,a(n-1) - 21\,a(n-2) + 35\,a(n-3) - 35\,a(n-4) + 21\,a(n-5) - 7\,a(n-6) + a(n-7).
+a(n)\;=\;8\,a(n-1) - 28\,a(n-2) + 56\,a(n-3) - 70\,a(n-4) + 56\,a(n-5) - 28\,a(n-6) + 8\,a(n-7) - a(n-8).
 \end{equation}
 
 \section{The proof}
@@ -105,43 +105,43 @@ threshold exactly.
 \end{proof}
 
 \begin{theorem}
-$a(n)=f(n)$ for every $n\ge5$.
+$a(n)=f(n)$ for every $n\ge1$.
 \end{theorem}
 
 \begin{proof}
-The vector $w'=q(M)w$ was formed by $7$ matrix--vector products in exact integer
+The vector $w'=q(M)w$ was formed by $8$ matrix--vector products in exact integer
 arithmetic, and $u^{\!\top}M^{j}w'$ evaluated for $j=0,1,\dots$, again exactly. Those integers
-vanish from the point corresponding to $n=12$ onwards, and the run was continued until the
+vanish from the point corresponding to $n=9$ onwards, and the run was continued until the
 working vector was identically zero, which settles every larger $j$ at once. So $a$ satisfies
-\eqref{eq:rec} for every $n>11$. By Lemma~\ref{lem:ann} $f$ satisfies \eqref{eq:rec}
-identically. Both were then evaluated in exact arithmetic at the $7$ consecutive indices
-$n=12,\dots,18$ and agree at each. A monic recurrence of order $7$
-determines $a(m)$ from $a(m-1),\dots,a(m-7)$, and for every $m\ge19$ both
-$m>11$ and $m-7\ge12$ hold, so induction on $m$ gives $a(m)=f(m)$ for every
-$m\ge12$.
-Below $n=12$ the recurrence argument gives nothing, since \eqref{eq:rec} is only
-established for $a$ from $n=12$ on. The remaining indices $n=5,\dots,11$ were
+\eqref{eq:rec} for every $n>8$. By Lemma~\ref{lem:ann} $f$ satisfies \eqref{eq:rec}
+identically. Both were then evaluated in exact arithmetic at the $8$ consecutive indices
+$n=9,\dots,16$ and agree at each. A monic recurrence of order $8$
+determines $a(m)$ from $a(m-1),\dots,a(m-8)$, and for every $m\ge17$ both
+$m>8$ and $m-8\ge9$ hold, so induction on $m$ gives $a(m)=f(m)$ for every
+$m\ge9$.
+Below $n=9$ the recurrence argument gives nothing, since \eqref{eq:rec} is only
+established for $a$ from $n=9$ on. The remaining indices $n=1,\dots,8$ were
 therefore checked one at a time, directly against the walk count in exact integer arithmetic,
 and agree.
 \end{proof}
 
-The range is tight in the sense that was checked: at $n=4$ the closed form and the sequence differ, so no larger range is available.
+The range is tight in the sense that was checked: the closed form holds from the entry's first term onwards.
 
 \section{Verification}
 
 Four checks, each independent of the algebra above.
 
-First, the walk model reproduces every one of the $29$ terms the entry publishes,
+First, the walk model reproduces every one of the $26$ terms the entry publishes,
 exactly, in integer arithmetic. This is what ties the model to the entry: the model is built
 by reading the entry's English, and a misreading gives a different digraph and different
 counts.
 
 Second, the closed form was evaluated in exact rational arithmetic --- not floating point ---
-at every published term from $n=5$ on, and agrees with the entry's own DATA at each.
+at every published term from $n=1$ on, and agrees with the entry's own DATA at each.
 
 Third, the annihilation test of Lemma~\ref{lem:crit} was carried out exactly, and the model
 and the closed form were then compared directly at sixty consecutive indices beyond
-$n=5$, far past where the proof already settles the matter.
+$n=1$, far past where the proof already settles the matter.
 
 Fourth, the closed form was deliberately perturbed --- by a constant and by a term linear in
 $n$ --- and each perturbed form was rejected by the same comparison, so the test is not one
@@ -149,7 +149,7 @@ that anything would pass.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A224137.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A207110.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; $C$-finite sequences,
 Section 4.1.)

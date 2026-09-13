@@ -12,141 +12,127 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A189146, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A200039, proved from an exact model}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{6 September 2026}
+\date{12 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A189146 counts the permutations of the cells of an $n\times3$ array in which every cell
-moves by one of a fixed short list of offsets. The entry carries an empirical recurrence of
-order $58$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
-empirical. The count is the permanent of the incidence matrix of the offset graph; read the
-cells in row-major order and let each choose its image, and the only thing that has to be
-carried is which images inside a window of $15$ consecutive positions are already taken.
-That makes $a$ a walk count on $S=1254$ states, hence $C$-finite, and whether the published
-recurrence is one of its recurrences is then a finite exact computation.
+OEIS A200039 carries an empirical recurrence of order $4$. It is true, and it is
+decidable rather than empirical. The entry's sequence is given exactly by an Ehrhart quasi-polynomial, from
+which $a$ provably satisfies a MONIC linear recurrence of order $S=9$, derived below and not
+assumed. The residual of the conjectured recurrence satisfies the same one, so whether it
+annihilates $a$ is settled by a finite exact computation. No transfer matrix is involved and
+the count is not a walk.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A05, 05A15, 15A15.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A19, 11P21.\normalsize
 
 \section{The conjecture}
 
-OEIS A189146 is ``Number of n X 3 array permutations with each element making zero or one knight moves.''. It has offset $1$ and begins
+OEIS A200039 is ``Number of -n..n arrays x(0..2) of 3 elements with sum zero and with zeroth through 2nd differences all nonzero.''. It has offset $1$ and begins
 \[
-1, 4, 49, 569, 4372, 42689, 412189, 3988132,\ \dots
+0, 2, 14, 28, 52, 78, 114, 152,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 9*a(n-1) +48*a(n-2) -371*a(n-3) +173*a(n-4) -4636*a(n-5) -21700*a(n-6) +321034*a(n-7) -261016*a(n-8) -939316*a(n-9) +8804712*a(n-10) -89239632*a(n-11) +89709648*a(n-12) +830637056*a(n-13) -2499914752*a(n-14) +6390654336*a(n-15) -987233536*a(n-16) -98495866880*a(n-17) +227291122176*a(n-18) -22499119616*a(n-19) -574642074624*a(n-20) +4090433287168*a(n-21) -8710999644160*a(n-22) -9262792159232*a(n-23) +33961426997248*a(n-24) -59705619185664*a(n-25) +164268932415488*a(n-26) +206996041138176*a(n-27) -959952477028352*a(n-28) +148261211865088*a(n-29) +225201818959872*a(n-30) -528765464084480*a(n-31) +2794884482203648*a(n-32) +3264721555816448*a(n-33) +9397359024799744*a(n-34) -32363504358916096*a(n-35) -14560459025809408*a(n-36) +41205664512475136*a(n-37) -65070379105779712*a(n-38) +117763114509795328*a(n-39) -26803976066301952*a(n-40) +132124530591137792*a(n-41) +236469835482005504*a(n-42) -1308758689225637888*a(n-43) +382298681149227008*a(n-44) +1688786500906385408*a(n-45) -1092767223451222016*a(n-46) -1774519408253730816*a(n-47) +3781671287689052160*a(n-48) -211699968811991040*a(n-49) -6414401302863806464*a(n-50) +3737846953229156352*a(n-51) +2510967898491584512*a(n-52) +740560663725735936*a(n-53) -4415779434636771328*a(n-54) +2508504992445366272*a(n-55) +54043195528445952*a(n-56) -1152921504606846976*a(n-57) +576460752303423488*a(n-58)
+Empirical: a(n) = 2*a(n-1) -2*a(n-3) +a(n-4).
 \end{quote}
-As of the ``Last modified'' line on the live entry (May 06 2014 02:32:05, revision 13) this is still
-recorded as empirical, and nothing on the entry records it as proved.
+As of the ``Last modified'' line on the live entry (May 17 2018 09:10:07, revision 8)
+this is still recorded as empirical, and nothing on the entry records it as proved.
 
-\section{What is being counted}
+\section{The count is a quasi-polynomial}
 
-Write the cells of the array as pairs $(i,j)$ with $0\le i<n$ and $0\le j<3$. An
-\emph{array permutation} of the kind the entry counts is a bijection $\pi$ from the cells to
-the cells such that for every cell,
+The array has a FIXED number $L$ of entries and an alphabet that grows with $n$. Every
+condition the entry imposes is a boolean combination of statements
+$\sum_i c_ix_i + c\,n \bowtie 0$ with integer coefficients and $\bowtie$ one of
+$=,\ne,<,\le,>,\ge$: the bounds $|x_i|\le n$ or $0\le x_i\le n$, a vanishing sum, a difference
+that must not vanish, a pair that must total exactly $n$. Each is homogeneous in $(x,n)$
+jointly, so the admissible $x$ for a given $n$ are precisely the integer points at height $n$
+of a finite union of relatively open rational cones in $\mathbb{R}^{L+1}$, and $a(n)$ is
+the Ehrhart quasi-polynomial of that union: of degree at most $L$, with period dividing the
+heights of the cones' ray generators.
+
+\section{The bound}
+
+The period is derived, not assumed. Every ray of every cell of the arrangement is cut out by
+$L$ linearly independent hyperplanes taken from the constraint set; writing that $L\times(L+1)$
+system as $M$, its null direction has $t$-component $\pm\det$ of the $x$-parts, so the
+primitive generator $(x^*,t^*)$ has $t^*$ dividing that determinant. Let $T$ be the set of
+those determinants. A simplicial cone in a triangulation has at most $L+1$ rays, each
+contributing a factor $1-z^{t_i}$ with $t_i\in T$, so
 \[
-\pi(i,j)-(i,j)\;\in\;\Delta,\qquad
-\Delta=\{\,(-2,-1),\ (-2,1),\ (-1,-2),\ (-1,2),\ (0,0),\ (1,-2),\ (1,2),\ (2,-1),\ (2,1)\,\}.
+A(z)\;=\;\prod_{d\,\mid\,t\ \text{for some}\ t\in T}\Phi_d(z)^{L+1}
 \]
-The offsets are what the name's words say: the eight knight moves. A cell is allowed to stay where it is, and $(0,0)$ is one of the offsets.
+annihilates $a$, and $S=\deg A=9$. A congruence condition modulo $m$ is counted one residue
+class at a time; a class is a coset of $m\mathbb{Z}^L$, and a generator primitive in
+$\mathbb{Z}^{L+1}$ must be scaled by a divisor of $m$ to lie in it, so each $t$ is replaced
+by $mt$ and nothing else changes.
 
-A move is only allowed when its target is a cell of the array, so cells near an
-edge have fewer choices. The reading is pinned against the entry's own published terms rather
-than assumed: taking ``diagonally, horizontally or vertically'' to mean all eight king moves
-gives $24$ where A189305 publishes $14$.
-
-Equivalently, $a(n)$ is the permanent of the $n3\times n3$ matrix whose $(c,c')$ entry is
-$1$ exactly when $c'-c\in\Delta$.
-
-\section{A window of 15 positions}
-
-Number the cells in row-major order, $k=i\cdot3+j$. An offset $(\delta_1,\delta_2)$ moves a
-cell by $\delta_13+\delta_2$ places in that order, so every image lies between $lo=-7$ and
-$hi=7$ places from its source. Process the cells in order and let each one choose its image.
-Once the cell at position $k$ has been dealt with, the position $k+-7$ can never be chosen
-again by anybody, so it must already be taken; and no position beyond $k+7$ can have been
-taken yet. What has to be remembered is therefore exactly which of the $15$ positions
-$k+-7,\dots,k+7$ are taken --- a subset of a set of size $15$, and nothing else.
-
-That is the state. One step of the walk is one row, that is $3$ cell choices, and the
-condition ``the position leaving the window is taken'' is what makes the walk count permutations
-rather than partial injections: every position is taken exactly once, once at the moment it
-leaves the window.
-
-The two boundaries are the same condition. Images above the first row do not exist, so the walk
-starts with exactly the window positions lying above the array marked as taken. Images below the
-last row do not exist either, so the walk must end with exactly those positions marked and
-nothing beyond. In the window's own coordinates those two masks are equal, so the start state is
-also the only accepting state and
-\[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=1254,
-\]
-for the transfer matrix $M$ on those $S$ states. The walk index $j$ and the entry's own $n$
-differ by a constant, read off by matching the published terms rather than assumed. In
-particular $a$ is $C$-finite.
+Over the common denominator the numerator has degree below that of $A$ for every cell of the
+arrangement that HAS a ray, because such a cell's numerator collects a fundamental
+parallelepiped whose heights are below the sum of its generators' heights. The origin is a cell
+too and it has none: its series is the constant $1$, which over $A$ is $A/A$ and reaches degree
+exactly $\deg A$. The bound in force is therefore $zA(z)$, of order $S=9$, and
+$a(0),\dots,a(S-1)$, computed exactly, determine every later term. Nothing is fitted, and the
+annihilator is tested on terms the model was not asked for before anything is claimed --- a
+bound one too small fails that test, which is how this one was found.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{58}-\sum_i c_it^{58-i}$ be the characteristic polynomial of the
-conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
-$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
-holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
-and it is enough to examine $j<S$.
+Let $A(z)=z^S-\sum_{j<S}\alpha_jz^{j}$ be the monic annihilator derived above and
+$q(z)=z^{4}-\sum_ic_iz^{4-i}$ the characteristic polynomial of the conjectured
+recurrence. The residual $r(n)=a(n)-\sum_ic_ia(n-i)$ is a linear combination of shifts of $a$,
+so $A$ annihilates $r$ as well. Since $A(0)\ne0$ the recurrence it gives runs in both
+directions, and $S$ consecutive zeros of $r$ force $r$ to vanish at every later index.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+58}-\sum_ic_iM^{j+58-i}$. For the bound, $M^{S}$
-is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
-$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
-polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly.
+$A$ annihilates $a$, hence every shift of $a$, hence any linear combination of shifts; that is
+$r$. A monic recurrence with nonzero constant term determines each term from the $S$ before it
+and each from the $S$ after it, so a run of $S$ zeros propagates.
 \end{proof}
 
 \begin{theorem}
 \[
-a(n)\;=\;9\,a(n-1) + 48\,a(n-2) - 371\,a(n-3) + 173\,a(n-4) - 4636\,a(n-5) - 21700\,a(n-6) + 321034\,a(n-7) - 261016\,a(n-8) - 939316\,a(n-9) + 8804712\,a(n-10) - 89239632\,a(n-11) + 89709648\,a(n-12) + 830637056\,a(n-13) - 2499914752\,a(n-14) + 6390654336\,a(n-15) - 987233536\,a(n-16) - 98495866880\,a(n-17) + 227291122176\,a(n-18) - 22499119616\,a(n-19) - 574642074624\,a(n-20) + 4090433287168\,a(n-21) - 8710999644160\,a(n-22) - 9262792159232\,a(n-23) + 33961426997248\,a(n-24) - 59705619185664\,a(n-25) + 164268932415488\,a(n-26) + 206996041138176\,a(n-27) - 959952477028352\,a(n-28) + 148261211865088\,a(n-29) + 225201818959872\,a(n-30) - 528765464084480\,a(n-31) + 2794884482203648\,a(n-32) + 3264721555816448\,a(n-33) + 9397359024799744\,a(n-34) - 32363504358916096\,a(n-35) - 14560459025809408\,a(n-36) + 41205664512475136\,a(n-37) - 65070379105779712\,a(n-38) + 117763114509795328\,a(n-39) - 26803976066301952\,a(n-40) + 132124530591137792\,a(n-41) + 236469835482005504\,a(n-42) - 1308758689225637888\,a(n-43) + 382298681149227008\,a(n-44) + 1688786500906385408\,a(n-45) - 1092767223451222016\,a(n-46) - 1774519408253730816\,a(n-47) + 3781671287689052160\,a(n-48) - 211699968811991040\,a(n-49) - 6414401302863806464\,a(n-50) + 3737846953229156352\,a(n-51) + 2510967898491584512\,a(n-52) + 740560663725735936\,a(n-53) - 4415779434636771328\,a(n-54) + 2508504992445366272\,a(n-55) + 54043195528445952\,a(n-56) - 1152921504606846976\,a(n-57) + 576460752303423488\,a(n-58)
+a(n)\;=\;2\,a(n-1) - 2\,a(n-3) + a(n-4)
 \]
-for every $n>57$.
+for every $n>0$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $58$ matrix--vector products in exact integer
-arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=57+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once.
+The terms $a(0),\dots$ were computed exactly in integer arithmetic from the model, extended by
+$A$ where the model itself was not evaluated, and $r(n)$ formed for each index. Those integers
+vanish from $n=0+1$ onwards, and the run exceeds $S+4$, which by
+Lemma~\ref{lem:crit} settles every larger index at once.
 \end{proof}
 
 \section{Verification}
 
-Four checks, each independent of the algebra above.
+Three checks, each independent of the algebra above.
 
-First, the model reproduces all $19$ terms the entry publishes, exactly, in integer
-arithmetic.
+First, the model reproduces all $47$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry: it is built by reading the entry's
+English, and a misreading gives different counts.
 
-Second, the count was recomputed for the smallest arrays straight from the definition: the
-cells of the array were matched to their images one at a time, over the whole grid, with no
-window, no mask over a sliding frame and no transfer matrix, and the published terms came back.
-That computation shares nothing with the construction of Section~3 beyond the offset list.
+Second, the conjectured recurrence was evaluated directly on those published terms, with no
+model involved, and holds wherever the proved range and the data overlap.
 
-Third, the conjectured recurrence was evaluated directly on the published terms, with no
-matrices involved, and holds wherever the proved range and the data overlap.
-
-Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
-arithmetic on the whole vector rather than on a sampled prefix.
+Third, the derived annihilator $A$ was itself tested on terms it had not been given: the model
+was evaluated beyond the $S$ values that determine it and $A$ reproduced them. A bound that is
+too small fails this test, which is why it is run.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A189146.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A200039.
+\bibitem{beckrobins} M.~Beck and S.~Robins, \emph{Computing the Continuous Discretely},
+2nd ed., Springer, 2015. (Ehrhart quasi-polynomials and their periods.)
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{minc} H.~Minc, \emph{Permanents}, Encyclopedia of Mathematics and its
-Applications 6, Addison--Wesley, 1978.
+Cambridge University Press, 2011.
+\bibitem{ds} F.~Diamond and J.~Shurman, \emph{A First Course in Modular Forms},
+Springer GTM 228, 2005.
 \end{thebibliography}
 
 \end{document}

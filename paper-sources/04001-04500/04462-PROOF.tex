@@ -12,136 +12,142 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A207179, proved by transfer matrix}
+\title{The empirical product formula for OEIS A140943, proved}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{31 August 2026}
+\date{6 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A207179 counts arrays over $\{0,\dots,1\}$ of width $5$ that avoid the patterns
-$(0,0,0)$ along one axis and $(0,1,0)$ along the other, and carries an empirical recurrence of
-order $81$ contributed by R.~H.~Hardin. It is true. The patterns have length $3$, so
-the constraint across the growing direction ties together $3$ consecutive rows: taking a
-window of $2$ consecutive rows as a state makes the array a walk in a finite digraph
-on $S=576$ vertices, and $a(n)=\mathbf{1}^{\!\top}P^{\,n-2}\mathbf{1}$. Writing $q$
-for the characteristic polynomial of the conjectured recurrence, the residual is
-$\mathbf{1}^{\!\top}P^{\,n-2-81}q(P)\mathbf{1}$, which vanishes identically
-beyond a threshold that the computation pins down exactly. Finite, exact, integer.
+OEIS A140943 counts $11\times11$ matrices over $\{0,\dots,n\}$ whose rows and columns are
+nondecreasing, and carries a product formula for $a(n)$ marked empirical. Reversing rows and
+columns turns such a matrix into a plane partition inside a $11\times11\times n$ box, so
+MacMahon's box theorem applies; the triple product telescopes in its third index and leaves a
+polynomial in $n$ of degree $121$. The entry's own expression, cleared of its denominator,
+becomes an identity between two polynomials of bounded degree, and is therefore settled by a
+finite exact computation. The box count itself is classical and is already recorded on this
+entry; what is proved here is the entry's own formula.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 68R15, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A17, 05A19.\normalsize
 
-\section{The sequence and the conjecture}
+\section{The conjecture}
 
-OEIS A207179 is ``Number of nX5 0..1 arrays avoiding 0 0 0 horizontally and 0 1 0 vertically.''. It has offset
-$1$ and begins
+OEIS A140943 is ``Number of 11 X 11 matrices with elements in 0..n with each row and each column in nondecreasing order. 11,11,n can be permuted, see formula.''. It has offset $0$ and begins
 \[
-24, 576, 7915, 105836, 1507355, 21722593, 310484943,\ \dots
+1, 705432, 79483257308, 2543610972177184, 31148053701600494400,\ \dots
 \]
-The entry carries the following comment:
-\begin{quote}\small
-Empirical: a(n) = 12*a(n-1) -36*a(n-2) +634*a(n-3) +4098*a(n-4) +5462*a(n-5) +99665*a(n-6) -2831*a(n-7) -2711535*a(n-8) -5811471*a(n-9) -21595748*a(n-10) -50244781*a(n-11) +699156432*a(n-12) +2805186154*a(n-13) -1711985669*a(n-14) -23505060267*a(n-15) -41164099705*a(n-16) +4531263468*a(n-17) +230067134087*a(n-18) +623575317534*a(n-19) +491376424651*a(n-20) -1004604976989*a(n-21) -4315099768732*a(n-22) -8194599870080*a(n-23) -5269740168383*a(n-24) +9640114794896*a(n-25) +37729419354018*a(n-26) +71038437114243*a(n-27) +65206345331720*a(n-28) +6398077775057*a(n-29) -128912250552524*a(n-30) -313243092655199*a(n-31) -398842140156762*a(n-32) -410554148881289*a(n-33) -152310619852360*a(n-34) +174972950940365*a(n-35) +488932300795972*a(n-36) +728147007195199*a(n-37) +579508394228234*a(n-38) +432062400764247*a(n-39) +84249753457526*a(n-40) -114750756929761*a(n-41) -137702129617284*a(n-42) -144122080448237*a(n-43) -2109540225702*a(n-44) +39130879358369*a(n-45) +41776228840084*a(n-46) +41931377732835*a(n-47) -5407945067260*a(n-48) -10399911657259*a(n-49) -7890691832174*a(n-50) -7597475169707*a(n-51) +2336641327088*a(n-52) +2182853060509*a(n-53) +627246636214*a(n-54) +675379657161*a(n-55) -437255942895*a(n-56) -309434424065*a(n-57) +10359291184*a(n-58) -6522467343*a(n-59) +41315422680*a(n-60) +26330640167*a(n-61) -861631081*a(n-62) -654948570*a(n-63) -1173281053*a(n-64) -808363716*a(n-65) +55848554*a(n-66) +48087338*a(n-67) +8015714*a(n-68) +7272811*a(n-69) -159503*a(n-70) -369476*a(n-71) -45345*a(n-72) -63129*a(n-73) -4187*a(n-74) +1355*a(n-75) +401*a(n-76) +356*a(n-77) +18*a(n-78) -a(n-79) -a(n-80) -a(n-81)
+The entry states, as conjectures contributed by its author and never marked settled:
+\begin{quote}
+(empirical) set p,q,r to n,11,11 (in any order) in s=p+q+r-1; a(n) = product {i in 0..r-1} (binomial(s,p+i)*i!/(s-i)\^{}(r-i-1))
+
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 13:33:41, revision
-9) the statement is still recorded as empirical, and nothing on the entry
-records it as settled either way.
+As of the ``Last modified'' line on the live entry (Jan 28 2025 10:47:20, revision 8) these are still
+recorded as empirical, and nothing on the entry records them as proved.
 
-Written out, the claim is
-\begin{equation}\label{eq:conj}
-a(n)\;=\;12\,a(n-1) - 36\,a(n-2) + 634\,a(n-3) + 4098\,a(n-4) + 5462\,a(n-5) + 99665\,a(n-6) - 2831\,a(n-7) - 2711535\,a(n-8) - 5811471\,a(n-9) - 21595748\,a(n-10) - 50244781\,a(n-11) + 699156432\,a(n-12) + 2805186154\,a(n-13) - 1711985669\,a(n-14) - 23505060267\,a(n-15) - 41164099705\,a(n-16) + 4531263468\,a(n-17) + 230067134087\,a(n-18) + 623575317534\,a(n-19) + 491376424651\,a(n-20) - 1004604976989\,a(n-21) - 4315099768732\,a(n-22) - 8194599870080\,a(n-23) - 5269740168383\,a(n-24) + 9640114794896\,a(n-25) + 37729419354018\,a(n-26) + 71038437114243\,a(n-27) + 65206345331720\,a(n-28) + 6398077775057\,a(n-29) - 128912250552524\,a(n-30) - 313243092655199\,a(n-31) - 398842140156762\,a(n-32) - 410554148881289\,a(n-33) - 152310619852360\,a(n-34) + 174972950940365\,a(n-35) + 488932300795972\,a(n-36) + 728147007195199\,a(n-37) + 579508394228234\,a(n-38) + 432062400764247\,a(n-39) + 84249753457526\,a(n-40) - 114750756929761\,a(n-41) - 137702129617284\,a(n-42) - 144122080448237\,a(n-43) - 2109540225702\,a(n-44) + 39130879358369\,a(n-45) + 41776228840084\,a(n-46) + 41931377732835\,a(n-47) - 5407945067260\,a(n-48) - 10399911657259\,a(n-49) - 7890691832174\,a(n-50) - 7597475169707\,a(n-51) + 2336641327088\,a(n-52) + 2182853060509\,a(n-53) + 627246636214\,a(n-54) + 675379657161\,a(n-55) - 437255942895\,a(n-56) - 309434424065\,a(n-57) + 10359291184\,a(n-58) - 6522467343\,a(n-59) + 41315422680\,a(n-60) + 26330640167\,a(n-61) - 861631081\,a(n-62) - 654948570\,a(n-63) - 1173281053\,a(n-64) - 808363716\,a(n-65) + 55848554\,a(n-66) + 48087338\,a(n-67) + 8015714\,a(n-68) + 7272811\,a(n-69) - 159503\,a(n-70) - 369476\,a(n-71) - 45345\,a(n-72) - 63129\,a(n-73) - 4187\,a(n-74) + 1355\,a(n-75) + 401\,a(n-76) + 356\,a(n-77) + 18\,a(n-78) - a(n-79) - a(n-80) - a(n-81)
-\end{equation}
-for all $n>81$. 
+\section{What is being counted}
 
-\section{The array as a walk}
+A matrix $x$ of shape $11\times11$ with entries in $\{0,\dots,n\}$, nondecreasing along
+every row and down every column, becomes, on reversing the order of the rows and of the
+columns, an array that is NONINCREASING along rows and down columns with the same entries. That
+is exactly a plane partition whose parts are at most $n$ and whose shape fits inside a
+$11\times11$ rectangle --- a plane partition in a $11\times11\times n$ box. The
+correspondence is a bijection, being an involution on arrays, so
+\[
+a(n)\;=\;\mathrm{PP}(11,11,n).
+\]
+Note which parameter grows: the shape is FIXED and it is the alphabet $0..n$ that $n$ counts,
+so nothing about transfer matrices applies here.
 
-Call a row \emph{admissible} if the word it forms contains none of the patterns
-$(0,0,0)$ as $3$ consecutive entries. There are $24$ admissible rows; that condition
-involves a single row only.
+\section{The box count is a polynomial}
 
-The remaining patterns $(0,1,0)$ are forbidden along the other axis, so each of them
-constrains $3$ consecutive rows at a fixed position of the column. Take as state a
-window $w=\bigl(w^{(1)},\dots,w^{(2)}\bigr)$ of $2$ consecutive admissible
-rows, so $S=576$, and declare $w\to w'$ an edge when $w'$ is $w$ with its first entry
-dropped and one further admissible row $t$ appended, subject to: for every position
-$j$, the $3$-tuple read down the column $j$ across $w^{(1)},\dots,w^{(2)},t$
-is none of $(0,1,0)$. Let $P$ be the adjacency matrix.
+\begin{theorem}[MacMahon]\label{thm:mm}
+\[
+\mathrm{PP}(p,q,r)\;=\;\prod_{i=1}^{p}\prod_{j=1}^{q}\prod_{k=1}^{r}
+\frac{i+j+k-1}{i+j+k-2} .
+\]
+\end{theorem}
 
-\begin{lemma}\label{lem:walk}
-$a(n)=\mathbf{1}^{\!\top}P^{\,n-2}\mathbf{1}$ for every $n\ge2$.
-\end{lemma}
+This is classical; see Stanley~\cite{stanley}, and it is already recorded on this entry.
 
-\begin{proof}
-An array of the entry's kind with $n$ rows is a sequence of $n$ admissible rows in
-which no forbidden pattern appears along the other axis. Reading it as the sequence of its
-overlapping windows of length $2$ turns it into a walk: consecutive windows overlap in
-$1$ rows by construction, and the edge condition is exactly the requirement on the one
-new $3$-tuple that each step creates. Conversely a walk reassembles into such an array,
-and the two constructions are mutually inverse. A walk of length $n-2$ visits $n-1$
-windows, that is $n$ rows; summing over all starting and ending states gives
-$\mathbf{1}^{\!\top}P^{\,n-2}\mathbf{1}$.
-\end{proof}
-
-\section{The criterion}
-
-Let $q(t)=t^{81}-\sum_i c_i t^{81-i}$ be the characteristic polynomial of
-\eqref{eq:conj} and $u_j=\mathbf{1}^{\!\top}P^{j}q(P)\mathbf{1}$.
-
-\begin{lemma}\label{lem:crit}
-$a(n)-\sum_i c_i a(n-i)=u_{\,n-2-81}$ whenever $n-81\ge2$. Hence
-\eqref{eq:conj} holds for every $n>t$ exactly when $u_j=0$ for every
-$j>t-2-81$. Moreover $(u_j)$ satisfies the monic linear recurrence whose
-characteristic polynomial is that of $P$, of degree $S$, so $S$ consecutive zeros force all
-later ones and the last nonzero $u_j$ pins $t$ down exactly.
-\end{lemma}
-
-\begin{proof}
-Substituting Lemma~\ref{lem:walk} into the left side and factoring out
-$P^{\,n-2-81}$ gives the identity. The equivalence follows by letting the exponent
-run. For the last claim, Cayley--Hamilton gives $\chi(P)=0$ for the characteristic
-polynomial $\chi$ of $P$, so $\chi$ applied to the shift annihilates $(u_j)$; being monic of
-degree $S$, it propagates $S$ consecutive zeros forward.
-\end{proof}
-
-\section{The computation}
-
-\begin{theorem}
-The recurrence \eqref{eq:conj} holds for every $n>81$. This is the statement of
-Section~1.
+\begin{theorem}\label{thm:poly}
+\[
+a(n)\;=\;\prod_{i=1}^{11}\prod_{j=1}^{11}\frac{n+i+j-1}{i+j-1},
+\]
+a polynomial in $n$ of degree $121$ with rational coefficients.
 \end{theorem}
 
 \begin{proof}
-The vector $q(P)\mathbf{1}\in\mathbb{Z}^{S}$ was formed by $81$ matrix--vector
-products in exact integer arithmetic and the $u_j$ evaluated in turn. They vanish from the
-index corresponding to $n=81+1$ onwards, and the run was continued past $S$ consecutive
-zeros, which by Lemma~\ref{lem:crit} settles every larger index.
+In Theorem~\ref{thm:mm} the inner product over $k$ telescopes: for fixed $i$ and $j$,
+\[
+\prod_{k=1}^{n}\frac{i+j+k-1}{i+j+k-2}\;=\;\frac{n+i+j-1}{i+j-1} ,
+\]
+every other factor cancelling against its neighbour. The remaining double product has
+$11\cdot11=121$ factors, each linear in $n$, and the denominators are constants.
+\end{proof}
+
+So $a$ is a polynomial, and no appeal to Ehrhart theory or to any general position argument is
+needed to see it.
+
+\section{The entry's expression}
+
+The entry writes $s=p+q+r-1$ with $(p,q,r)=(n,11,11)$ and claims
+\[
+a(n)\;=\;\prod_{i=0}^{11-1}\binom{s}{n+i}\,\frac{i!}{(s-i)^{11-1-i}}\;=\;
+\frac{N(n)}{D(n)} .
+\]
+
+\begin{lemma}\label{lem:deg}
+$N$ and $D$ are polynomials in $n$ of degrees $176$ and $55$ respectively.
+\end{lemma}
+
+\begin{proof}
+With $s=n+11+11-1$ one has $s-(n+i)=11+11-1-i$, a constant, so
+\[
+\binom{s}{n+i}=\binom{s}{11+11-1-i}
+=\frac{(s-11-11+2+i)(s-11-11+3+i)\cdots s}{(11+11-1-i)!},
+\]
+a polynomial in $n$ of degree $11+11-1-i$. Multiplying over $i=0,\dots,11-1$ gives
+$\deg N=\sum_{i=0}^{11-1}(11+11-1-i)=176$. The denominator is
+$\prod_{i=0}^{11-1}(s-i)^{11-1-i}$, of degree
+$\sum_{i=0}^{11-1}(11-1-i)=55$, and it does not vanish for $n\ge0$.
+\end{proof}
+
+\begin{theorem}
+The entry's expression equals $a(n)$ for every $n\ge0$.
+\end{theorem}
+
+\begin{proof}
+By Theorem~\ref{thm:poly} and Lemma~\ref{lem:deg}, $a(n)D(n)-N(n)$ is a polynomial in $n$
+of degree at most $121+55=176$. It was evaluated in exact rational arithmetic at
+$n=0,1,\dots,176$, that is at $177$ points, and vanishes at all of them; a nonzero polynomial
+of degree at most $176$ has at most $176$ roots, so it is identically zero. Since $D(n)\neq0$
+for $n\ge0$, the two expressions agree there.
 \end{proof}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the digraph was built directly from the entry's stated patterns and the walk counts
-compared against the entry's DATA at every one of the $16$ published indices; the
-values agree exactly, including the initial count of $24$ admissible rows. That is
-what ties the digraph to the sequence, and a model reproducing only part of the published
-data was rejected wherever it occurred.
+First, Theorem~\ref{thm:poly} reproduces all $5$ terms the entry publishes,
+exactly, in integer arithmetic.
 
-Second, the recurrence \eqref{eq:conj} was evaluated on those published terms in exact
-integer arithmetic, with no matrices involved, and vanishes at every index the entry claims.
+Second, the matrices themselves were counted for the smallest alphabets, directly from the
+definition: the nondecreasing rows were listed and the chains of $11$ of them increasing
+componentwise counted, with no product formula and no plane partitions anywhere. The counts
+agree, which is what ties the reversal bijection to the entry's own wording.
 
-Third, the vanishing test of Lemma~\ref{lem:crit} was carried past $S=576$ consecutive
-zeros rather than to a sampled prefix.
+Third, the polynomial identity was evaluated over the whole range $n=0,\dots,176$ rather than
+sampled, in exact rational arithmetic.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A207179.
-\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
-University Press, 2009.
-\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
-University Press, 2013.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A140943.
+\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 2, Cambridge
+University Press, 1999. (Plane partitions with bounded part size, Section 7.21.)
+\bibitem{macmahon} P.~A.~MacMahon, \emph{Combinatory Analysis}, Volume 2, Cambridge
+University Press, 1916.
+\bibitem{andrews} G.~E.~Andrews, \emph{The Theory of Partitions}, Addison--Wesley, 1976.
 \end{thebibliography}
 
 \end{document}

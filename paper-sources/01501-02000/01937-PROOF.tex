@@ -12,84 +12,75 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A275406, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A268638, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{3 September 2026}
+\date{7 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A275406 counts arrays in which no entry may equal the entries at a short list of fixed offsets
-from it, the arrays being counted up to renaming the letters. The entry carries an empirical
-recurrence of order $21$ contributed by R.~H.~Hardin. It is true, and it is decidable
-rather than empirical. The condition tests only whether two cells are equal, so it survives
-renaming; the count of classes is recovered from counts over fixed alphabets by inverting a
-triangular system of falling factorials, and each of those is a walk count on a window of
-$1$ consecutive columns, $S=295$ states in all.
+OEIS A268638 counts arrays of width $7$ over $\{0,1,2\}$ in which the number of adjacent PAIRS of
+cells whose entries add up to $2$ is exactly one. The entry carries an empirical recurrence of
+order $26$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
+empirical. The condition is global --- no window of the array decides it --- but the quantity
+it constrains is a count that may be capped at two, and a capped count is a bounded state; the
+result is a walk count on $S=3148$ states.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A18, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05C30, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A275406 is ``Number of 7Xn 0..2 arrays with no element equal to any value at offset (-2,-1) (-2,0) or (-1,1) and new values introduced in order 0..2.''. It has offset $1$ and begins
+OEIS A268638 is ``Number of n X 7 0..2 arrays with some element plus some horizontally or vertically adjacent neighbor totaling two exactly once.''. It has offset $1$ and begins
 \[
-48, 260, 2645, 27373, 283169, 2940064, 30551417, 317215507,\ \dots
+576, 25272, 875592, 27906474, 849572724, 25093766490, 725187096504, 20612084839848,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 2*a(n-1) +51*a(n-2) +337*a(n-3) +695*a(n-4) -1387*a(n-5) -17115*a(n-6) -7374*a(n-7) -6423*a(n-8) +162272*a(n-9) -77464*a(n-10) +195500*a(n-11) -502027*a(n-12) +476993*a(n-13) -89619*a(n-14) +690641*a(n-15) -729684*a(n-16) +108400*a(n-17) -61140*a(n-18) +17920*a(n-19) +2032*a(n-20) +1088*a(n-21) for n>22
+Empirical: a(n) = 110*a(n-1) -5243*a(n-2) +144650*a(n-3) -2610593*a(n-4) +33017408*a(n-5) -305811128*a(n-6) +2137462184*a(n-7) -11513372884*a(n-8) +48502300256*a(n-9) -161412354008*a(n-10) +427044616576*a(n-11) -901108804624*a(n-12) +1517344261024*a(n-13) -2035022988048*a(n-14) +2164824966496*a(n-15) -1815145078160*a(n-16) +1189730382208*a(n-17) -603502277248*a(n-18) +234173991424*a(n-19) -68574152448*a(n-20) +14906358784*a(n-21) -2352277504*a(n-22) +260550656*a(n-23) -19140608*a(n-24) +835584*a(n-25) -16384*a(n-26).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 26 2016 14:58:01, revision 4) this is still
+As of the ``Last modified'' line on the live entry (Aug 31 2019 15:50:00, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-Entries lie in $\{0,1,\dots,2\}$ and the condition is that
+The array has $7$ cells across, with entries in $\{0,1,2\}$. An ADJACENT PAIR is a pair of cells
 \[
-x(i,j)\ \ne\ x(i+d_1,\,j+d_2)\qquad\text{for each offset }(d_1,d_2)\in\{(-2,-1), (-2,0), (-1,1)\}
+\begin{array}{l}
+$(i,j)\text{ and }(i,j{+}1)$ \\
+$(i,j)\text{ and }(i{+}1,j)$ \\
+\end{array}
 \]
-whenever the second cell lies inside the array. The entry writes the array with $n$ as the number of COLUMNS, so the array grows one COLUMN at a time and an offset is read with its two coordinates exchanged. The closing clause ``new values
-introduced in order $0..2$'' says the array is the canonical representative of its equality
-pattern.
+both lying inside the array. A pair is a pair of CELLS, so it is counted once and not once from
+each end. Writing $k$ for the number of adjacent pairs whose two entries add up to $2$, the
+entry counts the arrays with $k$ exactly one.
 
-\begin{lemma}\label{lem:order}
-The number counted does not depend on the order in which the array is read.
+\section{A capped count is a state}
+
+No window of the array decides the condition: $k$ is a total over the whole array. But the
+condition distinguishes only $k=0$, $k=1$ and $k\ge2$, so the count may be carried capped at
+two and stays bounded.
+
+\begin{lemma}\label{lem:cap}
+Let $k_t$ be the number of qualifying pairs lying inside the first $t$ rows. Then
+\[
+k_{t}\;=\;k_{t-1}+\bigl(\text{pairs inside row } t\bigr)
++\bigl(\text{pairs joining rows } t-1 \text{ and } t\bigr),
+\]
+and both added terms are determined by rows $t-1$ and $t$ alone.
 \end{lemma}
 
 \begin{proof}
-The condition tests only whether two cells carry equal values, so it is unchanged by permuting
-the alphabet, and the admissible arrays fall into classes under renaming. Fix any reading order
-of the cells. Each class contains exactly one array whose distinct values, in order of first
-appearance in that reading, are $0,1,2,\dots$: take any member and rename its values by their
-rank of first appearance. So the count is the number of CLASSES, whatever reading order is
-meant.
+Every adjacent pair lies either inside one row or across two consecutive rows, by the list
+above; a pair inside rows $1..t$ that is not inside rows $1..t-1$ must meet row $t$, so it is
+one of the two kinds counted.
 \end{proof}
 
-\section{From classes to fixed alphabets}
-
-Write $N_j$ for the number of classes on exactly $j$ letters and $L_i$ for the number of
-admissible arrays over an alphabet of $i$ letters. An array over $i$ letters is a class together
-with an injection of its letters into the alphabet, so
+So the state is the pair $(\text{previous row},\min(k,2))$: a step appends a row, adds the
+pairs Lemma~\ref{lem:cap} names and caps the total at two. The end vector accepts the states
+with $k=1$, so it is not the all-ones vector. With $M$ the adjacency matrix,
 \[
-L_i\;=\;\sum_j N_j\,i(i-1)\cdots(i-j+1),
-\]
-a triangular system with unit diagonal. By Lemma~\ref{lem:order} the entry counts
-$N_1+\dots+N_{3}$, so $a=\sum_i w_iL_i$ with $w=\mathbf{1}^{\!\top}F^{-1}$, $F$ the
-matrix of falling factorials.
-
-\section{Each $L_i$ is a walk count}
-
-Equality is symmetric, so an offset and its negative forbid exactly the same pairs; replacing
-each offset by whichever of the two points BACKWARDS along the direction in which the array
-grows makes every pair tested once, from the later of its two cells. After that replacement no
-offset reaches more than $1$ columns back, so the window of the last $1$
-columns is a state and one step appends a column. A column not yet written is
-carried as a symbol, so the walk starts at the empty array and a walk of $t$ steps is an array
-of $t$ columns. Assembling $i=1,\dots,3$ as a disjoint union with $\iota$ carrying the
-weights cleared of denominators and $\tau=\mathbf{1}$,
-\[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=295.
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=3148.
 \]
 The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
 published terms rather than assumed. In particular $a$ is $C$-finite.
@@ -97,7 +88,7 @@ published terms rather than assumed. In particular $a$ is $C$-finite.
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{21}-\sum_i c_it^{21-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{26}-\sum_i c_it^{26-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -105,7 +96,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+21}-\sum_ic_iM^{j+21-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+26}-\sum_ic_iM^{j+26-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -114,30 +105,29 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;2\,a(n-1) + 51\,a(n-2) + 337\,a(n-3) + 695\,a(n-4) - 1387\,a(n-5) - 17115\,a(n-6) - 7374\,a(n-7) - 6423\,a(n-8) + 162272\,a(n-9) - 77464\,a(n-10) + 195500\,a(n-11) - 502027\,a(n-12) + 476993\,a(n-13) - 89619\,a(n-14) + 690641\,a(n-15) - 729684\,a(n-16) + 108400\,a(n-17) - 61140\,a(n-18) + 17920\,a(n-19) + 2032\,a(n-20) + 1088\,a(n-21)
+a(n)\;=\;110\,a(n-1) - 5243\,a(n-2) + 144650\,a(n-3) - 2610593\,a(n-4) + 33017408\,a(n-5) - 305811128\,a(n-6) + 2137462184\,a(n-7) - 11513372884\,a(n-8) + 48502300256\,a(n-9) - 161412354008\,a(n-10) + 427044616576\,a(n-11) - 901108804624\,a(n-12) + 1517344261024\,a(n-13) - 2035022988048\,a(n-14) + 2164824966496\,a(n-15) - 1815145078160\,a(n-16) + 1189730382208\,a(n-17) - 603502277248\,a(n-18) + 234173991424\,a(n-19) - 68574152448\,a(n-20) + 14906358784\,a(n-21) - 2352277504\,a(n-22) + 260550656\,a(n-23) - 19140608\,a(n-24) + 835584\,a(n-25) - 16384\,a(n-26)
 \]
-for every $n>22$.
+for every $n>26$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $21$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $26$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=22+1$ onwards and the run continued
-until the working vector was identically zero. The rational weights are carried as one common
-denominator, so no division is performed until the final term.
+integers vanish from the index corresponding to $n=26+1$ onwards and the run continued
+until the working vector was identically zero.
 \end{proof}
 
 \section{Verification}
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $17$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $14$ terms the entry publishes, exactly, in integer
 arithmetic.
 
 Second, the count was recomputed for the smallest arrays straight from the definition:
-enumerate every array over $\{0,\dots,2\}$, keep those whose values are introduced in the
-order $0,1,2,\dots$ reading row by row, and test each offset directly. Neither the window, nor
-the backward normalisation of the offsets, nor the falling-factorial inversion is involved, and
+enumerate every array of that size in the orientation the entry's own name writes, count the
+adjacent pairs summing to $2$ by running over the array once for each kind of pair, and keep
+the array when that count is exactly one. No cap, no state and no transfer matrix are involved, and
 the published terms came back.
 
 Third, the conjectured recurrence was evaluated directly on the published terms, with no
@@ -148,10 +138,9 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A275406.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A268638.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; falling factorials,
-Section 1.9.)
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

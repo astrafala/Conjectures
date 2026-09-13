@@ -12,91 +12,85 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A262316, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A231637, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{3 September 2026}
+\date{4 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A262316 counts arrays of width $6$ over $\{0,1\}$ whose rows, read as base-$2$
-numbers, are divisible by $7$ and whose columns, read the same way, are divisible by
-$7$. The entry carries an empirical recurrence of order $29$ contributed by
-R.~H.~Hardin. It is true, and it is decidable rather than empirical. A column's value depends on
-every row of the array, so the condition is not local; but its RESIDUE is built one row at a
-time by Horner's rule, and the vector of column residues is a state of bounded size. The count
-is then a walk count on $S=2401$ states.
+OEIS A231637 counts arrays of width $3$ over $\{0,1,2\}$ in which no cell is beaten by a strict majority of its neighbours. The entry carries an
+empirical recurrence of order $38$ contributed by R.~H.~Hardin. It is true, and it is
+decidable rather than empirical: what a cell asks reaches one row above
+it and one row below, so the condition on a whole row is settled by
+$3$ consecutive rows and the count is a walk count on $S=685$ states.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 11A63, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B20, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A262316 is ``Number of (n+2)X(4+2) 0..1 arrays with each row and column divisible by 7, read as a binary number with top and left being the most significant bits.''. It has offset $1$ and begins
+OEIS A231637 is ``Number of n X 3 0..2 arrays with no element having a strict majority of its horizontal, vertical, diagonal and antidiagonal neighbors equal to itself plus one mod 3, with upper left element zero (rock paper and scissors drawn positions).''. It has offset $1$ and begins
 \[
-10, 27, 133, 1618, 6043, 42661, 683218, 4276587,\ \dots
+3, 25, 362, 5110, 69671, 953726, 13036446, 178192422,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 13*a(n-1) -30*a(n-2) +775*a(n-3) -10075*a(n-4) +23250*a(n-5) -187265*a(n-6) +2434445*a(n-7) -5617950*a(n-8) +18375455*a(n-9) -238880915*a(n-10) +551263650*a(n-11) -585288123*a(n-12) +7608745599*a(n-13) -17558643690*a(n-14) -12851058675*a(n-15) +167063762775*a(n-16) -385531760250*a(n-17) +757921180765*a(n-18) -9852975349945*a(n-19) +22737635422950*a(n-20) -1115961555955*a(n-21) +14507500227415*a(n-22) -33478846678650*a(n-23) -69403913471776*a(n-24) +902250875133088*a(n-25) -2082117404153280*a(n-26) -67517783528000*a(n-27) +877731185864000*a(n-28) -2025533505840000*a(n-29)
+Empirical: a(n) = 21*a(n-1) -107*a(n-2) +63*a(n-3) +327*a(n-4) +1807*a(n-5) -11022*a(n-6) +22286*a(n-7) -29911*a(n-8) +38148*a(n-9) -14430*a(n-10) -114794*a(n-11) +310088*a(n-12) -391497*a(n-13) +122088*a(n-14) +685315*a(n-15) -1613102*a(n-16) +1227640*a(n-17) +817156*a(n-18) -2507835*a(n-19) +2085116*a(n-20) +424904*a(n-21) -3237743*a(n-22) +2923285*a(n-23) -121269*a(n-24) -692469*a(n-25) -329220*a(n-26) +486184*a(n-27) +200957*a(n-28) -63170*a(n-29) -17085*a(n-30) -56817*a(n-31) -12152*a(n-32) +25012*a(n-33) +9826*a(n-34) -5584*a(n-35) -844*a(n-36) +436*a(n-37) +8*a(n-38) for n>39.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Sep 17 2015 22:21:41, revision 4) this is still
+As of the ``Last modified'' line on the live entry (Dec 28 2023 23:18:59, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The array has $6$ cells across and entries $x(i,j)\in\{0,1\}$, the digits of
-base $2$. Row $i$ of an array with $R$ rows is the number
+The arrays have $3$ columns and a growing number of rows, with entries in $\{0,1,2\}$. Fix the
+list of offsets the entry names,
 \[
-\rho_i\;=\;\sum_{j=1}^{6}x(i,j)\,2^{6-j} ,
+\Delta=\{\,(-1,-1), (-1,0), (-1,1), (0,-1), (0,1), (1,-1), (1,0), (1,1)\,\},
 \]
-the LEFT digit being the most significant, and column $j$ is
+and for a cell $(i,j)$ write
 \[
-\gamma_j\;=\;\sum_{i=1}^{R}x(i,j)\,2^{R-i} ,
+S(i,j)=\{\,(i+\delta_1,\,j+\delta_2) : (\delta_1,\delta_2)\in\Delta\,\}\cap
+\text{(the cells of the array)}
 \]
-the TOP digit being the most significant. The entry asks that every $\rho_i$ be divisible by
-$7$ and every $\gamma_j$ be divisible by $7$.
+for the neighbours it actually has. Only offsets landing inside the array count, so a cell on
+the border simply has fewer neighbours.
 
-
-\section{Column residues by Horner's rule}
-
-The row condition is a condition on one row and is imposed as each row is chosen. The column
-condition is not local: $\gamma_j$ depends on every row. What is local is its residue.
-
-\begin{lemma}\label{lem:horner}
-Let $\gamma_j^{(i)}$ be the value of column $j$ of the first $i$ rows, read the same way.
-Then $\gamma_j^{(0)}=0$ and
+The condition is that no cell has a strict majority of its neighbours one greater than itself modulo $3$:
 \[
-\gamma_j^{(i)}\;=\;2\,\gamma_j^{(i-1)}+x(i,j),
-\qquad\text{hence}\qquad
-\gamma_j^{(i)}\bmod 7\;=\;
-\bigl(2\,(\gamma_j^{(i-1)}\bmod 7)+x(i,j)\bigr)\bmod 7 .
+2\cdot\#\{(a,b)\in S(i,j) : x(a,b)\equiv x(i,j)+1 \bmod 3\}\;\le\;|S(i,j)| .
 \]
-\end{lemma}
+With three values this is the drawn position of rock, paper and scissors: each value beats the one below it modulo $3$, and no cell is to be beaten by a strict majority of its neighbours. The entry adds that the top-left cell is $0$.
 
-\begin{proof}
-Adding a row at the BOTTOM shifts every earlier digit one place up in significance, which is
-multiplication by $2$, and puts the new digit in the units place. Reduction modulo
-$7$ commutes with both operations.
-\end{proof}
+\section{A window of 3 rows}
 
-So the vector $\bigl(\gamma_1\bmod 7,\dots,\gamma_{6}\bmod
-7\bigr)$ is a state: at most $7^{6}$ of them, and each array row
-that satisfies the row condition carries one such vector to another. The walk starts at the
-all-zero vector, which is the empty array, and the END vector picks out the residue vectors in
-which every entry is divisible by $7$ --- so the end vector is not the all-ones
-vector, and the column condition is imposed once, at the end, exactly as the entry states it.
-With $M$ the adjacency matrix,
+The offsets reach one row up and one row down, so everything the condition asks of one row is
+decided by that row together with one row above it and one row below --- a window of
+$3$ consecutive rows, and nothing wider. Take the array one row at a time
+and let the state be the last 2 of them, with a distinguished start standing for the
+array before its first row, so that a walk of $n$ steps is an array of $n$ rows.
+
+Appending a row completes exactly one window, and the row it settles is the one just above the bottom of that window; a step is
+allowed when that row passes. Each row of the finished
+array is therefore tested exactly once.
+
+When the array stops, the last row of it has never been tested, because the
+conditions reach one row below. So the end vector is NOT all ones: a state is accepted exactly when
+those rows pass with nothing below them, which is decided by running the same test on the window
+with absent rows appended --- the same rule that governs a cell at the bottom edge in
+Section 2.
+Thus
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=2401.
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=685,
 \]
-The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
-published terms rather than assumed. In particular $a$ is $C$-finite.
+for the transfer matrix $M$ on those $S$ states. The walk index $j$ and the entry's own $n$
+differ by a constant, read off by matching the published terms rather than assumed. In
+particular $a$ is $C$-finite.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{29}-\sum_i c_it^{29-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{38}-\sum_i c_it^{38-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -104,7 +98,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+29}-\sum_ic_iM^{j+29-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+38}-\sum_ic_iM^{j+38-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -113,15 +107,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;13\,a(n-1) - 30\,a(n-2) + 775\,a(n-3) - 10075\,a(n-4) + 23250\,a(n-5) - 187265\,a(n-6) + 2434445\,a(n-7) - 5617950\,a(n-8) + 18375455\,a(n-9) - 238880915\,a(n-10) + 551263650\,a(n-11) - 585288123\,a(n-12) + 7608745599\,a(n-13) - 17558643690\,a(n-14) - 12851058675\,a(n-15) + 167063762775\,a(n-16) - 385531760250\,a(n-17) + 757921180765\,a(n-18) - 9852975349945\,a(n-19) + 22737635422950\,a(n-20) - 1115961555955\,a(n-21) + 14507500227415\,a(n-22) - 33478846678650\,a(n-23) - 69403913471776\,a(n-24) + 902250875133088\,a(n-25) - 2082117404153280\,a(n-26) - 67517783528000\,a(n-27) + 877731185864000\,a(n-28) - 2025533505840000\,a(n-29)
+a(n)\;=\;21\,a(n-1) - 107\,a(n-2) + 63\,a(n-3) + 327\,a(n-4) + 1807\,a(n-5) - 11022\,a(n-6) + 22286\,a(n-7) - 29911\,a(n-8) + 38148\,a(n-9) - 14430\,a(n-10) - 114794\,a(n-11) + 310088\,a(n-12) - 391497\,a(n-13) + 122088\,a(n-14) + 685315\,a(n-15) - 1613102\,a(n-16) + 1227640\,a(n-17) + 817156\,a(n-18) - 2507835\,a(n-19) + 2085116\,a(n-20) + 424904\,a(n-21) - 3237743\,a(n-22) + 2923285\,a(n-23) - 121269\,a(n-24) - 692469\,a(n-25) - 329220\,a(n-26) + 486184\,a(n-27) + 200957\,a(n-28) - 63170\,a(n-29) - 17085\,a(n-30) - 56817\,a(n-31) - 12152\,a(n-32) + 25012\,a(n-33) + 9826\,a(n-34) - 5584\,a(n-35) - 844\,a(n-36) + 436\,a(n-37) + 8\,a(n-38)
 \]
-for every $n>26$.
+for every $n>39$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $29$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $38$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=26+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=39+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -129,13 +123,13 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $19$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $17$ terms the entry publishes, exactly, in integer
 arithmetic.
 
-Second, the count was recomputed for the smallest arrays straight from the definition:
-enumerate every array of that size, turn each row and each column into a base-$2$ number with
-the first digit most significant, and test the divisibility directly. Neither Horner's rule nor
-any residue state is involved, and the published terms came back.
+Second, the count was recomputed for the smallest arrays straight from the definition: every
+array of width $3$ over $\{0,1,2\}$ with a few rows was written out cell by cell and each cell
+tested against the neighbours it has. No window, no state and no end vector are involved in that
+computation, and the published terms came back.
 
 Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
@@ -145,11 +139,9 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A262316.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A231637.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{knuth} D.~E.~Knuth, \emph{The Art of Computer Programming}, Volume 2, 3rd ed.,
-Addison--Wesley, 1997. (Evaluation of polynomials, Section 4.6.4.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

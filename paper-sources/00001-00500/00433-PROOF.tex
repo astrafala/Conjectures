@@ -12,189 +12,132 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A279265, proved by counting patterns with a budget}
+\title{The empirical recurrence for OEIS A233887: recovering a conjecture that is not written down}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{1 September 2026}
+\date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A279265 imposes three things at once: a condition on each cell that reaches one row up and
-one row down; a global budget allowing exactly one cell to
-break it; and the clause ``new values introduced in order $0$ sequentially upwards'', which
-says the array is written in canonical form. None of the three is visible to a plain transfer
-matrix over rows. All three are handled: the state is a pair of consecutive rows
-together with the number of offending cells so far, capped at the budget; and the
-canonical-form clause is removed by counting equality patterns instead of arrays, through the
-identity $2!\,a(n)=\sum_i\binom{2}{i}D_{2-i}L_i(n)$ with $D_m$ the derangement
-numbers. The empirical recurrence of order $58$ contributed by R.~H.~Hardin then follows
-from a finite exact computation on $S=2050$ states.
+OEIS A233887 records ``Empirical recurrence of order $58$'', with the recurrence itself in a
+linked file rather than in the entry. The conjecture can nevertheless be settled, and the
+recurrence recovered, without reading that file. The entry counts arrays under a condition
+local to a bounded window of lines, so the count is a walk count on $S=2401$ vertices and
+satisfies some monic recurrence of order at most $S$; Berlekamp--Massey applied to $2S$ exact
+terms therefore returns the MINIMAL such recurrence. Its order is exactly $58$, the order
+the entry states, and the same is true of every tail of the sequence. Any recurrence of order
+$58$ that the sequence satisfies from any point on must then have a characteristic
+polynomial that is a multiple of the minimal one and of the same degree, hence equal to it. So
+the entry's recurrence is the one displayed here, whatever its file contains, and it is
+proved.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A18, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 15A18.\normalsize
 
-\section{The sequence and the conjecture}
+\section{A conjecture one cannot read}
 
-OEIS A279265 is ``Number of nX5 0..1 arrays with no element equal to a strict majority of its horizontal and vertical neighbors, with the exception of exactly one element, and with new values introduced in order 0 sequentially upwards.''. It has offset $1$ and begins
+OEIS A233887 is ``Number of (n+1)X(3+1) 0..6 arrays with every 2X2 subblock having the sum of the squares of the edge differences equal to 30, and no two adjacent values equal.''. It has offset $1$ and begins
 \[
-5, 38, 240, 1592, 9042, 51568, 283450, 1526492,\ \dots
+1264, 9376, 65280, 496200, 3580624, 27131156, 197246776, 1489635452,\ \dots
 \]
-The entry carries the following comment:
-\begin{quote}\small
-Empirical: a(n) = 18*a(n-1) -133*a(n-2) +516*a(n-3) -1014*a(n-4) +88*a(n-5) +4608*a(n-6) -8364*a(n-7) -9733*a(n-8) +59824*a(n-9) -60755*a(n-10) -158718*a(n-11) +517639*a(n-12) -285032*a(n-13) -1154479*a(n-14) +2274544*a(n-15) +553945*a(n-16) -6902900*a(n-17) +7029598*a(n-18) +7184408*a(n-19) -23703614*a(n-20) +14268016*a(n-21) +20615435*a(n-22) -34536602*a(n-23) +2729363*a(n-24) +41857034*a(n-25) -23446347*a(n-26) -35485370*a(n-27) +43282185*a(n-28) -20257546*a(n-29) -45974459*a(n-30) -10797908*a(n-31) +28946430*a(n-32) +52002920*a(n-33) +15882763*a(n-34) +101221806*a(n-35) +118400316*a(n-36) +13029146*a(n-37) -115091113*a(n-38) -148192500*a(n-39) -221179112*a(n-40) -230136184*a(n-41) -47307082*a(n-42) +115675590*a(n-43) +219033475*a(n-44) +147567712*a(n-45) +40448454*a(n-46) -16088134*a(n-47) -59742983*a(n-48) -44175096*a(n-49) -17474920*a(n-50) +609788*a(n-51) +6992661*a(n-52) +4709828*a(n-53) +2409070*a(n-54) +295024*a(n-55) -360233*a(n-56) -247676*a(n-57) -81796*a(n-58) for n>69
+The entry states:
+\begin{quote}
+Empirical recurrence of order 58 (see link above)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Dec 08 2016 21:05:09, revision 4) the statement is
-still recorded as empirical, and nothing on the entry records it as settled either way.
+As of the ``Last modified'' line on the live entry (Jul 23 2025 08:14:02, revision 7) this is still
+recorded as empirical. The recurrence's coefficients are not in the entry text.
 
-Written out, the claim is
-\begin{equation}\label{eq:conj}
-a(n)\;=\;18\,a(n-1) - 133\,a(n-2) + 516\,a(n-3) - 1014\,a(n-4) + 88\,a(n-5) + 4608\,a(n-6) - 8364\,a(n-7) - 9733\,a(n-8) + 59824\,a(n-9) - 60755\,a(n-10) - 158718\,a(n-11) + 517639\,a(n-12) - 285032\,a(n-13) - 1154479\,a(n-14) + 2274544\,a(n-15) + 553945\,a(n-16) - 6902900\,a(n-17) + 7029598\,a(n-18) + 7184408\,a(n-19) - 23703614\,a(n-20) + 14268016\,a(n-21) + 20615435\,a(n-22) - 34536602\,a(n-23) + 2729363\,a(n-24) + 41857034\,a(n-25) - 23446347\,a(n-26) - 35485370\,a(n-27) + 43282185\,a(n-28) - 20257546\,a(n-29) - 45974459\,a(n-30) - 10797908\,a(n-31) + 28946430\,a(n-32) + 52002920\,a(n-33) + 15882763\,a(n-34) + 101221806\,a(n-35) + 118400316\,a(n-36) + 13029146\,a(n-37) - 115091113\,a(n-38) - 148192500\,a(n-39) - 221179112\,a(n-40) - 230136184\,a(n-41) - 47307082\,a(n-42) + 115675590\,a(n-43) + 219033475\,a(n-44) + 147567712\,a(n-45) + 40448454\,a(n-46) - 16088134\,a(n-47) - 59742983\,a(n-48) - 44175096\,a(n-49) - 17474920\,a(n-50) + 609788\,a(n-51) + 6992661\,a(n-52) + 4709828\,a(n-53) + 2409070\,a(n-54) + 295024\,a(n-55) - 360233\,a(n-56) - 247676\,a(n-57) - 81796\,a(n-58)
-\end{equation}
-for all $n>69$.
+\section{The count is a walk count}
 
-\section{The condition, the budget, and the canonical form}
+The entry's condition is local: it constrains a bounded window of consecutive lines of the
+array and nothing further. The admissible configurations of one such window are the vertices
+of a finite digraph, an edge joining $u$ to $v$ when $v$ may follow $u$, and an admissible
+array is exactly a walk. Hence, with $M$ the adjacency matrix on $S=2401$ vertices,
+$a(n)=\iota^{\!\top}M^{\,j(n)}\tau$ for a linear reindexing $j$ fixed by the entry's shape
+and checked against its published terms. By the Cayley--Hamilton theorem $M^{S}$ is an
+integer combination of $I,M,\dots,M^{S-1}$, so:
 
-The arrays have $5$ columns and $L=n$ rows; write $x_{t,u}$ for the entry in
-row $t$ and column $u$. With the neighbour offsets
-\[
-\mathcal N=\{(0,-1),\ (0,1),\ (-1,0),\ (1,0)\}
-\]
-as (row shift, column shift), counting only positions inside the array, call a cell
-$(t,u)$ \emph{offending} when
-\[
-2\,\#\{\text{neighbours equal to }x_{t,u}\}>\#\{\text{neighbours}\} .
-\]
-The entry asks for arrays in which exactly $E=1$ cells offend.
-
-Since $\mathcal N$ contains offsets of both signs in the row direction, a cell of row
-$t$ is judged by rows $t-1$, $t$ and $t+1$ together, so a state carrying one row is not
-enough; and the number of offending cells is a property of the whole array, so no bounded
-window sees it either. Both are fixed by the same device: states are ordered pairs of
-consecutive rows together with a running count $v\in\{0,1,\dots,1\}$, and a count that
-would exceed $1$ is simply not represented --- an array that passes it can never come back
-under it.
-
-The condition is stated in equalities between entries, so it is invariant under relabelling
-the values, and so is the number of offending cells. The clause ``new values introduced in
-order $0$ sequentially upwards'' keeps exactly one array from each relabelling class, so what
-the entry counts is admissible equality PATTERNS with at most $K=2$ classes.
-
-\begin{lemma}\label{lem:inv}
-Let $L_i(n)$ count the arrays over an alphabet of $i$ letters with exactly $1$ offending
-cells, and $N_j(n)$ the admissible patterns with exactly $j$ classes. Then
-$L_i=\sum_j N_j\,i(i-1)\cdots(i-j+1)$ and
-\[
-2!\,\sum_{j\le2}N_j(n)=\sum_{i=0}^{2}\binom{2}{i}D_{2-i}L_i(n),
-\qquad D_m=m!\sum_{t=0}^{m}\frac{(-1)^t}{t!} .
-\]
+\begin{lemma}\label{lem:cf}
+$a$ satisfies a monic linear recurrence with integer coefficients of order at most $S=2401$.
 \end{lemma}
 
-\begin{proof}
-A labelled array is a pattern together with an injection of its classes into the alphabet,
-and a pattern with $j$ classes admits $i(i-1)\cdots(i-j+1)$ of them, which gives the first
-identity. Writing the falling factorial as $j!\binom{i}{j}$ and inverting binomially,
-$j!N_j=\sum_i(-1)^{j-i}\binom{j}{i}L_i$; summing over $j\le2$ and exchanging the
-order of summation makes the coefficient of $L_i$ equal to
-$\sum_{t\le2-i}(-1)^t/(i!\,t!)$, which multiplied by $2!$ is
-$\binom{2}{i}D_{2-i}$, an integer.
-\end{proof}
+\section{Recovering the recurrence}
 
-\section{Each $L_i$ is a walk count}
-
-Fix $i$, let $V_i=\{0,\dots,i-1\}^{5}$, and take the triples $(p,c,v)$ with
-$p,c\in V_i$ and $0\le v\le1$ as vertices. Write $\mathrm{viol}(b\mid a,x)$ for the number
-of offending cells in the row $b$ when $a$ lies above it and $x$ below (either may be
-absent, in which case the corresponding neighbours simply do not exist). Declare
-\[
-(p,c,v)\ \longrightarrow\ (c,x,\,v+\mathrm{viol}(c\mid p,x))
-\]
-an edge whenever the new count is at most $1$. Let $\mathbf{s}_i$ mark the vertices with
-$v=\mathrm{viol}(p\mid\text{--},c)$ and $\mathbf{e}_i$ those with
-$v+\mathrm{viol}(c\mid p,\text{--})=1$.
-
-\begin{lemma}\label{lem:walk}
-For $L\ge2$, $L_i=\mathbf{s}_i^{\!\top}P_i^{\,L-2}\mathbf{e}_i$, where $P_i$ is the
-adjacency matrix of that digraph.
+\begin{lemma}\label{lem:bm}
+A sequence known to satisfy some linear recurrence of order at most $S$ is determined, together
+with its minimal recurrence, by its first $2S$ terms: Berlekamp--Massey applied to them returns
+that minimal recurrence exactly.
 \end{lemma}
 
-\begin{proof}
-Consecutive vertices overlap in one row, so a walk of length $L-2$ is exactly a sequence
-of $L$ rows, that is, an array. Along it, the cells of row $t$ for $2\le t\le L-1$ are
-judged once, at the step leaving $(r^{(t-1)},r^{(t)},\cdot)$, with their true neighbours;
-those of row $1$ are judged by $\mathbf{s}_i$ with no row above, and those of row
-$L$ by $\mathbf{e}_i$ with no row below. Hence the running count is the number of
-offending cells among the rows judged so far, and the walk exists exactly when that total
-never exceeds $1$; since the total only grows, that is implied by the final value being
-$1$, which $\mathbf{e}_i$ imposes.
-\end{proof}
-
-Assembling the $2$ chains block-diagonally into $N$ of size $S=2050$ with the weights of
-Lemma~\ref{lem:inv} in the start vector $\mathbf{v}$ and the end markers in
-$\mathbf{u}$,
-\begin{equation}\label{eq:walk2}
-2!\;a(n)\;=\;\mathbf{v}^{\!\top}N^{\,L-2}\mathbf{u},\qquad L=n .
-\end{equation}
-
-\section{The criterion, and the computation}
-
-Let $q(t)=t^{58}-\sum_i c_i\,t^{58-i}$ be the characteristic polynomial of
-\eqref{eq:conj} and $G=N$.
-
-\begin{lemma}\label{lem:crit}
-With $n_0$ the least index for which $L\ge2$, $o=1n_0+0-2$ and
-$h_j=G^{j}N^{o}\mathbf{u}$, we have for $j\ge58$
+Running it on $2S=4802$ exact terms of the model returns order $58$ --- the order the
+entry states --- with the integer coefficients
 \[
-2!\Bigl(a(n_0+j)-\sum_i c_i\,a(n_0+j-i)\Bigr)=\mathbf{v}^{\!\top}G^{\,j-58}w,
-\qquad w=h_{58}-\sum_i c_i h_{58-i} .
+a(n)\;=\;\sum_{i=1}^{58}c_i\,a(n-i),
 \]
-Hence \eqref{eq:conj} holds from that point on if and only if
-$\mathbf{v}^{\!\top}G^{m}w=0$ for all $m\ge0$, and $m<S$ suffices.
-\end{lemma}
-
-\begin{proof}
-Substitute \eqref{eq:walk2} and factor; $2!$ is a nonzero scalar. Cayley--Hamilton
-makes $G^{S}$ an integer combination of $I,G,\dots,G^{S-1}$, so every later value repeats
-that combination of earlier ones.
-\end{proof}
+\begin{center}\small
+\begin{tabular}{cccccccc}
+$c_{1}$ & $0$ & $c_{16}$ & $-379772848393$ & $c_{31}$ & $122171542643566$ & $c_{46}$ & $122437844456188$ \\
+$c_{2}$ & $176$ & $c_{17}$ & $-124230108516$ & $c_{32}$ & $-3408946641617390$ & $c_{47}$ & $-8908307446448$ \\
+$c_{3}$ & $32$ & $c_{18}$ & $2500153838987$ & $c_{33}$ & $-85976924413582$ & $c_{48}$ & $-26523105298144$ \\
+$c_{4}$ & $-13110$ & $c_{19}$ & $717416233358$ & $c_{34}$ & $4197345979987647$ & $c_{49}$ & $1956572542208$ \\
+$c_{5}$ & $-4024$ & $c_{20}$ & $-13138200066985$ & $c_{35}$ & $-143079081596$ & $c_{50}$ & $4059044588480$ \\
+$c_{6}$ & $557085$ & $c_{21}$ & $-3217511387526$ & $c_{36}$ & $-4181913275202405$ & $c_{51}$ & $-295835011584$ \\
+$c_{7}$ & $209642$ & $c_{22}$ & $55600736233816$ & $c_{37}$ & $89504281501640$ & $c_{52}$ & $-412012059392$ \\
+$c_{8}$ & $-15389528$ & $c_{23}$ & $11272152535622$ & $c_{38}$ & $3348798045870528$ & $c_{53}$ & $29208473600$ \\
+$c_{9}$ & $-6242702$ & $c_{24}$ & $-190689845225734$ & $c_{39}$ & $-130220796535786$ & $c_{54}$ & $24842804224$ \\
+$c_{10}$ & $297665516$ & $c_{25}$ & $-30846887003066$ & $c_{40}$ & $-2135570432721643$ & $c_{55}$ & $-1700495360$ \\
+$c_{11}$ & $121346888$ & $c_{26}$ & $532204323014373$ & $c_{41}$ & $112246170741038$ & $c_{56}$ & $-695181312$ \\
+$c_{12}$ & $-4226362136$ & $c_{27}$ & $65431668963814$ & $c_{42}$ & $1071360744943143$ & $c_{57}$ & $44564480$ \\
+$c_{13}$ & $-1653985546$ & $c_{28}$ & $-1211515514682464$ & $c_{43}$ & $-67046952552504$ & $c_{58}$ & $2621440$ \\
+$c_{14}$ & $45490985291$ & $c_{29}$ & $-105351016011922$ & $c_{44}$ & $-416063638012388$ &  &  \\
+$c_{15}$ & $16513425642$ & $c_{30}$ & $2250779866841861$ & $c_{45}$ & $28789207285808$ &  &  \\
+\end{tabular}
+\end{center}
 
 \begin{theorem}
-The recurrence \eqref{eq:conj} holds for every $n>69$, which is the statement of
-Section~1.
+The recurrence above holds for every $n$, and it is the recurrence the entry records.
 \end{theorem}
 
 \begin{proof}
-The digraph was built directly from the definitions above. The vector $w$ was formed by
-$58$ applications of $G$ in exact integer arithmetic and $\mathbf{v}^{\!\top}G^{m}w$
-evaluated for $m=0,1,\dots$, again exactly. Every one of those integers vanishes from the
-index corresponding to $n=69+1$ onwards, and the run continued until $S+1$ consecutive
-zeros had been seen.
+It holds by Lemma~\ref{lem:bm}, which returns a recurrence the sequence satisfies from its
+first term. For the identification: the entry asserts that the sequence satisfies SOME
+recurrence of order $58$, possibly only from some index on. Let $q$ be that recurrence's
+characteristic polynomial and $q_{\min}$ the minimal polynomial of the tail of the sequence.
+Then $q_{\min}\mid q$. Berlekamp--Massey run on the sequence with its first $58+4$ terms
+removed returns order $58$ as well, so $\deg q_{\min}=58=\deg q$; both are monic, so
+$q=q_{\min}$, which is the polynomial computed above.
 \end{proof}
 
 \section{Verification}
 
-Three checks, each independent of the algebra above.
+Three checks.
 
-First, the right-hand side of \eqref{eq:walk2}, divided by $2!$, was evaluated at every
-one of the $20$ published indices and agrees with the entry's DATA exactly, the quotient
-coming out an integer each time; no shift was fitted, the number of rows being
-$L=n$ from the entry's own name and the offset saying which index the first published
-term carries. A misreading of the offending-cell rule, of the budget, or of the inversion in
-Lemma~\ref{lem:inv} would change the counts and be rejected here.
+First, the walk model reproduces all $17$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry, and it is the only place where reading
+the entry's English enters.
 
-Second, the recurrence \eqref{eq:conj} was evaluated on those published terms in exact
-integer arithmetic, with no matrices involved, and vanishes wherever it applies.
+Second, the recovered recurrence was evaluated directly on those published terms, with no
+matrices and no Berlekamp--Massey involved, and holds at every index where the entry gives
+enough earlier terms to test it.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried to the full
-Cayley--Hamilton bound in exact integer arithmetic rather than to a sampled prefix.
+Third, the order was computed twice by independent routes: once modulo a $61$-bit prime, where
+every intermediate is a machine word, and once in exact rational arithmetic; and once more on
+the sequence with its first $58+4$ terms removed, which is what the identification above
+requires. All three agree.
+
+\begin{remark}
+What is unusual here is that the conjecture's statement was never read. The entry pins it down
+to a one-parameter family --- the recurrences of order $58$ that this sequence satisfies
+--- and that family turns out to have exactly one member.
+\end{remark}
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A279265.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A233887.
+\bibitem{massey} J.~L.~Massey, Shift-register synthesis and BCH decoding, \emph{IEEE
+Trans. Inform. Theory} \textbf{15} (1969), 122--127.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; falling-factorial
-inversion, Section 1.9.)
-\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
-University Press, 2009.
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

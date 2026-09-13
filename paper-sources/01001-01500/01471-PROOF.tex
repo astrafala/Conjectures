@@ -12,224 +12,127 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A209845, proved by counting patterns}
+\title{The empirical recurrence for OEIS A199705, proved from an exact model}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{31 August 2026}
+\date{12 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A209845 counts arrays subject to a local condition \emph{and} to the clause ``new values
-$0..3$ introduced in row major order'', which says the array is written in canonical
-form. That clause is not local, so a transfer matrix over the alphabet does not see it. It
-does not have to: what is being counted is not arrays but equality patterns, and the number
-of patterns is recovered from the numbers $L_i$ of arrays over an $i$-letter alphabet by
-inverting a falling factorial. The result is the clean identity
-$4!\,a(n)=\sum_i\binom{4}{i}D_{4-i}L_i(n)$ with $D_m$ the derangement numbers,
-and each $L_i$ is an ordinary walk count. A second reduction --- the chain is strongly
-lumpable over the patterns, because the condition is relabelling-invariant --- brings the
-state space down from $4890$ to $S=342$. The entry's empirical recurrence of order
-$59$, contributed by R.~H.~Hardin, then follows from a finite exact computation.
+OEIS A199705 carries an empirical recurrence of order $4$. It is true, and it is
+decidable rather than empirical. The entry's sequence is given exactly by an Ehrhart quasi-polynomial, from
+which $a$ provably satisfies a MONIC linear recurrence of order $S=9$, derived below and not
+assumed. The residual of the conjectured recurrence satisfies the same one, so whether it
+annihilates $a$ is settled by a finite exact computation. No transfer matrix is involved and
+the count is not a walk.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A18, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A19, 11P21.\normalsize
 
-\section{The sequence and the conjecture}
+\section{The conjecture}
 
-OEIS A209845 is ``Number of (n+1)X6 0..3 arrays with every 2X2 subblock having one or two distinct values, and new values 0..3 introduced in row major order.''. It has offset $1$ and begins
+OEIS A199705 is ``Number of -n..n arrays x(0..2) of 3 elements with zero sum and no two neighbors equal.''. It has offset $1$ and begins
 \[
-8123, 715307, 64857323, 6168792219, 595515461627, 57996585929227, 5674369527018763, 556706129632258475,\ \dots
+6, 14, 32, 52, 82, 114, 156, 200,\ \dots
 \]
-The entry carries the following comment:
-\begin{quote}\small
-Empirical: a(n) = 223*a(n-1) -16175*a(n-2) +333859*a(n-3) +9171561*a(n-4) -425242479*a(n-5) +693710971*a(n-6) +161486863949*a(n-7) -1475551022652*a(n-8) -27865453094464*a(n-9) +411423026735736*a(n-10) +2219874285551176*a(n-11) -55658326952391880*a(n-12) -36672282912577248*a(n-13) +4395265143027791120*a(n-14) -7555217898067289496*a(n-15) -220424722751437565016*a(n-16) +708740451169041114912*a(n-17) +7370084221594588613424*a(n-18) -32339860483036642598592*a(n-19) -168530209053002435663904*a(n-20) +936812779773450938868224*a(n-21) +2642855316304854396118720*a(n-22) -18715488567630894450654592*a(n-23) -27472172546451820502458112*a(n-24) +268022858676750241561673216*a(n-25) +162950499399519898498751232*a(n-26) -2808765207968050863945458688*a(n-27) -49471709803971865187176448*a(n-28) +21774673081608046584375029760*a(n-29) -8998227402678417097333478400*a(n-30) -125431619657959886331737444352*a(n-31) +93687752847328791095550070784*a(n-32) +536479435921838898006754967552*a(n-33) -549614260424646029255096614912*a(n-34) -1693398692148090451777893171200*a(n-35) +2166425771093637945125752602624*a(n-36) +3893649542776241227342317355008*a(n-37) -6029664436570554686166090645504*a(n-38) -6361043711060989783077333499904*a(n-39) +12040057186303971555099777433600*a(n-40) +7016919022564616606584512970752*a(n-41) -17259291576535507977088989659136*a(n-42) -4570925557827729604857032605696*a(n-43) +17587140735069580470774635954176*a(n-44) +764365413232018874812935962624*a(n-45) -12491242705025707087031177314304*a(n-46) +1408210287098130144028902031360*a(n-47) +5997551919805635046752510803968*a(n-48) -1329515975696725414894169489408*a(n-49) -1863857265638179678020068966400*a(n-50) +547108429772846613377035796480*a(n-51) +353189996395406454860564922368*a(n-52) -117801254695507003051819925504*a(n-53) -37321328417622966875887501312*a(n-54) +12758180005724856234398449664*a(n-55) +1870234589327458736214638592*a(n-56) -593761192111663779818766336*a(n-57) -25884281547576941708574720*a(n-58) +7740585278261102326579200*a(n-59)
+The entry states, as a conjecture contributed by its author and never marked settled:
+\begin{quote}
+Empirical: a(n) = 2*a(n-1) - 2*a(n-3) + a(n-4).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 15:32:26, revision 9) the statement is
-still recorded as empirical, and nothing on the entry records it as settled either way.
+As of the ``Last modified'' line on the live entry (May 16 2018 06:43:15, revision 17)
+this is still recorded as empirical, and nothing on the entry records it as proved.
 
-Written out, the claim is
-\begin{equation}\label{eq:conj}
-a(n)\;=\;223\,a(n-1) - 16175\,a(n-2) + 333859\,a(n-3) + 9171561\,a(n-4) - 425242479\,a(n-5) + 693710971\,a(n-6) + 161486863949\,a(n-7) - 1475551022652\,a(n-8) - 27865453094464\,a(n-9) + 411423026735736\,a(n-10) + 2219874285551176\,a(n-11) - 55658326952391880\,a(n-12) - 36672282912577248\,a(n-13) + 4395265143027791120\,a(n-14) - 7555217898067289496\,a(n-15) - 220424722751437565016\,a(n-16) + 708740451169041114912\,a(n-17) + 7370084221594588613424\,a(n-18) - 32339860483036642598592\,a(n-19) - 168530209053002435663904\,a(n-20) + 936812779773450938868224\,a(n-21) + 2642855316304854396118720\,a(n-22) - 18715488567630894450654592\,a(n-23) - 27472172546451820502458112\,a(n-24) + 268022858676750241561673216\,a(n-25) + 162950499399519898498751232\,a(n-26) - 2808765207968050863945458688\,a(n-27) - 49471709803971865187176448\,a(n-28) + 21774673081608046584375029760\,a(n-29) - 8998227402678417097333478400\,a(n-30) - 125431619657959886331737444352\,a(n-31) + 93687752847328791095550070784\,a(n-32) + 536479435921838898006754967552\,a(n-33) - 549614260424646029255096614912\,a(n-34) - 1693398692148090451777893171200\,a(n-35) + 2166425771093637945125752602624\,a(n-36) + 3893649542776241227342317355008\,a(n-37) - 6029664436570554686166090645504\,a(n-38) - 6361043711060989783077333499904\,a(n-39) + 12040057186303971555099777433600\,a(n-40) + 7016919022564616606584512970752\,a(n-41) - 17259291576535507977088989659136\,a(n-42) - 4570925557827729604857032605696\,a(n-43) + 17587140735069580470774635954176\,a(n-44) + 764365413232018874812935962624\,a(n-45) - 12491242705025707087031177314304\,a(n-46) + 1408210287098130144028902031360\,a(n-47) + 5997551919805635046752510803968\,a(n-48) - 1329515975696725414894169489408\,a(n-49) - 1863857265638179678020068966400\,a(n-50) + 547108429772846613377035796480\,a(n-51) + 353189996395406454860564922368\,a(n-52) - 117801254695507003051819925504\,a(n-53) - 37321328417622966875887501312\,a(n-54) + 12758180005724856234398449664\,a(n-55) + 1870234589327458736214638592\,a(n-56) - 593761192111663779818766336\,a(n-57) - 25884281547576941708574720\,a(n-58) + 7740585278261102326579200\,a(n-59)
-\end{equation}
-for all $n>59$.
+\section{The count is a quasi-polynomial}
 
-\section{What the canonical-form clause counts}
+The array has a FIXED number $L$ of entries and an alphabet that grows with $n$. Every
+condition the entry imposes is a boolean combination of statements
+$\sum_i c_ix_i + c\,n \bowtie 0$ with integer coefficients and $\bowtie$ one of
+$=,\ne,<,\le,>,\ge$: the bounds $|x_i|\le n$ or $0\le x_i\le n$, a vanishing sum, a difference
+that must not vanish, a pair that must total exactly $n$. Each is homogeneous in $(x,n)$
+jointly, so the admissible $x$ for a given $n$ are precisely the integer points at height $n$
+of a finite union of relatively open rational cones in $\mathbb{R}^{L+1}$, and $a(n)$ is
+the Ehrhart quasi-polynomial of that union: of degree at most $L$, with period dividing the
+heights of the cones' ray generators.
 
-Fix the shape: $6$ columns and $L=n+1$ rows, so $L\cdot6$ cells. Call a
-partition of the cells into nonempty classes a \emph{pattern}; an array over an alphabet
-determines a pattern, two cells lying in the same class exactly when they carry the same
-value.
+\section{The bound}
 
-Every $2\times2$ subblock of the array occupies two consecutive
-rows and two consecutive columns; writing those two rows as $r$ and $s$ the
-subblock is
+The period is derived, not assumed. Every ray of every cell of the arrangement is cut out by
+$L$ linearly independent hyperplanes taken from the constraint set; writing that $L\times(L+1)$
+system as $M$, its null direction has $t$-component $\pm\det$ of the $x$-parts, so the
+primitive generator $(x^*,t^*)$ has $t^*$ dividing that determinant. Let $T$ be the set of
+those determinants. A simplicial cone in a triangulation has at most $L+1$ rays, each
+contributing a factor $1-z^{t_i}$ with $t_i\in T$, so
 \[
-\begin{pmatrix}\alpha&\beta\\\gamma&\delta\end{pmatrix}=\begin{pmatrix}r_j&r_{j+1}\\s_j&s_{j+1}\end{pmatrix},
+A(z)\;=\;\prod_{d\,\mid\,t\ \text{for some}\ t\in T}\Phi_d(z)^{L+1}
 \]
-and the entry's requirement on it is
-\begin{equation}\label{eq:loc}
-\#\{\alpha,\beta,\gamma,\delta\}\in\{1,2\}.
-\end{equation}
+annihilates $a$, and $S=\deg A=9$. A congruence condition modulo $m$ is counted one residue
+class at a time; a class is a coset of $m\mathbb{Z}^L$, and a generator primitive in
+$\mathbb{Z}^{L+1}$ must be scaled by a divisor of $m$ to lie in it, so each $t$ is replaced
+by $mt$ and nothing else changes.
 
-The condition is stated purely in terms of equalities between entries, so it is invariant
-under any relabelling of the values and is therefore a property of the pattern alone. Call a
-pattern \emph{admissible} when it has the property.
+Over the common denominator the numerator has degree below that of $A$ for every cell of the
+arrangement that HAS a ray, because such a cell's numerator collects a fundamental
+parallelepiped whose heights are below the sum of its generators' heights. The origin is a cell
+too and it has none: its series is the constant $1$, which over $A$ is $A/A$ and reaches degree
+exactly $\deg A$. The bound in force is therefore $zA(z)$, of order $S=9$, and
+$a(0),\dots,a(S-1)$, computed exactly, determine every later term. Nothing is fitted, and the
+annihilator is tested on terms the model was not asked for before anything is claimed --- a
+bound one too small fails that test, which is how this one was found.
 
-The clause ``new values $0..3$ introduced in row major order'' selects, from each class
-of arrays that differ only by a relabelling, exactly one representative: reading the cells in
-row major order, the first occurrence of the value $v$ must precede the first occurrence of
-$v+1$. Every pattern with at most $K=4$ classes has exactly one such representative, and
-every array in canonical form is the representative of its own pattern. Hence, writing
-$N_j(n)$ for the number of admissible patterns with exactly $j$ classes,
-\begin{equation}\label{eq:apat}
-a(n)\;=\;\sum_{j=0}^{4}N_j(n).
-\end{equation}
-
-\begin{lemma}\label{lem:inv}
-Let $L_i(n)$ be the number of arrays over an alphabet of $i$ letters satisfying the local
-condition, with no canonical-form clause. Then
-\[
-L_i(n)=\sum_j N_j(n)\,i(i-1)\cdots(i-j+1),
-\qquad
-4!\,\sum_{j=0}^{4}N_j(n)=\sum_{i=0}^{4}\binom{4}{i}D_{4-i}\,L_i(n),
-\]
-where $D_m=m!\sum_{t=0}^{m}(-1)^t/t!$ is the number of derangements of $m$ letters.
-\end{lemma}
-
-\begin{proof}
-An array over $i$ letters satisfying the condition determines an admissible pattern together
-with an injection of its classes into the alphabet, and conversely; a pattern with $j$
-classes admits $i(i-1)\cdots(i-j+1)$ injections. That is the first identity. Writing
-$i(i-1)\cdots(i-j+1)=j!\binom{i}{j}$ it reads $L_i=\sum_j (j!N_j)\binom{i}{j}$, so by
-binomial inversion $j!N_j=\sum_{i}(-1)^{j-i}\binom{j}{i}L_i$. Summing over
-$j\le 4$ and exchanging the order of summation,
-\[
-\sum_{j=0}^{4}N_j=\sum_{i=0}^{4}L_i\sum_{j=i}^{4}\frac{(-1)^{j-i}}{i!\,(j-i)!}
-=\sum_{i=0}^{4}\frac{L_i}{i!}\sum_{t=0}^{4-i}\frac{(-1)^t}{t!} ,
-\]
-and multiplying by $4!$ turns the coefficient of $L_i$ into
-$\frac{4!}{i!}\sum_{t\le 4-i}(-1)^t/t!=\binom{4}{i}(4-i)!\sum_{t\le 4-i}(-1)^t/t!
-=\binom{4}{i}D_{4-i}$, an integer.
-\end{proof}
-
-\section{Each $L_i$ is a walk count, and the chain lumps}
-
-Fix $i$ and let $V_i=\{0,\dots,i-1\}^{6}$ be the possible rows. For $r,s\in V_i$
-declare $r\to s$ an edge when placing $s$ directly after $r$ satisfies \eqref{eq:loc} at
-every column, and let $M_i$ be the adjacency matrix. An array is exactly a sequence of
-rows, and its condition is exactly the conjunction of the edge conditions along that
-sequence, so
-\[
-L_i(n)\;=\;\mathbf{s}_i^{\!\top}M_i^{\,n}\mathbf{1} .
-\]
-Because the condition involves no row before the first, every
-row may start a walk, and $\mathbf{s}_i=\mathbf{1}$.
-
-\begin{lemma}\label{lem:lump}
-Let $\pi(r)$ be the equality pattern of the row $r$. For all $r,r'$ with
-$\pi(r)=\pi(r')$ and every pattern $Q$,
-\[
-\#\{s:\ r\to s,\ \pi(s)=Q\}\;=\;\#\{s:\ r'\to s,\ \pi(s)=Q\}\, .
-\]
-Consequently the numbers $\widehat M_i[P][Q]$ obtained by taking any representative of $P$
-are well defined, and with $e_P=i(i-1)\cdots(i-|P|+1)$ the number of rows of pattern $P$,
-\[
-\mathbf{s}_i^{\!\top}M_i^{\,m}\mathbf{1}\;=\;\sum_P \varepsilon_P\,f_m(P),
-\qquad f_0\equiv1,\quad f_{m+1}(P)=\sum_Q\widehat M_i[P][Q]f_m(Q),
-\]
-where $\varepsilon_P=e_P$ if rows of pattern $P$ may start a walk and $0$ otherwise.
-\end{lemma}
-
-\begin{proof}
-If $\pi(r)=\pi(r')$ then the map sending the value of $r$ at a column to the value of $r'$
-at that column is a well-defined injection between the letters used, and extends to a
-permutation $\sigma$ of the alphabet with $r'=\sigma(r)$. The edge condition is a statement
-about equalities among entries, so $r\to s$ if and only if $\sigma(r)\to\sigma(s)$; and
-$\pi(\sigma(s))=\pi(s)$. Hence $s\mapsto\sigma(s)$ is a bijection between the two successor
-sets preserving patterns, which is the first claim. It says the chain is strongly lumpable
-over $\pi$, so $\bigl(M_i^{m}\mathbf{1}\bigr)(r)$ depends on $r$ only through $\pi(r)$;
-calling that value $f_m(\pi(r))$ gives the recursion, and summing over $r$ in each class
-gives the displayed identity, the number of rows of pattern $P$ being the number of
-injections of its $|P|$ classes into the alphabet.
-\end{proof}
-
-Assembling the $4$ lumped chains into one block-diagonal matrix $N$ of size $S=342$ and
-putting the weights of Lemma~\ref{lem:inv} into the start vector,
-$\mathbf{v}=\bigl(\binom{4}{i}D_{4-i}\varepsilon_P\bigr)_{i,P}$, gives
-\begin{equation}\label{eq:walk}
-4!\;a(n)\;=\;\mathbf{v}^{\!\top}N^{\,n}\mathbf{1} .
-\end{equation}
-The unlumped alphabet had $4890$ rows in all; the lumped chain has $S=342$ states.
-
-\section{The criterion, and the computation}
-
-Let $q(t)=t^{59}-\sum_i c_i\,t^{59-i}$ be the characteristic polynomial of
-\eqref{eq:conj}.
+\section{The proof}
 
 \begin{lemma}\label{lem:crit}
-For every $n$ with $m=n+1-1\ge59$,
-\[
-4!\Bigl(a(n)-\sum_i c_i\,a(n-i)\Bigr)\;=\;\mathbf{v}^{\!\top}N^{\,m-59}q(N)\mathbf{1} .
-\]
-Hence \eqref{eq:conj} holds from that point on if and only if
-$\mathbf{v}^{\!\top}N^{j}q(N)\mathbf{1}=0$ for every $j\ge0$, and it is enough to check
-$j=0,1,\dots,S-1$.
+Let $A(z)=z^S-\sum_{j<S}\alpha_jz^{j}$ be the monic annihilator derived above and
+$q(z)=z^{4}-\sum_ic_iz^{4-i}$ the characteristic polynomial of the conjectured
+recurrence. The residual $r(n)=a(n)-\sum_ic_ia(n-i)$ is a linear combination of shifts of $a$,
+so $A$ annihilates $r$ as well. Since $A(0)\ne0$ the recurrence it gives runs in both
+directions, and $S$ consecutive zeros of $r$ force $r$ to vanish at every later index.
 \end{lemma}
 
 \begin{proof}
-Substitute \eqref{eq:walk} into the left side and factor $N^{m-59}$ out of
-$N^{m}-\sum_i c_iN^{m-i}$. The scalar $4!$ is nonzero, so it does not affect whether
-the left side vanishes. For the last clause put $w=q(N)\mathbf{1}$: by Cayley--Hamilton
-$N^{S}$ is an integer combination of $I,N,\dots,N^{S-1}$, so each
-$\mathbf{v}^{\!\top}N^{j}w$ with $j\ge S$ is the corresponding combination of earlier
-values.
+$A$ annihilates $a$, hence every shift of $a$, hence any linear combination of shifts; that is
+$r$. A monic recurrence with nonzero constant term determines each term from the $S$ before it
+and each from the $S$ after it, so a run of $S$ zeros propagates.
 \end{proof}
 
 \begin{theorem}
-The recurrence \eqref{eq:conj} holds for every $n>59$, which is the statement of
-Section~1.
+\[
+a(n)\;=\;2\,a(n-1) - 2\,a(n-3) + a(n-4)
+\]
+for every $n>0$.
 \end{theorem}
 
 \begin{proof}
-The lumped transition counts were obtained by enumerating, for one representative row of
-each pattern, all admissible successors and sorting them by pattern --- the successors being
-generated column by column, since the edge condition is a conjunction of one constraint per
-column. The vector $w=q(N)\mathbf{1}$ was then formed by $59$ matrix--vector products
-in exact integer arithmetic and $\mathbf{v}^{\!\top}N^{j}w$ evaluated for
-$j=0,1,\dots$, again exactly. Every one of those integers vanishes from the index
-corresponding to $n=59+1$ onwards, and the run continued until $w$ was the zero vector,
-which settles all larger $j$ at once. Lemma~\ref{lem:crit} gives the theorem.
+The terms $a(0),\dots$ were computed exactly in integer arithmetic from the model, extended by
+$A$ where the model itself was not evaluated, and $r(n)$ formed for each index. Those integers
+vanish from $n=0+1$ onwards, and the run exceeds $S+4$, which by
+Lemma~\ref{lem:crit} settles every larger index at once.
 \end{proof}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the whole construction was compared against the entry's DATA: the right-hand side of
-\eqref{eq:walk}, divided by $4!$, was evaluated at every one of the $11$
-published indices and agrees exactly. This is a strong test of the modelling and not only of
-the arithmetic --- the inversion of Lemma~\ref{lem:inv}, the reading of the local
-condition, and the alignment of the entry's index with the number of rows would each
-show up as a mismatch, and the quotient by $4!$ came out an integer at every index.
+First, the model reproduces all $47$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry: it is built by reading the entry's
+English, and a misreading gives different counts.
 
-Second, the lumped chain was checked against the unlumped one: for the small shapes the walk
-counts $\mathbf{s}_i^{\!\top}M_i^{m}\mathbf{1}$ were computed directly over the full
-alphabet as well and agree with $\sum_P\varepsilon_Pf_m(P)$ term by term.
+Second, the conjectured recurrence was evaluated directly on those published terms, with no
+model involved, and holds wherever the proved range and the data overlap.
 
-Third, the recurrence \eqref{eq:conj} was evaluated on the published terms in exact integer
-arithmetic with no matrices involved, and the annihilation test of Lemma~\ref{lem:crit} was
-run until the working vector was identically zero rather than to a sampled prefix.
+Third, the derived annihilator $A$ was itself tested on terms it had not been given: the model
+was evaluated beyond the $S$ values that determine it and $A$ reproduced them. A bound that is
+too small fails this test, which is why it is run.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A209845.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A199705.
+\bibitem{beckrobins} M.~Beck and S.~Robins, \emph{Computing the Continuous Discretely},
+2nd ed., Springer, 2015. (Ehrhart quasi-polynomials and their periods.)
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; Stirling and
-falling-factorial inversion, Section 1.9.)
-\bibitem{kemeny} J.~G.~Kemeny and J.~L.~Snell, \emph{Finite Markov Chains}, Springer,
-1976. (Strong lumpability, Section 6.3.)
-\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
-University Press, 2009.
+Cambridge University Press, 2011.
+\bibitem{ds} F.~Diamond and J.~Shurman, \emph{A First Course in Modular Forms},
+Springer GTM 228, 2005.
 \end{thebibliography}
 
 \end{document}

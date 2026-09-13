@@ -12,19 +12,19 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A282991, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A282643, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A282991 counts $n\times3$ arrays over $\{0,\dots,1\}$ subject to a condition imposed on
-every CELL over a neighbour set the entry names, and it carries an empirical recurrence of
+OEIS A282643 counts $n\times4$ arrays over $\{0,\dots,1\}$ subject to a condition imposed on
+every CELL through its king-move neighbourhood, and it carries an empirical recurrence of
 order $9$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
 empirical. A cell's neighbourhood meets three consecutive rows, so the state of a transfer
 matrix is a pair of consecutive rows and each step settles the middle one; an array is a
-walk, and $a(n)$ is a walk count on $S=40$ vertices, which is $C$-finite. Whether the
+walk, and $a(n)$ is a walk count on $S=272$ vertices, which is $C$-finite. Whether the
 conjectured recurrence annihilates it is then decided by a finite exact computation, with the
 Cayley--Hamilton theorem bounding the work.
 \end{abstract}
@@ -33,42 +33,38 @@ Cayley--Hamilton theorem bounding the work.
 
 \section{The conjecture}
 
-OEIS A282991 is ``Number of nX3 0..1 arrays with no 1 equal to more than one of its horizontal and vertical neighbors.''. It has offset $1$ and begins
+OEIS A282643 is ``Number of nX4 0..1 arrays with no 1 equal to more than one of its king-move neighbors.''. It has offset $1$ and begins
 \[
-7, 33, 163, 803, 3971, 19587, 96693, 477297,\ \dots
+13, 76, 413, 2638, 15460, 92817, 557439, 3332685,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 2*a(n-1) +10*a(n-2) +20*a(n-3) +13*a(n-4) -9*a(n-5) -10*a(n-6) -3*a(n-7) -a(n-8) +a(n-9).
+Empirical: a(n) = 2*a(n-1) +16*a(n-2) +45*a(n-3) +16*a(n-4) -2*a(n-5) -51*a(n-6) -35*a(n-7) -23*a(n-8) +7*a(n-9).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Mar 02 2017 12:31:40, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Mar 02 2017 12:36:01, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{Cells, not blocks}
 
-The entry names the neighbours it means --- horizontal is left and right, vertical is up and
-down, diagonal is northwest-to-southeast, antidiagonal is northeast-to-southwest, king-move is
-all eight --- and every such set lies inside the $3\times3$ square centred on the cell. Here
-the set is $\{(0,-1), (0,1), (-1,0), (1,0)\}$, written as offsets (row, column) from the cell. Every cell carries
-the condition
+The king-move neighbours of a cell are the (at most) eight cells surrounding it. Every cell
+carries the condition
 \[
-\text{every 1 has at most 1 neighbouring 1s},
+\text{every }1\text{ has at most }1\text{ neighbouring }1\text{s},
 \]
 and the count of neighbours enters it, so the boundary is not a detail that can be papered
-over: a cell in the interior has $4$ neighbours in this set and a cell on the boundary
-fewer, and a condition such as ``a strict majority of its neighbours'' therefore means
-different things at the two. In particular one cannot pad the array with a border of zeros ---
-that would give every cell the full $4$ and change what is being counted. The outside is
-therefore carried
+over: a corner cell has three neighbours, an edge cell five, an interior cell eight, and a
+condition such as ``a strict majority of its neighbours'' means different things at each. In
+particular one cannot pad the array with a border of zeros --- that would give boundary cells
+eight neighbours and change what is being counted. The outside is therefore carried
 explicitly, as a sentinel row above the first and below the last and as a sentinel column
 either side, and a neighbour that falls outside is simply absent from both counts.
 
 Write an array as a sequence of rows $u_1,\dots,u_L$, each in
-$\{0,\dots,1\}^{3}$. The neighbourhood of a cell in row $u_i$ meets $u_{i-1}$,
+$\{0,\dots,1\}^{4}$. The neighbourhood of a cell in row $u_i$ meets $u_{i-1}$,
 $u_i$ and $u_{i+1}$ and nothing else. Take as vertices the pairs
-$(r,s)\in(\{0,\dots,1\}^{3}\cup\{\varnothing\})\times\{0,\dots,1\}^{3}$,
+$(r,s)\in(\{0,\dots,1\}^{4}\cup\{\varnothing\})\times\{0,\dots,1\}^{4}$,
 and put an edge $(r,s)\to(s,t)$ when row $s$ satisfies the condition at every one of its
-$3$ cells, given $r$ above and $t$ below. An array with $L$ rows is then a walk of length
+$4$ cells, given $r$ above and $t$ below. An array with $L$ rows is then a walk of length
 $L-1$ starting at $(\varnothing,u_1)$, each step settling one row, and the last row is
 settled by the terminal weight, which evaluates it with $\varnothing$ below. Hence,
 with $M$ the adjacency matrix, $\iota$ the starting vector and $\tau$ the terminal weight,
@@ -98,7 +94,7 @@ nonzero $u_j$ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;2\,a(n-1) + 10\,a(n-2) + 20\,a(n-3) + 13\,a(n-4) - 9\,a(n-5) - 10\,a(n-6) - 3\,a(n-7) - a(n-8) + a(n-9)
+a(n)\;=\;2\,a(n-1) + 16\,a(n-2) + 45\,a(n-3) + 16\,a(n-4) - 2\,a(n-5) - 51\,a(n-6) - 35\,a(n-7) - 23\,a(n-8) + 7\,a(n-9)
 \]
 for every $n>9$.
 \end{theorem}
@@ -115,14 +111,13 @@ By Lemma~\ref{lem:crit} the recurrence holds for every $n>9$.
 
 Three checks, each independent of the algebra above.
 
-First, the transfer model reproduces all $21$ terms the entry publishes, exactly, in
-integer arithmetic. That check earned its place here. The neighbour offsets are named in the
-array's own frame --- horizontal means along a row --- but when the entry fixes the first
-dimension, as in ``$2\times n$'', the walk runs along columns and the two components of every
-offset swap. Sets such as king-move, or horizontal together with vertical, are unchanged by
-that swap and hide the error completely; a set such as horizontal, diagonal and antidiagonal
-is not, and the counts came out as those of a different member of the same family until the
-offsets were transposed.
+First, the transfer model reproduces all $20$ terms the entry publishes, exactly, in
+integer arithmetic. That check earned its place here. An early version of the construction
+tested whether a neighbour lay in the current row by comparing the row objects rather
+than their positions; when the row above happened to be identical to the current one, the
+cell directly above was then skipped as though it were the cell itself. The counts agreed with
+the entry for arrays of up to three rows and diverged at four, which is exactly the sort of
+error that a check on a handful of small cases would have missed.
 
 Second, the conjectured recurrence was evaluated directly on the entry's own published terms,
 with no matrices involved, and holds wherever the proved range and the data overlap.
@@ -132,7 +127,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A282991.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A282643.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

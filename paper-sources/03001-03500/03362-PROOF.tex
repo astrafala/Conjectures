@@ -12,45 +12,45 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A233255, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A233234, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A233255 counts arrays over $\{0,\dots,5\}$ in which no two entries that are neighbours in
+OEIS A233234 counts arrays over $\{0,\dots,5\}$ in which no two entries that are neighbours in
 a named set of directions may sum to $5$, together with clauses that pick one array out of
 each class of arrays differing by a renaming. The entry carries an empirical recurrence of
 order $5$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
 empirical: the clash condition is local to two consecutive rows and the renaming clauses are
-carried by one bounded piece of extra state, so the count is a walk count on $S=17$ states.
+carried by one bounded piece of extra state, so the count is a walk count on $S=5$ states.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 05C15, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A233255 is ``Number of n X 7 0..5 arrays with no element x(i,j) adjacent to itself or value 5-x(i,j) horizontally or antidiagonally, top left element zero, and 1 appearing before 2 3 and 4, and 2 appearing before 3 in row major order (unlabeled 6-colorings with no clashing color pairs).''. It has offset $1$ and begins
+OEIS A233234 is ``Number of n X 3 0..5 arrays with no element x(i,j) adjacent to value 5-x(i,j) horizontally, diagonally or antidiagonally, top left element zero, and 1 appearing before 2 3 and 4, and 2 appearing before 3 in row major order.''. It has offset $1$ and begins
 \[
-528, 1992704, 8050180096, 32835998056448, 134179300927602688, 548491734506604068864, 2242238966451009797226496, 9166394920089108387649814528,\ \dots
+6, 271, 18744, 1409129, 107709266, 8259321811, 633724470764, 48630297616989,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 5504*a(n-1) -6438912*a(n-2) +2774532096*a(n-3) -478351982592*a(n-4) +27831388078080*a(n-5).
+Empirical: a(n) = 93*a(n-1) - 1273*a(n-2) + 1943*a(n-3) - 882*a(n-4) + 120*a(n-5).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Sep 02 2024 19:39:15, revision 9) this is still
+As of the ``Last modified'' line on the live entry (Oct 10 2018 15:19:26, revision 8) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The array is $7$ cells across with entries $x(i,j)\in\{0,1,\dots,5\}$. Call two values $u,v$ CLASHING
-when $u+v=5$ and, the entry saying ``adjacent to itself or'', also when $u=v$. Two cells are neighbours when one is obtained from the other by one of
+The array is $3$ cells across with entries $x(i,j)\in\{0,1,\dots,5\}$. Call two values $u,v$ CLASHING
+when $u+v=5$. Two cells are neighbours when one is obtained from the other by one of
 the offsets
 \[
-(0,1), (1,-1),
+(0,1), (1,-1), (1,1),
 \]
-that is, in the horizontal and antidiagonal (ne--sw) directions, and the condition is that no two neighbouring cells carry
+that is, in the horizontal, antidiagonal (ne--sw) and diagonal (nw--se) directions, and the condition is that no two neighbouring cells carry
 clashing values. The clash relation is symmetric, so an offset and its negative name the
 same pairs and only one of each is listed. The entry also fixes the top left entry: $x(1,1)=0$.
 
@@ -91,7 +91,7 @@ So the state is a pair: the last array row, and the set $T$ of Lemma~\ref{lem:se
 appends a row, which settles every clash between it and the row above, every clash inside it,
 and every first appearance it contains. Two states from which, for every remaining length, the
 same number of arrays can be completed contribute identically to the count, so they are
-identified; after that identification there are $S=17$ of them.
+identified; after that identification there are $S=5$ of them.
 
 With $\iota$ the indicator of the states that may begin an array and $\tau=\mathbf{1}$,
 \[
@@ -120,7 +120,7 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;5504\,a(n-1) - 6438912\,a(n-2) + 2774532096\,a(n-3) - 478351982592\,a(n-4) + 27831388078080\,a(n-5)
+a(n)\;=\;93\,a(n-1) - 1273\,a(n-2) + 1943\,a(n-3) - 882\,a(n-4) + 120\,a(n-5)
 \]
 for every $n>5$.
 \end{theorem}
@@ -136,7 +136,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $9$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $13$ terms the entry publishes, exactly, in integer
 arithmetic.
 
 Second, the count was recomputed for the smallest arrays straight from the definition: fill the
@@ -152,7 +152,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A233255.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A233234.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata

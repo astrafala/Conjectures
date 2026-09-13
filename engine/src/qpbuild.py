@@ -30,7 +30,8 @@ import transferbuild
 PRE = phibuild.PRE
 esc = phibuild.esc
 rec_tex = transferbuild.rec_tex
-DATE = os.environ.get('PAPER_DATE', '12 September 2026')
+DATE0 = os.environ.get('PAPER_DATE', '12 September 2026')
+DATE = DATE0
 
 SHORT = {
     'latpoly': 'an Ehrhart quasi-polynomial',
@@ -82,10 +83,14 @@ class at a time; a class is a coset of $m\mathbb{{Z}}^L$, and a generator primit
 $\mathbb{{Z}}^{{L+1}}$ must be scaled by a divisor of $m$ to lie in it, so each $t$ is replaced
 by $mt$ and nothing else changes.
 
-Over the common denominator $A$ the numerator has degree below $S$, because a simplicial
-cone's numerator collects its fundamental parallelepiped and those points have height below the
-sum of its generators' heights, which is at most $S$. So $a(0),\dots,a(S-1)$, computed exactly,
-determine every later term, and nothing is fitted.
+Over the common denominator the numerator has degree below that of $A$ for every cell of the
+arrangement that HAS a ray, because such a cell's numerator collects a fundamental
+parallelepiped whose heights are below the sum of its generators' heights. The origin is a cell
+too and it has none: its series is the constant $1$, which over $A$ is $A/A$ and reaches degree
+exactly $\deg A$. The bound in force is therefore $zA(z)$, of order $S={S}$, and
+$a(0),\dots,a(S-1)$, computed exactly, determine every later term. Nothing is fitted, and the
+annihilator is tested on terms the model was not asked for before anything is claimed --- a
+bound one too small fails that test, which is how this one was found.
 """
     if en == 'ordpoly':
         return rf"""

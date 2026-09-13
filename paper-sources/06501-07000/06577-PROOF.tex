@@ -12,142 +12,144 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical product formula for OEIS A140904, proved}
+\title{The empirical recurrence for OEIS A209513, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{6 September 2026}
+\date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A140904 counts $4\times6$ matrices over $\{0,\dots,n\}$ whose rows and columns are
-nondecreasing, and carries a product formula for $a(n)$ marked empirical. Reversing rows and
-columns turns such a matrix into a plane partition inside a $4\times6\times n$ box, so
-MacMahon's box theorem applies; the triple product telescopes in its third index and leaves a
-polynomial in $n$ of degree $24$. The entry's own expression, cleared of its denominator,
-becomes an identity between two polynomials of bounded degree, and is therefore settled by a
-finite exact computation. The box count itself is classical and is already recorded on this
-entry; what is proved here is the entry's own formula.
+OEIS A209513 counts arrays of width $5$ over $\{0,1,2\}$ subject to a condition read round the
+perimeter of every $2\times2$ subblock: the two edge-increase counts agree in every subblock. The entry carries an empirical recurrence of
+order $25$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
+empirical: the condition is settled inside a bounded window of consecutive rows, so the
+count is a walk count on a finite digraph with $S=244$ vertices, and whether a linear
+recurrence holds for such a count is a finite computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A17, 05A19.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A16, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A140904 is ``Number of 4 X 6 matrices with elements in 0..n with each row and each column in nondecreasing order. 4,6,n can be permuted, see formula.''. It has offset $0$ and begins
+OEIS A209513 is ``Number of (n+1) X 5 0..2 arrays with the number of clockwise edge increases in every 2 X 2 subblock equal to the number of counterclockwise edge increases.''. It has offset $1$ and begins
 \[
-1, 210, 13860, 457380, 9343620, 133613766,\ \dots
+14739, 951777, 62340543, 4099186545, 269845393359, 17769569448759, 1170258116647953, 77072446894479573,\ \dots
 \]
-The entry states, as conjectures contributed by its author and never marked settled:
+The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-(empirical) set p,q,r to n,6,4 (in any order) in s=p+q+r-1; a(n) = product {i in 0..r-1} (binomial(s,p+i)*i!/(s-i)\^{}(r-i-1))
-
+Empirical: a(n) = 115*a(n-1) -4157*a(n-2) +69117*a(n-3) -595705*a(n-4) +2449306*a(n-5) -240335*a(n-6) -43350087*a(n-7) +178528425*a(n-8) -183199822*a(n-9) -751284432*a(n-10) +2871335435*a(n-11) -3549608757*a(n-12) -650892687*a(n-13) +7285361378*a(n-14) -9372087568*a(n-15) +5616780205*a(n-16) -1330498112*a(n-17) -261001088*a(n-18) +232979629*a(n-19) -45081325*a(n-20) -1230938*a(n-21) +1537784*a(n-22) -190656*a(n-23) +8208*a(n-24) -108*a(n-25).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jan 17 2025 09:28:41, revision 7) these are still
-recorded as empirical, and nothing on the entry records them as proved.
+As of the ``Last modified'' line on the live entry (Oct 06 2015 21:46:27, revision 7) this is still
+recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-A matrix $x$ of shape $4\times6$ with entries in $\{0,\dots,n\}$, nondecreasing along
-every row and down every column, becomes, on reversing the order of the rows and of the
-columns, an array that is NONINCREASING along rows and down columns with the same entries. That
-is exactly a plane partition whose parts are at most $n$ and whose shape fits inside a
-$4\times6$ rectangle --- a plane partition in a $4\times6\times n$ box. The
-correspondence is a bijection, being an involution on arrays, so
+The arrays have $5$ columns and a growing number of rows, with entries in $\{0,1,2\}$. A
+$2\times2$ subblock is a set of four cells
 \[
-a(n)\;=\;\mathrm{PP}(4,6,n).
+B=\begin{pmatrix} p & q \\ r & s \end{pmatrix},
+\qquad p=x(i,j),\; q=x(i,j+1),\; r=x(i+1,j),\; s=x(i+1,j+1).
 \]
-Note which parameter grows: the shape is FIXED and it is the alphabet $0..n$ that $n$ counts,
-so nothing about transfer matrices applies here.
-
-\section{The box count is a polynomial}
-
-\begin{theorem}[MacMahon]\label{thm:mm}
+Its perimeter is a cycle of four cells, walked clockwise as $p\to q\to s\to r\to p$ and
+counterclockwise as $p\to r\to s\to q\to p$. Write
 \[
-\mathrm{PP}(p,q,r)\;=\;\prod_{i=1}^{p}\prod_{j=1}^{q}\prod_{k=1}^{r}
-\frac{i+j+k-1}{i+j+k-2} .
+\mathrm{cw}(B)=[p<q]+[q<s]+[s<r]+[r<p],\qquad
+\mathrm{ccw}(B)=[p<r]+[r<s]+[s<q]+[q<p]
 \]
-\end{theorem}
+for the number of steps at which the value rises, going each way round.
 
-This is classical; see Stanley~\cite{stanley}, and it is already recorded on this entry.
-
-\begin{theorem}\label{thm:poly}
-\[
-a(n)\;=\;\prod_{i=1}^{4}\prod_{j=1}^{6}\frac{n+i+j-1}{i+j-1},
-\]
-a polynomial in $n$ of degree $24$ with rational coefficients.
-\end{theorem}
-
-\begin{proof}
-In Theorem~\ref{thm:mm} the inner product over $k$ telescopes: for fixed $i$ and $j$,
-\[
-\prod_{k=1}^{n}\frac{i+j+k-1}{i+j+k-2}\;=\;\frac{n+i+j-1}{i+j-1} ,
-\]
-every other factor cancelling against its neighbour. The remaining double product has
-$4\cdot6=24$ factors, each linear in $n$, and the denominators are constants.
-\end{proof}
-
-So $a$ is a polynomial, and no appeal to Ehrhart theory or to any general position argument is
-needed to see it.
-
-\section{The entry's expression}
-
-The entry writes $s=p+q+r-1$ with $(p,q,r)=(n,6,4)$ and claims
-\[
-a(n)\;=\;\prod_{i=0}^{4-1}\binom{s}{n+i}\,\frac{i!}{(s-i)^{4-1-i}}\;=\;
-\frac{N(n)}{D(n)} .
-\]
-
-\begin{lemma}\label{lem:deg}
-$N$ and $D$ are polynomials in $n$ of degrees $30$ and $6$ respectively.
+\begin{lemma}\label{lem:sum}
+$\mathrm{cw}(B)+\mathrm{ccw}(B)=4-\#\{\text{edges of the cycle with equal ends}\}$.
 \end{lemma}
 
 \begin{proof}
-With $s=n+6+4-1$ one has $s-(n+i)=6+4-1-i$, a constant, so
+Each of the four edges of the square is walked once by each cycle, and in opposite directions.
+An edge with distinct ends therefore contributes exactly one rise, to one of the two counts;
+an edge with equal ends contributes to neither.
+\end{proof}
+
+The condition the entry imposes is this: every subblock $B$ of the array satisfies
 \[
-\binom{s}{n+i}=\binom{s}{6+4-1-i}
-=\frac{(s-6-4+2+i)(s-6-4+3+i)\cdots s}{(6+4-1-i)!},
+\mathrm{cw}(B)\;=\;\mathrm{ccw}(B)
 \]
-a polynomial in $n$ of degree $6+4-1-i$. Multiplying over $i=0,\dots,4-1$ gives
-$\deg N=\sum_{i=0}^{4-1}(6+4-1-i)=30$. The denominator is
-$\prod_{i=0}^{4-1}(s-i)^{4-1-i}$, of degree
-$\sum_{i=0}^{4-1}(4-1-i)=6$, and it does not vanish for $n\ge0$.
+
+
+\section{A bounded window}
+
+Two consecutive rows decide every subblock lying between them, and the condition of Section 2 is a condition on single subblocks only. So the state is the row just written, and nothing else.
+
+One step of the walk writes a whole row. The row is filled left to right, and the subblock
+closed by positions $j-1,j$ is tested the moment position $j$ is written, so a partial row that
+cannot be completed is abandoned rather than enumerated. The walk starts at the state standing
+for the empty array, so that a walk of $n$ steps is an array of $n$ rows.
+
+The end vector is all ones: an array may stop after any row. Thus
+\[
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=244,
+\]
+for the transfer matrix $M$ on those $S$ states. The walk index $j$ and the entry's own $n$
+differ by a constant, read off by matching the published terms rather than assumed. In
+particular $a$ is $C$-finite, and every question about linear recurrences it satisfies is
+decidable.
+
+\section{The proof}
+
+\begin{lemma}\label{lem:crit}
+Let $q(t)=t^{25}-\sum_i c_it^{25-i}$ be the characteristic polynomial of the
+conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
+$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
+holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
+and it is enough to examine $j<S$.
+\end{lemma}
+
+\begin{proof}
+Factor $M^{j}$ out of $M^{j+25}-\sum_ic_iM^{j+25-i}$. For the bound, $M^{S}$
+is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
+$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
+polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
+pins the threshold exactly.
 \end{proof}
 
 \begin{theorem}
-The entry's expression equals $a(n)$ for every $n\ge0$.
+\[
+a(n)\;=\;115\,a(n-1) - 4157\,a(n-2) + 69117\,a(n-3) - 595705\,a(n-4) + 2449306\,a(n-5) - 240335\,a(n-6) - 43350087\,a(n-7) + 178528425\,a(n-8) - 183199822\,a(n-9) - 751284432\,a(n-10) + 2871335435\,a(n-11) - 3549608757\,a(n-12) - 650892687\,a(n-13) + 7285361378\,a(n-14) - 9372087568\,a(n-15) + 5616780205\,a(n-16) - 1330498112\,a(n-17) - 261001088\,a(n-18) + 232979629\,a(n-19) - 45081325\,a(n-20) - 1230938\,a(n-21) + 1537784\,a(n-22) - 190656\,a(n-23) + 8208\,a(n-24) - 108\,a(n-25)
+\]
+for every $n>24$.
 \end{theorem}
 
 \begin{proof}
-By Theorem~\ref{thm:poly} and Lemma~\ref{lem:deg}, $a(n)D(n)-N(n)$ is a polynomial in $n$
-of degree at most $24+6=30$. It was evaluated in exact rational arithmetic at
-$n=0,1,\dots,30$, that is at $31$ points, and vanishes at all of them; a nonzero polynomial
-of degree at most $30$ has at most $30$ roots, so it is identically zero. Since $D(n)\neq0$
-for $n\ge0$, the two expressions agree there.
+The vector $w=q(M)\tau$ was formed by $25$ matrix--vector products in exact integer
+arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
+integers vanish from the index corresponding to $n=24+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
-Three checks, each independent of the algebra above.
+Four checks, each independent of the algebra above.
 
-First, Theorem~\ref{thm:poly} reproduces all $19$ terms the entry publishes,
-exactly, in integer arithmetic.
+First, the model reproduces all $12$ terms the entry publishes, exactly, in integer
+arithmetic.
 
-Second, the matrices themselves were counted for the smallest alphabets, directly from the
-definition: the nondecreasing rows were listed and the chains of $4$ of them increasing
-componentwise counted, with no product formula and no plane partitions anywhere. The counts
-agree, which is what ties the reversal bijection to the entry's own wording.
+Second, the count was recomputed for the smallest arrays straight from the definition: every
+array of the stated width and a few rows was written out cell by cell over $\{0,1,2\}$, each of
+its $2\times2$ subblocks was read round its perimeter, and the condition of Section 2 was
+applied as stated. No window, no state and no recurrence is involved in that computation, and
+the published terms came back.
 
-Third, the polynomial identity was evaluated over the whole range $n=0,\dots,30$ rather than
-sampled, in exact rational arithmetic.
+Third, the conjectured recurrence was evaluated directly on the published terms, with no
+matrices involved, and holds wherever the proved range and the data overlap.
+
+Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A140904.
-\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 2, Cambridge
-University Press, 1999. (Plane partitions with bounded part size, Section 7.21.)
-\bibitem{macmahon} P.~A.~MacMahon, \emph{Combinatory Analysis}, Volume 2, Cambridge
-University Press, 1916.
-\bibitem{andrews} G.~E.~Andrews, \emph{The Theory of Partitions}, Addison--Wesley, 1976.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A209513.
+\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
+University Press, 2013.
 \end{thebibliography}
 
 \end{document}

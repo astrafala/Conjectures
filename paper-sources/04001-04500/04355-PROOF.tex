@@ -12,136 +12,116 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A207844, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A277799, proved from an exact model}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{31 August 2026}
+\date{6 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A207844 counts arrays over $\{0,\dots,1\}$ of width $7$ that avoid the patterns
-$(0,0,0), (0,0,1)$ along one axis and $(0,0,0), (1,1,1)$ along the other, and carries an empirical recurrence of
-order $96$ contributed by R.~H.~Hardin. It is true. The patterns have length $3$, so
-the constraint across the growing direction ties together $3$ consecutive rows: taking a
-window of $2$ consecutive rows as a state makes the array a walk in a finite digraph
-on $S=1764$ vertices, and $a(n)=\mathbf{1}^{\!\top}P^{\,n-2}\mathbf{1}$. Writing $q$
-for the characteristic polynomial of the conjectured recurrence, the residual is
-$\mathbf{1}^{\!\top}P^{\,n-2-96}q(P)\mathbf{1}$, which vanishes identically
-beyond a threshold that the computation pins down exactly. Finite, exact, integer.
+OEIS A277799 carries an empirical recurrence of order $4$. It is true, and it is
+decidable rather than empirical. The entry's sequence is given exactly by a certified growth pattern of the automaton's axis word, from
+which $a$ provably satisfies a MONIC linear recurrence of order $S=5$, derived below and not
+assumed. The residual of the conjectured recurrence satisfies the same one, so whether it
+annihilates $a$ is settled by a finite exact computation. No transfer matrix is involved and
+the count is not a walk.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 68R15, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 68Q80, 11B85, 05A15.\normalsize
 
-\section{The sequence and the conjecture}
+\section{The conjecture}
 
-OEIS A207844 is ``Number of nX7 0..1 arrays avoiding 0 0 0 and 0 0 1 horizontally and 0 0 0 and 1 1 1 vertically.''. It has offset
-$1$ and begins
+OEIS A277799 is ``Decimal representation of the x-axis, from the left edge to the origin, of the n-th stage of growth of the two-dimensional cellular automaton defined by "Rule 1", based on the 5-celled von Neumann neighborhood.''. It has offset $0$ and begins
 \[
-42, 1764, 2520, 21600, 140032, 794768, 5346600,\ \dots
+1, 0, 1, 12, 1, 60, 1, 252,\ \dots
 \]
-The entry carries the following comment:
-\begin{quote}\small
-Empirical: a(n) = a(n-1) +4*a(n-2) +277*a(n-3) +94*a(n-4) -133*a(n-5) -24873*a(n-6) -20838*a(n-7) -5448*a(n-8) +1013206*a(n-9) +1178196*a(n-10) +345358*a(n-11) -20388279*a(n-12) -31401473*a(n-13) -5064823*a(n-14) +177759190*a(n-15) +447178587*a(n-16) -42370993*a(n-17) +221707828*a(n-18) -3472246513*a(n-19) +2126812855*a(n-20) -16522889058*a(n-21) +14113194683*a(n-22) -25103346639*a(n-23) +115620455013*a(n-24) -27753419498*a(n-25) +126010955219*a(n-26) -188212795531*a(n-27) +38263474036*a(n-28) -172820082095*a(n-29) -1085943553214*a(n-30) -56427614115*a(n-31) -684977022197*a(n-32) +4479084474672*a(n-33) -459401473779*a(n-34) +1873655827983*a(n-35) -488810448916*a(n-36) +1455649747737*a(n-37) +1815531402246*a(n-38) -19088607418187*a(n-39) +2680133435998*a(n-40) -6417644855951*a(n-41) +14698297994257*a(n-42) -8261435689958*a(n-43) -3728425944069*a(n-44) +35268672175011*a(n-45) -6611097708372*a(n-46) +9412775701425*a(n-47) -26978805597956*a(n-48) +14830428729311*a(n-49) +5712715442952*a(n-50) -37836249661651*a(n-51) +10509327829811*a(n-52) -4997305817760*a(n-53) +13536154618699*a(n-54) -8299126102363*a(n-55) -3112330657906*a(n-56) +19954553646289*a(n-57) -6756609513568*a(n-58) +726779325183*a(n-59) -259421869262*a(n-60) +801155338903*a(n-61) +721826137189*a(n-62) -4463797278464*a(n-63) +1549246129003*a(n-64) +146922977369*a(n-65) -994848561216*a(n-66) +311012884307*a(n-67) +3524197306*a(n-68) +229248110469*a(n-69) -38710430265*a(n-70) -17234211018*a(n-71) +122761803753*a(n-72) -21220701103*a(n-73) -10976351975*a(n-74) +17329590128*a(n-75) -2860756313*a(n-76) -3009111259*a(n-77) +292257232*a(n-78) -168188347*a(n-79) -421751593*a(n-80) -176952632*a(n-81) -5487881*a(n-82) -31539485*a(n-83) -20781835*a(n-84) -285046*a(n-85) -1224456*a(n-86) -1031306*a(n-87) -15740*a(n-88) -21930*a(n-89) -25061*a(n-90) -357*a(n-91) -96*a(n-92) -277*a(n-93) -2*a(n-94) +a(n-95) -a(n-96) for n>98
+The entry states, as a conjecture contributed by its author and never marked settled:
+\begin{quote}
+(the empirical recurrence quoted in the entry)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 14:21:05, revision
-9) the statement is still recorded as empirical, and nothing on the entry
-records it as settled either way.
+As of the ``Last modified'' line on the live entry (Nov 05 2025 15:22:35, revision 19)
+this is still recorded as empirical, and nothing on the entry records it as proved.
 
-Written out, the claim is
-\begin{equation}\label{eq:conj}
-a(n)\;=\;a(n-1) + 4\,a(n-2) + 277\,a(n-3) + 94\,a(n-4) - 133\,a(n-5) - 24873\,a(n-6) - 20838\,a(n-7) - 5448\,a(n-8) + 1013206\,a(n-9) + 1178196\,a(n-10) + 345358\,a(n-11) - 20388279\,a(n-12) - 31401473\,a(n-13) - 5064823\,a(n-14) + 177759190\,a(n-15) + 447178587\,a(n-16) - 42370993\,a(n-17) + 221707828\,a(n-18) - 3472246513\,a(n-19) + 2126812855\,a(n-20) - 16522889058\,a(n-21) + 14113194683\,a(n-22) - 25103346639\,a(n-23) + 115620455013\,a(n-24) - 27753419498\,a(n-25) + 126010955219\,a(n-26) - 188212795531\,a(n-27) + 38263474036\,a(n-28) - 172820082095\,a(n-29) - 1085943553214\,a(n-30) - 56427614115\,a(n-31) - 684977022197\,a(n-32) + 4479084474672\,a(n-33) - 459401473779\,a(n-34) + 1873655827983\,a(n-35) - 488810448916\,a(n-36) + 1455649747737\,a(n-37) + 1815531402246\,a(n-38) - 19088607418187\,a(n-39) + 2680133435998\,a(n-40) - 6417644855951\,a(n-41) + 14698297994257\,a(n-42) - 8261435689958\,a(n-43) - 3728425944069\,a(n-44) + 35268672175011\,a(n-45) - 6611097708372\,a(n-46) + 9412775701425\,a(n-47) - 26978805597956\,a(n-48) + 14830428729311\,a(n-49) + 5712715442952\,a(n-50) - 37836249661651\,a(n-51) + 10509327829811\,a(n-52) - 4997305817760\,a(n-53) + 13536154618699\,a(n-54) - 8299126102363\,a(n-55) - 3112330657906\,a(n-56) + 19954553646289\,a(n-57) - 6756609513568\,a(n-58) + 726779325183\,a(n-59) - 259421869262\,a(n-60) + 801155338903\,a(n-61) + 721826137189\,a(n-62) - 4463797278464\,a(n-63) + 1549246129003\,a(n-64) + 146922977369\,a(n-65) - 994848561216\,a(n-66) + 311012884307\,a(n-67) + 3524197306\,a(n-68) + 229248110469\,a(n-69) - 38710430265\,a(n-70) - 17234211018\,a(n-71) + 122761803753\,a(n-72) - 21220701103\,a(n-73) - 10976351975\,a(n-74) + 17329590128\,a(n-75) - 2860756313\,a(n-76) - 3009111259\,a(n-77) + 292257232\,a(n-78) - 168188347\,a(n-79) - 421751593\,a(n-80) - 176952632\,a(n-81) - 5487881\,a(n-82) - 31539485\,a(n-83) - 20781835\,a(n-84) - 285046\,a(n-85) - 1224456\,a(n-86) - 1031306\,a(n-87) - 15740\,a(n-88) - 21930\,a(n-89) - 25061\,a(n-90) - 357\,a(n-91) - 96\,a(n-92) - 277\,a(n-93) - 2\,a(n-94) + a(n-95) - a(n-96)
-\end{equation}
-for all $n>96$. 
+\section{The value is a certified growth}
 
-\section{The array as a walk}
+The entry reads a diagonal or an axis of the automaton at stage $n$ as a string of digits and takes its
+numeric value. Nothing is being counted, so there is no digraph. What settles the sequence is
+that the string itself grows by a fixed pattern: the automaton was run and the certificate
+\[
+w(n+p)\;=\;L_r + w(n) + R_r
+\]
+was verified for every available $n$ in each residue class $r$ of $n$ modulo the period $p$,
+after a pre-period $n_0$ during which the shape has not yet settled. Concatenation is
+multiplication by a power of the base $B$ and addition, so along a class
+\[
+a(n+p)\;=\;v(L_r)\,B^{|w(n)|+|R_r|} + a(n)\,B^{|R_r|} + v(R_r),
+\]
+with $|w(n)|$ growing by $|L_r|+|R_r|$ every $p$ steps.
 
-Call a row \emph{admissible} if the word it forms contains none of the patterns
-$(0,0,0), (0,0,1)$ as $3$ consecutive entries. There are $42$ admissible rows; that condition
-involves a single row only.
+\section{The bound}
 
-The remaining patterns $(0,0,0), (1,1,1)$ are forbidden along the other axis, so each of them
-constrains $3$ consecutive rows at a fixed position of the column. Take as state a
-window $w=\bigl(w^{(1)},\dots,w^{(2)}\bigr)$ of $2$ consecutive admissible
-rows, so $S=1764$, and declare $w\to w'$ an edge when $w'$ is $w$ with its first entry
-dropped and one further admissible row $t$ appended, subject to: for every position
-$j$, the $3$-tuple read down the column $j$ across $w^{(1)},\dots,w^{(2)},t$
-is none of $(0,0,0), (1,1,1)$. Let $P$ be the adjacency matrix.
+In the shift $T=S^{\,p}$ that is a first-order recurrence with a geometric forcing term and a
+constant, killed by $(T-B^{|R_r|})(T-B^{|L_r|+|R_r|})(T-1)$. Taking the DISTINCT roots that
+occur across the residue classes, pulling each back to $S^{\,p}-\lambda$, and allowing the
+pre-period to raise the numerator's degree gives a monic annihilator of order $S=5$. The
+earlier figure, $p+3$, was the one-dimensional count carried over unchanged; with $p$ classes
+carrying $p$ different pairs it is too small, and a residual test that trusts it checks too few
+coefficients to prove anything.
 
-\begin{lemma}\label{lem:walk}
-$a(n)=\mathbf{1}^{\!\top}P^{\,n-2}\mathbf{1}$ for every $n\ge2$.
-\end{lemma}
-
-\begin{proof}
-An array of the entry's kind with $n$ rows is a sequence of $n$ admissible rows in
-which no forbidden pattern appears along the other axis. Reading it as the sequence of its
-overlapping windows of length $2$ turns it into a walk: consecutive windows overlap in
-$1$ rows by construction, and the edge condition is exactly the requirement on the one
-new $3$-tuple that each step creates. Conversely a walk reassembles into such an array,
-and the two constructions are mutually inverse. A walk of length $n-2$ visits $n-1$
-windows, that is $n$ rows; summing over all starting and ending states gives
-$\mathbf{1}^{\!\top}P^{\,n-2}\mathbf{1}$.
-\end{proof}
-
-\section{The criterion}
-
-Let $q(t)=t^{96}-\sum_i c_i t^{96-i}$ be the characteristic polynomial of
-\eqref{eq:conj} and $u_j=\mathbf{1}^{\!\top}P^{j}q(P)\mathbf{1}$.
+\section{The proof}
 
 \begin{lemma}\label{lem:crit}
-$a(n)-\sum_i c_i a(n-i)=u_{\,n-2-96}$ whenever $n-96\ge2$. Hence
-\eqref{eq:conj} holds for every $n>t$ exactly when $u_j=0$ for every
-$j>t-2-96$. Moreover $(u_j)$ satisfies the monic linear recurrence whose
-characteristic polynomial is that of $P$, of degree $S$, so $S$ consecutive zeros force all
-later ones and the last nonzero $u_j$ pins $t$ down exactly.
+Let $A(z)=z^S-\sum_{j<S}\alpha_jz^{j}$ be the monic annihilator derived above and
+$q(z)=z^{4}-\sum_ic_iz^{4-i}$ the characteristic polynomial of the conjectured
+recurrence. The residual $r(n)=a(n)-\sum_ic_ia(n-i)$ is a linear combination of shifts of $a$,
+so $A$ annihilates $r$ as well. Since $A(0)\ne0$ the recurrence it gives runs in both
+directions, and $S$ consecutive zeros of $r$ force $r$ to vanish at every later index.
 \end{lemma}
 
 \begin{proof}
-Substituting Lemma~\ref{lem:walk} into the left side and factoring out
-$P^{\,n-2-96}$ gives the identity. The equivalence follows by letting the exponent
-run. For the last claim, Cayley--Hamilton gives $\chi(P)=0$ for the characteristic
-polynomial $\chi$ of $P$, so $\chi$ applied to the shift annihilates $(u_j)$; being monic of
-degree $S$, it propagates $S$ consecutive zeros forward.
+$A$ annihilates $a$, hence every shift of $a$, hence any linear combination of shifts; that is
+$r$. A monic recurrence with nonzero constant term determines each term from the $S$ before it
+and each from the $S$ after it, so a run of $S$ zeros propagates.
 \end{proof}
 
-\section{The computation}
-
 \begin{theorem}
-The recurrence \eqref{eq:conj} holds for every $n>96$. This is the statement of
-Section~1.
+\[
+a(n)\;=\;5\,a(n-2) - 4\,a(n-4)
+\]
+for every $n>0$.
 \end{theorem}
 
 \begin{proof}
-The vector $q(P)\mathbf{1}\in\mathbb{Z}^{S}$ was formed by $96$ matrix--vector
-products in exact integer arithmetic and the $u_j$ evaluated in turn. They vanish from the
-index corresponding to $n=96+1$ onwards, and the run was continued past $S$ consecutive
-zeros, which by Lemma~\ref{lem:crit} settles every larger index.
+The terms $a(0),\dots$ were computed exactly in integer arithmetic from the model, extended by
+$A$ where the model itself was not evaluated, and $r(n)$ formed for each index. Those integers
+vanish from $n=0+1$ onwards, and the run exceeds $S+4$, which by
+Lemma~\ref{lem:crit} settles every larger index at once.
 \end{proof}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the digraph was built directly from the entry's stated patterns and the walk counts
-compared against the entry's DATA at every one of the $19$ published indices; the
-values agree exactly, including the initial count of $42$ admissible rows. That is
-what ties the digraph to the sequence, and a model reproducing only part of the published
-data was rejected wherever it occurred.
+First, the model reproduces all $43$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry: it is built by reading the entry's
+English, and a misreading gives different counts.
 
-Second, the recurrence \eqref{eq:conj} was evaluated on those published terms in exact
-integer arithmetic, with no matrices involved, and vanishes at every index the entry claims.
+Second, the conjectured recurrence was evaluated directly on those published terms, with no
+model involved, and holds wherever the proved range and the data overlap.
 
-Third, the vanishing test of Lemma~\ref{lem:crit} was carried past $S=1764$ consecutive
-zeros rather than to a sampled prefix.
+Third, the derived annihilator $A$ was itself tested on terms it had not been given: the model
+was evaluated beyond the $S$ values that determine it and $A$ reproduced them. A bound that is
+too small fails this test, which is why it is run.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A207844.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A277799.
+\bibitem{beckrobins} M.~Beck and S.~Robins, \emph{Computing the Continuous Discretely},
+2nd ed., Springer, 2015. (Ehrhart quasi-polynomials and their periods.)
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
-University Press, 2009.
-\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
-University Press, 2013.
+Cambridge University Press, 2011.
+\bibitem{ds} F.~Diamond and J.~Shurman, \emph{A First Course in Modular Forms},
+Springer GTM 228, 2005.
 \end{thebibliography}
 
 \end{document}

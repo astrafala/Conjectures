@@ -12,16 +12,16 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A275232, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A275187, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A275232 counts arrays in which no entry may equal the entries at a short list of fixed offsets
+OEIS A275187 counts arrays in which no entry may equal the entries at a short list of fixed offsets
 from it, the arrays being counted up to renaming the letters. The entry carries an empirical
-recurrence of order $8$ contributed by R.~H.~Hardin. It is true, and it is decidable
+recurrence of order $9$ contributed by R.~H.~Hardin. It is true, and it is decidable
 rather than empirical. The condition tests only whether two cells are equal, so it survives
 renaming; the count of classes is recovered from counts over fixed alphabets by inverting a
 triangular system of falling factorials, and each of those is a walk count on a window of
@@ -32,22 +32,22 @@ $1$ consecutive columns, $S=197$ states in all.
 
 \section{The conjecture}
 
-OEIS A275232 is ``Number of 7Xn 0..2 arrays with no element equal to any value at offset (-2,-1) (-2,1) or (-1,0) and new values introduced in order 0..2.''. It has offset $1$ and begins
+OEIS A275187 is ``Number of 7 X n 0..2 arrays with no element equal to any value at offset (-2,-1) (-1,0) or (-1,1) and new values introduced in order 0..2.''. It has offset $1$ and begins
 \[
-32, 404, 8134, 164645, 3334854, 67550874, 1368326231, 27717164160,\ \dots
+32, 65, 389, 2386, 14643, 90793, 561044, 3472521,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 20*a(n-1) +57*a(n-2) -1206*a(n-3) +3096*a(n-4) +2306*a(n-5) -16957*a(n-6) +20440*a(n-7) -7755*a(n-8) for n>9
+Empirical: a(n) = 2*a(n-1) + 20*a(n-2) + 43*a(n-3) - 20*a(n-4) - 92*a(n-5) - 176*a(n-6) - 16*a(n-7) - 16*a(n-8) + 64*a(n-9) for n>10.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 20 2016 18:31:40, revision 4) this is still
+As of the ``Last modified'' line on the live entry (Feb 01 2019 11:55:28, revision 7) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
 Entries lie in $\{0,1,\dots,2\}$ and the condition is that
 \[
-x(i,j)\ \ne\ x(i+d_1,\,j+d_2)\qquad\text{for each offset }(d_1,d_2)\in\{(-2,-1), (-2,1), (-1,0)\}
+x(i,j)\ \ne\ x(i+d_1,\,j+d_2)\qquad\text{for each offset }(d_1,d_2)\in\{(-2,-1), (-1,0), (-1,1)\}
 \]
 whenever the second cell lies inside the array. The entry writes the array with $n$ as the number of COLUMNS, so the array grows one COLUMN at a time and an offset is read with its two coordinates exchanged. The closing clause ``new values
 introduced in order $0..2$'' says the array is the canonical representative of its equality
@@ -97,7 +97,7 @@ published terms rather than assumed. In particular $a$ is $C$-finite.
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{8}-\sum_i c_it^{8-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{9}-\sum_i c_it^{9-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -105,7 +105,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+8}-\sum_ic_iM^{j+8-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+9}-\sum_ic_iM^{j+9-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -114,15 +114,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;20\,a(n-1) + 57\,a(n-2) - 1206\,a(n-3) + 3096\,a(n-4) + 2306\,a(n-5) - 16957\,a(n-6) + 20440\,a(n-7) - 7755\,a(n-8)
+a(n)\;=\;2\,a(n-1) + 20\,a(n-2) + 43\,a(n-3) - 20\,a(n-4) - 92\,a(n-5) - 176\,a(n-6) - 16\,a(n-7) - 16\,a(n-8) + 64\,a(n-9)
 \]
-for every $n>9$.
+for every $n>10$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $8$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $9$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=9+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=10+1$ onwards and the run continued
 until the working vector was identically zero. The rational weights are carried as one common
 denominator, so no division is performed until the final term.
 \end{proof}
@@ -131,7 +131,7 @@ denominator, so no division is performed until the final term.
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $16$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $20$ terms the entry publishes, exactly, in integer
 arithmetic.
 
 Second, the count was recomputed for the smallest arrays straight from the definition:
@@ -148,7 +148,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A275232.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A275187.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; falling factorials,
 Section 1.9.)

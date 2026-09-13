@@ -17,6 +17,12 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import qpbuild
 
 ONLY = set(sys.argv[1:])
+# A rebuilt paper must keep the date its result was obtained, not the day its prose was
+# rewritten. The dates the papers printed before the rewrite were recovered from git and
+# keyed by A-number; anything not in that map is new and keeps today's.
+ORIG = {}
+if os.path.exists('deep-check/orig-paper-dates.json'):
+    ORIG = json.load(open('deep-check/orig-paper-dates.json'))
 rank = {r['anum']: r for r in json.load(open('rank-map.json'))}
 hits = [h for h in json.load(open('uniall_hits.json'))
         if not h.get('FAILS') and h.get('engine') in qpbuild.SHORT]
@@ -28,6 +34,7 @@ for h in sorted(hits, key=lambda x: x['anum']):
     r = rank.get(a)
     dd = 'build/un%s' % a
     os.makedirs(dd, exist_ok=True)
+    qpbuild.DATE = ORIG.get(a, qpbuild.DATE0)
     open(dd + '/p.tex', 'w').write(qpbuild.build(h))
     for _ in range(2):
         subprocess.run(['pdflatex', '-interaction=nonstopmode', 'p.tex'], cwd=dd,

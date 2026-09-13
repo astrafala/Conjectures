@@ -12,149 +12,119 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A210179, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A183897, proved from an exact model}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{3 September 2026}
+\date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A210179 counts arrays of width $5$ whose every $2\times2$ subblock holds a
-prescribed number of DISTINCT values, which use ALL of the $4$ available letters, and which
-are counted up to renaming. The entry carries an empirical recurrence of order $50$
-contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical. The
-condition counts distinct values and so survives renaming, which lets the count of patterns be
-recovered from counts over fixed alphabets by inverting a triangular system of falling
-factorials; the words ``containing all values'' change which row of that inverse is used and
-nothing else. Each fixed-alphabet count is a walk count on $S=1300$ states in all.
+OEIS A183897 carries an empirical recurrence of order $3$. It is true, and it is
+decidable rather than empirical. The entry's sequence is given exactly by an exact polynomial in $n$, from
+which $a$ provably satisfies a MONIC linear recurrence of order $S=3$, derived below and not
+assumed. The residual of the conjectured recurrence satisfies the same one, so whether it
+annihilates $a$ is settled by a finite exact computation. No transfer matrix is involved and
+the count is not a walk.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A18, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A19, 11P21.\normalsize
 
 \section{The conjecture}
 
-OEIS A210179 is ``Number of (n+1)X5 0..3 arrays containing all values 0..3 with every 2X2 subblock having three or four distinct values, and new values 0..3 introduced in row major order.''. It has offset $1$ and begins
+OEIS A183897 is ``Number of nondecreasing arrangements of n+3 numbers in 0..2 with each number being the sum mod 3 of three others.''. It has offset $1$ and begins
 \[
-9042, 2563795, 677791782, 178967377396, 47230346056196, 12464481048826696, 3289463766677655180, 868112796406514394762,\ \dots
+1, 7, 17, 25, 34, 44, 55, 67,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 305*a(n-1) -8964*a(n-2) -592720*a(n-3) +25109411*a(n-4) +152644028*a(n-5) -18195830806*a(n-6) +181226187451*a(n-7) +3092095684717*a(n-8) -66471049453238*a(n-9) +90264180231796*a(n-10) +6772584563156660*a(n-11) -49066540883042923*a(n-12) -192090370791348766*a(n-13) +3446057586143788976*a(n-14) -5299468411446658785*a(n-15) -101206410270018640248*a(n-16) +453991188789119119647*a(n-17) +1192283901355404923002*a(n-18) -11763947474565853612062*a(n-19) +4976777711797107269820*a(n-20) +154357702742341519669776*a(n-21) -320357552305372941467372*a(n-22) -1038371855595680313674168*a(n-23) +4129078215906298103085296*a(n-24) +2119123146244235654868816*a(n-25) -27118380193817405050087984*a(n-26) +17929710091623807641222208*a(n-27) +97507644778196665361489152*a(n-28) -149297639238887453328571904*a(n-29) -169191295081970510706676864*a(n-30) +490220164048331643495809024*a(n-31) +23379223105512261258727168*a(n-32) -836167077385995836324062720*a(n-33) +406266067090180580354471936*a(n-34) +749819009543217881638707200*a(n-35) -676693879122818542026817536*a(n-36) -310443123972805588169031680*a(n-37) +498203947536501588227915776*a(n-38) +9744748192081361437720576*a(n-39) -187420996792950565377146880*a(n-40) +36325389074681359144845312*a(n-41) +34537447300013200634806272*a(n-42) -11215019873068960788250624*a(n-43) -2580406693969511919386624*a(n-44) +1132682738571576929681408*a(n-45) +60903702041543212793856*a(n-46) -38872759178345280700416*a(n-47) -482390924757181661184*a(n-48) +345714358079352471552*a(n-49) -5401496006984466432*a(n-50)
+Empirical: a(n) = (1/2)*n\^{}2 + (9/2)*n - 1 for n>2.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 15:49:34, revision 9) this is still
-recorded as empirical, and nothing on the entry records it as proved.
+As of the ``Last modified'' line on the live entry (Apr 05 2018 09:52:28, revision 14)
+this is still recorded as empirical, and nothing on the entry records it as proved.
 
-\section{What is being counted}
+\section{The count is a polynomial}
 
-The array has $5$ cells across and entries in $\{0,1,\dots,3\}$. In every
-$2\times2$ window of it, the number of DISTINCT entries must be one of $3, 4$. Two
-further clauses come with it:
+A NONDECREASING arrangement is determined by its multiset of values, so an admissible
+arrangement is exactly an admissible multiset. The condition names how many other entries a
+value must be built from, and a condition of that shape cannot distinguish a value occurring
+$r+1$ times from one occurring more: the admissible multisets are therefore exactly those
+whose multiplicity profile, CAPPED at $r+1$, is one of a finite list, and that list is computed
+once by enumeration over the capped profiles.
 
-\begin{itemize}
-\item ``new values $0..3$ introduced in row major order'' --- reading the cells in row major
-order, a letter may appear for the first time only when every smaller letter already has, so
-the array counted is the canonical representative of its EQUALITY PATTERN;
-\item ``containing all values $0..3$'' --- every one of the $4$ letters must actually
-occur.
-\end{itemize}
+Given an admissible capped profile with $F$ the total multiplicity of the values capped below
+the limit and $t$ the number of values at the cap, the arrangements of length $\ell$ with that
+profile number $\binom{\ell-F-(r+1)t+t-1}{t-1}$, and $a(n)$ is the sum of those binomials
+over the list with $\ell$ the entry's own length.
 
+\section{The bound}
 
-\section{From patterns to fixed alphabets}
+Each binomial is a polynomial in $\ell$, hence in $n$, of degree $t-1<M$ with $M$ the alphabet
+size, so $a$ agrees with a polynomial of degree below $M$ and $(z-1)^{M}$ annihilates it:
+$S=3$.
 
-Write $N_j$ for the number of admissible patterns using exactly $j$ letters and $L_i$ for the
-number of admissible arrays over an alphabet of $i$ letters. An array over $i$ letters is a
-pattern together with an injection of its letters into the alphabet, so
-\[
-L_i\;=\;\sum_{j} N_j\,i(i-1)\cdots(i-j+1)\;=\;\sum_j F_{ij}N_j ,
-\]
-a triangular system with unit diagonal, hence invertible over $\mathbf{Q}$.
-
-Here is the whole difference between this entry and its neighbours. Without the words
-``containing all values'' the quantity counted is $N_1+\dots+N_{4}$, and the weights are
-the row vector $\mathbf{1}^{\!\top}F^{-1}$. With them, the pattern must use every letter,
-so the quantity counted is $N_{4}$ alone and the weights are the single row
-$e_{4}^{\!\top}F^{-1}$ of the same inverse:
-\[
-a\;=\;N_{4}\;=\;\sum_{i=1}^{4}\bigl(F^{-1}\bigr)_{4i}\,L_i .
-\]
-
-The step is legitimate only if the condition survives renaming the alphabet, and it does: the
-condition counts how many DISTINCT values a window holds, and whether two cells agree is
-untouched by any renaming. No clause compares letters by size or does arithmetic on them.
-
-\section{Each $L_i$ is a walk count}
-
-A $2\times2$ window lies in $2$ consecutive array rows, so the window of the last
-$1$ rows is a state and a step appends a row, settling every subblock it completes.
-Assembling the pieces for $i=1,\dots,4$ as a disjoint union, with $\iota$ carrying the
-weights above cleared of denominators and $\tau=\mathbf{1}$,
-\[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=1300.
-\]
-The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
-published terms rather than assumed. In particular $a$ is $C$-finite.
+Two kinds of term are outside that polynomial at small lengths, and they are why the threshold
+below is not zero. A profile with no value at the cap contributes the indicator
+$[\,F=\ell\,]$, which is a single spike rather than a polynomial and is gone once
+$\ell$ exceeds every such $F$; and a profile whose slack falls below $-(t-1)$ has the count
+$0$ where the binomial polynomial does not vanish. Both live at bounded $\ell$, so above them
+$a$ is the polynomial exactly, and on every entry of this family the residual of $(z-1)^{M}$
+is nonzero at the first few indices and vanishes from then on. The theorem is stated from the
+threshold up, and the run of zeros it uses lies entirely above the transient.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{50}-\sum_i c_it^{50-i}$ be the characteristic polynomial of the
-conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
-$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
-holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
-and it is enough to examine $j<S$.
+Let $A(z)=z^S-\sum_{j<S}\alpha_jz^{j}$ be the monic annihilator derived above and
+$q(z)=z^{3}-\sum_ic_iz^{3-i}$ the characteristic polynomial of the conjectured
+recurrence. The residual $r(n)=a(n)-\sum_ic_ia(n-i)$ is a linear combination of shifts of $a$,
+so $A$ annihilates $r$ as well. Since $A(0)\ne0$ the recurrence it gives runs in both
+directions, and $S$ consecutive zeros of $r$ force $r$ to vanish at every later index.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+50}-\sum_ic_iM^{j+50-i}$. For the bound, $M^{S}$
-is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
-$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
-polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly.
+$A$ annihilates $a$, hence every shift of $a$, hence any linear combination of shifts; that is
+$r$. A monic recurrence with nonzero constant term determines each term from the $S$ before it
+and each from the $S$ after it, so a run of $S$ zeros propagates.
 \end{proof}
 
 \begin{theorem}
 \[
-a(n)\;=\;305\,a(n-1) - 8964\,a(n-2) - 592720\,a(n-3) + 25109411\,a(n-4) + 152644028\,a(n-5) - 18195830806\,a(n-6) + 181226187451\,a(n-7) + 3092095684717\,a(n-8) - 66471049453238\,a(n-9) + 90264180231796\,a(n-10) + 6772584563156660\,a(n-11) - 49066540883042923\,a(n-12) - 192090370791348766\,a(n-13) + 3446057586143788976\,a(n-14) - 5299468411446658785\,a(n-15) - 101206410270018640248\,a(n-16) + 453991188789119119647\,a(n-17) + 1192283901355404923002\,a(n-18) - 11763947474565853612062\,a(n-19) + 4976777711797107269820\,a(n-20) + 154357702742341519669776\,a(n-21) - 320357552305372941467372\,a(n-22) - 1038371855595680313674168\,a(n-23) + 4129078215906298103085296\,a(n-24) + 2119123146244235654868816\,a(n-25) - 27118380193817405050087984\,a(n-26) + 17929710091623807641222208\,a(n-27) + 97507644778196665361489152\,a(n-28) - 149297639238887453328571904\,a(n-29) - 169191295081970510706676864\,a(n-30) + 490220164048331643495809024\,a(n-31) + 23379223105512261258727168\,a(n-32) - 836167077385995836324062720\,a(n-33) + 406266067090180580354471936\,a(n-34) + 749819009543217881638707200\,a(n-35) - 676693879122818542026817536\,a(n-36) - 310443123972805588169031680\,a(n-37) + 498203947536501588227915776\,a(n-38) + 9744748192081361437720576\,a(n-39) - 187420996792950565377146880\,a(n-40) + 36325389074681359144845312\,a(n-41) + 34537447300013200634806272\,a(n-42) - 11215019873068960788250624\,a(n-43) - 2580406693969511919386624\,a(n-44) + 1132682738571576929681408\,a(n-45) + 60903702041543212793856\,a(n-46) - 38872759178345280700416\,a(n-47) - 482390924757181661184\,a(n-48) + 345714358079352471552\,a(n-49) - 5401496006984466432\,a(n-50)
+a(n)\;=\;3\,a(n-1) - 3\,a(n-2) + a(n-3)
 \]
-for every $n>50$.
+for every $n>5$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $50$ matrix--vector products in exact integer
-arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=50+1$ onwards and the run continued
-until the working vector was identically zero. The rational weights are carried as one common
-denominator throughout, so no division is performed until the final term.
+The terms $a(0),\dots$ were computed exactly in integer arithmetic from the model, extended by
+$A$ where the model itself was not evaluated, and $r(n)$ formed for each index. Those integers
+vanish from $n=5+1$ onwards, and the run exceeds $S+3$, which by
+Lemma~\ref{lem:crit} settles every larger index at once. The bound is exact: at $n=5$ the recurrence fails on the entry's own published terms, so no larger range holds.
 \end{proof}
 
 \section{Verification}
 
-Four checks, each independent of the algebra above.
+Three checks, each independent of the algebra above.
 
-First, the model reproduces all $11$ terms the entry publishes, exactly, in integer
-arithmetic.
+First, the model reproduces all $53$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry: it is built by reading the entry's
+English, and a misreading gives different counts.
 
-Second, the count was recomputed for the smallest arrays straight from the definition:
-enumerate every array over $\{0,\dots,3\}$, keep those that are canonical, that use every
-letter, and whose every subblock passes, and count them. Neither the transfer matrix nor the
-falling-factorial inversion is involved, and the published terms came back --- including the
-initial zeros, which are a sharp test of the ``containing all values'' clause: a small array
-cannot show $4$ letters at all.
+Second, the conjectured recurrence was evaluated directly on those published terms, with no
+model involved, and holds wherever the proved range and the data overlap.
 
-Third, the conjectured recurrence was evaluated directly on the published terms, with no
-matrices involved, and holds wherever the proved range and the data overlap.
-
-Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
-arithmetic on the whole vector rather than on a sampled prefix.
+Third, the derived annihilator $A$ was itself tested on terms it had not been given: the model
+was evaluated beyond the $S$ values that determine it and $A$ reproduced them. A bound that is
+too small fails this test, which is why it is run.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A210179.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A183897.
+\bibitem{beckrobins} M.~Beck and S.~Robins, \emph{Computing the Continuous Discretely},
+2nd ed., Springer, 2015. (Ehrhart quasi-polynomials and their periods.)
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; Stirling numbers and
-falling factorials, Section 1.9.)
-\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
-University Press, 2013.
+Cambridge University Press, 2011.
+\bibitem{ds} F.~Diamond and J.~Shurman, \emph{A First Course in Modular Forms},
+Springer GTM 228, 2005.
 \end{thebibliography}
 
 \end{document}

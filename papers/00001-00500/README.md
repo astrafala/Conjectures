@@ -1,6 +1,6 @@
 # Papers 00001-00500
 
-Ranks 1 to 500 of 11775, hardest first.
+Ranks 1 to 500 of 11901, hardest first.
 
 | # | OEIS | Result | What settles it | Paper |
 | --- | --- | --- | --- | --- |
@@ -414,93 +414,93 @@ Ranks 1 to 500 of 11775, hardest first.
 | 408 | [A251207](https://oeis.org/A251207) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00408-PROOF.pdf](00408-PROOF.pdf) |
 | 409 | [A229315](https://oeis.org/A229315) | Proof | the number of distinct indicator arrays a cell condition produces: an image count, made a walk count by determ... | [00409-PROOF.pdf](00409-PROOF.pdf) |
 | 410 | [A220529](https://oeis.org/A220529) | Proof | the number of distinct indicator arrays a cell condition produces: an image count, made a walk count by determ... | [00410-PROOF.pdf](00410-PROOF.pdf) |
-| 411 | [A250930](https://oeis.org/A250930) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00411-PROOF.pdf](00411-PROOF.pdf) |
-| 412 | [A237067](https://oeis.org/A237067) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00412-PROOF.pdf](00412-PROOF.pdf) |
-| 413 | [A235021](https://oeis.org/A235021) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00413-PROOF.pdf](00413-PROOF.pdf) |
-| 414 | [A220914](https://oeis.org/A220914) | Proof | the number of distinct indicator arrays a cell condition produces: an image count, made a walk count by determ... | [00414-PROOF.pdf](00414-PROOF.pdf) |
-| 415 | [A233630](https://oeis.org/A233630) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00415-PROOF.pdf](00415-PROOF.pdf) |
-| 416 | [A236884](https://oeis.org/A236884) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00416-PROOF.pdf](00416-PROOF.pdf) |
-| 417 | [A218176](https://oeis.org/A218176) | Proof | the number of distinct indicator arrays a cell condition produces: an image count, made a walk count by determ... | [00417-PROOF.pdf](00417-PROOF.pdf) |
-| 418 | [A235102](https://oeis.org/A235102) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00418-PROOF.pdf](00418-PROOF.pdf) |
-| 419 | [A237076](https://oeis.org/A237076) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00419-PROOF.pdf](00419-PROOF.pdf) |
-| 420 | [A236780](https://oeis.org/A236780) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00420-PROOF.pdf](00420-PROOF.pdf) |
-| 421 | [A233975](https://oeis.org/A233975) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00421-PROOF.pdf](00421-PROOF.pdf) |
-| 422 | [A251217](https://oeis.org/A251217) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00422-PROOF.pdf](00422-PROOF.pdf) |
-| 423 | [A251266](https://oeis.org/A251266) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00423-PROOF.pdf](00423-PROOF.pdf) |
-| 424 | [A234401](https://oeis.org/A234401) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00424-PROOF.pdf](00424-PROOF.pdf) |
-| 425 | [A234405](https://oeis.org/A234405) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00425-PROOF.pdf](00425-PROOF.pdf) |
-| 426 | [A251347](https://oeis.org/A251347) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00426-PROOF.pdf](00426-PROOF.pdf) |
-| 427 | [A281804](https://oeis.org/A281804) | Proof | a cell condition with an exception budget, counted up to relabelling | [00427-PROOF.pdf](00427-PROOF.pdf) |
-| 428 | [A237167](https://oeis.org/A237167) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00428-PROOF.pdf](00428-PROOF.pdf) |
-| 429 | [A236893](https://oeis.org/A236893) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00429-PROOF.pdf](00429-PROOF.pdf) |
-| 430 | [A237340](https://oeis.org/A237340) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00430-PROOF.pdf](00430-PROOF.pdf) |
-| 431 | [A220792](https://oeis.org/A220792) | Proof | the number of distinct indicator arrays a cell condition produces: an image count, made a walk count by determ... | [00431-PROOF.pdf](00431-PROOF.pdf) |
-| 432 | [A233887](https://oeis.org/A233887) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00432-PROOF.pdf](00432-PROOF.pdf) |
-| 433 | [A279265](https://oeis.org/A279265) | Proof | a cell condition with an exception budget, counted up to relabelling | [00433-PROOF.pdf](00433-PROOF.pdf) |
-| 434 | [A237218](https://oeis.org/A237218) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00434-PROOF.pdf](00434-PROOF.pdf) |
-| 435 | [A220920](https://oeis.org/A220920) | Proof | the number of distinct indicator arrays a cell condition produces: an image count, made a walk count by determ... | [00435-PROOF.pdf](00435-PROOF.pdf) |
-| 436 | [A220936](https://oeis.org/A220936) | Proof | the number of distinct indicator arrays a cell condition produces: an image count, made a walk count by determ... | [00436-PROOF.pdf](00436-PROOF.pdf) |
-| 437 | [A264417](https://oeis.org/A264417) | Proof | grid permutations with a bounded index change, as a matching turned into a walk | [00437-PROOF.pdf](00437-PROOF.pdf) |
-| 438 | [A237921](https://oeis.org/A237921) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00438-PROOF.pdf](00438-PROOF.pdf) |
-| 439 | [A237472](https://oeis.org/A237472) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00439-PROOF.pdf](00439-PROOF.pdf) |
-| 440 | [A264572](https://oeis.org/A264572) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00440-PROOF.pdf](00440-PROOF.pdf) |
-| 441 | [A279154](https://oeis.org/A279154) | Proof | a cell condition with an exception budget, counted up to relabelling | [00441-PROOF.pdf](00441-PROOF.pdf) |
-| 442 | [A281984](https://oeis.org/A281984) | Proof | a cell condition with an exception budget, counted up to relabelling | [00442-PROOF.pdf](00442-PROOF.pdf) |
-| 443 | [A280904](https://oeis.org/A280904) | Proof | a cell condition with an exception budget, counted up to relabelling | [00443-PROOF.pdf](00443-PROOF.pdf) |
-| 444 | [A232076](https://oeis.org/A232076) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00444-PROOF.pdf](00444-PROOF.pdf) |
-| 445 | [A281161](https://oeis.org/A281161) | Proof | a cell condition with an exception budget, counted up to relabelling | [00445-PROOF.pdf](00445-PROOF.pdf) |
-| 446 | [A237945](https://oeis.org/A237945) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00446-PROOF.pdf](00446-PROOF.pdf) |
-| 447 | [A279489](https://oeis.org/A279489) | Proof | a cell condition with an exception budget, counted up to relabelling | [00447-PROOF.pdf](00447-PROOF.pdf) |
-| 448 | [A237108](https://oeis.org/A237108) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00448-PROOF.pdf](00448-PROOF.pdf) |
-| 449 | [A263971](https://oeis.org/A263971) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00449-PROOF.pdf](00449-PROOF.pdf) |
-| 450 | [A237299](https://oeis.org/A237299) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00450-PROOF.pdf](00450-PROOF.pdf) |
-| 451 | [A264268](https://oeis.org/A264268) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00451-PROOF.pdf](00451-PROOF.pdf) |
-| 452 | [A234407](https://oeis.org/A234407) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00452-PROOF.pdf](00452-PROOF.pdf) |
-| 453 | [A234412](https://oeis.org/A234412) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00453-PROOF.pdf](00453-PROOF.pdf) |
-| 454 | [A251494](https://oeis.org/A251494) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00454-PROOF.pdf](00454-PROOF.pdf) |
-| 455 | [A223336](https://oeis.org/A223336) | Proof | the same graph-coloured arrays with too many slices to carry one by one, run instead on the orbits of slices u... | [00455-PROOF.pdf](00455-PROOF.pdf) |
-| 456 | [A234892](https://oeis.org/A234892) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00456-PROOF.pdf](00456-PROOF.pdf) |
-| 457 | [A234898](https://oeis.org/A234898) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00457-PROOF.pdf](00457-PROOF.pdf) |
-| 458 | [A254390](https://oeis.org/A254390) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00458-PROOF.pdf](00458-PROOF.pdf) |
-| 459 | [A238046](https://oeis.org/A238046) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00459-PROOF.pdf](00459-PROOF.pdf) |
-| 460 | [A280809](https://oeis.org/A280809) | Proof | a cell condition with an exception budget, counted up to relabelling | [00460-PROOF.pdf](00460-PROOF.pdf) |
-| 461 | [A234545](https://oeis.org/A234545) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00461-PROOF.pdf](00461-PROOF.pdf) |
-| 462 | [A251612](https://oeis.org/A251612) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00462-PROOF.pdf](00462-PROOF.pdf) |
-| 463 | [A251616](https://oeis.org/A251616) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00463-PROOF.pdf](00463-PROOF.pdf) |
-| 464 | [A251257](https://oeis.org/A251257) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00464-PROOF.pdf](00464-PROOF.pdf) |
-| 465 | [A234998](https://oeis.org/A234998) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00465-PROOF.pdf](00465-PROOF.pdf) |
-| 466 | [A222936](https://oeis.org/A222936) | Proof | the number of distinct indicator arrays a cell condition produces: an image count, made a walk count by determ... | [00466-PROOF.pdf](00466-PROOF.pdf) |
-| 467 | [A236737](https://oeis.org/A236737) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00467-PROOF.pdf](00467-PROOF.pdf) |
-| 468 | [A264241](https://oeis.org/A264241) | Proof | grid permutations with a bounded index change, as a matching turned into a walk | [00468-PROOF.pdf](00468-PROOF.pdf) |
-| 469 | [A281762](https://oeis.org/A281762) | Proof | a cell condition with an exception budget, counted up to relabelling | [00469-PROOF.pdf](00469-PROOF.pdf) |
-| 470 | [A264258](https://oeis.org/A264258) | Proof | grid permutations with a bounded index change, as a matching turned into a walk | [00470-PROOF.pdf](00470-PROOF.pdf) |
-| 471 | [A237898](https://oeis.org/A237898) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00471-PROOF.pdf](00471-PROOF.pdf) |
-| 472 | [A220173](https://oeis.org/A220173) | Proof | the number of distinct indicator arrays a cell condition produces: an image count, made a walk count by determ... | [00472-PROOF.pdf](00472-PROOF.pdf) |
-| 473 | [A221663](https://oeis.org/A221663) | Proof | the number of distinct indicator arrays a cell condition produces: an image count, made a walk count by determ... | [00473-PROOF.pdf](00473-PROOF.pdf) |
-| 474 | [A264219](https://oeis.org/A264219) | Proof | grid permutations with a bounded index change, as a matching turned into a walk | [00474-PROOF.pdf](00474-PROOF.pdf) |
-| 475 | [A237911](https://oeis.org/A237911) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00475-PROOF.pdf](00475-PROOF.pdf) |
-| 476 | [A229539](https://oeis.org/A229539) | Proof | defective colourings: a budget of monochromatic pairs carried in the state, counted up to relabelling | [00476-PROOF.pdf](00476-PROOF.pdf) |
-| 477 | [A281884](https://oeis.org/A281884) | Proof | a cell condition with an exception budget, counted up to relabelling | [00477-PROOF.pdf](00477-PROOF.pdf) |
-| 478 | [A234477](https://oeis.org/A234477) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00478-PROOF.pdf](00478-PROOF.pdf) |
-| 479 | [A234481](https://oeis.org/A234481) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00479-PROOF.pdf](00479-PROOF.pdf) |
-| 480 | [A220325](https://oeis.org/A220325) | Proof | the number of distinct indicator arrays a cell condition produces: an image count, made a walk count by determ... | [00480-PROOF.pdf](00480-PROOF.pdf) |
-| 481 | [A221664](https://oeis.org/A221664) | Proof | the number of distinct indicator arrays a cell condition produces: an image count, made a walk count by determ... | [00481-PROOF.pdf](00481-PROOF.pdf) |
-| 482 | [A235175](https://oeis.org/A235175) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00482-PROOF.pdf](00482-PROOF.pdf) |
-| 483 | [A264880](https://oeis.org/A264880) | Proof | grid permutations with a bounded index change, as a matching turned into a walk | [00483-PROOF.pdf](00483-PROOF.pdf) |
-| 484 | [A282156](https://oeis.org/A282156) | Proof | a cell condition with an exception budget, counted up to relabelling | [00484-PROOF.pdf](00484-PROOF.pdf) |
-| 485 | [A237574](https://oeis.org/A237574) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00485-PROOF.pdf](00485-PROOF.pdf) |
-| 486 | [A233678](https://oeis.org/A233678) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00486-PROOF.pdf](00486-PROOF.pdf) |
-| 487 | [A280176](https://oeis.org/A280176) | Proof | a cell condition with an exception budget, counted up to relabelling | [00487-PROOF.pdf](00487-PROOF.pdf) |
-| 488 | [A279744](https://oeis.org/A279744) | Proof | a cell condition with an exception budget, counted up to relabelling | [00488-PROOF.pdf](00488-PROOF.pdf) |
-| 489 | [A234242](https://oeis.org/A234242) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00489-PROOF.pdf](00489-PROOF.pdf) |
-| 490 | [A234245](https://oeis.org/A234245) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00490-PROOF.pdf](00490-PROOF.pdf) |
-| 491 | [A220801](https://oeis.org/A220801) | Proof | the number of distinct indicator arrays a cell condition produces: an image count, made a walk count by determ... | [00491-PROOF.pdf](00491-PROOF.pdf) |
-| 492 | [A251469](https://oeis.org/A251469) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00492-PROOF.pdf](00492-PROOF.pdf) |
-| 493 | [A251474](https://oeis.org/A251474) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00493-PROOF.pdf](00493-PROOF.pdf) |
-| 494 | [A230938](https://oeis.org/A230938) | Proof | white- and black-square subarrays: a diagonal step never changes the colour of a cell, so the two colour class... | [00494-PROOF.pdf](00494-PROOF.pdf) |
-| 495 | [A230932](https://oeis.org/A230932) | Proof | white- and black-square subarrays: a diagonal step never changes the colour of a cell, so the two colour class... | [00495-PROOF.pdf](00495-PROOF.pdf) |
-| 496 | [A232391](https://oeis.org/A232391) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00496-PROOF.pdf](00496-PROOF.pdf) |
-| 497 | [A264196](https://oeis.org/A264196) | Proof | grid permutations with a bounded index change, as a matching turned into a walk | [00497-PROOF.pdf](00497-PROOF.pdf) |
-| 498 | [A251296](https://oeis.org/A251296) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00498-PROOF.pdf](00498-PROOF.pdf) |
-| 499 | [A281798](https://oeis.org/A281798) | Proof | a cell condition with an exception budget, counted up to relabelling | [00499-PROOF.pdf](00499-PROOF.pdf) |
-| 500 | [A233755](https://oeis.org/A233755) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00500-PROOF.pdf](00500-PROOF.pdf) |
+| 411 | [A200158](https://oeis.org/A200158) | Proof |  | [00411-PROOF.pdf](00411-PROOF.pdf) |
+| 412 | [A250930](https://oeis.org/A250930) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00412-PROOF.pdf](00412-PROOF.pdf) |
+| 413 | [A237067](https://oeis.org/A237067) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00413-PROOF.pdf](00413-PROOF.pdf) |
+| 414 | [A235021](https://oeis.org/A235021) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00414-PROOF.pdf](00414-PROOF.pdf) |
+| 415 | [A220914](https://oeis.org/A220914) | Proof | the number of distinct indicator arrays a cell condition produces: an image count, made a walk count by determ... | [00415-PROOF.pdf](00415-PROOF.pdf) |
+| 416 | [A233630](https://oeis.org/A233630) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00416-PROOF.pdf](00416-PROOF.pdf) |
+| 417 | [A236884](https://oeis.org/A236884) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00417-PROOF.pdf](00417-PROOF.pdf) |
+| 418 | [A218176](https://oeis.org/A218176) | Proof | the number of distinct indicator arrays a cell condition produces: an image count, made a walk count by determ... | [00418-PROOF.pdf](00418-PROOF.pdf) |
+| 419 | [A235102](https://oeis.org/A235102) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00419-PROOF.pdf](00419-PROOF.pdf) |
+| 420 | [A237076](https://oeis.org/A237076) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00420-PROOF.pdf](00420-PROOF.pdf) |
+| 421 | [A236780](https://oeis.org/A236780) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00421-PROOF.pdf](00421-PROOF.pdf) |
+| 422 | [A233975](https://oeis.org/A233975) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00422-PROOF.pdf](00422-PROOF.pdf) |
+| 423 | [A251217](https://oeis.org/A251217) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00423-PROOF.pdf](00423-PROOF.pdf) |
+| 424 | [A251266](https://oeis.org/A251266) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00424-PROOF.pdf](00424-PROOF.pdf) |
+| 425 | [A234401](https://oeis.org/A234401) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00425-PROOF.pdf](00425-PROOF.pdf) |
+| 426 | [A234405](https://oeis.org/A234405) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00426-PROOF.pdf](00426-PROOF.pdf) |
+| 427 | [A251347](https://oeis.org/A251347) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00427-PROOF.pdf](00427-PROOF.pdf) |
+| 428 | [A281804](https://oeis.org/A281804) | Proof | a cell condition with an exception budget, counted up to relabelling | [00428-PROOF.pdf](00428-PROOF.pdf) |
+| 429 | [A237167](https://oeis.org/A237167) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00429-PROOF.pdf](00429-PROOF.pdf) |
+| 430 | [A236893](https://oeis.org/A236893) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00430-PROOF.pdf](00430-PROOF.pdf) |
+| 431 | [A237340](https://oeis.org/A237340) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00431-PROOF.pdf](00431-PROOF.pdf) |
+| 432 | [A220792](https://oeis.org/A220792) | Proof | the number of distinct indicator arrays a cell condition produces: an image count, made a walk count by determ... | [00432-PROOF.pdf](00432-PROOF.pdf) |
+| 433 | [A233887](https://oeis.org/A233887) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00433-PROOF.pdf](00433-PROOF.pdf) |
+| 434 | [A279265](https://oeis.org/A279265) | Proof | a cell condition with an exception budget, counted up to relabelling | [00434-PROOF.pdf](00434-PROOF.pdf) |
+| 435 | [A237218](https://oeis.org/A237218) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00435-PROOF.pdf](00435-PROOF.pdf) |
+| 436 | [A220920](https://oeis.org/A220920) | Proof | the number of distinct indicator arrays a cell condition produces: an image count, made a walk count by determ... | [00436-PROOF.pdf](00436-PROOF.pdf) |
+| 437 | [A220936](https://oeis.org/A220936) | Proof | the number of distinct indicator arrays a cell condition produces: an image count, made a walk count by determ... | [00437-PROOF.pdf](00437-PROOF.pdf) |
+| 438 | [A264417](https://oeis.org/A264417) | Proof | grid permutations with a bounded index change, as a matching turned into a walk | [00438-PROOF.pdf](00438-PROOF.pdf) |
+| 439 | [A237921](https://oeis.org/A237921) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00439-PROOF.pdf](00439-PROOF.pdf) |
+| 440 | [A237472](https://oeis.org/A237472) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00440-PROOF.pdf](00440-PROOF.pdf) |
+| 441 | [A264572](https://oeis.org/A264572) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00441-PROOF.pdf](00441-PROOF.pdf) |
+| 442 | [A279154](https://oeis.org/A279154) | Proof | a cell condition with an exception budget, counted up to relabelling | [00442-PROOF.pdf](00442-PROOF.pdf) |
+| 443 | [A281984](https://oeis.org/A281984) | Proof | a cell condition with an exception budget, counted up to relabelling | [00443-PROOF.pdf](00443-PROOF.pdf) |
+| 444 | [A280904](https://oeis.org/A280904) | Proof | a cell condition with an exception budget, counted up to relabelling | [00444-PROOF.pdf](00444-PROOF.pdf) |
+| 445 | [A232076](https://oeis.org/A232076) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00445-PROOF.pdf](00445-PROOF.pdf) |
+| 446 | [A281161](https://oeis.org/A281161) | Proof | a cell condition with an exception budget, counted up to relabelling | [00446-PROOF.pdf](00446-PROOF.pdf) |
+| 447 | [A237945](https://oeis.org/A237945) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00447-PROOF.pdf](00447-PROOF.pdf) |
+| 448 | [A279489](https://oeis.org/A279489) | Proof | a cell condition with an exception budget, counted up to relabelling | [00448-PROOF.pdf](00448-PROOF.pdf) |
+| 449 | [A237108](https://oeis.org/A237108) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00449-PROOF.pdf](00449-PROOF.pdf) |
+| 450 | [A263971](https://oeis.org/A263971) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00450-PROOF.pdf](00450-PROOF.pdf) |
+| 451 | [A237299](https://oeis.org/A237299) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00451-PROOF.pdf](00451-PROOF.pdf) |
+| 452 | [A264268](https://oeis.org/A264268) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00452-PROOF.pdf](00452-PROOF.pdf) |
+| 453 | [A234407](https://oeis.org/A234407) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00453-PROOF.pdf](00453-PROOF.pdf) |
+| 454 | [A234412](https://oeis.org/A234412) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00454-PROOF.pdf](00454-PROOF.pdf) |
+| 455 | [A251494](https://oeis.org/A251494) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00455-PROOF.pdf](00455-PROOF.pdf) |
+| 456 | [A223336](https://oeis.org/A223336) | Proof | the same graph-coloured arrays with too many slices to carry one by one, run instead on the orbits of slices u... | [00456-PROOF.pdf](00456-PROOF.pdf) |
+| 457 | [A234892](https://oeis.org/A234892) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00457-PROOF.pdf](00457-PROOF.pdf) |
+| 458 | [A234898](https://oeis.org/A234898) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00458-PROOF.pdf](00458-PROOF.pdf) |
+| 459 | [A254390](https://oeis.org/A254390) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00459-PROOF.pdf](00459-PROOF.pdf) |
+| 460 | [A238046](https://oeis.org/A238046) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00460-PROOF.pdf](00460-PROOF.pdf) |
+| 461 | [A280809](https://oeis.org/A280809) | Proof | a cell condition with an exception budget, counted up to relabelling | [00461-PROOF.pdf](00461-PROOF.pdf) |
+| 462 | [A234545](https://oeis.org/A234545) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00462-PROOF.pdf](00462-PROOF.pdf) |
+| 463 | [A251612](https://oeis.org/A251612) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00463-PROOF.pdf](00463-PROOF.pdf) |
+| 464 | [A251616](https://oeis.org/A251616) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00464-PROOF.pdf](00464-PROOF.pdf) |
+| 465 | [A251257](https://oeis.org/A251257) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00465-PROOF.pdf](00465-PROOF.pdf) |
+| 466 | [A234998](https://oeis.org/A234998) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00466-PROOF.pdf](00466-PROOF.pdf) |
+| 467 | [A222936](https://oeis.org/A222936) | Proof | the number of distinct indicator arrays a cell condition produces: an image count, made a walk count by determ... | [00467-PROOF.pdf](00467-PROOF.pdf) |
+| 468 | [A236737](https://oeis.org/A236737) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00468-PROOF.pdf](00468-PROOF.pdf) |
+| 469 | [A264241](https://oeis.org/A264241) | Proof | grid permutations with a bounded index change, as a matching turned into a walk | [00469-PROOF.pdf](00469-PROOF.pdf) |
+| 470 | [A281762](https://oeis.org/A281762) | Proof | a cell condition with an exception budget, counted up to relabelling | [00470-PROOF.pdf](00470-PROOF.pdf) |
+| 471 | [A264258](https://oeis.org/A264258) | Proof | grid permutations with a bounded index change, as a matching turned into a walk | [00471-PROOF.pdf](00471-PROOF.pdf) |
+| 472 | [A237898](https://oeis.org/A237898) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00472-PROOF.pdf](00472-PROOF.pdf) |
+| 473 | [A220173](https://oeis.org/A220173) | Proof | the number of distinct indicator arrays a cell condition produces: an image count, made a walk count by determ... | [00473-PROOF.pdf](00473-PROOF.pdf) |
+| 474 | [A221663](https://oeis.org/A221663) | Proof | the number of distinct indicator arrays a cell condition produces: an image count, made a walk count by determ... | [00474-PROOF.pdf](00474-PROOF.pdf) |
+| 475 | [A264219](https://oeis.org/A264219) | Proof | grid permutations with a bounded index change, as a matching turned into a walk | [00475-PROOF.pdf](00475-PROOF.pdf) |
+| 476 | [A237911](https://oeis.org/A237911) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00476-PROOF.pdf](00476-PROOF.pdf) |
+| 477 | [A229539](https://oeis.org/A229539) | Proof | defective colourings: a budget of monochromatic pairs carried in the state, counted up to relabelling | [00477-PROOF.pdf](00477-PROOF.pdf) |
+| 478 | [A281884](https://oeis.org/A281884) | Proof | a cell condition with an exception budget, counted up to relabelling | [00478-PROOF.pdf](00478-PROOF.pdf) |
+| 479 | [A234477](https://oeis.org/A234477) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00479-PROOF.pdf](00479-PROOF.pdf) |
+| 480 | [A234481](https://oeis.org/A234481) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00480-PROOF.pdf](00480-PROOF.pdf) |
+| 481 | [A220325](https://oeis.org/A220325) | Proof | the number of distinct indicator arrays a cell condition produces: an image count, made a walk count by determ... | [00481-PROOF.pdf](00481-PROOF.pdf) |
+| 482 | [A221664](https://oeis.org/A221664) | Proof | the number of distinct indicator arrays a cell condition produces: an image count, made a walk count by determ... | [00482-PROOF.pdf](00482-PROOF.pdf) |
+| 483 | [A235175](https://oeis.org/A235175) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00483-PROOF.pdf](00483-PROOF.pdf) |
+| 484 | [A264880](https://oeis.org/A264880) | Proof | grid permutations with a bounded index change, as a matching turned into a walk | [00484-PROOF.pdf](00484-PROOF.pdf) |
+| 485 | [A282156](https://oeis.org/A282156) | Proof | a cell condition with an exception budget, counted up to relabelling | [00485-PROOF.pdf](00485-PROOF.pdf) |
+| 486 | [A237574](https://oeis.org/A237574) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00486-PROOF.pdf](00486-PROOF.pdf) |
+| 487 | [A233678](https://oeis.org/A233678) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00487-PROOF.pdf](00487-PROOF.pdf) |
+| 488 | [A280176](https://oeis.org/A280176) | Proof | a cell condition with an exception budget, counted up to relabelling | [00488-PROOF.pdf](00488-PROOF.pdf) |
+| 489 | [A279744](https://oeis.org/A279744) | Proof | a cell condition with an exception budget, counted up to relabelling | [00489-PROOF.pdf](00489-PROOF.pdf) |
+| 490 | [A234242](https://oeis.org/A234242) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00490-PROOF.pdf](00490-PROOF.pdf) |
+| 491 | [A234245](https://oeis.org/A234245) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00491-PROOF.pdf](00491-PROOF.pdf) |
+| 492 | [A220801](https://oeis.org/A220801) | Proof | the number of distinct indicator arrays a cell condition produces: an image count, made a walk count by determ... | [00492-PROOF.pdf](00492-PROOF.pdf) |
+| 493 | [A251469](https://oeis.org/A251469) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00493-PROOF.pdf](00493-PROOF.pdf) |
+| 494 | [A251474](https://oeis.org/A251474) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00494-PROOF.pdf](00494-PROOF.pdf) |
+| 495 | [A230938](https://oeis.org/A230938) | Proof | white- and black-square subarrays: a diagonal step never changes the colour of a cell, so the two colour class... | [00495-PROOF.pdf](00495-PROOF.pdf) |
+| 496 | [A230932](https://oeis.org/A230932) | Proof | white- and black-square subarrays: a diagonal step never changes the colour of a cell, so the two colour class... | [00496-PROOF.pdf](00496-PROOF.pdf) |
+| 497 | [A232391](https://oeis.org/A232391) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00497-PROOF.pdf](00497-PROOF.pdf) |
+| 498 | [A264196](https://oeis.org/A264196) | Proof | grid permutations with a bounded index change, as a matching turned into a walk | [00498-PROOF.pdf](00498-PROOF.pdf) |
+| 499 | [A251296](https://oeis.org/A251296) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00499-PROOF.pdf](00499-PROOF.pdf) |
+| 500 | [A281798](https://oeis.org/A281798) | Proof | a cell condition with an exception budget, counted up to relabelling | [00500-PROOF.pdf](00500-PROOF.pdf) |

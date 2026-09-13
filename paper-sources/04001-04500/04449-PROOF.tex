@@ -12,138 +12,139 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A298090, proved by transfer matrix}
+\title{The empirical column recurrences for the table OEIS A262759}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{31 August 2026}
+\date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A298090 counts $5$-column arrays over $\{0,\dots,1\}$ in which every entry has,
-among the eight king-move neighbours, a number $equal to$ itself lying in $\{1,2,4,7\}$, and it carries an empirical
-recurrence of order $82$ contributed by R.~H.~Hardin. It is true. The neighbourhood
-reaches one row up and one row down, so the condition on a row involves three consecutive
-rows and a window of two rows is a sufficient state; the array is then a walk in a digraph
-on $S=1024$ vertices. Unlike a plain walk count the boundary rows matter here --- the first
-row has nothing above it and the last nothing below --- so the count is
-$\mathbf{s}^{\!\top}P^{\,n-2}\mathbf{e}$ for genuine start and end vectors rather than
-all-ones. The conjectured recurrence is then annihilated exactly, in integer arithmetic.
+OEIS A262759 is a two-dimensional table $T(n,k)$, and it carries a block of empirical
+recurrences contributed by R.~H.~Hardin --- one for each of its first few columns. They are
+true. Column $k$ of the table is an ordinary fixed-width array count, so its rows are the
+vertices of a finite digraph and $T(n,k)$ is a number of walks in it; being a walk count the
+column is $C$-finite, and whether a given recurrence annihilates it is decided by a finite
+exact computation, with the Cayley--Hamilton theorem bounding the work. This note settles the columns $k=1, 2$.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B50, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
-\section{The sequence and the conjecture}
+\section{The table and the conjectures}
 
-OEIS A298090 is ``Number of nX5 0..1 arrays with every element equal to 1, 2, 4 or 7 king-move adjacent elements, with upper left element zero.''. It has offset
-$1$ and begins
+OEIS A262759 is ``T(n,k) = Number of (n+2) X (k+2) 0..1 arrays with each row divisible by 5 and each column divisible by 7, read as a binary number with top and left being the most significant bits.''. It has offset $1$, is
+read by antidiagonals, and begins
 \[
-3, 23, 21, 53, 45, 87, 150, 216,\ \dots
+2, 4, 3, 7, 9, 5, 13, 17,\ \dots
 \]
-The entry carries the following comment:
+The entry carries the following block:
 \begin{quote}\small
-Empirical: a(n) = a(n-1) +4*a(n-3) -2*a(n-6) -8*a(n-7) -14*a(n-8) -11*a(n-9) -9*a(n-10) +26*a(n-11) +48*a(n-12) +42*a(n-13) +51*a(n-14) -62*a(n-15) -67*a(n-16) -56*a(n-17) -57*a(n-18) +123*a(n-19) +120*a(n-20) +64*a(n-21) +143*a(n-22) -555*a(n-23) -261*a(n-24) -584*a(n-25) -76*a(n-26) +782*a(n-27) +657*a(n-28) +992*a(n-29) +34*a(n-30) -983*a(n-31) -776*a(n-32) -1202*a(n-33) +107*a(n-34) +1815*a(n-35) +1770*a(n-36) +3202*a(n-37) -178*a(n-38) -1628*a(n-39) -3922*a(n-40) -3738*a(n-41) -1508*a(n-42) +1903*a(n-43) +4277*a(n-44) +4438*a(n-45) +350*a(n-46) -3637*a(n-47) -7078*a(n-48) -5333*a(n-49) -3510*a(n-50) +1704*a(n-51) +6292*a(n-52) +8329*a(n-53) +9238*a(n-54) +3604*a(n-55) -3468*a(n-56) -6364*a(n-57) -9508*a(n-58) -2854*a(n-59) +3284*a(n-60) +6038*a(n-61) +7880*a(n-62) -1292*a(n-63) -5136*a(n-64) -5336*a(n-65) -3836*a(n-66) +1472*a(n-67) +148*a(n-68) +264*a(n-69) +2704*a(n-70) +2840*a(n-71) +3128*a(n-72) -752*a(n-73) -3384*a(n-74) -2624*a(n-75) -672*a(n-76) +1232*a(n-77) +1360*a(n-78) +464*a(n-79) -128*a(n-80) -192*a(n-81) -128*a(n-82) for n>86
+Empirical for column k:\\
+k=1: a(n) = 2*a(n-1) +a(n-3) -2*a(n-4)\\
+k=2: a(n) = 4*a(n-1) +9*a(n-3) -36*a(n-4) -8*a(n-6) +32*a(n-7)\\
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jan 12 2018 09:30:55, revision
-4) the statement is still recorded as empirical, and nothing on the entry
-records it as settled either way.
+As of the ``Last modified'' line on the live entry (Aug 19 2022 15:03:07, revision 6) these are still
+recorded as empirical, and nothing on the entry records any of them as settled.
 
-Written out, the claim is
-\begin{equation}\label{eq:conj}
-a(n)\;=\;a(n-1) + 4\,a(n-3) - 2\,a(n-6) - 8\,a(n-7) - 14\,a(n-8) - 11\,a(n-9) - 9\,a(n-10) + 26\,a(n-11) + 48\,a(n-12) + 42\,a(n-13) + 51\,a(n-14) - 62\,a(n-15) - 67\,a(n-16) - 56\,a(n-17) - 57\,a(n-18) + 123\,a(n-19) + 120\,a(n-20) + 64\,a(n-21) + 143\,a(n-22) - 555\,a(n-23) - 261\,a(n-24) - 584\,a(n-25) - 76\,a(n-26) + 782\,a(n-27) + 657\,a(n-28) + 992\,a(n-29) + 34\,a(n-30) - 983\,a(n-31) - 776\,a(n-32) - 1202\,a(n-33) + 107\,a(n-34) + 1815\,a(n-35) + 1770\,a(n-36) + 3202\,a(n-37) - 178\,a(n-38) - 1628\,a(n-39) - 3922\,a(n-40) - 3738\,a(n-41) - 1508\,a(n-42) + 1903\,a(n-43) + 4277\,a(n-44) + 4438\,a(n-45) + 350\,a(n-46) - 3637\,a(n-47) - 7078\,a(n-48) - 5333\,a(n-49) - 3510\,a(n-50) + 1704\,a(n-51) + 6292\,a(n-52) + 8329\,a(n-53) + 9238\,a(n-54) + 3604\,a(n-55) - 3468\,a(n-56) - 6364\,a(n-57) - 9508\,a(n-58) - 2854\,a(n-59) + 3284\,a(n-60) + 6038\,a(n-61) + 7880\,a(n-62) - 1292\,a(n-63) - 5136\,a(n-64) - 5336\,a(n-65) - 3836\,a(n-66) + 1472\,a(n-67) + 148\,a(n-68) + 264\,a(n-69) + 2704\,a(n-70) + 2840\,a(n-71) + 3128\,a(n-72) - 752\,a(n-73) - 3384\,a(n-74) - 2624\,a(n-75) - 672\,a(n-76) + 1232\,a(n-77) + 1360\,a(n-78) + 464\,a(n-79) - 128\,a(n-80) - 192\,a(n-81) - 128\,a(n-82)
-\end{equation}
-for all $n>82$.
+\section{A column of the table is a walk count}
 
-\section{The array as a walk, with boundary}
-
-For a cell of the array let its \emph{score} be the number of the eight king-move neighbours that lie inside
-the array and carry a value $equal to$ the cell's own. The entry's condition is that every cell
-has score in $\{1,2,4,7\}$. The entry also fixes the top-left entry to be $0$; that is a condition on the first row alone, so it restricts the start vector and nothing else.
-
-A cell's neighbourhood reaches at most one row up and one row down, so the scores of the
-cells of a row $s$ are determined by $s$ together with the row above and the row below.
-Take as state an ordered pair $(r,s)$ of rows, so $S=1024$, and set
-\begin{itemize}
-\item $\mathbf{s}(r,s)=1$ when every cell of $r$ has score in $\{1,2,4,7\}$ \emph{with no row
-above $r$} and $r_1=0$, and $0$ otherwise;
-\item an edge $(r,s)\to(s,t)$ when every cell of $s$ has score in $\{1,2,4,7\}$ computed from
-$r$, $s$ and $t$;
-\item $\mathbf{e}(r,s)=1$ when every cell of $s$ has score in $\{1,2,4,7\}$ \emph{with no row
-below $s$}, and $0$ otherwise.
-\end{itemize}
-Let $P$ be the adjacency matrix of that edge relation.
-
-\begin{lemma}\label{lem:walk}
-$a(n)=\mathbf{s}^{\!\top}P^{\,n-2}\mathbf{e}$ for every $n\ge2$.
-\end{lemma}
-
-\begin{proof}
-An array with $n$ rows is a sequence $r^{(1)},\dots,r^{(n)}$ of rows, and it is counted
-exactly when every one of its $n$ rows has all scores in $\{1,2,4,7\}$. Read the sequence as the
-walk $\bigl(r^{(1)},r^{(2)}\bigr)\to\bigl(r^{(2)},r^{(3)}\bigr)\to\cdots\to
-\bigl(r^{(n-1)},r^{(n)}\bigr)$, of length $n-2$. The condition on the first row is
-checked by $\mathbf{s}$ at the initial state, because a first row has no row above it; the
-condition on row $i$ for $2\le i\le n-1$ is checked by the edge entering
-$\bigl(r^{(i)},r^{(i+1)}\bigr)$, which sees exactly $r^{(i-1)}$, $r^{(i)}$ and
-$r^{(i+1)}$; and the condition on the last row is checked by $\mathbf{e}$ at the final
-state. Each row's condition is therefore tested once and with the correct neighbours, and
-summing over all walks gives $\mathbf{s}^{\!\top}P^{\,n-2}\mathbf{e}$.
-\end{proof}
-
-\section{The criterion}
-
-Let $q(t)=t^{82}-\sum_i c_i t^{82-i}$ be the characteristic polynomial of
-\eqref{eq:conj} and $u_j=\mathbf{s}^{\!\top}P^{j}q(P)\mathbf{e}$.
+Fix $k$. The entry defines $T(n,k)$ as the number of arrays of a shape in which one dimension
+is $n$ and the other is determined by $k$, subject to a condition imposed on every
+$2\times2$ subblock --- a condition local to two consecutive rows and two consecutive columns.
+Substituting the fixed value of $k$ into the entry's own wording turns the definition into an
+ordinary one-parameter array count, and for such a count the rows are the vertices of a finite
+digraph $G_k$: $r\to s$ is an edge exactly when placing $s$ under $r$ satisfies the condition
+in every column pair. An admissible array is then a walk, so with $M_k$ the adjacency matrix
+of $G_k$,
+\[
+T(n,k)\;=\;c_k\,\mathbf{1}^{\!\top}M_k^{\,n}\mathbf{1}
+\]
+for the constant $c_k$ that the entry's name supplies (a factor such as $\tfrac12$ or
+$\tfrac14$ where the name says so, and $1$ otherwise).
 
 \begin{lemma}\label{lem:crit}
-$a(n)-\sum_i c_i a(n-i)=u_{\,n-2-82}$ whenever $n-82\ge2$. So \eqref{eq:conj}
-holds for every $n>t$ exactly when $u_j=0$ for all $j>t-2-82$. Moreover $(u_j)$
-satisfies the monic linear recurrence given by the characteristic polynomial of $P$, of
-degree $S$, so $S$ consecutive zeros force every later one and the last nonzero $u_j$ pins
-$t$ down exactly.
+Let $q(t)=t^{r}-\sum_i c_it^{r-i}$ be the characteristic polynomial of a conjectured
+recurrence of order $r$ for column $k$. Then for every $n\ge r$,
+\[
+T(n,k)-\sum_i c_i\,T(n-i,k)\;=\;c_k\,\mathbf{1}^{\!\top}M_k^{\,n-r}q(M_k)\mathbf{1},
+\]
+so the recurrence holds from some point on if and only if
+$\mathbf{1}^{\!\top}M_k^{j}q(M_k)\mathbf{1}=0$ for every $j\ge0$; and by the
+Cayley--Hamilton theorem it is enough to check $j<S_k$, where $S_k$ is the number of vertices
+of $G_k$.
 \end{lemma}
 
 \begin{proof}
-Substituting Lemma~\ref{lem:walk} and factoring $P^{\,n-2-82}$ out of
-$P^{n-2}-\sum_i c_i P^{n-i-2}$ gives the identity, and letting the exponent run gives the
-equivalence. For the last part, Cayley--Hamilton gives $\chi(P)=0$ for the characteristic
-polynomial $\chi$, so $\chi$ applied to the shift annihilates $(u_j)$; $\chi$ is monic of
-degree $S$, which propagates $S$ consecutive zeros forward.
+Substitute the walk expression and factor $M_k^{n-r}$ out of $M_k^{n}-\sum_ic_iM_k^{n-i}$;
+the scalar $c_k$ is nonzero. For the bound, $M_k^{S_k}$ is an integer combination of
+$I,M_k,\dots,M_k^{S_k-1}$, so each $\mathbf{1}^{\!\top}M_k^{j}q(M_k)\mathbf{1}$ with
+$j\ge S_k$ repeats that combination of earlier values.
 \end{proof}
 
-\section{The computation}
+\section{The computation, column by column}
 
-\begin{theorem}
-The recurrence \eqref{eq:conj} holds for every $n>82$. This is the statement of
-Section~1.
-\end{theorem}
+\begin{center}
+\begin{tabular}{ccccc}
+line & order & vertices $S$ & proved for & terms checked \\ \hline
+column $k$$=1$ & $4$ & $7$ & $>1$ & $9$ \\
+column $k$$=2$ & $7$ & $49$ & $>4$ & $10$ \\
+\end{tabular}
+\end{center}
 
-\begin{proof}
-The vector $q(P)\mathbf{e}\in\mathbb{Z}^{S}$ was formed by $82$ matrix--vector
-products in exact integer arithmetic and the $u_j$ evaluated against $\mathbf{s}$ in turn.
-They vanish from the index corresponding to $n=82+1$ onwards, and the run was continued
-past $S$ consecutive zeros, which by Lemma~\ref{lem:crit} settles every larger index.
-\end{proof}
+In each case the vector $w=q(M_k)\mathbf{1}$ was formed by $r$ matrix--vector products in
+exact integer arithmetic and $\mathbf{1}^{\!\top}M_k^{j}w$ evaluated for $j=0,1,\dots$,
+again exactly; every one of those integers vanishes from the stated point onwards and the run
+continued until the working vector was identically zero, which settles all larger $j$ at once.
+
+\subsection*{Column $k$$=1$}
+The sequence is ``Number of (n+2) X3 0..1 arrays with each row divisible by 5 and each column divisible by 7, read as a binary number with top and left being the most significant bits.''. Its rows are the vertices of a digraph on
+$S=7$ vertices, edges being the admissible consecutive pairs, and the count is
+$\mathbf{1}^{\!\top}M^{n}\mathbf{1}$ up to the constant factor in the entry's name.
+The conjectured recurrence
+\[
+a(n)\;=\;2\,a(n-1) + a(n-3) - 2\,a(n-4)
+\]
+holds from index $1+1$ on.
+
+\subsection*{Column $k$$=2$}
+The sequence is ``Number of (n+2) X4 0..1 arrays with each row divisible by 5 and each column divisible by 7, read as a binary number with top and left being the most significant bits.''. Its rows are the vertices of a digraph on
+$S=49$ vertices, edges being the admissible consecutive pairs, and the count is
+$\mathbf{1}^{\!\top}M^{n}\mathbf{1}$ up to the constant factor in the entry's name.
+The conjectured recurrence
+\[
+a(n)\;=\;4\,a(n-1) + 9\,a(n-3) - 36\,a(n-4) - 8\,a(n-6) + 32\,a(n-7)
+\]
+holds from index $4+1$ on.
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the digraph, the start vector and the end vector were built directly from the
-entry's stated condition, the one-row count computed separately, and the resulting values
-compared against the entry's DATA at every one of the $36$ published indices; they
-agree exactly. This is the check that ties the model to the sequence, and it is a sharp one:
-getting the boundary rows wrong, or treating them as interior rows, changes the early terms
-immediately.
+First, each model was compared against the entry's own published values for its line, taken
+both from the antidiagonal DATA read in either orientation and from the ``Table starts''
+block, and agrees at every available term. This is what ties a model to the table:
+substituting the fixed index into the entry's wording is a reading of English, and a wrong
+reading gives a different digraph and different counts. Across the lines settled here the
+model reproduces $19$ published values, $51$ decimal digits in all, every one of
+them exactly; a misreading of the entry would have to reproduce all of them by accident.
 
-Second, the recurrence \eqref{eq:conj} was evaluated on those published terms in exact
-integer arithmetic, with no matrices involved, and vanishes at every index the entry claims.
+Second, each conjectured recurrence was evaluated on those published values in exact
+integer arithmetic, with no matrices involved, and holds wherever the proved range and the
+data overlap.
 
-Third, the vanishing test of Lemma~\ref{lem:crit} was carried past $S=1024$ consecutive
-zeros rather than to a sampled prefix.
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+arithmetic rather than on a sampled prefix.
+
+\begin{remark}
+A row of the table is a column of the transposed table: fixing $n$ and letting $k$ vary gives a
+count of arrays of fixed height, which is the same kind of object with the two dimensions
+exchanged. Both are settled here by the same argument. Only the lines the entry states
+explicitly, and for which enough published values exist to run the first check above, are
+claimed.
+\end{remark}
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A298090.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A262759.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

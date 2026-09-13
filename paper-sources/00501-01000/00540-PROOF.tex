@@ -12,15 +12,15 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A279802, proved by counting patterns with a budget}
+\title{The empirical recurrence for OEIS A280310, proved by counting patterns with a budget}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A279802 imposes three things at once: a condition on each cell that reaches one row up and
-one row down; a global budget allowing exactly one cell to
+OEIS A280310 imposes three things at once: a condition on each cell that reaches one row up and
+one row down; a global budget allowing exactly two cells to
 break it; and the clause ``new values introduced in order $0$ sequentially upwards'', which
 says the array is written in canonical form. None of the three is visible to a plain transfer
 matrix over rows. All three are handled: the state is a pair of consecutive rows
@@ -28,50 +28,50 @@ together with the number of offending cells so far, capped at the budget; and th
 canonical-form clause is removed by counting equality patterns instead of arrays, through the
 identity $3!\,a(n)=\sum_i\binom{3}{i}D_{3-i}L_i(n)$ with $D_m$ the derangement
 numbers. The empirical recurrence of order $36$ contributed by R.~H.~Hardin then follows
-from a finite exact computation on $S=1588$ states.
+from a finite exact computation on $S=2382$ states.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 05A18, 15B36.\normalsize
 
 \section{The sequence and the conjecture}
 
-OEIS A279802 is ``Number of nX3 0..2 arrays with no element equal to a strict majority of its horizontal, vertical and antidiagonal neighbors, with the exception of exactly one element, and with new values introduced in order 0 sequentially upwards.''. It has offset $1$ and begins
+OEIS A280310 is ``Number of nX3 0..2 arrays with no element equal to more than one of its horizontal and vertical neighbors, with the exception of exactly two elements, and with new values introduced in order 0 sequentially upwards.''. It has offset $1$ and begins
 \[
-2, 22, 740, 19376, 507986, 12910722, 323712032, 8013623436,\ \dots
+0, 15, 788, 20274, 415198, 7506237, 125467047, 1986983748,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 44*a(n-1) -470*a(n-2) -356*a(n-3) +1443*a(n-4) -12204*a(n-5) +52388*a(n-6) +227364*a(n-7) -92500*a(n-8) +359704*a(n-9) -214436*a(n-10) -18541144*a(n-11) -27097896*a(n-12) +15057488*a(n-13) +4532384*a(n-14) +367526928*a(n-15) +1632126768*a(n-16) +1355405664*a(n-17) -2409646448*a(n-18) -8100510688*a(n-19) -22633097488*a(n-20) -40981890944*a(n-21) -7027056768*a(n-22) +151340134016*a(n-23) +338905381312*a(n-24) +195055954944*a(n-25) -390453793792*a(n-26) -857307838464*a(n-27) -533793509376*a(n-28) +337493164032*a(n-29) +725394309120*a(n-30) +310395666432*a(n-31) -190193598464*a(n-32) -188853780480*a(n-33) -15603859456*a(n-34) +30324817920*a(n-35) -3774873600*a(n-36) for n>37
+Empirical: a(n) = 30*a(n-1) -222*a(n-2) -734*a(n-3) +8955*a(n-4) +17679*a(n-5) -93547*a(n-6) -212481*a(n-7) +239184*a(n-8) +1034132*a(n-9) +1156653*a(n-10) -1089108*a(n-11) -5976636*a(n-12) -5117229*a(n-13) +2977569*a(n-14) +11073336*a(n-15) +13515996*a(n-16) -4312494*a(n-17) -13983961*a(n-18) -6912540*a(n-19) -1327035*a(n-20) +13168450*a(n-21) -1804992*a(n-22) -4913097*a(n-23) +761601*a(n-24) -310968*a(n-25) +2250468*a(n-26) -46384*a(n-27) -448224*a(n-28) +213120*a(n-29) -8640*a(n-30) +157440*a(n-31) +4608*a(n-32) -12288*a(n-33) +9216*a(n-34) +4096*a(n-36) for n>38
 \end{quote}
-As of the ``Last modified'' line on the live entry (Dec 19 2016 09:11:07, revision 4) the statement is
+As of the ``Last modified'' line on the live entry (Dec 31 2016 09:05:05, revision 4) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;44\,a(n-1) - 470\,a(n-2) - 356\,a(n-3) + 1443\,a(n-4) - 12204\,a(n-5) + 52388\,a(n-6) + 227364\,a(n-7) - 92500\,a(n-8) + 359704\,a(n-9) - 214436\,a(n-10) - 18541144\,a(n-11) - 27097896\,a(n-12) + 15057488\,a(n-13) + 4532384\,a(n-14) + 367526928\,a(n-15) + 1632126768\,a(n-16) + 1355405664\,a(n-17) - 2409646448\,a(n-18) - 8100510688\,a(n-19) - 22633097488\,a(n-20) - 40981890944\,a(n-21) - 7027056768\,a(n-22) + 151340134016\,a(n-23) + 338905381312\,a(n-24) + 195055954944\,a(n-25) - 390453793792\,a(n-26) - 857307838464\,a(n-27) - 533793509376\,a(n-28) + 337493164032\,a(n-29) + 725394309120\,a(n-30) + 310395666432\,a(n-31) - 190193598464\,a(n-32) - 188853780480\,a(n-33) - 15603859456\,a(n-34) + 30324817920\,a(n-35) - 3774873600\,a(n-36)
+a(n)\;=\;30\,a(n-1) - 222\,a(n-2) - 734\,a(n-3) + 8955\,a(n-4) + 17679\,a(n-5) - 93547\,a(n-6) - 212481\,a(n-7) + 239184\,a(n-8) + 1034132\,a(n-9) + 1156653\,a(n-10) - 1089108\,a(n-11) - 5976636\,a(n-12) - 5117229\,a(n-13) + 2977569\,a(n-14) + 11073336\,a(n-15) + 13515996\,a(n-16) - 4312494\,a(n-17) - 13983961\,a(n-18) - 6912540\,a(n-19) - 1327035\,a(n-20) + 13168450\,a(n-21) - 1804992\,a(n-22) - 4913097\,a(n-23) + 761601\,a(n-24) - 310968\,a(n-25) + 2250468\,a(n-26) - 46384\,a(n-27) - 448224\,a(n-28) + 213120\,a(n-29) - 8640\,a(n-30) + 157440\,a(n-31) + 4608\,a(n-32) - 12288\,a(n-33) + 9216\,a(n-34) + 4096\,a(n-36)
 \end{equation}
-for all $n>37$.
+for all $n>38$.
 
 \section{The condition, the budget, and the canonical form}
 
 The arrays have $3$ columns and $L=n$ rows; write $x_{t,u}$ for the entry in
 row $t$ and column $u$. With the neighbour offsets
 \[
-\mathcal N=\{(0,-1),\ (0,1),\ (-1,0),\ (1,0),\ (-1,1),\ (1,-1)\}
+\mathcal N=\{(0,-1),\ (0,1),\ (-1,0),\ (1,0)\}
 \]
 as (row shift, column shift), counting only positions inside the array, call a cell
 $(t,u)$ \emph{offending} when
 \[
-2\,\#\{\text{neighbours equal to }x_{t,u}\}>\#\{\text{neighbours}\} .
+\#\{\text{neighbours equal to }x_{t,u}\}>1 .
 \]
-The entry asks for arrays in which exactly $E=1$ cells offend.
+The entry asks for arrays in which exactly $E=2$ cells offend.
 
 Since $\mathcal N$ contains offsets of both signs in the row direction, a cell of row
 $t$ is judged by rows $t-1$, $t$ and $t+1$ together, so a state carrying one row is not
 enough; and the number of offending cells is a property of the whole array, so no bounded
 window sees it either. Both are fixed by the same device: states are ordered pairs of
-consecutive rows together with a running count $v\in\{0,1,\dots,1\}$, and a count that
-would exceed $1$ is simply not represented --- an array that passes it can never come back
+consecutive rows together with a running count $v\in\{0,1,\dots,2\}$, and a count that
+would exceed $2$ is simply not represented --- an array that passes it can never come back
 under it.
 
 The condition is stated in equalities between entries, so it is invariant under relabelling
@@ -80,7 +80,7 @@ order $0$ sequentially upwards'' keeps exactly one array from each relabelling c
 the entry counts is admissible equality PATTERNS with at most $K=3$ classes.
 
 \begin{lemma}\label{lem:inv}
-Let $L_i(n)$ count the arrays over an alphabet of $i$ letters with exactly $1$ offending
+Let $L_i(n)$ count the arrays over an alphabet of $i$ letters with exactly $2$ offending
 cells, and $N_j(n)$ the admissible patterns with exactly $j$ classes. Then
 $L_i=\sum_j N_j\,i(i-1)\cdots(i-j+1)$ and
 \[
@@ -102,15 +102,15 @@ $\binom{3}{i}D_{3-i}$, an integer.
 \section{Each $L_i$ is a walk count}
 
 Fix $i$, let $V_i=\{0,\dots,i-1\}^{3}$, and take the triples $(p,c,v)$ with
-$p,c\in V_i$ and $0\le v\le1$ as vertices. Write $\mathrm{viol}(b\mid a,x)$ for the number
+$p,c\in V_i$ and $0\le v\le2$ as vertices. Write $\mathrm{viol}(b\mid a,x)$ for the number
 of offending cells in the row $b$ when $a$ lies above it and $x$ below (either may be
 absent, in which case the corresponding neighbours simply do not exist). Declare
 \[
 (p,c,v)\ \longrightarrow\ (c,x,\,v+\mathrm{viol}(c\mid p,x))
 \]
-an edge whenever the new count is at most $1$. Let $\mathbf{s}_i$ mark the vertices with
+an edge whenever the new count is at most $2$. Let $\mathbf{s}_i$ mark the vertices with
 $v=\mathrm{viol}(p\mid\text{--},c)$ and $\mathbf{e}_i$ those with
-$v+\mathrm{viol}(c\mid p,\text{--})=1$.
+$v+\mathrm{viol}(c\mid p,\text{--})=2$.
 
 \begin{lemma}\label{lem:walk}
 For $L\ge2$, $L_i=\mathbf{s}_i^{\!\top}P_i^{\,L-2}\mathbf{e}_i$, where $P_i$ is the
@@ -124,11 +124,11 @@ judged once, at the step leaving $(r^{(t-1)},r^{(t)},\cdot)$, with their true ne
 those of row $1$ are judged by $\mathbf{s}_i$ with no row above, and those of row
 $L$ by $\mathbf{e}_i$ with no row below. Hence the running count is the number of
 offending cells among the rows judged so far, and the walk exists exactly when that total
-never exceeds $1$; since the total only grows, that is implied by the final value being
-$1$, which $\mathbf{e}_i$ imposes.
+never exceeds $2$; since the total only grows, that is implied by the final value being
+$2$, which $\mathbf{e}_i$ imposes.
 \end{proof}
 
-Assembling the $3$ chains block-diagonally into $N$ of size $S=1588$ with the weights of
+Assembling the $3$ chains block-diagonally into $N$ of size $S=2382$ with the weights of
 Lemma~\ref{lem:inv} in the start vector $\mathbf{v}$ and the end markers in
 $\mathbf{u}$,
 \begin{equation}\label{eq:walk2}
@@ -158,7 +158,7 @@ that combination of earlier ones.
 \end{proof}
 
 \begin{theorem}
-The recurrence \eqref{eq:conj} holds for every $n>37$, which is the statement of
+The recurrence \eqref{eq:conj} holds for every $n>38$, which is the statement of
 Section~1.
 \end{theorem}
 
@@ -166,7 +166,7 @@ Section~1.
 The digraph was built directly from the definitions above. The vector $w$ was formed by
 $36$ applications of $G$ in exact integer arithmetic and $\mathbf{v}^{\!\top}G^{m}w$
 evaluated for $m=0,1,\dots$, again exactly. Every one of those integers vanishes from the
-index corresponding to $n=37+1$ onwards, and the run continued until $S+1$ consecutive
+index corresponding to $n=38+1$ onwards, and the run continued until $S+1$ consecutive
 zeros had been seen.
 \end{proof}
 
@@ -189,7 +189,7 @@ Cayley--Hamilton bound in exact integer arithmetic rather than to a sampled pref
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A279802.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A280310.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; falling-factorial
 inversion, Section 1.9.)

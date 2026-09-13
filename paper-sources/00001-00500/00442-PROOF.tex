@@ -12,14 +12,14 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A281984, proved by counting patterns with a budget}
+\title{The empirical recurrence for OEIS A279154, proved by counting patterns with a budget}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A281984 imposes three things at once: a condition on each cell that reaches one row up and
+OEIS A279154 imposes three things at once: a condition on each cell that reaches one row up and
 one row down; a global budget allowing exactly one cell to
 break it; and the clause ``new values introduced in order $0$ sequentially upwards'', which
 says the array is written in canonical form. None of the three is visible to a plain transfer
@@ -35,22 +35,22 @@ from a finite exact computation on $S=514$ states.
 
 \section{The sequence and the conjecture}
 
-OEIS A281984 is ``Number of nX4 0..1 arrays with no element unequal to more than four of its king-move neighbors, with the exception of exactly one element, and with new values introduced in order 0 sequentially upwards.''. It has offset $1$ and begins
+OEIS A279154 is ``Number of nX4 0..1 arrays with no element equal to a strict majority of its king-move neighbors, with the exception of exactly one element, and with new values introduced in order 0 sequentially upwards.''. It has offset $1$ and begins
 \[
-0, 16, 1054, 10852, 89414, 659508, 4668914, 31829068,\ \dots
+2, 12, 72, 428, 2294, 11932, 60304, 297092,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 10*a(n-1) +3*a(n-2) -230*a(n-3) +80*a(n-4) +2488*a(n-5) -1277*a(n-6) -13746*a(n-7) +9931*a(n-8) +36564*a(n-9) -52309*a(n-10) +2570*a(n-11) +138911*a(n-12) -283786*a(n-13) -88331*a(n-14) +748862*a(n-15) -440770*a(n-16) -668152*a(n-17) +1209908*a(n-18) -621290*a(n-19) -1274566*a(n-20) +2324798*a(n-21) +473875*a(n-22) -2873622*a(n-23) +195550*a(n-24) +2145954*a(n-25) -270880*a(n-26) -1105724*a(n-27) +103264*a(n-28) +393292*a(n-29) -40654*a(n-30) -186838*a(n-31) +13434*a(n-32) +120816*a(n-33) +110891*a(n-34) +7622*a(n-35) -76156*a(n-36) -30698*a(n-37) -8559*a(n-38) -23722*a(n-39) -14649*a(n-40) +14260*a(n-41) +11485*a(n-42) +9608*a(n-43) +3195*a(n-44) +2230*a(n-45) -1363*a(n-46) -1416*a(n-47) -1540*a(n-48) -714*a(n-49) -171*a(n-50) +162*a(n-51) +24*a(n-52) +54*a(n-53) +36*a(n-54) -9*a(n-56) for n>63
+Empirical: a(n) = 14*a(n-1) -79*a(n-2) +296*a(n-3) -1137*a(n-4) +3786*a(n-5) -9491*a(n-6) +25574*a(n-7) -66007*a(n-8) +125068*a(n-9) -286655*a(n-10) +644352*a(n-11) -935651*a(n-12) +2106274*a(n-13) -4254326*a(n-14) +4407958*a(n-15) -11660139*a(n-16) +20200812*a(n-17) -12942101*a(n-18) +52398124*a(n-19) -69889240*a(n-20) +21188756*a(n-21) -190043003*a(n-22) +177570770*a(n-23) -9931732*a(n-24) +525736690*a(n-25) -354049840*a(n-26) -26853854*a(n-27) -1062956470*a(n-28) +606320574*a(n-29) +18947687*a(n-30) +1546195654*a(n-31) -882316499*a(n-32) +192000088*a(n-33) -1655999570*a(n-34) +946806094*a(n-35) -559625950*a(n-36) +1454800834*a(n-37) -725310313*a(n-38) +650909536*a(n-39) -1073036990*a(n-40) +514311888*a(n-41) -448474953*a(n-42) +540383844*a(n-43) -298642984*a(n-44) +247525328*a(n-45) -191218312*a(n-46) +91813964*a(n-47) -69588676*a(n-48) +52628912*a(n-49) -21603676*a(n-50) +3806952*a(n-51) -2143540*a(n-52) +961488*a(n-53) -183280*a(n-54) -15808*a(n-55) -23104*a(n-56) for n>57
 \end{quote}
-As of the ``Last modified'' line on the live entry (Feb 04 2017 09:14:56, revision 4) the statement is
+As of the ``Last modified'' line on the live entry (Dec 06 2016 22:54:22, revision 4) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;10\,a(n-1) + 3\,a(n-2) - 230\,a(n-3) + 80\,a(n-4) + 2488\,a(n-5) - 1277\,a(n-6) - 13746\,a(n-7) + 9931\,a(n-8) + 36564\,a(n-9) - 52309\,a(n-10) + 2570\,a(n-11) + 138911\,a(n-12) - 283786\,a(n-13) - 88331\,a(n-14) + 748862\,a(n-15) - 440770\,a(n-16) - 668152\,a(n-17) + 1209908\,a(n-18) - 621290\,a(n-19) - 1274566\,a(n-20) + 2324798\,a(n-21) + 473875\,a(n-22) - 2873622\,a(n-23) + 195550\,a(n-24) + 2145954\,a(n-25) - 270880\,a(n-26) - 1105724\,a(n-27) + 103264\,a(n-28) + 393292\,a(n-29) - 40654\,a(n-30) - 186838\,a(n-31) + 13434\,a(n-32) + 120816\,a(n-33) + 110891\,a(n-34) + 7622\,a(n-35) - 76156\,a(n-36) - 30698\,a(n-37) - 8559\,a(n-38) - 23722\,a(n-39) - 14649\,a(n-40) + 14260\,a(n-41) + 11485\,a(n-42) + 9608\,a(n-43) + 3195\,a(n-44) + 2230\,a(n-45) - 1363\,a(n-46) - 1416\,a(n-47) - 1540\,a(n-48) - 714\,a(n-49) - 171\,a(n-50) + 162\,a(n-51) + 24\,a(n-52) + 54\,a(n-53) + 36\,a(n-54) - 9\,a(n-56)
+a(n)\;=\;14\,a(n-1) - 79\,a(n-2) + 296\,a(n-3) - 1137\,a(n-4) + 3786\,a(n-5) - 9491\,a(n-6) + 25574\,a(n-7) - 66007\,a(n-8) + 125068\,a(n-9) - 286655\,a(n-10) + 644352\,a(n-11) - 935651\,a(n-12) + 2106274\,a(n-13) - 4254326\,a(n-14) + 4407958\,a(n-15) - 11660139\,a(n-16) + 20200812\,a(n-17) - 12942101\,a(n-18) + 52398124\,a(n-19) - 69889240\,a(n-20) + 21188756\,a(n-21) - 190043003\,a(n-22) + 177570770\,a(n-23) - 9931732\,a(n-24) + 525736690\,a(n-25) - 354049840\,a(n-26) - 26853854\,a(n-27) - 1062956470\,a(n-28) + 606320574\,a(n-29) + 18947687\,a(n-30) + 1546195654\,a(n-31) - 882316499\,a(n-32) + 192000088\,a(n-33) - 1655999570\,a(n-34) + 946806094\,a(n-35) - 559625950\,a(n-36) + 1454800834\,a(n-37) - 725310313\,a(n-38) + 650909536\,a(n-39) - 1073036990\,a(n-40) + 514311888\,a(n-41) - 448474953\,a(n-42) + 540383844\,a(n-43) - 298642984\,a(n-44) + 247525328\,a(n-45) - 191218312\,a(n-46) + 91813964\,a(n-47) - 69588676\,a(n-48) + 52628912\,a(n-49) - 21603676\,a(n-50) + 3806952\,a(n-51) - 2143540\,a(n-52) + 961488\,a(n-53) - 183280\,a(n-54) - 15808\,a(n-55) - 23104\,a(n-56)
 \end{equation}
-for all $n>63$.
+for all $n>57$.
 
 \section{The condition, the budget, and the canonical form}
 
@@ -62,7 +62,7 @@ row $t$ and column $u$. With the neighbour offsets
 as (row shift, column shift), counting only positions inside the array, call a cell
 $(t,u)$ \emph{offending} when
 \[
-\#\{\text{neighbours different from }x_{t,u}\}>4 .
+2\,\#\{\text{neighbours equal to }x_{t,u}\}>\#\{\text{neighbours}\} .
 \]
 The entry asks for arrays in which exactly $E=1$ cells offend.
 
@@ -158,7 +158,7 @@ that combination of earlier ones.
 \end{proof}
 
 \begin{theorem}
-The recurrence \eqref{eq:conj} holds for every $n>63$, which is the statement of
+The recurrence \eqref{eq:conj} holds for every $n>57$, which is the statement of
 Section~1.
 \end{theorem}
 
@@ -166,7 +166,7 @@ Section~1.
 The digraph was built directly from the definitions above. The vector $w$ was formed by
 $56$ applications of $G$ in exact integer arithmetic and $\mathbf{v}^{\!\top}G^{m}w$
 evaluated for $m=0,1,\dots$, again exactly. Every one of those integers vanishes from the
-index corresponding to $n=63+1$ onwards, and the run continued until $S+1$ consecutive
+index corresponding to $n=57+1$ onwards, and the run continued until $S+1$ consecutive
 zeros had been seen.
 \end{proof}
 
@@ -175,7 +175,7 @@ zeros had been seen.
 Three checks, each independent of the algebra above.
 
 First, the right-hand side of \eqref{eq:walk2}, divided by $2!$, was evaluated at every
-one of the $19$ published indices and agrees with the entry's DATA exactly, the quotient
+one of the $22$ published indices and agrees with the entry's DATA exactly, the quotient
 coming out an integer each time; no shift was fitted, the number of rows being
 $L=n$ from the entry's own name and the offset saying which index the first published
 term carries. A misreading of the offending-cell rule, of the budget, or of the inversion in
@@ -189,7 +189,7 @@ Cayley--Hamilton bound in exact integer arithmetic rather than to a sampled pref
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A281984.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A279154.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; falling-factorial
 inversion, Section 1.9.)

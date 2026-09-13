@@ -12,166 +12,183 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A204798, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A270257, proved by an exact quasi-polynomial}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{3 September 2026}
+\date{6 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A204798 counts arrays of width $7$ over $\{0,1\}$ by reducing every $2\times2$ subblock to a
-single number---here the determinant---and requiring the resulting derived array to have its rows
-lexicographically nondecreasing and its columns lexicographically nondecreasing. The entry carries an
-empirical recurrence of order $55$ contributed by R.~H.~Hardin. It is true, and it is
-decidable rather than empirical. The row comparison is settled by three consecutive rows of the
-array; the column comparison is not settled by any bounded window, but what is still outstanding
-about it is one bit per adjacent pair of columns, so the count is a walk count on $S=11551$
-states.
+OEIS A270257 counts triangular arrays of a FIXED shape over the alphabet $0..n$, and carries an
+empirical recurrence of order $4$ contributed by R.~H.~Hardin. It is true. The array
+family usually met in this part of the OEIS fixes the alphabet and lets the shape grow, so the
+count is a walk count in a finite digraph; here it is the alphabet that grows and there is no
+digraph to walk. Inclusion--exclusion over the adjacent pairs, together with the observation
+that a set of pairs forces the values along each of its connected components to alternate,
+gives $a(n)$ in closed form as a quasi-polynomial of period $2$, exactly and for every $n$.
+The recurrence, and the entry's two branch formulas with it, then follow by polynomial
+division.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 06A05, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A19, 11B37.\normalsize
 
 \section{The conjecture}
 
-OEIS A204798 is ``Number of (n+1)X7 0..1 arrays with rows and columns of determinants of all 2X2 subblocks lexicographically nondecreasing.''. It has offset $1$ and begins
+OEIS A270257 is ``Number of 2X2X2 triangular 0..n arrays with some element plus some adjacent element totalling n exactly once.''. It has offset $1$ and begins
 \[
-2470, 81009, 1729515, 40446826, 897624021, 20321241222, 457771763592, 10349816580258,\ \dots
+0, 12, 24, 48, 72, 108,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 87*a(n-1) -3076*a(n-2) +53166*a(n-3) -316258*a(n-4) -4561602*a(n-5) +103113372*a(n-6) -646793712*a(n-7) -2678322545*a(n-8) +65954804463*a(n-9) -312205461536*a(n-10) -1175324782270*a(n-11) +18731074388332*a(n-12) -50374427356796*a(n-13) -328105943470736*a(n-14) +2529557534926456*a(n-15) -1548852076117760*a(n-16) -43806777969422464*a(n-17) +149988182634786176*a(n-18) +270551543226518016*a(n-19) -2617915229591756800*a(n-20) +2364619126009248768*a(n-21) +22903213646898888704*a(n-22) -62548577344515350528*a(n-23) -91147135317302099968*a(n-24) +603383613575877828608*a(n-25) -198589101943030480896*a(n-26) -3395872361455628943360*a(n-27) +4890330820676899831808*a(n-28) +11487321892485940641792*a(n-29) -32097669051545838682112*a(n-30) -17569170579313163501568*a(n-31) +126404155949644842532864*a(n-32) -34038748005041321279488*a(n-33) -334495646285872762978304*a(n-34) +279819498660530160140288*a(n-35) +606469642463308645662720*a(n-36) -846323376849379552919552*a(n-37) -725859584595244810764288*a(n-38) +1610549543510835546030080*a(n-39) +482571198496321742831616*a(n-40) -2125965718783684046225408*a(n-41) +14616176476978702974976*a(n-42) +2007036888385164295536640*a(n-43) -381081820170999448993792*a(n-44) -1365217238069466273677312*a(n-45) +400595635756684657295360*a(n-46) +665155678134904706564096*a(n-47) -220930269489537967194112*a(n-48) -227370246545569610727424*a(n-49) +70302622319138853355520*a(n-50) +51920838140066214707200*a(n-51) -11903588868517640798208*a(n-52) -7038852623902722490368*a(n-53) +786794617500321447936*a(n-54) +407350586295661363200*a(n-55) for n>67
+Empirical: a(n) = 2*a(n-1) -2*a(n-3) +a(n-4)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 11:32:15, revision 9) this is still
+As of the ``Last modified'' line on the live entry (Mar 14 2016 09:18:59, revision 4) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The arrays have $7$ columns and a growing number of rows, with entries in $\{0,1\}$. A
-$2\times2$ subblock of such an array is
-\[
-B=\begin{pmatrix} p & q \\ r & s \end{pmatrix},
-\qquad p=x(i,j),\; q=x(i,j+1),\; r=x(i+1,j),\; s=x(i+1,j+1).
-\]
-The entry attaches to $B$ the single number
-\[
-f(B)\;=\;\det B=ps-qr,
-\]
-the determinant. An array with $R$ rows and $7$ columns has $(R-1)\times6$ subblocks, and they
-form a derived array
-\[
-D(i,j)=f\!\left(\begin{pmatrix} x(i,j) & x(i,j+1) \\ x(i+1,j) & x(i+1,j+1)\end{pmatrix}
-\right),\qquad 0\le i<R-1,\;\; 0\le j<6 .
-\]
-Write $\preceq$ for the lexicographic order on finite sequences of integers: $u\preceq w$ when
-$u=w$, or when $u_k<w_k$ at the first index $k$ where they differ. The condition is that the
-rows of $D$, read left to right and compared in this order, are nondecreasing from top to bottom,
-\[
-D_{i}\;\preceq\;D_{i+1}\qquad\text{for every } i,
-\]
-and that the columns of $D$, read top to bottom and compared in the same order, are nondecreasing
-from left to right,
-\[
-D^{j}\;\preceq\;D^{j+1}\qquad\text{for every } j .
-\]
+The array is the triangle with $2$ rows: cells $(i,j)$ for $0\le i<2$ and $0\le j\le i$,
+so $T=3$ of them. Two cells are adjacent when they are neighbours in that triangle --- side
+by side in a row, or one directly below the other on either side --- and there are
+$3\binom{2}{2}=3$ adjacent pairs. Each cell carries a value in
+$\{0,1,\dots,n\}$, and the entry counts those arrays in which EXACTLY ONE adjacent pair
+$\{u,v\}$ has $x_u+x_v=n$.
 
-\section{A bounded state}
+Note which parameter grows. The shape is fixed; the alphabet is what $n$ counts. So this is not
+a walk in a finite digraph, and nothing about transfer matrices applies.
 
-Grow the array one row at a time. A row of $D$ is built from two consecutive rows of the array,
-so the row condition is decided three array rows at a time and needs no memory beyond the
-derived row just formed. The column condition is different: which of two columns of $D$ is the
-smaller is decided by the first derived row in which they differ, and that row can be
-arbitrarily far down. What is bounded is not the comparison but what remains open about it.
+\section{A set of pairs forces the values along its components}
 
-\begin{lemma}\label{lem:bits}
-Fix $j$ and suppose the derived rows $D_0,\dots,D_i$ have been written. If $D_t(j)=D_t(j+1)$ for
-every $t\le i$, then $D^{j}\;\preceq\;D^{j+1}$ holds for the finished array if and only if,
-at the first later row $t$ with $D_t(j)\neq D_t(j+1)$, the inequality $D_t(j)<D_t(j+1)$
-holds; and if no such row occurs the two columns are equal and the condition holds. If instead
-$D_t(j)\neq D_t(j+1)$ for some $t\le i$, then the comparison is already settled by the earliest
-such $t$ and no later row can change it.
+Write $E$ for the set of adjacent pairs, $t=n$ for the target, and for $S\subseteq E$ let
+$N(S)$ be the number of arrays satisfying $x_u+x_v=t$ for every pair in $S$ --- and possibly
+others.
+
+\begin{lemma}\label{lem:comp}
+Let $S\subseteq E$ and let the graph $(V,S)$ have $c_b$ bipartite and $c_o$ non-bipartite
+components among the cells it touches, $v(S)$ cells being touched. Then
+\[
+N(S)\;=\;(n+1)^{\,T-v(S)}\;B^{\,c_b}\;F^{\,c_o},
+\]
+where $B=\#\{c: 0\le c\le n,\ 0\le t-c\le n\}$ and $F=1$ if $t$ is even with $0\le t/2\le n$,
+and $F=0$ otherwise.
 \end{lemma}
 
 \begin{proof}
-Immediate from the definition of the lexicographic order: it looks only at the first index at
-which the two sequences differ, and prefixes that agree contribute nothing.
+A pair in $S$ forces $x_v=t-x_u$, so within one connected component of $(V,S)$ the value of any
+one cell determines every other: cells at even distance from a chosen root carry the root's
+value $c$, cells at odd distance carry $t-c$. That assignment is consistent exactly when no
+cycle of the component has odd length; if some cycle does, following it around forces $c=t-c$,
+so $2c=t$, and the component admits one value when $t$ is even and $t/2$ lies in the alphabet,
+and none otherwise. A bipartite component is therefore free to choose $c$ subject only to
+$c$ and $t-c$ both lying in $\{0,\dots,n\}$, which is $B$ choices. Cells touched by no pair
+of $S$ are unconstrained, giving $(n+1)$ choices each.
 \end{proof}
 
-So a single bit per adjacent pair of columns---``this pair has agreed in every derived row so
-far''---carries everything the future needs to know, and there are $5$ such pairs. The state
-is therefore
+Here $B=n+1$ and $F=1$ precisely when $n$ is even.
+
+\section{The count}
+
+\begin{theorem}\label{thm:quasi}
+For every $n\ge0$,
 \[
-\bigl(\text{the array row just written},\; \text{the derived row just formed},\;
-\text{the 5 bits}\bigr),
+a(n)\;=\;A(n)+(-1)^n\,C(n),\qquad
+A(n)=3n^{2} - \tfrac{3}{2},
 \]
-with a distinguished start standing for the empty array, so that a walk of $n$ steps is an array
-of $n$ rows. A step appends a row, forms the new derived row, checks it against the previous one
-for the row condition, and for each pair still flagged either leaves the flag set (the pair
-agreed again) or clears it after checking the required inequality once. Every state may end an
-array, so $\tau=\mathbf{1}$ and
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=11551.
+C(n)=\tfrac{3}{2}.
 \]
-The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
-published terms rather than assumed. In particular $a$ is $C$-finite.
-
-\section{The proof}
-
-\begin{lemma}\label{lem:crit}
-Let $q(t)=t^{55}-\sum_i c_it^{55-i}$ be the characteristic polynomial of the
-conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
-$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
-holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
-and it is enough to examine $j<S$.
-\end{lemma}
-
-\begin{proof}
-Factor $M^{j}$ out of $M^{j+55}-\sum_ic_iM^{j+55-i}$. For the bound, $M^{S}$
-is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
-$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
-polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly.
-\end{proof}
-
-\begin{theorem}
-\[
-a(n)\;=\;87\,a(n-1) - 3076\,a(n-2) + 53166\,a(n-3) - 316258\,a(n-4) - 4561602\,a(n-5) + 103113372\,a(n-6) - 646793712\,a(n-7) - 2678322545\,a(n-8) + 65954804463\,a(n-9) - 312205461536\,a(n-10) - 1175324782270\,a(n-11) + 18731074388332\,a(n-12) - 50374427356796\,a(n-13) - 328105943470736\,a(n-14) + 2529557534926456\,a(n-15) - 1548852076117760\,a(n-16) - 43806777969422464\,a(n-17) + 149988182634786176\,a(n-18) + 270551543226518016\,a(n-19) - 2617915229591756800\,a(n-20) + 2364619126009248768\,a(n-21) + 22903213646898888704\,a(n-22) - 62548577344515350528\,a(n-23) - 91147135317302099968\,a(n-24) + 603383613575877828608\,a(n-25) - 198589101943030480896\,a(n-26) - 3395872361455628943360\,a(n-27) + 4890330820676899831808\,a(n-28) + 11487321892485940641792\,a(n-29) - 32097669051545838682112\,a(n-30) - 17569170579313163501568\,a(n-31) + 126404155949644842532864\,a(n-32) - 34038748005041321279488\,a(n-33) - 334495646285872762978304\,a(n-34) + 279819498660530160140288\,a(n-35) + 606469642463308645662720\,a(n-36) - 846323376849379552919552\,a(n-37) - 725859584595244810764288\,a(n-38) + 1610549543510835546030080\,a(n-39) + 482571198496321742831616\,a(n-40) - 2125965718783684046225408\,a(n-41) + 14616176476978702974976\,a(n-42) + 2007036888385164295536640\,a(n-43) - 381081820170999448993792\,a(n-44) - 1365217238069466273677312\,a(n-45) + 400595635756684657295360\,a(n-46) + 665155678134904706564096\,a(n-47) - 220930269489537967194112\,a(n-48) - 227370246545569610727424\,a(n-49) + 70302622319138853355520\,a(n-50) + 51920838140066214707200\,a(n-51) - 11903588868517640798208\,a(n-52) - 7038852623902722490368\,a(n-53) + 786794617500321447936\,a(n-54) + 407350586295661363200\,a(n-55)
-\]
-for every $n>67$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $55$ matrix--vector products in exact integer
-arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=67+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once.
+For an array $x$ let $\sigma(x)$ be its number of satisfied pairs. Then
+\[
+\sum_{S\subseteq E}w^{|S|}\,\#\{x:\ S\subseteq\text{satisfied pairs of }x\}
+=\sum_x (1+w)^{\sigma(x)},
+\]
+and differentiating in $w$ at $w=-1$ picks out exactly the arrays with $\sigma(x)=1$:
+\[
+a(n)\;=\;\sum_{\emptyset\neq S\subseteq E}(-1)^{|S|-1}\,|S|\;N(S).
+\]
+Each $N(S)$ is given by Lemma~\ref{lem:comp}. The exponents $T-v(S)$, $c_b$ and $c_o$ do not
+involve $n$, so the sum was formed once by running over all $2^{3}$ subsets and
+recording those three numbers. Every term is a polynomial in $n$ multiplied by $F^{c_o}$, and
+$F$ depends only on the parity of $n$; collecting the two parities gives a polynomial identity
+in $n$ on each, and the displayed $A$ and $C$ are their half-sum and half-difference. The
+identity holds for every $n\ge0$, with no threshold: Lemma~\ref{lem:comp} is exact at every
+$n$.
+\end{proof}
+
+The degree of $A$ is $2$ and that of $C$ is $0$. Both are at most $T-1$,
+because a set $S$ with a single pair leaves $T-2$ cells free and contributes one bipartite
+component.
+
+\section{The two branch formulas}
+
+The entry also records, as separate empirical observations:
+\begin{quote}
+Empirical for n mod 2 = 0: a(n) = 3*n\^{}2
+
+Empirical for n mod 2 = 1: a(n) = 3*n\^{}2 - 3
+\end{quote}
+These follow at once, and are exact: putting $n$ even and $n$ odd into
+Theorem~\ref{thm:quasi},
+\[
+a(n)=\begin{cases}
+3n^{2}, & n\ \text{even},\\[2pt]
+3n^{2} - 3, & n\ \text{odd},
+\end{cases}
+\]
+which is what the entry states.
+
+\section{The recurrence}
+
+\begin{theorem}
+\[
+a(n)\;=\;2\,a(n-1) - 2\,a(n-3) + a(n-4)
+\]
+for every $n>4$.
+\end{theorem}
+
+\begin{proof}
+Write $E$ for the shift operator, $(Ea)(n)=a(n+1)$. A polynomial of degree $d$ is annihilated
+by $(E-1)^{d+1}$ and by nothing smaller, and $(-1)^n$ times a polynomial of degree $d$ is
+annihilated by $(E+1)^{d+1}$ and by nothing smaller. By Theorem~\ref{thm:quasi} the
+sequence is therefore annihilated by
+\[
+(E-1)^{3}(E+1)^{1},
+\]
+a monic operator of order $4$, and by no proper divisor of it, since the two
+factors act on the two parts independently and neither part is annihilated by less. The
+characteristic polynomial of the conjectured recurrence is
+$t^{4}-\sum_i c_it^{4-i}$; dividing it by the operator above in
+$\mathbb{Z}[t]$ leaves no remainder, so the conjectured recurrence is a consequence of
+Theorem~\ref{thm:quasi} and holds wherever every index it names is at least the offset.
 \end{proof}
 
 \section{Verification}
 
-Four checks, each independent of the algebra above.
+Three checks, each independent of the algebra above.
 
-First, the model reproduces all $14$ terms the entry publishes, exactly, in integer
+First, the closed form reproduces all $47$ terms the entry publishes, exactly, in integer
 arithmetic.
 
-Second, the count was recomputed for the smallest arrays straight from the definition: every
-array of width $7$ over $\{0,1\}$ with two and with three rows was written out cell by cell,
-the derived array formed, and its rows and its columns compared as whole words. No state, no
-bits of Lemma~\ref{lem:bits} and no recurrence are involved in that computation, and the
-published terms came back.
+Second, the arrays themselves were enumerated for the smallest alphabets --- every assignment
+of $0..n$ to the $3$ cells written out and its satisfied pairs counted, with no
+inclusion--exclusion and no closed form --- and the counts agree. A wrong reading of the cell
+set, of the adjacency, or of the target would show here and nowhere else.
 
-Third, the conjectured recurrence was evaluated directly on the published terms, with no
-matrices involved, and holds wherever the proved range and the data overlap.
-
-Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
-arithmetic on the whole vector rather than on a sampled prefix.
+Third, the conjectured recurrence was applied directly to the closed form's own values over a
+long range, in exact integer arithmetic, and holds throughout; this is independent of the
+divisibility argument, which is what actually proves it.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A204798.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A270257.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
-University Press, 2013.
+Cambridge University Press, 2011. (Quasi-polynomials, Section 4.4.)
+\bibitem{beck} M.~Beck and S.~Robins, \emph{Computing the Continuous Discretely}, 2nd ed.,
+Springer, 2015.
+\bibitem{comtet} L.~Comtet, \emph{Advanced Combinatorics}, Reidel, 1974.
 \end{thebibliography}
 
 \end{document}

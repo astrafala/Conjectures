@@ -12,133 +12,119 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A203449, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A183898, proved from an exact model}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{3 September 2026}
+\date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A203449 counts arrays of width $6$ over $\{0,1\}$ through two derived arrays of PAIR SUMS ---
-each cell added to its left neighbour, and each cell added to the one above it --- on which the
-entry imposes an order condition. The entry carries an empirical recurrence of order $56$
-contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical: the count is
-a walk count on $S=843$ states.
+OEIS A183898 carries an empirical recurrence of order $4$. It is true, and it is
+decidable rather than empirical. The entry's sequence is given exactly by an exact polynomial in $n$, from
+which $a$ provably satisfies a MONIC linear recurrence of order $S=4$, derived below and not
+assumed. The residual of the conjectured recurrence satisfies the same one, so whether it
+annihilates $a$ is settled by a finite exact computation. No transfer matrix is involved and
+the count is not a walk.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 06A07, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A19, 11P21.\normalsize
 
 \section{The conjecture}
 
-OEIS A203449 is ``Number of (n+1)X6 0..1 arrays with column and row pair sums b(i,j)=a(i,j)+a(i,j-1) and c(i,j)=a(i,j)+a(i-1,j) such that rows of b(i,j) and columns of c(i,j) are lexicographically nondecreasing.''. It has offset $1$ and begins
+OEIS A183898 is ``Number of nondecreasing arrangements of n+3 numbers in 0..3 with each number being the sum mod 4 of three others.''. It has offset $1$ and begins
 \[
-128, 376, 4200, 46853, 554620, 5972476, 58336803, 513856445,\ \dots
+5, 14, 38, 70, 111, 162, 224, 298,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 55*a(n-1) -1483*a(n-2) +26127*a(n-3) -338193*a(n-4) +3429153*a(n-5) -28357173*a(n-6) +196602705*a(n-7) -1165912020*a(n-8) +6004200930*a(n-9) -27167717850*a(n-10) +109017693330*a(n-11) -390868315110*a(n-12) +1259737285590*a(n-13) -3667535195310*a(n-14) +9683348321430*a(n-15) -23258505573135*a(n-16) +50939627117085*a(n-17) -101889860027865*a(n-18) +186269554665285*a(n-19) -311184592804995*a(n-20) +474428969358435*a(n-21) -658078892981055*a(n-22) +825759258027795*a(n-23) -927565193949030*a(n-24) +913991069159532*a(n-25) -755278225466940*a(n-26) +457962352584716*a(n-27) -69533550916004*a(n-28) -333281502666364*a(n-29) +668960713985004*a(n-30) -877793403054204*a(n-31) +938876964606945*a(n-32) -871006340659455*a(n-33) +719295534188595*a(n-34) -535645610565975*a(n-35) +362198460477945*a(n-36) -223220139898665*a(n-37) +125604414729885*a(n-38) -64557466221465*a(n-39) +30290146792920*a(n-40) -12955106337390*a(n-41) +5039562750390*a(n-42) -1777622462910*a(n-43) +566360211690*a(n-44) -162197055930*a(n-45) +41503024290*a(n-46) -9418306170*a(n-47) +1878003855*a(n-48) -325211445*a(n-49) +48175569*a(n-50) -5983965*a(n-51) +606267*a(n-52) -48123*a(n-53) +2807*a(n-54) -107*a(n-55) +2*a(n-56) for n>79
+Empirical: a(n) = (1/6)*n\^{}3 + (5/2)*n\^{}2 + (25/3)*n - 14 for n>1.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 10:28:47, revision 9) this is still
-recorded as empirical, and nothing on the entry records it as proved.
+As of the ``Last modified'' line on the live entry (Apr 05 2018 10:27:29, revision 8)
+this is still recorded as empirical, and nothing on the entry records it as proved.
 
-\section{What is being counted}
+\section{The count is a polynomial}
 
-The array $a$ has $6$ cells across, with entries in $\{0,1\}$. Two derived arrays are formed,
-\[
-b(i,j)=a(i,j)+a(i,j-1)\quad(j\ge1),\qquad c(i,j)=a(i,j)+a(i-1,j)\quad(i\ge1),
-\]
-so $b$ adds each cell to its LEFT neighbour and $c$ adds each cell to the one ABOVE it. The
-entry asks
+A NONDECREASING arrangement is determined by its multiset of values, so an admissible
+arrangement is exactly an admissible multiset. The condition names how many other entries a
+value must be built from, and a condition of that shape cannot distinguish a value occurring
+$r+1$ times from one occurring more: the admissible multisets are therefore exactly those
+whose multiplicity profile, CAPPED at $r+1$, is one of a finite list, and that list is computed
+once by enumeration over the capped profiles.
 
-that the ROWS of $b$ and the COLUMNS of $c$ are each in lexicographic nondecreasing order. Row $i$ of $b$
-is $\bigl(b(i,1),\dots,b(i,5)\bigr)$ and column $j$ of $c$ is
-$\bigl(c(1,j),c(2,j),\dots\bigr)$.
+Given an admissible capped profile with $F$ the total multiplicity of the values capped below
+the limit and $t$ the number of values at the cap, the arrangements of length $\ell$ with that
+profile number $\binom{\ell-F-(r+1)t+t-1}{t-1}$, and $a(n)$ is the sum of those binomials
+over the list with $\ell$ the entry's own length.
 
+\section{The bound}
 
-\section{Two rows decide it}
+Each binomial is a polynomial in $\ell$, hence in $n$, of degree $t-1<M$ with $M$ the alphabet
+size, so $a$ agrees with a polynomial of degree below $M$ and $(z-1)^{M}$ annihilates it:
+$S=4$.
 
-\begin{lemma}\label{lem:win}
-The row comparison is a condition on two consecutive rows of $a$. The column comparison is
-settled by the FIRST row in which the two columns of $c$ differ.
-\end{lemma}
-
-\begin{proof}
-Row $i$ of $b$ is built from row $i$ of $a$ alone, so comparing rows $i$ and $i+1$ of $b$ reads
-rows $i$ and $i+1$ of $a$. Two sequences are compared lexicographically by their first
-difference; entry $i$ of column $j$ of $c$ is built from rows $i-1$ and $i$ of $a$, so scanning
-the array downwards reveals the entries of every column of $c$ in order.
-\end{proof}
-
-So the state is the last row of $a$ together with one bit for each adjacent pair of columns,
-recording whether that pair of columns of $c$ has been equal in every row so far. A row that
-would put a pair in the wrong order is rejected at once, and a pair still equal at the end is
-in order, equality being allowed.
-
-With $M$ the adjacency matrix of the digraph on those states, $\iota$ the indicator of the
-starting state and $\tau=\mathbf{1}$,
-\[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=843.
-\]
-The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
-published terms rather than assumed. In particular $a$ is $C$-finite.
+Two kinds of term are outside that polynomial at small lengths, and they are why the threshold
+below is not zero. A profile with no value at the cap contributes the indicator
+$[\,F=\ell\,]$, which is a single spike rather than a polynomial and is gone once
+$\ell$ exceeds every such $F$; and a profile whose slack falls below $-(t-1)$ has the count
+$0$ where the binomial polynomial does not vanish. Both live at bounded $\ell$, so above them
+$a$ is the polynomial exactly, and on every entry of this family the residual of $(z-1)^{M}$
+is nonzero at the first few indices and vanishes from then on. The theorem is stated from the
+threshold up, and the run of zeros it uses lies entirely above the transient.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{56}-\sum_i c_it^{56-i}$ be the characteristic polynomial of the
-conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
-$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
-holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
-and it is enough to examine $j<S$.
+Let $A(z)=z^S-\sum_{j<S}\alpha_jz^{j}$ be the monic annihilator derived above and
+$q(z)=z^{4}-\sum_ic_iz^{4-i}$ the characteristic polynomial of the conjectured
+recurrence. The residual $r(n)=a(n)-\sum_ic_ia(n-i)$ is a linear combination of shifts of $a$,
+so $A$ annihilates $r$ as well. Since $A(0)\ne0$ the recurrence it gives runs in both
+directions, and $S$ consecutive zeros of $r$ force $r$ to vanish at every later index.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+56}-\sum_ic_iM^{j+56-i}$. For the bound, $M^{S}$
-is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
-$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
-polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly.
+$A$ annihilates $a$, hence every shift of $a$, hence any linear combination of shifts; that is
+$r$. A monic recurrence with nonzero constant term determines each term from the $S$ before it
+and each from the $S$ after it, so a run of $S$ zeros propagates.
 \end{proof}
 
 \begin{theorem}
 \[
-a(n)\;=\;55\,a(n-1) - 1483\,a(n-2) + 26127\,a(n-3) - 338193\,a(n-4) + 3429153\,a(n-5) - 28357173\,a(n-6) + 196602705\,a(n-7) - 1165912020\,a(n-8) + 6004200930\,a(n-9) - 27167717850\,a(n-10) + 109017693330\,a(n-11) - 390868315110\,a(n-12) + 1259737285590\,a(n-13) - 3667535195310\,a(n-14) + 9683348321430\,a(n-15) - 23258505573135\,a(n-16) + 50939627117085\,a(n-17) - 101889860027865\,a(n-18) + 186269554665285\,a(n-19) - 311184592804995\,a(n-20) + 474428969358435\,a(n-21) - 658078892981055\,a(n-22) + 825759258027795\,a(n-23) - 927565193949030\,a(n-24) + 913991069159532\,a(n-25) - 755278225466940\,a(n-26) + 457962352584716\,a(n-27) - 69533550916004\,a(n-28) - 333281502666364\,a(n-29) + 668960713985004\,a(n-30) - 877793403054204\,a(n-31) + 938876964606945\,a(n-32) - 871006340659455\,a(n-33) + 719295534188595\,a(n-34) - 535645610565975\,a(n-35) + 362198460477945\,a(n-36) - 223220139898665\,a(n-37) + 125604414729885\,a(n-38) - 64557466221465\,a(n-39) + 30290146792920\,a(n-40) - 12955106337390\,a(n-41) + 5039562750390\,a(n-42) - 1777622462910\,a(n-43) + 566360211690\,a(n-44) - 162197055930\,a(n-45) + 41503024290\,a(n-46) - 9418306170\,a(n-47) + 1878003855\,a(n-48) - 325211445\,a(n-49) + 48175569\,a(n-50) - 5983965\,a(n-51) + 606267\,a(n-52) - 48123\,a(n-53) + 2807\,a(n-54) - 107\,a(n-55) + 2\,a(n-56)
+a(n)\;=\;4\,a(n-1) - 6\,a(n-2) + 4\,a(n-3) - a(n-4)
 \]
-for every $n>79$.
+for every $n>5$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $56$ matrix--vector products in exact integer
-arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=79+1$ onwards and the run continued
-until the working vector was identically zero.
+The terms $a(0),\dots$ were computed exactly in integer arithmetic from the model, extended by
+$A$ where the model itself was not evaluated, and $r(n)$ formed for each index. Those integers
+vanish from $n=5+1$ onwards, and the run exceeds $S+4$, which by
+Lemma~\ref{lem:crit} settles every larger index at once. The bound is exact: at $n=5$ the recurrence fails on the entry's own published terms, so no larger range holds.
 \end{proof}
 
 \section{Verification}
 
-Four checks, each independent of the algebra above.
+Three checks, each independent of the algebra above.
 
-First, the model reproduces all $18$ terms the entry publishes, exactly, in integer
-arithmetic.
+First, the model reproduces all $44$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry: it is built by reading the entry's
+English, and a misreading gives different counts.
 
-Second, the count was recomputed for the smallest arrays straight from the definition:
-enumerate every array of that size, form the two derived arrays in full, and test the condition
-on them directly. No window, no state and no incremental bookkeeping are involved, and the
-published terms came back.
+Second, the conjectured recurrence was evaluated directly on those published terms, with no
+model involved, and holds wherever the proved range and the data overlap.
 
-Third, the conjectured recurrence was evaluated directly on the published terms, with no
-matrices involved, and holds wherever the proved range and the data overlap.
-
-Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
-arithmetic on the whole vector rather than on a sampled prefix.
+Third, the derived annihilator $A$ was itself tested on terms it had not been given: the model
+was evaluated beyond the $S$ values that determine it and $A$ reproduced them. A bound that is
+too small fails this test, which is why it is run.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A203449.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A183898.
+\bibitem{beckrobins} M.~Beck and S.~Robins, \emph{Computing the Continuous Discretely},
+2nd ed., Springer, 2015. (Ehrhart quasi-polynomials and their periods.)
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
-University Press, 2013.
+Cambridge University Press, 2011.
+\bibitem{ds} F.~Diamond and J.~Shurman, \emph{A First Course in Modular Forms},
+Springer GTM 228, 2005.
 \end{thebibliography}
 
 \end{document}

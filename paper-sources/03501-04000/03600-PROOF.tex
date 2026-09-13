@@ -12,83 +12,78 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A208086, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A185985, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{8 September 2026}
+\date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A208086 counts, up to renaming the letters, the arrays of width $4$ over at most $2$
-letters in which horizontally neighbouring $2\times2$ subblocks have the same number of equal edges and vertically neighbouring ones have different numbers. It carries an empirical recurrence of order $4$ contributed by
-R.~H.~Hardin. It is true, and it is decidable rather than empirical. Counting up to renaming is
-a fixed rational combination of ordinary array counts, each of those is a walk count, and the
-conjectured recurrence is then settled by a finite exact computation.
- Throughout, \emph{row} means a line of the array in the direction the walk grows: this entry fixes the first dimension and grows the second, so the array is read transposed, and a step appends what the entry's own name writes as a column.\end{abstract}
+OEIS A185985 counts arrays over $\{0,\dots,1\}$ under a condition comparing a statistic of
+every $3\times3$ subblock with those of its neighbours, and carries an empirical recurrence
+of order $4$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
+empirical. The count is a walk count on $S=832$ states and is $C$-finite; whether the
+conjectured recurrence annihilates it is then settled by a finite exact computation.
+\end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A18, 05B45.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
 \section{The conjecture}
 
-OEIS A208086 is ``Number of 4 X (n+1) 0..1 arrays with every 2 X 2 subblock having the same number of equal edges as its horizontal neighbors and a different number from its vertical neighbors, and new values 0..1 introduced in row major order.''. It has offset $1$ and begins
+OEIS A185985 is ``1/128 the number of (n+2) X 3 binary arrays with each 3 X 3 subblock trace equal to some horizontal or vertical neighbor 3 X 3 subblock trace.''. It has offset $1$ and begins
 \[
-24, 56, 134, 344, 888, 2318, 6056, 15848,\ \dots
+0, 10, 28, 200, 876, 4838, 23840, 124114,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 3*a(n-1) - 3*a(n-3) + a(n-4).
+Empirical: a(n) = 4*a(n-1) + 7*a(n-2) - 12*a(n-3) + 27*a(n-4).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jun 27 2018 14:17:42, revision 8) this is still
+As of the ``Last modified'' line on the live entry (Apr 17 2018 06:16:26, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The condition is that horizontally neighbouring $2\times2$ subblocks have the same number of equal edges and vertically neighbouring ones have different numbers.
+Write $\sigma$ for the sum of its main diagonal, taken on a $3\times3$ subblock. The contiguous $3\times3$
+subblocks of an $(n+2)\times3$ array over $\{0,\dots,1\}$ form a grid of $n$ rows
+and $1$ column, and $\sigma$ labels that grid. The entry
+requires that every subblock carries the same value of $\sigma$ as at least ONE of its neighbours horizontally or vertically. The entry counts $1/128$ of that number, and the model divides by $128$ before anything is compared.
 
-The clause ``new values $0..1$ introduced in row major order'' says the array is the
-canonical representative of its EQUALITY PATTERN, so what is counted is patterns, not arrays.
-Write $N_j$ for the number of admissible patterns using exactly $j$ letters and $L_i$ for the
-number of admissible arrays over an alphabet of $i$ letters. An array over $i$ letters is a
-pattern together with an injection of its letters into the alphabet, so
+\section{The count is a walk count}
+
+This condition is NOT a condition on a pair. Whether a subblock has a
+matching neighbour cannot be decided when its own row is placed: the row BELOW it may yet
+supply the match. So the state carries, besides the $3$ consecutive array rows, a tally for
+each of the $1$ subblocks of the row just completed --- a single bit saying whether it has already been matched --- counting its matches
+among its own row and the row above.
+
+A step appends an array row. It fixes the next subblock row, adds the matches between the two
+rows to the OLD row's tallies, and requires those totals to be acceptable, the old row being
+final at that moment; the new row's tallies start from its own horizontal matches plus the
+matches just made. A state is ACCEPTING when its own tally is already acceptable, which is
+exactly the right condition for the last subblock row, the one with nothing below it. Only the
+states whose tally came from their own row may BEGIN an array, since the first row has nothing
+above it.
+
+An array of $n+2$ rows is then a walk of $n-1$ steps and
 \[
-L_i\;=\;\sum_j N_j\,i(i-1)\cdots(i-j+1),
+a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau
 \]
-a triangular system with unit diagonal, hence invertible over $\mathbf{Q}$. The entry counts
-$a=N_1+\dots+N_{2}$, so
-\[
-a\;=\;\sum_{i=1}^{2}w_i\,L_i
-\]
-for one fixed rational vector $w=\mathbf{1}^{\!\top}F^{-1}$, $F$ the matrix of falling
-factorials.
+with $\iota$ the indicator of the starting states and $\tau$ of the accepting ones, on
+$S=832$ states in all. Getting the two vectors right is the whole of the argument: with
+$\iota$ taken as all-ones the first row would be allowed a match from a row above it that does
+not exist, and the count would be too large. The entry's own first terms settle it --- for
+a width where the subblock row is a single subblock
+the count must be zero, since a lone subblock has no neighbour at all, and the entry indeed opens with zero.
 
-\section{Why the reduction is allowed here}
+Over the alphabet $\{0,\dots,1\}$ the statistic takes values in $[0,3]$, so the
+grid it labels carries at most $4$ different labels. At $n=1$ the array has $3$
+rows and the grid is a single row of $1$
+subblock, which has no neighbour of any kind; the entry's first term is
+$0$, which the model reproduces along with every later term, and that is the cheapest
+check that the grid has been read with the right shape.
 
-The step above is legitimate only if the condition is invariant under permuting the alphabet,
-and in this family that is a real restriction rather than a formality. An \emph{equal edge}
-is an edge of a subblock whose two cells carry the same letter; whether two cells agree is
-untouched by any renaming, so every condition built from counting equal edges is invariant and
-the reduction applies.
-
-The neighbouring conditions of the same family that count \emph{increases} --- how many steps
-of a subblock's perimeter cycle go UP in value --- are not invariant: they compare letters by
-size, and a permutation of the alphabet changes the count. Those entries are therefore excluded
-here rather than reduced, and are settled, when they are settled, over their own alphabet
-without the pattern step.
-
-\section{Each $L_i$ is a walk count}
-
-For a fixed alphabet the condition is local: a $2\times2$ subblock is built from two
-consecutive array rows, a $2\times3$ or $3\times2$ window from two or three of them, and every
-comparison the entry makes is between subblocks that meet in the grid. Taking as state a single
-row where the condition looks at one subblock at a time, and the pair of consecutive rows where
-it compares neighbours, each $L_i$ is a walk count on its own digraph. Assembling,
-\[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau
-\]
-on the disjoint union of those digraphs for $i=1,\dots,2$, with $\iota$ carrying the weights
-$w_i$ cleared of denominators and $S=48$ states in all. The walk index $j$ and the entry's own
-$n$ differ by a constant, read off by matching the published terms rather than assumed. In
-particular $a$ is $C$-finite.
+In particular $a$ is $C$-finite. The alignment of the walk index with the entry's own $n$ was
+checked against its published terms rather than assumed.
 
 \section{The proof}
 
@@ -110,7 +105,7 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;3\,a(n-1) - 3\,a(n-3) + a(n-4)
+a(n)\;=\;4\,a(n-1) + 7\,a(n-2) - 12\,a(n-3) + 27\,a(n-4)
 \]
 for every $n>4$.
 \end{theorem}
@@ -119,16 +114,14 @@ for every $n>4$.
 The vector $w=q(M)\tau$ was formed by $4$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
 integers vanish from the index corresponding to $n=4+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once. The
-rational weights are cleared by a common denominator first, so the whole computation is over
-the integers.
+until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $25$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $22$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
@@ -140,11 +133,11 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A208086.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A185985.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{comtet} L.~Comtet, \emph{Advanced Combinatorics}, Reidel, 1974. (Set partitions
-and falling factorials.)
+\bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata
+Theory, Languages, and Computation}, 3rd ed., Addison--Wesley, 2006.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

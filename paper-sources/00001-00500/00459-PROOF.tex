@@ -12,15 +12,15 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{Recovering the unwritten recurrences of the table OEIS A238046}
+\title{Recovering the unwritten recurrences of the table OEIS A254390}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A238046 is a two-dimensional table $T(n,k)$ whose empirical recurrences are, for several of
-its lines, given only as an ORDER --- ``k=2: [order 13]'' and the like --- with the
+OEIS A254390 is a two-dimensional table $T(n,k)$ whose empirical recurrences are, for several of
+its lines, given only as an ORDER --- ``k=2: [order 33]'' and the like --- with the
 coefficients in a linked file rather than in the entry. Those conjectures can still be settled,
 and the recurrences recovered. A line of the table is a fixed-width or fixed-height array
 count, hence a walk count on finitely many vertices, hence satisfies some monic recurrence of
@@ -35,16 +35,16 @@ that polynomial. This note settles column 2, column 3.
 
 \section{The table and the unwritten conjectures}
 
-OEIS A238046 is ``T(n,k)=Number of (n+1)X(k+1) 0..2 arrays with the upper median minus the lower median of every 2X2 subblock differing from its horizontal and vertical neighbors by exactly one.''. It is read by antidiagonals and begins
+OEIS A254390 is ``T(n,k)=Number of (n+2)X(k+2) 0..1 arrays with every 3X3 subblock diagonal maximum plus antidiagonal maximum nondecreasing horizontally, vertically and ne-to-sw antidiagonally.''. It is read by antidiagonals and begins
 \[
-81, 340, 340, 1440, 1944, 1440, 6064, 10812,\ \dots
+512, 3372, 3372, 21304, 35529, 21304, 136868, 406548,\ \dots
 \]
 The entry carries, among its empirical claims:
 \begin{quote}\small
-k=2: [order 13]\\
+k=2: [order 33]\\
 k=3: [order 50]
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 10:43:13, revision 6) these are still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 14:38:46, revision 6) these are still
 recorded as empirical, and the recurrences themselves are not in the entry text.
 
 \section{Why a line of the table is a walk count}
@@ -67,26 +67,23 @@ minimal recurrence exactly.
 
 \subsection*{Column $k=2$}
 Substituting the fixed index into the entry's wording gives an ordinary one-parameter array
-count, a walk on $S=340$ vertices. Berlekamp--Massey on $2S=680$ exact terms
-returns a minimal recurrence of order $13$ --- the order the entry states --- with
+count, a walk on $S=436$ vertices. Berlekamp--Massey on $2S=872$ exact terms
+returns a minimal recurrence of order $33$ --- the order the entry states --- with
 integer coefficients
-\begin{center}\small\begin{tabular}{cccccccc}
-$c_{1}$ & $0$ & $c_{5}$ & $593$ & $c_{9}$ & $-1956$ & $c_{13}$ & $768$ \\
-$c_{2}$ & $7$ & $c_{6}$ & $1251$ & $c_{10}$ & $-4912$ &  &  \\
-$c_{3}$ & $64$ & $c_{7}$ & $1168$ & $c_{11}$ & $-2576$ &  &  \\
-$c_{4}$ & $307$ & $c_{8}$ & $-388$ & $c_{12}$ & $1664$ &  &  \\
-\end{tabular}\end{center}
-so that $a(m)=\sum_{i=1}^{13}c_i\,a(m-i)$ for every $m$. Removing the first
-$13+4$ terms and repeating gives order $13$ again, which is what the
+\[
+(c_1,\dots,c_{33})=(12,\ 5,\ -40,\ -881,\ -1730,\ 14033,\ 2668,\ -12716,\ -91324,\ 26296,\ 149802,\ -8770,\ 728,\ -76056,\ 848640,\ -1019978,\ -1367966,\ 887700,\ 112840,\ 2066789,\ 94674,\ -1572123,\ -324304,\ -1135827,\ 1289606,\ 771953,\ -793926,\ 108632,\ 76256,\ -51808,\ 4320,\ 2752,\ -256).
+\]
+so that $a(m)=\sum_{i=1}^{33}c_i\,a(m-i)$ for every $m$. Removing the first
+$33+4$ terms and repeating gives order $33$ again, which is what the
 identification below needs.
 
 \subsection*{Column $k=3$}
 Substituting the fixed index into the entry's wording gives an ordinary one-parameter array
-count, a walk on $S=1440$ vertices. Berlekamp--Massey on $2S=2880$ exact terms
+count, a walk on $S=1748$ vertices. Berlekamp--Massey on $2S=3496$ exact terms
 returns a minimal recurrence of order $50$ --- the order the entry states --- with
 integer coefficients
 \[
-(c_1,\dots,c_{50})=(0,\ 35,\ 0,\ 1365,\ 0,\ 5818,\ 0,\ -253745,\ 0,\ -2515364,\ 0,\ 10622583,\ 0,\ 185736185,\ 0,\ 215793766,\ 0,\ -2565871459,\ 0,\ 1332702148,\ 0,\ 36260764417,\ 0,\ -76174294334,\ 0,\ -318514722516,\ 0,\ 853854046952,\ 0,\ 424255350704,\ 0,\ -1871720624096,\ 0,\ -110445159552,\ 0,\ 754983001216,\ 0,\ -22781154048,\ 0,\ -449740093440,\ 0,\ 150005694464,\ 0,\ 20312506368,\ 0,\ 3601989632,\ 0,\ 1937768448,\ 0,\ 134217728).
+(c_1,\dots,c_{50})=(23,\ -22,\ -604,\ 1553,\ -21323,\ 374102,\ -7115148,\ 9095944,\ 146892908,\ -148190520,\ 785046752,\ -7134769952,\ 8718510768,\ -23702032928,\ -200481608192,\ 709463535664,\ -1811463143952,\ 10925721868320,\ 4403855164608,\ -66760852800,\ -55937672341120,\ -790036437982976,\ 1689699655347456,\ -1121483811830784,\ -443185615263744,\ 3059510887941120,\ -3185462895788032,\ 39848377400631296,\ -79758251087298560,\ 39788840039038976,\ -3717469113942016,\ -48433316471898112,\ 113237205732294656,\ -3651899753234432,\ -115695910986448896,\ 35586168391204864,\ 62900533836382208,\ -85070442733240320,\ 69139754586734592,\ -629568218742128640,\ 1258378020079534080,\ -642528485629231104,\ 16137740466782208,\ 183910856097005568,\ -429581649693376512,\ 212847498174136320,\ 7063606294216704,\ -10420071696433152,\ 20038599416217600,\ -9618527719784448).
 \]
 so that $a(m)=\sum_{i=1}^{50}c_i\,a(m-i)$ for every $m$. Removing the first
 $50+4$ terms and repeating gives order $50$ again, which is what the
@@ -125,7 +122,7 @@ agree.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A238046.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A254390.
 \bibitem{massey} J.~L.~Massey, Shift-register synthesis and BCH decoding, \emph{IEEE
 Trans. Inform. Theory} \textbf{15} (1969), 122--127.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,

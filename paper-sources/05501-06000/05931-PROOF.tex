@@ -12,16 +12,16 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A279707, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A232134, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{7 September 2026}
+\date{9 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A279707 counts $n\times6$ arrays over $\{0,\dots,1\}$ subject to a condition imposed on
+OEIS A232134 counts $(n+1)\times6$ arrays over $\{0,\dots,2\}$ subject to a condition imposed on
 every CELL over a neighbour set the entry names, and counted UP TO RELABELLING of the
-alphabet; it carries an empirical recurrence of order $32$ contributed by
+alphabet; it carries an empirical recurrence of order $34$ contributed by
 R.~H.~Hardin. It is true, and it is decidable rather than empirical. What is counted is
 equality patterns, which is not a walk count --- but it is a fixed rational combination of
 walk counts, one for each alphabet size, and that combination is again $C$-finite. Whether the
@@ -33,20 +33,20 @@ Cayley--Hamilton theorem bounding the work.
 
 \section{The conjecture}
 
-OEIS A279707 is ``Number of nX6 0..1 arrays with no element equal to a strict majority of its horizontal and antidiagonal neighbors and with new values introduced in order 0 sequentially upwards.''. It has offset $1$ and begins
+OEIS A232134 is ``Number of (n+1)X(5+1) 0..2 arrays with no element equal to a strict majority of its horizontal and antidiagonal neighbors, with values 0..2 introduced in row major order.''. It has offset $1$ and begins
 \[
-5, 9, 102, 1195, 14988, 187484, 2342179, 29270275,\ \dots
+6468, 2616952, 1063744484, 433383414596, 176569302110496, 71938229899528156, 29309235951462780764, 11941235467361717495452,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 37*a(n-1) -596*a(n-2) +5876*a(n-3) -41252*a(n-4) +223532*a(n-5) -977316*a(n-6) +3536050*a(n-7) -10754246*a(n-8) +27797517*a(n-9) -61642501*a(n-10) +118357619*a(n-11) -198557227*a(n-12) +293436184*a(n-13) -384520035*a(n-14) +448773667*a(n-15) -467646170*a(n-16) +435555142*a(n-17) -362596124*a(n-18) +269556370*a(n-19) -178530525*a(n-20) +104895669*a(n-21) -54315067*a(n-22) +24563722*a(n-23) -9593323*a(n-24) +3191542*a(n-25) -889524*a(n-26) +203375*a(n-27) -37080*a(n-28) +5175*a(n-29) -518*a(n-30) +33*a(n-31) -a(n-32) for n>33
+Empirical: a(n) = 561*a(n-1) -73140*a(n-2) +4741713*a(n-3) -189590243*a(n-4) +5166741030*a(n-5) -101404015378*a(n-6) +1481747635516*a(n-7) -16476516135731*a(n-8) +141802609562487*a(n-9) -960379067630908*a(n-10) +5207827691109751*a(n-11) -22965923908030370*a(n-12) +83424252857795943*a(n-13) -252125730302308846*a(n-14) +638719837675651150*a(n-15) -1364105336060855188*a(n-16) +2468073823021873449*a(n-17) -3803666086866956608*a(n-18) +5031007274209568576*a(n-19) -5774992822154852288*a(n-20) +5840357323644746240*a(n-21) -5289580945576167424*a(n-22) +4336919045252018176*a(n-23) -3211173022706860032*a(n-24) +2114909947423555584*a(n-25) -1214396287189254144*a(n-26) +594076082478514176*a(n-27) -239111167128109056*a(n-28) +75437217383710720*a(n-29) -17717117784686592*a(n-30) +2944599513366528*a(n-31) -325009838964736*a(n-32) +21251498180608*a(n-33) -618475290624*a(n-34) for n>36
 \end{quote}
-As of the ``Last modified'' line on the live entry (Dec 17 2016 13:21:47, revision 4) this is still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 06:53:52, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{Patterns are a combination of counts}
 
-The clause ``new values $0..1$ introduced in row major order'' says that the arrays
+The clause ``new values $0..2$ introduced in row major order'' says that the arrays
 counted are the canonical representatives of their EQUALITY PATTERNS: two arrays that differ
 only by a permutation of the alphabet are one object. Write $N_j$ for the number of admissible
 patterns using exactly $j$ letters and $L_i$ for the number of admissible ARRAYS over an
@@ -56,7 +56,7 @@ its letters into the alphabet, so
 L_i\;=\;\sum_{j}N_j\,i(i-1)\cdots(i-j+1),
 \]
 a triangular system with nonzero diagonal, hence invertible over $\mathbb{Q}$. The entry
-counts $a=N_1+\dots+N_{2}$, so
+counts $a=N_1+\dots+N_{3}$, so
 \[
 a\;=\;\bigl(\mathbf{1}^{\!\top}F^{-1}\bigr)L ,
 \]
@@ -89,16 +89,16 @@ explicitly, as a sentinel row above the first and below the last and as a sentin
 either side, and a neighbour that falls outside is simply absent from both counts.
 
 Write an array as a sequence of rows $u_1,\dots,u_L$, each in
-$\{0,\dots,1\}^{6}$. The neighbourhood of a cell in row $u_i$ meets $u_{i-1}$,
+$\{0,\dots,2\}^{6}$. The neighbourhood of a cell in row $u_i$ meets $u_{i-1}$,
 $u_i$ and $u_{i+1}$ and nothing else. Take as vertices the pairs
-$(r,s)\in(\{0,\dots,1\}^{6}\cup\{\varnothing\})\times\{0,\dots,1\}^{6}$,
+$(r,s)\in(\{0,\dots,2\}^{6}\cup\{\varnothing\})\times\{0,\dots,2\}^{6}$,
 and put an edge $(r,s)\to(s,t)$ when row $s$ satisfies the condition at every one of its
 $6$ cells, given $r$ above and $t$ below. An array with $L$ rows is then a walk of length
 $L-1$ starting at $(\varnothing,u_1)$, each step settling one row, and the last row is
 settled by the terminal weight, which evaluates it with $\varnothing$ below. Hence,
 with $M$ the adjacency matrix, $\iota$ the starting vector and $\tau$ the terminal weight,
 \[
-a(n)\;=\;\frac{1}{1}\,\iota^{\!\top}M^{\,n-1}\tau ,
+a(n)\;=\;\frac{1}{1}\,\iota^{\!\top}M^{\,n}\tau ,
 \]
 the exponent fixed by the entry's own shape and checked against its published terms. In
 particular $a$ is $C$-finite.
@@ -106,7 +106,7 @@ particular $a$ is $C$-finite.
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{32}-\sum_i c_it^{32-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{34}-\sum_i c_it^{34-i}$ be the characteristic polynomial of the
 conjectured recurrence. Then the residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the
 recurrence holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all
@@ -114,7 +114,7 @@ large $j$; and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+32}-\sum_ic_iM^{j+32-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+34}-\sum_ic_iM^{j+34-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ satisfy the monic linear recurrence given by the
 characteristic polynomial of $M$; $S$ consecutive zeros force every later one, and the last
@@ -123,24 +123,24 @@ nonzero $u_j$ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;37\,a(n-1) - 596\,a(n-2) + 5876\,a(n-3) - 41252\,a(n-4) + 223532\,a(n-5) - 977316\,a(n-6) + 3536050\,a(n-7) - 10754246\,a(n-8) + 27797517\,a(n-9) - 61642501\,a(n-10) + 118357619\,a(n-11) - 198557227\,a(n-12) + 293436184\,a(n-13) - 384520035\,a(n-14) + 448773667\,a(n-15) - 467646170\,a(n-16) + 435555142\,a(n-17) - 362596124\,a(n-18) + 269556370\,a(n-19) - 178530525\,a(n-20) + 104895669\,a(n-21) - 54315067\,a(n-22) + 24563722\,a(n-23) - 9593323\,a(n-24) + 3191542\,a(n-25) - 889524\,a(n-26) + 203375\,a(n-27) - 37080\,a(n-28) + 5175\,a(n-29) - 518\,a(n-30) + 33\,a(n-31) - a(n-32)
+a(n)\;=\;561\,a(n-1) - 73140\,a(n-2) + 4741713\,a(n-3) - 189590243\,a(n-4) + 5166741030\,a(n-5) - 101404015378\,a(n-6) + 1481747635516\,a(n-7) - 16476516135731\,a(n-8) + 141802609562487\,a(n-9) - 960379067630908\,a(n-10) + 5207827691109751\,a(n-11) - 22965923908030370\,a(n-12) + 83424252857795943\,a(n-13) - 252125730302308846\,a(n-14) + 638719837675651150\,a(n-15) - 1364105336060855188\,a(n-16) + 2468073823021873449\,a(n-17) - 3803666086866956608\,a(n-18) + 5031007274209568576\,a(n-19) - 5774992822154852288\,a(n-20) + 5840357323644746240\,a(n-21) - 5289580945576167424\,a(n-22) + 4336919045252018176\,a(n-23) - 3211173022706860032\,a(n-24) + 2114909947423555584\,a(n-25) - 1214396287189254144\,a(n-26) + 594076082478514176\,a(n-27) - 239111167128109056\,a(n-28) + 75437217383710720\,a(n-29) - 17717117784686592\,a(n-30) + 2944599513366528\,a(n-31) - 325009838964736\,a(n-32) + 21251498180608\,a(n-33) - 618475290624\,a(n-34)
 \]
-for every $n>33$.
+for every $n>36$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $32$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $34$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly. Those
-integers vanish from the index corresponding to $n=33+1$ onwards, and the run was
+integers vanish from the index corresponding to $n=36+1$ onwards, and the run was
 continued until the working vector was identically zero, which settles all larger $j$ at once.
-By Lemma~\ref{lem:crit} the recurrence holds for every $n>33$.
+By Lemma~\ref{lem:crit} the recurrence holds for every $n>36$.
 \end{proof}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the transfer model reproduces all $18$ terms the entry publishes, exactly, in
+First, the transfer model reproduces all $11$ terms the entry publishes, exactly, in
 integer arithmetic. That check earned its place here. The neighbour offsets are named in the
 array's own frame --- horizontal means along a row --- but when the entry fixes the first
 dimension, as in ``$2\times n$'', the walk runs along columns and the two components of every
@@ -157,7 +157,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A279707.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A232134.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

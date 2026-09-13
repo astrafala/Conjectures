@@ -7,173 +7,142 @@
 \theoremstyle{plain}
 \newtheorem{theorem}{Theorem}
 \newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
-\title{A proof of the conjectured recurrence for OEIS A108600}
+
+\title{The empirical recurrence for OEIS A237071: recovering a conjecture that is not written down}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{25 August 2026}
+\date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A108600 carries a conjectured linear recurrence with polynomial coefficients, of
-order 6, contributed by R.~J.~Mathar. We prove it. The generating function of the
-entry is algebraic, and the recurrence is equivalent to the vanishing of an explicit
-differential operator applied to it: writing $\theta=x\,\frac{d}{dx}$, the sequence
-$b(n)=\sum_{i}p_{i}(n)a(n-i)$ has generating function
-$B(x)=\sum_{i}x^{i}\,(p_{i}(\theta+i)A)(x)$, so the conjecture holds for all $n>d$ exactly
-when $B$ is a polynomial of degree $d$. Since $A$ lies in a quadratic extension of
-$\mathbb{Q}(x)$, which is closed under $\theta$, the residual $B$ can be computed in
-closed form. Here it equals $- x^{5} + 15 x^{4} + 28 x^{3} - 12 x^{2} - 3 x + 1$, a polynomial of degree $5$, which proves
-the recurrence for every $n>5$.
+OEIS A237071 records ``Empirical recurrence of order $62$'', with the recurrence itself in a
+linked file rather than in the entry. The conjecture can nevertheless be settled, and the
+recurrence recovered, without reading that file. The entry counts arrays under a condition
+local to a bounded window of lines, so the count is a walk count on a finite digraph and
+satisfies some monic recurrence of order at most the number of its states with distinct
+futures, here $S'=640$; Berlekamp--Massey applied to $2S'$ exact
+terms therefore returns the MINIMAL such recurrence. Its order is exactly $62$, the order
+the entry states, and the same is true of every tail of the sequence. Any recurrence of order
+$62$ that the sequence satisfies from any point on must then have a characteristic
+polynomial that is a multiple of the minimal one and of the same degree, hence equal to it. So
+the entry's recurrence is the one displayed here, whatever its file contains, and it is
+proved.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 11B37, 05A15, 33F10.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 15A18.\normalsize
 
-\section{The sequence and the conjecture}
+\section{A conjecture one cannot read}
 
-OEIS A108600 is ``Number of freely braided permutations of length n; the freely braided permutations are those that avoid 3421, 4231, 4312 and 4321''. It has offset $0$ and begins
+OEIS A237071 is ``Number of (n+1)X(3+1) 0..3 arrays with the upper median of every 2X2 subblock equal.''. It has offset $1$ and begins
 \[
-a(0),\dots,a(7)\;=\;1, 1, 2, 6, 20, 71, 260, 971,\ \dots
+15882, 1046822, 53940782, 3263989086, 195683299844, 12159520038142, 763699683972418, 48556387347813958,\ \dots
 \]
-The entry gives the generating function
-\begin{equation}\label{eq:gf}
-A(x)\;=\;\sum_{n\ge 0} a(n)\,x^{n}\;=\;\frac{2 x^{2} + 3 x - \sqrt{1 - 4 x} \left(x + 1\right) - 1}{x^{2} + 4 x + \sqrt{1 - 4 x} \left(x^{2} - 1\right) - 1} ,
-\end{equation}
-and it carries the following comment:
-\begin{quote}\small
-\textbf{Conjecture:} (1-n)*a(n) +(7*n-10)*a(n-1) +2*(1-4*n)*a(n-2) +8*(11-2*n)*a(n-3) +(n-1)*a(n-4) +3*(2-n)*a(n-5) +2*(11-2*n)*a(n-6)=0. - \emph{R. J. Mathar}, Aug 24 2013
+The entry states:
+\begin{quote}
+Empirical recurrence of order 62 (see link above)
 \end{quote}
-As of the ``Last modified'' line on the live entry (2025-01-12, revision 9) the
-statement is still recorded as a conjecture, and no proof appears among the entry's links,
-formulas or programs.
+As of the ``Last modified'' line on the live entry (Jul 23 2025 09:48:08, revision 7) this is still
+recorded as empirical. The recurrence's coefficients are not in the entry text.
 
-Writing the conjectured relation in the form $\sum_{i=0}^{6}p_{i}(n)\,a(n-i)=0$,
-the coefficient polynomials are
-\[
-p_{0}(n)=1 - n,\qquad p_{1}(n)=7 n - 10,\qquad p_{2}(n)=- 2 \left(4 n - 1\right),\qquad p_{3}(n)=- 8 \left(2 n - 11\right),\qquad p_{4}(n)=n - 1,\qquad p_{5}(n)=- 3 \left(n - 2\right),\qquad p_{6}(n)=- 2 \left(2 n - 11\right)
-\]
+\section{The count is a walk count}
 
-\section{Recurrences as differential operators}
+The entry's condition is local: it constrains a bounded window of consecutive lines of the
+array and nothing further. The admissible configurations of one such window are the vertices
+of a finite digraph, an edge joining $u$ to $v$ when $v$ may follow $u$, and an admissible
+array is exactly a walk. Hence, with $M$ the adjacency matrix on $S=640$ vertices,
+$a(n)=\iota^{\!\top}M^{\,j(n)}\tau$ for a linear reindexing $j$ fixed by the entry's shape
+and checked against its published terms. By the Cayley--Hamilton theorem $M^{S}$ is an
+integer combination of $I,M,\dots,M^{S-1}$, so:
 
-Let $A(x)=\sum_{n\ge0}a(n)x^{n}$ be the generating function of a sequence, and let
-$\theta=x\,\dfrac{d}{dx}$, so that $\theta$ acts on $x^{m}$ as multiplication by $m$. For a
-polynomial $p$ we write $p(\theta)$ for the corresponding differential operator, so that
-$p(\theta)A=\sum_{m}p(m)a(m)x^{m}$.
-
-\begin{lemma}\label{lem:transfer}
-Let $p_{0},\dots,p_{r}$ be polynomials and put $b(n)=\sum_{i=0}^{r}p_{i}(n)\,a(n-i)$, with
-the convention $a(m)=0$ for $m<0$. Then
-\[
-B(x):=\sum_{n\ge0}b(n)x^{n}=\sum_{i=0}^{r}x^{i}\,\bigl(p_{i}(\theta+i)A\bigr)(x).
-\]
+\begin{lemma}\label{lem:cf}
+$a$ satisfies a monic linear recurrence with integer coefficients of order at most
+$S'=640$.
 \end{lemma}
 
-\begin{proof}
-Fix $i$ and substitute $m=n-i$:
-\[
-\sum_{n\ge0}p_{i}(n)a(n-i)x^{n}=\sum_{m\ge0}p_{i}(m+i)a(m)x^{m+i}
-=x^{i}\sum_{m\ge0}p_{i}(m+i)a(m)x^{m}=x^{i}\bigl(p_{i}(\theta+i)A\bigr)(x),
-\]
-the last step because $p_{i}(\theta+i)$ multiplies the coefficient of $x^{m}$ by
-$p_{i}(m+i)$. Summing over $i$ gives the claim.
-\end{proof}
+\section{Recovering the recurrence}
 
-\begin{corollary}\label{cor:criterion}
-With the notation of Lemma~\ref{lem:transfer}, the recurrence
-$\sum_{i}p_{i}(n)a(n-i)=0$ holds for every $n>d$ if and only if $B$ is a polynomial of
-degree at most $d$.
-\end{corollary}
-
-\begin{proof}
-$b(n)$ is the coefficient of $x^{n}$ in $B$, so $b(n)=0$ for all $n>d$ says exactly that
-$B$ has no terms above $x^{d}$.
-\end{proof}
-
-This turns the conjecture into a closed-form identity. The point is that it can then be
-decided exactly, with no truncation: $A$ is algebraic, so $B$ lies in the same field as
-$A$, and one only has to recognise it.
-
-\begin{lemma}\label{lem:field}
-Let $D\in\mathbb{Q}(x)$ and let $K=\mathbb{Q}(x)\bigl[\sqrt{D}\bigr]$. Then $K$ is closed
-under $\theta$; explicitly,
-\[
-\theta\bigl(u+v\sqrt{D}\bigr)=x\,u'+\Bigl(x\,v'+\frac{x\,v\,D'}{2D}\Bigr)\sqrt{D},
-\qquad u,v\in\mathbb{Q}(x).
-\]
+\begin{lemma}\label{lem:bm}
+A sequence known to satisfy some linear recurrence of order at most $S$ is determined, together
+with its minimal recurrence, by its first $2S$ terms: Berlekamp--Massey applied to them returns
+that minimal recurrence exactly.
 \end{lemma}
 
-\begin{proof}
-Differentiate: $(\sqrt{D})'=D'/(2\sqrt{D})=\bigl(D'/(2D)\bigr)\sqrt{D}$, and multiply by
-$x$. Both components remain in $\mathbb{Q}(x)$.
-\end{proof}
-
-Consequently, if $A\in K$ then every $p_{i}(\theta+i)A$ is in $K$, and so is $B$. Writing
-$B=P+Q\sqrt{D}$ with $P,Q\in\mathbb{Q}(x)$, the test of Corollary~\ref{cor:criterion}
-becomes: $B$ is a polynomial precisely when $Q=0$ and $P$ has constant denominator. Both
-are decided by exact cancellation of rational functions.
-
-\section{The computation for A108600}
-
-The generating function \eqref{eq:gf} lies in $K=\mathbb{Q}(x)[\sqrt{D}]$ with
+Running it on $2S'=1280$ exact terms of the model returns order $62$ --- the order the
+entry states --- with the integer coefficients
 \[
-D \;=\; 1 - 4 x .
+a(n)\;=\;\sum_{i=1}^{62}c_i\,a(n-i),
 \]
-Applying Lemma~\ref{lem:transfer} to the coefficient polynomials of Section~1 and reducing
-in $K$ by Lemma~\ref{lem:field}, the $\sqrt{D}$ component of $B$ cancels identically and
-the rational part collapses to
-\[
-B(x)\;=\;- x^{5} + 15 x^{4} + 28 x^{3} - 12 x^{2} - 3 x + 1 ,
-\]
-a polynomial of degree $5$.
+\begin{center}\small
+\begin{tabular}{cccccccc}
+$c_{1}$ & $114$ & $c_{17}$ & $-7233761941528462563844$ & $c_{33}$ & $-6148552458716255051597507532824118784$ & $c_{49}$ & $-48701738319045244191265307955716862790074368$ \\
+$c_{2}$ & $-163$ & $c_{18}$ & $-4605394619111953114730273$ & $c_{34}$ & $-22338754866379359505411766606871157504$ & $c_{50}$ & $-44528709388743729821627853341625187326492672$ \\
+$c_{3}$ & $-346722$ & $c_{19}$ & $6717609462978417472077162$ & $c_{35}$ & $107763262143157882191916555952354987008$ & $c_{51}$ & $100396431560605462137044670256025141753413632$ \\
+$c_{4}$ & $5988183$ & $c_{20}$ & $412835648195937717826932071$ & $c_{36}$ & $307895696599942567033422275620306361344$ & $c_{52}$ & $84644219510425863619767427819079310879227904$ \\
+$c_{5}$ & $435280312$ & $c_{21}$ & $-986443030543893918279775360$ & $c_{37}$ & $-1486026567673794767449652502923985215488$ & $c_{53}$ & $-145004259183691827615023531307286926131724288$ \\
+$c_{6}$ & $-9816206042$ & $c_{22}$ & $-28593236054612804349233691681$ & $c_{38}$ & $-3394888875938561373625220962656330006528$ & $c_{54}$ & $-113950255013040195635902920714829140823375872$ \\
+$c_{7}$ & $-296067869512$ & $c_{23}$ & $88285565834871804496517774996$ & $c_{39}$ & $16083647369487084234299210448283552333824$ & $c_{55}$ & $139379105442672453391964397033236413972217856$ \\
+$c_{8}$ & $7712693710548$ & $c_{24}$ & $1547784066952260886041503938725$ & $c_{40}$ & $29903298000104665905320376920431411134464$ & $c_{56}$ & $102332825136099524522814817909525712222552064$ \\
+$c_{9}$ & $120857038182028$ & $c_{25}$ & $-5604618360179369595884515343406$ & $c_{41}$ & $-135985242780058939390902950376413109288960$ & $c_{57}$ & $-82324210140385485042638954226003649536983040$ \\
+$c_{10}$ & $-3641506878305292$ & $c_{26}$ & $-66041842192536404380975388966449$ & $c_{42}$ & $-209830462164260522773163007702477330972672$ & $c_{58}$ & $-55944487234371593509544477745134815735185408$ \\
+$c_{11}$ & $-30859803019498898$ & $c_{27}$ & $266292778266321948793737965833664$ & $c_{43}$ & $891798016894297209857256755814658958426112$ & $c_{59}$ & $26048773589903137269004716445290717071278080$ \\
+$c_{12}$ & $1135745702063236569$ & $c_{28}$ & $2234965738231263441110737097653692$ & $c_{44}$ & $1167040749781640066479383020824554318594048$ & $c_{60}$ & $15971784537606435132836333075874142853529600$ \\
+$c_{13}$ & $4866767027249268624$ & $c_{29}$ & $-9715931931703399669213792037631104$ & $c_{45}$ & $-4491870400461632149326213459167496261074944$ & $c_{61}$ & $-3281635644478333927751808067912505229312000$ \\
+$c_{14}$ & $-247398750401791577401$ & $c_{30}$ & $-60245403501327020981332914765890624$ & $c_{46}$ & $-5101268992612443922428630852272430979743744$ & $c_{62}$ & $-1765431356359283197762101976379644968960000$ \\
+$c_{15}$ & $-400248385669338194212$ & $c_{31}$ & $275993327704776383398382503579697664$ & $c_{47}$ & $17145720910080346980453564481523041412579328$ &  &  \\
+$c_{16}$ & $39092165381593028611836$ & $c_{32}$ & $1297088062931736755450489990749869440$ & $c_{48}$ & $17289735875772338811521575258164236457607168$ &  &  \\
+\end{tabular}
+\end{center}
 
 \begin{theorem}
-The conjectured recurrence
-\[
-(1 - n)\,a(n) + (7 n - 10)\,a(n-1) -  2 \left(4 n - 1\right)\,a(n-2) -  8 \left(2 n - 11\right)\,a(n-3) + (n - 1)\,a(n-4) -  3 \left(n - 2\right)\,a(n-5) -  2 \left(2 n - 11\right)\,a(n-6) \;=\;0
-\]
-holds for every $n>5$.
+The recurrence above holds for every $n$, and it is the recurrence the entry records.
 \end{theorem}
 
 \begin{proof}
-Immediate from Corollary~\ref{cor:criterion} and the displayed value of $B$.
+It holds by Lemma~\ref{lem:bm}, which returns a recurrence the sequence satisfies from its
+first term. For the identification: the entry asserts that the sequence satisfies SOME
+recurrence of order $62$, possibly only from some index on. Let $q$ be that recurrence's
+characteristic polynomial and $q_{\min}$ the minimal polynomial of the tail of the sequence.
+Then $q_{\min}\mid q$. Berlekamp--Massey run on the sequence with its first $62+4$ terms
+removed returns order $62$ as well, so $\deg q_{\min}=62=\deg q$; both are monic, so
+$q=q_{\min}$, which is the polynomial computed above.
 \end{proof}
-
-\begin{remark}
-The polynomial $B$ is not an error term: it records the boundary of the recurrence. For
-$n\le5$ some of the shifted terms $a(n-i)$ fall outside the range of the sequence,
-and $B$ collects exactly those contributions. Above that range the relation is exact.
-\end{remark}
 
 \section{Verification}
 
-Every number above is an output of a script written separately from this note, and two
-independent checks were run.
+Three checks.
 
-First, the generating function was checked against the entry rather than assumed: the
-Taylor coefficients of \eqref{eq:gf} were expanded and compared term by term with the DATA
-section of A108600, agreeing on all 13 terms compared.
+First, the walk model reproduces all $12$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry, and it is the only place where reading
+the entry's English enters.
 
-Second, the recurrence itself was evaluated directly on the published terms, in exact
-integer arithmetic and without reference to the generating function: for each $n$ in range
-the sum $\sum_{i}p_{i}(n)a(n-i)$ was formed from the entry's own values and found to
-vanish, for all 22 values of $n$ from $n=6$ upward. This is what
-Corollary~\ref{cor:criterion} predicts from the degree of $B$, and it is a genuinely
-different computation from the symbolic one: it never forms $B$, never differentiates, and
-uses only integers.
+Second, the recovered recurrence was evaluated directly on those published terms, with no
+matrices and no Berlekamp--Massey involved, and holds at every index where the entry gives
+enough earlier terms to test it.
 
-The symbolic step is exact throughout. The residual is obtained by rational-function
-cancellation in $K$, not by series truncation, so the identity $B=- x^{5} + 15 x^{4} + 28 x^{3} - 12 x^{2} - 3 x + 1$ is an
-identity of functions and the theorem holds for all $n>5$ simultaneously.
+Third, the order was computed twice by independent routes: once modulo a $61$-bit prime, where
+every intermediate is a machine word, and once in exact rational arithmetic; and once more on
+the sequence with its first $62+4$ terms removed, which is what the identification above
+requires. All three agree.
+
+\begin{remark}
+What is unusual here is that the conjecture's statement was never read. The entry pins it down
+to a one-parameter family --- the recurrences of order $62$ that this sequence satisfies
+--- and that family turns out to have exactly one member.
+\end{remark}
 
 \begin{thebibliography}{9}
-\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer Sequences},
-\url{https://oeis.org}, 2026. Sequence A108600.
-\bibitem{kp} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011,
-Chapter 7 (holonomic closure properties and the translation between recurrences and
-differential equations).
-\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 2, Cambridge
-University Press, 1999, Chapter 6 (algebraic and D-finite generating functions).
+\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
+Sequences}, \url{https://oeis.org}, 2026. Sequence A237071.
+\bibitem{massey} J.~L.~Massey, Shift-register synthesis and BCH decoding, \emph{IEEE
+Trans. Inform. Theory} \textbf{15} (1969), 122--127.
+\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
+University Press, 2013.
 \end{thebibliography}
+
 \end{document}

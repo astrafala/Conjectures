@@ -12,91 +12,114 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A230928, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A222382, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{4 September 2026}
+\date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A230928 counts the black-square subarrays of arrays of width $3$ over $\{0,1,2,3\}$ in which
-every cell has a diagonal neighbour one greater than it modulo 4, and none equal to it. The entry carries an empirical recurrence of order $4$ contributed by
-R.~H.~Hardin. It is true, and it is decidable rather than empirical. A diagonal step changes
-both coordinates by one and so never changes the colour of a cell, which makes the two colours
-of the chessboard independent of one another; the count is then a walk over the cells of one
-colour, on $S=58$ states.
+OEIS A222382 counts the distinct indicator arrays obtained from the $n\times3$ arrays over
+$\{0,\dots,2\}$ by marking the cells whose value is congruent modulo 3 to the sum of their neighbours, and carries an
+empirical recurrence of order $5$ contributed by R.~H.~Hardin. It is true, and it is
+decidable rather than empirical. What is counted is the IMAGE of a map, not its domain, so it
+is not a walk count in the obvious graph; the determinisation of the machine that emits the
+indicator row by row turns it into one, on $S=55$ states, after which the conjectured
+recurrence is settled by a finite exact computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B20, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 68Q45, 15B36.\normalsize
 
 \section{The conjecture}
 
-OEIS A230928 is ``Number of black-square subarrays of (n+2) X (1+2) 0..3 arrays x(i,j) with each element diagonally or antidiagonally next to at least one element with value (x(i,j)+1) mod 4, no adjacent elements equal, and upper left element zero.''. It has offset $1$ and begins
+OEIS A222382 is ``Sum of neighbor maps: number of n X 3 binary arrays indicating the locations of corresponding elements equal to the sum mod 3 of their horizontal and antidiagonal neighbors in a random 0..2 n X 3 array.''. It has offset $1$ and begins
 \[
-2, 2, 8, 8, 42, 42, 208, 208,\ \dots
+8, 48, 512, 3968, 32768, 261376, 2097152, 16773120,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 4*a(n-2) + 5*a(n-4).
+Empirical: a(n) = 8*a(n-1) + 8*a(n-2) - 64*a(n-3) - 16*a(n-4) + 128*a(n-5).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Mar 17 2018 07:10:05, revision 8) this is still
+As of the ``Last modified'' line on the live entry (Aug 16 2018 08:58:20, revision 8) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-Colour the cells of the array like a chessboard: $(i,j)$ is black when $i+j$ is odd. The
-condition is stated in terms of the DIAGONAL and ANTIDIAGONAL neighbours of a cell, that is the
-four offsets
+Let $R=\{0,\dots,2\}^{3}$ be the set of rows and let the neighbours of a cell be the
+cells at the offsets
 \[
-(-1,-1),\ (1,1),\ (-1,1),\ (1,-1),
+(-1,1), (0,-1), (0,1), (1,-1),
 \]
-and for a cell $(i,j)$ we write $S(i,j)$ for those of them that land inside the array. The
-condition is that every cell has a neighbour one greater than it modulo $4$, and no neighbour equal to it:
+those falling outside the array being simply absent. For an array
+$A=(r_1,\dots,r_n)\in R^n$ let $\Phi(A)\in\{0,1\}^{n\times3}$ mark the cells whose value
+is congruent modulo 3 to the sum of its neighbours. The entry counts
 \[
-\exists\,(a,b)\in S(i,j)\ \ x(a,b)\equiv x(i,j)+1 \!\!\pmod{4},\qquad x(a,b)\neq x(i,j)\ \ \text{for all }(a,b)\in S(i,j).
+a(n)\;=\;\bigl|\{\Phi(A):A\in R^n\}\bigr| ,
+\]
+the size of an IMAGE. This is the whole difficulty: two different arrays with the same marking
+must be counted once, and a walk count in a graph on the arrays would count them twice.
+
+Because every offset above moves the row index by at most one, the marked row $i$ depends only
+on rows $i-1,i,i+1$. Write $\beta(p,c,x)\in\{0,1\}^{3}$ for the marking of the row $c$
+with $p$ above and $x$ below, allowing $p$ or $x$ to be the symbol $\bot$ for ``outside''.
+Then
+\[
+\Phi(r_1,\dots,r_n)=\bigl(\beta(\bot,r_1,r_2),\ \beta(r_1,r_2,r_3),\ \dots,\
+\beta(r_{n-1},r_n,\bot)\bigr).
 \]
 
+\section{The image is a walk count after determinisation}
 
-The entry adds that the first cell of the subarray in reading order, the cell $(0,1)$ of the array, is $0$.
+For a set $D\subseteq(R\cup\{\bot\})\times R$ of pairs and a row $b\in\{0,1\}^{3}$ put
+\[
+\delta(D,b)=\{(c,x)\ :\ (p,c)\in D,\ x\in R,\ \beta(p,c,x)=b\},\qquad
+f(D)=\bigl|\{\beta(p,c,\bot):(p,c)\in D\}\bigr| ,
+\]
+and let $D_0=\{(\bot,r):r\in R\}$.
 
-\begin{lemma}\label{lem:split}
-Each of the four offsets changes $i$ and $j$ each by one, so it changes $i+j$ by $0$ or $\pm2$
-and never changes its parity. Every neighbour of a black cell is therefore black. The condition
-above splits into two systems that share no cell: one on the black cells and one on the white
-cells.
+\begin{lemma}\label{lem:det}
+For every $t\ge0$ and every $b_1,\dots,b_t$, the set
+$D_t=\delta(\dots\delta(D_0,b_1)\dots,b_t)$ is exactly
+\[
+\{(r_t,r_{t+1})\ :\ (r_1,\dots,r_{t+1})\in R^{t+1},\ \beta(\bot,r_1,r_2)=b_1,\ \dots,\
+\beta(r_{t-1},r_t,r_{t+1})=b_t\} ,
+\]
+with $r_0=\bot$. Consequently, for $n\ge1$,
+\[
+a(n)\;=\;\sum_{b_1,\dots,b_{n-1}}f(D_{n-1}),
+\]
+the sum over all sequences of rows in $\{0,1\}^{3}$, empty $D$'s contributing nothing.
 \end{lemma}
 
-So what the entry counts is the assignments of values to the black cells alone that satisfy the
-black system; the white cells never enter. That this is the entry's own reading, and not
-merely a convenient one, is settled by its ``upper left element zero'': for a black subarray the
-first cell in reading order is the cell $(0,1)$ of the array, and it is that cell the
-clause fixes, as the published terms confirm and as Section~5 records.
+\begin{proof}
+Induction on $t$. For $t=0$ the set is $\{(\bot,r_1)\}$, which is $D_0$. If the description
+holds for $D_t$, then $\delta(D_t,b)$ collects the pairs $(r_{t+1},r_{t+2})$ for which
+$(r_t,r_{t+1})$ already extends a consistent prefix and
+$\beta(r_t,r_{t+1},r_{t+2})=b$, which is the description for $t+1$.
 
-\section{A walk on one colour}
+An element of the image is a full marking $(b_1,\dots,b_n)$. By the description, a prefix
+$(b_1,\dots,b_{n-1})$ is realised by some $r_1,\dots,r_n$ exactly when $D_{n-1}\neq
+\emptyset$, and then the possible last rows are precisely
+$\{\beta(p,c,\bot):(p,c)\in D_{n-1}\}$, of which there are $f(D_{n-1})$. Distinct
+sequences $(b_1,\dots,b_n)$ are distinct markings, so summing $f$ over the prefixes counts the
+image exactly once each.
+\end{proof}
 
-Take the array one row at a time. In a row of even index the black cells sit at every other
-column starting from column $1$, and in a row of odd index they sit at the columns in
-between; the two shapes alternate, so a state must record which of them the next row has.
-
-All four offsets move exactly one row, so the neighbours of the black cells of a row are the
-black cells of the rows immediately above and below it. A row's conditions are therefore settled
-by three consecutive rows, and the state is the last two of them together with the parity of the
-next.
-
-Appending a row completes one such window and settles the row in the middle of it. Because the
-condition looks one row DOWN as well as up, the last row of a finished array has not been tested
-when the walk stops, so the end vector is not all ones: a state is accepted exactly when its
-last row passes with nothing below it. Thus
+So with $M$ the adjacency matrix of the digraph whose vertices are the reachable nonempty sets
+$D$ and which carries one edge $D\to\delta(D,b)$ for each $b$ with $\delta(D,b)\neq\emptyset$
+--- several $b$ may lead to the same set, and then the edge is repeated, which is exactly
+right, since the markings differ ---
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=58.
+a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,\qquad \iota=e_{D_0},\quad \tau=f .
 \]
-The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
-published terms rather than assumed. In particular $a$ is $C$-finite.
+There are $S=55$ reachable sets, generated from $D_0$ outward, and $a$ is $C$-finite. Note
+that $\tau$ is not the all-ones vector: the last marked row is not a step of the walk but a
+count attached to the state the walk stops in.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{4}-\sum_i c_it^{4-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{5}-\sum_i c_it^{5-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -104,7 +127,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+4}-\sum_ic_iM^{j+4-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+5}-\sum_ic_iM^{j+5-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -113,39 +136,38 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;4\,a(n-2) + 5\,a(n-4)
+a(n)\;=\;8\,a(n-1) + 8\,a(n-2) - 64\,a(n-3) - 16\,a(n-4) + 128\,a(n-5)
 \]
-for every $n>2$.
+for every $n>5$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $4$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $5$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=2+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=5+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
-Four checks, each independent of the algebra above.
+Three checks, each independent of the algebra above.
 
-First, the model reproduces all $30$ terms the entry publishes, exactly, in integer
-arithmetic.
+First, the model reproduces all $19$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry: the machine is built by reading the
+entry's English, and a misreading gives different counts.
 
-Second, the count was recomputed for the smallest arrays straight from the definition: the cells
-of the black colour were listed from $i+j$ directly, every assignment of values to them
-enumerated, and each tested by the entry's own words. No rows, no window, no state and no end
-vector are involved in that computation, and the published terms came back.
-
-Third, the conjectured recurrence was evaluated directly on the published terms, with no
+Second, the conjectured recurrence was evaluated directly on those published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
 
-Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
 arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A230928.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A222382.
+\bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata
+Theory, Languages, and Computation}, 3rd ed., Addison--Wesley, 2006. (The subset
+construction, Section 2.3.)
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge

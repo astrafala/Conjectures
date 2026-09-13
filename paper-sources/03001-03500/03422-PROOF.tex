@@ -12,37 +12,39 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical column recurrences for the table OEIS A224550}
+\title{The empirical column recurrences for the table OEIS A231343}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A224550 is a two-dimensional table $T(n,k)$, and it carries a block of empirical
+OEIS A231343 is a two-dimensional table $T(n,k)$, and it carries a block of empirical
 recurrences contributed by R.~H.~Hardin --- one for each of its first few columns. They are
 true. Column $k$ of the table is an ordinary fixed-width array count, so its rows are the
 vertices of a finite digraph and $T(n,k)$ is a number of walks in it; being a walk count the
 column is $C$-finite, and whether a given recurrence annihilates it is decided by a finite
-exact computation, with the Cayley--Hamilton theorem bounding the work. This note settles the columns $k=1, 2$.
+exact computation, with the Cayley--Hamilton theorem bounding the work. This note settles the columns $k=1$.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
 \section{The table and the conjectures}
 
-OEIS A224550 is ``T(n,k)=Number of (n+1)X(k+1) 0..1 matrices with each 2X2 subblock idempotent.''. It has offset $1$, is
+OEIS A231343 is ``T(n,k)=Number of (n+1)X(k+1) 0..3 arrays with no element unequal to a strict majority of its horizontal and vertical neighbors, with values 0..3 introduced in row major order.''. It has offset $1$, is
 read by antidiagonals, and begins
 \[
-8, 16, 16, 28, 32, 28, 48, 52,\ \dots
+3, 4, 4, 7, 9, 7, 12, 22,\ \dots
 \]
 The entry carries the following block:
 \begin{quote}\small
 Empirical for column k:\\
-k=1: a(n) = 2*a(n-1) -a(n-3)\\
-k=2: a(n) = 4*a(n-1) -5*a(n-2) +a(n-3) +2*a(n-4) -a(n-5)\\
+k=1: a(n) = 3*a(n-1) +a(n-2) -7*a(n-3) +a(n-4) +3*a(n-5)\\
+k=2: a(n) = 5*a(n-1) -6*a(n-2) +2*a(n-3) -8*a(n-4) +6*a(n-5) -a(n-6) +3*a(n-7)\\
+k=3: [order 34]\\
+k=4: [order 97] for n>98\\
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 23:27:31, revision 8) these are still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 06:25:22, revision 6) these are still
 recorded as empirical, and nothing on the entry records any of them as settled.
 
 \section{A column of the table is a walk count}
@@ -85,8 +87,7 @@ $j\ge S_k$ repeats that combination of earlier values.
 \begin{center}
 \begin{tabular}{ccccc}
 line & order & vertices $S$ & proved for & terms checked \\ \hline
-column $k$$=1$ & $3$ & $4$ & $>2$ & $11$ \\
-column $k$$=2$ & $5$ & $8$ & $>5$ & $10$ \\
+column $k$$=1$ & $5$ & $80$ & $>5$ & $10$ \\
 \end{tabular}
 \end{center}
 
@@ -96,22 +97,12 @@ again exactly; every one of those integers vanishes from the stated point onward
 continued until the working vector was identically zero, which settles all larger $j$ at once.
 
 \subsection*{Column $k$$=1$}
-The sequence is ``Number of (n+1)X2 0..1 matrices with each 2X2 subblock idempotent.''. Its rows are the vertices of a digraph on
-$S=4$ vertices, edges being the admissible consecutive pairs, and the count is
+The sequence is ``Number of (n+1)X(2) 0..3 arrays with no element unequal to a strict majority of its horizontal and vertical neighbors, with values 0..3 introduced in row major order.''. Its rows are the vertices of a digraph on
+$S=80$ vertices, edges being the admissible consecutive pairs, and the count is
 $\mathbf{1}^{\!\top}M^{n}\mathbf{1}$ up to the constant factor in the entry's name.
 The conjectured recurrence
 \[
-a(n)\;=\;2\,a(n-1) - a(n-3)
-\]
-holds from index $2+1$ on.
-
-\subsection*{Column $k$$=2$}
-The sequence is ``Number of (n+1)X3 0..1 matrices with each 2X2 subblock idempotent.''. Its rows are the vertices of a digraph on
-$S=8$ vertices, edges being the admissible consecutive pairs, and the count is
-$\mathbf{1}^{\!\top}M^{n}\mathbf{1}$ up to the constant factor in the entry's name.
-The conjectured recurrence
-\[
-a(n)\;=\;4\,a(n-1) - 5\,a(n-2) + a(n-3) + 2\,a(n-4) - a(n-5)
+a(n)\;=\;3\,a(n-1) + a(n-2) - 7\,a(n-3) + a(n-4) + 3\,a(n-5)
 \]
 holds from index $5+1$ on.
 
@@ -124,7 +115,7 @@ both from the antidiagonal DATA read in either orientation and from the ``Table 
 block, and agrees at every available term. This is what ties a model to the table:
 substituting the fixed index into the entry's wording is a reading of English, and a wrong
 reading gives a different digraph and different counts. Across the lines settled here the
-model reproduces $21$ published values, $55$ decimal digits in all, every one of
+model reproduces $10$ published values, $22$ decimal digits in all, every one of
 them exactly; a misreading of the entry would have to reproduce all of them by accident.
 
 Second, each conjectured recurrence was evaluated on those published values in exact
@@ -144,7 +135,7 @@ claimed.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A224550.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A231343.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

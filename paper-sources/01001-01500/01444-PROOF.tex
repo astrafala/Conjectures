@@ -12,88 +12,91 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A206616, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A230928, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{7 September 2026}
+\date{4 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A206616 counts, up to renaming the letters, the arrays of width $4$ over at most $3$
-letters in which every $2\times3$ and $3\times2$ subblock has at most $2$ equal edges, an edge of such a window being one of the six steps of its perimeter cycle and an equal edge one whose two cells agree. It carries an empirical recurrence of order $67$ contributed by
-R.~H.~Hardin. It is true, and it is decidable rather than empirical. Counting up to renaming is
-a fixed rational combination of ordinary array counts, each of those is a walk count, and the
-conjectured recurrence is then settled by a finite exact computation.
+OEIS A230928 counts the black-square subarrays of arrays of width $3$ over $\{0,1,2,3\}$ in which
+every cell has a diagonal neighbour one greater than it modulo 4, and none equal to it. The entry carries an empirical recurrence of order $4$ contributed by
+R.~H.~Hardin. It is true, and it is decidable rather than empirical. A diagonal step changes
+both coordinates by one and so never changes the colour of a cell, which makes the two colours
+of the chessboard independent of one another; the count is then a walk over the cells of one
+colour, on $S=58$ states.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A18, 05B45.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B20, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A206616 is ``Number of (n+1)X4 0..2 arrays with every 2X3 or 3X2 subblock having no more than two equal edges, and new values 0..2 introduced in row major order.''. It has offset $1$ and begins
+OEIS A230928 is ``Number of black-square subarrays of (n+2) X (1+2) 0..3 arrays x(i,j) with each element diagonally or antidiagonally next to at least one element with value (x(i,j)+1) mod 4, no adjacent elements equal, and upper left element zero.''. It has offset $1$ and begins
 \[
-580, 17708, 623933, 21744156, 752689692, 26135187233, 907138039901, 31481198946322,\ \dots
+2, 2, 8, 8, 42, 42, 208, 208,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 37*a(n-1) -193*a(n-2) +4563*a(n-3) -26088*a(n-4) +213640*a(n-5) -2282905*a(n-6) +369531*a(n-7) +59365865*a(n-8) -119009270*a(n-9) -262257680*a(n-10) +527736231*a(n-11) +509956986*a(n-12) +4324710244*a(n-13) -23957378452*a(n-14) +23663119594*a(n-15) +61337666069*a(n-16) -218666604368*a(n-17) +228502952174*a(n-18) -85986086663*a(n-19) +669360026328*a(n-20) -249999620622*a(n-21) -2694789374595*a(n-22) +3166056347472*a(n-23) -4527450747937*a(n-24) +1962425462655*a(n-25) +11253630720214*a(n-26) -6950215731178*a(n-27) -8616642530280*a(n-28) +5352219023522*a(n-29) +18282316992761*a(n-30) +7753157593402*a(n-31) -40511908730324*a(n-32) +4939025872094*a(n-33) -60334135799883*a(n-34) +58664554195163*a(n-35) -121534792363268*a(n-36) +68593536567899*a(n-37) +27074083178241*a(n-38) +308051491547424*a(n-39) -39985515053935*a(n-40) +39295040533166*a(n-41) +83890931412882*a(n-42) -250291599920068*a(n-43) -288209619371358*a(n-44) -184438801479103*a(n-45) +38926434092468*a(n-46) -59238978126303*a(n-47) +106546892950000*a(n-48) +214149676500053*a(n-49) +116025062188772*a(n-50) -2859191597854*a(n-51) +39054500953935*a(n-52) -17011926676243*a(n-53) -44327153317680*a(n-54) -19261125626130*a(n-55) -3153801775828*a(n-56) -4604960888768*a(n-57) -7048617640872*a(n-58) -822479585408*a(n-59) +2623759339152*a(n-60) +177002043136*a(n-61) -414732129408*a(n-62) +52243793472*a(n-63) -4364697600*a(n-64) -4934155008*a(n-65) +884524032*a(n-66) -33288192*a(n-67)
+Empirical: a(n) = 4*a(n-2) + 5*a(n-4).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 13:01:51, revision 9) this is still
+As of the ``Last modified'' line on the live entry (Mar 17 2018 07:10:05, revision 8) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The condition is that every $2\times3$ and $3\times2$ subblock has at most $2$ equal edges, an edge of such a window being one of the six steps of its perimeter cycle and an equal edge one whose two cells agree.
-
-The clause ``new values $0..2$ introduced in row major order'' says the array is the
-canonical representative of its EQUALITY PATTERN, so what is counted is patterns, not arrays.
-Write $N_j$ for the number of admissible patterns using exactly $j$ letters and $L_i$ for the
-number of admissible arrays over an alphabet of $i$ letters. An array over $i$ letters is a
-pattern together with an injection of its letters into the alphabet, so
+Colour the cells of the array like a chessboard: $(i,j)$ is black when $i+j$ is odd. The
+condition is stated in terms of the DIAGONAL and ANTIDIAGONAL neighbours of a cell, that is the
+four offsets
 \[
-L_i\;=\;\sum_j N_j\,i(i-1)\cdots(i-j+1),
+(-1,-1),\ (1,1),\ (-1,1),\ (1,-1),
 \]
-a triangular system with unit diagonal, hence invertible over $\mathbf{Q}$. The entry counts
-$a=N_1+\dots+N_{3}$, so
+and for a cell $(i,j)$ we write $S(i,j)$ for those of them that land inside the array. The
+condition is that every cell has a neighbour one greater than it modulo $4$, and no neighbour equal to it:
 \[
-a\;=\;\sum_{i=1}^{3}w_i\,L_i
+\exists\,(a,b)\in S(i,j)\ \ x(a,b)\equiv x(i,j)+1 \!\!\pmod{4},\qquad x(a,b)\neq x(i,j)\ \ \text{for all }(a,b)\in S(i,j).
 \]
-for one fixed rational vector $w=\mathbf{1}^{\!\top}F^{-1}$, $F$ the matrix of falling
-factorials.
 
-\section{Why the reduction is allowed here}
 
-The step above is legitimate only if the condition is invariant under permuting the alphabet,
-and in this family that is a real restriction rather than a formality. An \emph{equal edge}
-is an edge of a subblock whose two cells carry the same letter; whether two cells agree is
-untouched by any renaming, so every condition built from counting equal edges is invariant and
-the reduction applies.
+The entry adds that the first cell of the subarray in reading order, the cell $(0,1)$ of the array, is $0$.
 
-The neighbouring conditions of the same family that count \emph{increases} --- how many steps
-of a subblock's perimeter cycle go UP in value --- are not invariant: they compare letters by
-size, and a permutation of the alphabet changes the count. Those entries are therefore excluded
-here rather than reduced, and are settled, when they are settled, over their own alphabet
-without the pattern step.
+\begin{lemma}\label{lem:split}
+Each of the four offsets changes $i$ and $j$ each by one, so it changes $i+j$ by $0$ or $\pm2$
+and never changes its parity. Every neighbour of a black cell is therefore black. The condition
+above splits into two systems that share no cell: one on the black cells and one on the white
+cells.
+\end{lemma}
 
-\section{Each $L_i$ is a walk count}
+So what the entry counts is the assignments of values to the black cells alone that satisfy the
+black system; the white cells never enter. That this is the entry's own reading, and not
+merely a convenient one, is settled by its ``upper left element zero'': for a black subarray the
+first cell in reading order is the cell $(0,1)$ of the array, and it is that cell the
+clause fixes, as the published terms confirm and as Section~5 records.
 
-For a fixed alphabet the condition is local: a $2\times2$ subblock is built from two
-consecutive array rows, a $2\times3$ or $3\times2$ window from two or three of them, and every
-comparison the entry makes is between subblocks that meet in the grid. Taking as state a single
-row where the condition looks at one subblock at a time, and the pair of consecutive rows where
-it compares neighbours, each $L_i$ is a walk count on its own digraph. Assembling,
+\section{A walk on one colour}
+
+Take the array one row at a time. In a row of even index the black cells sit at every other
+column starting from column $1$, and in a row of odd index they sit at the columns in
+between; the two shapes alternate, so a state must record which of them the next row has.
+
+All four offsets move exactly one row, so the neighbours of the black cells of a row are the
+black cells of the rows immediately above and below it. A row's conditions are therefore settled
+by three consecutive rows, and the state is the last two of them together with the parity of the
+next.
+
+Appending a row completes one such window and settles the row in the middle of it. Because the
+condition looks one row DOWN as well as up, the last row of a finished array has not been tested
+when the walk stops, so the end vector is not all ones: a state is accepted exactly when its
+last row passes with nothing below it. Thus
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=58.
 \]
-on the disjoint union of those digraphs for $i=1,\dots,3$, with $\iota$ carrying the weights
-$w_i$ cleared of denominators and $S=3556$ states in all. The walk index $j$ and the entry's own
-$n$ differ by a constant, read off by matching the published terms rather than assumed. In
-particular $a$ is $C$-finite.
+The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
+published terms rather than assumed. In particular $a$ is $C$-finite.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{67}-\sum_i c_it^{67-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{4}-\sum_i c_it^{4-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -101,7 +104,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+67}-\sum_ic_iM^{j+67-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+4}-\sum_ic_iM^{j+4-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -110,41 +113,41 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;37\,a(n-1) - 193\,a(n-2) + 4563\,a(n-3) - 26088\,a(n-4) + 213640\,a(n-5) - 2282905\,a(n-6) + 369531\,a(n-7) + 59365865\,a(n-8) - 119009270\,a(n-9) - 262257680\,a(n-10) + 527736231\,a(n-11) + 509956986\,a(n-12) + 4324710244\,a(n-13) - 23957378452\,a(n-14) + 23663119594\,a(n-15) + 61337666069\,a(n-16) - 218666604368\,a(n-17) + 228502952174\,a(n-18) - 85986086663\,a(n-19) + 669360026328\,a(n-20) - 249999620622\,a(n-21) - 2694789374595\,a(n-22) + 3166056347472\,a(n-23) - 4527450747937\,a(n-24) + 1962425462655\,a(n-25) + 11253630720214\,a(n-26) - 6950215731178\,a(n-27) - 8616642530280\,a(n-28) + 5352219023522\,a(n-29) + 18282316992761\,a(n-30) + 7753157593402\,a(n-31) - 40511908730324\,a(n-32) + 4939025872094\,a(n-33) - 60334135799883\,a(n-34) + 58664554195163\,a(n-35) - 121534792363268\,a(n-36) + 68593536567899\,a(n-37) + 27074083178241\,a(n-38) + 308051491547424\,a(n-39) - 39985515053935\,a(n-40) + 39295040533166\,a(n-41) + 83890931412882\,a(n-42) - 250291599920068\,a(n-43) - 288209619371358\,a(n-44) - 184438801479103\,a(n-45) + 38926434092468\,a(n-46) - 59238978126303\,a(n-47) + 106546892950000\,a(n-48) + 214149676500053\,a(n-49) + 116025062188772\,a(n-50) - 2859191597854\,a(n-51) + 39054500953935\,a(n-52) - 17011926676243\,a(n-53) - 44327153317680\,a(n-54) - 19261125626130\,a(n-55) - 3153801775828\,a(n-56) - 4604960888768\,a(n-57) - 7048617640872\,a(n-58) - 822479585408\,a(n-59) + 2623759339152\,a(n-60) + 177002043136\,a(n-61) - 414732129408\,a(n-62) + 52243793472\,a(n-63) - 4364697600\,a(n-64) - 4934155008\,a(n-65) + 884524032\,a(n-66) - 33288192\,a(n-67)
+a(n)\;=\;4\,a(n-2) + 5\,a(n-4)
 \]
-for every $n>67$.
+for every $n>2$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $67$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $4$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=67+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once. The
-rational weights are cleared by a common denominator first, so the whole computation is over
-the integers.
+integers vanish from the index corresponding to $n=2+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
-Three checks, each independent of the algebra above.
+Four checks, each independent of the algebra above.
 
-First, the model reproduces all $14$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry: the digraph is built by reading the
-entry's English, and a misreading gives different counts.
+First, the model reproduces all $30$ terms the entry publishes, exactly, in integer
+arithmetic.
 
-Second, the conjectured recurrence was evaluated directly on those published terms, with no
+Second, the count was recomputed for the smallest arrays straight from the definition: the cells
+of the black colour were listed from $i+j$ directly, every assignment of values to them
+enumerated, and each tested by the entry's own words. No rows, no window, no state and no end
+vector are involved in that computation, and the published terms came back.
+
+Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
 arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A206616.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A230928.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{comtet} L.~Comtet, \emph{Advanced Combinatorics}, Reidel, 1974. (Set partitions
-and falling factorials.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

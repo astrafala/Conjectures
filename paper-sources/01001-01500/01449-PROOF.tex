@@ -12,88 +12,114 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A205349, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A220806, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{7 September 2026}
+\date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A205349 counts, up to renaming the letters, the arrays of width $4$ over at most $4$
-letters in which no two $2\times2$ subblocks that are neighbours, horizontally or vertically, have the same number of equal edges. It carries an empirical recurrence of order $64$ contributed by
-R.~H.~Hardin. It is true, and it is decidable rather than empirical. Counting up to renaming is
-a fixed rational combination of ordinary array counts, each of those is a walk count, and the
-conjectured recurrence is then settled by a finite exact computation.
+OEIS A220806 counts the distinct indicator arrays obtained from the $n\times2$ arrays over
+$\{0,\dots,2\}$ by marking the cells whose value is equal to exactly one of their neighbours, and carries an
+empirical recurrence of order $4$ contributed by R.~H.~Hardin. It is true, and it is
+decidable rather than empirical. What is counted is the IMAGE of a map, not its domain, so it
+is not a walk count in the obvious graph; the determinisation of the machine that emits the
+indicator row by row turns it into one, on $S=40$ states, after which the conjectured
+recurrence is settled by a finite exact computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A18, 05B45.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 68Q45, 15B36.\normalsize
 
 \section{The conjecture}
 
-OEIS A205349 is ``Number of (n+1)X4 0..3 arrays with no 2X2 subblock having the same number of equal edges as its horizontal or vertical neighbors, and new values 0..3 introduced in row major order.''. It has offset $1$ and begins
+OEIS A220806 is ``Equals one maps: number of n X 2 binary arrays indicating the locations of corresponding elements equal to exactly one of their horizontal, vertical and antidiagonal neighbors in a random 0..2 n X 2 array.''. It has offset $1$ and begins
 \[
-1024, 30904, 1080457, 36759026, 1257218433, 43053361050, 1474675468656, 50476796838096,\ \dots
+2, 8, 38, 168, 726, 3088, 12974, 54000,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 1314*a(n-2) +1004*a(n-3) -254046*a(n-4) +1403430*a(n-5) +20011065*a(n-6) -71345248*a(n-7) -3853281227*a(n-8) +24166488912*a(n-9) +115376085119*a(n-10) -1583603564624*a(n-11) +285661767186*a(n-12) +49049732128358*a(n-13) -228955111284505*a(n-14) +902395229430644*a(n-15) -7109329681528133*a(n-16) +49595269396263970*a(n-17) -462419264290913651*a(n-18) +2337355241735241460*a(n-19) +4209648146017411480*a(n-20) -59956332667716770644*a(n-21) +164935592319417959956*a(n-22) -618493486063622677780*a(n-23) +3305743223212436966137*a(n-24) +364227432914454495246*a(n-25) +104832075525022939045750*a(n-26) -658041570619001734722264*a(n-27) -779825962384733258766876*a(n-28) +9352928393327167881935192*a(n-29) -27623158603287845487677464*a(n-30) +184369296373835759421876536*a(n-31) -345268461461300829263246048*a(n-32) -1433859802472779572432687664*a(n-33) +1244074747434809920123909920*a(n-34) +12788632703808413378747343040*a(n-35) -8403311148747530107603755520*a(n-36) +28843585714409912694578390144*a(n-37) -265924423127031646657646012928*a(n-38) +95844993201302765140262692864*a(n-39) +897775279837025840435150438400*a(n-40) -473146805523880610077036494848*a(n-41) -1734935554775363726435805224960*a(n-42) +839692297306925187134268612608*a(n-43) +7430741769362028910355035029504*a(n-44) +4600782608235370499293043523584*a(n-45) -30153711437470808965174721249280*a(n-46) -67619065507298070156314571046912*a(n-47) +128419240847963530835141597855744*a(n-48) +259960937077059172579928072781824*a(n-49) -549200407626519006722621435805696*a(n-50) -383758536010056191881054756274176*a(n-51) +1306416786679990434306297511804928*a(n-52) -60430476997171629616472281579520*a(n-53) -1145480954211698647652944547151872*a(n-54) +615780543160777621646069800632320*a(n-55) -104484250012188123195917578797056*a(n-56) -354990146445320200920379443642368*a(n-57) +508655587529402937037917024944128*a(n-58) -167135243612198795923575585898496*a(n-59) +5842822885925355807358410817536*a(n-60) +35770461876486362152428103532544*a(n-61) -33703813612879839814679556784128*a(n-62) +1942541055161343649385948381184*a(n-63) +2423993898978467194990032322560*a(n-64) for n>65
+Empirical: a(n) = 7*a(n-1) - 11*a(n-2) - 3*a(n-3) - 4*a(n-4).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 12:02:06, revision 9) this is still
+As of the ``Last modified'' line on the live entry (Mar 13 2018 11:07:43, revision 8) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The condition is that no two $2\times2$ subblocks that are neighbours, horizontally or vertically, have the same number of equal edges.
-
-The clause ``new values $0..3$ introduced in row major order'' says the array is the
-canonical representative of its EQUALITY PATTERN, so what is counted is patterns, not arrays.
-Write $N_j$ for the number of admissible patterns using exactly $j$ letters and $L_i$ for the
-number of admissible arrays over an alphabet of $i$ letters. An array over $i$ letters is a
-pattern together with an injection of its letters into the alphabet, so
+Let $R=\{0,\dots,2\}^{2}$ be the set of rows and let the neighbours of a cell be the
+cells at the offsets
 \[
-L_i\;=\;\sum_j N_j\,i(i-1)\cdots(i-j+1),
+(-1,0), (-1,1), (0,-1), (0,1), (1,-1), (1,0),
 \]
-a triangular system with unit diagonal, hence invertible over $\mathbf{Q}$. The entry counts
-$a=N_1+\dots+N_{4}$, so
+those falling outside the array being simply absent. For an array
+$A=(r_1,\dots,r_n)\in R^n$ let $\Phi(A)\in\{0,1\}^{n\times2}$ mark the cells whose value
+is equal to exactly one of its neighbours. The entry counts
 \[
-a\;=\;\sum_{i=1}^{4}w_i\,L_i
+a(n)\;=\;\bigl|\{\Phi(A):A\in R^n\}\bigr| ,
 \]
-for one fixed rational vector $w=\mathbf{1}^{\!\top}F^{-1}$, $F$ the matrix of falling
-factorials.
+the size of an IMAGE. This is the whole difficulty: two different arrays with the same marking
+must be counted once, and a walk count in a graph on the arrays would count them twice.
 
-\section{Why the reduction is allowed here}
-
-The step above is legitimate only if the condition is invariant under permuting the alphabet,
-and in this family that is a real restriction rather than a formality. An \emph{equal edge}
-is an edge of a subblock whose two cells carry the same letter; whether two cells agree is
-untouched by any renaming, so every condition built from counting equal edges is invariant and
-the reduction applies.
-
-The neighbouring conditions of the same family that count \emph{increases} --- how many steps
-of a subblock's perimeter cycle go UP in value --- are not invariant: they compare letters by
-size, and a permutation of the alphabet changes the count. Those entries are therefore excluded
-here rather than reduced, and are settled, when they are settled, over their own alphabet
-without the pattern step.
-
-\section{Each $L_i$ is a walk count}
-
-For a fixed alphabet the condition is local: a $2\times2$ subblock is built from two
-consecutive array rows, a $2\times3$ or $3\times2$ window from two or three of them, and every
-comparison the entry makes is between subblocks that meet in the grid. Taking as state a single
-row where the condition looks at one subblock at a time, and the pair of consecutive rows where
-it compares neighbours, each $L_i$ is a walk count on its own digraph. Assembling,
+Because every offset above moves the row index by at most one, the marked row $i$ depends only
+on rows $i-1,i,i+1$. Write $\beta(p,c,x)\in\{0,1\}^{2}$ for the marking of the row $c$
+with $p$ above and $x$ below, allowing $p$ or $x$ to be the symbol $\bot$ for ``outside''.
+Then
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau
+\Phi(r_1,\dots,r_n)=\bigl(\beta(\bot,r_1,r_2),\ \beta(r_1,r_2,r_3),\ \dots,\
+\beta(r_{n-1},r_n,\bot)\bigr).
 \]
-on the disjoint union of those digraphs for $i=1,\dots,4$, with $\iota$ carrying the weights
-$w_i$ cleared of denominators and $S=26814$ states in all. The walk index $j$ and the entry's own
-$n$ differ by a constant, read off by matching the published terms rather than assumed. In
-particular $a$ is $C$-finite.
+
+\section{The image is a walk count after determinisation}
+
+For a set $D\subseteq(R\cup\{\bot\})\times R$ of pairs and a row $b\in\{0,1\}^{2}$ put
+\[
+\delta(D,b)=\{(c,x)\ :\ (p,c)\in D,\ x\in R,\ \beta(p,c,x)=b\},\qquad
+f(D)=\bigl|\{\beta(p,c,\bot):(p,c)\in D\}\bigr| ,
+\]
+and let $D_0=\{(\bot,r):r\in R\}$.
+
+\begin{lemma}\label{lem:det}
+For every $t\ge0$ and every $b_1,\dots,b_t$, the set
+$D_t=\delta(\dots\delta(D_0,b_1)\dots,b_t)$ is exactly
+\[
+\{(r_t,r_{t+1})\ :\ (r_1,\dots,r_{t+1})\in R^{t+1},\ \beta(\bot,r_1,r_2)=b_1,\ \dots,\
+\beta(r_{t-1},r_t,r_{t+1})=b_t\} ,
+\]
+with $r_0=\bot$. Consequently, for $n\ge1$,
+\[
+a(n)\;=\;\sum_{b_1,\dots,b_{n-1}}f(D_{n-1}),
+\]
+the sum over all sequences of rows in $\{0,1\}^{2}$, empty $D$'s contributing nothing.
+\end{lemma}
+
+\begin{proof}
+Induction on $t$. For $t=0$ the set is $\{(\bot,r_1)\}$, which is $D_0$. If the description
+holds for $D_t$, then $\delta(D_t,b)$ collects the pairs $(r_{t+1},r_{t+2})$ for which
+$(r_t,r_{t+1})$ already extends a consistent prefix and
+$\beta(r_t,r_{t+1},r_{t+2})=b$, which is the description for $t+1$.
+
+An element of the image is a full marking $(b_1,\dots,b_n)$. By the description, a prefix
+$(b_1,\dots,b_{n-1})$ is realised by some $r_1,\dots,r_n$ exactly when $D_{n-1}\neq
+\emptyset$, and then the possible last rows are precisely
+$\{\beta(p,c,\bot):(p,c)\in D_{n-1}\}$, of which there are $f(D_{n-1})$. Distinct
+sequences $(b_1,\dots,b_n)$ are distinct markings, so summing $f$ over the prefixes counts the
+image exactly once each.
+\end{proof}
+
+So with $M$ the adjacency matrix of the digraph whose vertices are the reachable nonempty sets
+$D$ and which carries one edge $D\to\delta(D,b)$ for each $b$ with $\delta(D,b)\neq\emptyset$
+--- several $b$ may lead to the same set, and then the edge is repeated, which is exactly
+right, since the markings differ ---
+\[
+a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,\qquad \iota=e_{D_0},\quad \tau=f .
+\]
+There are $S=40$ reachable sets, generated from $D_0$ outward, and $a$ is $C$-finite. Note
+that $\tau$ is not the all-ones vector: the last marked row is not a step of the walk but a
+count attached to the state the walk stops in.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{64}-\sum_i c_it^{64-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{4}-\sum_i c_it^{4-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -101,7 +127,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+64}-\sum_ic_iM^{j+64-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+4}-\sum_ic_iM^{j+4-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -110,26 +136,24 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;1314\,a(n-2) + 1004\,a(n-3) - 254046\,a(n-4) + 1403430\,a(n-5) + 20011065\,a(n-6) - 71345248\,a(n-7) - 3853281227\,a(n-8) + 24166488912\,a(n-9) + 115376085119\,a(n-10) - 1583603564624\,a(n-11) + 285661767186\,a(n-12) + 49049732128358\,a(n-13) - 228955111284505\,a(n-14) + 902395229430644\,a(n-15) - 7109329681528133\,a(n-16) + 49595269396263970\,a(n-17) - 462419264290913651\,a(n-18) + 2337355241735241460\,a(n-19) + 4209648146017411480\,a(n-20) - 59956332667716770644\,a(n-21) + 164935592319417959956\,a(n-22) - 618493486063622677780\,a(n-23) + 3305743223212436966137\,a(n-24) + 364227432914454495246\,a(n-25) + 104832075525022939045750\,a(n-26) - 658041570619001734722264\,a(n-27) - 779825962384733258766876\,a(n-28) + 9352928393327167881935192\,a(n-29) - 27623158603287845487677464\,a(n-30) + 184369296373835759421876536\,a(n-31) - 345268461461300829263246048\,a(n-32) - 1433859802472779572432687664\,a(n-33) + 1244074747434809920123909920\,a(n-34) + 12788632703808413378747343040\,a(n-35) - 8403311148747530107603755520\,a(n-36) + 28843585714409912694578390144\,a(n-37) - 265924423127031646657646012928\,a(n-38) + 95844993201302765140262692864\,a(n-39) + 897775279837025840435150438400\,a(n-40) - 473146805523880610077036494848\,a(n-41) - 1734935554775363726435805224960\,a(n-42) + 839692297306925187134268612608\,a(n-43) + 7430741769362028910355035029504\,a(n-44) + 4600782608235370499293043523584\,a(n-45) - 30153711437470808965174721249280\,a(n-46) - 67619065507298070156314571046912\,a(n-47) + 128419240847963530835141597855744\,a(n-48) + 259960937077059172579928072781824\,a(n-49) - 549200407626519006722621435805696\,a(n-50) - 383758536010056191881054756274176\,a(n-51) + 1306416786679990434306297511804928\,a(n-52) - 60430476997171629616472281579520\,a(n-53) - 1145480954211698647652944547151872\,a(n-54) + 615780543160777621646069800632320\,a(n-55) - 104484250012188123195917578797056\,a(n-56) - 354990146445320200920379443642368\,a(n-57) + 508655587529402937037917024944128\,a(n-58) - 167135243612198795923575585898496\,a(n-59) + 5842822885925355807358410817536\,a(n-60) + 35770461876486362152428103532544\,a(n-61) - 33703813612879839814679556784128\,a(n-62) + 1942541055161343649385948381184\,a(n-63) + 2423993898978467194990032322560\,a(n-64)
+a(n)\;=\;7\,a(n-1) - 11\,a(n-2) - 3\,a(n-3) - 4\,a(n-4)
 \]
-for every $n>65$.
+for every $n>4$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $64$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $4$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=65+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once. The
-rational weights are cleared by a common denominator first, so the whole computation is over
-the integers.
+integers vanish from the index corresponding to $n=4+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $14$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry: the digraph is built by reading the
+First, the model reproduces all $23$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry: the machine is built by reading the
 entry's English, and a misreading gives different counts.
 
 Second, the conjectured recurrence was evaluated directly on those published terms, with no
@@ -140,11 +164,12 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A205349.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A220806.
+\bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata
+Theory, Languages, and Computation}, 3rd ed., Addison--Wesley, 2006. (The subset
+construction, Section 2.3.)
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{comtet} L.~Comtet, \emph{Advanced Combinatorics}, Reidel, 1974. (Set partitions
-and falling factorials.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

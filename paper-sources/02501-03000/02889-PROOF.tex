@@ -12,119 +12,61 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A224553, proved by transfer matrix}
+\title{Arrays counted up to renaming: the empirical recurrence for OEIS A205622}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{2 September 2026}
+\date{6 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A224553 counts the $(n+2)\times4$ matrices over $\{0,\dots,1\}$ all of whose
-$3\times3$ contiguous subblocks are idempotent, and carries an empirical recurrence of order
-$7$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical.
-The condition ties together $3$ consecutive rows and $3$ consecutive columns at once, so a
-single row is not a state; the strip of the last $2$ rows is, and the admissible strips
-are read off the overlap graph of the admissible windows instead of being enumerated. That
-makes $a(n)$ a walk count on $S=59$ vertices, hence $C$-finite, and whether the conjectured
-recurrence annihilates it is settled by a finite exact computation.
+OEIS A205622 carries an empirical recurrence of order $8$ contributed by R.~H.~Hardin. It is
+true, and it is decidable rather than empirical. The entry imposes two conditions of different
+kinds: a condition on every subblock, which is local, and ``new values introduced in row major
+order'', which is not --- it makes the count a count of colourings up to renaming. The first is
+handled by a window of consecutive rows; the second by one extra integer, the number of values
+introduced so far, which is an exact summary of everything the whole prefix contributes. With
+both in the state the arrays are exactly the walks in a digraph on $S=26$ vertices, so $a(n)$
+is $C$-finite and whether the conjectured recurrence annihilates it is settled by a finite
+exact computation.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
 \section{The conjecture}
 
-OEIS A224553 is ``Number of (n+2) X 4 0..1 matrices with each 3 X 3 subblock idempotent.''. It has offset $1$ and begins
+OEIS A205622 is ``Number of (n+1)X5 0..2 arrays with every 2X2 subblock in a row having an equal number of equal diagonal or equal antidiagonal elements, adjacent rows differing in this number, and new values 0..2 introduced in row major order.''. It has offset $1$ and begins
 \[
-70, 94, 133, 174, 246, 351, 492, 693,\ \dots
+770, 8004, 94116, 1103436, 13072068, 153531936, 1819019544, 21373648800,\ \dots
 \]
+Because of the relabelling condition each array is counted once for the whole class of arrays that differ from it only by renaming the values, so these are colourings counted up to permutation of the colours.
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 3*a(n-1) - 2*a(n-2) - a(n-3) + a(n-4) - a(n-5) + 2*a(n-6) - a(n-7) for n>9.
+Empirical: a(n) = 136*a(n-2) +64*a(n-3) -264*a(n-4) -384*a(n-5) -1920*a(n-6) -7168*a(n-8) for n>9
 \end{quote}
-As of the ``Last modified'' line on the live entry (Apr 20 2020 21:15:01, revision 9) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 12:13:04, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{The count is a walk count}
 
-Call a $3\times3$ matrix over $\{0,\dots,1\}$ a \emph{window} when it is idempotent, and
-call a $3\times4$ matrix a \emph{band} when every one of its $2$ contiguous
-$3\times3$ subblocks is a window. What the entry counts is the matrices of $4$ columns
-whose every $3$ consecutive rows form a band.
+The entry counts arrays of 5 columns over the alphabet $\{0,1,2\}$, and asks two different kinds of thing of them at once.
 
-Take as states the $2\times4$ strips that occur as the top $2$ rows of a band,
-together with those that occur as its bottom $2$ rows, and put an edge from $u$ to $v$
-when the band whose first $2$ rows are $u$ and whose last $2$ rows are $v$ exists.
-A band is determined by that pair, so the edge is unique when it exists. Reading a counted
-matrix from the top, its rows $1..2$, then $2..3$, and so on, form a walk, and every
-walk arises from exactly one matrix; a matrix with $n+2$ rows gives a walk of $n$ edges.
-Since the first $2$ rows of a counted matrix with at least $3$ rows are the top of a
-band, and since no further condition falls on where a walk starts or ends,
+\textbf{The subblock condition is local.} It says that every $2\times2$ subblock scores the number of its equal diagonal pairs plus the number of its equal antidiagonal pairs, all subblocks lying in one band must score the same, and consecutive bands must score differently. A $ 2\times2$ subblock spans $2$ consecutive rows, so a window of $2$ consecutive rows decides every subblock it closes, and nothing outside that window is consulted.
+
+What is compared \emph{across} windows is carried too: the state holds the single number the last band scored, since a band is constant and only that one number is compared with the next. With $4$ subblocks to a band that is a bounded amount of bookkeeping and no more.
+
+\textbf{The relabelling condition is not local.} ``New values introduced in row major order'' says that, reading the array one row at a time and each row left to right, a value may appear for the first time only once every smaller value already has. Whether a given entry is allowed here therefore depends on the whole prefix of the array, not on any bounded window of it, and no amount of widening the window captures it. What saves it is that the prefix matters only through one number: let $m$ be how many values have been introduced so far. A row $r_1r_2\cdots r_5$ may follow precisely when each $r_i\le m$ at the moment it is read and each $r_i=m$ raises $m$ by one. So $m$, an integer in $\{0,1,\dots,3\}$, is an exact summary of everything the condition needs, and it joins the state.
+
+The vertices of the digraph are therefore the triples (the last $1$ row, the count $m$, what the last band scored), an edge $u\to v$ meaning that $v$'s new row may follow $u$. Of the $243$ possible rows only those admissible from the current $m$ appear, and states with identical futures are merged, which leaves $S=26$. An admissible array is exactly a walk, so with $M$ the adjacency matrix and $\iota,\tau$ the vectors recording which states may begin and end an array,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n}\tau ,\qquad \iota=\tau=(1,1,\dots,1)^{\!\top},
+a(n)\;=\;\iota^{\!\top}M^{\,n}\tau ,
 \]
-with $M$ the adjacency matrix on $S=59$ states. In particular $a$ is $C$-finite. The
-alignment was checked against the entry's published terms rather than assumed.
-
-There are $(1 + 1)^{8}$ strips of $2$ rows and $4$ columns, far too
-many to test one by one, and they are not tested one by one. Two consecutive windows of a band
-overlap in $3\times2$ entries, so a band is exactly a walk of $2$ windows in
-the graph that joins a window to those whose first $2$ columns are its last $2$
-columns. Enumerating those walks produces the bands, and with them the states and the edges,
-directly.
-
-\section{The admissible windows}
-
-The vertices of the overlap graph are the $0/1$ matrices $B$ of size $3\times3$ with
-$B^2=B$. There are $2^{9}$ matrices to sift, which is already awkward at $3=3$ and
-hopeless a little beyond it, so they are not sifted; they are generated from the following
-description, which also makes the count itself transparent.
-
-\begin{lemma}\label{lem:idem}
-Let $B$ be a $k\times k$ matrix with entries in $\{0,1\}$, let $r_i$ denote its $i$th row and
-$S_i=\{j:B_{ij}=1\}$ the support of that row. Then $B^2=B$ if and only if
-\[
-r_i=\sum_{t\in S_i}r_t \qquad (1\le i\le k),
-\]
-the rows on the right necessarily having pairwise disjoint supports. Writing
-$Z=\{i:r_i=0\}$ and $U=\{1,\dots,k\}\setminus Z$, and calling $i\in U$ \emph{primitive}
-when $S_i\cap U=\{i\}$, the idempotent $0/1$ matrices are exactly those obtained as follows:
-choose $Z$; choose the set $B^{\ast}\subseteq U$ of primitive indices and for each
-$b\in B^{\ast}$ a set $Z_b\subseteq Z$, putting $r_b=e_b+\sum_{j\in Z_b}e_j$; and for each
-$i\in U\setminus B^{\ast}$ choose a nonempty $B_i\subseteq B^{\ast}$ whose rows have
-pairwise disjoint supports, putting $r_i=\sum_{b\in B_i}r_b$. Distinct data give distinct
-matrices.
-\end{lemma}
-
-\begin{proof}
-The $i$th row of $B^2$ is $\sum_t B_{it}r_t=\sum_{t\in S_i}r_t$, so $B^2=B$ is precisely the
-displayed system. Its entries lie in $\{0,1\}$, so for each $i$ the supports $S_t$,
-$t\in S_i$, are pairwise disjoint with union $S_i$.
-
-Assume $B^2=B$. Rows indexed by $Z$ vanish, so for $i\in U$ we may write
-$r_i=\sum_{t\in S_i\cap U}r_t$ with $S_i\cap U\neq\emptyset$. If $i$ is primitive this says
-$S_i\subseteq\{i\}\cup Z$, which is the stated shape with $Z_i=S_i\cap Z$. For the rest argue
-by induction on $|S_i|$. The supports $S_t$, $t\in S_i\cap U$, are disjoint, nonempty and
-cover $S_i$; if one of them has $|S_t|=|S_i|$ it is the only one, whence $r_t=r_i$,
-$S_t\cap U=S_i\cap U=\{t\}$ and $t$ is primitive. Otherwise every such $t$ has
-$|S_t|<|S_i|$, and each $r_t$ is by induction a sum of primitive rows with disjoint supports.
-Either way $r_i=\sum_{b\in B_i}r_b$ with $B_i\subseteq B^{\ast}$, and intersecting
-$S_i=\bigsqcup_{b\in B_i}(\{b\}\cup Z_b)$ with $U$ returns $B_i$, so the data is recovered
-from $B$ and distinct data give distinct matrices.
-
-Conversely, given data of the stated shape, the disjointness makes every entry $0$ or $1$, and
-$\sum_{t\in S_i}r_t$ equals $0$, $r_b$, $\sum_{b\in B_i}r_b$ in the three cases, which is
-$r_i$ each time. Hence $B^2=B$.
-\end{proof}
-
-Generating from Lemma~\ref{lem:idem} gives $50$ admissible $3\times3$ windows. For
-$k=2,3,4$ the same generation gives $8$, $50$ and $452$, which agree with exhaustion over all
-$2^{k^2}$ matrices; that is the check that the description above is neither too wide nor too
-narrow.
+the exponent fixed by the entry's own shape and checked against its published terms. In
+particular $a$ is $C$-finite.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{7}-\sum_i c_it^{7-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{8}-\sum_i c_it^{8-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -132,7 +74,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+7}-\sum_ic_iM^{j+7-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+8}-\sum_ic_iM^{j+8-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -141,13 +83,13 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;3\,a(n-1) - 2\,a(n-2) - a(n-3) + a(n-4) - a(n-5) + 2\,a(n-6) - a(n-7)
+a(n)\;=\;136\,a(n-2) + 64\,a(n-3) - 264\,a(n-4) - 384\,a(n-5) - 1920\,a(n-6) - 7168\,a(n-8)
 \]
 for every $n>9$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $7$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $8$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
 integers vanish from the index corresponding to $n=9+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once. The bound is exact: at $n=9$ the recurrence fails on the entry's own published terms, so no larger range holds.
@@ -155,25 +97,31 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 \section{Verification}
 
-Three checks, each independent of the algebra above.
+Four checks, each independent of the algebra above.
 
-First, the model reproduces all $35$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $15$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
-Second, the conjectured recurrence was evaluated directly on those published terms, with no
+Second, the reading was pinned before the digraph was written, by a program that enumerates
+the arrays one by one from the entry's own words --- generating every array over the
+alphabet, discarding those that fail the relabelling condition, then testing each subblock
+directly --- and compares the count with the published terms. That program shares no code
+with the transfer matrix, so an error in one does not hide an error in the other.
+
+Third, the conjectured recurrence was evaluated directly on those published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
 arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A224553.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A205622.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{kim} K.~H.~Kim, \emph{Boolean Matrix Theory and Applications}, Marcel Dekker,
-1982.
+\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+University Press, 2009.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

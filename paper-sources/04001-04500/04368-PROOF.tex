@@ -12,144 +12,116 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A206538, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A281146, proved from an exact model}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{3 September 2026}
+\date{6 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A206538 counts arrays of width $5$ over $\{0,1,2\}$ subject to a condition read round the
-perimeter of every $2\times2$ subblock: the clockwise counts increase rightwards and downwards, the counterclockwise counts decrease. The entry carries an empirical recurrence of
-order $93$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
-empirical: the condition is settled inside a bounded window of consecutive rows, so the
-count is a walk count on a finite digraph with $S=1132$ vertices, and whether a linear
-recurrence holds for such a count is a finite computation.
+OEIS A281146 carries an empirical recurrence of order $3$. It is true, and it is
+decidable rather than empirical. The entry's sequence is given exactly by a certified growth pattern of the automaton's axis word, from
+which $a$ provably satisfies a MONIC linear recurrence of order $S=5$, derived below and not
+assumed. The residual of the conjectured recurrence satisfies the same one, so whether it
+annihilates $a$ is settled by a finite exact computation. No transfer matrix is involved and
+the count is not a walk.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A16, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 68Q80, 11B85, 05A15.\normalsize
 
 \section{The conjecture}
 
-OEIS A206538 is ``Number of (n+1) X 5 0..2 arrays with the number of clockwise edge increases in 2 X 2 subblocks nondecreasing, and counterclockwise edge increases nonincreasing, rightwards and downwards.''. It has offset $1$ and begins
+OEIS A281146 is ``Binary representation of the x-axis, from the origin to the right edge, of the n-th stage of growth of the two-dimensional cellular automaton defined by "Rule 515", based on the 5-celled von Neumann neighborhood.''. It has offset $0$ and begins
 \[
-6462, 91674, 1419921, 22647363, 369441411, 6062752884, 100259781690, 1661323349889,\ \dots
+1, 10, 100, 1000, 10100, 101000, 1010100, 10101000,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 48*a(n-1) -511*a(n-2) -10370*a(n-3) +248056*a(n-4) -15316*a(n-5) -39319672*a(n-6) +229682760*a(n-7) +3101791467*a(n-8) -34508533564*a(n-9) -110666023609*a(n-10) +2737134599902*a(n-11) -1944425563980*a(n-12) -138867498519160*a(n-13) +454259584497554*a(n-14) +4717128238889588*a(n-15) -27608187524865471*a(n-16) -102274180218808104*a(n-17) +1043996333252379617*a(n-18) +943477829221661450*a(n-19) -28016705891644261101*a(n-20) +23261406089897667612*a(n-21) +556274293200286508015*a(n-22) -1247499078646449613354*a(n-23) -8197520625284603552352*a(n-24) +30956284714277574520008*a(n-25) +85788210608452981488138*a(n-26) -530512013424753881671808*a(n-27) -516952150443611363033893*a(n-28) +6860471761383109750519032*a(n-29) -1196032896481459102230229*a(n-30) -69021658631054450401808738*a(n-31) +74690607572116965833811745*a(n-32) +543183882272307214778119452*a(n-33) -1068832023445491188455812561*a(n-34) -3282566901670169285954654670*a(n-35) +10121075007155708620346009855*a(n-36) +14208182659535945876339618952*a(n-37) -72428793981671823713894486303*a(n-38) -32121231858726786079218334254*a(n-39) +408561833169761505869290715091*a(n-40) -97308349221930835302587736596*a(n-41) -1841328547308946011319804982233*a(n-42) +1496086757780849194670707779590*a(n-43) +6607513220724960922143316804746*a(n-44) -9213989262423698472453477802160*a(n-45) -18434504153086579417527704082968*a(n-46) +39442327691765676067799592211840*a(n-47) +37228177774441591640934398952255*a(n-48) -129534694907220060624836181675896*a(n-49) -40411622888314093343038080005821*a(n-50) +336731593320828848352682392100038*a(n-51) -48000975598652004135942114782295*a(n-52) -697940645406503285491347495692428*a(n-53) +366061991293902005485294586186825*a(n-54) +1143881348647212863635157279370810*a(n-55) -1036179391820524735349062785273390*a(n-56) -1441003912455915547339751581754552*a(n-57) +1994307396560010385145001622894484*a(n-58) +1293057280966202915929507409775364*a(n-59) -2880450359808654988899259730426769*a(n-60) -610274996777128366435342681486352*a(n-61) +3206204387719753625082069162148931*a(n-62) -309572560120321475994259000367938*a(n-63) -2750925460606335489132885799897064*a(n-64) +966596217324838111166926215121460*a(n-65) +1784942039300871554423500119764452*a(n-66) -1080019864206003990836334339795984*a(n-67) -834157860762937714117084886744187*a(n-68) +782078830446037238134570376553724*a(n-69) +244721848194879595446885644836151*a(n-70) -400312061002262348775412251599866*a(n-71) -17194469109658921524060267687464*a(n-72) +146280505270289981074600431916512*a(n-73) -22008582387456425838893453087556*a(n-74) -37124185790721383988932283290328*a(n-75) +11956439527550103074989437626432*a(n-76) +6042730178489268592604840524544*a(n-77) -3255912945245123127193382837184*a(n-78) -479699417345292019690689572736*a(n-79) +535241841461358252995313057856*a(n-80) -20333215259394138725609269120*a(n-81) -52468101920892556966516786688*a(n-82) +8870143959963568197241974784*a(n-83) +2677763029393438955566882816*a(n-84) -861537094407627597994369024*a(n-85) -32179558459945322846375936*a(n-86) +37442235660396113187921920*a(n-87) -2725899345794501790760960*a(n-88) -649016325155956378959872*a(n-89) +101959108007770572980224*a(n-90) +933451572057030000640*a(n-91) -944251229793536704512*a(n-92) +47259023090814812160*a(n-93) for n>96.
+(the empirical recurrence quoted in the entry)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Dec 13 2015 16:32:35, revision 7) this is still
-recorded as empirical, and nothing on the entry records it as proved.
+As of the ``Last modified'' line on the live entry (Nov 05 2025 15:22:36, revision 34)
+this is still recorded as empirical, and nothing on the entry records it as proved.
 
-\section{What is being counted}
+\section{The value is a certified growth}
 
-The arrays have $5$ columns and a growing number of rows, with entries in $\{0,1,2\}$. A
-$2\times2$ subblock is a set of four cells
+The entry reads a diagonal or an axis of the automaton at stage $n$ as a string of digits and takes its
+numeric value. Nothing is being counted, so there is no digraph. What settles the sequence is
+that the string itself grows by a fixed pattern: the automaton was run and the certificate
 \[
-B=\begin{pmatrix} p & q \\ r & s \end{pmatrix},
-\qquad p=x(i,j),\; q=x(i,j+1),\; r=x(i+1,j),\; s=x(i+1,j+1).
+w(n+p)\;=\;L_r + w(n) + R_r
 \]
-Its perimeter is a cycle of four cells, walked clockwise as $p\to q\to s\to r\to p$ and
-counterclockwise as $p\to r\to s\to q\to p$. Write
+was verified for every available $n$ in each residue class $r$ of $n$ modulo the period $p$,
+after a pre-period $n_0$ during which the shape has not yet settled. Concatenation is
+multiplication by a power of the base $B$ and addition, so along a class
 \[
-\mathrm{cw}(B)=[p<q]+[q<s]+[s<r]+[r<p],\qquad
-\mathrm{ccw}(B)=[p<r]+[r<s]+[s<q]+[q<p]
+a(n+p)\;=\;v(L_r)\,B^{|w(n)|+|R_r|} + a(n)\,B^{|R_r|} + v(R_r),
 \]
-for the number of steps at which the value rises, going each way round.
+with $|w(n)|$ growing by $|L_r|+|R_r|$ every $p$ steps.
 
-\begin{lemma}\label{lem:sum}
-$\mathrm{cw}(B)+\mathrm{ccw}(B)=4-\#\{\text{edges of the cycle with equal ends}\}$.
-\end{lemma}
+\section{The bound}
 
-\begin{proof}
-Each of the four edges of the square is walked once by each cycle, and in opposite directions.
-An edge with distinct ends therefore contributes exactly one rise, to one of the two counts;
-an edge with equal ends contributes to neither.
-\end{proof}
-
-The condition the entry imposes is this: whenever $B'$ is the subblock one step to the right of $B$, or one step below it, 
-\[
-\mathrm{cw}(B)\le\mathrm{cw}(B'),\qquad \mathrm{ccw}(B)\ge\mathrm{ccw}(B')
-\]
-so the clockwise count is nondecreasing rightwards and downwards while the counterclockwise count is nonincreasing in both directions.
-
-\section{A bounded window}
-
-Two consecutive rows decide every subblock lying between them, and the conditions of Section 2 compare such a subblock with the subblock directly above it, which lies between the PREVIOUS two rows. So the state carries the row just written together with the clockwise and counterclockwise counts of each subblock of that pair, one small number per column: at most five values each, whatever the alphabet.
-
-One step of the walk writes a whole row. The row is filled left to right, and the subblock
-closed by positions $j-1,j$ is tested the moment position $j$ is written, so a partial row that
-cannot be completed is abandoned rather than enumerated. The walk starts at the state standing
-for the empty array, so that a walk of $n$ steps is an array of $n$ rows.
-
-The end vector is all ones: an array may stop after any row. Thus
-\[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=1132,
-\]
-for the transfer matrix $M$ on those $S$ states. The walk index $j$ and the entry's own $n$
-differ by a constant, read off by matching the published terms rather than assumed. In
-particular $a$ is $C$-finite, and every question about linear recurrences it satisfies is
-decidable.
+In the shift $T=S^{\,p}$ that is a first-order recurrence with a geometric forcing term and a
+constant, killed by $(T-B^{|R_r|})(T-B^{|L_r|+|R_r|})(T-1)$. Taking the DISTINCT roots that
+occur across the residue classes, pulling each back to $S^{\,p}-\lambda$, and allowing the
+pre-period to raise the numerator's degree gives a monic annihilator of order $S=5$. The
+earlier figure, $p+3$, was the one-dimensional count carried over unchanged; with $p$ classes
+carrying $p$ different pairs it is too small, and a residual test that trusts it checks too few
+coefficients to prove anything.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{93}-\sum_i c_it^{93-i}$ be the characteristic polynomial of the
-conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
-$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
-holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
-and it is enough to examine $j<S$.
+Let $A(z)=z^S-\sum_{j<S}\alpha_jz^{j}$ be the monic annihilator derived above and
+$q(z)=z^{3}-\sum_ic_iz^{3-i}$ the characteristic polynomial of the conjectured
+recurrence. The residual $r(n)=a(n)-\sum_ic_ia(n-i)$ is a linear combination of shifts of $a$,
+so $A$ annihilates $r$ as well. Since $A(0)\ne0$ the recurrence it gives runs in both
+directions, and $S$ consecutive zeros of $r$ force $r$ to vanish at every later index.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+93}-\sum_ic_iM^{j+93-i}$. For the bound, $M^{S}$
-is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
-$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
-polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly.
+$A$ annihilates $a$, hence every shift of $a$, hence any linear combination of shifts; that is
+$r$. A monic recurrence with nonzero constant term determines each term from the $S$ before it
+and each from the $S$ after it, so a run of $S$ zeros propagates.
 \end{proof}
 
 \begin{theorem}
 \[
-a(n)\;=\;48\,a(n-1) - 511\,a(n-2) - 10370\,a(n-3) + 248056\,a(n-4) - 15316\,a(n-5) - 39319672\,a(n-6) + 229682760\,a(n-7) + 3101791467\,a(n-8) - 34508533564\,a(n-9) - 110666023609\,a(n-10) + 2737134599902\,a(n-11) - 1944425563980\,a(n-12) - 138867498519160\,a(n-13) + 454259584497554\,a(n-14) + 4717128238889588\,a(n-15) - 27608187524865471\,a(n-16) - 102274180218808104\,a(n-17) + 1043996333252379617\,a(n-18) + 943477829221661450\,a(n-19) - 28016705891644261101\,a(n-20) + 23261406089897667612\,a(n-21) + 556274293200286508015\,a(n-22) - 1247499078646449613354\,a(n-23) - 8197520625284603552352\,a(n-24) + 30956284714277574520008\,a(n-25) + 85788210608452981488138\,a(n-26) - 530512013424753881671808\,a(n-27) - 516952150443611363033893\,a(n-28) + 6860471761383109750519032\,a(n-29) - 1196032896481459102230229\,a(n-30) - 69021658631054450401808738\,a(n-31) + 74690607572116965833811745\,a(n-32) + 543183882272307214778119452\,a(n-33) - 1068832023445491188455812561\,a(n-34) - 3282566901670169285954654670\,a(n-35) + 10121075007155708620346009855\,a(n-36) + 14208182659535945876339618952\,a(n-37) - 72428793981671823713894486303\,a(n-38) - 32121231858726786079218334254\,a(n-39) + 408561833169761505869290715091\,a(n-40) - 97308349221930835302587736596\,a(n-41) - 1841328547308946011319804982233\,a(n-42) + 1496086757780849194670707779590\,a(n-43) + 6607513220724960922143316804746\,a(n-44) - 9213989262423698472453477802160\,a(n-45) - 18434504153086579417527704082968\,a(n-46) + 39442327691765676067799592211840\,a(n-47) + 37228177774441591640934398952255\,a(n-48) - 129534694907220060624836181675896\,a(n-49) - 40411622888314093343038080005821\,a(n-50) + 336731593320828848352682392100038\,a(n-51) - 48000975598652004135942114782295\,a(n-52) - 697940645406503285491347495692428\,a(n-53) + 366061991293902005485294586186825\,a(n-54) + 1143881348647212863635157279370810\,a(n-55) - 1036179391820524735349062785273390\,a(n-56) - 1441003912455915547339751581754552\,a(n-57) + 1994307396560010385145001622894484\,a(n-58) + 1293057280966202915929507409775364\,a(n-59) - 2880450359808654988899259730426769\,a(n-60) - 610274996777128366435342681486352\,a(n-61) + 3206204387719753625082069162148931\,a(n-62) - 309572560120321475994259000367938\,a(n-63) - 2750925460606335489132885799897064\,a(n-64) + 966596217324838111166926215121460\,a(n-65) + 1784942039300871554423500119764452\,a(n-66) - 1080019864206003990836334339795984\,a(n-67) - 834157860762937714117084886744187\,a(n-68) + 782078830446037238134570376553724\,a(n-69) + 244721848194879595446885644836151\,a(n-70) - 400312061002262348775412251599866\,a(n-71) - 17194469109658921524060267687464\,a(n-72) + 146280505270289981074600431916512\,a(n-73) - 22008582387456425838893453087556\,a(n-74) - 37124185790721383988932283290328\,a(n-75) + 11956439527550103074989437626432\,a(n-76) + 6042730178489268592604840524544\,a(n-77) - 3255912945245123127193382837184\,a(n-78) - 479699417345292019690689572736\,a(n-79) + 535241841461358252995313057856\,a(n-80) - 20333215259394138725609269120\,a(n-81) - 52468101920892556966516786688\,a(n-82) + 8870143959963568197241974784\,a(n-83) + 2677763029393438955566882816\,a(n-84) - 861537094407627597994369024\,a(n-85) - 32179558459945322846375936\,a(n-86) + 37442235660396113187921920\,a(n-87) - 2725899345794501790760960\,a(n-88) - 649016325155956378959872\,a(n-89) + 101959108007770572980224\,a(n-90) + 933451572057030000640\,a(n-91) - 944251229793536704512\,a(n-92) + 47259023090814812160\,a(n-93)
+a(n)\;=\;10\,a(n-1) + a(n-2) - 10\,a(n-3)
 \]
-for every $n>96$.
+for every $n>4$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $93$ matrix--vector products in exact integer
-arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=96+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once.
+The terms $a(0),\dots$ were computed exactly in integer arithmetic from the model, extended by
+$A$ where the model itself was not evaluated, and $r(n)$ formed for each index. Those integers
+vanish from $n=4+1$ onwards, and the run exceeds $S+3$, which by
+Lemma~\ref{lem:crit} settles every larger index at once. The bound is exact: at $n=4$ the recurrence fails on the entry's own published terms, so no larger range holds.
 \end{proof}
 
 \section{Verification}
 
-Four checks, each independent of the algebra above.
+Three checks, each independent of the algebra above.
 
-First, the model reproduces all $14$ terms the entry publishes, exactly, in integer
-arithmetic.
+First, the model reproduces all $20$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry: it is built by reading the entry's
+English, and a misreading gives different counts.
 
-Second, the count was recomputed for the smallest arrays straight from the definition: every
-array of the stated width and a few rows was written out cell by cell over $\{0,1,2\}$, each of
-its $2\times2$ subblocks was read round its perimeter, and the condition of Section 2 was
-applied as stated. No window, no state and no recurrence is involved in that computation, and
-the published terms came back.
+Second, the conjectured recurrence was evaluated directly on those published terms, with no
+model involved, and holds wherever the proved range and the data overlap.
 
-Third, the conjectured recurrence was evaluated directly on the published terms, with no
-matrices involved, and holds wherever the proved range and the data overlap.
-
-Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
-arithmetic on the whole vector rather than on a sampled prefix.
+Third, the derived annihilator $A$ was itself tested on terms it had not been given: the model
+was evaluated beyond the $S$ values that determine it and $A$ reproduced them. A bound that is
+too small fails this test, which is why it is run.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A206538.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A281146.
+\bibitem{beckrobins} M.~Beck and S.~Robins, \emph{Computing the Continuous Discretely},
+2nd ed., Springer, 2015. (Ehrhart quasi-polynomials and their periods.)
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
-University Press, 2013.
+Cambridge University Press, 2011.
+\bibitem{ds} F.~Diamond and J.~Shurman, \emph{A First Course in Modular Forms},
+Springer GTM 228, 2005.
 \end{thebibliography}
 
 \end{document}
