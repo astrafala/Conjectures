@@ -259,6 +259,26 @@ parsable conjectured recurrence**. Of the 245:
   8 `3 X 3 0..n arrays`, 7 `strictly increasing arrangements`, 6 `second differences of
   arrays`, 5 `arrays of median of ...`, and a tail of two-dimensional fixed shapes.
 
+## M. `edgemark`: 34 entries whose READING is not pinned down (13 September 2026)
+
+    Number of binary arrays indicating the locations of trailing edge maxima of a random
+      length-n 0..A array extended with zeros and convolved with 1,4,6,4,1.
+
+The model is clear: the marker word is the image of a sliding-window map, so the achievable
+markers form a regular language and the count is a walk in its subset construction — a state is
+the set of input windows consistent with the marks emitted so far. `engine/src/edgemark.py`
+builds it, 37 states for A = 1 and 183 for A = 2.
+
+It reproduces **every published term of A221992** (the 0..1 case) and is **one too many at
+n = 10 for A221993** (0..2): 85 against the entry's 84. Brute force over all 3^10 arrays gives
+85 as well, so the automaton is faithful to the reading and the reading is what is wrong.
+Tried and all giving 85: three tie-breaking rules for a trailing edge maximum, four choices of
+which positions carry a mark, two padding lengths on each side, and the reversed kernel.
+
+Not registered, nothing installed. The way in is to find the wording's intended tie-breaking —
+the sibling entries with `leading edge' and with other kernels will constrain it, since the
+same reading must fit all 34 at once.
+
 ## L. THE POOL, measured on the whole clone (13 September 2026)
 
 Every earlier measurement in this file was restricted to a name shape. Asked of everything —
