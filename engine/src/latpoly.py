@@ -812,6 +812,32 @@ def _heights(p, budget=250000):
     return T
 
 
+def _rank(rows):
+    """rank of an integer matrix, over the rationals."""
+    from fractions import Fraction
+    M = [[Fraction(x) for x in r] for r in rows]
+    r = 0
+    for c in range(len(M[0]) if M else 0):
+        piv = next((i for i in range(r, len(M)) if M[i][c]), None)
+        if piv is None:
+            continue
+        M[r], M[piv] = M[piv], M[r]
+        pv = M[r][c]
+        M[r] = [x / pv for x in M[r]]
+        for i in range(len(M)):
+            if i != r and M[i][c]:
+                f = M[i][c]
+                M[i] = [x - f * y for x, y in zip(M[i], M[r])]
+        r += 1
+    return r
+
+
+def _dim(p):
+    """the dimension of the cone the region lives in, at most L + 1."""
+    eqs = [list(f) for f in p['eq']]
+    return p['L'] + 1 - (_rank(eqs) if eqs else 0)
+
+
 def _totient(m):
     r, k, mm = m, 2, m
     while k * k <= mm:
@@ -871,8 +897,13 @@ def _polydiv(a, b):
     return q
 
 
-def _annihilator(T, M, L):
-    """A(z) = prod_{d | M t, t in T} Phi_d(z)^(L+1), coefficients lowest degree first."""
+def _annihilator(T, M, L, dim=None):
+    """A(z) = prod_{d | M t, t in T} Phi_d(z)^dim, coefficients lowest degree first.
+
+    The exponent is the largest number of rays a simplicial cone in the triangulation can
+    have, which is the DIMENSION of the cone rather than L+1. An equality among the
+    conditions -- a vanishing sum, a difference forced to zero -- drops that dimension by
+    one for each independent form, and with it the order of the annihilator."""
     D = set()
     for t in T:
         D |= _divisors(M * t)
@@ -881,7 +912,7 @@ def _annihilator(T, M, L):
     for d in sorted(D):
         base = _polymul(base, _cyclotomic(d, cache))
     A = [1]
-    for _ in range(L + 1):
+    for _ in range(L + 1 if dim is None else dim):
         A = _polymul(A, base)
     return A
 
@@ -1121,7 +1152,7 @@ def _ok_window(cons, win, first_pos):
     return True
 
 
-def _count(p, n, cap=4_000_000):
+def _count(p, n, cap=9_000_000):
     """a(n), exactly. A zigzag condition is counted once for each starting direction."""
     if p['alt']:
         a = _count1(p, n, 0, cap)
@@ -1139,7 +1170,7 @@ def _count(p, n, cap=4_000_000):
     return tot // f
 
 
-def _count1(p, n, phase, cap=4_000_000):
+def _count1(p, n, phase, cap=9_000_000):
     L = p['L']
     n = n + p.get('shift', 0)
     accs = _accs(p, n)
@@ -1321,7 +1352,7 @@ def build(p, cap=200000):
     M = 1
     for _, m in p['ncong']:
         M = M * m // gcd(M, m)
-    A = _annihilator(T, M, L)
+    A = _annihilator(T, M, L, dim=_dim(p))
     # One more than the cyclotomic degree, and the extra one is not slack. The numerator over
     # A has degree below S for every cell of the arrangement that HAS a ray, because such a
     # cell's numerator collects a fundamental parallelepiped whose heights are below the sum
@@ -1333,7 +1364,7 @@ def build(p, cap=200000):
     # bound was one short by exactly that point.
     A = [0] + A
     S = len(A) - 1
-    if S > 260:
+    if S > 420:
         return None
     extra = 6
     vals = []
