@@ -21,7 +21,7 @@ ENGNAME = {'transfer81': 'canonical-subblock', 'transfer82': 'subblock-condition
            'latpoly': 'lattice-quasipolynomial', 'ordpoly': 'fixed-length-polynomial',
            'necklace': 'necklace-burnside', 'multiset': 'multiset-profile',
            'cuspdim': 'cusp-form-dimension', 'ca2d': 'automaton-axis',
-           'ecarow': 'automaton-row', 'permdisp': 'bounded-displacement',
+           'ecarow': 'automaton-row', 'ecacount': 'automaton-cell-count', 'permdisp': 'bounded-displacement',
            'window': 'window-condition', 'repval': 'repeated-value-chain'}
 eng = {int(k): v for k, v in json.load(open('paper-engines.json')).items()}
 have = {v['anum'] for v in eng.values()}

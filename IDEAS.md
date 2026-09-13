@@ -202,6 +202,29 @@ What it does NOT reach, and why:
   arrays` (18). A fixed number of cells over a growing alphabet is exactly this engine's
   shape; only the name reader is missing.
 
+## H. `ecacount`: ON and OFF cell counts of an elementary automaton (13 September 2026)
+
+87 entries carry one of four names --- ON or OFF cells in the n-th iteration, or the running
+total after n iterations, of a named elementary rule from a single ON cell --- and every one
+of them carries a parsable conjectured recurrence. **No engine read any of them**, because
+`ecarow` wanted the word "representation" on the line. The mathematics is already built:
+`ecarow` derives `w(n+p) = L + w(n) + R` for the row and verifies it over every available
+step, and counting the ON cells of that identity gives `on(n+p) = on(n) + ones(L) + ones(R)`.
+The width is `2n+1`, so the OFF count is annihilated by one more factor of `(z-1)` and a
+running total by one more again; `S = p + 4 + n0` covers all four wordings.
+
+**5 proved.** That is all the end-insertion certificate reaches: of the 30 distinct rules in
+the family, 3 have it and 27 do not.
+
+**A null result worth recording.** The obvious generalisation --- growth by inserting a fixed
+block at a fixed offset INSIDE the row, `w(n+p) = w(n)[:c] + M + w(n)[c:]` --- certifies
+**none** of the 27. Their rows are not self-similar in that way at any period up to 16 or
+settling point up to 27. The remaining 82 need a certificate at the level of the COUNT rather
+than the row: the interior becoming exactly spatially periodic with the two boundary
+transients eventually periodic in n, which makes the count quasi-linear without the row ever
+repeating itself. That is the same obstacle as the 82 `ca2d` names with no growth certificate,
+and one mechanism would settle both.
+
 ## F1. What no engine reads, measured fresh on 9 September 2026
 
 2,791 entries outside the roster carry a readable conjectured recurrence and a name no engine

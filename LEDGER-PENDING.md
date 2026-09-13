@@ -34,3 +34,18 @@ slowly under the present limits and are recorded, not counted.
 
 Roster: 11,907 papers = 11,901 proofs + 6 disproofs, over 11,880 entries, 121 distinct
 arguments. `stamps/MANIFEST-2026-09-13b.tsv` is stamped.
+
+## 13 September 2026 — `ecacount`: five ON/OFF cell counts, and a null generalisation
+
+87 entries name the ON or OFF cell count of an elementary cellular automaton, all with a
+parsable conjectured recurrence, and no engine read one of them: `ecarow` wanted the word
+"representation" on the line. Counting the ON cells of its own certified row identity
+`w(n+p) = L + w(n) + R` gives `on(n+p) = on(n) + ones(L) + ones(R)` at once, and the width
+`2n+1` handles OFF and the running totals. **Five proved** — that is every rule in the family
+the end-insertion certificate reaches, 3 of the 30 distinct rules.
+
+Said plainly: the obvious generalisation is null. Growth by inserting a fixed block at a fixed
+offset inside the row certifies **none** of the other 27 rules, at any period up to 16 and any
+settling point up to 27. What those need is a certificate at the level of the count rather
+than the row, and that is the same obstacle as the 82 two-dimensional automata with no growth
+certificate.

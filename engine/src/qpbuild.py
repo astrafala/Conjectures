@@ -41,12 +41,14 @@ SHORT = {
     'cuspdim': 'the classical dimension formula for cusp forms',
     'ca2d': "a certified growth pattern of the automaton's axis word",
     'ecarow': "a certified growth pattern of the automaton's row word",
+    'ecacount': "a certified growth pattern of the automaton's row",
 }
 
 MSC = {
     'cuspdim': '11F11, 11F72, 05A15',
     'ca2d': '68Q80, 11B85, 05A15',
     'ecarow': '68Q80, 11B85, 05A15',
+    'ecacount': '68Q80, 11B85, 05A15',
 }
 
 
@@ -211,7 +213,7 @@ $n=1$ and vanishes from $n=2$ on. That costs nothing here: $a(n+2)$ is annihilat
 the residual below is computed term by term from the closed form rather than through $A$, and
 the run of zeros the theorem uses lies entirely above the transient.
 """
-    if en in ('ca2d', 'ecarow'):
+    if en in ('ca2d', 'ecarow', 'ecacount'):
         what = 'a diagonal or an axis' if en == 'ca2d' else 'a row'
         return rf"""
 \section{{The value is a certified growth}}
