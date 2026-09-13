@@ -162,6 +162,16 @@ The numerator over `A` has degree below `S`, so `a(0..S-1)` determine every late
 threshold is fitted, and the derived annihilator is tested on terms the model was not asked
 for before anything is claimed.
 
+**The bound was one short, and the guard caught it.** The numerator over A has degree below
+S for every cell of the arrangement that has a ray, because such a cell's numerator collects a
+fundamental parallelepiped whose heights are below the sum of its generators' heights. The
+origin is a cell too and it has no ray: its series is the constant 1, which over A is A/A and
+has numerator degree exactly S. So a(0..S-1) do not determine the rest and a(0..S) do; the
+bound in force is z*A. A189327 is where it showed -- the count is 3n on the even n and
+(5n-1)/2 on the odd from n = 1, but a(0) = 1 rather than 0, because the all-zero arrangement
+is admissible, and that single point is the whole difference. Nothing had been installed
+under the smaller bound; every held result was re-asked under the corrected one.
+
 What it does NOT reach, and why:
 
 * 12 names whose condition is INHOMOGENEOUS -- "no element more than one greater than the

@@ -65,6 +65,12 @@ Recurring defects, all found this way:
    instrument on a case whose answer is known before trusting its number
 9. comparing a conjecture against regenerated terms instead of the entry's own data — the
    entry's published data is the ground truth; the recurrence only carries a claim beyond it
+11. **a derived bound that forgets the degenerate case.** `latpoly`'s period bound is right
+    for every cell of the arrangement that has a ray, and the origin is a cell with none: it
+    contributes the constant series 1, whose numerator over the common denominator has degree
+    exactly S rather than below it. The bound was one short, and the guard that extrapolates
+    past the computed terms is what caught it, on A189327. Test a derived bound by asking the
+    model for terms it did not supply.
 10. **taking a line with no conjectural word on it to be a statement of fact.** It is not.
     A `Conjectures from X: (Start) ... (End)' block holds bare formula lines and none of them
     says "conjecture". This cost 1,353 installed papers, withdrawn on 8 September 2026: they

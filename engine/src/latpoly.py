@@ -36,10 +36,13 @@ residue class at a time. A class is a coset of M*Z^L, and a ray generator primit
 Z^{L+1} must be scaled by a divisor of M to lie in it, so every t is replaced by M*t and
 nothing else changes.
 
-The numerator over the common denominator A has degree below S, because a simplicial cone's
-numerator collects its fundamental parallelepiped and those points have height below the sum
-of the generators' heights, which is at most S. So a(0..S-1) determine every later term and
-no threshold is fitted.
+Over the common denominator A the numerator has degree at most S: below S for every cell that
+has a ray, since such a cell's numerator collects a fundamental parallelepiped whose heights
+are below the sum of its generators' heights, and exactly S for the one cell that has none,
+the origin, whose series is the constant 1. So the bound used is z*A, of degree S + 1, and
+a(0..S) determine every later term. Taking a(0..S-1) is one short: A189327 counts 3n on the
+even n and (5n-1)/2 on the odd from n = 1, but a(0) = 1 rather than 0, and that single point
+is the whole difference.
 
 A condition that is NOT homogeneous -- `no element more than one greater than the previous',
 `adjacent elements differing by more than one' -- is refused: the region is then a shifted
@@ -1302,6 +1305,16 @@ def build(p, cap=200000):
     for _, m in p['ncong']:
         M = M * m // gcd(M, m)
     A = _annihilator(T, M, L)
+    # One more than the cyclotomic degree, and the extra one is not slack. The numerator over
+    # A has degree below S for every cell of the arrangement that HAS a ray, because such a
+    # cell's numerator collects a fundamental parallelepiped whose heights are below the sum
+    # of its generators' heights. The origin is a cell too, and it has no ray: it contributes
+    # the constant series 1, which over A is A/A and pushes the numerator's degree to exactly
+    # S. So a(0..S-1) do NOT determine the rest; a(0..S) do, and the recurrence is the one
+    # given by z*A. A189327 is where this showed: its count is 3n on the evens and (5n-1)/2 on
+    # the odds from n = 1, but a(0) = 1 rather than 0 -- the all-zero arrangement -- and the
+    # bound was one short by exactly that point.
+    A = [0] + A
     S = len(A) - 1
     if S > 260:
         return None

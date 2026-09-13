@@ -157,7 +157,17 @@ over the list with $\ell$ the entry's own length.
 \section{{The bound}}
 
 Each binomial is a polynomial in $\ell$, hence in $n$, of degree $t-1<M$ with $M$ the alphabet
-size, so $a$ is a polynomial of degree below $M$ and $(z-1)^{{M}}$ annihilates it: $S={S}$.
+size, so $a$ agrees with a polynomial of degree below $M$ and $(z-1)^{{M}}$ annihilates it:
+$S={S}$.
+
+Two kinds of term are outside that polynomial at small lengths, and they are why the threshold
+below is not zero. A profile with no value at the cap contributes the indicator
+$[\,F=\ell\,]$, which is a single spike rather than a polynomial and is gone once
+$\ell$ exceeds every such $F$; and a profile whose slack falls below $-(t-1)$ has the count
+$0$ where the binomial polynomial does not vanish. Both live at bounded $\ell$, so above them
+$a$ is the polynomial exactly, and on every entry of this family the residual of $(z-1)^{{M}}$
+is nonzero at the first few indices and vanishes from then on. The theorem is stated from the
+threshold up, and the run of zeros it uses lies entirely above the transient.
 """
     if en == 'cuspdim':
         return rf"""
@@ -181,9 +191,17 @@ $g=1+\mu/12-\varepsilon_2/4-\varepsilon_3/3-\varepsilon_\infty/2$.
 \section{{The bound}}
 
 With $k=2n$ the right-hand side is linear in $n$ apart from $\lfloor n/2\rfloor$ and
-$\lfloor 2n/3\rfloor$, so $a$ is a quasi-polynomial of period $6$ and degree $1$ satisfying
+$\lfloor 2n/3\rfloor$, so for $n\ge2$ --- that is, for the even weights $k\ge4$ the formula
+covers --- $a$ is a quasi-polynomial of period $6$ and degree $1$ satisfying
 $a(n+6)=a(n)+6A+3\varepsilon_2+4\varepsilon_3$ exactly. That difference equation is annihilated
 by $(z^6-1)(z-1)$, and $S={S}$ is at least its degree.
+
+The two remaining indices are genuinely outside it: $\dim S_0=0$ and $\dim S_2=g$ are separate
+cases of the theorem, not values of the same expression, and the annihilator does not reach
+them --- on every one of these entries the residual of $(z^6-1)(z-1)$ is nonzero at $n=0$ and
+$n=1$ and vanishes from $n=2$ on. That costs nothing here: $a(n+2)$ is annihilated everywhere,
+the residual below is computed term by term from the closed form rather than through $A$, and
+the run of zeros the theorem uses lies entirely above the transient.
 """
     if en in ('ca2d', 'ecarow'):
         what = 'a diagonal or an axis' if en == 'ca2d' else 'a row'
