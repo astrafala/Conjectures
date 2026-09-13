@@ -724,14 +724,14 @@ def _rays(H, L, boxes, eqs):
     The determinant is computed first and the ray only when it exceeds one, because a ray of
     height one changes nothing and most subsets give one.
     """
-    T = set()
+    T = {}
     for S in combinations(H, L):
         Mx = [list(v[:L]) for v in S]
         D = _det(Mx)
         if D == 0:
             continue
         if abs(D) == 1:
-            T.add(1)
+            T.setdefault(1, set()).add(None)
             continue
         # dx solves Mx.dx = -D * (t-column), by integer Cramer: replacing column j of Mx
         # by the right-hand side and taking determinants keeps everything in Z, where the
@@ -772,7 +772,7 @@ def _rays(H, L, boxes, eqs):
                 break
         if not good:
             continue
-        T.add(dt)
+        T.setdefault(dt, set()).add(tuple(dx))
     return T
 
 
@@ -804,11 +804,11 @@ def _heights(p, budget=250000):
         tot = tot * (len(F) - i) // (i + 1)
     if tot > 4 * budget:
         return None
-    T = set()
+    T = {}
     for S in combinations(F, L):
         d = _det([list(v) for v in S])
         if d:
-            T.add(abs(d))
+            T.setdefault(abs(d), set()).add(None)
     return T
 
 
@@ -898,22 +898,34 @@ def _polydiv(a, b):
 
 
 def _annihilator(T, M, L, dim=None):
-    """A(z) = prod_{d | M t, t in T} Phi_d(z)^dim, coefficients lowest degree first.
+    """A(z) = prod_d Phi_d(z)^m_d, coefficients lowest degree first.
 
     The exponent is the largest number of rays a simplicial cone in the triangulation can
     have, which is the DIMENSION of the cone rather than L+1. An equality among the
     conditions -- a vanishing sum, a difference forced to zero -- drops that dimension by
     one for each independent form, and with it the order of the annihilator."""
+    dim = L + 1 if dim is None else dim
+    # how many DISTINCT arrangement rays carry each height, when that is known
+    cnt = {}
+    for t, gens in (T.items() if isinstance(T, dict) else ((t, None) for t in T)):
+        cnt[M * t] = None if gens is None or None in gens else len(gens)
     D = set()
-    for t in T:
-        D |= _divisors(M * t)
+    for t in cnt:
+        D |= _divisors(t)
     cache = {}
-    base = [1]
-    for d in sorted(D):
-        base = _polymul(base, _cyclotomic(d, cache))
     A = [1]
-    for _ in range(L + 1 if dim is None else dim):
-        A = _polymul(A, base)
+    for d in sorted(D):
+        avail = 0
+        for t, c in cnt.items():
+            if t % d == 0:
+                if c is None:
+                    avail = dim
+                    break
+                avail += c
+        m = min(dim, max(1, avail))
+        phi = _cyclotomic(d, cache)
+        for _ in range(m):
+            A = _polymul(A, phi)
     return A
 
 
